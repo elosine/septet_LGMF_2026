@@ -25,8 +25,11 @@ Libraries (journal D6): **IRCAM Solo Instruments 2** bassoon · horn · trumpet 
 (piece #2's library) — english horn **being acquired**, library to be named — **a bowed
 vibraphone still to acquire.**
 
-**State of the port (keep this line current):** 0a the PM kit is installed. **No code is in
-this repo yet** — PLAN 0b onward.
+**State of the port (keep this line current):** **DONE — 0a · 0b · 0g · 0i all closed
+2026-09-17** (RUNNING_LOG §12–§18). The app, the sandbox, the notation/IR stack, print and
+video are here and verified running on the seven tracks. **Nothing sounds yet** — the recipes
+are placeholders and there is no Reaper rack: that is **0c + 0e, together, with him at the
+machine**, and it is the next step.
 
 ## READ FIRST — how to work here
 
@@ -131,14 +134,35 @@ routing advice is also credit advice, and these bind every Fable turn:
 - **A `Resume reads:` list names what the NEXT STEP needs, not what the last session wrote.**
   Every line on it is re-read in every turn of the session that follows.
 
-## Apps (none yet — they arrive with PLAN 0b)
+## Apps
 
-- **Ports, decided now (journal D4):** composer score **5400** · sandbox **4900** — distinct
-  from #5's 5300/4800, #4's 5200/4700 and #3's 5100/4600, so two repos' servers can run at
-  once (piece #5's performance score, its PLAN 3, is still to be built).
-- When 0b lands this section is rewritten from piece #5's CLAUDE.md § Apps — including its
-  warnings: **one open composer tab per score** · the AI never holds his port and never
-  saves from its own pane · `export_print` and `export_video` share the frame math.
+- **Composer score:** `node score/server.js` → http://localhost:5400/composer.html
+  (7 instrument-keyed lanes + META; saving per #5's D17 — working copy · Save · Name version ·
+  Reload; `docs/NAMING.md` §1). **One open composer tab per score** — a second tab clobbers the
+  working copy on Save, so the AI drives HIS tab or he closes it first.
+- **Sandbox:** `node sandbox/serve.js` → http://localhost:4900
+- **`.claude/launch.json`** names them `score` (5400) and `sandbox` (4900), plus `score-5401`
+  for throwaway verification and **`tempus-5300`, which runs piece #5's server from its own
+  folder** so both pieces' apps can sit side by side (D4; remove it when #5 is finished).
+- **The notation app:** :5400 → `/notation/app/notation.html`; the picker reads
+  `notation/ir/index.json`. Today the only page is `lgmf-0i`, the 0i proof. **There is no MAIN
+  notation file yet** — it arrives with the piece, as `piece-lgmf.ir.json` (NAMING §1).
+- **Print / video:** `tools/export_print.js` (A3 landscape) and `tools/export_video.js` run and
+  were proven at the port. `print/score/build.sh` runs #5's five gates — they need this piece's
+  own pages before they mean anything.
+- **Ports** (loopMIDI, case-sensitive) are prefixed `LG` — `LGEngHorn` · `LGBassoon` · `LGHorn`
+  · `LGTrumpet` · `LGPerc` · `LGCello` · `LGBass`. **They do not exist yet** (0e creates them).
+  The prefix is not cosmetic: loopMIDI ports are machine-global and piece #5's rack is still
+  live, so a bare `Vc` would be ITS cello.
+
+⚠ **Standing warnings, inherited and still true:** `export_print` and `export_video` share
+`Coords.ensembleFrame` — **a change to the frame math moves BOTH** · the AI never holds his
+port and never saves from its own browser pane (principle 9) · the in-app browser has no Web
+MIDI, so every MIDI path is verified on his Chrome.
+
+**Checks this piece owns:** `node tools/palette_check.js` (157 — tracks vs recipes, ports, every
+per-instrument table in the app) · `node tools/test_written_pitch.js` (8 + a control). Run both
+after any change to `TRACKS`, `sandbox/instruments.js` or `notation/registry/ensemble.json`.
 
 ## Reference repos (read-only context; registered as additional working dirs)
 

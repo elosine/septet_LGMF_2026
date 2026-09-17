@@ -36,7 +36,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   *Why:* the session skills are wired to it; decisions survive clears from minute one; and
   the standing rules arrive whole this time (the #4 → #5 port dropped THE RHYTHM).
 
-- **0b — The engine ported from piece #5** — `todo — planned 2026-09-17, ready to build`
+- **0b — The engine ported from piece #5** — `done 2026-09-17` *(RUNNING_LOG §12–§16: 266 files byte-exact · the copy proven whole BEFORE the re-palette · 44 asserted edits + 19 files of stragglers · provisional recipes with the cello carried whole · verified in the running app: 71/71 routes, zero console errors, every panel, the piano-role features quiet, the foreign-save warn proven with its control)*
   — **the executable plan is `docs/plans/PORT_FROM_TEMPUS.md`** (steps 1–5 and 8; written at
   the composer's word — *"just make careful plan, write it through independantly"* — from a
   measured survey, RUNNING_LOG §10). The top line:
@@ -60,13 +60,14 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   the percussionist is one lane · placeholders until 0c · the names `lgmf` / `piece-lgmf`.
   *Why:* the app is the composing surface from day one; he will use the same structures.
 
-- **0c — Instrument recipes (`sandbox/instruments.js`)** — `todo` — *to be laid out when we
-  discuss it.* One entry per track. **Only the cello carries over from #5.** The libraries
-  are D6: SI2 bassoon · horn · trumpet (model: #5's SI2 flute, #4's tuba) — Xsample double
-  bass (model: the cello) — Spitfire ARO percussion (maps in piece #2's
-  `docs/instrument_map.json`; Spitfire's own plugin, a mechanism this stack has not driven
-  yet) — the english horn and a bowed vibraphone as they arrive. **Done together with 0e,
-  with him at the machine, straight after the port build** (RUNNING_LOG §11).
+- **0c — Instrument recipes (`sandbox/instruments.js`)** — `todo` — **NEXT, with 0e, in one
+  sitting with him at the machine** — *to be laid out when we discuss it.* One entry per track;
+  the libraries are D6. **The placeholders are in place and every one is marked** (the port,
+  RUNNING_LOG §15); what is missing is the machine. *Known going in:* **Spitfire's own plugin
+  (the percussion) has never been driven by this stack** — real work, not a transcription · the
+  double bass's CC#0 numbers are the CELLO's and must be verified against its own Preset Menu ·
+  the english horn's library is unnamed · the percussion instruments are unnamed but for the
+  bowed vibraphone · only the cello's entry has ever been heard.
   *Why:* the recipes ARE how the AI and the app produce the right MIDI for each sound.
 
 - **0d — The samples' true ranges and lengths, per technique in use** — `todo` — *to be laid
@@ -80,8 +81,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
 - **0f — The AI's MIDI generation path** — `todo` — *to be laid out when we discuss it.*
   *Why:* the AI must be able to make the right MIDI for every instrument, live and offline.
 
-- **0g — Notation/IR infrastructure carried over now, adapted later** — `todo — planned
-  2026-09-17` — **`docs/plans/PORT_FROM_TEMPUS.md` step 6.** The files arrive with 0b.1 (one
+- **0g — Notation/IR infrastructure carried over now, adapted later** — `done 2026-09-17` *(RUNNING_LOG §17: the ensemble registry for the seven parts, the transpose sign checked in the code first; a realization override that would have THROWN in print and video, found and fixed; batteries identical to the pre-palette baseline; both exporters run and report this piece back)* — **`docs/plans/PORT_FROM_TEMPUS.md` step 6.** The files arrive with 0b.1 (one
   copy for the whole engine — in #5 the two halves were separate only because "do we need
   notation now?" was still open). 0g itself is: `notation/registry/ensemble.json` rewritten
   for the seven parts (english horn and horn written a fifth up, double bass an octave up) ·
@@ -98,8 +98,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   own port with the right technique switching; a save round-trips; 0i's extraction passes;
   RUNNING_LOG has the numbers. *Why:* one verified gate instead of seven confidence claims.
 
-- **0i — The save → IR contract, proved on a test save of this piece** — `todo — planned
-  2026-09-17` — **`docs/plans/PORT_FROM_TEMPUS.md` step 7** (#5 §13, step for step): a
+- **0i — The save → IR contract, proved on a test save of this piece** — `done 2026-09-17` *(RUNNING_LOG §18: `scores/0i-test.json` → `notation/ir/lgmf-0i.ir.json`, 11 events, 7 chunks, VALID against source and complete; the written pitch proved through the engine's own resolver with a control; `tools/test_written_pitch.js` kept)* — **`docs/plans/PORT_FROM_TEMPUS.md` step 7** (#5 §13, step for step): a
   30-second save written by the app's own insert paths → `notate_section` → `ir_validate
   --against-source --complete` → the page in the notation app, the transposing parts shown
   at written pitch. *Why:* the IR is derived from the save, so the save's shape is the

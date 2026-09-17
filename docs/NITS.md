@@ -5,12 +5,110 @@
 > is, what was observed, why it is deferred. Enough context to act on cold. Delete when
 > fixed. **Never ask the composer to triage this file.**
 
-- **Piece #5's `docs/NITS.md` (451 lines) is not carried** (2026-09-17, PLAN 0a). Most of it
-  is about code that arrives with 0b / 0g. When a copied file lands here, grep #5's NITS for
-  its name and bring across the bullets that still apply — with their dates.
-- **`MORPH_NOTES.md` §1–§2 say "this piece" and mean the Tempus septet** (2026-09-17). Honest
-  provenance, flagged in its first line. Rewrite §1 "What exists" the first time the morph
-  tool is adjusted for Lake George; §3 stays append-only.
-- **`HOW_WE_WORK.md` cites `RUNNING_LOG §182`, `§188`, `§209`, `§216`** — the TEMPUS lab
-  journal's sections, flagged in its provenance line (2026-09-17). Left as they are: they
-  are the source of those rules.
+## From the port of piece #5's engine (2026-09-17, RUNNING_LOG §12–§18)
+
+### Tests that are piece #5's, bound to #5's palette or #5's material
+
+*Each was GREEN before the re-palette and RED after — the cause is known in every case, and
+none is a defect in this repo's code. They are rewritten against this piece's material at 0c
+(the recipes) and 2a (the notation), which is exactly what piece #5 did with piece #4's.*
+
+- **`beating_calc_check`** — asserts #5's six bending players **by name**, then indexes them.
+  Its own first lines already print the right six for this piece
+  (`english_horn bassoon horn trumpet cello double_bass`); only the expected list is stale.
+- **`strike_chords_check`** — asserts #5's seven players and their ordinary ranges.
+- **`piano_harmonics_check`** — reads `INSTRUMENTS.piano.techniques`. **This piece has no
+  piano.** The feature itself is quiet in the running app (proven by clicking, §16); the
+  check cannot run at all. Retire it, or repoint it if the percussionist ever takes the
+  struck role (the planner's open question).
+- **`harm_source_check`** — needs strikes #24 and #26 from `bank/scattered_strikes.json`,
+  the composer's own recorded piano strikes, deliberately left behind. Its pure logic
+  section passes; only the data section dies.
+- **`piano_cues_check`** — ENOENT `scores/piano-harmonics-test.json`, one of #5's scores.
+- **`test_septet_notation`** (101 checks), **`test_trills`** (92), **`test_morph_notation`**
+  (178), **`test_cross_staff`** (79), **`test_surge_run`**, **`test_step_dynamics`**,
+  **`test_identity`** — all read `scores/piece-septet.json` or `notation/ir/piece-septet.ir.json`
+  as fixtures. They ran GREEN here on staged copies (§13) and are the best evidence the
+  engine is whole; they need this piece's own pages before they mean anything about it.
+  `notation/ir/README.md` holds the staging recipe.
+- **`tools/fixtures/*_snapshot.json`** are hashes of piece #4's pages. Regenerate with
+  `--update` when this piece has real pages (2a) — not before, or the snapshot proves nothing.
+
+### Red in the SOURCE too — not ours, and not new
+
+- **`test_coords`** — `FAIL px boundary: layout.js is pixel-free (seconds + ss only)`.
+  Identical failure in `septet_2026`, run there read-only (§13).
+- **`cresc_check`** — 2 FAILED. Identical in the source. Its two "FAIL" lines are prose
+  describing behaviour #5 accepted; the check reports them as failures.
+- **`test_extract_played`** — snapshot drift; #5 recorded it red at its own 0g, and red in
+  piece #4 itself.
+- **`ir_extract_golden`** (19 differences) and **`test_notate_block`** (62/65) — piece #4's
+  frozen goldens read by #5's evolved engine: `extract_core.js`, `layout.js` and
+  `classify.js` all differ between #4 and #5 while the test harnesses do not. The third
+  `notate_block` failure is about `cuivre`, a tuba technique with no row in this piece's
+  `bank/sample_lengths.json`.
+- **`test_playability`** — ENOENT `docs/SI2_staccato_lengths.md`, the tuba doc. #5 recorded
+  the same. This piece's sample-length tables come at 0c / 0d.
+- **`test_midiplayer` · `test_sonify_core`** — a tuba score's lanes resolve to recipe keys no
+  septet carries (`r.port` null). #5 recorded exactly this.
+
+### Carried code that still speaks of other pieces
+
+- **The piano as a ROLE survives in twelve modules** (`strike_sounds` · `strike_drawer` ·
+  `chord_run` · `strike_chords_ui` · `swell_ui` · `cresc_panel` · `morph_panel` ·
+  `cue_picker` · `piano_cues` · `piano_harmonics` · `cresc_strikes` · `composer.html`
+  `cueLane()`). Every one looks the lane up with `findIndex` and gets −1; each was exercised
+  in the running app and is quiet (§16). **Deliberate — see the port's P2.** Whether the
+  percussionist inherits the struck role is the composer's, and it is in `PLANNER.md`.
+- **`score/public/clusterview.html` and `chordview.html`** still address piece #4's
+  `tuba1..tuba10` ports (they are #4's cluster/chord research viewers, inert while the banks
+  are empty, and they were already a NIT in #5). Re-palette the first time a cluster or chord
+  bank exists here.
+- **`multitempo.js` `LO = 30, HI = 67`** is still the tuba bank's playable range. Per-lane
+  ranges belong there when the MT rig is first used — and LG-5 makes that likely early.
+- **`probes/*.ps1` default `$Port = 'tuba1'`** — parameters, not logic; set this piece's port
+  when a probe is run (0d).
+- **Copied bank presets carry "10 tubas" labels** in `texture_params`, `texture_models`,
+  `morph_models`, `morph_recipes` — honest provenance; relabel only when a Lake George preset
+  replaces one. The panel takes in `bank/panel_snapshots.json` are piece #5's, at its last
+  commit; they load, and they are his reference material.
+- **`docs/instrument_map.json` has zero instruments** ("Loaded 0 instruments" on every page
+  load). It is piece #2 lineage and is NOT what routes MIDI here (`sandbox/instruments.js`
+  is). Fill or retire at 0c.
+- **The carried tool docs describe the tools as built for the TEMPUS septet** — their
+  instrument names, their measurements and their `§N` references into #5's RUNNING_LOG.
+  Each says so in its first line. `SAMPLER_QUIRKS.md` is the one to watch: only its Xsample
+  entries are about an instrument this piece has.
+- **`docs/SWEEP_LIST.md` was NOT carried** — it is #5's open fault list for its own composing
+  sessions. This piece opens its own when composing starts.
+
+### Open work this port created or uncovered
+
+- **18 recipe technique keys are not in `notation/registry/techniques.json`** — the brass and
+  bassoon extras (`cuivre`, `ord_to_cuivre`, `cuivre_to_ord`, `stopped`, `open_to_stopped`,
+  `stopped_to_open`, `flz_stopped`, `slap_pitched`, `half_valve_gliss`, `gliss_embouchure`,
+  `harmonics_gliss`, `pedal_tone`, `gliss_throat`, `blow_no_reed`). `tools/palette_check.js`
+  lists them on every run. A roster entry is not yet a notation kind; they must be registered
+  **before any material uses one** (principle 3: the schema is a gate on the file).
+- **The double bass's CC#0 preset numbers are the CELLO's**, generated by the same helper and
+  never read from the Xsample double bass's own Preset Menu. Verify at 0c before anything is
+  auditioned.
+- **The percussion recipe is one placeholder voice** (`main`) over 21–108, and that range is
+  set so `laneCanPlay` never routes material away — it is not a claim about any instrument.
+  Real entries at 0c, once he names the instruments. **Spitfire's own plugin has never been
+  driven by this stack**; that is real work, not a transcription.
+- **The english horn's library is unnamed** (D6: "getting now"). Its two techniques are
+  placeholders.
+- **The presentation score's pitch form is undecided for this piece.** The `video-jury`
+  realization's part override was emptied at the port because it named `bass_clarinet` and
+  `layout.js ensembleFor()` **throws** on an override for a part that does not exist (§17).
+  In C, or at written pitch? His call at 2b; #5's D55 is the precedent, not the answer.
+- **`.claude/launch.json` carries a `tempus-5300` entry** that starts piece #5's server from
+  its own folder. Deliberate, so both apps can sit side by side while #5's PLAN 3 is unbuilt.
+  Remove it when that piece is finished.
+- **`MORPH_NOTES.md` §1–§2 say "this piece" and mean the Tempus septet.** Flagged in its first
+  line. Rewrite §1 "What exists" the first time the morph tool is adjusted for Lake George;
+  §3 stays append-only.
+- **`HOW_WE_WORK.md` cites `RUNNING_LOG §182 · §188 · §209 · §216`** — the TEMPUS lab
+  journal's sections, flagged in its provenance line. Left as they are: they are the source
+  of those rules.

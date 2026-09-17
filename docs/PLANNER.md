@@ -5,11 +5,15 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-09-17 (session 1, Fable) — the project is open. Instrumentation fixed (D1),
-format fixed (D2), the port method fixed (D3: copy-forward from piece #5). **0a the PM kit is
-installed; no code is here yet.** The port is PLANNED: `docs/plans/PORT_FROM_TEMPUS.md`
-(0b · 0g · 0i, eight steps). ► Next: **build it — Opus, after a clear.** The call is unread
-at his word.
+**NOW ►** 2026-09-17 (session 1 — Fable to plan, Opus to build) — **THE PORT IS DONE.**
+0a · 0b · 0g · 0i all closed in one day (RUNNING_LOG §12–§18): the composer app, the sandbox,
+the notation/IR stack, print and video are here on **seven new tracks** — EH · Bsn · Hn · Tpt ·
+Perc · Vc · Db — verified in the running app on **5400 / 4900**, and a save has been proved
+through to a notation page with the transposing parts at written pitch. Decisions D1–D6.
+**Nothing sounds yet, by design.** ► **NEXT: 0c + 0e together — the recipes and the Reaper
+rack, with him at the machine.** It can start with the five instruments whose libraries are
+installed; the english horn and a bowed vibraphone (LG-9) arrive as he acquires them. The call
+is still unread, at his word.
 
 ## The piece — outline (v0 — folded from LG-1 … LG-8 by the AI; **his to confirm, none of it discussed yet**)
 

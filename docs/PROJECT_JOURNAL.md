@@ -13,8 +13,13 @@
   **The call is unread at the composer's word** — deadline, duration cap, score format unknown.
 - **Lineage:** composition #6. Follows #5 `septet_2026` (the Tempus septet, submission
   complete 2026-09-17), which was ported from #4 `for_seven_tubas`.
-- **The stack:** piece #5's, by copy-forward, palette rewritten (D3). Same delivery format
-  as #4 and #5 (D2). Ports **5400** score / **4900** sandbox (D4). **No code is here yet.**
+- **The stack:** piece #5's, by copy-forward, palette rewritten (D3) — **ported 2026-09-17 and
+  running** (0b · 0g · 0i; RUNNING_LOG §12–§18). Same delivery format as #4 and #5 (D2).
+  `node score/server.js` → **:5400**/composer.html · `node sandbox/serve.js` → **:4900**.
+  **It does not sound yet** — placeholder recipes, no rack (0c + 0e, next).
+- **Libraries (D6):** SI2 bassoon · horn · trumpet — Xsample cello (#5's recipe, carried whole,
+  the only one ever heard) + double bass — Spitfire ARO percussion — english horn being
+  acquired — a bowed vibraphone still to acquire.
 - **Phases (#5's shape):** 0 setup → 1 compose → 2 notate (2a engine · 2b presentation
   score) → 3 performance score → 4 submission.
 - **The sketch pad** `docs/COMPOSITION_NOTES.md` opens with **LG-1 … LG-8**, the eight Lake
@@ -44,52 +49,63 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### LAST SESSION — 2026-09-17 (session 1, Claude Code / Fable 5.1) — the project opens
+### LAST SESSION — 2026-09-17 (session 1; Fable to plan, Opus to build, no clear) — **THE PORT IS DONE**
 
-- The record of the #4 → #5 port found and digested (RUNNING_LOG §2).
-- His eight Lake George notes surfaced from #5's sketch pad → `COMPOSITION_NOTES.md` LG-1 … LG-8 (§3).
-- **D1** instrumentation · **D2** format · **D3** copy-forward from #5 · **D4** ports 5400 / 4900 ·
-  **D5** push after every commit.
-- **PLAN 0a, the PM kit, installed** (§6) — the standing practices carried whole. Committed `fe9f8e5`.
-- Piece #3's repo attached; the libraries read from the manuals (§9).
-- **The port planned** — a measured survey of #5 (§10) → `docs/plans/PORT_FROM_TEMPUS.md`.
-- **No code copied. The call unread, at his word.**
+- **0a the PM kit**, the standing practices carried whole (`fe9f8e5`).
+- **D1** instrumentation · **D2** format · **D3** copy-forward from #5 · **D4** ports 5400/4900 ·
+  **D5** push after every commit · **D6** the libraries.
+- His eight Lake George notes surfaced from #5's sketch pad → `COMPOSITION_NOTES.md` **LG-1 … LG-8**,
+  plus **LG-9**, the bowed vibraphone.
+- **The port planned** (`docs/plans/PORT_FROM_TEMPUS.md`) from a measured survey, then **executed
+  in full: 0b · 0g · 0i all closed** — RUNNING_LOG §12–§18, six commits, all pushed.
+
+**What exists now:** the composer app on **5400**, the sandbox on **4900**, the notation/IR stack,
+print and video — all on the seven tracks **EH · Bsn · Hn · Tpt · Perc · Vc · Db**, verified in the
+running app (71/71 routes, zero console errors, every panel, a save round trip). A save has been
+proved through to a notation page (`lgmf-0i`) with the transposing parts at written pitch.
+**Nothing sounds, by design** — the recipes are placeholders and there is no rack.
+
+**Two things the port found that reading would not have:**
+1. **A missing test dependency** (`tools/morph_tuba_baseline.json`) — the plan's own leave-list
+   was wrong by one file, and `cmp` cannot see that. Found because the copy was run before it was
+   changed (§13).
+2. **A realization override that would have THROWN** in print and the jury video: `layout.js`
+   `ensembleFor()` raises on an override for a part that does not exist, and the inherited
+   `video-jury` realization named `bass_clarinet` (§17).
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| ~~N1~~ | ~~Plan the port~~ — **DONE 2026-09-17:** `docs/plans/PORT_FROM_TEMPUS.md`, written independently at his word (RUNNING_LOG §10); the top line put to him in chat | — | — |
-| **► N2** | **BUILD THE PORT — PLAN 0b · 0g · 0i — from `docs/plans/PORT_FROM_TEMPUS.md`, steps 1–8 in order.** One commit per step, pushed (D5). RUNNING_LOG written as each step ends. Stop-and-ask conditions are the plan's last section | **Opus** | **yes — `/clear`, then `/postclear`** |
-| N3 | **His eye on the result:** the app open on 5400 with his seven lanes; the 0i page in the notation app (english horn and horn a fifth up, double bass an octave up) | Fable to hear him · Opus to fix | no |
-| N4 | **0c + 0e together — the recipes and the Reaper rack, with him at the machine** (his question 2026-09-17, answered: NOT in the Opus build — right after it). Libraries per **D6**: SI2 bassoon · horn · trumpet — Xsample cello + double bass — Spitfire ARO percussion — english horn arriving — bowed vibraphone still to buy. The rack can be built for what is installed and extended as the two arrive | Fable to walk him · Opus for the scripts | yes |
+| **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
+| **► N1** | **0c + 0e — the recipes and the Reaper rack, ONE sitting, him at the machine.** Start with the five instruments whose libraries are installed (SI2 bassoon · horn · trumpet; Xsample cello · double bass); add the english horn and the bowed vibraphone as they arrive. **Spitfire's own plugin, for the percussion, has never been driven by this stack** — budget for it | **Fable to walk him** · Opus for the scripts | **yes** — a fresh kind of work |
+| N2 | **0d** the samples' true ranges and lengths, then **0h**, the phase-0 gate: every track sounds from the app through its own port | Opus | yes |
+| N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5) · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
+| N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
-**Open at session end — (mid-session checkpoint, 2026-09-17, before the clear to Opus):**
-- **The task:** the port of piece #5's engine. **State:** planned, not started. No code is in this repo.
-- **The latest deliverable:** `docs/plans/PORT_FROM_TEMPUS.md` (the plan) · `PLAN.md` 0b / 0g / 0i (its top line).
-- **The next concrete step — an instruction:** after his go, execute the plan's **Step 1**
-  (the guard on `septet_2026`'s working tree, then the byte-exact copy, `cmp` every file,
-  commit `0b.1`, push) and carry on through Step 8 in order.
-- **`Resume reads:`** `docs/plans/PORT_FROM_TEMPUS.md` — all of it · `septet_2026/docs/RUNNING_LOG.md`
-  §9, §12, §13 (ll. 213–310, 310–420, 421–500) — the precedent, method only. **Nothing else.**
-- **Pending him:** his OK on the top line (put to him in chat, 2026-09-17). Nothing else blocks the build.
-- **Deliberately uncommitted:** nothing.
+**Open at session end:** nothing in flight. The tree is clean; every commit is pushed.
 
 **Open questions:**
-- ~~Q1b — libraries~~ — **answered 2026-09-17 → D6.** Still open inside it: **which library
-  the english horn is** (he is getting it now; he did not name it) · **the bowed vibraphone
-  library — he has still to acquire one** (a lead, from his own manuals: the Xsample catalog
-  lists *Vibraphone … bowed (with double bass bow)* — a catalog line, not a recommendation
-  tested by ear) · which ARO volumes are installed · the other percussion instruments.
-- **Q2 — the call.** LGMF 2026. His word, 2026-09-17: *"don't need to look it up now, lets
-  focus on getting started."* **Not to be read before he says so.**
-- ~~Q5 — git~~ — **answered "a" 2026-09-17 → D5:** commit at each wrap, push after every commit.
-- **Musical, his, not urgent** (PLANNER): "continuous, not sparse" (LG-2) against "lots of
-  rests" (LG-4/5/8) · does the piece open with a morph (LG-1) or a bespoke section (LG-6).
+- **Q1b — libraries.** The english horn's library (he is acquiring it) · **a bowed vibraphone,
+  still to acquire** (LG-9) · which ARO volumes are installed · the other percussion instruments.
+- **Q2 — the call.** LGMF 2026, unread at his word: *"don't need to look it up now."*
+- **Musical, his, not urgent** (PLANNER): "continuous, not sparse" (LG-2) against "lots of rests"
+  (LG-4/5/8) · does the piece open with a morph (LG-1) or a bespoke section (LG-6) · **who, if
+  anyone, inherits the piano's struck role** — the port left those features quiet, not removed ·
+  the presentation score's pitch form (in C, or transposed?) at 2b.
 
 **Blockers:** none.
 
-**Deliberately uncommitted:** nothing. The kit is committed and pushed (D5).
+**Deliberately uncommitted:** nothing.
+
+**Standing warnings for this repo:** ⚠ `export_print` and `export_video` share
+`Coords.ensembleFrame` — a change to the frame math moves BOTH · never bind **5300** or **4800**,
+they are piece #5's · the loopMIDI ports are `LG`-prefixed for the same reason · the AI never
+saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI.
+
+**Checks this piece owns:** `node tools/palette_check.js` (157) · `node tools/test_written_pitch.js`
+(8 + a control). Run both after any change to `TRACKS`, `sandbox/instruments.js` or
+`notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
 
 ---
 
@@ -127,6 +143,23 @@ this repo only when they bite.)*
 19. **A copy-forward carries the standing RULES whole, not only the code** (2026-09-17; the
     lesson of #5's dropped RHYTHM, RUNNING_LOG §2). At every port, check the new CLAUDE.md
     against the source's heading by heading.
+20. **Prove the copy whole BEFORE changing it** (2026-09-17, RUNNING_LOG §13). Piece #5 copied,
+    patched, then verified — so a red test could be the copy or the patch. Committing the
+    byte-exact copy first and running everything against it costs one staging pass and buys a
+    baseline: after that, every red has exactly one possible cause. It paid the same day —
+    five checks went red at the re-palette and each was classified in minutes.
+21. **`cmp` proves a file was copied; it cannot prove the LIST was right** (2026-09-17, §13).
+    266 of 266 files were byte-identical to a leave-list that was wrong by one, and the missing
+    file was a test's dependency — invisible until the test ran. **Run what you copied.**
+22. **A rule that names a part by ID must be checked against the parts that EXIST** (2026-09-17,
+    §17). `layout.js ensembleFor()` throws on an override for an unknown part; the inherited
+    `video-jury` realization named the previous piece's bass clarinet, and print and the jury
+    video would have died on their first layout. No battery touched it. **When a palette
+    changes, grep the registries for the old instrument names, not just the code.**
+23. **When a measurement and an assertion disagree, find out which is wrong before editing
+    either** (2026-09-17, §18). The engine put the double bass's low E at ySs −3 and the test
+    expected −2.5; the engine was right. The reflex to move the expectation is how a wrong
+    number becomes a green test — principle 15's cousin.
 
 ---
 
@@ -180,6 +213,11 @@ across when its system lands here and is first used.)*
 ## §6 Done
 
 - 2026-09-17 — **0a** the PM kit installed (RUNNING_LOG §6).
+- 2026-09-17 — **0b · 0g · 0i — THE PORT.** Piece #5's engine carried across and made this
+  piece's: 266 files byte-exact, proven whole before anything changed, re-paletted by one
+  asserted patch script, provisional recipes with the cello carried whole, the notation
+  registry rewritten for seven new parts, and a save proved through to a notation page with
+  the transposing parts at written pitch. Verified in the running app. RUNNING_LOG §12–§18.
 
 ---
 
