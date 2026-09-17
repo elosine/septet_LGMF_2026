@@ -1,0 +1,16 @@
+{
+ "_comment": "sha1 of the morph notation BEFORE PLAN 2h.2 (2026-09-14): MorphOv.forGroup with no options (the tuba rules) on the tuba piece-s27 groups and on the septet M1/M2 groups, and Layout.layoutSection on the tuba morph pages read in place from for_seven_tubas. tools/test_morph_notation.js recomputes and compares.",
+ "frozen": "2026-09-14",
+ "forGroup": {
+  "piece-s27:grp-act-bloom-01-01": "64f55b27845e090a4a79bbb5d7f6f28f77baa285",
+  "piece-s27:grp-act-balance-01-01": "5ee7307c290797bd86d79b5b3136feccdcd0d34f",
+  "piece-s27:grp-act-converge-01-01": "df03605ad0a79a9d75636daf915efb4785d0ffa5",
+  "piece-septet:grp-morph-01": "c79bc7c3b236d0603c3bd2ab0e8e5c137eab274b",
+  "piece-septet:grp-morph-03": "385c8e6006122215f7d4b409c2af23a4b9825e04"
+ },
+ "layout": {
+  "morph-bloom": "7a85a027890eee8210ef82b2c8f0f1488fb48b43",
+  "morph-balance": "d9a6771b496a20f0de08e88f859f41a4eb583557",
+  "morph-converge": "405f465bd7cb7b4b6a21ca1e184e2020e86623f6"
+ }
+}

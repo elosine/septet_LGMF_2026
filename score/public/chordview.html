@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blast Sandbox</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1c1c1e; color: #ddd;
+         margin: 0; padding: 8px 16px 30px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; font-size: 12px; padding: 3px 0; }
+  select, button, input[type=text] { background: #2a2a2e; color: #ddd; border: 1px solid #555;
+         border-radius: 4px; padding: 3px 8px; font-size: 12px; }
+  button { cursor: pointer; }
+  button.on { background: #4a3a12; border-color: #B8860B; color: #ffd479; }
+  button.warn { border-color: #ff9c54; color: #ff9c54; }
+  input[type=range] { width: 105px; vertical-align: middle; }
+  .hint { color: #777; }
+  /* ---- strip ---- */
+  #stripWrap { position: relative; overflow-x: auto; overflow-y: hidden; white-space: nowrap;
+               border: 1px solid #333; border-radius: 6px; padding: 6px 50% 2px; background: #202024;
+               scroll-behavior: smooth; }
+  #stripWrap.collapsed { display: none; }
+  .mini { display: inline-block; vertical-align: top; width: 26px; margin: 0 3px; cursor: pointer; }
+  .mini canvas { display: block; background: #26262a; border-radius: 3px; }
+  .mini .lab { font-size: 8.5px; color: #888; text-align: center; margin-top: 1px; }
+  .mini.active canvas { outline: 2px solid #ffd479; }
+  .mini.active .lab { color: #ffd479; }
+  #stripCursor { position: absolute; left: 50%; top: 0; bottom: 0; width: 0;
+                 border-left: 1px dashed #B8860B; opacity: .5; pointer-events: none; }
+  /* ---- keyboard ---- */
+  #kb { position: relative; margin-top: 6px; }
+  .row { position: relative; height: var(--kh); }
+  .key { position: absolute; left: 46px; top: 0; height: calc(var(--kh) - 1px); border-radius: 1px; cursor: pointer; }
+  .white { width: 120px; background: #d8d4cc; }
+  .black { width: 66px; background: #2e2e32; border: 1px solid #4a4a50; box-sizing: border-box; }
+  .key:hover { outline: 1px solid #ffd479; }
+  .cline { position: absolute; left: 46px; width: 120px; top: 0; height: 1px; background: #8a8a92; opacity: .55; pointer-events: none; }
+  .nm { position: absolute; right: calc(100% - 42px); top: 50%; transform: translateY(-50%);
+        font-size: 11px; white-space: nowrap; }
+  .oct { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 9px; color: #55555c; }
+  .dot { position: absolute; left: 106px; top: 50%; transform: translate(-50%, -50%);
+         width: 11px; height: 11px; cursor: pointer; box-sizing: border-box; }
+  .dot.ord { border-radius: 50%; }
+  .dot.fp { border-radius: 2px; }
+  .dot.st { border-radius: 2px; transform: translate(-50%, -50%) rotate(45deg); width: 9px; height: 9px; }
+  .dot.cvring { box-shadow: 0 0 0 2.5px #ff9c54; }
+  .cvzone { position: absolute; left: 170px; width: 24px; top: 0; height: calc(var(--kh) - 1px);
+            background: #ff9c54; opacity: .10; cursor: pointer; border-radius: 2px; }
+  .cvzone:hover { opacity: .42; }
+  select.flash { border-color: #ff9c54; box-shadow: 0 0 6px #ff9c54; }
+  #listPanel { position: absolute; z-index: 20; background: #232327; border: 1px solid #5E8C7A;
+               border-radius: 6px; padding: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.5);
+               max-height: 320px; overflow-y: auto; min-width: 330px; display: none; }
+  .lrow { display: flex; gap: 8px; align-items: center; padding: 4px 6px; border-radius: 4px;
+          cursor: pointer; font-size: 11.5px; }
+  .lrow:hover { background: #2f3b36; }
+  .lrow .sid { color: #ffd479; width: 36px; flex: none; }
+  .lrow .del { color: #777; margin-left: auto; padding: 0 4px; }
+  .lrow .del:hover { color: #ff9c54; }
+</style>
+</head>
+<body>
+
+<div id="stripWrap"><div id="stripCursor"></div></div>
+
+<div class="bar">
+  <button id="stripToggle" title="collapse/expand the chord strip">▲ strip</button>
+  <select id="subsetSel" title="which chords the strip shows — the main 33 are never edited from here"></select>
+  <button id="subsetPM" title="add/remove the CURRENT chord in the named subset (the main library is untouched)" style="display:none">±</button>
+  <select id="verSel" title="the version menu — the baseline you step off from"></select>
+  <button id="resetBtn" class="warn" style="display:none" title="discard edits, return to the baseline version">● edited — reset</button>
+  <button id="playBtn" title="play the chord as configured (SPACE)">▶ play</button>
+  <label title="arrow-stepping the strip plays each chord as you land on it"><input type="checkbox" id="autoHear"> auto-hear</label>
+  <span class="hint">all:</span>
+  <button id="allOrd">ord</button>
+  <button id="allFp">fp</button>
+  <button id="allStac">stac</button>
+  <button id="slotC1" title="click = recall · SHIFT+click = store the current articulation mix">C1</button>
+  <button id="slotC2" title="click = recall · SHIFT+click = store the current articulation mix">C2</button>
+  <label>ord len <input type="range" id="ordLen" min="0.3" max="8" step="0.1" value="1"><span id="ordLenV" class="hint">1.0s</span></label>
+  <label>dyn <input type="range" id="dyn" min="1" max="127" step="1" value="127"><span id="dynV" class="hint">127</span></label>
+</div>
+<div class="bar">
+  <button id="saveV" title="file the edited notes as a NEW voicing of this chord (baseline untouched)">save voicing</button>
+  <button id="saveSon" title="save this exact configuration to the library AND the chosen destination">★ sonority →</button>
+  <button id="stdSet" title="add the STANDARD SET for this chord+voicing: fp · stac · ord(1s/127), plus the same three with the chord's cuivre when it's defined">⊞ std set →</button>
+  <button id="chordCv" title="make the current orange marks THE chord's cuivre (applies to every voicing; re-click to redefine)">⌃ set chord cuivre</button>
+  <span class="hint" id="chordCvShow"></span>
+  <span class="hint">add to:</span>
+  <select id="listSel" title="where ★ sends the sonority (besides the big library)"></select>
+  <span id="sonMsg" style="color:#ff9c54; font-size:12px"></span>
+  <button id="listBrowse" title="see what's in the selected list (library view when 'library only') — click an entry to recall it">☰ list</button>
+  <span class="hint" id="listCount"></span>
+  <div id="listPanel"></div>
+  <span class="hint">|</span>
+  <label>zoom <input type="range" id="zoom" min="4" max="40" step="0.5" value="17.5"><span id="zoomV" class="hint"></span></label>
+  <button id="z1" title="click = recall · SHIFT+click = store current zoom">Z1</button>
+  <button id="z2" title="click = recall · SHIFT+click = store current zoom">Z2</button>
+  <button id="z3" title="click = recall · SHIFT+click = store current zoom">Z3</button>
+  <span id="overTen" style="color:#ff9c54; font-size:12px"></span>
+  <span class="hint" id="midiStatus">midi: …</span>
+  <span class="hint" id="info"></span>
+</div>
+
+<div id="kb"></div>
+
+<script>
+const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const BLACK = [1,3,6,8,10];
+const LO = 30, HI = 65;
+const CUIVRE = [60, 67];
+const nm = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+// pitch-class colors, assigned per chord: octave doublings = repeated colors
+const PC_PALETTE = ['#ffd479','#7ec9a8','#8ea9c9','#c98a8a','#b58ec9','#d4c25e',
+                    '#69b7c9','#c9986e','#96c96e','#c96ea8','#8a8ac9','#e0e0e0'];
+
+let TAX = null, CHORD_IDS = [], currentId = null;
+let browseArtic = 'ord';     // the articulation new chords load with (set by the all: buttons)
+let chosenV = {};
+let work = null;   // { pitches:Set, cvConv:Set, cvAdd:Set, artic:Map, base, edited }
+let SERVER_CHORDS = new Set(), BANKS = {};
+
+const voicingsOf = id => (TAX.harmonies[id] && TAX.harmonies[id].voicings) || {};
+const activeV = id => chosenV[id] || Object.keys(voicingsOf(id)).pop() || null;
+
+function loadWork() {
+  const v = voicingsOf(currentId)[activeV(currentId)];
+  const pitches = new Set(v ? v.pitches : []);
+  const cv = new Set((v && v.cuivre) || []);
+  work = { pitches,
+    cvConv: new Set([...cv].filter(p => pitches.has(p))),
+    cvAdd: new Set(),
+    artic: new Map([...pitches].map(p => [p, browseArtic])),
+    base: activeV(currentId) };
+  refreshChanged();
+}
+// A VOICING is the pitch set, nothing else. Cuivre marks and articulations are
+// SONORITY-level (composer 2026-08-14) — they never count as voicing edits and
+// never trigger a voicing save.
+function basePitches() {
+  const v = voicingsOf(currentId)[work.base];
+  return new Set(v ? v.pitches : []);
+}
+function pitchEdited() {
+  const b = basePitches();
+  if (b.size !== work.pitches.size) return true;
+  for (const p of work.pitches) if (!b.has(p)) return true;
+  return false;
+}
+function anyChanged() {
+  if (pitchEdited()) return true;
+  const v = voicingsOf(currentId)[work.base];
+  const baseCv = new Set(((v && v.cuivre) || []).filter(p => work.pitches.has(p)));
+  const cv = new Set([...work.cvConv, ...work.cvAdd]);
+  if (cv.size !== baseCv.size) return true;
+  for (const p of cv) if (!baseCv.has(p)) return true;
+  for (const a of work.artic.values()) if (a !== 'ord') return true;
+  return false;
+}
+function refreshChanged() {
+  const btn = document.getElementById('resetBtn');
+  const changed = anyChanged();
+  btn.style.display = changed ? '' : 'none';
+  btn.textContent = pitchEdited() ? '● pitches changed — reset' : '● changed — reset';
+}
+function pcColors() {
+  const pcs = [...new Set([...work.pitches].map(p => p % 12))].sort((a, b) => a - b);
+  const map = {};
+  pcs.forEach((pc, i) => map[pc] = PC_PALETTE[i % PC_PALETTE.length]);
+  return map;
+}
+
+// ---- MIDI ----
+// MEASURED one-shot lengths (probe 2026-08-15) - see bank/sample_lengths.json
+let SAMPLE_LEN = null;
+const FIXED_FALLBACK = { fortepiano: 1.67, staccato: 0.45, cuivre: 1.17 };
+function techLen(tech, pitch) {
+  const tbl = SAMPLE_LEN && SAMPLE_LEN[tech];
+  if (tbl && tbl[pitch] != null) return tbl[pitch];
+  if (tbl) {
+    const keys = Object.keys(tbl).map(Number);
+    if (keys.length) return tbl[keys.reduce((a, b) => Math.abs(b - pitch) < Math.abs(a - pitch) ? b : a)];
+  }
+  return FIXED_FALLBACK[tech];
+}
+const HOLDS = { fortepiano: p => techLen('fortepiano', p), staccato: p => techLen('staccato', p),
+                ord: () => +document.getElementById('ordLen').value };
+const ROUTE = { fortepiano: { sub: '', ch: 11 }, staccato: { sub: 'b', ch: 4 }, ord: { sub: '', ch: 1 } };
+let MIDI = null, OUTS = {};
+async function midiInit() {
+  const st = document.getElementById('midiStatus');
+  try {
+    MIDI = await navigator.requestMIDIAccess();
+    OUTS = {};
+    MIDI.outputs.forEach(o => { OUTS[o.name.toLowerCase()] = o; });
+    const missing = [];
+    for (let i = 1; i <= 10; i++) {
+      if (!OUTS['tuba' + i]) missing.push('tuba' + i);
+      if (!OUTS['tuba' + i + 'b']) missing.push('tuba' + i + 'b');
+    }
+    st.textContent = missing.length ? 'midi: missing ' + missing.slice(0, 4).join(',') + (missing.length > 4 ? '…' : '')
+                                    : 'midi: 10 tubas ready';
+  } catch (e) { st.textContent = 'midi: unavailable — allow Web MIDI in Chrome'; }
+}
+function playBlast() {
+  if (!MIDI || !work) return;
+  const vel = +document.getElementById('dyn').value;
+  const pitches = [...work.pitches].sort((x, y) => x - y).slice(0, 10);
+  pitches.forEach((pitch, k) => {
+    const isCv = work.cvConv.has(pitch) || work.cvAdd.has(pitch);
+    const art = work.artic.get(pitch) || 'ord';
+    const r = isCv ? { sub: '', ch: 5 } : ROUTE[art];
+    // cuivre duration follows the note's articulation context (composer
+    // 2026-08-14): stac -> match the staccatos; fp -> only the ACCENT portion
+    // (0.6 s) so the piano tail of the others stays audible; ord -> ord length
+    const holdMs = (isCv ? techLen('cuivre', pitch) : HOLDS[art](pitch)) * 1000;
+    const out = OUTS['tuba' + (10 - k) + r.sub];
+    if (!out) return;
+    const ch = r.ch - 1;
+    out.send([0xB0 | ch, 7, 127]);
+    out.send([0x90 | ch, pitch, vel]);
+    setTimeout(() => out.send([0x80 | ch, pitch, 0]), holdMs);
+  });
+  const arts = [...new Set(pitches.map(p => work.artic.get(p)))];
+  document.getElementById('info').textContent =
+    currentId + ' ' + work.base + (pitchEdited() ? '*' : '') + ' · ' +
+    (arts.length === 1 ? arts[0] : 'mixed') + ' · ' + pitches.length + ' players · vel ' + vel;
+}
+
+// ---- keyboard ----
+function draw() {
+  const kh = +document.getElementById('zoom').value;
+  document.getElementById('zoomV').textContent = kh.toFixed(1) + 'px/key';
+  localStorage.setItem('blastZoom', kh);
+  const kb = document.getElementById('kb');
+  kb.style.setProperty('--kh', kh + 'px');
+  const colors = pcColors();
+  let html = '';
+  for (let m = CUIVRE[1]; m >= LO; m--) {   // two cuivre-only rows above the ord range
+    const pc = m % 12, isB = BLACK.includes(pc);
+    const inChord = work.pitches.has(m);
+    const conv = work.cvConv.has(m), added = work.cvAdd.has(m);
+    const art = work.artic.get(m) || 'ord';
+    let r = '<div class="row">';
+    if (m <= HI) r += '<div class="key ' + (isB ? 'black' : 'white') + '" data-m="' + m + '"></div>';
+    if (pc === 0) r += '<div class="cline"></div><div class="oct">' + nm(m) + '</div>';
+    if (inChord) {
+      const col = added ? '#ff9c54' : colors[pc];
+      const suffix = (conv ? ' ⌃' : added ? ' +⌃' : '') +
+        (art === 'fortepiano' ? ' fp' : art === 'staccato' ? ' st' : '');
+      r += '<div class="nm" style="color:' + col + '">' + nm(m) + suffix + '</div>';
+      const cls = art === 'fortepiano' ? 'fp' : art === 'staccato' ? 'st' : 'ord';
+      r += '<div class="dot ' + cls + (conv ? ' cvring' : '') + '" data-d="' + m +
+           '" style="background:' + col + '" title="click: cycle ord→fp→stac"></div>';
+    }
+    if (m >= CUIVRE[0] && m <= CUIVRE[1])
+      r += '<div class="cvzone" data-cv="' + m + '" title="cuivre ' + nm(m) + ' — click to add/convert/remove"></div>';
+    r += '</div>';
+    html += r;
+  }
+  kb.innerHTML = html;
+  refreshChanged();
+  const over = work.pitches.size - 10;
+  document.getElementById('overTen').textContent =
+    over > 0 ? '⚠ ' + work.pitches.size + ' notes — only 10 sound, click ' + over + ' off' : '';
+  kb.querySelectorAll('.key').forEach(el => el.addEventListener('click', () => {
+    const m = +el.dataset.m;
+    if (work.pitches.has(m)) { work.pitches.delete(m); work.cvConv.delete(m); work.cvAdd.delete(m); work.artic.delete(m); }
+    else { work.pitches.add(m); work.artic.set(m, 'ord'); }
+    draw(); drawStrip();
+  }));
+  kb.querySelectorAll('.dot').forEach(el => el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const m = +el.dataset.d;
+    const cyc = { ord: 'fortepiano', fortepiano: 'staccato', staccato: 'ord' };
+    work.artic.set(m, cyc[work.artic.get(m) || 'ord']);
+    draw();   // articulation mix is realization-level, not a voicing edit
+  }));
+  kb.querySelectorAll('.cvzone').forEach(el => el.addEventListener('click', () => {
+    const m = +el.dataset.cv;
+    let grew = false;
+    if (work.cvConv.has(m)) { work.cvConv.delete(m); }
+    else if (work.cvAdd.has(m)) { work.cvAdd.delete(m); work.pitches.delete(m); work.artic.delete(m); }
+    else if (work.pitches.has(m)) { work.cvConv.add(m); }
+    else { work.pitches.add(m); work.cvAdd.add(m); work.artic.set(m, 'ord'); grew = true; }
+    draw(); drawStrip();
+    if (grew && work.pitches.size > 10) {
+      // quick non-dialog note beside the clicked cuivre row
+      const zone = document.querySelector('.cvzone[data-cv="' + m + '"]');
+      if (zone) {
+        const tip = document.createElement('span');
+        tip.textContent = work.pitches.size + ' — over 10';
+        tip.style.cssText = 'position:absolute; left:200px; top:50%; transform:translateY(-50%);' +
+          'color:#ff9c54; font-size:11px; white-space:nowrap; pointer-events:none';
+        zone.parentElement.appendChild(tip);
+        setTimeout(() => tip.remove(), 2600);
+      }
+    }
+  }));
+  buildVerSel();
+}
+
+function buildVerSel() {
+  const sel = document.getElementById('verSel');
+  const vs = voicingsOf(currentId);
+  sel.innerHTML = '';
+  Object.entries(vs).forEach(([vn, v]) => {
+    const o = document.createElement('option');
+    o.value = vn;
+    o.textContent = currentId.replace('VERT01-', 'chord ') + ' · ' + vn + ' — ' + (v.desc || '');
+    sel.appendChild(o);
+  });
+  sel.value = work.base;
+}
+
+// ---- chord subsets: named VIEWS of the 33; main library immutable ----
+let activeSubset = '__all';      // the strip filter
+let editSubset = null;           // the ± button's target (last real subset chosen)
+function subsetIds() {
+  if (activeSubset === '__all') return Object.keys(BANKS);
+  return ((TAX.chordSubsets || {})[activeSubset] || []).filter(id => BANKS[id]);
+}
+function buildSubsetSel() {
+  const sel = document.getElementById('subsetSel');
+  const subs = Object.keys(TAX.chordSubsets || {});
+  const prev = sel.value;
+  sel.innerHTML = '';
+  const all = document.createElement('option');
+  all.value = '__all'; all.textContent = 'all 33';
+  sel.appendChild(all);
+  subs.forEach(n => {
+    const o = document.createElement('option');
+    o.value = n; o.textContent = n + ' (' + TAX.chordSubsets[n].length + ')';
+    sel.appendChild(o);
+  });
+  const nw = document.createElement('option');
+  nw.value = '__newsub'; nw.textContent = '+ new subset…';
+  sel.appendChild(nw);
+  const remembered = localStorage.getItem('chordSubset');
+  if (subs.includes(prev) || prev === '__all') sel.value = prev;
+  else if (remembered && (subs.includes(remembered) || remembered === '__all')) sel.value = remembered;
+  else sel.value = '__all';
+  activeSubset = sel.value;
+  if (subs.includes(activeSubset)) editSubset = activeSubset;
+  else if (!subs.includes(editSubset)) editSubset = subs[0] || null;
+  refreshPM();
+}
+function refreshPM() {
+  const b = document.getElementById('subsetPM');
+  if (!editSubset) { b.style.display = 'none'; return; }
+  const members = (TAX.chordSubsets || {})[editSubset] || [];
+  const inSet = members.includes(currentId);
+  b.style.display = '';
+  b.textContent = (inSet ? '− ' : '+ ') + currentId.replace('VERT01-', 'ch') + ' ' + (inSet ? '⊖' : '⊕') + ' ' + editSubset;
+  b.classList.toggle('on', inSet);
+}
+async function togglePM() {
+  if (!editSubset) return;
+  const members = (TAX.chordSubsets || {})[editSubset] || [];
+  const op = members.includes(currentId) ? 'remove' : 'add';
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'subset', op, name: editSubset, chord: currentId }) }).then(x => x.json());
+  if (r.success) {
+    TAX.chordSubsets[editSubset] = r.members;
+    buildSubsetSel();
+    document.getElementById('info').textContent =
+      currentId + (op === 'add' ? ' → "' : ' ⊖ "') + editSubset + '" (' + r.members.length + ')';
+    if (activeSubset !== '__all') { CHORD_IDS = subsetIds(); drawStrip(); }
+    refreshPM();
+  }
+}
+
+// ---- strip ----
+function miniCanvas(id) {
+  const c = document.createElement('canvas');
+  c.width = 26; c.height = 148;
+  const ctx = c.getContext('2d');
+  const v = voicingsOf(id)[activeV(id)];
+  const rows = HI - LO + 1, rh = 148 / rows;
+  for (let m = HI; m >= LO; m--) {
+    const y = (HI - m) * rh;
+    ctx.fillStyle = BLACK.includes(m % 12) ? '#2e2e32' : '#4a4a46';
+    ctx.fillRect(3, y, m % 12 === 0 ? 20 : 14, rh - 0.6);
+    if (v && v.pitches.includes(m)) {
+      ctx.fillStyle = (v.cuivre || []).includes(m) ? '#ff9c54' : '#ffd479';
+      ctx.fillRect(0, y - 0.4, 26, rh + 0.8);
+    }
+  }
+  return c;
+}
+function drawStrip() {
+  const wrap = document.getElementById('stripWrap');
+  [...wrap.querySelectorAll('.mini')].forEach(el => el.remove());
+  CHORD_IDS.forEach(id => {
+    const d = document.createElement('div');
+    d.className = 'mini' + (id === currentId ? ' active' : '');
+    d.appendChild(miniCanvas(id));
+    const lab = document.createElement('div');
+    lab.className = 'lab';
+    lab.textContent = id.replace('VERT01-', '') + ' ' + (activeV(id) || '');
+    d.appendChild(lab);
+    d.addEventListener('click', () => selectChord(id));
+    wrap.appendChild(d);
+  });
+  const act = wrap.querySelector('.mini.active');
+  if (act) act.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+}
+let hearTimer = null;
+function selectChord(id, viaKeys) {
+  currentId = id;
+  loadWork(); draw(); drawStrip(); refreshPM(); showChordCv();
+  const auto = document.getElementById('autoHear');
+  if (auto && auto.checked) {
+    clearTimeout(hearTimer);
+    hearTimer = setTimeout(playBlast, viaKeys ? 220 : 60);   // settle before sounding
+  }
+}
+
+// ---- saves ----
+async function saveVoicing() {
+  if (!pitchEdited()) {
+    document.getElementById('info').textContent = 'no pitch changes — a voicing is the note set only';
+    return;
+  }
+  const base = (voicingsOf(currentId)[work.base] || { pitches: [] }).pitches;
+  const now = [...work.pitches].sort((a, b) => a - b);
+  const added = now.filter(p => !base.includes(p)).map(nm);
+  const removed = base.filter(p => !now.includes(p)).map(nm);
+  let desc = work.base + (added.length ? ' + ' + added.join(',') : '') + (removed.length ? ' − ' + removed.join(',') : '');
+  desc = prompt('Description for the new voicing:', desc);
+  if (desc === null) return;
+  if (!SERVER_CHORDS.has(currentId) && BANKS[currentId]) {
+    await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'saveVoicing', chord: currentId,
+        desc: 'as played (' + BANKS[currentId].pitches.length + ' pitches)', pitches: BANKS[currentId].pitches }) });
+    SERVER_CHORDS.add(currentId);
+  }
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveVoicing', chord: currentId, desc, pitches: now }) }).then(x => x.json());
+  if (r.success) {
+    const keep = { artic: work.artic, cvConv: work.cvConv, cvAdd: work.cvAdd };
+    await loadTax();
+    chosenV[currentId] = r.voicing;
+    loadWork();
+    work.artic = keep.artic; work.cvConv = keep.cvConv; work.cvAdd = keep.cvAdd;
+    [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
+    draw(); drawStrip();
+    document.getElementById('info').textContent = currentId + ' ' + r.voicing + ' filed';
+  }
+}
+async function saveSonority() {
+  // NEVER touches voicings — a sonority stores its own pitch list, so an
+  // unsaved pitch edit is recorded as provenance ("V3*") and nothing prompts.
+  // Filing a voicing is exclusively the 'save voicing' button's job.
+  const list = document.getElementById('listSel').value;
+  const warn = document.getElementById('sonMsg');
+  if (list === '__choose' || list === '__new') {
+    warn.textContent = 'choose a destination first →';
+    const sel = document.getElementById('listSel');
+    sel.classList.add('flash');
+    setTimeout(() => { sel.classList.remove('flash'); warn.textContent = ''; }, 2600);
+    return;
+  }
+  warn.textContent = '';
+  const son = { chord: currentId, voicing: work.base + (pitchEdited() ? '*' : ''),
+    pitches: [...work.pitches].sort((a, b) => a - b),
+    cuivreConverted: [...work.cvConv].sort((a, b) => a - b),
+    cuivreAdded: [...work.cvAdd].sort((a, b) => a - b),
+    artic: Object.fromEntries([...work.artic]),
+    ordLen: +document.getElementById('ordLen').value,
+    dyn: +document.getElementById('dyn').value };
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'saveSonority', sonority: son }) }).then(x => x.json());
+  if (!r.success) return;
+  let msg = r.id + (r.duplicate ? ' (already in library)' : ' → library');
+  if (list && list !== '__none' && list !== '__new') {
+    const a = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'addToList', list, id: r.id }) }).then(x => x.json());
+    if (a.success) { msg += ' + "' + list + '" (' + a.count + ')'; updateListCount(list, a.count); }
+  }
+  document.getElementById('info').textContent = msg;
+  await loadTax();
+}
+function chordCuivreOf(id) {
+  return (TAX.harmonies[id] && TAX.harmonies[id].stdCuivre) || [];
+}
+function showChordCv() {
+  const cv = chordCuivreOf(currentId);
+  const arrs = Object.keys((TAX.harmonies[currentId] || {}).cuivreArr || {});
+  document.getElementById('chordCvShow').textContent =
+    (cv.length ? '⌃ ' + currentId.replace('VERT01-', 'ch') + ': ' + cv.map(nm).join(' ') : '') +
+    (arrs.length ? '  [arr: ' + arrs.join(',') + ']' : '');
+}
+async function setChordCuivre() {
+  const marks = [...work.cvConv, ...work.cvAdd].sort((a, b) => a - b);
+  if (!marks.length && chordCuivreOf(currentId).length &&
+      !confirm('No orange marks — CLEAR ' + currentId + "'s chord cuivre?")) return;
+  // manual thinning support: if the current note-set differs from the voicing,
+  // store it as THIS VOICING's cuivre arrangement — the "cuivre version",
+  // never a new voicing
+  const vp = (voicingsOf(currentId)[work.base] || { pitches: [] }).pitches.slice().sort((a, b) => a - b);
+  const now = [...work.pitches].sort((a, b) => a - b);
+  const differs = JSON.stringify(vp) !== JSON.stringify(now);
+  const body = { action: 'chordCuivre', chord: currentId, pitches: marks };
+  if (differs && marks.length) body.arrangement = { voicing: work.base, pitches: now, cuivre: marks };
+  const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body) }).then(x => x.json());
+  if (r.success) {
+    TAX.harmonies[currentId].stdCuivre = r.stdCuivre;
+    if (r.cuivreArr) TAX.harmonies[currentId].cuivreArr = r.cuivreArr;
+    showChordCv();
+    document.getElementById('info').textContent = currentId + ' cuivre = ' +
+      (r.stdCuivre.length ? r.stdCuivre.map(nm).join(' ') : 'none') +
+      (differs && marks.length ? '  (' + work.base + ' cuivre version: ' + now.length + 'n)' : '');
+  }
+}
+
+async function addStdSet() {
+  const list = document.getElementById('listSel').value;
+  const warn = document.getElementById('sonMsg');
+  if (list === '__choose' || list === '__new') {
+    warn.textContent = 'choose a destination first →';
+    const sel = document.getElementById('listSel');
+    sel.classList.add('flash');
+    setTimeout(() => { sel.classList.remove('flash'); warn.textContent = ''; }, 2600);
+    return;
+  }
+  const vp = (voicingsOf(currentId)[work.base] || { pitches: [] }).pitches.slice().sort((a, b) => a - b);
+  const cv = chordCuivreOf(currentId);
+  const arr = ((TAX.harmonies[currentId] || {}).cuivreArr || {})[work.base];
+  const cvPitches = arr ? arr.pitches : [...new Set([...vp, ...cv])].sort((a, b) => a - b);
+  const cvMarks = arr ? arr.cuivre : cv;
+  const mk = (art, withCv) => {
+    const pitches = withCv ? cvPitches : vp;
+    return { chord: currentId, voicing: work.base, pitches,
+      cuivreConverted: withCv ? cvMarks.filter(p => vp.includes(p)) : [],
+      cuivreAdded: withCv ? cvMarks.filter(p => !vp.includes(p)) : [],
+      artic: Object.fromEntries(pitches.map(p => [p, art])),
+      ordLen: 1.0, dyn: 127 };
+  };
+  const jobs = [mk('fortepiano', false), mk('staccato', false), mk('ord', false)];
+  if (cv.length) jobs.push(mk('fortepiano', true), mk('staccato', true), mk('ord', true));
+  const overWarn = cv.length && cvPitches.length > 10
+    ? '  ⚠ cuivre trio is ' + cvPitches.length + 'n — thin on the keyboard and re-set chord cuivre'
+    : '';
+  let added = 0, existing = 0;
+  for (const son of jobs) {
+    const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'saveSonority', sonority: son }) }).then(x => x.json());
+    if (!r.success) continue;
+    const a = list === '__none' ? { success: true, count: null }
+      : await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'addToList', list, id: r.id }) }).then(x => x.json());
+    if (r.duplicate) existing++; else added++;
+    if (a.count != null) updateListCount(list, a.count);
+  }
+  await loadTax();
+  document.getElementById('info').textContent =
+    'std set (' + jobs.length + ') → ' + (list === '__none' ? 'library' : '"' + list + '"') +
+    ': ' + added + ' new, ' + existing + ' already known' + overWarn;
+}
+
+function updateListCount(list, count) {
+  const el = document.getElementById('listCount');
+  if (!list || list === '__choose' || list === '__new') el.textContent = '';
+  else if (list === '__none') el.textContent = '→ library only';
+  else el.textContent = '→ "' + list + '": ' + count;
+}
+function buildListSel() {
+  const sel = document.getElementById('listSel');
+  const lists = Object.keys((TAX.customLists || {}));
+  const prev = sel.value;
+  sel.innerHTML = '';
+  const ph = document.createElement('option');
+  ph.value = '__choose'; ph.textContent = '— choose —';
+  sel.appendChild(ph);
+  const none = document.createElement('option');
+  none.value = '__none'; none.textContent = 'library only';
+  sel.appendChild(none);
+  lists.forEach(l => {
+    const o = document.createElement('option');
+    o.value = l; o.textContent = l + ' (' + TAX.customLists[l].length + ')';
+    sel.appendChild(o);
+  });
+  const nw = document.createElement('option');
+  nw.value = '__new'; nw.textContent = '+ new list…';
+  sel.appendChild(nw);
+  // sticky WITHIN the session only — a fresh page starts at the placeholder
+  if (lists.includes(prev) || prev === '__none') sel.value = prev;
+  else sel.value = '__choose';
+  updateListCount(sel.value, lists.includes(sel.value) ? TAX.customLists[sel.value].length : 0);
+}
+
+async function loadTax() {
+  if (!SAMPLE_LEN) {
+    try { SAMPLE_LEN = await fetch('/bank/sample_lengths.json').then(r => r.json()); } catch (e) {}
+  }
+  TAX = (await fetch('/api/taxonomy').then(r => r.json())).tax;
+  SERVER_CHORDS = new Set(Object.keys(TAX.harmonies));
+  Object.entries(BANKS).forEach(([id, b]) => {
+    TAX.harmonies[id] = TAX.harmonies[id] || { voicings: {}, realizations: [] };
+    if (!TAX.harmonies[id].voicings.V1)
+      TAX.harmonies[id].voicings = Object.assign(
+        { V1: { desc: 'as played (' + b.pitches.length + ' pitches)', pitches: b.pitches } },
+        TAX.harmonies[id].voicings);
+  });
+  buildListSel();
+}
+
+// ---- list browser + recall ----
+function articSummary(son) {
+  const arts = Object.values(son.artic || {});
+  const u = [...new Set(arts)];
+  const short = { ord: 'ord', fortepiano: 'fp', staccato: 'st' };
+  return u.length === 1 ? short[u[0]] || u[0] : 'mixed';
+}
+function recallSonority(id) {
+  const son = (TAX.sonorities || {})[id];
+  if (!son) return;
+  currentId = son.chord;
+  chosenV[son.chord] = son.voicing;
+  loadWork();
+  work.pitches = new Set(son.pitches);
+  work.cvConv = new Set(son.cuivreConverted || []);
+  work.cvAdd = new Set(son.cuivreAdded || []);
+  work.artic = new Map(Object.entries(son.artic || {}).map(([p, a]) => [+p, a]));
+  [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
+  document.getElementById('ordLen').value = son.ordLen || 2.5;
+  document.getElementById('ordLenV').textContent = (son.ordLen || 2.5).toFixed(1) + 's';
+  document.getElementById('dyn').value = son.dyn || 127;
+  document.getElementById('dynV').textContent = son.dyn || 127;
+  draw(); drawStrip();
+  document.getElementById('info').textContent = id + ' recalled — ' + son.chord + ' ' + son.voicing;
+  playBlast();
+}
+function toggleListPanel() {
+  const panel = document.getElementById('listPanel');
+  if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
+  const list = document.getElementById('listSel').value;
+  const sons = TAX.sonorities || {};
+  const ids = (list === '__none' || list === '__new')
+    ? Object.keys(sons)
+    : ((TAX.customLists || {})[list] || []);
+  panel.innerHTML = '<div class="hint" style="padding:2px 6px">' +
+    (list === '__none' || list === '__new' ? 'SONORITY LIBRARY (' + ids.length + ')' : '"' + list + '" (' + ids.length + ')') +
+    ' — click to recall</div>';
+  if (!ids.length) panel.innerHTML += '<div class="hint" style="padding:4px 6px">empty — ★ a sonority to fill it</div>';
+  ids.forEach(id => {
+    const son = sons[id];
+    if (!son) return;
+    const row = document.createElement('div');
+    row.className = 'lrow';
+    const cv = (son.cuivreConverted || []).length + (son.cuivreAdded || []).length;
+    row.innerHTML = '<span class="sid">' + id + '</span><span>' +
+      son.chord.replace('VERT01-', 'ch') + ' ' + son.voicing + ' · ' + articSummary(son) +
+      ' · ' + son.pitches.length + 'n' + (cv ? ' · ⌃' + cv : '') +
+      ' · v' + son.dyn + (articSummary(son) !== 'st' ? ' · ' + (son.ordLen || 2.5).toFixed(1) + 's' : '') + '</span>';
+    row.addEventListener('click', () => { toggleListPanel(); recallSonority(id); });
+    if (list !== '__none' && list !== '__new') {
+      const del = document.createElement('span');
+      del.className = 'del'; del.textContent = '✕'; del.title = 'remove from this list (stays in the library)';
+      del.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const r = await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'removeFromList', list, id }) }).then(x => x.json());
+        if (r.success) { await loadTax(); updateListCount(list, r.count); toggleListPanel(); toggleListPanel(); }
+      });
+      row.appendChild(del);
+    }
+    panel.appendChild(row);
+  });
+  const btn = document.getElementById('listBrowse');
+  const rect = btn.getBoundingClientRect();
+  panel.style.left = Math.min(rect.left, window.innerWidth - 360) + 'px';
+  panel.style.top = (rect.bottom + 4) + 'px';
+  panel.style.position = 'fixed';
+  panel.style.display = 'block';
+}
+
+// ---- boot ----
+async function boot() {
+  const ids = [];
+  for (let i = 1; i <= 33; i++) ids.push('VERT01-' + String(i).padStart(2, '0'));
+  const banks = await Promise.all(ids.map(id =>
+    fetch('/bank/' + id + '.json').then(r => r.ok ? r.json() : null).catch(() => null)));
+  banks.forEach((b, i) => { if (b) BANKS[ids[i]] = b; });
+  await loadTax();
+  CHORD_IDS = ids.filter(id => BANKS[id] || TAX.harmonies[id]);
+  currentId = CHORD_IDS.includes('VERT01-28') ? 'VERT01-28' : CHORD_IDS[0];
+  const z = localStorage.getItem('blastZoom');
+  if (z) document.getElementById('zoom').value = z;
+  loadWork();
+
+  const $ = id => document.getElementById(id);
+  $('zoom').addEventListener('input', draw);
+  $('ordLen').addEventListener('input', () => $('ordLenV').textContent = (+$('ordLen').value).toFixed(1) + 's');
+  $('dyn').addEventListener('input', () => $('dynV').textContent = $('dyn').value);
+  $('playBtn').addEventListener('click', playBlast);
+  const setAll = a => { browseArtic = a; [...work.pitches].forEach(p => work.artic.set(p, a)); draw(); playBlast(); };
+  $('allOrd').addEventListener('click', () => setAll('ord'));
+  $('allFp').addEventListener('click', () => setAll('fortepiano'));
+  $('allStac').addEventListener('click', () => setAll('staccato'));
+  [['slotC1', 'articC1'], ['slotC2', 'articC2']].forEach(([bid, key]) => {
+    $(bid).addEventListener('click', e => {
+      if (e.shiftKey) {
+        localStorage.setItem(key + ':' + currentId, JSON.stringify([...work.artic]));
+        $(bid).classList.add('on');
+        $('info').textContent = bid.slice(-2) + ' stored (' + currentId + ')';
+      } else {
+        const raw = localStorage.getItem(key + ':' + currentId);
+        if (!raw) { $('info').textContent = bid.slice(-2) + ' empty — SHIFT+click to store'; return; }
+        work.artic = new Map(JSON.parse(raw).filter(([p]) => work.pitches.has(p)));
+        [...work.pitches].forEach(p => { if (!work.artic.has(p)) work.artic.set(p, 'ord'); });
+        draw(); playBlast();
+      }
+    });
+  });
+  $('resetBtn').addEventListener('click', () => { loadWork(); draw(); drawStrip(); });
+  $('verSel').addEventListener('change', function () {
+    chosenV[currentId] = this.value; loadWork(); draw(); drawStrip(); this.blur();
+  });
+  $('stripToggle').addEventListener('click', function () {
+    const w = $('stripWrap');
+    w.classList.toggle('collapsed');
+    this.textContent = w.classList.contains('collapsed') ? '▼ strip' : '▲ strip';
+    localStorage.setItem('stripCollapsed', w.classList.contains('collapsed') ? '1' : '');
+  });
+  if (localStorage.getItem('stripCollapsed')) { $('stripWrap').classList.add('collapsed'); $('stripToggle').textContent = '▼ strip'; }
+  ['z1', 'z2', 'z3'].forEach(zid => {
+    const stored = localStorage.getItem('zoomSlot:' + zid);
+    if (stored) { $(zid).title = 'stored: ' + stored + 'px/key'; $(zid).classList.add('on'); }
+    $(zid).addEventListener('click', e => {
+      if (e.shiftKey) {
+        const v = $('zoom').value;
+        localStorage.setItem('zoomSlot:' + zid, v);
+        $(zid).title = 'stored: ' + v + 'px/key';
+        $(zid).classList.add('on');
+        $('info').textContent = zid.toUpperCase() + ' = ' + v + 'px/key';
+      } else {
+        const v = localStorage.getItem('zoomSlot:' + zid);
+        if (v) { $('zoom').value = v; draw(); }
+      }
+    });
+  });
+  $('saveV').addEventListener('click', saveVoicing);
+  $('saveSon').addEventListener('click', () => saveSonority());
+  $('stdSet').addEventListener('click', addStdSet);
+  $('chordCv').addEventListener('click', setChordCuivre);
+  $('listBrowse').addEventListener('click', toggleListPanel);
+  buildSubsetSel();
+  CHORD_IDS = subsetIds();
+  if (!CHORD_IDS.includes(currentId)) currentId = CHORD_IDS[0];
+  $('subsetSel').addEventListener('change', async function () {
+    if (this.value === '__newsub') {
+      const name = prompt('New chord subset name:', 'INT2 working set 2');
+      if (name) {
+        await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'subset', op: 'create', name }) });
+        TAX.chordSubsets = TAX.chordSubsets || {};
+        TAX.chordSubsets[name] = TAX.chordSubsets[name] || [];
+        this.value = name;
+      } else this.value = activeSubset;
+    }
+    activeSubset = this.value;
+    localStorage.setItem('chordSubset', activeSubset);
+    if ((TAX.chordSubsets || {})[activeSubset]) editSubset = activeSubset;
+    buildSubsetSel();
+    CHORD_IDS = subsetIds();
+    if (CHORD_IDS.length && !CHORD_IDS.includes(currentId)) selectChord(CHORD_IDS[0]);
+    else { drawStrip(); refreshPM(); }
+    this.blur();
+  });
+  $('subsetPM').addEventListener('click', togglePM);
+  if (localStorage.getItem('autoHear') === '1') $('autoHear').checked = true;
+  $('autoHear').addEventListener('change', function () {
+    localStorage.setItem('autoHear', this.checked ? '1' : '');
+    this.blur();
+  });
+  window.addEventListener('mousedown', e => {
+    const panel = $('listPanel');
+    if (panel.style.display === 'block' && !panel.contains(e.target) && e.target.id !== 'listBrowse')
+      panel.style.display = 'none';
+  });
+  $('listSel').addEventListener('change', async function () {
+    if (this.value === '__new') {
+      const name = prompt('New list name:', 'INT2 blasts');
+      if (name) {
+        await fetch('/api/taxonomy', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'createList', list: name }) });
+        await loadTax();                    // list now persists server-side
+        this.value = name;
+      } else this.value = '__choose';
+    }
+    updateListCount(this.value, ((TAX.customLists || {})[this.value] || []).length);
+    this.blur();
+  });
+
+  // SPACE plays the chord below, always (selects are blurred on use; only a
+  // text field keeps the space). Arrows step the strip from anywhere.
+  window.addEventListener('keydown', e => {
+    const t = e.target;
+    if (t && t.tagName === 'INPUT' && t.type === 'text') return;
+    const i = CHORD_IDS.indexOf(currentId);
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.min(CHORD_IDS.length - 1, i + 1)], true); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); if (t && t.blur) t.blur(); selectChord(CHORD_IDS[Math.max(0, i - 1)], true); }
+    if (e.key === ' ') { e.preventDefault(); if (t && t.blur) t.blur(); playBlast(); }
+  });
+
+  draw(); drawStrip(); midiInit(); showChordCv();
+}
+boot();
+</script>
+</body>
+</html>

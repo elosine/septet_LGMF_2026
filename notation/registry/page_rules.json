@@ -1,0 +1,18 @@
+{
+  "_contract": "Page-edge decision rules (accommodation strategy 'page-edge-rules', NOTATION_ARCHITECTURE §3 item 5): stored as RULES, not baked positions (P6). The splicer (notation/lib/splice.js) consults these; changing a rule re-plans every page on the next render.",
+  "version": "0.1",
+  "cutSlackSeconds": 2,
+  "minPageSeconds": 3,
+  "_doc_cutPreference": [
+    "candidates are scored: fewest SEVERED beamable pairs across ALL interrupted sub-beat chunks (stamp-atomic; grids in different parts can be incommensurate, so any chunk still left off its grid is RECORDED in the page's offGrid list, never silent) · then fewest interrupted chunks (by MATERIAL extent, not span) · ties toward the target time"
+  ],
+  "musicStartBufferSs": 4.2,
+  "_doc_musicStartBuffer": "RUNNING_LOG §404 (2026-09-11, the composer, on a viola note sitting on the alto clef at 35.4 s: 'in the tuba score we had a buffer zone after the clef'): a page CUT can land exactly on a note's onset, and then that note's go line sits at x = gutterPx while everything drawn BEFORE the go line — the notehead unit, its accidental and ledgers, measured at up to 3.44 ss — falls inside the gutter, on top of the clef. The page window therefore opens this many staff spaces EARLY, so the first note's ink starts clear of the gutter. Stated in ss because ss-per-pixel and pixels-per-second both scale with the zoom, so one number holds in the video frame, the ×2 zoom and any export. 0 = the old behaviour.",
+  "edgeReserveMarginSs": 1.2,
+  "_doc_edgeReserve": "PLAN 2b.7.2/2b.7.3, D59 (2026-09-17): a PRINTED page owns [cut, next cut), so a page window must be WIDER than what it owns — an owned strike inks backwards along its GC arc (pre = 0.36 s at the default preset) and forwards through the rebound (post = 0.24 s). export_print derives leftReserve = max(musicStartBufferSs, GC.pre + this margin) and rightReserve = GC.post + this margin, then plans pages at pageSeconds MINUS both, so every owned strike is whole on its own page and nothing lands in the clef gutter. Stated in staff spaces for the same reason musicStartBufferSs is: one number holds at any zoom. This margin covers what the arc itself does not — the impact dot, the stroke widths, the marks beside the head. Raise it only if tools/check_print_edges.js reports an event that is not whole.",
+  "reshowAtCut": [
+    "tempoLabelContinuation"
+  ],
+  "_doc_alwaysShown": "the clef pins to the view's left edge and part labels always draw — render behavior, not rules; only tempoLabelContinuation is rule-gated here",
+  "continuationPrefix": "(cont.) "
+}

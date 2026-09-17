@@ -1,0 +1,221 @@
+// stamps.js — typed boxes with anchors (Phase B3; architecture §4).
+// "Anchors compose; positions don't" (piece #2 P3): a stamp is a BOX —
+// {kind, wSs, hSs, anchors, prims} — in box-local staff-space coordinates
+// (top-left origin, y down). Layout places boxes by aligning anchors; the
+// SVG path is a leaf nothing ever reads. All prims are FILLS (no strokes),
+// so one uniform scale by ssPx renders everything.
+//
+// Pure, dual-load. Glyph data comes from notation/lib/glyphs.json (ported,
+// provenance-carrying); the caller supplies it — no filesystem access here.
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.NotationStamps = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+
+  const box = (kind, wSs, hSs, anchors, prims) => ({ kind, wSs, hSs, anchors, prims });
+  const pathPrim = d => ({ type: 'path', d });
+  const rectPrim = (x, y, w, h) => ({ type: 'rect', x, y, w, h });
+  const circlePrim = (cx, cy, r) => ({ type: 'circle', cx, cy, r });
+  const polyPrim = pts => ({ type: 'poly', pts });
+
+  function makeStamps(G) {
+    const S = G.standards;
+
+    function notehead() {
+      const g = G.notehead.filled;
+      return box('notehead', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+
+    // day 22 (nh-unit): the OPEN head (piece #2 halfNote), used stemless
+    function noteheadOpen() {
+      const g = G.notehead.open;
+      return box('noteheadOpen', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+
+    // engraved dynamic mark ('ppp'..'fff', 'sfz', 'sff')
+    function dynamic(kind) {
+      const g = G.dynamic && G.dynamic[kind];
+      if (!g) throw new Error('stamps: no dynamic "' + kind + '"');
+      return box('dyn-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
+    // ottava label: baked project-font outline ('va8' | 'vb8')
+    function ottavaText(kind) {
+      const g = G.ottavaText[kind];
+      if (!g) throw new Error('stamps: no ottavaText "' + kind + '"');
+      return box('ottava-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
+    // A stem is a thin filled rect. dir 'up': rises from the notehead's
+    // stemAttachUp; 'down': descends from stemAttachDown. Anchors: root
+    // (where it meets the notehead) and tip (where a flag/beam attaches).
+    function stem(lengthSs, dir) {
+      const t = S.stem.thickness;
+      const L = Math.max(lengthSs, S.stem.minLength);
+      const anchors = dir === 'up'
+        ? { root: { x: t / 2, y: L }, tip: { x: t / 2, y: 0 } }
+        : { root: { x: t / 2, y: 0 }, tip: { x: t / 2, y: L } };
+      return box('stem', t, L, anchors, [rectPrim(0, 0, t, L)]);
+    }
+
+    // day 23: 8th AND 16th flags (composer: "sixteenth flag, double flag on
+    // the staccato... replace those single flags with double flags").
+    function flagN(dur, dir) {
+      const key = (dir === 'up' ? 'up' : 'down') + dur;
+      const g = G.flag[key];
+      if (!g) throw new Error('stamps: no flag "' + key + '"');
+      return box('flag' + dur + dir, g.wSs, g.hSs, { stemTip: g.anchors.stemTip }, [pathPrim(g.path)]);
+    }
+    function flag8(dir) { return flagN(8, dir); }
+
+    // day 23: rests. The glyph carries LP's own vertical placement
+    // (topSs/botSs about the staff middle line), so the caller positions by
+    // 'restTop' — the bbox top — and LP's convention travels with the glyph.
+    function rest(dur) {
+      const g = G.rest && G.rest['rest' + dur];
+      if (!g) throw new Error('stamps: no rest "' + dur + '"');
+      return box('rest' + dur, g.wSs, g.hSs, { topLeft: { x: 0, y: 0 }, center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
+    // day 23: articulations (accent, marcato — captured day 22 for the
+    // column standard's articulation slot)
+    function articulation(kind) {
+      const g = G.articulation && G.articulation[kind];
+      if (!g) throw new Error('stamps: no articulation "' + kind + '"');
+      return box('artic-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
+    // [2h.5, §491] piece #2's baked instruction texts ('pizz.') and its
+    // sustain-pedal mark ('Ped') — glyphs.text / glyphs.pedal, centred
+    // like a dynamic
+    function text(kind) {
+      const g = G.text && G.text[kind];
+      if (!g) throw new Error('stamps: no text glyph "' + kind + '"');
+      return box('text-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+    function pedal(kind) {
+      const g = G.pedal && G.pedal[kind];
+      if (!g) throw new Error('stamps: no pedal glyph "' + kind + '"');
+      return box('pedal-' + kind, g.wSs, g.hSs, { center: { x: g.wSs / 2, y: g.hSs / 2 } }, [pathPrim(g.path)]);
+    }
+
+    function clefBass() {
+      const g = G.clef.bass;
+      return box('clefBass', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+
+    // [2a.2, 2026-09-11] any clef the registry holds — 'bass' (fLine),
+    // 'treble' (gLine), 'alto' (cLine); the anchor is the line it names
+    function clef(kind) {
+      const g = G.clef && G.clef[kind];
+      if (!g) throw new Error('stamps: no clef "' + kind + '"');
+      return box('clef-' + kind, g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+
+    // [2a.1] the system-start furniture (LilyPond's own glyphs): a bracket
+    // tip ('up' | 'down', anchored at the end of the bracket's line) and a
+    // brace glyph at its native size (render scales it to the span)
+    function bracketTip(dir) {
+      const g = G.bracketTip && G.bracketTip[dir];
+      if (!g) throw new Error('stamps: no bracket tip "' + dir + '"');
+      return box('bracketTip-' + dir, g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+    function brace(key) {
+      const g = G.brace && G.brace[key];
+      if (!g || !g.path) throw new Error('stamps: no brace "' + key + '"');
+      return box('brace', g.wSs, g.hSs, { topLeft: { x: 0, y: 0 } }, [pathPrim(g.path)]);
+    }
+
+    function accidental(kind) {
+      const g = G.accidental[kind];
+      if (!g) throw new Error('stamps: no accidental "' + kind + '"');
+      const anchors = Object.assign({ center: { x: g.wSs / 2, y: g.hSs / 2 } }, g.anchors || {});
+      return box('accidental-' + kind, g.wSs, g.hSs, anchors, [pathPrim(g.path)]);
+    }
+
+    function staccatoDot() {
+      const d = S.staccatoDot.diameter;
+      return box('staccatoDot', d, d, { center: { x: d / 2, y: d / 2 } }, [circlePrim(d / 2, d / 2, d / 2)]);
+    }
+
+    // 5-line staff segment of a given width; anchors give each line's y so
+    // layout can align pitches; middle line = line index 2 (0 = top).
+    function staffLines(widthSs) {
+      const t = S.staff.lineThickness, n = S.staff.lineCount, gap = S.staff.interLineSpace;
+      const hSs = (n - 1) * gap + t;
+      const prims = [], anchors = {};
+      for (let i = 0; i < n; i++) {
+        const yCenter = i * gap + t / 2;
+        prims.push(rectPrim(0, yCenter - t / 2, widthSs, t));
+        anchors['line' + i] = { x: 0, y: yCenter };
+      }
+      anchors.middle = anchors.line2;
+      return box('staff', widthSs, hSs, anchors, prims);
+    }
+
+    function ledgerLine(noteheadWSs) {
+      const t = S.ledgerLine.thickness;
+      const w = noteheadWSs * (1 + 2 * S.ledgerLine.lengthFraction);
+      return box('ledger', w, t, { center: { x: w / 2, y: t / 2 } }, [rectPrim(0, 0, w, t)]);
+    }
+
+    // Beam segment between two stem tips, box-local: a parallelogram with
+    // VERTICAL thickness (piece #2 standard 0.40 ss). Endpoints are the two
+    // stem-tip anchor points, expressed relative to the box's own top-left.
+    function beamSeg(x0, y0, x1, y1) {
+      const t = S.beam.thickness;
+      const minX = Math.min(x0, x1), minY = Math.min(y0, y1);
+      const a = { x: x0 - minX, y: y0 - minY }, b = { x: x1 - minX, y: y1 - minY };
+      const w = Math.abs(x1 - x0), h = Math.abs(y1 - y0) + t;
+      return box('beam', w, h, { start: a, end: b }, [
+        polyPrim([[a.x, a.y], [b.x, b.y], [b.x, b.y + t], [a.x, a.y + t]]),
+      ]);
+    }
+
+    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, rest, articulation, text, pedal, clefBass, clef, bracketTip, brace, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+  }
+
+  // Render one placed box to an SVG fragment. Placement: the box's LOCAL
+  // anchor `align` lands at (xPx, yPx); everything scales by ssPx.
+  // day 23: a box at a uniform scale k — piece #2's 'cellMotive.scaleFactor'
+  // mechanism ("applied at render time as an SVG scale wrapper on the
+  // existing notehead-filled path — no new glyph bake"). Metrics and
+  // anchors scale with it so layout and render agree.
+  // k = x scale, ky = y scale (defaults to k). An anisotropic ky (day 23,
+  // the compressed flag) keeps x geometry — stem attach, width — intact.
+  function scaled(b, k, ky) {
+    k = k || 1; ky = ky == null ? k : ky;
+    if (k === 1 && ky === 1) return b;
+    const anchors = {};
+    for (const n of Object.keys(b.anchors || {})) anchors[n] = { x: b.anchors[n].x * k, y: b.anchors[n].y * ky };
+    const prims = b.prims.map(p => {
+      if (p.type === 'path') return { type: 'path', d: p.d, k: (p.k || 1) * k, ky: (p.ky || p.k || 1) * ky };
+      if (p.type === 'rect') return { type: 'rect', x: p.x * k, y: p.y * ky, w: p.w * k, h: p.h * ky };
+      if (p.type === 'circle') return { type: 'circle', cx: p.cx * k, cy: p.cy * ky, r: p.r * k };
+      if (p.type === 'poly') return { type: 'poly', pts: p.pts.map(q => [q[0] * k, q[1] * ky]) };
+      return p;
+    });
+    return { kind: b.kind, wSs: b.wSs * k, hSs: b.hSs * ky, anchors, prims };
+  }
+
+  function toSvg(b, place) {
+    const { xPx, yPx, ssPx, align, fill } = place;
+    const a = align ? b.anchors[align] : { x: 0, y: 0 };
+    if (align && !a) throw new Error('stamps: box ' + b.kind + ' has no anchor "' + align + '"');
+    const tx = xPx - a.x * ssPx, ty = yPx - a.y * ssPx;
+    const parts = [];
+    for (const p of b.prims) {
+      if (p.type === 'path') {
+        const kx = p.k || 1, ky = p.ky == null ? kx : p.ky;
+        parts.push('<path' + (kx !== 1 || ky !== 1 ? ' transform="scale(' + kx.toFixed(4) + ' ' + ky.toFixed(4) + ')"' : '') + ' d="' + p.d + '"/>');
+      }
+      else if (p.type === 'rect') parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '"/>');
+      else if (p.type === 'circle') parts.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + p.r + '"/>');
+      else if (p.type === 'poly') parts.push('<polygon points="' + p.pts.map(q => q.join(',')).join(' ') + '"/>');
+    }
+    return '<g transform="translate(' + tx.toFixed(3) + ' ' + ty.toFixed(3) + ') scale(' + ssPx.toFixed(5) + ')"' +
+      (fill ? ' fill="' + fill + '"' : '') + '>' + parts.join('') + '</g>';
+  }
+
+  return { makeStamps, toSvg, scaled };
+});

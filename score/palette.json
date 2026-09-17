@@ -1,0 +1,4 @@
+{
+  "_note": "The PALETTE — a curated menu of material scores (piece #4's device, composer 2026-08-14). Entries are REFERENCES to scores/<file>.json, never copies: edit a file and both the main Load menu and the palette serve the new version. 'name' is the palette label, 'file' is the underlying save file (always shown so provenance is never lost). Entries carry a 'group': 'palette' (curated) or 'working' (the section's in-progress set). EMPTY for the septet (2026-09-03, PLAN 0b) — the tuba entries stayed in for_seven_tubas/score/palette.json.",
+  "entries": []
+}

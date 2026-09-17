@@ -1,0 +1,1725 @@
+#!/usr/bin/env node
+// notate_section.js — V3: THE TRIAL-INSERTION LOOP, one command.
+// Score name + window + profile -> extracted IR + validation + picker
+// entry. The composer-score insert loop, ported to notation trials: after
+// this, the section is one dropdown pick away in the container windows.
+// Unhandled material renders as parachute bricks BY DESIGN — mixed
+// fidelity always ships.
+//
+//   node tools/notate_section.js --score piece-s25-finished01 --w0 0 --w1 40
+//        [--parts 0-9] [--profile trance|section1] [--id slug] [--label text]
+//        [--exp]
+//
+// NOTATION-WORKFLOW additions (day 22 — the version-file system, option A1):
+//   --from <id> --id <new>   fork an existing IR into a new version file
+//                            (experiment saves: db1-T3-x01, x02, ...);
+//                            content copied verbatim, re-validated, own
+//                            picker entry. Edit the fork's file directly —
+//                            the app hot-reloads it within ~1 s.
+//   --exp                    group the entry under "experiments" in the picker
+//   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
+//   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
+//   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
+//   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
+//                            overlays). THE MODIFIERS BELOW ARE POSITIONAL: each applies
+//                            to the --cluster that precedes it (day 24, two clusters in
+//                            one file). Was: mark a span as one beamed cluster (authored
+//                            overlays). @part (0-based lane) confines it to ONE part —
+//                            required in an all-parts file, where a bare span would sweep
+//                            every lane's notes in that window into one beam group.
+//   --accents 4,7,8          cluster members (1-based) carrying an accent
+//   --dyn 1,9,12:fff         cluster members carrying a dynamic (bare = its band; n:mark = explicit)
+//   --beamBreak 9            member(s) that start a NEW beam group inside the same cluster/tempo
+//   --tuplet 10-11@3:2       members 10-11 form a 3:2 tuplet; spare slots become rests in the bracket
+//   --beam t0-t1@part        beam the notes in a span WITHOUT making them a cluster:
+//                            each keeps its own technique device (head, ring bar,
+//                            dynamic) and only gains a stem to a shared beam. No
+//                            tempo fit, no grid, no rests. Repeatable.
+//   --noGc wc-98[,wc-…]      drop the GC from named objects (per-note device override)
+//   --pairBeam wc-1769,wc-1770  [septet §495] the named notes are ONE beamed pair: stems up to one
+//                            8th beam above the part's top staff, across the grand staff (layout
+//                            pairOf; the look = registry devices.byPairBeam). Repeatable, one pair each.
+//   --bare t0-t1[@part]      CLEAR THE NOTATION, KEEP THE BRICKS: every drawn element off
+//                            for the span (go line, GC + ball, notehead unit, dot, ring bar,
+//                            dynamic). @part optional — bare sweeps every lane by default.
+//                            Repeatable. Errors rather than blank a note that carries a figure.
+//   --pattern                take the grid from the PATTERN analyser (D63: pattern before
+//                            grid — notation/lib/pattern_fit.js) instead of cluster_fit.
+//                            Tuplets it chose become bracket groups; no --tuplet needed.
+//   --paceRatio 1.4          with --figures: how far apart two gaps must be to be
+//                            different PACES (default 1.25) — the dial that decides where
+//                            a cut may land. Large enough = one pace, no legal cut, the
+//                            whole gesture on one grid (the pre-8g reading).
+//   --cuts 2,5,7,10,14       with --figures: NAME THE SEAMS BY HAND (8h) — "cut after
+//                            note 2, after note 5, …", numbered from 1 within the main
+//                            members. The pace rule steps aside; each figure is still
+//                            fitted alone. Refused if a cut would leave a one-note figure.
+//   --figures                8i (day 28, D69 — THE BRACKET IS THE MESSAGE): the gesture is
+//                            cut into GROUPS at the pace changes (pattern_fit.segment, the
+//                            8h two-sided seam rule) and written on ONE GRID, with the beams
+//                            broken at the seams. Every pace change is then SAID on the page
+//                            as the tuplet relation the fit found — a bracket on the quick
+//                            group. Implies --pattern; cannot be combined with --beamBreak
+//                            (the seams ARE the breaks — move one with --cuts). A bracket
+//                            that crosses a seam is FLAGGED (a straddle), never fixed.
+//   --plain                  NO TUPLETS (day 29, composer on T2: "let's get rid of all the
+//                            brackets"): the pattern analyser fits the best PLAIN 16th grid
+//                            and the cost is printed — over a head is allowed and flagged,
+//                            never hidden. Implies --pattern; works with --figures too.
+//   --rest16 7               the silence BEFORE member 7 is written as 16th rests, one per
+//                            slot, instead of the longest rest that fits (day 29, composer:
+//                            "change that eighth rest to two sixteenths"). Repeatable list.
+//   --beamOver 1,2           beam group N's beams EXTEND rightwards over the first 16th rest
+//                            after its last note (day 29, composer: "extend the bar from the
+//                            first three partials rightwards over the first sixteenth rest").
+//   --beamOverLeft 3         beam group N's beams reach LEFTWARD over the 16th rest before
+//                            its first note (day 29, composer, on the lone seventh partial:
+//                            "a group of two — beams over [the] sixteenth rest and then the
+//                            partial").
+//   --ownGrids               with --figures: the 8g/8h reading instead — each figure on its
+//                            OWN grid (its own gridId, rests, values and brackets computed
+//                            inside it), no relation printed between them. The alternative,
+//                            by hand, where one grid cannot hold the gesture under a head.
+//   --noGoLine               drop the go line from this cluster (day 24 principle: THE GO LINE
+//                            MARKS DISPLACEMENT — a head already sitting on its go time does not
+//                            need one). Applied per cluster while the composer reviews each.
+//   --pickup N               the first N members are a PICK-UP: the tempo is fitted to the
+//                            REST of the cluster and the pick-up is placed on that grid
+//                            before position 0 (negative slots). The GC and go line move
+//                            to the first member AFTER the pick-up — the downbeat.
+//   --trueDurations          write 8ths/16ths by gap instead of all-16ths-plus-rests
+//   --bracketSide above|below  put this cluster's tuplet brackets on that side of
+//                            the staff, overriding the automatic room test (day 31,
+//                            composer dictating T6/T7: "move the 3:2 bracket up to
+//                            the top", "the accents… are just too far down").
+//   --articSide above|below  the same for the cluster's accents. Both are
+//                            ABSOLUTE (above/below the staff), which is how the
+//                            composer speaks — not beam-side/head-side, which flips
+//                            meaning with the stem direction.
+//   --beamThrough 2          beam group N keeps its secondary beam unbroken across rests
+//   --clusterTol <s>         metric tolerance for the cluster fit (default 0.030)
+//   --gridDiv N              [septet §458, THE BEAMED GROUP] the grid N times finer than the fit's:
+//                            a pair 0.277 s apart fits as two 8ths; --gridDiv 2 writes it 16th ·
+//                            16th rest · 16th (the septet's pair rule — a gap under 0.4 s)
+//   --restAfter N            [septet §458] N trailing rest slot(s) after the last member, DRAWN
+//                            (the pair's closing 16th rest; --beamOver then reaches over it)
+//   --prune <id>             remove an IR + its picker entry (git keeps history)
+//
+// Steps: extract (extract_core, same as ir_extract.js) -> validate
+// (ir_validate.js --against-source --complete, an INDEPENDENT process) ->
+// write notation/ir/<id>.ir.json -> update notation/ir/index.json (the
+// manifest the app's picker reads). Refresh the app; the section is there.
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+const ROOT = path.join(__dirname, '..');
+const Extract = require(path.join(ROOT, 'notation', 'lib', 'extract_core.js'));
+
+function arg(name, def) {
+  const i = process.argv.indexOf('--' + name);
+  return i >= 0 ? process.argv[i + 1] : def;
+}
+const flag = name => process.argv.includes('--' + name);
+const manifestPath = path.join(ROOT, 'notation', 'ir', 'index.json');
+const readManifest = () => fs.existsSync(manifestPath)
+  ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : { irs: [] };
+const writeManifest = m => fs.writeFileSync(manifestPath, JSON.stringify(m, null, 1));
+
+// ---- --prune: remove a version file + its picker entry ----
+const pruneId = arg('prune');
+if (pruneId) {
+  const file = path.join(ROOT, 'notation', 'ir', pruneId + '.ir.json');
+  const manifest = readManifest();
+  const had = manifest.irs.some(e => e.id === pruneId);
+  manifest.irs = manifest.irs.filter(e => e.id !== pruneId);
+  writeManifest(manifest);
+  const existed = fs.existsSync(file);
+  if (existed) fs.unlinkSync(file);
+  console.log('PRUNED ' + pruneId + ' — file ' + (existed ? 'removed' : 'absent') +
+    ', manifest entry ' + (had ? 'removed' : 'absent') + ' (git history keeps both)');
+  process.exit(0);
+}
+
+// ---- --from: fork an existing IR into a new version file ----
+const fromId = arg('from');
+if (fromId) {
+  const id = arg('id');
+  if (!id) { console.error('--from needs --id <new-version-id>'); process.exit(2); }
+  const srcFile = path.join(ROOT, 'notation', 'ir', fromId + '.ir.json');
+  const doc = JSON.parse(fs.readFileSync(srcFile, 'utf8'));
+  doc.id = id;
+  const outRel = 'notation/ir/' + id + '.ir.json';
+  fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
+  // --demo: schema/structure validation only — demo forks deliberately edit
+  // musical content (pitches for device exercises) and would rightly fail
+  // the against-source cross-check; they are visual test-benches, not piece
+  // data, and must say so in their label.
+  const vArgs = flag('demo') ? [] : ['--against-source', '--complete'];
+  try {
+    execFileSync(process.execPath, [path.join(ROOT, 'tools', 'ir_validate.js'), outRel, ...vArgs],
+      { cwd: ROOT, stdio: 'pipe' });
+  } catch (e) {
+    fs.unlinkSync(path.join(ROOT, outRel));
+    console.error('VALIDATION FAILED — fork removed:\n' + String(e.stdout || '') + String(e.stderr || ''));
+    process.exit(1);
+  }
+  const manifest = readManifest();
+  const src = manifest.irs.find(e => e.id === fromId) || {};
+  const label = arg('label', id + ' (from ' + fromId + ')');
+  manifest.irs = manifest.irs.filter(e => e.id !== id);
+  manifest.irs.push({
+    id, label, score: src.score || (doc.source && doc.source.score),
+    window: src.window || (doc.source && doc.source.window),
+    profile: src.profile, exp: flag('exp') || src.exp || undefined, from: fromId,
+  });
+  writeManifest(manifest);
+  console.log('FORKED ' + fromId + ' -> ' + id + ' · VALID · in the picker as "' + label + '"' +
+    (flag('exp') || src.exp ? ' [experiments]' : ''));
+  console.log('  edit ' + outRel + ' directly — the open notation page picks changes up within ~1 s');
+  process.exit(0);
+}
+
+// ---- normal extract mode ----
+const scoreName = arg('score');
+// --all (PLAN 2d.3, 2026-09-11): the WHOLE score — w0 0, w1 the end of its last sounding note (set once the score is read).
+// The notation app's R key re-runs an IR's own recorded build with --all, so material past the old window comes in.
+const ALL = flag('all');
+let w0 = parseFloat(arg('w0')), w1 = parseFloat(arg('w1'));
+if (!scoreName || (!ALL && (isNaN(w0) || isNaN(w1)))) {
+  console.error('usage: notate_section.js --score <name> (--w0 <s> --w1 <s> | --all) [--parts 0-9] [--profile trance|section1] [--id slug] [--label text] [--exp]\n' +
+    '       notate_section.js --from <id> --id <new> [--label text] [--exp]\n' +
+    '       notate_section.js --prune <id>');
+  process.exit(2);
+}
+const score = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', scoreName + '.json'), 'utf8'));
+if (ALL) {
+  const ends = (score.objects || []).filter(o => o.type === 'waveCurve' && o.sonifyNote != null && o.endSeconds != null).map(o => o.endSeconds);
+  w0 = 0; w1 = Math.ceil(ends.length ? Math.max(...ends) : 1);
+}
+// [2a, the septet — 2026-09-11] the score's own tracks decide the default
+// parts and the META layer: parts 0..tracks.length-1, META = tracks.length
+// (composer.html META_LAYER). A save without tracks (the tuba piece's) keeps
+// the old defaults, 0-9 and META on layer 10. The septet's layers 8-10 are
+// the curve windows, which the old default swept in as sounding objects
+// (RUNNING_LOG §13, run C).
+const TRACKS = Array.isArray(score.tracks) ? score.tracks : null;
+const partsArg = arg('parts', TRACKS ? '0-' + (TRACKS.length - 1) : '0-9');
+const parts = partsArg.includes('-') && !partsArg.includes(',')
+  ? (([a, b]) => Array.from({ length: b - a + 1 }, (_, i) => a + i))(partsArg.split('-').map(Number))
+  : partsArg.split(',').map(Number);
+const metaLayer = TRACKS ? TRACKS.length : 10;
+const profile = arg('profile', 'trance');
+const id = arg('id', ALL ? scoreName : (scoreName + '-' + w0 + '-' + w1).replace(/[^a-zA-Z0-9-]/g, '-'));
+// [§440] a rebuild without --label keeps the page's own picker label — the app's R re-runs a page's recorded build with
+// --label dropped, and the MAIN notation file must not come back as "whole score (bricks)"
+const existingEntry = readManifest().irs.find(e => e.id === id);
+const label = arg('label', existingEntry && existingEntry.label ? existingEntry.label : (ALL ? scoreName + ' · whole score' + (flag('bricks') ? ' (bricks)' : '') : id + ' (' + profile + ')'));
+const outRel = 'notation/ir/' + id + '.ir.json';
+
+const registry = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'classes.json'), 'utf8'));
+const sampleLengths = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'sample_lengths.json'), 'utf8'));
+// the piece's technique table (2a.5) — every recipe key's family + notation
+const TECH_PATH = path.join(ROOT, 'notation', 'registry', 'techniques.json');
+const techniques = fs.existsSync(TECH_PATH) ? JSON.parse(fs.readFileSync(TECH_PATH, 'utf8')).techniques : null;
+// the ensemble registry may not drift from the score: every part's id and
+// short name must be the score's own tracks[part]
+const ENS_PATH = path.join(ROOT, 'notation', 'registry', 'ensemble.json');
+const ENS = (TRACKS && fs.existsSync(ENS_PATH)) ? JSON.parse(fs.readFileSync(ENS_PATH, 'utf8')) : null;
+// a save with a DIFFERENT instrumentation (the staged tuba fixtures, ten
+// tracks) is not this ensemble's score — nothing to check it against, and
+// it extracts by the tuba rules exactly
+const ENS_APPLIES = !!(ENS && TRACKS.length === (ENS.parts || []).length);
+{
+  const ens = ENS;
+  if (ENS_APPLIES) {
+    for (const p of ens.parts || []) {
+      const tr = TRACKS[p.part];
+      if (!tr || tr.id !== p.id || tr.short !== p.short) {
+        console.error('ensemble drift: notation/registry/ensemble.json part ' + p.part + ' is ' + p.id + '/' + p.short +
+          ' but ' + scoreName + ' tracks[' + p.part + '] is ' + (tr ? tr.id + '/' + tr.short : 'missing') + ' — fix the registry');
+        process.exit(2);
+      }
+    }
+  }
+}
+// THE FIGURE STANDARDS (day 24): every --cluster / --beam overlay is built
+// from registry data, so the rules survive a cleared chat. Edit the registry,
+// not this file, to change how a figure is drawn.
+const FIG = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8')).engraving.layout.figures) || {};
+const FIG_CL = FIG.cluster || {}, FIG_BM = FIG.beam || {};
+
+// [2f.7] --trillRate N: samples per second on a trill's drawn level (the two-piano piece's 100/s); absent = the fixed 101
+const TRILL_RATE = arg('trillRate', null);
+if (TRILL_RATE != null && !(parseFloat(TRILL_RATE) > 0)) { console.error('--trillRate needs a positive number of samples per second (e.g. --trillRate 100)'); process.exit(2); }
+const { doc, warnings } = Extract.extract(score, {
+  // chords (2a.4): the ensemble's players may sound several notes at one onset
+  scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options: Object.assign(ENS_APPLIES ? { chords: true } : {}, flag('trills') ? { trills: true } : {}, TRILL_RATE != null ? { trillRate: parseFloat(TRILL_RATE) } : {}), metaLayer, techniques,
+  date: new Date().toISOString().slice(0, 10),
+  toolName: 'tools/notate_section.js (profile ' + profile + ')' + (flag('bricks') ? ' --bricks' : '') + (flag('trills') ? ' --trills' : '') + (TRILL_RATE != null ? ' --trillRate ' + parseFloat(TRILL_RATE) : ''),
+});
+// [§400] THE RANGE ALERT AT BUILD TIME: a technique whose registry `written`
+// entry carries a range (the flute's tongue ram: written = sounding + 11,
+// playable only at B3–C♯5) is checked here as well as in the layout, so the
+// build output names every note that cannot be played as written.
+if (techniques) {
+  const partOf = new Map();
+  for (const c of doc.chunks || []) for (const id of c.events || []) partOf.set(id, c.part);
+  const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  let n = 0;
+  for (const e of doc.events || []) {
+    const tw = techniques[e.technique] && techniques[e.technique].written;
+    if (!tw || !tw.range || !e.pitch) continue;
+    const pc = ENS_APPLIES ? (ENS.parts || []).find(p => p.part === partOf.get(e.id)) : null;
+    const wm = e.pitch.midi + ((pc && pc.transpose) || 0) + (tw.transpose || 0);
+    if (wm < tw.range[0] || wm > tw.range[1]) {
+      n++;
+      console.warn('range: ' + e.id + ' @ ' + e.onset.toFixed(3) + ' s ' + e.technique + ' sounding ' + NAMES[e.pitch.midi % 12] + (Math.floor(e.pitch.midi / 12) - 1) +
+        ' → written ' + NAMES[((wm % 12) + 12) % 12] + (Math.floor(wm / 12) - 1) + ' is outside ' + (tw.label || tw.range.join('–')));
+    }
+  }
+  if (n) console.warn('range: ' + n + ' note(s) cannot be played as written — the page marks each in red');
+}
+// --bracketsAbove (day 33, the composer's verdict "b"): every tuplet bracket
+// sits ABOVE its own staff, always — ownership on the page reads as "a
+// bracket belongs to the staff directly below it". Per-IR
+// (ir.layoutPolicy.bracketSide, read by layout.js) so approved files are
+// untouched; a dictated --bracketSide still wins per cluster.
+if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
+// --bricks (day 23, the composer's working loop — "bricks and the midi sound
+// all the way through"): every chunk stays UNRESOLVED, so the page shows the
+// parachute bricks everywhere and each note carries its technique's device;
+// no bars, no beams. The chunker's grouping is not lost — it is simply not
+// applied; a plain re-extract without --bricks brings it back. Working files
+// only (the canonical extraction keeps the chunker's strategies).
+// --cluster t0-t1 (day 23, the composer's working loop): mark a span as ONE
+// beamed cluster. The tool RUNS THE TEMPO FIT (the same exhaustive search as
+// tools/cluster_tempo.js), so the drawn rhythm follows the analysis rather
+// than a guess: unit, grid positions, how many beams, where the rests go.
+// Each member gets an engraving overlay carrying the cluster device; the
+// FIRST member additionally gets the GC and the go line — "the GC only on the
+// first one, though, so it launches the whole cluster" (composer).
+// Repeatable. Written at EXTRACTION so a re-extract keeps it.
+{
+  // POSITIONAL MODIFIERS (day 24, the moment a file held TWO clusters): every
+  // --cluster collects the --clusterTol / --accents / --dyn / --beamBreak /
+  // --beamThrough / --tuplet flags that FOLLOW it, up to the next --cluster.
+  // Before this they were global, and T2's cluster silently inherited T1's
+  // accents and a tuplet over members it did not have. A modifier before any
+  // --cluster is an error, not a default.
+  const BOOL_MODS = new Set(['--noGoLine', '--pattern', '--figures', '--ownGrids', '--plain']);
+  const MODS = new Set(['--clusterTol', '--accents', '--dyn', '--beamBreak', '--beamThrough', '--tuplet', '--pickup', '--noGoLine', '--pattern', '--figures', '--ownGrids', '--paceRatio', '--cuts', '--plain', '--rest16', '--restFit', '--beamlets', '--beamOver', '--beamOverLeft', '--bracketSide', '--articSide', '--gridDiv', '--restAfter']);
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    const a = process.argv[i];
+    if (a === '--cluster') {
+      const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+      if (!m) { console.error('--cluster needs t0-t1 or t0-t1@part (e.g. --cluster 31.49-33.59@0)'); process.exit(2); }
+      spans.push({ sp: [parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)], mods: [] });
+      i++; continue;
+    }
+    if (MODS.has(a)) {
+      if (!spans.length) { console.error(a + ' must follow the --cluster it modifies'); process.exit(2); }
+      // BOOLEAN modifiers carry no value — consuming the next argv as their
+      // 'value' would swallow the flag after them (e.g. --noGoLine --dyn 1:mf
+      // would eat --dyn and silently drop the dynamic).
+      if (BOOL_MODS.has(a)) { spans[spans.length - 1].mods.push([a, '']); continue; }
+      spans[spans.length - 1].mods.push([a, String(process.argv[i + 1] || '')]);
+      i++;
+    }
+  }
+  // ONE implementation of the fit, shared with tools/cluster_tempo.js
+  const ClusterFit = require(path.join(ROOT, 'notation', 'lib', 'cluster_fit.js'));
+  // Techniques that RING. A cluster member of one of these keeps its own
+  // technique device and takes the primary beam only. Read from
+  // figures.beam.ringTechniques, which stays the one place the list lives.
+  const RING_TECH = new Set((FIG.beam || {}).ringTechniques || ['fortepiano', 'cuivre', 'ord']);
+  // event -> part, off the chunks (the only place the extraction records it).
+  // Without this a span in an all-parts file claims all ten lanes at once.
+  const partOfEvent = new Map();
+  for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+  // [PLAN 2i.5–2i.6] --groups t0-t1 — THE BEAMED-GROUP RULE AS ONE FLAG (NOTATION_STANDARDS §2: D43 · CN-78 · D51; RUNNING_LOG §522).
+  // Every run of STRIKES in one part whose successive onsets are under 0.4 s apart, starting inside the span, is written as groups:
+  //   a run of 2 or 3 → one group, the pair's writing (16th · rest per note, the beam carried over the last rest — §456, D51's triple);
+  //   a longer run → FOURS cut from its END over the stretch whose every gap is under 0.25 s (straight 16ths, the four rule — "the
+  //   fours at the end"), then PAIRS from its start over the rest; an odd pair stretch closes with a TRIPLE (D51); one note stays single.
+  // Every head keeps its accent. No dynamic is written on a group: section 3's marks are the page rule's (D52, PLAN 2i.7).
+  // The groups become ordinary --cluster spans after the explicit ones; one overlapping an explicit --cluster of its part is an error.
+  {
+    const gi = process.argv.indexOf('--groups');
+    if (gi < 0 && process.argv.includes('--groupCuts')) { console.error('--groupCuts refines --groups — add --groups t0-t1'); process.exit(2); }
+    if (gi >= 0) {
+      const gm = String(process.argv[gi + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
+      if (!gm) { console.error('--groups needs t0-t1 (e.g. --groups 444-624.1)'); process.exit(2); }
+      const G0 = parseFloat(gm[1]), G1 = parseFloat(gm[2]), PAIR = 0.4, FOUR = 0.25, EPS = 0.005;
+      // [PLAN 2j.4, RUNNING_LOG §545, D56 — the composer 2026-09-16] --threes 2+1: a stretch of THREE is a PAIR and a SINGLE (the third
+      // note its own GC), not D51's triple — his verdict on every three in the piece (Vc 488 · Vn1 620 · Va 622 · Va 623; the piano's
+      // cut away by time). The count of 2 · 3 · 4 or 3 · 3 in a row reads as compound meter (CN-87). Default '3' = D51's triple.
+      const THREES = (() => { const i = process.argv.indexOf('--threes'); return i >= 0 ? String(process.argv[i + 1]) : '3'; })();
+      if (THREES !== '3' && THREES !== '2+1') { console.error('--threes takes 3 (the triple, D51) or 2+1 (a pair and a single)'); process.exit(2); }
+      // [2i E1] --groupCuts P@t1,t2 (repeatable) — one part's stretches set BY TIME instead of by the gaps (the composer 2026-09-14,
+      // the piano: "let's start the eighth note beaming, the two to a beam at 587.32. And let's start the four grouping at 611.72";
+      // RUNNING_LOG §526 his "a" = singles before t1). In that part's runs: every note before t1 stays single · t1 to t2 = pairs from
+      // the start, an odd stretch closing with a triple (D51) · from t2 = fours from the start. The other parts keep the gap rule.
+      const cutsOf = new Map();
+      process.argv.forEach((a, i) => {
+        if (a !== '--groupCuts') return;
+        const cm = String(process.argv[i + 1] || '').match(/^(\d+)@([\d.]+),([\d.]+)$/);
+        if (!cm || !(parseFloat(cm[2]) < parseFloat(cm[3]))) { console.error('--groupCuts needs P@t1,t2 with t1 < t2 (e.g. --groupCuts 2@587.32,611.72)'); process.exit(2); }
+        cutsOf.set(+cm[1], [parseFloat(cm[2]), parseFloat(cm[3])]);
+      });
+      const explicit = spans.slice();
+      const seq = k => Array.from({ length: k }, (_, i) => i + 1).join(',');
+      const byPart = new Map();
+      for (const e of doc.events) {
+        if (e.env !== 'strike') continue;
+        const p = partOfEvent.get(e.id);
+        if (!byPart.has(p)) byPart.set(p, []);
+        byPart.get(p).push(e);
+      }
+      const said = [];
+      for (const [p, list] of [...byPart].sort((a, b) => a[0] - b[0])) {
+        list.sort((a, b) => a.onset - b.onset);
+        const runs = [];
+        let cur = [list[0]];
+        for (let i = 1; i < list.length; i++) {
+          if (list[i].onset - list[i - 1].onset < PAIR) cur.push(list[i]);
+          else { runs.push(cur); cur = [list[i]]; }
+        }
+        runs.push(cur);
+        const count = { 2: 0, 3: 0, 4: 0 };
+        for (const run of runs) {
+          const n = run.length;
+          if (n < 2 || run[0].onset < G0 - 1e-9 || run[0].onset > G1 + 1e-9) continue;
+          const groups = [];
+          // [2j.9 — the composer 2026-09-16] the pair that CLOSES a three (2 + 1) is written 16th · 16th rest · 16th with the beam ending flush
+          // on the last note's stem — no trailing rest, no run-on beam; every other pair keeps D61's writing (the rest after, the beam over it)
+          const pairsOver = (a, b) => { for (let i = a; b - i >= 2;) { const three = b - i === 3; const take = three && THREES !== '2+1' ? 3 : 2; groups.push({ g: run.slice(i, i + take), four: false, closesThree: three && THREES === '2+1' }); i += take; } };
+          const cuts = cutsOf.get(p);
+          if (cuts) {
+            const at = t => { const i = run.findIndex(e => e.onset >= t - EPS); return i < 0 ? n : i; };
+            const i1 = at(cuts[0]), i2 = Math.max(i1, at(cuts[1]));
+            pairsOver(i1, i2);
+            const left = (n - i2) % 4;
+            for (let j = i2; j + 4 <= n; j += 4) groups.push({ g: run.slice(j, j + 4), four: true });
+            if (left) { console.warn('  --groupCuts ' + p + ': ' + left + ' note(s) after the last four at ' + run[n - left].onset.toFixed(2) + (left === 1 ? ' — a single, its own GC (his "2s then 4s then last one single", §545)' : ' — written by the pair rule')); pairsOver(n - left, n); }
+            const wide = run.slice(i2).findIndex((e, j) => j > 0 && e.onset - run[i2 + j - 1].onset >= FOUR);
+            if (wide >= 0) console.warn('  --groupCuts ' + p + ': a gap of ' + FOUR + ' s or more inside the fours at ' + run[i2 + wide].onset.toFixed(2));
+            said.push('part ' + p + ' cut by time: ' + i1 + ' single(s) before ' + cuts[0] + ' · pairs ' + cuts[0] + '–' + cuts[1] + ' · fours from ' + cuts[1]);
+          } else {
+            let k = n - 1;                                   // the under-0.25 stretch is run[k .. n-1]
+            while (k > 0 && run[k].onset - run[k - 1].onset < FOUR) k--;
+            const fours = n > 3 ? Math.floor((n - k) / 4) : 0;
+            const headEnd = n - 4 * fours;
+            pairsOver(0, headEnd);
+            for (let j = headEnd; j < n; j += 4) groups.push({ g: run.slice(j, j + 4), four: true });
+          }
+          for (const { g, four, closesThree } of groups) {
+            const sp = [+(g[0].onset - EPS).toFixed(3), +(g[g.length - 1].onset + EPS).toFixed(3), p];
+            const clash = explicit.find(x => (x.sp[2] === null || x.sp[2] === p) && x.sp[0] <= sp[1] && sp[0] <= x.sp[1]);
+            if (clash) { console.error('--groups: the group ' + sp[0] + '-' + sp[1] + '@' + p + ' overlaps the explicit --cluster ' + clash.sp[0] + '-' + clash.sp[1] + ' — drop one'); process.exit(2); }
+            spans.push({ sp, mods: four ? [['--accents', '1,2,3,4']]
+              : closesThree ? [['--gridDiv', '2'], ['--accents', '1,2']]                                                    // [2j.9] no --restAfter, no --beamOver
+              : [['--gridDiv', '2'], ['--restAfter', '1'], ['--beamOver', '1'], ['--accents', seq(g.length)]] });
+            count[g.length]++;
+          }
+        }
+        if (count[2] + count[3] + count[4]) said.push('part ' + p + ': ' + count[2] + ' pairs · ' + count[3] + ' triples · ' + count[4] + ' fours');
+      }
+      console.log('  --groups ' + G0 + '-' + G1 + (THREES === '2+1' ? ' (threes as 2+1)' : '') + ': ' + (said.join(' | ') || 'no runs under ' + PAIR + ' s'));
+    }
+  }
+  // THE DAY-35 CLUSTER-WRITING DEFAULTS (global, db2 onward — the composer, on
+  // db2: "when sixteenth notes are all beamed together like this, go ahead and
+  // use full double beams... get rid of the beamlets", and "I'd rather have
+  // rests all sixteenths, and then I can correct and say no, that should be an
+  // eighth rest"). Both are FLAGS, not silent defaults, because an approved
+  // page rebuilt from its own provenance must reproduce itself — db1 predates
+  // this and keeps the beamlet-era writing its command describes.
+  //   --beamsThrough : every beam group's secondary beam runs unbroken across
+  //                    its rests (day-29 --beamThrough N, made the rule).
+  //                    Exception: --beamlets N (positional) — group N breaks
+  //                    its second level at rests again, beamlets and all.
+  //   --rests16      : every silence written as 16th rests, one per slot
+  //                    (day-29 --rest16 N, made the rule). Exception:
+  //                    --restFit N (positional) — the silence BEFORE member N
+  //                    goes back to the longest value that fits.
+  // Both flags optionally take a TIME SCOPE — `--beamsThrough 55.9-` (open end)
+  // or `--beamsThrough 55.9-81` — applying the rule only to clusters whose span
+  // STARTS inside it. This is how one accumulating page carries two eras: db1's
+  // approved beamlet-era clusters (before 55.9) keep their dictated writing,
+  // everything from the day-35 rule onward gets the defaults. Bare flag = all.
+  const scopedFlag = name => {
+    const i = process.argv.indexOf('--' + name);
+    if (i < 0) return null;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]*)$/);
+    if (!m) return { t0: -Infinity, t1: Infinity };
+    return { t0: parseFloat(m[1]), t1: m[2] === '' ? Infinity : parseFloat(m[2]) };
+  };
+  const allThrough = scopedFlag('beamsThrough');
+  const allRests16 = scopedFlag('rests16');
+  const max16 = process.argv.includes('--max16');   // [§528] no written value shorter than a 16th (see the fit, below)
+  const scopeWord = s => !s ? '' : (s.t0 === -Infinity ? 'every beam group' : 'clusters starting in ' + s.t0 + '-' + (s.t1 === Infinity ? '' : s.t1) + ' s');
+  if (allThrough) console.log('  --beamsThrough: second beams run through rests on ' + scopeWord(allThrough));
+  if (allRests16) console.log('  --rests16: every silence as 16th rests, one per slot, on ' + scopeWord(allRests16));
+  spans.forEach(({ sp, mods }, n) => {
+    const key = 'cl-' + (n + 1);
+    const modVals = name => mods.filter(([k]) => k === '--' + name).map(([, v]) => v);
+    const TOL = parseFloat(modVals('clusterTol')[0] || '0.030');
+    const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+    // day-35 defaults apply to this cluster only if its span starts in scope
+    const inScope = s => !!s && sp[0] >= s.t0 - 1e-9 && sp[0] <= s.t1 + 1e-9;
+    const thruHere = inScope(allThrough), restsHere = inScope(allRests16);
+    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+      (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
+    if (!members.length) { console.error('--cluster ' + label + ': no events in the span'); process.exit(2); }
+    if (sp[2] === null && parts.length > 1) {
+      console.error('--cluster ' + label + ': this IR carries ' + parts.length + ' parts — a bare span would beam ' +
+        members.length + ' notes across lanes ' + [...new Set(members.map(e => partOfEvent.get(e.id)))].join(',') +
+        ' into one group. Name the part: --cluster ' + sp[0] + '-' + sp[1] + '@<part>');
+      process.exit(2);
+    }
+    // --pickup N (day 24, composer: "1 should be a pick-up. The GC then is
+    // actually on number two"): the tempo belongs to the MAIN figure, and the
+    // pick-up hangs off the front of it. So the fit runs on the members AFTER
+    // the pick-up — otherwise a loose anticipation drags the whole grid to fit
+    // itself — and the pick-up is then measured onto that grid at negative
+    // positions. Its own error is reported separately and never constrains the
+    // fit, which is the whole point: a pick-up is played TO the downbeat, not
+    // metronomically before it.
+    const noGoLine = mods.some(([k]) => k === '--noGoLine');
+    const pickup = Math.max(0, parseInt(modVals('pickup')[0] || '0', 10));
+    if (pickup >= members.length) { console.error('--pickup ' + pickup + ': cluster ' + label + ' has only ' + members.length + ' members'); process.exit(2); }
+    // A pickup into a SINGLE downbeat has no rhythm of its own to fit (one
+    // onset is not a grid), so the fit falls back to ALL the members — which
+    // for two notes is exact by construction, the unit being the gap. The
+    // pickup designation still does its real job: moving the GC to the
+    // downbeat. Day 24, rebuilding the T2/T4 pairs as clusters.
+    // THE GRID MUST BE ABLE TO HOLD THE PICK-UP (day 24, T6). Fitting only
+    // the main members keeps a loose anticipation from dragging the grid — but
+    // when the main figure is short the fit is barely constrained and picks a
+    // COARSE unit the pick-up cannot sit on. T6: two main notes 503 ms apart
+    // fitted a 500 ms unit, and the pick-up 203 ms earlier rounded onto the
+    // downbeat's own slot, 203 ms out. So: fit the main members, then TEST the
+    // pick-up against that grid; if it collides or misses the tolerance, the
+    // exclusion has failed its purpose and everything is fitted together.
+    const fitAll = () => ClusterFit.fit(members.map(e => e.onset), { TOL });
+    let onePastPickup = members.length - pickup < 2;
+    let mainMembers = onePastPickup ? members : members.slice(pickup);
+    let fit = ClusterFit.fit(mainMembers.map(e => e.onset), { TOL });
+    if (fit && pickup && !onePastPickup) {
+      const anchor = mainMembers[0].onset;
+      let ok = true, prev = 0;
+      for (let i = pickup - 1; i >= 0; i--) {
+        const rel = (members[i].onset - anchor) / fit.unit, slot = Math.round(rel);
+        // COLLISION only (day 24, second pass). A pick-up that misses the
+        // tolerance is the normal case — it is played TO the downbeat, not
+        // metronomically before it — and the miss is reported, never acted on.
+        // The first version of this test also refitted on a tolerance miss,
+        // which silently turned T3's chosen 16th reading (pickup 55 ms off a
+        // 1 ms grid) into the 32nd reading the composer had rejected.
+        if (slot >= prev) { ok = false; break; }
+        prev = slot;
+      }
+      if (!ok) {
+        const whole = fitAll();
+        if (!whole) { console.error('--cluster ' + label + ': the main figure fits but the pick-up sits on no slot of that grid, and the whole figure does not fit either — proportional is the honest reading'); process.exit(2); }
+        console.log('    note: the main figure grid (unit ' + (fit.unit * 1000).toFixed(0) + ' ms) could not hold the pick-up — refitted ALL members together');
+        fit = whole; mainMembers = members; onePastPickup = true;
+      }
+    }
+    if (!fit) {
+      console.error('--cluster ' + label + ': NO metric fit within ' + (TOL * 1000) + ' ms — proportional is the honest reading here');
+      process.exit(2);
+    }
+    // --figures (8i, day 28 — D69, THE BRACKET IS THE MESSAGE): THE GESTURE IS
+    // CUT INTO GROUPS WHERE THE PACE CHANGES, AND WRITTEN ON ONE GRID.
+    //
+    // 8g/8h settled the CUT; 8i settled the WRITING. The composer, shown the
+    // same notes both ways: *"there should be some communication to the
+    // performer if there is a speed change... the first two sixteenth notes
+    // look much further apart than the next three. And so the seven-four
+    // bracket is appropriate."* Each group on its own grid writes everything as
+    // plain 16ths and prints no tempo, so the page says "same" with its VALUES
+    // while its SPACING says "different". ONE grid says the relation out loud,
+    // as the bracket the fit already found.
+    //
+    // So the seams from pattern_fit.segment() become BEAM BREAKS on the single
+    // grid (break member = base + cut + 1), and the grid and its tuplets come
+    // from the EXISTING --pattern path. No new drawing code — which is what
+    // lets the build be proved identical to the page the composer approved by
+    // hand (t1-hybrid2 = --pattern --beamBreak 3,6,8,11,15).
+    //
+    // The gesture keeps ONE launch: the GC and the go line stay on its first
+    // note (figures.cluster.gc = 'first'), and every head sits with its LEFT
+    // EDGE on its own go time. A seam adds no ink of its own — it is a beam
+    // that stops and another that starts.
+    //
+    // --ownGrids keeps the 8g/8h reading as the ALTERNATIVE: each figure its own
+    // grid domain (device.gridId), its rests, values and brackets computed
+    // inside it and never across a seam. By hand, where one grid cannot hold the
+    // gesture under a head.
+    //
+    // --beamBreak is no longer the other case for a gesture like this:
+    // --figures synthesises the breaks itself, and a seam is moved with --cuts.
+    // Asking for both is a contradiction, so it is an error rather than a
+    // precedence rule nobody would remember.
+    const useFigures = mods.some(([k]) => k === '--figures');
+    const ownGrids = mods.some(([k]) => k === '--ownGrids');
+    // --plain (day 29): the composer, reading T2 — "let's get rid of all the
+    // brackets". The analyser's candidate space loses its tuplets (TUPLETS: [])
+    // and the best plain 16th grid wins; where no plain grid is within a head
+    // the cost is PRINTED and flagged, not hidden — the page says what it
+    // costs to say nothing about the pace. Implies --pattern.
+    const plainOnly = mods.some(([k]) => k === '--plain');
+    if (useFigures && mods.some(([k]) => k === '--pattern')) {
+      console.error('--cluster ' + label + ': --figures writes the groups on ONE grid from the pattern analyser — --pattern is implied, drop it'); process.exit(2);
+    }
+    if (useFigures && mods.some(([k]) => k === '--beamBreak')) {
+      console.error('--cluster ' + label + ': --figures breaks the beams at the seams itself; use --cuts to move a seam'); process.exit(2);
+    }
+    if (ownGrids && !useFigures) {
+      console.error('--cluster ' + label + ': --ownGrids is how --figures writes its groups — add --figures'); process.exit(2);
+    }
+    // --cuts (8h) names the seams BETWEEN groups, so it means nothing without
+    // them: silently ignoring it would let a hand reading be built as the
+    // tool's own and nobody would see the difference.
+    if (!useFigures && mods.some(([k]) => k === '--cuts')) {
+      console.error('--cluster ' + label + ': --cuts names the seams between FIGURES — add --figures'); process.exit(2);
+    }
+    let perMember = null, seg = null, bvg = null;
+    const figBreaks = new Set();   // 8i: the seams, as 1-based member numbers
+    if (useFigures) {
+      const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
+      // --paceRatio: how far apart two gaps must be to count as different paces
+      // (default 1.25). It is the one dial that changes WHERE cuts may go —
+      // raise it to group more loosely (at the limit, one pace band means no
+      // cut is legal anywhere and the gesture stays a single group on one
+      // grid, which is the pre-8g reading); lower it to group more tightly.
+      const paceRatio = parseFloat(modVals('paceRatio')[0] || '0');
+      const segOpt = {};
+      if (paceRatio > 1) segOpt.PACE_RATIO = paceRatio;
+      if (plainOnly) segOpt.TUPLETS = [];   // --plain: the groups' one grid with no brackets
+      // --cuts: the composer names the seams and the pace rule steps aside
+      // entirely (8h). Notes are numbered from 1 within the MAIN members, so a
+      // pick-up does not shift them.
+      const cutsRaw = (modVals('cuts')[0] || '').trim();
+      if (cutsRaw) {
+        const cl = cutsRaw.split(',').map(x => parseInt(x.trim(), 10));
+        if (cl.some(x => !Number.isInteger(x))) { console.error('--cluster ' + label + ' --cuts: whole note numbers, e.g. --cuts 2,5,7,10,14'); process.exit(2); }
+        const why = PF.cutsReason(mainMembers.length, cl, PF.SEG_DEFAULTS.MIN_FIGURE_NOTES);
+        if (why) { console.error('--cluster ' + label + ' --cuts ' + cutsRaw + ': ' + why); process.exit(2); }
+        segOpt.CUTS = cl;
+      }
+      seg = PF.segment(mainMembers.map(e => e.onset), Object.keys(segOpt).length ? segOpt : undefined);
+      if (paceRatio > 1) console.log('    paceRatio ' + paceRatio + ' (default ' + PF.SEG_DEFAULTS.PACE_RATIO + ')');
+      if (segOpt.CUTS) console.log('    cuts BY HAND after note ' + segOpt.CUTS.join(', ') + ' — the pace rule was not consulted');
+      if (!seg) { console.error('--cluster ' + label + ' --figures: the analyser found no reading'); process.exit(2); }
+      const base = (pickup && !onePastPickup) ? pickup : 0;   // index of mainMembers[0] within members
+      // THE SEAM IS THE BEAM BREAK (8i). Everything else about the one-grid
+      // build then comes from the --pattern path below, unchanged. Under
+      // --ownGrids the beam groups are the grid domains instead, so the breaks
+      // are not synthesised at all — they would say the same thing twice.
+      if (!ownGrids) for (const c of seg.cuts) figBreaks.add(base + c + 1);
+      bvg = PF.bracketsVsGroups(seg.single, seg.cuts);
+      if (ownGrids) {
+        perMember = new Array(members.length).fill(null);
+        seg.figures.forEach((fg, fi) => {
+          const gid = key + '-f' + (fi + 1), grp = key + String.fromCharCode(97 + fi), ff = fg.fit;
+          // a tuplet lives inside ONE beat of ONE figure; slots are explicit
+          // because a tuplet may have a rest between two of its notes
+          const tup = new Map();
+          for (const b of (ff.beats || [])) {
+            if (!b.tuplet) continue;
+            const p2 = b.tuplet >= 4 ? 4 : 2;
+            ff.grid.forEach((g, i) => {
+              const rel = g - b.beat * 4;
+              if (rel >= -1e-6 && rel < 4 - 1e-6) tup.set(i, {
+                group: gid + '-pb' + b.beat, num: b.tuplet, den: 4, startPos: b.beat * 4,
+                slot: Math.round(rel / (4 / b.tuplet)), text: b.tuplet + ':' + p2,
+                valueDur: 16 / (4 / p2), beams: Math.log2(p2),
+              });
+            });
+          }
+          for (let i = 0; i < fg.notes; i++)
+            perMember[base + (fg.from - 1) + i] = {
+              unit: ff.unit, pos: ff.grid[i], gridId: gid, group: grp, beams: 2, sub: 4,
+              tuplet: tup.get(i) || null, last: i === fg.notes - 1, figure: fi + 1,
+            };
+        });
+        // A PICK-UP HANGS OFF FIGURE 1, on figure 1's unit — the same rule as
+        // before (the tempo belongs to the main figure), narrowed to the figure
+        // the pick-up actually leads into.
+        if (pickup && !onePastPickup) {
+          const f1 = perMember[pickup], anchor = mainMembers[0].onset, pre = [];
+          for (let i = 0; i < pickup; i++) {
+            const rel = (members[i].onset - anchor) / f1.unit, slot = Math.round(rel);
+            pre.push({ slot: slot, errMs: Math.abs(rel - slot) * f1.unit * 1000 });
+          }
+          let ok = true, prev = 0;
+          for (let i = pickup - 1; i >= 0; i--) { if (pre[i].slot >= prev) { ok = false; break; } prev = pre[i].slot; }
+          if (!ok) { console.error('--cluster ' + label + ' --figures --ownGrids: the pick-up sits on no slot of figure 1’s grid (unit ' + (f1.unit * 1000).toFixed(0) + ' ms) — drop --ownGrids or drop --pickup'); process.exit(2); }
+          const shift = -Math.min.apply(null, pre.map(x => x.slot));
+          for (const pm of perMember) if (pm && pm.gridId === key + '-f1') pm.pos += shift;
+          for (let i = 0; i < pickup; i++)
+            perMember[i] = { unit: f1.unit, pos: pre[i].slot + shift, gridId: key + '-f1', group: key + 'a', beams: 2, sub: 4, tuplet: null, last: false, figure: 1 };
+          console.log('    pick-up: ' + pickup + ' note(s) on figure 1’s grid at slot(s) ' +
+            pre.map((x, i) => members[i].source.objectId + '@' + (x.slot + shift) + ' (off ' + x.errMs.toFixed(0) + ' ms)').join(', '));
+        }
+        console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) +
+          ' — ' + seg.figures.length + ' FIGURES, each on its OWN grid (--ownGrids)');
+        console.log('    ' + seg.words);
+        seg.figures.forEach((fg, fi) => console.log('    f' + (fi + 1) + ': notes ' + (base + fg.from) + '-' + (base + fg.to) +
+          '  ' + fg.words + '  ·  unit ' + (fg.fit.unit * 1000).toFixed(0) + ' ms = ' + fg.fit.bpm.toFixed(0) + ' bpm · ' +
+          fg.fit.heads.toFixed(1) + ' heads · grid ' + fg.fit.grid.join(',') +
+          (fg.fit.tupletBeats ? ('  TUPLET ' + fg.fit.beats.filter(b => b.tuplet).map(b => 'beat' + b.beat + ':' + b.tuplet).join(',')) : '')));
+      }
+      // one line per note in question, closest call first: both directions of a
+      // near-tie name the SAME note, and printing both reads as duplication
+      const ntBy = new Map();
+      for (const t of seg.nearTies) {
+        const note = t.kind === 'cut' ? t.afterNote : t.afterNote + 1;
+        if (!ntBy.has(note) || t.delta < ntBy.get(note).delta) ntBy.set(note, t);
+      }
+      [...ntBy].sort((a, b) => a[1].delta - b[1].delta || a[0] - b[0]).forEach(([note, t]) =>
+        console.log('    NEAR-TIE: note ' + note + ' could go either way (+' + t.delta.toFixed(2) + ', the ' + t.gapMs +
+          ' ms gap after note ' + t.afterNote + ') — built as chosen; say the word to move it'));
+    }
+    // --pattern (D63): the grid comes from the pattern analyser — worst
+    // displacement in noteheads at page scale, tuplets admitted per beat where
+    // plain 16ths fail the eye. Its fractional positions ARE the tuplet slots;
+    // each tuplet beat becomes a bracket group over that beat, with the
+    // members' slot numbers explicit (a tuplet may have a rest between two
+    // of its notes — the existing --tuplet path assumed consecutive slots).
+    //
+    // 8i: --figures (without --ownGrids) IS this path. segment() already fitted
+    // the whole gesture as seg.single on its way to pricing the cuts, so the
+    // same object is reused rather than re-fitted — one grid, one set of
+    // brackets, and the seams arriving separately as beam breaks.
+    const oneGrid = useFigures && !ownGrids;
+    const usePattern = oneGrid || plainOnly || mods.some(([k]) => k === '--pattern');
+    // --tuplet a-b@n:d — parsed HERE (day 30) so the pattern path can honor it.
+    // Under --figures/--pattern a hand tuplet OVERRIDES the fit's beat bracket:
+    // fit() has no sub-beat vocabulary, so where only one note of a beat is off
+    // the plain lattice it brackets the whole beat (T4's ending 6:4 — notes 15
+    // and 16 sit ON the plain lattice; only 17 needs a 3:2 over the last 8th).
+    // The cluster_fit path below keeps the day-23 semantics unchanged.
+    const tuplets = [];
+    for (const val of modVals('tuplet')) {
+      const mm = val.match(/^(\d+)-(\d+)@(\d+):(\d+)$/);
+      if (!mm) { console.error('--tuplet needs a-b@num:den (e.g. --tuplet 10-11@3:2)'); process.exit(2); }
+      tuplets.push({ from: +mm[1], to: +mm[2], num: +mm[3], den: +mm[4] });
+    }
+    const handBrackets = [];   // day 30: what the hand wrote, for the report
+    let patTuplets = null;   // k(member index) -> {group, num, den, startPos, slot}
+    if (usePattern) {
+      const PF = require(path.join(ROOT, 'notation', 'lib', 'pattern_fit.js'));
+      const pf = oneGrid ? seg.single : PF.fit(mainMembers.map(e => e.onset), plainOnly ? { TUPLETS: [] } : undefined);
+      if (!pf) { console.error('--cluster ' + label + (oneGrid ? ' --figures' : ' --pattern') + ': the analyser found no writing'); process.exit(2); }
+      // THE PICK-UP GOES ON THE PATTERN GRID, measured against the pattern's
+      // own unit (day 28, 8i). The first version of this took its slots from
+      // the cluster_fit grid that the pattern is about to replace — which is a
+      // different unit, and on a span with no pick-up the slice was empty so
+      // nothing ever showed it. Same rule as the cluster_fit path below: each
+      // pick-up lands on the nearest slot, the whole grid shifts so the
+      // earliest sits at 0, and the miss is reported rather than acted on.
+      let pre = [], shift = 0;
+      if (pickup && !onePastPickup) {
+        const anchor = mainMembers[0].onset, slots = [];
+        for (let i = 0; i < pickup; i++) {
+          const rel = (members[i].onset - anchor) / pf.unit, slot = Math.round(rel);
+          slots.push({ slot: slot, errMs: Math.abs(rel - slot) * pf.unit * 1000 });
+        }
+        shift = -Math.min.apply(null, slots.map(x => x.slot));
+        pre = slots.map(x => x.slot + shift);
+        console.log('    pick-up: ' + pickup + ' note(s) on the pattern grid at slot(s) ' +
+          slots.map((x, i) => members[i].source.objectId + '@' + (x.slot + shift) + ' (off ' + x.errMs.toFixed(0) + ' ms)').join(', '));
+      }
+      fit.unit = pf.unit; fit.beat = pf.unit * 4; fit.bpm = pf.bpm; fit.subdivision = 4; fit.beams = 2; fit.restDur = 16;
+      fit.maxErr = pf.worstSeconds; fit.tuplet = null;
+      fit.grid = pre.concat(pf.grid.map(g => +(g + shift).toFixed(4)));
+      patTuplets = new Map();
+      for (const b of pf.beats) {
+        if (!b.tuplet) continue;
+        const startPos = b.beat * 4 + shift;
+        pf.grid.forEach((g, i) => {
+          const k = i + pre.length;
+          const rel = g - b.beat * 4;
+          // written at the largest power-of-2 count p <= n: a triplet over the
+          // beat is three 8THS ('3:2', one beam, 8th rests); 5/6/7 are 16ths ('n:4')
+          const p2 = b.tuplet >= 4 ? 4 : 2;
+          if (rel >= -1e-6 && rel < 4 - 1e-6) patTuplets.set(k, { group: key + '-pb' + b.beat, num: b.tuplet, den: 4, startPos, slot: Math.round(rel / (4 / b.tuplet)),
+            text: b.tuplet + ':' + p2, valueDur: 16 / (4 / p2), beams: Math.log2(p2) });
+        });
+      }
+      // A HAND TUPLET OVERRIDES THE FIT'S BEAT (day 30 — T4's ending, "build
+      // the 3:2"). The window is written as the hand says; the beat(s) it
+      // touches lose their fit bracket; every OTHER member of those beats must
+      // sit ON the plain lattice and is written plain. Positions never move —
+      // only the writing. A window may not cross a beam seam (it would say
+      // "quicker" about two groups — the exact garble this exists to remove).
+      // Two phases, because two windows may share one beat (T9's four-note
+      // gesture — both 3:2s live in beat 0): first every window's records are
+      // built, then the touched beats' leftover members are validated against
+      // the UNION of hand-covered members.
+      const u = k => fit.grid[k] - shift;   // unshifted frame: beat lines at multiples of 4
+      const allRecs = new Map(), touched = new Set();
+      for (const t of tuplets) {
+        if (t.from <= pre.length) {
+          console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + ': hand tuplets cover main members only, not pick-ups'); process.exit(2);
+        }
+        const slotW = t.den / t.num;
+        const startU = Math.floor(u(t.from - 1) / t.den + 1e-9) * t.den;
+        if (oneGrid) for (const c of seg.cuts) {
+          const cc = c + pre.length;
+          if (t.from <= cc && cc < t.to) {
+            console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': the window crosses the seam after note ' + cc + ' — a hand bracket must sit inside one beam group'); process.exit(2);
+          }
+        }
+        const p2 = t.num >= 4 ? 4 : 2;
+        for (let k = t.from - 1; k <= t.to - 1; k++) {
+          const rel = u(k) - startU;
+          const slot = Math.round(rel / slotW);
+          if (slot < 0 || slot >= t.num || Math.abs(rel - slot * slotW) > 5e-3) {
+            console.error('--cluster ' + label + ' --tuplet ' + t.from + '-' + t.to + '@' + t.num + ':' + t.den + ': member ' + (k + 1) + ' (grid ' + fit.grid[k] + ') is not on that lattice (window starts at slot ' + (startU + shift) + ')'); process.exit(2);
+          }
+          allRecs.set(k, { group: key + '-ht' + t.from, num: t.num, den: t.den, startPos: startU + shift, slot: slot,
+            text: t.num + ':' + t.den, valueDur: 16 / (t.den / p2), beams: Math.round(Math.log2(4 * p2 / t.den)) });
+        }
+        const b0 = Math.floor(startU / 4 + 1e-9), b1 = Math.floor((startU + t.den - 1e-6) / 4);
+        for (let b = b0; b <= b1; b++) touched.add(b);
+        handBrackets.push({ from: t.from - pre.length, to: t.to - pre.length, num: t.num, text: t.num + ':' + t.den, beats: [b0, b1] });
+      }
+      if (tuplets.length) {
+        for (const k of [...patTuplets.keys()]) {
+          const kb = Math.floor(u(k) / 4 + 1e-9);
+          if (!touched.has(kb) || allRecs.has(k)) continue;
+          if (Math.abs(u(k) - Math.round(u(k))) > 5e-3) {
+            console.error('--cluster ' + label + ' --tuplet: member ' + (k + 1) + ' shares beat ' + kb + ' with a hand tuplet but sits off the plain lattice (grid ' + fit.grid[k] + ') — cover it with its own --tuplet'); process.exit(2);
+          }
+          patTuplets.delete(k);
+        }
+        for (const [k, r] of allRecs) patTuplets.set(k, r);
+      }
+      console.log('    PATTERN (D63' + (plainOnly ? ', --plain: no tuplets' : '') + '): ' + pf.shape + '   worst ' + (pf.worstSeconds * 1000).toFixed(0) + ' ms = ' + pf.heads.toFixed(1) + ' heads' + (pf.coherent ? '' : '  [OVER A HEAD]'));
+      if (plainOnly && !pf.coherent) console.log('    --plain: no plain 16th grid holds this gesture within a head — built as asked; the displacement above is the price of saying nothing about the pace');
+    }
+    // --gridDiv N (septet, RUNNING_LOG §458 — THE BEAMED GROUP): the grid N times
+    // finer than the fit's. The fit writes a lone pair 0.277 s apart as two 8ths
+    // (or two consecutive 16ths under --plain); the septet's pair rule writes
+    // 16th · 16th rest · 16th · 16th rest, so the unit is HALF the gap. Positions
+    // never move — only the writing; the beat is re-derived by cluster_fit's rule.
+    const gridDiv = parseInt(modVals('gridDiv')[0] || '1', 10);
+    const restAfter = parseInt(modVals('restAfter')[0] || '0', 10);
+    if (gridDiv > 1) {
+      if (perMember || (patTuplets && patTuplets.size) || tuplets.length || fit.tuplet) { console.error('--cluster ' + label + ' --gridDiv: plain grids only (no --figures/--ownGrids, no tuplets)'); process.exit(2); }
+      fit.unit = fit.unit / gridDiv; fit.grid = fit.grid.map(g => g * gridDiv);
+      let m = 1; while (fit.unit * m < 0.5 && m < 16) m *= 2;
+      fit.subdivision = m; fit.beat = fit.unit * m; fit.bpm = 60 / fit.beat;
+      fit.beams = Math.max(1, Math.round(Math.log2(m))); fit.restDur = m * 4; fit.tuplet = null;
+      console.log('    --gridDiv ' + gridDiv + ': the grid ' + gridDiv + 'x finer than the fit — unit ' + (fit.unit * 1000).toFixed(1) + ' ms, the notes on slots ' + fit.grid.join(','));
+    }
+    // [2i, §528] --max16 — NO WRITTEN VALUE SHORTER THAN A 16TH (the composer 2026-09-14, the piano at 607–611: "the notes turned into
+    // 30-second notes. Could we make them all sixteenths? And just as a general rule, no one should turn into 30-second notes. Just keep
+    // them to sixteenths"). The beat rule (cluster_fit's, and --gridDiv's above) doubles the subdivision until the beat is conductable
+    // (>= 0.5 s), so a unit under 0.125 s wrote 32nds — 3 beams, 1/32 rests. Measured: the 19 piano pair notes 607.27–611.50, whose gaps
+    // fall under 0.25 s (the pair's unit = half the gap). A cluster prints no tempo mark (§458), so the beat only sets the note value:
+    // capped at 4, the same grid writes 16ths and 16th rests. Positions never move — only the writing. cluster_fit.js is piece #4's and
+    // stays as it is; the rule is this flag on the septet's recorded build.
+    if (max16 && !fit.tuplet && fit.subdivision > 4) {
+      console.log('    --max16: subdivision ' + fit.subdivision + ' -> 4 (unit ' + (fit.unit * 1000).toFixed(1) + ' ms written as 16ths, not 1/' + (fit.subdivision * 4) + ')');
+      fit.subdivision = 4; fit.beat = fit.unit * 4; fit.bpm = 60 / fit.beat; fit.beams = 2; fit.restDur = 16;
+    }
+    if (restAfter > 0) console.log('    --restAfter ' + restAfter + ': ' + restAfter + ' trailing rest slot(s) drawn after the last member');
+    if (!ownGrids) console.log('  cluster ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) + ' (' + members.map(e => e.source.objectId).join(' ') + ')');
+    if (!ownGrids) console.log('    fit: unit ' + (fit.unit * 1000).toFixed(1) + ' ms · beat ' + fit.beat.toFixed(3) + ' s = ' + fit.bpm.toFixed(1) + ' bpm x ' + fit.subdivision +
+      (fit.tuplet ? ('  [' + fit.tuplet + '-tuplet]') : '  [no tuplet]') +
+      ' · max err ' + (fit.maxErr * 1000).toFixed(1) + ' ms · grid ' + fit.grid.join(',') + ' · ' + fit.beams + ' beam(s), 1/' + fit.restDur + ' rests');
+    // 8i: THE GROUPS AND THE BRACKETS, SIDE BY SIDE. What the page will say
+    // about each group, and whether any bracket says it across a seam.
+    if (oneGrid) {
+      const gBase = (pickup && !onePastPickup) ? pickup : 0;
+      // day 30: hand tuplets replaced fit beats — the report shows the WRITTEN
+      // page, not the fit's internal choice. Overridden beats drop their fit
+      // bracket (and any straddle it caused); the hand brackets join their
+      // owning group's line.
+      if (bvg && handBrackets.length) {
+        const ovBeats = new Set();
+        for (const h of handBrackets) for (let b = h.beats[0]; b <= h.beats[1]; b++) ovBeats.add(b);
+        for (const g of bvg.groups) g.brackets = g.brackets.filter(br => !ovBeats.has(br.beat));
+        for (const h of handBrackets) {
+          const g = bvg.groups.find(x => x.from <= h.from && h.to <= x.to);
+          if (g) {
+            g.brackets.push({ beat: h.beats[0], tuplet: h.num, text: h.text, notes: [h.from, h.to],
+              covers: (h.from === g.from && h.to === g.to) ? 'exact' : 'part' });
+            g.brackets.sort((a, b) => a.notes[0] - b.notes[0]);
+          }
+        }
+        for (const g of bvg.groups) g.plain = g.brackets.length === 0;
+        bvg.straddles = bvg.straddles.filter(st => !ovBeats.has(st.beat));
+      }
+      console.log('    ' + seg.figures.length + ' GROUPS on ONE grid (8i), beams broken after note ' +
+        (seg.cuts.map(c => gBase + c).join(', ') || 'nothing') + ':  ' + seg.words);
+      (bvg ? bvg.groups : []).forEach(g => console.log('    g' + g.group + ': notes ' + (gBase + g.from) + '-' + (gBase + g.to) +
+        '  ' + seg.figures[g.group - 1].words.padEnd(23) +
+        (g.plain ? 'plain 16ths' : g.brackets.map(b => b.text + ' over notes ' + (gBase + b.notes[0]) + '-' + (gBase + b.notes[1]) +
+          (b.covers === 'exact' ? '' : b.covers === 'part' ? ' (part of the group; the rest is plain)' : ' — STRADDLES A SEAM')).join(' · '))));
+      for (const st of (bvg ? bvg.straddles : []))
+        console.log('    STRADDLE: the ' + st.text + ' on beat ' + st.beat + ' covers notes ' + (gBase + st.notes[0]) + '-' + (gBase + st.notes[1]) +
+          ', across the seam after note ' + (gBase + st.seamAfter) + ' — the bracket says "quicker" about two different groups. ' +
+          'FLAGGED, not fixed: move the seam (--cuts) or write it as --ownGrids');
+      for (const h of handBrackets)
+        console.log('    hand tuplet ' + h.text + ' over notes ' + (gBase + h.from) + '-' + (gBase + h.to) +
+          ' — replaces the fit\'s bracket on beat ' + (h.beats[0] === h.beats[1] ? h.beats[0] : h.beats.join('-')) +
+          '; that beat\'s other members are written plain');
+      if (seg.single && seg.single.coherent === false)
+        console.log('    ONE GRID IS OVER A HEAD (' + seg.single.heads.toFixed(1) + ') — the page cannot say the relation on one grid. ' +
+          'By hand: --ownGrids, or split at a seam (--cuts) and build two clusters');
+    }
+    if (pickup && !onePastPickup && !useFigures && !usePattern) {
+      // place each pick-up note on the main grid, at whatever slot it lands
+      // nearest; report the miss so an unplayable pick-up is never silent
+      const anchor = mainMembers[0].onset;
+      const pre = [];
+      for (let i = 0; i < pickup; i++) {
+        const rel = (members[i].onset - anchor) / fit.unit;
+        const slot = Math.round(rel);
+        pre.push({ slot, errMs: Math.abs(rel - slot) * fit.unit * 1000 });
+      }
+      // shift the whole grid so the earliest pick-up sits at 0 and the rest follow
+      const shift = -Math.min(...pre.map(p => p.slot));
+      fit.grid = pre.map(p => p.slot + shift).concat(fit.grid.map(g => g + shift));
+      console.log('    pick-up: ' + pickup + ' note(s) placed on the main grid at slot(s) ' +
+        pre.map((p, i) => members[i].source.objectId + '@' + (p.slot + shift) + ' (off ' + p.errMs.toFixed(0) + ' ms)').join(', ') +
+        ' — the fit itself is the ' + mainMembers.length + ' note(s) after it');
+    }
+    // --accents 4,7,8 / --dyn 1 (1-based member numbers, composer's call per
+    // cluster): which members carry an accent, and which carries the single
+    // ambient dynamic. Everything else stays bare — the ambient-plus-deviation
+    // shape from DYNAMICS_FRAMEWORK, decided by ear rather than derived.
+    const listArg = (name) => {
+      const out = new Set();
+      for (const val of modVals(name))
+        for (const v of val.split(',')) { const n = parseInt(v, 10); if (n > 0) out.add(n); }
+      return out;
+    };
+    const accentAt = listArg('accents');
+    // --dyn accepts `n` (use the note's velocity band) or `n:mark` (an explicit
+    // mark, the composer overruling the band — day 23: fff on the last note,
+    // whose band is f)
+    const dynAt = new Map();
+    for (const val of modVals('dyn')) {
+      for (const v of val.split(',')) {
+        const mm = v.match(/^(\d+)(?::(\w+))?$/); if (!mm) continue;
+        dynAt.set(parseInt(mm[1], 10), mm[2] || 'band');
+      }
+    }
+    // --beamBreak 9 : member numbers (1-based) that START a new beam group.
+    // One cluster (one tempo, one grid) can carry several beam groups —
+    // composer, day 23: "let's not beam them altogether... the first group of
+    // notes and then the second group, but conceptually keep the same tempo".
+    const breaks = listArg('beamBreak');
+    for (const b of figBreaks) breaks.add(b);   // 8i: --figures' seams ARE the breaks
+    // --beamThrough 2 : beam group #2 (1-based) keeps its secondary beam
+    // unbroken across rests — composer, day 23, on the second figure.
+    const sideArg = (n) => { const v = modVals(n)[0]; if (!v) return null;
+      if (v !== 'above' && v !== 'below') throw new Error('--' + n + ' takes "above" or "below", got "' + v + '"');
+      return v; };
+    const bracketSide = sideArg('bracketSide'), articSide = sideArg('articSide');
+    const through = listArg('beamThrough');
+    // --beamlets 2 : under the global --beamsThrough, beam group #N goes back
+    // to the day-23 writing — second level broken at rests, beamlets on the
+    // lone 16ths ("there may be occasions to use the beamlets").
+    const beamlets = listArg('beamlets');
+    if (beamlets.size && !thruHere) { console.error('--cluster ' + label + ' --beamlets: only meaningful where the global --beamsThrough covers this cluster — without it every group already breaks its second beam at rests'); process.exit(2); }
+    if (beamlets.size) console.log('    beamlet-era second beam kept on group(s) ' + [...beamlets].join(','));
+    // --beamOver 1,2 : beam group #N (1-based) extends its beams one slot past
+    // its last note, over the first 16th rest that follows (day 29, composer).
+    const over = listArg('beamOver');
+    if (over.size) console.log('    beams extended over the first rest after group(s) ' + [...over].join(','));
+    // --beamOverLeft 3 : group #N's beams reach back over the 16th rest before
+    // its first note (day 29 — the lone partial as "a group of two")
+    const overL = listArg('beamOverLeft');
+    if (overL.size) console.log('    beams reach left over the rest before group(s) ' + [...overL].join(','));
+    // --tuplet 10-11@3:2 : members 10..11 form a 3:2 tuplet (three in the
+    // space of two units). Slots beyond the members become rests INSIDE the
+    // bracket — composer, day 23: "one sixteenth rest, which is part of that
+    // bracket". Repeatable. (Parsed above the pattern path since day 30; the
+    // cluster_fit consumers below are unchanged.)
+    // --rest16 7 : the silence BEFORE member 7 is written as 16th rests, one per
+    // slot (day 29, composer, on T2's lone last partial: "let's change that
+    // eighth rest to two sixteenths"). Carried on the member's device; layout's
+    // rest pass writes every unit of the silence that ends at that member as a
+    // 16th rest instead of the longest value that fits.
+    const rest16 = listArg('rest16');
+    for (const r of rest16) {
+      if (r < 2 || r > members.length) { console.error('--cluster ' + label + ' --rest16 ' + r + ': member numbers run 2..' + members.length + ' (the silence BEFORE that member)'); process.exit(2); }
+    }
+    if (rest16.size) console.log('    16th rests before member(s) ' + [...rest16].join(','));
+    // --restFit 4 : under the global --rests16, the silence BEFORE member N is
+    // written as the longest value that fits again — the composer's forecast
+    // correction path ("I can correct and say no, that should be an eighth rest").
+    const restFit = listArg('restFit');
+    if (restFit.size && !restsHere) { console.error('--cluster ' + label + ' --restFit: only meaningful where the global --rests16 covers this cluster — without it every rest is longest-fit already'); process.exit(2); }
+    for (const r of restFit) {
+      if (r < 2 || r > members.length) { console.error('--cluster ' + label + ' --restFit ' + r + ': member numbers run 2..' + members.length + ' (the silence BEFORE that member)'); process.exit(2); }
+    }
+    if (restFit.size) console.log('    longest-fit rests kept before member(s) ' + [...restFit].join(','));
+    const anyArtic = accentAt.size ? 'accent' : null;
+    if (accentAt.size) console.log('    accents on members ' + [...accentAt].join(','));
+    if (dynAt.size) console.log('    dynamics: ' + [...dynAt].map(([n, m]) => n + ':' + m).join(' '));
+    if (breaks.size) console.log('    beam breaks before members ' + [...breaks].join(','));
+    // WRITTEN DURATIONS (day 23): each member lasts until the next attack, in
+    // grid units — so an 8th is written as an 8th and fills its own gap
+    // instead of a 16th plus a rest. A member inside a tuplet takes the
+    // tuplet's slot value instead. The last member of a BEAM GROUP stops at
+    // one unit (a group never spills across its own end).
+    const lastOfGroup = new Set();
+    for (let k = 1; k <= members.length; k++) { if (breaks.has(k)) lastOfGroup.add(k - 2); }
+    // with --figures the groups are the FIGURES: a member is last when the next
+    // one is on a different grid (a group never spills across its own end)
+    if (perMember) for (let k = 0; k < members.length - 1; k++)
+      if (perMember[k] && perMember[k + 1] && perMember[k].gridId !== perMember[k + 1].gridId) lastOfGroup.add(k);
+    lastOfGroup.add(members.length - 1);
+    const tupOf = k => tuplets.find(t => k + 1 >= t.from && k + 1 <= t.to) || null;
+    // EVERY PARTIAL IS A 16th (day 23, composer's midway solution): the
+    // written value no longer carries duration — the instrument's staccato is
+    // one fixed length whatever is written (measured: 0.43-0.48 s across this
+    // figure, longer than any gap in it). So all notes are 16ths, the gaps get
+    // 16th rests, and the SECOND beam level does the phrasing work: a
+    // connecting segment between adjacent 16ths, a stub on a note that opens a
+    // gap. --trueDurations restores the 8th/16th writing.
+    const trueDur = flag('trueDurations');
+    const durUnits = members.map((e, k) => {
+      if (tupOf(k)) return null;                       // tuplet members: slot value
+      if (!trueDur) return 1;
+      if (lastOfGroup.has(k)) return 1;
+      if (perMember) return perMember[k + 1].pos - perMember[k].pos;   // its own figure's units
+      return fit.grid[k + 1] - fit.grid[k];
+    });
+    // BEAM LEVELS FOLLOW THE GRID, not a fixed 16th assumption (day 24 — the
+    // composer, on T10: "did you end up using thirty second notes? I don't see
+    // them"). A note of u units on a grid of m units per beat is worth u/m of a
+    // quarter, so it carries log2(m/u) beams: m=4,u=1 -> 2 (a 16th, every
+    // cluster before this one); m=8,u=1 -> 3 (a 32nd). The old constant said 2
+    // whatever the grid was, so T10's 32nd-grid figure drew 16ths over 32nd
+    // POSITIONS — the beams under-reported the grid by a factor of two while
+    // the rests (base = sub*4, already grid-aware) reported it correctly. The
+    // one figure in the section fitted at subdivision 8, so the one that showed
+    // it.
+    const beamsFor = (u, sd) => Math.max(0, Math.round(Math.log2((sd || fit.subdivision) / u)));
+    console.log('    written values: ' + members.map((e, k) => tupOf(k) ? 'tup' : (durUnits[k] === 1 ? '16th' : durUnits[k] === 2 ? '8th' : durUnits[k] + 'u')).join(' '));
+    for (const t of tuplets) console.log('    tuplet ' + t.num + ':' + t.den + ' over members ' + t.from + '-' + t.to +
+      ' (' + t.num + ' slots of ' + (t.den / t.num * fit.unit * 1000).toFixed(1) + ' ms; ' + (t.num - (t.to - t.from + 1)) + ' rest slot(s))');
+    let sub = 0;   // beam-group index within the cluster
+    members.forEach((e, k) => {
+      if (breaks.has(k + 1)) sub++;
+      const pm = perMember && perMember[k];
+      const gkey = pm ? pm.group : key + String.fromCharCode(97 + sub);   // cl-1a, cl-1b, ...
+      // the DOWNBEAT owns the launch, not the pick-up (composer: "the GC then
+      // is actually on number two")
+      const firstOnly = v => v === 'first' ? k === pickup : !!v;
+      // THE GO LINE MARKS DISPLACEMENT (day 24): a cluster head sits with its
+      // LEFT EDGE on its own go time, so it is not displaced and needs no line.
+      // Per-cluster while the composer reviews part by part; the registry
+      // default flips to false once every figure has been seen.
+      // A RINGING MEMBER KEEPS ITS OWN TECHNIQUE DEVICE (day 24 — the beam
+      // standard folded back into the cluster). A fortepiano inside a cluster
+      // is still a fortepiano: open head, ring bar, its own sfzp, primary beam
+      // only. Only the short partials are rewritten as 16ths with the cluster
+      // head and dot. This is what retires --beam: a pickup into a fortepiano
+      // is a cluster whose downbeat happens to ring.
+      const rings = RING_TECH.has(e.technique);
+      const dev = {
+        // NO GO LINES ON CLUSTERS (D58): every head sits with its LEFT EDGE on
+        // its own go time, so nothing is displaced and nothing needs marking.
+        goLine: noGoLine ? false : firstOnly(FIG_CL.goLine != null ? FIG_CL.goLine : false),
+        gc: firstOnly(FIG_CL.gc != null ? FIG_CL.gc : 'first'),
+        dynBesideStem: !!FIG_CL.dynBesideStem,
+        dynMark: dynAt.has(k + 1) ? dynAt.get(k + 1) : false,
+        nhUnit: true, nhStem: 'beam', nhAnchor: FIG_CL.nhAnchor || 'leftEdge',
+        beamGroup: gkey, clusterId: key,
+        beamUnit: pm ? pm.unit : fit.unit, beamPos: pm ? pm.pos : fit.grid[k],
+        beamLevels: pm ? pm.beams : fit.beams, beamSubdivision: pm ? pm.sub : fit.subdivision,
+      };
+      // THE GRID DOMAIN. Rests, written values and tuplet brackets are computed
+      // per gridId (layout.js), which is the figure under --figures and the
+      // whole cluster otherwise.
+      if (pm) { dev.gridId = pm.gridId; dev.figure = pm.figure; }
+      else if (oneGrid) dev.figure = sub + 1;
+      if (rest16.has(k + 1) || (restsHere && !restFit.has(k + 1))) dev.rest16Before = true;   // day 29 per member; day 35 the rule (--rests16, scoped), --restFit the correction
+      if (k < pickup) dev.pickup = true;   // recorded so analysers/validators can exclude it from the grid (day 24)
+      if (rings) {
+        // head, ring bar and dynamic come from its technique entry; the mark
+        // joins the group's row so a pickup+fp reads as one gesture
+        delete dev.dynMark;
+        dev.dynAboveBeam = true;
+      } else {
+        dev.ringBar = false;
+        dev.nhHead = FIG_CL.nhHead || 'filled';
+        dev.nhHeadScale = FIG_CL.nhHeadScale || 0.844;
+        dev.nhDot = FIG_CL.nhDot != null ? !!FIG_CL.nhDot : true;
+        dev.nhDotGapSs = FIG_CL.nhDotGapSs != null ? FIG_CL.nhDotGapSs : 0.15;
+      }
+      const ptp = pm ? pm.tuplet : (patTuplets && patTuplets.get(k));
+      const tp = tupOf(k);
+      if (ptp) {
+        dev.tupletGroup = ptp.group;
+        dev.tupletNum = ptp.num; dev.tupletDen = ptp.den;
+        dev.tupletStartPos = ptp.startPos;
+        dev.tupletSlot = ptp.slot;
+        dev.tupletText = ptp.text; dev.tupletValue = ptp.valueDur;
+        dev.noteBeams = ptp.beams;
+        dev.beamHasTuplet = true;
+      } else if (tp) {
+        dev.tupletGroup = key + '-tp' + tp.from;
+        dev.tupletNum = tp.num; dev.tupletDen = tp.den;
+        dev.tupletStartPos = fit.grid[tp.from - 1];
+        dev.tupletSlot = k - (tp.from - 1);
+        dev.noteBeams = 2;                       // a triplet 16th still shows two beams
+        dev.beamHasTuplet = true;
+      } else {
+        dev.noteUnits = durUnits[k];
+        dev.noteBeams = rings ? 1 : beamsFor(durUnits[k], pm ? pm.sub : null);   // a ringing note takes the primary beam only
+      }
+      if (max16 && dev.noteBeams > 2) console.warn('  !! --max16: ' + e.id + ' @' + e.onset.toFixed(2) + ' is still written with ' + dev.noteBeams + ' beams (a tuplet or figure path the cap does not reach) — say how to write it');
+      if (tuplets.length || (patTuplets && patTuplets.size) || ptp) dev.beamHasTuplet = true;
+      if (bracketSide) dev.bracketSide = bracketSide;
+      if (articSide) dev.articSide = articSide;
+      if (through.has(sub + 1) || (thruHere && !beamlets.has(sub + 1))) dev.beamThrough = true;   // day 23 per group; day 35 the rule (--beamsThrough, scoped), --beamlets the exception
+      if (over.has(sub + 1)) dev.beamOverRest = true;
+      if (overL.has(sub + 1)) dev.beamOverLeft = true;
+      if (restAfter > 0 && k === members.length - 1) dev.restAfter = restAfter;   // septet §458: the pair's closing rest, drawn
+      if (accentAt.has(k + 1)) dev.nhArtic = 'accent';
+      if (anyArtic) dev.beamHasArtic = anyArtic;
+      doc.overlays.push({ id: 'ov-' + key + '-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
+    });
+  });
+}
+// --beam t0-t1@part (day 24, the composer's mixed pair): BEAM WITHOUT
+// CLUSTERING. --cluster exists for a run of staccato partials: it fits a
+// tempo, redraws every member as a 16th on that grid, and fills the gaps
+// with rests. This is the other case — the composer beaming notes that keep
+// being what they are: *"stem the half note, and then just connect it to the
+// sixteenth note with a beam, and have the sixteenth stub on the first one"*.
+// So the overlay carries ONLY the stem/beam fields; head, ring bar, dot and
+// dynamic still resolve from each note's own technique entry (D50). No
+// beamUnit is written, which is what keeps the grid — and therefore the
+// rests — out of it.
+//
+// HOW MANY BEAMS a member carries is derived from its technique rather than
+// asked for: a SHORT fixed one-shot (staccato) is the "sixteenth" and takes
+// two levels; anything that rings (fortepiano, cuivre, ord) is the long note
+// and takes the primary beam only. The second level then has no neighbour to
+// connect to and layout draws it as a STUB on the short note — exactly the
+// figure asked for, and the same beamlet rule day 23 settled.
+{
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--beam') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+    if (!m) { console.error('--beam needs t0-t1 or t0-t1@part (e.g. --beam 31.17-31.40@1)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
+  }
+  const partOfEvent = new Map();
+  for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+  // [2d.2] the devices are built in notation/lib/beam_choice.js — one code path with the app's beam choices
+  const BeamChoice = require(path.join(ROOT, 'notation', 'lib', 'beam_choice.js'));
+  const RINGS = new Set(FIG_BM.ringTechniques || BeamChoice.RINGS_DEFAULT);   // long notes: primary beam only (for the log below)
+  spans.forEach((sp, k) => {
+    const key = 'bm-' + (k + 1);
+    const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+      (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
+    if (members.length < 2) { console.error('--beam ' + label + ': ' + members.length + ' event(s) in the span — a beam needs at least 2'); process.exit(2); }
+    if (sp[2] === null && parts.length > 1) {
+      console.error('--beam ' + label + ': this IR carries ' + parts.length + ' parts — name the part: --beam ' + sp[0] + '-' + sp[1] + '@<part>');
+      process.exit(2);
+    }
+    console.log('  beam ' + key + ': ' + members.length + ' notes ' + label + ' s, part ' + partOfEvent.get(members[0].id) +
+      ' (' + members.map(e => e.source.objectId + ':' + e.technique).join(' ') + ')');
+    console.log('    beam levels: ' + members.map(e => e.source.objectId + '=' + (RINGS.has(e.technique) ? '1 (primary only, it rings)' : '2 (a 16th)')).join(' · '));
+    // who carries the GC, the beam levels, the go lines and the anchors: beam_choice.js beamDevices (the day-24 rules, moved
+    // there whole in 2d.2 so the app's beam choices draw by the same numbers)
+    const B = BeamChoice.beamDevices(members, FIG_BM, key);
+    if (B.gcRule === 'ring' && B.ringIdx < 0) console.log('    note: no ringing member — GC falls back to the first note');
+    console.log('    GC on ' + (B.gcIdx >= 0 ? members[B.gcIdx].source.objectId + ' (' + B.gcRule + ')' : 'none'));
+    for (const d of B.devices)
+      doc.overlays.push({ id: 'ov-' + key + '-' + d.event, kind: 'engraving', target: { event: d.event }, value: { device: d.device }, provenance: 'authored' });
+  });
+}
+// --noGc wc-98 (day 24): a per-note device override that removes the GC —
+// composer, on the long tone at the end of the beamed pair: *"remove the GC
+// from the second one"*. Named by OBJECT ID rather than by member number so
+// it stays unambiguous with several groups in flight, and so it can be used
+// on any note, beamed or not. Merged onto whatever overlay the note already
+// carries.
+{
+  const ids = new Set();
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--noGc') continue;
+    for (const v of String(process.argv[i + 1] || '').split(',')) if (v.trim()) ids.add(v.trim());
+  }
+  for (const id of ids) {
+    const e = doc.events.find(x => x.source.objectId === id);
+    if (!e) { console.error('--noGc ' + id + ': no such object in this window/parts'); process.exit(2); }
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, { gc: false });
+    else doc.overlays.push({ id: 'ov-nogc-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { gc: false } }, provenance: 'authored' });
+    console.log('  noGc: ' + id + ' (' + e.technique + ' at ' + e.onset.toFixed(3) + ') — GC removed, page and ball');
+  }
+}
+// --pairBeam wc-1769,wc-1770 (septet §495, PLAN 2h.5 — PLAN 2g.1's cross-staff beam pulled
+// forward): the composer, on the piano's plucked pairs in the morph section: "make those black
+// note heads, 8th beams … stems up above treble". Named by OBJECT ID like --noGc; each occurrence
+// is one pair (or group), written as a device override { pairBeam: 'pb-<first id>' } merged onto
+// whatever overlay the note already carries. The look and the geometry are the registry's and
+// layout's (devices.byPairBeam, layout pairOf) — nothing about the drawing lives here.
+for (let i = 0; i < process.argv.length; i++) {
+  if (process.argv[i] !== '--pairBeam') continue;
+  const ids = String(process.argv[i + 1] || '').split(',').map(v => v.trim()).filter(Boolean);
+  if (ids.length < 2) { console.error('--pairBeam needs two or more object ids (e.g. --pairBeam wc-1769,wc-1770)'); process.exit(2); }
+  const key = 'pb-' + ids[0];
+  for (const id of ids) {
+    const e = doc.events.find(x => x.source.objectId === id);
+    if (!e) { console.error('--pairBeam ' + id + ': no such object in this window/parts'); process.exit(2); }
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, { pairBeam: key });
+    else doc.overlays.push({ id: 'ov-pairbeam-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { pairBeam: key } }, provenance: 'authored' });
+  }
+  console.log('  pairBeam ' + key + ': ' + ids.join(' + '));
+}
+// --ensembleDyn t0-t1@part (septet D50, §503): the part's notes in the span take their WRITTEN dynamic from
+// the ensemble at each onset (notation/lib/ensemble_dyn.js — the composer's rule), not from their velocity.
+// Written into the IR as a device override { dynFixed: mark } merged onto the note's overlay, so the page,
+// every rebuild (R re-runs this recorded build) and every score made from the IR carry it; the save's
+// velocities stay as they are (page only — his choice).
+for (let i = 0; i < process.argv.length; i++) {
+  if (process.argv[i] !== '--ensembleDyn') continue;
+  const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)@(\d+)$/);
+  if (!m) { console.error('--ensembleDyn needs t0-t1@part (e.g. --ensembleDyn 205-428@2)'); process.exit(2); }
+  const EDyn = require(path.join(ROOT, 'notation', 'lib', 'ensemble_dyn.js'));
+  const edPart = +m[3];
+  const bands = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8')).engraving.layout.dynamicBands);
+  const others = (typeof metaLayer === 'number' ? [...Array(metaLayer).keys()] : [0, 1, 2, 3, 4, 5, 6]).filter(L => L !== edPart);
+  const res = EDyn.marksFor(score.objects, { part: edPart, t0: +m[1], t1: +m[2], others, bands });
+  let n = 0;
+  for (const [objId, mark] of res.marks) {
+    const e = doc.events.find(x => x.source.objectId === objId);
+    if (!e) continue;
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, { dynFixed: mark });
+    else doc.overlays.push({ id: 'ov-ensdyn-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { dynFixed: mark } }, provenance: 'authored' });   // overlayProv: authored | authored-override (the schema)
+    n++;
+  }
+  console.log('  ensembleDyn ' + m[0] + ': ' + n + ' notes, ' + res.rows.length + ' onsets — ' + res.rows.map(r => r.t.toFixed(2) + ' ' + r.mark).join(' · '));
+}
+// [PLAN 2i.7, §529] --dynOnChange t0-t1 — THE PAGE RULE FOR A SECTION'S DYNAMICS (CN-83; D52, section 3 only: "one mark per part where
+// its band changes, on that part's first note in the band; nothing else" — section 1 keeps a mark on every strike, §401d). Every STRIKE
+// starting in the span gets `dynMark: 'band'` + `dynOnChange` on its device — a beamed group's members too, whose cluster writing
+// carries no mark (§522) — and layout.js's on-change pass decides, per part in onset order, which of them show their band. The
+// velocities are the save's (stepDynamics, §520); the marks are the registry's eight-step dynamicBands.
+{
+  const di = process.argv.indexOf('--dynOnChange');
+  if (di >= 0) {
+    const dm = String(process.argv[di + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
+    if (!dm) { console.error('--dynOnChange needs t0-t1 (e.g. --dynOnChange 444-624.1)'); process.exit(2); }
+    const D0 = parseFloat(dm[1]), D1 = parseFloat(dm[2]);
+    let n = 0, inGroups = 0;
+    for (const e of doc.events) {
+      if (e.env !== 'strike' || e.onset < D0 - 1e-9 || e.onset > D1 + 1e-9) continue;
+      const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+      if (existing) {
+        if (existing.value.device && existing.value.device.clusterId) inGroups++;
+        existing.value.device = Object.assign({}, existing.value.device, { dynMark: 'band', dynOnChange: true });
+      } else doc.overlays.push({ id: 'ov-dynchg-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { dynMark: 'band', dynOnChange: true } }, provenance: 'authored' });
+      n++;
+    }
+    console.log('  --dynOnChange ' + D0 + '-' + D1 + ': ' + n + ' strikes on the rule (' + inGroups + ' of them group members)');
+  }
+}
+// --bare t0-t1[@part] (day 26): CLEAR THE NOTATION, KEEP THE BRICKS.
+// Composer, setting up Part 3 on CLOUD02-I: *"the bricks are fine, that's
+// what I want to see, just the bricks. It's the GC notation that's
+// distracting right now."* An unfigured note is not blank — `--bricks`
+// leaves the chunk unresolved but every note still carries its TECHNIQUE's
+// device (staccato = go line + GC + head + flag + dot + band dynamic), so
+// 159 staccatos drew 159 arcs, balls and dashed lines over the material the
+// composer was trying to read. This switches every drawn element OFF for the
+// span, per note, leaving the parachute brick alone.
+// Unlike --cluster/--beam, @part is OPTIONAL in a multi-part file: bare is a
+// REMOVAL, not a grouping, and sweeping every lane is the normal intent.
+// Repeatable. Written at extraction, so a re-extract keeps the span bare.
+{
+  const BARE_OFF = { curve: false, cut: false, goLine: false, gc: false, nhUnit: false, nhDot: false, ringBar: false, dynMark: false, dynPair: false, dynBesideStem: false };
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--bare') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
+    if (!m) { console.error('--bare needs t0-t1 or t0-t1@part (e.g. --bare 36.19-40.33)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
+  }
+  if (spans.length) {
+    const partOfEvent = new Map();
+    for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+    // A FIGURE MUST NEVER BE SILENTLY BLANKED (day 24's lesson, applied at
+    // build time): if a --cluster/--beam already gave a note ink, baring it
+    // would erase a figure the composer built and the page would just look
+    // wrong. Hard error naming the notes, with the narrower span to use.
+    const figured = new Set();
+    for (const ov of doc.overlays) if (ov.kind === 'engraving' && ov.target && ov.target.event && ov.value && ov.value.device) figured.add(ov.target.event);
+    spans.forEach(sp => {
+      const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+      const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+        (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
+      if (!members.length) { console.error('--bare ' + label + ': no events in the span'); process.exit(2); }
+      const clash = members.filter(e => figured.has(e.id));
+      if (clash.length) {
+        console.error('--bare ' + label + ': ' + clash.length + ' note(s) already carry a figure — baring them would erase it:');
+        console.error('    ' + clash.map(e => e.source.objectId + '@' + partOfEvent.get(e.id) + ' ' + e.onset.toFixed(3) + 's').join(', '));
+        console.error('  Narrow the bare span (or add @part) so it excludes them.');
+        process.exit(2);
+      }
+      for (const e of members) {
+        const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+        if (existing) existing.value.device = Object.assign({}, existing.value.device, BARE_OFF);
+        else doc.overlays.push({ id: 'ov-bare-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: Object.assign({}, BARE_OFF) }, provenance: 'authored' });
+      }
+      const byPart = {};
+      for (const e of members) { const p = partOfEvent.get(e.id); byPart[p] = (byPart[p] || 0) + 1; }
+      console.log('  bare ' + label + ': ' + members.length + ' notes cleared to bricks (' +
+        Object.keys(byPart).sort((a, b) => a - b).map(p => 'T' + (+p + 1) + ':' + byPart[p]).join(' ') + ')');
+    });
+  }
+}
+// --dynSide t@part:above|below (day 33): DICTATE A ONE-SHOT MARK'S SIDE.
+// Composer, day 32: "move T6's fff above… lots of room" — that fff (46.18)
+// is a lone one-shot OUTSIDE any cluster, so the per-cluster --articSide
+// channel cannot reach it; its side came from the chain placer's room test,
+// which cannot see the neighbouring part's ink (THE CROSS-LANE BLIND SPOT).
+// Writes device.chainSide on the nearest event of that part; the chain
+// placer obeys it over the room test. A dictated side is a verdict — it
+// lives on the event, so no heuristic pass can overwrite it. Repeatable.
+{
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--dynSide') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([0-9.]+)@([0-9]+):(above|below)$/);
+    if (!m) { console.error('--dynSide needs t@part:above|below (e.g. --dynSide 46.18@5:above)'); process.exit(2); }
+    const t = parseFloat(m[1]), part = parseInt(m[2], 10), side = m[3];
+    const partOfEvent = new Map();
+    for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
+    const cands = doc.events.filter(e => partOfEvent.get(e.id) === part && Math.abs(e.onset - t) <= 0.15)
+      .sort((a, b) => Math.abs(a.onset - t) - Math.abs(b.onset - t));
+    if (!cands.length) { console.error('--dynSide: no event within 0.15 s of ' + t + ' on part ' + part); process.exit(2); }
+    const e = cands[0];
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, { chainSide: side });
+    else doc.overlays.push({ id: 'ov-dynside-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { chainSide: side } }, provenance: 'authored' });
+    console.log('  dynSide: ' + e.source.objectId + '@T' + (part + 1) + ' ' + e.onset.toFixed(2) + 's -> ' + side);
+  }
+}
+// --trillsRight t0-t1 (§445, the composer 2026-09-13: "move the trill notation to the right of the go line. There's too many
+// conflicts on the left ... let's do the first two, and then there's a series of three together"): every trill whose onset lies
+// in the span gets device.nhAnchor 'afterGo' — its whole column (head, neighbour, tr, sfz) starts nhGapSs RIGHT of its go line,
+// measured from the column's leftmost ink. Repeatable; recorded in the build, so R keeps it.
+// SUPERSEDED 2026-09-13 (§452, the composer: "please move the rest of the trills to the right of go line"): the rule is now the
+// device's — registry devices.byEnv.trill.nhAnchor 'afterGo' — so every trill has it without the flag. Kept so an older
+// recorded build still runs; it adds nothing now.
+{
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--trillsRight') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
+    if (!m) { console.error('--trillsRight needs t0-t1 (e.g. --trillsRight 63-68)'); process.exit(2); }
+    const t0 = parseFloat(m[1]), t1 = parseFloat(m[2]);
+    const hit = doc.events.filter(e => e.env === 'trill' && e.onset >= t0 && e.onset <= t1);
+    if (!hit.length) console.warn('  --trillsRight ' + m[0] + ': no trill in the span (build with --trills)');
+    for (const e of hit) {
+      const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+      if (existing) existing.value.device = Object.assign({}, existing.value.device, { nhAnchor: 'afterGo' });
+      else doc.overlays.push({ id: 'ov-trillright-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { nhAnchor: 'afterGo' } }, provenance: 'authored' });
+    }
+    console.log('  trillsRight ' + m[0] + ': ' + hit.length + ' trill(s) → the column right of the go line (' + hit.map(e => e.source.objectId + '@' + e.onset.toFixed(2)).join(', ') + ')');
+  }
+}
+// --ringFromBrick t0-t1 (day 30): UNIFORM WRITTEN RING LENGTH FROM THE DRAWN
+// BRICK. Composer, closing CLOUD02-I: "the long tone at forty one, just make
+// sure they're all the same length. Take the length from the brick in the
+// composer score." D51 makes a fixed one-shot's IR duration its SAMPLE length
+// (sound-authoritative, D49), so a chord struck together rings 0.99-1.60 s and
+// the page drew ten different bar lengths. This writes device.ringSeconds
+// (DRAWING ONLY — layout's ring pass) from the source object's drawn duration
+// (endSeconds - startSeconds), per ringing one-shot in the span.
+// Self-maintaining: redraw the brick, rebuild, the page follows. Repeatable.
+{
+  const RING_TECHS = new Set(['fortepiano', 'cuivre', 'ord']);
+  const spans = [];
+  for (let i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] !== '--ringFromBrick') continue;
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)$/);
+    if (!m) { console.error('--ringFromBrick needs t0-t1 (e.g. --ringFromBrick 40.9-41.0)'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2])]);
+  }
+  if (spans.length) {
+    const byId = new Map();
+    for (const o of score.objects || []) if (o.id) byId.set(o.id, o);
+    spans.forEach(sp => {
+      const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 && RING_TECHS.has(e.technique));
+      if (!members.length) { console.error('--ringFromBrick ' + sp[0] + '-' + sp[1] + ': no ringing one-shots in the span'); process.exit(2); }
+      const lens = new Set();
+      for (const e of members) {
+        const src = byId.get(e.source.objectId);
+        if (!src || src.startSeconds == null || src.endSeconds == null) {
+          console.error('--ringFromBrick: ' + e.source.objectId + ' has no drawn brick in the score'); process.exit(2);
+        }
+        const secs = +(src.endSeconds - src.startSeconds).toFixed(4);
+        lens.add(secs);
+        // ringBar TOO (day 35): ringSeconds only SIZES a bar — layout draws one
+        // only under dev.ringBar, which byTechnique gives fortepiano/cuivre but NOT
+        // ord (its registry entry is the day-24 provisional one). The composer's
+        // long tone at 48.05 is ord on all ten parts, so the flag wrote a length for
+        // a bar that was never drawn. Naming a span in --ringFromBrick IS the ask for
+        // the bar, so the flag now writes both. No-op where byTechnique already says
+        // true (the 40.93 fp blast is byte-identical apart from the added field).
+        const ring = { ringSeconds: secs, ringBar: true };
+        const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+        if (existing) existing.value.device = Object.assign({}, existing.value.device, ring);
+        else doc.overlays.push({ id: 'ov-ring-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: Object.assign({}, ring) }, provenance: 'authored' });
+      }
+      console.log('  ringFromBrick ' + sp[0] + '-' + sp[1] + ': ' + members.length + ' ring bar(s) written from the drawn brick (' +
+        [...lens].map(x => x.toFixed(2) + ' s').join(', ') + ')' + (lens.size > 1 ? '  [NOTE: the bricks themselves differ]' : ''));
+    });
+  }
+}
+if (flag('bricks')) {
+  // devices go too (day 23 bug): the chunker's cloud-landing GC is a
+  // GROUPING artifact — left behind, animobj still made a ball for it
+  // while layout drew nothing (the unresolved branch has no tick), so a
+  // ball fell on wc-49 out of nowhere. A ball without an arc is a bug.
+  for (const c of doc.chunks) { c.strategy = 'unresolved'; delete c.tempo; delete c.groups; delete c.devices; }
+  for (const e of doc.events) delete e.metric;
+  doc.provenance.notes += ' BRICKS MODE: all chunks forced unresolved (working file).';
+}
+// THE COMMAND IS THE SAVE (day 25, composer asked how the files work): a
+// version file is derived — the archive plus the composer's decisions (spans,
+// pickups, dynamics) — and those decisions ARE the argv. Store it, so the file
+// can say how to rebuild itself without the journal.
+// THE MORPH SECTIONS (day 35). `--morph <groupId>` folds a whole morph section's
+// notation into this page: the header (two written pitches + niente-arrow-fff),
+// the two interpolated curves, a go line at every breath and nothing else per
+// breath. One shared library computes it so the standalone pages and this page
+// cannot drift apart. See docs/MORPH_NOTATION.md.
+{
+  const MorphOv = require(path.join(ROOT, 'notation', 'lib', 'morph_overlays.js'));
+  const groups = [];
+  process.argv.forEach((a, i) => { if (a === '--morph' && process.argv[i + 1]) groups.push(process.argv[i + 1]); });
+  // [PLAN 2h.2] THE SEPTET'S MORPH RULES (NOTATION_STANDARDS §3) wherever the ensemble applies:
+  // parts under the META layer, 100 samples/s, the crescendo absolute through the breath peaks,
+  // D44's crescendo-only voices (ALERTED), D45's pitch figure in written pitch. The tuba's
+  // fixtures (no ensemble) keep the tuba's rules. --centsMin N: D45's threshold (default 7).
+  const CENTS_MIN = arg('centsMin', null);
+  const morphOpts = ENS_APPLIES ? {
+    maxLayer: metaLayer,
+    centsMin: CENTS_MIN != null ? +CENTS_MIN : MorphOv.SEPTET.centsMin,
+    transposeOf: p => ((ENS.parts || []).find(x => x.part === p) || {}).transpose || 0,
+  } : undefined;
+  for (const gid of groups) {
+    const built = MorphOv.forGroup(score.objects || [], gid, parts, gid.replace('grp-act-', '').replace('-01-01', ''), morphOpts);
+    if (!built.length) { console.log('  --morph ' + gid + ': no tones in this score/parts — nothing folded'); continue; }
+    for (const b of built) for (const a of b.alerts || []) console.warn('  ALERT --morph ' + gid + ' ' + a);
+    let dev = 0, other = 0;
+    for (const b of built) for (const ov of b.overlays) {
+      if (ov.kind === 'engraving') {
+        // an event may already carry a device overlay from an earlier flag; the
+        // morph settings win for its own events
+        const ex = doc.overlays.find(o => o.kind === 'engraving' && o.target && o.target.event === ov.target.event);
+        if (ex) Object.assign(ex.value.device, ov.value.device); else { doc.overlays.push(ov); }
+        dev++;
+      } else { doc.overlays.push(ov); other++; }
+    }
+    const g0 = built[0];
+    console.log('  --morph ' + gid + ': ' + built.length + ' parts, ' + dev + ' go-line events, ' + other
+      + ' curve/header overlays  (displacement ' + built.map(b => b.extent.toFixed(0)).join('/') + ' c)');
+  }
+  // THE DOT OFF (day 36 — the FOLD's regression, found on MAIN DRAFT).
+  // The standalone morph pages have carried curveFollower:false since day 35
+  // (notate_morph.js line 212; composer: "I want the meters. I don't want the
+  // dots.") but the fold never wrote it, so the dot came back the moment the
+  // morphs landed in MAIN DRAFT. curveFollower is pushed only for morphBend
+  // objects, so this switches off nothing outside the morph sections.
+  // NOT envFollower, which the morph pages also switch off: those pages are
+  // morph-only, this one is the whole piece, and envFollower is the layer-10
+  // META dot the composer may want elsewhere (it draws only with META on).
+  if (groups.length) doc.animated = Object.assign({}, doc.animated, { curveFollower: false });
+}
+
+// THE TRANCE SECTION (day 35; REWRITTEN day 36 to the composer's redirect).
+// `--trance <groupId>` folds the section's notation in: every in-tempo note a
+// black head + plain stem + staccato dot, the ten long-tone columns on ONE
+// written ring each, dynamics stripped to f / the swell pairs / the PH6 pairs,
+// a bar line + ♩=N IN EACH PART'S OWN LANE wherever THAT part changes tempo,
+// one bouncing ball per lane at that part's tempo, and the PH6 crescendo
+// curve. See notation/lib/trance_overlays.js and docs/plans/TRANCE_A4_REVISION.md.
+{
+  const TranceOv = require(path.join(ROOT, 'notation', 'lib', 'trance_overlays.js'));
+  const tgroups = [];
+  process.argv.forEach((a, i) => { if (a === '--trance' && process.argv[i + 1]) tgroups.push(process.argv[i + 1]); });
+  for (const gid of tgroups) {
+    const b = TranceOv.build(score.objects || [], gid, parts, gid.replace('grp-', ''));
+    if (!b) { console.log('  --trance ' + gid + ': no tones in this score/parts'); continue; }
+    let merged = 0, added = 0;
+    for (const ov of b.overlays) {
+      if (ov.kind === 'engraving') {
+        const ex = doc.overlays.find(o => o.kind === 'engraving' && o.target && o.target.event === ov.target.event);
+        if (ex) { Object.assign(ex.value.device, ov.value.device); merged++; } else { doc.overlays.push(ov); added++; }
+      } else doc.overlays.push(ov);
+    }
+
+    // THE BALL, as chunk gc devices (day 36). One instance per beat of the
+    // part's own grid, `preset.duration` = that part's step, so consecutive
+    // balls abut exactly: one ball per lane, always in flight, landing on
+    // every beat. Each tick is hung on whichever of that part's chunks holds
+    // its moment — a chunk device belongs to a chunk, and animobj reads the
+    // part from the chunk it hangs on.
+    const chOf = new Map();
+    for (const c of doc.chunks) { if (!chOf.has(c.part)) chOf.set(c.part, []); chOf.get(c.part).push(c); }
+    for (const [, list] of chOf) list.sort((a, x) => a.span[0] - x.span[0]);
+    let placed = 0, orphan = 0, n = 0;
+    for (const tk of b.ballTicks) {
+      const list = chOf.get(tk.part) || [];
+      let c = list.find(x => tk.at >= x.span[0] - 1e-6 && tk.at < x.span[1] + 1e-6);
+      if (!c) { // between two chunks: the nearest one that starts no later
+        for (const x of list) if (x.span[0] <= tk.at + 1e-6) c = x;
+        if (c) orphan++;
+      }
+      if (!c) { orphan++; continue; }
+      (c.devices = c.devices || []).push({
+        id: 'dev-' + gid.replace('grp-', '') + '-b' + tk.part + '-' + (n++),
+        kind: 'gc', mode: 'landing', at: tk.at,
+        preset: { duration: tk.step },
+        provenance: 'derived',
+      });
+      placed++;
+    }
+
+    console.log('  --trance ' + gid + ': ' + b.inTempo + ' in-tempo notes (black head + stem + dot), '
+      + b.columns + ' column members on ' + b.colRows.length + ' columns, ' + b.swells + ' swells');
+    console.log('     overlays: ' + added + ' new, ' + merged + ' merged into existing engraving overlays');
+    console.log('     tempo marks: ' + b.tempoMarks + ' per-part bar lines'
+      + (b.printMeasured ? '  [PRINTING THE MEASURED VALUES]' : '  [printing the AUTHORED map]'));
+    console.log('     ball: ' + placed + ' beat instances placed on chunk devices'
+      + (orphan ? ', ' + orphan + ' with no chunk to hang on' : ''));
+    console.log('     PH6: ' + b.cresc + ' crescendo curves, ' + b.pairs + ' ppp->fff pairs at the per-part entries');
+    console.log('     columns (onset · members · techniques · written ring):');
+    for (const c of b.colRows)
+      console.log('       ' + c.t.toFixed(2) + '  ' + String(c.n).padStart(2) + ' parts  '
+        + c.techs.join('+').padEnd(14) + ' ring ' + c.ring.toFixed(2) + ' s'
+        + (c.derived != null && Math.abs(c.derived - c.ring) > 0.005 ? '   [measured ' + c.derived.toFixed(2) + ']' : ''));
+    console.log('     THE PER-PART TEMPO MAP (blank = no mark here):');
+    for (const r of b.mapRows) {
+      if (!r.per.some(Boolean)) { console.log('       ' + r.name.padEnd(9) + ' ' + r.t0.toFixed(2) + '  —'); continue; }
+      console.log('       ' + r.name.padEnd(9) + ' ' + r.t0.toFixed(2) + '  '
+        + r.per.map((p, L) => 'T' + (L + 1) + '=' + (p ? (b.printMeasured ? p.measured : p.authored) : '·')).join(' '));
+    }
+    if (b.flags.length) { console.log('     FLAGS (' + b.flags.length + '):'); for (const f of b.flags) console.log('       · ' + f); }
+    if (b.mismatches.length) {
+      console.log('     ***** MISMATCH — the authored map vs the score (' + b.mismatches.length + ') *****');
+      for (const m of b.mismatches)
+        console.log('       ! ' + m.seg + (m.parts.length ? ' (' + (m.parts.length === 10 ? 'all ten parts' : m.parts.join(' ')) + ')' : '')
+          + ': authored ' + m.authored + ', measured ' + m.measured
+          + (m.driftMs != null ? '  — the authored grid is ' + m.driftMs + ' ms off the material by the end of the segment'
+             + (m.driftMs > 30 ? ' (over one notehead at page scale)' : ' (under one notehead)') : ''));
+      // day 36: this line said AUTHORED unconditionally and kept saying it
+      // after the flip — a tool reporting the opposite of what it just wrote.
+      console.log(b.printMeasured
+        ? '     ***** the MEASURED value is what gets printed (PRINT_MEASURED = true) *****'
+        : '     ***** the AUTHORED value is what gets printed; flip PRINT_MEASURED in trance_overlays.js to change that *****');
+    }
+    doc.hideMarkers = true;      // the score's beat numbers and structural labels are working marks, not notation
+    // THE PIES OFF (day 36, composer: "there are the animated pies showing up
+    // at certain points ... please suppress these"). motivePie fills over a
+    // score GROUP's span — a gesture-grouping readout, not notation, and this
+    // page is one group 251 s long. lineWedge is the same class of thing (a
+    // progress ring over a held note) and the columns and swells are exactly
+    // the notes it lands on, so it goes with them; the trance page's own
+    // progress reading is the ball. Same opt-out the morph pages use.
+    doc.animated = Object.assign({}, doc.animated, { motivePie: false, lineWedge: false });
+  }
+}
+
+doc.provenance.build = 'node tools/notate_section.js ' + process.argv.slice(2).map(a => (/[\s"]/.test(a) ? JSON.stringify(a) : a)).join(' ');
+fs.writeFileSync(path.join(ROOT, outRel), JSON.stringify(doc, null, 1));
+
+// independent validation — a failed doc is REMOVED, never left half-usable
+try {
+  execFileSync(process.execPath, [path.join(ROOT, 'tools', 'ir_validate.js'), outRel, '--against-source', '--complete'],
+    { cwd: ROOT, stdio: 'pipe' });
+} catch (e) {
+  fs.unlinkSync(path.join(ROOT, outRel));
+  console.error('VALIDATION FAILED — IR removed:\n' + String(e.stdout || '') + String(e.stderr || ''));
+  process.exit(1);
+}
+
+// picker manifest (the app reads this; hardcoded options remain as fallback)
+const manifest = readManifest();
+// [§440] an existing page is replaced IN PLACE (the MAIN file stays first in the picker); a new one is appended
+const entryNew = { id, label, score: scoreName, window: [w0, w1], profile, exp: flag('exp') || undefined };
+const at = manifest.irs.findIndex(e => e.id === id);
+if (at >= 0) manifest.irs[at] = entryNew; else manifest.irs.push(entryNew);
+writeManifest(manifest);
+
+// ── THE GEOMETRY GUARD (day 31) ──────────────────────────────────────────────
+// Lay the finished IR out and measure the ink the composer measures: tuplet
+// brackets vs dynamic/accent glyphs, bracket vs bracket, and stem sides within
+// one cluster. CLOUD02-D shipped with four bracket×dynamic collisions and two
+// gestures whose beams flipped sides mid-cluster — all invisible to the build,
+// found by the composer's eye. The build now measures its own page; a finding
+// prints loudly (never blocks — the composer may be mid-iteration).
+try {
+  const LayoutG = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
+  const GG = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
+  const CG = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const EL = (CG.engraving && CG.engraving.layout) || {};
+  const TPg = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7, hGapSs: 0.35, numeralGapPerCharSs: 0.88 }, EL.tuplet || {});
+  const ssPxZ = 7.9 * 2, pxSecZ = 2 * (1920 - 48) / 12;   // zoom-working scale
+  const secOfSsG = ss => ss * ssPxZ / pxSecZ;
+  const modelG = LayoutG.layoutSection(doc, GG, EL);
+  const findings = [];
+  for (const sys of modelG.systems) {
+    const P = 'T' + (sys.part + 1);
+    const tups = sys.items.filter(i => i.k === 'tuplet').map(i => ({
+      ...i,
+      x0: i.t0 + secOfSsG(TPg.hGapSs),
+      x1: i.dx1Ss != null ? i.t1 + secOfSsG(i.dx1Ss) : i.t1 - secOfSsG(TPg.hGapSs),
+    }));
+    // bracket vs bracket on one lane
+    for (let a = 0; a < tups.length; a++) for (let b = a + 1; b < tups.length; b++) {
+      const ov = Math.min(tups[a].x1, tups[b].x1) - Math.max(tups[a].x0, tups[b].x0);
+      if (ov > 0.002) findings.push(P + ' @' + Math.max(tups[a].x0, tups[b].x0).toFixed(2)
+        + ': brackets ' + tups[a].text + ' and ' + tups[b].text + ' OVERLAP by ' + Math.round(ov * 1000) + ' ms');
+    }
+    // bracket line/numeral vs dyn + accent glyph boxes
+    const glyphsG = sys.items.filter(i => i.k === 'glyph' && (String(i.g).startsWith('dyn-') || String(i.g).startsWith('artic-')))
+      .map(i => {
+        const key = String(i.g).replace(/^dyn-/, '').replace(/^artic-/, '');
+        const gm = String(i.g).startsWith('dyn-') ? (GG.dynamic[key] || { wSs: 1.4, hSs: 1 }) : (GG.articulation[key] || { wSs: 1.5, hSs: 0.84 });
+        return { g: i.g, t: i.t, ySs: i.ySs, hw: secOfSsG(gm.wSs / 2), hh: gm.hSs / 2 };
+      });
+    for (const T of tups) {
+      const capUp = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
+      const lineY0 = T.ySs - (T.dir === 'down' ? capUp : 0.1), lineY1 = T.ySs + (T.dir === 'down' ? 0.1 : capUp);
+      for (const g of glyphsG) {
+        const ox = Math.min(T.x1, g.t + g.hw) - Math.max(T.x0, g.t - g.hw);
+        const oy = Math.min(lineY1, g.ySs + g.hh) - Math.max(lineY0, g.ySs - g.hh);
+        if (ox > 0.002 && oy > 0.05) findings.push(P + ' @' + g.t.toFixed(2)
+          + ': bracket ' + T.text + ' collides with ' + g.g + ' (x ' + Math.round(ox * 1000) + ' ms, y ' + oy.toFixed(2) + ' ss)');
+      }
+    }
+    // stems: never inverted, never vanishing (day 31, the composer's
+    // screenshot: the old stack clamp pushed a beam past its heads — stems of
+    // 0.03 and -0.47 ss). The floor in layout.js prevents it; this proves it.
+    for (const it of sys.items) {
+      if (it.k !== 'stem') continue;
+      const len = it.attach === 'up' ? (it.yB - it.yA) : (it.yA - it.yB);
+      if (len < 0.75) findings.push(P + ' @' + it.t.toFixed(2) + ': stem ' + (len < 0 ? 'INVERTED' : 'only ' + len.toFixed(2) + ' ss'));
+    }
+    // a bracket line grazing or crossing ANY beam of the part (day 31)
+    const beamsG = sys.items.filter(i => i.k === 'beam' && i.tips && i.tips.length);
+    for (const T of tups) for (const b of beamsG) {
+      const bx0 = Math.min(...b.tips.map(x => x.t)), bx1 = Math.max(...b.tips.map(x => x.t));
+      const ox = Math.min(T.x1, bx1) - Math.max(T.x0, bx0);
+      const oy = Math.abs(T.ySs - b.tips[0].ySs);
+      if (ox > 0.01 && oy < 0.4) findings.push(P + ' @' + Math.max(T.x0, bx0).toFixed(2)
+        + ': bracket ' + T.text + ' within ' + oy.toFixed(2) + ' ss of beam ' + (b.group || ''));
+    }
+    // one stem side per cluster
+    const sides = new Map();
+    for (const i of sys.items) if (i.k === 'beam' && i.tips && i.tips.length && i.group) {
+      const cid = String(i.group).replace(/[a-z]$|-b\d.*$|-stub$/g, '');
+      if (!sides.has(cid)) sides.set(cid, new Set());
+      sides.get(cid).add(i.tips[0].ySs >= 0 ? 'up' : 'down');
+    }
+    for (const [cid, dirs] of sides) if (dirs.size > 1)
+      findings.push(P + ' ' + cid + ': beams on BOTH sides of one cluster');
+  }
+  // ── CROSS-LANE (day 31): the protrusion detector asks "does this ink leave
+  // its lane?"; nobody asked "do TWO PARTS' ink meet in the band between
+  // them?". Once furniture started switching sides by room, that became the
+  // live question — T6's dynamics and T7's accents landed 0.54 ss into each
+  // other in the shared band, invisible to every existing check.
+  {
+    const lanesG = CG.realizations['video-jury'].lanes;
+    const ssG = CG.staff.staffHeightPx / 4;
+    const lanePx = (CG.frame.heightPx - lanesG.padTopPx - lanesG.padBotPx - lanesG.gapPx * 9) / 10;
+    const PITCH = (lanePx + lanesG.gapPx) / ssG;     // lane-to-lane, in ss
+    const boxes = [];
+    for (const sys of modelG.systems) {
+      const c = sys.part * PITCH;
+      for (const it of sys.items) {
+        const t = it.t !== undefined ? it.t : (it.t0 !== undefined ? it.t0 : (it.tips && it.tips[0] ? it.tips[0].t : null));
+        if (t == null) continue;
+        let lo, hi, x0 = t, x1 = t, name;
+        if (it.k === 'tuplet') { lo = it.ySs - 0.75; hi = it.ySs + 0.75; x0 = it.t0; x1 = it.t1; name = 'bracket ' + it.text; }
+        else if (it.k === 'glyph' && /^artic-/.test(String(it.g))) { lo = it.ySs - 0.42; hi = it.ySs + 0.42; x0 = t - 0.03; x1 = t + 0.03; name = 'accent'; }
+        else if (it.k === 'glyph' && /^dyn-/.test(String(it.g))) { const gm = GG.dynamic[String(it.g).slice(4)] || { hSs: 1 }; lo = it.ySs - gm.hSs / 2; hi = it.ySs + gm.hSs / 2; x0 = t - 0.04; x1 = t + 0.04; name = String(it.g); }
+        else if (it.k === 'beam' && it.tips && it.tips.length) { lo = it.tips[0].ySs - 0.3; hi = it.tips[0].ySs + 0.3; x0 = Math.min(...it.tips.map(v => v.t)); x1 = Math.max(...it.tips.map(v => v.t)); name = 'beam'; }
+        else continue;
+        boxes.push({ part: sys.part, name, x0, x1, lo: c - hi, hi: c - lo });
+      }
+    }
+    boxes.sort((a, b) => a.x0 - b.x0);
+    for (let i = 0; i < boxes.length; i++) {
+      for (let j = i + 1; j < boxes.length && boxes[j].x0 < boxes[i].x1; j++) {
+        const A = boxes[i], B = boxes[j];
+        if (Math.abs(A.part - B.part) !== 1) continue;
+        const oy = Math.min(A.hi, B.hi) - Math.max(A.lo, B.lo);
+        if (oy > 0) findings.push('T' + (A.part + 1) + ' ' + A.name + ' @' + A.x0.toFixed(2)
+          + ' meets T' + (B.part + 1) + ' ' + B.name + ' in the band between them (' + oy.toFixed(2) + ' ss)');
+      }
+    }
+  }
+
+  // ── FACING BANDS, NAMED (day 33, the composer's rule sketch kept as a
+  // DIAGNOSTIC): a band is FACING when an upper part's beams point down into
+  // it while the lower part's beams point up into it — both beam-stacks in
+  // one band. Measured on c2d: the two facing bands (T6/T7, T8/T9) are
+  // exactly where every placement dictation of days 31-33 landed. Printed as
+  // information, not a finding — the composer decides moves; the label says
+  // where clutter risk lives BEFORE the dictation rounds.
+  {
+    const pairs = new Map();
+    for (const sys of modelG.systems) {
+      for (const it of sys.items) {
+        if (it.k !== 'beam' || !it.tips || !it.tips.length) continue;
+        const x0 = Math.min(...it.tips.map(v => v.t)), x1 = Math.max(...it.tips.map(v => v.t));
+        const dn = it.tips[0].ySs < 0;
+        for (const sys2 of modelG.systems) {
+          if (sys2.part !== sys.part + 1) continue;
+          for (const it2 of sys2.items) {
+            if (it2.k !== 'beam' || !it2.tips || !it2.tips.length) continue;
+            if (!dn || it2.tips[0].ySs < 0) continue;      // facing = upper down, lower up
+            const y0 = Math.min(...it2.tips.map(v => v.t)), y1 = Math.max(...it2.tips.map(v => v.t));
+            const o0 = Math.max(x0, y0), o1 = Math.min(x1, y1);
+            if (o1 <= o0) continue;
+            const key = 'T' + (sys.part + 1) + '/T' + (sys.part + 2);
+            const cur = pairs.get(key) || [Infinity, -Infinity];
+            pairs.set(key, [Math.min(cur[0], o0), Math.max(cur[1], o1)]);
+          }
+        }
+      }
+    }
+    if (pairs.size) console.log('FACING BANDS (info): ' + [...pairs.entries()]
+      .map(([k, v]) => k + ' ' + v[0].toFixed(1) + '-' + v[1].toFixed(1) + ' s').join(' · '));
+  }
+  if (findings.length) {
+    console.log('GEOMETRY: ' + findings.length + ' finding(s) — the page has ink collisions:');
+    findings.forEach(x => console.log('  !! ' + x));
+  } else {
+    console.log('GEOMETRY: clean (brackets, dynamics, accents, stem sides)');
+  }
+} catch (e) { console.log('GEOMETRY: check skipped (' + (e && e.message) + ')'); }
+
+const byStrategy = {};
+for (const c of doc.chunks) byStrategy[c.strategy] = (byStrategy[c.strategy] || 0) + 1;
+console.log('READY: ' + id + ' — ' + doc.events.length + ' events, ' + doc.chunks.length + ' chunks ' +
+  JSON.stringify(byStrategy) + ' · VALID vs source · in the picker as "' + label + '"' +
+  (flag('exp') ? ' [experiments]' : ''));
+for (const w of warnings) console.warn('  warn: ' + w);

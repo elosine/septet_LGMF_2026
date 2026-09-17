@@ -1,0 +1,62 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "score",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "score/server.js"
+      ],
+      "port": 5300
+    },
+    {
+      "name": "sandbox",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "sandbox/serve.js"
+      ],
+      "port": 4800
+    },
+    {
+      "name": "score-5301",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:PORT=5301; node score/server.js"
+      ],
+      "port": 5301
+    },
+    {
+      "name": "twopianos",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "cd C:/Users/jwloy/GitHub/composition_for_two_pianos_and_two_percussion; node server.js"
+      ],
+      "port": 5000
+    },
+    {
+      "name": "pno2perc2-perf-3001",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location C:/Users/jwloy/GitHub/composition_for_two_pianos_and_two_percussion; node scripts/performance_server.js"
+      ],
+      "port": 3001,
+      "url": "http://localhost:3001"
+    },
+    {
+      "name": "tubas-5200",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location C:/Users/jwloy/GitHub/for_seven_tubas; node score/server.js"
+      ],
+      "port": 5200
+    }
+  ]
+}

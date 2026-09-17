@@ -1,0 +1,25 @@
+{
+ "_doc": "THE ENSEMBLE — the septet's parts as notation data (PLAN 2a.1–2a.3, 2026-09-11; RUNNING_LOG §384). Indexed by the composer score's LAYER, which is the IR's `part`. Read by layout.js (clef, written pitch, staves), render.js (part labels, brackets, brace), the notation app and the exports (lane weights, the frame's parts). Everything here is piece data (D9 §6, PLAN M2): the engine knows clefs, transpositions and staves, not flutes. A caller that passes no ensemble gets the tuba piece's behaviour exactly — ten bass-clef lanes labelled T1..T10 — which is how the tuba batteries stay green.",
+ "_check": "tools/notate_section.js refuses to extract when a part's `id` or `short` differs from the score's tracks[part] — the registry cannot drift from the composer score silently.",
+ "metaLayer": 7,
+ "curveLayers": [8, 9, 10],
+ "_layersNote": "composer.html: META_LAYER = 7 (= tracks.length), CURVE_LAYERS = [8, 9, 10] (the curve windows A/B/C, D21). Neither is a part; the extractor's default parts are 0..tracks.length-1.",
+ "parts": [
+  { "part": 0, "id": "flute", "short": "Fl", "clef": "treble" },
+  { "part": 1, "id": "bass_clarinet", "short": "BCl", "clef": "treble", "transpose": 14,
+    "_transposeNote": "B♭ bass clarinet in treble clef (the French notation, composer 2026-09-11, RUNNING_LOG §382): written a major ninth (14 semitones) above sounding. The IR keeps SOUNDING pitch (D9); the shift is applied at layout only, and spelled from the written note." },
+  { "part": 2, "id": "piano", "short": "Pno", "weight": 1.576, "splitMidi": 60,
+    "staves": [ { "clef": "treble" }, { "clef": "bass" } ],
+    "_stavesNote": "ONE lane, taller (composer 2026-09-11, RUNNING_LOG §382): a grand staff inside the one-lane-per-part model. weight 1.576 (§401k, was 2): the two staves sit 6 ss apart (container grandStaff.interStaffGapSs), centred in the lane, and the lane holds exactly the air a single player's lane has above and below its staff — lane = unit + 4 + 6 ss, so w = 1 + 10/u with u = 131.6/(6 + w) → u 17.37 ss, w 1.576. The other six lanes grow from 16.46 to 17.37 ss (+5.5 %). A note at or above splitMidi (middle C) goes on the upper staff, below it on the lower — the plain rule; a per-note override is later work." },
+  { "part": 3, "id": "violin1", "short": "Vn1", "clef": "treble" },
+  { "part": 4, "id": "violin2", "short": "Vn2", "clef": "treble" },
+  { "part": 5, "id": "viola", "short": "Va", "clef": "alto" },
+  { "part": 6, "id": "cello", "short": "Vc", "clef": "bass" }
+ ],
+ "groups": [
+  { "kind": "bracket", "parts": [0, 1] },
+  { "kind": "brace", "parts": [2] },
+  { "kind": "bracket", "parts": [3, 4, 5, 6] }
+ ],
+ "_groupsNote": "D10 (composer 2026-09-03): orchestral score order, top to bottom; winds bracket · piano brace · strings bracket."
+}

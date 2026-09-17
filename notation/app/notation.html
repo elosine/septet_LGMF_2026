@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Notation — slice 1 (trance)</title>
+<style>
+  :root { color-scheme: light; }
+  /* the decided notation text font (V0.7) — served from /notation/app/fonts */
+  @font-face { font-family: 'Crimson Pro Light'; font-style: normal; font-weight: 300; src: url('fonts/CrimsonPro-Light.ttf') format('truetype'); }
+  @font-face { font-family: 'Crimson Pro Light'; font-style: italic; font-weight: 300; src: url('fonts/CrimsonPro-LightItalic.ttf') format('truetype'); }
+  body { margin: 0; background: #e8e6e1; font-family: sans-serif; }
+  /* V1: the container windows render at TRUE size — no responsive width */
+  #sheet.fixed { width: 1920px; overflow-x: visible; }
+  /* container modes (video/zoom): the frame is the SCREEN's size, so the
+     page may own zero chrome — no margins, no visible scrollbars, and the
+     control bar floats and auto-hides (hover the top edge to get it back).
+     At F11 on a 1920×1080 screen the video frame fits EXACTLY. */
+  /* the page scroller is the HTML element — suppress bars there (wheel
+     scrolling still works; the zoom view relies on it) */
+  html.cmode { scrollbar-width: none; }
+  html.cmode::-webkit-scrollbar { display: none; }
+  body.cmode { background: #111; }
+  body.cmode #sheet { margin: 0; box-shadow: none; }
+  body.cmode #sheet svg { display: block; } /* inline-svg baseline adds 4px */
+  /* day 22: the floating bar lives at the BOTTOM edge in container modes —
+     at the top it sat exactly over T1's lane whenever shown */
+  body.cmode #bar { position: fixed; top: auto; bottom: 0; left: 0; right: 0; z-index: 10;
+                    transform: translateY(100%); transition: transform .15s; opacity: 0.96; }
+  body.cmode #bar.shown, body.cmode #bar:hover { transform: none; }
+  #hoverzone { display: none; position: fixed; top: auto; bottom: 0; left: 0; right: 0; height: 14px; z-index: 9; }
+  body.cmode #hoverzone { display: block; }
+  body.cmode #err { position: fixed; left: 8px; bottom: 8px; z-index: 10;
+                    background: #fff8; border-radius: 4px; }
+  body.cmode #err:empty { display: none; }
+  #bar { display: flex; gap: 10px; align-items: center; padding: 8px 12px;
+         background: #2b2b2b; color: #ddd; position: sticky; top: 0; flex-wrap: wrap; }
+  #bar label { font-size: 12px; opacity: 0.8; }
+  #bar input, #bar select, #bar button { font-size: 13px; padding: 3px 8px; }
+  #bar button { cursor: pointer; }
+  /* PER-PART SOLO (day 24) — same convention as the composer score
+     (composer.html 2026-08-12): S per part, amber when on, ALT+click
+     exclusive, un-soloed lanes at 0.3. The buttons live on the BAR, never
+     in the SVG, so the 1920x1080 frame stays export-clean. */
+  #soloBtns { display: inline-flex; gap: 2px; }
+  #soloBtns button { font-size: 10px; line-height: 12px; padding: 1px 3px; min-width: 22px;
+                     border: 1px solid #666; background: #3a3a3a; color: #aaa; border-radius: 2px; }
+  #soloBtns button.on { background: #f9a825; border-color: #f57f17; color: #fff; }
+  #sheet g.sysDim { opacity: 0.3; }
+  #meta { font-size: 11px; opacity: 0.65; margin-left: auto; }
+  #sheet { margin: 14px; background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.25); overflow-x: auto; position: relative; }
+  #animov { position: absolute; top: 0; left: 0; pointer-events: none; }
+  #err { color: #b00; padding: 12px; white-space: pre-wrap; font-family: monospace; }
+  #stale { color: #8a6d3b; padding: 0 12px 12px; white-space: pre-wrap; font-family: monospace; }
+  #stale:empty { display: none; }
+  /* day 22: playhead readout — the composer could not tell what time the
+     cursor was at. A pill at the bottom-right in container modes (DOM
+     only; never in the SVG, so exports stay clean), hidden while the bar
+     is up because the bar carries the same number. */
+  #tnow { display: none; }
+  body.cmode.tshow #tnow { display: block; position: fixed; right: 10px; bottom: 8px; z-index: 10;
+                     font: 13px/1 monospace; color: #ddd; background: #111c;
+                     padding: 5px 9px; border-radius: 4px; pointer-events: none; }
+  body.cmode #bar.shown ~ #tnow, body.cmode #bar:hover ~ #tnow { display: none; }
+  #tbar { font: 13px/1 monospace; opacity: 0.9; display: none; }
+  body.cmode #stale { position: fixed; left: 8px; bottom: 34px; z-index: 10;
+                      background: #fff8; border-radius: 4px; padding: 4px 8px; }
+  /* [PLAN 2d.4] choices that did not draw as chosen: the count in the bar (absent at zero; a click or O opens the list) and
+     the list itself, hidden when empty. DOM only, never in the SVG, so exports stay clean. */
+  #orph { font-size: 12px; color: #ffcc80; cursor: pointer; border: 1px solid #8d6e3f; border-radius: 3px; padding: 2px 6px; }
+  #orph:empty { display: none; }
+  #orphans { position: fixed; right: 10px; bottom: 44px; z-index: 11; max-width: 560px; max-height: 50vh; overflow-y: auto;
+             background: #2b2b2bf2; color: #ddd; font: 12px/1.5 monospace; border-radius: 4px; padding: 8px 10px;
+             box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  #orphans .hd { opacity: 0.75; margin-bottom: 4px; white-space: pre-wrap; }
+  #orphans .ln { display: flex; gap: 8px; align-items: center; padding: 2px 0; }
+  #orphans .ln span.what { flex: 1; }
+  #orphans button { font: 11px monospace; padding: 1px 6px; cursor: pointer; }
+  #orphans .err { color: #ff8a80; white-space: pre-wrap; }
+  /* [PLAN 2d.6] one line of feedback for G and the selection — DOM only, gone after a few seconds */
+  #flash { position: fixed; left: 8px; bottom: 64px; z-index: 12; background: #2b2b2bf2; color: #ffcc80;
+           font: 12px/1.4 monospace; padding: 4px 8px; border-radius: 4px; pointer-events: none; }
+  #flash:empty { display: none; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <label id="viewWrap">view <select id="view">
+    <option value="notation">notation</option>
+    <option value="graphic">graphic</option>
+    <option value="video">video (1920×1080)</option>
+    <option value="zoom">zoom (×Z working)</option>
+  </select></label>
+  <button id="zx" style="display:none" title="flip video ↔ zoom at the same music position">⇆ video/zoom</button>
+  <button id="play" style="display:none" title="play/pause (SPACE) — click the score to seek">▶</button>
+  <label id="audWrap" style="display:none" title="attach the Reaper render — the clock slaves to it">♪ <input type="file" id="aud" accept="audio/*" style="width:150px"></label>
+  <label id="midiWrap" style="display:none" title="live MIDI to the loopMIDI/Reaper rig (the working-loop default; unchecks itself when a render is attached)"><input type="checkbox" id="midi" checked> MIDI</label>
+  <label id="metaWrap" title="the META layer over the frame: layer-10 shape overlay + its envelope follower — off by default in the working loop"><input type="checkbox" id="metaov"> META</label>
+  <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
+  <span id="soloWrap" title="solo a part: click toggles, ALT+click = exclusive (ALT+click the only soloed part clears it). Soloed parts keep full ink and are the only ones that sound; the rest dim to 30%. An attached audio render cannot be soloed - MIDI can.">solo <span id="soloBtns"></span></span>
+  <button id="rend" style="display:none" title="a Reaper render exists for this score (notation/audio/) — click to slave the clock to it">♪ render</button>
+  <label id="scoreWrap" style="display:none">score <select id="score">
+    <option value="tranceA002f">tranceA002f</option>
+    <option value="piece-s23">piece-s23</option>
+  </select></label>
+  <!-- day 35 (composer: "just keep one in the main section"): the picker is
+       manifest-driven — notation/ir/index.json lists MAIN DRAFT first and
+       everything else under the experiments group. Nothing is hardcoded here;
+       the old built-in four moved into the manifest as experiments. -->
+  <label id="irWrap">ir <select id="ir"></select></label>
+  <label id="m4Wrap" title="M4: proportional residue as vertical attack lines"><input type="checkbox" id="m4"> M4 lines</label>
+  <label id="partsWrap">parts <select id="parts">
+    <option value="all">all parts</option>
+  </select></label>
+  <label id="modeWrap">mode <select id="mode">
+    <option value="window">window</option>
+    <option value="pages">pages</option>
+  </select></label>
+  <label id="t0Wrap">from <input id="t0" type="number" value="0" step="1" style="width:70px"> s</label>
+  <label id="wWrap">width <input id="w" type="number" value="16" step="1" style="width:60px"> s</label>
+  <button id="prev" title="previous page / zoom step (←) · SHIFT+← pans the zoom 1 s · HOME = page start">◀</button>
+  <button id="next" title="next page / zoom step (→) · SHIFT+→ pans the zoom 1 s · HOME = page start">▶</button>
+  <label id="engWrap" title="engineering controls: the slice-1 proofing views (notation/graphic) and their window/parts overrides — off = the presentation score alone"><input type="checkbox" id="eng"> ⚙</label>
+  <label id="tshowWrap" style="display:none" title="show the playhead time pill on the score (T)"><input type="checkbox" id="tshow" checked> t</label>
+  <span id="tbar" title="playhead time — click the score to seek"></span>
+  <!-- [PLAN 2i.1] go-to-time (§456 item 5, the composer: "a goto time in the presentation score and home to go to 0") -->
+  <label id="gotoWrap" style="display:none" title="go to a time: seconds (123.4) or m:ss (2:03.4), ENTER — the page turns to it and the playhead lands on it · HOME (video) = time 0">go <input id="goto" type="text" placeholder="s · m:ss" style="width:64px"></label>
+  <button id="home" style="display:none" title="time 0 (HOME in the video view)">⌂</button>
+  <span id="orph" title="page choices that did not draw as chosen — click or O for the list"></span>
+  <span id="meta"></span>
+</div>
+<div id="hoverzone" title="controls — B pins the bar open / hides it · Z video ↔ zoom · T time pill · SPACE play · ←/→ pages · HOME time 0 (video) · the bar's "go" box: type a time, ENTER · R refresh from the score (last Save) · O the choices that did not draw · click a note selects it, SHIFT+click adds · G beams the selection (G again removes it) · ESC clears the selection and frees the keys"></div>
+<div id="sheet"></div>
+<div id="err"></div>
+<div id="stale" title="the extracted snapshot no longer matches the composer score"></div>
+<div id="orphans" hidden></div>
+<div id="flash"></div>
+<div id="tnow" title="playhead time"></div>
+
+<script src="/notation/lib/coords.js"></script>
+<script src="/notation/lib/stamps.js"></script>
+<script src="/notation/lib/chord_column.js"></script>
+<script src="/notation/lib/layout.js"></script>
+<script src="/notation/lib/beam_choice.js"></script>
+<script src="/notation/lib/gc.js"></script>
+<script src="/notation/lib/render.js"></script>
+<script src="/notation/lib/splice.js"></script>
+<script src="/notation/lib/graphic.js"></script>
+<script src="/notation/lib/transport.js"></script>
+<script src="/notation/lib/animobj.js"></script>
+<script src="/sandbox/instruments.js"></script>
+<script src="/sonify_core.js"></script>
+<script src="/cresc.js"></script><!-- [2i.8] the curve template: layout.drawnLevelSamples reads Cresc.segmentFor + SonifyCore.evalWaveCurve at call time -->
+<script src="/notation/lib/midiplayer.js"></script>
+<script>
+(async function () {
+  const $ = id => document.getElementById(id);
+  const state = { ir: null, glyphs: null, markers: [], model: null, pages: null, pageIdx: 0, scores: {}, lastView: null };
+  // PER-PART SOLO (day 24, composer: "can we do a solo button for each
+  // track"). Empty set = no solo = everything sounds at full ink;
+  // otherwise ONLY these parts sound and the rest dim. Same semantics as
+  // the composer score's lane S buttons (composer.html, 2026-08-12).
+  state.solo = new Set();
+  const UI_KEY = 'notation-ui';   // hoisted above first use: restoreUi runs during init
+  const UI_FIELDS = ['view', 'mode', 'parts', 't0', 'w', 'ir', 'score', 'm4', 'midi', 'bricks', 'eng', 'metaov', 'tshow'];
+  // THE FRAME (day 22, the collapse): the presentation score always shows
+  // every lane (PP-2); a save covering fewer parts leaves the rest as
+  // empty staves. One place to change if the ensemble ever isn't ten.
+  // [2a.1, the septet — 2026-09-11] the ENSEMBLE REGISTRY
+  // (notation/registry/ensemble.json) names the frame's parts and their
+  // labels, clefs, staves, lane weights and brackets; filled at init. A
+  // repo without one keeps the tuba's ten T-lanes.
+  let FRAME_PARTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const ensPart = p => (state.ensemble && state.ensemble.parts.find(q => q.part === p)) || null;
+  const partName = p => { const e = ensPart(p); return e ? e.short : 'T' + (p + 1); };
+  const stavesOf = p => { const e = ensPart(p); return (e && e.staves && e.staves.length) || 1; };
+  // [§401k] the grand staff's inter-staff gap (registry engraving.layout.grandStaff.interStaffGapSs) —
+  // withStaves places a part's staves at it, centred in the lane; absent = each staff centred in its share
+  function grandStaffOpts() { const g = (((state.container || {}).engraving || {}).layout || {}).grandStaff; return g && g.interStaffGapSs > 0 ? { interStaffGapSs: g.interStaffGapSs } : undefined; }
+  const weightOf = p => { const e = ensPart(p); return (e && e.weight) || 1; };
+  // hoisted: a RESTORED container view (UI persistence) runs the whole
+  // transport/anim/MIDI path during the INITIAL render, which the old
+  // top-to-bottom declaration order never had to survive
+  let barTimer = null;
+  let rafId = null;
+  let midiWasPlaying = false;
+  state.transport = NotationTransport.makeTransport();
+  state.midi = { outputs: null, ccPoints: null, players: {}, failed: false, warned: false };
+  // ---- PER-PART SOLO ----------------------------------------------------
+  // The effective scope: the save's parts, narrowed by solo. ONE function,
+  // so the page, the animation overlay and the MIDI player can never
+  // disagree about who is soloed.
+  function soloScope() {
+    const all = (state.ir && state.ir.source.parts) || [];
+    if (!state.solo.size) return all;
+    const on = all.filter(p => state.solo.has(p));
+    return on.length ? on : all;   // a solo set that selects nothing is no solo
+  }
+  function buildSoloButtons() {
+    const box = $('soloBtns');
+    box.innerHTML = '';
+    // only the parts this save actually contains: a T1 experiment gets one
+    // button, the ten-part section gets ten
+    for (const p of (state.ir && state.ir.source.parts) || []) {
+      const b = document.createElement('button');
+      b.textContent = partName(p);
+      b.dataset.part = String(p);
+      b.title = 'solo ' + partName(p) + ' (ALT+click = exclusive)';
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (e.altKey) {
+          const wasOnly = state.solo.size === 1 && state.solo.has(p);
+          state.solo.clear();
+          if (!wasOnly) state.solo.add(p);
+        } else if (state.solo.has(p)) state.solo.delete(p);
+        else state.solo.add(p);
+        soloChanged();
+      });
+      box.appendChild(b);
+    }
+    applySolo();
+  }
+  // Applied AFTER every render (innerHTML replaces the lanes wholesale, so
+  // the dim cannot live in the rendered markup) and on every solo change.
+  // Class only: no geometry, no re-layout, no re-render.
+  function applySolo() {
+    const on = new Set(soloScope());
+    const dim = state.solo.size > 0;
+    for (const g of document.querySelectorAll('#sheet g.sys')) {
+      const m = (g.getAttribute('class') || '').match(/sys-p(\d+)/);
+      if (m) g.classList.toggle('sysDim', dim && !on.has(+m[1]));
+    }
+    for (const b of document.querySelectorAll('#soloBtns button'))
+      b.classList.toggle('on', state.solo.has(+b.dataset.part));
+    splitAnim();
+  }
+  // The animation overlay is redrawn 60x a second, so the soloed/un-soloed
+  // partition is computed HERE (on a solo change or an instance rebuild),
+  // never per frame.
+  function splitAnim() {
+    const all = state.animInstances || [];
+    if (!state.solo.size) { state.animOn = all; state.animOff = null; return; }
+    const on = new Set(soloScope());
+    state.animOn = all.filter(i => i.part === undefined || on.has(i.part));
+    state.animOff = all.filter(i => i.part !== undefined && !on.has(i.part));
+  }
+  function soloChanged() {
+    // the OLD player stops being ticked the moment the scope changes, so
+    // sweep it first or notes sounding on a part that just lost solo hang
+    // forever (the residue class, piece #3 Principle 3). midiPlayer() keys
+    // on the scope, so the next tick picks up the player for the new set.
+    midiFlush();
+    applySolo();
+  }
+  async function loadIr(name) {
+    const r = await fetch('/notation/ir/' + name + '.ir.json');
+    if (!r.ok) throw new Error('IR fetch ' + name + ' ' + r.status);
+    state.ir = await r.json();
+    await loadChoices();
+    state.pages = null; state.pageIdx = 0; state.vPages = null; state.zoomT0 = undefined;
+    try {
+      const s = await loadScore(state.ir.source.score);
+      state.markers = (s.objects || []).filter(o => o.type === 'marker').map(o => ({ time: o.time, label: o.label }));
+    } catch (e) { state.markers = []; }
+    layoutIr();
+    // a new save = a new part list; drop a solo that no longer applies
+    for (const p of [...state.solo]) if (!(state.ir.source.parts || []).includes(p)) state.solo.delete(p);
+    buildSoloButtons();
+  }
+  // the layout of the IR the page holds — also re-run in place when a choice is discarded (2d.4.5), page and zoom kept
+  function layoutIr() {
+    state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
+      { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS, ensemble: state.ensemble, techniques: state.techniques },
+      (state.container && state.container.engraving && state.container.engraving.layout) || {}));
+  }
+  // [PLAN 2d.2] THE CHOICES SIDECAR — notation/choices/<score>.choices.json (IR_SCHEMA_v0 §6b): the page's own ink choices,
+  // keyed to the composer's note ids, applied on top of the fresh IR IN MEMORY — never written into it. A missing file is
+  // normal and silent; where no choice exists the engine's own result stands. The report keeps every choice, whatever became
+  // of it (applied · partial · orphaned) — 2d.4 shows it.
+  async function loadChoices() {
+    state.choices = null; state.choiceReport = [];
+    const score = state.ir && state.ir.source && state.ir.source.score;
+    if (!score || typeof BeamChoice === 'undefined') { updateOrphanUi(); return; }
+    let doc = null;
+    try {
+      const r = await fetch('/notation/choices/' + encodeURIComponent(score) + '.choices.json');
+      if (r.ok) doc = await r.json();
+    } catch (e) { doc = null; }
+    state.choices = doc;
+    applyLoadedChoices();
+  }
+  // the choices held → overlays on the IR held (earlier choice overlays stripped first, so this can re-run in place — 2d.4.5)
+  // + the report + the count. The IR's own overlays are never touched.
+  function applyLoadedChoices() {
+    state.ir.overlays = (state.ir.overlays || []).filter(o => !String(o.id).startsWith('ov-choice-'));
+    state.choiceReport = [];
+    if (state.choices && typeof BeamChoice !== 'undefined') {
+      const figs = (((state.container || {}).engraving || {}).layout || {}).figures || {};
+      const { overlays, report } = BeamChoice.applyChoices(state.choices, state.ir, figs.beam);
+      state.ir.overlays = state.ir.overlays.concat(overlays);
+      state.choiceReport = report;
+      const off = report.filter(x => x.status !== 'applied');
+      if (off.length) console.warn('[choices] ' + state.choices.score + ': ' + off.map(x => x.id + ' ' + x.status).join(' · '));
+    }
+    updateOrphanUi();
+  }
+  // saved through the server, atomically (POST /api/notation/choices/<score>) → { success, error? }; never throws. Callers:
+  // the flags after R (2d.4.1) · discard (2d.4.5) · G (2d.6).
+  async function saveChoices(doc) {
+    doc = doc || state.choices;
+    const score = state.ir && state.ir.source && state.ir.source.score;
+    if (!score || !doc) return { success: false, error: 'no choices file is loaded' };
+    try {
+      const r = await fetch('/api/notation/choices/' + encodeURIComponent(score), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(doc) });
+      try { return await r.json(); }
+      catch (e) { return { success: false, error: r.status === 404 ? 'this server cannot save choices yet — restart it (node score/server.js)' : 'HTTP ' + r.status }; }
+    } catch (e) { return { success: false, error: e.message }; }
+  }
+  window.notationChoices = () => ({ file: state.choices, report: state.choiceReport });   // read-only, for the console
+
+  // [PLAN 2d.4] ⚠ ORPHANS — LISTED, NEVER DROPPED. The machine never deletes a choice and nothing ever blocks the page. The
+  // report of every load says what became of each choice; the count sits in the bar (absent at zero); O or a click on it opens
+  // the list; each line offers only discard and go there — he never touches ids.
+  const isWholeIr = () => /(^|\s)--all(\s|$)/.test((state.ir && state.ir.provenance && state.ir.provenance.build) || '');
+  const orphUi = { open: false, err: '' };
+  const offChoices = () => (state.choiceReport || []).filter(r => r.status !== 'applied');
+  // 2d.4.1 — after R (a whole-score IR, so a missing note is really gone): the report → the file's `orphaned` flags; saved only
+  // when one changed. A choice whose notes are back has its flag cleared by the same pass.
+  async function writeBackFlags() {
+    if (!state.choices || typeof BeamChoice === 'undefined' || !isWholeIr()) return null;
+    const changed = BeamChoice.resolveFlags(state.choices, state.choiceReport);
+    if (!changed.length) return { success: true, changed };
+    const res = await saveChoices();
+    orphUi.err = res.success ? '' : '⚠ the orphan flags could not be written: ' + (res.error || 'no reason given');
+    if (res.success) console.log('[choices] flags written after R: ' + changed.join(', '));
+    renderOrphanPanel();
+    return Object.assign(res, { changed });
+  }
+  function updateOrphanUi() {
+    $('orph').textContent = typeof BeamChoice === 'undefined' ? '' : BeamChoice.reportCounts(state.choiceReport);
+    renderOrphanPanel();
+  }
+  function toggleOrphans() { orphUi.open = !orphUi.open && offChoices().length > 0; renderOrphanPanel(); }
+  $('orph').addEventListener('click', toggleOrphans);
+  // 2d.4.4 — kind · notes remaining of how many · the part · the time · go there · discard. Hidden when empty.
+  function renderOrphanPanel() {
+    const P = $('orphans'), off = offChoices();
+    if (!off.length) orphUi.open = false;
+    P.innerHTML = '';
+    P.hidden = !orphUi.open;
+    if (!orphUi.open) return;
+    const btn = (label, fn) => { const b = document.createElement('button'); b.textContent = label; b.addEventListener('click', fn); return b; };
+    const partName = p => { const e = state.ensemble && state.ensemble.parts && state.ensemble.parts.find(x => x.part === p); return e ? e.short : p == null ? '—' : 'part ' + p; };
+    const hd = document.createElement('div'); hd.className = 'hd';
+    hd.textContent = 'choices that did not draw as chosen — ' + state.ir.source.score +
+      (isWholeIr() ? '' : '\n(a window IR: notes outside it read as missing — R rebuilds the whole score)');
+    P.append(hd);
+    for (const r of off) {
+      const ln = document.createElement('div'); ln.className = 'ln';
+      const what = document.createElement('span'); what.className = 'what';
+      what.textContent = r.id + ' · ' + r.kind + ' · ' + r.status + ' · ' + r.present + ' of ' + r.notes + ' notes · ' + partName(r.part) +
+        ' · ' + (r.t == null ? '—' : r.t.toFixed(2) + ' s') + (r.why ? ' — ' + r.why : '');
+      if (r.missing && r.missing.length) what.title = 'missing: ' + r.missing.join(', ');
+      ln.append(what);
+      if (r.present) ln.append(btn('go there', () => goToChoice(r.id)));
+      ln.append(btn('discard', () => discardChoice(r.id)));
+      P.append(ln);
+    }
+    if (orphUi.err) { const e = document.createElement('div'); e.className = 'err'; e.textContent = orphUi.err; P.append(e); }
+  }
+  // 2d.4.5 — discard = the choice out of the file, saved; only after the save succeeds is it dropped from the page, which then
+  // re-applies and re-lays out in place (page and zoom kept). A failed save changes nothing and says why.
+  async function discardChoice(id) {
+    if (!state.choices) return;
+    const next = Object.assign({}, state.choices, { choices: state.choices.choices.filter(c => c.id !== id) });
+    const res = await saveChoices(next);
+    if (!res.success) { orphUi.err = '⚠ discard failed — nothing changed: ' + (res.error || 'no reason given'); renderOrphanPanel(); return; }
+    orphUi.err = ''; state.choices = next;
+    applyLoadedChoices(); layoutIr(); render();
+  }
+  // 2d.4.5 — go there = the page to the choice's first surviving note, the playhead on it, the survivors ringed for a moment
+  async function goToChoice(id) {
+    const r = (state.choiceReport || []).find(x => x.id === id);
+    if (!r || r.t == null) return;
+    const vv = $('view').value, t = r.t;
+    const pageOf = pages => (pages || []).findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
+    if (vv === 'video') { const i = pageOf(state.vPages); if (i >= 0) state.pageIdx = i; }
+    else if (vv === 'zoom') {
+      const [s0, s1] = state.ir.source.window, span = state.zoomSpan || 6;
+      state.zoomT0 = Math.min(Math.max(s0, t - 1), Math.max(s0, s1 - span));
+    }
+    else if ($('mode').value === 'pages') { const i = pageOf(state.pages); if (i >= 0) state.pageIdx = i; }
+    else $('t0').value = Math.max(0, Math.floor(t - 1));
+    if ((vv === 'video' || vv === 'zoom') && state.transport && !state.transport.isPlaying()) { state.transport.seek(t); ensureLoop(); }
+    await render();
+    return lightNotes(r.surviving);
+  }
+  // rings over IR events on the page as drawn — DOM only, never exported. One per event, on its first item that has a height.
+  function ringNotes(evIds, cls, color) {
+    const view = state.animView, svg = $('sheet').querySelector('svg');
+    if (!view || !svg || !state.model || !evIds || !evIds.length) return { g: null, n: 0 };
+    const want = new Set(evIds), done = new Set(), NS = 'http://www.w3.org/2000/svg';
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', cls); g.setAttribute('pointer-events', 'none');
+    for (const sm of state.model.systems) {
+      let sys; try { sys = view.system(sm.key !== undefined ? sm.key : sm.part); } catch (e) { continue; }
+      for (const it of sm.items || []) {
+        if (!want.has(it.ev) || done.has(it.ev) || typeof it.ySs !== 'number') continue;
+        const t = it.t0 != null ? it.t0 : it.t;
+        if (t == null) continue;
+        done.add(it.ev);
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', view.xOfSeconds(t).toFixed(2)); c.setAttribute('cy', sys.yOfSs(it.ySs).toFixed(2));
+        c.setAttribute('r', (1.6 * sys.ssPx).toFixed(2));
+        c.setAttribute('fill', 'none'); c.setAttribute('stroke', color); c.setAttribute('stroke-width', '3');
+        g.append(c);
+      }
+    }
+    svg.append(g);
+    return { g, n: done.size };
+  }
+  // 2d.4.5's go there: amber, gone after 4 s
+  function lightNotes(evIds) {
+    const { g, n } = ringNotes(evIds, 'choice-light', '#f9a825');
+    if (g) setTimeout(() => g.remove(), 4000);
+    return n;
+  }
+
+  // [PLAN 2d.6] SELECTION + G — the first choice he makes on the page. A click on a note selects it (and still seeks, as every click
+  // on the page always has); SHIFT+click adds or takes away; ESC clears. G beams the selection — one key, no panel, the app's habit
+  // (Z · B · T · R · O). G on notes that already ARE a beam removes it. The selection is a set of IR event ids; it survives a render
+  // and a refresh (ids are stable, docs/NOTATION_IDENTITY.md) and is drawn as blue rings, never in an export.
+  const sel = new Set();
+  function drawSelection() {
+    const old = $('sheet').querySelector('g.choice-sel'); if (old) old.remove();
+    if (state.ir) for (const id of [...sel]) if (!state.ir.events.some(e => e.id === id)) sel.delete(id);   // a note gone since
+    return sel.size ? ringNotes([...sel], 'choice-sel', '#1e88e5').n : 0;
+  }
+  let flashTimer = null;
+  function flash(msg) {
+    $('flash').textContent = msg; clearTimeout(flashTimer);
+    flashTimer = setTimeout(() => { $('flash').textContent = ''; }, 4000);
+  }
+  // the note under a click: nearest drawn item that carries an event and a height, within 1.5 staff spaces of its head-to-tail span
+  function hitNote(clientX, clientY) {
+    const view = state.animView, svg = $('sheet').querySelector('svg');
+    if (!view || !svg || !state.model) return null;
+    const rect = svg.getBoundingClientRect();
+    const x = (clientX - rect.left) * (+svg.getAttribute('width') / rect.width);
+    const y = (clientY - rect.top) * (+svg.getAttribute('height') / rect.height);
+    const [w0, w1] = view.window;
+    let best = null, bestD = Infinity;
+    for (const sm of state.model.systems) {
+      let sys; try { sys = view.system(sm.key !== undefined ? sm.key : sm.part); } catch (e) { continue; }
+      for (const it of sm.items || []) {
+        if (!it.ev || typeof it.ySs !== 'number') continue;
+        const t0 = it.t0 != null ? it.t0 : it.t; if (t0 == null || t0 < w0 - 1e-9 || t0 > w1) continue;
+        const t1 = it.t1 != null ? Math.min(it.t1, w1) : t0;
+        const x0 = view.xOfSeconds(t0), x1 = view.xOfSeconds(t1);
+        const dx = x < x0 ? x0 - x : x > x1 ? x - x1 : 0, dy = y - sys.yOfSs(it.ySs);
+        const d = Math.hypot(dx, dy);
+        if (d < 1.5 * sys.ssPx && d < bestD) { bestD = d; best = it.ev; }
+      }
+    }
+    return best;
+  }
+  function selectAt(ev) {
+    const id = hitNote(ev.clientX, ev.clientY);
+    if (!id) return false;
+    if (ev.shiftKey) { if (sel.has(id)) sel.delete(id); else sel.add(id); }
+    else { sel.clear(); sel.add(id); }
+    drawSelection();
+    return true;
+  }
+  function clearSelection() { if (!sel.size) return false; sel.clear(); drawSelection(); return true; }
+  // 2d.6.2 — G
+  async function beamSelection() {
+    if (!state.ir || typeof BeamChoice === 'undefined') return;
+    const score = state.ir.source.score;
+    const onset = new Map(state.ir.events.map(e => [e.id, e.onset]));
+    const partOfEv = new Map(); for (const c of state.ir.chunks || []) for (const id of c.events || []) partOfEv.set(id, c.part);
+    const evs = [...sel].filter(id => onset.has(id)).sort((a, b) => onset.get(a) - onset.get(b) || (a < b ? -1 : 1));
+    const r = BeamChoice.toggleBeam(state.choices, score, evs.map(id => id.replace(/^ev-/, '')), wc => partOfEv.get('ev-' + wc));
+    if (r.action === 'refused') { flash(r.why); return r; }
+    const res = await saveChoices(r.doc);
+    if (!res.success) { flash('⚠ not saved — nothing changed: ' + (res.error || 'no reason given')); return Object.assign(r, { saved: false }); }
+    state.choices = r.doc;
+    applyLoadedChoices(); layoutIr(); await render();
+    if (r.action === 'added') sel.clear();
+    drawSelection();
+    flash(r.action === 'added'
+      ? 'beam ' + r.id + ' over ' + evs.length + ' notes' + (r.trimmed.length ? ' · taken from ' + r.trimmed.join(', ') : '') + (r.dropped.length ? ' · ' + r.dropped.join(', ') + ' removed (fewer than two notes left)' : '')
+      : 'beam ' + r.id + ' removed');
+    return Object.assign(r, { saved: true, doc: undefined });
+  }
+  // read-only, for the console: the selection as IR event ids
+  window.notationSelection = () => [...sel];
+  // read-only, for the console: where an event's head sits on the screen now (client px) — null when it is not on this page.
+  // Lets the AI drive the page by real clicks, as he would.
+  window.notationWhere = evId => {
+    const view = state.animView, svg = $('sheet').querySelector('svg');
+    if (!view || !svg || !state.model) return null;
+    const rect = svg.getBoundingClientRect(), kx = rect.width / +svg.getAttribute('width'), ky = rect.height / +svg.getAttribute('height');
+    const [w0, w1] = view.window;
+    for (const sm of state.model.systems) {
+      let sys; try { sys = view.system(sm.key !== undefined ? sm.key : sm.part); } catch (e) { continue; }
+      for (const it of sm.items || []) {
+        if (it.ev !== evId || typeof it.ySs !== 'number') continue;
+        const t = it.t0 != null ? it.t0 : it.t;
+        if (t == null || t < w0 - 1e-9 || t > w1) continue;
+        return { x: rect.left + view.xOfSeconds(t) * kx, y: rect.top + sys.yOfSs(it.ySs) * ky, t, part: sm.part };
+      }
+    }
+    return null;
+  };
+  // read-only, for the console: the count, the lines, whether the list is open
+  window.notationOrphans = () => ({ count: $('orph').textContent, open: orphUi.open, err: orphUi.err,
+    lines: offChoices().map(r => ({ id: r.id, status: r.status, present: r.present, notes: r.notes, t: r.t })) });
+  // read-only, for the console (2d.3): the IR the page holds, and where the page is — or one event by id
+  window.notationIr = id => !state.ir ? null : id ? (state.ir.events.find(e => e.id === id) || null)
+    : { id: state.ir.id, window: state.ir.source.window, events: state.ir.events.length, build: state.ir.provenance && state.ir.provenance.build,
+        view: $('view').value, pageIdx: state.pageIdx, zoomT0: state.zoomT0 };
+  function mergeManifest(man) {
+    const sel = $('ir');
+    const have = new Set([...sel.querySelectorAll('option')].map(o => o.value));
+    let expGroup = sel.querySelector('optgroup[label="experiments"]');
+    for (const e of (man && man.irs) || []) {
+      if (have.has(e.id)) continue;
+      const opt = document.createElement('option');
+      opt.value = e.id; opt.textContent = e.label || e.id;
+      if (e.exp) {
+        if (!expGroup) {
+          expGroup = document.createElement('optgroup');
+          expGroup.label = 'experiments';
+          sel.appendChild(expGroup);
+        }
+        expGroup.appendChild(opt);
+      } else sel.insertBefore(opt, expGroup);
+    }
+    const ids = new Set(((man && man.irs) || []).map(e => e.id));
+    for (const o of [...sel.querySelectorAll('option')]) {
+      if (!ids.has(o.value) && !state.builtinIrs.has(o.value) && o.value !== sel.value) o.remove();
+    }
+    if (expGroup && !expGroup.children.length) expGroup.remove();
+  }
+  async function loadScore(name) {
+    if (state.scores[name]) return state.scores[name];
+    const r = await fetch('/api/composer/load/' + name);
+    if (!r.ok) throw new Error('score fetch ' + name + ' ' + r.status);
+    const j = await r.json();
+    state.scores[name] = j.data || j;
+    return state.scores[name];
+  }
+  try {
+    const [glyphs, pageRules, container, ensemble, techniques] = await Promise.all([
+      fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
+      fetch('/notation/registry/page_rules.json').then(r => { if (!r.ok) throw new Error('page rules fetch ' + r.status); return r.json(); }),
+      fetch('/notation/registry/container.json').then(r => { if (!r.ok) throw new Error('container fetch ' + r.status); return r.json(); }),
+      // [2a] the piece's registries — optional: absent = the tuba page
+      fetch('/notation/registry/ensemble.json').then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/notation/registry/techniques.json').then(r => r.ok ? r.json() : null).catch(() => null),
+    ]);
+    state.glyphs = glyphs; state.pageRules = pageRules; state.container = container;
+    state.ensemble = ensemble; state.techniques = techniques;
+    if (ensemble) FRAME_PARTS = ensemble.parts.map(p => p.part);
+    // V3: extracted sections register themselves in the manifest
+    // (tools/notate_section.js) — merge into the picker, no duplicates.
+    // Experiments (exp:true — the version files of the notation workflow)
+    // group separately; entries pruned from the manifest leave the picker.
+    state.builtinIrs = new Set([...$('ir').options].map(o => o.value));
+    try {
+      const man = await fetch('/notation/ir/index.json').then(r => r.ok ? r.json() : null);
+      if (man) mergeManifest(man);
+    } catch (e) { /* manifest optional */ }
+    for (const p of FRAME_PARTS) {
+      const opt = document.createElement('option');
+      opt.value = p; opt.textContent = partName(p);
+      $('parts').appendChild(opt);
+    }
+    restoreUi();                 // day 22: controls survive a reload
+    // primary mode (⚙ off) knows only the presentation score
+    if (!$('eng').checked && $('view').value !== 'video' && $('view').value !== 'zoom') $('view').value = 'video';
+    await loadIr($('ir').value);
+    restoreUiPosition();         // loadIr resets page/zoom — reapply saved
+    render();
+  } catch (e) { $('err').textContent = String(e.stack || e); return; }
+
+  // ---- UI persistence (day 22): a reload keeps every control + position.
+  // Saved on every control change and every render (page/zoom moves).
+  function savedUi() { try { return JSON.parse(localStorage.getItem(UI_KEY) || '{}'); } catch (e) { return {}; } }
+  function restoreUi() {
+    const s = savedUi();
+    for (const f of UI_FIELDS) {
+      if (s[f] === undefined) continue;
+      const el = $(f);
+      if (el.type === 'checkbox') { el.checked = !!s[f]; continue; }
+      // a select only restores to an option that still exists
+      if (el.tagName === 'SELECT' && ![...el.querySelectorAll('option')].some(op => op.value === String(s[f]))) continue;
+      el.value = s[f];
+    }
+    if (s.wSeeded) state.wSeeded = true;   // saved w wins over the container seed
+  }
+  function restoreUiPosition() {
+    const s = savedUi();
+    if (s.pageIdx !== undefined) state.pageIdx = s.pageIdx;
+    if (s.zoomT0 !== undefined && s.ir === $('ir').value) state.zoomT0 = s.zoomT0;
+  }
+  function saveUi() {
+    const o = {};
+    for (const f of UI_FIELDS) { const el = $(f); o[f] = el.type === 'checkbox' ? el.checked : el.value; }
+    o.pageIdx = state.pageIdx; o.zoomT0 = state.zoomT0; o.wSeeded = state.wSeeded;
+    try { localStorage.setItem(UI_KEY, JSON.stringify(o)); } catch (e) { }
+  }
+  for (const f of UI_FIELDS) $(f).addEventListener('change', saveUi);
+  $('tshow').addEventListener('change', () => document.body.classList.toggle('tshow', $('tshow').checked));
+
+  async function render() {
+    try {
+      saveUi();   // every render = a position/control state worth restoring
+      const vv = $('view').value;
+      const graphic = vv === 'graphic';
+      // THE COLLAPSE (day 22): the presentation score is the app; the
+      // proofing machinery (views, window/parts overrides) lives behind ⚙.
+      const eng = $('eng').checked;
+      $('viewWrap').style.display = eng ? '' : 'none';
+      $('partsWrap').style.display = eng ? '' : 'none';
+      $('modeWrap').style.display = eng ? '' : 'none';
+      $('t0Wrap').style.display = eng ? '' : 'none';
+      $('wWrap').style.display = eng ? '' : 'none';
+      // bricks is a LOOK toggle, not proofing machinery — it stays on the
+      // compacted bar beside META (composer, day 23). Graphic view draws its
+      // own bricks and ignores the flag, so it hides only there.
+      $('bricksWrap').style.display = graphic ? 'none' : '';
+      $('scoreWrap').style.display = (graphic && eng) ? '' : 'none';
+      $('irWrap').style.display = graphic ? 'none' : '';
+      $('m4Wrap').style.display = (graphic || !eng) ? 'none' : '';
+      $('zx').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('play').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('audWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('midiWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('tbar').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('tshowWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('gotoWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('home').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      document.body.classList.toggle('tshow', $('tshow').checked);
+      $('sheet').classList.toggle('fixed', vv === 'video' || vv === 'zoom');
+      setCmode(vv === 'video' || vv === 'zoom');
+      if (vv === 'video' || vv === 'zoom') { ensureLoop(); ensureMidi(); }
+      else state.lastContainerMode = null;   // fix A: re-entering zoom re-centers
+      if (graphic) return renderGraphicView();
+      if (vv === 'video' || vv === 'zoom') return renderContainerView(vv);
+      $('sheet').style.transform = '';   // fit-scaling is container-mode only
+      $('sheet').style.width = ''; $('sheet').style.margin = '';
+      const paged = $('mode').value === 'pages';
+      const wMin = paged ? (state.pageRules.minPageSeconds || 3) : 2;
+      const w = Math.max(wMin, parseFloat($('w').value) || 16);
+      const secEnd = state.ir.source.window[1];
+      let t0, t1, reshow = [], pageNote = '', ownsEnd;
+      if (paged) {
+        if (!state.pages || state.pagesW !== w) {
+          state.pages = NotationSplice.planPages(state.ir, state.pageRules, w);
+          state.pagesW = w; state.pageIdx = Math.min(state.pageIdx, state.pages.length - 1);
+        }
+        const p = state.pages[state.pageIdx];
+        t0 = p.t0; t1 = p.t1; reshow = p.reshow;
+        ownsEnd = state.pageIdx === state.pages.length - 1;
+        pageNote = ' · page ' + (state.pageIdx + 1) + '/' + state.pages.length + ' (' + p.kind + ')' +
+          (p.offGrid && p.offGrid.length ? ' · off-grid: ' + p.offGrid.length : '');
+      } else {
+        t0 = parseFloat($('t0').value) || 0; t1 = t0 + w;
+        ownsEnd = t1 >= secEnd - 1e-9; // boundary events belong to the NEXT window
+      }
+      const sel = $('parts').value;
+      const parts = sel === 'all' ? state.ir.source.parts : [parseInt(sel, 10)];
+      const perSystem = sel === 'all' ? 110 : 260;
+      // [2a.1] a part's lane weight (the piano's grand staff = 2) and its
+      // staves — the staff size stays one size across the frame
+      const wts = parts.map(weightOf);
+      const heightPx = wts.reduce((a, b) => a + b, 0) * perSystem + 30;
+      const widthPx = Math.max(600, $('sheet').clientWidth - 2);
+      const sysList = NotationCoords.systemsForParts(parts, { topPad: 24 / heightPx, botPad: 10 / heightPx, gap: 8 / heightPx, weights: state.ensemble ? wts : undefined });
+      if (state.ensemble) sysList.forEach((s, i) => { s.ssPerSystem = NotationCoords.DEFAULTS.ssPerSystem * wts[i]; });
+      const view = NotationCoords.makeView({
+        widthPx, heightPx, window: [t0, t1],
+        systems: NotationCoords.withStaves(sysList, stavesOf, grandStaffOpts()),
+      });
+      $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd, hideBricks: !$('bricks').checked, staffFull: !paged, ensemble: state.ensemble,
+        // [D42, §447] the curve look is the same in every view: the window view passes the registry's three curve entries (only those —
+        // its other looks stay the code defaults, as before)
+        engraving: (R => Object.fromEntries(['envCurve', 'crescCurve', 'glissCurve'].filter(k => R[k]).map(k => [k, R[k]])))((state.container && state.container.engraving && state.container.engraving.render) || {}) });
+      applySolo();   // innerHTML replaced the lanes - re-assert the dim
+      state.lastView = view;
+      $('meta').textContent = state.ir.id + ' · ' + state.ir.events.length + ' events · ' + state.ir.chunks.length +
+        ' chunks · ' + t0.toFixed(1) + '–' + t1.toFixed(1) + ' s' + pageNote;
+      $('err').textContent = (state.model.warnings || []).join('\n');
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+
+  // ---- V1: THE TWO WINDOWS — container realizations over the same strata.
+  // video = the locked 1920×1080 jury frame (no header, PP-2 lanes, gutter,
+  // Crimson, META overlay). zoom = the SAME geometry ×Z (PP-6: re-cut
+  // window, vertical scroll), one click away at the same music position.
+  async function renderContainerView(mode) {
+    try {
+      const C = state.container;
+      const rz = (C.realizations || {})['video-jury'] || {};
+      const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
+      const W = (C.frame && C.frame.widthPx) || 1920;
+      const H = (C.frame && C.frame.heightPx) || 1080;
+      const parts = FRAME_PARTS;   // the jury frame: all lanes, always
+      // first entry into a container window: seed the width box with the
+      // container's provisional default (still freely editable after)
+      if (!state.wSeeded) {
+        $('w').value = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+        state.wSeeded = true;
+      }
+      // primary mode pages by the REGISTRY time scale; the width box only
+      // rules when ⚙ engineering is on (a hidden stale box was silently
+      // stretching pages — the ¾-staff report)
+      const regSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+      const pageSeconds = $('eng').checked
+        ? Math.max(2, parseFloat($('w').value) || regSeconds)
+        : regSeconds;
+      if (!state.vPages || state.vPagesW !== pageSeconds) {
+        state.vPages = NotationSplice.planPages(state.ir, state.pageRules, pageSeconds);
+        state.vPagesW = pageSeconds;
+        state.pageIdx = Math.min(state.pageIdx, state.vPages.length - 1);
+      }
+      let topPad = lanes.padTopPx / H, botPad = lanes.padBotPx / H;
+      const gap = lanes.gapPx / H;
+      // [2a.1] with the ensemble, lanes are WEIGHTED (the piano's grand staff
+      // = 2) and lanePx is one weight unit — a player's lane; every lane's
+      // staff scale follows its weight, so the staff is one size across the
+      // frame. Without it: the registry's weights and equal-lane math, as before.
+      const weights = state.ensemble ? parts.map(weightOf) : lanes.weights;
+      const units = state.ensemble ? weights.reduce((a, b) => a + b, 0) : parts.length;
+      let lanePx = ((1 - topPad - botPad - gap * (parts.length - 1)) / units) * H;
+      // fix B (day 22): sparse-part IRs — cap the lane and center the band,
+      // so a 1-part experiment stops inflating one lane to the whole frame.
+      // Registry data (lanes.sparseCapPx); full material stays below the cap
+      // and renders exactly as before.
+      if (lanes.sparseCapPx && lanePx > lanes.sparseCapPx) {
+        lanePx = lanes.sparseCapPx;
+        const content = (lanePx * units + lanes.gapPx * (parts.length - 1)) / H;
+        topPad = botPad = Math.max(0, (1 - content) / 2);
+      }
+      let systems = NotationCoords.systemsForParts(parts, { topPad, botPad, gap, weights });
+      const ssPerSystem = lanePx / (((C.staff && C.staff.staffHeightPx) || 31.6) / 4);
+      if (state.ensemble) {
+        systems.forEach((s, i) => { s.ssPerSystem = ssPerSystem * weights[i]; });
+        systems = NotationCoords.withStaves(systems, stavesOf, grandStaffOpts());
+      }
+      const p = state.vPages[state.pageIdx];
+      // CONSTANT TIME SCALE (day 22, second note — composer: "in page two
+      // the cursor speeds up significantly"): every page's window is
+      // pageSeconds long, including a short FINAL page — its material ends
+      // early (the G1 ¾-staff look) and the terminal barline sits at the
+      // material's end. Before, the last page's window was [t0, t1] of the
+      // material mapped across the full width: 5 s stretched over 1920 px.
+      const srcEnd = state.ir.source.window[1];
+      // [§404] THE BUFFER AFTER THE CLEF (page_rules.musicStartBufferSs): a cut can land on a note's
+      // own onset, and the unit hangs LEFT of its go line — so the window opens that many staff spaces
+      // early and the first note's ink clears the gutter. ss -> seconds through this view's own scale,
+      // which makes it zoom-invariant; never before the IR's own start.
+      const bufSs = (state.pageRules && state.pageRules.musicStartBufferSs) || 0;
+      const pxPerSec = (W - ((C.prefatory && C.prefatory.gutterPx) || 0)) / pageSeconds;
+      const bufSec = bufSs > 0 ? (bufSs * ssPerSystem > 0 ? bufSs * (lanePx / ssPerSystem) / pxPerSec : 0) : 0;
+      const pageT0 = Math.max(state.ir.source.window[0], p.t0 - bufSec);
+      const baseCfg = {
+        widthPx: W, heightPx: H, window: [pageT0, pageT0 + pageSeconds],
+        gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0,
+        systems, ssPerSystem,
+      };
+      let cfg = baseCfg, Z = 1;
+      if (mode === 'zoom') {
+        Z = ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2;
+        cfg = NotationCoords.zoomCfg(baseCfg, Z, state.zoomT0 !== undefined ? state.zoomT0 : pageT0);   // [§404] the zoom opens on the same buffered start
+        state.zoomT0 = cfg.window[0];
+        state.zoomSpan = cfg.window[1] - cfg.window[0];
+      }
+      const view = NotationCoords.makeView(cfg);
+      const ownsEnd = state.pageIdx === state.vPages.length - 1;
+      let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
+        reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
+        hideBricks: !$('bricks').checked, ensemble: state.ensemble,
+      });
+      // system TERMINAL barline at the right edge — the visible statement
+      // that the system ENDS here by design (composer, G1: staff lines
+      // flush to the edge were unreadable as intended-vs-cut). Registry
+      // data; spans first lane top to last lane bottom, engraving-style.
+      const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
+      let endBar = '';
+      if (eb && view.systems.length) {
+        const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
+        // at the material's end when that falls inside the page, else the edge
+        const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.widthPx;
+        endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
+          '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
+      }
+      svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
+      $('sheet').innerHTML = svg;
+      // V2: the ANIMATION OVERLAY — a second SVG over the static page;
+      // redrawn per frame from pure state(t), never touching the page.
+      const ov = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      ov.id = 'animov';
+      ov.setAttribute('width', view.widthPx); ov.setAttribute('height', view.heightPx);
+      // viewBox so fit-scaling (CSS size) scales the overlay's CONTENT too
+      ov.setAttribute('viewBox', '0 0 ' + view.widthPx + ' ' + view.heightPx);
+      $('sheet').appendChild(ov);
+      const score = state.scores[state.ir.source.score] || null;
+      const _dev = NotationLayout.deviceResolver(state.ir, (C.engraving || {}).layout || {});
+      state.animInstances = NotationAnimObj.collect(state.ir, score, C.animated,
+        { parts: state.ir.source.parts, meta: $('metaov').checked,
+          // [2a] the score's META layer, and the followers placed in their
+          // part's clef and staff (layout's rules, not a second copy)
+          metaLayer: state.ensemble ? state.ensemble.metaLayer : undefined,
+          posOfMidi: state.ensemble ? NotationLayout.positionResolver(state.ensemble) : null,
+          // per-note GCs come from the SAME device rules the engraving uses
+          // (D50) — one resolver, built by layout, handed to animobj
+          deviceOf: _dev,
+          // day 40: the meters ride the DRAWN curve (layout is the one
+          // source) — congruent with the page by construction
+          drawnOf: e => NotationLayout.drawnLevelSamples(e, _dev(e) || {}) });
+      state.animView = view;
+      state.animStyle = C.animated;
+      state.lastView = view;
+      applySolo();   // fresh page + fresh instances: re-assert dim and split
+      drawSelection();   // [2d.6] the page was replaced — the selection's rings come back on it
+      // FIT-TO-WINDOW (day 22): the frame stays 1920×1080 internally (jury
+      // geometry untouched) but DISPLAYS scaled to the window — Score fits
+      // whole; Zoom fits width and scrolls height by design. F11 on a
+      // 1080p screen = scale 1 = true size, exactly as before.
+      fitSheet(mode);
+      // fix A (day 22): entering zoom auto-centers the viewport on the first
+      // part's staff — the sheet is taller than the screen and the scrollbar
+      // is hidden by design, so without this the first thing seen is ceiling.
+      // Only on ENTRY (view switch / ⇆ / Z): manual scrolling then sticks
+      // across hot reloads and page turns.
+      if (mode === 'zoom' && state.lastContainerMode !== 'zoom') {
+        // center on the SAVE's first lane, not lane 0 of the frame
+        // (scale-aware: measure the displayed svg, not the internal px)
+        const homePart = (state.ir.source.parts && state.ir.source.parts[0]) || 0;
+        const k = sheetScale();
+        const sy = view.system(homePart).yOfSs(0) * k + $('sheet').offsetTop;
+        window.scrollTo({ top: Math.max(0, sy - window.innerHeight / 2) });
+      }
+      state.lastContainerMode = mode;
+      const [vt0, vt1] = view.window;
+      $('meta').textContent = state.ir.id + ' · ' + (mode === 'zoom' ? 'ZOOM ×' + Z : 'VIDEO ' + W + '×' + H) +
+        ' · page ' + (state.pageIdx + 1) + '/' + state.vPages.length +
+        ' · ' + vt0.toFixed(1) + '–' + vt1.toFixed(1) + ' s · staff ' +
+        (view.system(parts[0]).ssPx * 4).toFixed(1) + 'px';
+      // day 23 (composer: "get rid of the warning text at the bottom of the
+      // score — that's a bit distracting; we'll just talk about it as they
+      // come up"): layout warnings go to the console in the presentation
+      // views, never onto the page. #err stays for real errors (exceptions).
+      const _warn = state.model.warnings || [];
+      if (_warn.length) console.warn('[notation] ' + _warn.length + ' layout warning(s):\n' + _warn.join('\n'));
+      $('err').textContent = '';
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+
+  // META overlay (PP-2): the score's layer-10 shapes over the whole parts
+  // area, semi-transparent — same reading graphic.js draws, over notation.
+  function metaOverlaySvg(view) {
+    try {
+      if (!$('metaov').checked) return '';   // day 22: META is opt-in in the loop
+      const score = state.scores[state.ir.source.score];
+      if (!score) return '';
+      const C = state.container;
+      const opacity = (C.metaOverlay && C.metaOverlay.opacity) || 0.18;
+      const [w0, w1] = view.window;
+      const sys = view.systems;
+      const yTop = sys[0].yTopPx, yBot = sys[sys.length - 1].yBotPx;
+      const X = t => view.xOfSeconds(Math.min(w1, Math.max(w0, t)));
+      const out = [];
+      const ML = state.ensemble && state.ensemble.metaLayer != null ? state.ensemble.metaLayer : 10;   // [2a] the septet's META is layer 7
+      for (const o of score.objects || []) {
+        if (o.type !== 'waveCurve' || o.layer !== ML) continue;
+        if (o.startSeconds >= w1 || o.endSeconds <= w0) continue;
+        const nodes = (o.nodes || []).map(n => ({ pos: n.pos, lvl: Math.min(10, Math.max(0, n.y)) / 10 }));
+        if (!nodes.length) continue;
+        const pts = nodes.map(n => {
+          const t = o.startSeconds + (o.endSeconds - o.startSeconds) * n.pos;
+          return X(t).toFixed(1) + ',' + (yBot - n.lvl * (yBot - yTop)).toFixed(1);
+        });
+        const poly = [X(o.startSeconds).toFixed(1) + ',' + yBot.toFixed(1)]
+          .concat(pts, [X(o.endSeconds).toFixed(1) + ',' + yBot.toFixed(1)]);
+        out.push('<polygon points="' + poly.join(' ') + '" fill="' + (o.color || '#2E8B57') + '" opacity="' + opacity + '"/>');
+      }
+      return out.join('\n');
+    } catch (e) { return ''; }
+  }
+
+  async function renderGraphicView() {
+    try {
+      $('sheet').style.transform = '';
+      const name = $('score').value;
+      const score = await loadScore(name);
+      const t0 = parseFloat($('t0').value) || 0;
+      const w = Math.max(2, parseFloat($('w').value) || 16);
+      const parts = FRAME_PARTS.filter(p => score.objects.some(o => o.layer === p));
+      const g = NotationGraphic.layoutGraphic(score, { window: [t0, t0 + w], parts, metaLayer: state.ensemble ? state.ensemble.metaLayer : undefined });
+      const bandParts = g.beating.length ? parts.concat(['beat']) : parts;
+      const heightPx = bandParts.length * 90 + 30;
+      const widthPx = Math.max(600, $('sheet').clientWidth - 2);
+      const view = NotationCoords.makeView({
+        widthPx, heightPx, window: [t0, t0 + w],
+        systems: NotationCoords.systemsForParts(bandParts, { topPad: 20 / heightPx, botPad: 8 / heightPx, gap: 6 / heightPx }),
+      });
+      $('sheet').innerHTML = NotationGraphic.renderGraphic(g, view, g.beating.length ? { beatBand: view.system('beat') } : {});
+      state.lastView = null;
+      $('meta').textContent = name + ' (graphic) · ' + g.bricks.length + ' bricks · ' + g.meta.length + ' META · ' +
+        g.beating.length + ' beating pairs · ' + t0.toFixed(1) + '–' + (t0 + w).toFixed(1) + ' s';
+      $('err').textContent = '';
+    } catch (e) { $('err').textContent = String(e.stack || e); }
+  }
+
+  // click-a-part-to-zoom (study-composers view, composer's day-19 dictation)
+  $('sheet').addEventListener('click', ev => {
+    if ($('view').value !== 'notation' || !state.lastView) return;
+    if ($('parts').value !== 'all') { $('parts').value = 'all'; render(); return; }
+    const rect = $('sheet').querySelector('svg').getBoundingClientRect();
+    const y = ev.clientY - rect.top;
+    for (const s of state.lastView.systems) {
+      if (y >= s.yTopPx && y <= s.yBotPx) { $('parts').value = String(s.part); render(); return; }
+    }
+  });
+  for (const id of ['parts', 'mode', 't0', 'w', 'view', 'score', 'bricks', 'metaov']) $(id).addEventListener('change', render);
+  $('eng').addEventListener('change', () => {
+    if (!$('eng').checked && $('view').value !== 'video' && $('view').value !== 'zoom') $('view').value = 'video';
+    render();
+  });
+  $('ir').addEventListener('change', async () => { midiFlush(); await loadIr($('ir').value); render(); });
+  $('m4').addEventListener('change', async () => { await loadIr($('ir').value); render(); });
+  // container-mode chrome: bar auto-hides (shown briefly on entry, and on
+  // hovering the top edge); LEFT/RIGHT page, Z flips video↔zoom — so the
+  // frame can be judged with zero page furniture. F11 = exact fit.
+  function setCmode(on) {
+    // flash the bar only on ENTERING the score view — not on every render
+    // (page turns and hot reloads re-render, and the bar kept popping up)
+    const was = document.body.classList.contains('cmode');
+    document.body.classList.toggle('cmode', on);
+    document.documentElement.classList.toggle('cmode', on);
+    if (on && !was) {
+      $('bar').classList.add('shown');
+      clearTimeout(barTimer);
+      barTimer = setTimeout(() => $('bar').classList.remove('shown'), 2000);
+    } else if (!on) $('bar').classList.remove('shown');
+  }
+  $('hoverzone').addEventListener('mouseenter', () => $('bar').classList.add('shown'));
+  // B PINS THE BAR (2026-09-11, composer: the 14 px hover strip competes with
+  // the Windows taskbar's own show/hide and is "sometimes hard to show when
+  // hidden"). B = pinned open; B again = hidden. A pinned bar ignores
+  // mouseleave. Plain B: no Chrome or Windows shortcut uses an unmodified letter.
+  const setBarPinned = on => {
+    $('bar').classList.toggle('pinned', on);
+    $('bar').classList.toggle('shown', on);
+    clearTimeout(barTimer);
+  };
+  $('bar').addEventListener('mouseleave', () => { if (document.body.classList.contains('cmode') && !$('bar').classList.contains('pinned')) $('bar').classList.remove('shown'); });
+  // ARROWS BELONG TO THE PAGE (day 29, composer: "my arrow keys are getting
+  // trapped"). After a dropdown or checkbox choice is COMMITTED, focus stayed
+  // on the control, so arrow keys cycled the dropdown instead of paging — the
+  // same disease SPACE had on day 22 ("after touching any control it toggled
+  // THAT"), cured the same way: blur on change. Typing fields are untouched
+  // (change only fires on commit for them anyway).
+  document.addEventListener('change', ev => {
+    const t = ev.target, tag = t && t.tagName;
+    if (tag === 'SELECT' || (tag === 'INPUT' && /checkbox|radio/i.test(t.type))) t.blur();
+  });
+  // §401d (the composer: "b key no longer works"): a <select> just used (the picker) keeps focus, and the
+  // handler below returns for SELECT — so B, Z, T went nowhere until ESC. The composer app's cure (2026-09-03,
+  // NITS): every select and number input blurs on change; the keys are free again the moment a pick is made.
+  document.addEventListener('change', e => { if (e.target && e.target.matches && e.target.matches('select, input[type=number]')) e.target.blur(); }, true);
+  document.addEventListener('keydown', ev => {
+    if (!document.body.classList.contains('cmode')) return;
+    const tag = ev.target && ev.target.tagName;
+    // SPACE always plays (day 22 — it used to work only while the ▶ button
+    // happened to keep focus; after touching any control it toggled THAT).
+    // Only genuine typing fields keep it.
+    const typing = tag === 'TEXTAREA' || (tag === 'INPUT' && !/checkbox|radio/i.test(ev.target.type));
+    // ESC = release focus, always (day 29, composer: "arrows still trapped,
+    // what is a quick escape") — works even in typing fields, so a captured
+    // arrow key is one keypress from freedom.
+    if (ev.key === 'Escape') { if (ev.target && ev.target.blur) ev.target.blur(); clearSelection(); return; }   // [2d.6] and the selection
+    if (ev.key === ' ' && !typing) {
+      ev.preventDefault();
+      if (ev.target && ev.target.blur) ev.target.blur();
+      $('play').click();
+      return;
+    }
+    if (tag && /INPUT|SELECT|TEXTAREA/.test(tag)) return;
+    // ZOOM PAN (day 23, composer: "slide the page over a little bit") — the
+    // zoom viewport steps in whole spans with ◀ ▶, so a note near a 6 s
+    // boundary (wc-29 at 17.75–18.21) sat cut at the viewport edge. SHIFT+
+    // arrows pan by 1 s; HOME re-aligns to the page start. Zoom only — the
+    // video frame (the presentation page) is untouched.
+    if ($('view').value === 'zoom' && ev.shiftKey && (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft')) {
+      const [s0, s1] = state.ir.source.window, span = state.zoomSpan || 6;
+      const d = ev.key === 'ArrowRight' ? 1 : -1;
+      state.zoomT0 = Math.min(Math.max(s0, (state.zoomT0 || 0) + d), Math.max(s0, s1 - span));
+      render(); ev.preventDefault(); return;
+    }
+    if ($('view').value === 'video' && ev.key === 'Home') { goToTime(0); ev.preventDefault(); return; }   // [2i.1] the presentation page: time 0
+    if ($('view').value === 'zoom' && ev.key === 'Home') {
+      const t = state.zoomT0 || 0;
+      const pg = state.vPages && state.vPages.find(p => t >= p.t0 - 1e-9 && t < p.t1);
+      state.zoomT0 = pg ? pg.t0 : state.ir.source.window[0];
+      render(); ev.preventDefault(); return;
+    }
+    if (ev.key === 'ArrowRight') { $('next').click(); ev.preventDefault(); }
+    else if (ev.key === 'ArrowLeft') { $('prev').click(); ev.preventDefault(); }
+    else if (ev.key === 'z' || ev.key === 'Z') { $('zx').click(); ev.preventDefault(); }
+    else if ((ev.key === 'b' || ev.key === 'B') && !ev.ctrlKey && !ev.altKey && !ev.metaKey) {   // the bar: pin / hide
+      setBarPinned(!$('bar').classList.contains('pinned'));
+      ev.preventDefault();
+    }
+    else if (ev.key === 't' || ev.key === 'T') {   // playhead pill on/off
+      $('tshow').checked = !$('tshow').checked;
+      $('tshow').dispatchEvent(new Event('change'));
+      ev.preventDefault();
+    }
+    else if ((ev.key === 'r' || ev.key === 'R') && !ev.ctrlKey && !ev.altKey && !ev.metaKey) {   // [2d.3] refresh from the score
+      refreshFromScore();
+      ev.preventDefault();
+    }
+    else if ((ev.key === 'o' || ev.key === 'O') && !ev.ctrlKey && !ev.altKey && !ev.metaKey) {   // [2d.4] the choices that did not draw
+      toggleOrphans();
+      ev.preventDefault();
+    }
+    else if ((ev.key === 'g' || ev.key === 'G') && !ev.ctrlKey && !ev.altKey && !ev.metaKey) {   // [2d.6] beam the selection
+      beamSelection();
+      ev.preventDefault();
+    }
+  });
+
+  // ---- V2: transport + the animation loop ----
+  // The loop runs whenever a container mode is up; each frame asks the
+  // clock for `t`, turns the page when t crosses the window end (hard
+  // cut — V0.4 candidate, judged at G2), and redraws the overlay from
+  // pure state(t). The static page never re-renders inside a frame.
+  // ---- MIDI playback (the working-loop default; the audio render is the
+  // second timebase option). Player = notation/lib/midiplayer.js, a
+  // transport CONSUMER over sonify_core — the same computation
+  // tools/export_midi.js serializes. Init is EAGER on entering a container
+  // mode (the lazy-init trap: a lazy request swallows the first notes).
+  // (transport + state.midi are created at the top of the IIFE — see the
+  // hoisting note there.)
+  async function ensureMidi() {
+    if (state.midi.outputs || state.midi.failed) return;
+    try {
+      const access = await navigator.requestMIDIAccess();
+      const map = {};
+      access.outputs.forEach(o => { map[o.name.toLowerCase()] = o; });
+      state.midi.outputs = map;
+      state.midi.ccPoints = (await fetch('/probes/cc7_map.json').then(r => r.json()))
+        .points.slice().sort((a, b) => a.db - b.db);
+    } catch (e) {
+      state.midi.failed = true; $('midi').checked = false;
+      $('err').textContent = 'Web MIDI unavailable — MIDI playback off (' + e + ')';
+    }
+  }
+  function midiPlayer() {
+    const name = state.ir && state.ir.source && state.ir.source.score;
+    const score = name && state.scores[name];
+    if (!score || !state.midi.outputs || !state.midi.ccPoints) return null;
+    // the save's scope (composer-score document semantics): only the parts
+    // this version file contains sound — key the cache accordingly.
+    // THE IR IS AUTHORITATIVE FOR SOUND (day 22, second note): the player
+    // compiles a clone whose object ends follow the IR's event durations
+    // (withIrDurations); the archive score is untouched. Keyed by the IR
+    // object itself, so a hot-reloaded IR gets a fresh player.
+    // ...narrowed by SOLO (day 24): only soloed parts sound. The scope is in
+    // the cache key, so each solo set gets its own compiled player and
+    // flipping back is instant.
+    const parts = soloScope().slice().sort();
+    const key = name + '|' + parts.join(',') + '|' + state.ir.id;
+    const cached = state.midi.players[key];
+    if (!cached || cached.ir !== state.ir) {
+      // §401g (the composer: 'should be precisely what I hear in the composer score'): registry
+      // playback.scoreDurations = the composer score's own note lengths — the tuba's 'IR is authoritative
+      // for sound' (day 22) held a 0.13 s jeté for its 1.22 s sample length. The rest of the path is the
+      // composer's own sonify_core already.
+      const PB = (state.container && state.container.playback) || {};
+      const amended = PB.scoreDurations ? { score, amended: [] } : NotationMidiPlayer.withIrDurations(score, state.ir);
+      const player = NotationMidiPlayer.makeMidiPlayer({
+        score: amended.score, instruments: INSTRUMENTS, ccPoints: state.midi.ccPoints,
+        outputs: state.midi.outputs, parts,
+      });
+      state.midi.players[key] = { ir: state.ir, player, amended: amended.amended };
+      if (amended.amended.length) console.info('midi: IR durations applied to ' + amended.amended.length + ' object(s)', amended.amended);
+    }
+    return state.midi.players[key].player;
+  }
+  function midiFlush() { const p = midiPlayer(); if (p) p.flush(); }
+  $('midi').addEventListener('change', () => {
+    if ($('midi').checked) {
+      ensureMidi();
+      state.transport.detachAudio();   // back to MIDI = free-running clock
+      $('rend').textContent = '♪ render';
+    } else midiFlush();
+  });
+  // ONE frame: page-turn check + overlay redraw at time t (defaults to the
+  // clock). Named and exposed because it is ALSO the deterministic entry
+  // point V4's exporter steps through (t = k/fps) — and it lets the frame
+  // path be verified without a compositing display (rAF never fires in a
+  // hidden tab; found during V2 verification).
+  function drawOverlayFrame(tArg) {
+    const vv = $('view').value;
+    if (vv !== 'video' && vv !== 'zoom') return null;
+    const view = state.animView;
+    if (!view) return null;
+    const t = tArg !== undefined ? tArg : state.transport.now();
+    const [w0, w1] = view.window;
+    // the page ends at its window OR at the material's end, whichever is
+    // first (a short final page keeps the time scale, so its window runs
+    // past the material — playback stops at the material)
+    const srcEnd = state.ir.source.window[1];
+    const endT = Math.min(w1, srcEnd);
+    if (state.transport.isPlaying() && t >= endT - 1e-9) {
+      // system turn: hard cut to the next page/window
+      if (vv === 'video' && state.vPages && state.pageIdx < state.vPages.length - 1) {
+        state.pageIdx++; render();
+      } else if (vv === 'zoom' && t < srcEnd) {
+        state.zoomT0 = w1; render();
+      } else { state.transport.pause(); $('play').textContent = '▶'; }
+      return { turned: true, t };
+    }
+    const ov = document.getElementById('animov');
+    if (ov) {
+      // solo up: soloed objects at full ink (and they own the cursor), the
+      // rest inside one dimming group - the page's 0.3 for its animation
+      const on = state.animOn || state.animInstances || [];
+      let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle);
+      if (state.animOff && state.animOff.length)
+        svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false }) + '</g>';
+      ov.innerHTML = svg;
+    }
+    return { turned: false, t, window: [w0, w1] };
+  }
+  window.__notationFrame = drawOverlayFrame; // V4 export + headless verification
+  let tnowShown = '';
+  function showTnow(t) {
+    const s = 't ' + t.toFixed(2) + ' s';
+    if (s === tnowShown) return;
+    tnowShown = s;
+    $('tnow').textContent = s; $('tbar').textContent = s;
+  }
+  function animLoop() {
+    rafId = null;
+    const fr = drawOverlayFrame();
+    if (fr === null) {      // left container modes — loop ends
+      if (midiWasPlaying) { midiFlush(); midiWasPlaying = false; }
+      return;
+    }
+    showTnow(fr.t);   // the playhead readout (pill + bar)
+    // MIDI rides the loop, NOT drawOverlayFrame — the V4 exporter steps
+    // that function deterministically and must never emit sound.
+    const playing = state.transport.isPlaying() && $('midi').checked;
+    if (playing) {
+      const p = midiPlayer();
+      if (p) {
+        p.tick(state.transport.now());
+        if (!state.midi.warned) {
+          const miss = p.missingPorts();
+          if (miss.length) {
+            state.midi.warned = true;
+            $('err').textContent = 'MIDI ports not found: ' + miss.join(', ') + ' — check loopMIDI names';
+          }
+        }
+      }
+    } else if (midiWasPlaying) midiFlush(); // pause/stop/toggle-off: the cure
+    midiWasPlaying = playing;
+    rafId = requestAnimationFrame(animLoop);
+  }
+  function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
+  $('play').addEventListener('click', () => {
+    const view = state.animView;
+    if (!view) return;
+    if (state.transport.isPlaying()) { state.transport.pause(); $('play').textContent = '▶'; }
+    else {
+      const t = state.transport.now(), [w0, w1] = view.window;
+      if (t < w0 || t >= w1) state.transport.seek(w0); // start at this page
+      state.transport.play(); $('play').textContent = '⏸';
+    }
+    ensureLoop();
+  });
+  // fit-to-window machinery: CSS transform on the sheet — pure display
+  // scaling, coordinates inside stay 1920×1080
+  function sheetScale() {
+    const svg = $('sheet').querySelector('svg');
+    if (!svg) return 1;
+    const r = svg.getBoundingClientRect();
+    const w = +svg.getAttribute('width');
+    return w ? r.width / w : 1;
+  }
+  function fitSheet(mode) {
+    // viewBox-based scaling, NOT css transform — transforms leave the
+    // layout box unscaled, so the page kept phantom scroll space
+    const sheet = $('sheet');
+    const svg = sheet.querySelector('svg');
+    if (!svg) return;
+    const W = +svg.getAttribute('width'), H = +svg.getAttribute('height');
+    const k = mode === 'video'
+      ? Math.min(1, window.innerWidth / W, window.innerHeight / H)
+      : Math.min(1, window.innerWidth / W);
+    for (const el of sheet.querySelectorAll('svg')) {
+      el.style.width = (+el.getAttribute('width') * k) + 'px';
+      el.style.height = (+el.getAttribute('height') * k) + 'px';
+    }
+    // symmetric letterbox: center the page against the dark backdrop
+    sheet.style.width = (W * k) + 'px';
+    sheet.style.margin = '0 auto';
+  }
+
+  // click the score to SEEK (container modes; secondsOfX inverts the view;
+  // scale-aware — divide the click by the displayed scale)
+  $('sheet').addEventListener('click', ev => {
+    const vv = $('view').value;
+    if (vv !== 'video' && vv !== 'zoom') return;
+    const view = state.animView; if (!view) return;
+    const svg = $('sheet').querySelector('svg');
+    const rect = svg.getBoundingClientRect();
+    const t = view.secondsOfX((ev.clientX - rect.left) * (view.widthPx / rect.width));
+    const [w0, w1] = view.window;
+    selectAt(ev);   // [2d.6] a click on a note also selects it (SHIFT adds); the seek below is unchanged
+    if (t >= w0 && t <= w1) { state.transport.seek(t); ensureLoop(); }
+  });
+  // audio attach: the clock slaves to the Reaper render (sync by construction)
+  const audEl = document.createElement('audio');
+  $('aud').addEventListener('change', () => {
+    const f = $('aud').files && $('aud').files[0];
+    if (!f) return;
+    audEl.src = URL.createObjectURL(f);
+    state.transport.attachAudio(audEl, 0);
+    // a render + live MIDI would double every note — audio attach wins,
+    // MIDI re-enables with one click
+    if ($('midi').checked) { $('midi').checked = false; midiFlush(); }
+    $('err').textContent = '';
+  });
+
+  // one-click video ↔ zoom at the same music position (G1)
+  $('zx').addEventListener('click', () => {
+    const v = $('view').value;
+    if (v === 'video') {
+      state.zoomT0 = state.vPages ? state.vPages[state.pageIdx].t0 : 0;
+      $('view').value = 'zoom';
+    } else if (v === 'zoom') {
+      if (state.vPages && state.zoomT0 !== undefined) {
+        const t = state.zoomT0;
+        const i = state.vPages.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
+        if (i >= 0) state.pageIdx = i;
+      }
+      $('view').value = 'video';
+    } else return;
+    render();
+  });
+  // [PLAN 2i.1] GO-TO-TIME — the page (video) or the zoom viewport to time t, the playhead on it, playing or paused (as a click
+  // on the score seeks). Clamped to the material. Accepts seconds or m:ss.
+  function parseTime(s) {
+    const m = String(s).trim().match(/^(?:(\d+):)?(\d+(?:\.\d*)?|\.\d+)$/);
+    if (!m) return null;
+    const t = (m[1] ? +m[1] * 60 : 0) + +m[2];
+    return (m[1] && +m[2] >= 60) ? null : t;
+  }
+  function goToTime(tIn) {
+    const vv = $('view').value;
+    if ((vv !== 'video' && vv !== 'zoom') || !state.ir) return;
+    const [s0, s1] = state.ir.source.window;
+    const t = Math.min(Math.max(s0, tIn), s1);
+    if (vv === 'video' && state.vPages && state.vPages.length) {
+      const i = state.vPages.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
+      state.pageIdx = i >= 0 ? i : state.vPages.length - 1;
+    } else if (vv === 'zoom') {
+      const span = state.zoomSpan || 6;
+      state.zoomT0 = Math.min(Math.max(s0, t - 1), Math.max(s0, s1 - span));
+    }
+    state.transport.seek(t);
+    render(); ensureLoop();
+    showTnow(t);
+  }
+  $('goto').addEventListener('keydown', ev => {
+    if (ev.key !== 'Enter') return;
+    const t = parseTime($('goto').value);
+    if (t === null) { flash('go to: seconds (123.4) or m:ss (2:03.4)'); return; }
+    goToTime(t);
+    $('goto').blur();   // the keys are free again (SPACE plays from here)
+  });
+  $('home').addEventListener('click', () => goToTime(0));
+  $('prev').addEventListener('click', () => {
+    const vv = $('view').value;
+    if (vv === 'video') state.pageIdx = Math.max(0, state.pageIdx - 1);
+    else if (vv === 'zoom') state.zoomT0 = Math.max(state.ir.source.window[0], (state.zoomT0 || 0) - (state.zoomSpan || 6));
+    else if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
+    else $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16));
+    render();
+  });
+  $('next').addEventListener('click', () => {
+    const vv = $('view').value;
+    if (vv === 'video') state.pageIdx = Math.min(state.vPages ? state.vPages.length - 1 : 0, state.pageIdx + 1);
+    else if (vv === 'zoom') state.zoomT0 = Math.min(state.ir.source.window[1] - (state.zoomSpan || 6), (state.zoomT0 || 0) + (state.zoomSpan || 6));
+    else if ($('mode').value === 'pages') { state.pageIdx = Math.min(state.pages ? state.pages.length - 1 : 0, state.pageIdx + 1); }
+    else $('t0').value = (parseFloat($('t0').value) || 0) + (parseFloat($('w').value) || 16);
+    render();
+  });
+  // ---- HOT RELOAD (the "noteheads smaller → they appear smaller" loop) ----
+  // Every second (texture-panel precedent, D48: pure data): re-fetch the
+  // engraving registry, glyphs, the current IR and the picker manifest;
+  // on change, re-layout + re-render PRESERVING page, zoom position and
+  // the transport (clock + play state live outside render entirely).
+  // The source SCORE is deliberately not polled — notation experiments
+  // never mutate the piece data; refresh after editing it in the composer.
+  // (No document.hidden gate: the pane/browser throttles hidden-tab timers
+  // itself, and a gate makes the page stale the moment it is next seen.)
+  const watch = { sig: {}, irName: null };
+  // one poll at a time: R (2d.3) calls this directly, and the 1 s timer must not run a second reload beside it
+  function pollChanges() {
+    if (!watch.busy) watch.busy = pollOnce().finally(() => { watch.busy = null; });
+    return watch.busy;
+  }
+  async function pollOnce() {
+    const cur = $('ir').value;
+    const urls = {
+      container: '/notation/registry/container.json',
+      glyphs: '/notation/lib/glyphs.json',
+      manifest: '/notation/ir/index.json',
+      ir: '/notation/ir/' + cur + '.ir.json',
+    };
+    let dirty = false;
+    for (const [k, u] of Object.entries(urls)) {
+      let txt;
+      try { const r = await fetch(u); if (!r.ok) continue; txt = await r.text(); } catch (e) { continue; }
+      if (k === 'ir' && watch.irName !== cur) { watch.irName = cur; watch.sig.ir = txt; continue; }
+      if (watch.sig[k] === undefined) { watch.sig[k] = txt; continue; }   // baseline
+      if (watch.sig[k] === txt) continue;
+      watch.sig[k] = txt;
+      if (k === 'manifest') { try { mergeManifest(JSON.parse(txt)); } catch (e) { } continue; }
+      try {
+        if (k === 'container') state.container = JSON.parse(txt);
+        if (k === 'glyphs') state.glyphs = JSON.parse(txt);
+      } catch (e) { continue; }   // half-written file mid-edit: next poll gets it
+      dirty = true;
+    }
+    if (dirty && $('ir').value === cur) {
+      const keep = { pageIdx: state.pageIdx, zoomT0: state.zoomT0, wSeeded: state.wSeeded };
+      try { await loadIr(cur); } catch (e) { return; }   // invalid IR mid-edit: retry next poll
+      state.pageIdx = keep.pageIdx; state.zoomT0 = keep.zoomT0; state.wSeeded = keep.wSeeded;
+      // a fresh extract supersedes any staleness verdict — recompute clean
+      state.src.stale = []; $('stale').textContent = '';
+      render();
+    }
+    detectRender();   // a freshly dropped render shows its chip without a reload
+    checkSource();    // the pre-generated-samples cue (see below)
+  }
+  setInterval(pollChanges, 1000);
+
+  // ---- source-score staleness (day 22): the IR's level samples are a
+  // SNAPSHOT taken at extract; the composer keeps adjusting curves in the
+  // composer score. A 1 Hz mtime stat watches the source file; on change
+  // the score re-fetches (META overlay + markers refresh too) and every
+  // extracted curve is re-evaluated through the SAME math (sonify_core) —
+  // any drift beyond 0.002 raises the amber cue naming the objects.
+  state.src = { name: null, mtime: null, stale: [] };
+  async function checkSource() {
+    const name = state.ir && state.ir.source && state.ir.source.score;
+    if (!name) return;
+    if (name !== state.src.name) { state.src = { name, mtime: null, stale: [] }; $('stale').textContent = ''; }
+    let mt;
+    try { mt = (await fetch('/api/composer/mtime/' + name).then(r => r.json())).mtimeMs; } catch (e) { return; }
+    if (mt === undefined) return;
+    if (state.src.mtime === null) { state.src.mtime = mt; return; }
+    if (mt === state.src.mtime) return;
+    state.src.mtime = mt;
+    delete state.scores[name];
+    let score;
+    try { score = await loadScore(name); } catch (e) { return; }
+    state.markers = (score.objects || []).filter(o => o.type === 'marker').map(o => ({ time: o.time, label: o.label }));
+    const stale = [];
+    for (const e of state.ir.events || []) {
+      const oid = e.source && e.source.objectId;
+      const o = (score.objects || []).find(x => x.id === oid);
+      if (!o) { stale.push((oid || e.id) + ' (removed)'); continue; }
+      if (Math.abs(o.startSeconds - e.onset) > 1e-3) stale.push(oid + ' (moved)');
+      // [2d.3] a pitch or a voice changed in the composer is stale too — the notice is R's prompt, so it must see every edit
+      // that the page would draw differently
+      if (o.sonifyNote != null && o.sonifyNote !== e.pitch.midi) stale.push(oid + ' (pitch)');
+      if (o.technique && e.technique && o.technique !== e.technique) stale.push(oid + ' (voice)');
+      if (e.level && e.level.samples && o.nodes && o.nodes.length >= 2 && Array.isArray(o.segments)) {
+        const n = e.level.samples.length;
+        let maxd = 0;
+        for (let i = 0; i < n; i++) {
+          const d = Math.abs(SonifyCore.evalWaveCurve(o, i / (n - 1)) - e.level.samples[i]);
+          if (d > maxd) maxd = d;
+        }
+        if (maxd > 0.002) stale.push(oid + ' (curve)');
+      }
+    }
+    // [2d.3] NEW notes: a sounding note on this IR's parts that the IR does not hold — inside its window, or anywhere when the
+    // IR is the whole score (built with --all). Composing on is the case R exists for, so it must raise the notice.
+    {
+      const have = new Set((state.ir.events || []).map(e => e.id));
+      const [w0, w1] = state.ir.source.window, parts = state.ir.source.parts || [];
+      const whole = /(^|\s)--all(\s|$)/.test((state.ir.provenance && state.ir.provenance.build) || '');
+      for (const o of score.objects || []) {
+        if (o.type !== 'waveCurve' || o.sonifyNote == null || !parts.includes(o.layer) || have.has('ev-' + o.id)) continue;
+        if (whole ? o.startSeconds >= w0 : (o.startSeconds >= w0 && o.startSeconds < w1)) stale.push(o.id + ' (new)');
+      }
+    }
+    state.src.stale = [...new Set(stale)];
+    const shown = state.src.stale.slice(0, 8).join(', ') + (state.src.stale.length > 8 ? ' … and ' + (state.src.stale.length - 8) + ' more' : '');
+    $('stale').textContent = state.src.stale.length
+      ? '⚠ changed in composer score since extract: ' + shown + ' — press R to refresh from the last Save'
+      : '';
+    render();   // the META overlay + markers read the fresh score
+  }
+
+  // [PLAN 2d.3] R — REFRESH FROM THE COMPOSER SCORE. The server re-runs this IR's own recorded build over the WHOLE score, from
+  // the last Save (the disk file; unsaved composer edits do not show). The page then reloads through the same path as any IR
+  // change (pollChanges): the choices re-applied, the same page, the same zoom, the stale notice cleared. Only on the key, never
+  // automatically — the page never changes under him (2d.3, decision a). A failure leaves the old page and says why.
+  let refreshing = false;
+  async function refreshFromScore() {
+    if (refreshing || !state.ir) return;
+    refreshing = true;
+    const id = $('ir').value;
+    $('stale').textContent = 'refreshing ' + id + ' from ' + state.ir.source.score + ' (last Save)…';
+    try {
+      const r = await fetch('/api/notation/refresh/' + encodeURIComponent(id), { method: 'POST' });
+      let j;
+      try { j = await r.json(); }
+      catch (e) { j = { success: false, error: r.status === 404 ? 'this server does not know R yet — restart it (node score/server.js)' : 'HTTP ' + r.status }; }
+      if (!j.success) { $('stale').textContent = '⚠ refresh failed — the page is unchanged:\n' + (j.error || 'no reason given'); return; }
+      await pollChanges(); await pollChanges();   // the second is a fresh poll if the first was already in flight
+      state.src.stale = []; $('stale').textContent = '';
+      await writeBackFlags();                     // [2d.4.1] the file's orphan flags follow the fresh whole-score IR
+    } catch (e) { $('stale').textContent = '⚠ refresh failed — the page is unchanged: ' + e.message; }
+    finally { refreshing = false; }
+  }
+
+  // ---- render auto-detect: notation/audio/<scoreName>.wav|.mp3 ----
+  // The chip appears when a render exists; one click slaves the clock to it
+  // (MIDI unchecks itself). Re-checking the MIDI box detaches the render.
+  async function detectRender() {
+    const name = state.ir && state.ir.source && state.ir.source.score;
+    if (!name) return;
+    try {
+      const { files } = await fetch('/api/notation/renders').then(r => r.json());
+      const hit = (files || []).find(f => f.toLowerCase().startsWith(name.toLowerCase() + '.'));
+      state.renderUrl = hit ? '/notation/audio/' + hit : null;
+      $('rend').style.display = state.renderUrl ? '' : 'none';
+    } catch (e) { }
+  }
+  $('rend').addEventListener('click', () => {
+    if (!state.renderUrl) return;
+    audEl.src = state.renderUrl;
+    state.transport.attachAudio(audEl, 0);
+    if ($('midi').checked) { $('midi').checked = false; midiFlush(); }
+    $('rend').textContent = '♪ render ✓';
+    $('err').textContent = '';
+  });
+  $('ir').addEventListener('change', detectRender);
+  detectRender();
+
+  window.addEventListener('resize', render);
+})();
+</script>
+</body>
+</html>

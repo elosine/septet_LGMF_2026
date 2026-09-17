@@ -1,0 +1,14 @@
+{
+  "name": "septet-2026",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The Tempus septet (2026). Composer score app, sandbox, notation engine, print and video exporters.",
+  "license": "SEE LICENSE IN LICENSE",
+  "_note": "Inherited from piece #4 (for_seven_tubas, day 36) with the port of the notation stack (PLAN 0g, 2026-09-03). Everything else — score server, sandbox, notation engine, every tool — is dependency-free Node and stays that way. resvg is here because piece #4 measured it: it rasterizes a 1920x1080 notation frame in 172 ms against headless Chrome's 665 ms per process, at equal fidelity (its RUNNING_LOG day 36). pngjs is used only by export_video.js --probe (PNG frame dumps) behind a try/catch; piece #4 had it installed but never recorded it, so it is recorded here as optional.",
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  },
+  "optionalDependencies": {
+    "pngjs": "^7.0.0"
+  }
+}

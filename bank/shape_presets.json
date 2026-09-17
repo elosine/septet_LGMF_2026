@@ -1,0 +1,99 @@
+{
+  "_comment": "SHAPE PRESET library (PLAN 2y §5.1). A preset is a named, copyable `shape` block (2z's schema) plus the label, tags and verdict that blessed it. Because a shape is just params, applying one to any model is a MERGE, not a feature — reuse by construction, no category system. Filed by the AI from the narrated sessions the moment a shape is kept (docs/TAXONOMY.md contract); `?` note when unsure. If genuine categories of attack ever emerge they are harvested then (D6), never designed up front. Lessons from each build go to docs/SHAPE_LESSONS.md.",
+  "_howTheAttackJoins": "FR-4. The gain is MULTIPLICATIVE over the body, so when the attack reaches 1 the level IS whatever the body says — nothing to calculate and nothing to match. No overshoot means the ramp simply rises to the body and `decay` is 0; an overshoot means `peak` > 1 and `decay` exists only to bring it back down. `entry: together` overrides the striated entry so everyone starts as one.",
+  "_unheard": "ALL THREE ARE UNHEARD. These are starting points for the D31 bespoke loop, not blessed shapes — the day-12 lesson was that guessed preset NUMBERS are exactly what fails. Narrate a correction and the numbers change.  fade-in-3s and its two siblings remain UNHEARD and UNCHANGED because his saved ACTUALs point at them; 'fade-in-slow' is the 2026-09-09 replacement and is the one that was measured.",
+  "rev": 5,
+  "presets": {
+    "fade-in-3s": {
+      "label": "fade in — everyone together, no attack at all",
+      "notes": "The plainest option: a rise from silence straight to the body's own level, no overshoot, so no decay is needed. CURVE IS LINEAR ON PURPOSE: level here is the score's 0-10 drawn height, which maps to CC7 across a 40 dB span, so level-space is already roughly dB-space and a linear ramp IS a smooth exponential amplitude fade. `expo` is more front-loaded still and would lunge. Change `attack len` to taste. UNHEARD.",
+      "tags": [
+        "attack",
+        "gentle",
+        "together"
+      ],
+      "shape": {
+        "attack": {
+          "len": 3,
+          "entry": "together",
+          "curve": "linear",
+          "from": 0
+        }
+      }
+    },
+    "fade-in-slow": {
+      "label": "fade in — the morph's own level scaled from silence over the first 60% of the gesture",
+      "notes": "THE ONE THAT ACTUALLY FADES, and the only preset here that was MEASURED rather than guessed (RUNNING_LOG §311–315). `mode: fade` is the composer's own design and it is how the morph ALREADY fades when left alone: ONE velocity for the whole window with CC7 doing all the movement. Per part the engine finds the breath in progress at the end of the window, uses THAT breath's velocity for every breath before it, and ramps the level from silence to that part's natural level at the end — so the morph rejoins itself with nothing to match. Both older modes moved the velocity between breaths, which is heard as a lurch at every re-breath and not as a fade. `lenPct` — a FRACTION OF THE SPAN, because seconds are meaningless against a breath length you cannot see: on BLOOM the breaths are 6–10 s, so the old 3 s fade was bit-identical to no fade at all. `linear` — level here is the 0-10 drawn height across a 40 dB CC7 span, so level-space IS roughly dB-space and a linear ramp is a smooth exponential amplitude fade; `held` hangs low and then rushes, `expo` lunges. Re-breath timings are the morph's own throughout — the fade changes loudness and nothing else.",
+      "tags": [
+        "attack",
+        "fade",
+        "gentle",
+        "together",
+        "measured"
+      ],
+      "shape": {
+        "attack": {
+          "lenPct": 0.6,
+          "mode": "fade",
+          "entry": "together",
+          "curve": "linear",
+          "from": 0
+        }
+      }
+    },
+    "hit-and-settle": {
+      "label": "strong attack — short overshoot, then settle onto the body",
+      "notes": "The classic ADSR read of FR-4: a fast rise that overshoots to 1.5x, then a 2.5 s decay onto the body's level. `decay` exists ONLY to undo the overshoot. UNHEARD.",
+      "tags": [
+        "attack",
+        "strong",
+        "together"
+      ],
+      "shape": {
+        "attack": {
+          "len": 0.4,
+          "entry": "together",
+          "curve": "sudden",
+          "from": 0.9,
+          "peak": 1.5
+        },
+        "decay": {
+          "len": 2.5,
+          "curve": "expo"
+        }
+      }
+    },
+    "brassy-hit": {
+      "label": "strong attack with cuivre on spare players",
+      "notes": "Same as hit-and-settle plus a cuivre noise layer on the two lanes the bloom is not using — the composer's 'add cuivre notes if no one in the chord is playing them'. Cuivre only exists on this sampler from MIDI 60-67, so the notes are D#4/F4 - the bloom's own pitch classes an octave-plus up. Writing them at the bloom's actual pitches silently fell back to fortepiano. Simultaneous with the attack, not before it. UNHEARD, and the playability checker will read the cuivre against the sustained tone as a HARD conflict on that player — a FALSE POSITIVE (FR-4).",
+      "tags": [
+        "attack",
+        "strong",
+        "cuivre",
+        "together"
+      ],
+      "shape": {
+        "attack": {
+          "len": 0.5,
+          "entry": "together",
+          "curve": "sudden",
+          "from": 0.9,
+          "peak": 1.45,
+          "noise": {
+            "technique": "cuivre",
+            "voices": 2,
+            "midi": [
+              63,
+              65
+            ],
+            "len": 1.1
+          }
+        },
+        "decay": {
+          "len": 2.5,
+          "curve": "expo"
+        }
+      }
+    }
+  }
+}

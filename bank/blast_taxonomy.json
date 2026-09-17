@@ -1,0 +1,9 @@
+{
+ "_contract": "See piece #4's docs/TAXONOMY.md: the AI files every composer decision here automatically — voicings (per-harmony V-numbers), articulation sets, section palettes, custom lists, sonorities, chord subsets. EMPTY SKELETON for the septet (2026-09-03, PLAN 0b.3): the tuba taxonomy stayed in for_seven_tubas/bank. Read/written through /api/taxonomy.",
+ "harmonies": {},
+ "articulationSets": {},
+ "sectionPalettes": {},
+ "customLists": {},
+ "sonorities": {},
+ "chordSubsets": {}
+}

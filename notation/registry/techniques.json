@@ -1,0 +1,1480 @@
+{
+ "_doc": "[PLAN 2a.5, 2026-09-11 — RUNNING_LOG §384] Every technique key the septet can write (the recipe keys of sandbox/instruments.js = the IR event `technique`), with its extraction FAMILY and its performer-facing NOTATION. classify.js reads `family`: oneshot -> class fixed-oneshot (the sample-true length from bank/sample_lengths.json where one is measured, else the drawn length with a warning — D9); sustained -> ord-sustained, or drawn-crescendo-curve when the note carries a multi-node envelope (morph notes classify as morph-note before either). A key NOT listed here still THROWS in classify (CL-5): a new recipe is added here, deliberately.",
+ "_notate": "`notate` = the written instruction, where the composer has named one. null = NO MARK YET — stated, never a silent default; the notation of each technique is decided with him, note by note (the #4 method), and lands here. On 2026-09-11 exactly one is named: the flute `pizzicato` sample is written TONGUE RAM (composer 2026-09-04, RUNNING_LOG §44).",
+ "_familyRule": "Generated once (2026-09-11) by ONE rule, then data: a key is `oneshot` when bank/sample_lengths.json measures it OR its name is a strike or a short note (pizz* · tongue_ram · stac* · spicc* · marcato_stac/spicc · slap · secco · key_click/noises · bartok · gettato · col_legno · finger · body · plucked · muted · harmonics (the piano's prepared harmonics) · fortepiano · sforzando); everything else — bowed, blown and held sounds, tremolos, trills, harmonic glisses, multiphonics — is `sustained`. Correct any entry by hand.",
+ "_usedInPieceSeptet": "on 2026-09-11: senza_vel 235 · main 147 · gettato_vel 146 · bartok_vel 143 · slap 74 · pizzicato 72 · ord 50 · plucked 32",
+ "familyDevice": {
+  "_doc": "The provisional LOOK of a technique the engraving registry (container.json engraving.layout.devices.byTechnique) does not name — 2a's page, so that every note shows its written pitch in its clef: the notehead unit (head, accidental, ledgers, ottava) just before the attack, the parachute brick carrying the duration; a filled head for a one-shot, an open head for a sustained note; the notate text above the head. NO go line, no GC, no dynamics — those are his to assign, per technique. A byTechnique entry wins where one exists (the tuba vocabulary: ord, staccato, fortepiano, cuivre).",
+  "oneshot": {
+   "nhUnit": true,
+   "nhHead": "filled"
+  },
+  "sustained": {
+   "nhUnit": true
+  }
+ },
+ "techniques": {
+  "aeolian_and_ord": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Aeolian & Ordinario",
+   "players": [
+    "flute"
+   ]
+  },
+  "aeolian": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Aeolian",
+   "players": [
+    "flute"
+   ]
+  },
+  "chrom_scale": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Chromatic Scale",
+   "players": [
+    "flute"
+   ]
+  },
+  "cresc": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Crescendo",
+   "players": [
+    "flute",
+    "bass_clarinet"
+   ]
+  },
+  "cresc_decresc": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Crescendo to Decrescendo",
+   "players": [
+    "flute"
+   ]
+  },
+  "decresc": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Decrescendo",
+   "players": [
+    "flute"
+   ]
+  },
+  "dur_0_5s": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Duration 0.5 s",
+   "players": [
+    "flute"
+   ]
+  },
+  "dur_1s": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Duration 1 s",
+   "players": [
+    "flute"
+   ]
+  },
+  "jet_whistle": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Jet Whistle",
+   "players": [
+    "flute"
+   ]
+  },
+  "key_click": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Key Click",
+   "players": [
+    "flute"
+   ]
+  },
+  "tongue_ram": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Tongue Ram",
+   "players": [
+    "flute"
+   ]
+  },
+  "harmonic_fing": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Harmonic Fingering",
+   "players": [
+    "flute"
+   ]
+  },
+  "discolored_fing": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Discolored Fingering",
+   "players": [
+    "flute"
+   ]
+  },
+  "flz": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flatterzunge",
+   "players": [
+    "flute"
+   ]
+  },
+  "fortepiano": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Fortepiano",
+   "players": [
+    "flute"
+   ]
+  },
+  "multiphonics": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Multiphonics Menu",
+   "players": [
+    "flute"
+   ]
+  },
+  "ord_to_aeolian": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Ordinario to Aeolian",
+   "players": [
+    "flute"
+   ]
+  },
+  "aeolian_to_ord": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Aeolian to Ordinario",
+   "players": [
+    "flute"
+   ]
+  },
+  "ord_to_flz": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Ordinario to Flatterzunge",
+   "players": [
+    "flute"
+   ]
+  },
+  "flz_to_ord": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flatterzunge to Ordinario",
+   "players": [
+    "flute"
+   ]
+  },
+  "ord": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Ordinario",
+   "players": [
+    "flute"
+   ]
+  },
+  "pizzicato": {
+   "family": "oneshot",
+   "notate": "tongue ram",
+   "written": {
+    "_doc": "RUNNING_LOG §400 (2026-09-11): a tongue ram sounds a MAJOR 7TH BELOW the fingered note (no air, the tube's lowest mode only), so the page writes the FINGERING: written = sounding + 11. It only speaks for fingerings B3–C♯5 (F5 with the trill keys) = sounding C3–D4; outside `range` (written MIDI) the layout and the extractor both warn and the page marks the note. The score stays sounding (D9); foldFlute() in the composer moves the notes into the window first.",
+    "transpose": 11,
+    "range": [59, 73],
+    "label": "tongue ram B3–C♯5"
+   },
+   "label": "Pizzicato",
+   "players": [
+    "flute"
+   ]
+  },
+  "play_sing": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Play and Sing (sung C4)",
+   "players": [
+    "flute"
+   ]
+  },
+  "play_sing_unison": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Play and Sing Unison",
+   "players": [
+    "flute"
+   ]
+  },
+  "ord_1q": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Ordinario quarter-tone",
+   "players": [
+    "flute"
+   ]
+  },
+  "sforzando": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Sforzando",
+   "players": [
+    "flute"
+   ]
+  },
+  "staccato": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Staccato",
+   "players": [
+    "flute"
+   ]
+  },
+  "trill_m2": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Trill minor 2nd",
+   "players": [
+    "flute"
+   ]
+  },
+  "trill_M2": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Trill major 2nd",
+   "players": [
+    "flute"
+   ]
+  },
+  "whistle_tones": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Whistle Tones",
+   "players": [
+    "flute"
+   ]
+  },
+  "senza_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Senza Vibrato MW (#1)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "natural_vib_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Vibrato MW (#2)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "stac_vel_mwshape": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Staccato Velocity MW Shape (#3)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "stac2_mwshape": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Staccato 2 MW Shape (#4)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "flutter_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flutter Tongue MW (#5)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "slap": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Slap Tongue Velocity (#6)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "gliss_undef": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Glissando Undefined MW Shape (#7)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "undef_tones": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Undefined Tones Velocity (#8)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "key_noises": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Key Noises Velocity (#9)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "mp_short": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Multiphonics Velocity (#10)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "air_noises": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Air Noises Velocity (#11)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "senza_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Senza Vibrato Velocity (#13)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "natural_vib_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Vibrato Velocity (#14)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "morph_vxmw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Senza Vibrato + Flutter Tongue Velocity X MW (#15)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "flutter_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flutter Tongue Velocity (#16)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "senza_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Senza Vibrato Velocity + MW inverted (#17)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "triple16": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Triple Tongue 16T (#18)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "stac_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Staccato Velocity (#19)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "accent_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "With Accent Velocity (#20)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "gliss_undef_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Glissando Undefined MW (#21)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "mp_loop": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Multiphonics MW (#22)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "air_noises_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Air Noises MW (#23)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "vib_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Vibrato MW (#24)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "vib_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Vibrato Velocity (#25)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "vib_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Vibrato Velocity + MW inverted (#26)",
+   "players": [
+    "bass_clarinet",
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "secco": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Secco Velocity (#27)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "portato": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Portato Velocity (#28)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "flutter_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flutter Tongue Velocity + MW inverted (#29)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "pseudo_cb_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Pseudo Contrabass Velocity + MW inverted (#30)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "pseudo_cb_stac": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pseudo Contrabass Staccato Velocity (#31)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "pseudo_cl_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Pseudo Clarinet Velocity + MW inverted (#32)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "pseudo_cl_stac": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pseudo Clarinet Staccato Velocity (#33)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "flutter_lock": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flutter LOCK (#34, the composer's bespoke preset from piece #3)",
+   "players": [
+    "bass_clarinet"
+   ]
+  },
+  "main": {
+   "family": "sustained",
+   "notate": null,
+   "label": "8Dio 1969 Legacy Piano (Steinway 1969)",
+   "players": [
+    "piano"
+   ]
+  },
+  "plucked": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Plucked Piano (Spitfire)",
+   "players": [
+    "piano"
+   ]
+  },
+  "harmonics": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Harmonics (Prepared Piano 2)",
+   "players": [
+    "piano"
+   ]
+  },
+  "muted": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Muted strings (Prepared Piano 2)",
+   "players": [
+    "piano"
+   ]
+  },
+  "accent_vib_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Accent Vibrato Velocity (#4)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "arco_open_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Arco Open Strings Velocity (#7)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "arco_open_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Arco Open Strings MW (#9)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "accent_senza_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Accent Senza Vibrato Velocity (#10)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "light_accent_hi_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Light Accent Velocity - high position (#11)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "marcato_sfz_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Marcato sfz Velocity (#12)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "marcato_stac_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Marcato Staccato Velocity (#13)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "marcato_stac_open_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Marcato Staccato Open Strings Velocity (#14)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "marcato_spicc_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Marcato + Spiccato Velocity (#15)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "spicc_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Spiccato Velocity (#16)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "spicc_open_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Spiccato Open Strings Velocity (#17)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "spicc_vel_soft_x_bright_mw": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Spiccato Velocity - Soft X Bright MW (#18)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "stac_open_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Staccato Open Strings Velocity (#20)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "gettato_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Gettato Velocity (#21)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "trem_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tremolo Velocity + MW inverted (#22)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "trem_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tremolo Velocity (#23)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "trem_open_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tremolo Open Strings Velocity (#24)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "trem_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tremolo MW (#25)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "trem_open_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tremolo Open Strings MW (#26)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_gliss_slow_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Glissando Slow Velocity (#27)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_gliss_slow_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Glissando Slow MW (#28)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_gliss_fast_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Glissando Fast Velocity (#29)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_gliss_fast_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Glissando Fast MW (#30)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul1_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul G Velocity (#31)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul1_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul G MW (#32)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul2_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul D Velocity (#33)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul2_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul D MW (#34)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul3_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul A Velocity (#35)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul3_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul A MW (#36)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul4_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul E Velocity (#37)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "nh_sul4_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Natural Harmonics Sul E MW (#38)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "ah_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Artificial Harmonics Velocity (#39)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "ah_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Artificial Harmonics MW (#40)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "ah_spicc_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Artificial Harmonics Spiccato Velocity (#41)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "ah_trem_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Artificial Harmonics Tremolo MW (#42)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "flaut_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flautando Fragile Velocity (#43)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "flaut_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flautando Fragile MW (#44)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "flaut_x_sp_mw_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Flautando Fragile X Sul Ponticello MW - Velocity (#45)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sp_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sul Ponticello Velocity (#46)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sp_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sul Ponticello MW (#47)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sp_spicc_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Sul Ponticello Spiccato Velocity (#48)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sp_trem_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sul Ponticello Tremolo Velocity (#49)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sp_trem_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sul Ponticello Tremolo MW (#50)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sp_trem_x_sp_mw_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sul Ponticello Tremolo X Sul Ponticello MW - Velocity (#51)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "circ_bow_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Circular Bowing Velocity (#52)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "circ_bow_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Circular Bowing MW (#53)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "bow_op_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Bow Overpressure Velocity (#54)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "bow_op_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Bow Overpressure MW (#55)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "bow_op_x_marcato_sfz_mw_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Bow Overpressure X Marcato sfz MW - Velocity (#56)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "bow_op_stac_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Bow Overpressure Staccato Velocity (#57)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "tailpiece_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tailpiece Bowed Velocity (#58)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "tailpiece_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Tailpiece Bowed MW (#59)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_vib_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Vibrato Velocity + MW inverted (#60)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_vib_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Vibrato Velocity (#61)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_vib_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Vibrato MW (#62)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_senza_vel_mwinv": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Senza Vibrato Velocity + MW inverted (#63)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_senza_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Senza Vibrato Velocity (#64)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_open_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Open Strings Velocity (#65)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_senza_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Senza Vibrato MW (#66)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_open_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Sordino Open Strings MW (#67)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_spicc_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Sordino Spiccato Velocity (#68)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "sord_spicc_open_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Sordino Spiccato Open Strings Velocity (#69)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Velocity (#70)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_vib_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Vibrato Velocity (#71)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_open_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Open Strings Velocity (#72)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_h_sul1_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Harmonics Sul G Velocity (#73)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_h_sul2_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Harmonics Sul D Velocity (#74)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_h_sul3_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Harmonics Sul A Velocity (#75)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_h_sul4_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Harmonics Sul E Velocity (#76)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_sp_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Sul Ponticello Velocity (#77)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_sp_open_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Sul Ponticello Open Strings Velocity (#78)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_x_sp_mw_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato X Sul Ponticello MW - Velocity (#79)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "bartok_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Bartok Pizzicato Velocity (#80)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_behind_bridge_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato Behind Bridge Velocity (#81)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "pizz_peg_box_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Pizzicato In Peg Box Velocity (#82)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "col_legno_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Col Legno Velocity (#83)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "col_legno_gett_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Col Legno Gettato Velocity (#84)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "finger_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Finger Velocity (#85)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "body_vel": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Body Strokes Velocity (#86)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "undef_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Undefined Sounds Velocity (#87)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  },
+  "undef_mw": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Undefined Sounds MW (#88)",
+   "players": [
+    "violin1",
+    "violin2",
+    "viola",
+    "cello"
+   ]
+  }
+ }
+}

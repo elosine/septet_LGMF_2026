@@ -366,3 +366,52 @@ and its "does not do" section says NO REAPER in so many words.
 **The bowed vibraphone went to the sketch pad as LG-9** — the first percussion instrument he
 has named, and a SUSTAINING one: that bears on the planner's open question (who inherits the
 piano's struck role?) — perhaps nobody.
+
+---
+
+# 2026-09-17 — session 1 continued, the build (Claude Code / Opus 5)
+
+**His go:** *"no clear go for build"* — read as: no clear, go for the build. The model was
+switched to Opus 5 in place, and the port plan executed with the whole conversation still in
+context, so the cold-execution path (`/clear` → `/postclear` → the `Resume reads:` list)
+was never needed. The plan is followed step for step regardless; it is the record.
+
+## §12. PORT step 1 — the engine copied, 265 / 265 byte-identical
+
+**The guard, first** (the plan's opening instruction): `git -C septet_2026 status --short`.
+Modified: `bank/panel_snapshots.json` · `reaper/septet_rack.rpp` · `scores/piece-septet.json`
+— **exactly the three the plan named as known-modified and HIS**, unchanged since #5's
+journal §2 recorded them. Untracked: his passage bank, his scores, his application files —
+none of them on the copy list. Nothing to stop for.
+
+**The list** — built with `git ls-files` so no loose or ignored file could come along, then
+every entry checked tracked before anything was copied: **265 paths, 7 MB.** By area:
+score 55 · tools 108 · notation 43 · probes 22 · bank 15 · reaper 11 · sandbox 3 · print 3 ·
+`.claude/launch.json` · `docs/instrument_map.json` · `package.json` · `package-lock.json` ·
+`start_score_server.bat`.
+
+**The copy:** one `tar` pipe from the source's working tree, then **`cmp` on every file
+against its source — 265 identical, 0 differ.**
+
+**The one file taken from HEAD instead of the working tree:** `bank/panel_snapshots.json`
+(his takes of 2026-09-17 are uncommitted there, and they are his). Copied with
+`git show HEAD:bank/panel_snapshots.json` and `cmp`-ed against that blob — identical.
+So this repo starts from #5's last COMMITTED takes, and his uncommitted ones stay his.
+
+**Left behind by name, as planned:** all of `scores/` · `midi/` · `bank/actuals/` ·
+`bank/scattered_strikes.json` (the piano's recorded strikes) · `bank/passages/*.json` · the
+seven instrument-measurement banks (staged in step 2, skeletoned in step 4) ·
+`probes/*_schedule.json` + `ping_ch*.json` (generated from #5's recipe — 7 000+ instrument
+mentions between them) · `reaper/septet_rack.rpp` + `place_piece-septet_midi.lua` ·
+`notation/ir/*` · `notation/video/` · the cover SVGs and `print/score/approved/` ·
+`tools/oneoff/` + the four Bloom-demo tools + `morph_tuba_baseline.json` ·
+`docs/notation_instructions/` · `docs/plans/` · `docs/images/` · the Tempus call PDF and
+his application. That is the ≈ 38 MB of piece data the survey measured.
+
+`npm install` → 3 packages, 0 vulnerabilities (resvg 2.6.2 + the optional pngjs).
+
+**Note for step 3, written down so it is not forgotten:** `.claude/launch.json` came across
+byte-exact and its `score` entry declares **5300** with a relative `score/server.js` — so
+starting it from this repo before the re-palette would bind HIS port with THIS repo's
+server. It is inert unless invoked; nothing invokes it, and step 2 boots the server by
+environment (`PORT=5400`) instead. Principle 9.

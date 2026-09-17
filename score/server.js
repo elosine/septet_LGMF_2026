@@ -1,0 +1,1163 @@
+// Composer score server — septet 2026 (ported from piece #4, 2026-09-03; journal D1/D5)
+// Zero-dependency Node http server. Port 5300.
+//
+// Saving protocol (D17, composer 2026-09-04 — docs/NAMING.md §1, RUNNING_LOG §68):
+//   - The file: scores/<name>.json — changes ONLY on an explicit Save (button / CTRL+S).
+//   - The working copy: scores/<name>-work.json — every open goes through one; autosave
+//     (5 s debounce in the UI) writes THERE, never the file. Gitignored. Discarded on Save
+//     and on Reload, so "a -work file that differs from its file" = unsaved edits (listScores
+//     reports it; tools/unsaved_check.js asks about it at session end).
+//   - A named version: scores/<name>-v<label>.json — a frozen copy written by "Name version"
+//     (the file is saved in the same act). Never overwritten. Committed.
+//   - Snapshots: scores/versions/<name>_v<timestamp>.json — taken at every explicit Save,
+//     rolling cap of 20 per score, gitignored: the silent net (no menu; the AI digs on request).
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const { spawnSync } = require('child_process');   // PLAN 1c: /api/strikes/ingest runs tools/strike_db.js
+
+// 5300 is THE port — every doc, bookmark and launch config says so, and the
+// default is unchanged. The override exists only so a second, throwaway instance
+// can be started for verification while the composer's own server keeps running
+// on 5300 (two agents share this tree). Never use it for real work.
+const PORT = Number(process.env.PORT) || 5300;
+const ROOT = __dirname;                                   // score/
+const PUBLIC_DIR = path.join(ROOT, 'public');
+const DOCS_DIR = path.join(ROOT, '..', 'docs');           // serves /docs/instrument_map.json
+const SCORES_DIR = path.join(ROOT, '..', 'scores');
+const MOTIVES_DIR = path.join(ROOT, '..', 'sandbox', 'motives');   // shared library (D8-E)
+// PASSAGES (composer 2026-09-10, RUNNING_LOG §361): a captured stretch of score, insertable at the playhead into any
+// score. Under bank/ deliberately — his requirement was *"once I put one that's committed, it's put into the committed
+// files"*, and bank/ is committed while scores/*-work.json and scores/versions/ are gitignored.
+const PASSAGES_DIR = path.join(ROOT, '..', 'bank', 'passages');
+const VERSIONS_DIR = path.join(SCORES_DIR, 'versions');
+const VERSION_CAP = 20;
+
+for (const d of [SCORES_DIR, VERSIONS_DIR, MOTIVES_DIR]) {
+    if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
+}
+
+const MIME = {
+    '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
+    '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png',
+    '.woff': 'font/woff', '.woff2': 'font/woff2', '.mid': 'audio/midi',
+    '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ttf': 'font/ttf',
+    '.md': 'text/plain; charset=utf-8'
+};
+
+// dots allowed (D17: version labels such as -v1.5); never `..` and never a leading dot
+const safe = name => String(name).replace(/[^a-zA-Z0-9_.-]/g, '_').replace(/\.{2,}/g, '.').replace(/^\.+/, '');
+
+// ---- score persistence ----
+
+function saveComposerScore(name, data, makeVersion) {
+    const filename = `${safe(name)}.json`;
+    const filepath = path.join(SCORES_DIR, filename);
+    data.metadata = data.metadata || {};
+    data.metadata.modified = new Date().toISOString();
+
+    let versioned = false;
+    if (makeVersion && fs.existsSync(filepath)) {
+        const ts = new Date().toISOString().replace(/[:.]/g, '-');
+        fs.copyFileSync(filepath, path.join(VERSIONS_DIR, `${safe(name)}_v${ts}.json`));
+        pruneVersions(name);
+        versioned = true;
+    }
+    fs.writeFileSync(filepath, JSON.stringify(data));
+    return { success: true, filename, versioned, modified: data.metadata.modified };
+}
+
+function pruneVersions(name) {
+    const prefix = `${safe(name)}_v`;
+    const files = fs.readdirSync(VERSIONS_DIR)
+        .filter(f => f.startsWith(prefix) && f.endsWith('.json'))
+        .sort();                                          // ISO timestamps sort chronologically
+    while (files.length > VERSION_CAP) {
+        fs.unlinkSync(path.join(VERSIONS_DIR, files.shift()));
+    }
+}
+
+// D17: what a working copy holds against its file — compared as content, not as mtime
+// (a Save writes the file from the same state the working copy had; times alone would lie).
+function scoreEssence(json) {
+    try {
+        const d = JSON.parse(json);
+        if (d && d.metadata) { delete d.metadata.modified; delete d.metadata.created; }
+        if (d) delete d.viewport;                          // scroll / zoom is not an edit
+        return JSON.stringify(d);
+    } catch (e) { return json; }
+}
+function workState(base) {
+    const wf = path.join(SCORES_DIR, `${base}-work.json`), bf = path.join(SCORES_DIR, `${base}.json`);
+    const st = fs.statSync(wf);
+    const orphan = !fs.existsSync(bf);                     // never saved: the file does not exist yet
+    let differs = true;
+    if (!orphan) {
+        try { differs = scoreEssence(fs.readFileSync(wf, 'utf8')) !== scoreEssence(fs.readFileSync(bf, 'utf8')); }
+        catch (e) { differs = true; }
+    }
+    return { modified: st.mtime.toISOString(), differs, orphan };
+}
+function listScores() {
+    const files = fs.readdirSync(SCORES_DIR).filter(f => f.endsWith('.json'));
+    const names = new Set(files.map(f => f.replace(/\.json$/, '')));
+    return files
+        .map(f => {
+            const name = f.replace(/\.json$/, '');
+            const st = fs.statSync(path.join(SCORES_DIR, f));
+            const row = { name, filename: f, modified: st.mtime.toISOString(), size: st.size };
+            // a file with a working copy: say whether the copy holds unsaved edits
+            if (!/-work$/.test(name) && names.has(name + '-work')) row.work = workState(name);
+            // a working copy with no file: the score was never saved
+            if (/-work$/.test(name) && !names.has(name.replace(/-work$/, ''))) row.work = workState(name.replace(/-work$/, ''));
+            return row;
+        })
+        .sort((a, b) => new Date(b.modified) - new Date(a.modified));
+}
+
+// ---- tiny req/res helpers (express-shaped so ported handlers work unchanged) ----
+
+function wrapRes(res) {
+    return {
+        status(code) { res.statusCode = code; return this; },
+        json(obj) { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(obj)); }
+    };
+}
+
+function readBody(req, cb) {
+    let body = '';
+    req.on('data', c => { body += c; });
+    req.on('end', () => {
+        try { cb(null, body ? JSON.parse(body) : {}); }
+        catch (e) { cb(e); }
+    });
+}
+
+// ---- ported from piece #2 server.js (self-contained; used by zone MIDI generation) ----
+function handleGenerateOstinato(req, res) {
+    try {
+        const { chordChanges, handA, handB, curve, duration, smooth, speed, stretch, velMin, velMax, channel } = req.body;
+
+        if (!curve || !duration) {
+            return res.status(400).json({ error: 'Missing required fields: curve, duration' });
+        }
+
+        // Normalize a hand source into internal format
+        function parseHandSource(raw, fallback) {
+            if (!raw) return { mode: 'fixed', midis: fallback };
+            // New format: { mode, midis/items/strategy }
+            if (raw.mode === 'set' && Array.isArray(raw.items) && raw.items.length > 0) {
+                return {
+                    mode: 'set',
+                    items: raw.items.map(it => ({
+                        midis: (it.midis || [60]).map(n => parseInt(n, 10))
+                    })),
+                    strategy: raw.strategy || 'random'
+                };
+            }
+            if (raw.mode === 'fixed' && Array.isArray(raw.midis)) {
+                return { mode: 'fixed', midis: raw.midis.map(n => parseInt(n, 10)) };
+            }
+            // Legacy format: raw is a plain array of MIDI numbers
+            if (Array.isArray(raw)) {
+                return { mode: 'fixed', midis: raw.map(n => parseInt(n, 10)) };
+            }
+            return { mode: 'fixed', midis: fallback };
+        }
+
+        // Build chord change timeline (sorted by normalized time)
+        let chords = [];
+        if (chordChanges && Array.isArray(chordChanges) && chordChanges.length > 0) {
+            chords = chordChanges
+                .map(cc => ({
+                    t: parseFloat(cc.t) || 0,
+                    hA: parseHandSource(cc.handA, [60]),
+                    hB: parseHandSource(cc.handB, [48])
+                }))
+                .sort((a, b) => a.t - b.t);
+        } else if (handA && handB) {
+            // Legacy: single chord pair
+            chords = [{
+                t: 0,
+                hA: { mode: 'fixed', midis: String(handA).split(',').map(n => parseInt(n.trim(), 10)) },
+                hB: { mode: 'fixed', midis: String(handB).split(',').map(n => parseInt(n.trim(), 10)) }
+            }];
+        } else {
+            return res.status(400).json({ error: 'Missing chordChanges or handA/handB' });
+        }
+
+        // Lookup: which chord source is active at a given normalized time?
+        function getChordsAt(normTime) {
+            let active = chords[0];
+            for (let i = 1; i < chords.length; i++) {
+                if (chords[i].t <= normTime) active = chords[i];
+                else break;
+            }
+            return active;
+        }
+
+        // Resolve a hand source to concrete MIDI pitches for one event
+        // Tracks round-robin / no-repeat state per hand key
+        const _resolveState = { _rrIndex: {}, _lastPick: {} };
+        function resolveHandPitches(handSource, handKey) {
+            if (handSource.mode === 'fixed') return handSource.midis;
+            if (handSource.mode === 'set') {
+                const items = handSource.items;
+                const strategy = handSource.strategy || 'random';
+                let item;
+                if (strategy === 'roundRobin') {
+                    const idx = (_resolveState._rrIndex[handKey] || 0) % items.length;
+                    item = items[idx];
+                    _resolveState._rrIndex[handKey] = idx + 1;
+                } else if (strategy === 'noRepeat') {
+                    const lastIdx = _resolveState._lastPick[handKey];
+                    let attempts = 0, idx;
+                    do {
+                        idx = Math.floor(Math.random() * items.length);
+                        attempts++;
+                    } while (idx === lastIdx && items.length > 1 && attempts < 10);
+                    item = items[idx];
+                    _resolveState._lastPick[handKey] = idx;
+                } else {
+                    item = items[Math.floor(Math.random() * items.length)];
+                }
+                return item.midis;
+            }
+            return handSource.midis || [60];
+        }
+
+        if (!fs.existsSync(OSTINATO_DB_PATH)) {
+            return res.status(500).json({ error: 'Ostinato timing database not found' });
+        }
+
+        const db = JSON.parse(fs.readFileSync(OSTINATO_DB_PATH, 'utf-8'));
+        if (!db.samples || db.samples.length === 0) {
+            return res.status(500).json({ error: 'No samples in timing database' });
+        }
+
+        // Parse curve spec
+        const curveSpec = parseOstinatoCurve(curve);
+
+        const durationMs = parseFloat(duration) * 1000;
+        const stretchFactor = parseFloat(stretch) || 1.0;
+        const speedScale = parseFloat(speed) || 1.0;
+        const smoothFactor = parseFloat(smooth) || 0;
+        const ch = parseInt(channel) || 0;
+        const windowSize = 0.05;
+
+        // Random sample
+        const sampleIndex = Math.floor(Math.random() * db.samples.length);
+        const sample = db.samples[sampleIndex];
+        const attacks = sample.attacks;
+
+        // Create attack lookup (inline from generate_ostinato_midi.js)
+        const sorted = [...attacks].sort((a, b) => a.curvePosition - b.curvePosition);
+        const gaps = sorted.filter(a => a.gapToNextMs !== null).map(a => a.gapToNextMs);
+        const centerGap = gaps.reduce((a, b) => a + b, 0) / gaps.length;
+        const allGaps = attacks.filter(a => a.gapToNextMs !== null).map(a => a.gapToNextMs);
+        const minGap = Math.min(...allGaps);
+
+        let lastCycleIndex = 0;
+        let lastCurveRegion = -1;
+
+        function getAttack(curveY) {
+            const lo = curveY - windowSize;
+            const hi = curveY + windowSize;
+            const nearby = [];
+            for (let i = 0; i < sorted.length; i++) {
+                if (sorted[i].curvePosition >= lo && sorted[i].curvePosition <= hi) {
+                    nearby.push({ index: i, attack: sorted[i] });
+                }
+            }
+            if (nearby.length === 0) {
+                let bestIdx = 0;
+                let bestDist = Math.abs(sorted[0].curvePosition - curveY);
+                for (let i = 1; i < sorted.length; i++) {
+                    const dist = Math.abs(sorted[i].curvePosition - curveY);
+                    if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+                }
+                return sorted[bestIdx];
+            }
+            const region = Math.round(curveY / windowSize);
+            if (region !== lastCurveRegion) { lastCurveRegion = region; lastCycleIndex = 0; }
+            const idx = lastCycleIndex % nearby.length;
+            lastCycleIndex++;
+            return nearby[idx].attack;
+        }
+
+        // Generate events
+        const generatedEvents = [];
+        let currentTimeMs = 0;
+        let handToggle = 0;
+        let attackCount = 0;
+
+        while (currentTimeMs < durationMs) {
+            const normalizedTime = currentTimeMs / durationMs;
+            const curveY = evaluateOstinatoCurve(curveSpec, normalizedTime);
+            const attack = getAttack(curveY);
+
+            let rawGap = (attack.gapToNextMs !== null) ? attack.gapToNextMs : centerGap;
+            let gap = minGap + (rawGap - minGap) * stretchFactor;
+
+            if (smoothFactor > 0) {
+                const lo = curveY - windowSize;
+                const hi = curveY + windowSize;
+                const nearbyGaps = attacks.filter(a =>
+                    a.curvePosition >= lo && a.curvePosition <= hi && a.gapToNextMs !== null
+                ).map(a => a.gapToNextMs);
+                const localAvgGap = nearbyGaps.length > 0
+                    ? nearbyGaps.reduce((a, b) => a + b, 0) / nearbyGaps.length
+                    : centerGap;
+                const evenGap = minGap + (localAvgGap - minGap) * stretchFactor;
+                gap = gap + (evenGap - gap) * smoothFactor;
+            }
+
+            gap *= speedScale;
+            gap = Math.max(20, gap);
+
+            const activeChord = getChordsAt(normalizedTime);
+            const handSource = (handToggle === 0) ? activeChord.hA : activeChord.hB;
+            const pitches = resolveHandPitches(handSource, handToggle === 0 ? 'hA' : 'hB');
+
+            let durations;
+            if (attack.noteDurationsMs.length === pitches.length) {
+                durations = [...attack.noteDurationsMs];
+            } else {
+                const avgDur = attack.noteDurationsMs.reduce((a, b) => a + b, 0) / attack.noteDurationsMs.length;
+                durations = pitches.map(() => avgDur);
+            }
+            durations = durations.map(d => Math.min(d, gap * 0.9));
+
+            generatedEvents.push({
+                onsetMs: currentTimeMs,
+                notes: pitches,
+                velocity: attack.avgVelocity,
+                durations
+            });
+
+            currentTimeMs += gap;
+            handToggle = 1 - handToggle;
+            attackCount++;
+            if (attackCount > 10000) break;
+        }
+
+        // Velocity remapping: if velMin and/or velMax are provided, remap from sample range
+        const hasVelMin = velMin != null && !isNaN(velMin);
+        const hasVelMax = velMax != null && !isNaN(velMax);
+        if (hasVelMin || hasVelMax) {
+            const vels = generatedEvents.map(e => e.velocity);
+            const sampleMin = Math.min(...vels);
+            const sampleMax = Math.max(...vels);
+            const sampleRange = sampleMax - sampleMin || 1;
+            const outMin = hasVelMin ? parseInt(velMin, 10) : sampleMin;
+            const outMax = hasVelMax ? parseInt(velMax, 10) : sampleMax;
+            generatedEvents.forEach(e => {
+                const norm = (e.velocity - sampleMin) / sampleRange;
+                e.velocity = Math.round(Math.max(1, Math.min(127, outMin + norm * (outMax - outMin))));
+            });
+        }
+
+        res.json({
+            success: true,
+            events: generatedEvents,
+            attackCount: generatedEvents.length,
+            sampleIndex,
+            durationMs
+        });
+    } catch (e) {
+        console.error('Ostinato generation error:', e);
+        res.status(500).json({ error: e.message });
+    }
+}
+
+// ---- server ----
+
+const server = http.createServer((req, res) => {
+    const url = decodeURIComponent(req.url.split('?')[0]);
+    const R = wrapRes(res);
+
+    // APIs
+    // PLAN 1c (2026-09-03): re-ingest a save into the scattered-strike database from the
+    // Strikes drawer. Runs tools/strike_db.js as a child (the tool stays the one authority on
+    // the capture); returns its census text. Body: { score, gap?, sim?, label? }.
+    if (req.method === 'POST' && url === '/api/strikes/ingest') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+            const name = safe(String((body && body.score) || ''));
+            if (!name) return R.status(400).json({ success: false, error: 'score required' });
+            const args = [path.join(__dirname, '..', 'tools', 'strike_db.js'), '--score', name];
+            if (body.gap != null) args.push('--gap', String(+body.gap));
+            if (body.sim != null) args.push('--sim', String(+body.sim));
+            if (body.label) args.push('--label', String(body.label));
+            const r = spawnSync(process.execPath, args, { cwd: path.join(__dirname, '..'), encoding: 'utf8', timeout: 60000 });
+            if (r.status !== 0) return R.status(500).json({ success: false, error: (r.stderr || r.stdout || 'strike_db failed').slice(-800) });
+            console.log('strikes: ingested ' + name);
+            return R.json({ success: true, census: r.stdout });
+        });
+    }
+    if (req.method === 'POST' && url === '/api/composer/save') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+            const { name, data, makeVersion } = body;
+            if (!name || !data) return R.status(400).json({ success: false, error: 'Name and data required' });
+            try {
+                const result = saveComposerScore(name, data, !!makeVersion);
+                console.log(`Saved: ${result.filename}${result.versioned ? ' (+version)' : ''}`);
+                R.json(result);
+            } catch (e) { R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
+    if (req.method === 'GET' && url.startsWith('/api/composer/load/')) {
+        const filepath = path.join(SCORES_DIR, `${safe(url.slice('/api/composer/load/'.length))}.json`);
+        if (!fs.existsSync(filepath)) return R.status(404).json({ success: false, error: 'Score not found' });
+        try { return R.json({ success: true, data: JSON.parse(fs.readFileSync(filepath, 'utf8')) }); }
+        catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    if (req.method === 'GET' && url === '/api/composer/list') {
+        try { return R.json({ success: true, sessions: listScores() }); }
+        catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    // MORPH PARAMS (PLAN 2v) — the conversational control file. The AI writes
+    // bank/morph_params.json and bumps `rev`; the panel polls this once a second
+    // and regenerates when rev changes. no-store because the whole point is that
+    // an edit on disk is visible within the second.
+    if (req.method === 'GET' && url === '/api/morphparams') {
+        try {
+            const mp = path.join(__dirname, '..', 'bank', 'morph_params.json');
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(mp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
+    // TEXTURE PARAMS + MODELS (PLAN 2x) — the same loop for attack fields.
+    // Two files, both read-only to the panel: `texture_params.json` is the live
+    // variant slate the AI rewrites, `texture_models.json` is the category store
+    // the panel's model buttons load their points from. Separate from 2v's files
+    // by design — parallel stores, never a shared write (plan §15.9).
+    if (req.method === 'GET' && (url === '/api/textureparams' || url === '/api/texturemodels')) {
+        try {
+            const name = url === '/api/textureparams' ? 'texture_params.json' : 'texture_models.json';
+            const tp = path.join(__dirname, '..', 'bank', name);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(tp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
+
+    // CLUSTER BANK — the cluster sandbox's data (composer 2026-08-15).
+    // GET returns it; POST actions mutate one tier each.
+    if (url === '/api/clusterbank') {
+        const cbPath = path.join(__dirname, '..', 'bank', 'cluster_bank.json');
+        const readCb = () => JSON.parse(fs.readFileSync(cbPath, 'utf8'));
+        if (req.method === 'GET') {
+            try { return R.json({ success: true, bank: readCb() }); }
+            catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+                try {
+                    const cb = readCb();
+                    const { action } = body || {};
+                    const write = () => fs.writeFileSync(cbPath, JSON.stringify(cb, null, 1));
+                    if (action === 'saveCluster') {
+                        // a recording from the sandbox: REC-01, REC-02, ...
+                        const { name, events, tech } = body;
+                        if (!Array.isArray(events) || !events.length)
+                            return R.status(400).json({ success: false, error: 'events required' });
+                        let n = 1;
+                        while (cb.clusters['REC-' + String(n).padStart(2, '0')]) n++;
+                        const id = 'REC-' + String(n).padStart(2, '0');
+                        const span = Math.max(...events.map(e => e.t + e.d));
+                        cb.clusters[id] = { name: name || id, family: 'REC', src: 'sandbox recording',
+                            recTech: tech || 'staccato', span: +span.toFixed(3),
+                            n: events.length, events };
+                        write();
+                        console.log(`Clusterbank: ${id} recorded (${events.length} notes, ${span.toFixed(1)}s)`);
+                        return R.json({ success: true, id });
+                    }
+                    if (action === 'deleteCluster') {
+                        // only recordings may be deleted from the app
+                        if (!/^REC-/.test(body.id || '')) return R.status(400).json({ success: false, error: 'only REC-* deletable' });
+                        delete cb.clusters[body.id];
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'saveSnippet') {
+                        // a snippet is a full COPY of its window's events (composer
+                        // 2026-08-15): editable in place, source untouched
+                        const { events, span, provenance } = body;
+                        if (!Array.isArray(events) || !events.length)
+                            return R.status(400).json({ success: false, error: 'events required' });
+                        let n = 1;
+                        while (cb.snippets['SN' + n]) n++;
+                        const id = 'SN' + n;
+                        cb.snippets[id] = { events, span: +(+span).toFixed(3),
+                            provenance: provenance || {}, created: new Date().toISOString() };
+                        write();
+                        console.log(`Clusterbank: ${id} cut (${events.length} notes)`);
+                        return R.json({ success: true, id });
+                    }
+                    if (action === 'updateSnippet') {
+                        // in-place edit from the mini piano-roll (also migrates
+                        // old pointer snippets to the copy model)
+                        const sn = cb.snippets[body.id];
+                        if (!sn) return R.status(400).json({ success: false, error: 'unknown snippet' });
+                        if (Array.isArray(body.events) && body.events.length) sn.events = body.events;
+                        if (body.span != null) sn.span = +(+body.span).toFixed(3);
+                        if (body.provenance) sn.provenance = body.provenance;
+                        delete sn.cluster; delete sn.t0; delete sn.t1;   // pointer-era fields
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'deleteSnippet') {
+                        delete cb.snippets[body.id];
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'saveGesture') {
+                        // a baked keeper: CG###, static events + provenance
+                        const { events, span, provenance, list } = body;
+                        if (!Array.isArray(events) || !events.length)
+                            return R.status(400).json({ success: false, error: 'events required' });
+                        // content dedup (same events -> same id), like sonorities
+                        const key = JSON.stringify(events);
+                        let id = Object.keys(cb.gestures).find(g => JSON.stringify(cb.gestures[g].events) === key);
+                        let existed = true;
+                        if (!id) {
+                            existed = false;
+                            let n = 1;
+                            while (cb.gestures['CG' + String(n).padStart(3, '0')]) n++;
+                            id = 'CG' + String(n).padStart(3, '0');
+                            cb.gestures[id] = { events, span: +(+span).toFixed(3),
+                                provenance: provenance || {}, created: new Date().toISOString() };
+                        }
+                        let added = false;
+                        if (list && list !== '__library__') {
+                            cb.lists[list] = cb.lists[list] || [];
+                            if (!cb.lists[list].includes(id)) { cb.lists[list].push(id); added = true; }
+                        }
+                        write();
+                        console.log(`Clusterbank: ${id} ${existed ? 'matched' : 'saved'}${added ? ' -> ' + list : ''}`);
+                        return R.json({ success: true, id, existed, added });
+                    }
+                    if (action === 'updateGesture') {
+                        // save-over: replace a stored keeper in place (the
+                        // composer score's strip reads these, so this is a
+                        // deliberate, explicit action - never an autosave)
+                        const g = cb.gestures[body.id];
+                        if (!g) return R.status(400).json({ success: false, error: 'unknown gesture' });
+                        if (Array.isArray(body.events) && body.events.length) g.events = body.events;
+                        if (body.span != null) g.span = +(+body.span).toFixed(3);
+                        if (body.provenance) g.provenance = body.provenance;
+                        g.modified = new Date().toISOString();
+                        write();
+                        console.log(`Clusterbank: ${body.id} overwritten (${g.events.length} notes)`);
+                        return R.json({ success: true, id: body.id });
+                    }
+                    if (action === 'deleteGesture') {
+                        delete cb.gestures[body.id];
+                        Object.keys(cb.lists).forEach(l => {
+                            cb.lists[l] = cb.lists[l].filter(x => x !== body.id);
+                        });
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'createList') {
+                        const name = String(body.name || '').trim();
+                        if (!name) return R.status(400).json({ success: false, error: 'name required' });
+                        cb.lists[name] = cb.lists[name] || [];
+                        write();
+                        return R.json({ success: true });
+                    }
+                    if (action === 'removeFromList') {
+                        const { list, id } = body;
+                        if (cb.lists[list]) cb.lists[list] = cb.lists[list].filter(x => x !== id);
+                        write();
+                        return R.json({ success: true });
+                    }
+                    return R.status(400).json({ success: false, error: 'unknown action' });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
+    // MODEL <-> ACTUAL (PLAN 2y). Three reads and one write.
+    //
+    // The write goes through tools/model_bank.js — the SAME buildActual() the
+    // CLI uses — so the panel button and `--actualize` cannot drift into two
+    // slightly different save paths. That file guards its own CLI dispatch on
+    // require.main, so requiring it here is inert.
+    // PULSE PALETTE (PLAN 2aa) — the sonority menu for the pulse sequencer strip.
+    // Dumb file read, same shape as the two below: the panel resolves `ref`
+    // entries against /api/taxonomy itself, so a rename in the taxonomy reaches
+    // the menu with nothing to rebuild here.
+    if (req.method === 'GET' && url === '/api/pulsepalette') {
+        try {
+            const pp = path.join(__dirname, '..', 'bank', 'pulse_palette.json');
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(pp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
+    // PANEL SNAPSHOTS (PLAN 2ab) — named states for the sandbox panels, one file
+    // for all of them. `state` is OPAQUE here: whatever the panel's own save()
+    // writes, stored verbatim, so a new panel needs no server edit. All the
+    // merge rules (and their whys) live in score/snapshots.js, pinned by
+    // tools/test_snapshots.js.
+    if (url === '/api/snapshots') {
+        const SNAP_FILE = path.join(__dirname, '..', 'bank', 'panel_snapshots.json');
+        const SNAP = require('./snapshots.js');
+        if (req.method === 'GET') {
+            try {
+                if (!fs.existsSync(SNAP_FILE)) {
+                    // Say the file is missing rather than pretending it is empty:
+                    // an empty list and a deleted bank look identical otherwise.
+                    return R.json({ _version: 1, _missing: true, panels: {} });
+                }
+                res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+                return res.end(fs.readFileSync(SNAP_FILE, 'utf8'));
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'bad body' });
+                try {
+                    const file = fs.existsSync(SNAP_FILE)
+                        ? JSON.parse(fs.readFileSync(SNAP_FILE, 'utf8'))
+                        : { _version: 1, panels: {} };
+                    const r = SNAP.merge(file, body);
+                    if (!r.ok) return R.status(400).json({ success: false, error: r.error });
+                    fs.writeFileSync(SNAP_FILE, JSON.stringify(file, null, 2) + '\n');
+                    return R.json({ success: true, action: r.action,
+                                    existed: r.existed, panels: r.count });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
+    if (req.method === 'GET' && (url === '/api/morphmodels' || url === '/api/shapepresets')) {
+        try {
+            const name = url === '/api/morphmodels' ? 'morph_models.json' : 'shape_presets.json';
+            const mp = path.join(__dirname, '..', 'bank', name);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(mp, 'utf8'));
+        } catch (e) {
+            return R.status(500).json({ success: false, error: e.message });
+        }
+    }
+    if (url === '/api/actuals') {
+        const MB = require('../tools/model_bank.js');
+        if (req.method === 'GET') {
+            try {
+                const dir = MB.ACTUALS_DIR;
+                const list = !fs.existsSync(dir) ? [] : fs.readdirSync(dir)
+                    .filter(f => /\.json$/i.test(f))
+                    .map(f => {
+                        const a = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+                        // the browse card, without shipping every note array
+                        return { entity: a.entity, label: a.label, tags: a.tags,
+                                 spanSec: a.spanSec, parts: a.parts, register: a.register,
+                                 model: a.provenance && a.provenance.model,
+                                 seed: a.provenance && a.provenance.seed,
+                                 recipeSettings: (a.provenance && a.provenance.recipeSettings) || {},
+                                 placements: (a.placements || []).length,
+                                 notes: (a.notes || []).length };
+                    });
+                return R.json({ success: true, actuals: list });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'bad body' });
+                try {
+                    const built = MB.buildActual(body.model, {
+                        recipeSettings: body.recipeSettings || {},
+                        seed: body.seed, label: body.label, tags: body.tags,
+                        shape: body.shape, shapePreset: body.shapePreset,
+                        params: body.params,
+                        pairs: body.pairs, pitch: body.pitch,   // the septet's cast and pitch source, recalled with the actual (§213)
+                    });
+                    if (built.error) return R.status(400).json({ success: false, error: built.error });
+                    MB.writeActual(built);
+                    return R.json({ success: true, entity: built.actual.entity,
+                                    rev: built.store.rev, warnings: built.warnings });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
+    if (req.method === 'GET' && url.startsWith('/api/actuals/')) {
+        try {
+            const MB = require('../tools/model_bank.js');
+            const file = path.basename(url.slice('/api/actuals/'.length)).replace(/\.json$/, '') + '.json';
+            const p = path.join(MB.ACTUALS_DIR, file);
+            if (!fs.existsSync(p)) return R.status(404).json({ success: false, error: 'no such actual' });
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+            return res.end(fs.readFileSync(p, 'utf8'));
+        } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    // PLACEMENTS are logged automatically by whoever places (2y §5) — the panel
+    // posts here, place_gesture.js writes the file directly.
+    if (req.method === 'POST' && url === '/api/actualplacement') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'bad body' });
+            try {
+                const MB = require('../tools/model_bank.js');
+                const p = path.join(MB.ACTUALS_DIR, path.basename(body.entity) + '.json');
+                if (!fs.existsSync(p)) return R.status(404).json({ success: false, error: 'no such actual' });
+                const a = JSON.parse(fs.readFileSync(p, 'utf8'));
+                a.placements = a.placements || [];
+                a.placements.push({ score: body.score, at: body.at, group: body.group,
+                                    when: new Date().toISOString().slice(0, 10) });
+                fs.writeFileSync(p, JSON.stringify(a, null, 2) + '\n');
+                return R.json({ success: true, placements: a.placements.length });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
+
+    // TAXONOMY — the blast filing registry (docs/TAXONOMY.md). GET returns it;
+    // POST actions: saveVoicing (assigns the next V number for the chord),
+    // addKeeper (appends a realization snapshot to a section palette).
+    if (url === '/api/taxonomy') {
+        const taxPath = path.join(__dirname, '..', 'bank', 'blast_taxonomy.json');
+        const readTax = () => JSON.parse(fs.readFileSync(taxPath, 'utf8'));
+        if (req.method === 'GET') {
+            try { return R.json({ success: true, tax: readTax() }); }
+            catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+                try {
+                    const tax = readTax();
+                    const { action } = body || {};
+                    if (action === 'saveVoicing') {
+                        const { chord, desc, pitches, cuivre } = body;
+                        if (!chord || !Array.isArray(pitches) || !pitches.length)
+                            return R.status(400).json({ success: false, error: 'chord + pitches required' });
+                        tax.harmonies[chord] = tax.harmonies[chord] || { voicings: {}, realizations: [] };
+                        const vs = tax.harmonies[chord].voicings = tax.harmonies[chord].voicings || {};
+                        let n = 1;
+                        while (vs['V' + n]) n++;
+                        vs['V' + n] = { desc: desc || 'saved from sandbox', pitches: pitches.slice().sort((a, b) => a - b) };
+                        if (Array.isArray(cuivre) && cuivre.length) vs['V' + n].cuivre = cuivre.slice().sort((a, b) => a - b);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: ${chord} V${n} saved`);
+                        return R.json({ success: true, voicing: 'V' + n });
+                    }
+                    if (action === 'saveSonority') {
+                        // layer 3: voicing + per-note articulations + cuivre +
+                        // length/dyn -> the BIG library of blast sonorities
+                        const { sonority } = body;
+                        if (!sonority || !sonority.chord) return R.status(400).json({ success: false, error: 'sonority required' });
+                        tax.sonorities = tax.sonorities || {};
+                        // DEDUP: an exact content match returns the existing id
+                        // (so re-starring a sound is idempotent; adding it to a
+                        // new list just adds membership). Different dyn/len/
+                        // artic = genuinely different sonority = new id.
+                        const key = o => JSON.stringify([o.chord, o.voicing, o.pitches,
+                            o.cuivreConverted || [], o.cuivreAdded || [], o.artic || {}, o.ordLen, o.dyn]);
+                        const dupe = Object.entries(tax.sonorities).find(([, o]) => key(o) === key(sonority));
+                        if (dupe) {
+                            console.log(`Taxonomy: sonority duplicate -> ${dupe[0]}`);
+                            return R.json({ success: true, id: dupe[0], duplicate: true });
+                        }
+                        let n = 1;
+                        while (tax.sonorities['S' + String(n).padStart(3, '0')]) n++;
+                        const id = 'S' + String(n).padStart(3, '0');
+                        sonority.saved = new Date().toISOString();
+                        tax.sonorities[id] = sonority;
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: sonority ${id} (${sonority.chord})`);
+                        return R.json({ success: true, id });
+                    }
+                    if (action === 'addToList') {
+                        // named custom lists (e.g. "INT2 blasts") of sonority ids
+                        const { list, id } = body;
+                        if (!list || !id) return R.status(400).json({ success: false, error: 'list + id required' });
+                        tax.customLists = tax.customLists || {};
+                        tax.customLists[list] = tax.customLists[list] || [];
+                        if (!tax.customLists[list].includes(id)) tax.customLists[list].push(id);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: ${id} -> list "${list}" (${tax.customLists[list].length})`);
+                        return R.json({ success: true, count: tax.customLists[list].length });
+                    }
+                    if (action === 'chordCuivre') {
+                        // cuivre is CHORD-LEVEL ARTICULATION (composer 2026-08-14):
+                        // one set of cuivre pitches per chord, riding on any voicing
+                        const { chord, pitches, arrangement } = body;
+                        if (!chord) return R.status(400).json({ success: false, error: 'chord required' });
+                        tax.harmonies[chord] = tax.harmonies[chord] || { voicings: {}, realizations: [] };
+                        tax.harmonies[chord].stdCuivre = (pitches || []).slice().sort((a, b) => a - b);
+                        if (arrangement && arrangement.voicing) {
+                            // a manually-thinned "cuivre version" of one voicing
+                            tax.harmonies[chord].cuivreArr = tax.harmonies[chord].cuivreArr || {};
+                            tax.harmonies[chord].cuivreArr[arrangement.voicing] =
+                                { pitches: arrangement.pitches, cuivre: arrangement.cuivre };
+                        }
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: ${chord} cuivre = [${tax.harmonies[chord].stdCuivre}]` +
+                            (arrangement ? ` + ${arrangement.voicing} arrangement` : ''));
+                        return R.json({ success: true, stdCuivre: tax.harmonies[chord].stdCuivre,
+                            cuivreArr: tax.harmonies[chord].cuivreArr });
+                    }
+                    if (action === 'subset') {
+                        // chord-library SUBSETS: named views of the 33 (the main
+                        // library itself is never edited from here)
+                        const { op, name, chord } = body;
+                        if (!name) return R.status(400).json({ success: false, error: 'subset name required' });
+                        tax.chordSubsets = tax.chordSubsets || {};
+                        if (op === 'create') tax.chordSubsets[name] = tax.chordSubsets[name] || [];
+                        else if (op === 'add') {
+                            tax.chordSubsets[name] = tax.chordSubsets[name] || [];
+                            if (!tax.chordSubsets[name].includes(chord)) tax.chordSubsets[name].push(chord);
+                            tax.chordSubsets[name].sort();
+                        } else if (op === 'remove') {
+                            tax.chordSubsets[name] = (tax.chordSubsets[name] || []).filter(c => c !== chord);
+                        } else return R.status(400).json({ success: false, error: 'unknown op' });
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: subset "${name}" ${op}${chord ? ' ' + chord : ''} (${tax.chordSubsets[name].length})`);
+                        return R.json({ success: true, members: tax.chordSubsets[name] });
+                    }
+                    if (action === 'createList') {
+                        const { list } = body;
+                        if (!list) return R.status(400).json({ success: false, error: 'list name required' });
+                        tax.customLists = tax.customLists || {};
+                        tax.customLists[list] = tax.customLists[list] || [];
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: list created "${list}"`);
+                        return R.json({ success: true });
+                    }
+                    if (action === 'removeFromList') {
+                        const { list, id } = body;
+                        if (!list || !id) return R.status(400).json({ success: false, error: 'list + id required' });
+                        tax.customLists = tax.customLists || {};
+                        tax.customLists[list] = (tax.customLists[list] || []).filter(x => x !== id);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        return R.json({ success: true, count: tax.customLists[list].length });
+                    }
+                    if (action === 'addKeeper') {
+                        const { section, entry } = body;
+                        if (!section || !entry) return R.status(400).json({ success: false, error: 'section + entry required' });
+                        tax.sectionPalettes = tax.sectionPalettes || {};
+                        tax.sectionPalettes[section] = tax.sectionPalettes[section] || [];
+                        entry.saved = new Date().toISOString();
+                        tax.sectionPalettes[section].push(entry);
+                        fs.writeFileSync(taxPath, JSON.stringify(tax, null, 2));
+                        console.log(`Taxonomy: keeper -> ${section} (${tax.sectionPalettes[section].length})`);
+                        return R.json({ success: true, count: tax.sectionPalettes[section].length });
+                    }
+                    return R.status(400).json({ success: false, error: 'unknown action' });
+                } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
+    // PALETTE — a curated menu of material scores. Entries are REFERENCES to
+    // scores/<file>.json (never copies), so editing a file updates it in both
+    // the Load menu and the palette.
+    if (url === '/api/composer/palette') {
+        const palettePath = path.join(__dirname, 'palette.json');
+        const read = () => {
+            if (!fs.existsSync(palettePath)) return { entries: [] };
+            return JSON.parse(fs.readFileSync(palettePath, 'utf8'));
+        };
+        if (req.method === 'GET') {
+            try {
+                const p = read();
+                const existing = new Set(listScores().map(s => s.name));
+                // flag entries whose file has gone missing rather than hiding them
+                const entries = (p.entries || []).map(e => ({ ...e, missing: !existing.has(e.file) }));
+                return R.json({ success: true, entries });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, body) => {
+                if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+                const { action, name, file, group } = body || {};
+                if (!file) return R.status(400).json({ success: false, error: 'file required' });
+                try {
+                    const p = read();
+                    p.entries = p.entries || [];
+                    if (action === 'remove') {
+                        p.entries = p.entries.filter(e => e.file !== file);
+                    } else {
+                        const i = p.entries.findIndex(e => e.file === file);
+                        const entry = { name: name || file, file, group: group || 'working' };
+                        if (i >= 0) p.entries[i] = { ...p.entries[i], ...entry };
+                        else p.entries.push(entry);
+                    }
+                    fs.writeFileSync(palettePath, JSON.stringify(p, null, 2));
+                    console.log(`Palette ${action === 'remove' ? 'removed' : 'saved'}: ${file}`);
+                    R.json({ success: true, entries: p.entries });
+                } catch (e) { R.status(500).json({ success: false, error: e.message }); }
+            });
+        }
+    }
+    // load a specific version snapshot (Restore menu)
+    if (req.method === 'GET' && url.startsWith('/api/composer/version-load/')) {
+        const file = safe(url.slice('/api/composer/version-load/'.length).replace(/\.json$/, '')) + '.json';
+        const fp = path.join(VERSIONS_DIR, file);
+        if (!fs.existsSync(fp)) return R.status(404).json({ success: false, error: 'version not found' });
+        try { return R.json({ success: true, data: JSON.parse(fs.readFileSync(fp, 'utf8')) }); }
+        catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    // RESTORE (composer, 2026-09-07 late: "be able to go back to the first try or the second try or the third try or back to nothing";
+    // RUNNING_LOG §215–216; D27): a named version becomes the base file again. The base file as it is now is frozen FIRST under the
+    // safety label the client sends (the next number + "-before-restore"), so nothing is lost; the version's contents are written to
+    // the base file with fresh stamps; the working copy is removed so the app opens the restored file. A frozen version is never
+    // overwritten, so the safety copy refuses an existing name.
+    if (req.method === 'POST' && url === '/api/composer/restore') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+            const base = safe(body.base || ''), version = safe(body.version || ''), safety = safe(body.safety || '');
+            if (!base || !version || !safety) return R.status(400).json({ success: false, error: 'base, version and safety names required' });
+            if (/-work$/.test(base)) return R.status(400).json({ success: false, error: 'the base is the file, not its working copy' });
+            const bf = path.join(SCORES_DIR, base + '.json'), vf = path.join(SCORES_DIR, version + '.json'), sf = path.join(SCORES_DIR, safety + '.json'), wf = path.join(SCORES_DIR, base + '-work.json');
+            if (!fs.existsSync(vf)) return R.status(404).json({ success: false, error: 'no version named ' + version });
+            if (version === base) return R.status(400).json({ success: false, error: 'that is the file itself'});
+            if (fs.existsSync(sf)) return R.status(409).json({ success: false, error: safety + ' already exists — a frozen version is never overwritten' });
+            try {
+                let frozen = null;
+                if (fs.existsSync(bf)) { fs.copyFileSync(bf, sf); frozen = safety; }
+                const data = JSON.parse(fs.readFileSync(vf, 'utf8'));
+                data.metadata = Object.assign({}, data.metadata || {}, { modified: new Date().toISOString(), restoredFrom: version, restoredAt: new Date().toISOString() });
+                fs.writeFileSync(bf, JSON.stringify(data));
+                if (fs.existsSync(wf)) fs.unlinkSync(wf);
+                console.log('Restored ' + base + ' from ' + version + (frozen ? ' (the previous file frozen as ' + frozen + ')' : ''));
+                R.json({ success: true, base: base, restored: version, frozen: frozen });
+            } catch (e) { R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
+    // discard a working copy after it has been promoted
+    if (req.method === 'POST' && url === '/api/composer/discard') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+            const fp = path.join(SCORES_DIR, `${safe(body.name)}.json`);
+            try {
+                if (fs.existsSync(fp)) fs.unlinkSync(fp);
+                console.log(`Discarded working copy: ${body.name}`);
+                R.json({ success: true });
+            } catch (e) { R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
+    if (req.method === 'GET' && url.startsWith('/api/composer/versions/')) {
+        const prefix = `${safe(url.slice('/api/composer/versions/'.length))}_v`;
+        try {
+            return R.json({
+                success: true,
+                versions: fs.readdirSync(VERSIONS_DIR).filter(f => f.startsWith(prefix)).sort().reverse()
+            });
+        } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+    // ---- motive library (same files the sandbox reads/writes) ----
+    // ---- PASSAGES: list / read / write / delete -------------------------------------------------
+    if (req.method === 'GET' && url === '/api/passages') {
+        try {
+            if (!fs.existsSync(PASSAGES_DIR)) fs.mkdirSync(PASSAGES_DIR, { recursive: true });
+            const list = fs.readdirSync(PASSAGES_DIR).filter(f => f.endsWith('.json')).map(f => {
+                try {
+                    const m = JSON.parse(fs.readFileSync(path.join(PASSAGES_DIR, f), 'utf8'));
+                    return { file: f, name: m.name || f.replace(/\.json$/, ''), objects: (m.objects || []).length,
+                             span: m.span != null ? m.span : null, lanes: m.lanes || [], capturedAt: m.capturedAt || null,
+                             capturedFrom: m.capturedFrom || null };
+                } catch (e) { return { file: f, name: f.replace(/\.json$/, ''), objects: 0, span: null, lanes: [], broken: true }; }
+            }).sort((a, b) => a.name.localeCompare(b.name));
+            return R.json(list);
+        } catch (e) { return R.status(500).json({ error: e.message }); }
+    }
+    if (req.method === 'POST' && url === '/api/passages') {
+        return readBody(req, (err, m) => {
+            if (err || !m || !m.name || !Array.isArray(m.objects) || !m.objects.length) {
+                return R.status(400).json({ error: 'name and a non-empty objects array are required' });
+            }
+            if (!fs.existsSync(PASSAGES_DIR)) fs.mkdirSync(PASSAGES_DIR, { recursive: true });
+            const slug = String(m.name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'passage';
+            let file = slug + '.json', n = 2;
+            // a re-capture under the SAME name overwrites that passage; a new name never collides with an existing file
+            if (!m.overwrite) { while (fs.existsSync(path.join(PASSAGES_DIR, file))) file = slug + '-' + (n++) + '.json'; }
+            fs.writeFileSync(path.join(PASSAGES_DIR, file), JSON.stringify(m, null, 2));
+            console.log('Passage saved: ' + file + ' (' + m.objects.length + ' objects)');
+            R.json({ file: file, name: m.name, objects: m.objects.length });
+        });
+    }
+    if (url.startsWith('/api/passages/')) {
+        const file = path.basename(url.slice('/api/passages/'.length));
+        if (!file.endsWith('.json')) return R.status(400).json({ error: 'bad file' });
+        const filepath = path.join(PASSAGES_DIR, file);
+        if (req.method === 'GET') {
+            if (!fs.existsSync(filepath)) return R.status(404).json({ error: 'not found' });
+            try { return R.json(JSON.parse(fs.readFileSync(filepath, 'utf8'))); }
+            catch (e) { return R.status(500).json({ error: e.message }); }
+        }
+        if (req.method === 'DELETE') {
+            if (!fs.existsSync(filepath)) return R.status(404).json({ error: 'not found' });
+            fs.unlinkSync(filepath);
+            console.log('Passage deleted: ' + file);
+            return R.json({ deleted: file });
+        }
+    }
+    if (req.method === 'GET' && url === '/api/motives') {
+        try {
+            const list = fs.readdirSync(MOTIVES_DIR).filter(f => f.endsWith('.json')).map(f => {
+                try {
+                    const m = JSON.parse(fs.readFileSync(path.join(MOTIVES_DIR, f), 'utf8'));
+                    return { file: f, name: m.name || f, instrument: m.instrument || '', technique: m.technique || '', notes: (m.events || []).length };
+                } catch (e) { return { file: f, name: f, instrument: '', technique: '', notes: 0 }; }
+            });
+            return R.json(list);
+        } catch (e) { return R.status(500).json({ error: e.message }); }
+    }
+    if (req.method === 'POST' && url === '/api/motives') {
+        return readBody(req, (err, m) => {
+            if (err || !m.name || !Array.isArray(m.events)) return R.status(400).json({ error: 'name and events required' });
+            let slug = String(m.name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'motive';
+            let file = slug + '.json', n = 2;
+            while (fs.existsSync(path.join(MOTIVES_DIR, file))) file = `${slug}-${n++}.json`;
+            fs.writeFileSync(path.join(MOTIVES_DIR, file), JSON.stringify(m, null, 2));
+            console.log(`Motive created: ${file}`);
+            R.json({ file });
+        });
+    }
+    if (url.startsWith('/api/motives/')) {
+        const file = path.basename(url.slice('/api/motives/'.length));
+        if (!file.endsWith('.json')) return R.status(400).json({ error: 'bad file' });
+        const filepath = path.join(MOTIVES_DIR, file);
+        if (req.method === 'GET') {
+            if (!fs.existsSync(filepath)) return R.status(404).json({ error: 'not found' });
+            try { return R.json(JSON.parse(fs.readFileSync(filepath, 'utf8'))); }
+            catch (e) { return R.status(500).json({ error: e.message }); }
+        }
+        if (req.method === 'POST') {
+            return readBody(req, (err, m) => {
+                if (err || !m || !Array.isArray(m.events)) return R.status(400).json({ error: 'events required' });
+                fs.writeFileSync(filepath, JSON.stringify(m, null, 2));
+                console.log(`Motive updated: ${file}`);
+                R.json({ file });
+            });
+        }
+    }
+    if (req.method === 'GET' && url.startsWith('/probes/') && url.endsWith('.json')) {
+        const pfile = path.join(ROOT, '..', 'probes', path.basename(url));
+        if (!fs.existsSync(pfile)) { res.statusCode = 404; return res.end('{}'); }
+        res.setHeader('Content-Type', 'application/json');
+        return fs.createReadStream(pfile).pipe(res);
+    }
+    if (req.method === 'GET' && url === '/sandbox/instruments.js') {
+        res.setHeader('Content-Type', 'text/javascript');
+        // Guard (septet 0b, 2026-09-03): a missing file used to raise an unhandled stream
+        // error and take the whole server down with it. 404 instead.
+        const instPath = path.join(ROOT, '..', 'sandbox', 'instruments.js');
+        if (!fs.existsSync(instPath)) { res.statusCode = 404; return res.end('Not found'); }
+        return fs.createReadStream(instPath).pipe(res);
+    }
+    if (req.method === 'POST' && url === '/api/generate-ostinato') {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ error: 'Bad JSON' });
+            handleGenerateOstinato({ body }, R);
+        });
+    }
+
+    // notation workflow: score-file mtime — the 1 Hz staleness probe behind
+    // the "curve changed since extract" cue (cheap stat, no file read)
+    if (req.method === 'GET' && url.startsWith('/api/composer/mtime/')) {
+        const fp = path.join(SCORES_DIR, `${safe(url.slice('/api/composer/mtime/'.length))}.json`);
+        res.setHeader('Content-Type', 'application/json');
+        try { return res.end(JSON.stringify({ mtimeMs: fs.statSync(fp).mtimeMs })); }
+        catch (e) { res.statusCode = 404; return res.end('{}'); }
+    }
+
+    // [PLAN 2d.2] the notation app's choices sidecar — notation/choices/<score>.choices.json, one per score, owned by the
+    // notation app (IR_SCHEMA_v0 §6b). GET is the static /notation/ route below; a missing file is a plain 404, which the app
+    // reads as "no choices". POST writes it atomically — a temp file, then a rename — so a half-written file is never read.
+    if (req.method === 'POST' && url.startsWith('/api/notation/choices/')) {
+        return readBody(req, (err, body) => {
+            if (err) return R.status(400).json({ success: false, error: 'Bad JSON' });
+            const score = safe(decodeURIComponent(url.slice('/api/notation/choices/'.length)));
+            if (!score || !body || body.score !== score || !Array.isArray(body.choices))
+                return R.status(400).json({ success: false, error: 'a choices file needs { score: "' + score + '", choices: [] }' });
+            try {
+                const dir = path.join(__dirname, '..', 'notation', 'choices');
+                if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                const file = path.join(dir, score + '.choices.json'), tmp = file + '.tmp';
+                fs.writeFileSync(tmp, JSON.stringify(body, null, 2) + '\n');
+                fs.renameSync(tmp, file);
+                console.log(`Choices saved: notation/choices/${score}.choices.json (${body.choices.length})`);
+                return R.json({ success: true, file: 'notation/choices/' + score + '.choices.json', choices: body.choices.length });
+            } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+        });
+    }
+
+    // [PLAN 2d.3] REFRESH an IR from its composer score — the notation app's R key. Re-runs the IR's OWN recorded build
+    // (provenance.build, amendment 6: "the decisions ARE the argv") over the whole score: --w0/--w1 become --all, and --label is
+    // dropped so the whole-score label replaces one that named the old window. Reads the disk file = the last Save. No shell:
+    // the argv goes to node as a list. Returns done, or the tool's own error text; nothing else.
+    if (req.method === 'POST' && url.startsWith('/api/notation/refresh/')) {
+        const irId = safe(decodeURIComponent(url.slice('/api/notation/refresh/'.length)));
+        const irPath = path.join(__dirname, '..', 'notation', 'ir', irId + '.ir.json');
+        try {
+            if (!fs.existsSync(irPath)) return R.status(404).json({ success: false, error: 'no IR named ' + irId });
+            const ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
+            const build = ir.provenance && ir.provenance.build;
+            // notate_section writes an argument with a space or a quote as a JSON string — read it back the same way
+            const argv = build ? (build.match(/"(?:[^"\\]|\\.)*"|\S+/g) || []).map(a => a[0] === '"' ? JSON.parse(a) : a) : [];
+            if (argv[0] !== 'node' || !/(^|[\\/])tools[\\/]notate_section\.js$/.test(argv[1] || ''))
+                return R.status(400).json({ success: false, error: irId + ' has no recorded notate_section build to re-run (provenance.build: ' + (build || 'none') + ')' });
+            const out = [];
+            for (let i = 2; i < argv.length; i++) {
+                if (['--w0', '--w1', '--label', '--id'].includes(argv[i])) { i++; continue; }
+                if (argv[i] !== '--all') out.push(argv[i]);
+            }
+            const si = out.indexOf('--score');
+            if (si < 0 || out[si + 1] !== ir.source.score)
+                return R.status(400).json({ success: false, error: 'the recorded build of ' + irId + ' does not name its score (' + ir.source.score + ')' });
+            out.push('--id', irId, '--all');
+            const t0 = Date.now();
+            const r = spawnSync(process.execPath, [path.join(__dirname, '..', 'tools', 'notate_section.js'), ...out],
+                { cwd: path.join(__dirname, '..'), encoding: 'utf8', timeout: 120000 });
+            const text = String(r.stdout || '') + String(r.stderr || '');
+            if (r.status !== 0) return R.status(500).json({ success: false, error: text.trim().split('\n').slice(-12).join('\n') || ('exit ' + r.status) });
+            console.log(`Refreshed ${irId} from ${ir.source.score} in ${Date.now() - t0} ms`);
+            return R.json({ success: true, ms: Date.now() - t0, ready: (text.match(/READY:.*$/m) || [''])[0] });
+        } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
+    }
+
+    // notation workflow: list available audio renders (notation/audio/) so
+    // the page can offer one-click attach without a HEAD-probe dance
+    if (req.method === 'GET' && url === '/api/notation/renders') {
+        const dir = path.join(__dirname, '..', 'notation', 'audio');
+        let files = [];
+        try { files = fs.readdirSync(dir).filter(f => /\.(wav|mp3)$/i.test(f)); } catch (e) { }
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({ files }));
+    }
+
+    // Static: /docs/* from repo docs, everything else from score/public
+    if (req.method === 'GET') {
+        let base = PUBLIC_DIR, rel = url;
+        if (url === '/' || url === '/composer.html') rel = '/composer.html';
+        if (url.startsWith('/docs/')) { base = DOCS_DIR; rel = url.slice('/docs'.length); }
+        if (url.startsWith('/bank/')) { base = path.join(__dirname, '..', 'bank'); rel = url.slice('/bank'.length); }
+        // notation stratum (read-only GET): app page, lib modules, IR docs,
+        // registry, schema — Phase B5 (plan DB-1)
+        if (url.startsWith('/notation/')) { base = path.join(__dirname, '..', 'notation'); rel = url.slice('/notation'.length); }
+        const filepath = path.normalize(path.join(base, rel));
+        // trailing-separator guard: without it a sibling dir whose name
+        // extends the base (e.g. notation_backup/) would pass startsWith
+        if (!filepath.startsWith(path.normalize(base) + path.sep)) { res.statusCode = 403; return res.end('Forbidden'); }
+        if (fs.existsSync(filepath) && fs.statSync(filepath).isFile()) {
+            res.setHeader('Content-Type', MIME[path.extname(filepath).toLowerCase()] || 'application/octet-stream');
+            // never let the browser cache app code — a stale composer.html
+            // silently drops new features (the 2026-08-13 resize confusion)
+            res.setHeader('Cache-Control', 'no-store');
+            return fs.createReadStream(filepath).pipe(res);
+        }
+    }
+    res.statusCode = 404;
+    res.end('Not found');
+});
+
+server.listen(PORT, () => {
+    console.log(`Composer score (septet 2026) at http://localhost:${PORT}/composer.html`);
+    console.log(`Scores: ${SCORES_DIR}`);
+});

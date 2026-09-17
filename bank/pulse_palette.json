@@ -1,0 +1,5 @@
+{
+ "_contract": "PLAN 2aa — the sonority menu for the Pulse sequencer strip. DATA, NOT CODE: the composer adds sonorities BY ASKING THE AI, which appends an entry here; the panel refetches on open (or the reload button). Three shapes of entry: (a) `ref` -> a sonority id in bank/blast_taxonomy.json, resolved LIVE at load so renames and edits propagate, carrying its PER-NOTE articulation (a pitch in cuivreConverted or cuivreAdded plays cuivre, otherwise its `artic` entry — the same rule the blast inserter uses, composer.html durFor/auditionSon); (b) a literal `pitches` list with an optional `technique` (default staccato); (c) an empty `pitches` list = a silent column. Order here IS menu order, and the FIRST entry is what an unassigned column plays. v1 is audition-only: nothing here is ever written to a score. EMPTIED for the septet (2026-09-03, PLAN 0b.3): the tuba entries referenced sonorities S008..S047 of the tuba taxonomy; the panel warned on every open.",
+ "_version": 1,
+ "entries": []
+}

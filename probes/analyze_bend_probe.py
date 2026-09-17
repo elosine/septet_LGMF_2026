@@ -1,0 +1,511 @@
+#!/usr/bin/env python3
+"""Bend-probe analyzer — PLAN 2v Phase 0.
+
+Pairs a probe recording with probes/last_bend_schedule.json and reports, per
+slot, the pitch that actually sounded in CENTS relative to the written MIDI note.
+That single measurement answers every question in the suite:
+
+  probe 0  does bend state survive a note-off (residue), how much lead does a
+           pre-arm need, how soon after note-off can it be reset, does the stop
+           sequence leave the rig clean            -> BEND_PREARM_S, RESET_GAP_S
+  probe 1  cents achieved per fraction of full bend -> BEND_RANGE_ST, RPN honoured
+  probe 2  quartertones patch offset vs ord at the same key
+  probe 3  did the ramp track, and how smoothly
+
+METHOD.  f0 by autocorrelation with parabolic peak interpolation, searched ONLY
+within +/-6 semitones of the pitch the schedule says was written. That constraint
+is what makes the numbers trustworthy: blind pitch detection on a brass tone
+octave-errors, and an octave error would read as -1200 cents and look like a
+catastrophic bend rather than a detector fault. A peak pinned to the edge of the
+search band is reported as SUSPECT rather than believed.
+
+Usage:  python probes/analyze_bend_probe.py <recording.wav> [schedule.json]
+Writes: docs/MORPH_FINDINGS.md  +  probes/last_bend_analysis.json
+"""
+import json
+import os
+import sys
+
+import numpy as np
+import soundfile as sf
+
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+WIN_MS = 20             # RMS envelope window
+HOP_MS = 10
+FLOOR_MARGIN_DB = 12    # "sounding" gate above the measured noise floor
+PEAK_MARGIN_DB = 35     # ...and never further than this below the loudest frame
+ONSET_TOL_S = 1.0       # allowed drift between scheduled and detected onset
+SEARCH_ST = 6.0         # f0 search half-width, semitones around nominal
+F0_HOP_MS = 10
+MIN_PERIODS = 4         # analysis window = this many periods of the nominal f0
+CONF_MIN = 0.30         # normalised autocorrelation peak below this = unvoiced
+
+NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+
+
+def note_name(m):
+    return NAMES[int(m) % 12] + str(int(m) // 12 - 1)
+
+
+def midi_hz(m):
+    return 440.0 * 2.0 ** ((m - 69) / 12.0)
+
+
+def cents(f, f_ref):
+    if f is None or f <= 0 or f_ref <= 0:
+        return None
+    return 1200.0 * np.log2(f / f_ref)
+
+
+def envelope(x, sr):
+    win = max(1, int(sr * WIN_MS / 1000))
+    hop = max(1, int(sr * HOP_MS / 1000))
+    n = 1 + max(0, (len(x) - win) // hop)
+    rms = np.empty(n)
+    for i in range(n):
+        seg = x[i * hop: i * hop + win]
+        rms[i] = np.sqrt(np.mean(seg * seg) + 1e-12)
+    t = (np.arange(n) * hop + win / 2) / sr
+    return t, 20 * np.log10(rms + 1e-12)
+
+
+def f0_at(x, sr, start_s, dur_s, nominal_hz):
+    """One f0 estimate over [start_s, start_s+dur_s). Returns (hz, confidence)."""
+    i0 = int(start_s * sr)
+    n = int(dur_s * sr)
+    if i0 < 0 or i0 + n > len(x) or n < 64:
+        return None, 0.0
+    seg = x[i0: i0 + n].astype(np.float64)
+    seg = seg - seg.mean()
+    if np.sqrt(np.mean(seg * seg)) < 1e-6:
+        return None, 0.0
+
+    # Raw autocorrelation via FFT, then ENERGY-NORMALISED per lag.
+    # Do NOT window the segment and do not use the raw r[L]: both taper the
+    # correlation as the lag grows, which drags the peak toward shorter lags and
+    # reads every note SHARP. Measured on the self-test that bias was +10.9 cents
+    # at MIDI 46 — a fifth of the 50-cent effect this probe exists to detect, and
+    # it inflated the derived bend range from 2.00 to 2.14 semitones.
+    # Normalising by sqrt(E_head * E_tail) is the standard fix (the same term YIN
+    # uses) and makes the estimator unbiased with lag.
+    N = len(seg)
+    nfft = 1 << (2 * N - 1).bit_length()
+    spec = np.fft.rfft(seg, nfft)
+    ac = np.fft.irfft(spec * np.conj(spec), nfft)[:N]
+    if ac[0] <= 0:
+        return None, 0.0
+
+    lo_hz = nominal_hz * 2.0 ** (-SEARCH_ST / 12.0)
+    hi_hz = nominal_hz * 2.0 ** (SEARCH_ST / 12.0)
+    lag_min = max(2, int(sr / hi_hz))
+    lag_max = min(N - 3, int(sr / lo_hz))
+    if lag_max <= lag_min + 1:
+        return None, 0.0
+
+    sq = seg * seg
+    csum = np.concatenate(([0.0], np.cumsum(sq)))
+    lags = np.arange(0, lag_max + 2)
+    e_head = csum[N - lags] - csum[0]           # energy of x[0 : N-L]
+    e_tail = csum[N] - csum[lags]               # energy of x[L : N]
+    norm = np.sqrt(np.maximum(e_head * e_tail, 1e-30))
+    acn = ac[: lag_max + 2] / norm
+
+    band = acn[lag_min: lag_max + 1]
+    k = int(np.argmax(band)) + lag_min
+    conf = float(np.clip(acn[k], 0.0, 1.0))
+
+    # parabolic interpolation on the peak — this is what buys sub-cent resolution
+    y0, y1, y2 = acn[k - 1], acn[k], acn[k + 1]
+    denom = y0 - 2 * y1 + y2
+    delta = 0.0 if denom == 0 else 0.5 * (y0 - y2) / denom
+    lag = k + float(np.clip(delta, -1.0, 1.0))
+    edge = (k <= lag_min + 1) or (k >= lag_max - 1)
+    return (sr / lag if lag > 0 else None), (0.0 if edge else conf)
+
+
+def f0_track(x, sr, t_start, t_end, nominal_hz):
+    """f0 every F0_HOP_MS across a span. Returns (times, hz, conf) arrays."""
+    win_s = max(MIN_PERIODS / nominal_hz, 0.020)
+    hop_s = F0_HOP_MS / 1000.0
+    ts, hz, cf = [], [], []
+    t = t_start
+    while t + win_s <= t_end:
+        f, c = f0_at(x, sr, t, win_s, nominal_hz)
+        ts.append(t + win_s / 2)
+        hz.append(f if f else np.nan)
+        cf.append(c)
+        t += hop_s
+    return np.array(ts), np.array(hz, dtype=float), np.array(cf)
+
+
+def stable_cents(ts, hz, conf, nominal_hz, t_lo, t_hi):
+    """Median cents over a window, ignoring low-confidence frames."""
+    m = (ts >= t_lo) & (ts < t_hi) & (conf >= CONF_MIN) & np.isfinite(hz)
+    if not m.any():
+        return None, 0
+    c = 1200.0 * np.log2(hz[m] / nominal_hz)
+    return float(np.median(c)), int(m.sum())
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit("usage: analyze_bend_probe.py <recording.wav> [schedule.json]")
+    wav_path = sys.argv[1]
+    sched_path = (sys.argv[2] if len(sys.argv) > 2
+                  else os.path.join(REPO, "probes", "last_bend_schedule.json"))
+
+    sched = json.load(open(sched_path, encoding="utf-8-sig"))
+    slots = sched["slots"]
+    if isinstance(slots, dict):
+        slots = [slots]
+    slots = sorted(slots, key=lambda s: s["onMs"])
+
+    x, sr = sf.read(wav_path, always_2d=True)
+    x = x.mean(axis=1)
+    t_env, env_db = envelope(x, sr)
+
+    # THRESHOLD. floor+margin alone is wrong on a DAW track: between notes Reaper
+    # writes digital silence, so the 10th percentile is -120 dB and floor+12 puts
+    # the gate at -108 dB, which counts reverb tails and dither as note onsets.
+    # Anchoring to the PEAK as well keeps the gate on the signal. (Measured on
+    # 03-REC-260816_1007: floor -120.0, peak -6.4; the floor-only gate produced a
+    # 1.00 s apparent onset drift and a bogus quartertone offset.)
+    floor_db = float(np.percentile(env_db, 10))
+    peak_db = float(env_db.max())
+    thresh = max(floor_db + FLOOR_MARGIN_DB, peak_db - PEAK_MARGIN_DB)
+    above = env_db > thresh
+    if not above.any():
+        sys.exit("No audio above threshold — wrong file, or the take is silent?")
+
+    # ALIGNMENT by cross-correlating the ONSET TRAIN with the schedule, not by
+    # trusting the first threshold crossing. One spurious blip before the first
+    # note would otherwise shift every label in the report by that much.
+    onsets = np.where(above[1:] & ~above[:-1])[0] + 1
+    det = []
+    for i in onsets:
+        if not det or t_env[i] - det[-1] > 0.25:
+            det.append(float(t_env[i]))
+    exp = [s["onMs"] / 1000.0 for s in slots]
+    grid = 0.01
+    span = len(x) / sr
+    cand = np.arange(0.0, max(grid, span - max(exp) + 2.0), grid)
+    det_arr = np.array(det)
+    best_off, best_score = 0.0, -1
+    for off in cand:
+        want = np.array(exp) + off
+        idx = np.searchsorted(det_arr, want)
+        idx = np.clip(idx, 1, len(det_arr) - 1)
+        near = np.minimum(np.abs(det_arr[idx] - want), np.abs(det_arr[idx - 1] - want))
+        score = int((near < 0.12).sum())
+        if score > best_score:
+            best_score, best_off = score, float(off)
+    t0 = best_off
+    print(f"file: {os.path.basename(wav_path)}  sr={sr}  len={span:.1f}s")
+    print(f"floor {floor_db:.1f} dB, peak {peak_db:.1f} dB, gate {thresh:.1f} dB, "
+          f"{len(det)} onsets detected for {len(slots)} slots")
+    print(f"alignment: schedule t=0 at {t0:.2f}s in the file "
+          f"({best_score}/{len(slots)} slot onsets matched within 120 ms)")
+    if best_score < 0.8 * len(slots):
+        print("WARNING: fewer than 80% of slots matched — alignment suspect, do not "
+              "trust the labels below without checking against the sender log.")
+
+    results = []
+    drifts = []
+    for s in slots:
+        on_s = t0 + s["onMs"] / 1000.0
+        off_s = t0 + s["offMs"] / 1000.0
+        nominal = midi_hz(s["pitch"]) if s.get("pitch") else None
+
+        i_lo = np.searchsorted(t_env, on_s - ONSET_TOL_S)
+        i_hi = np.searchsorted(t_env, on_s + ONSET_TOL_S)
+        seg = above[i_lo:i_hi]
+        r = {k: s[k] for k in ("idx", "probe", "step", "label", "port", "channel",
+                               "pitch", "onMs", "offMs", "expect")
+             if k in s}
+        r["expectCents"] = s.get("expectCents")
+        r["bendFraction"] = s.get("bendFraction")
+
+        if not seg.any():
+            r["verdict"] = "SILENT"
+            results.append(r)
+            continue
+        onset_t = float(t_env[i_lo + int(np.argmax(seg))])
+        r["onsetDriftSec"] = round(onset_t - on_s, 3)
+        drifts.append(abs(onset_t - on_s))
+
+        # --- silence latency (the panic slot cares about this) ---
+        i_off = np.searchsorted(t_env, off_s)
+        tail = above[i_off: np.searchsorted(t_env, off_s + 4.0)]
+        if len(tail) and (~tail).any():
+            r["silenceAfterOffSec"] = round(float(t_env[i_off + int(np.argmax(~tail))] - off_s), 3)
+        else:
+            r["silenceAfterOffSec"] = None
+
+        if not nominal:
+            r["verdict"] = "TIMING-ONLY"
+            results.append(r)
+            continue
+
+        ts, hz, cf = f0_track(x, sr, onset_t, min(off_s + 1.5, len(x) / sr), nominal)
+        r["framesVoiced"] = int(((cf >= CONF_MIN) & np.isfinite(hz)).sum())
+
+        # ONSET cents = the first 80 ms. SETTLED = the stable middle of the note.
+        # The pre-arm ladder lives entirely in the difference between these two.
+        c_on, n_on = stable_cents(ts, hz, cf, nominal, onset_t, onset_t + 0.08)
+        mid_lo = onset_t + 0.30
+        mid_hi = max(mid_lo + 0.10, off_s - 0.15)
+        c_mid, n_mid = stable_cents(ts, hz, cf, nominal, mid_lo, mid_hi)
+        # TAIL = after note-off; the leak ladder lives here.
+        c_tail, n_tail = stable_cents(ts, hz, cf, nominal, off_s + 0.02, off_s + 0.60)
+
+        r["onsetCents"] = None if c_on is None else round(c_on, 1)
+        r["settledCents"] = None if c_mid is None else round(c_mid, 1)
+        r["tailCents"] = None if c_tail is None else round(c_tail, 1)
+        r["scoopCents"] = (None if (c_on is None or c_mid is None)
+                           else round(c_mid - c_on, 1))
+        if c_mid is not None and c_tail is not None:
+            r["tailShiftCents"] = round(c_tail - c_mid, 1)
+
+        # derived bend range: measured cents per fraction of full bend
+        bf = s.get("bendFraction")
+        if bf is not None and isinstance(bf, (int, float)) and abs(bf) > 1e-6 \
+                and c_mid is not None and np.isfinite(bf):
+            r["derivedRangeSt"] = round(abs(c_mid / (bf * 100.0)), 3)
+
+        if s.get("expect") == "ramp":
+            span_lo = onset_t + s.get("rampStartMs", 800) / 1000.0
+            span_hi = span_lo + s.get("rampLenMs", 2000) / 1000.0
+            c_pre, _ = stable_cents(ts, hz, cf, nominal, onset_t + 0.15, span_lo)
+            c_post, _ = stable_cents(ts, hz, cf, nominal, span_hi + 0.10, span_hi + 0.80)
+            r["rampFromCents"] = None if c_pre is None else round(c_pre, 1)
+            r["rampToCents"] = None if c_post is None else round(c_post, 1)
+            m = (ts >= span_lo) & (ts <= span_hi) & (cf >= CONF_MIN) & np.isfinite(hz)
+            if m.sum() >= 4:
+                cc = 1200.0 * np.log2(hz[m] / nominal)
+                # residual from a straight line = how smoothly it tracked
+                fit = np.polyfit(ts[m], cc, 1)
+                r["rampRmsDevCents"] = round(float(np.sqrt(np.mean((cc - np.polyval(fit, ts[m])) ** 2))), 1)
+
+        r["verdict"] = "OK" if r["framesVoiced"] >= 3 else "WEAK"
+        results.append(r)
+
+    max_drift = max(drifts) if drifts else 0.0
+    n_sil = sum(1 for r in results if r["verdict"] == "SILENT")
+    print(f"{len(results)} slots: {len(results)-n_sil} sounded, {n_sil} silent. "
+          f"max onset drift {max_drift:.2f}s")
+    if max_drift > 0.6:
+        print("WARNING: large onset drift — alignment suspect. Check the sender log "
+              "before believing any label below.")
+
+    # Composer's listening verdicts, if any have been recorded. Kept in a sidecar
+    # so regenerating this report cannot destroy a human judgement.
+    vpath = os.path.join(REPO, "probes", "morph_verdicts.json")
+    verdicts = json.load(open(vpath, encoding="utf-8")) if os.path.exists(vpath) else {}
+
+    by = lambda p: [r for r in results if r.get("probe") == p]
+    lines = ["# MORPH FINDINGS — PLAN 2v", "",
+             f"Probe recording `{os.path.basename(wav_path)}` analysed "
+             f"{sched.get('created','')[:19]}. Test pitch "
+             f"{note_name(sched.get('pitch',46))} (MIDI {sched.get('pitch',46)}).", "",
+             "> Generated by `probes/analyze_bend_probe.py`. Cents are measured "
+             "against the written MIDI note, f0 by autocorrelation constrained to "
+             f"+/-{SEARCH_ST:.0f} semitones.", ""]
+
+    def table(rows, cols, hdr):
+        lines.append("| " + " | ".join(hdr) + " |")
+        lines.append("|" + "---|" * len(hdr))
+        for r in rows:
+            lines.append("| " + " | ".join(
+                ("—" if r.get(c) is None else str(r.get(c, "—"))) for c in cols) + " |")
+        lines.append("")
+
+    consts = {}
+    if by("0"):
+        lines += ["## Probe 0 — bend hygiene", ""]
+        table(by("0"), ["step", "label", "verdict", "onsetCents", "settledCents",
+                        "scoopCents", "tailShiftCents", "silenceAfterOffSec"],
+              ["step", "what", "verdict", "onset ¢", "settled ¢", "scoop ¢",
+               "tail shift ¢", "silence after off (s)"])
+        res = next((r for r in by("0") if r["step"] == "0.2b"), None)
+        if res and res.get("settledCents") is not None:
+            real = abs(res["settledCents"]) > 20
+            lines.append(f"**Residue: {'CONFIRMED' if real else 'not reproduced'}** — the "
+                         f"note after an unreset bend measured {res['settledCents']:+.1f} ¢. ")
+            lines.append("" if real else "If the trap does not reproduce, the protocol is still "
+                                         "correct but its cost is lower than assumed.\n")
+            consts["residueConfirmed"] = bool(real)
+        rungs = [(int(r["step"].split("-")[1]), r) for r in by("0")
+                 if r["step"].startswith("0.3-")]
+        good = [ms for ms, r in sorted(rungs)
+                if r.get("scoopCents") is not None and abs(r["scoopCents"]) <= 5]
+        if good:
+            consts["BEND_PREARM_S"] = round(min(good) / 1000.0, 3)
+            lines.append(f"**BEND_PREARM_S = {consts['BEND_PREARM_S']}** "
+                         f"(smallest lead whose onset was within 5 ¢ of settled).\n")
+        gaps = [(int(r["step"].split("-")[1]), r) for r in by("0")
+                if r["step"].startswith("0.4b-")]
+        clean = [ms for ms, r in sorted(gaps)
+                 if r.get("tailShiftCents") is not None and abs(r["tailShiftCents"]) <= 10]
+        if clean:
+            consts["RESET_GAP_S"] = round(min(clean) / 1000.0, 3)
+            lines.append(f"**RESET_GAP_S = {consts['RESET_GAP_S']}** "
+                         f"(shortest post-note-off gap with no audible pitch step in the tail).\n")
+        panic = next((r for r in by("0") if r["step"] == "0.5"), None)
+        if panic:
+            lines.append(f"**Stop sequence:** silence {panic.get('silenceAfterOffSec')} s "
+                         f"after the explicit note-offs.\n")
+
+    if by("1"):
+        lines += ["## Probe 1 — bend response & range", ""]
+        table(by("1"), ["step", "label", "verdict", "settledCents", "bendFraction", "derivedRangeSt"],
+              ["step", "what", "verdict", "measured ¢", "fraction of full bend", "implied range (st)"])
+        rng = [r["derivedRangeSt"] for r in by("1")
+               if r.get("derivedRangeSt") and not r["step"].startswith("1-rpn")]
+        if rng:
+            consts["BEND_RANGE_ST"] = round(float(np.median(rng)), 2)
+            spread = max(rng) - min(rng)
+            lines.append(f"**BEND_RANGE_ST = {consts['BEND_RANGE_ST']}** "
+                         f"(median of {len(rng)} measurements, spread {spread:.2f}). ")
+            lines.append("A large spread means the response is not linear — say so rather "
+                         "than averaging it away.\n" if spread > 0.4 else "\n")
+        elif by("1"):
+            lines.append("**Bend appears DEAD** — no measurable cents change at any fraction. "
+                         "M1/M2 route through the quartertones patch, M3 becomes stepped-only "
+                         "(both fallbacks are full renders, §8 of the plan).\n")
+            consts["bendDead"] = True
+        rpn = next((r for r in by("1") if r["step"] == "1-rpn12"), None)
+        full = next((r for r in by("1") if r["step"] == "1-1"), None)
+        if rpn and rpn.get("settledCents") is not None and full and full.get("settledCents"):
+            honoured = abs(rpn["settledCents"]) > abs(full["settledCents"]) * 1.5
+            consts["rpnHonoured"] = bool(honoured)
+            lines.append(f"**RPN 0 (bend sensitivity): {'HONOURED' if honoured else 'IGNORED'}** — "
+                         f"full bend read {full['settledCents']:+.0f} ¢ before and "
+                         f"{rpn['settledCents']:+.0f} ¢ after asking for 12 semitones.\n")
+
+    if by("2"):
+        lines += ["## Probe 2 — quartertones patch mapping", ""]
+        pairs = []
+        for r in by("2"):
+            if not r["step"].startswith("2-qt-"):
+                continue
+            p = r["step"].split("-")[-1]
+            ref = next((q for q in by("2") if q["step"] == f"2-ord-{p}"), None)
+            if ref and r.get("settledCents") is not None and ref.get("settledCents") is not None:
+                pairs.append({"pitch": int(p), "note": note_name(int(p)),
+                              "ordCents": ref["settledCents"], "qtCents": r["settledCents"],
+                              "offsetCents": round(r["settledCents"] - ref["settledCents"], 1)})
+        table(pairs, ["note", "pitch", "ordCents", "qtCents", "offsetCents"],
+              ["key", "MIDI", "ord ¢", "quartertones ¢", "offset ¢"])
+        if pairs:
+            offs = [p["offsetCents"] for p in pairs]
+            med = float(np.median(offs))
+            spread = max(offs) - min(offs)
+            consts["QT_OFFSET_CENTS"] = round(med, 1)
+            consts["QT_OFFSET_SPREAD_CENTS"] = round(spread, 1)
+            consts["QT_OFFSET_BY_PITCH"] = {str(p["pitch"]): p["offsetCents"] for p in pairs}
+            # A quarter tone is 50 cents; the ear resolves ~5-10 cents on a
+            # sustained brass tone. So "the same note a quarter tone higher" is
+            # only a usable model if the spread is small enough to ignore —
+            # 15 cents, not 40. A loose bound here would wave through a patch
+            # that has to be voiced from a per-key table.
+            shifted = 25 <= abs(med) <= 75 and spread <= 15
+            lines.append(f"**Median offset {med:+.1f} ¢**, spread {spread:.1f} ¢ "
+                         f"({min(offs):+.1f} to {max(offs):+.1f}).\n")
+            if shifted:
+                lines.append("Consistent with the **shifted-duplicate** reading — ord + "
+                             "quartertones together give full 24-TET, and a quarter-tone "
+                             "pitch can be written as `(key, quartertones patch)`.\n")
+            else:
+                lines.append(f"**NOT a uniform quarter-tone shift.** The offset tracks pitch "
+                             f"({', '.join(f'{p['note']} {p['offsetCents']:+.0f}¢' for p in pairs)}), "
+                             f"so the patch is not simply the same key 50 ¢ higher. Two "
+                             f"consequences: quarter-tone chords must be voiced against this "
+                             f"per-key table rather than an assumed +50 ¢, and — since bend "
+                             f"works — **pitch bend is the better mechanism for M1/M2 anyway**, "
+                             f"with the patch kept only as a colour.\n")
+
+    if by("3"):
+        lines += ["## Probe 3 — bent-sample quality", ""]
+        table(by("3"), ["step", "label", "verdict", "rampFromCents", "rampToCents",
+                        "expectCents", "rampRmsDevCents"],
+              ["step", "what", "verdict", "from ¢", "to ¢", "nominal target ¢",
+               "deviation from linear (RMS ¢)"])
+        lines.append("`deviation from linear` is how raggedly the ramp tracked. The **audible** "
+                     "verdict (resampling artifacts) is the composer's, not the analyzer's, and "
+                     "lives in `probes/morph_verdicts.json` — this file is regenerated wholesale, "
+                     "so a verdict typed in here would be destroyed by the next run.\n")
+        lines.append("| ramp | audible verdict (composer) |")
+        lines.append("|---|---|")
+        for r in by("3"):
+            lines.append(f"| {r['label']} | {verdicts.get('ramps', {}).get(r['step'], '')} |")
+        lines.append("")
+        gv = verdicts.get("glissViability")
+        if gv:
+            lines += ["### Gliss viability", "",
+                      f"**{gv.get('verdict','')}** — composer, "
+                      f"\"{gv.get('composerWords','')}\" ({verdicts.get('date','')})", "",
+                      f"- Usable width: **{gv.get('usableWidthCents','?')} cents** "
+                      f"(the patch's full bend range; RPN 0 is ignored so it cannot be widened)",
+                      f"- {gv.get('consequence','')}",
+                      f"- *Caveat:* {gv.get('caveat','')}", ""]
+
+    if by("4"):
+        # PLAN 2v Phase 2 + Phase 3 gates. The engine states, per voice, the exact
+        # cents it intends to produce; this checks the instrument actually got
+        # there. Gate is +/-10 cents (the plan's figure for M2).
+        exp = {s["step"]: s.get("expectCents") for s in slots}
+        lines += ["## Probe 4 — morph verification (PLAN 2v Phase 2 + 3 gates)", ""]
+        for tag, title in [("4a", "M2 spectral targets — each voice sounded alone"),
+                           ("4b", "Wide-fan waypoints — re-key seams included")]:
+            rows = [r for r in by("4") if r["step"].startswith(tag)]
+            if not rows:
+                continue
+            lines += ["### " + title, "",
+                      "| slot | key | intended ¢ | measured ¢ | error ¢ |", "|---|---|---|---|---|"]
+            worst, over = 0.0, 0
+            for r in rows:
+                e, m = exp.get(r["step"]), r.get("settledCents")
+                if m is None:
+                    lines.append(f"| {r['step']} | {note_name(r['pitch'])} | {e} | — | — |")
+                    continue
+                err = abs(m - e)
+                worst = max(worst, err)
+                over += 1 if err > 10 else 0
+                lines.append(f"| {r['step']} | {note_name(r['pitch'])} | {e:+.1f} | "
+                             f"{m:+.1f} | {err:.1f}{' **OVER**' if err > 10 else ''} |")
+            lines += ["", f"**Worst error {worst:.1f} ¢ over {len(rows)} points; "
+                          f"{over} outside ±10 ¢.** "
+                          f"{'GATE PASSED.' if over == 0 else 'GATE FAILED.'}", ""]
+            consts["MORPH_" + tag.upper() + "_WORST_CENTS"] = round(worst, 1)
+            consts["MORPH_" + tag.upper() + "_PASSED"] = (over == 0)
+        gl = [r for r in by("4") if r["step"].startswith("4c")]
+        if gl:
+            r = gl[0]
+            lines += ["### Continuous glissando leg", "",
+                      f"- asked **{exp.get(r['step'])} ¢**, arrived at "
+                      f"**{r.get('rampToCents')} ¢** (from {r.get('rampFromCents')} ¢)",
+                      f"- deviation from a straight line: **{r.get('rampRmsDevCents')} ¢ RMS**",
+                      "- the audible verdict on the re-key seam is the composer's, "
+                      "recorded in `probes/morph_verdicts.json`", ""]
+            consts["MORPH_GLISS_ARRIVED_CENTS"] = r.get("rampToCents")
+
+    lines += ["## Constants derived", "", "```json",
+              json.dumps(consts, indent=2), "```", "",
+              "These go into the emit layer as named constants "
+              "(`score/public/morph.js` / the emit layer in `composer.html`). "
+              "If a value here is missing, the corresponding rung never produced a "
+              "usable measurement — re-run that probe rather than guessing.", ""]
+
+    md_path = os.path.join(REPO, "docs", "MORPH_FINDINGS.md")
+    open(md_path, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
+    json.dump({"schedule": sched_path, "wav": wav_path,
+               "constants": consts, "results": results},
+              open(os.path.join(REPO, "probes", "last_bend_analysis.json"), "w",
+                   encoding="utf-8"), indent=1)
+    print(f"\nWrote {md_path}")
+    print(json.dumps(consts, indent=2))
+
+
+if __name__ == "__main__":
+    main()

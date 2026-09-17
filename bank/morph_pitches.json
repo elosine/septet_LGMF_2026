@@ -1,0 +1,10 @@
+{
+  "_comment": "The morph panel's STARTER pitch sets (2026-09-07, RUNNING_LOG §205–208; CN-38): sonorities the composer pointed at, each with its provenance and the take rule that reduces it to the three pairs. His own kept sets live in bank/panel_snapshots.json under the `morphPitches` bucket (the takes API). A set = { name, from, notes (the sonority, MIDI), take, k, seed, perPair, pairing }.",
+  "sets": [
+    { "name": "cs-015 · M3 P4", "from": "chordShapes cs-015", "notes": [57, 61, 62], "take": "byRegister", "perPair": 1 },
+    { "name": "cs-019 · m9 M9", "from": "chordShapes cs-019", "notes": [55, 68, 69], "take": "byRegister", "perPair": 1 },
+    { "name": "cs-021 · M7 m9", "from": "chordShapes cs-021", "notes": [55, 66, 68], "take": "byRegister", "perPair": 1 },
+    { "name": "cs-050 · m2 M2 M3", "from": "chordShapes cs-050", "notes": [59, 60, 61, 63], "take": "byRegister", "perPair": 1 },
+    { "name": "S055 · UNISON-C oct", "from": "blasts S055", "notes": [36, 48, 60], "take": "byRegister", "perPair": 1 }
+  ]
+}
