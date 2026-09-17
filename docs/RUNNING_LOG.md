@@ -229,3 +229,98 @@ the double bass follows the cello into Xsample Contemporary Solo Strings (one st
 for the pair) or goes to SI2's contrabass is a PLAN 0c decision, not today's. SI2 is the
 library the tuba piece was written on, so its brass behaviour (channel-per-technique,
 keyswitched presets, CC7 → dB measured) is already mapped in #4.
+
+## §10. The port planned — a measured survey of piece #5, and what it changed
+
+**Prompted by:** the AI had proposed laying 0b out by PLANNING_METHOD, one step at a time.
+The composer:
+
+> *"no need for formal planning protocol, it sounds like things are clear from last port,
+> just make careful plan, write it through independantly, let me know when time to switch
+> model and build with opus, and check in with topline plan"*
+
+So the method was set aside for this item, at his word; the plan was written alone and the
+top line put to him. Result: **`docs/plans/PORT_FROM_TEMPUS.md`** — eight steps, written to
+be executed cold by Opus.
+
+**The survey** (read-only on `septet_2026` @ `ba318e1`; `git ls-files`, sizes, greps — about
+ten commands, no whole-file reads of code):
+
+| what | number |
+|---|---|
+| tracked files | 460 |
+| by folder (files · MB) | score 55 · 2.6 — sandbox 3 · 0.1 — tools 114 · 1.4 — notation 55 · 6.7 (5.4 of it ONE IR page) — print 10 · 0.1 — probes 35 · 1.1 — reaper 13 · 13.6 (the rack) — bank 45 · 9.4 — scores 47 · 14.7 — midi 29 · 0.3 — docs 43 · 3.2 |
+| engine vs piece data | ≈ 12 MB vs ≈ 38 MB |
+| `composer.html` | 1 015 KB (810 KB when #5 took it from #4) |
+| modules in `score/public` | 53 — #4's panels plus #5's: strike drawer / sounds / chords, beating calc / panel, cresc ×6, fill ×3, harm source ×2, note card, cue picker, piano cues, piano harmonics, passages, containers, time containers, trill engine, velocity remap, accel calc, chord run, sounding, spacing, swell |
+| source files naming an instrument | about 70; 124 name none |
+
+**The finding that shaped the plan.** #5's own survey of #4 concluded *"the engine is
+instrument-agnostic by construction; the palette is the whole coupling"* — the tubas were
+interchangeable, so nothing in the code needed to know one from another. **That is no longer
+true of the source.** Piece #5 had seven DIFFERENT instruments and built tools that know
+them. The instrument mentions, split code from comment, fall into three kinds:
+
+- **A — the palette proper.** `sandbox/instruments.js` 123 · `composer.html` 144 (TRACKS, lane
+  labels, the select, curve-button titles, an abbreviation map; most of the rest is piece
+  #2's legacy piano-keyboard tool, inert since #4) · `notation/registry/ensemble.json` ·
+  four port sites.
+- **B — small keyed tables inside #5's tools:** open strings · the default strike technique
+  per instrument (twice) · an articulation map · the beating tool's player order and its
+  breath / bow lengths · three copies of an instrument-colour table · a trill stand-in ·
+  an alias table. About a dozen sites, each a one-line object literal.
+- **C — the piano as a ROLE.** Twelve modules ask `TRACKS.findIndex(t => t.instKey ===
+  'piano')`: the piano is the struck voice — it takes the strikes the ensemble cannot, it
+  strikes at the end of a crescendo, it cannot swell, it gets harmonics at a morph's
+  re-breaths and the articulation lines. **Lake George has no piano.** Most of these sites
+  already handle −1 (`'no piano lane in TRACKS'` is a status line in `morph_panel.js`), but
+  that is a claim from reading, and the plan treats it as one: each is exercised in the
+  running app (step 5).
+
+The measurement banks are keyed by instrument (`balance` · `technique_ranges` ·
+`velocity_remap.instruments` …) — so the cello's rows can be carried and the rest dropped,
+file by file. The notation engine takes its instruments from ONE file,
+`notation/registry/ensemble.json` — *"the engine knows clefs, transpositions and staves, not
+flutes"* (its own `_doc`) — and already carries written pitch per part (the bass clarinet,
+`transpose: 14`). That is the work of #5's PLAN 2a, and this piece inherits it whole.
+
+**Decisions (the plan's P1–P7), and what was rejected:**
+
+- **P1 — carry ALL of #5's tools.** *Rejected:* a carry / leave pass per tool, which is what
+  the AI had proposed to him an hour earlier as "the one real question inside 0b." The survey
+  answered it: the tools are 1.4 MB, `composer.html` loads them by `<script src>`, a missing
+  one is a 404 and a broken page, and his rule is *"not leave out things now that might bite
+  later."* The strikes drawer is LG-7's named model; the beating panel and the morph are the
+  refrain; `time_containers.js` was built FOR this piece (#5 D31).
+- **P2 — the piano-role features go quiet; they are not cut out.** *Rejected:* removing
+  them (a fragile edit across twelve modules, and it forecloses a choice that is his) ·
+  renaming the role to percussion now (a musical decision dressed as a port step). The
+  question went to PLANNER instead: who, if anyone, inherits the struck role?
+- **P3 — lane order = score order** (#5 D10): EH · Bsn · Hn · Tpt · Perc · Vc · Db — which
+  also keeps his three pairs adjacent, percussion between the brass and the strings.
+- **P4 — the percussionist is ONE lane,** instrument-in-hand as a technique (#5 D6).
+- **P5 — placeholder recipes; nothing sounds until 0c / 0e.** The cello verbatim.
+- **P6 — names** `lgmf` · `piece-lgmf` · `lgmf_rack`. **P7 —** `layoutVersion` 6 and a warn
+  keyed to the track IDS, because a #5 save has seven lanes too and the lane count — what
+  #5's warn tested — cannot tell them apart.
+
+**The one structural addition over #5's method: prove the copy whole BEFORE the re-palette
+(step 2).** #5 copied, patched, then verified — so a red test could be the copy or the
+patch. Here the byte-exact copy is committed first with Tempus's palette intact, its data
+staged (never committed), the app booted on 5400 by environment, every battery run; a RED is
+re-run in the source read-only, as #5 §12 did for `test_extract_played`. Then the re-palette
+is its own commit, and its diff IS the port. Cost: one staging pass. Gain: every later red
+has one possible cause.
+
+**Also one copy, not two.** #5 ported the composer module (0b) and the notation stack (0g)
+separately because his question that day was whether notation was needed at all before
+composing. It is one integrated stack now (the server serves `/notation/`, Save feeds the
+IR); so the files arrive together in step 1, and 0g is what remains: the ensemble registry,
+the batteries classified, the exporters run. The IDs 0b / 0g / 0i are kept so #5's record
+still reads as the precedent.
+
+**Not checked, said so in the plan:** the transposition sign convention (the plan's table
+assumes positive = written above sounding, from the bass clarinet's note; step 6 checks it
+before trusting it) · whether every kind-C site really handles −1 · whether a Tempus take in
+`panel_snapshots.json` loads against a new palette (step 4 tries one per panel and has a
+fallback either way).

@@ -36,13 +36,28 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   *Why:* the session skills are wired to it; decisions survive clears from minute one; and
   the standing rules arrive whole this time (the #4 → #5 port dropped THE RHYTHM).
 
-- **0b — Composer module port, from piece #5** — `todo` — *to be laid out when we discuss it.*
-  The precedent: #5's 0b (byte-exact copy → one patch script that asserts every match count
-  before it writes → verified in the running app). **What differs this time:** the source is
-  already seven instrument-keyed lanes + META, so the lane count does not change — the
-  palette does (six of seven instruments are new), and piece #5 ADDED tools to the app that
-  #4 never had (the strikes drawer, the trills tool, the beating panel, the crescendo suite,
-  `time_containers.js`, the note card) — each is a carry / leave decision.
+- **0b — The engine ported from piece #5** — `todo — planned 2026-09-17, ready to build`
+  — **the executable plan is `docs/plans/PORT_FROM_TEMPUS.md`** (steps 1–5 and 8; written at
+  the composer's word — *"just make careful plan, write it through independantly"* — from a
+  measured survey, RUNNING_LOG §10). The top line:
+  - **0b.1 — Copy the whole engine, byte-exact,** from #5 @ `ba318e1`: app · sandbox ·
+    notation · print · video · tools · probes · the Reaper bridge · the model and preset
+    banks. `cmp` every file. Piece data (38 MB) stays behind.
+  - **0b.2 — Prove the copy whole BEFORE changing anything:** Tempus's palette still in
+    place, its data staged not committed, the app on 5400, every battery run; a RED is
+    re-run in the source, read-only.
+  - **0b.3 — Re-palette:** one asserted patch script — seven tracks in score order (EH · Bsn
+    · Hn · Tpt · Perc · Vc · Db) · ports 5400 / 4900 · `layoutVersion` 6 with a loud warn on
+    a foreign save · the per-instrument tables inside #5's tools.
+  - **0b.4 — Provisional recipes and skeleton banks:** the cello's recipe and measured rows
+    carried; every other instrument a placeholder; the day-one stub `scores/lgmf.json`.
+  - **0b.5 — Verified in the running app:** routes · save round trip · zero console errors ·
+    every panel · **the piano-role features quiet, not removed** (this piece has no piano).
+  - **0b.6 — Docs that travel with the code, NITS, journal.**
+  **What differs from last time:** in #4 the palette was the whole coupling; piece #5 built
+  tools that KNOW instruments — small keyed tables (kind B) and the piano as a role (kind C).
+  **Decided in the plan (P1–P7):** carry ALL of #5's tools · quiet, not cut · score order ·
+  the percussionist is one lane · placeholders until 0c · the names `lgmf` / `piece-lgmf`.
   *Why:* the app is the composing surface from day one; he will use the same structures.
 
 - **0c — Instrument recipes (`sandbox/instruments.js`)** — `todo` — *to be laid out when we
@@ -62,20 +77,29 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
 - **0f — The AI's MIDI generation path** — `todo` — *to be laid out when we discuss it.*
   *Why:* the AI must be able to make the right MIDI for every instrument, live and offline.
 
-- **0g — Notation/IR infrastructure carried over now, adapted later** — `todo` — *to be laid
-  out when we discuss it.* The precedent: #5's 0g (97 files byte-exact, proven by their own
-  batteries). **What differs:** #5's engine already does seven parts, several clefs, A3 print
-  and video — this piece inherits that, and its adaptation list is about NEW instruments
-  (transposing horn, trumpet and english horn · percussion staves · double bass) rather than
-  about leaving the tuba behind. *Why:* copying costs nothing now; adapting waits for real
-  material.
+- **0g — Notation/IR infrastructure carried over now, adapted later** — `todo — planned
+  2026-09-17` — **`docs/plans/PORT_FROM_TEMPUS.md` step 6.** The files arrive with 0b.1 (one
+  copy for the whole engine — in #5 the two halves were separate only because "do we need
+  notation now?" was still open). 0g itself is: `notation/registry/ensemble.json` rewritten
+  for the seven parts (english horn and horn written a fifth up, double bass an octave up) ·
+  the batteries on staged goldens, every new RED classified · the exporters run.
+  **What differs:** #5's engine already does seven parts, three clefs, written pitch per
+  part, A3 print and video — and takes its instruments from ONE file.
+  **The 2a adaptation list for this piece (recorded so it does not bite):** tenor clef ·
+  a percussion clef, staff types and unpitched noteheads · mute marks · a B♭ trumpet part if
+  he wants one · technique marks for the new instruments · animated conductions (LG-3) as a
+  new animated-object kind · the bouncing balls per player in their own tempo (LG-5).
+  *Why:* copying costs nothing now; adapting waits for real material.
 
 - **0h — Gate: phase 0 closed** — `todo` — every track sounds from the score app through its
   own port with the right technique switching; a save round-trips; 0i's extraction passes;
   RUNNING_LOG has the numbers. *Why:* one verified gate instead of seven confidence claims.
 
-- **0i — The save → IR contract, proved on a test save of this piece** — `todo` — *to be laid
-  out when we discuss it.* *Why:* the IR is derived from the save, so the save's shape is the
+- **0i — The save → IR contract, proved on a test save of this piece** — `todo — planned
+  2026-09-17` — **`docs/plans/PORT_FROM_TEMPUS.md` step 7** (#5 §13, step for step): a
+  30-second save written by the app's own insert paths → `notate_section` → `ir_validate
+  --against-source --complete` → the page in the notation app, the transposing parts shown
+  at written pitch. *Why:* the IR is derived from the save, so the save's shape is the
   only thing that can bite later (#5's D9).
 
 *(#5's 0j ensemble balance and 0k the Reaper bridge were added as the need appeared. They

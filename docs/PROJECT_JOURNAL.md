@@ -50,19 +50,30 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - His eight Lake George notes surfaced from #5's sketch pad → `COMPOSITION_NOTES.md` LG-1 … LG-8 (§3).
 - **D1** instrumentation · **D2** format · **D3** copy-forward from #5 · **D4** ports 5400 / 4900 ·
   **D5** push after every commit.
-- **PLAN 0a, the PM kit, installed** (§6) — the standing practices carried whole.
+- **PLAN 0a, the PM kit, installed** (§6) — the standing practices carried whole. Committed `fe9f8e5`.
+- Piece #3's repo attached; the libraries read from the manuals (§9).
+- **The port planned** — a measured survey of #5 (§10) → `docs/plans/PORT_FROM_TEMPUS.md`.
 - **No code copied. The call unread, at his word.**
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **► N1** | **Lay out PLAN 0b, the composer module port**, with him by PLANNING_METHOD: the top line, then one step at a time into `PLAN.md`. The one real question inside it: which of #5's added tools come across (strikes drawer · trills · beating panel · crescendo suite · `time_containers.js` · note card) | **Fable** | no — same conversation |
-| N2 | **Build 0b** from the written plan: byte-exact copy → one asserted patch script → verified in the running app on 5400 / 4900 | **Opus** | **yes** — a written plan, executed cold |
-| N3 | **Lay out + build 0g**, the notation/IR stack (same two-step) | Fable to plan · Opus to build | yes |
+| ~~N1~~ | ~~Plan the port~~ — **DONE 2026-09-17:** `docs/plans/PORT_FROM_TEMPUS.md`, written independently at his word (RUNNING_LOG §10); the top line put to him in chat | — | — |
+| **► N2** | **BUILD THE PORT — PLAN 0b · 0g · 0i — from `docs/plans/PORT_FROM_TEMPUS.md`, steps 1–8 in order.** One commit per step, pushed (D5). RUNNING_LOG written as each step ends. Stop-and-ask conditions are the plan's last section | **Opus** | **yes — `/clear`, then `/postclear`** |
+| N3 | **His eye on the result:** the app open on 5400 with his seven lanes; the 0i page in the notation app (english horn and horn a fifth up, double bass an octave up) | Fable to hear him · Opus to fix | no |
 | N4 | **0c / 0e — libraries and the rack.** Needs him at the machine and the percussion named. SI2 covers bassoon · horn · trumpet · contrabass; the english horn is the open one (Q1b) | Fable | yes |
 
-**Open at session end:** nothing in flight.
+**Open at session end — (mid-session checkpoint, 2026-09-17, before the clear to Opus):**
+- **The task:** the port of piece #5's engine. **State:** planned, not started. No code is in this repo.
+- **The latest deliverable:** `docs/plans/PORT_FROM_TEMPUS.md` (the plan) · `PLAN.md` 0b / 0g / 0i (its top line).
+- **The next concrete step — an instruction:** after his go, execute the plan's **Step 1**
+  (the guard on `septet_2026`'s working tree, then the byte-exact copy, `cmp` every file,
+  commit `0b.1`, push) and carry on through Step 8 in order.
+- **`Resume reads:`** `docs/plans/PORT_FROM_TEMPUS.md` — all of it · `septet_2026/docs/RUNNING_LOG.md`
+  §9, §12, §13 (ll. 213–310, 310–420, 421–500) — the precedent, method only. **Nothing else.**
+- **Pending him:** his OK on the top line (put to him in chat, 2026-09-17). Nothing else blocks the build.
+- **Deliberately uncommitted:** nothing.
 
 **Open questions:**
 - **Q1b — libraries** for english horn, bassoon, horn, trumpet, double bass, percussion. Only

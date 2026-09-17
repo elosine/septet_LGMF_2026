@@ -7,9 +7,9 @@
 
 **NOW ►** 2026-09-17 (session 1, Fable) — the project is open. Instrumentation fixed (D1),
 format fixed (D2), the port method fixed (D3: copy-forward from piece #5). **0a the PM kit is
-installed; no code is here yet.** ► Next: lay out **PLAN 0b, the composer module port**, with
-him, one step at a time (Fable) — then build it (Opus, after a clear). The call is unread at
-his word.
+installed; no code is here yet.** The port is PLANNED: `docs/plans/PORT_FROM_TEMPUS.md`
+(0b · 0g · 0i, eight steps). ► Next: **build it — Opus, after a clear.** The call is unread
+at his word.
 
 ## The piece — outline (v0 — folded from LG-1 … LG-8 by the AI; **his to confirm, none of it discussed yet**)
 
@@ -47,3 +47,7 @@ gesture: pinch → slight lift → open (LG-3).
   beating tool's own object), or a timbral grouping, or both?
 - **Percussion:** which instruments — and is the percussionist the seventh voice of the
   counterpoint of timbres, or the one who marks the form?
+- **Who inherits the piano's role?** In piece #5 the piano was the STRUCK voice — the recorded
+  strikes, the strike at the end of a crescendo, the harmonics at a morph's re-breaths, the
+  articulation lines. This piece has no piano, so those tools arrive quiet (the port's P2).
+  Does the percussionist take that role, or does it simply not exist here?
