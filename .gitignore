@@ -1,0 +1,62 @@
+# Node
+node_modules/
+
+# Reaper — the rack (.rpp) IS committed; these are not
+*.rpp-bak
+*.reapeaks
+reaper/media/
+reaper/Media/
+reaper/Backups/
+reaper/AutoSaves/
+
+# Composer score — canonical scores/*.json ARE committed; safety-net versions and the
+# autosave working copies are not (piece #3 D8, piece #4 D10)
+scores/versions/
+scores/*-work.json
+
+# Fonts are licensed software and this repo is public (piece #4, day 36) — never committed.
+# Root only: notation/app/fonts/ holds Crimson Pro, which is under the SIL Open Font
+# Licence (Google Fonts) and may be redistributed; the app, export_print and export_video
+# read it from there.
+/fonts/
+
+# Derivable render outputs
+notation/video/**/*.mp4
+notation/video/**/*.png
+notation/video/**/*.rgba
+notation/video/test/
+notation/video/probe/
+notation/video/renders/demos/
+print/score/*.pdf
+print/score/*.__print.html
+# PLAN 2b.6: the APPROVED copy too — a print PDF lives on this machine only, as the
+# approved video does (notation/video/**/*.mp4). Its archive README is what git carries.
+print/score/**/*.pdf
+
+# Probe / research artefacts
+probes/_selftest_render.wav
+probes/last_bend_analysis.json
+research/audio/*.wav
+research/audio/*.flac
+
+# OS noise
+Thumbs.db
+.DS_Store
+
+# the Reaper bridge runtime (PLAN 0k) and Kontakt proof outputs
+reaper/bridge/inbox/
+reaper/bridge/outbox/
+reaper/bridge/done/
+reaper/bridge/heartbeat.json
+reaper/kontakt/out/
+probes/__pycache__/
+
+# RUNNING_LOG §453 (2026-09-13): the Reaper renders (~190 MB each) and the raw capture of the composer's playback stay out of git;
+# the MIDI files they come from are committed.
+notation/audio/*.wav
+notation/audio/raw/
+midi/*.capture.json
+
+midi/*/*.evt
+reaper/*_render.rpp
+reaper/*_render.rpp-bak
