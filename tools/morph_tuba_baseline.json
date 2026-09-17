@@ -1,0 +1,12 @@
+{
+  "_comment": "sha1 of JSON.stringify(Morph.render(params,{maxVoices:10})) for each stock model with its TUBA pitch set (model.tuba) and no palette — frozen 2026-09-07 before the septet palette went into the engine (RUNNING_LOG §203); tools/morph_septet_check.js re-renders and compares",
+  "frozen": "2026-09-07",
+  "models": {
+    "BALANCE": "5bd66d0f2d6f0e64cfb1d8f5298c12907540903d",
+    "BLOOM": "daeabdaea14df933b15e7674dd111d48a8849ed8",
+    "COLOUR": "b5afc2ff470ca2b9f9b8a8f79ab9b75bf6afe0c2",
+    "CONVERGE": "1b8aeb702a593ace18156abdfcde7afd0fa20541",
+    "SPACING": "5df765741fbc309fd8d0490e1903a14898cdb9ce",
+    "SPECTRAL": "b54b5234c5f3ec98c2df2db5d01b0960bc11d7e8"
+  }
+}

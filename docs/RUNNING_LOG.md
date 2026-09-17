@@ -415,3 +415,69 @@ byte-exact and its `score` entry declares **5300** with a relative `score/server
 starting it from this repo before the re-palette would bind HIS port with THIS repo's
 server. It is inert unless invoked; nothing invokes it, and step 2 boots the server by
 environment (`PORT=5400`) instead. Principle 9.
+
+## §13. PORT step 2 — the copy proven whole BEFORE anything changed
+
+This is the step this port added over #5's method (§10): with Tempus's palette still in
+place, everything that can be run is run, so that any red AFTER the re-palette has exactly
+one possible cause. **151 files staged, never committed, all 151 deleted at the end** — the
+list was written to the scratchpad before the first one was copied, and the deletion used
+that list, not a pattern. Staged: #5's own data (125 — the measurement banks, the actuals,
+the recorded strikes, its scores, its IR pages, its probe schedules) taken from **HEAD**, not
+the working tree, so his uncommitted saves were never read; and from piece #4 the 17 tuba
+golden pages + 9 tuba scores its batteries name (the recipe in #5's `notation/ir/README.md`).
+
+**The server:** `PORT=5400 node score/server.js` — booted first time. **41 of 41 routes 200**
+(the page, every panel script, the banks, the probes, `/notation/*`, `/docs/*`, every
+`/api/*` the server declares). **His 5300 was never bound** — checked, nothing listening;
+the environment variable was used exactly so the inherited `launch.json` could stay untouched
+until step 3 (principle 9).
+
+**The batteries — 22 green, 8 red, and every red accounted for:**
+
+| battery | result | reading |
+|---|---|---|
+| test_render · test_layout · test_animobj · test_splice · test_graphic · test_stamps | GREEN | census, clipping, staff math, A3 census, beaming, parachute, snapshots stable |
+| test_pattern_fit | GREEN (85) | |
+| ir_validate_battery | GREEN (36: 30 red + 6 green cases) | |
+| **test_septet_notation** | **GREEN (101)** | clefs · written pitch · grand staff · D10 groups · chord columns — **the whole of #5's PLAN 2a, working in this repo** |
+| **test_morph_notation** | **GREEN (178)** | |
+| test_trills | GREEN (92) | |
+| test_cross_staff 79 · test_surge_run 30 · test_step_dynamics 13 · test_identity | GREEN | |
+| morph_septet_check | GREEN after a fix — see below | |
+| trill_conflicts --list | GREEN (the 3 accepted conflicts, as in #5) | |
+| check_cresc_panel · check_fill · check_containers · check_cresc_deck | GREEN | |
+| accel_calc_check · beating_calc_check · harm_source_check · strike_chords_check · piano_cues_check · piano_harmonics_check | GREEN | the pure math |
+| test_coords | RED | **RED in the source too, identically** (`px boundary: layout.js is pixel-free`) — re-run there read-only. The source's, not the copy's → NITS |
+| cresc_check | RED (2) | **RED in the source too, identically.** Its two "FAIL" lines are prose describing behaviour #5 accepted; the check reports them as failures → NITS |
+| test_extract_played | RED | snapshot drift — #5 recorded this red at its own 0g, and red in #4 itself → NITS |
+| test_playability | RED | ENOENT `docs/SI2_staccato_lengths.md`, the tuba doc — #5 recorded the same; this piece's tables come at 0c / 0d |
+| test_midiplayer · test_sonify_core | RED | a tuba score's lanes resolve to recipe keys #5's `instruments.js` does not carry (`r.port` null) — #5 recorded exactly this |
+| ir_extract_golden | RED (19 differences) | **NEW, and explained:** the golden `trance-bar-01` is #4's, frozen 2026-09-03; `notation/lib/extract_core.js` is NOT the same file in #4 and #5 (md5 `203ae308` vs `23415181`). #5's extractor moved on for two weeks. Green at #5's 0g because the file was then byte-identical to #4's |
+| test_notate_block | RED (3 of 65) | **NEW, and explained**, three assertions: two are *"identical to the approved db1"* and *"the layout warnings match exactly (27)"* — `layout.js` also differs between #4 and #5 (`75c68c50` vs `90e0445d`), same cause; the third is *"on cuivre the flag CHANGES an existing bar"* — **`cuivre` is a tuba technique and is not in `bank/sample_lengths.json`**, which is the septet's table (its keys: staccato · pizzicato · tongue_ram · slap · stac_vel · secco · harmonics · bartok_vel · gettato_vel · marcato_stac_vel · spicc_vel). The archived `sample_lengths_tuba_20260810.json` does have it. Data, not code |
+
+**Method note on the two NEW reds.** They could not be re-run in the source for comparison:
+#5 deleted its staged tuba goldens after its own 0g, and writing into `septet_2026` to stage
+them again is forbidden. So they were settled by a different proof — **the copy is
+byte-identical to #5 (cmp, §12), therefore any behaviour difference must come from the
+inputs.** Comparing the tools against piece #4, where the goldens live natively, showed
+`extract_core.js`, `layout.js` and `classify.js` all differ between #4 and #5 while
+`ir_extract_golden.js` and `notate_block.js` are unchanged: the tests are #4's, the engine
+under them is #5's, two weeks further on. Nothing points at the copy.
+
+**The one real defect the step found — a file the PLAN told me to leave behind.**
+`morph_septet_check.js` died with ENOENT on `tools/morph_tuba_baseline.json`, which step 1's
+leave-list had named as a tuba artefact. It is not: 692 bytes of frozen sha1s — *"for each
+stock model with its TUBA pitch set … frozen 2026-09-07 before the septet palette went into
+the engine"* — the regression baseline that proves the morph engine still renders what it
+rendered. **The morph is this piece's refrain (LG-6, LG-8); the baseline is exactly the file
+this piece wants.** Copied, `cmp` identical, added to the copy list (266), the check re-run:
+**ALL PASS.** Filed as a correction to §12 rather than an edit to it.
+
+*This is what step 2 is for.* A missing test dependency is invisible to `cmp` — the copy was
+266/266 faithful to a list that was wrong by one — and after the re-palette it would have
+looked like a palette bug.
+
+**Left clean:** all 151 staged files deleted, empty directories pruned, `git status` showing
+exactly one addition: `tools/morph_tuba_baseline.json`. **Pruned as empty and needed back in
+step 4:** `scores/` · `notation/ir/` · `sandbox/motives/`.
