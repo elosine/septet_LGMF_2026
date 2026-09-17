@@ -109,6 +109,20 @@ is in the source.
 *AI reading:* a morph TO a destination chosen for its beating, then held; sparse figures
 played inside it. Reference to study: Sciarrino, *Raffigurar Narciso al fonte*.
 
+### LG-9 · 2026-09-17 — the percussion: a bowed vibraphone
+
+> *"english horn, getting now, use xsample double bass, the same percussion lib as
+> 2piano2perc; I need to acquire a bowed vibraphone library"*
+> — composer, 2026-09-17, session 1 of this piece, typed (the libraries: journal D6)
+
+*AI reading:* the first percussion instrument he has named is the **vibraphone, bowed** —
+a sustained, quiet, attackless metal tone: a seventh SUSTAINING voice next to the winds and
+the strings rather than a struck one. It fits LG-2 (delicate, quiet, texture and timbre) and
+LG-7 (a counterpoint of timbres). A bowed bar can also hold a pitch against a wind or a
+string — a candidate partner in a beating (LG-8), though it cannot bend. The rest of the
+percussion comes from piece #2's library (Spitfire ARO: metals, skins, bowed cymbals,
+superball drags).
+
 ### Related decision in the Tempus journal
 
 - **D31** (2026-09-08): a technique used across pieces is built standalone from the first

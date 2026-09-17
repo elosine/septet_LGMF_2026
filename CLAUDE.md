@@ -20,7 +20,10 @@ method piece #5 used on piece #4, its D1). The delivery format is the same as #4
 score (video + print); the performance score later.
 **The IR contract (inherited, #5's D9):** the composer save is the ground truth; the IR is
 derived from it by the extractor and is the single source for every downstream score.
-Libraries: **open** — only the cello's recipe carries over from #5 (journal Q1b).
+Libraries (journal D6): **IRCAM Solo Instruments 2** bassoon · horn · trumpet —
+**Xsample** cello (#5's recipe) + double bass — **Spitfire Abbey Road Orchestra Percussion**
+(piece #2's library) — english horn **being acquired**, library to be named — **a bowed
+vibraphone still to acquire.**
 
 **State of the port (keep this line current):** 0a the PM kit is installed. **No code is in
 this repo yet** — PLAN 0b onward.

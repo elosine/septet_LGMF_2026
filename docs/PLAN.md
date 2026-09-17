@@ -61,9 +61,12 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   *Why:* the app is the composing surface from day one; he will use the same structures.
 
 - **0c — Instrument recipes (`sandbox/instruments.js`)** — `todo` — *to be laid out when we
-  discuss it.* One entry per track. **Only the cello carries over from #5.** English horn,
-  bassoon, horn, trumpet, double bass and percussion are new: which library for each is
-  journal Q1b; the percussion instruments themselves are his to name.
+  discuss it.* One entry per track. **Only the cello carries over from #5.** The libraries
+  are D6: SI2 bassoon · horn · trumpet (model: #5's SI2 flute, #4's tuba) — Xsample double
+  bass (model: the cello) — Spitfire ARO percussion (maps in piece #2's
+  `docs/instrument_map.json`; Spitfire's own plugin, a mechanism this stack has not driven
+  yet) — the english horn and a bowed vibraphone as they arrive. **Done together with 0e,
+  with him at the machine, straight after the port build** (RUNNING_LOG §11).
   *Why:* the recipes ARE how the AI and the app produce the right MIDI for each sound.
 
 - **0d — The samples' true ranges and lengths, per technique in use** — `todo` — *to be laid

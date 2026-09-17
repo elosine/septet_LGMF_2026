@@ -62,7 +62,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | ~~N1~~ | ~~Plan the port~~ — **DONE 2026-09-17:** `docs/plans/PORT_FROM_TEMPUS.md`, written independently at his word (RUNNING_LOG §10); the top line put to him in chat | — | — |
 | **► N2** | **BUILD THE PORT — PLAN 0b · 0g · 0i — from `docs/plans/PORT_FROM_TEMPUS.md`, steps 1–8 in order.** One commit per step, pushed (D5). RUNNING_LOG written as each step ends. Stop-and-ask conditions are the plan's last section | **Opus** | **yes — `/clear`, then `/postclear`** |
 | N3 | **His eye on the result:** the app open on 5400 with his seven lanes; the 0i page in the notation app (english horn and horn a fifth up, double bass an octave up) | Fable to hear him · Opus to fix | no |
-| N4 | **0c / 0e — libraries and the rack.** Needs him at the machine and the percussion named. SI2 covers bassoon · horn · trumpet · contrabass; the english horn is the open one (Q1b) | Fable | yes |
+| N4 | **0c + 0e together — the recipes and the Reaper rack, with him at the machine** (his question 2026-09-17, answered: NOT in the Opus build — right after it). Libraries per **D6**: SI2 bassoon · horn · trumpet — Xsample cello + double bass — Spitfire ARO percussion — english horn arriving — bowed vibraphone still to buy. The rack can be built for what is installed and extended as the two arrive | Fable to walk him · Opus for the scripts | yes |
 
 **Open at session end — (mid-session checkpoint, 2026-09-17, before the clear to Opus):**
 - **The task:** the port of piece #5's engine. **State:** planned, not started. No code is in this repo.
@@ -76,12 +76,11 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **Deliberately uncommitted:** nothing.
 
 **Open questions:**
-- **Q1b — libraries** for english horn, bassoon, horn, trumpet, double bass, percussion. Only
-  the cello's recipe carries from #5. **Read from the manuals 2026-09-17 (RUNNING_LOG §9):**
-  SI2 has bassoon · french horn in F · trumpet in C (4 mutes) · contrabass — **no english
-  horn**; the Xsample catalog lists an english horn (a catalog line is not ownership — his
-  to say). Open: is the Xsample english horn installed · does the double bass go with the
-  cello (Xsample) or to SI2 · **which percussion instruments**.
+- ~~Q1b — libraries~~ — **answered 2026-09-17 → D6.** Still open inside it: **which library
+  the english horn is** (he is getting it now; he did not name it) · **the bowed vibraphone
+  library — he has still to acquire one** (a lead, from his own manuals: the Xsample catalog
+  lists *Vibraphone … bowed (with double bass bow)* — a catalog line, not a recommendation
+  tested by ear) · which ARO volumes are installed · the other percussion instruments.
 - **Q2 — the call.** LGMF 2026. His word, 2026-09-17: *"don't need to look it up now, lets
   focus on getting started."* **Not to be read before he says so.**
 - ~~Q5 — git~~ — **answered "a" 2026-09-17 → D5:** commit at each wrap, push after every commit.
@@ -158,6 +157,16 @@ this repo only when they bite.)*
   established rule, and it keeps the record safe off this machine. *Rejected:* (b) commit at
   each wrap but ask "push now?" every time. *Not assumed from the earlier pieces:* that word
   was given per repo and a push is outward-facing, so it was asked once here.
+- **D6** *(2026-09-17, composer: "english horn, getting now, use xsample double bass, the
+  same percussion lib as 2piano2perc; I need to acquire a bowed vibraphone library")* —
+  **The libraries:** bassoon · horn · trumpet = **IRCAM Solo Instruments 2** (read from the
+  manual, RUNNING_LOG §9; the library of piece #4) · cello = **Xsample**, #5's recipe ·
+  double bass = **Xsample** · percussion = **Spitfire Abbey Road Orchestra Percussion**,
+  piece #2's library (its journal decision 4) · english horn = **being acquired**, library to
+  be named · **a bowed vibraphone = still to acquire.** *Why Xsample for the bass (AI
+  reading, his word was only "use xsample"):* one string model for the cello + bass PAIR —
+  the same mechanism, the same controller behaviour, and the pair is a unit of the piece
+  (LG-1). *Not chosen:* SI2's CONTRABASS.
 
 ---
 
@@ -183,4 +192,6 @@ across when its system lands here and is first used.)*
   + the application. **Deadline 2026-10-15 23:59 CET.** *(Carried here only as a reminder;
   the record is #5's journal §2.)*
 - **Read the LGMF 2026 call** — when he chooses (Q2). Drop the PDF in `docs/` as in #5.
-- **Name the percussion instruments** (Q1b).
+- **Name the percussion instruments** — bowed vibraphone is the first (LG-9).
+- **Install the english horn library** (arriving 2026-09-17) and tell the AI which one it is.
+- **Acquire a bowed vibraphone library.**

@@ -123,9 +123,9 @@ Tempus's palette is still in place, so the code should behave exactly as it does
 - **`sandbox/instruments.js`** rewritten in #5's exact shape (`{label, port, rangeLow, rangeHigh, techniques:[{key, label, channel, port?, cc0?, ks?, range}]}` plus whatever flags #5's consumers read — `beating`, `playerBendSt`, `curveTechniques`, `balanceDb`; read #5's file for the full set). **Every value marked `PROVISIONAL — 0c / 0e` in a comment.**
   - `cello` — **#5's entry verbatim.**
   - `bassoon` · `horn` · `trumpet` — SI2. Technique keys seeded from the SI2 manual's lists (`for_bass_clarinet_harp_and_accordion/docs/manuals/extracted/IRCAM_Solo_Instruments_2_manual.txt`, the instrument sections from l. 1555 · 1587 · 1673), in the shape of #5's SI2 flute entry and #4's tuba entry. Channels provisional. Ranges from the manual, sounding pitch.
-  - `double_bass` — **library undecided** (SI2 CONTRABASS or Xsample with the cello — journal Q1b). Placeholder: `ord` + `pizz`, range 28–67. Say so in the comment.
-  - `english_horn` — **library undecided** (not in SI2; the Xsample catalog lists one). Placeholder: `ord`, range 52–84.
-  - `percussion` — **instruments unnamed.** Placeholder: one technique `hit`, `beating: false`, range 21–108 so `laneCanPlay` never blocks it.
+  - `double_bass` — **Xsample** (journal D6, composer 2026-09-17). The cello's entry is the model: same mechanism (CC0 articulation select, the channel bank of #5's D11), its own port, range 28–67 sounding. **Copy the cello's technique list as the placeholder and mark every CC0 value `VERIFY at 0c`** — the double bass's preset numbers are not known to be the cello's.
+  - `english_horn` — **being acquired by the composer now** (D6; he did not name the library — the Xsample catalog lists one, `Xsample_Library_en.txt` l. 149). Placeholder: `ord`, range 52–84. If it is Xsample, the model at 0c is #5's bass clarinet entry (CC0 presets, CC1 MW dynamics).
+  - `percussion` — **Spitfire Abbey Road Orchestra (ARO) Percussion**, the library of piece #2 (D6; #2's journal decision 4: Metal · High · Low volumes, Spitfire's own plugin — NOT Kontakt, NOT UVI; its maps are in `composition_for_two_pianos_and_two_percussion/docs/instrument_map.json`). **Plus a bowed vibraphone — a library he has still to acquire** (ARO has no tuned mallets). Placeholder: one technique `hit`, `beating: false`, range 21–108 so `laneCanPlay` never blocks it; a comment naming both libraries. The real entry is 0c's, built from #2's map.
   - Port names provisional, one per instrument, loopMIDI-style, distinct from #5's.
 - **Skeleton banks — empty but valid, the key sets of #5's files:** `balance` · `bend_ranges` · `technique_ranges` · `velocity_remap` · `sample_lengths` · `scattered_strikes`. **Where a file is keyed by instrument, keep #5's `cello` rows** and drop the rest; put a `_provenance` line in each. Then confirm each loader accepts it: `composer.html` · `strike_drawer.js` · `velocity_remap.js` · `texture_engine.js` · `trill_engine.js` · `tools/model_bank.js` · `tools/notate_section.js`.
 - **`bank/panel_snapshots.json`:** open each panel's take list and load one Tempus take per panel. If a take throws against the new palette, move the file to `bank/reference/panel_snapshots_tempus.json` and start an empty valid one. Either way RUNNING_LOG says which.
@@ -188,7 +188,7 @@ Results as a table in RUNNING_LOG. **Defects that only running found get their o
 
 ## What this plan deliberately does not do
 
-- **No sound.** No rack, no loopMIDI ports, no library decisions (0c · 0d · 0e). After this port the app opens and saves and notates; it does not play.
+- **No sound, and NO REAPER SETUP** — he asked (2026-09-17: *"are we setting up reaper in this build or later"*); the answer given was **later, as the very next step** (0c + 0e together, with him at the machine). No rack, no loopMIDI ports (0c · 0d · 0e). The bridge's CODE arrives in step 1 and the project guard is renamed in step 3; nothing talks to Reaper. After this port the app opens and saves and notates; it does not play.
 - **No new tools** (LG-5's abstraction, LG-7's pattern tool, LG-3's conductions, LG-8's arrive-and-hold). Phase 1, at his word.
 - **No shared engine package.** Parked in RUNNING_LOG §5.
 - **Nothing in `S` is written, staged, moved or saved — ever.**

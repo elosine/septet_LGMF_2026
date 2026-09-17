@@ -324,3 +324,45 @@ assumes positive = written above sounding, from the bass clarinet's note; step 6
 before trusting it) · whether every kind-C site really handles −1 · whether a Tempus take in
 `panel_snapshots.json` loads against a new palette (step 4 tries one per panel and has a
 fallback either way).
+
+## §11. The libraries — D6; and Reaper: not in the build, right after it
+
+The top line was put to him. His reply did not comment on it; it answered the open library
+questions instead:
+
+> *"english horn, getting now, use xsample double bass, the same percussion lib as
+> 2piano2perc; I need to acquire a bowed vibraphone library; and are we setting up reaper
+> in this build or later"*
+
+**D6, and what was looked up to make it exact** (two targeted reads, nothing else):
+
+- *"the same percussion lib as 2piano2perc"* → piece #2's journal, decision 4 (2026-03-26):
+  **Spitfire Abbey Road Orchestra (ARO) Percussion** — three volumes (Metal 58 instruments ·
+  High 62 · Low 20), *"built-in extended techniques (bowed, scraped, superball) … no Kontakt
+  dependency"* — Spitfire's own plugin. **No tuned mallets in any of the three** — which is
+  why the vibraphone needs another library. #2's `docs/instrument_map.json` holds the maps.
+  Which volumes were bought is not recorded there in a line the grep found → 0c.
+- *"I need to acquire a bowed vibraphone library"* → one grep of the Xsample catalog he
+  already has in piece #3's manuals (`Xsample_Library_en.txt` ll. 250–253): *"Vibraphone —
+  240 Samples — Standard mallets, xylophone mallets, triangle mallets, harmonics, bowed
+  (with double bass bow)"*; the marimba and the crotales are listed bowed too. Offered to him
+  as a LEAD only: same maker as the english horn and the bass he is getting, the same
+  controller model the stack already speaks (CC0 presets, MW dynamics). Not heard, not
+  compared — a catalog line.
+- The double bass to Xsample: his word. The AI's reading of why it is right is in D6 (one
+  string model for the pair); SI2's CONTRABASS is the road not taken.
+- The english horn: *"getting now"* — he did not say which library. Not assumed.
+
+**Reaper — his question, the answer given: later, as the very next step.** Reasons, as put
+to him: (1) the port is unattended code work for Opus; the rack needs HIM at the machine —
+in #5 it was thirteen hand-steps (R1–R13: the loopMIDI ports, a track per instrument, the
+presets read from his screenshots); (2) a rack track is tested by playing it FROM the app,
+so the app must exist first; (3) two of the libraries are not on the machine yet. So 0c (the
+recipes) and 0e (the rack) are one sitting, straight after the build — and it can start with
+the five instruments whose libraries are installed and take the english horn and the
+vibraphone as they arrive. The port plan's step 4 now names each library in its placeholder,
+and its "does not do" section says NO REAPER in so many words.
+
+**The bowed vibraphone went to the sketch pad as LG-9** — the first percussion instrument he
+has named, and a SUSTAINING one: that bears on the planner's open question (who inherits the
+piano's struck role?) — perhaps nobody.
