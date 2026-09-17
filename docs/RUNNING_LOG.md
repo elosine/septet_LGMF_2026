@@ -663,3 +663,92 @@ none a port defect.** This is exactly what step 2's baseline was built to make l
 All five are #5's tests bound to #5's palette or #5's recording, the same class as the
 `piece-septet` fixtures of §14. They are rewritten against this piece's material at 0c — filed
 in NITS with that instruction, not left as unexplained red.
+
+
+## §17. PORT step 6 — the notation half: the ensemble registry, and a defect that would have killed the print
+
+**The sign convention was checked in the CODE before the table was written**, as the plan
+required rather than trusted: `layout.js` line 75 — *"written = sounding + transpose semitones;
+the IR stays sounding"* — and it is applied at line 965, `e.pitch.midi + pc.transpose + tw.transpose`.
+Piece #5's bass clarinet (`transpose: 14`, "written a major ninth above sounding") fixes the sign.
+So **positive = written above sounding**, and the table follows:
+
+| part | id | short | clef | transpose | authority |
+|---|---|---|---|---|---|
+| 0 | english_horn | EH | treble | **+7** | in F, sounds a fifth below written |
+| 1 | bassoon | Bsn | bass | — | SI2 manual: "written at actual pitch" |
+| 2 | horn | Hn | treble | **+7** | SI2 manual, verbatim: *"Instrument part to be written a perfect fifth higher"* |
+| 3 | trumpet | Tpt | treble | — | SI2's is in C, "written at actual pitch" |
+| 4 | percussion | Perc | treble | — | **placeholder** — the instruments are not chosen |
+| 5 | cello | Vc | bass | — | as #5 |
+| 6 | double_bass | Db | bass | **+12** | sounds an octave below written |
+
+**Groups: three brackets — [EH, Bsn] · [Hn, Tpt] · [Vc, Db] — which is the composer's own
+pairing (LG-1) drawn on the page.** The percussionist sits between the brass and the strings,
+unbracketed: one player is not a group. No brace — this piece has no grand staff.
+`notate_section` refuses to extract if a part's `id` or `short` differs from the score's
+`tracks[part]`; both match `TRACKS` exactly, checked.
+
+### The defect: a realization override that THROWS
+
+`layout.js` `ensembleFor()`:
+
+```js
+if (!pc) throw new Error('realization override for an unknown part "' + id + '"');
+```
+
+`container.json`'s **`video-jury` realization — which the print score borrows** — carried
+`ensemble.parts.bass_clarinet` (#5's D55: its presentation score is in C, the bass clarinet at
+sounding pitch on a bass clef). **That part does not exist in this piece, so print and the jury
+video would have thrown on their first layout.** Not a warning, not a wrong-looking page: a
+throw, in the two exporters that make the submission.
+
+Found by reading how the registry is consumed, not by running — nothing in the batteries
+exercises that path, because the tuba goldens pass no ensemble at all.
+
+**Fixed by emptying the override**, not by inventing a replacement: the pitch form is a property
+of the REALIZATION and #5's D55 was a decision the composer made about *his* bass clarinet.
+**For this piece it is an open question for 2b** — is the presentation score in C, or at written
+pitch (english horn and horn a fifth up, the double bass an octave up)? The note in
+`container.json` now says exactly that. An empty override means "no override": the ensemble
+default is used, untouched. No other realization carried part overrides — checked.
+
+### The batteries, and the exporters
+
+Re-run on the staged tuba goldens **after** the re-palette: **identical to step 2** — eight
+engine batteries GREEN (render · layout · animobj · splice · graphic · pattern_fit · stamps ·
+ir_validate_battery), and the same two RED with the same two known causes (`test_coords`, red in
+the source too; `test_notate_block`, 62/65, the three assertions of §13). **The new ensemble
+registry disturbed nothing**, because a caller that passes no ensemble still gets the tuba
+behaviour — which is what that mechanism is for.
+
+**The exporters run, and they report this piece back:**
+
+- `export_print --ir db1 --format a3-landscape --pages 1-2` → a 2-page A3 PDF, and its own
+  frame line reads **`frame  EH · Bsn · Hn · Tpt · Perc · Vc · Db`** — 7 lanes, lane 35.5 mm,
+  staff 7.55 mm, 10.32 s/page.
+- `export_video --probe 5` → one frame rasterized through resvg and **looked at**: seven staves
+  labelled EH · Bsn · Hn · Tpt · Perc · Vc · Db, the clefs right (treble · bass · treble ·
+  treble · treble · bass · bass), **the three pair-brackets drawn and the percussionist standing
+  alone between them**, with the GC arcs, the swells, the cursor, the dynamics and the ottava
+  marks all rendering. Piece #4's material, laid out on this piece's ensemble — which is exactly
+  what a staged-golden run should look like, and the proof that the registry reaches the video
+  layer as well as the print one.
+
+Both outputs are gitignored and were deleted. `notation/ir/README.md` rewritten for this repo:
+what lives there, the staging recipe for BOTH golden sets (#4's tuba pages and #5's septet
+pages, always from `HEAD` so his uncommitted saves are never read), the rule to delete from a
+list written before copying, and where the batteries stood at the port.
+
+### The 2a adaptation list for THIS piece, recorded so it does not bite
+
+**tenor clef** (bassoon and cello upper registers — the engine draws treble, alto and bass
+today) · **percussion notation proper**: a percussion clef, one-line and five-line staff types,
+unpitched noteheads — none of which exists, and none of which can be designed until he names the
+instruments · **mute marks** (con sord. / senza; SI2 has four trumpet mutes as separate
+instruments) · **a B♭ trumpet part** if he wants one (transpose 2; the library is unaffected) ·
+**technique marks for every new instrument**, and the 18 roster keys that are not yet in
+`techniques.json` (cuivré, stopped, pedal tone, the half-valve gliss …) · **animated conductions**
+(LG-3) as a new animated-object kind · **the bouncing balls per player in their own tempo**
+(LG-5 — the GC arcs exist and are the starting point) · **the presentation score's pitch form**
+(above).

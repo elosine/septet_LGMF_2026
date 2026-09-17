@@ -43,13 +43,8 @@
    },
    "transport": "local-audio",
    "ensemble": {
-    "_pitchFormNote": "PLAN 2k, D55 / M5 (the composer 2026-09-16, RUNNING_LOG §541–§542 · §552): THE PITCH FORM IS A PROPERTY OF THE REALIZATION. This realization is the PRESENTATION — the jury's video, and the print score, which borrows this block — a full score read together, so it is in C: the bass clarinet at sounding pitch on a bass clef (its range B♭1–F4 sits within two ledger lines each side). The registry ensemble's default (ensemble.json: B♭, treble, a major ninth up — §382's French form) stays for the working page, the sectional and individual scores and any part. Applied by layout.ensembleFor(ens, realization) — a copy; the IR is always sounding (D9). The full ensemble rehearsal score, when it exists, takes the same override; the performance score (PLAN 3) decides its own form at its design.",
-    "parts": {
-     "bass_clarinet": {
-      "clef": "bass",
-      "transpose": 0
-     }
-    }
+    "_pitchFormNote": "THE PITCH FORM IS A PROPERTY OF THE REALIZATION (piece #5's D55 / PLAN 2k). In #5 this block put the presentation score in C — its bass clarinet at sounding pitch on a bass clef — while the working page and the parts kept the transposed default. **For THIS piece the question is open and is the composer's at 2b:** is the presentation score in C, or at written pitch (english horn and horn a fifth up, double bass an octave up, per notation/registry/ensemble.json)? Emptied during the port, 2026-09-17, because the inherited override named `bass_clarinet` and layout.js `ensembleFor()` THROWS on an override for a part that does not exist — print and the jury video would have died on their first layout. An empty object means \"no override\": the ensemble default is used, untouched.",
+    "parts": {}
    },
    "_derived": "lanePx = (1080 - 16 - 36) / 10 = 102.8 · air above+below staff ≈ 35.6 px per side at staff 31.6",
    "_status": "header decided ('no header at all — akin to the paper score'); lane numbers provisional pending the vertical-stress proof (ledgers, accents, dynamics, hairpins)"
@@ -61,8 +56,17 @@
   "video-cut": {
    "zoomZ": 1.85,
    "halves": {
-    "V-TOP": [0, 1, 2],
-    "V-BOT": [3, 4, 5, 6]
+    "V-TOP": [
+     0,
+     1,
+     2
+    ],
+    "V-BOT": [
+     3,
+     4,
+     5,
+     6
+    ]
    },
    "_note": "septet PLAN 2i.10.2 (2026-09-16, RUNNING_LOG §558): THE DEMO VIDEO'S CLOSE-UPS. The tuba cut the 2x master at y = 1080 (ten equal lanes, five each); the septet's lanes are unequal (the piano 1.576), so y = 1080 fell 58 px inside Vn1 and the four strings at 2x (1122 px) could not fit a 1080 frame. Each close-up is a GROUP of parts: winds + piano on top, the strings below; the zoom master is rendered at zoomZ, the group's lanes are centred in the 1080 frame and every row outside the group (the other group, the gap past its lane edge) is paper. zoomZ 1.85 = the strings' measured ink (y 508-1075 of the wide frame, 568 px) x 1.85 = 1051 px, ~15 px to spare at each edge; 1080 x 1.85 = 1998 exactly. The sweep: 12 / 1.85 = 6.5 s per close-up window (the tuba's 6)."
   },
@@ -97,7 +101,7 @@
    "accGap": 0.25,
    "tagY": 3.5,
    "tempoY": 4.6,
-   "tickY": 3.0,
+   "tickY": 3,
    "dynY": -4.6,
    "nhGapSs": 0.25,
    "_nhGapNote": "day 22, nh-unit horizontal standard for the surge device: the unit's rightmost ink ends this far before the go line (composer asked for 2 px at staff 31.6; expressed in ss = 2/7.9 ≈ 0.25 so the PP-6 zoom invariant holds)",
@@ -379,7 +383,7 @@
    "_chainAboveGapNote": "day 23: when the chain sits ABOVE a flagged stem-up unit it goes BETWEEN the staff and the flag (composer: 'let's see if we can get the dynamic above the staff and below the bottom of the flag'); the flag-clear stem rule then clears the chain, and this tighter gap (vs the 0.45 house standard) is the air on each side of the mark in that slot.",
    "breathSeconds": 0.5,
    "_breathNote": "day 23 (composer, corrected the same hour): THE BAR ENDS A BREATH BEFORE THE NEXT GESTURE — 'working backwards... the next gesture minus breath'. The measured sample length only CAPS it, so a note with room keeps its full ring (nothing earlier in the piece is affected) and only a note crowded by the next attack is shortened. 0.5 s = a moderately quick tuba breath (snatch 0.25-0.35 s; full relaxed on a large horn 1-1.5 s). DRAWING ONLY — playback still follows the IR duration (D49), since the sample rings what it rings. flagShortBarSeconds warns when the next attack forces a bar under that length, for the composer to judge note by note; a gap shorter than the breath draws no bar at all and warns.",
-   "flagShortBarSeconds": 1.0,
+   "flagShortBarSeconds": 1,
    "gcImpactInsetSs": 0,
    "_gcImpactInsetNote": "day 24: the disc's landing height in ss, mirroring animated.gc.look.impactInsetPx (and engraving.render.gc.look). Layout needs it in ss to decide whether a GC-bearing head actually reaches the disc — the push that clears it is now CONDITIONAL, because once the ball was lowered to the lane edge almost no head collides and an unconditional push drags heads off their own go time. test_animobj asserts the px and ss copies agree, converting through gcImpactRadiusSs/impactRadiusPx, the one quantity stated in both units.",
    "gcImpactRadiusSs": 0.51,
@@ -429,7 +433,7 @@
    },
    "ringBarGapSs": 0.25,
    "_ringBarGapNote": "day 24 (composer: 'have the notehead and ledger and a little bit of space and then a duration bar'): the ring bar starts this far after the nh-unit's RIGHT INK EDGE — head, ledgers, accidental, whatever the unit carries — instead of at the go line. The day-22 spec said flush with the go line, which was the same thing while every unit hung before its go time; a head centred ON the go time (beam figures, day 24) put the unit on top of the bar. Default = nhGapSs 0.25, the piece's existing small horizontal gap, which makes the rule a NO-OP for every default-anchored fortepiano (there headDx + rightExt = -nhGapSs exactly).",
-   "beamStubSs": 1.0,
+   "beamStubSs": 1,
    "_beamStubNote": "day 23 (composer's midway solution): every partial is written as a 16th and the gaps carry 16th rests, but the SECOND beam level is a STUB (a fractional beam / beamlet) on a note with no 16th neighbour, and a connecting segment only between adjacent 16ths — 'a short beam where the sixteenth note beam is, not something that connects', so the phrasing still reads. Standard practice (Gould: fractional beams); length in ss, tune by eye. Stubs point RIGHT, toward the gap the note opens.",
    "tuplet": {
     "thicknessSs": 0.16,
@@ -460,7 +464,7 @@
     "_provenance": "2026-09-11 (septet PLAN 2a.4): piece #2's LOCKED chord rules, carried with their numbers — composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/dimensions_table.json noteColumn (D.8.1, the LilyPond cluster matrix: a note within 1 staff position of the previous one flips to the other side of the column, displaced one notehead width) and accidentalColumn (D.8.2, the LilyPond accidental matrix: minLateralGap 0.10, collision tolerance 0.05; a colliding accidental takes the next full slot left). Its docs/CHORD_SPACING_RULES.md §0 names these canonical and its older constants superseded. The algorithms are notation/lib/chord_column.js, ported from its note_column.js / accidental_column.js. The gap to the notehead is glyphs.json standards.accidental.gapToNotehead (0.10, the same lock)."
    },
    "_dynStemGapNote": "day 23 (composer): above a stem-up flagged unit the dynamic sits BESIDE the stem — its right edge dynStemGapSs left of the stem — not centred on the head column; the flag, on the stem's other side, keeps its full height (flagScaleY back to 1.0; the compression stays available as a knob).",
-   "flagScaleY": 1.0,
+   "flagScaleY": 1,
    "_flagScaleYNote": "day 23: vertical-only scale on the 8th flag for the staccato unit (composer: 'if we can adjust it so it's not so tall'). At 1.0 the staff + mf + flag chain (2 + 0.3 + 0.97 + 0.3 + 3.008 = 6.58 ss) overflows the 6.51 ss half-lane by 0.07; at 0.65 the flag is 1.96 ss tall and the chain tops out at 5.53. Anisotropic — the Emmentaler curl is compressed, not redrawn; alternatives (a procedural straight flag as in LilyPond's modern-straight style, or a uniform scale) are listed in RUNNING_LOG day 23.",
    "_flagClearanceNote": "day 23 (composer, wc-29): 'have the bottom of the flag clear the staff, just like three pixels or so — maybe not the full typical gap.' 3 px at the jury frame (7.9 px/ss) = 0.38 ss. Piece #2's computeFlaggedStemLength law with this clearance (p2 used stem.flagClearance.clearanceSs = 1.0): the flag's near edge clears the outer staff line; applied by devices with nhStemRule 'flagClear'; the default stem length wins when already longer. Head scale 0.844 = piece #2 notehead.cellMotive.scaleFactor (the composer's remembered small-notehead formulation; uniform scale on the same outline, no new glyph). nhDot = the staccato dot on the notehead side (dotYFor).",
    "chainSide": {
@@ -475,7 +479,7 @@
    ],
    "_dynPairNote": "day 22, composer: NO derivation — the two marks state the bottom and top LEVELS, not the curve. This piece: every surge is full-curve ppp->fff (morph section + manual judgments via authored overrides). Another piece may change the pair here.",
    "dynArrow": {
-    "lenSs": 2.0,
+    "lenSs": 2,
     "headSs": 0.45,
     "gapSs": 0.45,
     "thickSs": 0.13
@@ -544,8 +548,7 @@
     "opacity": 0.85,
     "dash": "5,4",
     "color": "#333",
-    "_note": "day 22 second note (wc-23), composer: 'keep that go line always black gray' — the surge green was never meant for it; width/opacity/dash unchanged. Earlier same day: retuned (composer: 'not visible... intuit a set of settings'): thicker, denser dashes. Piece #1 originals: 0.5 @ 0.4 dash 2,2."
-   ,
+    "_note": "day 22 second note (wc-23), composer: 'keep that go line always black gray' — the surge green was never meant for it; width/opacity/dash unchanged. Earlier same day: retuned (composer: 'not visible... intuit a set of settings'): thicker, denser dashes. Piece #1 originals: 0.5 @ 0.4 dash 2,2.",
     "topAtGcArc": true,
     "multiStaffBottomMirrorsTop": true,
     "_trimNote": "RUNNING_LOG §401h (2026-09-11, the composer: 'trim the go lines, up to the top of the gc arcs and keep bottom; except pno can be about 4 dashes shorter on bottom'): a note with a GC starts its go line at the arc's top (frac 1 of the GC geometry) instead of the lane top; a multi-staff part's go line ends below its last staff's bottom line by the distance its top sits above the first staff's top line (multiStaffBottomMirrorsTop — the composer, §401i: 'the same amount below bottom staff as currently above top staff'; a 4-dash trim was the first cut). false / 0 = the tuba look."
