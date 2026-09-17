@@ -239,7 +239,7 @@ const EMIT = {
         } catch (e) {
             const name = (e && e.name) || 'Error';
             this._midiError = name === 'NotAllowedError'
-                ? 'this browser has BLOCKED Web MIDI for localhost:5300. It is a per-browser ' +
+                ? 'this browser has BLOCKED Web MIDI for localhost:5400. It is a per-browser ' +
                   'setting, so a window where the score plays fine will work here too — ' +
                   'open the score in that window, or allow MIDI in this one (padlock icon → MIDI devices).'
                 : name + ': ' + ((e && e.message) || 'MIDI request failed');

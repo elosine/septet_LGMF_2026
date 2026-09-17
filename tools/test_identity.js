@@ -1,6 +1,6 @@
 // test_identity.js — PLAN 2d.1, the identity contract (docs/NOTATION_IDENTITY.md). A note's id is stable from the moment it is
 // drawn, through every edit that keeps it, into the IR as ev-wc-N, across any number of re-extracts — and no id is handed out twice.
-// `node tools/test_identity.js [--score piece-septet | --file <path to a score>]` → PASS / FAIL lines and a verdict. Reads the
+// `node tools/test_identity.js [--score piece-lgmf | --file <path to a score>]` → PASS / FAIL lines and a verdict. Reads the
 // score, never writes it.
 //
 // The composer's OWN code runs here: generateId · maxIdNumber · pushUndoState · undo · redo · restoreData · duplicateNote are
@@ -13,7 +13,7 @@ const ROOT = path.resolve(__dirname, '..');
 const T0 = Date.now();
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const FILE = arg('file', null);   // 2d.1.4: another repo's score read where it lies (the tuba piece's — read-only, nothing staged)
-const scoreName = FILE ? path.basename(FILE, '.json') : arg('score', 'piece-septet');
+const scoreName = FILE ? path.basename(FILE, '.json') : arg('score', 'piece-lgmf');
 const html = fs.readFileSync(path.join(ROOT, 'score/public/composer.html'), 'utf8');
 const Extract = require(path.join(ROOT, 'notation', 'lib', 'extract_core.js'));
 let fails = 0; const ok = (cond, msg) => { console.log((cond ? 'PASS  ' : 'FAIL  ') + msg); if (!cond) fails++; };

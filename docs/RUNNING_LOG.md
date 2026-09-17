@@ -481,3 +481,67 @@ looked like a palette bug.
 **Left clean:** all 151 staged files deleted, empty directories pruned, `git status` showing
 exactly one addition: `tools/morph_tuba_baseline.json`. **Pruned as empty and needed back in
 step 4:** `scores/` · `notation/ir/` · `sandbox/motives/`.
+
+
+## §14. PORT step 3 — the re-palette: 44 asserted edits, then 19 files of stragglers
+
+**The patch script refused to run, twice — which is the point of it.** It asserts the match
+count of every edit before it writes a byte (piece #5's own port script did the same, its
+§9). First run: *"REFUSED — 6 of 44 edits did not match. NOTHING WRITTEN."* Five of the six
+were multi-line blocks: **the working tree is CRLF** (git checked it out that way, and the
+tar copy carried the source's own endings), while the script's blocks were written with `
+`.
+The sixth was a real miscount — `Violin 2, Viola, Cello` occurs twice, not once. Fixed by
+translating each find/replace to the file's own endings (never the file to the script's), and
+by correcting the count. Second run: **44 edits, every count matched, 14 files written.**
+
+**Kind A — the palette proper.** `TRACKS` = the seven, in orchestral score order (P3), which
+also keeps the composer's three pairs adjacent — double reeds, brass, strings, with the
+percussionist between the brass and the strings. The seven lane labels, the track `<select>`,
+the three curve-window button titles (each replaced as ONE block: swapping label by label,
+Viola→Cello would then be found again by Cello→D. Bass), the abbreviation map
+(`eh · bsn · hn · tpt · perc · vc · db`), the title, the session default `septet` → `lgmf`
+(5 sites: the input, `sessionName`, `boundName`, three fallbacks), the comments that say which
+lane each curve window sits on (a comment that names a lane is a factual claim, not provenance
+— those had to move; comments that merely remember #5's instruments stayed).
+
+**P7, the warn — written because the lane COUNT cannot catch it.** #5's save is also seven
+lanes + META, so `layoutVersion` alone would let a Tempus score open here silently, every
+object one lane off into a different instrument. `restoreData` now compares the save's track
+IDS with this piece's and says so loudly. `layoutVersion` 5 → **6**.
+
+**Kind B — the per-instrument tables inside #5's tools**, all seven rewritten:
+`OPEN_STRINGS` (cello 36·43·50·57; double bass 28·33·38·43, sounding) · `STRIKE_DEFAULT` in two
+files · the `ART_SETS` spiccato / staccato maps · `beating_calc`'s `ORDER` and its breath / bow
+ceilings (the four winds breathe, the two strings bow, **percussion has neither and cannot
+bend — not a beating partner**, 0c to confirm) · three copies of the instrument-colour table,
+now one hue-family per PAIR (double reeds gold · brass blue · strings green · percussion
+neutral; the cello keeps #5's exact green) · `trill_engine`'s `STAND_IN` — every instrument
+stands in on the CELLO, because the trill-timing db carried from #5 holds violin1 · viola ·
+cello and the cello is this piece's only own row · `chord_run`'s alias table.
+
+**The straggler audit, and the rule it needed.** Grepping `5300 · 4800 · septet_rack · 'septet'
+· piece-septet` found three classes. Two were coincidence and left alone (`48000` sample rates;
+an SVG path in `glyphs.json` containing the digits 5300). The rest split on a rule worth
+writing down:
+
+> **A `piece-septet` that is a DEFAULT ARGUMENT or a WRITE GUARD becomes this piece's name —
+> it is a parameter. A `piece-septet` that is the FIXTURE a test reads stays, and goes to NITS.**
+
+The guards are why this matters: `cc7_ramp_test`, `cresc_test`, `piano_cues` and
+`piano_harmonics` each carry `if (/piece-septet/i.test(name) && !has('--force')) → refusing to
+write the piece file`. Left alone they would have guarded **#5's** file name and stood wide
+open over this piece's. 19 files rewritten: the four guards, the print checkers' `--ir`
+defaults, `build.sh`'s `IR=`, the capture / export / render defaults, the rack file name
+(`septet_rack.rpp` → `lgmf_rack.rpp`, 6 sites), and one user-facing error string in
+`morph_emit.js` that named the wrong port to unblock.
+
+**Afterwards:** `5300` outside the launch config — **0**. `septet_rack` — **0**. `'septet'` —
+**0**. `piece-septet` — only the eight test fixtures and two comments, by the rule above.
+Every changed file passes `node --check`.
+
+`.claude/launch.json` rewritten (it was the one config copied byte-exact, and its `score`
+entry still declared 5300 against a relative path — §12's note): `score` 5400 · `sandbox` 4900
+· `score-5401` for throwaway verification · **`tempus-5300`, which runs piece #5's server from
+its own folder**, so his two apps can sit side by side while that piece's performance score is
+still to come (D4's reason, now real).

@@ -14,7 +14,7 @@
 // geometry from Coords.zoomCfg (the app's own) rather than a hand-made one.
 //
 //   node tools/capture_lane.js --part vn1 --t 20.34 --span 20.05-20.95 \
-//        --out docs/notation_instructions/images/x.svg [--zoom 2] [--ir piece-septet]
+//        --out docs/notation_instructions/images/x.svg [--zoom 2] [--ir piece-lgmf]
 //
 //   --part   an index 0–6 or a name: fl bcl pno vn1 vn2 va vc
 //   --toPart crop a contiguous RANGE of lanes, --part through --toPart
@@ -48,7 +48,7 @@ const part = partArg(arg('part', '0'));
 const toPart = partArg(arg('toPart', String(part)));
 const t = parseFloat(arg('t', '0'));
 const [s0, s1] = arg('span', '0-10').split('-').map(Number);
-const irId = arg('ir', 'piece-septet');
+const irId = arg('ir', 'piece-lgmf');
 const out = arg('out', null);
 if (!out) { console.error('capture_lane: --out is required'); process.exit(1); }
 

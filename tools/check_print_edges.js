@@ -8,7 +8,7 @@
 // that keeps them resolved. An edge case is now a red line in the build, not
 // something found by paging through 68 sheets.
 //
-//   node tools/check_print_edges.js [--ir piece-septet] [--verbose]
+//   node tools/check_print_edges.js [--ir piece-lgmf] [--verbose]
 //
 // TWO PASSES, because the two faults live in different places.
 //
@@ -38,7 +38,7 @@ const os = require('os');
 const { spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-septet');
+const irId = arg('ir', 'piece-lgmf');
 const verbose = process.argv.includes('--verbose');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'printedges-'));
 const planFile = path.join(tmp, 'plan.json');

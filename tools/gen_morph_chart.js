@@ -14,13 +14,13 @@
 // Data measured from the save's morphBend curves — nothing typed in by hand.
 // Look: piece #4's gen_beating_chart.js (Georgia, ink / muted / grid, one accent).
 //
-//   node tools/gen_morph_chart.js [--score piece-septet] [--root 46]
+//   node tools/gen_morph_chart.js [--score piece-lgmf] [--root 46]
 //        [--out docs/notation_instructions/images/morph_sequence_chart.svg]
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const arg = (n, d) => { const i = process.argv.indexOf('--' + n); return i >= 0 ? process.argv[i + 1] : d; };
-const scoreId = arg('score', 'piece-septet');
+const scoreId = arg('score', 'piece-lgmf');
 const out = arg('out', 'docs/notation_instructions/images/morph_sequence_chart.svg');
 const FUND = parseInt(arg('root', '46'), 10);          // the panel's root for M2: A♯2 (RUNNING_LOG §465)
 const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', scoreId + '.json'), 'utf8'));

@@ -5,7 +5,7 @@
 //
 //   node tools/trill_conflicts.js [<ir-id>] [--list] [--left]
 //
-//   <ir-id>   default piece-septet (the MAIN file, D41)
+//   <ir-id>   default piece-lgmf (the MAIN file, D41)
 //   --list    one line per trill that meets something: its time, part, and each pair (← the other note is before it, → after)
 //   --left    lay the trills out LEFT of the go line (the pre-§452 rule) to compare
 //
@@ -20,7 +20,7 @@ const J = p => require(path.join(ROOT, p));
 const L = n => require(path.join(ROOT, 'notation/lib', n));
 const Layout = L('layout.js'), Coords = L('coords.js'), GC = L('gc.js');
 const glyphs = J('notation/lib/glyphs.json');
-const IR_ID = process.argv.slice(2).find(a => !a.startsWith('--')) || 'piece-septet';
+const IR_ID = process.argv.slice(2).find(a => !a.startsWith('--')) || 'piece-lgmf';
 const ir = JSON.parse(JSON.stringify(J('notation/ir/' + IR_ID + '.ir.json')));
 const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json');
 const C = JSON.parse(JSON.stringify(J('notation/registry/container.json')));

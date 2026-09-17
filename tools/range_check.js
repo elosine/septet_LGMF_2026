@@ -2,7 +2,7 @@
 // range_check.js — PLAN 0d (2026-09-06): the notes and trills of a score that fall outside their technique's range as the recipe
 // now knows it (the measured ranges applied by tools/apply_ranges.js) — the ones that play silent, or on a key with no sample.
 //
-//   node tools/range_check.js scores/piece-septet-work.json
+//   node tools/range_check.js scores/piece-lgmf-work.json
 'use strict';
 const fs = require('fs');
 const path = require('path');

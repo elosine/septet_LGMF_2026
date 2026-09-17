@@ -42,7 +42,7 @@ if (!g) {
 }
 
 function writeBack() {
-    if (/piece-septet/i.test(path.basename(file)) && !has('--force')) { console.error('refusing to write the piece file without --force'); process.exit(2); }
+    if (/piece-lgmf/i.test(path.basename(file)) && !has('--force')) { console.error('refusing to write the piece file without --force'); process.exit(2); }
     const m = raw.match(/^\{\r?\n( +)"/), indent = m ? m[1].length : 0;   // the app saves compact JSON; a pretty file stays pretty
     fs.writeFileSync(file, indent ? JSON.stringify(score, null, indent) : JSON.stringify(score));
 }

@@ -22,7 +22,7 @@
   else root.BeatingCalc = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
-  const ORDER = ['flute', 'bass_clarinet', 'piano', 'violin1', 'violin2', 'viola', 'cello'];   // D10 score order
+  const ORDER = ['english_horn', 'bassoon', 'horn', 'trumpet', 'percussion', 'cello', 'double_bass'];   // score order (P3)
   const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const noteName = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
   const midiHz = m => 440 * Math.pow(2, (m - 69) / 12);
@@ -280,8 +280,10 @@
   // the ceiling table — the winds' breath, the strings' bow — DEFAULTS, to be tuned by his ear (BEATING_TOOL §11); louder = shorter (the
   // tuba's rule, × 0.7 at the top); the winds re-enter after a gap, a bow changes without one
   const CEILINGS = {
-    flute: { breathS: 8, gapS: 0.5 }, bass_clarinet: { breathS: 10, gapS: 0.5 },
-    violin1: { bowS: 12, gapS: 0 }, violin2: { bowS: 12, gapS: 0 }, viola: { bowS: 12, gapS: 0 }, cello: { bowS: 10, gapS: 0 },
+    english_horn: { breathS: 8, gapS: 0.5 }, bassoon: { breathS: 10, gapS: 0.5 },
+    horn: { breathS: 8, gapS: 0.5 }, trumpet: { breathS: 8, gapS: 0.5 },
+    cello: { bowS: 10, gapS: 0 }, double_bass: { bowS: 8, gapS: 0 },
+    // percussion has neither breath nor bow and cannot bend — not a beating partner (0c to confirm)
   };
   function ceilingFor(inst, level) {
     const c = CEILINGS[inst] || { breathS: 8, gapS: 0.5 };

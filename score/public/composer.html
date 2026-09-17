@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Composer Score — septet 2026</title>
+<title>Composer Score — septet LGMF 2026</title>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -88,7 +88,7 @@
     }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
     #metaBtn.on, #curveBtnA.on, #curveBtnB.on, #curveBtnC.on, #pointsBtn.on { background: #8a6d3b; color: #fff; }
-    /* CURVE windows A / B / C (TRILLS_TOOL §3b, composer 2026-09-05): float exactly over Violin 2, Viola, Cello —
+    /* CURVE windows A / B / C (TRILLS_TOOL §3b, composer 2026-09-05): float exactly over Percussion, Cello, D. Bass —
        translucent, click-through except for their dots and lines; Points mode makes them catch clicks. */
     .curveLane { background: rgba(247,245,239,0.35); z-index: 39; display: none; border-top: 1px dashed; border-bottom: 1px dashed; pointer-events: none; }
     .curveLane.open { display: block; }
@@ -339,7 +339,7 @@
 <!-- Top Bar -->
 <div id="topBar">
     <label>Session:</label>
-    <input type="text" id="sessionName" value="septet" />
+    <input type="text" id="sessionName" value="lgmf" />
     <button id="saveBtn" title="Save (CTRL+S): write the file. Until then your edits live only in the working copy.">Save</button>
     <button id="versionBtn" title="Name version: save the file AND freeze a copy under a label you choose (1.5 &#8594; name-v1.5). A frozen copy is never overwritten.">Name version</button>
     <button id="reloadBtn" title="Reload: drop the unsaved edits and go back to the file as last saved.">Reload</button>
@@ -394,31 +394,31 @@
 <div id="laneContainer">
     <!-- 7 composing tracks: the septet in score order, top -> bottom (TRACKS below) -->
     <div class="lane" id="lane1">
-        <span class="laneLabel" title="Flute, doubling piccolo / bass flute (one player, one lane)">Flute</span>
+        <span class="laneLabel" title="English horn (in F)">Eng. Horn</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane2">
-        <span class="laneLabel" title="Bass clarinet">Bass Cl.</span>
+        <span class="laneLabel" title="Bassoon">Bassoon</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane3">
-        <span class="laneLabel">Piano</span>
+        <span class="laneLabel" title="Horn in F">Horn</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane4">
-        <span class="laneLabel">Violin 1</span>
+        <span class="laneLabel" title="Trumpet">Trumpet</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane5">
-        <span class="laneLabel">Violin 2</span>
+        <span class="laneLabel" title="Percussion — ONE player; the instrument in hand is a technique on this lane (P4)">Percussion</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane6">
-        <span class="laneLabel">Viola</span>
+        <span class="laneLabel" title="Cello">Cello</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane7">
-        <span class="laneLabel">Cello</span>
+        <span class="laneLabel" title="Double bass">D. Bass</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane metaLane" id="laneMeta">
@@ -454,13 +454,13 @@
     <input type="number" id="wcEndInput" value="10" step="0.01" min="0" />
     <label>Track:</label>
     <select id="wcLayerSelect">
-        <option value="0" selected>Flute</option>
-        <option value="1">Bass Cl.</option>
-        <option value="2">Piano</option>
-        <option value="3">Violin 1</option>
-        <option value="4">Violin 2</option>
-        <option value="5">Viola</option>
-        <option value="6">Cello</option>
+        <option value="0" selected>Eng. Horn</option>
+        <option value="1">Bassoon</option>
+        <option value="2">Horn</option>
+        <option value="3">Trumpet</option>
+        <option value="4">Percussion</option>
+        <option value="5">Cello</option>
+        <option value="6">D. Bass</option>
         <option value="7">META</option>
     </select>
     <button id="wcDrawBtn">Draw Curve</button>
@@ -493,9 +493,9 @@
     <button id="stampBtn">Stamp → META</button>
     <button id="cc7ResetBtn" title="All-notes-off + CC7=127 on every port/channel">CC7 Reset</button>
     <button id="metaBtn" title="Show/hide the META draw window — the gestures' shapes and the stamps">META</button>
-    <button id="curveBtnA" title="Show/hide curve window A (over Violin 2)">A</button>
-    <button id="curveBtnB" title="Show/hide curve window B (over Viola)">B</button>
-    <button id="curveBtnC" title="Show/hide curve window C (over Cello)">C</button>
+    <button id="curveBtnA" title="Show/hide curve window A (over Percussion)">A</button>
+    <button id="curveBtnB" title="Show/hide curve window B (over Cello)">B</button>
+    <button id="curveBtnC" title="Show/hide curve window C (over D. Bass)">C</button>
     <span style="color:#ccc">|</span>
     <select id="recLaneSel" title="record target part"></select>
     <select id="recTechSel" title="capture technique"></select>
@@ -1374,22 +1374,24 @@ function expandCellRef(cellDef, startMs, durationMs, behaviorOverrides) {
 // Track identity: by instrument, not position (see docs/PROJECT_JOURNAL.md saving protocol)
 // Septet (2026-09-03, journal D1/D6): seven DIFFERENT instruments, score order top -> bottom.
 // `instKey` names the recipe in sandbox/instruments.js; `short` is the stage-picture label.
-// The flute player is ONE track — piccolo / bass flute are switches on it (D6).
+// The percussionist is ONE track — the instrument in hand is a technique on it (P4; #5's D6 did
+// this for the flute's doubling). Order = orchestral score order (P3, #5's D10), which also keeps
+// the composer's three PAIRS adjacent: double reeds · brass · strings, percussion between them.
 const TRACKS = [
-    { id: 'flute',         label: 'Flute',    short: 'Fl',  instKey: 'flute' },
-    { id: 'bass_clarinet', label: 'Bass Cl.', short: 'BCl', instKey: 'bass_clarinet' },
-    { id: 'piano',         label: 'Piano',    short: 'Pno', instKey: 'piano' },
-    { id: 'violin1',       label: 'Violin 1', short: 'Vn1', instKey: 'violin1' },
-    { id: 'violin2',       label: 'Violin 2', short: 'Vn2', instKey: 'violin2' },
-    { id: 'viola',         label: 'Viola',    short: 'Va',  instKey: 'viola' },
-    { id: 'cello',         label: 'Cello',    short: 'Vc',  instKey: 'cello' },
+    { id: 'english_horn',  label: 'Eng. Horn',  short: 'EH',   instKey: 'english_horn' },
+    { id: 'bassoon',       label: 'Bassoon',    short: 'Bsn',  instKey: 'bassoon' },
+    { id: 'horn',          label: 'Horn',       short: 'Hn',   instKey: 'horn' },
+    { id: 'trumpet',       label: 'Trumpet',    short: 'Tpt',  instKey: 'trumpet' },
+    { id: 'percussion',    label: 'Percussion', short: 'Perc', instKey: 'percussion' },
+    { id: 'cello',         label: 'Cello',      short: 'Vc',   instKey: 'cello' },
+    { id: 'double_bass',   label: 'D. Bass',    short: 'Db',   instKey: 'double_bass' },
 ];
 
 // META drawing layer index (the floating draw window = lanes[META_LAYER]).
 // Septet layout (layoutVersion 3): META = 7. Piece #4 had META = 10 (v2), its v1 had 7.
 const META_LAYER = 7;
 // The META window (7) is the gestures' shapes and the stamps — not the curve path (CN-23). The three CURVE windows
-// A / B / C are layers 8 / 9 / 10 and float exactly over Violin 2, Viola and Cello (CN-24, TRILLS_TOOL §3b, RUNNING_LOG
+// A / B / C are layers 8 / 9 / 10 and float exactly over Percussion, Cello and D. Bass (CN-24, TRILLS_TOOL §3b, RUNNING_LOG
 // §107). Contract (NAMING §2.2): layers >= tracks.length are the META side — 7 META, 8–10 the reference curves
 // (waveCurve with curveName) and their pending dots (curveDot).
 const META_LAYERS = [7];
@@ -1401,7 +1403,7 @@ const HELD_LO = 65, HELD_HI = 127;   // a drawn sustained note's dynamic scale (
 const TRILL_SWITCH_LEAD_MS = 12;   // a plain note's CC0 next to a sounding trill on the same slot goes this late (= the engine's switch-back lead)
 const CURVE_NAMES = { 8: 'A', 9: 'B', 10: 'C' };
 const CURVE_COLORS = { 8: '#C2410C', 9: '#1D6FA5', 10: '#6D3B9E' };
-const CURVE_OVER = { 8: 4, 9: 5, 10: 6 };   // the lane each window sits on: Violin 2, Viola, Cello
+const CURVE_OVER = { 8: 4, 9: 5, 10: 6 };   // the lane each window sits on: Percussion, Cello, D. Bass
 
 const Composer = {
     // Shared color palette — workshop colors (from index.html --clr-* vars)
@@ -1431,8 +1433,8 @@ const Composer = {
     isPlaying: false,
     playStartTime: 0,
     playStartOffset: 0,
-    sessionName: 'septet',
-    boundName: 'septet',   // the file this session legitimately owns (set on load/save)
+    sessionName: 'lgmf',
+    boundName: 'lgmf',   // the file this session legitimately owns (set on load/save)
     isDirty: false,
     autoSaveTimer: null,
 
@@ -2430,7 +2432,7 @@ const Composer = {
         const stripEls = (key, val) => key === '_els' ? undefined : val;
         return JSON.parse(JSON.stringify({
             version: 1,
-            layoutVersion: 5,   // septet: 7 instrument lanes, META = 7, the curve windows A / B / C = 8 / 9 / 10 (v4: curves on 7–9 for one evening; v3: META alone; piece #4 v2: ten tubas, META 10)
+            layoutVersion: 6,   // LGMF: 7 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vc · Db), META = 7, the curve windows A / B / C = 8 / 9 / 10. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
             tracks: TRACKS,
             assets: this.assets || {},
             metadata: {
@@ -2468,6 +2470,14 @@ const Composer = {
             // Loaded anyway and SAID so — never silently dropped (AI_METHODOLOGY rule 3).
             const stray = this.objects.filter(o => o.layer > CURVE_LAYERS[CURVE_LAYERS.length - 1]).length;
             console.warn('[restoreData] layoutVersion 2 (ten-lane tuba save): ' + stray + ' object(s) sit above lane ' + META_LAYER + ' and will not render; convert before use');
+        }
+        // P7 (2026-09-17, the port): a save written for ANOTHER seven-lane ensemble — piece #5's
+        // Tempus septet is also seven lanes + META, so the lane COUNT cannot tell them apart.
+        // Key on the track ids, and SAY so; never a silent drop (AI_METHODOLOGY rule 3).
+        {
+            const mineIds = TRACKS.map(t => t.id).join(', ');
+            const theirIds = (data.tracks || []).map(t => t && t.id).join(', ');
+            if (theirIds && theirIds !== mineIds) console.warn('[restoreData] THIS SAVE WAS WRITTEN FOR A DIFFERENT ENSEMBLE — its tracks are [' + theirIds + '], this piece is [' + mineIds + ']. Objects keep their lane INDEX, so each one now sounds and notates as a different instrument. Convert before use.');
         }
         this.markers = (data.markers || []).map(m => { delete m._els; return m; });
         this.databases = data.databases || {};
@@ -3130,7 +3140,7 @@ const Composer = {
     // session stays in the working copy, which is discarded here so that "a -work file that differs
     // from its file" always means unsaved edits (server listScores / tools/unsaved_check.js).
     async saveSession(makeVersion = true) {
-        let base = this.pieceBase(this.sessionNameInput.value.trim() || 'septet');
+        let base = this.pieceBase(this.sessionNameInput.value.trim() || 'lgmf');
         if (base !== this.pieceBase(this.boundName || '')) {
             // a new name typed in the box = save as that name, never over an existing file
             const existing = await this.fetchSessionNames();
@@ -3170,7 +3180,7 @@ const Composer = {
 
     // D17: autosave writes the WORKING COPY only — the file is never touched by it
     async autosave() {
-        const base = this.pieceBase(this.sessionNameInput.value.trim() || 'septet');
+        const base = this.pieceBase(this.sessionNameInput.value.trim() || 'lgmf');
         const work = base + '-work';
         try {
             const r = await fetch('/api/composer/save', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -3336,7 +3346,7 @@ const Composer = {
 
     // the milestone: Save the file being edited AND freeze a copy under the composer's label
     async saveVersion() {
-        const cur = this.pieceBase(this.sessionNameInput.value.trim() || this.sessionName || 'septet');
+        const cur = this.pieceBase(this.sessionNameInput.value.trim() || this.sessionName || 'lgmf');
         const base = this.versionBase(cur);
         const all = (this._allScores || []).map(s => s.name);
         const label = prompt('Name this version of ' + base + ' (the file ' + cur + ' is saved too):', this.nextVersionLabel(base, all));
@@ -9774,7 +9784,7 @@ const Composer = {
     // the strikes never touched; one undo step
     // the articulations any lane offers, one entry per key, the lanes that have it named (the strings share theirs)
     attackBatchOptions() {
-        const ab = { flute: 'fl', bass_clarinet: 'bcl', piano: 'pf', violin1: 'vn1', violin2: 'vn2', viola: 'va', cello: 'vc' };
+        const ab = { english_horn: 'eh', bassoon: 'bsn', horn: 'hn', trumpet: 'tpt', percussion: 'perc', cello: 'vc', double_bass: 'db' };
         const byKey = new Map();
         for (let layer = 0; layer < META_LAYER; layer++) { const tr = TRACKS[layer]; const inst = this.trackInstrument(layer); if (!tr || !inst) continue;
             (inst.techniques || []).forEach(q => { const e = byKey.get(q.key) || { label: q.label, lanes: [] }; e.lanes.push(ab[tr.instKey] || tr.instKey); byKey.set(q.key, e); }); }
@@ -10763,7 +10773,7 @@ const Composer = {
     },
 
     // ========== CURVE WINDOWS A / B / C — points → fill → shape (TRILLS_TOOL §3b; CN-23, CN-24; RUNNING_LOG §107) ==========
-    // Three translucent windows float exactly over Violin 2, Viola and Cello (layers 8 / 9 / 10). A window can hold several
+    // Three translucent windows float exactly over Percussion, Cello and D. Bass (layers 8 / 9 / 10). A window can hold several
     // curves. The dots are the interface: Points places them (pending, `curveDot` objects on the timeline — they survive
     // scrolling and the save); Fill draws a line through the pending dots — a new curve when nothing is selected, more
     // nodes of the selected curve when one is; a filled curve's dots stay visible always: drag one to move it, double-click
@@ -11021,7 +11031,7 @@ const Composer = {
     },
 
     // ========== TRILL ZONE DECOR — phase 3 (CN-26, CN-27; RUNNING_LOG §109) ==========
-    // The zone draws the curve it reads over its own span as a translucent fill (on Violin 2 / Viola / Cello it sits on the
+    // The zone draws the curve it reads over its own span as a translucent fill (on Percussion / Cello / D. Bass it sits on the
     // very curve; elsewhere it carries the shape), redrawn when the zone moves or its source curve changes; `1 2 3` on the
     // zone choose curve A / B / C (the chosen one lit; the lit one again → auto). The panel opens on P only.
     renderTrillFill(zone, g, x, w, ry, rh) {

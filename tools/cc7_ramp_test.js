@@ -36,7 +36,7 @@ const LEN = +flag('--len', 10);                 // the ramp, seconds
 const GAP = +flag('--gap', 3);                  // silence between columns, longer than any tail
 const NB = Math.max(2, +flag('--breaths', 3));  // how many notes share the ramp in columns 4 and 5
 const out = path.join(ROOT, 'scores', name + '.json');
-if (/piece-septet/i.test(name) && !has('--force')) { console.error('refusing to write the piece file'); process.exit(2); }
+if (/piece-lgmf/i.test(name) && !has('--force')) { console.error('refusing to write the piece file'); process.exit(2); }
 
 // the seven players, read from the app itself so this cannot drift from the score
 const recipe = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});

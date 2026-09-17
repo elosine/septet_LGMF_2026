@@ -10,7 +10,9 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
   const WINDOW = 0.05;
-  const STAND_IN = { violin2: 'violin1' };   // the same library — until an instrument has samples of its own
+  // Every instrument stands in on the CELLO until it has measured trills of its own: the timing db
+  // carried from piece #5 holds violin1 · viola · cello, and the cello is this piece's only own row.
+  const STAND_IN = { english_horn: 'cello', bassoon: 'cello', horn: 'cello', trumpet: 'cello', percussion: 'cello', double_bass: 'cello' };
 
   // the table for an instrument, or a stand-in (violin 1's timing is pitch-agnostic and serves everyone until
   // the flute, bass clarinet and piano are sampled — the panel says so)
@@ -18,7 +20,7 @@
     if (!db || !db.instruments) return null;
     const ins = db.instruments;
     const key = ins[instKey] ? instKey : (STAND_IN[instKey] && ins[STAND_IN[instKey]]) ? STAND_IN[instKey]
-      : ins.violin1 ? 'violin1' : Object.keys(ins)[0];
+      : ins.cello ? 'cello' : Object.keys(ins)[0];
     return key ? { key, table: ins[key], standIn: key !== instKey } : null;
   }
 

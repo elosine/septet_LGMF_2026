@@ -53,7 +53,7 @@ const ROW_COLORS = ['#c9a8ff', '#ffb347', '#7ec9a8'];
 // ranges as coloured columns at the left ("each in its own column on the keyboard. There's room to the left of the circle note
 // indicators"), then the C labels, the note names, the keys, the chord's dots, the pairs' rings
 const KB = { w: 236, top: 18, colX: 6, colGap: 6, colW: 3, cX: 40, nameX: 72, keyX: 76, whiteW: 90, blackW: 54, dotX: 152, ringX: 176 };
-const INST_COL = { flute: '#ffd479', bass_clarinet: '#e08a8a', violin1: '#8ea9c9', violin2: '#69b7c9', viola: '#b58ec9', cello: '#7ec9a8' };
+const INST_COL = { english_horn: '#ffd479', bassoon: '#e0a86a', horn: '#8ea9c9', trumpet: '#69b7c9', percussion: '#b0b0b8', cello: '#7ec9a8', double_bass: '#5fae8c' };   // one hue-family per PAIR: double reeds gold · brass blue · strings green · percussion neutral
 const SEED_KEEP = 8;   // the strikes drawer's U8: the last seeds as chips
 const VOICING_DEFAULTS = () => ({ preset: 'original', seed: 1, oct: 0, below: 0, above: 0, hist: [] });
 // the sequence (2026-09-07, the composer: "a length for the entire sequence and a play for the entire sequence … for each pair, there

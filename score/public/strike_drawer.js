@@ -58,17 +58,19 @@ const PC_PALETTE = ['#ffd479', '#7ec9a8', '#8ea9c9', '#c98a8a', '#b58ec9', '#d4c
                     '#69b7c9', '#c9986e', '#96c96e', '#c96ea8', '#8a8ac9', '#e0e0e0'];
 const nm = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const SEED_KEEP = 8;   // U8: how many earlier seeds each random button keeps as chips
-const OPEN_STRINGS = { violin1: [55, 62, 69, 76], violin2: [55, 62, 69, 76], viola: [48, 55, 62, 69], cello: [36, 43, 50, 57] };
+const OPEN_STRINGS = { cello: [36, 43, 50, 57], double_bass: [28, 33, 38, 43] };   // SOUNDING pitch; the bass sounds an octave below its written part
 const PLAIN_PREF = ['ord', 'main', 'senza_vel', 'senza_mw', 'staccato'];
-// U2 (composer, 2026-09-04): the default articulation of a strike — flute pizzicato (the written tongue
-// ram), bass clarinet slap, violins Bartók, viola / cello gettato; the piano as it is; all at 127
-const STRIKE_DEFAULT = { flute: 'pizzicato', bass_clarinet: 'slap', violin1: 'bartok_vel', violin2: 'bartok_vel', viola: 'gettato_vel', cello: 'gettato_vel', piano: 'main' };
+// The default articulation of a strike. PROVISIONAL for this piece (the port, 2026-09-17): the winds and
+// brass have no percussive voice in the placeholder recipes yet, so they take their plain 'ord'; the cello
+// keeps #5's gettato, the bass takes Bartók, the percussionist strikes. Revisit at 0c with the real
+// recipes — tools/palette_check.js asserts every key named here exists in the recipe file.
+const STRIKE_DEFAULT = { english_horn: 'ord', bassoon: 'ord', horn: 'ord', trumpet: 'ord', percussion: 'hit', cello: 'gettato_vel', double_bass: 'bartok_vel' };
 // §377 (composer, 2026-09-10 — STRIKES_TOOL §AB1-b/-c): named sets for the seven rows, one click each. `percussive` IS STRIKE_DEFAULT
 // and stays the default; spiccato has no flute or bass-clarinet voice, so those two take their plain staccato.
 const ART_SETS = {
     percussive: STRIKE_DEFAULT,
-    spiccato: { flute: 'staccato', bass_clarinet: 'stac_vel', violin1: 'spicc_vel', violin2: 'spicc_vel', viola: 'spicc_vel', cello: 'spicc_vel', piano: 'main' },
-    staccato: { flute: 'staccato', bass_clarinet: 'stac_vel', violin1: 'stac_vel', violin2: 'stac_vel', viola: 'stac_vel', cello: 'stac_vel', piano: 'main' },
+    spiccato: { english_horn: 'staccato', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'hit', cello: 'spicc_vel', double_bass: 'spicc_vel' },
+    staccato: { english_horn: 'staccato', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'hit', cello: 'stac_vel', double_bass: 'stac_vel' },
 };
 
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }

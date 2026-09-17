@@ -22,7 +22,7 @@ const E_ = () => (typeof MorphEmit !== 'undefined') ? MorphEmit : (root.MorphEmi
 const TRK = () => (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
 const INST = () => (typeof INSTRUMENTS !== 'undefined') ? INSTRUMENTS : (root.INSTRUMENTS || {});
 const AC = () => (typeof AccelCalc !== 'undefined') ? AccelCalc : (root.AccelCalc || null);
-const INST_COL = { flute: '#ffd479', bass_clarinet: '#e08a8a', piano: '#e8cf9a', violin1: '#8ea9c9', violin2: '#69b7c9', viola: '#b58ec9', cello: '#7ec9a8' };
+const INST_COL = { english_horn: '#ffd479', bassoon: '#e0a86a', horn: '#8ea9c9', trumpet: '#69b7c9', percussion: '#b0b0b8', cello: '#7ec9a8', double_bass: '#5fae8c' };
 const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const nm = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');

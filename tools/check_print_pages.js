@@ -7,7 +7,7 @@
 // samples and reach the jury unseen. This walks the whole render and asserts the
 // same handful of things about each page, then reports the outliers.
 //
-//   node tools/check_print_pages.js [--ir piece-septet] [--verbose]
+//   node tools/check_print_pages.js [--ir piece-lgmf] [--verbose]
 //
 // Per page: seven part labels · eight system groups (the piano is two staves) ·
 // two brackets and one brace · a time ruler with ticks · a folio · nothing
@@ -20,7 +20,7 @@ const os = require('os');
 const { spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-septet');
+const irId = arg('ir', 'piece-lgmf');
 const verbose = process.argv.includes('--verbose');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'printpages-'));
 const html = path.join(tmp, 'all.html');

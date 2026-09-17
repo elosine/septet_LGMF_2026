@@ -1,5 +1,5 @@
 // Composer score server — septet 2026 (ported from piece #4, 2026-09-03; journal D1/D5)
-// Zero-dependency Node http server. Port 5300.
+// Zero-dependency Node http server. Port 5400.
 //
 // Saving protocol (D17, composer 2026-09-04 — docs/NAMING.md §1, RUNNING_LOG §68):
 //   - The file: scores/<name>.json — changes ONLY on an explicit Save (button / CTRL+S).
@@ -16,11 +16,11 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');   // PLAN 1c: /api/strikes/ingest runs tools/strike_db.js
 
-// 5300 is THE port — every doc, bookmark and launch config says so, and the
+// 5400 is THE port — every doc, bookmark and launch config says so, and the
 // default is unchanged. The override exists only so a second, throwaway instance
 // can be started for verification while the composer's own server keeps running
-// on 5300 (two agents share this tree). Never use it for real work.
-const PORT = Number(process.env.PORT) || 5300;
+// on 5400 (two agents share this tree). Never use it for real work.
+const PORT = Number(process.env.PORT) || 5400;
 const ROOT = __dirname;                                   // score/
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const DOCS_DIR = path.join(ROOT, '..', 'docs');           // serves /docs/instrument_map.json
@@ -1158,6 +1158,6 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`Composer score (septet 2026) at http://localhost:${PORT}/composer.html`);
+    console.log(`Composer score (septet LGMF 2026) at http://localhost:${PORT}/composer.html`);
     console.log(`Scores: ${SCORES_DIR}`);
 });

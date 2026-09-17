@@ -25,7 +25,7 @@ const shapes = String(flag('--shapes', 'surge,line,bloom')).split(',').map(s => 
 const ratio = +flag('--ratio', 5);
 const gap = +flag('--gap', 2);                    // the rest between columns, seconds (longer than nothing bleeds into the next)
 const out = path.join(ROOT, 'scores', name + '.json');
-if (/piece-septet/i.test(name) && !has('--force')) { console.error('refusing to write the piece file'); process.exit(2); }
+if (/piece-lgmf/i.test(name) && !has('--force')) { console.error('refusing to write the piece file'); process.exit(2); }
 
 const recipe = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
 const html = fs.readFileSync(path.join(ROOT, 'score/public/composer.html'), 'utf8');

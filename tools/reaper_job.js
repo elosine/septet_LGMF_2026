@@ -9,7 +9,7 @@
 //   node tools/reaper_job.js save                            # save the project (the composer's CTRL+S)
 //   node tools/reaper_job.js chunk "Flute SI2" [out.txt]     # a track's state chunk (the plugin state inside)
 //   node tools/reaper_job.js transport play|stop|record|pause · marker "name" [pos] · arm "<track>" on|off · reload
-//   Runtime: %APPDATA%\REAPERridge (or $REAPER_BRIDGE); the project guard: $REAPER_PROJECT (default septet_rack).
+//   Runtime: %APPDATA%\REAPERridge (or $REAPER_BRIDGE); the project guard: $REAPER_PROJECT (default lgmf_rack).
 //
 // The job is written atomically into reaper/bridge/inbox/ (temp name, then rename) so the bridge
 // never reads a half file; the answer is awaited in reaper/bridge/outbox/ (default 20 s).
@@ -22,7 +22,7 @@ const ROOT = path.resolve(__dirname, '..');
 const B = process.env.REAPER_BRIDGE || path.join(process.env.APPDATA || path.join(require('os').homedir(), 'AppData', 'Roaming'), 'REAPER', 'bridge');
 const INBOX = path.join(B, 'inbox'), OUTBOX = path.join(B, 'outbox'), HEART = path.join(B, 'heartbeat.json');
 // a project guard: refuse to send when another project is open (set per repo; '' = any)
-const EXPECT_PROJECT = process.env.REAPER_PROJECT || 'septet_rack';
+const EXPECT_PROJECT = process.env.REAPER_PROJECT || 'lgmf_rack';
 const args = process.argv.slice(2);
 const cmd = args[0];
 const luaStr = s => '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"';

@@ -12,7 +12,7 @@
 // What must agree is the FRAME — which systems are drawn, and how much ink is in
 // each. So: same system list, same element census per system, same furniture.
 //
-//   node tools/check_print_frame.js [--ir piece-septet] [--at 100,250,380,530] [--sec 12]
+//   node tools/check_print_frame.js [--ir piece-lgmf] [--at 100,250,380,530] [--sec 12]
 //
 // --sec 12 makes both tools plan the same pages (the video's page length), so a
 // given moment lands on the same page index in both. The windows still differ by
@@ -25,7 +25,7 @@ const ROOT = path.join(__dirname, '..');
 const Splice = require(path.join(ROOT, 'notation', 'lib', 'splice.js'));
 
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-septet');
+const irId = arg('ir', 'piece-lgmf');
 const sec = arg('sec', '12');
 const ats = (arg('at', '100,250,380,530') || '').split(',').filter(Boolean).map(Number);
 const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'printframe-'));

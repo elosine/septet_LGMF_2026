@@ -4,7 +4,7 @@
 #
 # THE CHAIN, and the step that is easy to miss:
 #
-#     scores/piece-septet.json --(notate_section)--> notation/ir/piece-septet.ir.json --(export_print)--> PDF
+#     scores/piece-lgmf.json --(notate_section)--> notation/ir/piece-lgmf.ir.json --(export_print)--> PDF
 #                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
 #     The print score is drawn from the IR, NOT from the save file. Edit the
 #     score, re-run export_print alone, and you render the OLD notation with no
@@ -29,7 +29,7 @@
 set -e
 cd "$(dirname "$0")/../.."
 OUT=print/score/Scattered-Substance-score-JYang.pdf
-IR=piece-septet
+IR=piece-lgmf
 
 REBUILD=0
 PROOF=0

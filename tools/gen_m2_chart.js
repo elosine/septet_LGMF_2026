@@ -4,7 +4,7 @@
 // per voice, the voices already on the series holding. Session 14, 2026-09-16
 // (RUNNING_LOG §571–§574).
 //
-// DATA: the MAIN IR's D45 morph headers (notation/ir/piece-septet.ir.json), i.e.
+// DATA: the MAIN IR's D45 morph headers (notation/ir/piece-lgmf.ir.json), i.e.
 // the save's truth through the extractor — nothing typed in by hand. The sounding
 // pitch is the header's q (midi × 2; the spelling can be the written, transposed
 // form), the travel its travelC and dir. The partial numbers are found against
@@ -12,13 +12,13 @@
 // LOOK: the tuba's beating chart (gen_beating_chart.js): Georgia, ink / muted /
 // grid greys, letter-spaced headers, one orange accent.
 //
-//   node tools/gen_m2_chart.js [--ir piece-septet] [--root 46]
+//   node tools/gen_m2_chart.js [--ir piece-lgmf] [--root 46]
 //        [--out docs/notation_instructions/images/m2_spectral_chart.svg]
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const arg = (n, d) => { const i = process.argv.indexOf('--' + n); return i >= 0 ? process.argv[i + 1] : d; };
-const irId = arg('ir', 'piece-septet');
+const irId = arg('ir', 'piece-lgmf');
 const out = arg('out', 'docs/notation_instructions/images/m2_spectral_chart.svg');
 const FUND = parseInt(arg('root', '46'), 10);
 const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', irId + '.ir.json'), 'utf8'));

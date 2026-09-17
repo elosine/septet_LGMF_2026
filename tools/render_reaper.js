@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // render_reaper.js — the Reaper render of the composer's own playback, through the bridge, never touching the rack (RUNNING_LOG §453).
 //
-//   node tools/render_reaper.js [--score piece-septet] [--peak -1] [--tail 6] [--skip-render] [--resume]
+//   node tools/render_reaper.js [--score piece-lgmf] [--peak -1] [--tail 6] [--skip-render] [--resume]
 //   --resume: the render tab is already open and set up (e.g. a job outlived its timeout) — check it, then render, close, measure
 //
 // Needs: node tools/export_midi.js first (midi/<score>/NN <track>.mid) · Reaper open with the bridge alive (reaper/bridge/README.md).
 //
-// 1. reaper/septet_rack.rpp → reaper/<score>_render.rpp (a copy; the rack itself is never opened for writing — and refused if it has
+// 1. reaper/lgmf_rack.rpp → reaper/<score>_render.rpp (a copy; the rack itself is never opened for writing — and refused if it has
 //    unsaved changes, because the copy would miss them).
 // 2. A NEW project tab opens the copy. In it: tempo 60 BPM (the files are 60 BPM / 960 PPQ), each part's MIDI file on the track of
 //    the SAME NAME at 0:00 (the n-th file of a name on the n-th track of that name — piece #4's trap was a positional drop), the render
@@ -34,12 +34,12 @@ const path = require('path');
 const { execFileSync, spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const score = arg('score', 'piece-septet');
+const score = arg('score', 'piece-lgmf');
 const PEAK = +arg('peak', -1), TAIL = +arg('tail', 6);
 const MIDIDIR = arg('dir', null), ONLY = arg('only', null), NAME = arg('out', score), END_ARG = arg('end', null);
 const WINDOW = arg('gainWindow', null) ? arg('gainWindow').split('-').map(Number) : null;
 if ((MIDIDIR || ONLY) && NAME === score) { console.error('RENDER REFUSED: a demo render (--dir/--only) needs --out <another name> — it would overwrite notation/audio/' + score + '.wav'); process.exit(2); }
-const RACK = path.join(ROOT, 'reaper', 'septet_rack.rpp');
+const RACK = path.join(ROOT, 'reaper', 'lgmf_rack.rpp');
 const RPP = path.join(ROOT, 'reaper', NAME + '_render.rpp');
 const RAWDIR = path.join(ROOT, 'notation', 'audio', 'raw');
 const RAW = path.join(RAWDIR, NAME + '-float.wav');
@@ -50,7 +50,7 @@ const log = s => console.log(s);
 const B = process.env.REAPER_BRIDGE || path.join(process.env.APPDATA, 'REAPER', 'bridge');
 // reaper_job.js guards on the project name; this tool moves between the rack and the render tab, so the guard is the project that
 // is open NOW, and every job that must act on one project checks the path itself
-function openProjectStem() { const h = heartbeat(); return (h && h.project) ? path.basename(h.project, path.extname(h.project)) : 'septet_rack'; }
+function openProjectStem() { const h = heartbeat(); return (h && h.project) ? path.basename(h.project, path.extname(h.project)) : 'lgmf_rack'; }
 function job(lua, timeoutMs = 20000) {
   const r = spawnSync(process.execPath, [path.join(__dirname, 'reaper_job.js'), '-e', lua],
     { encoding: 'utf8', env: Object.assign({}, process.env, { REAPER_PROJECT: openProjectStem(), BRIDGE_TIMEOUT_MS: String(timeoutMs) }), timeout: timeoutMs + 10000 });
@@ -83,7 +83,7 @@ const { PLACE_LUA, writeEvt } = require('./reaper_midi_place.js');   // the one 
     const st = job(`local _, p = reaper.EnumProjects(-1, '') return { path = p, dirty = reaper.IsProjectDirty(0) }`);
     if (RESUME && String(st.path).toLowerCase() !== RPP.toLowerCase()) throw new Error('--resume: the current tab is ' + st.path + ', not the render project');
     if (!RESUME) {
-    if (/septet_rack\.rpp$/i.test(st.path) && st.dirty) throw new Error('the rack has unsaved changes — save it in Reaper first (the render copies the file)');
+    if (/lgmf_rack\.rpp$/i.test(st.path) && st.dirty) throw new Error('the rack has unsaved changes — save it in Reaper first (the render copies the file)');
     fs.copyFileSync(RACK, RPP);
     fs.mkdirSync(RAWDIR, { recursive: true });
     try { fs.unlinkSync(RAW); } catch (e) { }
