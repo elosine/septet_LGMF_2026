@@ -752,3 +752,104 @@ instruments) · **a B♭ trumpet part** if he wants one (transpose 2; the librar
 (LG-3) as a new animated-object kind · **the bouncing balls per player in their own tempo**
 (LG-5 — the GC arcs exist and are the starting point) · **the presentation score's pitch form**
 (above).
+
+
+## §18. PORT step 7 — PLAN 0i: the save → IR contract, proved on a Lake George save
+
+**The first attempt failed, and the failure is the finding.** A 30-second test save was built in
+the running app with an object shape written from memory — `{ t0, t1, nodes: [{t, v}] }` — and
+`notate_section` rejected every one of its eleven objects:
+
+```
+--complete: S1 object wc-1 (layer 0, t=undefined) has no event in this document
+```
+
+**`t=undefined` eleven times.** The extractor could not see a single note. This is exactly what
+0i exists to catch: the IR is DERIVED from the save, so the save's shape is the only thing that
+can bite later, and a shape that looks plausible is worth nothing.
+
+**Fixed by reading the ground truth instead of guessing again** — piece #5's own proof save
+(`scores/0i-test-b.json`, from its HEAD, read-only). The app's real insert-time shape:
+
+```json
+{"id":"wc-2","type":"waveCurve","layer":0,"startSeconds":1,"endSeconds":3,
+ "nodes":[{"pos":0,"y":6,"smooth":0.25},{"pos":1,"y":6,"smooth":0.25}],
+ "segments":[{"model":"power","slope":0}],"color":"#5E8C7A","fillMode":"bottom",
+ "opacity":0.55,"srcKind":"blast","sonifyNote":72,"technique":"ord",
+ "sonifyMode":"plain","recVel":100}
+```
+
+`startSeconds` / `endSeconds`, not `t0`/`t1`; nodes are **normalized** — `pos` 0…1 across the
+object and `y` the value — with one `segment` per gap; a marker is
+`{type:'marker', time, label}`. Rebuilt in that shape and saved through the app's own
+`collectData()` and the server's own save path (never a hand-written file — #5 §10 and §13).
+
+**`scores/0i-test.json`** — 12 objects over 30 s on four lanes + META: the **english horn**
+(an `ord` at E4, an `ord` at G4 carrying a three-node crescendo envelope, a `staccato` at C5) ·
+the **trumpet** (five staccati at 12.00 / 12.25 / 12.50 / 12.75 / 13.00 s under one `groupId`,
+with the gesture's META shape on layer 7) · the **double bass** (a seven-second `ord` on
+sounding E2, a short `staccato` on A1) · the **cello** (a three-second `ord`) · a marker
+`ACT-lgmf-0i`.
+
+**The extraction:**
+
+```
+GEOMETRY: clean (brackets, dynamics, accents, stem sides)
+READY: lgmf-0i — 11 events, 7 chunks {"unresolved":6,"simple-bar":1} · VALID vs source · in the picker
+```
+
+and then, as an independent process, `ir_validate.js notation/ir/lgmf-0i.ir.json
+--against-source --complete` → **`VALID (11 events, 7 chunks, 0 overlays; against-source
+checked; completeness checked)`**. *(The validator takes a PATH, not an id — #5's §12 correction,
+which held.)*
+
+**The five-note trumpet run was promoted and fitted as ONE `simple-bar`** — the same
+segmentation-by-behaviour that fitted #5's five-note violin run at its own 0i, working unchanged
+on this piece's material. The IR holds **sounding** pitch throughout (64 · 67 · 72 · 67 · 69 ·
+71 · 72 · 74 · 40 · 48 · 33), as the contract requires.
+
+**Seven warnings, every one expected and correct:** `no staccato sample length for midi 72 …
+using drawn length`. `staccato` is precisely the row dropped at step 4 because it had been
+measured on piece #5's FLUTE. The extractor falls back to the drawn length and says so — the
+designed behaviour, and the same shape of warning #5 saw at its own 0i.
+
+### The written pitch, proved through the engine's own resolver
+
+Looking at the page is not proof that a transposition is applied; it is proof that something was
+drawn. So the check went through `Layout.positionResolver(ens)` — **the same mechanism piece #5's
+`test_septet_notation` uses for its bass clarinet** — which returns the staff position in
+staff-spaces:
+
+| part | sounding | ySs | reads as |
+|---|---|---|---|
+| english horn | E4 (64) | **0** | written B4, the treble middle line |
+| english horn | G4 (67) | **1** | written D5 |
+| horn | C4 (60) | **−1** | written G4 — the manual's "a perfect fifth higher" |
+| double bass | E2 (40) | **0.5** | written E3, a space above the bass middle line |
+| double bass | E1 (28) | **−3** | its lowest string, written E2 |
+| bassoon | D3 (50) | **0** | untransposed, the bass middle line |
+| trumpet in C | B4 (71) | **0** | untransposed, the treble middle line |
+| cello | D3 (50) | **0** | untransposed |
+
+**And the control, which is what makes it a proof:** with the english horn's `transpose` deleted
+from a copy of the registry, sounding E4 falls to ySs **−2** instead of 0 — so the shift is
+really being applied, not merely declared.
+
+**One case failed first, and it was mine, not the engine's.** I expected the double bass's E1 at
+−2.5; the engine said −3. The engine is right: the bass staff's bottom line is G2 at −2, so F2 is
+−2.5 and E2 is −3. Corrected after checking the engine's answer independently, not by moving the
+expectation to fit. *(Principle 15's cousin: when a measurement and an assertion disagree,
+find out which one is wrong before editing either.)*
+
+**Kept as this piece's first own battery: `tools/test_written_pitch.js`** — eight cases and the
+control. Piece #5's `test_septet_notation` asserts ITS ensemble (a B♭ bass clarinet, a grand
+staff) and cannot be carried; this keeps the one part of it that is about THIS ensemble, by the
+same method. The rest of that battery is rewritten at 2a.
+
+**In the notation app:** `notation/ir/index.json` lists the page (written by `notate_section`),
+the picker shows `lgmf-0i (trance)`, the parts menu reads **EH · Bsn · Hn · Tpt · Perc · Vc · Db**,
+and the page renders on seven staves with the english horn's three notes and its crescendo,
+no errors beyond the in-app browser's Web MIDI denial.
+
+**Kept as evidence** (as #5 kept its own): `scores/0i-test.json` and
+`notation/ir/lgmf-0i.ir.json`.
