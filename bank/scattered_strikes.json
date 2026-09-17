@@ -1,0 +1,14 @@
+{
+ "type": "scattered_strike_db",
+ "version": 1,
+ "created": "2026-09-17",
+ "description": "The strike bank — EMPTY. In piece #5 this held the composer's own recorded piano strikes, the seed of that piece's opening. This piece has no piano and no recording yet; the drawer and tools/strike_db.js read this file and work from an empty bank.",
+ "_provenance": "Skeleton written by the port, 2026-09-17 (PLAN 0b step 4). Shape from piece #5; all 46 of its strikes and 1 sequence(s) left behind — they are that piece's composition.",
+ "defaults": {
+  "strikeGapMs": 500,
+  "simultaneityMs": 60
+ },
+ "ingestions": [],
+ "sequences": {},
+ "strikes": {}
+}

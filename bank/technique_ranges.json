@@ -1,0 +1,2196 @@
+{
+ "measuredAt": "2026-09-06T14:50:45",
+ "wav": "01-REC-260906_1415.wav",
+ "windowS": 0.4,
+ "minDb": -70,
+ "weighting": "k",
+ "schedule": "probes/ranges_schedule.json",
+ "noiseFloorDb": -90,
+ "offsetS": 1.8,
+ "rule": "a key sounds if its onset is found and its flat level is above --min; the range = the lowest and highest sounding keys, the silent keys inside named",
+ "instruments": {
+  "cello": {
+   "bartok_vel": {
+    "label": "Cello",
+    "techLabel": "Bartok Pizzicato Velocity (#80)",
+    "cls": "one",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     37,
+     38,
+     39,
+     40,
+     41,
+     42,
+     43,
+     44,
+     45,
+     46,
+     47,
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57,
+     58,
+     59,
+     60,
+     61,
+     62,
+     63,
+     64,
+     65,
+     66,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 71,
+    "silent": [
+     72,
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "gapsInside": [],
+    "ringMedianS": 0.96,
+    "ringMinS": 0.75,
+    "ringMaxS": 1.21,
+    "capped": 4,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -32.24,
+      "peakDb": -16.77,
+      "ringS": 0.88,
+      "ringCapped": false
+     },
+     "37": {
+      "found": true,
+      "dbK": -31.79,
+      "peakDb": -14.18,
+      "ringS": 0.97,
+      "ringCapped": false
+     },
+     "38": {
+      "found": true,
+      "dbK": -33.33,
+      "peakDb": -12.77,
+      "ringS": 0.94,
+      "ringCapped": false
+     },
+     "39": {
+      "found": true,
+      "dbK": -32.78,
+      "peakDb": -12.37,
+      "ringS": 0.83,
+      "ringCapped": false
+     },
+     "40": {
+      "found": true,
+      "dbK": -32.91,
+      "peakDb": -15.44,
+      "ringS": 1.05,
+      "ringCapped": true
+     },
+     "41": {
+      "found": true,
+      "dbK": -32.37,
+      "peakDb": -13.95,
+      "ringS": 0.97,
+      "ringCapped": false
+     },
+     "42": {
+      "found": true,
+      "dbK": -32,
+      "peakDb": -16.34,
+      "ringS": 1.17,
+      "ringCapped": true
+     },
+     "43": {
+      "found": true,
+      "dbK": -31.32,
+      "peakDb": -13.63,
+      "ringS": 1.09,
+      "ringCapped": false
+     },
+     "44": {
+      "found": true,
+      "dbK": -35.76,
+      "peakDb": -18.46,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "45": {
+      "found": true,
+      "dbK": -33.99,
+      "peakDb": -15.54,
+      "ringS": 0.88,
+      "ringCapped": false
+     },
+     "46": {
+      "found": true,
+      "dbK": -31.56,
+      "peakDb": -14.87,
+      "ringS": 0.91,
+      "ringCapped": false
+     },
+     "47": {
+      "found": true,
+      "dbK": -28.96,
+      "peakDb": -15.54,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "48": {
+      "found": true,
+      "dbK": -34.65,
+      "peakDb": -16.34,
+      "ringS": 0.99,
+      "ringCapped": false
+     },
+     "49": {
+      "found": true,
+      "dbK": -33.83,
+      "peakDb": -16.81,
+      "ringS": 1.06,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -31.9,
+      "peakDb": -15.87,
+      "ringS": 1,
+      "ringCapped": false
+     },
+     "51": {
+      "found": true,
+      "dbK": -28.74,
+      "peakDb": -12.4,
+      "ringS": 0.91,
+      "ringCapped": false
+     },
+     "52": {
+      "found": true,
+      "dbK": -28.63,
+      "peakDb": -14.11,
+      "ringS": 0.89,
+      "ringCapped": false
+     },
+     "53": {
+      "found": true,
+      "dbK": -31.7,
+      "peakDb": -15.87,
+      "ringS": 0.99,
+      "ringCapped": false
+     },
+     "54": {
+      "found": true,
+      "dbK": -30.95,
+      "peakDb": -18.54,
+      "ringS": 1,
+      "ringCapped": false
+     },
+     "55": {
+      "found": true,
+      "dbK": -32.4,
+      "peakDb": -18.34,
+      "ringS": 0.97,
+      "ringCapped": false
+     },
+     "56": {
+      "found": true,
+      "dbK": -32.62,
+      "peakDb": -16.68,
+      "ringS": 1.21,
+      "ringCapped": true
+     },
+     "57": {
+      "found": true,
+      "dbK": -34.44,
+      "peakDb": -16.41,
+      "ringS": 0.84,
+      "ringCapped": false
+     },
+     "58": {
+      "found": true,
+      "dbK": -33.04,
+      "peakDb": -16.74,
+      "ringS": 0.91,
+      "ringCapped": false
+     },
+     "59": {
+      "found": true,
+      "dbK": -25.74,
+      "peakDb": -15.18,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "60": {
+      "found": true,
+      "dbK": -29.13,
+      "peakDb": -14.69,
+      "ringS": 1.05,
+      "ringCapped": false
+     },
+     "61": {
+      "found": true,
+      "dbK": -34.66,
+      "peakDb": -15.88,
+      "ringS": 0.88,
+      "ringCapped": false
+     },
+     "62": {
+      "found": true,
+      "dbK": -35.72,
+      "peakDb": -19.29,
+      "ringS": 0.96,
+      "ringCapped": false
+     },
+     "63": {
+      "found": true,
+      "dbK": -29.57,
+      "peakDb": -16.32,
+      "ringS": 0.89,
+      "ringCapped": false
+     },
+     "64": {
+      "found": true,
+      "dbK": -29.47,
+      "peakDb": -14.87,
+      "ringS": 0.92,
+      "ringCapped": false
+     },
+     "65": {
+      "found": true,
+      "dbK": -32.4,
+      "peakDb": -15.05,
+      "ringS": 0.75,
+      "ringCapped": false
+     },
+     "66": {
+      "found": true,
+      "dbK": -31.12,
+      "peakDb": -14.26,
+      "ringS": 0.84,
+      "ringCapped": false
+     },
+     "67": {
+      "found": true,
+      "dbK": -32.25,
+      "peakDb": -17.38,
+      "ringS": 0.93,
+      "ringCapped": false
+     },
+     "68": {
+      "found": true,
+      "dbK": -31.88,
+      "peakDb": -16.76,
+      "ringS": 0.94,
+      "ringCapped": false
+     },
+     "69": {
+      "found": true,
+      "dbK": -33.69,
+      "peakDb": -14.82,
+      "ringS": 0.79,
+      "ringCapped": false
+     },
+     "70": {
+      "found": true,
+      "dbK": -30.75,
+      "peakDb": -16.87,
+      "ringS": 0.94,
+      "ringCapped": false
+     },
+     "71": {
+      "found": true,
+      "dbK": -34.67,
+      "peakDb": -14.87,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "72": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "73": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "74": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "75": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "76": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "77": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "78": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "79": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "80": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "81": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "82": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "83": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     }
+    }
+   },
+   "gettato_vel": {
+    "label": "Cello",
+    "techLabel": "Gettato Velocity (#21)",
+    "cls": "one",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     37,
+     38,
+     39,
+     40,
+     41,
+     42,
+     43,
+     44,
+     45,
+     46,
+     47,
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     54,
+     55,
+     56,
+     57,
+     58,
+     59,
+     60,
+     61,
+     62,
+     63,
+     64,
+     65,
+     66,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 76,
+    "silent": [
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "gapsInside": [],
+    "ringMedianS": 1.03,
+    "ringMinS": 0.84,
+    "ringMaxS": 1.25,
+    "capped": 12,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -29.06,
+      "peakDb": -15.05,
+      "ringS": 1.02,
+      "ringCapped": false
+     },
+     "37": {
+      "found": true,
+      "dbK": -32.27,
+      "peakDb": -18.79,
+      "ringS": 1.21,
+      "ringCapped": true
+     },
+     "38": {
+      "found": true,
+      "dbK": -32.76,
+      "peakDb": -18.79,
+      "ringS": 1.18,
+      "ringCapped": true
+     },
+     "39": {
+      "found": true,
+      "dbK": -32.39,
+      "peakDb": -19.07,
+      "ringS": 1.12,
+      "ringCapped": true
+     },
+     "40": {
+      "found": true,
+      "dbK": -30.9,
+      "peakDb": -16.6,
+      "ringS": 1.09,
+      "ringCapped": true
+     },
+     "41": {
+      "found": true,
+      "dbK": -30.43,
+      "peakDb": -17.3,
+      "ringS": 1.25,
+      "ringCapped": true
+     },
+     "42": {
+      "found": true,
+      "dbK": -29.75,
+      "peakDb": -17.71,
+      "ringS": 1.08,
+      "ringCapped": false
+     },
+     "43": {
+      "found": true,
+      "dbK": -30.28,
+      "peakDb": -14.56,
+      "ringS": 1.22,
+      "ringCapped": true
+     },
+     "44": {
+      "found": true,
+      "dbK": -29.29,
+      "peakDb": -12.91,
+      "ringS": 1.23,
+      "ringCapped": true
+     },
+     "45": {
+      "found": true,
+      "dbK": -33.13,
+      "peakDb": -18.04,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "46": {
+      "found": true,
+      "dbK": -34.59,
+      "peakDb": -19.26,
+      "ringS": 1.18,
+      "ringCapped": true
+     },
+     "47": {
+      "found": true,
+      "dbK": -31.12,
+      "peakDb": -16.89,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "48": {
+      "found": true,
+      "dbK": -34.28,
+      "peakDb": -19.87,
+      "ringS": 1.08,
+      "ringCapped": false
+     },
+     "49": {
+      "found": true,
+      "dbK": -29.93,
+      "peakDb": -16.35,
+      "ringS": 1.1,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -34.18,
+      "peakDb": -20.22,
+      "ringS": 1.15,
+      "ringCapped": true
+     },
+     "51": {
+      "found": true,
+      "dbK": -31.08,
+      "peakDb": -15.94,
+      "ringS": 0.99,
+      "ringCapped": false
+     },
+     "52": {
+      "found": true,
+      "dbK": -33.49,
+      "peakDb": -18.77,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "53": {
+      "found": true,
+      "dbK": -34.89,
+      "peakDb": -19.6,
+      "ringS": 1.02,
+      "ringCapped": false
+     },
+     "54": {
+      "found": true,
+      "dbK": -32.45,
+      "peakDb": -17.5,
+      "ringS": 1.18,
+      "ringCapped": true
+     },
+     "55": {
+      "found": true,
+      "dbK": -33.32,
+      "peakDb": -17.16,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "56": {
+      "found": true,
+      "dbK": -32.45,
+      "peakDb": -17.93,
+      "ringS": 1.02,
+      "ringCapped": false
+     },
+     "57": {
+      "found": true,
+      "dbK": -35.38,
+      "peakDb": -20.39,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "58": {
+      "found": true,
+      "dbK": -35.95,
+      "peakDb": -18.19,
+      "ringS": 0.94,
+      "ringCapped": false
+     },
+     "59": {
+      "found": true,
+      "dbK": -35.68,
+      "peakDb": -20.04,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "60": {
+      "found": true,
+      "dbK": -30.52,
+      "peakDb": -15.45,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "61": {
+      "found": true,
+      "dbK": -35.66,
+      "peakDb": -21.57,
+      "ringS": 0.97,
+      "ringCapped": false
+     },
+     "62": {
+      "found": true,
+      "dbK": -35.55,
+      "peakDb": -17.94,
+      "ringS": 0.85,
+      "ringCapped": false
+     },
+     "63": {
+      "found": true,
+      "dbK": -33.51,
+      "peakDb": -17.59,
+      "ringS": 1.07,
+      "ringCapped": true
+     },
+     "64": {
+      "found": true,
+      "dbK": -35.59,
+      "peakDb": -20.04,
+      "ringS": 1.07,
+      "ringCapped": false
+     },
+     "65": {
+      "found": true,
+      "dbK": -35.22,
+      "peakDb": -19.38,
+      "ringS": 0.86,
+      "ringCapped": false
+     },
+     "66": {
+      "found": true,
+      "dbK": -33.76,
+      "peakDb": -17.95,
+      "ringS": 0.87,
+      "ringCapped": false
+     },
+     "67": {
+      "found": true,
+      "dbK": -35.59,
+      "peakDb": -21.17,
+      "ringS": 0.97,
+      "ringCapped": false
+     },
+     "68": {
+      "found": true,
+      "dbK": -35.14,
+      "peakDb": -19.12,
+      "ringS": 0.98,
+      "ringCapped": false
+     },
+     "69": {
+      "found": true,
+      "dbK": -37.45,
+      "peakDb": -20.62,
+      "ringS": 0.87,
+      "ringCapped": false
+     },
+     "70": {
+      "found": true,
+      "dbK": -35.68,
+      "peakDb": -21.41,
+      "ringS": 0.89,
+      "ringCapped": false
+     },
+     "71": {
+      "found": true,
+      "dbK": -36.04,
+      "peakDb": -18.79,
+      "ringS": 0.99,
+      "ringCapped": false
+     },
+     "72": {
+      "found": true,
+      "dbK": -41.04,
+      "peakDb": -24.67,
+      "ringS": 1,
+      "ringCapped": false
+     },
+     "73": {
+      "found": true,
+      "dbK": -35.39,
+      "peakDb": -19.83,
+      "ringS": 0.96,
+      "ringCapped": false
+     },
+     "74": {
+      "found": true,
+      "dbK": -36.77,
+      "peakDb": -21.59,
+      "ringS": 0.84,
+      "ringCapped": false
+     },
+     "75": {
+      "found": true,
+      "dbK": -35.31,
+      "peakDb": -19.75,
+      "ringS": 0.86,
+      "ringCapped": false
+     },
+     "76": {
+      "found": true,
+      "dbK": -36.78,
+      "peakDb": -21.63,
+      "ringS": 0.87,
+      "ringCapped": false
+     },
+     "77": {
+      "found": false,
+      "dbK": -86.77,
+      "peakDb": -74.25,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "78": {
+      "found": false,
+      "dbK": -112.02,
+      "peakDb": -100.3,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "79": {
+      "found": false,
+      "dbK": -138.09,
+      "peakDb": -125.41,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "80": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "81": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "82": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     },
+     "83": {
+      "found": false,
+      "dbK": -180,
+      "peakDb": -180,
+      "ringS": null,
+      "ringCapped": null
+     }
+    }
+   },
+   "senza_vel": {
+    "label": "Cello",
+    "techLabel": "Senza Vibrato Velocity (#6)",
+    "cls": "sus",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50,
+     52,
+     54,
+     56,
+     58,
+     60,
+     62,
+     64,
+     66,
+     68,
+     70,
+     72,
+     74,
+     76,
+     78,
+     80,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 83,
+    "silent": [],
+    "gapsInside": [],
+    "ringMedianS": 0.85,
+    "ringMinS": 0.79,
+    "ringMaxS": 0.85,
+    "capped": 25,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -27.98,
+      "peakDb": -19.46,
+      "ringS": 0.79,
+      "ringCapped": true
+     },
+     "38": {
+      "found": true,
+      "dbK": -32.96,
+      "peakDb": -22.95,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "40": {
+      "found": true,
+      "dbK": -25.09,
+      "peakDb": -16.1,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "42": {
+      "found": true,
+      "dbK": -23.68,
+      "peakDb": -15.8,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "44": {
+      "found": true,
+      "dbK": -28.16,
+      "peakDb": -20.3,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "46": {
+      "found": true,
+      "dbK": -32.64,
+      "peakDb": -23.55,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "48": {
+      "found": true,
+      "dbK": -23.45,
+      "peakDb": -15.99,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -29.98,
+      "peakDb": -19.42,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "52": {
+      "found": true,
+      "dbK": -30.34,
+      "peakDb": -22.69,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "54": {
+      "found": true,
+      "dbK": -26.6,
+      "peakDb": -19.71,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "56": {
+      "found": true,
+      "dbK": -29.96,
+      "peakDb": -22.88,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "58": {
+      "found": true,
+      "dbK": -34.69,
+      "peakDb": -27.72,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "60": {
+      "found": true,
+      "dbK": -27.23,
+      "peakDb": -21.15,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "62": {
+      "found": true,
+      "dbK": -34.41,
+      "peakDb": -25,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "64": {
+      "found": true,
+      "dbK": -28.93,
+      "peakDb": -23.09,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "66": {
+      "found": true,
+      "dbK": -28.09,
+      "peakDb": -20.92,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "68": {
+      "found": true,
+      "dbK": -31.24,
+      "peakDb": -24.03,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "70": {
+      "found": true,
+      "dbK": -33.64,
+      "peakDb": -27.82,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "72": {
+      "found": true,
+      "dbK": -33.44,
+      "peakDb": -26.38,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "74": {
+      "found": true,
+      "dbK": -35.91,
+      "peakDb": -27.3,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "76": {
+      "found": true,
+      "dbK": -38.16,
+      "peakDb": -32.61,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "78": {
+      "found": true,
+      "dbK": -30.64,
+      "peakDb": -24.66,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "80": {
+      "found": true,
+      "dbK": -33.67,
+      "peakDb": -27.73,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "82": {
+      "found": true,
+      "dbK": -33.66,
+      "peakDb": -27.68,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "83": {
+      "found": true,
+      "dbK": -32.97,
+      "peakDb": -27.13,
+      "ringS": 0.85,
+      "ringCapped": true
+     }
+    }
+   },
+   "accent_senza_vel": {
+    "label": "Cello",
+    "techLabel": "Accent Senza Vibrato Velocity (#10)",
+    "cls": "sus",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50,
+     52,
+     54,
+     56,
+     58,
+     60,
+     62,
+     64,
+     66,
+     68,
+     70,
+     72,
+     74,
+     76,
+     78,
+     80,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 83,
+    "silent": [],
+    "gapsInside": [],
+    "ringMedianS": 0.85,
+    "ringMinS": 0.79,
+    "ringMaxS": 0.85,
+    "capped": 25,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -26.74,
+      "peakDb": -17.88,
+      "ringS": 0.79,
+      "ringCapped": true
+     },
+     "38": {
+      "found": true,
+      "dbK": -31.11,
+      "peakDb": -20.09,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "40": {
+      "found": true,
+      "dbK": -23.66,
+      "peakDb": -14.65,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "42": {
+      "found": true,
+      "dbK": -22.29,
+      "peakDb": -13.38,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "44": {
+      "found": true,
+      "dbK": -26.19,
+      "peakDb": -17.14,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "46": {
+      "found": true,
+      "dbK": -31.15,
+      "peakDb": -21.63,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "48": {
+      "found": true,
+      "dbK": -22.8,
+      "peakDb": -15.33,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -28.83,
+      "peakDb": -18.29,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "52": {
+      "found": true,
+      "dbK": -29.12,
+      "peakDb": -21.53,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "54": {
+      "found": true,
+      "dbK": -26.1,
+      "peakDb": -18.51,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "56": {
+      "found": true,
+      "dbK": -29.14,
+      "peakDb": -20.64,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "58": {
+      "found": true,
+      "dbK": -33.58,
+      "peakDb": -24.87,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "60": {
+      "found": true,
+      "dbK": -26.24,
+      "peakDb": -16.67,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "62": {
+      "found": true,
+      "dbK": -30.91,
+      "peakDb": -19.22,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "64": {
+      "found": true,
+      "dbK": -24.35,
+      "peakDb": -15.04,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "66": {
+      "found": true,
+      "dbK": -25.17,
+      "peakDb": -15.94,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "68": {
+      "found": true,
+      "dbK": -30.2,
+      "peakDb": -20.45,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "70": {
+      "found": true,
+      "dbK": -30.25,
+      "peakDb": -19.28,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "72": {
+      "found": true,
+      "dbK": -30.46,
+      "peakDb": -20.26,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "74": {
+      "found": true,
+      "dbK": -33.77,
+      "peakDb": -22.26,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "76": {
+      "found": true,
+      "dbK": -34.11,
+      "peakDb": -23.7,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "78": {
+      "found": true,
+      "dbK": -29.96,
+      "peakDb": -23.88,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "80": {
+      "found": true,
+      "dbK": -31.24,
+      "peakDb": -20.07,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "82": {
+      "found": true,
+      "dbK": -30.76,
+      "peakDb": -19.94,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "83": {
+      "found": true,
+      "dbK": -32.89,
+      "peakDb": -24.37,
+      "ringS": 0.85,
+      "ringCapped": true
+     }
+    }
+   },
+   "marcato_sfz_vel": {
+    "label": "Cello",
+    "techLabel": "Marcato sfz Velocity (#12)",
+    "cls": "sus",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50,
+     52,
+     54,
+     56,
+     58,
+     60,
+     62,
+     64,
+     66,
+     68,
+     70,
+     72,
+     74,
+     76,
+     78,
+     80,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 83,
+    "silent": [],
+    "gapsInside": [],
+    "ringMedianS": 0.85,
+    "ringMinS": 0.78,
+    "ringMaxS": 0.85,
+    "capped": 25,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -21.59,
+      "peakDb": -12.07,
+      "ringS": 0.78,
+      "ringCapped": true
+     },
+     "38": {
+      "found": true,
+      "dbK": -27.02,
+      "peakDb": -15.46,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "40": {
+      "found": true,
+      "dbK": -21.21,
+      "peakDb": -10.36,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "42": {
+      "found": true,
+      "dbK": -21.81,
+      "peakDb": -12.33,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "44": {
+      "found": true,
+      "dbK": -23.4,
+      "peakDb": -12.65,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "46": {
+      "found": true,
+      "dbK": -29.06,
+      "peakDb": -18.31,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "48": {
+      "found": true,
+      "dbK": -21.81,
+      "peakDb": -12.03,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -27.56,
+      "peakDb": -14.27,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "52": {
+      "found": true,
+      "dbK": -25.45,
+      "peakDb": -16.27,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "54": {
+      "found": true,
+      "dbK": -21.95,
+      "peakDb": -13.58,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "56": {
+      "found": true,
+      "dbK": -25.47,
+      "peakDb": -16.52,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "58": {
+      "found": true,
+      "dbK": -32.21,
+      "peakDb": -21.32,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "60": {
+      "found": true,
+      "dbK": -22.08,
+      "peakDb": -13.42,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "62": {
+      "found": true,
+      "dbK": -28.42,
+      "peakDb": -18.01,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "64": {
+      "found": true,
+      "dbK": -21.04,
+      "peakDb": -13.65,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "66": {
+      "found": true,
+      "dbK": -25.53,
+      "peakDb": -15.55,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "68": {
+      "found": true,
+      "dbK": -27.38,
+      "peakDb": -16.66,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "70": {
+      "found": true,
+      "dbK": -27.6,
+      "peakDb": -16.88,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "72": {
+      "found": true,
+      "dbK": -27.08,
+      "peakDb": -18.3,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "74": {
+      "found": true,
+      "dbK": -29.79,
+      "peakDb": -21.57,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "76": {
+      "found": true,
+      "dbK": -29.9,
+      "peakDb": -21.21,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "78": {
+      "found": true,
+      "dbK": -31.49,
+      "peakDb": -24.88,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "80": {
+      "found": true,
+      "dbK": -36,
+      "peakDb": -29.89,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "82": {
+      "found": true,
+      "dbK": -34.32,
+      "peakDb": -28.13,
+      "ringS": 0.85,
+      "ringCapped": true
+     },
+     "83": {
+      "found": true,
+      "dbK": -34.4,
+      "peakDb": -27.62,
+      "ringS": 0.85,
+      "ringCapped": true
+     }
+    }
+   },
+   "marcato_stac_vel": {
+    "label": "Cello",
+    "techLabel": "Marcato Staccato Velocity (#13)",
+    "cls": "one",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50,
+     52,
+     54,
+     56,
+     58,
+     60,
+     62,
+     64,
+     66,
+     68,
+     70,
+     72,
+     74,
+     76,
+     78,
+     80,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 83,
+    "silent": [],
+    "gapsInside": [],
+    "ringMedianS": 1,
+    "ringMinS": 0.68,
+    "ringMaxS": 1.25,
+    "capped": 3,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -22.65,
+      "peakDb": -10.7,
+      "ringS": 1.05,
+      "ringCapped": false
+     },
+     "38": {
+      "found": true,
+      "dbK": -27.59,
+      "peakDb": -12.92,
+      "ringS": 1.07,
+      "ringCapped": false
+     },
+     "40": {
+      "found": true,
+      "dbK": -24,
+      "peakDb": -10.38,
+      "ringS": 1.09,
+      "ringCapped": false
+     },
+     "42": {
+      "found": true,
+      "dbK": -20.76,
+      "peakDb": -8.84,
+      "ringS": 1.09,
+      "ringCapped": false
+     },
+     "44": {
+      "found": true,
+      "dbK": -26.51,
+      "peakDb": -12.8,
+      "ringS": 1.25,
+      "ringCapped": true
+     },
+     "46": {
+      "found": true,
+      "dbK": -30.57,
+      "peakDb": -16.25,
+      "ringS": 1.19,
+      "ringCapped": true
+     },
+     "48": {
+      "found": true,
+      "dbK": -30.4,
+      "peakDb": -17.16,
+      "ringS": 1.13,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -26.45,
+      "peakDb": -12.77,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "52": {
+      "found": true,
+      "dbK": -32.78,
+      "peakDb": -17.75,
+      "ringS": 0.99,
+      "ringCapped": false
+     },
+     "54": {
+      "found": true,
+      "dbK": -28.18,
+      "peakDb": -15.68,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "56": {
+      "found": true,
+      "dbK": -28.82,
+      "peakDb": -16.61,
+      "ringS": 1.05,
+      "ringCapped": false
+     },
+     "58": {
+      "found": true,
+      "dbK": -31.83,
+      "peakDb": -18.52,
+      "ringS": 0.9,
+      "ringCapped": false
+     },
+     "60": {
+      "found": true,
+      "dbK": -22.34,
+      "peakDb": -10.27,
+      "ringS": 1.05,
+      "ringCapped": false
+     },
+     "62": {
+      "found": true,
+      "dbK": -29.13,
+      "peakDb": -15.35,
+      "ringS": 1.08,
+      "ringCapped": false
+     },
+     "64": {
+      "found": true,
+      "dbK": -22.68,
+      "peakDb": -10.81,
+      "ringS": 0.95,
+      "ringCapped": false
+     },
+     "66": {
+      "found": true,
+      "dbK": -24.22,
+      "peakDb": -10.34,
+      "ringS": 0.84,
+      "ringCapped": false
+     },
+     "68": {
+      "found": true,
+      "dbK": -29.15,
+      "peakDb": -13.92,
+      "ringS": 1,
+      "ringCapped": false
+     },
+     "70": {
+      "found": true,
+      "dbK": -31.1,
+      "peakDb": -17.37,
+      "ringS": 0.77,
+      "ringCapped": false
+     },
+     "72": {
+      "found": true,
+      "dbK": -26.42,
+      "peakDb": -12.89,
+      "ringS": 0.84,
+      "ringCapped": false
+     },
+     "74": {
+      "found": true,
+      "dbK": -32.5,
+      "peakDb": -18.43,
+      "ringS": 0.86,
+      "ringCapped": false
+     },
+     "76": {
+      "found": true,
+      "dbK": -31.81,
+      "peakDb": -17.69,
+      "ringS": 0.74,
+      "ringCapped": false
+     },
+     "78": {
+      "found": true,
+      "dbK": -29.26,
+      "peakDb": -14.5,
+      "ringS": 0.75,
+      "ringCapped": false
+     },
+     "80": {
+      "found": true,
+      "dbK": -29.41,
+      "peakDb": -17.08,
+      "ringS": 0.8,
+      "ringCapped": false
+     },
+     "82": {
+      "found": true,
+      "dbK": -31.42,
+      "peakDb": -16.55,
+      "ringS": 0.72,
+      "ringCapped": false
+     },
+     "83": {
+      "found": true,
+      "dbK": -29.19,
+      "peakDb": -15.45,
+      "ringS": 0.68,
+      "ringCapped": false
+     }
+    }
+   },
+   "spicc_vel": {
+    "label": "Cello",
+    "techLabel": "Spiccato Velocity (#16)",
+    "cls": "one",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50,
+     52,
+     54,
+     56,
+     58,
+     60,
+     62,
+     64,
+     66,
+     68,
+     70,
+     72,
+     74,
+     76,
+     78,
+     80,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 83,
+    "silent": [],
+    "gapsInside": [],
+    "ringMedianS": 1.01,
+    "ringMinS": 0.61,
+    "ringMaxS": 1.25,
+    "capped": 3,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -23.23,
+      "peakDb": -9.95,
+      "ringS": 0.98,
+      "ringCapped": false
+     },
+     "38": {
+      "found": true,
+      "dbK": -27.99,
+      "peakDb": -13.33,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "40": {
+      "found": true,
+      "dbK": -25.13,
+      "peakDb": -10.81,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "42": {
+      "found": true,
+      "dbK": -21.23,
+      "peakDb": -7.68,
+      "ringS": 1.09,
+      "ringCapped": false
+     },
+     "44": {
+      "found": true,
+      "dbK": -24.12,
+      "peakDb": -9.94,
+      "ringS": 1.25,
+      "ringCapped": true
+     },
+     "46": {
+      "found": true,
+      "dbK": -29.87,
+      "peakDb": -16.02,
+      "ringS": 1.2,
+      "ringCapped": true
+     },
+     "48": {
+      "found": true,
+      "dbK": -25.03,
+      "peakDb": -11.31,
+      "ringS": 1.1,
+      "ringCapped": false
+     },
+     "50": {
+      "found": true,
+      "dbK": -26.88,
+      "peakDb": -13.32,
+      "ringS": 1.08,
+      "ringCapped": false
+     },
+     "52": {
+      "found": true,
+      "dbK": -31.73,
+      "peakDb": -16.57,
+      "ringS": 1.07,
+      "ringCapped": false
+     },
+     "54": {
+      "found": true,
+      "dbK": -29.36,
+      "peakDb": -16.89,
+      "ringS": 1.06,
+      "ringCapped": false
+     },
+     "56": {
+      "found": true,
+      "dbK": -31.53,
+      "peakDb": -18.38,
+      "ringS": 1.24,
+      "ringCapped": true
+     },
+     "58": {
+      "found": true,
+      "dbK": -33.46,
+      "peakDb": -18.76,
+      "ringS": 0.94,
+      "ringCapped": false
+     },
+     "60": {
+      "found": true,
+      "dbK": -25.08,
+      "peakDb": -13.41,
+      "ringS": 1.05,
+      "ringCapped": false
+     },
+     "62": {
+      "found": true,
+      "dbK": -32.31,
+      "peakDb": -18.17,
+      "ringS": 1.08,
+      "ringCapped": false
+     },
+     "64": {
+      "found": true,
+      "dbK": -22.79,
+      "peakDb": -10.14,
+      "ringS": 0.89,
+      "ringCapped": false
+     },
+     "66": {
+      "found": true,
+      "dbK": -27.64,
+      "peakDb": -14.09,
+      "ringS": 0.83,
+      "ringCapped": false
+     },
+     "68": {
+      "found": true,
+      "dbK": -30.67,
+      "peakDb": -16.96,
+      "ringS": 1.01,
+      "ringCapped": false
+     },
+     "70": {
+      "found": true,
+      "dbK": -28.32,
+      "peakDb": -15.11,
+      "ringS": 0.93,
+      "ringCapped": false
+     },
+     "72": {
+      "found": true,
+      "dbK": -35.41,
+      "peakDb": -18.55,
+      "ringS": 0.77,
+      "ringCapped": false
+     },
+     "74": {
+      "found": true,
+      "dbK": -33.08,
+      "peakDb": -17.54,
+      "ringS": 0.84,
+      "ringCapped": false
+     },
+     "76": {
+      "found": true,
+      "dbK": -35.67,
+      "peakDb": -18.55,
+      "ringS": 0.75,
+      "ringCapped": false
+     },
+     "78": {
+      "found": true,
+      "dbK": -32.92,
+      "peakDb": -19.65,
+      "ringS": 0.86,
+      "ringCapped": false
+     },
+     "80": {
+      "found": true,
+      "dbK": -32.22,
+      "peakDb": -19.15,
+      "ringS": 0.77,
+      "ringCapped": false
+     },
+     "82": {
+      "found": true,
+      "dbK": -32.1,
+      "peakDb": -17.78,
+      "ringS": 0.83,
+      "ringCapped": false
+     },
+     "83": {
+      "found": true,
+      "dbK": -32.87,
+      "peakDb": -18.12,
+      "ringS": 0.61,
+      "ringCapped": false
+     }
+    }
+   },
+   "stac_vel": {
+    "label": "Cello",
+    "techLabel": "Staccato Velocity (#19)",
+    "cls": "one",
+    "port": "Vc",
+    "zone": [
+     36,
+     83
+    ],
+    "measuredKeys": [
+     36,
+     38,
+     40,
+     42,
+     44,
+     46,
+     48,
+     50,
+     52,
+     54,
+     56,
+     58,
+     60,
+     62,
+     64,
+     66,
+     68,
+     70,
+     72,
+     74,
+     76,
+     78,
+     80,
+     82,
+     83
+    ],
+    "lo": 36,
+    "hi": 83,
+    "silent": [],
+    "gapsInside": [],
+    "ringMedianS": 1.03,
+    "ringMinS": 0.82,
+    "ringMaxS": 1.25,
+    "capped": 8,
+    "keys": {
+     "36": {
+      "found": true,
+      "dbK": -25.65,
+      "peakDb": -12.81,
+      "ringS": 1.06,
+      "ringCapped": true
+     },
+     "38": {
+      "found": true,
+      "dbK": -31.83,
+      "peakDb": -15.86,
+      "ringS": 0.99,
+      "ringCapped": false
+     },
+     "40": {
+      "found": true,
+      "dbK": -26.74,
+      "peakDb": -14.31,
+      "ringS": 1.14,
+      "ringCapped": true
+     },
+     "42": {
+      "found": true,
+      "dbK": -26.33,
+      "peakDb": -14.09,
+      "ringS": 1.22,
+      "ringCapped": true
+     },
+     "44": {
+      "found": true,
+      "dbK": -26.17,
+      "peakDb": -13.31,
+      "ringS": 1.25,
+      "ringCapped": true
+     },
+     "46": {
+      "found": true,
+      "dbK": -30.53,
+      "peakDb": -17.2,
+      "ringS": 1.15,
+      "ringCapped": true
+     },
+     "48": {
+      "found": true,
+      "dbK": -24.91,
+      "peakDb": -12.02,
+      "ringS": 1.12,
+      "ringCapped": true
+     },
+     "50": {
+      "found": true,
+      "dbK": -28.01,
+      "peakDb": -15.33,
+      "ringS": 1.08,
+      "ringCapped": false
+     },
+     "52": {
+      "found": true,
+      "dbK": -29.56,
+      "peakDb": -18.2,
+      "ringS": 1.03,
+      "ringCapped": false
+     },
+     "54": {
+      "found": true,
+      "dbK": -28.4,
+      "peakDb": -14.35,
+      "ringS": 1.1,
+      "ringCapped": false
+     },
+     "56": {
+      "found": true,
+      "dbK": -26.94,
+      "peakDb": -16.07,
+      "ringS": 1.25,
+      "ringCapped": true
+     },
+     "58": {
+      "found": true,
+      "dbK": -29.71,
+      "peakDb": -18.91,
+      "ringS": 0.96,
+      "ringCapped": false
+     },
+     "60": {
+      "found": true,
+      "dbK": -24.42,
+      "peakDb": -13.08,
+      "ringS": 1.11,
+      "ringCapped": true
+     },
+     "62": {
+      "found": true,
+      "dbK": -29.28,
+      "peakDb": -14.45,
+      "ringS": 0.94,
+      "ringCapped": false
+     },
+     "64": {
+      "found": true,
+      "dbK": -23.18,
+      "peakDb": -11.84,
+      "ringS": 0.96,
+      "ringCapped": false
+     },
+     "66": {
+      "found": true,
+      "dbK": -27.76,
+      "peakDb": -15,
+      "ringS": 1.02,
+      "ringCapped": false
+     },
+     "68": {
+      "found": true,
+      "dbK": -27.09,
+      "peakDb": -13.91,
+      "ringS": 1.04,
+      "ringCapped": false
+     },
+     "70": {
+      "found": true,
+      "dbK": -26.1,
+      "peakDb": -14.07,
+      "ringS": 0.97,
+      "ringCapped": false
+     },
+     "72": {
+      "found": true,
+      "dbK": -27.73,
+      "peakDb": -17.24,
+      "ringS": 1.05,
+      "ringCapped": false
+     },
+     "74": {
+      "found": true,
+      "dbK": -31.26,
+      "peakDb": -18.17,
+      "ringS": 1,
+      "ringCapped": false
+     },
+     "76": {
+      "found": true,
+      "dbK": -30.03,
+      "peakDb": -19.06,
+      "ringS": 1.01,
+      "ringCapped": false
+     },
+     "78": {
+      "found": true,
+      "dbK": -30.63,
+      "peakDb": -19.29,
+      "ringS": 0.86,
+      "ringCapped": false
+     },
+     "80": {
+      "found": true,
+      "dbK": -26.71,
+      "peakDb": -14.96,
+      "ringS": 0.82,
+      "ringCapped": false
+     },
+     "82": {
+      "found": true,
+      "dbK": -28.08,
+      "peakDb": -15.96,
+      "ringS": 0.89,
+      "ringCapped": false
+     },
+     "83": {
+      "found": true,
+      "dbK": -32.31,
+      "peakDb": -20.76,
+      "ringS": 0.95,
+      "ringCapped": false
+     }
+    }
+   }
+  }
+ },
+ "mergedRuns": [
+  {
+   "wav": "01-REC-260906_1447.wav",
+   "measuredAt": "2026-09-06T14:50:46",
+   "note": "the Bartók tops above the provisional zones"
+  }
+ ],
+ "_provenance": "Skeleton written by the port, 2026-09-17 (PLAN 0b step 4). Shape and metadata are piece #5's; of the measurements ONLY THE CELLO'S are kept — it is the same library and the same instrument (D6). Every other instrument of this piece is unmeasured: PLAN 0d fills this in, and until it does the app falls back exactly as it does for any missing row.",
+ "_droppedInstruments": [
+  "flute",
+  "bass_clarinet",
+  "piano",
+  "violin1",
+  "violin2",
+  "viola"
+ ]
+}

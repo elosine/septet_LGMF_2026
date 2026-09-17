@@ -1,0 +1,142 @@
+{
+ "measuredAt": "2026-09-07T00:22:48",
+ "wav": "01-REC-260907_0015.wav",
+ "schedule": "probes/bend_schedule.json",
+ "scheduleGeneratedAt": "2026-09-07T04:06:58.817Z",
+ "offsetS": 1.62,
+ "gateDb": -60.7,
+ "method": "f0 by energy-normalised autocorrelation within +/-6 semitones of the written note (the RPN slots also an octave up); rangeSt = median over +50 / +100 / -100 % of |measured cents - reference| / fraction; residue = the plain note after an unreset +50 % bend; RPN honoured if full bend after RPN 0 = 12 reads > 1.5x full bend before; restored if the last slot is within 10 c of +100 %; scoop = the +100 slot's onset-vs-settled less the reference's own (the attack's wobble), pre-arm OK within 10 c",
+ "bendPlan": {
+  "slots": [
+   {
+    "step": "ref",
+    "fraction": 0,
+    "reset": true,
+    "rpn": null,
+    "what": "the unbent baseline every cents figure is measured against"
+   },
+   {
+    "step": "+50",
+    "fraction": 0.5,
+    "reset": true,
+    "rpn": null,
+    "what": "half of full bend up"
+   },
+   {
+    "step": "+100",
+    "fraction": 1,
+    "reset": true,
+    "rpn": null,
+    "what": "full bend up"
+   },
+   {
+    "step": "-100",
+    "fraction": -1,
+    "reset": true,
+    "rpn": null,
+    "what": "full bend down"
+   },
+   {
+    "step": "res_a",
+    "fraction": 0.5,
+    "reset": false,
+    "rpn": null,
+    "what": "bent +50 %, NOT reset after — the residue trap set"
+   },
+   {
+    "step": "res_b",
+    "fraction": null,
+    "reset": true,
+    "rpn": null,
+    "what": "the next note with no bend message — sharp = the residue is real"
+   },
+   {
+    "step": "rpn12",
+    "fraction": 1,
+    "reset": true,
+    "rpn": 12,
+    "what": "RPN 0 asked for 12 semitones, then full bend up — wider than +100 = RPN honoured"
+   },
+   {
+    "step": "rest",
+    "fraction": 1,
+    "reset": true,
+    "rpn": 2,
+    "what": "RPN 0 back to 2, full bend up — the same as +100 = restored"
+   }
+  ],
+  "holdMs": 2000,
+  "settleMs": 2000,
+  "vel": 100,
+  "resetAfterMs": 400,
+  "bendLeadMs": 300,
+  "players": [
+   "flute",
+   "bass_clarinet",
+   "violin1",
+   "violin2",
+   "viola",
+   "cello"
+  ]
+ },
+ "instruments": {
+  "cello": {
+   "label": "Cello",
+   "tech": "senza_vel",
+   "port": "Vc",
+   "ch": 1,
+   "pitch": 60,
+   "note": "C4",
+   "baselineCents": -0.3,
+   "rangeSt": 0.97,
+   "rangeSpreadSt": 0.03,
+   "linear": true,
+   "bendDead": false,
+   "measurements": [
+    {
+     "step": "+50",
+     "fraction": 0.50006,
+     "settledCents": 47.9,
+     "relCents": 48.2,
+     "derivedRangeSt": 0.964
+    },
+    {
+     "step": "+100",
+     "fraction": 1,
+     "settledCents": 99.1,
+     "relCents": 99.4,
+     "derivedRangeSt": 0.994
+    },
+    {
+     "step": "-100",
+     "fraction": -1,
+     "settledCents": -96.9,
+     "relCents": -96.6,
+     "derivedRangeSt": 0.966
+    }
+   ],
+   "residueCents": 48.3,
+   "residueConfirmed": true,
+   "scoopCents": -2.6,
+   "attackScoopCents": 9.9,
+   "scoopRawCents": 7.3,
+   "prearmOk": true,
+   "bendLeadMs": 300,
+   "rpnHonoured": false,
+   "rpn12RangeSt": null,
+   "restoredOk": true,
+   "mutableByMidi": false,
+   "rpn12Cents": 99.8,
+   "restCents": 97.7,
+   "verdict": "OK"
+  }
+ },
+ "_provenance": "Skeleton written by the port, 2026-09-17 (PLAN 0b step 4). Shape and metadata are piece #5's; of the measurements ONLY THE CELLO'S are kept — it is the same library and the same instrument (D6). Every other instrument of this piece is unmeasured: PLAN 0d fills this in, and until it does the app falls back exactly as it does for any missing row.",
+ "_droppedInstruments": [
+  "flute",
+  "bass_clarinet",
+  "violin1",
+  "violin2",
+  "viola"
+ ]
+}

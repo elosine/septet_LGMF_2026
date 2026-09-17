@@ -64,13 +64,13 @@ const PLAIN_PREF = ['ord', 'main', 'senza_vel', 'senza_mw', 'staccato'];
 // brass have no percussive voice in the placeholder recipes yet, so they take their plain 'ord'; the cello
 // keeps #5's gettato, the bass takes Bartók, the percussionist strikes. Revisit at 0c with the real
 // recipes — tools/palette_check.js asserts every key named here exists in the recipe file.
-const STRIKE_DEFAULT = { english_horn: 'ord', bassoon: 'ord', horn: 'ord', trumpet: 'ord', percussion: 'hit', cello: 'gettato_vel', double_bass: 'bartok_vel' };
+const STRIKE_DEFAULT = { english_horn: 'ord', bassoon: 'ord', horn: 'ord', trumpet: 'ord', percussion: 'main', cello: 'gettato_vel', double_bass: 'bartok_vel' };
 // §377 (composer, 2026-09-10 — STRIKES_TOOL §AB1-b/-c): named sets for the seven rows, one click each. `percussive` IS STRIKE_DEFAULT
 // and stays the default; spiccato has no flute or bass-clarinet voice, so those two take their plain staccato.
 const ART_SETS = {
     percussive: STRIKE_DEFAULT,
-    spiccato: { english_horn: 'staccato', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'hit', cello: 'spicc_vel', double_bass: 'spicc_vel' },
-    staccato: { english_horn: 'staccato', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'hit', cello: 'stac_vel', double_bass: 'stac_vel' },
+    spiccato: { english_horn: 'staccato', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'main', cello: 'spicc_vel', double_bass: 'spicc_vel' },
+    staccato: { english_horn: 'staccato', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'main', cello: 'stac_vel', double_bass: 'stac_vel' },
 };
 
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }

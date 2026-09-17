@@ -1,0 +1,169 @@
+{
+ "measuredAt": "2026-09-04T13:20:48",
+ "wav": "01-REC-260904_1313.wav",
+ "windowS": 0.4,
+ "minDb": -70,
+ "schedule": "probes/balance_schedule.json",
+ "scheduleGeneratedAt": "2026-09-04T16:39:25.197Z",
+ "weighting": "k",
+ "targetDb": -27.45,
+ "targetRule": "-27.45",
+ "noiseFloorDb": -90,
+ "offsetS": 21.99,
+ "instruments": {
+  "cello": {
+   "label": "Cello",
+   "port": "Vc",
+   "tech": "senza_vel",
+   "techLabel": "Senza Vibrato Velocity (#6)",
+   "notes": [
+    {
+     "pitch": 48,
+     "vel": 127,
+     "onset": 126.98,
+     "found": true,
+     "dbFlat": -21.37,
+     "dbK": -21.35,
+     "peakDb": -14.65,
+     "clip": false
+    },
+    {
+     "pitch": 60,
+     "vel": 127,
+     "onset": 129.39,
+     "found": true,
+     "dbFlat": -25.5,
+     "dbK": -24.35,
+     "peakDb": -18.52,
+     "clip": false
+    },
+    {
+     "pitch": 71,
+     "vel": 127,
+     "onset": 131.89,
+     "found": true,
+     "dbFlat": -35.77,
+     "dbK": -33.09,
+     "peakDb": -27.69,
+     "clip": false
+    },
+    {
+     "pitch": 48,
+     "vel": 64,
+     "onset": 134.39,
+     "found": true,
+     "dbFlat": -36.84,
+     "dbK": -35.89,
+     "peakDb": -28.82,
+     "clip": false
+    },
+    {
+     "pitch": 60,
+     "vel": 64,
+     "onset": 136.89,
+     "found": true,
+     "dbFlat": -34.92,
+     "dbK": -34.38,
+     "peakDb": -29.17,
+     "clip": false
+    },
+    {
+     "pitch": 71,
+     "vel": 64,
+     "onset": 139.49,
+     "found": true,
+     "dbFlat": -44.67,
+     "dbK": -41.26,
+     "peakDb": -36.02,
+     "clip": false
+    }
+   ],
+   "techniques": {
+    "gettato_vel": {
+     "techLabel": "Gettato Velocity (#21)",
+     "port": "Vc",
+     "notes": [
+      {
+       "pitch": 48,
+       "vel": 127,
+       "onset": 228.99,
+       "found": true,
+       "dbFlat": -30.7,
+       "dbK": -30.15,
+       "peakDb": -18.79,
+       "clip": false
+      },
+      {
+       "pitch": 60,
+       "vel": 127,
+       "onset": 231.49,
+       "found": true,
+       "dbFlat": -26.89,
+       "dbK": -26.33,
+       "peakDb": -14.44,
+       "clip": false
+      },
+      {
+       "pitch": 71,
+       "vel": 127,
+       "onset": 233.89,
+       "found": true,
+       "dbFlat": -35.39,
+       "dbK": -33.22,
+       "peakDb": -18.32,
+       "clip": false
+      },
+      {
+       "pitch": 48,
+       "vel": 64,
+       "onset": 236.5,
+       "found": true,
+       "dbFlat": -37.23,
+       "dbK": -36.79,
+       "peakDb": -23.73,
+       "clip": false
+      },
+      {
+       "pitch": 60,
+       "vel": 64,
+       "onset": 238.99,
+       "found": true,
+       "dbFlat": -36.59,
+       "dbK": -35.29,
+       "peakDb": -24.25,
+       "clip": false
+      },
+      {
+       "pitch": 71,
+       "vel": 64,
+       "onset": 241.5,
+       "found": true,
+       "dbFlat": -41.95,
+       "dbK": -40.34,
+       "peakDb": -25.32,
+       "clip": false
+      }
+     ],
+     "level127": -29.9,
+     "level64": -37.47,
+     "vsPlainDb": -3.6,
+     "afterTrimDb": -31.1
+    }
+   },
+   "level127": -26.26,
+   "level64": -37.18,
+   "spread127": 11.74,
+   "peak127": -14.7,
+   "trimDb": -1.2
+  }
+ },
+ "_provenance": "Skeleton written by the port, 2026-09-17 (PLAN 0b step 4). Shape and metadata are piece #5's; of the measurements ONLY THE CELLO'S are kept — it is the same library and the same instrument (D6). Every other instrument of this piece is unmeasured: PLAN 0d fills this in, and until it does the app falls back exactly as it does for any missing row.",
+ "_droppedInstruments": [
+  "flute",
+  "bass_clarinet",
+  "piano",
+  "violin1",
+  "violin2",
+  "viola"
+ ]
+}
