@@ -1748,8 +1748,15 @@ manually, just need to confirm that you understand the mapping now or need clari
 note for the paper: the probe was right on the short sounds and told him nothing he had not already dictated faster; its one
 real contribution was catching its OWN false reading. The hover is the method here.
 
-**All fourteen now have key maps.** One thing to confirm with him: whether the 3rd and 4th key of each shaker group are a
-repeat of Low/High or two further articulations.
+**All fourteen now have key maps.** The one open question — whether the 3rd and 4th key of each shaker group repeat the first
+two — **he closed at once:** *"yes effectively there seem to be 4 samples a-l/h and bl/h, starting on the c al/h a/l h 4 keys
+2 samples I think"*. **Four samples in the whole instrument** (A Low · A High · B Low · B High); sixteen lit keys carrying
+them, each group of four = two samples twice. Catalog updated; `repeatOf` on 38 · 39 · 50 · 51 was already right.
+
+**A thing worth naming for the paper.** Three separate signals agreed on Shakers Pairs: his hover, the meter probe, and the
+`rr_neighbourMax` field in the plugin's own saved state. The probe was the expensive one and the only one that ever lied
+(§42's BOM). The cheap ones — his eyes, and a number already sitting in a file on disk — were right every time. The
+methodological lesson he drew himself, one message later: *"avoid unnessary extra work unless asked for."*
 
 ---
 
