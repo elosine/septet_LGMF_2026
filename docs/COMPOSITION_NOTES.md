@@ -523,6 +523,36 @@ awkward to bow.
 unassigned on 2, 4 and 6 (A1, G♯1 and F♯1 are below its floor as fundamentals — it can still take a near-tempered partial
 there).
 
+### LG-22 · 2026-09-18 — CHORD 2 (on A1): the tempered doublings placed; and the finding that chord 2 has no 7th partial
+
+> *"bsn C#4, EH C#5, then what are the wolf candidates for 2 and which ones are available to vc/vibes"*
+> — composer, 2026-09-18, session 3, typed
+
+**Chord 2 so far:** double bass **A1** (fundamental) · horn **C♯4** (partial 5, −14) · trumpet **C♯5** (partial 10, −14) ·
+**bassoon C♯4** and **english horn C♯5**, both tempered, beating against the horn and the trumpet respectively. **Free:
+cello, and both of the vibraphone’s bows.**
+
+**THE FINDING — chord 2 has no 7th partial, so it has no source of strangeness.** Its only deviation is −14¢ (partials 5
+and 10 are the same pitch class). By LG-20’s measure, every near-tempered note placed against it lands only **11–20 cents**
+from a familiar interval — the ear hears “slightly out of tune,” not “uncategorisable.” **Chord 2 is inherently the mild
+one of the six**, and that is a property of its scoring, not of its fundamental: A1 can carry a 7th (G4, −31) and simply
+has not been given one.
+
+**The wolf candidates — near-tempered partials, complex ratio against the C♯:**
+
+| partial | pitch | dev | ratio to the C♯ | off ET | cello | vibraphone |
+|---|---|---|---|---|---|---|
+| **9** | **B4** | +4 | 9/5 | +18 | ✓ | ✓ |
+| **17** | **B♭5** | +5 | 17/10 | +19 | ✓ | ✓ |
+| **18** | **B5** | +4 | 9/5 | +18 | ✓ (at its top) | ✓ |
+| 19 | C6 | −2 | 19/10 | +11 | — out of range | ✓ |
+| 27 | F♯6 | +6 | 27/20 | +20 | — | — out of range |
+
+**The stronger alternative, and it is the cello’s alone.** The cello stops by ear, so it can take a NEW just deviation
+rather than a tempered wolf — on A1: **G4 (partial 7, −31) · E♭5 (partial 11, −49) · F5 (partial 13, +41) · G5 (partial
+14, −31)**. If the cello takes one of these, the vibraphone’s tempered note then sits against a 31- or 49-cent partial and
+the chord gains the strangeness it currently lacks — the same mechanism that makes chord 1 work. **His to say.**
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
