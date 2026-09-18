@@ -2120,3 +2120,31 @@ ever did clip it would be a knob in the instrument's GUI — but none does, and 
 (§50), and the six masters. His CTRL+S before the run.
 
 ---
+
+## §53. 0d.3 — the run, driven end to end from one process; REC made the only recorder (2026-09-18)
+
+**What prompted it.** *"saved, go."*
+
+**One thing was built first, to keep his project clean.** Every instrument track is armed with a MIDI input and monitoring
+on — that is what makes it sound — so hitting record would drop a **MIDI item on all 27 of them** beside REC's audio, and
+he would have had to clean them out. `reaper/bridge/jobs/rec_mode_solo.lua` sets every track's `I_RECMODE` to **2, "do not
+record"**, and REC's to 3, **leaving `I_RECARM` and `I_RECMON` untouched — so the sound path is unchanged.** That was the
+deciding property: a change that could silence the rack would have risked the whole 27 minutes. Read back:
+`changed: 27 of 28`, and the list of tracks that can write a file is exactly `['REC']`. Each previous value is saved to
+`probes/rec_modes_before.json` and `rec_mode_restore.lua` puts them back by name.
+
+**`probes/balance_run.ps1`** drives the run in ONE process, for §50's reason — the transport has to be rolling before the
+schedule's 3 s lead-in ends and stop after the last tail, and a tool round trip cannot be timed against either. It
+(1) reads the pre-state and refuses unless REC is the only armed writer, (2) puts the cursor at 0, (3) warms the winmm
+type BEFORE the transport rolls so the lead-in is not eaten by a .NET compile, (4) `Main_OnCommand(1013)` and **checks
+`playState == 5`** — playing *and* recording, not merely playing — (5) plays the schedule, (6) stops with 1016 in a
+`finally`, so a failure mid-run still stops the transport, and (7) reads back the item REC wrote and its file name.
+
+**Started 13:30:15, `playState 5` confirmed, 747 notes over 26.8 min** — the ensemble at the anchor (velocity 64, the quiet
+level) three times each, six velocities, six CC7 values on the curve channels, and the fourteen percussion instruments on
+three representative keys at four velocities.
+
+**The margin it runs with (§51–§52):** REC at −12 dB recording 32-bit float, the loudest note in the pre-flight reaching
+−16.5 dB on REC and −4.5 dB on the hottest source. There is no plausible over.
+
+---
