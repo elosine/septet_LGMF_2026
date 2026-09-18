@@ -2148,3 +2148,63 @@ three representative keys at four velocities.
 −16.5 dB on REC and −4.5 dB on the hottest source. There is no plausible over.
 
 ---
+
+## §54. 0d.3 measured — and the run overturns the mechanism: CC7 is the dynamic, velocity barely moves the brass (2026-09-18)
+
+**The run itself.** All 747 notes played (`done in 1,604.1 s`). **The recording is complete and intact:**
+`reaper/Media/28-REC-260918_1330.wav`, **1608.4 s, 32-bit float, stereo, 567 MB**, against the schedule's 1607.1 s. The
+analyzer found the schedule at +0.260 s in the file and sliced all 747.
+
+**A scare at the end, and the reason, recorded because it will recur.** The `Main_OnCommand(1016)` stop got no answer in
+20 s and the bridge's heartbeat went stale (`alive: false`, last beat `playing: 5`), so the AI asked him to press Stop and
+reported the transport as possibly still recording. **What actually happened:** the stop DID land — the file ends at
+13:57:03, exactly when the notes finished — and **stopping a 27-minute record blocked Reaper's main thread long enough
+(flushing 567 MB) that the bridge's defer loop missed its beat.** A dead-looking bridge and a busy Reaper are
+indistinguishable from outside. The bridge answered again afterwards (`playState 0`) with no intervention. **The lesson for
+the harness: after a long record, treat a bridge timeout on the stop as EXPECTED and confirm from the FILE, not the API.**
+Record modes restored afterwards (`rec_mode_restore.lua`: 27 restored, 1 already correct).
+
+**FINDING 1 — CC7 carries the dynamic; velocity does not. This overturns §46 as written.** Measured range, ordinary voice,
+mean over three pitches:
+
+| instrument | velocity 24 → 127 | **CC7 24 → 127** |
+|---|---|---|
+| English Horn | 18.4 dB | **38.7 dB** |
+| Bassoon | 11.8 dB | **28.1 dB** |
+| **Horn** | **5.5 dB** | **28.0 dB** |
+| **Trumpet** | **4.1 dB** | **28.0 dB** |
+| Vibraphone | 28.1 dB | 18.8 dB |
+| Cello | 18.2 dB | 25.3 dB |
+| D. Bass | (erratic) | 27.5 dB |
+
+**The SI2 brass gets four to five decibels out of the entire velocity range** — and horn and trumpet even fall slightly
+from v104 to v127 (a layer switch). §46 told him "velocity carries most of the level, CC7 is the fine trim"; on these
+libraries at the ordinary voice **that is backwards**. The ordinary presets are the CC7-driven ones (D9, §22–§25: the curve
+channels exist for exactly this), so **layer 2's remap must drive CC7**, with velocity choosing the attack and the sample.
+The CC7 curves are smooth and monotonic; the velocity curves are not. *(This does not touch LG-14: Ferneyhough's
+parenthesized dynamic is still high velocity with CC7 low — if anything it is now easier, because velocity moves timbre
+much more than it moves level.)*
+
+**FINDING 2 — the percussion sits about 25 dB below the winds at the same velocity, so "cut everyone to the quietest"
+cannot be the trim rule.** At the anchor (velocity 64): winds and brass −32 to −40 dB · strings and vibraphone −45 to −50 ·
+percussion −53 to −80. **A 48 dB span.** Cuts-only against the quietest (castanets, −79.7) prescribes **−47.9 dB on the
+bassoon**, after which its FULL velocity sits at −72 dB — inaudible. The percussion at velocity **127** (−36 to −63) is
+roughly where the winds sit at velocity **24–64**, which is the real statement: *velocity-for-velocity the percussion
+cannot reach the ensemble*, so it needs a fader **BOOST** and the two groups need their own anchors. The analyzer's
+`--target quietest` default (#5's, where the span was small enough) is wrong here. **Not yet recomputed — the rule is his
+to approve.**
+
+**FINDING 3 — the double bass's D2 does not sound.** Pitch 38 read −74 to −78 dB at every velocity (the tail of the
+previous note, not the note), while 48 and 57 behave normally. That is what made its column look erratic, and 30 of its
+notes are in the `silent` list. `rangeLow: 28` in the recipe is an ASSUMED compass, never measured — and 0d's original
+scope was exactly *"the samples' true ranges"*, moved to phase 1 at his scope call (§43). It has bitten in the first hour.
+**Its trim is not trustworthy until the low range is known.**
+
+**Also seen:** the cello jumps 10 dB between velocity 64 and 84 on its low pitch (a velocity-layer boundary) · the
+vibraphone's round-robin scatter is the widest at **±5.99 dB** — the floor no remap can beat · 46 of 747 notes fell below
+−88 dB, almost all of them percussion at velocity 30–64, which is genuinely below the floor with REC 12 dB down.
+
+**`bank/balance.json` holds every note, the per-instrument velocity and CC7 tables per register, the scatter and the
+provenance.** The trims in it are the old rule's and should not be typed into anything yet.
+
+---

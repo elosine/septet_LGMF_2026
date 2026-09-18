@@ -1,169 +1,1704 @@
 {
- "measuredAt": "2026-09-04T13:20:48",
- "wav": "01-REC-260904_1313.wav",
- "windowS": 0.4,
- "minDb": -70,
+ "measuredAt": "2026-09-18T14:09:01",
+ "planItem": "0d.3",
+ "piece": "lgmf",
+ "wav": "28-REC-260918_1330.wav",
+ "recording": {
+  "floorDb": -90.0,
+  "offsetS": 0.26,
+  "sr": 44100,
+  "lengthS": 1608.4
+ },
  "schedule": "probes/balance_schedule.json",
- "scheduleGeneratedAt": "2026-09-04T16:39:25.197Z",
+ "scheduleGeneratedAt": "2026-09-18T17:29:28.923Z",
  "weighting": "k",
- "targetDb": -27.45,
- "targetRule": "-27.45",
- "noiseFloorDb": -90,
- "offsetS": 21.99,
- "instruments": {
-  "cello": {
-   "label": "Cello",
-   "port": "Vc",
-   "tech": "senza_vel",
-   "techLabel": "Senza Vibrato Velocity (#6)",
-   "notes": [
-    {
-     "pitch": 48,
-     "vel": 127,
-     "onset": 126.98,
-     "found": true,
-     "dbFlat": -21.37,
-     "dbK": -21.35,
-     "peakDb": -14.65,
-     "clip": false
+ "windowS": {
+  "sustained": 0.4,
+  "oneShot": 0.15
+ },
+ "minDb": -88.0,
+ "anchorVel": 64,
+ "target": -79.66,
+ "targetMode": "quietest",
+ "spreadAtFullDb": 19.54,
+ "instruments": [
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "kind": "pitched",
+   "family": "xsample",
+   "port": "LGEngHorn",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -39.54,
+   "fullDb": -29.12,
+   "anchorByPitch": {
+    "59": -41.02,
+    "67": -38.58,
+    "74": -39.03
+   },
+   "velocity": {
+    "59": {
+     "127": -30.35,
+     "104": -33.42,
+     "84": -37.27,
+     "64": -40.69,
+     "44": -43.69,
+     "24": -48.82
     },
-    {
-     "pitch": 60,
-     "vel": 127,
-     "onset": 129.39,
-     "found": true,
-     "dbFlat": -25.5,
-     "dbK": -24.35,
-     "peakDb": -18.52,
-     "clip": false
+    "67": {
+     "127": -27.21,
+     "104": -30.21,
+     "84": -35.43,
+     "64": -38.99,
+     "44": -42.7,
+     "24": -46.89
     },
-    {
-     "pitch": 71,
-     "vel": 127,
-     "onset": 131.89,
-     "found": true,
-     "dbFlat": -35.77,
-     "dbK": -33.09,
-     "peakDb": -27.69,
-     "clip": false
-    },
-    {
-     "pitch": 48,
-     "vel": 64,
-     "onset": 134.39,
-     "found": true,
-     "dbFlat": -36.84,
-     "dbK": -35.89,
-     "peakDb": -28.82,
-     "clip": false
-    },
-    {
-     "pitch": 60,
-     "vel": 64,
-     "onset": 136.89,
-     "found": true,
-     "dbFlat": -34.92,
-     "dbK": -34.38,
-     "peakDb": -29.17,
-     "clip": false
-    },
-    {
-     "pitch": 71,
-     "vel": 64,
-     "onset": 139.49,
-     "found": true,
-     "dbFlat": -44.67,
-     "dbK": -41.26,
-     "peakDb": -36.02,
-     "clip": false
-    }
-   ],
-   "techniques": {
-    "gettato_vel": {
-     "techLabel": "Gettato Velocity (#21)",
-     "port": "Vc",
-     "notes": [
-      {
-       "pitch": 48,
-       "vel": 127,
-       "onset": 228.99,
-       "found": true,
-       "dbFlat": -30.7,
-       "dbK": -30.15,
-       "peakDb": -18.79,
-       "clip": false
-      },
-      {
-       "pitch": 60,
-       "vel": 127,
-       "onset": 231.49,
-       "found": true,
-       "dbFlat": -26.89,
-       "dbK": -26.33,
-       "peakDb": -14.44,
-       "clip": false
-      },
-      {
-       "pitch": 71,
-       "vel": 127,
-       "onset": 233.89,
-       "found": true,
-       "dbFlat": -35.39,
-       "dbK": -33.22,
-       "peakDb": -18.32,
-       "clip": false
-      },
-      {
-       "pitch": 48,
-       "vel": 64,
-       "onset": 236.5,
-       "found": true,
-       "dbFlat": -37.23,
-       "dbK": -36.79,
-       "peakDb": -23.73,
-       "clip": false
-      },
-      {
-       "pitch": 60,
-       "vel": 64,
-       "onset": 238.99,
-       "found": true,
-       "dbFlat": -36.59,
-       "dbK": -35.29,
-       "peakDb": -24.25,
-       "clip": false
-      },
-      {
-       "pitch": 71,
-       "vel": 64,
-       "onset": 241.5,
-       "found": true,
-       "dbFlat": -41.95,
-       "dbK": -40.34,
-       "peakDb": -25.32,
-       "clip": false
-      }
-     ],
-     "level127": -29.9,
-     "level64": -37.47,
-     "vsPlainDb": -3.6,
-     "afterTrimDb": -31.1
+    "74": {
+     "127": -29.81,
+     "104": -33.14,
+     "84": -35.96,
+     "64": -39.31,
+     "44": -42.56,
+     "24": -46.87
     }
    },
-   "level127": -26.26,
-   "level64": -37.18,
-   "spread127": 11.74,
-   "peak127": -14.7,
-   "trimDb": -1.2
+   "cc7": {
+    "59": {
+     "127": -34.52,
+     "104": -39.73,
+     "84": -45.3,
+     "64": -52.32,
+     "44": -62.08,
+     "24": null
+    },
+    "67": {
+     "127": -30.0,
+     "104": -35.11,
+     "84": -40.79,
+     "64": -47.76,
+     "44": -57.36,
+     "24": -71.39
+    },
+    "74": {
+     "127": -33.69,
+     "104": -39.02,
+     "84": -44.3,
+     "64": -50.66,
+     "44": -61.23,
+     "24": null
+    }
+   },
+   "scatterSd": 2.21,
+   "notes": 99,
+   "silent": [
+    {
+     "pitch": 59,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 59,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 67,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 74,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 74,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    }
+   ],
+   "trimDb": -40.12,
+   "fullAfterTrimDb": -69.24
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "kind": "pitched",
+   "family": "si2",
+   "port": "LGBassoon",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -31.75,
+   "fullDb": -24.4,
+   "anchorByPitch": {
+    "44": -32.14,
+    "55": -29.53,
+    "65": -33.6
+   },
+   "velocity": {
+    "44": {
+     "127": -25.15,
+     "104": -27.8,
+     "84": -29.91,
+     "64": -32.13,
+     "44": -35.39,
+     "24": -36.96
+    },
+    "55": {
+     "127": -23.18,
+     "104": -25.18,
+     "84": -27.31,
+     "64": -29.54,
+     "44": -32.95,
+     "24": -34.51
+    },
+    "65": {
+     "127": -24.86,
+     "104": -29.24,
+     "84": -31.37,
+     "64": -33.59,
+     "44": -35.6,
+     "24": -37.22
+    }
+   },
+   "cc7": {
+    "44": {
+     "127": -28.2,
+     "104": -31.59,
+     "84": -35.19,
+     "64": -39.75,
+     "44": -46.03,
+     "24": -56.23
+    },
+    "55": {
+     "127": -25.63,
+     "104": -28.98,
+     "84": -32.58,
+     "64": -37.15,
+     "44": -43.44,
+     "24": -53.66
+    },
+    "65": {
+     "127": -29.69,
+     "104": -33.02,
+     "84": -36.61,
+     "64": -41.18,
+     "44": -47.51,
+     "24": -57.71
+    }
+   },
+   "scatterSd": 1.68,
+   "notes": 45,
+   "silent": [],
+   "trimDb": -47.91,
+   "fullAfterTrimDb": -72.31
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "kind": "pitched",
+   "family": "si2",
+   "port": "LGHorn",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -34.41,
+   "fullDb": -30.97,
+   "anchorByPitch": {
+    "43": -37.93,
+    "50": -32.46,
+    "58": -32.83
+   },
+   "velocity": {
+    "43": {
+     "127": -33.36,
+     "104": -33.61,
+     "84": -35.71,
+     "64": -37.93,
+     "44": -36.97,
+     "24": -38.49
+    },
+    "50": {
+     "127": -29.97,
+     "104": -28.12,
+     "84": -30.25,
+     "64": -32.45,
+     "44": -34.99,
+     "24": -36.48
+    },
+    "58": {
+     "127": -29.58,
+     "104": -28.5,
+     "84": -30.61,
+     "64": -32.84,
+     "44": -32.96,
+     "24": -34.47
+    }
+   },
+   "cc7": {
+    "43": {
+     "127": -34.01,
+     "104": -37.34,
+     "84": -40.97,
+     "64": -45.6,
+     "44": -51.81,
+     "24": -62.05
+    },
+    "50": {
+     "127": -28.54,
+     "104": -31.93,
+     "84": -35.52,
+     "64": -40.07,
+     "44": -46.4,
+     "24": -56.58
+    },
+    "58": {
+     "127": -28.92,
+     "104": -32.28,
+     "84": -35.88,
+     "64": -40.45,
+     "44": -46.76,
+     "24": -56.95
+    }
+   },
+   "scatterSd": 2.49,
+   "notes": 45,
+   "silent": [],
+   "trimDb": -45.25,
+   "fullAfterTrimDb": -76.22
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "kind": "pitched",
+   "family": "si2",
+   "port": "LGTrumpet",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -34.24,
+   "fullDb": -32.15,
+   "anchorByPitch": {
+    "61": -36.43,
+    "68": -34.15,
+    "75": -32.14
+   },
+   "velocity": {
+    "61": {
+     "127": -34.63,
+     "104": -32.02,
+     "84": -34.18,
+     "64": -36.44,
+     "44": -36.01,
+     "24": -37.65
+    },
+    "68": {
+     "127": -33.1,
+     "104": -29.75,
+     "84": -31.88,
+     "64": -34.14,
+     "44": -35.12,
+     "24": -36.74
+    },
+    "75": {
+     "127": -28.73,
+     "104": -27.75,
+     "84": -29.9,
+     "64": -32.17,
+     "44": -32.97,
+     "24": -34.63
+    }
+   },
+   "cc7": {
+    "61": {
+     "127": -32.45,
+     "104": -35.85,
+     "84": -39.42,
+     "64": -44.0,
+     "44": -50.28,
+     "24": -60.48
+    },
+    "68": {
+     "127": -30.17,
+     "104": -33.54,
+     "84": -37.13,
+     "64": -41.72,
+     "44": -48.01,
+     "24": -58.2
+    },
+    "75": {
+     "127": -28.2,
+     "104": -31.54,
+     "84": -35.11,
+     "64": -39.69,
+     "44": -46.01,
+     "24": -56.23
+    }
+   },
+   "scatterSd": 1.75,
+   "notes": 45,
+   "silent": [],
+   "trimDb": -45.42,
+   "fullAfterTrimDb": -77.57
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "kind": "pitched",
+   "family": "xsample",
+   "port": "LGVibes",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -48.84,
+   "fullDb": -35.19,
+   "anchorByPitch": {
+    "62": -51.28,
+    "71": -54.46,
+    "80": -40.78
+   },
+   "velocity": {
+    "62": {
+     "127": -37.61,
+     "104": -41.84,
+     "84": -46.17,
+     "64": -51.3,
+     "44": -57.68,
+     "24": -64.32
+    },
+    "71": {
+     "127": -40.85,
+     "104": -45.04,
+     "84": -49.34,
+     "64": -54.47,
+     "44": -60.82,
+     "24": -69.91
+    },
+    "80": {
+     "127": -27.12,
+     "104": -31.38,
+     "84": -35.63,
+     "64": -40.79,
+     "44": -47.16,
+     "24": -55.61
+    }
+   },
+   "cc7": {
+    "62": {
+     "127": -42.76,
+     "104": -48.04,
+     "84": -53.58,
+     "64": -60.69,
+     "44": null,
+     "24": null
+    },
+    "71": {
+     "127": -46.52,
+     "104": -51.72,
+     "84": -57.29,
+     "64": -64.37,
+     "44": null,
+     "24": null
+    },
+    "80": {
+     "127": -31.33,
+     "104": -36.55,
+     "84": -42.09,
+     "64": -49.14,
+     "44": -58.98,
+     "24": null
+    }
+   },
+   "scatterSd": 5.99,
+   "notes": 99,
+   "silent": [
+    {
+     "pitch": 62,
+     "vel": 24,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 62,
+     "vel": 24,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 71,
+     "vel": 24,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 62,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 62,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 62,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 62,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 80,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 80,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    }
+   ],
+   "trimDb": -30.82,
+   "fullAfterTrimDb": -66.01
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "kind": "pitched",
+   "family": "xsample",
+   "port": "LGCello",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -49.83,
+   "fullDb": -38.52,
+   "anchorByPitch": {
+    "48": -47.66,
+    "60": -47.94,
+    "71": -53.89
+   },
+   "velocity": {
+    "48": {
+     "127": -33.64,
+     "104": -36.14,
+     "84": -38.97,
+     "64": -49.48,
+     "44": -50.94,
+     "24": -56.56
+    },
+    "60": {
+     "127": -37.71,
+     "104": -42.0,
+     "84": -42.63,
+     "64": -45.87,
+     "44": -50.93,
+     "24": -52.75
+    },
+    "71": {
+     "127": -44.21,
+     "104": -46.34,
+     "84": -49.63,
+     "64": -52.96,
+     "44": -56.43,
+     "24": -60.7
+    }
+   },
+   "cc7": {
+    "48": {
+     "127": -36.91,
+     "104": -42.12,
+     "84": -47.69,
+     "64": -54.8,
+     "44": -64.63,
+     "24": null
+    },
+    "60": {
+     "127": -43.45,
+     "104": -48.22,
+     "84": -54.3,
+     "64": -61.11,
+     "44": -70.68,
+     "24": null
+    },
+    "71": {
+     "127": -46.94,
+     "104": -52.26,
+     "84": -58.5,
+     "64": -64.59,
+     "44": null,
+     "24": null
+    }
+   },
+   "scatterSd": 3.22,
+   "notes": 99,
+   "silent": [
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 48,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 48,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 60,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 60,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 71,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    }
+   ],
+   "trimDb": -29.83,
+   "fullAfterTrimDb": -68.35
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "kind": "pitched",
+   "family": "xsample",
+   "port": "LGBass",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -44.79,
+   "fullDb": -37.96,
+   "anchorByPitch": {
+    "38": null,
+    "48": -44.58,
+    "57": -45.01
+   },
+   "velocity": {
+    "38": {
+     "127": null,
+     "104": -74.59,
+     "84": -77.75,
+     "64": null,
+     "44": -76.83,
+     "24": null
+    },
+    "48": {
+     "127": -36.81,
+     "104": -39.88,
+     "84": -43.45,
+     "64": -44.59,
+     "44": -49.04,
+     "24": -53.71
+    },
+    "57": {
+     "127": -39.11,
+     "104": -42.61,
+     "84": -45.82,
+     "64": -44.04,
+     "44": -48.51,
+     "24": -53.79
+    }
+   },
+   "cc7": {
+    "38": {
+     "127": null,
+     "104": -78.84,
+     "84": null,
+     "64": null,
+     "44": null,
+     "24": null
+    },
+    "48": {
+     "127": -40.65,
+     "104": -45.87,
+     "84": -51.45,
+     "64": -58.52,
+     "44": -68.31,
+     "24": null
+    },
+    "57": {
+     "127": -42.22,
+     "104": -47.16,
+     "84": -52.97,
+     "64": -60.01,
+     "44": -69.53,
+     "24": null
+    }
+   },
+   "scatterSd": 2.15,
+   "notes": 99,
+   "silent": [
+    {
+     "pitch": 38,
+     "vel": 64,
+     "cc7": 127,
+     "role": "ref"
+    },
+    {
+     "pitch": 38,
+     "vel": 64,
+     "cc7": 127,
+     "role": "ref"
+    },
+    {
+     "pitch": 38,
+     "vel": 64,
+     "cc7": 127,
+     "role": "ref"
+    },
+    {
+     "pitch": 38,
+     "vel": 127,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 127,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 127,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 104,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 104,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 84,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 84,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 64,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 64,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 64,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 44,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 44,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 24,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 24,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 24,
+     "cc7": 127,
+     "role": "vel"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 127,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 127,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 104,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 84,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 84,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 64,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 64,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 44,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 38,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 48,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 48,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 57,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    },
+    {
+     "pitch": 57,
+     "vel": 100,
+     "cc7": 24,
+     "role": "cc7"
+    }
+   ],
+   "trimDb": -34.87,
+   "fullAfterTrimDb": -72.83
+  },
+  {
+   "inst": "small_metals_finger_cymbals",
+   "label": "Finger Cymbals",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 1,
+   "anchorVel": 64,
+   "anchorDb": -66.69,
+   "fullDb": -46.42,
+   "anchorByPitch": {
+    "36": -66.69
+   },
+   "velocity": {
+    "36": {
+     "127": -46.69,
+     "96": -54.92,
+     "64": -66.69,
+     "30": null
+    },
+    "38": {
+     "127": -45.88,
+     "96": -54.02,
+     "64": -65.12,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.77,
+   "notes": 12,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 38,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": -12.97,
+   "fullAfterTrimDb": -59.39
+  },
+  {
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 2,
+   "anchorVel": 64,
+   "anchorDb": null,
+   "fullDb": -52.71,
+   "anchorByPitch": {
+    "36": null
+   },
+   "velocity": {
+    "36": {
+     "127": -54.09,
+     "96": -68.16,
+     "64": null,
+     "30": null
+    },
+    "41": {
+     "127": -47.43,
+     "96": -62.59,
+     "64": -72.6,
+     "30": null
+    },
+    "45": {
+     "127": -55.23,
+     "96": -65.46,
+     "64": null,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": null,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 41,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 45,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 45,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": null,
+   "fullAfterTrimDb": null
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 3,
+   "anchorVel": 64,
+   "anchorDb": -62.11,
+   "fullDb": -47.14,
+   "anchorByPitch": {
+    "36": -62.11
+   },
+   "velocity": {
+    "36": {
+     "127": -42.16,
+     "96": -51.89,
+     "64": -62.11,
+     "30": -70.59
+    },
+    "48": {
+     "127": -52.11,
+     "96": -62.95,
+     "64": -71.04,
+     "30": null
+    },
+    "50": {
+     "127": -52.13,
+     "96": -62.93,
+     "64": -71.27,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.4,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 48,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 50,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": -17.55,
+   "fullAfterTrimDb": -64.69
+  },
+  {
+   "inst": "small_metals_triangles",
+   "label": "Triangles",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 4,
+   "anchorVel": 64,
+   "anchorDb": null,
+   "fullDb": -53.56,
+   "anchorByPitch": {
+    "36": null
+   },
+   "velocity": {
+    "36": {
+     "127": -54.59,
+     "96": -64.78,
+     "64": null,
+     "30": null
+    },
+    "48": {
+     "127": -52.51,
+     "96": -63.01,
+     "64": null,
+     "30": null
+    },
+    "50": {
+     "127": -52.56,
+     "96": -62.93,
+     "64": null,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": null,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 48,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 48,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 50,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 50,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": null,
+   "fullAfterTrimDb": null
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 5,
+   "anchorVel": 64,
+   "anchorDb": -69.56,
+   "fullDb": -47.93,
+   "anchorByPitch": {
+    "36": -69.56
+   },
+   "velocity": {
+    "36": {
+     "127": -51.48,
+     "96": -61.14,
+     "64": -69.56,
+     "30": null
+    },
+    "48": {
+     "127": -42.15,
+     "96": -52.9,
+     "64": -61.15,
+     "30": -68.47
+    },
+    "55": {
+     "127": -46.63,
+     "96": -55.93,
+     "64": -64.24,
+     "30": -71.75
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.12,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": -10.1,
+   "fullAfterTrimDb": -58.03
+  },
+  {
+   "inst": "toys_castanets",
+   "label": "Castanets",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 6,
+   "anchorVel": 64,
+   "anchorDb": -79.66,
+   "fullDb": -63.0,
+   "anchorByPitch": {
+    "36": -79.66
+   },
+   "velocity": {
+    "36": {
+     "127": -62.95,
+     "96": -72.69,
+     "64": -79.66,
+     "30": null
+    },
+    "48": {
+     "127": -62.99,
+     "96": -72.68,
+     "64": -81.0,
+     "30": null
+    },
+    "50": {
+     "127": -63.08,
+     "96": -72.67,
+     "64": null,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": null,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 48,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 50,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 50,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": 0.0,
+   "fullAfterTrimDb": -63.0
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 7,
+   "anchorVel": 64,
+   "anchorDb": null,
+   "fullDb": -56.34,
+   "anchorByPitch": {
+    "36": null
+   },
+   "velocity": {
+    "36": {
+     "127": -55.46,
+     "96": -68.59,
+     "64": null,
+     "30": null
+    },
+    "41": {
+     "127": -55.76,
+     "96": -73.73,
+     "64": null,
+     "30": null
+    },
+    "45": {
+     "127": -58.67,
+     "96": -71.76,
+     "64": null,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": null,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 41,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 41,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 45,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 45,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": null,
+   "fullAfterTrimDb": null
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 8,
+   "anchorVel": 64,
+   "anchorDb": null,
+   "fullDb": -62.01,
+   "anchorByPitch": {
+    "36": null
+   },
+   "velocity": {
+    "36": {
+     "127": -65.63,
+     "96": -76.04,
+     "64": null,
+     "30": null
+    },
+    "48": {
+     "127": -58.22,
+     "96": -67.74,
+     "64": -76.92,
+     "30": null
+    },
+    "49": {
+     "127": -58.57,
+     "96": -67.77,
+     "64": -77.03,
+     "30": null
+    }
+   },
+   "cc7": {},
+   "scatterSd": null,
+   "notes": 16,
+   "silent": [
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 64,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 36,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 48,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    },
+    {
+     "pitch": 49,
+     "vel": 30,
+     "cc7": null,
+     "role": "perc"
+    }
+   ],
+   "trimDb": null,
+   "fullAfterTrimDb": null
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 9,
+   "anchorVel": 64,
+   "anchorDb": -52.89,
+   "fullDb": -43.44,
+   "anchorByPitch": {
+    "36": -52.89
+   },
+   "velocity": {
+    "36": {
+     "127": -41.7,
+     "96": -48.45,
+     "64": -52.89,
+     "30": -59.23
+    },
+    "39": {
+     "127": -46.36,
+     "96": -52.62,
+     "64": -57.36,
+     "30": -62.99
+    },
+    "43": {
+     "127": -44.0,
+     "96": -52.09,
+     "64": -55.45,
+     "30": -62.1
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.39,
+   "notes": 16,
+   "silent": [],
+   "trimDb": -26.77,
+   "fullAfterTrimDb": -70.21
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 10,
+   "anchorVel": 64,
+   "anchorDb": -58.59,
+   "fullDb": -47.45,
+   "anchorByPitch": {
+    "36": -58.59
+   },
+   "velocity": {
+    "36": {
+     "127": -48.48,
+     "96": -53.74,
+     "64": -58.59,
+     "30": -63.18
+    },
+    "43": {
+     "127": -44.42,
+     "96": -50.24,
+     "64": -57.19,
+     "30": -61.75
+    },
+    "50": {
+     "127": -48.42,
+     "96": -53.91,
+     "64": -58.71,
+     "30": -63.32
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.2,
+   "notes": 16,
+   "silent": [],
+   "trimDb": -21.07,
+   "fullAfterTrimDb": -68.52
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 11,
+   "anchorVel": 64,
+   "anchorDb": -59.08,
+   "fullDb": -46.2,
+   "anchorByPitch": {
+    "36": -59.08
+   },
+   "velocity": {
+    "36": {
+     "127": -45.56,
+     "96": -52.11,
+     "64": -59.08,
+     "30": -65.13
+    },
+    "48": {
+     "127": -43.66,
+     "96": -51.63,
+     "64": -57.07,
+     "30": -62.95
+    },
+    "56": {
+     "127": -50.04,
+     "96": -55.63,
+     "64": -61.16,
+     "30": -67.12
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.28,
+   "notes": 16,
+   "silent": [],
+   "trimDb": -20.58,
+   "fullAfterTrimDb": -66.78
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 12,
+   "anchorVel": 64,
+   "anchorDb": -54.81,
+   "fullDb": -36.43,
+   "anchorByPitch": {
+    "36": -54.81
+   },
+   "velocity": {
+    "36": {
+     "127": -35.94,
+     "96": -46.17,
+     "64": -54.81,
+     "30": -63.2
+    },
+    "48": {
+     "127": -35.49,
+     "96": -49.15,
+     "64": -64.34,
+     "30": -73.51
+    },
+    "55": {
+     "127": -38.34,
+     "96": -49.0,
+     "64": -63.08,
+     "30": -65.9
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.43,
+   "notes": 16,
+   "silent": [],
+   "trimDb": -24.85,
+   "fullAfterTrimDb": -61.28
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 13,
+   "anchorVel": 64,
+   "anchorDb": -60.19,
+   "fullDb": -51.52,
+   "anchorByPitch": {
+    "36": -60.19
+   },
+   "velocity": {
+    "36": {
+     "127": -49.0,
+     "96": -55.89,
+     "64": -60.19,
+     "30": -69.53
+    },
+    "48": {
+     "127": -51.86,
+     "96": -59.72,
+     "64": -63.0,
+     "30": -67.89
+    },
+    "56": {
+     "127": -56.24,
+     "96": -62.03,
+     "64": -67.25,
+     "30": -73.14
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.25,
+   "notes": 16,
+   "silent": [],
+   "trimDb": -19.47,
+   "fullAfterTrimDb": -70.99
+  },
+  {
+   "inst": "tam_tams_a",
+   "label": "Tam Tams",
+   "kind": "perc",
+   "family": null,
+   "port": "LGPerc",
+   "ch": 14,
+   "anchorVel": 64,
+   "anchorDb": -61.11,
+   "fullDb": -42.23,
+   "anchorByPitch": {
+    "36": -61.11
+   },
+   "velocity": {
+    "36": {
+     "127": -42.05,
+     "96": -52.6,
+     "64": -61.11,
+     "30": -68.39
+    },
+    "38": {
+     "127": -42.58,
+     "96": -52.35,
+     "64": -63.13,
+     "30": -71.76
+    }
+   },
+   "cc7": {},
+   "scatterSd": 0.34,
+   "notes": 12,
+   "silent": [],
+   "trimDb": -18.55,
+   "fullAfterTrimDb": -60.78
   }
- },
- "_provenance": "Skeleton written by the port, 2026-09-17 (PLAN 0b step 4). Shape and metadata are piece #5's; of the measurements ONLY THE CELLO'S are kept — it is the same library and the same instrument (D6). Every other instrument of this piece is unmeasured: PLAN 0d fills this in, and until it does the app falls back exactly as it does for any missing row.",
- "_droppedInstruments": [
-  "flute",
-  "bass_clarinet",
-  "piano",
-  "violin1",
-  "violin2",
-  "viola"
- ]
+ ],
+ "note": "trims go on the Reaper faders (0d.4) and into sandbox/instruments.js as balanceDb, which is the RECORD ONLY \u2014 the app sends nothing for them. The velocity/cc7 tables are layer 2 raw material for tools/velocity_remap.js (0d.5)."
 }
