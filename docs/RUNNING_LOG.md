@@ -2639,3 +2639,23 @@ almost nothing fits underneath the ensemble ceiling.
 partials only, so no natural 7th, 11th or 13th from it) · the F♯2–C3 band gives AGREEMENT (all three together on 2–6, and
 the trumpet’s natural 7th, since those roots are its own tubes).
 
+
+### §63d — the fourth/fifth stacks inside the ten usable roots (2026-09-18)
+
+**His ask:** among §63c’s first ten roots (B♭1 B1 C2 F♯2 G2 A♭2 A2 B♭2 B2 C3), how many stacks of fourths or fifths are
+available. All pairs differing by 5 or 7 semitones were taken; there are exactly four, and they join into **two chains of
+three**:
+
+- **C2 · G2 · C3** — a fifth then a fourth
+- **B1 · F♯2 · B2** — a fifth then a fourth
+
+**Nothing longer, and nothing else.** A♭2 · A2 · B♭2 are isolated — no fourth or fifth from any of them lands inside the
+set. B♭1 is isolated too; its only relation to another usable root is the OCTAVE to B♭2.
+
+**Why it comes out this way:** the set is the trumpet’s seven pitch classes F♯ G A♭ A B♭ B C — a contiguous chromatic band,
+not a cycle of fifths — so only the two pairs whose fifths stay inside the band survive (C–G and B–F♯), and each closes
+back to its own pitch class an octave up rather than continuing.
+
+**Note the coincidence:** C2 · G2 · C3 is the stronger chain — C2 and G2 are both already in his spine (LG-16), G2 is the
+trumpet’s own tube (its natural 7th), and C2 carries 12 partials of coverage.
+
