@@ -123,6 +123,17 @@ string — a candidate partner in a beating (LG-8), though it cannot bend. The r
 percussion comes from piece #2's library (Spitfire ARO: metals, skins, bowed cymbals,
 superball drags).
 
+### LG-10 · 2026-09-17 — the percussion: small metals
+
+> *"small metals: finger cymbals, bell tree, sleigh/indian bells, triangles, tambourines; but lets figure out how to do the
+> spitfire insts and any automation that can be had"*
+> — composer, 2026-09-17, session 1 (after the Kontakt three got their curve slots), typed
+
+*AI reading:* the percussion is a SMALL-METALS kit — five families, all from ARO Metal Percussion, all unpitched, high and
+bright: a register above the winds and the strings, colour and pulse rather than weight, with the bowed vibraphone (LG-9) as
+the one sustaining, pitched metal beside them. It reads with LG-2 (delicate, quiet, texture and timbre). Whether the list
+grows, and which of the five appear where, is his. The second clause is a build question, not a musical one: RUNNING_LOG §30.
+
 ### Related decision in the Tempus journal
 
 - **D31** (2026-09-08): a technique used across pieces is built standalone from the first

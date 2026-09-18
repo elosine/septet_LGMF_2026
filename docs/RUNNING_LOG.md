@@ -1339,3 +1339,77 @@ placeholders, the double bass's CC#0 numbers are the cello's (NITS) — and noth
 
 ---
 
+## §30. The percussion named — small metals; "how to do the spitfire insts and any automation that can be had"
+
+**What prompted it.** Right after the curve-slots wrap, the composer: *"small metals: finger cymbals, bell tree,
+sleigh/indian bells, triangles, tambourines; but lets figure out how to do the spitfire insts and any automation that can be
+had"* — COMPOSITION_NOTES LG-10. Then: *"explain more clearly what you want to do next pls"*. The agenda moves to the
+percussion ahead of the Xsample recipes, at his word. This is a planning question: the method (PLANNING_METHOD.md) — data
+first, one topic at a time.
+
+**The data, read before answering.**
+- **The catalog** (`bank/aro_percussion_catalog.json`, piece #2's map): all five are **ARO Metal Percussion**.
+  `Sleigh Bells & Indian Bells` verified (12 keys, 2 beaters) · `Tambourines` verified (42 keys, 3 beaters) · `Small Metals
+  Triangles` verified (48 keys) · **`Finger Cymbals` and `Bell Tree` are SKELETONS** — name only, no keys; `apply_perc.js`
+  refuses them until mapped (the hover-and-dictate walkthrough, minutes each).
+- **Piece #2's gotcha** (its journal §5.7): *"Toys and Small Metals sub-instruments share a single preset — can't be
+  addressed individually without loading the parent preset."* So the finger cymbals and the bell tree may live INSIDE the
+  Small Metals preset beside the triangles — fewer instances than five, to be verified in the plugin.
+- **The Spitfire state in the saved rack:** the Percussion track's ARO instance is **empty — 284 bytes, no strings**. Whether
+  Spitfire's saved state is readable text (UVI: yes, §22 — a loaded program can be cloned as text) or opaque (Kontakt: no,
+  §26) cannot be known until ONE instrument has been loaded and saved. That single fact decides the automation: text →
+  one GUI load per preset and every further instance by the AI; opaque → one GUI load per instance, the rest (tracks,
+  inputs, channels, recipe) by script as now.
+- **Already automatic here:** tracks + plugin insertion + `LGPerc` input and channel through the bridge
+  (`make_tracks.lua`, §21) · the recipe from the selection (`apply_perc.js`, §19) · key maps from the catalog.
+  **Never automatic:** switching instruments by MIDI (no multi, #2's decision 5) — one instance per preset, D7.
+
+**Open, his to answer:** is ARO Metal Percussion installed on this machine (journal Q1b) · confirm percussion before the
+Xsample recipes.
+
+---
+
+## §31. Correction to §30 — the agenda did NOT move; "explain more clearly" meant the Xsample-recipes step
+
+*"no sorry this: the Xsample recipes. English horn roster from #3's Xsample manual; double bass CC#0 numbers from its own
+preset list … write both entries in instruments.js; palette_check + test_written_pitch"* — he was asking for step 1 of the
+wrap's table to be explained, not for percussion first. §30's data stands (the catalog status of his five, the empty ARO
+state, the one-load test); its "agenda moves" line is wrong. LG-10 stays as the percussion selection for when 0c reaches it.
+
+---
+
+## §32. The Xsample recipes are real — the english horn from his Preset Menu, the double bass verified against its own
+
+**What prompted it.** *"I don't want to overlabor this, what is the objective, what do we need to find out here or do we
+actually have what we need already"* — answered: one list to read (the english horn's), one to check (the bass's). He then
+sent the lists himself: **two screenshots of the English Horn's Preset Menu (39 entries)** and **four of the Bass XS menu (88)**
+— the instrument's own truth, better than any PDF. (The strings PDF in the library folder is a six-page AIL overview with no
+preset list; pypdf read it in one call.)
+
+**The english horn.** 36 factory presets + Free Preset 37–39. Written as `xsEnglishHornTechs(52, 81)` in
+`sandbox/instruments.js`, hoisted like `xsStringTechs`: CC#0 = preset − 1, `mw: true` on the wheel-shaped presets (curve-
+channel material under D11). **Keys reuse piece #5's bass clarinet keys where the preset NAME matches** (23 of 36: vib_mw ·
+senza_mw · stac_vel_mwshape · stac2_mwshape · flutter_mw · mp_short · key_noises · air_noises · vib_vel · senza_vel ·
+flutter_vel · triple16 · morph_vxmw · stac_vel · accent_vel · mp_loop · air_noises_mw · undef_tones · cresc · portato ·
+secco · vib_vel_mwinv · senza_vel_mwinv); **13 NEW keys** for presets the bass clarinet lacks (crow_vel_mwshape ·
+various_noises · vib_x_senza_vxmw · vib_senza_mw2d_cc2 · vib_flutter_vxmw · crow_vel · cresc_espr · vib_to_senza ·
+senza_to_vib · pseudo_bsn_vel_mwinv · pseudo_bsn_stac · pseudo_ob_vel_mwinv · pseudo_ob_stac) — palette_check lists
+them (48 unregistered now, with the brass extras); registration is 2a's, before material uses one. `ordinary` =
+`senza_vel`, the bass clarinet's choice (a steady pitch for a beating partner, LG-8) — his to flip to `vib_vel`. **Ranges
+assumed 52–81 for every preset, not read** — 0d measures them; the flutter, multiphonic and noise presets will be narrower.
+
+**The double bass.** All 88 of his menu compared one by one against the cello's roster in `xsStringTechs`: **identical, in
+order**, with Sul E / A / D / G exactly as the helper generates from the open strings. So the recipe's numbers were right;
+only its comment changes ("assumed, not read" → verified 2026-09-17) and the NITS line closes.
+
+**Four app tables went red**, as NITS said they would the day a placeholder key vanished: `strike_drawer.js` STRIKE_DEFAULT
+and ART_SETS.spiccato / .staccato, `cresc_card.js` STRIKE_DEFAULT all named `english_horn → ord | staccato`. Pointed at real
+keys on #5's bass-clarinet model: strike default `secco` (a dry short note — the nearest thing to a strike the roster has;
+#5's clarinet had a slap slot), spiccato and staccato → `stac_vel`. His ear may move the strike default at first sound.
+
+**Checks:** `palette_check` **GREEN 159** · `test_written_pitch` **GREEN 8 + the control**. NITS: the bass line and the
+english-horn line closed. What is still not true: nothing has been heard — next, the REC track and first sound from the
+sandbox on his Chrome, one Kontakt track at a time.
+
+---
+
