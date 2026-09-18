@@ -875,6 +875,43 @@ pitch as a just one **beats at exactly that partial’s deviation** — 14, 31 o
 anything. The vibraphone can be nothing else, the english horn would have to fight its own bore, and the cello now joins
 them by decision rather than by limitation.
 
+### LG-28 · 2026-09-18 — THE SIX CHORDS ARE THE REFERENCE HARMONIES; FOUR TRANSITION TYPES DESIGNED (spectral · balance · bloom · converge)
+
+> *"These will be the static or reference harmonies. And then I’m going to dictate a design for some of the transition morph
+> ones. So I would like to have a spectral style one for each of these that moves from some other partial. We can randomly
+> select those just as long as they sound good for that instrument. We can find a way to select these later. And then moves
+> towards these reference harmony and then moves away to a different set of partials. We’ll make a balance one for each that
+> no gliss at all and just has different entries and crescendos. We’ll make a version of the bloom where we move from one of
+> these harmonies, the reference ones, to pitches that are in the harmonic series without sense deviation. So the ones that
+> are on a deviant partial will move, will gliss to a partial that’s not, doesn’t have many sense deviation. And the pitches
+> that were assigned that weren’t in the harmonic series will move to pitches that are in the harmonic series and
+> non-deviant and back. and then a converge one where the deviant, non-deviant pairs will move into unison and then back.
+> And the ones not paired will try to pair them and then have those move to unison and then back. Obviously, if two vibes
+> are left, then they can’t move to unison by glyphs, but we can just have a time where they’re playing octaves. Well,
+> we’ll, we’ll figure this out if that’s the case."*
+> — composer, 2026-09-18, session 3, dictated, immediately after LG-27 *("sense deviation" = cents deviation; "glyphs" = gliss)*
+
+**The reading, as read back to him (AI, marked):**
+
+- **The six chords of LG-18–LG-27 are STATIC — the reference harmonies.** Fixed objects.
+- **Four transition types, one of each PER reference chord** — so 24 objects in all:
+  1. **Spectral** — begins on some OTHER set of partials of the same fundamental (chosen at random, filtered for what sounds
+     good on each instrument; the selection method deferred) → glisses INTO the reference chord → glisses AWAY to a third
+     set of partials. The reference is the station in the middle.
+  2. **Balance** — no pitch motion at all. The reference chord shaped only by staggered ENTRIES and CRESCENDOS.
+  3. **Bloom** — from the reference, every voice glisses to a NON-DEVIANT partial of the same series (the octaves, fifths,
+     thirds — the ones near 0¢): the just players leave their bent partials, the tempered players move to partials that are
+     tempered anyway — so the beating stops and the chord opens into a pure spectrum — and then BACK to the reference.
+  4. **Converge** — each BEATING PAIR (a just note and its tempered doubling at the same nominal pitch) glisses into true
+     unison and back. Voices without a partner are paired up first, then do the same. The vibraphone cannot gliss: where two
+     vibraphone bars are the unpaired remainder, a stretch of OCTAVES stands in for the unison — to be worked out if it arises.
+
+**Machine consequences (AI):** the morph tool (§MORPH_NOTES) is the natural home for spectral, bloom and converge — all
+three are glisses between pitch stations of one fundamental, which is a narrower and better-defined morph than #5’s. The
+balance type is the crescendo tool’s territory (CRESCENDO.md), not the morph’s. **The three just players are the only ones
+whose gliss changes the cents value; the tempered players’ glisses are ordinary.** The vibraphone cannot gliss in any of the
+three moving types — the question of whether it STEPS (re-bows a new bar) or HOLDS is open.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules

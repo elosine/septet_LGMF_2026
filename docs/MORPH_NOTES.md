@@ -1127,3 +1127,16 @@ the hold** — the held pattern exported as a reference (its rates and pitches) 
 "evoke the beating": rhythms at or related to the beat rates, pitches from the beating pairs. The septet's morphs only travel; none of this
 exists yet.
 
+### 2026-09-18 — LGMF: four transition types designed on the six reference chords (COMPOSITION_NOTES LG-28)
+
+> *"I would like to have a spectral style one for each of these that moves from some other partial … then moves towards these
+> reference harmony and then moves away to a different set of partials … a version of the bloom where … the ones that are on
+> a deviant partial will gliss to a partial that doesn’t have many cents deviation … and a converge one where the deviant,
+> non-deviant pairs will move into unison and then back."* — composer, dictated
+
+*AI reading:* three of the four (spectral · bloom · converge) are morphs between pitch STATIONS OF ONE FUNDAMENTAL —
+every target is a partial of the same root, so the destination set is small, enumerable and just-intoned by construction.
+What the all-purpose tool will need from this piece: (1) a destination chosen as a PARTIAL NUMBER, not a free pitch; (2) a
+three-station morph (A → reference → B) for the spectral type; (3) a there-and-back (reference → X → reference) for bloom
+and converge; (4) per-voice pairing so a beating pair can be driven to a unison as one object; (5) a voice that CANNOT gliss
+(the bowed vibraphone) inside a morph — step or hold, to be decided. The balance type is not a morph.
