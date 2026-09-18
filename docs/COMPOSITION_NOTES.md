@@ -438,6 +438,32 @@ Everything else near-tempered is a consonance in disguise.
 all, and 9/5 against the two C♯’s is a genuine grind. **Sharper option: partial 17, B♭5, on the vibraphone** — 17/10, and the
 vibraphone is fixed-tempered anyway, so it costs nothing. **His to say** which, and whether every chord gets one.
 
+**CHORD 1 (on B♭1) — the friction options.** Assigned just pitches: **D (partial 5/10, −14)** and **A♭ (partial 7, −31)**.
+
+**First fact:** the 7th partial is PRIME, so **nothing near-tempered is consonant against the A♭** — every candidate grinds
+against it to some degree. The choice is only how much, and what happens against the D at the same time.
+
+| partial | pitch | dev | vs the D | vs the A♭ | roughness | who can play it |
+|---|---|---|---|---|---|---|
+| 3 · 6 · 12 · 24 | F3 · F4 · F5 · F6 | +2 | 6/5 locks | 12/7 | mild | nearly all |
+| 1 · 2 · 4 · 8 · 16 | B♭ any octave | 0 | 8/5 locks | **8/7** | selective | nearly all |
+| **9 · 18** | **C5 · C6** | +4 | **9/5** | **9/7** | **rough both ways** | all but the bass (C5) |
+| **17** | **B5** | +5 | **17/10** | **17/14** | **very rough** | trumpet · cello · vibraphone |
+| **19** | **C♯6** | −2 | **19/10** | **19/14** | **sharpest** | vibraphone only |
+| 27 | F♯6 | +6 | 27/20 | 27/14 | roughest | — out of range |
+
+**The three usable characters:**
+- **C5 (partial 9)** — the balanced friction: rough against BOTH the D and the A♭, 4 cents from tempered so it needs no
+  technique, and almost every player can take it.
+- **B♭ (partials 1–16)** — SELECTIVE friction: it locks with the D’s (8/5) and grinds only against the horn’s A♭ (8/7, a
+  septimal whole tone). Consonant below, rough above.
+- **B5 (partial 17) or C♯6 (partial 19)** — the extremes, and both sit high: trumpet/cello/vibraphone for B5, vibraphone
+  alone for C♯6.
+
+**Note on scoring:** chord 1 as it stands (LG-19) already uses all seven players, so a friction partial replaces one of the
+tempered doublings — most naturally the **english horn**, which is currently doubling the horn’s A♭ at +31¢. Giving it C5
+instead turns a beating unison into a 9/7. **His call.**
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
