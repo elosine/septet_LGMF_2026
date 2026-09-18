@@ -2521,3 +2521,44 @@ length and climbs its series — and that tube length must BE the spine's root, 
 half of C2); the bassoon holds the three roots inside its range. **His to say** whether the spine's roots get assigned to
 the instrument that can hold them naturally, or whether lipped just intonation is accepted where it is not free.
 
+---
+
+## §63. Which fundamentals the brass and bassoon share — the trumpet’s seven pitch classes are the whole constraint (2026-09-18)
+
+**What prompted it.** *"What fundamentals in the cello and the bass range have the greatest Venn diagram for those three
+instruments — the trumpet, horn, and English horn? So what fundamentals should I choose that will allow those instruments
+to play the most harmonics in tune, naturally, without timbre change?"*
+
+**One correction taken first:** the **english horn cannot meet “without timbre change” at all** — its harmonics come from
+oboe-family alternate fingerings that sound veiled and uneven (§62). The three instruments that can are **horn, trumpet and
+bassoon** — exactly LG-17’s HOLD group. Answered for those.
+
+**The three constraints, and they are of completely different kinds.**
+
+| instrument | constraint | why |
+|---|---|---|
+| **horn** | **none** | its tube lengths run B0–B♭1 — a full chromatic octave, so every pitch class is an available fundamental (or the octave of one) |
+| **trumpet in C** | **seven pitch classes: F♯ G A♭ A B♭ B C** | its seven tube lengths span only C3 down to F♯2. **D, E♭, E and F are impossible** — on those roots the trumpet is playing ordinary valved notes at equal temperament and must lip |
+| **bassoon** | **nothing below B♭1** | it is a fingering instrument: it overblows whatever it FINGERS, so the root must be inside its range. No timbre penalty — its whole tenor register is already overblown partials on normal fingerings |
+
+**The Venn:** root **pitch class ∈ {F♯, G, A♭, A, B♭, B, C}** and **root ≥ B♭1**. Lower is better — more partials fit under
+the ensemble ceiling F6.
+
+**Against his existing spine (LG-16):**
+
+- **C2 ✓ all three.** 21 partials under F6. Horn on its C1 tube, trumpet on open C3, bassoon fingers it.
+- **G2 ✓ all three**, and it is the trumpet’s **own 1+3 tube** — the trumpet’s partials 2–8 land exactly on G2’s series, the
+  single most natural case on that instrument. But only 14 partials under F6.
+- **A1** — horn (B♭ side, 2nd valve, its most natural tube of all) and trumpet (A2 tube) yes; **below the bassoon.**
+- **E1 · D2** — **fail on the trumpet.** E and D are two of its four impossible pitch classes.
+
+**So the spine already contains the two roots that work for all three, and they are its apex (C2) and the top of the bass’s
+open strings (G2).** The two that fail are the arch’s outer ends.
+
+**If a third all-three root is wanted:** **B♭1 · B1 · C2** are the sweet spot — lowest legal, so the most partials. **B♭1 is
+the strongest single candidate:** it is the horn’s B♭-side OPEN fundamental (no valves at all), the trumpet’s 1st-valve
+tube an octave up, and the bassoon’s lowest note. It is on the double bass’s E string and **below the cello.**
+
+**Not decided — his.** Whether to accept lipped (equal-tempered) playing on E1 and D2, or to reassign those roots, or to
+give the trumpet nothing to do on them.
+
