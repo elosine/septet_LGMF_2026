@@ -187,7 +187,7 @@ score or simply absent; whether the hand edits survive a change of the pattern o
 
 ---
 
-## For the NEXT piece — the overdrive ensemble (kept here until that piece has a sketch pad, as LG-1…8 were kept in the Tempus pad)
+## For the NEXT piece — "overdrive", for the Switch ensemble (NX-4 corrects the name) (kept here until that piece has a sketch pad, as LG-1…8 were kept in the Tempus pad)
 
 ### NX-1 · 2026-09-18 — accented long tones with sine waves, beating; the pedals of resonance resurrected
 
@@ -237,5 +237,34 @@ across adjacent strings (three or four notes, one per string, in a playable hand
 harmony is constrained per instrument — a voicing rule the strikes-style orchestrator (LG-12's kin) would need to know.
 **His to say:** whether "all strings with harmonies" means every string player arpeggiates the WHOLE harmony or each takes
 their share of it; whether the winds / others have a grace-note cell of their own; up-bow, down-bow, or alternating.
+
+### NX-4 · 2026-09-18 — CORRECTION: "overdrive" is the Switch ensemble; its instrumentation
+
+> *"Overdrive is actually switch ensemble.  flute (dbl. bass/picc)
+> clarinet (dbl. bass)
+> saxophone (alt/bar)
+> piano
+> percussion
+> violin
+> cello
+> Electronics"*
+> — composer, 2026-09-18, session 2 of this piece, typed. A correction to NX-1…NX-3, which stand as he said them.
+
+**The ensemble, as he listed it — seven players plus electronics:**
+flute (doubling bass flute / piccolo) · clarinet (doubling bass clarinet) · saxophone (alto / baritone) · piano ·
+percussion · violin · cello · **electronics**.
+
+*AI reading (mine, not his):* "the overdrive ensemble" in NX-1…NX-3 = **the Switch ensemble** (presumably the Switch~
+Ensemble, the new-music group that works with electronics — **his to confirm**); "overdrive" is then the working name of the
+piece or of its sound, not of the players. It closes NX-1's open question. What the list changes in the earlier notes:
+- **NX-1** — the sine waves against live long tones, and the pedals of resonance (resonant filters, live or pre-recorded),
+  now have a seat: the **Electronics** part. `live-electronics-engine` is the home.
+- **NX-3** — "all strings" is **two players, violin and cello**; the one-bow arpeggios are a duo gesture unless the piano
+  (inside, or arpeggiated on the keys) joins them. His to say.
+- **The piano is back** — the struck role that this piece (LGMF) left quiet at the port has an owner there; #5's strikes
+  tools apply directly.
+- **For the port, when the time comes:** flute · bass clarinet · cello · piano · percussion recipes exist in the lineage
+  (#5 · #3 · #2); **new to acquire or map:** bass flute · piccolo · B♭ clarinet · alto and baritone saxophone · violin
+  (Xsample has it, #1's library).
 
 ---
