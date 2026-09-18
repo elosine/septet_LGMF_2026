@@ -2835,3 +2835,69 @@ and C1 at 19 partials covered and is worth nothing** — nineteen even partials 
 roots in the piece** — and they are far below the double bass’s E1, so they would be VIRTUAL fundamentals, sounded by
 nobody and only implied by the partials above them. That is a real compositional option and it has not been discussed.
 
+---
+
+## §64. The question re-aimed: which fundamental lets ONE CHORD sound the most deviant partials, each on a different player (2026-09-18)
+
+**What prompted it — his correction of the direction.** *"this is all interesting, but I think spooling off the point a
+tiny bit… at the top of the list is probably wanting to sound as many of the natural harmonics in any one chord as
+naturally and strongly as possible. However, for the ones that don’t have any ‹cents› deviation, that essentially can just
+be any instrument… And not doubling… which fundamentals will have the most partials covered naturally?"*
+
+**The re-aiming, restated.** The scarce resource is NOT coverage of the series — it is the **deviant partials**. A partial
+within a few cents of equal temperament (1 2 3 4 6 8 9 12 16…) can be given to anybody. The question is therefore:
+**for one chord on one fundamental, how many DISTINCT cents-deviations can be sounded at once, each by a different player?**
+§63–§63i answered a different question and is superseded as the working list.
+
+**The correction that changes the arithmetic: the STRINGS belong in this group.** §62–§63i treated horn, trumpet and bassoon
+as the instruments that can hold a just partial, because those were the ones with a natural-harmonic mechanism. But a
+**stopped string can be placed at any cents value by ear, with no technique and no timbre penalty** — string players tune to
+a drone this way as a matter of course. So the deviant-capable pool is **five**: horn · trumpet · bassoon · cello · double
+bass. The english horn is out (its alternate fingerings change timbre, §62) and the **vibraphone is out absolutely** — fixed
+tempered bars — so those two take tempered partials. This is LG-17’s *“strings could go either way”* made concrete.
+
+**Each player’s reach, on a root of B♭1** (deviations available, at any octave):
+
+| player | deviations it can hold | why limited |
+|---|---|---|
+| cello | −14 −31 −49 +41 −12 | by ear; range caps it at partial 16 |
+| horn | −14 −31 −49 | B♭1 is its open B♭-side tube; partials 2–12 |
+| trumpet | −14 −31 | even partials only here; never an odd one above 8 |
+| double bass | −14 −31 | by ear, but its range stops at partial 7 |
+| bassoon | −14 | overblows only to the 6th |
+
+**The ceiling is four,** and it is set by the bassoon and the trumpet being nearly monochrome: only the cello can take +41,
+only the cello and horn can take −49.
+
+**The ranking — fundamentals by distinct deviations sounded at once:**
+
+| deviant colours | fundamentals |
+|---|---|
+| **4** | B♭0 · B0 · C1 · F♯1 · G1 · A♭1 · A1 · **B♭1** |
+| 3 | C♯1 · D1 · E♭1 · E1 · F1 · B1 · C2 · C♯2 · D2 · E♭2 · E2 · F2 |
+| 2 | F♯2 · G2 · A♭2 · A2 · B♭2 · B2 · C3 |
+
+**B♭1 is the answer, and for a reason none of the earlier analysis reached.** It ties the maximum of four, and it is the
+**only fundamental in that top group where the bassoon is in the chord** — every other one is below B♭1 and out of its
+range. It therefore spends only four players on the deviant partials and leaves **three** — english horn, double bass,
+vibraphone — for the tempered ones. **A full seven-note chord, every partial distinct, nothing doubled:**
+
+| player | partial | pitch | cents |
+|---|---|---|---|
+| double bass | 1 | B♭1 | 0 |
+| english horn | 3 | F3 | +2 |
+| bassoon | **5** | D4 | **−14** |
+| vibraphone | 8 | B♭4 | 0 |
+| horn | **11** | E♭5 | **−49** |
+| cello | **13** | F♯5 | **+41** |
+| trumpet | **14** | A♭5 | **−31** |
+
+Partials 1 3 5 8 11 13 14 — four deviations, three tempered anchors, the root in the bass and the vibraphone’s fixed
+tempered B♭4 sitting in the middle of it as the reference the bent partials beat against (LG-15, LG-17).
+
+⚠ **The horn’s E♭5 is above the SI2 library’s F4.** The chord is playable and will not audition as written (§63f).
+
+**Not decided — his:** whether the chord wants the root sounded at all, whether the vibraphone’s tempered note is wanted
+inside the chord or against it, and whether B0/C1 — richer, bassoon-less, and below the double bass, so **virtual
+fundamentals** — are worth using where the bassoon is silent anyway.
+
