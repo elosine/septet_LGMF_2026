@@ -1760,3 +1760,32 @@ methodological lesson he drew himself, one message later: *"avoid unnessary extr
 
 ---
 
+## §43. The scope call — volume normalization is the only pre-composition item, and it is a probe job (2026-09-18)
+
+**What prompted it.** He asked for the 20 000-foot view, then elaboration on *"nothing sounds yet from the app"*, then made
+the call: *"lets pick up most of these things during composition; I think the only thing from this stage that is necessary
+pre composition is the volume normalization. anything else?"*
+
+**The AI's first answer was wrong and he caught it.** It said normalization dragged in two prerequisites — first sound from
+the app, and the percussion recipe (the lane still plays a placeholder). His reply: *"I still don't understand these things,
+they either sound on the probe or not, what is still blocking or can we just design the probes?"* **He is right.** The chain
+is `app → loopMIDI port → Reaper track → plugin → audio`, and **the probe enters at the port**: today's sweep (§41–§42) drove
+`LGPerc` with winmm and read `Track_GetPeakInfo`, so *port → Reaper → plugin → audio* is already proven for the fourteen
+percussion tracks, with a dB per key at velocity 100 — which is the raw material of normalization. **Neither the browser nor
+`sandbox/instruments.js` is in that path.** The recipe is what makes the APP OFFER a technique — a composing need, not a
+balancing need; the keys are known from the catalog either way.
+
+**What is genuinely untested:** the app's own MIDI output, browser → port, never run for this piece (and it must run in HIS
+Chrome — the in-app browser has no Web MIDI). One minute, and not a blocker for 0d.
+
+**Decided.** **0d (volume normalization) is the ONLY pre-composition item**; ranges, sample lengths, the REC track, the
+percussion port's last two channels and first-sound-from-the-app are all picked up during phase 1 as they are hit. PLAN 0d
+carries the call. **Next: design the normalization probe.**
+
+**Why the AI got it wrong, recorded because the pattern will repeat:** it reasoned from the PLAN's gate (0h — "every track
+sounds from the score app through its own port"), which is a phase-0 CLOSING condition, and treated it as a precondition for
+everything inside phase 0. He reasoned from the signal path. The path was right. A gate says what must be true at the end,
+not what must be true first.
+
+---
+

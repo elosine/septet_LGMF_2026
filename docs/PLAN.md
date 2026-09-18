@@ -73,6 +73,19 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
 - **0d — The samples' true ranges and lengths, per technique in use** — `todo` — *to be laid
   out when we discuss it.* *Why:* a range or a length read from a manual was wrong often
   enough in #5 to be measured instead.
+  **2026-09-18 — HIS SCOPE CALL, and 0d is now the one thing standing before composing:**
+  *"lets pick up most of these things during composition; I think the only thing from this
+  stage that is necessary pre composition is the volume normalization"* — so ranges, lengths,
+  the REC track, the percussion port's last two channels and first sound FROM THE APP all
+  move to "as we hit them in phase 1"; **volume normalization alone is pre-composition.**
+  And on how: *"they either sound on the probe or not... can we just design the probes?"* —
+  correct, and the framing that had first-sound-from-the-app blocking it was wrong
+  (RUNNING_LOG §43). Levels are a Reaper-side measurement: a probe fires the mapped keys into
+  the `LG` port and reads `Track_GetPeakInfo`; no browser and no recipe are involved. The
+  percussion chain already sounded this way on 2026-09-18 (§41–§42), and that sweep's dB
+  column is the raw material. **Still untested, and NOT a blocker for 0d:** the app's own
+  MIDI output (browser → port), the one segment never run for this piece — a minute in his
+  Chrome, whenever.
 
 - **0e — loopMIDI + Reaper rack** — `doing 2026-09-17` *(RUNNING_LOG §20–§25: ten `LG` ports verified by name; ten tracks in score order made by `reaper/bridge/jobs/make_tracks.lua`; the six UVI instances configured as text — `uvi_state.js` header fixed, `uvi_edit.js` clone + baseline, proven with the meters; D9 the layout. Remaining: the three Kontakt instances' `.nki` + `curve_slots`, the percussion tracks when chosen, the REC track)* — A new rack
   for seven new tracks. The Reaper bridge from #5's 0k was built machine-level "for the next

@@ -117,33 +117,79 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 - **Spitfire's state is XML (§34):** a (C) preset holds its family's instruments as ARTICULATIONS with keyswitch triggers (Small Metals (C) = 14, keyswitches 0–13, his five inside it). **`tools/aro_state.js` (§35):** info · decode · encode --push · roundtrip · edit · clone; every push read back. **Cloning a loaded preset to a new track: PROVEN.** Changing to a family never loaded: **refused four ways** — the plugin restores only what it has loaded; the host offers 0 presets (§36). **Rule, as UVI's: one GUI load per family, then text.** The state bank: `bank/aro_states/` — `small_metals_C.aro.xml` captured.
 - His three "for after" questions answered from the record (§27); the loopMIDI-ports note in NITS; the joined-base64 decoder bug found and fixed (§34 — Kontakt byte counts in §26/§29 are approximate).
 
+### SESSION 2 — 2026-09-18 (Fable, then Opus; one clear at the start) — **THE PERCUSSION IS BUILT**
+
+- **Fourteen percussion tracks**, `LGPerc` ch 1–14 (RUNNING_LOG §37–§38). The first five made empty by
+  `reaper/bridge/jobs/make_perc_tracks.lua`; the next nine **duplicated from his own `Template` track** at his word
+  (*"please use the track called Template to duplicate"*). He selected every instrument in the plugin; the AI read all
+  fourteen back and **banked eight (C) preset states** — any of them is now reproducible as text.
+  `bank/perc_rack.json` records the rack as read.
+- **All fourteen key maps done** (§41–§42) — Finger Cymbals (36 · 38, +24) measured; Bell Tree (six glisses, white keys
+  36–45, +24) and Shakers Pairs (**the only black-key one**: A 36–39, B 48–51, both +24, four samples in all) from his
+  hover. **The catalog's first entries not carried from piece #2**; verified 35 → 38. The bass drum counted as mapped —
+  Gran Cassa is his piece-#2 Bass Drum (§40).
+- **A probe lied and was caught** (§42): a BOM in the watch chunk made the bridge's `loadfile` fail silently, so every note
+  read the PREVIOUS note's stale outbox file. §41's "sweeps fail on long sounds" is withdrawn as stated. Then his word:
+  *"we killed the sweeps... no more sweeps."*
+- **His scope call (§43): volume normalization is the ONLY pre-composition item.** Ranges, lengths, the REC track, the
+  percussion port's last two channels and first-sound-from-the-app are all picked up during composing. And it is a
+  **probe job** — Reaper-side, no browser and no recipe (he corrected the AI on this; the AI had read a phase-0 GATE as a
+  precondition).
+- **Two working-method additions, his words, now in `~/.claude/CLAUDE.md` + this repo's CLAUDE.md § THE RHYTHM + memory:**
+  the **shape of a working reply** (goal heading · ✓ trail · the one thing · footnotes quarantined · no "what's next"
+  unless asked · model/clear advice only at a real switch point) and **no unasked verification** (*"avoid unnessary extra
+  work unless asked for... unless we write these into a plan as necessary verifications and qc"*).
+- **Five composition notes captured verbatim** — **LG-11** (multitempo: connect patterns by accelerating / decelerating
+  some parts) · **LG-12** (the strikes drawer takes the multitempo patterns; click a note to mute or re-orchestrate;
+  reshuffle) · and for the NEXT piece, **NX-1 … NX-6**: "overdrive" is for the **Switch ensemble** (NX-4 names the
+  instrumentation), accented long tones beating against generated sines, rapid one-bow string arpeggios, ostinatos on a
+  pitch cell, and **a new notation writing the glissando as BEATING SPEED or timbre rather than pitch deviation** (NX-6).
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
-| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). Spitfire read and pushed as text, the small metals loaded once and banked (§30–§36). **2026-09-18, session 2 (§37–§39): the clone-and-change experiments were DROPPED at his word — the script makes the tracks, he selects. The percussion rack stands: fourteen instrument tracks on `LGPerc` ch 1–14 (`make_perc_tracks.lua`; new rows duplicate his `Template`), his loads read, eight (C) presets banked, the rack as read in `bank/perc_rack.json`. ► NEXT: the key sweep — which keys sound (meters) and what each is (catalog; GUI for Finger Cymbals · Bell Tree · Shakers Pairs · Gran Cassa)** — the checkpoint entry below is superseded from its step 2 on. After that: the percussion recipe (`perc_selection.json`) · the REC track · first sound from the SANDBOX per track (his Chrome) · 0d · 0h | **Fable to walk him** · Opus for the scripts | **yes — a different mechanism (Kontakt), and the context is long** |
-| N2 | **0d** the samples' true ranges and lengths, then **0h**, the phase-0 gate: every track sounds from the app through its own port | Opus | yes |
+| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). Spitfire read and pushed as text, the small metals loaded once and banked (§30–§36). **2026-09-18, session 2 (§37–§39): the clone-and-change experiments were DROPPED at his word — the script makes the tracks, he selects. The percussion rack stands: fourteen instrument tracks on `LGPerc` ch 1–14 (`make_perc_tracks.lua`; new rows duplicate his `Template`), his loads read, eight (C) presets banked, the rack as read in `bank/perc_rack.json`. All fourteen key maps DONE (§40–§42).** What remains of 0c/0e is picked up during composing at his call (§43): the percussion recipe (`perc_selection.json` — one script run when he picks the selection) · the REC track · the port's last two channels · **first sound from the APP (browser → port, never run for this piece; must be HIS Chrome — the AI's browser has no Web MIDI)** | — | — |
+| **► N2** | **0d — volume normalization. The ONLY pre-composition item (his call, §43).** A **probe job, Reaper-side**: fire each instrument's mapped keys into its `LG` port (winmm, as §41–§42's sweep did) and read `Track_GetPeakInfo`; no browser and no recipe are in that path. The fourteen percussion tracks already sounded this way and that sweep's dB column is the raw material. **Design the probe first** — what "normalized" means across sustaining winds/strings and one-shot percussion is the open question, and his ear settles it. Then **0h**, the phase-0 gate | Opus to build; **his ear to judge** | resuming from a clear |
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5), **with patterns connected by accelerating / decelerating some parts (LG-11, 2026-09-18)** and **offered as a rhythm choice in the strikes drawer, the final pattern editable by click — mute / re-orchestrate a note — and reshuffled (LG-12, 2026-09-18)** · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
-**Open at session end — (mid-session checkpoint, 2026-09-17 late, before the clear):**
+**Open at session end — (mid-session checkpoint, 2026-09-18, before the clear):**
 
-- **The task:** phase 0, **0c + 0e together, him at the machine.** DONE so far: ten ports · ten tracks · the three SI2 instruments as text (§20–§25) · the Kontakt three with four slots each (§26–§29) · the Xsample recipes real (§32) · Spitfire read and pushed as text (§34–§36). **Nothing has been heard yet.** Still in 0c/0e: the percussion tracks + recipe from the loaded Small Metals (C) · the REC track · first sound from the sandbox per track · then 0d · 0h.
-- **Latest deliverables:** `tools/aro_state.js` (info · decode · encode --push · roundtrip · edit · clone — every push read back through the bridge) · `bank/aro_states/small_metals_C.aro.xml` (his load of 22:07, captured) · `sandbox/instruments.js` (`xsEnglishHornTechs`; the bass verified) · `reaper/kontakt/curve_slots.lua` (self-reporting; parse-check through the bridge first) · RUNNING_LOG §26–§36.
-- **THE NEXT CONCRETE STEP — his words at the checkpoint:** *"I want to have you clone the track and then try again to change the instrument. And then I want to take some screenshots when you're doing it to see if we can't find another path and understand what you're trying. And then I want to work on a way that you can map the keys and instruments or articulations per key."* After `/postclear` and his **go**, in this order:
-  1. `node tools/reaper_job.js heartbeat` — the bridge must say `alive: true` (it dropped once tonight, §36; Reaper open, no dialog).
-  2. `node tools/aro_state.js clone Percussion "ARO clone" --push` — a new track after Percussion, read back with its 14 articulations. Tell him it is there, so he opens that track's plugin and screenshots.
-  3. The change attempts on that clone, **one push at a time, each announced in one line BEFORE it runs** so his screenshot catches the plugin at that moment: `edit "ARO clone" --preset "Dragon Drums (C)" --family "Low Percussion" --push` · then the same with `--modified 0` · then with `--strip-artics`. §35 says all are refused or relabel only; **the point now is his eyes on the plugin during each** — what he sees goes into RUNNING_LOG verbatim.
-  4. If he finds a path in the GUI (a browser action, a reload, a menu), read the state BEFORE and AFTER that action (`decode` twice) and diff the two XMLs — the diff is the mechanism, and the tool gets a command for it.
-  5. The key mapping: what is known — three of his five have catalog maps (Sleigh/Indian 12 keys · Tambourines 42 · Triangles 48); Finger Cymbals and Bell Tree are hover-and-dictate (`bank/aro_percussion_catalog.json` `_meta.walkthrough`); which keys SOUND is machine-detectable by a note sweep with the meters (`reaper/bridge/jobs/peakwatch_lgmf.lua` + `port_note_probe.ps1`, §22's pair) — the sweep gives numbers, the hover gives names. Plan the sweep tool WITH him (PLANNING_METHOD) before building it.
-  6. Delete the clone at the end (`reaper_job.js -e` with `DeleteTrack`, as §35 did); his rack stays at ten.
+- **The task:** phase 0. **The machine is BUILT** — ten instrument tracks + fourteen percussion tracks, every instrument
+  configured as text, all fourteen percussion key maps done (§37–§42). **His scope call (§43): volume normalization (0d) is
+  the ONLY pre-composition item**; everything else in 0c/0e is picked up during composing. **Nothing has been heard by him
+  yet** — the AI's probes have metered individual tracks, but no balanced listening has happened.
+- **Latest deliverables:** `reaper/bridge/jobs/make_perc_tracks.lua` (fourteen rows; a new row DUPLICATES his `Template`
+  track, existing tracks are read-back only) · `bank/perc_rack.json` (the rack as read: track · channel · preset · selected
+  articulation · banked state · catalog entry) · `bank/aro_states/` (eight (C) preset states) ·
+  `bank/aro_percussion_catalog.json` (Finger Cymbals · Bell Tree · Shakers Pairs now `verified`) · RUNNING_LOG §37–§43.
+- **THE NEXT CONCRETE STEP — design the volume-normalization probe, then build it.** Not a sweep of keys (those are
+  mapped); a LEVEL measurement. What is already known, so it does not have to be rediscovered:
+  1. **The path is Reaper-side only** — winmm → the `LG` loopMIDI port → the track → the plugin → `Track_GetPeakInfo`.
+     **No browser and no `sandbox/instruments.js` are involved** (§43). The working shape is a bridge job that defers on
+     `Track_GetPeakInfo` for ~1.1 s and writes `outbox/peakwatch.json`, plus a PowerShell P/Invoke that fires the note.
+  2. **Two traps, both already paid for:** (a) write any Lua sent to the bridge with `UTF8Encoding($false)` — **a BOM makes
+     `loadfile` fail silently and every read then returns the PREVIOUS note's stale file** (§42); delete the outbox file
+     before each note and abort unless the job returned `ok: true`. (b) **Never send CC7** — on Spitfire that is the global
+     gain and it would rewrite his mix (`probes/port_note_probe.ps1` sends it as a residue guard; do not reuse it as-is).
+  3. **Ask him first what "normalized" means to him** across sustaining winds/strings and one-shot percussion — peak, or
+     perceived loudness at a written dynamic? Where the gain is applied (the Reaper fader, the plugin's own gain, or the
+     recipe's velocity) is his call too. **Design with him before building** — and note his standing rule: no verification
+     or QC pass that he did not ask for or that the plan does not name.
 - **`Resume reads:`**
-  - `tools/aro_state.js` — the header comment only (the commands and what a push is).
-  - RUNNING_LOG **§35** (the four refused variants, what each read back) and **§36** (the loader is the plugin browser alone; the state bank).
-  - `bank/aro_percussion_catalog.json` — `_meta` only (the walkthrough for mapping a key).
-- **Decisions pending him:** which of the five small metals appear where, and whether the list grows · the percussion trigger design — A keyswitch prelude · B one channel per instrument if the plugin has that trigger type · C one instance per instrument (§34) · one loopMIDI port per percussion instrument (his note, NITS) against D7's one port · the LGMF call, unread at his word (Q2) · who inherits the piano's struck role (PLANNER) · the presentation score's pitch form (2b).
-- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the rpp"). `node_modules/` and `reaper/kontakt/out/` are ignored. No servers of the AI's are running; the bridge runs inside his Reaper.
+  - `bank/perc_rack.json` — the fourteen tracks, their channels and their catalog entries (the probe's input).
+  - RUNNING_LOG **§43** (why normalization needs no app and no recipe) and **§42** (the BOM trap, and the working probe shape).
+- **Decisions pending him:** what "normalized" means and where the gain goes (above) · the percussion trigger design —
+  A keyswitch prelude · B one channel per instrument · C one instance per instrument (§34, and the rack is built as C) ·
+  one loopMIDI port per percussion instrument (his note, NITS) against D7's one port, now that 14 of 16 channels are used ·
+  whether the +24 duplicate keys are the same samples (*"figure this out another day"*, §41) · the LGMF call, unread at his
+  word (Q2) · who inherits the piano's struck role (PLANNER) · the presentation score's pitch form (2b).
+- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the
+  rpp"). `node_modules/` and `reaper/kontakt/out/` are ignored. The probe scripts live in the session scratchpad and are
+  deliberately NOT in the repo — the real tool gets designed with him. No servers of the AI's are running; the bridge runs
+  inside his Reaper.
 
 **Open questions:**
 - **Q1b — libraries.** Closed but one: english horn = Xsample (D8) · all three ARO volumes installed (§33) · the

@@ -34,11 +34,13 @@ instruments COMPLETE as recipes, configured as text through the bridge (RUNNING_
 `uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **The Kontakt three have their four slots** (D11 by `reaper/kontakt/curve_slots.lua`, self-reporting, proven by
 read-back — RUNNING_LOG §26–§29; **parse-check every Kontakt script through the bridge first**, §28). **Their Xsample recipes are real** (§32: the english horn's 36 presets from his menu; the double bass's 88 verified = the
 cello's; palette 159 / written-pitch 8 green). **Spitfire is read and pushed as text** (`tools/aro_state.js`, RUNNING_LOG §34–§36: a loaded preset clones to any track; a
-never-loaded family needs one GUI load; the bank `bank/aro_states/`). **The percussion rack stands (2026-09-18, RUNNING_LOG
-§37–§39): fourteen instrument tracks on `LGPerc` ch 1–14** (`reaper/bridge/jobs/make_perc_tracks.lua` — new rows duplicate his
-`Template` track), his loads read and banked (eight (C) presets in `bank/aro_states/`; the rack as read: `bank/perc_rack.json`).
-**Next: the key sweep — which keys sound and what each is — then the percussion recipe (`perc_selection.json`), the REC
-track, first sound** — then 0d / 0h.
+never-loaded family needs one GUI load; the bank `bank/aro_states/`). **The percussion is BUILT (2026-09-18, RUNNING_LOG §37–§43):
+fourteen instrument tracks on `LGPerc` ch 1–14** (`reaper/bridge/jobs/make_perc_tracks.lua` — new rows duplicate his
+`Template` track), his loads read and banked (eight (C) presets in `bank/aro_states/`; the rack as read: `bank/perc_rack.json`),
+**and all fourteen key maps done** (the catalog's first entries not carried from piece #2; verified 35 → 38).
+**His scope call (§43): volume normalization (0d) is the ONLY pre-composition item** — the percussion recipe, the REC track
+and first-sound-from-the-app are picked up during composing. **Next: design the volume-normalization probe** — a Reaper-side
+measurement (fire the mapped keys into the `LG` port, read the meters); no browser, no recipe in that path.
 
 ## READ FIRST — how to work here
 
