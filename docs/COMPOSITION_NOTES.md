@@ -836,6 +836,45 @@ ratios were deliberately not repeated: 17/14 · 9/5 and 17/10 · 12/7 · 9/7 and
 and both notes of chord 5’s double stop. **And nothing yet says how these six chords are used** — their order, their
 durations, what happens between them, whether they are the morph’s stations (LG-6, LG-8) or the opening’s harmony (LG-15).
 
+### LG-27 · 2026-09-18 — SETTLED: only the BASSOON, HORN and TRUMPET play just. Everyone else is tempered.
+
+> *"only the bsn, tpt horn are just all rest tempered"* — composer, 2026-09-18, session 3, typed, after the six chords were
+> scored
+
+**This closes the open question of the whole set** — the cello’s doublings are **tempered**, not a per-note choice. The
+harmonic series generates the PITCHES of every chord; only three instruments actually bend to the just value.
+
+| plays JUST | plays TEMPERED |
+|---|---|
+| horn · trumpet · bassoon | english horn · vibraphone · cello · double bass |
+
+**And the bassoon is only just where it CAN be.** It needs to finger the fundamental and overblow, so it is just on
+**chords 1, 3 and 5** (roots B♭1, C2, B1 — at or above its floor) and **tempered on chords 2, 4 and 6**, whose roots A1,
+G♯1 and F♯1 are below it. The horn and trumpet are just in all six.
+
+**So the deviations that actually SOUND:**
+
+| # | horn | trumpet | bassoon |
+|---|---|---|---|
+| 1 | −31 | −14 | −14 |
+| 2 | −14 | −14 | tempered |
+| 3 | −31 | −14 | −14 |
+| 4 | −31 | −14 | tempered |
+| 5 | −31 | −14 | −14 |
+| 6 | **−49** | −31 | tempered |
+
+*AI reading (mine, not his), and one consequence worth naming:* **chord 4 loses its near-quarter-tone.** The cello’s D5 was
+chosen as the 11th partial at −49¢ (LG-24); played tempered it is simply a D5, and the chord’s only sounding deviations
+become the horn’s −31 and the trumpet’s −14 — the same as chords 1, 3 and 5. **Chord 6 keeps its −49 because that note
+is the HORN’s.** The set’s rise in strangeness therefore now runs: chord 2 mildest (−14 only) → chords 1, 3, 4, 5 (−31)
+→ chord 6 alone at −49. **His to say** whether chord 4 should get its quarter-tone back by moving the 11th to the horn,
+or whether the flat profile across 1–5 with chord 6 as the single departure is the shape he wants.
+
+**What the tempered instruments are doing** is unchanged and is the point: every tempered note placed at the same nominal
+pitch as a just one **beats at exactly that partial’s deviation** — 14, 31 or 49 cents — with no player having to do
+anything. The vibraphone can be nothing else, the english horn would have to fight its own bore, and the cello now joins
+them by decision rather than by limitation.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
