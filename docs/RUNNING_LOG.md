@@ -1413,3 +1413,112 @@ sandbox on his Chrome, one Kontakt track at a time.
 
 ---
 
+## §33. Spitfire, more simply — three questions, the library on disk, and a dead end (the patches are encrypted)
+
+**What prompted it.** With a Spitfire instrument open on his screen (v1.3.29, the hover readout "OPEN HIT" at the left):
+*"then spitfire more simply; we need one track per instrument, correct? You can clone the track, but can you change the
+instrument or do I have to? And then are you able to detect the proper keys to use and what they trigger? Or do we have to
+manually map that? for example a mouse hover gives information to the left"*.
+
+**Found, from Spitfire's own settings** (`%APPDATA%/Spitfire Audio/Settings/Spitfire.properties`): the library is
+`C:/Users/jwloy/Spitfire/Spitfire Audio - Abbey Road Orchestra/` with `Patches` · `Presets` · `Samples` · `MIDI`.
+**All three volumes are installed — High, Low and Metal Percussion** (journal Q1b closed). Under `Patches/Metal
+Percussion/Core/v1.5.0/` every Small Metals instrument is its OWN `.zmulti` — Agogos · Bell Tree · Cabassa · Chain Drops ·
+Cowbells · **Finger Cymbals** (29 KB, the smallest — few keys) · Guira · Mark Tree · Reco Reco · Sleigh Bells & Indian Bells ·
+Spring Coil · Tambourines · Triangles · Wind Chimes — and `Presets/` holds one `Small_Metals_(C).zpreset`, the combined
+preset piece #2's gotcha was about. The `MIDI` folder is 102 drum-rudiment files, not key maps.
+
+**Tried: read the key maps from the patch files.** `.zmulti` and `.zpreset` inflate at no offset 0–64 (zlib, raw, gzip,
+brotli); printable strings none; entropy 7.45–7.85 bits/byte; both files share the header `0008000005f390ef658fc1b3`.
+**Encrypted — dead end.** What a key triggers is readable only from the plugin's hover readout, i.e. by his dictation
+(the catalog `_meta.walkthrough`), as piece #2 did. Which keys SOUND is machine-detectable (a note sweep with the meters)
+but that gives numbers without names.
+
+**The plugin state, still untested.** The Percussion track's Abbey Road instance in the 22:47 save is still the empty
+284-byte state — whatever he loaded on screen is not in that instance, or was loaded after the save. The clone-and-
+change question waits on one saved instance with an instrument in it.
+
+**The answers as given:** one track per instrument, yes (D7; no multi, no switching by MIDI). Clone yes (the bridge makes
+tracks and inserts the plugin); change-the-instrument-as-text unknown until the state is read; the GUI load is one click
+per instrument either way. Keys: three of his five are already mapped (Sleigh/Indian Bells 12 · Tambourines 42 ·
+Triangles 48); Finger Cymbals and Bell Tree are the hover-and-dictate, minutes each.
+
+---
+
+## §34. Spitfire's state is XML, and the (C) preset holds all fourteen small metals as articulations — §33's "empty" corrected
+
+**What prompted it.** *"lets work on 2. its been saved I'm not sure why read as empty try again"*.
+
+**Correction to §33 (and §30).** The instance was never empty. **My decoder was wrong:** it joined the VST chunk's base64
+lines and decoded once, and Node's decoder stops at the first line's `=` padding — 284 bytes was the chunk's HEADER line,
+not the state. Decoded line by line (header 96 B · body 120 045 B · tail 6 B in the save; live via the bridge `chunk
+Percussion` job: header 210 · body 119 931 · tail 6) the body is **XML**, 119 596 bytes, preceded by 266 bytes of a JUCE
+binary prefix and followed by 69 bytes (`JUCEPrivateData` · `Bypass`). *Caveat for the record:* the Kontakt state sizes in
+§26 and §29 were measured with the same decoder; their ratios (one and then four nki bodies) stood, but treat the byte
+counts as approximate.
+
+**The anatomy** (`<SPITFIREAUDIO_ABBEY_ROAD_ORCHESTRA>`): `<META family="Metal Percussion" name="Small Metals (C)" …>` ·
+`<UI>` · `<ARTICS>` with 24 global settings (`p_lastSelectedPrimaryArtic = 12`, `p_midiChannel = 0` = omni, velocity
+mode, mixer flags …) and **14 `<ARTIC>` blocks — one per small-metals INSTRUMENT**, in this order: 0 Agogos · 1 Bell Tree ·
+2 Cabassa · 3 Chains · 4 Cowbells · 5 Finger Cymbals · 6 Guira · 7 Mark Tree · 8 Reco Reco · 9 Sleigh Bells and Indian
+Bells · 10 Coil · 11 Tambourines · 12 Triangles · 13 Wind Chimes. Each carries `a_name`, `a_active` (2 on Triangles, the
+one he had selected; 0 elsewhere), a **trigger block** — `t_type = 1`, `t_enabled = 1`, **`t_keyswitch` = its index (notes
+0–13)**, `t_midiChannel = 1`, `t_cc = 32` 0–127 (UACC), `t_programChange = 0`, velocity 1–127 — a round-robin block
+(`rr_neighbourMin = 36`, `rr_neighbourMax` = 38 Finger Cymbals · 45 Bell Tree · 52 Sleigh/Indian · 67 Tambourines · 69
+Triangles — a hint at each zone's top, not the map), and a `<MIX>` of 117 mic settings. Then 68 `<PARAM>` CC maps
+(gain CC7, pan CC10, reverb CC19 …). No paths, no ids — **the instrument is referenced by NAME, the samples come from the
+library on disk.**
+
+**So, his question 2 answered: yes, the AI can change the instrument as text** — there is nothing to change: one loaded
+(C) preset already holds the five he named (and nine more), and which one answers is a keyswitch note (0–13) or the
+`a_active` flag, both text. Piece #2's decision 5 ("cannot switch by MIDI") was about separate presets; **inside the (C)
+preset the player switches by keyswitch**, the SI2 `ks` mechanism the recipe already has.
+
+**The design choice put to him** (options, not a picker): **A** one instance · one channel · keyswitch prelude per note
+(nothing to build in the plugin; overlapping instruments to verify at first sound) · **B** one instance · one channel per
+instrument if the trigger type "MIDI Channel" exists — D7's shape in one plugin, no preludes, full polyphony; costs one
+GUI change by him to learn the `t_type` number, then the rest is text · **C** five cloned instances, `a_active` set by text —
+D7 literal, certain, heavier. Recommended B, else A. The push tool (`tools/aro_state.js`, on `uvi_state.js`'s pattern:
+decode · encode --push through the bridge) is the next build either way.
+
+---
+
+## §35. "Can you switch the instrument?" — the Spitfire state pushed as text: cloning yes, a new family no
+
+**What prompted it.** *"More simply, please … So very simply, I just want to see if you can automate the instrument choice
+… So I know you can clone the track already. Can you switch the instrument? So if I request Dagu drums, can you produce
+that. And then as a side thing, we should make a note to figure out how you can automate the loop MIDI ports, because
+each of the percussion instruments will need its own port."* (The ports note: NITS.)
+
+**Built:** `tools/aro_state.js` on `uvi_state.js`'s pattern — `info · decode · encode --push · roundtrip · edit · clone`.
+The VST chunk decoded LINE BY LINE (§34); the state = a 476-byte JUCE prefix (I/O masks, then **two length fields: BE at
+464 = xml + 69, LE at 472 = xml**, both rewritten on encode — the §22 lesson applied before it could bite) + the XML +
+a 75-byte tail. `clone` inserts a new track after the source and sets the source's chunk on it (name changed, GUID
+dropped) with the state edited as asked; every push is read back through the bridge, and the read-back is the verdict.
+
+**Proven — cloning:** `clone Percussion "ARO test" --push` → a new track at index 9 with a live Small Metals (C) instance,
+read back with its 14 articulations. The plugin re-serialized (xml 119 596 → 119 518 B, selected 12 → 0): it had parsed
+and adopted the state. **A loaded preset can be put on any number of tracks as text.** Dagu exists in the library:
+`Low Percussion/…/Dragon_Drums_Dagu_Sticks.zmulti`, with `Hard_Felt` and an `All_in_one`, under the preset
+`Dragon Drums (C)`.
+
+**Not achieved — a family the instance has never loaded, four ways:**
+1. META name/family → "Dragon Drums (C)" / "Low Percussion", articulations kept: **accepted as a label** — the read-back
+   carries the new name over the same 14 small metals. `TrackFX_GetPreset` returns "" for this plugin, no help.
+2. The same with `modified="0"` (a "factory" flag might trigger a reload): accepted, nothing loaded.
+3. Articulations stripped (META + globals only, 8.6 KB): **refused** — the plugin kept its previous 119 593-byte state.
+4. One articulation kept and renamed "Dagu Sticks" under the Dragon Drums label: **refused** the same way.
+**Verdict:** the Abbey Road player restores only a state it produced for what it has loaded; it never loads a preset from
+the library because a state names it. Exactly UVI's rule (§22): a program loaded once can be cloned, moved and edited as
+text; a program never loaded cannot be conjured. **So "Dagu drums" costs one GUI load of Dragon Drums (C) — once, on
+any track — and from then on every track and every instrument choice in that family is text.**
+
+**What IS text inside a loaded (C) preset:** which of its 14 instruments answers (the keyswitch notes 0–13, or
+`a_active` + `p_lastSelectedPrimaryArtic` — `--artic` in the tool), triggers, channels, mic mixes, gain. That is the
+small-metals rack: one load he has already made, the rest by script.
+
+**Cleanup:** the two test tracks (`ARO test`, `Dagu ARO`) deleted by a bridge job; his rack back to ten tracks, and his
+last save (22:51, Small Metals (C) on Percussion) untouched.
+
+---
+

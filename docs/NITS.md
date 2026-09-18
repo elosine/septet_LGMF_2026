@@ -138,3 +138,8 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
 - **Piece #5's `tools/uvi_state.js` has the header flaw fixed here** (RUNNING_LOG §22): its `rebuild()` rewrites only LE fields
   within 64 of the old length and its committed flute carries the same 496-byte header. Carry the fix back before #5's rack is
   next edited as text (never from this repo — a note for that repo's own session).
+
+- **Automate the loopMIDI ports for the percussion** (composer, 2026-09-17: *"we should make a note to figure out how you can
+  automate the loop MIDI ports, because each of the percussion instruments will need its own port"*). Today the ports are made by
+  hand in loopMIDI (ten, §20). Find whether loopMIDI can be driven (its CLI / config file / registry) before the percussion tracks
+  are made; the per-instrument-port design itself is his call against D7's one-port-many-channels (RUNNING_LOG §34–§35).
