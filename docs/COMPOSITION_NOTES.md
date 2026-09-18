@@ -161,4 +161,19 @@ processing the players live or applied to pre-recorded material. `live-electroni
 **Not known to the AI, his to say:** which piece the pedals of resonance come from and how they were built; whether the sines
 are fixed or follow the players; whether "overdrive" names the ensemble or a sound.
 
+### NX-2 · 2026-09-18 — multitempo as a calliope; a quick harmonic rhythm, attacks between the changes
+
+> *"for the overdrive piece, use the multi-tempo rhythms to create a calliope-like effect among the performers and a quick
+> harmonic rhythm with attacks in between chord changes."*
+> — composer, 2026-09-18, session 2 of this piece, typed while the percussion tracks waited for his loads
+
+*AI reading (mine, not his):* the **multitempo machinery** (LG-4/LG-5 here; #5's tempo streams) turned to a new sound — each
+performer on their own tempo, the attacks interlocking across the ensemble like the pipes of a **calliope**: mechanical,
+bright, a composite melody-rhythm nobody plays alone. Under it the **harmony moves fast**, and the players' **attacks fall
+BETWEEN the chord changes** — so the changes and the attacks are two interleaved grids, not one; a chord is heard being
+struck into after it has already turned. It reads with LG-7's "harmony on a clock". The tool consequence, if it holds: the
+harmonic clock and the attack streams must be separately schedulable, with a rule placing attacks off the change points.
+**His to say:** how fast "quick" is; whether every performer has their own tempo or the pairs share one; whether the
+calliope is a whole section or a recurring device.
+
 ---
