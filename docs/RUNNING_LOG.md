@@ -1719,3 +1719,37 @@ this is just duplicate for performance or different samples will figure this out
 
 ---
 
+## §42. CORRECTION to §41 — the sweep did not fail on long sounds, it failed on a BOM; and Shakers Pairs mapped (2026-09-18)
+
+**What prompted it.** His Shakers screenshot carried, at the bottom edge, two red bridge lines:
+`[bridge] 1789739956162-755236.lua FAILED: load: …`. **They were the AI's.** `sweep.ps1` wrote its watch chunk with
+PowerShell's `Out-File -Encoding utf8`, which on Windows PowerShell 5.1 writes a **BOM**; the bridge's `loadfile` refused it,
+the watch never ran, `peakwatch.json` was never rewritten — **and every note then read the PREVIOUS note's file.** That, not
+tail bleed, is why Bell Tree returned exactly −30.4 dB for all 49 keys: −30.4 was the last value the earlier, BOM-free
+Finger Cymbals probe had left there. §41's stated conclusion (*"a meter sweep is only valid for sounds shorter than the
+gap"*) is **WITHDRAWN as stated**; §41's key maps are unaffected — Finger Cymbals came from a working probe, Bell Tree from
+his hover. This is §28's lesson a second time (**parse-check what you send the bridge, and never trust a silent job**), with
+a new edge: a stale artefact file reads as plausible data. The fix: write the chunk with
+`UTF8Encoding($false)`, delete the outbox file before each note, and **abort the note unless the job returned `ok: true`**.
+
+**Re-measured with the fixed probe — Bell Tree, 36–47:** white keys 36 · 38 · 40 · 41 · 43 · 45 at −40 to −47 dB; black keys
+37 · 39 · 42 · 44 · 47 at −62 to −80 dB. **His white-key map is confirmed by measurement.** (46 read −45 as the tail of 45,
+the Full Gliss Long — so tail bleed is real, just ~20 dB below the onset, not the ruin §41 called it. A long-ringing
+instrument needs a relative threshold, not the −140 dB absolute one.)
+
+**Shakers Pairs — his dictation:** *"uses black keys, pair A low, pair A high then repeats"* · *"2nd 4 is pair B... and the
+ones up octive repeat the same pattern"*. **The only one of the fourteen on black keys:** four CONSECUTIVE SEMITONES per
+pair. **Pair A 36 · 37 · 38 · 39** (Low · High · Low · High), **Pair B an octave up 48 · 49 · 50 · 51**, both again +24 at
+**60–63** and **72–75**. The probe, run before he stopped it, agrees exactly: those sixteen keys at −33 to −46 dB, every key
+between them at −137 to −154. Written to the catalog, `verified` (37 → 38).
+
+**Then his word — the sweeps are over:** *"I'm not sure what you are doing but we killed the sweeps, I'm just dictating them
+manually, just need to confirm that you understand the mapping now or need clarification, no more sweeps"*. **Stopped.** A
+note for the paper: the probe was right on the short sounds and told him nothing he had not already dictated faster; its one
+real contribution was catching its OWN false reading. The hover is the method here.
+
+**All fourteen now have key maps.** One thing to confirm with him: whether the 3rd and 4th key of each shaker group are a
+repeat of Low/High or two further articulations.
+
+---
+
