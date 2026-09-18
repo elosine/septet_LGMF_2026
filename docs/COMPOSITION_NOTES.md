@@ -393,6 +393,51 @@ doubling scheme carries through chords 2–6.
 **Beat rates in chord 1** (from the cents offsets): D4 −14¢ → about **2.4 beats/sec** · A♭4 −31¢ → about **7.5 beats/sec**
 · D5 −14¢ → about **4.8 beats/sec**. The three pairs beat at three different speeds, slowest at the bottom.
 
+### LG-20 · 2026-09-18 — THE WOLF PARTIALS: near-tempered notes that make a ROUGH ratio against the just ones
+
+> *"I think wolf tones is referring to the particularly odd intervals in just intonation… in La Monte Young’s Well-Tuned
+> Piano, Kyle Gann identifies certain intervals as wolf tones. But beside that point, I want to identify the partial that
+> doesn’t have much cents deviation, but will produce this wolf tone effect against one of the natural ones. So in number
+> two, we have the fifth partial and the tenth partial, which partials will be good to choose that will have that sort of
+> unusual effect against those."*
+> — composer, 2026-09-18, session 3, typed
+
+*AI reading (mine, not his):* **this is a different and better question than “how far from equal temperament is it.”** Two
+partials of the same fundamental sound an EXACT rational interval, so they never beat the way a mistuned unison does. The
+roughness comes from **how complex the ratio is** — a simple ratio locks, a complex one leaves the coinciding harmonics far
+up the series and grinds. So the measure is the ratio’s numerator, not its cents error.
+
+**The near-tempered partials (|deviation| under 10¢, so ANY instrument plays them with an ordinary fingering):**
+1 2 3 4 6 8 9 12 16 17 18 19 24 27 32.
+
+**Sorted by their ratio against partial 5 (or 10, 20 — the same pitch class):**
+
+| partial | ratio to the 5th | character |
+|---|---|---|
+| 1 2 4 8 16 32 | **8/5** | minor sixth — simple, it LOCKS. No wolf. |
+| 3 6 12 24 | **6/5** | minor third — simple, it locks. No wolf. |
+| **9 · 18** | **9/5** | rough seventh — the first real wolf, and available to everyone |
+| **17** | **17/10** | very rough — a 17-limit sixth |
+| **19** | **19/10** | very rough — a 19-limit seventh |
+| **27** | **27/20** | roughest — the classic wolf fourth |
+
+**The rule, general:** against a chord’s 5th/10th partial, the wolf partials are **9 · 17 · 19 · 27** and their octaves.
+Everything else near-tempered is a consonance in disguise.
+
+**For chord 2 (on A1; horn C♯4 = partial 5, trumpet C♯5 = partial 10):**
+
+| partial | pitch | dev | ratio | who can take it |
+|---|---|---|---|---|
+| **9** | **B4** | +4¢ | 9/5 | bassoon · english horn · vibraphone · cello — anyone |
+| 17 | B♭5 | +5¢ | 17/10 | vibraphone · cello |
+| 18 | B5 | +4¢ | 9/5 | vibraphone · cello |
+| 19 | C6 | −2¢ | 19/10 | vibraphone only |
+| 27 | F♯6 | +6¢ | 27/20 | **out of range** — above the ensemble’s F6 ceiling |
+
+**The pick, if one is wanted: partial 9, B4.** Everyone can play it, it is 4 cents from tempered so it needs no technique at
+all, and 9/5 against the two C♯’s is a genuine grind. **Sharper option: partial 17, B♭5, on the vibraphone** — 17/10, and the
+vibraphone is fixed-tempered anyway, so it costs nothing. **His to say** which, and whether every chord gets one.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
