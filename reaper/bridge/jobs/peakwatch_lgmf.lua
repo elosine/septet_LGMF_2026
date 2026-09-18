@@ -3,7 +3,7 @@
 -- WATCH_S seconds and writes reaper/bridge/outbox/peakwatch.json when done. Fire the note from
 -- outside right after launching it; read the file after WATCH_S seconds.
 local WATCH_S = 2.5
-local NAMES = { 'Horn SI2 b' }
+local NAMES = { 'Trumpet SI2 b' }
 
 local tracks = {}
 for _, n in ipairs(NAMES) do

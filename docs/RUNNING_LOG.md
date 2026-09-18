@@ -1181,3 +1181,34 @@ list with the rest); written pitch **8 + the control**. The file evaluates as th
 **Not done, on purpose:** the trumpet (his loads in progress — 13 on instance 1 at the last read;
 its technique list gets `preset` when the names are all known); no keyswitch read; no range read
 (0d); nothing registered in `techniques.json` (nothing uses a key yet).
+
+---
+
+## §25. 0c/0e — the trumpet complete as text; the three SI2 instruments DONE; where the rack stands
+
+*"trumpet done."* **20 presets** read back: instance 1 Ordinario → Sforzando (16, the four mutes
+among them — Cup · Harmon · Straight · Wahwah, each a KS preset); `b` Slap Pitched · Staccato ·
+Trills KS · Vocalize on Harmonics. Ordinario (435 720 bytes) cloned into `b` parts 5 · 6 · 7, 99
+sample players each; baseline on 16 + 7 parts, all `conv 0 eq 1 max 1`, +6 dB; a note on
+`LGTrumpetb` ch 6: **−3.6 dB**. Nothing clicked.
+
+**The trumpet's recipe:** 35 techniques over the 20 presets — the mutes are techniques now
+(`ord_mute_cup` / `flz_mute_cup` …, the wah-wah's five), `legato_intervals` and
+`vocalize_harmonics` added, the three glissandi on the Glissando Menu KS. **The KS orders inside
+the mute presets and the Glissando Menu are guesses from the manual's alphabetical lists**, said
+so in the file — the red keys decide, at 0c's keyswitch read.
+
+**`apply_uvi_parts.js` over all three:** bassoon 22/22 · horn 25/25 · trumpet 35/35 placed; every
+`channels.curve` = the three Ordinario copies on the `b` port. Palette GREEN, written pitch GREEN.
+
+**Where the rack stands at this wrap (RUNNING_LOG §20–§25, one sitting):**
+- ten `LG` ports, verified by name; ten tracks in score order, made by the bridge, every input,
+  monitor, arm and sampler read back;
+- the six UVI instances: 56 presets loaded once each by him, nine Ordinario copies, 65 parts
+  baselined, all by text; every SI2 technique's channel and port derived from the rack;
+- the tool chain that did it, all proven with the meters: `uvi_state.js` (the 496-byte header
+  fixed), `uvi_edit.js`, `apply_uvi_parts.js`, `make_tracks.lua`, `peakwatch_lgmf.lua`;
+- **not yet:** the Kontakt three (English Horn XS, Cello XS, Bass XS — instances inserted, nothing
+  loaded; his one click per instance for the .nki and `curve_slots.lua`), the percussion (no
+  instrument chosen), the REC track, the keyswitch read, 0d's ranges and lengths, 0h's first
+  sound from the app.

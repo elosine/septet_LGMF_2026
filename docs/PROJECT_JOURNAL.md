@@ -87,12 +87,27 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 - **The loopMIDI ports were asked for and not yet confirmed** — `LGEngHorn · LGBassoon · LGHorn · LGTrumpet ·
   LGPerc · LGCello · LGBass`, case-exact.
 
+### LATER, THE SAME SITTING — 0e/0c: the rack built, the three SI2 instruments complete as text (RUNNING_LOG §20–§25)
+
+- **Ten `LG` ports** (the seven + `LGBassoonb · LGHornb · LGTrumpetb`), verified by name · **ten tracks** in score order,
+  made by `reaper/bridge/jobs/make_tracks.lua` — input, monitoring, arm, sampler, all read back.
+- **The bridge is alive on this rack** (the project guard's case fixed). **`tools/uvi_state.js` had a real bug** — the state
+  header on this machine is 496 bytes with big-endian size fields; nothing it pushed ever applied. Fixed, proven (§22).
+- **UVI, settled:** a `<Program>` is the program itself; a path alone loads nothing. He loaded **56 presets once each**
+  (bassoon 18 · horn 18 · trumpet 20); everything after was text — nine Ordinario curve copies cloned across instances,
+  65 parts baselined (Convolver on · EQ off · Maximizer off · +6 dB), each proven with the meters.
+- **The recipes from the rack:** `tools/apply_uvi_parts.js` — the recipe names the preset (+ ks), the rack gives the part;
+  bassoon 22 · horn 25 · trumpet 35 techniques placed; `channels.curve` = the copies on the `b` port. **KS notes and the
+  mutes' KS order are provisional** (the flute's pattern / the manual's alphabet) until read on the red keys.
+- **D8** the english horn = Xsample · **D9** the rack layout (§23).
+- **Protocol learned:** a push replaces an instance's whole state — "done loading" / "yours again" before any push.
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
-| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** Done: the percussion scaffolding (§19). **Next, in order:** (1) the seven loopMIDI ports — him, case-exact · (2) the rack in his `reaper/LGMF_rack.rpp`: one track per installed instrument (SI2 bassoon · horn · trumpet; Xsample cello · double bass), each on its `LG` port · (3) each heard from the sandbox, channels / CC0 / keyswitches / ranges fixed as measured · (4) english horn, percussion (choose → select → map skeletons → Reaper track per instrument) and the bowed vibraphone as they land | **Fable to walk him** · Opus for the scripts | no — mid-chunk |
+| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **NEXT: the Kontakt three** — English Horn XS · Cello XS · Bass XS: (1) he loads the first `.nki` in each Kontakt instance (or runs a `proof_load`-style script), (2) runs `reaper/kontakt/curve_slots.lua` inside each (its NKI table needs the three new names) — one click each, the AI checks the JSON read-back, (3) the Xsample recipes: the english horn roster (#3's Xsample manual, `for_bass_clarinet_harp_and_accordion/docs/manuals/extracted/`), the double bass's CC#0 from its own Preset Menu (NITS), (4) the REC track, (5) first sound from the SANDBOX per track (his Chrome), the keyswitch read on the red keys. Percussion when he chooses instruments. Then 0d · 0h | **Fable to walk him** · Opus for the scripts | **yes — a different mechanism (Kontakt), and the context is long** |
 | N2 | **0d** the samples' true ranges and lengths, then **0h**, the phase-0 gate: every track sounds from the app through its own port | Opus | yes |
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5) · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
@@ -106,7 +121,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   :5400 / :4900) · `sandbox/instruments.js` (the seven recipes, every value marked provisional
   except the cello's) · `notation/registry/ensemble.json` (the seven parts) · `scores/lgmf.json`
   (the day-one stub) · `scores/0i-test.json` → `notation/ir/lgmf-0i.ir.json` (the 0i proof) ·
-  `tools/palette_check.js` (159) · `tools/test_written_pitch.js` (8 + a control) · **0c scaffolding (§19):** `bank/aro_percussion_catalog.json` · `bank/perc_selection.json` · `tools/apply_perc.js`.
+  `tools/palette_check.js` (159) · `tools/test_written_pitch.js` (8 + a control) · **0c scaffolding (§19):** `bank/aro_percussion_catalog.json` · `bank/perc_selection.json` · `tools/apply_perc.js`. **0e/0c the rack (§20–§25):** `reaper/LGMF_rack.rpp` (ten tracks) · `reaper/bridge/jobs/make_tracks.lua` · `peakwatch_lgmf.lua` · `tools/uvi_state.js` (header fixed) · `tools/uvi_edit.js` · `tools/apply_uvi_parts.js` · the SI2 recipes with `preset`/`ks` and the `UVI_PARTS` block.
 - **THE NEXT CONCRETE STEP — an instruction, not a topic:** **Do not start building.** Open
   `docs/PLANNING_METHOD.md`'s three phases and lay out **PLAN 0c + 0e together** with him — the
   instrument recipes and the Reaper rack, one sitting, **him at the machine**. Begin by putting
@@ -121,12 +136,13 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
     list of what 0c must settle.
   - `sandbox/instruments.js` — **the header comment block only** (down to `const INSTRUMENTS`).
     It states exactly what is provisional and why.
-  - *(When the rack itself is actually being planned, and not before:* `septet_2026/docs/PLAN.md`
-    § 0e — its R1–R13 walk is the precedent for how a rack build is handed to him step by step.*)*
+  - **For the Kontakt three (the next step):** `docs/SAMPLER_QUIRKS.md` §Kontakt 8 + §Xsample · `reaper/bridge/README.md`
+    § "The samplers, as code" · the headers of `reaper/kontakt/curve_slots.lua` and `proof_load.lua` · the `english_horn`,
+    `cello`, `double_bass` entries of `sandbox/instruments.js` · RUNNING_LOG §22 (what a push is, and the hand-over protocol).
 - **Decisions pending him:** which percussion instruments (only the bowed vibraphone named) · the english horn's library — (3) Db→Xsample and (4) build-with-five were answered after the clear · **the LGMF call is still unread at his
   word** (Q2) · who, if anyone, inherits the piano's struck role (PLANNER) · the presentation
   score's pitch form, at 2b.
-- **Deliberately uncommitted: his `reaper/LGMF_rack.rpp`** — the empty Reaper session he created 2026-09-17 for the rack; untracked, his, awaiting his word (the rack `.rpp` IS meant to be committed — `.gitignore`). The only ignored thing on
+- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the rpp"). The only ignored thing on
   disk is `node_modules/` (`npm install` regenerates it). **No servers of the AI's are left
   running**; his 5300 / 4800 were never bound at any point.
 
@@ -141,7 +157,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 
 **Blockers:** none.
 
-**Deliberately uncommitted:** his `reaper/LGMF_rack.rpp` (see above).
+**Deliberately uncommitted:** nothing.
 
 **Standing warnings for this repo:** ⚠ `export_print` and `export_video` share
 `Coords.ensembleFrame` — a change to the frame math moves BOTH · never bind **5300** or **4800**,
@@ -262,6 +278,12 @@ this repo only when they bite.)*
 - **D8** *(2026-09-17, composer: "y xs")* — **The english horn = Xsample** (the track he made is named
   "English Horn XS"; D6 had it "being acquired, to be named"). Its roster comes from #3's Xsample woodwind
   map at 0c. RUNNING_LOG §20–21.
+- **D9** *(2026-09-17, AI, on the count — "bsn 18" — and #5's `Fluteb` precedent; he made the ports)* — **The rack layout:** ten
+  tracks in score order; each SI2 instrument TWO UVI instances on two ports (`LGBassoon` + `LGBassoonb` …), instance 1 = Ordinario
+  then the browser's order to 16 parts, `b` = the overflow + three Ordinario copies as the curve parts; Kontakt 8 for the Xsample
+  three; one Spitfire track per percussion instrument when chosen. *Why:* 18–20 presets do not fit 16 parts, and on UVI a channel
+  IS a preset, so a curve channel must be a COPY (#5 §274). *Rejected:* fewer presets per instrument (he loaded them all); curve
+  channels on other presets (wrong sounds). RUNNING_LOG §23.
 
 ---
 

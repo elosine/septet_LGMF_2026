@@ -63,7 +63,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
 - **0c — Instrument recipes (`sandbox/instruments.js`)** — `todo` — **NEXT, with 0e, in one
   sitting with him at the machine** — *to be laid out when we discuss it.* One entry per track;
   the libraries are D6. **The placeholders are in place and every one is marked** (the port,
-  RUNNING_LOG §15); what is missing is the machine. **The percussion scaffolding is in (2026-09-17, RUNNING_LOG §19, D7):** `bank/aro_percussion_catalog.json` (piece #2's ARO map, 78 instruments, 35 with keys) · `bank/perc_selection.json` (which the piece uses, on which channel — EMPTY) · `tools/apply_perc.js` (one technique per instrument × beater, written into the recipe as the `ARO_PERC` block; proved on two instruments, a skeleton refused). Choosing an instrument = one line in the selection + one Reaper track on its channel + the tool + `palette_check`. *Known going in:* **Spitfire's own plugin
+  RUNNING_LOG §15); what is missing is the machine. **The percussion scaffolding is in (2026-09-17, RUNNING_LOG §19, D7):** `bank/aro_percussion_catalog.json` (piece #2's ARO map, 78 instruments, 35 with keys) · `bank/perc_selection.json` (which the piece uses, on which channel — EMPTY) · `tools/apply_perc.js` (one technique per instrument × beater, written into the recipe as the `ARO_PERC` block; proved on two instruments, a skeleton refused). Choosing an instrument = one line in the selection + one Reaper track on its channel + the tool + `palette_check`. **The three SI2 instruments are DONE as recipes (2026-09-17, RUNNING_LOG §22–§25):** presets loaded once by him (18 · 18 · 20), the Ordinario curve copies cloned as text, the FX/gain baseline set as text, channels and ports derived from the running rack by `tools/apply_uvi_parts.js` (bassoon 22 · horn 25 · trumpet 35 techniques). Provisional: the KS notes, the mutes' KS order. **Remaining in 0c:** the Kontakt three (english horn · cello · bass — rosters, CC#0, the ×4 slots) · the percussion · the keyswitch read. *Known going in:* **Spitfire's own plugin
   (the percussion) has never been driven by this stack** — real work, not a transcription · the
   double bass's CC#0 numbers are the CELLO's and must be verified against its own Preset Menu ·
   the english horn's library is unnamed · the percussion instruments are unnamed but for the
@@ -74,7 +74,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   out when we discuss it.* *Why:* a range or a length read from a manual was wrong often
   enough in #5 to be measured instead.
 
-- **0e — loopMIDI + Reaper rack** — `todo` — *to be laid out when we discuss it.* A new rack
+- **0e — loopMIDI + Reaper rack** — `doing 2026-09-17` *(RUNNING_LOG §20–§25: ten `LG` ports verified by name; ten tracks in score order made by `reaper/bridge/jobs/make_tracks.lua`; the six UVI instances configured as text — `uvi_state.js` header fixed, `uvi_edit.js` clone + baseline, proven with the meters; D9 the layout. Remaining: the three Kontakt instances' `.nki` + `curve_slots`, the percussion tracks when chosen, the REC track)* — A new rack
   for seven new tracks. The Reaper bridge from #5's 0k was built machine-level "for the next
   piece" — this is that piece. *Why:* nothing sounds without it.
 

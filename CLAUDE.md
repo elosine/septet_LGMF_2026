@@ -29,9 +29,10 @@ vibraphone still to acquire.**
 2026-09-17** (RUNNING_LOG §12–§18). The app, the sandbox, the notation/IR stack, print and
 video are here and verified running on the seven tracks. **Nothing sounds yet** — the recipes
 are placeholders and there is no Reaper rack: that is **0c + 0e, together, with him at the
-machine — IN PROGRESS.** The percussion scaffolding is in (RUNNING_LOG §19, D7:
-`bank/aro_percussion_catalog.json` · `bank/perc_selection.json` · `tools/apply_perc.js`); the loopMIDI
-ports and the rack (`reaper/LGMF_rack.rpp`, his empty session) are next.
+machine — IN PROGRESS.** Ten `LG` ports · ten tracks (`reaper/LGMF_rack.rpp`) · the three SI2
+instruments COMPLETE as recipes, configured as text through the bridge (RUNNING_LOG §20–§25; `tools/uvi_state.js` ·
+`uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **Next: the Kontakt three** (EH · Vc · Db), then
+the percussion when chosen, then 0d / 0h.
 
 ## READ FIRST — how to work here
 
@@ -152,8 +153,9 @@ routing advice is also credit advice, and these bind every Fable turn:
 - **Print / video:** `tools/export_print.js` (A3 landscape) and `tools/export_video.js` run and
   were proven at the port. `print/score/build.sh` runs #5's five gates — they need this piece's
   own pages before they mean anything.
-- **Ports** (loopMIDI, case-sensitive) are prefixed `LG` — `LGEngHorn` · `LGBassoon` · `LGHorn`
-  · `LGTrumpet` · `LGPerc` · `LGCello` · `LGBass`. **They do not exist yet** (0e creates them).
+- **Ports** (loopMIDI, case-sensitive) are prefixed `LG` — `LGEngHorn` · `LGBassoon` · `LGBassoonb` · `LGHorn` ·
+  `LGHornb` · `LGTrumpet` · `LGTrumpetb` · `LGPerc` · `LGCello` · `LGBass` — ten, all verified 2026-09-17. The `b`
+  ports carry each SI2 instrument's second UVI instance (D9).
   The prefix is not cosmetic: loopMIDI ports are machine-global and piece #5's rack is still
   live, so a bare `Vc` would be ITS cello.
 

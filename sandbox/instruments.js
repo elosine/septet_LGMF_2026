@@ -130,34 +130,53 @@ const INSTRUMENTS = {
   // ---- TRUMPET in C — IRCAM Solo Instruments 2 (UVI) ----
   // Manual: "Instrument part to be written at actual pitch" — SI2's trumpet is in C. Whether the
   // PART is written in C or in B♭ is the composer's call at 2a; the library is unaffected.
-  // Range in sounding pitches F#3–Bb5 = MIDI 54–82. Four mutes exist as separate SI2 instruments
-  // (cup · harmon · straight · wawa) — registered at 0c if he wants them.
+  // Range in sounding pitches F#3–Bb5 = MIDI 54–82. The four mutes (cup · harmon · straight · wah-wah)
+  // are KS presets of the trumpet in the browser and he loaded them — they are techniques below.
   trumpet: {
     label: "Trumpet", port: "LGTrumpet", rangeLow: 54, rangeHigh: 82,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
     channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
     techniques: [
-      { key: "ord",            label: "ordinario", channel: 1 },
-      { key: "staccato",       label: "staccato", channel: 1 },
-      { key: "sforzando",      label: "sforzando", channel: 1 },
-      { key: "flz",            label: "flatterzunge", channel: 1 },
-      { key: "cresc",          label: "crescendo", channel: 1 },
-      { key: "decresc",        label: "decrescendo", channel: 1 },
-      { key: "cresc_decresc",  label: "crescendo to decrescendo", channel: 1 },
-      { key: "trill_m2",       label: "trill minor 2nd up", channel: 1 },
-      { key: "trill_M2",       label: "trill major 2nd up", channel: 1 },
-      { key: "dur_0_5s",       label: "note durations 0.5 s", channel: 1 },
-      { key: "dur_1s",         label: "note durations 1 s", channel: 1 },
-      { key: "cuivre",         label: "cuivré — NEW, not in techniques.json", channel: 1 },
-      { key: "ord_to_cuivre",  label: "ordinario to cuivré — NEW", channel: 1 },
-      { key: "cuivre_to_ord",  label: "cuivré to ordinario — NEW", channel: 1 },
-      { key: "ord_to_flz",     label: "ordinario to flatterzunge", channel: 1 },
-      { key: "flz_to_ord",     label: "flatterzunge to ordinario", channel: 1 },
-      { key: "half_valve_gliss", label: "half-valve glissando — NEW", channel: 1 },
-      { key: "gliss_embouchure", label: "glissando embouchure — NEW", channel: 1 },
-      { key: "harmonics_gliss",  label: "harmonics glissando — NEW", channel: 1 },
-      { key: "pedal_tone",       label: "pedal tone — NEW", channel: 1 },
-      { key: "slap_pitched",     label: "slap pitched — NEW", channel: 1 },
+      // ONE LINE PER TECHNIQUE, its PRESET named as the UVI browser lists it (loaded by him, one each, 2026-09-17 — Ordinario first, then
+      // the browser's order; the overflow on the `b` instance). The CHANNEL and the PORT are not written here: tools/apply_uvi_parts.js
+      // reads them from the running rack into UVI_PARTS below, applied at load. `ks` = the keyswitch inside a KS preset, the flute's
+      // pattern (C1 = 36, C#1 = 37, D1 = 38; Durations C2 = 48, C#2 = 49) — PROVISIONAL until read on the red keys (0c). The mutes
+      // are here because he loaded them; their KS order and the Glissando Menu's are GUESSES from the manual's alphabetical lists.
+      { key: "ord",                 label: "ordinario",                          preset: "Trumpet Ordinario" },
+      { key: "cresc",               label: "crescendo",                          preset: "Trumpet Cresc & Decrescendo KS", ks: 36 },
+      { key: "cresc_decresc",       label: "crescendo to decrescendo",           preset: "Trumpet Cresc & Decrescendo KS", ks: 37 },
+      { key: "decresc",             label: "decrescendo",                        preset: "Trumpet Cresc & Decrescendo KS", ks: 38 },
+      { key: "cuivre",              label: "cuivré — NEW",                       preset: "Trumpet Cuivre" },
+      { key: "dur_0_5s",            label: "note durations 0.5 s",               preset: "Trumpet Durations KS", ks: 48 },
+      { key: "dur_1s",              label: "note durations 1 s",                 preset: "Trumpet Durations KS", ks: 49 },
+      { key: "flz",                 label: "flatterzunge",                       preset: "Trumpet Flatterzunge" },
+      { key: "fortepiano",          label: "fortepiano",                         preset: "Trumpet Fortepiano" },
+      { key: "gliss_embouchure",    label: "glissando embouchure — NEW",         preset: "Trumpet Glissando Menu KS", ks: 36 },   // the menu's order: unread
+      { key: "half_valve_gliss",    label: "half-valve glissando — NEW",         preset: "Trumpet Glissando Menu KS", ks: 37 },
+      { key: "harmonics_gliss",     label: "harmonics glissando — NEW",          preset: "Trumpet Glissando Menu KS", ks: 38 },
+      { key: "legato_intervals",    label: "increasing intervals legato — NEW",  preset: "Trumpet Increasing Intervals Legato" },
+      { key: "ord_mute_cup",        label: "ordinario, cup mute — NEW",          preset: "Trumpet Mute Cup KS", ks: 36 },
+      { key: "flz_mute_cup",        label: "flatterzunge, cup mute — NEW",       preset: "Trumpet Mute Cup KS", ks: 37 },
+      { key: "ord_mute_harmon",     label: "ordinario, harmon mute — NEW",       preset: "Trumpet Mute Harmon KS", ks: 36 },
+      { key: "flz_mute_harmon",     label: "flatterzunge, harmon mute — NEW",    preset: "Trumpet Mute Harmon KS", ks: 37 },
+      { key: "ord_mute_straight",   label: "ordinario, straight mute — NEW",     preset: "Trumpet Mute Straight KS", ks: 36 },
+      { key: "flz_mute_straight",   label: "flatterzunge, straight mute — NEW",  preset: "Trumpet Mute Straight KS", ks: 37 },
+      { key: "wawa_closed",         label: "wah-wah mute, closed — NEW",         preset: "Trumpet Mute Wahwah KS", ks: 36 },   // manual: closed-to-open · flatterzunge-open · open-to-closed · ordinario-closed · ordinario-open; the KS order unread
+      { key: "wawa_open",           label: "wah-wah mute, open — NEW",           preset: "Trumpet Mute Wahwah KS", ks: 37 },
+      { key: "wawa_closed_to_open", label: "wah-wah closed to open — NEW",       preset: "Trumpet Mute Wahwah KS", ks: 38 },
+      { key: "wawa_open_to_closed", label: "wah-wah open to closed — NEW",       preset: "Trumpet Mute Wahwah KS", ks: 39 },
+      { key: "wawa_flz_open",       label: "wah-wah flatterzunge open — NEW",    preset: "Trumpet Mute Wahwah KS", ks: 40 },
+      { key: "ord_to_cuivre",       label: "ordinario to cuivré — NEW",          preset: "Trumpet Ord & Cuivre KS", ks: 36 },
+      { key: "cuivre_to_ord",       label: "cuivré to ordinario — NEW",          preset: "Trumpet Ord & Cuivre KS", ks: 37 },
+      { key: "ord_to_flz",          label: "ordinario to flatterzunge",          preset: "Trumpet Ord & Flatterzunge KS", ks: 36 },
+      { key: "flz_to_ord",          label: "flatterzunge to ordinario",          preset: "Trumpet Ord & Flatterzunge KS", ks: 37 },
+      { key: "pedal_tone",          label: "pedal tone — NEW",                   preset: "Trumpet Pedal Tone" },
+      { key: "sforzando",           label: "sforzando",                          preset: "Trumpet Sforzando" },
+      { key: "slap_pitched",        label: "slap pitched — NEW",                 preset: "Trumpet Slap Pitched" },
+      { key: "staccato",            label: "staccato",                           preset: "Trumpet Staccato" },
+      { key: "trill_m2",            label: "trill minor 2nd up",                 preset: "Trumpet Trills KS", ks: 36 },
+      { key: "trill_M2",            label: "trill major 2nd up",                 preset: "Trumpet Trills KS", ks: 37 },
+      { key: "vocalize_harmonics",  label: "vocalize on harmonics — NEW",        preset: "Trumpet Vocalize on Harmonics" },
     ],
   },
 
@@ -311,8 +330,9 @@ function xsStringTechs(s, lo, hi, ranges) {
 }
 
 
+
 // ---- UVI PARTS (generated by tools/apply_uvi_parts.js from the running rack — do not edit by hand) ----
-const UVI_PARTS = {   // read from the running rack 2026-09-18 01:59 — bassoon: 22 techniques on 21 parts, 3 curve copies · horn: 25 techniques on 21 parts, 3 curve copies
+const UVI_PARTS = {   // read from the running rack 2026-09-18 02:02 — bassoon: 22 techniques on 21 parts, 3 curve copies · horn: 25 techniques on 21 parts, 3 curve copies · trumpet: 35 techniques on 23 parts, 3 curve copies
   bassoon: {
     techniques: { ord: {"port":"LGBassoon","channel":1}, blow_no_reed: {"port":"LGBassoon","channel":2}, chrom_scale: {"port":"LGBassoon","channel":3}, cresc: {"port":"LGBassoon","channel":4}, cresc_decresc: {"port":"LGBassoon","channel":4}, decresc: {"port":"LGBassoon","channel":4}, dur_0_5s: {"port":"LGBassoon","channel":5}, dur_1s: {"port":"LGBassoon","channel":5}, flz: {"port":"LGBassoon","channel":6}, fortepiano: {"port":"LGBassoon","channel":7}, harmonic_fing: {"port":"LGBassoon","channel":8}, key_click: {"port":"LGBassoon","channel":9}, multiphonics: {"port":"LGBassoon","channel":10}, ord_mute: {"port":"LGBassoon","channel":11}, ord_1q: {"port":"LGBassoon","channel":12}, sforzando: {"port":"LGBassoon","channel":13}, staccato: {"port":"LGBassoon","channel":14}, gliss_throat_down: {"port":"LGBassoon","channel":15}, gliss_throat_up: {"port":"LGBassoon","channel":16}, trill_m2: {"port":"LGBassoonb","channel":1}, trill_M2: {"port":"LGBassoonb","channel":1}, vib_vel: {"port":"LGBassoonb","channel":2} },
     main: {"port":"LGBassoon","channel":1}, curve: [{"port":"LGBassoonb","ch":3},{"port":"LGBassoonb","ch":4},{"port":"LGBassoonb","ch":5}], curveTechniques: ["ord"],
@@ -362,6 +382,33 @@ const UVI_PARTS = {   // read from the running rack 2026-09-18 01:59 — bassoon
             {"track":"Horn SI2 b","part":"Part 3","ch":3,"program":"French Horn Ordinario"},
             {"track":"Horn SI2 b","part":"Part 4","ch":4,"program":"French Horn Ordinario"},
             {"track":"Horn SI2 b","part":"Part 5","ch":5,"program":"French Horn Ordinario"}],
+  },
+  trumpet: {
+    techniques: { ord: {"port":"LGTrumpet","channel":1}, cresc: {"port":"LGTrumpet","channel":2}, cresc_decresc: {"port":"LGTrumpet","channel":2}, decresc: {"port":"LGTrumpet","channel":2}, cuivre: {"port":"LGTrumpet","channel":3}, dur_0_5s: {"port":"LGTrumpet","channel":4}, dur_1s: {"port":"LGTrumpet","channel":4}, flz: {"port":"LGTrumpet","channel":5}, fortepiano: {"port":"LGTrumpet","channel":6}, gliss_embouchure: {"port":"LGTrumpet","channel":7}, half_valve_gliss: {"port":"LGTrumpet","channel":7}, harmonics_gliss: {"port":"LGTrumpet","channel":7}, legato_intervals: {"port":"LGTrumpet","channel":8}, ord_mute_cup: {"port":"LGTrumpet","channel":9}, flz_mute_cup: {"port":"LGTrumpet","channel":9}, ord_mute_harmon: {"port":"LGTrumpet","channel":10}, flz_mute_harmon: {"port":"LGTrumpet","channel":10}, ord_mute_straight: {"port":"LGTrumpet","channel":11}, flz_mute_straight: {"port":"LGTrumpet","channel":11}, wawa_closed: {"port":"LGTrumpet","channel":12}, wawa_open: {"port":"LGTrumpet","channel":12}, wawa_closed_to_open: {"port":"LGTrumpet","channel":12}, wawa_open_to_closed: {"port":"LGTrumpet","channel":12}, wawa_flz_open: {"port":"LGTrumpet","channel":12}, ord_to_cuivre: {"port":"LGTrumpet","channel":13}, cuivre_to_ord: {"port":"LGTrumpet","channel":13}, ord_to_flz: {"port":"LGTrumpet","channel":14}, flz_to_ord: {"port":"LGTrumpet","channel":14}, pedal_tone: {"port":"LGTrumpet","channel":15}, sforzando: {"port":"LGTrumpet","channel":16}, slap_pitched: {"port":"LGTrumpetb","channel":1}, staccato: {"port":"LGTrumpetb","channel":2}, trill_m2: {"port":"LGTrumpetb","channel":3}, trill_M2: {"port":"LGTrumpetb","channel":3}, vocalize_harmonics: {"port":"LGTrumpetb","channel":4} },
+    main: {"port":"LGTrumpet","channel":1}, curve: [{"port":"LGTrumpetb","ch":5},{"port":"LGTrumpetb","ch":6},{"port":"LGTrumpetb","ch":7}], curveTechniques: ["ord"],
+    parts: [{"track":"Trumpet SI2","part":"Part 1","ch":1,"program":"Trumpet Ordinario"},
+            {"track":"Trumpet SI2","part":"Part 2","ch":2,"program":"Trumpet Cresc & Decrescendo KS"},
+            {"track":"Trumpet SI2","part":"Part 3","ch":3,"program":"Trumpet Cuivre"},
+            {"track":"Trumpet SI2","part":"Part 4","ch":4,"program":"Trumpet Durations KS"},
+            {"track":"Trumpet SI2","part":"Part 5","ch":5,"program":"Trumpet Flatterzunge"},
+            {"track":"Trumpet SI2","part":"Part 6","ch":6,"program":"Trumpet Fortepiano"},
+            {"track":"Trumpet SI2","part":"Part 7","ch":7,"program":"Trumpet Glissando Menu KS"},
+            {"track":"Trumpet SI2","part":"Part 8","ch":8,"program":"Trumpet Increasing Intervals Legato"},
+            {"track":"Trumpet SI2","part":"Part 9","ch":9,"program":"Trumpet Mute Cup KS"},
+            {"track":"Trumpet SI2","part":"Part 10","ch":10,"program":"Trumpet Mute Harmon KS"},
+            {"track":"Trumpet SI2","part":"Part 11","ch":11,"program":"Trumpet Mute Straight KS"},
+            {"track":"Trumpet SI2","part":"Part 12","ch":12,"program":"Trumpet Mute Wahwah KS"},
+            {"track":"Trumpet SI2","part":"Part 13","ch":13,"program":"Trumpet Ord & Cuivre KS"},
+            {"track":"Trumpet SI2","part":"Part 14","ch":14,"program":"Trumpet Ord & Flatterzunge KS"},
+            {"track":"Trumpet SI2","part":"Part 15","ch":15,"program":"Trumpet Pedal Tone"},
+            {"track":"Trumpet SI2","part":"Part 16","ch":16,"program":"Trumpet Sforzando"},
+            {"track":"Trumpet SI2 b","part":"Part 1","ch":1,"program":"Trumpet Slap Pitched"},
+            {"track":"Trumpet SI2 b","part":"Part 2","ch":2,"program":"Trumpet Staccato"},
+            {"track":"Trumpet SI2 b","part":"Part 3","ch":3,"program":"Trumpet Trills KS"},
+            {"track":"Trumpet SI2 b","part":"Part 4","ch":4,"program":"Trumpet Vocalize on Harmonics"},
+            {"track":"Trumpet SI2 b","part":"Part 5","ch":5,"program":"Trumpet Ordinario"},
+            {"track":"Trumpet SI2 b","part":"Part 6","ch":6,"program":"Trumpet Ordinario"},
+            {"track":"Trumpet SI2 b","part":"Part 7","ch":7,"program":"Trumpet Ordinario"}],
   },
 };
 function applyUviParts(all, gen) {   // the rack decides the channel and the port of every SI2 technique; the recipe keeps the preset and the keyswitch
