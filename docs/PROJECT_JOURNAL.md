@@ -110,53 +110,44 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 - His "for after" questions answered from the record (§27): the extra Xsample instances = D11's four slots (done now) · percussion = D7 (no multi; one ARO instance per instrument; his list is what is missing) · the strikes track = a level lane for a quiet strike, not needed yet, decide at 0d.
 - Verified at his word: #5's bass clarinet and strings had four slots for CC7 — D11, §60, §1168 (§28).
 
+### THEN — the Xsample recipes real; Spitfire read and pushed as text (RUNNING_LOG §30–§36)
+
+- **LG-10 — the percussion named:** small metals — finger cymbals · bell tree · sleigh/indian bells · triangles · tambourines. All three ARO volumes are installed; the library is `C:/Users/jwloy/Spitfire/Spitfire Audio - Abbey Road Orchestra/` (Patches · Presets · Samples); its patch files are ENCRYPTED, so key maps cannot be read from disk (§33).
+- **The Xsample recipes are real (§32):** the english horn's 36 presets from his own Preset Menu (`xsEnglishHornTechs`, 13 NEW keys marked) · the double bass's 88 verified identical to the cello's from its own menu · four strike tables pointed at real keys · palette 159 / written-pitch 8 green.
+- **Spitfire's state is XML (§34):** a (C) preset holds its family's instruments as ARTICULATIONS with keyswitch triggers (Small Metals (C) = 14, keyswitches 0–13, his five inside it). **`tools/aro_state.js` (§35):** info · decode · encode --push · roundtrip · edit · clone; every push read back. **Cloning a loaded preset to a new track: PROVEN.** Changing to a family never loaded: **refused four ways** — the plugin restores only what it has loaded; the host offers 0 presets (§36). **Rule, as UVI's: one GUI load per family, then text.** The state bank: `bank/aro_states/` — `small_metals_C.aro.xml` captured.
+- His three "for after" questions answered from the record (§27); the loopMIDI-ports note in NITS; the joined-base64 decoder bug found and fixed (§34 — Kontakt byte counts in §26/§29 are approximate).
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
-| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). **NEXT: (4) the REC track,** (5) first sound from the SANDBOX per track (his Chrome), the keyswitch read on the red keys. Percussion when he chooses instruments. Then 0d · 0h | **Fable to walk him** · Opus for the scripts | **yes — a different mechanism (Kontakt), and the context is long** |
+| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). Spitfire read and pushed as text, the small metals loaded once and banked (§30–§36). **NEXT, at his word (checkpoint): the Spitfire clone-and-change experiments with his screenshots, then a key-mapping method** — the checkpoint entry below has the exact sequence. After that: the percussion tracks + recipe from the bank · the REC track · first sound from the SANDBOX per track (his Chrome) · 0d · 0h | **Fable to walk him** · Opus for the scripts | **yes — a different mechanism (Kontakt), and the context is long** |
 | N2 | **0d** the samples' true ranges and lengths, then **0h**, the phase-0 gate: every track sounds from the app through its own port | Opus | yes |
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5) · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
-**Open at session end — (mid-session checkpoint, 2026-09-17, before the clear):**
+**Open at session end — (mid-session checkpoint, 2026-09-17 late, before the clear):**
 
-- **The task:** phase 0. **The PORT chunk of it is COMPLETE** — 0a · 0b · 0g · 0i closed, six
-  commits, all pushed, working tree clean. **State: the app runs on the seven tracks and does
-  not sound.** Phase 0 is NOT finished: 0c · 0d · 0e · 0f · 0h remain.
-- **Latest deliverables:** `score/` + `sandbox/` + `notation/` + `tools/` (the engine, running on
-  :5400 / :4900) · `sandbox/instruments.js` (the seven recipes, every value marked provisional
-  except the cello's) · `notation/registry/ensemble.json` (the seven parts) · `scores/lgmf.json`
-  (the day-one stub) · `scores/0i-test.json` → `notation/ir/lgmf-0i.ir.json` (the 0i proof) ·
-  `tools/palette_check.js` (159) · `tools/test_written_pitch.js` (8 + a control) · **0c scaffolding (§19):** `bank/aro_percussion_catalog.json` · `bank/perc_selection.json` · `tools/apply_perc.js`. **0e/0c the rack (§20–§25):** `reaper/LGMF_rack.rpp` (ten tracks) · `reaper/bridge/jobs/make_tracks.lua` · `peakwatch_lgmf.lua` · `tools/uvi_state.js` (header fixed) · `tools/uvi_edit.js` · `tools/apply_uvi_parts.js` · the SI2 recipes with `preset`/`ks` and the `UVI_PARTS` block.
-- **THE NEXT CONCRETE STEP — an instruction, not a topic:** **Do not start building.** Open
-  `docs/PLANNING_METHOD.md`'s three phases and lay out **PLAN 0c + 0e together** with him — the
-  instrument recipes and the Reaper rack, one sitting, **him at the machine**. Begin by putting
-  these four to him, one at a time: (1) which ARO percussion volumes are installed and **which
-  percussion instruments the piece uses** (he has named only the bowed vibraphone, LG-9, and has
-  still to acquire a library for it); (2) which library the **english horn** turned out to be;
-  (3) confirm the **double bass** goes to Xsample beside the cello; (4) whether to build the rack
-  now for the five instruments that ARE installed and extend it as the other two arrive. Write
-  each step into `docs/PLAN.md` as it is agreed, per the method.
+- **The task:** phase 0, **0c + 0e together, him at the machine.** DONE so far: ten ports · ten tracks · the three SI2 instruments as text (§20–§25) · the Kontakt three with four slots each (§26–§29) · the Xsample recipes real (§32) · Spitfire read and pushed as text (§34–§36). **Nothing has been heard yet.** Still in 0c/0e: the percussion tracks + recipe from the loaded Small Metals (C) · the REC track · first sound from the sandbox per track · then 0d · 0h.
+- **Latest deliverables:** `tools/aro_state.js` (info · decode · encode --push · roundtrip · edit · clone — every push read back through the bridge) · `bank/aro_states/small_metals_C.aro.xml` (his load of 22:07, captured) · `sandbox/instruments.js` (`xsEnglishHornTechs`; the bass verified) · `reaper/kontakt/curve_slots.lua` (self-reporting; parse-check through the bridge first) · RUNNING_LOG §26–§36.
+- **THE NEXT CONCRETE STEP — his words at the checkpoint:** *"I want to have you clone the track and then try again to change the instrument. And then I want to take some screenshots when you're doing it to see if we can't find another path and understand what you're trying. And then I want to work on a way that you can map the keys and instruments or articulations per key."* After `/postclear` and his **go**, in this order:
+  1. `node tools/reaper_job.js heartbeat` — the bridge must say `alive: true` (it dropped once tonight, §36; Reaper open, no dialog).
+  2. `node tools/aro_state.js clone Percussion "ARO clone" --push` — a new track after Percussion, read back with its 14 articulations. Tell him it is there, so he opens that track's plugin and screenshots.
+  3. The change attempts on that clone, **one push at a time, each announced in one line BEFORE it runs** so his screenshot catches the plugin at that moment: `edit "ARO clone" --preset "Dragon Drums (C)" --family "Low Percussion" --push` · then the same with `--modified 0` · then with `--strip-artics`. §35 says all are refused or relabel only; **the point now is his eyes on the plugin during each** — what he sees goes into RUNNING_LOG verbatim.
+  4. If he finds a path in the GUI (a browser action, a reload, a menu), read the state BEFORE and AFTER that action (`decode` twice) and diff the two XMLs — the diff is the mechanism, and the tool gets a command for it.
+  5. The key mapping: what is known — three of his five have catalog maps (Sleigh/Indian 12 keys · Tambourines 42 · Triangles 48); Finger Cymbals and Bell Tree are hover-and-dictate (`bank/aro_percussion_catalog.json` `_meta.walkthrough`); which keys SOUND is machine-detectable by a note sweep with the meters (`reaper/bridge/jobs/peakwatch_lgmf.lua` + `port_note_probe.ps1`, §22's pair) — the sweep gives numbers, the hover gives names. Plan the sweep tool WITH him (PLANNING_METHOD) before building it.
+  6. Delete the clone at the end (`reaper_job.js -e` with `DeleteTrack`, as §35 did); his rack stays at ten.
 - **`Resume reads:`**
-  - `docs/NITS.md` — the section **"Open work this port created or uncovered"** only. It is the
-    list of what 0c must settle.
-  - `sandbox/instruments.js` — **the header comment block only** (down to `const INSTRUMENTS`).
-    It states exactly what is provisional and why.
-  - **For the Kontakt three (the next step):** `docs/SAMPLER_QUIRKS.md` §Kontakt 8 + §Xsample · `reaper/bridge/README.md`
-    § "The samplers, as code" · the headers of `reaper/kontakt/curve_slots.lua` and `proof_load.lua` · the `english_horn`,
-    `cello`, `double_bass` entries of `sandbox/instruments.js` · RUNNING_LOG §22 (what a push is, and the hand-over protocol).
-- **Decisions pending him:** the percussion instruments are NAMED — LG-10, small metals: finger cymbals · bell tree · sleigh/indian bells · triangles · tambourines (whether ARO Metal Percussion is installed is open, §30) · the english horn's library = Xsample (D8) · **the LGMF call is still unread at his
-  word** (Q2) · who, if anyone, inherits the piano's struck role (PLANNER) · the presentation
-  score's pitch form, at 2b.
-- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the rpp"). The only ignored thing on
-  disk is `node_modules/` (`npm install` regenerates it). **No servers of the AI's are left
-  running**; his 5300 / 4800 were never bound at any point.
+  - `tools/aro_state.js` — the header comment only (the commands and what a push is).
+  - RUNNING_LOG **§35** (the four refused variants, what each read back) and **§36** (the loader is the plugin browser alone; the state bank).
+  - `bank/aro_percussion_catalog.json` — `_meta` only (the walkthrough for mapping a key).
+- **Decisions pending him:** which of the five small metals appear where, and whether the list grows · the percussion trigger design — A keyswitch prelude · B one channel per instrument if the plugin has that trigger type · C one instance per instrument (§34) · one loopMIDI port per percussion instrument (his note, NITS) against D7's one port · the LGMF call, unread at his word (Q2) · who inherits the piano's struck role (PLANNER) · the presentation score's pitch form (2b).
+- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the rpp"). `node_modules/` and `reaper/kontakt/out/` are ignored. No servers of the AI's are running; the bridge runs inside his Reaper.
 
 **Open questions:**
-- **Q1b — libraries.** The english horn's library (he is acquiring it) · **a bowed vibraphone,
-  still to acquire** (LG-9) · which ARO volumes are installed · the other percussion instruments.
+- **Q1b — libraries.** Closed but one: english horn = Xsample (D8) · all three ARO volumes installed (§33) · the
+  percussion named (LG-10) · **a bowed vibraphone, still to acquire (LG-9).**
 - **Q2 — the call.** LGMF 2026, unread at his word: *"don't need to look it up now."*
 - **Musical, his, not urgent** (PLANNER): "continuous, not sparse" (LG-2) against "lots of rests"
   (LG-4/5/8) · does the piece open with a morph (LG-1) or a bespoke section (LG-6) · **who, if

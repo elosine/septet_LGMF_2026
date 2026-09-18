@@ -33,8 +33,10 @@ machine — IN PROGRESS.** Ten `LG` ports · ten tracks (`reaper/LGMF_rack.rpp`)
 instruments COMPLETE as recipes, configured as text through the bridge (RUNNING_LOG §20–§25; `tools/uvi_state.js` ·
 `uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **The Kontakt three have their four slots** (D11 by `reaper/kontakt/curve_slots.lua`, self-reporting, proven by
 read-back — RUNNING_LOG §26–§29; **parse-check every Kontakt script through the bridge first**, §28). **Their Xsample recipes are real** (§32: the english horn's 36 presets from his menu; the double bass's 88 verified = the
-cello's; palette 159 / written-pitch 8 green). **Next: the REC track, then first sound from the sandbox on his Chrome,
-one Kontakt track at a time** — then the percussion (LG-10 small metals, D7, §30) — then 0d / 0h.
+cello's; palette 159 / written-pitch 8 green). **Spitfire is read and pushed as text** (`tools/aro_state.js`, RUNNING_LOG §34–§36: a loaded preset clones to any track; a
+never-loaded family needs one GUI load; the bank `bank/aro_states/`). **Next, at his word: the clone-and-change experiments
+with his screenshots, then a key-mapping method (journal §2), then the percussion tracks + recipe, the REC track, first
+sound** — then 0d / 0h.
 
 ## READ FIRST — how to work here
 

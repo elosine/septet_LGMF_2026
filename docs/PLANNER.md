@@ -5,7 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-09-17 (session 1 — Fable to plan, Opus to build) — **THE PORT IS DONE.**
+**NOW ►** 2026-09-17 late (session 1, Fable) — **0c + 0e in progress, him at the machine:** ten tracks · the SI2 three as text · the Kontakt three with four slots · the Xsample recipes real · Spitfire read and pushed as text (`tools/aro_state.js`), the small metals loaded once and banked. **Immediately next, at his word: the Spitfire clone-and-change experiments with his screenshots, then a key-mapping method (journal §2); then the percussion tracks + recipe, the REC track, first sound.**
 0a · 0b · 0g · 0i all closed in one day (RUNNING_LOG §12–§18): the composer app, the sandbox,
 the notation/IR stack, print and video are here on **seven new tracks** — EH · Bsn · Hn · Tpt ·
 Perc · Vc · Db — verified in the running app on **5400 / 4900**, and a save has been proved
