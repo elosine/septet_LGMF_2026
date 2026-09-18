@@ -633,6 +633,38 @@ those are on opposite rows.
 (E4–B♭4–E5, two six-semitone steps) instead of extending the ceiling. **The C2–E4 hole of 28 semitones is left open** —
 G3 would have filled it and is out of bowing reach. Nothing else in chord 3 is free to take it.
 
+### LG-24 · 2026-09-18 — CHORD 4 (on G♯1): doublings placed; candidates ranked by UNUSED interval
+
+> *"4: vib1 F#4, BSN c5, EH v2 vc candidates? list in order of not used intervals but still unusual"*
+> — composer, 2026-09-18, session 3, typed
+
+**Chord 4 so far:** double bass **G♯1** · horn **F♯4** (partial 7, −31) · **vibraphone bow 1 F♯4** tempered, beating with
+the horn · trumpet **C5** (partial 10, −14) · **bassoon C5** tempered, beating with the trumpet. **Open: english horn,
+vibraphone bow 2, cello — three slots.**
+
+**A new criterion, his:** rank by intervals **not yet used** in chords 1–3, while still unusual. Used so far: **17/14**
+(chord 1, the neutral third) · **9/5 and 17/10** (chord 2) · **12/7** (chord 3, the supermajor sixth). Deviations used:
+−14, −31, +4, +5, +2.
+
+| rank | ratio vs the horn’s F♯ | off ET | partial · pitch | eng horn | vib bow 2 (span from F♯4) | cello |
+|---|---|---|---|---|---|---|
+| **1** | **9/7** supermajor 3rd | **+35** | 9 · **B♭4** | ✓ | ✓ 4 st | ✓ |
+| | | | 18 · B♭5 | — | ✓ 16 st, wide | ✓ |
+| **2** | **8/7** supermajor 2nd | **+31** | 16 · **A♭5** | ✓ | ✓ 14 st | ✓ |
+| | | | 8 · A♭4 | ✓ | ✗ 2 st, adjacent upper-row bars | ✓ |
+| | | | 4 · A♭3 | ✓ | ✓ 10 st | ✓ |
+| **3** | **19/14** | **+29** | 19 · **B5** | — above its range | ✓ 17 st, wide | ✓ |
+| **4** | **13/7** | −28 | 13 · **E5 (+41)** | — | — | **✓ only** |
+| **5** | **15/14** | +19 | 15 · G5 (−12) | — | — | **✓ only** |
+| **6** | **11/7** | −18 | 11 · **D5 (−49)** | — | — | **✓ only** |
+| — | 27/14 | **+37** | 27 · F6 | — | ✗ 23 st, out of reach | — out of range |
+
+**Two kinds of novelty here, and they are different.** Ranks 1–3 are **new RATIOS** on near-tempered notes — available to
+any of the three free players. Ranks 4–6 are **new DEVIATIONS** (+41, −12, −49), and they are the **cello’s alone**, because
+only it can bend by ear. Chord 4 currently contains only −31 and −14; giving the cello an 11th or a 13th would put a
+cents value in the chord that has not appeared anywhere in the set. **27/14 is the strangest interval available in the
+whole scheme and lands exactly on the vibraphone’s top bar (F6) — in range, but 23 semitones from bow 1, so unreachable.**
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
