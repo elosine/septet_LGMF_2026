@@ -104,7 +104,7 @@ function send(code, timeoutMs = 20000) {
 (async () => {
     if (!cmd || cmd === '-h') { console.log(fs.readFileSync(__filename, 'utf8').split('\n').slice(1, 12).join('\n')); process.exit(0); }
     if (cmd === 'heartbeat') { console.log(JSON.stringify(heartbeat(), null, 1)); process.exit(0); }
-    if (EXPECT_PROJECT) { const h = heartbeat(); if (h.alive && h.project && !path.basename(h.project).startsWith(EXPECT_PROJECT)) { console.error('refusing: Reaper has ' + path.basename(h.project) + ' open, this repo expects ' + EXPECT_PROJECT + ' (set REAPER_PROJECT to override)'); process.exit(3); } }
+    if (EXPECT_PROJECT) { const h = heartbeat(); if (h.alive && h.project && !path.basename(h.project).toLowerCase().startsWith(EXPECT_PROJECT.toLowerCase())) { console.error('refusing: Reaper has ' + path.basename(h.project) + ' open, this repo expects ' + EXPECT_PROJECT + ' (set REAPER_PROJECT to override)'); process.exit(3); } }
     let code;
     if (cmd === 'run') code = fs.readFileSync(path.resolve(args[1]), 'utf8');
     else if (cmd === '-e') code = args[1];

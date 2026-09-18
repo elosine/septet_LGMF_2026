@@ -944,3 +944,60 @@ in a browser script the sandbox loads whole).
 **Not done, on purpose:** no instrument chosen (his: *"haven't decided"*); no percussion notation
 kind registered (nothing uses one yet — principle 3 gates the file, not the roster); the sandbox
 does not show the `keys` labels (NITS).
+
+---
+
+## §20. 0e begins — the bridge answers on his rack; the seven ports verified; what the AI can do alone (read from the septet, then proved live)
+
+**What prompted it.** *"yes commit the rpp, ports are in and how much of this can you do
+independently? Did you get all the information from the septet? … That includes the Reaper
+bridge, the XML for UVI and the contact developer tools. I believe you can make tracks and set
+parameters yourself. Tell me what you know about the capabilities that we developed for AI
+control."* Answered from the record, not from memory: `docs/REAPER_CONTROL.md` (carried whole —
+the survey, §3 the CC7 finding, §3b UVI's insides are text, §4 the bridge plan), the bridge's
+`README.md` / `install.md`, the headers of `tools/reaper_job.js` · `uvi_state.js` ·
+`render_reaper.js` · `reaper_midi_place.js` · `reaper/bridge/jobs/*.lua` · `reaper/kontakt/*.lua`,
+piece #5's PLAN 0e (the R1–R13 walk) and 0k (0k.1–0k.4 all proven 2026-09-04), and
+`SAMPLER_QUIRKS.md`.
+
+**Verified live, in order.**
+- `%APPDATA%\REAPER\Scripts\__startup.lua` still points at `septet_2026/reaper/bridge/bridge.lua`
+  — machine-level, as #5 built it. **Heartbeat: bridge 0.2.1, Reaper 7.72/x64, project
+  `septet_LGMF_2026/reaper/LGMF_rack.rpp`, 2 tracks, 1 s old.** Alive on this piece's rack.
+- **`tracks` REFUSED:** *"Reaper has LGMF_rack.rpp open, this repo expects lgmf_rack."* The port
+  set the guard's default to the lower-case stem and he named the file `LGMF_rack`. Fixed in one
+  line — the comparison is case-insensitive now (`tools/reaper_job.js`). Then **34 ms round trip.**
+- **His two tracks, read through the bridge** (`inputs.lua`, a read-only job): **1 English Horn XS**
+  — Kontakt 8 · input `LGEngHorn` (Reaper device 44) all channels · monitor ON · armed · 0 dB.
+  **2 Bassoon SI2** — UVIWorkstation · input device 45 · armed. *The file on disk said
+  otherwise* — a Kontakt beside the UVI on the bassoon track, and monitoring 0 on both — because
+  the file is his last CTRL+S and he was still working: **the live read is the truth, the file
+  is the record** (SAMPLER_QUIRKS's own rule, now seen).
+- **The UVI's parts, as text** (`uvi_state.js info`): Part 1 ch 1 *Bassoon Ordinario* · Part 2
+  ch 2 *Bassoon Blow Without Reed* · … — he is loading the SI2 presets into parts by hand, one
+  per channel, the flute/tuba pattern. The roster order is compared to the recipe in the next entry.
+- **The seven ports, via winmm, case-exact: all present, out AND in** — `LGEngHorn · LGBassoon ·
+  LGHorn · LGTrumpet · LGPerc · LGCello · LGBass`; 48 MIDI outs on the machine; Reaper has the
+  seven enabled as inputs 44–50 (beside the tuba, Tempus and 2p2p ports — the `LG` prefix earning
+  its keep).
+
+**A fact the rack told before he did:** the first track is named **"English Horn XS"** — the
+english horn's library is **Xsample** (D6 had it "being acquired, to be named"). To confirm in
+words; the recipe's english_horn entry follows.
+
+**What the AI can do alone on this rack (proven mechanisms, #5 0k.1–0k.4):** create and name
+tracks · set each track's MIDI input to its `LG` port, all channels, monitoring ON, arm · insert a
+plugin instance by name (Kontakt 8, UVIWorkstation — Spitfire's plugin by the same call, never
+tried) · faders, sends, child tracks, routing · read everything back as JSON · play MIDI into any
+port from PowerShell (the probes) and measure what sounds through REC · **UVI setup as text** —
+parts, channels, outputs, gains, insert bypasses, proven; **a preset loaded by `ProgramPath` is
+the same text edit and is NOT yet proven** (0k.3 proved the round trip and one output change) ·
+**render** the composer's playback through the bridge.
+**What takes one click of his per instance:** the Kontakt Lua scripts (they run from Kontakt's
+own ▾ menu — `curve_slots.lua` makes the ×4 channel-bank slots, the `proof_load` pattern loads an
+`.nki` by path; the AI checks the JSON read-back) · mic positions · the sampler masters (GUI-only).
+**Never:** CTRL+S (`save` is a job he asks for); the plugin blobs by hand.
+**Unexplored:** Spitfire's plugin — insert by name should work; whether its state is text like
+UVI's is an experiment for the day the first percussion instrument is chosen.
+
+*Committed with this entry: his `reaper/LGMF_rack.rpp` at his last save ("yes commit the rpp").*
