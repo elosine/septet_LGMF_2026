@@ -853,3 +853,94 @@ no errors beyond the in-app browser's Web MIDI denial.
 
 **Kept as evidence** (as #5 kept its own): `scores/0i-test.json` and
 `notation/ir/lgmf-0i.ir.json`.
+
+---
+
+## §19. 0c begins — the percussion scaffolding: piece #2's ARO map carried as a catalog, a selection and a generator
+
+**What prompted it.** After the clear, on Fable, he set the mode: *"no need for planning protocol,
+let's just dig in. What's first?"* The answer given was the seven loopMIDI ports (nothing routes
+without them), then the rack, then the recipes heard one by one. He answered the one yes/no put
+to him — *"yes double bass xsample"* — and redirected the first move to the percussion:
+
+> *"I don't know if you had a chance to look at the two piano, two percussion piece, but that's
+> where you're going to find all the percussion definitions. That patch might become large, but I
+> haven't decided which percussion instruments to use yet. And I know we were using multiple ports
+> there, but are probably changing the design here. But have a look and bring over any of the
+> Spitfire instrument definitions. I know we went through and got ranges and MIDI keys, etc., for
+> that piece. And then maybe we can set up some scaffolding. And then when the time comes, put in
+> the actual instruments."*
+
+Mid-way he added: *"empty reaper session here: reaper/LGMF_rack.rpp"* — his file, created by him,
+the rack's home for step 2.
+
+**What piece #2 has (one search, one read — `docs/instrument_map.json`, 146 KB).** 84 entries:
+**78 ARO percussion** (35 `verified` — dictated key by key from the lit keys of the plugin's
+keyboard; 2 `partial`; 2 `predicted`; **39 `skeleton`** — name and beaters from the manual, no
+keys) and 4 pianos. Each mapped entry carries its **All-in-One** preset as `allInOne[]`:
+`{ note, midi, beater, pitch, articulation }` per lit key — the brake drums are six Poly Beater
+keys 36–43 and six Rubber Mallet keys 60–67; the suspended cymbals five blocks (felt · brush ·
+stick · scrape · **bow**) 36–93; the triangles 48 keys. Plus per-volume CC maps (dynamics CC1 ·
+expression CC11 · reverb CC19 · release CC17 on Low · tightness CC18 on Metal), the octave
+convention (Spitfire C3 = 60; Reaper agrees), the `patternRules` #2 observed across verified
+instruments, and the walkthrough by which an instrument is mapped (load All-in-One, hover each
+lit key from the lowest, dictate). **The two facts that shape the design:** Spitfire's plugin
+**cannot switch instruments by MIDI** (#2's decision 5 — one plugin instance per instrument),
+and All-in-One is **byNote**: the key IS the articulation, loudness is velocity, no keyswitch, no
+CC prelude. Piece #2 answered the first fact with **eight loopMIDI ports** (three per
+percussionist, channels 1–5 / 6–10 / 11–16) and per-event channel→port routing, for two
+percussionists and snippets that address several ports at once.
+
+**The design here (D7).** One player, so **one port, `LGPerc`, one channel per instrument** —
+one Spitfire instance = one Reaper track filtering on its channel; sixteen per port, and the
+recipe schema's per-technique `port` gives a second (`LGPerc2`) if he ever needs it. **One
+technique per instrument × beater** (`brake_drums_poly_beater`, ch 1, 36–43) — the technique's
+range is that beater's block of keys, exactly as the SI2 rosters make a technique a playable
+region, and each technique carries a `keys` table saying what every key is ("Low · Hit L").
+**Nothing typed by hand:** the definitions are a catalog, the choice is a selection, and a tool
+writes the recipe.
+
+- **`bank/aro_percussion_catalog.json`** — the 78 ARO entries carried verbatim (123 KB), with
+  #2's rack routing (`Perc1-A/B/C`, channels, `sourceCh`) and the pianos stripped; `_meta` says
+  the source, the octave convention, what each status means, and the walkthrough for mapping a
+  skeleton entry.
+- **`bank/perc_selection.json`** — `{ port: "LGPerc", instruments: [ { slug, channel, beaters? } ] }`
+  — **empty.** Channels pinned explicitly rather than by list order, so a rack built by hand in
+  Reaper does not shift under a reorder.
+- **`tools/apply_perc.js`** — `apply_ranges.js`'s idiom: a generated block `ARO_PERC` in
+  `sandbox/instruments.js`, applied at load by `applyAroPerc()`, placed BEFORE the measured
+  blocks so a later 0d measurement lands on top of the generated techniques. It refuses a slug
+  the catalog has no keys for, a channel outside 1–16, and a channel used twice on a port. With
+  the selection empty the block is inert and the `main` placeholder stays; with a selection it
+  REPLACES the placeholder voice, sets `ordinary` to the first technique, the lane's range to the
+  union of the key blocks, and `channels.curve` to `[]` — a crescendo curve voice on another
+  channel would be another instrument (cresc.js documents empty = the voice's own channel).
+
+**Proved, not read.** A two-instrument proof selection (brake drums ch 1; suspended cymbals dark
+ch 2, beaters Bow + Scrape only) → **4 techniques, range 36–93**, each block's keys counted
+(6 · 6 · 8 · 9). A skeleton entry (waterphone) → **refused** with the status and the walkthrough
+named. Back to the empty selection → the placeholder, 21–108, `curve [2,3,4]` untouched.
+`palette_check` **GREEN 157** and `test_written_pitch` **8 + the control** with the empty
+selection.
+
+**What the proof found — the finding, again, is in the RED.** With the two instruments applied,
+`palette_check` went **RED 4**: `strike_drawer.js STRIKE_DEFAULT` · `ART_SETS.spiccato` ·
+`ART_SETS.staccato` · `cresc_card.js STRIKE_DEFAULT` all name `percussion → main`, which no
+longer exists once real instruments replace it. That is exactly the check doing its job: the
+four tables are on the list for the day the first instrument is chosen (NITS). A sixth check
+was added — the selection ↔ what the recipe carries — so an edited selection with the tool not
+re-run is RED, not silent (**159** now).
+
+**Found in passing, not fixed:** `tools/apply_ranges.js`'s BEGIN marker no longer matches the
+carried block's header (`MEASURED RANGES — piece #5's, for the CELLO ONLY`); a re-run would
+insert a SECOND `const MEASURED_RANGES` and the recipe would not evaluate. To NITS, for 0d.
+
+**Rejected.** Hand-transcribing key maps into the recipe per instrument (35 instruments, up to 48
+keys each — the one fragile build) · one technique per instrument spanning all its keys (the
+beater is what the composer chooses; the technique should be it) · #2's multi-port design (built
+for two players and cross-port snippets) · embedding the whole catalog in `instruments.js` (146 KB
+in a browser script the sandbox loads whole).
+
+**Not done, on purpose:** no instrument chosen (his: *"haven't decided"*); no percussion notation
+kind registered (nothing uses one yet — principle 3 gates the file, not the roster); the sandbox
+does not show the `keys` labels (NITS).

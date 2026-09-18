@@ -29,7 +29,9 @@ vibraphone still to acquire.**
 2026-09-17** (RUNNING_LOG §12–§18). The app, the sandbox, the notation/IR stack, print and
 video are here and verified running on the seven tracks. **Nothing sounds yet** — the recipes
 are placeholders and there is no Reaper rack: that is **0c + 0e, together, with him at the
-machine**, and it is the next step.
+machine — IN PROGRESS.** The percussion scaffolding is in (RUNNING_LOG §19, D7:
+`bank/aro_percussion_catalog.json` · `bank/perc_selection.json` · `tools/apply_perc.js`); the loopMIDI
+ports and the rack (`reaper/LGMF_rack.rpp`, his empty session) are next.
 
 ## READ FIRST — how to work here
 
@@ -160,8 +162,8 @@ routing advice is also credit advice, and these bind every Fable turn:
 port and never saves from its own browser pane (principle 9) · the in-app browser has no Web
 MIDI, so every MIDI path is verified on his Chrome.
 
-**Checks this piece owns:** `node tools/palette_check.js` (157 — tracks vs recipes, ports, every
-per-instrument table in the app) · `node tools/test_written_pitch.js` (8 + a control). Run both
+**Checks this piece owns:** `node tools/palette_check.js` (159 — tracks vs recipes, ports, every
+per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (8 + a control). Run both
 after any change to `TRACKS`, `sandbox/instruments.js` or `notation/registry/ensemble.json`.
 
 ## Reference repos (read-only context; registered as additional working dirs)

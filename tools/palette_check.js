@@ -129,5 +129,18 @@ if (unregistered.length) {
 }
 ok(true, 'unregistered recipe keys counted (' + unregistered.length + ') — a roster entry is not yet a notation kind');
 
+// ---------------------------------------------------------------- 6. the percussion selection is applied
+console.log('\n6. the percussion selection (bank/perc_selection.json) is what the recipe carries — tools/apply_perc.js after any edit');
+const SEL = JSON.parse(rd('bank/perc_selection.json'));
+const selPort = SEL.port || 'LGPerc';
+const want = (SEL.instruments || []).map(x => typeof x === 'string' ? { slug: x } : x);
+const have = (INSTRUMENTS.percussion && INSTRUMENTS.percussion.aroInstruments) || [];
+ok(rd('sandbox/instruments.js').includes('const ARO_PERC = '), 'the ARO_PERC block is in the recipe');
+ok(have.length === want.length, 'selected ' + want.length + ' percussion instrument(s), the recipe carries ' + have.length + (have.length === want.length ? '' : ' — run tools/apply_perc.js'));
+for (const w of want) {
+  const a = have.find(x => x.slug === w.slug);
+  ok(!!a && a.channel === w.channel && a.port === (w.port || selPort), 'percussion: ' + w.slug + ' applied on ' + (w.port || selPort) + ' ch' + w.channel);
+}
+
 console.log('\n' + (fail ? 'PALETTE RED: ' + fail + ' failure(s), ' + pass + ' ok' : 'PALETTE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

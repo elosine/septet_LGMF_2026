@@ -1,0 +1,2345 @@
+{
+  "_meta": {
+    "description": "Spitfire Abbey Road Orchestra Percussion — the instrument CATALOG for this piece's percussionist (one lane, P4): for each instrument, the MIDI key → beater / articulation map of its All-in-One preset. This file says what the library offers; which instruments the piece USES is bank/perc_selection.json, and tools/apply_perc.js turns that selection into the percussion techniques in sandbox/instruments.js (the ARO_PERC block).",
+    "source": "piece #2 (composition_for_two_pianos_and_two_percussion) docs/instrument_map.json, lastUpdated 2026-04-05 — carried 2026-09-17 with piece #2's rack routing (its Perc1-A/B/C ports, channels, sourceCh) and its four piano entries stripped; every other field verbatim. Re-carry the same way if piece #2 maps more instruments.",
+    "octaveConvention": "Spitfire default: C3 = MIDI 60 (middle C). Reaper matches Spitfire numbering. The `note` names in this file are Spitfire's; the `midi` numbers are absolute (middle C = 60) and are the only thing the recipe reads.",
+    "status": "verified = dictated key by key from the lit keys of the plugin's keyboard · partial / predicted = some keys inferred, spot-check before use · skeleton = name and beaters from the manual only, NO keys — map it (walkthrough) before it can be selected.",
+    "walkthrough": "To map an instrument: load its All-in-One preset in the Spitfire plugin, hover over each lit key from the lowest up, dictate note name + label (e.g. \"C2, Poly Beater Low Hit L\"); the AI writes the entry's allInOne. Piece #2's PROJECT_JOURNAL §5.1 is the full procedure.",
+    "midiCapabilityDefaults": {
+      "loudnessSource": "velocity",
+      "articulationMethod": "byNote",
+      "pitchBehavior": "fixed",
+      "supportsCCs": []
+    },
+    "counts": {
+      "instruments": 78,
+      "verified": 35,
+      "skeleton": 39,
+      "predicted": 2,
+      "partial": 2
+    }
+  },
+  "ccMappings": {
+    "highPerc": {
+      "dynamics": 1,
+      "globalGain": 7,
+      "globalPan": 10,
+      "expression": 11,
+      "reverb": 19
+    },
+    "lowPerc": {
+      "dynamics": 1,
+      "globalGain": 7,
+      "globalPan": 10,
+      "expression": 11,
+      "release": 17,
+      "reverb": 19
+    },
+    "metalPerc": {
+      "dynamics": 1,
+      "globalGain": 7,
+      "globalPan": 10,
+      "expression": 11,
+      "tightness": 18,
+      "reverb": 19
+    }
+  },
+  "patternRules": {
+    "description": "Observed mapping rules across verified instruments",
+    "rules": [
+      "Natural keys (C,D,E,F,G,A) = primary articulations: Hit L, Hit R, Roll",
+      "Black keys (sharps) = variants: rim hits (single-pitch) or pitch variants (multi-pitched)",
+      "C-E block = first beater/technique group per octave half",
+      "F-A block = second beater/technique group per octave half",
+      "Each octave in All-in-One = one pitch level (Low=oct2, High=oct3 for 2-pitch instruments)",
+      "Beaters without rim/roll skip those slots (e.g. Hand has Hit L + Hit R only, no roll)",
+      "Hit L = root note, Hit R = root + whole tone, Roll = root + major 3rd"
+    ]
+  },
+  "instruments": {
+    "shime_daiko": {
+      "name": "Shime Daiko",
+      "japaneseName": "締太鼓",
+      "library": "ARO High Percussion",
+      "description": "Traditional Japanese drum, tight and prominent sound suited to energetic rhythm patterns.",
+      "status": "verified",
+      "beaters": [
+        "Hands",
+        "Taiko Sticks",
+        "Rods"
+      ],
+      "pitches": 1,
+      "hasRim": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Hands","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Hands","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Taiko Sticks","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Taiko Sticks","articulation":"Hit R"},
+        {"note":"A2","midi":45,"beater":"Taiko Sticks","articulation":"Roll"},
+        {"note":"C3","midi":48,"beater":"Rods","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Rods","articulation":"Hit R"},
+        {"note":"E3","midi":52,"beater":"Rods","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Rods","articulation":"Rim Hit L"},
+        {"note":"G3","midi":55,"beater":"Rods","articulation":"Rim Hit R"},
+        {"note":"A3","midi":57,"beater":"Rods","articulation":"Rim Roll"}
+      ]
+    },
+    "brake_drums": {
+      "name": "Brake Drums",
+      "library": "ARO Metal Percussion",
+      "description": "Automobile brake drums producing surprisingly clear and resonant tones when struck.",
+      "status": "verified",
+      "beaters": [
+        "Poly Beater",
+        "Rubber Mallets"
+      ],
+      "pitches": 3,
+      "pitchNames": [
+        "Low",
+        "Middle",
+        "High"
+      ],
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Poly Beater","pitch":"Low","articulation":"Hit L"},
+        {"note":"C#2","midi":37,"beater":"Poly Beater","pitch":"Middle","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Poly Beater","pitch":"Low","articulation":"Hit R"},
+        {"note":"D#2","midi":39,"beater":"Poly Beater","pitch":"Middle","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Poly Beater","pitch":"High","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Poly Beater","pitch":"High","articulation":"Hit R"},
+        {"note":"C4","midi":60,"beater":"Rubber Mallets","pitch":"Low","articulation":"Hit L"},
+        {"note":"C#4","midi":61,"beater":"Rubber Mallets","pitch":"Middle","articulation":"Hit L"},
+        {"note":"D4","midi":62,"beater":"Rubber Mallets","pitch":"Low","articulation":"Hit R"},
+        {"note":"D#4","midi":63,"beater":"Rubber Mallets","pitch":"Middle","articulation":"Hit R"},
+        {"note":"F4","midi":65,"beater":"Rubber Mallets","pitch":"High","articulation":"Hit L"},
+        {"note":"G4","midi":67,"beater":"Rubber Mallets","pitch":"High","articulation":"Hit R"}
+      ]
+    },
+    "dragon_drums": {
+      "name": "Dragon Drums (Dagu)",
+      "library": "ARO Low Percussion",
+      "description": "Large pair of Chinese dagu drums producing strong, characterful tones with lengthy sustain.",
+      "status": "verified",
+      "beaters": [
+        "Hard Felt",
+        "Sticks"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "Low",
+        "High"
+      ],
+      "hasRim": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Hard Felt","pitch":"Low","articulation":"Single Hit L"},
+        {"note":"D2","midi":38,"beater":"Hard Felt","pitch":"Low","articulation":"Single Hit R"},
+        {"note":"E2","midi":40,"beater":"Hard Felt","pitch":"Low","articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Sticks","pitch":"Low","articulation":"Single Hit L"},
+        {"note":"F#2","midi":42,"beater":"Sticks","pitch":"Low","articulation":"Rim Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks","pitch":"Low","articulation":"Single Hit R"},
+        {"note":"G#2","midi":44,"beater":"Sticks","pitch":"Low","articulation":"Rim Hit R"},
+        {"note":"A2","midi":45,"beater":"Sticks","pitch":"Low","articulation":"Roll"},
+        {"note":"A#2","midi":46,"beater":"Sticks","pitch":"Low","articulation":"Rim Roll"},
+        {"note":"C3","midi":48,"beater":"Hard Felt","pitch":"High","articulation":"Single Hit L"},
+        {"note":"D3","midi":50,"beater":"Hard Felt","pitch":"High","articulation":"Single Hit R"},
+        {"note":"E3","midi":52,"beater":"Hard Felt","pitch":"High","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Sticks","pitch":"High","articulation":"Single Hit L"},
+        {"note":"F#3","midi":54,"beater":"Sticks","pitch":"High","articulation":"Rim Hit L"},
+        {"note":"G3","midi":55,"beater":"Sticks","pitch":"High","articulation":"Single Hit R"},
+        {"note":"G#3","midi":56,"beater":"Sticks","pitch":"High","articulation":"Rim Hit R"},
+        {"note":"A3","midi":57,"beater":"Sticks","pitch":"High","articulation":"Roll"},
+        {"note":"A#3","midi":58,"beater":"Sticks","pitch":"High","articulation":"Rim Roll"}
+      ]
+    },
+    "bass_drum": {
+      "name": "Bass Drum",
+      "library": "ARO Low Percussion",
+      "description": "Concert bass drum with wide beater variety including hand-damped articulations.",
+      "status": "verified",
+      "beaters": [
+        "Sticks",
+        "Hard Felt",
+        "Medium Felt",
+        "Poly Beater",
+        "Super Soft",
+        "Rute on Rim",
+        "Brushes"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks","articulation":"Single Hit L"},
+        {"note":"C#2","midi":37,"beater":"Sticks","articulation":"Hand Damped Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks","articulation":"Single Hit R"},
+        {"note":"D#2","midi":39,"beater":"Sticks","articulation":"Hand Damped Hit R"},
+        {"note":"E2","midi":40,"beater":"Sticks","articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Hard Felt","articulation":"Single Hit L"},
+        {"note":"F#2","midi":42,"beater":"Hard Felt","articulation":"Hand Damped Hit L"},
+        {"note":"G2","midi":43,"beater":"Hard Felt","articulation":"Single Hit R"},
+        {"note":"G#2","midi":44,"beater":"Hard Felt","articulation":"Hand Damped Hit R"},
+        {"note":"A2","midi":45,"beater":"Hard Felt","articulation":"Roll"},
+        {"note":"C3","midi":48,"beater":"Medium Felt","articulation":"Single Hit L"},
+        {"note":"C#3","midi":49,"beater":"Medium Felt","articulation":"Hand Damped Hit L"},
+        {"note":"D3","midi":50,"beater":"Medium Felt","articulation":"Single Hit R"},
+        {"note":"D#3","midi":51,"beater":"Medium Felt","articulation":"Hand Damped Hit R"},
+        {"note":"E3","midi":52,"beater":"Medium Felt","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Poly Beater","articulation":"Single Hit L"},
+        {"note":"F#3","midi":54,"beater":"Poly Beater","articulation":"Hand Damped Hit L"},
+        {"note":"G3","midi":55,"beater":"Poly Beater","articulation":"Single Hit R"},
+        {"note":"G#3","midi":56,"beater":"Poly Beater","articulation":"Hand Damped Hit R"},
+        {"note":"A3","midi":57,"beater":"Poly Beater","articulation":"Roll"},
+        {"note":"C4","midi":60,"beater":"Super Soft","articulation":"Single Hit L"},
+        {"note":"C#4","midi":61,"beater":"Super Soft","articulation":"Hand Damped Hit L"},
+        {"note":"D4","midi":62,"beater":"Super Soft","articulation":"Single Hit R"},
+        {"note":"D#4","midi":63,"beater":"Super Soft","articulation":"Hand Damped Hit R"},
+        {"note":"E4","midi":64,"beater":"Super Soft","articulation":"Roll"},
+        {"note":"F4","midi":65,"beater":"Rute on Rim","articulation":"Single Hit L"},
+        {"note":"G4","midi":67,"beater":"Rute on Rim","articulation":"Single Hit R"},
+        {"note":"A4","midi":69,"beater":"Rute on Rim","articulation":"Roll"},
+        {"note":"B4","midi":71,"beater":"Rute on Rim","articulation":"Double Hit Flam"},
+        {"note":"C5","midi":72,"beater":"Brushes","articulation":"Single Hit Open L"},
+        {"note":"C#5","midi":73,"beater":"Brushes","articulation":"Single Hit Closed L"},
+        {"note":"D5","midi":74,"beater":"Brushes","articulation":"Single Hit Open R"},
+        {"note":"D#5","midi":75,"beater":"Brushes","articulation":"Single Hit Closed R"},
+        {"note":"F5","midi":77,"beater":"Brushes","articulation":"Short Sweep L"},
+        {"note":"F#5","midi":78,"beater":"Brushes","articulation":"Long Sweep L"},
+        {"note":"G5","midi":79,"beater":"Brushes","articulation":"Short Sweep R"},
+        {"note":"G#5","midi":80,"beater":"Brushes","articulation":"Long Sweep R"},
+        {"note":"A5","midi":81,"beater":"Brushes","articulation":"Swirling"}
+      ]
+    },
+    "china_cymbals": {
+      "name": "China Cymbals",
+      "library": "ARO Metal Percussion",
+      "description": "China cymbals with felt mallet, bowing, scraping, and stick techniques.",
+      "status": "verified",
+      "beaters": [
+        "Felt Mallet",
+        "Bow",
+        "Scrape",
+        "Stick"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Felt Mallet","articulation":"Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Felt Mallet","articulation":"Single Hit Choked"},
+        {"note":"D2","midi":38,"beater":"Felt Mallet","articulation":"Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Felt Mallet","articulation":"Single Hit Choked"},
+        {"note":"F2","midi":41,"beater":"Felt Mallet","articulation":"Roll"},
+        {"note":"F#2","midi":42,"beater":"Felt Mallet","articulation":"Swells"},
+        {"note":"G2","midi":43,"beater":"Felt Mallet","articulation":"Roll Choked"},
+        {"note":"G#2","midi":44,"beater":"Felt Mallet","articulation":"Swells Choked"},
+        {"note":"C3","midi":48,"beater":"Bow","articulation":"Half Bow 1"},
+        {"note":"C#3","midi":49,"beater":"Bow","articulation":"Half Bow 2"},
+        {"note":"D3","midi":50,"beater":"Bow","articulation":"Half Bow 3"},
+        {"note":"D#3","midi":51,"beater":"Bow","articulation":"Half Bow 4"},
+        {"note":"F3","midi":53,"beater":"Bow","articulation":"Full Bow 1"},
+        {"note":"F#3","midi":54,"beater":"Bow","articulation":"Full Bow 2"},
+        {"note":"G3","midi":55,"beater":"Bow","articulation":"Full Bow 3"},
+        {"note":"G#3","midi":56,"beater":"Bow","articulation":"Full Bow 4"},
+        {"note":"A3","midi":57,"beater":"Bow","articulation":"Long Continuous Bowing"},
+        {"note":"C4","midi":60,"beater":"Scrape","articulation":"Fast Scrape 1"},
+        {"note":"C#4","midi":61,"beater":"Scrape","articulation":"Fast Scrape 2"},
+        {"note":"D4","midi":62,"beater":"Scrape","articulation":"Fast Scrape 3"},
+        {"note":"D#4","midi":63,"beater":"Scrape","articulation":"Fast Scrape 4"},
+        {"note":"F4","midi":65,"beater":"Scrape","articulation":"Medium Scrape 1"},
+        {"note":"F#4","midi":66,"beater":"Scrape","articulation":"Medium Scrape 2"},
+        {"note":"G4","midi":67,"beater":"Scrape","articulation":"Medium Scrape 3"},
+        {"note":"G#4","midi":68,"beater":"Scrape","articulation":"Medium Scrape 4"},
+        {"note":"C5","midi":72,"beater":"Stick","articulation":"Single Hit L"},
+        {"note":"C#5","midi":73,"beater":"Stick","articulation":"Single Hit Choked"},
+        {"note":"D5","midi":74,"beater":"Stick","articulation":"Single Hit"},
+        {"note":"D#5","midi":75,"beater":"Stick","articulation":"Single Hit Choked"}
+      ]
+    },
+    "splash_cymbals": {
+      "name": "Splash Cymbals",
+      "library": "ARO Metal Percussion",
+      "description": "Pair of splash cymbals (8-inch and 10-inch) with fast attack and short sustain.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "susp_cymbals_dark": {
+      "name": "Suspended Cymbals Dark",
+      "library": "ARO Metal Percussion",
+      "description": "20-inch dark suspended cymbal with felt mallet, brush, stick, scrape, and bow techniques.",
+      "status": "verified",
+      "beaters": [
+        "Felt Mallet",
+        "Brush",
+        "Stick",
+        "Scrape",
+        "Bow"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Felt Mallet","articulation":"20\" Dark Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Felt Mallet","articulation":"20\" Dark Single Hit Choked"},
+        {"note":"D2","midi":38,"beater":"Felt Mallet","articulation":"20\" Dark Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Felt Mallet","articulation":"20\" Dark Single Hit Choked"},
+        {"note":"F2","midi":41,"beater":"Felt Mallet","articulation":"20\" Dark Roll"},
+        {"note":"F#2","midi":42,"beater":"Felt Mallet","articulation":"20\" Dark Swells"},
+        {"note":"G2","midi":43,"beater":"Felt Mallet","articulation":"20\" Dark Roll Choked"},
+        {"note":"G#2","midi":44,"beater":"Felt Mallet","articulation":"20\" Dark Swells Choked"},
+        {"note":"C3","midi":48,"beater":"Brush","articulation":"20\" Dark Single Hit"},
+        {"note":"C#3","midi":49,"beater":"Brush","articulation":"20\" Dark Single Hit Choked"},
+        {"note":"D3","midi":50,"beater":"Brush","articulation":"20\" Dark Single Hit"},
+        {"note":"D#3","midi":51,"beater":"Brush","articulation":"20\" Dark Single Hit Choked"},
+        {"note":"F3","midi":53,"beater":"Brush","articulation":"20\" Dark Roll"},
+        {"note":"F#3","midi":54,"beater":"Brush","articulation":"20\" Dark Swells"},
+        {"note":"G3","midi":55,"beater":"Brush","articulation":"20\" Dark Roll Choked"},
+        {"note":"G#3","midi":56,"beater":"Brush","articulation":"20\" Dark Swells Choked"},
+        {"note":"C4","midi":60,"beater":"Stick","articulation":"20\" Dark Single Hit"},
+        {"note":"C#4","midi":61,"beater":"Stick","articulation":"20\" Dark Single Hit Choked"},
+        {"note":"D4","midi":62,"beater":"Stick","articulation":"20\" Dark Single Hit"},
+        {"note":"D#4","midi":63,"beater":"Stick","articulation":"20\" Dark Single Hit Choked"},
+        {"note":"C5","midi":72,"beater":"Scrape","articulation":"20\" Dark Fast Scrape 1"},
+        {"note":"C#5","midi":73,"beater":"Scrape","articulation":"20\" Dark Fast Scrape 2"},
+        {"note":"D5","midi":74,"beater":"Scrape","articulation":"20\" Dark Fast Scrape 3"},
+        {"note":"D#5","midi":75,"beater":"Scrape","articulation":"20\" Dark Fast Scrape 4"},
+        {"note":"F5","midi":77,"beater":"Scrape","articulation":"20\" Dark Medium Scrape 1"},
+        {"note":"F#5","midi":78,"beater":"Scrape","articulation":"20\" Dark Medium Scrape 2"},
+        {"note":"G5","midi":79,"beater":"Scrape","articulation":"20\" Dark Medium Scrape 3"},
+        {"note":"G#5","midi":80,"beater":"Scrape","articulation":"20\" Dark Medium Scrape 4"},
+        {"note":"C6","midi":84,"beater":"Bow","articulation":"20\" Dark Half Bow 1"},
+        {"note":"C#6","midi":85,"beater":"Bow","articulation":"20\" Dark Half Bow 2"},
+        {"note":"D6","midi":86,"beater":"Bow","articulation":"20\" Dark Half Bow 3"},
+        {"note":"D#6","midi":87,"beater":"Bow","articulation":"20\" Dark Half Bow 4"},
+        {"note":"F6","midi":89,"beater":"Bow","articulation":"20\" Dark Full Bow 1"},
+        {"note":"F#6","midi":90,"beater":"Bow","articulation":"20\" Dark Full Bow 2"},
+        {"note":"G6","midi":91,"beater":"Bow","articulation":"20\" Dark Full Bow 3"},
+        {"note":"G#6","midi":92,"beater":"Bow","articulation":"20\" Dark Full Bow 4"},
+        {"note":"A6","midi":93,"beater":"Bow","articulation":"20\" Dark Long Continuous Bowing"}
+      ]
+    },
+    "susp_cymbals_mellow": {
+      "name": "Suspended Cymbals Mellow",
+      "library": "ARO Metal Percussion",
+      "description": "21-inch mellow suspended cymbal with felt mallet, brush, stick, scrape, and bow techniques.",
+      "status": "verified",
+      "beaters": [
+        "Felt Mallet",
+        "Brush",
+        "Stick",
+        "Scrape",
+        "Bow"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Felt Mallet","articulation":"21\" Mellow Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Felt Mallet","articulation":"21\" Mellow Single Hit Choked"},
+        {"note":"D2","midi":38,"beater":"Felt Mallet","articulation":"21\" Mellow Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Felt Mallet","articulation":"21\" Mellow Single Hit Choked"},
+        {"note":"F2","midi":41,"beater":"Felt Mallet","articulation":"21\" Mellow Roll"},
+        {"note":"F#2","midi":42,"beater":"Felt Mallet","articulation":"21\" Mellow Swells"},
+        {"note":"G2","midi":43,"beater":"Felt Mallet","articulation":"21\" Mellow Roll Choked"},
+        {"note":"G#2","midi":44,"beater":"Felt Mallet","articulation":"21\" Mellow Swells Choked"},
+        {"note":"C3","midi":48,"beater":"Brush","articulation":"21\" Mellow Single Hit"},
+        {"note":"C#3","midi":49,"beater":"Brush","articulation":"21\" Mellow Single Hit Choked"},
+        {"note":"D3","midi":50,"beater":"Brush","articulation":"21\" Mellow Single Hit"},
+        {"note":"D#3","midi":51,"beater":"Brush","articulation":"21\" Mellow Single Hit Choked"},
+        {"note":"F3","midi":53,"beater":"Brush","articulation":"21\" Mellow Roll"},
+        {"note":"F#3","midi":54,"beater":"Brush","articulation":"21\" Mellow Swells"},
+        {"note":"G3","midi":55,"beater":"Brush","articulation":"21\" Mellow Roll Choked"},
+        {"note":"G#3","midi":56,"beater":"Brush","articulation":"21\" Mellow Swells Choked"},
+        {"note":"C4","midi":60,"beater":"Stick","articulation":"21\" Mellow Single Hit"},
+        {"note":"C#4","midi":61,"beater":"Stick","articulation":"21\" Mellow Single Hit Choked"},
+        {"note":"D4","midi":62,"beater":"Stick","articulation":"21\" Mellow Single Hit"},
+        {"note":"D#4","midi":63,"beater":"Stick","articulation":"21\" Mellow Single Hit Choked"},
+        {"note":"C5","midi":72,"beater":"Scrape","articulation":"21\" Mellow Fast Scrape 1"},
+        {"note":"C#5","midi":73,"beater":"Scrape","articulation":"21\" Mellow Fast Scrape 2"},
+        {"note":"D5","midi":74,"beater":"Scrape","articulation":"21\" Mellow Fast Scrape 3"},
+        {"note":"D#5","midi":75,"beater":"Scrape","articulation":"21\" Mellow Fast Scrape 4"},
+        {"note":"F5","midi":77,"beater":"Scrape","articulation":"21\" Mellow Medium Scrape 1"},
+        {"note":"F#5","midi":78,"beater":"Scrape","articulation":"21\" Mellow Medium Scrape 2"},
+        {"note":"G5","midi":79,"beater":"Scrape","articulation":"21\" Mellow Medium Scrape 3"},
+        {"note":"G#5","midi":80,"beater":"Scrape","articulation":"21\" Mellow Medium Scrape 4"},
+        {"note":"C6","midi":84,"beater":"Bow","articulation":"21\" Mellow Half Bow 1"},
+        {"note":"C#6","midi":85,"beater":"Bow","articulation":"21\" Mellow Half Bow 2"},
+        {"note":"D6","midi":86,"beater":"Bow","articulation":"21\" Mellow Half Bow 3"},
+        {"note":"D#6","midi":87,"beater":"Bow","articulation":"21\" Mellow Half Bow 4"},
+        {"note":"F6","midi":89,"beater":"Bow","articulation":"21\" Mellow Full Bow 1"},
+        {"note":"F#6","midi":90,"beater":"Bow","articulation":"21\" Mellow Full Bow 2"},
+        {"note":"G6","midi":91,"beater":"Bow","articulation":"21\" Mellow Full Bow 3"},
+        {"note":"G#6","midi":92,"beater":"Bow","articulation":"21\" Mellow Full Bow 4"},
+        {"note":"A6","midi":93,"beater":"Bow","articulation":"21\" Mellow Long Continuous Bowing"}
+      ]
+    },
+    "susp_cymbals_bright": {
+      "name": "Suspended Cymbals Bright",
+      "library": "ARO Metal Percussion",
+      "description": "16-inch bright suspended cymbal with felt mallet, brush, stick, scrape, and bow techniques.",
+      "status": "verified",
+      "beaters": [
+        "Felt Mallet",
+        "Brush",
+        "Stick",
+        "Scrape",
+        "Bow"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Felt Mallet","articulation":"16\" Bright Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Felt Mallet","articulation":"16\" Bright Single Hit Choked"},
+        {"note":"D2","midi":38,"beater":"Felt Mallet","articulation":"16\" Bright Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Felt Mallet","articulation":"16\" Bright Single Hit Choked"},
+        {"note":"F2","midi":41,"beater":"Felt Mallet","articulation":"16\" Bright Roll"},
+        {"note":"F#2","midi":42,"beater":"Felt Mallet","articulation":"16\" Bright Swells"},
+        {"note":"G2","midi":43,"beater":"Felt Mallet","articulation":"16\" Bright Roll Choked"},
+        {"note":"G#2","midi":44,"beater":"Felt Mallet","articulation":"16\" Bright Swells Choked"},
+        {"note":"C3","midi":48,"beater":"Brush","articulation":"16\" Bright Single Hit"},
+        {"note":"C#3","midi":49,"beater":"Brush","articulation":"16\" Bright Single Hit Choked"},
+        {"note":"D3","midi":50,"beater":"Brush","articulation":"16\" Bright Single Hit"},
+        {"note":"D#3","midi":51,"beater":"Brush","articulation":"16\" Bright Single Hit Choked"},
+        {"note":"F3","midi":53,"beater":"Brush","articulation":"16\" Bright Roll"},
+        {"note":"F#3","midi":54,"beater":"Brush","articulation":"16\" Bright Swells"},
+        {"note":"G3","midi":55,"beater":"Brush","articulation":"16\" Bright Roll Choked"},
+        {"note":"G#3","midi":56,"beater":"Brush","articulation":"16\" Bright Swells Choked"},
+        {"note":"C4","midi":60,"beater":"Stick","articulation":"16\" Bright Single Hit"},
+        {"note":"C#4","midi":61,"beater":"Stick","articulation":"16\" Bright Single Hit Choked"},
+        {"note":"D4","midi":62,"beater":"Stick","articulation":"16\" Bright Single Hit"},
+        {"note":"D#4","midi":63,"beater":"Stick","articulation":"16\" Bright Single Hit Choked"},
+        {"note":"C5","midi":72,"beater":"Scrape","articulation":"16\" Bright Fast Scrape 1"},
+        {"note":"C#5","midi":73,"beater":"Scrape","articulation":"16\" Bright Fast Scrape 2"},
+        {"note":"D5","midi":74,"beater":"Scrape","articulation":"16\" Bright Fast Scrape 3"},
+        {"note":"D#5","midi":75,"beater":"Scrape","articulation":"16\" Bright Fast Scrape 4"},
+        {"note":"F5","midi":77,"beater":"Scrape","articulation":"16\" Bright Medium Scrape 1"},
+        {"note":"F#5","midi":78,"beater":"Scrape","articulation":"16\" Bright Medium Scrape 2"},
+        {"note":"G5","midi":79,"beater":"Scrape","articulation":"16\" Bright Medium Scrape 3"},
+        {"note":"G#5","midi":80,"beater":"Scrape","articulation":"16\" Bright Medium Scrape 4"},
+        {"note":"C6","midi":84,"beater":"Bow","articulation":"16\" Bright Half Bow 1"},
+        {"note":"C#6","midi":85,"beater":"Bow","articulation":"16\" Bright Half Bow 2"},
+        {"note":"D6","midi":86,"beater":"Bow","articulation":"16\" Bright Half Bow 3"},
+        {"note":"D#6","midi":87,"beater":"Bow","articulation":"16\" Bright Half Bow 4"},
+        {"note":"F6","midi":89,"beater":"Bow","articulation":"16\" Bright Full Bow 1"},
+        {"note":"F#6","midi":90,"beater":"Bow","articulation":"16\" Bright Full Bow 2"},
+        {"note":"G6","midi":91,"beater":"Bow","articulation":"16\" Bright Full Bow 3"},
+        {"note":"G#6","midi":92,"beater":"Bow","articulation":"16\" Bright Full Bow 4"},
+        {"note":"A6","midi":93,"beater":"Bow","articulation":"16\" Bright Long Continuous Bowing"}
+      ]
+    },
+    "tam_tams_a": {
+      "name": "Tam Tams A",
+      "library": "ARO Metal Percussion",
+      "description": "30-inch tam tam with tam tam mallet, scrape, and superball techniques.",
+      "status": "verified",
+      "beaters": [
+        "Tam Tam Mallet",
+        "Scrape",
+        "Superball"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Single Hit Choked"},
+        {"note":"D2","midi":38,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Single Hit Choked"},
+        {"note":"F2","midi":41,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Roll"},
+        {"note":"F#2","midi":42,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Swells"},
+        {"note":"G2","midi":43,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Roll Choked"},
+        {"note":"G#2","midi":44,"beater":"Tam Tam Mallet","articulation":"Tam Tam A 30\" Swells Choked"},
+        {"note":"C3","midi":48,"beater":"Scrape","articulation":"Tam Tam A 30\" Fast Scrape 1"},
+        {"note":"C#3","midi":49,"beater":"Scrape","articulation":"Tam Tam A 30\" Fast Scrape 2"},
+        {"note":"D3","midi":50,"beater":"Scrape","articulation":"Tam Tam A 30\" Fast Scrape 3"},
+        {"note":"D#3","midi":51,"beater":"Scrape","articulation":"Tam Tam A 30\" Fast Scrape 4"},
+        {"note":"F3","midi":53,"beater":"Scrape","articulation":"Tam Tam A 30\" Medium Scrape 1"},
+        {"note":"F#3","midi":54,"beater":"Scrape","articulation":"Tam Tam A 30\" Medium Scrape 2"},
+        {"note":"G3","midi":55,"beater":"Scrape","articulation":"Tam Tam A 30\" Medium Scrape 3"},
+        {"note":"G#3","midi":56,"beater":"Scrape","articulation":"Tam Tam A 30\" Medium Scrape 4"},
+        {"note":"C4","midi":60,"beater":"Superball","articulation":"Tam Tam A 30\" Short Drag 1"},
+        {"note":"C#4","midi":61,"beater":"Superball","articulation":"Tam Tam A 30\" Short Drag 2"},
+        {"note":"D4","midi":62,"beater":"Superball","articulation":"Tam Tam A 30\" Short Drag 3"},
+        {"note":"D#4","midi":63,"beater":"Superball","articulation":"Tam Tam A 30\" Short Drag 4"},
+        {"note":"F4","midi":65,"beater":"Superball","articulation":"Tam Tam A 30\" Medium Drag 1"},
+        {"note":"F#4","midi":66,"beater":"Superball","articulation":"Tam Tam A 30\" Medium Drag 2"},
+        {"note":"G4","midi":67,"beater":"Superball","articulation":"Tam Tam A 30\" Medium Drag 3"},
+        {"note":"G#4","midi":68,"beater":"Superball","articulation":"Tam Tam A 30\" Medium Drag 4"},
+        {"note":"A4","midi":69,"beater":"Superball","articulation":"Tam Tam A 30\" Long Continuous Drag"}
+      ]
+    },
+    "tam_tams_b": {
+      "name": "Tam Tams B",
+      "library": "ARO Metal Percussion",
+      "description": "36-inch tam tam with tam tam mallet, scrape, and superball techniques.",
+      "status": "verified",
+      "beaters": [
+        "Tam Tam Mallet",
+        "Scrape",
+        "Superball"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Single Hit Choked"},
+        {"note":"D2","midi":38,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Single Hit Choked"},
+        {"note":"F2","midi":41,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Roll"},
+        {"note":"F#2","midi":42,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Swells"},
+        {"note":"G2","midi":43,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Roll Choked"},
+        {"note":"G#2","midi":44,"beater":"Tam Tam Mallet","articulation":"Tam Tam B 36\" Swells Choked"},
+        {"note":"C3","midi":48,"beater":"Scrape","articulation":"Tam Tam B 36\" Fast Scrape 1"},
+        {"note":"C#3","midi":49,"beater":"Scrape","articulation":"Tam Tam B 36\" Fast Scrape 2"},
+        {"note":"D3","midi":50,"beater":"Scrape","articulation":"Tam Tam B 36\" Fast Scrape 3"},
+        {"note":"D#3","midi":51,"beater":"Scrape","articulation":"Tam Tam B 36\" Fast Scrape 4"},
+        {"note":"F3","midi":53,"beater":"Scrape","articulation":"Tam Tam B 36\" Medium Scrape 1"},
+        {"note":"F#3","midi":54,"beater":"Scrape","articulation":"Tam Tam B 36\" Medium Scrape 2"},
+        {"note":"G3","midi":55,"beater":"Scrape","articulation":"Tam Tam B 36\" Medium Scrape 3"},
+        {"note":"G#3","midi":56,"beater":"Scrape","articulation":"Tam Tam B 36\" Medium Scrape 4"},
+        {"note":"C4","midi":60,"beater":"Superball","articulation":"Tam Tam B 36\" Short Drag 1"},
+        {"note":"C#4","midi":61,"beater":"Superball","articulation":"Tam Tam B 36\" Short Drag 2"},
+        {"note":"D4","midi":62,"beater":"Superball","articulation":"Tam Tam B 36\" Short Drag 3"},
+        {"note":"D#4","midi":63,"beater":"Superball","articulation":"Tam Tam B 36\" Short Drag 4"},
+        {"note":"F4","midi":65,"beater":"Superball","articulation":"Tam Tam B 36\" Medium Drag 1"},
+        {"note":"F#4","midi":66,"beater":"Superball","articulation":"Tam Tam B 36\" Medium Drag 2"},
+        {"note":"G4","midi":67,"beater":"Superball","articulation":"Tam Tam B 36\" Medium Drag 3"},
+        {"note":"G#4","midi":68,"beater":"Superball","articulation":"Tam Tam B 36\" Medium Drag 4"},
+        {"note":"A4","midi":69,"beater":"Superball","articulation":"Tam Tam B 36\" Long Continuous Drag"}
+      ]
+    },
+    "epic_toms": {
+      "name": "Epic Toms",
+      "library": "ARO Low Percussion",
+      "description": "Large concert toms in 18-inch and 16-inch sizes with taiko sticks and rods.",
+      "status": "verified",
+      "beaters": [
+        "Taiko Sticks",
+        "Rods"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "18-inch",
+        "16-inch"
+      ],
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Taiko Sticks","pitch":"18-inch","articulation":"Damped Hit L"},
+        {"note":"D2","midi":38,"beater":"Taiko Sticks","pitch":"18-inch","articulation":"Damped Hit R"},
+        {"note":"E2","midi":40,"beater":"Taiko Sticks","pitch":"18-inch","articulation":"Damped Roll"},
+        {"note":"F2","midi":41,"beater":"Taiko Sticks","pitch":"18-inch","articulation":"Hit L"},
+        {"note":"F#2","midi":42,"beater":"Rods","pitch":"18-inch","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Taiko Sticks","pitch":"18-inch","articulation":"Hit R"},
+        {"note":"G#2","midi":44,"beater":"Rods","pitch":"18-inch","articulation":"Hit R"},
+        {"note":"A2","midi":45,"beater":"Taiko Sticks","pitch":"18-inch","articulation":"Roll"},
+        {"note":"A#2","midi":46,"beater":"Rods","pitch":"18-inch","articulation":"Roll"},
+        {"note":"C3","midi":48,"beater":"Taiko Sticks","pitch":"16-inch","articulation":"Damped Hit L"},
+        {"note":"D3","midi":50,"beater":"Taiko Sticks","pitch":"16-inch","articulation":"Damped Hit R"},
+        {"note":"E3","midi":52,"beater":"Taiko Sticks","pitch":"16-inch","articulation":"Damped Roll"},
+        {"note":"F3","midi":53,"beater":"Taiko Sticks","pitch":"16-inch","articulation":"Hit L"},
+        {"note":"F#3","midi":54,"beater":"Rods","pitch":"16-inch","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Taiko Sticks","pitch":"16-inch","articulation":"Hit R"},
+        {"note":"G#3","midi":56,"beater":"Rods","pitch":"16-inch","articulation":"Hit R"},
+        {"note":"A3","midi":57,"beater":"Taiko Sticks","pitch":"16-inch","articulation":"Roll"},
+        {"note":"A#3","midi":58,"beater":"Rods","pitch":"16-inch","articulation":"Roll"}
+      ]
+    },
+    "gran_cassa": {
+      "name": "Gran Cassa (Bass Drum GC)",
+      "library": "ARO Low Percussion",
+      "description": "36\" two-headed concert bass drum with deep resonant sustain and huge dynamic range.",
+      "status": "predicted",
+      "beaters": [
+        "Sticks",
+        "Hard Felt",
+        "Medium Felt",
+        "Poly Beater",
+        "Super Soft",
+        "Brushes",
+        "Rute on Rim"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks","articulation":"Hit R"},
+        {"note":"E2","midi":40,"beater":"Sticks","articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Hard Felt","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Hard Felt","articulation":"Hit R"},
+        {"note":"A2","midi":45,"beater":"Hard Felt","articulation":"Roll"},
+        {"note":"C3","midi":48,"beater":"Medium Felt","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Medium Felt","articulation":"Hit R"},
+        {"note":"E3","midi":52,"beater":"Medium Felt","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Poly Beater","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Poly Beater","articulation":"Hit R"},
+        {"note":"A3","midi":57,"beater":"Poly Beater","articulation":"Roll"},
+        {"note":"C4","midi":60,"beater":"Super Soft","articulation":"Hit L"},
+        {"note":"D4","midi":62,"beater":"Super Soft","articulation":"Hit R"},
+        {"note":"E4","midi":64,"beater":"Super Soft","articulation":"Roll"},
+        {"note":"F4","midi":65,"beater":"Brushes","articulation":"Hit L"},
+        {"note":"G4","midi":67,"beater":"Brushes","articulation":"Hit R"},
+        {"note":"A4","midi":69,"beater":"Brushes","articulation":"Roll"},
+        {"note":"C5","midi":72,"beater":"Rute on Rim","articulation":"Hit L"},
+        {"note":"D5","midi":74,"beater":"Rute on Rim","articulation":"Hit R"},
+        {"note":"E5","midi":76,"beater":"Rute on Rim","articulation":"Roll"}
+      ],
+      "_notes": "7 beaters = 3.5 octaves. Brushes may have sweep/swirl instead of standard Hit L/R/Roll — verify."
+    },
+    "taiko": {
+      "name": "Taiko",
+      "library": "ARO Low Percussion",
+      "description": "Pair of Japanese solid Siam Oak taiko drums, focused sound for impactful driving rhythms.",
+      "status": "predicted",
+      "beaters": [
+        "Taiko Sticks",
+        "Hard Felt",
+        "Medium Felt",
+        "Brushes",
+        "Hands"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "Low",
+        "High"
+      ],
+      "hasRim": false,
+      "notation": {},
+      "allInOne_low": [
+        {"note":"C2","midi":36,"beater":"Taiko Sticks","pitch":"Low","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Taiko Sticks","pitch":"Low","articulation":"Hit R"},
+        {"note":"E2","midi":40,"beater":"Taiko Sticks","pitch":"Low","articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Hard Felt","pitch":"Low","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Hard Felt","pitch":"Low","articulation":"Hit R"},
+        {"note":"A2","midi":45,"beater":"Hard Felt","pitch":"Low","articulation":"Roll"},
+        {"note":"C3","midi":48,"beater":"Medium Felt","pitch":"Low","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Medium Felt","pitch":"Low","articulation":"Hit R"},
+        {"note":"E3","midi":52,"beater":"Medium Felt","pitch":"Low","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Brushes","pitch":"Low","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Brushes","pitch":"Low","articulation":"Hit R"},
+        {"note":"A3","midi":57,"beater":"Brushes","pitch":"Low","articulation":"Roll"},
+        {"note":"C4","midi":60,"beater":"Hands","pitch":"Low","articulation":"Hit L"},
+        {"note":"D4","midi":62,"beater":"Hands","pitch":"Low","articulation":"Hit R"},
+        {"note":"E4","midi":64,"beater":"Hands","pitch":"Low","articulation":"Roll"}
+      ],
+      "_notes": "Taiko has separate All in One (Low) and All in One (High) presets. High drum likely uses same pattern. Verify both."
+    },
+    "snare": {
+      "name": "Snare",
+      "library": "ARO High Percussion",
+      "description": "Orchestral snare drum with snare on/off capability.",
+      "status": "partial",
+      "beaters": [
+        "Sticks",
+        "Brushes"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "notation": {},
+      "allInOne": [
+        {"note":"C3","midi":48,"articulation":"Drag Center L"},
+        {"note":"C#3","midi":49,"articulation":"Drag Edge L"},
+        {"note":"D3","midi":50,"articulation":"Drag Center R"},
+        {"note":"D#3","midi":51,"articulation":"Drag Edge R"},
+        {"note":"F4","midi":65,"articulation":"Center Hit L"},
+        {"note":"F#4","midi":66,"articulation":"Edge Hit L"},
+        {"note":"C5","midi":72,"articulation":"Drag Center L"},
+        {"note":"C#5","midi":73,"articulation":"Drag Edge L"}
+      ],
+      "_notes": "DOES NOT follow standard pattern. Uses center/edge on natural/sharp pairs, drags and hits as separate groups. Needs full manual walkthrough — only 8 of many articulations captured here."
+    },
+    "anvils": {
+      "name": "Anvils",
+      "library": "ARO Metal Percussion",
+      "description": "Metal bars struck with hammers creating ringing sounds with excellent projection.",
+      "status": "verified",
+      "beaters": [
+        "Lump Hammer",
+        "Pin Hammer"
+      ],
+      "pitches": 3,
+      "pitchNames": [
+        "Low",
+        "Middle",
+        "High"
+      ],
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Lump Hammer","pitch":"Low","articulation":"Hit L"},
+        {"note":"C#2","midi":37,"beater":"Lump Hammer","pitch":"Middle","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Lump Hammer","pitch":"Low","articulation":"Hit R"},
+        {"note":"D#2","midi":39,"beater":"Lump Hammer","pitch":"Middle","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Lump Hammer","pitch":"High","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Lump Hammer","pitch":"High","articulation":"Hit R"},
+        {"note":"C3","midi":48,"beater":"Pin Hammer","pitch":"Low","articulation":"Hit L"},
+        {"note":"C#3","midi":49,"beater":"Pin Hammer","pitch":"Middle","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Pin Hammer","pitch":"Low","articulation":"Hit R"},
+        {"note":"D#3","midi":51,"beater":"Pin Hammer","pitch":"Middle","articulation":"Hit R"},
+        {"note":"F3","midi":53,"beater":"Pin Hammer","pitch":"High","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Pin Hammer","pitch":"High","articulation":"Hit R"}
+      ],
+      "_notes": "3 anvils like brake drums. Pattern confirmed by spot-check."
+    },
+    "buffalo_drum": {
+      "name": "Buffalo Drum",
+      "library": "ARO Low Percussion",
+      "description": "Native American style frame drum with warm, deep tone.",
+      "status": "verified",
+      "beaters": [
+        "Hard Beater",
+        "Soft Beater"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Hard Beater","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Hard Beater","articulation":"Hit R"},
+        {"note":"E2","midi":40,"beater":"Hard Beater","articulation":"Roll"},
+        {"note":"C3","midi":48,"beater":"Soft Beater","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Soft Beater","articulation":"Hit R"},
+        {"note":"E3","midi":52,"beater":"Soft Beater","articulation":"Roll"}
+      ],
+      "_notes": "C4 block appears to be duplicates of C2 block — skipped."
+    },
+    "tam_tams": {
+      "name": "Tam Tams",
+      "library": "ARO Metal Percussion",
+      "description": "Pair of orchestral tam tams with very long deep resonance and dark overtones.",
+      "status": "partial",
+      "beaters": [
+        "Tam Tam Mallets",
+        "Scrapes",
+        "Superball"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "Tam Tam A (30\" Swiss)",
+        "Tam Tam B (36\" Wuhan)"
+      ],
+      "hasRim": false,
+      "notation": {},
+      "allInOne_tamB": [
+        {"note":"C2","midi":36,"beater":"Tam Tam Mallets","articulation":"Single Hit"},
+        {"note":"C#2","midi":37,"beater":"Tam Tam Mallets","articulation":"Single Hit Choke"},
+        {"note":"D2","midi":38,"beater":"Tam Tam Mallets","articulation":"Single Hit"},
+        {"note":"D#2","midi":39,"beater":"Tam Tam Mallets","articulation":"Single Hit Choke"},
+        {"note":"F2","midi":41,"beater":"Tam Tam Mallets","articulation":"Roll"},
+        {"note":"F#2","midi":42,"beater":"Tam Tam Mallets","articulation":"Swell"},
+        {"note":"G2","midi":43,"beater":"Tam Tam Mallets","articulation":"Roll Choke"}
+      ],
+      "_notes": "DOES NOT follow standard L/R pattern. Uses choked variants on black keys and swells. Only Tam Tam B (36\") partially captured — needs full walkthrough for both A and B. C2/D2 may be L/R rather than repeats."
+    },
+    "bongos": {
+      "name": "Bongos",
+      "library": "ARO High Percussion",
+      "description": "Cuban bongo pair with strong rhythm and clear tone. 2 pitches (Low/High). Hands, Fingers, and Sticks techniques. High drum has closed variants.",
+      "status": "verified",
+      "beaters": [
+        "Hands",
+        "Fingers",
+        "Sticks"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "Low",
+        "High"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Hands","pitch":"Low","articulation":"Low Hand Hit L"},
+        {"note":"D2","midi":38,"beater":"Hands","pitch":"Low","articulation":"Low Hand Hit R"},
+        {"note":"E2","midi":40,"beater":"Hands","pitch":"Low","articulation":"Low Hand Roll"},
+        {"note":"F2","midi":41,"beater":"Fingers","pitch":"Low","articulation":"Low Finger Hit L"},
+        {"note":"G2","midi":43,"beater":"Fingers","pitch":"Low","articulation":"Low Finger Hit R"},
+        {"note":"A2","midi":45,"beater":"Fingers","pitch":"Low","articulation":"Low Finger Roll"},
+        {"note":"C3","midi":48,"beater":"Hands","pitch":"High","articulation":"High Hand Hit L"},
+        {"note":"C#3","midi":49,"beater":"Hands","pitch":"High","articulation":"High Hand Hit Closed L"},
+        {"note":"D3","midi":50,"beater":"Hands","pitch":"High","articulation":"High Hand Hit R"},
+        {"note":"D#3","midi":51,"beater":"Hands","pitch":"High","articulation":"High Hand Hit Closed R"},
+        {"note":"E3","midi":52,"beater":"Hands","pitch":"High","articulation":"High Hand Roll"},
+        {"note":"F3","midi":53,"beater":"Fingers","pitch":"High","articulation":"High Finger Hit L"},
+        {"note":"F#3","midi":54,"beater":"Fingers","pitch":"High","articulation":"High Finger Hit Closed L"},
+        {"note":"G3","midi":55,"beater":"Fingers","pitch":"High","articulation":"High Finger Hit R"},
+        {"note":"G#3","midi":56,"beater":"Fingers","pitch":"High","articulation":"High Finger Hit Closed R"},
+        {"note":"A3","midi":57,"beater":"Fingers","pitch":"High","articulation":"High Finger Roll"},
+        {"note":"C4","midi":60,"beater":"Sticks","pitch":"Low","articulation":"Low Stick Hit L"},
+        {"note":"D4","midi":62,"beater":"Sticks","pitch":"Low","articulation":"Low Stick Hit R"},
+        {"note":"E4","midi":64,"beater":"Sticks","pitch":"Low","articulation":"Low Stick Roll"},
+        {"note":"F4","midi":65,"beater":"Sticks","pitch":"Low","articulation":"Low Rim Shot L"},
+        {"note":"G4","midi":67,"beater":"Sticks","pitch":"Low","articulation":"Low Rim Shot R"},
+        {"note":"C5","midi":72,"beater":"Sticks","pitch":"High","articulation":"High Stick Hit L"},
+        {"note":"D5","midi":74,"beater":"Sticks","pitch":"High","articulation":"High Stick Hit R"},
+        {"note":"E5","midi":76,"beater":"Sticks","pitch":"High","articulation":"High Stick Roll"},
+        {"note":"F5","midi":77,"beater":"Sticks","pitch":"High","articulation":"High Rim Shot L"},
+        {"note":"G5","midi":79,"beater":"Sticks","pitch":"High","articulation":"High Rim Shot R"}
+      ],
+      "_notes": "C2 group: Low Hands (C/D/E whole-tone) + Low Fingers (F, G, A whole-tone). C3 group: High Hands+Fingers (consecutive semitones C3-A3, includes closed variants). C4 group: Low Sticks (C/D/E whole-tone + F consecutive, G jump). C5 group: High Sticks (same pattern as C4)."
+    },
+    "congas": {
+      "name": "Congas",
+      "library": "ARO High Percussion",
+      "description": "Latin American congas with front-spreading tone and balanced resonance.",
+      "status": "skeleton",
+      "beaters": [
+        "Hands"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "darbuka": {
+      "name": "Darbuka",
+      "library": "ARO High Percussion",
+      "description": "Traditional darbuka played with palm and fingers at various strike positions.",
+      "status": "skeleton",
+      "beaters": [
+        "Hands",
+        "Brushes"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "djembe": {
+      "name": "Djembe",
+      "library": "ARO High Percussion",
+      "description": "African hand drum with deep fundamental and strong overtones.",
+      "status": "skeleton",
+      "beaters": [
+        "Hands",
+        "Brushes"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "log_drums": {
+      "name": "Log Drums",
+      "library": "ARO High Percussion",
+      "description": "Hollow hardwood instrument with organic, woody sound from struck tongues. 6 drums numbered 1 (highest) to 6 (lowest), each with Left and Right hits. Two variant groups across two octave ranges.",
+      "status": "verified",
+      "beaters": [
+        "Rubber Mallets"
+      ],
+      "pitches": 6,
+      "pitchNames": [
+        "Drum 6 (lowest)",
+        "Drum 5",
+        "Drum 4",
+        "Drum 3",
+        "Drum 2",
+        "Drum 1 (highest)"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Rubber Mallets","articulation":"Log Drum 6 L"},
+        {"note":"C#2","midi":37,"beater":"Rubber Mallets","articulation":"Log Drum 5 L"},
+        {"note":"D2","midi":38,"beater":"Rubber Mallets","articulation":"Log Drum 6 R"},
+        {"note":"D#2","midi":39,"beater":"Rubber Mallets","articulation":"Log Drum 5 R"},
+        {"note":"F2","midi":41,"beater":"Rubber Mallets","articulation":"Log Drum 4 L"},
+        {"note":"F#2","midi":42,"beater":"Rubber Mallets","articulation":"Log Drum 3 L"},
+        {"note":"G2","midi":43,"beater":"Rubber Mallets","articulation":"Log Drum 4 R"},
+        {"note":"G#2","midi":44,"beater":"Rubber Mallets","articulation":"Log Drum 3 R"},
+        {"note":"C3","midi":48,"beater":"Rubber Mallets","articulation":"Log Drum 2 L"},
+        {"note":"C#3","midi":49,"beater":"Rubber Mallets","articulation":"Log Drum 1 L"},
+        {"note":"D3","midi":50,"beater":"Rubber Mallets","articulation":"Log Drum 2 R"},
+        {"note":"D#3","midi":51,"beater":"Rubber Mallets","articulation":"Log Drum 1 R"},
+        {"note":"C4","midi":60,"beater":"Rubber Mallets","articulation":"Log Drum 6 L"},
+        {"note":"C#4","midi":61,"beater":"Rubber Mallets","articulation":"Log Drum 5 L"},
+        {"note":"D4","midi":62,"beater":"Rubber Mallets","articulation":"Log Drum 6 R"},
+        {"note":"D#4","midi":63,"beater":"Rubber Mallets","articulation":"Log Drum 5 R"},
+        {"note":"F4","midi":65,"beater":"Rubber Mallets","articulation":"Log Drum 4 L"},
+        {"note":"F#4","midi":66,"beater":"Rubber Mallets","articulation":"Log Drum 3 L"},
+        {"note":"G4","midi":67,"beater":"Rubber Mallets","articulation":"Log Drum 4 R"},
+        {"note":"G#4","midi":68,"beater":"Rubber Mallets","articulation":"Log Drum 3 R"},
+        {"note":"C5","midi":72,"beater":"Rubber Mallets","articulation":"Log Drum 2 L"},
+        {"note":"C#5","midi":73,"beater":"Rubber Mallets","articulation":"Log Drum 1 L"},
+        {"note":"D5","midi":74,"beater":"Rubber Mallets","articulation":"Log Drum 2 R"},
+        {"note":"D#5","midi":75,"beater":"Rubber Mallets","articulation":"Log Drum 1 R"}
+      ],
+      "_notes": "Six log drums (1=highest, 6=lowest). Each drum has Left and Right hits. Four groups of 4 notes: Drums 6+5 at C-D#, Drums 4+3 at F-G#, Drums 2+1 at C(next oct)-D#. Groups repeat at oct2-3 and oct4-5 as variant pairs."
+    },
+    "mini_bongos": {
+      "name": "Mini Bongos",
+      "library": "ARO High Percussion",
+      "description": "Lighter, more brittle alternative to traditional bongos.",
+      "status": "skeleton",
+      "beaters": [
+        "Hands"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "octobans": {
+      "name": "Octobans",
+      "library": "ARO High Percussion",
+      "description": "4-piece set (boobam substitute) with fast attack, clear fundamental, tight resonance.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks",
+        "Rods"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "plastics": {
+      "name": "Plastics",
+      "library": "ARO High Percussion",
+      "description": "Plastic set (tub/jerry can/bucket) struck with sticks for punchy street-ensemble sound.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "roto_toms": {
+      "name": "Roto Toms",
+      "library": "ARO High Percussion",
+      "description": "5-piece set (6/8/10/12/14 inch) with clear, outlined tone.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks",
+        "Brushes"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "field_drum": {
+      "name": "Field Drum",
+      "library": "ARO High Percussion",
+      "description": "15-inch deep maple shell field snare drum.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks (Snare On)",
+        "Sticks (Snare Off)",
+        "Brushes"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "piccolo_snare_a": {
+      "name": "Piccolo Snare A",
+      "library": "ARO High Percussion",
+      "description": "12-inch piccolo snare, shallow hammer steel shell, tight sound.",
+      "status": "verified",
+      "beaters": [
+        "Sticks (Snares On)",
+        "Sticks (Snares Off)",
+        "Brushes"
+      ],
+      "pitches": 1,
+      "hasRim": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks (Snares On)","articulation":"Rim Shot L"},
+        {"note":"C#2","midi":37,"beater":"Sticks (Snares On)","articulation":"Rim Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks (Snares On)","articulation":"Rim Shot R"},
+        {"note":"D#2","midi":39,"beater":"Sticks (Snares On)","articulation":"Rim Hit R"},
+        {"note":"F2","midi":41,"beater":"Sticks (Snares On)","articulation":"Center Hit L"},
+        {"note":"F#2","midi":42,"beater":"Sticks (Snares On)","articulation":"Edge Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks (Snares On)","articulation":"Center Hit R"},
+        {"note":"G#2","midi":44,"beater":"Sticks (Snares On)","articulation":"Edge Hit R"},
+        {"note":"A2","midi":45,"beater":"Sticks (Snares On)","articulation":"Center Roll"},
+        {"note":"A#2","midi":46,"beater":"Sticks (Snares On)","articulation":"Edge Roll"},
+        {"note":"C3","midi":48,"beater":"Sticks (Snares On)","articulation":"Drag Center L"},
+        {"note":"C#3","midi":49,"beater":"Sticks (Snares On)","articulation":"Drag Edge L"},
+        {"note":"D3","midi":50,"beater":"Sticks (Snares On)","articulation":"Drag Center R"},
+        {"note":"D#3","midi":51,"beater":"Sticks (Snares On)","articulation":"Drag Edge R"},
+        {"note":"F3","midi":53,"beater":"Sticks (Snares On)","articulation":"Ruff Center L"},
+        {"note":"F#3","midi":54,"beater":"Sticks (Snares On)","articulation":"Ruff Edge L"},
+        {"note":"G3","midi":55,"beater":"Sticks (Snares On)","articulation":"Ruff Center R"},
+        {"note":"G#3","midi":56,"beater":"Sticks (Snares On)","articulation":"Ruff Edge R"},
+        {"note":"C4","midi":60,"beater":"Sticks (Snares Off)","articulation":"Rim Shot L"},
+        {"note":"D4","midi":62,"beater":"Sticks (Snares Off)","articulation":"Rim Shot R"},
+        {"note":"F4","midi":65,"beater":"Sticks (Snares Off)","articulation":"Center Hit L"},
+        {"note":"F#4","midi":66,"beater":"Sticks (Snares Off)","articulation":"Edge Hit L"},
+        {"note":"G4","midi":67,"beater":"Sticks (Snares Off)","articulation":"Center Hit R"},
+        {"note":"G#4","midi":68,"beater":"Sticks (Snares Off)","articulation":"Edge Hit R"},
+        {"note":"A4","midi":69,"beater":"Sticks (Snares Off)","articulation":"Center Roll"},
+        {"note":"A#4","midi":70,"beater":"Sticks (Snares Off)","articulation":"Edge Roll"},
+        {"note":"C5","midi":72,"beater":"Sticks (Snares Off)","articulation":"Drag Center L"},
+        {"note":"C#5","midi":73,"beater":"Sticks (Snares Off)","articulation":"Drag Edge L"},
+        {"note":"D5","midi":74,"beater":"Sticks (Snares Off)","articulation":"Drag Center R"},
+        {"note":"D#5","midi":75,"beater":"Sticks (Snares Off)","articulation":"Drag Edge R"},
+        {"note":"F5","midi":77,"beater":"Sticks (Snares Off)","articulation":"Ruff Center L"},
+        {"note":"F#5","midi":78,"beater":"Sticks (Snares Off)","articulation":"Ruff Edge L"},
+        {"note":"G5","midi":79,"beater":"Sticks (Snares Off)","articulation":"Ruff Center R"},
+        {"note":"G#5","midi":80,"beater":"Sticks (Snares Off)","articulation":"Ruff Edge R"},
+        {"note":"C6","midi":84,"beater":"Brushes","articulation":"Open Hit L"},
+        {"note":"C#6","midi":85,"beater":"Brushes","articulation":"Closed Hit L"},
+        {"note":"D6","midi":86,"beater":"Brushes","articulation":"Open Hit R"},
+        {"note":"D#6","midi":87,"beater":"Brushes","articulation":"Closed Hit R"}
+      ]
+    },
+    "piccolo_snare_b": {
+      "name": "Piccolo Snare B",
+      "library": "ARO High Percussion",
+      "description": "13-inch piccolo snare, shallow maple shell, crispy mid-high presence.",
+      "status": "verified",
+      "beaters": [
+        "Sticks (Snares On)",
+        "Sticks (Snares Off)",
+        "Brushes"
+      ],
+      "pitches": 1,
+      "hasRim": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks (Snares On)","articulation":"Rim Shot L"},
+        {"note":"C#2","midi":37,"beater":"Sticks (Snares On)","articulation":"Rim Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks (Snares On)","articulation":"Rim Shot R"},
+        {"note":"D#2","midi":39,"beater":"Sticks (Snares On)","articulation":"Rim Hit R"},
+        {"note":"F2","midi":41,"beater":"Sticks (Snares On)","articulation":"Center Hit L"},
+        {"note":"F#2","midi":42,"beater":"Sticks (Snares On)","articulation":"Edge Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks (Snares On)","articulation":"Center Hit R"},
+        {"note":"G#2","midi":44,"beater":"Sticks (Snares On)","articulation":"Edge Hit R"},
+        {"note":"A2","midi":45,"beater":"Sticks (Snares On)","articulation":"Center Roll"},
+        {"note":"A#2","midi":46,"beater":"Sticks (Snares On)","articulation":"Edge Roll"},
+        {"note":"C3","midi":48,"beater":"Sticks (Snares On)","articulation":"Drag Center L"},
+        {"note":"C#3","midi":49,"beater":"Sticks (Snares On)","articulation":"Drag Edge L"},
+        {"note":"D3","midi":50,"beater":"Sticks (Snares On)","articulation":"Drag Center R"},
+        {"note":"D#3","midi":51,"beater":"Sticks (Snares On)","articulation":"Drag Edge R"},
+        {"note":"F3","midi":53,"beater":"Sticks (Snares On)","articulation":"Ruff Center L"},
+        {"note":"F#3","midi":54,"beater":"Sticks (Snares On)","articulation":"Ruff Edge L"},
+        {"note":"G3","midi":55,"beater":"Sticks (Snares On)","articulation":"Ruff Center R"},
+        {"note":"G#3","midi":56,"beater":"Sticks (Snares On)","articulation":"Ruff Edge R"},
+        {"note":"C4","midi":60,"beater":"Sticks (Snares Off)","articulation":"Rim Shot L"},
+        {"note":"D4","midi":62,"beater":"Sticks (Snares Off)","articulation":"Rim Shot R"},
+        {"note":"F4","midi":65,"beater":"Sticks (Snares Off)","articulation":"Center Hit L"},
+        {"note":"F#4","midi":66,"beater":"Sticks (Snares Off)","articulation":"Edge Hit L"},
+        {"note":"G4","midi":67,"beater":"Sticks (Snares Off)","articulation":"Center Hit R"},
+        {"note":"G#4","midi":68,"beater":"Sticks (Snares Off)","articulation":"Edge Hit R"},
+        {"note":"A4","midi":69,"beater":"Sticks (Snares Off)","articulation":"Center Roll"},
+        {"note":"A#4","midi":70,"beater":"Sticks (Snares Off)","articulation":"Edge Roll"},
+        {"note":"C5","midi":72,"beater":"Sticks (Snares Off)","articulation":"Drag Center L"},
+        {"note":"C#5","midi":73,"beater":"Sticks (Snares Off)","articulation":"Drag Edge L"},
+        {"note":"D5","midi":74,"beater":"Sticks (Snares Off)","articulation":"Drag Center R"},
+        {"note":"D#5","midi":75,"beater":"Sticks (Snares Off)","articulation":"Drag Edge R"},
+        {"note":"F5","midi":77,"beater":"Sticks (Snares Off)","articulation":"Ruff Center L"},
+        {"note":"F#5","midi":78,"beater":"Sticks (Snares Off)","articulation":"Ruff Edge L"},
+        {"note":"G5","midi":79,"beater":"Sticks (Snares Off)","articulation":"Ruff Center R"},
+        {"note":"G#5","midi":80,"beater":"Sticks (Snares Off)","articulation":"Ruff Edge R"},
+        {"note":"C6","midi":84,"beater":"Brushes","articulation":"Open Hit L"},
+        {"note":"C#6","midi":85,"beater":"Brushes","articulation":"Closed Hit L"},
+        {"note":"D6","midi":86,"beater":"Brushes","articulation":"Open Hit R"},
+        {"note":"D#6","midi":87,"beater":"Brushes","articulation":"Closed Hit R"}
+      ]
+    },
+    "temple_blocks": {
+      "name": "Temple Blocks",
+      "library": "ARO High Percussion",
+      "description": "Hollow blocks with mid-emphasized woody sound. 4 blocks numbered 1 (highest) to 4 (lowest). Hard Mallets (oct2) and Soft Mallets (oct3).",
+      "status": "verified",
+      "beaters": [
+        "Hard Mallets",
+        "Soft Mallets"
+      ],
+      "pitches": 4,
+      "pitchNames": [
+        "Block 4 (lowest)",
+        "Block 3",
+        "Block 2",
+        "Block 1 (highest)"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Hard Mallets","pitch":"Block 4","articulation":"Hit L"},
+        {"note":"C#2","midi":37,"beater":"Hard Mallets","pitch":"Block 3","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Hard Mallets","pitch":"Block 4","articulation":"Hit R"},
+        {"note":"D#2","midi":39,"beater":"Hard Mallets","pitch":"Block 3","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Hard Mallets","pitch":"Block 2","articulation":"Hit L"},
+        {"note":"F#2","midi":42,"beater":"Hard Mallets","pitch":"Block 1","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Hard Mallets","pitch":"Block 2","articulation":"Hit R"},
+        {"note":"G#2","midi":44,"beater":"Hard Mallets","pitch":"Block 1","articulation":"Hit R"},
+        {"note":"C3","midi":48,"beater":"Soft Mallets","pitch":"Block 4","articulation":"Hit L"},
+        {"note":"C#3","midi":49,"beater":"Soft Mallets","pitch":"Block 3","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Soft Mallets","pitch":"Block 4","articulation":"Hit R"},
+        {"note":"D#3","midi":51,"beater":"Soft Mallets","pitch":"Block 3","articulation":"Hit R"},
+        {"note":"F3","midi":53,"beater":"Soft Mallets","pitch":"Block 2","articulation":"Hit L"},
+        {"note":"F#3","midi":54,"beater":"Soft Mallets","pitch":"Block 1","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Soft Mallets","pitch":"Block 2","articulation":"Hit R"},
+        {"note":"G#3","midi":56,"beater":"Soft Mallets","pitch":"Block 1","articulation":"Hit R"}
+      ],
+      "_notes": "4 blocks (4=lowest, 1=highest). C-D# group = blocks 4+3, F-G# group = blocks 2+1. Natural keys = L, sharps = R. Oct2 = Hard Mallets, Oct3 = Soft Mallets."
+    },
+    "timbales": {
+      "name": "Timbales",
+      "library": "ARO High Percussion",
+      "description": "Latin American metal-shell single-head drums with strong overtones.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "wood_blocks": {
+      "name": "Wood Blocks",
+      "library": "ARO High Percussion",
+      "description": "Hardwood blocks producing high-pitched orchestral sounds. 4 blocks numbered 1 (highest) to 4 (lowest). Hard Mallets (oct2) and Soft Mallets (oct3).",
+      "status": "verified",
+      "beaters": [
+        "Hard Mallets",
+        "Soft Mallets"
+      ],
+      "pitches": 4,
+      "pitchNames": [
+        "Block 4 (lowest)",
+        "Block 3",
+        "Block 2",
+        "Block 1 (highest)"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Hard Mallets","pitch":"Block 4","articulation":"Hit L"},
+        {"note":"C#2","midi":37,"beater":"Hard Mallets","pitch":"Block 3","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Hard Mallets","pitch":"Block 4","articulation":"Hit R"},
+        {"note":"D#2","midi":39,"beater":"Hard Mallets","pitch":"Block 3","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Hard Mallets","pitch":"Block 2","articulation":"Hit L"},
+        {"note":"F#2","midi":42,"beater":"Hard Mallets","pitch":"Block 1","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Hard Mallets","pitch":"Block 2","articulation":"Hit R"},
+        {"note":"G#2","midi":44,"beater":"Hard Mallets","pitch":"Block 1","articulation":"Hit R"},
+        {"note":"C3","midi":48,"beater":"Soft Mallets","pitch":"Block 4","articulation":"Hit L"},
+        {"note":"C#3","midi":49,"beater":"Soft Mallets","pitch":"Block 3","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Soft Mallets","pitch":"Block 4","articulation":"Hit R"},
+        {"note":"D#3","midi":51,"beater":"Soft Mallets","pitch":"Block 3","articulation":"Hit R"},
+        {"note":"F3","midi":53,"beater":"Soft Mallets","pitch":"Block 2","articulation":"Hit L"},
+        {"note":"F#3","midi":54,"beater":"Soft Mallets","pitch":"Block 1","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Soft Mallets","pitch":"Block 2","articulation":"Hit R"},
+        {"note":"G#3","midi":56,"beater":"Soft Mallets","pitch":"Block 1","articulation":"Hit R"}
+      ],
+      "_notes": "Same layout as temple_blocks. 4 blocks (4=lowest, 1=highest). C-D# group = blocks 4+3, F-G# group = blocks 2+1. Natural keys = L, sharps = R. Oct2 = Hard Mallets, Oct3 = Soft Mallets."
+    },
+    "toys_claves": {
+      "name": "Claves",
+      "library": "ARO High Percussion",
+      "description": "3 clave pairs, each with Low and High pitch. Part of Toys preset.",
+      "status": "verified",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "pitches": 6,
+      "pitchNames": [
+        "Pair 3 Low",
+        "Pair 3 High",
+        "Pair 2 Low",
+        "Pair 2 High",
+        "Pair 1 Low",
+        "Pair 1 High"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"articulation":"Pair 3 Low"},
+        {"note":"D2","midi":38,"articulation":"Pair 3 High"},
+        {"note":"E2","midi":40,"articulation":"Pair 2 Low"},
+        {"note":"F2","midi":41,"articulation":"Pair 2 High"},
+        {"note":"G2","midi":43,"articulation":"Pair 1 Low"},
+        {"note":"A2","midi":45,"articulation":"Pair 1 High"},
+        {"note":"C4","midi":60,"articulation":"Pair 3 Low"},
+        {"note":"D4","midi":62,"articulation":"Pair 3 High"},
+        {"note":"E4","midi":64,"articulation":"Pair 2 Low"},
+        {"note":"F4","midi":65,"articulation":"Pair 2 High"},
+        {"note":"G4","midi":67,"articulation":"Pair 1 Low"},
+        {"note":"A4","midi":69,"articulation":"Pair 1 High"}
+      ],
+      "_notes": "3 clave pairs (3=lowest, 1=highest), each with Low/High hit. C-A whole-tone spacing per group. Two variant groups at oct2 and oct4. No beater distinction. Does NOT follow standard L/R pattern — each note is a distinct pitch."
+    },
+    "toys_castanets": {
+      "name": "Castanets",
+      "library": "ARO High Percussion",
+      "description": "Machine + handle pair. Part of Toys preset. Two blocks per type (likely same samples mapped for performance convenience).",
+      "status": "verified",
+      "parentPreset": "Toys",
+      "beaters": [
+        "Handle",
+        "Machine"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Handle","block":1,"articulation":"Single L"},
+        {"note":"D2","midi":38,"beater":"Handle","block":1,"articulation":"Single R"},
+        {"note":"E2","midi":40,"beater":"Handle","block":1,"articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Handle","block":1,"articulation":"Flam"},
+        {"note":"C3","midi":48,"beater":"Machine","block":1,"articulation":"Single L"},
+        {"note":"D3","midi":50,"beater":"Machine","block":1,"articulation":"Single R"},
+        {"note":"E3","midi":52,"beater":"Machine","block":1,"articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Machine","block":1,"articulation":"Flam"},
+        {"note":"C4","midi":60,"beater":"Handle","block":2,"articulation":"Single L"},
+        {"note":"D4","midi":62,"beater":"Handle","block":2,"articulation":"Single R"},
+        {"note":"E4","midi":64,"beater":"Handle","block":2,"articulation":"Roll"},
+        {"note":"F4","midi":65,"beater":"Handle","block":2,"articulation":"Flam"},
+        {"note":"C5","midi":72,"beater":"Machine","block":2,"articulation":"Single L"},
+        {"note":"D5","midi":74,"beater":"Machine","block":2,"articulation":"Single R"},
+        {"note":"E5","midi":76,"beater":"Machine","block":2,"articulation":"Roll"},
+        {"note":"F5","midi":77,"beater":"Machine","block":2,"articulation":"Flam"}
+      ]
+    },
+    "toys_ratchet": {
+      "name": "Ratchet",
+      "library": "ARO High Percussion",
+      "description": "Part of Toys preset.",
+      "status": "skeleton",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "toys_vibraslap": {
+      "name": "Vibraslap",
+      "library": "ARO High Percussion",
+      "description": "Part of Toys preset.",
+      "status": "skeleton",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "toys_whips": {
+      "name": "Whips",
+      "library": "ARO High Percussion",
+      "description": "2 whips: heavy and light. Part of Toys preset. NOTE: manual says whips don't follow standard mapping pattern.",
+      "status": "skeleton",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "toys_guiros": {
+      "name": "Guiros",
+      "library": "ARO High Percussion",
+      "description": "2 guiros: wood and plastic. Part of Toys preset.",
+      "status": "skeleton",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "toys_shakers": {
+      "name": "Shakers",
+      "library": "ARO High Percussion",
+      "description": "4 shakers. Part of Toys preset.",
+      "status": "skeleton",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "toys_caxixi": {
+      "name": "Caxixi",
+      "library": "ARO High Percussion",
+      "description": "2 basket shakers. Part of Toys preset.",
+      "status": "skeleton",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "toys_maracas": {
+      "name": "Maracas",
+      "library": "ARO High Percussion",
+      "description": "Pair of maracas. Part of Toys preset. Two pitch levels (Low/High), each with Throw, Shakes, Swirls articulations. Two variant groups per pitch.",
+      "status": "verified",
+      "parentPreset": "Toys",
+      "beaters": [],
+      "pitches": 2,
+      "pitchNames": [
+        "Low",
+        "High"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"pitch":"Low","articulation":"Throw 1"},
+        {"note":"D2","midi":38,"pitch":"Low","articulation":"Throw 2"},
+        {"note":"E2","midi":40,"pitch":"Low","articulation":"Shakes 1"},
+        {"note":"F2","midi":41,"pitch":"Low","articulation":"Swirls 1"},
+        {"note":"C3","midi":48,"pitch":"High","articulation":"Throw 1"},
+        {"note":"D3","midi":50,"pitch":"High","articulation":"Throw 2"},
+        {"note":"E3","midi":52,"pitch":"High","articulation":"Shakes 1"},
+        {"note":"F3","midi":53,"pitch":"High","articulation":"Swirls 1"},
+        {"note":"C4","midi":60,"pitch":"Low","articulation":"Throw 3"},
+        {"note":"D4","midi":62,"pitch":"Low","articulation":"Throw 4"},
+        {"note":"E4","midi":64,"pitch":"Low","articulation":"Shakes 2"},
+        {"note":"F4","midi":65,"pitch":"Low","articulation":"Swirls 2"},
+        {"note":"C5","midi":72,"pitch":"High","articulation":"Throw 3"},
+        {"note":"D5","midi":74,"pitch":"High","articulation":"Throw 4"},
+        {"note":"E5","midi":76,"pitch":"High","articulation":"Shakes 2"},
+        {"note":"F5","midi":77,"pitch":"High","articulation":"Swirls 2"}
+      ],
+      "_notes": "Four groups of 4 (Low oct2, High oct3, Low oct4, High oct5). Each group: Throw/Throw/Shakes/Swirls. Groups 1-2 and 3-4 are variant pairs for the same articulations."
+    },
+    "bass_drum_alt": {
+      "name": "Bass Drum (Alt)",
+      "library": "ARO Low Percussion",
+      "description": "Vintage 32-inch shallow open shell bass drum with defined attack and woody overtones.",
+      "status": "verified",
+      "beaters": [
+        "Sticks",
+        "Hard Felt",
+        "Hard Felt (Cloth Damped)",
+        "Medium Felt",
+        "Rods",
+        "Brushes"
+      ],
+      "pitches": 1,
+      "hasRim": true,
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks","articulation":"Single Hit L"},
+        {"note":"C#2","midi":37,"beater":"Sticks","articulation":"Hand Damped Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks","articulation":"Single Hit R"},
+        {"note":"D#2","midi":39,"beater":"Sticks","articulation":"Hand Damped Hit R"},
+        {"note":"E2","midi":40,"beater":"Sticks","articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Sticks","articulation":"Rim Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks","articulation":"Rim Hit R"},
+        {"note":"A2","midi":45,"beater":"Sticks","articulation":"Rim Roll"},
+        {"note":"C3","midi":48,"beater":"Hard Felt","articulation":"Single Hit L"},
+        {"note":"D3","midi":50,"beater":"Hard Felt","articulation":"Single Hit R"},
+        {"note":"E3","midi":52,"beater":"Hard Felt","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Hard Felt (Cloth Damped)","articulation":"Single Hit L"},
+        {"note":"G3","midi":55,"beater":"Hard Felt (Cloth Damped)","articulation":"Single Hit R"},
+        {"note":"A3","midi":57,"beater":"Hard Felt (Cloth Damped)","articulation":"Roll"},
+        {"note":"C4","midi":60,"beater":"Medium Felt","articulation":"Single Hit L"},
+        {"note":"C#4","midi":61,"beater":"Medium Felt","articulation":"Hand Damped Hit L"},
+        {"note":"D4","midi":62,"beater":"Medium Felt","articulation":"Single Hit R"},
+        {"note":"D#4","midi":63,"beater":"Medium Felt","articulation":"Hand Damped Hit R"},
+        {"note":"E4","midi":64,"beater":"Medium Felt","articulation":"Roll"},
+        {"note":"F4","midi":65,"beater":"Rods","articulation":"Single Hit L"},
+        {"note":"F#4","midi":66,"beater":"Rods","articulation":"Rim Hit L"},
+        {"note":"G4","midi":67,"beater":"Rods","articulation":"Single Hit R"},
+        {"note":"G#4","midi":68,"beater":"Rods","articulation":"Rim Hit R"},
+        {"note":"A4","midi":69,"beater":"Rods","articulation":"Roll"},
+        {"note":"A#4","midi":70,"beater":"Rods","articulation":"Rim Roll"},
+        {"note":"C5","midi":72,"beater":"Brushes","articulation":"Center Hit Open L"},
+        {"note":"C#5","midi":73,"beater":"Brushes","articulation":"Center Hit Closed L"},
+        {"note":"D5","midi":74,"beater":"Brushes","articulation":"Center Hit Open R"},
+        {"note":"D#5","midi":75,"beater":"Brushes","articulation":"Center Hit Closed R"},
+        {"note":"E5","midi":76,"beater":"Brushes","articulation":"Roll"},
+        {"note":"F5","midi":77,"beater":"Brushes","articulation":"Edge Hit Open L"},
+        {"note":"F#5","midi":78,"beater":"Brushes","articulation":"Edge Hit Closed L"},
+        {"note":"G5","midi":79,"beater":"Brushes","articulation":"Edge Hit Open R"},
+        {"note":"G#5","midi":80,"beater":"Brushes","articulation":"Edge Hit Closed R"},
+        {"note":"C6","midi":84,"beater":"Brushes","articulation":"Short Sweep L"},
+        {"note":"C#6","midi":85,"beater":"Brushes","articulation":"Long Sweep L"},
+        {"note":"D6","midi":86,"beater":"Brushes","articulation":"Short Sweep R"},
+        {"note":"D#6","midi":87,"beater":"Brushes","articulation":"Long Sweep R"},
+        {"note":"E6","midi":88,"beater":"Brushes","articulation":"Swirling"}
+      ],
+      "_notes": "Sticks group: chromatic C2-E2 (5 primary articulations), then naturals only F2-A2 for rim variants (Rim Hit L, Rim Hit R, Rim Roll — F#2 and G#2 gaps). Hard Felt groups (C3-A3) are whole-tone naturals only: C/D/E for Hard Felt, F/G/A for Hard Felt (Cloth Damped). Medium Felt, Rods, and Brushes (hits) groups are fully chromatic. Brushes sweeps (C6-E6) chromatic. Last assignment is E6 Swirling."
+    },
+    "gong_bass_drum": {
+      "name": "Gong Bass Drum",
+      "library": "ARO Low Percussion",
+      "description": "Single oversized head, fat modern sound with fast attack and punchy low end.",
+      "status": "skeleton",
+      "beaters": [
+        "Hard Felt",
+        "Soft Felt",
+        "Puili"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "giant_taiko": {
+      "name": "Giant Taiko",
+      "library": "ARO Low Percussion",
+      "description": "60-inch O-Daiko with thunderous lows, complex sustain, surprisingly agile.",
+      "status": "skeleton",
+      "beaters": [
+        "Taiko Sticks",
+        "Taiko Sticks (Damped)",
+        "Medium Felt",
+        "Medium Felt (Damped)",
+        "Hands"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "toms_low": {
+      "name": "Toms Low",
+      "library": "ARO Low Percussion",
+      "description": "Vintage silver single-headed toms, clear and resonant. All in One (Low) preset. 14-inch and 13-inch drums. Sticks (damped, open, rim), Felt, Rods, Brushes.",
+      "status": "verified",
+      "parentPreset": "All in One (Low)",
+      "beaters": [
+        "Sticks",
+        "Felt",
+        "Rods",
+        "Brushes"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "14-inch",
+        "13-inch"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks","articulation":"14\" Stick Damped Single Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks","articulation":"14\" Stick Damped Single Hit R"},
+        {"note":"E2","midi":40,"beater":"Sticks","articulation":"14\" Stick Damped Roll"},
+        {"note":"F2","midi":41,"beater":"Sticks","articulation":"14\" Stick Single Hit L"},
+        {"note":"F#2","midi":42,"beater":"Sticks","articulation":"14\" Stick Rim Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks","articulation":"14\" Stick Single Hit R"},
+        {"note":"G#2","midi":44,"beater":"Sticks","articulation":"14\" Stick Rim Hit R"},
+        {"note":"A2","midi":45,"beater":"Sticks","articulation":"14\" Stick Roll"},
+        {"note":"A#2","midi":46,"beater":"Sticks","articulation":"14\" Stick Rim Roll"},
+        {"note":"C3","midi":48,"beater":"Felt","articulation":"14\" Felt Single Hit L"},
+        {"note":"D3","midi":50,"beater":"Felt","articulation":"14\" Felt Single Hit R"},
+        {"note":"E3","midi":52,"beater":"Felt","articulation":"14\" Felt Roll"},
+        {"note":"F3","midi":53,"beater":"Rods","articulation":"14\" Rods Single Hit L"},
+        {"note":"F#3","midi":54,"beater":"Brushes","articulation":"14\" Brushes Single Hit L"},
+        {"note":"G3","midi":55,"beater":"Rods","articulation":"14\" Rods Single Hit R"},
+        {"note":"G#3","midi":56,"beater":"Brushes","articulation":"14\" Brushes Single Hit R"},
+        {"note":"A3","midi":57,"beater":"Rods","articulation":"14\" Rods Roll"},
+        {"note":"A#3","midi":58,"beater":"Brushes","articulation":"14\" Brushes Roll"},
+        {"note":"C4","midi":60,"beater":"Sticks","articulation":"13\" Stick Damped Single Hit L"},
+        {"note":"D4","midi":62,"beater":"Sticks","articulation":"13\" Stick Damped Single Hit R"},
+        {"note":"E4","midi":64,"beater":"Sticks","articulation":"13\" Stick Damped Roll"},
+        {"note":"F4","midi":65,"beater":"Sticks","articulation":"13\" Stick Single Hit L"},
+        {"note":"F#4","midi":66,"beater":"Sticks","articulation":"13\" Stick Rim Hit L"},
+        {"note":"G4","midi":67,"beater":"Sticks","articulation":"13\" Stick Single Hit R"},
+        {"note":"G#4","midi":68,"beater":"Sticks","articulation":"13\" Stick Rim Hit R"},
+        {"note":"A4","midi":69,"beater":"Sticks","articulation":"13\" Stick Roll"},
+        {"note":"A#4","midi":70,"beater":"Sticks","articulation":"13\" Stick Rim Roll"},
+        {"note":"C5","midi":72,"beater":"Felt","articulation":"13\" Felt Single Hit L"},
+        {"note":"D5","midi":74,"beater":"Felt","articulation":"13\" Felt Single Hit R"},
+        {"note":"E5","midi":76,"beater":"Felt","articulation":"13\" Felt Roll"},
+        {"note":"F5","midi":77,"beater":"Rods","articulation":"13\" Rods Single Hit L"},
+        {"note":"F#5","midi":78,"beater":"Brushes","articulation":"13\" Brushes Single Hit L"},
+        {"note":"G5","midi":79,"beater":"Rods","articulation":"13\" Rods Single Hit R"},
+        {"note":"G#5","midi":80,"beater":"Brushes","articulation":"13\" Brushes Single Hit R"},
+        {"note":"A5","midi":81,"beater":"Rods","articulation":"13\" Rods Roll"},
+        {"note":"A#5","midi":82,"beater":"Brushes","articulation":"13\" Brushes Roll"}
+      ],
+      "_notes": "Two drum sizes: 14\" (C2+C3 groups) and 13\" (C4+C5 groups). Each size has two groups: Seq1 (sticks damped/open/rim) at C, Seq2 (felt/rods/brushes) at C+octave. C/D/E are whole-tone spaced (damped hit L/R + roll or felt hit L/R + roll), then F-A# consecutive semitones."
+    },
+    "toms_high": {
+      "name": "Toms High",
+      "library": "ARO Low Percussion",
+      "description": "Vintage silver single-headed toms, clear and resonant. All in One (High) preset. 12-inch and 10-inch drums. Sticks (damped, open, rim), Felt, Rods, Brushes.",
+      "status": "verified",
+      "parentPreset": "All in One (High)",
+      "beaters": [
+        "Sticks",
+        "Felt",
+        "Rods",
+        "Brushes"
+      ],
+      "pitches": 2,
+      "pitchNames": [
+        "12-inch",
+        "10-inch"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks","articulation":"12\" Stick Damped Single Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks","articulation":"12\" Stick Damped Single Hit R"},
+        {"note":"E2","midi":40,"beater":"Sticks","articulation":"12\" Stick Damped Roll"},
+        {"note":"F2","midi":41,"beater":"Sticks","articulation":"12\" Stick Single Hit L"},
+        {"note":"F#2","midi":42,"beater":"Sticks","articulation":"12\" Stick Rim Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks","articulation":"12\" Stick Single Hit R"},
+        {"note":"G#2","midi":44,"beater":"Sticks","articulation":"12\" Stick Rim Hit R"},
+        {"note":"A2","midi":45,"beater":"Sticks","articulation":"12\" Stick Roll"},
+        {"note":"A#2","midi":46,"beater":"Sticks","articulation":"12\" Stick Rim Roll"},
+        {"note":"C3","midi":48,"beater":"Felt","articulation":"12\" Felt Single Hit L"},
+        {"note":"D3","midi":50,"beater":"Felt","articulation":"12\" Felt Single Hit R"},
+        {"note":"E3","midi":52,"beater":"Felt","articulation":"12\" Felt Roll"},
+        {"note":"F3","midi":53,"beater":"Rods","articulation":"12\" Rods Single Hit L"},
+        {"note":"F#3","midi":54,"beater":"Brushes","articulation":"12\" Brushes Single Hit L"},
+        {"note":"G3","midi":55,"beater":"Rods","articulation":"12\" Rods Single Hit R"},
+        {"note":"G#3","midi":56,"beater":"Brushes","articulation":"12\" Brushes Single Hit R"},
+        {"note":"A3","midi":57,"beater":"Rods","articulation":"12\" Rods Roll"},
+        {"note":"A#3","midi":58,"beater":"Brushes","articulation":"12\" Brushes Roll"},
+        {"note":"C4","midi":60,"beater":"Sticks","articulation":"10\" Stick Damped Single Hit L"},
+        {"note":"D4","midi":62,"beater":"Sticks","articulation":"10\" Stick Damped Single Hit R"},
+        {"note":"E4","midi":64,"beater":"Sticks","articulation":"10\" Stick Damped Roll"},
+        {"note":"F4","midi":65,"beater":"Sticks","articulation":"10\" Stick Single Hit L"},
+        {"note":"F#4","midi":66,"beater":"Sticks","articulation":"10\" Stick Rim Hit L"},
+        {"note":"G4","midi":67,"beater":"Sticks","articulation":"10\" Stick Single Hit R"},
+        {"note":"G#4","midi":68,"beater":"Sticks","articulation":"10\" Stick Rim Hit R"},
+        {"note":"A4","midi":69,"beater":"Sticks","articulation":"10\" Stick Roll"},
+        {"note":"A#4","midi":70,"beater":"Sticks","articulation":"10\" Stick Rim Roll"},
+        {"note":"C5","midi":72,"beater":"Felt","articulation":"10\" Felt Single Hit L"},
+        {"note":"D5","midi":74,"beater":"Felt","articulation":"10\" Felt Single Hit R"},
+        {"note":"E5","midi":76,"beater":"Felt","articulation":"10\" Felt Roll"},
+        {"note":"F5","midi":77,"beater":"Rods","articulation":"10\" Rods Single Hit L"},
+        {"note":"F#5","midi":78,"beater":"Brushes","articulation":"10\" Brushes Single Hit L"},
+        {"note":"G5","midi":79,"beater":"Rods","articulation":"10\" Rods Single Hit R"},
+        {"note":"G#5","midi":80,"beater":"Brushes","articulation":"10\" Brushes Single Hit R"},
+        {"note":"A5","midi":81,"beater":"Rods","articulation":"10\" Rods Roll"},
+        {"note":"A#5","midi":82,"beater":"Brushes","articulation":"10\" Brushes Roll"}
+      ],
+      "_notes": "Two drum sizes: 12\" (C2+C3 groups) and 10\" (C4+C5 groups). Same mapping pattern as toms_low. Each size has two groups: Seq1 (sticks damped/open/rim) at C, Seq2 (felt/rods/brushes) at C+octave. C/D/E are whole-tone spaced, then F-A# consecutive semitones."
+    },
+    "bombo": {
+      "name": "Bombo",
+      "library": "ARO Low Percussion",
+      "description": "Argentinian 20-inch hide-head bass drum, rope-tuned, low organic sound with very short sustain.",
+      "status": "skeleton",
+      "beaters": [
+        "Hard Felt",
+        "Hard Felt (Damped)",
+        "Soft Mallet",
+        "Soft Mallet (Damped)",
+        "Sticks (Sides)"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "dhol": {
+      "name": "Dhol",
+      "library": "ARO Low Percussion",
+      "description": "Two-headed drum from Indian subcontinent, each head struck with different beater.",
+      "status": "skeleton",
+      "beaters": [
+        "Dhol Sticks"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "djuns": {
+      "name": "Djuns",
+      "library": "ARO Low Percussion",
+      "description": "West African dundun pair carrying strong rhythms with balanced forward tone.",
+      "status": "skeleton",
+      "beaters": [
+        "Hard Felt"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "surdo": {
+      "name": "Surdo",
+      "library": "ARO Low Percussion",
+      "description": "Brazilian 22-inch aluminium shell samba drum with dense sound and distinctive attack.",
+      "status": "skeleton",
+      "beaters": [
+        "Felt Beater",
+        "Hands"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "china_cymbal": {
+      "name": "China Cymbal",
+      "library": "ARO Metal Percussion",
+      "description": "Traditional 24-inch hand-hammered Wuhan china cymbal, distinctive dark washy sustain.",
+      "status": "skeleton",
+      "beaters": [
+        "Felt Mallets",
+        "Sticks",
+        "Scrapes",
+        "Bows"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "crashes_and_stack": {
+      "name": "Crashes and Stack",
+      "library": "ARO Metal Percussion",
+      "description": "Two crashers (12\" and 14\") + cymbal stack for short sharp dirty metallic sounds.",
+      "status": "verified",
+      "beaters": [
+        "Sticks",
+        "Rods",
+        "Dreads"
+      ],
+      "pitches": 3,
+      "pitchNames": [
+        "12\" Crasher",
+        "Cymbal Stack",
+        "14\" Crasher"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sticks","pitch":"12\" Crasher","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Sticks","pitch":"12\" Crasher","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Sticks","pitch":"Cymbal Stack","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Sticks","pitch":"Cymbal Stack","articulation":"Hit R"},
+        {"note":"C3","midi":48,"beater":"Sticks","pitch":"14\" Crasher","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Sticks","pitch":"14\" Crasher","articulation":"Hit R"},
+        {"note":"C4","midi":60,"beater":"Rods","pitch":"12\" Crasher","articulation":"Hit L"},
+        {"note":"D4","midi":62,"beater":"Rods","pitch":"12\" Crasher","articulation":"Hit R"},
+        {"note":"F4","midi":65,"beater":"Dreads","pitch":"Cymbal Stack","articulation":"Hit L"},
+        {"note":"G4","midi":67,"beater":"Dreads","pitch":"Cymbal Stack","articulation":"Hit R"},
+        {"note":"C5","midi":72,"beater":"Rods","pitch":"14\" Crasher","articulation":"Hit L"},
+        {"note":"D5","midi":74,"beater":"Rods","pitch":"14\" Crasher","articulation":"Hit R"}
+      ],
+      "_notes": "3 pieces across 2 beater groups. Beater 1: Sticks (C2-D3), Beater 2: Rods/Dreads (C4-D5). D5 mislabeled 'Sticks' in Spitfire UI — corrected to Rods here."
+    },
+    "giant_crasher": {
+      "name": "Giant Crasher",
+      "library": "ARO Metal Percussion",
+      "description": "Two stacked thundersheets struck from above for powerful shattering hits.",
+      "status": "skeleton",
+      "beaters": [
+        "Pin Hammer",
+        "Puili"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "oil_drum": {
+      "name": "Oil Drum",
+      "library": "ARO Metal Percussion",
+      "description": "40-gallon oil drum producing unorthodox, highly complex sounds. Has superball FX.",
+      "status": "skeleton",
+      "beaters": [
+        "Rubber Mallets",
+        "Felt Mallets",
+        "Brushes",
+        "Hands",
+        "Superball"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "piatti": {
+      "name": "Piatti",
+      "library": "ARO Metal Percussion",
+      "description": "Hand-held clash cymbals, set of 3: 21-inch Dark/Germanic, 19-inch Mellow/Viennese, 17-inch Bright/French.",
+      "status": "skeleton",
+      "beaters": [],
+      "_note": "All techniques for all three piatti in one preset — no individual beater presets listed",
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "scaffolds": {
+      "name": "Scaffolds",
+      "library": "ARO Metal Percussion",
+      "description": "Trio of scaffold poles with bright ringing sounds and discernible pitch.",
+      "status": "verified",
+      "beaters": [
+        "Yarn Beater",
+        "Hammer"
+      ],
+      "pitches": 3,
+      "pitchNames": [
+        "Low",
+        "Middle",
+        "High"
+      ],
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Yarn Beater","pitch":"Low","articulation":"Hit L"},
+        {"note":"C#2","midi":37,"beater":"Yarn Beater","pitch":"Middle","articulation":"Hit L"},
+        {"note":"D2","midi":38,"beater":"Yarn Beater","pitch":"Low","articulation":"Hit R"},
+        {"note":"D#2","midi":39,"beater":"Yarn Beater","pitch":"Middle","articulation":"Hit R"},
+        {"note":"F2","midi":41,"beater":"Yarn Beater","pitch":"High","articulation":"Hit L"},
+        {"note":"G2","midi":43,"beater":"Yarn Beater","pitch":"High","articulation":"Hit R"},
+        {"note":"C3","midi":48,"beater":"Hammer","pitch":"Low","articulation":"Hit L"},
+        {"note":"C#3","midi":49,"beater":"Hammer","pitch":"Middle","articulation":"Hit L"},
+        {"note":"D3","midi":50,"beater":"Hammer","pitch":"Low","articulation":"Hit R"},
+        {"note":"D#3","midi":51,"beater":"Hammer","pitch":"Middle","articulation":"Hit R"},
+        {"note":"F3","midi":53,"beater":"Hammer","pitch":"High","articulation":"Hit L"},
+        {"note":"G3","midi":55,"beater":"Hammer","pitch":"High","articulation":"Hit R"}
+      ]
+    },
+    "spiral_cymbal": {
+      "name": "Spiral Cymbal",
+      "library": "ARO Metal Percussion",
+      "description": "Bright attack, moderate sustain, distinctly trashy character.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_bell_tree": {
+      "name": "Bell Tree",
+      "library": "ARO Metal Percussion",
+      "description": "Cup-shaped bells played with poly mallets. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_mark_tree": {
+      "name": "Mark Tree",
+      "library": "ARO Metal Percussion",
+      "description": "Suspended metal tines producing signature glissandi. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_agogos": {
+      "name": "Agogos",
+      "library": "ARO Metal Percussion",
+      "description": "Cone-shaped bell pairs in two regional styles (African, Latin American), each with Low and High pitch, Open and Closed hits. Part of Small Metals.",
+      "status": "verified",
+      "parentPreset": "Small Metals",
+      "beaters": [
+        "African",
+        "Latin American"
+      ],
+      "pitches": 4,
+      "pitchNames": [
+        "African Low",
+        "African High",
+        "Latin American Low",
+        "Latin American High"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"African","pitch":"Low","articulation":"Open Hit L"},
+        {"note":"C#2","midi":37,"beater":"African","pitch":"Low","articulation":"Closed Hit L"},
+        {"note":"D2","midi":38,"beater":"African","pitch":"Low","articulation":"Open Hit R"},
+        {"note":"D#2","midi":39,"beater":"African","pitch":"Low","articulation":"Closed Hit R"},
+        {"note":"F2","midi":41,"beater":"African","pitch":"High","articulation":"Open Hit L"},
+        {"note":"F#2","midi":42,"beater":"African","pitch":"High","articulation":"Closed Hit L"},
+        {"note":"G2","midi":43,"beater":"African","pitch":"High","articulation":"Open Hit R"},
+        {"note":"G#2","midi":44,"beater":"African","pitch":"High","articulation":"Closed Hit R"},
+        {"note":"C3","midi":48,"beater":"Latin American","pitch":"Low","articulation":"Open Hit L"},
+        {"note":"C#3","midi":49,"beater":"Latin American","pitch":"Low","articulation":"Closed Hit L"},
+        {"note":"D3","midi":50,"beater":"Latin American","pitch":"Low","articulation":"Open Hit R"},
+        {"note":"D#3","midi":51,"beater":"Latin American","pitch":"Low","articulation":"Closed Hit R"},
+        {"note":"F3","midi":53,"beater":"Latin American","pitch":"High","articulation":"Open Hit L"},
+        {"note":"F#3","midi":54,"beater":"Latin American","pitch":"High","articulation":"Closed Hit L"},
+        {"note":"G3","midi":55,"beater":"Latin American","pitch":"High","articulation":"Open Hit R"},
+        {"note":"G#3","midi":56,"beater":"Latin American","pitch":"High","articulation":"Closed Hit R"},
+        {"note":"C4","midi":60,"beater":"African","pitch":"Low","articulation":"Open Hit L"},
+        {"note":"C#4","midi":61,"beater":"African","pitch":"Low","articulation":"Closed Hit L"},
+        {"note":"D4","midi":62,"beater":"African","pitch":"Low","articulation":"Open Hit R"},
+        {"note":"D#4","midi":63,"beater":"African","pitch":"Low","articulation":"Closed Hit R"},
+        {"note":"F4","midi":65,"beater":"African","pitch":"High","articulation":"Open Hit L"},
+        {"note":"F#4","midi":66,"beater":"African","pitch":"High","articulation":"Closed Hit L"},
+        {"note":"G4","midi":67,"beater":"African","pitch":"High","articulation":"Open Hit R"},
+        {"note":"G#4","midi":68,"beater":"African","pitch":"High","articulation":"Closed Hit R"},
+        {"note":"C5","midi":72,"beater":"Latin American","pitch":"Low","articulation":"Open Hit L"},
+        {"note":"C#5","midi":73,"beater":"Latin American","pitch":"Low","articulation":"Closed Hit L"},
+        {"note":"D5","midi":74,"beater":"Latin American","pitch":"Low","articulation":"Open Hit R"},
+        {"note":"D#5","midi":75,"beater":"Latin American","pitch":"Low","articulation":"Closed Hit R"},
+        {"note":"F5","midi":77,"beater":"Latin American","pitch":"High","articulation":"Open Hit L"},
+        {"note":"F#5","midi":78,"beater":"Latin American","pitch":"High","articulation":"Closed Hit L"},
+        {"note":"G5","midi":79,"beater":"Latin American","pitch":"High","articulation":"Open Hit R"},
+        {"note":"G#5","midi":80,"beater":"Latin American","pitch":"High","articulation":"Closed Hit R"}
+      ],
+      "_notes": "Two regional styles as 'beaters': African (oct2, oct4) and Latin American (oct3, oct5). Each style has Low (C-D# group) and High (F-G# group) pitch. Open/Closed on natural/sharp pairs, L/R on C-C#/D-D# pairs. Oct2-3 and oct4-5 are variant groups."
+    },
+    "small_metals_spring_coil": {
+      "name": "Spring Coil",
+      "library": "ARO Metal Percussion",
+      "description": "Large coiled spring played with triangle beater — suspended (open) or resting (muted). Hits and rakes (fast/slow). Part of Small Metals.",
+      "status": "verified",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "pitches": 1,
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"articulation":"Open Hit L"},
+        {"note":"C#2","midi":37,"articulation":"Muted Hit L"},
+        {"note":"D2","midi":38,"articulation":"Open Hit R"},
+        {"note":"D#2","midi":39,"articulation":"Muted Hit R"},
+        {"note":"F2","midi":41,"articulation":"Open Rake Fast"},
+        {"note":"F#2","midi":42,"articulation":"Muted Rake Fast"},
+        {"note":"G2","midi":43,"articulation":"Open Rake Slow"},
+        {"note":"G#2","midi":44,"articulation":"Muted Rake Slow"},
+        {"note":"C4","midi":60,"articulation":"Open Hit L"},
+        {"note":"C#4","midi":61,"articulation":"Muted Hit L"},
+        {"note":"D4","midi":62,"articulation":"Open Hit R"},
+        {"note":"D#4","midi":63,"articulation":"Muted Hit R"},
+        {"note":"F4","midi":65,"articulation":"Open Rake Fast"},
+        {"note":"F#4","midi":66,"articulation":"Muted Rake Fast"},
+        {"note":"G4","midi":67,"articulation":"Open Rake Slow"},
+        {"note":"G#4","midi":68,"articulation":"Muted Rake Slow"}
+      ],
+      "_notes": "No beater distinction. C-D# = Open/Muted Hit (L/R pairs). F-G# = Open/Muted Rake (Fast/Slow — 4 distinct articulations, no L/R). Two variant groups at oct2 and oct4."
+    },
+    "small_metals_cowbells": {
+      "name": "Cowbells",
+      "library": "ARO Metal Percussion",
+      "description": "Clapperless bells in 3 pitches struck with drum sticks. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_cabassa": {
+      "name": "Cabassa",
+      "library": "ARO Metal Percussion",
+      "description": "Beads wrapped around ridged metal cylinder, turned with handle. Rotation, handle flick, finger tap, palm hit, finger slap techniques. Part of Small Metals.",
+      "status": "verified",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "pitches": 1,
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"articulation":"Rotation L"},
+        {"note":"C#2","midi":37,"articulation":"Handle Flick L"},
+        {"note":"D2","midi":38,"articulation":"Rotation R"},
+        {"note":"D#2","midi":39,"articulation":"Handle Flick R"},
+        {"note":"F2","midi":41,"articulation":"Finger Tap L"},
+        {"note":"G2","midi":43,"articulation":"Finger Tap R"},
+        {"note":"C3","midi":48,"articulation":"Palm Hit L"},
+        {"note":"C#3","midi":49,"articulation":"Finger Slap L"},
+        {"note":"D3","midi":50,"articulation":"Palm Hit R"},
+        {"note":"D#3","midi":51,"articulation":"Finger Slap R"},
+        {"note":"C4","midi":60,"articulation":"Rotation L"},
+        {"note":"C#4","midi":61,"articulation":"Handle Flick L"},
+        {"note":"D4","midi":62,"articulation":"Rotation R"},
+        {"note":"D#4","midi":63,"articulation":"Handle Flick R"},
+        {"note":"F4","midi":65,"articulation":"Finger Tap L"},
+        {"note":"G4","midi":67,"articulation":"Finger Tap R"},
+        {"note":"C5","midi":72,"articulation":"Palm Hit L"},
+        {"note":"C#5","midi":73,"articulation":"Finger Slap L"},
+        {"note":"D5","midi":74,"articulation":"Palm Hit R"},
+        {"note":"D#5","midi":75,"articulation":"Finger Slap R"}
+      ],
+      "_notes": "No beater distinction. C-D# = Rotation/Handle Flick pairs (L/R), F-G = Finger Tap (L/R), C(next oct)-D# = Palm Hit/Finger Slap pairs (L/R). Two variant groups at oct2-3 and oct4-5."
+    },
+    "small_metals_chain_drops": {
+      "name": "Chain Drops",
+      "library": "ARO Metal Percussion",
+      "description": "Heavy gauge chains dropped into trash can for aggressive metallic accents. Part of Small Metals.",
+      "status": "verified",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"articulation":"Drop 1"},
+        {"note":"D2","midi":38,"articulation":"Drop 2"},
+        {"note":"E2","midi":40,"articulation":"Swirls 1"},
+        {"note":"F2","midi":41,"articulation":"Lift 1"},
+        {"note":"G2","midi":43,"articulation":"Lift 2"},
+        {"note":"C4","midi":60,"articulation":"Drop 3"},
+        {"note":"D4","midi":62,"articulation":"Drop 4"},
+        {"note":"E4","midi":64,"articulation":"Swirls 2"},
+        {"note":"F4","midi":65,"articulation":"Lift 3"},
+        {"note":"G4","midi":67,"articulation":"Lift 4"}
+      ],
+      "_notes": "Two groups (C2-G2, C4-G4) with same pattern: Drop/Drop/Swirls/Lift/Lift. No beater distinction. Gap between G2 and C4."
+    },
+    "small_metals_finger_cymbals": {
+      "name": "Finger Cymbals",
+      "library": "ARO Metal Percussion",
+      "description": "Small cymbal pairs struck together for long high-pitched ring. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_guira": {
+      "name": "Güira",
+      "library": "ARO Metal Percussion",
+      "description": "Caribbean textured metal surface, tapped or scraped for rhythms. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_reco_reco": {
+      "name": "Reco-Reco",
+      "library": "ARO Metal Percussion",
+      "description": "Springs across hollow metal frame, struck or scraped. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_sleigh_bells": {
+      "name": "Sleigh Bells & Indian Bells",
+      "library": "ARO Metal Percussion",
+      "description": "Pellet bells on handle (sleigh) or rope (Indian), shaken for crisp jingle. Single Shake L/R and Long Shake/Roll. Part of Small Metals.",
+      "status": "verified",
+      "parentPreset": "Small Metals",
+      "beaters": [
+        "Sleigh Bells",
+        "Indian Rope Bells"
+      ],
+      "pitches": 1,
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Sleigh Bells","articulation":"Single Shake L"},
+        {"note":"D2","midi":38,"beater":"Sleigh Bells","articulation":"Single Shake R"},
+        {"note":"E2","midi":40,"beater":"Sleigh Bells","articulation":"Long Shake / Roll"},
+        {"note":"C3","midi":48,"beater":"Indian Rope Bells","articulation":"Single Shake L"},
+        {"note":"D3","midi":50,"beater":"Indian Rope Bells","articulation":"Single Shake R"},
+        {"note":"E3","midi":52,"beater":"Indian Rope Bells","articulation":"Long Shake / Roll"},
+        {"note":"C4","midi":60,"beater":"Sleigh Bells","articulation":"Single Shake L"},
+        {"note":"D4","midi":62,"beater":"Sleigh Bells","articulation":"Single Shake R"},
+        {"note":"E4","midi":64,"beater":"Sleigh Bells","articulation":"Long Shake / Roll"},
+        {"note":"C5","midi":72,"beater":"Indian Rope Bells","articulation":"Single Shake L"},
+        {"note":"D5","midi":74,"beater":"Indian Rope Bells","articulation":"Single Shake R"},
+        {"note":"E5","midi":76,"beater":"Indian Rope Bells","articulation":"Long Shake / Roll"}
+      ],
+      "_notes": "Two bell types as 'beaters': Sleigh Bells (oct2, oct4) and Indian Rope Bells (oct3, oct5). C/D/E whole-tone = Single Shake L / Single Shake R / Long Shake/Roll. Oct2-3 and oct4-5 are variant groups."
+    },
+    "small_metals_tambourines": {
+      "name": "Tambourines",
+      "library": "ARO Metal Percussion",
+      "description": "Set of 3 tambourines (Pop, Alt, Orchestral), shaken or hand-struck. Part of Small Metals.",
+      "status": "verified",
+      "parentPreset": "Small Metals",
+      "beaters": [
+        "Pop Tambourine",
+        "Alt Tambourine",
+        "Orchestral Tambourine"
+      ],
+      "pitches": 1,
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Pop Tambourine","articulation":"Short Shake L"},
+        {"note":"C#2","midi":37,"beater":"Pop Tambourine","articulation":"Accent L"},
+        {"note":"D2","midi":38,"beater":"Pop Tambourine","articulation":"Short Shake R"},
+        {"note":"D#2","midi":39,"beater":"Pop Tambourine","articulation":"Accent R"},
+        {"note":"E2","midi":40,"beater":"Pop Tambourine","articulation":"Shake Roll"},
+        {"note":"F2","midi":41,"beater":"Pop Tambourine","articulation":"Hand Hit L"},
+        {"note":"G2","midi":43,"beater":"Pop Tambourine","articulation":"Hand Hit R"},
+        {"note":"A2","midi":45,"beater":"Pop Tambourine","articulation":"Hand Roll"},
+        {"note":"C3","midi":48,"beater":"Alt Tambourine","articulation":"Hand Hit Open L"},
+        {"note":"D3","midi":50,"beater":"Alt Tambourine","articulation":"Hand Hit Open R"},
+        {"note":"E3","midi":52,"beater":"Alt Tambourine","articulation":"Hand Roll Open"},
+        {"note":"F3","midi":53,"beater":"Alt Tambourine","articulation":"Hand Hit Closed L"},
+        {"note":"G3","midi":55,"beater":"Alt Tambourine","articulation":"Hand Hit Closed R"},
+        {"note":"A3","midi":57,"beater":"Alt Tambourine","articulation":"Hand Roll Closed"},
+        {"note":"C4","midi":60,"beater":"Orchestral Tambourine","articulation":"Short Shake L"},
+        {"note":"C#4","midi":61,"beater":"Orchestral Tambourine","articulation":"Accent L"},
+        {"note":"D4","midi":62,"beater":"Orchestral Tambourine","articulation":"Short Shake R"},
+        {"note":"D#4","midi":63,"beater":"Orchestral Tambourine","articulation":"Accent R"},
+        {"note":"E4","midi":64,"beater":"Orchestral Tambourine","articulation":"Shake Roll"},
+        {"note":"F4","midi":65,"beater":"Orchestral Tambourine","articulation":"Hand Hit L"},
+        {"note":"G4","midi":67,"beater":"Orchestral Tambourine","articulation":"Hand Hit R"},
+        {"note":"C5","midi":72,"beater":"Pop Tambourine","articulation":"Short Shake L","rr":2},
+        {"note":"C#5","midi":73,"beater":"Pop Tambourine","articulation":"Accent L","rr":2},
+        {"note":"D5","midi":74,"beater":"Pop Tambourine","articulation":"Short Shake R","rr":2},
+        {"note":"D#5","midi":75,"beater":"Pop Tambourine","articulation":"Accent R","rr":2},
+        {"note":"E5","midi":76,"beater":"Pop Tambourine","articulation":"Shake Roll","rr":2},
+        {"note":"F5","midi":77,"beater":"Pop Tambourine","articulation":"Hand Hit L","rr":2},
+        {"note":"G5","midi":79,"beater":"Pop Tambourine","articulation":"Hand Hit R","rr":2},
+        {"note":"A5","midi":81,"beater":"Pop Tambourine","articulation":"Hand Roll","rr":2},
+        {"note":"C6","midi":84,"beater":"Alt Tambourine","articulation":"Hand Hit Open L","rr":2},
+        {"note":"D6","midi":86,"beater":"Alt Tambourine","articulation":"Hand Hit Open R","rr":2},
+        {"note":"E6","midi":88,"beater":"Alt Tambourine","articulation":"Hand Roll Open","rr":2},
+        {"note":"F6","midi":89,"beater":"Alt Tambourine","articulation":"Hand Hit Closed L","rr":2},
+        {"note":"G6","midi":91,"beater":"Alt Tambourine","articulation":"Hand Hit Closed R","rr":2},
+        {"note":"A6","midi":93,"beater":"Alt Tambourine","articulation":"Hand Roll Closed","rr":2},
+        {"note":"C7","midi":96,"beater":"Orchestral Tambourine","articulation":"Short Shake L","rr":2},
+        {"note":"C#7","midi":97,"beater":"Orchestral Tambourine","articulation":"Accent L","rr":2},
+        {"note":"D7","midi":98,"beater":"Orchestral Tambourine","articulation":"Short Shake R","rr":2},
+        {"note":"D#7","midi":99,"beater":"Orchestral Tambourine","articulation":"Accent R","rr":2},
+        {"note":"E7","midi":100,"beater":"Orchestral Tambourine","articulation":"Shake Roll","rr":2},
+        {"note":"F7","midi":101,"beater":"Orchestral Tambourine","articulation":"Hand Hit L","rr":2},
+        {"note":"G7","midi":103,"beater":"Orchestral Tambourine","articulation":"Hand Hit R","rr":2}
+      ],
+      "_notes": "3 tambourine types as 'beaters'. C2-G4 = layer 1, C5-G7 = layer 2 (same articulations, likely round robin). Spitfire labels Short Shake and Accent identically on both C/D and C#/D# — disambiguated here as L/R. Alt Tambourine uses open/closed hand techniques with L/R already in Spitfire labels. Orchestral has no Hand Roll (7 keys vs Pop's 8)."
+    },
+    "small_metals_wind_chimes": {
+      "name": "Wind Chimes",
+      "library": "ARO Metal Percussion",
+      "description": "Small suspended metal tines adding light splashes of colour. Part of Small Metals.",
+      "status": "skeleton",
+      "parentPreset": "Small Metals",
+      "beaters": [],
+      "hasAllInOne": false,
+      "allInOne": []
+    },
+    "small_metals_triangles": {
+      "name": "Small Metals Triangles",
+      "library": "ARO Metal Percussion",
+      "description": "Triangle set with Low, Middle, and High pitch levels. Hit, Choked Hit, Roll, and three Damped durations per pitch. C5–C7 duplicate Low with separate samples.",
+      "status": "verified",
+      "beaters": [
+        "Triangle Beater"
+      ],
+      "pitches": 3,
+      "pitchNames": [
+        "Low",
+        "Middle",
+        "High"
+      ],
+      "hasRim": false,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"C#2","midi":37,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"D2","midi":38,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"D#2","midi":39,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"E2","midi":40,"beater":"Triangle Beater","pitch":"Low","articulation":"Roll"},
+        {"note":"F2","midi":41,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Short"},
+        {"note":"G2","midi":43,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Medium"},
+        {"note":"A2","midi":45,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Long"},
+        {"note":"C3","midi":48,"beater":"Triangle Beater","pitch":"Middle","articulation":"Hit"},
+        {"note":"C#3","midi":49,"beater":"Triangle Beater","pitch":"Middle","articulation":"Choked Hit"},
+        {"note":"D3","midi":50,"beater":"Triangle Beater","pitch":"Middle","articulation":"Hit"},
+        {"note":"D#3","midi":51,"beater":"Triangle Beater","pitch":"Middle","articulation":"Choked Hit"},
+        {"note":"E3","midi":52,"beater":"Triangle Beater","pitch":"Middle","articulation":"Roll"},
+        {"note":"F3","midi":53,"beater":"Triangle Beater","pitch":"Middle","articulation":"Damped Short"},
+        {"note":"G3","midi":55,"beater":"Triangle Beater","pitch":"Middle","articulation":"Damped Medium"},
+        {"note":"A3","midi":57,"beater":"Triangle Beater","pitch":"Middle","articulation":"Damped Long"},
+        {"note":"C4","midi":60,"beater":"Triangle Beater","pitch":"High","articulation":"Hit"},
+        {"note":"C#4","midi":61,"beater":"Triangle Beater","pitch":"High","articulation":"Choked Hit"},
+        {"note":"D4","midi":62,"beater":"Triangle Beater","pitch":"High","articulation":"Hit"},
+        {"note":"D#4","midi":63,"beater":"Triangle Beater","pitch":"High","articulation":"Choked Hit"},
+        {"note":"E4","midi":64,"beater":"Triangle Beater","pitch":"High","articulation":"Roll"},
+        {"note":"F4","midi":65,"beater":"Triangle Beater","pitch":"High","articulation":"Damped Short"},
+        {"note":"G4","midi":67,"beater":"Triangle Beater","pitch":"High","articulation":"Damped Medium"},
+        {"note":"A4","midi":69,"beater":"Triangle Beater","pitch":"High","articulation":"Damped Long"},
+        {"note":"C5","midi":72,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"C#5","midi":73,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"D5","midi":74,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"D#5","midi":75,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"E5","midi":76,"beater":"Triangle Beater","pitch":"Low","articulation":"Roll"},
+        {"note":"F5","midi":77,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Short"},
+        {"note":"G5","midi":79,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Medium"},
+        {"note":"A5","midi":81,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Long"},
+        {"note":"C6","midi":84,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"C#6","midi":85,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"D6","midi":86,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"D#6","midi":87,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"E6","midi":88,"beater":"Triangle Beater","pitch":"Low","articulation":"Roll"},
+        {"note":"F6","midi":89,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Short"},
+        {"note":"G6","midi":91,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Medium"},
+        {"note":"A6","midi":93,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Long"},
+        {"note":"C7","midi":96,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"C#7","midi":97,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"D7","midi":98,"beater":"Triangle Beater","pitch":"Low","articulation":"Hit"},
+        {"note":"D#7","midi":99,"beater":"Triangle Beater","pitch":"Low","articulation":"Choked Hit"},
+        {"note":"E7","midi":100,"beater":"Triangle Beater","pitch":"Low","articulation":"Roll"},
+        {"note":"F7","midi":101,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Short"},
+        {"note":"G7","midi":103,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Medium"},
+        {"note":"A7","midi":105,"beater":"Triangle Beater","pitch":"Low","articulation":"Damped Long"}
+      ]
+    },
+    "suspended_cymbals": {
+      "name": "Suspended Cymbals",
+      "library": "ARO Metal Percussion",
+      "description": "Set of 3: 20-inch Dark, 21-inch Mellow, 16-inch Bright. Huge range of crashes and shimmering textures. Has bows/scrapes.",
+      "status": "skeleton",
+      "beaters": [
+        "Felt Mallets",
+        "Brushes",
+        "Sticks",
+        "Scrapes",
+        "Bows"
+      ],
+      "_note": "Has separate All in One presets per cymbal: Dark, Mellow, Bright",
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "temple_bowls": {
+      "name": "Temple Bowls",
+      "library": "ARO Metal Percussion",
+      "description": "Set of 4 temple bowls with rich blooming sustain. Multi-pitched.",
+      "status": "verified",
+      "beaters": [
+        "Rubber Mallet",
+        "Brush"
+      ],
+      "pitches": 4,
+      "pitchNames": [
+        "Bowl 1",
+        "Bowl 2",
+        "Bowl 3",
+        "Bowl 4"
+      ],
+      "hasAllInOne": true,
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"beater":"Rubber Mallet","articulation":"Bowl 4 Single Hit L"},
+        {"note":"C#2","midi":37,"beater":"Rubber Mallet","articulation":"Bowl 3 Single Hit L"},
+        {"note":"D2","midi":38,"beater":"Rubber Mallet","articulation":"Bowl 4 Single Hit R"},
+        {"note":"D#2","midi":39,"beater":"Rubber Mallet","articulation":"Bowl 3 Single Hit R"},
+        {"note":"F2","midi":41,"beater":"Rubber Mallet","articulation":"Bowl 2 Single Hit L"},
+        {"note":"F#2","midi":42,"beater":"Rubber Mallet","articulation":"Bowl 1 Single Hit L"},
+        {"note":"G2","midi":43,"beater":"Rubber Mallet","articulation":"Bowl 2 Single Hit R"},
+        {"note":"G#2","midi":44,"beater":"Rubber Mallet","articulation":"Bowl 1 Single Hit R"},
+        {"note":"C3","midi":48,"beater":"Brush","articulation":"Bowl 4 Single Hit L"},
+        {"note":"C#3","midi":49,"beater":"Brush","articulation":"Bowl 3 Single Hit L"},
+        {"note":"D3","midi":50,"beater":"Brush","articulation":"Bowl 4 Single Hit R"},
+        {"note":"D#3","midi":51,"beater":"Brush","articulation":"Bowl 3 Single Hit R"},
+        {"note":"F3","midi":53,"beater":"Brush","articulation":"Bowl 2 Single Hit L"},
+        {"note":"F#3","midi":54,"beater":"Brush","articulation":"Bowl 1 Single Hit L"},
+        {"note":"G3","midi":55,"beater":"Brush","articulation":"Bowl 2 Single Hit R"},
+        {"note":"G#3","midi":56,"beater":"Brush","articulation":"Bowl 1 Single Hit R"}
+      ],
+      "_notes": "Four groups of 4 entries. Each octave has a low pair (Bowls 4&3, starting at C) and a high pair (Bowls 2&1, starting at F), chromatic within each pair. Rubber Mallet in octave 2, Brush in octave 3. E and A positions (E2, E3, A2, A3) are unused within each beater group."
+    },
+    "thundersheet": {
+      "name": "Thundersheet",
+      "library": "ARO Metal Percussion",
+      "description": "Extremely large (64x42 inch) thin suspended metal sheet. Has bows and superball FX.",
+      "status": "skeleton",
+      "beaters": [
+        "Felt Mallets",
+        "Dreads",
+        "Bows",
+        "Superball"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "trash_cans": {
+      "name": "Trash Cans",
+      "library": "ARO Metal Percussion",
+      "description": "Spread pair of trash cans for street sound, layering, and complex polyrhythms.",
+      "status": "skeleton",
+      "beaters": [
+        "Sticks",
+        "Dreads"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "waterphone": {
+      "name": "Waterphone",
+      "library": "ARO Metal Percussion",
+      "description": "Metal tines around water-filled chamber, bowed for otherworldly sounds with mesmerising harmonics.",
+      "status": "skeleton",
+      "beaters": [
+        "Bow (Arco)",
+        "Bow (Col Legno)"
+      ],
+      "hasAllInOne": true,
+      "allInOne": []
+    },
+    "wind_gong": {
+      "name": "Wind Gong",
+      "library": "ARO Metal Percussion",
+      "description": "26-inch wind gong with quick bright attack producing rushing-wind sound.",
+      "status": "skeleton",
+      "beaters": [
+        "Felt Mallets",
+        "Bows"
+      ],
+      "hasAllInOne": false,
+      "allInOne": []
+    }
+  }
+}

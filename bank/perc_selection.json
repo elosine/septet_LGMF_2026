@@ -1,0 +1,9 @@
+{
+  "_doc": "Which ARO percussion instruments THIS PIECE uses, and the channel each sits on. `slug` is a key of bank/aro_percussion_catalog.json `instruments`; only entries the catalog has keys for (status verified / partial / predicted) can be selected. One Spitfire instance per instrument = one Reaper track per entry, filtering on its channel on the port (Spitfire cannot switch instruments by MIDI — piece #2's decision 5). Up to 16 per port; give an entry its own `port` (`LGPerc2`) beyond that. `beaters` (optional) keeps only those beater blocks. After ANY change: node tools/apply_perc.js, then node tools/palette_check.js — and register the new technique keys in notation/registry/techniques.json before material uses them.",
+  "_example": [
+    { "slug": "brake_drums", "channel": 1 },
+    { "slug": "susp_cymbals_dark", "channel": 2, "beaters": ["Bow", "Scrape"] }
+  ],
+  "port": "LGPerc",
+  "instruments": []
+}

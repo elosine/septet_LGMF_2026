@@ -10,10 +10,12 @@
 the notation/IR stack, print and video are here on **seven new tracks** — EH · Bsn · Hn · Tpt ·
 Perc · Vc · Db — verified in the running app on **5400 / 4900**, and a save has been proved
 through to a notation page with the transposing parts at written pitch. Decisions D1–D6.
-**Nothing sounds yet, by design.** ► **NEXT: 0c + 0e together — the recipes and the Reaper
-rack, with him at the machine.** It can start with the five instruments whose libraries are
-installed; the english horn and a bowed vibraphone (LG-9) arrive as he acquires them. The call
-is still unread, at his word.
+**Nothing sounds yet, by design.** ► **NOW: 0c + 0e, in progress, him at the machine.** The percussion scaffolding is in (RUNNING_LOG §19, D7:
+piece #2's ARO map as `bank/aro_percussion_catalog.json`, an EMPTY `bank/perc_selection.json`, and
+`tools/apply_perc.js` writing the selection into the recipe). **Next: the seven loopMIDI ports (him), then
+the rack in his empty `reaper/LGMF_rack.rpp` with the five installed instruments.** The english horn, the
+percussion instruments and a bowed vibraphone (LG-9) arrive as he acquires and chooses them. The call is
+still unread, at his word.
 
 ## The piece — outline (v0 — folded from LG-1 … LG-8 by the AI; **his to confirm, none of it discussed yet**)
 

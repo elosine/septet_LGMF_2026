@@ -73,12 +73,26 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
    `ensembleFor()` raises on an override for a part that does not exist, and the inherited
    `video-jury` realization named `bass_clarinet` (§17).
 
+### THIS SESSION, after the clear — 2026-09-17 (session 1 cont., Fable) — **0c BEGUN: the percussion scaffolding**
+
+- His word: *"no need for planning protocol, let's just dig in"* — the three-phase method was NOT run for 0c/0e.
+- **Db → Xsample confirmed** (*"yes double bass xsample"*). The other three checkpoint questions: percussion
+  instruments still unchosen (*"haven't decided"*); english horn's library still unnamed; build with the five now.
+- **D7 — the percussion design:** one port `LGPerc`, one channel per instrument (one Spitfire instance = one Reaper
+  track), techniques = instrument × beater, GENERATED from a catalog + a selection. RUNNING_LOG §19.
+- **Delivered:** `bank/aro_percussion_catalog.json` (piece #2's ARO map carried: 78 instruments, 35 verified · 39
+  skeleton) · `bank/perc_selection.json` (EMPTY) · `tools/apply_perc.js` (proved: 2 instruments → 4 techniques
+  36–93; a skeleton refused; the empty selection leaves the placeholder) · `palette_check` check 6 (159).
+- **He created `reaper/LGMF_rack.rpp`** — an empty Reaper session, the rack's home. Untracked; his.
+- **The loopMIDI ports were asked for and not yet confirmed** — `LGEngHorn · LGBassoon · LGHorn · LGTrumpet ·
+  LGPerc · LGCello · LGBass`, case-exact.
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
-| **► N1** | **0c + 0e — the recipes and the Reaper rack, ONE sitting, him at the machine.** Start with the five instruments whose libraries are installed (SI2 bassoon · horn · trumpet; Xsample cello · double bass); add the english horn and the bowed vibraphone as they arrive. **Spitfire's own plugin, for the percussion, has never been driven by this stack** — budget for it | **Fable to walk him** · Opus for the scripts | **yes** — a fresh kind of work |
+| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** Done: the percussion scaffolding (§19). **Next, in order:** (1) the seven loopMIDI ports — him, case-exact · (2) the rack in his `reaper/LGMF_rack.rpp`: one track per installed instrument (SI2 bassoon · horn · trumpet; Xsample cello · double bass), each on its `LG` port · (3) each heard from the sandbox, channels / CC0 / keyswitches / ranges fixed as measured · (4) english horn, percussion (choose → select → map skeletons → Reaper track per instrument) and the bowed vibraphone as they land | **Fable to walk him** · Opus for the scripts | no — mid-chunk |
 | N2 | **0d** the samples' true ranges and lengths, then **0h**, the phase-0 gate: every track sounds from the app through its own port | Opus | yes |
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5) · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
@@ -92,7 +106,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   :5400 / :4900) · `sandbox/instruments.js` (the seven recipes, every value marked provisional
   except the cello's) · `notation/registry/ensemble.json` (the seven parts) · `scores/lgmf.json`
   (the day-one stub) · `scores/0i-test.json` → `notation/ir/lgmf-0i.ir.json` (the 0i proof) ·
-  `tools/palette_check.js` (157) · `tools/test_written_pitch.js` (8 + a control).
+  `tools/palette_check.js` (159) · `tools/test_written_pitch.js` (8 + a control) · **0c scaffolding (§19):** `bank/aro_percussion_catalog.json` · `bank/perc_selection.json` · `tools/apply_perc.js`.
 - **THE NEXT CONCRETE STEP — an instruction, not a topic:** **Do not start building.** Open
   `docs/PLANNING_METHOD.md`'s three phases and lay out **PLAN 0c + 0e together** with him — the
   instrument recipes and the Reaper rack, one sitting, **him at the machine**. Begin by putting
@@ -109,10 +123,10 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
     It states exactly what is provisional and why.
   - *(When the rack itself is actually being planned, and not before:* `septet_2026/docs/PLAN.md`
     § 0e — its R1–R13 walk is the precedent for how a rack build is handed to him step by step.*)*
-- **Decisions pending him:** the four questions above · **the LGMF call is still unread at his
+- **Decisions pending him:** which percussion instruments (only the bowed vibraphone named) · the english horn's library — (3) Db→Xsample and (4) build-with-five were answered after the clear · **the LGMF call is still unread at his
   word** (Q2) · who, if anyone, inherits the piano's struck role (PLANNER) · the presentation
   score's pitch form, at 2b.
-- **Deliberately uncommitted: NOTHING.** `git status --short` is empty. The only ignored thing on
+- **Deliberately uncommitted: his `reaper/LGMF_rack.rpp`** — the empty Reaper session he created 2026-09-17 for the rack; untracked, his, awaiting his word (the rack `.rpp` IS meant to be committed — `.gitignore`). The only ignored thing on
   disk is `node_modules/` (`npm install` regenerates it). **No servers of the AI's are left
   running**; his 5300 / 4800 were never bound at any point.
 
@@ -127,14 +141,14 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 
 **Blockers:** none.
 
-**Deliberately uncommitted:** nothing.
+**Deliberately uncommitted:** his `reaper/LGMF_rack.rpp` (see above).
 
 **Standing warnings for this repo:** ⚠ `export_print` and `export_video` share
 `Coords.ensembleFrame` — a change to the frame math moves BOTH · never bind **5300** or **4800**,
 they are piece #5's · the loopMIDI ports are `LG`-prefixed for the same reason · the AI never
 saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI.
 
-**Checks this piece owns:** `node tools/palette_check.js` (157) · `node tools/test_written_pitch.js`
+**Checks this piece owns:** `node tools/palette_check.js` (159) · `node tools/test_written_pitch.js`
 (8 + a control). Run both after any change to `TRACKS`, `sandbox/instruments.js` or
 `notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
 
@@ -231,6 +245,20 @@ this repo only when they bite.)*
   reading, his word was only "use xsample"):* one string model for the cello + bass PAIR —
   the same mechanism, the same controller behaviour, and the pair is a unit of the piece
   (LG-1). *Not chosen:* SI2's CONTRABASS.
+- **D7** *(2026-09-17, composer: "I know we were using multiple ports there, but are probably
+  changing the design here … bring over any of the Spitfire instrument definitions … set up some
+  scaffolding … when the time comes, put in the actual instruments")* — **Percussion = ONE port
+  (`LGPerc`), one channel per instrument; one Spitfire instance per instrument as one Reaper track
+  filtering on its channel; techniques = instrument × beater, GENERATED from a catalog
+  (`bank/aro_percussion_catalog.json`) + a selection (`bank/perc_selection.json`) by
+  `tools/apply_perc.js`, never typed by hand.** *Why:* Spitfire cannot switch instruments by MIDI
+  (#2's decision 5), so the channel IS the instrument; one player, so one port carries sixteen,
+  and the schema's per-technique `port` gives a second when needed; All-in-One is byNote, so a
+  beater's block of keys is a technique with a range, like an SI2 roster entry. *Rejected:* #2's
+  eight-port per-event channel→port routing (built for two percussionists and cross-port
+  snippets) · hand transcription of the key maps (35 instruments, up to 48 keys each — the one
+  fragile build). *Also at his word:* the double bass → Xsample, confirmed ("yes double bass
+  xsample"). RUNNING_LOG §19.
 
 ---
 

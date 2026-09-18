@@ -63,7 +63,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
 - **0c — Instrument recipes (`sandbox/instruments.js`)** — `todo` — **NEXT, with 0e, in one
   sitting with him at the machine** — *to be laid out when we discuss it.* One entry per track;
   the libraries are D6. **The placeholders are in place and every one is marked** (the port,
-  RUNNING_LOG §15); what is missing is the machine. *Known going in:* **Spitfire's own plugin
+  RUNNING_LOG §15); what is missing is the machine. **The percussion scaffolding is in (2026-09-17, RUNNING_LOG §19, D7):** `bank/aro_percussion_catalog.json` (piece #2's ARO map, 78 instruments, 35 with keys) · `bank/perc_selection.json` (which the piece uses, on which channel — EMPTY) · `tools/apply_perc.js` (one technique per instrument × beater, written into the recipe as the `ARO_PERC` block; proved on two instruments, a skeleton refused). Choosing an instrument = one line in the selection + one Reaper track on its channel + the tool + `palette_check`. *Known going in:* **Spitfire's own plugin
   (the percussion) has never been driven by this stack** — real work, not a transcription · the
   double bass's CC#0 numbers are the CELLO's and must be verified against its own Preset Menu ·
   the english horn's library is unnamed · the percussion instruments are unnamed but for the
