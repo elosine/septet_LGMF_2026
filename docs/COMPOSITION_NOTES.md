@@ -676,7 +676,7 @@ whole scheme and lands exactly on the vibraphone’s top bar (F6) — in range, 
 | trumpet | C5 | 10 | −14 | just |
 | bassoon | C5 | — | tempered | beats with the trumpet at ≈14¢ |
 | **cello** | **D5** | **11** | **−49** | the first near-quarter-tone in the set |
-| **vibraphone (bow 2)** | **A♭5** | **16** | 0 | 8/7 against the horn — a supermajor second, +31¢ off ET |
+| **vibraphone (bow 2)** | **A♭3** | **4** | 0 | 7/4 against the horn (8/7 reduced) — a harmonic seventh, 31¢ flat of tempered. **CHANGED from A♭5 at his word, 2026-09-18, for bowing safety** |
 
 *AI reading (mine, not his):* **the upper middle of chord 4 is three CONSECUTIVE partials — 9 · 10 · 11, B♭4 · C5 · D5** —
 the first time the set has used an adjacent run. Their steps shrink as they climb: 10/9 = 182¢, then 11/10 = 165¢. That
@@ -684,10 +684,15 @@ narrowing is the audible signature of a harmonic series heard as a chord, and it
 instruments with three different cents values (+4, −14, −49), so the cluster is also a three-way beat. The cello’s −49 is
 **the first near-quarter-tone anywhere in the set** — chords 1–3 used only −14 and −31.
 
-**A bowing note:** vibraphone bows sit on F♯4 and A♭5, **fourteen semitones apart and both on the upper row of bars**.
-That is a wide two-hand span near the practical limit and it puts both bows on the same side of the instrument. **Worth
-confirming with the player** — the alternative at the same ratio is A♭3 (ten semitones below bow 1) or A♭4, which is two
-semitones away and too close to bow.
+**BOWING CHANGE, at his word (2026-09-18):** the second bow was first placed on **A♭5**, fourteen semitones above bow 1
+and on the SAME upper row — a wide two-hand span with both bows at the same edge. *"A♭3 would be the safer same-ratio
+alternative — make this change."* **Bow 2 is now A♭3 (partial 4), ten semitones BELOW bow 1**, the same interval class
+(8/7 reduced) and a comfortable span.
+
+*A consequence worth naming:* **partial 4 is the fundamental two octaves up**, so the vibraphone is now reinforcing the
+root rather than adding a high colour. It also lands inside chord 4’s enormous 34-semitone gap between G♯1 and F♯4,
+which nothing else was filling — the chord gets a middle it did not have. The trade is that the top of chord 4 is now
+the cello’s D5 rather than a vibraphone bar, so the chord ends lower and darker than chords 1–3.
 
 ### LG-25 · 2026-09-18 — CHORD 5 (on B1): the CELLO TAKES A DOUBLE STOP; vibraphone pairs offered
 
