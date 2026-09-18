@@ -154,6 +154,31 @@ shape, or the transition's length). #5's tempo streams and `time_containers.js` 
 the likely ground. **His to say, later:** which parts move and which hold — chosen by hand or by rule; whether the arrival
 is exact or may be approximate; how a moving part is notated in the scrolling score.
 
+### LG-12 · 2026-09-18 — the strikes drawer takes the multitempo patterns; click a note to mute or re-orchestrate; reshuffle
+
+> *"continuing the composition notes, I would like to develop a or add on or develop the multi tempo, add the the strikes
+> drawer. So I can choose a harmony, I can orchestrate it, and shuffle that, and then choose, instead of the normal rhythms,
+> like acceleration or even, I can choose one of the multi-tempo patterns, and then I can hear them. I would also like a
+> quick way to click on the final pattern and mute individual notes or re-orchestrate individual notes in the final pattern.
+> And then be able to easily reshuffle the final pattern orchestration like the strikes can currently do."*
+> — composer, 2026-09-18, session 2, dictated while the percussion tracks waited for his loads. With LG-11: **to consider and
+> implement later.**
+
+*AI reading (mine, not his):* the **strikes drawer** (inherited from #5 — `docs/STRIKES_TOOL.md`) already does the first
+half of this: choose a harmony · orchestrate it across the instruments · shuffle the orchestration · pick a rhythm · hear it.
+Its rhythm choices today are the "normal" ones he names — **even, accelerating** (and their kin). The wish has three parts:
+1. **The multitempo patterns become a rhythm choice in the drawer** — the same harmony and orchestration, but the attacks
+   laid out by one of the multitempo / multi-phase patterns (LG-4 · LG-5, and LG-11's connected patterns once they exist),
+   **auditioned at once** from the drawer.
+2. **The FINAL pattern is editable note by note, by clicking:** mute one note · give one note to another instrument. A quick
+   gesture on the result, not a return to the settings.
+3. **Reshuffle the final pattern's orchestration** as the strikes can now — one action, a new deal of the same notes.
+It joins the drawer (pitch + orchestration) to the multitempo machinery (time) — the two tools he has used apart become one
+workflow: harmony → orchestration → a time pattern → hear → touch up by hand → reshuffle. A design point for when it is
+built: the hand edits of (2) and the reshuffle of (3) pull against each other — a reshuffle must either keep the mutes and
+the pinned re-orchestrations or throw them away, and that is **his to say**. Also his: whether a muted note is a rest in the
+score or simply absent; whether the hand edits survive a change of the pattern or of the harmony.
+
 ### Related decision in the Tempus journal
 
 - **D31** (2026-09-08): a technique used across pieces is built standalone from the first
