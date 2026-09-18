@@ -2722,3 +2722,44 @@ in the mock-up, so a passage using the horn’s 7th–12th partials on B♭1 can
 option if it ever matters: a second horn instance an octave down for audition only, or accept that those notes are heard
 only in the room.**
 
+
+### §63g — the deviant partials (5 7 10 11 13 14): who can reach them, and on which fundamental (2026-09-18)
+
+**His ask:** take the partials whose cents deviation is characterful — **5 (−14) · 7 (−31) · 10 (−14) · 11 (−49) ·
+13 (+41) · 14 (−31)** — drop the fundamentals an octave, and find the roots where **three different of these partials are
+reached by three different instruments.** Same rules and real ranges as §63b.
+
+**Two hard limits fall out first, and they decide everything.**
+
+- **The bassoon can only ever contribute partial 5.** It overblows to the 6th with normal fingerings, so 7, 10, 11, 13 and
+  14 are beyond it — on ANY fundamental. Everything above the 6th needs a harmonic fingering, which is the timbre change
+  he excluded.
+- **The trumpet can never reach 11 or 13.** Its tube partials stop at 8, so an odd partial above 8 is unreachable: when the
+  root sits an octave below its tube it gets only EVEN partials (10, 14), and when the root IS its tube it gets only 5 and 7.
+- **Therefore only the HORN reaches the 11th (−49¢) and the 13th (+41¢)** — the two most strongly bent partials in the
+  series — and only when the root lies in **B0–B♭1**, its own tube octave.
+
+**The scan, B♭0 up to C3:**
+
+| root | horn | trumpet | bassoon | targets covered | three different, three players |
+|---|---|---|---|---|---|
+| B0 · C1 · C♯1 · D1 · E♭1 · E1 · F1 | **all six** | — | — | 6 | no — horn alone |
+| F♯1 · G1 | all six | 10 14 | — | 6 | no — bassoon out of range |
+| A♭1 · A1 | 5 7 10 11 13 | 10 14 | — | 6 | no — bassoon out of range |
+| **B♭1** | 5 7 10 11 | 10 14 | 5 | **5** | **YES** |
+| **B1 · C2** | 5 7 | 10 14 | 5 | 4 | **YES** |
+| C♯2–G2 | 5 7 | — or 5 7 | 5 | 2 | no |
+| A♭2–C3 | 5 or — | 5 7 | 5 | 2 | no |
+
+**The answer: B♭1 · B1 · C2 — and only those three.** The bassoon’s B♭1 floor and the horn’s B♭1 tube ceiling meet at
+exactly one note, so **B♭1 is the unique root where all three instruments are live AND the horn still reaches the 11th.**
+Its division of labour: **bassoon 5 · horn 7 or 11 · trumpet 10 or 14.**
+
+**The octave drop, answered plainly.** Dropping to the zero/one octave (B0–A1) buys the horn ALL SIX deviant partials — but
+it is a **horn-only proposition**: the bassoon cannot finger below B♭1 and the trumpet contributes at most 10 and 14. It is
+the right move for a solo horn line bending through the series, and the wrong move for a three-instrument chord.
+
+**A shape this suggests, not decided — his.** The deviant partials are not distributed evenly: the deeper the bend, the
+fewer instruments can hold it. −14¢ is available to all three; −31¢ to horn and trumpet; **−49¢ and +41¢ to the horn
+alone.** The ensemble narrows as the harmony bends further from tempered — which is itself a usable form.
+
