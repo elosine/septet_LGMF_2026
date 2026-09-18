@@ -2441,3 +2441,56 @@ chain of parts plus a live first note beats a ceremonial gate. The standing rule
 necessary verifications and qc."*
 
 ---
+
+---
+
+## §62. Phase 1, the first compositional session — the harmonic spine, and the two categories of instrument (2026-09-18)
+
+**What prompted it.** Opening phase 1, he asked for the four open strings of the double bass and the cello, then: *"ok lets
+record e1 a1 d2 g2 c2 g2 d2 a1 e1 as harmonic spine, these will be the roots"* (COMPOSITION_NOTES **LG-16**).
+
+**The spine.** The bass's four open strings low→high (E1 A1 D2 G2), continuing by the same fourth into the cello's low C2,
+then turning and coming back down (G2 D2 A1 E1). Nine roots, an arch palindromic about C2, built entirely from the two
+instruments' own open strings. Five DISTINCT roots.
+
+**The table, at his request.** The harmonic series on each root, partials 1–33, everything at or below the ensemble
+ceiling **F6 (MIDI 89, the vibraphone's top)**, with the cents deviation from equal temperament — the deviation is a
+property of the partial, identical on every root, so it is one column. Recorded under LG-16. The ensemble's tops, sounding:
+vibraphone F6 · cello B5 · trumpet B♭5 · english horn A5 · bassoon E♭5 · double bass A4 · horn F4. The percussion is
+unpitched. The numbers come from the recipes in `sandbox/instruments.js` (the double bass's are the library's, sampled an
+octave above the written part — §54/§57).
+
+**Then the question that shaped the piece: who can actually PLAY these pitches.** Worked through instrument by instrument.
+
+- **Brass are not just-intoned instruments.** The raw partial is just; the training is equal temperament, and the correction
+  is an automatic reflex after years of practice. His own restatement, which is the right one: *"they would have learned
+  through all the hours of practice the equtemp so in a sense they adjust for the 'natural'?"* — yes. Asking for the just
+  partial is physically EASIER (the lip falls into it) but mentally harder: it overrides a trained reflex, so it must be
+  asked for explicitly in the part.
+- **Horn:** natural harmonics are how the instrument works, partials 2–16. On the F side the open fundamental is F1 and 2nd
+  valve gives **E1**, the spine's first root, so that whole column is genuinely natural horn.
+- **Trumpet:** comfortable to about the 8th partial. **Corrected at his word** — that limit is TESSITURA, not tuning; above
+  it the instrument is simply high and tiring, and intonation if anything gets easier as the partials crowd together.
+- **Brass timbre:** no penalty. The partial IS the resonance, so a natural harmonic is the most focused, ringing sound the
+  instrument makes — clearer than the lipped equivalent, and most obviously so on the horn's high partials.
+- **Bassoon:** a dedicated trigger, not a bend — harmonic fingerings are everyday practice, and the recipe already carries
+  `harmonic_fing` and `ord_1q` (quarter-tone) as separate presets on their own channels.
+- **English horn:** both lip (small, ±20–30¢) and oboe-family quarter-tone fingerings, but the fingerings sound **veiled,
+  weak and uneven** — the fingering fights the bore. Noted as a usable colour rather than a fault (Sciarrino's territory,
+  LG-7/LG-8).
+
+**What was decided — LG-17, his categorisation:** instruments that **HOLD** a harmonic (horn · trumpet · bassoon) and ones
+that **BEAT** against it (vibraphone · english horn), with the strings **either way**. It follows the physical findings
+exactly: the vibraphone's bars are fixed and tempered so it cannot produce a just partial at all, and the english horn
+cannot hold one cleanly. It is LG-15's opening seen from the other side — there the vibraphone sustains and the others beat
+against it; the beating is the interval between a tempered object and a just one, and which side "holds" depends only on
+which is the root.
+
+**Standing practice extended, at his word:** *"could you remember to take journal notes during the comp process and remind
+somehow future agents to do the same, lab notes so if I want to come back and write a paper on how I wrote this piece."*
+The lab journal now explicitly continues through composing — written into this repo's CLAUDE.md under the lab-journal
+standing practice, and into the agent memory. The test: could someone write "how this piece was written" from the log alone?
+
+**Also this sitting:** his chat preference sharpened — a direct factual question gets the fact and nothing else; explanations
+quarantined into a notes section; no unrequested verification. Recorded in memory.
+

@@ -97,6 +97,15 @@ The rules, adopted from `live-electronics-engine` (its CLAUDE.md and `docs/journ
   paraphrased · what was tried, in order · the numbers · what was rejected and why (dead
   ends at the same weight as successes) · what was decided, and why that rather than the
   alternative · corrections as NEW entries, never edits.
+**EXTENDED TO THE COMPOSING ITSELF (composer, 2026-09-18, at the start of phase 1):** *"could you remember to take
+journal notes during the comp process and remind somehow future agents to do the same, lab notes so if I want to come back
+and write a paper on how I wrote this piece."* The lab journal does not pause when the building stops and the WRITING
+starts. Every compositional exchange that settles something goes into `RUNNING_LOG.md` as it happens — the material chosen
+and why, what was tried and rejected, what he heard, the numbers behind a harmonic or rhythmic decision, the theory or the
+reference behind a move. His musical ideas still go to `COMPOSITION_NOTES.md` verbatim; the RUNNING_LOG is where the
+REASONING and the process live. **The test: could someone write the paper "how this piece was written" from the log alone?**
+Future agents: this is not optional and he will not ask for it.
+
 - **Append-only.** The journal is the record of how the thinking went; it is never tidied.
   Current state lives in the plan, the journal §2 and the READMEs, which are rewritten freely.
 - **The sketch pad is the same habit for musical ideas:** every compositional idea the

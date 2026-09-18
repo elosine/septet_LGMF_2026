@@ -232,6 +232,96 @@ long each overlap lasts; whether an instrument beats above or below its pitch; w
 will be the eighth pitched instrument and the opening's reference level, so its trim matters more than most. PLAN 0d carries
 this; 0d can be run without it and the vibraphone added as a second short run, or the whole run deferred until it is in.
 
+### LG-16 · 2026-09-18 — THE HARMONIC SPINE: the open strings out and back, as roots
+
+> *"ok lets record e1 a1 d2 g2 c2 g2 d2 a1 e1 as harmonic spine, these will be the roots"*
+> — composer, 2026-09-18, session 3, typed, immediately after asking for the four open strings of the double bass and the cello
+
+**The spine: E1 · A1 · D2 · G2 · C2 · G2 · D2 · A1 · E1** — nine roots.
+
+*AI reading (mine, not his):* the double bass's four open strings low→high (E1 A1 D2 G2) continue by the same fourth into the
+cello's low C2, then turn and come back down (G2 D2 A1 E1) — an arch, palindromic about C2, built from the two instruments'
+own open strings. They are **roots**, not the sounding bass: the harmony above each is open. **His to say:** the timing of the
+arch (one root per section? per morph station?), and whether the spine is heard or is only the generator.
+
+**THE HARMONIC SERIES ON THE SPINE** — recorded at his request, 2026-09-18, the same sitting. The spine in his order is
+**E1 · A1 · D2 · G2 · C2 · G2 · D2 · A1 · E1**; the arch repeats, so the five DISTINCT roots are the columns below.
+
+**The table (computed 2026-09-18; partials 1–33, everything at or below F6 = MIDI 89).** The cents deviation of a
+partial from equal temperament is the same for every root, so it is one column. `—` = above F6.
+
+| # | cents | on E1 | on A1 | on C2 | on D2 | on G2 |
+|---|------:|-------|-------|-------|-------|-------|
+| 1 | 0 | E1 | A1 | C2 | D2 | G2 |
+| 2 | 0 | E2 | A2 | C3 | D3 | G3 |
+| 3 | +2 | B2 | E3 | G3 | A3 | D4 |
+| 4 | 0 | E3 | A3 | C4 | D4 | G4 |
+| 5 | −14 | G♯3 | C♯4 | E4 | F♯4 | B4 |
+| 6 | +2 | B3 | E4 | G4 | A4 | D5 |
+| 7 | −31 | D4 | G4 | A♯4 | C5 | F5 |
+| 8 | 0 | E4 | A4 | C5 | D5 | G5 |
+| 9 | +4 | F♯4 | B4 | D5 | E5 | A5 |
+| 10 | −14 | G♯4 | C♯5 | E5 | F♯5 | B5 |
+| 11 | −49 | A♯4 | D♯5 | F♯5 | G♯5 | C♯6 |
+| 12 | +2 | B4 | E5 | G5 | A5 | D6 |
+| 13 | +41 | C5 | F5 | G♯5 | A♯5 | D♯6 |
+| 14 | −31 | D5 | G5 | A♯5 | C6 | F6 |
+| 15 | −12 | D♯5 | G♯5 | B5 | C♯6 | — |
+| 16 | 0 | E5 | A5 | C6 | D6 | — |
+| 17 | +5 | F5 | A♯5 | C♯6 | D♯6 | — |
+| 18 | +4 | F♯5 | B5 | D6 | E6 | — |
+| 19 | −2 | G5 | C6 | D♯6 | F6 | — |
+| 20 | −14 | G♯5 | C♯6 | E6 | — | — |
+| 21 | −29 | A5 | D6 | F6 | — | — |
+| 22 | −49 | A♯5 | D♯6 | — | — | — |
+| 23 | +28 | A♯5 | D♯6 | — | — | — |
+| 24 | +2 | B5 | E6 | — | — | — |
+| 25 | −27 | C6 | F6 | — | — | — |
+| 26 | +41 | C6 | F6 | — | — | — |
+| 27 | +6 | C♯6 | — | — | — | — |
+| 28 | −31 | D6 | — | — | — | — |
+| 29 | +30 | D6 | — | — | — | — |
+| 30 | −12 | D♯6 | — | — | — | — |
+| 31 | +45 | D♯6 | — | — | — | — |
+| 32 | 0 | E6 | — | — | — | — |
+| 33 | −47 | F6 | — | — | — | — |
+
+**The ceiling — the highest partial each instrument can reach on each root** (its top sounding note in brackets):
+
+| instrument | top | on E1 | on A1 | on C2 | on D2 | on G2 |
+|------------|-----|------:|------:|------:|------:|------:|
+| horn | F4 | 8 | 6 | 5 | 4 | 3 |
+| double bass | A4 | 10 | 8 | 6 | 6 | 4 |
+| bassoon | D♯5 | 15 | 11 | 9 | 8 | 6 |
+| english horn | A5 | 21 | 16 | 13 | 12 | 9 |
+| trumpet | A♯5 | 23 | 17 | 14 | 13 | 9 |
+| cello | B5 | 24 | 18 | 15 | 13 | 10 |
+| vibraphone | F6 | 33 | 26 | 21 | 19 | 14 |
+
+### LG-17 · 2026-09-18 — TWO CATEGORIES: the instruments that HOLD a harmonic, and the ones that BEAT against it
+
+> *"Okay, so I want to categorize the instruments as ones that hold the harmonics and then ones that beat against them. So
+> vibraphone and English horn are in the latter category. Then horn, trumpet, and bassoon are in the former, and strings
+> could go either way."*
+> — composer, 2026-09-18, session 3, after working through each instrument's access to natural harmonics
+
+**HOLD:** horn · trumpet · bassoon — **BEAT:** vibraphone · english horn — **either:** cello · double bass.
+
+*AI reading (mine, not his):* the split follows exactly what each instrument can physically produce.
+- **Hold.** Brass partials ARE the instrument's resonance, so a natural harmonic is its most focused, ringing sound — no
+  timbral penalty, clearer than the lipped equivalent. The bassoon reaches them by a dedicated harmonic fingering, standard
+  practice and already a preset in the recipe.
+- **Beat.** The vibraphone's bars are FIXED and tempered — it cannot produce a just partial at all, so it is a
+  tempered object placed against a just one, and the difference is the beating. The english horn's alternate fingerings are
+  veiled, weak and uneven — it beats by being unable to hold cleanly.
+- **Either.** The strings can do both: perfectly just by natural harmonic or stopped adjustment, or deliberately off.
+
+This is **the mechanism of LG-15 seen from the other side.** There the vibraphone sustains two overlapping pitches and
+individual instruments beat against it; here the vibraphone is named a beater. Both are true and not in conflict: the
+vibraphone is the fixed tempered reference and the beating is the interval between it and a just partial — which side is
+"holding" depends only on which is the root. **His to say:** whether the categories are fixed for the whole piece or
+change by section.
+
 ## For the NEXT piece — "overdrive", for the Switch ensemble (NX-4 corrects the name) (kept here until that piece has a sketch pad, as LG-1…8 were kept in the Tempus pad)
 
 ### NX-1 · 2026-09-18 — accented long tones with sine waves, beating; the pedals of resonance resurrected
