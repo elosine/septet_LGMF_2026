@@ -579,6 +579,37 @@ english horn grinding against it) and its one exotic partial high (B5, the neutr
 lower half is a clean pair of beating C♯ octaves, and **everything unusual is pushed to the top three notes** — B4, B♭5,
 B5. Two different distributions of the same material. **Not decided — his:** whether that contrast is the plan for the set.
 
+### LG-23 · 2026-09-18 — CHORD 3 (on C2): the doublings placed; the vibraphone’s second bow still open
+
+> *"3 eh e4, vib e5, vc Bb4, and candidate for vib2"* — composer, 2026-09-18, session 3, typed
+
+**Chord 3 so far:** double bass **C2** · bassoon **E4** (partial 5, −14) · **english horn E4** tempered, beating with the
+bassoon · horn **B♭4** (partial 7, −31) · **cello B♭4**, doubling the horn · trumpet **E5** (partial 10, −14) ·
+**vibraphone bow 1 E5** tempered, beating with the trumpet. **Open: the vibraphone’s second bow.**
+
+*AI reading:* **chord 3 has the same skeleton as chord 1** — a 5/10 pair at −14 and a 7th at −31 — so its strangeness
+again comes from the B♭, not the E. But the doubling is distributed differently: in chord 1 the cello doubled the BASSOON
+(the −14) and the english horn doubled the HORN (the −31); here the english horn doubles the bassoon and **the cello
+doubles the horn**, which is the one doubling that can be either just or tempered at the player’s choice. So chord 3’s −31
+pair is the adjustable one.
+
+**Candidates for the second bow** — near-tempered partials inside the vibraphone’s range, ranked by strangeness against the
+horn’s B♭ (the measure of LG-20):
+
+| partial | pitch | dev | vs the B♭ | off ET | vs the E | bowing against E5 |
+|---|---|---|---|---|---|---|
+| **17** | **C♯6** | +5 | 17/14 neutral 3rd | **+36** | 17/10 | easy — 9 semitones |
+| **18** | **D6** | +4 | 9/7 supermajor 3rd | **+35** | 9/5 | easy — 10 semitones |
+| 9 | D5 | +4 | 9/7 supermajor 3rd | +35 | 9/5 | **awkward** — adjacent natural bars |
+| 3 · 6 · 12 | G3 · G4 · G5 | +2 | 12/7 supermajor 6th | +33 | 6/5 locks | G5 is close but playable |
+| 19 | E♭6 | −2 | 19/14 | +29 | 19/10 | easy |
+| 4 · 8 · 16 | C4 · C5 · C6 | 0 | 8/7 supermajor 2nd | +31 | 8/5 locks | easy |
+
+**Two observations for the choice.** (1) **Partial 17 would repeat chord 1’s device** — the neutral third above the seventh,
+on the vibraphone’s second bow, both times. That is either a motif or a repetition, and it is his call which. (2) **C♯6, D6
+and E♭6 all sit near the top of the instrument** (its ceiling is F6), where a bowed bar is thin and quiet — which suits a
+delicate piece (LG-2, LG-13) but gives very little weight.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
