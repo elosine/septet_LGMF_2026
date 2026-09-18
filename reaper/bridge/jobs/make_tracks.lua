@@ -10,6 +10,11 @@ local SPEC = {
   { name = "Percussion",  port = "LGPerc",    fx = nil },   -- one Spitfire instance PER INSTRUMENT, on its own track, when chosen (bank/perc_selection.json)
   { name = "Cello XS",    port = "LGCello",   fx = { "VST3i: Kontakt 8 (Native Instruments) (64 out)", "VST3i: Kontakt 8 (Native Instruments)" } },
   { name = "Bass XS",     port = "LGBass",    fx = { "VST3i: Kontakt 8 (Native Instruments) (64 out)", "VST3i: Kontakt 8 (Native Instruments)" } },
+  -- the second UVI instances (the flute's `Fluteb` pattern): SI2 has more presets than one instance's 16 parts, before the
+  -- Ordinario curve copies. Each sits right after its sibling (RUNNING_LOG §21–§23).
+  { name = "Bassoon SI2 b", port = "LGBassoonb", fx = { "VST3i: UVIWorkstation (UVI)" }, after = "Bassoon SI2" },
+  { name = "Horn SI2 b",    port = "LGHornb",    fx = { "VST3i: UVIWorkstation (UVI)" }, after = "Horn SI2" },
+  { name = "Trumpet SI2 b", port = "LGTrumpetb", fx = { "VST3i: UVIWorkstation (UVI)" }, after = "Trumpet SI2" },
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do
@@ -32,10 +37,12 @@ for _, s in ipairs(SPEC) do
   local tr = findTrack(s.name)
   local made = false
   if not tr then
-    reaper.InsertTrackAtIndex(at, true)
-    tr = reaper.GetTrack(0, at)
+    local pos = at
+    if s.after then local _, ai = findTrack(s.after); if ai then pos = ai + 1 end end
+    reaper.InsertTrackAtIndex(pos, true)
+    tr = reaper.GetTrack(0, pos)
     reaper.GetSetMediaTrackInfo_String(tr, 'P_NAME', s.name, true)
-    at = at + 1
+    if pos >= at then at = pos + 1 else at = at + 1 end
     made = true
   end
   local entry = { name = s.name, made = made, port = s.port }

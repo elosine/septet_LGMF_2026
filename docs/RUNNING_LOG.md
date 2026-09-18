@@ -1097,3 +1097,35 @@ CC7 law and the faders own that, not today.
 
 **Rejected on the way:** guessing preset paths for the horn (a wrong path = a modal dialog inside
 Reaper = the bridge stalls); MIDI program change into UVI parts (not a loader in Workstation).
+
+---
+
+## §23. 0e — the three `b` ports verified; the three second-instance tracks; the rack is ten tracks
+
+*"ports are in."* Verified by name through winmm, out AND in: `LGBassoonb · LGHornb · LGTrumpetb`
+(51 MIDI outs on the machine now, ten of them `LG`). Reaper had already picked them up as
+enabled inputs 51–53 without a rescan — the earlier fear (auto-enable off, a Preferences visit)
+did not arise on this machine.
+
+`make_tracks.lua` gained the three rows and an `after` field, so a second instance is inserted
+**right after its sibling** instead of at the end; the first five rows re-ran as `kept`
+(idempotence exercised, nothing duplicated). Read back, 588 ms:
+
+```
+NEW  Bassoon SI2 b  in LGBassoonb  all ch  mon 1 arm 1  0.0 dB  VST3i: UVIWorkstation (UVI)
+NEW  Horn SI2 b     in LGHornb     all ch  mon 1 arm 1  0.0 dB  VST3i: UVIWorkstation (UVI)
+NEW  Trumpet SI2 b  in LGTrumpetb  all ch  mon 1 arm 1  0.0 dB  VST3i: UVIWorkstation (UVI)
+order: English Horn XS · Bassoon SI2 · Bassoon SI2 b · Horn SI2 · Horn SI2 b · Trumpet SI2 ·
+       Trumpet SI2 b · Percussion · Cello XS · Bass XS
+```
+
+**The layout, now fixed (D9):** ten tracks in score order; each SI2 instrument two UVI instances
+on two ports, instance 1 = the browser's order from Ordinario, instance `b` = the overflow +
+the three Ordinario curve copies; Kontakt for the Xsample three; one Spitfire track per
+percussion instrument when chosen. The recipe's `channels.curve` for a UVI instrument names
+the `b` port, as the flute's did.
+
+**A note on the +6 dB seen in §22:** the probes' CC7 = 127 guard sets a UVI part to its gain
+maximum, +6 dB; the app pins CC7 = 127 before every event, so +6 dB IS the playing state of
+every SI2 part — #5's flute parts were set to +6 dB for the same reason (its §275). The baseline
+job will make every part equal.
