@@ -348,4 +348,36 @@ beat rates between instruments; here one side is a sine, so the target is exact.
 timbre); whether the direction (above or below the sine) is shown or left to the player; the range of speeds, and what marks
 the crossing from beating into roughness; whether the sine is fixed or itself moves.
 
+
+### NX-7 · 2026-09-18 — the beating catalogue against sine tones, and the ONDES MARTENOT as the partner instead: bowed crotales, and the live-performance problem
+
+> *"ensemble switch comp note: instruments against sine tones, small gliss from unison for beating, tril from unison,
+> octive to unison+gliss trill; bowed crotales against sampled ondes martenot from my vitrual instrument or maybe use
+> virtual ondes instead of sine tones for all, need to figure out how to use the ondes in live performance, use the
+> instrument itself and trigger, pre record the notes I'm using, trigger the samples the vi uses"*
+> — composer, 2026-09-18, for the Switch ensemble piece, sent while 0d's remap was being built
+
+*AI reading (mine, not his):* this is NX-1/NX-6 becoming a **catalogue of approaches to one situation** — an instrument
+sounding against a fixed electronic tone — plus a change of what the fixed tone IS, plus the performance problem that
+change creates.
+
+**The catalogue, four ways in:** (a) a **small glissando away from unison**, so the beating starts at zero and accelerates
+— the pure form of NX-6's notation, where the written line is beat rate; (b) a **trill from unison**, where the trill's
+upper note is a few cents away, so the trill and the beating are the same gesture at two time scales; (c) **octave to
+unison**, the player descending (or the tone rising) into the beating zone from a consonance; (d) **unison + gliss trill**,
+the two combined — a trill whose whole axis slides.
+
+**The partner changes.** Not a sine but a **sampled ondes martenot**, from his own virtual instrument, and *"maybe use
+virtual ondes instead of sine tones for all"* — i.e. the whole piece's fixed-tone layer. Why it matters: an ondes tone has
+a near-sine core with a real attack, a real vibrato and a real body, so the beating acquires timbre where a sine gives only
+interference. And **bowed crotales** against it — the metal-bar-plus-bow of this piece's vibraphone (LG-15), an octave up
+and glassier.
+
+**The live-performance problem, and his own three options in the note:** (1) *"use the instrument itself and trigger"* —
+a real ondes on stage, cued; (2) *"pre record the notes I'm using"* — fixed audio, exact and inflexible; (3) *"trigger the
+samples the vi uses"* — go under the virtual instrument to its raw samples and fire them directly, which keeps the ondes
+timbre without needing the VI's interface live. **His to decide**, and it is a performance-practice decision as much as a
+technical one. The machine consequence, if (3): the sample set becomes an instrument in the rack like any other, needing a
+port, a recipe, a key map and a place in the balance probe — the same path the bowed vibraphone took today (D12).
+
 ---
