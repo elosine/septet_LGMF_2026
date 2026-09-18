@@ -2208,3 +2208,38 @@ vibraphone's round-robin scatter is the widest at **±5.99 dB** — the floor no
 provenance.** The trims in it are the old rule's and should not be typed into anything yet.
 
 ---
+
+## §55. D13 — he stops a flip to CC7: #5's mechanism stands; horn and trumpet are the one open case (2026-09-18)
+
+**What prompted it.** §54's finding 1 and the AI's proposal on it — CC7 as the dynamic for every pitched instrument. His
+words, in order: *"careful with this one, lets do some planning and conflict avoidance; cc7 has timing issues, so we have
+the round robin of tracks, lets make sure the dynamic balance use of cc7 isn't interfering with the crescendo etc use of
+cc7"* · *"issue is can t adjust horn and trumpet using velocity how precicely are we resolving this?"* · *"let me
+interrograte this before we go down the wrong path; is this what was happening in piece 5? I didn't understand this to be
+the case/the point of that piece's probes"* · *"ok then aside from the brass, can we continue the same approach as #5 with
+the rest of the instruments and did we get the data we need from the probe we just did?"* · *"ok lets record this as a
+decision and prevent flipping to cc7 for everything."*
+
+**He was not mistaken.** #5 (its §115–§120): velocity was the dynamic for strikes and trills, and its remap was a
+VELOCITY table — the velocity that matches the violins at each curve height; CC7 shaped a drawn held note (velocity fixed
+at 100) and served as a small trim on the layered samplers. Never the ensemble's dynamic. **The AI's proposal was a
+departure forced by two instruments, presented as if it were the ensemble's finding.** Recorded as D13: no flip.
+
+**What was clarified on the way, and stands:** the static trim goes on the Reaper FADER and never into CC7, so the
+balance cannot collide with a crescendo — CC7 keeps its one job. The AI's own list of things still to think through
+(CC7 lead time · slot exhaustion · plain notes beside curve notes · CC7 residue · sampler round robin per slot · the
+percussion's velocity-only dynamic) is unchanged in substance and now applies only to held-note shaping, as in #5.
+
+**Answered: the run's data serves #5's method.** Velocity curves at six points × three pitches, repeated on the Xsample
+instruments, are what #5's remap consumed; the anchor rows give the trims; the CC7 curves give the held-note shaping.
+Usable velocity ranges: english horn 18.4 dB · cello 18.2 · vibraphone 28.1 · double bass ~17 on its two sounding pitches
+· bassoon 11.8 (workable, as #5's flute was, with the CC7 trim) · percussion velocity-only by nature. **Two gaps:** the
+double bass's low register (pitch 38 silent; his screenshot reads E1–A4, so the recipe's 28 is wrong) and **horn and
+trumpet — he is looking into it; stand by.**
+
+**A note for the paper.** The AI read a two-instrument anomaly as a mechanism change and proposed it in the confident
+voice; the composer's check was to ask what the previous piece had actually done. The record answered him in one read.
+This is AI_METHODOLOGY's confidence rule from the other side: a claim about the PAST must be verified against the record
+before it is used to justify a change to the future.
+
+---

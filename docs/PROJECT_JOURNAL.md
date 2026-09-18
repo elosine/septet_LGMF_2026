@@ -346,6 +346,17 @@ this repo only when they bite.)*
   to the marimba, and LG-15's two pitches read better as a dyad on one staff than split across two.
   RUNNING_LOG §48.
 
+- **D13** *(2026-09-18, composer: "ok lets record this as a decision and prevent flipping to cc7 for everything")* — **THE DYNAMIC
+  MECHANISM IS #5's, UNCHANGED: VELOCITY IS THE DYNAMIC; CC7 SHAPES A HELD NOTE; THE TRIM LIVES ON THE FADER.** The AI had
+  proposed, after the 0d run, to make CC7 the dynamic for every pitched instrument (RUNNING_LOG §54). He interrogated it —
+  *"is this what was happening in piece 5? … or am I mistaken"* — and he was not mistaken: #5 built a VELOCITY remap
+  (velocity per curve height per instrument), used CC7 only for the drawn curve of a held note and as a small trim on layered
+  samplers, and never as the ensemble's dynamic. **Standing rule: no flip to CC7-for-everything.** *Why:* the proposal was
+  forced by two instruments, not by the ensemble — every other instrument responds to velocity as #5's did (english horn 18 dB
+  · cello 18 · vibraphone 28 · double bass 17 · bassoon 12, the flute's case). *The open exception:* **horn and trumpet**, whose
+  loaded SI2 ordinario gives 4–5 dB across the whole velocity range. **He is looking into it** — a velocity-layered SI2 preset
+  would close it with a swap; failing that, those two alone would take CC7. RUNNING_LOG §55.
+
 ## §5 Playbooks
 
 *(Mode-specific procedures and gotchas. Piece #5's §5 holds the engine's playbooks; bring one
