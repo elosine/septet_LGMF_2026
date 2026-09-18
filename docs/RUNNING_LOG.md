@@ -2901,3 +2901,35 @@ tempered B♭4 sitting in the middle of it as the reference the bent partials be
 inside the chord or against it, and whether B0/C1 — richer, bassoon-less, and below the double bass, so **virtual
 fundamentals** — are worth using where the bassoon is silent anyway.
 
+
+### §64b — narrowed to horn, trumpet and bassoon alone: **B♭1 is the only fundamental that works** (2026-09-18)
+
+**His narrowing:** *"let’s just start with the three. Horn, bassoon, and trumpet. I understand that the strings can play any
+of the partials."* So the strings are set aside as universally capable and the question is asked of the three wind players
+alone: on which fundamental can each of them hold a DIFFERENT cents deviation at the same time?
+
+**The answer is a single note.**
+
+| deviations sounded at once | fundamentals |
+|---|---|
+| **3** | **B♭1 — and nothing else** |
+| 2 | B♭0 · B0 · C1 · F♯1 · G1 · A♭1 · A1 · B1 · C2 · C♯2–B♭2 · B2 |
+| 1 | C♯1 · D1 · E♭1 · E1 · F1 · C3 |
+
+**On B♭1:** **bassoon partial 5 (D4, −14) · horn partial 11 (E♭5, −49) · trumpet partial 14 (A♭5, −31).**
+
+**Why it is unique — a chain of three forced moves.**
+
+1. **The bassoon has only one deviation, −14** (it overblows to the 6th, so the 5th is its only bent partial). It must take
+   −14, on any root, always. That also means **the root must be B♭1 or higher** or the bassoon is not in the chord at all.
+2. **The trumpet is then forced to −31**, since −14 is spoken for and it can never reach an odd partial above the 8th.
+3. **The horn must therefore supply a THIRD deviation — −49, the 11th partial.** It can only do that when the root is its
+   own tube length, i.e. **B0–B♭1**. One semitone higher and its nearest tube drops an octave below the root, which caps it
+   at the 8th partial and kills the 11th.
+
+**The bassoon’s floor is B♭1 and the horn’s tube ceiling is B♭1. They meet at exactly one note.** Everything below loses the
+bassoon; everything above loses the horn’s 11th. B♭1 is not a preference — it is the only solution.
+
+**And the fourth deviation is a string’s.** +41 (the 13th, F♯5) is reachable by no wind here; the cello takes it by ear
+(§64). So the full four-colour chord is the three winds plus one string.
+
