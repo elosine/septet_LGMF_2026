@@ -494,6 +494,35 @@ minor and the major third, the single most uncategorisable interval available. T
 **Runner-up, and far easier to place: C5 (partial 9)** — a supermajor third above the A♭, 35 cents out, and playable by
 everyone.
 
+### LG-21 · 2026-09-18 — CHORD 1 COMPLETE: the vibraphone’s second bow takes partial 17
+
+> *"ok 17 to vibes on 1"* — composer, 2026-09-18, session 3, typed
+
+**Chord 1 (on B♭1) is now fully scored, eight voices on seven players:**
+
+| player | pitch | partial | cents | what it is |
+|---|---|---|---|---|
+| double bass | B♭1 | 1 | 0 | the fundamental |
+| bassoon | D4 | 5 | −14 | just |
+| cello | D4 | — | — | doubles the bassoon (just or tempered, HIS choice, open) |
+| horn | A♭4 | 7 | −31 | just |
+| english horn | A♭4 | — | tempered | beats with the horn at ≈31¢ |
+| trumpet | D5 | 10 | −14 | just |
+| vibraphone (bow 1) | D5 | — | tempered | beats with the trumpet at ≈14¢ |
+| **vibraphone (bow 2)** | **B5** | **17** | +5 | **a NEUTRAL THIRD above the horn’s A♭** — 336¢, 36 cents from both the minor and the major third |
+
+*AI reading (mine, not his):* the vibraphone now does both of its jobs at once — **bow 1 is the tempered reference that the
+trumpet beats against, bow 2 is the strangest interval in the chord.** One player, two bars, opposite functions. It is
+LG-15’s two overlapping pitches used structurally on the first chord of the piece. **Practically it also bows well:** D5 and
+B5 lie nine semitones apart, an easy two-hand reach, where the runner-up C5 would have been an adjacent white bar to D5 and
+awkward to bow.
+
+**Still open on chord 1:** whether the cello’s D4 is just (reinforcing the bassoon) or tempered (beating with it).
+
+**Still open on chords 2–6:** the english horn, vibraphone and cello are unassigned throughout, and the bassoon is
+unassigned on 2, 4 and 6 (A1, G♯1 and F♯1 are below its floor as fundamentals — it can still take a near-tempered partial
+there).
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
