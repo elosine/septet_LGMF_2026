@@ -553,6 +553,32 @@ rather than a tempered wolf — on A1: **G4 (partial 7, −31) · E♭5 (partial
 14, −31)**. If the cello takes one of these, the vibraphone’s tempered note then sits against a 31- or 49-cent partial and
 the chord gains the strangeness it currently lacks — the same mechanism that makes chord 1 work. **His to say.**
 
+**CHORD 2 RESOLVED (2026-09-18).** *"vc 9 17 + 18 vibes"* — the cello takes partial 9, the vibraphone bows partials 17
+and 18.
+
+| player | pitch | partial | cents | what it is |
+|---|---|---|---|---|
+| double bass | A1 | 1 | 0 | the fundamental |
+| horn | C♯4 | 5 | −14 | just |
+| bassoon | C♯4 | — | tempered | beats with the horn at ≈14¢ |
+| trumpet | C♯5 | 10 | −14 | just |
+| english horn | C♯5 | — | tempered | beats with the trumpet at ≈14¢ |
+| **cello** | **B4** | **9** | +4 | 9/5 against the C♯ — the wolf seventh |
+| **vibraphone (bow 1)** | **B♭5** | **17** | +5 | 17/10 against the C♯ |
+| **vibraphone (bow 2)** | **B5** | **18** | +4 | 9/5 again, an octave above the cello |
+
+*AI reading (mine, not his):* **the vibraphone’s two bows are a SEMITONE apart — B♭5 against B5.** That is the tightest
+possible pair on the instrument and it puts the chord’s roughest event at the very top, in the brightest register, played
+by the one instrument that cannot bend. Physically it bows well: B♭ is on the upper row of bars and B on the lower, so the
+two bows are offset rather than fighting for the same edge — easier than the two adjacent naturals that C5 would have
+forced in chord 1. And the cello’s B4 sits an octave below the vibraphone’s B5, the same 9/5 ratio in two registers, one
+bent by ear and one fixed.
+
+**The shape of the two chords so far.** Chord 1 puts its strangeness in the MIDDLE (the horn’s −31 seventh, with the
+english horn grinding against it) and its one exotic partial high (B5, the neutral third). Chord 2 has no 7th at all: its
+lower half is a clean pair of beating C♯ octaves, and **everything unusual is pushed to the top three notes** — B4, B♭5,
+B5. Two different distributions of the same material. **Not decided — his:** whether that contrast is the plan for the set.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
