@@ -211,6 +211,25 @@ const INSTRUMENTS = {
     ],
   },
 
+  // ---- BOWED VIBRAPHONE — Xsample Mallets Extended (Kontakt), CC#0 selects the preset ----
+  // Acquired 2026-09-18 (LG-9 closed). It has its OWN LANE at his word (D12): the opening sustains it
+  // continuously — two overlapping pitches with individual instruments beating against each one
+  // (COMPOSITION_NOTES LG-15) — so it is a voice, not a technique on the percussion track. Same player as
+  // Percussion (one percussionist); the score joins the two staves with a brace.
+  // The roster is the full Preset Menu as HIS Kontakt shows it (screenshot, 2026-09-18): 12 factory presets
+  // + Free Preset 13. CC#0 = preset number − 1, as the english horn and the strings (§32).
+  // RANGE read from his plugin's own low/high fields: F2–F5 in Xsample's octave naming = MIDI 53–89, the
+  // standard three-octave vibraphone F3–F6 sounding. NON-TRANSPOSING, single treble staff (his confirmation,
+  // 2026-09-18 — notation/registry/ensemble.json part 5).
+  // `ordinary` = bowed_vel (#12 Bowed Velocity), HIS CHOICE 2026-09-18, because the opening is bowed and a
+  // bowed tone is the steady partner a beating needs. #7 is the same bow with vibrato on CC4.
+  bowed_vibraphone: {
+    ordinary: "bowed_vel", beating: true, playerBendSt: 0, bendRangeSt: 2,
+    label: "Vibraphone", port: "LGVibes", rangeLow: 53, rangeHigh: 89, mechanism: "cc0",
+    channels: { main: 1, curve: [2, 3, 4] },
+    techniques: xsVibraphoneTechs(53, 89),
+  },
+
   // ---- CELLO — Xsample Contemporary Solo Strings (Kontakt), CC#0 selects the preset ----
   // PIECE #5'S ENTRY, CARRIED VERBATIM (D6) — the one recipe in this file that has been heard,
   // and its measured ranges and bend range come across with it (the tables below). Only the PORT
@@ -333,6 +352,30 @@ function xsStringTechs(s, lo, hi, ranges) {
 
 // The Xsample English Horn roster — his Preset Menu, 2026-09-17 (RUNNING_LOG §32). Hoisted, like xsStringTechs.
 // lo/hi = the assumed zone until 0d measures each preset. `mw` = the wheel shapes the dynamic (curve-channel material, D11).
+// The bowed vibraphone's Preset Menu, from his Kontakt (2026-09-18): 12 factory presets + Free Preset 13,
+// CC#0 = preset number − 1. `mw: true` marks a preset whose shape or damping is on the modwheel, as the
+// english horn's does; CC4 presets take their vibrato depth there (the menu names say so) and are measured
+// at 0d, not assumed. Every preset is given the instrument's whole compass: an Xsample mallet instrument is
+// one sample set per preset, so unlike the winds there is no narrower zone to find.
+function xsVibraphoneTechs(lo, hi) {
+  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: lo, rangeHigh: hi, ...(mw ? { mw: true } : {}) });
+  return [
+    P(1,  "std_mallets_vel",     "Standard Mallets Velocity CC4 Vibrato MW Speed", true),
+    P(2,  "damped_vel",          "Damped Velocity"),
+    P(3,  "xylo_mallets_vel",    "Xylophone Mallets Velocity CC4 Vibrato MW Speed", true),
+    P(4,  "tri_mallets_vel",     "Triangle Mallets Velocity CC4 Vibrato MW Speed", true),
+    P(5,  "hand_vibrato_vel",    "Hand Vibrato Velocity"),
+    P(6,  "harmonics_vel",       "Harmonics Velocity"),
+    P(7,  "bowed_vel_vib",       "Bowed Velocity CC4 Vibrato MW Speed", true),
+    P(8,  "std_mallets_mwdamp",  "Standard Mallets Velocity MW Damped", true),
+    P(9,  "xylo_mallets_mwshape", "Xylophone Mallets Velocity MW Shape", true),
+    P(10, "tri_mallets_mwshape", "Triangle Mallets Velocity MW Shape", true),
+    P(11, "hand_vibrato_mwshape", "Hand Vibrato Velocity MW Shape", true),
+    P(12, "bowed_vel",           "Bowed Velocity"),
+    P(13, "free_preset",         "Free Preset"),
+  ];
+}
+
 function xsEnglishHornTechs(lo, hi) {
   const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: lo, rangeHigh: hi, ...(mw ? { mw: true } : {}) });
   return [

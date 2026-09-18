@@ -1,9 +1,9 @@
 {
  "_doc": "THE ENSEMBLE — this piece's parts as notation data (the port, PLAN 0g, 2026-09-17; the shape and every mechanism are piece #5's, its PLAN 2a.1–2a.3). Indexed by the composer score's LAYER, which is the IR's `part`. Read by layout.js (clef, written pitch, staves), render.js (part labels, brackets, brace), the notation app and the exports (lane weights, the frame's parts). Everything here is piece data: the engine knows clefs, transpositions and staves, not english horns. A caller that passes no ensemble gets the tuba piece's behaviour exactly — ten bass-clef lanes labelled T1..T10 — which is how the inherited batteries stay green.",
  "_check": "tools/notate_section.js refuses to extract when a part's `id` or `short` differs from the score's tracks[part] — the registry cannot drift from the composer score silently. The ids and shorts below are composer.html's TRACKS exactly; tools/palette_check.js guards the other direction.",
- "metaLayer": 7,
- "curveLayers": [8, 9, 10],
- "_layersNote": "composer.html: META_LAYER = 7 (= tracks.length), CURVE_LAYERS = [8, 9, 10] (the curve windows A/B/C, over Percussion · Cello · D. Bass). Neither is a part; the extractor's default parts are 0..tracks.length-1.",
+ "metaLayer": 8,
+ "curveLayers": [9, 10, 11],
+ "_layersNote": "composer.html: META_LAYER = 8 (= tracks.length), CURVE_LAYERS = [9, 10, 11] (the curve windows A/B/C, over the last three lanes — Vibraphone · Cello · D. Bass). Neither is a part; the extractor's default parts are 0..tracks.length-1. EIGHT parts since 2026-09-18 (D12): the bowed vibraphone took lane 5 and everything below moved one down; a layoutVersion 6 save is migrated in composer.html restoreData.",
  "_transposeConvention": "WRITTEN = SOUNDING + transpose semitones (layout.js line 75, and applied at line 965 — read in the code, not taken from a comment, during the port). The IR is always SOUNDING pitch (#5's D9); the shift happens at layout only, and the note is spelled from the written pitch. Piece #5's bass clarinet (+14, written a major ninth above sounding) is the precedent that fixes the sign.",
  "parts": [
   { "part": 0, "id": "english_horn", "short": "EH", "clef": "treble", "transpose": 7,
@@ -15,16 +15,19 @@
   { "part": 3, "id": "trumpet", "short": "Tpt", "clef": "treble",
     "_transposeNote": "SI2's trumpet is in C and its manual says \"written at actual pitch\", so no transposition. WHETHER THE PART IS WRITTEN IN C OR IN B♭ IS THE COMPOSER'S CALL (2a) — a B♭ part is transpose 2, and the library is unaffected either way." },
   { "part": 4, "id": "percussion", "short": "Perc", "clef": "treble",
-    "_clefNote": "PLACEHOLDER. One player, one lane (P4) — the instrument in hand is a technique on the track. The percussion instruments are not chosen: he has named the bowed vibraphone (LG-9) and nothing else. A pitched mallet instrument reads on a treble staff, which is why that is the placeholder, but percussion notation proper — a percussion clef, one-line and five-line staff types, unpitched noteheads — is on the 2a list and this line changes when he names the instruments." },
-  { "part": 5, "id": "cello", "short": "Vc", "clef": "bass",
+    "_clefNote": "PLACEHOLDER still, but narrower than it was: the fourteen ARO instruments are chosen and mapped (LG-10, RUNNING_LOG §37–§42) and they are all SMALL METALS and other unpitched percussion, so this lane wants percussion notation proper — a percussion clef, one-line and five-line staff types, unpitched noteheads — which is on the 2a list. Treble is what the engine can draw today. The bowed vibraphone is NO LONGER in this lane: it took part 5 at his word on 2026-09-18 (D12) because the opening sustains it continuously (LG-15). Same PLAYER, two parts." },
+  { "part": 5, "id": "vibraphone", "short": "Vib", "clef": "treble",
+    "_clefNote": "SINGLE staff, treble clef, and NO transposition — the standard for vibraphone and confirmed by him 2026-09-18. Range F3–F6 sounding (MIDI 53–89), which sits inside treble with a few ledger lines at the bottom; a grand staff belongs to the marimba, not here, and LG-15's two overlapping pitches read better as a dyad on one staff than split across two. Played by the PERCUSSIONIST (part 4's player), which is why parts 4 and 5 are joined by a brace rather than a bracket." },
+  { "part": 6, "id": "cello", "short": "Vc", "clef": "bass",
     "_clefNote": "As piece #5. Tenor clef for the upper register is on the 2a list." },
-  { "part": 6, "id": "double_bass", "short": "Db", "clef": "bass", "transpose": 12,
+  { "part": 7, "id": "double_bass", "short": "Db", "clef": "bass", "transpose": 12,
     "_transposeNote": "The double bass sounds an OCTAVE BELOW its written part, so written = sounding + 12. The IR holds the sounding pitch (E1 = 28 upward); the staff shows it an octave higher, which is what a player expects." }
  ],
  "groups": [
   { "kind": "bracket", "parts": [0, 1] },
   { "kind": "bracket", "parts": [2, 3] },
-  { "kind": "bracket", "parts": [5, 6] }
+  { "kind": "bracket", "parts": [6, 7] },
+  { "kind": "brace", "parts": [4, 5] }
  ],
- "_groupsNote": "Orchestral score order, top to bottom (#5's D10), which also puts the composer's three PAIRS (his note of 2026-09-04, COMPOSITION_NOTES LG-1) in their own brackets: english horn + bassoon · horn + trumpet · cello + double bass. The percussionist (part 4) sits between the brass and the strings, unbracketed — a single player is not a group. No brace: this piece has no grand staff."
+ "_groupsNote": "Orchestral score order, top to bottom (#5's D10), which also puts the composer's three PAIRS (his note of 2026-09-04, COMPOSITION_NOTES LG-1) in their own brackets: english horn + bassoon · horn + trumpet · cello + double bass. The percussionist sits between the brass and the strings and now holds TWO parts — 4 Percussion and 5 Vibraphone — joined by a BRACE, which is the standard mark for several staves belonging to one player (2026-09-18, D12). It is not a bracket: a bracket means a section, and there is still one percussionist. No grand staff anywhere in the piece."
 }

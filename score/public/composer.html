@@ -1383,27 +1383,36 @@ const TRACKS = [
     { id: 'horn',          label: 'Horn',       short: 'Hn',   instKey: 'horn' },
     { id: 'trumpet',       label: 'Trumpet',    short: 'Tpt',  instKey: 'trumpet' },
     { id: 'percussion',    label: 'Percussion', short: 'Perc', instKey: 'percussion' },
+    // The bowed vibraphone gets its own lane at his word, 2026-09-18 (D12): it is the OPENING's
+    // reference — it sustains two overlapping pitches while individual instruments beat against
+    // them (COMPOSITION_NOTES LG-15) — so it is a continuous voice, not a technique on the
+    // percussion track. Same PLAYER as Percussion (the septet has one percussionist), two lanes,
+    // which is why the two are joined by a BRACE in the score and not bracketed.
+    { id: 'vibraphone',    label: 'Vibraphone', short: 'Vib',  instKey: 'bowed_vibraphone' },
     { id: 'cello',         label: 'Cello',      short: 'Vc',   instKey: 'cello' },
     { id: 'double_bass',   label: 'D. Bass',    short: 'Db',   instKey: 'double_bass' },
 ];
 
 // META drawing layer index (the floating draw window = lanes[META_LAYER]).
-// Septet layout (layoutVersion 3): META = 7. Piece #4 had META = 10 (v2), its v1 had 7.
-const META_LAYER = 7;
-// The META window (7) is the gestures' shapes and the stamps — not the curve path (CN-23). The three CURVE windows
-// A / B / C are layers 8 / 9 / 10 and float exactly over Percussion, Cello and D. Bass (CN-24, TRILLS_TOOL §3b, RUNNING_LOG
-// §107). Contract (NAMING §2.2): layers >= tracks.length are the META side — 7 META, 8–10 the reference curves
+// LGMF layout (layoutVersion 7, 2026-09-18): EIGHT instrument lanes — the bowed vibraphone took
+// its own lane at index 5 (D12, LG-15) — so META = 8 and the curve windows are 9 / 10 / 11.
+// Before that (v6) there were seven and META was 7. Piece #4 had META = 10 (v2), its v1 had 7.
+const META_LAYER = 8;
+// The META window (8) is the gestures' shapes and the stamps — not the curve path (CN-23). The three CURVE windows
+// A / B / C are layers 9 / 10 / 11 and float exactly over the last three lanes — Vibraphone, Cello and D. Bass
+// (CN-24, TRILLS_TOOL §3b, RUNNING_LOG §107; they sat over Percussion · Cello · D. Bass until the vibraphone took
+// lane 5). Contract (NAMING §2.2): layers >= tracks.length are the META side — 8 META, 9–11 the reference curves
 // (waveCurve with curveName) and their pending dots (curveDot).
-const META_LAYERS = [7];
-const META_NAMES = { 7: 'META' };
-const META_COLORS = { 7: '#2E8B57' };
-const CURVE_LAYERS = [8, 9, 10];
+const META_LAYERS = [8];
+const META_NAMES = { 8: 'META' };
+const META_COLORS = { 8: '#2E8B57' };
+const CURVE_LAYERS = [9, 10, 11];
 const TRILL_EAT_PRE_S = 0.06;      // a note starting within this BEFORE a trill is its attack and is eaten too (the strike window; RUNNING_LOG §112)
 const HELD_LO = 65, HELD_HI = 127;   // a drawn sustained note's dynamic scale (1g item 5, §120): the ensemble's, as the trill's default
 const TRILL_SWITCH_LEAD_MS = 12;   // a plain note's CC0 next to a sounding trill on the same slot goes this late (= the engine's switch-back lead)
-const CURVE_NAMES = { 8: 'A', 9: 'B', 10: 'C' };
-const CURVE_COLORS = { 8: '#C2410C', 9: '#1D6FA5', 10: '#6D3B9E' };
-const CURVE_OVER = { 8: 4, 9: 5, 10: 6 };   // the lane each window sits on: Percussion, Cello, D. Bass
+const CURVE_NAMES = { 9: 'A', 10: 'B', 11: 'C' };
+const CURVE_COLORS = { 9: '#C2410C', 10: '#1D6FA5', 11: '#6D3B9E' };
+const CURVE_OVER = { 9: 5, 10: 6, 11: 7 };   // the lane each window sits on: Vibraphone, Cello, D. Bass
 
 const Composer = {
     // Shared color palette — workshop colors (from index.html --clr-* vars)
@@ -2432,7 +2441,7 @@ const Composer = {
         const stripEls = (key, val) => key === '_els' ? undefined : val;
         return JSON.parse(JSON.stringify({
             version: 1,
-            layoutVersion: 6,   // LGMF: 7 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vc · Db), META = 7, the curve windows A / B / C = 8 / 9 / 10. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
+            layoutVersion: 7,   // LGMF: 8 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vib · Vc · Db), META = 8, the curve windows A / B / C = 9 / 10 / 11. v6 was the same piece with SEVEN lanes, before the bowed vibraphone took lane 5 (D12, 2026-09-18) — restoreData migrates a v6 save. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
             tracks: TRACKS,
             assets: this.assets || {},
             metadata: {
@@ -2458,6 +2467,15 @@ const Composer = {
             for (const o of this.objects) {
                 if (o.type === 'waveCurve' && o.layer === 7 && o.sonifyNote == null) o.layer = META_LAYER;
             }
+        }
+        // v6 → v7 (2026-09-18, D12): the bowed vibraphone took lane 5, so everything from lane 5 up
+        // moved one down — Vc 5→6, Db 6→7, META 7→8, the curves 8·9·10 → 9·10·11. One uniform shift,
+        // which is why it is written as `>= 5` and not as six cases. A v6 save's own curveName and
+        // sonifyNote are untouched; only the lane index moves.
+        if (data.layoutVersion === 6) {
+            let moved = 0;
+            for (const o of this.objects) if (o.layer >= 5) { o.layer += 1; moved++; }
+            if (moved) console.warn('[restoreData] layoutVersion 6 (this piece before the vibraphone lane): ' + moved + ' object(s) shifted one lane down');
         }
         if (data.layoutVersion === 4) {   // one evening's layout (2026-09-05): curve A shared META's lane 7, B and C sat on 8 and 9
             for (const o of this.objects) {

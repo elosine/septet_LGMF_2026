@@ -22,7 +22,7 @@
   else root.BeatingCalc = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
-  const ORDER = ['english_horn', 'bassoon', 'horn', 'trumpet', 'percussion', 'cello', 'double_bass'];   // score order (P3)
+  const ORDER = ['english_horn', 'bassoon', 'horn', 'trumpet', 'percussion', 'bowed_vibraphone', 'cello', 'double_bass'];   // score order (P3); the vibraphone took lane 5 on 2026-09-18 (D12)
   const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const noteName = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
   const midiHz = m => 440 * Math.pow(2, (m - 69) / 12);
@@ -283,6 +283,13 @@
     english_horn: { breathS: 8, gapS: 0.5 }, bassoon: { breathS: 10, gapS: 0.5 },
     horn: { breathS: 8, gapS: 0.5 }, trumpet: { breathS: 8, gapS: 0.5 },
     cello: { bowS: 10, gapS: 0 }, double_bass: { bowS: 8, gapS: 0 },
+    // The bowed vibraphone IS a beating partner, and the central one: the opening has individual
+    // instruments beating against it (LG-15). It is bowed, so a bow ceiling — ASSUMED 12 s and no gap,
+    // because a struck-or-bowed metal bar keeps ringing through a bow change, so the seam does not show
+    // the way a string's does. His to correct once he has bowed it. NOTE it does not BEND: a bar is a
+    // fixed pitch (`playerBendSt: 0`), so in every beating pair the vibraphone is the reference and the
+    // OTHER instrument does the inflecting.
+    bowed_vibraphone: { bowS: 12, gapS: 0 },
     // percussion has neither breath nor bow and cannot bend — not a beating partner (0c to confirm)
   };
   function ceilingFor(inst, level) {

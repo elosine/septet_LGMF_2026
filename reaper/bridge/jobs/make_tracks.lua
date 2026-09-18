@@ -15,6 +15,11 @@ local SPEC = {
   { name = "Bassoon SI2 b", port = "LGBassoonb", fx = { "VST3i: UVIWorkstation (UVI)" }, after = "Bassoon SI2" },
   { name = "Horn SI2 b",    port = "LGHornb",    fx = { "VST3i: UVIWorkstation (UVI)" }, after = "Horn SI2" },
   { name = "Trumpet SI2 b", port = "LGTrumpetb", fx = { "VST3i: UVIWorkstation (UVI)" }, after = "Trumpet SI2" },
+  -- the bowed vibraphone, 2026-09-18: acquired (LG-9), given its own lane (D12) because the opening
+  -- sustains it continuously (LG-15). He made the track and loaded Xsample Mallets Extended himself;
+  -- this row is here so the rack stays reproducible — the job RE-CONFIGURES a track of this name
+  -- (input, monitoring, arm, fader) and never duplicates it.
+  { name = "Vibraphone XS", port = "LGVibes", fx = { "VST3i: Kontakt 8 (Native Instruments) (64 out)", "VST3i: Kontakt 8 (Native Instruments)" }, after = "Bass XS" },
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do

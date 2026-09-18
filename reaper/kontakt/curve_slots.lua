@@ -23,6 +23,10 @@ local NKI = {
   ['English Horn']             = XS .. 'Xsample_AIL_Installer_Windows/Xsample_Collection/Instruments Elastic/Woodwinds/English Horn.nki',
   ['Contemporary Violoncello'] = XS .. 'Xsample_Contemporary_Solo_Strings/Contemporary Violoncello.nki',
   ['Contemporary Doublebass']  = XS .. 'Xsample_Contemporary_Solo_Strings/Contemporary Doublebass.nki',
+  -- the bowed vibraphone, 2026-09-18 (LG-9 acquired; LG-15 makes it the opening's reference). The
+  -- ELASTIC copy, as the other three are; the library also ships an "Instruments Fixed" Vibraphone.nki
+  -- with the same slot-1 name, so if the curve copies come up wrong that is the line to change.
+  ['Vibraphone']               = XS .. 'Xsample_AIL_Installer_Windows/Xsample_Collection/Instruments Elastic/Mallets/Vibraphone.nki',
 }
 local CURVES = { { ch = 2, tag = 'curve A' }, { ch = 3, tag = 'curve B' }, { ch = 4, tag = 'curve C' } }
 

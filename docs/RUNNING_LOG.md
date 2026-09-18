@@ -1904,3 +1904,53 @@ Lua on this machine, so **it must be parse-checked through the bridge before it 
 itself: record on, `balance_probe.ps1`, record off, ~24 minutes in which the rack must not be touched.
 
 ---
+
+## §48. The bowed vibraphone joins the piece — its own lane, eight parts, and the recipe from his preset menu (2026-09-18)
+
+**What prompted it.** Mid-build of 0d he sent the composition note that is now **LG-15** — *"opening - individual
+instruments create beating with bowed vibes; vibes overlaps two pitches at a time with different instruments comming in on
+each pitch; reminder that I will install the xsample vibes and we'll have to include it in the probe and mapping"* — then
+installed it, made the `LGVibes` port, reset MIDI, made the track and loaded Xsample Mallets Extended. Asked for the whole
+catch-up list, he answered the one decision in it: *"a yes vibes gets its own lane"*, and on the engraving question
+*"one staff, treble clef, non-transposing. confirmed"*. The ordinary voice: *"#12 Bowed Velocity … yes"*.
+
+**The lane (D12).** Eight instrument lanes, `layoutVersion` **7**. The vibraphone took **lane 5**, between Percussion and
+Cello, so META 7 → 8 and the curve windows 8·9·10 → 9·10·11. Everything from lane 5 up moved one down, which made the
+migration a single uniform step (`layer >= 5` → +1) rather than six cases; `restoreData` warns and shifts a v6 save.
+`CURVE_OVER` still points the three windows at the LAST three lanes — now Vibraphone · Cello · D. Bass. The registry
+carries the eight parts, the bracket on 6·7, and a **brace on 4·5**: the percussionist plays both, and a brace is the mark
+for one player's several staves where a bracket would mean a section.
+
+**The recipe.** `bowed_vibraphone` on `LGVibes`, `mechanism: "cc0"`, main ch 1 + curve ch 2·3·4 (his `curve_slots.lua` run
+made the four slots; the `Vibraphone` line was added to that script's NKI table, pointed at the **Elastic** copy as the
+other three are — the library also ships an *Instruments Fixed* `Vibraphone.nki` with the same slot-1 name, so that is the
+line to change if the curve copies ever come up wrong). **Thirteen presets from his own Preset Menu** (screenshot), CC#0 =
+preset number − 1, as the english horn and the strings (§32): four mallet sets, damped, hand vibrato, harmonics, **two bowed
+(#7 with CC4 vibrato, #12 plain)**, four MW-shape variants and Free Preset. `ordinary = bowed_vel` (#12), **his choice** —
+the opening is bowed and a bowed tone is the steady partner a beating needs.
+
+**Range, read not assumed:** his plugin's own low/high fields read **F2–F5 in Xsample's octave naming = MIDI 53–89**, the
+standard three-octave vibraphone F3–F6 sounding. (Xsample labels an octave below MIDI convention; the keyboard's octave
+markers start at its C0 = MIDI 24, which is what makes the two readings agree.)
+
+**Two things the checks caught, and both were real.** `palette_check` went RED on (1) `beating_calc`'s `ORDER` no longer
+matching TRACKS and (2) *"bowed_vibraphone: can beat, so it has a breath or bow ceiling"* — the vibraphone had been marked
+`beating: true` with no ceiling. Both fixed: the order carries the new key at index 5, and the ceiling is a **bow**, ASSUMED
+`bowS: 12, gapS: 0` — a ringing metal bar carries through a bow change, so the seam does not show the way a string's does;
+his to correct once he has bowed it. **Recorded with it:** the vibraphone does NOT bend (`playerBendSt: 0`) — a bar is a
+fixed pitch, so in every beating pair it is the REFERENCE and the other instrument does the inflecting, which is exactly
+the shape LG-15 describes and the same role the generated sine plays in NX-1/NX-6.
+
+`test_written_pitch` went RED too, for the honest reason: it named the cello part 5 and the bass part 6. Renumbered to 6
+and 7, and **two vibraphone cases added** — B4 on the treble middle line (no transposition) and its lowest bar F3 at ySs −5,
+two ledger lines under the staff. The first expectation written for F3 was −4.5 and the engine said −5; **the engine was
+right** (B4 → F3 is five steps) and the case was corrected, not the engine. **Green: palette 168, written-pitch 10 + the
+control.**
+
+**And it is in the probe.** `balance_schedule.js` had been written to pick `bowed_vibraphone` up the moment its recipe
+existed (§47), and it did with no edit: **747 notes, 26.8 min**, the vibraphone's three pitches 62 · 71 · 80 on `LGVibes`
+ch1 and its CC7 sweep on ch2. A `Vibraphone XS` row was added to `make_tracks.lua` so the rack stays reproducible (the job
+re-configures a track of that name, never duplicates it). **The REC track job has not been run yet, which is lucky — it
+will now wire all 27 tracks, the vibraphone included.**
+
+---

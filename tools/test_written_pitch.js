@@ -24,11 +24,13 @@ const CASES = [
   [0, 64, 0,    'ENGLISH HORN +7: sounding E4 is written B4 — the treble MIDDLE LINE'],
   [0, 67, 1,    'ENGLISH HORN +7: sounding G4 is written D5'],
   [2, 60, -1,   'HORN +7: sounding C4 is written G4 (the manual: "a perfect fifth higher")'],
-  [6, 40, 0.5,  'DOUBLE BASS +12: sounding E2 is written E3, a space above the bass middle line'],
-  [6, 28, -3,   'DOUBLE BASS +12: its lowest string, sounding E1, is written E2 (bass bottom line G2 = -2, so F2 = -2.5 and E2 = -3)'],
+  [7, 40, 0.5,  'DOUBLE BASS +12: sounding E2 is written E3, a space above the bass middle line'],
+  [7, 28, -3,   'DOUBLE BASS +12: its lowest string, sounding E1, is written E2 (bass bottom line G2 = -2, so F2 = -2.5 and E2 = -3)'],
   [1, 50, 0,    'BASSOON (no transposition): sounding D3 on the bass middle line'],
   [3, 71, 0,    'TRUMPET in C (no transposition): sounding B4 on the treble middle line'],
-  [5, 50, 0,    'CELLO (no transposition): sounding D3 on the bass middle line'],
+  [5, 71, 0,    'VIBRAPHONE (no transposition, single treble staff — D12): sounding B4 on the treble middle line'],
+  [5, 53, -5,   'VIBRAPHONE: its lowest bar, sounding F3, is written F3 — five steps under the treble middle line B4 (E4 = -2, the bottom line), so two ledger lines below the staff'],
+  [6, 50, 0,    'CELLO (no transposition): sounding D3 on the bass middle line'],
 ];
 
 let fail = 0;
