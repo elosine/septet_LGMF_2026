@@ -134,6 +134,26 @@ bright: a register above the winds and the strings, colour and pulse rather than
 the one sustaining, pitched metal beside them. It reads with LG-2 (delicate, quiet, texture and timbre). Whether the list
 grows, and which of the five appear where, is his. The second clause is a build question, not a musical one: RUNNING_LOG §30.
 
+### LG-11 · 2026-09-18 — the multitempo module: connect patterns by accelerating and decelerating parts
+
+> *"for this piece. These are notes to consider and implement later. I would like to add a functionality to the multi-tempo
+> module that allows me to start at a fixed either multi-phase or multi-tempo and then accelerate or decelerate some of the
+> parts to another pattern. So connect patterns by accelerating and decelerating uh, parts."*
+> — composer, 2026-09-18, session 2, dictated while the percussion tracks waited for his loads. **To consider and implement
+> later — not now.**
+
+*AI reading (mine, not his):* a new function for the multitempo machinery (LG-4 · LG-5). Today a pattern is a FIXED state —
+either **multi-phase** (the parts share a tempo, offset in phase) or **multi-tempo** (the parts on different tempi). The wish:
+**a transition between two such states made by tempo curves on SOME of the parts** — those parts speed up or slow down until
+the ensemble has arrived at the second pattern, while the others hold. So the patterns become stations and the accelerandi /
+ritardandi are the roads between them; it is LG-7's "transitions" given a mechanism, and the rhythmic cousin of the morph
+(LG-1 · LG-6 · LG-8: a morph is a road between two harmonic states). What the tool must solve, when it is built: a part's
+curve has to land on BOTH the target tempo and the target phase at the arrival time — the curve's integral (the beats
+elapsed) is what fixes the phase, so tempo and phase cannot be chosen independently without a free parameter (the curve's
+shape, or the transition's length). #5's tempo streams and `time_containers.js` (D31, built standalone for this piece) are
+the likely ground. **His to say, later:** which parts move and which hold — chosen by hand or by rule; whether the arrival
+is exact or may be approximate; how a moving part is notated in the scrolling score.
+
 ### Related decision in the Tempus journal
 
 - **D31** (2026-09-08): a technique used across pieces is built standalone from the first
