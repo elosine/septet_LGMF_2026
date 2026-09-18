@@ -322,6 +322,49 @@ vibraphone is the fixed tempered reference and the beating is the interval betwe
 "holding" depends only on which is the root. **His to say:** whether the categories are fixed for the whole piece or
 change by section.
 
+### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
+
+*Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
+and the caveats are RUNNING_LOG §63–§63e.*
+
+**Who can hold a natural harmonic on a given root:** the **horn** anywhere (its tubes cover a chromatic octave) · the
+**trumpet** only on pitch classes **F♯ G A♭ A B♭ B C** (its seven tube lengths) · the **bassoon** only at **B♭1 or above**
+(it fingers the root and overblows). Seventeen roots satisfy all three, and no more.
+
+| root | horn | trumpet | bassoon | all three | series covered |
+|---|---|---|---|---|---|
+| **B♭1** | 2–12 | 4 6 8 10 12 14 16 | 1–6 | 4 6 | **14** |
+| B1 | 1–8 | 4 6 8 10 12 14 16 | 1–6 | 4 6 | 12 |
+| C2 | 1–8 | 4 6 8 10 12 14 16 | 1–6 | 4 6 | 12 |
+| F♯2 | 1–7 | 2–8 | 1–6 | 2–6 | 8 |
+| **G2** | 1–7 | 2–8 | 1–6 | **2–6** | 8 |
+| A♭2 | 1–6 | 2–8 | 1–6 | 2–6 | 8 |
+| A2 | 1–6 | 2–8 | 1–5 | 2–5 | 8 |
+| B♭2 | 1–6 | 2–8 | 1–5 | 2–5 | 8 |
+| B2 | 1–4 | 2–8 | 1–5 | 2–4 | 8 |
+| C3 | 1–4 | 2–8 | 1–4 | 2–4 | 8 |
+| F♯3 | 1–3 | 1–4 | 1–3 | 1–3 | 4 |
+| G3 | 1–3 | 1–4 | 1–3 | 1–3 | 4 |
+| A♭3 | 1–3 | 1–4 | 1–3 | 1–3 | 4 |
+| A3 | 1–3 | 1–4 | 1–2 | 1–2 | 4 |
+| B♭3 | 1–3 | 1–4 | 1–2 | 1–2 | 4 |
+| B3 | 1–2 | 1–4 | 1–2 | 1–2 | 4 |
+| C4 | 1–2 | 1–4 | 1–2 | 1–2 | 4 |
+
+**Reading it.** The three lowest roots give REACH (to the 14th–16th partial) but the trumpet gets **even partials only** — no
+natural 7th, 11th or 13th from it. The **F♯2–C3 band** gives AGREEMENT (all three together on partials 2–6) and the
+trumpet’s **natural 7th**, because those roots are its own tube lengths. Above C3 almost nothing fits under F6.
+
+**The two fourth/fifth stacks in the usable ten:** **C2 · G2 · C3** and **B1 · F♯2 · B2**. Nothing longer exists; A♭2 · A2 ·
+B♭2 are isolated, and B♭1’s only relation is the octave to B♭2.
+
+**The set’s character.** The ten roots are a chromatic heptachord (the trumpet’s valve lattice, C3 minus 0–6 semitones) at
+two octaves — 8 semitone pairs against 2 fifths. **38 of the 45 pairs share no partials at all, so they beat**; only the 3
+octaves and the 4 fourths/fifths can come to rest. The set is built for LG-8, LG-15 and LG-17.
+
+⚠ **The SI2 horn stops at F4.** The horn columns above are the REAL instrument (to F5). In the mock-up the horn reaches
+only partials 2–6 on B♭1 — playable by a person, silent in the sample library.
+
 ## For the NEXT piece — "overdrive", for the Switch ensemble (NX-4 corrects the name) (kept here until that piece has a sketch pad, as LG-1…8 were kept in the Tempus pad)
 
 ### NX-1 · 2026-09-18 — accented long tones with sine waves, beating; the pedals of resonance resurrected
