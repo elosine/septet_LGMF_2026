@@ -753,6 +753,47 @@ holds both the −14 and the −31 at once, and to the english horn on the trump
 the set** — B1 then nothing until E♭4 (28 semitones), a dense middle of E♭4 · A4 · C♯5 · E♭5, then a leap of eleven
 semitones to D6 alone at the top. Two holes and one cluster.
 
+### LG-26 · 2026-09-18 — CHORD 6 (on F♯1): the strangest chord of the set, because of the 11th partial
+
+> *"6: c5 vib1, e5 vib2, candidates for vc, eh, bsn — lets find notes in their strong clear range, low for bsn vc"*
+> — composer, 2026-09-18, session 3, typed
+
+**Chord 6 so far:** double bass **F♯1** · horn **C5** (partial 11, **−49**) · trumpet **E5** (partial 14, −31) ·
+**vibraphone bow 1 C5** and **bow 2 E5**, both tempered — so the vibraphone beats against BOTH winds at once, at 49 cents
+and 31 cents. **Open: bassoon, english horn, cello.**
+
+**THE FINDING — chord 6 is categorically stranger than chords 1–5, and the 11th partial is why.** Against a 7th partial
+the near-tempered notes land 29–37 cents from a familiar interval. **Against the 11th they land 46–49 cents — the maximum
+possible.** Nothing can be named: every interval sits within a few cents of the exact midpoint between two categories.
+
+| ratio vs the horn’s C5 | off ET | partials | pitch class |
+|---|---|---|---|
+| **12/11** | **−49.4** | 3 · 6 · 12 | C♯ |
+| **16/11** | **+48.7** | 1 · 2 · 4 · 8 · 16 | F♯ |
+| **18/11** | **−47.4** | 9 · 18 | A♭ |
+| 19/11 | +46.2 | 19 | A |
+| 17/11 | −46.4 | 17 | G |
+| 20/11 | +35.0 | 5 · 10 | B♭ |
+
+**The candidates, in each instrument’s strong clear register, low for the bassoon and cello as he asked:**
+
+| instrument | note | partial | vs the C5 | vs the E5 | why this one |
+|---|---|---|---|---|---|
+| **bassoon** | **C♯3** | 3 | 12/11 −49 | 12/7 +33 | the core of its best register — clear and easy to play quietly |
+| | F♯2 | 2 | 16/11 +49 | 8/7 +31 | lower and darker; heavier, harder to keep soft |
+| | F♯3 | 4 | 16/11 +49 | 8/7 +31 | strong, a third higher |
+| **cello** | **F♯2** | 2 | 16/11 +49 | 8/7 +31 | C string, six semitones up — dark and resonant, its lowest strong note here |
+| | C♯3 | 3 | 12/11 −49 | 12/7 +33 | G string, very resonant |
+| | F♯3 | 4 | 16/11 +49 | 8/7 +31 | D string, clear |
+| | B♭3 | 5 | 20/11 +35 | 10/7 +18 | the one JUST option low down (−14), bent by ear |
+| **english horn** | **A♭4** | 9 | 18/11 −47 | 9/7 +35 | its best singing register, and a third distinct 11-ratio |
+| | C♯5 | 12 | 12/11 −49 | 12/7 +33 | bright and strong |
+| | F♯4 | 8 | 16/11 +49 | 8/7 +31 | strong middle |
+
+**A combination that uses three different 11-ratios and fills the register:** bassoon **C♯3** (12/11) · cello **F♯2**
+(16/11) · english horn **A♭4** (18/11). That puts −49, +49 and −47 in the same chord alongside the horn’s own −49 —
+**four near-quarter-tone relations at once**, which nothing earlier in the set approaches. **His call.**
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
