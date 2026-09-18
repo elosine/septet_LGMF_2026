@@ -28,13 +28,14 @@ local RECMODE_OUTPUT_STEREO_LATCOMP = 3
 --   Template          LGPerc, ALL channels — his template track (make_perc_tracks duplicates it), and
 --                     it carries a loaded Abbey Road instance, so it answers EVERY percussion note
 --   Percussion        LGPerc, ALL channels — the same, though it has no instrument (SPEC fx = nil)
---   Bass Drum Alt ARO LGPerc ch 12 — the SAME channel as "Bass Drum ARO", which the probe measures
--- They still sound in his monitoring; they are only kept out of the measurement. To measure the Alt
--- bass drum instead of the main one, swap the two names here and in bank/perc_rack.json.
+--   Bass Drum ARO     LGPerc ch 12 — the SAME channel as "Bass Drum Alt ARO". Both answer ch 12, so only one
+--                     can be measured, and HE CHOSE THE ALT, 2026-09-18: "yes alt bass instead I believe it has
+--                     an extra mallet or articulation". Swap the two names to go back to the main one.
+-- They still sound in his monitoring; they are only kept out of the measurement.
 local EXCLUDE = {
   ['Template']          = 'LGPerc all channels, and it holds a loaded instance — it would answer every percussion note',
   ['Percussion']        = 'LGPerc all channels (no instrument loaded, but it is not a measurable source either)',
-  ['Bass Drum Alt ARO'] = 'LGPerc ch 12, the same channel as Bass Drum ARO, which the probe measures',
+  ['Bass Drum ARO']     = 'LGPerc ch 12, the same channel as Bass Drum Alt ARO — and he chose the ALT to be the measured one',
 }
 
 local function findTrack(name)

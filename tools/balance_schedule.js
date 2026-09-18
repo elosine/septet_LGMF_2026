@@ -76,7 +76,7 @@ const FAMILY = { english_horn: 'xsample', cello: 'xsample', double_bass: 'xsampl
 // percussion instruments that ring long — the gap must outlast the sound or the next note measures its tail
 // (§42's real finding, once the BOM was out of the way: a tail sits about 20 dB under the onset)
 const PERC_LONG = new Set(['small_metals_finger_cymbals', 'small_metals_bell_tree', 'small_metals_triangles',
-                           'temple_bowls', 'tam_tams_a', 'bass_drum', 'crashes_and_stack']);
+                           'temple_bowls', 'tam_tams_a', 'bass_drum', 'bass_drum_alt', 'crashes_and_stack']);
 // an ANCHOR-eligible percussion articulation is a plain single sound: not a roll, a gliss, a choke, a damp,
 // a flam or any of the long continuous gestures (a drag, a sweep, a scrape — Tam Tams and the Bass Drum are
 // full of them and one would otherwise be picked as an instrument's representative)

@@ -1989,3 +1989,58 @@ Not saved: his CTRL+S. **0d.1 is closed.**
 nothing to his structure and lift out without a trace.
 
 ---
+
+## §50. His two questions answered by measurement — the Alt bass drum swapped in, and REC proven to capture the master sum (2026-09-18)
+
+**What prompted it.** *"yes alt bass instead I believe it has an extra mallet or articulation"* and *"there was the issue in
+the last piece where no sound was appearing on the rec track and I had to add all the tracks to the rec folder, is this
+still the case and should or you or i do that?"*
+
+**1. The Alt bass drum, swapped — and it IS a different instrument.** Both `Bass Drum ARO` and `Bass Drum Alt ARO` filter
+`LGPerc` **ch 12**, so only one can be recorded; the `EXCLUDE` table now holds the main one and the Alt is measured.
+**Read from the running rack rather than assumed** (`aro_state.js info`): the Alt holds preset **"Bass Drum (Alt) (C)"**,
+7 articulations — Sticks · Hard Felt Undamped · Hard Felt **Damped** · Medium · Brushes · Rods · All-in-one, with
+All-in-one selected — where the main track's **"Bass Drum (GC) (C)"** has seven beaters of its own. **His memory was
+right:** they are different beater sets, which is why the catalog link changed from `bass_drum` to `bash_drum_alt`'s entry
+`bass_drum_alt` — and those maps genuinely differ (key 41 is **Rim Hit L** on the Alt, **Single Hit L** on the main).
+Its state is banked (`bank/aro_states/bass_drum_alt_C.aro.xml`), `bank/perc_rack.json` records the swap and why, and
+`bass_drum_alt` was added to the schedule's long-ring set — without that its gap had fallen to 1.2 s, and a bass drum rings.
+
+**2. The REC question: no, it does not recur — and the proof is a number.** #5's REC was a FOLDER PARENT, which captures
+only its children, which is why tracks outside the folder were silent there. This REC is a **receive bus** (§49), so the
+equivalent of "adding all the tracks" is already done — 24 receives. Tested by firing three notes (vibraphone · cello ·
+finger cymbals) with no CC7 and watching the live meters for 14 s:
+
+| track | peak L / R (dB) |
+|---|---|
+| **REC** | **−14.83 / −13.39** |
+| MASTER | −14.83 / −13.39 |
+| Vibraphone XS | −18.93 / −17.12 |
+| Finger Cymbals ARO | −28.77 / −27.51 |
+
+**REC equals the MASTER to the decimal** — it is the same sum he hears, which is exactly what the balance run needs.
+**Nothing for him to do.**
+
+**Two things the test found on the way, and both mattered.**
+- **The first two runs read silence everywhere, including the source tracks and the master — and that was the TEST's own
+  fault twice over.** First, the watch window (4 s) closed before the notes fired: a `Add-Type` compile plus a tool
+  round-trip is seconds, and launching the watch and firing the note in SEPARATE calls cannot be timed. Fixed by doing both
+  inside ONE PowerShell call — launch, fire, wait for the file. **This is §42's family again:** a probe that reports a
+  plausible number (−144 dB = silence) for a reason that has nothing to do with what is being measured.
+- **`Vibraphone XS` was listening to the WRONG PORT** — dev 50 = `LGBass`, not `LGVibes` (54). He built the track by
+  duplicating `Bass XS`, so it inherited the bass's MIDI input, and the vibraphone had never received a note. Found by
+  reading every track's stored device index against the live device list (his MIDI reset was NOT to blame — every other
+  track's index matches its port exactly). Fixed through the bridge, read back: dev 54 `LGVibes`, all channels, monitoring
+  on, armed. **The `Vibraphone XS` row added to `make_tracks.lua` (§48) would have set this correctly; the fix was applied
+  directly instead, because that job also re-configures all 27 other tracks and there was no reason to touch them.**
+
+**Still his to do: CTRL+S** — neither the REC track nor the vibraphone's input is saved.
+
+**Flagged before the 27-minute run, and it is his call (#5's §373).** The schedule's `ref` and `vel` roles send **CC7 127**
+before every note as a known reference. On UVI and Kontakt, CC7 is bound to the instrument/part volume, so the run would
+**reset the in-plugin volumes to full** — including the +6 dB part baselines set as text in §22–§25. Three ways out:
+(a) let it, and re-apply the baselines afterwards with `uvi_edit.js` (they are text, so this is cheap and exact);
+(b) `--nocc7`, which measures the rack exactly as he has it but drops layer 2's CC7 table, and with it a held note's shape;
+(c) keep CC7 only in the `cc7` role and order it last per instrument. **Not decided.**
+
+---
