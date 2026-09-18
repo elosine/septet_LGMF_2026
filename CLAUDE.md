@@ -31,8 +31,10 @@ video are here and verified running on the seven tracks. **Nothing sounds yet** 
 are placeholders and there is no Reaper rack: that is **0c + 0e, together, with him at the
 machine — IN PROGRESS.** Ten `LG` ports · ten tracks (`reaper/LGMF_rack.rpp`) · the three SI2
 instruments COMPLETE as recipes, configured as text through the bridge (RUNNING_LOG §20–§25; `tools/uvi_state.js` ·
-`uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **Next: the Kontakt three** (EH · Vc · Db), then
-the percussion when chosen, then 0d / 0h.
+`uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **The Kontakt three have their four slots** (D11 by `reaper/kontakt/curve_slots.lua`, self-reporting, proven by
+read-back — RUNNING_LOG §26–§29; **parse-check every Kontakt script through the bridge first**, §28). **Next: their
+Xsample recipes** — the english horn roster · the double bass CC#0 from its own Preset Menu · first sound from the
+sandbox — then the percussion when chosen, then 0d / 0h.
 
 ## READ FIRST — how to work here
 
