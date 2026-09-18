@@ -360,6 +360,39 @@ three roots at or above its B♭1 floor — B♭1, C2, B1 — which are the thre
 instrument’s limit exactly. **His to say:** whether the cluster ever sounds as a vertical chord or only as the succession of
 roots, and at which octave when it does.
 
+### LG-19 · 2026-09-18 — THE BASS ON THE FUNDAMENTAL THROUGHOUT; CHORD 1 COMPLETED BY TEMPERED DOUBLINGS
+
+> *"Bass on fund for all 6; 1: vibes D5, vc D4, eh Ab4"*
+> — composer, 2026-09-18, session 3, typed, immediately after LG-18
+
+**The double bass plays the FUNDAMENTAL of all six chords** — B♭1 · A1 · C2 · G♯1 · B1 · F♯1. All six lie on its
+lowest two strings (E1 and A1) and all are inside its range; F♯1 and G♯1 are stopped on the E string, A1 is the open A.
+
+**Chord 1 (on B♭1), complete — seven players:**
+
+| player | pitch | what it is |
+|---|---|---|
+| double bass | B♭1 | the fundamental (partial 1) |
+| bassoon | D4 | partial 5, −14 |
+| **cello** | **D4** | doubles the bassoon’s D4 |
+| horn | A♭4 | partial 7, −31 |
+| **english horn** | **A♭4** | doubles the horn’s A♭4 |
+| trumpet | D5 | partial 10, −14 |
+| **vibraphone** | **D5** | doubles the trumpet’s D5 |
+
+*AI reading (mine, not his):* **every just partial is doubled by an instrument that plays it TEMPERED — so each doubling is
+a beating pair.** The vibraphone cannot be anything but tempered (fixed bars), so its D5 sits **14 cents above** the
+trumpet’s partial 10: a slow beat, by construction, with no player needing to do anything. The english horn’s A♭4 is
+**31 cents above** the horn’s partial 7 — the widest of the three, and the english horn plays it with an ordinary fingering,
+which is exactly the instrument LG-17 put in the BEAT category. The cello is the one free choice: it can match the bassoon
+exactly (reinforcing the −14) or take the tempered D4 and beat with it. **This is LG-15’s mechanism generalised** — there
+the vibraphone sustained and the others beat against it; here the tempered instruments are the fixed reference and the
+natural harmonics are what bend away from them. **His to say:** whether the cello is just or tempered, and whether the same
+doubling scheme carries through chords 2–6.
+
+**Beat rates in chord 1** (from the cents offsets): D4 −14¢ → about **2.4 beats/sec** · A♭4 −31¢ → about **7.5 beats/sec**
+· D5 −14¢ → about **4.8 beats/sec**. The three pairs beat at three different speeds, slowest at the bottom.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
