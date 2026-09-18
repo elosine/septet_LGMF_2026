@@ -2659,3 +2659,46 @@ back to its own pitch class an octave up rather than continuing.
 **Note the coincidence:** C2 · G2 · C3 is the stronger chain — C2 and G2 are both already in his spine (LG-16), G2 is the
 trumpet’s own tube (its natural 7th), and C2 carries 12 partials of coverage.
 
+
+### §63e — the structure of the ten roots: a chromatic band, not a tonal set (2026-09-18)
+
+**His ask:** *"any sort of harmonic or mathematic or interval relations between the first ten."* Full interval census taken
+over B♭1 B1 C2 F♯2 G2 A♭2 A2 B♭2 B2 C3 (45 pairs).
+
+**1. The set is one object at two octaves.** The seven pitch classes F♯ G A♭ A B♭ B C are **seven consecutive semitones** —
+a chromatic heptachord spanning exactly a **tritone**, F♯ to C. It appears whole as F♯2–C3, and its top three members
+reappear an octave lower as B♭1 B1 C2 (the bassoon’s B♭1 floor cuts off the rest). Total compass B♭1–C3, a major ninth,
+with one hole: the tritone gap C2→F♯2.
+
+**2. Where the band comes from, mathematically.** It is the trumpet’s valve lattice. The valves lower by 2, 1 and 3
+semitones, and every sum 0–6 is representable, so the seven tube lengths are C3 minus 0,1,2,3,4,5,6 — a contiguous run, not
+a cycle of fifths. **That is the whole reason the set has almost no tonal relations.**
+
+**3. The interval census** (counts of the 45 pairs):
+
+| interval | n | the pairs |
+|---|---|---|
+| semitone | **8** | the two chromatic runs, adjacent throughout |
+| whole tone | 6 | — |
+| m3 / M3 | 4 / 3 | — |
+| **P4** | **2** | F♯2–B2 · G2–C3 |
+| tritone | 2 | C2–F♯2 · F♯2–C3 |
+| **P5** | **2** | B1–F♯2 · C2–G2 |
+| m6–M7 | 3 each | — |
+| **octave** | **3** | B♭1–B♭2 · B1–B2 · C2–C3 |
+| m9 / M9 | 2 / 1 | — |
+
+Semitones outnumber fifths four to one. The set is **chromatic by construction**.
+
+**4. The consequence that matters for this piece — three regimes of partial-sharing.** Since these roots are chosen for
+their harmonic series, what matters is which pairs SHARE partials:
+
+- **Octave pairs (3).** Total sharing — every partial of the upper root is an even partial of the lower. **No beating.**
+- **Fourth/fifth pairs (4).** Sharing at 3:2 — the fifth above is the lower root’s 3rd partial. **Mild, consonant.**
+- **Everything else (38 of the 45 pairs).** Semitones, tones, thirds, sixths, sevenths, tritones — **no shared partials at
+  all.** Every one of these pairs beats.
+
+**So the set is built for beating, not for consonance** — which is exactly what LG-8, LG-15 and LG-17 want. The two
+fourth/fifth chains (§63d) and the three octaves are the only places the ensemble can come to rest; the other 38 pairs are
+all live. **His to say:** whether rest is wanted at all, and if so whether C2·G2·C3 is where the piece rests.
+
