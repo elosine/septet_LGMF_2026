@@ -464,6 +464,36 @@ against it to some degree. The choice is only how much, and what happens against
 tempered doublings — most naturally the **english horn**, which is currently doubling the horn’s A♭ at +31¢. Giving it C5
 instead turns a beating unison into a 9/7. **His call.**
 
+**HIS REFINEMENT OF “GRIND” (2026-09-18).** *"by grind I mean in the most unusual way. So I imagine tritones or major
+sevens grind, but I want the intervals that will grind the most in the most ‹un›usual way. Still the same list?"*
+
+*AI reading:* the measure changes. Ratio complexity says how ROUGH; it does not say how STRANGE. A tritone or a major
+seventh is harsh but completely familiar — the ear files it instantly. **What sounds unusual is an interval that lands
+between two categories**, so the ear cannot name it. That distance is measurable: **how far the interval sits from the
+nearest equal-tempered interval**, with **50 cents the maximum** (dead centre between two categories).
+
+**The same candidate list, reordered — and the reason is different.**
+
+| partial | pitch | vs the D (−14) | vs the A♭ (−31) | the strange interval |
+|---|---|---|---|---|
+| **17** | **B5** | 919¢ (+19) | **336¢ (+36)** | **a NEUTRAL THIRD** — exactly between minor and major |
+| **9 · 18** | **C5 · C6** | 1018¢ (+18) | **435¢ (+35)** | **a SUPERMAJOR THIRD** — too wide for a third, too narrow for a fourth |
+| 3 · 6 · 12 · 24 | F | 316¢ (+16) | **933¢ (+33)** | a supermajor sixth |
+| 1 · 2 · 4 · 8 · 16 | B♭ | 814¢ (+14) | **231¢ (+31)** | a supermajor second — a whole tone too big to be one |
+| 19 | C♯6 | 1111¢ (+11) | 529¢ (+29) | a fourth stretched toward a tritone |
+| 27 | F♯6 | 520¢ (+20) | **1137¢ (+37)** | the strangest of all — **out of range** |
+
+**THE FINDING: all of the strangeness comes from the A♭, none of it from the D.** Against the D every candidate lands
+11–20 cents from a familiar interval — the ear hears “a slightly out-of-tune sixth” and files it. Against the A♭
+everything lands **28–37 cents out**, which is close enough to the halfway point that no category claims it. The reason is
+structural: **the 7th partial is prime AND it is already 31 cents flat**, so it drags every interval built on it into
+no-man’s-land. **Partial 7 is the piece’s source of strangeness, not partial 5.**
+
+**The pick for chord 1, by strangeness:** **B5 (partial 17)** — a neutral third above the horn’s A♭, 36 cents from both the
+minor and the major third, the single most uncategorisable interval available. Trumpet, cello or vibraphone can take it.
+**Runner-up, and far easier to place: C5 (partial 9)** — a supermajor third above the A♭, 35 cents out, and playable by
+everyone.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
