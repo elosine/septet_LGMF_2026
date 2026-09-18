@@ -322,6 +322,44 @@ vibraphone is the fixed tempered reference and the beating is the interval betwe
 "holding" depends only on which is the root. **His to say:** whether the categories are fixed for the whole piece or
 change by section.
 
+### LG-18 · 2026-09-18 — THE SIX FUNDAMENTALS, THEIR ORDER, THE SEMI-CLUSTER LEITMOTIF, AND THE WIND ASSIGNMENTS
+
+> *"ok lets have the fund order be: Bb1, A1, C2, G#1, B1, F#1; And then let me have the semi-cluster in any octave. That
+> would be those same notes just reordered. F sharp. G sharp, A, B flat, B, C. With the C on top. So what I mean to say is
+> all those notes tied together as almost in a cluster, but then transposable to any octave in that shape. And that will be
+> a reference harmony or a sort of leitmotif. And then for the B flat one chord, bassoon will be on partial five, horn
+> partial seven, and trumpet partial ten. A1 horn on five trumpet on ten. c2 bassoon five, trumpet ten, and horn seven.
+> G-sharp one, horn, seven, trumpet, ten, B, one, bassoon, five, horn, seven, trumpet, ten, F sharp one, Horn eleven.
+> Trumpet fourteen."*
+> — composer, 2026-09-18, session 3, typed, after the §63g grid was re-shown
+
+**The order of fundamentals:** **B♭1 · A1 · C2 · G♯1 · B1 · F♯1.**
+
+**The semi-cluster (the leitmotif):** the same six pitch classes stacked low→high — **F♯ · G♯ · A · B♭ · B · C, C on top**
+— held together as an almost-cluster and **transposable to any octave in that shape.**
+
+**The wind assignments, with the pitches and cents computed:**
+
+| # | fundamental | bassoon | horn | trumpet |
+|---|---|---|---|---|
+| 1 | **B♭1** | 5 · D4 −14 | 7 · A♭4 −31 | 10 · D5 −14 |
+| 2 | **A1** | — | 5 · C♯4 −14 | 10 · C♯5 −14 |
+| 3 | **C2** | 5 · E4 −14 | 7 · B♭4 −31 | 10 · E5 −14 |
+| 4 | **G♯1** | — | 7 · F♯4 −31 | 10 · C5 −14 |
+| 5 | **B1** | 5 · E♭4 −14 | 7 · A4 −31 | 10 · E♭5 −14 |
+| 6 | **F♯1** | — | 11 · C5 −49 | 14 · E5 −31 |
+
+**All eighteen assignments are playable as natural harmonics** — checked against each instrument’s tube lengths, partial
+limits and range (RUNNING_LOG §64c).
+
+*AI reading (mine, not his):* **the six fundamentals ARE the semi-cluster, sounding in their own register** — F♯1 G♯1 A1
+B♭1 B1 C2 is exactly the cluster read bottom to top. So the leitmotif is not a separate object placed over the roots; it is
+the roots themselves, gathered into one sonority. The ORDER he gives (B♭1 A1 C2 G♯1 B1 F♯1) is a path through that cluster,
+not a scale: it begins in the middle, alternates outward, and ends at the bottom. And the bassoon appears on exactly the
+three roots at or above its B♭1 floor — B♭1, C2, B1 — which are the three he gave it, so the scoring follows the
+instrument’s limit exactly. **His to say:** whether the cluster ever sounds as a vertical chord or only as the succession of
+roots, and at which octave when it does.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
