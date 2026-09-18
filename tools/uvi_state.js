@@ -166,5 +166,27 @@ function info(xml) {
         if (flag('push')) { const r = pushChunk(track, withNewState(vst, Buffer.concat([nb.raw, st.tail]))); console.log('pushed:', JSON.stringify(r.result || r.error)); const back = info(splitState(findVst(getChunk(track)).raw).xml); console.log('read back part ' + part + ' output:', back.parts[part - 1].output); }
         return;
     }
+    // set-master (2026-09-18, RUNNING_LOG §51–§52): the instance's MASTER gain in dB. The clipping pre-flight found the
+    // bassoon at +1.46 dBFS and the horn at +0.03 at velocity 127 / CC7 127 — and that is not the probe's doing: CC7 127
+    // puts a UVI part at +6 dB by design (uvi_edit.js baseline), so the PIECE would clip them too. The Reaper fader cannot
+    // reach a clip inside the plugin and a lower stored part gain is pushed straight back up by CC7, so the master is the
+    // lever — #5's flute fix (its §115, −2 dB), done here as text instead of in the GUI.
+    //   node tools/uvi_state.js set-master "Bassoon SI2" -6 --push
+    if (cmd === 'set-master') {
+        const db = +args[2];
+        if (!Number.isFinite(db)) throw new Error('set-master needs a dB figure, e.g. -6');
+        const gain = Math.pow(10, db / 20);
+        let s = st.xml.toString('utf8');
+        const m = /<Synth [^>]*DisplayName="Master"[^>]*>/.exec(s);
+        if (!m || !/Gain="[^"]*"/.test(m[0])) throw new Error('no <Synth DisplayName="Master" … Gain="…"> in this state');
+        const el = m[0].replace(/Gain="[^"]*"/, 'Gain="' + gain + '"');
+        s = s.slice(0, m.index) + el + s.slice(m.index + m[0].length);
+        const xml = Buffer.from(s, 'utf8');
+        const nb = rebuild(st.header, xml, st.compLen);
+        const before = info(st.xml).masterGainDb;
+        console.log(JSON.stringify({ track, masterGainDb: { before, asked: db }, selfDecodeIdentical: Buffer.compare(splitState(Buffer.concat([nb.raw, st.tail])).xml, xml) === 0 }));
+        if (flag('push')) { const r = pushChunk(track, withNewState(vst, Buffer.concat([nb.raw, st.tail]))); console.log('pushed:', JSON.stringify(r.result || r.error)); const back = info(splitState(findVst(getChunk(track)).raw).xml); console.log('read back master gain:', back.masterGainDb, 'dB'); }
+        return;
+    }
     console.error('unknown command ' + cmd); process.exit(2);
 })().catch(e => { console.error(e.message); process.exit(1); });

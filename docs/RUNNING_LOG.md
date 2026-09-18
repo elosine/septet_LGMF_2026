@@ -2097,3 +2097,26 @@ boolean, so a clean parse-check read as a failure. Joined to one string first. T
 that reports the opposite of what it measured.
 
 ---
+
+## §52. The clip fixed as text — the six SI2 masters at −6 dB, pre-flight green; the Kontakt four never needed it (2026-09-18)
+
+**What prompted it.** Fable, after the switch: *"32-bit set, the master set this is confusing, more simply pls what needs
+to be done and can you do it? how about cello bass?"* His "the master set" was the GUI route; it need not be his hands.
+
+**Done, as text.** `uvi_state.js` gained **`set-master "<track>" <dB> --push`** — the same decode → edit → rebuild → push →
+read-back path as `set-output` (§22–§25), the edit being the `Gain` attribute of `<Synth DisplayName="Master">`. Dry-run
+first on the bassoon (`selfDecodeIdentical: true`), then pushed to all six — Bassoon · Horn · Trumpet, main and `b` —
+**each read back at −6 dB.** He had asked for it, at the machine, so that was the "yours again".
+
+**Pre-flight, second run — GREEN.** Bassoon +1.46 → **−4.54** · Horn +0.03 → **−5.97** · Trumpet −0.10 → **−6.11** (each
+moved by the 6 dB, to the decimal, which is its own proof the push landed). MASTER −4.54, **REC −16.54 — 16.5 dB of
+margin.** *"no clipping: the full run is safe to record."*
+
+**Cello, bass — and the english horn and vibraphone — needed nothing.** They were never near the ceiling: cello −13.6,
+bass −14.6, english horn −7.4, vibraphone −6.9. Their volume lives inside Kontakt, which is opaque as text (§26), so if one
+ever did clip it would be a knob in the instrument's GUI — but none does, and 0d's trims absorb where they sit.
+
+**The state of the rack is now UNSAVED in four ways:** the REC track (§49), its −12 dB fader (§51), the vibraphone's port
+(§50), and the six masters. His CTRL+S before the run.
+
+---
