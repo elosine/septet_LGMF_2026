@@ -65,6 +65,16 @@
   `BassCl strikes`). Both built by script (`tools/uvi_state.js set-output`, `reaper/kontakt/
   bcl_strike_slot.lua`, `reaper/bridge/jobs/strike_lane.lua`); the app routes by the recipe's channel.
 
+- **The state header is 496 bytes on this machine, not 312** (LGMF, RUNNING_LOG §22, 2026-09-17): a 288-byte Reaper prefix, LE
+  sizes at 288/300, the VST2 fxBank wrapper (`VstW … CcnK <BE byteSize> FBCh … UVIW`), `<BE 12 + compressed> UVI4 <version> <xml
+  length>`, the zlib stream, a zero tail. `tools/uvi_state.js` reads the compressed length from the field before `UVI4` and rewrites
+  every size field past 288 in its own byte order; a push with stale sizes is accepted by Reaper and SILENTLY ignored by UVI.
+- **A `<Program>` in the state is the program itself, not a reference.** `ProgramPath` alone yields a labeled EMPTY program (silent);
+  a cloned body keeps its own sound whatever the path says. So: load each preset ONCE in the GUI; every copy, move, re-channel,
+  re-instance, gain and bypass after that is text. (RUNNING_LOG §22, proven with the meters.)
+- **A push replaces the whole instance state** — GUI edits made between the decode and the push are lost. Hand the instance over
+  in words before touching it.
+
 ## Xsample (Kontakt)
 
 - **CC#0 88–117 are the keyswitch banks' stored slots, not presets** — piece #1's registry

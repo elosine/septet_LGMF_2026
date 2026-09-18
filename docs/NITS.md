@@ -136,3 +136,6 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   `const MEASURED_RANGES` before the hardware-capture lines and `instruments.js` would not
   evaluate. `apply_bend_ranges.js` has the same shape — check it the same way. Fix the marker or
   the header before 0d's first probe.
+- **Piece #5's `tools/uvi_state.js` has the header flaw fixed here** (RUNNING_LOG §22): its `rebuild()` rewrites only LE fields
+  within 64 of the old length and its committed flute carries the same 496-byte header. Carry the fix back before #5's rack is
+  next edited as text (never from this repo — a note for that repo's own session).

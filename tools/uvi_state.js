@@ -52,22 +52,32 @@ function splitState(raw) {
     const stream = raw.subarray(z);
     const xml = zlib.inflateSync(stream);
     // the compressed length: inflate consumed how much? recompute by trial: zlib streams end with adler32; find via inflateSync on prefixes is costly — use the header's own field instead
-    const compLen = readCompLen(header, stream.length);
+    const compLen = readCompLen(header, stream.length, stream);
     return { header, z, compLen, tail: raw.subarray(z + compLen), xml };
 }
-function readCompLen(header, streamLen) {
-    // the field at z-24 holds 12 + compressed length (RUNNING_LOG §49); trust it if plausible, else the stream is the rest of the buffer
-    if (header.length >= 24) { const v = header.readUInt32LE(header.length - 24) - 12; if (v > 0 && v <= streamLen) return v; }
+function readCompLen(header, streamLen, stream) {
+    // THE LAYOUT (LGMF RUNNING_LOG §22, 2026-09-17 — the same in piece #5's committed rack): a 288-byte Reaper prefix · LE size fields at
+    // 288 and 300 · the VST2 fxBank wrapper "VstW … CcnK <BE byteSize> FBCh … UVIW …" · <BE 12 + compressed> "UVI4" <LE version> <LE xml
+    // length> · the zlib stream · a short zero tail. The BE field just before "UVI4" is the compressed length; it is trusted only if that
+    // exact slice inflates. (Piece #5's §49 reading — an LE field at z-24 — is kept as the fallback.)
+    const h = header.length;
+    const inflates = v => { try { zlib.inflateSync(stream.subarray(0, v)); return true; } catch (e) { return false; } };
+    if (h >= 16 && header.subarray(h - 12, h - 8).toString('latin1') === 'UVI4') { const v = header.readUInt32BE(h - 16) - 12; if (v > 0 && v <= streamLen && inflates(v)) return v; }
+    if (h >= 24) { const v = header.readUInt32LE(h - 24) - 12; if (v > 0 && v <= streamLen && inflates(v)) return v; }
     return streamLen;
 }
 function rebuild(header, xml, oldComp) {
     const comp = zlib.deflateSync(xml, { level: 6 });
     const h = Buffer.from(header);
     let fixed = [];
-    for (let off = 0; off + 4 <= h.length; off += 4) {
-        const v = h.readUInt32LE(off);
-        const k = v - oldComp;
-        if (k >= 0 && k <= 64) { h.writeUInt32LE(comp.length + k, off); fixed.push({ off, k }); }
+    // Every size field in the wrapper region (offset >= 288, past Reaper's own prefix table) that reads as (old compressed length + k),
+    // k <= 256, in EITHER byte order, becomes (new compressed length + k) in the same order. Seen: LE +204 @288 · LE +188 @300 ·
+    // BE +164 @328 (the fxBank byteSize) · BE +12 @h-16 (the UVI4 block). The first version rewrote LE fields with k <= 64 only — it
+    // matched none of these, so every push carried stale sizes and UVI silently kept its old state (LGMF RUNNING_LOG §22).
+    for (let off = 288; off + 4 <= h.length; off += 4) {
+        const kl = h.readUInt32LE(off) - oldComp, kb = h.readUInt32BE(off) - oldComp;
+        if (kl >= 0 && kl <= 256) { h.writeUInt32LE(comp.length + kl, off); fixed.push({ off, k: kl, order: 'LE' }); }
+        else if (kb >= 0 && kb <= 256) { h.writeUInt32BE(comp.length + kb, off); fixed.push({ off, k: kb, order: 'BE' }); }
     }
     // the XML length field (the last 4 bytes of the header)
     if (h.length >= 4 && h.readUInt32LE(h.length - 4) !== xml.length) h.writeUInt32LE(xml.length, h.length - 4);

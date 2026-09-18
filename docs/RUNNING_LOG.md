@@ -1041,3 +1041,59 @@ bassoon is TWO instances on two ports, the flute's `Fluteb` pattern — `LGBasso
 `LGBassoonb` the last two presets + the three Ordinario curve copies. The horn (~15 presets) and
 the trumpet (~17 + mutes) the same. **Three more ports: `LGBassoonb · LGHornb · LGTrumpetb`** —
 the next step, his.
+
+---
+
+## §22. UVI as text, re-proven — a header the tool did not know, and what a `<Program>` really is
+
+**What prompted it.** *"can we see if there is a way for ai to do this, ai mentioned xml control
+before"* — the bassoon's remaining parts by the text path instead of by hand.
+
+**The experiment, and the first result: nothing.** Backup of the live chunk (`chunk` job, 46 473
+bytes) → decode → a `<Program>` with only `ProgramPath` (Ordinario's known path) into empty Part 7
+→ `encode --push` → `set: true` — and the read-back byte-identical to the state before. A full-body
+clone (Part 6's Program, 96 611 bytes, name and path repointed) plus a control edit (an empty
+part's gain −3 dB): the same nothing. A control on a LOADED part (Part 6 gain −3 dB): nothing.
+Reaper accepted each chunk (`bytesBack` changed); UVI kept its old state every time.
+
+**The cause was in the tool.** The state's header here is **496 bytes** — a 288-byte Reaper
+prefix · LE size fields at 288 and 300 · the VST2 fxBank wrapper `VstW … CcnK <BE byteSize>
+FBCh … UVIW …` · `<BE 12 + compressed> "UVI4" <LE version> <LE xml length>` · the zlib stream ·
+a short zero tail (8–14 bytes). Piece #5's §49 read a 312-byte header with two LE fields at 296
+and 308, and `rebuild()` rewrote only LE fields within 64 of the old compressed length. Against
+this layout it rewrote NOTHING (the four fields sit at +204 LE, +188 LE, +164 BE, +12 BE) and
+dropped the tail, so every push carried stale sizes and UVI discarded it. **Piece #5's committed
+rack has the SAME 496-byte header on the flute** — its 0k.3 proof either predates a UVI update or
+passed on a length that happened not to matter. Either way the tool there has the same flaw
+(NITS: carry the fix back). Fixed in `tools/uvi_state.js`: the compressed length is read from the
+BE field before `UVI4` and trusted only if that exact slice inflates; every field past 288 in
+either byte order with k ≤ 256 is rewritten in its own order; the tail is preserved.
+**Proof 1:** the unchanged round trip pushed, read back identical. **Proof 2:** Part 6 gain → −3 dB
+pushed, read back **−3 dB**, then restored.
+
+**Then the real answer, in three pushes with the meters as witness** (`peakwatch_lgmf.lua`,
+2.5 s, + `port_note_probe.ps1` note 48 vel 100 on the part's channel):
+1. **Path only** → Part 7 shows "Bassoon Ordinario", 2 487 bytes, **0 sample players**; the note
+   on ch 7: **−154 dB, silence.** UVI keeps the element as a labeled EMPTY program.
+2. **Full body cloned from Flatterzunge, path repointed to Ordinario** → Part 7 shows "Bassoon
+   Ordinario" with **20 sample players and 98 191 bytes = Flatterzunge's body**; the note on ch 7:
+   **+1.5 / +2.0 dB**, the ch 6 control +1.4 / +1.8. It sounds — and it is a flutter-tongue
+   wearing an Ordinario label.
+3. The test program removed; instance 1 back to his six parts.
+
+**What a `<Program>` is, settled:** the serialized program itself. `ProgramPath` is a label UVI
+writes, not a reference it loads. **Therefore:** a preset the GUI has loaded once can be
+**cloned, moved, re-channelled and re-instanced as text**, proven with audio; a preset never
+loaded cannot be conjured by path. **The by-hand work is exactly one load per preset, never
+twice** — 18 for the bassoon — and every copy (the Ordinario curve parts), every move to the
+`b` instance, every gain and bypass is the AI's. Cross-instance cloning (a body from instance 1
+into `Bassoon SI2 b`) is the same operation and will be proven on its first use.
+
+**A hazard, named:** a push REPLACES the whole instance state. His GUI edits made between my decode
+and my push would be lost (a 1–2 s window here, nothing lost — parts 1–6 intact in every read).
+Protocol from now: he says "done loading" before I touch an instance; I say "yours again" after.
+**Also seen:** vel 100 peaks at **+1.5 dBFS** on both parts — the SI2 samples are hot; 0d's
+CC7 law and the faders own that, not today.
+
+**Rejected on the way:** guessing preset paths for the horn (a wrong path = a modal dialog inside
+Reaper = the bridge stalls); MIDI program change into UVI parts (not a loader in Workstation).
