@@ -1522,3 +1522,28 @@ last save (22:51, Small Metals (C) on Percussion) untouched.
 
 ---
 
+## §36. The missing step, named — the load happens only in the plugin's own browser; a state bank makes it once per family
+
+**What prompted it.** *"I saw the dragon drums in the menu above as you were trying but it was not loaded what is going on
+there, what is the final missing step, the load"*.
+
+**What he saw:** the META name is the plugin's title — the push relabeled the instance "Dragon Drums (C)" while it still
+held the fourteen small metals (§35, variant 1). A label, not a load.
+
+**Asked of the host:** `TrackFX_GetPresetIndex` → **0 presets**, `TrackFX_GetPreset` → ""; 2 152 automatable parameters
+(Expression · Dynamics · Reverb · Release · Tightness · Vibrato · Simple Mix …), none of them a loader. So Reaper cannot
+tell this plugin to load a preset either. **The only loader is the plugin's own browser — the GUI click** (or a GUI
+automation of that click, which is possible but fragile and not worth building for a handful of loads).
+
+**Why:** the state format holds what is loaded (the articulations with their mixes and triggers), not a reference to load
+from. The encrypted `.zpreset/.zmulti` files (§33) are read only by the plugin's browser. UVI is the same (§22); Kontakt
+loads by path through its Lua API (§29) and is the exception.
+
+**The design that follows — a state bank:** one GUI load per preset FAMILY the piece uses, then `aro_state.js decode` into
+`bank/aro_states/<family>.aro.xml`; from then on any request ("Dagu drums") is `clone`/`encode --push` from the bank, no
+click. The first entry captured now: `bank/aro_states/small_metals_C.aro.xml` (his load of 22:07, the five he named
+inside it). Dragon Drums (C) joins the bank the day he loads it once. Whether a banked state pushes cleanly into a
+FRESH instance (inserted by `make_tracks.lua`, never loaded) is the one thing still to prove — at the percussion build.
+
+---
+
