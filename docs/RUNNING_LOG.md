@@ -2352,3 +2352,19 @@ sends nothing for any of them. Palette 168 · written-pitch 10, green.
 harness, not the app.
 
 ---
+
+## §59. 0d.6 — his ear on the chord: "sounds good" (2026-09-18)
+
+**What prompted it.** *"saved, go."* A C-major chord spread across all seven pitched instruments — Db 48 · Vc 55 · Hn 55 ·
+Bsn 60 · EH 64 · Tpt 67 · Vib 76 — at **velocity 64**, the anchor, held six seconds through the probe harness (CC0 for the
+Xsample presets 300 ms ahead; no CC7 anywhere; no app, nothing recorded), on the rack as trimmed in §58 and saved.
+
+**His verdict: *"sounds good."*** The pitched balance at the quiet level is judged by the one judge the plan names (0d.6).
+It is the first balanced sound of the piece and the first time he has heard the ensemble at all.
+
+**What this closes and what it does not.** Closed: 0d.1 the REC track · 0d.2 the schedule and the pre-flight · 0d.3 the
+run and its measurement · 0d.4 the trims, applied and read back · 0d.6 for the PITCHED group at the anchor. Open: **0d.5,
+the velocity remap** (#5's method, D13 — `tools/velocity_remap.js` carried over and not yet pointed at this bank's shape),
+and **the percussion has not yet been heard against the winds** — its trims are the fff = fff rule's, unjudged.
+
+---

@@ -71,7 +71,7 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   *Why:* the recipes ARE how the AI and the app produce the right MIDI for each sound.
 
 - **0d — Ensemble balance: the trim and the remap from one measured run** — `designed 2026-09-18
-  (RUNNING_LOG §44–§46), building` — *(his restatement, 2026-09-18: "our goal is to produce a
+  (RUNNING_LOG §44–§46); measured, trimmed and judged 2026-09-18 (§47–§59); 0d.5 the remap open` — *(his restatement, 2026-09-18: "our goal is to produce a
   realistic demo and have realistic arual feedback for me during composing phase, so for example
   if I'm listening to a chord needs to be balanced in ensemble so I can hear the harmony
   realisticly and make choices, but this is not the #1 priority I don't want to overinvest but
@@ -121,22 +121,22 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   remap the app reads).
 
   **The running order** (► = active):
-  1. ► **0d.1 — the REC track.** `reaper/bridge/jobs/make_rec_track.lua`: one track at the end with
+  1. ☑ **0d.1 — the REC track** (§49–§50, a receive bus; REC = MASTER to the decimal). `reaper/bridge/jobs/make_rec_track.lua`: one track at the end with
      a receive from all 26, its own master send off (no doubling), record mode output-stereo, armed.
      **Needs his Reaper open with the bridge alive**, and the script parse-checked through the
      bridge first (§28's rule).
-  2. **0d.2 — the schedule** for this palette: the six pitched instruments' ordinary voice at three
+  2. ☑ **0d.2 — the schedule** (§47–§48, 747 notes; the clipping pre-flight §51–§52) for this palette: the six pitched instruments' ordinary voice at three
      pitches × six velocities (CC7 full) and × six CC7 values (velocity fixed; on the `b` / curve
      channel where the recipe names one) — the Xsample three repeated, they scatter ±2–4 dB by round
      robin — plus, per percussion instrument, up to three representative keys × four velocities.
-  3. **0d.3 — run it** (his Reaper recording; ~600 notes, ~20 min) and **analyze** →
+  3. ☑ **0d.3 — run it** (§53–§56: 26.8 min recorded; horn/trumpet re-measured after their Dynamic Amount knob) (his Reaper recording; ~600 notes, ~20 min) and **analyze** →
      `bank/balance.json`.
-  4. **0d.4 — the trims onto the faders** (through the bridge) and into the recipes as `balanceDb`
+  4. ☑ **0d.4 — the trims onto the faders** (§57–§58: two anchors — pitched at the quiet level, percussion fff = fff; fader + JS Volume FX) (through the bridge) and into the recipes as `balanceDb`
      (the record only — the app sends nothing for them). ⚠ `sandbox/instruments.js` still carries
      #5's `balanceDb: -1` on the cello, a copy-forward leftover: it is replaced by measurement here.
-  5. **0d.5 — the remap** computed and wired into the app (`score/public/velocity_remap.js`, shared
+  5. ► **0d.5 — the remap** computed and wired into the app (`score/public/velocity_remap.js`, shared
      by the page and the tools, as #5's §117).
-  6. **0d.6 — his ear.** A chord, at the quiet level, all seven. **He judges; the numbers do not.**
+  6. ☑ (pitched) **0d.6 — his ear** — *"sounds good"* on the velocity-64 chord, §59; **the percussion against the winds not yet heard.** A chord, at the quiet level, all seven. **He judges; the numbers do not.**
      *(The one verification this plan names as required — AI_METHODOLOGY's verified-claim rule.)*
   *Result when done:* the same written dynamic is the same loudness on every instrument, the
   percussion included; he can hear a chord as harmony while composing. Moved back to phase 1 at
