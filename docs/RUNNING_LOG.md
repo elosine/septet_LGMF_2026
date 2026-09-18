@@ -2795,3 +2795,43 @@ dropped set that still has all three instruments. Below it the piece gains reach
 reverse. **Not decided — his:** whether the bassoon needs to be in the harmonic-series material at all, or whether it works
 in the tempered layer while the horn and trumpet hold the series.
 
+
+### §63i — every fundamental C0–C3 ranked, and the discovery of the B0 FLOOR (2026-09-18)
+
+**His ask:** the same chart taken down to **C0**, ordered by partials covered. All 37 fundamentals from C0 to C3 scanned
+(all twelve pitch classes, not only the trumpet’s seven), same rules and real ranges as §63b. Two extra measures added
+because raw coverage turned out to be misleading: how many of the covered partials are **ODD**, and how many of the six
+deviant partials (5 7 10 11 13 14) are reachable.
+
+**The head of the list:**
+
+| root | covered | odd | deviant | players |
+|---|---|---|---|---|
+| **B0 · C1** | **19** | 7 | **6/6** | horn + trumpet |
+| C0 | 19 | **0** | 2/6 | horn + trumpet |
+| C♯1 · D1 · E♭1 · E1 · F1 · F♯1 | 15 | 7 | 6/6 | horn (+ trumpet on F♯) |
+| C♯0–F♯0 | 15 | **0** | 2/6 | horn (+ trumpet on F♯) |
+| G1 · A♭1 · A1 | 14 | 6 | 6/6 | horn + trumpet |
+| **B♭1** | 14 | 6 | 5/6 | **all three** |
+| G0 · A♭0 · A0 | 14 | 0 | 2/6 | horn + trumpet |
+| B♭0 | 13 | 0 | 2/6 | horn + trumpet |
+| B1 · C2 | 12 | 4 | 4/6 | **all three** |
+| C♯2–C3 | 8 | 4 | 2/6 | — / all three from F♯2 up |
+
+**THE FINDING — B0 is a floor, and it is absolute.** The horn’s lowest tube is **B0**. For any root below it there is no
+tube at or below the root, only one an octave above, and a tube above the root yields **EVEN PARTIALS ONLY**. So every
+fundamental in octave 0 from C0 to B♭0 has **odd = 0**: no 5th, no 7th, no 11th, no 13th, on any instrument. **C0 ties B0
+and C1 at 19 partials covered and is worth nothing** — nineteen even partials are just the series of C1 relabelled.
+**Raw coverage is the wrong measure below B0; the odd count is the real one.**
+
+**The three tiers, plainly.**
+
+1. **B0 · C1 — the richest.** 19 partials, all six deviant ones, horn and trumpet. No bassoon.
+2. **B♭1 — the richest with everyone.** 14 partials, 5 of 6 deviant (loses only the 13th, which is above the horn’s F5),
+   and the only root in the top half where the bassoon is live. It remains the pivot found in §63h.
+3. **Octave 0 below B0 — dead.** High counts, zero character.
+
+**Still his:** whether the bassoon belongs in the harmonic-series layer at all. If it does not, **B0 and C1 are the best
+roots in the piece** — and they are far below the double bass’s E1, so they would be VIRTUAL fundamentals, sounded by
+nobody and only implied by the partials above them. That is a real compositional option and it has not been discussed.
+
