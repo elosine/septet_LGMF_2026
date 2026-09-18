@@ -2702,3 +2702,23 @@ their harmonic series, what matters is which pairs SHARE partials:
 fourth/fifth chains (§63d) and the three octaves are the only places the ensemble can come to rest; the other 38 pairs are
 all live. **His to say:** whether rest is wanted at all, and if so whether C2·G2·C3 is where the piece rests.
 
+
+### §63f — the horn’s partials above the sample library: not weaker, and on B♭1 they are its SAFEST register (2026-09-18)
+
+**His question:** *"are the horn ones that are not part of the sample similar in strength or did they get quite a bit weaker
+up there?"* — meaning partials 7–12 on B♭1 (G4 B♭4 C5 D5 E♭5 F5), which the SI2 library cannot play.
+
+**Not weaker — stronger, and more secure than average, for a specific reason.** **B♭1 is the B♭ horn’s OPEN fundamental.**
+Partials 7–12 of B♭1 are therefore the open B♭ horn’s own upper series — no valves, and on the side of the double horn that
+exists precisely to make the high register secure. This is the most reliable high-register playing the instrument offers.
+Partials 8–12 are also where ordinary orchestral horn writing lives; they project more, not less.
+
+**The real cost is not strength — it is QUIET.** Soft playing gets harder as the partials crowd: the lip has less room, and
+attacks at the top are exposed. A pianissimo F5 (partial 12) is a genuine ask, and this is a delicate, quiet piece
+(LG-2, LG-13).
+
+**Consequence for the mock-up.** Nothing changes about the writing; the gap is the library’s. Anything above F4 is inaudible
+in the mock-up, so a passage using the horn’s 7th–12th partials on B♭1 cannot be auditioned as written. **Not resolved — an
+option if it ever matters: a second horn instance an octave down for audition only, or accept that those notes are heard
+only in the room.**
+
