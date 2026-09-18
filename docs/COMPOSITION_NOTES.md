@@ -689,6 +689,42 @@ That is a wide two-hand span near the practical limit and it puts both bows on t
 confirming with the player** — the alternative at the same ratio is A♭3 (ten semitones below bow 1) or A♭4, which is two
 semitones away and too close to bow.
 
+### LG-25 · 2026-09-18 — CHORD 5 (on B1): the CELLO TAKES A DOUBLE STOP; vibraphone pairs offered
+
+> *"5: vc Eb4, vc A4, Eb5 EH, candidates for vibes that can be played together"*
+> — composer, 2026-09-18, session 3, typed
+
+**Chord 5 so far:** double bass **B1** · bassoon **E♭4** (partial 5, −14) · horn **A4** (partial 7, −31) · trumpet
+**E♭5** (partial 10, −14) · **english horn E♭5** tempered, beating with the trumpet · **cello E♭4 AND A4 — a DOUBLE
+STOP**, doubling the bassoon and the horn at once. **Open: both vibraphone bows.**
+
+*AI reading:* **the cello playing two notes is new in the set** and it changes the arithmetic — seven players are now
+carrying nine voices. The double stop is playable: E♭4 on the D string and A4 on the A string, adjacent strings in thumb
+position, a tritone apart. It also means the cello is doubling BOTH the −14 and the −31 simultaneously, so **one player
+holds two beating pairs at once** — and whether each is just or tempered is a separate choice per note, which a single bow
+stroke makes hard to vary. **His to settle.**
+
+**The vibraphone pairs — what can actually be bowed together.** Two constraints: span (about a twelfth at most) and row
+(two bars on the SAME row crowd each other when close; opposite rows never collide). Ratios already used in the set:
+12/7 · 8/7 · 9/7 · 17/14 · 9/5 · 17/10. **Only 19/14 (partial 19, D6) is still unused.**
+
+| pair | pitches | span | rows | ratios vs the horn’s A4 |
+|---|---|---|---|---|
+| **18 + 19** | C♯6 + D6 | 1 st | opposite — easiest | 9/7 · **19/14 NEW** |
+| **12 + 19** | F♯5 + D6 | 8 st | opposite | 12/7 · **19/14 NEW** |
+| 9 + 19 | C♯5 + D6 | 13 st | opposite, wide | 9/7 · **19/14 NEW** |
+| **3 + 4** | **F♯3 + B3** | 5 st | opposite | 12/7 · 8/7 — **fills the 28-semitone hole between B1 and E♭4** |
+| 6 + 8 | F♯4 + B4 | 5 st | opposite | 12/7 · 8/7 |
+| 8 + 9 | B4 + C♯5 | 2 st | opposite | 8/7 · 9/7 |
+| 12 + 16 | F♯5 + B5 | 5 st | opposite | 12/7 · 8/7 |
+
+**Avoid:** B5 + C6 (1 st, same row) · C6 + D6 (2 st, same row) · any octave pair such as F♯4 + F♯5 or B4 + B5 — twelve
+semitones AND the same row, the worst combination.
+
+**The register choice is the real one.** Every pair above sits either at the TOP (thin, bright, barely any weight) or in
+the 28-semitone HOLE this chord shares with chord 3 (dark, resonant, and it would be the first time the vibraphone has
+been put low). Chords 1–4 have all kept the vibraphone high.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
