@@ -730,6 +730,29 @@ semitones AND the same row, the worst combination.
 the 28-semitone HOLE this chord shares with chord 3 (dark, resonant, and it would be the first time the vibraphone has
 been put low). Chords 1–4 have all kept the vibraphone high.
 
+**CHORD 5 RESOLVED (2026-09-18).** *"9 + 19 C♯5 + D6 — playable? then this one."* **Yes** — thirteen semitones is an
+octave and a semitone, well inside a two-hand span, and C♯ is on the upper row while D is on the lower, so the two bows
+never compete for the same edge. The “wide” flag in the candidate table was over-cautious and is withdrawn.
+
+| player | pitch | partial | cents | what it is |
+|---|---|---|---|---|
+| double bass | B1 | 1 | 0 | the fundamental |
+| bassoon | E♭4 | 5 | −14 | just |
+| cello (lower) | E♭4 | — | double stop | with the bassoon |
+| horn | A4 | 7 | −31 | just |
+| cello (upper) | A4 | — | double stop | with the horn |
+| **vibraphone (bow 1)** | **C♯5** | **9** | +4 | 9/7 against the horn — supermajor third |
+| trumpet | E♭5 | 10 | −14 | just |
+| english horn | E♭5 | — | tempered | beats with the trumpet at ≈14¢ |
+| **vibraphone (bow 2)** | **D6** | **19** | −2 | **19/14 against the horn — the last unused ratio in the set** |
+
+*AI reading (mine, not his):* **chord 5 is the first chord where the vibraphone doubles nothing.** In chords 1, 3 and 4 one
+bow was always a tempered unison beating against a wind; here both bows are independent partials, so the vibraphone stops
+being the beating reference and becomes a voice. The beating work passes entirely to the **cello’s double stop**, which
+holds both the −14 and the −31 at once, and to the english horn on the trumpet. **The chord is also the most spread of
+the set** — B1 then nothing until E♭4 (28 semitones), a dense middle of E♭4 · A4 · C♯5 · E♭5, then a leap of eleven
+semitones to D6 alone at the top. Two holes and one cluster.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
