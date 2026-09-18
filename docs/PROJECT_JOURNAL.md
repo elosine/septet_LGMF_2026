@@ -145,6 +145,31 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   instrumentation), accented long tones beating against generated sines, rapid one-bow string arpeggios, ostinatos on a
   pitch cell, and **a new notation writing the glissando as BEATING SPEED or timbre rather than pitch deviation** (NX-6).
 
+### SESSION 3 — 2026-09-18 (Opus; postclear) — **PHASE 1 OPENED: THE SIX CHORDS BUILT**
+
+- **No engineering. All compositional.** The record is COMPOSITION_NOTES **LG-16 … LG-26** (his words + the tables) and
+  RUNNING_LOG **§62–§65** (the reasoning). **The lab journal now explicitly continues through composing** at his word —
+  written into CLAUDE.md and agent memory: *"lab notes so if I want to come back and write a paper on how I wrote this piece."*
+- **LG-16 the harmonic spine:** **E1 A1 D2 G2 C2 G2 D2 A1 E1** as roots — the bass and cello open strings, an arch about C2.
+- **The instrument analysis (§62–§64b):** brass are trained equal-tempered and adjust FOR the natural; a brass natural
+  harmonic needs the TUBE to be the root; the bassoon fingers its own fundamental; **the strings can hold any deviation by
+  ear**, which is what made the chords possible. **B♭1 is the only fundamental where horn, trumpet and bassoon can each hold
+  a DIFFERENT deviation.**
+- **LG-17 the two categories:** instruments that HOLD a harmonic (horn · trumpet · bassoon) and ones that BEAT against it
+  (vibraphone · english horn); strings either way.
+- **LG-18 the six fundamentals and the leitmotif:** **B♭1 · A1 · C2 · G♯1 · B1 · F♯1**, which ARE the **semi-cluster
+  F♯–G♯–A♭–B♭–B–C, C on top, transposable to any octave** — a reference harmony.
+- **LG-19…LG-26: all six chords scored**, eight or nine voices each. The bass holds the fundamental throughout; the just
+  partials are doubled by tempered instruments so every doubling beats; the friction notes were chosen by **distance from
+  the nearest tempered interval** (his refinement of “grind”), and **no ratio was used twice**.
+- **The set rises in strangeness:** chord 2 has no 7th partial (mildest, 11–20¢ off) · chords 1 3 4 5 sit on the 7th
+  (29–37¢) · **chord 6 sits on the 11th and reaches ±49¢, the maximum**, four near-quarter-tones at once.
+- **Three constraints that did real work:** the bowed vibraphone’s two bows (span ≈ a twelfth; **close bars on the SAME row
+  collide, opposite rows never do**) · the ensemble ceiling F6 · **the SI2 horn’s F4 ceiling — most of the horn writing here
+  is playable but NOT auditionable in the mock-up.**
+- **His chat preference sharpened:** a direct question gets the fact and nothing else; explanations quarantined to a notes
+  section; **no widgets — plain markdown tables in chat**; the chord chart in row-per-chord form. In memory.
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
@@ -152,7 +177,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
 | **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). Spitfire read and pushed as text, the small metals loaded once and banked (§30–§36). **2026-09-18, session 2 (§37–§39): the clone-and-change experiments were DROPPED at his word — the script makes the tracks, he selects. The percussion rack stands: fourteen instrument tracks on `LGPerc` ch 1–14 (`make_perc_tracks.lua`; new rows duplicate his `Template`), his loads read, eight (C) presets banked, the rack as read in `bank/perc_rack.json`. All fourteen key maps DONE (§40–§42).** What remains of 0c/0e is picked up during composing at his call (§43): the percussion recipe (`perc_selection.json` — one script run when he picks the selection) · the REC track · the port's last two channels · **first sound from the APP (browser → port, never run for this piece; must be HIS Chrome — the AI's browser has no Web MIDI)** | — | — |
 | N2 | **0d — ensemble balance. DONE END TO END 2026-09-18 (RUNNING_LOG §44–§61).** Measured (747 notes, 26.8 min) · the horn/trumpet knob found (SI2 Dynamic Amount 0.70 → 1.00) · **D13** #5's mechanism stands, velocity is the dynamic, no flip to CC7 · trims on all 24 tracks under two anchors, faders + a JS Volume FX, read back · **his ear: "sounds good"** · the remap built (`bank/velocity_remap.json`, common range velocity 50–89). **0h NOT run (D14)** — phase 0 is closed. Unjudged: the percussion against the winds | — | — |
-| **► N3** | **PHASE 1, COMPOSING — the work now.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5), **with patterns connected by accelerating / decelerating some parts (LG-11, 2026-09-18)** and **offered as a rhythm choice in the strikes drawer, the final pattern editable by click — mute / re-orchestrate a note — and reshuffled (LG-12, 2026-09-18)** · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
+| **► N3** | **PHASE 1, COMPOSING — UNDER WAY.** DONE 2026-09-18 (session 3): the harmonic spine (LG-16), the two categories (LG-17), **the six fundamentals = the semi-cluster leitmotif (LG-18)** and **all six chords fully scored (LG-19…LG-26, RUNNING_LOG §65)**. **NEXT, and not yet touched: how the six chords are USED** — their order in time, their durations, what happens between them, whether they are the morph’s stations (LG-6, LG-8) or the opening’s harmony (LG-15). Also open: whether each cello doubling is just or tempered (chords 1, 3, 5). The tools he has named remain unbuilt — multitempo with accel/rit (LG-5/11/12), the pattern tool with thinning (LG-7), the morph to a held beating (LG-8), animated conductions (LG-3) | Fable to design · Opus to build | at the next mode change |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
 **Open at session end — (mid-session checkpoint, 2026-09-18, session 2, after phase 0 closed):**

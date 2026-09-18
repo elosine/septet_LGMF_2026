@@ -2933,3 +2933,43 @@ bassoon; everything above loses the horn’s 11th. B♭1 is not a preference —
 **And the fourth deviation is a string’s.** +41 (the 13th, F♯5) is reachable by no wind here; the cello takes it by ear
 (§64). So the full four-colour chord is the three winds plus one string.
 
+---
+
+## §65. The six chords built — the method, and what governed each choice (2026-09-18)
+
+**What this was.** The first compositional work on the piece. From the harmonic spine (LG-16) he chose six fundamentals
+— **B♭1 · A1 · C2 · G♯1 · B1 · F♯1**, which are the semi-cluster F♯–C read as roots (LG-18) — and over one sitting
+scored all six as chords built from each fundamental’s own natural harmonics. The notes are in COMPOSITION_NOTES
+**LG-18 … LG-26**; this entry is the reasoning.
+
+**The mechanism, arrived at in stages.**
+1. **Who can hold a just partial** (§62–§63i): horn anywhere, trumpet on seven pitch classes, bassoon only to its 6th
+   partial and only at B♭1 or above — and, the correction that mattered, **the strings anywhere by ear** (§64).
+2. **His assignment** of the three winds per chord (LG-18), which the analysis then verified as playable: all eighteen.
+3. **The double bass on the fundamental throughout** (LG-19) — all six lie on its lowest two strings.
+4. **The tempered instruments as the beating partners** (LG-19): every just partial is doubled by an instrument that
+   plays it tempered, so each doubling beats by exactly the partial’s deviation. The vibraphone cannot be anything else.
+5. **The wolf/friction partials** (LG-20), and his refinement of what “grind” means: not ratio complexity but **distance
+   from the nearest equal-tempered interval** — an interval the ear cannot name. That measure drove every remaining choice.
+
+**The rule that emerged and was then applied deliberately: do not repeat a ratio.** 17/14 (chord 1) · 9/5 and 17/10
+(chord 2) · 12/7 (chord 3) · 9/7 and 8/7 (chord 4) · 19/14 (chord 5, the last unused one) · 12/11, 16/11 and 18/11
+(chord 6).
+
+**Three constraints did real work and were not anticipated.**
+- **The bowed vibraphone’s two bows.** Span is about a twelfth, and **two bars on the SAME row crowd each other when
+  close** while opposite rows never collide — the opposite of the usual intuition. It decided G4 over G5 in chord 3
+  (LG-23) and moved chord 4’s second bow from A♭5 to A♭3 at his word (LG-24).
+- **The ensemble ceiling F6.** 27/14, the strangest ratio in the whole scheme, was reachable only once and never bowable.
+- **The SI2 horn’s F4 ceiling.** Most of the horn’s writing here is above it — playable, not auditionable (§63f).
+
+**The shape of the result.** Strangeness rises across the set. Chord 2 has no 7th partial at all and is the mildest
+(everything 11–20 cents off). Chords 1, 3, 4, 5 sit on the 7th (29–37 cents). **Chord 6 sits on the 11th and reaches
+±49 cents — the maximum possible**, with four near-quarter-tone relations sounding at once. Chord 4 introduced the
+first near-quarter-tone (the cello’s 11th at −49); chord 5 was the first where the vibraphone doubled nothing and the
+cello took a double stop; chord 6 is the only one where a single instrument beats against two winds at once.
+
+**Open and his:** whether each cello doubling is just or tempered (chords 1, 3, and both notes of 5). And **how the six
+chords are used** — nothing yet says their order in time, their durations, what happens between them, or whether they are
+the morph’s stations (LG-6, LG-8) or the opening’s harmony (LG-15).
+

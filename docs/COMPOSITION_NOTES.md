@@ -794,6 +794,48 @@ possible.** Nothing can be named: every interval sits within a few cents of the 
 (16/11) · english horn **A♭4** (18/11). That puts −49, +49 and −47 in the same chord alongside the horn’s own −49 —
 **four near-quarter-tone relations at once**, which nothing earlier in the set approaches. **His call.**
 
+**CHORD 6 RESOLVED — THE SET IS COMPLETE (2026-09-18).** *"bsn C♯3, vc F♯2, eh A♭4"*
+
+| player | pitch | partial | cents | what it is |
+|---|---|---|---|---|
+| double bass | F♯1 | 1 | 0 | the fundamental |
+| **cello** | **F♯2** | **2** | 0 | 16/11 against the horn, **+49¢ off ET** — C string, dark and resonant |
+| **bassoon** | **C♯3** | **3** | +2 | 12/11 against the horn, **−49¢ off ET** — the core of its register |
+| **english horn** | **A♭4** | **9** | +4 | 18/11 against the horn, **−47¢ off ET** — its best singing register |
+| horn | C5 | 11 | **−49** | just |
+| vibraphone (bow 1) | C5 | — | tempered | beats with the horn at ≈49¢ |
+| trumpet | E5 | 14 | −31 | just |
+| vibraphone (bow 2) | E5 | — | tempered | beats with the trumpet at ≈31¢ |
+
+*AI reading (mine, not his):* **chord 6 is the far end of the set.** Four near-quarter-tone relations sound at once —
+−49, +49, −47 and the horn’s own −49 — where chords 1–5 never exceeded ±37. **The vibraphone beats against both winds
+simultaneously** (49 cents against the horn, 31 against the trumpet), the only chord where one instrument carries two
+beating pairs by itself. And the three added voices are spread low to high in a widening stack — F♯2 · C♯3 · A♭4 — so
+the chord has a filled bottom for the first time since chord 1, closing the 28-semitone holes that chords 3 and 5 left
+open.
+
+**The six chords, complete, in his order:**
+
+| # | fundamental (bass) | bassoon | horn | trumpet | eng horn | vibraphone | cello |
+|---|---|---|---|---|---|---|---|
+| 1 | B♭1 | 5 · D4 −14 | 7 · A♭4 −31 | 10 · D5 −14 | A♭4 *dbl* | D5 *dbl* + 17 · B5 | D4 *dbl* |
+| 2 | A1 | C♯4 *dbl* | 5 · C♯4 −14 | 10 · C♯5 −14 | C♯5 *dbl* | 17 · B♭5 + 18 · B5 | 9 · B4 +4 |
+| 3 | C2 | 5 · E4 −14 | 7 · B♭4 −31 | 10 · E5 −14 | E4 *dbl* | E5 *dbl* + 6 · G4 | B♭4 *dbl* |
+| 4 | G♯1 | C5 *dbl* | 7 · F♯4 −31 | 10 · C5 −14 | 9 · B♭4 +4 | F♯4 *dbl* + 4 · A♭3 | 11 · D5 −49 |
+| 5 | B1 | 5 · E♭4 −14 | 7 · A4 −31 | 10 · E♭5 −14 | E♭5 *dbl* | 9 · C♯5 + 19 · D6 | E♭4 + A4 *double stop* |
+| 6 | F♯1 | 3 · C♯3 +2 | 11 · C5 −49 | 14 · E5 −31 | 9 · A♭4 +4 | C5 *dbl* + E5 *dbl* | 2 · F♯2 |
+
+**What the set turned out to be, read across:** the six fundamentals are the semi-cluster F♯1 G♯1 A1 B♭1 B1 C2 (LG-18), the
+double bass holds each one, and the harmony above is built entirely from that fundamental’s own natural harmonics, with
+tempered instruments placed against them to beat. **The strangeness rises through the set** — chord 2 has no 7th partial
+and is the mildest; chords 1, 3, 4 and 5 sit on the 7th at ±31–±37 cents; chord 6 sits on the 11th and reaches ±49. The
+ratios were deliberately not repeated: 17/14 · 9/5 and 17/10 · 12/7 · 9/7 and 8/7 · 19/14 · and finally 12/11, 16/11 and
+18/11 together.
+
+**Still open, the whole set:** whether each cello doubling is just (reinforcing) or tempered (beating) — chords 1 and 3,
+and both notes of chord 5’s double stop. **And nothing yet says how these six chords are used** — their order, their
+durations, what happens between them, whether they are the morph’s stations (LG-6, LG-8) or the opening’s harmony (LG-15).
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
