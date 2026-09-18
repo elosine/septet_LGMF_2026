@@ -2289,3 +2289,36 @@ the remap clamps at the loudest reachable velocity, as #5's did. Record modes re
 stopped/saved"*), so the two Dynamic Amounts are in the rack.
 
 ---
+
+## §57. 0d.4 computed — the trims under two anchors; twelve percussion boosts exceed the fader (2026-09-18)
+
+**What prompted it.** *"re probed bass already? and we resolved the percussion? then go, compute the trims."* The bass: not
+re-probed — its recipe range corrected instead (28–67 → **40–81**, his Kontakt's E1–A4 in Xsample's naming; pitch 38 was
+below the samples, 48 and 57 inside, so its measured data stands for the trim and the remap; palette 168 / written-pitch
+10 still green). The percussion: "resolved" means the rule is designed here, not that anything was pushed.
+
+**The rule (`probes/compute_trims.py`), and why it is not #5's.** #5 cut everything to the quietest instrument at one
+anchor. Here that prescribed −48 dB on the bassoon (§54), because the percussion sits ~25 dB under the winds at equal
+velocity. So: **two anchors.** The **pitched** group at the QUIET level (velocity 64, his A), target = the group's
+**median**, so the trims are small and go both ways. The **percussion** at **FULL** (velocity 127 on its anchor key —
+*fff = fff*: a tambourine at full is as loud as a horn at full, and a one-shot has no "velocity 64" comparable to a
+wind's), target = the pitched group's after-trim level at full, so the two groups meet at the top and the quiet end
+follows through velocity. Boosts allowed: 16.5 dB of margin at full on REC, the hottest source at −4.5 dBFS.
+
+**The numbers.** Pitched, target −39.5 dB: English Horn **0.0** · Horn **0.0** · Trumpet −0.2 · Bassoon **−7.8** ·
+D. Bass +5.2 · Vibraphone **+9.3** · Cello **+10.3**. Percussion, target −31.0 at full: Bass Drum Alt +5.6 · Tam Tams
++11.3 · Brake Drums +13.0 · Finger Cymbals +15.3 · Wood Blocks +15.4 · Tambourines +15.8 · Crashers +16.1 · Sleigh Bells
++17.8 · Bell Tree +21.3 · Temple Bowls +21.4 · Triangles +22.2 · Claves +25.6 · Shakers +29.8 · **Castanets +32.0.**
+Everyone at full after trim: −32.7 … −25.9 dB, a **6.8 dB spread** (it was 48 at the anchor before any trim).
+
+**The catch: Reaper's fader stops at +12 dB, and twelve of the fourteen percussion trims exceed it** — by +1 (brake
+drums) to **+20 (castanets)**. The tool splits each trim into `faderDb` (≤ +12) and `pluginGainDb` (the rest). The
+remainder belongs in the instrument's OWN gain — ARO's global gain, settable as text through `aro_state.js` exactly as
+the SI2 masters were (§52) — not in a stack of gain FX. **Not pushed: a push replaces an instance's whole state, and
+these are fourteen of his.** Written into `bank/balance.json` with the rule and the provenance.
+
+**What the castanets say.** +32 dB is not an error: the ARO castanet at full velocity on its anchor key measured −63 dB
+against the horn's −31. Either the anchor key (36, "Single L") is a soft articulation or the samples are simply quiet.
+His ear at 0d.6 is the judge; the number is the number.
+
+---

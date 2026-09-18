@@ -245,7 +245,10 @@ const INSTRUMENTS = {
   // Preset Menu** (his four screenshots, RUNNING_LOG §32): all 88 in the cello's order, Sul E / A / D / G.
   // Open strings E1 A1 D2 G2. Range 28–67 (E1–G4) is the standard compass, NOT measured — the
   // instrument sounds an octave below its written part (the notation layer's +12, step 6).
-  double_bass: { ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 2, label: "D. Bass", port: "LGBass", rangeLow: 28, rangeHigh: 67, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["E", "A", "D", "G"], 28, 67) },
+  // RANGE corrected 2026-09-18 (RUNNING_LOG §54, §57): 28–67 was the real instrument's compass, assumed; the 0d probe found
+  // pitch 38 silent and his Kontakt reads low E1 / high A4 in Xsample's naming = MIDI 40–81 (the library is sampled an octave
+  // above the written bass). The 0d probe measured 48 and 57 inside this range; 38 was below it.
+  double_bass: { ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 2, label: "D. Bass", port: "LGBass", rangeLow: 40, rangeHigh: 81, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["E", "A", "D", "G"], 40, 81) },
 };
 
 // The composer's practice (R8): the VELOCITY presets by default — the MW ones "sound different" and are
