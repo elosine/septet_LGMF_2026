@@ -283,4 +283,24 @@ is already a two-note ostinato, so the generalization is the cell's size and ord
 same for all players or each has their own; whether the ostinato's order is fixed or permuted; how it starts and stops
 (the accent, a fade, a cut).
 
+### NX-6 · 2026-09-18 — beating against generated sines; a NEW NOTATION: the glissando as beating speed or timbre, not pitch deviation
+
+> *"switch ensemble note, I'm going to have instrumentalists produce beating against sine waves generated. And I want to
+> develop a new notation that expresses the glissando in terms of beating speed or timbre rather than pitch deviation."*
+> — composer, 2026-09-18, session 2 of this piece, typed while the percussion tracks waited for his loads
+
+*AI reading (mine, not his):* NX-1's idea made a commitment (*"I'm going to"*) and given a notational consequence. The
+instrumentalist holds a tone against a **generated sine**; the two are near-unison and **beat**. The player's tiny pitch
+inflection — a glissando of a few cents — is the performance action, but **what it is FOR is the beating**, so the score
+should show the result, not the means: **a line whose height is the BEATING SPEED** (beats per second: 0 = locked unison,
+rising = faster beating, up to roughness) — **or the timbre** the interference makes — **instead of a pitch-deviation
+curve**. The reason it is the better notation: the player cannot read or feel "+7 cents", but can HEAR and steer "four beats
+a second, slowing to one"; the ear closes the loop against the sine, which is fixed and exact. Beat rate = |f_player −
+f_sine|, so the two notations are the same information — the new one is written in the player's feedback variable. It fits
+the animated scrolling score directly: the beating-speed line can be drawn, and even PULSED at the target rate as a visual
+reference (the kin of the bouncing balls, LG-5). Ground in the lineage: #5's beating tool (`docs/BEATING_TOOL.md`) computes
+beat rates between instruments; here one side is a sine, so the target is exact. **His to say:** one line or two (speed AND
+timbre); whether the direction (above or below the sine) is shown or left to the player; the range of speeds, and what marks
+the crossing from beating into roughness; whether the sine is fixed or itself moves.
+
 ---
