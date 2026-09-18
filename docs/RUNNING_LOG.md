@@ -2763,3 +2763,35 @@ the right move for a solo horn line bending through the series, and the wrong mo
 fewer instruments can hold it. −14¢ is available to all three; −31¢ to horn and trumpet; **−49¢ and +41¢ to the horn
 alone.** The ensemble narrows as the harmony bends further from tempered — which is itself a usable form.
 
+
+### §63h — the ten roots dropped an octave: the ranking does NOT survive (2026-09-18)
+
+**His question:** take the ten and drop each an octave — is the list *"still more or less the same in terms of partials
+covered? So B♭0 still the most and B0, etc."* **No. It reorders completely, and B♭0 falls from top to near the bottom.**
+
+| dropped root | horn | trumpet | bassoon | covered | was |
+|---|---|---|---|---|---|
+| **B0 · C1** | 2–16 | 8 12 16 20 24 28 32 | — | **19** | 12 |
+| F♯1 | 2–15 | 4 6 8 10 12 14 16 | — | 15 | 8 |
+| G1 · A♭1 · A1 | 2–13/14 | 4 6 8 10 12 14 16 | — | 14 | 8 |
+| **B♭1** | 2–12 | 4 6 8 10 12 14 16 | **1–6** | **14** | 8 (as B♭2) |
+| **B♭0** | 4 6 8 … 24 (even only) | 8 12 16 … | — | **13** | **14 — was the top** |
+| B1 · C2 | 1–8 | 4 6 8 10 12 14 16 | 1–6 | 12 | 8 |
+
+**Why B♭0 collapses.** The horn’s lowest tube is **B0**. B♭0 is one semitone below it, so there is no horn tube at or below
+that root — the nearest is B♭1, an octave ABOVE — and a tube above the root yields **even partials only**. B♭0 loses every
+odd partial on the horn: no 5th, no 7th, no 11th, no 13th. It goes from best root to a root with no characterful partials
+at all.
+
+**Why B0 and C1 win.** They are the horn’s lowest tubes. The root IS the tube, so every partial 2–16 is natural, and the
+trumpet adds 20, 24, 28, 32 above that. Nineteen partials — more than anything in the un-dropped list.
+
+**But the bassoon is gone.** Everything below B♭1 is outside its range, so the whole top of the dropped list is **horn plus
+trumpet only**. The bassoon survives at exactly three roots: **B♭1 · B1 · C2** — and those are simply the bottom three of the
+ORIGINAL list, unchanged.
+
+**The finding.** **B♭1 is the pivot of both lists.** It is the top of the original ten and it is the lowest root in the
+dropped set that still has all three instruments. Below it the piece gains reach and loses the bassoon; above it the
+reverse. **Not decided — his:** whether the bassoon needs to be in the harmonic-series material at all, or whether it works
+in the tempered layer while the horn and trumpet hold the series.
+
