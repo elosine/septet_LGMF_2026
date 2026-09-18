@@ -2368,3 +2368,49 @@ the velocity remap** (#5's method, D13 — `tools/velocity_remap.js` carried ove
 and **the percussion has not yet been heard against the winds** — its trims are the fff = fff rule's, unjudged.
 
 ---
+
+## §60. 0d.5 built — the velocity remap, velocity-only per D13, anchored on the ensemble median; the common range is velocity 50–89 (2026-09-18)
+
+**What prompted it.** *"ok build the remap"*, after he asked what it was and got the one-line answer: a table that makes the
+same written dynamic the same loudness on every instrument at EVERY level, not just at the one the trim fixed.
+
+**`tools/build_remap.js`** — new, reading `bank/balance.json` and writing `bank/velocity_remap.json` **in the shape
+`score/public/velocity_remap.js` already reads**, so the app side needed no change. #5's `tools/velocity_remap.js` is left
+untouched: it expects #5's `velocity_map.json` and its hybrid, which D13 rules out here.
+
+**Three decisions inside it.**
+1. **Velocity only; CC7 stays 127** (D13). #5 trimmed its layered samplers with CC7 as well; here CC7 on the main channel
+   would fight held-note shaping, and **nothing in this rack is deterministic enough for a 0.3 dB trim to mean anything** —
+   the measured note-to-note scatter runs ±1.68 (bassoon) to **±5.99 dB (vibraphone)**. So: velocity, clamped where it
+   cannot reach, and the clamps counted.
+2. **The reference scale is the ensemble's MEDIAN, not one instrument's.** #5 anchored on its violins. Doing that here
+   would make one sampler's quirks the scale everyone else must follow — the SI2 curves flatten at the top, the
+   vibraphone scatters ±6 dB. At each anchor velocity the target is the median of the pitched instruments' mid-register
+   levels, **with each instrument's 0d.4 trim folded in** (the trim is a constant on the track, so it belongs in the level
+   the remap reasons about). Target −48.5 dB at velocity 24 rising to −31.0 at 127.
+3. **The percussion is not remapped at all.** A one-shot's velocity IS its dynamic and it has no sustained reference to
+   match; its balance is 0d.4's fff = fff trim. Listed in the bank under `notRemapped` with that reason.
+
+**A guard the data forced: the dead register.** The double bass's pitch 38 was still in the bank at −74 to −78 dB — the
+previous note's tail, not the note (§54; its samples start at 40, §57). A register that can never reach the target clamps
+at its loudest velocity for every anchor and turns the table to nonsense: D. Bass showed **149 high clamps** before the
+guard. **The rule:** a register whose loudest measured level is more than `--deadgap` (15) dB below the instrument's own
+best is dropped and NAMED in the output. It dropped exactly one — *"D. Bass pitch 38 — dead register: 37.8 dB below this
+instrument's best"* — and D. Bass's high clamps fell to 45.
+
+**THE HEADLINE NUMBER, and it is an honest limit: the COMMON RANGE is anchor velocity 50 … 89.** Inside it every
+instrument can reach the ensemble target exactly — the balance is exact. Outside it somebody saturates: the bassoon
+(11.8 dB of velocity range) cannot get quieter than anchor ~50 or louder than ~89 in its own terms, the trumpet and the
+horn flatten at the top, the vibraphone cannot play as quietly as the ensemble's soft end. **The piece is a quiet one
+(LG-13) and the anchor is 64, so the usable band sits around where the music lives** — but a written *ppp* or *fff* will
+be approximate, and that is a property of the samples, not of the method. The number is in the bank as `commonRange`.
+
+**Checked through the app's own module, not just the tool:** `VelocityRemap.velocityFor(bank, …)` returns sensible,
+monotone velocities per instrument at anchors 40 · 50 · 64 · 80 · 89 · 110 (e.g. at anchor 64 — english horn 64 · bassoon
+54 · horn 60 · trumpet 66 · vibraphone 89 · cello 51 · double bass 70), `cc7For` returns 127 throughout as designed, and
+an instrument the bank lacks passes its anchor velocity through unchanged.
+
+**Not yet heard.** The chord of §59 was one level; the remap's claim is about the whole range, and the proof is his ear on
+a chord at three or four heights.
+
+---
