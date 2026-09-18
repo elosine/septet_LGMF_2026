@@ -221,4 +221,21 @@ harmonic clock and the attack streams must be separately schedulable, with a rul
 **His to say:** how fast "quick" is; whether every performer has their own tempo or the pairs share one; whether the
 calliope is a whole section or a recurring device.
 
+### NX-3 · 2026-09-18 — rapid grace-note-like cells; each harmony as one-bow string arpeggios
+
+> *"Note for the overdrive. Rapid grace note like cells. Each harmony uh, strings with arpeggios. Quick one bow arpeggios.
+> All strings with uh, harmonies."*
+> — composer, 2026-09-18, session 2 of this piece, dictated while the percussion tracks waited for his loads
+
+*AI reading (mine, not his):* the material is **cells as quick as grace notes** — a flick, not a measured figure. For the
+strings, **each harmony is delivered as an arpeggio taken in ONE bow**: the bow thrown or rolled across the strings so the
+chord's notes fire in a rapid run inside a single stroke (the family of the arpeggiando / ricochet-across-the-strings
+gesture). **All the strings do it, each on the harmony** — so a chord change is heard as a burst of these flicked arpeggios
+across the section. It sits naturally with NX-2: the quick harmonic rhythm gives the chords, and these cells are the attacks
+that fall between the changes. A practical consequence for when it is written: a one-bow arpeggio wants the chord voiced
+across adjacent strings (three or four notes, one per string, in a playable hand shape), so the orchestration of each
+harmony is constrained per instrument — a voicing rule the strikes-style orchestrator (LG-12's kin) would need to know.
+**His to say:** whether "all strings with harmonies" means every string player arpeggiates the WHOLE harmony or each takes
+their share of it; whether the winds / others have a grace-note cell of their own; up-bow, down-bow, or alternating.
+
 ---
