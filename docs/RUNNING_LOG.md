@@ -1611,3 +1611,52 @@ is now the first thing the key tracking needs.
 
 ---
 
+## §39. "done loading" — the fourteen read and banked; how he wants the replies shaped (2026-09-18)
+
+**His loads, read back (`aro_state.js info`, nothing pushed):**
+
+| Track · ch | Preset (family) | Selected inside it | Catalog entry · status |
+|---|---|---|---|
+| Finger Cymbals 1 · Bell Tree 2 · Sleigh Bells 3 · Triangles 4 · Tambourines 5 | Small Metals (C) (Metal) | 5 · 1 · 9 · 12 · 11 | skeleton · skeleton · verified · verified · verified |
+| Castanets 6 · Claves 7 · Shakers 8 | Toys (C) (High) | 0 Castanets · 1 Claves · 6 **Shakers Pairs** | verified · verified · skeleton |
+| Brake Drums 9 | Brake Drums (C) (Metal) | 2 Brake Drums - All in One | verified |
+| Crashers and Stack 10 | **Crashers and Stack (C)** (Metal) | 2 … - All in One | verified (`crashes_and_stack`) |
+| Wood Blocks 11 | Wood Blocks (C) (High) | 2 Wood Blocks - AIO | verified |
+| Bass Drum 12 | **Bass Drum (GC) (C)** (Low) | 7 **Gran Cassa** - All-in-one | `gran_cassa`, **predicted** |
+| Temple Bowls 13 | Temple Bowls (C) (Metal) | 2 … - All in One | verified |
+| Tam Tams 14 | Tam Tams (C) (Metal) | 3 **Tam Tam A** - AIO | `tam_tams_a`, verified |
+
+**What the read settles.** "crashers" was the library's spelling and his — mine ("Crashes", piece #2's catalog name) was the
+wrong one; the track and the job's row renamed **Crashers and Stack ARO**. Bass drum = the Gran Cassa; tam tams = A; shakers
+= Shakers Pairs. **The six single-instrument presets have an All-in-One articulation and he selected it** — the form piece
+#2's catalog maps were dictated from, so those six maps should hold; the small metals and the toys are instruments INSIDE a
+family preset with no All-in-One of their own, so their catalog maps are the open question for the sweep. Catalog gaps among
+his fourteen: Finger Cymbals · Bell Tree · Shakers Pairs (skeleton), Gran Cassa (predicted).
+
+**Banked:** seven new states in `bank/aro_states/` — `toys_C` · `brake_drums_C` · `crashers_and_stack_C` · `wood_blocks_C` ·
+`bass_drum_GC_C` · `temple_bowls_C` · `tam_tams_C` (with `small_metals_C`: eight presets = his fourteen instruments, all
+reproducible as text from now on, §36's design). **`bank/perc_rack.json`** records the rack as read: track · channel · preset ·
+selected articulation · banked state · catalog entry + status — the input to the sweep, later to `perc_selection.json`.
+
+**A tool trap, recorded:** `node tools/aro_state.js decode … | Select-Object -First 1` wrote NO file and exited 255 —
+PowerShell stops the upstream process once `-First` is satisfied, and `decode` writes its file after printing. The first
+banking pass silently banked nothing; the directory listing showed it. Capture the whole output, then take a line.
+
+**How he wants the replies — his words, the same message as "done loading":** *"I would like the ai replies to be clearer,
+simpler and more focused, but I also don't want to spend too much mental space getting the interaction rules right, I find
+those are hit and miss; no more things left to do, or left pending or even whats next unless I specifically ask. all of the
+footnote type analysis and alerts can we keep this quarantened to a compact section, so all of the honest this is what I had
+to do, or this is why you couldn't see etc. and lets keep the chat focused on the one thing we are doing, very goal orented
+simple buleted list like heading: building virtual orchestra : created instrument tracks (check), manually switching
+instruments etc and then what ever we are working on specifically, simple steps to end but with breif phrase on why we are
+doing what we are doing so building probe to normalize volumes for example; the next model clear dialog is good, but lets keep
+that more focused and local, only when we are moving on to something that needs a model change or clear; keep these as general
+guidelines so they survive a clear or session end but no hard rules that might block useful behavior ty"*.
+**Where it now lives:** his user-level `~/.claude/CLAUDE.md` ("The shape of a working reply", all projects) · this repo's
+CLAUDE.md § THE RHYTHM (a refinement paragraph: the chat gets lighter, the journal's next-steps table is still kept) · the
+project memory. Written as guidelines with his "no hard rules" clause carried. A reflection for the paper: the rules he
+calls "hit and miss" were each added to fix one failure (the rhythm going silent for a week, §CLAUDE.md) and their sum became
+the noise — every reply ending in a status table. The correction is not another rule but a shape.
+
+---
+

@@ -20,7 +20,7 @@ local SPEC = {   -- slug = the key in bank/aro_percussion_catalog.json ('?' = wh
   { name = "Claves ARO",            channel = 7,  slug = "toys_claves" },
   { name = "Shakers ARO",           channel = 8,  slug = "toys_shakers" },
   { name = "Brake Drums ARO",       channel = 9,  slug = "brake_drums" },
-  { name = "Crashes and Stack ARO", channel = 10, slug = "crashes_and_stack" },
+  { name = "Crashers and Stack ARO", channel = 10, slug = "crashes_and_stack" },   -- the library's spelling (and his); the catalog's slug is piece #2's
   { name = "Wood Blocks ARO",       channel = 11, slug = "wood_blocks" },
   { name = "Bass Drum ARO",         channel = 12, slug = "bass_drum ?" },
   { name = "Temple Bowls ARO",      channel = 13, slug = "temple_bowls" },

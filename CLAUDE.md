@@ -34,9 +34,11 @@ instruments COMPLETE as recipes, configured as text through the bridge (RUNNING_
 `uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **The Kontakt three have their four slots** (D11 by `reaper/kontakt/curve_slots.lua`, self-reporting, proven by
 read-back — RUNNING_LOG §26–§29; **parse-check every Kontakt script through the bridge first**, §28). **Their Xsample recipes are real** (§32: the english horn's 36 presets from his menu; the double bass's 88 verified = the
 cello's; palette 159 / written-pitch 8 green). **Spitfire is read and pushed as text** (`tools/aro_state.js`, RUNNING_LOG §34–§36: a loaded preset clones to any track; a
-never-loaded family needs one GUI load; the bank `bank/aro_states/`). **Next, at his word: the clone-and-change experiments
-with his screenshots, then a key-mapping method (journal §2), then the percussion tracks + recipe, the REC track, first
-sound** — then 0d / 0h.
+never-loaded family needs one GUI load; the bank `bank/aro_states/`). **The percussion rack stands (2026-09-18, RUNNING_LOG
+§37–§39): fourteen instrument tracks on `LGPerc` ch 1–14** (`reaper/bridge/jobs/make_perc_tracks.lua` — new rows duplicate his
+`Template` track), his loads read and banked (eight (C) presets in `bank/aro_states/`; the rack as read: `bank/perc_rack.json`).
+**Next: the key sweep — which keys sound and what each is — then the percussion recipe (`perc_selection.json`), the REC
+track, first sound** — then 0d / 0h.
 
 ## READ FIRST — how to work here
 
@@ -116,6 +118,15 @@ piece #5 (he named "this piece and the next piece" when he started it); this pie
 in no septet session for a week and the advice came only sometimes — his own verdict,
 2026-09-10: "This was happening for a while, but then is inconsistent." It is carried here
 from the first commit, deliberately.)*
+
+**REFINED by him, 2026-09-18 (guidelines, not hard rules — his user-level CLAUDE.md, "The shape of a working reply"):**
+*"the next model clear dialog is good, but lets keep that more focused and local, only when we are moving on to something
+that needs a model change or clear"* — and *"no more things left to do, or left pending or even whats next unless I
+specifically ask."* So **in the CHAT:** model / clear advice only at a real switch point, one or two lines; no next-steps
+list unless he asks; replies are a goal heading, a short ✓ trail, the one thing in hand with a brief why per step, and ONE
+compact notes section at the bottom for the honest side-matter. **In the DOCS nothing changes:** journal §2's NEXT STEPS ·
+MODEL · CLEAR table is still kept current — it is the handoff, and it is what makes the chat free to stay on one thing.
+The paragraph below is the 2026-08-23 original; read it through this.
 
 At every juncture — a chunk wrap, a milestone, a mode change (execution ↔ conversation),
 or when asked "where are we" — the AI **states the next 2–4 logical steps, each with a
