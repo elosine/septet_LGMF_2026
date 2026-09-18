@@ -46,14 +46,14 @@ const INSTRUMENTS = {
   // every preset, NOT read — 0d measures them (the flutter, multiphonic and noise presets will be narrower, as the
   // bass clarinet's were). `ordinary` = senza_vel, the bass clarinet's choice (a steady pitch for a beating partner);
   // his to flip to vib_vel.
-  english_horn: { ordinary: "senza_vel", beating: true, playerBendSt: 1, bendRangeSt: 2, label: "English Horn", port: "LGEngHorn", rangeLow: 52, rangeHigh: 81, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsEnglishHornTechs(52, 81) },
+  english_horn: { balanceDb: 0.00, ordinary: "senza_vel", beating: true, playerBendSt: 1, bendRangeSt: 2, label: "English Horn", port: "LGEngHorn", rangeLow: 52, rangeHigh: 81, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsEnglishHornTechs(52, 81) },
 
   // ---- BASSOON — IRCAM Solo Instruments 2 (UVI) ----
   // Manual: "Instrument part to be written at actual pitch"; range in sounding pitches Bb1–Eb5
   // = MIDI 34–75. The roster below is the manual's own list. On UVI a channel IS a technique, so
   // the curve channels of D11 are technique COPIES on a second instance (piece #5's flute did
   // this on a `Fluteb` port): here `Bassoon SI2 b` on `LGBassoonb`, made as text (RUNNING_LOG §24).
-  bassoon: {
+  bassoon: { balanceDb: -7.79,
     label: "Bassoon", port: "LGBassoon", rangeLow: 34, rangeHigh: 75,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
     channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
@@ -90,7 +90,7 @@ const INSTRUMENTS = {
   // ---- HORN in F — IRCAM Solo Instruments 2 (UVI) ----
   // Manual: "Instrument part to be written a perfect fifth higher" — this is the SOURCE for the
   // ensemble registry's transpose: +7 (step 6). Range in sounding pitches B1–F4 = MIDI 35–65.
-  horn: {
+  horn: { balanceDb: -0.01,
     label: "Horn", port: "LGHorn", rangeLow: 35, rangeHigh: 65,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
     channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
@@ -132,7 +132,7 @@ const INSTRUMENTS = {
   // PART is written in C or in B♭ is the composer's call at 2a; the library is unaffected.
   // Range in sounding pitches F#3–Bb5 = MIDI 54–82. The four mutes (cup · harmon · straight · wah-wah)
   // are KS presets of the trumpet in the browser and he loaded them — they are techniques below.
-  trumpet: {
+  trumpet: { balanceDb: -0.17,
     label: "Trumpet", port: "LGTrumpet", rangeLow: 54, rangeHigh: 82,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
     channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
@@ -223,7 +223,7 @@ const INSTRUMENTS = {
   // 2026-09-18 — notation/registry/ensemble.json part 5).
   // `ordinary` = bowed_vel (#12 Bowed Velocity), HIS CHOICE 2026-09-18, because the opening is bowed and a
   // bowed tone is the steady partner a beating needs. #7 is the same bow with vibrato on CC4.
-  bowed_vibraphone: {
+  bowed_vibraphone: { balanceDb: 9.30,
     ordinary: "bowed_vel", beating: true, playerBendSt: 0, bendRangeSt: 2,
     label: "Vibraphone", port: "LGVibes", rangeLow: 53, rangeHigh: 89, mechanism: "cc0",
     channels: { main: 1, curve: [2, 3, 4] },
@@ -236,7 +236,7 @@ const INSTRUMENTS = {
   // name changes, and only because loopMIDI ports are machine-global (see the header).
   // The full Xsample roster is 88 presets, identical across the instruments except the string
   // names; CC#0 = preset − 1. Channels per D11: 1 main · 2–4 curve A/B/C.
-  cello: { balanceDb: -1, ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 2, label: "Cello", port: "LGCello", rangeLow: 36, rangeHigh: 83, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["C", "G", "D", "A"], 36, 83) },
+  cello: { balanceDb: 10.29, ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 2, label: "Cello", port: "LGCello", rangeLow: 36, rangeHigh: 83, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["C", "G", "D", "A"], 36, 83) },
 
   // ---- DOUBLE BASS — Xsample (D6: "use xsample double bass") ----
   // The cello's model, deliberately: one string mechanism for the PAIR (LG-1), the same CC#0
@@ -248,7 +248,7 @@ const INSTRUMENTS = {
   // RANGE corrected 2026-09-18 (RUNNING_LOG §54, §57): 28–67 was the real instrument's compass, assumed; the 0d probe found
   // pitch 38 silent and his Kontakt reads low E1 / high A4 in Xsample's naming = MIDI 40–81 (the library is sampled an octave
   // above the written bass). The 0d probe measured 48 and 57 inside this range; 38 was below it.
-  double_bass: { ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 2, label: "D. Bass", port: "LGBass", rangeLow: 40, rangeHigh: 81, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["E", "A", "D", "G"], 40, 81) },
+  double_bass: { balanceDb: 5.25, ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 2, label: "D. Bass", port: "LGBass", rangeLow: 40, rangeHigh: 81, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["E", "A", "D", "G"], 40, 81) },
 };
 
 // The composer's practice (R8): the VELOCITY presets by default — the MW ones "sound different" and are

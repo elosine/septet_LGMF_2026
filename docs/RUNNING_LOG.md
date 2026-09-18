@@ -2322,3 +2322,33 @@ against the horn's −31. Either the anchor key (36, "Single L") is a soft artic
 His ear at 0d.6 is the judge; the number is the number.
 
 ---
+
+## §58. 0d.4 applied — 24 tracks trimmed and read back; ARO's gain ruled out (CC7-bound and capped at unity); the remainder in a JS Volume FX (2026-09-18)
+
+**What prompted it.** *"a; but there was something from piece 5 that cc7 reset the si2 instance faders I think? so we
+couldn't use those for any compensation. lets check that that isnt the case for spitfire."* — then *"ok js vol good."*
+
+**His memory was right, and it holds for Spitfire.** The castanets' state, decoded: `<PARAM id="g_gain" value="1.0"
+cc="7" ccFrom="0.0" ccTo="1.0" …/>` — ARO's global gain is **bound to CC7** (any CC7 on that channel overwrites it, #5's
+§373 trap exactly) **and its range tops out at unity**, so it could not boost even if unbound. The nine `rr_gain`
+settings are per-round-robin, also unity-capped. So §57's "option A" (the remainder into the plugin) was wrong and is
+withdrawn. **Lever chosen:** the Reaper fader for the first +12 dB, and a stock **"JS: Volume Adjustment"**
+(`utility/volume`, param 0 "Adjustment (dB)") on each track that needs more — Reaper-side, no MIDI binding, saved in the
+rack, read back through the bridge. Nothing inside any plugin is touched, so no push and no "yours again" (defined for
+him at his ask: a push replaces an instance's whole saved state, so he must not be editing inside that plugin's window
+at that moment — that is all the phrase meant).
+
+**Applied — `apply_trims.lua`, generated from `bank/balance.json`, 24 tracks, `ok: true`, every value read back:**
+pitched EH 0.00 · Hn −0.01 · Tpt −0.17 · Bsn −7.79 · Db +5.25 · Vib +9.30 · Vc +10.29 — the SI2 `b` instances carrying
+their instrument's trim (the same instrument, its curve copies). Percussion: Bass Drum Alt +5.60 and Tam Tams +11.32 on
+the fader alone; the other twelve at +12.00 on the fader plus the JS FX at +1.03 (brake drums) … **+20.02 (castanets)**,
+each within 0.05 dB of what was asked. **Not saved — his CTRL+S.**
+
+**The record:** `balanceDb` written into every pitched recipe in `sandbox/instruments.js` (the cello's copy-forward `−1`
+replaced by its measured +10.29); the percussion's `trimDb / faderDb / jsVolumeDb` into `bank/perc_rack.json`. The app
+sends nothing for any of them. Palette 168 · written-pitch 10, green.
+
+**Next is his ear (0d.6), before the remap:** a chord, every pitched instrument at velocity 64, held — through the probe
+harness, not the app.
+
+---
