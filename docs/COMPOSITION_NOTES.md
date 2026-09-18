@@ -267,4 +267,20 @@ piece or of its sound, not of the players. It closes NX-1's open question. What 
   (#5 · #3 · #2); **new to acquire or map:** bass flute · piccolo · B♭ clarinet · alto and baritone saxophone · violin
   (Xsample has it, #1's library).
 
+### NX-5 · 2026-09-18 — like the Scattered Substance trills, but ostinatos on a pitch cell
+
+> *"for switch ensemble had something like the trills from the scattered substance, but have ostinatos on a pitch cell."*
+> — composer, 2026-09-18, session 2 of this piece, typed while the percussion tracks waited for his loads
+
+*AI reading (mine, not his):* a second variant of the *Scattered Substance* trill gesture, beside NX-1's. There the (accented)
+trill was replaced by a HELD tone against a sine; here it is replaced by an **ostinato on a pitch cell** — where a trill
+alternates two notes, the player cycles a small fixed set of pitches (three, four, a few) as a repeating figure, entering
+and behaving as the trills did in that piece (accented onsets, scattered across the ensemble). So one source gesture yields a
+family: trill (the original) → long tone + sine, beating (NX-1) → ostinato on a cell (NX-5). It connects to NX-3 (the rapid
+grace-note-like cells — a cell played once is a flick; played in a loop it is this ostinato) and to NX-2 (each player's
+ostinato on its own tempo is the calliope). #5's trills tool (`docs/TRILLS_TOOL.md`) is the likely starting point: a trill
+is already a two-note ostinato, so the generalization is the cell's size and order. **His to say:** whether the cell is the
+same for all players or each has their own; whether the ostinato's order is fixed or permuted; how it starts and stops
+(the accent, a fade, a cut).
+
 ---
