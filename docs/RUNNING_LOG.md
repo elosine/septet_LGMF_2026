@@ -1575,3 +1575,39 @@ his loads are read.
 
 ---
 
+## §38. Nine more, duplicated from HIS Template; his first five loads read — the selection is text (2026-09-18)
+
+**What prompted it.** *"please use the track called Template to duplicate; castanets, claves, shakers, brake drums,
+crashers/stacks, wood blocks, bass drum, temple bowls, tam tams"*.
+
+**His Template, read:** track 9, right after `Percussion` — `LGPerc` all channels, monitored, armed, 0 dB, a LIVE Spitfire
+instance holding **Toys (C)** (family High Percussion, 9 articulations: Castanets · Claves · Basket Shakers · Guiros · Maracas ·
+Ratchet · Shakers Pairs · Vibraslap · Whips; xml 79 909 B).
+
+**The job rewritten** (`make_perc_tracks.lua`): a NEW row is now Reaper's own *Track: Duplicate tracks* (40062) on the
+Template — fresh GUIDs, his state and settings carried — then renamed, put on the row's channel, and moved to the end of the
+percussion block (`ReorderSelectedTracks`); one undo block; his selection restored. With no Template a row still gets an empty
+instance (§37's way). **A track that already exists is now READ BACK ONLY** — the first version re-set fader, arm and
+monitoring on every run, which is wrong once he is working in the rack.
+
+**Run, read back:** nine tracks at 15–23, channels 6–14 — Castanets · Claves · Shakers · Brake Drums · Crashes and Stack ·
+Wood Blocks · Bass Drum · Temple Bowls · Tam Tams (all `… ARO`). Each read back through `aro_state.js info` as a live
+Toys (C), 9 articulations, selected 0 (xml 79 832 B — the plugin re-serialized, i.e. adopted the state). The rack is 25
+tracks; **14 of `LGPerc`'s 16 channels are taken** — two more instruments and his port question (NITS) stops being
+theoretical. Nothing saved by the AI. (A second run to read the result — the first run's output died in a PowerShell pipe's
+BOM, not in the job — confirmed idempotence: 14 rows, none re-made.)
+
+**Read as he named them, to confirm:** "crashers/stacks" → the catalog's **Crashes and Stack** (verified; *Giant Crasher* is a
+different, unmapped entry). "bass drum" and "tam tams" each have three catalog entries (Bass Drum · Bass Drum (Alt) · Gran
+Cassa; Tam Tams · A · B) — what he loads settles which.
+
+**His first five loads, read (he had not yet said "done loading"; read only, nothing pushed):** every one is **Small Metals
+(C)** with the instrument SELECTED inside it — `p_lastSelectedPrimaryArtic` 5 Finger Cymbals · 1 Bell Tree · 9 Sleigh Bells
+and Indian Bells · 12 Triangles · 11 Tambourines. Two consequences. (1) **His selection is exactly the text §35 named** — the
+five could have been made from the bank with `clone --artic`, no click; the same holds for Castanets · Claves · Shakers
+inside the Template's Toys (C). (2) He chose the (C) preset, not an instrument's own All-in-One — so **the catalog's
+All-in-One key maps (Tambourines 36–103, Triangles 36–105) may not be the (C) instrument's keys**; the sweep decides, and it
+is now the first thing the key tracking needs.
+
+---
+
