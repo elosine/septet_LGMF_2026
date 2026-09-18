@@ -1678,3 +1678,44 @@ family preset, answer on the same keys as the maps he dictated — first sound w
 
 ---
 
+## §41. Finger Cymbals and Bell Tree mapped — his hover, a meter sweep, and the +24 repeat (2026-09-18)
+
+**What prompted it.** A screenshot of the Small Metals plugin with Finger Cymbals selected: *"two keys are Low and High,
+they may be the same just repeated but lets figure that out another day, confirm that you know what midi notes those are or
+if not"*. The screenshot shows the keys lit but not their numbers — **the AI could not read the notes off the image**, so it
+measured them.
+
+**The probe (scratchpad, not committed — `sweep.ps1`):** per note, launch a 1.2 s `Track_GetPeakInfo` watch in Reaper
+(`peakwatch_lgmf.lua`'s defer pattern), fire the note into `LGPerc` on the track's channel with winmm
+(`probes/port_note_probe.ps1`'s P/Invoke), read the maximum. **CC7 is NOT sent** — `port_note_probe.ps1` sends CC7=127 as a
+residue guard, which on Spitfire is the global gain and would have rewritten his mix.
+
+**Finger Cymbals, ch 1 — clean:** 36 · 38 · 60 · 62 SOUND (≈ −29 dB); 40 · 48 · 50 silent (−154 dB). So the two lit keys are
+**36 and 38**, and the pair repeats at **60 and 62** — +24, because **TWO-HANDED LAYOUT is on** in his instance (visible in
+both screenshots). That answers his question and is the mechanism behind "they may be the same just repeated".
+
+**Bell Tree, ch 2 — the sweep FAILED, and the failure is the finding:** every key 36–84 read exactly −30.4 dB, black keys
+included. The bell tree glisses ring far longer than the 1.9 s between notes, so each measurement caught the previous note's
+tail, not its own onset. **A meter sweep is only valid for sounds shorter than the gap.** (For a long sound the fix is an
+onset test — a rising edge inside the watch — not a maximum; not built, not needed.)
+
+**So Bell Tree came from him, hovering, in order from the low C** (the catalog's own documented walkthrough,
+`_meta.walkthrough` — piece #2's method): *"half gliss low"* · *"half gliss high, continuous gliss"* · *"full gliss short,
+full gliss medium"* · *"full gliss long"*, with *"I dont think this uses the black keys"* and the correction *"sorry earlier
+prompt wrong note starting on c"* (he had first said the low F). Six labels on six consecutive white keys from 36:
+**36 · 38 · 40 · 41 · 43 · 45**, and *"the pattern starting on the c 2 octaves up is the same"* → **60 · 62 · 64 · 65 · 67 ·
+69**. **Corroboration from the banked state:** this articulation's `rr_neighbourMax` is **45** — exactly the sixth white key,
+and Finger Cymbals' is **38**, exactly its second. §37 rejected `rr_neighbour*` as a key range by comparing it against the
+catalog's ALL-IN-ONE maps; against the **(C) family preset** it lands on the nose twice. It is a lead for the other twelve,
+not yet a rule.
+
+**Written:** both entries in `bank/aro_percussion_catalog.json`, status `verified`, each key carrying `duplicateOf` for the
++24 copy — **the first entries in that file not carried from piece #2** (verified 35 → 37). Bell Tree's inherited description
+was wrong as well and was replaced: piece #2's skeleton read *"cup-shaped bells played with poly mallets"*, which describes
+the Temple Bowls. **Left unsettled at his word:** whether the +24 copy is the same samples or a second set — *"not sure if
+this is just duplicate for performance or different samples will figure this out another day"*.
+
+**Left to map of the fourteen: Shakers Pairs.**
+
+---
+

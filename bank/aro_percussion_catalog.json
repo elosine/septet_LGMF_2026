@@ -13,11 +13,12 @@
     },
     "counts": {
       "instruments": 78,
-      "verified": 35,
-      "skeleton": 39,
+      "verified": 37,
+      "skeleton": 37,
       "predicted": 2,
       "partial": 2
-    }
+    },
+    "lgmfAdditions": "2026-09-18 (piece #6): Finger Cymbals and Bell Tree mapped from the composer's hover of the Small Metals (C) preset — the first entries NOT carried from piece #2. Note they were mapped inside the FAMILY preset, not an All-in-One, and that TWO-HANDED LAYOUT is on in his instance, so each pattern repeats +24 (`duplicateOf`). RUNNING_LOG §41."
   },
   "ccMappings": {
     "highPerc": {
@@ -1824,12 +1825,34 @@
     "small_metals_bell_tree": {
       "name": "Bell Tree",
       "library": "ARO Metal Percussion",
-      "description": "Cup-shaped bells played with poly mallets. Part of Small Metals.",
-      "status": "skeleton",
+      "description": "A cascade of small tuned bars swept with a mallet or finger — a shimmering gliss. Part of Small Metals.",
+      "status": "verified",
       "parentPreset": "Small Metals",
       "beaters": [],
+      "pitches": 1,
       "hasAllInOne": false,
-      "allInOne": []
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"articulation":"Half Gliss. - Low"},
+        {"note":"D2","midi":38,"articulation":"Half Gliss. - High"},
+        {"note":"E2","midi":40,"articulation":"Continuous Gliss"},
+        {"note":"F2","midi":41,"articulation":"Full Gliss Short"},
+        {"note":"G2","midi":43,"articulation":"Full Gliss Medium"},
+        {"note":"A2","midi":45,"articulation":"Full Gliss Long"},
+        {"note":"C4","midi":60,"articulation":"Half Gliss. - Low","duplicateOf":36},
+        {"note":"D4","midi":62,"articulation":"Half Gliss. - High","duplicateOf":38},
+        {"note":"E4","midi":64,"articulation":"Continuous Gliss","duplicateOf":40},
+        {"note":"F4","midi":65,"articulation":"Full Gliss Short","duplicateOf":41},
+        {"note":"G4","midi":67,"articulation":"Full Gliss Medium","duplicateOf":43},
+        {"note":"A4","midi":69,"articulation":"Full Gliss Long","duplicateOf":45}
+      ],
+      "_notes": "Mapped 2026-09-18 from the composer's hover of the Small Metals (C) preset, dictated in order from the low C (RUNNING_LOG §41): six glisses on consecutive WHITE keys C-D-E-F-G-A, no black keys ('I dont think this uses the black keys'), repeated +24 ('the pattern starting on the c 2 octaves up is the same'). A meter sweep could NOT confirm it — the glisses ring far longer than the gap, so every key read the same tail; the state's rr_neighbourMax=45 for this articulation matches the sixth white key exactly, which does corroborate. Whether the +24 copy is the same samples is unsettled, his words: 'will figure this out another day'. The description was corrected here too: piece #2's skeleton called it 'cup-shaped bells played with poly mallets', which is the Temple Bowls, not a bell tree."
     },
     "small_metals_mark_tree": {
       "name": "Mark Tree",
@@ -2021,11 +2044,25 @@
       "name": "Finger Cymbals",
       "library": "ARO Metal Percussion",
       "description": "Small cymbal pairs struck together for long high-pitched ring. Part of Small Metals.",
-      "status": "skeleton",
+      "status": "verified",
       "parentPreset": "Small Metals",
       "beaters": [],
+      "pitches": 1,
       "hasAllInOne": false,
-      "allInOne": []
+      "midiCapabilities": {
+        "loudnessSource": "velocity",
+        "articulationMethod": "byNote",
+        "pitchBehavior": "fixed",
+        "supportsCCs": []
+      },
+      "notation": {},
+      "allInOne": [
+        {"note":"C2","midi":36,"articulation":"Low"},
+        {"note":"D2","midi":38,"articulation":"High"},
+        {"note":"C4","midi":60,"articulation":"Low","duplicateOf":36},
+        {"note":"D4","midi":62,"articulation":"High","duplicateOf":38}
+      ],
+      "_notes": "Mapped 2026-09-18 from the composer's hover of the Small Metals (C) preset (RUNNING_LOG §41) and CONFIRMED by a meter sweep of ch 1: 36, 38, 60, 62 sound (≈ -29 dB); 40, 48, 50 silent (-154 dB). Two keys, Low and High, repeated +24 (TWO-HANDED LAYOUT is on in his instance). Whether the +24 copy is the same samples or a second set is unsettled — his words: 'not sure if this is just duplicate for performance or different samples will figure this out another day'."
     },
     "small_metals_guira": {
       "name": "Güira",

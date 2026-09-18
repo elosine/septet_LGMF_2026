@@ -3,8 +3,8 @@
   "port": "LGPerc",
   "readAt": "2026-09-18",
   "tracks": [
-    { "track": "Finger Cymbals ARO",     "channel": 1,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 5,  "artic": "Finger Cymbals",                   "state": "small_metals_C",       "catalog": "small_metals_finger_cymbals", "catalogStatus": "skeleton" },
-    { "track": "Bell Tree ARO",          "channel": 2,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 1,  "artic": "Bell Tree",                        "state": "small_metals_C",       "catalog": "small_metals_bell_tree",      "catalogStatus": "skeleton" },
+    { "track": "Finger Cymbals ARO",     "channel": 1,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 5,  "artic": "Finger Cymbals",                   "state": "small_metals_C",       "catalog": "small_metals_finger_cymbals", "catalogStatus": "verified" },
+    { "track": "Bell Tree ARO",          "channel": 2,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 1,  "artic": "Bell Tree",                        "state": "small_metals_C",       "catalog": "small_metals_bell_tree",      "catalogStatus": "verified" },
     { "track": "Sleigh Bells ARO",       "channel": 3,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 9,  "artic": "Sleigh Bells and Indian Bells",    "state": "small_metals_C",       "catalog": "small_metals_sleigh_bells",   "catalogStatus": "verified" },
     { "track": "Triangles ARO",          "channel": 4,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 12, "artic": "Triangles",                        "state": "small_metals_C",       "catalog": "small_metals_triangles",      "catalogStatus": "verified" },
     { "track": "Tambourines ARO",        "channel": 5,  "preset": "Small Metals (C)",       "family": "Metal Percussion", "articIndex": 11, "artic": "Tambourines",                      "state": "small_metals_C",       "catalog": "small_metals_tambourines",    "catalogStatus": "verified" },
