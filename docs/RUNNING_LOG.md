@@ -2602,3 +2602,40 @@ timbre change. The rules used:
 stops at F4**, which roughly halves the horn’s partial count on every root — on B♭1 the library horn reaches only partials
 2–5. Anything written above F4 will be heard in the mock-up wrong or not at all, even though a player could do it.
 
+
+### §63c — the complete list: every fundamental all three can play on (2026-09-18)
+
+**His ask:** extend §63b’s chart down through every root where **all three instruments have a pitch** — not the horn-only
+roots. Same rules and ranges as §63b (horn on the real instrument to F5, not the SI2 library’s F4).
+
+**There are seventeen, and no more.** The trumpet’s seven pitch classes (F♯ G A♭ A B♭ B C) and the bassoon’s B♭1 floor
+close the list completely; above C4 nothing is left worth having.
+
+| root | horn | trumpet | bassoon | all three | series covered |
+|---|---|---|---|---|---|
+| **B♭1** | 2–12 | 4 6 8 10 12 14 16 | 1–6 | 4 6 | **14** |
+| B1 | 1–8 | 4 6 8 10 12 14 16 | 1–6 | 4 6 | 12 |
+| C2 | 1–8 | 4 6 8 10 12 14 16 | 1–6 | 4 6 | 12 |
+| F♯2 | 1–7 | 2–8 | 1–6 | 2–6 | 8 |
+| **G2** | 1–7 | 2–8 | 1–6 | **2–6** | 8 |
+| A♭2 | 1–6 | 2–8 | 1–6 | 2–6 | 8 |
+| A2 | 1–6 | 2–8 | 1–5 | 2–5 | 8 |
+| B♭2 | 1–6 | 2–8 | 1–5 | 2–5 | 8 |
+| B2 | 1–4 | 2–8 | 1–5 | 2–4 | 8 |
+| C3 | 1–4 | 2–8 | 1–4 | 2–4 | 8 |
+| F♯3 | 1–3 | 1–4 | 1–3 | 1–3 | 4 |
+| G3 | 1–3 | 1–4 | 1–3 | 1–3 | 4 |
+| A♭3 | 1–3 | 1–4 | 1–3 | 1–3 | 4 |
+| A3 | 1–3 | 1–4 | 1–2 | 1–2 | 4 |
+| B♭3 | 1–3 | 1–4 | 1–2 | 1–2 | 4 |
+| B3 | 1–2 | 1–4 | 1–2 | 1–2 | 4 |
+| C4 | 1–2 | 1–4 | 1–2 | 1–2 | 4 |
+
+**Three plateaus, and the drops are sharp.** 14 → 12 (B♭1, then B1/C2) · **8** for the whole F♯2–C3 band · **4** for
+F♯3–C4. Coverage never lands on 3. **The useful roots are the first ten;** from F♯3 up the fundamental is high enough that
+almost nothing fits underneath the ensemble ceiling.
+
+**The shape of the trade, plainly:** the three lowest roots give REACH (up to the 14th–16th partial, but the trumpet on even
+partials only, so no natural 7th, 11th or 13th from it) · the F♯2–C3 band gives AGREEMENT (all three together on 2–6, and
+the trumpet’s natural 7th, since those roots are its own tubes).
+
