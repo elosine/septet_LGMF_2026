@@ -141,3 +141,24 @@ grows, and which of the five appear where, is his. The second clause is a build 
   (Lake George) will want it."
 
 ---
+
+## For the NEXT piece — the overdrive ensemble (kept here until that piece has a sketch pad, as LG-1…8 were kept in the Tempus pad)
+
+### NX-1 · 2026-09-18 — accented long tones with sine waves, beating; the pedals of resonance resurrected
+
+> *"note for next piece overdrive ensemble accented long tones like the accented trills in scattered substance but have long
+> tones played live by the ensemble with sine waves and generate beating also resurrect the um, Pedals of resonance effect
+> for either live or pre-recorded resonant filters."*
+> — composer, 2026-09-18, session 2 of this piece, dictated while the percussion tracks were being made
+
+*AI reading (mine, not his):* two ideas for the piece after this one, for the **overdrive ensemble**.
+(1) **Accented long tones** — the gesture of the accented trills in his *Scattered Substance*, with the trill replaced by a
+held tone: the ensemble plays the long tones LIVE, sine waves sound against them, and the near-unison makes the **beating**.
+It is kin to LG-8 here (a morph that arrives at a beating and holds) and to #5's beating tool — there the beating is between
+instruments; here it is instrument against sine, so the rate is set exactly by the sine's offset.
+(2) **The "pedals of resonance" effect, resurrected** — an effect from his earlier work, as **resonant filters**, either
+processing the players live or applied to pre-recorded material. `live-electronics-engine` is the likely home for both.
+**Not known to the AI, his to say:** which piece the pedals of resonance come from and how they were built; whether the sines
+are fixed or follow the players; whether "overdrive" names the ensemble or a sound.
+
+---

@@ -1547,3 +1547,31 @@ FRESH instance (inserted by `make_tracks.lua`, never loaded) is the one thing st
 
 ---
 
+## §37. The percussion tracks — the script makes them, he selects; the state holds no key names (2026-09-18)
+
+**What prompted it.** His word at the postclear, replacing the checkpoint's clone-and-change experiments (NOT run): *"ok lets
+go with you creating the tracks and I'll select the instrument, but lets see if we can automate the key tracking and what
+articulations malets they play etc. pls make the ones I mentioned so far and I'll add some"*.
+
+**Built:** `reaper/bridge/jobs/make_perc_tracks.lua` — `make_tracks.lua`'s pattern for D7: one row per instrument (name ·
+channel · catalog slug), input `LGPerc` on THAT channel, monitoring on, armed, 0 dB, an EMPTY
+`VST3i: Abbey Road Orchestra (Spitfire Audio)` instance; idempotent; new rows go after the last percussion track. Add a row,
+re-run, to add an instrument.
+
+**Run, read back:** five tracks at 9–13, after `Percussion` — Finger Cymbals ARO ch 1 · Bell Tree ARO ch 2 · Sleigh Bells ARO
+ch 3 · Triangles ARO ch 4 · Tambourines ARO ch 5 (`I_RECINPUT` 5633–5637 = LGPerc dev 48 + the channel; monitor 1, armed 1,
+0 dB, the plugin at FX 0). The rack is 15 tracks; nothing saved by the AI. His `Percussion` track (Small Metals (C)) untouched.
+**Routing is D7's** (one port, a channel each); his note that each instrument may want its own port (NITS) stays open — the
+job's one line changes it.
+
+**Asked of the banked state — does the XML say which key is which articulation? NO.** An `<ARTIC>` holds `a_*` (name, active),
+`t_*` (the trigger: keyswitch, channel, velocity/CC windows), `rr_*` (round robin), `i_*` (expression, dynamics, release,
+tight …) and the mic mixes — no per-key table. `rr_neighbourMin/Max` looked like a range and is not one: Agogos 36–56 against
+the catalog's verified 36–80 (32 keys); Tambourines 36–67 against 36–103 (42); Triangles 36–69 against 36–105 (48). Rejected as
+a key map. **So the key tracking has two halves:** which keys SOUND = a note sweep with the meters (machine work, §22's
+pair); what each key IS = the catalog (three of his five verified: Sleigh/Indian · Tambourines · Triangles) or the plugin's
+GUI for Finger Cymbals and Bell Tree. Whether the (C) preset's instrument equals its own All-in-One preset is unknown until
+his loads are read.
+
+---
+
