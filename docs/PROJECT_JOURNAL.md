@@ -102,12 +102,20 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 - **D8** the english horn = Xsample · **D9** the rack layout (§23).
 - **Protocol learned:** a push replaces an instance's whole state — "done loading" / "yours again" before any push.
 
+### THEN — the Kontakt three's curve slots (RUNNING_LOG §26–§29)
+
+- His three `.nki` loads (English Horn XS · Cello XS · Bass XS) — the Kontakt state is opaque as text (§26), so the names came from the script's read-back.
+- `curve_slots.lua` rewritten for this rack and made SELF-REPORTING (a START file, everything under pcall, a result file always). Its first run "did nothing": a flattened backslash → a Lua 5.4 parse error — found by **parse-checking through the bridge** (`reaper_job.js -e loadfile`), now the rule for every Kontakt script (§28, bridge README).
+- **Four slots [A] 1–4 in each of the three, proven by read-back; his CTRL+S 22:30** (§29). The saved states are four nki bodies each.
+- His "for after" questions answered from the record (§27): the extra Xsample instances = D11's four slots (done now) · percussion = D7 (no multi; one ARO instance per instrument; his list is what is missing) · the strikes track = a level lane for a quiet strike, not needed yet, decide at 0d.
+- Verified at his word: #5's bass clarinet and strings had four slots for CC7 — D11, §60, §1168 (§28).
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
-| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **NEXT: the Kontakt three** — English Horn XS · Cello XS · Bass XS: (1) he loads the first `.nki` in each Kontakt instance (or runs a `proof_load`-style script), (2) runs `reaper/kontakt/curve_slots.lua` inside each (its NKI table needs the three new names) — one click each, the AI checks the JSON read-back, (3) the Xsample recipes: the english horn roster (#3's Xsample manual, `for_bass_clarinet_harp_and_accordion/docs/manuals/extracted/`), the double bass's CC#0 from its own Preset Menu (NITS), (4) the REC track, (5) first sound from the SANDBOX per track (his Chrome), the keyswitch read on the red keys. Percussion when he chooses instruments. Then 0d · 0h | **Fable to walk him** · Opus for the scripts | **yes — a different mechanism (Kontakt), and the context is long** |
+| **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). **NEXT: (3) the Xsample recipes:** the english horn roster (#3's Xsample manual, `for_bass_clarinet_harp_and_accordion/docs/manuals/extracted/`), the double bass's CC#0 from its own Preset Menu (NITS), (4) the REC track, (5) first sound from the SANDBOX per track (his Chrome), the keyswitch read on the red keys. Percussion when he chooses instruments. Then 0d · 0h | **Fable to walk him** · Opus for the scripts | **yes — a different mechanism (Kontakt), and the context is long** |
 | N2 | **0d** the samples' true ranges and lengths, then **0h**, the phase-0 gate: every track sounds from the app through its own port | Opus | yes |
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5) · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |

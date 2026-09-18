@@ -33,6 +33,9 @@
   KONTAKT ▾ menu). `reaper/kontakt/*.lua`: `proof_readback` / `proof_write` / `proof_load` (the
   API proven), `bcl_strike_slot.lua` (a second slot on a strike channel), `curve_slots.lua`
   (the ×4 channel-bank slots of D11). Each writes a JSON read-back the AI checks.
+  **Parse-check every Kontakt script first** through the bridge, Reaper being the only Lua 5.4 on the machine:
+  `node tools/reaper_job.js -e "local f, e = loadfile(<path>); return { parses = (f ~= nil), err = e }"` (RUNNING_LOG §28).
+  A script that fails to parse runs nothing and writes nothing.
 - **Reaper faders, sends, lanes, arming, transport:** the bridge.
 
 ## Installing in another repo (the live-electronics project, or the next piece)
