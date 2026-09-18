@@ -1001,3 +1001,43 @@ own ▾ menu — `curve_slots.lua` makes the ×4 channel-bank slots, the `proof_
 UVI's is an experiment for the day the first percussion instrument is chosen.
 
 *Committed with this entry: his `reaper/LGMF_rack.rpp` at his last save ("yes commit the rpp").*
+
+---
+
+## §21. 0e — the five remaining tracks made by the bridge; his answers; the bassoon needs two instances
+
+**His answers** (2026-09-17): *"y xs"* — the english horn IS Xsample (D8) · *"bsn 18"* — the SI2
+bassoon has **18 presets** in the browser · *"I put some in already"* · *"remember to bypass effects
+except for convolver"* — the per-part FX baseline, #5's §275 rule restated for this rack · *"go a;
+then walk through step by step."*
+
+**`reaper/bridge/jobs/make_tracks.lua`** — one job, idempotent (a track of the same name is
+re-configured, never duplicated): name · `I_RECINPUT = 4096 + dev·32` with the device found BY
+NAME at run time (Reaper's indices are its own) · monitoring ON · armed · fader 0 dB · the sampler
+by `TrackFX_AddByName` with the exact string `TrackFX_GetFXName` reports (a fallback without
+"(64 out)" was not needed). **Round trip 1262 ms** — the plugin instantiations. Read back:
+
+```
+NEW  Horn SI2     in LGHorn    all ch  mon 1 arm 1  0.0 dB  VST3i: UVIWorkstation (UVI)
+NEW  Trumpet SI2  in LGTrumpet all ch  mon 1 arm 1  0.0 dB  VST3i: UVIWorkstation (UVI)
+NEW  Percussion   in LGPerc    all ch  mon 1 arm 1  0.0 dB  (no plugin — one Spitfire instance per instrument, when chosen)
+NEW  Cello XS     in LGCello   all ch  mon 1 arm 1  0.0 dB  VST3i: Kontakt 8 (Native Instruments) (64 out)
+NEW  Bass XS      in LGBass    all ch  mon 1 arm 1  0.0 dB  VST3i: Kontakt 8 (Native Instruments) (64 out)
+order: English Horn XS · Bassoon SI2 · Horn SI2 · Trumpet SI2 · Percussion · Cello XS · Bass XS
+```
+Score order, the recipe's TRACKS order. Not saved — CTRL+S is his.
+
+**Spitfire's plugin, by name** (`EnumInstalledFX`): **`VST3i: Abbey Road Orchestra (Spitfire
+Audio)`** — a dedicated ARO player, and a `VSTi … (32 out)` variant. So the percussion tracks
+can be inserted by name too; what its state looks like is still the open experiment.
+
+**The bassoon so far (text read-back):** Ordinario ch 1 · Blow Without Reed 2 · Chromatic Scale 3
+· Cresc & Decrescendo KS 4 · Durations KS 5 · Flatterzunge 6 — Ordinario first, then the
+browser's alphabetical order; gains 0; bypass counts 5 · 4 · 4 · 4 · 4 · 2 (he is clicking them
+off by hand; a text job can finish and verify that).
+
+**The count decides the layout:** 18 presets do not fit 16 parts, before any curve copy. So the
+bassoon is TWO instances on two ports, the flute's `Fluteb` pattern — `LGBassoon` parts 1–16,
+`LGBassoonb` the last two presets + the three Ordinario curve copies. The horn (~15 presets) and
+the trumpet (~17 + mutes) the same. **Three more ports: `LGBassoonb · LGHornb · LGTrumpetb`** —
+the next step, his.

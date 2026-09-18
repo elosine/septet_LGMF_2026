@@ -259,6 +259,9 @@ this repo only when they bite.)*
   snippets) · hand transcription of the key maps (35 instruments, up to 48 keys each — the one
   fragile build). *Also at his word:* the double bass → Xsample, confirmed ("yes double bass
   xsample"). RUNNING_LOG §19.
+- **D8** *(2026-09-17, composer: "y xs")* — **The english horn = Xsample** (the track he made is named
+  "English Horn XS"; D6 had it "being acquired, to be named"). Its roster comes from #3's Xsample woodwind
+  map at 0c. RUNNING_LOG §20–21.
 
 ---
 
