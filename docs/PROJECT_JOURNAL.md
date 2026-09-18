@@ -83,7 +83,38 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5) · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
-**Open at session end:** nothing in flight. The tree is clean; every commit is pushed.
+**Open at session end — (mid-session checkpoint, 2026-09-17, before the clear):**
+
+- **The task:** phase 0. **The PORT chunk of it is COMPLETE** — 0a · 0b · 0g · 0i closed, six
+  commits, all pushed, working tree clean. **State: the app runs on the seven tracks and does
+  not sound.** Phase 0 is NOT finished: 0c · 0d · 0e · 0f · 0h remain.
+- **Latest deliverables:** `score/` + `sandbox/` + `notation/` + `tools/` (the engine, running on
+  :5400 / :4900) · `sandbox/instruments.js` (the seven recipes, every value marked provisional
+  except the cello's) · `notation/registry/ensemble.json` (the seven parts) · `scores/lgmf.json`
+  (the day-one stub) · `scores/0i-test.json` → `notation/ir/lgmf-0i.ir.json` (the 0i proof) ·
+  `tools/palette_check.js` (157) · `tools/test_written_pitch.js` (8 + a control).
+- **THE NEXT CONCRETE STEP — an instruction, not a topic:** **Do not start building.** Open
+  `docs/PLANNING_METHOD.md`'s three phases and lay out **PLAN 0c + 0e together** with him — the
+  instrument recipes and the Reaper rack, one sitting, **him at the machine**. Begin by putting
+  these four to him, one at a time: (1) which ARO percussion volumes are installed and **which
+  percussion instruments the piece uses** (he has named only the bowed vibraphone, LG-9, and has
+  still to acquire a library for it); (2) which library the **english horn** turned out to be;
+  (3) confirm the **double bass** goes to Xsample beside the cello; (4) whether to build the rack
+  now for the five instruments that ARE installed and extend it as the other two arrive. Write
+  each step into `docs/PLAN.md` as it is agreed, per the method.
+- **`Resume reads:`**
+  - `docs/NITS.md` — the section **"Open work this port created or uncovered"** only. It is the
+    list of what 0c must settle.
+  - `sandbox/instruments.js` — **the header comment block only** (down to `const INSTRUMENTS`).
+    It states exactly what is provisional and why.
+  - *(When the rack itself is actually being planned, and not before:* `septet_2026/docs/PLAN.md`
+    § 0e — its R1–R13 walk is the precedent for how a rack build is handed to him step by step.*)*
+- **Decisions pending him:** the four questions above · **the LGMF call is still unread at his
+  word** (Q2) · who, if anyone, inherits the piano's struck role (PLANNER) · the presentation
+  score's pitch form, at 2b.
+- **Deliberately uncommitted: NOTHING.** `git status --short` is empty. The only ignored thing on
+  disk is `node_modules/` (`npm install` regenerates it). **No servers of the AI's are left
+  running**; his 5300 / 4800 were never bound at any point.
 
 **Open questions:**
 - **Q1b — libraries.** The english horn's library (he is acquiring it) · **a bowed vibraphone,
