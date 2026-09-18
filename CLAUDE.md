@@ -124,7 +124,12 @@ from the first commit, deliberately.)*
 that needs a model change or clear"* — and *"no more things left to do, or left pending or even whats next unless I
 specifically ask."* So **in the CHAT:** model / clear advice only at a real switch point, one or two lines; no next-steps
 list unless he asks; replies are a goal heading, a short ✓ trail, the one thing in hand with a brief why per step, and ONE
-compact notes section at the bottom for the honest side-matter. **In the DOCS nothing changes:** journal §2's NEXT STEPS ·
+compact notes section at the bottom for the honest side-matter. **And (2026-09-18, after the key-mapping sweeps):**
+*"avoid unnessary extra work unless asked for, so like verifications and such unless we write these into a plan as necessary
+verifications and qc"* — no probe, no cross-check, no QC pass that he did not ask for or that the plan does not name as a
+required step; if something looks worth checking, ONE line offering it, and he decides. This does not relax
+`AI_METHODOLOGY`'s rule that a confidence CLAIM must be verified in the running app — unverified simply means unclaimed.
+**In the DOCS nothing changes:** journal §2's NEXT STEPS ·
 MODEL · CLEAR table is still kept current — it is the handoff, and it is what makes the chat free to stay on one thing.
 The paragraph below is the 2026-08-23 original; read it through this.
 
