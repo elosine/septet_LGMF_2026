@@ -2494,3 +2494,30 @@ standing practice, and into the agent memory. The test: could someone write "how
 **Also this sitting:** his chat preference sharpened — a direct factual question gets the fact and nothing else; explanations
 quarantined into a notes section; no unrequested verification. Recorded in memory.
 
+
+### §62b — the clarification that matters: a brass natural harmonic needs the TUBE to be the root (2026-09-18)
+
+**What prompted it.** His question: *"is it just the natural harmonics or are they just equally adept at the ones I mapped
+out based on the open strings?"*
+
+**The answer, and it is not uniform.** Every note on a brass instrument is technically some partial of some tube length —
+that is how a valved instrument is chromatic at all — so "natural harmonic" alone says nothing. What matters is that
+**valve tubing is cut for EQUAL TEMPERAMENT.** A pitch reached by changing valves is equal-tempered by construction. The
+just deviations (−31¢ on the 7th, −49¢ on the 11th, +41¢ on the 13th) come free ONLY when the player stays on ONE tube
+length and climbs its series — and that tube length must BE the spine's root, or its octave below.
+
+- **Horn — all five roots.** F side fundamental F1: 2nd valve = **E1**. B♭ side fundamental B♭1: 2nd valve = **A1**. And
+  **C2 · D2 · G2** are each the 2nd partial of an available fundamental (C1 = F side 1+3 · D1 = F side 1+2 · G1 = B♭ side
+  1+2), so every partial of those roots is an even partial of a real tube length. The horn can play the whole spine as
+  genuine natural harmonics.
+- **Trumpet in C — essentially one root.** Its longest tube is F♯2 (1+2+3). **G2 (1+3) is an exact fundamental**, so that
+  column is natural. C2's EVEN partials come free on the open horn (C3 is C2's octave). E1 · A1 · D2 are not tube lengths
+  and their partials are ordinary valved notes — equal-tempered, and the just version must be lipped.
+- **Bassoon — a different mechanism entirely.** It is not a tube-length instrument in this sense: harmonic fingerings
+  overblow whatever note is FINGERED, so it gets the series of its own fundamental, not of the spine's root. Its bottom is
+  B♭1, so it can finger **C2 · D2 · G2** as fundamentals; **E1 and A1 are below its range.**
+
+**Consequence for LG-17.** The "HOLD" category is not flat. The horn holds any root in the spine; the trumpet holds G2 (and
+half of C2); the bassoon holds the three roots inside its range. **His to say** whether the spine's roots get assigned to
+the instrument that can hold them naturally, or whether lipped just intonation is accepted where it is not free.
+
