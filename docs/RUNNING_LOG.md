@@ -2414,3 +2414,30 @@ an instrument the bank lacks passes its anchor velocity through unchanged.
 a chord at three or four heights.
 
 ---
+
+## §61. His call — the audition skipped, and 0h is not run as a gate: "lets assume this works, will reveal itself in composition" (2026-09-18)
+
+**What prompted it.** After the remap was built and offered for a four-height audition: *"skip audition, what is left for
+this phase?"* — answered: one thing, **0h**, the phase-0 gate (every track sounding **from the score app through its own
+port**, the one segment never run for this piece, and it must be his Chrome because the in-app browser has no Web MIDI).
+His reply: *"lets assume this works, will reveal itself in composition."*
+
+**Decided (D14).** **Phase 0 is closed without 0h being run.** The gate becomes a phase-1 expectation: the app's MIDI
+output is exercised the first time he plays anything while composing, and a failure there announces itself immediately.
+Also skipped at his word: the remap's own audition (the chord at four heights) and the percussion heard against the winds
+— **the percussion's fff = fff trims stand unjudged by his ear.**
+
+**Why this is reasonable and where it could bite.** The chain is `app → port → track → plugin → audio`, and every
+segment after the port is proven (§49–§59: the 747-note run, the chord he approved, REC matching the master to the
+decimal). What is untested is the browser's own Web MIDI output, and it was tested extensively in pieces #4 and #5 on
+this machine with the same code. **Where it could bite:** the `LG` port names are new, so a name typo would surface as
+one silent instrument; and the remap is read by the page, so a bank the page cannot parse would surface as unremapped
+velocities. Both announce themselves at the first note and neither is subtle.
+
+**A note for the paper.** The AI had twice framed 0h as a precondition and been corrected: once in §43 (a gate is a
+closing condition, not a prerequisite) and now again in shape — the composer's instinct both times was that a verified
+chain of parts plus a live first note beats a ceremonial gate. The standing rule he wrote on 2026-09-18 covers it:
+*"avoid unnessary extra work unless asked for, so like verifications and such unless we write these into a plan as
+necessary verifications and qc."*
+
+---

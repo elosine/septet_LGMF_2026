@@ -134,9 +134,9 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   4. ☑ **0d.4 — the trims onto the faders** (§57–§58: two anchors — pitched at the quiet level, percussion fff = fff; fader + JS Volume FX) (through the bridge) and into the recipes as `balanceDb`
      (the record only — the app sends nothing for them). ⚠ `sandbox/instruments.js` still carries
      #5's `balanceDb: -1` on the cello, a copy-forward leftover: it is replaced by measurement here.
-  5. ► **0d.5 — the remap** computed and wired into the app (`score/public/velocity_remap.js`, shared
+  5. ☑ **0d.5 — the remap** (§60: `tools/build_remap.js` → `bank/velocity_remap.json`; velocity-only per D13, anchored on the ensemble median, percussion excluded; **the common range is anchor velocity 50–89** and outside it somebody saturates) computed and wired into the app (`score/public/velocity_remap.js`, shared
      by the page and the tools, as #5's §117).
-  6. ☑ (pitched) **0d.6 — his ear** — *"sounds good"* on the velocity-64 chord, §59; **the percussion against the winds not yet heard.** A chord, at the quiet level, all seven. **He judges; the numbers do not.**
+  6. ☑ **0d.6 — his ear** (pitched) — *"sounds good"* on the velocity-64 chord, §59; **the percussion against the winds not yet heard.** A chord, at the quiet level, all seven. **He judges; the numbers do not.**
      *(The one verification this plan names as required — AI_METHODOLOGY's verified-claim rule.)*
   *Result when done:* the same written dynamic is the same loudness on every instrument, the
   percussion included; he can hear a chord as harmony while composing. Moved back to phase 1 at
@@ -164,9 +164,15 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   new animated-object kind · the bouncing balls per player in their own tempo (LG-5).
   *Why:* copying costs nothing now; adapting waits for real material.
 
-- **0h — Gate: phase 0 closed** — `todo` — every track sounds from the score app through its
-  own port with the right technique switching; a save round-trips; 0i's extraction passes;
-  RUNNING_LOG has the numbers. *Why:* one verified gate instead of seven confidence claims.
+- **0h — Gate: phase 0 closed** — `NOT RUN, by his decision 2026-09-18 (D14): "lets assume this works,
+  will reveal itself in composition"` — it would have been: every track sounds from the score app
+  through its own port with the right technique switching; a save round-trips; 0i's extraction passes.
+  **What it was going to test that nothing else has:** the app's own MIDI output, browser → port (HIS
+  Chrome — the in-app browser has no Web MIDI). It is now a phase-1 expectation, proved by the first
+  note he plays while composing; a wrong `LG` port name would show as one silent instrument, an
+  unreadable remap bank as unremapped velocities. *Why the change:* every segment after the port is
+  measured and a chord is approved (§49–§61), and his standing rule is against verification a plan does
+  not name.
 
 - **0i — The save → IR contract, proved on a test save of this piece** — `done 2026-09-17` *(RUNNING_LOG §18: `scores/0i-test.json` → `notation/ir/lgmf-0i.ir.json`, 11 events, 7 chunks, VALID against source and complete; the written pitch proved through the engine's own resolver with a control; `tools/test_written_pitch.js` kept)* — **`docs/plans/PORT_FROM_TEMPUS.md` step 7** (#5 §13, step for step): a
   30-second save written by the app's own insert paths → `notate_section` → `ir_validate

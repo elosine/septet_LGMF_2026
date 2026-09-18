@@ -151,43 +151,54 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
 | **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). Spitfire read and pushed as text, the small metals loaded once and banked (§30–§36). **2026-09-18, session 2 (§37–§39): the clone-and-change experiments were DROPPED at his word — the script makes the tracks, he selects. The percussion rack stands: fourteen instrument tracks on `LGPerc` ch 1–14 (`make_perc_tracks.lua`; new rows duplicate his `Template`), his loads read, eight (C) presets banked, the rack as read in `bank/perc_rack.json`. All fourteen key maps DONE (§40–§42).** What remains of 0c/0e is picked up during composing at his call (§43): the percussion recipe (`perc_selection.json` — one script run when he picks the selection) · the REC track · the port's last two channels · **first sound from the APP (browser → port, never run for this piece; must be HIS Chrome — the AI's browser has no Web MIDI)** | — | — |
-| **► N2** | **0d — ensemble balance. MEASURED, TRIMMED, AND HEARD (2026-09-18, RUNNING_LOG §44–§59).** The 747-note run recorded and analyzed; the horn and trumpet's flat velocity traced to SI2's Dynamic Amount knob (0.70 → 1.00, his hands) and re-measured; **D13** — #5's mechanism stands, velocity the dynamic, CC7 shapes held notes, no flip to CC7; the trims under two anchors (pitched at velocity 64, percussion fff = fff) applied to all 24 tracks — faders plus a JS Volume FX where +12 was not enough — and read back; **his ear on the chord: "sounds good."** **OPEN: 0d.5 the velocity remap** (#5's `velocity_remap.js`, carried, not yet pointed at this bank) · **the percussion against the winds, not yet heard.** Then phase 1. | Opus to build the remap; his ear on the percussion | yes — a milestone, and a long session |
-| N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5), **with patterns connected by accelerating / decelerating some parts (LG-11, 2026-09-18)** and **offered as a rhythm choice in the strikes drawer, the final pattern editable by click — mute / re-orchestrate a note — and reshuffled (LG-12, 2026-09-18)** · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
+| N2 | **0d — ensemble balance. DONE END TO END 2026-09-18 (RUNNING_LOG §44–§61).** Measured (747 notes, 26.8 min) · the horn/trumpet knob found (SI2 Dynamic Amount 0.70 → 1.00) · **D13** #5's mechanism stands, velocity is the dynamic, no flip to CC7 · trims on all 24 tracks under two anchors, faders + a JS Volume FX, read back · **his ear: "sounds good"** · the remap built (`bank/velocity_remap.json`, common range velocity 50–89). **0h NOT run (D14)** — phase 0 is closed. Unjudged: the percussion against the winds | — | — |
+| **► N3** | **PHASE 1, COMPOSING — the work now.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5), **with patterns connected by accelerating / decelerating some parts (LG-11, 2026-09-18)** and **offered as a rhythm choice in the strikes drawer, the final pattern editable by click — mute / re-orchestrate a note — and reshuffled (LG-12, 2026-09-18)** · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
-**Open at session end — (mid-session checkpoint, 2026-09-18, before the clear):**
+**Open at session end — (mid-session checkpoint, 2026-09-18, session 2, after phase 0 closed):**
 
-- **The task:** phase 0. **The machine is BUILT** — ten instrument tracks + fourteen percussion tracks, every instrument
-  configured as text, all fourteen percussion key maps done (§37–§42). **His scope call (§43): volume normalization (0d) is
-  the ONLY pre-composition item**; everything else in 0c/0e is picked up during composing. **Nothing has been heard by him
-  yet** — the AI's probes have metered individual tracks, but no balanced listening has happened.
-- **Latest deliverables:** `reaper/bridge/jobs/make_perc_tracks.lua` (fourteen rows; a new row DUPLICATES his `Template`
-  track, existing tracks are read-back only) · `bank/perc_rack.json` (the rack as read: track · channel · preset · selected
-  articulation · banked state · catalog entry) · `bank/aro_states/` (eight (C) preset states) ·
-  `bank/aro_percussion_catalog.json` (Finger Cymbals · Bell Tree · Shakers Pairs now `verified`) · RUNNING_LOG §37–§43.
-- **THE NEXT CONCRETE STEP — 0d.1, the REC track, and it needs his Reaper.** The probe is designed (§44–§46) and built
-  (§47): the schedule, the REC-track job and the analyzer all exist and the first two were checked locally (747 notes,
-  26.8 min; `balance_probe.ps1 -DryRun` resolves all ten ports; the percussion carries no CC7). What is left is the part
-  that cannot be done without him:
-  1. **Parse-check `reaper/bridge/jobs/make_rec_track.lua` through the bridge, THEN run it** —
-     `node tools/reaper_job.js -e "loadfile('reaper/bridge/jobs/make_rec_track.lua')"` first. **There is no Lua on this
-     machine**, so the script has never been parsed; §28's rule exists because of exactly this, and §42 is what a silent
-     failure costs. The job is self-reporting — read `ok` and the read-back, do not assume.
-  2. **Run it:** record on, `probes/balance_probe.ps1`, record off. ~27 minutes in which the rack must not be touched.
-     Then `python probes/analyze_lgmf_balance.py <the wav>` → `bank/balance.json`.
-  3. **Then 0d.4 / 0d.5 / 0d.6** — the trims onto the faders and into `sandbox/instruments.js` as `balanceDb` (⚠ the cello
-     still carries #5's `-1` there, a copy-forward leftover), the remap computed and wired into the app, and **his ear on a
-     chord at the quiet level.** His ear settles it; the numbers do not.
-  **Two traps still paid for and honoured in the built tools:** any Lua sent to the bridge is written with
-  `UTF8Encoding($false)` — a BOM makes `loadfile` fail silently and every read then returns the PREVIOUS note's stale file
-  (§42) · **CC7 is never sent to `LGPerc`** (Spitfire binds it to global gain), and `probes/port_note_probe.ps1` must not be
-  reused as-is because it sends CC7 as a residue guard.
+- **The task: PHASE 0 IS CLOSED.** 0d, ensemble balance, is done end to end (RUNNING_LOG §44–§61) and **0h, the gate, is
+  deliberately not run (D14)** — the app's own MIDI output is proved by his first note while composing. **The next task is
+  PHASE 1, composing**, and it has not been started or planned.
+- **What the machine now is:** 28 Reaper tracks (the 10 instrument tracks + 14 percussion + his Template + REC), every
+  instrument balanced — the trims on the faders and, for twelve percussion tracks, a stock JS Volume Adjustment FX beyond
+  the fader's +12 dB ceiling — and `bank/velocity_remap.json` read by the app so one written dynamic is one loudness on
+  every instrument between anchor velocity 50 and 89. **He has heard it once and approved it** ("sounds good", a
+  velocity-64 chord across all seven pitched instruments, §59).
+- **Latest deliverables:** `bank/balance.json` (every note of the run, the velocity and CC7 curves per register, the
+  scatter, the trims and the trim rule) · `bank/velocity_remap.json` + `tools/build_remap.js` · `probes/compute_trims.py`
+  · `reaper/bridge/jobs/apply_trims.lua` · `probes/balance_run.ps1` · `probes/clip_preflight.ps1` +
+  `reaper/bridge/jobs/clip_watch.lua` · `reaper/bridge/jobs/make_rec_track.lua` · `rec_mode_solo.lua` /
+  `rec_mode_restore.lua` · `probes/analyze_lgmf_balance.py` · `tools/uvi_state.js set-master`.
+- **THE NEXT CONCRETE STEP — nothing is in flight; open phase 1 with him.** Do NOT start building: phase 1 has no plan
+  yet, and the planning method (`docs/PLANNING_METHOD.md`) is how a plan item gets built here — state and restate, then
+  the top line, then one step at a time. The material he has already named, for that conversation: the **multitempo
+  machinery** abstracted with figures per beat (LG-5), patterns connected by accelerating/decelerating parts (LG-11), and
+  offered as a rhythm choice in the strikes drawer with the final pattern click-editable and reshuffleable (LG-12) · the
+  **pattern tool with thinning** (LG-7) · the **morph that arrives at a beating and holds** (LG-8) · **animated
+  conductions** (LG-3) · and **the opening he has now described** — individual instruments beating against the bowed
+  vibraphone, which sustains two overlapping pitches (LG-15). **The LGMF call is still unread at his word** (Q2) and it
+  fills the plan's empty timeline table when he says to read it.
 - **`Resume reads:`**
-  - `docs/PLAN.md` **0d** — the six-step running order, and what moved to phase 1.
-  - RUNNING_LOG **§44–§47** — the design (§44 the two layers and why loudness not peak · §45 the anchor · §46 the three
-    levers, and the Ferneyhough footnote · §47 what was built and what is unchecked).
-  - `docs/COMPOSITION_NOTES.md` **LG-13 · LG-14 · LG-15** — the piece's dynamic, the parenthesized-dynamics device, and
-    **the opening** (instruments beating against the bowed vibraphone, which is not installed yet and must join the probe).
+  - `docs/PLANNER.md` — the outline after the `NOW ►` line, for where phase 1 sits.
+  - `docs/COMPOSITION_NOTES.md` **LG-1 … LG-15** — his own musical material; it is what phase 1 is made of.
+  - `docs/PLANNING_METHOD.md` — if the next exchange is planning, which it should be.
+  *(Not RUNNING_LOG: phase 0's 61 entries are history now. Go there only for a specific question.)*
+- **Decisions pending him:** **the percussion's balance is unjudged by ear** — its trims are the fff = fff rule's and one
+  listen at the machine would settle them (the castanets needed +32 dB, which is either right or a soft anchor key) ·
+  whether the remap's four-height audition is ever wanted · the LGMF call, unread (Q2) · the presentation score's pitch
+  form (2b) · the percussion trigger design and one-port-per-instrument (§34, NITS) · whether the +24 duplicate percussion
+  keys are the same samples (*"figure this out another day"*, §41) · the vibraphone's bow ceiling is an ASSUMED 12 s
+  (§48) · the trumpet's top layer dips 1.4 dB from velocity 104 to 127 (§56), accepted.
+- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the
+  rpp") and is committed here with the balance trims, the REC track, the vibraphone's port fix and the two Dynamic Amount
+  knobs in it. `node_modules/`, `reaper/kontakt/out/` and **`reaper/Media/`** are gitignored — the last holds the two run
+  recordings (`28-REC-260918_1330.wav` 567 MB, `28-REC-260918_1507.wav` 69 MB), raw measurement input that
+  `bank/balance.json` already carries everything derived from. **They are on disk and re-analysable, not in the repo.**
+- **A standing warning learned this session:** after a Reaper record, the bridge's round trip on the STOP command times
+  out and its heartbeat reads stale — **twice, on a 27-minute file and a 3-minute one.** The stop HAS landed; it is
+  flushing that blocks Reaper's thread. **Confirm from the FILE, not the API** (§54, §56). `probes/balance_run.ps1` still
+  reports it as a failure and has not been changed.
 
 **Open questions:**
 - **Q1b — libraries. CLOSED 2026-09-18:** english horn = Xsample (D8) · all three ARO volumes installed (§33) · the
@@ -356,6 +367,15 @@ this repo only when they bite.)*
   · cello 18 · vibraphone 28 · double bass 17 · bassoon 12, the flute's case). *The open exception:* **horn and trumpet**, whose
   loaded SI2 ordinario gives 4–5 dB across the whole velocity range. **He is looking into it** — a velocity-layered SI2 preset
   would close it with a swap; failing that, those two alone would take CC7. RUNNING_LOG §55.
+
+- **D14** *(2026-09-18, composer: "lets assume this works, will reveal itself in composition")* — **PHASE 0 IS CLOSED WITHOUT
+  RUNNING 0h.** The gate — every track sounding **from the score app through its own port** — is not performed; it becomes a
+  phase-1 expectation, proved by the first note he plays while composing. Also skipped at his word: the remap's four-height
+  audition, and the percussion heard against the winds (**its fff = fff trims stand unjudged by his ear**). *Why:* every
+  segment after the port is measured and one chord is approved (§49–§59); the only untested link is the browser's Web MIDI,
+  exercised for two pieces on this machine, and a failure there is loud and immediate — a wrong `LG` port name shows as one
+  silent instrument, an unreadable remap bank as unremapped velocities. *Rejected:* a ceremonial gate run, on his standing
+  rule against verification that a plan does not name. RUNNING_LOG §61.
 
 ## §5 Playbooks
 
