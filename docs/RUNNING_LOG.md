@@ -2243,3 +2243,49 @@ This is AI_METHODOLOGY's confidence rule from the other side: a claim about the 
 before it is used to justify a change to the future.
 
 ---
+
+## §56. The horn and trumpet fixed at the knob, not the lever — velocity range 5 → 26 dB; #5's method now holds for the whole ensemble (2026-09-18)
+
+**What prompted it.** After D13, his hunt: *"I'm looking into horn and trumpet, stand by"* · the part mixer (+6 dB, A1 =
+Ordinario, confirmed as the probe's part) · the part Settings tab (LOKEY/HIKEY/LOVEL/HIVEL — a range filter, no effect on
+loudness) · *"yes read the manual, which cc drives dynamics"*.
+
+**The manual (SI2, "Interface" p. 9, #3's extracted copy):** an **Expression Mode** selector — Velocity · Modwheel · Poly
+Aftertouch · MPE — and beside it **Dynamic → Amount**, *"set the dynamic range valid for all expression modes"*, with a
+Curve. Ordinario has **three dynamic layers** on every instrument. So the 4–5 dB was a setting, not the samples.
+
+**The read (his word: "yes do the read ty").** `uvi_state.js decode` on Horn · Trumpet · Bassoon; the element is
+`<ScriptProcessor Name="EventProcessor0" … Dynamic="0.69979858" VelocityCurve="1.1307454" MidiModeMenu="1"
+ModwheelCC="1">`, once per part. **`Dynamic` = 0.70 on every part of all three instruments** — a factory default, not a
+hand-set value — and `MidiModeMenu="1"` the same on all three, which the bassoon's 12 dB already argued was Velocity mode;
+his screenshot of the horn's Expression dropdown then showed **Velocity ticked** and settled the index. The velocity
+layers read 1–66 · 67–116 · 117–127: the manual's three.
+
+**His hands, not a push:** Dynamic Amount **0.70 → 1.00** on the horn's and the trumpet's Ordinario, in the UVI window.
+**The bassoon, which he had also opened, he put BACK to 0.70** — *"what is the reason for changing basson if it is
+already responsive to vel"* — and there was none: its 12 dB serves #5's method, its data was measured, and the trims
+absorb whatever range each instrument has. (The AI had bundled it "for uniformity"; wrong instinct.) The read confirmed
+0.70 was the bassoon's value during the run, so its data stands.
+
+**Re-measured — a 90-note, 3.2-min recorded mini-run, horn and trumpet only, the same harness** (`--only horn,trumpet
+--noperc`; `28-REC-260918_1507.wav`, 195.5 s, 32-bit float):
+
+| | velocity 24 → 127 | before |
+|---|---|---|
+| **Horn** | **25.7 dB** | 5.5 |
+| **Trumpet** | **25.7 dB** | 4.1 |
+
+Smooth and monotonic to v104, the CC7 curves unchanged at 28 dB. **Velocity is now a usable dynamic on every pitched
+instrument, and D13 stands without an exception.** Merged into `bank/balance.json` (the two entries replaced, the second
+wav in their provenance).
+
+**Twice now, the same false alarm, recorded so it stops being one:** the stop command's bridge round trip timed out at
+20 s and the heartbeat read `playing: 5 … alive: false`, on a 3-minute file as on the 27-minute one — so it is the stop
+itself that blocks Reaper's thread, not the size. The file says the truth both times (195.5 s against 192.0 scheduled;
+transport at 0 when the bridge came back). `balance_run.ps1` should confirm from the file; not yet changed.
+
+**Still true:** the trumpet dips 1.4 dB from v104 to v127 (the top layer sits a shade under the middle one's ceiling) —
+the remap clamps at the loudest reachable velocity, as #5's did. Record modes restored; **his save taken** (*"recording
+stopped/saved"*), so the two Dynamic Amounts are in the rack.
+
+---
