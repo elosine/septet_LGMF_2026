@@ -21,6 +21,14 @@
 --   node tools/reaper_job.js run reaper/bridge/jobs/make_rec_track.lua
 local NAME = "REC"
 local RECMODE_OUTPUT_STEREO_LATCOMP = 3
+-- REC's fader, and why it is not unity (his ask, 2026-09-18: "the only issue is with clipping, I believe
+-- the last time we had to rerun the probe several times because of clipping"). Record mode is OUTPUT and
+-- therefore POST-fader, so this trim lowers the RECORDING while his monitoring — which never goes through
+-- REC — is untouched. It costs nothing: every number 0d wants is a DIFFERENCE (a trim is target minus
+-- instrument, a slope is one level minus another), and a constant offset cancels out of both. 12 dB of
+-- margin is what buys the run against a re-run. It is written into bank/balance.json's provenance by the
+-- analyzer, which reads it back from the rack.
+local REC_TRIM_DB = -12.0
 
 -- EXCLUDED from the recording, 2026-09-18, found by reading the rack's MIDI filters before the first
 -- run: three tracks listen on channels the balance probe drives, so their sound would land on top of
@@ -95,7 +103,7 @@ end
 reaper.SetMediaTrackInfo_Value(rec, 'B_MAINSEND', 0)                              -- no doubling: he hears the 26, not REC
 reaper.SetMediaTrackInfo_Value(rec, 'I_RECMODE', RECMODE_OUTPUT_STEREO_LATCOMP)
 reaper.SetMediaTrackInfo_Value(rec, 'I_RECARM', 1)
-reaper.SetMediaTrackInfo_Value(rec, 'D_VOL', 1)                                    -- unity: the recording is the sum, untrimmed
+reaper.SetMediaTrackInfo_Value(rec, 'D_VOL', 10 ^ (REC_TRIM_DB / 20))              -- headroom, not a balance: a constant offset cancels
 reaper.SetMediaTrackInfo_Value(rec, 'B_MUTE', 0)
 
 -- read it all back — nothing is claimed that the rack did not confirm (§28: never trust a silent job)
@@ -111,7 +119,9 @@ local back = {
 }
 
 return {
-  ok = back.receives == #sources and back.recarm == 1 and back.recmode == RECMODE_OUTPUT_STEREO_LATCOMP and back.mainsend == 0,
+  ok = back.receives == #sources and back.recarm == 1 and back.recmode == RECMODE_OUTPUT_STEREO_LATCOMP
+        and back.mainsend == 0 and math.abs(back.volDb - REC_TRIM_DB) < 0.05,
+  trimDb = REC_TRIM_DB,
   created = created, receivesRemovedFirst = removed,
   trackCount = reaper.CountTracks(0), sourcesWired = #sources, sources = sources,
   skippedAsChildren = skipped, excludedFromMeasurement = excluded, readBack = back,

@@ -2044,3 +2044,56 @@ before every note as a known reference. On UVI and Kontakt, CC7 is bound to the 
 (c) keep CC7 only in the `cc7` role and order it last per instrument. **Not decided.**
 
 ---
+
+## §51. The clipping pre-flight built — and it caught a real clip before the run: the SI2 brass is over 0 dBFS at CC7 127 (2026-09-18)
+
+**What prompted it.** *"the only issue is with clipping, I believe the last time we had to rerun the probe several times
+because of clipping, whats the best way to amileroate this?"* → *"yes build the preflight and set the rec fader"*.
+
+**The answer, in three parts.**
+1. **Headroom is FREE here, and that is the whole insight.** Everything 0d produces is a DIFFERENCE — a trim is
+   *target − instrument*, a slope is *level at 127 − level at 64* — so a constant offset over the whole recording cancels
+   out of every number. **REC's fader is now −12 dB** (`REC_TRIM_DB` in `make_rec_track.lua`, read back: `volDb -12`).
+   Record mode is OUTPUT and therefore post-fader, so this lowers the RECORDING and leaves his monitoring alone (REC's
+   master send is off). The analyzer records the trim in the provenance.
+2. **32-bit float.** His project records **24-bit WAV** (decoded from `RECORD_CFG` in the rpp), which clips hard at 0 dBFS.
+   32-bit float keeps an over intact and scales back losslessly. **His to set** — Project Settings → Media.
+3. **A two-minute pre-flight instead of a 27-minute re-run** — `--preflight` in `balance_schedule.js` (the loudest case
+   only: every instrument at top velocity, the pitched at three pitches, the percussion on its anchor key — **35 notes,
+   1.8 min**) played by `probes/clip_preflight.ps1` while `reaper/bridge/jobs/clip_watch.lua` reads **EVERY track's**
+   meter. Per-track peaks are what separate the two faults that look identical in a recording: **REC near 0** = not enough
+   fader margin, a **SOURCE at 0.0 while REC sits low** = that plugin clips internally, where no Reaper fader reaches.
+   The watch and the notes run from ONE process, for §50's reason.
+
+**It found a real clip on its first run.** Peaks at velocity 127, CC7 127:
+
+| track | peak L / R | |
+|---|---|---|
+| **Bassoon SI2** | **+0.81 / +1.46** | **CLIPPED** |
+| **Horn SI2** | **−0.01 / +0.03** | **CLIPPED** |
+| Trumpet SI2 | −0.10 / −0.30 | near |
+| MASTER | +0.81 / +1.46 | CLIPPED (the bassoon's over, passed through) |
+| REC | −11.19 / −10.54 | **ok — the −12 dB trim did its job** |
+| everything else | −5.92 … −38.88 | ok |
+
+**REC did not clip even while sources did**, which is exactly the distinction the per-track watch was built for: the
+overdrive is baked in *before* REC, so no fader of ours can undo it.
+
+**The cause, and it is NOT a probe artefact.** `uvi_edit.js baseline --gain 2` set every SI2 part to **+6 dB** in §22–§25,
+and its own comment says why: *"2 = +6 dB, the value CC7 = 127 leaves a part at, so the stored state equals the playing
+state."* So +6 dB is simply **where CC7 127 puts a UVI part** — the probe did not add anything. Which means **the PIECE
+would clip the bassoon too**, any time the app drives a held note to full. The six SI2 instances' UVI masters are all at
+**0.00 dB** (read, not assumed).
+
+**The fix, and why the obvious ones do not work.** Lowering the Reaper fader: no — the clip is inside the plugin. Lowering
+the stored part gain with `baseline --gain 1`: no — CC7 127 pushes it straight back to +6 dB at play time. The lever that
+works is the **UVI instance MASTER**, which is the fix #5 used on its flute (−2.00 dB, its §115). `uvi_state.js` READS it
+(`masterGainDb`) but nothing writes it yet. **Proposed and not done:** −6 dB on all six SI2 masters — comfortable margin,
+absorbed entirely by 0d's trims (they are measured afterwards), and it removes a clip the piece itself would hit. **His
+call, and a push replaces an instance's whole state, so it waits for "yours again" (§25's protocol).**
+
+**One bug in the driver, worth the line:** `$chk -notmatch '…'` on an ARRAY returns the non-matching ELEMENTS, not a
+boolean, so a clean parse-check read as a failure. Joined to one string first. The same shape of error as §50's — a check
+that reports the opposite of what it measured.
+
+---

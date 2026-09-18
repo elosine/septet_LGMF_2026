@@ -29,11 +29,12 @@
 //         the actual sounds". Keys come from bank/perc_rack.json + bank/aro_percussion_catalog.json, NOT
 //         from a recipe: the percussion lane's recipe is still the placeholder (§43).
 //
-// THE BOWED VIBRAPHONE (his reminder, 2026-09-18 — COMPOSITION_NOTES LG-15, the opening's reference):
-// not installed yet. The moment a `bowed_vibraphone` recipe exists in sandbox/instruments.js this tool
-// picks it up as a seventh pitched instrument with no edit — see PITCHED below.
+// THE BOWED VIBRAPHONE is IN (D12, §48 — COMPOSITION_NOTES LG-15, the opening's reference): it arrived
+// on 2026-09-18 and this tool picked it up with no edit, because `bowed_vibraphone` was already listed in
+// PITCHED below. An instrument with no recipe yet is reported under `skipped`, never an error.
 //
-//   node tools/balance_schedule.js                       # the whole run (~20 min)
+//   node tools/balance_schedule.js                       # the whole run (~27 min)
+//   node tools/balance_schedule.js --preflight           # the loudest case only, ~2 min → the clipping check
 //   node tools/balance_schedule.js --only cello,horn     # a subset, same timings
 //   node tools/balance_schedule.js --nopitched           # percussion alone
 //   node tools/balance_schedule.js --noperc              # the pitched instruments alone
@@ -61,6 +62,13 @@ const FRACS = [0.25, 0.5, 0.75];                                                
 const PERC_KEYS = +opt('perckeys', 3);                                            // representative keys per percussion instrument
 const noCc7 = flag('nocc7');
 const only = opt('only', '').split(',').filter(Boolean);
+// --preflight (his ask, 2026-09-18: "the only issue is with clipping, I believe the last time we had to
+// rerun the probe several times"): the LOUDEST case only — every instrument at top velocity, the pitched
+// ones at their three pitches, the percussion on its anchor key. About a minute. Run with
+// probes/clip_preflight.ps1, which watches EVERY track's peak: REC near 0 means not enough fader margin,
+// a SOURCE track pinned at 0.0 while REC sits low means that plugin is clipping internally, which no
+// fader can fix (#5's flute, fixed at the UVI master at −2 dB).
+const preflight = flag('preflight');
 // timing (ms)
 const T = { hold: +opt('hold', 1200), gap: +opt('gap', 800), lead: +opt('lead', 3000), instGap: +opt('instgap', 1500), pre: 300,
             percHold: +opt('perchold', 200), percGapShort: +opt('percgap', 1200), percGapLong: +opt('percgaplong', 3000) };
@@ -109,7 +117,7 @@ function curveChannel(I, tech) {
 const pushNote = n => notes.push(Object.assign({ i: i++ }, n));
 
 // ── the pitched instruments ─────────────────────────────────────────────────────────────────────────
-if (!flag('nopitched')) for (const role of ['ref', 'vel', 'cc7']) {
+if (!flag('nopitched')) for (const role of (preflight ? ['preflight'] : ['ref', 'vel', 'cc7'])) {
     for (const inst of PITCHED) {
         if (only.length && !only.includes(inst)) continue;
         const I = INSTRUMENTS[inst];
@@ -118,8 +126,9 @@ if (!flag('nopitched')) for (const role of ['ref', 'vel', 'cc7']) {
         if (!tech) { console.error('no ordinary voice on ' + inst); process.exit(1); }
         const lo = tech.rangeLow != null ? tech.rangeLow : I.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : I.rangeHigh;
         const pitches = FRACS.map(f => Math.round(lo + (hi - lo) * f));
-        const rep = (REPEATS[FAMILY[inst]] || REPEATS.xsample)[role];
-        const velList = role === 'ref' ? [ANCHOR_VEL] : role === 'vel' ? VELS : [CC7_VEL];
+        const rep = role === 'preflight' ? 1 : (REPEATS[FAMILY[inst]] || REPEATS.xsample)[role];
+        const velList = role === 'preflight' ? [Math.max.apply(null, VELS)]
+                      : role === 'ref' ? [ANCHOR_VEL] : role === 'vel' ? VELS : [CC7_VEL];
         const cc7List = role === 'cc7' ? CC7S : [127];
         const dest = role === 'cc7' ? curveChannel(I, tech) : { port: tech.port || I.port, ch: tech.channel || 1, curve: false };
         plan.push({ inst, label: I.label, role, tech: tech.key, port: dest.port, ch: dest.ch, curve: dest.curve, pitches,
@@ -159,18 +168,20 @@ if (!flag('noperc')) for (const track of RACK.tracks) {
     if (only.length && !only.includes(track.catalog) && !only.includes('percussion')) continue;
     const entry = CATALOG.instruments[track.catalog];
     if (!entry) { console.error('no catalog entry ' + track.catalog + ' for ' + track.track); process.exit(1); }
-    const keys = representativeKeys(entry);
+    let keys = representativeKeys(entry);
     if (!keys.length) { skipped.push(track.track + ' (no mapped keys)'); continue; }
+    if (preflight) keys = keys.slice(0, 1);                                  // the anchor key alone, at top velocity
+    const percVels = preflight ? [Math.max.apply(null, PERC_VELS)] : PERC_VELS;
     const gap = PERC_LONG.has(track.catalog) ? T.percGapLong : T.percGapShort;
     plan.push({ inst: track.catalog, label: track.track.replace(/ ARO$/, ''), role: 'perc', track: track.track, ch: track.channel,
                 artic: track.artic, keys: keys.map(k => k.midi), articulations: keys.map(k => k.articulation),
                 fallback: keys[0].fallback, ringGapMs: gap,
-                notes: keys.reduce((a, k) => a + PERC_VELS.length * (k.anchor ? PERC_REPEATS.anchor : PERC_REPEATS.other), 0) });
-    for (const key of keys) for (const vel of PERC_VELS) for (let r = 0; r < (key.anchor ? PERC_REPEATS.anchor : PERC_REPEATS.other); r++) {
-        pushNote({ inst: track.catalog, label: track.track.replace(/ ARO$/, ''), role: 'perc', rpt: r,
+                notes: keys.reduce((a, k) => a + percVels.length * (preflight ? 1 : (k.anchor ? PERC_REPEATS.anchor : PERC_REPEATS.other)), 0) });
+    for (const key of keys) for (const vel of percVels) for (let r = 0; r < (preflight ? 1 : (key.anchor ? PERC_REPEATS.anchor : PERC_REPEATS.other)); r++) {
+        pushNote({ inst: track.catalog, label: track.track.replace(/ ARO$/, ''), rpt: r,
                    tech: key.articulation || 'hit', techLabel: (track.artic || '') + ' · ' + (key.articulation || 'hit'),
                    port: RACK.port, ch: track.channel, cc0: null, ks: null,
-                   pitch: key.midi, vel, cc7: null, anchor: !!key.anchor,   // cc7 null: Spitfire's CC7 is its global gain (§42)
+                   role: preflight ? 'preflight' : 'perc', pitch: key.midi, vel, cc7: null, anchor: !!key.anchor,   // cc7 null: Spitfire's CC7 is its global gain (§42)
                    tPreMs: t - T.pre, tOnMs: t, tOffMs: t + T.percHold, slotEndMs: t + T.percHold + gap });
         t += T.percHold + gap;
     }
@@ -178,9 +189,9 @@ if (!flag('noperc')) for (const track of RACK.tracks) {
 }
 
 // ── out ─────────────────────────────────────────────────────────────────────────────────────────────
-const out = path.resolve(ROOT, opt('out', 'probes/balance_schedule.json'));
+const out = path.resolve(ROOT, opt('out', preflight ? 'probes/preflight_schedule.json' : 'probes/balance_schedule.json'));
 const schedule = {
-    generatedAt: new Date().toISOString(), piece: 'lgmf', planItem: '0d.2',
+    generatedAt: new Date().toISOString(), piece: 'lgmf', planItem: preflight ? '0d.2 preflight' : '0d.2', preflight,
     sources: ['sandbox/instruments.js', 'bank/perc_rack.json', 'bank/aro_percussion_catalog.json'],
     anchorVel: ANCHOR_VEL, vels: VELS, cc7s: CC7S, cc7Vel: CC7_VEL, percVels: PERC_VELS, fracs: FRACS,
     percKeys: PERC_KEYS, repeats: REPEATS, percRepeats: PERC_REPEATS, noCc7, skipped,
