@@ -2562,3 +2562,43 @@ tube an octave up, and the bassoon’s lowest note. It is on the double bass’s
 **Not decided — his.** Whether to accept lipped (equal-tempered) playing on E1 and D2, or to reassign those roots, or to
 give the trumpet nothing to do on them.
 
+
+### §63b — quantified: which fundamental from E1 up gives the three the most natural partials (2026-09-18)
+
+**His restatement.** *"I was talking about any fundamental E1 and above. If I choose any fundamental, which are the best ones
+that have the most upper partials played naturally by those three instruments?"* — and he confirmed the third instrument is
+the **bassoon**, not the english horn.
+
+**Method.** Every root from E1 to G3 scored by counting, per instrument, the partials it can produce with no lipping and no
+timbre change. The rules used:
+- **Horn** — a tube of the same pitch class at or below the root (its tubes run B0–B♭1, a full chromatic octave, so one
+  always exists); usable tube partials 2–16; sounding range B1–F5.
+- **Trumpet in C** — a tube of the same pitch class in F♯2–C3. If the tube sits an OCTAVE ABOVE the root, only the root’s
+  partials divisible by that octave factor survive — which is why C2 and B♭1 give the trumpet **even partials only**.
+  Usable tube partials 2–8; range F♯3–C6.
+- **Bassoon** — fingers the root itself (so the root must be ≥ B♭1) and overblows; partials 1–6 with normal fingerings, no
+  timbre penalty; range B♭1–E♭5.
+
+**The result — two different winners, because there are two different questions.**
+
+| root | horn | trumpet | bassoon | all three share | series covered |
+|---|---|---|---|---|---|
+| **B♭1** | 2–12 | 4 6 8 10 12 14 16 | 1–6 | 4, 6 | **14 partials — the most** |
+| B1 · C2 | 1–8 | 4 6 8 10 12 14 16 | 1–6 | 4, 6 | 12 |
+| **F♯2 · G2 · A♭2 · A2 · B♭2** | 1–7 | **2–8** | 1–6 | **2 3 4 5 6 — the most** | 8 |
+
+- **Widest coverage of the series → B♭1.** Fourteen partials of the series are naturally available across the three. It is
+  the horn’s B♭-side OPEN fundamental, the trumpet’s 1st-valve tube an octave up, and the bassoon’s lowest note. **On the
+  double bass’s E string, below the cello.**
+- **Most partials held in common → the G2 family.** All three land on partials 2–6 together, and the trumpet gets the
+  **7th (−31¢) naturally** because G2 IS its 1+3 tube — the only place in this analysis where the trumpet reaches an odd
+  upper partial without lipping.
+- **The trade is exactly that:** the low roots give reach; the G2-family roots give agreement and the characteristic
+  septimal partial on the trumpet.
+- **E1 · F1 · F♯1 · G1 · A1** cover 14–15 partials but **on the horn alone** — all are below the bassoon, and E and F are
+  outside the trumpet’s pitch classes.
+
+**A caveat that changes the numbers.** The horn figures above use the REAL instrument (up to F5). **The SI2 sample library
+stops at F4**, which roughly halves the horn’s partial count on every root — on B♭1 the library horn reaches only partials
+2–5. Anything written above F4 will be heard in the mock-up wrong or not at all, even though a player could do it.
+
