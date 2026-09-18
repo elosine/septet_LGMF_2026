@@ -51,32 +51,39 @@ const INSTRUMENTS = {
   // ---- BASSOON — IRCAM Solo Instruments 2 (UVI) ----
   // Manual: "Instrument part to be written at actual pitch"; range in sounding pitches Bb1–Eb5
   // = MIDI 34–75. The roster below is the manual's own list. On UVI a channel IS a technique, so
-  // the curve channels of D11 need technique COPIES on a second instance (piece #5's flute did
-  // this on a `Fluteb` port) — that is 0c/0e work; every channel here is a placeholder 1.
+  // the curve channels of D11 are technique COPIES on a second instance (piece #5's flute did
+  // this on a `Fluteb` port): here `Bassoon SI2 b` on `LGBassoonb`, made as text (RUNNING_LOG §24).
   bassoon: {
     label: "Bassoon", port: "LGBassoon", rangeLow: 34, rangeHigh: 75,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
-    channels: { main: 1, curve: [2, 3, 4] },
+    channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
     techniques: [
-      { key: "ord",           label: "ordinario", channel: 1 },
-      { key: "ord_1q",        label: "ordinario quarter-tone", channel: 1 },
-      { key: "staccato",      label: "staccato", channel: 1 },
-      { key: "sforzando",     label: "sforzando", channel: 1 },
-      { key: "flz",           label: "flatterzunge", channel: 1 },
-      { key: "chrom_scale",   label: "chromatic scale", channel: 1 },
-      { key: "cresc",         label: "crescendo", channel: 1 },
-      { key: "decresc",       label: "decrescendo", channel: 1 },
-      { key: "cresc_decresc", label: "crescendo to decrescendo", channel: 1 },
-      { key: "multiphonics",  label: "multiphonics", channel: 1 },
-      { key: "key_click",     label: "key click", channel: 1 },
-      { key: "harmonic_fing", label: "harmonic fingering", channel: 1 },
-      { key: "trill_m2",      label: "trill minor 2nd up", channel: 1 },
-      { key: "trill_M2",      label: "trill major 2nd up", channel: 1 },
-      { key: "vib_vel",       label: "vibrato", channel: 1 },
-      { key: "dur_0_5s",      label: "note durations 0.5 s", channel: 1 },
-      { key: "dur_1s",        label: "note durations 1 s", channel: 1 },
-      { key: "gliss_throat",  label: "glissando with throat — NEW, not in techniques.json", channel: 1 },
-      { key: "blow_no_reed",  label: "blow without reed — NEW, not in techniques.json", channel: 1 },
+      // ONE LINE PER TECHNIQUE, its PRESET named as the UVI browser lists it (loaded by him, one each, 2026-09-17 — Ordinario first, then
+      // the browser's order; the overflow on the `b` instance). The CHANNEL and the PORT are not written here: tools/apply_uvi_parts.js
+      // reads them from the running rack into UVI_PARTS below, applied at load. `ks` = the keyswitch inside a KS preset, the flute's
+      // pattern (C1 = 36, C#1 = 37, D1 = 38; Durations C2 = 48, C#2 = 49) — PROVISIONAL until read on the red keys (0c).
+      { key: "ord",               label: "ordinario",                     preset: "Bassoon Ordinario" },
+      { key: "blow_no_reed",      label: "blow without reed — NEW",       preset: "Bassoon Blow Without Reed" },
+      { key: "chrom_scale",       label: "chromatic scale",               preset: "Bassoon Chromatic Scale" },
+      { key: "cresc",             label: "crescendo",                     preset: "Bassoon Cresc & Decrescendo KS", ks: 36 },
+      { key: "cresc_decresc",     label: "crescendo to decrescendo",      preset: "Bassoon Cresc & Decrescendo KS", ks: 37 },
+      { key: "decresc",           label: "decrescendo",                   preset: "Bassoon Cresc & Decrescendo KS", ks: 38 },
+      { key: "dur_0_5s",          label: "note durations 0.5 s",          preset: "Bassoon Durations KS", ks: 48 },
+      { key: "dur_1s",            label: "note durations 1 s",            preset: "Bassoon Durations KS", ks: 49 },
+      { key: "flz",               label: "flatterzunge",                  preset: "Bassoon Flatterzunge" },
+      { key: "fortepiano",        label: "fortepiano",                    preset: "Bassoon Fortepiano" },
+      { key: "harmonic_fing",     label: "harmonic fingering",            preset: "Bassoon Harmonic Fingering" },
+      { key: "key_click",         label: "key click",                     preset: "Bassoon Key Click" },
+      { key: "multiphonics",      label: "multiphonics menu",             preset: "Bassoon Multiphonics Menu" },
+      { key: "ord_mute",          label: "ordinario con sordina — NEW",   preset: "Bassoon Mute Ordinario" },
+      { key: "ord_1q",            label: "ordinario quarter-tone",        preset: "Bassoon Quartertones Ordinario" },
+      { key: "sforzando",         label: "sforzando",                     preset: "Bassoon Sforzando" },
+      { key: "staccato",          label: "staccato",                      preset: "Bassoon Staccato" },
+      { key: "gliss_throat_down", label: "throat glissando down — NEW",   preset: "Bassoon Throat Glissando Down KS" },   // a KS preset: which keys select what — unread
+      { key: "gliss_throat_up",   label: "throat glissando up — NEW",     preset: "Bassoon Throat Glissando Up KS" },
+      { key: "trill_m2",          label: "trill minor 2nd up",            preset: "Bassoon Trills KS", ks: 36 },
+      { key: "trill_M2",          label: "trill major 2nd up",            preset: "Bassoon Trills KS", ks: 37 },
+      { key: "vib_vel",           label: "vibrato",                       preset: "Bassoon Vibrato" },
     ],
   },
 
@@ -86,28 +93,37 @@ const INSTRUMENTS = {
   horn: {
     label: "Horn", port: "LGHorn", rangeLow: 35, rangeHigh: 65,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
-    channels: { main: 1, curve: [2, 3, 4] },
+    channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
     techniques: [
-      { key: "ord",             label: "ordinario", channel: 1 },
-      { key: "staccato",        label: "staccato", channel: 1 },
-      { key: "sforzando",       label: "sforzando", channel: 1 },
-      { key: "flz",             label: "flatterzunge", channel: 1 },
-      { key: "chrom_scale",     label: "chromatic scale", channel: 1 },
-      { key: "cresc",           label: "crescendo", channel: 1 },
-      { key: "decresc",         label: "decrescendo", channel: 1 },
-      { key: "cresc_decresc",   label: "crescendo to decrescendo", channel: 1 },
-      { key: "trill_m2",        label: "trill minor 2nd up", channel: 1 },
-      { key: "trill_M2",        label: "trill major 2nd up", channel: 1 },
-      { key: "dur_0_5s",        label: "note durations 0.5 s", channel: 1 },
-      { key: "dur_1s",          label: "note durations 1 s", channel: 1 },
-      { key: "cuivre",          label: "cuivré — NEW, not in techniques.json", channel: 1 },
-      { key: "ord_to_cuivre",   label: "ordinario to cuivré — NEW", channel: 1 },
-      { key: "cuivre_to_ord",   label: "cuivré to ordinario — NEW", channel: 1 },
-      { key: "stopped",         label: "stopped — NEW", channel: 1 },
-      { key: "open_to_stopped", label: "open to stopped — NEW", channel: 1 },
-      { key: "stopped_to_open", label: "stopped to open — NEW", channel: 1 },
-      { key: "flz_stopped",     label: "flatterzunge stopped — NEW", channel: 1 },
-      { key: "slap_pitched",    label: "slap pitched — NEW", channel: 1 },
+      // ONE LINE PER TECHNIQUE, its PRESET named as the UVI browser lists it (loaded by him, one each, 2026-09-17 — Ordinario first, then
+      // the browser's order; the overflow on the `b` instance). The CHANNEL and the PORT are not written here: tools/apply_uvi_parts.js
+      // reads them from the running rack into UVI_PARTS below, applied at load. `ks` = the keyswitch inside a KS preset, the flute's
+      // pattern (C1 = 36, C#1 = 37, D1 = 38; Durations C2 = 48, C#2 = 49) — PROVISIONAL until read on the red keys (0c).
+      { key: "ord",             label: "ordinario",                       preset: "French Horn Ordinario" },
+      { key: "chrom_scale",     label: "chromatic scale",                 preset: "French Horn Chromatic Scale" },
+      { key: "cresc",           label: "crescendo",                       preset: "French Horn Cresc & Decrescendo KS", ks: 36 },
+      { key: "cresc_decresc",   label: "crescendo to decrescendo",        preset: "French Horn Cresc & Decrescendo KS", ks: 37 },
+      { key: "decresc",         label: "decrescendo",                     preset: "French Horn Cresc & Decrescendo KS", ks: 38 },
+      { key: "cuivre",          label: "cuivré — NEW",                    preset: "French Horn Cuivre" },
+      { key: "dur_0_5s",        label: "note durations 0.5 s",            preset: "French Horn Durations KS", ks: 48 },
+      { key: "dur_1s",          label: "note durations 1 s",              preset: "French Horn Durations KS", ks: 49 },
+      { key: "flz",             label: "flatterzunge",                    preset: "French Horn Flatterzunge" },
+      { key: "fortepiano",      label: "fortepiano",                      preset: "French Horn Fortepiano" },
+      { key: "flz_mute",        label: "flatterzunge con sordina — NEW",  preset: "French Horn Mute Flatterzunge" },
+      { key: "ord_mute",        label: "ordinario con sordina — NEW",     preset: "French Horn Mute Ordinario" },
+      { key: "open_to_stopped", label: "open to stopped — NEW",           preset: "French Horn Open & Stopped KS", ks: 36 },
+      { key: "stopped_to_open", label: "stopped to open — NEW",           preset: "French Horn Open & Stopped KS", ks: 37 },
+      { key: "ord_to_cuivre",   label: "ordinario to cuivré — NEW",       preset: "French Horn Ord & Cuivre KS", ks: 36 },
+      { key: "cuivre_to_ord",   label: "cuivré to ordinario — NEW",       preset: "French Horn Ord & Cuivre KS", ks: 37 },
+      { key: "ord_to_flz",      label: "ordinario to flatterzunge",       preset: "French Horn Ord & Flatterzunge KS", ks: 36 },
+      { key: "flz_to_ord",      label: "flatterzunge to ordinario",       preset: "French Horn Ord & Flatterzunge KS", ks: 37 },
+      { key: "sforzando",       label: "sforzando",                       preset: "French Horn Sforzando" },
+      { key: "slap_pitched",    label: "slap pitched — NEW",              preset: "French Horn Slap Pitched" },
+      { key: "staccato",        label: "staccato",                        preset: "French Horn Staccato" },
+      { key: "flz_stopped",     label: "flatterzunge stopped — NEW",      preset: "French Horn Stopped Flatterzunge" },
+      { key: "stopped",         label: "stopped — NEW",                   preset: "French Horn Stopped Ordinario" },
+      { key: "trill_m2",        label: "trill minor 2nd up",              preset: "French Horn Trills KS", ks: 36 },
+      { key: "trill_M2",        label: "trill major 2nd up",              preset: "French Horn Trills KS", ks: 37 },
     ],
   },
 
@@ -119,7 +135,7 @@ const INSTRUMENTS = {
   trumpet: {
     label: "Trumpet", port: "LGTrumpet", rangeLow: 54, rangeHigh: 82,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
-    channels: { main: 1, curve: [2, 3, 4] },
+    channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
     techniques: [
       { key: "ord",            label: "ordinario", channel: 1 },
       { key: "staccato",       label: "staccato", channel: 1 },
@@ -293,6 +309,71 @@ function xsStringTechs(s, lo, hi, ranges) {
     P(88, "undef_mw", "Undefined Sounds MW", true),
   ];
 }
+
+
+// ---- UVI PARTS (generated by tools/apply_uvi_parts.js from the running rack — do not edit by hand) ----
+const UVI_PARTS = {   // read from the running rack 2026-09-18 01:59 — bassoon: 22 techniques on 21 parts, 3 curve copies · horn: 25 techniques on 21 parts, 3 curve copies
+  bassoon: {
+    techniques: { ord: {"port":"LGBassoon","channel":1}, blow_no_reed: {"port":"LGBassoon","channel":2}, chrom_scale: {"port":"LGBassoon","channel":3}, cresc: {"port":"LGBassoon","channel":4}, cresc_decresc: {"port":"LGBassoon","channel":4}, decresc: {"port":"LGBassoon","channel":4}, dur_0_5s: {"port":"LGBassoon","channel":5}, dur_1s: {"port":"LGBassoon","channel":5}, flz: {"port":"LGBassoon","channel":6}, fortepiano: {"port":"LGBassoon","channel":7}, harmonic_fing: {"port":"LGBassoon","channel":8}, key_click: {"port":"LGBassoon","channel":9}, multiphonics: {"port":"LGBassoon","channel":10}, ord_mute: {"port":"LGBassoon","channel":11}, ord_1q: {"port":"LGBassoon","channel":12}, sforzando: {"port":"LGBassoon","channel":13}, staccato: {"port":"LGBassoon","channel":14}, gliss_throat_down: {"port":"LGBassoon","channel":15}, gliss_throat_up: {"port":"LGBassoon","channel":16}, trill_m2: {"port":"LGBassoonb","channel":1}, trill_M2: {"port":"LGBassoonb","channel":1}, vib_vel: {"port":"LGBassoonb","channel":2} },
+    main: {"port":"LGBassoon","channel":1}, curve: [{"port":"LGBassoonb","ch":3},{"port":"LGBassoonb","ch":4},{"port":"LGBassoonb","ch":5}], curveTechniques: ["ord"],
+    parts: [{"track":"Bassoon SI2","part":"Part 1","ch":1,"program":"Bassoon Ordinario"},
+            {"track":"Bassoon SI2","part":"Part 2","ch":2,"program":"Bassoon Blow Without Reed"},
+            {"track":"Bassoon SI2","part":"Part 3","ch":3,"program":"Bassoon Chromatic Scale"},
+            {"track":"Bassoon SI2","part":"Part 4","ch":4,"program":"Bassoon Cresc & Decrescendo KS"},
+            {"track":"Bassoon SI2","part":"Part 5","ch":5,"program":"Bassoon Durations KS"},
+            {"track":"Bassoon SI2","part":"Part 6","ch":6,"program":"Bassoon Flatterzunge"},
+            {"track":"Bassoon SI2","part":"Part 7","ch":7,"program":"Bassoon Fortepiano"},
+            {"track":"Bassoon SI2","part":"Part 8","ch":8,"program":"Bassoon Harmonic Fingering"},
+            {"track":"Bassoon SI2","part":"Part 9","ch":9,"program":"Bassoon Key Click"},
+            {"track":"Bassoon SI2","part":"Part 10","ch":10,"program":"Bassoon Multiphonics Menu"},
+            {"track":"Bassoon SI2","part":"Part 11","ch":11,"program":"Bassoon Mute Ordinario"},
+            {"track":"Bassoon SI2","part":"Part 12","ch":12,"program":"Bassoon Quartertones Ordinario"},
+            {"track":"Bassoon SI2","part":"Part 13","ch":13,"program":"Bassoon Sforzando"},
+            {"track":"Bassoon SI2","part":"Part 14","ch":14,"program":"Bassoon Staccato"},
+            {"track":"Bassoon SI2","part":"Part 15","ch":15,"program":"Bassoon Throat Glissando Down KS"},
+            {"track":"Bassoon SI2","part":"Part 16","ch":16,"program":"Bassoon Throat Glissando Up KS"},
+            {"track":"Bassoon SI2 b","part":"Part 1","ch":1,"program":"Bassoon Trills KS"},
+            {"track":"Bassoon SI2 b","part":"Part 2","ch":2,"program":"Bassoon Vibrato"},
+            {"track":"Bassoon SI2 b","part":"Part 3","ch":3,"program":"Bassoon Ordinario"},
+            {"track":"Bassoon SI2 b","part":"Part 4","ch":4,"program":"Bassoon Ordinario"},
+            {"track":"Bassoon SI2 b","part":"Part 5","ch":5,"program":"Bassoon Ordinario"}],
+  },
+  horn: {
+    techniques: { ord: {"port":"LGHorn","channel":1}, chrom_scale: {"port":"LGHorn","channel":2}, cresc: {"port":"LGHorn","channel":3}, cresc_decresc: {"port":"LGHorn","channel":3}, decresc: {"port":"LGHorn","channel":3}, cuivre: {"port":"LGHorn","channel":4}, dur_0_5s: {"port":"LGHorn","channel":5}, dur_1s: {"port":"LGHorn","channel":5}, flz: {"port":"LGHorn","channel":6}, fortepiano: {"port":"LGHorn","channel":7}, flz_mute: {"port":"LGHorn","channel":8}, ord_mute: {"port":"LGHorn","channel":9}, open_to_stopped: {"port":"LGHorn","channel":10}, stopped_to_open: {"port":"LGHorn","channel":10}, ord_to_cuivre: {"port":"LGHorn","channel":11}, cuivre_to_ord: {"port":"LGHorn","channel":11}, ord_to_flz: {"port":"LGHorn","channel":12}, flz_to_ord: {"port":"LGHorn","channel":12}, sforzando: {"port":"LGHorn","channel":13}, slap_pitched: {"port":"LGHorn","channel":14}, staccato: {"port":"LGHorn","channel":15}, flz_stopped: {"port":"LGHorn","channel":16}, stopped: {"port":"LGHornb","channel":1}, trill_m2: {"port":"LGHornb","channel":2}, trill_M2: {"port":"LGHornb","channel":2} },
+    main: {"port":"LGHorn","channel":1}, curve: [{"port":"LGHornb","ch":3},{"port":"LGHornb","ch":4},{"port":"LGHornb","ch":5}], curveTechniques: ["ord"],
+    parts: [{"track":"Horn SI2","part":"Part 1","ch":1,"program":"French Horn Ordinario"},
+            {"track":"Horn SI2","part":"Part 2","ch":2,"program":"French Horn Chromatic Scale"},
+            {"track":"Horn SI2","part":"Part 3","ch":3,"program":"French Horn Cresc & Decrescendo KS"},
+            {"track":"Horn SI2","part":"Part 4","ch":4,"program":"French Horn Cuivre"},
+            {"track":"Horn SI2","part":"Part 5","ch":5,"program":"French Horn Durations KS"},
+            {"track":"Horn SI2","part":"Part 6","ch":6,"program":"French Horn Flatterzunge"},
+            {"track":"Horn SI2","part":"Part 7","ch":7,"program":"French Horn Fortepiano"},
+            {"track":"Horn SI2","part":"Part 8","ch":8,"program":"French Horn Mute Flatterzunge"},
+            {"track":"Horn SI2","part":"Part 9","ch":9,"program":"French Horn Mute Ordinario"},
+            {"track":"Horn SI2","part":"Part 10","ch":10,"program":"French Horn Open & Stopped KS"},
+            {"track":"Horn SI2","part":"Part 11","ch":11,"program":"French Horn Ord & Cuivre KS"},
+            {"track":"Horn SI2","part":"Part 12","ch":12,"program":"French Horn Ord & Flatterzunge KS"},
+            {"track":"Horn SI2","part":"Part 13","ch":13,"program":"French Horn Sforzando"},
+            {"track":"Horn SI2","part":"Part 14","ch":14,"program":"French Horn Slap Pitched"},
+            {"track":"Horn SI2","part":"Part 15","ch":15,"program":"French Horn Staccato"},
+            {"track":"Horn SI2","part":"Part 16","ch":16,"program":"French Horn Stopped Flatterzunge"},
+            {"track":"Horn SI2 b","part":"Part 1","ch":1,"program":"French Horn Stopped Ordinario"},
+            {"track":"Horn SI2 b","part":"Part 2","ch":2,"program":"French Horn Trills KS"},
+            {"track":"Horn SI2 b","part":"Part 3","ch":3,"program":"French Horn Ordinario"},
+            {"track":"Horn SI2 b","part":"Part 4","ch":4,"program":"French Horn Ordinario"},
+            {"track":"Horn SI2 b","part":"Part 5","ch":5,"program":"French Horn Ordinario"}],
+  },
+};
+function applyUviParts(all, gen) {   // the rack decides the channel and the port of every SI2 technique; the recipe keeps the preset and the keyswitch
+  for (const [inst, g] of Object.entries(gen || {})) {
+    const R = all[inst]; if (!R || !R.techniques) continue;
+    for (const q of R.techniques) { const v = g.techniques[q.key]; if (!v) { if (q.channel == null && g.main) q.channel = g.main.channel; continue; } q.channel = v.channel; if (v.port !== R.port) q.port = v.port; else delete q.port; q.placed = true; }
+    if (g.main) R.channels = { main: g.main.channel, mainPort: g.main.port !== R.port ? g.main.port : undefined, curve: g.curve.map(c => ({ port: c.port, ch: c.ch })), curveTechniques: g.curveTechniques.slice() };
+    R.uviParts = g.parts.slice();
+  }
+}
+applyUviParts(INSTRUMENTS, UVI_PARTS);
+// ---- end of the UVI parts ----
 
 // ---- ARO PERCUSSION (generated by tools/apply_perc.js from bank/perc_selection.json — do not edit by hand) ----
 const ARO_PERC = {   // 0 instrument(s) selected 2026-09-18 — the placeholder voice stays

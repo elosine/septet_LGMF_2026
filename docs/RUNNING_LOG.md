@@ -1129,3 +1129,55 @@ the `b` port, as the flute's did.
 maximum, +6 dB; the app pins CC7 = 127 before every event, so +6 dB IS the playing state of
 every SI2 part — #5's flute parts were set to +6 dB for the same reason (its §275). The baseline
 job will make every part equal.
+
+---
+
+## §24. 0c/0e — the bassoon and the horn, complete as text: copies, baseline, and the recipe derived from the rack
+
+**His words:** *"do I need to bypass fx or can you after?"* — after, as text. *"bassoon done, do I
+need to do horn and trumpet?"* — yes, one load per preset (§22 settled that); *"horn done."*
+
+**Loaded by him, read back:** bassoon **18** presets (instance 1 parts 1–16 Ordinario → Throat
+Glissando Up KS; `b` parts 1–2 Trills KS · Vibrato); horn **18** (instance 1 Ordinario →
+Stopped Flatterzunge; `b` Stopped Ordinario · Trills KS). Both in the browser's order after
+Ordinario, exactly as asked.
+
+**`tools/uvi_edit.js`** — the edits this rack needs, on decoded XML: `clone` (a whole
+`<Program>…</Program>` from one instance into named parts of another, parts created if the
+instance has not serialized them yet), `baseline` (every part Gain = 2, i.e. +6 dB, the value
+CC7 = 127 leaves a part at; Convolver Bypass 0; DigitalEq / Maximizer / any other program insert
+Bypass 1 — his rule; the keygroup filters untouched), `table` (one line per part with the three
+flags). Then `uvi_state.js encode --push`.
+
+**Cross-instance cloning, proven with the meters:** Bassoon Ordinario (549 363 bytes) → `Bassoon
+SI2 b` parts 3 · 4 · 5, read back 126 sample players each; a note on `LGBassoonb` ch 4: **−2.0 dB**.
+French Horn Ordinario (613 468 bytes) → `Horn SI2 b` 3 · 4 · 5, 141 players each; `LGHornb` ch 5:
+**−2.1 dB**. Baseline on all four instances: 16 + 5 + 16 + 5 parts, every one `conv 0 eq 1 max 1`,
++6 dB, read back. He clicked nothing.
+
+**The recipe from the rack — `tools/apply_uvi_parts.js`.** The division: the RECIPE says which
+preset a technique lives in and, in a KS preset, which key (knowledge — `preset:` and `ks:` on
+each technique, the flute's format); the RACK says which part (port, channel) holds each preset
+(fact — `uvi_state.js info` through the bridge). The tool joins them into a generated block
+`UVI_PARTS`, applied at load by `applyUviParts()`: every technique's channel and port; `channels.main`
+= the Ordinario part; `channels.curve` = the further parts holding the Ordinario preset (the
+copies), as `{ port, ch }` objects the router already accepts; a preset with no technique or a
+technique with no part is REPORTED and the tool exits 1 — nothing guessed. **Bassoon 22/22 placed**
+(main `LGBassoon` 1 · curve `LGBassoonb` 3 4 5) · **horn 25/25** (main `LGHorn` 1 · curve `LGHornb`
+3 4 5). The hand-written lists were rewritten with `preset` (bassoon 22 keys — `gliss_throat` split
+into `_down` / `_up`, `fortepiano` and `ord_mute` added; horn 25 — `fortepiano`, `flz_mute`,
+`ord_mute`, `ord_to_flz`, `flz_to_ord` added) and the `channels` lines set to `{ main: 1, curve: [] }`
+as the safe fallback until the block writes them. The KS notes are the flute's pattern — 36 / 37 /
+38, durations 48 / 49 — PROVISIONAL until read on the red keys.
+
+**Found on the way:** `sandbox/instruments.js` was CRLF from the port with my LF blocks inside it
+(332 CRs); the rewrite's regexes missed every anchor until the file was normalized to LF. It is LF
+throughout now.
+
+**Checks:** palette **GREEN 159** (22 unregistered keys now — the four new ones are on the 2a
+list with the rest); written pitch **8 + the control**. The file evaluates as the browser would:
+`bassoon.channels = { main: 1, curve: [{LGBassoonb 3}, {4}, {5}], curveTechniques: ["ord"] }`.
+
+**Not done, on purpose:** the trumpet (his loads in progress — 13 on instance 1 at the last read;
+its technique list gets `preset` when the names are all known); no keyswitch read; no range read
+(0d); nothing registered in `techniques.json` (nothing uses a key yet).
