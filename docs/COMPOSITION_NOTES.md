@@ -610,6 +610,29 @@ on the vibraphone’s second bow, both times. That is either a motif or a repeti
 and E♭6 all sit near the top of the instrument** (its ceiling is F6), where a bowed bar is thin and quiet — which suits a
 delicate piece (LG-2, LG-13) but gives very little weight.
 
+**CHORD 3 RESOLVED (2026-09-18).** *"g4 then"* — the vibraphone’s second bow takes **G4, partial 6** (+2¢).
+
+| player | pitch | partial | cents | what it is |
+|---|---|---|---|---|
+| double bass | C2 | 1 | 0 | the fundamental |
+| bassoon | E4 | 5 | −14 | just |
+| english horn | E4 | — | tempered | beats with the bassoon at ≈14¢ |
+| **vibraphone (bow 2)** | **G4** | **6** | +2 | **12/7 against the horn’s B♭ — a supermajor sixth, +33¢ off ET; 6/5 against the E, which locks** |
+| horn | B♭4 | 7 | −31 | just |
+| cello | B♭4 | — | just or tempered, HIS choice, still open | |
+| trumpet | E5 | 10 | −14 | just |
+| vibraphone (bow 1) | E5 | — | tempered | beats with the trumpet at ≈14¢ |
+
+**Why G4 and not G5** — a bowing fact, not a musical one. They are the same ratio (12/7 against the B♭, 6/5 against the E).
+But bow 1 is on E5 and **G5 is only three semitones away on the SAME ROW of bars**, so the two bows crowd each other at the
+same edge; G4 is nine semitones below, an easy two-hand span. **Close intervals on one row are the awkward case on a bowed
+vibraphone, not wide ones** — the opposite of the usual intuition, and the reason chord 2’s semitone pair (B♭5 + B5) works:
+those are on opposite rows.
+
+*AI reading:* G4 also sits INSIDE the chord rather than above it, thickening the middle where chord 3 was already dense
+(E4–B♭4–E5, two six-semitone steps) instead of extending the ceiling. **The C2–E4 hole of 28 semitones is left open** —
+G3 would have filled it and is out of bowing reach. Nothing else in chord 3 is free to take it.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
