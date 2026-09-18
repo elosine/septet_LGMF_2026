@@ -22,6 +22,21 @@
 local NAME = "REC"
 local RECMODE_OUTPUT_STEREO_LATCOMP = 3
 
+-- EXCLUDED from the recording, 2026-09-18, found by reading the rack's MIDI filters before the first
+-- run: three tracks listen on channels the balance probe drives, so their sound would land on top of
+-- the instrument being measured and every percussion number would be the sum of two plugins.
+--   Template          LGPerc, ALL channels — his template track (make_perc_tracks duplicates it), and
+--                     it carries a loaded Abbey Road instance, so it answers EVERY percussion note
+--   Percussion        LGPerc, ALL channels — the same, though it has no instrument (SPEC fx = nil)
+--   Bass Drum Alt ARO LGPerc ch 12 — the SAME channel as "Bass Drum ARO", which the probe measures
+-- They still sound in his monitoring; they are only kept out of the measurement. To measure the Alt
+-- bass drum instead of the main one, swap the two names here and in bank/perc_rack.json.
+local EXCLUDE = {
+  ['Template']          = 'LGPerc all channels, and it holds a loaded instance — it would answer every percussion note',
+  ['Percussion']        = 'LGPerc all channels (no instrument loaded, but it is not a measurable source either)',
+  ['Bass Drum Alt ARO'] = 'LGPerc ch 12, the same channel as Bass Drum ARO, which the probe measures',
+}
+
 local function findTrack(name)
   for i = 0, reaper.CountTracks(0) - 1 do
     local tr = reaper.GetTrack(0, i)
@@ -60,12 +75,14 @@ for i = reaper.GetTrackNumSends(rec, -1) - 1, 0, -1 do
   removed = removed + 1
 end
 
-local sources, skipped = {}, {}
+local sources, skipped, excluded = {}, {}, {}
 for i = 0, reaper.CountTracks(0) - 1 do
   local tr = reaper.GetTrack(0, i)
   local _, n = reaper.GetTrackName(tr)
   if tr ~= rec then
-    if feedsMaster(tr) then
+    if EXCLUDE[n] then
+      excluded[#excluded + 1] = n .. ' — ' .. EXCLUDE[n]
+    elseif feedsMaster(tr) then
       reaper.CreateTrackSend(tr, rec)
       sources[#sources + 1] = n
     else
@@ -96,6 +113,6 @@ return {
   ok = back.receives == #sources and back.recarm == 1 and back.recmode == RECMODE_OUTPUT_STEREO_LATCOMP and back.mainsend == 0,
   created = created, receivesRemovedFirst = removed,
   trackCount = reaper.CountTracks(0), sourcesWired = #sources, sources = sources,
-  skippedAsChildren = skipped, readBack = back,
+  skippedAsChildren = skipped, excludedFromMeasurement = excluded, readBack = back,
   note = 'not saved — his CTRL+S. Recording is started and stopped with the transport when the probe runs.',
 }

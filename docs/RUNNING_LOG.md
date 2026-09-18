@@ -1954,3 +1954,38 @@ re-configures a track of that name, never duplicates it). **The REC track job ha
 will now wire all 27 tracks, the vibraphone included.**
 
 ---
+
+## §49. 0d.1 done — the REC track, and three tracks kept OUT of the measurement (2026-09-18)
+
+**What prompted it.** *"can you run the node or do I need to?"* — the AI can: the bridge lives inside his Reaper and
+`reaper_job.js` only drops a job in its inbox. Run from here, with his Reaper open.
+
+**The parse-check taught its own lesson, immediately.** §28's form — `reaper_job.js -e "loadfile('…')"` — returned
+`ok: true` and **no result field at all**, which reads exactly like a pass. It was not one: with a RELATIVE path
+`loadfile` cannot find the file, because Reaper's working directory is not the repo. Made explicit —
+`local f, e = loadfile('<absolute path>'); return { parsed = (f ~= nil), err = tostring(e) }` — it said
+`parsed: false, err: cannot open … No such file or directory`, and with the absolute path `parsed: true, err: nil`.
+**The rule is sharper now: a parse-check must RETURN the verdict.** `ok: true` is the bridge saying the job ran, not the
+file saying it parsed. This is §42's stale-outbox trap in a new costume — a silent pass that looks like data.
+
+**Then, before running it: three tracks would have contaminated every percussion number.** Reading the rack's own MIDI
+filters out of `LGMF_rack.rpp` (input = 4096 + dev×32 + channel):
+- **`Template`** — `LGPerc`, **ALL channels**, and it carries a loaded Abbey Road instance (it is the track
+  `make_perc_tracks.lua` duplicates). It would answer **every one of the 220 percussion notes**, so each measurement would
+  have been the sum of two plugins.
+- **`Percussion`** — `LGPerc`, ALL channels; no instrument loaded (SPEC `fx = nil`), so silent, but not a measurable source.
+- **`Bass Drum Alt ARO`** — `LGPerc` **ch 12, the same channel as `Bass Drum ARO`**, which the probe measures. His own
+  fifteenth percussion track, not in `bank/perc_rack.json`.
+An `EXCLUDE` table with a reason per name now keeps the three out of REC's receives. **They still sound in his monitoring** —
+only the measurement is protected. To measure the Alt bass drum instead of the main one, the two names swap.
+*(Recorded because it generalizes: a receive bus captures whatever the rack contains, and a channel filter set to ALL is
+invisible until something drives that port.)*
+
+**The result, read back from the rack — `ok: true`:** `REC` at track 28, **24 receives** (27 tracks − the three), master
+send **off** (nothing heard twice), record mode **3** = output stereo latency-compensated, **armed**, unity gain, unmuted.
+Not saved: his CTRL+S. **0d.1 is closed.**
+
+**Rejected on the way:** #5's folder-parent REC (its §115) — a folder would have REPARENTED his 27 tracks. Receives add
+nothing to his structure and lift out without a trace.
+
+---
