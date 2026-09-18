@@ -187,6 +187,51 @@ score or simply absent; whether the hand edits survive a change of the pattern o
 
 ---
 
+### LG-13 · 2026-09-18 — the piece's dynamic: mostly quiet, some loud; everything speaks, no one dominates, especially percussion
+
+> *"this will be a mostly quiet piece with potentially some loud parts, so I want everything to speak but no one part to
+> dominate or wash the others out, particularly with percussion"* — composer, 2026-09-18, restating the goal of 0d (volume
+> normalization) after the clear; the whole restatement is in RUNNING_LOG §44
+
+*AI reading (mine, not his):* the first statement of the piece's overall dynamic. Its consequence for the machine is in
+§44: the ensemble is balanced at the QUIET level (where the piece lives), not at fff as #5 was; the percussion is measured
+as loudness, not peak, so the small metals neither bury nor wash. Its musical side is his to say: whether "loud" is a few
+tutti moments or a section; what "everything speaks" means when the small metals are against sustained winds.
+
+### LG-14 · 2026-09-18 — a device to keep in view: Ferneyhough's parenthesized dynamics, and the MIDI that can fake them
+
+> *"lets make a footnote, that might be able to surface when called for, Ferneyhough uses dynamics in parenthesis which mean
+> play with the energy timbre of a loud attack but at a quiet volume, you have identified the midi technique where we might
+> be able to simulate this"* — composer, 2026-09-18, on hearing why velocity and CC7 are separate levers (RUNNING_LOG §46)
+
+*AI reading (mine, not his):* the technique is the one the balance mechanism deliberately AVOIDS for ordinary notes: a
+**high velocity** (the loud sample — the hard attack, the bright timbre) **with CC7 pulled down** to a quiet level — "a quiet
+fff". In the app this would be a per-note attribute (a parenthesized dynamic on the notation side, a velocity/CC7 pair on
+the MIDI side, bypassing the remap's normal pairing); on Spitfire percussion CC7 is forbidden (global gain), so the
+percussion version would need another lever or none. **Not built; not planned. Surface it when he writes a passage that
+wants the energy of an attack without its volume.**
+
+### LG-15 · 2026-09-18 — THE OPENING: instruments beating against the bowed vibraphone, which overlaps two pitches at a time
+
+> *"comp note: opening - individual instruments create beating with bowed vibes; vibes overlaps two pitches at a time with
+> different instruments comming in on each pitch; reminder that I will install the xsample vibes and we'll have to include
+> it in the probe and mapping"* — composer, 2026-09-18, sent while the balance probe was being built
+
+*AI reading (mine, not his):* the first statement of how the piece BEGINS, and it makes LG-9's bowed vibraphone structural
+rather than colouristic. The vibraphone is the fixed reference — the role the generated sine plays in NX-1/NX-6, but acoustic
+and inside the ensemble — and it sustains **two pitches at a time, overlapping**, so the pitch pairs chain: as one pitch is
+released the next enters, and the overlap is where two beating partners coexist. **Individual instruments come in on each
+pitch** and beat against it — near-unison, one player per pitch at a time, entering and leaving as the vibraphone's pairs
+move. It connects to LG-8 (the morph that arrives at a beating and holds), to LG-13 (mostly quiet — this is a quiet opening
+by construction), and to #5's beating tool, which already computes beat rates between two instruments; here one side is the
+vibraphone, so the target is nearly as exact as a sine. **His to say:** how the vibraphone's pitch pairs are chosen and how
+long each overlap lasts; whether an instrument beats above or below its pitch; whether the entries are scored or conducted.
+
+**Machine consequence, his own reminder:** the **Xsample bowed vibraphone is not installed yet**. When it is, it needs
+(a) a `LG` port and a rack track, (b) a recipe and a key/technique map, and (c) **inclusion in the 0d balance probe** — it
+will be the eighth pitched instrument and the opening's reference level, so its trim matters more than most. PLAN 0d carries
+this; 0d can be run without it and the vibraphone added as a second short run, or the whole run deferred until it is in.
+
 ## For the NEXT piece — "overdrive", for the Switch ensemble (NX-4 corrects the name) (kept here until that piece has a sketch pad, as LG-1…8 were kept in the Tempus pad)
 
 ### NX-1 · 2026-09-18 — accented long tones with sine waves, beating; the pedals of resonance resurrected

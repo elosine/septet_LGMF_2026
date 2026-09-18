@@ -151,7 +151,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 |---|---|---|---|
 | **HIS** | **Look at it:** `node score/server.js` → http://localhost:5400/composer.html — his seven lanes. And the notation page: `/notation/app/notation.html` → `lgmf-0i` | — | — |
 | **► N1** | **0c + 0e — IN PROGRESS, him at the machine.** DONE: ten ports · ten tracks · the three SI2 instruments complete as text (§20–§25). **The Kontakt three:** (1) the three `.nki` loaded · (2) `curve_slots.lua` run in each — four slots [A] 1–4 in EH · Vc · Db, proven by read-back, rack saved (§26–§29). (3) the Xsample recipes DONE — the english horn's 36 presets from his own Preset Menu, the double bass's 88 verified identical to the cello's, both checks green (§32). Spitfire read and pushed as text, the small metals loaded once and banked (§30–§36). **2026-09-18, session 2 (§37–§39): the clone-and-change experiments were DROPPED at his word — the script makes the tracks, he selects. The percussion rack stands: fourteen instrument tracks on `LGPerc` ch 1–14 (`make_perc_tracks.lua`; new rows duplicate his `Template`), his loads read, eight (C) presets banked, the rack as read in `bank/perc_rack.json`. All fourteen key maps DONE (§40–§42).** What remains of 0c/0e is picked up during composing at his call (§43): the percussion recipe (`perc_selection.json` — one script run when he picks the selection) · the REC track · the port's last two channels · **first sound from the APP (browser → port, never run for this piece; must be HIS Chrome — the AI's browser has no Web MIDI)** | — | — |
-| **► N2** | **0d — volume normalization. The ONLY pre-composition item (his call, §43).** A **probe job, Reaper-side**: fire each instrument's mapped keys into its `LG` port (winmm, as §41–§42's sweep did) and read `Track_GetPeakInfo`; no browser and no recipe are in that path. The fourteen percussion tracks already sounded this way and that sweep's dB column is the raw material. **Design the probe first** — what "normalized" means across sustaining winds/strings and one-shot percussion is the open question, and his ear settles it. Then **0h**, the phase-0 gate | Opus to build; **his ear to judge** | resuming from a clear |
+| **► N2** | **0d — ensemble balance. The ONLY pre-composition item (his call, §43).** **DESIGNED and BUILT 2026-09-18 (§44–§47).** His restatement: the goal is *"realistic arual feedback … if I'm listening to a chord needs to be balanced in ensemble so I can hear the harmony realisticly"*, the piece *"mostly quiet with potentially some loud parts"* (LG-13), a **baseline** now and refinement when he designs the sounds. **Three levers (§46):** the fader (one dB per track) · velocity (picks the sample, carries the dynamic) · CC7 (the fine trim, and a held note's shape) — never CC7 on Spitfire percussion (§42). **Both layers at his word** (§45): the **trim** (layer 1) and the **remap** (layer 2) from ONE run, anchored at the **QUIET level** (his A). **Built:** `tools/balance_schedule.js` (652 notes / 23.6 min; four roles; three representative keys per percussion instrument; the bowed vibraphone wired in for when it arrives, LG-15) · `reaper/bridge/jobs/make_rec_track.lua` (a receive bus, not a folder — it must not reparent his 26 tracks) · `probes/analyze_lgmf_balance.py` (#5's loudness core; a 150 ms window for one-shots; the spread at full after the trims). **NEXT, and it needs him at the machine:** 0d.1 — **parse-check the Lua through the bridge, then run it** (§28's rule; there is no Lua on this machine) · then the run: record on, `probes/balance_probe.ps1`, record off, ~24 min untouched · then 0d.3 analyze → 0d.4 trims on the faders → 0d.5 the remap into the app → **0d.6 his ear on a chord** (the one verification the plan names as required) | Opus to build; **his ear to judge** | no |
 | N3 | **Phase 1, composing.** The tools he has already named: the multitempo machinery abstracted with figures per beat (LG-5), **with patterns connected by accelerating / decelerating some parts (LG-11, 2026-09-18)** and **offered as a rhythm choice in the strikes drawer, the final pattern editable by click — mute / re-orchestrate a note — and reshuffled (LG-12, 2026-09-18)** · the pattern tool with thinning (LG-7) · the morph that arrives at a beating and holds (LG-8) · animated conductions (LG-3) | Fable to design · Opus to build | yes |
 | N4 | **Read the LGMF call** — when he says. It fills the plan's empty timeline table | Fable | no |
 
@@ -165,31 +165,29 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   track, existing tracks are read-back only) · `bank/perc_rack.json` (the rack as read: track · channel · preset · selected
   articulation · banked state · catalog entry) · `bank/aro_states/` (eight (C) preset states) ·
   `bank/aro_percussion_catalog.json` (Finger Cymbals · Bell Tree · Shakers Pairs now `verified`) · RUNNING_LOG §37–§43.
-- **THE NEXT CONCRETE STEP — design the volume-normalization probe, then build it.** Not a sweep of keys (those are
-  mapped); a LEVEL measurement. What is already known, so it does not have to be rediscovered:
-  1. **The path is Reaper-side only** — winmm → the `LG` loopMIDI port → the track → the plugin → `Track_GetPeakInfo`.
-     **No browser and no `sandbox/instruments.js` are involved** (§43). The working shape is a bridge job that defers on
-     `Track_GetPeakInfo` for ~1.1 s and writes `outbox/peakwatch.json`, plus a PowerShell P/Invoke that fires the note.
-  2. **Two traps, both already paid for:** (a) write any Lua sent to the bridge with `UTF8Encoding($false)` — **a BOM makes
-     `loadfile` fail silently and every read then returns the PREVIOUS note's stale file** (§42); delete the outbox file
-     before each note and abort unless the job returned `ok: true`. (b) **Never send CC7** — on Spitfire that is the global
-     gain and it would rewrite his mix (`probes/port_note_probe.ps1` sends it as a residue guard; do not reuse it as-is).
-  3. **Ask him first what "normalized" means to him** across sustaining winds/strings and one-shot percussion — peak, or
-     perceived loudness at a written dynamic? Where the gain is applied (the Reaper fader, the plugin's own gain, or the
-     recipe's velocity) is his call too. **Design with him before building** — and note his standing rule: no verification
-     or QC pass that he did not ask for or that the plan does not name.
+- **THE NEXT CONCRETE STEP — 0d.1, the REC track, and it needs his Reaper.** The probe is designed (§44–§46) and built
+  (§47): the schedule, the REC-track job and the analyzer all exist and the first two were checked locally (652 notes,
+  23.6 min; `balance_probe.ps1 -DryRun` resolves all ten ports; the percussion carries no CC7). What is left is the part
+  that cannot be done without him:
+  1. **Parse-check `reaper/bridge/jobs/make_rec_track.lua` through the bridge, THEN run it** —
+     `node tools/reaper_job.js -e "loadfile('reaper/bridge/jobs/make_rec_track.lua')"` first. **There is no Lua on this
+     machine**, so the script has never been parsed; §28's rule exists because of exactly this, and §42 is what a silent
+     failure costs. The job is self-reporting — read `ok` and the read-back, do not assume.
+  2. **Run it:** record on, `probes/balance_probe.ps1`, record off. ~24 minutes in which the rack must not be touched.
+     Then `python probes/analyze_lgmf_balance.py <the wav>` → `bank/balance.json`.
+  3. **Then 0d.4 / 0d.5 / 0d.6** — the trims onto the faders and into `sandbox/instruments.js` as `balanceDb` (⚠ the cello
+     still carries #5's `-1` there, a copy-forward leftover), the remap computed and wired into the app, and **his ear on a
+     chord at the quiet level.** His ear settles it; the numbers do not.
+  **Two traps still paid for and honoured in the built tools:** any Lua sent to the bridge is written with
+  `UTF8Encoding($false)` — a BOM makes `loadfile` fail silently and every read then returns the PREVIOUS note's stale file
+  (§42) · **CC7 is never sent to `LGPerc`** (Spitfire binds it to global gain), and `probes/port_note_probe.ps1` must not be
+  reused as-is because it sends CC7 as a residue guard.
 - **`Resume reads:`**
-  - `bank/perc_rack.json` — the fourteen tracks, their channels and their catalog entries (the probe's input).
-  - RUNNING_LOG **§43** (why normalization needs no app and no recipe) and **§42** (the BOM trap, and the working probe shape).
-- **Decisions pending him:** what "normalized" means and where the gain goes (above) · the percussion trigger design —
-  A keyswitch prelude · B one channel per instrument · C one instance per instrument (§34, and the rack is built as C) ·
-  one loopMIDI port per percussion instrument (his note, NITS) against D7's one port, now that 14 of 16 channels are used ·
-  whether the +24 duplicate keys are the same samples (*"figure this out another day"*, §41) · the LGMF call, unread at his
-  word (Q2) · who inherits the piano's struck role (PLANNER) · the presentation score's pitch form (2b).
-- **Deliberately uncommitted: NOTHING.** His `reaper/LGMF_rack.rpp` is committed at each of his saves ("yes commit the
-  rpp"). `node_modules/` and `reaper/kontakt/out/` are ignored. The probe scripts live in the session scratchpad and are
-  deliberately NOT in the repo — the real tool gets designed with him. No servers of the AI's are running; the bridge runs
-  inside his Reaper.
+  - `docs/PLAN.md` **0d** — the six-step running order, and what moved to phase 1.
+  - RUNNING_LOG **§44–§47** — the design (§44 the two layers and why loudness not peak · §45 the anchor · §46 the three
+    levers, and the Ferneyhough footnote · §47 what was built and what is unchecked).
+  - `docs/COMPOSITION_NOTES.md` **LG-13 · LG-14 · LG-15** — the piece's dynamic, the parenthesized-dynamics device, and
+    **the opening** (instruments beating against the bowed vibraphone, which is not installed yet and must join the probe).
 
 **Open questions:**
 - **Q1b — libraries.** Closed but one: english horn = Xsample (D8) · all three ARO volumes installed (§33) · the

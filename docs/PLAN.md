@@ -70,22 +70,79 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
   bowed vibraphone · only the cello's entry has ever been heard.
   *Why:* the recipes ARE how the AI and the app produce the right MIDI for each sound.
 
-- **0d — The samples' true ranges and lengths, per technique in use** — `todo` — *to be laid
-  out when we discuss it.* *Why:* a range or a length read from a manual was wrong often
-  enough in #5 to be measured instead.
-  **2026-09-18 — HIS SCOPE CALL, and 0d is now the one thing standing before composing:**
-  *"lets pick up most of these things during composition; I think the only thing from this
-  stage that is necessary pre composition is the volume normalization"* — so ranges, lengths,
-  the REC track, the percussion port's last two channels and first sound FROM THE APP all
-  move to "as we hit them in phase 1"; **volume normalization alone is pre-composition.**
-  And on how: *"they either sound on the probe or not... can we just design the probes?"* —
-  correct, and the framing that had first-sound-from-the-app blocking it was wrong
-  (RUNNING_LOG §43). Levels are a Reaper-side measurement: a probe fires the mapped keys into
-  the `LG` port and reads `Track_GetPeakInfo`; no browser and no recipe are involved. The
-  percussion chain already sounded this way on 2026-09-18 (§41–§42), and that sweep's dB
-  column is the raw material. **Still untested, and NOT a blocker for 0d:** the app's own
-  MIDI output (browser → port), the one segment never run for this piece — a minute in his
-  Chrome, whenever.
+- **0d — Ensemble balance: the trim and the remap from one measured run** — `designed 2026-09-18
+  (RUNNING_LOG §44–§46), building` — *(his restatement, 2026-09-18: "our goal is to produce a
+  realistic demo and have realistic arual feedback for me during composing phase, so for example
+  if I'm listening to a chord needs to be balanced in ensemble so I can hear the harmony
+  realisticly and make choices, but this is not the #1 priority I don't want to overinvest but
+  lets do the necessary to achieve most of what is possible with sample instruments … this will
+  be a mostly quiet piece with potentially some loud parts, so I want everything to speak but no
+  one part to dominate or wash the others out, particularly with percussion; also maybe we try to
+  get a baseline here and a basic scaffolding and then refine when I design the actual sounds")*
+  — **the ONE pre-composition item** (his scope call, §43). *Why:* he cannot judge a chord, an
+  orchestration or a balance while composing if the samplers sit at arbitrary gains. LG-13 is the
+  piece's dynamic; this is the machine that serves it.
+
+  **The mechanism — three levers in series (§46):** the **fader** (one constant dB per track, set
+  once) · **velocity** (per note; picks the sample, so it carries the dynamic) · **CC7** (the fine
+  trim where velocity cannot land between layers, and the shape over a held note — velocity for the
+  curve's top, CC7 for its height). NOT "127 then CC7 down": velocity chooses WHICH recording plays,
+  so a 127 sample turned down is a quiet fff, not a p. **Percussion: fader + velocity only** —
+  Spitfire binds CC7 to its global gain (§42), so CC7 must never be sent to `LGPerc`.
+
+  **Both layers now, at his word** (*"lets do layer 2 now too"*, §45) — one sweep feeds both:
+  1. **Layer 1 · the trim** — one dB per track on the Reaper fader so every instrument's ordinary
+     sound is the same LOUDNESS at one dynamic. This is what makes a chord hear as harmony.
+  2. **Layer 2 · the remap** — per instrument and register, `target → (velocity, CC7)`, so the same
+     score dynamic is the same loudness on every instrument at EVERY level, not just the anchor.
+     (#5's 1g; without it the instruments drift apart away from the anchor, because each sampler's
+     velocity→loudness slope differs — #5's 0j measured 127 → 64 costing the flute 7.4 dB, the
+     viola 5.6, the rest 9–12.)
+
+  **Decided at the design (§44–§45):**
+  - **The anchor is the QUIET level, not 127** (his A, recommended and taken) — the piece lives
+     there, so that is where the match is exact and the residue goes to the loud end. #5 anchored
+     at 127 because its own piece did not have this dynamic.
+  - **Loudness, not peak.** The checkpoint's `Track_GetPeakInfo` shape (§43) is DISPLACED: a finger
+     cymbal peaks high and is quiet, so a peak match would bury it — exactly the washing-out he
+     named. Measured from a recording, K-weighted, with a short window for the one-shots.
+  - **Non-standard effects are NOT normalized.** A key click is quiet because it is; its natural
+     level is part of the realism. An unusably quiet one gets an offset in its own recipe when we
+     hit it in phase 1.
+  - **A baseline, not a final balance** (his "basic scaffolding … refine when I design the actual
+     sounds"): the ordinary voice per instrument and a representative handful per percussion
+     instrument — not all 261 mapped percussion keys.
+
+  **The kit** — #5's four tools, carried by the port and rewritten for this palette:
+  `tools/balance_schedule.js` (the timetable, from the recipes + `bank/perc_rack.json` +
+  `bank/aro_percussion_catalog.json`) → `probes/balance_probe.ps1` (plays it into the `LG` ports
+  while the REC track records) → `probes/analyze_balance.py` (loudness per note) →
+  `bank/balance.json` (the trims) + `tools/velocity_remap.js` → `bank/velocity_remap.json` (the
+  remap the app reads).
+
+  **The running order** (► = active):
+  1. ► **0d.1 — the REC track.** `reaper/bridge/jobs/make_rec_track.lua`: one track at the end with
+     a receive from all 26, its own master send off (no doubling), record mode output-stereo, armed.
+     **Needs his Reaper open with the bridge alive**, and the script parse-checked through the
+     bridge first (§28's rule).
+  2. **0d.2 — the schedule** for this palette: the six pitched instruments' ordinary voice at three
+     pitches × six velocities (CC7 full) and × six CC7 values (velocity fixed; on the `b` / curve
+     channel where the recipe names one) — the Xsample three repeated, they scatter ±2–4 dB by round
+     robin — plus, per percussion instrument, up to three representative keys × four velocities.
+  3. **0d.3 — run it** (his Reaper recording; ~600 notes, ~20 min) and **analyze** →
+     `bank/balance.json`.
+  4. **0d.4 — the trims onto the faders** (through the bridge) and into the recipes as `balanceDb`
+     (the record only — the app sends nothing for them). ⚠ `sandbox/instruments.js` still carries
+     #5's `balanceDb: -1` on the cello, a copy-forward leftover: it is replaced by measurement here.
+  5. **0d.5 — the remap** computed and wired into the app (`score/public/velocity_remap.js`, shared
+     by the page and the tools, as #5's §117).
+  6. **0d.6 — his ear.** A chord, at the quiet level, all seven. **He judges; the numbers do not.**
+     *(The one verification this plan names as required — AI_METHODOLOGY's verified-claim rule.)*
+  *Result when done:* the same written dynamic is the same loudness on every instrument, the
+  percussion included; he can hear a chord as harmony while composing. Moved back to phase 1 at
+  his scope call: the samples' true ranges and lengths per technique, the REC track's other uses,
+  the percussion port's last two channels, and first sound FROM THE APP (browser → port, HIS
+  Chrome — the in-app browser has no Web MIDI).
 
 - **0e — loopMIDI + Reaper rack** — `doing 2026-09-17` *(RUNNING_LOG §20–§25: ten `LG` ports verified by name; ten tracks in score order made by `reaper/bridge/jobs/make_tracks.lua`; the six UVI instances configured as text — `uvi_state.js` header fixed, `uvi_edit.js` clone + baseline, proven with the meters; D9 the layout. Remaining: the three Kontakt instances' `.nki` + `curve_slots`, the percussion tracks when chosen, the REC track)* — A new rack
   for seven new tracks. The Reaper bridge from #5's 0k was built machine-level "for the next

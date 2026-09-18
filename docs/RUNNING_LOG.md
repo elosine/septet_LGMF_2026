@@ -1789,3 +1789,118 @@ not what must be true first.
 
 ---
 
+
+## §44. 0d restated by him — the goal is realistic aural feedback while composing; the balance probe designed simply (2026-09-18)
+
+**What prompted it.** After the clear, Fable. He asked first for the state and #5's method in brief (nothing normalized here;
+#5: 0j a fader trim per track from one recorded run, K-weighted loudness at 127 and 64 · 1g a per-instrument, per-register
+velocity remap anchored on the violins, the cello and bass clarinet limited by their own ±2–4 dB round-robin scatter). Then
+*"still too complicated"*, and the restatement, verbatim:
+
+> *"our goal is to produce a realistic demo and have realistic arual feedback for me during composing phase, so for example
+> if I'm listening to a chord needs to be balanced in ensemble so I can hear the harmony realisticly and make choices, but
+> this is not the #1 priority I don't want to overinvest but lets do the necessary to achieve most of what is possible with
+> sample instruments; lets step back and consider what is the best and most effecient way of achieving this and then design
+> the probe; considerations include the variations of controls in the various sample instruments, the range and different
+> volume levels of non-standard effects, velocity vs cc7 when are we using which; this will be a mostly quiet piece with
+> potentially some loud parts, so I want everything to speak but no one part to dominate or wash the others out,
+> particularly with percussion; also maybe we try to get a baseline here and a basic scaffolding and then refine when I
+> design the actual sounds"*
+
+**The AI's reading (proposed, pending his word).** Two layers: **(1) the trim** — one dB per track on the Reaper fader so
+every instrument's ordinary sound at one dynamic is the same loudness; this is what makes a chord hear as harmony; do now.
+**(2) the curves** — how each sampler's loudness moves with velocity and CC7 so a crescendo matches across instruments (#5's
+1g); later, when he designs the sounds. His considerations, answered: the trim lives outside every sampler (one lever for all
+24 tracks) · velocity chooses the sample, CC7 sets the level of a held sound; Spitfire velocity only, CC7 is its global gain
+(§42) · non-standard effects are NOT normalized — their natural level is part of the realism; an unusably quiet one gets a
+recipe offset when hit · a mostly quiet piece is balanced at the QUIET level, not at 127 as #5 was, with the spread at 127
+reported · percussion is measured as LOUDNESS, not peak — a finger cymbal peaks high and is quiet, so a peak match would bury
+it; short sounds need a short window. **The probe:** one run over all 24 tracks — pitched: ordinario × 3 pitches × quiet/loud;
+percussion: each sound's key × quiet/loud — into the ports with the REC track recording, #5's K-weighted analyzer carried
+over; out: one table and one trim per track, onto the faders, recorded in the recipes. This displaces the checkpoint's
+`Track_GetPeakInfo` shape (§43): peak is the wrong quantity for the percussion he named as the worry, and the REC track is
+one bridge job. **Pending him:** the anchor — quiet (recommended) or 127.
+
+---
+
+## §45. His call — layer 2 (the curves) now, not later; the A/B anchor explained (2026-09-18)
+
+**What prompted it.** *"lets do layer 2 now too; please explain AB choice more please."* So §44's "refine when I design the
+sounds" is withdrawn for the curves: one sweep gives both the trim and the remap, as #5's 1g did after its 0j (§115–§119
+there), and the app reads the remap from the first note it plays. **The A/B explained:** a single trim makes the instruments
+equal at ONE dynamic; away from it they drift, because each sampler's velocity→loudness slope differs (#5's 0j: 127 → 64 cost
+the flute 7.4 dB, the viola 5.6, the rest 9–12). A chooses the quiet level as the exact point (the piece's home), B the top.
+With layer 2 the remap bends every instrument onto one reference scale at every level, so A/B shrinks to: where is the match
+exact and where does the residue go (clamps, round-robin scatter) — A puts it at the loud end. **Recommended A**, pending.
+
+---
+
+## §46. The mechanism explained; a footnote for later — Ferneyhough's parenthesized dynamics as velocity-high / CC7-low (2026-09-18)
+
+**What prompted it.** *"lets say there is a passage with changing dynamics each onset. you would then for example play a note
+at 127 but then adjust the cc7 to bring it into correct volume? … what are we adjusting at the output to normalize all the
+volumes?"* The answer given, from #5's §116–§120: three levers in series — **the fader** (one constant per track, the 0j-style
+trim) · **velocity** (per note; picks the sample and carries most of the level) · **CC7** (the fine trim where velocity cannot
+land between layers, and the shape over a held note: velocity for the curve's top, CC7 for its height). Not "127 then CC7
+down": velocity chooses WHICH recording plays, so a 127 sample turned down is a quiet fff, not a p. The sweep inverts each
+instrument's measured loudness-vs-velocity/CC7 into a table, target → (velocity, CC7), per register; the app translates on
+the way out and the score stays on one scale. Percussion: fader + velocity only (Spitfire CC7 = global gain, §42).
+
+**His footnote, verbatim, → COMPOSITION_NOTES LG-14:** *"Ferneyhough uses dynamics in parenthesis which mean play with the
+energy timbre of a loud attack but at a quiet volume, you have identified the midi technique where we might be able to
+simulate this."* The "wrong" pairing is exactly that device — high velocity, CC7 low. Not built, not planned; to surface when
+a passage wants it.
+
+---
+
+## §47. 0d built — the schedule, the REC track job and the analyzer, for this palette (2026-09-18)
+
+**What prompted it.** *"ok switched to opus, go build ty."* The design of §44–§46, executed. PLAN 0d was rewritten from "the
+samples' true ranges and lengths" (its inherited text) to **ensemble balance, the trim and the remap from one measured run**,
+with a six-step running order; ranges and lengths moved to phase 1 with the rest of his scope call (§43).
+
+**What the three tools are.**
+
+1. **`tools/balance_schedule.js`** — rewritten from #5's (#5's own is untouched in `septet_2026/tools/balance_schedule.js`). Four roles:
+   `ref` (the trim's raw material — the ordinary voice, three pitches, at the **anchor velocity 64**, the quiet level, his A)
+   · `vel` (six velocities 127…24, CC7 full) · `cc7` (six CC7 values at velocity 100, **on the curve channel** the recipe
+   names — `LGBassoonb` ch3 · `LGHornb` ch3 · `LGTrumpetb` ch5 · the Xsample instruments' own ch2) · `perc` (per instrument,
+   three representative keys × four velocities). **Repeats where the sampler scatters:** the Xsample three get 3 on `ref`
+   and `vel`, 2 on `cc7`; the SI2 three get 3 on `ref` only. **652 notes, 23.6 min.**
+2. **`reaper/bridge/jobs/make_rec_track.lua`** — one `REC` track at the end, a receive from every track that feeds the
+   master, **its own master send off** so nothing is heard twice, record mode output-stereo-latency-compensated, armed,
+   unity, unmuted. Idempotent (it rebuilds its own receive list), self-reporting (`ok` computed from a read-back), never
+   saves. **#5 used a folder parent (§115 there); a receive bus is used here because a folder would REPARENT his 26 tracks.**
+   The rack is flat today (every `ISBUS 0 0`, no master send off anywhere), but the job skips children of a summing parent
+   so it stays correct if he groups anything later.
+3. **`probes/analyze_lgmf_balance.py`** — the loudness core imported from #5's `analyze_balance.py` unchanged (BS.1770
+   K-weighting, the rectangular-window fix of its §119, the onset refinement); new above it: **two integration windows** —
+   400 ms sustained, **150 ms for a percussion one-shot**, whose whole sound is shorter than one sustained window — the
+   one-shot measured over its whole slot so the ring is inside the window, and the report this piece needs: anchor · trim ·
+   round-robin scatter · **the spread at full velocity once the trims are in** (LG-13's loud moments are where a part
+   would wash the others out).
+
+**Decisions inside the build.**
+- **The percussion is measured on three REPRESENTATIVE keys, not all 261.** His *"basic scaffolding … refine when I design
+  the actual sounds."* The picker takes the **plain single sounds** (a regex excludes rolls, glisses, chokes, damps, flams,
+  drags, sweeps, swells) from the **bottom 24 semitones** of the instrument's zone — the distinct sounds all live there and
+  everything above is the +24 repeat, whose sample identity is his deferred question (§41). **The bell tree has no plain
+  sound at all** — six glisses — so it falls back to a spread over every unique key, and the plan line says so.
+- **Percussion notes carry `cc7: null`** and the player sends nothing: Spitfire's CC7 is the plugin's global gain (§42), so
+  a probe that sent it would rewrite his mix. Confirmed in the generated file: 220 percussion notes, none with a CC7.
+- **The bowed vibraphone is wired in ahead of its arrival** (his reminder, LG-15 — it is the OPENING's reference pitch, so
+  its trim matters more than most). `PITCHED` names `bowed_vibraphone` between the trumpet and the cello; a missing recipe
+  is reported (`not in this run: bowed_vibraphone (no recipe yet)`), not an error, so the tool picks it up with no edit the
+  day its recipe exists.
+- **`sandbox/instruments.js` still carries #5's `balanceDb: -1` on the cello** — a copy-forward leftover, the only non-zero
+  trim in the palette. It is replaced by measurement at 0d.4; recorded in PLAN 0d so it is not mistaken for data.
+
+**Checked locally, as part of the build:** the schedule generates (652 notes / 23.6 min, the plan table printed per
+instrument) · **`balance_probe.ps1 -DryRun` reads it** and resolves all ten ports and every channel, with the percussion
+CC7-free · the analyzer imports #5's core and its CLI parses. **Not checked, and it cannot be:** the Lua job — there is no
+Lua on this machine, so **it must be parse-checked through the bridge before it is run** (§28's rule, the BOM lesson of §42).
+
+**What it needs from him:** his Reaper open with the bridge alive, for 0d.1 (the REC track — one job, seconds), then the run
+itself: record on, `balance_probe.ps1`, record off, ~24 minutes in which the rack must not be touched.
+
+---

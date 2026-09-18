@@ -1,22 +1,46 @@
 #!/usr/bin/env node
-// balance_schedule.js — the ENSEMBLE BALANCE probe's timetable, generated from the recipe file.
-// (composer, 2026-09-04: "an easy but data based way to normalize the volume between
-// instruments … a 127 flute is same perceived loudness as 127 violin" — RUNNING_LOG §41.)
+// balance_schedule.js — the ENSEMBLE BALANCE probe's timetable for the Lake George septet (PLAN 0d.2).
 //
-// For every track in score order, the instrument's PLAIN technique (the first of
-// ord · main · senza_vel · senza_mw · staccato that it has) at three pitches — 25 / 50 / 75 %
-// of that technique's range — at velocity 127 and 64; then (composer, 2026-09-04: "add above
-// articulations against each other") the STRIKE articulation of each instrument the same way:
-// flute pizzicato · bass clarinet slap tongue · violins Bartók pizz · viola/cello gettato; the
-// piano has none (its main is its strike). One note at a time, a fixed timetable,
-// so the recording can be sliced by the same file:
+// Rewritten for this palette 2026-09-18 from piece #5's (untouched in septet_2026/tools/balance_schedule.js).
+// The design is RUNNING_LOG §44–§46; the composer's restatement, 2026-09-18: "our goal is to produce a
+// realistic demo and have realistic arual feedback for me during composing phase … I want everything to
+// speak but no one part to dominate or wash the others out, particularly with percussion".
 //
-//   node tools/balance_schedule.js [--note 1500] [--gap 1000] [--lead 3000] [--vels 127,64]
-//                                  [--only violin1,cello] [--nostrike] [--strike flute=pizzicato,cello=gettato_vel]
-//                                  [--out probes/balance_schedule.json]
+// THE MECHANISM — three levers in series (§46):
+//   the FADER   one constant dB per track, set once from this run's numbers  (layer 1, bank/balance.json)
+//   VELOCITY    per note; it picks the SAMPLE, so it carries the dynamic     (layer 2, bank/velocity_remap.json)
+//   CC7         the fine trim between layers, and the shape of a held note   (layer 2)
+// Not "127 then CC7 down": velocity chooses WHICH recording plays, so a 127 sample turned down is a quiet
+// fff, not a p. (That deliberate mispairing is its own device — Ferneyhough's parenthesized dynamics,
+// COMPOSITION_NOTES LG-14 — but it is never how an ordinary note is balanced.)
+// PERCUSSION NEVER RECEIVES CC7 — Spitfire binds it to the plugin's global gain (§42), so a probe that
+// sent it would rewrite his mix. Percussion notes carry cc7 = null and the player sends nothing.
 //
-// Then: probes/balance_probe.ps1 plays it into the rack (record the REC track meanwhile) and
-// probes/analyze_balance.py measures the recording → bank/balance.json + the trims.
+// THE ROLES
+//   ref   the trim's raw material — each pitched instrument's ordinary voice, 3 pitches, at the ANCHOR
+//         velocity (the QUIET level, his A: the piece lives there, so that is where the match is exact),
+//         repeated so a round-robin sampler's scatter averages out
+//   vel   the same 3 pitches across six velocities, CC7 full — the velocity→loudness slope
+//   cc7   the same 3 pitches at one velocity across six CC7 values — the CC7→loudness slope, taken on the
+//         CURVE channel where the recipe names one (`channels.curve`: the `b` instance for SI2, channels
+//         2–4 on its own port for Xsample), because that is the channel the app's held notes use
+//   perc  per percussion instrument, up to three REPRESENTATIVE keys × four velocities, the anchor key
+//         repeated. A baseline, not all 261 mapped keys — his "basic scaffolding … refine when I design
+//         the actual sounds". Keys come from bank/perc_rack.json + bank/aro_percussion_catalog.json, NOT
+//         from a recipe: the percussion lane's recipe is still the placeholder (§43).
+//
+// THE BOWED VIBRAPHONE (his reminder, 2026-09-18 — COMPOSITION_NOTES LG-15, the opening's reference):
+// not installed yet. The moment a `bowed_vibraphone` recipe exists in sandbox/instruments.js this tool
+// picks it up as a seventh pitched instrument with no edit — see PITCHED below.
+//
+//   node tools/balance_schedule.js                       # the whole run (~20 min)
+//   node tools/balance_schedule.js --only cello,horn     # a subset, same timings
+//   node tools/balance_schedule.js --nopitched           # percussion alone
+//   node tools/balance_schedule.js --noperc              # the pitched instruments alone
+//   node tools/balance_schedule.js --nocc7               # send no CC7 anywhere (his knobs untouched; #5's §373)
+//
+// Then: probes/balance_probe.ps1 plays it while the REC track records (0d.1), and
+//       probes/analyze_balance.py measures the recording → bank/balance.json.
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -25,212 +49,161 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 && args[i + 1] != null ? args[i + 1] : d; };
-// --sweep (2026-09-06, PLAN 1g item 1 + item 5): the VELOCITY / CC7 sweep — role 'ref' = the balance run's own notes (plain
-// technique, three pitches, 127: the consistency check against bank/balance.json), role 'vel' = the same at eight velocities,
-// role 'cc7' = the same at velocity 100 under eight CC7 values; every note carries cc7 (127 unless swept).
-const sweep2 = args.includes('--sweep2');   // the second sweep (RUNNING_LOG §118): dense steps where the sampler is deterministic, repeats where it scatters
-const sweep = args.includes('--sweep') || sweep2;
-const seq = (hi, lo, step) => { const a = []; for (let v = hi; v >= lo; v -= step) a.push(v); if (a[a.length - 1] !== lo) a.push(lo); return a; };
-// per instrument: [velocities, repeats] — the piano's velocity layers form a staircase (every 2), the flute is smooth (every 8), both
-// deterministic (one note is exact); the strings and the bass clarinet scatter by round robin (three notes per point, averaged)
-const SWEEP2 = { flute: [seq(127, 20, 8), 1], piano: [seq(127, 21, 2).concat([20]), 1], bass_clarinet: [null, 3], violin1: [null, 3], violin2: [null, 3], viola: [null, 3], cello: [null, 3] };
-// --proof (PLAN 1g item 1, to-do 6): every instrument's ordinary voice at its middle measured register, at the bottom, the
-// middle and the top of a curve (anchor velocity 65 · 96 · 127) — each sent the velocity bank/velocity_remap.json prescribes;
-// the recording must show the seven at one level per height (within about 1.5 dB).
-// --ranges (PLAN 0d re-scoped, 2026-09-06): the samples' TRUE ranges and the one-shots' lengths — every semitone of each one-shot in
-// use, every second semitone of the rest, across the technique's keyboard zone at 127, each note left to ring; the analyzer
-// (--ranges) reads per key whether it sounded and how long it rang. [key, step, class]: 'one' = a one-shot (rings on its own),
-// 'sus' = sustained (held, the range only).
-const ranges = args.includes('--ranges');
-const STRING_ROWS = [['bartok_vel', 1, 'one'], ['gettato_vel', 1, 'one'], ['senza_vel', 2, 'sus'], ['accent_senza_vel', 2, 'sus'], ['marcato_sfz_vel', 2, 'sus'], ['marcato_stac_vel', 2, 'one'], ['spicc_vel', 2, 'one'], ['stac_vel', 2, 'one']];
-const RANGES_PLAN = {
-    flute: [['pizzicato', 1, 'one'], ['tongue_ram', 1, 'one'], ['staccato', 1, 'one'], ['ord', 2, 'sus'], ['sforzando', 2, 'sus'], ['fortepiano', 2, 'sus']],
-    bass_clarinet: [['slap', 1, 'one'], ['stac_vel', 1, 'one'], ['secco', 1, 'one'], ['senza_vel', 2, 'sus'], ['accent_vel', 2, 'sus'], ['portato', 2, 'sus']],
-    piano: [['main', 2, 'sus'], ['plucked', 2, 'one'], ['harmonics', 2, 'one']],
-    violin1: STRING_ROWS, violin2: STRING_ROWS, viola: STRING_ROWS, cello: STRING_ROWS,
-};
-const RANGE_TIMING = { one: { holdMs: +opt('onehold', 200), gapMs: +opt('onegap', 1300) }, sus: { holdMs: +opt('sushold', 600), gapMs: +opt('susgap', 500) } };
-const held = args.includes('--held');   // 1g item 5's proof: a held note at three heights — the velocity for the top, CC7 for the height
-const proof = args.includes('--proof') || held;
-// --bend (PLAN 1f step 1, 2026-09-07 — the palette): the PITCH-BEND probe of the six bending players (the piano is out of the
-// beating, CN-34) on their ordinary voices (`ordinary`), each at the middle of the voice's measured range, velocity 100, held 2 s
-// with 2 s of settle (the tuba's probes/bend_probe.ps1, adapted to this kit). Per player eight slots: an unbent REFERENCE ·
-// +50 % · +100 % · −100 % of full bend (the sampler's range in semitones = the measured cents ÷ the fraction) · a bent note
-// left UNRESET and the plain note after it (the residue the tick's resetMorphBend guards against) · RPN 0 asked for 12
-// semitones then +100 % (can MIDI change the range?) · RPN 0 back to 2 and +100 % again (did the range come back?). The bend is
-// sent with the prelude (preMs before the note, after CC7 / CC0 / the keyswitch) and centred `bendResetMs` after the note-off.
-// Played by probes/balance_probe.ps1 (the bend / rpn / reset events), read by probes/analyze_bend.py → bank/bend_ranges.json.
-const bend = args.includes('--bend');
-const BEND_CENTRE = 8192;
-const bendValue = f => Math.max(0, Math.min(16383, Math.round(BEND_CENTRE + f * (f >= 0 ? 8191 : 8192))));   // full up = +8191, full down = −8192
-const bendFraction = v => (v - BEND_CENTRE) / (v >= BEND_CENTRE ? 8191 : 8192);                             // the exact fraction the value is
-const BEND_SLOTS = [   // [step, fraction | null (no bend message), reset after the note?, RPN 0 value | null, what the analyzer reads]
-    ['ref',   0.0,  true,  null, 'the unbent baseline every cents figure is measured against'],
-    ['+50',   0.5,  true,  null, 'half of full bend up'],
-    ['+100',  1.0,  true,  null, 'full bend up'],
-    ['-100', -1.0,  true,  null, 'full bend down'],
-    ['res_a', 0.5,  false, null, 'bent +50 %, NOT reset after — the residue trap set'],
-    ['res_b', null, true,  null, 'the next note with no bend message — sharp = the residue is real'],
-    ['rpn12', 1.0,  true,  12,   'RPN 0 asked for 12 semitones, then full bend up — wider than +100 = RPN honoured'],
-    ['rest',  1.0,  true,  2,    'RPN 0 back to 2, full bend up — the same as +100 = restored'],
-];
-const BEND_HOLD_MS = +opt('bendhold', 2000), BEND_SETTLE_MS = +opt('bendsettle', 2000), BEND_VEL = +opt('bendvel', 100), BEND_RESET_AFTER_MS = +opt('bendreset', 400);
-if (ranges && (sweep || proof)) { console.error('--ranges stands alone'); process.exit(1); }
-if (bend && (sweep || proof || ranges)) { console.error('--bend stands alone'); process.exit(1); }
-const PROOF_H = opt('proofh', '0,0.5,1').split(',').map(Number);
-const PROOF_LO = +opt('prooflo', 65), PROOF_HI = +opt('proofhi', 127);
-const REPEAT = Math.max(1, +opt('repeat', 1));   // each proof note played this many times in a row: the sampler's note-to-note scatter (round robins) averages out
-let VelocityRemap = null, remapBank = null;
-if (proof) { VelocityRemap = require(path.join(ROOT, 'score', 'public', 'velocity_remap.js')); remapBank = JSON.parse(fs.readFileSync(path.resolve(ROOT, opt('remap', 'bank/velocity_remap.json')), 'utf8')); }
-const SWEEP_VELS = opt('sweepvels', '127,112,96,80,64,48,32,20').split(',').map(Number);
-const SWEEP_CC7S = opt('sweepcc7', '127,112,96,80,64,48,32,16').split(',').map(Number);
-const cc7Vel = +opt('cc7vel', 100);
-// --nocc7 (composer 2026-09-10, RUNNING_LOG §373): send NO CC7 at all. CC7 is MIDI Volume, and Kontakt's instrument volume knob
-// and UVI Workstation's part volume are bound to it — so the probe's CC7 127 before every note SLAMS THEM TO FULL and wipes any
-// per-voice trim he has dialled in. He found it himself: *"anything I do even a shut reaper down reopen keeps the volume settings
-// but after your probe they reset."* Every measurement before this flag existed was taken with every volume knob forced to
-// maximum, which is why no trim ever showed in a re-run.
-const noCc7 = args.includes('--nocc7');
+const flag = k => args.includes('--' + k);
 
-const ORDER = ['flute', 'bass_clarinet', 'piano', 'violin1', 'violin2', 'viola', 'cello'];   // D10 score order
-const PLAIN_PREF = ['ord', 'main', 'senza_vel', 'senza_mw', 'staccato'];
-const FRACS = [0.25, 0.5, 0.75];
-// the strike articulations (composer, 2026-09-04 — the drawer's new defaults, "all fff=127")
-const STRIKE_TECHS = { flute: 'pizzicato', bass_clarinet: 'slap', violin1: 'bartok_vel', violin2: 'bartok_vel', viola: 'gettato_vel', cello: 'gettato_vel' };
+// ── the dials ───────────────────────────────────────────────────────────────────────────────────────
+const ANCHOR_VEL = +opt('anchor', 64);                                            // the QUIET level (his A, §45)
+const VELS = opt('vels', '127,104,84,64,44,24').split(',').map(Number);
+const CC7S = opt('cc7s', '127,104,84,64,44,24').split(',').map(Number);
+const CC7_VEL = +opt('cc7vel', 100);                                              // velocity held fixed while CC7 is swept
+const PERC_VELS = opt('percvels', '127,96,64,30').split(',').map(Number);
+const FRACS = [0.25, 0.5, 0.75];                                                  // low · mid · high of the voice's range
+const PERC_KEYS = +opt('perckeys', 3);                                            // representative keys per percussion instrument
+const noCc7 = flag('nocc7');
+const only = opt('only', '').split(',').filter(Boolean);
+// timing (ms)
+const T = { hold: +opt('hold', 1200), gap: +opt('gap', 800), lead: +opt('lead', 3000), instGap: +opt('instgap', 1500), pre: 300,
+            percHold: +opt('perchold', 200), percGapShort: +opt('percgap', 1200), percGapLong: +opt('percgaplong', 3000) };
+// repeats: the Xsample instruments scatter ±2–4 dB by round robin (#5's §119), the SI2 three are layered and steady
+const REPEATS = { xsample: { ref: 3, vel: 3, cc7: 2 }, si2: { ref: 3, vel: 1, cc7: 1 } };
+const PERC_REPEATS = { anchor: 2, other: 1 };
+
+// score order. `bowed_vibraphone` is listed so that it is picked up the moment its recipe exists (LG-15);
+// instruments with no recipe yet are dropped with a note, not an error.
+const PITCHED = ['english_horn', 'bassoon', 'horn', 'trumpet', 'bowed_vibraphone', 'cello', 'double_bass'];
+const FAMILY = { english_horn: 'xsample', cello: 'xsample', double_bass: 'xsample', bowed_vibraphone: 'xsample',
+                 bassoon: 'si2', horn: 'si2', trumpet: 'si2' };
+// percussion instruments that ring long — the gap must outlast the sound or the next note measures its tail
+// (§42's real finding, once the BOM was out of the way: a tail sits about 20 dB under the onset)
+const PERC_LONG = new Set(['small_metals_finger_cymbals', 'small_metals_bell_tree', 'small_metals_triangles',
+                           'temple_bowls', 'tam_tams_a', 'bass_drum', 'crashes_and_stack']);
+// an ANCHOR-eligible percussion articulation is a plain single sound: not a roll, a gliss, a choke, a damp,
+// a flam or any of the long continuous gestures (a drag, a sweep, a scrape — Tam Tams and the Bass Drum are
+// full of them and one would otherwise be picked as an instrument's representative)
+const NOT_ANCHOR = /roll|gliss|choke|damp|flam|accent|long shake|scrape|swirl|tremol|drag|sweep|swell|continuous|slide|rub/i;
+// the distinct percussion sounds all live in the lowest two octaves of each instrument's zone; everything
+// above is the +24 repeat (whether those are the same samples is his deferred question, §41), so the
+// representative keys are taken from the bottom PERC_SPAN semitones unless that leaves too few
+const PERC_SPAN = +opt('percspan', 24);
 
 // sandbox/instruments.js is a browser script (`const INSTRUMENTS = …`, no exports) — evaluate it
-const src = fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8');
-const INSTRUMENTS = vm.runInNewContext(src + '\n;INSTRUMENTS;', {});
-
-const noteMs = +opt('note', (sweep || proof) ? 1200 : 1500), gapMs = +opt('gap', (sweep || proof) ? 800 : 1000), leadMs = +opt('lead', 3000), instGapMs = +opt('instgap', (sweep || proof) ? 1500 : 2000);
-const preMs = 300;                                                       // CC7 / CC0 / keyswitch lead before each note
-const vels = opt('vels', '127,64').split(',').map(Number);
-const only = opt('only', '').split(',').filter(Boolean);
-const noStrike = args.includes('--nostrike');
-// --strike takes ONE OR MORE extra techniques per instrument: `--strike piano=plucked+harmonics+muted,cello=gettato_vel`
-// (composer 2026-09-10, RUNNING_LOG §366 — the piano has three alternate voices and one run should measure them all against the
-// same reference in the same recording; §357 found none of them had ever been probed). Instruments are separated by commas,
-// techniques within one instrument by `+`. The analyzer already keys its `techniques` map off each note's own tech name
-// (probes/analyze_balance.py:322), so it needed no change.
-opt('strike', '').split(',').filter(Boolean).forEach(kv => { const [k, v] = kv.split('='); STRIKE_TECHS[k] = v.split('+').filter(Boolean); });
-const out = path.resolve(ROOT, opt('out', bend ? 'probes/bend_schedule.json' : ranges ? 'probes/ranges_schedule.json' : held ? 'probes/held_schedule.json' : proof ? 'probes/proof_schedule.json' : sweep2 ? 'probes/sweep2_schedule.json' : sweep ? 'probes/sweep_schedule.json' : 'probes/balance_schedule.json'));
+const INSTRUMENTS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
+const RACK = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'perc_rack.json'), 'utf8'));
+const CATALOG = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'aro_percussion_catalog.json'), 'utf8'));
 
 const notes = [];
-let t = leadMs, i = 0;
-const add = (inst, I, tech, role, velList, cc7List, repeat) => {
-    const lo = tech.rangeLow != null ? tech.rangeLow : I.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : I.rangeHigh;
-    const pitches = FRACS.map(f => Math.round(lo + (hi - lo) * f));
-    for (const cc7 of (cc7List || [127])) for (const vel of (velList || vels)) for (const pitch of pitches) for (let rpt = 0; rpt < (repeat || 1); rpt++) {
-        notes.push({ i: i++, inst, label: I.label, role, rpt, tech: tech.key, techLabel: tech.label, port: tech.port || I.port, ch: tech.channel || 1,
-                     cc0: tech.cc0 != null ? tech.cc0 : null, ks: tech.ks != null ? tech.ks : null,
-                     pitch, vel, cc7: noCc7 ? null : cc7, tPreMs: t - preMs, tOnMs: t, tOffMs: t + noteMs });
-        t += noteMs + gapMs;
-    }
-    t += instGapMs;
-};
 const plan = [];
-if (ranges) {
-    for (const inst of ORDER) {
-        if (only.length && !only.includes(inst)) continue;
-        const I = INSTRUMENTS[inst]; if (!I) { console.error('no recipe for', inst); process.exit(1); }
-        for (const [key, step, cls] of (RANGES_PLAN[inst] || [])) {
-            const tech = I.techniques.find(q => q.key === key);
-            if (!tech) { console.error('no technique ' + key + ' on ' + inst + ' — skipped'); continue; }
-            const lo = tech.rangeLow != null ? tech.rangeLow : I.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : I.rangeHigh;
-            if (lo == null || hi == null) { console.error('no zone for ' + inst + ':' + key + ' — skipped'); continue; }
-            const tm = RANGE_TIMING[cls]; const keys = []; for (let p = lo; p <= hi; p += step) keys.push(p); if (keys[keys.length - 1] !== hi) keys.push(hi);
-            plan.push({ inst, role: 'range', tech: key, cls, step, keys: keys.length });
-            for (const pitch of keys) {
-                notes.push({ i: i++, inst, label: I.label, role: 'range', cls, tech: tech.key, techLabel: tech.label, port: tech.port || I.port, ch: tech.channel || 1,
-                             cc0: tech.cc0 != null ? tech.cc0 : null, ks: tech.ks != null ? tech.ks : null, pitch, vel: 127, cc7: 127,
-                             tPreMs: t - preMs, tOnMs: t, tOffMs: t + tm.holdMs, slotEndMs: t + tm.holdMs + tm.gapMs });
-                t += tm.holdMs + tm.gapMs;
-            }
-            t += 700;
-        }
-        t += instGapMs;
-    }
+const skipped = [];
+let t = T.lead, i = 0;
+
+// the curve channel the app's held notes use — `channels.curve` is either [{port,ch}…] (SI2's b instance)
+// or [ch…] on the instrument's own port (Xsample's slots). Falls back to the main channel.
+function curveChannel(I, tech) {
+    const c = I.channels && I.channels.curve;
+    if (!c || !c.length) return { port: tech.port || I.port, ch: tech.channel || 1, curve: false };
+    const first = c[0];
+    if (typeof first === 'object') return { port: first.port, ch: first.ch, curve: true };
+    return { port: tech.port || I.port, ch: first, curve: true };
 }
-if (bend) {   // the six bending players, the ordinary voice, its middle measured pitch; eight slots each (BEND_SLOTS)
-    for (const inst of ORDER) {
-        if (only.length && !only.includes(inst)) continue;
-        const I = INSTRUMENTS[inst]; if (!I) { console.error('no recipe for', inst); process.exit(1); }
-        if (I.beating === false || inst === 'piano') continue;   // the piano is out of the beating (CN-34): an anchor only, never bent
-        const tech = I.techniques.find(q => q.key === I.ordinary) || PLAIN_PREF.map(k => I.techniques.find(q => q.key === k)).find(Boolean);
-        if (!tech) { console.error('no ordinary voice on ' + inst); process.exit(1); }
-        const lo = tech.rangeLow != null ? tech.rangeLow : I.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : I.rangeHigh;
-        const pitch = Math.round(lo + (hi - lo) * 0.5);
-        plan.push({ inst, role: 'bend', tech: tech.key, pitch });
-        for (const [step, frac, reset, rpn, what] of BEND_SLOTS) {
-            const v = frac == null ? null : bendValue(frac);
-            notes.push({ i: i++, inst, label: I.label, role: 'bend', step, what, tech: tech.key, techLabel: tech.label, port: tech.port || I.port, ch: tech.channel || 1,
-                         cc0: tech.cc0 != null ? tech.cc0 : null, ks: tech.ks != null ? tech.ks : null, pitch, vel: BEND_VEL, cc7: 127,
-                         bend: v, bendFraction: v == null ? null : +bendFraction(v).toFixed(5), rpn, bendResetMs: reset ? t + BEND_HOLD_MS + BEND_RESET_AFTER_MS : null,
-                         tPreMs: t - preMs, tOnMs: t, tOffMs: t + BEND_HOLD_MS });
-            t += BEND_HOLD_MS + BEND_SETTLE_MS;
-        }
-        t += instGapMs;
-    }
-}
-if (proof) {   // one note per height per instrument, the middle register, the remapped velocity
-    for (const inst of ORDER) {
-        if (only.length && !only.includes(inst)) continue;
-        const I = INSTRUMENTS[inst]; if (!I) { console.error('no recipe for', inst); process.exit(1); }
-        const tech = PLAIN_PREF.map(k => I.techniques.find(q => q.key === k)).find(Boolean) || I.techniques[0];
-        const lo = tech.rangeLow != null ? tech.rangeLow : I.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : I.rangeHigh;
-        const pitch = Math.round(lo + (hi - lo) * 0.5);
-        plan.push({ inst, role: 'proof', tech: tech.key });
-        for (const h of PROOF_H) {
-            const anchorVel = Math.round(PROOF_LO + (PROOF_HI - PROOF_LO) * h);
-            let vel = VelocityRemap.velocityFor(remapBank, inst, pitch, anchorVel);
-            let cc7 = VelocityRemap.cc7For ? VelocityRemap.cc7For(remapBank, inst, pitch, anchorVel) : 127;   // the trim (§119)
-            if (held) { const hn = VelocityRemap.heldNote(remapBank, inst, pitch, PROOF_HI); vel = hn.vel; cc7 = VelocityRemap.cc7ForHeight(remapBank, inst, pitch, vel, anchorVel); }   // §120
-            for (let rpt = 0; rpt < REPEAT; rpt++) {
-                notes.push({ i: i++, inst, label: I.label, role: held ? 'held' : 'proof', h, anchorVel, rpt, tech: tech.key, techLabel: tech.label, port: tech.port || I.port, ch: tech.channel || 1,
-                             cc0: tech.cc0 != null ? tech.cc0 : null, ks: tech.ks != null ? tech.ks : null, pitch, vel, cc7, tPreMs: t - preMs, tOnMs: t, tOffMs: t + noteMs });
-                t += noteMs + gapMs;
-            }
-        }
-        t += instGapMs;
-    }
-}
-for (const role of ((proof || ranges || bend) ? [] : sweep2 ? ['ref', 'vel'] : sweep ? ['ref', 'vel', 'cc7'] : ['plain', 'strike'])) {
-    if (role === 'strike' && noStrike) continue;
-    for (const inst of ORDER) {
+
+const pushNote = n => notes.push(Object.assign({ i: i++ }, n));
+
+// ── the pitched instruments ─────────────────────────────────────────────────────────────────────────
+if (!flag('nopitched')) for (const role of ['ref', 'vel', 'cc7']) {
+    for (const inst of PITCHED) {
         if (only.length && !only.includes(inst)) continue;
         const I = INSTRUMENTS[inst];
-        if (!I) { console.error('no recipe for', inst); process.exit(1); }
-        let tech;
-        if (role !== 'strike') tech = PLAIN_PREF.map(k => I.techniques.find(q => q.key === k)).find(Boolean) || I.techniques[0];
-        // an instrument may carry SEVERAL extra voices; every other role has exactly one technique
-        const techList = [];
-        if (role !== 'strike') techList.push(tech);
-        else {
-            const ks = [].concat(STRIKE_TECHS[inst] || []);
-            if (!ks.length) continue;
-            for (const k of ks) {
-                const t2 = I.techniques.find(q => q.key === k);
-                if (!t2) { console.error('no technique ' + k + ' on ' + inst); process.exit(1); }
-                techList.push(t2);
-            }
+        if (!I) { if (role === 'ref') skipped.push(inst + ' (no recipe yet)'); continue; }
+        const tech = I.techniques.find(q => q.key === I.ordinary);
+        if (!tech) { console.error('no ordinary voice on ' + inst); process.exit(1); }
+        const lo = tech.rangeLow != null ? tech.rangeLow : I.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : I.rangeHigh;
+        const pitches = FRACS.map(f => Math.round(lo + (hi - lo) * f));
+        const rep = (REPEATS[FAMILY[inst]] || REPEATS.xsample)[role];
+        const velList = role === 'ref' ? [ANCHOR_VEL] : role === 'vel' ? VELS : [CC7_VEL];
+        const cc7List = role === 'cc7' ? CC7S : [127];
+        const dest = role === 'cc7' ? curveChannel(I, tech) : { port: tech.port || I.port, ch: tech.channel || 1, curve: false };
+        plan.push({ inst, label: I.label, role, tech: tech.key, port: dest.port, ch: dest.ch, curve: dest.curve, pitches,
+                    notes: velList.length * cc7List.length * pitches.length * rep });
+        for (const cc7 of cc7List) for (const vel of velList) for (const pitch of pitches) for (let r = 0; r < rep; r++) {
+            pushNote({ inst, label: I.label, role, rpt: r, tech: tech.key, techLabel: tech.label,
+                       port: dest.port, ch: dest.ch, curve: dest.curve,
+                       cc0: tech.cc0 != null ? tech.cc0 : null, ks: tech.ks != null ? tech.ks : null,
+                       pitch, vel, cc7: noCc7 ? null : cc7, anchor: role === 'ref',
+                       tPreMs: t - T.pre, tOnMs: t, tOffMs: t + T.hold });
+            t += T.hold + T.gap;
         }
-        for (const tq of techList) {
-            plan.push({ inst, role, tech: tq.key });
-            if (role === 'ref') add(inst, I, tq, role, [127], [127]);
-            else if (role === 'vel' && sweep2) { const [vl, rp] = SWEEP2[inst] || [null, 1]; add(inst, I, tq, role, vl || SWEEP_VELS, [127], rp); }
-            else if (role === 'vel') add(inst, I, tq, role, SWEEP_VELS, [127]);
-            else if (role === 'cc7') add(inst, I, tq, role, [cc7Vel], SWEEP_CC7S);
-            else add(inst, I, tq, role);
-        }
+        t += T.instGap;
     }
 }
-const schedule = { generatedAt: new Date().toISOString(), source: 'sandbox/instruments.js', order: ORDER.filter(k => !only.length || only.includes(k)),
-                   strikeTechs: noStrike ? {} : STRIKE_TECHS, bend, bendPlan: bend ? { slots: BEND_SLOTS.map(s => ({ step: s[0], fraction: s[1], reset: s[2], rpn: s[3], what: s[4] })), holdMs: BEND_HOLD_MS, settleMs: BEND_SETTLE_MS, vel: BEND_VEL, resetAfterMs: BEND_RESET_AFTER_MS, bendLeadMs: preMs, players: plan.map(p => p.inst) } : null, ranges, rangesPlan: ranges ? plan : null, rangeTiming: ranges ? RANGE_TIMING : null, proof, proofH: proof ? PROOF_H : null, proofScale: proof ? { lo: PROOF_LO, hi: PROOF_HI } : null, proofRepeat: proof ? REPEAT : null, remapMeasuredAt: remapBank ? remapBank.measuredAt : null, trims: Object.fromEntries(ORDER.map(k => [k, INSTRUMENTS[k] && INSTRUMENTS[k].balanceDb != null ? INSTRUMENTS[k].balanceDb : 0])), sweep, sweepVels: sweep2 ? [...new Set(notes.filter(n => n.role === 'vel').map(n => n.vel))].sort((a, b) => b - a) : sweep ? SWEEP_VELS : null, sweep2, sweep2Plan: sweep2 ? Object.fromEntries(Object.entries(SWEEP2).map(([k, v]) => [k, { velocities: v[0] || SWEEP_VELS, repeats: v[1] }])) : null, sweepCc7s: sweep ? SWEEP_CC7S : null, cc7Vel: sweep ? cc7Vel : null, plan, leadInMs: leadMs, preMs, noteMs, gapMs, instGapMs, vels, fracs: FRACS, totalMs: t, notes };
+
+// ── the fourteen percussion instruments ─────────────────────────────────────────────────────────────
+// up to PERC_KEYS representative keys each: the plain single sounds first (NOT_ANCHOR excluded), spread
+// across the instrument's keyboard; if an instrument has no plain sound at all (the bell tree is six
+// glisses) the spread is taken over every unique key instead, and the plan line says so.
+function representativeKeys(entry) {
+    const all = (entry.allInOne || []).filter(r => r.duplicateOf == null && r.repeatOf == null && r.midi != null);
+    if (!all.length) return [];
+    const floor = Math.min.apply(null, all.map(r => r.midi));
+    const low = all.filter(r => r.midi < floor + PERC_SPAN);
+    const rows = low.length >= Math.min(PERC_KEYS, all.length) ? low : all;
+    const plain = rows.filter(r => !NOT_ANCHOR.test(r.articulation || ''));
+    const pool = plain.length ? plain : rows;
+    const n = Math.min(PERC_KEYS, pool.length);
+    const pick = [];
+    for (let k = 0; k < n; k++) pick.push(pool[Math.round(k * (pool.length - 1) / Math.max(1, n - 1))]);
+    return pick.filter((r, k) => pick.findIndex(q => q.midi === r.midi) === k)
+               .map((r, k) => Object.assign({}, r, { anchor: k === 0, fallback: !plain.length }));
+}
+
+if (!flag('noperc')) for (const track of RACK.tracks) {
+    if (only.length && !only.includes(track.catalog) && !only.includes('percussion')) continue;
+    const entry = CATALOG.instruments[track.catalog];
+    if (!entry) { console.error('no catalog entry ' + track.catalog + ' for ' + track.track); process.exit(1); }
+    const keys = representativeKeys(entry);
+    if (!keys.length) { skipped.push(track.track + ' (no mapped keys)'); continue; }
+    const gap = PERC_LONG.has(track.catalog) ? T.percGapLong : T.percGapShort;
+    plan.push({ inst: track.catalog, label: track.track.replace(/ ARO$/, ''), role: 'perc', track: track.track, ch: track.channel,
+                artic: track.artic, keys: keys.map(k => k.midi), articulations: keys.map(k => k.articulation),
+                fallback: keys[0].fallback, ringGapMs: gap,
+                notes: keys.reduce((a, k) => a + PERC_VELS.length * (k.anchor ? PERC_REPEATS.anchor : PERC_REPEATS.other), 0) });
+    for (const key of keys) for (const vel of PERC_VELS) for (let r = 0; r < (key.anchor ? PERC_REPEATS.anchor : PERC_REPEATS.other); r++) {
+        pushNote({ inst: track.catalog, label: track.track.replace(/ ARO$/, ''), role: 'perc', rpt: r,
+                   tech: key.articulation || 'hit', techLabel: (track.artic || '') + ' · ' + (key.articulation || 'hit'),
+                   port: RACK.port, ch: track.channel, cc0: null, ks: null,
+                   pitch: key.midi, vel, cc7: null, anchor: !!key.anchor,   // cc7 null: Spitfire's CC7 is its global gain (§42)
+                   tPreMs: t - T.pre, tOnMs: t, tOffMs: t + T.percHold, slotEndMs: t + T.percHold + gap });
+        t += T.percHold + gap;
+    }
+    t += T.instGap;
+}
+
+// ── out ─────────────────────────────────────────────────────────────────────────────────────────────
+const out = path.resolve(ROOT, opt('out', 'probes/balance_schedule.json'));
+const schedule = {
+    generatedAt: new Date().toISOString(), piece: 'lgmf', planItem: '0d.2',
+    sources: ['sandbox/instruments.js', 'bank/perc_rack.json', 'bank/aro_percussion_catalog.json'],
+    anchorVel: ANCHOR_VEL, vels: VELS, cc7s: CC7S, cc7Vel: CC7_VEL, percVels: PERC_VELS, fracs: FRACS,
+    percKeys: PERC_KEYS, repeats: REPEATS, percRepeats: PERC_REPEATS, noCc7, skipped,
+    pitched: PITCHED.filter(k => INSTRUMENTS[k] && (!only.length || only.includes(k))), families: FAMILY,
+    percPort: RACK.port, timing: T, leadInMs: T.lead, preMs: T.pre, noteMs: T.hold, gapMs: T.gap, instGapMs: T.instGap,
+    trims: Object.fromEntries(Object.keys(INSTRUMENTS).map(k => [k, INSTRUMENTS[k].balanceDb != null ? INSTRUMENTS[k].balanceDb : 0])),
+    plan, totalMs: t, notes,
+};
 fs.mkdirSync(path.dirname(out), { recursive: true });
 fs.writeFileSync(out, JSON.stringify(schedule, null, 1));
-console.log('balance schedule → ' + path.relative(ROOT, out) + ' · ' + notes.length + ' notes · ' + (t / 1000).toFixed(1) + ' s');
+
+console.log('balance schedule → ' + path.relative(ROOT, out) + ' · ' + notes.length + ' notes · ' + (t / 60000).toFixed(1) + ' min');
+console.log('  anchor velocity ' + ANCHOR_VEL + ' (the quiet level) · vels ' + VELS.join(',') + ' · cc7 ' + CC7S.join(',') +
+            ' @vel ' + CC7_VEL + ' · perc vels ' + PERC_VELS.join(','));
 for (const p of plan) {
-    const n = notes.filter(q => q.inst === p.inst && q.tech === p.tech); if (!n.length) continue;
-    console.log('  ' + p.role.padEnd(7) + n[0].label.padEnd(14) + n[0].port.padEnd(7) + ' ch' + String(n[0].ch).padEnd(3) + (n[0].cc0 != null ? 'cc0=' + n[0].cc0 : n[0].ks != null ? 'ks=' + n[0].ks : '      ').padEnd(8) +
-                ' ' + n[0].techLabel.padEnd(34) + ' pitches ' + [...new Set(n.map(q => q.pitch))].join(' ') + '  t ' + (n[0].tOnMs / 1000).toFixed(1) + '-' + (n[n.length - 1].tOffMs / 1000).toFixed(1) + ' s');
+    if (p.role === 'perc') {
+        console.log('  perc    ' + p.label.padEnd(20) + RACK.port.padEnd(11) + 'ch' + String(p.ch).padEnd(3) +
+                    ' keys ' + p.keys.join(' ').padEnd(11) + String(p.notes).padStart(3) + ' notes  ' +
+                    (p.ringGapMs / 1000).toFixed(1) + 's ring  ' + p.articulations.join(' / ') +
+                    (p.fallback ? '   [no plain sound — spread over all]' : ''));
+    } else {
+        console.log('  ' + p.role.padEnd(7) + ' ' + p.label.padEnd(19) + p.port.padEnd(11) + 'ch' + String(p.ch).padEnd(3) +
+                    ' pitches ' + p.pitches.join(' ').padEnd(12) + String(p.notes).padStart(3) + ' notes' + (p.curve ? '   [curve channel]' : ''));
+    }
 }
+if (skipped.length) console.log('  not in this run: ' + skipped.join(' · '));
