@@ -665,6 +665,30 @@ only it can bend by ear. Chord 4 currently contains only −31 and −14; giving
 cents value in the chord that has not appeared anywhere in the set. **27/14 is the strangest interval available in the
 whole scheme and lands exactly on the vibraphone’s top bar (F6) — in range, but 23 semitones from bow 1, so unreachable.**
 
+**CHORD 4 RESOLVED (2026-09-18).** *"eh Bb4, vib2 Ab5, vc 11 D5"*
+
+| player | pitch | partial | cents | what it is |
+|---|---|---|---|---|
+| double bass | G♯1 | 1 | 0 | the fundamental |
+| horn | F♯4 | 7 | −31 | just |
+| vibraphone (bow 1) | F♯4 | — | tempered | beats with the horn at ≈31¢ |
+| **english horn** | **B♭4** | **9** | +4 | 9/7 against the horn — a supermajor third, +35¢ off ET |
+| trumpet | C5 | 10 | −14 | just |
+| bassoon | C5 | — | tempered | beats with the trumpet at ≈14¢ |
+| **cello** | **D5** | **11** | **−49** | the first near-quarter-tone in the set |
+| **vibraphone (bow 2)** | **A♭5** | **16** | 0 | 8/7 against the horn — a supermajor second, +31¢ off ET |
+
+*AI reading (mine, not his):* **the upper middle of chord 4 is three CONSECUTIVE partials — 9 · 10 · 11, B♭4 · C5 · D5** —
+the first time the set has used an adjacent run. Their steps shrink as they climb: 10/9 = 182¢, then 11/10 = 165¢. That
+narrowing is the audible signature of a harmonic series heard as a chord, and it is carried here by three different
+instruments with three different cents values (+4, −14, −49), so the cluster is also a three-way beat. The cello’s −49 is
+**the first near-quarter-tone anywhere in the set** — chords 1–3 used only −14 and −31.
+
+**A bowing note:** vibraphone bows sit on F♯4 and A♭5, **fourteen semitones apart and both on the upper row of bars**.
+That is a wide two-hand span near the practical limit and it puts both bows on the same side of the instrument. **Worth
+confirming with the player** — the alternative at the same ratio is A♭3 (ten semitones below bow 1) or A♭4, which is two
+semitones away and too close to bow.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
