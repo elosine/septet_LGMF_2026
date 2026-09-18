@@ -1660,3 +1660,21 @@ the noise — every reply ending in a status table. The correction is not anothe
 
 ---
 
+## §40. The sweep set aside; the bass drum counted as mapped — three left (2026-09-18)
+
+**What prompted it.** To the sweep proposal: *"no lets do a different method; you already have the description of several
+different instruments that I built manually correct? which ones?"* — answered with the catalog's 35 verified. Then: *"the
+tracks marked bass drum and bass drum alt are the same as mapped already, I think Gran Cassa is just synomum so count those
+as done, list simply what is left to map"*.
+
+**Checked against the banked state, and it holds:** `Bass Drum (GC) (C)` = eight articulations — Gran Cassa Wood · Hard Felt ·
+Medium · Plastic · Super Soft · Brushes · Rute on Rims + All-in-one — i.e. SEVEN beaters, the catalog `bass_drum`'s seven
+(Sticks · Hard Felt · Medium Felt · Poly Beater · Super Soft · Rute on Rim · Brushes; Wood = Sticks, Plastic = Poly Beater),
+not `bass_drum_alt`'s six (Cloth Damped, Rods). So the track points at `bass_drum` (verified) in `bank/perc_rack.json`, and
+the catalog's `gran_cassa` (predicted, the same seven beaters) is piece #2's duplicate guess at the same drum.
+**Decided (his):** the sweep is NOT built; the key maps come from his piece-#2 dictations. **Left to map of the fourteen:
+Finger Cymbals · Bell Tree · Shakers Pairs.** Still unproven by sound: that the small metals and the toys, selected inside a
+family preset, answer on the same keys as the maps he dictated — first sound will say.
+
+---
+
