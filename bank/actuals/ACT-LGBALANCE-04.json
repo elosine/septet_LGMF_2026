@@ -35918,6 +35918,12 @@
       "at": 300,
       "group": "grp-act-lgbalance-04",
       "when": "2026-09-19"
+    },
+    {
+      "score": "lgmf-all",
+      "at": 1300,
+      "group": "grp-act-lgbalance-04",
+      "when": "2026-09-19"
     }
   ]
 }

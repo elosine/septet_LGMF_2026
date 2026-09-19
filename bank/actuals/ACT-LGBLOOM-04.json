@@ -25238,6 +25238,12 @@
       "at": 300,
       "group": "grp-act-lgbloom-04",
       "when": "2026-09-19"
+    },
+    {
+      "score": "lgmf-all",
+      "at": 1400,
+      "group": "grp-act-lgbloom-04",
+      "when": "2026-09-19"
     }
   ]
 }

@@ -24277,6 +24277,12 @@
       "at": 200,
       "group": "grp-act-lgconverge-03",
       "when": "2026-09-19"
+    },
+    {
+      "score": "lgmf-all",
+      "at": 1100,
+      "group": "grp-act-lgconverge-03",
+      "when": "2026-09-19"
     }
   ]
 }

@@ -28907,6 +28907,12 @@
       "at": 500,
       "group": "grp-act-lgspectral-06",
       "when": "2026-09-19"
+    },
+    {
+      "score": "lgmf-all",
+      "at": 2000,
+      "group": "grp-act-lgspectral-06",
+      "when": "2026-09-19"
     }
   ]
 }

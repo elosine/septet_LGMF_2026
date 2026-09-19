@@ -1,9 +1,12 @@
 #!/usr/bin/env node
-// build_lgmf_transitions.js — PLAN 1a.6 (2026-09-19): the four transition scores.
+// build_lgmf_transitions.js — PLAN 1a.6 (2026-09-19): the four transition scores, and the one that holds all four.
 //
 //   scores/lgmf-spectral.json · lgmf-balance.json · lgmf-bloom.json · lgmf-converge.json
+//   scores/lgmf-all.json — HIS REQUEST after the first listens (2026-09-19): "all the different models together
+//                          one after another". CHORD-MAJOR: the four types on chord 1, then the four on chord 2 …
+//                          so one harmony can be compared across its models back to back. 24 transitions, 39:50.
 //
-// Each is the six transitions of one type in HIS order of fundamentals — B♭1 · A1 · C2 · G♯1 · B1 ·
+// Each per-type score is the six transitions of one type in HIS order of fundamentals — B♭1 · A1 · C2 · G♯1 · B1 ·
 // F♯1 — ninety seconds each with a ten-second gap: 590 s, 9:50. Decision 5: one score per type.
 //
 // HEADLESS, AND IT PLACES RATHER THAN RE-RENDERS. The item allowed either the morph tool's own emit in
@@ -19,7 +22,7 @@
 // actual, whose provenance carries the model id, the dials, the seed and the cast, and the panel's
 // "recall" reopens the card on exactly those (1a.0 ii).
 //
-//   node tools/build_lgmf_transitions.js          # writes all four
+//   node tools/build_lgmf_transitions.js          # writes all five
 //   node tools/build_lgmf_transitions.js --dry    # print the plan only
 'use strict';
 const fs = require('fs');
@@ -40,6 +43,16 @@ const TYPES = [
     { type: 'BLOOM',    file: 'lgmf-bloom',    color: '#C77D3A' },
     { type: 'CONVERGE', file: 'lgmf-converge', color: '#B5495B' },
 ];
+// the five scores: one per type (six transitions, chord order), and ALL (chord-major, 24)
+const SCORE_SETS = TYPES.map(T => ({
+    file: T.file, what: 'the six ' + T.type.toLowerCase() + ' transitions of COMPOSITION_NOTES LG-28, in his order of fundamentals',
+    entries: BANK.chords.map(C => ({ T, C })),
+})).concat([{
+    file: 'lgmf-all', what: 'ALL 24 transitions, CHORD-MAJOR — the four types (spectral · balance · bloom · converge) on chord 1, '
+        + 'then the four on chord 2, and so on — his request of 2026-09-19 after the first listens, so one harmony can be '
+        + 'compared across its models back to back',
+    entries: BANK.chords.flatMap(C => TYPES.map(T => ({ T, C }))),
+}]);
 
 // the app's TRACKS, in lane order (composer.html; layoutVersion 7)
 const vm = require('vm');
@@ -47,15 +60,16 @@ const html = fs.readFileSync(path.join(ROOT, 'score', 'public', 'composer.html')
 const TRACKS = vm.runInNewContext(html.match(/const TRACKS = (\[[\s\S]*?\]);/)[1], {});
 
 const r3 = x => Math.round(x * 1000) / 1000;
+const mmss = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
 
-function buildScore(T) {
+function buildScore(entries) {
     const objects = [];
     const rows = [];
     let nid = 1;
-    BANK.chords.forEach((C, ci) => {
+    entries.forEach(({ T, C }, i) => {
         const entity = 'ACT-LG' + T.type + '-' + String(C.n).padStart(2, '0');
         const a = JSON.parse(fs.readFileSync(path.join(ACTUALS, entity + '.json'), 'utf8'));
-        const at = ci * (TRANSITION_S + GAP_S);
+        const at = i * (TRANSITION_S + GAP_S);
         const slug = entity.toLowerCase();
         const gid = 'grp-' + slug;
         const notes = a.objects.filter(o => o.morphBend);
@@ -83,31 +97,33 @@ function buildScore(T) {
             color: T.color, fillMode: 'bottom', opacity: 0.45,
             performanceNotes: entity + ' (drag = move, edge/box = stretch)', properties: {} });
 
-        rows.push({ chord: C.n, fund: C.fundamental.name, entity, at, notes: notes.length, span: a.spanSec });
+        rows.push({ chord: C.n, fund: C.fundamental.name, type: T.type, entity, at, notes: notes.length, span: a.spanSec });
     });
     return { objects, rows, nextId: nid + 2 };
 }
 
-const spanS = 5 * (TRANSITION_S + GAP_S) + TRANSITION_S;
-console.log('THE FOUR TRANSITION SCORES — six transitions each, ' + TRANSITION_S + ' s with ' + GAP_S + ' s gaps ('
-    + Math.floor(spanS / 60) + ':' + String(spanS % 60).padStart(2, '0') + ')\n');
+console.log('THE TRANSITION SCORES — ' + TRANSITION_S + ' s each with ' + GAP_S + ' s gaps; four per type ('
+    + mmss(5 * (TRANSITION_S + GAP_S) + TRANSITION_S) + ') and one of all 24, chord-major ('
+    + mmss(23 * (TRANSITION_S + GAP_S) + TRANSITION_S) + ')\n');
 
 const written = [];
-TYPES.forEach(T => {
-    const { objects, rows, nextId } = buildScore(T);
+SCORE_SETS.forEach(S => {
+    const { objects, rows, nextId } = buildScore(S.entries);
     const notes = objects.filter(o => o.type === 'waveCurve' && o.sonifyNote != null).length;
-    console.log('  ' + (T.file + '.json').padEnd(22) + String(notes).padStart(4) + ' notes · '
-        + rows.length + ' transitions · ' + rows.map(r => r.fund).join(' '));
+    const span = rows[rows.length - 1].at + TRANSITION_S;
+    console.log('  ' + (S.file + '.json').padEnd(22) + String(notes).padStart(4) + ' notes · '
+        + rows.length + ' transitions · ' + mmss(span) + ' · '
+        + (rows.length > 6 ? rows.slice(0, 4).map(r => r.fund + ' ' + r.type.toLowerCase()).join(' · ') + ' · …'
+                           : rows.map(r => r.fund).join(' ')));
     if (DRY) return;
     const now = new Date().toISOString();
     const save = {
         version: 1, layoutVersion: 7, tracks: TRACKS, assets: {},
         metadata: {
             created: now, modified: now,
-            note: 'PLAN 1a.6 — the six ' + T.type.toLowerCase() + ' transitions of COMPOSITION_NOTES LG-28, in his order of '
-                + 'fundamentals, ' + TRANSITION_S + ' s each with ' + GAP_S + ' s gaps. GENERATED by '
+            note: 'PLAN 1a.6 — ' + S.what + ', ' + TRANSITION_S + ' s each with ' + GAP_S + ' s gaps. GENERATED by '
                 + 'tools/build_lgmf_transitions.js: each gesture is PLACED VERBATIM from its actual in bank/actuals/ '
-                + '(ACT-LG' + T.type + '-01…06), never re-rendered. The marker at the head of each group names the actual; '
+                + '(ACT-LG<TYPE>-01…06), never re-rendered. The marker at the head of each group names the actual; '
                 + 'recall it in the morph panel to reopen the model on its own dials, change one, and re-emit.',
         },
         objects, markers: [],
@@ -115,14 +131,14 @@ TYPES.forEach(T => {
         nextId,
         viewport: { pixelsPerSecond: 9, scrollOffset: 0 },
     };
-    fs.writeFileSync(path.join(SCORES, T.file + '.json'), JSON.stringify(save, null, 1) + '\n');
-    written.push(T.file);
+    fs.writeFileSync(path.join(SCORES, S.file + '.json'), JSON.stringify(save, null, 1) + '\n');
+    written.push(S.file);
     // the placement log the panel keeps (2y §5): "where have I used this"
     rows.forEach(r => {
         const p = path.join(ACTUALS, r.entity + '.json');
         const a = JSON.parse(fs.readFileSync(p, 'utf8'));
-        a.placements = (a.placements || []).filter(x => x.score !== T.file);
-        a.placements.push({ score: T.file, at: r.at, group: 'grp-' + r.entity.toLowerCase(),
+        a.placements = (a.placements || []).filter(x => x.score !== S.file);
+        a.placements.push({ score: S.file, at: r.at, group: 'grp-' + r.entity.toLowerCase(),
                             when: new Date().toISOString().slice(0, 10) });
         fs.writeFileSync(p, JSON.stringify(a, null, 2) + '\n');
     });
@@ -130,5 +146,5 @@ TYPES.forEach(T => {
 
 if (!DRY) {
     console.log('\nwrote ' + written.map(f => 'scores/' + f + '.json').join(' · '));
-    console.log('and logged the placement of all 24 actuals.');
+    console.log('and logged the placements of all 24 actuals.');
 }

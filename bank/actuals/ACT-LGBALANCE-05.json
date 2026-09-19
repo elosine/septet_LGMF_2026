@@ -39143,6 +39143,12 @@
       "at": 400,
       "group": "grp-act-lgbalance-05",
       "when": "2026-09-19"
+    },
+    {
+      "score": "lgmf-all",
+      "at": 1700,
+      "group": "grp-act-lgbalance-05",
+      "when": "2026-09-19"
     }
   ]
 }

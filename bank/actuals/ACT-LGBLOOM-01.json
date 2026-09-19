@@ -25331,6 +25331,12 @@
       "at": 0,
       "group": "grp-act-lgbloom-01",
       "when": "2026-09-19"
+    },
+    {
+      "score": "lgmf-all",
+      "at": 200,
+      "group": "grp-act-lgbloom-01",
+      "when": "2026-09-19"
     }
   ]
 }
