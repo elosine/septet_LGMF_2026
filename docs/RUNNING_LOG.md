@@ -3045,3 +3045,18 @@ quietly, and how the horn glisses up there:
   Continuous multi-semitone glisses on brass come only from half-valve (trumpet) or the hand (horn, downward, about a
   semitone). Not a problem — a fact for the morph’s notation and for what the mock-up will not reproduce.
 
+
+### §66b — his answers, first round (2026-09-18)
+
+*"1a; 2 10s; 3a; 4a; 5a; 6a; 7a; 8 & 9 clarify; I forgot about db, lets examine model by model."*
+
+**Decided:** 1 — the max-duration table as proposed, into the palette, the vibes’ sample measured once · **2 — the gap
+between reference harmonies is 10 s** (not 5) · 3 — the morph carrier’s striation · 4 — Balance is a morph on the
+volume-only model · 5 — one score per type · 6 — spectral’s other partials by seeded rule, listed for override · 7 —
+bloom targets = nearest non-deviant partial. **Decision 0 confirmed** (§66): the Reaper-side path — a “Horn SI2 high”
+track duplicated from the Horn track on the same port, note filter > F4 → transpose −12 → UVI (state cloned) → ReaPitch
++1 octave; the mirror filter ≤ F4 on the main track; no app change. The test ReaPitch deleted from the Horn track.
+
+**Open:** 8 and 9 need restating in plain terms; and **the double bass’s role in each transition type was never asked** —
+“bass holds the fundamental” had been carried over from the reference harmonies as if it were decided. He wants it model
+by model.
