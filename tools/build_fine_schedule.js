@@ -39,7 +39,9 @@ for (const I of BAL.instruments) if (I.anchorByPitch) pitchesOf[I.inst] = Object
 const LEAD_IN = 3000, PRE = 300, INST_GAP = 1500;
 const HOLD = 4000, TAIL = 3000, VIB_TAIL = 4000;
 const RR_PROBE = ['english_horn', 'cello', 'double_bass'];
-const RR_REPEATS = 4, VEL = 127;
+const RR_REPEATS = +((process.argv.indexOf('--repeats')>0)?process.argv[process.argv.indexOf('--repeats')+1]:4), VEL = 127;
+// --rr-only: skip the vibraphone sweep and run the round-robin probe alone (the confirmation after a panel change)
+const RR_ONLY = process.argv.includes('--rr-only');
 
 function route(R, tech) {
     if (R.channels && Array.isArray(R.channels.curve) && R.channels.curve.length) {
@@ -58,11 +60,13 @@ const push = (o, hold, tail) => { notes.push(Object.assign({ i: notes.length, tP
 const V = INSTRUMENTS.bowed_vibraphone;
 const vTech = V.techniques.find(x => x.key === V.ordinary);
 const vR = route(V, vTech);
+if (!RR_ONLY) {
 t += INST_GAP;
 for (let p = V.rangeLow; p <= V.rangeHigh; p++) {
     push({ role: 'vibfine', inst: 'bowed_vibraphone', label: V.label, tech: vTech.key, techLabel: vTech.label,
            port: vR.port, ch: vR.ch, cc0: vTech.cc0 != null ? vTech.cc0 : null, ks: vTech.ks != null ? vTech.ks : null,
            pitch: p, vel: VEL, cc7: 127, anchor: p === V.rangeLow }, HOLD, VIB_TAIL);
+}
 }
 
 // ---- 2: does the other Xsample scatter cycle? ----
