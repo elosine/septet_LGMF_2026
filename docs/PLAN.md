@@ -189,7 +189,7 @@ are not pre-listed here; they enter when this piece asks for them, with the next
 abstracted, with figures per beat (LG-5, LG-11, LG-12) · the pattern tool with thinning (LG-7) · the morph that arrives at a
 beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a is the harmony heard.*
 
-- **1a — The six reference harmonies and their 24 transitions, heard** — `todo` — written 2026-09-18 by Fable from the
+- **1a — The six reference harmonies and their 24 transitions, heard** — `doing` (1a.0–1a.4 done 2026-09-19; 1a.5–1a.6 next) — written 2026-09-18 by Fable from the
   decisions of COMPOSITION_NOTES LG-16 … LG-31 and RUNNING_LOG §62–§66c, **to be built by Opus after a clear, without
   reopening the decisions listed at the end of this item.** Planning protocol skipped at his word (§66).
 
@@ -203,7 +203,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 
   **The order matters — 1a.0 first, then 1a.1–1a.2 (independent), then 1a.3 → 1a.4 → 1a.5 → 1a.6.**
 
-  - **1a.0 — Verify the three mechanisms the item rests on; build only what is missing.** `todo`
+  - **1a.0 — Verify the three mechanisms the item rests on; build only what is missing.** `done 2026-09-19` — RUNNING_LOG §67. (i) `morphBend` already carries cents end to end, nothing built · (ii) a model already persists as an ACTUAL (`/api/actuals`; `recallActual` reopens the dials), so `morphs[]` is not needed and 1a.5's 24 files ARE actuals · (iii) the SI2 three read `PitchBendMod Ratio="2"` in every program; the Xsample english horn and double bass went 2 → 1. **And a fourth, unasked: the double bass was an octave out and would have been silent in all six chords** — fixed Reaper-side, recipe back to sounding 28–69.
     - **(i) A score note carrying a cents offset that reaches the port as pitch bend.** The beating tool’s notes already carry
       `bend:` (`score/public/beating_calc.js` ≈ line 343) and are played; find that emit path (`morph_emit.js` / the play
       code) and confirm a note in an ordinary composer lane can carry `bend` (or `cents`) and that playback sends it on the
@@ -218,7 +218,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `bendRangeSt` in the recipes and the beating tool’s `bendLimits`; SI2’s default; set what is short.
     *Why:* the whole item depends on just partials sounding just and on models being reloadable — find out first.
 
-  - **1a.1 — The horn above F4: the “Horn SI2 high” path in Reaper** (decision 0, §66; his approved ReaPitch settings). `todo`
+  - **1a.1 — The horn above F4: the “Horn SI2 high” path in Reaper** (decision 0, §66; his approved ReaPitch settings). `done 2026-09-19` — RUNNING_LOG §68, `reaper/bridge/jobs/horn_high_path.lua`. Built on BOTH UVI instances, not just `LGHorn`: a drawn note routes to the curve bank on `LGHornb`. Proven by meter — E♭5 sounds only from the high track, E♭4 only from the main, both −9.0 dB. The horn's recipe range went 65 → 77 as a consequence. **His: CTRL+S, and the élastique dropdown (not a parameter).**
     - Duplicate the Horn track through the bridge (as `make_perc_tracks.lua` duplicated his Template) → “Horn SI2 high”;
       input = `LGHorn`, the same channel as the Horn track; UVI state cloned from the Horn track (`tools/uvi_state.js`, §22).
     - FX on the high track, in order: JS note-range filter passing only notes **> 65 (F4)** — a ten-line JS if stock has
@@ -230,7 +230,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     *Why:* five of the six horn notes in the reference chords lie above the SI2 library’s F4 (§63f); without this the chords
     cannot be heard at all.
 
-  - **1a.2 — Maximum note durations into the palette, at mf** (decision 1). `todo`
+  - **1a.2 — Maximum note durations into the palette, at mf** (decision 1). `done 2026-09-19` — RUNNING_LOG §69. The table lives in `score/public/beating_calc.js` `CEILINGS`, not `sandbox/instruments.js`; `ceilingFor`'s level factors re-based so the number in the table IS the mf ceiling. **The vibraphone measured at 7.4 s** (`sustain_watch.lua`), replacing the assumed 12.
     - `sandbox/instruments.js`: per instrument, the field the morph carrier already reads as the palette’s ceiling (find its
       name at `morph.js` ≈ line 191, `ceiling(level01)` / `ctxForBreath` — use THAT field, do not invent a parallel one):
       **EH 18 · Bsn 18 · Hn 15 · Tpt 12 · Vc 15 · Db 10 · Vib (bow) 10** seconds at mf; kind `breath` for the winds, `bow`
@@ -241,7 +241,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - RESULT: a morph on the horn splits at 15 s with a BREATH flag, not at the table’s default.
     *Why:* the reference striation and every morph split at these ceilings — “never exceeding the max.”
 
-  - **1a.3 — The chord data as a bank: `bank/reference_chords.json`, built by `tools/build_reference_chords.js`.** `todo`
+  - **1a.3 — The chord data as a bank: `bank/reference_chords.json`, built by `tools/build_reference_chords.js`.** `done 2026-09-19` — RUNNING_LOG §70. Voicings typed once; cents, Bloom targets and Spectral sets computed; asserts LG-27's deviation table and every pitch against its own partial. Spectral's reach widens by octaves only for the double bass, which cannot move inside one.
     - The six chords exactly as **COMPOSITION_NOTES LG-27’s final table**: per chord the fundamental; per voice instrument ·
       MIDI pitch · partial (null for a tempered double) · cents (**only the just voices carry cents: bassoon on chords 1, 3, 5;
       horn and trumpet on all six — −14 / −31 / −49; every other voice 0**) · role (`root` | `just` | `double` | `series`) ·
@@ -257,7 +257,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - RESULT: the bank exists; its chord table printed in RUNNING_LOG matches LG-27 pitch for pitch.
     *Why:* one source for the five scores — the composer’s tables become data once, checkable, never typed twice.
 
-  - **1a.4 — `scores/lgmf-ref.json` — the six reference harmonies, 60 s each, 10 s gaps** (decisions 2, 3). `todo`
+  - **1a.4 — `scores/lgmf-ref.json` — the six reference harmonies, 60 s each, 10 s gaps** (decisions 2, 3). `built 2026-09-19, awaiting HIS LISTEN` — RUNNING_LOG §71. 6:50 · 343 notes · the ceiling check GREEN. **And the composer app had to be fixed first: it had not booted since D12 added the vibraphone to `TRACKS` without a `lane8` in the HTML.**
     - Written by **`tools/build_lgmf_ref.js`** in the app’s own save format (layoutVersion ≥ 6, eight lanes — the shape of
       `scores/0i-test.json`, NAMING §1) — never by hand from the AI’s browser pane (principle 9).
     - Chord k starts at t = 70·(k−1) s. Every voice enters **dal niente → mf** over its first segment (fade 3 s, or the

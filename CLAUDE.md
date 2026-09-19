@@ -25,22 +25,19 @@ Libraries (journal D6): **IRCAM Solo Instruments 2** bassoon · horn · trumpet 
 (piece #2's library) — english horn **being acquired**, library to be named — **a bowed
 vibraphone still to acquire.**
 
-**State of the port (keep this line current):** **DONE — 0a · 0b · 0g · 0i all closed
-2026-09-17** (RUNNING_LOG §12–§18). The app, the sandbox, the notation/IR stack, print and
-video are here and verified running on the seven tracks. **Nothing sounds yet** — the recipes
-are placeholders and there is no Reaper rack: that is **0c + 0e, together, with him at the
-machine — IN PROGRESS.** Ten `LG` ports · ten tracks (`reaper/LGMF_rack.rpp`) · the three SI2
-instruments COMPLETE as recipes, configured as text through the bridge (RUNNING_LOG §20–§25; `tools/uvi_state.js` ·
-`uvi_edit.js` · `apply_uvi_parts.js`) · the percussion scaffolding (§19). **The Kontakt three have their four slots** (D11 by `reaper/kontakt/curve_slots.lua`, self-reporting, proven by
-read-back — RUNNING_LOG §26–§29; **parse-check every Kontakt script through the bridge first**, §28). **Their Xsample recipes are real** (§32: the english horn's 36 presets from his menu; the double bass's 88 verified = the
-cello's; palette 159 / written-pitch 8 green). **Spitfire is read and pushed as text** (`tools/aro_state.js`, RUNNING_LOG §34–§36: a loaded preset clones to any track; a
-never-loaded family needs one GUI load; the bank `bank/aro_states/`). **The percussion is BUILT (2026-09-18, RUNNING_LOG §37–§43):
-fourteen instrument tracks on `LGPerc` ch 1–14** (`reaper/bridge/jobs/make_perc_tracks.lua` — new rows duplicate his
-`Template` track), his loads read and banked (eight (C) presets in `bank/aro_states/`; the rack as read: `bank/perc_rack.json`),
-**and all fourteen key maps done** (the catalog's first entries not carried from piece #2; verified 35 → 38).
-**His scope call (§43): volume normalization (0d) is the ONLY pre-composition item** — the percussion recipe, the REC track
-and first-sound-from-the-app are picked up during composing. **Next: design the volume-normalization probe** — a Reaper-side
-measurement (fire the mapped keys into the `LG` port, read the meters); no browser, no recipe in that path.
+**State of the piece (keep this line current):** **PHASE 1 IS BEING BUILT.** Phase 0 is closed — the app, the sandbox,
+the notation/IR stack, print and video are here; the rack has ten `LG` ports and its tracks; the three SI2 instruments and the
+three Kontakt ones are complete as recipes; the percussion is built and mapped (fourteen ARO tracks, all key maps); 0d's trims
+and velocity remap are in and he has heard them. **PLAN 1a is now five sub-steps in (RUNNING_LOG §67–§71, 2026-09-19):**
+the three mechanisms verified (`morphBend` already carries cents end to end · a morph model already persists as an ACTUAL ·
+SI2 bend range is ±2 st in every program) · the horn-above-F4 path built on BOTH UVI instances and proven by meter · the
+maximum note durations at mf in `beating_calc.js CEILINGS`, with the bowed vibraphone MEASURED at 7.4 s ·
+`bank/reference_chords.json`, the six chords as computed data · and **`scores/lgmf-ref.json` — the harmony as sound**,
+60 s per chord with 10 s gaps. **Two blocking bugs were found and fixed on the way:** the Xsample double bass was keyed an
+OCTAVE above sounding (silent on every fundamental of the piece; fixed Reaper-side, recipe back to sounding 28–69), and the
+**composer app had not booted since 2026-09-18** because D12 added the vibraphone to `TRACKS` and nobody added `lane8` to the
+HTML. **Next: 1a.5** (the four transition types as morph models) then **1a.6** (the four transition scores). **Waiting on him:
+CTRL+S in Reaper — the rack changes are unsaved — and his listen to `lgmf-ref`.**
 
 ## READ FIRST — how to work here
 
@@ -195,8 +192,8 @@ routing advice is also credit advice, and these bind every Fable turn:
 port and never saves from its own browser pane (principle 9) · the in-app browser has no Web
 MIDI, so every MIDI path is verified on his Chrome.
 
-**Checks this piece owns:** `node tools/palette_check.js` (159 — tracks vs recipes, ports, every
-per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (8 + a control). Run both
+**Checks this piece owns:** `node tools/palette_check.js` (**168** — tracks vs recipes, ports, every
+per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (**10** + a control). Run both
 after any change to `TRACKS`, `sandbox/instruments.js` or `notation/registry/ensemble.json`.
 
 ## Reference repos (read-only context; registered as additional working dirs)
