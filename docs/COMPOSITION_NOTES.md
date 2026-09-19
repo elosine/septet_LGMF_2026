@@ -1037,6 +1037,20 @@ things fall out of the restatement and were put to him:
    (leave the root, start 14–50¢ off a unison, converge) in question. That scheme ADDS friction and kinetic energy, which is
    the sensation he names; it is an addition, not a consequence.
 
+**CONVERGE — FINAL, all six (his decisions of the same sitting; AI table).** The pairs: the just voice holds, the tempered
+one glides onto it; where the tempered one is a vibraphone bar, the just voice glides onto the bar. The bass mirrors the
+LOWEST note above it — 28¢ below a just note, ~50¢ below a fixed one — and converges up onto it. Everything already on the
+series holds. Chord 4’s cello: (a) 49¢ down onto the true 11th. Chord 6’s bassoon C♯3 and english horn A♭4: *“just leave both.”*
+
+| # | pairs (mover → target) | bass | other movers | static |
+|---|---|---|---|---|
+| 1 | Vc→Bsn D4 14¢ · EH→Hn A♭4 31¢ · Tpt→Vib D5 14¢ | D4 −28¢ → Bsn | — | Vib B5 |
+| 2 | Bsn→Hn C♯4 14¢ · EH→Tpt C♯5 14¢ | C♯4 −28¢ → Hn | — | Vc B4 · Vib B♭5 · Vib B5 |
+| 3 | EH→Bsn E4 14¢ · Vc→Hn B♭4 31¢ · Tpt→Vib E5 14¢ | E4 −28¢ → Bsn | — | Vib G4 |
+| 4 | Hn→Vib F♯4 31¢ · Bsn→Tpt C5 14¢ | A♭3 −50¢ → Vib | Vc D5 → true 11th, 49¢ down | EH B♭4 |
+| 5 | Vc(low)→Bsn E♭4 14¢ · Vc(high)→Hn A4 31¢ · EH→Tpt E♭5 14¢ | E♭4 −28¢ → Bsn | — | Vib C♯5 · Vib D6 |
+| 6 | Hn→Vib C5 49¢ · Tpt→Vib E5 31¢ | F♯2 −50¢ → Vc | — | Vc F♯2 · Bsn C♯3 · EH A♭4 |
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
