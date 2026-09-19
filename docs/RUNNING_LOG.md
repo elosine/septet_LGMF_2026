@@ -3103,3 +3103,21 @@ B5; chord 5’s because D6 is above the trumpet.)
   Under A every brass move is inside one partial (a lip bend, smooth); under B the brass moves become rips.
 - **Not either/or:** A’s remainder column is already a hybrid — the pairs close AND the leftovers glide.
 
+
+### §66d — the last decisions, and PLAN 1a written (2026-09-18, end of session 3)
+
+*"lets go mf for max and yes pp to mf for balance but the rest should start dal niente to mf; chord 6 bass yes; yes blooms
+vibes; then please work independently and draw up the entire plan and then do a checkpoint."*
+
+**Decided:** the maximum note durations are measured at **mf** (not mp) · Balance swells **pp → mf** · Spectral, Bloom,
+Converge and the reference harmonies enter **dal niente → mf** · chord 6’s bass starts **50¢** under the cello’s F♯2 ·
+Bloom’s vibraphone doubling bar stays sounding as the fixed point. Earlier in the sitting: Converge = version A with the
+bass mirroring the lowest voice above it (LG-30, corrected: 28 CENTS, not semitones), chord 4’s cello 49¢ onto the true
+11th, chord 6’s bassoon and english horn left static (LG-31); chords 2 and 3 converge on the just partial like chord 1.
+
+**PLAN 1a written** — `docs/PLAN.md` § 1, eight sub-steps 1a.0 → 1a.7, every decision carried inside the item so Opus builds
+without reopening any of them. The shape: verify three mechanisms first (a score note carrying cents to the port · how a
+morph model persists · bend range) → the horn-high Reaper path → the ceilings into the palette (+ one vibraphone sustain
+measurement) → the chord bank from LG-27/LG-31 with bloom targets and seeded spectral sets computed → `lgmf-ref` → the four
+transition models → the four transition scores → record. His listen closes 1a.4 and 1a.6. Required checks are named in the
+plan (palette_check, test_written_pitch, the one-note bend test, the horn-high probe, the ceiling assertion).
