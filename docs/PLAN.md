@@ -432,6 +432,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   (RUNNING_LOG §102–§104; his brief verbatim in COMPOSITION_NOTES LG-35, the dynamics LG-36). Phase 1 settled: a sequence is a
   RECIPE saved in the score file and the notes are DERIVED from it; a container's chord is FROZEN when chosen (with a refresh); edit
   in the drawer, the score shows the result (his A); one dynamic per container now. Phase 2 confirmed as given (§104).
+  **Amended the same day (§109–§111; LG-38 · LG-39): a WAVES layer — 1d.7, placed before his listen — and a box is a straight dynamic
+  OR reads the waves; 1d.1 gained two to-dos so the generator is ready for it.**
   *Why:* the first tool of the design phase — the six chords exist as data and as scores but nothing yet says how a chord is used in
   TIME; he asked for *"music structures in my score"*: chords held for durations, swappable, with the morph's breaths laid over them.
   - **1d.1 — The generator** (a recipe in, every player's notes out — pure, proven in node) — `todo`.
@@ -460,6 +462,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - Chains keyed by seat, not lane — the two vibraphone bows stay two players; a fixed-length sound (the percussion) is struck once
       per breath.
     - One seed; the same recipe and seed give the same notes.
+    - *(Amended 2026-09-19, §111 — for 1d.7 and the held drawn-curve feature.)* A note's level is carried as BREAKPOINTS from the
+      first day — `[[0, level], [dur, level]]`, flat today — so a wave or a curve later changes the numbers, not the generator's shape.
+    - *(Amended likewise.)* The breath ceiling is read at a note's LOUDEST level, not its starting one — the palette's ceiling
+      shortens as the level rises, and the morph has the bug on record (MORPH_NOTES §3, 1a.6: a swelling note outgrows a ceiling read
+      at its quiet start). Flat today, so the two are the same number; the rule is in place for 1d.7.
     - `tools/sequence_check.js` on the six reference chords: durations and boundaries add up · under `attack` everyone starts at
       every boundary · under `seamless` a pitch changes only at a breath start and a breath across a line keeps the old chord · the
       level carries the same way · no note longer than its ceiling · same seed, same result · a 0 s container or an empty chord
@@ -571,16 +578,66 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       breath. SEQUENCE_TOOL, RUNNING_LOG, MORPH_NOTES §3 (what the all-purpose carrier would take from this), this plan; commit; push.
     - **His test:** reload → `Sequence` → one long container (40 s) → `together` 0, SPACE → `together` 0.5, SPACE → `lengths 3 9`,
       SPACE → `seamless` across two chords, SPACE.
+  - **1d.7 — The waves layer** (each player on their own dealt stream of swells; a box is a straight dynamic OR reads the waves) —
+    `todo` — AMENDED INTO THE ITEM 2026-09-19, the same day the item was written (RUNNING_LOG §109–§111; his words verbatim in
+    COMPOSITION_NOTES LG-38 and LG-39). **Position: after 1d.5, before his listen (1d.6)** — the id is the next free one, the place is
+    the build order. Written at his word without review (*"go ahead and write in the plan and then check in before go"*), from the
+    read-back he approved (*"thats good"*): the six dials, the swap, the three touches.
+    *Why:* the morph's dynamics are ONE wave copied to every voice and phase-shifted — nothing in it is random (§109) — and he asked
+    for *"randomized crescendos. Not everyone is crescendoing at the same time … individual waves"* without deciding *"every swell and
+    length"*.
+    *Result when done:* a `waves` strip in the drawer: `lengths` (a pool of swell lengths, values and weights) · `low` and `high` (two
+    dynamics, `niente` allowed as `low`) · `density` 0 … 1 · `peak` 0 … 1 · a seed with `re-wave`. Each box's `dyn` pull-down has
+    `waves` beside `as dealt` and `ppp … fff`, and one control sets every box at once. In a waves box every player rises and falls
+    on a stream of swells of their own — dealt, seeded, out of step with the others — between `low` and `high`; a straight box holds
+    its dynamic as before. The streams run on under the whole sequence, so a box that steps out to a straight dynamic does not
+    restart them: the next waves box picks each player's wave up where it has got to. The score shows a wave as the note's drawn
+    curve and plays it the way it already plays a drawn crescendo — one CC7 ramp under a constant velocity, the morph's way, so a
+    breath re-entering mid-wave does not lurch. With every box straight the output is exactly what it was before this step.
+    - The stream, pure, in `sequence.js`: per player (seat), from the one seed — swell lengths drawn from the pool through
+      `time_containers.js` (the third use of it; stick and jump at its defaults, not exposed); each slot a swell with probability
+      `density`, otherwise a flat stretch at `low`; a swell rises from `low` to `high` and returns, its top at `peak` of its length
+      with a little seeded jitter; defined over the whole sequence in absolute time, whether or not a box reads it.
+    - Reading it: a note in a waves box takes its level breakpoints from its player's stream over its own span (1d.1's breakpoints,
+      no longer flat); a note in a straight box is flat as before. The level belongs to the BREATH (§103): under `seamless` a breath
+      keeps the mode of the box it started in across the line; under `attack` the change is at the line.
+    - The order of the deal: the streams first (they depend on time alone), then the breaths — each ceiling read at the LOUDEST level
+      the stream reaches inside the candidate note (1d.1's amended rule), so a wave can shorten a breath and never the reverse.
+    - `low` · `high` on the written scale (1b's anchors, the pull-down of 1c.2b); `niente` = the bottom of the drawn height, as
+      `lgmf-ref`'s dal niente entries write it. `low` at or above `high` refused with a message.
+    - Two players that are not like the rest: **the vibraphone** — its CC7 already carries the register (1b, §91), so the wave
+      multiplies into it rather than replacing it; do what `lgmf-ref`'s dal niente does for it. **The percussion** — a fixed-length
+      sound takes the wave's level at its strike as its level; no ramp.
+    - The strip and the box: `waves` in each box's `dyn`; `all boxes → [straight | waves]`; a waves box wears a small mark. The
+      recipe: `waves { lengths, weights, low, high, density, peak, seed }`, and `containers[i].dyn = 'waves'`. A reopened sequence
+      keeps its waves; `re-wave` re-deals the streams and nothing else.
+    - Hear: the wave must be audible on SPACE, not only after Insert. First read how `swell_ui.js` (piece #5's PLAN 1o — the strikes
+      drawer's swells) ramps CC7 through the drawer's player, and reuse it. **If the drawer's player needs a change, it is put to him
+      before it is made** (LG-32: nothing existing changed unless necessary and checked with him).
+    - `sequence_check.js` gains: every box straight → output IDENTICAL to before this step (the gate) · in a waves box every level
+      within `low … high` · two players' streams differ and are not phase copies of one another; the same seed repeats · a straight
+      box between two waves boxes: flat inside it, and the third box's waves EQUAL the all-waves deal's third box (the stream was
+      not restarted) · `seamless`: a breath across the line keeps its box's mode · `density` 0 → flat at `low`, 1 → swells back to
+      back · no note longer than the ceiling at its loudest level.
+    - Not designed, at his word: per-player wave dials and a drawn curve (the held features below) · `lock to breath` — each breath
+      one swell — offered in §109 and not taken up; the waves run FREE of the breaths, his "a layer … like the time containers".
+    - Verify in the running app, no MIDI: three boxes all waves → the inserted notes' curves differ per player and stay within
+      `low … high`; the middle box flipped to `mf` → flat there, the third box unchanged against the all-waves deal; `re-wave`
+      changes the curves and nothing else; a reopened sequence keeps its waves; Hear's messages carry the ramp. SEQUENCE_TOOL,
+      RUNNING_LOG, MORPH_NOTES §3 (what the all-purpose dynamics layer would take from this), this plan; commit; push.
+    - **His test:** reload → `Sequence` → three boxes → `all boxes → waves` → SPACE → flip the middle box to `mp` → SPACE →
+      `re-wave` → SPACE → Insert → play the score.
   - **1d.6 — His listen** (a sequence of the six chords; the item closes on his verdict) — `todo`.
     *Result when done:* he has heard, on his Chrome, a sequence built one box at a time and one rolled, under `attack` and under
-    `seamless`, with the default breaths and with `together` and a pool of lengths changed, and has reopened one and changed it. His
+    `seamless`, with the default breaths and with `together` and a pool of lengths changed, with the waves on and one box stepped out to a straight dynamic (1d.7), and has reopened one and changed it. His
     verdict closes 1d; whatever he wants changed becomes ordinary chunks under this item, and the held features below are his to call.
     - Every listen and every Insert is his Chrome — the in-app browser has no Web MIDI; the AI verifies the note lists, never the sound.
     - The six reference chords want six takes in the strikes drawer first (his, by the drawer: HARMONIC SERIES or a harmony →
       `ordinario` → shuffle → `save take`).
   - **Held as features, at his word (LG-36: *"let's save these as features for now"*), not built:** a drawn curve attached to the
     whole sequence (the trills' pattern — a META curve A · B · C read live over the span) · a dynamic per player per container · a
-    curve per player.
+    curve per player. *(The waves of 1d.7 are NOT in lieu of the curve — his own correction, LG-38: "that might be an added feature
+    later".)*
 
 
 ## 2. Notate — `todo`

@@ -4674,3 +4674,37 @@ whole-file rewrite from a stale read erasing the other session's lines. **The ar
 append only, read the last heading number immediately before writing, stage explicit paths, never `git add -A`; the research chat keeps its
 long material in a file of its own and leaves a pointer in the log. The usual software answer (a branch or worktree per session) was
 rejected for this case: two sessions appending to the end of the same append-only file conflict on every merge.
+
+## §111. PLAN 1d amended — 1d.7 the waves layer written in, 1d.1 given two lines; the calls made alone (2026-09-19)
+
+**His word, after the swap was read back (§110):** *"thats good go ahead and write in the plan and then check in before go."* So the
+amendment went into `docs/PLAN.md` without a step-by-step review, from the read-back he had approved — the six dials, the swap, the three
+touches.
+
+**What changed in the plan:**
+
+- **1d.7 — The waves layer**, a new step with the next free id, PLACED after 1d.5 and before his listen (the plan's rule: ids are stable,
+  position is order). In the fixed format: the why, the result when done, eleven to-dos, the verification, his test.
+- **1d.1 gained two to-dos, marked as amended:** a note's level carried as BREAKPOINTS from the first day (flat today — `[[0, level],
+  [dur, level]]`), and the breath ceiling read at a note's LOUDEST level rather than its starting one. Both cost nothing now and save a
+  rebuild of the generator at 1d.7 — and again if the held drawn-curve feature is ever built.
+- 1d's header, 1d.6's result (his listen now includes the waves and a box stepped out), the held-features line (the waves are NOT in lieu
+  of the curve — his own correction mid-sentence, LG-38) · PLANNER's NOW line · the journal's running thread · CLAUDE.md's state line.
+
+**The calls made alone in 1d.7 — his to reverse:**
+
+1. **The order of the deal: streams first, then breaths.** A stream depends on time alone; a breath's ceiling depends on level. So the wave
+   can shorten a breath and never the reverse. The other order would need the two to be solved together.
+2. **`density` deals swell-or-flat per SLOT of the length pool**, the flat stretches sitting at `low` — so a quiet stretch has a length from
+   the same pool as the swells. *Rejected:* a separate pool of rest lengths — a seventh dial he did not ask for.
+3. **The vibraphone's wave multiplies into its register CC7** (1b: CC7 carries the register on the vibraphone only) rather than replacing
+   it, and **the percussion takes the wave's level at the strike** with no ramp. Both follow what `lgmf-ref` already does; neither was
+   discussed.
+4. **Hear must carry the wave**, and the plan says how the risk is handled: reuse `swell_ui.js`'s CC7 ramp if it serves; if the drawer's
+   player has to change, that is put to him first (LG-32).
+5. **`lock to breath` is recorded as offered and not taken up**; the waves run free of the breaths.
+
+**The gate that protects everything before it:** with every box straight, `sequence_check.js` must find the output IDENTICAL to what it was
+before 1d.7 — the same device 1d.5 uses for the breath dials, and the reason the amendment could be added without reopening 1d.1 … 1d.5.
+
+**Next: build 1d.1, on Opus, after a clear — at his word; he asked to be checked with before the go.**
