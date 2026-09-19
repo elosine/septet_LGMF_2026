@@ -3698,3 +3698,60 @@ standing still — then the four transitions against it.
 **What this makes possible, and what it already says.** The monitor reference is now a fact he can set the system volume by, once, and keep for every piece. And the arithmetic of the target is visible: the noise sits at −17.5 LUFS, a tutti fff at −1 dBTP is **~19 dB above it**, and 0d's ensemble at a written mf was landing around −14 LUFS short-term — *louder than the fff of the standard it is now being calibrated to*, which is the whole of his *"my system volume is on 2 and for the tuba piece and septet it was on 10"*.
 
 **Still his, and the step is not closed until he does it:** play REF's pink noise at 600 s, set the system volume where it is loud but comfortable (83 dB SPL C-weighted per channel if he has a meter), write the number down, and **CTRL+S** — the REF track, REC's unity fader and the three new receives live only in the open project until he saves.
+
+---
+
+## §78. PLAN 1b.2 — the instrument card: the old numbers explained, and the vibraphone's real problem is its REGISTER, not its trim (2026-09-19)
+
+**What prompted it.** His *"saved, volume set, go ahead with 1b.2"* — 1b.1 closed, the chain proven, so a measurement now means something absolute.
+
+**What was built.** `tools/card_schedule.js` → `probes/card_schedule.json` (103 notes, 13:04) · `probes/card_run.ps1` (the record, in one process, reusing 0d's own player `balance_probe.ps1`) · `probes/analyze_card.py` → **`bank/instrument_card.json`**. **103/103 notes measured**, noise floor −180 dBFS (digital silence between notes), the schedule found at +1.310 s.
+
+**The three design choices that make it different from 0d, and why each was needed.**
+1. **Every note is held 4 s and given its whole tail** (the vibraphone 8 s), where 0d held 1.2 s. And each is reported **two ways: the loudest 400 ms** (how it speaks) **and the K-weighted RMS over the whole sounding note** (how loud it is). 0d had only the first, on a note too short to have a second.
+2. **0d's own pitches** (`anchorByPitch`), so every row is directly comparable with the old one.
+3. **It rolls from 700 s.** His balance recording sits at 0–94 s and REF at 600/635 s; anywhere earlier and the septet or the calibration noise would have played underneath the measurement.
+
+### 1 · The chain explains the old numbers — 1b.0's model is confirmed
+
+The only deliberate change was REC −12 dB → unity, and the trims 0d prescribed were applied **after** it measured. So the prediction is `new = 0d + 12.0 + trim`:
+
+| | trim | vel 64 pred / meas / **resid** | vel 127 pred / meas / **resid** |
+|---|---|---|---|
+| English Horn | 0.00 | −27.54 / −25.93 / **+1.61** | −17.12 / −16.37 / **+0.75** |
+| Bassoon | −7.79 | −27.54 / −26.96 / **+0.58** | −20.19 / −19.92 / **+0.27** |
+| Horn | −0.01 | −27.54 / −26.79 / **+0.75** | −18.99 / −18.76 / **+0.23** |
+| Trumpet | −0.17 | −27.54 / −26.66 / **+0.88** | −20.33 / −20.34 / **−0.01** |
+| Vibraphone | +9.30 | −27.54 / −27.41 / **+0.13** | −13.89 / −13.16 / **+0.73** |
+| Cello | +10.29 | −27.54 / −22.51 / **+5.03** | −16.23 / −14.74 / **+1.49** |
+| D. Bass | +5.25 | −27.54 / −30.07 / **−2.53** | −20.71 / −21.57 / **−0.86** |
+
+**Five of seven land within 0.9 dB.** 0d's measurements were never wrong — they were right on a scale twelve decibels away from the master, which is the whole of §76. The two exceptions are worth their own lines: the **double bass** is expected to differ, because 1a.0 fixed its octave and different samples sound now; the **cello reads +5 dB hotter than predicted at velocity 64 but only +1.5 at 127**, which is a velocity-layer behaviour of the Xsample instrument, not a trim error, and 1b.3 must use the measured curve rather than a single anchor.
+
+### 2 · The vibraphone — and it is not what the trim was fixing
+
+Two separate findings, and the second is the larger:
+
+- **Decay.** maxMomentary − integrated is **4.0–4.6 dB** on the vibraphone against **0.9–1.7 dB** on the winds. Balancing on the onset therefore overstates it by ~3 dB relative to a wind — measured confirmation of his *"vibraphone is quiet"*, and exactly the flaw of a 400 ms window on a bow that is 20 dB down 7.4 s later (§69).
+- **REGISTER, which no single fader can fix.** At velocity 127: pitch **62 → −13.6** · **71 → −20.7** · **80 → −5.2**. The top is **15.5 dB louder than the middle**, and the pattern holds at every velocity (spread 16.3 dB at velocity 64). The other instruments spread 3.3–7.3 dB across their three pitches. **A per-instrument trim cannot express this**, and the reference chords put the vibraphone high (B5 = 83 among them), near the hot end. 1b.3 has to decide whether the vibraphone gets per-register treatment or whether the writing avoids the loud band.
+
+### 3 · The bend ranges, measured at last — and §74's hypothesis is definitively dead
+
+Before today only the **cello** had ever been measured (piece #5's probe, carried with the recipe); the english horn and double bass carried an **inferred** 1 st and the rest a provisional 2. The card's +50 % bend note, differenced against the same note unbent:
+
+**english horn 0.92 · double bass 0.90 · cello 1.01 (#5 read 0.97) · bassoon 1.99 · horn 2.00 · trumpet 2.00 · vibraphone 0.33.**
+
+**Every inference was right within 0.1 semitone.** So the bend-range explanation offered for his "wide glissandos" in §74 is not merely unproven, it is false — §75 had already found the real cause. The seven measured values are now in `bank/bend_ranges.json` and, through `tools/apply_bend_ranges.js`, in the recipe: a small accuracy gain where it matters most, since a −31 ¢ ask on an english horn assumed to bend 1.00 st was landing at −28.6 ¢, and this piece is made of cents. The vibraphone's 0.33 st is recorded as a fact about the Kontakt instrument, not as a lever — it never bends (LG-30).
+
+**A trap on the way, caught by the recipe refusing to load.** `apply_bend_ranges.js` replaces a block between two markers, and the recipe carried piece #5's **hand-written** block under a different heading — so the tool appended a second `const MEASURED_BEND` and `instruments.js` would not parse. The superseded block was removed; there is now exactly one, generated, with honest provenance (`measured 2026-09-19 (30-REC-260919_0803.wav)`, which had also been reading as piece #5's date until the bank's top-level fields were corrected).
+
+### 4 · What else the card says
+
+- **Pitch: every pitched note sounds within 2 cents of what it was sent** — including the double bass at 38 · 48 · 57, which is 1a.0's octave fix confirmed at the rack rather than inferred from a range table.
+- **The horn's ReaPitch path** (note 72, which can only arrive through "Horn SI2 high") is **+0.9 to +1.4 dB** against the nearest library note and **1.2 cents flat** — 1a.1 was proven level-neutral by meter on one pitch pair; this is its first absolute measurement, and it is in tune.
+- **The velocity spans are not alike:** bassoon **11.3 dB** · double bass 17.4 · cello 18.7 · english horn 18.9 · trumpet 24.1 · horn 25.9 · vibraphone **28.5**. And the **trumpet is not monotone** — velocity 127 reads 1.5 dB *under* velocity 100. 1b.4's monotone fit must absorb that, and the bassoon's narrow span is the real limit on how quiet the ensemble can get.
+- **Percussion spot check:** finger cymbals and tam tams carry over within **0.9 dB** of `0d + 12 + trim`; **triangles (−3.0) and castanets (−3.3)** read under it — the two with the largest JS Volume boosts (+10.2 and +20.0 on top of a +12 fader). Whether that is the JS gain not delivering or round-robin scatter on a single hit is not established; 1b.3 measures the fourteen properly rather than leaning on the carry-over for those.
+
+**A flaw in the analyzer, found and fixed in the same session.** It ran the f0 check on the percussion too, and autocorrelation on a castanet locks onto whatever noise period it finds — eight notes were reported "300 to 590 cents off their written pitch", which means nothing. Unpitched roles are now excluded, and the pitch section reads *"none — every note sounds the pitch it was sent."* The lesson is §75's principle 21 in miniature: a check that reports a fault where none exists costs as much trust as one that misses a real fault.
+
+**Gates after the recipe changed:** `palette_check` **168 GREEN** · `test_written_pitch` **10 + the control GREEN** · `check_ceilings --all` **6/6 GREEN**.

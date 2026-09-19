@@ -160,3 +160,5 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   errors, on every actual this piece files. One line in the validator when someone is next in there.
 
 - **2026-09-19 — the generated scores share one object-id space** (`wc-1, wc-2 …` from `build_lgmf_ref.js` and `build_lgmf_transitions.js`). RUNNING_LOG §75: a per-id cache in the app (`curveChannelMap`) crossed scores because of it — fixed at the cache, but the collision stays, and any future per-id state is the same trap. Defence when convenient: a per-score prefix (`wc-bal-1`), or ids derived from the actual's entity. Not blocking.
+
+- **2026-09-19 — the triangles and castanets read ~3 dB under their prescribed trim** (RUNNING_LOG §78, the 1b.2 spot check): `new = 0d + 12 + trim` holds within 0.9 dB for the finger cymbals and tam tams but not for these two, which are the ones carrying the largest **JS Volume** boosts (+10.2 and +20.0 on top of a +12 fader). Either the JS gain is not delivering its full amount, or a single hit caught a different round robin. 1b.3 measures all fourteen rather than leaning on the carry-over, so this is recorded, not blocking.
