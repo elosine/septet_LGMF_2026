@@ -4493,3 +4493,40 @@ there is replaced — he saves a take first. The alternative, dealing a take sil
 that is not the drawer's live state, and that is a change to the drawer's core; his constraint (LG-32) forbids it unless necessary, and
 seeing the chosen chord is arguably better anyway. Noted in the plan beside the sub-step. `bank/panel_snapshots.json` is modified in the tree
 — a take he saved from his tab during this conversation; his, not committed.
+
+## §107. PLAN 1d written to the end at his word, unreviewed — and the three calls the AI made alone, marked as his to reverse (2026-09-19)
+
+**His word, after 1d.3 was put:** *"good go ahead and write up the rest of the plan, i don't need to see the rest and then check in for the
+next step."* So 1d.3 went in as put, and **1d.4 (the roll), 1d.5 (the breath dials) and 1d.6 (his listen) were written without review**, each
+in the fixed format — the result when done, the to-dos, the verification, his test — and each marked in the plan as written at his word.
+
+**The rule kept while writing alone: only what his brief (LG-35) names.** What each of his phrases became:
+
+| His words | In the plan |
+|---|---|
+| *"generate a series of time containers and just click on them and insert a chord … still be able to adjust them"* | 1d.4: `roll` → a row of EMPTY boxes; each filled as in 1d.2; any box's seconds typed over afterwards |
+| *"an array of certain values, like three, nine, seven, and eight … random choose … weight one of the values"* | the generator's POOL with weights, as it stands — `time_containers.js` untouched |
+| *"or weight the higher ones or low ones"* | a `tilt [short ◂ ▸ long]` in the DRAWER that fills the weights boxes (weight ∝ value^k) — the generator has no such dial and does not get one |
+| *"strictly striated, never together"* | 1d.5: `together` 0 is ENFORCED, not merely likely — a start closer than `apart` (0.5 s, his ear's number) to another player's is moved later. The morph's staggered phases only make coincidence unlikely; jitter can still produce one |
+| *"some probability where sometimes they're together"* | `together` between 0 and 1: each breath start snaps, with that probability, to the nearest other player's coming start; 1 = all shared |
+| *"short ones combined with long ones"* | `lengths`: a pool, the container generator a second time, in place of `length ± jitter`; the ceiling still binds |
+| *"the default should be similar to what's in the morphs … just have the possibilities or at least the architecture"* | the defaults ARE 1d.1's, and `sequence_check.js` gates that the defaults give identical output; nothing further designed — no per-player breath dials, no breath contour, no drawn marks; the recipe's `breath` object is where they would go |
+
+**Three calls made alone — each flagged to him at the check-in, each his to reverse:**
+
+1. **An empty box is a REST.** A rolled row is empty boxes, so an empty box must mean something at Insert. Refusing to insert until every box
+   is filled would be the strict reading; silence for the box's duration is the musical one, and his own notes ask for rests (LG-4 · LG-5 ·
+   LG-8). Every chain ends at the rest's start and begins again after it, under both change rules. 1d.1's "an empty chord refused" is kept
+   for a chord object with no notes — a malformed box; a rest is `null` and deliberate.
+2. **`roll` over a row that holds chords asks first, and replaces the row.** *Rejected:* re-dealing the durations under the chords already
+   placed (keep the chords by position) — attractive, the strikes drawer's own seed habit, but a roll changes the COUNT, and what happens to
+   the surplus chords is a decision he has not made. One line to him if he wants it.
+3. **The recipe keeps the roll's dials, but the containers are the truth once rolled.** A hand-changed duration is not re-derived from the
+   pool; `re-roll` is a deliberate new deal.
+
+**Reopening by clicking the META bar is NOT in the plan** (1d.3) — it needs a hook in the score's canvas, and LG-32's constraint (nothing
+existing changed unless necessary and checked with him) applies to the score at least as much as to the drawer. Told him; his to ask for.
+
+**The handoff:** PLANNER's NOW line, the journal's running thread and CLAUDE.md's state line now name 1d as planned in full and unbuilt, and
+**the next step as 1d.1 on Opus** — executing a written plan is Opus's work by `SESSION_HYGIENE`'s rule, and this conversation (a design
+talk) and that one (a build) are different modes, which is what a clear is for.

@@ -489,13 +489,95 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       against the generator, the inserted objects (count, lanes, `morphBend`, heights), the META bar, the recipe in the saved score, a
       reload. `palette_check`. SEQUENCE_TOOL, RUNNING_LOG, this plan; commit; push.
     - **His test:** reload → `Sequence` → `+` → a take · 8 s · mf → `+` → another · 13 s → SPACE → Insert → play the score.
-  - **1d.3 — The round trip** (click the META bar → the sequence back in the drawer; change a duration, swap a chord, change a dyn;
-    re-Insert replaces in place) — `todo` — *to be laid out when we discuss it.*
-  - **1d.4 — The roll** (the time container generator in the drawer: pool · order · contour → a row of empty boxes; click each to
-    give it a chord; any of them still editable) — `todo` — *to be laid out when we discuss it.*
-  - **1d.5 — The breath layer's dials** (striation · length ± jitter · `together` 0 … 1 · a pool of short and long lengths; the
-    morph's numbers as the default) — `todo` — *to be laid out when we discuss it.*
-  - **1d.6 — His listen** (a sequence of the six chords, attack and seamless; the item closes on his verdict) — `todo`.
+  - **1d.3 — The round trip** (reopen a placed sequence, change anything, re-Insert replaces it in place) — `todo` — his "good",
+    2026-09-19.
+    *Result when done:* a placed sequence can be reopened and changed. The drawer lists the sequences in the open score; pick one and
+    it comes back as it was — the boxes, the frozen chords, the seconds, the dyns, attack or seamless — with its start read from where
+    the group now sits in the score, so a sequence he dragged reopens where he moved it. Change a duration, swap a chord, change a
+    dyn, remove or reorder a box, and Insert REPLACES IN PLACE: the old notes go, the new ones are written from the same start, the
+    META bar is redrawn, the recipe updated under the same id. The recipe is the truth: notes hand-edited in the score are overwritten
+    by a re-Insert, and the status says so.
+    - A `sequences in this score` pull-down in the drawer, read from the score file's `databases.sequences`; pick one → the recipe
+      back in the row, every control of 1d.2 live on it.
+    - The start read from the group's current position in the score (its META bar), not from the recipe — a dragged sequence reopens
+      where it was moved to.
+    - Swap = choose another take on the box; the seconds, the dyn, `×`, `◂ ▸` as in 1d.2.
+    - Insert on a reopened sequence replaces in place: the old group's objects removed by their id, the new written from the same
+      start, one META bar, the recipe updated under the same id; the status counts what was replaced.
+    - The recipe is the truth: a note dragged or edited by hand inside a sequence's group is overwritten by re-Insert; the status
+      says so. Stretching the META bar does not change the containers — re-Insert restores them.
+    - *Not built, told him:* reopening by CLICKING the META bar in the score — it needs a hook in the score's canvas, which his
+      constraint keeps untouched unless necessary. His to ask for; it becomes a checked change.
+    - Verify in the running app, no MIDI: insert three containers → reopen from the list → change the second's seconds, swap the
+      third's take, change a dyn → Insert → the old objects gone, the new count, positions and pitches right, one META bar, the recipe
+      updated; move the group in the score model → reopen reads the new start. SEQUENCE_TOOL, RUNNING_LOG, this plan; commit; push.
+    - **His test:** reload → `Sequence` → pick a placed sequence → the second box to 20 s → Insert → play.
+  - **1d.4 — The roll** (the time container generator in the drawer: a pool, an order, a contour → a row of empty boxes to fill) —
+    `todo` — written at his word without review (*"go ahead and write up the rest of the plan, I don't need to see the rest"*,
+    2026-09-19; RUNNING_LOG §107).
+    *Result when done:* a `roll` strip in the drawer carries the generator's own dials — the values he types, their weights, the unit,
+    the total to fill, stick and jump, the contour with its turn · bow · depth, the seed, the presets — the same module the strikes
+    drawer's `containers` shape uses (`time_containers.js`, piece #5's, untouched). `roll` lays the rolled durations out as a row of
+    EMPTY boxes; he clicks each and gives it a chord and a dyn as in 1d.2, and any box's seconds can still be typed over. The status
+    says how many containers came out and by how much the roll stopped short of the total. An empty box is a REST: silence for its
+    duration, every player stopping at its start and beginning again after it.
+    - The strip: `values` · `weights` · `unit` · `total` · `stick` · `jump` · `contour` (+ `turn` · `bow` · `depth` when not flat) ·
+      `seed` with a `re-roll` (the next seed) · the presets pull-down sorted by spread, filling the boxes as it does in the strikes
+      drawer. The dials and their defaults are `containers_ui.js`'s, so one habit serves both drawers.
+    - `tilt [short ◂ ▸ long]` — his *"weight the higher ones or low ones"*: one control that FILLS the weights boxes toward the long
+      or the short values (weight ∝ value^k); a typed weight still stands. In the drawer only; the generator is not changed.
+    - `roll` on an empty row → n empty boxes. `roll` on a row that holds chords → asks first (the row is replaced). A rolled box is an
+      ordinary box afterwards: seconds typed over, removed, moved.
+    - The recipe keeps the roll's dials (`roll { … }`) beside the containers, so a reopened sequence shows how its durations were
+      made and `re-roll` works on it; the containers, once rolled, are the truth — hand changes are not re-derived.
+    - An empty box is a REST: the generator takes `chord: null` as silence — under both change rules every chain ends at the rest's
+      start and begins again at its end. `sequence_check.js` gains the case. *(1d.1's "an empty chord refused" stands for a chord
+      object with no notes — a malformed box; a rest is `null` and deliberate.)* **His to reverse — he has not seen this.**
+    - The shortfall in the status: `rolled 7 · 57 of 60 s · 3 s short` — the generator's own report; nothing stretched to fit.
+    - Verify in the running app, no MIDI: his own set (`3 9 7 8`), a weighted value, the tilt both ways (the weights boxes filled, the
+      roll's mean moving with it), a preset, the same seed twice, a roll over a filled row asking first, a rest between two chords
+      (no note inside it, everyone re-entering after it), a rolled sequence inserted, reopened, re-rolled. SEQUENCE_TOOL, RUNNING_LOG,
+      this plan; commit; push.
+    - **His test:** reload → `Sequence` → `roll` with `3 9 7 8` → click each box, a take and a dyn → leave one empty → SPACE → Insert.
+  - **1d.5 — The breath layer's dials** (striation · length ± jitter · `together` · a pool of short and long lengths — the morph's
+    numbers as the default) — `todo` — written at his word without review (2026-09-19; RUNNING_LOG §107). His brief (LG-35): *"strictly
+    striated, never together, or … some probability where sometimes they're together … short ones combined with long ones … the default
+    should be similar to what's in the morphs … I might not want to design too much there, but just have the possibilities or at least
+    the architecture there."*
+    *Result when done:* a `breath` strip in the drawer: `striation` (the morph's five — staggered · grouped · aligned · converging ·
+    diverging) · `length` and `jitter` · `together` 0 … 1 · `lengths`, an optional pool of values and weights · a seed with
+    `re-breathe`. With nothing touched the sequence breathes exactly as 1d.1 made it breathe — the morph's numbers. At `together` 0 no
+    two players ever begin a breath within a set distance of each other (a container's `attack` excepted — that is everyone, by
+    design); toward 1, more and more re-entries are shared, and at 1 everyone breathes together. With a pool of lengths each breath's
+    wanted length is drawn from the pool instead of `length ± jitter` — short with long — and the ceiling still binds every one.
+    - The strip and its defaults: the carrier's numbers as the morph panel ships them, read at build time and written into
+      SEQUENCE_TOOL with their source. The five striations by the morph's names.
+    - `together` 0 = STRICT: after the deal, any breath start closer than `apart` seconds to another player's is moved later (the
+      breath before it held longer within its ceiling, else its gap widened); `apart` a number his ear decides, default 0.5 s, in the
+      strip. Between 0 and 1: each breath start snaps, with that probability, to the nearest other player's coming start. 1 = all
+      shared. Seeded.
+    - `lengths`: values + weights, the time container generator a second time (each player its own stream from the one seed; stick
+      and jump at the generator's defaults, not exposed). Empty = `length ± jitter`. A drawn length above the ceiling becomes the
+      ceiling and is flagged, as 1d.1 flags it.
+    - The breath dials live in the recipe (`breath { … }`), so a reopened sequence breathes as it was dealt and `re-breathe` re-deals
+      it without touching the chords or the durations.
+    - `sequence_check.js` gains: the defaults give output IDENTICAL to 1d.1's (the gate that keeps step 1's results from drifting) ·
+      `together` 0 → no two starts within `apart` outside attack boundaries · `together` 1 → every start shared · a pool → every
+      breath's length is a pool value or its ceiling · same seed, same result.
+    - Nothing further designed, at his word: no per-player breath dials, no breath contour, no drawn breath marks. The recipe's
+      `breath` object is where they would go.
+    - Verify in the running app, no MIDI: the strip's defaults against the morph's · `together` 0 / 0.5 / 1 on a 40 s container (the
+      starts listed per player) · a pool `3 9` · `re-breathe` changing the deal and nothing else · a reopened sequence keeping its
+      breath. SEQUENCE_TOOL, RUNNING_LOG, MORPH_NOTES §3 (what the all-purpose carrier would take from this), this plan; commit; push.
+    - **His test:** reload → `Sequence` → one long container (40 s) → `together` 0, SPACE → `together` 0.5, SPACE → `lengths 3 9`,
+      SPACE → `seamless` across two chords, SPACE.
+  - **1d.6 — His listen** (a sequence of the six chords; the item closes on his verdict) — `todo`.
+    *Result when done:* he has heard, on his Chrome, a sequence built one box at a time and one rolled, under `attack` and under
+    `seamless`, with the default breaths and with `together` and a pool of lengths changed, and has reopened one and changed it. His
+    verdict closes 1d; whatever he wants changed becomes ordinary chunks under this item, and the held features below are his to call.
+    - Every listen and every Insert is his Chrome — the in-app browser has no Web MIDI; the AI verifies the note lists, never the sound.
+    - The six reference chords want six takes in the strikes drawer first (his, by the drawer: HARMONIC SERIES or a harmony →
+      `ordinario` → shuffle → `save take`).
   - **Held as features, at his word (LG-36: *"let's save these as features for now"*), not built:** a drawn curve attached to the
     whole sequence (the trills' pattern — a META curve A · B · C read live over the span) · a dynamic per player per container · a
     curve per player.
