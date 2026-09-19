@@ -348,7 +348,24 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     and only on that branch); `ART_SETS.ordinario` = each recipe's `ordinary`, the vibraphone on `std_mallets_vel` at his word;
     palette_check 184. Verified in the running app: six banners, a stack loads, eight rows, `ordinario` on every row, shuffle 6 of 6.
     **His test:** reload the tab → Strikes → a harmony → `ordinario` → shuffle → SPACE.
-  - **1c.2 … — stages 2+:** the long tone on Hear · the SPECTRUM source (a fundamental → the four columns just · just per octave ·
+  - **1c.2 — Long tones on Hear** (a `hear` menu: strike | long tone, with a seconds box; SPACE plays or stops it; Insert follows
+    the menu — his decision A, 2026-09-19; the vibraphone bowed in `ordinario`) — `todo`, laid out 2026-09-19 with him.
+    *Result when done:* with `long tone` chosen, SPACE (or Hear orchestrated) sounds the loaded harmony as dealt — every player its
+    note, together, held N seconds — and Insert @ playhead writes that held chord; with `strike` chosen the drawer is exactly as it was.
+    - The menu and the box in the foot, right of `Hear orchestrated`: `hear [strike | long tone] [6] s`. Both live in `cfg`
+      (`hearMode`, `longS`) — remembered in the browser, saved and restored in takes; the box greyed on `strike`.
+    - The hook: a new file `score/public/long_tone_ui.js`, loaded after every other drawer mixin, wrapping the notes Hear builds
+      (`notesFor`): on `long tone` and mode `orch` → each player·pitch once, onset 0, held N s (the strike's velocity, dyn × and flat
+      127 still apply). `piano` mode and `strike` untouched; with the menu on `strike` the wrapper returns the chain's notes unchanged.
+    - SPACE: plays when idle, stops when playing — already so; not touched.
+    - Insert @ playhead follows the menu (A): with `long tone` on it writes the held chord (N-second notes) as one strike group; the
+      status says "long tones · N s".
+    - `ordinario`: the vibraphone `std_mallets_vel` → `bowed_vel` (the reference scores' voice); palette_check asserts the key.
+    - The status line while hearing: "hearing long tones · N s · k notes".
+    - Verify in the running app: menu on `long tone` → the notes Hear would send = every voice once, onMs 0, durMs N × 1000, the
+      eight lanes' voices; menu back on `strike` → identical to before the change; a take saved with `long tone` on restores the menu
+      and the box after a reload. palette_check GREEN. RUNNING_LOG · STRIKES_TOOL · this plan; commit; push.
+  - **1c.3 … — the later stages:** the SPECTRUM source (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
     questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"
