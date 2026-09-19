@@ -3227,3 +3227,55 @@ two ReaPitch instances and the bass's transpose live only in the open project. (
 SOLOIST / Monophonic, formant 0 — is a dropdown in the plugin's own window and is not a parameter, so it was NOT set; the
 instances are on Reaper's project default. It changes the QUALITY of the shift, not whether it sounds. One dropdown per
 instance, two instances.
+
+---
+
+## §69. PLAN 1a.2 — the maximum note durations into the palette, and the bowed vibraphone MEASURED (2026-09-19)
+
+**Where the ceiling actually lives.** The item said `sandbox/instruments.js`; it is not there. The morph carrier reads
+`opts.palette[v].ceiling(level01)` (`morph.js` buildCarrier → `ctxForBreath` → `info.ceilingS`), the palette is built by
+`morph_septet.js paletteFor()`, and that calls **`BC.ceilingFor(instKey, level01)`** — so the one table is **`CEILINGS` in
+`score/public/beating_calc.js`**, shared by the beating tool and the morph. Edited there; no parallel field invented, which
+is what the item actually asked for.
+
+**His table, written in at mf** (decision 1, §66b, sharpened at §66d: *"lets go mf for max"*):
+
+| | EH | Bsn | Hn | Tpt | Vc | Db | Vib |
+|---|---|---|---|---|---|---|---|
+| **mf (his)** | 18 | 18 | 15 | 12 | 15 | 10 | **7.4** |
+| was | 8 | 10 | 8 | 8 | 10 | 8 | 12 assumed |
+| kind | breath | breath | breath | breath | bow | bow | bow |
+
+**One change to how the table is READ, and it had to be made.** `ceilingFor` multiplied its base by 0.7 / 0.85 / 1 for
+f / mf / p — so a table written as "the mf ceiling" would have come out at 0.85 of his numbers. The factors are re-based on
+mf instead (**f 0.82 · mf 1 · p 1.18** — the same ratios, 0.7/0.85 and 1/0.85), so the number in the table IS the mf ceiling
+and a quiet note still lasts longer than a loud one. Read back: EH 21.24 / **18** / 14.76 · Hn 17.7 / **15** / 12.3 · Vib
+8.73 / **7.4** / 6.07. The horn therefore splits at 15 s at mf with a BREATH flag, which is the item's RESULT.
+
+**Gaps.** ¾ s for the four winds (decision 3's "¾ s gap"); **0 for the cello, the bass and the vibraphone**, because their
+re-articulation is a bow change, not a breath — a struck-or-bowed metal bar rings straight through one and a string's change
+is meant to be inaudible. 1a.4's own text says as much: *"the vibraphone's re-articulation is a bow change."*
+
+**THE VIBRAPHONE, MEASURED — 7.4 s, not the assumed 12.** `reaper/bridge/jobs/sustain_watch.lua` (new: peakwatch records only
+a maximum, this writes the whole 10 Hz series so a decay can be read) watching "Vibraphone XS" for 30 s, against a single
+`bowed_vel` C5 (MIDI 72, velocity 100) held 20 s into `LGVibes` by `probes/port_note_probe.ps1`:
+
+| t after the note speaks | level |
+|---|---|
+| ~1 s | **−20.7 dBFS — the peak** |
+| 3 s | −27.8 |
+| 5 s | −33.1 |
+| **7.4 s** | **−40.7 — twenty dB down** |
+| ~10 s | −55.7, then a cliff: −79.8 at 11 s, −108.9 at 12 s |
+
+So the sample is not a bow that can be sustained at will — it decays steadily from a second after the attack and the last
+three seconds of it are already 30 dB down. **The palette value is min(10, measured) = 7.4 s**, which is the only ceiling in
+the table below what he allowed the instrument. Its practical consequence for 1a.4: the vibraphone re-bows about twice as
+often as the double bass and nearly three times as often as the english horn, so it is the busiest re-articulator in the
+reference striation — worth his ear, because in LG-15 the vibraphone is the thing that is supposed to be CONTINUOUS.
+(One note, one bar, one velocity — the plan said measure it once. Sustain will vary across the three octaves.)
+
+`palette_check` 168 green · `test_written_pitch` 10 + control green. `tools/beating_calc_check.js` fails and crashes, but it
+was already dead — it is still piece #5's cast, and the vibraphone joining the palette on 2026-09-18 broke it. Filed in NITS,
+with the one line in it worth keeping: #5 measured **all five** of its Xsample instruments at ±1 st, which is the independent
+confirmation behind §67's `bendRangeSt: 1` for this piece's english horn and double bass.

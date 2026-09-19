@@ -279,23 +279,33 @@
   // ---- the breaths (§152; the tuba carrier's rule per instrument, morph.js buildCarrier) ----
   // the ceiling table — the winds' breath, the strings' bow — DEFAULTS, to be tuned by his ear (BEATING_TOOL §11); louder = shorter (the
   // tuba's rule, × 0.7 at the top); the winds re-enter after a gap, a bow changes without one
+  // THE MAXIMUM NOTE DURATIONS, AT MF — his decision 1 of PLAN 1a (RUNNING_LOG §66b, §66d: "lets go mf for max").
+  // THE NUMBER IN THIS TABLE IS THE CEILING AT MF, not a base to be scaled at mf; ceilingFor() below scales
+  // AWAY from mf (longer quietly, shorter loudly), which is why its factors were re-based on 2026-09-19.
+  // Every reference striation and every morph split reads these — "never exceeding the max".
   const CEILINGS = {
-    english_horn: { breathS: 8, gapS: 0.5 }, bassoon: { breathS: 10, gapS: 0.5 },
-    horn: { breathS: 8, gapS: 0.5 }, trumpet: { breathS: 8, gapS: 0.5 },
-    cello: { bowS: 10, gapS: 0 }, double_bass: { bowS: 8, gapS: 0 },
+    english_horn: { breathS: 18, gapS: 0.75 }, bassoon: { breathS: 18, gapS: 0.75 },
+    horn: { breathS: 15, gapS: 0.75 }, trumpet: { breathS: 12, gapS: 0.75 },
+    cello: { bowS: 15, gapS: 0 }, double_bass: { bowS: 10, gapS: 0 },
     // The bowed vibraphone IS a beating partner, and the central one: the opening has individual
-    // instruments beating against it (LG-15). It is bowed, so a bow ceiling — ASSUMED 12 s and no gap,
-    // because a struck-or-bowed metal bar keeps ringing through a bow change, so the seam does not show
-    // the way a string's does. His to correct once he has bowed it. NOTE it does not BEND: a bar is a
-    // fixed pitch (`playerBendSt: 0`), so in every beating pair the vibraphone is the reference and the
-    // OTHER instrument does the inflecting.
-    bowed_vibraphone: { bowS: 12, gapS: 0 },
+    // instruments beating against it (LG-15). It is bowed, so a bow ceiling and no gap, because a
+    // struck-or-bowed metal bar keeps ringing through a bow change and the seam does not show the way a
+    // string's does. NOTE it does not BEND: a bar is a fixed pitch (`playerBendSt: 0`), so in every
+    // beating pair the vibraphone is the reference and the OTHER instrument does the inflecting.
+    // 7.4 s is MEASURED, not assumed (2026-09-19, PLAN 1a.2, RUNNING_LOG §69): C5 on Bowed Velocity held
+    // 20 s into the rack, the track's meter sampled at 10 Hz — it peaks at −20.7 dBFS about a second after
+    // the attack and is 20 dB down 7.4 s later; the sample then falls off a cliff and is inaudible by
+    // ~10.5 s. This replaces the assumed 12 s, and it is the one ceiling in this table under the ten
+    // seconds the composer allowed the instrument.
+    bowed_vibraphone: { bowS: 7.4, gapS: 0 },
     // percussion has neither breath nor bow and cannot bend — not a beating partner (0c to confirm)
   };
+  // The table is MF. A quiet note lasts longer and a loud one shorter, in the ratios this function has always
+  // used (f 0.7 / mf 0.85 / p 1 of a base) — re-based so that mf is 1: 0.7/0.85 = 0.82, 1/0.85 = 1.18.
   function ceilingFor(inst, level) {
-    const c = CEILINGS[inst] || { breathS: 8, gapS: 0.5 };
+    const c = CEILINGS[inst] || { breathS: 12, gapS: 0.75 };
     const base = c.breathS != null ? c.breathS : c.bowS, lv = level == null ? 0.5 : clamp01(+level);
-    const k = lv > 0.75 ? 0.7 : lv > 0.5 ? 0.85 : 1;
+    const k = lv > 0.75 ? 0.82 : lv > 0.5 ? 1 : 1.18;   // f · mf · p — `base` IS the mf ceiling
     return { seconds: r3(base * k), gapS: c.gapS || 0, kind: c.breathS != null ? 'breath' : 'bow', base };
   }
   // deal the breath marks (the boundaries inside (0, length)): a target length with jitter, capped by the ceiling, the first one shortened

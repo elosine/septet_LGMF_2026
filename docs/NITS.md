@@ -143,3 +143,13 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   automate the loop MIDI ports, because each of the percussion instruments will need its own port"*). Today the ports are made by
   hand in loopMIDI (ten, §20). Find whether loopMIDI can be driven (its CLI / config file / registry) before the percussion tracks
   are made; the per-instrument-port design itself is his call against D7's one-port-many-channels (RUNNING_LOG §34–§35).
+
+- **`tools/beating_calc_check.js` is still piece #5's and CRASHES** (found 2026-09-19 running it after PLAN 1a.2's ceiling
+  change). It asserts #5's cast — flute, bass clarinet, two violins, viola, cello, plus a piano that does not exist here — so
+  its first three assertions fail and then it throws on `ranges['bowed_vibraphone']` being undefined, because the vibraphone
+  joined the palette on 2026-09-18 (D12). It is NOT one of this piece's gates (CLAUDE.md names `palette_check.js` and
+  `test_written_pitch.js`), and it was already dead before today's edits — nothing regressed. Rewriting it for this ensemble
+  is worth doing before the beating tool is used in earnest (LG-8, LG-15), not now. **One thing in it is worth keeping
+  whatever happens:** its assertion that *"the flute (SI2) at ±2 st, the five Xsample instruments at ±1 st (0.96–0.99
+  measured)"* — piece #5 measured ALL FIVE of its Xsample instruments at a semitone, which is the independent confirmation
+  behind §67's setting of this piece's english horn and double bass to `bendRangeSt: 1`.
