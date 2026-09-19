@@ -183,13 +183,139 @@ format of pieces #4 and #5 (D2). Delicate and quiet; a rondo whose refrain is a 
 *(#5's 0j ensemble balance and 0k the Reaper bridge were added as the need appeared. They
 are not pre-listed here; they enter when this piece asks for them, with the next free ID.)*
 
-## 1. Compose — `todo`
+## 1. Compose — `doing`
 
-*To be laid out when we discuss it.* Tools built per need (the #3/#4/#5 way). Already named
-in the sketch pad as wanted tools: the multitempo / phase machinery abstracted, with figures
-per beat (LG-5) · the pattern tool with thinning algorithms, weighting, harmony on a clock
-and codified harmony transitions (LG-7) · the morph that arrives at a beating and holds
-(LG-8; MORPH_NOTES §3, 2026-09-14) · animated conductions (LG-3).
+*Tools built per need (the #3/#4/#5 way). Already named in the sketch pad as wanted tools: the multitempo / phase machinery
+abstracted, with figures per beat (LG-5, LG-11, LG-12) · the pattern tool with thinning (LG-7) · the morph that arrives at a
+beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a is the harmony heard.*
+
+- **1a — The six reference harmonies and their 24 transitions, heard** — `todo` — written 2026-09-18 by Fable from the
+  decisions of COMPOSITION_NOTES LG-16 … LG-31 and RUNNING_LOG §62–§66c, **to be built by Opus after a clear, without
+  reopening the decisions listed at the end of this item.** Planning protocol skipped at his word (§66).
+
+  **Result when done:** five experimental scores exist and play in his rack from his Chrome — **`scores/lgmf-ref.json`**
+  (the six reference chords, 60 s each, 10 s gaps, striated re-articulations, dal niente → mf) and **`lgmf-spectral` ·
+  `lgmf-balance` · `lgmf-bloom` · `lgmf-converge`** (six 90 s transitions each, in his chord order, 10 s gaps) — every
+  transition present both as its rendered notes (the actual) and as a re-openable morph model whose fade and duration dials he
+  can change and re-emit. The horn is audible above F4. The maximum note durations are in the palette. Everything recorded.
+  *Why:* the harmony of the piece exists on paper (LG-18–LG-31) and has never been heard; the four transition types are the
+  morph refrain’s first candidates (LG-6, LG-8); and the durations are data the rest of phase 1 needs.
+
+  **The order matters — 1a.0 first, then 1a.1–1a.2 (independent), then 1a.3 → 1a.4 → 1a.5 → 1a.6.**
+
+  - **1a.0 — Verify the three mechanisms the item rests on; build only what is missing.** `todo`
+    - **(i) A score note carrying a cents offset that reaches the port as pitch bend.** The beating tool’s notes already carry
+      `bend:` (`score/public/beating_calc.js` ≈ line 343) and are played; find that emit path (`morph_emit.js` / the play
+      code) and confirm a note in an ordinary composer lane can carry `bend` (or `cents`) and that playback sends it on the
+      note’s channel. If it cannot: add a `cents` field to the note — the smallest change — and bend emission; the IR
+      extractor accepts or ignores it **in the same commit** (principle 3, the schema gate). RESULT: one Bassoon-lane D4 at
+      −14¢ against a tempered cello D4 audibly beats, from his Chrome into his rack.
+    - **(ii) How a morph MODEL persists.** Read `morph_panel.js` and the save format: does the save carry the card’s
+      parameters so that reopening the score reopens the card with its dials? If yes, “model” = that object and “actual” =
+      its emitted notes, already. If no: add `morphs[]` to the save (id · params · the emitted note ids) and a load-model
+      action on the panel. RESULT: save → reload → the card shows the same dials → change the fade → re-emit replaces the notes.
+    - **(iii) Bend range.** Each just instrument’s port/channel must cover ±49¢ (the horn needs −49 on chord 6): read
+      `bendRangeSt` in the recipes and the beating tool’s `bendLimits`; SI2’s default; set what is short.
+    *Why:* the whole item depends on just partials sounding just and on models being reloadable — find out first.
+
+  - **1a.1 — The horn above F4: the “Horn SI2 high” path in Reaper** (decision 0, §66; his approved ReaPitch settings). `todo`
+    - Duplicate the Horn track through the bridge (as `make_perc_tracks.lua` duplicated his Template) → “Horn SI2 high”;
+      input = `LGHorn`, the same channel as the Horn track; UVI state cloned from the Horn track (`tools/uvi_state.js`, §22).
+    - FX on the high track, in order: JS note-range filter passing only notes **> 65 (F4)** — a ten-line JS if stock has
+      none → JS MIDI transpose **−12** → UVI → **ReaPitch: shift +1 octave · élastique 3.3.3 SOLOIST / Monophonic · formant
+      shift 0 · Wet 0 dB, Dry −inf.** On the existing Horn track: the mirror filter (**≤ 65**) before UVI, so nothing doubles.
+    - The high track’s trim = the Horn track’s (`bank/balance.json`); ReaPitch Volume 0. Bend passes to both tracks unchanged.
+    - He saves the rack (CTRL+S) and it is committed. **RESULT (probe by the bridge, meters read):** E♭5 to `LGHorn` sounds
+      from the high track at E♭5; E♭4 sounds from the main track only.
+    *Why:* five of the six horn notes in the reference chords lie above the SI2 library’s F4 (§63f); without this the chords
+    cannot be heard at all.
+
+  - **1a.2 — Maximum note durations into the palette, at mf** (decision 1). `todo`
+    - `sandbox/instruments.js`: per instrument, the field the morph carrier already reads as the palette’s ceiling (find its
+      name at `morph.js` ≈ line 191, `ceiling(level01)` / `ctxForBreath` — use THAT field, do not invent a parallel one):
+      **EH 18 · Bsn 18 · Hn 15 · Tpt 12 · Vc 15 · Db 10 · Vib (bow) 10** seconds at mf; kind `breath` for the winds, `bow`
+      for the strings and the vibraphone.
+    - **Measure the bowed vibraphone sample’s sustain once** (bridge: hold a bowed note 20 s, read the meter until −20 dB;
+      the number into RUNNING_LOG; the palette value = min(10, measured)). This replaces §48’s assumed 12 s.
+    - **Required checks:** `node tools/palette_check.js` (159) and `node tools/test_written_pitch.js` (8 + control) green.
+    - RESULT: a morph on the horn splits at 15 s with a BREATH flag, not at the table’s default.
+    *Why:* the reference striation and every morph split at these ceilings — “never exceeding the max.”
+
+  - **1a.3 — The chord data as a bank: `bank/reference_chords.json`, built by `tools/build_reference_chords.js`.** `todo`
+    - The six chords exactly as **COMPOSITION_NOTES LG-27’s final table**: per chord the fundamental; per voice instrument ·
+      MIDI pitch · partial (null for a tempered double) · cents (**only the just voices carry cents: bassoon on chords 1, 3, 5;
+      horn and trumpet on all six — −14 / −31 / −49; every other voice 0**) · role (`root` | `just` | `double` | `series`) ·
+      both vibraphone bows · the cello’s double stop in chord 5.
+    - **Converge, per chord, from LG-31’s final table:** each mover’s target and cents distance; the bass’s start (28¢ under a
+      just target, 50¢ under a fixed one — chords 4 and 6) and target; chord 4’s cello 49¢ down onto the true 11th; the statics.
+    - **Bloom targets, computed (decision 7):** for every voice except the bass and the vibraphone, the nearest partial of the
+      chord’s fundamental with |cents| < 10, by semitone distance, tie → the one closer to 0¢, inside the instrument’s range.
+    - **Spectral sets, computed (decision 6):** seeded RNG (seed recorded in the bank); for every voice except the vibraphone,
+      a START partial and an END partial of the same fundamental, each with |cents| < 10, within ±12 semitones of the
+      reference pitch, inside range, end ≠ start ≠ reference; the bass included (it moves like the others). The picks printed
+      in RUNNING_LOG for his override by ear.
+    - RESULT: the bank exists; its chord table printed in RUNNING_LOG matches LG-27 pitch for pitch.
+    *Why:* one source for the five scores — the composer’s tables become data once, checkable, never typed twice.
+
+  - **1a.4 — `scores/lgmf-ref.json` — the six reference harmonies, 60 s each, 10 s gaps** (decisions 2, 3). `todo`
+    - Written by **`tools/build_lgmf_ref.js`** in the app’s own save format (layoutVersion ≥ 6, eight lanes — the shape of
+      `scores/0i-test.json`, NAMING §1) — never by hand from the AI’s browser pane (principle 9).
+    - Chord k starts at t = 70·(k−1) s. Every voice enters **dal niente → mf** over its first segment (fade 3 s, or the
+      morph’s default fade-in), then holds at mf to t+60 with **striated re-articulations by the morph carrier’s breath
+      machinery** (`morph.js` buildCarrier / maxBreath with the 1a.2 ceilings): each segment 60–100 % of the instrument’s
+      ceiling, gap ¾ s, per-voice phase spread so no two voices re-articulate together; the vibraphone’s re-articulation is a
+      bow change. Technique = each instrument’s `ordinary`. Just voices carry their cents; doubles 0.
+    - **Required check:** a script asserts no segment exceeds its instrument’s ceiling.
+    - RESULT: he opens it in composer.html (one tab per score), plays it into his rack: chord 1 beats at D4, A♭4, D5; the
+      horn’s A♭4 sounds (1a.1). **His listen closes the step.**
+    *Why:* “one minute of each of the six reference harmonies, a bit of a gap … striated … never exceeding the max.”
+
+  - **1a.5 — The four transition types as morph models** (LG-28 · LG-29 · LG-31; decisions 4, 6–9). `todo`
+    - Read `morph.js`’s six models and dials (progress · the dynamics layer · the `_|_` shape · the carrier · to-unison at ≈ line
+      750) and map each type onto them; **the smaller change always wins**, and whatever the tool lacked goes to MORPH_NOTES §3:
+      - **Spectral** — a pitch morph with THREE stations: start set → reference → end set (1a.3’s sets), 30 · 30 · 30 s. If the
+        tool has only two-station morphs, chain two legs as one saved model, or add a three-station option.
+      - **Balance** — the volume-only model: pitches held on the reference, per-voice staggered entries, swells **pp → mf** on
+        the dynamics layer; 90 s; no pitch motion.
+      - **Bloom** — reference → bloom targets → reference, 30 · 30 · 30; the just voices’ cents go to 0 at the target, the
+        tempered voices glide to their target pitch; **the vibraphone holds its bars (its doubling bar stays sounding, 14–49¢
+        off the bloomed series — accepted), the bass holds partial 1.**
+      - **Converge** — the to-unison model driven by LG-31’s table: movers glide 14 / 31 / 49¢ onto their targets (the just
+        voice holds; onto a vibraphone bar the just voice moves); the bass enters at its start offset and glides up onto the
+        lowest voice above it; chord 4’s cello 49¢ down onto the true 11th; statics hold; 30 s converge · 30 s hold · 30 s back.
+      - **Dynamics, all but Balance:** **dal niente → mf** over the fade-in, held, and a 5 s fade to niente at the end (a dial).
+      - **The vibraphone holds its bars in every moving type** (LG-29). Bass: Spectral moves · Balance swells · Bloom holds ·
+        Converge as above.
+    - RESULT: per type per chord a JSON of dial settings in **`bank/transitions/`** that the panel can load — 24 files.
+    *Why:* the model is what he edits afterwards; the dials are the deliverable as much as the sound.
+
+  - **1a.6 — The four transition scores** — `scores/lgmf-spectral.json` · `lgmf-balance.json` · `lgmf-bloom.json` ·
+    `lgmf-converge.json` (decision 5). `todo`
+    - Each: six transitions in his order **B♭1 · A1 · C2 · G♯1 · B1 · F♯1**, 90 s each, 10 s gaps (590 s). Built by
+      **`tools/build_lgmf_transitions.js`** from the bank and the morph tool’s own emit — headless if `morph.js` can be
+      required the way the notation tools require the engine; if the morph only runs in the browser, drive HIS tab through
+      the panel with the loaded model and Save (principle 9 either way).
+    - Each transition saved both ways: the emitted notes in the lanes AND the model object in the save (1a.0.ii).
+    - **Required check:** the ceiling assertion of 1a.4 on every score.
+    - RESULT: each score opens, plays end to end in his rack; the card for any transition reopens with its dials; changing
+      the fade-in and re-emitting replaces its notes. **His listen closes the step.**
+    *Why:* “I want to be able to just hear them, but then I can load it into the model and change like the fade in or the duration.”
+
+  - **1a.7 — Record.** `todo` — RUNNING_LOG entries as each sub-step lands (the standing practice, not at the end) · the bank
+    and the 24 transition JSONs committed · the vibraphone’s measured sustain into the record beside §48 · MORPH_NOTES §3:
+    what the tool needed (three stations · an offset start · voices that hold inside a morph) · journal §2 and PLANNER current
+    · commit at each sub-step wrap, push.
+
+  **Decisions this item carries — do not reopen (RUNNING_LOG §66–§66c, COMPOSITION_NOTES LG-29–LG-31):** 0 the ReaPitch
+  path · 1 the ceilings at mf · 2 gaps 10 s · 3 the carrier’s striation · 4 Balance = the volume-only model, pp → mf · 5 one
+  score per type · 6 spectral sets seeded by rule, listed for override · 7 bloom = nearest non-deviant partial · 8 Converge
+  = LG-31’s final table · 9 = 30 · 30 · 30 · the vibraphone holds its bars in every moving type · the bass: Spectral moves,
+  Balance swells, Bloom holds, Converge mirrors the lowest voice · all but Balance dal niente → mf · only bassoon (chords 1, 3,
+  5), horn and trumpet are just; everyone else tempered (LG-27).
+
+  **His, later, by ear:** the spectral sets (override any pick) · the bloom targets · the fade and duration dials.
+
+  **Model:** Opus builds. Fable only if a design question comes back that the decisions above do not answer.
 
 ## 2. Notate — `todo`
 
