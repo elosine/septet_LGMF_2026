@@ -1028,6 +1028,23 @@ silence. The score has had a 100 ms bound since §103, which is why the identica
 unverified assumption about the platform, with the rack on the other end. A capability check is only defensive if you have looked at
 which way it falls.
 
+### 2026-09-19 — LGMF: the rebreath layer wanted OUTSIDE the morph, and richer than the carrier (COMPOSITION_NOTES LG-35)
+
+> *"one would be similar to the way the morphs' breaths work, rebreaths. I would be able to layer something like this, so I might choose some
+> very long durations for sustaining a chord, and I'd like to be able to just impose a sequence of rebreaths. And let's develop that a little
+> bit more than they are in the morphs. So I can have it strictly striated, never together, or I can have some probability where sometimes
+> they're together. And kind of similar to the time containers, I can have short ones combined with long ones. But the default should be
+> similar to what's in the morphs. That's pretty good. And I might not want to design too much there, but just have the possibilities or at
+> least the architecture there."* (composer, 2026-09-19, for a sequence of sustained chords — not a morph)
+
+*AI reading (not the composer's words):* the carrier (striation · segLen · segVar · the palette's breath and bow ceilings · split-never-
+truncate) is wanted as a LAYER that can be laid over any held material, not only a morph — and with two dials the carrier lacks: a
+TOGETHER probability (0 = strictly striated, never together, as today; 1 = everyone breathes together; between, each breath may snap to a
+shared moment) and a POOL of breath lengths (short and long mixed, the time container generator's pool) in place of one length ± jitter.
+For the all-purpose tool: the carrier should be its own module with those dials, and the morph one of its callers. For this piece it is
+being built beside the morph (`sequence.js`), with the morph's numbers as its defaults and morph.js untouched (the tuba baseline).
+
+
 ## 4 · For the eventual revision (the digest — rewritten freely)
 
 - *(seed)* A morph event as ONE object: pairs · a glissando / beating curve per pair · a re-articulation pattern · a dynamic curve ·

@@ -428,6 +428,57 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     = every octave of the keyboard, or the octave above the fundamental only.
 
 
+- **1d — The SEQUENCE drawer: sustained chords in time containers** — `doing` — opened 2026-09-19 under the planning method
+  (RUNNING_LOG §102–§104; his brief verbatim in COMPOSITION_NOTES LG-35, the dynamics LG-36). Phase 1 settled: a sequence is a
+  RECIPE saved in the score file and the notes are DERIVED from it; a container's chord is FROZEN when chosen (with a refresh); edit
+  in the drawer, the score shows the result (his A); one dynamic per container now. Phase 2 confirmed as given (§104).
+  *Why:* the first tool of the design phase — the six chords exist as data and as scores but nothing yet says how a chord is used in
+  TIME; he asked for *"music structures in my score"*: chords held for durations, swappable, with the morph's breaths laid over them.
+  - **1d.1 — The generator** (a recipe in, every player's notes out — pure, proven in node) — `todo`.
+    *Result when done:* `score/public/sequence.js` exists — pure, loaded by the page and by node, knowing nothing of the drawer or
+    MIDI. Given a recipe — a start time; a list of containers, each with a duration, a chord (the notes a take deals: lane ·
+    technique · pitch · cents · the dealt level) and a dynamic (`as dealt` or `ppp … fff`); the change rule (`attack` | `seamless`);
+    and the breath dials at the morph's defaults — it returns every player's chain of notes in absolute time, each with its lane,
+    pitch, cents, technique, start, end, level and flags. Under `attack` every player's chain restarts at each container boundary;
+    under `seamless` one chain runs across the whole sequence and each breath takes the pitch and the level of the container it
+    starts in. No breath exceeds its player's ceiling from the palette — the breath or the bow, and the gap after it, the same source
+    the six reference scores used — split, never truncated; a fixed-length sound (the percussion) is struck once per breath and the
+    sample decides its length. `tools/sequence_check.js` proves it from the command line on the six reference chords: the container
+    arithmetic, both change rules, the dynamic carry, the ceilings, the same seed giving the same result. Nothing sounds yet and
+    nothing is in the drawer — that is 1d.2.
+    - Fix the recipe as one JSON shape, written in the file's header: `t0` · `containers [{ dur, chord, dyn }]` · `change` ·
+      `breath { striation, length, jitter, seed }` — the chord being the notes as a take deals them (lane · technique · pitch · cents
+      · level · seat).
+    - Write `score/public/sequence.js` with the morph's breath rules as numbers, not shared code: the staggered first entries, the
+      striation phases, the gap after a breath (almost none after a bow), split-never-truncate at the ceiling. `morph.js` untouched.
+    - The ceilings from the same source the six reference scores used — the palette's breath or bow per instrument and level; in
+      node, the way `check_ceilings.js` already reads them.
+    - `attack`: every chain cut at each boundary and restarted. `seamless`: one chain per player; each breath takes the pitch and
+      level of the container it starts in. The sequence ends where the last container ends — the final breaths dealt to land there.
+    - The dynamic: `as dealt` keeps each note's own level; a chosen `ppp … fff` maps through the written scale the drawer's `dyn`
+      already uses — the same function, not a copy.
+    - Chains keyed by seat, not lane — the two vibraphone bows stay two players; a fixed-length sound (the percussion) is struck once
+      per breath.
+    - One seed; the same recipe and seed give the same notes.
+    - `tools/sequence_check.js` on the six reference chords: durations and boundaries add up · under `attack` everyone starts at
+      every boundary · under `seamless` a pitch changes only at a breath start and a breath across a line keeps the old chord · the
+      level carries the same way · no note longer than its ceiling · same seed, same result · a 0 s container or an empty chord
+      refused with a message. Registered in CLAUDE.md's checks line.
+    - `docs/SEQUENCE_TOOL.md` opened — the recipe, the rules, the numbers; RUNNING_LOG; commit, push.
+  - **1d.2 — The drawer, one container at a time** (a row of boxes: take · seconds · dyn per box; add, remove, reorder; Hear;
+    Insert → the group + one META bar; the recipe saved in the score file) — `todo` — *to be laid out when we discuss it.*
+  - **1d.3 — The round trip** (click the META bar → the sequence back in the drawer; change a duration, swap a chord, change a dyn;
+    re-Insert replaces in place) — `todo` — *to be laid out when we discuss it.*
+  - **1d.4 — The roll** (the time container generator in the drawer: pool · order · contour → a row of empty boxes; click each to
+    give it a chord; any of them still editable) — `todo` — *to be laid out when we discuss it.*
+  - **1d.5 — The breath layer's dials** (striation · length ± jitter · `together` 0 … 1 · a pool of short and long lengths; the
+    morph's numbers as the default) — `todo` — *to be laid out when we discuss it.*
+  - **1d.6 — His listen** (a sequence of the six chords, attack and seamless; the item closes on his verdict) — `todo`.
+  - **Held as features, at his word (LG-36: *"let's save these as features for now"*), not built:** a drawn curve attached to the
+    whole sequence (the trills' pattern — a META curve A · B · C read live over the span) · a dynamic per player per container · a
+    curve per player.
+
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +

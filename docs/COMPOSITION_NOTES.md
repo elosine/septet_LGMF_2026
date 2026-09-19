@@ -1327,3 +1327,65 @@ RUNNING_LOG §95.
 out of his words and are now in the tool: (1) a fixed-pitch player (the vibraphone, either bow; the percussion) takes only a partial
 within ±5 ¢ of its key, and plays it tempered; every other player bends to the just value; (2) the fundamental is typed, so any of the
 piece's roots (LG-16, LG-18) is a keystroke away. Built the same day, RUNNING_LOG §97.
+
+### LG-35 · 2026-09-19 — A SEQUENCE OF SUSTAINED CHORDS IN TIME CONTAINERS: takes from the strikes drawer, held for a duration each, swappable, with rebreaths layered over them
+
+> *"Okay, help me design something to create music structures in my score. What I'd like to do is I'm going to save takes in the strikes
+> drawer. These will be certain harmonies that are voiced. And then I want to be able to play them for a certain amount of time. So it, I'll
+> start at the end. In the score, there'll be these sustained chords and one will play for a certain amount of time and then it'll switch
+> to the next one, etc. When I'm creating this sequence, I'd like to be able to have some fluidity like the strikes drawer, just in terms of
+> being able to change things or swap things. So I can, for example, click on a chord and it'll either be in the actual score itself or in
+> some other drawer, but I can create a sequence. And let's say I select a chord, play for five seconds. Select another chord, play for 13
+> seconds. On and on. But then I'd like to have some flexibility so I can click on any inserted chord and I can change its duration or I
+> can quickly swap it out with another chord. So this will have to have access to the chords I save in the strikes drawer.*
+>
+> *Also, I think we designed this at some point, but it doesn't matter. You may or may not be able to find it. If you can, that's good. But
+> I'd like a sort of time container generator as well. So that'll just be an option. I can just do them one by one, or I can generate a
+> series of time containers and just click on them and insert a chord, and but still be able to adjust them. Yeah, I think you should look
+> for the design because we did go into it. So like I could have a choose type of array, like I can make an array of certain values, like
+> three, nine, seven, and eight, and then have random choose from that array or weight one of the values or eight, the higher ones or low
+> ones, et cetera. So just an all purpose time container generator that we may have already built in one of the previous pieces. Probably
+> the tuba one, but could be the piece five as well. Anyway, so this would have that facility. I can generate a series of time containers.
+> They would lay out in a sequence and then I can click and insert a harmony. And then I can reshape or re-change the duration of any one
+> time container, etc.*
+>
+> *And then I'd like to have a choice, well, a couple things — these are overlayered. So one would be similar to the way the morphs' breaths
+> work, rebreaths. I would be able to layer something like this, so I might choose some very long durations for sustaining a chord, and I'd
+> like to be able to just impose a sequence of rebreaths. And let's develop that a little bit more than they are in the morphs. So I can have
+> it strictly striated, never together, or I can have some probability where sometimes they're together. And kind of similar to the time
+> containers, I can have short ones combined with long ones. But the default should be similar to what's in the morphs. That's pretty good.
+> And I might not want to design too much there, but just have the possibilities or at least the architecture there.*
+>
+> *Then for new chords, I want the option of being able to just have everyone strike it again. When the new chord comes in, the new time
+> container starts. So everyone attacks at that point. But I'd also like it to have the option of that being a scene [sic — seamless?] so
+> that the rebreath pattern continues and they just play the new note at the next breath in the new time container. So it might not just be
+> at the beginning.*
+>
+> *All right, let's organize this and talk about what the format of this should be, structure-wise, and then let's walk through a plan or
+> build a plan. I don't need anything too fancy in terms of GUI. But I do want some facility. So let's try to keep it simple graphically.
+> Anyways, let's talk about the architecture first. What, where does this live, et cetera."* — composer, 2026-09-19, session 7, dictated
+
+*AI reading (mine, marked):* the first tool of the DESIGN phase — how the six chords (or any saved voicing) are used in TIME. Four layers,
+each his: (1) a SEQUENCE of containers, each holding one take from the strikes drawer for a duration; (2) the durations either typed one by one
+or ROLLED by the time container generator (built in piece #5 for the crescendo strikes, PLAN 1o — pool × order × contour — and carried here
+whole in `score/public/time_containers.js`); (3) a REBREATH layer over the whole sequence, the morph's carrier as the default (striation +
+segment length + jitter, the palette's breath and bow ceilings), extended with a together-probability and a short/long mix; (4) at each new
+chord, ATTACK (everyone re-strikes at the container's start) or SEAMLESS (the breath pattern runs on, each player changes note at their next
+breath, so the chord change is smeared across the players' breaths). The editing model he names is the strikes drawer's: click a placed thing
+to change it or swap it. The reasoning and the architecture are in RUNNING_LOG §102.
+
+### LG-36 · 2026-09-19 — THE SEQUENCE'S DYNAMICS: a level per time container now; curves and per-player options saved as features
+
+> *"Good, let's discuss dynamics. So I'd like a number of options. It could be a dynamic level per time container. So then that would apply
+> to everybody. And it would just carry from the breaths if they don't re-articulate at the beginning — just the first one will come in at
+> that dynamic level. It could be done by — the dynamics could be done by curve. So if I draw a curve and then attach it to the sequence; we
+> did this with, I believe, trills, had a reference curve and then attached it. We can add that to the drawer. And then I should have
+> individual options for both. So if I want a different dynamic per player, per time container, or a different curve per player, I can do
+> that as well. But actually, let's save these as features for now. I don't want to spend too much time building the curves and all that.
+> Let's just start with dynamic per time container. And it's choosable like I choose the harmony."* — composer, 2026-09-19, session 7,
+> dictated (his answer to the one question of §102 was **A — edit in the drawer**)
+
+*AI reading (mine, marked):* built now — one dynamic per container, everyone's, chosen from the same `ppp … fff` pull-down as the harmony is
+chosen from the takes; under SEAMLESS a breath keeps the dynamic of the container it started in, and a player's first breath in the new
+container comes in at the new level; under ATTACK everyone attacks at it. Saved as features, in the plan item: (1) a drawn CURVE attached to
+the whole sequence (the trills' reference-curve pattern), (2) a dynamic per player per container, (3) a curve per player. RUNNING_LOG §103.

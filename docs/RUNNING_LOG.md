@@ -4388,3 +4388,99 @@ Per part at fff: Db −0.49 · Bsn +0.18 · **Vc −3.73** · Hn +0.96 · **EH �
 **Verified in the running app:** the four rows (`just · 65 n`, `just + 8ve · 309 n`, `tempered · 65 n`, `tempered + 8ve · 153 n`) · `sp:C2:temp+temp8ve` = 153 voices, **every cents 0** · the amber column's 88 labels (`27 · 7 · 15 · 1 · 17 · 9 · 19 · 5 · 21 · 11 · 3 · 13` up the keys from A0 — the class names) at x 172, the blue column's 40 (`1 … 12`) at 208, the keyboard 287 px · after `ordinario` + shuffle the chips `Horn: F#2 · 11⁸`, `Trumpet: G#5 · 13`, `Vibraphone: F6 · 21 (tempered)`; the departing notes all `c0` · `tempered` alone: 65 voices, 40 blue labels, 251 px · a take round trip through `sp:C2:just` back to `sp:C2:temp` · no console error.
 
 **Notes.** With no cents the fixed-pitch rule never bites on a tempered selection, and Hear sends no bend. The "set toggles" of the plan are moot now; what remains of LG-32's list is the **partial checkboxes** (prune the series by choice).
+
+## §102. THE DESIGN PHASE OPENS — a SEQUENCE of sustained chords in time containers: what exists, and the architecture proposed (2026-09-19)
+
+**What prompted it (session 7, Fable, straight after the postclear):** his dictated design brief, verbatim in COMPOSITION_NOTES **LG-35**
+— *"help me design something to create music structures in my score … I'm going to save takes in the strikes drawer … play them for a
+certain amount of time … click on any inserted chord and I can change its duration or I can quickly swap it out … a sort of time container
+generator as well … I think you should look for the design because we did go into it … impose a sequence of rebreaths … let's develop that
+a little bit more than they are in the morphs … everyone strike it again … or the rebreath pattern continues and they just play the new note
+at the next breath … let's talk about the architecture first. What, where does this live."* The planning method entered (phase 1).
+
+**What was read, and what it says (the data first):**
+
+| Question | Answer |
+|---|---|
+| Was the time container generator built before? | **Yes, and it is already here.** Piece #5 PLAN 1o step 2 (2026-09-08; its RUNNING_LOG §305–§309; CN-56 — *"a random choose from a set … twenty percent fifteen and spread the eighty percent out among the rest"*): `score/public/time_containers.js`, pure and standalone, **a POOL × an ORDER × a CONTOUR**, seeded, fills a total and stops short reporting the shortfall; 16 presets sorted by spread. Carried whole by the port; `containers_ui.js` wires it into the strikes drawer's `shape` menu; loaded by `composer.html`. His dictated version today ("an array of values … random choose … weight one of the values") IS the pool with weights. |
+| How are takes stored? | `bank/panel_snapshots.json`, panel `strikes` (O v2, 2026-09-04), through `/api/snapshots`; the state is opaque to the store. Six exist here today (`00-a … 02-b`). The drawer turns a take into notes — lane · tech · midi · vel · **cents · partial** (1c.4) — the very list Insert writes. |
+| What is a placed chord in the score? | A `groupId` of `waveCurve` objects (`grp-strike-<n>-<t>`), one per player: `sonifyNote`, `technique`, the height = the anchor dynamic (1c.2b), `morphBend` for cents; plus ONE bar on the META lane for the group (*drag = move, box = stretch*). The score file's top level: `objects · markers · databases {chordShapes, sets, cells} · metadata`. |
+| How do the morph's breaths work? | morph.js §5 the CARRIER: `striation` (staggered · grouped · aligned · converging · diverging) · `segLen` · `segVar`; each player's ceiling from `BC.ceilingFor(instrument, level)` (breath or bow, and the gap) through the morph_septet palette; **split, never truncate**; the first entries staggered by phase. Internal to morph.js (not exported). |
+| How is a placed morph re-opened? | An ACTUAL = the recipe (model · dials · seed · cast) in `bank/actuals/`, the notes in the score under `grp-morph-NN`; *recall → MODELS* reopens it on its dials. The strikes drawer's own ops: *replace in place* (re-Insert replaces its earlier group), *Insert @ after previous*. |
+
+**The architecture proposed (put to him this turn):**
+
+1. **A SEQUENCE is a RECIPE, and the notes are DERIVED from it.** The recipe: `containers [{dur, take, chord}]` · `roll {the generator's dials}` ·
+   `breath {the carrier's dials + together + pool}` · `change: attack | seamless` · `t0`. Every edit he named — change a duration, swap a chord,
+   re-roll, re-breathe, switch attack/seamless — edits the recipe and the group is rewritten. Non-destructive, always regenerable; the IR
+   contract's spirit (the save is the truth, the rest derived).
+2. **The recipe lives IN THE SCORE FILE** (`databases.sequences`), not in `bank/` — it travels and versions with the score; no second store to
+   keep in step. *Why:* the morph's actuals live apart in `bank/actuals/`, and this week the validator found 16 ids that had never existed
+   here — the cost of a recipe kept away from its score.
+3. **The chord in a container is FROZEN at the moment it is chosen** (the take's dealt notes copied in), with a *refresh from take* — so
+   re-dealing a take later does not silently change a placed sequence. *(Piece #5's chains did the opposite — the newest take wins — and
+   were never built; stated as an assumption, his to reverse.)*
+4. **The generator is pure and node-checkable** (`sequence.js` + `tools/sequence_check.js`, as `spectrum.js` and `time_containers.js`):
+   recipe → per-player note chains. *Attack:* every player's breath chain is cut at each container boundary and restarts. *Seamless:* one
+   breath chain across the whole sequence; a segment takes the pitch of the container its START falls in — so a player changes note at their
+   next breath, which is his sentence exactly.
+5. **The breath layer borrows the morph's RULES and NUMBERS, not its code**: striation · segLen · segVar · the palette ceilings · split-never-
+   truncate as defaults, plus `together` 0…1 (0 = strictly striated, never together; 1 = all breathe together) and a POOL of breath lengths
+   (short with long — `time_containers.js` a second time). morph.js stays byte-identical against the tuba baseline.
+6. **The UI is a DRAWER** beside the strikes drawer, deliberately plain: a row of boxes (width = duration) · click a box → a take pull-down and
+   a seconds box · `roll` (the container dials) · `breath` (the carrier dials) · `attack | seamless` · `Insert @ playhead` → `grp-seq-<id>` +
+   one META bar; click the META bar or the drawer's list to reopen; re-Insert replaces. The score shows the result; the drawer is where he edits.
+
+**Not asked, so not proposed:** a dynamic shape per container (the chord sounds at the take's dyn, as dealt); a transition between chords
+(a container ends, the next begins — no morph); the notation of a sequence. **The one question put to him:** edit in the drawer (6) or on
+the score canvas — he had said *"either in the actual score itself or in some other drawer."* His answer, and what follows, in §103.
+
+## §103. The drawer it is (A); the dynamics settled — one level per container now, curves and per-player options deferred (2026-09-19)
+
+**His answer to §102's question: A — edit in the drawer**, the score showing the result. Then, in the same breath, dynamics (verbatim in
+COMPOSITION_NOTES **LG-36**): *"a dynamic level per time container … apply to everybody … carry from the breaths if they don't re-articulate
+at the beginning, just the first one will come in at that dynamic level … could be done by curve … attach it to the sequence … individual
+options for both … let's save these as features for now … Let's just start with dynamic per time container. And it's choosable like I
+choose the harmony."*
+
+**Read back to him, and the consequences the AI added:**
+
+- **One `dyn` per container, everyone's**, from the drawer's own scale (`ppp … fff` on the written span — the anchors 65 … 127 of PLAN 1b, the
+  pull-down of 1c.2b), chosen the way the harmony is chosen. **Default `as dealt`** = the take's own levels (a take was heard at a dyn when it
+  was saved); choosing a dynamic overrides them for that container. The score shows it as the notes' drawn height (1c.2b: the height IS the
+  anchor), so a sequence's dynamics are readable on the page.
+- **Under SEAMLESS the dynamic belongs to the BREATH, not the boundary:** a breath that started in container 1 keeps container 1's level to
+  its end, even across the line; a player's first breath that starts inside container 2 comes in at container 2's level. **Under ATTACK**
+  everyone re-articulates at the new level at the boundary. This is his sentence — *"just the first one will come in at that dynamic level"* —
+  and it falls out of the generator for free, because the dynamic is a property of the container a segment STARTS in, exactly as the pitch is.
+- **Deferred at his word — written into the plan item as features, not built:** (1) a drawn CURVE attached to the whole sequence (his memory:
+  *"trills had a reference curve and then attached it"*), (2) a dynamic per player per container, (3) a curve per player. *"I don't want to
+  spend too much time building the curves and all that."*
+
+**Not a decision yet, held for phase 2:** the top line of the steps.
+
+## §104. PLAN 1d — the top line confirmed as given; phase 3 begins with step 1, the generator (2026-09-19)
+
+**Phase 2, his word: "confirmed, take step 1."** The six lines, unchanged: **1** the generator (recipe → every player's notes; containers ·
+chord · dyn · attack | seamless · the morph's breath rules as defaults; pure, checked in node) · **2** the drawer, one container at a time
+(take · seconds · dyn per box; add, remove, reorder; Hear; Insert → the group + one META bar; the recipe saved in the score file) · **3** the
+round trip (click the META bar → back in the drawer; change, swap, re-dyn; re-Insert replaces in place) · **4** the roll (the time container
+generator in the drawer → a row of empty boxes) · **5** the breath layer's dials (striation · length ± jitter · `together` · a pool of
+lengths) · **6** his listen. **Held as features:** a curve attached to the sequence · a dynamic per player per container · a curve per player.
+
+**The item's id is PLAN 1d** (1a · 1b · 1c taken). The order is his: one-by-one before the roll, the round trip before either, because the
+fluidity — *"click on any inserted chord and I can change its duration or I can quickly swap it out"* — is the point of the tool and must be
+proven before the generator dresses it. Step 1's goal put to him next; the sub-steps after he confirms it.
+
+## §105. PLAN 1d.1 written into the plan; the sub-steps taken with the goal from here on (2026-09-19)
+
+Step 1's goal put (§104) and, at his **"go"**, its nine sub-steps; his verdict **"good"**, and a working-method adjustment for the rest of
+this item: *"I'll take the steps and sub steps together"* — so from 1d.2 on, each step's goal and its sub-steps arrive in one turn, and one
+confirmation writes both into the plan. **PLAN 1d is in `docs/PLAN.md`** — the item line with its why, 1d.1 in full (the result when done
+and the to-dos in the chat's words), 1d.2 … 1d.6 as one-liners, the held features named. Committed with LG-35, LG-36, the morph note and
+§102–§105.
+
+**Two things worth recording from writing 1d.1 down:** (1) the ceilings must come from the source the six reference scores used, and
+`tools/check_ceilings.js` already reaches it from node — so the check does not need the browser's palette; (2) the dynamic is a property of
+the container a segment STARTS in, exactly as the pitch is — which is why *"just the first one will come in at that dynamic level"* under
+seamless needs no rule of its own.
