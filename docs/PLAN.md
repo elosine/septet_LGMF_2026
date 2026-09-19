@@ -418,8 +418,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     banner, each its own harmony: `just` · `just + 8ve` · `tempered` · `tempered + 8ve`; the tempered sets = the partials on their
     keys, no cents; the tempered classes = the twelve pitch classes named by their lowest partial. Colours: blue and amber beside the
     pink and green. `spectrum_check` 35. Verified in the running app: 153 voices all at 0 ¢, the columns, the chips, a take round trip.
-  - **1c.7 — the partial checkboxes** — his LG-32: *"if I only want to see partials one, three, and five, I can have a checkbox for
-    those"* — *to be laid out when we discuss it.* (a fundamental → the four columns just · just per octave ·
+  - **1c.7 — the partial checkboxes** — `deferred 2026-09-19 at his word` (*"let's just make a note to maybe add the partial
+    checkboxes as a feature"*): the last item of LG-32 — *"if I only want to see partials one, three, and five, I can have a checkbox
+    for those"*. A MAYBE, not a commitment; the four selections cover what he needed. Also in `docs/NITS.md`.
+    *Why it can wait:* the shuffle deals from whatever the selection holds, and a hand assignment already picks any single partial. (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
     questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"

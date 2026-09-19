@@ -168,3 +168,12 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
 - **2026-09-19 — `bank/instrument_card.json` rows carry no record of the trim in force when they were measured** (RUNNING_LOG §87). `compute_trims.js` computes `new = current + (target − measured)`, which is only right when `measured` was taken with `current` applied. The card is now mixed — the SI2 three and the vibraphone re-measured post-trim, the other five still pre-trim — and a blind re-run applied the correction twice to the five (the cello was proposed at −18.03 dB when it is already right at −3.87). Guarded for now by `--only` and a warning when a row sits within 1 dB of target while carrying a trim. **The cure: a `trimAtMeasurementDb` on every row**, written by `analyze_card.py` from the recipe and `perc_rack.json` at analysis time. 1b.6 wants it anyway, since the battery re-measures.
 
 - **2026-09-19 — a curve channel is freed 0.05 s after a note ENDS, which does not cover a release tail** (RUNNING_LOG §91). CC7 is a channel controller sent in each note's pre-arm, 150 ms ahead; the bowed vibraphone rings ~0.6 s past note-off. So a new note's CC7 can alter the tail of the previous note on that channel. Dormant until now (CC7 was always 127); live on the vibraphone alone since its register trim made CC7 vary 61–127 by pitch. **The cure is one constant** — free the channel at `end + release` rather than `end + 0.05` in `curveChannelMap()` — at the cost of slower turnover across the three channels. Not fixed; flag it if a bow tail is ever heard to duck.
+
+- **2026-09-19 — the partial checkboxes in the HARMONIC SERIES banner, a MAYBE** (his word at the session's wrap: *"let's just make a
+  note to maybe add the partial checkboxes as a feature"*; the last unbuilt item of COMPOSITION_NOTES LG-32 — *"if I only want to see
+  partials one, three, and five, I can have a checkbox for those"*). The four selections built in PLAN 1c.4–1c.6 (`just` · `just + 8ve`
+  · `tempered` · `tempered + 8ve`) gave him what he was after, and two things already do most of the pruning: the shuffle deals only as
+  many notes as there are free players, and a double-click on a dot arms that one partial for a hand assignment. **What it would be:**
+  a row of ticks in the banner (or a `partials: 1 3 5 7-11` box) filtering `Spectrum.makeStrike`'s notes before they become voices —
+  the id would have to carry the filter (`sp:C2:just:1,3,5`) so a take still rebuilds it, which is the only real work in it.
+  Plan item **1c.7**, deferred, not dropped.

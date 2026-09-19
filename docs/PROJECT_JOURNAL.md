@@ -206,40 +206,49 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 | N3 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
 | N4 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
 
-**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-19, end of session 5, Opus → whatever resumes):**
+**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-19, end of session 6, Fable → Opus for the wrap):**
 
-- **The task: PLAN 1a and PLAN 1b are both CLOSED.** Nothing is half-built. 1a made the harmony and six scores; 1b calibrated
-  the rack after his first listens found it 7–21 dB hot and clipping. The next work is NOT a build — it is his listens, then a
-  DESIGN conversation about how the six chords are used in time.
-- **Latest deliverable:** `bank/reference.json` (the meter proven) · `bank/instrument_card.json` (every instrument on the channels
-  the piece plays) · `bank/trims.json` + `reaper/bridge/jobs/apply_trims.lua` (26 tracks, applied and saved) ·
-  `bank/velocity_remap.json` (12 dB span, CC7 register on the vibraphone only) · `bank/verify_1b5.json` (the final measurement) ·
-  **`docs/RACK_SETTINGS.md`** (every hand-set plugin value and how to revert it).
-- **UPDATED 2026-09-19, session 6 (Fable): the strikes drawer's stage 1 is built (PLAN 1c.1, RUNNING_LOG §92) and the next concrete
-  step is HIS LISTEN IN THE DRAWER** — reload the tab → `Strikes` → a harmony row → `ordinario` → shuffle → SPACE. After it: the
-  planning conversation for stages 2+ (Fable, phase 2 — the top line). The two open questions are in the ► row above. The rack listens
-  below still stand.
-- **THE NEXT CONCRETE STEP (as of session 5) — his, and it is a listen, not a command to run:** he **reloads his composer tab** at
-  http://localhost:5400/composer.html (it must be reloaded — the §75 routing fix is in the page), then plays **`lgmf-ref` first**,
-  then the four transition scores, then `lgmf-all`, into the rack from HIS Chrome. Everything about how they sound has changed
-  since he last heard anything. If he comes back with harmonic changes by ear they are data changes:
-  `tools/build_reference_chords.js` → `tools/build_transition_models.js` → `tools/build_lgmf_transitions.js` →
-  `node tools/check_ceilings.js --all`. If he comes back ready to move on, it is the design conversation and it wants Fable.
+- **The task: PLAN 1c — the strikes drawer adapted for this piece. Stages 1 → 6 are all BUILT and none has been heard.** Nothing is
+  half-built; no stage is in progress. His own constraints governed every one of them and still do: *nothing in the drawer changed
+  unless necessary, and every necessary change checked with him · only the features he asks for · robust, no post-build
+  troubleshooting.* The six stages, each verified in the running app and pushed: **1c.1** the harmony column draws with no strikes ·
+  the eight players · a fourth articulation set `ordinario` (§92) · **1c.2** `hear [strike | long tone] [N] s`, Insert follows the
+  menu (§94) · **1c.2b** Hear through 1b's remap + a `dyn ppp … fff` pull-down replacing `dyn ×` / `flat 127` (§95) · **1c.3** two
+  vibraphone players, one per bow, as a SEAT in the drawer with the score's lanes untouched (§96) · **1c.4** the HARMONIC SERIES
+  banner, the JUST column, cents through Hear and Insert, the fixed-pitch rule at ±5 ¢ (§97–§98, §100) · **1c.5 / 1c.6** the range
+  lines on the keys in a colour per instrument, and FOUR selections — `just` · `just + 8ve` · `tempered` · `tempered + 8ve` (§99,
+  §101). **PLAN 1a and PLAN 1b remain closed** (the harmony, the six scores, the calibrated rack) and are untouched by this session.
+- **Latest deliverable:** `score/public/spectrum.js` + `tools/spectrum_check.js` (**35 checks GREEN**) · `score/public/spectrum_ui.js`
+  · `score/public/dyn_ui.js` · `score/public/long_tone_ui.js` · `score/public/seats_ui.js` · the additive changes in
+  `score/public/strike_drawer.js` (cents on a voice and on every departing note, the bend in `playNotes`, `morphBend` on Insert, the
+  `mayTake` hook, `ART_SETS.ordinario`) · `docs/STRIKES_TOOL.md` § LGMF (stages 1–6, each dated).
+- **THE NEXT CONCRETE STEP — HIS, and it is a listen, not a command to run.** He reloads his composer tab at
+  http://localhost:5400/composer.html (it MUST be reloaded — every drawer change is in the page), then: `Strikes` → `HARMONIC SERIES`
+  → type a fundamental → one of the four rows → `ordinario` → `shuffle` → `dyn` → `hear: long tone` → SPACE. **If the shuffle puts a
+  note on only one player, that is not a bug** — it is PLAN 1t's free/busy rule reading the open score at the playhead (RUNNING_LOG
+  §93); move the playhead past the end of the score, or open an empty one. If he comes back with changes to the drawer they are
+  ordinary chunks; if he comes back ready to move on, the next work is **the DESIGN conversation — how the six chords are used in
+  TIME** (order, durations, what happens between them), and it wants Fable.
 - **`Resume reads:`**
-  - `docs/COMPOSITION_NOTES.md` **LG-6 · LG-8 · LG-15** — the rondo whose refrain is a morph, the morph that arrives at a beating,
-    and the opening. They are what the design conversation has to answer. *(Only when the session goes to the design talk.)*
-  - `docs/RUNNING_LOG.md` **§70** — the seeded SPECTRAL sets and the BLOOM targets, the two things his ear may override.
-    *(Only if he comes back with harmonic changes.)*
-  - **Nothing else.** PLAN 1b is closed and needs no re-reading; `docs/RACK_SETTINGS.md` is there if a plugin value is ever in doubt.
-- **Decisions pending him:** none that block anything. The LGMF call is still unread at his word (Q2). By ear whenever: the
-  spectral sets and the bloom targets (§70).
-- **DELIBERATELY UNCOMMITTED — `reaper/LGMF_rack.rpp` only.** It is HIS project file and it now carries a dozen probe recordings
-  from today pointing at large WAVs in `reaper/Media/`; he may want to clear those out before it is committed as a canonical
-  state. **The hand-set plugin values inside it are written down in `docs/RACK_SETTINGS.md`**, so nothing is lost if it is
-  reverted — but the .rpp is the only live copy of the settings themselves.
-- **Standing warnings still true:** after a Reaper record the bridge’s STOP round trip can time out — confirm from the file
-  (§54, §56) · the in-app browser has no Web MIDI, so every listen is his Chrome · one composer tab per score · a probe watch must
-  outlast PowerShell’s own start-up, 12 s not 4 (§67) · `apply_trims.lua` and the remap are GENERATED — edit the bank, not the file.
+  - **Nothing beyond §2** to take his verdict on the drawer and act on it.
+  - `docs/STRIKES_TOOL.md` § **LGMF · the drawer adapted for this piece** — only if a question is about what a drawer control does
+    or why it was built that way.
+  - `docs/COMPOSITION_NOTES.md` **LG-6 · LG-8 · LG-15** — only when the session goes to the DESIGN conversation (the rondo whose
+    refrain is a morph, the morph that arrives at a beating, the opening).
+  - `docs/RUNNING_LOG.md` **§70** — only if he comes back with harmonic changes by ear (the seeded SPECTRAL sets, the BLOOM targets).
+- **Decisions pending him:** none that block anything. **Deferred at his word tonight:** the partial checkboxes — PLAN **1c.7**, also
+  in `docs/NITS.md` (*"let's just make a note to maybe add the partial checkboxes as a feature"*). The LGMF call is still unread (Q2).
+  By ear whenever: the spectral sets and the bloom targets (§70).
+- **DELIBERATELY UNCOMMITTED — two paths, both his:**
+  - `reaper/LGMF_rack.rpp` (modified) — HIS project file, carrying a dozen probe recordings that point at large WAVs in
+    `reaper/Media/`; he may want to clear those out before it is committed as a canonical state. **Every hand-set plugin value inside
+    it is written down in `docs/RACK_SETTINGS.md`**, so nothing is lost if it is reverted — but the .rpp is the only live copy.
+  - `scores/cresTest.json` (untracked) — a score he saved from his own tab this session. Not this session's work; leave it alone.
+- **Standing warnings still true:** the in-app browser has no Web MIDI, so **every listen and every Insert is his Chrome** (the AI
+  verified the drawer's output by reading `notesFor` and the routes, never by sounding it) · the composer tab **autosaves the working
+  copy 5 s after any change**, so the AI never inserts from its own pane · one composer tab per score · after a Reaper record the
+  bridge's STOP round trip can time out — confirm from the file (§54, §56) · a probe watch must outlast PowerShell's own start-up,
+  12 s not 4 (§67) · `apply_trims.lua` and the remap are GENERATED — edit the bank, not the file.
 
 **Open questions:**
 - **Q1b — libraries. CLOSED 2026-09-18:** english horn = Xsample (D8) · all three ARO volumes installed (§33) · the
