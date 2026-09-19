@@ -204,7 +204,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 | N2 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
 | N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
 
-**Open at session end — (2026-09-19, session 4, Opus):**
+**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-19, end of session 4, Opus → whatever resumes):**
 
 - **The task: PLAN 1a — DONE END TO END, 1a.0 → 1a.7, committed and pushed.** Nothing of it is outstanding except the two
   listens that are his. The next real work is a DESIGN conversation (N2), not a build.
@@ -218,12 +218,14 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   - `docs/RUNNING_LOG.md` **§70** — the spectral sets and the bloom targets, which are what his ear will change.
   - `docs/PLAN.md` § 1 item **1a** — every sub-step now carries what it found.
   - `docs/COMPOSITION_NOTES.md` **LG-6 · LG-8 · LG-15** — the rondo, the morph that arrives at a beating, and the opening;
-    they are what N2 has to answer.
-
+    they are what N2 has to answer. *(Only if the session goes to N2. A session resuming to "he listened and here is what he
+    heard" needs §70 and nothing else.)*
 - **Decisions pending him:** none that block anything. By ear, whenever: the seeded SPECTRAL sets and the BLOOM targets,
   both printed in RUNNING_LOG §70 — override any. The LGMF call, unread (Q2).
-- **Deliberately uncommitted: NOTHING.** `git status --short` is clean, and **his rack save is committed** (`755df22`) —
-  the bass's `midi_transpose` +12, the two "Horn SI2 (b) high" tracks and the four note filters are in the project file.
+- **DELIBERATELY UNCOMMITTED: NOTHING**, checked at the checkpoint. `git status --short` is clean; **his rack save is
+  committed** (`755df22`) — the bass's `midi_transpose` +12, the two "Horn SI2 (b) high" tracks and the four note filters
+  are in the project file; and the `scores/*-work.json` working copies were discarded after the throwaway :5401
+  verification, so his first open of any of the five scores is clean.
   One thing is still a GUI action he has not done: the élastique 3.3.3 SOLOIST / Monophonic dropdown on each of the two
   ReaPitch instances (it is not a parameter, so it could not be set from here; it changes the shift's quality, not
   whether it sounds).
