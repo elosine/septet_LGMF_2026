@@ -465,8 +465,30 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       level carries the same way · no note longer than its ceiling · same seed, same result · a 0 s container or an empty chord
       refused with a message. Registered in CLAUDE.md's checks line.
     - `docs/SEQUENCE_TOOL.md` opened — the recipe, the rules, the numbers; RUNNING_LOG; commit, push.
-  - **1d.2 — The drawer, one container at a time** (a row of boxes: take · seconds · dyn per box; add, remove, reorder; Hear;
-    Insert → the group + one META bar; the recipe saved in the score file) — `todo` — *to be laid out when we discuss it.*
+  - **1d.2 — The drawer, one container at a time** (a row of boxes — take · seconds · dyn — Hear, Insert, the recipe saved with the
+    score) — `todo` — his "good", 2026-09-19.
+    *Result when done:* a `SEQUENCE` drawer opens beside the strikes drawer. It shows a row of boxes, each one container, its width
+    its duration; `+` adds a box, `×` removes it, `◂ ▸` moves it. Click a box to give it a take (a pull-down of the strikes takes),
+    its seconds and its dyn (`as dealt` or `ppp … fff`); a `change` menu, `attack | seamless`. SPACE plays the whole sequence through
+    the strikes drawer's own player, so it sounds at the levels and bends the drawer already sounds. Insert @ playhead writes the
+    generator's notes onto the lanes as one group with one META bar over the span, and the recipe into the score file, so the working
+    copy and every named version carry it. Nothing can be reopened or re-rolled yet — that is 1d.3 and 1d.4.
+    - `score/public/sequence_ui.js`, loaded last, opened from where `Strikes` opens; nothing in the strikes drawer changed.
+    - The row: `+ container` · a box shows its take, seconds and dyn · `×` · `◂ ▸` · the width follows the seconds · `change
+      [attack | seamless]`.
+    - Choosing a take LOADS it in the strikes drawer — so he sees what he chose — and the sequence takes its notes as `long tone`
+      deals them (each seat once, cents, the dealt level) and freezes them in the box; `refresh from take` re-reads. *(The consequence,
+      told him: choosing a take replaces whatever is undealt in the strikes drawer — save it as a take first. Dealing a take silently
+      off-screen would mean changing the drawer's core, which his constraint forbids unless necessary.)*
+    - SPACE / Hear: the generator's notes through the strikes drawer's player — the remap of 1c.2b, the bends of 1c.4 — from the
+      start, or from a clicked box; stop as the drawer stops.
+    - Insert @ playhead: drawn notes on their lanes, cents as `morphBend`, height = the anchor — the same objects the strikes drawer
+      writes — as `grp-seq-<id>`, plus one META bar over the span; the recipe into the score's `databases.sequences` under that id.
+    - The drawer's own state (the row being built) remembered across a reload, as the strikes drawer's is.
+    - Verify in the running app, no MIDI: three containers of reference chords → the boxes, the frozen notes, Hear's note list
+      against the generator, the inserted objects (count, lanes, `morphBend`, heights), the META bar, the recipe in the saved score, a
+      reload. `palette_check`. SEQUENCE_TOOL, RUNNING_LOG, this plan; commit; push.
+    - **His test:** reload → `Sequence` → `+` → a take · 8 s · mf → `+` → another · 13 s → SPACE → Insert → play the score.
   - **1d.3 — The round trip** (click the META bar → the sequence back in the drawer; change a duration, swap a chord, change a dyn;
     re-Insert replaces in place) — `todo` — *to be laid out when we discuss it.*
   - **1d.4 — The roll** (the time container generator in the drawer: pool · order · contour → a row of empty boxes; click each to

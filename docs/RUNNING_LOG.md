@@ -4484,3 +4484,12 @@ and the to-dos in the chat's words), 1d.2 … 1d.6 as one-liners, the held featu
 `tools/check_ceilings.js` already reaches it from node — so the check does not need the browser's palette; (2) the dynamic is a property of
 the container a segment STARTS in, exactly as the pitch is — which is why *"just the first one will come in at that dynamic level"* under
 seamless needs no rule of its own.
+
+## §106. PLAN 1d.2 confirmed and written; one consequence told him (2026-09-19)
+
+Step 2 — the drawer, one container at a time — put as goal and sub-steps together (§105's adjustment); his **"good"**; written into the plan
+as put. **The one design consequence surfaced:** choosing a take for a box LOADS that take in the strikes drawer, so whatever is undealt
+there is replaced — he saves a take first. The alternative, dealing a take silently off-screen, needs a way to run `notesFor` on a state
+that is not the drawer's live state, and that is a change to the drawer's core; his constraint (LG-32) forbids it unless necessary, and
+seeing the chosen chord is arguably better anyway. Noted in the plan beside the sub-step. `bank/panel_snapshots.json` is modified in the tree
+— a take he saved from his tab during this conversation; his, not committed.
