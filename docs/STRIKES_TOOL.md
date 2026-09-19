@@ -1380,7 +1380,13 @@ necessary. And those you should check with me."*
 **Not changed, at his word:** the keyboard span (`88` shows the bass's E1–B1) · the piano features (inert here — no piano lane) ·
 Hear and Insert (no cents yet).
 
-**Stages 2+ (PLAN 1c):** the long tone on Hear · the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+**Stage 2 — long tones on Hear (PLAN 1c.2, built 2026-09-19, RUNNING_LOG §94):** `hear [strike | long tone] [N] s` in the foot, right of
+Stop. `long tone` = the harmony as dealt — every player its note, together, held N seconds — through SPACE or *Hear orchestrated*;
+SPACE again stops it. **Insert follows the menu** (his decision A, §AC-2): with `long tone` on, Insert @ playhead writes the held chord.
+Both settings ride in cfg, so they are remembered and restored by takes. One file, `long_tone_ui.js`, loaded last; on `strike` the
+drawer is byte-identical. And `ordinario` now bows the vibraphone (`bowed_vel`, the reference scores' voice).
+
+**Stages 3+ (PLAN 1c):** the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
 note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).

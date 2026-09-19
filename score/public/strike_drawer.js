@@ -72,9 +72,10 @@ const ART_SETS = {
     spiccato: { english_horn: 'stac_vel', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'main', cello: 'spicc_vel', double_bass: 'spicc_vel' },
     staccato: { english_horn: 'stac_vel', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'main', cello: 'stac_vel', double_bass: 'stac_vel' },
     // LGMF, stage 1 of the drawer's adaptation (composer, 2026-09-19): the voices the reference scores play — each instrument's
-    // `ordinary` in sandbox/instruments.js (read back from scores/lgmf-ref.json) — with the vibraphone on its standard mallets at his
-    // word ("the vibraphone will be just the number one standard mallets"). The three sets above are untouched; this one is a fourth button.
-    ordinario: { english_horn: 'senza_vel', bassoon: 'ord', horn: 'ord', trumpet: 'ord', percussion: 'main', bowed_vibraphone: 'std_mallets_vel', cello: 'senza_vel', double_bass: 'senza_vel' },
+    // `ordinary` in sandbox/instruments.js (read back from scores/lgmf-ref.json). The vibraphone was on its standard mallets for stage 1
+    // at his word; PLAN 1c.2 (the long tones, the same day) put it on the BOWED voice the reference scores play — his "this would
+    // involve adding the bowed vibraphone to the Ordinario set". The three sets above are untouched; this one is a fourth button.
+    ordinario: { english_horn: 'senza_vel', bassoon: 'ord', horn: 'ord', trumpet: 'ord', percussion: 'main', bowed_vibraphone: 'bowed_vel', cello: 'senza_vel', double_bass: 'senza_vel' },
 };
 
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }

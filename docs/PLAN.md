@@ -349,7 +349,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     palette_check 184. Verified in the running app: six banners, a stack loads, eight rows, `ordinario` on every row, shuffle 6 of 6.
     **His test:** reload the tab → Strikes → a harmony → `ordinario` → shuffle → SPACE.
   - **1c.2 — Long tones on Hear** (a `hear` menu: strike | long tone, with a seconds box; SPACE plays or stops it; Insert follows
-    the menu — his decision A, 2026-09-19; the vibraphone bowed in `ordinario`) — `todo`, laid out 2026-09-19 with him.
+    the menu — his decision A, 2026-09-19; the vibraphone bowed in `ordinario`) — `done 2026-09-19, awaiting HIS LISTEN` — RUNNING_LOG
+    §94: `score/public/long_tone_ui.js` (loaded last), `ART_SETS.ordinario` vib → `bowed_vel`; verified in the running app (six notes
+    @0 / 4000 ms on `long tone`, 100 ms on `strike`, the take state carrying and restoring, the box surviving a reload).
     *Result when done:* with `long tone` chosen, SPACE (or Hear orchestrated) sounds the loaded harmony as dealt — every player its
     note, together, held N seconds — and Insert @ playhead writes that held chord; with `strike` chosen the drawer is exactly as it was.
     - The menu and the box in the foot, right of `Hear orchestrated`: `hear [strike | long tone] [6] s`. Both live in `cfg`
