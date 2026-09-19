@@ -189,7 +189,7 @@ are not pre-listed here; they enter when this piece asks for them, with the next
 abstracted, with figures per beat (LG-5, LG-11, LG-12) · the pattern tool with thinning (LG-7) · the morph that arrives at a
 beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a is the harmony heard.*
 
-- **1a — The six reference harmonies and their 24 transitions, heard** — `doing` (1a.0–1a.4 done 2026-09-19; 1a.5–1a.6 next) — written 2026-09-18 by Fable from the
+- **1a — The six reference harmonies and their 24 transitions, heard** — `built 2026-09-19, awaiting HIS LISTENS` (1a.0–1a.7 all done; his listens close 1a.4 and 1a.6) — written 2026-09-18 by Fable from the
   decisions of COMPOSITION_NOTES LG-16 … LG-31 and RUNNING_LOG §62–§66c, **to be built by Opus after a clear, without
   reopening the decisions listed at the end of this item.** Planning protocol skipped at his word (§66).
 
@@ -270,7 +270,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       horn’s A♭4 sounds (1a.1). **His listen closes the step.**
     *Why:* “one minute of each of the six reference harmonies, a bit of a gap … striated … never exceeding the max.”
 
-  - **1a.5 — The four transition types as morph models** (LG-28 · LG-29 · LG-31; decisions 4, 6–9). `todo`
+  - **1a.5 — The four transition types as morph models** (LG-28 · LG-29 · LG-31; decisions 4, 6–9). `done 2026-09-19` — RUNNING_LOG §72. Four models (LGSPECTRAL · LGBALANCE · LGBLOOM · LGCONVERGE) and **24 ACTUALs** — in `bank/actuals/`, not `bank/transitions/`, because 1a.0 (ii) found the panel's own model↔actual store. The engine gained two opt-in, byte-identical additions: `source/target.kind: 'voices'` (per-voice cents, unsorted — the chord I/O was integer semitones) and `target.mid` + `target.dwell` (a third station with a rest — 30·30·30 is dwell 1/3). MORPH_NOTES §3.
     - Read `morph.js`’s six models and dials (progress · the dynamics layer · the `_|_` shape · the carrier · to-unison at ≈ line
       750) and map each type onto them; **the smaller change always wins**, and whatever the tool lacked goes to MORPH_NOTES §3:
       - **Spectral** — a pitch morph with THREE stations: start set → reference → end set (1a.3’s sets), 30 · 30 · 30 s. If the
@@ -290,7 +290,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     *Why:* the model is what he edits afterwards; the dials are the deliverable as much as the sound.
 
   - **1a.6 — The four transition scores** — `scores/lgmf-spectral.json` · `lgmf-balance.json` · `lgmf-bloom.json` ·
-    `lgmf-converge.json` (decision 5). `todo`
+    `lgmf-converge.json` (decision 5). `built 2026-09-19, awaiting HIS LISTEN` — RUNNING_LOG §73. 590 s each, the gestures PLACED verbatim from their actuals. **`tools/check_ceilings.js` is the required check as a runnable gate** and all five scores are green — it caught 18 over-long notes in BALANCE on the first run. Three panel fixes were needed before a recalled model came back whole; the round trip is verified (recall → 8 voices, 75 notes; change the entrance → 75 notes, new fade, same pitches).
     - Each: six transitions in his order **B♭1 · A1 · C2 · G♯1 · B1 · F♯1**, 90 s each, 10 s gaps (590 s). Built by
       **`tools/build_lgmf_transitions.js`** from the bank and the morph tool’s own emit — headless if `morph.js` can be
       required the way the notation tools require the engine; if the morph only runs in the browser, drive HIS tab through
@@ -301,7 +301,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       the fade-in and re-emitting replaces its notes. **His listen closes the step.**
     *Why:* “I want to be able to just hear them, but then I can load it into the model and change like the fade in or the duration.”
 
-  - **1a.7 — Record.** `todo` — RUNNING_LOG entries as each sub-step lands (the standing practice, not at the end) · the bank
+  - **1a.7 — Record.** `done 2026-09-19` — RUNNING_LOG §67–§73 written as each sub-step landed · MORPH_NOTES §3 carries what the tool lacked (three stations · a voice list with cents · the panel's three set-shaped assumptions · the carrier's start-level ceiling) · the vibraphone's measured sustain is §69 · committed and pushed at every wrap. — RUNNING_LOG entries as each sub-step lands (the standing practice, not at the end) · the bank
     and the 24 transition JSONs committed · the vibraphone’s measured sustain into the record beside §48 · MORPH_NOTES §3:
     what the tool needed (three stations · an offset start · voices that hold inside a morph) · journal §2 and PLANNER current
     · commit at each sub-step wrap, push.

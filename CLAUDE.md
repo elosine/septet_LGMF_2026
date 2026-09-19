@@ -25,19 +25,7 @@ Libraries (journal D6): **IRCAM Solo Instruments 2** bassoon · horn · trumpet 
 (piece #2's library) — english horn **being acquired**, library to be named — **a bowed
 vibraphone still to acquire.**
 
-**State of the piece (keep this line current):** **PHASE 1 IS BEING BUILT.** Phase 0 is closed — the app, the sandbox,
-the notation/IR stack, print and video are here; the rack has ten `LG` ports and its tracks; the three SI2 instruments and the
-three Kontakt ones are complete as recipes; the percussion is built and mapped (fourteen ARO tracks, all key maps); 0d's trims
-and velocity remap are in and he has heard them. **PLAN 1a is now five sub-steps in (RUNNING_LOG §67–§71, 2026-09-19):**
-the three mechanisms verified (`morphBend` already carries cents end to end · a morph model already persists as an ACTUAL ·
-SI2 bend range is ±2 st in every program) · the horn-above-F4 path built on BOTH UVI instances and proven by meter · the
-maximum note durations at mf in `beating_calc.js CEILINGS`, with the bowed vibraphone MEASURED at 7.4 s ·
-`bank/reference_chords.json`, the six chords as computed data · and **`scores/lgmf-ref.json` — the harmony as sound**,
-60 s per chord with 10 s gaps. **Two blocking bugs were found and fixed on the way:** the Xsample double bass was keyed an
-OCTAVE above sounding (silent on every fundamental of the piece; fixed Reaper-side, recipe back to sounding 28–69), and the
-**composer app had not booted since 2026-09-18** because D12 added the vibraphone to `TRACKS` and nobody added `lane8` to the
-HTML. **Next: 1a.5** (the four transition types as morph models) then **1a.6** (the four transition scores). **Waiting on him:
-CTRL+S in Reaper — the rack changes are unsaved — and his listen to `lgmf-ref`.**
+**State of the piece (keep this line current):** **PHASE 1: THE HARMONY IS BUILT AND WAITING TO BE HEARD.** Phase 0 is closed (the app, the sandbox, the notation/IR stack, print and video; ten `LG` ports and the rack; the three SI2 and three Kontakt instruments as recipes; the percussion built and mapped; 0d's trims and remap, heard). **PLAN 1a is DONE end to end, 1a.0 → 1a.7** (RUNNING_LOG §67–§73, 2026-09-19): `bank/reference_chords.json` holds the six chords as computed data; `bank/actuals/` holds 24 transition ACTUALs under four models (LGSPECTRAL · LGBALANCE · LGBLOOM · LGCONVERGE), each reopenable on its own dials; and **five scores exist — `lgmf-ref` (6:50) and `lgmf-spectral · lgmf-balance · lgmf-bloom · lgmf-converge` (9:50 each). NONE HAS BEEN HEARD; his listen closes 1a.4 and 1a.6 and with them the item.** Three blocking bugs were found and fixed on the way: the Xsample double bass was keyed an OCTAVE above sounding (silent on every fundamental; fixed Reaper-side, recipe back to 28–69) · the composer app had not booted since D12 added the vibraphone to `TRACKS` without a `lane8` · and a recalled morph model came back flattened, because three places in the panel assume a morph's pitches are a SET to be cast onto three pairs. morph.js gained two opt-in, byte-identical additions — a voice list with per-voice cents, and a third station with a dwell (MORPH_NOTES §3). **Next, after his listens: a DESIGN conversation — how the six chords are used in time.**
 
 ## READ FIRST — how to work here
 
@@ -192,7 +180,7 @@ routing advice is also credit advice, and these bind every Fable turn:
 port and never saves from its own browser pane (principle 9) · the in-app browser has no Web
 MIDI, so every MIDI path is verified on his Chrome.
 
-**Checks this piece owns:** `node tools/palette_check.js` (**168** — tracks vs recipes, ports, every
+**Checks this piece owns:** `node tools/check_ceilings.js --all` (no note longer than its instrument's ceiling, all five scores) · `node tools/model_bank.js --validate` (the model↔actual store) · `node tools/palette_check.js` (**168** — tracks vs recipes, ports, every
 per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (**10** + a control). Run both
 after any change to `TRACKS`, `sandbox/instruments.js` or `notation/registry/ensemble.json`.
 

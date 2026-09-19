@@ -170,64 +170,63 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 - **His chat preference sharpened:** a direct question gets the fact and nothing else; explanations quarantined to a notes
   section; **no widgets — plain markdown tables in chat**; the chord chart in row-per-chord form. In memory.
 
-### SESSION 4 — 2026-09-19 (Opus; postclear, then "move thru plan as much as possible independantly") — **1a.0 · 1a.1 · 1a.2 · 1a.3 · 1a.4 BUILT**
+### SESSION 4 — 2026-09-19 (Opus; postclear, then "move thru plan as much as possible independantly") — **PLAN 1a IS BUILT, 1a.0 → 1a.7**
 
-- **The harmony sounds.** `scores/lgmf-ref.json` — the six reference chords, 60 s each, 10 s gaps, dal niente → mf,
-  striated at the measured breath ceilings. 6:50 · 343 notes · 87 of them carrying their partial's cents.
-  RUNNING_LOG **§67–§71**; nothing of the composition was re-decided.
-- **Two things were BROKEN and are fixed** — neither was in the plan, both would have stopped the piece:
-  1. **The double bass was an octave out.** The Xsample library is keyed an octave ABOVE sounding (probed: key 34 silent,
-     key 46 audible), and §57 had written its 40–81 into the recipe as if it were sounding pitch — so every one of the six
-     fundamentals was below its range and would have been silent. Fixed Reaper-side (`bass_octave_fx.lua`, a
-     `midi_transpose` +12 at the head of Bass XS), recipe back to sounding 28–69.
-  2. **The composer app had not booted since 2026-09-18.** D12 put the vibraphone in `TRACKS` (eight) and nobody added
-     `lane8` to the HTML, so `init()` threw on `null.querySelector` on its first line. Nothing caught it because session 2
-     was Reaper work and session 3 was composition on paper. lane6 = Vibraphone, Vc → 7, Db → 8.
-- **1a.1 the horn-high path** is built on BOTH UVI instances (`LGHorn` and `LGHornb` — an ordinary drawn note routes to the
-  curve bank on the b instance, which the plan did not know), proven by meter: E♭5 sounds only from the high track, E♭4 only
-  from the main, both −9.0 dB. **The horn's recipe range went 65 → 77** as a consequence.
-- **1a.2 the ceilings at mf** into `beating_calc.js CEILINGS` (not instruments.js — that is where the morph carrier reads
-  them), and `ceilingFor`'s level factors re-based so the table value IS the mf ceiling. **The bowed vibraphone measured:
-  7.4 s, not the assumed 12** (`sustain_watch.lua`, a 10 Hz meter series).
-- **1a.3 `bank/reference_chords.json`** — the voicings typed once, every cents value, Bloom target and Spectral pick
-  COMPUTED; asserts LG-27's deviation table and every pitch against its own partial.
-- **Also found:** the three SI2 instruments read `PitchBendMod Ratio="2"` in every program (654/529/701) so ±2 st is right;
-  the Xsample english horn and double bass were carrying a provisional 2 where the family measures ~1, and every cents ask
-  would have landed HALF — both set to 1.
+- **Five scores exist and none has been heard.** `lgmf-ref` (the six chords standing still, 6:50) and
+  `lgmf-spectral · lgmf-balance · lgmf-bloom · lgmf-converge` (six transitions each, 9:50). RUNNING_LOG **§67–§73**.
+  **His listens close 1a.4 and 1a.6 — that is the only thing left in the item.**
+- **The harmony as data:** `bank/reference_chords.json` (voicings typed once, every cents value / Bloom target / Spectral
+  pick computed, LG-27's deviation table asserted) → the four types as **four models and 24 ACTUALs** in `bank/actuals/`,
+  each reopenable in the morph panel on its own dials.
+- **Three things were BROKEN and are fixed**, none of them in the plan, each would have stopped the piece:
+  1. **The double bass was an octave out** — the Xsample library is keyed an octave ABOVE sounding, so every fundamental
+     of the piece was silent. Fixed Reaper-side; recipe back to sounding 28–69. **He has saved the rack** (`755df22`).
+  2. **The composer app had not booted since 2026-09-18** — D12 put the vibraphone in `TRACKS` and nobody added `lane8`.
+  3. **A recalled morph model came back as a stranger** — three places in the panel assume a morph's pitches are a SET to
+     be cast onto three pairs, which destroys the cents and the just/tempered doublings.
+- **Two opt-in additions to morph.js**, both byte-identical against the frozen 2026-09-07 tuba baseline:
+  `source/target.kind: 'voices'` (per-voice cents, unsorted — the engine's chord input was integer semitones, and this
+  piece is made of cents) and `target.mid` + `target.dwell` (a third station with a rest; 30 · 30 · 30 is dwell 1/3).
+  A `carrier.hold` fold-plateau was written first and **removed** — the dwell serves all four types where the fold serves
+  two, and an unused dial on a shared engine is a trap for the next piece.
+- **Measured, not assumed:** the bowed vibraphone sustains **7.4 s** (peak −20.7 dBFS, 20 dB down 7.4 s later, gone by
+  ~10.5 s), replacing the assumed 12. It is the busiest voice in every score because of it.
+- **New gates:** `node tools/check_ceilings.js --all` (1a.4's required check, all five scores green) and
+  `node tools/model_bank.js --validate` is **VALID** again — 16 actual ids piece #5's carried models listed had never
+  existed here.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **HIS 1** | **CTRL+S IN REAPER.** The bass's `midi_transpose` +12, the two new tracks "Horn SI2 high" / "Horn SI2 b high" and the four note filters are live in the OPEN project and unsaved — the bridge never saves. Also, one dropdown per ReaPitch: élastique 3.3.3 SOLOIST / Monophonic (it is not a parameter, so it was not set; the instances are on the project default) | — | — |
-| **HIS 2** | **Hear the harmony.** `node score/server.js` → http://localhost:5400/composer.html → open **`lgmf-ref`**, play it into the rack from HIS Chrome. 6:50. **His listen closes 1a.4.** Worth listening for: the vibraphone re-bows 11× a minute per bow (the measured 7.4 s), where LG-15 wants it continuous | — | — |
-| **► N1** | **PLAN 1a.5 — the four transition types as morph models.** Read `morph.js`'s six models and dials, map Spectral / Balance / Bloom / Converge onto them (the smaller change always wins; whatever the tool lacks goes to MORPH_NOTES §3), and file 24 ACTUALs. **1a.0 (ii) settled how: a model persists as an ACTUAL** (`tools/model_bank.js`, `/api/actuals`) — `recallActual` reopens the card with its dials, so the item's "24 dial files" ARE actuals, and `morphs[]` in the save is not needed | **Opus** | not yet |
-| N2 | **1a.6 — the four transition scores** `lgmf-spectral · lgmf-balance · lgmf-bloom · lgmf-converge`, six transitions each in his order, 90 s + 10 s gaps, built by `tools/build_lgmf_transitions.js` from the bank. Reuse `build_lgmf_ref.js`'s ceiling assertion. **His listen closes it** | Opus | yes, after 1a.5 |
-| N3 | **His, by ear, before 1a.6 hardens:** the SPECTRAL sets (all 36 picks are printed in RUNNING_LOG §70 — override any) and the BLOOM targets (§70) | — | — |
-| N4 | **After 1a: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and how the six chords are used in time. And the LGMF call, when he says | Fable to design | yes |
+| **► HIS** | **HEAR THE FIVE SCORES.** `node score/server.js` → http://localhost:5400/composer.html, open each and play it into the rack from HIS Chrome. **`lgmf-ref` first** (6:50, the harmony standing still), then the four transitions (9:50 each). **His listen closes 1a.4 and 1a.6 and with them PLAN 1a.** Worth listening for: the vibraphone re-bows 11× a minute per bow (its measured 7.4 s) where LG-15 wants it continuous · the brass in SPECTRAL moves between partials, which is a portamento-flip not a slide (§66) · chord 6's BLOOM barely moves, because only its two just voices are deviant | — | — |
+| N1 | **His, by ear, whenever:** the seeded SPECTRAL sets and the BLOOM targets are all printed in RUNNING_LOG **§70** — override any and re-run `tools/build_reference_chords.js` then the two build tools. The dials on every transition are *longer/shorter · rest at the far station · the entrance · together/spread* | — | — |
+| N2 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
+| N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
 
 **Open at session end — (2026-09-19, session 4, Opus):**
 
-- **The task: PLAN 1a.** Sub-steps **1a.0 · 1a.1 · 1a.2 · 1a.3 · 1a.4 are DONE, committed and pushed**; 1a.7 (record) has
-  been running continuously as RUNNING_LOG §67–§71. **1a.5 and 1a.6 are not started.**
-- **Latest deliverable:** `scores/lgmf-ref.json` (open it as `lgmf-ref`) · `bank/reference_chords.json` ·
-  `tools/build_reference_chords.js` · `tools/build_lgmf_ref.js` · `reaper/bridge/jobs/{bass_octave_fx,horn_high_path,sustain_watch}.lua`.
-- **THE NEXT CONCRETE STEP: build PLAN 1a.5.** Read `morph.js`'s six models and their dials (progress · the dynamics layer ·
-  the `_|_` shape · the carrier · to-unison at ≈ line 750), map the four types onto them per the item, and file one ACTUAL
-  per type per chord. The dial values come from `bank/reference_chords.json` — every chord already carries its `converge`
-  (movers, distances, the bass's start), its `bloom` targets and its `spectral` start/end sets.
+- **The task: PLAN 1a — DONE END TO END, 1a.0 → 1a.7, committed and pushed.** Nothing of it is outstanding except the two
+  listens that are his. The next real work is a DESIGN conversation (N2), not a build.
+- **Latest deliverable:** `scores/lgmf-ref.json` · `lgmf-spectral` · `lgmf-balance` · `lgmf-bloom` · `lgmf-converge` ·
+  `bank/reference_chords.json` · `bank/actuals/ACT-LG*` (24) · the four models in `bank/morph_models.json`.
+- **THE NEXT CONCRETE STEP: he listens.** If he comes back with changes by ear, they are data changes —
+  `tools/build_reference_chords.js` (the sets and targets), then `tools/build_transition_models.js`, then
+  `tools/build_lgmf_transitions.js`, then `node tools/check_ceilings.js --all`. All three are idempotent and own their
+  outputs. If he comes back ready to move on, it is N2 and it wants Fable.
 - **`Resume reads:`**
-  - `docs/PLAN.md` § 1 item **1a**, sub-steps **1a.5 and 1a.6** — they name the models, the dials, the profile (30·30·30)
-    and the decisions not to reopen.
-  - `docs/RUNNING_LOG.md` **§67** (ii) — how a morph model persists, which is what 1a.5 files into.
-  - `bank/reference_chords.json` — the `converge` / `bloom` / `spectral` blocks are the dial values.
-  - `docs/MORPH_NOTES.md` §3 — where anything the tool lacks is recorded, as it is found.
+  - `docs/RUNNING_LOG.md` **§70** — the spectral sets and the bloom targets, which are what his ear will change.
+  - `docs/PLAN.md` § 1 item **1a** — every sub-step now carries what it found.
+  - `docs/COMPOSITION_NOTES.md` **LG-6 · LG-8 · LG-15** — the rondo, the morph that arrives at a beating, and the opening;
+    they are what N2 has to answer.
 
-- **Decisions pending him:** none that block 1a.5. By ear: the seeded SPECTRAL sets and the BLOOM targets, both printed
-  in RUNNING_LOG §70 — override any. The LGMF call, unread (Q2).
-- **Deliberately uncommitted: NOTHING in git.** `git status --short` is clean. **But the REAPER PROJECT IS UNSAVED**:
-  the bass's `midi_transpose` +12, the two "Horn SI2 (b) high" tracks and the four note filters exist only in the open
-  project until he presses CTRL+S. The bridge never saves.
+- **Decisions pending him:** none that block anything. By ear, whenever: the seeded SPECTRAL sets and the BLOOM targets,
+  both printed in RUNNING_LOG §70 — override any. The LGMF call, unread (Q2).
+- **Deliberately uncommitted: NOTHING.** `git status --short` is clean, and **his rack save is committed** (`755df22`) —
+  the bass's `midi_transpose` +12, the two "Horn SI2 (b) high" tracks and the four note filters are in the project file.
+  One thing is still a GUI action he has not done: the élastique 3.3.3 SOLOIST / Monophonic dropdown on each of the two
+  ReaPitch instances (it is not a parameter, so it could not be set from here; it changes the shift's quality, not
+  whether it sounds).
 - **Standing warnings still true:** after a Reaper record the bridge’s STOP round trip times out — confirm from the file
   (§54, §56) · the in-app browser has no Web MIDI — every listen is his Chrome · one composer tab per score · **a probe
   watch must outlast PowerShell’s own start-up — 12 s, not 4** (§67).
