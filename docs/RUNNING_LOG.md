@@ -3974,3 +3974,51 @@ and the fourteen percussion from −4.29 (bass drum) to +12.00 + 12.33 JS (casta
 ### Which settles the span question C was asked to answer
 
 The instruments the piece plays now give **17.7 dB (cello) · 21.4 (double bass) · 23.5 (trumpet) · 26.4 (horn) · 26.5 (english horn) · 28.8 (vibraphone) · 31.9 (bassoon)**. The cello is now the narrowest, and **a written span of ~17 dB clears every instrument with nothing clamping** — which is what option C promised, by a different route than expected: not by rescuing the bassoon from 11.7 dB, but by discovering that three instruments had been playing on the wrong setting all along.
+
+---
+
+## §86. PLAN 1b.4 — the remap rebuilt from the card: the written span goes 10 dB → 17, and the vibraphone's register is flattened as far as velocity can (2026-09-19)
+
+**What prompted it.** His *"saved, build the remap"*. `tools/build_remap_card.js` → **`bank/velocity_remap.json`**, superseding `tools/build_remap.js`, which read 0d's `balance.json` — relative levels, through a REC bus 12 dB down, on main channel 1, with the SI2 curve copies still at Dynamic 0.70 (§76, §85).
+
+**One more measurement first.** The vibraphone had only two velocities in the card, and it is the instrument the remap has to work hardest on. 36 notes, 4:55, **nine pitches × four velocities on its curve channel** — the first complete, post-trim, right-channel picture of it. Its register shape holds at every velocity: the step from each pitch to the next reads −5.7 +1.5 +2.3 −9.2 +2.2 +13.1 −1.7 −0.7 at velocity 24 and −5.3 +1.0 +2.5 −9.5 +2.6 +12.9 −1.5 −0.6 at velocity 100. Spread 15.3 · 15.4 · 15.5 · 15.4 dB at the four velocities — **the same curve, four times.**
+
+**The design, and the two things it turns on.**
+- **The scale is indexed 65–127**, not 0d's 24–127. The app only ever asks for anchor velocities in that range (`HELD_LO`/`HELD_HI`, and `morph_emit` uses the same two), so three-fifths of the old table was dead and the live part carried the whole span in 62 steps.
+- **Every curve is normalised per instrument to its own velocity-127 mean before inversion.** That makes the bank immune to the card's mixed provenance (§85 — the SI2 three post-trim on curve channels, the other five pre-trim on main 1: same shape, one trim of offset), and it is also what flattens the vibraphone, since normalising to the instrument's mean and then solving per pitch sends a *lower* velocity to its loud bars.
+- **The span is 17 dB**, his option C, up from ~10. Linear in dB, because equal steps of drawn height should be equal steps of loudness. The target at fff is 1b.3's **−31.84 dB** per voice.
+- **D13 stands:** velocity is the dynamic, CC7 stays at 127. The bank carries no `cc7Curve`.
+
+**THE RESULT, read back through the app's own `velocity_remap.js` in node** — velocity sent, and the level it lands on, against the target:
+
+| | pp | mp | mf | f | fff |
+|---|---|---|---|---|---|
+| target | −48.8 | −43.4 | −40.3 | −37.6 | −31.8 |
+| English Horn 67 | 37 / −48.9 | 50 / −43.4 | 57 / −40.4 | 64 / −37.4 | 125 / −31.8 |
+| Bassoon 55 | 50 / −49.0 | 61 / −43.3 | 71 / −40.3 | 83 / −37.7 | 118 / −31.8 |
+| Horn 50 | 44 / −48.6 | 55 / −43.2 | 61 / −40.3 | 70 / −37.6 | 96 / −31.9 |
+| Trumpet 68 | 38 / −48.8 | 50 / −43.4 | 57 / −40.3 | 63 / −37.6 | 96 / −31.9 |
+| Cello 60 | 24 / −48.5 | 45 / −43.4 | 57 / −40.4 | 68 / −37.7 | 90 / −31.7 |
+| D. Bass 48 | 28 / −48.9 | 45 / −43.4 | 55 / −40.2 | 63 / −37.6 | 127 / −32.0 |
+
+**Six of the seven land within 0.3 dB of the ensemble target at every written height, across a 17 dB range.** The horn and trumpet reach fff at velocity 96 — their 26 dB of range means they never need the top of the velocity scale.
+
+### The vibraphone, and the limit velocity alone cannot pass
+
+The flattening works where it can. At the pitches the scores actually use:
+
+| pitch | at a written **mf** | at a written **fff** |
+|---|---|---|
+| 72 | vel 125 → −40.9 (target −40.3) | vel 127 → −40.6 — **8.8 dB short** |
+| 74 | vel 122 → −40.1 | vel 127 → −39.1 — 7.3 short |
+| 76 | vel 119 → −39.2 | vel 127 → −37.7 — 5.9 short |
+| **83** | vel **72** → −39.2 | vel **103** → **−31.8 exact** |
+| **86** | vel **76** → −39.2 | vel **108** → **−31.8 exact** |
+
+The loud bars are pulled down and land exactly on target. **The quiet bars run out of velocity.** The arithmetic is unavoidable: each bar has ~29 dB of velocity range, the register spread is 15.4 dB, so the range **common to every bar is 13.7 dB** — less than the 17 dB span. A bar 9.4 dB below the instrument's mean simply cannot reach the ensemble's fff.
+
+**Where that lands musically: it is fine for the piece as written and fails above it.** The five scores sit at **mf**, and at mf every used pitch is within **1.1 dB** of target — the register is effectively flat where the music lives. The shortfall grows with the written dynamic and reaches 6–9 dB at fff. The scores use 72 · 74 · 76 heavily (76 alone carries 127 notes) and 83 · 86 equally, so this is not hypothetical if the writing ever goes loud.
+
+**The fix, if he wants the full 17 dB on the vibraphone, and why it is his call.** The register offset is a GAIN problem, and velocity is the wrong tool for it because velocity also chooses the sample. The right tool is CC7, and **the app is already built for it**: `heldCc7` calls `VelocityRemap.cc7ForHeight`, which computes the residual (target − achieved) and asks the bank for the CC7 that closes it — a pure attenuation, no sample change. It is inert only because no bank has ever carried a `cc7Curve`. **0d measured the data** (`bank/balance.json` `cc7`: six CC7 values per pitch at velocity 100 — the english horn's middle register gives 17.8 dB of attenuation from CC7 127 down to 64), and it is relative, so it survived every trim.
+
+D13 declined CC7 for two stated reasons: it would *"fight the held-note shaping"*, and *"nothing in this rack is deterministic enough for a 0.3 dB trim to mean anything"*. **Both have moved.** The first is not what this would do — `cc7ForHeight` derives the CC7 from the same drawn height as the velocity, so they cannot fight; they are one mapping. The second was about scatter of ±1.7 to ±6.0 dB, and the vibraphone is now **deterministic** (§82, round robin off, repeat spread 0.0 dB) while the correction asked for is up to 15 dB, far above any instrument's noise. **Recorded, not acted on: reversing part of a decision he made is his to do, and 1b.5 will put the question to his ear with the numbers already on the table.**

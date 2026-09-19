@@ -1,21 +1,21 @@
 {
- "generatedAt": "2026-09-19T10:29:54",
+ "generatedAt": "2026-09-19T10:40:58",
  "planItem": "1b.2",
  "piece": "lgmf",
- "recording": "30-REC-260919_1018.wav",
- "schedule": "card_curve_schedule.json",
- "scheduleGeneratedAt": "2026-09-19T14:18:15.538Z",
+ "recording": "30-REC-260919_1035.wav",
+ "schedule": "card_vibreg_curve_schedule.json",
+ "scheduleGeneratedAt": "2026-09-19T14:35:35.286Z",
  "sampleRate": 44100,
  "scale": "absolute dBFS at the master (REC at unity since 1b.0; the chain proven in bank/reference.json)",
  "reference": "bank/reference.json",
- "standard": "K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770. REC is at unity since 1b.0, so every level is dBFS AT THE MASTER (bank/reference.json proves the chain to three decimals).",
+ "standard": "K-20; loudness ITU-R BS.1770. REC at unity since 1b.0, so every level is dBFS at the master.",
  "method": {
-  "maxMomentary": "loudest 400 ms, K-weighted (BS.1770 pre-filter) — how it speaks",
-  "integrated": "K-weighted RMS over the whole sounding note — how loud it is",
+  "maxMomentary": "loudest 400 ms, K-weighted (BS.1770 pre-filter) \u2014 how it speaks",
+  "integrated": "K-weighted RMS over the whole sounding note \u2014 how loud it is",
   "soundingS": "onset to 40 dB below the note's own peak",
-  "cents": "f0 by autocorrelation, searched within ±6 semitones of the written pitch",
-  "noiseFloorDb": -155.75,
-  "scheduleOffsetS": 1.12
+  "cents": "f0 by autocorrelation, searched within \u00b16 semitones of the written pitch",
+  "noiseFloorDb": -146.18,
+  "scheduleOffsetS": 1.18
  },
  "instruments": {
   "english_horn": {
@@ -38,7 +38,7 @@
        "integratedDb": -35.83,
        "soundingS": 4.61,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.7
       },
       "67": {
@@ -46,7 +46,7 @@
        "integratedDb": -40.46,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       },
       "74": {
@@ -54,7 +54,7 @@
        "integratedDb": -36.12,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.4
       }
      }
@@ -75,7 +75,7 @@
        "integratedDb": -30.31,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.6
       },
       "67": {
@@ -83,7 +83,7 @@
        "integratedDb": -23.46,
        "soundingS": 4.74,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "74": {
@@ -91,7 +91,7 @@
        "integratedDb": -29.18,
        "soundingS": 4.66,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1
       }
      }
@@ -112,7 +112,7 @@
        "integratedDb": -21.67,
        "soundingS": 4.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.1
       },
       "67": {
@@ -120,7 +120,7 @@
        "integratedDb": -21.35,
        "soundingS": 4.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 3.1
       },
       "74": {
@@ -128,7 +128,7 @@
        "integratedDb": -21.86,
        "soundingS": 4.42,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.5
       }
      }
@@ -149,7 +149,7 @@
        "integratedDb": -19.93,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.2
       },
       "67": {
@@ -157,7 +157,7 @@
        "integratedDb": -17.53,
        "soundingS": 4.69,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.7
       },
       "74": {
@@ -165,7 +165,7 @@
        "integratedDb": -16.11,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.2
       }
      }
@@ -205,7 +205,7 @@
        "integratedDb": -36.15,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.6
       },
       "60": {
@@ -213,7 +213,7 @@
        "integratedDb": -34.36,
        "soundingS": 4.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.4
       },
       "71": {
@@ -221,7 +221,7 @@
        "integratedDb": -39.68,
        "soundingS": 4.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.1
       }
      }
@@ -242,7 +242,7 @@
        "integratedDb": -22.27,
        "soundingS": 4.66,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.5
       },
       "60": {
@@ -250,7 +250,7 @@
        "integratedDb": -24.57,
        "soundingS": 4.66,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.4
       },
       "71": {
@@ -258,7 +258,7 @@
        "integratedDb": -29.1,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.3
       }
      }
@@ -279,7 +279,7 @@
        "integratedDb": -14.42,
        "soundingS": 4.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.4
       },
       "60": {
@@ -287,7 +287,7 @@
        "integratedDb": -13.58,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2
       },
       "71": {
@@ -295,7 +295,7 @@
        "integratedDb": -23.23,
        "soundingS": 4.57,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0
       }
      }
@@ -316,7 +316,7 @@
        "integratedDb": -15.87,
        "soundingS": 4.56,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.7
       },
       "60": {
@@ -324,7 +324,7 @@
        "integratedDb": -16.17,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.1
       },
       "71": {
@@ -332,7 +332,7 @@
        "integratedDb": -21.01,
        "soundingS": 4.57,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       }
      }
@@ -372,7 +372,7 @@
        "integratedDb": -40.14,
        "soundingS": 4.78,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.3
       },
       "48": {
@@ -380,7 +380,7 @@
        "integratedDb": -42.02,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.9
       },
       "57": {
@@ -388,7 +388,7 @@
        "integratedDb": -40.56,
        "soundingS": 4.57,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.9
       }
      }
@@ -409,7 +409,7 @@
        "integratedDb": -32.76,
        "soundingS": 4.87,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.2
       },
       "48": {
@@ -417,7 +417,7 @@
        "integratedDb": -29.06,
        "soundingS": 4.48,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.1
       },
       "57": {
@@ -425,13 +425,13 @@
        "integratedDb": -35.09,
        "soundingS": 4.73,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.2
       }
      }
     },
     "100": {
-     "maxMomentaryDb": -24,
+     "maxMomentaryDb": -24.0,
      "integratedDb": -25.89,
      "soundingS": 4.82,
      "nPerPitch": {
@@ -446,7 +446,7 @@
        "integratedDb": -23.96,
        "soundingS": 4.98,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "48": {
@@ -454,7 +454,7 @@
        "integratedDb": -26.87,
        "soundingS": 4.67,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.3
       },
       "57": {
@@ -462,7 +462,7 @@
        "integratedDb": -26.85,
        "soundingS": 4.81,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1
       }
      }
@@ -483,7 +483,7 @@
        "integratedDb": -22.79,
        "soundingS": 4.75,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.7
       },
       "48": {
@@ -491,7 +491,7 @@
        "integratedDb": -23.77,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       },
       "57": {
@@ -499,7 +499,7 @@
        "integratedDb": -24.31,
        "soundingS": 4.67,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.4
       }
      }
@@ -526,7 +526,7 @@
     "64": {
      "maxMomentaryDb": -40.55,
      "integratedDb": -46.85,
-     "soundingS": 2,
+     "soundingS": 2.0,
      "nPerPitch": {
       "36": 1,
       "38": 1
@@ -538,15 +538,15 @@
        "integratedDb": -46.21,
        "soundingS": 1.99,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "38": {
        "maxMomentaryDb": -41.4,
        "integratedDb": -47.49,
-       "soundingS": 2,
+       "soundingS": 2.0,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -566,7 +566,7 @@
        "integratedDb": -27.59,
        "soundingS": 1.27,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "38": {
@@ -574,7 +574,7 @@
        "integratedDb": -27.32,
        "soundingS": 1.55,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -606,7 +606,7 @@
        "integratedDb": -52.43,
        "soundingS": 2.18,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "41": {
@@ -614,7 +614,7 @@
        "integratedDb": -47.49,
        "soundingS": 2.32,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "45": {
@@ -622,7 +622,7 @@
        "integratedDb": -49.58,
        "soundingS": 2.74,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -643,7 +643,7 @@
        "integratedDb": -26.27,
        "soundingS": 2.19,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "41": {
@@ -651,7 +651,7 @@
        "integratedDb": -20.46,
        "soundingS": 2.06,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "45": {
@@ -659,7 +659,7 @@
        "integratedDb": -26.79,
        "soundingS": 3.55,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -691,7 +691,7 @@
        "integratedDb": -26.15,
        "soundingS": 1.4,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -699,7 +699,7 @@
        "integratedDb": -36.28,
        "soundingS": 0.73,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -707,7 +707,7 @@
        "integratedDb": -36.28,
        "soundingS": 0.73,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -728,7 +728,7 @@
        "integratedDb": -6.34,
        "soundingS": 0.79,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -736,7 +736,7 @@
        "integratedDb": -17.21,
        "soundingS": 0.85,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -744,7 +744,7 @@
        "integratedDb": -17.21,
        "soundingS": 0.85,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -776,7 +776,7 @@
        "integratedDb": -50.1,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -784,7 +784,7 @@
        "integratedDb": -51.43,
        "soundingS": 3.52,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -792,7 +792,7 @@
        "integratedDb": -51.12,
        "soundingS": 3.52,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -813,7 +813,7 @@
        "integratedDb": -30.02,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -821,7 +821,7 @@
        "integratedDb": -29.02,
        "soundingS": 2.87,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -829,7 +829,7 @@
        "integratedDb": -29.04,
        "soundingS": 2.89,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -858,10 +858,10 @@
      "perPitch": {
       "36": {
        "maxMomentaryDb": -45.49,
-       "integratedDb": -47,
+       "integratedDb": -47.0,
        "soundingS": 0.57,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -869,7 +869,7 @@
        "integratedDb": -39.11,
        "soundingS": 0.62,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "55": {
@@ -877,7 +877,7 @@
        "integratedDb": -42.04,
        "soundingS": 0.55,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -898,7 +898,7 @@
        "integratedDb": -28.35,
        "soundingS": 0.5,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -906,7 +906,7 @@
        "integratedDb": -19.85,
        "soundingS": 0.57,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "55": {
@@ -914,7 +914,7 @@
        "integratedDb": -23.73,
        "soundingS": 0.54,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -946,7 +946,7 @@
        "integratedDb": -45.92,
        "soundingS": 0.77,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -954,7 +954,7 @@
        "integratedDb": -47.02,
        "soundingS": 0.81,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -962,7 +962,7 @@
        "integratedDb": -47.05,
        "soundingS": 0.81,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -983,7 +983,7 @@
        "integratedDb": -26.42,
        "soundingS": 0.67,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -991,7 +991,7 @@
        "integratedDb": -26.44,
        "soundingS": 0.74,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -999,7 +999,7 @@
        "integratedDb": -27.2,
        "soundingS": 0.79,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1031,7 +1031,7 @@
        "integratedDb": -61.26,
        "soundingS": 0.72,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "41": {
@@ -1039,7 +1039,7 @@
        "integratedDb": -62.68,
        "soundingS": 0.91,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "45": {
@@ -1047,7 +1047,7 @@
        "integratedDb": -54.86,
        "soundingS": 0.75,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1068,7 +1068,7 @@
        "integratedDb": -22.43,
        "soundingS": 0.59,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "41": {
@@ -1076,7 +1076,7 @@
        "integratedDb": -24.82,
        "soundingS": 0.92,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "45": {
@@ -1084,7 +1084,7 @@
        "integratedDb": -27.66,
        "soundingS": 0.84,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1116,7 +1116,7 @@
        "integratedDb": -44.52,
        "soundingS": 0.27,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1124,7 +1124,7 @@
        "integratedDb": -36.42,
        "soundingS": 0.25,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "49": {
@@ -1132,7 +1132,7 @@
        "integratedDb": -37.19,
        "soundingS": 0.27,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1153,7 +1153,7 @@
        "integratedDb": -28.36,
        "soundingS": 0.3,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1161,7 +1161,7 @@
        "integratedDb": -22.71,
        "soundingS": 0.31,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "49": {
@@ -1169,7 +1169,7 @@
        "integratedDb": -24.66,
        "soundingS": 0.38,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1201,7 +1201,7 @@
        "integratedDb": -34.31,
        "soundingS": 0.74,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "39": {
@@ -1209,7 +1209,7 @@
        "integratedDb": -36.91,
        "soundingS": 0.48,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "43": {
@@ -1217,7 +1217,7 @@
        "integratedDb": -37.22,
        "soundingS": 0.72,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1238,7 +1238,7 @@
        "integratedDb": -22.4,
        "soundingS": 0.68,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "39": {
@@ -1246,7 +1246,7 @@
        "integratedDb": -26.18,
        "soundingS": 0.5,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "43": {
@@ -1254,7 +1254,7 @@
        "integratedDb": -24.31,
        "soundingS": 0.63,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1286,7 +1286,7 @@
        "integratedDb": -35.82,
        "soundingS": 0.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "43": {
@@ -1294,7 +1294,7 @@
        "integratedDb": -35.24,
        "soundingS": 0.76,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -1302,7 +1302,7 @@
        "integratedDb": -35.83,
        "soundingS": 0.66,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1323,7 +1323,7 @@
        "integratedDb": -25.55,
        "soundingS": 0.54,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "43": {
@@ -1331,7 +1331,7 @@
        "integratedDb": -22.09,
        "soundingS": 0.7,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "50": {
@@ -1339,7 +1339,7 @@
        "integratedDb": -25.61,
        "soundingS": 0.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1371,7 +1371,7 @@
        "integratedDb": -38.51,
        "soundingS": 0.81,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1379,7 +1379,7 @@
        "integratedDb": -37.8,
        "soundingS": 0.97,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "56": {
@@ -1387,7 +1387,7 @@
        "integratedDb": -39.84,
        "soundingS": 1.01,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1408,7 +1408,7 @@
        "integratedDb": -26.12,
        "soundingS": 0.96,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1416,15 +1416,15 @@
        "integratedDb": -24.73,
        "soundingS": 0.77,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "56": {
        "maxMomentaryDb": -25.87,
        "integratedDb": -29.7,
-       "soundingS": 1,
+       "soundingS": 1.0,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1456,7 +1456,7 @@
        "integratedDb": -46.12,
        "soundingS": 2.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1464,7 +1464,7 @@
        "integratedDb": -54.2,
        "soundingS": 2.37,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "55": {
@@ -1472,7 +1472,7 @@
        "integratedDb": -40.36,
        "soundingS": 0.86,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1493,7 +1493,7 @@
        "integratedDb": -26.29,
        "soundingS": 1.45,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1501,7 +1501,7 @@
        "integratedDb": -26.05,
        "soundingS": 1.36,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "55": {
@@ -1509,7 +1509,7 @@
        "integratedDb": -27.29,
        "soundingS": 0.87,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1541,7 +1541,7 @@
        "integratedDb": -36.79,
        "soundingS": 3.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1549,7 +1549,7 @@
        "integratedDb": -40.89,
        "soundingS": 1.78,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "56": {
@@ -1557,7 +1557,7 @@
        "integratedDb": -43.66,
        "soundingS": 1.51,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1578,7 +1578,7 @@
        "integratedDb": -24.19,
        "soundingS": 3.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "48": {
@@ -1586,7 +1586,7 @@
        "integratedDb": -25.62,
        "soundingS": 0.84,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "56": {
@@ -1594,7 +1594,7 @@
        "integratedDb": -28.63,
        "soundingS": 0.61,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1625,7 +1625,7 @@
        "integratedDb": -44.39,
        "soundingS": 3.65,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "38": {
@@ -1633,7 +1633,7 @@
        "integratedDb": -44.94,
        "soundingS": 4.74,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1653,7 +1653,7 @@
        "integratedDb": -26.98,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       },
       "38": {
@@ -1661,7 +1661,7 @@
        "integratedDb": -26.97,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -1670,199 +1670,6 @@
    "compare0d": {
     "anchorDb": -61.11,
     "fullDb": -42.31,
-    "expectedOffsetDb": 12
-   }
-  },
-  "bowed_vibraphone": {
-   "label": "Vibraphone",
-   "port": "LGVibes",
-   "byVelocity": {
-    "64": {
-     "maxMomentaryDb": -25.58,
-     "integratedDb": -29.84,
-     "soundingS": 4.62,
-     "nPerPitch": {
-      "53": 1,
-      "58": 1,
-      "62": 1,
-      "67": 1,
-      "71": 1,
-      "76": 1,
-      "80": 1,
-      "85": 1,
-      "89": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "53": {
-       "maxMomentaryDb": -23.03,
-       "integratedDb": -26.7,
-       "soundingS": 4.72,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7
-      },
-      "58": {
-       "maxMomentaryDb": -28.52,
-       "integratedDb": -31.51,
-       "soundingS": 4.67,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7.1
-      },
-      "62": {
-       "maxMomentaryDb": -27.29,
-       "integratedDb": -30.9,
-       "soundingS": 4.7,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 4.2
-      },
-      "67": {
-       "maxMomentaryDb": -24.9,
-       "integratedDb": -28.52,
-       "soundingS": 4.62,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 5.9
-      },
-      "71": {
-       "maxMomentaryDb": -34.25,
-       "integratedDb": -39.17,
-       "soundingS": 4.59,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7.3
-      },
-      "76": {
-       "maxMomentaryDb": -31.82,
-       "integratedDb": -35.75,
-       "soundingS": 4.74,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7.3
-      },
-      "80": {
-       "maxMomentaryDb": -18.86,
-       "integratedDb": -23.79,
-       "soundingS": 4.6,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 5.6
-      },
-      "85": {
-       "maxMomentaryDb": -20.45,
-       "integratedDb": -26.22,
-       "soundingS": 4.43,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 6.2
-      },
-      "89": {
-       "maxMomentaryDb": -21.11,
-       "integratedDb": -26,
-       "soundingS": 4.54,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 5.9
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -11.81,
-     "integratedDb": -15.92,
-     "soundingS": 4.63,
-     "nPerPitch": {
-      "53": 1,
-      "58": 1,
-      "62": 1,
-      "67": 1,
-      "71": 1,
-      "76": 1,
-      "80": 1,
-      "85": 1,
-      "89": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "53": {
-       "maxMomentaryDb": -9.31,
-       "integratedDb": -12.81,
-       "soundingS": 4.73,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7
-      },
-      "58": {
-       "maxMomentaryDb": -14.46,
-       "integratedDb": -17.42,
-       "soundingS": 4.67,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 6.5
-      },
-      "62": {
-       "maxMomentaryDb": -13.58,
-       "integratedDb": -16.97,
-       "soundingS": 4.71,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 4.3
-      },
-      "67": {
-       "maxMomentaryDb": -11.07,
-       "integratedDb": -14.58,
-       "soundingS": 4.63,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 5.8
-      },
-      "71": {
-       "maxMomentaryDb": -20.7,
-       "integratedDb": -25.34,
-       "soundingS": 4.61,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7.3
-      },
-      "76": {
-       "maxMomentaryDb": -18.01,
-       "integratedDb": -21.79,
-       "soundingS": 4.76,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 7.3
-      },
-      "80": {
-       "maxMomentaryDb": -5.19,
-       "integratedDb": -9.94,
-       "soundingS": 4.61,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 5.6
-      },
-      "85": {
-       "maxMomentaryDb": -6.68,
-       "integratedDb": -12.32,
-       "soundingS": 4.44,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 6.2
-      },
-      "89": {
-       "maxMomentaryDb": -7.32,
-       "integratedDb": -12.1,
-       "soundingS": 4.55,
-       "n": 1,
-       "spreadDb": 0,
-       "centsOffWritten": 5.9
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -48.84,
-    "fullDb": -35.19,
     "expectedOffsetDb": 12
    }
   },
@@ -1886,7 +1693,7 @@
        "integratedDb": -64.15,
        "soundingS": 4.42,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.6
       },
       "55": {
@@ -1894,7 +1701,7 @@
        "integratedDb": -62.3,
        "soundingS": 4.4,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "65": {
@@ -1902,7 +1709,7 @@
        "integratedDb": -64.75,
        "soundingS": 4.44,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       }
      }
@@ -1923,7 +1730,7 @@
        "integratedDb": -45.28,
        "soundingS": 4.38,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "55": {
@@ -1931,7 +1738,7 @@
        "integratedDb": -41.78,
        "soundingS": 4.4,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.9
       },
       "65": {
@@ -1939,7 +1746,7 @@
        "integratedDb": -45.47,
        "soundingS": 4.49,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.6
       }
      }
@@ -1960,7 +1767,7 @@
        "integratedDb": -37.49,
        "soundingS": 4.37,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "55": {
@@ -1968,7 +1775,7 @@
        "integratedDb": -33.99,
        "soundingS": 4.4,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.9
       },
       "65": {
@@ -1976,7 +1783,7 @@
        "integratedDb": -37.66,
        "soundingS": 4.48,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.6
       }
      }
@@ -1997,7 +1804,7 @@
        "integratedDb": -32.29,
        "soundingS": 4.39,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.8
       },
       "55": {
@@ -2005,7 +1812,7 @@
        "integratedDb": -30.75,
        "soundingS": 4.39,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "65": {
@@ -2013,7 +1820,7 @@
        "integratedDb": -32.47,
        "soundingS": 4.46,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.3
       }
      }
@@ -2053,7 +1860,7 @@
        "integratedDb": -60.07,
        "soundingS": 4.37,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.1
       },
       "50": {
@@ -2061,7 +1868,7 @@
        "integratedDb": -58.4,
        "soundingS": 4.37,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.9
       },
       "58": {
@@ -2069,7 +1876,7 @@
        "integratedDb": -56.35,
        "soundingS": 4.46,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.3
       }
      }
@@ -2090,7 +1897,7 @@
        "integratedDb": -42.76,
        "soundingS": 4.34,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.2
       },
       "50": {
@@ -2098,7 +1905,7 @@
        "integratedDb": -38.85,
        "soundingS": 4.43,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.7
       },
       "58": {
@@ -2106,7 +1913,7 @@
        "integratedDb": -39.27,
        "soundingS": 4.46,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0
       }
      }
@@ -2127,7 +1934,7 @@
        "integratedDb": -34.98,
        "soundingS": 4.36,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.2
       },
       "50": {
@@ -2135,7 +1942,7 @@
        "integratedDb": -31.08,
        "soundingS": 4.43,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.7
       },
       "58": {
@@ -2143,7 +1950,7 @@
        "integratedDb": -31.48,
        "soundingS": 4.44,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0
       }
      }
@@ -2164,7 +1971,7 @@
        "integratedDb": -34.28,
        "soundingS": 4.21,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.7
       },
       "50": {
@@ -2172,7 +1979,7 @@
        "integratedDb": -30.79,
        "soundingS": 4.33,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.9
       },
       "58": {
@@ -2180,7 +1987,7 @@
        "integratedDb": -30.44,
        "soundingS": 4.42,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -3.2
       }
      }
@@ -2220,7 +2027,7 @@
        "integratedDb": -57.16,
        "soundingS": 4.36,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "68": {
@@ -2228,7 +2035,7 @@
        "integratedDb": -55.15,
        "soundingS": 4.39,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1
       },
       "75": {
@@ -2236,7 +2043,7 @@
        "integratedDb": -53.62,
        "soundingS": 4.45,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.2
       }
      }
@@ -2257,7 +2064,7 @@
        "integratedDb": -39.52,
        "soundingS": 4.25,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.6
       },
       "68": {
@@ -2265,7 +2072,7 @@
        "integratedDb": -37.14,
        "soundingS": 4.36,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.2
       },
       "75": {
@@ -2273,7 +2080,7 @@
        "integratedDb": -35.51,
        "soundingS": 4.43,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       }
      }
@@ -2294,7 +2101,7 @@
        "integratedDb": -31.66,
        "soundingS": 4.25,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.6
       },
       "68": {
@@ -2302,7 +2109,7 @@
        "integratedDb": -29.3,
        "soundingS": 4.36,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.2
       },
       "75": {
@@ -2310,7 +2117,7 @@
        "integratedDb": -27.66,
        "soundingS": 4.42,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       }
      }
@@ -2331,7 +2138,7 @@
        "integratedDb": -34.25,
        "soundingS": 4.06,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.8
       },
       "68": {
@@ -2339,7 +2146,7 @@
        "integratedDb": -33.15,
        "soundingS": 4.07,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": 2.8
       },
       "75": {
@@ -2347,7 +2154,7 @@
        "integratedDb": -28.11,
        "soundingS": 4.21,
        "n": 1,
-       "spreadDb": 0,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.4
       }
      }
@@ -2365,6 +2172,381 @@
     "rangeSt": 1.996,
     "unbentCents": -0.2,
     "bentCents": 99.6
+   }
+  },
+  "bowed_vibraphone": {
+   "label": "Vibraphone",
+   "port": "LGVibes",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -56.4,
+     "integratedDb": -60.75,
+     "soundingS": 4.61,
+     "nPerPitch": {
+      "53": 1,
+      "58": 1,
+      "62": 1,
+      "67": 1,
+      "71": 1,
+      "76": 1,
+      "80": 1,
+      "85": 1,
+      "89": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "53": {
+       "maxMomentaryDb": -53.84,
+       "integratedDb": -57.59,
+       "soundingS": 4.7,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.0
+      },
+      "58": {
+       "maxMomentaryDb": -59.55,
+       "integratedDb": -62.49,
+       "soundingS": 4.63,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.8
+      },
+      "62": {
+       "maxMomentaryDb": -58.07,
+       "integratedDb": -61.8,
+       "soundingS": 4.67,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 4.2
+      },
+      "67": {
+       "maxMomentaryDb": -55.76,
+       "integratedDb": -59.44,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.8
+      },
+      "71": {
+       "maxMomentaryDb": -64.92,
+       "integratedDb": -70.04,
+       "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "76": {
+       "maxMomentaryDb": -62.67,
+       "integratedDb": -66.69,
+       "soundingS": 4.73,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "80": {
+       "maxMomentaryDb": -49.61,
+       "integratedDb": -54.66,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.6
+      },
+      "85": {
+       "maxMomentaryDb": -51.27,
+       "integratedDb": -57.13,
+       "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.3
+      },
+      "89": {
+       "maxMomentaryDb": -51.95,
+       "integratedDb": -56.89,
+       "soundingS": 4.52,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.9
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -41.5,
+     "integratedDb": -45.75,
+     "soundingS": 4.61,
+     "nPerPitch": {
+      "53": 1,
+      "58": 1,
+      "62": 1,
+      "67": 1,
+      "71": 1,
+      "76": 1,
+      "80": 1,
+      "85": 1,
+      "89": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "53": {
+       "maxMomentaryDb": -38.96,
+       "integratedDb": -42.61,
+       "soundingS": 4.7,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.0
+      },
+      "58": {
+       "maxMomentaryDb": -44.44,
+       "integratedDb": -47.39,
+       "soundingS": 4.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.3
+      },
+      "62": {
+       "maxMomentaryDb": -43.21,
+       "integratedDb": -46.8,
+       "soundingS": 4.68,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 4.3
+      },
+      "67": {
+       "maxMomentaryDb": -40.82,
+       "integratedDb": -44.43,
+       "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.8
+      },
+      "71": {
+       "maxMomentaryDb": -50.17,
+       "integratedDb": -55.1,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "76": {
+       "maxMomentaryDb": -47.74,
+       "integratedDb": -51.67,
+       "soundingS": 4.74,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.4
+      },
+      "80": {
+       "maxMomentaryDb": -34.78,
+       "integratedDb": -39.69,
+       "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.6
+      },
+      "85": {
+       "maxMomentaryDb": -36.36,
+       "integratedDb": -42.14,
+       "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.2
+      },
+      "89": {
+       "maxMomentaryDb": -37.03,
+       "integratedDb": -41.92,
+       "soundingS": 4.54,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.9
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -32.8,
+     "integratedDb": -36.97,
+     "soundingS": 4.63,
+     "nPerPitch": {
+      "53": 1,
+      "58": 1,
+      "62": 1,
+      "67": 1,
+      "71": 1,
+      "76": 1,
+      "80": 1,
+      "85": 1,
+      "89": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "53": {
+       "maxMomentaryDb": -30.27,
+       "integratedDb": -33.85,
+       "soundingS": 4.72,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.0
+      },
+      "58": {
+       "maxMomentaryDb": -35.56,
+       "integratedDb": -38.55,
+       "soundingS": 4.68,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.7
+      },
+      "62": {
+       "maxMomentaryDb": -34.54,
+       "integratedDb": -38.02,
+       "soundingS": 4.69,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 4.3
+      },
+      "67": {
+       "maxMomentaryDb": -32.08,
+       "integratedDb": -35.64,
+       "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.9
+      },
+      "71": {
+       "maxMomentaryDb": -41.6,
+       "integratedDb": -46.35,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "76": {
+       "maxMomentaryDb": -39.01,
+       "integratedDb": -42.86,
+       "soundingS": 4.76,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "80": {
+       "maxMomentaryDb": -26.14,
+       "integratedDb": -30.95,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.6
+      },
+      "85": {
+       "maxMomentaryDb": -27.67,
+       "integratedDb": -33.36,
+       "soundingS": 4.44,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.2
+      },
+      "89": {
+       "maxMomentaryDb": -28.32,
+       "integratedDb": -33.15,
+       "soundingS": 4.55,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.9
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -27.73,
+     "integratedDb": -31.84,
+     "soundingS": 4.63,
+     "nPerPitch": {
+      "53": 1,
+      "58": 1,
+      "62": 1,
+      "67": 1,
+      "71": 1,
+      "76": 1,
+      "80": 1,
+      "85": 1,
+      "89": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "53": {
+       "maxMomentaryDb": -25.23,
+       "integratedDb": -28.73,
+       "soundingS": 4.73,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.0
+      },
+      "58": {
+       "maxMomentaryDb": -30.37,
+       "integratedDb": -33.36,
+       "soundingS": 4.68,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.7
+      },
+      "62": {
+       "maxMomentaryDb": -29.5,
+       "integratedDb": -32.89,
+       "soundingS": 4.71,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 4.3
+      },
+      "67": {
+       "maxMomentaryDb": -26.99,
+       "integratedDb": -30.5,
+       "soundingS": 4.63,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.8
+      },
+      "71": {
+       "maxMomentaryDb": -36.62,
+       "integratedDb": -41.27,
+       "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "76": {
+       "maxMomentaryDb": -33.93,
+       "integratedDb": -37.71,
+       "soundingS": 4.75,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "80": {
+       "maxMomentaryDb": -21.11,
+       "integratedDb": -25.85,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.6
+      },
+      "85": {
+       "maxMomentaryDb": -22.6,
+       "integratedDb": -28.24,
+       "soundingS": 4.44,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.2
+      },
+      "89": {
+       "maxMomentaryDb": -23.24,
+       "integratedDb": -28.03,
+       "soundingS": 4.55,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.9
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -48.84,
+    "fullDb": -35.19,
+    "expectedOffsetDb": 12
    }
   }
  },
@@ -4835,402 +5017,6 @@
    "run": "30-REC-260919_0833.wav"
   },
   {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 53,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 5.61,
-   "maxMomentaryDb": -23.03,
-   "maxMomentaryFlatDb": -22.69,
-   "integratedDb": -26.7,
-   "peakDbfs": -18.63,
-   "soundingS": 4.72,
-   "f0Hz": 174.285,
-   "centsOffWritten": 7,
-   "centsByAutocorrelation": -3.3,
-   "centsBySpectralPeak": 7,
-   "spectralPeakStrength": 349.27,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 53,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 13.61,
-   "maxMomentaryDb": -9.31,
-   "maxMomentaryFlatDb": -8.97,
-   "integratedDb": -12.81,
-   "peakDbfs": -4.96,
-   "soundingS": 4.73,
-   "f0Hz": 174.274,
-   "centsOffWritten": 7,
-   "centsByAutocorrelation": -3.4,
-   "centsBySpectralPeak": 7,
-   "spectralPeakStrength": 351.79,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 58,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 21.61,
-   "maxMomentaryDb": -28.52,
-   "maxMomentaryFlatDb": -28.35,
-   "integratedDb": -31.51,
-   "peakDbfs": -23.45,
-   "soundingS": 4.67,
-   "f0Hz": 243.413,
-   "centsOffWritten": 7.1,
-   "centsByAutocorrelation": 75.1,
-   "centsBySpectralPeak": 7.1,
-   "spectralPeakStrength": 237.47,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 58,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 29.61,
-   "maxMomentaryDb": -14.46,
-   "maxMomentaryFlatDb": -14.29,
-   "integratedDb": -17.42,
-   "peakDbfs": -9.53,
-   "soundingS": 4.67,
-   "f0Hz": 243.428,
-   "centsOffWritten": 6.5,
-   "centsByAutocorrelation": 75.2,
-   "centsBySpectralPeak": 6.5,
-   "spectralPeakStrength": 235.64,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 62,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 37.61,
-   "maxMomentaryDb": -27.29,
-   "maxMomentaryFlatDb": -27.24,
-   "integratedDb": -30.9,
-   "peakDbfs": -21.9,
-   "soundingS": 4.7,
-   "f0Hz": 295.39,
-   "centsOffWritten": 4.2,
-   "centsByAutocorrelation": 10.1,
-   "centsBySpectralPeak": 4.2,
-   "spectralPeakStrength": 1115.18,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 62,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 45.62,
-   "maxMomentaryDb": -13.58,
-   "maxMomentaryFlatDb": -13.54,
-   "integratedDb": -16.97,
-   "peakDbfs": -8.03,
-   "soundingS": 4.71,
-   "f0Hz": 295.363,
-   "centsOffWritten": 4.3,
-   "centsByAutocorrelation": 10,
-   "centsBySpectralPeak": 4.3,
-   "spectralPeakStrength": 1152.83,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 67,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 53.61,
-   "maxMomentaryDb": -24.9,
-   "maxMomentaryFlatDb": -24.88,
-   "integratedDb": -28.52,
-   "peakDbfs": -21.42,
-   "soundingS": 4.62,
-   "f0Hz": 388.449,
-   "centsOffWritten": 5.9,
-   "centsByAutocorrelation": -15.7,
-   "centsBySpectralPeak": 5.9,
-   "spectralPeakStrength": 7627.59,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 67,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 61.61,
-   "maxMomentaryDb": -11.07,
-   "maxMomentaryFlatDb": -11.06,
-   "integratedDb": -14.58,
-   "peakDbfs": -7.61,
-   "soundingS": 4.63,
-   "f0Hz": 388.475,
-   "centsOffWritten": 5.8,
-   "centsByAutocorrelation": -15.6,
-   "centsBySpectralPeak": 5.8,
-   "spectralPeakStrength": 7824.31,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 71,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 69.61,
-   "maxMomentaryDb": -34.25,
-   "maxMomentaryFlatDb": -35.64,
-   "integratedDb": -39.17,
-   "peakDbfs": -26.99,
-   "soundingS": 4.59,
-   "f0Hz": 504.85,
-   "centsOffWritten": 7.3,
-   "centsByAutocorrelation": 38,
-   "centsBySpectralPeak": 7.3,
-   "spectralPeakStrength": 530.52,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 71,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 77.62,
-   "maxMomentaryDb": -20.7,
-   "maxMomentaryFlatDb": -22.08,
-   "integratedDb": -25.34,
-   "peakDbfs": -13.47,
-   "soundingS": 4.61,
-   "f0Hz": 504.814,
-   "centsOffWritten": 7.3,
-   "centsByAutocorrelation": 37.9,
-   "centsBySpectralPeak": 7.3,
-   "spectralPeakStrength": 519.44,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 76,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 85.61,
-   "maxMomentaryDb": -31.82,
-   "maxMomentaryFlatDb": -31.99,
-   "integratedDb": -35.75,
-   "peakDbfs": -27.98,
-   "soundingS": 4.74,
-   "f0Hz": 653.873,
-   "centsOffWritten": 7.3,
-   "centsByAutocorrelation": -14.2,
-   "centsBySpectralPeak": 7.3,
-   "spectralPeakStrength": 392.43,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 76,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 93.61,
-   "maxMomentaryDb": -18.01,
-   "maxMomentaryFlatDb": -18.18,
-   "integratedDb": -21.79,
-   "peakDbfs": -14.08,
-   "soundingS": 4.76,
-   "f0Hz": 653.552,
-   "centsOffWritten": 7.3,
-   "centsByAutocorrelation": -15,
-   "centsBySpectralPeak": 7.3,
-   "spectralPeakStrength": 394.42,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 80,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 101.61,
-   "maxMomentaryDb": -18.86,
-   "maxMomentaryFlatDb": -19.24,
-   "integratedDb": -23.79,
-   "peakDbfs": -15.5,
-   "soundingS": 4.6,
-   "f0Hz": 833.535,
-   "centsOffWritten": 5.6,
-   "centsByAutocorrelation": 6.1,
-   "centsBySpectralPeak": 5.6,
-   "spectralPeakStrength": 4844.55,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 80,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 109.61,
-   "maxMomentaryDb": -5.19,
-   "maxMomentaryFlatDb": -5.57,
-   "integratedDb": -9.94,
-   "peakDbfs": -1.86,
-   "soundingS": 4.61,
-   "f0Hz": 833.56,
-   "centsOffWritten": 5.6,
-   "centsByAutocorrelation": 6.1,
-   "centsBySpectralPeak": 5.6,
-   "spectralPeakStrength": 4918.25,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 85,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 117.61,
-   "maxMomentaryDb": -20.45,
-   "maxMomentaryFlatDb": -21.44,
-   "integratedDb": -26.22,
-   "peakDbfs": -17.12,
-   "soundingS": 4.43,
-   "f0Hz": 1066.107,
-   "centsOffWritten": 6.2,
-   "centsByAutocorrelation": -67.9,
-   "centsBySpectralPeak": 6.2,
-   "spectralPeakStrength": 3342.9,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 85,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 125.61,
-   "maxMomentaryDb": -6.68,
-   "maxMomentaryFlatDb": -7.68,
-   "integratedDb": -12.32,
-   "peakDbfs": -3.33,
-   "soundingS": 4.44,
-   "f0Hz": 1066.701,
-   "centsOffWritten": 6.2,
-   "centsByAutocorrelation": -66.9,
-   "centsBySpectralPeak": 6.2,
-   "spectralPeakStrength": 3435.55,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 89,
-   "vel": 64,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 133.61,
-   "maxMomentaryDb": -21.11,
-   "maxMomentaryFlatDb": -22.88,
-   "integratedDb": -26,
-   "peakDbfs": -19.35,
-   "soundingS": 4.54,
-   "f0Hz": 1395.537,
-   "centsOffWritten": 5.9,
-   "centsByAutocorrelation": -1.7,
-   "centsBySpectralPeak": 5.9,
-   "spectralPeakStrength": 1757.96,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
-   "inst": "bowed_vibraphone",
-   "label": "Vibraphone",
-   "role": "vibreg",
-   "pitch": 89,
-   "vel": 127,
-   "port": "LGVibes",
-   "ch": 1,
-   "found": true,
-   "onsetS": 141.61,
-   "maxMomentaryDb": -7.32,
-   "maxMomentaryFlatDb": -9.09,
-   "integratedDb": -12.1,
-   "peakDbfs": -5.55,
-   "soundingS": 4.55,
-   "f0Hz": 1395.757,
-   "centsOffWritten": 5.9,
-   "centsByAutocorrelation": -1.4,
-   "centsBySpectralPeak": 5.9,
-   "spectralPeakStrength": 1773.07,
-   "run": "30-REC-260919_0927.wav"
-  },
-  {
    "inst": "bassoon",
    "label": "Bassoon",
    "role": "card",
@@ -6178,7 +5964,798 @@
    "spectralPeakStrength": 3188.42,
    "bendFraction": 0.5,
    "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 53,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 5.68,
+   "maxMomentaryDb": -53.84,
+   "maxMomentaryFlatDb": -53.5,
+   "integratedDb": -57.59,
+   "peakDbfs": -49.4,
+   "soundingS": 4.7,
+   "f0Hz": 174.225,
+   "centsOffWritten": 7.0,
+   "centsByAutocorrelation": -3.9,
+   "centsBySpectralPeak": 7.0,
+   "spectralPeakStrength": 352.99,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 53,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 13.69,
+   "maxMomentaryDb": -38.96,
+   "maxMomentaryFlatDb": -38.61,
+   "integratedDb": -42.61,
+   "peakDbfs": -34.57,
+   "soundingS": 4.7,
+   "f0Hz": 174.301,
+   "centsOffWritten": 7.0,
+   "centsByAutocorrelation": -3.1,
+   "centsBySpectralPeak": 7.0,
+   "spectralPeakStrength": 361.58,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 53,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 21.68,
+   "maxMomentaryDb": -30.27,
+   "maxMomentaryFlatDb": -29.93,
+   "integratedDb": -33.85,
+   "peakDbfs": -25.91,
+   "soundingS": 4.72,
+   "f0Hz": 174.218,
+   "centsOffWritten": 7.0,
+   "centsByAutocorrelation": -3.9,
+   "centsBySpectralPeak": 7.0,
+   "spectralPeakStrength": 347.13,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 53,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 29.68,
+   "maxMomentaryDb": -25.23,
+   "maxMomentaryFlatDb": -24.88,
+   "integratedDb": -28.73,
+   "peakDbfs": -20.88,
+   "soundingS": 4.73,
+   "f0Hz": 174.247,
+   "centsOffWritten": 7.0,
+   "centsByAutocorrelation": -3.6,
+   "centsBySpectralPeak": 7.0,
+   "spectralPeakStrength": 346.61,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 58,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 37.68,
+   "maxMomentaryDb": -59.55,
+   "maxMomentaryFlatDb": -59.38,
+   "integratedDb": -62.49,
+   "peakDbfs": -54.35,
+   "soundingS": 4.63,
+   "f0Hz": 243.413,
+   "centsOffWritten": 6.8,
+   "centsByAutocorrelation": 75.1,
+   "centsBySpectralPeak": 6.8,
+   "spectralPeakStrength": 215.08,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 58,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 45.69,
+   "maxMomentaryDb": -44.44,
+   "maxMomentaryFlatDb": -44.27,
+   "integratedDb": -47.39,
+   "peakDbfs": -39.34,
+   "soundingS": 4.65,
+   "f0Hz": 243.427,
+   "centsOffWritten": 6.3,
+   "centsByAutocorrelation": 75.2,
+   "centsBySpectralPeak": 6.3,
+   "spectralPeakStrength": 245.59,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 58,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 53.68,
+   "maxMomentaryDb": -35.56,
+   "maxMomentaryFlatDb": -35.39,
+   "integratedDb": -38.55,
+   "peakDbfs": -30.57,
+   "soundingS": 4.68,
+   "f0Hz": 243.425,
+   "centsOffWritten": 6.7,
+   "centsByAutocorrelation": 75.2,
+   "centsBySpectralPeak": 6.7,
+   "spectralPeakStrength": 231.11,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 58,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 61.68,
+   "maxMomentaryDb": -30.37,
+   "maxMomentaryFlatDb": -30.2,
+   "integratedDb": -33.36,
+   "peakDbfs": -25.45,
+   "soundingS": 4.68,
+   "f0Hz": 243.426,
+   "centsOffWritten": 6.7,
+   "centsByAutocorrelation": 75.2,
+   "centsBySpectralPeak": 6.7,
+   "spectralPeakStrength": 232.35,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 62,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 69.68,
+   "maxMomentaryDb": -58.07,
+   "maxMomentaryFlatDb": -58.02,
+   "integratedDb": -61.8,
+   "peakDbfs": -52.78,
+   "soundingS": 4.67,
+   "f0Hz": 295.413,
+   "centsOffWritten": 4.2,
+   "centsByAutocorrelation": 10.3,
+   "centsBySpectralPeak": 4.2,
+   "spectralPeakStrength": 1102.63,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 62,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 77.69,
+   "maxMomentaryDb": -43.21,
+   "maxMomentaryFlatDb": -43.17,
+   "integratedDb": -46.8,
+   "peakDbfs": -37.81,
+   "soundingS": 4.68,
+   "f0Hz": 295.374,
+   "centsOffWritten": 4.3,
+   "centsByAutocorrelation": 10.0,
+   "centsBySpectralPeak": 4.3,
+   "spectralPeakStrength": 1142.61,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 62,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 85.69,
+   "maxMomentaryDb": -34.54,
+   "maxMomentaryFlatDb": -34.5,
+   "integratedDb": -38.02,
+   "peakDbfs": -29.06,
+   "soundingS": 4.69,
+   "f0Hz": 295.385,
+   "centsOffWritten": 4.3,
+   "centsByAutocorrelation": 10.1,
+   "centsBySpectralPeak": 4.3,
+   "spectralPeakStrength": 1141.23,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 62,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 93.69,
+   "maxMomentaryDb": -29.5,
+   "maxMomentaryFlatDb": -29.46,
+   "integratedDb": -32.89,
+   "peakDbfs": -23.95,
+   "soundingS": 4.71,
+   "f0Hz": 295.364,
+   "centsOffWritten": 4.3,
+   "centsByAutocorrelation": 10.0,
+   "centsBySpectralPeak": 4.3,
+   "spectralPeakStrength": 1153.15,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 67,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 101.69,
+   "maxMomentaryDb": -55.76,
+   "maxMomentaryFlatDb": -55.75,
+   "integratedDb": -59.44,
+   "peakDbfs": -52.26,
+   "soundingS": 4.6,
+   "f0Hz": 388.458,
+   "centsOffWritten": 5.8,
+   "centsByAutocorrelation": -15.7,
+   "centsBySpectralPeak": 5.8,
+   "spectralPeakStrength": 7543.16,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 67,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 109.68,
+   "maxMomentaryDb": -40.82,
+   "maxMomentaryFlatDb": -40.8,
+   "integratedDb": -44.43,
+   "peakDbfs": -37.33,
+   "soundingS": 4.62,
+   "f0Hz": 388.41,
+   "centsOffWritten": 5.8,
+   "centsByAutocorrelation": -15.9,
+   "centsBySpectralPeak": 5.8,
+   "spectralPeakStrength": 7774.57,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 67,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 117.68,
+   "maxMomentaryDb": -32.08,
+   "maxMomentaryFlatDb": -32.06,
+   "integratedDb": -35.64,
+   "peakDbfs": -28.61,
+   "soundingS": 4.62,
+   "f0Hz": 388.455,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": -15.7,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 7695.69,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 67,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 125.68,
+   "maxMomentaryDb": -26.99,
+   "maxMomentaryFlatDb": -26.98,
+   "integratedDb": -30.5,
+   "peakDbfs": -23.53,
+   "soundingS": 4.63,
+   "f0Hz": 388.472,
+   "centsOffWritten": 5.8,
+   "centsByAutocorrelation": -15.6,
+   "centsBySpectralPeak": 5.8,
+   "spectralPeakStrength": 7695.72,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 71,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 133.68,
+   "maxMomentaryDb": -64.92,
+   "maxMomentaryFlatDb": -66.32,
+   "integratedDb": -70.04,
+   "peakDbfs": -57.64,
+   "soundingS": 4.59,
+   "f0Hz": 504.846,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 38.0,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 525.58,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 71,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 141.68,
+   "maxMomentaryDb": -50.17,
+   "maxMomentaryFlatDb": -51.56,
+   "integratedDb": -55.1,
+   "peakDbfs": -42.91,
+   "soundingS": 4.6,
+   "f0Hz": 504.867,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 38.1,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 515.84,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 71,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 149.68,
+   "maxMomentaryDb": -41.6,
+   "maxMomentaryFlatDb": -42.98,
+   "integratedDb": -46.35,
+   "peakDbfs": -34.35,
+   "soundingS": 4.6,
+   "f0Hz": 504.856,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 38.0,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 518.42,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 157.68,
+   "maxMomentaryDb": -36.62,
+   "maxMomentaryFlatDb": -38.0,
+   "integratedDb": -41.27,
+   "peakDbfs": -29.38,
+   "soundingS": 4.62,
+   "f0Hz": 504.861,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 38.1,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 520.09,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 76,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 165.68,
+   "maxMomentaryDb": -62.67,
+   "maxMomentaryFlatDb": -62.84,
+   "integratedDb": -66.69,
+   "peakDbfs": -58.83,
+   "soundingS": 4.73,
+   "f0Hz": 653.942,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": -14.0,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 411.5,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 76,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 173.68,
+   "maxMomentaryDb": -47.74,
+   "maxMomentaryFlatDb": -47.91,
+   "integratedDb": -51.67,
+   "peakDbfs": -43.81,
+   "soundingS": 4.74,
+   "f0Hz": 653.597,
+   "centsOffWritten": 7.4,
+   "centsByAutocorrelation": -14.9,
+   "centsBySpectralPeak": 7.4,
+   "spectralPeakStrength": 380.17,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 76,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 181.68,
+   "maxMomentaryDb": -39.01,
+   "maxMomentaryFlatDb": -39.19,
+   "integratedDb": -42.86,
+   "peakDbfs": -35.09,
+   "soundingS": 4.76,
+   "f0Hz": 653.526,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": -15.1,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 387.98,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 76,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 189.68,
+   "maxMomentaryDb": -33.93,
+   "maxMomentaryFlatDb": -34.1,
+   "integratedDb": -37.71,
+   "peakDbfs": -30.0,
+   "soundingS": 4.75,
+   "f0Hz": 653.545,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": -15.1,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 379.79,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 80,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 197.68,
+   "maxMomentaryDb": -49.61,
+   "maxMomentaryFlatDb": -49.99,
+   "integratedDb": -54.66,
+   "peakDbfs": -46.25,
+   "soundingS": 4.58,
+   "f0Hz": 833.533,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.1,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 4922.18,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 80,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 205.69,
+   "maxMomentaryDb": -34.78,
+   "maxMomentaryFlatDb": -35.16,
+   "integratedDb": -39.69,
+   "peakDbfs": -31.43,
+   "soundingS": 4.57,
+   "f0Hz": 833.558,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.1,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 4940.95,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 80,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 213.68,
+   "maxMomentaryDb": -26.14,
+   "maxMomentaryFlatDb": -26.52,
+   "integratedDb": -30.95,
+   "peakDbfs": -22.8,
+   "soundingS": 4.6,
+   "f0Hz": 833.563,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.1,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 5002.54,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 80,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 221.68,
+   "maxMomentaryDb": -21.11,
+   "maxMomentaryFlatDb": -21.49,
+   "integratedDb": -25.85,
+   "peakDbfs": -17.78,
+   "soundingS": 4.6,
+   "f0Hz": 833.617,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.3,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 4585.46,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 85,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 229.68,
+   "maxMomentaryDb": -51.27,
+   "maxMomentaryFlatDb": -52.26,
+   "integratedDb": -57.13,
+   "peakDbfs": -47.95,
+   "soundingS": 4.43,
+   "f0Hz": 1066.967,
+   "centsOffWritten": 6.3,
+   "centsByAutocorrelation": -66.5,
+   "centsBySpectralPeak": 6.3,
+   "spectralPeakStrength": 3581.78,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 85,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 237.68,
+   "maxMomentaryDb": -36.36,
+   "maxMomentaryFlatDb": -37.36,
+   "integratedDb": -42.14,
+   "peakDbfs": -33.03,
+   "soundingS": 4.43,
+   "f0Hz": 1065.822,
+   "centsOffWritten": 6.2,
+   "centsByAutocorrelation": -68.3,
+   "centsBySpectralPeak": 6.2,
+   "spectralPeakStrength": 3336.11,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 85,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 245.68,
+   "maxMomentaryDb": -27.67,
+   "maxMomentaryFlatDb": -28.66,
+   "integratedDb": -33.36,
+   "peakDbfs": -24.32,
+   "soundingS": 4.44,
+   "f0Hz": 1066.553,
+   "centsOffWritten": 6.2,
+   "centsByAutocorrelation": -67.1,
+   "centsBySpectralPeak": 6.2,
+   "spectralPeakStrength": 3450.37,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 85,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 253.68,
+   "maxMomentaryDb": -22.6,
+   "maxMomentaryFlatDb": -23.59,
+   "integratedDb": -28.24,
+   "peakDbfs": -19.25,
+   "soundingS": 4.44,
+   "f0Hz": 1066.583,
+   "centsOffWritten": 6.2,
+   "centsByAutocorrelation": -67.1,
+   "centsBySpectralPeak": 6.2,
+   "spectralPeakStrength": 3425.56,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 89,
+   "vel": 24,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 261.68,
+   "maxMomentaryDb": -51.95,
+   "maxMomentaryFlatDb": -53.72,
+   "integratedDb": -56.89,
+   "peakDbfs": -50.2,
+   "soundingS": 4.52,
+   "f0Hz": 1395.888,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": -1.3,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 1788.05,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 89,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 269.68,
+   "maxMomentaryDb": -37.03,
+   "maxMomentaryFlatDb": -38.8,
+   "integratedDb": -41.92,
+   "peakDbfs": -35.27,
+   "soundingS": 4.54,
+   "f0Hz": 1395.724,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": -1.5,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 1749.97,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 89,
+   "vel": 100,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 277.68,
+   "maxMomentaryDb": -28.32,
+   "maxMomentaryFlatDb": -30.09,
+   "integratedDb": -33.15,
+   "peakDbfs": -26.55,
+   "soundingS": 4.55,
+   "f0Hz": 1395.861,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": -1.3,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 1778.41,
+   "run": "30-REC-260919_1035.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 89,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 2,
+   "found": true,
+   "onsetS": 285.68,
+   "maxMomentaryDb": -23.24,
+   "maxMomentaryFlatDb": -25.01,
+   "integratedDb": -28.03,
+   "peakDbfs": -21.47,
+   "soundingS": 4.55,
+   "f0Hz": 1395.75,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": -1.4,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 1758.23,
+   "run": "30-REC-260919_1035.wav"
   }
- ],
- "scaleNote": "MIXED PROVENANCE, deliberately (PLAN 1b.4, RUNNING_LOG §85). The bassoon, horn and trumpet rows were measured on their CURVE CHANNELS after the 1b.3 trims and after the UVI Dynamic Amount was set to 1.00 on those parts - they describe exactly what the piece plays. The english horn, cello, double bass, vibraphone and percussion rows predate the trims and were taken on main channel 1; a per-pitch comparison (§85) showed their curve channels behave identically once the trim is accounted for, residuals 0.0 to 0.4 dB on the deterministic vibraphone and within their known round-robin scatter on the rest. So every instrument's velocity-curve SHAPE is valid; only the absolute offset of those five is one trim out, and bank/trims.json carries each deltaDb. The remap normalises per instrument, so it is immune to that offset."
+ ]
 }

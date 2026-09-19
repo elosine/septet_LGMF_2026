@@ -48,6 +48,10 @@ const CCS = (arg('cc', '') || '').split(',').filter(Boolean).map(s => {
     if (!Number.isFinite(cc) || !Number.isFinite(val)) throw new Error('--cc wants "number:number", got ' + s);
     return { cc, val };
 });
+// --channels curve (1b.4): measure on the channel the piece plays, not main 1 — the lesson of §85.
+// --vels 24,64,100,127: the velocity points, so the register pass can also carry the curve shape.
+const CHANNELS = arg('channels', 'main');
+const VELS_ARG = (arg('vels', '') || '').split(',').filter(Boolean).map(Number);
 const REPEAT_PITCHES = [62, 71, 76, 80];
 const REPEAT_VEL = 127;
 
@@ -57,7 +61,7 @@ const OLD = JSON.parse(fs.readFileSync(path.join(ROOT, 'probes', 'balance_schedu
 // the vibraphone across its whole range (53–89), nine pitches — every fourth or fifth semitone, so a
 // sample zone two or three semitones wide cannot hide between two of them
 const VIB_PITCHES = [53, 58, 62, 67, 71, 76, 80, 85, 89];
-const VIB_VELS = [64, 127];
+const VIB_VELS = VELS_ARG.length ? VELS_ARG : [64, 127];
 const PERC_VELS = [127, 64];
 
 const LEAD_IN = 3000, PRE = 300, INST_GAP = 1500;
@@ -83,8 +87,13 @@ const push = (o, hold, tail) => {
 // ---- the vibraphone, across its range ----
 const V = INSTRUMENTS.bowed_vibraphone;
 const vTech = V.techniques.find(x => x.key === V.ordinary);
+let vPort = vTech.port || V.port, vCh = vTech.channel || 1;
+if (CHANNELS === 'curve' && V.channels && Array.isArray(V.channels.curve) && V.channels.curve.length) {
+    const e = V.channels.curve[0];
+    if (e && typeof e === 'object') { vPort = e.port; vCh = e.ch; } else { vPort = V.port; vCh = e; }
+}
 const vBase = { inst: 'bowed_vibraphone', label: V.label, tech: vTech.key, techLabel: vTech.label,
-                port: vTech.port || V.port, ch: vTech.channel || 1,
+                port: vPort, ch: vCh,
                 cc0: vTech.cc0 != null ? vTech.cc0 : null, ks: vTech.ks != null ? vTech.ks : null, cc7: 127 };
 if (MODE === 'repeat') {
     t += INST_GAP;
@@ -98,9 +107,7 @@ t += INST_GAP;
 for (const pitch of VIB_PITCHES) {
     if (pitch < V.rangeLow || pitch > V.rangeHigh) throw new Error('vibraphone pitch ' + pitch + ' is outside ' + V.rangeLow + '–' + V.rangeHigh);
     for (const vel of VIB_VELS) {
-        push({ role: 'vibreg', inst: 'bowed_vibraphone', label: V.label, tech: vTech.key, techLabel: vTech.label,
-               port: vTech.port || V.port, ch: vTech.channel || 1, cc0: vTech.cc0 != null ? vTech.cc0 : null,
-               ks: vTech.ks != null ? vTech.ks : null, pitch, vel, cc7: 127, anchor: vel === 127 }, VIB_HOLD, VIB_TAIL);
+        push(Object.assign({}, vBase, { role: 'vibreg', pitch, vel, anchor: vel === 127 }), VIB_HOLD, VIB_TAIL);
     }
 }
 }
