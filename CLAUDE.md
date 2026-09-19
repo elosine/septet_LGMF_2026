@@ -57,6 +57,8 @@ first. A one-line TL;DR leads any reply over two paragraphs. One step at a time.
 - **Building a plan item / analyzing an issue for the plan:** `docs/PLANNING_METHOD.md` — three phases, fixed formats
 - **The settings that live only in his plugins** (hand-set, nothing can rebuild them, how to
   revert each): `docs/RACK_SETTINGS.md`
+- **Notating a just-intoned note** (DECIDED 2026-09-19, nothing built — accidental · cents · partial for everyone, the valve
+  combination or the string where the instrument has one): `docs/research/just_partials_notation.md` — **read it before notating**
 - **Deferred, real but not now:** `docs/NITS.md`
 - **Working preferences & routines:** `docs/HOW_WE_WORK.md` · `docs/SESSION_PROTOCOL.md`
   · `docs/SESSION_HYGIENE.md` (clear between chunks; the docs are the handoff)

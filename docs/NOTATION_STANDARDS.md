@@ -141,3 +141,15 @@ tool: `tools/notate_morph.js` / `notation/lib/morph_overlays.js` / `notate_secti
 | **Held:** the D49 audit of the rest of the score (NITS) | — | §497 |
 | **Fixes the septet needs before the first fold (§464 flags 3 · 5 · 6, + 2f.7):** the fade weight (`cc7Fade`, D32) multiplied into the sampled level so the crescendo starts from nothing where the sound does · the header in each part's clef and written pitch (BCl +M9) — verify · parts = layers under `tracks.length`, not 10 · 100 samples/s | (build, PLAN 2h.2) | §464 |
 | **The morphs in the score:** M1 BEATING BLOOM 183.003 → ~305 s · M2 SPECTRAL DRIFT 314.000 → ~435 s, its D2 pair re-cast 2026-09-14 (BCl holds, Vc travels; ACT-SPECTRAL-05, §467). Pairs by pitch, across families (§464) | `scores/piece-septet.json` | §464 · §467 |
+
+## §4 The just partial — LAKE GEORGE (piece #6). DECIDED 2026-09-19 (this repo's RUNNING_LOG §113; research §108; his question LG-37). Nothing built.
+
+*(Everything above this line was inherited from piece #5 and speaks of its score. This section is this piece's own.)*
+
+**The full standard is `docs/research/just_partials_notation.md` — read it before notating any just-intoned note.** In short:
+
+- **Everyone:** the accidental (where, at a glance) · the cents (where, exact) · the partial `11°` (what), the fundamental named once per chord.
+- **Cents are from the plain tempered note — never from the microtonal accidental.** They say one thing twice; they do not add. The legend says so.
+- **A HOW only where the instrument has one:** brass — the valve combination (`T23`, "natural harmonic, do not correct") · a string's
+  natural harmonic — the SOUNDING note with the circle + the string numeral, **no diamond** · double reeds and stopped strings — none.
+- Under about 20 cents, no special accidental (the AI's rule of thumb, his to move).

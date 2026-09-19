@@ -4722,3 +4722,46 @@ reads chosen for what 1d.1 NEEDS, the calls that are his to reverse (§107, §11
 parse error that is really a truncation — three commands died of it this session before the pattern showed (every failure was the long
 one; the same text ran when split); the working method is the Write tool into the scratchpad plus a short node splice that asserts each
 replacement lands once. (2) A parallel session may be appending to the shared docs — numbers are taken at write time, never from memory.
+
+## §113. DECIDED — how a just note is handed to a player: where · what · and how where the instrument has one (2026-09-19)
+
+*(The research session, running beside the 1d build session; §108 is its first entry. The long form lives in a file of its own, at his
+word: **`docs/research/just_partials_notation.md`** — this entry is the record of how it was decided, and the pointer.)*
+
+**His three turns, in order.** (1) On option A of §108: *"Could you explain this more clearly and elaborate on your recommendation? Are you
+saying all three layers plus what you say, the partial number, et cetera?"* (2) *"so are the cents deviation from the accidental? and then
+what would this be like for strings the string and node, for a natural harmonic"* (3) **The decision:** *"Okay, this is good I'll pursue
+the recommendation let's just document this somewhere, wherever you deem best and can be surfaced by the chatbot when we sit down to
+notate."*
+
+**A correction to §108, as a new entry.** §108 put option A as "three layers for everyone (accidental · cents · `11°/F♯`)" — muddled, and
+he caught it. The partial number is not an extra on top of three layers; it IS the second layer. Said properly, and as decided: **two
+layers for everyone — WHERE (the accidental at a glance, the cents exact) and WHAT (the partial `11°`) — and a third, HOW, only where the
+instrument has one:** the valve combination for brass, the harmonic circle and string numeral for a string's natural harmonic, nothing for
+double reeds or stopped strings.
+
+**What settled it — each mark serves a different moment.** The accidental is for READING (the eye finds the note); the cents for the
+PRACTICE ROOM (a tuner); the partial for REHEARSAL AND PERFORMANCE — a player told `−49` has a number and no sound to aim at, a player told
+`11°` of F♯ knows what to listen down to and that it locks when someone holds the 8 or the 4 (§108's tuneable intervals). And the partial
+**survives drift**: over a long chord the winds warm, the cents go wrong in absolute terms, the ratio stays right. *Rejected:* B, cents
+only — exact, silent about function, and the mark that breaks under drift · C, the partial for brass and cents for the rest — the ear's cue
+is wanted by every player, not only the brass. Clutter is affordable because the piece is sustained chords in containers (LG-35).
+
+**The two answers of turn 2, now rules of the standard.** (a) **Cents are from the plain tempered note, never from the microtonal
+accidental** — the two say one thing twice, a picture and a number, and do not add; a tuner knows only the twelve tempered notes, so the
+number has to be the one it shows. Read in Sabat & Hayward's horn table: values of +63.0, +80.5, −110.8, which only make sense from the
+letter-name note. The legend gets one sentence saying so. (b) **A string's natural harmonic is the strings' version of the valve trick** —
+the open string is the fundamental and the string makes the ratio — written as the SOUNDING note with the circle, the string numeral and
+the partial, **no diamond** (several nodes, players have their own, the touch-points are themselves microtonal). Its cost, told him: the
+set is sparse (one fixed octave on one string; the chord's fundamental must be an open string, or the string a low partial of it), and a
+harmonic is a COLOUR — thin, glassy, quiet. His horn's C5 −49 has no cello equivalent; no string is an F♯.
+
+**Two smaller rules the AI added, marked as his to move:** the fundamental named once per chord, each note carrying only `11°` · under
+about 20 cents (partials 3 · 5 · 9 · 15 · 17) no special accidental — a rule of thumb, not sourced.
+
+**Where it is documented, so that it surfaces on the day of notating (his ask):** the standard, the brass lookup (a fundamental for every
+valve combination — every pitch class on the double horn), the worked examples, the sources with their links, and the list of what is
+still UNVERIFIED → `docs/research/just_partials_notation.md` · a line in `CLAUDE.md`'s "Orient from docs" (loaded by every session) ·
+`docs/NOTATION_STANDARDS.md` §4, a pointer where a notating agent will be reading anyway · a memory note on this machine. **Nothing is
+built and nothing in the plan changed.** Still open in that file's §9: the horn fingering unchecked with a hornist · whether the partial
+number is SAVED with the note (the cents are, as `morphBend`; `p` was not looked for) — the notation step derives all three marks from it.
