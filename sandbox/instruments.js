@@ -389,8 +389,18 @@ function xsVibraphoneTechs(lo, hi) {
     P(9,  "xylo_mallets_mwshape", "Xylophone Mallets Velocity MW Shape", true),
     P(10, "tri_mallets_mwshape", "Triangle Mallets Velocity MW Shape", true),
     P(11, "hand_vibrato_mwshape", "Hand Vibrato Velocity MW Shape", true),
-    P(12, "bowed_vel",           "Bowed Velocity"),
-    P(13, "free_preset",         "Free Preset"),
+    // THE ORDINARY VOICE IS PRESET 13, NOT 12 (2026-09-19, PLAN 1b.3a; RUNNING_LOG §79–§82).
+    // Preset 12 is the library's own "Bowed Velocity", and its Round Robin menu ships on **"Repetition"** —
+    // round robin active whenever a sound is REPEATED, which is this piece's vibraphone texture exactly: a
+    // bar is HELD by re-bowing the same pitch, about eleven times a minute (§69's measured 7.4 s sustain).
+    // Its three members measured **up to 13.8 dB apart at F#5**, so the instrument lurched between re-bows.
+    // The menu is a per-preset "global parameter", which is why setting it by hand never survived: every
+    // note sends CC#0 to select the preset, and that reloads the preset's STORED value. So preset 12 was
+    // copied to the free slot 13 with Round Robin off and Slot rr off, saved in all four instances.
+    // `bowed_vel` KEEPS ITS KEY and simply points at 13 — every score already written (641 vibraphone notes
+    // in lgmf-all alone) picks the fix up with no edit.
+    P(12, "bowed_vel_rr",        "Bowed Velocity — library default, round robin ON (superseded by #13)"),
+    P(13, "bowed_vel",           "Bowed Velocity RRoff"),
   ];
 }
 

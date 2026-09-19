@@ -3826,3 +3826,39 @@ The nine-pitch pass found a spread of **15.4 dB at velocity 64 and 16.3 dB at 12
 **Why CC#82 appeared dead is now explicable, and the explanation matters for the remedy.** The manual's page 6 heading is *"Global Parameter (saved individually with each preset)"* — the Round Robin menu is stored **per preset**. Every note the probe plays carries **`cc0 = 11` in its prelude to select preset 12**, sent immediately before the CC#82 that followed it. A preset re-selection restores that preset's stored parameters, so a CC#82 arriving in the same instant is either overwritten by the preset's own value or swallowed by the switch. The same is true of the app: `sandbox/instruments.js` gives the vibraphone `cc0: 11`, and the emit path sends it on every note. **Therefore the fix cannot be a CC sent at play time — it has to be stored IN preset 12**, which is the panel's "Save Preset".
 
 **The action, his:** set the Round Robin menu from "Repetition" to **"Round Robin off"**, press **Save Preset** so the setting lives in preset 12 and survives every CC0 re-selection, then **CTRL+S** in Reaper. Re-measuring is two minutes (`card2_schedule.js --mode repeat` → `analyze_card.py`), and the expectation is explicit: all four readings at each pitch identical, and each pitch settling on its member A — 62 → −13.6 · 71 → −20.7 · 76 → −18.0 · 80 → −5.2.
+
+---
+
+## §82. The round robin off, in preset 13 — 13.8 dB of scatter becomes 0.0, and the vibraphone's register turns out to be a clean, velocity-independent property (2026-09-19)
+
+**What prompted it.** §81 diagnosed the reset: the Round Robin menu is a per-preset "global parameter", and every note sends **CC#0 to select the preset**, which reloads that preset's stored value — so his GUI change was undone before the first note sounded. His words on watching it happen: *"But both those reset if, if you play a note."* and, before that, *"I think we had encountered this before, but I can't remember what the solution is."* **We had:** §58, 2026-09-18 — Spitfire's global gain is *bound to CC7*, so any CC7 the app sent overwrote it (piece #5's §373). The same shape, a different controller; there the answer was to move the control out of MIDI's reach, here it is the other half — **store the value where the message will restore it.**
+
+**His decision, and it is the better one:** *"lets save as another preset 13 Bowed Velocity RRoff"* — leaving the library's preset 12 untouched. Preset 12 was copied to the free slot 13, **Round Robin set to "off" and Slot rr to "off"**, saved with Edit Preset → Save Preset, and propagated to **all four instances** (the app routes drawn notes to the curve channels 2–4 and only plain or keyswitched notes to channel 1, so all four play in the piece).
+
+**The recipe follows, and no score has to change.** `sandbox/instruments.js`: `bowed_vel` **keeps its key** and now points at preset 13 (`cc0: 12`); preset 12 stays in the list as `bowed_vel_rr`, marked superseded. Every score already written — **641 vibraphone notes in `lgmf-all` alone** — carries `technique: "bowed_vel"` and therefore picks the fix up untouched. `palette_check` **168 GREEN**, `test_written_pitch` **10 + control GREEN**.
+
+**THE TEST, predicted in advance and then run** (`card2_schedule.js --mode repeat`, the identical 16 notes, now selecting preset 13):
+
+| pitch | preset 12 (RR on) | spread | preset 13 (RR off) | spread | predicted |
+|---|---|---|---|---|---|
+| 62 | −13.6 −18.0 −15.9 −13.6 | 4.5 | **−13.6 −13.6 −13.6 −13.6** | **0.0** | −13.6 |
+| 71 | −20.7 −19.7 −18.2 −20.7 | 2.5 | **−20.7 −20.7 −20.7 −20.7** | **0.0** | −20.7 |
+| 76 | −18.0 −4.2 −12.7 −18.0 | **13.8** | **−18.0 −18.0 −18.0 −18.0** | **0.0** | −18.0 |
+| 80 | −5.2 −3.4 −7.2 −5.2 | 3.8 | **−5.2 −5.2 −5.2 −5.2** | **0.0** | −5.2 |
+
+**Every reading is exactly the member-A value named before the run, to 0.1 dB, and the worst spread in the instrument fell from 13.8 dB to zero.**
+
+### And the register question, asked again on clean ground
+
+With the round robin off a single strike per pitch **is** a measurement, so the nine-pitch pass was repeated (18 notes, 2:31) and the 47 stale vibraphone rows — every one of them taken on preset 12 — were purged from `bank/instrument_card.json` rather than left to average with the new ones.
+
+| vel | 53 | 58 | 62 | 67 | 71 | 76 | 80 | 85 | 89 | spread |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 64 | −23.0 | −28.5 | −27.3 | −24.9 | **−34.2** | −31.8 | **−18.9** | −20.4 | −21.1 | 15.4 |
+| 127 | −9.3 | −14.5 | −13.6 | −11.1 | **−20.7** | −18.0 | **−5.2** | −6.7 | −7.3 | 15.5 |
+
+**Two things make this tractable where the contaminated version was not.**
+1. **The two velocities agree on every step to within 0.3 dB** — step to each next pitch, vel 64: −5.5 +1.2 +2.4 −9.4 +2.4 +13.0 −1.6 −0.7; vel 127: −5.2 +0.9 +2.5 −9.6 +2.7 +12.8 −1.5 −0.6. A sawtooth that reproduces at two velocities is a property of the samples, not of chance.
+2. **The velocity response is uniform across the whole range:** velocity 64 → 127 gives 13.5, 14.0, 13.7, 13.8, 13.5, 13.8, 13.7, 13.7, 13.8 dB at the nine pitches. So the register offset is **velocity-independent — one constant per pitch**, which is the easiest possible shape to correct and the one the velocity remap (already per instrument and per register) can carry without a new mechanism.
+
+The shape itself is three plateaus with hard edges — 80/85/89 loud (≈ −6), 53–67 middling (≈ −12), **71 and 76 some 13–15 dB under the top** — i.e. recorded sample zones of different level, with the boundary between 76 and 80 worth **+12.8 dB** in one semitone step. That is what 1b.3 has to flatten, and it can now be flattened, because it holds still.

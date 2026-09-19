@@ -107,7 +107,7 @@ for (const pitch of VIB_PITCHES) {
 
 // ---- all fourteen percussion, on 0d's keys ----
 for (const [key, d] of Object.entries(perc)) {
-    if (MODE === 'repeat') break;
+    if (MODE !== 'full') break;   // --mode vib: the vibraphone alone (its register, now that the round robin is off)
     t += INST_GAP;
     for (const k of d.keys) {
         for (const vel of PERC_VELS) {
