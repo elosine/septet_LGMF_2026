@@ -47,6 +47,39 @@ const TRIMS = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'trims.json'), 
 const TOP = TRIMS.target.perVoiceCardDb;    // each voice at fff, on the card's scale (1b.3)
 
 const PITCHED = ['english_horn', 'bassoon', 'horn', 'trumpet', 'bowed_vibraphone', 'cello', 'double_bass'];
+// THE REGISTER BY CC7, NOT BY VELOCITY (his approval 2026-09-19; RUNNING_LOG §87). For these instruments
+// velocity carries the DYNAMIC alone - one shared table, so every pitch is sent the same velocity at a
+// given written height - and the per-pitch register offset is closed by CC7, which is a pure gain and does
+// not change which sample plays. The bank's per-pitch `monotone` keeps each pitch's ACTUAL level, so the
+// app's cc7ForHeight sees the residual (target - achieved) and asks cc7Curve to close it.
+// Velocity alone could not do this: 29 dB per bar minus a 15.4 dB register spread leaves 13.7 dB common to
+// every bar, under the 17 dB span (§86).
+const REGISTER_BY_CC7 = new Set(['bowed_vibraphone']);
+// CC7's attenuation law, MEASURED by 0d on the curve channels (bank/balance.json `cc7`: six CC7 values per
+// pitch at velocity 100). On the vibraphone the three measured pitches agree within 0.1 dB and the whole
+// set fits 60*log10(cc7/127) to 0.02 dB - a pure gain law, which is what makes it safe to use as a trim.
+function cc7CurveFor(key) {
+    let BAL; try { BAL = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'balance.json'), 'utf8')); } catch (e) { return null; }
+    const row = (BAL.instruments || []).find(i => i.inst === key);
+    if (!row || !row.cc7) return null;
+    const byCc = {};
+    for (const p of Object.keys(row.cc7)) {
+        const ref = row.cc7[p]['127'];
+        if (ref == null) continue;
+        for (const c of Object.keys(row.cc7[p])) {
+            const db = row.cc7[p][c];
+            if (db == null) continue;
+            (byCc[c] = byCc[c] || []).push(db - ref);
+        }
+    }
+    const pts = Object.keys(byCc).map(Number).sort((a, b) => a - b)
+        .map(c => ({ cc7: c, delta: Math.round((byCc[c].reduce((s, d) => s + d, 0) / byCc[c].length) * 100) / 100,
+                     n: byCc[c].length }))
+        .filter(q => q.n >= 1);
+    // ascending by delta, most negative first - the order cc7ForDelta walks
+    pts.sort((a, b) => a.delta - b.delta);
+    return pts.length >= 2 ? pts : null;
+}
 
 // the ensemble's target level at each anchor velocity: linear in dB, because equal steps of drawn height
 // should be equal steps of loudness, and loudness in dB is what the ear reads as a dynamic level
@@ -122,7 +155,10 @@ for (const key of PITCHED) {
     if (!pitches.length) { out.notRemapped[key] = 'fewer than two velocity points at any pitch'; continue; }
 
     const at127 = pitches.map(p => (byPitch[p].find(q => q.v === 127) || {}).db).filter(d => d != null);
-    const ref = at127.reduce((s, d) => s + d, 0) / at127.length;      // this instrument's own fff mean
+    const byCc7 = REGISTER_BY_CC7.has(key);
+    // referenced to the QUIETEST bar when CC7 carries the register, so every other bar sits ABOVE the
+    // target and the trim has something to take away; to the mean otherwise
+    const ref = byCc7 ? Math.min.apply(null, at127) : at127.reduce((s, d) => s + d, 0) / at127.length;
     const offset = TOP - ref;                                          // what normalisation shifts it by
 
     const entry = { label: I.label, port: I.port, trimDb: (TRIMS.instruments.find(r => r.inst === key) || {}).proposedTrimDb,
@@ -130,13 +166,26 @@ for (const key of PITCHED) {
         measuredSpanDb: null, pitches: [] };
 
     let lo127 = Infinity, hi127 = -Infinity, clampLow = 0, clampHigh = 0;
+    // when CC7 carries the register, ONE table serves every pitch: it is built from the reference bar, so
+    // a written height means one velocity for the whole instrument and the register never touches velocity
+    let sharedTable = null;
+    if (byCc7) {
+        const refPitch = pitches.find(p => Math.abs((byPitch[p].find(q => q.v === 127) || {}).db - ref) < 1e-6);
+        const rc = monotone(byPitch[refPitch].sort((a, b) => a.v - b.v)
+            .map(q => ({ v: q.v, db: Math.round((q.db + offset) * 100) / 100 })));
+        sharedTable = [];
+        for (let a = LO; a <= HI; a++) sharedTable.push(Math.max(1, Math.min(127, velocityAt(rc, targetDb[a - LO]).vel)));
+        entry.referencePitch = refPitch;
+        entry.registerBy = 'cc7';
+    }
     for (const p of pitches) {
         const raw = byPitch[p].sort((a, b) => a.v - b.v);
         const norm = raw.map(q => ({ v: q.v, db: Math.round((q.db + offset) * 100) / 100 }));
         const mono = monotone(norm);
-        const table = [];
+        let table = [];
         let cl = 0, ch = 0;
-        for (let a = LO; a <= HI; a++) {
+        if (sharedTable) { table = sharedTable.slice(); }
+        else for (let a = LO; a <= HI; a++) {
             const r = velocityAt(mono, targetDb[a - LO]);
             table.push(Math.max(1, Math.min(127, r.vel)));
             if (r.clamp === 'low') cl++; if (r.clamp === 'high') ch++;
@@ -151,6 +200,13 @@ for (const key of PITCHED) {
     entry.measuredSpanDb = Math.round(Math.max(...entry.pitches.map(p => p.spanDb)) * 100) / 100;
     entry.registerSpreadAtFffDb = isFinite(hi127 - lo127) ? Math.round((hi127 - lo127) * 100) / 100 : null;
     entry.clampedLow = clampLow; entry.clampedHigh = clampHigh;
+    if (byCc7) {
+        entry.cc7Curve = cc7CurveFor(key);
+        entry.cc7Note = 'the register is closed by CC7, measured by 0d and relative, so it survived every trim. '
+            + 'The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks '
+            + 'this curve for the CC7 that closes it, then multiplies any cc7Fade on top.';
+        if (!entry.cc7Curve) console.error('  NO CC7 CURVE for ' + key + ' - the register will not be corrected');
+    }
     out.instruments[key] = entry;
     rows.push({ key, entry });
     if (clampLow || clampHigh) out.clamps.push({ inst: key, label: I.label, low: clampLow, high: clampHigh });

@@ -45,6 +45,16 @@ const DRY = process.argv.includes('--dry');
 const N_VOICES = +arg('voices', 9);          // the reference chords are 8–9 voices; the loudest case governs
 const TUTTI_LUFS = +arg('tutti', -20);       // K-20's loud-passage level
 const OUT = path.join(ROOT, arg('out', 'bank/trims.json'));
+const ONLY = (arg('only', '') || '').split(',').filter(Boolean);
+// A GUARD, learned the hard way 2026-09-19 (RUNNING_LOG §87). This tool computes
+//     new trim = current + (target − measured)
+// which is only right when `measured` was taken with `current` IN FORCE. Once 1b.3 was applied the card
+// became mixed: the instruments re-measured since (the SI2 three, then the vibraphone) read POST-trim,
+// while the other five still read pre-trim. Re-running over all of them applied the correction a second
+// time to the five — the cello would have gone to −18.03 dB when it is already right at −3.87.
+// So an instrument already sitting within 1 dB of target while carrying a trim is FLAGGED, and --only
+// names what to recompute. The real cure is a per-row record of the trim in force at measurement; NITS.
+const ALREADY_AT_TARGET_DB = 1.0;
 const FADER_MAX_DB = 12;                     // Reaper's fader ceiling; the remainder goes to a JS Volume FX (§58)
 
 const CARD = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'instrument_card.json'), 'utf8'));
@@ -66,14 +76,26 @@ const perVoiceK = perVoiceLufs - K_TO_LUFS;
 const percByCatalog = {};
 for (const t of PERC.tracks) if (t.catalog) percByCatalog[t.catalog] = t;
 const PITCHED = new Set(['english_horn', 'bassoon', 'horn', 'trumpet', 'bowed_vibraphone', 'cello', 'double_bass']);
+// AN INSTRUMENT WHOSE REGISTER IS CORRECTED BY CC7 RATHER THAN BY VELOCITY (1b.4, his approval 2026-09-19;
+// RUNNING_LOG §87). Its fader must reference the QUIETEST pitch at fff, not the mean, because CC7 can only
+// ATTENUATE: every other bar has to sit above the target for the trim to bring it down. Referenced to the
+// mean instead, half the bars sit below the target and nothing can lift them - which is exactly why the
+// vibraphone's quiet bars topped out around mf in the first build of the remap (§86).
+const REGISTER_BY_CC7 = new Set(['bowed_vibraphone']);
 
 const rows = [];
 for (const [key, I] of Object.entries(CARD.instruments)) {
+    if (ONLY.length && !ONLY.includes(key)) continue;
     const v = I.byVelocity && I.byVelocity['127'];
     if (!v) { rows.push({ inst: key, label: I.label, skipped: 'no velocity-127 measurement' }); continue; }
     const isPitched = PITCHED.has(key);
     const measure = isPitched ? 'integrated' : 'maxMomentary';
-    const measured = isPitched ? v.integratedDb : v.maxMomentaryDb;
+    let measured = isPitched ? v.integratedDb : v.maxMomentaryDb;
+    let reference = 'the instrument mean across its measured pitches';
+    if (REGISTER_BY_CC7.has(key) && v.perPitch) {
+        const per = Object.values(v.perPitch).map(d => d.integratedDb).filter(d => d != null);
+        if (per.length) { measured = Math.min.apply(null, per); reference = 'its QUIETEST pitch at fff - CC7 brings the rest down'; }
+    }
     const current = isPitched
         ? (INSTRUMENTS[key] && INSTRUMENTS[key].balanceDb != null ? INSTRUMENTS[key].balanceDb : 0)
         : (percByCatalog[key] ? percByCatalog[key].trimDb : 0);
@@ -89,7 +111,7 @@ for (const [key, I] of Object.entries(CARD.instruments)) {
         deltaDb: Math.round(delta * 100) / 100,
         proposedTrimDb: Math.round(proposed * 100) / 100,
         faderDb: Math.round(fader * 100) / 100, jsVolumeDb: js,
-        soundingS: v.soundingS, nPitches: Object.keys(v.perPitch || {}).length,
+        soundingS: v.soundingS, nPitches: Object.keys(v.perPitch || {}).length, reference,
     };
     // the vibraphone: the fader takes the mean, the per-pitch residuals go to the remap (1b.4)
     if (key === 'bowed_vibraphone' && v.perPitch) {
@@ -102,6 +124,11 @@ for (const [key, I] of Object.entries(CARD.instruments)) {
             spreadDb: Math.round((Math.max(...per.map(x => x[1])) - Math.min(...per.map(x => x[1]))) * 100) / 100,
             offsetsDb: Object.fromEntries(per.map(([p, d]) => [p, Math.round((d - mean) * 100) / 100])),
         };
+    }
+    if (Math.abs(measured - perVoiceK) < ALREADY_AT_TARGET_DB && Math.abs(current) > 0.05) {
+        r.warning = 'measured within ' + ALREADY_AT_TARGET_DB + ' dB of target while already carrying a trim of '
+            + r.currentTrimDb + ' dB — this row was probably measured POST-trim, so the change below would be applied twice';
+        console.error('  WARNING  ' + r.label + ': ' + r.warning);
     }
     rows.push(r);
 }

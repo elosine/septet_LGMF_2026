@@ -42,7 +42,7 @@ local TRIMS = {
   { name = "Bass Drum Alt ARO", faderDb = -4.29, extraDb = 0.00 },   -- Bass Drum Alt: was 5.60, -9.89
   { name = "Temple Bowls ARO", faderDb = 11.53, extraDb = 0.00 },   -- Temple Bowls: was 21.38, -9.85
   { name = "Tam Tams ARO", faderDb = -0.79, extraDb = 0.00 },   -- Tam Tams: was 11.32, -12.11
-  { name = "Vibraphone XS", faderDb = -6.62, extraDb = 0.00 },   -- Vibraphone: was 9.30, -15.92
+  { name = "Vibraphone XS", faderDb = 2.81, extraDb = 0.00 },   -- Vibraphone: was -6.62, +9.43
 }
 local function findTrack(name)
   for i = 0, reaper.CountTracks(0) - 1 do

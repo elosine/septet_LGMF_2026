@@ -232,7 +232,7 @@ const INSTRUMENTS = {
   // 2026-09-18 — notation/registry/ensemble.json part 5).
   // `ordinary` = bowed_vel (#12 Bowed Velocity), HIS CHOICE 2026-09-18, because the opening is bowed and a
   // bowed tone is the steady partner a beating needs. #7 is the same bow with vibrato on CC4.
-  bowed_vibraphone: { balanceDb: -6.62,
+  bowed_vibraphone: { balanceDb: 2.81,
     ordinary: "bowed_vel", beating: true, playerBendSt: 0, bendRangeSt: 2,
     label: "Vibraphone", port: "LGVibes", rangeLow: 53, rangeHigh: 89, mechanism: "cc0",
     channels: { main: 1, curve: [2, 3, 4] },

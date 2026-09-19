@@ -4022,3 +4022,43 @@ The loud bars are pulled down and land exactly on target. **The quiet bars run o
 **The fix, if he wants the full 17 dB on the vibraphone, and why it is his call.** The register offset is a GAIN problem, and velocity is the wrong tool for it because velocity also chooses the sample. The right tool is CC7, and **the app is already built for it**: `heldCc7` calls `VelocityRemap.cc7ForHeight`, which computes the residual (target − achieved) and asks the bank for the CC7 that closes it — a pure attenuation, no sample change. It is inert only because no bank has ever carried a `cc7Curve`. **0d measured the data** (`bank/balance.json` `cc7`: six CC7 values per pitch at velocity 100 — the english horn's middle register gives 17.8 dB of attenuation from CC7 127 down to 64), and it is relative, so it survived every trim.
 
 D13 declined CC7 for two stated reasons: it would *"fight the held-note shaping"*, and *"nothing in this rack is deterministic enough for a 0.3 dB trim to mean anything"*. **Both have moved.** The first is not what this would do — `cc7ForHeight` derives the CC7 from the same drawn height as the velocity, so they cannot fight; they are one mapping. The second was about scatter of ±1.7 to ±6.0 dB, and the vibraphone is now **deterministic** (§82, round robin off, repeat spread 0.0 dB) while the correction asked for is up to 15 dB, far above any instrument's noise. **Recorded, not acted on: reversing part of a decision he made is his to do, and 1b.5 will put the question to his ear with the numbers already on the table.**
+
+---
+
+## §87. The vibraphone's register moved to CC7 — flat to 0.2 dB across the full span, and a double-count trap caught in the tool (2026-09-19)
+
+**What prompted it.** §86 left the vibraphone's quiet bars 6–9 dB short at fff and named the fix. He approved it with a condition worth honouring: *"ok for vibes but confirm it is not employed elsewhere yet?"*
+
+**THE CONFIRMATION, checked rather than asserted.**
+- **No bank has ever carried a `cc7Curve`** — not 0d's, not §86's. Every call site (`heldCc7` → `cc7ForHeight`, `morph_emit`, `cue_picker`, the crescendo path) resolves through `cc7ForDelta`, which returns **127** when there is no curve. CC7 register trimming was inert for all seven instruments.
+- **No score uses `cc7Abs`** — zero notes across all six — so nothing bypasses the trim.
+- **`cc7Fade` is the one interaction**: 84 vibraphone notes carry the dal-niente entrances. `heldCc7` computes the base and *multiplies* by the fade weight, so the trim sits inside the base and scales with the fade. Compatible by construction.
+- **Percussion is untouched**: no remap entry, no notes yet, so ARO's CC7-bound global gain (§42) is not at risk.
+
+So a curve on `bowed_vibraphone` alone changes the vibraphone alone.
+
+**AND THE DATA WAS ALREADY THERE.** 0d measured CC7 on the curve channels (six values per pitch at velocity 100) and it is relative, so it survived every trim. On the vibraphone the three measured pitches agree **within 0.1 dB** and the whole set fits **60·log10(cc7/127) to 0.02 dB** — CC7 104 → −5.23, 84 → −10.78, 64 → −17.86, 44 → −27.65. A pure gain law, which is exactly what makes it safe as a trim: it does not touch which sample plays, and velocity does.
+
+### The change, in two halves
+
+1. **The fader is referenced to the QUIETEST bar, not the mean** — because CC7 can only attenuate, so every other bar must sit *above* target for the trim to have something to take away. Referenced to the mean, half the bars sat below and nothing could lift them, which is precisely why they topped out near mf in §86. `Vibraphone XS` **−6.62 → +2.81 dB**, applied and read back, recipe `balanceDb` with it.
+2. **One shared velocity table for the whole instrument**, built from the reference bar. Every pitch is sent the same velocity at a given written height, so velocity carries the dynamic and nothing else; each pitch's `monotone` keeps its own ACTUAL level, so the app's `cc7ForHeight` sees the residual and closes it.
+
+**THE RESULT, through `velocity_remap.js` itself** — velocity, CC7, the level it lands on, against target:
+
+| pitch | pp | mf | fff |
+|---|---|---|---|
+| 72 | v56 cc123 → −48.9 | v90 cc124 → −39.3 | v127 cc124 → −31.8 |
+| 74 | v56 cc117 → −48.9 | v90 cc118 → −39.3 | v127 cc118 → −31.8 |
+| 76 | v56 cc111 → −48.9 | v90 cc112 → −39.3 | v127 cc111 → −31.9 |
+| 83 | v56 cc75 → −48.7 | v90 cc75 → −39.4 | v127 cc75 → −31.8 |
+| 86 | v56 cc77 → −48.9 | v90 cc78 → −39.2 | v127 cc77 → −32.0 |
+| **target** | **−48.8** | **−39.2** | **−31.8** |
+
+**Every pitch within 0.2 dB, at every dynamic, across the full 17 dB — and the velocity is identical for all of them at a given height.** The 15.4 dB register spread is carried entirely by CC7, between 123 and 75. The instrument reports **no clamps** for the first time. Headroom is unchanged: the net level per note is the same as before, and the crest factor with it, so the fff peak stays near −17.7 dBFS.
+
+### A double-count trap, caught by its own output
+
+Re-running `compute_trims.js` over the whole card after 1b.3 had been applied produced nonsense — the cello proposed at **−18.03 dB** when it is already correct at −3.87. The cause is worth stating plainly, because it is a general hazard of this kind of tool: it computes `new = current + (target − measured)`, which is only right when `measured` was taken **with `current` in force**. The card is now mixed (§85) — the SI2 three and the vibraphone re-measured post-trim, the other five still pre-trim — so the correction was being applied a second time to the five that had not moved.
+
+Nothing was written: `bank/trims.json` was restored from the commit and only the vibraphone's row recomputed, under a new `--only` flag. The tool now also **flags any instrument sitting within 1 dB of target while carrying a trim**, which is the signature of a row that was measured post-trim. The proper cure — a per-row record of the trim in force at measurement — is in NITS; it is what 1b.6's battery will want anyway.
