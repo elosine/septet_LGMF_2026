@@ -6,7 +6,8 @@
 **What exists today:**
 - the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**49**) · 1d.1
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
-- not yet: reopening a placed sequence (1d.3) · the roll (1d.4) · the breath dials (1d.5) · the waves (1d.7)
+- the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
+- not yet: the roll (1d.4) · the breath dials (1d.5) · the waves (1d.7)
 
 ---
 
@@ -154,7 +155,8 @@ It opens a strip along the bottom. The strikes drawer, when open, stands ON the 
 - A player who is trilling at that moment is skipped, as the strikes drawer does.
 
 **One row = one sequence = one place in the score** *(a call made alone — his to reverse, §115)*
-- The row carries an id. Insert removes the earlier insert of THAT id, wherever it sits, then writes at the playhead.
+- The row carries an id. An insert always removes the earlier insert of THAT id first — two would double every note.
+- *(1d.2 then wrote at the playhead, so Insert again MOVED it. 1d.3 changed that: a placed sequence is replaced IN PLACE — §10.)*
 - `new` clears the row and takes a fresh id; a sequence already in the score stays there.
 
 **Remembered:** the row, the selected box and the hear menu — in the browser (`lgmf.sequenceDrawer.v1`).
@@ -168,3 +170,39 @@ Insert: 37 notes + 1 META on lane 8, 22 `morphBend`, 27 drawn / 10 plain, height
 Insert again: the same object count, one database entry · saved under a throwaway name and loaded back: the recipe
 byte-identical · a reload: the row back, chords kept. `palette_check` 184 · `sequence_check` 49.
 **Not verified: sound.** The in-app browser has no Web MIDI — every listen is his Chrome.
+
+## 10 · The round trip (1d.3)
+
+**The list** — `sequences in this score`, in the strip's head. Read from the open score's `databases.sequences`.
+- Each line: name · boxes · seconds · `@ 12.5 s` — or **`NOT in the score`**.
+- Pick one → the recipe is back in the row: boxes, frozen chords, seconds, dyns, attack or seamless, breath.
+- A dirty row (boxes never inserted, or changed since) asks before it is replaced.
+- The list is rebuilt only when something changed, checked on every click inside the strip.
+
+**Where a sequence sits** — read from the SCORE, never from the recipe.
+- Its META bar's start. A group he dragged is found where he left it.
+- No bar left in the group → the recipe's own `t0`. No objects at all → it is not in the score.
+
+**Re-insert in place**
+- In the score → the button reads `Re-insert in place @ 12.50 s`. The playhead is not consulted.
+- The old group's objects go · the new are written from the same start · one META bar · the entry updated under the same id.
+- Not in the score → `Insert @ playhead`, as 1d.2.
+- `move to playhead` — shown only while the sequence is in the score — is the one way Insert still moves it.
+
+**The recipe is the truth**
+- A note moved, stretched or re-pitched by hand inside the group is overwritten by a re-insert.
+- The status counts them: the old notes against what the SAVED recipe generates at that start
+  (lane · pitch · start and end within 10 ms). Deleted notes are counted apart.
+- Stretching the META bar does not change the containers — a re-insert restores them.
+
+**An orphan** — an entry whose notes are gone (an undo, a hand delete) stays in the list, marked. Reopen it, Insert:
+it is written at the playhead. Nothing deletes an entry yet.
+
+**Not built, told him:** reopening by clicking the META bar in the score — it needs a hook in the score's canvas.
+
+**Verified in the running app, no MIDI (a throwaway :5401 tab, 2026-09-19; RUNNING_LOG §116 has every number):**
+insert at 12.5 s → `new` → reopen from the list: the same id, the recipe byte-identical · box 2 → 20 s, box 3's take swapped,
+box 1 → ff → re-insert with the playhead elsewhere: written at 12.5, the 38 old objects gone, 45 notes = the generator's,
+one META bar, one entry updated · the group moved +30 s in the score model → the list and the reopen read 42.5 → re-insert there ·
+hand edits counted (2 changed, 2 deleted) · `move to playhead` · an orphan marked · 1280 px: no overflow.
+**Not verified: sound, and a real drag of the META bar on the canvas** (the move was made in the score's model).

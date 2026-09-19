@@ -4907,3 +4907,67 @@ Three of HIS takes (`Just-C1-seed90` 8 s as dealt · `Just-A1-seed124` 13 s mf �
 
 **NOT verified: sound** — the in-app browser has no Web MIDI. **His test (PLAN 1d.2):** reload → `Sequence` → `+` → a take · 8 s ·
 mf → `+` → another · 13 s → SPACE → Insert → play the score.
+
+## §116. PLAN 1d.3 BUILT — the round trip: reopen a placed sequence, change it, re-insert IN PLACE (2026-09-19)
+
+**What prompted it.** Session 9, straight after 1d.2 was pushed; his words: *"go 1d.3"*. No proposal round this time — he gave the
+go with the step's number, and 1d.3 is one of the three steps he passed one by one in planning (RUNNING_LOG §102–§107). The calls made alone are
+below, his to reverse. *(His test of 1d.2 had not been reported when he said it; 1d.3 was built on 1d.2 as verified without sound.)*
+
+**What was built.** All in `score/public/sequence_ui.js`; nothing else touched.
+- **`sequences in this score`** — a pull-down in the strip's head, read from the open score's `databases.sequences`. Each line:
+  name · boxes · seconds · where it sits (`@ 12.5 s`) or **`NOT in the score`**. Pick one → the recipe is back in the row: the boxes,
+  the frozen chords, the seconds, the dyns, attack or seamless, the breath. Every control of 1d.2 is live on it.
+- **The start is read from the score, not from the recipe** — `placedAt(id)`: the group's META bar's `startSeconds`. A group he
+  dragged is found where he left it. With no bar left in the group: the recipe's own `t0`. No objects at all: not placed.
+- **Re-insert IN PLACE.** When the row's sequence is in the score the button reads `Re-insert in place @ 12.50 s`; the old group's
+  objects go (by `groupId`), the new are written from that start, one META bar, the entry updated under the same id with the new
+  `t0`. The playhead is not consulted. When it is not in the score the button reads `Insert @ playhead`, as in 1d.2.
+- **The recipe is the truth, and the status counts what it overwrote.** Before replacing, the old group's notes are compared with
+  what the SAVED recipe generates at the group's start (lane · pitch · start and end within 10 ms): *"2 notes had been moved or
+  re-pitched by hand — overwritten: the recipe is the truth · 2 of its notes had been deleted — written again"*. A stretched META
+  bar shows up the same way — every note mismatches — and the containers are restored.
+
+**This changes a call of §115, and he should know it.** 1d.2's rule was "Insert again MOVES the row to the playhead". The plan's own
+text for 1d.3 says a placed sequence is replaced *in place, from the same start* — and his test (*"the second box to 20 s → Insert →
+play"*) only makes sense that way. So: a placed sequence re-inserts in place. **Kept as a separate button, `move to playhead`**, shown
+only while the sequence is in the score — dragging a five-minute group across the canvas is the alternative, and it is a poor one.
+Mine, his to reverse.
+
+**Other calls made alone.**
+- **Picking from the list asks first when the row is dirty** — boxes never inserted, or changed since (the row's recipe against the
+  entry's, `t0` and name left out of the comparison). A clean row is replaced without a question.
+- **An orphan stays in the list, marked.** Undo takes the notes back but not the database entry (§115 left this for here); so does
+  deleting the group by hand. The entry is kept and shown as `NOT in the score`; reopening it and pressing Insert writes it at the
+  playhead. Nothing deletes an entry yet — not asked for; a NIT if the list ever grows cluttered.
+- **The list is rebuilt only when it has changed** (a signature of ids · names · positions · box counts), checked on every click
+  inside the strip — the score can change under the strip (a drag, an undo, another score opened) and no event tells the drawer.
+  An open pull-down is therefore never rebuilt under his hand.
+- **A double count caught in verification.** A re-pitched note is ALSO a wanted note left unmatched, so the first wording said
+  "1 note changed · 1 no longer there" for one edit. "Deleted" is now only the surplus: `missing − edited`.
+- **The status got a line of its own** and the strip grew 176 → 194 px. With the list and `move to playhead` in the head, at
+  1280 px the status was squeezed to 135 px — and the status is what tells him what a re-insert overwrote.
+- *Not built, as the plan says, told him there:* reopening by CLICKING the META bar in the score — it needs a hook in the score's
+  canvas, which his constraint keeps untouched unless necessary. His to ask for.
+
+**Verified in the running app, no MIDI — a throwaway :5401 tab, autosave disabled first, the playhead stubbed to a number.**
+- Fresh insert at 12.5 s: 38 objects; the button → `Re-insert in place @ 12.50 s`; `move to playhead` appears; the list shows
+  `rt · 3 boxes · 27 s · @ 12.5 s` and selects it.
+- `new` → an empty row with a new id → pick `rt` from the list → the SAME id, the recipe byte-identical to the one inserted.
+- Box 2 → 20 s · box 3's take swapped (`Just-e1-seed178` → `Just-G0-seed144`) · box 1 → `ff` → dirty = true → re-insert with the
+  playhead stubbed at 99 s: **written at 12.5, not 99** · all 38 old object ids gone · 45 notes = the generator's 45, every lane,
+  pitch, start and end equal · one META bar 12.5 → 46.5 = the generator's span · box 1's notes at height 8.5 (`ff`) · one database
+  entry, same id, `t0` 12.5, durations 8 · 20 · 6, the new take, the dyns · the row clean again.
+- The group moved +30 s in the score model and one note re-pitched by hand → the list reads `@ 42.5 s` → reopen: *"it sits at
+  42.500 s (moved in the score — the recipe said 12.500 s)"* → re-insert: META bar and first note at 42.5, entry `t0` 42.5, still one
+  entry; the status counted the 1 hand-changed note.
+- Two notes changed and two deleted by hand → the status: *"2 … moved or re-pitched by hand … · 2 … had been deleted"*.
+- `move to playhead` (stub 5 s): the group at 5.0, 46 objects, one entry.
+- The group's objects removed → the list: `NOT in the score`; the button back to `Insert @ playhead`; `move to playhead` hidden.
+- 1280 px: the head does not overflow, the status line is the full width, a box's four lines fit (108 px), the strikes drawer ends
+  exactly where the strip begins (666 px). No console errors. `palette_check` 184 · `sequence_check` 49.
+
+**NOT verified: sound, and a REAL drag of the META bar** — the move was made in the score's model (every object of the group shifted),
+which is what the plan names; that the canvas's own drag moves the whole `grp-seq-` group with its bar is inherited behaviour of META
+groups and was not exercised. **His test (PLAN 1d.3):** reload → `Sequence` → pick a placed sequence → the second box to 20 s →
+Insert → play.

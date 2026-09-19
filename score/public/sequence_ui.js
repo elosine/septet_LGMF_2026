@@ -20,9 +20,18 @@
 // strikes drawer closed this file's own listener plays the sequence — and lets SPACE through to the score's transport once he has
 // clicked the score. The lit `SPACE` in the head and the bright top border say which.
 //
-// ONE ROW = ONE SEQUENCE = ONE PLACE IN THE SCORE (his to reverse, §115). The row carries an id; Insert removes the earlier insert of
-// that id wherever it sits and writes the new one at the playhead — two inserts of one row would double every note. `new` starts a
-// fresh id. Reopening a placed sequence from a list is 1d.3; the roll 1d.4; the breath dials 1d.5.
+// ONE ROW = ONE SEQUENCE = ONE PLACE IN THE SCORE (his to reverse, §115). The row carries an id; two inserts of one row would double
+// every note, so an insert always removes the earlier insert of that id first. `new` starts a fresh id.
+//
+// THE ROUND TRIP (PLAN 1d.3, RUNNING_LOG §116). `sequences in this score` lists the open score's `databases.sequences`; pick one and
+// the recipe is back in the row — the boxes, the frozen chords, the seconds, the dyns, attack or seamless. A sequence that is IN the
+// score is RE-INSERTED IN PLACE: its start is read from where its META bar sits NOW (a group he dragged is found where he left it),
+// never from the recipe and never from the playhead; the old objects go, the new are written from that start, the recipe is updated
+// under the same id. THE RECIPE IS THE TRUTH — notes moved or re-pitched by hand inside the group are overwritten, and the status
+// counts them (the old group against what the SAVED recipe generates at that start). `move to playhead` is the one way Insert still
+// moves a placed sequence. A sequence whose notes are gone from the score (an undo, a delete) stays in the list, marked, and Insert
+// writes it at the playhead. NOT built, told him: reopening by clicking the META bar — that needs a hook in the score's canvas.
+// The roll is 1d.4; the breath dials 1d.5.
 //
 // A BEND THAT MUST BE TAKEN BACK. D.playNotes sends a bend only for a note WITH cents, and a chord of the strikes drawer has one note
 // a player, so nothing there ever needed re-centring. A sequence gives one player a just note and then a tempered one on the same
@@ -38,7 +47,7 @@ const METAL = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : root.META_
 const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own ladder, the one the generator reads
 
 const STORE = 'lgmf.sequenceDrawer.v1';
-const STRIP_H = 176;
+const STRIP_H = 194;
 const COLOR = '#5E9FB8', EDGE_ON = '#9fdcf5', EDGE_OFF = '#34525f';
 const AS_DEALT = SEQ.AS_DEALT;
 const DEF_DUR = 8, MIN_DUR = 0.5, MAX_DUR = 3600;
@@ -58,7 +67,7 @@ const yOf = level => Math.max(0.05, Math.round(clamp(+level || 0, 0, 1) * 100) /
 const shortOf = lane => { const t = (D.tracks ? D.tracks() : [])[lane]; return (t && (t.short || t.label)) || ('L' + lane); };
 
 const S = {
-    el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false,
+    el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null,
 
     // ------------------------------------------------------------------ the row being built (remembered in the browser)
     newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH), boxes: [] }; },
@@ -96,22 +105,25 @@ const S = {
             'color:#ddd;font:11px/1.4 system-ui,sans-serif;display:none;box-shadow:0 -6px 24px rgba(0,0,0,.55);overflow:hidden;flex-direction:column;outline:none';
         const L = LADDER();
         d.innerHTML =
-            '<div id="sqHead" style="display:flex;gap:8px;align-items:center;padding:4px 8px;white-space:nowrap;border-bottom:1px solid #2c3238">' +
+            '<div id="sqHead" style="display:flex;gap:8px;align-items:center;padding:4px 8px;white-space:nowrap;overflow:hidden;border-bottom:1px solid #2c3238">' +
               '<b style="color:' + COLOR + ';letter-spacing:.08em">SEQUENCE</b>' +
               '<input id="sqName" type="text" placeholder="name" maxlength="48" style="width:120px;' + INP + '" title="a name for this sequence — it goes into the score file with the recipe">' +
+              '<select id="sqList" style="max-width:200px;' + INP + '" title="the sequences placed in the open score (its databases.sequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
               '<label title="how a new chord is taken — attack: everyone starts AT the line, together · seamless: each player takes the new chord at its next breath">change <select id="sqChange" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
               '<button id="sqAdd" style="' + BTN + '" title="add a container at the end of the row">+ container</button>' +
               '<span style="width:1px;height:16px;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, or from the selected box on">hear <select id="sqFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option></select></label>' +
               '<button id="sqHear" style="' + BTN + '" title="play the sequence through the strikes drawer\'s own player — the same levels, the same bends (SPACE)">Hear</button>' +
               '<button id="sqStop" style="' + BTN + '">Stop</button>' +
-              '<button id="sqInsert" style="' + BTN + '" title="write the sequence at the playhead — one group, one META bar over the span — and its recipe into the score file. An earlier insert of THIS row is removed first: one row is one place in the score">Insert @ playhead</button>' +
+              '<button id="sqInsert" style="' + BTN + '">Insert @ playhead</button>' +
+              '<button id="sqMove" style="' + BTN + ';display:none" title="move this sequence to the playhead — the notes where it sits now are removed and it is written again from the playhead">move to playhead</button>' +
               '<button id="sqNew" style="' + BTN + '" title="start a fresh sequence — the row is cleared; a sequence already in the score stays there">new</button>' +
               '<span id="sqSpace" title="SPACE goes to what you clicked last — this strip, the strikes drawer, or the score" style="padding:0 5px;border:1px solid #444;border-radius:3px;font-size:10px;letter-spacing:.08em">SPACE</span>' +
               '<span id="sqTotal" style="color:#9ab"></span>' +
-              '<span id="sqStatus" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9a9"></span>' +
+              '<span style="flex:1"></span>' +
               '<button id="sqClose" style="' + BTN + '" title="close the sequence drawer (the row is kept)">&times;</button>' +
             '</div>' +
+            '<div id="sqStatus" style="padding:1px 8px;height:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
             '<div id="sqRowWrap" style="flex:1;min-height:0;overflow-x:auto;overflow-y:hidden;padding:6px 8px">' +
               '<div id="sqRow" style="position:relative;display:flex;gap:3px;height:100%;min-width:100%"></div>' +
             '</div>' +
@@ -126,7 +138,9 @@ const S = {
         q('#sqAdd').addEventListener('click', () => this.addBox());
         q('#sqHear').addEventListener('click', () => this.hear());
         q('#sqStop').addEventListener('click', () => this.stop());
-        q('#sqInsert').addEventListener('click', () => this.insert());
+        q('#sqInsert').addEventListener('click', () => this.insert(false));
+        q('#sqMove').addEventListener('click', () => this.insert(true));
+        q('#sqList').addEventListener('change', e => { const id = e.target.value; e.target.blur(); if (id) this.reopen(id); else { this._listSig = ''; this.renderList(); } });
         q('#sqNew').addEventListener('click', () => this.startNew());
         q('#sqClose').addEventListener('click', () => this.toggle(false));
         if (!L) this.setStatus('dyn_ui.js is not loaded — a box can only be "as dealt"', true);
@@ -138,7 +152,11 @@ const S = {
         document.body.appendChild(tab);
 
         // SPACE goes to what he clicked last: this strip, or anything else
-        document.addEventListener('pointerdown', ev => { this.setActive(!!(this.el && this.el.contains(ev.target))); }, true);
+        document.addEventListener('pointerdown', ev => {
+            const inside = !!(this.el && this.el.contains(ev.target));
+            this.setActive(inside);
+            if (inside) { this.renderList(); this.paintInsert(); }   // 1d.3: the score may have changed under the strip (a drag, an undo, another score opened)
+        }, true);
         // with the strikes drawer CLOSED its listener is silent, so SPACE is answered here — and only while this strip was clicked last
         window.addEventListener('keydown', ev => {
             if (ev.code !== 'Space' || !this.isOpen() || !this.active) return;
@@ -192,7 +210,73 @@ const S = {
         q('#sqChange').value = this.row.change; q('#sqFrom').value = this.hearFrom;
         const n = this.row.boxes.length;
         q('#sqTotal').textContent = n ? (n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s') : '';
-        this.renderRow(); this.renderEdit();
+        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert();
+    },
+
+    // ------------------------------------------------------------------ the sequences in the open score — the round trip (1d.3)
+    dbList() { const C = C_(), L = C && C.databases && C.databases.sequences; return Array.isArray(L) ? L.filter(x => x && x.id && x.recipe) : []; },
+    entryOf(id) { return this.dbList().find(x => x.id === id) || null; },
+    // where a sequence sits NOW: its META bar's start — a group he dragged moves with its bar. With no bar left, the recipe's own
+    // start. null = none of its objects are in the score
+    placedAt(id) {
+        const C = C_(); if (!C || !Array.isArray(C.objects)) return null;
+        const group = 'grp-seq-' + id, ML = METAL(); let bar = null, any = false;
+        C.objects.forEach(o => { if (o.groupId !== group) return; any = true; if (o.layer === ML && o.sonifyNote == null && isFinite(+o.startSeconds) && (bar == null || +o.startSeconds < bar)) bar = +o.startSeconds; });
+        if (!any) return null;
+        if (bar != null) return +bar.toFixed(3);
+        const e = this.entryOf(id); return e ? +(+e.recipe.t0 || 0).toFixed(3) : null;
+    },
+    coreOf(r) { return JSON.stringify({ change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), containers: (r.containers || []).map(c => ({ dur: +c.dur, dyn: c.dyn == null ? AS_DEALT : c.dyn, take: c.take || '', chord: c.chord || [] })) }); },
+    // the row holds something the score does not: boxes never inserted, or changed since
+    isDirty() { if (!this.row.boxes.length) return false; const e = this.entryOf(this.row.id); return !e || this.coreOf(e.recipe) !== this.coreOf(this.recipe(0)); },
+    renderList() {
+        const sel = this.el && this.el.querySelector('#sqList'); if (!sel) return;
+        const L = this.dbList(), at = {}; L.forEach(e => { at[e.id] = this.placedAt(e.id); });
+        const sig = L.map(e => [e.id, e.name, at[e.id], (e.recipe.containers || []).length, e.inserted].join('|')).join('\n') + '\n@' + this.row.id;
+        if (sig === this._listSig) return;   // untouched while nothing changed, so an open pull-down is never rebuilt under his hand
+        this._listSig = sig;
+        sel.innerHTML = '<option value="">sequences in this score (' + L.length + ')</option>' + L.map(e => {
+            const cs = e.recipe.containers || [], tot = cs.reduce((a, c) => a + (+c.dur || 0), 0);
+            return '<option value="' + esc(e.id) + '">' + esc(e.name || e.id) + ' · ' + cs.length + ' box' + (cs.length === 1 ? '' : 'es') + ' · ' + fmtS(tot) + ' s · ' + (at[e.id] == null ? 'NOT in the score' : '@ ' + at[e.id].toFixed(1) + ' s') + '</option>';
+        }).join('');
+        sel.value = L.some(e => e.id === this.row.id) ? this.row.id : '';
+    },
+    paintInsert() {
+        const b = this.el && this.el.querySelector('#sqInsert'), mv = this.el && this.el.querySelector('#sqMove'); if (!b) return;
+        const at = this.placedAt(this.row.id);
+        b.textContent = at == null ? 'Insert @ playhead' : 'Re-insert in place @ ' + at.toFixed(2) + ' s';
+        b.title = at == null
+            ? 'write the sequence at the playhead — one group, one META bar over the span — and its recipe into the score file'
+            : 'this sequence is in the score at ' + at.toFixed(3) + ' s (read from its META bar, so a group you dragged is found where you left it). Its notes are REPLACED IN PLACE from that start and the recipe updated. The recipe is the truth: notes changed by hand inside the group are overwritten';
+        if (mv) mv.style.display = at == null ? 'none' : '';
+    },
+    reopen(id) {
+        const e = this.entryOf(id); if (!e) { this._listSig = ''; this.renderList(); return; }
+        if (this.isDirty() && !window.confirm('Reopen "' + (e.name || id) + '"?\n\nThe row in the drawer holds changes that are not in the score — they will be lost.')) { this._listSig = ''; this.renderList(); return; }
+        this.stop();
+        const R = e.recipe;
+        this.row = { id: e.id, name: (e.name && e.name !== 'sequence ' + e.id) ? String(e.name) : '', change: SEQ.CHANGES.indexOf(R.change) >= 0 ? R.change : 'attack',
+            breath: Object.assign({}, SEQ.DEFAULT_BREATH, R.breath || {}),
+            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })) };
+        this.sel = this.row.boxes.length ? 0 : -1;
+        this.save(); this._listSig = ''; this.render();
+        const at = this.placedAt(id), was = +(+R.t0 || 0).toFixed(3), n = this.row.boxes.length;
+        this.setStatus('reopened "' + (e.name || id) + '" · ' + n + ' box' + (n === 1 ? '' : 'es') + ' · ' +
+            (at == null ? 'its notes are no longer in the score — Insert writes it at the playhead'
+                : 'it sits at ' + at.toFixed(3) + ' s' + (Math.abs(at - was) > 0.002 ? ' (moved in the score — the recipe said ' + was.toFixed(3) + ' s)' : '') + ' — change anything, then re-insert in place'));
+    },
+    // how many of the old group's notes are not where the SAVED recipe puts them — moved, stretched or re-pitched by hand — and how
+    // many the recipe expects that are gone
+    handEdits(entry, start, oldNotes) {
+        try {
+            const want = SEQ.generate(Object.assign({}, entry.recipe, { t0: start })).notes.map(n => ({ lane: n.lane, midi: n.midi, s: n.start, e: n.end, used: false }));
+            let edited = 0;
+            oldNotes.forEach(o => {
+                const w = want.find(x => !x.used && x.lane === o.layer && x.midi === o.sonifyNote && Math.abs(x.s - (+o.startSeconds)) < 0.01 && Math.abs(x.e - (+o.endSeconds)) < 0.01);
+                if (w) w.used = true; else edited++;
+            });
+            return { edited: edited, missing: want.filter(x => !x.used).length };
+        } catch (e) { return null; }
     },
     renderRow() {
         const row = this.el.querySelector('#sqRow'); row.innerHTML = '';
@@ -341,14 +425,20 @@ const S = {
     stopLine() { if (this._raf) cancelAnimationFrame(this._raf); this._raf = 0; const line = this.el && this.el.querySelector('#sqLine'); if (line) line.style.display = 'none'; },
 
     // ------------------------------------------------------------------ Insert @ playhead: the objects D.insert writes, as ONE group, and the recipe into the score file
-    insert() {
+    // 1d.3: a sequence that is IN the score is replaced IN PLACE — from where its META bar sits now; `toPlayhead` (the `move to
+    // playhead` button) is the one way a placed sequence still moves. A sequence not in the score is written at the playhead.
+    insert(toPlayhead) {
         const C = C_(); if (!C || typeof C.getTimeAtPlayhead !== 'function') { this.setStatus('the composer is not reachable', true); return; }
-        const t0 = +C.getTimeAtPlayhead().toFixed(3);
-        const G = this.generate(t0); if (!G) return;
         const id = this.row.id, group = 'grp-seq-' + id, ML = METAL(), name = this.row.name || ('sequence ' + id);
+        const sits = this.placedAt(id), inPlace = sits != null && !toPlayhead;
+        const t0 = inPlace ? sits : +C.getTimeAtPlayhead().toFixed(3);
+        const G = this.generate(t0); if (!G) return;
+        // the recipe is the truth: count what he changed by hand inside the group — the old notes against what the SAVED recipe generates there
+        const saved = this.entryOf(id), oldNotes = C.objects.filter(o => o.groupId === group && o.sonifyNote != null);
+        const he = (saved && sits != null && oldNotes.length) ? this.handEdits(saved, sits, oldNotes) : null;
         C.pushUndoState();
         const before = C.objects.length;
-        C.objects = C.objects.filter(o => o.groupId !== group);   // one row = one place in the score
+        C.objects = C.objects.filter(o => o.groupId !== group);   // one row = one place in the score: the old group's objects go, by their id
         const gone = before - C.objects.length;
         let maxEnd = G.end, written = 0; const busy = [];
         G.notes.forEach(n => {
@@ -379,8 +469,13 @@ const S = {
         C.lastInsertGroup = group;
         if (typeof C.openMetaWin === 'function') C.openMetaWin();
         C.renderAll(); C.markDirty();
-        this.setStatus('inserted ' + written + ' notes · ' + t0.toFixed(3) + ' → ' + G.end.toFixed(3) + ' s as ' + group + ' · the recipe is in the score file' +
-            (gone ? ' · replaced this row\'s earlier insert (' + gone + ' objects)' : '') + this.flagsText(G) + (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
+        this._listSig = ''; this.renderList(); this.paintInsert();
+        const how = inPlace ? 're-inserted IN PLACE' : (sits != null ? 'MOVED to the playhead' : 'inserted');
+        this.setStatus(how + ' · ' + written + ' notes · ' + t0.toFixed(3) + ' → ' + G.end.toFixed(3) + ' s as ' + group + ' · the recipe is in the score file' +
+            (gone ? ' · replaced ' + gone + ' objects' + (sits != null && !inPlace ? ' at ' + sits.toFixed(3) + ' s' : '') : '') +
+            (he && he.edited ? ' · ' + he.edited + ' note' + (he.edited === 1 ? '' : 's') + ' had been moved or re-pitched by hand — overwritten: the recipe is the truth' : '') +
+            (he && he.missing > he.edited ? ' · ' + (he.missing - he.edited) + ' of its notes had been deleted — written again' : '') +   // a changed note is also a wanted note unmatched: count only the surplus
+            this.flagsText(G) + (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
     },
 };
 

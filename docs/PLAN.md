@@ -505,7 +505,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       against the generator, the inserted objects (count, lanes, `morphBend`, heights), the META bar, the recipe in the saved score, a
       reload. `palette_check`. SEQUENCE_TOOL, RUNNING_LOG, this plan; commit; push.
     - **His test:** reload → `Sequence` → `+` → a take · 8 s · mf → `+` → another · 13 s → SPACE → Insert → play the score.
-  - **1d.3 — The round trip** (reopen a placed sequence, change anything, re-Insert replaces it in place) — `todo` — his "good",
+  - **1d.3 — The round trip** (reopen a placed sequence, change anything, re-Insert replaces it in place) — **BUILT 2026-09-19 (session 9, RUNNING_LOG §116; SEQUENCE_TOOL §10), HIS TEST OUTSTANDING** — *as built:* all in `sequence_ui.js`; the list · the start read from the META bar · re-insert IN PLACE (this CHANGES 1d.2's "Insert again moves it" — kept as a separate `move to playhead` button, his to reverse) · the status counts notes changed or deleted by hand · an orphan stays in the list, marked · a dirty row asks before it is replaced · verified in the running app with no MIDI; NOT verified: sound, and a real canvas drag of the META bar — his "good",
     2026-09-19.
     *Result when done:* a placed sequence can be reopened and changed. The drawer lists the sequences in the open score; pick one and
     it comes back as it was — the boxes, the frozen chords, the seconds, the dyns, attack or seamless — with its start read from where
