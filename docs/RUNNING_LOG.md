@@ -4062,3 +4062,44 @@ So a curve on `bowed_vibraphone` alone changes the vibraphone alone.
 Re-running `compute_trims.js` over the whole card after 1b.3 had been applied produced nonsense — the cello proposed at **−18.03 dB** when it is already correct at −3.87. The cause is worth stating plainly, because it is a general hazard of this kind of tool: it computes `new = current + (target − measured)`, which is only right when `measured` was taken **with `current` in force**. The card is now mixed (§85) — the SI2 three and the vibraphone re-measured post-trim, the other five still pre-trim — so the correction was being applied a second time to the five that had not moved.
 
 Nothing was written: `bank/trims.json` was restored from the commit and only the vibraphone's row recomputed, under a new `--only` flag. The tool now also **flags any instrument sitting within 1 dB of target while carrying a trim**, which is the signature of a row that was measured post-trim. The proper cure — a per-row record of the trim in force at measurement — is in NITS; it is what 1b.6's battery will want anyway.
+
+---
+
+## §88. PLAN 1b.5 — the ensemble verification FAILS, and it names two faults in how the card was measured (2026-09-19)
+
+**What prompted it.** His *"saved, run 1b.5"*. The pass was written down in §83 and §86 before the run, which is the only thing that lets it fail honestly. **It failed, four checks of five.**
+
+**The path, and it is new.** Every probe until now sent MIDI that a schedule described — my arithmetic, not the app's. 1b.5 had to test the app's own decisions, so the chain is **composer.html (headless, virtual clock) → `capture_composer_midi.js` → `play_capture.ps1` → the rack → REC**. Four tools: `tools/build_1b5_score.js` (reference chord 1, eight voices, each alone at fff then mf, then the tutti at pp · mf · ff · fff — plain notes, no `cc7Fade`, no keyswitch, so only the calibration is under test), `probes/play_capture.ps1` (replays a captured event list at wall-clock speed), `probes/capture_run.ps1` (the record, with card_run's pre-checks), `probes/analyze_1b5.py`.
+
+**The app's own choices arrived exactly as the bank prescribes** — the capture shows the vibraphone's D5 sent at velocity 127 with **CC7 118** and its B5 at 127 with **CC7 75**, the register trim of §87, and the same CC7 values at mf with the velocities dropped. So the *mechanism* works end to end. What the bank believes about the instruments is what is wrong.
+
+### The result
+
+| solo at fff | measured | err vs −31.84 |
+|---|---|---|
+| Db 34 | −32.38 | −0.54 |
+| Bsn 62 | −30.59 | +1.25 |
+| **Vc 62** | **−38.97** | **−7.13** |
+| Hn 68 | −30.65 | +1.19 |
+| EH 68 | −30.00 | +1.84 |
+| Tpt 74 | −30.38 | +1.46 |
+| **Vib 74** | **−20.18** | **+11.66** |
+| **Vib 83** | **−27.13** | **+4.71** |
+
+spread **18.79 dB** (pass wanted ≤ 3) · at mf, spread **15.86 dB** · tutti fff **−14.3 LUFS** (wanted −20 ± 2) · **true peak −5.0 dBTP — the one PASS**, comfortably under the −1 ceiling.
+
+### Fault 1 — the vibraphone's register was sampled too coarsely
+
+The nine-pitch pass (53 · 58 · 62 · 67 · 71 · 76 · 80 · 85 · 89) was chosen on the reasoning that *"a sample zone two or three semitones wide cannot hide between two of them"*. **It can.** The card has pitch 71 at −41.3 and pitch 76 at −37.7, so it interpolates **74 at −39.1** and the remap trims accordingly. Measured, pitch 74 sits at the equivalent of **−27.6** — about **11.5 dB above both its neighbours.** There is a loud zone between two quiet samples and the sampling grid stepped straight over it.
+
+So the register curve is right only *at* the nine measured pitches, and can be wrong by 11 dB between them. Since the piece's vibraphone writing uses 56 · 66 · 67 · 72 · 73 · 74 · 76 · 82 · 83 · 86, most of it falls between samples. **The cure is a finer grid: every semitone across its range.** It is deterministic now (§82), so one velocity suffices — the velocity response was measured uniform at 13.5–14.0 dB across all nine pitches — and that is ~37 notes, about five minutes.
+
+### Fault 2 — the curves are single strikes on instruments that scatter
+
+The cello reads **7.1 dB under** target. Its card curve at pitch 60 is the reason: velocity 24 → −34.4, 64 → −24.6, **100 → −13.6, 127 → −16.2**. Velocity 100 measures *louder than* 127, which cannot be true of a velocity curve — it is one round-robin sample being louder than another, on an instrument 0d measured at **3.22 dB SD**. The monotone fit pools 100 and 127 to −14.9, the inversion then places the fff target at velocity 90, and the real level there is 7 dB lower.
+
+The trims escaped this because they were taken at velocity 127 only and compared like with like. **The remap cannot: it depends on the SHAPE between points, and a single strike at each point is not enough on a scattering sampler.** 0d knew this and gave the Xsample three three repeats; the card gave them one. The winds and brass cluster at **+1.2 to +1.8**, inside their own 1.7–2.5 dB scatter, and are the same problem in a milder form.
+
+**The cure is repeats** — three per velocity point on the four Kontakt instruments, so each point is a mean over a full round-robin cycle rather than whichever sample answered.
+
+**What is NOT in question.** The chain and the meter (1b.1), the absolute target (1b.3, and the SI2 three land within 1.5 dB of it), the CC7 mechanism (§87, and the capture proves the app sends it), and the headroom — the tutti at fff peaks at **−5.0 dBTP**, four decibels under the ceiling, so nothing clips even while the ensemble sits 5.7 dB hot. **The failure is one of measurement resolution, not of design**, and it is exactly the failure 1b.5 existed to catch.

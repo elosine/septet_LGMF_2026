@@ -1,0 +1,208 @@
+{
+ "generatedAt": "2026-09-19T11:13:32",
+ "planItem": "1b.5",
+ "piece": "lgmf",
+ "recording": "30-REC-260919_1108.wav",
+ "score": "lgmf-1b5.json",
+ "path": "composer.html (headless) \u2192 capture_composer_midi.js \u2192 play_capture.ps1 \u2192 the rack \u2192 REC",
+ "target": {
+  "perVoiceDb": -31.84,
+  "tuttiLufs": -20.0,
+  "ceilingDbtp": -1.0,
+  "tolPartDb": 1.0,
+  "tolSpreadDb": 3.0,
+  "tolLufsDb": 2.0
+ },
+ "solo": {
+  "solo-fff": [
+   {
+    "voice": "Db",
+    "pitch": 34,
+    "lane": 7,
+    "integratedDb": -32.38,
+    "peakDbfs": -22.73,
+    "soundingS": 6.92
+   },
+   {
+    "voice": "Bsn",
+    "pitch": 62,
+    "lane": 1,
+    "integratedDb": -30.59,
+    "peakDbfs": -24.13,
+    "soundingS": 6.44
+   },
+   {
+    "voice": "Vc",
+    "pitch": 62,
+    "lane": 6,
+    "integratedDb": -38.97,
+    "peakDbfs": -28.15,
+    "soundingS": 6.48
+   },
+   {
+    "voice": "Hn",
+    "pitch": 68,
+    "lane": 2,
+    "integratedDb": -30.65,
+    "peakDbfs": -23.95,
+    "soundingS": 6.55
+   },
+   {
+    "voice": "EH",
+    "pitch": 68,
+    "lane": 0,
+    "integratedDb": -30.0,
+    "peakDbfs": -21.42,
+    "soundingS": 6.6
+   },
+   {
+    "voice": "Tpt",
+    "pitch": 74,
+    "lane": 3,
+    "integratedDb": -30.38,
+    "peakDbfs": -22.13,
+    "soundingS": 6.36
+   },
+   {
+    "voice": "Vib",
+    "pitch": 74,
+    "lane": 5,
+    "integratedDb": -20.18,
+    "peakDbfs": -11.9,
+    "soundingS": 6.34
+   },
+   {
+    "voice": "Vib",
+    "pitch": 83,
+    "lane": 5,
+    "integratedDb": -27.13,
+    "peakDbfs": -19.61,
+    "soundingS": 6.26
+   }
+  ],
+  "solo-mf": [
+   {
+    "voice": "Db",
+    "pitch": 34,
+    "lane": 7,
+    "integratedDb": -38.83,
+    "peakDbfs": -29.2,
+    "soundingS": 6.93
+   },
+   {
+    "voice": "Bsn",
+    "pitch": 62,
+    "lane": 1,
+    "integratedDb": -36.14,
+    "peakDbfs": -29.58,
+    "soundingS": 6.45
+   },
+   {
+    "voice": "Vc",
+    "pitch": 62,
+    "lane": 6,
+    "integratedDb": -43.42,
+    "peakDbfs": -32.58,
+    "soundingS": 6.5
+   },
+   {
+    "voice": "Hn",
+    "pitch": 68,
+    "lane": 2,
+    "integratedDb": -34.43,
+    "peakDbfs": -27.94,
+    "soundingS": 6.57
+   },
+   {
+    "voice": "EH",
+    "pitch": 68,
+    "lane": 0,
+    "integratedDb": -40.41,
+    "peakDbfs": -32.64,
+    "soundingS": 6.71
+   },
+   {
+    "voice": "Tpt",
+    "pitch": 74,
+    "lane": 3,
+    "integratedDb": -37.61,
+    "peakDbfs": -29.43,
+    "soundingS": 6.35
+   },
+   {
+    "voice": "Vib",
+    "pitch": 74,
+    "lane": 5,
+    "integratedDb": -27.56,
+    "peakDbfs": -19.07,
+    "soundingS": 6.32
+   },
+   {
+    "voice": "Vib",
+    "pitch": 83,
+    "lane": 5,
+    "integratedDb": -34.47,
+    "peakDbfs": -26.78,
+    "soundingS": 6.26
+   }
+  ]
+ },
+ "tutti": [
+  {
+   "dynamic": "pp",
+   "startS": 160.76,
+   "endS": 165.86,
+   "lufs": -29.2,
+   "truePeakDbtp": -19.3
+  },
+  {
+   "dynamic": "mf",
+   "startS": 171.76,
+   "endS": 176.86,
+   "lufs": -21.3,
+   "truePeakDbtp": -11.4
+  },
+  {
+   "dynamic": "ff",
+   "startS": 182.76,
+   "endS": 187.86,
+   "lufs": -17.5,
+   "truePeakDbtp": -8.2
+  },
+  {
+   "dynamic": "fff",
+   "startS": 193.76,
+   "endS": 198.86,
+   "lufs": -14.3,
+   "truePeakDbtp": -5.0
+  }
+ ],
+ "checks": [
+  {
+   "what": "every part at fff within \u00b11 dB of target",
+   "pass": false,
+   "read": "worst 11.66 dB"
+  },
+  {
+   "what": "solo-fff spread \u2264 3.0 dB",
+   "pass": false,
+   "read": "18.79 dB"
+  },
+  {
+   "what": "solo-mf spread \u2264 3.0 dB",
+   "pass": false,
+   "read": "15.86 dB"
+  },
+  {
+   "what": "tutti fff at -20.0 LUFS \u00b12.0",
+   "pass": false,
+   "read": "-14.3 LUFS"
+  },
+  {
+   "what": "tutti fff true peak \u2264 -1.0 dBTP",
+   "pass": true,
+   "read": "-5.0 dBTP"
+  }
+ ],
+ "pass": false
+}
