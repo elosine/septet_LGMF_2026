@@ -3,8 +3,10 @@
 *PLAN 1d. Opened 2026-09-19 with 1d.1, the generator. His brief: COMPOSITION_NOTES LG-35
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
-**What exists today:** the generator only — `score/public/sequence.js` — and its check,
-`node tools/sequence_check.js` (**49**). No drawer, no sound. Those are 1d.2 onward.
+**What exists today:**
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**49**) · 1d.1
+- the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
+- not yet: reopening a placed sequence (1d.3) · the roll (1d.4) · the breath dials (1d.5) · the waves (1d.7)
 
 ---
 
@@ -104,3 +106,65 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 `node tools/sequence_check.js` — **49**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes.
+
+## 9 · The drawer (1d.2)
+
+`score/public/sequence_ui.js`, loaded after every strikes-drawer mixin. **`strike_drawer.js` is not changed.**
+
+**Where:** a `Sequence` button beside `Strikes` (and a `SEQUENCE ▴` tab, bottom right).
+It opens a strip along the bottom. The strikes drawer, when open, stands ON the strip — both visible.
+
+**The strip**
+- Head: name · `change [attack | seamless]` · `+ container` · `hear [from the start | from the box]` ·
+  `Hear` · `Stop` · `Insert @ playhead` · `new` · the `SPACE` light · total · status.
+- The row: one box per container — its number, take, `seconds · dyn`, and **how many players it froze**.
+  The width follows the seconds (never under 96 px). An empty box is edged red.
+- The line under the row belongs to the clicked box: take · seconds · dyn (`as dealt` | `ppp … fff`) ·
+  `refresh from take` · `◂ ▸` · `×` · the frozen chord spelled out (`Bsn C3 · Vc B♭4 −31¢ …`).
+
+**Choosing a take**
+- The take is LOADED in the strikes drawer (`loadTake`) — so he sees it; whatever was undealt there is replaced.
+- The box reads the notes as `long tone` deals them — `longNotes(notesFor('orch'))`: each player·pitch once,
+  its cents, its seat, the take's own dyn as the level.
+- The chord is FROZEN in the box. `refresh from take` reads it again.
+- The players count is the guard: the free/busy rule (PLAN 1t, §93) can deal fewer players than expected.
+
+**Hear**
+- The generator's notes through the strikes drawer's own player (`playNotes`): the remap, the bends, the seat's channel.
+- `from the box`: from the selected box's line; a note already sounding there is picked up at the line.
+- A white line crosses the boxes while it plays.
+- **The bend taken back:** `playNotes` sends a bend only for a note WITH cents. A sequence gives one player a just
+  note and then a tempered one on the same channel. So a tempered note of a player who bends anywhere in the sequence
+  leaves with a millionth of a cent — the player then sends the centre. Players who never bend are sent nothing.
+
+**SPACE goes to what he clicked last** *(a call made alone — his to reverse, RUNNING_LOG §115)*
+- this strip → the sequence · the strikes drawer → the take · the score → the transport (strikes drawer closed).
+- The `SPACE` light and the bright top border say when the strip has it.
+- How: the strikes drawer's own listener owns SPACE while it is open and calls `play('orch')`; this file wraps `play`.
+  With the strikes drawer closed, this file's own listener answers.
+
+**Insert @ playhead**
+- The objects the strikes drawer's Insert writes: a `waveCurve` per note · height = the anchor (`y = level × 10`) ·
+  `recVel` · cents as a constant `morphBend` · a seat's note or a bent note DRAWN, the rest `sonifyMode: 'plain'` ·
+  nodes built from the note's `levels` breakpoints (flat today). `srcKind: 'sequence'`.
+- ONE group `grp-seq-<id>` · ONE META bar over the span.
+- The recipe into the score file: `databases.sequences` — an ARRAY, as its sibling databases are —
+  `{ id, name, group, inserted, notes, recipe }`. The recipe is complete: `t0 · change · breath · containers[{ dur, dyn, take, chord }]`.
+  The working copy and every named version carry it (`collectData` saves `databases` whole; the server passes it through).
+- A player who is trilling at that moment is skipped, as the strikes drawer does.
+
+**One row = one sequence = one place in the score** *(a call made alone — his to reverse, §115)*
+- The row carries an id. Insert removes the earlier insert of THAT id, wherever it sits, then writes at the playhead.
+- `new` clears the row and takes a fresh id; a sequence already in the score stays there.
+
+**Remembered:** the row, the selected box and the hear menu — in the browser (`lgmf.sequenceDrawer.v1`).
+
+**Verified in the running app, no MIDI (a throwaway :5401 tab, 2026-09-19):** three of his takes (8 · 13 · 6 s) →
+8 players frozen in each, cents and both vibraphone seats carried · widths 439 : 706 : 333 px for 8 : 13 : 6 ·
+Hear's list = the generator's, note for note (37) · `as dealt` kept the takes' own dyn (92, 83), the `mf` box 100 ·
+4 notes re-centred · from the box: 25 notes, 8 at the line · seamless: 28 notes, 14 `ACROSS` ·
+SPACE to the strip, the strikes drawer, the transport, each in turn · the two drawers stacked with no overlap ·
+Insert: 37 notes + 1 META on lane 8, 22 `morphBend`, 27 drawn / 10 plain, heights 2.9 · 4.4 · 5.6 = 83 · 92 · 100 ·
+Insert again: the same object count, one database entry · saved under a throwaway name and loaded back: the recipe
+byte-identical · a reload: the row back, chords kept. `palette_check` 184 · `sequence_check` 49.
+**Not verified: sound.** The in-app browser has no Web MIDI — every listen is his Chrome.

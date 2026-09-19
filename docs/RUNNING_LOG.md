@@ -4830,3 +4830,80 @@ half of 0.35). A synthetic bell (fixed 2.5 s): 20 strikes under attack, 17 under
 
 **Not done, by the plan:** no drawer, no `databases.sequences`, no sound, no Insert. Registered: CLAUDE.md's checks line.
 `docs/SEQUENCE_TOOL.md` opened.
+
+## §115. PLAN 1d.2 BUILT — the SEQUENCE drawer, one container at a time (2026-09-19)
+
+**What prompted it.** Session 9, a postclear; his words: *"Next: 1d.2 starts a new chunk pls"*, then *"yes start 1d.2"*, then
+to the short proposal, *"go"*. The step itself he had passed on 2026-09-19 with *"good"* (PLAN § 1d.2).
+
+**What was built.** `score/public/sequence_ui.js` — one new file — and two `<script>` tags in `composer.html` (`sequence.js`,
+which no page had loaded, and the drawer). **`strike_drawer.js` was not changed**, nor any of its mixins. The drawer is a strip
+along the bottom of the screen: a row of boxes, each a container — take · seconds · dyn — its width its duration; `+ container`,
+`×`, `◂ ▸`, `change [attack | seamless]`; Hear through the strikes drawer's own player; Insert @ playhead as one group with one
+META bar, the recipe into the score file. `docs/SEQUENCE_TOOL.md` §9 has it in prose.
+
+**How a box gets its chord — and why that way.** The plan said: choosing a take LOADS it in the strikes drawer and the box reads
+the notes *as `long tone` deals them*. That is literally what the code does — `D.loadTake(name)`, then
+`D.longNotes(D.notesFor('orch'))` — so every mixin that shapes a departing note has already spoken: the dyn anchor (1c.2b), the
+seat's lane and `seat: 2` (1c.3), the cents and the partial (1c.4), the fixed-pitch rule. Nothing was re-implemented, so nothing can
+drift from what Hear in the strikes drawer plays. The level is kept both as the anchor (`vel`) and as the height (`level`); `inst`
+is the track's `instKey`, which is the key `beating_calc.js` CEILINGS uses (checked: `bowed_vibraphone`, not `vibraphone` — the
+latter silently falls back to a 12 s breath). A take chosen with the strikes drawer NEVER OPENED works — the HARMONIC SERIES
+strike is built on demand (tested exactly so).
+
+**A thing found by reading, not in the plan — the bend that is never taken back.** `playNotes` sends a pitch bend only for a note
+WITH cents (`if (cents && e.sendBend)`), and ends with a panic that re-centres everything. In the strikes drawer that is right: one
+chord, one note a player. A sequence is the first thing to give ONE player a just note and THEN a tempered one on the SAME channel —
+the tempered note would sound at the old −31 ¢. His constraint forbids changing the drawer unless necessary, and it was not
+necessary: a tempered note of a player who bends anywhere in the sequence leaves the sequence drawer with `cents: 1e-6`, which is
+truthy, and `bendValue` rounds it to the centre. Players who never bend are sent nothing, as before. In the verification run: 22
+bent notes, 4 re-centred, 11 untouched. *(The SCORE's playback does not have this problem: a bent note is a drawn note on a curve
+channel, a tempered one is `plain` on MAIN.)* Still true and unfixed: the bend is sent 30 ms before its note, so on a bow with a
+50 ms gap the last 20 ms of the previous note's RELEASE is bent. Hear only; inaudible I expect; noted, not measured.
+
+**The calls made alone — his to reverse.** He saw all three in the proposal and said *"go"*:
+1. **SPACE goes to what he clicked last** — the strip, the strikes drawer, or the score. Forced by the code: the strikes drawer's
+   capture listener takes SPACE whenever that drawer is open, and it was registered first, so a second listener cannot get in
+   front of it. It calls `D.play('orch')`; the new file wraps `play` and hands it to the sequence when the strip was clicked
+   last. With the strikes drawer closed the new file's own listener answers — and lets SPACE through to the transport once he
+   clicks the score, so *Insert → click the score → SPACE* plays the score without closing anything. A `SPACE` light and the
+   strip's top border say who has it. *Rejected:* reading `window.event` inside the wrap to tell SPACE from the Hear button —
+   deprecated, and unnecessary: clicking the strikes drawer's Hear button makes the strikes drawer the last thing clicked.
+2. **One row = one sequence = one place in the score.** The row has an id; Insert removes the earlier insert of that id wherever
+   it sits and writes at the playhead; `new` takes a fresh id. The strikes drawer's rule (replace only at the same time, keep
+   copies elsewhere — CN-28) was NOT copied: a strike may recur, but a recipe saved under one id with one `t0` cannot be in two
+   places, and two inserts of one row double every note on the same channel. This is the seed of 1d.3's "re-Insert replaces it in
+   place"; 1d.3 adds reopening a placed sequence from a list.
+3. **The strip sits UNDER the strikes drawer** rather than beside it. The strikes drawer is full-height by default (`cfg.full`),
+   so "beside" had nowhere to go. While the strip is open the strikes drawer's `bottom` and `max-height` are set from outside
+   (styles only) and its tab is lifted; closed, they are put back.
+
+Smaller, also mine: `databases.sequences` is an ARRAY of `{ id, name, group, inserted, notes, recipe }`, as `chordShapes · sets ·
+cells` are arrays — the plan's "under that id" could have meant a map; an array cannot surprise code that walks the databases. The
+recipe is saved COMPLETE, `breath` written out even though it is the default, so a later change of defaults cannot move a saved
+sequence. Each box shows HOW MANY PLAYERS it froze — the guard against PLAN 1t's free/busy rule (§93) dealing a thin chord unseen.
+`hear [from the start | from the box]` is a menu SPACE follows — his own long-tone idiom (§94). A new box is 8 s, `as dealt`.
+The notes' drawn nodes are built from the generator's `levels` breakpoints (flat today), so 1d.7's waves change numbers, not shape.
+Known and left for 1d.3: undo takes the inserted notes back but not the database entry — an orphan recipe, harmless, and the list
+1d.3 builds is where it would show.
+
+**Verified in the running app, no MIDI — a throwaway :5401 tab, never his; autosave disabled in that tab before anything else.**
+Three of HIS takes (`Just-C1-seed90` 8 s as dealt · `Just-A1-seed124` 13 s mf · `Just-e1-seed178` 6 s as dealt):
+- 8 players frozen in each; the cents carried (−49 · −31 · +41 …); both vibraphone seats present; the vibraphone never bent.
+- Box widths 439 : 706 : 333 px for 8 : 13 : 6 s. *(First read 96 : 96 : 96 — the pane was hidden and the viewport 0 × 0; not a bug.)*
+- Hear's list = the generator's, note for note: 37 notes, every onset, length, pitch and lane equal. `as dealt` kept the takes' own
+  dyn (mp → 92, p → 83); the `mf` box 100.
+- From the box (box 2): from 8 s, 25 notes, 8 of them at the line. Seamless: 28 notes, 14 flagged `ACROSS`. Attack: 5 `CEILING`.
+- SPACE, both drawers open: strip clicked last → the sequence; otherwise → the strikes drawer's long tones. Strikes drawer closed:
+  strip clicked last → the sequence, default prevented; otherwise the event is left alone for the transport.
+- Stacked: strikes drawer 0 → 724 px, strip from 724 px; no overlap.
+- Insert: 38 objects = 37 notes + 1 META bar on lane 8 over 0 → 27 s; lanes 0 1 2 3 5 6 7; 22 `morphBend`, each constant and as long
+  as its note; 27 drawn / 10 `plain` = the generator's 27 seat-or-bent; heights 2.9 · 4.4 · 5.6 ↔ anchors 83 · 92 · 100 = `recVel`.
+- Insert again: the object count unchanged (38 out, 38 in), one database entry.
+- The score file: `collectData()` carries `databases.sequences`; POSTed under a THROWAWAY name (`zz-verify-seq`, deleted after) and
+  loaded back — the entry byte-identical, the 38 group objects present. **The server passes an unknown database through.**
+- A reload: the row back with its id, three boxes, the chords kept, the selected box, Hear's 37 notes. No console errors.
+- `palette_check` 184 · `sequence_check` 49 · his `lgmf-converge-work` untouched (0 sequences in it after the run).
+
+**NOT verified: sound** — the in-app browser has no Web MIDI. **His test (PLAN 1d.2):** reload → `Sequence` → `+` → a take · 8 s ·
+mf → `+` → another · 13 s → SPACE → Insert → play the score.

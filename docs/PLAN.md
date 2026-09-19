@@ -477,7 +477,12 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       refused with a message. Registered in CLAUDE.md's checks line.
     - `docs/SEQUENCE_TOOL.md` opened — the recipe, the rules, the numbers; RUNNING_LOG; commit, push.
   - **1d.2 — The drawer, one container at a time** (a row of boxes — take · seconds · dyn — Hear, Insert, the recipe saved with the
-    score) — `todo` — his "good", 2026-09-19.
+    score) — **BUILT 2026-09-19 (session 9, RUNNING_LOG §115), HIS TEST OUTSTANDING** — his "good", 2026-09-19.
+    *As built:* `score/public/sequence_ui.js` + two script tags; `strike_drawer.js` unchanged; verified in the running app with no
+    MIDI (§115 has every number); `docs/SEQUENCE_TOOL.md` §9. Three calls made alone, shown him in the proposal, his to reverse:
+    **SPACE goes to what he clicked last** (strip · strikes drawer · score) · **one row = one sequence = one place in the score**
+    (Insert again MOVES it; `new` takes a fresh id) · **the strip sits UNDER the strikes drawer**, not beside it (that drawer is
+    full-height). Found on the way: `playNotes` never takes a bend back — handled from outside (§115).
     *Result when done:* a `SEQUENCE` drawer opens beside the strikes drawer. It shows a row of boxes, each one container, its width
     its duration; `+` adds a box, `×` removes it, `◂ ▸` moves it. Click a box to give it a take (a pull-down of the strikes takes),
     its seconds and its dyn (`as dealt` or `ppp … fff`); a `change` menu, `attack | seamless`. SPACE plays the whole sequence through
