@@ -1400,7 +1400,17 @@ The score's TRACKS are untouched. Inside the drawer a seat is a row like any oth
 seat's note leaves on the vibraphone's lane with `seat: 2` — Hear routes it to the instrument's first curve channel (D11's slot A),
 Insert writes it as a drawn note so the score's channel pool separates the two bows. A seat is busy when its lane is.
 
-**Stages 4+ (PLAN 1c):** the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+**Stage 4 — the natural harmonic series, the JUST column (PLAN 1c.4, built 2026-09-19, RUNNING_LOG §97):** a banner **HARMONIC SERIES ·
+from the fundamental** under STRIKES — a fundamental box (E1, C2, Bb1 or a MIDI number; ENTER) and one row, `just · partials of C2 ·
+65 n`. It loads like any harmony (id `sp:C2:just`; a take rebuilds it); the `88` view switches on; every partial to the top key, each
+dot labelled `p · ±c¢` (the JUST column, at the right — the other three come to its left). The arithmetic is `spectrum.js`
+(`node tools/spectrum_check.js`, 23 checks against the textbook). **Cents through the drawer:** a voice keeps `partial` and `cents`;
+every departing note carries them; Hear sends the bend before the note (the instrument's measured range); Insert writes `morphBend`
+as `lgmf-ref` does, the note drawn (its own channel), `partial p · ±c¢ just` in its performance note. **The fixed-pitch rule:**
+`mayTake(voice, lane)` — a player who cannot bend (`playerBendSt` 0: the vibraphone, its seat, the percussion) never takes a note more
+than **5 ¢** off; the shuffle's fit test and `fitReal` (the hand) both ask it; within 5 ¢ the note is tempered, cents dropped.
+
+**Stages 5+ (PLAN 1c):** the other three columns of the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
 note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).

@@ -549,6 +549,7 @@ const D = {
     fitReal(v, r) {
         // F: fold by octave into the player's (technique's) range; fixed-pitch / noise / multiphonic → stand-in
         const inst = this.instOf(r.lane); if (!inst) { r.fold = 0; r.standIn = null; return true; }
+        if (this.mayTake && !this.mayTake(v, r.lane)) { r.fold = 0; r.standIn = null; r.skip = true; return false; }   // 1c.4: the same hook the shuffle asks — one rule for the shuffle and the hand
         const tech = this.techOfR(r); const kind = kindOf(tech);
         const [lo, hi] = techRange(inst, tech);
         if (kind === 'pitched') {
@@ -629,7 +630,7 @@ const D = {
         { const B = this.busyLanes();
           [...free].forEach(l => { if (!this.laneTicked(l, B)) free.delete(l); }); }
         const give = (v, lane) => { v.lane = lane; v.tech = this.defaultTech(lane); this.fitVoice(v); free.delete(lane); };
-        const fits = (v, lane) => { const inst = this.instOf(lane); if (!inst) return false; const tk = this.defaultTech(lane); const [lo, hi] = techRange(inst, (inst.techniques || []).find(t => t.key === tk)); return this.cfg.mayFold ? !!foldInto(v.pitch, lo, hi) : (v.pitch >= lo && v.pitch <= hi); };
+        const fits = (v, lane) => { const inst = this.instOf(lane); if (!inst) return false; if (this.mayTake && !this.mayTake(v, lane)) return false; const tk = this.defaultTech(lane); const [lo, hi] = techRange(inst, (inst.techniques || []).find(t => t.key === tk)); return this.cfg.mayFold ? !!foldInto(v.pitch, lo, hi) : (v.pitch >= lo && v.pitch <= hi); };   // 1c.4: mayTake — a hook (spectrum_ui.js): a fixed-pitch player never takes a note more than the tolerance off
         // locks first: the highest and the lowest voice
         if (this.cfg.topLock >= 0 && vs.length) { const v = vs[vs.length - 1]; if (fits(v, this.cfg.topLock) || this.cfg.mayFold) give(v, this.cfg.topLock); }
         if (this.cfg.bottomLock >= 0 && vs.length > 1) { const v = vs[0]; if (v.lane < 0 && (fits(v, this.cfg.bottomLock) || this.cfg.mayFold)) give(v, this.cfg.bottomLock); }
@@ -1267,7 +1268,7 @@ const D = {
         if (this.cfg.shape === 'accel' && mode !== 'piano') {   // U13: the run — one note per player of each card, at the run's onsets
             const A = this.accelSeq(); const anySolo = this.voices.some(v => v.solo); const out = [];
             A.events.forEach(ev => { const v = ev.unit.v; if (anySolo && !v.solo) return; const vel0 = clamp(Math.round((this.cfg.flatten ? 127 : v.vel) * this.cfg.dynX), 1, 127); const durMs = Math.max(30, v.durMs * this.cfg.durX);
-                ev.notes.forEach(nt => out.push({ lane: nt.lane, tech: nt.tech || plainTech(this.instOf(nt.lane)), midi: nt.midi, vel: ev.level != null ? clamp(Math.round(ev.level), 1, 127) : vel0, onMs: ev.onMs, durMs })); });   // 1h: the level ramp, when set, replaces the strike's velocity — PLAN 1c.2b: as the ANCHOR; playNotes translates it once, for every note alike (it used to be remapped here and sent raw)
+                ev.notes.forEach(nt => out.push({ lane: nt.lane, tech: nt.tech || plainTech(this.instOf(nt.lane)), midi: nt.midi, vel: ev.level != null ? clamp(Math.round(ev.level), 1, 127) : vel0, onMs: ev.onMs, durMs, cents: nt.standIn ? 0 : (v.cents || 0), partial: v.partial })); });   // 1h: the level ramp, when set, replaces the strike's velocity — PLAN 1c.2b: as the ANCHOR; playNotes translates it once, for every note alike (it used to be remapped here and sent raw). 1c.4: the voice's cents and partial ride along (a stand-in carries none)
             return out;
         }
         const out = []; const anySolo = this.voices.some(v => v.solo);
@@ -1275,7 +1276,7 @@ const D = {
             const v = q.v; const vel = clamp(Math.round((this.cfg.flatten ? 127 : v.vel) * this.cfg.dynX), 1, 127);
             if (anySolo && !v.solo) return;                       // U3: while anything is soloed, only the soloed voices sound
             if (mode === 'piano') { out.push({ lane: pianoLane, tech: plainTech(this.instOf(pianoLane)), midi: v.pitch, vel, onMs: q.onMs, durMs: q.durMs }); return; }
-            this.reals(v).forEach(r => { if (!r.skip) out.push({ lane: r.lane, tech: r.tech || plainTech(this.instOf(r.lane)), midi: this.soundingPitchR(v, r), vel, onMs: q.onMs, durMs: q.durMs }); });   // U10: one note per player that has it
+            this.reals(v).forEach(r => { if (!r.skip) out.push({ lane: r.lane, tech: r.tech || plainTech(this.instOf(r.lane)), midi: this.soundingPitchR(v, r), vel, onMs: q.onMs, durMs: q.durMs, cents: r.standIn != null ? 0 : (v.cents || 0), partial: v.partial }); });   // U10: one note per player that has it — 1c.4: with the voice's cents and partial (a stand-in carries none)
             if (v.piano && !this.reals(v).some(r => r.lane === pianoLane)) out.push({ lane: pianoLane, tech: plainTech(this.instOf(pianoLane)), midi: v.pitch, vel, onMs: q.onMs, durMs: q.durMs });
         });
         return out;
@@ -1302,7 +1303,10 @@ const D = {
             const r = routes[rk(n)]; if (!r) return;
             const on = this.base + n.onMs, off = on + n.durMs;
             const vel = this.remapVel(n.lane, n.midi, n.vel), cc7 = this.remapCc7(n.lane, n.midi, vel, n.vel);
-            e._timers.push(setTimeout(() => { try { r.out.send([0xB0 | r.ch, 7, cc7]); if (r.tech && r.tech.cc0 != null) r.out.send([0xB0 | r.ch, 0, r.tech.cc0]); } catch (x) {} }, Math.max(0, on - CC0_LEAD_MS - performance.now())));
+            // 1c.4: a note with cents (a just partial) gets its bend with the CC7 and the CC0, through the instrument's measured range
+            // (MorphEmit.sendBend, as the score bends a morph note); panic re-centres every channel at the end, as it always did
+            const cents = +n.cents || 0;
+            e._timers.push(setTimeout(() => { try { r.out.send([0xB0 | r.ch, 7, cc7]); if (r.tech && r.tech.cc0 != null) r.out.send([0xB0 | r.ch, 0, r.tech.cc0]); if (cents && e.sendBend) e.sendBend(r, cents); } catch (x) {} }, Math.max(0, on - CC0_LEAD_MS - performance.now())));
             e._timers.push(setTimeout(() => e.noteOn(r, n.midi, vel), Math.max(0, on - performance.now())));
             e._timers.push(setTimeout(() => e.noteOff(r, n.midi), Math.max(0, off - performance.now())));
         });
@@ -1420,10 +1424,13 @@ const D = {
             C.objects.push({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
                 startSeconds: +start.toFixed(3), endSeconds: +(start + dur).toFixed(3),
                 nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }],
-                color: '#C9A05A', fillMode: 'bottom', opacity: 0.55, performanceNotes: 'strike #' + this.strike.index + ' (' + this.strike.id + ')', properties: {}, srcKind: 'strike',
+                color: '#C9A05A', fillMode: 'bottom', opacity: 0.55, properties: {}, srcKind: 'strike',
+                performanceNotes: 'strike #' + this.strike.index + ' (' + this.strike.id + ')' + (n.partial != null ? ' · partial ' + n.partial + (n.cents ? ' · ' + (n.cents > 0 ? '+' : '') + Math.round(n.cents) + '¢ just' : '') : ''),
                 // 1c.3: a SEAT's note is written as a drawn note, not `plain` — a plain note holds MAIN (isCurveEvent), and two bows on one
-                // channel would share a CC7; a drawn note takes a curve channel from the score's own pool (curveChannelMap), as Hear routes it
-                sonifyNote: n.midi, technique: n.tech, ...(n.seat ? {} : { sonifyMode: 'plain' }), recVel: n.vel });
+                // channel would share a CC7; a drawn note takes a curve channel from the score's own pool (curveChannelMap), as Hear routes it.
+                // 1c.4: a note WITH CENTS likewise, and it carries `morphBend` exactly as scores/lgmf-ref.json does — a constant, note-relative
+                sonifyNote: n.midi, technique: n.tech, ...((n.seat || n.cents) ? {} : { sonifyMode: 'plain' }), recVel: n.vel,
+                ...(n.cents ? { morphBend: [[0, +(+n.cents).toFixed(2)], [+dur.toFixed(3), +(+n.cents).toFixed(2)]] } : {}) });
         });
         C.objects.push({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: METAL(), groupId: group, startSeconds: t, endSeconds: +maxEnd.toFixed(3),
             nodes: [{ pos: 0, y: 8.5, smooth: 0 }, { pos: 1, y: 8.5, smooth: 0 }], segments: [{ model: 'power', slope: 0 }],

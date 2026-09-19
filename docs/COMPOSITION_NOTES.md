@@ -1309,3 +1309,21 @@ two bows as two players. Held for the plan (1c.3), at his word "after". (2) **Th
 pull-down ppp … fff replacing `dyn ×` and `flat 127`, on the score's own written scale (fff = the tutti fff of 1b, ppp = a drawn
 note's floor, 12 dB between them, ≈ 1.7 dB a step), each instrument sent its own velocity and CC7 for the level as the score does.
 RUNNING_LOG §95.
+
+### LG-34 · 2026-09-19 — THE HARMONIC SERIES IN THE DRAWER: start with the pure partials, all 88 keys, the cents shown; fixed-pitch players only within five cents
+
+> *"Okay, good. Let's tackle the harmonics then. I want to start with just the natural harmonic series. So I can type in a root and then
+> the harmonics will appear in the keyboard. And the harmonic module or whatever should just be a choice, a single choice in the strikes
+> drawer or the harmony drawer. I choose that. I type in a fundamental and the notes for the all the partials up here all the way up the
+> keyboard from the bottom all 88 keys and then where the notes are they should also indicate if their sense [cents] are added or not
+> And then we should arrange the the circles into columns. And then find a way to identify which of the four sets it belongs to. But
+> let's just do the one set for now. And we'll make this the one, the current column, the one all the way to the right. And then we'll
+> need to work out the pitch bend. And we'll need to work out some additional rules so that fixed pitch instruments like piano and
+> vibraphone are never assigned non-well-tempered pitches. But also we should put a tolerance there. It is just a few cents. Let's say
+> like five cents. Then that could be treated as a well-tempered note and still assigned to fixed pitch instruments. So let's just
+> start there with the actual harmonic column."* — composer, 2026-09-19, session 6, dictated
+
+*AI reading (mine, marked):* the harmony source of LG-32 begun with its first of four columns — the pure series. Two musical rules fall
+out of his words and are now in the tool: (1) a fixed-pitch player (the vibraphone, either bow; the percussion) takes only a partial
+within ±5 ¢ of its key, and plays it tempered; every other player bends to the just value; (2) the fundamental is typed, so any of the
+piece's roots (LG-16, LG-18) is a keystroke away. Built the same day, RUNNING_LOG §97.

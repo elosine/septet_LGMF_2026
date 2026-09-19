@@ -380,7 +380,33 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     (loaded last) sends a seat's notes out on the score lane with `seat: 2`; Hear routes them to the first curve channel, Insert writes
     them as drawn notes so the score's pool separates the bows; a seat is busy when its lane is. Verified in the running app: nine
     rows, the vibraphone dealt two notes, the departing notes on lane 5 as main + seat 2, the routes channel 1 and 2.
-  - **1c.4 … — the later stages:** the SPECTRUM source (a fundamental → the four columns just · just per octave ·
+  - **1c.4 — The natural harmonic series as a source: the JUST column** (type a fundamental → every partial up the 88 keys, each dot
+    with its partial and its ± cents; Hear bends, Insert writes the bend; fixed-pitch players never take a note more than 5 ¢ off) —
+    `done 2026-09-19, awaiting HIS LISTEN` — RUNNING_LOG §97: `spectrum.js` (pure; `tools/spectrum_check.js` GREEN 23 — it caught a
+    stray `/100` on its first run) · `spectrum_ui.js` (the banner, the labels, `mayTake`) · four additive lines in the core (notesFor's
+    `cents`/`partial`, playNotes' bend, insert's `morphBend` + drawn, the `mayTake` hook in the shuffle's fit test and `fitReal`).
+    Verified in the running app: 65 partials of C2 with the textbook cents, no fixed-pitch violation after a shuffle over nine rows,
+    partial 7 refused by the vibraphone and taken by the horn, the take rebuilding `sp:C2:just`.
+    *Result when done:* a banner `HARMONIC SERIES · from the fundamental` in the left column with a fundamental box and one row; the
+    row loads like any harmony (its id rebuilds it, so a take restores it); the keyboard shows every partial to the top of the 88 in
+    one column at the right, `p · ±c¢` beside each dot; SPACE plays the just pitches (a bend per note), Insert writes `morphBend`
+    as `lgmf-ref` carries it; the vibraphone, its second seat and the percussion are never dealt a note more than 5 ¢ off.
+    - A new banner `HARMONIC SERIES · from the fundamental` with a fundamental box (note name or MIDI, like the STACKS root) and one
+      row *partials of C2 · n notes*; id `sp:<fund>:just`; the `88` view switches on when it loads.
+    - The pure arithmetic in `score/public/spectrum.js` (UMD, `node tools/spectrum_check.js`): partial p → 1200·log₂ p above the
+      fundamental → nearest key + deviation; every partial whose key is ≤ 108. Each note carries `partial` and `cents`.
+    - The keyboard: the dots in one column at the right, `p · ±c¢` beside each (a partial within tolerance shows `p` alone); the wrap
+      widened so the three later columns have room to the left.
+    - Cents through the drawer — additive changes to the core: a voice keeps `cents` and `partial` (set on select); every note leaving
+      `notesFor` carries them (a stand-in carries 0); `playNotes` sends the bend before the note through MorphEmit.sendBend (the
+      instrument's measured range), panic re-centres; Insert writes `morphBend [[0, c], [dur, c]]` and the note as drawn (no `plain`),
+      with the partial in its performance note.
+    - The fixed-pitch rule: `mayTake(voice, lane)` — a hook the shuffle's fit test and `fitReal` both ask; false when |cents| > 5 and
+      the player's `playerBendSt` is 0 (vibraphone, its seat, percussion). Within 5 ¢: the tempered note, cents dropped.
+    - Verify in the running app: C2 → the partials, keys and cents against the table (3 · +2¢, 5 · −14¢, 7 · −31¢, 11 · −49¢); the
+      departing notes carry cents; no fixed-pitch player holds a > 5 ¢ note after a shuffle; the take round trip. palette_check;
+      RUNNING_LOG, STRIKES_TOOL, this plan; commit; push.
+  - **1c.5 … — the later stages:** the other three columns of the SPECTRUM source (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
     questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"
