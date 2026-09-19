@@ -1427,7 +1427,13 @@ note names, **one colour per instrument** (a swatch before each row's name is th
 brightens); the **columns measured** — each as wide as its longest label — and placed to the right of the keys, 8ve then JUST, the
 keyboard's width following, so nothing overlaps even for G0 (partial 175, 827 voices).
 
-**Stages 6+ (PLAN 1c):** the two TEMPERED columns of the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+**Stage 6 — the two TEMPERED selections (PLAN 1c.6, built 2026-09-19, RUNNING_LOG §101):** the banner has **four rows**, each its own
+harmony (his word: "no reason to have them all on the same selection") — `just` · `just + 8ve` · `tempered` · `tempered + 8ve`. The
+tempered sets are the same partials on their keys with no cents (every player plays the key); the tempered classes are the twelve
+pitch classes, named by the lowest partial of each (1 3 5 7 9 11 13 15 17 19 21 27), so `tempered + 8ve` is one note on every key.
+Colours by set: JUST pink · 8ve green · TEMPERED blue · TEMPERED / 8ve amber.
+
+**Stage 7 (PLAN 1c):** the partial checkboxes — prune the series by choice — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
 note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).

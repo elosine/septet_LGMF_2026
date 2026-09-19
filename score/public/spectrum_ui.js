@@ -32,8 +32,9 @@ const INST = () => (typeof INSTRUMENTS !== 'undefined' ? INSTRUMENTS : (root.INS
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const DEFAULT_FUND = 'C2';
-const COL = { just: { label: '#e39ac6', name: 'JUST' }, '8ve': { label: '#8fd48f', name: 'JUST / 8ve' } };   // his pink and green
-const COL_ORDER = ['8ve', 'just'];   // left to right — the JUST column "all the way to the right" (LG-34)
+const COL = { just: { label: '#e39ac6', name: 'JUST' }, '8ve': { label: '#8fd48f', name: 'JUST / 8ve' },              // his pink and green
+              temp: { label: '#8ec8ff', name: 'TEMPERED' }, temp8ve: { label: '#f0c66a', name: 'TEMPERED / 8ve' } };   // the tempered pair: blue and amber
+const COL_ORDER = ['8ve', 'temp8ve', 'just', 'temp'];   // left to right — the base column "all the way to the right" (LG-34), its octaves to its left
 const KEYS_RIGHT = 146, COL_GAP = 12, DOT_R = 7, MIN_W = { plain: 150, spectrum: 235 };
 // the range lines ON the keys, right of the note names (his 2026-09-19 evening ask) — one colour per instrument, the name on hover
 const RANGE_X0 = 47, RANGE_GAP = 4;
@@ -88,6 +89,8 @@ Object.assign(D, {
                 };
                 h += row(['just'], 'just', 'every partial of ' + S.nm(fund) + ' to the top of the 88 keys — the JUST column (pink): each note carries its partial and its cents; players who cannot bend take only those within ±' + this.specTol() + '¢');
                 h += row(['just', '8ve'], 'just + 8ve', 'the JUST column and, to its left, the same partials transposed into every octave of the 88 (green): each pitch class the series holds, with its cents, on every key of that class; the same rule for players who cannot bend');
+                h += row(['temp'], 'tempered', 'the same partials on their nearest keys, no cents — the TEMPERED column (blue): every player plays the key');
+                h += row(['temp', 'temp8ve'], 'tempered + 8ve', 'the TEMPERED column and, to its left, its pitch classes on every key of the 88 (amber) — each key named by the lowest partial of its class');
             }
         }
         const first = list.querySelector('.skBanner[data-bank]:not([data-bank="strikes"])');
@@ -190,7 +193,7 @@ Object.assign(D, {
             const lane = +row.dataset.lane, fixed = this.fixedPitch(lane);
             row.querySelectorAll('.skChip').forEach(chip => {
                 const v = this.voices[+chip.dataset.i]; if (!v || v.partial == null || chip.querySelector('.skSpChip')) return;
-                const within = Math.abs(+v.cents || 0) <= tol, p = v.partial + (v.set === '8ve' ? '⁸' : '');
+                const within = Math.abs(+v.cents || 0) <= tol, p = v.partial + ((v.set === '8ve' || v.set === 'temp8ve') ? '⁸' : '');
                 const t = fixed ? (' · ' + p + (within ? ' (tempered)' : ' ✗ ' + S.centsText(v.cents))) : ' · ' + S.label({ partial: p, cents: v.cents }, tol);
                 chip.insertAdjacentHTML('beforeend', '<span class="skSpChip" style="color:' + ((COL[v.set || 'just'] || COL.just).label) + '">' + esc(t) + '</span>');
                 const holder = chip.parentNode; if (holder && holder.style && holder.style.width === '88px') holder.style.width = '138px';
@@ -211,7 +214,12 @@ D.select = function (id) {
     const sp = !!this.strike.spectrum;
     this.voices.forEach(v => { const n = this.strike.notes[v.i] || {}; v.cents = sp ? (+n.cents || 0) : 0; v.partial = sp ? n.partial : undefined; v.set = sp ? n.set : undefined; });
     if (sp && !this.cfg.show88) { this.cfg.show88 = true; const b = this.el.querySelector('#sk88'); if (b) b.checked = true; this.save(); }
-    if (sp) { this.render(); const S = SP(); this.setStatus(this.strike.label + ' · ' + this.strike.notes.length + ' notes of ' + S.nm(this.strike.fundamental) + (this.strike.sets.indexOf('8ve') >= 0 ? ' · JUST (pink) at the right, the same partials in every octave (green) to its left' : ' · the JUST column') + ' · players who cannot bend take only notes within ±' + this.specTol() + '¢'); }
+    if (sp) {
+        this.render(); const S = SP(), sets = this.strike.sets || [];
+        const cols = COL_ORDER.filter(k => sets.indexOf(k) >= 0).map(k => COL[k].name).join(' · ');
+        const temperedOnly = sets.every(k => k === 'temp' || k === 'temp8ve');
+        this.setStatus(this.strike.label + ' · ' + this.strike.notes.length + ' notes of ' + S.nm(this.strike.fundamental) + ' · ' + cols + (temperedOnly ? ' — no cents: every player plays the key' : ' · players who cannot bend take only notes within ±' + this.specTol() + '¢'));
+    }
 };
 // 3 · the banner rides on renderBanners; the range strip, the columns and the labels on renderKeyboard; the chips on renderOrch; the hover on renderLines
 const _renderBanners = D.renderBanners;

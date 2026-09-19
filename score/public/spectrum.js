@@ -45,15 +45,28 @@ function classesOf(P) {
     for (const n of P) { const pc = ((n.midi % 12) + 12) % 12, key = pc + '@' + Math.round(n.cents * 10); if (seen.has(key)) continue; seen.add(key); out.push({ partial: n.partial, pc, cents: n.cents }); }
     return out;
 }
-function transposedOf(fundMidi, lo, hi, top) {
-    const L = lo != null ? lo : LOW, H = hi != null ? hi : TOP, C = classesOf(partialsOf(fundMidi, top)), out = [];
+// THE TEMPERED SETS (his third and fourth selections, 2026-09-19 — "the third one will be the well-tempered version. And then the fourth
+// one will be the well-tempered version plus transpositions"): the same partials on their nearest keys, no cents — so every player,
+// bending or not, plays the key; and the tempered classes are the pitch classes alone (C2's series reaches all twelve by partial 27).
+function temperedOf(fundMidi, top) { return partialsOf(fundMidi, top).map(n => ({ partial: n.partial, midi: n.midi, cents: 0, above: n.above })); }
+function transposedOf(fundMidi, lo, hi, top, tempered) {
+    const L = lo != null ? lo : LOW, H = hi != null ? hi : TOP, C = classesOf(tempered ? temperedOf(fundMidi, top) : partialsOf(fundMidi, top)), out = [];
     for (const c of C) for (let m = L; m <= H; m++) if (((m % 12) + 12) % 12 === c.pc) out.push({ partial: c.partial, midi: m, cents: c.cents });
     return out.sort((a, b) => a.midi - b.midi || a.partial - b.partial);
 }
-// the ids: sp:<fund>:just · sp:<fund>:just+8ve — the sets in the id, so a take rebuilds exactly what was loaded
-const SETS = ['just', '8ve'];
+// the ids: sp:<fund>:just · sp:<fund>:just+8ve · sp:<fund>:temp · sp:<fund>:temp+8ve — the sets in the id, so a take rebuilds exactly
+// what was loaded. Each is its own selection in the drawer (his 2026-09-19: "there's no reason to have them all on the same selection").
+const SETS = ['just', '8ve', 'temp', 'temp8ve'];
 function idFor(fundName, sets) { const s = SETS.filter(x => (sets || ['just']).indexOf(x) >= 0); return 'sp:' + fundName + ':' + (s.length ? s.join('+') : 'just'); }
-function parseId(id) { const m = /^sp:([^:]+):((?:just|8ve)(?:\+(?:just|8ve))*)$/.exec(String(id || '')); return m ? { fund: m[1], sets: m[2].split('+') } : null; }
+function parseId(id) { const m = /^sp:([^:]+):((?:just|8ve|temp|temp8ve)(?:\+(?:just|8ve|temp|temp8ve))*)$/.exec(String(id || '')); return m ? { fund: m[1], sets: m[2].split('+') } : null; }
+const SET_NAMES = { just: 'just', '8ve': 'just / 8ve', temp: 'tempered', temp8ve: 'tempered / 8ve' };
+// the selection's name: `just` · `just + 8ve` · `tempered` · `tempered + 8ve` (the four rows of the banner)
+function setLabel(sets) {
+    const s = SETS.filter(x => (sets || []).indexOf(x) >= 0);
+    if (s.join('+') === 'just+8ve') return 'just + 8ve';
+    if (s.join('+') === 'temp+temp8ve') return 'tempered + 8ve';
+    return s.map(x => SET_NAMES[x] || x).join(' + ') || 'just';
+}
 function isTempered(cents, tol) { return Math.abs(+cents || 0) <= (tol != null ? tol : TOL); }
 function centsText(c) { const r = Math.round(c); return (r > 0 ? '+' : r < 0 ? '−' : '±') + Math.abs(r) + '¢'; }
 function label(n, tol) { return String(n.partial) + (isTempered(n.cents, tol) && Math.round(n.cents) === 0 ? '' : ' · ' + centsText(n.cents)); }
@@ -68,10 +81,12 @@ function makeStrike(fundMidi, id, opts) {
     const notes = [];
     if (sets.indexOf('just') >= 0) partialsOf(f, opts.top).forEach(n => notes.push(mk(n, 'just')));
     if (sets.indexOf('8ve') >= 0) transposedOf(f, opts.lo, opts.hi, opts.top).forEach(n => notes.push(mk(n, '8ve')));
+    if (sets.indexOf('temp') >= 0) temperedOf(f, opts.top).forEach(n => notes.push(mk(n, 'temp')));
+    if (sets.indexOf('temp8ve') >= 0) transposedOf(f, opts.lo, opts.hi, opts.top, true).forEach(n => notes.push(mk(n, 'temp8ve')));
     const midis = notes.map(n => n.midi).sort((a, b) => a - b);
     const pcs = [...new Set(midis.map(m => ((m % 12) + 12) % 12))].sort((a, b) => a - b);
-    const setName = sets.indexOf('8ve') >= 0 ? (sets.indexOf('just') >= 0 ? 'just + 8ve' : '8ve') : 'just';
-    const name = 'partials of ' + nm(f) + ' · ' + setName, index = 'series@' + nm(f) + (setName === 'just' ? '' : '+8ve');
+    const setName = setLabel(sets);
+    const name = 'partials of ' + nm(f) + ' · ' + setName, index = 'series@' + nm(f) + ':' + SETS.filter(x => sets.indexOf(x) >= 0).join('+');
     return {
         id: id || idFor(nm(f), sets), synthetic: true, spectrum: true, fundamental: f, sets: sets.slice(),
         harm: { value: 'spectrum:' + sets.join('+'), root: nm(f), id: index, name, group: 'HARMONIC SERIES' },
@@ -85,5 +100,5 @@ function makeStrike(fundMidi, id, opts) {
                  vel: { avg: vel, min: vel, max: vel } },
     };
 }
-return { TOP, LOW, TOL, MAX_PARTIAL, SETS, nm, partialsOf, classesOf, transposedOf, idFor, parseId, isTempered, centsText, label, makeStrike };
+return { TOP, LOW, TOL, MAX_PARTIAL, SETS, SET_NAMES, nm, partialsOf, temperedOf, classesOf, transposedOf, idFor, parseId, setLabel, isTempered, centsText, label, makeStrike };
 }));

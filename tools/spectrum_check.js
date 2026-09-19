@@ -32,5 +32,16 @@ ok(T.every(n => n.midi >= 21 && n.midi <= 108) && T.length === C.reduce((a, c) =
 ok(S.parseId('sp:C2:just').sets.join() === 'just' && S.parseId('sp:C2:just+8ve').sets.join() === 'just,8ve' && S.parseId('sp:C2:8ve').sets.join() === '8ve' && !S.parseId('sp:C2:x'), 'ids parse: just · just+8ve · 8ve, and nothing else');
 const both = S.makeStrike(36, null, { sets: ['just', '8ve'] });
 ok(both.id === 'sp:C2:just+8ve' && both.notes.length === P.length + T.length && both.notes.filter(n => n.set === '8ve').length === T.length, 'makeStrike just + 8ve: ' + both.id + ', ' + both.notes.length + ' notes (' + P.length + ' just + ' + T.length + ' transposed)');
+// the tempered sets: the same partials on their keys with no cents; the tempered classes are the twelve pitch classes
+const TP = S.temperedOf(36);
+ok(TP.length === P.length && TP.every((n, i) => n.midi === P[i].midi && n.cents === 0 && n.partial === P[i].partial), 'tempered: the same ' + TP.length + ' partials on the same keys, every cents 0');
+const TC = S.classesOf(TP);
+ok(TC.length === 12 && TC.map(c => c.partial).join(',') === '1,3,5,7,9,11,13,15,17,19,21,27', 'tempered classes of C2: the twelve pitch classes, named 1 3 5 7 9 11 13 15 17 19 21 27 — got ' + TC.map(c => c.partial).join(' '));
+const T8 = S.transposedOf(36, undefined, undefined, undefined, true);
+ok(T8.length === 88 && T8.every(n => n.cents === 0) && T8[0].midi === 21 && T8[87].midi === 108, 'tempered / 8ve: one note on every key of the 88, no cents: ' + T8.length);
+ok(S.parseId('sp:C2:temp').sets.join() === 'temp' && S.parseId('sp:C2:temp+temp8ve').sets.join() === 'temp,temp8ve' && S.idFor('C2', ['temp8ve', 'temp']) === 'sp:C2:temp+temp8ve', 'the tempered ids parse and build: ' + S.idFor('C2', ['temp8ve', 'temp']));
+ok(S.setLabel(['just']) === 'just' && S.setLabel(['just', '8ve']) === 'just + 8ve' && S.setLabel(['temp']) === 'tempered' && S.setLabel(['temp', 'temp8ve']) === 'tempered + 8ve', 'the four names: just · just + 8ve · tempered · tempered + 8ve');
+const tb = S.makeStrike(36, null, { sets: ['temp', 'temp8ve'] });
+ok(tb.id === 'sp:C2:temp+temp8ve' && tb.notes.length === TP.length + 88 && tb.notes.every(n => n.cents === 0) && tb.harm.name === 'partials of C2 · tempered + 8ve', 'makeStrike tempered + 8ve: ' + tb.id + ', ' + tb.notes.length + ' notes, "' + tb.harm.name + '"');
 console.log('\n' + (fail ? 'SPECTRUM RED: ' + fail + ' failed' : 'SPECTRUM GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

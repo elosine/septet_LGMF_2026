@@ -414,7 +414,12 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     with the right extents, 88 green and 40 pink dots and labels, no fixed-pitch violation, the hover, a plain harmony unaffected.
     *Revised the same evening at his word (§100):* the keyboard much wider — the columns measured and pushed apart to the right of the
     keys (no overlap even for G0), the range lines on the keys in a colour per instrument with a swatch on each row.
-  - **1c.6 … — the later stages:** the two TEMPERED columns of the SPECTRUM source (a fundamental → the four columns just · just per octave ·
+  - **1c.6 — the two TEMPERED selections** — `done 2026-09-19 at his word, awaiting HIS LISTEN` — RUNNING_LOG §101. Four rows in the
+    banner, each its own harmony: `just` · `just + 8ve` · `tempered` · `tempered + 8ve`; the tempered sets = the partials on their
+    keys, no cents; the tempered classes = the twelve pitch classes named by their lowest partial. Colours: blue and amber beside the
+    pink and green. `spectrum_check` 35. Verified in the running app: 153 voices all at 0 ¢, the columns, the chips, a take round trip.
+  - **1c.7 — the partial checkboxes** — his LG-32: *"if I only want to see partials one, three, and five, I can have a checkbox for
+    those"* — *to be laid out when we discuss it.* (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
     questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"
