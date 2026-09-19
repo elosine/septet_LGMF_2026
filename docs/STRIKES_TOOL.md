@@ -1422,6 +1422,11 @@ each distinct pitch class with its cents, named by its lowest partial (3 stands 
 classes), C2 = 33 classes, 244 notes; to the left of the JUST column, the same fixed-pitch rule. The banner has two rows, `just` and
 `just + 8ve` (the id carries the sets). **Labels by set:** JUST pink, 8ve green; the chips too (`55⁸ · +38¢`).
 
+*Then, the same evening (RUNNING_LOG §100, his "let's make the keyboard much wider"):* the range lines moved **onto the keys** right of the
+note names, **one colour per instrument** (a swatch before each row's name is the legend; the name on hover; the hovered row's line
+brightens); the **columns measured** — each as wide as its longest label — and placed to the right of the keys, 8ve then JUST, the
+keyboard's width following, so nothing overlaps even for G0 (partial 175, 827 voices).
+
 **Stages 6+ (PLAN 1c):** the two TEMPERED columns of the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the

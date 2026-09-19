@@ -412,6 +412,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     C2: 33 classes, 244 notes) as a second column left of the JUST one, the same fixed-pitch rule; the banner's second row `just +
     8ve`; labels and chips coloured by set (JUST pink, 8ve green). `spectrum_check` 29. Verified in the running app: 8 range lines
     with the right extents, 88 green and 40 pink dots and labels, no fixed-pitch violation, the hover, a plain harmony unaffected.
+    *Revised the same evening at his word (§100):* the keyboard much wider — the columns measured and pushed apart to the right of the
+    keys (no overlap even for G0), the range lines on the keys in a colour per instrument with a swatch on each row.
   - **1c.6 … — the later stages:** the two TEMPERED columns of the SPECTRUM source (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two

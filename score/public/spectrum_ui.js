@@ -32,9 +32,12 @@ const INST = () => (typeof INSTRUMENTS !== 'undefined' ? INSTRUMENTS : (root.INS
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const DEFAULT_FUND = 'C2';
-const COL = { just: { x: 122, label: '#e39ac6', name: 'JUST' }, '8ve': { x: 62, label: '#8fd48f', name: 'JUST / 8ve' } };   // his pink and green
-const RANGE_W = 30, RANGE_GAP = 3;   // the range strip at the left: one line per instrument
-const KB_W = { plain: 150, spectrum: 235 };
+const COL = { just: { label: '#e39ac6', name: 'JUST' }, '8ve': { label: '#8fd48f', name: 'JUST / 8ve' } };   // his pink and green
+const COL_ORDER = ['8ve', 'just'];   // left to right — the JUST column "all the way to the right" (LG-34)
+const KEYS_RIGHT = 146, COL_GAP = 12, DOT_R = 7, MIN_W = { plain: 150, spectrum: 235 };
+// the range lines ON the keys, right of the note names (his 2026-09-19 evening ask) — one colour per instrument, the name on hover
+const RANGE_X0 = 47, RANGE_GAP = 4;
+const RANGE_COLS = ['#ff8a80', '#ffb74d', '#fff176', '#aed581', '#4dd0e1', '#64b5f6', '#b39ddb', '#f48fb1', '#a1887f'];
 
 Object.assign(D, {
     spec() { const c = this.cfg; if (!c.spec || typeof c.spec !== 'object') c.spec = {}; if (!c.spec.fund) c.spec.fund = DEFAULT_FUND; return c.spec; },
@@ -105,53 +108,76 @@ Object.assign(D, {
         list.querySelectorAll('.skSpRow').forEach(el => el.addEventListener('click', () => this.select(el.dataset.id)));
     },
 
-    // ---------------------------------------------------------------- the keyboard: the range strip, the columns, the labels
-    // Everything the core drew is moved right by RANGE_W into a <g>, and the range lines go in the strip that opens at the left — the core's
-    // own coordinates are untouched, the dotted lines (getBoundingClientRect) and the clicks follow the transform.
-    rangeLanes() {   // one line per INSTRUMENT (a seat shares its instrument's), in row order
+    // ---------------------------------------------------------------- the keyboard: the range lines on the keys, the columns, the labels
+    // His ask (2026-09-19 evening): *"make the keyboard much wider … move the instrument ranges onto the keyboard to the right of the note
+    // names … a different color for each instrument … a hover is fine … push over the note columns, the dots, so that the labels don't
+    // overlap each other … much wider columns for each of the dots plus their labels … you can take this out just before the instrument
+    // names start."* So: the core's keys stay where they are (x 44–144); the range lines lie ON the keys at their left edge, one colour
+    // per instrument; the columns sit to the RIGHT of the keys, each as wide as its longest label (measured), the JUST column last.
+    rangeLanes() {   // one line per INSTRUMENT (a seat shares its instrument's), in row order, each with its colour
         const T = this.tracks ? this.tracks() : [], seen = new Set(), out = [];
-        T.forEach((t, lane) => { const key = t.seatOf != null ? T[t.seatOf].instKey : t.instKey; if (seen.has(key)) return; seen.add(key); const inst = INST()[key]; if (inst && inst.rangeLow != null && inst.rangeHigh != null) out.push({ lane: t.seatOf != null ? t.seatOf : lane, key, inst, short: t.short }); });
+        T.forEach((t, lane) => { const key = t.seatOf != null ? T[t.seatOf].instKey : t.instKey; if (seen.has(key)) return; seen.add(key); const inst = INST()[key]; if (inst && inst.rangeLow != null && inst.rangeHigh != null) out.push({ lane: t.seatOf != null ? t.seatOf : lane, key, inst, short: t.short, color: RANGE_COLS[out.length % RANGE_COLS.length] }); });
         return out;
     },
+    rangeColor(lane) { const sl = this.scoreLane(lane), r = this.rangeLanes().find(x => x.lane === sl); return r ? r.color : null; },
     paintKeyboardExtras() {
         const svg = this.el && this.el.querySelector('#skKb'), wrap = this.el && this.el.querySelector('#skKbWrap'); if (!svg || !wrap || !this.strike) return;
-        const on = !!this.strike.spectrum, base = on ? KB_W.spectrum : KB_W.plain, W = base + RANGE_W;
-        wrap.style.flex = '0 0 ' + W + 'px'; svg.setAttribute('width', W); svg.style.width = W + 'px';
-        // 1 · move the core's drawing right, once per render (the core replaces innerHTML every time, so there is never a stale <g>)
-        let g = svg.querySelector('g.skKbCore');
-        if (!g) { g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'skKbCore'); g.setAttribute('transform', 'translate(' + RANGE_W + ',0)'); while (svg.firstChild) g.appendChild(svg.firstChild); svg.appendChild(g); }
-        // 2 · the range lines, in the strip at the left
+        const on = !!this.strike.spectrum;
+        const setW = W => { wrap.style.flex = '0 0 ' + W + 'px'; svg.setAttribute('width', W); svg.style.width = W + 'px'; };
+        // 1 · the range lines, ON the keys right of the note names — the core replaces the SVG's content every render, so nothing is stale
         svg.querySelectorAll('.skRange').forEach(x => x.remove());
         { const R = this.range(), h = this.rh(); let s = '';
           this.rangeLanes().forEach((r, i) => {
               const lo = Math.max(R.lo, r.inst.rangeLow), hi = Math.min(R.hi, r.inst.rangeHigh); if (lo > hi) return;
-              const x = 2 + i * RANGE_GAP + 0.75, y1 = this.keyY(hi) + 0.5, y2 = this.keyY(lo) + h - 0.5;
-              s += '<line class="skRange" data-lane="' + r.lane + '" x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + y2 + '" stroke="#e8cf9a" stroke-width="1.5" opacity="0.45"><title>' + esc(r.inst.label + ' · ' + SP().nm(r.inst.rangeLow) + '–' + SP().nm(r.inst.rangeHigh)) + '</title></line>';
+              const x = RANGE_X0 + i * RANGE_GAP, y1 = this.keyY(hi) + 0.5, y2 = this.keyY(lo) + h - 0.5;
+              s += '<line class="skRange" data-lane="' + r.lane + '" x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + y2 + '" stroke="' + r.color + '" stroke-width="2" opacity="0.75" style="pointer-events:stroke"><title>' + esc(r.inst.label + ' · ' + SP().nm(r.inst.rangeLow) + '–' + SP().nm(r.inst.rangeHigh)) + '</title></line>';
           });
-          svg.insertAdjacentHTML('afterbegin', s); }
+          svg.insertAdjacentHTML('beforeend', s); }
         this.paintRangeHover();
-        // 3 · the columns and the labels of a series
-        g.querySelectorAll('.skSpLab').forEach(x => x.remove());
-        if (!on) return;
-        const S = SP(), tol = this.specTol(); let s = '';
+        // 2 · the columns and the labels of a series
+        svg.querySelectorAll('.skSpLab').forEach(x => x.remove());
+        if (!on) { setW(MIN_W.plain); return; }
+        const S = SP(), tol = this.specTol();
         const byCell = {};
-        g.querySelectorAll('.skDot').forEach(dot => { const v = this.voices[+dot.dataset.i]; if (!v || v.partial == null) return; const set = v.set || 'just'; (byCell[set + '@' + v.pitch] = byCell[set + '@' + v.pitch] || { set, list: [] }).list.push({ dot, v }); });
-        Object.keys(byCell).forEach(k => {
+        svg.querySelectorAll('.skDot').forEach(dot => { const v = this.voices[+dot.dataset.i]; if (!v || v.partial == null) return; const set = v.set || 'just'; (byCell[set + '@' + v.pitch] = byCell[set + '@' + v.pitch] || { set, list: [] }).list.push({ dot, v }); });
+        // the labels first, at x 0, so each column's width can be MEASURED before the columns are placed
+        const cells = Object.keys(byCell).map(k => {
             const cell = byCell[k], col = COL[cell.set] || COL.just, list = cell.list.sort((a, b) => a.v.partial - b.v.partial), first = list[0].dot;
-            first.setAttribute('cx', col.x);
-            const cy = +first.getAttribute('cy');
-            list.slice(1).forEach(({ dot }) => { dot.setAttribute('cx', col.x); dot.style.opacity = 0; dot.style.pointerEvents = 'none'; });
-            const one = list.length === 1, v0 = list[0].v;
+            const cy = +first.getAttribute('cy'), one = list.length === 1, v0 = list[0].v;
             const text = one ? S.label({ partial: v0.partial, cents: v0.cents }, tol) : list.map(x => x.v.partial).join(' · ');
             const title = col.name + '\n' + list.map(x => 'partial ' + x.v.partial + ' · ' + S.centsText(x.v.cents) + (Math.abs(+x.v.cents || 0) <= tol ? ' (tempered for a fixed-pitch player)' : '')).join('\n') + (one ? '' : '\n' + list.length + ' partials on this key — double-click arms the lowest; the shuffle deals the rest');
-            s += '<text class="skSpLab" x="' + (col.x + 7) + '" y="' + (cy + 3) + '" font-size="9" fill="' + col.label + '"><title>' + esc(title) + '</title>' + esc(text) + '</text>';
+            const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            t.setAttribute('class', 'skSpLab'); t.setAttribute('x', 0); t.setAttribute('y', cy + 3); t.setAttribute('font-size', 9); t.setAttribute('fill', col.label);
+            const tt = document.createElementNS('http://www.w3.org/2000/svg', 'title'); tt.textContent = title; t.appendChild(tt); t.appendChild(document.createTextNode(text));
+            svg.appendChild(t);
+            return { set: cell.set, list, first, cy, t };
         });
-        g.insertAdjacentHTML('beforeend', s);
+        const widthOf = set => cells.filter(c => c.set === set).reduce((m, c) => { let w = 0; try { w = c.t.getComputedTextLength(); } catch (e) { w = c.t.textContent.length * 5.2; } return Math.max(m, w); }, 0);
+        // the columns, left to right, each as wide as its longest label: dot · label · gap
+        let x = KEYS_RIGHT + COL_GAP + DOT_R; const colX = {};
+        COL_ORDER.forEach(set => { if (!cells.some(c => c.set === set)) return; colX[set] = x; x += DOT_R + 7 + Math.ceil(widthOf(set)) + COL_GAP; });
+        setW(Math.max(on ? MIN_W.spectrum : MIN_W.plain, Math.ceil(x)));
+        cells.forEach(c => {
+            const cx = colX[c.set] != null ? colX[c.set] : KEYS_RIGHT + COL_GAP + DOT_R;
+            c.first.setAttribute('cx', cx);
+            c.list.slice(1).forEach(({ dot }) => { dot.setAttribute('cx', cx); dot.style.opacity = 0; dot.style.pointerEvents = 'none'; });
+            c.t.setAttribute('x', cx + 7);
+        });
     },
     paintRangeHover() {
         const svg = this.el && this.el.querySelector('#skKb'); if (!svg) return;
         const hot = this.hoverLane != null ? this.scoreLane(this.hoverLane) : null;
-        svg.querySelectorAll('.skRange').forEach(l => { const mine = hot != null && +l.dataset.lane === hot; l.setAttribute('opacity', mine ? 1 : (hot != null ? 0.25 : 0.45)); l.setAttribute('stroke-width', mine ? 2.5 : 1.5); });
+        svg.querySelectorAll('.skRange').forEach(l => { const mine = hot != null && +l.dataset.lane === hot; l.setAttribute('opacity', mine ? 1 : (hot != null ? 0.3 : 0.75)); l.setAttribute('stroke-width', mine ? 3 : 2); });
+    },
+    // a colour swatch before each row's name — the legend for the range lines (a hover on a line names it too)
+    paintRowSwatches() {
+        const box = this.el && this.el.querySelector('#skOrch'); if (!box) return;
+        box.querySelectorAll('.skRow').forEach(row => {
+            if (row.querySelector('.skRangeSw')) return;
+            const c = this.rangeColor(+row.dataset.lane); if (!c) return;
+            const name = row.querySelector('.skRowName'); if (!name) return;
+            name.insertAdjacentHTML('afterbegin', '<span class="skRangeSw" title="this player\'s range line on the keyboard" style="display:inline-block;width:6px;height:6px;border-radius:1px;background:' + c + ';margin-right:4px;vertical-align:middle"></span>');
+        });
     },
     // the orchestration rows: each chip carries its partial and cents — `A#4 · 7 · −31¢` (`7⁸` = the transposed set); on a player who cannot bend, `· 3 (tempered)`
     paintSpectrumChips() {
@@ -193,7 +219,7 @@ D.renderBanners = function () { const r = _renderBanners.apply(this, arguments);
 const _renderKeyboard = D.renderKeyboard;
 D.renderKeyboard = function () { const r = _renderKeyboard.apply(this, arguments); try { this.paintKeyboardExtras(); } catch (e) { console.warn('[spectrum_ui] keyboard:', e); } return r; };
 const _renderOrch = D.renderOrch;
-D.renderOrch = function () { const r = _renderOrch.apply(this, arguments); try { this.paintSpectrumChips(); } catch (e) { console.warn('[spectrum_ui] chips:', e); } return r; };
+D.renderOrch = function () { const r = _renderOrch.apply(this, arguments); try { this.paintRowSwatches(); this.paintSpectrumChips(); } catch (e) { console.warn('[spectrum_ui] chips:', e); } return r; };
 const _renderLines = D.renderLines;
 D.renderLines = function () { const r = _renderLines.apply(this, arguments); try { this.paintRangeHover(); } catch (e) {} return r; };
 // 4 · a fixed-pitch player plays the tempered note: its cents are dropped on the way out (they are within the tolerance by the rule)
