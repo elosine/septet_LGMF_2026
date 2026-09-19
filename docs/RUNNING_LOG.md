@@ -2973,3 +2973,75 @@ cello took a double stop; chord 6 is the only one where a single instrument beat
 chords are used** — nothing yet says their order in time, their durations, what happens between them, or whether they are
 the morph’s stations (LG-6, LG-8) or the opening’s harmony (LG-15).
 
+---
+
+## §66. Before the first phase-1 build: the decisions surfaced, and the horn heard through ReaPitch (2026-09-18)
+
+**What prompted it.** His brief (LG-29): a plan for one experimental score of the six reference harmonies at one minute each,
+the maximum note durations as data, striated re-articulations, and all 24 transitions (LG-28) as actual + model at 90 s
+each — *"surface any decisions or questions now"*, then the plan, then a clear and Opus builds. The planning protocol
+skipped at his word: *"probably better used for more complicated architectural things."*
+
+**One read to ground the decisions:** `score/public/morph.js` already carries a per-register BREATH_TABLE (an estimate), a
+per-instrument ceiling read from the palette (“the breath or the bow”), a carrier that striates the ensemble’s breaths with a
+per-voice phase spread and splits-never-truncates at the ceiling, six models including a volume-only one, and a
+to-unison. NAMING §1: experiments are free-named saves; `piece-` is the piece; everything in `scores/` is committed except
+the working copies.
+
+**The decisions put to him (recommended default first in each):**
+
+| # | decision | recommended |
+|---|---|---|
+| 0 | the horn above the SI2 library’s F4 | a second path an octave down + pitch shift; or accept silence; or audition on the trumpet |
+| 1 | max durations at mp | EH 18 · Bsn 18 · Hn 15 · Tpt 12 · Vc 15 · Db 10 · Vib bow 10 — written into the palette; the vibes’ sample sustain measured once |
+| 2 | gap between reference harmonies | 5 s |
+| 3 | striation rule | the morph carrier’s breath machinery: 60–100% of each max, ¾ s gap, per-voice phase; flat mp |
+| 4 | is Balance a morph? | yes — the volume-only model, pitch held; all 24 in one tool |
+| 5 | save layout | one score per type: `lgmf-ref` · `lgmf-spectral` · `lgmf-balance` · `lgmf-bloom` · `lgmf-converge`; model = the card’s parameters saved with the score, actual = its emitted notes |
+| 6 | spectral’s other partials, first pass | rule-based, seeded, listed for override: non-deviant partials within an octave of the reference note, in range |
+| 7 | bloom target | nearest non-deviant partial by semitones; tie → closer to 0¢ |
+| 8 | converge: who moves | the tempered voice to the just one; where the partner is the vibraphone, the just voice to tempered; unpaired → nearest free voice; two vibes bars → octaves |
+| 9 | the 90 s profile | 30 · 30 · 30, editable in the model |
+| — | in every type | bass holds the fundamental; vibraphone holds its bars |
+
+**Decision 0, worked through at the machine.** His first question: *"can we transpose up in reaper?"* — yes, but a pitch
+shift is per track, so only a separate audio path can carry the notes above F4 without breaking the bottom of the range:
+MIDI −12 into the sampler, ReaPitch +12 after it, on the horn’s existing second instance (`LGHornb`). Then: *"or via
+uvi/si2"* — also possible two ways (a 12-semitone bend range with the note sent an octave down, needing no second
+instance; or a coarse tune on the second instance), but UVI resamples and does not preserve formants, where ReaPitch’s
+élastique does. **Caveat recorded: “inaudible above F4” had been read from the recipe’s range, never heard; one probe note
+would show whether UVI stretches its top zone.** He chose to hear ReaPitch first.
+
+**Hearing it.** ReaPitch was not in his FX list — the DLL was on disk (`Plugins/FX/reapitch.dll`), the FX cache had simply
+never picked it up; **FX → Scan for new plugins** found it. Placed after the UVI instance on “Horn SI2”, shift +1 octave,
+élastique 3.3.3 SOLOIST / Monophonic, formant shift 0 (= preserved). Two small traps: the plugin’s own *Enabled* box
+kills the sound when unticked because Dry sits at −inf — the title-bar bypass is the A/B switch. **His verdict: “ok that
+will do.” Decision 0 = the ReaPitch path.**
+
+**Then three questions on the horn itself.** Where its six notes actually sit, whether a professional can play them
+quietly, and how the horn glisses up there:
+
+| # | sounding | written (in F) | inside the SI2 library? |
+|---|---|---|---|
+| 1 | A♭4 | E♭5 | no |
+| 2 | C♯4 | G♯4 | yes |
+| 3 | B♭4 | F5 | no |
+| 4 | F♯4 | C♯5 | no |
+| 5 | A4 | E5 | no |
+| 6 | C5 | G5 | no |
+
+- **Not high for the instrument.** Written C♯5–G5 is the horn’s upper-middle register — the top of the treble staff, where
+  orchestral horn writing lives. The professional ceiling is written C6 (sounding F5), a fourth above the highest note here.
+  It is high only relative to the SI2 library, whose B1–F4 sounding range stops oddly low. (§63f’s “a pianissimo F5 is a
+  genuine ask” was about sounding F5 = written C6 — nothing in the set reaches it.)
+- **Quietly: yes, all six, as routine professional work.** The two highest (B♭4 and C5 sounding) are exposed and want a good
+  player, not an exceptional one. Chord 6’s C5 is the 11th partial of the F♯ tube — the horn does not lip DOWN to −49¢, it
+  sits there naturally; the work is not correcting it (§62).
+- **Glissing up there is a different thing from a string’s.** On one tube the horn moves between partials by the lip alone,
+  and in this register the partials are a whole tone or less apart, so a “gliss” from one partial to its neighbour is a
+  slow **flip with a smear at the changeover**, not a continuous slide; across several partials it is a rip that sounds each
+  step. A continuous slide within a partial — the 14–49 cents that Converge asks for — IS a lip bend and is smooth. So:
+  **Converge suits the horn exactly; Bloom (partial 7 → 6 or 8) will read as a portamento-flip; Spectral is a series of them.**
+  Continuous multi-semitone glisses on brass come only from half-valve (trumpet) or the hand (horn, downward, about a
+  semitone). Not a problem — a fact for the morph’s notation and for what the mock-up will not reproduce.
+
