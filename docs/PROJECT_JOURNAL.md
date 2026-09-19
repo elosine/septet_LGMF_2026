@@ -238,15 +238,16 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   1d.2. Mind 1d.1's two AMENDED to-dos (a note's level as breakpoints from the first day; the ceiling read at the loudest level).
   HOW_WE_WORK's chunk cadence: a short conceptual proposal → his go → build → verify → docs → commit → push. **One step per chunk; his
   test stands between the steps from 1d.2 on** (1d.1 has no sound and no drawer — its proof is the node check).
-- **`Resume reads:`** *(what 1d.1 needs, nothing more)*
-  - `docs/PLAN.md` § **1d** — the item's header and **1d.1 only** (≈ 45 lines, from `- **1d — The SEQUENCE drawer`). The later steps
-    when their turn comes.
-  - `score/public/morph.js` **§5 · CARRIER**, ≈ lines 456–560 — the breath rules and numbers to BORROW (staggered first entries, the
-    striation phases, the gap, split-never-truncate). Read, never edited: it is byte-gated against the tuba baseline.
-  - `tools/check_ceilings.js` — how node reaches the breath and bow ceilings the six reference scores used.
-  - `bank/reference_chords.json` — its shape (top-level keys and one chord), for the check.
-  - `score/public/dyn_ui.js` — where the `ppp … fff` ladder lives; 1d.1 uses THAT function, not a copy.
-  - `score/public/time_containers.js` lines 27–32 — the UMD wrapper to copy.
+- **`Resume reads:`** *(REWRITTEN in session 8 for the next step — what 1d.2 needs, nothing more)*
+  - `docs/PLAN.md` § **1d.2 only** (≈ 25 lines, from `- **1d.2 — The drawer, one container at a time`).
+  - `docs/SEQUENCE_TOOL.md` — the recipe, and what `Sequence.generate` returns (the notes 1d.2 plays and inserts).
+  - `score/public/long_tone_ui.js` — how `long tone` deals (each seat once, cents, the dealt level) AND the pattern to copy: a mixin
+    loaded last that adds to the drawer without changing it.
+  - `score/public/strike_drawer.js` — NAMED PARTS ONLY, grep then read: `notesFor` (≈ 1265) · `playNotes` (≈ 1287, the player Hear
+    goes through) · the Insert path (≈ 1370 — the objects it writes, `morphBend`, the height that means the anchor) · how a take is
+    saved and applied (`/api/snapshots`, `applyState`) · where the `Strikes` button opens it.
+  - `score/public/composer.html` — two greps, not a read: the `<script>` tags where `dyn_ui.js` loads (`sequence.js` and
+    `sequence_ui.js` go after it) · where the save's `databases` is built and read back.
 - **Decisions pending him:** none that block 1d.1. His to reverse whenever: the calls in §107 (an empty box is a REST · a roll over a
   filled row asks first · the containers are the truth once rolled) and §111 (streams before breaths · `density` per slot of one pool
   · the vibraphone's wave multiplies into its register CC7 · `lock to breath` not taken up). Held as features: a drawn curve on the
