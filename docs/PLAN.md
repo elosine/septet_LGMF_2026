@@ -367,7 +367,16 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - Verify in the running app: menu on `long tone` → the notes Hear would send = every voice once, onMs 0, durMs N × 1000, the
       eight lanes' voices; menu back on `strike` → identical to before the change; a take saved with `long tone` on restores the menu
       and the box after a reload. palette_check GREEN. RUNNING_LOG · STRIKES_TOOL · this plan; commit; push.
-  - **1c.3 … — the later stages:** the SPECTRUM source (a fundamental → the four columns just · just per octave ·
+  - **1c.2b — Hear through the remap; a dynamic pull-down ppp … fff; Insert's height law** — `done 2026-09-19, awaiting HIS LISTEN` —
+    RUNNING_LOG §95. His finding (*"they don't seem volume balanced"*): `playNotes` sent CC7 127 and the raw velocity to every
+    instrument. Now every note's `vel` is the anchor on the written scale and `playNotes` sends each instrument its own velocity and
+    CC7 for that level (the score's `heldNote` / `cc7ForHeight`). `dyn [ppp … fff]` replaces `dyn ×` and `flat 127` on the foot (his A),
+    default `mf`, the ladder = the written scale evenly (65 … 127, ≈ 1.7 dB a step over 1b's 12 dB). Insert writes `(anchor − 65) / 62`
+    as the height (was `vel / 127`, right only at fff). `dyn_ui.js`, loaded last. Verified in the running app: at mf Hn 83 · Db 81 ·
+    Bsn 83 · Vib 99 / CC7 93 · Vc 109 · Perc 100; the select carried and restored by a take; the height law round-trips in node.
+  - **1c.3 — two vibraphone players, one per bow** — his, 2026-09-19 (LG-33): *"I want two vibraphone players, because they have two
+    bows. But let's do that after."* — *to be laid out when we discuss it.*
+  - **1c.4 … — the later stages:** the SPECTRUM source (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
     questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"

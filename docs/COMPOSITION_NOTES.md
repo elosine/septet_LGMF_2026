@@ -1293,3 +1293,19 @@ instruments so every doubling beats) made into a tool — a fundamental, the ser
 octave-transposed, orchestrated by the drawer's existing shuffle and hand assignment. The "single selection" he describes (fundamental
 + partials + which of the four sets) is what the drawer already does for a stack-from-a-root: the harmony's id rebuilds it, so a take
 restores it. Stage 1 built the same day (RUNNING_LOG §92); the rest is PLAN 1c, to be laid out with him.
+
+### LG-33 · 2026-09-19 — TWO VIBRAPHONE PLAYERS, one per bow; and the dynamic of what the drawer plays, ppp … fff
+
+> *"Okay, let's resolve this first, but there's one thing I want to add after, and I want two vibraphone players, because they have
+> two bows. But let's do that after. My question now for the dynamic is, can I change the level? And where would I do that? And
+> would it apply both to strikes and long tones? And could I get that in terms of actual dynamics? So PPP to FFF. Right now there's a
+> box called DYN times one, or you could put any number in. Instead, can I get a pull down for the PPP to FFF? Discuss first."* —
+> composer, 2026-09-19, session 6, after his first long-tone listen (*"they don't seem volume balanced, are they plugged in to the
+> volume measurements that we worked so hard on this morning"*)
+
+*AI reading (mine, marked):* two things. (1) **Two vibraphone players** — the bowed vibraphone holds two pitches at once (LG-15: the
+opening's reference, two overlapping sustained pitches), and one lane can hold one note in the drawer; he wants the drawer to treat the
+two bows as two players. Held for the plan (1c.3), at his word "after". (2) **The dynamic** — built the same day as PLAN 1c.2b: a
+pull-down ppp … fff replacing `dyn ×` and `flat 127`, on the score's own written scale (fff = the tutti fff of 1b, ppp = a drawn
+note's floor, 12 dB between them, ≈ 1.7 dB a step), each instrument sent its own velocity and CC7 for the level as the score does.
+RUNNING_LOG §95.

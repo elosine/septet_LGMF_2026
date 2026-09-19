@@ -1386,7 +1386,15 @@ SPACE again stops it. **Insert follows the menu** (his decision A, §AC-2): with
 Both settings ride in cfg, so they are remembered and restored by takes. One file, `long_tone_ui.js`, loaded last; on `strike` the
 drawer is byte-identical. And `ordinario` now bows the vibraphone (`bowed_vel`, the reference scores' voice).
 
-**Stages 3+ (PLAN 1c):** the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+**Stage 2b — Hear through the remap, and a dynamic ppp … fff (PLAN 1c.2b, built 2026-09-19, RUNNING_LOG §95):** his *"are they plugged
+in to the volume measurements"* — they were not: `playNotes` sent CC7 127 and the raw velocity to every instrument (piece #5's drawer
+did too). Now a note's `vel` is the ANCHOR on the written scale and each note is sent as the score sends a held note — the instrument's
+own velocity (`velocityFor`) and its CC7 (`cc7ForHeight`, the vibraphone's register). `dyn [ppp … fff]` on the foot REPLACES `dyn ×`
+and `flat 127` (his A; the cfg fields stay); default `mf`; the ladder is the written scale, evenly — ppp 65 · pp 74 · p 83 · mp 92 ·
+mf 100 · f 109 · ff 118 · fff 127, ≈ 1.7 dB a step over 1b's 12 dB. Insert now writes the height that means the anchor, so an
+inserted note plays back at the level Hear played (it wrote `vel / 127`, right only at fff). `dyn_ui.js`, loaded last.
+
+**Stages 3+ (PLAN 1c):** **two vibraphone players, one per bow** (his, 2026-09-19, LG-33 — "after") · the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
 note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).

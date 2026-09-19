@@ -1229,13 +1229,19 @@ const D = {
         const C = C_(), VR = VR_(), T = TRK(); const a = clamp(Math.round(anchor), 1, 127); const key = T[lane] && T[lane].instKey;
         return (VR && C && C._velRemap && key) ? VR.velocityFor(C._velRemap, key, midi, a) : a;
     },
+    // PLAN 1c.2b (LGMF, 2026-09-19; RUNNING_LOG §95): the CC7 the SCORE would send for this note at this anchor — the instrument's
+    // register on its measured CC7 curve (1b: the vibraphone's), 127 for every instrument without one, 127 without the bank
+    remapCc7(lane, midi, vel, anchor) {
+        const C = C_(), VR = VR_(), T = TRK(); const a = clamp(Math.round(anchor), 1, 127); const key = T[lane] && T[lane].instKey;
+        return (VR && C && C._velRemap && key && VR.cc7ForHeight) ? VR.cc7ForHeight(C._velRemap, key, midi, vel, a) : 127;
+    },
     notesFor(mode) {
         const T = TRK(); const pianoLane = T.findIndex(t => t.instKey === 'piano');
         if (this.isChords && this.isChords()) return this.chordNotes({ piano: mode === 'piano', span: true });   // PLAN 1k: the dealt chords, the marked span only
         if (this.cfg.shape === 'accel' && mode !== 'piano') {   // U13: the run — one note per player of each card, at the run's onsets
             const A = this.accelSeq(); const anySolo = this.voices.some(v => v.solo); const out = [];
             A.events.forEach(ev => { const v = ev.unit.v; if (anySolo && !v.solo) return; const vel0 = clamp(Math.round((this.cfg.flatten ? 127 : v.vel) * this.cfg.dynX), 1, 127); const durMs = Math.max(30, v.durMs * this.cfg.durX);
-                ev.notes.forEach(nt => out.push({ lane: nt.lane, tech: nt.tech || plainTech(this.instOf(nt.lane)), midi: nt.midi, vel: ev.level != null ? this.remapVel(nt.lane, nt.midi, ev.level) : vel0, onMs: ev.onMs, durMs })); });   // 1h: the level ramp, when set, replaces the strike's velocity
+                ev.notes.forEach(nt => out.push({ lane: nt.lane, tech: nt.tech || plainTech(this.instOf(nt.lane)), midi: nt.midi, vel: ev.level != null ? clamp(Math.round(ev.level), 1, 127) : vel0, onMs: ev.onMs, durMs })); });   // 1h: the level ramp, when set, replaces the strike's velocity — PLAN 1c.2b: as the ANCHOR; playNotes translates it once, for every note alike (it used to be remapped here and sent raw)
             return out;
         }
         const out = []; const anySolo = this.voices.some(v => v.solo);
@@ -1258,14 +1264,19 @@ const D = {
         const routes = {}, missing = {}; let skipped = 0;
         notes.forEach(n => { const k = n.lane + '|' + n.tech; if (!(k in routes)) { const r = e.routeFor(n.lane, n.tech); routes[k] = r || null; if (!r) { const inst = this.instOf(n.lane); missing[(inst && inst.port) || ('lane ' + n.lane)] = 1; } } if (!routes[k]) skipped++; });
         if (!notes.length || skipped === notes.length) { this.setStatus(Object.keys(missing).length ? 'no MIDI port for ' + Object.keys(missing).join(', ') : 'nothing to play — shuffle or assign first', true); return; }
-        Object.values(routes).forEach(r => { if (r) try { r.out.send([0xB0 | r.ch, 7, 127]); } catch (x) {} });
+        // PLAN 1c.2b (LGMF, 2026-09-19; RUNNING_LOG §95 — his "are they plugged in to the volume measurements"): a note's `vel` is the
+        // ANCHOR on the ensemble's written scale (65 … 127, bank/velocity_remap.json), and each note is sent the way the score sends a
+        // held note — the instrument's own velocity for that level (heldNote / velocityFor) and its CC7 for that level (cc7ForHeight:
+        // the vibraphone's register; 127 for the rest), 30 ms before the note with the CC0. Before this every route got CC7 127 and the
+        // raw number — the trims applied, the remap and the register never did. Without the bank both pass through as they always did.
         this.base = performance.now() + LEAD_MS; e._playing = true;
         const span = notes.reduce((m, n) => Math.max(m, n.onMs + n.durMs), 0) + 400;
         notes.forEach(n => {
             const r = routes[n.lane + '|' + n.tech]; if (!r) return;
             const on = this.base + n.onMs, off = on + n.durMs;
-            if (r.tech && r.tech.cc0 != null) e._timers.push(setTimeout(() => { try { r.out.send([0xB0 | r.ch, 0, r.tech.cc0]); } catch (x) {} }, Math.max(0, on - CC0_LEAD_MS - performance.now())));
-            e._timers.push(setTimeout(() => e.noteOn(r, n.midi, n.vel), Math.max(0, on - performance.now())));
+            const vel = this.remapVel(n.lane, n.midi, n.vel), cc7 = this.remapCc7(n.lane, n.midi, vel, n.vel);
+            e._timers.push(setTimeout(() => { try { r.out.send([0xB0 | r.ch, 7, cc7]); if (r.tech && r.tech.cc0 != null) r.out.send([0xB0 | r.ch, 0, r.tech.cc0]); } catch (x) {} }, Math.max(0, on - CC0_LEAD_MS - performance.now())));
+            e._timers.push(setTimeout(() => e.noteOn(r, n.midi, vel), Math.max(0, on - performance.now())));
             e._timers.push(setTimeout(() => e.noteOff(r, n.midi), Math.max(0, off - performance.now())));
         });
         e._timers.push(setTimeout(() => e.panic(), span + 700));
@@ -1374,7 +1385,11 @@ const D = {
             const start = t + n.onMs / 1000, dur = n.durMs / 1000;
             if (typeof C.trillCovers === 'function' && C.trillCovers(n.lane, +start.toFixed(3))) { busy.push(((TRK()[n.lane] || {}).short || ('L' + n.lane)) + '@' + start.toFixed(2)); return; }
             maxEnd = Math.max(maxEnd, start + dur);
-            const lv = Math.max(1, Math.round((n.vel / 127) * 100) / 10);
+            // PLAN 1c.2b (2026-09-19, §95): the drawn height MEANS the anchor — the score reads a held note's top as 65 + 62·h (heldDyn,
+            // HELD_LO/HI), so the height written here is (anchor − 65) / 62, and the inserted note plays back at the level Hear played.
+            // It used to be vel / 127, which met the score's scale only at fff: an inserted `p` came back as `f`. A hair above 0 so the
+            // curve stays visible; the score rounds it back to 65.
+            const lv = Math.max(0.05, Math.round(((clamp(Math.round(n.vel), 65, 127) - 65) / 62) * 100) / 10);
             C.objects.push({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
                 startSeconds: +start.toFixed(3), endSeconds: +(start + dur).toFixed(3),
                 nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }],
