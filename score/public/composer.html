@@ -392,7 +392,11 @@
 
 <!-- Lane Container -->
 <div id="laneContainer">
-    <!-- 7 composing tracks: the septet in score order, top -> bottom (TRACKS below) -->
+    <!-- 8 composing tracks: the septet in score order, top -> bottom (TRACKS below). EIGHT since
+         2026-09-18 (D12): the bowed vibraphone took lane 6 and the two strings moved down one.
+         THIS BLOCK AND `TRACKS` MUST STAY THE SAME LENGTH — init() maps lane1..laneN off TRACKS,
+         and a missing element threw on `null.querySelector` and stopped the whole app booting
+         (found 2026-09-19 at PLAN 1a.4; the vibraphone had been added to TRACKS and not here). -->
     <div class="lane" id="lane1">
         <span class="laneLabel" title="English horn (in F)">Eng. Horn</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
@@ -414,10 +418,14 @@
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane6">
-        <span class="laneLabel" title="Cello">Cello</span>
+        <span class="laneLabel" title="Bowed vibraphone — the SAME player as Percussion (D12); two lanes, one percussionist">Vibraphone</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane7">
+        <span class="laneLabel" title="Cello">Cello</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane8">
         <span class="laneLabel" title="Double bass">D. Bass</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>

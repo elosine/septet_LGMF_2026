@@ -3370,3 +3370,68 @@ thirty seconds (the english horn's A♭5 in chord 4, its G5 in chord 6, the trum
 restful. And **§66's brass fact applies to every brass line in this table**: a horn or trumpet move between partials is a
 portamento-flip with a smear at the changeover, not a slide, so Spectral on the brass will read as a series of flips. That
 was known and accepted; it is visible here for the first time as actual intervals.
+
+---
+
+## §71. PLAN 1a.4 — `scores/lgmf-ref.json`, and the composer app had not booted since the vibraphone (2026-09-19)
+
+**What it is.** `tools/build_lgmf_ref.js` → `scores/lgmf-ref.json`: **6:50 · 343 notes · 6 markers**, chord k starting at
+t = 70(k−1) s, sixty seconds of each reference harmony with a ten-second gap. Written from
+`bank/reference_chords.json` in the app's own save shape (layoutVersion 7, eight lanes) — **never drawn from the AI's
+browser pane** (principle 9). Lanes 0 1 2 3 5 6 7 carry notes; lane 4, the percussion, is silent by design.
+
+**The four mechanisms, and where each came from rather than being invented:**
+- **dal niente → mf** is `cc7Fade: { start, end, from: 0, curve: 'held' }` — the morph tool's own field, already read by the
+  composer's playback, the notation player, `ensemble_dyn` and the overlays. CC7 is multiplied by a weight rising 0 → 1 over
+  the first 3 s of each voice's first segment while the written dynamic stays mf, which is what D13 wants (velocity is the
+  dynamic; CC7 shapes a held note). 49 of the 343 notes carry it — one per voice per chord.
+- **mf is a number, not a word.** `ensemble_dyn`'s scale is eight equal steps ppp…fff, so mf is index 4 of 0–7 = **4/7 of
+  full height, y 5.714**. That is also the level at which 1a.2's ceilings are quoted, so the two agree by construction.
+- **The striation** is `BC.dealBreaths` + `BC.breathSpans` — beating_calc's breath dealer, which reads the SAME `ceilingFor`
+  the morph carrier reads, takes a per-voice phase, is seeded, and never lets a span exceed the ceiling. (The morph's own
+  `buildCarrier` is welded to a morph render — progress, models, bends — and this score is not a morph.) Target 80 % of the
+  ceiling, jitter ±25 %.
+- **Cents** are a flat `morphBend` — `[[0, c], [dur, c]]` — on the 87 just notes, so each one STARTS at its partial (the
+  bend is pre-armed at note-on) instead of scooping into it. The tempered voices carry none, and that is the beating.
+
+**THE REQUIRED CHECK IS GREEN: all 343 segments are inside their instrument's ceiling at mf.** The 60–100 % band is a
+description rather than a gate, and three kinds of segment sit under it by construction — a voice's FIRST is cut short by
+its phase (that IS the stagger), its LAST is whatever is left of the minute, and `dealBreaths` squeezes the one before the
+last so the last keeps 40 % of the target. Printed with where they fall, there are almost no others: across seven
+instruments, 7 inner segments out of 343.
+
+**Two things worth his ear.**
+1. **The vibraphone re-bows eleven times a minute, per bow.** That is 1a.2's measured 7.4 s doing its work, and it makes the
+   vibraphone by far the busiest voice in a texture where LG-15 wants it CONTINUOUS. 127 of the 343 notes are its.
+2. **The two bows cannot be kept apart by phase.** They share one ceiling, so they lay down nearly the same grid and their
+   boundaries wander across each other as the jitter drifts; no phase prevents it, only a scheduler would. The seed was
+   swept and **71** leaves ONE instant in the whole score where the player would have to re-seat both bows at once (chord 4,
+   t = 221.3 s, 0.029 s apart) against 3–9 at other seeds. Left as one instant, not engineered away — this is a score for
+   hearing the harmony, and the scheduling question belongs to the performance score.
+
+*(The phase range also had to be pulled back from `dealBreaths`' full 0…0.95 to 0…0.6: at 0.95 the shortened first segment
+hits that function's own floor of 25 % of the target and several voices COLLAPSE onto one first re-articulation — the two
+vibraphone bows did exactly that, which is the worst case of all.)*
+
+### And the app did not boot — the vibraphone lane was never added to the HTML
+
+**Found by trying to open the score.** `composer.html`'s `init()` builds `this.lanes` by mapping `TRACKS` onto `lane1 …
+laneN`. **`TRACKS` has had EIGHT entries since D12 on 2026-09-18, when the bowed vibraphone took lane 6 — and the HTML still
+had seven `<div class="lane">` elements.** So `document.getElementById('lane8')` returned null, `null.querySelector` threw on
+the very first line of `init()`, and **the composer app has been dead on every load since that change** — no lanes, no save
+status, `Composer.objects` empty, `openScore` throwing on `this.saveStatus.textContent`.
+
+Nothing caught it because nothing had opened the app since: session 2 was Reaper and probe work, session 3 was composition
+on paper, and `palette_check` / `test_written_pitch` are node scripts that never touch the DOM. **The port's "71/71 routes,
+zero console errors" was verified on 2026-09-17, the day BEFORE the vibraphone.**
+
+Fixed: `lane6` is now the Vibraphone (label *"the SAME player as Percussion (D12); two lanes, one percussionist"*), the
+cello moves to `lane7`, the double bass to `lane8`, and the block carries a comment saying that it and `TRACKS` must stay
+the same length and why. **Verified in the running app** (a throwaway :5401 tab, never his): `init()` completes,
+`Composer.lanes` reads `lane1 … lane8 · laneMeta · laneCurveA/B/C`, the eight labels read Eng. Horn · Bassoon · Horn ·
+Trumpet · Percussion · **Vibraphone** · Cello · D. Bass, and `lgmf-ref` opens with **343 notes, 6 markers, span 410 s, 87
+bends, 49 fades, techniques senza_vel / ord / bowed_vel** and renders its striations. The working copy was discarded
+afterwards so his first open is clean.
+
+**A rule this leaves behind:** changing `TRACKS` is a two-file change. `palette_check` guards the recipe against the score's
+tracks; nothing guarded the HTML against them, and a lane list is exactly the kind of thing a port renumbers silently.
