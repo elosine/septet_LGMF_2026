@@ -205,35 +205,36 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 | N3 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
 | N4 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
 
-**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-19, end of session 4, Opus → whatever resumes):**
+**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-19, end of session 5, Opus → whatever resumes):**
 
-- **The task: PLAN 1a — DONE END TO END, 1a.0 → 1a.7, committed and pushed.** Nothing of it is outstanding except the two
-  listens that are his. The next real work is a DESIGN conversation (N2), not a build.
-- **Latest deliverable:** `scores/lgmf-ref.json` · `lgmf-spectral` · `lgmf-balance` · `lgmf-bloom` · `lgmf-converge` ·
-  `bank/reference_chords.json` · `bank/actuals/ACT-LG*` (24) · the four models in `bank/morph_models.json`.
-- **THE NEXT CONCRETE STEP: he listens.** If he comes back with changes by ear, they are data changes —
-  `tools/build_reference_chords.js` (the sets and targets), then `tools/build_transition_models.js`, then
-  `tools/build_lgmf_transitions.js`, then `node tools/check_ceilings.js --all`. All three are idempotent and own their
-  outputs. If he comes back ready to move on, it is N2 and it wants Fable.
+- **The task: PLAN 1a and PLAN 1b are both CLOSED.** Nothing is half-built. 1a made the harmony and six scores; 1b calibrated
+  the rack after his first listens found it 7–21 dB hot and clipping. The next work is NOT a build — it is his listens, then a
+  DESIGN conversation about how the six chords are used in time.
+- **Latest deliverable:** `bank/reference.json` (the meter proven) · `bank/instrument_card.json` (every instrument on the channels
+  the piece plays) · `bank/trims.json` + `reaper/bridge/jobs/apply_trims.lua` (26 tracks, applied and saved) ·
+  `bank/velocity_remap.json` (12 dB span, CC7 register on the vibraphone only) · `bank/verify_1b5.json` (the final measurement) ·
+  **`docs/RACK_SETTINGS.md`** (every hand-set plugin value and how to revert it).
+- **THE NEXT CONCRETE STEP — his, and it is a listen, not a command to run:** he **reloads his composer tab** at
+  http://localhost:5400/composer.html (it must be reloaded — the §75 routing fix is in the page), then plays **`lgmf-ref` first**,
+  then the four transition scores, then `lgmf-all`, into the rack from HIS Chrome. Everything about how they sound has changed
+  since he last heard anything. If he comes back with harmonic changes by ear they are data changes:
+  `tools/build_reference_chords.js` → `tools/build_transition_models.js` → `tools/build_lgmf_transitions.js` →
+  `node tools/check_ceilings.js --all`. If he comes back ready to move on, it is the design conversation and it wants Fable.
 - **`Resume reads:`**
-  - `docs/RUNNING_LOG.md` **§70** — the spectral sets and the bloom targets, which are what his ear will change.
-  - `docs/PLAN.md` § 1 item **1a** — every sub-step now carries what it found.
-  - `docs/COMPOSITION_NOTES.md` **LG-6 · LG-8 · LG-15** — the rondo, the morph that arrives at a beating, and the opening;
-    they are what N2 has to answer. *(Only if the session goes to N2. A session resuming to "he listened and here is what he
-    heard" needs §70 and nothing else.)*
-- **Decisions pending him:** none that block anything. By ear, whenever: the seeded SPECTRAL sets and the BLOOM targets,
-  both printed in RUNNING_LOG §70 — override any. The LGMF call, unread (Q2).
-- **DELIBERATELY UNCOMMITTED: NOTHING**, checked at the checkpoint. `git status --short` is clean; **his rack save is
-  committed** (`755df22`) — the bass's `midi_transpose` +12, the two "Horn SI2 (b) high" tracks and the four note filters
-  are in the project file; and the `scores/*-work.json` working copies were discarded after the throwaway :5401
-  verification, so his first open of any of the five scores is clean.
-  One thing is still a GUI action he has not done: the élastique 3.3.3 SOLOIST / Monophonic dropdown on each of the two
-  ReaPitch instances (it is not a parameter, so it could not be set from here; it changes the shift's quality, not
-  whether it sounds).
-- **Standing warnings still true:** after a Reaper record the bridge’s STOP round trip times out — confirm from the file
-  (§54, §56) · the in-app browser has no Web MIDI — every listen is his Chrome · one composer tab per score · **a probe
-  watch must outlast PowerShell’s own start-up — 12 s, not 4** (§67).
-
+  - `docs/COMPOSITION_NOTES.md` **LG-6 · LG-8 · LG-15** — the rondo whose refrain is a morph, the morph that arrives at a beating,
+    and the opening. They are what the design conversation has to answer. *(Only when the session goes to the design talk.)*
+  - `docs/RUNNING_LOG.md` **§70** — the seeded SPECTRAL sets and the BLOOM targets, the two things his ear may override.
+    *(Only if he comes back with harmonic changes.)*
+  - **Nothing else.** PLAN 1b is closed and needs no re-reading; `docs/RACK_SETTINGS.md` is there if a plugin value is ever in doubt.
+- **Decisions pending him:** none that block anything. The LGMF call is still unread at his word (Q2). By ear whenever: the
+  spectral sets and the bloom targets (§70).
+- **DELIBERATELY UNCOMMITTED — `reaper/LGMF_rack.rpp` only.** It is HIS project file and it now carries a dozen probe recordings
+  from today pointing at large WAVs in `reaper/Media/`; he may want to clear those out before it is committed as a canonical
+  state. **The hand-set plugin values inside it are written down in `docs/RACK_SETTINGS.md`**, so nothing is lost if it is
+  reverted — but the .rpp is the only live copy of the settings themselves.
+- **Standing warnings still true:** after a Reaper record the bridge’s STOP round trip can time out — confirm from the file
+  (§54, §56) · the in-app browser has no Web MIDI, so every listen is his Chrome · one composer tab per score · a probe watch must
+  outlast PowerShell’s own start-up, 12 s not 4 (§67) · `apply_trims.lua` and the remap are GENERATED — edit the bank, not the file.
 
 **Open questions:**
 - **Q1b — libraries. CLOSED 2026-09-18:** english horn = Xsample (D8) · all three ARO volumes installed (§33) · the
