@@ -983,6 +983,38 @@ So a 50-cent start gives a fast clean beat that slows to nothing over the glide.
 beating, the start would need to be about a semitone and a quarter off (≈120¢). His “around 33” read as 33 cents = 4
 beats per second.
 
+**CORRECTION to LG-30’s table, rows 1 and 5 (AI, 2026-09-18, same sitting).** “D4 minus 28” is **28 CENTS, not 28
+semitones.** His phrase *“bass starts mirror of non-harmonic”* means: the just D4 sits at −14¢, the tempered cello at 0,
+and the bass starts at the MIRROR of the tempered about the just — **D4 −28¢** — so the cello comes down 14¢ and the bass
+comes up 14¢ and all three meet on the just partial. The earlier rows (bass from B♭1, 19 or 12 semitones, meeting on p3 or
+p2) were my misreading and are withdrawn. Corrected:
+
+| # | target | bass starts | bass glides | who else moves |
+|---|---|---|---|---|
+| 1 | **the just D4 (bassoon, p5)** | D4 −28¢ | up 14¢ | cello down 14¢ |
+| 5 | **the just E♭4 (bassoon, p5)** | E♭4 −28¢ | up 14¢ | cello’s lower note down 14¢ |
+
+**Why the cello does not move in chord 6, and who else holds — his question, answered (AI):** in a convergence one side of
+every pair is the DESTINATION, and the rule says the destination is the harmonic series wherever possible. So **the just
+voice holds and the tempered one comes to it**; the vibraphone holds because it cannot move (then the just voice comes to
+it); an unpaired voice holds because nothing is coming. The cello’s F♯2 in chord 6 is partial 2 — exactly on the series
+already, nothing to resolve — so it IS the target, and the bass comes to it. About half the ensemble holds in every chord
+for the same reason:
+
+| # | holds — as the target | holds — fixed or alone | moves |
+|---|---|---|---|
+| 1 | bassoon D4 · horn A♭4 | vibes D5, B5 | cello 14¢ · bass 14¢ · EH 31¢ · trumpet 14¢ |
+| 2 | bassoon C♯4 (tempered anchor, his design) · trumpet C♯5 | vibes B♭5, B5 | horn 14¢ · bass 50¢ · EH 14¢ |
+| 3 | english horn E4 (tempered anchor) · horn B♭4 | vibes E5, G4 | bassoon 14¢ · bass 50¢ · cello 31¢ · trumpet 14¢ |
+| 4 | trumpet C5 | vibes F♯4, A♭3 | horn 31¢ · bassoon 14¢ · EH + cello 4 st · bass 50¢ |
+| 5 | bassoon E♭4 · horn A4 · trumpet E♭5 | vibes C♯5, D6 | cello 14¢ + 31¢ (double stop) · bass 14¢ · EH 14¢ |
+| 6 | cello F♯2 | vibes C5, E5 · bassoon C♯3 · EH A♭4 (both alone) | horn 49¢ · trumpet 31¢ · bass 50¢ |
+
+**One inconsistency surfaced for him:** chords 2 and 3 make the TEMPERED woodwind the anchor, on the reading that a
+bassoon or english horn cannot glide. But a 14-cent lip bend is within every wind’s reach — what they cannot do is a
+multi-semitone slide. So 2 and 3 could follow chord 1’s pattern exactly (target = the just partial; the tempered woodwind
+bends 14¢ down; the bass starts 28¢ below). **His to say.**
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
