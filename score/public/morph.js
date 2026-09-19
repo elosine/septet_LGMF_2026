@@ -389,11 +389,32 @@ const MODELS = {
     // M3 — FAN. Chord A -> chord B, each voice at its own rate (the rate spread
     // is the dials' job). `stepped` quantises to a chromatic or quarter-tone
     // staircase instead of a continuous bend.
+    //
+    // AND, SINCE 2026-09-19 (PLAN 1a.5; MORPH_NOTES §3), A -> B -> C WITH A DWELL AT B.
+    // `target.mid` is a third station and `target.dwell` the fraction of the run spent sitting on
+    // it. The LGMF transitions are all three-station gestures at 30 · 30 · 30 (his decision 9):
+    // SPECTRAL goes start set -> the reference harmony -> a DIFFERENT set, so two stations cannot
+    // say it at all; BLOOM and CONVERGE go reference -> far station -> reference, which two
+    // stations could only say by folding the carrier, and a fold arrives at the far station and
+    // leaves in the same instant. Converge must not do that: its subject is friction resolving
+    // into "something very clean and pure" (LG-31), and the purity needs a moment to be heard.
+    // Without `target.mid` this is the original three-line interpolation, character for character.
     M3: function (ctx, vi, p) {
         const tgt = ctx.targetCents && ctx.targetCents.length
             ? ctx.targetCents[vi % ctx.targetCents.length]
             : ctx.startCents[vi];
-        let c = ctx.startCents[vi] + (tgt - ctx.startCents[vi]) * p;
+        const s0 = ctx.startCents[vi];
+        let c;
+        if (ctx.midCents && ctx.midCents.length) {
+            const mid = ctx.midCents[vi % ctx.midCents.length];
+            const d = clamp(ctx.target && ctx.target.dwell != null ? ctx.target.dwell : 0, 0, 0.9);
+            const leg = Math.max(1e-6, (1 - d) / 2);
+            c = p <= leg ? s0 + (mid - s0) * (p / leg)
+              : p < leg + d ? mid
+              : mid + (tgt - mid) * ((p - leg - d) / leg);
+        } else {
+            c = s0 + (tgt - s0) * p;
+        }
         const step = ctx.target && ctx.target.stepped;
         if (step) {
             const grid = step === 'quartertone' ? 50 : 100;
@@ -996,6 +1017,7 @@ const PARAM_PATHS = {
     'carrier.span': 'number', 'carrier.segLen': 'number', 'carrier.segVar': 'number',
     'carrier.striation': 'string',
     'carrier.duration': 'number', 'carrier.release': 'number',
+    'target.dwell': 'number',
 
     'dyn.base': 'number', 'dyn.shape': 'string', 'dyn.amount': 'number',
     'dyn.turns': 'number', 'dyn.spread': 'number',
@@ -1237,9 +1259,26 @@ function render(params, opts) {
         return { technique: pal.technique, flagged: !(midi >= pal.lo && midi <= pal.hi) };
     };
     const rng = mulberry32(P.seed);
-    const rawMidi = resolveSource(P.source, o.resolveVert).slice().sort((a, b) => a - b);
+    // AN ORDERED VOICE LIST, WITH CENTS (2026-09-19, PLAN 1a.5; MORPH_NOTES §3).
+    // Everything below this file's front door was already cents-accurate — M1 adds ±50 c, the
+    // carrier bends, chooseKey re-keys — but the INPUT was not: `source.midi` is integers and
+    // `startCents` was `midi * 100`, so a chord could not be told that the bassoon's D4 is 14
+    // cents flat. This piece is made of exactly that (COMPOSITION_NOTES LG-27: the horn, the
+    // trumpet and the bassoon play just, everyone else tempered, and the beating IS the
+    // difference), and its Converge glides 14 / 31 / 49 CENTS onto a partner.
+    // Sorting was the second half of the problem: a just voice and its tempered double sit on the
+    // SAME midi, so a sorted list cannot say which of the two carries the deviation.
+    // So: `source.kind === 'voices'` takes `[{ midi, cents }, …]` IN THE GIVEN ORDER — not sorted,
+    // not reduced, one voice per entry — and `target.kind === 'voices'` gives each of them a
+    // destination in the same order. `lanes[i]` is that voice's player, as it already was.
+    // ADDITIVE AND OPT-IN: without `kind: 'voices'` not one line below behaves differently, which
+    // is why the tuba baseline and the septet check stay byte-identical.
+    const VOICES = (P.source && P.source.kind === 'voices' && Array.isArray(P.source.voices) && P.source.voices.length)
+        ? P.source.voices : null;
+    const rawMidi = VOICES ? VOICES.map(v => v.midi)
+        : resolveSource(P.source, o.resolveVert).slice().sort((a, b) => a - b);
     const cap = P.lanes ? P.lanes.length : (P.voices || o.maxVoices || 10);
-    const startMidi = reduceSource(rawMidi, Math.min(cap, o.maxVoices || 10));
+    const startMidi = VOICES ? rawMidi.slice() : reduceSource(rawMidi, Math.min(cap, o.maxVoices || 10));
     const nVoices = startMidi.length;
     const notes = [];
     const warnings = unknownKeys(params).map(k => 'PARAM: unrecognised key "' + k + '"')
@@ -1252,15 +1291,26 @@ function render(params, opts) {
     }
 
     const startCents = [];
-    for (let i = 0; i < nVoices; i++) startCents.push(startMidi[i] * 100);
-    const targetCents = (P.target && P.target.midi)
-        ? P.target.midi.slice().sort((a, b) => a - b).map(m => m * 100)
-        : (P.target && P.target.kind === 'vert' && o.resolveVert)
-            ? (o.resolveVert(P.target.id) || []).slice().sort((a, b) => a - b).map(m => m * 100)
-            : null;
+    for (let i = 0; i < nVoices; i++) {
+        startCents.push(startMidi[i] * 100 + (VOICES && VOICES[i].cents ? VOICES[i].cents : 0));
+    }
+    const TVOICES = (P.target && P.target.kind === 'voices' && Array.isArray(P.target.voices) && P.target.voices.length)
+        ? P.target.voices : null;
+    const targetCents = TVOICES
+        ? TVOICES.map(v => v.midi * 100 + (v.cents || 0))               // in the source's order, never sorted
+        : (P.target && P.target.midi)
+            ? P.target.midi.slice().sort((a, b) => a - b).map(m => m * 100)
+            : (P.target && P.target.kind === 'vert' && o.resolveVert)
+                ? (o.resolveVert(P.target.id) || []).slice().sort((a, b) => a - b).map(m => m * 100)
+                : null;
+
+    // the third station, in the source's order like `target.voices` (M3's dwell reads it)
+    const MVOICES = (P.target && P.target.mid && Array.isArray(P.target.mid.voices) && P.target.mid.voices.length)
+        ? P.target.mid.voices : null;
+    const midCents = MVOICES ? MVOICES.map(v => v.midi * 100 + (v.cents || 0)) : null;
 
     const ctx = {
-        startCents: startCents, targetCents: targetCents, nVoices: nVoices,
+        startCents: startCents, targetCents: targetCents, midCents: midCents, nVoices: nVoices,
         target: P.target, dyn: P.dyn, dynBase: P.dyn.base,
     };
 

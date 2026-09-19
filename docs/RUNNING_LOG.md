@@ -3435,3 +3435,97 @@ afterwards so his first open is clean.
 
 **A rule this leaves behind:** changing `TRACKS` is a two-file change. `palette_check` guards the recipe against the score's
 tracks; nothing guarded the HTML against them, and a lane list is exactly the kind of thing a port renumbers silently.
+
+---
+
+## §72. PLAN 1a.5 — the four transition types as morph models, and the two things the engine could not say (2026-09-19)
+
+**What exists now.** Four models in `bank/morph_models.json` — **LGSPECTRAL · LGBALANCE · LGBLOOM · LGCONVERGE** — and
+**twenty-four actuals** in `bank/actuals/`, `ACT-LG<TYPE>-01…06`, one per type per chord, built by
+`tools/build_transition_models.js` from `bank/reference_chords.json`. Ninety seconds each, **30 · 30 · 30**, no warnings on
+any of the 24. `node tools/model_bank.js --validate` → **VALID**. The panel's own API serves them: `/api/actuals` lists 24
+and `ACT-LGCONVERGE-01` comes back carrying its model, its dwell, its span, its lanes and its 76 objects.
+
+**Where they live, and why not where the item said.** 1a.5 asked for "a JSON of dial settings in `bank/transitions/` that
+the panel can load". That was written before 1a.0 (ii) found the panel already HAS a model↔actual store: an actual keeps the
+model id, the recipe settings, the seed, the resolved params, the cast and the pitches beside the rendered notes;
+`recallActual` reopens the card on those dials and `insertActual` places the notes verbatim. A parallel folder the panel
+cannot read would have been a worse version of it, so the 24 are actuals.
+
+### The two gaps in the engine, and the additions that filled them
+
+Both are ADDITIVE and OPT-IN, and after each one the **frozen tuba baseline of 2026-09-07 was re-checked and all six models
+still hash byte-identical** — which is the gate that lets a shared engine be touched at all.
+
+**1 · The chord I/O was semitone-quantised, and this piece is made of cents.** Everything below morph.js's front door was
+already cents-accurate — M1 opens ±50 c, the carrier bends, `chooseKey` re-keys — but `source.midi` is a list of integers
+and `startCents` was literally `midi * 100`. A chord could not be told that the bassoon's D4 is 14 cents flat, which is the
+whole subject of the piece (LG-27). And the sort was the second half of it: a just voice and its tempered double sit on the
+SAME MIDI number, so a sorted pitch list cannot say which of the two carries the deviation.
+→ **`source.kind: 'voices'`** takes `[{ midi, cents }, …]` in the given order — not sorted, not reduced, one voice per entry
+— and **`target.kind: 'voices'`** gives each a destination in the same order. `lanes[i]` is still that voice's player.
+
+**2 · There was no three-station morph, and no way to rest at the far station.** `target` is one destination and progress is
+monotone 0 → 1; the only "and back" was `carrier.duration > span`, which folds the phase into a triangle — and **a triangle
+arrives at the far station and leaves in the same instant.** Converge must not do that: his subject is friction resolving
+into *"something very clean and pure"* (LG-31), and the purity needs a moment to be heard. Spectral could not be said at
+all, because its third station is a DIFFERENT set from its first.
+→ **`target.mid` (a third voice list) and `target.dwell`**, read inside M3: start → mid over `(1−dwell)/2` of the run, sit on
+mid for `dwell`, mid → target over the rest. **His 30 · 30 · 30 is `dwell = 1/3` against `carrier.span 90`.**
+
+**A REJECTED FIRST ANSWER, recorded because it was written and then removed.** The first attempt added `carrier.hold` — a
+plateau at each extreme of `foldPhase`, so the existing fold could rest at the turn. It worked and was byte-identical. It
+was deleted anyway: the fold serves only the there-and-back types (Bloom, Converge) and leaves Spectral unsayable, whereas
+the M3 dwell serves all four. **An unused dial on a shared engine is a trap for the next piece**, so the smaller surface
+won over the earlier idea.
+
+**A third, smaller fix, in the panel.** `morph_panel.js recallActual` read `rp.source.midi` to decide what the actual's own
+pitches were. Every LGMF actual would have recalled as *"its pitches could not be read, the model's own set plays"* — the
+dials would come back right and the next Generate would quietly put piece #5's stock chord underneath them. It now reads
+`source.voices` / `target.voices` as well.
+
+### The models, and what each one does
+
+| model | engine | stations | who does not move |
+|---|---|---|---|
+| **LGSPECTRAL** | M3 | a seeded set of partials → the reference → a DIFFERENT set | the vibraphone (both bows) |
+| **LGBALANCE** | M6 | none — the reference held | everyone; only the balance moves, pp → mf, entries ramped |
+| **LGBLOOM** | M3 | reference → nearest non-deviant partials → reference | the vibraphone, and the bass on partial 1 |
+| **LGCONVERGE** | M3 | reference → LG-31's unisons → reference | the statics; the bass LEAVES the root |
+
+**Four dials on each** (a recipe is a dial with waypoints, which model_bank's validator enforces): *longer / shorter*
+(span 45–180, default 90) · *rest at the far station* (dwell 0–0.6, default 1/3) · *the entrance* (the dal-niente fade,
+2–20 s, default 6) · *together / spread* (0–0.8, default 0.15). BALANCE has no far station so it does not carry the dwell
+dial — left off rather than left dead.
+
+**Dynamics.** All but Balance hold **mf** flat — level 5.714, the same 4/7 the reference score uses — with the entrance as
+`shape.attack.mode: 'fade'` (§315's CC7 ramp under a constant velocity, so it fades from true silence) and a 5 s
+`shape.release` to niente. Balance instead swells on the dynamics layer between **pp (1.43) and mf (5.71)** with staggered
+entries, which is decision 4 exactly.
+
+### The proof: CONVERGE on chord 1, read out of the rendered notes
+
+| voice | reference | at 15 s | at 45 s (the rest) | at 89 s |
+|---|---|---|---|---|
+| **Db** | B♭1 | D4 −25 | **D4 −14** | D4 −28 |
+| Bsn | D4 −14 | D4 −14 | D4 −14 | D4 −14 |
+| Vc | D4 | D4 −5 | **D4 −14** | D4 |
+| Hn | A♭4 −31 | A♭4 −31 | A♭4 −31 | A♭4 −31 |
+| EH | A♭4 | A♭4 −11 | **A♭4 −31** | A♭4 |
+| Tpt | D5 −14 | D5 −6 | **D5** | D5 −14 |
+| Vib 1 · 2 | D5 · B5 | unchanged | unchanged | unchanged |
+
+That is LG-31's chord-1 row, note for note: the cello comes down 14¢ onto the bassoon's just D4 and the english horn 31¢
+onto the horn's; the TRUMPET goes UP 14¢ to the vibraphone's bar, because a bar cannot move; the bass leaves B♭1
+altogether, enters on D4 28 cents under the tempered key — the mirror of the cello about the just partial — and comes up
+14¢ to meet them both. Everything returns.
+
+**And BLOOM on chord 6 shows the other half of the design working:** the bass, cello, bassoon and english horn are already
+on clean partials (1, 2, 3, 9) and stand still; only the horn (C5 −49 → C♯5) and the trumpet (E5 −31 → F♯5) move, while the
+vibraphone holds C5 and E5 — so the two beating unisons become real intervals rather than resolving. That is the fixed point
+he accepted (LG-30).
+
+**One thing cleared on the way.** `model_bank --validate` had been failing since the port: piece #5's carried models listed
+**16 actuals that this repo never received** (`bank/actuals/` was empty until today). The dead ids are cleared, with a note
+in the store saying so; piece #5 keeps its own. The validator's remaining two warnings — `provenance.palette` not in its
+allowed-key list — are about a key `buildActual` itself writes (§213), and are noted in NITS rather than chased here.

@@ -1140,3 +1140,48 @@ What the all-purpose tool will need from this piece: (1) a destination chosen as
 three-station morph (A → reference → B) for the spectral type; (3) a there-and-back (reference → X → reference) for bloom
 and converge; (4) per-voice pairing so a beating pair can be driven to a unison as one object; (5) a voice that CANNOT gliss
 (the bowed vibraphone) inside a morph — step or hold, to be decided. The balance type is not a morph.
+
+### 2026-09-19 — LGMF: what the tool was actually missing when PLAN 1a.5 came to build those four types
+
+*Nothing of his was said this day; this is the AI's record of what the engine could and could not do when the four types
+of the note above were built, because that is what this file is for. The four are now `bank/morph_models.json` →
+`LGSPECTRAL · LGBALANCE · LGBLOOM · LGCONVERGE`, twenty-four actuals in `bank/actuals/`, RUNNING_LOG §72.*
+
+**Two gaps, both real, both filled by additions that leave every existing render byte-identical** (checked against the
+frozen tuba baseline of 2026-09-07, all six models, after each change):
+
+1. **The engine's chord I/O was semitone-quantised, and this piece is made of cents.** Everything BELOW the front door was
+   already cents-accurate — M1 opens ±50 c, the carrier bends, `chooseKey` re-keys — but `source.midi` is a list of
+   integers and `startCents` was literally `midi * 100`. So a chord could not be told that the bassoon's D4 is 14 cents
+   flat, which is the entire subject of this piece (LG-27: the horn, the trumpet and the bassoon play just, everyone else
+   tempered, and the BEATING IS THE DIFFERENCE). Sorting was the second half of it: a just voice and its tempered double
+   sit on the same MIDI number, so a sorted pitch list cannot say which of the two carries the deviation.
+   → **`source.kind: 'voices'`** takes `[{ midi, cents }, …]` in the given order — not sorted, not reduced, one voice per
+   entry — and **`target.kind: 'voices'`** gives each of them a destination in the same order. This is the thing the
+   all-purpose tool most needs from this piece: **a chord is a list of VOICES, not a set of pitches.**
+
+2. **There was no three-station morph, and no way to rest at the far station.** `target` is one destination and progress is
+   a monotone 0 → 1; the only "and back" was `carrier.duration > span`, which FOLDS the phase into a triangle — and a
+   triangle arrives at the far station and leaves in the same instant. Converge must not do that: its subject is friction
+   resolving into *"something very clean and pure"* (LG-31), and the purity needs a moment to be heard. Spectral could not
+   be said at all, because its third station is a DIFFERENT set from its first.
+   → **`target.mid` (a third voice list) and `target.dwell`**, read by M3: start → mid over `(1−dwell)/2` of the run, sit
+   on mid for `dwell`, mid → target over the rest. His 30 · 30 · 30 is `dwell = 1/3` against `carrier.span 90`, and both
+   are dials on the model. A `carrier.hold` plateau inside `foldPhase` was written first and then removed: the dwell
+   serves all four types where the fold serves only the there-and-back two, and an unused dial on a shared engine is a
+   trap for the next piece.
+
+**What still is not there, for the revision:**
+- **A destination named as a PARTIAL NUMBER.** Every target in this piece is "partial n of this fundamental"; the tool takes
+  cents, so `tools/build_reference_chords.js` computes the cents and the engine never knows why they are what they are. The
+  consequence is that the model cannot be re-dialled in the terms the music is written in — he can change the DWELL by ear
+  but not "take the 7th instead of the 8th".
+- **A voice that cannot gliss.** The bowed vibraphone is handled here by simply not listing it among the movers, which works
+  and is what LG-29 asks for, but the engine has no idea a fixed-pitch instrument is in the cast. A morph that tried to move
+  it would move it.
+- **The beating pair as an object.** Converge is nine independent voices that happen to arrive on six unisons. Nothing in the
+  params says "this pair closes"; the pairing lives in `bank/reference_chords.json` and is flattened before the engine sees
+  it. `morph_septet.js` has a `pairs` cast for the panel, but it pairs LANES for pitch-picking, not for a destination.
+- **`shape.release` cannot fade a three-station gesture asymmetrically.** The 5 s fade to niente is the shape's release, and
+  its window is measured from the end of the timeline, which is right here only because the last station is where the
+  gesture also ends.

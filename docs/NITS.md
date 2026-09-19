@@ -153,3 +153,8 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   whatever happens:** its assertion that *"the flute (SI2) at ±2 st, the five Xsample instruments at ±1 st (0.96–0.99
   measured)"* — piece #5 measured ALL FIVE of its Xsample instruments at a semitone, which is the independent confirmation
   behind §67's setting of this piece's english horn and double bass to `bendRangeSt: 1`.
+
+- **`model_bank --validate` warns twice about `provenance.palette`** (2026-09-19, PLAN 1a.5). The validator's allowed-key
+  list for an actual's provenance does not include `palette`, but `buildActual` writes it on every septet render (§213 —
+  each voice's player, voice and reach). The writer and the checker disagree; the writer is right. Two warnings, not
+  errors, on every actual this piece files. One line in the validator when someone is next in there.

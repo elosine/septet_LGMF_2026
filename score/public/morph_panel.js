@@ -911,10 +911,21 @@ const PANEL = {
             // THE ACTUAL'S OWN PITCHES become the pitch source — exact by construction, so every later Generate (a poll, a nudged dial)
             // keeps them; the model's stock set would otherwise creep back in. CONVERGE's set is its unisons (the targets); a doubled
             // set is one note per pair, six distinct notes two per pair; SPECTRAL's root is its stored fundamental.
-            if (rp && rp.source && Array.isArray(rp.source.midi) && rp.source.midi.length) {
+            // A VOICE LIST IS A PITCH SOURCE TOO (2026-09-19, PLAN 1a.5). `source.kind: 'voices'` carries
+            // [{ midi, cents }, …] in score order because the LGMF chords need per-voice cents and have
+            // just/tempered doublings on the same MIDI number (morph.js, MORPH_NOTES §3). Read only
+            // `source.midi`, every LGMF actual recalled as "its pitches could not be read" and the next
+            // Generate quietly put the model's stock set back.
+            const srcMidi = (rp && rp.source && Array.isArray(rp.source.voices) && rp.source.voices.length)
+                ? rp.source.voices.map(v => v.midi)
+                : (rp && rp.source && Array.isArray(rp.source.midi)) ? rp.source.midi : null;
+            const tgtMidi = (rp && rp.target && Array.isArray(rp.target.voices) && rp.target.voices.length)
+                ? rp.target.voices.map(v => v.midi)
+                : (rp && rp.target && Array.isArray(rp.target.midi)) ? rp.target.midi : null;
+            if (srcMidi && srcMidi.length) {
                 const SEP = root.MorphSeptet;
-                const isM3 = rp.model === 'M3' && rp.target && Array.isArray(rp.target.midi) && rp.target.midi.length;
-                const list = isM3 ? rp.target.midi : rp.source.midi;
+                const isM3 = rp.model === 'M3' && tgtMidi && tgtMidi.length;
+                const list = isM3 ? tgtMidi : srcMidi;
                 const distinct = [...new Set(list)].sort((x, y) => x - y);
                 const doubled = distinct.length < list.length;
                 this.recalledSets = this.recalledSets || {};
