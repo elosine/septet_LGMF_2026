@@ -436,7 +436,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   OR reads the waves; 1d.1 gained two to-dos so the generator is ready for it.**
   *Why:* the first tool of the design phase — the six chords exist as data and as scores but nothing yet says how a chord is used in
   TIME; he asked for *"music structures in my score"*: chords held for durations, swappable, with the morph's breaths laid over them.
-  - **1d.1 — The generator** (a recipe in, every player's notes out — pure, proven in node) — `todo`.
+  - **1d.1 — The generator** (a recipe in, every player's notes out — pure, proven in node) — `done` 2026-09-19, session 8 (RUNNING_LOG
+    §114; `node tools/sequence_check.js` **49**; `docs/SEQUENCE_TOOL.md`). The calls made alone, his to reverse (§114): under `attack`
+    the striation lives in the first breath's length · a player attacking the next chord lands one gap before the line · a would-be
+    runt is folded into the landing · an absent player lands on the line and re-enters · a double stop is one player on one bow ·
+    one random stream per (player, box).
     *Result when done:* `score/public/sequence.js` exists — pure, loaded by the page and by node, knowing nothing of the drawer or
     MIDI. Given a recipe — a start time; a list of containers, each with a duration, a chord (the notes a take deals: lane ·
     technique · pitch · cents · the dealt level) and a dynamic (`as dealt` or `ppp … fff`); the change rule (`attack` | `seamless`);

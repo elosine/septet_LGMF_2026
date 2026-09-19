@@ -4765,3 +4765,68 @@ still UNVERIFIED → `docs/research/just_partials_notation.md` · a line in `CLA
 `docs/NOTATION_STANDARDS.md` §4, a pointer where a notating agent will be reading anyway · a memory note on this machine. **Nothing is
 built and nothing in the plan changed.** Still open in that file's §9: the horn fingering unchecked with a hornist · whether the partial
 number is SAVED with the note (the cents are, as `morphBend`; `p` was not looked for) — the notation step derives all three marks from it.
+
+## §114. PLAN 1d.1 BUILT — the sequence generator: a recipe in, every player's notes out (2026-09-19)
+
+**What prompted it.** After the clear, his `/postclear` carried the word itself: *"good to start the build"*. Session 8, on Fable at his
+call (§112). The step is PLAN 1d.1 exactly as the plan writes it: `score/public/sequence.js` (pure, the page and node) and
+`tools/sequence_check.js` on the six reference chords. Nothing in the drawer, nothing sounding — that is 1d.2.
+
+**What was read, and nothing more:** PLAN § 1d + 1d.1 · `morph.js` §5 the CARRIER (read, not edited) · `check_ceilings.js` ·
+`reference_chords.json`'s shape · `dyn_ui.js` · `time_containers.js`'s UMD wrapper — then two named questions: where the palette keeps
+the gap (`beating_calc.js` `CEILINGS[inst].gapS`, returned by `ceilingFor`) and what shape a take deals
+(`strike_drawer.js` `notesFor`: `lane · tech · midi · vel · cents · partial · seat`).
+
+**What was built, in order.**
+1. **The recipe** fixed as one JSON shape in the file's header: `t0 · containers [{ dur, chord, dyn }] · change · breath { striation,
+   length, jitter, seed }`, the chord's notes `{ lane, seat, inst, tech, midi, cents, level }`. The level is a drawn HEIGHT 0–1; a
+   dealt anchor velocity (`vel`) is also accepted and read through the ladder, because that is what `notesFor` hands out today.
+2. **The breath rules as numbers, not shared code** — the morph's defaults (8 s · 0.35 · staggered), its first-entry stagger
+   `phase · length · 0.5`, its five striation phases, its gap jitter (half the jitter, never under 50 ms), split-never-truncate.
+   `morph.js` untouched.
+3. **The ceilings** from `beating_calc.js` `CEILINGS / ceilingFor` — the source the six reference scores used — read at the note's
+   LOUDEST level (the amended to-do). An instrument with no entry in `CEILINGS` is a FIXED-LENGTH sound: that is `check_ceilings.js`'s
+   own test for "not held", reused so the two never disagree.
+4. **The ladder: "the same function, not a copy."** `dyn_ui.js` is a browser mixin — it returns early without a `StrikeDrawer` and
+   never reaches its `StrikeDyn` export in node. Three ways were open: copy the eight numbers (refused — the plan says not a copy) ·
+   pull the ladder out of `dyn_ui.js` into a shared module (refused — LG-32: nothing existing changed unless necessary) · **run
+   `dyn_ui.js` itself in node against a stub drawer** (taken — the way `check_ceilings.js` already reads `TRACKS` out of
+   `composer.html`). The generator takes the ladder through its context and finds `window.StrikeDyn` on the page. A named dynamic with
+   no ladder loaded is REFUSED, never guessed.
+5. **A note's level as BREAKPOINTS** from the first day — `levels: [[0, level], [dur, level]]` (the other amended to-do).
+
+**Calls made alone — his to reverse. Each is in `docs/SEQUENCE_TOOL.md`.**
+- **Under `attack`, where does the striation go?** Everyone starts AT the line, so the morph's staggered ENTRY cannot be used. The
+  stagger was moved into the FIRST breath's length (`want − phase · length · 0.5`, never under a quarter of it): entries together,
+  re-breaths spread by the same half-breath the morph spreads its entries by. Measured on chord 5's box: second breaths at
+  87.2 · 90.5 · 86.0 · 86.0 · 84.0 · 87.8 · 85.0 · 83.3 s from an attack at 80.0.
+- **The breath before an attack.** A player who also plays the next chord lands one palette gap BEFORE the line (winds 0.75 s, bows
+  50 ms) — otherwise a wind player's note would touch the attack with no air. A player with nothing next lands ON the line.
+- **"Dealt to land" made concrete.** What is left ≤ the breath → the breath takes it all. A would-be runt (< 1.5 s left over) is folded
+  into the last breath if the ceiling allows, otherwise the rest is shared by two even breaths. Result on the check's row: no held
+  note under 1.5 s, every last note ending on its line to the millisecond.
+- **A player absent from a chord** rests through it; its chain LANDS on the line where it drops out (it does not hold into a chord it
+  is not in) and re-enters — staggered under `seamless` — where it returns. *(The plan's later "an empty box is a REST" is 1d.4's and
+  is NOT built here: 1d.1 refuses an empty chord, as written.)*
+- **One random stream per (player, span)** rather than one per player. Bought: under `attack`, re-timing box 4 leaves every other
+  box's breaths exactly where they were — checked. His brief says a box can be re-timed or swapped "at any moment"; this makes that
+  local.
+
+**One thing the six chords taught the build.** Chord 5 deals the cello TWO notes (`vc_low` E♭4 · `vc_high` A4 — a double stop). The
+first version kept a seat's second note as its own player, so the two stops re-bowed at DIFFERENT times — one cellist, two bows.
+Caught by the check's first run (a "player" whose first entry was at 73 s). Rebuilt: a seat holds every note the chord deals it, one
+chain, every breath shared, the ceiling read at the louder of the two. The check now proves it (7 shared bows under attack, 6 under
+seamless).
+
+**The numbers.** `node tools/sequence_check.js` — **SEQUENCE GREEN: 49 checks.** Six chords (8 · 8 · 8 · 8 · 9 · 8 voices) in
+containers of 20 · 12 · 30 · 8 · 45 · 17 s from 10 s → boundaries 10 · 30 · 42 · 72 · 80 · 125 · 142. `attack` deals 161 notes,
+`seamless` 138. Under `seamless` 40 notes cross a line, 39 of them while the new chord asks that player for another pitch — the old
+chord kept. With a 40 s breath dial every held note sits at its ceiling and none is over, at ppp, mf and fff, both rules. The
+vibraphone's longest bow: 6.068 s at fff, 8.732 s at ppp — the ceiling follows the level. Shortest wind gap 0.620 s (0.75 jittered by
+half of 0.35). A synthetic bell (fixed 2.5 s): 20 strikes under attack, 17 under seamless, one at every boundary.
+
+**Also learned again:** the 8 KB Bash limit (§112's warning) bit once — a patch heredoc; rewritten as a scratchpad file + a short
+`node` run, each replacement asserted to land exactly once.
+
+**Not done, by the plan:** no drawer, no `databases.sequences`, no sound, no Insert. Registered: CLAUDE.md's checks line.
+`docs/SEQUENCE_TOOL.md` opened.
