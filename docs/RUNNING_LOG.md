@@ -3791,3 +3791,22 @@ The nine-pitch pass found a spread of **15.4 dB at velocity 64 and 16.3 dB at 12
 - **The per-pitch summary kept only the LAST reading** — a dict comprehension keyed on pitch — which for a round-robin instrument is exactly the wrong one. It now averages the repeats and carries `n` and `spreadDb` per pitch, so an under-measured figure is visible as `n: 1` rather than passing as fact.
 
 **The open question, and it is his** (the writing is not blocked by it — the harmony is written and the vibraphone holds its bars in every model): can the Xsample bowed vibraphone's round robin be disabled or its members levelled, or is a different preset wanted? Until that is answered a vibraphone trim is provisional by construction.
+
+---
+
+## §80. Taming the vibraphone's round robin — his choice A; the documented CC remote is dead on this instrument, so the switch is in his panel (2026-09-19)
+
+**What prompted it.** Offered (A) tame the round robin, (B) another preset, (C) accept it, he answered **"a"**.
+
+**The cycle, characterised first.** Six readings now exist at four pitches, velocity 127, and the pattern is the same at every one: the repeat run alone reads **A · B · C · A**, and the two earlier runs contributed A and B. So it is a **three-member sequential cycle**, deterministic, and **it resets to member A at the start of every run** — the first note of each of four separate recordings gave the identical figure to 0.1 dB. Members are 2.5 · 3.8 · 4.5 dB apart at three pitches and **13.8 dB apart at F♯5**.
+
+**The switch the manual names, and it does nothing here.** Piece #3's extracted `Xsample_AIL_Extended_Scripting.txt` documents a **Round Robin Menu remote on CC#82**, with an explicit table: *0–20 on repetition · **21–41 off** · 42–62 on repetition (random) · 63–83 always · 84–104 always (random) · 105–115 always (indiv.) · 116–122 Instrument 1 / 2 · 123–127 Ensemble.* `balance_probe.ps1` gained a generic `ccs: [{cc, val}]` prelude field (additive; absent, every earlier schedule behaves byte-identically) and `card2_schedule.js` a `--cc` flag, so this was testable from here without touching his GUI.
+
+- **CC#82 = 30 ("off"), the identical 16-note repeat test:** every reading identical to the round-robin-on run, to 0.1 dB, in the same order. Two genuinely different recordings (different sizes, different hashes) and the same numbers.
+- **CC#82 = 123 ("Ensemble"), which adds detuned voices and could not be subtle:** **zero change at all four pitches**, again to 0.1 dB.
+
+**So the CC is not reaching the instrument's script, while CC remote in general plainly works on the same channel** — `cc0 = 11` is what selects the "Bowed Velocity" preset in the first place, and it works on every note. The conclusion is narrow and does not need a guess about why: **CC#82 is not implemented in this instrument or this version of the library**, so the round robin cannot be switched from the score side.
+
+**Where that leaves the remedy.** The manual documents a SECOND and separate mechanism with **no CC remote at all** — the **Slot Round Robin Menu** (*"Slot rr off — all slots are active" · "Slot rr2 – rr6 — Round Robin (sequentially)"*), and it says the two "can be combined". A three-member sequential cycle is exactly what **Slot rr3** produces. That menu is in the instrument's own panel, and Kontakt's Lua API reaches the rack — slots, outputs, instruments — not the UI of a KSP script inside an instrument (§26's lesson that Kontakt state is opaque as text). **So this one is his eyes on the panel**, and it is a small action: open **Vibraphone XS**, find the **Round Robin** and **Slot Round Robin** menus, note what they are set to, set the cycling off, and save. Re-measuring it is two minutes (`card2_schedule.js --mode repeat`, then `analyze_card.py`).
+
+**What is NOT blocked by it.** The fourteen percussion are measured and Spitfire is deterministic (scatter 0.12–0.77 dB); the other six pitched instruments have 0d's repeat-averaged anchors carried onto the absolute scale (§78, §79). 1b.3 can compute every trim but the vibraphone's, and the vibraphone's is provisional until the cycle is off — which is a statement about ONE instrument, not about the calibration.

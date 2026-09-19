@@ -76,6 +76,17 @@ try {
                     [BalanceMidi]::Send($n.port, (0xB0 -bor $chz), 7, $cc7)
                 }
                 if ($n.cc0 -ne $null) { [BalanceMidi]::Send($n.port, (0xB0 -bor $chz), 0, [int]$n.cc0) }
+                # a note may carry any number of extra controllers in its prelude (2026-09-19, PLAN 1b.3a):
+                # `ccs: [{cc, val}, ...]`, sent before CC0 takes effect on the note. It exists because the
+                # Xsample AIL panel is remote-controllable - CC#82 = 21-41 turns ROUND ROBIN OFF - and the
+                # vibraphone's 14 dB level jump between repeats of one note is a round robin (RUNNING_LOG
+                # §79). Absent the field nothing is sent, so every earlier schedule behaves exactly as before.
+                if ($n.PSObject.Properties['ccs'] -ne $null -and $n.ccs -ne $null) {
+                    foreach ($c in $n.ccs) {
+                        [BalanceMidi]::Send($n.port, (0xB0 -bor $chz), [int]$c.cc, [int]$c.val)
+                        Write-Host ("  {0,6:N2} s  {1,-9} {2,-7} ch{3} CC#{4} = {5}" -f ($e.t / 1000), $n.label, $n.port, $n.ch, [int]$c.cc, [int]$c.val)
+                    }
+                }
                 if ($n.ks -ne $null) { [BalanceMidi]::Send($n.port, (0x90 -bor $chz), [int]$n.ks, 100); Start-Sleep -Milliseconds 40; [BalanceMidi]::Send($n.port, (0x80 -bor $chz), [int]$n.ks, 0) }
                 # the bend probe (PLAN 1f step 1, 2026-09-07): RPN 0 = pitch-bend sensitivity (CC101 0 · CC100 0 · CC6 value · CC38 0),
                 # then the bend value itself, 14-bit, LSB first - both ride in the prelude so the note starts at its bent pitch

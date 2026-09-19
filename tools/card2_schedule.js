@@ -39,6 +39,15 @@ const PRINT = process.argv.includes('--print');
 // bar and a per-pitch table will hold. Four repeats on four pitches is two minutes and settles it.
 const MODE = arg('mode', 'full');
 const REPEATS = +arg('repeats', 4);
+// --cc "82:30,7:127" — extra controllers put in EVERY note's prelude. The Xsample AIL panel is remote-
+// controllable, and the one that matters here is **CC#82 = 21–41, "Round Robin off"** (its manual, p. 6
+// and the CC table): the vibraphone's 14 dB jump between repeats of one note is a three-sample round
+// robin (§79), and this is the switch that stops it — testable from here without touching his GUI.
+const CCS = (arg('cc', '') || '').split(',').filter(Boolean).map(s => {
+    const [cc, val] = s.split(':').map(Number);
+    if (!Number.isFinite(cc) || !Number.isFinite(val)) throw new Error('--cc wants "number:number", got ' + s);
+    return { cc, val };
+});
 const REPEAT_PITCHES = [62, 71, 76, 80];
 const REPEAT_VEL = 127;
 
@@ -65,7 +74,11 @@ for (const n of OLD.notes) {
 
 const notes = [];
 let t = LEAD_IN;
-const push = (o, hold, tail) => { notes.push(Object.assign({ i: notes.length, tPreMs: t - PRE, tOnMs: t, tOffMs: t + hold }, o)); t += hold + tail; };
+const push = (o, hold, tail) => {
+    notes.push(Object.assign({ i: notes.length, tPreMs: t - PRE, tOnMs: t, tOffMs: t + hold },
+                             CCS.length ? { ccs: CCS } : {}, o));
+    t += hold + tail;
+};
 
 // ---- the vibraphone, across its range ----
 const V = INSTRUMENTS.bowed_vibraphone;

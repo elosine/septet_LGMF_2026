@@ -1,0 +1,585 @@
+{
+ "generatedAt": "2026-09-19T12:54:38.121Z",
+ "planItem": "1b.3a",
+ "piece": "lgmf",
+ "what": "all fourteen percussion on 0d’s own keys, and the vibraphone across its range — the two things 1b.2 left open",
+ "standard": "K-20; loudness ITU-R BS.1770. REC at unity since 1b.0, so every level is dBFS at the master.",
+ "vibPitches": [
+  53,
+  58,
+  62,
+  67,
+  71,
+  76,
+  80,
+  85,
+  89
+ ],
+ "vibVels": [
+  64,
+  127
+ ],
+ "percVels": [
+  127,
+  64
+ ],
+ "percussion": {
+  "small_metals_finger_cymbals": {
+   "label": "Finger Cymbals",
+   "ch": 1,
+   "keys": [
+    36,
+    38
+   ]
+  },
+  "small_metals_bell_tree": {
+   "label": "Bell Tree",
+   "ch": 2,
+   "keys": [
+    36,
+    41,
+    45
+   ]
+  },
+  "small_metals_sleigh_bells": {
+   "label": "Sleigh Bells",
+   "ch": 3,
+   "keys": [
+    36,
+    48,
+    50
+   ]
+  },
+  "small_metals_triangles": {
+   "label": "Triangles",
+   "ch": 4,
+   "keys": [
+    36,
+    48,
+    50
+   ]
+  },
+  "small_metals_tambourines": {
+   "label": "Tambourines",
+   "ch": 5,
+   "keys": [
+    36,
+    48,
+    55
+   ]
+  },
+  "toys_castanets": {
+   "label": "Castanets",
+   "ch": 6,
+   "keys": [
+    36,
+    48,
+    50
+   ]
+  },
+  "toys_claves": {
+   "label": "Claves",
+   "ch": 7,
+   "keys": [
+    36,
+    41,
+    45
+   ]
+  },
+  "toys_shakers": {
+   "label": "Shakers",
+   "ch": 8,
+   "keys": [
+    36,
+    48,
+    49
+   ]
+  },
+  "brake_drums": {
+   "label": "Brake Drums",
+   "ch": 9,
+   "keys": [
+    36,
+    39,
+    43
+   ]
+  },
+  "crashes_and_stack": {
+   "label": "Crashers and Stack",
+   "ch": 10,
+   "keys": [
+    36,
+    43,
+    50
+   ]
+  },
+  "wood_blocks": {
+   "label": "Wood Blocks",
+   "ch": 11,
+   "keys": [
+    36,
+    48,
+    56
+   ]
+  },
+  "bass_drum_alt": {
+   "label": "Bass Drum Alt",
+   "ch": 12,
+   "keys": [
+    36,
+    48,
+    55
+   ]
+  },
+  "temple_bowls": {
+   "label": "Temple Bowls",
+   "ch": 13,
+   "keys": [
+    36,
+    48,
+    56
+   ]
+  },
+  "tam_tams_a": {
+   "label": "Tam Tams",
+   "ch": 14,
+   "keys": [
+    36,
+    38
+   ]
+  }
+ },
+ "timing": {
+  "leadInMs": 3000,
+  "preMs": 300,
+  "vibHoldMs": 4000,
+  "vibTailMs": 4000,
+  "percHoldMs": 200,
+  "percTailMs": 3800,
+  "instGapMs": 1500
+ },
+ "comparison": {
+  "to": "bank/balance.json (0d)",
+  "expectedOffsetDb": 12,
+  "why": "the only deliberate change to the chain is REC −12 dB → unity; the trim applied after 0d measured is added on top"
+ },
+ "totalMs": 134500,
+ "notes": [
+  {
+   "i": 0,
+   "tPreMs": 4200,
+   "tOnMs": 4500,
+   "tOffMs": 8500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "rpt": 0,
+   "anchor": true
+  },
+  {
+   "i": 1,
+   "tPreMs": 12200,
+   "tOnMs": 12500,
+   "tOffMs": 16500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "rpt": 1,
+   "anchor": false
+  },
+  {
+   "i": 2,
+   "tPreMs": 20200,
+   "tOnMs": 20500,
+   "tOffMs": 24500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "rpt": 2,
+   "anchor": false
+  },
+  {
+   "i": 3,
+   "tPreMs": 28200,
+   "tOnMs": 28500,
+   "tOffMs": 32500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "rpt": 3,
+   "anchor": false
+  },
+  {
+   "i": 4,
+   "tPreMs": 36200,
+   "tOnMs": 36500,
+   "tOffMs": 40500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "rpt": 0,
+   "anchor": true
+  },
+  {
+   "i": 5,
+   "tPreMs": 44200,
+   "tOnMs": 44500,
+   "tOffMs": 48500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "rpt": 1,
+   "anchor": false
+  },
+  {
+   "i": 6,
+   "tPreMs": 52200,
+   "tOnMs": 52500,
+   "tOffMs": 56500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "rpt": 2,
+   "anchor": false
+  },
+  {
+   "i": 7,
+   "tPreMs": 60200,
+   "tOnMs": 60500,
+   "tOffMs": 64500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "rpt": 3,
+   "anchor": false
+  },
+  {
+   "i": 8,
+   "tPreMs": 68200,
+   "tOnMs": 68500,
+   "tOffMs": 72500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "rpt": 0,
+   "anchor": true
+  },
+  {
+   "i": 9,
+   "tPreMs": 76200,
+   "tOnMs": 76500,
+   "tOffMs": 80500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "rpt": 1,
+   "anchor": false
+  },
+  {
+   "i": 10,
+   "tPreMs": 84200,
+   "tOnMs": 84500,
+   "tOffMs": 88500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "rpt": 2,
+   "anchor": false
+  },
+  {
+   "i": 11,
+   "tPreMs": 92200,
+   "tOnMs": 92500,
+   "tOffMs": 96500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "rpt": 3,
+   "anchor": false
+  },
+  {
+   "i": 12,
+   "tPreMs": 100200,
+   "tOnMs": 100500,
+   "tOffMs": 104500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "rpt": 0,
+   "anchor": true
+  },
+  {
+   "i": 13,
+   "tPreMs": 108200,
+   "tOnMs": 108500,
+   "tOffMs": 112500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "rpt": 1,
+   "anchor": false
+  },
+  {
+   "i": 14,
+   "tPreMs": 116200,
+   "tOnMs": 116500,
+   "tOffMs": 120500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "rpt": 2,
+   "anchor": false
+  },
+  {
+   "i": 15,
+   "tPreMs": 124200,
+   "tOnMs": 124500,
+   "tOffMs": 128500,
+   "ccs": [
+    {
+     "cc": 82,
+     "val": 30
+    }
+   ],
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "tech": "bowed_vel",
+   "techLabel": "Bowed Velocity (#12)",
+   "port": "LGVibes",
+   "ch": 1,
+   "cc0": 11,
+   "ks": null,
+   "cc7": 127,
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "rpt": 3,
+   "anchor": false
+  }
+ ]
+}
