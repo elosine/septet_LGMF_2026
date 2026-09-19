@@ -1185,3 +1185,27 @@ frozen tuba baseline of 2026-09-07, all six models, after each change):
 - **`shape.release` cannot fade a three-station gesture asymmetrically.** The 5 s fade to niente is the shape's release, and
   its window is measured from the end of the timeline, which is right here only because the last station is where the
   gesture also ends.
+
+### 2026-09-19 — LGMF 1a.6: the carrier's ceiling is read at a segment's START level, and a swelling note outgrows it
+
+*AI, from building the four transition scores.* `check_ceilings.js` found 18 notes in the BALANCE score longer than their
+instrument can hold: a 11.8 s double bass against a 10 s ceiling, a 14.2 s trumpet against 12, five vibraphone bows at 8.7
+against 7.4. **`morph.js buildCarrier` asks `ctxForBreath(start)` for the ceiling — the level at the moment the segment
+BEGINS** — and the palette gives a quiet note 1.18 × the mf ceiling. On the one type whose notes swell, a segment can begin
+at pp, be granted pp's length, and reach mf inside it. A player has to hold the whole note at its loudest.
+
+Worked around in data for this piece (BALANCE's carrier target 12 s → 6 s), not in the engine, because reading the level
+across a segment instead of at its head would change every existing render and break the frozen baseline. **For the
+revision: the ceiling should be read at the LOUDEST level the segment will reach, which the carrier already knows, since it
+computes the level curve for the segment it is about to cut.**
+
+### 2026-09-19 — LGMF 1a.6: the panel assumes a morph's pitches are a SET, in three separate places
+
+*AI, from making a recalled actual come back whole.* A model that names its own voices — `source.kind: 'voices'`, with cents
+and lanes — was flattened three times over on its way back into the panel: `recallActual` looked only for `source.midi`,
+`applyPitch` ran it through the sonority → take → fold machinery, and `morph_septet.js cast()` reduced it to the three
+pairs' six seats and sorted it by pitch, which destroys both the cents and the just/tempered doublings (a doubling being two
+voices on one MIDI number). Each is now guarded. **For the revision, the general shape underneath:** the panel has ONE idea
+of what a morph's pitches are — a sonority, taken by a rule, folded onto pairs — and a piece whose chords are composed voice
+by voice needs the other idea, where the chord is given and the cast is fixed. Both should be first-class, and which one a
+model uses should be a property of the model rather than something three call sites infer.

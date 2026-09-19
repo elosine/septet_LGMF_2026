@@ -3529,3 +3529,75 @@ he accepted (LG-30).
 **16 actuals that this repo never received** (`bank/actuals/` was empty until today). The dead ids are cleared, with a note
 in the store saying so; piece #5 keeps its own. The validator's remaining two warnings — `provenance.palette` not in its
 allowed-key list — are about a key `buildActual` itself writes (§213), and are noted in NITS rather than chased here.
+
+---
+
+## §73. PLAN 1a.6 — the four transition scores, and what it took to make a recalled model come back whole (2026-09-19)
+
+**What exists now.** Four scores, each the six transitions of one type in his order of fundamentals
+(B♭1 · A1 · C2 · G♯1 · B1 · F♯1), ninety seconds each with ten-second gaps — **590 s, 9:50** — built by
+`tools/build_lgmf_transitions.js`:
+
+| score | notes | |
+|---|---|---|
+| `scores/lgmf-spectral.json` | 645 | a set of partials → the reference → a different set |
+| `scores/lgmf-balance.json` | 683 | the reference held, pp → mf swells, staggered entries |
+| `scores/lgmf-bloom.json` | 471 | the deviations onto clean partials and back |
+| `scores/lgmf-converge.json` | 456 | the beating pairs closing into unison and reopening |
+
+**PLACED, NOT RE-RENDERED.** 1a.5 rendered each transition once and filed it as an actual, so this tool
+does what the panel's `insertActual` does and for the same reason — *a stored actual's identity is
+frozen; a later engine change must never re-render what is already placed*. Each transition arrives as
+its notes verbatim under a `groupId`, a MARKER naming the entity (principle 4: markers are objects), and
+a band on the META lane. **That marker is the link back to the model**: `ACT-LGCONVERGE-03` in the score
+names the actual, whose provenance carries the model, the dials, the seed and the cast. The placements
+are logged back into the 24 actuals, which is the question a reusable collection gets asked most.
+
+**`tools/check_ceilings.js` is new and is 1a.4's required check made into a gate anything can run**
+(`--all` does every `lgmf-*` score). **All five scores GREEN.**
+
+### The check earned its keep on the first run: BALANCE was over the ceiling in 18 places
+
+`lgmf-balance` came back RED — a 11.8 s double bass against a 10 s ceiling, a 14.2 s trumpet against 12,
+five vibraphone bows at 8.7 against 7.4. **The cause is real and worth knowing:** the carrier reads a
+voice's ceiling AT THE LEVEL THE SEGMENT STARTS ON (`morph.js ctxForBreath`), and a quiet note may be
+held longer than a loud one — 1.18 × the mf ceiling at the bottom of the scale. Balance is the only one
+of the four whose notes SWELL, so a segment could begin at pp, be granted pp's ceiling, and climb to mf
+inside its own length. A player has to hold the WHOLE note at the loudest level it reaches, so the check
+is right and the segment was too long.
+
+Fixed in the model's data, not the engine: **BALANCE's carrier target drops from 12 s to 6 s with ±20 %**,
+which never reaches even the vibraphone's 7.4 whatever level it starts on. It costs nothing musically —
+Balance is the one type where frequent re-articulation IS the texture, his brief for it being *"different
+entries and crescendos"* — and it is why that score has the most notes of the four. Rewriting
+`ctxForBreath` to look ahead would break the frozen baseline; it is recorded in MORPH_NOTES §3 instead.
+
+### Three panel fixes, because a recalled model came back as a stranger
+
+The item's RESULT is *"the card for any transition reopens with its dials; changing the fade-in and
+re-emitting replaces its notes"*. Recall reopened the right MODEL with the right DIALS from the start —
+but what it then rendered was a **four-lane, 34-note reduction of a nine-voice chord with the cents
+gone**. Three places in the panel assume a morph's pitches are a SET to be cast onto three pairs:
+
+1. **`recallActual`** read `rp.source.midi` to find the actual's own pitches. A voice list has none, so
+   every LGMF actual recalled as *"its pitches could not be read, the model's own set plays"* — the
+   dials right, piece #5's chord underneath them. It now reads `source.voices` / `target.voices` too.
+2. **`applyPitch`** ran the params through the sonority → take → fold machinery. A model that names its
+   own voices, their cents and their players has nothing left to choose, so it now passes through whole.
+3. **`morph_septet.js cast()`** reduced the chord to the three pairs' six seats and sorted it by pitch —
+   which destroys both the cents and the just/tempered doublings, since a doubling is two voices on one
+   MIDI number. A voice source is now returned already cast, with the pairs reported but owning no seats.
+   (And `maxVoices` was a hardcoded 6 in two places; it is the cast's own voice count now, which is
+   still 6 for three pairs.)
+
+**The round trip, verified in the running app** (a throwaway :5401 tab, never his): recall
+`ACT-LGCONVERGE-03` → **8 voices, source kind `voices`, lanes 7 1 0 5 2 6 3 5, span 90, dwell 1/3, fade
+6 s, 75 notes — the same 75 the actual stores.** Then change the entrance dial 6 s → 20 s and re-emit:
+**75 notes, the fade now ending at 20 s, and every pitch identical.** That is the RESULT, mechanism and
+all.
+
+*(A fourth, smaller one: `drawPitch` threw on `info.sonority.slice` when the panel drew a named-voice
+model — there is no sonority to list. It now says what the model is instead.)*
+
+**Still his: the listen.** Five scores exist and none has been heard. `lgmf-ref` first — the harmony
+standing still — then the four transitions against it.

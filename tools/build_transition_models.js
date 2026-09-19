@@ -41,6 +41,17 @@ const DWELL = 1 / 3;        // 30 · 30 · 30 — the middle third is spent ON t
 const FADE_IN_S = 6;        // dal niente → mf (all but BALANCE)
 const FADE_OUT_S = 5;       // "a 5 s fade to niente at the end (a dial)"
 const SEG_S = 12;           // the carrier's target breath; each voice's own ceiling still splits it
+// BALANCE NEEDS A SHORTER ONE, and the reason is worth knowing (2026-09-19, caught by
+// tools/check_ceilings.js). The carrier reads a voice's ceiling AT THE LEVEL THE SEGMENT STARTS ON
+// (morph.js ctxForBreath), and a quiet note may be held longer than a loud one — so on the only type
+// whose notes SWELL, a segment could begin at pp, be allowed pp's ceiling (1.18 × the mf one), and then
+// climb to mf inside its own length. Eighteen notes did exactly that: a 11.8 s bass against a 10 s
+// ceiling, a 14.2 s trumpet against 12, five vibraphone bows at 8.7 against 7.4. A player has to hold
+// the WHOLE note at the loudest level it reaches, so the check is right and the segment was too long.
+// 6 s with ±20 % never reaches even the vibraphone's 7.4, and Balance is the one type where frequent
+// re-articulation is the texture rather than a cost — his brief for it is "different entries and
+// crescendos". The engine is not changed: reading the level at a segment's start is its behaviour
+// everywhere and rewriting it would break the frozen baseline (MORPH_NOTES §3).
 const MF = 4 / 7;           // ensemble_dyn's eight steps: ppp…fff, mf = index 4 → level 5.714
 const PP = 1 / 7;           // …and pp = index 1 → level 1.43
 const SPREAD = 0.15;        // a little stagger in when each voice sets off; 0 = lockstep
@@ -103,8 +114,9 @@ function paramsFor(type, C) {
         source: { kind: 'voices', voices: st.source },
         target: null,
         dials: { bias: 0, spread: SPREAD, depth: 1 },
-        carrier: { span: SPAN_S, segLen: SEG_S, segVar: 0.3, striation: 'staggered',
-                   duration: null, release: null },
+        carrier: type === 'BALANCE'
+            ? { span: SPAN_S, segLen: 6, segVar: 0.2, striation: 'staggered', duration: null, release: null }
+            : { span: SPAN_S, segLen: SEG_S, segVar: 0.3, striation: 'staggered', duration: null, release: null },
         dyn: type === 'BALANCE'
             // pp → mf: an arch between the two, so base is their midpoint and amount their half-distance
             ? { base: (PP + MF) / 2, shape: 'swell', amount: (MF - PP) / 2, turns: 1, spread: 0.6 }

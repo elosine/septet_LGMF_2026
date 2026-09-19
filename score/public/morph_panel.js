@@ -428,7 +428,9 @@ const PANEL = {
         this._lastParams = cast ? cast.params : pitched;
         try {
             this.result = M.render(cast ? cast.params : pitched, {
-                maxVoices: cast ? 6 : 10,
+                // the cast's own voice count, not a hardcoded six: three pairs still give six, and a
+                // model that names its own voices gives however many it named (2026-09-19)
+                maxVoices: cast ? (cast.voices ? cast.voices.length : 6) : 10,
                 sampleLengths: (HOST() && HOST().sampleLen) || null,
                 palette: cast ? cast.palette : null,
             });
@@ -1065,7 +1067,7 @@ const PANEL = {
         let L;
         try {
             L = M.buildLadder(base, lens, {
-                renderOpts: { maxVoices: this._cast ? 6 : 10, palette: this._cast ? this._cast.palette : null,
+                renderOpts: { maxVoices: this._cast ? (this._cast.voices ? this._cast.voices.length : 6) : 10, palette: this._cast ? this._cast.palette : null,
                               sampleLengths: (HOST() && HOST().sampleLen) || null },
             });
         } catch (e) {
@@ -1362,6 +1364,15 @@ const PANEL = {
         const SEP = root.MorphSeptet, son = this.pitchSonority();
         this._pitchInfo = null;
         if (!SEP) return params;
+        // A MODEL THAT NAMES ITS OWN VOICES HAS NO PITCH SOURCE (2026-09-19, PLAN 1a.6). The LGMF
+        // transitions carry `source.kind: 'voices'` — every voice, its cents and its lane, and a target
+        // and a mid station in the same order (morph.js, MORPH_NOTES §3). Running them through the
+        // sonority → take → fold machinery turns that back into a bare pitch list, so a recalled actual
+        // regenerated as a six-seat reduction with the cents gone. There is nothing here left to choose.
+        if (params && params.source && params.source.kind === 'voices') {
+            this._pitchInfo = { named: true, voices: (params.source.voices || []).length };
+            return params;
+        }
         // the root reaches SPECTRAL's fundamental whatever the source (his "if I type a new root in the root box it continues to use F");
         // a bare pitch class takes the octave the fundamental already sits in (F2 → "D#" = D#2)
         const stockFund = (params && params.model === 'M2' && params.target && params.target.fundamental != null) ? params.target.fundamental : 41;
@@ -1455,6 +1466,9 @@ const PANEL = {
         const info = this._pitchInfo;
         const fund = info && info.fundamental != null ? ' · SPECTRAL\'s fundamental <b>' + SEP.nm(info.fundamental) + '</b> (' + info.fundamental + ')' + (info.stock ? ', the model\'s — type a root to move it' : ' from the root box') : '';
         if (!info) note(p.src === 'model' ? 'the model\'s own set (the pairs take it two by two)' : 'the chosen source is not loaded yet, or its root is not a note — the model\'s own set plays', '#9a9');
+        // A MODEL THAT NAMES ITS OWN VOICES has no sonority, no take and no pairs to report, and the row
+        // below would throw on `info.sonority.slice` (2026-09-19, PLAN 1a.6 — it did).
+        else if (info.named) note('this model names its own <b>' + info.voices + ' voices</b>, with their cents and their players — there is no sonority to choose here, and the pairs do not cast it', '#9a9');
         else if (info.rootOnly) note('the model\'s own set (the pairs take it two by two)' + fund, '#9a9');
         else note('<b>' + info.from + '</b> — ' + nmList(info.sonority) + ' · take <b>' + (SEP.TAKES.find(t => t.id === p.take) || {}).name + '</b> → ' + info.taken.map(SEP.nm).join(' ') + (info.dropped.length ? ' · dropped ' + nmList(info.dropped) : '') + fund, '#9a9');
     },

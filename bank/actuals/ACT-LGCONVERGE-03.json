@@ -24271,5 +24271,12 @@
     ],
     "captured": "2026-09-19"
   },
-  "placements": []
+  "placements": [
+    {
+      "score": "lgmf-converge",
+      "at": 200,
+      "group": "grp-act-lgconverge-03",
+      "when": "2026-09-19"
+    }
+  ]
 }

@@ -1,2174 +1,2174 @@
 {
- "_comment": "MODEL store (PLAN 2y). A model = a point in parameter space, plus the directions worth travelling from it and how far. Seeded from bank/morph_recipes.json, which stays FROZEN as the day-10 audit record and is never regenerated over. The AI edits this file in conversation (recipes, verdicts, tags) and bumps `rev`; the panel polls it the same way it polls morph_params.json. Validate with: node tools/model_bank.js --validate",
- "rev": 101,
- "seededFrom": "bank/morph_recipes.json (captured 2026-08-16)",
- "models": {
-  "BALANCE": {
-   "name": "balance only, 30 s (the keeper)",
-   "id": "BALANCE",
-   "status": "stock",
-   "modelType": "M6",
-   "character": "Held sonority, nothing moving but internal balance. The beating is between UPPER PARTIALS — the chord itself has no close intervals — so beating is available without writing unisons.",
-   "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very nice. There were some very interesting parts that might have something to do with close intervals, like approaching unison. Lots of nice acoustic beating in there, and potentially at the same time volume changes. It did sound like acoustic beating and swelling, which is nice.\"",
-   "tags": [
-    "beating",
-    "held",
-    "upper-partials"
-   ],
-   "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1. | 2026-08-17 (day 15), composer's ear: \"the balance morph seems to end more abruptly than the others.\" MEASURED and true — it used to cut at 97% of its own peak (mean voice level 7.5/10, all 8 sounding) against 29-59% for the other five. Cause: this is the only model on dyn.shape `rotate`, and rotate at turns=1 returns to EXACTLY its starting level (p=0 and p=1 are identical), while `swell` is an arch whose ends are its trough. Not an M6 property — swapping the shape swaps the behaviour both ways. Fixed here in data, not in the engine: stock `carrier.release: 5` plus the `close it` recipe. See docs/MORPH_FINDINGS.md.",
-   "baseParams": {
-    "model": "M6",
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      46,
-      53,
-      57,
-      60,
-      62,
-      65
-     ]
-    },
-    "target": null,
-    "dials": {
-     "bias": 0,
-     "spread": 0.5,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 30,
-     "segLen": 7,
-     "segVar": 0.35,
-     "striation": "staggered",
-     "release": 5
-    },
-    "dyn": {
-     "base": 0.55,
-     "shape": "rotate",
-     "amount": 0.4,
-     "turns": 1,
-     "spread": 0.6
-    },
-    "seed": 3
-   },
-   "recipes": [
-    {
-     "recipe": "slower / longer",
-     "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.4
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 10
-       }
+  "_comment": "MODEL store (PLAN 2y). A model = a point in parameter space, plus the directions worth travelling from it and how far. Seeded from bank/morph_recipes.json, which stays FROZEN as the day-10 audit record and is never regenerated over. The AI edits this file in conversation (recipes, verdicts, tags) and bumps `rev`; the panel polls it the same way it polls morph_params.json. Validate with: node tools/model_bank.js --validate",
+  "rev": 126,
+  "seededFrom": "bank/morph_recipes.json (captured 2026-08-16)",
+  "models": {
+    "BALANCE": {
+      "name": "balance only, 30 s (the keeper)",
+      "id": "BALANCE",
+      "status": "stock",
+      "modelType": "M6",
+      "character": "Held sonority, nothing moving but internal balance. The beating is between UPPER PARTIALS — the chord itself has no close intervals — so beating is available without writing unisons.",
+      "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very nice. There were some very interesting parts that might have something to do with close intervals, like approaching unison. Lots of nice acoustic beating in there, and potentially at the same time volume changes. It did sound like acoustic beating and swelling, which is nice.\"",
+      "tags": [
+        "beating",
+        "held",
+        "upper-partials"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1. | 2026-08-17 (day 15), composer's ear: \"the balance morph seems to end more abruptly than the others.\" MEASURED and true — it used to cut at 97% of its own peak (mean voice level 7.5/10, all 8 sounding) against 29-59% for the other five. Cause: this is the only model on dyn.shape `rotate`, and rotate at turns=1 returns to EXACTLY its starting level (p=0 and p=1 are identical), while `swell` is an arch whose ends are its trough. Not an M6 property — swapping the shape swaps the behaviour both ways. Fixed here in data, not in the engine: stock `carrier.release: 5` plus the `close it` recipe. See docs/MORPH_FINDINGS.md.",
+      "baseParams": {
+        "model": "M6",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            46,
+            53,
+            57,
+            60,
+            62,
+            65
+          ]
+        },
+        "target": null,
+        "dials": {
+          "bias": 0,
+          "spread": 0.5,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 30,
+          "segLen": 7,
+          "segVar": 0.35,
+          "striation": "staggered",
+          "release": 5
+        },
+        "dyn": {
+          "base": 0.55,
+          "shape": "rotate",
+          "amount": 0.4,
+          "turns": 1,
+          "spread": 0.6
+        },
+        "seed": 3
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 60
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "more dramatic",
-     "description": "depth up and bias later — the morph arrives harder",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.35
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.depth": 0.6,
-        "dials.bias": 0
-       }
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        },
+        {
+          "recipe": "close it",
+          "description": "how long the run-down takes. 0 = the HARD STOP this model used to have (rotate ends exactly where it began, so the gesture cuts at ~97% of its own peak); up = a longer close. Stock is 5 s. Only this model needs the dial: it is the only one on `rotate`, and every other model's `swell` lands in its trough at the end by construction.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.42
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.release": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.release": 12
+              }
+            }
+          ],
+          "boundsFrom": "measured 2026-08-17 (day 15): release 3/5/8/12 all land every voice on the 0.4 floor (1% of peak). `carrier.duration` is deliberately NOT patched — pinning it would make the `slower / longer` recipe switch cycling ON below span 30 (span 10 renders 42.9 s instead of 18.7 s)."
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot A",
+      "tuba": {
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            34,
+            38,
+            41,
+            45,
+            48,
+            53,
+            58,
+            62
+          ]
+        },
+        "target": null
       },
-      {
-       "at": 1,
-       "patch": {
-        "dials.depth": 1,
-        "dials.bias": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+      "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
     },
-    {
-     "recipe": "smoother / choppier",
-     "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.segLen": 8
-       }
+    "COLOUR": {
+      "name": "colour morph, now ramping INTO each technique",
+      "id": "COLOUR",
+      "status": "draft",
+      "modelType": "M4",
+      "character": "Technique migration. Reads as a sequence of colours rather than one sonority changing. Since the audition, technique changes ENTER under a long deep dynamic ramp (composer: \"start with the effect and ramp into the full effect\") — that change has not itself been re-heard.",
+      "verdict": "day-10 (useful, least interesting) — composer 2026-08-16: \"It sounds exactly like a held sonority with players shifting different techniques within it. It sounds more like just a collection of different techniques. Useful, but not as interesting.\"",
+      "tags": [
+        "technique-migration",
+        "colour"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M4",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            46,
+            53,
+            57,
+            60,
+            62,
+            65
+          ]
+        },
+        "target": {
+          "path": [
+            "ord",
+            "bisb",
+            "flz"
+          ]
+        },
+        "dials": {
+          "bias": 0,
+          "spread": 0.7,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 30,
+          "segLen": 6,
+          "segVar": 0.35,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.55,
+          "shape": "swell",
+          "amount": 0.3,
+          "spread": 0.5
+        },
+        "seed": 5
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.segLen": 3
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "louder swells",
-     "description": "the D24 dynamics layer's depth — how much the sonority breathes",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dyn.amount": 0.2
-       }
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot B",
+      "tuba": {
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            34,
+            38,
+            41,
+            45,
+            48,
+            53,
+            58,
+            62
+          ]
+        },
+        "target": {
+          "path": [
+            "ord",
+            "bisb",
+            "flz"
+          ]
+        }
       },
-      {
-       "at": 1,
-       "patch": {
-        "dyn.amount": 0.5
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+      "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`; a SHELL on the septet — the technique path is the tuba's, every player keeps its ordinary voice"
     },
-    {
-     "recipe": "close it",
-     "description": "how long the run-down takes. 0 = the HARD STOP this model used to have (rotate ends exactly where it began, so the gesture cuts at ~97% of its own peak); up = a longer close. Stock is 5 s. Only this model needs the dial: it is the only one on `rotate`, and every other model's `swell` lands in its trough at the end by construction.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.42
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.release": 0
-       }
+    "BLOOM": {
+      "name": "BEATING BLOOM",
+      "id": "BLOOM",
+      "status": "stock",
+      "modelType": "M1",
+      "character": "Unison pairs splitting apart. Beating grows from zero; faster in the higher pairs (2.6 / 3.5 / 4.6 / 6.2 Hz at full separation), so the texture opens upward.",
+      "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very interesting. Sounds industrial and resembles many experiments I have done with strings and beating tones. Familiar terrain, like some of the acoustic pieces by Alvin Lucier.\"",
+      "tags": [
+        "beating",
+        "industrial",
+        "opens-upward"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M1",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            51,
+            51,
+            56,
+            56,
+            61,
+            61
+          ]
+        },
+        "target": {
+          "cents": 25,
+          "direction": "alternate"
+        },
+        "dials": {
+          "bias": 0.3,
+          "spread": 0.35,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.42,
+          "spread": 0.55
+        },
+        "seed": 11
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.release": 12
-       }
-      }
-     ],
-     "boundsFrom": "measured 2026-08-17 (day 15): release 3/5/8/12 all land every voice on the 0.4 floor (1% of peak). `carrier.duration` is deliberately NOT patched — pinning it would make the `slower / longer` recipe switch cycling ON below span 30 (span 10 renders 42.9 s instead of 18.7 s)."
-    }
-   ],
-   "actuals": [],
-   "seededFrom": "bank/morph_recipes.json slot A",
-   "tuba": {
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      34,
-      38,
-      41,
-      45,
-      48,
-      53,
-      58,
-      62
-     ]
-    },
-    "target": null
-   },
-   "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
-  },
-  "COLOUR": {
-   "name": "colour morph, now ramping INTO each technique",
-   "id": "COLOUR",
-   "status": "draft",
-   "modelType": "M4",
-   "character": "Technique migration. Reads as a sequence of colours rather than one sonority changing. Since the audition, technique changes ENTER under a long deep dynamic ramp (composer: \"start with the effect and ramp into the full effect\") — that change has not itself been re-heard.",
-   "verdict": "day-10 (useful, least interesting) — composer 2026-08-16: \"It sounds exactly like a held sonority with players shifting different techniques within it. It sounds more like just a collection of different techniques. Useful, but not as interesting.\"",
-   "tags": [
-    "technique-migration",
-    "colour"
-   ],
-   "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
-   "baseParams": {
-    "model": "M4",
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      46,
-      53,
-      57,
-      60,
-      62,
-      65
-     ]
-    },
-    "target": {
-     "path": [
-      "ord",
-      "bisb",
-      "flz"
-     ]
-    },
-    "dials": {
-     "bias": 0,
-     "spread": 0.7,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 30,
-     "segLen": 6,
-     "segVar": 0.35,
-     "striation": "staggered"
-    },
-    "dyn": {
-     "base": 0.55,
-     "shape": "swell",
-     "amount": 0.3,
-     "spread": 0.5
-    },
-    "seed": 5
-   },
-   "recipes": [
-    {
-     "recipe": "slower / longer",
-     "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.4
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 10
-       }
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        },
+        {
+          "recipe": "more beating",
+          "description": "pairs split wider — faster beats, opens further. beat Hz = |f1-f2| (D28)",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.cents": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.cents": 50
+              }
+            }
+          ],
+          "boundsFrom": "C was blessed at 25 c; D28 register law says a fixed cents detuning doubles its beat rate per octave"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot C",
+      "tuba": {
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            41,
+            41,
+            46,
+            46,
+            51,
+            51,
+            56,
+            56
+          ]
+        },
+        "target": {
+          "cents": 25,
+          "direction": "alternate"
+        }
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 60
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+      "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
     },
-    {
-     "recipe": "more dramatic",
-     "description": "depth up and bias later — the morph arrives harder",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.35
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.depth": 0.6,
-        "dials.bias": 0
-       }
+    "CONVERGE": {
+      "name": "BEATING CONVERGE",
+      "id": "CONVERGE",
+      "status": "stock",
+      "modelType": "M3",
+      "character": "Whole-tone pairs closing to exact unison. The reverse gesture: beating slows to 0 Hz, interference resolving into fusion.",
+      "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very interesting.\"",
+      "tags": [
+        "beating",
+        "resolving",
+        "fusion"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M3",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            50,
+            52,
+            55,
+            57,
+            60,
+            62
+          ]
+        },
+        "target": {
+          "midi": [
+            51,
+            51,
+            56,
+            56,
+            61,
+            61
+          ]
+        },
+        "dials": {
+          "bias": 0.4,
+          "spread": 0.3,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.4,
+          "spread": 0.5
+        },
+        "seed": 7
       },
-      {
-       "at": 1,
-       "patch": {
-        "dials.depth": 1,
-        "dials.bias": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
-    },
-    {
-     "recipe": "smoother / choppier",
-     "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.segLen": 8
-       }
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot D",
+      "tuba": {
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            45,
+            47,
+            50,
+            52,
+            57,
+            59,
+            62,
+            64
+          ]
+        },
+        "target": {
+          "midi": [
+            46,
+            46,
+            51,
+            51,
+            58,
+            58,
+            63,
+            63
+          ]
+        }
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.segLen": 3
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+      "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
     },
-    {
-     "recipe": "louder swells",
-     "description": "the D24 dynamics layer's depth — how much the sonority breathes",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dyn.amount": 0.2
-       }
+    "SPACING": {
+      "name": "SPACING MIGRATION",
+      "id": "SPACING",
+      "status": "stock",
+      "modelType": "M5",
+      "character": "Voicing opens outward, 12 to 20 semitones. The re-articulations read as a rhythmic layer on top of the pitch change.",
+      "verdict": "day-10 (interesting) — composer 2026-08-16: \"Interesting and similar. It sounds like either one or several tubas are re-articulating at a relatively big dynamic, and those sound like pulses. They not only pulse the volume, they also pulse the beating, the visceralness.\"",
+      "tags": [
+        "pulse",
+        "opening",
+        "visceral"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M5",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            46,
+            53,
+            57,
+            60,
+            62,
+            65
+          ]
+        },
+        "target": {
+          "steps": 4
+        },
+        "dials": {
+          "bias": 0.2,
+          "spread": 0.5,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.38,
+          "spread": 0.5
+        },
+        "seed": 13
       },
-      {
-       "at": 1,
-       "patch": {
-        "dyn.amount": 0.5
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
-    }
-   ],
-   "actuals": [],
-   "seededFrom": "bank/morph_recipes.json slot B",
-   "tuba": {
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      34,
-      38,
-      41,
-      45,
-      48,
-      53,
-      58,
-      62
-     ]
-    },
-    "target": {
-     "path": [
-      "ord",
-      "bisb",
-      "flz"
-     ]
-    }
-   },
-   "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`; a SHELL on the septet — the technique path is the tuba's, every player keeps its ordinary voice"
-  },
-  "BLOOM": {
-   "name": "BEATING BLOOM",
-   "id": "BLOOM",
-   "status": "stock",
-   "modelType": "M1",
-   "character": "Unison pairs splitting apart. Beating grows from zero; faster in the higher pairs (2.6 / 3.5 / 4.6 / 6.2 Hz at full separation), so the texture opens upward.",
-   "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very interesting. Sounds industrial and resembles many experiments I have done with strings and beating tones. Familiar terrain, like some of the acoustic pieces by Alvin Lucier.\"",
-   "tags": [
-    "beating",
-    "industrial",
-    "opens-upward"
-   ],
-   "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
-   "baseParams": {
-    "model": "M1",
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      51,
-      51,
-      56,
-      56,
-      61,
-      61
-     ]
-    },
-    "target": {
-     "cents": 25,
-     "direction": "alternate"
-    },
-    "dials": {
-     "bias": 0.3,
-     "spread": 0.35,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 40,
-     "segLen": 8,
-     "segVar": 0.3,
-     "striation": "staggered"
-    },
-    "dyn": {
-     "base": 0.5,
-     "shape": "swell",
-     "amount": 0.42,
-     "spread": 0.55
-    },
-    "seed": 11
-   },
-   "recipes": [
-    {
-     "recipe": "slower / longer",
-     "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.4
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 10
-       }
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        },
+        {
+          "recipe": "opens further",
+          "description": "how many whole degrees the outer voices travel",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.steps": 2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.steps": 6
+              }
+            }
+          ],
+          "boundsFrom": "E was blessed at 4 steps (12->20 semitones of opening)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot E",
+      "tuba": {
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            43,
+            45,
+            47,
+            48,
+            50,
+            52,
+            53,
+            55
+          ]
+        },
+        "target": {
+          "steps": 4
+        }
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 60
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+      "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
     },
-    {
-     "recipe": "more dramatic",
-     "description": "depth up and bias later — the morph arrives harder",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.35
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.depth": 0.6,
-        "dials.bias": 0
-       }
+    "SPECTRAL": {
+      "name": "SPECTRAL DRIFT",
+      "id": "SPECTRAL",
+      "status": "stock",
+      "modelType": "M2",
+      "character": "Chord focuses onto the harmonics of F. Each voice moves only 0-49 cents and the total span barely changes (28 to 27 st), so it reads as the same chord coming into focus. VERIFIED BY MEASUREMENT: every voice lands within 0.4 cents of its target partial.",
+      "verdict": "day-10 (interesting) — composer 2026-08-16: \"Interesting and similar.\"",
+      "tags": [
+        "spectral",
+        "focusing",
+        "microtonal"
+      ],
+      "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
+      "baseParams": {
+        "model": "M2",
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            46,
+            53,
+            57,
+            60,
+            62,
+            65
+          ]
+        },
+        "target": {
+          "fundamental": 41,
+          "partials": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            11,
+            13
+          ]
+        },
+        "dials": {
+          "bias": 0.3,
+          "spread": 0.6,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 40,
+          "segLen": 8,
+          "segVar": 0.3,
+          "striation": "staggered"
+        },
+        "dyn": {
+          "base": 0.5,
+          "shape": "swell",
+          "amount": 0.35,
+          "spread": 0.5
+        },
+        "seed": 17
       },
-      {
-       "at": 1,
-       "patch": {
-        "dials.depth": 1,
-        "dials.bias": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
-    },
-    {
-     "recipe": "smoother / choppier",
-     "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.segLen": 8
-       }
+      "recipes": [
+        {
+          "recipe": "slower / longer",
+          "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.4
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 10
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 60
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "more dramatic",
+          "description": "depth up and bias later — the morph arrives harder",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.35
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.depth": 0.6,
+                "dials.bias": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.depth": 1,
+                "dials.bias": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
+        },
+        {
+          "recipe": "smoother / choppier",
+          "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.segLen": 8
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.segLen": 3
+              }
+            }
+          ],
+          "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+        },
+        {
+          "recipe": "louder swells",
+          "description": "the D24 dynamics layer's depth — how much the sonority breathes",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dyn.amount": 0.2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dyn.amount": 0.5
+              }
+            }
+          ],
+          "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
+        }
+      ],
+      "actuals": [],
+      "seededFrom": "bank/morph_recipes.json slot F",
+      "tuba": {
+        "source": {
+          "kind": "pitches",
+          "midi": [
+            34,
+            38,
+            41,
+            45,
+            48,
+            53,
+            58,
+            62
+          ]
+        },
+        "target": {
+          "fundamental": 41,
+          "partials": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            11,
+            13
+          ]
+        }
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.segLen": 3
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
+      "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
     },
-    {
-     "recipe": "louder swells",
-     "description": "the D24 dynamics layer's depth — how much the sonority breathes",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dyn.amount": 0.2
-       }
+    "LGSPECTRAL": {
+      "name": "LGMF spectral — a set of partials through the reference to another",
+      "id": "LGSPECTRAL",
+      "status": "draft",
+      "modelType": "M3",
+      "character": "The chord begins on partials of the fundamental that are NOT the reference harmony, focuses onto the reference, rests there, and moves away to a different set. The vibraphone holds its bars throughout; the bass moves like everyone else (LG-30).",
+      "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
+      "tags": [
+        "lgmf",
+        "spectral",
+        "three-station"
+      ],
+      "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGSPECTRAL-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
+      "actuals": [
+        "ACT-LGSPECTRAL-01",
+        "ACT-LGSPECTRAL-02",
+        "ACT-LGSPECTRAL-03",
+        "ACT-LGSPECTRAL-04",
+        "ACT-LGSPECTRAL-05",
+        "ACT-LGSPECTRAL-06"
+      ],
+      "baseParams": {
+        "model": "M3",
+        "label": "LG spectral — chord 1 on Bb1",
+        "lanes": [
+          7,
+          1,
+          6,
+          2,
+          0,
+          3,
+          5,
+          5
+        ],
+        "source": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 58,
+              "cents": 0
+            },
+            {
+              "midi": 53,
+              "cents": 2
+            },
+            {
+              "midi": 53,
+              "cents": 2
+            },
+            {
+              "midi": 65,
+              "cents": 2
+            },
+            {
+              "midi": 58,
+              "cents": 0
+            },
+            {
+              "midi": 82,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ]
+        },
+        "target": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 46,
+              "cents": 0
+            },
+            {
+              "midi": 72,
+              "cents": 4
+            },
+            {
+              "midi": 65,
+              "cents": 2
+            },
+            {
+              "midi": 72,
+              "cents": 4
+            },
+            {
+              "midi": 70,
+              "cents": 0
+            },
+            {
+              "midi": 70,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ],
+          "dwell": 0.3333333333333333,
+          "mid": {
+            "voices": [
+              {
+                "midi": 34,
+                "cents": 0
+              },
+              {
+                "midi": 62,
+                "cents": -14
+              },
+              {
+                "midi": 62,
+                "cents": 0
+              },
+              {
+                "midi": 68,
+                "cents": -31
+              },
+              {
+                "midi": 68,
+                "cents": 0
+              },
+              {
+                "midi": 74,
+                "cents": -14
+              },
+              {
+                "midi": 74,
+                "cents": 0
+              },
+              {
+                "midi": 83,
+                "cents": 0
+              }
+            ]
+          }
+        },
+        "dials": {
+          "bias": 0,
+          "spread": 0.15,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 90,
+          "segLen": 12,
+          "segVar": 0.3,
+          "striation": "staggered",
+          "duration": null,
+          "release": null
+        },
+        "dyn": {
+          "base": 0.5714285714285714,
+          "shape": "flat",
+          "amount": 0,
+          "turns": 1,
+          "spread": 0.5
+        },
+        "shape": {
+          "attack": {
+            "len": 6,
+            "mode": "fade",
+            "from": 0,
+            "entry": "together",
+            "curve": "linear"
+          },
+          "release": {
+            "len": 5,
+            "to": 0,
+            "exit": "together",
+            "curve": "expo"
+          }
+        },
+        "seed": 20
       },
-      {
-       "at": 1,
-       "patch": {
-        "dyn.amount": 0.5
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
-    },
-    {
-     "recipe": "more beating",
-     "description": "pairs split wider — faster beats, opens further. beat Hz = |f1-f2| (D28)",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "target.cents": 10
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "target.cents": 50
-       }
-      }
-     ],
-     "boundsFrom": "C was blessed at 25 c; D28 register law says a fixed cents detuning doubles its beat rate per octave"
-    }
-   ],
-   "actuals": [],
-   "seededFrom": "bank/morph_recipes.json slot C",
-   "tuba": {
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      41,
-      41,
-      46,
-      46,
-      51,
-      51,
-      56,
-      56
-     ]
-    },
-    "target": {
-     "cents": 25,
-     "direction": "alternate"
-    }
-   },
-   "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
-  },
-  "CONVERGE": {
-   "name": "BEATING CONVERGE",
-   "id": "CONVERGE",
-   "status": "stock",
-   "modelType": "M3",
-   "character": "Whole-tone pairs closing to exact unison. The reverse gesture: beating slows to 0 Hz, interference resolving into fusion.",
-   "verdict": "day-10 (keeper) — composer 2026-08-16: \"Very interesting.\"",
-   "tags": [
-    "beating",
-    "resolving",
-    "fusion"
-   ],
-   "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
-   "baseParams": {
-    "model": "M3",
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      50,
-      52,
-      55,
-      57,
-      60,
-      62
-     ]
-    },
-    "target": {
-     "midi": [
-      51,
-      51,
-      56,
-      56,
-      61,
-      61
-     ]
-    },
-    "dials": {
-     "bias": 0.4,
-     "spread": 0.3,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 40,
-     "segLen": 8,
-     "segVar": 0.3,
-     "striation": "staggered"
-    },
-    "dyn": {
-     "base": 0.5,
-     "shape": "swell",
-     "amount": 0.4,
-     "spread": 0.5
-    },
-    "seed": 7
-   },
-   "recipes": [
-    {
-     "recipe": "slower / longer",
-     "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.4
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 10
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 60
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "more dramatic",
-     "description": "depth up and bias later — the morph arrives harder",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.35
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.depth": 0.6,
-        "dials.bias": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.depth": 1,
-        "dials.bias": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
-    },
-    {
-     "recipe": "smoother / choppier",
-     "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.segLen": 8
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.segLen": 3
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "louder swells",
-     "description": "the D24 dynamics layer's depth — how much the sonority breathes",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dyn.amount": 0.2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dyn.amount": 0.5
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
-    }
-   ],
-   "actuals": [],
-   "seededFrom": "bank/morph_recipes.json slot D",
-   "tuba": {
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      45,
-      47,
-      50,
-      52,
-      57,
-      59,
-      62,
-      64
-     ]
-    },
-    "target": {
-     "midi": [
-      46,
-      46,
-      51,
-      51,
-      58,
-      58,
-      63,
-      63
-     ]
-    }
-   },
-   "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
-  },
-  "SPACING": {
-   "name": "SPACING MIGRATION",
-   "id": "SPACING",
-   "status": "stock",
-   "modelType": "M5",
-   "character": "Voicing opens outward, 12 to 20 semitones. The re-articulations read as a rhythmic layer on top of the pitch change.",
-   "verdict": "day-10 (interesting) — composer 2026-08-16: \"Interesting and similar. It sounds like either one or several tubas are re-articulating at a relatively big dynamic, and those sound like pulses. They not only pulse the volume, they also pulse the beating, the visceralness.\"",
-   "tags": [
-    "pulse",
-    "opening",
-    "visceral"
-   ],
-   "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
-   "baseParams": {
-    "model": "M5",
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      46,
-      53,
-      57,
-      60,
-      62,
-      65
-     ]
-    },
-    "target": {
-     "steps": 4
-    },
-    "dials": {
-     "bias": 0.2,
-     "spread": 0.5,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 40,
-     "segLen": 8,
-     "segVar": 0.3,
-     "striation": "staggered"
-    },
-    "dyn": {
-     "base": 0.5,
-     "shape": "swell",
-     "amount": 0.38,
-     "spread": 0.5
-    },
-    "seed": 13
-   },
-   "recipes": [
-    {
-     "recipe": "slower / longer",
-     "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.4
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 10
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 60
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "more dramatic",
-     "description": "depth up and bias later — the morph arrives harder",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.35
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.depth": 0.6,
-        "dials.bias": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.depth": 1,
-        "dials.bias": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
-    },
-    {
-     "recipe": "smoother / choppier",
-     "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.segLen": 8
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.segLen": 3
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "louder swells",
-     "description": "the D24 dynamics layer's depth — how much the sonority breathes",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dyn.amount": 0.2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dyn.amount": 0.5
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
-    },
-    {
-     "recipe": "opens further",
-     "description": "how many whole degrees the outer voices travel",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "target.steps": 2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "target.steps": 6
-       }
-      }
-     ],
-     "boundsFrom": "E was blessed at 4 steps (12->20 semitones of opening)"
-    }
-   ],
-   "actuals": [],
-   "seededFrom": "bank/morph_recipes.json slot E",
-   "tuba": {
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      43,
-      45,
-      47,
-      48,
-      50,
-      52,
-      53,
-      55
-     ]
-    },
-    "target": {
-     "steps": 4
-    }
-   },
-   "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
-  },
-  "SPECTRAL": {
-   "name": "SPECTRAL DRIFT",
-   "id": "SPECTRAL",
-   "status": "stock",
-   "modelType": "M2",
-   "character": "Chord focuses onto the harmonics of F. Each voice moves only 0-49 cents and the total span barely changes (28 to 27 st), so it reads as the same chord coming into focus. VERIFIED BY MEASUREMENT: every voice lands within 0.4 cents of its target partial.",
-   "verdict": "day-10 (interesting) — composer 2026-08-16: \"Interesting and similar.\"",
-   "tags": [
-    "spectral",
-    "focusing",
-    "microtonal"
-   ],
-   "notes": "Seeded from the day-10 audit record. NOTE: auditioned through two bugs later found in 2z G4 — morph pitch was out by up to 40.2 c on off-key onsets, and the panel carried the previous variant's dials across a switch. The material is good but any day-10 COMPARISON between models was of the wrong thing. Re-hear before blessing at MA4. See docs/SHAPE_LESSONS.md lesson 1.",
-   "baseParams": {
-    "model": "M2",
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      46,
-      53,
-      57,
-      60,
-      62,
-      65
-     ]
-    },
-    "target": {
-     "fundamental": 41,
-     "partials": [
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      11,
-      13
-     ]
-    },
-    "dials": {
-     "bias": 0.3,
-     "spread": 0.6,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 40,
-     "segLen": 8,
-     "segVar": 0.3,
-     "striation": "staggered"
-    },
-    "dyn": {
-     "base": 0.5,
-     "shape": "swell",
-     "amount": 0.35,
-     "spread": 0.5
-    },
-    "seed": 17
-   },
-   "recipes": [
-    {
-     "recipe": "slower / longer",
-     "description": "span out — 30 s read as \"much more dramatic\" than 10 s, so this changes the gesture's WEIGHT, not just its length",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.4
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 10
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 60
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — span working [10,60], sweet 30 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "more dramatic",
-     "description": "depth up and bias later — the morph arrives harder",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.35
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.depth": 0.6,
-        "dials.bias": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.depth": 1,
-        "dials.bias": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice; depth/bias were the two dials actually turned"
-    },
-    {
-     "recipe": "smoother / choppier",
-     "description": "0 = long segments (smoother), 1 = short (choppier). Re-articulation CARRIES the morph's audibility — long segments are less informative, not smoother",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.segLen": 8
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.segLen": 3
-       }
-      }
-     ],
-     "boundsFrom": "bank/morph_recipes.json dials table — segLen working [3,8], sweet 7 (heard 2026-08-16)"
-    },
-    {
-     "recipe": "louder swells",
-     "description": "the D24 dynamics layer's depth — how much the sonority breathes",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dyn.amount": 0.2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dyn.amount": 0.5
-       }
-      }
-     ],
-     "boundsFrom": "day-10 panel practice (dyn.amount was nudged 0.3-0.42 across the blessed set)"
-    }
-   ],
-   "actuals": [],
-   "seededFrom": "bank/morph_recipes.json slot F",
-   "tuba": {
-    "source": {
-     "kind": "pitches",
-     "midi": [
-      34,
-      38,
-      41,
-      45,
-      48,
-      53,
-      58,
-      62
-     ]
-    },
-    "target": {
-     "fundamental": 41,
-     "partials": [
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      11,
-      13
-     ]
-    }
-   },
-   "septet": "2026-09-07: re-voiced for the septet's three pairs (Vc+Va · Vn1+Vn2 · Fl+BCl); the tuba's set kept as `tuba`"
-  },
-  "LGSPECTRAL": {
-   "name": "LGMF spectral — a set of partials through the reference to another",
-   "id": "LGSPECTRAL",
-   "status": "draft",
-   "modelType": "M3",
-   "character": "The chord begins on partials of the fundamental that are NOT the reference harmony, focuses onto the reference, rests there, and moves away to a different set. The vibraphone holds its bars throughout; the bass moves like everyone else (LG-30).",
-   "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
-   "tags": [
-    "lgmf",
-    "spectral",
-    "three-station"
-   ],
-   "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGSPECTRAL-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
-   "actuals": [
-    "ACT-LGSPECTRAL-01",
-    "ACT-LGSPECTRAL-02",
-    "ACT-LGSPECTRAL-03",
-    "ACT-LGSPECTRAL-04",
-    "ACT-LGSPECTRAL-05",
-    "ACT-LGSPECTRAL-06"
-   ],
-   "baseParams": {
-    "model": "M3",
-    "label": "LG spectral — chord 1 on Bb1",
-    "lanes": [
-     7,
-     1,
-     6,
-     2,
-     0,
-     3,
-     5,
-     5
-    ],
-    "source": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 58,
-       "cents": 0
-      },
-      {
-       "midi": 53,
-       "cents": 2
-      },
-      {
-       "midi": 53,
-       "cents": 2
-      },
-      {
-       "midi": 65,
-       "cents": 2
-      },
-      {
-       "midi": 58,
-       "cents": 0
-      },
-      {
-       "midi": 82,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ]
-    },
-    "target": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 46,
-       "cents": 0
-      },
-      {
-       "midi": 72,
-       "cents": 4
-      },
-      {
-       "midi": 65,
-       "cents": 2
-      },
-      {
-       "midi": 72,
-       "cents": 4
-      },
-      {
-       "midi": 70,
-       "cents": 0
-      },
-      {
-       "midi": 70,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ],
-     "dwell": 0.3333333333333333,
-     "mid": {
-      "voices": [
-       {
-        "midi": 34,
-        "cents": 0
-       },
-       {
-        "midi": 62,
-        "cents": -14
-       },
-       {
-        "midi": 62,
-        "cents": 0
-       },
-       {
-        "midi": 68,
-        "cents": -31
-       },
-       {
-        "midi": 68,
-        "cents": 0
-       },
-       {
-        "midi": 74,
-        "cents": -14
-       },
-       {
-        "midi": 74,
-        "cents": 0
-       },
-       {
-        "midi": 83,
-        "cents": 0
-       }
+      "recipes": [
+        {
+          "recipe": "longer / shorter",
+          "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 45
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 180
+              }
+            }
+          ],
+          "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
+        },
+        {
+          "recipe": "rest at the far station",
+          "description": "the middle third. 0 is a straight out-and-back with no repose; 0.6 is more than half the transition spent on the far harmony.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3333333333333333
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.dwell": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.dwell": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "decision 9; the default IS 30 · 30 · 30"
+        },
+        {
+          "recipe": "the entrance",
+          "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.25
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "shape.attack.len": 2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "shape.attack.len": 20
+              }
+            }
+          ],
+          "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
+        },
+        {
+          "recipe": "together / spread",
+          "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.15
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.spread": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.spread": 0.8
+              }
+            }
+          ],
+          "boundsFrom": "the engine caps the stagger at 80 % of the span"
+        }
       ]
-     }
     },
-    "dials": {
-     "bias": 0,
-     "spread": 0.15,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 90,
-     "segLen": 12,
-     "segVar": 0.3,
-     "striation": "staggered",
-     "duration": null,
-     "release": null
-    },
-    "dyn": {
-     "base": 0.5714285714285714,
-     "shape": "flat",
-     "amount": 0,
-     "turns": 1,
-     "spread": 0.5
-    },
-    "shape": {
-     "attack": {
-      "len": 6,
-      "mode": "fade",
-      "from": 0,
-      "entry": "together",
-      "curve": "linear"
-     },
-     "release": {
-      "len": 5,
-      "to": 0,
-      "exit": "together",
-      "curve": "expo"
-     }
-    },
-    "seed": 20
-   },
-   "recipes": [
-    {
-     "recipe": "longer / shorter",
-     "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 45
-       }
+    "LGBALANCE": {
+      "name": "LGMF balance — the reference held, only the weighting moving",
+      "id": "LGBALANCE",
+      "status": "draft",
+      "modelType": "M6",
+      "character": "No pitch motion at all. Staggered entries and swells pp → mf, so the beating pairs of the reference harmony surface and recede against each other. Decision 4: this is the volume-only model, not a new one.",
+      "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
+      "tags": [
+        "lgmf",
+        "balance",
+        "volume-only"
+      ],
+      "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGBALANCE-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
+      "actuals": [
+        "ACT-LGBALANCE-01",
+        "ACT-LGBALANCE-02",
+        "ACT-LGBALANCE-03",
+        "ACT-LGBALANCE-04",
+        "ACT-LGBALANCE-05",
+        "ACT-LGBALANCE-06"
+      ],
+      "baseParams": {
+        "model": "M6",
+        "label": "LG balance — chord 1 on Bb1",
+        "lanes": [
+          7,
+          1,
+          6,
+          2,
+          0,
+          3,
+          5,
+          5
+        ],
+        "source": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 34,
+              "cents": 0
+            },
+            {
+              "midi": 62,
+              "cents": -14
+            },
+            {
+              "midi": 62,
+              "cents": 0
+            },
+            {
+              "midi": 68,
+              "cents": -31
+            },
+            {
+              "midi": 68,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": -14
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ]
+        },
+        "target": null,
+        "dials": {
+          "bias": 0,
+          "spread": 0.15,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 90,
+          "segLen": 6,
+          "segVar": 0.2,
+          "striation": "staggered",
+          "duration": null,
+          "release": null
+        },
+        "dyn": {
+          "base": 0.3571428571428571,
+          "shape": "swell",
+          "amount": 0.21428571428571427,
+          "turns": 1,
+          "spread": 0.6
+        },
+        "shape": {
+          "attack": {
+            "len": 8,
+            "entry": "ramp",
+            "order": "low-first",
+            "curve": "linear"
+          },
+          "release": {
+            "len": 5,
+            "to": 0,
+            "exit": "together",
+            "curve": "expo"
+          }
+        },
+        "seed": 20
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 180
-       }
-      }
-     ],
-     "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
-    },
-    {
-     "recipe": "rest at the far station",
-     "description": "the middle third. 0 is a straight out-and-back with no repose; 0.6 is more than half the transition spent on the far harmony.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3333333333333333
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "target.dwell": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "target.dwell": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "decision 9; the default IS 30 · 30 · 30"
-    },
-    {
-     "recipe": "the entrance",
-     "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.25
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "shape.attack.len": 2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "shape.attack.len": 20
-       }
-      }
-     ],
-     "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
-    },
-    {
-     "recipe": "together / spread",
-     "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.15
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.spread": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.spread": 0.8
-       }
-      }
-     ],
-     "boundsFrom": "the engine caps the stagger at 80 % of the span"
-    }
-   ]
-  },
-  "LGBALANCE": {
-   "name": "LGMF balance — the reference held, only the weighting moving",
-   "id": "LGBALANCE",
-   "status": "draft",
-   "modelType": "M6",
-   "character": "No pitch motion at all. Staggered entries and swells pp → mf, so the beating pairs of the reference harmony surface and recede against each other. Decision 4: this is the volume-only model, not a new one.",
-   "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
-   "tags": [
-    "lgmf",
-    "balance",
-    "volume-only"
-   ],
-   "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGBALANCE-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
-   "actuals": [
-    "ACT-LGBALANCE-01",
-    "ACT-LGBALANCE-02",
-    "ACT-LGBALANCE-03",
-    "ACT-LGBALANCE-04",
-    "ACT-LGBALANCE-05",
-    "ACT-LGBALANCE-06"
-   ],
-   "baseParams": {
-    "model": "M6",
-    "label": "LG balance — chord 1 on Bb1",
-    "lanes": [
-     7,
-     1,
-     6,
-     2,
-     0,
-     3,
-     5,
-     5
-    ],
-    "source": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 34,
-       "cents": 0
-      },
-      {
-       "midi": 62,
-       "cents": -14
-      },
-      {
-       "midi": 62,
-       "cents": 0
-      },
-      {
-       "midi": 68,
-       "cents": -31
-      },
-      {
-       "midi": 68,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": -14
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ]
-    },
-    "target": null,
-    "dials": {
-     "bias": 0,
-     "spread": 0.15,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 90,
-     "segLen": 12,
-     "segVar": 0.3,
-     "striation": "staggered",
-     "duration": null,
-     "release": null
-    },
-    "dyn": {
-     "base": 0.3571428571428571,
-     "shape": "swell",
-     "amount": 0.21428571428571427,
-     "turns": 1,
-     "spread": 0.6
-    },
-    "shape": {
-     "attack": {
-      "len": 8,
-      "entry": "ramp",
-      "order": "low-first",
-      "curve": "linear"
-     },
-     "release": {
-      "len": 5,
-      "to": 0,
-      "exit": "together",
-      "curve": "expo"
-     }
-    },
-    "seed": 20
-   },
-   "recipes": [
-    {
-     "recipe": "longer / shorter",
-     "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 45
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 180
-       }
-      }
-     ],
-     "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
-    },
-    {
-     "recipe": "the entrance",
-     "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.25
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "shape.attack.len": 2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "shape.attack.len": 20
-       }
-      }
-     ],
-     "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
-    },
-    {
-     "recipe": "together / spread",
-     "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.15
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.spread": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.spread": 0.8
-       }
-      }
-     ],
-     "boundsFrom": "the engine caps the stagger at 80 % of the span"
-    }
-   ]
-  },
-  "LGBLOOM": {
-   "name": "LGMF bloom — the deviations resolving onto clean partials and back",
-   "id": "LGBLOOM",
-   "status": "draft",
-   "modelType": "M3",
-   "character": "Every voice that sits on a deviant partial, or on no partial at all, glides to the nearest partial of the same fundamental with almost no deviation, rests there, and comes back. The vibraphone CANNOT follow — its doubling bar stays sounding 14–49¢ off the bloomed series, which the composer accepted as the fixed point (LG-30) — and the bass holds partial 1.",
-   "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
-   "tags": [
-    "lgmf",
-    "bloom",
-    "three-station"
-   ],
-   "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGBLOOM-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
-   "actuals": [
-    "ACT-LGBLOOM-01",
-    "ACT-LGBLOOM-02",
-    "ACT-LGBLOOM-03",
-    "ACT-LGBLOOM-04",
-    "ACT-LGBLOOM-05",
-    "ACT-LGBLOOM-06"
-   ],
-   "baseParams": {
-    "model": "M3",
-    "label": "LG bloom — chord 1 on Bb1",
-    "lanes": [
-     7,
-     1,
-     6,
-     2,
-     0,
-     3,
-     5,
-     5
-    ],
-    "source": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 34,
-       "cents": 0
-      },
-      {
-       "midi": 62,
-       "cents": -14
-      },
-      {
-       "midi": 62,
-       "cents": 0
-      },
-      {
-       "midi": 68,
-       "cents": -31
-      },
-      {
-       "midi": 68,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": -14
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ]
-    },
-    "target": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 34,
-       "cents": 0
-      },
-      {
-       "midi": 62,
-       "cents": -14
-      },
-      {
-       "midi": 62,
-       "cents": 0
-      },
-      {
-       "midi": 68,
-       "cents": -31
-      },
-      {
-       "midi": 68,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": -14
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ],
-     "dwell": 0.3333333333333333,
-     "mid": {
-      "voices": [
-       {
-        "midi": 34,
-        "cents": 0
-       },
-       {
-        "midi": 65,
-        "cents": 2
-       },
-       {
-        "midi": 65,
-        "cents": 2
-       },
-       {
-        "midi": 70,
-        "cents": 0
-       },
-       {
-        "midi": 70,
-        "cents": 0
-       },
-       {
-        "midi": 72,
-        "cents": 4
-       },
-       {
-        "midi": 74,
-        "cents": 0
-       },
-       {
-        "midi": 83,
-        "cents": 0
-       }
+      "recipes": [
+        {
+          "recipe": "longer / shorter",
+          "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 45
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 180
+              }
+            }
+          ],
+          "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
+        },
+        {
+          "recipe": "the entrance",
+          "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.25
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "shape.attack.len": 2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "shape.attack.len": 20
+              }
+            }
+          ],
+          "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
+        },
+        {
+          "recipe": "together / spread",
+          "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.15
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.spread": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.spread": 0.8
+              }
+            }
+          ],
+          "boundsFrom": "the engine caps the stagger at 80 % of the span"
+        }
       ]
-     }
     },
-    "dials": {
-     "bias": 0,
-     "spread": 0.15,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 90,
-     "segLen": 12,
-     "segVar": 0.3,
-     "striation": "staggered",
-     "duration": null,
-     "release": null
-    },
-    "dyn": {
-     "base": 0.5714285714285714,
-     "shape": "flat",
-     "amount": 0,
-     "turns": 1,
-     "spread": 0.5
-    },
-    "shape": {
-     "attack": {
-      "len": 6,
-      "mode": "fade",
-      "from": 0,
-      "entry": "together",
-      "curve": "linear"
-     },
-     "release": {
-      "len": 5,
-      "to": 0,
-      "exit": "together",
-      "curve": "expo"
-     }
-    },
-    "seed": 20
-   },
-   "recipes": [
-    {
-     "recipe": "longer / shorter",
-     "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 45
-       }
+    "LGBLOOM": {
+      "name": "LGMF bloom — the deviations resolving onto clean partials and back",
+      "id": "LGBLOOM",
+      "status": "draft",
+      "modelType": "M3",
+      "character": "Every voice that sits on a deviant partial, or on no partial at all, glides to the nearest partial of the same fundamental with almost no deviation, rests there, and comes back. The vibraphone CANNOT follow — its doubling bar stays sounding 14–49¢ off the bloomed series, which the composer accepted as the fixed point (LG-30) — and the bass holds partial 1.",
+      "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
+      "tags": [
+        "lgmf",
+        "bloom",
+        "three-station"
+      ],
+      "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGBLOOM-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
+      "actuals": [
+        "ACT-LGBLOOM-01",
+        "ACT-LGBLOOM-02",
+        "ACT-LGBLOOM-03",
+        "ACT-LGBLOOM-04",
+        "ACT-LGBLOOM-05",
+        "ACT-LGBLOOM-06"
+      ],
+      "baseParams": {
+        "model": "M3",
+        "label": "LG bloom — chord 1 on Bb1",
+        "lanes": [
+          7,
+          1,
+          6,
+          2,
+          0,
+          3,
+          5,
+          5
+        ],
+        "source": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 34,
+              "cents": 0
+            },
+            {
+              "midi": 62,
+              "cents": -14
+            },
+            {
+              "midi": 62,
+              "cents": 0
+            },
+            {
+              "midi": 68,
+              "cents": -31
+            },
+            {
+              "midi": 68,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": -14
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ]
+        },
+        "target": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 34,
+              "cents": 0
+            },
+            {
+              "midi": 62,
+              "cents": -14
+            },
+            {
+              "midi": 62,
+              "cents": 0
+            },
+            {
+              "midi": 68,
+              "cents": -31
+            },
+            {
+              "midi": 68,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": -14
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ],
+          "dwell": 0.3333333333333333,
+          "mid": {
+            "voices": [
+              {
+                "midi": 34,
+                "cents": 0
+              },
+              {
+                "midi": 65,
+                "cents": 2
+              },
+              {
+                "midi": 65,
+                "cents": 2
+              },
+              {
+                "midi": 70,
+                "cents": 0
+              },
+              {
+                "midi": 70,
+                "cents": 0
+              },
+              {
+                "midi": 72,
+                "cents": 4
+              },
+              {
+                "midi": 74,
+                "cents": 0
+              },
+              {
+                "midi": 83,
+                "cents": 0
+              }
+            ]
+          }
+        },
+        "dials": {
+          "bias": 0,
+          "spread": 0.15,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 90,
+          "segLen": 12,
+          "segVar": 0.3,
+          "striation": "staggered",
+          "duration": null,
+          "release": null
+        },
+        "dyn": {
+          "base": 0.5714285714285714,
+          "shape": "flat",
+          "amount": 0,
+          "turns": 1,
+          "spread": 0.5
+        },
+        "shape": {
+          "attack": {
+            "len": 6,
+            "mode": "fade",
+            "from": 0,
+            "entry": "together",
+            "curve": "linear"
+          },
+          "release": {
+            "len": 5,
+            "to": 0,
+            "exit": "together",
+            "curve": "expo"
+          }
+        },
+        "seed": 20
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 180
-       }
-      }
-     ],
-     "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
-    },
-    {
-     "recipe": "rest at the far station",
-     "description": "the middle third. 0 is a straight out-and-back with no repose; 0.6 is more than half the transition spent on the far harmony.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3333333333333333
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "target.dwell": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "target.dwell": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "decision 9; the default IS 30 · 30 · 30"
-    },
-    {
-     "recipe": "the entrance",
-     "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.25
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "shape.attack.len": 2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "shape.attack.len": 20
-       }
-      }
-     ],
-     "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
-    },
-    {
-     "recipe": "together / spread",
-     "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.15
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.spread": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.spread": 0.8
-       }
-      }
-     ],
-     "boundsFrom": "the engine caps the stagger at 80 % of the span"
-    }
-   ]
-  },
-  "LGCONVERGE": {
-   "name": "LGMF converge — the beating pairs closing into unison and reopening",
-   "id": "LGCONVERGE",
-   "status": "draft",
-   "modelType": "M3",
-   "character": "His subject: \"lots of friction and kinetic energy moving into something very clean and pure\" (LG-31). The tempered double glides 14 / 31 / 49 cents onto the just partial; where the partner is a vibraphone bar the just voice goes to the bar instead and the unison lands off the series. The bass leaves the root altogether and mirrors the lowest voice above it.",
-   "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
-   "tags": [
-    "lgmf",
-    "converge",
-    "three-station"
-   ],
-   "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGCONVERGE-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
-   "actuals": [
-    "ACT-LGCONVERGE-01",
-    "ACT-LGCONVERGE-02",
-    "ACT-LGCONVERGE-03",
-    "ACT-LGCONVERGE-04",
-    "ACT-LGCONVERGE-05",
-    "ACT-LGCONVERGE-06"
-   ],
-   "baseParams": {
-    "model": "M3",
-    "label": "LG converge — chord 1 on Bb1",
-    "lanes": [
-     7,
-     1,
-     6,
-     2,
-     0,
-     3,
-     5,
-     5
-    ],
-    "source": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 62,
-       "cents": -28
-      },
-      {
-       "midi": 62,
-       "cents": -14
-      },
-      {
-       "midi": 62,
-       "cents": 0
-      },
-      {
-       "midi": 68,
-       "cents": -31
-      },
-      {
-       "midi": 68,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": -14
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ]
-    },
-    "target": {
-     "kind": "voices",
-     "voices": [
-      {
-       "midi": 62,
-       "cents": -28
-      },
-      {
-       "midi": 62,
-       "cents": -14
-      },
-      {
-       "midi": 62,
-       "cents": 0
-      },
-      {
-       "midi": 68,
-       "cents": -31
-      },
-      {
-       "midi": 68,
-       "cents": 0
-      },
-      {
-       "midi": 74,
-       "cents": -14
-      },
-      {
-       "midi": 74,
-       "cents": 0
-      },
-      {
-       "midi": 83,
-       "cents": 0
-      }
-     ],
-     "dwell": 0.3333333333333333,
-     "mid": {
-      "voices": [
-       {
-        "midi": 62,
-        "cents": -14
-       },
-       {
-        "midi": 62,
-        "cents": -14
-       },
-       {
-        "midi": 62,
-        "cents": -14
-       },
-       {
-        "midi": 68,
-        "cents": -31
-       },
-       {
-        "midi": 68,
-        "cents": -31
-       },
-       {
-        "midi": 74,
-        "cents": 0
-       },
-       {
-        "midi": 74,
-        "cents": 0
-       },
-       {
-        "midi": 83,
-        "cents": 0
-       }
+      "recipes": [
+        {
+          "recipe": "longer / shorter",
+          "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 45
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 180
+              }
+            }
+          ],
+          "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
+        },
+        {
+          "recipe": "rest at the far station",
+          "description": "the middle third. 0 is a straight out-and-back with no repose; 0.6 is more than half the transition spent on the far harmony.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3333333333333333
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.dwell": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.dwell": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "decision 9; the default IS 30 · 30 · 30"
+        },
+        {
+          "recipe": "the entrance",
+          "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.25
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "shape.attack.len": 2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "shape.attack.len": 20
+              }
+            }
+          ],
+          "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
+        },
+        {
+          "recipe": "together / spread",
+          "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.15
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.spread": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.spread": 0.8
+              }
+            }
+          ],
+          "boundsFrom": "the engine caps the stagger at 80 % of the span"
+        }
       ]
-     }
     },
-    "dials": {
-     "bias": 0,
-     "spread": 0.15,
-     "depth": 1
-    },
-    "carrier": {
-     "span": 90,
-     "segLen": 12,
-     "segVar": 0.3,
-     "striation": "staggered",
-     "duration": null,
-     "release": null
-    },
-    "dyn": {
-     "base": 0.5714285714285714,
-     "shape": "flat",
-     "amount": 0,
-     "turns": 1,
-     "spread": 0.5
-    },
-    "shape": {
-     "attack": {
-      "len": 6,
-      "mode": "fade",
-      "from": 0,
-      "entry": "together",
-      "curve": "linear"
-     },
-     "release": {
-      "len": 5,
-      "to": 0,
-      "exit": "together",
-      "curve": "expo"
-     }
-    },
-    "seed": 20
-   },
-   "recipes": [
-    {
-     "recipe": "longer / shorter",
-     "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.5
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "carrier.span": 45
-       }
+    "LGCONVERGE": {
+      "name": "LGMF converge — the beating pairs closing into unison and reopening",
+      "id": "LGCONVERGE",
+      "status": "draft",
+      "modelType": "M3",
+      "character": "His subject: \"lots of friction and kinetic energy moving into something very clean and pure\" (LG-31). The tempered double glides 14 / 31 / 49 cents onto the just partial; where the partner is a vibraphone bar the just voice goes to the bar instead and the unison lands off the series. The bass leaves the root altogether and mirrors the lowest voice above it.",
+      "verdict": "built 2026-09-19 by tools/build_transition_models.js (PLAN 1a.5) — NOT YET HEARD.",
+      "tags": [
+        "lgmf",
+        "converge",
+        "three-station"
+      ],
+      "notes": "One model per transition TYPE; the six chords are its six actuals (ACT-LGCONVERGE-01…06). The pitch data is bank/reference_chords.json and nothing here is typed by hand — re-run the tool. The 30 · 30 · 30 profile is target.dwell = 1/3 against carrier.span 90; both are dials.",
+      "actuals": [
+        "ACT-LGCONVERGE-01",
+        "ACT-LGCONVERGE-02",
+        "ACT-LGCONVERGE-03",
+        "ACT-LGCONVERGE-04",
+        "ACT-LGCONVERGE-05",
+        "ACT-LGCONVERGE-06"
+      ],
+      "baseParams": {
+        "model": "M3",
+        "label": "LG converge — chord 1 on Bb1",
+        "lanes": [
+          7,
+          1,
+          6,
+          2,
+          0,
+          3,
+          5,
+          5
+        ],
+        "source": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 62,
+              "cents": -28
+            },
+            {
+              "midi": 62,
+              "cents": -14
+            },
+            {
+              "midi": 62,
+              "cents": 0
+            },
+            {
+              "midi": 68,
+              "cents": -31
+            },
+            {
+              "midi": 68,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": -14
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ]
+        },
+        "target": {
+          "kind": "voices",
+          "voices": [
+            {
+              "midi": 62,
+              "cents": -28
+            },
+            {
+              "midi": 62,
+              "cents": -14
+            },
+            {
+              "midi": 62,
+              "cents": 0
+            },
+            {
+              "midi": 68,
+              "cents": -31
+            },
+            {
+              "midi": 68,
+              "cents": 0
+            },
+            {
+              "midi": 74,
+              "cents": -14
+            },
+            {
+              "midi": 74,
+              "cents": 0
+            },
+            {
+              "midi": 83,
+              "cents": 0
+            }
+          ],
+          "dwell": 0.3333333333333333,
+          "mid": {
+            "voices": [
+              {
+                "midi": 62,
+                "cents": -14
+              },
+              {
+                "midi": 62,
+                "cents": -14
+              },
+              {
+                "midi": 62,
+                "cents": -14
+              },
+              {
+                "midi": 68,
+                "cents": -31
+              },
+              {
+                "midi": 68,
+                "cents": -31
+              },
+              {
+                "midi": 74,
+                "cents": 0
+              },
+              {
+                "midi": 74,
+                "cents": 0
+              },
+              {
+                "midi": 83,
+                "cents": 0
+              }
+            ]
+          }
+        },
+        "dials": {
+          "bias": 0,
+          "spread": 0.15,
+          "depth": 1
+        },
+        "carrier": {
+          "span": 90,
+          "segLen": 12,
+          "segVar": 0.3,
+          "striation": "staggered",
+          "duration": null,
+          "release": null
+        },
+        "dyn": {
+          "base": 0.5714285714285714,
+          "shape": "flat",
+          "amount": 0,
+          "turns": 1,
+          "spread": 0.5
+        },
+        "shape": {
+          "attack": {
+            "len": 6,
+            "mode": "fade",
+            "from": 0,
+            "entry": "together",
+            "curve": "linear"
+          },
+          "release": {
+            "len": 5,
+            "to": 0,
+            "exit": "together",
+            "curve": "expo"
+          }
+        },
+        "seed": 20
       },
-      {
-       "at": 1,
-       "patch": {
-        "carrier.span": 180
-       }
-      }
-     ],
-     "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
-    },
-    {
-     "recipe": "rest at the far station",
-     "description": "the middle third. 0 is a straight out-and-back with no repose; 0.6 is more than half the transition spent on the far harmony.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.3333333333333333
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "target.dwell": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "target.dwell": 0.6
-       }
-      }
-     ],
-     "boundsFrom": "decision 9; the default IS 30 · 30 · 30"
-    },
-    {
-     "recipe": "the entrance",
-     "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.25
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "shape.attack.len": 2
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "shape.attack.len": 20
-       }
-      }
-     ],
-     "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
-    },
-    {
-     "recipe": "together / spread",
-     "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
-     "dial": {
-      "min": 0,
-      "max": 1,
-      "default": 0.15
-     },
-     "waypoints": [
-      {
-       "at": 0,
-       "patch": {
-        "dials.spread": 0
-       }
-      },
-      {
-       "at": 1,
-       "patch": {
-        "dials.spread": 0.8
-       }
-      }
-     ],
-     "boundsFrom": "the engine caps the stagger at 80 % of the span"
+      "recipes": [
+        {
+          "recipe": "longer / shorter",
+          "description": "the whole transition. 90 s is his 30 · 30 · 30; the dwell keeps its proportion, so a longer one rests longer too.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.5
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "carrier.span": 45
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "carrier.span": 180
+              }
+            }
+          ],
+          "boundsFrom": "decision 9 (90 s) at the middle of a range that still reads as one gesture"
+        },
+        {
+          "recipe": "rest at the far station",
+          "description": "the middle third. 0 is a straight out-and-back with no repose; 0.6 is more than half the transition spent on the far harmony.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.3333333333333333
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "target.dwell": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "target.dwell": 0.6
+              }
+            }
+          ],
+          "boundsFrom": "decision 9; the default IS 30 · 30 · 30"
+        },
+        {
+          "recipe": "the entrance",
+          "description": "how long dal niente takes to reach mf. It is a CC7 ramp under a constant velocity (§315), so it fades from true silence.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.25
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "shape.attack.len": 2
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "shape.attack.len": 20
+              }
+            }
+          ],
+          "boundsFrom": "1a.4 used 3 s on the reference score; 6 s is the default here for a 90 s gesture"
+        },
+        {
+          "recipe": "together / spread",
+          "description": "whether the voices set off as one or fan out. 0 is lockstep — every beat closes at the same instant.",
+          "dial": {
+            "min": 0,
+            "max": 1,
+            "default": 0.15
+          },
+          "waypoints": [
+            {
+              "at": 0,
+              "patch": {
+                "dials.spread": 0
+              }
+            },
+            {
+              "at": 1,
+              "patch": {
+                "dials.spread": 0.8
+              }
+            }
+          ],
+          "boundsFrom": "the engine caps the stagger at 80 % of the span"
+        }
+      ]
     }
-   ]
-  }
- },
- "_septet": "2026-09-07 (RUNNING_LOG §203): the stock sets are voiced for six voices in three pairs; a pair takes two adjacent pitches of the sorted set; the panel folds them per pair (D26) and casts the players (morph_septet.js)",
- "_actualsNote": "2026-09-19 (PLAN 1a.5): 16 actual ids listed by the models carried from piece #5 pointed at files that the port never brought across — bank/actuals/ was empty until this piece filed its own. The dead ids are cleared so tools/model_bank.js --validate is a working gate again; piece #5 keeps its own."
+  },
+  "_septet": "2026-09-07 (RUNNING_LOG §203): the stock sets are voiced for six voices in three pairs; a pair takes two adjacent pitches of the sorted set; the panel folds them per pair (D26) and casts the players (morph_septet.js)",
+  "_actualsNote": "2026-09-19 (PLAN 1a.5): 16 actual ids listed by the models carried from piece #5 pointed at files that the port never brought across — bank/actuals/ was empty until this piece filed its own. The dead ids are cleared so tools/model_bank.js --validate is a working gate again; piece #5 keeps its own."
 }

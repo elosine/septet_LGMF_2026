@@ -24937,5 +24937,12 @@
     ],
     "captured": "2026-09-19"
   },
-  "placements": []
+  "placements": [
+    {
+      "score": "lgmf-bloom",
+      "at": 500,
+      "group": "grp-act-lgbloom-06",
+      "when": "2026-09-19"
+    }
+  ]
 }

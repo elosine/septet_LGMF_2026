@@ -100,6 +100,20 @@ function cast(params, pairsIn, env) {
     const M = env.M, warnings = [];
     const pairs = (pairsIn && pairsIn.length ? pairsIn : DEFAULT_PAIRS).map((p, i) => ({ i: i, a: p.a, b: p.b, on: p.on !== false }));
     const P = JSON.parse(JSON.stringify(params || {}));
+    // A VOICE LIST IS ALREADY CAST (2026-09-19, PLAN 1a.6). `source.kind: 'voices'` names every voice,
+    // its cents and — through `lanes` — its player, so there is nothing for the pairs machinery to
+    // decide: it would take a nine-voice LGMF chord, reduce it to the three pairs' six seats, sort it by
+    // pitch and lose both the cents and the doublings. Recalled actuals hit this on the first Generate.
+    // The pairs are still reported so the panel's rows draw, but they own no seats here.
+    if (P.source && P.source.kind === 'voices' && Array.isArray(P.source.voices) && P.source.voices.length) {
+        const lanes = Array.isArray(P.lanes) && P.lanes.length
+            ? P.lanes.slice()
+            : P.source.voices.map((v, i) => i);
+        P.voices = P.source.voices.length;
+        const voices = P.source.voices.map((v, i) => ({ pitch: v.midi, lane: lanes[i], pair: null, voice: i, tgt: null }));
+        pairs.forEach(p => { p.silent = true; p.voices = []; p.why = 'this model names its own voices — the pairs do not cast it'; });
+        return { params: P, pairs: pairs, voices: voices, palette: lanes.map(l => paletteFor(env, l)), warnings: warnings };
+    }
     const src0 = (P.source && P.source.kind !== 'vert' && Array.isArray(P.source.midi)) ? P.source.midi.slice().sort((x, y) => x - y) : [];
     if (P.source && P.source.kind === 'vert') warnings.push('CAST: a chord by id (source.kind vert) is not resolved by the panel — give pitches');
     const want = pairs.length * 2;

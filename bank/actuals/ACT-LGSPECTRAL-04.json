@@ -29574,5 +29574,12 @@
     ],
     "captured": "2026-09-19"
   },
-  "placements": []
+  "placements": [
+    {
+      "score": "lgmf-spectral",
+      "at": 300,
+      "group": "grp-act-lgspectral-04",
+      "when": "2026-09-19"
+    }
+  ]
 }
