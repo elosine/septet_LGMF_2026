@@ -3121,3 +3121,109 @@ morph model persists · bend range) → the horn-high Reaper path → the ceilin
 measurement) → the chord bank from LG-27/LG-31 with bloom targets and seeded spectral sets computed → `lgmf-ref` → the four
 transition models → the four transition scores → record. His listen closes 1a.4 and 1a.6. Required checks are named in the
 plan (palette_check, test_written_pitch, the one-note bend test, the horn-high probe, the ceiling assertion).
+
+---
+
+## §67. PLAN 1a.0 — the three mechanisms verified, and a FOURTH found: the double bass was an octave out (2026-09-19)
+
+**What prompted it.** His word at the start of session 4: *"yes move thru plan as much as possible independantly"* — so 1a.0
+was worked without stopping at each finding. The item asks three questions and says *build only what is missing*.
+
+**(i) A score note carrying cents to the port — ALREADY THERE, nothing built.** The field is **`morphBend`** on a
+`waveCurve` object: note-relative `[[dtSec, cents], …]` against the written key. It is read end to end and by everything —
+`composer.html` (the bend pre-armed at note-on so the note STARTS at pitch, streamed per frame, the channel centred again at
+note-off), `sonify_core.js` (the offline/capture path), `notation/lib/midiplayer.js`, `morph_overlays.js` (pitch = note + bend),
+`animobj.js` (the curve-following dot), `graphic.js`, `classify.js` (`'morphBend' in obj` → `morph-note`) and
+`tools/capture_composer_midi.js`. It is not a morph-only field: nothing in the emit path asks where the note came from, so an
+ordinary composer-lane note carrying `morphBend` bends. **No `cents` field, no schema change, no commit against the gate.**
+
+**(ii) How a morph MODEL persists — ALREADY THERE, and richer than the plan assumed.** Not in the save: in a server-side
+**ACTUALs store** (`tools/model_bank.js`, `/api/actuals`). Filing one writes the model id, the recipe settings, the seed, the
+resolved params, the cast (`pairs`), the pitch source, the shape/shape preset — and its rendered `notes` and `objects`.
+`hearActual` auditions it; **`recallActual` reopens the panel on that model with its dials, its seed, its cast and its own
+pitches**; `insertActual` places the objects into the score VERBATIM under a `groupId` and a marker naming the entity, and
+`/api/actualplacement` logs where it landed. So "model" and "actual" already exist as two objects with a link between them,
+and the plan's fallback — adding `morphs[]` to the save — is not needed. **1a.5's 24 dial-files are ACTUALs.**
+
+**(iii) Bend range — READ AS TEXT, and it is right for the three that matter.** The just voices are the UVI/SI2 three. Their
+programs were decoded through the bridge (`tools/uvi_state.js decode`) and every one of them modulates pitch from the wheel
+at the same ratio: **`Name="PitchBendMod" Ratio="2" Source="@PitchBend" Destination="Pitch"`** — horn 654 programs,
+bassoon 529, trumpet 701, **all Ratio 2, no exceptions**. So `bendRangeSt: 2` in the recipes is correct and ±49¢ (chord 6's
+horn, the deepest ask in the set) sits at a quarter of full bend. Nothing set.
+
+**The Kontakt/Xsample side is the one that was wrong.** The only measured Xsample instrument, the cello, reads **0.97 st**
+(`bank/bend_ranges.json`, piece #5's probe, carried with the recipe) — the library is set to a SEMITONE. The english horn and
+the double bass still carried the provisional 2, at which every cents ask would have landed HALF. Both set to **1**, marked in
+the recipe as INFERRED from the cello and not measured (`bendMeasured` stays false; a bend probe would replace it). The
+vibraphone is `playerBendSt: 0` and never bends, so its value is moot.
+
+**(iv) THE FINDING THE ITEM DID NOT ASK FOR: the double bass was an octave out, and would have been silent in every chord.**
+Looking up the six fundamentals (sounding 30–36) against the recipe showed them all BELOW its `rangeLow: 40`. §57 had read
+"low E1 / high A4 in Xsample's naming" off his Kontakt and written **40–81** into the recipe as if it were sounding pitch.
+It is not: the score, the IR and the notation are all sounding pitch (`ensemble.json` `_transposeConvention`, #5's D9) and the
+app sends `sonifyNote` RAW to the port (`composer.html`: `output.send([0x90 | ch, wc.sonifyNote, …])` — no transposition
+anywhere in the emit path).
+
+*Probed through the bridge, peakwatch on "Bass XS" against `probes/port_note_probe.ps1`:*
+
+| sent to `LGBass` | what it is | Bass XS peak |
+|---|---|---|
+| key 34 | sounding B♭1, chord 1's fundamental | **−154.5 dB — silent** |
+| key 46 | 34 + 12 | **−19.9 dB — sounds** |
+| key 34, after the fix | sounding B♭1 | **−23.3 dB — sounds** |
+
+And the range settles it without ears: 40–81 read as sounding would be E2–A5, which is a cello's compass — **a double bass
+cannot sound A5**. Read as keys an octave above sounding it is exactly E1–A4, the instrument's own compass with its low
+string landing on the library's lowest key. The library is keyed at written pitch.
+
+**The fix is decision 0's pattern — Reaper-side, no app change:** a stock `midi_transpose` at the HEAD of the Bass XS chain,
++12 (`reaper/bridge/jobs/bass_octave_fx.lua`, idempotent, read back: slot 0, "12.0", chain `[MIDI Transpose, Kontakt]`). The
+recipe is now SOUNDING like every other — `rangeLow: 28, rangeHigh: 69` — with the trap written into the comment so no one
+"corrects" it back. `palette_check` 168 green · `test_written_pitch` 10 + control green. The 0d trims are unaffected: its
+probe pitches 48 and 57 were sampler keys = sounding 36 and 45, and the trim is a level, not a pitch.
+
+**A PROBE LESSON, second time (cf. §42).** The first four probes all read silence — on the bass, the cello AND the horn — and
+the obvious reading was "MIDI is not reaching Reaper". It was reaching: `peakwatch` was watching for 2.5–4 s while
+PowerShell's `Add-Type` compiled the winmm interop for several seconds before the note ever went out, so every window closed
+before the sound. **A watch must outlast the probe's own startup — 12 s, not 4.** Nothing about the rack was wrong.
+
+---
+
+## §68. PLAN 1a.1 — the horn above F4, built and proven on BOTH UVI instances (2026-09-19)
+
+**What it is.** Decision 0 (§66, his *"ok that will do"*), built as a job: `reaper/bridge/jobs/horn_high_path.lua`.
+The high track is his own Horn track DUPLICATED (Reaper's Track: Duplicate — fresh GUIDs, the UVI state, the fader, the
+input, the arm all carried, the §37 idiom), then:
+
+    the high track:  MIDI Note Filter 66..127  ->  MIDI Transpose -12  ->  UVI  ->  ReaPitch +12 st
+    the main track:  MIDI Note Filter 0..65    ->  UVI                          (so nothing doubles)
+
+**BOTH instances get it, which the plan did not say.** 1a.1 named only "Horn SI2" / `LGHorn`. Reading the routing first
+showed that would have fired on almost nothing: an ordinary DRAWN note is a curve event (`composer.html isCurveEvent` — only
+captured and keyswitched notes are not), and a curve event routes to the instrument's curve bank, which for the horn is
+**`LGHornb` channels 3–5 on the "Horn SI2 b" instance** (`UVI_PARTS`, generated from the rack). The reference score's horn
+notes therefore arrive on the b instance. Plain and keyswitched notes still use `LGHorn` ch 1. So: **"Horn SI2 high"** on
+`LGHorn` and **"Horn SI2 b high"** on `LGHornb`, the same chain on each, the mirror filter on each source.
+
+**The note filter's third slider is not cosmetic:** *"Other events (CC, etc) pass through"* defaults to **No**, which would
+have blocked the pitch bend and the CC7 stream at the filter — the just intonation and the whole dynamic shape. Set to
+**Yes** on all four filters.
+
+**ReaPitch, by parameter, read back:** param 3 *"Shift (full range)"* is linear, 0.5 = 0 st and 1.0 = +24 st, so
+**0.75 = +12**, and it reads back "12.00". Wet +0.0 dB, Dry −inf, "1: Volume" +0.0 dB — the defaults, which are what §66
+described. The high track's fader came across from the source at −0.01 dB, so the trim needs nothing.
+
+**RESULT, probed (peakwatch on both horn tracks, notes fired into `LGHorn`):**
+
+| sent | Horn SI2 | Horn SI2 high |
+|---|---|---|
+| **E♭5 (75)** — above the library | −155.1 dB (silent) | **−9.0 dB** |
+| **E♭4 (63)** — inside the library | **−9.0 dB** | −155.3 dB (silent) |
+
+Exactly the item's RESULT, and the split is level-neutral: the same −9.0 either side of F4.
+
+**Two things still his.** (1) **CTRL+S** — the bridge never saves; until he does, the four filters, the two transposes, the
+two ReaPitch instances and the bass's transpose live only in the open project. (2) **The ReaPitch MODE** — élastique 3.3.3
+SOLOIST / Monophonic, formant 0 — is a dropdown in the plugin's own window and is not a parameter, so it was NOT set; the
+instances are on Reaper's project default. It changes the QUALITY of the shift, not whether it sounds. One dropdown per
+instance, two instances.
