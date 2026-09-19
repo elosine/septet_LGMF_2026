@@ -37,7 +37,7 @@ const COL = { just: { label: '#e39ac6', name: 'JUST' }, '8ve': { label: '#8fd48f
 const COL_ORDER = ['8ve', 'temp8ve', 'just', 'temp'];   // left to right — the base column "all the way to the right" (LG-34), its octaves to its left
 const KEYS_RIGHT = 146, COL_GAP = 12, DOT_R = 7, MIN_W = { plain: 150, spectrum: 235 };
 // the range lines ON the keys, right of the note names (his 2026-09-19 evening ask) — one colour per instrument, the name on hover
-const RANGE_X0 = 47, RANGE_GAP = 4;
+const RANGE_X0 = 48, RANGE_GAP = 6, RANGE_W = 4;   // twice as thick at his word (2026-09-19: "hard to hover"), the gap widened to match
 const RANGE_COLS = ['#ff8a80', '#ffb74d', '#fff176', '#aed581', '#4dd0e1', '#64b5f6', '#b39ddb', '#f48fb1', '#a1887f'];
 
 Object.assign(D, {
@@ -133,7 +133,7 @@ Object.assign(D, {
           this.rangeLanes().forEach((r, i) => {
               const lo = Math.max(R.lo, r.inst.rangeLow), hi = Math.min(R.hi, r.inst.rangeHigh); if (lo > hi) return;
               const x = RANGE_X0 + i * RANGE_GAP, y1 = this.keyY(hi) + 0.5, y2 = this.keyY(lo) + h - 0.5;
-              s += '<line class="skRange" data-lane="' + r.lane + '" x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + y2 + '" stroke="' + r.color + '" stroke-width="2" opacity="0.75" style="pointer-events:stroke"><title>' + esc(r.inst.label + ' · ' + SP().nm(r.inst.rangeLow) + '–' + SP().nm(r.inst.rangeHigh)) + '</title></line>';
+              s += '<line class="skRange" data-lane="' + r.lane + '" x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + y2 + '" stroke="' + r.color + '" stroke-width="' + RANGE_W + '" opacity="0.75" style="pointer-events:stroke"><title>' + esc(r.inst.label + ' · ' + SP().nm(r.inst.rangeLow) + '–' + SP().nm(r.inst.rangeHigh)) + '</title></line>';
           });
           svg.insertAdjacentHTML('beforeend', s); }
         this.paintRangeHover();
@@ -170,7 +170,7 @@ Object.assign(D, {
     paintRangeHover() {
         const svg = this.el && this.el.querySelector('#skKb'); if (!svg) return;
         const hot = this.hoverLane != null ? this.scoreLane(this.hoverLane) : null;
-        svg.querySelectorAll('.skRange').forEach(l => { const mine = hot != null && +l.dataset.lane === hot; l.setAttribute('opacity', mine ? 1 : (hot != null ? 0.3 : 0.75)); l.setAttribute('stroke-width', mine ? 3 : 2); });
+        svg.querySelectorAll('.skRange').forEach(l => { const mine = hot != null && +l.dataset.lane === hot; l.setAttribute('opacity', mine ? 1 : (hot != null ? 0.3 : 0.75)); l.setAttribute('stroke-width', mine ? RANGE_W + 2 : RANGE_W); });
     },
     // a colour swatch before each row's name — the legend for the range lines (a hover on a line names it too)
     paintRowSwatches() {
