@@ -3862,3 +3862,43 @@ With the round robin off a single strike per pitch **is** a measurement, so the 
 2. **The velocity response is uniform across the whole range:** velocity 64 → 127 gives 13.5, 14.0, 13.7, 13.8, 13.5, 13.8, 13.7, 13.7, 13.8 dB at the nine pitches. So the register offset is **velocity-independent — one constant per pitch**, which is the easiest possible shape to correct and the one the velocity remap (already per instrument and per register) can carry without a new mechanism.
 
 The shape itself is three plateaus with hard edges — 80/85/89 loud (≈ −6), 53–67 middling (≈ −12), **71 and 76 some 13–15 dB under the top** — i.e. recorded sample zones of different level, with the boundary between 76 and 80 worth **+12.8 dB** in one semitone step. That is what 1b.3 has to flatten, and it can now be flattened, because it holds still.
+
+---
+
+## §83. PLAN 1b.3 — the trims computed to an absolute target: every instrument comes DOWN, by 6.6 to 21.3 dB (2026-09-19)
+
+**What prompted it.** His *"yes, compute the trims."* `tools/compute_trims.js` → **`bank/trims.json`**.
+
+**The target, derived rather than chosen.** 1b.0 adopted K-20: a loud passage sits at **−20 LUFS-S** and peaks reach **−1 dBTP**. N voices summing incoherently to −20 LUFS-S put each voice at −20 − 10·log10(N); the reference chords are eight or nine voices, so **each voice at fff = −29.54 LUFS**.
+
+**And the unit conversion is MEASURED, not assumed** — the one place this could have gone quietly wrong. The card's figures are K-weighted RMS in dBFS (the core carried from piece #5); the target is in LUFS. `bank/reference.json` holds both readings of the **same 1 kHz tone** — K-weighted RMS −19.30 dBFS and BS.1770 −17.0 LUFS — so the offset between the two scales is **+2.30 dB, read off the rig** rather than derived from the standard's algebra. Target per voice on the card's scale: **−31.84 dB**.
+
+**Which figure each family is judged on** (1b.2's finding, and the answer to *"vibraphone is quiet"*): **pitched → the INTEGRATED figure**, K-weighted RMS over the whole sounding note; **percussion → the loudest 400 ms**, as 0d used, because a one-shot's integrated value follows however long it happens to ring and a castanet (0.5 s) and a tam tam (3.6 s) are not comparable that way. Both figures are carried per instrument in the output, so the choice can be reversed against his ear at 1b.5.
+
+### The result — every single instrument comes down
+
+| pitched | measured | current | change | new trim |
+|---|---|---|---|---|
+| Vibraphone | −15.92 | +9.30 | **−15.92** | **−6.62** |
+| Cello | −17.68 | +10.29 | −14.16 | −3.87 |
+| English Horn | −17.86 | 0.00 | −13.98 | −13.98 |
+| Horn | −19.64 | −0.01 | −12.20 | −12.21 |
+| Bassoon | −20.82 | −7.79 | −11.02 | −18.81 |
+| Trumpet | −22.48 | −0.17 | −9.36 | −9.53 |
+| D. Bass | −23.62 | +5.25 | −8.22 | −2.97 |
+
+Percussion moves the same way, by −6.6 (shakers) to **−21.3 (sleigh bells)**. **There is not one boost in the whole ensemble** — which is §76's diagnosis arriving as a column of numbers: the rack was between seven and twenty-one decibels hot, and *"my system volume is on 2 and for the tuba piece and septet it was on 10"* is that column.
+
+**The vibraphone is split in two, because one fader cannot say what it needs.** The fader carries the mean (**−6.62 dB**, from +9.30); the per-pitch residuals — 53 **+3.1** · 58 −1.5 · 62 −1.1 · 67 +1.3 · **71 −9.4** · 76 −5.9 · **80 +6.0** · 85 +3.6 · 89 +3.8 — are written out for **1b.4's velocity remap**, which is already per instrument and per register. §82 earned this: the offsets are velocity-independent constants, so the remap can carry them without a new mechanism.
+
+### Headroom — and his clipping, located
+
+The tool now computes it, so the number is part of the record rather than an argument. Each voice's measured sample peak at velocity 127 plus its change, summed **in power** (pessimistic: independent peaks rarely coincide):
+
+- **The piece's own tutti** — the chord, seven players with the vibraphone on two bows — peaks at **−9.6 dBFS after trim, 8.6 dB under the ceiling. PASSES.**
+- Every instrument at once at fff, which never happens in this piece, would reach −1.3 dBFS. That is not a flaw in the target: a one-shot matched for **loudness** carries a 17–23 dB crest, so its peaks sit high by construction.
+- **AND THE ACTUAL CLIPPING IS FOUND.** Today, at velocity 127, **on one note alone**: **Sleigh Bells peak at +10.6 dBFS** and **Tambourines at +0.6 dBFS** — genuinely over full scale, recoverable only because the project records 32-bit float. That is *"sometimes clipping in reaper"*, and it is not a sum problem at all; it is two instruments whose 0d boosts (+17.81 and +15.76) were computed from a relative target and pushed them past the ceiling on their own. After the trims they land at −10.7 and −8.6.
+
+**Three tracks still need a JS Volume beyond the +12 fader**, as 0d found: castanets **+24.33**, shakers **+23.22**, claves **+16.06**. The ARO small metals really are that quiet, and the recalibration does not change it — it only stops the rest of the ensemble being lifted to meet them.
+
+**Nothing is applied yet.** The next step is the rack: `apply_trims.lua` regenerated from `bank/trims.json`, read back, `balanceDb` rewritten in the recipes, and his CTRL+S — then 1b.4's remap, then 1b.5's ensemble verification, whose pass is stated in advance: **every instrument at velocity 127 within ±1 dB of −31.84, and a nine-voice fff tutti at −20 LUFS-S under −1 dBTP.**
