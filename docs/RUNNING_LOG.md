@@ -3060,3 +3060,46 @@ track duplicated from the Horn track on the same port, note filter > F4 → tran
 **Open:** 8 and 9 need restating in plain terms; and **the double bass’s role in each transition type was never asked** —
 “bass holds the fundamental” had been carried over from the reference harmonies as if it were decided. He wants it model
 by model.
+
+### §66c — Converge analysed both ways across the six chords: keep the beating pairs, or shuffle (2026-09-18)
+
+**His question:** *"I am weighing between keeping the just/tempered pairs and trying to minimize the amount of glissando
+… first tell me for the remaining ones in each of the six how much they’ll need to gliss. And then do a shuffle, breaking
+up the just/tempered pairs and tell me how much those ones will gliss."* Computed by a small brute-force matching per chord:
+vibraphone bars fixed (the partner travels the whole way), the double bass left out (it is two octaves under everything),
+ranges checked (the english horn stops at A5, which rules out two of the shuffle’s first picks). “meet” = both move half.
+
+**A — keep the doublings, pair up whatever is left**
+
+| # | the beating pairs close by | the remainder | left alone | total | largest |
+|---|---|---|---|---|---|
+| 1 | Bsn/Vc 14¢ · Hn/EH 31¢ · Tpt→Vib 14¢ | — | Vib B5 | 0.6 st | 31¢ |
+| 2 | Hn/Bsn 14¢ · Tpt/EH 14¢ | **Vc B4 → Vib B♭5: 11 st** | Vib B5 | 11.3 | 11 st |
+| 3 | Bsn/EH 14¢ · Hn/Vc 31¢ · Tpt→Vib 14¢ | — | Vib G4 | 0.6 | 31¢ |
+| 4 | Hn→Vib 31¢ · Tpt/Bsn 14¢ | EH B♭4 / Vc D5 meet: 4 st | Vib A♭3 | 4.5 | 4 st |
+| 5 | Bsn/Vc 14¢ · Hn/Vc 31¢ · Tpt/EH 14¢ | — | Vib C♯5, Vib D6 | 0.6 | 31¢ |
+| 6 | Hn→Vib 49¢ · Tpt→Vib 31¢ | Bsn C♯3 / Vc F♯2 meet: 7 st | EH A♭4 | 7.8 | 7 st |
+
+**B — shuffle: no voice may pair with its own double; most pairs first, then least distance**
+
+| # | pairs | left alone | total | largest |
+|---|---|---|---|---|
+| 1 | Vc/Hn meet 5.7 · EH→Vib D5 6.0 · Tpt→Vib B5 9.1 | Bsn D4 | 20.8 st | 9.1 st |
+| 2 | EH/Vc meet 2.0 · Tpt→Vib B♭5 9.1 | Bsn, Hn, Vib B5 | 11.1 | 9.1 |
+| 3 | Bsn/Hn meet 5.8 · EH→Vib G4 3.0 · Vc/Tpt meet 5.9 | Vib E5 | 14.7 | 5.9 |
+| 4 | Hn/Tpt meet 6.2 · EH→Vib F♯4 4.0 · Bsn/Vc meet 2.0 | Vib A♭3 | 12.2 | 6.2 |
+| 5 | Bsn/Hn meet 5.8 · **the cello’s double stop closes on itself** 6.0 · EH→Vib C♯5 1.9 | Tpt, Vib D6 | 13.7 | 6.0 |
+| 6 | Bsn/Vc meet 7.0 · Hn/EH meet 3.5 · Tpt→Vib C5 3.7 | Vib E5 | 14.2 | 7.0 |
+
+(Chord 2’s shuffle is thin because the english horn cannot reach either vibraphone bar and the bassoon and horn cannot reach
+B5; chord 5’s because D6 is above the trumpet.)
+
+**What the two versions ARE, musically (AI):**
+- **A is a micro-event.** The beats close — 14, 31, 49 cents — and almost nothing else moves. Three of the six chords have no
+  remainder at all; the other three add a single real glide (11 · 4 · 7 semitones). Converge under A is “the beating stops.”
+- **B is a chord collapsing.** Real glissandi everywhere, 2–9 semitones, 11–21 semitones of motion per chord — but **no beat
+  closes**: every pair dissolves at the first moment of the glide. It is convergence of the CHORD, not of the beats.
+- **The brass fact from §66 bears on B:** a six-semitone horn or trumpet glide is three or four partial flips, not a slide.
+  Under A every brass move is inside one partial (a lip bend, smooth); under B the brass moves become rips.
+- **Not either/or:** A’s remainder column is already a hybrid — the pairs close AND the leftovers glide.
+
