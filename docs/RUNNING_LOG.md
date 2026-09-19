@@ -4334,3 +4334,17 @@ Per part at fff: Db −0.49 · Bsn +0.18 · **Vc −3.73** · Hn +0.96 · **EH �
 **Held for the next stages (PLAN 1c.5+).** The other three columns (just per octave · tempered · tempered per octave), the partial checkboxes, the set toggles, the range lines. Hear's bend and Insert's `morphBend` are his to hear — the pane has no MIDI and autosaves the working copy.
 
 **Notes.** A doubling of one just partial on two bendable players bends both alike (one route each). Several high partials share a key (C2's partials 33–65 sit on 19 keys); their dots stack sideways as the drawer always stacked same-key voices, and the labels overlap there — the checkboxes will prune.
+
+## §98. The series made legible — one dot per key, the partials listed; the row chips carry `p · ±c¢` (2026-09-19)
+
+**What prompted it.** His screenshot of the JUST column above partial 16: *"this is illegable lets think of another solution."* Three ways out were put to him — **A** build the series only to a limit (a `≤ 16` box) · **B** one dot per key with the partials listed, cents on hover · **C** every partial, the labels spread sideways — with A recommended. His choice: *"b is good and can we have the assigned pitches list p# and cents deviation"* (the second screenshot: the rows' chips, `F#5`, `G#4` …).
+
+**Why it was illegible.** Not the drawing — the density: above partial 16 the series has more partials than the keyboard has keys (16 → 32 puts sixteen partials in one octave of twelve keys; 32 → 64 thirty-two), and the drawer had always stacked same-key voices side by side with a label each.
+
+**Built (`spectrum_ui.js`).**
+- **The keyboard, one dot per key:** the lowest partial on a key keeps its dot; the others sit on the same point, invisible and unclickable (they must exist — the dotted lines to the rows start from them). One label per key: `7 · −31¢` for a lone partial, `47 · 48 · 49` for a shared key, every partial's cents in the hover title. A double-click on a shared key's dot arms its LOWEST partial for a hand assignment; the shuffle deals the rest.
+- **The rows' chips:** `A#4 · 7 · −31¢` on a player who bends; on a player who cannot (the vibraphone, its seat, the percussion) `C6 · 16 (tempered)` — and were the rule ever bypassed, `✗ −31¢`. The orchestration panel widens 330 → 380 px and the chips' box 88 → 138 px while a series is loaded.
+
+**Verified in the running app:** C2's 65 partials on **40 keys → 40 visible dots, 40 labels** (`1 · 2 · 3 · +2¢ … 12 · +2¢` below; `47 · 48 · 49 … 63 · 64 · 65` at the top) · after `ordinario` + shuffle the chips read `Bassoon: G3 · 3 · +2¢ · Horn: A#4 · 7 · −31¢ · Cello: E5 · 10 · −14¢ · Vibraphone: C6 · 16 (tempered) · Vibraphone 2: C#6 · 17 (tempered) · Percussion: C8 · 64 (tempered)` · no console error.
+
+**Notes.** Option A (a partial limit) was not built; the partial checkboxes of the next stage give him the same pruning by choice rather than by cap.

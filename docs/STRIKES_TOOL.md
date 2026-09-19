@@ -1410,6 +1410,11 @@ as `lgmf-ref` does, the note drawn (its own channel), `partial p · ±c¢ just` 
 `mayTake(voice, lane)` — a player who cannot bend (`playerBendSt` 0: the vibraphone, its seat, the percussion) never takes a note more
 than **5 ¢** off; the shuffle's fit test and `fitReal` (the hand) both ask it; within 5 ¢ the note is tempered, cents dropped.
 
+*Made legible the same evening (RUNNING_LOG §98, his choice B):* **one dot per key** — the lowest partial keeps the dot, the others sit
+on the same point (the lines still start from them); one label per key, `7 · −31¢` alone or `47 · 48 · 49` shared (cents on hover);
+a double-click on a shared key arms its lowest partial. **The rows' chips carry the partial and cents** — `A#4 · 7 · −31¢`, or
+`C6 · 16 (tempered)` on a player who cannot bend.
+
 **Stages 5+ (PLAN 1c):** the other three columns of the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the

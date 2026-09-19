@@ -89,7 +89,11 @@ Object.assign(D, {
         inp.addEventListener('change', () => { if (inp.dataset.done) { delete inp.dataset.done; return; } this.setSpecFund(inp.value); });
         list.querySelectorAll('.skSpRow').forEach(el => el.addEventListener('click', () => this.select(el.dataset.id)));
     },
-    // the keyboard's labels: `p · ±c¢` beside each dot of a spectrum strike
+    // the keyboard: ONE DOT PER KEY (his choice B, 2026-09-19 — "this is illegible, let's think of another solution"): above partial 16 the
+    // series has more partials than the keyboard has keys, so the drawer's side-by-side stacking of same-key voices piled the labels up.
+    // Now the first voice on a key keeps its dot; the others sit on the same point, invisible and unclickable (they must exist — the
+    // dotted lines start from them); one label per key: `7 · −31¢` for a lone partial, `33 · 34 · 35` for a shared key (the cents on hover).
+    // The kept dot is the LOWEST partial on the key — a double-click arms that one for a hand assignment; the shuffle deals the rest.
     paintSpectrumLabels() {
         const svg = this.el && this.el.querySelector('#skKb'), wrap = this.el && this.el.querySelector('#skKbWrap'); if (!svg || !wrap) return;
         svg.querySelectorAll('.skSpLab').forEach(x => x.remove());
@@ -97,13 +101,36 @@ Object.assign(D, {
         wrap.style.flex = on ? '0 0 235px' : '0 0 150px'; svg.setAttribute('width', on ? 235 : 150); svg.style.width = (on ? 235 : 150) + 'px';
         if (!on) return;
         const S = SP(), tol = this.specTol(); let s = '';
-        svg.querySelectorAll('.skDot').forEach(dot => {
-            const v = this.voices[+dot.dataset.i]; if (!v || v.partial == null) return;
-            const cx = +dot.getAttribute('cx'), cy = +dot.getAttribute('cy'), col = dot.getAttribute('stroke') || '#ddd';
-            const fixedOnly = Math.abs(+v.cents || 0) <= tol;
-            s += '<text class="skSpLab" x="' + (cx + 7) + '" y="' + (cy + 3) + '" font-size="9" fill="' + col + '" opacity="' + (fixedOnly ? 0.85 : 1) + '"><title>partial ' + v.partial + ' · ' + S.centsText(v.cents) + (fixedOnly ? ' — within ±' + tol + '¢: tempered for a fixed-pitch player' : '') + '</title>' + esc(S.label({ partial: v.partial, cents: v.cents }, tol)) + '</text>';
+        const byKey = {};
+        svg.querySelectorAll('.skDot').forEach(dot => { const v = this.voices[+dot.dataset.i]; if (!v || v.partial == null) return; (byKey[v.pitch] = byKey[v.pitch] || []).push({ dot, v }); });
+        Object.keys(byKey).forEach(k => {
+            const list = byKey[k].sort((a, b) => a.v.partial - b.v.partial), first = list[0].dot;
+            const cx = +first.getAttribute('cx'), cy = +first.getAttribute('cy'), col = first.getAttribute('stroke') || '#ddd';
+            list.slice(1).forEach(({ dot }) => { dot.setAttribute('cx', cx); dot.style.opacity = 0; dot.style.pointerEvents = 'none'; });
+            const one = list.length === 1, v0 = list[0].v;
+            const text = one ? S.label({ partial: v0.partial, cents: v0.cents }, tol) : list.map(x => x.v.partial).join(' · ');
+            const title = list.map(x => 'partial ' + x.v.partial + ' · ' + S.centsText(x.v.cents) + (Math.abs(+x.v.cents || 0) <= tol ? ' (tempered for a fixed-pitch player)' : '')).join('\n') + (one ? '' : '\n' + list.length + ' partials on this key — double-click arms the lowest; the shuffle deals the rest');
+            s += '<text class="skSpLab" x="' + (cx + 7) + '" y="' + (cy + 3) + '" font-size="9" fill="' + col + '"><title>' + esc(title) + '</title>' + esc(text) + '</text>';
         });
         svg.insertAdjacentHTML('beforeend', s);
+    },
+    // the orchestration rows: each chip carries its partial and cents — `F#5 · 11 · −49¢`; on a player who cannot bend, `· 3 (tempered)`
+    paintSpectrumChips() {
+        const box = this.el && this.el.querySelector('#skOrch'); if (!box) return;
+        const on = !!(this.strike && this.strike.spectrum);
+        box.style.flex = on ? '0 0 380px' : '0 0 330px';
+        if (!on) return;
+        const S = SP(), tol = this.specTol();
+        box.querySelectorAll('.skRow').forEach(row => {
+            const lane = +row.dataset.lane, fixed = this.fixedPitch(lane);
+            row.querySelectorAll('.skChip').forEach(chip => {
+                const v = this.voices[+chip.dataset.i]; if (!v || v.partial == null || chip.querySelector('.skSpChip')) return;
+                const within = Math.abs(+v.cents || 0) <= tol;
+                const t = fixed ? (' · ' + v.partial + (within ? ' (tempered)' : ' ✗ ' + S.centsText(v.cents))) : ' · ' + S.label({ partial: v.partial, cents: v.cents }, tol);
+                chip.insertAdjacentHTML('beforeend', '<span class="skSpChip" style="color:#9a9">' + esc(t) + '</span>');
+                const holder = chip.parentNode; if (holder && holder.style && holder.style.width === '88px') holder.style.width = '138px';
+            });
+        });
     },
 });
 
@@ -126,6 +153,8 @@ const _renderBanners = D.renderBanners;
 D.renderBanners = function () { const r = _renderBanners.apply(this, arguments); try { this.renderSpectrumBanner(); } catch (e) { console.warn('[spectrum_ui] banner:', e); } return r; };
 const _renderKeyboard = D.renderKeyboard;
 D.renderKeyboard = function () { const r = _renderKeyboard.apply(this, arguments); try { this.paintSpectrumLabels(); } catch (e) { console.warn('[spectrum_ui] labels:', e); } return r; };
+const _renderOrch = D.renderOrch;
+D.renderOrch = function () { const r = _renderOrch.apply(this, arguments); try { this.paintSpectrumChips(); } catch (e) { console.warn('[spectrum_ui] chips:', e); } return r; };
 // 4 · a fixed-pitch player plays the tempered note: its cents are dropped on the way out (they are within the tolerance by the rule)
 const _notesFor = D.notesFor;
 D.notesFor = function (mode) {
