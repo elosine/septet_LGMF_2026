@@ -13,9 +13,9 @@
    "state": "small_metals_C",
    "catalog": "small_metals_finger_cymbals",
    "catalogStatus": "verified",
-   "trimDb": 15.29,
-   "faderDb": 12.0,
-   "jsVolumeDb": 3.29
+   "trimDb": 5.9,
+   "faderDb": 5.9,
+   "jsVolumeDb": 0
   },
   {
    "track": "Bell Tree ARO",
@@ -27,9 +27,9 @@
    "state": "small_metals_C",
    "catalog": "small_metals_bell_tree",
    "catalogStatus": "verified",
-   "trimDb": 21.26,
-   "faderDb": 12.0,
-   "jsVolumeDb": 9.26
+   "trimDb": 8.71,
+   "faderDb": 8.71,
+   "jsVolumeDb": 0
   },
   {
    "track": "Sleigh Bells ARO",
@@ -41,9 +41,9 @@
    "state": "small_metals_C",
    "catalog": "small_metals_sleigh_bells",
    "catalogStatus": "verified",
-   "trimDb": 17.81,
-   "faderDb": 12.0,
-   "jsVolumeDb": 5.81
+   "trimDb": -3.51,
+   "faderDb": -3.51,
+   "jsVolumeDb": 0
   },
   {
    "track": "Triangles ARO",
@@ -55,9 +55,9 @@
    "state": "small_metals_C",
    "catalog": "small_metals_triangles",
    "catalogStatus": "verified",
-   "trimDb": 22.23,
-   "faderDb": 12.0,
-   "jsVolumeDb": 10.23
+   "trimDb": 11.62,
+   "faderDb": 11.62,
+   "jsVolumeDb": 0
   },
   {
    "track": "Tambourines ARO",
@@ -69,9 +69,9 @@
    "state": "small_metals_C",
    "catalog": "small_metals_tambourines",
    "catalogStatus": "verified",
-   "trimDb": 15.76,
-   "faderDb": 12.0,
-   "jsVolumeDb": 3.76
+   "trimDb": 6.66,
+   "faderDb": 6.66,
+   "jsVolumeDb": 0
   },
   {
    "track": "Castanets ARO",
@@ -83,9 +83,9 @@
    "state": "toys_C",
    "catalog": "toys_castanets",
    "catalogStatus": "verified",
-   "trimDb": 32.02,
-   "faderDb": 12.0,
-   "jsVolumeDb": 20.02
+   "trimDb": 24.33,
+   "faderDb": 12,
+   "jsVolumeDb": 12.33
   },
   {
    "track": "Claves ARO",
@@ -97,9 +97,9 @@
    "state": "toys_C",
    "catalog": "toys_claves",
    "catalogStatus": "verified",
-   "trimDb": 25.64,
-   "faderDb": 12.0,
-   "jsVolumeDb": 13.64
+   "trimDb": 16.06,
+   "faderDb": 12,
+   "jsVolumeDb": 4.06
   },
   {
    "track": "Shakers ARO",
@@ -111,9 +111,9 @@
    "state": "toys_C",
    "catalog": "toys_shakers",
    "catalogStatus": "verified",
-   "trimDb": 29.82,
-   "faderDb": 12.0,
-   "jsVolumeDb": 17.82
+   "trimDb": 23.22,
+   "faderDb": 12,
+   "jsVolumeDb": 11.22
   },
   {
    "track": "Brake Drums ARO",
@@ -125,9 +125,9 @@
    "state": "brake_drums_C",
    "catalog": "brake_drums",
    "catalogStatus": "verified",
-   "trimDb": 13.03,
-   "faderDb": 12.0,
-   "jsVolumeDb": 1.03
+   "trimDb": 3.81,
+   "faderDb": 3.81,
+   "jsVolumeDb": 0
   },
   {
    "track": "Crashers and Stack ARO",
@@ -139,9 +139,9 @@
    "state": "crashers_and_stack_C",
    "catalog": "crashes_and_stack",
    "catalogStatus": "verified",
-   "trimDb": 16.12,
-   "faderDb": 12.0,
-   "jsVolumeDb": 4.12
+   "trimDb": 6.83,
+   "faderDb": 6.83,
+   "jsVolumeDb": 0
   },
   {
    "track": "Wood Blocks ARO",
@@ -153,9 +153,9 @@
    "state": "wood_blocks_C",
    "catalog": "wood_blocks",
    "catalogStatus": "verified",
-   "trimDb": 15.43,
-   "faderDb": 12.0,
-   "jsVolumeDb": 3.43
+   "trimDb": 7.05,
+   "faderDb": 7.05,
+   "jsVolumeDb": 0
   },
   {
    "track": "Bass Drum Alt ARO",
@@ -168,9 +168,9 @@
    "catalog": "bass_drum_alt",
    "catalogStatus": "verified",
    "note": "HIS CHOICE 2026-09-18 (\"yes alt bass instead I believe it has an extra mallet or articulation\"): the measured ch-12 track is his own Bass Drum Alt ARO, not Bass Drum ARO. Both filter on LGPerc ch 12, so only one can be recorded (RUNNING_LOG §49–§50) and the probe schedule is unchanged in port and channel. READ from the running rack: preset \"Bass Drum (Alt) (C)\", 7 articulations (Sticks · Hard Felt Undamped · Hard Felt Damped · Medium · Brushes · Rods · All-in-one), All-in-one selected — SIX beaters where the main Bass Drum (GC) has seven, which is the extra articulation he remembered. The catalog link therefore changed to bass_drum_alt, whose map genuinely differs (key 41 is Rim Hit L there, Single Hit L on bass_drum). State banked 2026-09-18.",
-   "trimDb": 5.6,
-   "faderDb": 5.6,
-   "jsVolumeDb": 0.0
+   "trimDb": -4.29,
+   "faderDb": -4.29,
+   "jsVolumeDb": 0
   },
   {
    "track": "Temple Bowls ARO",
@@ -182,9 +182,9 @@
    "state": "temple_bowls_C",
    "catalog": "temple_bowls",
    "catalogStatus": "verified",
-   "trimDb": 21.38,
-   "faderDb": 12.0,
-   "jsVolumeDb": 9.38
+   "trimDb": 11.53,
+   "faderDb": 11.53,
+   "jsVolumeDb": 0
   },
   {
    "track": "Tam Tams ARO",
@@ -196,10 +196,10 @@
    "state": "tam_tams_C",
    "catalog": "tam_tams_a",
    "catalogStatus": "verified",
-   "trimDb": 11.32,
-   "faderDb": 11.32,
-   "jsVolumeDb": 0.0
+   "trimDb": -0.79,
+   "faderDb": -0.79,
+   "jsVolumeDb": 0
   }
  ],
- "_trimsNote": "0d.4 (2026-09-18, RUNNING_LOG 58): trimDb = the measured balance trim (fff = fff against the pitched group); faderDb on the Reaper fader (ceiling +12), jsVolumeDb in a stock JS Volume Adjustment FX on the track. Applied by reaper/bridge/jobs/apply_trims.lua and read back. The record, not a control."
+ "_trimsNote": "PLAN 1b.3, 2026-09-19 (RUNNING_LOG §83): trims recomputed to an ABSOLUTE target — a 9-voice tutti at -20 LUFS-S, so each voice at -31.84 dB on the instrument card’s scale. 0d’s figures were relative and were measured through a REC bus 12 dB down; every one of these is a CUT. Percussion is judged on the loudest 400 ms (0d’s rule — a one-shot’s integrated level follows its ring). Source: bank/trims.json."
 }

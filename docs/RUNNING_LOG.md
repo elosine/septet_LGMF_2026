@@ -3902,3 +3902,31 @@ The tool now computes it, so the number is part of the record rather than an arg
 **Three tracks still need a JS Volume beyond the +12 fader**, as 0d found: castanets **+24.33**, shakers **+23.22**, claves **+16.06**. The ARO small metals really are that quiet, and the recalibration does not change it — it only stops the rest of the ensemble being lifted to meet them.
 
 **Nothing is applied yet.** The next step is the rack: `apply_trims.lua` regenerated from `bank/trims.json`, read back, `balanceDb` rewritten in the recipes, and his CTRL+S — then 1b.4's remap, then 1b.5's ensemble verification, whose pass is stated in advance: **every instrument at velocity 127 within ±1 dB of −31.84, and a nine-voice fff tutti at −20 LUFS-S under −1 dBTP.**
+
+---
+
+## §84. PLAN 1b.3 applied — 26 tracks trimmed, and two that had never been trimmed at all (2026-09-19)
+
+**What prompted it.** His *"yes, apply them"*.
+
+**`tools/gen_apply_trims.js`** now writes `reaper/bridge/jobs/apply_trims.lua` from `bank/trims.json`. 0d's version of that table was typed in by hand (§58), and generating it exists for one reason above the rest: **the table has to name every track an instrument sounds through, and that set has grown since 0d.** `Horn SI2 high` and `Horn SI2 b high` — the ReaPitch path that makes the horn audible above F4 (1a.1, §68) — were built *after* the old table was typed, so **they had never carried a trim and still sat at −0.01 dB.** Applying the new numbers without them would have left every horn note above F4 **twelve decibels louder** than every note below it, at exactly the seam this piece lives on: five of the six horn notes in the reference chords are in the raised part. The generator rewrites only the header and the table; the job's body — find the track, set the fader, put the remainder in a stock JS Volume, read every value back, never save — is kept byte-identical, because it is proven.
+
+**Applied and read back: `ok: true`, 26 of 26 tracks, no missing track, every fader within 0.01 dB of what was asked** and the three JS Volume remainders within 0.05 (castanets asked 12.33 read 12.30, claves 4.06 → 4.10, shakers 11.22 → 11.20 — the FX's own parameter quantisation).
+
+| | fader | was | change |
+|---|---|---|---|
+| English Horn XS | −13.98 | 0.00 | −13.98 |
+| Bassoon SI2 · SI2 b | −18.81 | −7.79 | −11.02 |
+| **Horn SI2 · b · high · b high** | **−12.21** | −0.01 | −12.20 |
+| Trumpet SI2 · SI2 b | −9.53 | −0.17 | −9.36 |
+| Cello XS | −3.87 | +10.29 | −14.16 |
+| Bass XS | −2.97 | +5.25 | −8.22 |
+| Vibraphone XS | −6.62 | +9.30 | −15.92 |
+
+and the fourteen percussion from −4.29 (bass drum) to +12.00 + 12.33 JS (castanets), each one a cut of 6.6 to 21.3 dB from what 0d prescribed. **Sleigh Bells went from +17.81 to −3.51** — the instrument that was peaking at +10.6 dBFS on a single note.
+
+**The text now matches the rack.** `sandbox/instruments.js` `balanceDb`: English Horn 0.00 → **−13.98** · Bassoon −7.79 → **−18.81** · Horn −0.01 → **−12.21** · Trumpet −0.17 → **−9.53** · Cello +10.29 → **−3.87** · D. Bass +5.25 → **−2.97** · Vibraphone +9.30 → **−6.62**; `bank/perc_rack.json` carries the fourteen new `trimDb / faderDb / jsVolumeDb` with the derivation in its note. A check confirms the recipe agrees with `bank/trims.json` for all seven. **Gates after the change: `palette_check` 168 GREEN · `test_written_pitch` 10 + control GREEN · `check_ceilings --all` 6/6 GREEN.**
+
+**Not saved — his CTRL+S.** Until he does, all of it lives in the open project only.
+
+**What is now true and was not this morning:** every instrument in the rack is set to a level derived from a standard rather than from another instrument, on a scale proven against a −20 dBFS reference, and the two tracks that carried the horn's top fifth are in the balance for the first time. **What is still open:** 1b.4, the remap regenerated from the card — and it must carry the vibraphone's per-pitch register offsets, which the fader deliberately does not; then 1b.5, whose pass was written down before it was run: every instrument at velocity 127 within **±1 dB of −31.84**, and a nine-voice fff tutti at **−20 LUFS-S under −1 dBTP**.
