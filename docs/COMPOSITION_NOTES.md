@@ -935,6 +935,54 @@ per-instrument ceiling read from the palette (“the breath or the bow”), a ca
 per-voice phase spread and splits-never-truncates at the ceiling, a volume-only model, and a to-unison. The plan builds on
 those rather than beside them. The decisions surfaced before the plan are in RUNNING_LOG §66.
 
+### LG-30 · 2026-09-18 — CONVERGE, the bass settled: always to a unison unless impossible; the tempered voice is the anchor where it cannot glide
+
+> *"bass always unison unless impossible. I explained chord one already, so the bass will be starting on D4 minus 28. In the
+> ones like two or three, they’ll be starting on the opposite end of the tempered and glide towards it while the other
+> instrument glides towards it from the other direction. For the two exceptions, four and six, again, always near unison,
+> gliding into unison. For the vibes, it’ll be a fixed amount … let’s just say about 50 cents. At that frequency, I was just
+> wondering what a good beating threshold is. So from something like roughness to unison … And then for number six is
+> cello, the same thing. It’s just holding F‹♯›2 and not moving at all during the convergence."*
+> — composer, 2026-09-18, session 3, dictated *(the cello’s note is F♯2; the sharp was lost in transcription)*
+
+**Also decided this exchange:** Converge = version A (the beating pairs close; §66c) · Spectral: the bass moves like the
+others · Balance: the bass enters and swells like the others · Bloom: the bass holds partial 1 · the 90 s = 30 · 30 · 30 ·
+Bloom’s vibraphone remnant accepted as the fixed point (his “vibes on deviants — so it can’t collapse to the series?” —
+correct in chords 1, 3, 4, 6; pure in 2 and 5).
+
+**The rule, as read back (AI, marked):**
+- **The bass never plays the root in Converge.** It converges to a UNISON with the lowest voice above it, unless that is
+  impossible — then the nearest possible thing.
+- **Where the tempered voice can glide (a string), the two approach each other** across the whole distance and meet on a
+  partial of the series.
+- **Where the tempered voice cannot glide (bassoon, english horn, vibraphone), it becomes the ANCHOR:** the just voice comes
+  to it from its side and the bass comes to it from the other, starting about 50 cents away.
+- **The vibraphone’s fixed offset is about 50 cents.**
+
+| # | anchor / meeting | bass starts | bass glides | who else moves |
+|---|---|---|---|---|
+| 1 | **cello + bass meet on a partial** — F3 (p3) or B♭2 (p2), his pick | B♭1 | up 19 or 12 st | cello down 9 or 16 st; bassoon’s D4 stands alone |
+| 2 | **bassoon C♯4** (tempered, holds) | C♯4 + ≈50¢ | down 50¢ | horn up 14¢ from the other side |
+| 3 | **english horn E4** (tempered, holds) | E4 + ≈50¢ | down 50¢ | bassoon up 14¢ from the other side |
+| 4 | **vibes A♭3** (fixed) | A♭3 − ≈50¢ | up 50¢ into unison | nobody else — the bar was alone |
+| 5 | as chord 1 — cello + bass meet on a partial: F♯3 (p3) or B2 (p2) | B1 | up 19 or 12 st | cello down 9 or 16 st; bassoon’s E♭4 stands alone |
+| 6 | **cello F♯2** (holds, does not move) | F♯2 − ≈50¢ | up 50¢ into unison | nobody else |
+
+**Beating thresholds at that register** (the beating tool’s law, cents ↔ beats per second at A♭3 ≈ 208 Hz):
+
+| offset | rate | how it is heard |
+|---|---|---|
+| 17¢ | 2 / s | slow, countable |
+| 33¢ | 4 / s | countable |
+| **50¢** | **6 / s** | fast but still clean beating — the top of the countable zone |
+| 80¢ | 10 / s | a flutter, no longer counted |
+| 120¢ | 15 / s | roughness begins |
+| 230¢ | 30 / s | full roughness — already a whole tone apart |
+
+So a 50-cent start gives a fast clean beat that slows to nothing over the glide. To begin IN roughness and come down through
+beating, the start would need to be about a semitone and a quarter off (≈120¢). His “around 33” read as 33 cents = 4
+beats per second.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
