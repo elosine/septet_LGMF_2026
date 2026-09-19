@@ -912,6 +912,29 @@ balance type is the crescendo tool’s territory (CRESCENDO.md), not the morph�
 whose gliss changes the cents value; the tempered players’ glisses are ordinary.** The vibraphone cannot gliss in any of the
 three moving types — the question of whether it STEPS (re-bows a new bar) or HOLDS is open.
 
+### LG-29 · 2026-09-18 — THE VIBRAPHONE HOLDS; and the brief for the first build of phase 1
+
+> *"(a) it holds its bar while the others move — the fixed point everything glisses around"* — his answer to LG-28’s question.
+
+> *"Then I want you to build a plan, please, for the following. The first one will just be one of the experimental save scores in
+> the composer score. And I would like … one minute of each of the six reference harmonies. And in preparation for this, and
+> as well as just data to have, let’s calculate the maximum note duration. So how long can the vibes bow, and let’s say about
+> mezzo piano before they have to change directions. Same with all the other instruments, approximately. We don’t have to be
+> too precise. And then let’s have like, similar to in the morphs, let’s have the rearticulations for these sections to be
+> striated and then have some variation between them. Never exceeding the max, but so they’re not they don’t all have the same
+> duration. So one minute of harmony one, a bit of a gap, harmony two, etc. And then I want you to create each of these morphs,
+> both as a actual and as the model and save them somehow. So I want to be able to just hear them, but then I can load it into
+> the model and change like the fade in or the duration, etc. And let’s make each of the morphs, the ‹actuals›, about 90
+> seconds. And then I would like you to be able to draw up the plan independently from beginning to end. And then I’ll clear
+> and send it to Opus to build. So let’s surface any decisions or questions now. And then we can build the plan. And we don’t
+> have to go through the entire planning protocol. That’s probably better used for more complicated architectural things."*
+> — composer, 2026-09-18, session 3, dictated
+
+*AI note:* the morph tool already carries the machinery the brief asks for — a per-register BREATH_TABLE (an estimate), a
+per-instrument ceiling read from the palette (“the breath or the bow”), a carrier that striates the ensemble’s breaths with a
+per-voice phase spread and splits-never-truncates at the ceiling, a volume-only model, and a to-unison. The plan builds on
+those rather than beside them. The decisions surfaced before the plan are in RUNNING_LOG §66.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
