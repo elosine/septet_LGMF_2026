@@ -183,7 +183,7 @@ port and never saves from its own browser pane (principle 9) · the in-app brows
 MIDI, so every MIDI path is verified on his Chrome.
 
 **Checks this piece owns:** `node tools/check_ceilings.js --all` (no note longer than its instrument's ceiling, all five scores) · `node tools/model_bank.js --validate` (the model↔actual store) · `node tools/palette_check.js` (**184** — tracks vs recipes, ports, every
-per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**23** — the harmonic series arithmetic behind the strikes drawer's HARMONIC SERIES banner, PLAN 1c.4). Run the first three
+per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**29** — the harmonic series arithmetic behind the strikes drawer's HARMONIC SERIES banner, PLAN 1c.4). Run the first three
 after any change to `TRACKS`, `sandbox/instruments.js` or `notation/registry/ensemble.json`.
 
 ## Reference repos (read-only context; registered as additional working dirs)

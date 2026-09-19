@@ -21,5 +21,16 @@ ok(S.label(P[6]) === '7 · −31¢' && S.label(P[7]) === '8' && S.label(P[2]) ==
 const st = S.makeStrike(36);
 ok(st.id === 'sp:C2:just' && st.spectrum && st.synthetic && st.notes.length === 65 && st.notes[6].cents === P[6].cents && st.notes[6].partial === 7, 'makeStrike: id ' + st.id + ', ' + st.notes.length + ' notes, partial 7 carries ' + st.notes[6].cents + '¢');
 ok(st.stats.midi.min === 36 && st.stats.midi.max <= 108 && st.harm.group === 'HARMONIC SERIES', 'the strike shape: stats ' + st.stats.midi.min + '–' + st.stats.midi.max + ', group ' + st.harm.group);
+// the transposed column: every distinct pitch class with its cents, named by its lowest partial, on every key of the 88
+const C = S.classesOf(P);
+ok(C.length >= 33 && C[0].partial === 1 && C[1].partial === 3 && C[2].partial === 5, 'classes of C2: ' + C.length + ' (the even partials fold into their odd roots: 1 · 3 · 5 …)');
+ok(!C.some(c => c.partial % 2 === 0), 'no class is named by an even partial');
+const T = S.transposedOf(36);
+const gs = T.filter(n => n.partial === 3);
+ok(gs.length === 7 && gs.map(n => n.midi).join(',') === '31,43,55,67,79,91,103' && gs.every(n => Math.round(n.cents) === 2), 'partial 3 (+2¢) on every G of the 88: ' + gs.map(n => S.nm(n.midi)).join(' '));
+ok(T.every(n => n.midi >= 21 && n.midi <= 108) && T.length === C.reduce((a, c) => a + [...Array(88)].filter((_, i) => ((21 + i) % 12) === c.pc).length, 0), 'the transposed column spans the 88 and holds one note per class per key: ' + T.length);
+ok(S.parseId('sp:C2:just').sets.join() === 'just' && S.parseId('sp:C2:just+8ve').sets.join() === 'just,8ve' && S.parseId('sp:C2:8ve').sets.join() === '8ve' && !S.parseId('sp:C2:x'), 'ids parse: just · just+8ve · 8ve, and nothing else');
+const both = S.makeStrike(36, null, { sets: ['just', '8ve'] });
+ok(both.id === 'sp:C2:just+8ve' && both.notes.length === P.length + T.length && both.notes.filter(n => n.set === '8ve').length === T.length, 'makeStrike just + 8ve: ' + both.id + ', ' + both.notes.length + ' notes (' + P.length + ' just + ' + T.length + ' transposed)');
 console.log('\n' + (fail ? 'SPECTRUM RED: ' + fail + ' failed' : 'SPECTRUM GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

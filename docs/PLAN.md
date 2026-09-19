@@ -406,7 +406,13 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - Verify in the running app: C2 → the partials, keys and cents against the table (3 · +2¢, 5 · −14¢, 7 · −31¢, 11 · −49¢); the
       departing notes carry cents; no fixed-pitch player holds a > 5 ¢ note after a shuffle; the take round trip. palette_check;
       RUNNING_LOG, STRIKES_TOOL, this plan; commit; push.
-  - **1c.5 … — the later stages:** the other three columns of the SPECTRUM source (a fundamental → the four columns just · just per octave ·
+  - **1c.5 — the range lines · the JUST / 8ve column · labels in pink and green** — `done 2026-09-19 at his word, awaiting HIS LISTEN`
+    — RUNNING_LOG §99. One thin range line per instrument in a 30 px strip at the left of the keyboard (always; the hovered row's
+    brightens); the partials transposed into every octave of the 88 (each pitch class with its cents, named by its lowest partial —
+    C2: 33 classes, 244 notes) as a second column left of the JUST one, the same fixed-pitch rule; the banner's second row `just +
+    8ve`; labels and chips coloured by set (JUST pink, 8ve green). `spectrum_check` 29. Verified in the running app: 8 range lines
+    with the right extents, 88 green and 40 pink dots and labels, no fixed-pitch violation, the hover, a plain harmony unaffected.
+  - **1c.6 … — the later stages:** the two TEMPERED columns of the SPECTRUM source (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
     questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"

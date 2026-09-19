@@ -35,6 +35,25 @@ function partialsOf(fundMidi, top) {
     }
     return out;
 }
+// THE TRANSPOSED COLUMN (his second column, 2026-09-19 — "the transposed column still all harmonic partials"): every distinct pitch
+// class the series holds, with its cents, placed on every key of the 88 that has that pitch class. A class is named by the LOWEST partial
+// that produces it (3 stands for 3 · 6 · 12 · 24 · 48 — its octaves); two partials on one pitch class with different cents (7 at −31¢
+// and 57 at 0¢, both A♯) are two classes.
+const LOW = 21;
+function classesOf(P) {
+    const seen = new Set(), out = [];
+    for (const n of P) { const pc = ((n.midi % 12) + 12) % 12, key = pc + '@' + Math.round(n.cents * 10); if (seen.has(key)) continue; seen.add(key); out.push({ partial: n.partial, pc, cents: n.cents }); }
+    return out;
+}
+function transposedOf(fundMidi, lo, hi, top) {
+    const L = lo != null ? lo : LOW, H = hi != null ? hi : TOP, C = classesOf(partialsOf(fundMidi, top)), out = [];
+    for (const c of C) for (let m = L; m <= H; m++) if (((m % 12) + 12) % 12 === c.pc) out.push({ partial: c.partial, midi: m, cents: c.cents });
+    return out.sort((a, b) => a.midi - b.midi || a.partial - b.partial);
+}
+// the ids: sp:<fund>:just · sp:<fund>:just+8ve — the sets in the id, so a take rebuilds exactly what was loaded
+const SETS = ['just', '8ve'];
+function idFor(fundName, sets) { const s = SETS.filter(x => (sets || ['just']).indexOf(x) >= 0); return 'sp:' + fundName + ':' + (s.length ? s.join('+') : 'just'); }
+function parseId(id) { const m = /^sp:([^:]+):((?:just|8ve)(?:\+(?:just|8ve))*)$/.exec(String(id || '')); return m ? { fund: m[1], sets: m[2].split('+') } : null; }
 function isTempered(cents, tol) { return Math.abs(+cents || 0) <= (tol != null ? tol : TOL); }
 function centsText(c) { const r = Math.round(c); return (r > 0 ? '+' : r < 0 ? '−' : '±') + Math.abs(r) + '¢'; }
 function label(n, tol) { return String(n.partial) + (isTempered(n.cents, tol) && Math.round(n.cents) === 0 ? '' : ' · ' + centsText(n.cents)); }
@@ -42,16 +61,20 @@ function label(n, tol) { return String(n.partial) + (isTempered(n.cents, tol) &&
 // the strike object — the same shape HarmSource.makeStrike gives a harmony, so everything downstream treats it as one
 function makeStrike(fundMidi, id, opts) {
     opts = opts || {};
-    const f = Math.round(+fundMidi), P = partialsOf(f, opts.top);
+    const f = Math.round(+fundMidi), sets = (opts.sets && opts.sets.length) ? opts.sets : ['just'];
     const vel = opts.vel != null ? opts.vel : 100, durMs = opts.durMs != null ? opts.durMs : 100;
-    const notes = P.map((n, i) => ({ objectId: 'sp-' + f + '-' + n.partial, layer: 2, instKey: 'piano', midi: n.midi, technique: 'main',
-                                     vel, durMs, dtMs: 0, dtNorm: 0, dtUnits: null, partial: n.partial, cents: n.cents }));
-    const midis = P.map(n => n.midi).sort((a, b) => a - b);
+    const mk = (n, set) => ({ objectId: 'sp-' + f + '-' + set + '-' + n.partial + '-' + n.midi, layer: 2, instKey: 'piano', midi: n.midi, technique: 'main',
+                              vel, durMs, dtMs: 0, dtNorm: 0, dtUnits: null, partial: n.partial, cents: n.cents, set });
+    const notes = [];
+    if (sets.indexOf('just') >= 0) partialsOf(f, opts.top).forEach(n => notes.push(mk(n, 'just')));
+    if (sets.indexOf('8ve') >= 0) transposedOf(f, opts.lo, opts.hi, opts.top).forEach(n => notes.push(mk(n, '8ve')));
+    const midis = notes.map(n => n.midi).sort((a, b) => a - b);
     const pcs = [...new Set(midis.map(m => ((m % 12) + 12) % 12))].sort((a, b) => a - b);
-    const name = 'partials of ' + nm(f), index = 'series@' + nm(f);
+    const setName = sets.indexOf('8ve') >= 0 ? (sets.indexOf('just') >= 0 ? 'just + 8ve' : '8ve') : 'just';
+    const name = 'partials of ' + nm(f) + ' · ' + setName, index = 'series@' + nm(f) + (setName === 'just' ? '' : '+8ve');
     return {
-        id: id || ('sp:' + nm(f) + ':just'), synthetic: true, spectrum: true, fundamental: f,
-        harm: { value: 'spectrum:just', root: nm(f), id: index, name, group: 'HARMONIC SERIES' },
+        id: id || idFor(nm(f), sets), synthetic: true, spectrum: true, fundamental: f, sets: sets.slice(),
+        harm: { value: 'spectrum:' + sets.join('+'), root: nm(f), id: index, name, group: 'HARMONIC SERIES' },
         source: 'HARMONIC SERIES', index, t0: 0, tLast: 0, spanMs: 0, label: 'HARMONIC SERIES · ' + name,
         notes,
         harmony: { count: midis.length, midis, pcs, instKeys: ['piano'] },
@@ -62,5 +85,5 @@ function makeStrike(fundMidi, id, opts) {
                  vel: { avg: vel, min: vel, max: vel } },
     };
 }
-return { TOP, TOL, MAX_PARTIAL, nm, partialsOf, isTempered, centsText, label, makeStrike };
+return { TOP, LOW, TOL, MAX_PARTIAL, SETS, nm, partialsOf, classesOf, transposedOf, idFor, parseId, isTempered, centsText, label, makeStrike };
 }));

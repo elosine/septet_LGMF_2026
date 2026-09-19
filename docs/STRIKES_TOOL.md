@@ -1415,7 +1415,14 @@ on the same point (the lines still start from them); one label per key, `7 · �
 a double-click on a shared key arms its lowest partial. **The rows' chips carry the partial and cents** — `A#4 · 7 · −31¢`, or
 `C6 · 16 (tempered)` on a player who cannot bend.
 
-**Stages 5+ (PLAN 1c):** the other three columns of the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+**Stage 5 — the range lines, the JUST / 8ve column, pink and green (PLAN 1c.5, built 2026-09-19, RUNNING_LOG §99):** a 30 px strip at
+the LEFT of the keyboard with **one thin range line per instrument** (always; the hovered row's line brightens) — the core's drawing is
+moved into a `<g transform>`, its coordinates untouched. **The second column:** the partials transposed into every octave of the 88 —
+each distinct pitch class with its cents, named by its lowest partial (3 stands for 3 · 6 · 12 …; 7 at −31¢ and 57 at 0¢ are two
+classes), C2 = 33 classes, 244 notes; to the left of the JUST column, the same fixed-pitch rule. The banner has two rows, `just` and
+`just + 8ve` (the id carries the sets). **Labels by set:** JUST pink, 8ve green; the chips too (`55⁸ · +38¢`).
+
+**Stages 6+ (PLAN 1c):** the two TEMPERED columns of the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
 note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).
