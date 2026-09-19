@@ -375,7 +375,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     as the height (was `vel / 127`, right only at fff). `dyn_ui.js`, loaded last. Verified in the running app: at mf Hn 83 · Db 81 ·
     Bsn 83 · Vib 99 / CC7 93 · Vc 109 · Perc 100; the select carried and restored by a take; the height law round-trips in node.
   - **1c.3 — two vibraphone players, one per bow** — his, 2026-09-19 (LG-33): *"I want two vibraphone players, because they have two
-    bows. But let's do that after."* — *to be laid out when we discuss it.*
+    bows."* — `done 2026-09-19 at his "just go ahead", awaiting HIS LISTEN` — RUNNING_LOG §96. A second SEAT, not a ninth lane:
+    `Vibraphone 2` is a ninth row in the drawer on the vibraphone's lane (`EXTRA_SEATS`, the drawer's own `TRK()`); `seats_ui.js`
+    (loaded last) sends a seat's notes out on the score lane with `seat: 2`; Hear routes them to the first curve channel, Insert writes
+    them as drawn notes so the score's pool separates the bows; a seat is busy when its lane is. Verified in the running app: nine
+    rows, the vibraphone dealt two notes, the departing notes on lane 5 as main + seat 2, the routes channel 1 and 2.
   - **1c.4 … — the later stages:** the SPECTRUM source (a fundamental → the four columns just · just per octave ·
     tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
     lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two

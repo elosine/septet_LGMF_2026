@@ -4300,3 +4300,19 @@ Per part at fff: Db −0.49 · Bsn +0.18 · **Vc −3.73** · Hn +0.96 · **EH �
 **Held at his word:** **two vibraphone players, one per bow** — after this (COMPOSITION_NOTES LG-33; PLAN 1c.3).
 
 **Notes.** A player holding two notes on one channel (the vibraphone's two bows, until he has two players) gets one CC7 — the last note's. `hearOne` (the variant ▶ in the picker) still sends CC7 127 and velocity 100 — a variant audition, untouched.
+
+## §96. PLAN 1c.3 — two vibraphone players, one per bow: a second SEAT in the drawer, the score's lanes untouched (2026-09-19)
+
+**What prompted it.** *"ok good lets add the 2nd vibs, just go ahead pls"* — the item he named in §95: *"I want two vibraphone players, because they have two bows."* No planning conversation at his word.
+
+**The design question, and the answer.** The drawer's player rows ARE `TRACKS` (one row per score lane), and the shuffle deals each row once. Two ways to give the vibraphone two notes: a ninth lane in the score (touches the score's layout, the notation registry, the IR, print and video frames — everything, for a drawer feature) or a second ROW in the drawer on the same lane. The second: **a SEAT.** `strike_drawer.js` `EXTRA_SEATS = [{ instKey: 'bowed_vibraphone', label: 'Vibraphone 2', short: 'Vib2' }]`, and the drawer's own track list `TRK()` = TRACKS plus one row per seat (`seatOf` = the instrument's lane). Inside the drawer a seat is a row like any other — shuffle, hand assignment, ticks, chips, articulation menu, the chords at onsets (strike_sounds' `TRK` now reads the drawer's list). The score never sees it:
+- **the boundary is `seats_ui.js`**, the last mixin: every note leaving `notesFor` for Hear, `♪`, Insert or the swell's insert carries its SCORE lane and `seat: 2` (`row` keeps the drawer row);
+- **Hear** routes a seat's note to the instrument's first curve channel (`channels.curve[0]` — D11's slot A, channel 2), so the two bows keep their own CC7 (1b's register) and bend; `playNotes` keys its routes by seat too, or both bows would have shared the instrument's one route;
+- **Insert** writes a seat's note on the vibraphone's lane as a DRAWN note (no `sonifyMode: 'plain'`): a plain note holds MAIN (`isCurveEvent`), and two on one channel would share a CC7; a drawn note takes a curve channel from the score's own pool (`curveChannelMap`) — the way every note of the reference scores already plays;
+- **free / busy**: a seat is busy when its instrument's lane is (`laneTicked`, the row's dimming and "until") — conservative, so a shuffle never puts a third note on a lane that holds one.
+
+**What the score's own player does with two notes on one lane** (read for this): `curveChannelMap` gives overlapping CURVE events of a lane distinct channels from `channels.curve`, earliest-free first; a `plain` note is not a curve event and stays on MAIN. That is why the seat's inserted note is drawn, not plain.
+
+**Verified in the running app** (his :5400, the pane): **nine rows** — EH Bsn Hn Tpt Perc Vib Vc Db **Vib2** · Messiaen mode 1 from F2 (13 notes) → `ordinario` → shuffle → **the vibraphone holds two notes** (B3 on `Vibraphone`, A3 on `Vibraphone 2`) · the departing notes: `Vib:bowed_vel:59` on lane 5 and `Vib (seat 2, row 8):bowed_vel:57` on lane 5 · `scoreLane(8)` = 5 · the routes (the pane has no MIDI port, so `outputFor` was stubbed for the read): main channel **0**, the seat **1** (channel 2 = `channels.curve[0]`) · palette_check 184 · no console error. Insert is his to hear (the pane autosaves the working copy).
+
+**Notes.** A unison on both bows (the same pitch dealt to both rows) is one note to `♪ as dealt` (it dedupes by lane · technique · pitch after the translation). The seat has no entry in `palette_check` (an array, not a keyed table); a piece whose TRACKS lack the instKey has no seat and nothing else changes.

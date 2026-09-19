@@ -1394,7 +1394,13 @@ and `flat 127` (his A; the cfg fields stay); default `mf`; the ladder is the wri
 mf 100 · f 109 · ff 118 · fff 127, ≈ 1.7 dB a step over 1b's 12 dB. Insert now writes the height that means the anchor, so an
 inserted note plays back at the level Hear played (it wrote `vel / 127`, right only at fff). `dyn_ui.js`, loaded last.
 
-**Stages 3+ (PLAN 1c):** **two vibraphone players, one per bow** (his, 2026-09-19, LG-33 — "after") · the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+**Stage 3 — two vibraphone players, one per bow (PLAN 1c.3, built 2026-09-19, RUNNING_LOG §96):** a second SEAT — `Vibraphone 2`, a
+ninth row in the drawer on the vibraphone's own lane (`EXTRA_SEATS` in strike_drawer.js; the drawer's `TRK()` = TRACKS + its seats).
+The score's TRACKS are untouched. Inside the drawer a seat is a row like any other; at the boundary (`seats_ui.js`, the last mixin) a
+seat's note leaves on the vibraphone's lane with `seat: 2` — Hear routes it to the instrument's first curve channel (D11's slot A),
+Insert writes it as a drawn note so the score's channel pool separates the two bows. A seat is busy when its lane is.
+
+**Stages 4+ (PLAN 1c):** the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
 tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
 range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
 note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).

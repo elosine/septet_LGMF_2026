@@ -31,7 +31,7 @@ if (CLASSIC) { console.log('[strike_sounds] classic mode — the sound-at-an-ons
 
 const SC = () => root.StrikeChords || null;
 const HS = () => root.HarmSource || null;
-const TRK = () => (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
+const TRK = () => (D.tracks ? D.tracks() : (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []));   // 1c.3: the drawer's rows — TRACKS plus its extra seats
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px;font-size:11px';
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';
 const LIT = 'background:#4a3a12;color:#e8cf9a;border:1px solid #C9A05A;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';

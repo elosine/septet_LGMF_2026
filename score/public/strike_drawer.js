@@ -34,7 +34,21 @@
 
 const C_ = () => (typeof Composer !== 'undefined' ? Composer : (root.Composer || null));
 const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit || null));
-const TRK = () => (typeof TRACKS !== 'undefined' ? TRACKS : (root.TRACKS || []));
+// PLAN 1c.3 (LGMF, 2026-09-19 — his "I want two vibraphone players, because they have two bows"; RUNNING_LOG §96): a SECOND SEAT on an
+// instrument, in the DRAWER only — one more player row on the same score lane, so the shuffle and the hand assignment can give the
+// vibraphone two notes. The score's TRACKS are untouched: a seat's notes leave the drawer on its instrument's lane (seats_ui.js, the
+// last mixin, translates them on the way out) and Hear routes them to the instrument's first curve channel (D11's slot A), so the two
+// bows keep their own CC7 and bend. A piece whose TRACKS lack the instKey simply has no seat. The list is built once per TRACKS.
+const EXTRA_SEATS = [{ instKey: 'bowed_vibraphone', label: 'Vibraphone 2', short: 'Vib2' }];
+let _seats = null;
+const TRK = () => {
+    const T = (typeof TRACKS !== 'undefined' ? TRACKS : (root.TRACKS || []));
+    if (_seats && _seats.base === T) return _seats.list;
+    const list = T.slice();
+    EXTRA_SEATS.forEach(s => { const lane = T.findIndex(t => t.instKey === s.instKey); if (lane >= 0) list.push({ id: (T[lane].id || s.instKey) + '_seat2', label: s.label, short: s.short, instKey: s.instKey, seatOf: lane }); });
+    _seats = { base: T, list };
+    return list;
+};
 const METAL = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : root.META_LAYER);
 const INST = () => (typeof INSTRUMENTS !== 'undefined' ? INSTRUMENTS : (root.INSTRUMENTS || {}));
 const AC_ = () => (typeof AccelCalc !== 'undefined' ? AccelCalc : (root.AccelCalc || null));       // 1h: the acceleration calculator (accel_calc.js)
@@ -497,6 +511,18 @@ const D = {
 
     // ------------------------------------------------------------------ orchestration (E, F)
     instOf(lane) { const T = TRK(); return lane >= 0 && T[lane] ? INST()[T[lane].instKey] : null; },
+    // PLAN 1c.3: the drawer's rows (TRACKS + the extra seats), the score lane a row lands on, and the MIDI route a row or a departing
+    // note sounds on — a seat on its instrument's first curve channel (D11: `channels.curve[0]`), every other row as MorphEmit gives it
+    tracks() { return TRK(); },
+    scoreLane(lane) { const t = TRK()[lane]; return t && t.seatOf != null ? t.seatOf : lane; },
+    routeFor(lane, techKey, seat) {
+        const e = E_(), t = TRK()[lane]; if (!e) return null;
+        const real = t && t.seatOf != null ? t.seatOf : lane, isSeat = !!seat || !!(t && t.seatOf != null);
+        const r = e.routeFor(real, techKey); if (!r || !isSeat) return r;
+        const inst = this.instOf(real), curve = (inst && inst.channels && Array.isArray(inst.channels.curve)) ? inst.channels.curve : [];
+        const c = curve.length ? curve[0] : null, ch = (c && typeof c === 'object') ? c.ch : c;
+        return ch ? Object.assign({}, r, { ch: ch - 1 }) : r;
+    },
     // strike_sounds.js (2026-09-10): the voice a chord's note takes on a lane with no row voice — the strike voice he set (U2 revised), else the plain one
     strikeTechOf(lane) { return this.setTech(this.cfg.artSet, lane); },
     // U2: the strike default for a player, if its roster has it; else the plain technique — §377: from the articulation set in force
@@ -572,7 +598,7 @@ const D = {
     },
     laneTicked(lane, B) {
         const b = B || this.busyLanes();
-        if (b.busy.indexOf(lane) >= 0) return false;
+        if (b.busy.indexOf(this.scoreLane(lane)) >= 0) return false;   // 1c.3: a seat is busy when its instrument's lane is
         return !this.laneOff[lane];
     },
     // the playhead moved, or the score changed: the ticks are stale. Only the orchestration panel is redrawn.
@@ -938,17 +964,17 @@ const D = {
             const soloed = mine.length > 0 && mine.every(v => v.solo);
             // PLAN 1t step 4: the tick at the row's left edge, before the landing dot. A row BUSY at the playhead is dimmed, its
             // tick cleared and disabled, and says until when; a free row is ticked unless he unticked it.
-            const busy = B.busy.indexOf(lane) >= 0, ticked = this.laneTicked(lane, B);
+            const sl = this.scoreLane(lane), busy = B.busy.indexOf(sl) >= 0, ticked = this.laneTicked(lane, B);   // 1c.3: a seat reads its instrument's lane
             s += '<div class="skRow" data-lane="' + lane + '" style="display:flex;gap:6px;align-items:center;padding:1px 6px;'
                 + (busy ? 'opacity:.45;' : '') + (this.pickerLane === lane ? 'background:rgba(201,160,90,.15)' : '') + '">' +
                 '<input class="skTick" type="checkbox" data-lane="' + lane + '"' + (ticked ? ' checked' : '') + (busy ? ' disabled' : '') +
-                    ' style="flex:none;margin:0" title="' + (busy ? 'busy at the playhead until ' + (B.until[lane] != null ? B.until[lane].toFixed(2) : '?') + ' s'
+                    ' style="flex:none;margin:0" title="' + (busy ? 'busy at the playhead until ' + (B.until[sl] != null ? B.until[sl].toFixed(2) : '?') + ' s'
                     : 'ticked: the shuffle may deal onto this player') + '">' +
                 '<span class="skLand" style="flex:none;width:8px;height:8px;border-radius:50%;background:' + (mine.length ? '#e8cf9a' : '#444') + '" title="the lines land here"></span>' +
                 '<span class="skRowName" style="width:64px;cursor:pointer;color:#e8cf9a" title="click: the full articulation list">' + t.label + '</span>' +
                 '<button class="skSolo" data-lane="' + lane + '" style="' + btn + ';padding:0 4px;' + (soloed ? 'background:#e8cf9a;color:#222' : '') + '" title="solo this player\'s voices">S</button>' +
                 '<span style="width:88px;overflow:hidden;white-space:nowrap">' + (notes || '<span style="color:#555">·</span>')
-                + (busy ? ' <span style="color:#777">busy &rarr; ' + (B.until[lane] != null ? B.until[lane].toFixed(2) : '?') + ' s</span>' : '')
+                + (busy ? ' <span style="color:#777">busy &rarr; ' + (B.until[sl] != null ? B.until[sl].toFixed(2) : '?') + ' s</span>' : '')
                 + '</span>' + menu + '</div>';
         });
         s += '</div>';
@@ -1262,7 +1288,8 @@ const D = {
         e.panic();
         if (!await e.ensureMidi()) { this.setStatus(e._midiError || 'MIDI unavailable', true); return; }
         const routes = {}, missing = {}; let skipped = 0;
-        notes.forEach(n => { const k = n.lane + '|' + n.tech; if (!(k in routes)) { const r = e.routeFor(n.lane, n.tech); routes[k] = r || null; if (!r) { const inst = this.instOf(n.lane); missing[(inst && inst.port) || ('lane ' + n.lane)] = 1; } } if (!routes[k]) skipped++; });
+        const rk = n => n.lane + '|' + n.tech + (n.seat ? '|seat' + n.seat : '');   // 1c.3: a seat's note has its own route (the curve channel), not its instrument's
+        notes.forEach(n => { const k = rk(n); if (!(k in routes)) { const r = this.routeFor(n.lane, n.tech, n.seat); routes[k] = r || null; if (!r) { const inst = this.instOf(n.lane); missing[(inst && inst.port) || ('lane ' + n.lane)] = 1; } } if (!routes[k]) skipped++; });
         if (!notes.length || skipped === notes.length) { this.setStatus(Object.keys(missing).length ? 'no MIDI port for ' + Object.keys(missing).join(', ') : 'nothing to play — shuffle or assign first', true); return; }
         // PLAN 1c.2b (LGMF, 2026-09-19; RUNNING_LOG §95 — his "are they plugged in to the volume measurements"): a note's `vel` is the
         // ANCHOR on the ensemble's written scale (65 … 127, bank/velocity_remap.json), and each note is sent the way the score sends a
@@ -1272,7 +1299,7 @@ const D = {
         this.base = performance.now() + LEAD_MS; e._playing = true;
         const span = notes.reduce((m, n) => Math.max(m, n.onMs + n.durMs), 0) + 400;
         notes.forEach(n => {
-            const r = routes[n.lane + '|' + n.tech]; if (!r) return;
+            const r = routes[rk(n)]; if (!r) return;
             const on = this.base + n.onMs, off = on + n.durMs;
             const vel = this.remapVel(n.lane, n.midi, n.vel), cc7 = this.remapCc7(n.lane, n.midi, vel, n.vel);
             e._timers.push(setTimeout(() => { try { r.out.send([0xB0 | r.ch, 7, cc7]); if (r.tech && r.tech.cc0 != null) r.out.send([0xB0 | r.ch, 0, r.tech.cc0]); } catch (x) {} }, Math.max(0, on - CC0_LEAD_MS - performance.now())));
@@ -1302,7 +1329,7 @@ const D = {
     async hearOne(lane, techKey, midi) {
         const e = E_(); e.panic();
         if (!await e.ensureMidi()) { this.setStatus(e._midiError || 'MIDI unavailable', true); return; }
-        const r = e.routeFor(lane, techKey); if (!r) { this.setStatus('no port for that player', true); return; }
+        const r = this.routeFor(lane, techKey); if (!r) { this.setStatus('no port for that player', true); return; }   // 1c.3: a seat row on its curve channel
         try { r.out.send([0xB0 | r.ch, 7, 127]); if (r.tech && r.tech.cc0 != null) r.out.send([0xB0 | r.ch, 0, r.tech.cc0]); } catch (x) {}
         e._playing = true;
         e._timers.push(setTimeout(() => e.noteOn(r, midi, 100), 60));
@@ -1394,7 +1421,9 @@ const D = {
                 startSeconds: +start.toFixed(3), endSeconds: +(start + dur).toFixed(3),
                 nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }],
                 color: '#C9A05A', fillMode: 'bottom', opacity: 0.55, performanceNotes: 'strike #' + this.strike.index + ' (' + this.strike.id + ')', properties: {}, srcKind: 'strike',
-                sonifyNote: n.midi, technique: n.tech, sonifyMode: 'plain', recVel: n.vel });
+                // 1c.3: a SEAT's note is written as a drawn note, not `plain` — a plain note holds MAIN (isCurveEvent), and two bows on one
+                // channel would share a CC7; a drawn note takes a curve channel from the score's own pool (curveChannelMap), as Hear routes it
+                sonifyNote: n.midi, technique: n.tech, ...(n.seat ? {} : { sonifyMode: 'plain' }), recVel: n.vel });
         });
         C.objects.push({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: METAL(), groupId: group, startSeconds: t, endSeconds: +maxEnd.toFixed(3),
             nodes: [{ pos: 0, y: 8.5, smooth: 0 }, { pos: 1, y: 8.5, smooth: 0 }], segments: [{ model: 'power', slope: 0 }],
