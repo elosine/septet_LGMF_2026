@@ -199,7 +199,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **► HIS** | **HEAR THE FIVE SCORES.** `node score/server.js` → http://localhost:5400/composer.html, open each and play it into the rack from HIS Chrome. **`lgmf-ref` first** (6:50, the harmony standing still), then the four transitions (9:50 each). **His listen closes 1a.4 and 1a.6 and with them PLAN 1a.** Worth listening for: the vibraphone re-bows 11× a minute per bow (its measured 7.4 s) where LG-15 wants it continuous · the brass in SPECTRAL moves between partials, which is a portamento-flip not a slide (§66) · chord 6's BLOOM barely moves, because only its two just voices are deviant | — | — |
+| **► HIS** | **RELOAD THE COMPOSER TAB, THEN HEAR THE FIVE SCORES AGAIN.** RUNNING_LOG **§75**: every score he opened after the first in a tab played on the PREVIOUS score's routing (a per-object-id channel map never cleared on load; the generated scores share ids) — notes landed on Chromatic Scale · Trills · Cresc programs and on other instruments' ports. Fixed in `composer.html` (four `curveDirty()` calls), verified by a two-load headless capture. **His tab runs the old page until reloaded.** `lgmf-ref` first, then the four transitions, then `lgmf-all` (all 24, chord-major, 39:50). Still worth listening for, now that the routing is right: the vibraphone re-bows 11× a minute (7.4 s) · the brass in SPECTRAL flips between partials · chord 6's BLOOM barely moves · **the double bass in SPECTRAL travels two octaves in 30 s** (§70's octave widening — a seed override if unwanted) | — | — |
 | N1 | **His, by ear, whenever:** the seeded SPECTRAL sets and the BLOOM targets are all printed in RUNNING_LOG **§70** — override any and re-run `tools/build_reference_chords.js` then the two build tools. The dials on every transition are *longer/shorter · rest at the far station · the entrance · together/spread* | — | — |
 | N2 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
 | N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
@@ -296,7 +296,12 @@ this repo only when they bite.)*
 20. **Prove the copy whole BEFORE changing it** (2026-09-17, RUNNING_LOG §13). Piece #5 copied,
     patched, then verified — so a red test could be the copy or the patch. Committing the
     byte-exact copy first and running everything against it costs one staging pass and buys a
-    baseline: after that, every red has exactly one possible cause. It paid the same day —
+    baseline: after that, every red has exactly one possible cause. It paid the same day —
+21. **The file, the app's intent and the rack's layout are each necessary; only the RECORDING of the rack is the proof**
+    (2026-09-19, RUNNING_LOG §75). Three text layers were green — the score data, the headless MIDI capture, the UVI parts —
+    and the sound was wrong, because the fault lived in a cache between a load and a play that no fresh reading exercises.
+    His one recording of the rack, read back by `dump_recorded_midi.lua`, found it in minutes. When he says it sounds wrong
+    and the text says it is right, record the rack before arguing with the text.
     five checks went red at the re-palette and each was classified in minutes.
 21. **`cmp` proves a file was copied; it cannot prove the LIST was right** (2026-09-17, §13).
     266 of 266 files were byte-identical to a leave-list that was wrong by one, and the missing

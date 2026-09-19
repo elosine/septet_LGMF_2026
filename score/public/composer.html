@@ -1772,6 +1772,7 @@ const Composer = {
             this.objects.forEach(o => { if (o._els && o._els.group) o._els.group.remove(); });
             this.objects = [];
             this.markers = [];
+            this.curveDirty();   // [§75] the object list is replaced
             this.deselectAll();
             this.renderAll();
             this.saveStatus.textContent = `New score: ${name} — Save creates the file`;
@@ -2469,6 +2470,12 @@ const Composer = {
 
     restoreData(data) {
         this.objects = (data.objects || []).map(o => { delete o._els; return o; });
+        // [RUNNING_LOG §75, 2026-09-19] THE CHANNEL MAP IS PER OBJECT ID AND MUST DIE WITH THE OBJECT LIST. curveChannelMap() caches
+        // wc.id → curve-bank entry; it was cleared only by edits, never by a load, and every generated score numbers its objects
+        // wc-1, wc-2 … — so the second score opened in a tab played on the FIRST score's routing: the balance's horn on
+        // LGHorn ch 2/3/4 (Chromatic Scale · Cresc KS · Cuivré) and on the bassoon's and trumpet's b ports. Proven 13/13 against
+        // his recording of the rack. Cleared here and at every other place the list is replaced (new · undo · redo).
+        this.curveDirty();
         // v1 (7-part) scores: META drawing layer was 7, now 10. Hand-drawn/stamped
         // curves never carry sonifyNote; generated grains always do — safe discriminator.
         if (data.layoutVersion == null) {
@@ -3906,6 +3913,7 @@ const Composer = {
         this.redoStack.push(current);
         const prev = JSON.parse(this.undoStack.pop());
         this.objects = prev.objects;
+        this.curveDirty();   // [§75] the object list is replaced
         this.markers = prev.markers;
         this.nextId = Math.max(this.nextId, prev.nextId);   // never back: an undone note's id is never handed to a new one (docs/NOTATION_IDENTITY.md)
         this._restoreMotives(prev.motives);
@@ -3925,6 +3933,7 @@ const Composer = {
         this.undoStack.push(current);
         const next = JSON.parse(this.redoStack.pop());
         this.objects = next.objects;
+        this.curveDirty();   // [§75] the object list is replaced
         this.markers = next.markers;
         this.nextId = Math.max(this.nextId, next.nextId);
         this._restoreMotives(next.motives);
