@@ -92,9 +92,15 @@ const INSTRUMENTS = {
 
   // ---- HORN in F — IRCAM Solo Instruments 2 (UVI) ----
   // Manual: "Instrument part to be written a perfect fifth higher" — this is the SOURCE for the
-  // ensemble registry's transpose: +7 (step 6). Range in sounding pitches B1–F4 = MIDI 35–65.
+  // ensemble registry's transpose: +7 (step 6).
+  // RANGE 35–77, RAISED FROM 35–65 on 2026-09-19 (PLAN 1a.1, RUNNING_LOG §68). 65 was the SI2 LIBRARY's
+  // top (sounding F4), not the instrument's — and the library's top no longer binds: the "Horn SI2 high"
+  // track takes everything above 65, plays it an octave down in the library and shifts the audio back up
+  // with ReaPitch. The library's own 35–65 shifted up an octave reaches exactly 77, and 77 is also the
+  // horn's professional ceiling (written C6 = sounding F5, §66). So 77 is both what the rack can play and
+  // what a player can play. Five of the six horn notes in the reference chords lie in the raised part.
   horn: { balanceDb: -0.01,
-    label: "Horn", port: "LGHorn", rangeLow: 35, rangeHigh: 65,
+    label: "Horn", port: "LGHorn", rangeLow: 35, rangeHigh: 77,
     ordinary: "ord", beating: true, playerBendSt: 1, bendRangeSt: 2,
     channels: { main: 1, curve: [] },   // WRITTEN AT LOAD by UVI_PARTS (tools/apply_uvi_parts.js): main = the Ordinario part, curve = its copies on the `b` instance. Empty curve = the voice's own channel (cresc.js) until then.
     techniques: [

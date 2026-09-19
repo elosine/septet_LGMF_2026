@@ -3279,3 +3279,94 @@ reference striation — worth his ear, because in LG-15 the vibraphone is the th
 was already dead — it is still piece #5's cast, and the vibraphone joining the palette on 2026-09-18 broke it. Filed in NITS,
 with the one line in it worth keeping: #5 measured **all five** of its Xsample instruments at ±1 st, which is the independent
 confirmation behind §67's `bendRangeSt: 1` for this piece's english horn and double bass.
+
+---
+
+## §70. PLAN 1a.3 — the six chords as data: `bank/reference_chords.json` (2026-09-19)
+
+**What it is.** `tools/build_reference_chords.js` → `bank/reference_chords.json`. The VOICING is typed once, from each
+chord's "RESOLVED" table in COMPOSITION_NOTES LG-21…LG-26 — instrument, MIDI pitch, which partial, what part it plays.
+**Everything else is computed** from the fundamental's own series: every cents value, every Bloom target, every Spectral
+pick. Nothing in the harmony is typed twice, so the bank cannot drift from his tables by a typo.
+
+**The rule the whole file turns on (LG-27):** a voice carries its partial's deviation only if it is the **horn**, the
+**trumpet**, or the **bassoon on a chord whose root it can finger (1, 3, 5)**. Every other voice sounds tempered — cents 0 —
+and the beating IS that difference. A tempered voice still records WHICH partial it stands on (`partial` + `partialCents`),
+because Converge and Bloom both need to know.
+
+**The build asserts LG-27's deviation table and refuses to write if it fails** — horn/trumpet/bassoon per chord:
+−31/−14/−14 · −14/−14/tempered · −31/−14/−14 · −31/−14/tempered · −31/−14/−14 · **−49/−31/tempered**. It also checks every
+typed pitch against its own partial (partial 17 of B♭1 really is B5, and so on, all 50 voices) and every voice against its
+instrument's range. **GREEN.** 6 chords, 8 voices each except chord 5's 9 (the cello's double stop).
+
+**TWO THINGS THE BUILD FOUND.**
+
+**1 · The horn's range had to be raised — and 1a.1 is why.** Every horn note in chords 1 and 3–6 failed the range check,
+because the recipe carried `rangeHigh: 65` — the SI2 LIBRARY's top (sounding F4), not the instrument's. That limit stopped
+binding the moment the "Horn SI2 high" path existed. Raised to **77**, and the number is not a guess from two directions at
+once: the library's own 35–65 shifted up an octave reaches exactly 77, and 77 is also the horn's professional ceiling
+(written C6 = sounding F5, §66). **What the rack can play and what a player can play are the same note.**
+The raise also improved three Bloom targets that had been forced absurdly low by the old ceiling — chord 3's horn was
+being sent B♭4 → C4, a 9.7-semitone drop, where it now goes B♭4 → C5, +2.3.
+
+**2 · The double bass cannot move in Spectral under the rule as written.** Decision 6 says "non-deviant partials within an
+octave of the reference note". The bass sits on partial 1, and inside one octave its only non-deviant partial is the octave
+itself — so it would have a start or an end, never both, while LG-30 says the bass MOVES in Spectral. The reach now widens
+by octaves only where one octave yields fewer than two candidates, and the widening is recorded per voice (`reachSemitones`)
+and printed. **It fires for the bass in all six chords and for nobody else** — so it is not a loosening of his rule, it is
+the one place his rule and partial 1 are incompatible.
+
+**CONVERGE, computed from LG-31's table and LG-30's rule** (only WHO goes to WHOM is typed; the distances are derived from
+the two cents values, so they cannot disagree with the voicing):
+
+| # | the pairs close | the bass | other |
+|---|---|---|---|
+| 1 | vc→bsn D4 14¢ down · eh→hn A♭4 31¢ down · **tpt→vib1 D5 14¢ UP** | D4 −28¢ → bsn, 14¢ up | static: vib2 |
+| 2 | bsn→hn C♯4 14¢ down · eh→tpt C♯5 14¢ down | C♯4 −28¢ → hn, 14¢ up | static: vc, vib1, vib2 |
+| 3 | eh→bsn E4 14¢ down · vc→hn B♭4 31¢ down · **tpt→vib1 E5 14¢ UP** | E4 −28¢ → bsn, 14¢ up | static: vib2 |
+| 4 | **hn→vib1 F♯4 31¢ UP** · bsn→tpt C5 14¢ down | A♭3 −50¢ → vib2, 50¢ up | vc D5 → the true 11th, 49¢ down · static: eh |
+| 5 | vc_low→bsn E♭4 14¢ down · vc_high→hn A4 31¢ down · eh→tpt E♭5 14¢ down | E♭4 −28¢ → bsn, 14¢ up | static: vib1, vib2 |
+| 6 | **hn→vib1 C5 49¢ UP · tpt→vib2 E5 31¢ UP** | F♯2 −50¢ → vc, 50¢ up | static: vc, bsn, eh |
+
+**The UP moves are the vibraphone pairs** — the bar cannot move, so the JUST voice comes to it and the unison lands off the
+series (LG-31's consequence 1, accepted). **The bass's start was computed wrong on the first pass and is worth recording:**
+LG-31's "D4 −28¢" is 28 cents below the tempered KEY, i.e. the mirror of the tempered double about the just partial
+(2 × −14), not 28 cents below the just note. So the double comes down 14 and the bass comes up 14 and the three meet on the
+partial — which is exactly LG-30's corrected table ("bass glides up 14¢"), and it did not agree with the first build until
+the mirror was made explicit. Onto a FIXED anchor (chords 4 and 6) there is nothing to mirror: −50¢, his number, six beats a
+second at that register.
+
+**BLOOM — the nearest non-deviant partial (decision 7), as computed:**
+
+| # | targets |
+|---|---|
+| 1 | bsn/vc D4→**F4** p6 · hn/eh A♭4→**B♭4** p8 · tpt D5→**C5** p9 |
+| 2 | hn/bsn C♯4→**E4** p6 · tpt/eh C♯5→**B4** p9 · **vc B4 holds** (p9, already non-deviant) |
+| 3 | bsn/eh E4→**G4** p6 · hn/vc B♭4→**C5** p8 · tpt E5→**D5** p9 |
+| 4 | hn F♯4→**A♭4** p8 · tpt/bsn C5→**B♭4** p9 · vc D5→**E♭5** p12 · **eh B♭4 holds** (p9) |
+| 5 | bsn/vc_low E♭4→**F♯4** p6 · hn/vc_high A4→**B4** p8 · tpt/eh E♭5→**C♯5** p9 |
+| 6 | hn C5→**C♯5** p12 · tpt E5→**F♯5** p16 · **vc F♯2, bsn C♯3, eh A♭4 all hold** |
+
+**Chord 6 is the one to notice.** Only its two just voices move; the cello, the bassoon and the english horn are already on
+clean partials (2, 3, 9) and stand still. So the chord that is the strangest of the set is also the one Bloom barely
+touches — the strangeness of chord 6 is not deviation spread across the ensemble, it is two instruments a near-quarter-tone
+out against a fixed bar. And a beating pair does NOT resolve in Bloom: the vibraphone holds C5 and E5 while the horn and
+trumpet glide away, so the unisons become real intervals. That is the fixed point he accepted (LG-30).
+
+**SPECTRAL — seed 20260919, HIS TO OVERRIDE BY EAR** (decision 6: seeded, listed). Each voice gets a start partial and an
+end partial of the same fundamental, both non-deviant, both in range, neither the reference; the vibraphone is excluded.
+
+| # | start → reference → end |
+|---|---|
+| 1 | db B♭3(4)→B♭1→B♭2(2) · bsn F3(3)→D4→C5(9) · vc F3(3)→D4→F4(6) · hn F4(6)→A♭4→C5(9) · eh B♭3(4)→A♭4→B♭4(8) · tpt B♭5(16)→D5→B♭4(8) |
+| 2 | db A2(2)→A1→A3(4) · hn A4(8)→C♯4→B4(9) · bsn A3(4)→C♯4→A4(8) · tpt B4(9)→C♯5→E5(12) · eh A4(8)→C♯5→E5(12) · vc B5(18)→B4→B♭5(17) |
+| 3 | db C4(4)→C2→C3(2) · bsn D5(9)→E4→G3(3) · eh G4(6)→E4→C5(8) · hn D5(9)→B♭4→C4(4) · vc C4(4)→B♭4→C5(8) · tpt G5(12)→E5→G4(6) |
+| 4 | db A♭3(4)→G♯1→E♭3(3) · hn A♭3(4)→F♯4→A♭4(8) · eh E♭5(12)→B♭4→A♭5(16) · tpt B♭5(18)→C5→B♭4(9) · bsn E♭4(6)→C5→E♭5(12) · vc A5(17)→D5→A♭4(8) |
+| 5 | db F♯3(3)→B1→B2(2) · bsn F♯4(6)→E♭4→C♯5(9) · vc_low B3(4)→E♭4→F♯4(6) · hn C♯5(9)→A4→F♯4(6) · vc_high B4(8)→A4→F♯4(6) · tpt B4(8)→E♭5→F♯5(12) · eh C♯5(9)→E♭5→F♯5(12) |
+| 6 | db C♯3(3)→F♯1→F♯2(2) · vc F♯3(4)→F♯2→C♯3(3) · bsn F♯2(2)→C♯3→F♯3(4) · eh G5(17)→A♭4→F♯4(8) · hn C♯4(6)→C5→A♭4(9) · tpt A♭5(18)→E5→C♯5(12) |
+
+*Worth his ear before 1a.6, two things the rule cannot judge:* several picks put a wind at the very top of its compass for
+thirty seconds (the english horn's A♭5 in chord 4, its G5 in chord 6, the trumpet's B♭5 in chords 1 and 4) — reachable, not
+restful. And **§66's brass fact applies to every brass line in this table**: a horn or trumpet move between partials is a
+portamento-flip with a smear at the changeover, not a slide, so Spectral on the brass will read as a series of flips. That
+was known and accepted; it is visible here for the first time as actual intervals.
