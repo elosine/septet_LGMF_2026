@@ -4708,3 +4708,17 @@ touches.
 before 1d.7 — the same device 1d.5 uses for the breath dials, and the reason the amendment could be added without reopening 1d.1 … 1d.5.
 
 **Next: build 1d.1, on Opus, after a clear — at his word; he asked to be checked with before the go.**
+
+## §112. The checkpoint before the build — and he keeps Fable for it (2026-09-19)
+
+**His word:** *"good I'll clear but stay on fable for build ready for clear?"* The AI had recommended Opus for executing a written plan
+(SESSION_HYGIENE § Model strategy); he chose otherwise, and the handoff docs now say so — the journal's running thread, PLANNER's NOW line,
+CLAUDE.md's state line. The answer to "ready?" was **not yet**: journal §2's checkpoint block was still session 6's and named a different
+next step (his listen in the strikes drawer), so a cold `/postclear` would have played back the wrong task. Rewritten for a session that has
+never seen this conversation: the task, the architecture he approved, the build order, **the next concrete step (build 1d.1)**, six resume
+reads chosen for what 1d.1 NEEDS, the calls that are his to reverse (§107, §111), the three uncommitted paths and why.
+
+**Two lessons written into the checkpoint because they will recur:** (1) a Bash command over about 8 KB fails on this machine with a quote
+parse error that is really a truncation — three commands died of it this session before the pattern showed (every failure was the long
+one; the same text ran when split); the working method is the Write tool into the scratchpad plus a short node splice that asserts each
+replacement lands once. (2) A parallel session may be appending to the shared docs — numbers are taken at write time, never from memory.
