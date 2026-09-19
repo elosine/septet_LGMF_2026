@@ -142,12 +142,46 @@ for (const key of PITCHED) {
     const I = CARD.instruments[key];
     if (!I) { out.notRemapped[key] = 'not in the card'; continue; }
     // gather the measured points per pitch
-    const byPitch = {};
+    let byPitch = {};
+    let entry_note = null;
     for (const v of Object.keys(I.byVelocity)) {
         const pp = I.byVelocity[v].perPitch || {};
         for (const p of Object.keys(pp)) {
             if (pp[p].integratedDb == null) continue;
             (byPitch[p] = byPitch[p] || []).push({ v: +v, db: pp[p].integratedDb });
+        }
+    }
+    // THE VIBRAPHONE IS BUILT FROM TWO PASSES, and it has to be, because its register turned out to be
+    // PER BAR (RUNNING_LOG §89): every semitone differs, 76 → 77 by 14.7 dB in one step, so no grid coarser
+    // than a semitone can describe it and no interpolation across pitch is safe.
+    //   the REGISTER  comes from the every-semitone pass (role 'vibfine', 37 pitches at velocity 127)
+    //   the SHAPE     comes from the nine-pitch pass (role 'vibreg', 4 velocities), taken RELATIVE to each
+    //                 pitch's own 127 and averaged — justified because the velocity response was measured
+    //                 uniform across the range, 13.5–14.0 dB at all nine pitches (§86)
+    // Relative is also what makes the join sound: the two passes were recorded at different faders
+    // (−6.62 and +2.81), and a shape expressed as a delta from its own top is immune to that.
+    if (key === 'bowed_vibraphone') {
+        const fine = CARD.notes.filter(n => n.inst === key && n.role === 'vibfine' && n.found && n.integratedDb != null);
+        const reg = CARD.notes.filter(n => n.inst === key && n.role === 'vibreg' && n.found && n.integratedDb != null);
+        if (fine.length >= 12 && reg.length >= 8) {
+            const byP = {};
+            for (const n of reg) (byP[n.pitch] = byP[n.pitch] || []).push(n);
+            const deltas = {};
+            for (const p of Object.keys(byP)) {
+                const top = (byP[p].find(n => n.vel === 127) || {}).integratedDb;
+                if (top == null) continue;
+                for (const n of byP[p]) (deltas[n.vel] = deltas[n.vel] || []).push(n.integratedDb - top);
+            }
+            const shape = {};
+            for (const v of Object.keys(deltas)) shape[v] = deltas[v].reduce((s2, d) => s2 + d, 0) / deltas[v].length;
+            byPitch = {};
+            for (const n of fine) {
+                byPitch[n.pitch] = Object.keys(shape).map(v => ({ v: +v, db: Math.round((n.integratedDb + shape[v]) * 100) / 100 }))
+                    .sort((x, y) => x.v - y.v);
+            }
+            entry_note = 'the register from ' + fine.length + ' semitones at velocity 127; the velocity shape from '
+                + Object.keys(byP).length + ' pitches, relative to each pitch\u2019s own 127 and averaged ('
+                + Object.keys(shape).sort((a, b) => a - b).map(v => v + ': ' + shape[v].toFixed(1)).join(' · ') + ')';
         }
     }
     const pitches = Object.keys(byPitch).map(Number).sort((a, b) => a - b)
@@ -197,6 +231,7 @@ for (const key of PITCHED) {
                              table, clampedLow: cl, clampedHigh: ch,
                              spanDb: Math.round((mono[mono.length - 1].db - mono[0].db) * 100) / 100 });
     }
+    if (entry_note) entry.builtFrom = entry_note;
     entry.measuredSpanDb = Math.round(Math.max(...entry.pitches.map(p => p.spanDb)) * 100) / 100;
     entry.registerSpreadAtFffDb = isFinite(hi127 - lo127) ? Math.round((hi127 - lo127) * 100) / 100 : null;
     entry.clampedLow = clampLow; entry.clampedHigh = clampHigh;

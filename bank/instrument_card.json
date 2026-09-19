@@ -1,524 +1,23 @@
 {
- "generatedAt": "2026-09-19T11:27:31",
+ "generatedAt": "2026-09-19T11:45:04",
  "planItem": "1b.2",
  "piece": "lgmf",
- "recording": "30-REC-260919_1119.wav",
- "schedule": "card_fine_schedule.json",
- "scheduleGeneratedAt": "2026-09-19T15:19:20.095Z",
+ "recording": "30-REC-260919_1140.wav",
+ "schedule": "card_xs3_schedule.json",
+ "scheduleGeneratedAt": "2026-09-19T15:39:57.080Z",
  "sampleRate": 44100,
  "scale": "absolute dBFS at the master (REC at unity since 1b.0; the chain proven in bank/reference.json)",
  "reference": "bank/reference.json",
- "standard": null,
+ "standard": "K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770. REC is at unity since 1b.0, so every level is dBFS AT THE MASTER (bank/reference.json proves the chain to three decimals).",
  "method": {
   "maxMomentary": "loudest 400 ms, K-weighted (BS.1770 pre-filter) \u2014 how it speaks",
   "integrated": "K-weighted RMS over the whole sounding note \u2014 how loud it is",
   "soundingS": "onset to 40 dB below the note's own peak",
   "cents": "f0 by autocorrelation, searched within \u00b16 semitones of the written pitch",
-  "noiseFloorDb": -119.23,
-  "scheduleOffsetS": 1.16
+  "noiseFloorDb": -117.41,
+  "scheduleOffsetS": 1.15
  },
  "instruments": {
-  "english_horn": {
-   "label": "English Horn",
-   "port": "LGEngHorn",
-   "byVelocity": {
-    "24": {
-     "maxMomentaryDb": -35.25,
-     "integratedDb": -37.47,
-     "soundingS": 4.6,
-     "nPerPitch": {
-      "59": 1,
-      "67": 1,
-      "74": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "59": {
-       "maxMomentaryDb": -34.14,
-       "integratedDb": -35.83,
-       "soundingS": 4.61,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.7
-      },
-      "67": {
-       "maxMomentaryDb": -36.93,
-       "integratedDb": -40.46,
-       "soundingS": 4.6,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.5
-      },
-      "74": {
-       "maxMomentaryDb": -34.68,
-       "integratedDb": -36.12,
-       "soundingS": 4.59,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.4
-      }
-     }
-    },
-    "64": {
-     "maxMomentaryDb": -25.93,
-     "integratedDb": -27.65,
-     "soundingS": 4.67,
-     "nPerPitch": {
-      "59": 1,
-      "67": 1,
-      "74": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "59": {
-       "maxMomentaryDb": -29.05,
-       "integratedDb": -30.31,
-       "soundingS": 4.62,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.6
-      },
-      "67": {
-       "maxMomentaryDb": -21.72,
-       "integratedDb": -23.46,
-       "soundingS": 4.74,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      },
-      "74": {
-       "maxMomentaryDb": -27.02,
-       "integratedDb": -29.18,
-       "soundingS": 4.66,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1
-      }
-     }
-    },
-    "100": {
-     "maxMomentaryDb": -20.11,
-     "integratedDb": -21.63,
-     "soundingS": 4.57,
-     "nPerPitch": {
-      "59": 1,
-      "67": 1,
-      "74": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "59": {
-       "maxMomentaryDb": -20.1,
-       "integratedDb": -21.67,
-       "soundingS": 4.65,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.1
-      },
-      "67": {
-       "maxMomentaryDb": -19.71,
-       "integratedDb": -21.35,
-       "soundingS": 4.64,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 3.1
-      },
-      "74": {
-       "maxMomentaryDb": -20.51,
-       "integratedDb": -21.86,
-       "soundingS": 4.42,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.5
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -16.37,
-     "integratedDb": -17.86,
-     "soundingS": 4.64,
-     "nPerPitch": {
-      "59": 1,
-      "67": 1,
-      "74": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "59": {
-       "maxMomentaryDb": -18.61,
-       "integratedDb": -19.93,
-       "soundingS": 4.62,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -2.2
-      },
-      "67": {
-       "maxMomentaryDb": -15.82,
-       "integratedDb": -17.53,
-       "soundingS": 4.69,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.7
-      },
-      "74": {
-       "maxMomentaryDb": -14.68,
-       "integratedDb": -16.11,
-       "soundingS": 4.6,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.2
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -39.54,
-    "fullDb": -29.12,
-    "expectedOffsetDb": 12.0
-   },
-   "bend": {
-    "pitch": 67,
-    "fraction": 0.5,
-    "centsMoved": 46.1,
-    "rangeSt": 0.922,
-    "unbentCents": 3.1,
-    "bentCents": 49.2
-   }
-  },
-  "cello": {
-   "label": "Cello",
-   "port": "LGCello",
-   "byVelocity": {
-    "24": {
-     "maxMomentaryDb": -33.41,
-     "integratedDb": -36.73,
-     "soundingS": 4.64,
-     "nPerPitch": {
-      "48": 1,
-      "60": 1,
-      "71": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "48": {
-       "maxMomentaryDb": -32.13,
-       "integratedDb": -36.15,
-       "soundingS": 4.62,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.6
-      },
-      "60": {
-       "maxMomentaryDb": -31.79,
-       "integratedDb": -34.36,
-       "soundingS": 4.65,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.4
-      },
-      "71": {
-       "maxMomentaryDb": -36.3,
-       "integratedDb": -39.68,
-       "soundingS": 4.64,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.1
-      }
-     }
-    },
-    "64": {
-     "maxMomentaryDb": -22.51,
-     "integratedDb": -25.31,
-     "soundingS": 4.64,
-     "nPerPitch": {
-      "48": 1,
-      "60": 1,
-      "71": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "48": {
-       "maxMomentaryDb": -19.34,
-       "integratedDb": -22.27,
-       "soundingS": 4.66,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.5
-      },
-      "60": {
-       "maxMomentaryDb": -21.85,
-       "integratedDb": -24.57,
-       "soundingS": 4.66,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.4
-      },
-      "71": {
-       "maxMomentaryDb": -26.34,
-       "integratedDb": -29.1,
-       "soundingS": 4.59,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.3
-      }
-     }
-    },
-    "100": {
-     "maxMomentaryDb": -15.16,
-     "integratedDb": -17.08,
-     "soundingS": 4.61,
-     "nPerPitch": {
-      "48": 1,
-      "60": 1,
-      "71": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "48": {
-       "maxMomentaryDb": -12.57,
-       "integratedDb": -14.42,
-       "soundingS": 4.65,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.4
-      },
-      "60": {
-       "maxMomentaryDb": -11.62,
-       "integratedDb": -13.58,
-       "soundingS": 4.62,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -2
-      },
-      "71": {
-       "maxMomentaryDb": -21.3,
-       "integratedDb": -23.23,
-       "soundingS": 4.57,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -14.74,
-     "integratedDb": -17.68,
-     "soundingS": 4.57,
-     "nPerPitch": {
-      "48": 1,
-      "60": 1,
-      "71": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "48": {
-       "maxMomentaryDb": -11.18,
-       "integratedDb": -15.87,
-       "soundingS": 4.56,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.7
-      },
-      "60": {
-       "maxMomentaryDb": -13.64,
-       "integratedDb": -16.17,
-       "soundingS": 4.59,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.1
-      },
-      "71": {
-       "maxMomentaryDb": -19.4,
-       "integratedDb": -21.01,
-       "soundingS": 4.57,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.5
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -49.83,
-    "fullDb": -38.52,
-    "expectedOffsetDb": 12.0
-   },
-   "bend": {
-    "pitch": 60,
-    "fraction": 0.5,
-    "centsMoved": 50.6,
-    "rangeSt": 1.012,
-    "unbentCents": -2,
-    "bentCents": 48.6
-   }
-  },
-  "double_bass": {
-   "label": "D. Bass",
-   "port": "LGBass",
-   "byVelocity": {
-    "24": {
-     "maxMomentaryDb": -38.99,
-     "integratedDb": -40.91,
-     "soundingS": 4.65,
-     "nPerPitch": {
-      "38": 1,
-      "48": 1,
-      "57": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "38": {
-       "maxMomentaryDb": -38.46,
-       "integratedDb": -40.14,
-       "soundingS": 4.78,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.3
-      },
-      "48": {
-       "maxMomentaryDb": -40.08,
-       "integratedDb": -42.02,
-       "soundingS": 4.59,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.9
-      },
-      "57": {
-       "maxMomentaryDb": -38.43,
-       "integratedDb": -40.56,
-       "soundingS": 4.57,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.9
-      }
-     }
-    },
-    "64": {
-     "maxMomentaryDb": -30.07,
-     "integratedDb": -32.3,
-     "soundingS": 4.69,
-     "nPerPitch": {
-      "38": 1,
-      "48": 1,
-      "57": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "38": {
-       "maxMomentaryDb": -30.72,
-       "integratedDb": -32.76,
-       "soundingS": 4.87,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.2
-      },
-      "48": {
-       "maxMomentaryDb": -27.13,
-       "integratedDb": -29.06,
-       "soundingS": 4.48,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.1
-      },
-      "57": {
-       "maxMomentaryDb": -32.35,
-       "integratedDb": -35.09,
-       "soundingS": 4.73,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -2.2
-      }
-     }
-    },
-    "100": {
-     "maxMomentaryDb": -24.0,
-     "integratedDb": -25.89,
-     "soundingS": 4.82,
-     "nPerPitch": {
-      "38": 1,
-      "48": 1,
-      "57": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "38": {
-       "maxMomentaryDb": -22.23,
-       "integratedDb": -23.96,
-       "soundingS": 4.98,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.7
-      },
-      "48": {
-       "maxMomentaryDb": -25.14,
-       "integratedDb": -26.87,
-       "soundingS": 4.67,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.3
-      },
-      "57": {
-       "maxMomentaryDb": -24.64,
-       "integratedDb": -26.85,
-       "soundingS": 4.81,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -21.57,
-     "integratedDb": -23.62,
-     "soundingS": 4.67,
-     "nPerPitch": {
-      "38": 1,
-      "48": 1,
-      "57": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "38": {
-       "maxMomentaryDb": -20.78,
-       "integratedDb": -22.79,
-       "soundingS": 4.75,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -2.7
-      },
-      "48": {
-       "maxMomentaryDb": -21.61,
-       "integratedDb": -23.77,
-       "soundingS": 4.6,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.5
-      },
-      "57": {
-       "maxMomentaryDb": -22.32,
-       "integratedDb": -24.31,
-       "soundingS": 4.67,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.4
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -44.79,
-    "fullDb": -37.96,
-    "expectedOffsetDb": 12.0
-   },
-   "bend": {
-    "pitch": 48,
-    "fraction": 0.5,
-    "centsMoved": 44.9,
-    "rangeSt": 0.898,
-    "unbentCents": 1.3,
-    "bentCents": 46.2
-   }
-  },
   "small_metals_finger_cymbals": {
    "label": "Finger Cymbals",
    "port": "LGPerc",
@@ -583,7 +82,7 @@
    "compare0d": {
     "anchorDb": -66.69,
     "fullDb": -46.28,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "small_metals_bell_tree": {
@@ -668,7 +167,7 @@
    "compare0d": {
     "anchorDb": null,
     "fullDb": -52.25,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "small_metals_sleigh_bells": {
@@ -753,7 +252,7 @@
    "compare0d": {
     "anchorDb": -62.11,
     "fullDb": -48.8,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "small_metals_triangles": {
@@ -838,7 +337,7 @@
    "compare0d": {
     "anchorDb": null,
     "fullDb": -53.22,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "small_metals_tambourines": {
@@ -923,7 +422,7 @@
    "compare0d": {
     "anchorDb": -69.56,
     "fullDb": -46.75,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "toys_castanets": {
@@ -1008,7 +507,7 @@
    "compare0d": {
     "anchorDb": -79.66,
     "fullDb": -63.01,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "toys_claves": {
@@ -1093,7 +592,7 @@
    "compare0d": {
     "anchorDb": null,
     "fullDb": -56.63,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "toys_shakers": {
@@ -1178,7 +677,7 @@
    "compare0d": {
     "anchorDb": null,
     "fullDb": -60.81,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "brake_drums": {
@@ -1263,7 +762,7 @@
    "compare0d": {
     "anchorDb": -52.89,
     "fullDb": -44.02,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "crashes_and_stack": {
@@ -1348,7 +847,7 @@
    "compare0d": {
     "anchorDb": -58.59,
     "fullDb": -47.11,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "wood_blocks": {
@@ -1433,7 +932,7 @@
    "compare0d": {
     "anchorDb": -59.08,
     "fullDb": -46.42,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "bass_drum_alt": {
@@ -1518,7 +1017,7 @@
    "compare0d": {
     "anchorDb": -54.81,
     "fullDb": -36.59,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "temple_bowls": {
@@ -1603,7 +1102,7 @@
    "compare0d": {
     "anchorDb": -60.19,
     "fullDb": -52.37,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "tam_tams_a": {
@@ -1670,7 +1169,7 @@
    "compare0d": {
     "anchorDb": -61.11,
     "fullDb": -42.31,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    }
   },
   "bassoon": {
@@ -1829,7 +1328,7 @@
    "compare0d": {
     "anchorDb": -31.75,
     "fullDb": -24.4,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    },
    "bend": {
     "pitch": 55,
@@ -1996,7 +1495,7 @@
    "compare0d": {
     "anchorDb": -39.53,
     "fullDb": -30.98,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    },
    "bend": {
     "pitch": 50,
@@ -2163,7 +1662,7 @@
    "compare0d": {
     "anchorDb": -39.37,
     "fullDb": -32.16,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
    },
    "bend": {
     "pitch": 68,
@@ -2201,7 +1700,7 @@
        "soundingS": 4.7,
        "n": 1,
        "spreadDb": 0.0,
-       "centsOffWritten": 7.0
+       "centsOffWritten": 7
       },
       "58": {
        "maxMomentaryDb": -59.55,
@@ -2292,7 +1791,7 @@
        "soundingS": 4.7,
        "n": 1,
        "spreadDb": 0.0,
-       "centsOffWritten": 7.0
+       "centsOffWritten": 7
       },
       "58": {
        "maxMomentaryDb": -44.44,
@@ -2383,7 +1882,7 @@
        "soundingS": 4.72,
        "n": 1,
        "spreadDb": 0.0,
-       "centsOffWritten": 7.0
+       "centsOffWritten": 7
       },
       "58": {
        "maxMomentaryDb": -35.56,
@@ -2474,7 +1973,7 @@
        "soundingS": 4.73,
        "n": 1,
        "spreadDb": 0.0,
-       "centsOffWritten": 7.0
+       "centsOffWritten": 7
       },
       "58": {
        "maxMomentaryDb": -30.37,
@@ -2546,716 +2045,512 @@
    "compare0d": {
     "anchorDb": -48.84,
     "fullDb": -35.19,
-    "expectedOffsetDb": 12.0
+    "expectedOffsetDb": 12
+   }
+  },
+  "english_horn": {
+   "label": "English Horn",
+   "port": "LGEngHorn",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -48.83,
+     "integratedDb": -51.19,
+     "soundingS": 4.56,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "59": {
+       "maxMomentaryDb": -48.24,
+       "integratedDb": -50.0,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 2.5
+      },
+      "67": {
+       "maxMomentaryDb": -50.6,
+       "integratedDb": -54.17,
+       "soundingS": 4.54,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.3
+      },
+      "74": {
+       "maxMomentaryDb": -47.65,
+       "integratedDb": -49.41,
+       "soundingS": 4.56,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -0.7
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -41.35,
+     "integratedDb": -43.34,
+     "soundingS": 4.59,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "59": {
+       "maxMomentaryDb": -40.24,
+       "integratedDb": -41.87,
+       "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -0.0
+      },
+      "67": {
+       "maxMomentaryDb": -43.25,
+       "integratedDb": -46.18,
+       "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -1.1
+      },
+      "74": {
+       "maxMomentaryDb": -40.56,
+       "integratedDb": -41.96,
+       "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.4
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -34.6,
+     "integratedDb": -35.88,
+     "soundingS": 4.6,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "59": {
+       "maxMomentaryDb": -36.07,
+       "integratedDb": -37.21,
+       "soundingS": 4.55,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -2.9
+      },
+      "67": {
+       "maxMomentaryDb": -33.58,
+       "integratedDb": -35.1,
+       "soundingS": 4.67,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -0.7
+      },
+      "74": {
+       "maxMomentaryDb": -34.15,
+       "integratedDb": -35.34,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.8
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -30.26,
+     "integratedDb": -31.67,
+     "soundingS": 4.54,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "59": {
+       "maxMomentaryDb": -32.29,
+       "integratedDb": -33.32,
+       "soundingS": 4.49,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -0.8
+      },
+      "67": {
+       "maxMomentaryDb": -29.55,
+       "integratedDb": -31.35,
+       "soundingS": 4.66,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -1.5
+      },
+      "74": {
+       "maxMomentaryDb": -28.93,
+       "integratedDb": -30.35,
+       "soundingS": 4.47,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -0.6
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -39.54,
+    "fullDb": -29.12,
+    "expectedOffsetDb": 12
+   },
+   "bend": {
+    "pitch": 67,
+    "fraction": 0.5,
+    "centsMoved": 47.1,
+    "rangeSt": 0.942,
+    "unbentCents": -0.7,
+    "bentCents": 46.4
+   }
+  },
+  "cello": {
+   "label": "Cello",
+   "port": "LGCello",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -47.75,
+     "integratedDb": -50.99,
+     "soundingS": 4.6,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "48": {
+       "maxMomentaryDb": -46.18,
+       "integratedDb": -50.52,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -5.9
+      },
+      "60": {
+       "maxMomentaryDb": -46.06,
+       "integratedDb": -48.62,
+       "soundingS": 4.63,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.9
+      },
+      "71": {
+       "maxMomentaryDb": -51.0,
+       "integratedDb": -53.83,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -4.1
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -40.76,
+     "integratedDb": -43.87,
+     "soundingS": 4.59,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "48": {
+       "maxMomentaryDb": -39.33,
+       "integratedDb": -43.65,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -5.8
+      },
+      "60": {
+       "maxMomentaryDb": -38.7,
+       "integratedDb": -41.18,
+       "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -1.6
+      },
+      "71": {
+       "maxMomentaryDb": -44.26,
+       "integratedDb": -46.77,
+       "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -3.5
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -32.66,
+     "integratedDb": -35.7,
+     "soundingS": 4.58,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "48": {
+       "maxMomentaryDb": -28.54,
+       "integratedDb": -33.16,
+       "soundingS": 4.55,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -5.5
+      },
+      "60": {
+       "maxMomentaryDb": -31.19,
+       "integratedDb": -33.97,
+       "soundingS": 4.66,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 2.3
+      },
+      "71": {
+       "maxMomentaryDb": -38.24,
+       "integratedDb": -39.98,
+       "soundingS": 4.54,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -1.4
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -29.31,
+     "integratedDb": -32.31,
+     "soundingS": 4.59,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "48": {
+       "maxMomentaryDb": -25.37,
+       "integratedDb": -30.0,
+       "soundingS": 4.56,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -5.5
+      },
+      "60": {
+       "maxMomentaryDb": -27.99,
+       "integratedDb": -30.73,
+       "soundingS": 4.68,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 2.1
+      },
+      "71": {
+       "maxMomentaryDb": -34.56,
+       "integratedDb": -36.2,
+       "soundingS": 4.53,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -2.4
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -49.83,
+    "fullDb": -38.52,
+    "expectedOffsetDb": 12
+   },
+   "bend": {
+    "pitch": 60,
+    "fraction": 0.5,
+    "centsMoved": 48.6,
+    "rangeSt": 0.972,
+    "unbentCents": 2.3,
+    "bentCents": 50.9
+   }
+  },
+  "double_bass": {
+   "label": "D. Bass",
+   "port": "LGBass",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -47.45,
+     "integratedDb": -49.42,
+     "soundingS": 4.65,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "38": {
+       "maxMomentaryDb": -46.69,
+       "integratedDb": -48.32,
+       "soundingS": 4.74,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 2.7
+      },
+      "48": {
+       "maxMomentaryDb": -48.3,
+       "integratedDb": -50.22,
+       "soundingS": 4.56,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -2.6
+      },
+      "57": {
+       "maxMomentaryDb": -47.37,
+       "integratedDb": -49.71,
+       "soundingS": 4.64,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.3
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -37.61,
+     "integratedDb": -39.63,
+     "soundingS": 4.66,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "38": {
+       "maxMomentaryDb": -36.97,
+       "integratedDb": -38.66,
+       "soundingS": 4.75,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -0.7
+      },
+      "48": {
+       "maxMomentaryDb": -38.37,
+       "integratedDb": -40.32,
+       "soundingS": 4.56,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -2.2
+      },
+      "57": {
+       "maxMomentaryDb": -37.5,
+       "integratedDb": -39.91,
+       "soundingS": 4.66,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.1
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -33.65,
+     "integratedDb": -35.66,
+     "soundingS": 4.63,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "38": {
+       "maxMomentaryDb": -32.6,
+       "integratedDb": -34.64,
+       "soundingS": 4.72,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 2.2
+      },
+      "48": {
+       "maxMomentaryDb": -33.95,
+       "integratedDb": -36.08,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -1.3
+      },
+      "57": {
+       "maxMomentaryDb": -34.41,
+       "integratedDb": -36.26,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 1.6
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -29.66,
+     "integratedDb": -31.66,
+     "soundingS": 4.63,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "38": {
+       "maxMomentaryDb": -28.62,
+       "integratedDb": -30.65,
+       "soundingS": 4.72,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 2.1
+      },
+      "48": {
+       "maxMomentaryDb": -29.95,
+       "integratedDb": -32.07,
+       "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": -1.3
+      },
+      "57": {
+       "maxMomentaryDb": -30.41,
+       "integratedDb": -32.26,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 1.6
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -44.79,
+    "fullDb": -37.96,
+    "expectedOffsetDb": 12
+   },
+   "bend": {
+    "pitch": 48,
+    "fraction": 0.5,
+    "centsMoved": 48.4,
+    "rangeSt": 0.968,
+    "unbentCents": -1.3,
+    "bentCents": 47.1
    }
   }
  },
  "notes": [
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 59,
-   "vel": 24,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 5.81,
-   "maxMomentaryDb": -34.14,
-   "maxMomentaryFlatDb": -34.68,
-   "integratedDb": -35.83,
-   "peakDbfs": -26.37,
-   "soundingS": 4.61,
-   "f0Hz": 246.849,
-   "centsOffWritten": -0.7
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 59,
-   "vel": 64,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 12.81,
-   "maxMomentaryDb": -29.05,
-   "maxMomentaryFlatDb": -29.78,
-   "integratedDb": -30.31,
-   "peakDbfs": -22.88,
-   "soundingS": 4.62,
-   "f0Hz": 246.71,
-   "centsOffWritten": -1.6
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 59,
-   "vel": 100,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 19.81,
-   "maxMomentaryDb": -20.1,
-   "maxMomentaryFlatDb": -20.85,
-   "integratedDb": -21.67,
-   "peakDbfs": -12.35,
-   "soundingS": 4.65,
-   "f0Hz": 247.103,
-   "centsOffWritten": 1.1
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 59,
-   "vel": 127,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 26.81,
-   "maxMomentaryDb": -18.61,
-   "maxMomentaryFlatDb": -19.47,
-   "integratedDb": -19.93,
-   "peakDbfs": -10.1,
-   "soundingS": 4.62,
-   "f0Hz": 246.628,
-   "centsOffWritten": -2.2
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 67,
-   "vel": 24,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 33.81,
-   "maxMomentaryDb": -36.93,
-   "maxMomentaryFlatDb": -37.16,
-   "integratedDb": -40.46,
-   "peakDbfs": -30.71,
-   "soundingS": 4.6,
-   "f0Hz": 391.89,
-   "centsOffWritten": -0.5
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 67,
-   "vel": 64,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 40.81,
-   "maxMomentaryDb": -21.72,
-   "maxMomentaryFlatDb": -22.02,
-   "integratedDb": -23.46,
-   "peakDbfs": -16.58,
-   "soundingS": 4.74,
-   "f0Hz": 391.963,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 67,
-   "vel": 100,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 47.81,
-   "maxMomentaryDb": -19.71,
-   "maxMomentaryFlatDb": -20.17,
-   "integratedDb": -21.35,
-   "peakDbfs": -13.11,
-   "soundingS": 4.64,
-   "f0Hz": 392.689,
-   "centsOffWritten": 3.1
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 67,
-   "vel": 127,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 54.81,
-   "maxMomentaryDb": -15.82,
-   "maxMomentaryFlatDb": -16.32,
-   "integratedDb": -17.53,
-   "peakDbfs": -10.54,
-   "soundingS": 4.69,
-   "f0Hz": 391.828,
-   "centsOffWritten": -0.7
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 74,
-   "vel": 24,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 61.81,
-   "maxMomentaryDb": -34.68,
-   "maxMomentaryFlatDb": -35.77,
-   "integratedDb": -36.12,
-   "peakDbfs": -29.34,
-   "soundingS": 4.59,
-   "f0Hz": 587.208,
-   "centsOffWritten": -0.4
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 74,
-   "vel": 64,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 68.81,
-   "maxMomentaryDb": -27.02,
-   "maxMomentaryFlatDb": -28.23,
-   "integratedDb": -29.18,
-   "peakDbfs": -21.24,
-   "soundingS": 4.66,
-   "f0Hz": 586.998,
-   "centsOffWritten": -1
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 74,
-   "vel": 100,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 75.81,
-   "maxMomentaryDb": -20.51,
-   "maxMomentaryFlatDb": -21.79,
-   "integratedDb": -21.86,
-   "peakDbfs": -13.98,
-   "soundingS": 4.42,
-   "f0Hz": 587.514,
-   "centsOffWritten": 0.5
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "card",
-   "pitch": 74,
-   "vel": 127,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 82.81,
-   "maxMomentaryDb": -14.68,
-   "maxMomentaryFlatDb": -15.77,
-   "integratedDb": -16.11,
-   "peakDbfs": -9.68,
-   "soundingS": 4.6,
-   "f0Hz": 586.911,
-   "centsOffWritten": -1.2
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "bend",
-   "pitch": 67,
-   "vel": 100,
-   "port": "LGEngHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 89.81,
-   "maxMomentaryDb": -18.74,
-   "maxMomentaryFlatDb": -19.27,
-   "integratedDb": -20.35,
-   "peakDbfs": -12.61,
-   "soundingS": 4.6,
-   "f0Hz": 403.301,
-   "centsOffWritten": 49.2,
-   "bendFraction": 0.5
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 48,
-   "vel": 24,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 561.31,
-   "maxMomentaryDb": -32.13,
-   "maxMomentaryFlatDb": -32.09,
-   "integratedDb": -36.15,
-   "peakDbfs": -24.86,
-   "soundingS": 4.62,
-   "f0Hz": 130.937,
-   "centsOffWritten": 1.6
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 48,
-   "vel": 64,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 568.31,
-   "maxMomentaryDb": -19.34,
-   "maxMomentaryFlatDb": -19.19,
-   "integratedDb": -22.27,
-   "peakDbfs": -12.15,
-   "soundingS": 4.66,
-   "f0Hz": 130.924,
-   "centsOffWritten": 1.5
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 48,
-   "vel": 100,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 575.31,
-   "maxMomentaryDb": -12.57,
-   "maxMomentaryFlatDb": -12.45,
-   "integratedDb": -14.42,
-   "peakDbfs": -5.31,
-   "soundingS": 4.65,
-   "f0Hz": 130.918,
-   "centsOffWritten": 1.4
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 48,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 582.31,
-   "maxMomentaryDb": -11.18,
-   "maxMomentaryFlatDb": -10.99,
-   "integratedDb": -15.87,
-   "peakDbfs": -4.51,
-   "soundingS": 4.56,
-   "f0Hz": 130.688,
-   "centsOffWritten": -1.7
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 60,
-   "vel": 24,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 589.31,
-   "maxMomentaryDb": -31.79,
-   "maxMomentaryFlatDb": -31.87,
-   "integratedDb": -34.36,
-   "peakDbfs": -24.61,
-   "soundingS": 4.65,
-   "f0Hz": 261.681,
-   "centsOffWritten": 0.4
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 60,
-   "vel": 64,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 596.31,
-   "maxMomentaryDb": -21.85,
-   "maxMomentaryFlatDb": -21.83,
-   "integratedDb": -24.57,
-   "peakDbfs": -15.62,
-   "soundingS": 4.66,
-   "f0Hz": 261.571,
-   "centsOffWritten": -0.4
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 60,
-   "vel": 100,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 603.31,
-   "maxMomentaryDb": -11.62,
-   "maxMomentaryFlatDb": -11.53,
-   "integratedDb": -13.58,
-   "peakDbfs": -6.01,
-   "soundingS": 4.62,
-   "f0Hz": 261.32,
-   "centsOffWritten": -2
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 60,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 610.31,
-   "maxMomentaryDb": -13.64,
-   "maxMomentaryFlatDb": -13.81,
-   "integratedDb": -16.17,
-   "peakDbfs": -7.88,
-   "soundingS": 4.59,
-   "f0Hz": 261.46,
-   "centsOffWritten": -1.1
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 71,
-   "vel": 24,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 617.31,
-   "maxMomentaryDb": -36.3,
-   "maxMomentaryFlatDb": -38.45,
-   "integratedDb": -39.68,
-   "peakDbfs": -31.05,
-   "soundingS": 4.64,
-   "f0Hz": 493.582,
-   "centsOffWritten": -1.1
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 71,
-   "vel": 64,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 624.31,
-   "maxMomentaryDb": -26.34,
-   "maxMomentaryFlatDb": -27.88,
-   "integratedDb": -29.1,
-   "peakDbfs": -19.86,
-   "soundingS": 4.59,
-   "f0Hz": 493.809,
-   "centsOffWritten": -0.3
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 71,
-   "vel": 100,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 631.31,
-   "maxMomentaryDb": -21.3,
-   "maxMomentaryFlatDb": -22.95,
-   "integratedDb": -23.23,
-   "peakDbfs": -15.11,
-   "soundingS": 4.57,
-   "f0Hz": 493.885,
-   "centsOffWritten": 0
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "card",
-   "pitch": 71,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 638.31,
-   "maxMomentaryDb": -19.4,
-   "maxMomentaryFlatDb": -20.37,
-   "integratedDb": -21.01,
-   "peakDbfs": -11.95,
-   "soundingS": 4.57,
-   "f0Hz": 493.741,
-   "centsOffWritten": -0.5
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "bend",
-   "pitch": 60,
-   "vel": 100,
-   "port": "LGCello",
-   "ch": 1,
-   "found": true,
-   "onsetS": 645.31,
-   "maxMomentaryDb": -18.73,
-   "maxMomentaryFlatDb": -19.26,
-   "integratedDb": -21.09,
-   "peakDbfs": -12.26,
-   "soundingS": 4.81,
-   "f0Hz": 269.07,
-   "centsOffWritten": 48.6,
-   "bendFraction": 0.5
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 38,
-   "vel": 24,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 653.81,
-   "maxMomentaryDb": -38.46,
-   "maxMomentaryFlatDb": -37.92,
-   "integratedDb": -40.14,
-   "peakDbfs": -30.21,
-   "soundingS": 4.78,
-   "f0Hz": 73.404,
-   "centsOffWritten": -0.3
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 38,
-   "vel": 64,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 660.81,
-   "maxMomentaryDb": -30.72,
-   "maxMomentaryFlatDb": -29.35,
-   "integratedDb": -32.76,
-   "peakDbfs": -23.1,
-   "soundingS": 4.87,
-   "f0Hz": 73.367,
-   "centsOffWritten": -1.2
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 38,
-   "vel": 100,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 667.81,
-   "maxMomentaryDb": -22.23,
-   "maxMomentaryFlatDb": -20.69,
-   "integratedDb": -23.96,
-   "peakDbfs": -15,
-   "soundingS": 4.98,
-   "f0Hz": 73.445,
-   "centsOffWritten": 0.7
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 38,
-   "vel": 127,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 674.81,
-   "maxMomentaryDb": -20.78,
-   "maxMomentaryFlatDb": -19.58,
-   "integratedDb": -22.79,
-   "peakDbfs": -11.02,
-   "soundingS": 4.75,
-   "f0Hz": 73.3,
-   "centsOffWritten": -2.7
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 48,
-   "vel": 24,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 681.81,
-   "maxMomentaryDb": -40.08,
-   "maxMomentaryFlatDb": -39.76,
-   "integratedDb": -42.02,
-   "peakDbfs": -30.98,
-   "soundingS": 4.59,
-   "f0Hz": 130.747,
-   "centsOffWritten": -0.9
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 48,
-   "vel": 64,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 688.81,
-   "maxMomentaryDb": -27.13,
-   "maxMomentaryFlatDb": -26.68,
-   "integratedDb": -29.06,
-   "peakDbfs": -19.19,
-   "soundingS": 4.48,
-   "f0Hz": 130.731,
-   "centsOffWritten": -1.1
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 48,
-   "vel": 100,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 695.81,
-   "maxMomentaryDb": -25.14,
-   "maxMomentaryFlatDb": -25.06,
-   "integratedDb": -26.87,
-   "peakDbfs": -18.67,
-   "soundingS": 4.67,
-   "f0Hz": 130.91,
-   "centsOffWritten": 1.3
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 48,
-   "vel": 127,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 702.81,
-   "maxMomentaryDb": -21.61,
-   "maxMomentaryFlatDb": -21.45,
-   "integratedDb": -23.77,
-   "peakDbfs": -14.06,
-   "soundingS": 4.6,
-   "f0Hz": 130.774,
-   "centsOffWritten": -0.5
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 57,
-   "vel": 24,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 709.81,
-   "maxMomentaryDb": -38.43,
-   "maxMomentaryFlatDb": -38.52,
-   "integratedDb": -40.56,
-   "peakDbfs": -31.46,
-   "soundingS": 4.57,
-   "f0Hz": 220.243,
-   "centsOffWritten": 1.9
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 57,
-   "vel": 64,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 716.81,
-   "maxMomentaryDb": -32.35,
-   "maxMomentaryFlatDb": -32.29,
-   "integratedDb": -35.09,
-   "peakDbfs": -26.5,
-   "soundingS": 4.73,
-   "f0Hz": 219.718,
-   "centsOffWritten": -2.2
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 57,
-   "vel": 100,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 723.81,
-   "maxMomentaryDb": -24.64,
-   "maxMomentaryFlatDb": -24.59,
-   "integratedDb": -26.85,
-   "peakDbfs": -18.47,
-   "soundingS": 4.81,
-   "f0Hz": 219.878,
-   "centsOffWritten": -1
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "card",
-   "pitch": 57,
-   "vel": 127,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 730.81,
-   "maxMomentaryDb": -22.32,
-   "maxMomentaryFlatDb": -22.39,
-   "integratedDb": -24.31,
-   "peakDbfs": -14.95,
-   "soundingS": 4.67,
-   "f0Hz": 220.052,
-   "centsOffWritten": 0.4
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "bend",
-   "pitch": 48,
-   "vel": 100,
-   "port": "LGBass",
-   "ch": 1,
-   "found": true,
-   "onsetS": 737.81,
-   "maxMomentaryDb": -25.33,
-   "maxMomentaryFlatDb": -25.13,
-   "integratedDb": -27.3,
-   "peakDbfs": -17.66,
-   "soundingS": 4.7,
-   "f0Hz": 134.348,
-   "centsOffWritten": 46.2,
-   "bendFraction": 0.5
-  },
   {
    "inst": "small_metals_finger_cymbals",
    "label": "Finger Cymbals",
@@ -5981,9 +5276,9 @@
    "peakDbfs": -49.4,
    "soundingS": 4.7,
    "f0Hz": 174.225,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.9,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 352.99,
    "run": "30-REC-260919_1035.wav"
   },
@@ -6003,9 +5298,9 @@
    "peakDbfs": -34.57,
    "soundingS": 4.7,
    "f0Hz": 174.301,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.1,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 361.58,
    "run": "30-REC-260919_1035.wav"
   },
@@ -6025,9 +5320,9 @@
    "peakDbfs": -25.91,
    "soundingS": 4.72,
    "f0Hz": 174.218,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.9,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 347.13,
    "run": "30-REC-260919_1035.wav"
   },
@@ -6047,9 +5342,9 @@
    "peakDbfs": -20.88,
    "soundingS": 4.73,
    "f0Hz": 174.247,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.6,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 346.61,
    "run": "30-REC-260919_1035.wav"
   },
@@ -6180,7 +5475,7 @@
    "soundingS": 4.68,
    "f0Hz": 295.374,
    "centsOffWritten": 4.3,
-   "centsByAutocorrelation": 10.0,
+   "centsByAutocorrelation": 10,
    "centsBySpectralPeak": 4.3,
    "spectralPeakStrength": 1142.61,
    "run": "30-REC-260919_1035.wav"
@@ -6224,7 +5519,7 @@
    "soundingS": 4.71,
    "f0Hz": 295.364,
    "centsOffWritten": 4.3,
-   "centsByAutocorrelation": 10.0,
+   "centsByAutocorrelation": 10,
    "centsBySpectralPeak": 4.3,
    "spectralPeakStrength": 1153.15,
    "run": "30-REC-260919_1035.wav"
@@ -6334,7 +5629,7 @@
    "soundingS": 4.59,
    "f0Hz": 504.846,
    "centsOffWritten": 7.3,
-   "centsByAutocorrelation": 38.0,
+   "centsByAutocorrelation": 38,
    "centsBySpectralPeak": 7.3,
    "spectralPeakStrength": 525.58,
    "run": "30-REC-260919_1035.wav"
@@ -6378,7 +5673,7 @@
    "soundingS": 4.6,
    "f0Hz": 504.856,
    "centsOffWritten": 7.3,
-   "centsByAutocorrelation": 38.0,
+   "centsByAutocorrelation": 38,
    "centsBySpectralPeak": 7.3,
    "spectralPeakStrength": 518.42,
    "run": "30-REC-260919_1035.wav"
@@ -6394,7 +5689,7 @@
    "found": true,
    "onsetS": 157.68,
    "maxMomentaryDb": -36.62,
-   "maxMomentaryFlatDb": -38.0,
+   "maxMomentaryFlatDb": -38,
    "integratedDb": -41.27,
    "peakDbfs": -29.38,
    "soundingS": 4.62,
@@ -6422,7 +5717,7 @@
    "soundingS": 4.73,
    "f0Hz": 653.942,
    "centsOffWritten": 7.3,
-   "centsByAutocorrelation": -14.0,
+   "centsByAutocorrelation": -14,
    "centsBySpectralPeak": 7.3,
    "spectralPeakStrength": 411.5,
    "run": "30-REC-260919_1035.wav"
@@ -6484,7 +5779,7 @@
    "maxMomentaryDb": -33.93,
    "maxMomentaryFlatDb": -34.1,
    "integratedDb": -37.71,
-   "peakDbfs": -30.0,
+   "peakDbfs": -30,
    "soundingS": 4.75,
    "f0Hz": 653.545,
    "centsOffWritten": 7.3,
@@ -6773,9 +6068,9 @@
    "peakDbfs": -11.44,
    "soundingS": 4.72,
    "f0Hz": 174.304,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.1,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 362.87,
    "run": "30-REC-260919_1119.wav"
   },
@@ -6906,7 +6201,7 @@
    "soundingS": 4.92,
    "f0Hz": 250.963,
    "centsOffWritten": -0.9,
-   "centsByAutocorrelation": 28.0,
+   "centsByAutocorrelation": 28,
    "centsBySpectralPeak": -0.9,
    "spectralPeakStrength": 617.39,
    "run": "30-REC-260919_1119.wav"
@@ -7040,7 +6335,7 @@
    "centsOffWritten": 3.9,
    "centsByAutocorrelation": -22.2,
    "centsBySpectralPeak": 3.9,
-   "spectralPeakStrength": 3554.0,
+   "spectralPeakStrength": 3554,
    "run": "30-REC-260919_1119.wav"
   },
   {
@@ -7302,7 +6597,7 @@
    "soundingS": 4.41,
    "f0Hz": 700.87,
    "centsOffWritten": 5.4,
-   "centsByAutocorrelation": 6.0,
+   "centsByAutocorrelation": 6,
    "centsBySpectralPeak": 5.4,
    "spectralPeakStrength": 6996.77,
    "run": "30-REC-260919_1119.wav"
@@ -7323,9 +6618,9 @@
    "peakDbfs": -17.09,
    "soundingS": 4.47,
    "f0Hz": 726.739,
-   "centsOffWritten": 5.0,
+   "centsOffWritten": 5,
    "centsByAutocorrelation": -31.3,
-   "centsBySpectralPeak": 5.0,
+   "centsBySpectralPeak": 5,
    "spectralPeakStrength": 313.14,
    "run": "30-REC-260919_1119.wav"
   },
@@ -7346,7 +6641,7 @@
    "soundingS": 4.56,
    "f0Hz": 785.795,
    "centsOffWritten": 4.4,
-   "centsByAutocorrelation": 4.0,
+   "centsByAutocorrelation": 4,
    "centsBySpectralPeak": 4.4,
    "spectralPeakStrength": 6380.3,
    "run": "30-REC-260919_1119.wav"
@@ -7433,9 +6728,9 @@
    "peakDbfs": -5.88,
    "soundingS": 4.39,
    "f0Hz": 990.568,
-   "centsOffWritten": 6.0,
+   "centsOffWritten": 6,
    "centsByAutocorrelation": 4.9,
-   "centsBySpectralPeak": 6.0,
+   "centsBySpectralPeak": 6,
    "spectralPeakStrength": 7665.37,
    "run": "30-REC-260919_1119.wav"
   },
@@ -7478,7 +6773,7 @@
    "soundingS": 4.44,
    "f0Hz": 1067.853,
    "centsOffWritten": 6.3,
-   "centsByAutocorrelation": -65.0,
+   "centsByAutocorrelation": -65,
    "centsBySpectralPeak": 6.3,
    "spectralPeakStrength": 3755.1,
    "run": "30-REC-260919_1119.wav"
@@ -7565,275 +6860,872 @@
    "peakDbfs": -12.02,
    "soundingS": 4.55,
    "f0Hz": 1396.325,
-   "centsOffWritten": 6.0,
+   "centsOffWritten": 6,
    "centsByAutocorrelation": -0.7,
-   "centsBySpectralPeak": 6.0,
+   "centsBySpectralPeak": 6,
    "spectralPeakStrength": 1784.97,
    "run": "30-REC-260919_1119.wav"
   },
   {
    "inst": "english_horn",
    "label": "English Horn",
-   "role": "rrprobe",
-   "pitch": 67,
-   "vel": 127,
+   "role": "card",
+   "pitch": 59,
+   "vel": 24,
    "port": "LGEngHorn",
    "ch": 2,
    "found": true,
-   "onsetS": 303.16,
-   "maxMomentaryDb": -29.86,
-   "maxMomentaryFlatDb": -30.32,
-   "integratedDb": -31.21,
-   "peakDbfs": -24.47,
-   "soundingS": 4.5,
-   "f0Hz": 392.142,
-   "centsOffWritten": 0.3,
-   "centsByAutocorrelation": 0.6,
-   "centsBySpectralPeak": 0.3,
-   "spectralPeakStrength": 3577.42,
-   "run": "30-REC-260919_1119.wav"
+   "onsetS": 5.65,
+   "maxMomentaryDb": -48.24,
+   "maxMomentaryFlatDb": -48.83,
+   "integratedDb": -50.0,
+   "peakDbfs": -40.13,
+   "soundingS": 4.58,
+   "f0Hz": 247.165,
+   "centsOffWritten": 2.5,
+   "centsByAutocorrelation": 1.6,
+   "centsBySpectralPeak": 2.5,
+   "spectralPeakStrength": 8868.89,
+   "run": "30-REC-260919_1140.wav"
   },
   {
    "inst": "english_horn",
    "label": "English Horn",
-   "role": "rrprobe",
-   "pitch": 67,
-   "vel": 127,
+   "role": "card",
+   "pitch": 59,
+   "vel": 64,
    "port": "LGEngHorn",
    "ch": 2,
    "found": true,
-   "onsetS": 310.16,
-   "maxMomentaryDb": -26.22,
-   "maxMomentaryFlatDb": -26.55,
-   "integratedDb": -28.26,
-   "peakDbfs": -20.97,
-   "soundingS": 4.78,
-   "f0Hz": 392.162,
-   "centsOffWritten": 1.2,
-   "centsByAutocorrelation": 0.7,
-   "centsBySpectralPeak": 1.2,
-   "spectralPeakStrength": 4809.44,
-   "run": "30-REC-260919_1119.wav"
+   "onsetS": 12.65,
+   "maxMomentaryDb": -40.24,
+   "maxMomentaryFlatDb": -40.79,
+   "integratedDb": -41.87,
+   "peakDbfs": -32.27,
+   "soundingS": 4.59,
+   "f0Hz": 246.926,
+   "centsOffWritten": -0.0,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": -0.0,
+   "spectralPeakStrength": 8502.92,
+   "run": "30-REC-260919_1140.wav"
   },
   {
    "inst": "english_horn",
    "label": "English Horn",
-   "role": "rrprobe",
-   "pitch": 67,
-   "vel": 127,
+   "role": "card",
+   "pitch": 59,
+   "vel": 100,
    "port": "LGEngHorn",
    "ch": 2,
    "found": true,
-   "onsetS": 317.16,
-   "maxMomentaryDb": -29.78,
-   "maxMomentaryFlatDb": -30.24,
-   "integratedDb": -31.36,
-   "peakDbfs": -23.26,
-   "soundingS": 4.57,
-   "f0Hz": 392.756,
-   "centsOffWritten": 3.0,
-   "centsByAutocorrelation": 3.4,
-   "centsBySpectralPeak": 3.0,
-   "spectralPeakStrength": 8785.91,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "english_horn",
-   "label": "English Horn",
-   "role": "rrprobe",
-   "pitch": 67,
-   "vel": 127,
-   "port": "LGEngHorn",
-   "ch": 2,
-   "found": true,
-   "onsetS": 324.16,
-   "maxMomentaryDb": -29.39,
-   "maxMomentaryFlatDb": -29.84,
-   "integratedDb": -31.05,
-   "peakDbfs": -24.1,
-   "soundingS": 4.61,
-   "f0Hz": 392.236,
-   "centsOffWritten": 0.7,
-   "centsByAutocorrelation": 1.1,
-   "centsBySpectralPeak": 0.7,
-   "spectralPeakStrength": 3633.24,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "rrprobe",
-   "pitch": 60,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 2,
-   "found": true,
-   "onsetS": 332.66,
-   "maxMomentaryDb": -27.9,
-   "maxMomentaryFlatDb": -28.07,
-   "integratedDb": -30.6,
-   "peakDbfs": -22.07,
-   "soundingS": 4.69,
-   "f0Hz": 261.597,
-   "centsOffWritten": 1.6,
-   "centsByAutocorrelation": -0.2,
-   "centsBySpectralPeak": 1.6,
-   "spectralPeakStrength": 1110.31,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "rrprobe",
-   "pitch": 60,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 2,
-   "found": true,
-   "onsetS": 339.66,
-   "maxMomentaryDb": -31.33,
-   "maxMomentaryFlatDb": -31.46,
-   "integratedDb": -33.7,
-   "peakDbfs": -24.26,
-   "soundingS": 4.63,
-   "f0Hz": 261.947,
-   "centsOffWritten": 2.3,
-   "centsByAutocorrelation": 2.1,
-   "centsBySpectralPeak": 2.3,
-   "spectralPeakStrength": 558.91,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "rrprobe",
-   "pitch": 60,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 2,
-   "found": true,
-   "onsetS": 346.66,
-   "maxMomentaryDb": -22.72,
-   "maxMomentaryFlatDb": -22.66,
-   "integratedDb": -24.86,
-   "peakDbfs": -16.99,
-   "soundingS": 4.69,
-   "f0Hz": 261.639,
-   "centsOffWritten": 0.4,
-   "centsByAutocorrelation": 0.1,
-   "centsBySpectralPeak": 0.4,
-   "spectralPeakStrength": 1632.77,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "cello",
-   "label": "Cello",
-   "role": "rrprobe",
-   "pitch": 60,
-   "vel": 127,
-   "port": "LGCello",
-   "ch": 2,
-   "found": true,
-   "onsetS": 353.66,
-   "maxMomentaryDb": -27.99,
-   "maxMomentaryFlatDb": -28.17,
-   "integratedDb": -30.73,
-   "peakDbfs": -22.0,
-   "soundingS": 4.68,
-   "f0Hz": 261.696,
-   "centsOffWritten": 2.0,
-   "centsByAutocorrelation": 0.5,
-   "centsBySpectralPeak": 2.0,
-   "spectralPeakStrength": 1065.43,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "rrprobe",
-   "pitch": 48,
-   "vel": 127,
-   "port": "LGBass",
-   "ch": 2,
-   "found": true,
-   "onsetS": 362.16,
-   "maxMomentaryDb": -29.82,
-   "maxMomentaryFlatDb": -29.68,
-   "integratedDb": -31.65,
-   "peakDbfs": -22.33,
-   "soundingS": 4.56,
-   "f0Hz": 130.679,
-   "centsOffWritten": -3.5,
-   "centsByAutocorrelation": -1.8,
-   "centsBySpectralPeak": -3.5,
-   "spectralPeakStrength": 2266.34,
-   "run": "30-REC-260919_1119.wav"
-  },
-  {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "rrprobe",
-   "pitch": 48,
-   "vel": 127,
-   "port": "LGBass",
-   "ch": 2,
-   "found": true,
-   "onsetS": 369.16,
-   "maxMomentaryDb": -27.27,
-   "maxMomentaryFlatDb": -26.71,
-   "integratedDb": -28.97,
-   "peakDbfs": -19.72,
+   "onsetS": 19.65,
+   "maxMomentaryDb": -36.07,
+   "maxMomentaryFlatDb": -36.91,
+   "integratedDb": -37.21,
+   "peakDbfs": -27.63,
    "soundingS": 4.55,
-   "f0Hz": 130.841,
-   "centsOffWritten": -1.0,
+   "f0Hz": 246.745,
+   "centsOffWritten": -2.9,
+   "centsByAutocorrelation": -1.4,
+   "centsBySpectralPeak": -2.9,
+   "spectralPeakStrength": 10479.49,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 59,
+   "vel": 127,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 26.65,
+   "maxMomentaryDb": -32.29,
+   "maxMomentaryFlatDb": -32.89,
+   "integratedDb": -33.32,
+   "peakDbfs": -23.74,
+   "soundingS": 4.49,
+   "f0Hz": 246.981,
+   "centsOffWritten": -0.8,
+   "centsByAutocorrelation": 0.3,
+   "centsBySpectralPeak": -0.8,
+   "spectralPeakStrength": 11745.6,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 67,
+   "vel": 24,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 33.65,
+   "maxMomentaryDb": -50.6,
+   "maxMomentaryFlatDb": -50.83,
+   "integratedDb": -54.17,
+   "peakDbfs": -44.54,
+   "soundingS": 4.54,
+   "f0Hz": 392.087,
+   "centsOffWritten": 0.3,
    "centsByAutocorrelation": 0.4,
-   "centsBySpectralPeak": -1.0,
-   "spectralPeakStrength": 1598.72,
-   "run": "30-REC-260919_1119.wav"
+   "centsBySpectralPeak": 0.3,
+   "spectralPeakStrength": 4554.89,
+   "run": "30-REC-260919_1140.wav"
   },
   {
-   "inst": "double_bass",
-   "label": "D. Bass",
-   "role": "rrprobe",
-   "pitch": 48,
-   "vel": 127,
-   "port": "LGBass",
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 67,
+   "vel": 64,
+   "port": "LGEngHorn",
    "ch": 2,
    "found": true,
-   "onsetS": 376.16,
-   "maxMomentaryDb": -29.98,
-   "maxMomentaryFlatDb": -29.84,
-   "integratedDb": -31.66,
-   "peakDbfs": -22.63,
+   "onsetS": 40.65,
+   "maxMomentaryDb": -43.25,
+   "maxMomentaryFlatDb": -43.48,
+   "integratedDb": -46.18,
+   "peakDbfs": -36.91,
+   "soundingS": 4.62,
+   "f0Hz": 391.646,
+   "centsOffWritten": -1.1,
+   "centsByAutocorrelation": -1.5,
+   "centsBySpectralPeak": -1.1,
+   "spectralPeakStrength": 4527.29,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 67,
+   "vel": 100,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 47.65,
+   "maxMomentaryDb": -33.58,
+   "maxMomentaryFlatDb": -34.07,
+   "integratedDb": -35.1,
+   "peakDbfs": -28.42,
+   "soundingS": 4.67,
+   "f0Hz": 391.856,
+   "centsOffWritten": -0.7,
+   "centsByAutocorrelation": -0.6,
+   "centsBySpectralPeak": -0.7,
+   "spectralPeakStrength": 3241.09,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 67,
+   "vel": 127,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 54.65,
+   "maxMomentaryDb": -29.55,
+   "maxMomentaryFlatDb": -30.05,
+   "integratedDb": -31.35,
+   "peakDbfs": -24.24,
+   "soundingS": 4.66,
+   "f0Hz": 391.654,
+   "centsOffWritten": -1.5,
+   "centsByAutocorrelation": -1.5,
+   "centsBySpectralPeak": -1.5,
+   "spectralPeakStrength": 2474.46,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 74,
+   "vel": 24,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 61.65,
+   "maxMomentaryDb": -47.65,
+   "maxMomentaryFlatDb": -48.73,
+   "integratedDb": -49.41,
+   "peakDbfs": -42.66,
+   "soundingS": 4.56,
+   "f0Hz": 586.977,
+   "centsOffWritten": -0.7,
+   "centsByAutocorrelation": -1.0,
+   "centsBySpectralPeak": -0.7,
+   "spectralPeakStrength": 6534.68,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 74,
+   "vel": 64,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 68.65,
+   "maxMomentaryDb": -40.56,
+   "maxMomentaryFlatDb": -41.66,
+   "integratedDb": -41.96,
+   "peakDbfs": -35.22,
    "soundingS": 4.57,
-   "f0Hz": 130.614,
-   "centsOffWritten": -4.4,
-   "centsByAutocorrelation": -2.6,
-   "centsBySpectralPeak": -4.4,
-   "spectralPeakStrength": 2208.01,
-   "run": "30-REC-260919_1119.wav"
+   "f0Hz": 587.277,
+   "centsOffWritten": 0.4,
+   "centsByAutocorrelation": -0.2,
+   "centsBySpectralPeak": 0.4,
+   "spectralPeakStrength": 6888.02,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 74,
+   "vel": 100,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 75.65,
+   "maxMomentaryDb": -34.15,
+   "maxMomentaryFlatDb": -35.25,
+   "integratedDb": -35.34,
+   "peakDbfs": -28.29,
+   "soundingS": 4.58,
+   "f0Hz": 587.571,
+   "centsOffWritten": 0.8,
+   "centsByAutocorrelation": 0.7,
+   "centsBySpectralPeak": 0.8,
+   "spectralPeakStrength": 8750.38,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "card",
+   "pitch": 74,
+   "vel": 127,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 82.65,
+   "maxMomentaryDb": -28.93,
+   "maxMomentaryFlatDb": -30.03,
+   "integratedDb": -30.35,
+   "peakDbfs": -23.93,
+   "soundingS": 4.47,
+   "f0Hz": 587.125,
+   "centsOffWritten": -0.6,
+   "centsByAutocorrelation": -0.6,
+   "centsBySpectralPeak": -0.6,
+   "spectralPeakStrength": 7738.95,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "role": "bend",
+   "pitch": 67,
+   "vel": 100,
+   "port": "LGEngHorn",
+   "ch": 2,
+   "found": true,
+   "onsetS": 89.65,
+   "maxMomentaryDb": -34.36,
+   "maxMomentaryFlatDb": -34.92,
+   "integratedDb": -35.64,
+   "peakDbfs": -28.08,
+   "soundingS": 4.5,
+   "f0Hz": 402.725,
+   "centsOffWritten": 46.4,
+   "centsByAutocorrelation": 46.7,
+   "centsBySpectralPeak": 46.4,
+   "spectralPeakStrength": 2926.44,
+   "bendFraction": 0.5,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 48,
+   "vel": 24,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 98.15,
+   "maxMomentaryDb": -46.18,
+   "maxMomentaryFlatDb": -46.1,
+   "integratedDb": -50.52,
+   "peakDbfs": -39.61,
+   "soundingS": 4.58,
+   "f0Hz": 130.78,
+   "centsOffWritten": -5.9,
+   "centsByAutocorrelation": -0.4,
+   "centsBySpectralPeak": -5.9,
+   "spectralPeakStrength": 211.57,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 105.15,
+   "maxMomentaryDb": -39.33,
+   "maxMomentaryFlatDb": -39.26,
+   "integratedDb": -43.65,
+   "peakDbfs": -32.77,
+   "soundingS": 4.58,
+   "f0Hz": 130.787,
+   "centsOffWritten": -5.8,
+   "centsByAutocorrelation": -0.3,
+   "centsBySpectralPeak": -5.8,
+   "spectralPeakStrength": 211.01,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 48,
+   "vel": 100,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 112.15,
+   "maxMomentaryDb": -28.54,
+   "maxMomentaryFlatDb": -28.36,
+   "integratedDb": -33.16,
+   "peakDbfs": -21.99,
+   "soundingS": 4.55,
+   "f0Hz": 130.728,
+   "centsOffWritten": -5.5,
+   "centsByAutocorrelation": -1.1,
+   "centsBySpectralPeak": -5.5,
+   "spectralPeakStrength": 831.63,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 119.15,
+   "maxMomentaryDb": -25.37,
+   "maxMomentaryFlatDb": -25.18,
+   "integratedDb": -30.0,
+   "peakDbfs": -18.82,
+   "soundingS": 4.56,
+   "f0Hz": 130.732,
+   "centsOffWritten": -5.5,
+   "centsByAutocorrelation": -1.1,
+   "centsBySpectralPeak": -5.5,
+   "spectralPeakStrength": 834.15,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 60,
+   "vel": 24,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 126.15,
+   "maxMomentaryDb": -46.06,
+   "maxMomentaryFlatDb": -46.13,
+   "integratedDb": -48.62,
+   "peakDbfs": -38.88,
+   "soundingS": 4.63,
+   "f0Hz": 261.741,
+   "centsOffWritten": 0.9,
+   "centsByAutocorrelation": 0.8,
+   "centsBySpectralPeak": 0.9,
+   "spectralPeakStrength": 1049.94,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 60,
+   "vel": 64,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 133.15,
+   "maxMomentaryDb": -38.7,
+   "maxMomentaryFlatDb": -38.77,
+   "integratedDb": -41.18,
+   "peakDbfs": -33.03,
+   "soundingS": 4.62,
+   "f0Hz": 261.285,
+   "centsOffWritten": -1.6,
+   "centsByAutocorrelation": -2.3,
+   "centsBySpectralPeak": -1.6,
+   "spectralPeakStrength": 1085.26,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 60,
+   "vel": 100,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 140.15,
+   "maxMomentaryDb": -31.19,
+   "maxMomentaryFlatDb": -31.4,
+   "integratedDb": -33.97,
+   "peakDbfs": -25.17,
+   "soundingS": 4.66,
+   "f0Hz": 261.736,
+   "centsOffWritten": 2.3,
+   "centsByAutocorrelation": 0.7,
+   "centsBySpectralPeak": 2.3,
+   "spectralPeakStrength": 1060.57,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 60,
+   "vel": 127,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 147.15,
+   "maxMomentaryDb": -27.99,
+   "maxMomentaryFlatDb": -28.18,
+   "integratedDb": -30.73,
+   "peakDbfs": -22.01,
+   "soundingS": 4.68,
+   "f0Hz": 261.685,
+   "centsOffWritten": 2.1,
+   "centsByAutocorrelation": 0.4,
+   "centsBySpectralPeak": 2.1,
+   "spectralPeakStrength": 1124.39,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 71,
+   "vel": 24,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 154.15,
+   "maxMomentaryDb": -51.0,
+   "maxMomentaryFlatDb": -53.2,
+   "integratedDb": -53.83,
+   "peakDbfs": -45.12,
+   "soundingS": 4.58,
+   "f0Hz": 493.762,
+   "centsOffWritten": -4.1,
+   "centsByAutocorrelation": -0.4,
+   "centsBySpectralPeak": -4.1,
+   "spectralPeakStrength": 63.65,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 71,
+   "vel": 64,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 161.15,
+   "maxMomentaryDb": -44.26,
+   "maxMomentaryFlatDb": -46.53,
+   "integratedDb": -46.77,
+   "peakDbfs": -38.05,
+   "soundingS": 4.57,
+   "f0Hz": 493.894,
+   "centsOffWritten": -3.5,
+   "centsByAutocorrelation": 0.0,
+   "centsBySpectralPeak": -3.5,
+   "spectralPeakStrength": 62.02,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 71,
+   "vel": 100,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 168.15,
+   "maxMomentaryDb": -38.24,
+   "maxMomentaryFlatDb": -40.89,
+   "integratedDb": -39.98,
+   "peakDbfs": -31.75,
+   "soundingS": 4.54,
+   "f0Hz": 493.658,
+   "centsOffWritten": -1.4,
+   "centsByAutocorrelation": -0.8,
+   "centsBySpectralPeak": -1.4,
+   "spectralPeakStrength": 116.47,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "card",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 175.15,
+   "maxMomentaryDb": -34.56,
+   "maxMomentaryFlatDb": -37.33,
+   "integratedDb": -36.2,
+   "peakDbfs": -28.62,
+   "soundingS": 4.53,
+   "f0Hz": 493.351,
+   "centsOffWritten": -2.4,
+   "centsByAutocorrelation": -1.9,
+   "centsBySpectralPeak": -2.4,
+   "spectralPeakStrength": 86.25,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "role": "bend",
+   "pitch": 60,
+   "vel": 100,
+   "port": "LGCello",
+   "ch": 2,
+   "found": true,
+   "onsetS": 182.15,
+   "maxMomentaryDb": -32.94,
+   "maxMomentaryFlatDb": -33.42,
+   "integratedDb": -35.18,
+   "peakDbfs": -26.48,
+   "soundingS": 4.78,
+   "f0Hz": 268.986,
+   "centsOffWritten": 50.9,
+   "centsByAutocorrelation": 48.0,
+   "centsBySpectralPeak": 50.9,
+   "spectralPeakStrength": 591.28,
+   "bendFraction": 0.5,
+   "run": "30-REC-260919_1140.wav"
   },
   {
    "inst": "double_bass",
    "label": "D. Bass",
-   "role": "rrprobe",
+   "role": "card",
+   "pitch": 38,
+   "vel": 24,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 190.65,
+   "maxMomentaryDb": -46.69,
+   "maxMomentaryFlatDb": -46.13,
+   "integratedDb": -48.32,
+   "peakDbfs": -38.52,
+   "soundingS": 4.74,
+   "f0Hz": 73.474,
+   "centsOffWritten": 2.7,
+   "centsByAutocorrelation": 1.4,
+   "centsBySpectralPeak": 2.7,
+   "spectralPeakStrength": 191.01,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 38,
+   "vel": 64,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 197.65,
+   "maxMomentaryDb": -36.97,
+   "maxMomentaryFlatDb": -36.42,
+   "integratedDb": -38.66,
+   "peakDbfs": -28.65,
+   "soundingS": 4.75,
+   "f0Hz": 73.344,
+   "centsOffWritten": -0.7,
+   "centsByAutocorrelation": -1.7,
+   "centsBySpectralPeak": -0.7,
+   "spectralPeakStrength": 154.84,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 38,
+   "vel": 100,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 204.65,
+   "maxMomentaryDb": -32.6,
+   "maxMomentaryFlatDb": -31.43,
+   "integratedDb": -34.64,
+   "peakDbfs": -22.91,
+   "soundingS": 4.72,
+   "f0Hz": 73.383,
+   "centsOffWritten": 2.2,
+   "centsByAutocorrelation": -0.8,
+   "centsBySpectralPeak": 2.2,
+   "spectralPeakStrength": 403.98,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 38,
+   "vel": 127,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 211.65,
+   "maxMomentaryDb": -28.62,
+   "maxMomentaryFlatDb": -27.45,
+   "integratedDb": -30.65,
+   "peakDbfs": -18.9,
+   "soundingS": 4.72,
+   "f0Hz": 73.372,
+   "centsOffWritten": 2.1,
+   "centsByAutocorrelation": -1.0,
+   "centsBySpectralPeak": 2.1,
+   "spectralPeakStrength": 401.88,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 48,
+   "vel": 24,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 218.65,
+   "maxMomentaryDb": -48.3,
+   "maxMomentaryFlatDb": -47.97,
+   "integratedDb": -50.22,
+   "peakDbfs": -39.19,
+   "soundingS": 4.56,
+   "f0Hz": 130.729,
+   "centsOffWritten": -2.6,
+   "centsByAutocorrelation": -1.1,
+   "centsBySpectralPeak": -2.6,
+   "spectralPeakStrength": 622.91,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 225.65,
+   "maxMomentaryDb": -38.37,
+   "maxMomentaryFlatDb": -38.04,
+   "integratedDb": -40.32,
+   "peakDbfs": -29.3,
+   "soundingS": 4.56,
+   "f0Hz": 130.753,
+   "centsOffWritten": -2.2,
+   "centsByAutocorrelation": -0.8,
+   "centsBySpectralPeak": -2.2,
+   "spectralPeakStrength": 629.94,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 48,
+   "vel": 100,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 232.65,
+   "maxMomentaryDb": -33.95,
+   "maxMomentaryFlatDb": -33.79,
+   "integratedDb": -36.08,
+   "peakDbfs": -26.36,
+   "soundingS": 4.58,
+   "f0Hz": 130.82,
+   "centsOffWritten": -1.3,
+   "centsByAutocorrelation": 0.1,
+   "centsBySpectralPeak": -1.3,
+   "spectralPeakStrength": 2132.92,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
    "pitch": 48,
    "vel": 127,
    "port": "LGBass",
    "ch": 2,
    "found": true,
-   "onsetS": 383.16,
-   "maxMomentaryDb": -27.12,
-   "maxMomentaryFlatDb": -26.55,
-   "integratedDb": -28.81,
-   "peakDbfs": -19.46,
-   "soundingS": 4.53,
-   "f0Hz": 130.924,
-   "centsOffWritten": 0.5,
-   "centsByAutocorrelation": 1.5,
-   "centsBySpectralPeak": 0.5,
-   "spectralPeakStrength": 1745.01,
-   "run": "30-REC-260919_1119.wav"
+   "onsetS": 239.65,
+   "maxMomentaryDb": -29.95,
+   "maxMomentaryFlatDb": -29.79,
+   "integratedDb": -32.07,
+   "peakDbfs": -22.35,
+   "soundingS": 4.58,
+   "f0Hz": 130.821,
+   "centsOffWritten": -1.3,
+   "centsByAutocorrelation": 0.1,
+   "centsBySpectralPeak": -1.3,
+   "spectralPeakStrength": 2133.74,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 57,
+   "vel": 24,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 246.65,
+   "maxMomentaryDb": -47.37,
+   "maxMomentaryFlatDb": -47.43,
+   "integratedDb": -49.71,
+   "peakDbfs": -40.29,
+   "soundingS": 4.64,
+   "f0Hz": 219.933,
+   "centsOffWritten": 0.3,
+   "centsByAutocorrelation": -0.5,
+   "centsBySpectralPeak": 0.3,
+   "spectralPeakStrength": 536.9,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 57,
+   "vel": 64,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 253.65,
+   "maxMomentaryDb": -37.5,
+   "maxMomentaryFlatDb": -37.55,
+   "integratedDb": -39.91,
+   "peakDbfs": -30.53,
+   "soundingS": 4.66,
+   "f0Hz": 219.895,
+   "centsOffWritten": 0.1,
+   "centsByAutocorrelation": -0.8,
+   "centsBySpectralPeak": 0.1,
+   "spectralPeakStrength": 494.25,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 57,
+   "vel": 100,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 260.65,
+   "maxMomentaryDb": -34.41,
+   "maxMomentaryFlatDb": -34.48,
+   "integratedDb": -36.26,
+   "peakDbfs": -27.19,
+   "soundingS": 4.6,
+   "f0Hz": 220.199,
+   "centsOffWritten": 1.6,
+   "centsByAutocorrelation": 1.6,
+   "centsBySpectralPeak": 1.6,
+   "spectralPeakStrength": 1790.08,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "card",
+   "pitch": 57,
+   "vel": 127,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 267.65,
+   "maxMomentaryDb": -30.41,
+   "maxMomentaryFlatDb": -30.48,
+   "integratedDb": -32.26,
+   "peakDbfs": -23.17,
+   "soundingS": 4.6,
+   "f0Hz": 220.183,
+   "centsOffWritten": 1.6,
+   "centsByAutocorrelation": 1.4,
+   "centsBySpectralPeak": 1.6,
+   "spectralPeakStrength": 1797.71,
+   "run": "30-REC-260919_1140.wav"
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "role": "bend",
+   "pitch": 48,
+   "vel": 100,
+   "port": "LGBass",
+   "ch": 2,
+   "found": true,
+   "onsetS": 274.65,
+   "maxMomentaryDb": -33.46,
+   "maxMomentaryFlatDb": -33.23,
+   "integratedDb": -35.36,
+   "peakDbfs": -25.79,
+   "soundingS": 4.69,
+   "f0Hz": 134.542,
+   "centsOffWritten": 47.1,
+   "centsByAutocorrelation": 48.7,
+   "centsBySpectralPeak": 47.1,
+   "spectralPeakStrength": 2735.84,
+   "bendFraction": 0.5,
+   "run": "30-REC-260919_1140.wav"
   }
  ]
 }

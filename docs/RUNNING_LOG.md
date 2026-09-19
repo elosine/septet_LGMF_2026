@@ -4153,3 +4153,42 @@ The english horn and double bass scatter 3.6 and 2.9 dB without the 1-equals-4 s
 | Bass XS | **6** "Senza Vibrato Velocity" | `LGBass` ch 1 · 2 · 3 · 4 |
 
 **Edited IN PLACE this time, not copied to a new preset.** The vibraphone got its own preset 13 because that was an experiment and the library default was worth keeping intact. This is no longer an experiment: round robin off is simply what this piece wants, editing preset 12/6 in place needs **no recipe change** so every score already written keeps working untouched, and the default is recoverable at any time by reloading the .nki.
+
+---
+
+## §90. 1b.5 again — spread 18.8 → 6.15 dB, both tutti checks PASS, and the last fault is the 3-pitch grid itself (2026-09-19)
+
+**What changed since §88.** His three Xsample instruments got Round Robin off (§89, `docs/RACK_SETTINGS.md` §3); they were re-measured on their curve channels, **and every velocity curve is monotone now** — the cello's pitch 60 no longer reads louder at velocity 100 than at 127, which is the round robin gone. The remap was rebuilt with the vibraphone's register taken from the **every-semitone** pass (37 pitches) and its velocity shape from the nine-pitch pass taken relative to each pitch's own 127, so the two passes' different faders cannot contaminate each other.
+
+**The result, same score, same path, same pass criteria:**
+
+| | §88 | now |
+|---|---|---|
+| per-part spread at fff | 18.79 dB | **6.15 dB** |
+| tutti fff | −14.3 LUFS | **−18.9 LUFS — PASS** |
+| true peak | −5.0 dBTP | **−9.7 dBTP — PASS** |
+| Vib 74 · Vib 83 | +11.66 · +4.71 | **−0.85 · −0.68** |
+
+**The vibraphone is fixed.** From 11.7 dB out to 0.9, by measuring its register per bar and letting CC7 carry it. Seven of the eight voices now land within **1.45 dB**: Db +0.97 · Bsn +1.24 · Hn +1.25 · EH −0.36 · Tpt +1.45 · Vib −0.85 · Vib −0.68.
+
+**The one outlier is the cello at −4.70 dB**, and chasing it found the fault that is actually general.
+
+### The 3-pitch grid cannot describe this piece
+
+The card measures each instrument at **three pitches** — 0d's choice, carried forward. The piece uses far more than three, and most of them lie **outside the measured span entirely**, where `velocityFor` and `levelFor` simply clamp to the nearest measured pitch:
+
+| instrument | pitches used | measured | how many fall outside |
+|---|---|---|---|
+| **Horn** | 16, from 56 to 73 | 43 · 50 · 58 | **14** — every pitch above 58 plays on pitch 58's data, including all eight above F4 that sound through the ReaPitch path |
+| **Cello** | 40, from 42 to 82 | 48 · 60 · 71 | 17 |
+| **D. Bass** | 34, from 30 to 64 | 38 · 48 · 57 | 14 |
+| **Bassoon** | 26, from 43 to 75 | 44 · 55 · 65 | 11 |
+| English Horn | 20, from 59 to 80 | 59 · 67 · 74 | 5 |
+| Trumpet | 13, from 67 to 81 | 61 · 68 · 75 | 5 |
+| Vibraphone | 10 | **37** | 0 |
+
+The cello's chord note is **62**, between its measured 60 (−30.7) and 71 (−36.2); the interpolation says −31.7 and it measures 4.7 dB under. The +1.2 to +1.45 cluster on the bassoon, horn, trumpet and bass is the same effect, milder — their chord notes also sit between or beyond measured pitches.
+
+**So the remaining work is grid resolution, on the six**, exactly as it was on the vibraphone — and the vibraphone is the proof it works: it is the only instrument whose used pitches are all inside its measured set, and it is now within 0.9 dB.
+
+**What that costs.** A register pass at velocity 127 over the pitches each instrument actually uses, every two or three semitones — about **62 notes, seven and a half minutes** — with the velocity SHAPE still coming from the existing three-pitch × four-velocity data, interpolated by register. That is the vibraphone's construction, and the shape is the part that varies least: the cello spans 17.6–20.5 dB across its three registers and the bass 17.4–18.1. (The english horn is the exception at 16.7–22.8, so its shape is worth interpolating by register rather than averaging.)
