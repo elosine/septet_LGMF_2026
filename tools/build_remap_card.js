@@ -18,8 +18,19 @@
 // spanned only that. A real ensemble is far wider, and §44 set the goal as "realistic aural feedback during
 // the composing phase". The constraint was the narrowest instrument: the bassoon at 11.7 dB — until §85
 // found its curve copies had been on Dynamic 0.70 all along and fixing them took it to 31.9. The narrowest
-// is now the **cello at 17.7 dB**, so the span is set to **17 dB**, which every instrument clears without
-// clamping. Change it with --span; the tool prints what clamps.
+// CLOSED AT **12 dB**, his call (2026-09-19), and the reasoning is worth keeping because the obvious number
+// was wrong. The limit is not an instrument's total range but what is LEFT of it once the register
+// correction is paid for: the range at its tightest pitch, minus its register spread. That leaves 23.1 dB on
+// the bassoon, 23.9 on the horn and 19.4 on the trumpet - but only **5.6 on the english horn, 5.4 on the
+// cello and 6.6 on the double bass**, whose registers vary 11-12 dB. So 17 and 12 do not separate the cases:
+// three instruments are comfortable at either and three run out of room at both. Narrowing makes the
+// shortfall SMALLER, not absent, and it keeps the quiet end from clamping. 12 dB is still a large gain on
+// the ~10 the app had before today, and where it falls short is the extreme LOUD end - while the scores sit
+// at mf, where every instrument has room. His words: "it's realistic that it's going to vary a bit."
+//
+// CC7 CARRIES THE REGISTER ON THE VIBRAPHONE ONLY, also his call. CC7's other job is the CRESCENDO - the
+// drawn curve's shape within a note - and he wants it left alone for that on everything else. The
+// vibraphone is the exception because bowing barely changes level with velocity, so CC7 is its only lever.
 //
 // THE SCALE IS INDEXED 65–127, not 24–127 as 0d's was. The app only ever asks for anchor velocities in that
 // range (`HELD_LO`/`HELD_HI` in composer.html; morph_emit uses the same two), so the rest of the old table
@@ -38,7 +49,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const DRY = process.argv.includes('--dry');
-const SPAN = +arg('span', 17);
+const SPAN = +arg('span', 12);   // HIS CALL, 2026-09-19 - see the header
 const OUT = path.join(ROOT, arg('out', 'bank/velocity_remap.json'));
 const LO = 65, HI = 127;                    // composer.html HELD_LO / HELD_HI
 
@@ -160,10 +171,10 @@ for (const key of PITCHED) {
     //                 uniform across the range, 13.5–14.0 dB at all nine pitches (§86)
     // Relative is also what makes the join sound: the two passes were recorded at different faders
     // (−6.62 and +2.81), and a shape expressed as a delta from its own top is immune to that.
-    if (key === 'bowed_vibraphone') {
-        const fine = CARD.notes.filter(n => n.inst === key && n.role === 'vibfine' && n.found && n.integratedDb != null);
-        const reg = CARD.notes.filter(n => n.inst === key && n.role === 'vibreg' && n.found && n.integratedDb != null);
-        if (fine.length >= 12 && reg.length >= 8) {
+    {
+        const fine = CARD.notes.filter(n => n.inst === key && (n.role === 'vibfine' || n.role === 'regfine') && n.found && n.integratedDb != null);
+        const reg = CARD.notes.filter(n => n.inst === key && (n.role === 'vibreg' || n.role === 'card') && n.found && n.integratedDb != null);
+        if (fine.length >= 5 && reg.length >= 6) {
             const byP = {};
             for (const n of reg) (byP[n.pitch] = byP[n.pitch] || []).push(n);
             const deltas = {};
@@ -172,16 +183,46 @@ for (const key of PITCHED) {
                 if (top == null) continue;
                 for (const n of byP[p]) (deltas[n.vel] = deltas[n.vel] || []).push(n.integratedDb - top);
             }
-            const shape = {};
-            for (const v of Object.keys(deltas)) shape[v] = deltas[v].reduce((s2, d) => s2 + d, 0) / deltas[v].length;
+            // THE SHAPE IS INTERPOLATED BY REGISTER, not averaged (RUNNING_LOG §90). Averaging is right where
+            // the velocity response is uniform — the vibraphone measured 13.5–14.0 dB at all nine pitches, the
+            // double bass 17.4–18.1 — but the english horn spans 16.7 dB low and 22.8 in its middle, and an
+            // average would be 3 dB wrong at both ends. So each fine pitch takes the shape of the measured
+            // pitches either side of it, blended by how far between them it sits.
+            const shapeByPitch = {};
+            for (const p of Object.keys(byP)) {
+                const top = (byP[p].find(n => n.vel === 127) || {}).integratedDb;
+                if (top == null) continue;
+                const sh = {};
+                for (const n of byP[p]) sh[n.vel] = n.integratedDb - top;
+                shapeByPitch[+p] = sh;
+            }
+            const shapePitches = Object.keys(shapeByPitch).map(Number).sort((x, y) => x - y);
+            const vels = [...new Set(reg.map(n => n.vel))].sort((x, y) => x - y);
+            const shapeAt = (pitch, v) => {
+                if (!shapePitches.length) return 0;
+                if (pitch <= shapePitches[0]) return shapeByPitch[shapePitches[0]][v] ?? 0;
+                const last = shapePitches[shapePitches.length - 1];
+                if (pitch >= last) return shapeByPitch[last][v] ?? 0;
+                for (let i = 1; i < shapePitches.length; i++) {
+                    if (pitch <= shapePitches[i]) {
+                        const a2 = shapePitches[i - 1], b2 = shapePitches[i];
+                        const w = (pitch - a2) / (b2 - a2);
+                        const da = shapeByPitch[a2][v], db2 = shapeByPitch[b2][v];
+                        if (da == null || db2 == null) return da ?? db2 ?? 0;
+                        return da + (db2 - da) * w;
+                    }
+                }
+                return 0;
+            };
             byPitch = {};
             for (const n of fine) {
-                byPitch[n.pitch] = Object.keys(shape).map(v => ({ v: +v, db: Math.round((n.integratedDb + shape[v]) * 100) / 100 }))
+                byPitch[n.pitch] = vels.map(v => ({ v, db: Math.round((n.integratedDb + shapeAt(n.pitch, v)) * 100) / 100 }))
                     .sort((x, y) => x.v - y.v);
             }
-            entry_note = 'the register from ' + fine.length + ' semitones at velocity 127; the velocity shape from '
-                + Object.keys(byP).length + ' pitches, relative to each pitch\u2019s own 127 and averaged ('
-                + Object.keys(shape).sort((a, b) => a - b).map(v => v + ': ' + shape[v].toFixed(1)).join(' · ') + ')';
+            entry_note = 'the register from ' + fine.length + ' measured pitches at velocity 127 (the grid the piece '
+                + 'actually plays); the velocity shape from ' + Object.keys(byP).length + ' pitches, taken relative to '
+                + 'each pitch\u2019s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: '
+                + 'they were recorded at different times and, for the vibraphone, different faders.';
         }
     }
     const pitches = Object.keys(byPitch).map(Number).sort((a, b) => a - b)

@@ -4192,3 +4192,34 @@ The cello's chord note is **62**, between its measured 60 (−30.7) and 71 (−3
 **So the remaining work is grid resolution, on the six**, exactly as it was on the vibraphone — and the vibraphone is the proof it works: it is the only instrument whose used pitches are all inside its measured set, and it is now within 0.9 dB.
 
 **What that costs.** A register pass at velocity 127 over the pitches each instrument actually uses, every two or three semitones — about **62 notes, seven and a half minutes** — with the velocity SHAPE still coming from the existing three-pitch × four-velocity data, interpolated by register. That is the vibraphone's construction, and the shape is the part that varies least: the cello spans 17.6–20.5 dB across its three registers and the bass 17.4–18.1. (The english horn is the exception at 16.7–22.8, so its shape is worth interpolating by register rather than averaging.)
+
+---
+
+## §91. PLAN 1b CLOSED at his word — the demo is usable; the formal pass is not met and that is a decision, not an oversight (2026-09-19)
+
+**What prompted it.** *"we actually need to start wrapping this up. The headline here was that I wanted to get a usable demo and get something that's useful for me to audition things, but I didn't have to get everything perfect because these will be a live performance. This has gone on too long now. Let's try to get as close as we can to good volume across the range. It's realistic that it's going to vary a bit. And I want to leave CC7 alone for crescendos. It's okay on the vibraphone because you don't get much volume change with the bowing."* Then: *"ok close at 12 db, cc7 trim on vibes, and not on the others."*
+
+**Two decisions, his, and both recorded in `tools/build_remap_card.js`'s header so a later rebuild cannot quietly undo them.**
+
+1. **The written span is 12 dB**, not 17. The reasoning is worth keeping because the obvious number was wrong: the limit is not an instrument's total range but what is LEFT once the register correction is paid for — range at its tightest pitch minus its register spread. That is 23.1 dB on the bassoon, 23.9 on the horn, 19.4 on the trumpet, but only **5.6 on the english horn, 5.4 on the cello and 6.6 on the double bass**. So 17 and 12 do not separate the cases: three instruments are comfortable at either, three run out of room at both. Narrowing makes the shortfall smaller and clears the quiet end entirely (**0 low clamps** on every instrument, against 51 on the double bass at 17).
+2. **CC7 carries the register on the VIBRAPHONE ONLY.** Its other job is the crescendo — the drawn curve's shape within a note — and he wants it left for that everywhere else. The vibraphone is the exception on his own reasoning: *"you don't get much volume change with the bowing"*, so CC7 is the only lever it has.
+
+**A question he asked on the way, answered here because it is a real exposure.** CC7 is a **channel** controller: the app sends it in each note's pre-arm, 150 ms ahead, on the same curve channel the note plays (the vibraphone's Kontakt slots [A] 2 · 3 · 4, never main 1). A channel is marked free **0.05 s after a note's END**, but the bowed vibraphone rings about **0.6 s** past note-off (measured: `soundingS` 4.6 s on a 4 s note). So a new note's CC7 can reach back into the last few hundred milliseconds of the previous note's tail on that channel. **Before the register trim this was dormant — CC7 was always 127, so there was nothing to leak.** Making it vary 61–127 by pitch turns a dormant gap into a live one, on one instrument, at the end of a decaying bow. The cure if it is ever heard is one constant: free a curve channel at `end + release` instead of `end + 0.05`, at the cost of the three channels turning over more slowly. **In NITS, not fixed.**
+
+### Where it finished
+
+| | this morning | now |
+|---|---|---|
+| tutti at fff | −14.3 LUFS | **−19.1 LUFS** (target −20 ± 2) **PASS** |
+| true peak | — | **−9.7 dBTP** (ceiling −1) **PASS** |
+| per-part spread at fff | 18.79 dB | **7.71 dB** |
+| per-part spread at mf | 15.86 dB | 7.10 dB |
+| written span pp→fff | ~10 dB | **12 dB** |
+
+Per part at fff: Db −0.49 · Bsn +0.18 · **Vc −3.73** · Hn +0.96 · **EH −2.28** · **Tpt +3.98** · Vib −0.85 · Vib −0.68.
+
+**The formal pass of §83 — every part within ±1 dB, spread ≤ 3 dB — is NOT met, and 1b.5 is closed anyway at his instruction.** That is the honest statement. What is met is the thing he actually asked for this morning: the ensemble sits at the right absolute level, nothing clips with 8.7 dB of headroom, no instrument is 12 or 20 dB out, and the written dynamic range is wider than it was.
+
+**What the residual is made of, so nobody re-litigates it later.** The same voice moved **2.5 dB between two builds** of the remap (the trumpet read −30.39 on one and −27.86 on the next), which puts the residual at the **noise floor of this method**: a register measured every 2–3 semitones on instruments whose level jitters 3.2–3.3 dB note to note cannot be flattened below a few dB by interpolation. Closing it further would need what the vibraphone got — every semitone measured, and a per-note gain lever, which is precisely the CC7 he has reserved for crescendos. **So this is not a loose end to be tightened; it is the floor of the chosen design, and the choice was the right one for a demo whose parts will be played by people.**
+
+**What 1b bought, end to end:** a proven meter and a −20 dBFS reference in the rack · every instrument on an absolute K-20 target instead of each other · the clipping found and removed (sleigh bells were **+10.6 dBFS on one note**) · four instruments' round robins switched off, which was a musical fault as much as a measurement one · the SI2 Dynamic fix reaching the parts the piece actually plays · two tracks trimmed that had never been trimmed · and `docs/RACK_SETTINGS.md` so none of it can be lost silently.

@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-09-19T11:50:26",
+ "generatedAt": "2026-09-19T12:22:01",
  "planItem": "1b.5",
  "piece": "lgmf",
- "recording": "30-REC-260919_1146.wav",
+ "recording": "30-REC-260919_1218.wav",
  "score": "lgmf-1b5.json",
  "path": "composer.html (headless) \u2192 capture_composer_midi.js \u2192 play_capture.ps1 \u2192 the rack \u2192 REC",
  "target": {
@@ -19,48 +19,48 @@
     "voice": "Db",
     "pitch": 34,
     "lane": 7,
-    "integratedDb": -30.87,
-    "peakDbfs": -21.12,
-    "soundingS": 6.95
+    "integratedDb": -32.33,
+    "peakDbfs": -22.64,
+    "soundingS": 6.92
    },
    {
     "voice": "Bsn",
     "pitch": 62,
     "lane": 1,
-    "integratedDb": -30.6,
-    "peakDbfs": -24.13,
-    "soundingS": 6.45
+    "integratedDb": -31.66,
+    "peakDbfs": -25.18,
+    "soundingS": 6.46
    },
    {
     "voice": "Vc",
     "pitch": 62,
     "lane": 6,
-    "integratedDb": -36.54,
-    "peakDbfs": -25.73,
-    "soundingS": 6.48
+    "integratedDb": -35.57,
+    "peakDbfs": -24.83,
+    "soundingS": 6.46
    },
    {
     "voice": "Hn",
     "pitch": 68,
     "lane": 2,
-    "integratedDb": -30.59,
-    "peakDbfs": -22.93,
+    "integratedDb": -30.88,
+    "peakDbfs": -21.45,
     "soundingS": 6.46
    },
    {
     "voice": "EH",
     "pitch": 68,
     "lane": 0,
-    "integratedDb": -32.2,
-    "peakDbfs": -22.55,
-    "soundingS": 6.69
+    "integratedDb": -34.12,
+    "peakDbfs": -25.0,
+    "soundingS": 6.65
    },
    {
     "voice": "Tpt",
     "pitch": 74,
     "lane": 3,
-    "integratedDb": -30.39,
-    "peakDbfs": -22.13,
+    "integratedDb": -27.86,
+    "peakDbfs": -19.58,
     "soundingS": 6.35
    },
    {
@@ -68,7 +68,7 @@
     "pitch": 74,
     "lane": 5,
     "integratedDb": -32.69,
-    "peakDbfs": -24.41,
+    "peakDbfs": -24.42,
     "soundingS": 6.33
    },
    {
@@ -77,7 +77,7 @@
     "lane": 5,
     "integratedDb": -32.52,
     "peakDbfs": -24.99,
-    "soundingS": 6.27
+    "soundingS": 6.26
    }
   ],
   "solo-mf": [
@@ -85,9 +85,9 @@
     "voice": "Db",
     "pitch": 34,
     "lane": 7,
-    "integratedDb": -38.02,
-    "peakDbfs": -28.83,
-    "soundingS": 6.65
+    "integratedDb": -37.34,
+    "peakDbfs": -28.13,
+    "soundingS": 6.62
    },
    {
     "voice": "Bsn",
@@ -101,49 +101,49 @@
     "voice": "Vc",
     "pitch": 62,
     "lane": 6,
-    "integratedDb": -42.06,
-    "peakDbfs": -31.05,
-    "soundingS": 6.51
+    "integratedDb": -39.7,
+    "peakDbfs": -28.85,
+    "soundingS": 6.49
    },
    {
     "voice": "Hn",
     "pitch": 68,
     "lane": 2,
-    "integratedDb": -34.42,
-    "peakDbfs": -27.83,
-    "soundingS": 6.55
+    "integratedDb": -32.6,
+    "peakDbfs": -25.67,
+    "soundingS": 6.53
    },
    {
     "voice": "EH",
     "pitch": 68,
     "lane": 0,
-    "integratedDb": -37.65,
-    "peakDbfs": -28.93,
-    "soundingS": 6.73
+    "integratedDb": -37.59,
+    "peakDbfs": -29.68,
+    "soundingS": 6.71
    },
    {
     "voice": "Tpt",
     "pitch": 74,
     "lane": 3,
-    "integratedDb": -37.62,
-    "peakDbfs": -29.43,
-    "soundingS": 6.36
+    "integratedDb": -33.76,
+    "peakDbfs": -25.54,
+    "soundingS": 6.35
    },
    {
     "voice": "Vib",
     "pitch": 74,
     "lane": 5,
-    "integratedDb": -39.84,
-    "peakDbfs": -31.37,
+    "integratedDb": -37.73,
+    "peakDbfs": -29.3,
     "soundingS": 6.32
    },
    {
     "voice": "Vib",
     "pitch": 83,
     "lane": 5,
-    "integratedDb": -40.06,
-    "peakDbfs": -32.37,
-    "soundingS": 6.26
+    "integratedDb": -37.87,
+    "peakDbfs": -30.23,
+    "soundingS": 6.25
    }
   ]
  },
@@ -152,28 +152,28 @@
    "dynamic": "pp",
    "startS": 160.75,
    "endS": 165.85,
-   "lufs": -32.0,
-   "truePeakDbtp": -22.4
+   "lufs": -28.2,
+   "truePeakDbtp": -19.0
   },
   {
    "dynamic": "mf",
    "startS": 171.75,
    "endS": 176.85,
-   "lufs": -25.0,
-   "truePeakDbtp": -14.6
+   "lufs": -23.8,
+   "truePeakDbtp": -13.7
   },
   {
    "dynamic": "ff",
    "startS": 182.75,
    "endS": 187.85,
-   "lufs": -21.4,
-   "truePeakDbtp": -11.6
+   "lufs": -20.7,
+   "truePeakDbtp": -11.9
   },
   {
    "dynamic": "fff",
    "startS": 193.75,
    "endS": 198.85,
-   "lufs": -18.9,
+   "lufs": -19.1,
    "truePeakDbtp": -9.7
   }
  ],
@@ -181,22 +181,22 @@
   {
    "what": "every part at fff within \u00b11 dB of target",
    "pass": false,
-   "read": "worst 4.70 dB"
+   "read": "worst 3.98 dB"
   },
   {
    "what": "solo-fff spread \u2264 3.0 dB",
    "pass": false,
-   "read": "6.15 dB"
+   "read": "7.71 dB"
   },
   {
    "what": "solo-mf spread \u2264 3.0 dB",
    "pass": false,
-   "read": "7.64 dB"
+   "read": "7.10 dB"
   },
   {
    "what": "tutti fff at -20.0 LUFS \u00b12.0",
    "pass": true,
-   "read": "-18.9 LUFS"
+   "read": "-19.1 LUFS"
   },
   {
    "what": "tutti fff true peak \u2264 -1.0 dBTP",
