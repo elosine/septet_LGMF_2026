@@ -337,6 +337,23 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 
   **Model:** Opus builds 1b.1–1b.7 after a clear. Fable only if a design question comes back that 1b.0 does not answer.
 
+- **1c — The strikes drawer for this piece** — `doing` — opened 2026-09-19 under the planning method: phase 1 (the shared
+  understanding, RUNNING_LOG §92) done; the top line NOT yet agreed — he cut to a first stage at his word (*"let's just do this much
+  and let me try it in the new piece"*). His principles, verbatim in COMPOSITION_NOTES LG-32: nothing in the drawer changed unless
+  necessary, and every necessary change checked with him · only the features he asks for · robust, no post-build troubleshooting.
+  *Why:* the drawer is LG-7's named model and his working instrument for hearing a harmony orchestrated; this piece's harmonies are
+  spectra (LG-18 … LG-26), and the drawer has no way to make or hear one yet.
+  - **1c.1 — Stage 1: the column draws with no strikes · the eight players · an `ordinario` set.** `done 2026-09-19, awaiting HIS
+    LISTEN` — RUNNING_LOG §92. `fillSeq()` renders the banners when the bank has no sequences (the only change to an existing path,
+    and only on that branch); `ART_SETS.ordinario` = each recipe's `ordinary`, the vibraphone on `std_mallets_vel` at his word;
+    palette_check 184. Verified in the running app: six banners, a stack loads, eight rows, `ordinario` on every row, shuffle 6 of 6.
+    **His test:** reload the tab → Strikes → a harmony → `ordinario` → shuffle → SPACE.
+  - **1c.2 … — stages 2+:** the long tone on Hear · the SPECTRUM source (a fundamental → the four columns just · just per octave ·
+    tempered · tempered per octave, the partial number on everything, ± cents on the just, partial checkboxes, set toggles) · range
+    lines beside the keyboard · takes restoring every checkbox — *to be laid out when we discuss it* (the top line first). Two
+    questions open for him: does the long tone reach Insert (§AC-2: Hear plays what Insert writes) · "transposed into each octave"
+    = every octave of the keyboard, or the octave above the fundamental only.
+
 
 ## 2. Notate — `todo`
 

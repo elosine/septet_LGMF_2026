@@ -71,6 +71,10 @@ const ART_SETS = {
     percussive: STRIKE_DEFAULT,
     spiccato: { english_horn: 'stac_vel', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'main', cello: 'spicc_vel', double_bass: 'spicc_vel' },
     staccato: { english_horn: 'stac_vel', bassoon: 'staccato', horn: 'staccato', trumpet: 'staccato', percussion: 'main', cello: 'stac_vel', double_bass: 'stac_vel' },
+    // LGMF, stage 1 of the drawer's adaptation (composer, 2026-09-19): the voices the reference scores play — each instrument's
+    // `ordinary` in sandbox/instruments.js (read back from scores/lgmf-ref.json) — with the vibraphone on its standard mallets at his
+    // word ("the vibraphone will be just the number one standard mallets"). The three sets above are untouched; this one is a fourth button.
+    ordinario: { english_horn: 'senza_vel', bassoon: 'ord', horn: 'ord', trumpet: 'ord', percussion: 'main', bowed_vibraphone: 'std_mallets_vel', cello: 'senza_vel', double_bass: 'senza_vel' },
 };
 
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
@@ -352,7 +356,18 @@ const D = {
         const seqs = Object.values((this.db && this.db.sequences) || {});
         sel.innerHTML = '';
         seqs.forEach(s => { const o = document.createElement('option'); o.value = s.id; o.textContent = s.source + ' · ' + s.strikeIds.length + ' strikes'; sel.appendChild(o); });
-        if (!seqs.length) { this.setStatus('the database has no sequences yet', true); return; }
+        if (!seqs.length) {
+            // LGMF, stage 1 (composer, 2026-09-19: "the drawer is all my harmonies. So that should always show, regardless of whether
+            // I have strikes or not"). This piece has no recorded strikes, so the bank has no sequences and the column used to stop
+            // here with an error. Now the harmony banners draw on their own (renderBanners was written for a null seq), and the last
+            // harmony comes back once the morph panel's lists are read — only when nothing is loaded yet, so a re-open never resets
+            // what he built. With sequences present nothing from here on changes.
+            if (!this.renderBanners) { this.setStatus('the database has no sequences yet', true); return; }
+            this.setStatus('no recorded strikes in this piece — the harmonies are the column');
+            this.renderBanners();
+            if (this.ensureHarmSources) this.ensureHarmSources().then(ok => { const id = this.cfg.strikeId; if (ok && !this.strike && id && this.strikeById(id)) this.select(id); });
+            return;
+        }
         const want = this.seq && seqs.find(s => s.id === this.seq.id) ? this.seq.id : seqs[0].id;
         sel.value = want; this.selectSeq(want);
     },

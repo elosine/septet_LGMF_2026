@@ -1358,3 +1358,29 @@ Six fixes at his word, then three rule changes as he composed. The controls as t
   loaded in the strikes drawer.
 - **`[go]` leaves what it made SELECTED**, so **END** parks the playhead at the crescendos' end and the next strike is one key away.
 - The panel no longer sticks to the mouse (mouseup captured on `document` — §348's fix, which the panel never got).
+
+---
+
+## LGMF · the drawer adapted for this piece — stage 1 `built 2026-09-19 (RUNNING_LOG §92)` · stages 2+ `PLAN 1c, to be laid out`
+
+His principles for the adaptation, verbatim in COMPOSITION_NOTES LG-32: *"I don't want to, as much as possible, interrupt or modify
+current functionality … I want just the functions and features I'm asking for … I don't want to change anything in the drawer unless
+necessary. And those you should check with me."*
+
+**Stage 1 — what changed, and only this:**
+- **The column draws with no strikes.** This piece's bank has no recorded strikes and no sequences; `fillSeq()` used to stop there with
+  an error, before the banners were ever rendered. Now, with no sequences, it renders the banners (STARTERS · STACKS · MODES · BLASTS ·
+  CHORD SHAPES · the models' sets) and, once the morph panel's lists are read, re-selects the last harmony only if nothing is loaded.
+  With sequences present the code path is unchanged.
+- **A fourth articulation set, `ordinario`:** EH senza_vel · Bsn / Hn / Tpt ord · Perc main · **Vib std_mallets_vel** (his word: "the
+  number one standard mallets") · Vc / Db senza_vel — the voices the reference scores play. The three older sets are untouched and
+  `percussive` is still the default; one click on `ordinario` sticks.
+- `tools/palette_check.js` asserts the new set (184 checks).
+
+**Not changed, at his word:** the keyboard span (`88` shows the bass's E1–B1) · the piano features (inert here — no piano lane) ·
+Hear and Insert (no cents yet).
+
+**Stages 2+ (PLAN 1c):** the long tone on Hear · the SPECTRUM source — a fundamental, the four columns (just · just per octave ·
+tempered · tempered per octave), the partial number on everything and ± cents on the just, partial checkboxes, set toggles — ·
+range lines beside the keyboard · takes restoring every checkbox. The one new mechanism is **cents on a voice** (a bend before the
+note in `playNotes`; `morphBend` on Insert as `lgmf-ref` carries it; fixed-pitch players on the tempered note).

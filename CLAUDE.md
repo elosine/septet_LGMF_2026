@@ -182,7 +182,7 @@ routing advice is also credit advice, and these bind every Fable turn:
 port and never saves from its own browser pane (principle 9) · the in-app browser has no Web
 MIDI, so every MIDI path is verified on his Chrome.
 
-**Checks this piece owns:** `node tools/check_ceilings.js --all` (no note longer than its instrument's ceiling, all five scores) · `node tools/model_bank.js --validate` (the model↔actual store) · `node tools/palette_check.js` (**168** — tracks vs recipes, ports, every
+**Checks this piece owns:** `node tools/check_ceilings.js --all` (no note longer than its instrument's ceiling, all five scores) · `node tools/model_bank.js --validate` (the model↔actual store) · `node tools/palette_check.js` (**184** — tracks vs recipes, ports, every
 per-instrument table in the app, the percussion selection applied) · `node tools/test_written_pitch.js` (**10** + a control). Run both
 after any change to `TRACKS`, `sandbox/instruments.js` or `notation/registry/ensemble.json`.
 

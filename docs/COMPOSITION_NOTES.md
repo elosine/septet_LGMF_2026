@@ -1243,3 +1243,53 @@ technical one. The machine consequence, if (3): the sample set becomes an instru
 port, a recipe, a key map and a place in the balance probe — the same path the bowed vibraphone took today (D12).
 
 ---
+
+### LG-32 · 2026-09-19 — THE STRIKES DRAWER FOR THIS PIECE: harmonic-spectrum chords from a fundamental, just and tempered, in four columns
+
+> *"Okay, I want to adapt the strikes drawer for the current piece. A couple principles. I don't want to, as much as possible,
+> interrupt or modify current functionality. So I'm going to add some new things, but I want to try to avoid changing the way it
+> currently functions. I also want to keep it simple, and I want just the functions and features I'm asking for to be implemented.
+> I don't need additional things or anything in addition to what I'm specifically asking for. And let's try to make sure the
+> implementation is, or the plan too, is rigorous and robust. I want to avoid post-build troubleshooting. Currently, the strikes
+> drawer is completely empty. So the port, I'm not sure what happened. I want the current ensemble to appear. So that's one thing.
+> I want to have a long tone playback or where it says here orchestrated. I want the option of making that a long tone. And then I
+> want the set of articulations in for this current ensemble. So Ardinario and Senza Vibrato and the bowed vibraphones, everything
+> we used to create the samples in the main score. So that's just getting the functionality working. I also want to have, well, the
+> percussive set is different for this one, but eventually I'll want staccato or different things as well. But I still want the
+> menu where I can change per instrument. Then moving on, I want to adapt the harmonies for Harmonic chords. And so I want to be
+> able to put in a root and then see the harmonic spectrum. And then I want to have We're using colors for the, I'm not sure what
+> we're using colors for, but we probably can use colors or something to distinguish the following. I want the pure, just intoned
+> partials shown. And then I want it as a subset, but something has to distinguish them. I want to show transpositions of those
+> partials into the I guess into each octave. So these should probably be on separate columns. So one column will show me the
+> pure, just intoned. Spectrum, all the partials or as many as we can get in the piano. The next column will show transposed
+> versions per octave. And everything will have the partial number on it. And then I want to see the equivalent well-tempered. So
+> a column of the actual partials, but the well-tempered version. and then a column with the ones transposed. Then I want to be
+> able to, I already mentioned, type in a fundamental. And then I want to be able to choose the partials. So if I only want to see
+> partials one, three, and five, I can have a checkbox for those. And then I want to be able to add or remove one of those four
+> sets. So if I choose partials one, three, and five, and I can show just those in the transpose set, for example, transpose
+> well-tempered. Then I want the same sort of functionality existing to be able to shuffle. Uh, to orchestrate the shuffle amongst
+> the players, the chosen sets. And then I think it already exists, but I want to be able to assign particular pitches to
+> particular players. And then I'm not sure what happened to it, if it or it was somewhere else, but there was little lines that
+> shows the range of each instrument on the keyboard, or in this case, it could be next to the keyboard if we don't have room. So
+> let's Plan this out using the planning protocol. Again, I don't want to mess up the existing strikes drawer. And I want this
+> implementation to be robust and smooth. And I don't want to do a lot of troubleshooting post build. I just want it to work. And
+> in that vein, I don't want a bunch of extra added things that I didn't ask for. I don't, I think sometimes we get trapped in too
+> much GUI development. I kind of want to avoid that. I just want to be able to hear these things and quickly switch things like if
+> it's the just in tone or well in tempered, et cetera. And then the same take saving possibilities. And we just make sure that it
+> restores all the check boxes, et cetera, for this one. These will be less, these might be just a single selection in the drawer
+> because I can select the fundamental and the choice of partials. But I guess it, obviously it will need to recalculate. Oh, and
+> so in addition to the partial number for the just in tone ones, I would like to see the plus or minus cents."* — composer,
+> 2026-09-19, session 6, dictated
+
+> Then, the stage he wants first: *"the first thing to do right now will be to get the drawer working in my current piece and get
+> the ensemble in there and the correct articulations. And then I just want to listen to it with the new ensemble with its current
+> existing functionality. I'll test by grabbing a chord and orchestrating it and listening to it. But you can make the
+> articulation set. So this would be, I think, mostly ordinario and senza vibrato and the vibraphone will be just the number one
+> standard malice [mallets]. So let's just do this much and let me try it in the new piece."* And: *"no lets keep the full 88 key
+> range; let me stress, I don't want to change anything in the drawer unless necessary. And those you should check with me."*
+
+*AI reading (mine, marked):* the harmonic-spectrum source is the six chords' own method (LG-19: just partials doubled by tempered
+instruments so every doubling beats) made into a tool — a fundamental, the series, and the choice per partial of just / tempered /
+octave-transposed, orchestrated by the drawer's existing shuffle and hand assignment. The "single selection" he describes (fundamental
++ partials + which of the four sets) is what the drawer already does for a stack-from-a-root: the harmony's id rebuilds it, so a take
+restores it. Stage 1 built the same day (RUNNING_LOG §92); the rest is PLAN 1c, to be laid out with him.

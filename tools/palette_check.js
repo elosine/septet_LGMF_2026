@@ -70,6 +70,7 @@ const TABLES = [
   ['score/public/strike_drawer.js',    'STRIKE_DEFAULT', lit('score/public/strike_drawer.js', 'STRIKE_DEFAULT'), true],
   ['score/public/strike_drawer.js',    'ART_SETS.spiccato', row('score/public/strike_drawer.js', 'spiccato'), true],
   ['score/public/strike_drawer.js',    'ART_SETS.staccato', row('score/public/strike_drawer.js', 'staccato'), true],
+  ['score/public/strike_drawer.js',    'ART_SETS.ordinario', row('score/public/strike_drawer.js', 'ordinario'), true],   // LGMF stage 1 (2026-09-19): all eight lanes
   ['score/public/cresc_card.js',       'STRIKE_DEFAULT', lit('score/public/cresc_card.js', 'STRIKE_DEFAULT'), true],
   ['score/public/strike_drawer.js',    'OPEN_STRINGS',   lit('score/public/strike_drawer.js', 'OPEN_STRINGS'), false],
   ['score/public/beating_panel.js',    'INST_COL',       lit('score/public/beating_panel.js', 'INST_COL'), false],
