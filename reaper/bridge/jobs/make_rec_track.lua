@@ -28,7 +28,15 @@ local RECMODE_OUTPUT_STEREO_LATCOMP = 3
 -- instrument, a slope is one level minus another), and a constant offset cancels out of both. 12 dB of
 -- margin is what buys the run against a re-run. It is written into bank/balance.json's provenance by the
 -- analyzer, which reads it back from the rack.
-local REC_TRIM_DB = -12.0
+-- CHANGED TO UNITY, 2026-09-19, PLAN 1b.0 (RUNNING_LOG §76). The paragraph above is true for a run that
+-- only wants DIFFERENCES, and 0d was such a run. 1b is not: it calibrates the rack to an ABSOLUTE level
+-- (K-20 — −20 dBFS RMS pink is the monitor reference, fff peaks at −1 dBTP), and with REC 12 dB down the
+-- analyzer's dB was dB-on-a-trim rather than dBFS at the master — which is exactly how 0d came to aim the
+-- ensemble ~12 dB hotter than piece #5 without anything in the record saying so. At unity, REC records the
+-- post-fader sum of every contributing track, i.e. WHAT THE MASTER RECEIVES, so a number measured here is a
+-- number at the master and a clip in the file is a clip he hears. The project records 32-bit float, so an
+-- over is still recoverable.
+local REC_TRIM_DB = 0.0
 
 -- EXCLUDED from the recording, 2026-09-18, found by reading the rack's MIDI filters before the first
 -- run: three tracks listen on channels the balance probe drives, so their sound would land on top of

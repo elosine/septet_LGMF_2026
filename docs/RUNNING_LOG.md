@@ -3667,3 +3667,34 @@ standing still — then the four transitions against it.
 **The plan — PLAN 1b, the top line he approved:** 1b.1 a reference in the rack (−20 dBFS pink noise + 1 kHz, REC and master at 0, the analyzer reads it back at −20.0 — the meter proven; his system volume set once on it) · 1b.2 the instrument card (~3 min: vel 24/64/127 × 3 pitches per pitched instrument, each percussion at full; loudness two ways — max-momentary and integrated; f0; ±50 % bend) · 1b.3 trims to an ABSOLUTE target derived from the tutti (nine voices at fff → −20 LUFS-S / ≤ −1 dBTP → one voice at fff ≈ −30 LUFS-S) · 1b.4 the remap regenerated, with the 10 dB span decision · 1b.5 the reference chord at pp · mf · ff · fff through the app's own path — spread ≤ 3 dB, ≤ −1 dBTP — then his ear · 1b.6 the battery in one command (tone · card · routing diff · every score's peak and loudness), ~5 min, diffed against the last run · 1b.7 record. **Almost all of it is 0d's harness with a window fix and an absolute target; the reference track and the one-command battery are the new parts.**
 
 **Still his by ear, unchanged from §75:** the five scores after the tab reload — the routing fix has not yet been heard. Volume first, at his word.
+
+---
+
+## §77. PLAN 1b.1 — the reference in the rack: the chain is unity and the meter is right, proven to three decimals (2026-09-19)
+
+**What prompted it.** His *"good"* to the 1b top line, then *"no clear good to go"* to 1b.1's five sub-steps. The step's job is the one nothing else can do for it: **until the meter reads a KNOWN signal correctly, no measurement of an instrument means anything.** 0d had no such signal, which is how its numbers came to be dB-on-a-−12-dB-trim rather than dBFS at the master (§76).
+
+**What was built.**
+
+1. **`tools/make_reference_audio.js`** → two 30 s stereo 24-bit 44.1 kHz files in `probes/reference/`:
+   **pink noise at −20.000 dBFS RMS** (the K-20 monitor reference) and **1 kHz at −20.000 dBFS RMS** (the meter's proof).
+   The noise comes from a **seeded mulberry32** (morph.js's own) through Paul Kellet's refined 7-pole pinking filter, ±0.05 dB from 9 Hz to 20 kHz; the tone holds exactly 30000 cycles in exactly 1323000 samples, so it starts and ends at a zero crossing and needs no fade — a fade would alter the very level being proven. **`--check` regenerates in memory and compares SHA-256: byte-identical**, which is why the files are gitignored rather than committed and `bank/reference.json` records their hashes. A different seed is a different reference.
+   Measured as written: pink RMS −20.000, peak −6.79 (crest 13.2 dB) · tone RMS −20.000, peak −16.99.
+   **A correction made on the way:** the tone was predicted at −23.0 LUFS in chat before it was measured. It is **−17.0**: BS.1770's −0.691 offset exists precisely so that a 1 kHz sine at X dBFS RMS in ONE channel reads X LUFS, and two correlated channels add 3.01. The header's estimate that pink would K-weight "1–2 dB down" was also replaced by the measured **0.5 dB** (−17.5 LUFS).
+2. **`reaper/bridge/jobs/ref_track.lua`** → a `REF` track at the end of the rack, unity fader, centre pan, feeding the master, holding the two files **at 600 s and 635 s**. *Why 600 and not 0:* his own recording of the balance score sits at 0–94 s on every track (§75 read it back), and rolling from 0 would play those MIDI items into the samplers — the reference would be recorded with the septet on top of it. **Nothing of his is moved or deleted;** the job deletes items only on the track it made (principle 5). Idempotent: the second run reported `made: false` and re-placed the same two items.
+3. **REC to UNITY, and rebuilt.** `make_rec_track.lua`'s `REC_TRIM_DB` **−12 → 0**, with the reason written into the file: 0d only ever wanted DIFFERENCES, where a constant offset cancels; 1b wants an ABSOLUTE level, where it does not. At unity the recording **is** the post-fader sum every contributing track sends the master, so a number measured in the file is a number at the master and a clip in the file is a clip he hears (32-bit float, so an over is still recoverable). Rebuilding the receives also picked up **three tracks REC had never captured**: `REF`, and **`Horn SI2 high` / `Horn SI2 b high`** — the ReaPitch path of 1a.1, made after REC was last built, so every horn note above F4 had been missing from any recording. 27 sources wired.
+4. **`probes/reference_run.ps1`** — the record, in one process (§50/§53's lesson): it refuses unless REF holds its two items, REC is armed at unity, and **REC is the only track that can write a file**; rolls 598 → 670 s; stops with 40667 and **confirms from the file**, because §54's warning says the stop's round trip may time out.
+5. **`probes/analyze_reference.py`** — three measurements, each proving what the others cannot: **flat RMS per channel** (the chain's gain, exactly) · **ffmpeg `ebur128`** (integrated LUFS and true peak — a meter this repo did not write, so it is an independent check) · **K-weighted RMS from `analyze_balance.py`'s own core** (the number 0d's trims are made of, so old and new runs stay comparable). Regions found by envelope, tone told from noise by 1 kHz dominance, each measured over its steady middle 80 %.
+
+**THE RESULT — `bank/reference.json`, recording `30-REC-260919_0752.wav`:**
+
+| | flat RMS (L / R) | K-weighted RMS | LUFS | true peak | verdict |
+|---|---|---|---|---|---|
+| **1 kHz tone** | **−20.000 / −20.000 dBFS** | −19.30 | **−17.0** | **−17.0 dBTP** | **PASS** on all three — expected −20.00 · −17.0 · −17.0 |
+| **pink noise** | −20.024 / −20.024 dBFS | −19.56 | −17.5 | −7.1 dBTP | PASS (its LUFS is recorded, not asserted) |
+
+**The chain from REF through the master to the recorded file has unity gain to three decimal places, and BS.1770 reads the tone exactly where the standard says it must.** Every number 1b.2 onward produces is now in dBFS-at-the-master, and can be compared with any other studio's.
+
+**What this makes possible, and what it already says.** The monitor reference is now a fact he can set the system volume by, once, and keep for every piece. And the arithmetic of the target is visible: the noise sits at −17.5 LUFS, a tutti fff at −1 dBTP is **~19 dB above it**, and 0d's ensemble at a written mf was landing around −14 LUFS short-term — *louder than the fff of the standard it is now being calibrated to*, which is the whole of his *"my system volume is on 2 and for the tuba piece and septet it was on 10"*.
+
+**Still his, and the step is not closed until he does it:** play REF's pink noise at 600 s, set the system volume where it is loud but comfortable (83 dB SPL C-weighted per channel if he has a meter), write the number down, and **CTRL+S** — the REF track, REC's unity fader and the three new receives live only in the open project until he saves.

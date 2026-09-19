@@ -1,0 +1,90 @@
+{
+ "generatedAt": "2026-09-19T07:54:18",
+ "planItem": "1b.1",
+ "piece": "lgmf",
+ "standard": "K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770 (LUFS), ceiling dBTP",
+ "recording": "30-REC-260919_0752.wav",
+ "sampleRate": 44100,
+ "channels": 2,
+ "expected": {
+  "rmsDbfs": -20.0,
+  "toneLufsStereo": -17.0,
+  "toneTruePeakDbtp": -17.0,
+  "toleranceDb": {
+   "rms": 0.1,
+   "lufs": 0.3
+  }
+ },
+ "source": {
+  "generator": "tools/make_reference_audio.js",
+  "seed": 20260919,
+  "files": [
+   "probes/reference/pink-20dBFS.wav",
+   "probes/reference/tone1k-20dBFS.wav"
+  ]
+ },
+ "chain": "REF (unity) -> master -> REC (unity since 1b.0; post-fader output, so the file IS the master sum)",
+ "regions": [
+  {
+   "kind": "pink",
+   "startS": 1.95,
+   "endS": 31.96,
+   "measuredOverS": 24.01,
+   "rmsDbfsPerChannel": [
+    -20.024,
+    -20.024
+   ],
+   "rmsDbfs": -20.024,
+   "kWeightedRmsDbfs": -19.56,
+   "samplePeakDbfs": -7.32,
+   "lufs": -17.5,
+   "truePeakDbtp": -7.1,
+   "rmsDeltaDb": -0.024,
+   "checks": [
+    {
+     "what": "flat RMS",
+     "pass": true,
+     "read": "-20.02 vs -20.00 dBFS"
+    }
+   ],
+   "pass": true
+  },
+  {
+   "kind": "tone",
+   "startS": 36.95,
+   "endS": 66.96,
+   "measuredOverS": 24.01,
+   "rmsDbfsPerChannel": [
+    -20.0,
+    -20.0
+   ],
+   "rmsDbfs": -20.0,
+   "kWeightedRmsDbfs": -19.3,
+   "samplePeakDbfs": -16.99,
+   "lufs": -17.0,
+   "truePeakDbtp": -17.0,
+   "rmsDeltaDb": 0.0,
+   "lufsDeltaDb": 0.0,
+   "checks": [
+    {
+     "what": "flat RMS",
+     "pass": true,
+     "read": "-20.00 vs -20.00 dBFS"
+    },
+    {
+     "what": "BS.1770 LUFS",
+     "pass": true,
+     "read": "-17.0 vs -17.0 LUFS"
+    },
+    {
+     "what": "true peak",
+     "pass": true,
+     "read": "-17.0 vs -17.0 dBTP"
+    }
+   ],
+   "pass": true
+  }
+ ],
+ "pass": true,
+ "note": "The TONE is the pass/fail: its expected readings are exact by definition. The NOISE is the monitor reference the system volume is set by, and its LUFS is measured, not asserted. Re-run through tools/qc_rack.js (1b.6) after any change to the rack."
+}
