@@ -1,21 +1,21 @@
 {
- "generatedAt": "2026-09-19T09:30:40",
+ "generatedAt": "2026-09-19T10:29:54",
  "planItem": "1b.2",
  "piece": "lgmf",
- "recording": "30-REC-260919_0927.wav",
- "schedule": "card_vibreg_schedule.json",
- "scheduleGeneratedAt": "2026-09-19T13:27:51.990Z",
+ "recording": "30-REC-260919_1018.wav",
+ "schedule": "card_curve_schedule.json",
+ "scheduleGeneratedAt": "2026-09-19T14:18:15.538Z",
  "sampleRate": 44100,
  "scale": "absolute dBFS at the master (REC at unity since 1b.0; the chain proven in bank/reference.json)",
  "reference": "bank/reference.json",
- "standard": "K-20; loudness ITU-R BS.1770. REC at unity since 1b.0, so every level is dBFS at the master.",
+ "standard": "K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770. REC is at unity since 1b.0, so every level is dBFS AT THE MASTER (bank/reference.json proves the chain to three decimals).",
  "method": {
-  "maxMomentary": "loudest 400 ms, K-weighted (BS.1770 pre-filter) \u2014 how it speaks",
-  "integrated": "K-weighted RMS over the whole sounding note \u2014 how loud it is",
+  "maxMomentary": "loudest 400 ms, K-weighted (BS.1770 pre-filter) — how it speaks",
+  "integrated": "K-weighted RMS over the whole sounding note — how loud it is",
   "soundingS": "onset to 40 dB below the note's own peak",
-  "cents": "f0 by autocorrelation, searched within \u00b16 semitones of the written pitch",
-  "noiseFloorDb": -130.6,
-  "scheduleOffsetS": 1.11
+  "cents": "f0 by autocorrelation, searched within ±6 semitones of the written pitch",
+  "noiseFloorDb": -155.75,
+  "scheduleOffsetS": 1.12
  },
  "instruments": {
   "english_horn": {
@@ -38,7 +38,7 @@
        "integratedDb": -35.83,
        "soundingS": 4.61,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.7
       },
       "67": {
@@ -46,7 +46,7 @@
        "integratedDb": -40.46,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.5
       },
       "74": {
@@ -54,7 +54,7 @@
        "integratedDb": -36.12,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.4
       }
      }
@@ -75,7 +75,7 @@
        "integratedDb": -30.31,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.6
       },
       "67": {
@@ -83,7 +83,7 @@
        "integratedDb": -23.46,
        "soundingS": 4.74,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.1
       },
       "74": {
@@ -91,7 +91,7 @@
        "integratedDb": -29.18,
        "soundingS": 4.66,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1
       }
      }
@@ -112,7 +112,7 @@
        "integratedDb": -21.67,
        "soundingS": 4.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 1.1
       },
       "67": {
@@ -120,7 +120,7 @@
        "integratedDb": -21.35,
        "soundingS": 4.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 3.1
       },
       "74": {
@@ -128,7 +128,7 @@
        "integratedDb": -21.86,
        "soundingS": 4.42,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 0.5
       }
      }
@@ -149,7 +149,7 @@
        "integratedDb": -19.93,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -2.2
       },
       "67": {
@@ -157,7 +157,7 @@
        "integratedDb": -17.53,
        "soundingS": 4.69,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.7
       },
       "74": {
@@ -165,7 +165,7 @@
        "integratedDb": -16.11,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.2
       }
      }
@@ -183,507 +183,6 @@
     "rangeSt": 0.922,
     "unbentCents": 3.1,
     "bentCents": 49.2
-   }
-  },
-  "bassoon": {
-   "label": "Bassoon",
-   "port": "LGBassoon",
-   "byVelocity": {
-    "24": {
-     "maxMomentaryDb": -31.27,
-     "integratedDb": -32.51,
-     "soundingS": 4.43,
-     "nPerPitch": {
-      "44": 1,
-      "55": 1,
-      "65": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "44": {
-       "maxMomentaryDb": -32.14,
-       "integratedDb": -32.94,
-       "soundingS": 4.43,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.1
-      },
-      "55": {
-       "maxMomentaryDb": -29.88,
-       "integratedDb": -31.07,
-       "soundingS": 4.39,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.7
-      },
-      "65": {
-       "maxMomentaryDb": -31.8,
-       "integratedDb": -33.53,
-       "soundingS": 4.46,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.7
-      }
-     }
-    },
-    "64": {
-     "maxMomentaryDb": -26.96,
-     "integratedDb": -28.03,
-     "soundingS": 4.42,
-     "nPerPitch": {
-      "44": 1,
-      "55": 1,
-      "65": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "44": {
-       "maxMomentaryDb": -27.94,
-       "integratedDb": -29.14,
-       "soundingS": 4.37,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      },
-      "55": {
-       "maxMomentaryDb": -24.82,
-       "integratedDb": -25.62,
-       "soundingS": 4.39,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.2
-      },
-      "65": {
-       "maxMomentaryDb": -28.12,
-       "integratedDb": -29.32,
-       "soundingS": 4.49,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      }
-     }
-    },
-    "100": {
-     "maxMomentaryDb": -23.03,
-     "integratedDb": -24.11,
-     "soundingS": 4.42,
-     "nPerPitch": {
-      "44": 1,
-      "55": 1,
-      "65": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "44": {
-       "maxMomentaryDb": -24.01,
-       "integratedDb": -25.22,
-       "soundingS": 4.38,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      },
-      "55": {
-       "maxMomentaryDb": -20.89,
-       "integratedDb": -21.71,
-       "soundingS": 4.39,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.4
-      },
-      "65": {
-       "maxMomentaryDb": -24.19,
-       "integratedDb": -25.39,
-       "soundingS": 4.49,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -19.92,
-     "integratedDb": -20.82,
-     "soundingS": 4.41,
-     "nPerPitch": {
-      "44": 1,
-      "55": 1,
-      "65": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "44": {
-       "maxMomentaryDb": -20.3,
-       "integratedDb": -21.28,
-       "soundingS": 4.39,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.3
-      },
-      "55": {
-       "maxMomentaryDb": -18.98,
-       "integratedDb": -19.72,
-       "soundingS": 4.4,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.2
-      },
-      "65": {
-       "maxMomentaryDb": -20.49,
-       "integratedDb": -21.45,
-       "soundingS": 4.45,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.5
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -31.75,
-    "fullDb": -24.4,
-    "expectedOffsetDb": 12
-   },
-   "bend": {
-    "pitch": 55,
-    "fraction": 0.5,
-    "centsMoved": 99.6,
-    "rangeSt": 1.992,
-    "unbentCents": 0.4,
-    "bentCents": 100
-   }
-  },
-  "horn": {
-   "label": "Horn",
-   "port": "LGHorn",
-   "byVelocity": {
-    "24": {
-     "maxMomentaryDb": -44.71,
-     "integratedDb": -46.08,
-     "soundingS": 4.4,
-     "nPerPitch": {
-      "43": 1,
-      "50": 1,
-      "58": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "43": {
-       "maxMomentaryDb": -46.72,
-       "integratedDb": -47.87,
-       "soundingS": 4.38,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.5
-      },
-      "50": {
-       "maxMomentaryDb": -44.71,
-       "integratedDb": -46.21,
-       "soundingS": 4.37,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.5
-      },
-      "58": {
-       "maxMomentaryDb": -42.7,
-       "integratedDb": -44.15,
-       "soundingS": 4.46,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      }
-     }
-    },
-    "64": {
-     "maxMomentaryDb": -26.79,
-     "integratedDb": -28.1,
-     "soundingS": 4.41,
-     "nPerPitch": {
-      "43": 1,
-      "50": 1,
-      "58": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "43": {
-       "maxMomentaryDb": -29.03,
-       "integratedDb": -30.57,
-       "soundingS": 4.35,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.7
-      },
-      "50": {
-       "maxMomentaryDb": -25.59,
-       "integratedDb": -26.67,
-       "soundingS": 4.42,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.7
-      },
-      "58": {
-       "maxMomentaryDb": -25.74,
-       "integratedDb": -27.07,
-       "soundingS": 4.45,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.2
-      }
-     }
-    },
-    "100": {
-     "maxMomentaryDb": -19.0,
-     "integratedDb": -20.31,
-     "soundingS": 4.41,
-     "nPerPitch": {
-      "43": 1,
-      "50": 1,
-      "58": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "43": {
-       "maxMomentaryDb": -21.23,
-       "integratedDb": -22.78,
-       "soundingS": 4.35,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.7
-      },
-      "50": {
-       "maxMomentaryDb": -17.81,
-       "integratedDb": -18.87,
-       "soundingS": 4.42,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -1.7
-      },
-      "58": {
-       "maxMomentaryDb": -17.95,
-       "integratedDb": -19.29,
-       "soundingS": 4.45,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.3
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -18.76,
-     "integratedDb": -19.64,
-     "soundingS": 4.32,
-     "nPerPitch": {
-      "43": 1,
-      "50": 1,
-      "58": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "43": {
-       "maxMomentaryDb": -21.3,
-       "integratedDb": -22.09,
-       "soundingS": 4.22,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.9
-      },
-      "50": {
-       "maxMomentaryDb": -17.72,
-       "integratedDb": -18.58,
-       "soundingS": 4.31,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.5
-      },
-      "58": {
-       "maxMomentaryDb": -17.26,
-       "integratedDb": -18.25,
-       "soundingS": 4.44,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.6
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -39.53,
-    "fullDb": -30.98,
-    "expectedOffsetDb": 12
-   },
-   "bend": {
-    "pitch": 50,
-    "fraction": 0.5,
-    "centsMoved": 100.2,
-    "rangeSt": 2.004,
-    "unbentCents": -1.7,
-    "bentCents": 98.5
-   }
-  },
-  "trumpet": {
-   "label": "Trumpet",
-   "port": "LGTrumpet",
-   "byVelocity": {
-    "24": {
-     "maxMomentaryDb": -44.48,
-     "integratedDb": -45.95,
-     "soundingS": 4.41,
-     "nPerPitch": {
-      "61": 1,
-      "68": 1,
-      "75": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "61": {
-       "maxMomentaryDb": -46.04,
-       "integratedDb": -47.8,
-       "soundingS": 4.37,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 0.1
-      },
-      "68": {
-       "maxMomentaryDb": -44.59,
-       "integratedDb": -45.79,
-       "soundingS": 4.39,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      },
-      "75": {
-       "maxMomentaryDb": -42.81,
-       "integratedDb": -44.26,
-       "soundingS": 4.46,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.2
-      }
-     }
-    },
-    "64": {
-     "maxMomentaryDb": -26.66,
-     "integratedDb": -28.02,
-     "soundingS": 4.34,
-     "nPerPitch": {
-      "61": 1,
-      "68": 1,
-      "75": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "61": {
-       "maxMomentaryDb": -28.68,
-       "integratedDb": -30.14,
-       "soundingS": 4.23,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.1
-      },
-      "68": {
-       "maxMomentaryDb": -26.57,
-       "integratedDb": -27.78,
-       "soundingS": 4.36,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.3
-      },
-      "75": {
-       "maxMomentaryDb": -24.73,
-       "integratedDb": -26.15,
-       "soundingS": 4.43,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      }
-     }
-    },
-    "100": {
-     "maxMomentaryDb": -18.81,
-     "integratedDb": -20.18,
-     "soundingS": 4.33,
-     "nPerPitch": {
-      "61": 1,
-      "68": 1,
-      "75": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "61": {
-       "maxMomentaryDb": -20.81,
-       "integratedDb": -22.29,
-       "soundingS": 4.23,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 1.1
-      },
-      "68": {
-       "maxMomentaryDb": -18.73,
-       "integratedDb": -19.94,
-       "soundingS": 4.37,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.2
-      },
-      "75": {
-       "maxMomentaryDb": -16.88,
-       "integratedDb": -18.3,
-       "soundingS": 4.4,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.1
-      }
-     }
-    },
-    "127": {
-     "maxMomentaryDb": -20.34,
-     "integratedDb": -22.48,
-     "soundingS": 4.1,
-     "nPerPitch": {
-      "61": 1,
-      "68": 1,
-      "75": 1
-     },
-     "worstRepeatSpreadDb": null,
-     "perPitch": {
-      "61": {
-       "maxMomentaryDb": -22.83,
-       "integratedDb": -24.9,
-       "soundingS": 4.05,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.8
-      },
-      "68": {
-       "maxMomentaryDb": -21.28,
-       "integratedDb": -23.78,
-       "soundingS": 4.05,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 2.5
-      },
-      "75": {
-       "maxMomentaryDb": -16.9,
-       "integratedDb": -18.75,
-       "soundingS": 4.21,
-       "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": -0.8
-      }
-     }
-    }
-   },
-   "compare0d": {
-    "anchorDb": -39.37,
-    "fullDb": -32.16,
-    "expectedOffsetDb": 12
-   },
-   "bend": {
-    "pitch": 68,
-    "fraction": 0.5,
-    "centsMoved": 100.2,
-    "rangeSt": 2.004,
-    "unbentCents": -0.2,
-    "bentCents": 100
    }
   },
   "cello": {
@@ -706,7 +205,7 @@
        "integratedDb": -36.15,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 1.6
       },
       "60": {
@@ -714,7 +213,7 @@
        "integratedDb": -34.36,
        "soundingS": 4.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 0.4
       },
       "71": {
@@ -722,7 +221,7 @@
        "integratedDb": -39.68,
        "soundingS": 4.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.1
       }
      }
@@ -743,7 +242,7 @@
        "integratedDb": -22.27,
        "soundingS": 4.66,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 1.5
       },
       "60": {
@@ -751,7 +250,7 @@
        "integratedDb": -24.57,
        "soundingS": 4.66,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.4
       },
       "71": {
@@ -759,7 +258,7 @@
        "integratedDb": -29.1,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.3
       }
      }
@@ -780,7 +279,7 @@
        "integratedDb": -14.42,
        "soundingS": 4.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 1.4
       },
       "60": {
@@ -788,7 +287,7 @@
        "integratedDb": -13.58,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -2
       },
       "71": {
@@ -796,7 +295,7 @@
        "integratedDb": -23.23,
        "soundingS": 4.57,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 0
       }
      }
@@ -817,7 +316,7 @@
        "integratedDb": -15.87,
        "soundingS": 4.56,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.7
       },
       "60": {
@@ -825,7 +324,7 @@
        "integratedDb": -16.17,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.1
       },
       "71": {
@@ -833,7 +332,7 @@
        "integratedDb": -21.01,
        "soundingS": 4.57,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.5
       }
      }
@@ -873,7 +372,7 @@
        "integratedDb": -40.14,
        "soundingS": 4.78,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.3
       },
       "48": {
@@ -881,7 +380,7 @@
        "integratedDb": -42.02,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.9
       },
       "57": {
@@ -889,7 +388,7 @@
        "integratedDb": -40.56,
        "soundingS": 4.57,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 1.9
       }
      }
@@ -910,7 +409,7 @@
        "integratedDb": -32.76,
        "soundingS": 4.87,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.2
       },
       "48": {
@@ -918,7 +417,7 @@
        "integratedDb": -29.06,
        "soundingS": 4.48,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1.1
       },
       "57": {
@@ -926,13 +425,13 @@
        "integratedDb": -35.09,
        "soundingS": 4.73,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -2.2
       }
      }
     },
     "100": {
-     "maxMomentaryDb": -24.0,
+     "maxMomentaryDb": -24,
      "integratedDb": -25.89,
      "soundingS": 4.82,
      "nPerPitch": {
@@ -947,7 +446,7 @@
        "integratedDb": -23.96,
        "soundingS": 4.98,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 0.7
       },
       "48": {
@@ -955,7 +454,7 @@
        "integratedDb": -26.87,
        "soundingS": 4.67,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 1.3
       },
       "57": {
@@ -963,7 +462,7 @@
        "integratedDb": -26.85,
        "soundingS": 4.81,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -1
       }
      }
@@ -984,7 +483,7 @@
        "integratedDb": -22.79,
        "soundingS": 4.75,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -2.7
       },
       "48": {
@@ -992,7 +491,7 @@
        "integratedDb": -23.77,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": -0.5
       },
       "57": {
@@ -1000,7 +499,7 @@
        "integratedDb": -24.31,
        "soundingS": 4.67,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 0.4
       }
      }
@@ -1027,7 +526,7 @@
     "64": {
      "maxMomentaryDb": -40.55,
      "integratedDb": -46.85,
-     "soundingS": 2.0,
+     "soundingS": 2,
      "nPerPitch": {
       "36": 1,
       "38": 1
@@ -1039,15 +538,15 @@
        "integratedDb": -46.21,
        "soundingS": 1.99,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "38": {
        "maxMomentaryDb": -41.4,
        "integratedDb": -47.49,
-       "soundingS": 2.0,
+       "soundingS": 2,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1067,7 +566,7 @@
        "integratedDb": -27.59,
        "soundingS": 1.27,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "38": {
@@ -1075,7 +574,7 @@
        "integratedDb": -27.32,
        "soundingS": 1.55,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1107,7 +606,7 @@
        "integratedDb": -52.43,
        "soundingS": 2.18,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "41": {
@@ -1115,7 +614,7 @@
        "integratedDb": -47.49,
        "soundingS": 2.32,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "45": {
@@ -1123,7 +622,7 @@
        "integratedDb": -49.58,
        "soundingS": 2.74,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1144,7 +643,7 @@
        "integratedDb": -26.27,
        "soundingS": 2.19,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "41": {
@@ -1152,7 +651,7 @@
        "integratedDb": -20.46,
        "soundingS": 2.06,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "45": {
@@ -1160,7 +659,7 @@
        "integratedDb": -26.79,
        "soundingS": 3.55,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1192,7 +691,7 @@
        "integratedDb": -26.15,
        "soundingS": 1.4,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1200,7 +699,7 @@
        "integratedDb": -36.28,
        "soundingS": 0.73,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1208,7 +707,7 @@
        "integratedDb": -36.28,
        "soundingS": 0.73,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1229,7 +728,7 @@
        "integratedDb": -6.34,
        "soundingS": 0.79,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1237,7 +736,7 @@
        "integratedDb": -17.21,
        "soundingS": 0.85,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1245,7 +744,7 @@
        "integratedDb": -17.21,
        "soundingS": 0.85,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1277,7 +776,7 @@
        "integratedDb": -50.1,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1285,7 +784,7 @@
        "integratedDb": -51.43,
        "soundingS": 3.52,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1293,7 +792,7 @@
        "integratedDb": -51.12,
        "soundingS": 3.52,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1314,7 +813,7 @@
        "integratedDb": -30.02,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1322,7 +821,7 @@
        "integratedDb": -29.02,
        "soundingS": 2.87,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1330,7 +829,7 @@
        "integratedDb": -29.04,
        "soundingS": 2.89,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1359,10 +858,10 @@
      "perPitch": {
       "36": {
        "maxMomentaryDb": -45.49,
-       "integratedDb": -47.0,
+       "integratedDb": -47,
        "soundingS": 0.57,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1370,7 +869,7 @@
        "integratedDb": -39.11,
        "soundingS": 0.62,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "55": {
@@ -1378,7 +877,7 @@
        "integratedDb": -42.04,
        "soundingS": 0.55,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1399,7 +898,7 @@
        "integratedDb": -28.35,
        "soundingS": 0.5,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1407,7 +906,7 @@
        "integratedDb": -19.85,
        "soundingS": 0.57,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "55": {
@@ -1415,7 +914,7 @@
        "integratedDb": -23.73,
        "soundingS": 0.54,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1447,7 +946,7 @@
        "integratedDb": -45.92,
        "soundingS": 0.77,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1455,7 +954,7 @@
        "integratedDb": -47.02,
        "soundingS": 0.81,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1463,7 +962,7 @@
        "integratedDb": -47.05,
        "soundingS": 0.81,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1484,7 +983,7 @@
        "integratedDb": -26.42,
        "soundingS": 0.67,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1492,7 +991,7 @@
        "integratedDb": -26.44,
        "soundingS": 0.74,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1500,7 +999,7 @@
        "integratedDb": -27.2,
        "soundingS": 0.79,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1532,7 +1031,7 @@
        "integratedDb": -61.26,
        "soundingS": 0.72,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "41": {
@@ -1540,7 +1039,7 @@
        "integratedDb": -62.68,
        "soundingS": 0.91,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "45": {
@@ -1548,7 +1047,7 @@
        "integratedDb": -54.86,
        "soundingS": 0.75,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1569,7 +1068,7 @@
        "integratedDb": -22.43,
        "soundingS": 0.59,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "41": {
@@ -1577,7 +1076,7 @@
        "integratedDb": -24.82,
        "soundingS": 0.92,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "45": {
@@ -1585,7 +1084,7 @@
        "integratedDb": -27.66,
        "soundingS": 0.84,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1617,7 +1116,7 @@
        "integratedDb": -44.52,
        "soundingS": 0.27,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1625,7 +1124,7 @@
        "integratedDb": -36.42,
        "soundingS": 0.25,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "49": {
@@ -1633,7 +1132,7 @@
        "integratedDb": -37.19,
        "soundingS": 0.27,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1654,7 +1153,7 @@
        "integratedDb": -28.36,
        "soundingS": 0.3,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1662,7 +1161,7 @@
        "integratedDb": -22.71,
        "soundingS": 0.31,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "49": {
@@ -1670,7 +1169,7 @@
        "integratedDb": -24.66,
        "soundingS": 0.38,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1702,7 +1201,7 @@
        "integratedDb": -34.31,
        "soundingS": 0.74,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "39": {
@@ -1710,7 +1209,7 @@
        "integratedDb": -36.91,
        "soundingS": 0.48,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "43": {
@@ -1718,7 +1217,7 @@
        "integratedDb": -37.22,
        "soundingS": 0.72,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1739,7 +1238,7 @@
        "integratedDb": -22.4,
        "soundingS": 0.68,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "39": {
@@ -1747,7 +1246,7 @@
        "integratedDb": -26.18,
        "soundingS": 0.5,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "43": {
@@ -1755,7 +1254,7 @@
        "integratedDb": -24.31,
        "soundingS": 0.63,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1787,7 +1286,7 @@
        "integratedDb": -35.82,
        "soundingS": 0.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "43": {
@@ -1795,7 +1294,7 @@
        "integratedDb": -35.24,
        "soundingS": 0.76,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1803,7 +1302,7 @@
        "integratedDb": -35.83,
        "soundingS": 0.66,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1824,7 +1323,7 @@
        "integratedDb": -25.55,
        "soundingS": 0.54,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "43": {
@@ -1832,7 +1331,7 @@
        "integratedDb": -22.09,
        "soundingS": 0.7,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "50": {
@@ -1840,7 +1339,7 @@
        "integratedDb": -25.61,
        "soundingS": 0.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1872,7 +1371,7 @@
        "integratedDb": -38.51,
        "soundingS": 0.81,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1880,7 +1379,7 @@
        "integratedDb": -37.8,
        "soundingS": 0.97,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "56": {
@@ -1888,7 +1387,7 @@
        "integratedDb": -39.84,
        "soundingS": 1.01,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1909,7 +1408,7 @@
        "integratedDb": -26.12,
        "soundingS": 0.96,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1917,15 +1416,15 @@
        "integratedDb": -24.73,
        "soundingS": 0.77,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "56": {
        "maxMomentaryDb": -25.87,
        "integratedDb": -29.7,
-       "soundingS": 1.0,
+       "soundingS": 1,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1957,7 +1456,7 @@
        "integratedDb": -46.12,
        "soundingS": 2.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -1965,7 +1464,7 @@
        "integratedDb": -54.2,
        "soundingS": 2.37,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "55": {
@@ -1973,7 +1472,7 @@
        "integratedDb": -40.36,
        "soundingS": 0.86,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -1994,7 +1493,7 @@
        "integratedDb": -26.29,
        "soundingS": 1.45,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -2002,7 +1501,7 @@
        "integratedDb": -26.05,
        "soundingS": 1.36,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "55": {
@@ -2010,7 +1509,7 @@
        "integratedDb": -27.29,
        "soundingS": 0.87,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -2042,7 +1541,7 @@
        "integratedDb": -36.79,
        "soundingS": 3.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -2050,7 +1549,7 @@
        "integratedDb": -40.89,
        "soundingS": 1.78,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "56": {
@@ -2058,7 +1557,7 @@
        "integratedDb": -43.66,
        "soundingS": 1.51,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -2079,7 +1578,7 @@
        "integratedDb": -24.19,
        "soundingS": 3.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "48": {
@@ -2087,7 +1586,7 @@
        "integratedDb": -25.62,
        "soundingS": 0.84,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "56": {
@@ -2095,7 +1594,7 @@
        "integratedDb": -28.63,
        "soundingS": 0.61,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -2126,7 +1625,7 @@
        "integratedDb": -44.39,
        "soundingS": 3.65,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "38": {
@@ -2134,7 +1633,7 @@
        "integratedDb": -44.94,
        "soundingS": 4.74,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -2154,7 +1653,7 @@
        "integratedDb": -26.98,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       },
       "38": {
@@ -2162,7 +1661,7 @@
        "integratedDb": -26.97,
        "soundingS": 3.64,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": null
       }
      }
@@ -2200,15 +1699,15 @@
        "integratedDb": -26.7,
        "soundingS": 4.72,
        "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 7.0
+       "spreadDb": 0,
+       "centsOffWritten": 7
       },
       "58": {
        "maxMomentaryDb": -28.52,
        "integratedDb": -31.51,
        "soundingS": 4.67,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 7.1
       },
       "62": {
@@ -2216,7 +1715,7 @@
        "integratedDb": -30.9,
        "soundingS": 4.7,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 4.2
       },
       "67": {
@@ -2224,7 +1723,7 @@
        "integratedDb": -28.52,
        "soundingS": 4.62,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 5.9
       },
       "71": {
@@ -2232,7 +1731,7 @@
        "integratedDb": -39.17,
        "soundingS": 4.59,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 7.3
       },
       "76": {
@@ -2240,7 +1739,7 @@
        "integratedDb": -35.75,
        "soundingS": 4.74,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 7.3
       },
       "80": {
@@ -2248,7 +1747,7 @@
        "integratedDb": -23.79,
        "soundingS": 4.6,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 5.6
       },
       "85": {
@@ -2256,15 +1755,15 @@
        "integratedDb": -26.22,
        "soundingS": 4.43,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 6.2
       },
       "89": {
        "maxMomentaryDb": -21.11,
-       "integratedDb": -26.0,
+       "integratedDb": -26,
        "soundingS": 4.54,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 5.9
       }
      }
@@ -2291,15 +1790,15 @@
        "integratedDb": -12.81,
        "soundingS": 4.73,
        "n": 1,
-       "spreadDb": 0.0,
-       "centsOffWritten": 7.0
+       "spreadDb": 0,
+       "centsOffWritten": 7
       },
       "58": {
        "maxMomentaryDb": -14.46,
        "integratedDb": -17.42,
        "soundingS": 4.67,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 6.5
       },
       "62": {
@@ -2307,7 +1806,7 @@
        "integratedDb": -16.97,
        "soundingS": 4.71,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 4.3
       },
       "67": {
@@ -2315,7 +1814,7 @@
        "integratedDb": -14.58,
        "soundingS": 4.63,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 5.8
       },
       "71": {
@@ -2323,7 +1822,7 @@
        "integratedDb": -25.34,
        "soundingS": 4.61,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 7.3
       },
       "76": {
@@ -2331,7 +1830,7 @@
        "integratedDb": -21.79,
        "soundingS": 4.76,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 7.3
       },
       "80": {
@@ -2339,7 +1838,7 @@
        "integratedDb": -9.94,
        "soundingS": 4.61,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 5.6
       },
       "85": {
@@ -2347,7 +1846,7 @@
        "integratedDb": -12.32,
        "soundingS": 4.44,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 6.2
       },
       "89": {
@@ -2355,7 +1854,7 @@
        "integratedDb": -12.1,
        "soundingS": 4.55,
        "n": 1,
-       "spreadDb": 0.0,
+       "spreadDb": 0,
        "centsOffWritten": 5.9
       }
      }
@@ -2365,6 +1864,507 @@
     "anchorDb": -48.84,
     "fullDb": -35.19,
     "expectedOffsetDb": 12
+   }
+  },
+  "bassoon": {
+   "label": "Bassoon",
+   "port": "LGBassoonb",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -62.49,
+     "integratedDb": -63.73,
+     "soundingS": 4.42,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "44": {
+       "maxMomentaryDb": -63.33,
+       "integratedDb": -64.15,
+       "soundingS": 4.42,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.6
+      },
+      "55": {
+       "maxMomentaryDb": -61.11,
+       "integratedDb": -62.3,
+       "soundingS": 4.4,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.1
+      },
+      "65": {
+       "maxMomentaryDb": -63.02,
+       "integratedDb": -64.75,
+       "soundingS": 4.44,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.5
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -43.1,
+     "integratedDb": -44.18,
+     "soundingS": 4.42,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "44": {
+       "maxMomentaryDb": -44.06,
+       "integratedDb": -45.28,
+       "soundingS": 4.38,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.7
+      },
+      "55": {
+       "maxMomentaryDb": -40.97,
+       "integratedDb": -41.78,
+       "soundingS": 4.4,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.9
+      },
+      "65": {
+       "maxMomentaryDb": -44.28,
+       "integratedDb": -45.47,
+       "soundingS": 4.49,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.6
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -35.32,
+     "integratedDb": -36.38,
+     "soundingS": 4.42,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "44": {
+       "maxMomentaryDb": -36.28,
+       "integratedDb": -37.49,
+       "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.7
+      },
+      "55": {
+       "maxMomentaryDb": -33.18,
+       "integratedDb": -33.99,
+       "soundingS": 4.4,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.9
+      },
+      "65": {
+       "maxMomentaryDb": -36.49,
+       "integratedDb": -37.66,
+       "soundingS": 4.48,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.6
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -30.95,
+     "integratedDb": -31.84,
+     "soundingS": 4.41,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "44": {
+       "maxMomentaryDb": -31.35,
+       "integratedDb": -32.29,
+       "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.8
+      },
+      "55": {
+       "maxMomentaryDb": -29.99,
+       "integratedDb": -30.75,
+       "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.1
+      },
+      "65": {
+       "maxMomentaryDb": -31.5,
+       "integratedDb": -32.47,
+       "soundingS": 4.46,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.3
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -31.75,
+    "fullDb": -24.4,
+    "expectedOffsetDb": 12
+   },
+   "bend": {
+    "pitch": 55,
+    "fraction": 0.5,
+    "centsMoved": 100.4,
+    "rangeSt": 2.008,
+    "unbentCents": 0.9,
+    "bentCents": 101.3
+   }
+  },
+  "horn": {
+   "label": "Horn",
+   "port": "LGHornb",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -56.91,
+     "integratedDb": -58.27,
+     "soundingS": 4.4,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "43": {
+       "maxMomentaryDb": -58.92,
+       "integratedDb": -60.07,
+       "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -2.1
+      },
+      "50": {
+       "maxMomentaryDb": -56.92,
+       "integratedDb": -58.4,
+       "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.9
+      },
+      "58": {
+       "maxMomentaryDb": -54.9,
+       "integratedDb": -56.35,
+       "soundingS": 4.46,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.3
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -38.97,
+     "integratedDb": -40.29,
+     "soundingS": 4.41,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "43": {
+       "maxMomentaryDb": -41.19,
+       "integratedDb": -42.76,
+       "soundingS": 4.34,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.2
+      },
+      "50": {
+       "maxMomentaryDb": -37.78,
+       "integratedDb": -38.85,
+       "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -2.7
+      },
+      "58": {
+       "maxMomentaryDb": -37.94,
+       "integratedDb": -39.27,
+       "soundingS": 4.46,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -31.22,
+     "integratedDb": -32.51,
+     "soundingS": 4.41,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "43": {
+       "maxMomentaryDb": -33.46,
+       "integratedDb": -34.98,
+       "soundingS": 4.36,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.2
+      },
+      "50": {
+       "maxMomentaryDb": -30.03,
+       "integratedDb": -31.08,
+       "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -2.7
+      },
+      "58": {
+       "maxMomentaryDb": -30.16,
+       "integratedDb": -31.48,
+       "soundingS": 4.44,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -30.95,
+     "integratedDb": -31.84,
+     "soundingS": 4.32,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "43": {
+       "maxMomentaryDb": -33.47,
+       "integratedDb": -34.28,
+       "soundingS": 4.21,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.7
+      },
+      "50": {
+       "maxMomentaryDb": -29.92,
+       "integratedDb": -30.79,
+       "soundingS": 4.33,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.9
+      },
+      "58": {
+       "maxMomentaryDb": -29.45,
+       "integratedDb": -30.44,
+       "soundingS": 4.42,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -3.2
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -39.53,
+    "fullDb": -30.98,
+    "expectedOffsetDb": 12
+   },
+   "bend": {
+    "pitch": 50,
+    "fraction": 0.5,
+    "centsMoved": 102.8,
+    "rangeSt": 2.056,
+    "unbentCents": -2.7,
+    "bentCents": 100.1
+   }
+  },
+  "trumpet": {
+   "label": "Trumpet",
+   "port": "LGTrumpetb",
+   "byVelocity": {
+    "24": {
+     "maxMomentaryDb": -53.84,
+     "integratedDb": -55.31,
+     "soundingS": 4.4,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "61": {
+       "maxMomentaryDb": -55.39,
+       "integratedDb": -57.16,
+       "soundingS": 4.36,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.1
+      },
+      "68": {
+       "maxMomentaryDb": -53.95,
+       "integratedDb": -55.15,
+       "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1
+      },
+      "75": {
+       "maxMomentaryDb": -52.17,
+       "integratedDb": -53.62,
+       "soundingS": 4.45,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 0.2
+      }
+     }
+    },
+    "64": {
+     "maxMomentaryDb": -36.02,
+     "integratedDb": -37.39,
+     "soundingS": 4.35,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "61": {
+       "maxMomentaryDb": -38.04,
+       "integratedDb": -39.52,
+       "soundingS": 4.25,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.6
+      },
+      "68": {
+       "maxMomentaryDb": -35.94,
+       "integratedDb": -37.14,
+       "soundingS": 4.36,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.2
+      },
+      "75": {
+       "maxMomentaryDb": -34.09,
+       "integratedDb": -35.51,
+       "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.5
+      }
+     }
+    },
+    "100": {
+     "maxMomentaryDb": -28.17,
+     "integratedDb": -29.54,
+     "soundingS": 4.34,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "61": {
+       "maxMomentaryDb": -30.17,
+       "integratedDb": -31.66,
+       "soundingS": 4.25,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 1.6
+      },
+      "68": {
+       "maxMomentaryDb": -28.1,
+       "integratedDb": -29.3,
+       "soundingS": 4.36,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.2
+      },
+      "75": {
+       "maxMomentaryDb": -26.24,
+       "integratedDb": -27.66,
+       "soundingS": 4.42,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.5
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -29.7,
+     "integratedDb": -31.84,
+     "soundingS": 4.11,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "61": {
+       "maxMomentaryDb": -32.19,
+       "integratedDb": -34.25,
+       "soundingS": 4.06,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -1.8
+      },
+      "68": {
+       "maxMomentaryDb": -30.64,
+       "integratedDb": -33.15,
+       "soundingS": 4.07,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": 2.8
+      },
+      "75": {
+       "maxMomentaryDb": -26.26,
+       "integratedDb": -28.11,
+       "soundingS": 4.21,
+       "n": 1,
+       "spreadDb": 0,
+       "centsOffWritten": -0.4
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -39.37,
+    "fullDb": -32.16,
+    "expectedOffsetDb": 12
+   },
+   "bend": {
+    "pitch": 68,
+    "fraction": 0.5,
+    "centsMoved": 99.8,
+    "rangeSt": 1.996,
+    "unbentCents": -0.2,
+    "bentCents": 99.6
    }
   }
  },
@@ -2602,783 +2602,6 @@
    "soundingS": 4.6,
    "f0Hz": 403.301,
    "centsOffWritten": 49.2,
-   "bendFraction": 0.5
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 44,
-   "vel": 24,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 98.31,
-   "maxMomentaryDb": -32.14,
-   "maxMomentaryFlatDb": -32.21,
-   "integratedDb": -32.94,
-   "peakDbfs": -24.46,
-   "soundingS": 4.43,
-   "f0Hz": 103.831,
-   "centsOffWritten": 0.1
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 44,
-   "vel": 64,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 105.32,
-   "maxMomentaryDb": -27.94,
-   "maxMomentaryFlatDb": -28.02,
-   "integratedDb": -29.14,
-   "peakDbfs": -20,
-   "soundingS": 4.37,
-   "f0Hz": 103.818,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 44,
-   "vel": 100,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 112.31,
-   "maxMomentaryDb": -24.01,
-   "maxMomentaryFlatDb": -24.1,
-   "integratedDb": -25.22,
-   "peakDbfs": -16.08,
-   "soundingS": 4.38,
-   "f0Hz": 103.823,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 44,
-   "vel": 127,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 119.32,
-   "maxMomentaryDb": -20.3,
-   "maxMomentaryFlatDb": -20.43,
-   "integratedDb": -21.28,
-   "peakDbfs": -13.17,
-   "soundingS": 4.39,
-   "f0Hz": 103.842,
-   "centsOffWritten": 0.3
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 55,
-   "vel": 24,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 126.32,
-   "maxMomentaryDb": -29.88,
-   "maxMomentaryFlatDb": -29.95,
-   "integratedDb": -31.07,
-   "peakDbfs": -23.53,
-   "soundingS": 4.39,
-   "f0Hz": 196.072,
-   "centsOffWritten": 0.7
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 55,
-   "vel": 64,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 133.32,
-   "maxMomentaryDb": -24.82,
-   "maxMomentaryFlatDb": -24.91,
-   "integratedDb": -25.62,
-   "peakDbfs": -19.11,
-   "soundingS": 4.39,
-   "f0Hz": 196.025,
-   "centsOffWritten": 0.2
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 55,
-   "vel": 100,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 140.32,
-   "maxMomentaryDb": -20.89,
-   "maxMomentaryFlatDb": -20.99,
-   "integratedDb": -21.71,
-   "peakDbfs": -15.2,
-   "soundingS": 4.39,
-   "f0Hz": 196.042,
-   "centsOffWritten": 0.4
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 55,
-   "vel": 127,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 147.32,
-   "maxMomentaryDb": -18.98,
-   "maxMomentaryFlatDb": -19.13,
-   "integratedDb": -19.72,
-   "peakDbfs": -12.79,
-   "soundingS": 4.4,
-   "f0Hz": 195.979,
-   "centsOffWritten": -0.2
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 65,
-   "vel": 24,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 154.32,
-   "maxMomentaryDb": -31.8,
-   "maxMomentaryFlatDb": -32.01,
-   "integratedDb": -33.53,
-   "peakDbfs": -23.51,
-   "soundingS": 4.46,
-   "f0Hz": 349.094,
-   "centsOffWritten": -0.7
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 65,
-   "vel": 64,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 161.32,
-   "maxMomentaryDb": -28.12,
-   "maxMomentaryFlatDb": -28.49,
-   "integratedDb": -29.32,
-   "peakDbfs": -19.31,
-   "soundingS": 4.49,
-   "f0Hz": 349.217,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 65,
-   "vel": 100,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 168.32,
-   "maxMomentaryDb": -24.19,
-   "maxMomentaryFlatDb": -24.55,
-   "integratedDb": -25.39,
-   "peakDbfs": -15.39,
-   "soundingS": 4.49,
-   "f0Hz": 349.226,
-   "centsOffWritten": 0
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "card",
-   "pitch": 65,
-   "vel": 127,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 175.32,
-   "maxMomentaryDb": -20.49,
-   "maxMomentaryFlatDb": -21.06,
-   "integratedDb": -21.45,
-   "peakDbfs": -14.42,
-   "soundingS": 4.45,
-   "f0Hz": 349.118,
-   "centsOffWritten": -0.5
-  },
-  {
-   "inst": "bassoon",
-   "label": "Bassoon",
-   "role": "bend",
-   "pitch": 55,
-   "vel": 100,
-   "port": "LGBassoon",
-   "ch": 1,
-   "found": true,
-   "onsetS": 182.32,
-   "maxMomentaryDb": -21.12,
-   "maxMomentaryFlatDb": -21.24,
-   "integratedDb": -21.94,
-   "peakDbfs": -15.56,
-   "soundingS": 4.46,
-   "f0Hz": 207.654,
-   "centsOffWritten": 100,
-   "bendFraction": 0.5
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 43,
-   "vel": 24,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 190.82,
-   "maxMomentaryDb": -46.72,
-   "maxMomentaryFlatDb": -46.46,
-   "integratedDb": -47.87,
-   "peakDbfs": -35.86,
-   "soundingS": 4.38,
-   "f0Hz": 97.913,
-   "centsOffWritten": -1.5
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 43,
-   "vel": 64,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 197.82,
-   "maxMomentaryDb": -29.03,
-   "maxMomentaryFlatDb": -28.96,
-   "integratedDb": -30.57,
-   "peakDbfs": -17.64,
-   "soundingS": 4.35,
-   "f0Hz": 98.038,
-   "centsOffWritten": 0.7
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 43,
-   "vel": 100,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 204.82,
-   "maxMomentaryDb": -21.23,
-   "maxMomentaryFlatDb": -21.16,
-   "integratedDb": -22.78,
-   "peakDbfs": -9.86,
-   "soundingS": 4.35,
-   "f0Hz": 98.038,
-   "centsOffWritten": 0.7
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 43,
-   "vel": 127,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 211.82,
-   "maxMomentaryDb": -21.3,
-   "maxMomentaryFlatDb": -21.73,
-   "integratedDb": -22.09,
-   "peakDbfs": -6,
-   "soundingS": 4.22,
-   "f0Hz": 97.948,
-   "centsOffWritten": -0.9
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 50,
-   "vel": 24,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 218.82,
-   "maxMomentaryDb": -44.71,
-   "maxMomentaryFlatDb": -44.53,
-   "integratedDb": -46.21,
-   "peakDbfs": -35.78,
-   "soundingS": 4.37,
-   "f0Hz": 146.877,
-   "centsOffWritten": 0.5
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 50,
-   "vel": 64,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 225.82,
-   "maxMomentaryDb": -25.59,
-   "maxMomentaryFlatDb": -25.46,
-   "integratedDb": -26.67,
-   "peakDbfs": -17.58,
-   "soundingS": 4.42,
-   "f0Hz": 146.685,
-   "centsOffWritten": -1.7
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 50,
-   "vel": 100,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 232.82,
-   "maxMomentaryDb": -17.81,
-   "maxMomentaryFlatDb": -17.68,
-   "integratedDb": -18.87,
-   "peakDbfs": -9.8,
-   "soundingS": 4.42,
-   "f0Hz": 146.684,
-   "centsOffWritten": -1.7
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 50,
-   "vel": 127,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 239.81,
-   "maxMomentaryDb": -17.72,
-   "maxMomentaryFlatDb": -17.83,
-   "integratedDb": -18.58,
-   "peakDbfs": -5.93,
-   "soundingS": 4.31,
-   "f0Hz": 146.871,
-   "centsOffWritten": 0.5
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 58,
-   "vel": 24,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 246.82,
-   "maxMomentaryDb": -42.7,
-   "maxMomentaryFlatDb": -42.57,
-   "integratedDb": -44.15,
-   "peakDbfs": -35.51,
-   "soundingS": 4.46,
-   "f0Hz": 233.069,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 58,
-   "vel": 64,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 253.82,
-   "maxMomentaryDb": -25.74,
-   "maxMomentaryFlatDb": -25.72,
-   "integratedDb": -27.07,
-   "peakDbfs": -17.72,
-   "soundingS": 4.45,
-   "f0Hz": 233.051,
-   "centsOffWritten": -0.2
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 58,
-   "vel": 100,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 260.82,
-   "maxMomentaryDb": -17.95,
-   "maxMomentaryFlatDb": -17.93,
-   "integratedDb": -19.29,
-   "peakDbfs": -9.94,
-   "soundingS": 4.45,
-   "f0Hz": 233.048,
-   "centsOffWritten": -0.3
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "card",
-   "pitch": 58,
-   "vel": 127,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 267.81,
-   "maxMomentaryDb": -17.26,
-   "maxMomentaryFlatDb": -17.44,
-   "integratedDb": -18.25,
-   "peakDbfs": -6.38,
-   "soundingS": 4.44,
-   "f0Hz": 233.004,
-   "centsOffWritten": -0.6
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "high",
-   "pitch": 72,
-   "vel": 24,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 274.85,
-   "maxMomentaryDb": -41.8,
-   "maxMomentaryFlatDb": -42.14,
-   "integratedDb": -43,
-   "peakDbfs": -35.93,
-   "soundingS": 4.33,
-   "f0Hz": 522.332,
-   "centsOffWritten": -3
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "high",
-   "pitch": 72,
-   "vel": 64,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 281.85,
-   "maxMomentaryDb": -24.39,
-   "maxMomentaryFlatDb": -25.11,
-   "integratedDb": -25.38,
-   "peakDbfs": -19.17,
-   "soundingS": 4.34,
-   "f0Hz": 522.87,
-   "centsOffWritten": -1.3
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "high",
-   "pitch": 72,
-   "vel": 100,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 288.85,
-   "maxMomentaryDb": -16.6,
-   "maxMomentaryFlatDb": -17.32,
-   "integratedDb": -17.59,
-   "peakDbfs": -10.95,
-   "soundingS": 4.35,
-   "f0Hz": 522.885,
-   "centsOffWritten": -1.2
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "high",
-   "pitch": 72,
-   "vel": 127,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 295.84,
-   "maxMomentaryDb": -17.03,
-   "maxMomentaryFlatDb": -18.61,
-   "integratedDb": -17.95,
-   "peakDbfs": -10,
-   "soundingS": 4.34,
-   "f0Hz": 523.282,
-   "centsOffWritten": 0.1
-  },
-  {
-   "inst": "horn",
-   "label": "Horn",
-   "role": "bend",
-   "pitch": 50,
-   "vel": 100,
-   "port": "LGHorn",
-   "ch": 1,
-   "found": true,
-   "onsetS": 302.82,
-   "maxMomentaryDb": -19.17,
-   "maxMomentaryFlatDb": -19.1,
-   "integratedDb": -20.35,
-   "peakDbfs": -10.69,
-   "soundingS": 4.46,
-   "f0Hz": 155.433,
-   "centsOffWritten": 98.5,
-   "bendFraction": 0.5
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 61,
-   "vel": 24,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 311.32,
-   "maxMomentaryDb": -46.04,
-   "maxMomentaryFlatDb": -46.56,
-   "integratedDb": -47.8,
-   "peakDbfs": -36.49,
-   "soundingS": 4.37,
-   "f0Hz": 277.197,
-   "centsOffWritten": 0.1
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 61,
-   "vel": 64,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 318.32,
-   "maxMomentaryDb": -28.68,
-   "maxMomentaryFlatDb": -30.16,
-   "integratedDb": -30.14,
-   "peakDbfs": -17.77,
-   "soundingS": 4.23,
-   "f0Hz": 277.367,
-   "centsOffWritten": 1.1
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 61,
-   "vel": 100,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 325.32,
-   "maxMomentaryDb": -20.81,
-   "maxMomentaryFlatDb": -22.32,
-   "integratedDb": -22.29,
-   "peakDbfs": -9.86,
-   "soundingS": 4.23,
-   "f0Hz": 277.366,
-   "centsOffWritten": 1.1
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 61,
-   "vel": 127,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 332.32,
-   "maxMomentaryDb": -22.83,
-   "maxMomentaryFlatDb": -26.04,
-   "integratedDb": -24.9,
-   "peakDbfs": -6.46,
-   "soundingS": 4.05,
-   "f0Hz": 277.05,
-   "centsOffWritten": -0.8
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 68,
-   "vel": 24,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 339.32,
-   "maxMomentaryDb": -44.59,
-   "maxMomentaryFlatDb": -45.03,
-   "integratedDb": -45.79,
-   "peakDbfs": -36.71,
-   "soundingS": 4.39,
-   "f0Hz": 415.281,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 68,
-   "vel": 64,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 346.32,
-   "maxMomentaryDb": -26.57,
-   "maxMomentaryFlatDb": -27.81,
-   "integratedDb": -27.78,
-   "peakDbfs": -17.65,
-   "soundingS": 4.36,
-   "f0Hz": 415.243,
-   "centsOffWritten": -0.3
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 68,
-   "vel": 100,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 353.31,
-   "maxMomentaryDb": -18.73,
-   "maxMomentaryFlatDb": -19.98,
-   "integratedDb": -19.94,
-   "peakDbfs": -9.78,
-   "soundingS": 4.37,
-   "f0Hz": 415.255,
-   "centsOffWritten": -0.2
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 68,
-   "vel": 127,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 360.32,
-   "maxMomentaryDb": -21.28,
-   "maxMomentaryFlatDb": -24.55,
-   "integratedDb": -23.78,
-   "peakDbfs": -6.5,
-   "soundingS": 4.05,
-   "f0Hz": 415.912,
-   "centsOffWritten": 2.5
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 75,
-   "vel": 24,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 367.31,
-   "maxMomentaryDb": -42.81,
-   "maxMomentaryFlatDb": -43.46,
-   "integratedDb": -44.26,
-   "peakDbfs": -36.61,
-   "soundingS": 4.46,
-   "f0Hz": 622.184,
-   "centsOffWritten": -0.2
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 75,
-   "vel": 64,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 374.31,
-   "maxMomentaryDb": -24.73,
-   "maxMomentaryFlatDb": -26,
-   "integratedDb": -26.15,
-   "peakDbfs": -17.66,
-   "soundingS": 4.43,
-   "f0Hz": 622.2,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 75,
-   "vel": 100,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 381.32,
-   "maxMomentaryDb": -16.88,
-   "maxMomentaryFlatDb": -18.16,
-   "integratedDb": -18.3,
-   "peakDbfs": -9.76,
-   "soundingS": 4.4,
-   "f0Hz": 622.201,
-   "centsOffWritten": -0.1
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "card",
-   "pitch": 75,
-   "vel": 127,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 388.31,
-   "maxMomentaryDb": -16.9,
-   "maxMomentaryFlatDb": -19.65,
-   "integratedDb": -18.75,
-   "peakDbfs": -6.29,
-   "soundingS": 4.21,
-   "f0Hz": 621.977,
-   "centsOffWritten": -0.8
-  },
-  {
-   "inst": "trumpet",
-   "label": "Trumpet",
-   "role": "bend",
-   "pitch": 68,
-   "vel": 100,
-   "port": "LGTrumpet",
-   "ch": 1,
-   "found": true,
-   "onsetS": 395.32,
-   "maxMomentaryDb": -18.84,
-   "maxMomentaryFlatDb": -20.31,
-   "integratedDb": -19.89,
-   "peakDbfs": -10.19,
-   "soundingS": 4.18,
-   "f0Hz": 439.989,
-   "centsOffWritten": 100,
    "bendFraction": 0.5
   },
   {
@@ -5627,9 +4850,9 @@
    "peakDbfs": -18.63,
    "soundingS": 4.72,
    "f0Hz": 174.285,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.3,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 349.27,
    "run": "30-REC-260919_0927.wav"
   },
@@ -5649,9 +4872,9 @@
    "peakDbfs": -4.96,
    "soundingS": 4.73,
    "f0Hz": 174.274,
-   "centsOffWritten": 7.0,
+   "centsOffWritten": 7,
    "centsByAutocorrelation": -3.4,
-   "centsBySpectralPeak": 7.0,
+   "centsBySpectralPeak": 7,
    "spectralPeakStrength": 351.79,
    "run": "30-REC-260919_0927.wav"
   },
@@ -5738,7 +4961,7 @@
    "soundingS": 4.71,
    "f0Hz": 295.363,
    "centsOffWritten": 4.3,
-   "centsByAutocorrelation": 10.0,
+   "centsByAutocorrelation": 10,
    "centsBySpectralPeak": 4.3,
    "spectralPeakStrength": 1152.83,
    "run": "30-REC-260919_0927.wav"
@@ -5804,7 +5027,7 @@
    "soundingS": 4.59,
    "f0Hz": 504.85,
    "centsOffWritten": 7.3,
-   "centsByAutocorrelation": 38.0,
+   "centsByAutocorrelation": 38,
    "centsBySpectralPeak": 7.3,
    "spectralPeakStrength": 530.52,
    "run": "30-REC-260919_0927.wav"
@@ -5870,7 +5093,7 @@
    "soundingS": 4.76,
    "f0Hz": 653.552,
    "centsOffWritten": 7.3,
-   "centsByAutocorrelation": -15.0,
+   "centsByAutocorrelation": -15,
    "centsBySpectralPeak": 7.3,
    "spectralPeakStrength": 394.42,
    "run": "30-REC-260919_0927.wav"
@@ -5975,7 +5198,7 @@
    "onsetS": 133.61,
    "maxMomentaryDb": -21.11,
    "maxMomentaryFlatDb": -22.88,
-   "integratedDb": -26.0,
+   "integratedDb": -26,
    "peakDbfs": -19.35,
    "soundingS": 4.54,
    "f0Hz": 1395.537,
@@ -6006,6 +5229,956 @@
    "centsBySpectralPeak": 5.9,
    "spectralPeakStrength": 1773.07,
    "run": "30-REC-260919_0927.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 44,
+   "vel": 24,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 5.62,
+   "maxMomentaryDb": -63.33,
+   "maxMomentaryFlatDb": -63.41,
+   "integratedDb": -64.15,
+   "peakDbfs": -55.69,
+   "soundingS": 4.42,
+   "f0Hz": 103.831,
+   "centsOffWritten": 0.6,
+   "centsByAutocorrelation": 0.1,
+   "centsBySpectralPeak": 0.6,
+   "spectralPeakStrength": 619.86,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 44,
+   "vel": 64,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 12.62,
+   "maxMomentaryDb": -44.06,
+   "maxMomentaryFlatDb": -44.15,
+   "integratedDb": -45.28,
+   "peakDbfs": -36.14,
+   "soundingS": 4.38,
+   "f0Hz": 103.818,
+   "centsOffWritten": 0.7,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": 0.7,
+   "spectralPeakStrength": 2045.79,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 44,
+   "vel": 100,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 19.62,
+   "maxMomentaryDb": -36.28,
+   "maxMomentaryFlatDb": -36.36,
+   "integratedDb": -37.49,
+   "peakDbfs": -28.36,
+   "soundingS": 4.37,
+   "f0Hz": 103.818,
+   "centsOffWritten": 0.7,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": 0.7,
+   "spectralPeakStrength": 1922.9,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 44,
+   "vel": 127,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 26.62,
+   "maxMomentaryDb": -31.35,
+   "maxMomentaryFlatDb": -31.47,
+   "integratedDb": -32.29,
+   "peakDbfs": -24.19,
+   "soundingS": 4.39,
+   "f0Hz": 103.843,
+   "centsOffWritten": 0.8,
+   "centsByAutocorrelation": 0.3,
+   "centsBySpectralPeak": 0.8,
+   "spectralPeakStrength": 885.85,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 55,
+   "vel": 24,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 33.62,
+   "maxMomentaryDb": -61.11,
+   "maxMomentaryFlatDb": -61.18,
+   "integratedDb": -62.3,
+   "peakDbfs": -54.75,
+   "soundingS": 4.4,
+   "f0Hz": 196.09,
+   "centsOffWritten": -0.1,
+   "centsByAutocorrelation": 0.8,
+   "centsBySpectralPeak": -0.1,
+   "spectralPeakStrength": 1406.21,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 55,
+   "vel": 64,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 40.62,
+   "maxMomentaryDb": -40.97,
+   "maxMomentaryFlatDb": -41.07,
+   "integratedDb": -41.78,
+   "peakDbfs": -35.26,
+   "soundingS": 4.4,
+   "f0Hz": 196.029,
+   "centsOffWritten": 0.9,
+   "centsByAutocorrelation": 0.3,
+   "centsBySpectralPeak": 0.9,
+   "spectralPeakStrength": 1988.87,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 55,
+   "vel": 100,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 47.62,
+   "maxMomentaryDb": -33.18,
+   "maxMomentaryFlatDb": -33.27,
+   "integratedDb": -33.99,
+   "peakDbfs": -27.47,
+   "soundingS": 4.4,
+   "f0Hz": 196.029,
+   "centsOffWritten": 0.9,
+   "centsByAutocorrelation": 0.3,
+   "centsBySpectralPeak": 0.9,
+   "spectralPeakStrength": 1991.21,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 55,
+   "vel": 127,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 54.62,
+   "maxMomentaryDb": -29.99,
+   "maxMomentaryFlatDb": -30.14,
+   "integratedDb": -30.75,
+   "peakDbfs": -23.81,
+   "soundingS": 4.39,
+   "f0Hz": 195.979,
+   "centsOffWritten": -0.1,
+   "centsByAutocorrelation": -0.2,
+   "centsBySpectralPeak": -0.1,
+   "spectralPeakStrength": 2011.45,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 65,
+   "vel": 24,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 61.63,
+   "maxMomentaryDb": -63.02,
+   "maxMomentaryFlatDb": -63.24,
+   "integratedDb": -64.75,
+   "peakDbfs": -54.74,
+   "soundingS": 4.44,
+   "f0Hz": 349.099,
+   "centsOffWritten": -0.5,
+   "centsByAutocorrelation": -0.6,
+   "centsBySpectralPeak": -0.5,
+   "spectralPeakStrength": 861.36,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 65,
+   "vel": 64,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 68.63,
+   "maxMomentaryDb": -44.28,
+   "maxMomentaryFlatDb": -44.64,
+   "integratedDb": -45.47,
+   "peakDbfs": -35.46,
+   "soundingS": 4.49,
+   "f0Hz": 349.204,
+   "centsOffWritten": 1.6,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": 1.6,
+   "spectralPeakStrength": 937.98,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 65,
+   "vel": 100,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 75.63,
+   "maxMomentaryDb": -36.49,
+   "maxMomentaryFlatDb": -36.85,
+   "integratedDb": -37.66,
+   "peakDbfs": -27.67,
+   "soundingS": 4.48,
+   "f0Hz": 349.209,
+   "centsOffWritten": 1.6,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": 1.6,
+   "spectralPeakStrength": 935.88,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "card",
+   "pitch": 65,
+   "vel": 127,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 82.63,
+   "maxMomentaryDb": -31.5,
+   "maxMomentaryFlatDb": -32.08,
+   "integratedDb": -32.47,
+   "peakDbfs": -25.44,
+   "soundingS": 4.46,
+   "f0Hz": 349.124,
+   "centsOffWritten": 0.3,
+   "centsByAutocorrelation": -0.5,
+   "centsBySpectralPeak": 0.3,
+   "spectralPeakStrength": 1067.14,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "role": "bend",
+   "pitch": 55,
+   "vel": 100,
+   "port": "LGBassoonb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 89.62,
+   "maxMomentaryDb": -33.4,
+   "maxMomentaryFlatDb": -33.52,
+   "integratedDb": -34.22,
+   "peakDbfs": -27.83,
+   "soundingS": 4.47,
+   "f0Hz": 207.654,
+   "centsOffWritten": 101.3,
+   "centsByAutocorrelation": 100,
+   "centsBySpectralPeak": 101.3,
+   "spectralPeakStrength": 2085.8,
+   "bendFraction": 0.5,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 43,
+   "vel": 24,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 98.13,
+   "maxMomentaryDb": -58.92,
+   "maxMomentaryFlatDb": -58.66,
+   "integratedDb": -60.07,
+   "peakDbfs": -48.06,
+   "soundingS": 4.37,
+   "f0Hz": 97.913,
+   "centsOffWritten": -2.1,
+   "centsByAutocorrelation": -1.5,
+   "centsBySpectralPeak": -2.1,
+   "spectralPeakStrength": 546.51,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 43,
+   "vel": 64,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 105.13,
+   "maxMomentaryDb": -41.19,
+   "maxMomentaryFlatDb": -41.12,
+   "integratedDb": -42.76,
+   "peakDbfs": -29.84,
+   "soundingS": 4.34,
+   "f0Hz": 98.04,
+   "centsOffWritten": 1.2,
+   "centsByAutocorrelation": 0.7,
+   "centsBySpectralPeak": 1.2,
+   "spectralPeakStrength": 652.05,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 43,
+   "vel": 100,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 112.12,
+   "maxMomentaryDb": -33.46,
+   "maxMomentaryFlatDb": -33.39,
+   "integratedDb": -34.98,
+   "peakDbfs": -22.06,
+   "soundingS": 4.36,
+   "f0Hz": 98.038,
+   "centsOffWritten": 1.2,
+   "centsByAutocorrelation": 0.7,
+   "centsBySpectralPeak": 1.2,
+   "spectralPeakStrength": 630.4,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 43,
+   "vel": 127,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 119.13,
+   "maxMomentaryDb": -33.47,
+   "maxMomentaryFlatDb": -33.88,
+   "integratedDb": -34.28,
+   "peakDbfs": -18.2,
+   "soundingS": 4.21,
+   "f0Hz": 97.951,
+   "centsOffWritten": -0.7,
+   "centsByAutocorrelation": -0.8,
+   "centsBySpectralPeak": -0.7,
+   "spectralPeakStrength": 530.22,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 50,
+   "vel": 24,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 126.12,
+   "maxMomentaryDb": -56.92,
+   "maxMomentaryFlatDb": -56.74,
+   "integratedDb": -58.4,
+   "peakDbfs": -47.98,
+   "soundingS": 4.37,
+   "f0Hz": 146.903,
+   "centsOffWritten": -0.9,
+   "centsByAutocorrelation": 0.8,
+   "centsBySpectralPeak": -0.9,
+   "spectralPeakStrength": 450.79,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 50,
+   "vel": 64,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 133.12,
+   "maxMomentaryDb": -37.78,
+   "maxMomentaryFlatDb": -37.65,
+   "integratedDb": -38.85,
+   "peakDbfs": -29.78,
+   "soundingS": 4.43,
+   "f0Hz": 146.697,
+   "centsOffWritten": -2.7,
+   "centsByAutocorrelation": -1.6,
+   "centsBySpectralPeak": -2.7,
+   "spectralPeakStrength": 504.06,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 50,
+   "vel": 100,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 140.12,
+   "maxMomentaryDb": -30.03,
+   "maxMomentaryFlatDb": -29.9,
+   "integratedDb": -31.08,
+   "peakDbfs": -22,
+   "soundingS": 4.43,
+   "f0Hz": 146.694,
+   "centsOffWritten": -2.7,
+   "centsByAutocorrelation": -1.6,
+   "centsBySpectralPeak": -2.7,
+   "spectralPeakStrength": 495.99,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 50,
+   "vel": 127,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 147.12,
+   "maxMomentaryDb": -29.92,
+   "maxMomentaryFlatDb": -30.03,
+   "integratedDb": -30.79,
+   "peakDbfs": -18.13,
+   "soundingS": 4.33,
+   "f0Hz": 146.866,
+   "centsOffWritten": -0.9,
+   "centsByAutocorrelation": 0.4,
+   "centsBySpectralPeak": -0.9,
+   "spectralPeakStrength": 330.22,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 58,
+   "vel": 24,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 154.12,
+   "maxMomentaryDb": -54.9,
+   "maxMomentaryFlatDb": -54.77,
+   "integratedDb": -56.35,
+   "peakDbfs": -47.71,
+   "soundingS": 4.46,
+   "f0Hz": 233.111,
+   "centsOffWritten": 1.3,
+   "centsByAutocorrelation": 0.2,
+   "centsBySpectralPeak": 1.3,
+   "spectralPeakStrength": 884.59,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 58,
+   "vel": 64,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 161.12,
+   "maxMomentaryDb": -37.94,
+   "maxMomentaryFlatDb": -37.92,
+   "integratedDb": -39.27,
+   "peakDbfs": -29.92,
+   "soundingS": 4.46,
+   "f0Hz": 233.015,
+   "centsOffWritten": 0,
+   "centsByAutocorrelation": -0.5,
+   "centsBySpectralPeak": 0,
+   "spectralPeakStrength": 1091.65,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 58,
+   "vel": 100,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 168.13,
+   "maxMomentaryDb": -30.16,
+   "maxMomentaryFlatDb": -30.13,
+   "integratedDb": -31.48,
+   "peakDbfs": -22.14,
+   "soundingS": 4.44,
+   "f0Hz": 233.049,
+   "centsOffWritten": 0,
+   "centsByAutocorrelation": -0.2,
+   "centsBySpectralPeak": 0,
+   "spectralPeakStrength": 1116.29,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "card",
+   "pitch": 58,
+   "vel": 127,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 175.13,
+   "maxMomentaryDb": -29.45,
+   "maxMomentaryFlatDb": -29.62,
+   "integratedDb": -30.44,
+   "peakDbfs": -18.58,
+   "soundingS": 4.42,
+   "f0Hz": 232.997,
+   "centsOffWritten": -3.2,
+   "centsByAutocorrelation": -0.6,
+   "centsBySpectralPeak": -3.2,
+   "spectralPeakStrength": 1126.2,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "high",
+   "pitch": 72,
+   "vel": 24,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 182.15,
+   "maxMomentaryDb": -33.79,
+   "maxMomentaryFlatDb": -34.13,
+   "integratedDb": -34.99,
+   "peakDbfs": -28.61,
+   "soundingS": 4.34,
+   "f0Hz": 522.346,
+   "centsOffWritten": -6,
+   "centsByAutocorrelation": -3,
+   "centsBySpectralPeak": -6,
+   "spectralPeakStrength": 876.21,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "high",
+   "pitch": 72,
+   "vel": 64,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 189.16,
+   "maxMomentaryDb": -31.45,
+   "maxMomentaryFlatDb": -32.17,
+   "integratedDb": -32.43,
+   "peakDbfs": -23.98,
+   "soundingS": 4.32,
+   "f0Hz": 522.913,
+   "centsOffWritten": -2.6,
+   "centsByAutocorrelation": -1.1,
+   "centsBySpectralPeak": -2.6,
+   "spectralPeakStrength": 1259.12,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "high",
+   "pitch": 72,
+   "vel": 100,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 196.16,
+   "maxMomentaryDb": -27.54,
+   "maxMomentaryFlatDb": -28.25,
+   "integratedDb": -28.52,
+   "peakDbfs": -20.12,
+   "soundingS": 4.32,
+   "f0Hz": 522.936,
+   "centsOffWritten": -2.5,
+   "centsByAutocorrelation": -1,
+   "centsBySpectralPeak": -2.5,
+   "spectralPeakStrength": 1478.28,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "high",
+   "pitch": 72,
+   "vel": 127,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 203.17,
+   "maxMomentaryDb": -29.23,
+   "maxMomentaryFlatDb": -30.81,
+   "integratedDb": -30.12,
+   "peakDbfs": -22.32,
+   "soundingS": 4.31,
+   "f0Hz": 523.255,
+   "centsOffWritten": 1.5,
+   "centsByAutocorrelation": 0,
+   "centsBySpectralPeak": 1.5,
+   "spectralPeakStrength": 2952.91,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "role": "bend",
+   "pitch": 50,
+   "vel": 100,
+   "port": "LGHornb",
+   "ch": 3,
+   "found": true,
+   "onsetS": 210.12,
+   "maxMomentaryDb": -31.38,
+   "maxMomentaryFlatDb": -31.32,
+   "integratedDb": -32.55,
+   "peakDbfs": -22.89,
+   "soundingS": 4.46,
+   "f0Hz": 155.436,
+   "centsOffWritten": 100.1,
+   "centsByAutocorrelation": 98.6,
+   "centsBySpectralPeak": 100.1,
+   "spectralPeakStrength": 508.99,
+   "bendFraction": 0.5,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 61,
+   "vel": 24,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 218.63,
+   "maxMomentaryDb": -55.39,
+   "maxMomentaryFlatDb": -55.92,
+   "integratedDb": -57.16,
+   "peakDbfs": -45.85,
+   "soundingS": 4.36,
+   "f0Hz": 277.195,
+   "centsOffWritten": -0.1,
+   "centsByAutocorrelation": 0.1,
+   "centsBySpectralPeak": -0.1,
+   "spectralPeakStrength": 2448.34,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 61,
+   "vel": 64,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 225.62,
+   "maxMomentaryDb": -38.04,
+   "maxMomentaryFlatDb": -39.52,
+   "integratedDb": -39.52,
+   "peakDbfs": -27.13,
+   "soundingS": 4.25,
+   "f0Hz": 277.37,
+   "centsOffWritten": 1.6,
+   "centsByAutocorrelation": 1.2,
+   "centsBySpectralPeak": 1.6,
+   "spectralPeakStrength": 1926.56,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 61,
+   "vel": 100,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 232.62,
+   "maxMomentaryDb": -30.17,
+   "maxMomentaryFlatDb": -31.68,
+   "integratedDb": -31.66,
+   "peakDbfs": -19.22,
+   "soundingS": 4.25,
+   "f0Hz": 277.366,
+   "centsOffWritten": 1.6,
+   "centsByAutocorrelation": 1.1,
+   "centsBySpectralPeak": 1.6,
+   "spectralPeakStrength": 1975.91,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 61,
+   "vel": 127,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 239.63,
+   "maxMomentaryDb": -32.19,
+   "maxMomentaryFlatDb": -35.4,
+   "integratedDb": -34.25,
+   "peakDbfs": -15.82,
+   "soundingS": 4.06,
+   "f0Hz": 277.031,
+   "centsOffWritten": -1.8,
+   "centsByAutocorrelation": -0.9,
+   "centsBySpectralPeak": -1.8,
+   "spectralPeakStrength": 991.69,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 68,
+   "vel": 24,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 246.62,
+   "maxMomentaryDb": -53.95,
+   "maxMomentaryFlatDb": -54.4,
+   "integratedDb": -55.15,
+   "peakDbfs": -46.07,
+   "soundingS": 4.39,
+   "f0Hz": 415.328,
+   "centsOffWritten": 1,
+   "centsByAutocorrelation": 0.1,
+   "centsBySpectralPeak": 1,
+   "spectralPeakStrength": 4233.13,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 68,
+   "vel": 64,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 253.62,
+   "maxMomentaryDb": -35.94,
+   "maxMomentaryFlatDb": -37.18,
+   "integratedDb": -37.14,
+   "peakDbfs": -27.01,
+   "soundingS": 4.36,
+   "f0Hz": 415.252,
+   "centsOffWritten": -0.2,
+   "centsByAutocorrelation": -0.2,
+   "centsBySpectralPeak": -0.2,
+   "spectralPeakStrength": 2652.7,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 68,
+   "vel": 100,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 260.62,
+   "maxMomentaryDb": -28.1,
+   "maxMomentaryFlatDb": -29.35,
+   "integratedDb": -29.3,
+   "peakDbfs": -19.14,
+   "soundingS": 4.36,
+   "f0Hz": 415.246,
+   "centsOffWritten": -0.2,
+   "centsByAutocorrelation": -0.2,
+   "centsBySpectralPeak": -0.2,
+   "spectralPeakStrength": 2647.88,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 68,
+   "vel": 127,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 267.62,
+   "maxMomentaryDb": -30.64,
+   "maxMomentaryFlatDb": -33.91,
+   "integratedDb": -33.15,
+   "peakDbfs": -15.86,
+   "soundingS": 4.07,
+   "f0Hz": 415.918,
+   "centsOffWritten": 2.8,
+   "centsByAutocorrelation": 2.6,
+   "centsBySpectralPeak": 2.8,
+   "spectralPeakStrength": 870.95,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 75,
+   "vel": 24,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 274.62,
+   "maxMomentaryDb": -52.17,
+   "maxMomentaryFlatDb": -52.82,
+   "integratedDb": -53.62,
+   "peakDbfs": -45.97,
+   "soundingS": 4.45,
+   "f0Hz": 622.209,
+   "centsOffWritten": 0.2,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": 0.2,
+   "spectralPeakStrength": 4993.49,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 75,
+   "vel": 64,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 281.62,
+   "maxMomentaryDb": -34.09,
+   "maxMomentaryFlatDb": -35.36,
+   "integratedDb": -35.51,
+   "peakDbfs": -27.02,
+   "soundingS": 4.43,
+   "f0Hz": 622.2,
+   "centsOffWritten": -0.5,
+   "centsByAutocorrelation": -0.2,
+   "centsBySpectralPeak": -0.5,
+   "spectralPeakStrength": 2312.4,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 75,
+   "vel": 100,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 288.62,
+   "maxMomentaryDb": -26.24,
+   "maxMomentaryFlatDb": -27.52,
+   "integratedDb": -27.66,
+   "peakDbfs": -19.12,
+   "soundingS": 4.42,
+   "f0Hz": 622.202,
+   "centsOffWritten": -0.5,
+   "centsByAutocorrelation": -0.1,
+   "centsBySpectralPeak": -0.5,
+   "spectralPeakStrength": 2312.81,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "card",
+   "pitch": 75,
+   "vel": 127,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 295.62,
+   "maxMomentaryDb": -26.26,
+   "maxMomentaryFlatDb": -29.01,
+   "integratedDb": -28.11,
+   "peakDbfs": -15.65,
+   "soundingS": 4.21,
+   "f0Hz": 621.977,
+   "centsOffWritten": -0.4,
+   "centsByAutocorrelation": -0.8,
+   "centsBySpectralPeak": -0.4,
+   "spectralPeakStrength": 1263.64,
+   "run": "30-REC-260919_1018.wav"
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "role": "bend",
+   "pitch": 68,
+   "vel": 100,
+   "port": "LGTrumpetb",
+   "ch": 5,
+   "found": true,
+   "onsetS": 302.62,
+   "maxMomentaryDb": -28.2,
+   "maxMomentaryFlatDb": -29.67,
+   "integratedDb": -29.25,
+   "peakDbfs": -19.55,
+   "soundingS": 4.19,
+   "f0Hz": 439.978,
+   "centsOffWritten": 99.6,
+   "centsByAutocorrelation": 99.9,
+   "centsBySpectralPeak": 99.6,
+   "spectralPeakStrength": 3188.42,
+   "bendFraction": 0.5,
+   "run": "30-REC-260919_1018.wav"
   }
- ]
+ ],
+ "scaleNote": "MIXED PROVENANCE, deliberately (PLAN 1b.4, RUNNING_LOG §85). The bassoon, horn and trumpet rows were measured on their CURVE CHANNELS after the 1b.3 trims and after the UVI Dynamic Amount was set to 1.00 on those parts - they describe exactly what the piece plays. The english horn, cello, double bass, vibraphone and percussion rows predate the trims and were taken on main channel 1; a per-pitch comparison (§85) showed their curve channels behave identically once the trim is accounted for, residuals 0.0 to 0.4 dB on the deterministic vibraphone and within their known round-robin scatter on the rest. So every instrument's velocity-curve SHAPE is valid; only the absolute offset of those five is one trim out, and bank/trims.json carries each deltaDb. The remap normalises per instrument, so it is immune to that offset."
 }

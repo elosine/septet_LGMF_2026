@@ -42,6 +42,17 @@ const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const OUT = path.join(ROOT, arg('out', 'probes/card_schedule.json'));
 const PRINT = process.argv.includes('--print');
+// --channels curve  (PLAN 1b.4, 2026-09-19): measure on the CHANNELS THE PIECE PLAYS, not on main 1.
+// A drawn note is a curve event and routes to the CURVE BANK - the SI2 three to their `b` instance, the
+// Xsample four to channels 2-4 of their own port; only a plain or keyswitched note uses main channel 1.
+// This flag exists because that distinction turned out to matter: RUNNING_LOG §56's UVI "Dynamic Amount"
+// fix reached PART 1 OF THE MAIN INSTANCE ONLY, so the horn's and trumpet's 26 dB velocity range sat on a
+// part the piece never plays, while every drawn note went through curve copies still at the factory 0.70
+// (about 8 dB). A card measured on main channel 1 therefore described something the music does not use.
+// --only key,key   limit to named instruments.   --pitches mid   the middle pitch alone (a spot check).
+const CHANNELS = arg('channels', 'main');
+const ONLY = (arg('only', '') || '').split(',').filter(Boolean);
+const PITCHES = arg('pitches', 'all');
 
 const INSTRUMENTS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
 const BAL = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'balance.json'), 'utf8'));
@@ -83,15 +94,23 @@ const push = (o, hold, tail) => {
 };
 
 for (const key of PITCHED) {
+    if (ONLY.length && !ONLY.includes(key)) continue;
     const R = INSTRUMENTS[key];
     const tech = R.techniques.find(x => x.key === R.ordinary);
     if (!tech) throw new Error('no ordinary technique for ' + key);
-    const port = tech.port || R.port;
-    const ch = tech.channel || (R.channels && R.channels.main) || 1;
+    let port, ch;
+    if (CHANNELS === 'curve' && R.channels && Array.isArray(R.channels.curve) && R.channels.curve.length) {
+        const e = R.channels.curve[0];                       // the first slot of the bank; the three are copies
+        if (e && typeof e === 'object') { port = e.port; ch = e.ch; } else { port = R.port; ch = e; }
+    } else {
+        port = tech.port || R.port;
+        ch = tech.channel || (R.channels && R.channels.main) || 1;
+    }
     const tail = key === 'bowed_vibraphone' ? TAIL_VIB : TAIL;
     const base = { inst: key, label: R.label, tech: tech.key, techLabel: tech.label, port, ch,
                    cc0: tech.cc0 != null ? tech.cc0 : null, ks: tech.ks != null ? tech.ks : null, cc7: 127 };
-    const pitches = pitchesOf[key].slice();
+    let pitches = pitchesOf[key].slice();
+    if (PITCHES === 'mid') pitches = [pitchesOf[key][1]];
     if (key === 'horn') pitches.push(HORN_HIGH_PITCH);
     t += INST_GAP;
     for (const pitch of pitches) {
@@ -107,7 +126,7 @@ for (const key of PITCHED) {
                                    bendResetMs: t + HOLD + 400 }), HOLD, tail);
 }
 
-for (const key of PERC_SPOT) {
+for (const key of (ONLY.length ? [] : PERC_SPOT)) {
     const n = percNote[key];
     if (!n) { console.error('no 0d anchor note for ' + key + ' — skipped'); continue; }
     t += INST_GAP;

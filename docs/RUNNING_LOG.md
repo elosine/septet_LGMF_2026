@@ -3930,3 +3930,47 @@ and the fourteen percussion from −4.29 (bass drum) to +12.00 + 12.33 JS (casta
 **Not saved — his CTRL+S.** Until he does, all of it lives in the open project only.
 
 **What is now true and was not this morning:** every instrument in the rack is set to a level derived from a standard rather than from another instrument, on a scale proven against a −20 dBFS reference, and the two tracks that carried the horn's top fifth are in the balance for the first time. **What is still open:** 1b.4, the remap regenerated from the card — and it must carry the vibraphone's per-pitch register offsets, which the fader deliberately does not; then 1b.5, whose pass was written down before it was run: every instrument at velocity 127 within **±1 dB of −31.84**, and a nine-voice fff tutti at **−20 LUFS-S under −1 dBTP**.
+
+---
+
+## §85. Before the remap — §56's Dynamic fix had never reached the channels the piece plays, and the bassoon's range triples (2026-09-19)
+
+**What prompted it.** His *"lets do C"* — widen the written dynamic span and raise the bassoon's UVI **Dynamic Amount** to 1.00, the §56 move. Reading the instances before touching anything turned up something else.
+
+**THE FINDING.** `uvi_state.js decode` on all six SI2 instances, Dynamic per part:
+
+| instance | the parts the piece plays | Dynamic, before |
+|---|---|---|
+| Bassoon SI2 | part 1 (Ordinario, ch 1) | 1.00 |
+| **Bassoon SI2 b** | **parts 3 4 5** (Ordinario copies, ch 3–5) | **0.70** |
+| Horn SI2 | part 1 | 1.00 |
+| **Horn SI2 b** | **parts 3 4 5** | **0.70** |
+| Trumpet SI2 | part 1 | 1.00 |
+| **Trumpet SI2 b** | **parts 5 6 7** | **0.70** |
+
+**§56 set part 1 of the MAIN instance — and the piece never plays it.** A drawn note is a curve event and routes to the instrument's curve bank, which for the SI2 three is the **`b` instance**; only a plain or keyswitched note uses main channel 1. So the horn's and trumpet's 26 dB velocity range, measured and celebrated on 2026-09-18, sat on a part no score has ever sounded, while **every horn and trumpet note in all five scores went through copies still at the factory 0.70**. It is precisely §84's shape — the horn-high tracks that had never been trimmed — one layer deeper: *a fix applied to the thing that was measured rather than to the thing that plays.*
+
+**It also explains a puzzle in §56's own record.** That entry says he put the bassoon back to 0.70; today's decode found its main part 1 at **1.00**. Both are true — he set main part 1 today, as part of C. What matters is that neither state was ever the one the music used.
+
+**His hands, all six curve parts to 1.00** (*"I changed 4 instances Bassoon SI2 ordinario; and bassoon SI2b the 3 curve instances"*, then *"done, all six are at 1.00"*), read back and confirmed.
+
+### What the curve channels measure, now — 43 notes, 5:11, on `LGBassoonb` ch3 · `LGHornb` ch3 · `LGTrumpetb` ch5
+
+| | span vel 24→127 | at vel 127 |
+|---|---|---|
+| **Bassoon** | **31.9 dB** (was 11.7 at Dynamic 0.70) | **−31.8** |
+| Horn | 26.4 dB | **−31.8** |
+| Trumpet | 23.5 dB | **−31.8** |
+
+**Three things fall out of that table.**
+1. **The bassoon's range nearly tripled** — 11.7 → 31.9 dB. It was the binding constraint on how wide the written span could be; it is now the widest instrument in the ensemble.
+2. **All three land on −31.8 against the 1b.3 target of −31.84.** So the trims computed from main-channel measurements hold on the curve channels: **`Dynamic` extends the range downward and does not move the top.** That was an assumption an hour ago and is a measurement now.
+3. Horn and trumpet differ from their main-channel figures by a **constant** −12.2 and −9.4 dB at every velocity — exactly the trims applied between the two runs. Same instrument, same shape, one fader apart.
+
+**And the four Xsample instruments were checked the same way** (20 notes, mid pitch, curve channel 2), per pitch rather than against a mean: residuals against `curve − main − trim` of **0.0 dB at both velocities on the vibraphone** — exact, because its round robin is off and it is deterministic now — and 0.0 to 0.4 on the cello, with the english horn and double bass inside their known round-robin scatter (2.21 and 2.15 dB SD) except one reading each at velocity 127. **No systematic main-versus-curve difference anywhere in the Kontakt four.** *(A first pass reported the vibraphone 9.4 dB adrift; that was a comparison of one pitch against a nine-pitch mean, not a finding.)*
+
+**The card now carries mixed provenance, deliberately, and says so in `scaleNote`:** the SI2 three re-measured on their curve channels after the trims and after the Dynamic fix; the other five still pre-trim on main channel 1, their *shape* valid by the comparison above and their absolute offset one `deltaDb` out. The remap normalises per instrument, so it is immune to that offset.
+
+### Which settles the span question C was asked to answer
+
+The instruments the piece plays now give **17.7 dB (cello) · 21.4 (double bass) · 23.5 (trumpet) · 26.4 (horn) · 26.5 (english horn) · 28.8 (vibraphone) · 31.9 (bassoon)**. The cello is now the narrowest, and **a written span of ~17 dB clears every instrument with nothing clamping** — which is what option C promised, by a different route than expected: not by rescuing the bassoon from 11.7 dB, but by discovering that three instruments had been playing on the wrong setting all along.
