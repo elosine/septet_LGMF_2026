@@ -3755,3 +3755,39 @@ Before today only the **cello** had ever been measured (piece #5's probe, carrie
 **A flaw in the analyzer, found and fixed in the same session.** It ran the f0 check on the percussion too, and autocorrelation on a castanet locks onto whatever noise period it finds — eight notes were reported "300 to 590 cents off their written pitch", which means nothing. Unpitched roles are now excluded, and the pitch section reads *"none — every note sounds the pitch it was sent."* The lesson is §75's principle 21 in miniature: a check that reports a fault where none exists costs as much trust as one that misses a real fault.
 
 **Gates after the recipe changed:** `palette_check` **168 GREEN** · `test_written_pitch` **10 + the control GREEN** · `check_ceilings --all` **6/6 GREEN**.
+
+---
+
+## §79. PLAN 1b.3a — all fourteen percussion measured, and the vibraphone's "register spread" turns out to be a ROUND ROBIN whose samples differ by 14 dB (2026-09-19)
+
+**What prompted it.** His *"yes to both, per register and re-measure all fourteen"*. The second card run — 98 notes, 8:12 — took the fourteen percussion on 0d's own keys and the vibraphone at nine pitches across its range, merged into `bank/instrument_card.json` (now **209 notes**, one file, by `analyze_card.py --merge`).
+
+**The percussion is done and it is solid.** All fourteen at velocities 127 and 64 on 0d's keys, in absolute dBFS. Spitfire is deterministic — 0d's own scatter figures for it are **0.12–0.77 dB SD** — so a single strike per key is a real measurement and 1b.3's percussion trims can be computed from these numbers with confidence.
+
+### The vibraphone: the premise of "per register" was wrong
+
+The nine-pitch pass found a spread of **15.4 dB at velocity 64 and 16.3 dB at 127** — but shaped as a **sawtooth**, not a trend: at 127, adjacent measured pitches step +0.6, −8.9, +12.7, −14.4, +15.5, +0.8, −9.4, +3.5 dB. A sawtooth cannot be a register characteristic, so before fitting anything to it the obvious question was asked: **is it stable?**
+
+**Four strikes of the SAME note at the SAME velocity** (`card2_schedule.js --mode repeat`, 16 notes, 2:15):
+
+| pitch | the four readings (maxMomentary, dB) | spread |
+|---|---|---|
+| 62 | −13.6 · −18.0 · −15.9 · −13.6 | **4.5** |
+| 71 | −20.7 · −19.7 · −18.2 · −20.7 | **2.5** |
+| **76** | −18.0 · **−4.2** · −12.7 · −18.0 | **13.8** |
+| 80 | −5.2 · −3.4 · −7.2 · −5.2 | **3.8** |
+
+**At every pitch the first and fourth readings are identical to 0.1 dB** — so this is not noise but a **deterministic three-sample round robin**, and at F♯5 its members are **13.8 dB apart**. The "register spread" measured from one strike per pitch was largely the luck of which round-robin slot answered.
+
+**And 0d had already recorded it.** `bank/balance.json` carries a `scatterSd` per instrument, from its three repeats at the anchor: **Vibraphone 5.99 dB** — more than double anything else — against cello 3.22 · horn 2.48 · english horn 2.21 · double bass 2.15 · trumpet 1.75 · bassoon 1.68, and every Spitfire percussion under 0.8. The number was in the bank from 2026-09-18 and nothing acted on it.
+
+**What follows, and it is not a trim.**
+1. **A per-register trim fitted to the nine-pitch pass would be fitting the round robin**, not the instrument.
+2. **Even a perfect per-pitch trim cannot fix this**, because the jump happens between one note and the next in performance: the same written pitch at the same dynamic will come out up to 14 dB apart depending on which sample the round robin serves. That is an instrument problem, not a balance problem, and the lever for it is inside Kontakt.
+3. The other six pitched instruments scatter 1.7–3.2 dB, which is why 0d gave the Xsample three three repeats. **Their card figures rest on one strike each and therefore carry ±2–3 dB** — but 0d's own anchors are already averaged over three, and §78 showed `new = 0d + 12 + trim` holds for five of seven within 0.9 dB. So for 1b.3 the better estimator is **0d's repeat-averaged relative level carried onto the absolute scale the card established**, rather than a fresh single reading — no more rack time needed for the six.
+
+**Two fixes to the analyzer, both found by its own output being wrong.**
+- **The pitch check cried wolf on the vibraphone** — 440 cents sharp at F3, 75 at B♭3 — and the spectrum flatly disagreed: at every one of the nine pitches the strongest partial sits at **×1.00** of the written fundamental. A bowed bar is nearly a pure tone with a slow beat between two close modes, and that envelope is what a normalised autocorrelation locks onto. `f0_spectral` was added beside `f0_cents`, both are stored, and the spectral peak wins when it is prominent. The first version of that test measured prominence against the **whole** spectrum and still failed at F3 — because a vibraphone is *tuned* so its fourth partial, two octaves up and outside the search band, is strong. Prominence is now measured **within** the band. The pitch section reads *"none — every note sounds the pitch it was sent."*
+- **The per-pitch summary kept only the LAST reading** — a dict comprehension keyed on pitch — which for a round-robin instrument is exactly the wrong one. It now averages the repeats and carries `n` and `spreadDb` per pitch, so an under-measured figure is visible as `n: 1` rather than passing as fact.
+
+**The open question, and it is his** (the writing is not blocked by it — the harmony is written and the vibraphone holds its bars in every model): can the Xsample bowed vibraphone's round robin be disabled or its members levelled, or is a different preset wanted? Until that is answered a vibraphone trim is provisional by construction.

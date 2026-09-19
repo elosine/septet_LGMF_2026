@@ -1,21 +1,21 @@
 {
- "generatedAt": "2026-09-19T08:18:28",
+ "generatedAt": "2026-09-19T08:49:24",
  "planItem": "1b.2",
  "piece": "lgmf",
- "recording": "30-REC-260919_0803.wav",
- "schedule": "card_schedule.json",
- "scheduleGeneratedAt": "2026-09-19T12:01:25.099Z",
+ "recording": "30-REC-260919_0845.wav",
+ "schedule": "card_vibrepeat_schedule.json",
+ "scheduleGeneratedAt": "2026-09-19T12:45:20.682Z",
  "sampleRate": 44100,
  "scale": "absolute dBFS at the master (REC at unity since 1b.0; the chain proven in bank/reference.json)",
  "reference": "bank/reference.json",
- "standard": "K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770. REC is at unity since 1b.0, so every level is dBFS AT THE MASTER (bank/reference.json proves the chain to three decimals).",
+ "standard": "K-20; loudness ITU-R BS.1770. REC at unity since 1b.0, so every level is dBFS at the master.",
  "method": {
   "maxMomentary": "loudest 400 ms, K-weighted (BS.1770 pre-filter) \u2014 how it speaks",
   "integrated": "K-weighted RMS over the whole sounding note \u2014 how loud it is",
   "soundingS": "onset to 40 dB below the note's own peak",
   "cents": "f0 by autocorrelation, searched within \u00b16 semitones of the written pitch",
-  "noiseFloorDb": -180.0,
-  "scheduleOffsetS": 1.31
+  "noiseFloorDb": -128.01,
+  "scheduleOffsetS": 1.15
  },
  "instruments": {
   "english_horn": {
@@ -26,23 +26,35 @@
      "maxMomentaryDb": -35.25,
      "integratedDb": -37.47,
      "soundingS": 4.6,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "59": {
        "maxMomentaryDb": -34.14,
        "integratedDb": -35.83,
        "soundingS": 4.61,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.7
       },
       "67": {
        "maxMomentaryDb": -36.93,
        "integratedDb": -40.46,
        "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       },
       "74": {
        "maxMomentaryDb": -34.68,
        "integratedDb": -36.12,
        "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.4
       }
      }
@@ -51,23 +63,35 @@
      "maxMomentaryDb": -25.93,
      "integratedDb": -27.65,
      "soundingS": 4.67,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "59": {
        "maxMomentaryDb": -29.05,
        "integratedDb": -30.31,
        "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.6
       },
       "67": {
        "maxMomentaryDb": -21.72,
        "integratedDb": -23.46,
        "soundingS": 4.74,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "74": {
        "maxMomentaryDb": -27.02,
        "integratedDb": -29.18,
        "soundingS": 4.66,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.0
       }
      }
@@ -76,23 +100,35 @@
      "maxMomentaryDb": -20.11,
      "integratedDb": -21.63,
      "soundingS": 4.57,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "59": {
        "maxMomentaryDb": -20.1,
        "integratedDb": -21.67,
        "soundingS": 4.65,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.1
       },
       "67": {
        "maxMomentaryDb": -19.71,
        "integratedDb": -21.35,
        "soundingS": 4.64,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 3.1
       },
       "74": {
        "maxMomentaryDb": -20.51,
        "integratedDb": -21.86,
        "soundingS": 4.42,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.5
       }
      }
@@ -101,23 +137,35 @@
      "maxMomentaryDb": -16.37,
      "integratedDb": -17.86,
      "soundingS": 4.64,
+     "nPerPitch": {
+      "59": 1,
+      "67": 1,
+      "74": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "59": {
        "maxMomentaryDb": -18.61,
        "integratedDb": -19.93,
        "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.2
       },
       "67": {
        "maxMomentaryDb": -15.82,
        "integratedDb": -17.53,
        "soundingS": 4.69,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.7
       },
       "74": {
        "maxMomentaryDb": -14.68,
        "integratedDb": -16.11,
        "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.2
       }
      }
@@ -145,23 +193,35 @@
      "maxMomentaryDb": -31.27,
      "integratedDb": -32.51,
      "soundingS": 4.43,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "44": {
        "maxMomentaryDb": -32.14,
        "integratedDb": -32.94,
        "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.1
       },
       "55": {
        "maxMomentaryDb": -29.88,
        "integratedDb": -31.07,
        "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "65": {
        "maxMomentaryDb": -31.8,
        "integratedDb": -33.53,
        "soundingS": 4.46,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.7
       }
      }
@@ -170,23 +230,35 @@
      "maxMomentaryDb": -26.96,
      "integratedDb": -28.03,
      "soundingS": 4.42,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "44": {
        "maxMomentaryDb": -27.94,
        "integratedDb": -29.14,
        "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "55": {
        "maxMomentaryDb": -24.82,
        "integratedDb": -25.62,
        "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.2
       },
       "65": {
        "maxMomentaryDb": -28.12,
        "integratedDb": -29.32,
        "soundingS": 4.49,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       }
      }
@@ -195,23 +267,35 @@
      "maxMomentaryDb": -23.03,
      "integratedDb": -24.11,
      "soundingS": 4.42,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "44": {
        "maxMomentaryDb": -24.01,
        "integratedDb": -25.22,
        "soundingS": 4.38,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "55": {
        "maxMomentaryDb": -20.89,
        "integratedDb": -21.71,
        "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.4
       },
       "65": {
        "maxMomentaryDb": -24.19,
        "integratedDb": -25.39,
        "soundingS": 4.49,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.0
       }
      }
@@ -220,23 +304,35 @@
      "maxMomentaryDb": -19.92,
      "integratedDb": -20.82,
      "soundingS": 4.41,
+     "nPerPitch": {
+      "44": 1,
+      "55": 1,
+      "65": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "44": {
        "maxMomentaryDb": -20.3,
        "integratedDb": -21.28,
        "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.3
       },
       "55": {
        "maxMomentaryDb": -18.98,
        "integratedDb": -19.72,
        "soundingS": 4.4,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.2
       },
       "65": {
        "maxMomentaryDb": -20.49,
        "integratedDb": -21.45,
        "soundingS": 4.45,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       }
      }
@@ -264,23 +360,35 @@
      "maxMomentaryDb": -44.71,
      "integratedDb": -46.08,
      "soundingS": 4.4,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "43": {
        "maxMomentaryDb": -46.72,
        "integratedDb": -47.87,
        "soundingS": 4.38,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.5
       },
       "50": {
        "maxMomentaryDb": -44.71,
        "integratedDb": -46.21,
        "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.5
       },
       "58": {
        "maxMomentaryDb": -42.7,
        "integratedDb": -44.15,
        "soundingS": 4.46,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       }
      }
@@ -289,23 +397,35 @@
      "maxMomentaryDb": -26.79,
      "integratedDb": -28.1,
      "soundingS": 4.41,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "43": {
        "maxMomentaryDb": -29.03,
        "integratedDb": -30.57,
        "soundingS": 4.35,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "50": {
        "maxMomentaryDb": -25.59,
        "integratedDb": -26.67,
        "soundingS": 4.42,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.7
       },
       "58": {
        "maxMomentaryDb": -25.74,
        "integratedDb": -27.07,
        "soundingS": 4.45,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.2
       }
      }
@@ -314,23 +434,35 @@
      "maxMomentaryDb": -19.0,
      "integratedDb": -20.31,
      "soundingS": 4.41,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "43": {
        "maxMomentaryDb": -21.23,
        "integratedDb": -22.78,
        "soundingS": 4.35,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "50": {
        "maxMomentaryDb": -17.81,
        "integratedDb": -18.87,
        "soundingS": 4.42,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.7
       },
       "58": {
        "maxMomentaryDb": -17.95,
        "integratedDb": -19.29,
        "soundingS": 4.45,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.3
       }
      }
@@ -339,23 +471,35 @@
      "maxMomentaryDb": -18.76,
      "integratedDb": -19.64,
      "soundingS": 4.32,
+     "nPerPitch": {
+      "43": 1,
+      "50": 1,
+      "58": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "43": {
        "maxMomentaryDb": -21.3,
        "integratedDb": -22.09,
        "soundingS": 4.22,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.9
       },
       "50": {
        "maxMomentaryDb": -17.72,
        "integratedDb": -18.58,
        "soundingS": 4.31,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.5
       },
       "58": {
        "maxMomentaryDb": -17.26,
        "integratedDb": -18.25,
        "soundingS": 4.44,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.6
       }
      }
@@ -383,23 +527,35 @@
      "maxMomentaryDb": -44.48,
      "integratedDb": -45.95,
      "soundingS": 4.41,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "61": {
        "maxMomentaryDb": -46.04,
        "integratedDb": -47.8,
        "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.1
       },
       "68": {
        "maxMomentaryDb": -44.59,
        "integratedDb": -45.79,
        "soundingS": 4.39,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       },
       "75": {
        "maxMomentaryDb": -42.81,
        "integratedDb": -44.26,
        "soundingS": 4.46,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.2
       }
      }
@@ -408,23 +564,35 @@
      "maxMomentaryDb": -26.66,
      "integratedDb": -28.02,
      "soundingS": 4.34,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "61": {
        "maxMomentaryDb": -28.68,
        "integratedDb": -30.14,
        "soundingS": 4.23,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.1
       },
       "68": {
        "maxMomentaryDb": -26.57,
        "integratedDb": -27.78,
        "soundingS": 4.36,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.3
       },
       "75": {
        "maxMomentaryDb": -24.73,
        "integratedDb": -26.15,
        "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       }
      }
@@ -433,23 +601,35 @@
      "maxMomentaryDb": -18.81,
      "integratedDb": -20.18,
      "soundingS": 4.33,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "61": {
        "maxMomentaryDb": -20.81,
        "integratedDb": -22.29,
        "soundingS": 4.23,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.1
       },
       "68": {
        "maxMomentaryDb": -18.73,
        "integratedDb": -19.94,
        "soundingS": 4.37,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.2
       },
       "75": {
        "maxMomentaryDb": -16.88,
        "integratedDb": -18.3,
        "soundingS": 4.4,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.1
       }
      }
@@ -458,23 +638,35 @@
      "maxMomentaryDb": -20.34,
      "integratedDb": -22.48,
      "soundingS": 4.1,
+     "nPerPitch": {
+      "61": 1,
+      "68": 1,
+      "75": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "61": {
        "maxMomentaryDb": -22.83,
        "integratedDb": -24.9,
        "soundingS": 4.05,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.8
       },
       "68": {
        "maxMomentaryDb": -21.28,
        "integratedDb": -23.78,
        "soundingS": 4.05,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 2.5
       },
       "75": {
        "maxMomentaryDb": -16.9,
        "integratedDb": -18.75,
        "soundingS": 4.21,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.8
       }
      }
@@ -502,49 +694,127 @@
      "maxMomentaryDb": -41.62,
      "integratedDb": -46.24,
      "soundingS": 4.61,
+     "nPerPitch": {
+      "62": 1,
+      "71": 1,
+      "80": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "62": {
        "maxMomentaryDb": -42.15,
        "integratedDb": -45.87,
        "soundingS": 4.67,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 10.0
       },
       "71": {
        "maxMomentaryDb": -49.01,
        "integratedDb": -54.11,
        "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 37.8
       },
       "80": {
        "maxMomentaryDb": -33.69,
        "integratedDb": -38.75,
        "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 6.2
       }
      }
     },
     "64": {
-     "maxMomentaryDb": -27.41,
-     "integratedDb": -32.0,
-     "soundingS": 4.59,
+     "maxMomentaryDb": -25.68,
+     "integratedDb": -29.95,
+     "soundingS": 4.61,
+     "nPerPitch": {
+      "62": 2,
+      "71": 2,
+      "80": 2,
+      "53": 1,
+      "58": 1,
+      "67": 1,
+      "76": 1,
+      "85": 1,
+      "89": 1
+     },
+     "worstRepeatSpreadDb": 4.45,
      "perPitch": {
       "62": {
-       "maxMomentaryDb": -31.73,
-       "integratedDb": -35.91,
-       "soundingS": 4.58,
-       "centsOffWritten": -3.2
+       "maxMomentaryDb": -29.51,
+       "integratedDb": -33.39,
+       "soundingS": 4.63,
+       "n": 2,
+       "spreadDb": 4.45,
+       "centsOffWritten": 4.3
       },
       "71": {
-       "maxMomentaryDb": -33.38,
-       "integratedDb": -38.47,
-       "soundingS": 4.56,
-       "centsOffWritten": 19.8
+       "maxMomentaryDb": -33.81,
+       "integratedDb": -38.82,
+       "soundingS": 4.57,
+       "n": 2,
+       "spreadDb": 0.87,
+       "centsOffWritten": 7.3
       },
       "80": {
-       "maxMomentaryDb": -17.11,
-       "integratedDb": -21.63,
-       "soundingS": 4.62,
-       "centsOffWritten": 3.2
+       "maxMomentaryDb": -17.98,
+       "integratedDb": -22.7,
+       "soundingS": 4.6,
+       "n": 2,
+       "spreadDb": 1.75,
+       "centsOffWritten": 5.6
+      },
+      "53": {
+       "maxMomentaryDb": -23.04,
+       "integratedDb": -26.69,
+       "soundingS": 4.71,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.0
+      },
+      "58": {
+       "maxMomentaryDb": -28.52,
+       "integratedDb": -31.48,
+       "soundingS": 4.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.5
+      },
+      "67": {
+       "maxMomentaryDb": -24.9,
+       "integratedDb": -28.5,
+       "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.8
+      },
+      "76": {
+       "maxMomentaryDb": -31.82,
+       "integratedDb": -35.74,
+       "soundingS": 4.73,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 7.3
+      },
+      "85": {
+       "maxMomentaryDb": -20.45,
+       "integratedDb": -26.22,
+       "soundingS": 4.43,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.3
+      },
+      "89": {
+       "maxMomentaryDb": -21.11,
+       "integratedDb": -25.99,
+       "soundingS": 4.53,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.9
       }
      }
     },
@@ -552,49 +822,127 @@
      "maxMomentaryDb": -18.78,
      "integratedDb": -22.78,
      "soundingS": 4.61,
+     "nPerPitch": {
+      "62": 1,
+      "71": 1,
+      "80": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "62": {
        "maxMomentaryDb": -20.92,
        "integratedDb": -24.15,
        "soundingS": 4.69,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -5.9
       },
       "71": {
        "maxMomentaryDb": -23.23,
        "integratedDb": -28.78,
        "soundingS": 4.58,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 32.8
       },
       "80": {
        "maxMomentaryDb": -12.2,
        "integratedDb": -15.42,
        "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 4.3
       }
      }
     },
     "127": {
-     "maxMomentaryDb": -13.16,
-     "integratedDb": -17.42,
-     "soundingS": 4.64,
+     "maxMomentaryDb": -10.9,
+     "integratedDb": -15.43,
+     "soundingS": 4.58,
+     "nPerPitch": {
+      "62": 6,
+      "71": 6,
+      "80": 6,
+      "53": 1,
+      "58": 1,
+      "67": 1,
+      "76": 5,
+      "85": 1,
+      "89": 1
+     },
+     "worstRepeatSpreadDb": 13.8,
      "perPitch": {
       "62": {
-       "maxMomentaryDb": -13.58,
-       "integratedDb": -16.98,
-       "soundingS": 4.71,
-       "centsOffWritten": 10.2
+       "maxMomentaryDb": -15.45,
+       "integratedDb": -19.01,
+       "soundingS": 4.67,
+       "n": 6,
+       "spreadDb": 4.46,
+       "centsOffWritten": 4.3
       },
       "71": {
-       "maxMomentaryDb": -20.71,
-       "integratedDb": -25.35,
-       "soundingS": 4.62,
-       "centsOffWritten": 37.8
+       "maxMomentaryDb": -19.96,
+       "integratedDb": -24.84,
+       "soundingS": 4.6,
+       "n": 6,
+       "spreadDb": 2.5,
+       "centsOffWritten": 7.3
       },
       "80": {
-       "maxMomentaryDb": -5.19,
-       "integratedDb": -9.93,
+       "maxMomentaryDb": -4.92,
+       "integratedDb": -9.26,
        "soundingS": 4.6,
+       "n": 6,
+       "spreadDb": 3.77,
+       "centsOffWritten": 5.6
+      },
+      "53": {
+       "maxMomentaryDb": -9.73,
+       "integratedDb": -14.16,
+       "soundingS": 4.73,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 10.6
+      },
+      "58": {
+       "maxMomentaryDb": -9.15,
+       "integratedDb": -13.81,
+       "soundingS": 4.45,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 0.6
+      },
+      "67": {
+       "maxMomentaryDb": -5.35,
+       "integratedDb": -8.69,
+       "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 6.1
+      },
+      "76": {
+       "maxMomentaryDb": -11.44,
+       "integratedDb": -15.56,
+       "soundingS": 4.6,
+       "n": 5,
+       "spreadDb": 13.8,
+       "centsOffWritten": 7.3
+      },
+      "85": {
+       "maxMomentaryDb": -12.79,
+       "integratedDb": -17.23,
+       "soundingS": 4.5,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 5.5
+      },
+      "89": {
+       "maxMomentaryDb": -9.29,
+       "integratedDb": -16.33,
+       "soundingS": 4.48,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": 6.3
       }
      }
     }
@@ -621,23 +969,35 @@
      "maxMomentaryDb": -33.41,
      "integratedDb": -36.73,
      "soundingS": 4.64,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "48": {
        "maxMomentaryDb": -32.13,
        "integratedDb": -36.15,
        "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.6
       },
       "60": {
        "maxMomentaryDb": -31.79,
        "integratedDb": -34.36,
        "soundingS": 4.65,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.4
       },
       "71": {
        "maxMomentaryDb": -36.3,
        "integratedDb": -39.68,
        "soundingS": 4.64,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.1
       }
      }
@@ -646,23 +1006,35 @@
      "maxMomentaryDb": -22.51,
      "integratedDb": -25.31,
      "soundingS": 4.64,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "48": {
        "maxMomentaryDb": -19.34,
        "integratedDb": -22.27,
        "soundingS": 4.66,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.5
       },
       "60": {
        "maxMomentaryDb": -21.85,
        "integratedDb": -24.57,
        "soundingS": 4.66,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.4
       },
       "71": {
        "maxMomentaryDb": -26.34,
        "integratedDb": -29.1,
        "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.3
       }
      }
@@ -671,23 +1043,35 @@
      "maxMomentaryDb": -15.16,
      "integratedDb": -17.08,
      "soundingS": 4.61,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "48": {
        "maxMomentaryDb": -12.57,
        "integratedDb": -14.42,
        "soundingS": 4.65,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.4
       },
       "60": {
        "maxMomentaryDb": -11.62,
        "integratedDb": -13.58,
        "soundingS": 4.62,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.0
       },
       "71": {
        "maxMomentaryDb": -21.3,
        "integratedDb": -23.23,
        "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.0
       }
      }
@@ -696,23 +1080,35 @@
      "maxMomentaryDb": -14.74,
      "integratedDb": -17.68,
      "soundingS": 4.57,
+     "nPerPitch": {
+      "48": 1,
+      "60": 1,
+      "71": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "48": {
        "maxMomentaryDb": -11.18,
        "integratedDb": -15.87,
        "soundingS": 4.56,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.7
       },
       "60": {
        "maxMomentaryDb": -13.64,
        "integratedDb": -16.17,
        "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.1
       },
       "71": {
        "maxMomentaryDb": -19.4,
        "integratedDb": -21.01,
        "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       }
      }
@@ -740,23 +1136,35 @@
      "maxMomentaryDb": -38.99,
      "integratedDb": -40.91,
      "soundingS": 4.65,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "38": {
        "maxMomentaryDb": -38.46,
        "integratedDb": -40.14,
        "soundingS": 4.78,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.3
       },
       "48": {
        "maxMomentaryDb": -40.08,
        "integratedDb": -42.02,
        "soundingS": 4.59,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.9
       },
       "57": {
        "maxMomentaryDb": -38.43,
        "integratedDb": -40.56,
        "soundingS": 4.57,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.9
       }
      }
@@ -765,23 +1173,35 @@
      "maxMomentaryDb": -30.07,
      "integratedDb": -32.3,
      "soundingS": 4.69,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "38": {
        "maxMomentaryDb": -30.72,
        "integratedDb": -32.76,
        "soundingS": 4.87,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.2
       },
       "48": {
        "maxMomentaryDb": -27.13,
        "integratedDb": -29.06,
        "soundingS": 4.48,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.1
       },
       "57": {
        "maxMomentaryDb": -32.35,
        "integratedDb": -35.09,
        "soundingS": 4.73,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.2
       }
      }
@@ -790,23 +1210,35 @@
      "maxMomentaryDb": -24.0,
      "integratedDb": -25.89,
      "soundingS": 4.82,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "38": {
        "maxMomentaryDb": -22.23,
        "integratedDb": -23.96,
        "soundingS": 4.98,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.7
       },
       "48": {
        "maxMomentaryDb": -25.14,
        "integratedDb": -26.87,
        "soundingS": 4.67,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 1.3
       },
       "57": {
        "maxMomentaryDb": -24.64,
        "integratedDb": -26.85,
        "soundingS": 4.81,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -1.0
       }
      }
@@ -815,23 +1247,35 @@
      "maxMomentaryDb": -21.57,
      "integratedDb": -23.62,
      "soundingS": 4.67,
+     "nPerPitch": {
+      "38": 1,
+      "48": 1,
+      "57": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "38": {
        "maxMomentaryDb": -20.78,
        "integratedDb": -22.79,
        "soundingS": 4.75,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -2.7
       },
       "48": {
        "maxMomentaryDb": -21.61,
        "integratedDb": -23.77,
        "soundingS": 4.6,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": -0.5
       },
       "57": {
        "maxMomentaryDb": -22.32,
        "integratedDb": -24.31,
        "soundingS": 4.67,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": 0.4
       }
      }
@@ -856,27 +1300,57 @@
    "port": "LGPerc",
    "byVelocity": {
     "64": {
-     "maxMomentaryDb": -39.71,
-     "integratedDb": -46.2,
-     "soundingS": 1.99,
+     "maxMomentaryDb": -40.55,
+     "integratedDb": -46.85,
+     "soundingS": 2.0,
+     "nPerPitch": {
+      "36": 1,
+      "38": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
        "maxMomentaryDb": -39.71,
-       "integratedDb": -46.2,
+       "integratedDb": -46.21,
        "soundingS": 1.99,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "38": {
+       "maxMomentaryDb": -41.4,
+       "integratedDb": -47.49,
+       "soundingS": 2.0,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
     },
     "127": {
-     "maxMomentaryDb": -22.14,
-     "integratedDb": -27.03,
-     "soundingS": 1.28,
+     "maxMomentaryDb": -22.45,
+     "integratedDb": -27.45,
+     "soundingS": 1.41,
+     "nPerPitch": {
+      "36": 1,
+      "38": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -22.14,
-       "integratedDb": -27.03,
-       "soundingS": 1.28,
+       "maxMomentaryDb": -22.73,
+       "integratedDb": -27.59,
+       "soundingS": 1.27,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "38": {
+       "maxMomentaryDb": -22.18,
+       "integratedDb": -27.32,
+       "soundingS": 1.55,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -888,40 +1362,173 @@
     "expectedOffsetDb": 12
    }
   },
-  "tam_tams_a": {
-   "label": "Tam Tams",
+  "small_metals_bell_tree": {
+   "label": "Bell Tree",
    "port": "LGPerc",
    "byVelocity": {
     "64": {
-     "maxMomentaryDb": -38.68,
-     "integratedDb": -46.26,
-     "soundingS": 5.15,
+     "maxMomentaryDb": -44.78,
+     "integratedDb": -49.83,
+     "soundingS": 2.41,
+     "nPerPitch": {
+      "36": 1,
+      "41": 1,
+      "45": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -38.68,
-       "integratedDb": -46.26,
-       "soundingS": 5.15,
+       "maxMomentaryDb": -47.06,
+       "integratedDb": -52.43,
+       "soundingS": 2.18,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "41": {
+       "maxMomentaryDb": -41.83,
+       "integratedDb": -47.49,
+       "soundingS": 2.32,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "45": {
+       "maxMomentaryDb": -45.45,
+       "integratedDb": -49.58,
+       "soundingS": 2.74,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
     },
     "127": {
-     "maxMomentaryDb": -19.73,
-     "integratedDb": -27.0,
-     "soundingS": 3.65,
+     "maxMomentaryDb": -19.29,
+     "integratedDb": -24.51,
+     "soundingS": 2.6,
+     "nPerPitch": {
+      "36": 1,
+      "41": 1,
+      "45": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -19.73,
-       "integratedDb": -27.0,
-       "soundingS": 3.65,
+       "maxMomentaryDb": -20.21,
+       "integratedDb": -26.27,
+       "soundingS": 2.19,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "41": {
+       "maxMomentaryDb": -14.96,
+       "integratedDb": -20.46,
+       "soundingS": 2.06,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "45": {
+       "maxMomentaryDb": -22.69,
+       "integratedDb": -26.79,
+       "soundingS": 3.55,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
     }
    },
    "compare0d": {
-    "anchorDb": -61.11,
-    "fullDb": -42.31,
+    "anchorDb": null,
+    "fullDb": -52.25,
+    "expectedOffsetDb": 12
+   }
+  },
+  "small_metals_sleigh_bells": {
+   "label": "Sleigh Bells",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -29.66,
+     "integratedDb": -32.9,
+     "soundingS": 0.95,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -21.35,
+       "integratedDb": -26.15,
+       "soundingS": 1.4,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -33.81,
+       "integratedDb": -36.28,
+       "soundingS": 0.73,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -33.81,
+       "integratedDb": -36.28,
+       "soundingS": 0.73,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -10.52,
+     "integratedDb": -13.59,
+     "soundingS": 0.83,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -3.51,
+       "integratedDb": -6.34,
+       "soundingS": 0.79,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -14.03,
+       "integratedDb": -17.21,
+       "soundingS": 0.85,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -14.03,
+       "integratedDb": -17.21,
+       "soundingS": 0.85,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -62.11,
+    "fullDb": -48.8,
     "expectedOffsetDb": 12
    }
   },
@@ -930,27 +1537,75 @@
    "port": "LGPerc",
    "byVelocity": {
     "64": {
-     "maxMomentaryDb": -42.34,
-     "integratedDb": -52.07,
-     "soundingS": 5.13,
+     "maxMomentaryDb": -42.5,
+     "integratedDb": -50.88,
+     "soundingS": 3.56,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -42.34,
-       "integratedDb": -52.07,
-       "soundingS": 5.13,
+       "maxMomentaryDb": -42.04,
+       "integratedDb": -50.1,
+       "soundingS": 3.64,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -42.78,
+       "integratedDb": -51.43,
+       "soundingS": 3.52,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -42.68,
+       "integratedDb": -51.12,
+       "soundingS": 3.52,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
     },
     "127": {
-     "maxMomentaryDb": -21.96,
-     "integratedDb": -30.02,
-     "soundingS": 3.64,
+     "maxMomentaryDb": -21.23,
+     "integratedDb": -29.36,
+     "soundingS": 3.13,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -21.96,
+       "maxMomentaryDb": -21.95,
        "integratedDb": -30.02,
        "soundingS": 3.64,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -20.88,
+       "integratedDb": -29.02,
+       "soundingS": 2.87,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -20.87,
+       "integratedDb": -29.04,
+       "soundingS": 2.89,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -962,32 +1617,165 @@
     "expectedOffsetDb": 12
    }
   },
-  "toys_castanets": {
-   "label": "Castanets",
+  "small_metals_tambourines": {
+   "label": "Tambourines",
    "port": "LGPerc",
    "byVelocity": {
     "64": {
-     "maxMomentaryDb": -41.18,
-     "integratedDb": -43.15,
-     "soundingS": 0.64,
+     "maxMomentaryDb": -41.14,
+     "integratedDb": -42.72,
+     "soundingS": 0.58,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "55": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -41.18,
-       "integratedDb": -43.15,
-       "soundingS": 0.64,
+       "maxMomentaryDb": -45.49,
+       "integratedDb": -47.0,
+       "soundingS": 0.57,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -37.24,
+       "integratedDb": -39.11,
+       "soundingS": 0.62,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "55": {
+       "maxMomentaryDb": -40.68,
+       "integratedDb": -42.04,
+       "soundingS": 0.55,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
     },
     "127": {
-     "maxMomentaryDb": -22.26,
-     "integratedDb": -22.84,
-     "soundingS": 0.46,
+     "maxMomentaryDb": -22.74,
+     "integratedDb": -23.98,
+     "soundingS": 0.54,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "55": 1
+     },
+     "worstRepeatSpreadDb": null,
      "perPitch": {
       "36": {
-       "maxMomentaryDb": -22.26,
-       "integratedDb": -22.84,
-       "soundingS": 0.46,
+       "maxMomentaryDb": -27.4,
+       "integratedDb": -28.35,
+       "soundingS": 0.5,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -18.36,
+       "integratedDb": -19.85,
+       "soundingS": 0.57,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "55": {
+       "maxMomentaryDb": -22.45,
+       "integratedDb": -23.73,
+       "soundingS": 0.54,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -69.56,
+    "fullDb": -46.75,
+    "expectedOffsetDb": 12
+   }
+  },
+  "toys_castanets": {
+   "label": "Castanets",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -43.77,
+     "integratedDb": -46.66,
+     "soundingS": 0.8,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -43.19,
+       "integratedDb": -45.92,
+       "soundingS": 0.77,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -44.05,
+       "integratedDb": -47.02,
+       "soundingS": 0.81,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -44.08,
+       "integratedDb": -47.05,
+       "soundingS": 0.81,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -24.15,
+     "integratedDb": -26.69,
+     "soundingS": 0.73,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -24.25,
+       "integratedDb": -26.42,
+       "soundingS": 0.67,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -23.86,
+       "integratedDb": -26.44,
+       "soundingS": 0.74,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -24.35,
+       "integratedDb": -27.2,
+       "soundingS": 0.79,
+       "n": 1,
+       "spreadDb": 0.0,
        "centsOffWritten": null
       }
      }
@@ -996,6 +1784,668 @@
    "compare0d": {
     "anchorDb": -79.66,
     "fullDb": -63.01,
+    "expectedOffsetDb": 12
+   }
+  },
+  "toys_claves": {
+   "label": "Claves",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -56.8,
+     "integratedDb": -59.6,
+     "soundingS": 0.79,
+     "nPerPitch": {
+      "36": 1,
+      "41": 1,
+      "45": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -58.87,
+       "integratedDb": -61.26,
+       "soundingS": 0.72,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "41": {
+       "maxMomentaryDb": -59.29,
+       "integratedDb": -62.68,
+       "soundingS": 0.91,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "45": {
+       "maxMomentaryDb": -52.24,
+       "integratedDb": -54.86,
+       "soundingS": 0.75,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -22.26,
+     "integratedDb": -24.97,
+     "soundingS": 0.78,
+     "nPerPitch": {
+      "36": 1,
+      "41": 1,
+      "45": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -20.82,
+       "integratedDb": -22.43,
+       "soundingS": 0.59,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "41": {
+       "maxMomentaryDb": -21.4,
+       "integratedDb": -24.82,
+       "soundingS": 0.92,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "45": {
+       "maxMomentaryDb": -24.57,
+       "integratedDb": -27.66,
+       "soundingS": 0.84,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": null,
+    "fullDb": -56.63,
+    "expectedOffsetDb": 12
+   }
+  },
+  "toys_shakers": {
+   "label": "Shakers",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -39.38,
+     "integratedDb": -39.38,
+     "soundingS": 0.26,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "49": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -44.52,
+       "integratedDb": -44.52,
+       "soundingS": 0.27,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -36.42,
+       "integratedDb": -36.42,
+       "soundingS": 0.25,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "49": {
+       "maxMomentaryDb": -37.19,
+       "integratedDb": -37.19,
+       "soundingS": 0.27,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -25.24,
+     "integratedDb": -25.24,
+     "soundingS": 0.33,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "49": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -28.36,
+       "integratedDb": -28.36,
+       "soundingS": 0.3,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -22.71,
+       "integratedDb": -22.71,
+       "soundingS": 0.31,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "49": {
+       "maxMomentaryDb": -24.66,
+       "integratedDb": -24.66,
+       "soundingS": 0.38,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": null,
+    "fullDb": -60.81,
+    "expectedOffsetDb": 12
+   }
+  },
+  "brake_drums": {
+   "label": "Brake Drums",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -34.28,
+     "integratedDb": -36.15,
+     "soundingS": 0.65,
+     "nPerPitch": {
+      "36": 1,
+      "39": 1,
+      "43": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -31.81,
+       "integratedDb": -34.31,
+       "soundingS": 0.74,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "39": {
+       "maxMomentaryDb": -36.16,
+       "integratedDb": -36.91,
+       "soundingS": 0.48,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "43": {
+       "maxMomentaryDb": -34.86,
+       "integratedDb": -37.22,
+       "soundingS": 0.72,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -22.62,
+     "integratedDb": -24.3,
+     "soundingS": 0.6,
+     "nPerPitch": {
+      "36": 1,
+      "39": 1,
+      "43": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -20.18,
+       "integratedDb": -22.4,
+       "soundingS": 0.68,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "39": {
+       "maxMomentaryDb": -25.24,
+       "integratedDb": -26.18,
+       "soundingS": 0.5,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "43": {
+       "maxMomentaryDb": -22.45,
+       "integratedDb": -24.31,
+       "soundingS": 0.63,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -52.89,
+    "fullDb": -44.02,
+    "expectedOffsetDb": 12
+   }
+  },
+  "crashes_and_stack": {
+   "label": "Crashers and Stack",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -33.34,
+     "integratedDb": -35.63,
+     "soundingS": 0.69,
+     "nPerPitch": {
+      "36": 1,
+      "43": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -33.78,
+       "integratedDb": -35.82,
+       "soundingS": 0.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "43": {
+       "maxMomentaryDb": -32.54,
+       "integratedDb": -35.24,
+       "soundingS": 0.76,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -33.71,
+       "integratedDb": -35.83,
+       "soundingS": 0.66,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -22.55,
+     "integratedDb": -24.42,
+     "soundingS": 0.63,
+     "nPerPitch": {
+      "36": 1,
+      "43": 1,
+      "50": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -24.28,
+       "integratedDb": -25.55,
+       "soundingS": 0.54,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "43": {
+       "maxMomentaryDb": -19.75,
+       "integratedDb": -22.09,
+       "soundingS": 0.7,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "50": {
+       "maxMomentaryDb": -23.62,
+       "integratedDb": -25.61,
+       "soundingS": 0.64,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -58.59,
+    "fullDb": -47.11,
+    "expectedOffsetDb": 12
+   }
+  },
+  "wood_blocks": {
+   "label": "Wood Blocks",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -35.22,
+     "integratedDb": -38.72,
+     "soundingS": 0.93,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "56": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -35.58,
+       "integratedDb": -38.51,
+       "soundingS": 0.81,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -34.12,
+       "integratedDb": -37.8,
+       "soundingS": 0.97,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "56": {
+       "maxMomentaryDb": -35.95,
+       "integratedDb": -39.84,
+       "soundingS": 1.01,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -23.46,
+     "integratedDb": -26.85,
+     "soundingS": 0.91,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "56": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -22.46,
+       "integratedDb": -26.12,
+       "soundingS": 0.96,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -22.04,
+       "integratedDb": -24.73,
+       "soundingS": 0.77,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "56": {
+       "maxMomentaryDb": -25.87,
+       "integratedDb": -29.7,
+       "soundingS": 1.0,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -59.08,
+    "fullDb": -46.42,
+    "expectedOffsetDb": 12
+   }
+  },
+  "bass_drum_alt": {
+   "label": "Bass Drum Alt",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -41.04,
+     "integratedDb": -46.89,
+     "soundingS": 1.96,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "55": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -38.73,
+       "integratedDb": -46.12,
+       "soundingS": 2.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -47.27,
+       "integratedDb": -54.2,
+       "soundingS": 2.37,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "55": {
+       "maxMomentaryDb": -37.12,
+       "integratedDb": -40.36,
+       "soundingS": 0.86,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -21.95,
+     "integratedDb": -26.54,
+     "soundingS": 1.23,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "55": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -20.92,
+       "integratedDb": -26.29,
+       "soundingS": 1.45,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -20.9,
+       "integratedDb": -26.05,
+       "soundingS": 1.36,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "55": {
+       "maxMomentaryDb": -24.04,
+       "integratedDb": -27.29,
+       "soundingS": 0.87,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -54.81,
+    "fullDb": -36.59,
+    "expectedOffsetDb": 12
+   }
+  },
+  "temple_bowls": {
+   "label": "Temple Bowls",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -34.41,
+     "integratedDb": -40.45,
+     "soundingS": 2.31,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "56": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -30.43,
+       "integratedDb": -36.79,
+       "soundingS": 3.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -34.84,
+       "integratedDb": -40.89,
+       "soundingS": 1.78,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "56": {
+       "maxMomentaryDb": -37.95,
+       "integratedDb": -43.66,
+       "soundingS": 1.51,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -21.99,
+     "integratedDb": -26.15,
+     "soundingS": 1.7,
+     "nPerPitch": {
+      "36": 1,
+      "48": 1,
+      "56": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -16.68,
+       "integratedDb": -24.19,
+       "soundingS": 3.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "48": {
+       "maxMomentaryDb": -22.44,
+       "integratedDb": -25.62,
+       "soundingS": 0.84,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "56": {
+       "maxMomentaryDb": -26.84,
+       "integratedDb": -28.63,
+       "soundingS": 0.61,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -60.19,
+    "fullDb": -52.37,
+    "expectedOffsetDb": 12
+   }
+  },
+  "tam_tams_a": {
+   "label": "Tam Tams",
+   "port": "LGPerc",
+   "byVelocity": {
+    "64": {
+     "maxMomentaryDb": -38.5,
+     "integratedDb": -44.66,
+     "soundingS": 4.2,
+     "nPerPitch": {
+      "36": 1,
+      "38": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -38.88,
+       "integratedDb": -44.39,
+       "soundingS": 3.65,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "38": {
+       "maxMomentaryDb": -38.11,
+       "integratedDb": -44.94,
+       "soundingS": 4.74,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    },
+    "127": {
+     "maxMomentaryDb": -19.73,
+     "integratedDb": -26.98,
+     "soundingS": 3.64,
+     "nPerPitch": {
+      "36": 1,
+      "38": 1
+     },
+     "worstRepeatSpreadDb": null,
+     "perPitch": {
+      "36": {
+       "maxMomentaryDb": -19.73,
+       "integratedDb": -26.98,
+       "soundingS": 3.64,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      },
+      "38": {
+       "maxMomentaryDb": -19.73,
+       "integratedDb": -26.97,
+       "soundingS": 3.64,
+       "n": 1,
+       "spreadDb": 0.0,
+       "centsOffWritten": null
+      }
+     }
+    }
+   },
+   "compare0d": {
+    "anchorDb": -61.11,
+    "fullDb": -42.31,
     "expectedOffsetDb": 12
    }
   }
@@ -2719,6 +4169,402 @@
    "bendFraction": 0.5
   },
   {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 53,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 5.64,
+   "maxMomentaryDb": -23.04,
+   "maxMomentaryFlatDb": -22.7,
+   "integratedDb": -26.69,
+   "peakDbfs": -18.63,
+   "soundingS": 4.71,
+   "f0Hz": 174.302,
+   "centsOffWritten": 7.0,
+   "centsByAutocorrelation": -3.1,
+   "centsBySpectralPeak": 7.0,
+   "spectralPeakStrength": 356.17,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 53,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 13.64,
+   "maxMomentaryDb": -9.73,
+   "maxMomentaryFlatDb": -9.39,
+   "integratedDb": -14.16,
+   "peakDbfs": -5.27,
+   "soundingS": 4.73,
+   "f0Hz": 225.122,
+   "centsOffWritten": 10.6,
+   "centsByAutocorrelation": 439.8,
+   "centsBySpectralPeak": 10.6,
+   "spectralPeakStrength": 86.94,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 58,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 21.64,
+   "maxMomentaryDb": -28.52,
+   "maxMomentaryFlatDb": -28.35,
+   "integratedDb": -31.48,
+   "peakDbfs": -23.48,
+   "soundingS": 4.65,
+   "f0Hz": 243.423,
+   "centsOffWritten": 6.5,
+   "centsByAutocorrelation": 75.2,
+   "centsBySpectralPeak": 6.5,
+   "spectralPeakStrength": 236.74,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 58,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 29.64,
+   "maxMomentaryDb": -9.15,
+   "maxMomentaryFlatDb": -8.99,
+   "integratedDb": -13.81,
+   "peakDbfs": -4.12,
+   "soundingS": 4.45,
+   "f0Hz": 238.853,
+   "centsOffWritten": 0.6,
+   "centsByAutocorrelation": 42.3,
+   "centsBySpectralPeak": 0.6,
+   "spectralPeakStrength": 537.17,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 62,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 37.64,
+   "maxMomentaryDb": -27.28,
+   "maxMomentaryFlatDb": -27.24,
+   "integratedDb": -30.88,
+   "peakDbfs": -21.89,
+   "soundingS": 4.69,
+   "f0Hz": 295.383,
+   "centsOffWritten": 4.3,
+   "centsByAutocorrelation": 10.1,
+   "centsBySpectralPeak": 4.3,
+   "spectralPeakStrength": 1132.27,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 62,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 45.64,
+   "maxMomentaryDb": -18.04,
+   "maxMomentaryFlatDb": -18.67,
+   "integratedDb": -22.06,
+   "peakDbfs": -10.64,
+   "soundingS": 4.6,
+   "f0Hz": 293.134,
+   "centsOffWritten": 5.2,
+   "centsByAutocorrelation": -3.1,
+   "centsBySpectralPeak": 5.2,
+   "spectralPeakStrength": 413.74,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 67,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 53.64,
+   "maxMomentaryDb": -24.9,
+   "maxMomentaryFlatDb": -24.88,
+   "integratedDb": -28.5,
+   "peakDbfs": -21.41,
+   "soundingS": 4.6,
+   "f0Hz": 388.425,
+   "centsOffWritten": 5.8,
+   "centsByAutocorrelation": -15.8,
+   "centsBySpectralPeak": 5.8,
+   "spectralPeakStrength": 7635.79,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 67,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 61.64,
+   "maxMomentaryDb": -5.35,
+   "maxMomentaryFlatDb": -5.36,
+   "integratedDb": -8.69,
+   "peakDbfs": -1.19,
+   "soundingS": 4.59,
+   "f0Hz": 400.821,
+   "centsOffWritten": 6.1,
+   "centsByAutocorrelation": 38.5,
+   "centsBySpectralPeak": 6.1,
+   "spectralPeakStrength": 1834.24,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 71,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 69.64,
+   "maxMomentaryDb": -34.25,
+   "maxMomentaryFlatDb": -35.64,
+   "integratedDb": -39.17,
+   "peakDbfs": -26.96,
+   "soundingS": 4.58,
+   "f0Hz": 504.847,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 38.0,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 515.71,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 77.64,
+   "maxMomentaryDb": -19.72,
+   "maxMomentaryFlatDb": -20.84,
+   "integratedDb": -24.65,
+   "peakDbfs": -12.57,
+   "soundingS": 4.57,
+   "f0Hz": 499.561,
+   "centsOffWritten": 7.6,
+   "centsByAutocorrelation": 19.8,
+   "centsBySpectralPeak": 7.6,
+   "spectralPeakStrength": 1064.63,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 76,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 85.64,
+   "maxMomentaryDb": -31.82,
+   "maxMomentaryFlatDb": -31.99,
+   "integratedDb": -35.74,
+   "peakDbfs": -27.92,
+   "soundingS": 4.73,
+   "f0Hz": 653.734,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": -14.6,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 397.9,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 76,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 93.64,
+   "maxMomentaryDb": -4.21,
+   "maxMomentaryFlatDb": -4.38,
+   "integratedDb": -8.66,
+   "peakDbfs": -0.81,
+   "soundingS": 4.49,
+   "f0Hz": 661.558,
+   "centsOffWritten": 5.8,
+   "centsByAutocorrelation": 6.0,
+   "centsBySpectralPeak": 5.8,
+   "spectralPeakStrength": 6053.08,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 80,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 101.64,
+   "maxMomentaryDb": -18.86,
+   "maxMomentaryFlatDb": -19.24,
+   "integratedDb": -23.78,
+   "peakDbfs": -15.51,
+   "soundingS": 4.58,
+   "f0Hz": 833.499,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.0,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 4936.88,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 80,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 109.64,
+   "maxMomentaryDb": -3.39,
+   "maxMomentaryFlatDb": -3.77,
+   "integratedDb": -7.73,
+   "peakDbfs": -0.08,
+   "soundingS": 4.6,
+   "f0Hz": 832.163,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": 3.2,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 4817.39,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 85,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 117.64,
+   "maxMomentaryDb": -20.45,
+   "maxMomentaryFlatDb": -21.44,
+   "integratedDb": -26.22,
+   "peakDbfs": -17.1,
+   "soundingS": 4.43,
+   "f0Hz": 1066.622,
+   "centsOffWritten": 6.3,
+   "centsByAutocorrelation": -67.0,
+   "centsBySpectralPeak": 6.3,
+   "spectralPeakStrength": 3500.91,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 85,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 125.64,
+   "maxMomentaryDb": -12.79,
+   "maxMomentaryFlatDb": -13.78,
+   "integratedDb": -17.23,
+   "peakDbfs": -6.09,
+   "soundingS": 4.5,
+   "f0Hz": 1085.569,
+   "centsOffWritten": 5.5,
+   "centsByAutocorrelation": -36.5,
+   "centsBySpectralPeak": 5.5,
+   "spectralPeakStrength": 1112.78,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 89,
+   "vel": 64,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 133.64,
+   "maxMomentaryDb": -21.11,
+   "maxMomentaryFlatDb": -22.88,
+   "integratedDb": -25.99,
+   "peakDbfs": -19.34,
+   "soundingS": 4.53,
+   "f0Hz": 1395.786,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": -1.4,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 1782.02,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibreg",
+   "pitch": 89,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 141.64,
+   "maxMomentaryDb": -9.29,
+   "maxMomentaryFlatDb": -11.07,
+   "integratedDb": -16.33,
+   "peakDbfs": -6.8,
+   "soundingS": 4.48,
+   "f0Hz": 1396.42,
+   "centsOffWritten": 6.3,
+   "centsByAutocorrelation": -0.6,
+   "centsBySpectralPeak": 6.3,
+   "spectralPeakStrength": 2563.41,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
    "inst": "small_metals_finger_cymbals",
    "label": "Finger Cymbals",
    "role": "perc",
@@ -2727,14 +4573,18 @@
    "port": "LGPerc",
    "ch": 1,
    "found": true,
-   "onsetS": 746.31,
-   "maxMomentaryDb": -22.14,
-   "maxMomentaryFlatDb": -26.0,
-   "integratedDb": -27.03,
-   "peakDbfs": -9.98,
-   "soundingS": 1.28,
+   "onsetS": 151.14,
+   "maxMomentaryDb": -22.73,
+   "maxMomentaryFlatDb": -26.59,
+   "integratedDb": -27.59,
+   "peakDbfs": -12.76,
+   "soundingS": 1.27,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
    "inst": "small_metals_finger_cymbals",
@@ -2745,50 +4595,326 @@
    "port": "LGPerc",
    "ch": 1,
    "found": true,
-   "onsetS": 750.31,
+   "onsetS": 155.14,
    "maxMomentaryDb": -39.71,
    "maxMomentaryFlatDb": -43.55,
-   "integratedDb": -46.2,
-   "peakDbfs": -29.11,
+   "integratedDb": -46.21,
+   "peakDbfs": -29.66,
    "soundingS": 1.99,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
-   "inst": "tam_tams_a",
-   "label": "Tam Tams",
+   "inst": "small_metals_finger_cymbals",
+   "label": "Finger Cymbals",
+   "role": "perc",
+   "pitch": 38,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 1,
+   "found": true,
+   "onsetS": 159.14,
+   "maxMomentaryDb": -22.18,
+   "maxMomentaryFlatDb": -26.14,
+   "integratedDb": -27.32,
+   "peakDbfs": -8.3,
+   "soundingS": 1.55,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_finger_cymbals",
+   "label": "Finger Cymbals",
+   "role": "perc",
+   "pitch": 38,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 1,
+   "found": true,
+   "onsetS": 163.14,
+   "maxMomentaryDb": -41.4,
+   "maxMomentaryFlatDb": -45.35,
+   "integratedDb": -47.49,
+   "peakDbfs": -30.08,
+   "soundingS": 2.0,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
    "role": "perc",
    "pitch": 36,
    "vel": 127,
    "port": "LGPerc",
-   "ch": 14,
+   "ch": 2,
    "found": true,
-   "onsetS": 755.81,
-   "maxMomentaryDb": -19.73,
-   "maxMomentaryFlatDb": -21.9,
-   "integratedDb": -27.0,
-   "peakDbfs": -10.46,
-   "soundingS": 3.65,
+   "onsetS": 168.64,
+   "maxMomentaryDb": -20.21,
+   "maxMomentaryFlatDb": -23.93,
+   "integratedDb": -26.27,
+   "peakDbfs": -11.53,
+   "soundingS": 2.19,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
-   "inst": "tam_tams_a",
-   "label": "Tam Tams",
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
    "role": "perc",
    "pitch": 36,
    "vel": 64,
    "port": "LGPerc",
-   "ch": 14,
+   "ch": 2,
    "found": true,
-   "onsetS": 759.81,
-   "maxMomentaryDb": -38.68,
-   "maxMomentaryFlatDb": -37.18,
-   "integratedDb": -46.26,
-   "peakDbfs": -29.14,
-   "soundingS": 5.15,
+   "onsetS": 172.64,
+   "maxMomentaryDb": -47.06,
+   "maxMomentaryFlatDb": -50.06,
+   "integratedDb": -52.43,
+   "peakDbfs": -37.0,
+   "soundingS": 2.18,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
+   "role": "perc",
+   "pitch": 41,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 2,
+   "found": true,
+   "onsetS": 176.64,
+   "maxMomentaryDb": -14.96,
+   "maxMomentaryFlatDb": -18.85,
+   "integratedDb": -20.46,
+   "peakDbfs": -6.36,
+   "soundingS": 2.06,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
+   "role": "perc",
+   "pitch": 41,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 2,
+   "found": true,
+   "onsetS": 180.64,
+   "maxMomentaryDb": -41.83,
+   "maxMomentaryFlatDb": -45.55,
+   "integratedDb": -47.49,
+   "peakDbfs": -33.27,
+   "soundingS": 2.32,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
+   "role": "perc",
+   "pitch": 45,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 2,
+   "found": true,
+   "onsetS": 184.64,
+   "maxMomentaryDb": -22.69,
+   "maxMomentaryFlatDb": -26.46,
+   "integratedDb": -26.79,
+   "peakDbfs": -14.15,
+   "soundingS": 3.55,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_bell_tree",
+   "label": "Bell Tree",
+   "role": "perc",
+   "pitch": 45,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 2,
+   "found": true,
+   "onsetS": 188.64,
+   "maxMomentaryDb": -45.45,
+   "maxMomentaryFlatDb": -49.26,
+   "integratedDb": -49.58,
+   "peakDbfs": -36.87,
+   "soundingS": 2.74,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 3,
+   "found": true,
+   "onsetS": 194.14,
+   "maxMomentaryDb": -3.51,
+   "maxMomentaryFlatDb": -7.43,
+   "integratedDb": -6.34,
+   "peakDbfs": 10.59,
+   "soundingS": 0.79,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 3,
+   "found": true,
+   "onsetS": 198.14,
+   "maxMomentaryDb": -21.35,
+   "maxMomentaryFlatDb": -25.25,
+   "integratedDb": -26.15,
+   "peakDbfs": -8.77,
+   "soundingS": 1.4,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 3,
+   "found": true,
+   "onsetS": 202.14,
+   "maxMomentaryDb": -14.03,
+   "maxMomentaryFlatDb": -18.06,
+   "integratedDb": -17.21,
+   "peakDbfs": 0.84,
+   "soundingS": 0.85,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 3,
+   "found": true,
+   "onsetS": 206.14,
+   "maxMomentaryDb": -33.81,
+   "maxMomentaryFlatDb": -37.84,
+   "integratedDb": -36.28,
+   "peakDbfs": -20.41,
+   "soundingS": 0.73,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 3,
+   "found": true,
+   "onsetS": 210.14,
+   "maxMomentaryDb": -14.03,
+   "maxMomentaryFlatDb": -18.06,
+   "integratedDb": -17.21,
+   "peakDbfs": 0.5,
+   "soundingS": 0.85,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_sleigh_bells",
+   "label": "Sleigh Bells",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 3,
+   "found": true,
+   "onsetS": 214.14,
+   "maxMomentaryDb": -33.81,
+   "maxMomentaryFlatDb": -37.85,
+   "integratedDb": -36.28,
+   "peakDbfs": -20.51,
+   "soundingS": 0.73,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
    "inst": "small_metals_triangles",
@@ -2799,14 +4925,18 @@
    "port": "LGPerc",
    "ch": 4,
    "found": true,
-   "onsetS": 765.31,
-   "maxMomentaryDb": -21.96,
-   "maxMomentaryFlatDb": -25.9,
+   "onsetS": 219.64,
+   "maxMomentaryDb": -21.95,
+   "maxMomentaryFlatDb": -25.89,
    "integratedDb": -30.02,
-   "peakDbfs": -13.33,
+   "peakDbfs": -13.26,
    "soundingS": 3.64,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
    "inst": "small_metals_triangles",
@@ -2817,14 +4947,238 @@
    "port": "LGPerc",
    "ch": 4,
    "found": true,
-   "onsetS": 769.31,
-   "maxMomentaryDb": -42.34,
-   "maxMomentaryFlatDb": -46.3,
-   "integratedDb": -52.07,
-   "peakDbfs": -32.93,
-   "soundingS": 5.13,
+   "onsetS": 223.64,
+   "maxMomentaryDb": -42.04,
+   "maxMomentaryFlatDb": -45.94,
+   "integratedDb": -50.1,
+   "peakDbfs": -32.64,
+   "soundingS": 3.64,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_triangles",
+   "label": "Triangles",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 4,
+   "found": true,
+   "onsetS": 227.64,
+   "maxMomentaryDb": -20.88,
+   "maxMomentaryFlatDb": -24.89,
+   "integratedDb": -29.02,
+   "peakDbfs": -12.11,
+   "soundingS": 2.87,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_triangles",
+   "label": "Triangles",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 4,
+   "found": true,
+   "onsetS": 231.64,
+   "maxMomentaryDb": -42.78,
+   "maxMomentaryFlatDb": -46.74,
+   "integratedDb": -51.43,
+   "peakDbfs": -33.6,
+   "soundingS": 3.52,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_triangles",
+   "label": "Triangles",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 4,
+   "found": true,
+   "onsetS": 235.64,
+   "maxMomentaryDb": -20.87,
+   "maxMomentaryFlatDb": -24.88,
+   "integratedDb": -29.04,
+   "peakDbfs": -12.3,
+   "soundingS": 2.89,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_triangles",
+   "label": "Triangles",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 4,
+   "found": true,
+   "onsetS": 239.64,
+   "maxMomentaryDb": -42.68,
+   "maxMomentaryFlatDb": -46.63,
+   "integratedDb": -51.12,
+   "peakDbfs": -32.96,
+   "soundingS": 3.52,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 5,
+   "found": true,
+   "onsetS": 245.14,
+   "maxMomentaryDb": -27.4,
+   "maxMomentaryFlatDb": -31.42,
+   "integratedDb": -28.35,
+   "peakDbfs": -12.16,
+   "soundingS": 0.5,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 5,
+   "found": true,
+   "onsetS": 249.14,
+   "maxMomentaryDb": -45.49,
+   "maxMomentaryFlatDb": -49.51,
+   "integratedDb": -47.0,
+   "peakDbfs": -31.29,
+   "soundingS": 0.57,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 5,
+   "found": true,
+   "onsetS": 253.14,
+   "maxMomentaryDb": -18.36,
+   "maxMomentaryFlatDb": -20.57,
+   "integratedDb": -19.85,
+   "peakDbfs": 0.55,
+   "soundingS": 0.57,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 5,
+   "found": true,
+   "onsetS": 257.14,
+   "maxMomentaryDb": -37.24,
+   "maxMomentaryFlatDb": -41.14,
+   "integratedDb": -39.11,
+   "peakDbfs": -25.07,
+   "soundingS": 0.62,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "role": "perc",
+   "pitch": 55,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 5,
+   "found": true,
+   "onsetS": 261.14,
+   "maxMomentaryDb": -22.45,
+   "maxMomentaryFlatDb": -26.05,
+   "integratedDb": -23.73,
+   "peakDbfs": -6.85,
+   "soundingS": 0.54,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "small_metals_tambourines",
+   "label": "Tambourines",
+   "role": "perc",
+   "pitch": 55,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 5,
+   "found": true,
+   "onsetS": 265.14,
+   "maxMomentaryDb": -40.68,
+   "maxMomentaryFlatDb": -44.65,
+   "integratedDb": -42.04,
+   "peakDbfs": -26.29,
+   "soundingS": 0.55,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
    "inst": "toys_castanets",
@@ -2835,14 +5189,18 @@
    "port": "LGPerc",
    "ch": 6,
    "found": true,
-   "onsetS": 774.81,
-   "maxMomentaryDb": -22.26,
-   "maxMomentaryFlatDb": -25.35,
-   "integratedDb": -22.84,
-   "peakDbfs": -0.62,
-   "soundingS": 0.46,
+   "onsetS": 270.64,
+   "maxMomentaryDb": -24.25,
+   "maxMomentaryFlatDb": -27.23,
+   "integratedDb": -26.42,
+   "peakDbfs": -9.25,
+   "soundingS": 0.67,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
   },
   {
    "inst": "toys_castanets",
@@ -2853,14 +5211,1470 @@
    "port": "LGPerc",
    "ch": 6,
    "found": true,
-   "onsetS": 778.81,
-   "maxMomentaryDb": -41.18,
-   "maxMomentaryFlatDb": -43.91,
-   "integratedDb": -43.15,
-   "peakDbfs": -22.69,
+   "onsetS": 274.64,
+   "maxMomentaryDb": -43.19,
+   "maxMomentaryFlatDb": -45.77,
+   "integratedDb": -45.92,
+   "peakDbfs": -30.32,
+   "soundingS": 0.77,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_castanets",
+   "label": "Castanets",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 6,
+   "found": true,
+   "onsetS": 278.64,
+   "maxMomentaryDb": -23.86,
+   "maxMomentaryFlatDb": -26.76,
+   "integratedDb": -26.44,
+   "peakDbfs": -6.85,
+   "soundingS": 0.74,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_castanets",
+   "label": "Castanets",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 6,
+   "found": true,
+   "onsetS": 282.64,
+   "maxMomentaryDb": -44.05,
+   "maxMomentaryFlatDb": -46.61,
+   "integratedDb": -47.02,
+   "peakDbfs": -31.98,
+   "soundingS": 0.81,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_castanets",
+   "label": "Castanets",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 6,
+   "found": true,
+   "onsetS": 286.64,
+   "maxMomentaryDb": -24.35,
+   "maxMomentaryFlatDb": -27.26,
+   "integratedDb": -27.2,
+   "peakDbfs": -11.29,
+   "soundingS": 0.79,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_castanets",
+   "label": "Castanets",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 6,
+   "found": true,
+   "onsetS": 290.64,
+   "maxMomentaryDb": -44.08,
+   "maxMomentaryFlatDb": -46.64,
+   "integratedDb": -47.05,
+   "peakDbfs": -32.18,
+   "soundingS": 0.81,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 7,
+   "found": true,
+   "onsetS": 296.14,
+   "maxMomentaryDb": -20.82,
+   "maxMomentaryFlatDb": -22.38,
+   "integratedDb": -22.43,
+   "peakDbfs": -1.48,
+   "soundingS": 0.59,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 7,
+   "found": true,
+   "onsetS": 300.14,
+   "maxMomentaryDb": -58.87,
+   "maxMomentaryFlatDb": -59.88,
+   "integratedDb": -61.26,
+   "peakDbfs": -40.1,
+   "soundingS": 0.72,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "role": "perc",
+   "pitch": 41,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 7,
+   "found": true,
+   "onsetS": 304.14,
+   "maxMomentaryDb": -21.4,
+   "maxMomentaryFlatDb": -24.56,
+   "integratedDb": -24.82,
+   "peakDbfs": -11.53,
+   "soundingS": 0.92,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "role": "perc",
+   "pitch": 41,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 7,
+   "found": true,
+   "onsetS": 308.14,
+   "maxMomentaryDb": -59.29,
+   "maxMomentaryFlatDb": -62.39,
+   "integratedDb": -62.68,
+   "peakDbfs": -47.91,
+   "soundingS": 0.91,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "role": "perc",
+   "pitch": 45,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 7,
+   "found": true,
+   "onsetS": 312.14,
+   "maxMomentaryDb": -24.57,
+   "maxMomentaryFlatDb": -28.26,
+   "integratedDb": -27.66,
+   "peakDbfs": -14.5,
+   "soundingS": 0.84,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_claves",
+   "label": "Claves",
+   "role": "perc",
+   "pitch": 45,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 7,
+   "found": true,
+   "onsetS": 316.14,
+   "maxMomentaryDb": -52.24,
+   "maxMomentaryFlatDb": -55.85,
+   "integratedDb": -54.86,
+   "peakDbfs": -38.79,
+   "soundingS": 0.75,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 8,
+   "found": true,
+   "onsetS": 321.64,
+   "maxMomentaryDb": -28.36,
+   "maxMomentaryFlatDb": -32.38,
+   "integratedDb": -28.36,
+   "peakDbfs": -10.21,
+   "soundingS": 0.3,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 8,
+   "found": true,
+   "onsetS": 325.64,
+   "maxMomentaryDb": -44.52,
+   "maxMomentaryFlatDb": -48.52,
+   "integratedDb": -44.52,
+   "peakDbfs": -26.55,
+   "soundingS": 0.27,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 8,
+   "found": true,
+   "onsetS": 329.64,
+   "maxMomentaryDb": -22.71,
+   "maxMomentaryFlatDb": -26.75,
+   "integratedDb": -22.71,
+   "peakDbfs": -4.31,
+   "soundingS": 0.31,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 8,
+   "found": true,
+   "onsetS": 333.64,
+   "maxMomentaryDb": -36.42,
+   "maxMomentaryFlatDb": -40.46,
+   "integratedDb": -36.42,
+   "peakDbfs": -18.2,
+   "soundingS": 0.25,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "role": "perc",
+   "pitch": 49,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 8,
+   "found": true,
+   "onsetS": 337.64,
+   "maxMomentaryDb": -24.66,
+   "maxMomentaryFlatDb": -28.69,
+   "integratedDb": -24.66,
+   "peakDbfs": -7.54,
+   "soundingS": 0.38,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "toys_shakers",
+   "label": "Shakers",
+   "role": "perc",
+   "pitch": 49,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 8,
+   "found": true,
+   "onsetS": 341.64,
+   "maxMomentaryDb": -37.19,
+   "maxMomentaryFlatDb": -41.23,
+   "integratedDb": -37.19,
+   "peakDbfs": -19.21,
+   "soundingS": 0.27,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 9,
+   "found": true,
+   "onsetS": 347.14,
+   "maxMomentaryDb": -20.18,
+   "maxMomentaryFlatDb": -23.1,
+   "integratedDb": -22.4,
+   "peakDbfs": -5.35,
+   "soundingS": 0.68,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 9,
+   "found": true,
+   "onsetS": 351.14,
+   "maxMomentaryDb": -31.81,
+   "maxMomentaryFlatDb": -34.27,
+   "integratedDb": -34.31,
+   "peakDbfs": -14.77,
+   "soundingS": 0.74,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "role": "perc",
+   "pitch": 39,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 9,
+   "found": true,
+   "onsetS": 355.14,
+   "maxMomentaryDb": -25.24,
+   "maxMomentaryFlatDb": -28.25,
+   "integratedDb": -26.18,
+   "peakDbfs": -4.31,
+   "soundingS": 0.5,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "role": "perc",
+   "pitch": 39,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 9,
+   "found": true,
+   "onsetS": 359.14,
+   "maxMomentaryDb": -36.16,
+   "maxMomentaryFlatDb": -39.38,
+   "integratedDb": -36.91,
+   "peakDbfs": -12.66,
+   "soundingS": 0.48,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "role": "perc",
+   "pitch": 43,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 9,
+   "found": true,
+   "onsetS": 363.14,
+   "maxMomentaryDb": -22.45,
+   "maxMomentaryFlatDb": -24.8,
+   "integratedDb": -24.31,
+   "peakDbfs": -3.13,
+   "soundingS": 0.63,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "brake_drums",
+   "label": "Brake Drums",
+   "role": "perc",
+   "pitch": 43,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 9,
+   "found": true,
+   "onsetS": 367.14,
+   "maxMomentaryDb": -34.86,
+   "maxMomentaryFlatDb": -37.38,
+   "integratedDb": -37.22,
+   "peakDbfs": -17.09,
+   "soundingS": 0.72,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 10,
+   "found": true,
+   "onsetS": 372.64,
+   "maxMomentaryDb": -24.28,
+   "maxMomentaryFlatDb": -28.24,
+   "integratedDb": -25.55,
+   "peakDbfs": -8.98,
+   "soundingS": 0.54,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 10,
+   "found": true,
+   "onsetS": 376.64,
+   "maxMomentaryDb": -33.78,
+   "maxMomentaryFlatDb": -37.58,
+   "integratedDb": -35.82,
+   "peakDbfs": -18.63,
+   "soundingS": 0.65,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "role": "perc",
+   "pitch": 43,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 10,
+   "found": true,
+   "onsetS": 380.64,
+   "maxMomentaryDb": -19.75,
+   "maxMomentaryFlatDb": -23.09,
+   "integratedDb": -22.09,
+   "peakDbfs": -4.98,
+   "soundingS": 0.7,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "role": "perc",
+   "pitch": 43,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 10,
+   "found": true,
+   "onsetS": 384.64,
+   "maxMomentaryDb": -32.54,
+   "maxMomentaryFlatDb": -35.38,
+   "integratedDb": -35.24,
+   "peakDbfs": -17.48,
+   "soundingS": 0.76,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 10,
+   "found": true,
+   "onsetS": 388.64,
+   "maxMomentaryDb": -23.62,
+   "maxMomentaryFlatDb": -27.64,
+   "integratedDb": -25.61,
+   "peakDbfs": -11.12,
    "soundingS": 0.64,
    "f0Hz": null,
-   "centsOffWritten": null
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "crashes_and_stack",
+   "label": "Crashers and Stack",
+   "role": "perc",
+   "pitch": 50,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 10,
+   "found": true,
+   "onsetS": 392.64,
+   "maxMomentaryDb": -33.71,
+   "maxMomentaryFlatDb": -37.72,
+   "integratedDb": -35.83,
+   "peakDbfs": -20.65,
+   "soundingS": 0.66,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 11,
+   "found": true,
+   "onsetS": 398.14,
+   "maxMomentaryDb": -22.46,
+   "maxMomentaryFlatDb": -23.45,
+   "integratedDb": -26.12,
+   "peakDbfs": -8.27,
+   "soundingS": 0.96,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 11,
+   "found": true,
+   "onsetS": 402.14,
+   "maxMomentaryDb": -35.58,
+   "maxMomentaryFlatDb": -36.55,
+   "integratedDb": -38.51,
+   "peakDbfs": -19.49,
+   "soundingS": 0.81,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 11,
+   "found": true,
+   "onsetS": 406.14,
+   "maxMomentaryDb": -22.04,
+   "maxMomentaryFlatDb": -22.98,
+   "integratedDb": -24.73,
+   "peakDbfs": -6.3,
+   "soundingS": 0.77,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 11,
+   "found": true,
+   "onsetS": 410.14,
+   "maxMomentaryDb": -34.12,
+   "maxMomentaryFlatDb": -34.93,
+   "integratedDb": -37.8,
+   "peakDbfs": -20.54,
+   "soundingS": 0.97,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "role": "perc",
+   "pitch": 56,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 11,
+   "found": true,
+   "onsetS": 414.14,
+   "maxMomentaryDb": -25.87,
+   "maxMomentaryFlatDb": -28.17,
+   "integratedDb": -29.7,
+   "peakDbfs": -14.63,
+   "soundingS": 1.0,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "wood_blocks",
+   "label": "Wood Blocks",
+   "role": "perc",
+   "pitch": 56,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 11,
+   "found": true,
+   "onsetS": 418.14,
+   "maxMomentaryDb": -35.95,
+   "maxMomentaryFlatDb": -38.28,
+   "integratedDb": -39.84,
+   "peakDbfs": -25.64,
+   "soundingS": 1.01,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 12,
+   "found": true,
+   "onsetS": 423.64,
+   "maxMomentaryDb": -20.92,
+   "maxMomentaryFlatDb": -20.27,
+   "integratedDb": -26.29,
+   "peakDbfs": -8.56,
+   "soundingS": 1.45,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 12,
+   "found": true,
+   "onsetS": 427.64,
+   "maxMomentaryDb": -38.73,
+   "maxMomentaryFlatDb": -37.48,
+   "integratedDb": -46.12,
+   "peakDbfs": -24.73,
+   "soundingS": 2.65,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 12,
+   "found": true,
+   "onsetS": 431.64,
+   "maxMomentaryDb": -20.9,
+   "maxMomentaryFlatDb": -20.25,
+   "integratedDb": -26.05,
+   "peakDbfs": -7.17,
+   "soundingS": 1.36,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 12,
+   "found": true,
+   "onsetS": 435.64,
+   "maxMomentaryDb": -47.27,
+   "maxMomentaryFlatDb": -45.84,
+   "integratedDb": -54.2,
+   "peakDbfs": -35.77,
+   "soundingS": 2.37,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "role": "perc",
+   "pitch": 55,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 12,
+   "found": true,
+   "onsetS": 439.64,
+   "maxMomentaryDb": -24.04,
+   "maxMomentaryFlatDb": -23.35,
+   "integratedDb": -27.29,
+   "peakDbfs": -8.2,
+   "soundingS": 0.87,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bass_drum_alt",
+   "label": "Bass Drum Alt",
+   "role": "perc",
+   "pitch": 55,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 12,
+   "found": true,
+   "onsetS": 443.64,
+   "maxMomentaryDb": -37.12,
+   "maxMomentaryFlatDb": -35.76,
+   "integratedDb": -40.36,
+   "peakDbfs": -22.49,
+   "soundingS": 0.86,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 13,
+   "found": true,
+   "onsetS": 449.14,
+   "maxMomentaryDb": -16.68,
+   "maxMomentaryFlatDb": -17.52,
+   "integratedDb": -24.19,
+   "peakDbfs": -7.57,
+   "soundingS": 3.65,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 13,
+   "found": true,
+   "onsetS": 453.14,
+   "maxMomentaryDb": -30.43,
+   "maxMomentaryFlatDb": -31.37,
+   "integratedDb": -36.79,
+   "peakDbfs": -16.9,
+   "soundingS": 3.65,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 13,
+   "found": true,
+   "onsetS": 457.14,
+   "maxMomentaryDb": -22.44,
+   "maxMomentaryFlatDb": -26.33,
+   "integratedDb": -25.62,
+   "peakDbfs": -4.52,
+   "soundingS": 0.84,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "role": "perc",
+   "pitch": 48,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 13,
+   "found": true,
+   "onsetS": 461.14,
+   "maxMomentaryDb": -34.84,
+   "maxMomentaryFlatDb": -38.17,
+   "integratedDb": -40.89,
+   "peakDbfs": -15.76,
+   "soundingS": 1.78,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "role": "perc",
+   "pitch": 56,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 13,
+   "found": true,
+   "onsetS": 465.14,
+   "maxMomentaryDb": -26.84,
+   "maxMomentaryFlatDb": -30.53,
+   "integratedDb": -28.63,
+   "peakDbfs": -7.8,
+   "soundingS": 0.61,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "temple_bowls",
+   "label": "Temple Bowls",
+   "role": "perc",
+   "pitch": 56,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 13,
+   "found": true,
+   "onsetS": 469.14,
+   "maxMomentaryDb": -37.95,
+   "maxMomentaryFlatDb": -41.82,
+   "integratedDb": -43.66,
+   "peakDbfs": -18.17,
+   "soundingS": 1.51,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "tam_tams_a",
+   "label": "Tam Tams",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 14,
+   "found": true,
+   "onsetS": 474.64,
+   "maxMomentaryDb": -19.73,
+   "maxMomentaryFlatDb": -21.9,
+   "integratedDb": -26.98,
+   "peakDbfs": -10.49,
+   "soundingS": 3.64,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "tam_tams_a",
+   "label": "Tam Tams",
+   "role": "perc",
+   "pitch": 36,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 14,
+   "found": true,
+   "onsetS": 478.64,
+   "maxMomentaryDb": -38.88,
+   "maxMomentaryFlatDb": -37.4,
+   "integratedDb": -44.39,
+   "peakDbfs": -28.15,
+   "soundingS": 3.65,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "tam_tams_a",
+   "label": "Tam Tams",
+   "role": "perc",
+   "pitch": 38,
+   "vel": 127,
+   "port": "LGPerc",
+   "ch": 14,
+   "found": true,
+   "onsetS": 482.64,
+   "maxMomentaryDb": -19.73,
+   "maxMomentaryFlatDb": -21.92,
+   "integratedDb": -26.97,
+   "peakDbfs": -10.59,
+   "soundingS": 3.64,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "tam_tams_a",
+   "label": "Tam Tams",
+   "role": "perc",
+   "pitch": 38,
+   "vel": 64,
+   "port": "LGPerc",
+   "ch": 14,
+   "found": true,
+   "onsetS": 486.64,
+   "maxMomentaryDb": -38.11,
+   "maxMomentaryFlatDb": -36.55,
+   "integratedDb": -44.94,
+   "peakDbfs": -28.42,
+   "soundingS": 4.74,
+   "f0Hz": null,
+   "centsOffWritten": null,
+   "centsByAutocorrelation": null,
+   "centsBySpectralPeak": null,
+   "spectralPeakStrength": null,
+   "run": "30-REC-260919_0833.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 5.65,
+   "maxMomentaryDb": -13.58,
+   "maxMomentaryFlatDb": -13.53,
+   "integratedDb": -16.97,
+   "peakDbfs": -8.07,
+   "soundingS": 4.71,
+   "f0Hz": 295.405,
+   "centsOffWritten": 4.3,
+   "centsByAutocorrelation": 10.2,
+   "centsBySpectralPeak": 4.3,
+   "spectralPeakStrength": 1138.2,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 13.67,
+   "maxMomentaryDb": -18.04,
+   "maxMomentaryFlatDb": -18.66,
+   "integratedDb": -22.05,
+   "peakDbfs": -10.64,
+   "soundingS": 4.58,
+   "f0Hz": 293.124,
+   "centsOffWritten": 5.2,
+   "centsByAutocorrelation": -3.2,
+   "centsBySpectralPeak": 5.2,
+   "spectralPeakStrength": 412.78,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 21.66,
+   "maxMomentaryDb": -15.89,
+   "maxMomentaryFlatDb": -16.33,
+   "integratedDb": -19.03,
+   "peakDbfs": -9.26,
+   "soundingS": 4.69,
+   "f0Hz": 292.684,
+   "centsOffWritten": 4.0,
+   "centsByAutocorrelation": -5.8,
+   "centsBySpectralPeak": 4.0,
+   "spectralPeakStrength": 451.07,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 62,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 29.66,
+   "maxMomentaryDb": -13.58,
+   "maxMomentaryFlatDb": -13.54,
+   "integratedDb": -16.97,
+   "peakDbfs": -8.06,
+   "soundingS": 4.7,
+   "f0Hz": 295.355,
+   "centsOffWritten": 4.3,
+   "centsByAutocorrelation": 9.9,
+   "centsBySpectralPeak": 4.3,
+   "spectralPeakStrength": 1170.31,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 37.66,
+   "maxMomentaryDb": -20.71,
+   "maxMomentaryFlatDb": -22.08,
+   "integratedDb": -25.34,
+   "peakDbfs": -13.4,
+   "soundingS": 4.6,
+   "f0Hz": 504.779,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 37.8,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 519.58,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 45.65,
+   "maxMomentaryDb": -19.72,
+   "maxMomentaryFlatDb": -20.83,
+   "integratedDb": -24.66,
+   "peakDbfs": -12.57,
+   "soundingS": 4.59,
+   "f0Hz": 499.546,
+   "centsOffWritten": 7.5,
+   "centsByAutocorrelation": 19.7,
+   "centsBySpectralPeak": 7.5,
+   "spectralPeakStrength": 1087.59,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 53.65,
+   "maxMomentaryDb": -18.21,
+   "maxMomentaryFlatDb": -19.43,
+   "integratedDb": -23.68,
+   "peakDbfs": -11.72,
+   "soundingS": 4.59,
+   "f0Hz": 503.259,
+   "centsOffWritten": 7.4,
+   "centsByAutocorrelation": 32.6,
+   "centsBySpectralPeak": 7.4,
+   "spectralPeakStrength": 804.45,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 71,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 61.66,
+   "maxMomentaryDb": -20.7,
+   "maxMomentaryFlatDb": -22.08,
+   "integratedDb": -25.35,
+   "peakDbfs": -13.42,
+   "soundingS": 4.61,
+   "f0Hz": 504.736,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": 37.6,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 522.8,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 69.65,
+   "maxMomentaryDb": -18.01,
+   "maxMomentaryFlatDb": -18.18,
+   "integratedDb": -21.79,
+   "peakDbfs": -14.16,
+   "soundingS": 4.75,
+   "f0Hz": 653.844,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": -14.3,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 385.53,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 77.66,
+   "maxMomentaryDb": -4.21,
+   "maxMomentaryFlatDb": -4.38,
+   "integratedDb": -8.66,
+   "peakDbfs": -0.81,
+   "soundingS": 4.49,
+   "f0Hz": 661.548,
+   "centsOffWritten": 5.8,
+   "centsByAutocorrelation": 6.0,
+   "centsBySpectralPeak": 5.8,
+   "spectralPeakStrength": 6073.66,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 85.65,
+   "maxMomentaryDb": -12.74,
+   "maxMomentaryFlatDb": -13.02,
+   "integratedDb": -16.91,
+   "peakDbfs": -8.29,
+   "soundingS": 4.51,
+   "f0Hz": 661.159,
+   "centsOffWritten": 6.3,
+   "centsByAutocorrelation": 5.0,
+   "centsBySpectralPeak": 6.3,
+   "spectralPeakStrength": 3676.33,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 76,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 93.65,
+   "maxMomentaryDb": -18.01,
+   "maxMomentaryFlatDb": -18.18,
+   "integratedDb": -21.8,
+   "peakDbfs": -14.13,
+   "soundingS": 4.77,
+   "f0Hz": 653.838,
+   "centsOffWritten": 7.3,
+   "centsByAutocorrelation": -14.3,
+   "centsBySpectralPeak": 7.3,
+   "spectralPeakStrength": 402.7,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 101.65,
+   "maxMomentaryDb": -5.19,
+   "maxMomentaryFlatDb": -5.57,
+   "integratedDb": -9.93,
+   "peakDbfs": -1.84,
+   "soundingS": 4.61,
+   "f0Hz": 833.51,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.0,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 4948.64,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 109.65,
+   "maxMomentaryDb": -3.38,
+   "maxMomentaryFlatDb": -3.76,
+   "integratedDb": -7.74,
+   "peakDbfs": -0.08,
+   "soundingS": 4.61,
+   "f0Hz": 832.184,
+   "centsOffWritten": 5.9,
+   "centsByAutocorrelation": 3.3,
+   "centsBySpectralPeak": 5.9,
+   "spectralPeakStrength": 4675.35,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 117.65,
+   "maxMomentaryDb": -7.15,
+   "maxMomentaryFlatDb": -7.53,
+   "integratedDb": -10.3,
+   "peakDbfs": -4.16,
+   "soundingS": 4.56,
+   "f0Hz": 832.697,
+   "centsOffWritten": 4.4,
+   "centsByAutocorrelation": 4.3,
+   "centsBySpectralPeak": 4.4,
+   "spectralPeakStrength": 5940.05,
+   "run": "30-REC-260919_0845.wav"
+  },
+  {
+   "inst": "bowed_vibraphone",
+   "label": "Vibraphone",
+   "role": "vibrepeat",
+   "pitch": 80,
+   "vel": 127,
+   "port": "LGVibes",
+   "ch": 1,
+   "found": true,
+   "onsetS": 125.65,
+   "maxMomentaryDb": -5.19,
+   "maxMomentaryFlatDb": -5.57,
+   "integratedDb": -9.94,
+   "peakDbfs": -1.84,
+   "soundingS": 4.61,
+   "f0Hz": 833.513,
+   "centsOffWritten": 5.6,
+   "centsByAutocorrelation": 6.0,
+   "centsBySpectralPeak": 5.6,
+   "spectralPeakStrength": 4952.21,
+   "run": "30-REC-260919_0845.wav"
   }
  ]
 }
