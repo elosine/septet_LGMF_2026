@@ -4103,3 +4103,53 @@ The trims escaped this because they were taken at velocity 127 only and compared
 **The cure is repeats** — three per velocity point on the four Kontakt instruments, so each point is a mean over a full round-robin cycle rather than whichever sample answered.
 
 **What is NOT in question.** The chain and the meter (1b.1), the absolute target (1b.3, and the SI2 three land within 1.5 dB of it), the CC7 mechanism (§87, and the capture proves the app sends it), and the headroom — the tutti at fff peaks at **−5.0 dBTP**, four decibels under the ceiling, so nothing clips even while the ensemble sits 5.7 dB hot. **The failure is one of measurement resolution, not of design**, and it is exactly the failure 1b.5 existed to catch.
+
+---
+
+## §89. The remeasure — the vibraphone's register is per-BAR, and the cello has the same round robin (2026-09-19)
+
+**What prompted it.** His *"yes go ahead"* to §88's two cures. 49 notes, 6:31, all on the curve channels.
+
+### 1 · The vibraphone, every semitone — worse than the grid could show
+
+| 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| −19.3 | −18.4 | −16.1 | −24.4 | −25.4 | −23.9 | −20.7 | −26.7 | −26.1 | −23.4 | −26.9 | −19.6 | −18.8 |
+
+| 66 | 67 | 68 | 69 | 70 | **71** | 72 | 73 | 74 | 75 | 76 | **77** | 78 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| −21.5 | −21.1 | −18.8 | −15.2 | −21.4 | **−31.8** | −21.8 | −21.9 | −17.3 | −23.9 | −28.3 | **−13.6** | −27.0 |
+
+| 79 | 80 | 81 | 82 | **83** | 84 | 85 | 86 | 87 | 88 | 89 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| −18.7 | −16.4 | −14.3 | −18.9 | **−12.3** | −19.7 | −18.8 | −18.1 | −19.7 | −22.6 | −18.6 |
+
+**Spread 19.5 dB, and it changes semitone to semitone.** 76 → 77 is **14.7 dB in one step**; 71 → 72 is 10.0. This is not sample zones with edges — it is **per-bar level variation**, every bar of the library recorded at its own level. §86's nine-pitch grid could not have found it and §88's diagnosis understated it: the interpolation was not wrong only between 71 and 76, it is wrong almost everywhere.
+
+The cure holds, though, and is now complete: **every semitone is measured**, so the remap needs no interpolation across pitch at all, and CC7 can carry a per-semitone offset exactly as it carries the nine. 37 notes bought the whole register.
+
+### 2 · The cello has the vibraphone's disease
+
+Four strikes of one note, velocity 127, on the curve channel:
+
+| | 1 | 2 | 3 | 4 | spread |
+|---|---|---|---|---|---|
+| English Horn 67 | −29.9 | −26.2 | −29.8 | −29.4 | 3.6 |
+| **Cello 60** | **−27.9** | **−31.3** | **−22.7** | **−27.9** | **8.6** |
+| D. Bass 48 | −29.8 | −27.3 | −30.0 | −27.1 | 2.9 |
+
+**The cello's first and fourth readings are identical** — the signature of a deterministic three-sample cycle, precisely what the vibraphone showed in §79, and its members are **8.6 dB apart**. That is the cause of its 7.1 dB miss in 1b.5: a curve built from single strikes on a sampler cycling through 8.6 dB cannot be inverted reliably, which is why its velocity 100 read *louder* than its 127.
+
+The english horn and double bass scatter 3.6 and 2.9 dB without the 1-equals-4 signature in four strikes — a longer cycle, or a randomised one. Either way they are the same library with the same **Round Robin menu**, and switching it off makes them deterministic whatever the cycle length.
+
+**So the answer is not repeats.** Averaging three strikes of an 8.6 dB cycle leaves a standard error near 1.7 dB and still lets the instrument lurch between samples *in the piece* — which is the musical fault, not just the measurement one. **The fix is his panel, as it was for the vibraphone**, and it buys both things at once.
+
+**What he needs to set** — Round Robin **off**, in all four Kontakt slots of each (the app plays channels 2–4 and only plain notes use 1):
+
+| instrument | preset | slots |
+|---|---|---|
+| English Horn XS | **12** "Senza Vibrato Velocity" | `LGEngHorn` ch 1 · 2 · 3 · 4 |
+| Cello XS | **6** "Senza Vibrato Velocity" | `LGCello` ch 1 · 2 · 3 · 4 |
+| Bass XS | **6** "Senza Vibrato Velocity" | `LGBass` ch 1 · 2 · 3 · 4 |
+
+**Edited IN PLACE this time, not copied to a new preset.** The vibraphone got its own preset 13 because that was an experiment and the library default was worth keeping intact. This is no longer an experiment: round robin off is simply what this piece wants, editing preset 12/6 in place needs **no recipe change** so every score already written keeps working untouched, and the default is recoverable at any time by reloading the .nki.
