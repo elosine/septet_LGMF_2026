@@ -1015,6 +1015,28 @@ bassoon or english horn cannot glide. But a 14-cent lip bend is within every win
 multi-semitone slide. So 2 and 3 could follow chord 1’s pattern exactly (target = the just partial; the tempered woodwind
 bends 14¢ down; the bass starts 28¢ below). **His to say.**
 
+### LG-31 · 2026-09-18 — CONVERGE restated by him: friction and kinetic energy moving into something clean and pure
+
+> *"The idea behind convergence was everything would move to some sort of clean unison or harmonic relationship. The closer
+> to pure harmonic series, the better. So the sensation would be lots of friction and kinetic energy moving into something
+> very clean and pure. So I’ve forgotten how I said the starting point would be, but I think it’s the reference harmonies,
+> correct? And then the reference harmonies would then smooth into the harmonic series. So it’s really just the deviant
+> ones or their partners that are creating the friction amongst all the other ones. And so those are the only ones that are
+> moving."* — composer, 2026-09-18, session 3, dictated, after the who-holds table
+
+*AI reading (mine, marked):* yes — the starting point is the reference harmony; the movers are the voices that make the
+beating, i.e. the TEMPERED DOUBLES, and they move onto the just partial; everything already on the series holds. Three
+things fall out of the restatement and were put to him:
+1. **The vibraphone-doubled pairs (chords 1, 3, 4, 6)** — the bar cannot move, so the just voice goes to IT, and that
+   unison ends 14–49¢ off the series: clean, not pure. The purity-maximising alternative is for the vibraphone’s doubling
+   bar to fade out during Converge so the just note stands alone.
+2. **The friction NOTES** (B5, B4, G4, B♭4, A♭3, C♯5, D6, C♯3, F♯2, A♭4) are already ON the series within a few cents;
+   their friction is the complex ratio (9/7, 17/14, 19/14…), not a deviation. Under Converge they hold. Simplifying those
+   ratios toward low partials is Bloom’s job, not Converge’s — the two types stay distinct.
+3. **The bass** is neither deviant nor a partner, so by this restatement it holds the root — which puts LG-30’s bass scheme
+   (leave the root, start 14–50¢ off a unison, converge) in question. That scheme ADDS friction and kinetic energy, which is
+   the sensation he names; it is an addition, not a consequence.
+
 ### REFERENCE TABLE · 2026-09-18 — the fundamentals the HOLD instruments share (captured at his request)
 
 *Not a composition note — a working table, kept here because the roots are compositional material. The derivation, the rules
