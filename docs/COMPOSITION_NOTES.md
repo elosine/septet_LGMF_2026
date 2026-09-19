@@ -1389,3 +1389,50 @@ to change it or swap it. The reasoning and the architecture are in RUNNING_LOG �
 chosen from the takes; under SEAMLESS a breath keeps the dynamic of the container it started in, and a player's first breath in the new
 container comes in at the new level; under ATTACK everyone attacks at it. Saved as features, in the plan item: (1) a drawn CURVE attached to
 the whole sequence (the trills' reference-curve pattern), (2) a dynamic per player per container, (3) a curve per player. RUNNING_LOG §103.
+
+### LG-37 · 2026-09-19 — GETTING THE PLAYERS ONTO A JUST PARTIAL: how to notate it, and what scaffolds them — "play the 11th partial"?
+
+> *"I want to do some research and you can tell me what you already know, but I want to see how composers get performers and then also
+> notate harmonic partials. So I guess I'm thinking of the spectral composers like Kaya Sarajevo and Haas and then the likes of Grise. I
+> believe Murai uses only quarter tones. Radulescu. I think James Tenney uses microtones, but not just microtonal notation, but is there any
+> scaffolding techniques that helps players play as precise as possible a just in tone, a harmonic partial. And the instruments I'm using
+> are English horn bassoon, French horn trumpet, and then cello and double bass. So I guess for double reeds, brass, and strings. I guess for
+> strings it's probably just sense notation. It's just microtonal notation. But is there something more intuitive for the double reeds and
+> for the brass players? So for example, I want the horn to play the 11th partial of F sharp one, that's a C5 minus 49 cents. I could tell
+> them just that, play the 11th partial. I can give them the sense or I can give them approximately, I mean, it's pretty near a quarter
+> tone. if you can do some research and let's discuss."* — composer, 2026-09-19, session 7, dictated
+
+*AI reading (mine, marked):* the dictation's slips — "Kaya Sarajevo" = Kaija Saariaho · "Grise" = Grisey · "Murai" = Murail · "just in tone"
+= just intonation · "sense" = cents. The idea in it: a just note can be handed to a player as its FUNCTION ("the 11th partial"), as its
+LOCATION (cents, or the near quarter-tone), or both — and the families may want different ones. His horn example turns out to be a natural
+harmonic (thumb + 2 + 3 is a horn on F♯1), so for brass "play the 11th partial" is a literal, physical instruction. The research and the
+open question: RUNNING_LOG §108.
+
+### LG-38 · 2026-09-19 — WAVES OVER A SEQUENCE: randomized crescendos per player, a layer like the rebreaths, a few basic dials
+
+> *"Sorry, can we amend the plan; I would like to adapt the crescendo sequencing from the morphs drawer as well. So this in lieu of the
+> curves — but let's keep, or I shouldn't say in lieu of the curves, that might be an added feature later. Let's keep all the functionality
+> as it is now, that's good. But look into how the morphs does crescendos. I don't think it's perfect, but that's the idea — is that I have
+> some sort of randomized crescendos. Not everyone is crescendoing at the same time. And it could be laid out as a layer over one of these
+> sequences. So I can get individual waves. And then let's discuss, or maybe you can do some recommendations about some basic parameters.
+> Like I don't want to decide every swell and length. But look at the morph drawer and then see what sort of parameters are adjusted. It'll
+> probably be like the time containers, like max duration or short and then long or things like that. Let's discuss this. And then we'll
+> figure out how to work into the plan."* — composer, 2026-09-19, session 7, dictated
+
+*AI reading (mine, marked):* a third LAYER over a sequence, beside the containers and the rebreaths: each player rising and falling on a
+stream of swells of their own, dealt not drawn, out of step with one another — so a held chord is never still and its balance keeps turning
+(the beating of LG-17 heard through a moving balance). Everything already planned in 1d stays; the drawn curve stays a held feature. What
+the morph does today and what was recommended: RUNNING_LOG §109.
+
+### LG-39 · 2026-09-19 — THE SWAP: a container is EITHER a straight dynamic OR in the waves — and one can step out and back in
+
+> *"Let's have a swap; I think the most common situation is that I either do a dynamic per time container or I do waves. In the case where
+> I want some cross-cutting, let's have the possibility of either/or per time container, too. So for example, you could have the whole
+> sequence covered with the waves, but just one time container would step out of the waves sequence and just place a straight dynamic for
+> that time container and then jump back into the wave sequence at the next time container."* — composer, 2026-09-19, session 7, dictated
+> (his answer to §109's question — top, bottom or centre — which the swap dissolves)
+
+*AI reading (mine, marked):* the waves are ONE continuous layer under the whole sequence, each player's stream running on in time whether or
+not anyone is reading it; a container chooses, per box, to read it or to hold a straight dynamic. "Jump back into the wave sequence" = the
+stream is not restarted — the next waves box picks it up where it has got to. Since a waves box has no dynamic of its own, the wave needs
+its own range: a `low` and a `high` for the layer. RUNNING_LOG §110.

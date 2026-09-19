@@ -1045,6 +1045,23 @@ For the all-purpose tool: the carrier should be its own module with those dials,
 being built beside the morph (`sequence.js`), with the morph's numbers as its defaults and morph.js untouched (the tuba baseline).
 
 
+### 2026-09-19 — LGMF: the morph's crescendos "not perfect" — he wants them RANDOMIZED and individual (COMPOSITION_NOTES LG-38)
+
+> *"look into how the morphs does crescendos. I don't think it's perfect, but that's the idea — is that I have some sort of randomized
+> crescendos. Not everyone is crescendoing at the same time … So I can get individual waves … I don't want to decide every swell and length
+> … It'll probably be like the time containers, like max duration or short and then long or things like that."* (composer, 2026-09-19)
+
+*AI reading (not the composer's words):* what the dynamics layer is today (morph.js `dynLevel`): ONE shape over the whole morph's progress —
+`swell` (a single arch) · `rise` · `fall` · `rotate` (a sine, `turns` cycles) · `flat` — with `base`, `amount`, and `spread`, which shifts
+each voice's PHASE by its index. So every voice rides the SAME wave, evenly fanned, the same length, periodic, and nothing in it is random
+— "not everyone at the same time" is only a phase offset. What he is asking for is a different object: per-player STREAMS of swells, each
+swell with a length dealt from a pool (short with long), a depth, a place for its peak, and stretches of rest between — seeded. For the
+all-purpose tool: the dynamics layer should take a wave SOURCE — the present shapes as one, a dealt stream as another — and the stream
+generator should be the time container generator's sibling. For this piece it is being designed for the SEQUENCE drawer (PLAN 1d), beside
+the morph, morph.js untouched. One thing the morph already does right and the new layer keeps: a wave is carried by ONE CC7 ramp under a
+constant velocity, so a breath that re-enters mid-wave does not lurch.
+
+
 ## 4 · For the eventual revision (the digest — rewritten freely)
 
 - *(seed)* A morph event as ONE object: pairs · a glissando / beating curve per pair · a re-articulation pattern · a dynamic curve ·

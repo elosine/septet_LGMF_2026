@@ -4530,3 +4530,147 @@ existing changed unless necessary and checked with him) applies to the score at 
 **The handoff:** PLANNER's NOW line, the journal's running thread and CLAUDE.md's state line now name 1d as planned in full and unbuilt, and
 **the next step as 1d.1 on Opus** — executing a written plan is Opus's work by `SESSION_HYGIENE`'s rule, and this conversation (a design
 talk) and that one (a build) are different modes, which is what a clear is for.
+
+## §108. How do composers get a player onto a just partial? — the research; and the horn's 11th of F♯1 turns out to be a natural harmonic (2026-09-19)
+
+**What prompted it — his words (dictated; the dictation's slips read in brackets), whole in COMPOSITION_NOTES LG-37:** *"I want to see how
+composers get performers and then also notate harmonic partials … the spectral composers like Kaya Sarajevo [Kaija Saariaho] and Haas and
+then the likes of Grise [Grisey]. I believe Murai [Murail] uses only quarter tones. Radulescu. I think James Tenney uses microtones, but not
+just microtonal notation, but is there any scaffolding techniques that helps players play as precise as possible a just in tone [just
+intonation], a harmonic partial. … is there something more intuitive for the double reeds and for the brass players? So for example, I want
+the horn to play the 11th partial of F sharp one, that's a C5 minus 49 cents. I could tell them just that, play the 11th partial. I can give
+them the sense [cents] or I can give them approximately, I mean, it's pretty near a quarter tone."*
+
+**What was done.** Eight web searches and eight fetches, plus the AI's own knowledge — each claim below marked **[read]** (a source opened
+this session) or **[memory]**. Read: Sabat & Hayward, *Towards an Expanded Definition of Consonance: Tuneable Intervals on Horn, Tuba and
+Trombone* (Plainsound, 2006 — the PDF, §1 and §2.6–2.7) · The Contemporary Horn (its microtonality page and fingering table) · the IDRS
+Bassoon-Family Fingering Companion's microtonal index · search summaries for Haas, Ligeti, Grisey, Tenney, Radulescu. **Would not load:**
+Hasegawa's article on Haas (404) and the *Tempo* article on Sabat's orchestral pitch precision (403) — so **Haas's notation is from memory.**
+
+**The finding, in one line: one job, split three ways.** WHERE the pitch is (a tempered grid, cents) · WHAT it is (partial *n* of
+fundamental *X*) · HOW the instrument finds it (a physical route that produces the ratio by itself). The composers differ in which layers
+they hand the player.
+
+| Composer | Layers | What the player gets |
+|---|---|---|
+| Grisey · Murail · Saariaho | where | nearest quarter-tone (*Partiels*: quarter-tones **[read]**, eighth-tones reported **[read]**); no partial numbers in the parts **[memory]**; the aim is ensemble fusion, not beatless tuning |
+| Haas | where + what | sixth- and quarter-tones on the page with the instruction that an overtone chord is tuned by ear **[memory]**; fundamentals always from the tempered twelve; *in vain*: trombones on partials 6–7 of F♯1, horns on 5–6 of A1 **[read]** |
+| Ligeti (Hamburg Concerto, Horn Trio) | how | natural horns on different fundamentals, partials 2–16, hands OUT of the bell so the harmonics sound exact, the fast passages on partials alone **[read]** |
+| Tenney | where, exact | cents over the notehead; the tuner as the practice tool. *In a Large Open Space*: a harmonic series on a double-bass F, tolerance ±5 cents. *Arbor Vitae*: cents rounded from the harmonic the pitch derives from **[read]** |
+| Radulescu | how, for strings | "spectral scordatura" — open strings retuned to partials, then natural harmonics. *Lux Animae*: strings on partials 3, 4, 7, 11 of a low E; *Credo*: the first 45 harmonics of the cello's low C **[read]** |
+| Sabat · Schweinitz · Hayward | all three | Helmholtz-Ellis accidentals (one sign per prime) + cents + valve fingerings, and the idea of TUNEABLE INTERVALS **[read]** |
+
+**The scaffold that is not notation — tuneable intervals [read, Sabat & Hayward §1.3–1.5].** *"A tuneable interval"* is one that can be
+found by ear alone: the beating slows and is *"replaced by a phenomenon of spectral fusion."* They distinguish it from intervals merely
+memorised and approximated (their examples: 16/15, 9/8, 16/9 — and tempered pitches). Their tested *"least generative tuneable interval"*
+for each prime: **2/1 · 3/2 · 5/4 · 7/4 · 11/8 · 13/8 · 17/4 · 19/8 · 23/8**; and 9/1 … 15/1 *"may be easily tuned on horn and tuba."*
+**What it means here (AI reading):** the horn's 11 locks by ear IF an 8 — or a 4, a 2, the 1 — of the same fundamental is sounding where
+the player can hear it. So precision is partly an ORCHESTRATION rule: low partials first, high partials entering a chord that already
+sounds, long enough to settle. It is the same thing the strikes drawer's HARMONIC SERIES banner already models — a fundamental and its ranks.
+
+**By family.**
+
+- **Brass — the partial number IS the intuitive instruction.** Players think in partials daily; 7, 11 and 13 are the ones they were taught
+  to avoid, so they know where they sit. **The double horn's valve combinations give a fundamental on every pitch class** (AI arithmetic):
+  F side F1 · E1 · E♭1 · D1 · D♭1 · C1 · B0; B♭ side B♭1 · A1 · A♭1 · G1 · **F♯1** · (F1 · E1). Trumpets, B♭ and C between them: E2 … C3,
+  nine pitch classes (none on C♯ · D · E♭), usable to about partial 8–10 **[memory]**.
+- **His example (AI arithmetic, NOT checked with a hornist or on an instrument):** B♭ side open = B♭1; valves 2+3 lower it four semitones →
+  **F♯1**; so **thumb + 2 + 3, 11th partial, uncorrected = C5 −49¢**, the tube making the ratio. Written for horn in F: G5 a quarter-tone
+  flat. No F-side fingering gives an F♯ fundamental, so T23 is the only one.
+- **Two views of how exact the tube is, both [read].** Sabat & Hayward measured it (valve sensors, ring modulation against sine overtone
+  rows): *"naturally occurring inharmonicities demand that the players sometimes make fine corrections with their lips. However, once
+  measured, the valve-slide positions can be set before playing and the results remain consistent once the instruments have been warmed
+  up."* The Contemporary Horn is sceptical: *"each instrument … is different, and the placement of the harmonics remains quite variable"*,
+  comma-level tuning *"almost impossible to execute in a stable and consistent way"*; and short tubes run flat, long ones (F side 23 · 13 ·
+  123) sharp. **Reading:** the tube gives the SLOT and the COLOUR; the ear gives the last few cents — which is the tuneable-interval rule again.
+  (Sabat & Hayward go further than this piece needs: they RETUNE the valve slides to just proportions, their "45-utonal" horn.)
+- **Strings.** Cents on stopped notes, tuned against a sounding low partial; natural harmonics where the fundamental is an open string —
+  the double bass's long strings speak well past the 11th **[memory]**. Noted in passing: the bass's SOLO tuning is F♯1–B1–E2–A2, an open
+  F♯1 — relevant only if F♯ is a home of the piece. Radulescu's scordatura is the strong form of the same idea.
+- **Double reeds — no physical route.** Conical bores overblow only the low partials, so nothing like the brass method exists **[memory]**.
+  Small deviations (5th −14 · 7th −31) are lipped — what they do on every major third; the near-quarter-tones (11th −49 · 13th +41) want a
+  special fingering, then the lip. Charts exist **[read]**: Heckel bassoon in quarter-tones (B♭1–E♭5), fifth-tones (31) and eighth-tones
+  (48), largely Johnny Reinhard's, in the IDRS Bassoon-Family Fingering Companion; oboe and english horn quarter-tones in the Woodwind
+  Fingering Guide; Veale & Mahnkopf, *The Techniques of Oboe Playing*. (Gallois, *The Techniques of Bassoon Playing* **[memory]**.)
+
+**The numbers — twelfth-tones (72-ET) against the partials (AI arithmetic).** 11th −48.7 → −50.0 (1.3¢ off) · 7th −31.2 → −33.3 (2.2¢) ·
+5th −13.7 → −16.7 (3.0¢) · 13th +40.5 → +33.3 or +50.0 (7–9¢). It is why sixth-tones plus quarter-tones serve Haas: the 11-limit lands
+within about 3 cents; the 13th is the one that does not.
+
+**Nothing decided.** Put to him as one question — what each just note carries in the part: **A** three layers for everyone (accidental ·
+cents · `11°/F♯`), brass also the valve combination — the AI's lean, the partial number being one small label and the thing both the brass
+and the ear use · **B** cents only, Tenney's way · **C** the partial for brass, cents for the rest. Also offered in one line, his to ask
+for: the rack can already render a tuning track per player (the chord minus their note, at exact cents) — what the Kepler Quartet built by
+hand for Ben Johnston's quartets **[memory]**.
+
+## §109. An amendment asked for — WAVES over a sequence: what the morph's crescendos are, and the dials recommended (2026-09-19)
+
+**What prompted it:** straight after the plan was written to its end (§107), his amendment — verbatim in COMPOSITION_NOTES **LG-38** *(numbered §109 / LG-38 because a parallel session of his took §108 and LG-37 for the just-partials research while this was being written)*:
+*"adapt the crescendo sequencing from the morphs drawer … I don't think it's perfect, but that's the idea … randomized crescendos. Not
+everyone is crescendoing at the same time … a layer over one of these sequences … individual waves … recommendations about some basic
+parameters. Like I don't want to decide every swell and length … like the time containers, like max duration or short and then long."*
+Everything already in 1d stays; the drawn curve stays a held feature.
+
+**The data — what the morph does (read: morph.js `dynLevel` and the panel's dials):**
+
+| | |
+|---|---|
+| The dials | `dyn shape` (swell · rise · fall · rotate · flat) · `dyn amount` (default 0.35) · `base` · `spread` 0…1 · `turns` (rotate only) |
+| What a shape is | ONE function of the morph's progress 0 → 1: `swell` a single arch over the whole span · `rotate` a sine of `turns` cycles · `rise` / `fall` a ramp |
+| "Not everyone at once" | `spread` shifts each voice's PHASE by its index (voice i of n → i/n). Every voice rides the SAME wave, evenly fanned |
+| Randomness | **None.** Same length for every wave and every voice; periodic; the seed does not touch it |
+| How it sounds | level → the note's drawn height → CC7 through the measured map, **one CC7 ramp under a constant velocity** — so a breath re-entering mid-wave does not lurch (the morph's own fix, measured on BLOOM) |
+
+That is why it is "not perfect" for this: a phase-shifted copy of one wave is a rotation, not individuals.
+
+**Recommended — a WAVES layer, five dials, each player their own seeded stream of swells:**
+
+1. `lengths` — a pool of swell lengths, values + weights (the time container generator a third time). Default `6 10 16`.
+2. `depth` — how far below its top a wave begins and ends, in steps of the written scale, `niente` at the bottom. Default 2 steps.
+3. `density` 0…1 — how much of the time a player is inside a wave; the rest sits at the low level. Default 0.7; 1 = waves back to back.
+4. `peak` 0…1 — where the top sits in a wave (0.5 even · 0.7 a slow rise and a quick fall), with a little jitter. Default 0.5.
+5. `seed` · `re-wave` — another deal, nothing else touched. And `waves [off | on]` — off is the plan exactly as written.
+
+*Not everyone at once* falls out by itself: independent streams drift out of step. **How it meets the other layers:** a wave is a function
+of TIME per player and the notes under it read it (the morph's way, the beating tool's way — continuity across a breath is free), carried by
+CC7 under a constant velocity; a rest box stops the waves; under `seamless` a wave's top follows the container its breath started in.
+
+**Two consequences for what is already planned:** (a) **1d.1's notes should carry their level as BREAKPOINTS from the first day** (flat =
+two equal points), so neither this layer nor the held drawn-curve feature forces a rebuild of the generator; (b) **the breath ceiling must be
+read at a note's LOUDEST point, not its start** — the palette's ceiling shortens with level (× 0.85 above 0.5, × 0.7 above 0.75), and
+MORPH_NOTES (1a.6) already records the morph's bug of a swelling note outgrowing a ceiling read at its quiet start.
+
+**Assumed, his to reverse:** the waves run FREE of the breaths (their own lengths, a 16 s wave across two breaths) rather than one swell per
+breath — his words are "a layer" and "like the time containers". A `lock to breath` option (each breath one messa di voce) is cheap and
+idiomatic for winds; offered in one line. **The one question put to him:** is the container's dynamic the TOP of the wave (it rises to it
+from below — recommended: the dynamic he picks is then the loudest it gets, on a calibrated rack and in a quiet piece), the BOTTOM (waves
+rise above it), or the CENTRE (the morph's `base ± amount`)?
+
+## §110. The swap — a box is a straight dynamic OR the waves; and how two sessions share one working tree (2026-09-19)
+
+**His answer to §109's question (top · bottom · centre) was to dissolve it** — verbatim in COMPOSITION_NOTES **LG-39**: *"I either do a
+dynamic per time container or I do waves … the possibility of either/or per time container … one time container would step out of the waves
+sequence and just place a straight dynamic … and then jump back into the wave sequence at the next time container."*
+
+**What it changes in §109's recommendation:**
+
+- The box's `dyn` pull-down gains one entry: **`waves`** beside `as dealt` and `ppp … fff`. One control sets every box at once (his "most
+  common situation" — all straight or all waves); any single box can then be flipped.
+- **`depth` is replaced by `low` and `high`** — two dynamics for the layer (`niente` allowed as `low`). A waves box has no dynamic of its
+  own, so the wave can no longer be measured against the container's; this also answers top / bottom / centre without choosing.
+- **The stream is continuous under the whole sequence**, per player, and is NOT restarted at a box — a straight box simply does not read it,
+  and the next waves box picks it up where it has got to. That is his "jump back into the wave sequence".
+- The level still belongs to the BREATH (§103): under `seamless`, a breath begun in a waves box keeps reading the wave across the line into a
+  straight box, and a breath begun in a straight box keeps its flat level into a waves box; under `attack` the change is at the line.
+- The dials, now six: `lengths` · `low` · `high` · `density` · `peak` · `seed` / `re-wave`.
+
+**Two sessions, one folder — his question:** *"I am just doing some research in another chat … how should we manage that? Should you just
+commit your documents and I'll have that agent commit their documents? How's this usually done?"* The facts given him: both sessions share
+ONE working tree, so there is one index and one HEAD — no branches, nothing to merge; but a commit takes a FILE as it stands, so "my
+documents / their documents" is not a line git can draw inside `RUNNING_LOG.md` or `COMPOSITION_NOTES.md`. Whoever commits a shared file
+carries the other's entries along, which is harmless (a half-written entry simply completes in the next commit). **The real hazards are
+two:** a NUMBER taken twice (it happened: §108 and LG-37, caught before commit, mine renumbered §109 / LG-38), and — the dangerous one — a
+whole-file rewrite from a stale read erasing the other session's lines. **The arrangement recommended:** either session may commit; both
+append only, read the last heading number immediately before writing, stage explicit paths, never `git add -A`; the research chat keeps its
+long material in a file of its own and leaves a pointer in the log. The usual software answer (a branch or worktree per session) was
+rejected for this case: two sessions appending to the end of the same append-only file conflict on every merge.
