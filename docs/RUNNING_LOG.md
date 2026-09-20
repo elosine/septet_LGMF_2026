@@ -5315,3 +5315,29 @@ overlap them by hand, and let a check warn when a player is in both at once.
 
 **The one question put to him:** when the last chord goes on into a morph, is there NO seam (the players keep breathing as they
 are and the pitches simply begin to move), a MOMENT (a line where the morph begins), or both, case by case.
+
+## §125. The transitions talk closed — the join is made by hand; the ENDING gets four shapes (2026-09-19)
+
+**His words** (whole, in COMPOSITION_NOTES LG-42): *"the transition probably doesn't need to be overthought … the sequence ends by
+everyone finishing their last breath. So if it's striated, they'll end at different times. And then if I insert a morph, I'll just have
+to extend the first things or shorten whatever so that … the morph starts on their next breath … the variation would be fade out or
+just end … they would fade out at different times, or they would all fade out together. And same with … just end … just keep this note,
+but I don't think this impacts our build."*
+
+**What it settles.**
+- §124's question (no seam · a moment · both) is answered by a simpler thing than any of its options: **no linkage at all.** The
+  dovetail is made by his hand, moving the morph's first notes. §124's new item — a morph told where each player is — is NOT written.
+  *Rejected, by him, as overthought.* The cheap version §124 named (matching orders and a collision check) is not wanted either.
+- The ending is **two choices, four shapes**: `fade out` or just end × the players ending AT DIFFERENT TIMES or TOGETHER. That is
+  what PLAN 1d.8 already carried as `fade out [s]` and `exit [together | one by one]` — so, as he says, the build is not affected —
+  with ONE refinement his words add: **the fade follows the shape.** With the ends spread, each player fades on THEIR OWN last
+  seconds; only with the ends together is the fade one window for everyone. 1d.8's text had one window in both cases; corrected.
+- `exit` one by one was the AI's unanswered call in §123. It is now his: *"the one I'm going to use often."*
+- **By symmetry, the AI's call, his to reverse:** the fade IN follows the entry the same way — box 1 `seamless` (staggered entries),
+  each player fades in on their own entry; box 1 `attack`, one window.
+- The morph's revision gets "similar options" — MORPH_NOTES §3.
+
+**How "finishing their last breath" is dealt (the AI's call, in the plan, his to reverse):** each player's chain is dealt to land on
+an end of its own, the ends spread over the last stretch BEFORE the line in the striation's order, the latest on the line — so the
+container keeps its length and no breath is cut or left a runt. The alternative — nobody re-dealt, each breath simply running past the
+line to its natural end — would push up to a breath's length into whatever comes next; not chosen, and he can drag a note either way.

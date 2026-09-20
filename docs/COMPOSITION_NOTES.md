@@ -1473,3 +1473,28 @@ can be flipped. A box's tag says how that box is ENTERED: `attack` = everyone la
 into the separated". **And it swallows LG-40's "start together, then seamless": that is simply box 1 flipped to `attack`.** What is
 left of the edges is the fade in, the fade out, and how the END goes (together, or the players leaving one by one — asked, not yet
 answered; built as a dial). RUNNING_LOG §123; PLAN 1d.8.
+
+### LG-42 · 2026-09-19 — HOW A SEQUENCE ENDS: fade out or just end × at different times or together — and the join with a morph made by hand
+
+> *"I think the transition probably doesn't need to be overthought. But as long as the endings can be established. So for example, one
+> likely scenario is that the sequence ends by everyone finishing their last breath. So if it's striated, they'll end at different times.
+> And then if I insert a morph, I'll just have to extend the first things or shorten whatever so that it, it's like the morph starts on
+> their next breath. That's probably the scene that I'm going to use often. So I guess I just need the option for the ending of the
+> sequence to have those two shapes. So one shape, oh, and then the variation. So the variation would be fade out or just end. And then
+> the options per, or the shapes per option would be the fade out would, they would fade out at different times, or they would all fade
+> out together. And same with uh, just end. They would either finish their breath and so end at different times or end together. So as
+> long as I have those options, I can work with it. Even without, I can just drag the individual notes, but probably better to have
+> these options. And then when I start redoing the morph, I'll just have similar options there as well. So I don't think, just keep this
+> note, but I don't think this impacts our build."* — composer, 2026-09-19, session 10, dictated
+
+*AI reading (mine, marked):* the transition is NOT a tool. He joins a sequence to a morph by hand — *"extend the first things or shorten
+whatever so that … the morph starts on their next breath"* — and what he needs from the sequence is an ending he can join TO. Two
+choices, four endings:
+
+| | at different times | together |
+|---|---|---|
+| **just end** | each player finishes a last breath; striated, so the ends are spread — *the one he expects to use often* | everyone lands on the line (today) |
+| **fade out** | each player fades out on their own ending | everyone fades out in one window |
+
+So the fade follows the shape: with the ends spread, each player's fade is THEIR OWN last seconds. The morph, when he redoes it, gets
+"similar options". RUNNING_LOG §125; PLAN 1d.8.

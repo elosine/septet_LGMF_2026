@@ -1281,3 +1281,16 @@ all-purpose morph tool should be able to START from the state another tool left 
 each player's BREATH (where in a breath they are when the morph begins). The engine has half of this already: a source given voice by
 voice (`source.kind: 'voices'`, 1a.5) and a per-voice start time in the carrier's schedule (`sched.startT`). What it lacks is any way
 to be handed them from outside.
+
+### 2026-09-19 — LGMF: the morph's revision gets the sequence's ENDINGS — and the join between the two is made by hand (COMPOSITION_NOTES LG-42)
+
+> *"if I insert a morph, I'll just have to extend the first things or shorten whatever so that it, it's like the morph starts on their
+> next breath. That's probably the scene that I'm going to use often … And then when I start redoing the morph, I'll just have similar
+> options there as well."* — composer, 2026-09-19, dictated
+
+*AI reading (mine, marked):* for the revision — a morph should END (and by symmetry begin) in the same four shapes the sequence gets in
+PLAN 1d.8: **fade out or just end × each voice at its own time or everyone together**. Today the morph's fade is one window for every
+voice and its voices are dealt to land together; "each voice finishes its own last breath" and "each voice fades on its own ending" do
+not exist. **No linkage between the tools is wanted** — §124's hand-over of each player's breath from a sequence to a morph is NOT to
+be built; he moves the first notes by hand so the morph "starts on their next breath". What would make that handwork easy is small:
+first entries that are easy to grab and re-time without the engine re-dealing them.

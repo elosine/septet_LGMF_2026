@@ -656,9 +656,15 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       (staggered, as today) — and runs to the next `attack` line, a drop-out or the end. All-`attack` and all-`seamless` fall out as
       today's two rules, and the random stream stays keyed by the span's first box, so the baseline gate holds. Recipe:
       `containers[i].change`, absent = the sequence's.
-    - `exit: 'one by one'`: each player's chain ends at the end of a breath inside the last stretch (the fade-out's length, or one
-      breath's length when there is no fade), in the striation's order, never a runt. `together` is today's landing. *(The AI's call —
-      he was asked together / one by one / both and did not answer; his to reverse.)*
+    - **The ending — two choices, four shapes (his words, LG-42, RUNNING_LOG §125):** `fade out` or just end × the players ending AT
+      DIFFERENT TIMES (`exit: 'one by one'` — *"everyone finishing their last breath … the scene that I'm going to use often"*) or
+      TOGETHER (today's landing). One by one: each player's chain is dealt to land on an end of its own, the ends spread over the last
+      stretch before the line (the fade-out's length, or one breath's length when there is no fade) in the striation's order, the
+      latest ON the line, never a runt — so the container keeps its length. *(How the ends are spread is the AI's call; his to reverse,
+      and he can drag a note.)*
+    - **The fade follows the shape.** Ends together → ONE fade-out window for everyone, the last seconds before the line. Ends one by
+      one → each player fades on THEIR OWN last seconds. By symmetry *(the AI's call)* the fade IN follows box 1's tag: `seamless`
+      (staggered entries) → each player fades in on their own entry; `attack` → one window.
     - The fades are the morph's own field, `cc7Fade` — a one-way window in score seconds, CC7 multiplied 0 → 1 (in) or 1 → 0 (out) —
       stamped on every note that sounds inside a window, with `velRef` so the window is struck at one velocity; such a note is written
       DRAWN. The score's `heldCc7` applies the fade before the law, so it multiplies a straight level or a wave alike. Hear: the ramp
@@ -674,8 +680,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       before it, and the NEXT line is crossed seamlessly · box 1 `attack` + the rest seamless = together at the start, no line cut
       after · `exit` one by one: the last ends spread, none a runt, none past the end · notes inside a fade window carry the fade
       and the rest do not · the same seed repeats.
-    - Not designed here — held for the talk he asked for (LG-40): the last container going on INTO A MORPH with the morph taking
-      up the players' breaths · crossfades with a morph or another sequence.
+    - **The join with a morph or another sequence is NOT a tool** (his word, LG-42, §125: *"doesn't need to be overthought"*). He
+      inserts the morph and moves its first notes by hand so that it starts on each player's next breath; the ending's four shapes are
+      what he joins TO. §124's hand-over item is not written. The morph's revision gets the same endings (MORPH_NOTES §3).
     - Verify in the running app, no MIDI: three boxes seamless, the middle flipped to `attack`; box 1 flipped; a 6 s fade in and out
       over a straight box and over a waves box (the inserted notes' fields; Hear's ramp); `exit` one by one; a reopened sequence keeps
       all of it. SEQUENCE_TOOL, RUNNING_LOG, MORPH_NOTES §3, this plan; commit; push.
