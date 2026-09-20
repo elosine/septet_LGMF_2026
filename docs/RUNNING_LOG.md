@@ -4971,3 +4971,69 @@ Mine, his to reverse.
 which is what the plan names; that the canvas's own drag moves the whole `grp-seq-` group with its bar is inherited behaviour of META
 groups and was not exercised. **His test (PLAN 1d.3):** reload → `Sequence` → pick a placed sequence → the second box to 20 s →
 Insert → play.
+
+## §117. PLAN 1d.4 BUILT — the roll: piece #5's time containers lay out the row, and an empty box is a REST (2026-09-19)
+
+**What prompted it.** Session 9, straight after 1d.3 was pushed; his words: *"go 1d.4"*. The AI had just said this was a good point to
+clear; he went on, and that is his call. **1d.4 is one of the steps written WITHOUT his review** (§107: *"go ahead and write up the
+rest of the plan, I don't need to see the rest"*), so every call in it is his to reverse — the three §107 named, and one the AI
+CHANGED while building, below.
+
+**What was built.**
+- **The generator takes a rest** (`score/public/sequence.js`, three lines): a container whose chord is `null` is silence for its
+  duration. *No new machinery was needed* — 1d.1 already lets a player be absent from a chord (its chain lands where its last container
+  ends and re-enters where it returns); a rest is simply that rule for EVERY player at once. So under `attack` everyone lands on the
+  rest's start and attacks together at its end; under `seamless` everyone lands on its start and re-enters STAGGERED, as a first entry
+  is. `chord: []` is still refused — a malformed box; a rest is `null` and deliberate. A sequence of nothing but rests is refused.
+  `sequence_check` 49 → **60**: both rules × (the boundaries still add up · no note starts in it and no held note sounds inside it ·
+  every chain lands on its start · everyone re-enters after it) + a rest first and last + the two refusals.
+- **The roll line** (`score/public/sequence_ui.js`): a `roll` button in the head opens a line of dials — presets sorted by spread ·
+  values · weights · `tilt` · unit · fill · stick · interrupt · contour (+ turn · bow · depth when not flat) · seed · `roll` ·
+  `re-roll` (the next seed). **`time_containers.js` is piece #5's module and was not changed**; the dials, their order, their
+  tooltips and the weights' reading (`20` · `20%` · `0.2` · a dash = "share what is left") are `containers_ui.js`'s, so one habit
+  serves both drawers; the DEFAULTS are read from the module itself (`2 5 7 15` · 60 s · stick 0.8 · interrupt 0.10 · flat · seed 1).
+- **`tilt [short ◂ ▸ long]`** — his *"weight the higher ones or low ones"*: a slider, −3 … +3; it FILLS the weights box with
+  `value^k` as percentages. The box stays the truth: a typed weight stands and puts the slider back to the middle; new numbers typed
+  under a tilt get new weights.
+- **`roll`** lays the durations out as the row's boxes and says what the module reports: *"rolled 10 · 59 of 60 s · 1 s short → 7 7 8
+  9 7 9 3 3 3 3 · seed 1 · spread 3×"*. Nothing is stretched to fit. A rolled box is an ordinary box afterwards.
+- **An empty box is a REST** in the drawer too: drawn quiet — dashed, dim, *rest · 7 s · silence* — not red as a fault (1d.2 edged an
+  empty box red; that is gone). The recipe carries `chord: null`.
+- **The recipe keeps the dials** (`roll { … }`) once a row was rolled; a reopened rolled sequence opens the roll line with them, and
+  `re-roll` works on it. The containers are the truth — a typed-over duration is never re-derived.
+- The strip's height is now its CONTENT's (the roll line wraps with the width), read back by `stripH()`; the strikes drawer is
+  re-fitted when the line opens, when a contour's three dials appear, and on a window resize. A box may be 0.1 s (was 0.5) — a
+  rolled container on a small unit can be short.
+
+**THE CALL THE AI CHANGED — rolling over chords KEEPS them, by position.** The plan said: *"`roll` on a row that holds chords → asks
+first (the row is replaced)"*. Built as written, trying a second seed would throw away every take he had chosen — seven boxes to
+fill again — and the roll would be used once and never touched. His own brief (LG-35) is a row he can *"re-time or swap at any
+moment"*: a re-roll IS a re-timing. So: the new durations take the boxes in order, box *i* keeps its chord and dyn, extra boxes are
+rests, and chords beyond the new count are dropped. **It still asks first**, and the question says exactly what will happen —
+*"4 boxes become 7, with new durations. Chords stay in their boxes by position: 2 kept."* (and *"… N DROPPED"* when it is so).
+Cancel leaves the row AND the seed as they were. A clean start is `new`. His to reverse, like the rest of 1d.4.
+
+**The three calls of §107, as built — still his to reverse:** an empty box is a REST (above) · a roll over a filled row asks first
+(above, with the change) · the containers are the truth once rolled (the dials are kept for the record and for `re-roll`, never
+re-applied on their own).
+
+**Verified in the running app, no MIDI — a throwaway :5401 tab, autosave disabled first, 1280 px.**
+- His own set `3 9 7 8`, fill 60, seed 1 → `7 7 8 9 7 9 3 3 3 3`, 10 boxes, 59 of 60 s, 1 s short; every box a rest; Hear refuses:
+  *"every container is a rest — give one a chord"*. The same seed again → the same row. `re-roll` → seed 2, a different row.
+- A weighted value, `- - - 60%` on the 8 → `8 8 8 7 8 9 3 3 3 3` (four 8s of ten; one in the unweighted roll).
+- The tilt, mean container over seeds 1–20: none **6.54 s** · toward long (k 2) **7.71 s**, weights `4.4% 39.9% 24.1% 31.5%` ·
+  toward short (k −2) **4.42 s**, weights `69.7% 7.7% 12.8% 9.8%`. Typing `10 20 30 40` into the box put the slider back to 0 and
+  the typed weights stood.
+- Presets: golden → `10 16 26 42`, no weights · one rare long → `2 5 7 15`, `- - - 20%`.
+- A chord · a rest · a chord (7 · 7 · 8 s): **no note inside the rest under either rule**; 8 chains land on its start; 8 players
+  re-enter — attack at 14.000 together, seamless at 14.0 · 14.5 · 15.0 … staggered. Hear's list: 22 notes, none in the rest.
+- A roll over the filled row: CANCEL → the row and the seed unchanged · ACCEPT → `9 7 7 7`, the takes still in boxes 1 and 3.
+- Inserted at 20 s: 23 objects, none sounding in the rest; the entry carries `roll` (`3 9 7 8`, seed 2) and `chord: null` twice.
+  `new` → reopen from the list → `rolled`, the roll line open, the dials and both rests back, *Re-insert in place @ 20.00 s* →
+  `re-roll` → seed 3, 4 boxes → 7, the two takes kept, the row dirty → re-inserted in place, one entry, seed 3 saved.
+- Layout: the roll line is one line (24 px) at 1280 with a flat contour and wraps to two (43 px) when turn · bow · depth show; the
+  strip is 189 / 213 / 232 px and the strikes drawer ends exactly where it begins (628 px). No console errors.
+- `sequence_check` **60** · `palette_check` 184.
+
+**NOT verified: sound.** **His test (PLAN 1d.4):** reload → `Sequence` → `roll` with `3 9 7 8` → click each box, a take and a dyn →
+leave one empty → SPACE → Insert.

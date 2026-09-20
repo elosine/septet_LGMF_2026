@@ -30,6 +30,9 @@
 //             breath across a line keeps the old chord (flag ACROSS). First entries are staggered, as the morph's are.
 //   Either way the final breaths are DEALT TO LAND on the end — never chopped there, never a runt left over. A player absent from a
 //   chord rests through it; its chain lands where its last container ends and re-enters (staggered under seamless) where it returns.
+//   A REST (PLAN 1d.4): a container whose chord is `null` is silence for its duration — EVERY player is absent from it, so under both
+//   rules every chain lands at the rest's start and begins again at its end. No new machinery: it is the absent-player rule, for all.
+//   (`chord: []` is still refused — a malformed box; a rest is `null` and deliberate.)
 //
 // THE BREATH RULES are the morph's, borrowed as NUMBERS, not as shared code (morph.js §5 is byte-gated against the tuba baseline and
 // is not touched): the staggered first entry `phase · length · 0.5` · the five striation phases · the palette's gap after a breath,
@@ -141,7 +144,8 @@ function validate(recipe, ctx) {
     C.forEach((c, i) => {
         const at = 'container ' + (i + 1) + ': ';
         if (!c || !(+c.dur > 0) || !isFinite(+c.dur)) msgs.push(at + 'a duration of ' + (c && c.dur) + ' s — a container must last more than 0 s');
-        if (!c || !Array.isArray(c.chord) || !c.chord.length) { msgs.push(at + 'an empty chord — choose a take for it'); return; }
+        if (c && c.chord === null) return;   // PLAN 1d.4: a REST — deliberate silence for its duration; nothing else to check
+        if (!c || !Array.isArray(c.chord) || !c.chord.length) { msgs.push(at + 'an empty chord — choose a take for it, or make it a rest (chord: null)'); return; }
         const dyn = c.dyn == null ? AS_DEALT : c.dyn, named = dyn !== AS_DEALT;
         if (named && !ladder) msgs.push(at + 'dyn "' + dyn + '" needs the drawer\'s ladder (dyn_ui.js StrikeDyn) and it is not loaded');
         else if (named && ladder.NAMES.indexOf(dyn) < 0) msgs.push(at + 'dyn "' + dyn + '" is not on the ladder ' + ladder.NAMES.join(' '));
@@ -153,6 +157,7 @@ function validate(recipe, ctx) {
             if (!named && n.level == null && (n.vel == null || !ladder)) msgs.push(nat + '"as dealt" needs the note\'s own level (level 0–1, or vel with the ladder loaded)');
         });
     });
+    if (C.every(c => c && c.chord === null)) msgs.push('every container is a rest — give one a chord');
     return msgs;
 }
 

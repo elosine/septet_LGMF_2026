@@ -162,5 +162,28 @@ ok(in3.length === CHORDS[2].length && in3.every(n => n.start === TN.bounds[2] &&
 const tinyS = recipe('seamless'); tinyS.containers.forEach(c => { c.dur = 2; });
 ok(SEQ.generate(tinyS, ctx).notes.length >= CHORDS[0].length, 'six 2 s boxes under seamless: the stagger never pushes a player past a short span');
 
+// ---------------------------------------------------------------- 11 · a REST (PLAN 1d.4): `chord: null` is silence for its duration
+// container 3 (30 s, from 42 to 72 s) becomes a rest between chords 2 and 4
+['attack', 'seamless'].forEach(change => {
+    const R = recipe(change); R.containers[2].chord = null;
+    const G = SEQ.generate(R, ctx), a = G.bounds[2], b = G.bounds[3];
+    const heldG = G.notes.filter(n => n.kind !== 'fixed');
+    ok(G.bounds.length === 7 && G.end === T0 + TOTAL, change + ' + a rest: the boundaries still add up — the rest keeps its ' + DURS[2] + ' s (' + a + ' → ' + b + ')');
+    ok(!G.notes.some(n => n.container === 2) && !heldG.some(n => n.start < b - EPS && n.end > a + EPS), change + ' + a rest: no note starts in it and no held note sounds inside it');
+    const before = Object.keys(SEQ.keyChord(R.containers[1].chord)), after = Object.keys(SEQ.keyChord(R.containers[3].chord));
+    const landed = before.every(k => { const last = heldG.filter(n => n.player === k && n.end <= a + EPS).pop(); return !last || Math.abs(last.end - a) < 0.0015 || BC.CEILINGS[last.inst] == null; });
+    ok(landed, change + ' + a rest: every chain LANDS on the rest\'s start (' + before.length + ' players)');
+    const back = after.every(k => G.notes.some(n => n.player === k && n.container === 3 && n.start >= b - EPS));
+    const together = after.every(k => G.notes.some(n => n.player === k && n.container === 3 && n.start === b));
+    ok(back && (change === 'seamless' || together), change + ' + a rest: everyone re-enters after it' + (change === 'attack' ? ', together AT its end' : ', staggered as a first entry is'));
+});
+const lead = recipe('attack'); lead.containers[0].chord = null; lead.containers[5].chord = null;
+const LG = SEQ.generate(lead, ctx);
+ok(LG.notes.length > 0 && LG.notes.every(n => n.start >= LG.bounds[1] - EPS) && LG.notes.filter(n => n.kind !== 'fixed').every(n => n.end <= LG.bounds[5] + EPS) && LG.end === T0 + TOTAL, 'a rest first and a rest last: nothing sounds in either, and the sequence keeps its whole length');
+const allRest = recipe('attack'); allRest.containers.forEach(c => { c.chord = null; });
+refuses(allRest, /every container is a rest/, 'a sequence of nothing but rests');
+const stillEmpty = recipe('attack'); stillEmpty.containers[1].chord = [];
+refuses(stillEmpty, /container 2: an empty chord/, 'an empty chord object is still malformed — a rest is null, and deliberate');
+
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

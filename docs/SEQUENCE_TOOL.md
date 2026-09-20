@@ -4,10 +4,11 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**49**) · 1d.1
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**60**) · 1d.1 (+ the rest, 1d.4)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
-- not yet: the roll (1d.4) · the breath dials (1d.5) · the waves (1d.7)
+- the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
+- not yet: the breath dials (1d.5) · the waves (1d.7)
 
 ---
 
@@ -35,7 +36,11 @@
   - `inst` — the palette's instrument key (`english_horn` … `double_bass`).
   - `level` — the dealt level as a drawn HEIGHT 0–1. A dealt anchor velocity (`vel`, 65–127) is read through the ladder instead.
   - Two notes for ONE seat = a **double stop**: one player, one bow, every breath shared.
+- **`chord: null`** — a REST (1d.4): silence for the container's duration. Every player is absent from it, so under both change
+  rules every chain lands at its start and begins again at its end (staggered under `seamless`, together under `attack`).
+  `chord: []` is still refused — a malformed box; a rest is `null` and deliberate.
 - **`dyn`** — `'as dealt'` (each note keeps its own level) or `'ppp'` … `'fff'`.
+- **`roll`** *(beside the containers, only on a rolled row — 1d.4)* — the dials that made the durations. The generator ignores it.
 - **`breath`** — the morph's defaults: `staggered` · `length` 8 s · `jitter` 0.35 · `seed` 1.
 
 ## 3 · The two change rules
@@ -93,7 +98,7 @@ Each note: `player` (`lane:seat`) · `lane` · `seat` · `inst` · `tech` · `mi
 **Flags:** `CEILING` (the ceiling decided the length, not the dial) · `ACROSS` (holds the old chord across a line) ·
 `RUNT` (shorter than 1.5 s) · `RINGS` (a fixed sound ringing past its span) · `SEGCAP` (2048 notes in one span — never silent).
 
-**Refused, with a message:** no containers · a container of 0 s · an empty chord · an unknown change rule ·
+**Refused, with a message:** no containers · a container of 0 s · an empty chord (`[]`) · nothing but rests · an unknown change rule ·
 a dynamic not on the ladder · a named dynamic with no ladder loaded · a note with no lane, pitch, instrument or level.
 
 ## 7 · One seed
@@ -104,9 +109,10 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **49**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **60**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
-the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes.
+the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
+a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last.
 
 ## 9 · The drawer (1d.2)
 
@@ -119,7 +125,7 @@ It opens a strip along the bottom. The strikes drawer, when open, stands ON the 
 - Head: name · `change [attack | seamless]` · `+ container` · `hear [from the start | from the box]` ·
   `Hear` · `Stop` · `Insert @ playhead` · `new` · the `SPACE` light · total · status.
 - The row: one box per container — its number, take, `seconds · dyn`, and **how many players it froze**.
-  The width follows the seconds (never under 96 px). An empty box is edged red.
+  The width follows the seconds (never under 96 px). An empty box is a REST, drawn quiet — dashed, dim (1d.4; 1d.2 edged it red).
 - The line under the row belongs to the clicked box: take · seconds · dyn (`as dealt` | `ppp … fff`) ·
   `refresh from take` · `◂ ▸` · `×` · the frozen chord spelled out (`Bsn C3 · Vc B♭4 −31¢ …`).
 
@@ -206,3 +212,47 @@ box 1 → ff → re-insert with the playhead elsewhere: written at 12.5, the 38 
 one META bar, one entry updated · the group moved +30 s in the score model → the list and the reopen read 42.5 → re-insert there ·
 hand edits counted (2 changed, 2 deleted) · `move to playhead` · an orphan marked · 1280 px: no overflow.
 **Not verified: sound, and a real drag of the META bar on the canvas** (the move was made in the score's model).
+
+## 11 · The roll (1d.4)
+
+**What it is:** piece #5's time container generator — `score/public/time_containers.js`, **not changed** — driving the row.
+The same module the strikes drawer's `containers` shape uses; the same dials, order, tooltips and defaults (`containers_ui.js`).
+
+**The roll line** — the `roll` button in the head opens it.
+- presets, sorted by spread · `values` · `weights` · `tilt` · `× unit` · `fill` (the total) · `stick` · `interrupt` ·
+  the contour (+ `turn` · `bow` · `depth` when not flat) · `seed` · `roll` · `re-roll` (the next seed).
+- Weights: `20` · `20%` · `0.2` all mean a fifth; a dash means "share what is left".
+- Defaults are the module's own: `2 5 7 15` · 60 s · stick 0.8 · interrupt 0.10 · flat · seed 1.
+
+**`tilt [short ◂ ▸ long]`** — his *"weight the higher ones or low ones"*.
+- A slider, −3 … +3. It FILLS the weights box: weight ∝ value^k, as percentages. The middle = no weights.
+- The box stays the truth. A typed weight stands, and puts the slider back to the middle.
+- In the drawer only. The module is not changed.
+
+**`roll`** — the durations become the row's boxes.
+- The status is the module's report: `rolled 10 · 59 of 60 s · 1 s short → 7 7 8 9 7 9 3 3 3 3 · seed 1 · spread 3×`.
+  Nothing is stretched to fit.
+- A rolled box is an ordinary box: seconds typed over, removed, moved. A box may be as short as 0.1 s.
+- **Rolling over chords KEEPS them, by position** *(the AI changed the plan here — RUNNING_LOG §117; his to reverse)*.
+  Box *i* keeps its chord and dyn · extra boxes are rests · chords beyond the new count are dropped.
+  It asks first and says how many are kept and dropped. Cancel leaves the row and the seed alone. A clean start is `new`.
+
+**An empty box is a REST** *(a call of §107 — his to reverse)*
+- Silence for its duration. Every player stops at its start and begins again after it.
+- Drawn quiet: dashed, dim — `rest · 7 s · silence`.
+- The recipe carries `chord: null`; the generator needed no new machinery — it is the absent-player rule, for everyone.
+- A row of nothing but rests is refused: *"every container is a rest — give one a chord"*.
+
+**The recipe keeps the dials** — `roll { … }` beside the containers, once a row was rolled.
+- A reopened rolled sequence opens the roll line with its dials, and `re-roll` works on it.
+- **The containers are the truth.** A typed-over duration is never re-derived from the dials.
+
+**The strip's height is its content's** — the roll line wraps with the width. The strikes drawer is re-fitted
+when the line opens, when a contour's dials appear, and on a window resize.
+
+**Verified in the running app, no MIDI (a throwaway :5401 tab, 2026-09-19; RUNNING_LOG §117 has every number):**
+his set `3 9 7 8` · the same seed twice · `re-roll` · a weighted value · the tilt both ways (mean 6.54 → 7.71 long, 4.42 short) ·
+a typed weight standing · two presets · a chord · a rest · a chord: nothing in the rest, 8 land, 8 re-enter, under both rules ·
+a roll over a filled row: cancel, then accept with the chords kept · inserted, reopened with its dials, re-rolled, re-inserted in place ·
+the layout at 1280 px with the roll line on one line and wrapped to two. `sequence_check` 60 · `palette_check` 184.
+**Not verified: sound.**
