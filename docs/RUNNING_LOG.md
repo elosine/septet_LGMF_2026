@@ -7047,3 +7047,30 @@ is applied to the morph too — EVERY sustained morph note is shaped, not only t
 2026-09-20 (MORPH_NOTES, 1e V5) had said *"a morph note whose level does NOT move stays a struck note"*. The reason is §157's own:
 a struck `pp` is ≈ −10 dB and a shaped `pp` ≈ −28 dB, and this bloom FOLLOWS a sequence on the same take — a still voice left on
 the struck ladder would stand 18 dB over the sequence before it. His to reverse.
+
+## §166. PLAN `1h`, THE BLOOM ON A TAKE, APPROVED AND WRITTEN — and the calls the AI made in turning four summaries into sub-steps (2026-09-20)
+
+**His word on §165's four steps and its flagged call:** *"yes good"*. `docs/PLAN.md` § **1h** is written — the four steps in the
+words he approved, each with sub-steps that are the AI's (H1.1 … H3.5), a NOT-in-this-step list, the required verification and
+his test. Nothing is built.
+
+**What was read to write it cold** (all read-only): `morph_panel.js`'s `drawPitch` · `applyPitch` · the main insert ·
+the recalled-actual branch; `morph_emit.js`'s `play` (its `dynOf` · `velFor` · `ccOf` · `routeFor`); M1's opening rule in
+`morph.js`; the sequence drawer's `mfVel` · `isShaped` · `shape`; `dyn_table.js`'s exports; the score's curve-channel API.
+
+**The calls made in the sub-steps — each small, each his to reverse, none asked (AI_METHODOLOGY: do not make him decide minutiae):**
+
+| the call | why that, and what was set aside |
+|---|---|
+| the takes are an OPTGROUP at the TOP of the existing pulldown, newest first — not the sequence's takes menu (filter · `▸`) | he pointed at the pulldown (*"in the pitches pulled down"*), a native `<select>` cannot hold a filter, and the `▸` preview is not needed here: choosing a take LOADS it in the drawer, which is where he hears it (§163). Lifting the menu is named as the next small build if 216 names prove unwieldy. |
+| the chord is FROZEN at the moment of choosing, with a `↻` to re-read | the panel re-generates on every nudged dial and every poll; dealing a take reloads the strikes drawer, which must not happen behind his back. The sequence box's `freeze` is the precedent. |
+| the panel's reduction rule is relabelled `pick`; the drawer's stays `take` | §162's naming trap. Label text only — no stored key changes. |
+| `TAKE_MODELS = ['M1']` | his method: one model at a time. CONVERGE and SPECTRAL need a TARGET as well as a source, which a take does not give; they are each a small build of their own. |
+| voices ordered pair by pair, a then b | M1 opens voice `vi` up when `vi` is even and down when odd (`morph.js` ~1515) — so this order opens each PAIR apart, which is what a beating bloom is. |
+| a partner that cannot hold the note → the pair plays as ONE voice, with the warning | not folded by an octave: an octave off partial 7 is not partial 7, and the just pitch is the point (§163). |
+| the dynamics are written by the PANEL after `M.toScoreObjects`, not inside `morph.js` | *"the fix is what the TOOL writes"* (DYNAMICS_LAW §5) — and `morph.js` is the shared engine under a frozen baseline. One small helper (`morph_dyn.js`) so Hear and Insert cannot drift apart, which is the fault MORPH_NOTES 2026-09-20 point 2 warned of. |
+| the verification writes NOTHING to `bank/panel_snapshots.json` | it is his 3 MB of takes, mid-use (§146 is the closest this project has come to losing them). His own takes are read through the real `dealTake`; the cases they may not hold are injected as a hand-built chord. |
+| **known and left:** recalling a bloom-on-a-take ACTUAL keeps its cents for the first render only | the recalled-actual branch turns a voice list back into a sonority; fixing it is a build of its own and he has not asked to recall one. In PLAN 1h's NOT-in-this-step and owed to `MORPH_NOTES.md` at the build. |
+
+**The switch point.** The plan is written to be executed cold, so the build is Opus's — after a checkpoint and a clear; journal
+§2's ► row names the resume reads the BUILD needs (PLAN § 1h · DYNAMICS_LAW · the verify recipe), not what this session wrote.

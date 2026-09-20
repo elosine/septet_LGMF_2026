@@ -1108,6 +1108,133 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     attack into box 5 no louder than the waves at rest.
 
 
+- **1h — THE BLOOM ON A TAKE** (a TAKE from the strikes drawer chosen in the morph's PITCHES pulldown and read AS ASSIGNED — each
+  pair on its JUST pitch — and the morph's dynamics brought under the law) — **`planned` 2026-09-20, session 11 (RUNNING_LOG
+  §162–§166 · COMPOSITION_NOTES LG-52 · MORPH_NOTES 2026-09-20); the top line and the four steps approved as ONE summary
+  (*"yes good"*), the sub-steps the AI's, written to be executed cold. NOTHING BUILT.**
+  *Why:* his words — *"I want to make a bloom and then I want to be able to use one of the … TAKES from the [strikes] drawer, just
+  like the sequences do … make sure I'm choosing the notes from the take that are comfortable in both the instruments' ranges. And
+  then being able to see the partial number … I don't want to build a whole bunch of additional infrastructure."* The piece's second
+  object is a bloom FOLLOWING the first sequence on one of the same takes (LG-52). His method from here is small builds, one MODEL
+  at a time, by compositional need (§162) — and he must HEAR these pitches before anything else about the morph drawer is rethought
+  (§163: *"I need to hear those particular bloom pitches. So let's build this part first, along with the dynamics."*).
+  *Result when done:* in his Chrome, a take made and heard in the strikes drawer — a pair's note put on both of its players — is
+  chosen in the morph's PITCHES pulldown; BLOOM generates with each pair on the take's exact pitch, cents kept, the line showing
+  note · cents · partial pair by pair; and Hear and the inserted score sound alike, on the sequence's scale.
+  *What the code already gives (read 2026-09-20, §165 — do not re-derive it):*
+  **(a)** the strikes drawer ALREADY doubles a note (`strike_drawer.js` ~1000–1030, his own U10: arm a note by double-clicking its
+  dot, click a row, click a second row — `v.also`), takes a note off a player (click it in the row) and marks a note a player
+  cannot reach (`fitReal` → `skip`). **Nothing is built in the drawer; `strike_drawer.js` is his 2a and is not touched.**
+  **(b)** `SequenceDrawer.dealTake(name)` (`sequence_ui.js` ~1335) returns a saved take's chord — per player `{ lane, seat, inst,
+  tech, midi, cents, level, vel, partial? }` — and LOADS the take in the strikes drawer on the way, so he sees it there.
+  **(c)** the engine's `source.kind: 'voices'` door is GENERAL (`morph.js` ~1262–1300: read before any model runs, the order kept,
+  `lanes[i]` the voice's player) and `cast()` passes a voice list through with `P.lanes` (`morph_septet.js` ~103–115). M1 opens
+  voice `vi` by `vi % 2 === 0 ? + : −` (`morph.js` ~1515) — so voices ordered PAIR BY PAIR, a then b, open each pair APART.
+  **(d)** the morph's level is 0 … 10, and `level / 10` is the same 0 … 1 written-dynamic height the sequence drawer hands
+  `DynTable` (`morph_emit.js` ~336 maps `h / 10` onto the anchors). The sequence's `mfVel` · `isShaped` · `shape`
+  (`sequence_ui.js` ~1500–1535) are the pattern. `DynTable` exports `cc7 · range · height · hasCurve`; the score has
+  `curveChannelsOf(lane, tech)` · `curveRoute(lane, entry)` · `curveChannelMap()` · `heldCc7` (`composer.html` ~11393–11430 · ~9692).
+  - **H1 · A take chosen in the morph's PITCHES pulldown.** *Result when done:* his takes are listed there under a heading of
+    their own; choosing one makes it the bloom's pitches; the rule boxes beside it (`take · k · seed · per pair`) go grey and the
+    line says *as assigned*; the two meanings of "take" get two different words.
+    - H1.1 · `drawPitch` (`morph_panel.js` ~1420): a new optgroup **`takes · the strikes drawer`**, the FIRST group of
+      `#morphPitchSrc`, newest first, value `dtake:<name>`, text = the name (and the take's comment when it has one). The names
+      come with `loadPitchSources` — `/api/snapshots` → `panels.strikes` (the drawer's `TAKES_PANEL`).
+    - H1.2 · choosing one DEALS IT ONCE — `await SequenceDrawer.dealTake(name)`: ONE reader of a take, not two. No
+      `SequenceDrawer` on the page → the status says so and the model's own set plays. The dealt chord is FROZEN into the pitch
+      state — `p.takeName`, `p.takeAt`, `p.takeChord = [{ lane, inst, midi, cents, partial }]` — and saved by `savePitch()`, so
+      every later Generate (a nudged dial, a poll) reads the frozen chord and NEVER reloads the drawer. The sequence box's
+      `freeze` is the model.
+    - H1.3 · a **`↻`** button beside the pulldown, live only for a take source: deals the take again — for when he has changed it in
+      the drawer and saved it under the same name.
+    - H1.4 · with a take source the reduction rule · `k` · `seed` · `per pair` · `keep` · `✕` are DISABLED at 0.45 opacity; `root`
+      is left alone.
+    - H1.5 · TWO WORDS. The strikes drawer's is a **take**; the panel's reduction rule is relabelled **`pick`** — the label and
+      the head line ONLY (`p.take`, `SEP.TAKES`, the ids and every stored key stay as they are). Head: *PITCHES · a sonority and a
+      pick (three notes doubled, or two per pair) — or a TAKE from the strikes drawer, as assigned*.
+    - H1.6 · ONE MODEL AT A TIME: `TAKE_MODELS = ['M1']`. Under any other model a take source is refused in the line (*"a take is
+      read by BLOOM only so far — the model's own set plays"*) and `applyPitch` returns the params untouched. The next small build
+      adds to the list.
+  - **H2 · The take read as assigned.** *Result when done:* each pair plays exactly what the take gave its two players, on the
+    just pitch with the cents kept — both players on one note is a doubled pair; one alone, the partner doubles it; neither, the
+    pair sits out. The line shows each pair's note · partial · cents; a note on a player outside the pairs is left out and said
+    so; a partner that cannot hold a doubled note is a WARNING — a net only, the drawer is where he resolves it (§163).
+    - H2.1 · `applyPitch` (~1366): a new branch BEFORE the sonority path — the source is `dtake:` and the model is in
+      `TAKE_MODELS` → build the voice list from `p.takeChord` and `this.pairs` (`{ a, b, on }`, lanes), pair by pair in the
+      panel's order, **a then b**: both hold a note → two voices, each its OWN pitch · one holds a note → the partner DOUBLES it
+      (same `midi` + `cents`) if `env.BC.holds(env.recipe, partnerInst, midi)`, and if it cannot the pair plays as ONE voice and
+      the line says so in the warning colour · neither → the pair sits out · an un-ticked pair is skipped as today · a player
+      holding MORE than one note (a shift-click in the drawer) gives its lowest, and the line says so.
+    - H2.2 · the params: `out.source = { kind: 'voices', voices: [{ midi, cents }] }` · `out.lanes` in the same order ·
+      `out.voices = n`. **`morph.js` and `morph_septet.js` are NOT changed — if the build finds it must change either, STOP and
+      say so** (the tuba baseline and the six LGMF scores ride on them).
+    - H2.3 · THE PAIR ROWS. `cast()`'s voice-list branch marks every pair silent (*"this model names its own voices"*) — right
+      for the LGMF models, wrong here, where the pairs DO own the voices. In the PANEL, after `cast()` returns, re-attach each
+      voice to its pair (`voices[i].pair`, `pairs[k].voices`, `silent = false`, `why = ''`) so the rows draw and the ticks
+      (`heard()`) still hear one pair alone. If that cannot be done from the panel's side, leave the rows inert for a take source,
+      SAY SO in the row, and note it in `MORPH_NOTES.md`.
+    - H2.4 · `_pitchInfo = { take: true, name, pairs: […], leftOut: […] }` and the line in `drawPitch`, pair by pair:
+      **`EH + Bsn · G3 −31.2 c · partial 7 · doubled`** — cents signed, one decimal; `partial` omitted when the take's harmony
+      carries none — then *left out:* every note of the take on a player that is in no pair (the vibraphones, the percussion).
+    - H2.5 · NOT kept from the take: its technique and its level — the model's own technique dial and shape govern a morph.
+  - **H3 · The morph's dynamics on the law.** *Result when done:* a bloom sounds on the same scale as a sequence — every
+    sustained note struck at mf, on a curve channel, its fader between the table values of its written dynamics; Hear and the
+    inserted score behave the same. **THE RULE: EVERY sustained note the morph writes is shaped, moving or not** — DYNAMICS_LAW §3
+    Rule 3 carried to the morph (the AI's call, flagged to him in §165 and approved with the rest). It REPLACES the sentence of
+    MORPH_NOTES 2026-09-20, *"a morph note whose level does NOT move stays a struck note"*: this bloom follows a sequence on the
+    same take, and a still `pp` left on the struck ladder would stand ≈ 18 dB over the sequence's `pp` (§157). It holds for EVERY
+    pitch source, not only a take.
+    - H3.1 · ONE helper both files call — a tiny UMD beside `dyn_table.js` (`score/public/morph_dyn.js`, one script tag in
+      `composer.html`): `shapeLevels(bank, instKey, midi, level /* [[dt, 0…10]] */)` → `{ velAbs, cc7Abs: { lo, hi }, heights,
+      flat, measured }` — `velAbs = VelocityRemap.heldNote(bank, instKey, midi, 100).vel` (per PITCH; no bank → 100) · `lo` / `hi`
+      = the lowest and highest `level / 10` · `cc7Abs = DynTable.range(bank, instKey, lo, hi)` · each height =
+      `DynTable.height(bank, instKey, l / 10, lo, hi)`. No `DynTable` on the page → null, and everything below behaves as today.
+    - H3.2 · INSERT — both morph inserts (`insert` ~1196 · `insertActual` ~946): AFTER `M.toScoreObjects(...)`, on every note
+      object: `cc7Abs` · `velAbs` · `nodes[].y = max(0.05, 10 · height)` — a FLAT note keeps its WRITTEN height (`heldCc7` answers
+      `lo` whatever the height when `lo === hi`; 1g's G2) — and no `sonifyMode: 'plain'`, so the score gives it a curve channel by
+      itself. `velRef` and `cc7Fade` stay exactly as the engine wrote them: the niente fade multiplies in on top of `cc7Abs`.
+      `C.curveDirty()` is already there (1e V3).
+    - H3.3 · HEAR — `morph_emit.js` `play` (~286–400), when the helper answers: **(a)** the strike is `velAbs`, and `velFor`'s
+      softening below level 0.4 is skipped — the fader does that work now · **(b)** `ccOf(h)` =
+      `DynTable.cc7(bank, route.instKey, h / 10)`, still multiplied by `fadeAt` · **(c)** THE ROUTE — a shaped note plays on a
+      CURVE channel: `Composer.curveChannelsOf(lane, technique)` / `curveRoute`, round robin per player in time order, as
+      `curveChannelMap()` does it and as the sequence drawer's `curveSeats` does it for its own Hear; the bends AND the CC7 go to
+      that channel. A technique with NO curve copy stays on MAIN and the status says how many.
+    - H3.4 · the status after Generate / Hear states the fader span that went out (*the fader CC7 lo…hi*, as the sequence's
+      `rangeText`) and says when an instrument has no measured curve.
+    - H3.5 · DOCS at the build: `DYNAMICS_LAW.md` — §1's third case and §3 Rule 3 now read *in a sequence AND in a morph*; §4's
+      "in a tool's Hear" gains the morph · `MORPH_NOTES.md` §3 — an AS BUILT entry naming the sentence it replaces ·
+      `RUNNING_LOG.md` as it happens.
+  - **H4 · His listen.** *Result when done:* he has made a bloom take in the drawer and heard it there, pulled it into a bloom,
+    heard the bloom, and inserted it after the sequence. His ear is the verdict; a recording read back proves the routing, as
+    with 1e.
+  - **NOT in this step:** anything in the strikes drawer · `morph.js` · `morph_septet.js` · `composer.html` beyond one script tag ·
+    any model but BLOOM reading a take · RECALLING a bloom-on-a-take ACTUAL (its voices render ONCE as stored; the next nudged
+    dial goes back through the sonority path and drops the cents — known, to `MORPH_NOTES.md`, fixed at the small build that
+    needs it) · the sequence's takes menu (filter · `▸`) lifted into the morph — if 216 names in a pulldown prove unwieldy, that
+    is the next small build · `1f`, the crescendo tool · his *"another pass at the actual way the morph drawer works"* —
+    announced, his, NOT to be anticipated (§163).
+  - **REQUIRED VERIFICATION (`score-5401`, no MIDI — journal §2's recipe; the AI never Saves and never touches his tab; NOTHING
+    is written to `bank/panel_snapshots.json`, his 3 MB of takes — no take is saved or deleted by the verification):** (1) the
+    real `dealTake` on ONE OF HIS OWN takes, read-only → the pulldown lists it first-group, the line shows pair · note · cents ·
+    partial, the drawer shows the take · (2) a HAND-BUILT chord injected as `p.takeChord` for the cases his takes may not hold: a
+    note on both players of a pair with cents ≠ 0 · one player only (the partner doubles) · a partner that cannot hold it (one
+    voice + the warning) · a vibraphone note (left out) · (3) the engine's `result.notes` open at the take's cents — voice a
+    above, voice b below, the pair's centre = `midi·100 + cents` · (4) Insert → every note object has `cc7Abs` (from the table,
+    lo ≤ hi) and `velAbs` (the mf velocity for ITS pitch), none `plain` · (5) Hear captured (stub the emitter's own `outputFor`) →
+    MAIN ch 1 silent, each voice on a curve channel — the SI2 three on their `b` ports — struck at `velAbs`, CC7 on the table ·
+    (6) THE SCORE'S OWN PLAYBACK of the inserted bloom captured → the same channels, velocities and CC7 as (5) · (7) the four
+    LGMF models still generate and their line still says *names its own voices*; a plain sonority source still works, and is now
+    on the law too · (8) `sequence_check` 180 · `dyn_table_check` 51 · `palette_check` 184 · `test_snapshots` 26.
+  - **His test:** RELOAD the tab · in the strikes drawer, load or build a chord, take the notes off everyone but the three he
+    wants, put each of the three on BOTH players of a pair (double-click the dot, click a row, click the partner's row), Hear it
+    (`long tone`), save it under a new name · morph panel → BLOOM → the PITCHES pulldown, the take at the top → the line gives
+    each pair's note · cents · partial → Play → Insert after the sequence → play the score. **By ear:** each pair opens from ITS
+    just pitch; the bloom's `pp` sits where the sequence's `pp` sat; no loud attack. **The proof of the routing, the 1e way:** the
+    inserted bloom recorded as MIDI in the rack → `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` → MAIN
+    ch 1 empty · every note on a curve channel · mf velocities · CC7 on the table's values.
+
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
