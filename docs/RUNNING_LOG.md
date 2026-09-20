@@ -5770,3 +5770,45 @@ one formula, one gate, so one step) · 2 the clock and the cursor · 3 the libra
 - **No test after each step — the whole thing is built in one go and he tests while composing.** So step 4 of the top line is gone,
   and the plan must carry its own verification, and be complete enough for the building model to execute cold.
 - **Order:** as put — breath · clock and cursor · library.
+
+## §137. HE CANNOT HEAR THE WAVES — and the capture says why: Hear streams the fader on the MAIN channel (2026-09-20)
+
+**What prompted it.** *"i don't really Here, the effect of the waves in my current sequence is this uh, question of settings or a
+bug."* The AI's read was settings (11 of 40 notes waved · pp → mf is about 5 dB of a 12 dB written span · the players out of step, so
+the total stays level) and it gave him a test that would settle it: `low ppp · high fff · lengths 4 · density 1 · all boxes → waves`.
+**His report:** *"it sounds Like the whole sequence is just sitting at the high dynamic. No waves."* **So: not settings. A bug.**
+
+**Read first, this time** (the habit §130 asked for): §128–§130 · `docs/CRESCENDO.md` (D11) · `morph_emit.js` `routeFor` ·
+`strike_drawer.js` `routeFor` / `playNotes` · `composer.html` `curveChannelsOf` / `isCurveEvent`.
+
+**Then captured** — his own test, on his take `Just-C1-seed90`, one 12 s box, the ten `LG` ports stubbed to record every byte
+(throwaway :5401, autosave stubbed, nothing saved), 7 s of Hear, 737 messages:
+
+| route | note-on velocity | CC7 messages | CC7 range |
+|---|---|---|---|
+| `LGBassoon` **ch 1** | 127 | 124 | 68 … 127 |
+| `LGHorn` **ch 1** | 127 | 118 | 67 … 127 |
+| `LGTrumpet` **ch 1** | 90 | 132 | 63 … 127 |
+| `LGEngHorn` **ch 1** | 127 | 108 | 82 … 127 |
+| `LGCello` **ch 1** | 127 | 92 | 90 … 127 |
+| `LGBass` **ch 1** | 113 | 125 | 81 … 127 |
+
+**What it shows.** The drawer DOES send a moving fader, and a wide one (the horn 67 … 127 is about 11 dB on the UVI law). **But every
+note and every ramp leaves on the instrument's MAIN route — channel 1.** D11 (CRESCENDO.md, `composer.html`): *"ch 1 MAIN — plain
+notes … and no MOVING controller — and ch 2/3/4 CURVE A/B/C, used ROUND ROBIN by any event that streams one"*; the SI2 three have
+their curve copies on the `b` ports. And the fader curves the law is built on were measured in 0d **on the curve channels only**
+(§130: `LGBassoonb` ch3 · `LGHornb` ch3 · `LGTrumpetb` ch5 · the Xsample instruments' ch2). In the SCORE a waved note is DRAWN, so
+`isCurveEvent` sends it to a curve channel by itself. **In HEAR it goes through the strikes drawer's player, which routes by
+`MorphEmit.routeFor` — the technique's own port and channel, MAIN** (a seat alone gets `channels.curve[0]`, 1c.3). §130 verified
+WHAT Hear sends and never asked WHERE.
+
+**What is evidence and what is inference.** Evidence: the bytes above, and his ear — struck at `high`, nothing moving. Inference, not
+checked in his rack: that MAIN does not answer CC7 there. It fits both, and D11 makes the fix the same either way — a moving
+controller does not belong on MAIN. (The vibraphone did not appear in the capture at all: its port was not among the ten stubbed.
+Not pursued.)
+
+**The fix, NOT built — he moved the conversation on before it was put to him:** in `sequence_ui.js` alone, a RAMPED note (waved,
+faded, or ramped to a dynamic) is heard on a curve route — `Composer.curveChannelsOf(lane, tech)` / `curveRoute`, round robin per
+player, the ramp on the same route — by wrapping `D.routeFor` from outside, as `D.play` is already wrapped; `strike_drawer.js`
+untouched. A technique with no curve copy stays on MAIN and says so in the status. **Until then: the waves, the fades and the ramps
+of 1d.7 · 1d.8 cannot be judged by SPACE. Inserted and played from the score they take the curve channels.** (By design; not heard.)
