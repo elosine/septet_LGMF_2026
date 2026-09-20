@@ -5140,3 +5140,21 @@ open, the dot on, the row not dirty · a page reload: the row back with its brea
 
 **His test:** reload → `Sequence` → one long container (40 s) → `breath` → `together` '0', SPACE → '0.5', SPACE →
 `lengths` '3 9', SPACE → `seamless` across two chords, SPACE.
+
+## §119. The roll in his hands: "how do I get more time containers" — the line has no COUNT (2026-09-19)
+
+**What prompted it.** His first question from inside the roll line, with a screenshot of his dials: values `10 16 26 42` ·
+tilt toward short (weights 54.1% 26.7% 12.9% …) · `×` 1.96 s · `fill` 120 s · stick 0.8 · interrupt 0.1 ·
+`open then close (the bellows)` · turn 0.5 · bow 1 · depth 1 · seed 1. His words: *"how do I get more time containers in a
+roll? and how does the bellows work"*.
+
+**The reading (the AI's, from `time_containers.js`, not re-run).** His boxes are 10–42 units × 1.96 s = 19.6–82.3 s, and the
+span is 120 s: the count is about `fill ÷ (average value × unit)` ≈ 120 ÷ (15.7 × 1.96) ≈ 4. The roll FILLS A SPAN; nothing on
+the line says or sets how many boxes come out, so the way to "more" is indirect — lower `×`, raise `fill`, or smaller numbers.
+With four boxes no contour can be heard, which is likely why the bellows was a question at all. And his tilt toward short
+pulls against the bellows' opening: the contour multiplies each value's weight by exp(−|value − target| / range × 2.5 × depth),
+so a 54% weight on the smallest value survives a depth of 1.
+
+**A usability finding for the tool's revision, not acted on:** a composer thinks "about twelve boxes", the line thinks "120
+seconds of them". A count readout beside `fill` before rolling — or a `count` box that solves for the unit — would close the
+gap. Offered to him in one line; his call.
