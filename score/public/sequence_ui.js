@@ -49,6 +49,12 @@
 // `lengths`, a pool of values and weights · a seed with `re-breathe` (the next seed — the chords and the durations are not touched).
 // Every change re-deals the row and says what came of it in the status: the notes, the starts snapped and kept apart, who leads.
 //
+// TWO THINGS HE ASKED FOR FROM INSIDE IT (2026-09-19, RUNNING_LOG §119–§120). `count` on the roll line: the roll fills a SPAN and
+// never said how many boxes come out. Blank, the box shows what the dials give now; a number FILLS the `×` box — the seconds per
+// unit that makes that many fit the span, searched for THIS seed (so `re-roll` solves it again); a typed `×` clears it, as a typed
+// weight clears the tilt. In the drawer only — time_containers.js is not changed. And a PREVIEW `▸` on every box that holds a
+// chord: that box's frozen notes on their own, all together, PREVIEW_S seconds at the box's dyn, through D.playNotes.
+//
 // A BEND THAT MUST BE TAKEN BACK. D.playNotes sends a bend only for a note WITH cents, and a chord of the strikes drawer has one note
 // a player, so nothing there ever needed re-centring. A sequence gives one player a just note and then a tempered one on the same
 // channel; so a tempered note of a player who bends anywhere in the sequence leaves here with a millionth of a cent — the player then
@@ -69,6 +75,7 @@ const COLOR = '#5E9FB8', EDGE_ON = '#9fdcf5', EDGE_OFF = '#34525f';
 const AS_DEALT = SEQ.AS_DEALT;
 const DEF_DUR = 8, MIN_DUR = 0.1, MAX_DUR = 3600;   // 0.1: a rolled container on a small unit may be short
 const RECENTRE = 1e-6;   // cents — rounds to the centre; see the head of this file
+const PREVIEW_S = 5;     // a box's preview: its chord held this long (or the box's own seconds, if shorter) — under every ceiling
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px;font-size:11px';
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';
 const NAMES12 = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
@@ -84,13 +91,13 @@ const yOf = level => Math.max(0.05, Math.round(clamp(+level || 0, 0, 1) * 100) /
 const shortOf = lane => { const t = (D.tracks ? D.tracks() : [])[lane]; return (t && (t.short || t.label)) || ('L' + lane); };
 
 const S = {
-    el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null,
+    el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null, _previewing: -1, _pvT: 0,
 
     // ------------------------------------------------------------------ the row being built (remembered in the browser)
     // the roll's dials start from time_containers.js's OWN defaults — the ones the strikes drawer's `containers` shape starts from
     rollDefaults() {
         const d = (TC() && TC().DEFAULTS) || {};
-        return { preset: '', values: (d.values || [2, 5, 7, 15]).join(' '), weights: '', tilt: 0, unit: d.unit || 1, total: d.total || 60,
+        return { preset: '', values: (d.values || [2, 5, 7, 15]).join(' '), weights: '', tilt: 0, unit: d.unit || 1, total: d.total || 60, count: '',
             stick: d.stick != null ? d.stick : 0.8, jump: d.jump != null ? d.jump : 0.1, contour: d.contour || 'flat',
             turn: d.turn != null ? d.turn : 0.5, bow: d.bow || 1, depth: d.depth != null ? d.depth : 1, seed: d.seed || 1 };
     },
@@ -329,7 +336,7 @@ const S = {
             const on = i === this.sel, empty = !b.chord.length, np = this.players(b.chord);
             const d = document.createElement('div');
             d.className = 'sqBox'; d.dataset.i = i;
-            d.style.cssText = 'flex:' + Math.max(0.1, +b.dur || 0) + ' 1 0;min-width:96px;box-sizing:border-box;padding:3px 6px;border-radius:4px;cursor:pointer;overflow:hidden;' +
+            d.style.cssText = 'position:relative;flex:' + Math.max(0.1, +b.dur || 0) + ' 1 0;min-width:96px;box-sizing:border-box;padding:3px 6px;border-radius:4px;cursor:pointer;overflow:hidden;' +
                 // 1d.4: a box with no chord is a REST — deliberate, so it is drawn quiet (dashed, dim), not as a fault
                 'background:' + (on ? '#22404d' : (empty ? '#191d21' : '#20262c')) + ';border:1px ' + (empty ? 'dashed ' : 'solid ') + (on ? EDGE_ON : (empty ? '#56606a' : '#3a4650')) + ';display:flex;flex-direction:column;justify-content:center;white-space:nowrap';
             d.title = empty ? 'a REST — silence for its duration: every player stops at its start and begins again after it. Choose a take to give it a chord' : this.chordText(b.chord);
@@ -338,6 +345,14 @@ const S = {
                 '<div style="color:#9ab">' + fmtS(b.dur) + ' s' + (empty ? '' : ' · ' + esc(b.dyn)) + '</div>' +
                 '<div style="color:' + (empty ? '#7d8790' : '#7a9') + ';font-size:10px">' + (empty ? 'silence' : (np + ' player' + (np === 1 ? '' : 's') + (b.chord.length > np ? ' · ' + b.chord.length + ' notes' : ''))) + '</div>';
             d.addEventListener('click', () => { this.sel = i; this.save(); this.render(); });
+            if (!empty) {   // the PREVIEW: this box's chord on its own — every box that holds a take has one
+                const on = this._previewing === i, pv = document.createElement('button');
+                pv.className = 'sqPrev'; pv.textContent = on ? '■' : '▸';
+                pv.title = on ? 'stop the preview' : 'PREVIEW: hear this box\'s chord on its own — everyone together, ' + fmtS(Math.min(PREVIEW_S, +b.dur || PREVIEW_S)) + ' s, at the box\'s dyn (' + b.dyn + ')';
+                pv.style.cssText = 'position:absolute;top:2px;right:3px;width:20px;height:18px;padding:0;line-height:16px;font-size:11px;cursor:pointer;border-radius:3px;border:1px solid ' + (on ? EDGE_ON : '#4a5a66') + ';background:' + (on ? '#2f5f72' : '#1a2228') + ';color:' + (on ? '#fff' : '#9fdcf5');
+                pv.addEventListener('click', ev => { ev.stopPropagation(); this.preview(i); });
+                d.appendChild(pv);
+            }
             row.appendChild(d);
         });
         const line = document.createElement('div');
@@ -395,6 +410,7 @@ const S = {
             '<label style="' + lab + '" title="weight the short values or the long ones: FILLS the weights box (weight ∝ value^k). The middle = no weights.">tilt short <input id="sqRTilt" type="range" min="-3" max="3" step="0.25" style="width:72px;vertical-align:middle"> long</label>' +
             '<label style="' + lab + '" title="seconds per unit — one number rescales the whole set">× <input id="sqRUnit" type="number" step="0.05" min="0.01" style="' + INP + ';width:48px"> s</label>' +
             '<label style="' + lab + '" title="the span the roll fills; it stops short and says by how much">fill <input id="sqRTot" type="number" step="1" min="1" style="' + INP + ';width:52px"> s</label>' +
+            '<label style="' + lab + '" title="how many containers. BLANK: the grey number is what the dials give now. Type a number and it FILLS the × box — the seconds per unit that makes that many fit the span, for this seed (re-roll solves it again). Typing × yourself clears it: × stays the truth">count <input id="sqRCount" type="number" step="1" min="1" style="' + INP + ';width:44px"></label>' +
             '<label style="' + lab + '" title="how much the next container stays near the last — the periodicity">stick <input id="sqRStick" type="number" step="0.1" min="0" max="4" style="' + INP + ';width:44px"></label>' +
             '<label style="' + lab + '" title="how often it deliberately leaps far — the interruption">interrupt <input id="sqRJump" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:44px"></label>' +
             '<select id="sqRContour" style="' + INP + '" title="the accordion: the size the roll is pulled toward across the span">' + T.CONTOURS.map(c => '<option value="' + c[0] + '">' + esc(c[1]) + '</option>').join('') + '</select>' +
@@ -411,9 +427,10 @@ const S = {
             const p = T.PRESETS.find(x => x.key === e.target.value); e.target.blur(); if (!p) return;
             const c = this.row.roll; c.preset = p.key; c.values = p.values.join(' '); c.tilt = 0;
             c.weights = p.weights ? p.weights.map(w => (w == null ? '-' : Math.round(w * 100) + '%')).join(' ') : '';
+            this.solveCount();   // a count that is set holds: × follows the new numbers
             this.save(); this.paintRoll(); this.setStatus(p.label + ' — ' + p.note + ' · spread ' + T.spreadOf(p.values) + '× · press roll');
         });
-        ['sqRVals', 'sqRW', 'sqRUnit', 'sqRTot', 'sqRStick', 'sqRJump', 'sqRContour', 'sqRTurn', 'sqRBow', 'sqRDepth', 'sqRSeed'].forEach(id => {
+        ['sqRVals', 'sqRW', 'sqRUnit', 'sqRTot', 'sqRCount', 'sqRStick', 'sqRJump', 'sqRContour', 'sqRTurn', 'sqRBow', 'sqRDepth', 'sqRSeed'].forEach(id => {
             q('#' + id).addEventListener('change', e => {
                 const c = this.row.roll;
                 c.values = q('#sqRVals').value;
@@ -424,12 +441,17 @@ const S = {
                 c.turn = +q('#sqRTurn').value; c.bow = +q('#sqRBow').value; c.depth = +q('#sqRDepth').value;
                 c.seed = Math.max(1, Math.round(+q('#sqRSeed').value || 1));
                 if (id === 'sqRVals' || id === 'sqRW') c.preset = '';
+                // the count: a typed × stands and clears it; otherwise a count that is set HOLDS — × is solved again under whatever dial moved
+                if (id === 'sqRUnit') c.count = '';
+                else if (id === 'sqRCount') { const n = Math.round(+q('#sqRCount').value); c.count = n >= 1 ? n : ''; }
+                const solved = this.solveCount();
                 if (e.target.tagName === 'SELECT' || e.target.type === 'number') e.target.blur();
                 this.save(); this.paintRoll(); if (id === 'sqRContour') this.fitStrikes();
+                if (solved && id === 'sqRCount') this.setStatus('count ' + c.count + '  →  × ' + solved.unit + ' s' + (solved.count === c.count ? '' : ' — these dials cannot give exactly ' + c.count + ': this gives ' + solved.count) + (solved.short > 0.001 ? ' · ' + fmtS(solved.short) + ' s short of the fill' : '') + ' · seed ' + c.seed + ' · press roll', solved.count !== c.count);
             });
             if (id === 'sqRVals' || id === 'sqRW') q('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
         });
-        q('#sqRTilt').addEventListener('input', e => { this.row.roll.tilt = +e.target.value || 0; this.applyTilt(); this.paintRoll(); });
+        q('#sqRTilt').addEventListener('input', e => { this.row.roll.tilt = +e.target.value || 0; this.applyTilt(); this.solveCount(); this.paintRoll(); });
         q('#sqRTilt').addEventListener('change', e => { e.target.blur(); this.save(); const k = this.row.roll.tilt; this.setStatus(k ? 'tilt ' + (k > 0 ? 'toward the LONG values' : 'toward the SHORT values') + ' (k ' + k + ') — weights ' + this.row.roll.weights : 'tilt off — no weights'); });
         q('#sqRGo').addEventListener('click', () => this.doRoll(false));
         q('#sqRNext').addEventListener('click', () => this.doRoll(true));
@@ -441,6 +463,8 @@ const S = {
         const c = this.row.roll, q = s => line.querySelector(s); if (!q('#sqRVals')) return;
         const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
         put('#sqRPre', c.preset || ''); put('#sqRVals', c.values); put('#sqRW', c.weights); put('#sqRTilt', c.tilt || 0);
+        put('#sqRCount', c.count || '');
+        if (this.rollOpen && TC()) { const now = TC().roll(this.rollOpts()); q('#sqRCount').placeholder = String(now.count); }   // blank = a readout: what these dials and this seed give
         put('#sqRUnit', c.unit); put('#sqRTot', c.total); put('#sqRStick', c.stick); put('#sqRJump', c.jump); put('#sqRContour', c.contour);
         put('#sqRTurn', c.turn); put('#sqRBow', c.bow); put('#sqRDepth', c.depth); put('#sqRSeed', c.seed);
         q('#sqRShape').style.display = c.contour && c.contour !== 'flat' ? 'inline-flex' : 'none';
@@ -467,16 +491,33 @@ const S = {
         c.weights = w.map(x => (Math.round(x / sum * 1000) / 10) + '%').join(' ');
         c.preset = '';
     },
+    // `count`: the × that makes that many containers fit the span — searched, not estimated, because the order and the contour both
+    // move the average. From half to double the arithmetic guess, for THIS seed: the count first, then the fullest span, then the
+    // nearest to the guess. Writes c.unit; null when no count is set
+    solveCount() {
+        const T = TC(), c = this.row.roll, N = Math.round(+c.count); if (!T || !(N >= 1)) return null;
+        const o = this.rollOpts(); if (!o.values.length || !(o.total > 0)) return null;
+        const w = T.weightsFor(o.values, o.weights), sw = w.reduce((a, b) => a + b, 0) || 1;
+        const mean = o.values.reduce((a, v, i) => a + v * w[i], 0) / sw, est = o.total / (N * Math.max(1e-6, mean));
+        let best = null;
+        for (let k = -40; k <= 40; k++) {
+            const unit = Math.max(0.01, Math.round(est * Math.pow(2, k / 40) * 1000) / 1000);
+            const r = T.roll(Object.assign({}, o, { unit: unit })), score = Math.abs(r.count - N) * 1e6 + r.short * 1000 + Math.abs(k);
+            if (!best || score < best.score) best = { unit: unit, count: r.count, short: r.short, score: score };
+        }
+        c.unit = best.unit; return best;
+    },
     doRoll(next) {
         const T = TC(); if (!T) { this.setStatus('time_containers.js is not loaded', true); return; }
-        const c = this.row.roll; if (next) c.seed = Math.max(1, Math.round(+c.seed || 1)) + 1;
+        const c = this.row.roll, unitWas = c.unit; if (next) c.seed = Math.max(1, Math.round(+c.seed || 1)) + 1;
+        this.solveCount();   // a count that is set is solved for the seed being rolled
         const o = this.rollOpts(), r = T.roll(o);
         if (!r.seq.length) { this.save(); this.paintRoll(); this.setStatus('nothing rolled — ' + (r.why || 'no containers'), true); return; }
         const B = this.row.boxes, filled = B.filter(b => b.chord.length).length;
         if (filled) {
             const kept = B.slice(0, r.seq.length).filter(b => b.chord.length).length, dropped = filled - kept;
             if (!window.confirm('Roll over this row?\n\n' + B.length + ' box' + (B.length === 1 ? '' : 'es') + ' become ' + r.seq.length + ', with new durations.\nChords stay in their boxes by position: ' + kept + ' kept' + (dropped ? ', ' + dropped + ' DROPPED (beyond the new count).' : '.'))) {
-                if (next) c.seed--; this.paintRoll(); return;
+                if (next) c.seed--; c.unit = unitWas; this.paintRoll(); return;
             }
         }
         this.stop();
@@ -485,7 +526,7 @@ const S = {
         this.sel = clamp(this.sel, 0, this.row.boxes.length - 1);
         this.save(); this.render();
         this.setStatus('rolled ' + r.count + ' · ' + fmtS(r.filled) + ' of ' + fmtS(o.total) + ' s' + (r.short > 0.001 ? ' · ' + fmtS(r.short) + ' s short' : '') + '  →  ' + r.units.join(' ') +
-            ' · seed ' + o.seed + ' · spread ' + r.spread + '×' + (filled ? ' · chords kept by position' : ' · click each box and give it a take — a box left empty is a REST'));
+            ' · seed ' + o.seed + ' · spread ' + r.spread + '×' + (c.count ? ' · count ' + c.count + ' → × ' + o.unit + ' s' : '') + (filled ? ' · chords kept by position' : ' · click each box and give it a take — a box left empty is a REST'));
     },
 
     // ------------------------------------------------------------------ the breath (1d.5): the generator's own dials — the morph's numbers until he touches one
@@ -615,7 +656,28 @@ const S = {
         });
         return { G: G, from: from, notes: notes };
     },
+    // a box's PREVIEW: its frozen chord on its own, everyone together, PREVIEW_S seconds (or the box's own, if shorter) at the box's
+    // dyn — through the same player as Hear. Click the lit button again, or Stop, or SPACE, to cut it short
+    async preview(i) {
+        const b = this.row.boxes[i]; if (!b || !b.chord.length) return;
+        const was = this._previewing; this.stop(); if (was === i) return;
+        if (this.sel !== i) { this.sel = i; this.save(); this.render(); }
+        const L = LADDER(), named = b.dyn !== AS_DEALT && L && L.ANCHOR[b.dyn] != null;
+        const levelOf = n => named ? (L.ANCHOR[b.dyn] - L.LO) / (L.HI - L.LO) : (n.level != null ? +n.level : 0.5);
+        const bends = {}; this.row.boxes.forEach(x => x.chord.forEach(n => { if (n.cents) bends[n.lane + ':' + (n.seat || 0)] = 1; }));   // as hearNotes: a player bent anywhere in the row is re-centred
+        const ms = Math.round(Math.min(PREVIEW_S, +b.dur || PREVIEW_S) * 1000);
+        const notes = b.chord.map(n => ({ lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: anchorOf(levelOf(n)), onMs: 0, durMs: Math.max(30, ms),
+            cents: n.cents ? n.cents : (bends[n.lane + ':' + (n.seat || 0)] ? RECENTRE : 0), partial: n.partial }));
+        const label = 'preview · box ' + (i + 1) + (b.take ? ' · ' + b.take : '') + ' · ' + this.players(b.chord) + ' players · ' + fmtS(ms / 1000) + ' s · ' + b.dyn;
+        await D.playNotes(notes, label);
+        const e = E_();
+        if (e && e._playing) {
+            this._previewing = i; this.renderRow(); this.setStatus(label);
+            clearTimeout(this._pvT); this._pvT = setTimeout(() => { if (this._previewing === i) { this._previewing = -1; if (this.isOpen()) this.renderRow(); } }, ms + 400);
+        } else { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); }
+    },
     async hear() {
+        if (this._previewing >= 0) this.stop();
         const H = this.hearNotes(); if (!H) return;
         if (!H.notes.length) { this.setStatus('nothing to hear', true); return; }
         const label = 'the sequence · ' + this.row.boxes.length + ' box' + (this.row.boxes.length > 1 ? 'es' : '') + ' · ' + fmtS(H.G.total - H.from) + ' s' + (H.from ? ' from box ' + (this.sel + 1) : '');
@@ -624,7 +686,10 @@ const S = {
         if (e && e._playing) { this.setStatus('hearing ' + label + ' · ' + H.notes.length + ' notes' + this.flagsText(H.G)); this.startLine(H); }
         else { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); }
     },
-    stop() { const e = E_(); if (e && e._playing) { e.panic(); if (D.onStopped) D.onStopped(); } this.stopLine(); },
+    stop() {
+        const e = E_(); if (e && e._playing) { e.panic(); if (D.onStopped) D.onStopped(); } this.stopLine();
+        if (this._previewing >= 0) { this._previewing = -1; clearTimeout(this._pvT); if (this.el && this.isOpen()) this.renderRow(); }
+    },
     startLine(H) {
         this.stopLine();
         const tick = () => {

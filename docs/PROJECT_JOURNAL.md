@@ -256,6 +256,10 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   the strip's head WRAPS (a placed sequence's head was already 61 px too long at 1280 px, its `×` cut off).
 - **For his ear, not decided:** the pool is STICKY (the generator's stick 0.8) — a player stays on short or long for a while.
 - Verified in the running app, no MIDI. **Not verified: sound.**
+- **Then, from inside the drawer, two things he asked for (RUNNING_LOG §119–§120):** *"how do I get more time containers"* → a
+  **`count`** box on the roll line (blank = what the dials give now; a number FILLS `×`, searched for the seed, and holds through
+  `re-roll`; a typed `×` clears it) · *"a preview button for each of the takes"* → a **`▸` PREVIEW on every box** that holds a chord
+  (its frozen chord alone, 5 s, at the box's dyn). Read as per BOX — the AI's reading, told him. Both in `sequence_ui.js` only.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

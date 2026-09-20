@@ -5158,3 +5158,38 @@ so a 54% weight on the smallest value survives a depth of 1.
 **A usability finding for the tool's revision, not acted on:** a composer thinks "about twelve boxes", the line thinks "120
 seconds of them". A count readout beside `fill` before rolling — or a `count` box that solves for the unit — would close the
 gap. Offered to him in one line; his call.
+
+## §120. `count` on the roll line, and a PREVIEW on every box — two things he asked for from inside the drawer (2026-09-19)
+
+**What prompted it.** After §119's answer (the roll fills a span and never says how many boxes; a count box was offered in one
+line), his words: *"add the count box ; and can I get a preview button for each of the takes"*.
+
+**`count`.** A box after `fill`. All in `sequence_ui.js`; `time_containers.js` is not changed.
+- BLANK it is a readout: the grey number is what the dials and the seed give now. His screenshot's dials read **4**.
+- A number FILLS the `×` box — the seconds per unit that makes that many containers fit the span. The tilt's pattern: the box
+  it fills stays the truth; **a typed `×` clears the count**, as a typed weight clears the tilt.
+- **Searched, not estimated.** The arithmetic guess is `fill ÷ (count × the weighted mean value)`, but the order (stick ·
+  interrupt) and the contour both move the real average, and the roll stops short rather than stretch. So 81 units from half
+  to double the guess are each rolled FOR THE SEED IN HAND; the pick is the right count first, then the fullest span, then the
+  nearest to the guess.
+- **A count that is set HOLDS.** Any other dial moved — values, tilt, fill, contour, seed — solves `×` again. `re-roll` solves
+  it for the new seed. A cancelled roll puts `×` back.
+- The numbers, on his dials (`10 16 26 42` · tilt short · fill 120 · bellows · seed 1): `×` 1.96 → 4 boxes · count 12 →
+  **× 0.739**, 12 boxes, 119.7 of 120 s (`16 16 16 10 10 10 16 16 10 10 16 16`) · `re-roll` (seed 2) → × 0.713, 12 boxes ·
+  fill 240 → × 1.427, still 12 · `×` typed 2 → the count cleared, the readout 7.
+- Seen in passing, and it is what §119 told him: at depth 1, under a tilt toward short and stick 0.8, those twelve boxes show
+  almost nothing of the bellows. The contour is a lean; his tilt and the stickiness outweigh it.
+
+**The PREVIEW.** His "each of the takes" was read as each BOX — a box is one take — and built as a `▸` at the top right of every
+box that holds a chord (a rest has none). *The AI's reading, told him; a button per take in the saved-take list would be another
+build — a native pull-down cannot hold buttons.* Choosing a take freezes it into the box, so the same button auditions a take
+while he is choosing.
+- It plays the box's FROZEN chord on its own: everyone together, 5 s (or the box's own seconds if shorter — under every
+  ceiling), at the box's dyn, through `D.playNotes` — the remap, the bends, the seats, as Hear.
+- The button lights (`■`); click it again, or Stop, or SPACE, to cut it short; it goes back by itself at the end. Hear clears it.
+  It selects the box.
+- A tempered note of a player who is bent ANYWHERE in the row leaves re-centred, as Hear's are (§115).
+- Verified in the running app, no MIDI, the player stubbed: box 1 (`Just-C1-seed90`, as dealt) → 8 notes, all at 0 ms, 5000 ms,
+  vel 92 each = the take's own, the five just cents carried, one tempered note re-centred, both vibraphone seats · box 2 at
+  `pp`, 3 s → vel 74 = the ladder's pp, 3000 ms · the lit button, the second click, the end, Hear after it · the button clear of
+  the take's name. **Not verified: sound.**

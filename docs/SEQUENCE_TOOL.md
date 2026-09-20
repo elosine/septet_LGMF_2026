@@ -132,7 +132,10 @@ It opens a strip along the bottom. The strikes drawer, when open, stands ON the 
 - Head: name · `change [attack | seamless]` · `+ container` · `hear [from the start | from the box]` ·
   `Hear` · `Stop` · `Insert @ playhead` · `new` · the `SPACE` light · total · status.
 - The row: one box per container — its number, take, `seconds · dyn`, and **how many players it froze**.
-  The width follows the seconds (never under 96 px). An empty box is a REST, drawn quiet — dashed, dim (1d.4; 1d.2 edged it red).
+  The width follows the seconds (never under 96 px).
+  **A `▸` on every box that holds a chord is its PREVIEW** (RUNNING_LOG §120): that box's frozen chord on its own — everyone
+  together, 5 s (or the box's own seconds, if shorter), at the box's dyn, through the same player as Hear. It lights while it
+  plays; click it again, Stop or SPACE to cut it short. A rest has none. An empty box is a REST, drawn quiet — dashed, dim (1d.4; 1d.2 edged it red).
 - The line under the row belongs to the clicked box: take · seconds · dyn (`as dealt` | `ppp … fff`) ·
   `refresh from take` · `◂ ▸` · `×` · the frozen chord spelled out (`Bsn C3 · Vc B♭4 −31¢ …`).
 
@@ -226,7 +229,7 @@ hand edits counted (2 changed, 2 deleted) · `move to playhead` · an orphan mar
 The same module the strikes drawer's `containers` shape uses; the same dials, order, tooltips and defaults (`containers_ui.js`).
 
 **The roll line** — the `roll` button in the head opens it.
-- presets, sorted by spread · `values` · `weights` · `tilt` · `× unit` · `fill` (the total) · `stick` · `interrupt` ·
+- presets, sorted by spread · `values` · `weights` · `tilt` · `× unit` · `fill` (the total) · `count` · `stick` · `interrupt` ·
   the contour (+ `turn` · `bow` · `depth` when not flat) · `seed` · `roll` · `re-roll` (the next seed).
 - Weights: `20` · `20%` · `0.2` all mean a fifth; a dash means "share what is left".
 - Defaults are the module's own: `2 5 7 15` · 60 s · stick 0.8 · interrupt 0.10 · flat · seed 1.
@@ -235,6 +238,12 @@ The same module the strikes drawer's `containers` shape uses; the same dials, or
 - A slider, −3 … +3. It FILLS the weights box: weight ∝ value^k, as percentages. The middle = no weights.
 - The box stays the truth. A typed weight stands, and puts the slider back to the middle.
 - In the drawer only. The module is not changed.
+
+**`count`** — how many containers *(his request, RUNNING_LOG §119–§120)*. The roll fills a SPAN; this says how many come out.
+- Blank = a readout: the grey number is what the dials and the seed give now.
+- A number FILLS the `×` box: the seconds per unit that makes that many fit the span — searched by rolling, for the seed in hand.
+- A count that is set holds: move any other dial, or `re-roll`, and `×` is solved again. A typed `×` clears it — `×` stays the truth.
+- In the drawer only. The module is not changed. The recipe keeps it with the other dials.
 
 **`roll`** — the durations become the row's boxes.
 - The status is the module's report: `rolled 10 · 59 of 60 s · 1 s short → 7 7 8 9 7 9 3 3 3 3 · seed 1 · spread 3×`.
