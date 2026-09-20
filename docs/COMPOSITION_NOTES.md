@@ -1498,3 +1498,36 @@ choices, four endings:
 
 So the fade follows the shape: with the ends spread, each player's fade is THEIR OWN last seconds. The morph, when he redoes it, gets
 "similar options". RUNNING_LOG §125; PLAN 1d.8.
+
+---
+
+### LG-43 · 2026-09-20 — THE BREATHS: jitter so none is exactly 8 s · an occasional OUTLIER · each player's breath built round THEIR OWN maximum
+
+His words, looking at the sequence drawer's `breath` line (said as a conversation — *"let's just talk about this now"* — nothing to build yet):
+
+> *"please explain the breaths section to me simply, concisely; I want staggered breaths and some jitter so none are exactly 8 s, and
+> can you give me standard breath bow lengths for each of the instruments in my ensemble, except for percussion. Well, give me vibes,
+> but not percussion. And then I want, or just show me how to give a duration of breath with some jitter. And then an occasional
+> outlier. And then I guess well, tell me the best way to achieve this and if we need to add controls. And Describe for me if there's
+> a simple way to have the breaths be per player based around their max duration. But let's just talk about this now. Give me the
+> formula for what we have now, and let's talk if there needs to be something added."*
+
+*AI reading (mine, marked):* three wishes. (1) staggered, jittered, never exactly 8 s — the `breath` line's DEFAULTS already do this
+(`breath = length × (1 + ± × r)`, r random in −1 … +1: 8 ± 0.35 = anywhere from 5.2 to 10.8 s). (2) an occasional OUTLIER — no dial
+does this today; the pool can fake it, badly (no jitter on a pool value · the pool is sticky, so outliers come in clumps · one pool
+for all seven whatever their ceiling). (3) per player, round their own maximum — no dial today, but the generator already reads every
+player's ceiling for every note, so it is a small addition. Put to him: two new dials, both blank = today's notes.
+
+---
+
+### LG-44 · 2026-09-20 — THE SEQUENCE DRAWER: a clock during playback · click the cursor anywhere and play from there — and a LIST of features for the next build
+
+His words:
+
+> *"for in the sequence drawer Can I get a clock during playback? And I, can I get the ability to click the cursor to a different
+> location in the sequence and play from there? let's just collect these features and the next build our feature add will put slot
+> these in. Just make a list for now."*
+
+*AI reading (mine, marked):* two features, and a way of working — nothing is built as it is asked for; the asks are COLLECTED and built
+together at the next feature add. The list is kept in `docs/PLAN.md` § 1d, under the held features: the clock · click-to-cursor ·
+and LG-43's two breath dials (`of max` · `outlier`), which are still the AI's proposal with two questions open.

@@ -705,6 +705,16 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     whole sequence (the trills' pattern — a META curve A · B · C read live over the span) · a dynamic per player per container · a
     curve per player. *(The waves of 1d.7 are NOT in lieu of the curve — his own correction, LG-38: "that might be an added feature
     later".)*
+  - **THE NEXT FEATURE ADD — a list being COLLECTED at his word (LG-44, 2026-09-20: *"let's just collect these features and the next
+    build our feature add will slot these in. Just make a list for now."*). Not built, not yet planned — each goes through the
+    planning method when he calls the build:**
+    1. **A CLOCK during playback** in the sequence drawer (LG-44).
+    2. **CLICK TO PLACE THE CURSOR anywhere in the sequence and play from there** (LG-44). *Today Hear starts `from the start` or
+       `from the box` — a box's left edge; this is any point inside a box.*
+    3. **`of max` — each player's breath built round THEIR OWN maximum** (LG-43): breath = the player's ceiling × `of max` × (1 + ± × r).
+       Blank = today's notes. *The AI's proposal, put to him, not yet answered: one number for the ensemble, or one per player?*
+    4. **`outlier` — an occasional breath far from the rest** (LG-43): how often · how far. Blank = today's notes. *The AI's proposal,
+       put to him, not yet answered: short only, long only, or either? (A long outlier can never pass the ceiling.)*
 
 
 ## 2. Notate — `todo`
