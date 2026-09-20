@@ -5359,3 +5359,20 @@ about the morph's fade (MORPH_NOTES §3) is undiagnosed, and the first faded seq
 
 **Not built, named to him:** the cross cases — staggered entries under ONE common window, or a fade whose shape differs from the
 entry's. The fade follows the shape of the entry or the exit it belongs to; one choice at each end, not two.
+
+## §127. The edges can start from, and end at, a DYNAMIC — not only niente (2026-09-19)
+
+**His words:** *"but we can start end to different volumes yes?"*
+
+**Answered yes, and written into PLAN 1d.8:** `fade in [s] from [niente | ppp … fff]` · `fade out [s] to [niente | ppp … fff]`.
+
+**Why it is two mechanisms under one dial.** The calibrated law runs ppp … fff and has nothing below ppp (§121). So:
+- **to or from niente** is the fader multiplied down to zero — the morph's `cc7Fade`, true silence;
+- **to or from a written dynamic** is a ramp in the note's own LEVEL, through the law — exactly what 1d.7 builds for the waves
+  (breakpoints on the note, one velocity, CC7 following). The level is `from + (what lies under it − from) · u`, u running 0 → 1
+  across the window: over a straight box it is a plain crescendo or diminuendo, over a waves box the waves grow out of the `from`
+  level, and `from` may be LOUDER than the box — an entry that settles down, which a fade from nothing cannot do.
+- *Rejected:* `cc7Fade`'s own `from` field. It is a FRACTION OF THE FADER, not a dynamic — "from 0.5" is not "from pp" on any
+  instrument, and differs between them. Using it would put an uncalibrated number back into a rack calibrated in 1b.
+
+**Cost:** little — it is 1d.7's ramp with two more breakpoints. It is one more reason the waves are built first.

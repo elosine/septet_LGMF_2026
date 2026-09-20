@@ -662,6 +662,12 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       stretch before the line (the fade-out's length, or one breath's length when there is no fade) in the striation's order, the
       latest ON the line, never a runt — so the container keeps its length. *(How the ends are spread is the AI's call; his to reverse,
       and he can drag a note.)*
+    - **The fade has a level at its far end (his word, §127: *"we can start end to different volumes yes?"*):** `fade in [s] from
+      [niente | ppp … fff]` · `fade out [s] to [niente | ppp … fff]`. TWO mechanisms under one dial, because the law has nothing
+      below ppp: **niente** = the fader multiplied to zero (`cc7Fade`, true silence) · **a written dynamic** = a ramp in the note's OWN
+      LEVEL, through the calibrated law — the waves' machinery (1d.7's breakpoints): `level(t) = from + (what lies under it − from) · u`,
+      u running 0 → 1 over the window, so it works over a straight box and over a waves box alike, and `from` may be LOUDER than the
+      box (an entry that settles). `cc7Fade`'s own `from` field is a fader fraction, not a dynamic, and is not used for this.
     - **The fade follows the shape.** Ends together → ONE fade-out window for everyone, the last seconds before the line. Ends one by
       one → each player fades on THEIR OWN last seconds. The fade IN is the mirror, **asked for by him (§126: *"fade in can be together too from niente? also staggered from niente"*)** — from true NIENTE in both shapes, and it follows box 1's tag: `seamless`
       (staggered entries) → each player fades in on their own entry; `attack` → one window.
