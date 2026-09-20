@@ -766,6 +766,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        drawer, where I give it a name. And then it just auto saves to that name. But also can auto save generically if I haven't named
        it yet."* *Today the row lives in the browser only, ONE at a time, and `new` wipes a row that was never inserted.* **HIS INSTRUCTION
        FOR THE PLANNING: explain how this would LOOK first, and talk it through with him, before it is planned.**
+    7. **SELECT A RANGE OF BOXES** (LG-48): *"if I have 30 boxes I can select 15-30 and make waves"*. *Today it is one box or ALL boxes.
+       To settle when planned: click + SHIFT-click for the range; the range takes `waves | straight` — and `dyn` and `enter` too?*
 
 
 ## 2. Notate — `todo`

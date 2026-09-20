@@ -1572,3 +1572,15 @@ Asked whether sequences autosave (they do, in the browser, ONE row — and `new`
 strikes drawer. Two behaviours he named: a NAMED sequence autosaves to its name · an UNNAMED one still autosaves, generically.
 **And an instruction for the planning, not the tool: when the feature plan is built, SHOW HIM HOW IT WOULD LOOK FIRST, and talk it
 through — do not plan it cold.**
+
+---
+
+### LG-48 · 2026-09-20 — SELECT A RANGE OF BOXES: "if I have 30 boxes I can select 15-30 and make waves"
+
+Told that the waves are switched per box — one box at a time, or `all boxes →` at once — his words:
+
+> *"lets add a way to select a range so if I have 30 boxes I can select 15-30 and make waves"*
+
+*AI reading (mine, marked):* between ONE box and ALL boxes there is nothing, and a rolled row can be thirty boxes long. He named
+the waves; the same selection would serve everything a box carries that the head can only set for all at once — `dyn`, `enter`
+(attack | seamless). To settle when planned: click + SHIFT-click for the range, and what the range buttons act on.
