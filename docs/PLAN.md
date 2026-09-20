@@ -1177,6 +1177,18 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       **`EH + Bsn · G3 −31.2 c · partial 7 · doubled`** — cents signed, one decimal; `partial` omitted when the take's harmony
       carries none — then *left out:* every note of the take on a player that is in no pair (the vibraphones, the percussion).
     - H2.5 · NOT kept from the take: its technique and its level — the model's own technique dial and shape govern a morph.
+    - H2.6 · **THE ACTUALS KEEP THE PITCHES** (his word, RUNNING_LOG §168: *"I can recall the actual and then change it and save it
+      as a different actual, etc., or insert it into the score. It'll preserve the pitch changes, all of that."*). SAVING needs
+      nothing new — `resolvedParams` already carries `source.kind: 'voices'` and `lanes`, as the 24 LGMF actuals prove — but each
+      voice ALSO carries its `partial` (`{ midi, cents, partial }`; the engine reads only `midi` and `cents` — CHECK that nothing
+      validates a voice's keys). RECALLING is the fix (`morph_panel.js` ~905–940): when the recalled `rp.source.kind === 'voices'`
+      AND `rp.model` is in `TAKE_MODELS`, do NOT flatten the voices into a sonority — rebuild the FROZEN CHORD from them
+      (`p.takeChord = voices.map((v, i) => ({ lane: rp.lanes[i], midi, cents, partial }))`, `p.takeName = entity`,
+      `p.src = 'actual:' + entity`) so the recalled bloom re-enters the SAME as-assigned branch a take uses (H2.1 reads
+      `p.takeChord` for a `dtake:` source and for an `actual:` source that has one). Every later Generate, `Save as ACTUAL` and
+      Insert then keeps the cents. `↻` is dead for it — there is nothing to re-read. After a page reload the `actual:` option must
+      still exist in the pulldown: re-seed `recalledSets[p.takeName]` from the stored `p.takeChord`. The LGMF models (M3 · M6,
+      voices in their BASE params) and a recalled actual WITHOUT voices go exactly as they do today.
   - **H3 · The morph's dynamics on the law.** *Result when done:* a bloom sounds on the same scale as a sequence — every
     sustained note struck at mf, on a curve channel, its fader between the table values of its written dynamics; Hear and the
     inserted score behave the same. **THE RULE: EVERY sustained note the morph writes is shaped, moving or not** — DYNAMICS_LAW §3
@@ -1209,9 +1221,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     heard the bloom, and inserted it after the sequence. His ear is the verdict; a recording read back proves the routing, as
     with 1e.
   - **NOT in this step:** anything in the strikes drawer · `morph.js` · `morph_septet.js` · `composer.html` beyond one script tag ·
-    any model but BLOOM reading a take · RECALLING a bloom-on-a-take ACTUAL (its voices render ONCE as stored; the next nudged
-    dial goes back through the sonority path and drops the cents — known, to `MORPH_NOTES.md`, fixed at the small build that
-    needs it) · the sequence's takes menu (filter · `▸`) lifted into the morph — if 216 names in a pulldown prove unwieldy, that
+    any model but BLOOM reading a take · the sequence's takes menu (filter · `▸`) lifted into the morph — if 216 names in a pulldown prove unwieldy, that
     is the next small build · `1f`, the crescendo tool · his *"another pass at the actual way the morph drawer works"* —
     announced, his, NOT to be anticipated (§163).
   - **REQUIRED VERIFICATION (`score-5401`, no MIDI — journal §2's recipe; the AI never Saves and never touches his tab; NOTHING
@@ -1220,7 +1230,12 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     partial, the drawer shows the take · (2) a HAND-BUILT chord injected as `p.takeChord` for the cases his takes may not hold: a
     note on both players of a pair with cents ≠ 0 · one player only (the partner doubles) · a partner that cannot hold it (one
     voice + the warning) · a vibraphone note (left out) · (3) the engine's `result.notes` open at the take's cents — voice a
-    above, voice b below, the pair's centre = `midi·100 + cents` · (4) Insert → every note object has `cc7Abs` (from the table,
+    above, voice b below, the pair's centre = `midi·100 + cents` · (3b) THE ACTUALS (H2.6): `Save as ACTUAL` → recall it → nudge a dial (length,
+    smoothness) → the voices' `midi` + `cents` + lanes UNCHANGED and the line still pair · note · cents · partial → `Save as
+    ACTUAL` again → the second file's `resolvedParams.source.voices` equal the first's → `insertActual` → the same cents in the
+    score. **`bank/` must be left EXACTLY as it was found** — file the test actuals under a `zz-1h-` label, remove them by the
+    bank's own means at the end, and `git status` must show nothing new under `bank/`; if that cannot be done cleanly, verify the
+    recall branch on a hand-built actual in memory instead and SAY which was done · (4) Insert → every note object has `cc7Abs` (from the table,
     lo ≤ hi) and `velAbs` (the mf velocity for ITS pitch), none `plain` · (5) Hear captured (stub the emitter's own `outputFor`) →
     MAIN ch 1 silent, each voice on a curve channel — the SI2 three on their `b` ports — struck at `velAbs`, CC7 on the table ·
     (6) THE SCORE'S OWN PLAYBACK of the inserted bloom captured → the same channels, velocities and CC7 as (5) · (6b) THE FADES (his question, RUNNING_LOG §167): a bloom with a fade IN and a fade OUT, Hear and the score's own playback

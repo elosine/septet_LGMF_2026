@@ -7101,3 +7101,25 @@ which he asked to have *"stated simply"* — the worry being whether the same th
 now — **(6b)**: a bloom with a fade in and a fade out, Hear and the score's playback both captured; constant mf strike, CC7 from 0
 to the table value and back. Added because he named it as the part most likely to be missed, and a claim about it must be seen in
 the running app before it is made (AI_METHODOLOGY).
+
+## §168. THE ACTUALS KEEP THE PITCHES — his word moves the recall fix INTO `1h` (a correction to §166's "known and left") (2026-09-20)
+
+**His words**, following the two questions of §167: *"And then in addition, the actuals too. So the actuals will preserve the pitch.
+So I can recall the actual and then change it and save it as a different actual, etc., or insert it into the score. It'll preserve
+the pitch changes, all of that."*
+
+**What it corrects.** §166 listed *"recalling a bloom-on-a-take ACTUAL keeps its cents for the first render only"* as known and
+left — the AI's scoping, on the ground that *"he has not asked to recall one."* He now has. The reasoning was wrong in kind as well
+as in fact: the ACTUALS are how he works with a morph over days — make one, file it, come back, vary it, file the variant, insert
+one of them — so a bloom whose just pitches survive only until the first dial is touched is not a finished feature with a gap, it
+is a feature that fails at its second use. It is the 1a.6 bug again (*"a recalled morph coming back a stranger"*, §74), by the
+same door: the recalled-actual branch flattens a voice list into a bare sonority.
+
+**The fix, written into PLAN 1h as H2.6 and into its verification as (3b).** Saving already works (the 24 LGMF actuals carry
+voices and lanes). Recalling is the change: a recalled M1 actual with voices rebuilds the FROZEN CHORD from them and re-enters the
+same as-assigned branch a take uses — ONE path for "pitches that came with their players", whether they came from the drawer a
+minute ago or from an actual a week ago. Each voice also carries its `partial`, so the line can still say which partial a pair sits
+on after a recall. The verification must leave `bank/` exactly as it found it.
+
+**Answered to him in the same turn (§167's two):** the pitches hold while the dials move (the freeze) · the dynamics change
+reaches every model and every note the panel writes, and the fades stay a separate layer on top of it — now a named check, (6b).

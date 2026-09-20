@@ -1391,3 +1391,15 @@ range conflict — that is the strikes drawer's work, and the morph is handed th
 division: ONE place where a chord is made and heard, and every generator (sequence, morph, crescendo) a reader of it.
 **(3)** *"Another pass at the actual way the morph drawer works"* is announced and deliberately NOT described — he will say what
 it is after he has heard a bloom on his own pitches. Nothing is to be anticipated.
+
+### 2026-09-20 — LGMF: the ACTUALS must keep a morph's pitches — recall, vary, save as another, insert (RUNNING_LOG §168)
+
+> *"And then in addition, the actuals too. So the actuals will preserve the pitch. So I can recall the actual and then change it and
+> save it as a different actual, etc., or insert it into the score. It'll preserve the pitch changes, all of that."*
+
+*AI reading (mine, marked):* for the revision — an ACTUAL is not an archive, it is his WORKING UNIT: a morph is made, filed,
+recalled, varied, filed again under another name, and one of the family goes into the score. So whatever a morph was MADE from has
+to come back with it, whole — the players, the cents, the partial numbers — and stay through every later change. Today the recall
+branch knows one kind of pitch source (a sonority and a pick) and flattens everything else into it; that has now bitten twice
+(1a.6, RUNNING_LOG §74; and here). **The all-purpose tool stores the pitch source AS IT WAS GIVEN and recalls it as the same kind
+of thing** — a cast chord comes back a cast chord. Built for BLOOM in PLAN 1h (H2.6); the general form is the revision's.
