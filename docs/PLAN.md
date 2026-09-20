@@ -715,6 +715,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        Blank = today's notes. *The AI's proposal, put to him, not yet answered: one number for the ensemble, or one per player?*
     4. **`outlier` — an occasional breath far from the rest** (LG-43): how often · how far. Blank = today's notes. *The AI's proposal,
        put to him, not yet answered: short only, long only, or either? (A long outlier can never pass the ceiling.)*
+    5. **`±` IN SECONDS, not a share** (LG-45): `8 ± 2` = 6 … 10 s. *Today it is the morph's `segVar`, a share of the length — `± 1` deals
+       0 … 16 s (his re-breathe: 8 RUNT · 5 CEILING). To settle when planned: the recipe keeps a share today (the 1d gate reads it);
+       and under `of max`, is `±` still one number of seconds for every player?*
 
 
 ## 2. Notate — `todo`

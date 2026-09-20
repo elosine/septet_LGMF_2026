@@ -1531,3 +1531,15 @@ His words:
 *AI reading (mine, marked):* two features, and a way of working — nothing is built as it is asked for; the asks are COLLECTED and built
 together at the next feature add. The list is kept in `docs/PLAN.md` § 1d, under the held features: the clock · click-to-cursor ·
 and LG-43's two breath dials (`of max` · `outlier`), which are still the AI's proposal with two questions open.
+
+---
+
+### LG-45 · 2026-09-20 — THE BREATH'S `±` IN SECONDS, not a share
+
+His words, after a `re-breathe` at `8 s ± 1` dealt 8 RUNT and 5 CEILING (± 1 as a share = 0 … 16 s):
+
+> *"make +- seconds instead of %, add to features; explain how to use together apart effectively"*
+
+*AI reading (mine, marked):* `8 ± 2` should MEAN 6 … 10 s — what a musician reads there. Today `±` is the morph's `segVar`, a share of
+the length (0.35 = ±35 %), and `± 1` reads as "one second" and deals anything from nothing to double. For the feature add. One thing
+to settle when it is planned: under `of max` (LG-43) the lengths differ per player — is `±` still one number of seconds for all?
