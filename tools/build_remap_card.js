@@ -89,7 +89,25 @@ function cc7CurveFor(key) {
         .filter(q => q.n >= 1);
     // ascending by delta, most negative first - the order cc7ForDelta walks
     pts.sort((a, b) => a.delta - b.delta);
-    return pts.length >= 2 ? pts : null;
+    return pts.length >= 2 ? extendToReach(pts) : null;
+}
+// PLAN 1d.10 - THE DYNAMICS TABLE NEEDS -28 dB. `ppp` is seven written steps of STEP_DB = 4 dB under `fff`,
+// and cc7ForDelta CLAMPS at a curve's first point - so a curve that stops short would put ppp wherever its
+// deepest MEASURED point happens to be. The vibraphone, the cello and the double bass were below the noise
+// floor at CC7 24 in 0d (null in balance.json `cc7`), so their measurements stop at CC7 44 = about -27.5 dB.
+// Extend those by the instrument's OWN law - delta = k*log10(cc7/127), fitted through its measured points,
+// which is how a fader behaves and which every one of the seven obeys (UVI 38.7 with residuals +-0.02 dB;
+// Kontakt 59.8-60.1) - down to CC7 24, the lowest the 0d grid used. The added point carries `n: 0` and the
+// fitted `law`, so it can never be mistaken for a measurement.
+const REACH_DB = -28, LAW_CC7 = 24;
+function extendToReach(pts) {
+    if (pts[0].delta <= REACH_DB) return pts;
+    let num = 0, den = 0;
+    for (const p of pts) { const x = Math.log10(p.cc7 / 127); num += x * p.delta; den += x * x; }
+    if (!(den > 0)) return pts;
+    const k = num / den, delta = Math.round(k * Math.log10(LAW_CC7 / 127) * 100) / 100;
+    if (!(delta < pts[0].delta) || delta > REACH_DB) return pts;
+    return [{ cc7: LAW_CC7, delta, n: 0, law: Math.round(k * 100) / 100 }, ...pts];
 }
 
 // the ensemble's target level at each anchor velocity: linear in dB, because equal steps of drawn height

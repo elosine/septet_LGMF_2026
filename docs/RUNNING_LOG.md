@@ -6335,3 +6335,89 @@ plan"*
    the library's store, which a new sequence takes when there is one. Marked in the plan as a reading, his to correct.
 
 Written into PLAN 1d.9 and 1d.14. **Nothing in the feature add waits on him now.**
+
+## §150. PLAN 1d.10 BUILT — THE DYNAMICS TABLE: every written dynamic has a CC7 value of its own, 4 dB a step through each instrument's measured fader curve (2026-09-20)
+
+**What prompted it.** His principle, LG-51, at the close of the design talk: *"a curve going from MP to FF should go … say 65 to
+111 in CC7, not up to the full 127."* A STATED dynamic range is what sounds, for the whole curve — drawn full for the notation,
+performed between the two values. Under PLAN 1e, built the same morning, every shape was mapped onto CC7 0 … 127 with its top
+re-based to full, so only a shape's DEPTH was heard: `ppp–mp` and `pp–mf` are both three steps deep and both played about
+CC7 73 → 127. The range he is about to be able to set per selection of boxes (1d.12) would have been inaudible.
+
+**THE LAW, as built.** `fff` = CC7 127; each written step below it is **`STEP_DB` = 4 dB**, taken through that instrument's
+MEASURED fader curve (`cc7Curve` in `bank/velocity_remap.json`, measured by 0d on the curve channels):
+
+```
+VelocityRemap.cc7ForDelta(inst.cc7Curve, -(7 - level) * STEP_DB)      // level 0 … 7 = ppp … fff, fractions allowed
+```
+
+ONE constant, so his ear retunes the whole ladder by changing one number. What it gives:
+
+| | ppp | pp | p | mp | mf | f | ff | fff |
+|---|---|---|---|---|---|---|---|---|
+| cello · vibraphone · double bass · english horn (Kontakt, 60·log10) | 43 | 51 | 59 | 69 | 81 | 94 | 109 | 127 |
+| bassoon · horn · trumpet (UVI, 40·log10) | 24 | 32 | 40 | 50 | 62 | 79 | 100 | 127 |
+
+Two different CC7 ladders, **the same decibels** — the law is in dB and each instrument's own fader curve converts it. `mp → ff`
+on a Kontakt instrument is **69 → 109**: his own guess, *"say 65 to 111"*, to within four steps of CC7.
+
+**THE CHECK FIRST FOUND SOMETHING, and the plan was right to ask for it.** `cc7ForDelta` CLAMPS at a curve's first point, so a
+curve that stops short puts `ppp` wherever its deepest measurement happens to be. Read back:
+
+```
+english_horn -41.39   bassoon -28.03   horn -28.05   trumpet -28.02       <- reach ppp (-28 dB)
+bowed_vibraphone -27.65   cello -27.47   double_bass -27.49               <- about half a dB SHORT
+```
+
+The three short ones were **below the noise floor at CC7 24 in 0d** (`null` in `bank/balance.json` `cc7`), so their measurements
+stop at CC7 44. Extended in the BUILDER as the plan directs (`tools/build_remap_card.js`, never in the app) — but by each
+instrument's **OWN** law, fitted by least squares through its measured points rather than by a hard-coded family, because the
+family of a given instrument is nowhere recorded in the card. The fit settled the question itself:
+
+```
+bassoon 38.73  horn 38.79  trumpet 38.72   (residuals ±0.02 dB)     = the UVI law, 40·log10
+vibraphone 60.05  cello 59.81  double_bass 59.77                    = the Kontakt law, 60·log10
+english_horn 58.11 — Kontakt, its one CC7-24 point 2 dB off the law because that measurement sits ON the noise floor
+```
+
+The added point carries `n: 0` and its fitted `law`, so it can never be read as a measurement. Everything else in the bank is
+unchanged — the diff is three `cc7Curve` arrays and `generatedAt`, checked against the old bank field by field.
+
+**WHAT CHANGED IN THE TOOL — and what did not.** A new UMD module `score/public/dyn_table.js` (node-loadable, as
+`velocity_remap.js` is, because PLAN `1f` and the morph's revision read the same table). In `sequence_ui.js`, 1e's `CC7_FULL`,
+`rebase`, `rebased` and `topOf` are replaced by ONE method, `shape(n)`, which returns the note's `cc7Abs` and the drawn heights
+that put **every breakpoint** on its own table value — not only the two ends, because the ladder is not linear in CC7 and a
+straight line between the ends would miss every dynamic in between. **1e needed one shared `top` per note so a player's several
+breaths would JOIN rather than each climb to full; the table is ABSOLUTE, so they join by construction and no top exists any
+more.** `sequence.js` is untouched (`sequence_check` still **126**), and so is `composer.html` apart from one script tag —
+`cc7Abs` and `velAbs` were piece #5's machinery all along, and the fix is always what the TOOL writes.
+
+**Rule 1 is untouched:** the mf strike, per pitch, from the bank.
+
+**VERIFIED IN THE RUNNING APP** (`score-5401`, no MIDI, nothing saved), on `SequenceDrawer.shape()` with the real bank loaded:
+
+- equal depths now differ — cello `ppp–mp` **43…69** against `pp–mf` **51…81**; on every instrument, and under 1e both were 0…127;
+- a three-dynamic shape `ppp → p → mp → ppp` on the vibraphone sends **44 · 60 · 69 · 44**, which is the table's own four values;
+- the status line reports the span it sent, and is silent when every shaped instrument has a measured curve.
+
+`tools/dyn_table_check.js` is new and **51 checks green**: the reach of every curve (the CHECK FIRST, frozen so it cannot
+regress) · `fff` = 127 · monotone · and the law itself — each CC7 the table gives read BACK through the same curve, the eight
+names landing 4 dB apart, worst error **0.35 dB**, which is CC7 being an integer.
+
+**Two departures from the plan, both small, both recorded in PLAN 1d.10 as built.** The plan asked for the two new assertions in
+`sequence_check`; they are in `dyn_table_check` instead, because they are properties of the table and of `sequence_ui.js`, a DOM
+module node cannot load — the end-to-end proof was taken in the running app instead, which is stronger. And `tableNote()` counts
+only the instruments that actually SHAPED a note: the percussion lane has no fader curve and never shapes one (a strike is
+`fixed`), so a blanket check would have made the status cry wolf on every sequence.
+
+**KNOWN, AND SAID TO HIM:** a shaped note now sits QUIETER than a struck note of the same name — the ceiling is a struck mf at
+CC7 127 and the table counts down from `fff`, so a shaped `mf` is about 12 dB under a struck `mf`, more toward the quiet end.
+That is his model. `STEP_DB` is the one number that tunes it, and his ear decides at the listen.
+
+**`docs/DYNAMICS_LAW.md` §3 Rule 2 is rewritten and the banner at its head is gone** — the page describes what the score plays
+again. Its §5 now carries the crescendo tool's real state (PLAN `1f`: still on the pre-1e law) instead of the banner.
+`docs/SEQUENCE_TOOL.md` §13 · §14 follow.
+
+**HIS TEST, the 1e way, is outstanding:** a waved sequence with two ranges, recorded as MIDI in the rack, read back by
+`node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` — two different CC7 spans, neither topping at 127 unless
+its `high` is `fff`, MAIN ch 1 empty, every strike an mf velocity.

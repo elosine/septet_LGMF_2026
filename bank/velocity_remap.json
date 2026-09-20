@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-20T02:01:58.933Z",
+ "generatedAt": "2026-09-20T19:27:33.000Z",
  "planItem": "1b.4",
  "piece": "lgmf",
  "source": "bank/instrument_card.json",
@@ -9788,6 +9788,12 @@
    "clampedHigh": 0,
    "cc7Curve": [
     {
+     "cc7": 24,
+     "delta": -43.45,
+     "n": 0,
+     "law": 60.05
+    },
+    {
      "cc7": 44,
      "delta": -27.65,
      "n": 1
@@ -11705,6 +11711,12 @@
    "clampedHigh": 111,
    "cc7Curve": [
     {
+     "cc7": 24,
+     "delta": -43.28,
+     "n": 0,
+     "law": 59.81
+    },
+    {
      "cc7": 44,
      "delta": -27.47,
      "n": 2
@@ -13371,6 +13383,12 @@
    "clampedLow": 0,
    "clampedHigh": 96,
    "cc7Curve": [
+    {
+     "cc7": 24,
+     "delta": -43.25,
+     "n": 0,
+     "law": 59.77
+    },
     {
      "cc7": 44,
      "delta": -27.49,

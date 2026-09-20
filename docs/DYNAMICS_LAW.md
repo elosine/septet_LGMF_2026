@@ -1,15 +1,6 @@
 # THE DYNAMICS LAW — read this FIRST, before any work on the sound path
 
-> **⚠ AN AMENDMENT IS DECIDED AND NOT YET BUILT (2026-09-20, RUNNING_LOG §147 · §148 · COMPOSITION_NOTES LG-51).**
-> **§3 Rule 2 below — "the top of the shape is the full fader" — is giving way to THE DYNAMICS TABLE (PLAN 1d.10):** his
-> principle is that a STATED dynamic range is what sounds for the whole curve, so every WRITTEN dynamic gets a CC7 value of its
-> own (`mp → ff` ≈ CC7 69 → 109, *"not up to the full 127"*). Rule 1 (the mf strike), §4 (the curve channels, `curveDirty()`) and
-> §6 (how a claim is proved) all stand. **Until 1d.10 is built, this page describes what the score actually plays.**
-> **And §5 is not the whole truth about the crescendo tool:** it was never brought under this law at all — it writes no `cc7Abs`
-> and no `velAbs`, so it still strikes at its top's velocity with the fader inside the 12 dB ladder. That is PLAN **1f**, `todo`.
-> *Whoever builds 1d.10 rewrites §3 and removes this banner.*
-
-*Written 2026-09-20 as PLAN 1e V7. His reason, in his own words:*
+*Written 2026-09-20 as PLAN 1e V7, and amended the same day by PLAN 1d.10 (§3 Rule 2). His reason, in his own words:*
 > *"There's some fundamental misunderstanding or AI forgets what we established before."*
 
 *Twice in two days his ear caught a fault that "by construction" had said was impossible
@@ -25,9 +16,9 @@ rediscover it. It is short on purpose.*
 | what it is | a strike, a plain note, a long tone, a trill's steps | a wave, a drawn swell, a ramp to or from a dynamic, a hand-drawn shape |
 | the dynamic is | **the VELOCITY** | **the FADER (CC7)** |
 | the velocity | the ladder's anchor for that dynamic, remapped per instrument | **always MF**, remapped per instrument — one rule for all seven |
-| the fader | static, 127 (or the register's own) | **normalized: CC7 0 → 127**, the shape's top at full |
+| the fader | static, 127 (or the register's own) | **the CC7 of its own two written dynamics** — `ppp–mp` is not `pp–mf` |
 | the channel | **MAIN**, ch 1 | **a CURVE channel** — never MAIN |
-| what carries it | `recVel`, `sonifyMode: 'plain'` | `cc7Abs { lo: 0, hi: 127 }` · `velAbs` |
+| what carries it | `recVel`, `sonifyMode: 'plain'` | `cc7Abs { lo: T(low), hi: T(high) }` · `velAbs` |
 
 **The one sentence:** *a dynamic you can SEE MOVING is the fader, not the velocity.*
 
@@ -73,24 +64,49 @@ Averaged over pitch it lands near EH 96 · Bsn 98 · Hn 81 · Tpt 70 · Vib 99 �
 but a single low note can sit well below its own average (the double bass at C1: 60). That is
 the register curve working, not a fault. No bank loaded → 100 passes through.
 
-### Rule 2 — the top of the shape is the full fader
+### Rule 2 — THE TWO WRITTEN DYNAMICS ARE THE FADER RANGE *(1d.10, 2026-09-20, amending 1e)*
 
 ```js
-cc7Abs = { lo: 0, hi: 127 }                 // the drawn height maps STRAIGHT onto CC7, bypassing the ladder
-h' = clamp(1 - (top - level), 0, 1)         // and the heights are re-based against the shape's top
+const T = DynTable;                                 // score/public/dyn_table.js — the table, UMD, node-loadable
+lo, hi = the lowest and highest LEVEL among the note's own breakpoints
+cc7Abs = T.range(bank, instKey, lo, hi)             // the fader runs between their two table values
+h      = T.height(bank, instKey, level, lo, hi)     // EVERY breakpoint on its own table value, not only the two ends
 ```
 
-`top` is **ONE number for the whole note** — the waves' `high` where it read them, else the
-note's own loudest. One top, so a note's several breaths all measure from the same ceiling and
-**join**, instead of each one climbing to full.
+**THE TABLE.** `fff` = CC7 127. Each written step below it is **`STEP_DB` = 4 dB**, taken through
+that instrument's **measured** fader curve (`bank/velocity_remap.json` `cc7Curve`, measured by 0d
+on the curve channels). ONE constant, so his ear retunes the whole ladder by changing one number.
+`ppp` is 28 dB under the ceiling — a SOUNDING level, not silence; true silence is still the edges'
+niente, and `cc7Fade` multiplies in on top of the table's answer.
 
-Each written step under the top is then **one seventh of the fader** (the ladder has eight
-names), so **ppp under an fff top is CC7 0**. Nodes are written at `y = 10 · h'`, never under
-0.05.
+|  | ppp | pp | p | mp | mf | f | ff | fff |
+|---|---|---|---|---|---|---|---|---|
+| **cello** (Kontakt, 60·log10) | 43 | 51 | 59 | 69 | 81 | 94 | 109 | 127 |
+| **bassoon** (UVI, 40·log10) | 24 | 32 | 40 | 50 | 62 | 79 | 100 | 127 |
 
-**A consequence, known and accepted:** a shape's `low` / `high` now set a **DEPTH below a top
-that always sounds at mf**. A waved box and a straight box beside it no longer share a
-calibrated level. Re-framing "the waves by preset" as depths is parked in PLAN 1d.
+Two different CC7 ladders, **the same dB** — which is the point: the law is in decibels, and each
+instrument's own fader curve converts it. `mp → ff` on a Kontakt instrument is **69 → 109**, which
+is his own guess (*"say 65 to 111 … not up to the full 127"*) to within four steps of CC7.
+
+**HIS PRINCIPLE, and it is the reason (LG-51):** *a STATED dynamic range is what sounds, for the
+whole curve* — drawn full for the notation, performed between the two values.
+
+**What it replaced.** 1e mapped every shape onto 0 → 127 with its top re-based to full, so only a
+shape's **DEPTH** was heard: `ppp–mp` and `pp–mf` are both three steps deep and both played about
+CC7 73 → 127. On the cello they are now **43…69** and **51…81** — verified in the running app,
+2026-09-20. 1e needed ONE `top` per note so a player's several breaths would JOIN rather than each
+climb to full; the table is **absolute**, so they join by construction and no shared top exists.
+
+Nodes are still written at `y = 10 · h`, never under 0.05.
+
+**Known, and said to him:** a shaped note sits QUIETER than a struck note of the same name — the
+ceiling is a struck **mf** at CC7 127 and the table counts down from `fff`, so a shaped `mf` is
+about 12 dB under a struck `mf`, and more toward the quiet end. A waved box and a straight box
+beside it do not share a calibrated level. That is his model; `STEP_DB` is the one number that
+tunes it.
+
+**The check:** `node tools/dyn_table_check.js` — the CC7 the table gives is read BACK through the
+same curve and the eight names must land 4 dB apart on every instrument (51 checks).
 
 ---
 
@@ -124,9 +140,13 @@ Who does, as of 2026-09-20: `sequence_ui` · `strike_drawer` · `morph_panel` (a
 ## 5 · What is NOT touched by any of this
 
 Flat notes · plain notes · strikes · long tones · **trills** (the septet's trills carry volume
-as separate STRUCK notes by velocity — checked 2026-09-20, nothing to fix) · the crescendo
-tool's own ranges · niente fades (`cc7Fade` still multiplies in **on top of** the answer
-`cc7Abs` gives).
+as separate STRUCK notes by velocity — checked 2026-09-20, nothing to fix) · niente fades
+(`cc7Fade` still multiplies in **on top of** the answer `cc7Abs` gives).
+
+**⚠ THE CRESCENDO TOOL WAS NEVER BROUGHT UNDER THIS LAW AT ALL.** `cresc*.js` writes no
+`cc7Abs` and no `velAbs`, so a crescendo still strikes at its top's velocity with the fader
+moving only inside the 12 dB ladder — the very fault 1e fixed everywhere else. That is PLAN
+**`1f`**, `todo`: it reads the same table.
 
 The drawn swell keeps its own `lo: 65` — a swell rises **from a sounding level**, not from
 nothing. One number if he ever wants it from zero.
@@ -157,6 +177,7 @@ per channel. It is the instrument that settled this, and it is the instrument th
 
 ---
 
-*Source: RUNNING_LOG §137 · §139 · §140 · §141 · §142 · §143 — PLAN 1e (V1 … V7) —
+*Source: RUNNING_LOG §137 · §139 · §140 · §141 · §142 · §143 — PLAN 1e (V1 … V7) — and for Rule 2 as it now
+stands, RUNNING_LOG §147 · §148 · §150, COMPOSITION_NOTES LG-51, PLAN 1d.10 —
 `docs/MORPH_NOTES.md` 2026-09-20 for the morph's part, which is method only until the morph is
 revised.*

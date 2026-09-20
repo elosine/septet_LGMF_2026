@@ -790,14 +790,14 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     marked PUT TO HIM is asked when its step is reached, not before.** *(The two that were — `of max` on a new sequence · `±` under
     `of max` — were answered the same day, §149. None is left.)*
     **RUNNING ORDER (position = order of building, the ids are only the next free ones):**
-    **1d.10** the dynamics table → **1d.11** the library → **1d.12** select a range → **1d.13** the waves by preset →
+    ~~**1d.10** the dynamics table~~ **BUILT** → **► 1d.11** the library → **1d.12** select a range → **1d.13** the waves by preset →
     **1d.9 + 1d.14** the breath's lengths → **1d.15** the clock and the cursor → **1d.6** his listen.
     *Why this order:* the table first, because every listen after it is judged through it · the library second, so nothing he makes
     while testing the rest is lost · the selection before the presets, because the per-selection range rides on it.
     **Each step ends on HIS test in his Chrome** (the in-app browser has no Web MIDI); the AI verifies note lists, objects and
     routes in `score-5401`, never the sound, and never saves from its own pane.
   - **1d.10 — THE DYNAMICS TABLE** (each WRITTEN dynamic has a CC7 value of its own, read by every shaped note the drawer writes) —
-    `todo` — **AMENDS PLAN 1e's Rule 2** (*"the top of the shape is the full fader"*); Rule 1 (the mf strike), the curve channels
+    **BUILT 2026-09-20 — RUNNING_LOG §150; his rack test outstanding** — **AMENDS PLAN 1e's Rule 2** (*"the top of the shape is the full fader"*); Rule 1 (the mf strike), the curve channels
     and `curveDirty()` all stand. RUNNING_LOG §146–§148 · LG-50 · LG-51.
     *Why:* under 1e only a shape's DEPTH is heard — `pp–mf` and `ppp–mp` are both three steps deep and both play about CC7 73 → 127,
     so the range he now sets per selection of boxes (1d.12) would be inaudible. And his principle (LG-51): a STATED range is what
@@ -841,6 +841,19 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       struck `mf`, because the ceiling (mf strike, CC7 127) IS a struck mf and the table counts down from `fff` — and more so toward
       the quiet end. That is his model (*"not up to the full 127"*) and DYNAMICS_LAW already accepts that a waved box and a straight
       box do not share a calibrated level. `STEP_DB` is the one number that tunes it; his ear decides at the listen.
+    - **AS BUILT, 2026-09-20 (RUNNING_LOG §150) — three things the plan did not know.** (a) **The CHECK FIRST found three curves
+      short:** the vibraphone, the cello and the double bass were BELOW THE NOISE FLOOR at CC7 24 in 0d (`null` in
+      `bank/balance.json`), so their measurements stopped at CC7 44 ≈ −27.5 dB and `ppp` would have clamped there. Extended in the
+      BUILDER as the plan directs, by each instrument's OWN law fitted through its measured points — which came out at the two
+      family laws to the digit (UVI **38.7**, residuals ±0.02 dB · Kontakt **59.8 … 60.1**) — down to CC7 24, the point marked
+      `n: 0` with its fitted `law` so it can never be read as a measurement. The rest of the bank is unchanged.
+      (b) **The two new assertions live in `tools/dyn_table_check.js`, not in `sequence_check`:** they are properties of the TABLE
+      and of `sequence_ui.js`, which is a DOM module node cannot load. `sequence_check` stays **126**, `sequence.js` untouched as
+      planned; `dyn_table_check` is **51**. The end-to-end proof — `ppp–mp` 43…69 against `pp–mf` 51…81 on the cello, and every
+      breakpoint of a three-dynamic shape on its own table value — was taken in the RUNNING APP, from `SequenceDrawer.shape()`
+      with the real bank loaded. (c) **The status lines now state the claim:** Hear and Insert say the fader span they actually
+      sent, and name any instrument with no measured curve (the percussion lane has none and never shapes a note — a strike is
+      `fixed` — so it is not reported as a fault).
   - **1d.11 — THE LIBRARY** (a sequence is a DOCUMENT: it has a name, it autosaves, many coexist, and they ride in the repo) — `todo` —
     LG-47 · RUNNING_LOG §145 · §146.
     *Why:* today the row lives in `localStorage`, ONE key — it survives a refresh, a server restart and a computer restart, but

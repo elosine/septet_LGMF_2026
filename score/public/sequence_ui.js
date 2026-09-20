@@ -87,6 +87,7 @@ const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit
 const VR_ = () => (typeof VelocityRemap !== 'undefined' ? VelocityRemap : (root.VelocityRemap || null));   // 1e: the mf velocity per instrument
 const METAL = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : root.META_LAYER);
 const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own ladder, the one the generator reads
+const DT_ = () => root.DynTable || null;       // dyn_table.js — 1d.10, the CC7 of a written dynamic on a given instrument
 
 const STORE = 'lgmf.sequenceDrawer.v1';
 const TC = () => root.TimeContainers || null;   // time_containers.js — piece #5's roll, its own module, not changed
@@ -126,8 +127,15 @@ const shortOf = lane => { const t = (D.tracks ? D.tracks() : [])[lane]; return (
 // the full fader. The machinery is the score's own, per note, and piece #5 built it for this very reason (its 316 / 346 / 349):
 // `cc7Abs` maps the drawn height straight onto a CC7 range, bypassing the ladder; `velAbs` pins the strike. NOTHING IN composer.html
 // CHANGES — the fix is what the TOOL writes. A strike, a plain note, a long tone and a trill are untouched.
+//
+// AMENDED BY PLAN 1d.10, THE DYNAMICS TABLE (2026-09-20, LG-51). Under 1e above, only a shape's DEPTH was heard: `pp-mf` and
+// `ppp-mp` are both three steps deep and both played about CC7 73 ... 127, so the range he sets could not be told by ear. HIS
+// PRINCIPLE: a STATED dynamic range is what SOUNDS, for the whole curve — *"a curve going from MP to FF should go ... say 65 to
+// 111 in CC7, not up to the full 127."* So the fader range is no longer 0 ... 127 for every shape: it is the two written
+// dynamics' OWN CC7 values, read from `dyn_table.js` through the instrument's measured fader curve, 4 dB a written step. Rule 1
+// (the mf strike, per pitch) is untouched, and so are the curve channels and `curveDirty()`.
 const MF_ANCHOR = 100;                 // mf on the ladder (65 ... 127, eight names evenly) — the anchor every shaped note is struck at
-const CC7_FULL = { lo: 0, hi: 127 };   // the normalized fader
+const CC7_FULL = { lo: 0, hi: 127 };   // 1e's normalized fader — now only the fallback, for a page that did not load dyn_table.js
 
 const S = {
     el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null, _previewing: -1, _pvT: 0,
@@ -899,29 +907,27 @@ const S = {
         const G = this.generate(0); if (!G) return null;
         const from = (this.hearFrom === 'box' && this.sel > 0 && this.sel < G.bounds.length - 1) ? G.bounds[this.sel] : 0;
         const bends = {}; G.notes.forEach(n => { if (n.cents) bends[n.player] = 1; });
-        const notes = [], ramps = [], hiLevel = G.waves ? this.levelOfName(G.waves.high) : 1;
+        const notes = [], ramps = [], shaped = [];
         G.notes.forEach(n => {
             if (n.end <= from + 0.02) return;
             const st = Math.max(n.start, from), onMs = Math.round((st - from) * 1000), durMs = Math.max(30, Math.round((n.end - st) * 1000));
             // 1d.7 · 1d.8: a note whose level MOVES — it read the waves, it lies under a niente fade, it is ramped to or from a dynamic — is
-            // struck at ONE velocity (the waves' `high`, or its own loudest if that is louder) and its CC7 follows (scheduleRamps). A strike just takes its level
-            // PLAN 1e: a SHAPED note is STRUCK AT MF — the ANCHOR, which playNotes remaps into this instrument's own velocity — and its
-            // levels are re-based so the shape's TOP is the full fader. A strike (a fixed-length sound) still takes its own level.
-            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', top = this.topOf(n, hiLevel);
+            // struck at ONE velocity and its CC7 follows (scheduleRamps). A strike just takes its level
+            // PLAN 1e: a SHAPED note is STRUCK AT MF — the ANCHOR, which playNotes remaps into this instrument's own velocity.
+            // PLAN 1d.10: and its fader runs between the CC7 values of its own two written dynamics, every breakpoint on its own.
+            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', sh = ramped ? this.shape(n) : null;
             const rec = { lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: ramped ? MF_ANCHOR : anchorOf(n.level), onMs: onMs, durMs: durMs,
                 cents: n.cents ? n.cents : (bends[n.player] ? RECENTRE : 0), partial: n.partial };
             notes.push(rec);
-            if (ramped) ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: onMs, durMs: durMs, skipS: st - n.start, noteStart: n.start,
-                levels: this.rebased(n, top), velRef: yOf(this.mfLevel()), cc7Abs: CC7_FULL, fade: n.fade || null, note: rec });
+            if (ramped) { shaped.push(sh); ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: onMs, durMs: durMs, skipS: st - n.start, noteStart: n.start,
+                levels: sh.levels, velRef: yOf(this.mfLevel()), cc7Abs: sh.cc7Abs, fade: n.fade || null, note: rec }); }
         });
         const onMain = this.curveSeats(ramps);   // 1e V2b: and each of them onto a CURVE channel — MAIN takes no moving controller (D11)
-        return { G: G, from: from, notes: notes, ramps: ramps, onMain: onMain };
+        return { G: G, from: from, notes: notes, ramps: ramps, shaped: shaped, onMain: onMain };
     },
     // 1d.7 — SPACE CARRIES THE WAVE (the head of this file has the why): each waved note's CC7 ramp, sent from here AFTER D.playNotes has
     // scheduled the notes — its routes, MorphEmit's timers, the score's own law (Composer.heldCc7 on a stand-in stamped velRef = high).
     // A point every RAMP_MS where the value changes. Returns how many messages were scheduled
-    // the level a moving note is STRUCK for: the waves' `high` for a note that read them, its own loudest otherwise — and never under its loudest
-    topOf(n, hiLevel) { return Math.max(n.waves ? hiLevel : 0, +n.level || 0); },
     // ---------------------------------------------------------------- PLAN 1e, the two rules
     // RULE 1 — mf for ALL instruments. The cost, accepted (his call 2026-09-20): a shape tops out at mf loudness, 3.9 ... 5.4 dB under a
     // struck fff — but UNIFORMLY so, because 1b calibrated every instrument to one written span, so the balance holds.
@@ -932,13 +938,40 @@ const S = {
         const d = (VR && C && C._velRemap && key && VR.heldNote) ? VR.heldNote(C._velRemap, key, midi, MF_ANCHOR) : null;
         return d ? d.vel : MF_ANCHOR;   // no bank loaded: the anchor itself, as everything else in this file falls back
     },
-    // RULE 2 — the top of the shape is the full fader. Each dynamic step under the top is then one seventh of the fader (the ladder has
-    // eight names), so ppp under an fff top is CC7 0. `top` is ONE number for the whole note — the waves' `high` where it read them —
-    // so a note's breaths all measure from the same ceiling and JOIN, instead of each one climbing to full.
-    rebase(level, top) { return clamp(1 - (clamp(+top || 0, 0, 1) - clamp(+level || 0, 0, 1)), 0, 1); },
-    rebased(n, top) {
-        const L = (n.levels && n.levels.length >= 2) ? n.levels : [[0, n.level], [Math.max(0.001, +n.dur || 0), n.level]];
-        return L.map(p => [p[0], this.rebase(p[1], top)]);
+    // RULE 2 — AMENDED BY 1d.10: THE WRITTEN DYNAMICS ARE THE FADER RANGE. Not 0 ... 127 for every shape, but the CC7 values the
+    // note's own lowest and highest written levels have on THIS instrument (`dyn_table.js`, 4 dB a written step through the
+    // measured curve). Two shapes of equal DEPTH therefore sound at different heights, which is the whole point of the step —
+    // and because the table is ABSOLUTE, two notes of the same player join at the same level without any shared "top" to
+    // measure from, which is what 1e needed `topOf` for. Every breakpoint is placed at its OWN table value, not interpolated
+    // between the two ends: the ladder is not linear in CC7 and a straight line would miss every dynamic in between.
+    instKeyOf(lane) { const T = (D.tracks ? D.tracks() : []); return (T[lane] && T[lane].instKey) || null; },
+    levelsOf(n) { return (n.levels && n.levels.length >= 2) ? n.levels : [[0, n.level], [Math.max(0.001, +n.dur || 0), n.level]]; },
+    // a shaped note's fader: { cc7Abs, levels } — the drawn heights that put each breakpoint on its written dynamic
+    shape(n) {
+        const L = this.levelsOf(n).map(p => [p[0], clamp(+p[1] || 0, 0, 1)]);
+        let lo = 1, hi = 0; L.forEach(p => { lo = Math.min(lo, p[1]); hi = Math.max(hi, p[1]); });
+        const T = DT_(), C = C_(), bank = C ? C._velRemap : null, key = this.instKeyOf(n.lane);
+        if (!T) return { key: key, measured: false, cc7Abs: { lo: CC7_FULL.lo, hi: CC7_FULL.hi },   // no dyn_table.js on the page: 1e's law, the note's own top at full
+            levels: L.map(p => [p[0], clamp(1 - (hi - p[1]), 0, 1)]) };
+        return { key: key, measured: T.hasCurve(bank, key),
+            cc7Abs: T.range(bank, key, lo, hi), levels: L.map(p => [p[0], T.height(bank, key, p[1], lo, hi)]) };
+    },
+    // 1d.10: the fader span the shaped notes were actually given — the status states the claim his ear is judging, because
+    // "a stated range is what sounds" is only true if the numbers that went out say so
+    rangeText(shaped) {
+        if (!shaped || !shaped.length) return '';
+        let lo = 127, hi = 0;
+        shaped.forEach(s => { const a = s.cc7Abs || {}; lo = Math.min(lo, a.lo != null ? a.lo : 0); hi = Math.max(hi, a.hi != null ? a.hi : 127); });
+        return ' · the fader CC7 ' + lo + '…' + hi;
+    },
+    // what the status line says about the table: the bank gives every instrument its MEASURED fader law, and without it the
+    // table is the UVI law's guess — a claim about the sound, so it is said out loud rather than assumed. Only the instruments
+    // that actually SHAPED a note are counted: the percussion lane carries no fader curve and never shapes one (a strike is
+    // `fixed`), so it is not a fault and must not be reported as one.
+    tableNote(shaped) {
+        if (!DT_()) return ' · NO dyn_table.js — the fader is 1e\'s 0…127';
+        const guessed = [...new Set((shaped || []).filter(s => !s.measured).map(s => s.key || '?'))];
+        return guessed.length ? ' · NO MEASURED CURVE for ' + guessed.join(', ') + ' — the table is the UVI law there' : '';
     },
     // 1e V2b — THE ROUTE. A ramped note streams a moving fader, and his rack takes one only on the CURVE channels (D11): MAIN ch 1 is
     // plain notes, dynamics by velocity, no moving controller. So each ramped note is given a MARKER seat — 'c0', 'c1', ... , the index
@@ -1015,7 +1048,7 @@ const S = {
         const label = 'the sequence · ' + this.row.boxes.length + ' box' + (this.row.boxes.length > 1 ? 'es' : '') + ' · ' + fmtS(H.G.total - H.from) + ' s' + (H.from ? ' from box ' + (this.sel + 1) : '');
         await D.playNotes(H.notes, label);
         const e = E_();
-        if (e && e._playing) { const cc = this.scheduleRamps(H); this.setStatus('hearing ' + label + ' · ' + H.notes.length + ' notes' + (H.ramps.length ? ' · ' + H.ramps.length + ' shaped, struck at mf on the curve channels (' + cc + ' fader moves)' : '') + (H.onMain ? ' · ' + H.onMain + ' had no curve channel — on MAIN, so their fader will not move' : '') + this.flagsText(H.G)); this.startLine(H); }
+        if (e && e._playing) { const cc = this.scheduleRamps(H); this.setStatus('hearing ' + label + ' · ' + H.notes.length + ' notes' + (H.ramps.length ? ' · ' + H.ramps.length + ' shaped, struck at mf on the curve channels (' + cc + ' fader moves)' + this.rangeText(H.shaped) + this.tableNote(H.shaped) : '') + (H.onMain ? ' · ' + H.onMain + ' had no curve channel — on MAIN, so their fader will not move' : '') + this.flagsText(H.G)); this.startLine(H); }
         else { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); }
     },
     stop() {
@@ -1054,14 +1087,17 @@ const S = {
         const before = C.objects.length;
         C.objects = C.objects.filter(o => o.groupId !== group);   // one row = one place in the score: the old group's objects go, by their id
         const gone = before - C.objects.length;
-        let maxEnd = G.end, written = 0; const busy = [];
-        const hiLevel = G.waves ? this.levelOfName(G.waves.high) : 1, wavesTxt = G.waves ? ' · waves ' + G.waves.low + '…' + G.waves.high : '';
+        let maxEnd = G.end, written = 0; const busy = [], shaped = [];
+        const wavesTxt = G.waves ? ' · waves ' + G.waves.low + '…' + G.waves.high : '';
         G.notes.forEach(n => {
             if (typeof C.trillCovers === 'function' && C.trillCovers(n.lane, n.start)) { busy.push(shortOf(n.lane) + '@' + n.start.toFixed(2)); return; }   // TRILLS_TOOL §7, as D.insert
             maxEnd = Math.max(maxEnd, n.end);
-            // PLAN 1e, rule 2: a SHAPED note's heights are re-based so the shape's TOP is the full fader. A straight note is drawn as it always was.
-            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', rTop = ramped ? this.topOf(n, hiLevel) : 0;
-            const nodes = (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]).map(p => ({ pos: n.dur > 0 ? clamp(p[0] / n.dur, 0, 1) : 0, y: yOf(ramped ? this.rebase(p[1], rTop) : p[1]), smooth: 0.25 }));
+            // PLAN 1d.10 (amending 1e's rule 2): a SHAPED note's heights are the drawn heights that put each breakpoint on the CC7 of
+            // its own written dynamic, between the two the note asks for. A straight note is drawn as it always was.
+            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', sh = ramped ? this.shape(n) : null;
+            if (sh) shaped.push(sh);
+            const src = ramped ? sh.levels : (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]);
+            const nodes = src.map(p => ({ pos: n.dur > 0 ? clamp(p[0] / n.dur, 0, 1) : 0, y: yOf(p[1]), smooth: 0.25 }));
             const segments = []; for (let k = 1; k < nodes.length; k++) segments.push({ model: 'power', slope: 0 });
             const box = this.row.boxes[n.container] || {};
             // 1d.7: a note that read the waves is written DRAWN — its breakpoints are the nodes above — and stamped `velRef` = the waves'
@@ -1077,7 +1113,7 @@ const S = {
                 sonifyNote: n.midi, technique: n.tech, recVel: anchorOf(n.level) },
                 // PLAN 1e: the NORMALIZED FADER and the MF STRIKE, per note. `velRef` is kept and now means the mf height, so a note that
                 // loses `cc7Abs` or `velAbs` by hand still falls back to being struck at mf with its fader on the ladder from there.
-                ramped ? { velRef: yOf(this.mfLevel()), cc7Abs: { lo: CC7_FULL.lo, hi: CC7_FULL.hi }, velAbs: this.mfVel(n.lane, n.midi) } : {},
+                ramped ? { velRef: yOf(this.mfLevel()), cc7Abs: { lo: sh.cc7Abs.lo, hi: sh.cc7Abs.hi }, velAbs: this.mfVel(n.lane, n.midi) } : {},
                 (ramped && n.fade) ? { cc7Fade: { start: n.fade.start, end: n.fade.end, from: n.fade.from, to: n.fade.to, curve: n.fade.curve } } : {},
                 (n.seat || n.cents || ramped) ? {} : { sonifyMode: 'plain' },   // 1c.3 / 1c.4, as D.insert: a seat's note or a bent note is DRAWN (its own curve channel), the rest hold MAIN
                 n.cents ? { morphBend: [[0, +(+n.cents).toFixed(2)], [n.dur, +(+n.cents).toFixed(2)]] } : {}));
@@ -1107,6 +1143,7 @@ const S = {
             (gone ? ' · replaced ' + gone + ' objects' + (sits != null && !inPlace ? ' at ' + sits.toFixed(3) + ' s' : '') : '') +
             (he && he.edited ? ' · ' + he.edited + ' note' + (he.edited === 1 ? '' : 's') + ' had been moved or re-pitched by hand — overwritten: the recipe is the truth' : '') +
             (he && he.missing > he.edited ? ' · ' + (he.missing - he.edited) + ' of its notes had been deleted — written again' : '') +   // a changed note is also a wanted note unmatched: count only the surplus
+            (shaped.length ? ' · ' + shaped.length + ' shaped' + this.rangeText(shaped) + this.tableNote(shaped) : '') +
             this.flagsText(G) + (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
     },
 };

@@ -527,6 +527,7 @@
 <script src="/sandbox/instruments.js"></script>
 <script src="/trill_engine.js"></script>
 <script src="/velocity_remap.js"></script>   <!-- PLAN 1g: the per-instrument velocity remap lookup (bank/velocity_remap.json) -->
+<script src="/dyn_table.js"></script>   <!-- PLAN 1d.10: THE DYNAMICS TABLE — the CC7 of a written dynamic on a given instrument, 4 dB a step through its measured fader curve (docs/DYNAMICS_LAW.md). Reads velocity_remap.js, so it follows it -->
 <script src="/accel_calc.js"></script>   <!-- PLAN 1h: the acceleration calculator (the strikes drawer's run; any panel may call it) -->
 <script src="/beating_calc.js"></script>   <!-- PLAN 1f: the beating math — step 1 the palette (who bends how far, who pairs with whom), step 2 the math (docs/BEATING_TOOL.md) -->
 <script src="/compiler.js"></script>

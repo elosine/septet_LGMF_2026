@@ -347,10 +347,14 @@ inserted, `new`, reopened with its breath · a page reload · the layout at 1280
 
 ## 13 · The waves (1d.7)
 
-**The fader law it rides on.** A wave is carried by CC7 through the score's measured law (D13: *velocity is the dynamic; CC7 shapes a
-held note*): `heldCc7` → `cc7ForHeight` → the instrument's `cc7Curve` in `bank/velocity_remap.json`, measured by 0d on the curve
-channels. *(When 1d.7 was built the bank held that curve for the vibraphone alone — the builder dropped the other six — and the
-waves moved two seats of eight. Found by capturing what Hear sends; fixed in `tools/build_remap_card.js`. RUNNING_LOG §128–§130.)*
+**The fader law it rides on — READ `docs/DYNAMICS_LAW.md` FIRST.** A wave is carried by CC7 through the instrument's measured
+curve (`cc7Curve` in `bank/velocity_remap.json`, measured by 0d on the curve channels). Since **PLAN 1e** a waved note is
+**struck at MF** — per pitch, from the bank — and the fader carries the whole shape; since **PLAN 1d.10** that fader runs between
+the **CC7 values of the waves' own `low` and `high`** (`score/public/dyn_table.js`, 4 dB a written step), not 0 … 127. So
+`ppp–mp` sounds audibly below `pp–mf` where before both played the same range at the same depth.
+*(When 1d.7 was built the bank held the fader curve for the vibraphone alone — the builder dropped the other six — and the
+waves moved two seats of eight. Found by capturing what Hear sends; fixed in `tools/build_remap_card.js`. RUNNING_LOG §128–§130.
+1d.10 extended three of those curves down to −28 dB, where 0d could not measure: RUNNING_LOG §150.)*
 In the score a waved note is a DRAWN note, so it takes the curve channels round robin (D11) by itself.
 
 **A box's dyn is a straight dynamic OR `waves`** (his swap, LG-39). The head's `waves` button opens the line; `all boxes → waves | straight`
@@ -375,12 +379,15 @@ sets every box at once; any box can be flipped on its own line. A waves box wear
 - A strike (the percussion) takes the wave's level at the strike. No ramp.
 
 **How it sounds — one velocity, the fader moving (the morph's way)**
-- Every waved note is struck at `high`'s velocity; CC7 follows the curve through `Composer.heldCc7`. A breath re-entering
-  mid-wave does not lurch. With `high` loud, a quiet moment has a loud attack played down — the LG-14 colour.
+- Every waved note is struck at **MF** (1e, per pitch); CC7 follows the curve through `Composer.heldCc7`, between the table
+  values of `low` and `high` (1d.10). A breath re-entering mid-wave does not lurch — the table is absolute, so two notes of one
+  player meet at the same level. A quiet moment still has a loud attack played down: the LG-14 colour, now from the mf strike.
 - **SPACE carries it, and the strikes drawer's player is not changed:** that player sends one CC7 a note, so this drawer sends
   the ramp itself after `playNotes` — the same routes, the same timers (Stop and SPACE cut it), a point every 50 ms where the value
   changes, the first 15 ms before the note-on.
-- **Insert:** a waved note is written DRAWN — its breakpoints as nodes, `velRef` = `high`. A straight note is written as it always was.
+- **Insert:** a waved note is written DRAWN — its breakpoints as nodes, `velAbs` = the mf velocity for its pitch,
+  `cc7Abs` = `{ T(low), T(high) }`, and each node's height placed so it lands on its own table value. A straight note is
+  written as it always was. The status says the fader span it actually sent, and names any instrument with no measured curve.
 
 **The recipe:** `waves { lengths, low, high, density, peak, seed }` — when a box reads them, or the dials were moved · `containers[i].dyn = 'waves'`
 (+ `dynWas`). `re-wave` re-deals the streams; a wave passing a louder top may shorten a breath.
@@ -409,16 +416,17 @@ sets every box at once; any box can be flipped on its own line. A waves box wear
 - 0 s = it just starts, or just ends.
 - **`exit: one by one`** — each player finishes a last breath of their own: the ends spread over the last stretch BEFORE the line
   (the fade out's length, else one breath), in score order, the latest ON the line. No runt, nothing past the end.
-- **niente** = true silence: the fader multiplied to zero (the score's `cc7Fade`). **A dynamic** = a calibrated ramp in the note's
-  own level, through the measured law — over a straight box or a wave alike; the far end may be LOUDER than the box (an entry that
-  settles), and the ceiling is read there.
+- **niente** = true silence: the fader multiplied to zero (the score's `cc7Fade`, which multiplies in **on top of** the table's
+  answer). **A dynamic** = a calibrated ramp in the note's own level, through the table (1d.10) — over a straight box or a wave
+  alike; the far end may be LOUDER than the box (an entry that settles), and the note's fader range simply widens to hold it.
 - A strike (the percussion) cannot ramp: it takes the fade's weight at its strike.
 - Only the players of the first sounding box fade in; only those of the last fade out or leave one by one.
 
 **The recipe:** `containers[i].change` (only where it differs) · `edges { fadeIn, fadeInFrom, fadeOut, fadeOutTo, exit }` (only when
 set). With nothing set the notes are the frozen baseline's.
 
-**In the score:** a note under a fade or a ramp is DRAWN, struck at one velocity (`velRef`), its CC7 following; a niente fade is
+**In the score:** a note under a fade or a ramp is DRAWN, struck at **mf** (`velAbs`), its CC7 following between its own two
+written dynamics (`cc7Abs`, 1d.10); a niente fade is
 the note's `cc7Fade` in SCORE seconds — so **a faded sequence dragged in the score keeps its old windows until it is re-inserted
 in place.** The fade OUT needed an opt-in `to` in `Morph.fadeWeight` (absent = 1, the line it always was) — RUNNING_LOG §131.
 
