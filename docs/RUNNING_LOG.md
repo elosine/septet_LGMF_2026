@@ -5833,3 +5833,44 @@ box's dynamic, or a fixed `low` / `high` — he asked for it to be explained aga
 
 **A number behind the default's depth:** one ladder step is about 1.7 dB on this rack (the 12 dB written span of 1b over seven
 steps — even steps ASSUMED, not checked against the anchors), so `breathing` was deepened from up 1 / down 1 to **up 2 / down 1**.
+
+## §139. The waves are flat IN THE SCORE too — a second bug, the §75 kind: Insert never dropped the cached curve-channel map. Fixed (2026-09-20)
+
+**His report:** *"seqTsts01, inserted in score, the graphic shapes show the waves, but the audio still is one dynamic. So it doesn't
+work even inserted into the score."* — which takes back §137's last line (*"inserted and played from the score they take the curve
+channels"*). That line was read from the code and never checked. It is true of a score that has just been LOADED, and false of his.
+
+**Looked at, in order.**
+1. **His file** (`scores/seqTests01.json`, 55 objects, all in a `grp-seq-` group): every note is a `waveCurve` with nodes
+   (0.1 → 10 → 0.05 → 10 → 0.2, the ppp … fff he set), `velRef` 10, no `sonifyMode` — a CURVE event by `isCurveEvent`. The file is right.
+2. **What the score's transport sends for such a note** (throwaway :5401, ports stubbed; the pane does not paint, so
+   `requestAnimationFrame` was driven from a timer, and `_zoneMidiInited` set by hand — the tick returns at once without Web MIDI):
+   1533 messages in 8 s. Every note on a CURVE route with its CC7 streaming on the same route — `LGEngHorn` ch2 82 … 127 ·
+   `LGBassoonb` ch5 68 … 127 · `LGHornb` ch4 66 … 127 · `LGTrumpetb` ch5 63 … 127 · `LGVibes` ch2/3/4 51 … 127 · `LGCello` ch3/4
+   90 … 127 · `LGBass` ch2/3 81 … 127. **Right — but the AI had called `Composer.curveDirty()` by hand before playing.**
+3. **His order of events instead** — the score played once, THEN the insert, nothing cleared: **18 of 18 notes absent from the
+   map, 18 of 18 routed to MAIN ch 1.** `curveChannelMap()` is cached (`_curveCh`); `routeForNote` sends a note that is not in the
+   map to the technique's own channel. Every other tool that writes curve events drops the map after writing (`swell_ui` · `fill_ui`
+   · the `cresc_*` files · `note_card` · `passages`); **`sequence_ui.js` never did.** This is §75's bug — a stale per-object channel
+   map — arriving by another door.
+
+**So both of his reports are ONE fact about his rack seen twice:** on MAIN ch 1 the moving fader is not heard. Hear sends it there
+by construction (§137); the score sent it there because the map was stale. *(That MAIN does not answer CC7 in his rack is still
+inference — two independent observations of his now fit it, none contradicts it, and nobody has measured it.)*
+
+**The fix — one line, in the file this work owns:** `insert()` calls `C.curveDirty()` before `renderAll()`. **Verified in the
+running app**, his order of events (map cached, then insert, nothing cleared by hand): 18 of 18 in the map, 0 on MAIN, the routes
+`lgenghorn` ch2/3 · `lgbassoonb` ch3/5 · `lghornb` ch4/5 · `lgtrumpetb` ch5/6 · `lgvibes` ch2/3/4 · `lgcello` ch3/4 · `lgbass`
+ch2/3. **Not verified: sound.** `sequence.js` untouched — the gate stands at 126.
+
+**For him, now, without waiting for anything:** RELOAD the tab and play `seqTests01` — a load rebuilds the map, so the waves
+already in that score should sound. If they do, the whole account holds. If they do NOT, the fault is in the rack, on the curve
+channels themselves, and the next step is a measurement there, not more code.
+
+**The same gap, in files that are not this work's to touch without his word (LG-32) — put to him:** `strike_drawer.js` `insert`
+(a seat's note or a just-intoned note is DRAWN, so it is a curve event) and `morph_panel.js`'s inserts (a morph note bends) write
+curve events and do not drop the map either. Until a reload they too play on MAIN.
+
+**For the paper.** Twice in two days the AI wrote "by construction" about a sound path and was wrong both times (§121 → §128,
+§137 → here). What caught it both times was his ear, and what explained it both times was one captured number. A claim about
+routing is a claim about STATE — what is cached, what was played before — and reading the code shows the law, not the state.

@@ -1031,6 +1031,11 @@ const S = {
         if (k >= 0) C.databases.sequences[k] = entry; else C.databases.sequences.push(entry);
         C.lastInsertGroup = group;
         if (typeof C.openMetaWin === 'function') C.openMetaWin();
+        // THE CURVE-CHANNEL MAP IS CACHED (D11, composer.html curveChannelMap): once the score has been played, a note that is not in the map falls
+        // back to MAIN ch 1 - and a waved, faded or bent note is a CURVE event, whose moving CC7 his rack takes only on the curve channels.
+        // Every other tool that writes curve events drops the map (swell_ui, fill_ui, cresc_*, note_card); this one did not, so an inserted
+        // sequence played flat, at one dynamic, until the tab was reloaded (his report, RUNNING_LOG 139).
+        if (C.curveDirty) C.curveDirty();
         C.renderAll(); C.markDirty();
         this._listSig = ''; this.renderList(); this.paintInsert();
         const how = inPlace ? 're-inserted IN PLACE' : (sits != null ? 'MOVED to the playhead' : 'inserted');
