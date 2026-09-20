@@ -6967,3 +6967,34 @@ morph's pulldown would be read AS ASSIGNED: a pair in which ONE player holds a n
 two per pair; the take decides, the `per pair` box does not. The panel's part is small: list the takes, print each pair's note
 with its partial and its cents, and WARN when the partner cannot hold a doubled note. **Open, his:** whether the bloom sits on the
 JUST pitch (the take's cents kept — the engine's `voices` door) or on the tempered one. **The discussion is open; nothing is built.**
+
+## §163. THE BLOOM ON A TAKE — phase 1 closed: the JUST pitch · the strikes drawer is where he hears and resolves · this part and the dynamics are built FIRST (2026-09-20)
+
+**What prompted it.** §162's read-back and its one question (just or tempered). His answer, dictated, whole:
+
+> *"a couple notes. First, just in terms of process, I need to hear those particular bloom pitches. So let's build this part first,
+> along with the dynamics. And then I'll have another pass at the actual way the morph drawer works. But that's just a note. And
+> then responding to your read back, you say you make a bloom take there. Also, I want to be able to preview how those notes sound
+> in the strikes drawer. Drawer. And then the strikes drawer will be where I resolve any range conflicts. The bloom will sit on A,
+> the just pitch. So the precise pitch with any sense deviation."*
+
+*(Read through the transcription: "on A" = option (a) of §162; "sense deviation" = CENTS deviation.)*
+
+**Decided, all three his:**
+
+1. **The JUST pitch.** A pair sits on the take's precise pitch, cents kept — partial 7 stays 31 cents flat and the beating opens
+   round THAT. Rejected: the tempered note (the smallest build), because the piece is made of cents (LG-27). It means the bloom
+   goes in by the engine's `voices` door (PLAN 1a.5), not by the sonority → rule → fold path, which carries whole MIDI numbers.
+2. **The strikes drawer is where he HEARS the notes and RESOLVES range conflicts** — not the morph panel. The drawer's own Hear
+   (`strike | long tone`, cents through it since 1c.6) is the preview; nothing new is asked of it. *AI reading (mine):* this makes
+   the natural bloom take one in which he puts a pair's note on BOTH of its players — then the drawer plays the pair as it will
+   sound and shows both registers, and the morph finds two players on one pitch, which IS a doubled pair. One player alone still
+   works (the partner doubles it), and the panel's "the partner cannot hold this" warning stays as a cheap net, not as the place
+   where the decision is made. Whether the drawer lets two players share one partial today is NOT yet read in the code — first
+   check of the build.
+3. **The order of work.** *"I need to hear those particular bloom pitches. So let's build this part first, along with the
+   dynamics."* The take in the pulldown + the take read as assigned + the morph's dynamics — then he LISTENS — and only then
+   *"another pass at the actual way the morph drawer works"*. That later pass is his, unplanned, and nothing is to be designed for
+   it now. It is §162's method at work: small builds, by compositional need.
+
+**Next:** the planning method's phase 2 — the top line — put to him in the chat.

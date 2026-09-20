@@ -1376,3 +1376,18 @@ take its pitches from a cast chord as the ORDINARY case, and offer its reduction
 TAKE is a different thing. They are about to sit in one line and need two words.
 **(4) The dynamics — the two entries above — are to be BUILT in this first small build**, no longer method-only, at his word:
 *"We already have a plan for the dynamic curves. So let's take care of that at this build."*
+
+### 2026-09-20 — LGMF: the bloom sits on the JUST pitch · the strikes drawer is where he hears and resolves · "another pass at the actual way the morph drawer works" comes AFTER he has heard it (RUNNING_LOG §163)
+
+> *"I need to hear those particular bloom pitches. So let's build this part first, along with the dynamics. And then I'll have
+> another pass at the actual way the morph drawer works. … I want to be able to preview how those notes sound in the strikes
+> drawer. Drawer. And then the strikes drawer will be where I resolve any range conflicts. The bloom will sit on A, the just pitch.
+> So the precise pitch with any sense [cents] deviation."*
+
+*AI reading (mine, marked):* for the revision — **(1)** a morph's pitches arrive with their CENTS as the ordinary case; the
+whole-MIDI sonority path is the exception, and this piece will now have used the `voices` door for every morph it makes.
+**(2)** He does not want the morph panel to be a place where pitches are judged. Hearing a chord, seeing its partials, settling a
+range conflict — that is the strikes drawer's work, and the morph is handed the result. An all-purpose tool should keep that
+division: ONE place where a chord is made and heard, and every generator (sequence, morph, crescendo) a reader of it.
+**(3)** *"Another pass at the actual way the morph drawer works"* is announced and deliberately NOT described — he will say what
+it is after he has heard a bloom on his own pitches. Nothing is to be anticipated.
