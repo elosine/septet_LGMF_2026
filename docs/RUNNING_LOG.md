@@ -7011,3 +7011,39 @@ Part two: a sequence as the ground, rhythm as the figure. The sequence drawer, b
 phase", has become the piece's harmonic spine in both. And it fixes one requirement for the multitempo tool before any design
 talk — it reads a placed sequence for its pitches and players rather than choosing its own (the AI's reading, marked as such in
 LG-53, with the two things he did not say). Nothing built, nothing planned; the bloom's phase 2 is still the work in hand.
+
+## §165. THE BLOOM ON A TAKE — the top line approved; two things read in the code that shrink the build; the four steps put to him as ONE summary (2026-09-20)
+
+**His word:** *"Bloom, top line, good. Let's take all the steps together. You can just give me a summary of what needs to be done
+in each step. We don't need the specific sub-steps."* — the feature add's way again (§148): the plan approved as one conceptual
+summary, the sub-steps the AI's, written to be executed cold.
+
+**Two questions §162–§163 had left open, now read in the code (nothing changed, nothing run):**
+
+| the question | what the code says |
+|---|---|
+| can a "bloom take" be made in the strikes drawer today — a note on BOTH players of a pair, the other players holding nothing? | **Yes.** `strike_drawer.js` ~1000–1030, and it is HIS OWN rule from the tuba piece (U10, 2026-09-04: *"one instrument can't play two notes … two instruments can play the same note"*): arm a note (double-click its dot), click a player's row and the row takes it; click a second row and the note is ALSO there (`v.also` — a doubling). A click on a note in a row takes it off that player. `fitReal` marks a note the player cannot reach (`skip`). So the drawer already makes the chord, plays it, and shows the range conflict. **Nothing is to be built in the drawer.** |
+| does the `BLOOM` model (M1) take the cents-carrying door, or only the LGMF M3 models it was built for? | **Every model does.** `morph.js` ~1262–1300: `source.kind: 'voices'` is read at the FRONT DOOR of the engine, before any model runs — `startCents = midi·100 + cents`, the order kept, `lanes[i]` the voice's player — and M1's ±50 c is added below it. `morph_septet.js`'s `cast` passes a voice list straight through with its lanes. **No engine change is expected**; the running app confirms it at the build. |
+
+**So the whole build sits in the morph PANEL and its Hear** (`morph_panel.js` · `morph_emit.js`), which is what *"I don't want to
+build a whole bunch of additional infrastructure"* asked for.
+
+**The four steps, as put to him** (it would be PLAN `1h`):
+
+1. **A take chosen in the morph's PITCHES pulldown** — his takes listed under a heading of their own, found as the sequence
+   drawer finds them; choosing one greys the rule boxes (`take · k · seed · per pair`) and the line says *as assigned*; the two
+   meanings of "take" get two words.
+2. **The take read as assigned** — each pair plays what the take gave its two players, the just pitch, cents kept; both on one
+   note = a doubled pair, one alone = the partner doubles it, none = the pair sits out; the info line gives note · partial · cents
+   pair by pair; a note on a player outside the pairs is left out and said so; a partner that cannot hold a doubled note is a
+   WARNING, a net only.
+3. **The morph's dynamics on the law** — every sustained note the morph writes struck at mf, on a curve channel, its fader between
+   the table values of its written dynamics, in the panel's Hear and in the inserted score alike.
+4. **His listen** — the take made and heard in the drawer, the bloom heard and inserted after the sequence; his ear the verdict, a
+   recording read back by `cc7_by_channel.lua` the proof of the routing (DYNAMICS_LAW §6).
+
+**One call the AI made inside step 3, flagged to him rather than asked:** the sequence's Rule 3 (*in a sequence, ONE scale*, §157)
+is applied to the morph too — EVERY sustained morph note is shaped, not only those whose level moves, where the method of
+2026-09-20 (MORPH_NOTES, 1e V5) had said *"a morph note whose level does NOT move stays a struck note"*. The reason is §157's own:
+a struck `pp` is ≈ −10 dB and a shaped `pp` ≈ −28 dB, and this bloom FOLLOWS a sequence on the same take — a still voice left on
+the struck ladder would stand 18 dB over the sequence before it. His to reverse.
