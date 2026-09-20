@@ -4,7 +4,7 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**139**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**163**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
@@ -14,6 +14,7 @@
 - the dynamics table — every written dynamic has a CC7 value of its own, 4 dB a step through the instrument's measured fader curve — **`docs/DYNAMICS_LAW.md` §3**, and §13 · §14 below · 1d.10, built 2026-09-20
 - the library — every sequence on disk in `bank/sequences.json`: an untitled rolling stack, named keepers, `save` · `revert` · `duplicate` · `×` — §16 below · 1d.11, built 2026-09-20
 - a RANGE of boxes — click, SHIFT+click; the selection takes `dyn` · `enter` · and a waves `range` of its own — §17 below · 1d.12, built 2026-09-20
+- the waves by PRESET — one menu fills every dial: lengths between two numbers with a `tilt`, a named shape, a HOLD at the top, density in words; `save preset` keeps his own — §18 below · 1d.13, built 2026-09-20
 - not yet: his listen (1d.6) — nothing in this drawer has been heard by the AI, and the waves and the edges not yet by him
 
 ---
@@ -117,7 +118,7 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **139**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **163**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
 a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last ·
@@ -520,3 +521,43 @@ consequences worth knowing:
 **A quieter range may lengthen a breath.** The ceiling is read at the loudest level a note reaches, and the palette gives a quiet
 note a longer bow — so lowering a range's `high` can let a breath run longer. That is the palette working, not the deal being
 re-run: with the `high` unchanged, not one onset or length moves.
+
+## 18 · The waves by preset (1d.13)
+
+*"A sort of presets situation … a way to easily generate a behavior"* — and *"probably need to refine all presets while
+composing"*, so a preset is cheap to change and cheap to keep.
+
+**THE SWELL** (LG-50, which reverses §138's water line): rest at `low` → **rise** → **HOLD** at `high` → **fall** → rest at
+`low`. The range is the sequence's `low`–`high`, or a box's own (§17).
+
+**The dials one menu fills**
+
+| dial | what it is |
+|---|---|
+| `short` · `long` | the seconds a swell may last. Every swell is drawn somewhere between them |
+| `tilt` | −1 all short · 0 even · +1 all long — which end of that span the draws lean toward |
+| `shape` | the RISE as a share of the MOVING time (the length less the hold): **`golden` 0.618** (his default) · `reverse golden` 0.382 · `even` 0.5 · `surge` 0.25 · `bloom` 0.8 |
+| `hold` | how long a swell SITS at its top, as a share of its own length — 0.2 means a 10 s swell holds 2 s |
+| `density` | in words: `constant` 1 · `busy` 0.8 · **`breathing` 0.6** · `occasional` 0.35 · `rare` 0.15 |
+| `low` · `high` · `seed` | as before; the seed is not part of a behaviour, so a preset never re-deals |
+
+**The five**, all `pp–mf`, all the AI's starting points and PROVISIONAL:
+
+| | lengths | shape | hold | density |
+|---|---|---|---|---|
+| **`breathing`** *(a new sequence's own)* | 8–20 s | golden | 0.2 | breathing |
+| `tides` | 20–45 s | even | 0.1 | constant |
+| `ripples` | 3–8 s | even | — | busy |
+| `surges` | 6–14 s | surge | 0.1 | occasional |
+| `blooms` | 12–30 s | bloom | 0.35 | rare |
+
+**`save preset`** keeps the whole line under a name, in `bank/sequences.json` panel `wavePresets` (§16's store), so it rides in
+the repo. One saved under a **built-in's** name overrides it — the menu says `(yours, over the built-in)` — and **`×`** on your
+own brings the built-in back.
+
+**The shape is exact.** 1d.7 wobbled the top by ±0.1 of the slot; a named shape does not. The second random draw a slot is still
+made, so turning `density` re-deals no length, exactly as before. The character comes from the lengths, the density and the hold.
+
+**An old sequence keeps its notes.** A waves line with a typed pool and a `peak` and **no `shape`** takes 1d.7's path in the
+generator, to the byte. The drawer shows the preset dials it WOULD take, greyed, with *made before the presets* beside them —
+**and converts it only when you turn a dial**, saying so when it does. Nothing converts by being opened.

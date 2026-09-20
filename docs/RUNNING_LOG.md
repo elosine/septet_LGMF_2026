@@ -6522,3 +6522,48 @@ it · a plain click and ESC both returned to one box · and a range survived the
 
 `sequence_check` **126 → 139**, including THE GATE twice more: with no box carrying a range the notes are the frozen ones, after
 the stream became a height.
+
+## §153. PLAN 1d.13 BUILT — THE WAVES BY PRESET: a behaviour, not a row of numbers to type (2026-09-20)
+
+**His words (LG-49, RUNNING_LOG §138, as amended by LG-50).** *"A sort of presets situation … a way to easily generate a
+behavior"* — and *"probably need to refine all presets while composing"*, which is why `save preset` was approved with the
+design (§145) and is built here.
+
+**THE SWELL, as LG-50 reversed it:** rest at `low` → rise → **HOLD** at `high` → fall → rest at `low`. 1d.7 had a peak position
+and no hold.
+
+**THE DIALS a preset fills.** `short` · `long` (the seconds a swell may last, drawn anywhere between) with a **`tilt`** −1 … +1
+instead of a typed pool and weights · the **SHAPE by name** — the RISE as a share of the MOVING time, `golden` 0.618 his
+default, `reverse golden` 0.382, `even` 0.5, `surge` 0.25, `bloom` 0.8 · **`hold`**, a share of the swell's own length ·
+**density in words** — `constant` 1 · `busy` 0.8 · `breathing` 0.6 · `occasional` 0.35 · `rare` 0.15.
+
+**The tilt's law:** the draw between the two lengths is `u^exp(−tilt · 1.5)`, so 0 is even and the mean moves monotonically —
+measured across eight players, **10.50 s · 14.02 s · 17.73 s** at tilt −1 · 0 · +1 on an 8–20 s span.
+
+**THE SHAPE IS EXACT, and that was a decision.** 1d.7 wobbled the top by ±0.1 of the slot. A named shape does not: the check
+asserts the golden rise at 0.618 of the moving time to within 0.0001, which it could not do against a jitter. The character
+comes from the lengths, the density and the hold now. **But the second random draw a slot is still made** — 1d.7's *"always two
+draws a slot"*, so that turning `density` re-deals no length — it is simply not used by the new path.
+
+**The five, all `pp–mf`, all the AI's and PROVISIONAL:** `breathing` 8–20 · golden · 0.2 · breathing *(a new sequence's own)* ·
+`tides` 20–45 · even · 0.1 · constant · `ripples` 3–8 · even · — · busy · `surges` 6–14 · surge · 0.1 · occasional ·
+`blooms` 12–30 · bloom · 0.35 · rare.
+
+**`save preset`** writes the whole line into `bank/sequences.json` panel `wavePresets` — 1d.11's store, which is why the library
+came first. One saved under a built-in's name **overrides** it (the menu says so) and `×` brings the built-in back. The SEED is
+stripped before saving: a seed is a deal, not a behaviour, and picking a preset must never re-deal what he is listening to.
+
+**HOW AN OLD SEQUENCE KEEPS ITS NOTES — `shape` is the switch.** A waves line with a typed pool and a `peak` and no `shape`
+takes 1d.7's path in the generator, byte for byte; `sequence_check` asserts it against the all-waves deal. The DRAWER shows the
+preset dials such a line WOULD take, greyed, with *made before the presets* beside them, and **converts it only when he turns a
+dial**, saying so when it does. **Nothing converts by being opened** — which was the whole risk, since `wavesDefaults()` merges
+over a default and would otherwise have injected `shape` into every old row the moment it was read.
+
+**Verified in the running app:** a new row comes up `breathing` · the menu names the five and marks which one the line is
+sitting on · `tides` fills every dial and the status reads it back · a dial turned and kept as `mine` landed on disk and came
+back after a reload · saved under `ripples` it overrode the built-in (`ripples (yours, over the built-in)`) and `×` brought the
+built-in back, 3–8 s · even · no hold · busy · an old-style line showed its note, kept its pool in the recipe, and converted
+only when a dial was turned.
+
+`sequence_check` **139 → 163**: every slot inside `short` … `long` · the tilt's mean · each of the five shapes exact · the hold
+at 0 · 0.2 · 0.5 · the density's share over a hundred slots · each built-in preset · an old recipe unchanged · four refusals.

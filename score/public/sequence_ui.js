@@ -96,6 +96,20 @@ const STORE = 'lgmf.sequenceDrawer.v1';
 // stack, named under its name — so `new` destroys nothing, and git can see what he made.
 const LIB = { store: 'sequences', named: 'library', untitled: 'untitled', max: 50, debounce: 2000 };
 const LIB_NAME_RE = /^[A-Za-z0-9._ -]{1,64}$/;   // score/snapshots.js's own rule, which refuses a colon — hence `14.32.05`
+// PLAN 1d.13 — THE WAVES BY PRESET (LG-49 as amended by LG-50). He does not want to type seconds, weights or a peak:
+// *"a sort of presets situation … a way to easily generate a behavior"*. The five below are the AI's starting points and are
+// PROVISIONAL — *"probably need to refine all presets while composing"* — so `save preset` keeps his own, and one saved under a
+// built-in's name overrides it. The swell they describe: rest at `low` → rise → HOLD at `high` → fall → rest at `low`.
+const WAVE_PRESETS = {
+    breathing: { shortest: 8, longest: 20, tilt: 0, shape: 'golden', hold: 0.2, density: 0.6, low: 'pp', high: 'mf' },
+    tides:     { shortest: 20, longest: 45, tilt: 0, shape: 'even', hold: 0.1, density: 1, low: 'pp', high: 'mf' },
+    ripples:   { shortest: 3, longest: 8, tilt: 0, shape: 'even', hold: 0, density: 0.8, low: 'pp', high: 'mf' },
+    surges:    { shortest: 6, longest: 14, tilt: 0, shape: 'surge', hold: 0.1, density: 0.35, low: 'pp', high: 'mf' },
+    blooms:    { shortest: 12, longest: 30, tilt: 0, shape: 'bloom', hold: 0.35, density: 0.15, low: 'pp', high: 'mf' },
+};
+const DENSITY_WORDS = [['constant', 1], ['busy', 0.8], ['breathing', 0.6], ['occasional', 0.35], ['rare', 0.15]];   // density in words, not a number
+const NEW_WAVES = Object.assign({ seed: 1 }, WAVE_PRESETS.breathing);   // a NEW sequence's waves line: `breathing`, his default
+const PRESET_PANEL = 'wavePresets';
 const TC = () => root.TimeContainers || null;   // time_containers.js — piece #5's roll, its own module, not changed
 const ROW_H = 120;   // the boxes' row: its share of the window when nothing is saved. The row GROWS with the window now (floating, 2026-09-20)
 const FS = 15;       // +4 at his word (2026-09-20). THE ONE NUMBER: every size in this strip is this or a proportion of it — change it and the whole strip scales.
@@ -154,7 +168,34 @@ const S = {
             stick: d.stick != null ? d.stick : 0.8, jump: d.jump != null ? d.jump : 0.1, contour: d.contour || 'flat',
             turn: d.turn != null ? d.turn : 0.5, bow: d.bow || 1, depth: d.depth != null ? d.depth : 1, seed: d.seed || 1 };
     },
-    wavesDefaults(over) { const w = Object.assign(JSON.parse(JSON.stringify(SEQ.DEFAULT_WAVES)), over || {}); w.lengths = JSON.parse(JSON.stringify(w.lengths || SEQ.DEFAULT_WAVES.lengths)); return w; },
+    // 1d.13: a waves line is OLD-STYLE (a typed pool and a `peak`, 1d.7) or PRESET-STYLE (lengths between two numbers, a named
+    // shape, a hold). `shape` is what tells them apart, in the generator as here — so an old recipe keeps its own notes until he
+    // touches a dial, and is never silently converted by being opened.
+    isOldWaves(w) { return !!(w && w.shape == null && w.lengths); },
+    wavesDefaults(over) {
+        const old = this.isOldWaves(over);
+        const w = Object.assign(JSON.parse(JSON.stringify(old ? SEQ.DEFAULT_WAVES : NEW_WAVES)), over || {});
+        if (old) w.lengths = JSON.parse(JSON.stringify(w.lengths || SEQ.DEFAULT_WAVES.lengths));
+        else { delete w.lengths; delete w.peak; }   // the preset dials replace the pool and the peak outright
+        return w;
+    },
+    densityWord(v) { const hit = DENSITY_WORDS.find(p => Math.abs(p[1] - (+v || 0)) < 1e-9); return hit ? hit[0] : null; },
+    presetIx() { return (this._lib && this._lib[PRESET_PANEL]) || {}; },
+    presetNames() {
+        const mine = Object.keys(this.presetIx()).sort((a, b) => a.localeCompare(b));
+        const built = Object.keys(WAVE_PRESETS);
+        return built.concat(mine.filter(n => built.indexOf(n) < 0));
+    },
+    presetOf(name) {
+        const his = this.presetIx()[name];                            // one saved under a BUILT-IN's name overrides it
+        if (his && his.state && his.state.waves) return JSON.parse(JSON.stringify(his.state.waves));
+        return WAVE_PRESETS[name] ? JSON.parse(JSON.stringify(WAVE_PRESETS[name])) : null;
+    },
+    // which preset the line is sitting on, if any — the dials compared, the seed ignored (it is not part of a behaviour)
+    presetMatch() {
+        const w = this.row.waves, keys = ['shortest', 'longest', 'tilt', 'shape', 'hold', 'density', 'low', 'high'];
+        return this.presetNames().find(n => { const p = this.presetOf(n); return p && keys.every(k => JSON.stringify(w[k]) === JSON.stringify(p[k])); }) || '';
+    },
     edgesDefaults(over) { const e = Object.assign({}, SEQ.DEFAULT_EDGES, over || {}); e.fadeIn = clamp(+e.fadeIn || 0, 0, 600); e.fadeOut = clamp(+e.fadeOut || 0, 0, 600); if (SEQ.EXITS.indexOf(e.exit) < 0) e.exit = SEQ.DEFAULT_EDGES.exit; e.fadeInFrom = this.farOk(e.fadeInFrom); e.fadeOutTo = this.farOk(e.fadeOutTo); return e; },
     farOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : SEQ.NIENTE; },   // the far end of a fade: niente, or a name on the ladder
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
@@ -1018,44 +1059,115 @@ const S = {
         const line = this.el.querySelector('#sqWaves'); if (!line) return;
         const lab = 'color:#8a8', L = LADDER(), d = SEQ.DEFAULT_WAVES, opts = (L ? L.NAMES : []).map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('');
         line.innerHTML = '<span style="color:' + WTINT + '">waves</span>' +
-            '<input id="sqWVals" type="text" style="' + INP + ';width:8.182em" title="the POOL of swell lengths in seconds, separated by spaces — short with long. Each player draws a stream of their own from it. Default ' + d.lengths.values.join(' ') + '">' +
-            '<input id="sqWW" type="text" placeholder="weights" style="' + INP + ';width:8.182em" title="one weight per length, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
-            '<label style="' + lab + '" title="the BOTTOM of every wave, and where a player sits between swells — a written dynamic. There is no niente inside the waves: silence belongs to the sequence\'s edges">low <select id="sqWLo" style="' + INP + '">' + opts + '</select></label>' +
-            '<label style="' + lab + '" title="the TOP of every wave — a written dynamic. Every waved note is struck at THIS level\'s velocity and the fader does the moving, so a breath re-entering mid-wave does not lurch">high <select id="sqWHi" style="' + INP + '">' + opts + '</select></label>' +
-            '<label style="' + lab + '" title="how much of the time a player is inside a swell, 0 … 1 — the rest sits at `low`. 1 = swells back to back · 0 = flat at `low`. Default ' + d.density + '">density <input id="sqWDen" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
-            '<label style="' + lab + '" title="where the top sits inside a swell, 0 … 1 — 0.5 even · 0.7 a slow rise and a quick fall · 0.3 the reverse. A little seeded jitter round it. Default ' + d.peak + '">peak <input id="sqWPeak" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
+            // 1d.13: ONE menu fills every dial below it. The five are starting points and he refines them as he composes.
+            '<label style="' + lab + '" title="a way of behaving, not a number to type: it fills every dial on this line. The five are starting points — turn any dial and `save preset` keeps your own under a name (one saved under a built-in\'s name overrides it)">preset <select id="sqWPre" style="' + INP + '"></select></label>' +
+            '<button id="sqWSave" style="' + BTN + ';color:' + WTINT + '" title="keep this whole waves line under a name">save preset</button>' +
+            '<button id="sqWDel" style="' + BTN + '" title="delete the preset of your own that is chosen — a built-in of the same name comes back">&times;</button>' +
+            '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
+            '<label style="' + lab + '" title="the SHORTEST a swell may last, in seconds. Every swell is drawn somewhere between this and `longest`">short <input id="sqWShort" type="number" step="1" min="0.5" style="' + INP + ';width:4.364em"> s</label>' +
+            '<label style="' + lab + '" title="the LONGEST a swell may last, in seconds">long <input id="sqWLong" type="number" step="1" min="0.5" style="' + INP + ';width:4.364em"> s</label>' +
+            '<label style="' + lab + '" title="which end of that span the draws lean toward: −1 all short · 0 even · +1 all long">tilt <input id="sqWTilt" type="range" min="-1" max="1" step="0.1" style="width:6.4em;vertical-align:middle"><span id="sqWTiltN" style="color:#9ab"></span></label>' +
+            '<label style="' + lab + '" title="the shape of every swell — the RISE as a share of the moving time, the fall taking the rest. golden: the rise is the long part of the division (his default) · reverse golden: the fall is · even: half and half · surge: a quick rise, a long fall · bloom: a long rise, a quick fall">shape <select id="sqWShape" style="' + INP + '">' + Object.keys(SEQ.SHAPES).map(n => '<option value="' + esc(n) + '">' + esc(n) + '</option>').join('') + '</select></label>' +
+            '<label style="' + lab + '" title="how long a swell SITS at its top, as a share of its length: 0.2 means a 10 s swell holds for 2 s. The rise and the fall share what is left">hold <input id="sqWHold" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
+            '<label style="' + lab + '" title="how much of the time a player is inside a swell — the rest sits at `low`. constant: swells back to back · rare: one now and then">density <select id="sqWDen" style="' + INP + '"></select></label>' +
+            '<label style="' + lab + '" title="the BOTTOM of every wave, and where a player rests between swells — a written dynamic. There is no niente inside the waves: silence belongs to the sequence\'s edges. A RANGE of boxes can read the same waves through a range of its own (1d.12)">low <select id="sqWLo" style="' + INP + '">' + opts + '</select></label>' +
+            '<label style="' + lab + '" title="the TOP of every wave — a written dynamic">high <select id="sqWHi" style="' + INP + '">' + opts + '</select></label>' +
             '<label style="' + lab + '" title="the waves have a seed of their own — the same seed deals the same streams">seed <input id="sqWSeed" type="number" step="1" min="1" style="' + INP + ';width:4.364em"></label>' +
             '<button id="sqWNext" style="' + BTN + ';color:' + WTINT + '" title="the next seed: every player\'s stream is dealt again — the chords, the durations and the breath dials are not touched (a wave that passes a louder top may shorten a breath: the ceiling is read at the loudest point)">re-wave</button>' +
             '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
             '<span style="' + lab + '">all boxes →</span><button id="sqWAll" style="' + BTN + ';color:' + WTINT + '" title="every box reads the waves (each remembers the straight dyn it had)">waves</button>' +
-            '<button id="sqWNone" style="' + BTN + '" title="every box back to the straight dyn it had before the waves">straight</button>';
+            '<button id="sqWNone" style="' + BTN + '" title="every box back to the straight dyn it had before the waves">straight</button>' +
+            '<span id="sqWOld" style="color:#e8a06a;display:none" title="this sequence was made before the presets: it still has a typed pool of lengths and a `peak`, and it still plays exactly as it did. Turn any dial on this line and it takes the preset dials instead">made before the presets</span>';
         const q = s => line.querySelector(s);
-        ['sqWVals', 'sqWW', 'sqWLo', 'sqWHi', 'sqWDen', 'sqWPeak', 'sqWSeed'].forEach(id => {
+        ['sqWShort', 'sqWLong', 'sqWTilt', 'sqWShape', 'sqWHold', 'sqWDen', 'sqWLo', 'sqWHi', 'sqWSeed'].forEach(id => {
             q('#' + id).addEventListener('change', e => { if (e.target.tagName === 'SELECT' || e.target.type === 'number') e.target.blur(); this.readWaves(); this.save(); this.paintWaves(); this.wavesStatus('waves'); });
-            if (id !== 'sqWLo' && id !== 'sqWHi') q('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
+            q('#' + id).addEventListener('input', e => { if (e.target.type === 'range') { const n = q('#sqWTiltN'); if (n) n.textContent = ' ' + (+e.target.value).toFixed(1); } });
+            if (id !== 'sqWLo' && id !== 'sqWHi' && id !== 'sqWShape' && id !== 'sqWDen') q('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
         });
+        q('#sqWPre').addEventListener('change', e => { const n = e.target.value; e.target.blur(); if (n) this.applyPreset(n); else this.paintWaves(); });
+        q('#sqWSave').addEventListener('click', () => this.savePreset());
+        q('#sqWDel').addEventListener('click', () => this.deletePreset(q('#sqWPre').value));
         q('#sqWNext').addEventListener('click', () => { this.stop(); this.row.waves.seed = Math.max(1, Math.round(+this.row.waves.seed || 1)) + 1; this.save(); this.paintWaves(); this.wavesStatus('re-waved'); });
         q('#sqWAll').addEventListener('click', () => this.setAllBoxes(true));
         q('#sqWNone').addEventListener('click', () => this.setAllBoxes(false));
     },
+    // ONE menu fills every dial. The seed is not part of a behaviour, so it is kept — picking a preset does not re-deal.
+    applyPreset(name) {
+        const p = this.presetOf(name); if (!p) { this.setStatus('no preset named "' + name + '"', true); return; }
+        const was = this.isOldWaves(this.row.waves);
+        this.stop();
+        this.row.waves = this.wavesDefaults(Object.assign({ seed: this.row.waves.seed }, p));
+        this.save(); this.paintWaves();
+        this.wavesStatus('preset "' + name + '"' + (was ? ' — the typed pool and the peak are gone: this line has the preset dials now' : ''));
+    },
+    async savePreset() {
+        const suggest = this.presetMatch() || '';
+        const name = String(window.prompt('Keep this waves line as a preset called:', suggest) || '').trim();
+        if (!name) return;
+        if (!LIB_NAME_RE.test(name)) { this.setStatus('a preset name may hold letters, digits, dot, underscore, space or hyphen, up to 64 — not "' + name + '"', true); return; }
+        if (this.presetIx()[name] && !window.confirm('Replace your preset "' + name + '"?')) return;
+        if (WAVE_PRESETS[name] && !this.presetIx()[name] && !window.confirm('"' + name + '" is one of the built-in presets.\n\nSaving it here OVERRIDES the built-in — the `×` beside the menu brings it back.')) return;
+        const w = JSON.parse(JSON.stringify(this.row.waves)); delete w.seed;   // a behaviour, not a deal
+        try { await this.libPost({ panel: PRESET_PANEL, name: name, state: { waves: w } }); } catch (e) { this.setStatus('the preset did not save: ' + (e && e.message || e), true); return; }
+        this._lib = this._lib || {}; (this._lib[PRESET_PANEL] = this._lib[PRESET_PANEL] || {})[name] = { saved: new Date().toISOString(), state: { waves: w } };
+        this.paintWaves();
+        this.setStatus('preset "' + name + '" saved' + (WAVE_PRESETS[name] ? ' — it overrides the built-in of that name' : '') + ' · it is in bank/sequences.json and rides in the repo');
+    },
+    async deletePreset(name) {
+        if (!name || !this.presetIx()[name]) { this.setStatus(name && WAVE_PRESETS[name] ? '"' + name + '" is a built-in preset — there is nothing of yours to delete' : 'choose one of your own presets first', true); return; }
+        if (!window.confirm('Delete your preset "' + name + '"?' + (WAVE_PRESETS[name] ? '\n\nThe built-in of that name comes back.' : ''))) return;
+        try { await this.libPost({ panel: PRESET_PANEL, name: name, delete: true }); } catch (e) { this.setStatus('not deleted: ' + (e && e.message || e), true); return; }
+        delete this._lib[PRESET_PANEL][name];
+        this.paintWaves();
+        this.setStatus('preset "' + name + '" deleted' + (WAVE_PRESETS[name] ? ' — the built-in is back' : ''));
+    },
+    presetText() {
+        const w = this.row.waves;
+        if (this.isOldWaves(w)) return 'a pool of ' + w.lengths.values.join(' ') + ' s · peak ' + w.peak + ' · ' + w.low + '–' + w.high;
+        return w.shortest + '–' + w.longest + ' s · ' + w.shape + ' · hold ' + w.hold + ' · ' + (this.densityWord(w.density) || w.density) + ' · ' + w.low + '–' + w.high;
+    },
     readWaves() {
-        const line = this.el.querySelector('#sqWaves'), q = s => line.querySelector(s), w = this.row.waves, d = SEQ.DEFAULT_WAVES;
+        const line = this.el.querySelector('#sqWaves'), q = s => line.querySelector(s), d = NEW_WAVES;
         const num = (s, def) => { const v = q(s).value.trim(); return v === '' || !isFinite(+v) ? def : +v; };
-        const nums = String(q('#sqWVals').value || '').split(/[\s,]+/).map(Number).filter(x => isFinite(x) && x > 0);
-        w.lengths = nums.length ? { values: nums, weights: this.parseWeights(nums, q('#sqWW').value) } : JSON.parse(JSON.stringify(d.lengths));   // an emptied box goes back to the default pool — the waves always have one
-        w.low = this.straightOk(q('#sqWLo').value) === AS_DEALT ? d.low : q('#sqWLo').value; w.high = this.straightOk(q('#sqWHi').value) === AS_DEALT ? d.high : q('#sqWHi').value;
-        w.density = clamp(num('#sqWDen', d.density), 0, 1); w.peak = clamp(num('#sqWPeak', d.peak), 0, 1); w.seed = Math.max(1, Math.round(num('#sqWSeed', d.seed)));
+        // touching ANY dial converts an old line to the preset dials — and says so; nothing converts by merely being opened
+        const w = this.isOldWaves(this.row.waves) ? this.wavesDefaults(Object.assign({}, NEW_WAVES, { seed: this.row.waves.seed, low: this.row.waves.low, high: this.row.waves.high })) : this.row.waves;
+        this.row.waves = w;
+        w.shortest = Math.max(0.5, num('#sqWShort', d.shortest));
+        w.longest = Math.max(w.shortest, num('#sqWLong', d.longest));
+        w.tilt = clamp(num('#sqWTilt', 0), -1, 1);
+        w.shape = SEQ.SHAPES[q('#sqWShape').value] != null ? q('#sqWShape').value : d.shape;
+        w.hold = clamp(num('#sqWHold', d.hold), 0, 1);
+        const den = DENSITY_WORDS.find(p => p[0] === q('#sqWDen').value);
+        w.density = den ? den[1] : clamp(+q('#sqWDen').value || d.density, 0, 1);
+        w.low = this.straightOk(q('#sqWLo').value) === AS_DEALT ? d.low : q('#sqWLo').value;
+        w.high = this.straightOk(q('#sqWHi').value) === AS_DEALT ? d.high : q('#sqWHi').value;
+        w.seed = Math.max(1, Math.round(num('#sqWSeed', d.seed)));
     },
     paintWaves() {
         const line = this.el && this.el.querySelector('#sqWaves'); if (!line) return;
         line.style.display = this.wavesOpen ? 'flex' : 'none';
         const n = this.row.boxes.filter(b => b.dyn === WAVES).length, tog = this.el.querySelector('#sqWavesTog');
         if (tog) { tog.textContent = 'waves' + (n ? ' ∿' + n : '') + (this.wavesOpen ? ' ▾' : ' ▸'); tog.style.background = this.wavesOpen ? '#2a2140' : '#2a2a30'; }   // ∿N: how many boxes read the waves
-        const w = this.row.waves, q = s => line.querySelector(s); if (!q('#sqWVals')) return;
+        const w = this.row.waves, q = s => line.querySelector(s); if (!q('#sqWShort')) return;
         const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
-        put('#sqWVals', w.lengths.values.join(' '));
-        put('#sqWW', w.lengths.weights && w.lengths.weights.some(x => x != null) ? w.lengths.weights.map(x => (x == null ? '-' : (Math.round(x * 1000) / 10) + '%')).join(' ') : '');
-        put('#sqWLo', w.low); put('#sqWHi', w.high); put('#sqWDen', w.density); put('#sqWPeak', w.peak); put('#sqWSeed', w.seed);
+        const old = this.isOldWaves(w), shown = old ? NEW_WAVES : w;   // an old line shows the preset dials it WOULD take, and says so
+        // the preset menu: the built-ins, his own after them, and an overridden built-in marked
+        const names = this.presetNames(), here = this.presetMatch();
+        const sig = names.map(n => n + (this.presetIx()[n] ? '*' : '')).join('|') + '@' + here;
+        if (sig !== this._preSig) {
+            this._preSig = sig;
+            q('#sqWPre').innerHTML = '<option value="">' + (here ? '— ' + esc(here) + ' —' : '— your own dials —') + '</option>' +
+                names.map(n => '<option value="' + esc(n) + '">' + esc(n) + (this.presetIx()[n] ? (WAVE_PRESETS[n] ? ' (yours, over the built-in)' : ' (yours)') : '') + '</option>').join('');
+        }
+        q('#sqWPre').value = '';
+        if (!q('#sqWDen').options.length) q('#sqWDen').innerHTML = DENSITY_WORDS.map(p => '<option value="' + p[0] + '">' + p[0] + '</option>').join('') + '<option value="">(a number)</option>';
+        put('#sqWShort', shown.shortest); put('#sqWLong', shown.longest); put('#sqWTilt', shown.tilt || 0);
+        put('#sqWShape', shown.shape); put('#sqWHold', shown.hold);
+        put('#sqWDen', this.densityWord(shown.density) || '');
+        put('#sqWLo', w.low); put('#sqWHi', w.high); put('#sqWSeed', w.seed);
+        const tn = q('#sqWTiltN'); if (tn) tn.textContent = ' ' + (+(shown.tilt || 0)).toFixed(1);
+        const ow = q('#sqWOld'); if (ow) ow.style.display = old ? '' : 'none';
+        [q('#sqWShort'), q('#sqWLong'), q('#sqWTilt'), q('#sqWShape'), q('#sqWHold'), q('#sqWDen')].forEach(el => { if (el) el.style.opacity = old ? 0.55 : 1; });
     },
     // one control sets every box at once (his "most common situation"); any single box can then be flipped on its own line
     setAllBoxes(toWaves) {
@@ -1066,7 +1178,7 @@ const S = {
     },
     // what the waves made of the row: how many notes read them, between what, and each player's swells — or what is wrong
     wavesStatus(lead) {
-        const w = this.row.waves, txt = w.lengths.values.join(' ') + ' s · ' + w.low + ' … ' + w.high + ' · density ' + w.density + ' · peak ' + w.peak + ' · seed ' + w.seed;
+        const w = this.row.waves, txt = this.presetText() + ' · seed ' + w.seed;
         if (!this.row.boxes.some(b => b.dyn === WAVES && b.chord.length)) { this.setStatus(lead + ': ' + txt + ' — no box reads the waves yet: set a box\'s dyn to `waves`, or `all boxes → waves`'); return; }
         const G = this.generate(0); if (!G) return;   // generate() has said why (low above high, …)
         const waved = G.notes.filter(n => n.waves).length, sw = Object.keys(G.streams || {}).map(k => G.streams[k].swells);

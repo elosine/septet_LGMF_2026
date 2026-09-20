@@ -123,6 +123,12 @@ const DEFAULT_BREATH = { striation: 'staggered', length: 8, jitter: 0.35, seed: 
 const WAVES = 'waves';   // a box's dyn: read the player's stream of swells instead of holding a straight dynamic (1d.7)
 const DEFAULT_WAVES = { lengths: { values: [6, 10, 16], weights: null }, low: 'pp', high: 'mf', density: 0.7, peak: 0.5, seed: 1 };   // §109's recommendation
 const WAVE_PEAK_JITTER = 0.1;    // a swell's top wanders this far (of its length) round `peak`, seeded
+// PLAN 1d.13 — THE SWELL BY NAME (LG-49 as amended by LG-50). A swell is: rest at `low` → rise → HOLD at `high` → fall → rest.
+// The named shape is the RISE as a share of the MOVING time (the swell's length less its hold); the fall takes the rest.
+// `golden` is his default: the rise is the long part of the division, the fall the short one.
+const SHAPES = { 'golden': 0.618, 'reverse golden': 0.382, 'even': 0.5, 'surge': 0.25, 'bloom': 0.8 };
+const DEFAULT_SHAPE = 'golden', DEFAULT_HOLD = 0.2;
+const TILT_K = 1.5;   // `tilt` −1 … +1 bends the draw between `shortest` and `longest`: u^exp(−tilt · TILT_K), 0 = even
 const NIENTE = 'niente', EXITS = ['together', 'one by one'];   // the edges (1d.8)
 const DEFAULT_EDGES = { fadeIn: 0, fadeInFrom: NIENTE, fadeOut: 0, fadeOutTo: NIENTE, exit: 'together' };
 const FADE_CURVE = 'linear';     // the niente fade's weight, start to end (morph.js curveEase) — a number for his ear
@@ -267,11 +273,18 @@ function validate(recipe, ctx) {
         if (!ladder) msgs.push('waves need the drawer\'s ladder (dyn_ui.js StrikeDyn) for `low` and `high`, and it is not loaded');
         else if (ladder.NAMES.indexOf(W.low) < 0 || ladder.NAMES.indexOf(W.high) < 0) msgs.push('waves.low and waves.high must be on the ladder ' + ladder.NAMES.join(' ') + ' — got ' + JSON.stringify(W.low) + ' and ' + JSON.stringify(W.high));
         else if (!(ladder.ANCHOR[W.low] < ladder.ANCHOR[W.high])) msgs.push('waves.low (' + W.low + ') must be below waves.high (' + W.high + ')');
-        if (!Array.isArray(L.values) || !L.values.length || !L.values.every(x => isFinite(+x) && +x > 0)) msgs.push('waves.lengths needs values — seconds, each more than 0');
+        if (W.shape != null) {   // 1d.13: the preset dials — lengths between two numbers, a named shape, a hold at the top
+            if (SHAPES[W.shape] == null) msgs.push('waves.shape must be one of ' + Object.keys(SHAPES).join(' · ') + ' — got ' + JSON.stringify(W.shape));
+            if (!(+W.shortest > 0) || !(+W.longest > 0)) msgs.push('waves.shortest and waves.longest are seconds, each more than 0 — got ' + W.shortest + ' and ' + W.longest);
+            else if (+W.shortest > +W.longest) msgs.push('waves.shortest (' + W.shortest + ' s) must not be longer than waves.longest (' + W.longest + ' s)');
+            if (W.hold != null && !(+W.hold >= 0 && +W.hold <= 1)) msgs.push('waves.hold is a share of the swell, 0 … 1 — got ' + W.hold);
+            if (W.tilt != null && !(+W.tilt >= -1 && +W.tilt <= 1)) msgs.push('waves.tilt runs −1 (short) … +1 (long) — got ' + W.tilt);
+        }
+        else if (!Array.isArray(L.values) || !L.values.length || !L.values.every(x => isFinite(+x) && +x > 0)) msgs.push('waves.lengths needs values — seconds, each more than 0');
         else if (L.weights != null && (!Array.isArray(L.weights) || L.weights.length > L.values.length)) msgs.push('waves.lengths.weights must be one weight per value, or none');
         if (!(+W.density >= 0 && +W.density <= 1)) msgs.push('waves.density must be 0 … 1');
         if (!(+W.peak >= 0 && +W.peak <= 1)) msgs.push('waves.peak must be 0 … 1');
-        if (!poolOf(ctx)) msgs.push('waves need time_containers.js and it is not loaded');
+        if (W.shape == null && !poolOf(ctx)) msgs.push('waves need time_containers.js for their POOL of lengths, and it is not loaded');
     }
     return msgs;
 }
@@ -314,15 +327,32 @@ function poolStream(TCm, pool, seed, tag) {
 // written LEVELS when 1d.7 built it; 1d.12 made it a height, because a box may now read the SAME dealt waves through a RANGE OF
 // ITS OWN, and a level can only be arrived at once the range is known. The deal, the timing and the swells are untouched by any
 // range: only the map at the end of it changes.
+// 1d.13: with a `shape` in the dials the slot lengths are drawn between `shortest` and `longest`, bent by `tilt`, and every
+// swell has a named shape and a HOLD at its top. WITHOUT one — an old recipe, a typed pool and a `peak` — nothing below
+// changes: the pool draws the lengths and the top wanders round `peak`. That is how 1d.7's sequences keep their notes.
 function buildStream(TCm, W, key, until) {
-    const rng = rngFor(W.seed, key + '~waves', 0), draw = poolStream(TCm, W.pool, W.seed, key + '~swells');
+    const rng = rngFor(W.seed, key + '~waves', 0);
+    const byShape = W.shape != null;
+    const rngLen = byShape ? rngFor(W.seed, key + '~lengths', 0) : null;
+    const pool = byShape ? null : poolStream(TCm, W.pool, W.seed, key + '~swells');
+    const span = byShape ? Math.max(0, W.longest - W.shortest) : 0, exp = byShape ? Math.exp(-W.tilt * TILT_K) : 1;
+    const draw = byShape ? (() => W.shortest + span * Math.pow(rngLen(), exp)) : pool;
     let len = draw(), swells = 0, flats = 0;
-    if (len == null) return { points: [[0, 0], [r3(until), 0]], swells: 0, flats: 0 };
+    if (len == null || !(len > 0)) return { points: [[0, 0], [r3(until), 0]], swells: 0, flats: 0 };
     let t = -rng() * len;   // out of step from the first second: the first slot began before the sequence did
     const pts = [[t, 0]];
     while (t < until && len != null) {
-        const isSwell = rng() < W.density, pj = rng();   // always two draws a slot
-        if (isSwell) { const pk = Math.max(0.1, Math.min(0.9, W.peak + (pj * 2 - 1) * WAVE_PEAK_JITTER)); pts.push([t + pk * len, 1]); swells++; } else flats++;
+        const isSwell = rng() < W.density, pj = rng();   // ALWAYS two draws a slot, either way — so turning `density` re-deals no length
+        if (isSwell) {
+            if (byShape) {
+                // the shape is exact: the character comes from the lengths, the density and the hold now, not from a wobble on the top
+                const holdT = W.hold * len, mv = len - holdT, up = t + W.rise * mv;
+                pts.push([up, 1]); if (holdT > 1e-6) pts.push([up + holdT, 1]);
+            } else {
+                const pk = Math.max(0.1, Math.min(0.9, W.peak + (pj * 2 - 1) * WAVE_PEAK_JITTER)); pts.push([t + pk * len, 1]);
+            }
+            swells++;
+        } else flats++;
         t += len; pts.push([t, 0]);
         len = draw();
     }
@@ -520,7 +550,14 @@ function generate(recipe, ctx) {
     if (R.containers.some(c => c.dyn === WAVES && c.chord !== null)) {
         Wd = Object.assign({}, DEFAULT_WAVES, R.waves || {});
         const hOf = name => clamp01((ladder.ANCHOR[name] - ladder.LO) / (ladder.HI - ladder.LO));
-        W = { pool: { values: Wd.lengths.values.map(Number), weights: Wd.lengths.weights || null }, lo: hOf(Wd.low), hi: hOf(Wd.high), density: clamp01(+Wd.density), peak: clamp01(+Wd.peak), seed: Wd.seed | 0 };
+        W = { pool: (Wd.lengths && Wd.lengths.values) ? { values: Wd.lengths.values.map(Number), weights: Wd.lengths.weights || null } : null,
+            lo: hOf(Wd.low), hi: hOf(Wd.high), density: clamp01(+Wd.density), peak: clamp01(+Wd.peak), seed: Wd.seed | 0 };
+        if (Wd.shape != null) {   // 1d.13: the preset dials
+            W.shape = Wd.shape; W.rise = SHAPES[Wd.shape] != null ? SHAPES[Wd.shape] : SHAPES[DEFAULT_SHAPE];
+            W.hold = clamp01(Wd.hold == null ? DEFAULT_HOLD : +Wd.hold);
+            W.shortest = Math.max(0.1, +Wd.shortest || 1); W.longest = Math.max(W.shortest, +Wd.longest || W.shortest);
+            W.tilt = Math.max(-1, Math.min(1, +Wd.tilt || 0));
+        }
         streams = {}; const TCm = poolOf(ctx);
         players.forEach(p => { streams[p.key] = buildStream(TCm, W, p.key, (end - bounds[0]) + MAX_SEG_HARD_S); });
     }
@@ -611,6 +648,6 @@ function generate(recipe, ctx) {
     return out;
 }
 
-return { generate, validate, keyChord, striationPhase, levelAt, STRIATIONS, CHANGES, EXITS, NIENTE, AS_DEALT, WAVES, DEFAULT_BREATH, DEFAULT_WAVES, DEFAULT_EDGES,
+return { generate, validate, keyChord, striationPhase, levelAt, STRIATIONS, CHANGES, EXITS, NIENTE, AS_DEALT, WAVES, DEFAULT_BREATH, DEFAULT_WAVES, DEFAULT_EDGES, SHAPES, DEFAULT_SHAPE, DEFAULT_HOLD,
          NUMBERS: { MIN_GAP_S, MAX_SEG_HARD_S, MIN_BREATH_S, RUNT_S, FIXED_LEN_S, WAIT_MAX_S } };
 }));

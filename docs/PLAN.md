@@ -918,7 +918,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       four controls lands on every selected box and on no other.
     - **His test:** roll twelve boxes → click 5, SHIFT+click 9 → `waves` → `range ppp mp` → SPACE → `dyn p` on 1–4 → `enter
       seamless` on 5–9 → SPACE.
-  - **1d.13 — THE WAVES BY PRESET** (one menu fills every dial; `breathing` is the default; `save preset` keeps his own) — `todo` —
+  - **1d.13 — THE WAVES BY PRESET** (one menu fills every dial; `breathing` is the default; `save preset` keeps his own) — **BUILT 2026-09-20 — RUNNING_LOG §153, SEQUENCE_TOOL §18; his test outstanding** —
     LG-49 · RUNNING_LOG §138, **as amended by LG-50 (§146).**
     *Why:* he does not want to type seconds, weights or a peak — *"a sort of presets situation … a way to easily generate a
     behavior"* — and *"probably need to refine all presets while composing"*, so a preset must be cheap to change and keep.

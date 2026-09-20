@@ -438,5 +438,73 @@ rBad({ low: 'pp', high: 'quiet' }, /range\.low and range\.high must be on the la
 rBad({ low: 'ff', high: 'pp' }, /range\.low \(ff\) must be below range\.high/, 'a range upside down');
 rBad('pp-mf', /range must be \{ low, high \}/, 'a range that is not two dynamics');
 
+
+// ---------------------------------------------------------------- 17 · the waves by PRESET (PLAN 1d.13)
+// The dials became a behaviour: lengths between `shortest` and `longest` bent by `tilt`, a named SHAPE, and a HOLD at the top.
+// An old recipe — a typed pool and a `peak` — still takes the 1d.7 path, and `shape` is what tells them apart.
+const PRE = { shortest: 8, longest: 20, tilt: 0, shape: 'golden', hold: 0.2, density: 0.6, low: 'pp', high: 'mf', seed: 1 };
+const preRow = (over) => wavesRow('seamless', ['waves'], Object.assign({}, PRE, over || {}));
+// every slot of a stream, read back off its points: { len, swell, rise, hold }
+const slotsIn = (G, k) => {
+    const p = G.streams[k].points, out = [];
+    for (let i = 0; i < p.length - 1; i++) {
+        if (p[i][1] !== 0) continue;
+        let j = i + 1; const tops = [];
+        while (j < p.length && p[j][1] !== 0) { tops.push(p[j][0]); j++; }
+        if (j >= p.length) break;
+        const len = p[j][0] - p[i][0];
+        out.push({ len: len, swell: tops.length > 0, up: tops.length ? tops[0] - p[i][0] : null, hold: tops.length > 1 ? tops[1] - tops[0] : 0 });
+        i = j - 1;
+    }
+    return out;
+};
+const allSlots = G => Object.keys(G.streams).reduce((a, k) => a.concat(slotsIn(G, k)), []);
+const P1 = SEQ.generate(preRow(), ctx), S1 = allSlots(P1);
+ok(S1.length > 20 && S1.every(s => s.len >= PRE.shortest - 0.002 && s.len <= PRE.longest + 0.002),
+   S1.length + ' slots across the eight players, every one between `shortest` and `longest` (' + PRE.shortest + ' … ' + PRE.longest + ' s)');
+const mean = ss => ss.reduce((a, s) => a + s.len, 0) / ss.length;
+const MSHORT = mean(allSlots(SEQ.generate(preRow({ tilt: -1 }), ctx))), MEVEN = mean(S1), MLONG = mean(allSlots(SEQ.generate(preRow({ tilt: 1 }), ctx)));
+ok(MSHORT < MEVEN - 1 && MEVEN < MLONG - 1,
+   'the tilt moves the mean and nothing else: −1 → ' + MSHORT.toFixed(2) + ' s · 0 → ' + MEVEN.toFixed(2) + ' s · +1 → ' + MLONG.toFixed(2) + ' s');
+// the named shapes: the RISE as a share of the MOVING time (the length less the hold)
+Object.keys(SEQ.SHAPES).forEach(sh => {
+    const G = SEQ.generate(preRow({ shape: sh }), ctx), sw = allSlots(G).filter(s => s.swell);
+    const worst = Math.max.apply(null, sw.map(s => Math.abs(s.up / (s.len - s.hold) - SEQ.SHAPES[sh])));
+    ok(sw.length > 5 && worst < 0.002, sh + ': every swell rises in ' + (SEQ.SHAPES[sh] * 100).toFixed(1) + '% of its moving time (' + sw.length + ' swells, worst ' + worst.toFixed(4) + ') — the shape is exact, no wobble');
+});
+// the hold, as a share of the swell's whole length
+[0, 0.2, 0.5].forEach(h => {
+    const sw = allSlots(SEQ.generate(preRow({ hold: h }), ctx)).filter(s => s.swell);
+    const worst = Math.max.apply(null, sw.map(s => Math.abs(s.hold / s.len - h)));
+    ok(sw.length > 5 && worst < 0.002, 'hold ' + h + ': every swell sits that share of its own length at the top (worst ' + worst.toFixed(4) + ')');
+});
+// density in the words the drawer offers, measured over a long deal
+[['constant', 1], ['breathing', 0.6], ['rare', 0.15]].forEach(([word, d]) => {
+    const ss = allSlots(SEQ.generate(preRow({ density: d }), ctx)), got = ss.filter(s => s.swell).length / ss.length;
+    ok(ss.length > 20 && Math.abs(got - d) < 0.18, word + ' (' + d + '): ' + (got * 100).toFixed(0) + '% of ' + ss.length + ' slots are swells');
+});
+// the five built-in presets each give their own behaviour, and none is refused
+const BUILTIN = { breathing: [8, 20, 'golden', 0.2, 0.6], tides: [20, 45, 'even', 0.1, 1], ripples: [3, 8, 'even', 0, 0.8], surges: [6, 14, 'surge', 0.1, 0.35], blooms: [12, 30, 'bloom', 0.35, 0.15] };
+Object.keys(BUILTIN).forEach(nm => {
+    const [lo, hi, sh, hold, den] = BUILTIN[nm];
+    const R = preRow({ shortest: lo, longest: hi, shape: sh, hold: hold, density: den });
+    const m = SEQ.validate(R, ctx), G = SEQ.generate(R, ctx), ss = allSlots(G), sw = ss.filter(s => s.swell);
+    ok(!m.length && ss.every(s => s.len >= lo - 0.002 && s.len <= hi + 0.002) && (!sw.length || Math.abs(sw[0].up / (sw[0].len - sw[0].hold) - SEQ.SHAPES[sh]) < 0.002),
+       'preset `' + nm + '` — ' + lo + '–' + hi + ' s · ' + sh + ' · hold ' + hold + ' · density ' + den + ': ' + ss.length + ' slots, ' + sw.length + ' swells, all in range');
+});
+// AN OLD RECIPE IS UNCHANGED — the pool and the `peak`, untouched by any of this
+const OLD = SEQ.generate(wavesRow('seamless', ['waves']), ctx);
+ok(j(OLD.notes) === j(WS.notes) && j(OLD.streams) === j(WS.streams),
+   'an old waves line — a typed pool and a `peak`, no `shape` — gives the notes it always gave, to the byte');
+const oldSlots = allSlots(OLD);
+ok(oldSlots.every(s => WV.lengths.values.indexOf(r3(s.len)) >= 0) && oldSlots.filter(s => s.swell).every(s => s.hold === 0),
+   'and it still draws its lengths from the pool ' + WV.lengths.values.join(' ') + ' s, with no hold at the top');
+// refusals
+const wvBad = (over, re, what) => { const m = SEQ.validate(preRow(over), ctx); ok(m.some(x => re.test(x)), 'refused — ' + what + ': "' + (m.find(x => re.test(x)) || m[0] || 'NOTHING WAS REFUSED') + '"'); };
+wvBad({ shape: 'swoop' }, /waves\.shape must be one of/, 'a shape that is not one of the five');
+wvBad({ shortest: 20, longest: 8 }, /waves\.shortest .* must not be longer than/, 'shortest longer than longest');
+wvBad({ hold: 2 }, /waves\.hold is a share of the swell/, 'a hold of 2');
+wvBad({ tilt: -3 }, /waves\.tilt runs/, 'a tilt of −3');
+
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);
