@@ -423,3 +423,29 @@ the note's `cc7Fade` in SCORE seconds — so **a faded sequence dragged in the s
 in place.** The fade OUT needed an opt-in `to` in `Morph.fadeWeight` (absent = 1, the line it always was) — RUNNING_LOG §131.
 
 **Verified in the running app, no MIDI (RUNNING_LOG §131 has every number). `sequence_check` 126. Not verified: sound.**
+
+---
+
+## 15 · The window — floating, sized, remembered (2026-09-20)
+
+His words: *"can I get the sequence panel floating and can you increase all the fonts by 4pt"* — RUNNING_LOG §132.
+
+**It floats.** The strip is no longer docked along the bottom: it is a window with its own place and size.
+
+- **Drag it by the head** — anywhere on the head that is not a control. A control under the pointer keeps the pointer, so the name
+  box, the selects and the buttons all still work; the head shows `move` and they do not.
+- **Size it by the bottom-right corner** (the browser's own grip). It will not go below **560 × 220**. Making it TALLER makes the
+  boxes taller — the row grows with the window.
+- **It comes back where you left it**, across a close, a reopen and a reload. The geometry is the browser's: it lives in
+  `localStorage` beside the row, **never in the score file and never in a recipe**, so it does not travel with a sequence and two
+  machines can place it differently.
+- **The strikes drawer keeps the bottom of the screen.** It used to be pushed up by the strip's height and capped; it is not any
+  more, and the sequence window floats over it.
+
+**The type.** Every size in the strip is **one constant, `FS` at the head of `sequence_ui.js`** — 15, which is the old 11 plus the
+4 he asked for. One injected rule gives it to every input, select and button (form controls do not inherit type), and every width
+and height in the strip is written in `em`, so they are proportions and follow `FS` on their own. **To change the size again,
+change that one number** — nothing clips.
+
+**Nothing in `strike_drawer.js` was touched** (his answer 2a: this panel only), and `sequence.js` was not touched either, so the
+1d gate stands untouched at `sequence_check` **126**.

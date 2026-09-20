@@ -5589,3 +5589,81 @@ all back, not dirty · the strip with all four lines open: 330 px at 1280, nothi
 
 **Known, said to him:** a faded sequence DRAGGED in the score keeps its old fade windows (they are score seconds, as the morph's are)
 until it is re-inserted in place — one click, and the status of the drawer says where it sits.
+## §132. The sequence drawer becomes a FLOATING WINDOW, and every font in it goes up 4 — three bugs of my own on the way (2026-09-20)
+
+**What prompted it.** His first words of the session, in the `/postclear` line itself:
+
+> *"can I get the sequence panel floating and can you increase all the fonts by 4pt"*
+
+Two questions were put to him before anything was touched, because each had a fork that changes the work.
+
+**His answers: 1b and 2a.**
+
+- **1b — a real floating window:** draggable, resizable, **and its place remembered across reloads**. (1a was drag only; 1c was
+  undocked but fixed. The argument for b: he opens this panel constantly, and re-placing it at every reload would wear thin.)
+- **2a — the sequence panel ONLY.** Not the strikes drawer beside it. The AI's own recommendation had been 2b, on the grounds
+  that the two drawers read as one family and bumping one alone will make them mismatch; **he chose a, and a is what was built.**
+  `strike_drawer.js` is untouched again, which keeps LG-32's constraint intact without having to ask.
+
+**THE FONTS — one number, not one per control.** The strip had eight hand-written sizes (`11px` on the panel, on `INP`, on `BTN`,
+`10px` on three pieces of small print, `11px` on the preview button, `12px` on the closed-state tab) and **41 hand-written widths
+and heights in `px`** — every input on the roll, breath, waves and edges lines, the box minimum, the name and list boxes, the
+separators, the status line. Bumping the type alone would have clipped every one of them.
+
+So the size became **one constant, `FS = 15`** (11 + 4), and:
+
+- the panel carries it (`font: FS px/1.4`), and **one injected rule, `#sqStyle`, gives it to every `input`, `select` and `button`
+  inside the strip** — form controls do not inherit type, which is why the sizes were on `INP`/`BTN` in the first place. Those two
+  constants lost their own `font-size`, so there is now exactly one place that says how big the strip is.
+- **every laid-out width and height was converted from `px` to `em`** by script (41 of them, each logged), at the 11 px they were
+  chosen against — `width:44px` → `width:4em`. They are now proportions, so they follow `FS` on their own. Hairlines (the 1 px
+  separators, the 2 px playhead) were left alone by a threshold, not by hand.
+- the small print became `.9em` and the preview button `1em`; the tab is `FS + 1`.
+
+**The point:** if he says "another two" it is one number, and nothing clips. Measured in the running app: panel 15 px, buttons
+15 px, selects 15 px, the small print 13.5 px, the tab 16 px.
+
+*(On `pt` vs `px`: he said 4pt and the file is written in px. +4 px was taken as the plain reading — a true typographic +4 pt would
+be +5.33 px. If he wants that it is `FS = 16.3`, one number.)*
+
+**THE WINDOW.** `position:fixed` with its own `left/top/width/height` instead of `left:0;right:0;bottom:0`; a full border and a
+6 px radius instead of a top border alone; `resize:both`, the browser's own grip at the bottom-right, floored at 560 × 220. Dragged
+by the head — but **never by anything he can click**: a `pointerdown` whose target is inside an `input`, `select`, `button`,
+`textarea` or `option` is left to that control. The head shows `cursor:move`, its controls do not. The boxes row was `flex:none`
+at a fixed 120 px; it is now `flex:1 1 auto`, so **making the window taller makes the boxes taller** — which is the point of
+letting him size it. The geometry lives in `localStorage` beside the row, **never in the score file and never in a recipe**: it is
+the browser's, not the piece's.
+
+**And the strip no longer stands on the strikes drawer.** `fitStrikes()` used to push the drawer up by the strip's height and cap
+its `maxHeight`; it now just puts the drawer back on the bottom of the screen, idempotently. Verified: with both open the strikes
+drawer gets the full 860 px again (it was capped before) and the sequence floats over it, z 9001 against 9000.
+
+### THREE BUGS OF MY OWN, all found by verifying, all of a kind worth recording
+
+1. **A hidden element measures 0 × 0.** `placeWindow()` runs from `build()`, where the panel is still `display:none`. `clampWindow()`
+   read `offsetWidth` → 0, fell back to the minimum, and the window came up **560 × 220 in the top-left corner** instead of
+   1180 × 360 along the bottom — and then **saved `{0,0,0,0}`**, which would have been restored as a real geometry for ever after.
+   This is the same trap as the resize-before-read rule in §2's verify recipe, in another guise. **Fixed by holding the geometry as
+   NUMBERS in `this._win` and measuring the element only when it is visible** — the one case that can legitimately be bigger than we
+   think, because he dragged the corner. A saved size under the minimum is now rejected as a bad save, which self-heals the store.
+2. **`parseFloat('0px') || was` throws away a legitimate zero.** A window dragged hard against the left edge saved its OLD x — the
+   element sat at 0 and the store said 50. Replaced with an explicit `isFinite` test. The classic falsy-zero, in a place where 0 is
+   the most likely value a user produces.
+3. **A `ResizeObserver` with no reference of its own is collected.** It was written `new ResizeObserver(...).observe(d)` — no handle.
+   The handle is now kept on `this._ro`. **But that was not the whole story:** after the fix it still never fired, and a control
+   observer created in the console fired 0 times on the same element over 500 ms while the element demonstrably changed size.
+   **`ResizeObserver` is delivered on the rendering lifecycle, and the in-app browser pane was not painting**, so it delivers nothing
+   there. That is an environment limit, not a fault — but it means **the observer cannot be the only path**, on this host or any
+   other that stops painting. So the grip's own **`pointerup`** saves as well: it is the end of every drag of the corner and it needs
+   no frames at all. Two paths, either sufficient. **The pointerup path is the one that was verified here; the observer is correct by
+   construction and unverified.**
+
+**Verified in the running app** (`score-5401`, autosave stubbed, `confirm` stubbed, nothing saved, 1280 × 860): the default
+geometry (1180 × 360, centred, along the bottom where it used to be docked) · the drag, including the clamp at the left edge ·
+the resize through the grip's pointerup (1020 × 430) · **survival across close-and-reopen and across a full reload** · the strikes
+drawer restored to the bottom at full height · every font size. **Not verified: sound** — nothing about sound was touched.
+**`sequence.js` was not touched, so the 1d gate (`sequence_check` 126) is untouched and was not re-run.**
+
+**Decided alone, his to reverse:** the default window is 1180 × 360 centred along the bottom, so the first open looks like the
+docked strip he knows · a minimum of 560 × 220 · the boxes row grows with the window rather than staying at 120 px · the geometry
+is per-browser (localStorage), not per-score.

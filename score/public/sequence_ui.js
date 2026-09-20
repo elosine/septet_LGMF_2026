@@ -89,7 +89,10 @@ const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own
 
 const STORE = 'lgmf.sequenceDrawer.v1';
 const TC = () => root.TimeContainers || null;   // time_containers.js — piece #5's roll, its own module, not changed
-const ROW_H = 120;   // the boxes' row. The strip's own height is its content's — the roll line may wrap — and stripH() reads it back
+const ROW_H = 120;   // the boxes' row: its share of the window when nothing is saved. The row GROWS with the window now (floating, 2026-09-20)
+const FS = 15;       // +4 at his word (2026-09-20). THE ONE NUMBER: every size in this strip is this or a proportion of it — change it and the whole strip scales.
+                     // Every width, padding and small size below was laid out against 11px and is written in `em`, so it follows FS on its own.
+const WIN = { W: 1180, H: 360, MINW: 560, MINH: 220, PAD: 12 };   // the floating window: its size when nothing is saved, and how small it may be dragged
 const COLOR = '#5E9FB8', EDGE_ON = '#9fdcf5', EDGE_OFF = '#34525f';
 const AS_DEALT = SEQ.AS_DEALT;
 const DEF_DUR = 8, MIN_DUR = 0.1, MAX_DUR = 3600;   // 0.1: a rolled container on a small unit may be short
@@ -98,8 +101,8 @@ const WAVES = SEQ.WAVES;   // a box's dyn: read the waves (1d.7)
 const RAMP_MS = 50, RAMP_LEAD_MS = 15;   // Hear's CC7 ramp: a point every 50 ms where the value changes; the first lands AFTER playNotes' own CC7 (30 ms before the note) and before the note-on
 const WTINT = '#c8a2ff';
 const PREVIEW_S = 5;     // a box's preview: its chord held this long (or the box's own seconds, if shorter) — under every ceiling
-const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px;font-size:11px';
-const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';
+const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px';   // the size comes from the panel (FS) through #sqStyle — one number, not one per control
+const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;cursor:pointer';
 const NAMES12 = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -129,7 +132,7 @@ const S = {
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
     newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, chord: [], frozen: '' }; },
-    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen })); } catch (e) {} },
+    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen })); } catch (e) {} },
     restore() {
         let st = null; try { st = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { st = null; }
         const r = st && st.row;
@@ -160,28 +163,29 @@ const S = {
         }
         const d = document.createElement('div');
         d.id = 'sequenceDrawer'; d.tabIndex = -1;
-        d.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9001;background:#181c20;border-top:2px solid ' + EDGE_OFF + ';' +
-            'color:#ddd;font:11px/1.4 system-ui,sans-serif;display:none;box-shadow:0 -6px 24px rgba(0,0,0,.55);overflow:hidden;flex-direction:column;outline:none';
+        d.style.cssText = 'position:fixed;z-index:9001;background:#181c20;border:1px solid ' + EDGE_OFF + ';border-top:2px solid ' + EDGE_OFF + ';border-radius:6px;' +
+            'color:#ddd;font:' + FS + 'px/1.4 system-ui,sans-serif;display:none;box-shadow:0 10px 34px rgba(0,0,0,.6);overflow:hidden;flex-direction:column;outline:none;' +
+            'resize:both;min-width:' + WIN.MINW + 'px;min-height:' + WIN.MINH + 'px';   // resize:both is the browser's own grip, bottom-right; ResizeObserver below remembers what he drags it to
         const L = LADDER();
         d.innerHTML =
             '<div id="sqHead" style="display:flex;gap:8px;row-gap:3px;flex-wrap:wrap;align-items:center;padding:4px 8px;white-space:nowrap;border-bottom:1px solid #2c3238">' +   // 1d.5: it WRAPS, as the roll line does — at 1280 px a placed sequence\'s head was 61 px too long before `breath` was added, and its × was cut off
               '<b style="color:' + COLOR + ';letter-spacing:.08em">SEQUENCE</b>' +
-              '<input id="sqName" type="text" placeholder="name" maxlength="48" style="width:120px;' + INP + '" title="a name for this sequence — it goes into the score file with the recipe">' +
-              '<select id="sqList" style="max-width:200px;' + INP + '" title="the sequences placed in the open score (its databases.sequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
+              '<input id="sqName" type="text" placeholder="name" maxlength="48" style="width:10.909em;' + INP + '" title="a name for this sequence — it goes into the score file with the recipe">' +
+              '<select id="sqList" style="max-width:18.182em;' + INP + '" title="the sequences placed in the open score (its databases.sequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
               '<label title="how a new chord is taken — attack: everyone starts AT the line, together · seamless: each player takes the new chord at its next breath">change <select id="sqChange" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
               '<button id="sqAdd" style="' + BTN + '" title="add a container at the end of the row">+ container</button>' +
               '<button id="sqRollTog" style="' + BTN + ';color:#e8a06a" title="the ROLL: a set of time containers rolled from a pool of numbers — it lays out the row\'s durations for you">roll</button>' +
               '<button id="sqBreathTog" style="' + BTN + ';color:#8fd0a0" title="the BREATH: how the players breathe and bow under the chords — the morph\'s numbers until you touch one. Never together, sometimes, always; short breaths with long">breath</button>' +
               '<button id="sqWavesTog" style="' + BTN + ';color:' + WTINT + '" title="the WAVES: every player rises and falls on a stream of swells of their own, out of step with the others. A box READS the waves when its dyn is `waves`; any box can step out to a straight dynamic and the waves run on under it">waves</button>' +
               '<button id="sqEdgesTog" style="' + BTN + ';color:#e6c46a" title="the EDGES: how the sequence begins and ends — a fade in from nothing (or from a dynamic), a fade out to nothing (or to a dynamic), and whether the players end together or one by one, each finishing a last breath of their own. How it BEGINS — together or staggered — is box 1\'s `enter`">edges</button>' +
-              '<span style="width:1px;height:16px;background:#3a4148"></span>' +
+              '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, or from the selected box on">hear <select id="sqFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option></select></label>' +
               '<button id="sqHear" style="' + BTN + '" title="play the sequence through the strikes drawer\'s own player — the same levels, the same bends (SPACE)">Hear</button>' +
               '<button id="sqStop" style="' + BTN + '">Stop</button>' +
               '<button id="sqInsert" style="' + BTN + '">Insert @ playhead</button>' +
               '<button id="sqMove" style="' + BTN + ';display:none" title="move this sequence to the playhead — the notes where it sits now are removed and it is written again from the playhead">move to playhead</button>' +
               '<button id="sqNew" style="' + BTN + '" title="start a fresh sequence — the row is cleared; a sequence already in the score stays there">new</button>' +
-              '<span id="sqSpace" title="SPACE goes to what you clicked last — this strip, the strikes drawer, or the score" style="padding:0 5px;border:1px solid #444;border-radius:3px;font-size:10px;letter-spacing:.08em">SPACE</span>' +
+              '<span id="sqSpace" title="SPACE goes to what you clicked last — this strip, the strikes drawer, or the score" style="padding:0 5px;border:1px solid #444;border-radius:3px;font-size:.9em;letter-spacing:.08em">SPACE</span>' +
               '<span id="sqTotal" style="color:#9ab"></span>' +
               '<span style="flex:1"></span>' +
               '<button id="sqClose" style="' + BTN + '" title="close the sequence drawer (the row is kept)">&times;</button>' +
@@ -190,13 +194,30 @@ const S = {
             '<div id="sqBreath" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqEdges" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqWaves" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
-            '<div id="sqStatus" style="padding:1px 8px;height:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
-            '<div id="sqRowWrap" style="flex:none;height:' + ROW_H + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px">' +
+            '<div id="sqStatus" style="padding:1px 8px;height:1.455em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
+            '<div id="sqRowWrap" style="flex:1 1 auto;min-height:' + Math.round(ROW_H * 0.6) + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px">' +
               '<div id="sqRow" style="position:relative;display:flex;gap:3px;height:100%;min-width:100%"></div>' +
             '</div>' +
-            '<div id="sqEdit" style="display:flex;gap:8px;align-items:center;padding:4px 8px;border-top:1px solid #2c3238;white-space:nowrap;min-height:26px;overflow:hidden"></div>';
+            '<div id="sqEdit" style="display:flex;gap:8px;align-items:center;padding:4px 8px;border-top:1px solid #2c3238;white-space:nowrap;min-height:2.364em;overflow:hidden"></div>';
+        if (!document.getElementById('sqStyle')) {   // form controls do NOT inherit type: one rule gives every input, select and button in the strip the panel's size
+            const st = document.createElement('style'); st.id = 'sqStyle';
+            st.textContent = '#sequenceDrawer input,#sequenceDrawer select,#sequenceDrawer button{font:inherit}' +
+                '#sqHead{cursor:move}#sqHead input,#sqHead select,#sqHead label{cursor:auto}#sqHead button{cursor:pointer}';
+            document.head.appendChild(st);
+        }
         document.body.appendChild(d);
         this.el = d;
+        this.placeWindow();                                   // where he left it last, or along the bottom, where it used to be docked
+        this.dragBy(d.querySelector('#sqHead'));
+        // TWO WAYS TO CATCH A RESIZE, because neither is enough alone. The observer is the live one — and its handle is KEPT, since an
+        // observer with no reference of its own is collected in Blink and never fires again. But ResizeObserver is delivered on the
+        // rendering lifecycle, and a host that is not painting never delivers it (it never did in the in-app pane, where this was verified),
+        // so the grip's own pointerup saves too: that is the end of every drag of the corner, and it needs no frames at all.
+        if (window.ResizeObserver) { this._ro = new window.ResizeObserver(() => { if (this.isOpen()) this.saveWindow(); }); this._ro.observe(d); }
+        window.addEventListener('pointerup', () => {
+            const g = this._win;
+            if (this.isOpen() && g && (g.w !== this.el.offsetWidth || g.h !== this.el.offsetHeight)) this.saveWindow();
+        });
         const q = s => d.querySelector(s);
         q('#sqName').addEventListener('change', e => { this.row.name = e.target.value.trim(); this.save(); });
         q('#sqName').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
@@ -218,7 +239,7 @@ const S = {
         this.buildWaves();
         q('#sqEdgesTog').addEventListener('click', () => { this.edgesOpen = !this.edgesOpen; this.save(); this.paintEdges(); this.fitStrikes(); });
         this.buildEdges();
-        window.addEventListener('resize', () => { if (this.isOpen()) this.fitStrikes(); });   // the roll line wraps with the width, and the strikes drawer stands on the strip
+        window.addEventListener('resize', () => { if (this.isOpen()) { this.clampWindow(); this.fitStrikes(); } });   // the screen changed under a floating window: bring it back into view
         q('#sqHear').addEventListener('click', () => this.hear());
         q('#sqStop').addEventListener('click', () => this.stop());
         q('#sqInsert').addEventListener('click', () => this.insert(false));
@@ -230,7 +251,7 @@ const S = {
 
         const tab = document.createElement('div');
         tab.id = 'sequenceTab'; tab.textContent = 'SEQUENCE ▴'; tab.title = 'open the sequence drawer';
-        tab.style.cssText = 'position:fixed;right:118px;bottom:0;z-index:8999;background:#16323d;color:#bfe6f5;border:1px solid ' + COLOR + ';border-bottom:none;border-radius:6px 6px 0 0;padding:2px 12px;cursor:pointer;font:12px system-ui,sans-serif;letter-spacing:.06em';
+        tab.style.cssText = 'position:fixed;right:118px;bottom:0;z-index:8999;background:#16323d;color:#bfe6f5;border:1px solid ' + COLOR + ';border-bottom:none;border-radius:6px 6px 0 0;padding:2px 12px;cursor:pointer;font:' + (FS + 1) + 'px system-ui,sans-serif;letter-spacing:.06em';
         tab.addEventListener('click', () => this.toggle(true));
         document.body.appendChild(tab);
 
@@ -258,7 +279,7 @@ const S = {
         const b = document.getElementById('sequenceBtn');
         if (b) { b.style.background = show ? '#16323d' : ''; b.style.color = show ? '#bfe6f5' : ''; }
         const tab = document.getElementById('sequenceTab'); if (tab) tab.style.display = show ? 'none' : '';
-        if (show) { this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges(); }   // before the fit: the roll, breath, waves and edges lines are part of the strip's height
+        if (show) { this.clampWindow(); this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges(); }   // clamp first: only now can the window be measured, and the screen may have changed while it was shut
         this.fitStrikes();
         if (!show) { this.setActive(false); this.stop(); return; }
         this.setActive(true);
@@ -268,14 +289,67 @@ const S = {
     // the two drawers one above the other: while this strip is open the strikes drawer stands ON it (styles only — its code is not touched)
     stripH() { return this.isOpen() ? Math.round(this.el.getBoundingClientRect().height) : 0; },
     refit() { if (this.isOpen() && this.stripH() !== this._fitH) this.fitStrikes(); },   // the head wraps, so a longer Insert button may add a line: fit again only when the height moved
+    // THE STRIP FLOATS (2026-09-20, his call), so it no longer STANDS on the strikes drawer and the drawer keeps the bottom of the screen.
+    // This is now the one place that puts back what the docked strip used to take — idempotent, and it still re-renders the drawer.
     fitStrikes() {
-        const open = this.isOpen(), STRIP_H = this.stripH(); this._fitH = STRIP_H;
+        this._fitH = this.stripH();
         if (D.el) {
-            D.el.style.bottom = open ? STRIP_H + 'px' : '0';
-            D.el.style.maxHeight = open ? 'calc(100vh - ' + STRIP_H + 'px)' : '';
+            D.el.style.bottom = '0';
+            D.el.style.maxHeight = '';
             if (D.el.style.display !== 'none' && typeof D.render === 'function') { try { D.render(); } catch (e) {} }
         }
-        const tab = document.getElementById('strikesTab'); if (tab) tab.style.bottom = open ? STRIP_H + 'px' : '0';
+        const tab = document.getElementById('strikesTab'); if (tab) tab.style.bottom = '0';
+    },
+
+    // ------------------------------------------------------------------ the floating window (2026-09-20 — drag it by the head, size it by the corner, it comes back where he left it)
+    // The geometry is the BROWSER's, not the piece's: it lives in localStorage beside the row, never in the score file and never in a recipe.
+    winDefault() {
+        const w = Math.min(WIN.W, Math.max(WIN.MINW, window.innerWidth - 2 * WIN.PAD)), h = Math.min(WIN.H, Math.max(WIN.MINH, window.innerHeight - 2 * WIN.PAD));
+        return { x: Math.round((window.innerWidth - w) / 2), y: Math.max(WIN.PAD, window.innerHeight - h - WIN.PAD), w: Math.round(w), h: Math.round(h) };
+    },
+    placeWindow() {
+        let g = null; try { g = (JSON.parse(localStorage.getItem(STORE) || 'null') || {}).win; } catch (e) { g = null; }
+        // a size under the minimum is not a window he chose — it is a bad save, and one is on disk from the first build of this (0 × 0)
+        const ok = g && ['x', 'y', 'w', 'h'].every(k => isFinite(+g[k])) && +g.w >= WIN.MINW && +g.h >= WIN.MINH;
+        this._win = ok ? { x: +g.x, y: +g.y, w: +g.w, h: +g.h } : this.winDefault();
+        this.clampWindow();
+    },
+    // THE GEOMETRY IS HELD AS NUMBERS in this._win, never read back off a hidden element: placeWindow runs from build(), where the
+    // panel is still display:none and every measurement is 0 — that put the window in the corner at its minimum and saved 0 × 0.
+    // The element is measured only when it is VISIBLE, which is the one case that can be bigger than we think: he dragged the corner.
+    clampWindow() {   // saved on a wider screen, or dragged half off: never leave the head out of reach
+        const el = this.el, g = this._win || (this._win = this.winDefault()); if (!el) return;
+        if (this.isOpen() && el.offsetWidth) { g.w = el.offsetWidth; g.h = el.offsetHeight; }   // his own resize is the truth
+        g.w = Math.round(clamp(g.w, WIN.MINW, Math.max(WIN.MINW, window.innerWidth)));
+        g.h = Math.round(clamp(g.h, WIN.MINH, Math.max(WIN.MINH, window.innerHeight)));
+        g.x = Math.round(clamp(g.x, 0, Math.max(0, window.innerWidth - g.w)));
+        g.y = Math.round(clamp(g.y, 0, Math.max(0, window.innerHeight - g.h)));
+        el.style.width = g.w + 'px'; el.style.height = g.h + 'px'; el.style.left = g.x + 'px'; el.style.top = g.y + 'px';
+        this.save();
+    },
+    saveWindow() {
+        const el = this.el, g = this._win; if (!el || !g) return;
+        if (this.isOpen() && el.offsetWidth) { g.w = el.offsetWidth; g.h = el.offsetHeight; }   // a hidden panel measures 0 — never let that reach the store
+        const px = (v, was) => { const n = parseFloat(v); return isFinite(n) ? Math.round(n) : was; };   // NOT `|| was`: dragged hard against the left or top edge, the number IS 0
+        g.x = px(el.style.left, g.x); g.y = px(el.style.top, g.y);
+        this.save();
+    },
+    // drag by the head — but never by anything he can click: a control under the pointer keeps the pointer
+    dragBy(head) {
+        if (!head) return;
+        head.addEventListener('pointerdown', ev => {
+            if (ev.button !== 0) return;
+            const t = ev.target;
+            if (t && t.closest && t.closest('input,select,button,textarea,option')) return;
+            const el = this.el, x0 = ev.clientX, y0 = ev.clientY, l0 = parseFloat(el.style.left) || 0, t0 = parseFloat(el.style.top) || 0;
+            const move = e => {
+                el.style.left = Math.round(clamp(l0 + e.clientX - x0, 0, Math.max(0, window.innerWidth - el.offsetWidth))) + 'px';
+                el.style.top = Math.round(clamp(t0 + e.clientY - y0, 0, Math.max(0, window.innerHeight - el.offsetHeight))) + 'px';
+            };
+            const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); this.saveWindow(); };
+            window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+            ev.preventDefault();
+        });
     },
     setActive(on) {
         on = !!on && this.isOpen();
@@ -381,21 +455,21 @@ const S = {
             const on = i === this.sel, empty = !b.chord.length, np = this.players(b.chord);
             const d = document.createElement('div');
             d.className = 'sqBox'; d.dataset.i = i;
-            d.style.cssText = 'position:relative;flex:' + Math.max(0.1, +b.dur || 0) + ' 1 0;min-width:96px;box-sizing:border-box;padding:3px 6px;border-radius:4px;cursor:pointer;overflow:hidden;' +
+            d.style.cssText = 'position:relative;flex:' + Math.max(0.1, +b.dur || 0) + ' 1 0;min-width:8.727em;box-sizing:border-box;padding:3px 6px;border-radius:4px;cursor:pointer;overflow:hidden;' +
                 // 1d.4: a box with no chord is a REST — deliberate, so it is drawn quiet (dashed, dim), not as a fault
                 'background:' + (on ? '#22404d' : (empty ? '#191d21' : '#20262c')) + ';border:1px ' + (empty ? 'dashed ' : 'solid ') + (on ? EDGE_ON : (empty ? '#56606a' : '#3a4650')) + ';display:flex;flex-direction:column;justify-content:center;white-space:nowrap';
             d.title = empty ? 'a REST — silence for its duration: every player stops at its start and begins again after it. Choose a take to give it a chord' : this.chordText(b.chord);
             const own = (b.change && b.change !== this.row.change) ? b.change : null;   // 1d.8: a box entered another way than the sequence's rule wears it
-            d.innerHTML = '<div style="color:#789;font-size:10px">' + (i + 1) + (own ? ' <span style="color:#e6c46a" title="this box is entered by ' + own + ' — the sequence\'s rule is ' + this.row.change + '">' + (own === 'attack' ? '▶| attack' : '≈ seamless') + '</span>' : '') + '</div>' +
+            d.innerHTML = '<div style="color:#789;font-size:.9em">' + (i + 1) + (own ? ' <span style="color:#e6c46a" title="this box is entered by ' + own + ' — the sequence\'s rule is ' + this.row.change + '">' + (own === 'attack' ? '▶| attack' : '≈ seamless') + '</span>' : '') + '</div>' +
                 '<div style="overflow:hidden;text-overflow:ellipsis;color:' + (empty ? '#7d8790' : '#e6eef2') + (empty ? ';font-style:italic' : '') + '">' + esc(b.take || 'rest') + '</div>' +
                 '<div style="color:#9ab">' + fmtS(b.dur) + ' s' + (empty ? '' : ' · ' + (b.dyn === WAVES ? '<span style="color:' + WTINT + '">∿ waves</span>' : esc(b.dyn))) + '</div>' +   // 1d.7: a waves box wears a mark
-                '<div style="color:' + (empty ? '#7d8790' : '#7a9') + ';font-size:10px">' + (empty ? 'silence' : (np + ' player' + (np === 1 ? '' : 's') + (b.chord.length > np ? ' · ' + b.chord.length + ' notes' : ''))) + '</div>';
+                '<div style="color:' + (empty ? '#7d8790' : '#7a9') + ';font-size:.9em">' + (empty ? 'silence' : (np + ' player' + (np === 1 ? '' : 's') + (b.chord.length > np ? ' · ' + b.chord.length + ' notes' : ''))) + '</div>';
             d.addEventListener('click', () => { this.sel = i; this.save(); this.render(); });
             if (!empty) {   // the PREVIEW: this box's chord on its own — every box that holds a take has one
                 const on = this._previewing === i, pv = document.createElement('button');
                 pv.className = 'sqPrev'; pv.textContent = on ? '■' : '▸';
                 pv.title = on ? 'stop the preview' : 'PREVIEW: hear this box\'s chord on its own — everyone together, ' + fmtS(Math.min(PREVIEW_S, +b.dur || PREVIEW_S)) + ' s, at the box\'s dyn (' + b.dyn + ')';
-                pv.style.cssText = 'position:absolute;top:2px;right:3px;width:20px;height:18px;padding:0;line-height:16px;font-size:11px;cursor:pointer;border-radius:3px;border:1px solid ' + (on ? EDGE_ON : '#4a5a66') + ';background:' + (on ? '#2f5f72' : '#1a2228') + ';color:' + (on ? '#fff' : '#9fdcf5');
+                pv.style.cssText = 'position:absolute;top:2px;right:3px;width:1.818em;height:1.636em;padding:0;line-height:1.455em;font-size:1em;cursor:pointer;border-radius:3px;border:1px solid ' + (on ? EDGE_ON : '#4a5a66') + ';background:' + (on ? '#2f5f72' : '#1a2228') + ';color:' + (on ? '#fff' : '#9fdcf5');
                 pv.addEventListener('click', ev => { ev.stopPropagation(); this.preview(i); });
                 d.appendChild(pv);
             }
@@ -415,10 +489,10 @@ const S = {
         const missing = b.take && names.indexOf(b.take) < 0;
         ed.innerHTML =
             '<b style="color:' + COLOR + '">box ' + (i + 1) + '</b>' +
-            '<label title="a saved take of the strikes drawer. Choosing one LOADS it in the strikes drawer, so you see it — whatever is undealt there is replaced (save it as a take first) — and the box freezes its notes as `long tone` deals them">take <select id="sqTake" style="max-width:220px;' + INP + '"><option value="">— choose —</option>' +
+            '<label title="a saved take of the strikes drawer. Choosing one LOADS it in the strikes drawer, so you see it — whatever is undealt there is replaced (save it as a take first) — and the box freezes its notes as `long tone` deals them">take <select id="sqTake" style="max-width:20em;' + INP + '"><option value="">— choose —</option>' +
                 (missing ? '<option value="' + esc(b.take) + '">' + esc(b.take) + ' (not in the list)</option>' : '') +
                 names.map(nm => '<option value="' + esc(nm) + '">' + esc(nm) + '</option>').join('') + '</select></label>' +
-            '<label><input id="sqDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:56px;' + INP + '"> s</label>' +
+            '<label><input id="sqDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>' +
             '<label title="as dealt: each note keeps the level the take was saved at · waves: every player rises and falls on their own stream of swells, between the waves\' low and high (the `waves` line) · ppp … fff: the whole box at that dynamic, on the drawer\'s own written scale">dyn <select id="sqDyn" style="' + INP + '">' + dyns.map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('') + '</select></label>' +
             '<label title="how THIS box is entered — attack: everyone lands a breath before its line and starts AT it, together · seamless: each player takes it at their next breath. The head\'s `change` sets every box; this flips one. On box 1 it is how the sequence BEGINS: attack = everyone together, seamless = staggered">enter <select id="sqEnter" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
             '<button id="sqRefresh" style="' + BTN + '" title="read the take again — the box holds the notes as they were when it was chosen">refresh from take</button>' +
@@ -458,23 +532,23 @@ const S = {
         if (!T) { line.innerHTML = '<span style="color:#e88">time_containers.js is not loaded — no roll</span>'; return; }
         const lab = 'color:#8a8';
         line.innerHTML = '<span style="color:#e8a06a">roll</span>' +
-            '<select id="sqRPre" style="' + INP + ';max-width:170px" title="a starting point, sorted by SPREAD (largest ÷ smallest) — the spread is what you hear. Picking one fills the boxes; it is not a mode."><option value="">preset…</option>' +
+            '<select id="sqRPre" style="' + INP + ';max-width:15.455em" title="a starting point, sorted by SPREAD (largest ÷ smallest) — the spread is what you hear. Picking one fills the boxes; it is not a mode."><option value="">preset…</option>' +
                 T.PRESETS.map(p => '<option value="' + esc(p.key) + '" title="' + esc(p.note) + '">' + T.spreadOf(p.values) + '× · ' + esc(p.label) + ' — ' + p.values.join(' ') + '</option>').join('') + '</select>' +
-            '<input id="sqRVals" type="text" style="' + INP + ';width:110px" title="the numbers, separated by spaces">' +
-            '<input id="sqRW" type="text" style="' + INP + ';width:110px" placeholder="weights" title="one weight per number, or blank. 20 or 20% or 0.2 all mean a fifth; a dash or a gap means “share what is left”. Typing here puts the tilt back to the middle — a typed weight stands.">' +
-            '<label style="' + lab + '" title="weight the short values or the long ones: FILLS the weights box (weight ∝ value^k). The middle = no weights.">tilt short <input id="sqRTilt" type="range" min="-3" max="3" step="0.25" style="width:72px;vertical-align:middle"> long</label>' +
-            '<label style="' + lab + '" title="seconds per unit — one number rescales the whole set">× <input id="sqRUnit" type="number" step="0.05" min="0.01" style="' + INP + ';width:48px"> s</label>' +
-            '<label style="' + lab + '" title="the span the roll fills; it stops short and says by how much">fill <input id="sqRTot" type="number" step="1" min="1" style="' + INP + ';width:52px"> s</label>' +
-            '<label style="' + lab + '" title="how many containers. BLANK: the grey number is what the dials give now. Type a number and it FILLS the × box — the seconds per unit that makes that many fit the span, for this seed (re-roll solves it again). Typing × yourself clears it: × stays the truth">count <input id="sqRCount" type="number" step="1" min="1" style="' + INP + ';width:44px"></label>' +
-            '<label style="' + lab + '" title="how much the next container stays near the last — the periodicity">stick <input id="sqRStick" type="number" step="0.1" min="0" max="4" style="' + INP + ';width:44px"></label>' +
-            '<label style="' + lab + '" title="how often it deliberately leaps far — the interruption">interrupt <input id="sqRJump" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:44px"></label>' +
+            '<input id="sqRVals" type="text" style="' + INP + ';width:10em" title="the numbers, separated by spaces">' +
+            '<input id="sqRW" type="text" style="' + INP + ';width:10em" placeholder="weights" title="one weight per number, or blank. 20 or 20% or 0.2 all mean a fifth; a dash or a gap means “share what is left”. Typing here puts the tilt back to the middle — a typed weight stands.">' +
+            '<label style="' + lab + '" title="weight the short values or the long ones: FILLS the weights box (weight ∝ value^k). The middle = no weights.">tilt short <input id="sqRTilt" type="range" min="-3" max="3" step="0.25" style="width:6.545em;vertical-align:middle"> long</label>' +
+            '<label style="' + lab + '" title="seconds per unit — one number rescales the whole set">× <input id="sqRUnit" type="number" step="0.05" min="0.01" style="' + INP + ';width:4.364em"> s</label>' +
+            '<label style="' + lab + '" title="the span the roll fills; it stops short and says by how much">fill <input id="sqRTot" type="number" step="1" min="1" style="' + INP + ';width:4.727em"> s</label>' +
+            '<label style="' + lab + '" title="how many containers. BLANK: the grey number is what the dials give now. Type a number and it FILLS the × box — the seconds per unit that makes that many fit the span, for this seed (re-roll solves it again). Typing × yourself clears it: × stays the truth">count <input id="sqRCount" type="number" step="1" min="1" style="' + INP + ';width:4em"></label>' +
+            '<label style="' + lab + '" title="how much the next container stays near the last — the periodicity">stick <input id="sqRStick" type="number" step="0.1" min="0" max="4" style="' + INP + ';width:4em"></label>' +
+            '<label style="' + lab + '" title="how often it deliberately leaps far — the interruption">interrupt <input id="sqRJump" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4em"></label>' +
             '<select id="sqRContour" style="' + INP + '" title="the accordion: the size the roll is pulled toward across the span">' + T.CONTOURS.map(c => '<option value="' + c[0] + '">' + esc(c[1]) + '</option>').join('') + '</select>' +
             '<span id="sqRShape" style="display:none;gap:4px;align-items:center">' +
-                '<label style="' + lab + '" title="where the reversal sits — the asymmetry">turn <input id="sqRTurn" type="number" step="0.05" min="0.02" max="0.98" style="' + INP + ';width:44px"></label>' +
-                '<label style="' + lab + '" title="broad (below 1) or sharp (above 1) at the turn">bow <input id="sqRBow" type="number" step="0.1" min="0.1" max="4" style="' + INP + ';width:44px"></label>' +
-                '<label style="' + lab + '" title="how hard the contour pulls">depth <input id="sqRDepth" type="number" step="0.1" min="0" max="4" style="' + INP + ';width:44px"></label>' +
+                '<label style="' + lab + '" title="where the reversal sits — the asymmetry">turn <input id="sqRTurn" type="number" step="0.05" min="0.02" max="0.98" style="' + INP + ';width:4em"></label>' +
+                '<label style="' + lab + '" title="broad (below 1) or sharp (above 1) at the turn">bow <input id="sqRBow" type="number" step="0.1" min="0.1" max="4" style="' + INP + ';width:4em"></label>' +
+                '<label style="' + lab + '" title="how hard the contour pulls">depth <input id="sqRDepth" type="number" step="0.1" min="0" max="4" style="' + INP + ';width:4em"></label>' +
             '</span>' +
-            '<label style="' + lab + '" title="the same seed rolls the same set">seed <input id="sqRSeed" type="number" step="1" min="1" style="' + INP + ';width:48px"></label>' +
+            '<label style="' + lab + '" title="the same seed rolls the same set">seed <input id="sqRSeed" type="number" step="1" min="1" style="' + INP + ';width:4.364em"></label>' +
             '<button id="sqRGo" style="' + BTN + ';color:#e8a06a" title="roll with this seed — the durations become the row\'s boxes. Chords already in the row stay in their boxes, by position (it asks first)">roll</button>' +
             '<button id="sqRNext" style="' + BTN + '" title="the next seed, rolled">re-roll</button>';
         const q = s => line.querySelector(s);
@@ -590,12 +664,12 @@ const S = {
         const line = this.el.querySelector('#sqEdges'); if (!line) return;
         const lab = 'color:#8a8', L = LADDER(), far = '<option value="' + SEQ.NIENTE + '">niente</option>' + (L ? L.NAMES : []).map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('');
         line.innerHTML = '<span style="color:#e6c46a">edges</span>' +
-            '<label style="' + lab + '" title="the sequence comes IN over this many seconds. 0 = it just starts. The fade follows how it begins (box 1\'s `enter`): everyone together → one fade for all · staggered → each player fades in on their own entry">fade in <input id="sqEIn" type="number" step="0.5" min="0" max="600" style="' + INP + ';width:48px"> s</label>' +
+            '<label style="' + lab + '" title="the sequence comes IN over this many seconds. 0 = it just starts. The fade follows how it begins (box 1\'s `enter`): everyone together → one fade for all · staggered → each player fades in on their own entry">fade in <input id="sqEIn" type="number" step="0.5" min="0" max="600" style="' + INP + ';width:4.364em"> s</label>' +
             '<label style="' + lab + '" title="where the fade in starts FROM — niente = true silence (the fader from zero) · a dynamic = a calibrated crescendo or diminuendo into the box; it may be LOUDER than the box — an entry that settles">from <select id="sqEFrom" style="' + INP + '">' + far + '</select></label>' +
-            '<span style="width:1px;height:16px;background:#3a4148"></span>' +
-            '<label style="' + lab + '" title="the sequence goes OUT over this many seconds. 0 = it just ends. The fade follows the exit: together → one fade for all · one by one → each player fades on their own ending">fade out <input id="sqEOut" type="number" step="0.5" min="0" max="600" style="' + INP + ';width:48px"> s</label>' +
+            '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
+            '<label style="' + lab + '" title="the sequence goes OUT over this many seconds. 0 = it just ends. The fade follows the exit: together → one fade for all · one by one → each player fades on their own ending">fade out <input id="sqEOut" type="number" step="0.5" min="0" max="600" style="' + INP + ';width:4.364em"> s</label>' +
             '<label style="' + lab + '" title="where the fade out arrives — niente = true silence · a dynamic = a calibrated diminuendo or crescendo out of the box">to <select id="sqETo" style="' + INP + '">' + far + '</select></label>' +
-            '<span style="width:1px;height:16px;background:#3a4148"></span>' +
+            '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
             '<label style="' + lab + '" title="how the players LEAVE — together: every last breath lands on the end · one by one: each player finishes a last breath of their own, the ends spread over the last stretch before the line (the fade out\'s length, else one breath), the latest ON the line">exit <select id="sqEExit" style="' + INP + '">' + SEQ.EXITS.map(x => '<option value="' + x + '">' + x + '</option>').join('') + '</select></label>';
         const q = s => line.querySelector(s);
         ['sqEIn', 'sqEFrom', 'sqEOut', 'sqETo', 'sqEExit'].forEach(id => {
@@ -633,15 +707,15 @@ const S = {
         const line = this.el.querySelector('#sqWaves'); if (!line) return;
         const lab = 'color:#8a8', L = LADDER(), d = SEQ.DEFAULT_WAVES, opts = (L ? L.NAMES : []).map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('');
         line.innerHTML = '<span style="color:' + WTINT + '">waves</span>' +
-            '<input id="sqWVals" type="text" style="' + INP + ';width:90px" title="the POOL of swell lengths in seconds, separated by spaces — short with long. Each player draws a stream of their own from it. Default ' + d.lengths.values.join(' ') + '">' +
-            '<input id="sqWW" type="text" placeholder="weights" style="' + INP + ';width:90px" title="one weight per length, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
+            '<input id="sqWVals" type="text" style="' + INP + ';width:8.182em" title="the POOL of swell lengths in seconds, separated by spaces — short with long. Each player draws a stream of their own from it. Default ' + d.lengths.values.join(' ') + '">' +
+            '<input id="sqWW" type="text" placeholder="weights" style="' + INP + ';width:8.182em" title="one weight per length, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
             '<label style="' + lab + '" title="the BOTTOM of every wave, and where a player sits between swells — a written dynamic. There is no niente inside the waves: silence belongs to the sequence\'s edges">low <select id="sqWLo" style="' + INP + '">' + opts + '</select></label>' +
             '<label style="' + lab + '" title="the TOP of every wave — a written dynamic. Every waved note is struck at THIS level\'s velocity and the fader does the moving, so a breath re-entering mid-wave does not lurch">high <select id="sqWHi" style="' + INP + '">' + opts + '</select></label>' +
-            '<label style="' + lab + '" title="how much of the time a player is inside a swell, 0 … 1 — the rest sits at `low`. 1 = swells back to back · 0 = flat at `low`. Default ' + d.density + '">density <input id="sqWDen" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:48px"></label>' +
-            '<label style="' + lab + '" title="where the top sits inside a swell, 0 … 1 — 0.5 even · 0.7 a slow rise and a quick fall · 0.3 the reverse. A little seeded jitter round it. Default ' + d.peak + '">peak <input id="sqWPeak" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:48px"></label>' +
-            '<label style="' + lab + '" title="the waves have a seed of their own — the same seed deals the same streams">seed <input id="sqWSeed" type="number" step="1" min="1" style="' + INP + ';width:48px"></label>' +
+            '<label style="' + lab + '" title="how much of the time a player is inside a swell, 0 … 1 — the rest sits at `low`. 1 = swells back to back · 0 = flat at `low`. Default ' + d.density + '">density <input id="sqWDen" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
+            '<label style="' + lab + '" title="where the top sits inside a swell, 0 … 1 — 0.5 even · 0.7 a slow rise and a quick fall · 0.3 the reverse. A little seeded jitter round it. Default ' + d.peak + '">peak <input id="sqWPeak" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
+            '<label style="' + lab + '" title="the waves have a seed of their own — the same seed deals the same streams">seed <input id="sqWSeed" type="number" step="1" min="1" style="' + INP + ';width:4.364em"></label>' +
             '<button id="sqWNext" style="' + BTN + ';color:' + WTINT + '" title="the next seed: every player\'s stream is dealt again — the chords, the durations and the breath dials are not touched (a wave that passes a louder top may shorten a breath: the ceiling is read at the loudest point)">re-wave</button>' +
-            '<span style="width:1px;height:16px;background:#3a4148"></span>' +
+            '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
             '<span style="' + lab + '">all boxes →</span><button id="sqWAll" style="' + BTN + ';color:' + WTINT + '" title="every box reads the waves (each remembers the straight dyn it had)">waves</button>' +
             '<button id="sqWNone" style="' + BTN + '" title="every box back to the straight dyn it had before the waves">straight</button>';
         const q = s => line.querySelector(s);
@@ -695,13 +769,13 @@ const S = {
         const lab = 'color:#8a8', d = SEQ.DEFAULT_BREATH;
         line.innerHTML = '<span style="color:#8fd0a0">breath</span>' +
             '<label style="' + lab + '" title="how the players\' FIRST breaths are set against each other — the morph\'s five. staggered: one after another across half a breath · grouped: in three waves · aligned: together · converging / diverging: as the morph has them — they set the first entry only (converging starts staggered, diverging starts aligned)">striation <select id="sqBStri" style="' + INP + '">' + SEQ.STRIATIONS.map(s => '<option value="' + s + '">' + s + '</option>').join('') + '</select></label>' +
-            '<label style="' + lab + '" title="the wanted length of a breath or a bow — the morph\'s ' + d.length + ' s. The instrument\'s ceiling still splits anything longer. With a pool of lengths this only spaces the first entries">length <input id="sqBLen" type="number" step="0.5" min="0.5" max="120" style="' + INP + ';width:48px"> s</label>' +
-            '<label style="' + lab + '" title="how far a breath may fall from the length — the morph\'s ' + d.jitter + ' = ±' + Math.round(d.jitter * 100) + '%. Not applied to a pool value">± <input id="sqBJit" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:48px"></label>' +
-            '<label style="' + lab + '" title="BLANK = free, the morph\'s way: two players begin a breath together only by chance · 0 = NEVER: every start is kept `apart` from every other player\'s · between: that share of the re-entries snaps onto another player\'s, the rest are kept apart · 1 = everyone re-enters together. The shortest breath leads (the bowed vibraphone, when it plays). An attack line is everyone, by design, and stands outside this">together <input id="sqBTog" type="number" step="0.1" min="0" max="1" placeholder="free" style="' + INP + ';width:52px"></label>' +
-            '<label style="' + lab + '" title="how close two players\' starts may come while `together` is under 1 — a number for your ear. Eight players have room for about 0.75 s; past that some starts are flagged CROWDED and left where they fell">apart <input id="sqBApart" type="number" step="0.05" min="0.05" max="10" style="' + INP + ';width:48px"> s</label>' +
-            '<input id="sqBVals" type="text" placeholder="lengths — a pool" style="' + INP + ';width:110px" title="a POOL of breath lengths in seconds, separated by spaces — short with long, e.g. 3 9. Each breath\'s wanted length is drawn from it (each player a stream of its own) instead of length ± jitter; the ceiling still binds. Blank = no pool">' +
-            '<input id="sqBW" type="text" placeholder="weights" style="' + INP + ';width:90px" title="one weight per pool value, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
-            '<label style="' + lab + '" title="the same seed deals the same breaths">seed <input id="sqBSeed" type="number" step="1" min="1" style="' + INP + ';width:48px"></label>' +
+            '<label style="' + lab + '" title="the wanted length of a breath or a bow — the morph\'s ' + d.length + ' s. The instrument\'s ceiling still splits anything longer. With a pool of lengths this only spaces the first entries">length <input id="sqBLen" type="number" step="0.5" min="0.5" max="120" style="' + INP + ';width:4.364em"> s</label>' +
+            '<label style="' + lab + '" title="how far a breath may fall from the length — the morph\'s ' + d.jitter + ' = ±' + Math.round(d.jitter * 100) + '%. Not applied to a pool value">± <input id="sqBJit" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
+            '<label style="' + lab + '" title="BLANK = free, the morph\'s way: two players begin a breath together only by chance · 0 = NEVER: every start is kept `apart` from every other player\'s · between: that share of the re-entries snaps onto another player\'s, the rest are kept apart · 1 = everyone re-enters together. The shortest breath leads (the bowed vibraphone, when it plays). An attack line is everyone, by design, and stands outside this">together <input id="sqBTog" type="number" step="0.1" min="0" max="1" placeholder="free" style="' + INP + ';width:4.727em"></label>' +
+            '<label style="' + lab + '" title="how close two players\' starts may come while `together` is under 1 — a number for your ear. Eight players have room for about 0.75 s; past that some starts are flagged CROWDED and left where they fell">apart <input id="sqBApart" type="number" step="0.05" min="0.05" max="10" style="' + INP + ';width:4.364em"> s</label>' +
+            '<input id="sqBVals" type="text" placeholder="lengths — a pool" style="' + INP + ';width:10em" title="a POOL of breath lengths in seconds, separated by spaces — short with long, e.g. 3 9. Each breath\'s wanted length is drawn from it (each player a stream of its own) instead of length ± jitter; the ceiling still binds. Blank = no pool">' +
+            '<input id="sqBW" type="text" placeholder="weights" style="' + INP + ';width:8.182em" title="one weight per pool value, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
+            '<label style="' + lab + '" title="the same seed deals the same breaths">seed <input id="sqBSeed" type="number" step="1" min="1" style="' + INP + ';width:4.364em"></label>' +
             '<button id="sqBNext" style="' + BTN + ';color:#8fd0a0" title="the next seed: every breath is dealt again — the chords and the durations are not touched">re-breathe</button>';
         const q = s => line.querySelector(s);
         ['sqBStri', 'sqBLen', 'sqBJit', 'sqBTog', 'sqBApart', 'sqBVals', 'sqBW', 'sqBSeed'].forEach(id => {
