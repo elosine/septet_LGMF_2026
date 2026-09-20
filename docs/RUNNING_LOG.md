@@ -5284,3 +5284,34 @@ the morph taking up the players' breaths · crossfades with a morph or another s
 
 **1d.7's plan text corrected in place** (a pointer at its head to §121–§123): niente not wanted inside the waves · the drawer's
 player is not changed and `swell_ui.js` is not reused · the sentence on niente is wrong.
+
+## §124. Transitions into other things — the analysis put to him, and what it does to the plan (2026-09-19)
+
+**His word:** *"lets discuss transitions to other things and see if effects plan"* — the talk LG-40 asked for, informal at his word.
+
+**The one fact the AI built the answer on (its reading, marked):** a player is one line. No player can be in the sequence and in
+the morph at once, so every transition between two objects on the same players — a cut, a dovetail, a crossfade — reduces to ONE
+question: when does EACH PLAYER switch. Three shapes fall out of it:
+1. **A line** — everyone lands, the next thing starts. Possible today (place the morph where the sequence ends).
+2. **A dovetail** — no line; each player finishes the breath it is in and takes its next breath in the new thing. It is `seamless`,
+   across two objects instead of two boxes.
+3. **A crossfade** — for real players this is not a third mechanism: it is the dovetail with a fade on each side (each player dims
+   out of A on its last breath and enters B from nothing). A thins and fades while B gathers and swells. A true crossfade inside one
+   player is a sampler's trick and the score would lie.
+
+**Into a morph — what exists and what is missing (from what this session has read; the panel and a PLACED morph's storage were NOT
+read):** the engine takes a source voice by voice with cents (`source.kind: 'voices'`, 1a.5), so the last box's frozen chord can BE
+the morph's source. The carrier has a start time per voice in its schedule (`sched.startT`), but nothing outside the engine can
+hand one in: the morph always deals its own first breaths. "Adapt its breath patterns" is read as: the morph starts each player
+where the sequence leaves it, and then its own breath settings take over.
+
+**What it does to the plan: nothing to 1d.7, nothing to 1d.8 — and one reason that is structural.** A sequence is a RECIPE in the
+score file and the generator is pure, so any later tool can ask it where every player is at the end (pitch, cents, level, when its
+last breath ends) by generating it; no hand-off state has to be designed into the recipe now. 1d.8's `exit: one by one` is already
+the sequence's half of a dovetail. The join itself touches the morph drawer and is a NEW item, to be written when he is working
+there. The mirror (a morph going on into a sequence) needs the generator to be told where each player enters — a small hook, later.
+A cheap version needing no linkage was named: give `exit one by one` and the morph's staggered entry the same order and spacing,
+overlap them by hand, and let a check warn when a player is in both at once.
+
+**The one question put to him:** when the last chord goes on into a morph, is there NO seam (the players keep breathing as they
+are and the pitches simply begin to move), a MOMENT (a line where the morph begins), or both, case by case.
