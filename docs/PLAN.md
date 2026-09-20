@@ -772,6 +772,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        seconds) with a tilt and a jitter · the shape by preset, his default a golden-section rise against fall, with a HOLD at the top ·
        between swells a player rests at THE BOX'S OWN DYNAMIC, not at `low` — so a box has a dynamic AND waves · presets for the whole
        line, and a default.
+    9. **THE WAVES FIX — HEAR ON THE CURVE CHANNELS** (RUNNING_LOG §137; his call 2026-09-20: *"waves fix to feature build"*). A BUG, not a
+       feature: Hear sends every ramped note and its CC7 on MAIN ch 1, where his rack takes no moving controller (D11), so by SPACE the
+       waves, the fades and the ramps of 1d.7 / 1d.8 are inaudible. In `sequence_ui.js` alone: a ramped note is heard on a curve route
+       (`Composer.curveChannelsOf` / `curveRoute`, round robin per player, the ramp on the same route), `D.routeFor` wrapped from
+       outside; `strike_drawer.js` untouched. **BUILD IT FIRST — nothing else about dynamics can be judged by ear until it is in.**
 
 
 ## 2. Notate — `todo`
