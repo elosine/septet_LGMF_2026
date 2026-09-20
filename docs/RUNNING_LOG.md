@@ -6077,3 +6077,79 @@ the replacement both. Added to the hard-won list beside the 8 KB Bash limit.
 **Still his, and the plan names it as the real test:** the recording in the rack, read back by
 `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`. A claim about routing is a claim about STATE — the in-app
 probe proves what the tool WRITES and what `routeFor` RESOLVES; only his rack proves what it receives.
+
+## §144. HIS RACK TEST — PLAN 1e PASSES. MAIN is empty, every strike is an mf velocity, and the fader reaches zero (2026-09-20)
+
+**What prompted it.** *"recorded midi in the rack"* — the one test PLAN 1e names (V6), and the same instrument that found the fault
+in the first place: `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`, read-only, per track and per channel.
+
+**THE FOUR EXPECTATIONS, AND WHAT CAME BACK.**
+
+**1 · MAIN ch 1 is EMPTY — on every one of the eighteen tracks.** `notes: 0` everywhere, and the only CC7 on ch 1 is two events,
+both 127: the reset. Nothing moving reached MAIN. *(Before 1e, §140 found every shaped note there.)*
+
+**2 · Every shaped note is on a CURVE channel, and the `b` ports carry the SI2 three.**
+
+| track | channels used | notes |
+|---|---|---|
+| English Horn XS | 2 · 3 · 4 | 2 · 2 · 1 |
+| Bassoon SI2 **b** | 3 · 4 · 5 | 2 · 2 · 2 |
+| Horn SI2 **b** | 3 · 4 · 5 | 2 · 2 · 1 |
+| Trumpet SI2 **b** | 5 · 6 · 7 | 2 · 2 · 1 |
+| Cello XS | 2 · 3 · 4 | 2 · 2 · 1 |
+| Bass XS | 2 · 3 · 4 | 3 · 2 · 2 |
+| Vibraphone XS | 2 · 3 · 4 | 5 · 6 · 4 |
+
+**`Bassoon SI2`, `Horn SI2`, `Horn SI2 high` and `Trumpet SI2` — the non-`b` tracks — took NOTHING on any of their sixteen
+channels.** That is D9 working: the curve copies live on the second UVI instance. Three channels per player, in rotation, exactly as
+the round robin allocates them. *(`Horn SI2 b` and `Horn SI2 b high` report identical data — one port, two tracks, §84's known
+duplicate, not new.)*
+
+**3 · Every strike is an MF VELOCITY — checked against the bank, not asserted.** `velocityFor(bank, key, pitch, 100)` swept over
+each instrument's whole measured range gives the mf velocity it may take at any pitch. Every velocity in the recording falls inside
+its instrument's band, and several sit exactly on an edge:
+
+| | recorded | the bank's mf band | |
+|---|---|---|---|
+| English Horn | 81 · 102 · 110 | 81 … 127 | 81 is the band's floor |
+| Bassoon | 104 · 107 | 83 … 126 | |
+| Horn | 81 · 83 · 85 | 76 … 85 | 85 is the band's ceiling |
+| Trumpet | 66 · 77 | 62 … 78 | |
+| Vibraphone | **99 on every note** | 99 … 99 | flat over pitch — so every note is 99 |
+| Cello | 107 · 108 · **127** | 71 … 127 | the 127 is the band's own ceiling for that register |
+| Double bass | 55 · 60 · 68 | 55 … 127 | 55 is the band's floor |
+
+**The cello's 127 is not a struck note that escaped.** It is what the remap asks for at that pitch to match the ensemble at mf — the
+register curve, which is also why the double bass sits at 55 where its own average is 87. **The seven numbers in the plan are
+averages over pitch; the rack sends each note's own.**
+
+**4 · The fader reaches ZERO, and where it does not, the floor is the law's own arithmetic.** CC7 minima across the curve channels:
+**0** on the first channel of every single player (EH · Bsn · Hn · Tpt · Vc · Db, and the vibraphone on two channels), and
+elsewhere **14 · 45 · 56**.
+
+**The 56 is worth writing down, because it looks arbitrary and is not.** It is **ppp under an mf top**, to the digit:
+
+```
+ppp level 0 · mf level (100−65)/62 = 0.5645
+h' = 1 − (0.5645 − 0) = 0.43548          the re-basing, rule 2
+y  = round(43.548)/10 = 4.4              yOf writes a node at one decimal of ten
+CC7 = round(127 × 0.44) = 56             heldCc7 on cc7Abs {0,127}
+```
+
+So a shape drawn **ppp under an mf top bottoms at CC7 56** — four sevenths of the way down the fader — and only a **niente fade**
+(the 1d.8 edges, `cc7Fade` multiplying the answer) takes it the rest of the way to 0. Both are visible in the recording: the channel
+carrying each player's FIRST note, the one that fades in from niente, is the one that reaches 0.
+
+**WHAT THIS CLOSES.** PLAN 1e is done end to end. The fault his ear found twice — *"it sounds Like the whole sequence is just
+sitting at the high dynamic. No waves."* — is answered by measurement, on the same instrument that diagnosed it: where §140 found
+**every note struck at 127 with CC7 moving 63 … 127 on MAIN**, the rack now receives **every note struck at its own mf velocity with
+CC7 moving 0 … 127 on the curve channels**.
+
+**WHAT IS STILL OPEN, AND IT IS A MUSICAL QUESTION, NOT A BUG.** A shape's low and high now set a **depth below a top that always
+sounds at mf**, one seventh of the fader per written step. So a ppp…mf wave is a 56 … 127 fader and a ppp…fff wave is 0 … 127. If
+the waves want to go deeper without a niente fade, the answer is to write them against a **higher top**, and "the waves by preset"
+(PLAN 1d item 8) has to be re-framed as depths. That was known and accepted when 1e was written; the recording confirms the shape
+of it rather than changing it.
+
+**NOT re-tested, because nothing asked for it:** the six scores, the strikes drawer's own listen, and 1d.7 · 1d.8, which 1e changes
+the sound of. Those are his ear's, not the bridge's.
