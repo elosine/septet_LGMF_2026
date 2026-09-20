@@ -23,7 +23,7 @@ for ti = 0, reaper.CountTracks(0) - 1 do
     if take and reaper.TakeIsMIDI(take) then
       local pos = reaper.GetMediaItemInfo_Value(it, 'D_POSITION')
       local len = reaper.GetMediaItemInfo_Value(it, 'D_LENGTH')
-      local nN, nCC = reaper.MIDI_CountEvts(take)
+      local _, nN, nCC = reaper.MIDI_CountEvts(take)   -- retval FIRST, then notes, then CCs: without the _ this read the note count as the CC count and walked only that many CCs (RUNNING_LOG 140)
       local notes = {}
       for n = 0, nN - 1 do
         local ok, sel, muted, s, e, chan, pitch, vel = reaper.MIDI_GetNote(take, n)

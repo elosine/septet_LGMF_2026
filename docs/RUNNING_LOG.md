@@ -5874,3 +5874,59 @@ curve events and do not drop the map either. Until a reload they too play on MAI
 **For the paper.** Twice in two days the AI wrote "by construction" about a sound path and was wrong both times (§121 → §128,
 §137 → here). What caught it both times was his ear, and what explained it both times was one captured number. A claim about
 routing is a claim about STATE — what is cached, what was played before — and reading the code shows the law, not the state.
+
+## §140. What reached the rack — his recording read back. The routing is right now; what he hears is THE LAW: 12 dB, at the timbre of the top (2026-09-20)
+
+**His words, after reloading and listening to `seqTests01`:** *"I might have heard some volume change in that listen with my system
+volume turned way up. But I can tell from the timbre that even if there is volume change, it's between two high dynamic levels.
+This has been a bugbear throughout this whole composition process throughout all my scores … There's some fundamental
+misunderstanding or AI forgets what we established before … This has to do with the how we use velocity versus how we use CC7. And
+so I believe CC7 is generally independent and start at the max velocity … However, maybe we need to … rethink this because max
+velocity, especially with the brass, changes the timbre. So maybe we need to recalibrate from MF … I don't want to get down to much
+of a rabbit hole … I want to get … an acceptable demo … come back to me with sensible recommendations … In the most expedient way."*
+
+**ONE test, chosen because it measures the layer that reaches the instrument (principle 12):** he had recorded the playback as MIDI
+in the rack; a read-only bridge job read it back per track and per channel (`reaper/bridge/jobs/cc7_by_channel.lua`, new — §75's
+`dump_recorded_midi.lua` turned out to take `MIDI_CountEvts`' return values one place off, so it walked only as many CCs as there
+were NOTES; fixed). 56.9 s, the ppp … fff · 4 s · density 1 test:
+
+| track | notes on | struck at | CC7 on the same channels |
+|---|---|---|---|
+| English Horn XS | ch 2 · 3 · 4 | 127 (one 109) | 365 · 434 · 119 moves, down to **80** |
+| Bassoon SI2 b | ch 3 · 4 · 5 | 127 | 205 · 276 · 520, down to **68** |
+| Horn SI2 b | ch 3 · 4 · 5 | 127 | 450 · 432 · 193, down to **63** |
+| Trumpet SI2 b | ch 5 · 6 · 7 | 90 | 85 · 565 · 428, down to **63** |
+| Cello XS | ch 2 · 3 · 4 | 127 | 280 · 211 · 229, down to **89** |
+| Bass XS | ch 2 · 3 · 4 | 93 … 113 | 438 · 328 · 169, down to **81** |
+| Vibraphone XS | ch 2 · 3 · 4 | 127 | 385 · 419 · 438, down to 18 (its register rides there too) |
+
+*(The 0s in the raw read are his sequence's 6 s fade in from niente, on the first notes.)* **MAIN ch 1 carried no note on any
+track.** So: **§139's fix holds in his rack — the routing is right, the fader is streaming, on the curve channels.** That question is
+closed by measurement.
+
+**And what was sent is exactly what he heard.** Every note struck at its instrument's fff velocity, and the fader taking it down by
+63/127 on the UVI law (40·log10) = **−12.2 dB**, 80/127 on the Kontakt law (60·log10) = **−12.0 dB**, the cello −9.3. **A whole
+ppp … fff wave is about 12 dB of level on a note whose timbre is fff from start to finish** — *"between two high dynamic levels"*.
+
+**This is not a bug. It is the law, and it is written down — which is his point about forgetting.** D13: velocity is the dynamic;
+CC7 shapes a held note. A shaped note is struck ONCE, at the velocity of the TOP of its shape, and the fader draws it down by the
+LADDER's distance in dB. The ladder is the 12 dB written span of 1b (piece #5's was 9.96 dB — `morph_emit.js` says so in a comment of
+2026-09-09: *"`cc7ForHeight` answers in the MUSICAL scale — anchor velocities 65…127, 9.96 dB, bottoming out at CC7 88"*). Twelve
+decibels is right for STRUCK notes, because there the rest of a dynamic is TIMBRE — the velocity layers. A fader-shaped note gets
+the twelve and none of the timbre. His own account — *"CC7 is … independent and start at the max velocity"* — is the law exactly,
+with one refinement: the strike is at the top of THE SHAPE, which is the maximum only when the shape reaches fff. **The AI made it
+worse twice over:** the waves strike every note at the waves' global `high` (so a breath that never leaves the trough is still
+struck at the top), and the test it prescribed (`high fff`) drove every strike to 127. What he remembers from pieces #1–#4 is the
+older curve crescendo — `curveValToCC`, a 40 dB fader span at one velocity — which §129 found is SHADOWED by the hybrid as soon as a
+velocity remap is loaded.
+
+**Rejected as the way forward:** recalibrating from mf, or any new probe (days of work; nothing is mis-measured — the fader curves
+are good to −28 dB on UVI and −41 dB on Kontakt) · CC7 for everything (D13 forbids it, rightly: it throws the timbre away everywhere).
+
+**Recommended to him (nothing built):** (1) strike each breath at ITS OWN top, not the waves' — timbre then follows the wave breath
+by breath, and with waves written round the box's dynamic the strike sits near that dynamic, never at 127 unless he writes loud;
+two lines in `sequence_ui.js`. (2) a SHAPE DEPTH — one multiplier on the dB a fader-shaped move travels (× 2: 24 dB across the
+ladder, a mp → f swell 7 dB where it is 3.4 now), inside the fader data already measured; carried PER NOTE as `cc7Fade` and `cc7Abs`
+are, so sequences write it and no existing score changes its sound; one opt-in in `heldCc7` — his word needed (LG-32). (3) ONE PAGE,
+`docs/DYNAMICS_LAW.md`, named in CLAUDE.md as the first read for any sound-path work, with this job as the first test — the lasting
+answer to *"AI forgets what we established before"*.
