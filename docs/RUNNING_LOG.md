@@ -6309,3 +6309,29 @@ The sub-steps are the AI's, written to be executed cold. **Two questions are sti
 **Also written:** a banner at the head of `DYNAMICS_LAW.md` (Rule 2 is amended and NOT YET BUILT; the crescendo tool is on the old
 law) — that page is the first read for sound-path work and must not mislead in the meantime · `MORPH_NOTES.md`, the morph's method
 amended by the table.
+
+## §149. The last two questions of the feature add — `of max` ON for a new sequence, `±` one number of seconds for all, and a default he can set (2026-09-20)
+
+**What prompted it.** The plan's two "put to him" items, which the AI had parked for step 5. He asked what they were; told in a few
+lines each, with options, he answered at once rather than waiting for the step.
+
+**His words:** *"1 a, 2 a and lets have a preset/default for this like everything else If I establish that earlier, then we'll go
+with that. Otherwise, something like one point two seconds or one point three seconds, something like that. , write them into the
+plan"*
+
+**Decided:**
+
+1. **`of max` is ON, at 0.65, on a NEW sequence** (option A, against leaving it blank until he turns it on). It is what LG-43
+   asked for — long-breathed players breathing long from the start. Old sequences are unchanged: the generator's
+   `DEFAULT_BREATH` keeps it null, which is what the gate reads; only the drawer's `NEW_BREATH` moves.
+2. **Under `of max` the `±` is ONE number of seconds for everyone** (option A), not a share of each player's own aim. At `± 2` the
+   english horn breathes 10 … 14 s and the vibraphone 3 … 7 s. **Why this rather than the share:** seconds were his ask (LG-45)
+   precisely because a share misread — `± 1` looked like one second and dealt 0 … 16 s; and the floor and each player's ceiling
+   already protect the short-breathed. **The cost, said to him:** the same seconds are a bigger wobble for the vibraphone than for
+   the english horn.
+3. **A default, "like everything else".** Looked for a seconds value of his already in the record: there is none — only the morph's
+   share (0.35) and his example `8 ± 2`. So the built-in is **`± 1.3` s**, the AI's pick inside the range he named. **And the AI's
+   reading of *"if I establish that earlier"*:** a default he can set himself — a `save as default` on the `breath` line, kept in
+   the library's store, which a new sequence takes when there is one. Marked in the plan as a reading, his to correct.
+
+Written into PLAN 1d.9 and 1d.14. **Nothing in the feature add waits on him now.**

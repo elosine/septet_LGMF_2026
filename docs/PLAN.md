@@ -739,7 +739,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **THE GATE.** Both are null in the generator's `DEFAULT_BREATH`, so every dial at its default still gives the notes frozen in
       `tools/sequence_baseline.json`. The DRAWER's defaults for a NEW sequence (`NEW_BREATH` in `sequence_ui.js`, where `together 0.2 ·
       apart 0.6` already live — RUNNING_LOG §133–§134): `outlier 0.1 · short 0.4 · floor 2` (his *"one in 10 is fine"*). **`of max`
-      on a new sequence — on at 0.65, or blank: PUT TO HIM, not answered.**
+      on a new sequence — on at 0.65, or blank: PUT TO HIM, not answered.** **→ ANSWERED 2026-09-20 (RUNNING_LOG §149): ON, at 0.65.**
     - **Verification.** `sequence_check` gains: both blank = the baseline · under `of max` every player's mean breath sits at their
       ceiling × the share (within the jitter) and none passes the ceiling · the outliers' share over a long deal is the dial's · no
       short one under the floor · every long one above the normal top and at or under the ceiling · a player with no room gets short
@@ -787,7 +787,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE FEATURE ADD — PLANNED AND APPROVED 2026-09-20** (his word: *"the sequence plan is good, approved. So go ahead and write
     that"*). The design talk is RUNNING_LOG §145–§148; his briefs are COMPOSITION_NOTES LG-43 … LG-51. He asked for the whole plan
     in one conceptual summary and approved it whole, so the sub-steps below are the AI's, written to be executed cold; **anything
-    marked PUT TO HIM is asked when its step is reached, not before.**
+    marked PUT TO HIM is asked when its step is reached, not before.** *(The two that were — `of max` on a new sequence · `±` under
+    `of max` — were answered the same day, §149. None is left.)*
     **RUNNING ORDER (position = order of building, the ids are only the next free ones):**
     **1d.10** the dynamics table → **1d.11** the library → **1d.12** select a range → **1d.13** the waves by preset →
     **1d.9 + 1d.14** the breath's lengths → **1d.15** the clock and the cursor → **1d.6** his listen.
@@ -931,8 +932,18 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     *Result when done:* the number beside `±` is seconds, and a musician reads it right.
     - The recipe KEEPS the share for every recipe that has one (the gate reads it); a new field in seconds wins where it is present.
       The drawer writes seconds from now on and shows an old recipe's share converted.
-    - **PUT TO HIM when the step is reached, both his:** under `of max` the lengths differ per player — is `±` still ONE number of
-      seconds for everyone, or a share of each player's own aim? · `of max` on a NEW sequence: on at 0.65, or blank?
+    - **ANSWERED 2026-09-20 (RUNNING_LOG §149; his: *"1 a, 2 a"*):** under `of max` the `±` is still **ONE number of seconds for
+      everyone** (at `± 2`: english horn 10 … 14 s · vibraphone 3 … 7 s) — NOT a share of each player's own aim. It reads the way he
+      reads it; the floor (1.5 s) and each player's ceiling already protect the short-breathed. Accepted with it: the same seconds
+      are a bigger wobble for the vibraphone than for the english horn. · **`of max` is ON, at 0.65, on a NEW sequence.**
+    - **THE DEFAULT, AND A DEFAULT OF HIS OWN** (his: *"lets have a preset/default for this like everything else If I establish that
+      earlier, then we'll go with that. Otherwise, something like one point two seconds or one point three seconds"*). The record
+      holds no seconds value of his — only the morph's share, 0.35, and his example `8 ± 2` — so the built-in is **`± 1.3` s**
+      (the AI's pick inside his range). A NEW sequence's `breath` line is then: `of max 0.65 · ± 1.3 s · outlier 0.1 · short 0.4 ·
+      floor 2 · together 0.2 · apart 0.6` (`NEW_BREATH` in `sequence_ui.js`). **`save as default`** on the `breath` line keeps HIS
+      line in `bank/sequences.json` (panel `defaults`, so 1d.11 comes first); a new sequence takes his if there is one, else the
+      built-in. *The AI's reading of "if I establish that earlier" — a default he can set himself; his to correct.* The generator's
+      own `DEFAULT_BREATH` does NOT change — it is what THE GATE reads.
     - **Verification.** `sequence_check`: `8 ± 2` deals only 6 … 10 s · an old recipe is unchanged · the round trip.
   - **1d.15 — THE CLOCK AND THE CURSOR** (a clock while it plays · click anywhere in the row and play from there) — `todo` — LG-44.
     *Why:* Hear starts `from the start` or `from the box` — a box's left edge — and a rolled row can run for minutes.
