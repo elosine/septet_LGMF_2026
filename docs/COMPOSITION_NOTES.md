@@ -1557,3 +1557,18 @@ His words, of the AI's simpler account of the two dials (*"1. `of max`: long-bre
 *AI reading (mine, marked):* this answers the question left open under LG-43 — an outlier goes EITHER way. How often: one in ten, as
 the default. Short: *significantly* shorter, and never under a floor. Long: up to the player's own maximum — so "how far" needs no
 number on the long side; the maximum IS the far end. The AI's numbers, his to change: short × 0.4 · floor 2 s. PLAN 1d.9.
+
+---
+
+### LG-47 · 2026-09-20 — A SEQUENCE LIBRARY: name it and it autosaves to that name, like the takes — and generically before it has a name
+
+Asked whether sequences autosave (they do, in the browser, ONE row — and `new` wipes a row that was never inserted), his words:
+
+> *"yes add the sequence library to the feature list but when we build the feature plan, explain how this would look first,
+> probably something like the takes in the strikes drawer, where I give it a name. And then it just auto saves to that name. But
+> also can auto save generically if I haven't named it yet. In any case, let's talk about it when we build the features."*
+
+*AI reading (mine, marked):* a store of sequences that is NOT the score — kept without being placed, as takes are kept in the
+strikes drawer. Two behaviours he named: a NAMED sequence autosaves to its name · an UNNAMED one still autosaves, generically.
+**And an instruction for the planning, not the tool: when the feature plan is built, SHOW HIM HOW IT WOULD LOOK FIRST, and talk it
+through — do not plan it cold.**

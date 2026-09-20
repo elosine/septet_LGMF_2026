@@ -762,6 +762,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     5. **`±` IN SECONDS, not a share** (LG-45): `8 ± 2` = 6 … 10 s. *Today it is the morph's `segVar`, a share of the length — `± 1` deals
        0 … 16 s (his re-breathe: 8 RUNT · 5 CEILING). To settle when planned: the recipe keeps a share today (the 1d gate reads it);
        and under `of max`, is `±` still one number of seconds for every player?*
+    6. **A SEQUENCE LIBRARY** (LG-47): keep a sequence WITHOUT placing it in the score — *"probably something like the takes in the strikes
+       drawer, where I give it a name. And then it just auto saves to that name. But also can auto save generically if I haven't named
+       it yet."* *Today the row lives in the browser only, ONE at a time, and `new` wipes a row that was never inserted.* **HIS INSTRUCTION
+       FOR THE PLANNING: explain how this would LOOK first, and talk it through with him, before it is planned.**
 
 
 ## 2. Notate — `todo`
