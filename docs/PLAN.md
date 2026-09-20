@@ -1112,7 +1112,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   pair on its JUST pitch — and the morph's dynamics brought under the law) — **`planned` 2026-09-20, session 11 (RUNNING_LOG
   §162–§166 · COMPOSITION_NOTES LG-52 · MORPH_NOTES 2026-09-20); the top line and the four steps approved as ONE summary
   (*"yes good"*), the sub-steps the AI's, written to be executed cold.**
-  **► `doing` 2026-09-20 — H1 and H2.1…H2.5 ARE BUILT AND VERIFIED (RUNNING_LOG §169); H2.6 and H3 are next, H4 is his.**
+  **► `doing` 2026-09-20 — H1, H2.1…H2.5 AND H2.6 ARE BUILT AND VERIFIED (RUNNING_LOG §169 · §170); H3 is next, H4 is his.**
   **AS BUILT (H1 + H2.1…H2.5): the two steps went into ONE commit.** H1 alone would leave the line claiming *as assigned* while the
   bloom still played the model's own set, and the REQUIRED VERIFICATION's own check (1) — the pulldown lists it first-group AND the
   line shows pair · note · cents · partial — cannot be run on the chooser alone. Everything is in `morph_panel.js`; `morph.js`,
@@ -1163,7 +1163,13 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - H1.6 · ONE MODEL AT A TIME: `TAKE_MODELS = ['M1']`. Under any other model a take source is refused in the line (*"a take is
       read by BLOOM only so far — the model's own set plays"*) and `applyPitch` returns the params untouched. The next small build
       adds to the list.
-  - **H2 · The take read as assigned.** — **H2.1 … H2.5 `done` 2026-09-20 (RUNNING_LOG §169); H2.6 is next.** *Result when done:* each pair plays exactly what the take gave its two players, on the
+  - **H2 · The take read as assigned.** — **`done` 2026-09-20, H2.1 … H2.6 (RUNNING_LOG §169 · §170).**
+    **AS BUILT (H2.1):** a DOUBLED pair goes out in PAIR order, a then b — not held-then-partner. Corrected while building H2.6,
+    which showed that held-then-partner comes back from an actual with the two lanes swapped; it also makes seat `a` always the
+    even voice, so it always opens ABOVE, which is what this item's check (3) assumes.
+    **AS BUILT (H2.6):** a recall that does NOT take the take branch now CLEARS any frozen chord, so the pitch state can never name
+    one actual in `src` and a different one in `takeName`. `bank/` was restored from a scratchpad PRE-IMAGE rather than by
+    `git checkout` — his own :5400 server was running and a checkout could have clobbered a concurrent write of his. *Result when done:* each pair plays exactly what the take gave its two players, on the
     just pitch with the cents kept — both players on one note is a doubled pair; one alone, the partner doubles it; neither, the
     pair sits out. The line shows each pair's note · partial · cents; a note on a player outside the pairs is left out and said
     so; a partner that cannot hold a doubled note is a WARNING — a net only, the drawer is where he resolves it (§163).

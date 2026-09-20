@@ -911,6 +911,44 @@ const PANEL = {
                 this.pairs = pr; note += ' · the cast read from its lanes';
             }
             this.savePairs();
+            // ---------------------------------------- PLAN 1h H2.6 — THE ACTUALS KEEP THE PITCHES (his word, RUNNING_LOG §168):
+            // *"I can recall the actual and then change it and save it as a different actual, etc., or insert it into the score.
+            // It'll preserve the pitch changes, all of that."*
+            //
+            // SAVING already worked — `resolvedParams` carries `source.kind: 'voices'` and `lanes`, as the 24 LGMF actuals prove,
+            // and each voice now carries its `partial` too. RECALLING was the fault: the path below reads only the voices' MIDI
+            // numbers, makes a distinct sorted SONORITY of them and hands that to the pick machinery — which is right for a
+            // sonority and fatal for a take, because the cents and the per-player assignment are gone the moment the first dial
+            // moves. That is §74's "a recalled morph coming back a stranger" (PLAN 1a.6) by the same door.
+            //
+            // So a recalled actual whose model READS TAKES rebuilds the FROZEN CHORD from its own voices and re-enters the same
+            // as-assigned branch a take uses: ONE path for pitches that came with their players, whether they came from the drawer
+            // a minute ago or from an actual a week ago. The LGMF models (their voices are in their BASE params, and M3/M6 are not
+            // in TAKE_MODELS) and any actual WITHOUT voices go exactly as they went before.
+            const rv = (rp && rp.source && rp.source.kind === 'voices' && Array.isArray(rp.source.voices)) ? rp.source.voices : null;
+            if (rv && rv.length && (this.TAKE_MODELS || []).indexOf(rp.model) >= 0 && Array.isArray(rp.lanes) && rp.lanes.length === rv.length) {
+                const TR = (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
+                this.pitch = Object.assign(this.loadPitch(), {
+                    src: 'actual:' + entity, takeName: entity, takeAt: new Date().toISOString(),
+                    takeChord: rv.map((v, i) => {
+                        const ln = rp.lanes[i];
+                        const o = { lane: ln, inst: (TR[ln] || {}).instKey || null, midi: Math.round(+v.midi), cents: +(v.cents || 0) };
+                        if (v.partial != null) o.partial = v.partial;
+                        return o;
+                    }),
+                });
+                this.recalledSets = this.recalledSets || {};
+                this.recalledSets[entity] = { notes: [...new Set(rv.map(v => Math.round(+v.midi)))].sort((x, y) => x - y),
+                                              from: entity + ' as stored' + (a.label ? ' (' + a.label + ')' : '') };
+                this.savePitch();
+                this._recallParams = rp;               // the dials as nudged that day, rendered once as stored
+                this._fieldStamp = null;
+                this.generate();
+                this.setStatus('recalled ' + entity + ' into MODELS: ' + P.model + ', its dials, seed ' + (P.seed != null ? P.seed : '?') +
+                    ', the cast and ITS OWN PITCHES as assigned — ' + rv.length + ' voices, cents kept' + note +
+                    ' — edit, then Save as ACTUAL files a new one');
+                return;
+            }
             // THE ACTUAL'S OWN PITCHES become the pitch source — exact by construction, so every later Generate (a poll, a nudged dial)
             // keeps them; the model's stock set would otherwise creep back in. CONVERGE's set is its unisons (the targets); a doubled
             // set is one note per pair, six distinct notes two per pair; SPECTRAL's root is its stored fundamental.
@@ -934,8 +972,10 @@ const PANEL = {
                 this.recalledSets = this.recalledSets || {};
                 this.recalledSets[entity] = { notes: distinct, from: entity + ' as stored' + (a.label ? ' (' + a.label + ')' : '') };
                 const fund = rp.model === 'M2' && rp.target && rp.target.fundamental != null ? rp.target.fundamental : null;
-                this.pitch = Object.assign(this.loadPitch(), { src: 'actual:' + entity, take: 'lowest', k: 1, seed: 1, perPair: doubled ? 1 : 2, root: fund != null ? SEP.nm(fund) : this.pitch.root });
-            } else { this.pitch.src = 'model'; note += ' · its pitches could not be read, the model\'s own set plays'; }
+                // PLAN 1h H2.6: this is the SONORITY path, so any FROZEN CHORD left over from an earlier take is cleared — the
+                // state must not name one actual in `src` and another in `takeName`.
+                this.pitch = Object.assign(this.loadPitch(), { src: 'actual:' + entity, take: 'lowest', k: 1, seed: 1, perPair: doubled ? 1 : 2, root: fund != null ? SEP.nm(fund) : this.pitch.root, takeName: '', takeAt: '', takeChord: null });
+            } else { this.pitch.src = 'model'; this.pitch.takeName = ''; this.pitch.takeAt = ''; this.pitch.takeChord = null; note += ' · its pitches could not be read, the model\'s own set plays'; }
             this.savePitch();
             this._recallParams = rp;               // the dials as nudged that day, rendered once as stored
             this._fieldStamp = null;
@@ -1429,9 +1469,13 @@ const PANEL = {
                 const src = A || B, held = A ? pr.a : pr.b, partner = A ? pr.b : pr.a;
                 const pk = (env && SEP) ? SEP.instOf(env, partner) : null;
                 const can = !(env && pk && env.BC) || env.BC.holds(env.recipe, pk, Math.round(+src.midi));
-                put(held, src);
-                if (can) { put(partner, src); row.why = 'doubled'; }
+                // A DOUBLED PAIR GOES OUT IN PAIR ORDER, a then b — not held-then-partner (corrected 2026-09-20 while building
+                // H2.6). Two reasons: seat `a` is then always the even voice, so it always opens ABOVE and `b` below whichever
+                // player happened to hold the note in the drawer; and a recalled actual rebuilds the chord from both lanes at
+                // once, so held-then-partner would come back with the two lanes swapped and the pair would open the other way.
+                if (can) { put(pr.a, A || src); put(pr.b, B || src); row.why = 'doubled'; }
                 else {
+                    put(held, src);
                     row.why = lab(partner) + ' cannot hold it — one voice'; row.warn = true;
                     warnings.push('TAKE: ' + lab(partner) + ' cannot hold ' + (SEP ? SEP.nm(Math.round(+src.midi)) : src.midi) + ' — pair ' + (k + 1) + ' plays as one voice');
                 }
@@ -1450,6 +1494,17 @@ const PANEL = {
         out.voices = voices.length;
         return { params: out, warnings: warnings,
                  info: { take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length } };
+    },
+    // H2.6 — `recalledSets` lives in MEMORY, so after a page reload the `actual:` option that a recalled bloom-on-a-take is
+    // sitting on would vanish from the pulldown and the panel would look as though it had lost his pitches. The FROZEN CHORD is
+    // persisted, so the option is re-seeded from it.
+    seedRecalledFromTake() {
+        const p = this.pitch || {}, s = String(p.src || '');
+        if (s.indexOf('actual:') !== 0 || !p.takeChord || !p.takeChord.length) return;
+        const name = s.slice(7); if (name !== p.takeName) return;
+        this.recalledSets = this.recalledSets || {};
+        if (this.recalledSets[name]) return;
+        this.recalledSets[name] = { notes: [...new Set(p.takeChord.map(n => n.midi))].sort((x, y) => x - y), from: name + ' as stored' };
     },
     // H2.3 — THE PAIR ROWS. `cast()`'s voice-list branch marks every pair silent ("this model names its own voices") — right for
     // the LGMF models, wrong here, where the pairs DO own the voices. Re-attach them from the take's own rows, so the rows draw
@@ -1567,6 +1622,7 @@ const PANEL = {
         const SEP = root.MorphSeptet; if (!SEP) return;
         const S = this.pitchSources || { harm: { strikes: [], blasts: [], chordShapes: [] }, starters: [], kept: {}, takes: {} }, p = this.pitch;
         const nmList = arr => arr.slice(0, 8).map(SEP.nm).join(' ') + (arr.length > 8 ? ' …' : '');
+        this.seedRecalledFromTake();     // H2.6: after a reload the recalled actual's option is rebuilt from the frozen chord
         const TK = this.takeChordOn();   // PLAN 1h: a frozen chord — the pick and its dials have nothing left to decide
         // H1.5 — TWO WORDS. The strikes drawer's is a TAKE; the panel's own reduction rule is a PICK. The label and this head line
         // only: `p.take`, `SEP.TAKES`, the element ids and every stored key are untouched.

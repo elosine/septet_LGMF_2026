@@ -7193,3 +7193,56 @@ server answering on :5400, so he is composing while this was built.** Nothing th
 **Found on the way, not mine, flagged not fixed (NITS):** a bare page load of `composer.html` throws one uncaught
 `TypeError: Cannot read properties of null (reading 'parentNode')` at `sequence_ui.js:1652` (the drawer's `stop()`), with no morph
 interaction at all — reproduced on a clean reload before anything was touched. It breaks nothing visible.
+
+## §170. `1h` H2.6 BUILT — THE ACTUALS KEEP THE PITCHES, and a correction to H2.1 that H2.6 forced (2026-09-20)
+
+**His word (§168):** *"I can recall the actual and then change it and save it as a different actual, etc., or insert it into the
+score. It'll preserve the pitch changes, all of that."*
+
+**The change is one branch in `recallActual`.** Saving never needed anything — `resolvedParams` already carries
+`source.kind: 'voices'` and `lanes`, and each voice now carries its `partial` as well (nothing validates a voice's keys:
+`unknownKeys` checks the TOP level only, and `PARAM_PATHS` is the recipe-dial schema, not a voice schema). RECALLING was the fault:
+the existing path reads only the voices' MIDI numbers, makes a **distinct sorted sonority** of them and hands that to the pick
+machinery — which is right for a sonority and fatal for a take, because the cents and the per-player assignment are gone the moment
+the first dial moves. So a recalled actual whose model is in `TAKE_MODELS` rebuilds the FROZEN CHORD from its own voices and
+re-enters the same as-assigned branch a take uses: **ONE path for pitches that came with their players**, whether from the drawer a
+minute ago or from an actual a week ago. `↻` stays dead for it. `seedRecalledFromTake()` re-seeds `recalledSets` from the persisted
+chord, because `recalledSets` lives in memory and the `actual:` option would otherwise vanish from the pulldown after a reload.
+
+**A CORRECTION TO H2.1, found by building H2.6 and made in the same commit: a DOUBLED pair now goes out in PAIR order, a then b —
+not held-then-partner.** As first built, a pair where only seat `b` held the note produced lanes `[b, a]`; a recalled actual
+rebuilds the chord with BOTH lanes present, so it would come back `[a, b]` and the pair would open the other way round — voice a
+above where it had been below. Two things follow from the fix: a recall is now exact, and seat `a` is always the even voice, so it
+always opens ABOVE whichever player happened to hold the note in the drawer. That is also what the plan's check (3) assumes
+(*"voice a above, voice b below"*).
+
+**Also cleaned:** a recall that does NOT take the take branch (the LGMF models, an actual with no voices) now CLEARS any frozen
+chord, so the pitch state can never name one actual in `src` and a different one in `takeName`.
+
+**VERIFIED IN `score-5401`, end to end, on real files — check (3b) of the plan:**
+
+1. a bloom on his take `Just-b1-seed210` → `Save as ACTUAL` (label `zz-1h-A`) → **`ACT-BLOOM-01`**, its
+   `provenance.resolvedParams.source.kind` = `voices`, six voices with their cents AND their partials, `lanes [0,1,2,3,6,7]`.
+2. moved OFF the take (`model`), then **recalled** `ACT-BLOOM-01`: `src` = `actual:ACT-BLOOM-01`, the frozen chord rebuilt with
+   lanes and instruments, the line pair by pair *EH + Bsn · 59@0/p4 + 35@0/p1 · both* … , 32 notes.
+3. **nudged two dials** — `carrier.span` 40 → **52**, `carrier.segLen` 8 → **11** (the render moved, 32 → 30 notes) — and the
+   voices' midi, cents, partials and lanes were **unchanged**, the line identical.
+4. `Save as ACTUAL` again (`zz-1h-B`) → **`ACT-BLOOM-02`**: its `source.voices` **deep-equal** `ACT-BLOOM-01`'s, its `lanes` equal,
+   its `carrier.span` 52 against 40. The pitches survived recall → vary → save.
+5. **`insertActual('ACT-BLOOM-02')`** → 30 note objects in the score, sounding cents at each one's first breakpoint
+   5900 · 3500 · **6602** · **8188.3** · 8300 · **5402** against the wanted 5900 · 3500 · 6601.96 · 8188.27 · 8300 · 5401.96 —
+   the take's cents, in the score.
+6. **a full page RELOAD with no recall at all**: the `actual:ACT-BLOOM-01` option is back in the pulldown and selected, the frozen
+   chord is intact, the bloom renders its 32 notes from the take's just pitches, `↻` dead.
+7. **`ACT-LGBALANCE-01` recalls exactly as it did** — the take branch does not fire, the frozen chord is dropped, the line still
+   says *names its own voices*, 113 notes.
+
+**`bank/` WAS LEFT EXACTLY AS FOUND.** `bank/morph_models.json` was copied to the scratchpad BEFORE the test (sha256
+`eaa1a1600a9a8c26`) and restored from that copy, not from git — his own `:5400` server is running and a `git checkout` could have
+clobbered a concurrent write of his. The two `zz-1h-` actuals were deleted; `bank/actuals` now lists the same 24 files as before,
+byte-for-byte by name, the store's sha is back to `eaa1a1600a9a8c26`, and `git status bank/` shows only his two live files
+(`panel_snapshots.json`, `sequences.json`), untouched.
+
+**Batteries:** `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184** · `test_snapshots` **26** ·
+`model_bank --validate` **VALID** (its two warnings are the known ones: `provenance.palette` unrecognised, NITS N3, and the
+LGSPECTRAL-06 re-derivation drift).
