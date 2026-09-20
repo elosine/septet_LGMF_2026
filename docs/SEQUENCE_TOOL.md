@@ -16,6 +16,7 @@
 - a RANGE of boxes — click, SHIFT+click; the selection takes `dyn` · `enter` · and a waves `range` of its own — §17 below · 1d.12, built 2026-09-20
 - the breath's lengths — `of max` · `outlier` · `±` in seconds — §19 below · 1d.9 + 1d.14, built 2026-09-20
 - the waves by PRESET — one menu fills every dial: lengths between two numbers with a `tilt`, a named shape, a HOLD at the top, density in words; `save preset` keeps his own — §18 below · 1d.13, built 2026-09-20
+- the clock and the CURSOR — click the time strip and SPACE plays from that second, entering a sounding note with what is left of it - §20 below · 1d.15, built 2026-09-20
 - not yet: his listen (1d.6) — nothing in this drawer has been heard by the AI, and the waves and the edges not yet by him
 
 ---
@@ -590,3 +591,19 @@ their places move, as they must when one breath among them changes. The status c
 **Nothing of this is in the generator's own defaults.** `ofMax`, `outlier` and `jitterS` are ABSENT there, and absent means the
 notes are exactly what 1d.5 dealt — which is what `tools/sequence_baseline.json` gates. A recipe made before 1d.14 carries only
 the morph's SHARE; the box shows it **converted** (share × length) and writes real seconds the moment he touches it.
+
+## 20 · The clock and the cursor (1d.15)
+
+Hear used to start at the beginning or at a box's LEFT EDGE, and a rolled row can run for minutes.
+
+- **The time strip** sits above the boxes. **Click anywhere along it** and the cursor goes there: a line down the boxes, with
+  the second and `box N +M` beside it. Click the same place again and it is gone.
+- **SPACE then plays from the cursor** — the `hear` menu shows `from the cursor` beside `from the start` and `from the box`,
+  which both remain.
+- **A note already sounding at the cursor starts AT the cursor**, with what is left of it, **and its fader at the curve's value
+  there** — not at the note's own beginning. Hear's ramp already carried a skip for `from the box`; the cursor is the same path
+  at any second. *(Measured: 8 notes sounding at the cursor, all 8 entering mid-note, the first CC7 sent being 51 — the same
+  value the whole note's ramp has at that instant.)*
+- **The clock** in the head reads `elapsed / total` in `m:ss.s` while Hear plays, and **stops where Hear stops**.
+
+**Insert is untouched.** The cursor is for the ear, not for the score.

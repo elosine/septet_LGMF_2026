@@ -790,8 +790,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     marked PUT TO HIM is asked when its step is reached, not before.** *(The two that were — `of max` on a new sequence · `±` under
     `of max` — were answered the same day, §149. None is left.)*
     **RUNNING ORDER (position = order of building, the ids are only the next free ones):**
-    ~~**1d.10** the dynamics table~~ **BUILT** → **► 1d.11** the library → **1d.12** select a range → **1d.13** the waves by preset →
-    **1d.9 + 1d.14** the breath's lengths → **1d.15** the clock and the cursor → **1d.6** his listen.
+    ~~**1d.10** the dynamics table~~ → ~~**1d.11** the library~~ → ~~**1d.12** select a range~~ → ~~**1d.13** the waves by preset~~ — **ALL BUILT 2026-09-20** →
+    ~~**1d.9 + 1d.14** the breath's lengths~~ → ~~**1d.15** the clock and the cursor~~ — **BUILT TOO** → **► 1d.6** his listen, and his test of every step above.
     *Why this order:* the table first, because every listen after it is judged through it · the library second, so nothing he makes
     while testing the rest is lost · the selection before the presets, because the per-selection range rides on it.
     **Each step ends on HIS test in his Chrome** (the in-app browser has no Web MIDI); the AI verifies note lists, objects and
@@ -966,7 +966,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       built-in. *The AI's reading of "if I establish that earlier" — a default he can set himself; his to correct.* The generator's
       own `DEFAULT_BREATH` does NOT change — it is what THE GATE reads.
     - **Verification.** `sequence_check`: `8 ± 2` deals only 6 … 10 s · an old recipe is unchanged · the round trip.
-  - **1d.15 — THE CLOCK AND THE CURSOR** (a clock while it plays · click anywhere in the row and play from there) — `todo` — LG-44.
+  - **1d.15 — THE CLOCK AND THE CURSOR** (a clock while it plays · click anywhere in the row and play from there) — **BUILT 2026-09-20 — RUNNING_LOG §155, SEQUENCE_TOOL §20; his test outstanding** — LG-44.
+    - **AS BUILT:** the CHECK the item asked for is answered — `from the box` DID already enter mid-note (`w.skipS`), so the
+      cursor is that same path at any second, and no new machinery was needed for it. The strip is a bar of its own above the
+      boxes; the times are read off the boxes' own layout, so the cursor and the playing line agree by construction.
     *Why:* Hear starts `from the start` or `from the box` — a box's left edge — and a rolled row can run for minutes.
     *Result when done:* a running clock in the drawer's head, and a cursor he can put at any second of the sequence.
     - **The clock:** elapsed / total, `m:ss.s`, while Hear plays; it stops where Hear stops.

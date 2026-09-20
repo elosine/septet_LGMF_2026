@@ -6619,3 +6619,36 @@ command) but one word was eaten out of a comment. Journal §2 has said since §1
 It was written to a file after that, and the comment restored.
 
 `sequence_check` **163 → 180**.
+
+## §155. PLAN 1d.15 BUILT — the clock and the cursor: play from any second, and see where the ear has got to (2026-09-20)
+
+**His ask (LG-44).** Hear started at the beginning or at a box's LEFT EDGE, and a rolled row can run for minutes.
+
+**The CHECK the item asked for, answered: `from the box` DID already enter mid-note.** Hear's ramp carries a `skipS` and the
+note list is built with `st = Math.max(n.start, from)`, so a note already sounding at the line starts AT it with what is left.
+The cursor is therefore the SAME path at any second, and no new machinery was needed for it — which is why this step is small.
+
+**The strip.** A bar of its own above the boxes. A click along it puts the cursor at that second — a line down the boxes, and
+`0:28.0  box 3 +4.0` beside it; a click at the same place takes it away. The times are read off the BOXES' own layout, so the
+cursor and the playing line agree by construction rather than by a second calculation. `hear` gains `from the cursor`;
+`from the start` and `from the box` remain.
+
+**The clock** reads `elapsed / total` in `m:ss.s`, ticking in the playing line's own `requestAnimationFrame`, and it stops where
+Hear stops — it is left showing the second the ear reached, not blanked.
+
+**Verified in the running app, no MIDI, on a four-box row of 12 s each with every box reading the waves:**
+
+- a click a third of the way into box 3 gave **27.99 s · box 3, 3.99 s into it** — 24 + 4, to the digit;
+- Hear from the cursor sent **30 notes against 65 from the start**, `from` = 27.99;
+- **8 notes were sounding at the cursor and all 8 entered mid-note**, at `onMs` 0;
+- **the fader is picked up AT the cursor:** the first CC7 sent was **51**, which is exactly the value the whole note's own ramp
+  carries at that instant — not the value at the note's beginning;
+- the clock read `0:12.3 / 0:48.0`, and clicking the same place again cleared the cursor and its line.
+
+**Insert is untouched** — the cursor is for the ear, not for the score. `sequence_check` stays **180**: the generator was not
+touched by this step.
+
+**THE RUNNING ORDER OF THE FEATURE ADD IS NOW COMPLETE** — 1d.10 · 1d.11 · 1d.12 · 1d.13 · 1d.9 + 1d.14 · 1d.15 all built in
+one sitting, at his word (*"try to move through the whole plan independently, the whole build, please. And I'll test at the
+end."*). **What is left in PLAN 1d is 1d.6, his listen — and his test of every step above, none of which the AI can do:** the
+in-app browser has no Web MIDI, so nothing here has been HEARD.

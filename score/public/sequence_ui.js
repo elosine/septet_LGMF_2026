@@ -204,7 +204,7 @@ const S = {
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
     newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH, this.breathDefault() || {}), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, range: null, chord: [], frozen: '' }; },
-    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
+    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, cursor: this.cursor == null ? null : this.cursor, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
     // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
     rowFrom(r) {
         if (!(r && typeof r.id === 'string' && Array.isArray(r.boxes))) return this.newRow();
@@ -218,7 +218,8 @@ const S = {
         if (r && typeof r.id === 'string' && Array.isArray(r.boxes)) {
             this.row = this.rowFrom(r);
             this.sel = Number.isInteger(st.sel) && st.sel >= 0 && st.sel < this.row.boxes.length ? st.sel : (this.row.boxes.length ? 0 : -1);
-            this.hearFrom = st.hearFrom === 'box' ? 'box' : 'start'; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen; this.edgesOpen = !!st.edgesOpen;
+            this.hearFrom = ['box', 'cursor'].indexOf(st.hearFrom) >= 0 ? st.hearFrom : 'start';
+            this.cursor = (typeof st.cursor === 'number' && isFinite(st.cursor)) ? st.cursor : null; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen; this.edgesOpen = !!st.edgesOpen;
             this.libOpen = !!st.libOpen;
             this.libKey = typeof st.libKey === 'string' ? st.libKey : null;                                  // 1d.11: which entry on disk this row IS
             this.libPanel = st.libPanel === LIB.named || st.libPanel === LIB.untitled ? st.libPanel : null;
@@ -468,7 +469,7 @@ const S = {
               '<button id="sqWavesTog" style="' + BTN + ';color:' + WTINT + '" title="the WAVES: every player rises and falls on a stream of swells of their own, out of step with the others. A box READS the waves when its dyn is `waves`; any box can step out to a straight dynamic and the waves run on under it">waves</button>' +
               '<button id="sqEdgesTog" style="' + BTN + ';color:#e6c46a" title="the EDGES: how the sequence begins and ends — a fade in from nothing (or from a dynamic), a fade out to nothing (or to a dynamic), and whether the players end together or one by one, each finishing a last breath of their own. How it BEGINS — together or staggered — is box 1\'s `enter`">edges</button>' +
               '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
-              '<label title="what SPACE and Hear play — the whole sequence, or from the selected box on">hear <select id="sqFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option></select></label>' +
+              '<label title="what SPACE and Hear play — the whole sequence, from the selected box on, or from the CURSOR (click the time strip above the boxes)">hear <select id="sqFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option><option value="cursor">from the cursor</option></select></label>' +
               '<button id="sqHear" style="' + BTN + '" title="play the sequence through the strikes drawer\'s own player — the same levels, the same bends (SPACE)">Hear</button>' +
               '<button id="sqStop" style="' + BTN + '">Stop</button>' +
               '<button id="sqInsert" style="' + BTN + '">Insert @ playhead</button>' +
@@ -476,6 +477,7 @@ const S = {
               '<button id="sqNew" style="' + BTN + '" title="start a fresh sequence — the row is cleared; a sequence already in the score stays there">new</button>' +
               '<span id="sqSpace" title="SPACE goes to what you clicked last — this strip, the strikes drawer, or the score" style="padding:0 5px;border:1px solid #444;border-radius:3px;font-size:.9em;letter-spacing:.08em">SPACE</span>' +
               '<span id="sqTotal" style="color:#9ab"></span>' +
+              '<span id="sqClock" style="color:#9fdcf5;font-variant-numeric:tabular-nums" title="elapsed / total while Hear plays — it stops where Hear stops"></span>' +
               '<span style="flex:1"></span>' +
               '<button id="sqClose" style="' + BTN + '" title="close the sequence drawer (the row is kept)">&times;</button>' +
             '</div>' +
@@ -492,8 +494,10 @@ const S = {
             '<div id="sqEdges" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqWaves" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqStatus" style="padding:1px 8px;height:1.455em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
-            '<div id="sqRowWrap" style="flex:1 1 auto;min-height:' + Math.round(ROW_H * 0.6) + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px">' +
-              '<div id="sqRow" style="position:relative;display:flex;gap:3px;height:100%;min-width:100%"></div>' +
+            '<div id="sqRowWrap" style="flex:1 1 auto;min-height:' + Math.round(ROW_H * 0.6) + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px;display:flex;flex-direction:column">' +
+              // 1d.15: THE TIME STRIP — click anywhere along it to put the cursor there, and SPACE plays from there
+              '<div id="sqTime" title="click to put the CURSOR at that second — SPACE then plays from there, entering a note already sounding with what is left of it. Click it again to clear" style="position:relative;height:1.1em;min-width:100%;flex:0 0 auto;margin-bottom:3px;border-bottom:1px solid #2c3238;cursor:crosshair"></div>' +
+              '<div id="sqRow" style="position:relative;display:flex;gap:3px;flex:1 1 auto;min-width:100%"></div>' +
             '</div>' +
             '<div id="sqEdit" style="display:flex;gap:8px;align-items:center;padding:4px 8px;border-top:1px solid #2c3238;white-space:nowrap;min-height:2.364em;overflow:hidden"></div>';
         if (!document.getElementById('sqStyle')) {   // form controls do NOT inherit type: one rule gives every input, select and button in the strip the panel's size
@@ -540,7 +544,9 @@ const S = {
             this.row.change = c; this.row.boxes.forEach(b => { b.change = null; }); this.save(); this.render();
             this.setStatus('change: every box is entered by ' + c + (c === 'attack' ? ' — everyone starts at the line, together' : ' — each player takes the new chord at its next breath') + ' · any one box can be flipped on its own line (`enter`)');
         });
-        q('#sqFrom').addEventListener('change', e => { this.hearFrom = e.target.value === 'box' ? 'box' : 'start'; this.save(); e.target.blur(); });
+        q('#sqFrom').addEventListener('change', e => { this.hearFrom = ['box', 'cursor'].indexOf(e.target.value) >= 0 ? e.target.value : 'start'; this.save(); e.target.blur(); this.paintCursor(); });
+        // 1d.15: a click in the TIME STRIP puts the cursor at that second; a click at the same place again clears it
+        q('#sqTime').addEventListener('click', ev => this.clickTime(ev));
         q('#sqAdd').addEventListener('click', () => this.addBox());
         q('#sqRollTog').addEventListener('click', () => { this.rollOpen = !this.rollOpen; this.save(); this.paintRoll(); this.fitStrikes(); });
         this.buildRoll();
@@ -690,6 +696,7 @@ const S = {
         const n = this.row.boxes.length;
         q('#sqTotal').textContent = n ? (n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s') : '';
         this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintLib(); this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges();
+        this.paintCursor(); this.paintClock(null);   // 1d.15: after renderRow, which rebuilds the boxes the cursor is measured against
     },
 
     // ------------------------------------------------------------------ the sequences in the open score — the round trip (1d.3)
@@ -803,6 +810,9 @@ const S = {
         const line = document.createElement('div');
         line.id = 'sqLine'; line.style.cssText = 'position:absolute;top:0;bottom:0;width:2px;background:#fff;opacity:.85;display:none;pointer-events:none';
         row.appendChild(line);
+        const cur = document.createElement('div');   // 1d.15: the cursor's own line, down the boxes
+        cur.id = 'sqCursorLine'; cur.style.cssText = 'position:absolute;top:0;bottom:0;width:2px;background:#e8a06a;opacity:.8;display:none;pointer-events:none';
+        row.appendChild(cur);
     },
     chordText(chord) { return (chord || []).map(n => shortOf(n.lane) + (n.seat ? '²' : '') + ' ' + pitchName(n.midi) + centsTxt(n.cents)).join(' · '); },
     renderEdit() {
@@ -1372,7 +1382,10 @@ const S = {
     // already sounding at that line is picked up there)
     hearNotes() {
         const G = this.generate(0); if (!G) return null;
-        const from = (this.hearFrom === 'box' && this.sel > 0 && this.sel < G.bounds.length - 1) ? G.bounds[this.sel] : 0;
+        // 1d.15: from the start, from the selected box's line, or from the CURSOR — any second inside the row. A note already
+        // sounding there starts AT it with what is left of it, its fader at the curve's value there (`skipS`, as `from the box`).
+        const from = this.hearFrom === 'cursor' ? Math.max(0, Math.min(+this.cursor || 0, Math.max(0, G.end - G.t0 - 0.05)))
+            : ((this.hearFrom === 'box' && this.sel > 0 && this.sel < G.bounds.length - 1) ? G.bounds[this.sel] : 0);
         const bends = {}; G.notes.forEach(n => { if (n.cents) bends[n.player] = 1; });
         const notes = [], ramps = [], shaped = [];
         G.notes.forEach(n => {
@@ -1522,6 +1535,79 @@ const S = {
         const e = E_(); if (e && e._playing) { e.panic(); if (D.onStopped) D.onStopped(); } this.stopLine();
         if (this._previewing >= 0) { this._previewing = -1; clearTimeout(this._pvT); if (this.el && this.isOpen()) this.renderRow(); }
     },
+    // ------------------------------------------------------------------ THE CLOCK AND THE CURSOR (1d.15)
+    // Hear used to start at the beginning or at a box's LEFT EDGE, and a rolled row can run for minutes. The cursor is any
+    // second of the sequence; the clock says where the ear has got to. Insert is untouched — this is for the ear, not the score.
+    mss(s) { const v = Math.max(0, +s || 0), m = Math.floor(v / 60), r = v - m * 60; return m + ':' + (r < 10 ? '0' : '') + r.toFixed(1); },
+    // where a click along the strip falls, in seconds from the sequence's start — read off the BOXES, which carry the layout
+    timeAtX(x) {
+        const boxes = this.el.querySelectorAll('.sqBox'); if (!boxes.length) return null;
+        let acc = 0;
+        for (let i = 0; i < boxes.length; i++) {
+            const b = boxes[i], dur = +this.row.boxes[i].dur || 0, l = b.offsetLeft, w = b.offsetWidth;
+            if (x < l + w || i === boxes.length - 1) return acc + dur * clamp((x - l) / Math.max(1, w), 0, 1);
+            acc += dur;
+        }
+        return acc;
+    },
+    xAtTime(t) {
+        const boxes = this.el.querySelectorAll('.sqBox'); if (!boxes.length) return null;
+        let acc = 0;
+        for (let i = 0; i < boxes.length; i++) {
+            const dur = +this.row.boxes[i].dur || 0, b = boxes[i];
+            if (t <= acc + dur || i === boxes.length - 1) return b.offsetLeft + b.offsetWidth * clamp((t - acc) / Math.max(0.001, dur), 0, 1);
+            acc += dur;
+        }
+        return null;
+    },
+    clickTime(ev) {
+        const row = this.el.querySelector('#sqRow'); if (!row || !this.row.boxes.length) return;
+        const x = ev.clientX - row.getBoundingClientRect().left;
+        const t = this.timeAtX(x); if (t == null) return;
+        if (this.cursor != null && Math.abs(this.cursor - t) < 0.15) {   // a click where it already is takes it away
+            this.cursor = null; this.hearFrom = 'start'; this.save(); this.render();
+            this.setStatus('the cursor is cleared — SPACE plays from the start'); return;
+        }
+        this.cursor = Math.round(t * 100) / 100; this.hearFrom = 'cursor';
+        this.save(); this.render();
+        const w = this.cursorWhere();
+        this.setStatus('cursor at ' + this.mss(this.cursor) + (w ? ' · box ' + w.box + ', ' + fmtS(w.into) + ' s into it' : '') + ' — SPACE plays from there');
+    },
+    cursorWhere() {
+        if (this.cursor == null) return null;
+        let acc = 0;
+        for (let i = 0; i < this.row.boxes.length; i++) {
+            const dur = +this.row.boxes[i].dur || 0;
+            if (this.cursor <= acc + dur || i === this.row.boxes.length - 1) return { box: i + 1, into: Math.max(0, this.cursor - acc) };
+            acc += dur;
+        }
+        return null;
+    },
+    paintCursor() {
+        const strip = this.el && this.el.querySelector('#sqTime'); if (!strip) return;
+        const sel = this.el.querySelector('#sqFrom'); if (sel && document.activeElement !== sel) sel.value = this.hearFrom;
+        strip.innerHTML = '';
+        const off = this.el.querySelector("#sqCursorLine"); if (off) off.style.display = "none";
+        if (this.cursor == null || !this.row.boxes.length) return;
+        const x = this.xAtTime(this.cursor); if (x == null) return;
+        const w = this.cursorWhere();
+        const mark = document.createElement('div');
+        mark.style.cssText = 'position:absolute;top:0;bottom:-4px;left:' + x + 'px;width:2px;background:#e8a06a;pointer-events:none';
+        const tag = document.createElement('div');
+        tag.textContent = this.mss(this.cursor) + (w ? '  box ' + w.box + ' +' + fmtS(w.into) : '');
+        tag.style.cssText = 'position:absolute;top:0;left:' + (x + 4) + 'px;color:#e8a06a;font-size:.85em;white-space:nowrap;pointer-events:none';
+        strip.appendChild(mark); strip.appendChild(tag);
+        // and the line down the boxes, so the ear and the eye agree
+        const line = this.el.querySelector('#sqCursorLine');
+        if (line) { line.style.left = x + 'px'; line.style.display = 'block'; }
+    },
+    // elapsed / total while Hear plays; `t` null leaves it at where it stopped (his: it stops where Hear stops)
+    paintClock(t) {
+        const c = this.el && this.el.querySelector('#sqClock'); if (!c) return;
+        if (t == null) { if (!this._clockAt) { c.textContent = ''; } return; }
+        this._clockAt = t;
+        c.textContent = this.mss(t) + ' / ' + this.mss(this.total());
+    },
     startLine(H) {
         this.stopLine();
         const tick = () => {
@@ -1532,6 +1618,7 @@ const S = {
             let i = 0; while (i < B.length - 2 && B[i + 1] <= t) i++;
             const box = this.el.querySelectorAll('.sqBox')[i];
             if (box && t >= 0) { const f = clamp((t - B[i]) / Math.max(0.001, B[i + 1] - B[i]), 0, 1); line.style.left = (box.offsetLeft + f * box.offsetWidth) + 'px'; line.style.display = 'block'; }
+            this.paintClock(t - B[0]);   // 1d.15: the clock runs with the line
             this._raf = requestAnimationFrame(tick);
         };
         this._raf = requestAnimationFrame(tick);
