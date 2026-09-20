@@ -768,6 +768,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        FOR THE PLANNING: explain how this would LOOK first, and talk it through with him, before it is planned.**
     7. **SELECT A RANGE OF BOXES** (LG-48): *"if I have 30 boxes I can select 15-30 and make waves"*. *Today it is one box or ALL boxes.
        To settle when planned: click + SHIFT-click for the range; the range takes `waves | straight` — and `dyn` and `enter` too?*
+    8. **THE WAVES BY PRESET** (LG-49) — UNDER DISCUSSION, the AI's recommendations put to him: swell lengths automated (no typed
+       seconds) with a tilt and a jitter · the shape by preset, his default a golden-section rise against fall, with a HOLD at the top ·
+       between swells a player rests at THE BOX'S OWN DYNAMIC, not at `low` — so a box has a dynamic AND waves · presets for the whole
+       line, and a default.
 
 
 ## 2. Notate — `todo`

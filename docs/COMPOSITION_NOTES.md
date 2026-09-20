@@ -1584,3 +1584,34 @@ Told that the waves are switched per box — one box at a time, or `all boxes �
 *AI reading (mine, marked):* between ONE box and ALL boxes there is nothing, and a rolled row can be thirty boxes long. He named
 the waves; the same selection would serve everything a box carries that the head can only set for all at once — `dyn`, `enter`
 (attack | seamless). To settle when planned: click + SHIFT-click for the range, and what the range buttons act on.
+
+---
+
+### LG-49 · 2026-09-20 — THE WAVES WANT PRESETS: swell lengths without typing seconds · a golden-section rise and fall · SITTING at the peak · and resting at THE BOX'S OWN DYNAMIC, not at `low`
+
+His words, going through the AI's account of the `waves` line dial by dial (the quoted phrases are the AI's, from that account):
+
+> *"6 10 16 is the pool of swell lengths in seconds. Each player draws their own. let's have a more efficient way to do this one.
+> What do you recommend? I don't necessarily want to dial in. Seconds. I might not be sure exactly which ones were. And then, in
+> general, let's have the set be longer than three. So, variety, or maybe a, even a jitter. A jitter. But Something more automated.
+> And then same with the weights. Let's at least have a default for maybe the tilt short, tilt long dial. Let's discuss this. I'll
+> take your recommendations. peak 0.5 sets where the top of a swell sits. 0.7 gives a slow rise and a quick fall. Same here, some
+> sort of presets. I guess that's what I'm looking for in general, a sort of presets situation. So some kind of default here or a
+> way to easily generate a behavior. And I think also, can we have it sit at the peak for a little while? So I think probably my
+> default behavior is sort of a golden section rise versus fall, and then sitting at the peak for a little bit for like maybe a few
+> seconds or something like that, or some way to calculate this. Anyways, let me get your recommendations on this tool and their
+> settings. density 0.7 means a player is inside a swell 70% of the time. And then does this mean that if it's one, there'll be
+> either rising or falling the whole time, but not necessarily at any one dynamic. And then can we have the rest of the time they
+> sit flat be or describe for me when these come in. So does this mean that, let's say it's 0.5, does this mean that they rise and
+> then fall and then sit for a bit of time at the bottom? Like when does the lows happen? So then they rise and fall and they sit
+> at the low for a while and then rise and fall again and then sit at the low for a while. Is that how it goes? If that's the case,
+> let us make it the box's static volume. So they would rise and fall and then rise back up to the static volume and then sit
+> there. And then let's come up with a default for this one as well. So in general, let's have this presets sort of situation and
+> let's discuss what those should be and have a default for the waves."*
+
+*AI reading (mine, marked):* four wishes and one change of model. (1) swell lengths AUTOMATED — no typing seconds, more than three
+values, a jitter. (2) a default TILT, short against long, in place of typed weights. (3) the swell's SHAPE by preset, his own default
+a golden-section rise against fall, and a HOLD at the top — *"a few seconds … or some way to calculate this"*. (4) PRESETS for the
+whole line, and a default. **The change of model:** between swells a player rests at THE BOX'S OWN DYNAMIC, not at `low` — *"they
+would rise and fall and then rise back up to the static volume and then sit there"* — so the box's dynamic is the water line and a
+wave goes above it AND below it. That means a box has a dynamic AND waves, not one or the other (today `waves` REPLACES the dyn).
