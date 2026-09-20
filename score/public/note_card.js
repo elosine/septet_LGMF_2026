@@ -22,6 +22,15 @@
     const C = () => (typeof Composer !== 'undefined' ? Composer : root.Composer);
     const CR = () => (typeof Cresc !== 'undefined' ? Cresc : root.Cresc);
     const TRACKS_ = () => (typeof TRACKS !== 'undefined' ? TRACKS : []);   // composer.html's lexical const, same story as Composer
+    const VR_ = () => (typeof VelocityRemap !== 'undefined' ? VelocityRemap : root.VelocityRemap);
+    // PLAN 1e (2026-09-20): a shape drawn BY HAND on a note can take the same law the tools now write — struck at mf, the fader the
+    // whole way, 0 ... 127, so the drawn height IS the fader instead of a step inside the written ladder's 12 dB. docs/DYNAMICS_LAW.md.
+    const MF_ANCHOR = 100;
+    const mfVel = (lane, midi) => {
+        const Cp = C(), VR = VR_(), T = TRACKS_(), key = T[lane] && T[lane].instKey;
+        const d = (VR && Cp && Cp._velRemap && key && VR.heldNote) ? VR.heldNote(Cp._velRemap, key, midi, MF_ANCHOR) : null;
+        return d ? d.vel : MF_ANCHOR;
+    };
 
     const CARD = {
         el: null,
@@ -127,6 +136,14 @@
                   '<input id="ncLevel" type="number" step="0.1" min="0" max="10" style="width:52px;background:#141419;color:#ddd;border:1px solid #444;padding:2px">' +
                   '<span style="color:#666">of 10</span>' +
                   '<span id="ncVel" style="color:#8a9;font-size:11px;margin-left:auto"></span></div>' +
+                // PLAN 1e — THE FULL FADER. On: the note is struck at mf and its drawn height maps straight onto CC7 0 ... 127, which is
+                // how every shape a tool writes now sounds. Off: both fields go and the note is back on the written ladder (12 dB).
+                '<div style="display:flex;align-items:center;gap:6px;margin:3px 0">' +
+                  '<span style="color:#9a9;width:52px"></span>' +
+                  '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;color:#9a9;font-size:11px" ' +
+                    'title="a SHAPED note: struck at mf, the drawn height straight onto CC7 0-127 (docs/DYNAMICS_LAW.md). Off: the written ladder, 12 dB">' +
+                    '<input id="ncFull" type="checkbox" style="margin:0"> full fader</label>' +
+                  '<span id="ncFullV" style="color:#666;font-size:10px"></span></div>' +
                 '<div style="display:flex;align-items:center;gap:6px;margin:3px 0">' +
                   '<span style="color:#9a9;width:52px">start</span>' +
                   '<input id="ncStart" type="number" step="0.01" style="width:74px;background:#141419;color:#ddd;border:1px solid #444;padding:2px">' +
@@ -171,6 +188,10 @@
             };
 
             d.querySelector('#ncTech').addEventListener('change', (e) => commit(wc => { wc.technique = e.target.value; }));
+            d.querySelector('#ncFull').addEventListener('change', (e) => commit(wc => {
+                if (e.target.checked) { wc.cc7Abs = { lo: 0, hi: 127 }; wc.velAbs = mfVel(wc.layer, wc.sonifyNote); }
+                else { delete wc.cc7Abs; delete wc.velAbs; }
+            }));
             const setPitch = v => commit(wc => { wc.sonifyNote = Math.max(0, Math.min(127, Math.round(v))); });
             d.querySelector('#ncPitch').addEventListener('change', (e) => setPitch(+e.target.value));
             d.querySelector('#ncPitch').addEventListener('keydown', (e) => {
@@ -297,6 +318,9 @@
             this.el.querySelector('#ncLevel').value = Math.round(lvl * 10) / 10;
             this.el.querySelector('#ncVel').textContent =
                 wc.sonifyMode === 'plain' ? 'vel ' + (wc.recVel != null ? wc.recVel : 100) : 'drawn';
+            const full = !!(wc.cc7Abs && wc.cc7Abs.lo === 0 && wc.cc7Abs.hi === 127);
+            this.el.querySelector('#ncFull').checked = full;
+            this.el.querySelector('#ncFullV').textContent = full ? 'struck at vel ' + (wc.velAbs != null ? wc.velAbs : 100) + ' - CC7 0-127' : '';
             this.el.querySelector('#ncPitch').value = wc.sonifyNote;
             this.el.querySelector('#ncName').textContent = nm(wc.sonifyNote);
             this.el.querySelector('#ncStart').value = Math.round(wc.startSeconds * 100) / 100;

@@ -84,6 +84,7 @@ const D = root.StrikeDrawer, SEQ = root.Sequence;
 if (!D || !SEQ) { console.warn('[sequence_ui] needs the strikes drawer and sequence.js — one is not loaded'); return; }
 const C_ = () => (typeof Composer !== 'undefined' ? Composer : (root.Composer || null));
 const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit || null));
+const VR_ = () => (typeof VelocityRemap !== 'undefined' ? VelocityRemap : (root.VelocityRemap || null));   // 1e: the mf velocity per instrument
 const METAL = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : root.META_LAYER);
 const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own ladder, the one the generator reads
 
@@ -116,6 +117,17 @@ const centsTxt = c => { const r = Math.round(+c || 0); return r ? (' ' + (r > 0 
 const anchorOf = level => { const L = LADDER(), lo = L ? L.LO : 65, hi = L ? L.HI : 127; return Math.round(lo + (hi - lo) * clamp(+level || 0, 0, 1)); };
 const yOf = level => Math.max(0.05, Math.round(clamp(+level || 0, 0, 1) * 100) / 10);   // the drawn height that MEANS the anchor (D.insert, 1c.2b)
 const shortOf = lane => { const t = (D.tracks ? D.tracks() : [])[lane]; return (t && (t.short || t.label)) || ('L' + lane); };
+
+// ---------------------------------------------------------------- PLAN 1e — THE DYNAMICS LAW (RUNNING_LOG 137-142; docs/DYNAMICS_LAW.md)
+// His diagnosis, 2026-09-20: *"in the tuba piece and in the last piece, we always made crescendos from zero ... CC7 zero to CC7 max ...
+// a normalized one."* A note whose volume is SHAPED used to be STRUCK at the velocity of its shape's TOP, with the fader then moving it
+// only inside the written ladder's 12 dB — which is why every wave sounded "between two high dynamic levels" (his ear, twice; the
+// measurement is RUNNING_LOG 140). Under 1e a shaped note is struck at MF and THE FADER CARRIES THE WHOLE SHAPE, 0 ... 127, its top at
+// the full fader. The machinery is the score's own, per note, and piece #5 built it for this very reason (its 316 / 346 / 349):
+// `cc7Abs` maps the drawn height straight onto a CC7 range, bypassing the ladder; `velAbs` pins the strike. NOTHING IN composer.html
+// CHANGES — the fix is what the TOOL writes. A strike, a plain note, a long tone and a trill are untouched.
+const MF_ANCHOR = 100;                 // mf on the ladder (65 ... 127, eight names evenly) — the anchor every shaped note is struck at
+const CC7_FULL = { lo: 0, hi: 127 };   // the normalized fader
 
 const S = {
     el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null, _previewing: -1, _pvT: 0,
@@ -893,22 +905,70 @@ const S = {
             const st = Math.max(n.start, from), onMs = Math.round((st - from) * 1000), durMs = Math.max(30, Math.round((n.end - st) * 1000));
             // 1d.7 · 1d.8: a note whose level MOVES — it read the waves, it lies under a niente fade, it is ramped to or from a dynamic — is
             // struck at ONE velocity (the waves' `high`, or its own loudest if that is louder) and its CC7 follows (scheduleRamps). A strike just takes its level
+            // PLAN 1e: a SHAPED note is STRUCK AT MF — the ANCHOR, which playNotes remaps into this instrument's own velocity — and its
+            // levels are re-based so the shape's TOP is the full fader. A strike (a fixed-length sound) still takes its own level.
             const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', top = this.topOf(n, hiLevel);
-            notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: anchorOf(ramped ? top : n.level), onMs: onMs, durMs: durMs,
-                cents: n.cents ? n.cents : (bends[n.player] ? RECENTRE : 0), partial: n.partial });
-            if (ramped) ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: onMs, durMs: durMs, skipS: st - n.start, noteStart: n.start, levels: n.levels, velRef: yOf(top), fade: n.fade || null });
+            const rec = { lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: ramped ? MF_ANCHOR : anchorOf(n.level), onMs: onMs, durMs: durMs,
+                cents: n.cents ? n.cents : (bends[n.player] ? RECENTRE : 0), partial: n.partial };
+            notes.push(rec);
+            if (ramped) ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: onMs, durMs: durMs, skipS: st - n.start, noteStart: n.start,
+                levels: this.rebased(n, top), velRef: yOf(this.mfLevel()), cc7Abs: CC7_FULL, fade: n.fade || null, note: rec });
         });
-        return { G: G, from: from, notes: notes, ramps: ramps };
+        const onMain = this.curveSeats(ramps);   // 1e V2b: and each of them onto a CURVE channel — MAIN takes no moving controller (D11)
+        return { G: G, from: from, notes: notes, ramps: ramps, onMain: onMain };
     },
     // 1d.7 — SPACE CARRIES THE WAVE (the head of this file has the why): each waved note's CC7 ramp, sent from here AFTER D.playNotes has
     // scheduled the notes — its routes, MorphEmit's timers, the score's own law (Composer.heldCc7 on a stand-in stamped velRef = high).
     // A point every RAMP_MS where the value changes. Returns how many messages were scheduled
     // the level a moving note is STRUCK for: the waves' `high` for a note that read them, its own loudest otherwise — and never under its loudest
     topOf(n, hiLevel) { return Math.max(n.waves ? hiLevel : 0, +n.level || 0); },
+    // ---------------------------------------------------------------- PLAN 1e, the two rules
+    // RULE 1 — mf for ALL instruments. The cost, accepted (his call 2026-09-20): a shape tops out at mf loudness, 3.9 ... 5.4 dB under a
+    // struck fff — but UNIFORMLY so, because 1b calibrated every instrument to one written span, so the balance holds.
+    mfLevel() { const L = LADDER(), lo = L ? L.LO : 65, hi = L ? L.HI : 127; return clamp((MF_ANCHOR - lo) / (hi - lo), 0, 1); },
+    mfVel(lane, midi) {
+        const C = C_(), VR = VR_(), T = (D.tracks ? D.tracks() : []);
+        const key = T[lane] && T[lane].instKey;
+        const d = (VR && C && C._velRemap && key && VR.heldNote) ? VR.heldNote(C._velRemap, key, midi, MF_ANCHOR) : null;
+        return d ? d.vel : MF_ANCHOR;   // no bank loaded: the anchor itself, as everything else in this file falls back
+    },
+    // RULE 2 — the top of the shape is the full fader. Each dynamic step under the top is then one seventh of the fader (the ladder has
+    // eight names), so ppp under an fff top is CC7 0. `top` is ONE number for the whole note — the waves' `high` where it read them —
+    // so a note's breaths all measure from the same ceiling and JOIN, instead of each one climbing to full.
+    rebase(level, top) { return clamp(1 - (clamp(+top || 0, 0, 1) - clamp(+level || 0, 0, 1)), 0, 1); },
+    rebased(n, top) {
+        const L = (n.levels && n.levels.length >= 2) ? n.levels : [[0, n.level], [Math.max(0.001, +n.dur || 0), n.level]];
+        return L.map(p => [p[0], this.rebase(p[1], top)]);
+    },
+    // 1e V2b — THE ROUTE. A ramped note streams a moving fader, and his rack takes one only on the CURVE channels (D11): MAIN ch 1 is
+    // plain notes, dynamics by velocity, no moving controller. So each ramped note is given a MARKER seat — 'c0', 'c1', ... , the index
+    // into its instrument's own curve bank — which `playNotes` keys its route cache on and the wrapper at the foot of this file resolves.
+    // Round robin per player in time order, exactly as the score's own curveChannelMap does. A REAL seat (the second vibraphone) is
+    // already on a curve channel and keeps it; a technique with no curve copy stays on MAIN and the status says how many.
+    curveSeats(ramps) {
+        const C = C_(); if (!C || typeof C.curveChannelsOf !== 'function') return ramps.filter(w => !w.seat).length;
+        const byLane = {}; let onMain = 0;
+        ramps.forEach(w => { if (w.seat) return; (byLane[w.lane] = byLane[w.lane] || []).push(w); });
+        Object.keys(byLane).forEach(k => {
+            const lane = +k, list = byLane[k].slice().sort((a, b) => a.onMs - b.onMs), freeAt = new Map();
+            list.forEach(w => {
+                const pool = C.curveChannelsOf(lane, w.tech) || [];
+                if (!pool.length) { onMain++; return; }
+                let pick = -1, best = Infinity;
+                for (let i = 0; i < pool.length; i++) { const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f <= w.onMs + 1e-9 && f < best) { best = f; pick = i; } }
+                if (pick < 0) { pick = 0; let lo = Infinity; for (let i = 0; i < pool.length; i++) { const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f < lo) { lo = f; pick = i; } } }
+                freeAt.set(pick, w.onMs + w.durMs + 50);   // its own span and a breath after it, as curveChannelMap's 0.05 s
+                w.seat = 'c' + pick; if (w.note) w.note.seat = w.seat;
+            });
+        });
+        return onMain;
+    },
     rampPoints(w) {
         const C = C_(); if (!C || typeof C.heldCc7 !== 'function') return [];
         // 1d.8: a niente fade rides on the stand-in as the score's own `cc7Fade` — heldCc7 multiplies it in, at the time it is asked for
-        const wc = { id: 'seq-hear-' + w.lane + '-' + w.midi, layer: w.lane, sonifyNote: w.midi, velRef: w.velRef, nodes: [], cc7Fade: w.fade || null, startSeconds: w.noteStart }, L = w.levels, out = [];
+        // 1e: the stand-in carries `cc7Abs` too, so Hear's fader is the same normalized one the inserted note will play (heldCc7 reads it
+        // BEFORE the ladder; a niente `cc7Fade` still multiplies in on top of the answer)
+        const wc = { id: 'seq-hear-' + w.lane + '-' + w.midi, layer: w.lane, sonifyNote: w.midi, velRef: w.velRef, cc7Abs: w.cc7Abs || null, nodes: [], cc7Fade: w.fade || null, startSeconds: w.noteStart }, L = w.levels, out = [];
         const at = x => { if (x <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (x <= L[i][0]) { const p = L[i - 1], q = L[i]; return p[1] + (q[1] - p[1]) * ((x - p[0]) / Math.max(1e-9, q[0] - p[0])); } return L[L.length - 1][1]; };
         let last = -1;
         const point = ms => { const x = w.skipS + ms / 1000, cc = C.heldCc7(wc, at(x), w.noteStart + x); if (cc !== last) { out.push([ms, cc]); last = cc; } };
@@ -955,7 +1015,7 @@ const S = {
         const label = 'the sequence · ' + this.row.boxes.length + ' box' + (this.row.boxes.length > 1 ? 'es' : '') + ' · ' + fmtS(H.G.total - H.from) + ' s' + (H.from ? ' from box ' + (this.sel + 1) : '');
         await D.playNotes(H.notes, label);
         const e = E_();
-        if (e && e._playing) { const cc = this.scheduleRamps(H); this.setStatus('hearing ' + label + ' · ' + H.notes.length + ' notes' + (H.ramps.length ? ' · ' + H.ramps.length + ' on the waves (' + cc + ' fader moves)' : '') + this.flagsText(H.G)); this.startLine(H); }
+        if (e && e._playing) { const cc = this.scheduleRamps(H); this.setStatus('hearing ' + label + ' · ' + H.notes.length + ' notes' + (H.ramps.length ? ' · ' + H.ramps.length + ' shaped, struck at mf on the curve channels (' + cc + ' fader moves)' : '') + (H.onMain ? ' · ' + H.onMain + ' had no curve channel — on MAIN, so their fader will not move' : '') + this.flagsText(H.G)); this.startLine(H); }
         else { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); }
     },
     stop() {
@@ -999,7 +1059,9 @@ const S = {
         G.notes.forEach(n => {
             if (typeof C.trillCovers === 'function' && C.trillCovers(n.lane, n.start)) { busy.push(shortOf(n.lane) + '@' + n.start.toFixed(2)); return; }   // TRILLS_TOOL §7, as D.insert
             maxEnd = Math.max(maxEnd, n.end);
-            const nodes = (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]).map(p => ({ pos: n.dur > 0 ? clamp(p[0] / n.dur, 0, 1) : 0, y: yOf(p[1]), smooth: 0.25 }));
+            // PLAN 1e, rule 2: a SHAPED note's heights are re-based so the shape's TOP is the full fader. A straight note is drawn as it always was.
+            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', rTop = ramped ? this.topOf(n, hiLevel) : 0;
+            const nodes = (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]).map(p => ({ pos: n.dur > 0 ? clamp(p[0] / n.dur, 0, 1) : 0, y: yOf(ramped ? this.rebase(p[1], rTop) : p[1]), smooth: 0.25 }));
             const segments = []; for (let k = 1; k < nodes.length; k++) segments.push({ model: 'power', slope: 0 });
             const box = this.row.boxes[n.container] || {};
             // 1d.7: a note that read the waves is written DRAWN — its breakpoints are the nodes above — and stamped `velRef` = the waves'
@@ -1007,13 +1069,15 @@ const S = {
             // the morph's way). A strike (a fixed-length sound) took its level from the wave and stays plain.
             // 1d.8: the same for a note under a niente fade (it carries the score's own `cc7Fade`, in score seconds) and for one ramped to or
             // from a dynamic (the ramp is already in its breakpoints). One velocity: the waves' `high`, or the note's own loudest if louder.
-            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed';
+            // 1e: `ramped` and its top are computed with the nodes above, because the nodes are now re-based against that top.
             C.objects.push(Object.assign({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
                 startSeconds: n.start, endSeconds: n.end, nodes: nodes, segments: segments,
                 color: COLOR, fillMode: 'bottom', opacity: 0.55, properties: {}, srcKind: 'sequence',
                 performanceNotes: name + ' · box ' + (n.container + 1) + (box.take ? ' · ' + box.take : '') + (n.partial != null ? ' · partial ' + n.partial : '') + (n.cents ? ' · ' + (n.cents > 0 ? '+' : '') + Math.round(n.cents) + '¢ just' : '') + (n.waves ? wavesTxt : ''),
                 sonifyNote: n.midi, technique: n.tech, recVel: anchorOf(n.level) },
-                ramped ? { velRef: yOf(this.topOf(n, hiLevel)) } : {},
+                // PLAN 1e: the NORMALIZED FADER and the MF STRIKE, per note. `velRef` is kept and now means the mf height, so a note that
+                // loses `cc7Abs` or `velAbs` by hand still falls back to being struck at mf with its fader on the ladder from there.
+                ramped ? { velRef: yOf(this.mfLevel()), cc7Abs: { lo: CC7_FULL.lo, hi: CC7_FULL.hi }, velAbs: this.mfVel(n.lane, n.midi) } : {},
                 (ramped && n.fade) ? { cc7Fade: { start: n.fade.start, end: n.fade.end, from: n.fade.from, to: n.fade.to, curve: n.fade.curve } } : {},
                 (n.seat || n.cents || ramped) ? {} : { sonifyMode: 'plain' },   // 1c.3 / 1c.4, as D.insert: a seat's note or a bent note is DRAWN (its own curve channel), the rest hold MAIN
                 n.cents ? { morphBend: [[0, +(+n.cents).toFixed(2)], [n.dur, +(+n.cents).toFixed(2)]] } : {}));
@@ -1045,6 +1109,25 @@ const S = {
             (he && he.missing > he.edited ? ' · ' + (he.missing - he.edited) + ' of its notes had been deleted — written again' : '') +   // a changed note is also a wanted note unmatched: count only the surplus
             this.flagsText(G) + (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
     },
+};
+
+// ---------------------------------------------------------------- PLAN 1e V2b: the second hook — a MARKER seat resolves to a curve channel
+// `strike_drawer.js` is not changed (his 2a). A marker 'cN' on a note means "this one streams a fader: put it on my instrument's Nth curve
+// channel". An entry in that bank is a NUMBER (a channel on the instrument's own port) or { port, ch } (the SI2 second instances, the `b`
+// ports), which is exactly what Composer.curveRoute resolves; the port's output comes from MorphEmit. Anything this cannot resolve falls
+// back to the route the drawer would have given, so a missing bank is quiet, not broken.
+const _routeFor = D.routeFor;
+D.routeFor = function (lane, techKey, seat) {
+    const m = (typeof seat === 'string') ? /^c(\d+)$/.exec(seat) : null;
+    const base = _routeFor.call(this, lane, techKey, m ? 0 : seat);
+    if (!m || !base) return base;
+    const C = C_(), E = E_();
+    if (!C || !E || typeof C.curveChannelsOf !== 'function' || typeof C.curveRoute !== 'function') return base;
+    const entry = (C.curveChannelsOf(lane, techKey) || [])[+m[1]];
+    if (entry == null) return base;
+    const r = C.curveRoute(lane, entry), out = E.outputFor(r.port);
+    if (!out || !r.ch) return base;
+    return Object.assign({}, base, { out: out, port: r.port, ch: r.ch - 1 });
 };
 
 // ---------------------------------------------------------------- the one hook on what the drawer does: SPACE, when this strip was clicked last

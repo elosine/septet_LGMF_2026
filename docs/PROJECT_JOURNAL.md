@@ -119,8 +119,8 @@ its feature list grew and went ON DECK.*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **► BUILD PLAN 1e — THE VOLUME FIX, V1 → V7, IN ONE GO.** His go is given (*"lets move through the todo list"*). **`docs/PLAN.md` § 1e is written to be executed cold — read it and build it.** In short: every SHAPED note a tool writes (waved · ramped to or from a dynamic · swelled · drawn by hand) carries `cc7Abs { lo: 0, hi: 127 }` and `velAbs` = its instrument's MF velocity, with heights re-based so the shape's TOP is the full fader (`h' = 1 − (top − level)`); **V1** the sequence's Insert · **V2** its Hear, including moving a ramped note and its ramp onto a CURVE route by wrapping `D.routeFor` from outside · **V3** one `curveDirty()` line in `strike_drawer.js` `insert` and in `morph_panel.js`'s inserts · **V4** `swell_ui.js` takes the mf strike (it is already on `cc7Abs`), and a `full fader` checkbox on the note card · **V5** the morph: NOTHING BUILT, the method is in `MORPH_NOTES.md` for its revision · **V6** the one check · **V7** `docs/DYNAMICS_LAW.md`. **`sequence.js` is NOT touched — `node tools/sequence_check.js` must still say 126.** | **Opus** — a written plan, executed | **no** — build straight from the plan |
-| 2 | **HIS CHECK, after the build (top line step 4):** he records a waved sequence as MIDI in Reaper, then `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`. Expected: every note on a curve channel · struck at the mf velocities (EH ≈ 96 · Bsn 98 · Hn 81 · Tpt 70 · Vib 99 · Vc 95 · Db 87) · CC7 reaching toward 0 under a deep wave · MAIN ch 1 empty. **No probes** — his standing instruction this session | — | — |
+| ✓ | **PLAN 1e, THE VOLUME FIX — BUILT, V1 → V7** (RUNNING_LOG §143). Every SHAPED note a tool writes carries `cc7Abs {0,127}` and `velAbs` = its instrument's MF velocity **for that pitch**, its heights re-based so the shape's top is the full fader, and it sounds on a CURVE channel in Hear as in the score. `sequence_ui.js` (Insert · Hear · the marker-seat route, `D.routeFor` wrapped from outside so `strike_drawer.js` is untouched) · one `curveDirty()` line in `strike_drawer.js` and all FOUR of `morph_panel.js`'s inserts · `swell_ui.js` takes the mf strike · `note_card.js` gains a **`full fader`** checkbox · **`docs/DYNAMICS_LAW.md`** written and named in CLAUDE.md as the FIRST read for any sound-path work. V5 (the morph) is method-only by the plan. `sequence_check` still **126** — `sequence.js` was not touched. | Opus | — |
+| **►** | **HIS CHECK — THE ONE THING LEFT IN 1e, AND IT IS HIS (top line step 4):** he records a waved sequence as MIDI in Reaper, then `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`. Expected: every note on a curve channel · struck at the mf velocities (the seven numbers in the plan — EH 96 · Bsn 98 · Hn 81 · Tpt 70 · Vib 99 · Vc 95 · Db 87 — are AVERAGES OVER PITCH; expect each note's own REGISTER velocity instead (the probe got EH 101 at E4, Bsn 104 at D3, Db 60 at C2 — the remap working, not a fault)) · CC7 reaching toward 0 under a deep wave · MAIN ch 1 empty. **No probes** — his standing instruction this session | — | — |
 | 3 | **`docs/DYNAMICS_LAW.md`** (1e V7) — one page, then named in CLAUDE.md's "Orient from docs" as the FIRST read for any sound-path work. His reason: *"There's some fundamental misunderstanding or AI forgets what we established before"* | Opus | with the build |
 | 4 | **THEN the sequence feature add comes OFF DECK** — `docs/PLAN.md` § 1d, THE NEXT FEATURE ADD (items 1–8; item 9 moved into 1e) and **1d.9** (`of max` · `outlier`, planned in full). **A short design talk is owed first, all of it his to answer:** the LIBRARY look (LG-47 — he asked to be shown how it would look before it is planned; the AI's sketch is in the chat: name it and it autosaves to that name, unnamed autosaves generically, a `library` menu, `duplicate`, `×`) · **(b)** the waves' `up` / `down` in STEPS from the box's own dynamic (recommended) vs a fixed `low` / `high` · a **`save preset`** button so he can refine the five waves presets while composing (*"probably need to refine all presets while composing"*) · does a SELECTED RANGE of boxes also take `dyn` and `enter`, or only waves | **Fable** — design and verdicts | **yes** — a clear and a design conversation |
 | 5 | **Known and accepted, to be re-thought when item 4 is built:** under 1e a shaped note tops out at mf loudness, so the waves' `low` / `high` become a DEPTH below that top — "waves by preset" (item 8: `up` / `down` round the box's dynamic) needs re-framing as depths | Fable | with 4 |
@@ -130,22 +130,27 @@ its feature list grew and went ON DECK.*
 
 **Open at session end — (MID-SESSION CHECKPOINT, 2026-09-20, Opus — the work is NOT finished; the same task carries across the clear):**
 
-- **THE TASK: PLAN 1e, THE VOLUME FIX — BUILD IT.** His six-step top line for it: **1 ✓** look at the trills (done, nothing to fix) ·
-  **2 ✓** write the plan (done, `docs/PLAN.md` § 1e) · **3 ► BUILD IT** · 4 his check · 5 `DYNAMICS_LAW.md` · 6 the sequence feature
-  plan off deck. **He gave the go** (*"yes mf for all instruments and lets move through the todo list"*) and then called the clear.
+- **THE TASK: PLAN 1e, THE VOLUME FIX — BUILT (RUNNING_LOG §143).** His six-step top line for it: **1 ✓** the trills (nothing to fix) ·
+  **2 ✓** the plan written · **3 ✓ BUILT, V1 → V7** · **4 ► HIS CHECK in the rack — the one thing left, and it is his** ·
+  **5 ✓** `docs/DYNAMICS_LAW.md`, written and named in CLAUDE.md as the first read for any sound-path work ·
+  **6** the sequence feature plan comes off deck after that.
 - **Why it exists, in one line:** a note whose volume is SHAPED is struck at the velocity of its shape's top and the fader then moves
   it only inside the ladder's 12 dB — so every shape sounds "between two high dynamic levels". The fix is the normalized fader,
   0 → 1, struck at mf. **His own diagnosis; the machinery is piece #5's and already here.**
-- **Latest deliverable:** `docs/PLAN.md` § **1e** (V1 … V7, written to be executed cold) · `docs/MORPH_NOTES.md` — the 2026-09-20
+- **Latest deliverable:** `docs/DYNAMICS_LAW.md` (new — the two kinds of note, the curve channels, the cached map, how a claim about
+  it is proved) · `score/public/sequence_ui.js` · `swell_ui.js` · `note_card.js` · `strike_drawer.js` · `morph_panel.js` ·
+  RUNNING_LOG **§143** · `docs/PLAN.md` § **1e** (now `done`) · `docs/MORPH_NOTES.md` — the 2026-09-20
   entry, the morph's part for its revision · `reaper/bridge/jobs/cc7_by_channel.lua` (new, read-only — the one test) ·
   `score/public/sequence_ui.js` (the floating window, and §139's one-line map fix) · RUNNING_LOG **§132–§142**.
-- **THE NEXT CONCRETE STEP — an instruction:** *Read `docs/PLAN.md` § 1e and build V1 → V7 in one go, on Opus. Then run
-  `node tools/sequence_check.js` (it must still say **126** — `sequence.js` is not touched) and verify in the running app by the
-  recipe below. Do not ask him for another go; it is given.*
-- **`Resume reads:`** *(what the BUILD needs, nothing more)*
-  - **`docs/PLAN.md` § 1e — the whole item.** It carries the why, the two rules, V1–V7, the verification and the refusals.
-  - Only if a number is questioned: RUNNING_LOG **§140** (what his rack actually received) and **§142** (why the machinery was
-    already there). Everything else this session wrote is history and stays in the log.
+- **THE NEXT CONCRETE STEP — HIS, and it needs his rack:** *he records a waved sequence as MIDI in Reaper (the instrument tracks
+  armed `Record: input`), then `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`. Expected: every shaped note on a
+  curve channel · struck at its own REGISTER's mf velocity · CC7 reaching down toward 0 under a deep shape · **MAIN ch 1 empty**.
+  No probes — the in-app check is already done and is in §143.* **Then** the sequence feature add comes off deck (a design talk first).
+- **`Resume reads:`** *(what the NEXT step needs, nothing more)*
+  - **`docs/DYNAMICS_LAW.md` — the whole page.** It is now the first read for anything on the sound path, and it carries what the
+    rack test expects.
+  - RUNNING_LOG **§143** — what was built and what the in-app check already proved, so it is not re-proved.
+  - Only for the feature add: `docs/PLAN.md` § 1d, THE NEXT FEATURE ADD, and the four open design questions in the table above.
 - **Decisions pending him:** **none that block 1e.** All four open questions belong to the feature add on deck (row 4 above).
 - **DELIBERATELY UNCOMMITTED — five paths, all his:**
   - `bank/panel_snapshots.json` (modified) — the takes he saves from his own tab. His data, mid-use.

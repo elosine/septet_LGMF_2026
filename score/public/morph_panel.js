@@ -975,6 +975,7 @@ const PANEL = {
                 color: '#7E57C2', fillMode: 'bottom', opacity: 0.45,
                 performanceNotes: entity + ' (drag = move, edge/box = stretch)', properties: {} });
             C.nextId = nid + 2;
+            if (C.curveDirty) C.curveDirty();   // PLAN 1e V3: the curve-channel map is cached and must be dropped before these notes are played (D11; RUNNING_LOG 75 / 139)
             if (C.renderAll) C.renderAll();
             if (C.markDirty) C.markDirty();
             if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
@@ -1142,6 +1143,7 @@ const PANEL = {
         const objs = PH.toScoreObjects(gen, Object.assign({}, opts, { startId: C.nextId || 1 }));
         objs.forEach(o => C.objects.push(o));
         C.nextId = (C.nextId || 1) + objs.length;
+        if (C.curveDirty) C.curveDirty();   // PLAN 1e V3: the curve-channel map is cached and must be dropped before these notes are played (D11; RUNNING_LOG 75 / 139)
         if (C.renderAll) C.renderAll();
         if (C.markDirty) C.markDirty();
         if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
@@ -1181,6 +1183,7 @@ const PANEL = {
         const objs = PC.toScoreObjects(ms, g.groupId, Object.assign({}, opts, { startId: C.nextId || 1 }));
         objs.forEach(o => C.objects.push(o));
         C.nextId = (C.nextId || 1) + objs.length;
+        if (C.curveDirty) C.curveDirty();   // PLAN 1e V3: the curve-channel map is cached and must be dropped before these notes are played (D11; RUNNING_LOG 75 / 139)
         if (C.renderAll) C.renderAll();
         if (C.markDirty) C.markDirty();
         if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
@@ -1238,6 +1241,7 @@ const PANEL = {
                 ' contour (drag = move, edge/box = stretch)', properties: {},
         });
         C.nextId = (C.nextId || 1) + objs.length + 4;
+        if (C.curveDirty) C.curveDirty();   // PLAN 1e V3: the curve-channel map is cached and must be dropped before these notes are played (D11; RUNNING_LOG 75 / 139)
         if (C.renderAll) C.renderAll();
         if (C.markDirty) C.markDirty();
         if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();

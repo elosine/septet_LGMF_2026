@@ -1437,6 +1437,11 @@ const D = {
             color: '#C9A05A', fillMode: 'bottom', opacity: 0.6, performanceNotes: 'strike #' + this.strike.index + ' (drag = move, box = stretch)', properties: {} });
         C.lastInsertGroup = group;
         if (typeof C.openMetaWin === 'function') C.openMetaWin();
+        // PLAN 1e V3 — THE CURVE-CHANNEL MAP IS CACHED (D11, composer.html curveChannelMap). Once the score has been played, a note that
+        // is not in the map falls back to MAIN ch 1, where his rack takes no moving controller — so a curve event written after a
+        // playthrough played FLAT until the tab was reloaded. That bug was found twice in two days (RUNNING_LOG 75, then 139 by another
+        // door); every tool that writes a curve event drops the map here.
+        if (C.curveDirty) C.curveDirty();
         C.renderAll(); C.markDirty();
         this.setStatus((replace === 'after' ? '#' + this.strike.index + ' → ' + t.toFixed(3) + ' s' + afterMsg + ' · ' : '') + 'inserted ' + (notes.length - busy.length) + ' notes at ' + t.toFixed(3) + ' s' + (replace === true ? ' (original time)' : replace === 'after' ? ' (after previous)' : ' (playhead)') + ' as ' + group + replaceMsg + (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
     },

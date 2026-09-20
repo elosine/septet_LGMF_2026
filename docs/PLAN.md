@@ -780,8 +780,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        outside; `strike_drawer.js` untouched. **BUILD IT FIRST — nothing else about dynamics can be judged by ear until it is in.**
 
 
-- **1e — THE VOLUME FIX** (a shape in volume is THE NORMALIZED FADER, 0 → 1, on the curve channels, struck at mf) — `todo` —
-  **PLANNED 2026-09-20 at his word, to be built in ONE go** (RUNNING_LOG §137–§142). **It comes BEFORE the sequence feature add, which
+- **1e — THE VOLUME FIX** (a shape in volume is THE NORMALIZED FADER, 0 → 1, on the curve channels, struck at mf) — **`done` 2026-09-20,
+  session 11 (RUNNING_LOG §143) — V1 · V2 · V3 · V4 · V7 BUILT, V5 method-only by the plan, V6 checked in the app; HIS RACK TEST
+  OUTSTANDING.** `sequence_check` still **126**. The law now has a page of its own: **`docs/DYNAMICS_LAW.md`**, named in CLAUDE.md as
+  the first read for any sound-path work. *Read on for how it works — the item below is the built design, not a proposal.*
+  **PLANNED 2026-09-20 at his word, built in ONE go** (RUNNING_LOG §137–§142). **It came BEFORE the sequence feature add, which
   is on deck.** Written to be executed cold.
   *Why:* his recording read back (§140) — every waved note struck at the velocity of its TOP (127) with the fader moving only inside
   the 12 dB ladder (CC7 63 … 127): *"between two high dynamic levels"*. His diagnosis (§141): in the tuba piece and the septet a

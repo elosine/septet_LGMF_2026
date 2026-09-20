@@ -28,6 +28,15 @@ const E_ = () => (typeof MorphEmit !== 'undefined') ? MorphEmit : (root.MorphEmi
 // REVERT (2026-09-10): localStorage septet.strikes.classic = '1' + reload keeps 1o exactly as it was — the 1.2 default, no anchor, the old Hear
 let CLASSIC = false; try { CLASSIC = !!localStorage.getItem('septet.strikes.classic'); } catch (e) {}
 const C_ = () => (typeof Composer !== 'undefined') ? Composer : (root.Composer || null);
+const VR_ = () => (typeof VelocityRemap !== 'undefined') ? VelocityRemap : (root.VelocityRemap || null);
+// PLAN 1e, rule 1 (2026-09-20): a note whose volume is SHAPED is struck at MF, for every instrument alike, and the fader carries the
+// shape. `docs/DYNAMICS_LAW.md` has the why. Without the bank the anchor passes through, as everything else here falls back.
+const MF_ANCHOR = 100;
+const mfVel = (lane, midi) => {
+    const C = C_(), VR = VR_(), T = TRK(), key = T[lane] && T[lane].instKey;
+    const d = (VR && C && C._velRemap && key && VR.heldNote) ? VR.heldNote(C._velRemap, key, midi, MF_ANCHOR) : null;
+    return d ? d.vel : MF_ANCHOR;
+};
 const TRK = () => (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px;font-size:11px';
@@ -192,8 +201,11 @@ Object.assign(D, {
               for (let i = 0; i <= N; i++) { const u = i / N; nd.push({ pos: u, y: +(10 * Math.pow(u, SHP)).toFixed(4), smooth: 0 }); }
               for (let i = 0; i < N; i++) sg.push({ model: 'power', slope: 0 });
               wc.nodes = nd; wc.segments = sg;
+              // PLAN 1e: the fader range stays the swell's own — a swell RISES FROM A SOUNDING LEVEL, not from nothing, so lo is 65 and
+              // not 0 (one number if he ever wants it from zero). The STRIKE is the law's: mf, the same for every instrument, where it
+              // used to be the audition's own velocity. Hear and the score still agree, because Hear is struck at mf too.
               wc.cc7Abs = { lo: 65, hi: 127 };
-              wc.velAbs = n.vel != null ? n.vel : 100; }
+              wc.velAbs = mfVel(n.lane, n.midi); }
             wc.properties.cresc.end = 'swell';
             wc.properties.cresc.swell = { from: this.strike ? this.strike.id : null, mode: this.cfg.mode || 'notes',
                                           lengthMode: s.lengthMode, lengthMul: +s.lengthMul, onMs: n.onMs, anchor: s.anchor === 'end' ? 'end' : 'start', endsAt: n.endsAt != null ? n.endsAt : null };

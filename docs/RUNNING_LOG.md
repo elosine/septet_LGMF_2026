@@ -6004,3 +6004,76 @@ stale-map line goes into the strikes drawer's and the morph panel's inserts; the
 strike; a hand-drawn shape gets a `full fader` checkbox; the morph's part is written into MORPH_NOTES §3 for its revision.
 **Rejected:** §140's "shape depth" multiplier (a new law beside two that exist) · a global switch in `heldCc7` for every non-flat
 drawn note (a morph note's heights MEAN dynamics — it would have dropped every morph voice already in the six scores by some 17 dB).
+
+## §143. PLAN 1e BUILT, V1 → V7 — the shaped note is now struck at mf on a curve channel, its fader normalized (2026-09-20)
+
+**What prompted it.** His go, given before the clear and again after it: *"yes mf for all instruments and lets move through the
+todo list"*, then *"yes, build V1 → V7"*. The plan (`docs/PLAN.md` § 1e) had been written to be executed cold, and it was.
+
+**What was built, in the order of the plan.**
+
+- **V1 · `sequence_ui.js`, INSERT.** Every SHAPED note — one that read the waves, lies under a niente fade, or is ramped to or from
+  a dynamic, and is not a fixed-length strike — is now written with `cc7Abs { lo: 0, hi: 127 }` and `velAbs` = its instrument's MF
+  velocity **for that pitch**, and its drawn heights are re-based so the shape's top is the full fader
+  (`h' = 1 − (top − level)`, floored at 0, `y = 10 · h'`). A straight note is written exactly as before.
+- **V2a · its HEAR.** The stand-in `wc` in `rampPoints` carries the same `cc7Abs`, the levels it is asked for are the re-based
+  ones, and the note handed to `D.playNotes` leaves with **the ANCHOR 100**, not an instrument velocity — because `playNotes`
+  remaps `n.vel` through `remapVel`, so handing it a finished velocity would remap it twice. Hear and the score now send the same
+  thing by construction, from the same two numbers.
+- **V2b · THE ROUTE** (feature-list item 9, moved into 1e). A shaped note streams a moving fader and D11 says MAIN takes none.
+  Each one is given a **marker seat** — `'c0'`, `'c1'`, … , the index into its instrument's own curve bank — allocated round robin
+  per player in time order, exactly as the score's `curveChannelMap` does; `playNotes` keys its route cache on `seat`, so a marked
+  note gets a route of its own, and `scheduleRamps` uses the same marker. `D.routeFor` is **wrapped from outside**, as `D.play`
+  already was: `strike_drawer.js` is not changed (his 2a). A REAL seat (the second vibraphone) is already on a curve channel and
+  keeps it. A technique with no curve copy stays on MAIN — and **the status now says how many**, because such a note's fader will
+  not move and nothing else would tell him.
+- **V3 · the stale map, one line in four more places.** §139's bug by every remaining door: `strike_drawer.js` `insert` and all
+  **four** of `morph_panel.js`'s inserts now call `C.curveDirty()` before `renderAll()`.
+- **V4 · the drawn swell and the hand-drawn shape.** `swell_ui.js` already wrote `cc7Abs`; its `velAbs` is now the **mf** velocity
+  where it used to be the audition's own — and Hear still agrees with the score, because Hear is struck at mf too. Its fader range
+  stays its own `lo: 65`: a swell rises from a sounding level, not from nothing. `note_card.js` gains one checkbox, **`full fader`**
+  — on: `cc7Abs { 0, 127 }` + the mf `velAbs`, with the velocity shown beside it; off: both removed.
+- **V5 · the morph — NOTHING BUILT**, by the plan. Its method is written in `docs/MORPH_NOTES.md` (2026-09-20) for its revision;
+  it plugs into the same two fields. Only V3's one line touched it.
+- **V7 · `docs/DYNAMICS_LAW.md`**, and named in CLAUDE.md's "Orient from docs" as the FIRST read for any sound-path work. His
+  reason: *"There's some fundamental misunderstanding or AI forgets what we established before."*
+
+**V6 — THE CHECK, and only the check.** `node tools/sequence_check.js` → **126**, unchanged: `sequence.js` was not touched by any
+of this, as the plan required. Then in the running app on `score-5401` with the ports stubbed (the in-app pane has no Web MIDI), a
+two-box probe row — seven players, box 1 on the waves (pp…mf), box 2 straight at mf:
+
+- **Insert:** 26 notes, **14 shaped · 12 straight**. Every shaped note carries `cc7Abs {0,127}`, is a curve event, and is given a
+  curve channel by the score's own map. The straight twelve carry neither and hold MAIN. Round robin confirmed per player —
+  EH ch 2/3 · Bsn `LGBassoonb` 3/4 · Hn `LGHornb` 3/4 · Tpt `LGTrumpetb` 5/6 · Vib 2/3 · Vc 2/3 · Db 2/3.
+- **Hear:** all 14 resolve **off MAIN ch 1 onto the same curve channels**, `onMain` = 0. A note whose wave reaches the top streams
+  **CC7 74 → 127**; `velRef` is 5.6 on every one of them, which is the mf height.
+- **The note card:** `full fader` on → `{lo:0,hi:127}` + `velAbs` 101 for the english horn at E4, and the label says so; off → both
+  gone and the box unchecked.
+- Nothing was saved: `Composer.autosave` was stubbed before anything else, Save was never pressed, and `git status` shows no score
+  file touched. The probe was removed from the in-memory copy afterwards.
+
+**ONE NUMBER WORTH WRITING DOWN, because it will look wrong otherwise.** The plan's expected mf velocities —
+EH 96 · Bsn 98 · Hn 81 · Tpt 70 · Vib 99 · Vc 95 · Db 87 — are **averages over pitch**. `heldNote(bank, key, pitch, 100)` is
+per-pitch, and the register curve moves it: the probe got EH 101 (E4) · Bsn 104 (D3) · Hn 83 (A3) · Tpt 77 (G4) · Vib 99 (C5) ·
+Vc 84 (C3) · **Db 60 (C2)**. The double bass at 60 against an average of 87 is the remap doing its job, not a fault. His V6 check
+in the rack should expect **each note's own register velocity**, not the seven averages.
+
+**A DECISION INSIDE THE PLAN, made by the AI and his to reverse.** The plan said to *keep* `velRef` on a shaped note, "so a note
+that loses `cc7Abs` by hand falls back sanely". Kept — but its VALUE is changed: it used to be the height of the shape's top, and
+under rule 2 the shape's top is now drawn at full, so the old value would have claimed something the nodes no longer say. It is now
+**the mf height (5.6)**, which is what makes the fallback actually sane: strip `cc7Abs` and the note is still struck at mf with its
+fader running the ladder from there; strip both and `heldVel` reads `velRef` and arrives at the same mf velocity.
+
+**What this does NOT change, and it was checked.** Flat notes, plain notes, strikes, long tones, trills (§142: the septet's trills
+carry volume as separate STRUCK notes by velocity), the crescendo tool's own ranges, and a niente `cc7Fade`, which still multiplies
+in on top of the answer `cc7Abs` gives. **`composer.html` is not changed at all** — `cc7Abs` and `velAbs` were built in piece #5
+eleven days ago for this same problem and have been in the score, per note, ever since. The fix was what the TOOLS WRITE.
+
+**A snag worth recording for whoever splices this repo next.** `morph_panel.js` and `note_card.js` are **CRLF**; `sequence_ui.js`,
+`strike_drawer.js` and `swell_ui.js` are **LF**. A splice script with LF search strings matched zero times in the first two and
+reported it as "not found", which reads like a missing anchor and is not. Detect the file's own endings and convert the search and
+the replacement both. Added to the hard-won list beside the 8 KB Bash limit.
+
+**Still his, and the plan names it as the real test:** the recording in the rack, read back by
+`node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`. A claim about routing is a claim about STATE — the in-app
+probe proves what the tool WRITES and what `routeFor` RESOLVES; only his rack proves what it receives.
