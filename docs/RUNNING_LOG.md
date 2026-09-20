@@ -5743,3 +5743,30 @@ sounds, so it was PUT TO HIM, not decided.
 
 **Not built. Not in the step:** `±` in seconds (LG-45) — it is the same formula, and under `of max` it raises a question of its own
 (one number of seconds for a 6.5 s bass breath and a 12 s english horn breath?) — put to him whether to fold it in.
+
+## §136. The feature add: the top line agreed, four points decided, and how he wants it built (2026-09-20)
+
+**The list put to him** (PLAN 1d, THE NEXT FEATURE ADD): a clock · click the cursor and play from there · `of max` · `outlier` ·
+`±` in seconds · a sequence library. **The top line put to him:** 1 the breath's lengths (`of max` · `outlier` · `±` in seconds —
+one formula, one gate, so one step) · 2 the clock and the cursor · 3 the library (the look first) · 4 his tests after each step.
+
+**His answer, verbatim:**
+
+> *"± in seconds, not a share. a default for this maybe like 1.3s but I'll take your analysis
+> and we already talked about the outlier default, correct? No need for tests after each step. Let's just build the whole thing and
+> I'll test while composing. Make sure or make the plan so that the building model can build the whole thing.
+> a y; b same number but short discussion per above; c y; d y"*
+
+**Decided:**
+- **(a) `of max` is ON for a new sequence, at 0.65.** Clearing the box gives `length` back.
+- **(b) `±` in seconds is ONE number for every player.** Default: his 1.3 s, confirmed by the arithmetic — under `of max` 0.65 the
+  room between a player's aim and their ceiling is 0.35 × the ceiling, and the tightest is the vibraphone's: 2.6 s at mf, 2.1 s
+  loud. So ± 1.3 never reaches anyone's ceiling; and the shortest aim (the vibraphone, loud: 3.9 s) bottoms at 2.6 s, clear of the
+  2 s floor. ± 2 would be the edge on both counts. The cost, accepted: on the english horn's 12 s it is only ± 11 % — a little
+  steady — but seven players on five different aims, plus the outliers, already keep the ensemble from locking.
+- **(c) the cursor CHASES:** clicked into the middle of a box, held notes sound from the cursor at the level they would have there.
+- **(d) the library lives on the server, as the takes do.**
+- **The outlier's defaults stand** (§135): 0.1 · short × 0.4 · floor 2 s.
+- **No test after each step — the whole thing is built in one go and he tests while composing.** So step 4 of the top line is gone,
+  and the plan must carry its own verification, and be complete enough for the building model to execute cold.
+- **Order:** as put — breath · clock and cursor · library.
