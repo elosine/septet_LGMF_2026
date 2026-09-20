@@ -705,15 +705,59 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     whole sequence (the trills' pattern — a META curve A · B · C read live over the span) · a dynamic per player per container · a
     curve per player. *(The waves of 1d.7 are NOT in lieu of the curve — his own correction, LG-38: "that might be an added feature
     later".)*
+  - **1d.9 — The breath's lengths: `of max` and `outlier`** (each player's breath built round THEIR OWN maximum; one breath in ten far
+    from the rest) — `todo` — **PLANNED 2026-09-20 at his word** (*"lets write this in to a plan, no need for the planning protocol"*);
+    his brief COMPOSITION_NOTES LG-43 · LG-46, the reasoning RUNNING_LOG §133–§135.
+    *Why:* today every player aims at the ONE `length` and the ceilings table only CAPS. At 8 s ± 0.35 the english horn, with 18 s of
+    air, breathes as often as the trumpet; the table touches only the vibraphone (about half its breaths) and the double bass. And
+    every breath falls in one range — turning `±` up to get a surprise makes EVERY breath erratic (his `8 ± 1`: 8 RUNT · 5 CEILING).
+    *Result when done:* two groups on the `breath` line. **`of max`** — a breath aims at that share of the PLAYER's own maximum, so
+    long-breathed players breathe long: at 0.65 the english horn and bassoon aim at about 12 s, horn and cello 10, trumpet 8, double
+    bass 6.5, vibraphone 5 — the jitter still on top. **`outlier`** — one breath in ten is far from the rest: significantly SHORTER
+    (never under a floor) or LONGER (up to the player's maximum), on a coin toss. With both blank the output is exactly what it was
+    before this step.
+    - **`of max [share]`** — breath = ceiling × `of max` × (1 + `±` × r). The ceiling is the one the generator already reads for every
+      note: the player's, at the LOUDEST level the note reaches (so a quiet player aims longer than a loud one — the table's 1.18 · 1 ·
+      0.82). ONE number for the ensemble. With a number in it, `length` is greyed: it then only spaces the first entries, as it does
+      under a pool. Recipe: `breath.ofMax`, absent or null = today.
+    - **`outlier [how often] · short [×] · floor [s]`** — his words (LG-46): *"one in 10 is fine. One in 10 will be significantly
+      shorter. And then, or longer, up to max. And also, the shorter one should have a floor too."*
+      - **How often:** the share of breaths that are outliers — `0.1`. Each is a coin toss, SHORT or LONG.
+      - **SHORT:** the player's own normal aim × `short` (`0.4`), never under `floor` (`2` s). The floor may not be typed under 1.5 s,
+        so an outlier is never a RUNT.
+      - **LONG:** drawn evenly between the TOP of the player's normal range (aim × (1 + `±`)) and the player's maximum. No number to
+        type — *"up to max"* is the rule. It is NOT flagged `CEILING`: it was meant. **With under 1 s of room between the two** (the
+        vibraphone at `length` 8) **the toss goes SHORT** — that player's outliers are all short ones.
+      - **Rejected — one "how far" factor used both ways** (× 0.4 and × 2.5): a long one would nearly always pass the maximum and be
+        capped AT it, so every long outlier of a player would be the same length. Drawn up to the maximum they differ.
+      - The status counts them: `… 6 OUTLIER (3 short · 3 long)`. Recipe: `breath.outlier { share, short, floor }`, absent = none.
+    - **What stands outside both:** a POOL (`lengths`) is his own list, played as written — it overrides `of max` and takes no
+      outliers · the LANDING breath still takes what is left · `together` / `apart` still move a start afterwards, by the rules of
+      1d.5 (never under half of itself, nor under 1.5 s).
+    - **The outlier has a random stream of its own**, as `together` has: turning it re-deals no other breath's length (their places
+      move, as they must when one breath among them changes).
+    - **THE GATE.** Both are null in the generator's `DEFAULT_BREATH`, so every dial at its default still gives the notes frozen in
+      `tools/sequence_baseline.json`. The DRAWER's defaults for a NEW sequence (`NEW_BREATH` in `sequence_ui.js`, where `together 0.2 ·
+      apart 0.6` already live — RUNNING_LOG §133–§134): `outlier 0.1 · short 0.4 · floor 2` (his *"one in 10 is fine"*). **`of max`
+      on a new sequence — on at 0.65, or blank: PUT TO HIM, not answered.**
+    - **Verification.** `sequence_check` gains: both blank = the baseline · under `of max` every player's mean breath sits at their
+      ceiling × the share (within the jitter) and none passes the ceiling · the outliers' share over a long deal is the dial's · no
+      short one under the floor · every long one above the normal top and at or under the ceiling · a player with no room gets short
+      ones only · a pool overrides both · the recipe round trip. In the running app, no MIDI: the line paints and greys, the status
+      counts, a reopened sequence breathes as it was dealt.
+    - **His test:** reload → `Sequence` → `new` → three boxes → `breath` → `of max` 0.65 → SPACE (the winds hold longer than the bass
+      and the vibes) → `outlier` 0.1 → SPACE (now and then one very short or very long breath) → `re-breathe` → SPACE.
+    - **Not in this step unless he says:** `±` in seconds (item 5 below — the same formula; under `of max`, is `±` still one number
+      of seconds for every player?) · an `of max` per player.
   - **THE NEXT FEATURE ADD — a list being COLLECTED at his word (LG-44, 2026-09-20: *"let's just collect these features and the next
     build our feature add will slot these in. Just make a list for now."*). Not built, not yet planned — each goes through the
     planning method when he calls the build:**
     1. **A CLOCK during playback** in the sequence drawer (LG-44).
     2. **CLICK TO PLACE THE CURSOR anywhere in the sequence and play from there** (LG-44). *Today Hear starts `from the start` or
        `from the box` — a box's left edge; this is any point inside a box.*
-    3. **`of max` — each player's breath built round THEIR OWN maximum** (LG-43): breath = the player's ceiling × `of max` × (1 + ± × r).
+    3. **→ PLANNED as 1d.9, above.** **`of max` — each player's breath built round THEIR OWN maximum** (LG-43): breath = the player's ceiling × `of max` × (1 + ± × r).
        Blank = today's notes. *The AI's proposal, put to him, not yet answered: one number for the ensemble, or one per player?*
-    4. **`outlier` — an occasional breath far from the rest** (LG-43): how often · how far. Blank = today's notes. *The AI's proposal,
+    4. **→ PLANNED as 1d.9, above.** **`outlier` — an occasional breath far from the rest** (LG-43): how often · how far. Blank = today's notes. *The AI's proposal,
        put to him, not yet answered: short only, long only, or either? (A long outlier can never pass the ceiling.)*
     5. **`±` IN SECONDS, not a share** (LG-45): `8 ± 2` = 6 … 10 s. *Today it is the morph's `segVar`, a share of the length — `± 1` deals
        0 … 16 s (his re-breathe: 8 RUNT · 5 CEILING). To settle when planned: the recipe keeps a share today (the 1d gate reads it);

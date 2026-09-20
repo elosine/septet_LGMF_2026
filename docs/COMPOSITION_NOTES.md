@@ -1543,3 +1543,17 @@ His words, after a `re-breathe` at `8 s ± 1` dealt 8 RUNT and 5 CEILING (± 1 a
 *AI reading (mine, marked):* `8 ± 2` should MEAN 6 … 10 s — what a musician reads there. Today `±` is the morph's `segVar`, a share of
 the length (0.35 = ±35 %), and `± 1` reads as "one second" and deals anything from nothing to double. For the feature add. One thing
 to settle when it is planned: under `of max` (LG-43) the lengths differ per player — is `±` still one number of seconds for all?
+
+---
+
+### LG-46 · 2026-09-20 — THE OUTLIER: one breath in ten, significantly shorter (with a floor) or longer (up to the max) — and `of max` and `outlier` go into a plan
+
+His words, of the AI's simpler account of the two dials (*"1. `of max`: long-breathed players breathe long"*):
+
+> *"lets write this in to a plan, no need for the planning protocol. One question about the outlier, how far? So I want the outlier
+> to be potentially shorter or longer. And then I want a default for this, something sensible. So one in 10 is fine. One in 10 will
+> be significantly shorter. And then, or longer, up to max. And also, the shorter one should have a floor too."*
+
+*AI reading (mine, marked):* this answers the question left open under LG-43 — an outlier goes EITHER way. How often: one in ten, as
+the default. Short: *significantly* shorter, and never under a floor. Long: up to the player's own maximum — so "how far" needs no
+number on the long side; the maximum IS the far end. The AI's numbers, his to change: short × 0.4 · floor 2 s. PLAN 1d.9.

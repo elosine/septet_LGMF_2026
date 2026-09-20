@@ -5712,3 +5712,34 @@ measured in 1d.5 (§118), eight players on 8 s breaths have room for about 0.75 
 clear of that limit and wide of a blur on slow-speaking attacks (winds, bowed strings). **The crowding limit is measured; that 0.6
 SOUNDS right is not — it is a number for his ear.** Same place as §133: `NEW_BREATH` in `sequence_ui.js`; `sequence.js` and the
 gate untouched. **Verified:** `node --check` only.
+
+## §135. `of max` and `outlier` planned as PLAN 1d.9 — and how far an outlier goes (2026-09-20)
+
+**What prompted it.** His words are LG-46: *"lets write this in to a plan, no need for the planning protocol"* — and, of the outlier:
+shorter or longer · a sensible default · one in ten · significantly shorter · or longer, up to max · the shorter one has a floor.
+
+**The design, and why each number.**
+
+- **`of max`, one number for the ensemble** — breath = the player's ceiling × `of max` × (1 + `±` × r). The ceiling is the one the
+  generator already reads for every note (the player's, at the loudest level the note reaches), so nothing new is measured and
+  nothing new is stored. At 0.65: english horn · bassoon ≈ 11.7 s · horn · cello 9.8 · trumpet 7.8 · double bass 6.5 · vibraphone 4.8.
+  His question (b) under LG-43 — one number or one per player — he did not answer; ONE was planned, as the simpler, and a number per
+  player is named in the plan as not in this step.
+- **The short outlier: the player's own aim × 0.4, floor 2 s.** × 0.4 because he said *significantly* — at × 0.7 a short one would
+  sit inside the normal jitter (8 × 0.65 = 5.2 s is already the bottom of 8 ± 0.35) and would not be an outlier at all. The floor at
+  2 s because the generator flags anything under 1.5 s a RUNT, and an outlier he asked for must never read as a fault; 2 s leaves
+  room for `together` / `apart` to shorten it a little without crossing that line. The floor may not be typed under 1.5 s.
+- **The long outlier: drawn evenly between the top of the player's normal range and their maximum.** His *"up to max"* is the rule,
+  so the long side has no number. **Rejected: one "how far" factor used both ways** (× 0.4 short, × 2.5 long) — a long one would
+  nearly always pass the ceiling and be capped at it, so every long outlier of one player would be the same length, the ceiling
+  itself. Drawn up to the maximum, they differ. **And where there is no room** — the vibraphone at `length` 8 has its normal top
+  above its ceiling — the toss goes short: that player gets short outliers only. Under `of max` 0.65 everyone has room.
+- **A stream of its own**, as `together` has, so turning the dial on re-deals no other breath's length.
+- **A pool overrides both** — `lengths` is his own list, *"played as written"* (1d.5); an outlier on top of it would break that.
+
+**The gate, the same way as §133.** Both dials are null in the generator's `DEFAULT_BREATH`; the DRAWER gives a new sequence
+`outlier 0.1 · short 0.4 · floor 2`. Whether a new sequence also starts with `of max` on (0.65) changes how every new sequence
+sounds, so it was PUT TO HIM, not decided.
+
+**Not built. Not in the step:** `±` in seconds (LG-45) — it is the same formula, and under `of max` it raises a question of its own
+(one number of seconds for a 6.5 s bass breath and a 12 s english horn breath?) — put to him whether to fold it in.
