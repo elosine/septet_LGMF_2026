@@ -128,20 +128,23 @@ its feature list grew and went ON DECK.*
 | N2 | **After that: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), **the morph's own revision** (`MORPH_NOTES.md`, now carrying 1e's method), and **how the six chords are used in time**. And the LGMF call, when he says | Fable to design | yes |
 | N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette` | Opus | — |
 
-**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-20, Opus — the work is NOT finished; the same task carries across the clear):**
+**Open at session end — (MID-SESSION CHECKPOINT #2, 2026-09-20, Opus — PLAN 1e IS CLOSED; the session carries on into the DESIGN TALK
+that opens the sequence feature add. The first checkpoint of this session, written before 1e was built, is superseded by this one):**
 
 - **THE TASK: PLAN 1e, THE VOLUME FIX — DONE AND PROVEN IN HIS RACK (RUNNING_LOG §143 · §144).** All six of his top line:
   **1 ✓** the trills (nothing to fix) · **2 ✓** the plan written · **3 ✓ BUILT, V1 → V7** · **4 ✓ HIS RACK TEST PASSES** —
   MAIN empty, every note on a curve channel at an mf velocity, the fader reaching 0 · **5 ✓** `docs/DYNAMICS_LAW.md`, named in
   CLAUDE.md as the first read for any sound-path work · **6 ►** the sequence feature plan now comes off deck.
-- **Why it exists, in one line:** a note whose volume is SHAPED is struck at the velocity of its shape's top and the fader then moves
-  it only inside the ladder's 12 dB — so every shape sounds "between two high dynamic levels". The fix is the normalized fader,
-  0 → 1, struck at mf. **His own diagnosis; the machinery is piece #5's and already here.**
-- **Latest deliverable:** `docs/DYNAMICS_LAW.md` (new — the two kinds of note, the curve channels, the cached map, how a claim about
-  it is proved) · `score/public/sequence_ui.js` · `swell_ui.js` · `note_card.js` · `strike_drawer.js` · `morph_panel.js` ·
-  RUNNING_LOG **§143** · `docs/PLAN.md` § **1e** (now `done`) · `docs/MORPH_NOTES.md` — the 2026-09-20
-  entry, the morph's part for its revision · `reaper/bridge/jobs/cc7_by_channel.lua` (new, read-only — the one test) ·
-  `score/public/sequence_ui.js` (the floating window, and §139's one-line map fix) · RUNNING_LOG **§132–§142**.
+- **What 1e was, in one line, now that it is closed:** a note whose volume is SHAPED used to be struck at the velocity of its shape's
+  TOP, with the fader then moving it only inside the ladder's 12 dB — so every shape sounded *"between two high dynamic levels"*. It is
+  now struck at **mf** with the fader **normalized 0 → 127**, on the **curve channels**. His own diagnosis; the machinery was piece #5's
+  and already in the score, so `composer.html` never changed. **The law is `docs/DYNAMICS_LAW.md` and CLAUDE.md names it as the FIRST
+  read for any sound-path work.** Do not re-derive it and do not re-prove it.
+- **Latest deliverable:** **`docs/DYNAMICS_LAW.md`** (new — the two kinds of note, the curve channels, the cached map, and how a claim
+  about any of it is proved) · the five edited files `score/public/sequence_ui.js` · `swell_ui.js` · `note_card.js` ·
+  `strike_drawer.js` · `morph_panel.js` · `docs/PLAN.md` § **1e** (now `done`) · `docs/MORPH_NOTES.md` 2026-09-20 (the morph's part,
+  method only) · `reaper/bridge/jobs/cc7_by_channel.lua` (read-only — the one test) · RUNNING_LOG **§143** (the build) and **§144**
+  (his rack test). Commits `5ad4fce` and `95e3675`, both pushed.
 - **THE NEXT CONCRETE STEP — a DESIGN TALK, his to answer, on Fable after a clear:** the sequence FEATURE ADD comes off deck.
   `docs/PLAN.md` § 1d, THE NEXT FEATURE ADD (items 1–8; item 9 was built inside 1e) and **1d.9** (`of max` · `outlier`). **Four
   questions, all his:** (a) the LIBRARY look — he asked to be shown it before it is planned · (b) the waves' `up`/`down` in STEPS
@@ -154,11 +157,14 @@ its feature list grew and went ON DECK.*
   - `docs/COMPOSITION_NOTES.md` **LG-43 … LG-49** — his briefs, in his own words, that the feature list came from.
   - **`docs/DYNAMICS_LAW.md`** — only because question (b) and the depth re-framing depend on it. Do NOT re-prove 1e: §143 is the
     build, §144 is his rack test, and it passed.
-- **Decisions pending him:** **none that block 1e.** All four open questions belong to the feature add on deck (row 4 above).
+- **Decisions pending him — these ARE the next step, so nothing can start without them:** the four design questions (a)…(d) above,
+  plus the depth re-framing 1e made concrete. **Show, don't ask, for (a)** — his word, LG-47: he wants to SEE how the library would
+  look before it is planned. **One question at a time, the planning method** (`docs/PLANNING_METHOD.md`): state and restate, then the
+  top line, then one step at a time. Do not answer a planning question with everything at once.
 - **DELIBERATELY UNCOMMITTED — five paths, all his:**
   - `bank/panel_snapshots.json` (modified) — the takes he saves from his own tab. His data, mid-use.
-  - `reaper/LGMF_rack.rpp` (modified) — HIS project file. **It now also carries this session's MIDI RECORDING** of the sequence
-    playback (the §140 measurement). Every hand-set plugin value in it is written down in `docs/RACK_SETTINGS.md`.
+  - `reaper/LGMF_rack.rpp` (modified) — HIS project file. **It carries BOTH of this session's MIDI recordings** — §140's, which found
+    the fault, and §144's, which proved it fixed. Every hand-set plugin value in it is written down in `docs/RACK_SETTINGS.md`.
   - `scores/cresTest.json` · `scores/seqTests01.json` · `scores/Piece-LGMF.json` (untracked) — scores he saved from his own tab.
     `seqTests01` is the one whose waves he could not hear. Leave all three alone.
 - **A note on his rack, from this session:** he set the instrument tracks to record MIDI (right-click the arm button →
@@ -172,10 +178,16 @@ its feature list grew and went ON DECK.*
   transport, replace rAF with a 16 ms timer and set `Composer._zoneMidiInited = true` · to capture MIDI, stub
   `Composer._zoneMidiOutputs[port.toLowerCase()] = { send: b => log(b) }` for every port · verify note lists, objects and ROUTES by
   `javascript_tool`, never a screenshot · reset the viewport and `preview_stop` at the end.
-- **Three things learned the hard way — still true:**
+- **Four things learned the hard way — still true:**
   - **A Bash command longer than about 8 KB FAILS on this machine** with `unexpected EOF while looking for matching quote`. **Write
     any large text with the Write tool into the scratchpad, then splice it in with a short `node` script** that asserts each
     replacement lands exactly once. Used all session.
+  - **THE LINE ENDINGS ARE MIXED IN THIS REPO (new, 2026-09-20, §143).** `morph_panel.js` · `note_card.js` · the `docs/` markdown are
+    **CRLF**; `sequence_ui.js` · `strike_drawer.js` · `swell_ui.js` are **LF**. A splice with LF search strings matches **zero** times
+    in a CRLF file and reports "not found", which reads like a missing anchor and is not. **Every splice script must detect the file's
+    own endings and convert the search AND the replacement:** `const crlf = s.indexOf('\r\n') >= 0, fix = t => crlf ? t.replace(/\n/g,
+    '\r\n') : t;`. Cost two failed runs. And check indentation by printing the real lines — a 4-space guess against a 2-space file
+    fails the same silent way.
   - **The Write and Edit tools turn a typed `\uXXXX` into the literal character**, so `sequence_ui.js` holds `—` and `·`, not escapes.
   - **A PARALLEL SESSION of his may be appending to `RUNNING_LOG.md` and `COMPOSITION_NOTES.md`.** Append only; **read the last
     heading number immediately before writing** and take the next free one; explicit paths, never `git add -A`.
