@@ -59,6 +59,8 @@
 //   note stamped `velRef` = the waves' `high`, which is exactly how the inserted note is played. One velocity under a moving fader,
 //   the morph's way: a breath re-entering mid-wave does not lurch, and the vibraphone's register rides in the law by itself.
 //   INSERT writes a waved note DRAWN (its level breakpoints as nodes, `velRef` = `high`); a straight note is written as it always was.
+//   → PLAN 1g (2026-09-20) AMENDS THE LAST CLAUSE: a straight SUSTAINED note is shaped too — struck at mf, its fader held flat at its
+//   table value on a curve channel — so a straight box and a waves box share ONE scale. See `isShaped`, above `shape`.
 //
 // THE EDGES, AND A CHANGE RULE PER BOX (PLAN 1d.8, RUNNING_LOG §131; his words LG-40 · LG-41 · LG-42). Every box's line has `enter
 // [attack | seamless]` — how THAT box is entered; a box that differs from the sequence's rule wears a mark, and the head's `change` sets
@@ -1395,7 +1397,8 @@ const S = {
             // struck at ONE velocity and its CC7 follows (scheduleRamps). A strike just takes its level
             // PLAN 1e: a SHAPED note is STRUCK AT MF — the ANCHOR, which playNotes remaps into this instrument's own velocity.
             // PLAN 1d.10: and its fader runs between the CC7 values of its own two written dynamics, every breakpoint on its own.
-            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', sh = ramped ? this.shape(n) : null;
+            // PLAN 1g: EVERY sustained note is shaped — a straight one holds its table value (`isShaped`, above `shape`).
+            const ramped = this.isShaped(n), sh = ramped ? this.shape(n) : null;
             const rec = { lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: ramped ? MF_ANCHOR : anchorOf(n.level), onMs: onMs, durMs: durMs,
                 cents: n.cents ? n.cents : (bends[n.player] ? RECENTRE : 0), partial: n.partial };
             notes.push(rec);
@@ -1426,14 +1429,24 @@ const S = {
     // between the two ends: the ladder is not linear in CC7 and a straight line would miss every dynamic in between.
     instKeyOf(lane) { const T = (D.tracks ? D.tracks() : []); return (T[lane] && T[lane].instKey) || null; },
     levelsOf(n) { return (n.levels && n.levels.length >= 2) ? n.levels : [[0, n.level], [Math.max(0.001, +n.dur || 0), n.level]]; },
-    // a shaped note's fader: { cc7Abs, levels } — the drawn heights that put each breakpoint on its written dynamic
+    // PLAN 1g — IN A SEQUENCE, ONE SCALE (2026-09-20, RUNNING_LOG 157 · 158). His ear: *"the attacks are very loud"* — a straight `pp`
+    // box after a `pp`–`mp` waves box. His recording read back showed both sides ON the law and the law itself at fault: a STRUCK note
+    // lives on 1b's 12 dB ladder (a struck `pp` is about 10 dB under fff) and a SHAPED one on 1d.10's table under an mf strike (a
+    // shaped `pp` is about 28 dB under it), so the same NAME was two levels 18 dB apart and the line between the boxes was a +10 …
+    // +18 dB step. HIS CALL (a): inside a sequence every SUSTAINED note is written the shaped way — struck at mf, on a curve channel,
+    // the fader on the table — and a note whose level does not move simply holds its table value (`cc7Abs` lo === hi: `heldCc7`
+    // answers `lo` whatever the height). A straight `pp` IS the waves' `low` by construction, and an `attack` is a full attack played
+    // down (LG-14). Only a FIXED-length sound (a strike — no breath, no bow, no measured fader curve) still takes its velocity.
+    // (No dyn_table.js on the page → there is no table to hold a flat note on, so only a MOVING level is shaped: 1e's rule, as it was.)
+    isShaped(n) { return n.kind !== 'fixed' && (!!DT_() || !!n.waves || !!n.fade || !!n.ramp); },
+    // a shaped note's fader: { cc7Abs, levels, flat } — the drawn heights that put each breakpoint on its written dynamic
     shape(n) {
         const L = this.levelsOf(n).map(p => [p[0], clamp(+p[1] || 0, 0, 1)]);
         let lo = 1, hi = 0; L.forEach(p => { lo = Math.min(lo, p[1]); hi = Math.max(hi, p[1]); });
-        const T = DT_(), C = C_(), bank = C ? C._velRemap : null, key = this.instKeyOf(n.lane);
-        if (!T) return { key: key, measured: false, cc7Abs: { lo: CC7_FULL.lo, hi: CC7_FULL.hi },   // no dyn_table.js on the page: 1e's law, the note's own top at full
+        const T = DT_(), C = C_(), bank = C ? C._velRemap : null, key = this.instKeyOf(n.lane), flat = hi - lo < 1e-9;
+        if (!T) return { key: key, measured: false, flat: flat, cc7Abs: { lo: CC7_FULL.lo, hi: CC7_FULL.hi },   // no dyn_table.js on the page: 1e's law, the note's own top at full
             levels: L.map(p => [p[0], clamp(1 - (hi - p[1]), 0, 1)]) };
-        return { key: key, measured: T.hasCurve(bank, key),
+        return { key: key, measured: T.hasCurve(bank, key), flat: flat,
             cc7Abs: T.range(bank, key, lo, hi), levels: L.map(p => [p[0], T.height(bank, key, p[1], lo, hi)]) };
     },
     // 1d.10: the fader span the shaped notes were actually given — the status states the claim his ear is judging, because
@@ -1462,14 +1475,20 @@ const S = {
         const C = C_(); if (!C || typeof C.curveChannelsOf !== 'function') return ramps.filter(w => !w.seat).length;
         const byLane = {}; let onMain = 0;
         ramps.forEach(w => { if (w.seat) return; (byLane[w.lane] = byLane[w.lane] || []).push(w); });
+        // PLAN 1g: A REAL SEAT'S CHANNEL IS TAKEN. The second vibraphone sits on its lane's first curve channel (1c.3), and a marker
+        // dealt that same channel put two players' faders on ONE CC7 — in his own recording both vibraphones' waved notes are on
+        // ch 2 (RUNNING_LOG 158). With every sustained note shaped it would reach the straight boxes too, so the pool skips it.
+        const held = {};
+        ramps.forEach(w => { if (!w.seat || typeof w.seat === 'string') return; const r = D.routeFor(w.lane, w.tech, w.seat); if (r && r.ch != null) (held[w.lane] = held[w.lane] || new Set()).add(r.ch + 1); });
         Object.keys(byLane).forEach(k => {
             const lane = +k, list = byLane[k].slice().sort((a, b) => a.onMs - b.onMs), freeAt = new Map();
             list.forEach(w => {
                 const pool = C.curveChannelsOf(lane, w.tech) || [];
                 if (!pool.length) { onMain++; return; }
+                const open = i => !(held[lane] && typeof pool[i] === 'number' && held[lane].has(pool[i]) && held[lane].size < pool.length);   // never skip the whole pool
                 let pick = -1, best = Infinity;
-                for (let i = 0; i < pool.length; i++) { const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f <= w.onMs + 1e-9 && f < best) { best = f; pick = i; } }
-                if (pick < 0) { pick = 0; let lo = Infinity; for (let i = 0; i < pool.length; i++) { const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f < lo) { lo = f; pick = i; } } }
+                for (let i = 0; i < pool.length; i++) { if (!open(i)) continue; const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f <= w.onMs + 1e-9 && f < best) { best = f; pick = i; } }
+                if (pick < 0) { let lo = Infinity; for (let i = 0; i < pool.length; i++) { if (!open(i)) continue; const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f < lo) { lo = f; pick = i; } } if (pick < 0) pick = 0; }
                 freeAt.set(pick, w.onMs + w.durMs + 50);   // its own span and a breath after it, as curveChannelMap's 0.05 s
                 w.seat = 'c' + pick; if (w.note) w.note.seat = w.seat;
             });
@@ -1511,12 +1530,24 @@ const S = {
         const levelOf = n => named ? (L.ANCHOR[dynP] - L.LO) / (L.HI - L.LO) : (n.level != null ? +n.level : 0.5);
         const bends = {}; this.row.boxes.forEach(x => x.chord.forEach(n => { if (n.cents) bends[n.lane + ':' + (n.seat || 0)] = 1; }));   // as hearNotes: a player bent anywhere in the row is re-centred
         const ms = Math.round(Math.min(PREVIEW_S, +b.dur || PREVIEW_S) * 1000);
-        const notes = b.chord.map(n => ({ lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: anchorOf(levelOf(n)), onMs: 0, durMs: Math.max(30, ms),
-            cents: n.cents ? n.cents : (bends[n.lane + ':' + (n.seat || 0)] ? RECENTRE : 0), partial: n.partial }));
+        // PLAN 1g: the preview is on the SAME scale as Hear — a sustained note struck at mf, held at its table value on a curve
+        // channel — or a box auditioned at `pp` would sound some 18 dB louder than the same box inside the sequence.
+        const BC = root.BeatingCalc, durMs = Math.max(30, ms), notes = [], ramps = [];
+        b.chord.forEach(n => {
+            const lvl = levelOf(n), key = this.instKeyOf(n.lane), kind = (BC && BC.CEILINGS && BC.CEILINGS[key]) ? 'held' : 'fixed';   // sequence.js noteInfo's own test
+            const shaped = this.isShaped({ kind: kind }), sh = shaped ? this.shape({ lane: n.lane, level: lvl, dur: durMs / 1000 }) : null;
+            const rec = { lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: shaped ? MF_ANCHOR : anchorOf(lvl), onMs: 0, durMs: durMs,
+                cents: n.cents ? n.cents : (bends[n.lane + ':' + (n.seat || 0)] ? RECENTRE : 0), partial: n.partial };
+            notes.push(rec);
+            if (shaped) ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: 0, durMs: durMs, skipS: 0, noteStart: 0,
+                levels: sh.levels, velRef: yOf(this.mfLevel()), cc7Abs: sh.cc7Abs, fade: null, note: rec });
+        });
+        this.curveSeats(ramps);
         const label = 'preview · box ' + (i + 1) + (b.take ? ' · ' + b.take : '') + ' · ' + this.players(b.chord) + ' players · ' + fmtS(ms / 1000) + ' s · ' + (b.dyn === WAVES ? 'flat at the waves\' high (' + dynP + ')' : b.dyn);
         await D.playNotes(notes, label);
         const e = E_();
         if (e && e._playing) {
+            this.scheduleRamps({ ramps: ramps });
             this._previewing = i; this.renderRow(); this.setStatus(label);
             clearTimeout(this._pvT); this._pvT = setTimeout(() => { if (this._previewing === i) { this._previewing = -1; if (this.isOpen()) this.renderRow(); } }, ms + 400);
         } else { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); }
@@ -1648,9 +1679,11 @@ const S = {
             maxEnd = Math.max(maxEnd, n.end);
             // PLAN 1d.10 (amending 1e's rule 2): a SHAPED note's heights are the drawn heights that put each breakpoint on the CC7 of
             // its own written dynamic, between the two the note asks for. A straight note is drawn as it always was.
-            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', sh = ramped ? this.shape(n) : null;
+            // PLAN 1g: EVERY sustained note is shaped. One whose level does not MOVE is DRAWN at its written height, as a straight note
+            // always was — `cc7Abs` lo === hi holds the fader at its table value whatever the height, so the eye keeps the dynamic.
+            const ramped = this.isShaped(n), sh = ramped ? this.shape(n) : null;
             if (sh) shaped.push(sh);
-            const src = ramped ? sh.levels : (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]);
+            const src = (ramped && !sh.flat) ? sh.levels : (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]);
             const nodes = src.map(p => ({ pos: n.dur > 0 ? clamp(p[0] / n.dur, 0, 1) : 0, y: yOf(p[1]), smooth: 0.25 }));
             const segments = []; for (let k = 1; k < nodes.length; k++) segments.push({ model: 'power', slope: 0 });
             const box = this.row.boxes[n.container] || {};

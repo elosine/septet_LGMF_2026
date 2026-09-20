@@ -22,6 +22,9 @@ rediscover it. It is short on purpose.*
 
 **The one sentence:** *a dynamic you can SEE MOVING is the fader, not the velocity.*
 
+**And in a SEQUENCE, a third case (PLAN 1g, §3 Rule 3):** a sustained note whose level does NOT move is written the
+shaped way all the same — struck at mf, on a curve channel, its fader held at its table value.
+
 ---
 
 ## 2 · Why a shaped note is struck at MF
@@ -99,11 +102,33 @@ climb to full; the table is **absolute**, so they join by construction and no sh
 
 Nodes are still written at `y = 10 · h`, never under 0.05.
 
-**Known, and said to him:** a shaped note sits QUIETER than a struck note of the same name — the
+**→ HEARD 2026-09-20, AND ANSWERED FOR THE SEQUENCE DRAWER BY RULE 3 BELOW.** *(What this paragraph said, and it is still true
+of any struck note set beside any shaped one OUTSIDE a sequence:)* a shaped note sits QUIETER than a struck note of the same name — the
 ceiling is a struck **mf** at CC7 127 and the table counts down from `fff`, so a shaped `mf` is
 about 12 dB under a struck `mf`, and more toward the quiet end. A waved box and a straight box
 beside it do not share a calibrated level. That is his model; `STEP_DB` is the one number that
 tunes it.
+
+### Rule 3 — IN A SEQUENCE, ONE SCALE *(PLAN 1g, 2026-09-20)*
+
+His ear: *"the attacks are very loud"* — a straight `pp` box entered after a `pp`–`mp` waves box. His recording read back
+(RUNNING_LOG §157) showed both sides ON the law and the law at fault: a struck `pp` is about **10 dB** under a struck `fff` (1b's
+12 dB ladder), a shaped `pp` about **28 dB** under it (the table, under an mf strike). One NAME, two levels 18 dB apart, and the
+line between the boxes was a +10 … +18 dB step.
+
+**So inside a sequence every SUSTAINED note is written the shaped way, moving or not:**
+
+```js
+isShaped(n) = n.kind !== 'fixed'          // a breath or a bow — anything that is not a fixed-length sound
+flat note:  velAbs = the mf velocity · cc7Abs = { lo: T(level), hi: T(level) } · drawn at its WRITTEN height
+```
+
+`heldCc7` answers `lo + (hi − lo) · h`, which is `lo` whatever the height — so a flat note holds its table value and is still
+drawn where a straight note always was. A straight `pp` **is** the waves' `low`, by construction. An `attack` is an mf attack
+played down by the fader (LG-14).
+
+**Not reached:** a FIXED-length sound (a strike) — no breath, no bow, no measured fader curve — still takes its velocity. And
+nothing OUTSIDE a sequence changes: §1's table stands for every other tool.
 
 **The check:** `node tools/dyn_table_check.js` — the CC7 the table gives is read BACK through the
 same curve and the eight names must land 4 dB apart on every instrument (51 checks).
@@ -139,7 +164,7 @@ Who does, as of 2026-09-20: `sequence_ui` · `strike_drawer` · `morph_panel` (a
 
 ## 5 · What is NOT touched by any of this
 
-Flat notes · plain notes · strikes · long tones · **trills** (the septet's trills carry volume
+Flat notes **outside a sequence** (inside one, Rule 3) · plain notes · strikes · long tones · **trills** (the septet's trills carry volume
 as separate STRUCK notes by velocity — checked 2026-09-20, nothing to fix) · niente fades
 (`cc7Fade` still multiplies in **on top of** the answer `cc7Abs` gives).
 
@@ -176,6 +201,8 @@ fix is always **what the TOOL writes**.
 per channel. It is the instrument that settled this, and it is the instrument that re-settles it.
 
 ---
+
+*Rule 3: RUNNING_LOG §157 · §158, PLAN 1g.*
 
 *Source: RUNNING_LOG §137 · §139 · §140 · §141 · §142 · §143 — PLAN 1e (V1 … V7) — and for Rule 2 as it now
 stands, RUNNING_LOG §147 · §148 · §150, COMPOSITION_NOTES LG-51, PLAN 1d.10 —

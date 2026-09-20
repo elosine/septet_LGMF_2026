@@ -6652,3 +6652,161 @@ touched by this step.
 one sitting, at his word (*"try to move through the whole plan independently, the whole build, please. And I'll test at the
 end."*). **What is left in PLAN 1d is 1d.6, his listen — and his test of every step above, none of which the AI can do:** the
 in-app browser has no Web MIDI, so nothing here has been HEARD.
+
+## §156. HIS FIRST TESTS OF THE FEATURE ADD — nothing broken, four things he could not FIND (2026-09-20)
+
+**What prompted it.** After the clear he came back from his own tab with four reports, in his words:
+
+- *"In the main composer score, what does the title need to be to start saving in the piece menu?"*
+- *"where are my preset breaths? It still says length eight seconds instead of max. Or I don't understand the, the breath
+  situation. I thought it was meant to be based on their max breath."*
+- *"the click cursor within the sequence, like click to begin later in the sequence … it doesn't seem to be working."*
+- *"help me understand the save, the sequence save. I gave it a name and I presume it's saved. Does it just keep saving under
+  that name? I don't see a save button."*
+
+**What was read, and what each turned out to be** (read-only; nothing was edited, nothing was run in a browser):
+
+1. **The Piece menu.** `composer.html` `isPieceName` is `/^piece-/` — CASE-SENSITIVE. His file is `scores/Piece-LGMF.json`, capital
+   P, so it is listed under Experiments. Offered: rename to `piece-lgmf` (NAMING's own spelling, and the notation file to come is
+   `piece-lgmf.ir.json`) or make the test ignore case.
+2. **The breaths.** The sequence on his screen, `LGMF-R01a`, has the id `smu90t537` = **2026-09-19 19:30:35** — made the evening
+   BEFORE 1d.9 + 1d.14 were built. Its recipe on disk: `length 8 · jitter 1 (a SHARE, so the box shows ± 8 s) · together null ·
+   apart 0.5`, and no `ofMax`, no `jitterS`, no `outlier`. That is §154's rule working as written — an older recipe keeps its own
+   dials and nothing converts by being opened — **but it is exactly why he could not find the feature:** the one sequence he is
+   working in is the one the new defaults do not reach, and `of max` reads a grey `off`. `bank/sequences.json` holds no
+   `defaults` panel, so he has saved no default line of his own. Also said to him: there is NO breath preset MENU — 1d.13's
+   presets are the waves' alone; the breath has one default line and `save as default`.
+3. **The cursor.** As built (§155) the click target is `#sqTime`, a strip 1.1 em tall above the boxes with no ticks and no label —
+   in his screenshot a blank band. A click inside a box selects the box, as it always has. **The AI's own test line in the journal
+   said "click inside box 3"**, which is not what was built. Whether he clicked a box or the strip was asked and not answered, so
+   **no fault is diagnosed** — `AI_METHODOLOGY`: no clear evidence, no diagnosis. One suspect named and not examined: `clickTime`
+   takes `clientX − row.left` and compares it with `offsetLeft`, which may disagree when the row is scrolled sideways (his row ran
+   off the right edge).
+4. **The save.** It was saved: `bank/sequences.json` panel `library` held `LGMF-R01a`, four boxes. Naming MOVES a row into the
+   library and the autosave (disk about 2 s after the last change) keeps writing under that name. The `save` button exists but is
+   on the `library` line, closed by default — `save` marks a KEEPER, `revert` returns to it; it is not what writes the file.
+
+**His verdict on the first three:** *"No changes from this batch."*
+
+**Then, on the cursor:** *"how do I get back to the beginning? It's slightly awkward. Is there a home? Let's not make it the home
+button though, because that sends the main composer score back and might change my cursor location."* As built there are two
+ways and no key: click the cursor's own mark again (within 0.15 s of it — the awkward one), or the `hear` menu → `from the start`,
+which leaves the cursor where it is. A button or a key of its own was offered; the HOME key is ruled out at his word.
+
+**The pattern, worth keeping for the tool's revision:** all four were DISCOVERABILITY, not function — a case rule nobody can see,
+a default that silently skips the row in hand, a click target with nothing drawn on it, a button behind a closed line. The build
+was verified by the AI driving the DOM by id (`javascript_tool`), which finds `#sqTime` whether or not a person could.
+
+## §157. HIS EAR: "the attacks are very loud" — the recording read back; the MIDI is ON THE LAW, and the law has two scales (2026-09-20)
+
+**What prompted it.** `LGMF-R01a`, now five boxes: 1–4 on `waves` (`pp`–`mp`, his own dials, `of max` 0.65 · `±` 1.3 · `together`
+0.2 · `outlier` 0.1 typed in by him since §156), box 5 a new container — take `Just-Eb1-seed100`, 18 s, **`dyn pp` STRAIGHT,
+`enter attack`**. Heard from the cursor at 0:52.6 (box 4 + 6.6). His words: *"the attacks are very loud , midi of the transition
+in rack"*. The drawer's own status: `38 notes · 17 shaped, struck at mf on the curve channels (174 fader moves) · the fader CC7
+32…70`.
+
+**What was done, in order.** `docs/DYNAMICS_LAW.md` read first (the standing rule). Then the two read-only bridge jobs on his
+recording: `cc7_by_channel.lua` (per track and channel) and `dump_recorded_midi.lua` (every note: second · channel · velocity ·
+length). Nothing else; no code opened beyond what §156 had already read.
+
+**The numbers.** The line between box 4 and box 5 falls at **16.0 s** of the recording.
+
+| player | box 4 — WAVED: curve channel · strike · fader | box 5 — STRUCK `pp`: MAIN ch 1 · velocity · fader |
+|---|---|---|
+| English horn | ch 2 · 3 · v97 · CC7 51 | v55 · 127 |
+| Bassoon | `b` ch 3 · v91 · 32 … | v79 · 127 |
+| Horn (both paths) | `b` ch 3 · 4 · v83 · 42 … | v61 · 127 |
+| Trumpet | `b` ch 5 · 6 · v74 · 33 … | v53 · 127 |
+| Cello | ch 2 · 3 · v127 / v75 · 51 … | v91 · 127 |
+| Double bass | ch 2 · 3 · v60 · 51 | v49 · 127 |
+| Vibraphone (two seats) | ch 2 · 3 · 4 · v99 · 52 … 94 | ch 1 and ch 2 · v79 · 105 |
+
+Every player attacks together at 16.0 s, on MAIN, at its own remapped **`pp` velocity**, fader static. Before the line every
+note is on a curve channel, struck at **mf**, fader inside the table's `pp`–`mp`. **That is the law to the digit, on both sides
+of the line** — §1's two kinds of note, §3's two rules, §4's routing. There is no routing fault and no stray value to fix.
+
+**So the fault is in the law, not in the MIDI — and the law's own page names it** (`DYNAMICS_LAW.md` §3, "Known, and said to
+him": *a waved box and a straight box beside it do not share a calibrated level*). This is the first time it has been HEARD, and
+it was heard at the first seam where a waves box meets a straight one. The arithmetic, from the bank's design numbers — NOT
+measured on audio:
+
+- a STRUCK note lives on 1b's written ladder: **12 dB** from `ppp` to `fff`, so a struck `pp` is about **−10 dB** under a struck `fff`;
+- a SHAPED note lives on 1d.10's table: **4 dB a step**, `pp` = −24 dB and `mp` = −16 dB of fader, UNDER an mf strike that is
+  itself 3.9 … 5.4 dB under `fff` — so box 4 sounds at about **−28 … −21 dB**;
+- the step at the line is therefore **+10 … +18 dB, into a box whose written dynamic is the waves' own `low`.** The same NAME,
+  `pp`, is two levels about 18 dB apart depending on which kind of note carries it.
+
+**What was put to him (a recommendation, his to decide — nothing built):** inside a SEQUENCE a straight box could be written
+the shaped way too — struck at mf, on a curve channel, the fader held FLAT at the table's value for its dynamic. Then a straight
+`pp` IS the waves' `low` by construction, an `attack` is the LG-14 colour (a full attack played down), and the two scales never
+meet inside the tool. Set against it: turning `STEP_DB` down until the table is as shallow as the ladder (which gives up the
+depth LG-51 asked for), or leaving it (no struck dynamic can reach the waves' level: even `ppp` struck is −12 dB).
+
+**Seen in the same recording and NOT examined** (no evidence either way, so no diagnosis): each curve channel carries ONE CC7 of
+127 besides its ramp — a reset whose TIME the jobs do not report · the cello's first note is 0.2 s long at v127 (a breath entered
+at the cursor with 0.2 s left of it; v127 is inside the cello's mf band per §144) · the second vibraphone seat's struck notes are
+on ch 2, where the waves' last fader value may still stand.
+
+## §158. PLAN 1g BUILT — in a sequence, ONE scale: a straight box sits on the dynamics table too (2026-09-20)
+
+**His word on §157's three options:** *"a If no questions or clarifications, just go ahead and plan it, and build it."* There were
+no questions only he could answer, so it was planned (`docs/PLAN.md` § 1g, G1 … G4) and built in one go.
+
+**What was built, in order — all of it in `score/public/sequence_ui.js`; `sequence.js`, `dyn_table.js`, `strike_drawer.js` and
+`composer.html` untouched:**
+
+1. **`isShaped(n)`** — one predicate where there were two copies of `(waves | fade | ramp) && kind !== 'fixed'`. Every note that is
+   not a FIXED-length sound is shaped. It needed no new machinery, and that is worth recording: `levelsOf` already gives a note
+   with no breakpoints two equal ones, `DynTable.range` already documents *"a FLAT shape gives lo === hi"*, and `heldCc7` answers
+   `lo + (hi − lo) · h` = `lo` whatever the height. The flat case had been built into every layer and simply never asked for.
+2. **Insert draws a flat note at its WRITTEN height.** Through `shape` its heights would all be 1 — a `pp` box drawn as if it were
+   `fff`. `shape` now returns `flat`, and a flat note keeps the nodes a straight note always had (`pp` = y 1.5). *(This also moves
+   a flat note under a niente fade from full height to its written one — same sound, a truer picture.)*
+3. **The box PREVIEW** goes through the same path (ramps · `curveSeats` · `scheduleRamps`), sustained = `BeatingCalc.CEILINGS` has
+   the instrument, which is `sequence.js`'s own test for `kind`.
+4. **No `dyn_table.js` on the page → the old predicate.** Without a table there is nowhere to hold a flat note; 1e's fallback would
+   have put a straight `pp` at the FULL fader under an mf strike — louder than the fault being fixed.
+
+**Verified in the running app, no MIDI (`score-5401`, the journal's recipe; the row: waves · waves · `pp` + `attack` · `mf`, the
+waves `pp`–`mp`, four boxes of 12 s on the take `Just-b1-seed210`):**
+
+- `hearNotes`: **49 notes, 49 shaped, 0 on MAIN.** The `pp` box: every note anchor 100 (mf), a marker seat, `cc7Abs` flat —
+  **EH 51 · Bsn 32 · Hn 32 · Tpt 32 · Vib 52 · Vc 51 · Db 51** — one fader point each. The `mf` box: EH 80 · Bsn 62 · Tpt 62 · Vib 80 · Vc 81 · Db 80.
+  The waves' own `low` on the english horn in box 1 is **51** — the same number. That equality is the whole point of the step.
+- **Hear captured at the `pp` line:** EH `LGEngHorn` ch 2 v88 · Bsn `LGBassoonb` ch 3 v107 · Hn `LGHornb` ch 3 v85 · Tpt
+  `LGTrumpetb` ch 5 v65 · Vc ch 2 v115 · Db ch 2 v117, each with CC7 `127` then its table value, then the note-on. **Nothing on
+  any MAIN channel.** The order on the english horn, in ms: CC7 127 at 222 · CC0 at 222 · **CC7 51 at 238 · note-on at 252**.
+- **Insert:** 49 notes, **0 `plain`, 0 without `cc7Abs`**; the `pp` box `velAbs` 88 · 107 · 85 · 65 · 99 · 99 · 115 · 117,
+  `cc7Abs` 51–51 / 32–32 / 52–52, drawn at **y 1.5**; the `mf` box 80–80 at y 5.6.
+- **THE SCORE'S OWN PLAYBACK across the line, captured** (rAF on a 16 ms timer, outputs stubbed): every new note on a curve
+  channel (EH ch 4 · Bsn `b` ch 4 · Hn `b` ch 3 · Tpt `b` ch 5 · Vib ch 3 and ch 2 · Vc ch 2 · Db ch 2), the same velocities, the
+  same CC7; no note-on on a MAIN channel. *(A claim about routing is a claim about state — so it was captured, not reasoned.)*
+- `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184**. The inserted objects and the `databases.sequences`
+  entry were removed again; the throwaway tab's session (`lgmf-converge-work`) was never saved and has no file on disk.
+
+**Found by the verification, and fixed (G4): the two vibraphones shared ONE fader channel.** The second vibraphone is a REAL seat
+and sits on its lane's first curve channel (ch 2); the marker round robin's first pick for the FIRST vibraphone was pool[0] = ch 2
+as well. The first capture showed it (`LGVibes ch2: on [99, 99]`), and **it is in his own recording of §157** — `4.9s ch2 v99 |
+4.9s ch2 v99`, two waved notes, two streams, one CC7. Under waves that has been true since 1e V2b; 1g would have carried it into
+every straight box. `curveSeats` now skips a channel a real seat holds (never the whole pool). After: seats `c1 2 c2 2 2 c1 …`,
+the capture `LGVibes ch 3` and `ch 2`, one note each.
+
+**Two of §157's three "not examined" items are now answered by the captures:**
+- the lone **CC7 127 on every curve channel** is `D.playNotes`' own pre-note CC7, 30 ms before each note-on, on whatever channel
+  the note takes; this file's table value lands 16 ms after it and 14 ms before the note. **For those 16 ms the channel is at the
+  full fader.** Nothing sounds on it yet unless a previous note's RELEASE TAIL is still ringing there (the round robin frees a
+  channel 50 ms after a note ends; a tail is longer). Not heard, not measured on audio, `strike_drawer.js` is his 2a — put to him,
+  not touched.
+- the second vibraphone's struck notes on ch 2: the real seat's own channel, by design (1c.3).
+
+**What this does NOT reach, said plainly:** a FIXED-length sound (a strike) still takes its velocity on the 12 dB ladder, so a
+struck percussion note in a quiet box will stand over the sustained players exactly as box 5 did · everything outside a sequence
+is a struck note as before · the ENTRANCE test is his: the expected recording is MAIN empty, box 5 on the curve channels at mf
+velocities, CC7 at the table's `pp`.
+
+**A note on method.** The fix is eleven changed lines and one new predicate because every layer under it — the generator's
+levels, the table, `heldCc7`, the curve-channel router — had already been built to take a flat shape. What had to change was the
+DECISION of which notes are shaped, and that decision had been made by 1e for a reason that 1d.10 removed: under 1e a shaped
+note's top was the full fader, so a flat shaped note would have been meaningless; once the table made the fader ABSOLUTE, a flat
+note on it became not only meaningful but the only way two kinds of box could share a level. The amendment to the law was
+implied by 1d.10 and nobody drew it until his ear did.

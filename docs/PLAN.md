@@ -1070,6 +1070,44 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     NOTATION will state one at the head of every curve (LG-51); when it does, they read the same table.
 
 
+- **1g — IN A SEQUENCE, ONE SCALE** (a straight box sits on the dynamics table too: every SUSTAINED note a sequence writes is
+  struck at mf on a curve channel, its fader on the table — flat if its level does not move) — **`built` 2026-09-20, session 11
+  (RUNNING_LOG §157 · §158); HIS RACK TEST OUTSTANDING.** Planned and built in one go at his word (*"a If no questions or
+  clarifications, just go ahead and plan it, and build it."*).
+  *Why:* his ear — *"the attacks are very loud"* — on a straight `pp` box entered by `attack` after a `pp`–`mp` waves box. His
+  recording read back (§157) showed BOTH sides on the law and the law itself at fault: a STRUCK note lives on 1b's ladder (12 dB
+  from `ppp` to `fff`, a struck `pp` ≈ −10 dB) and a SHAPED one on 1d.10's table under an mf strike (a shaped `pp` ≈ −28 dB). The
+  same NAME was two levels about 18 dB apart, and the line between the boxes was a +10 … +18 dB step. `DYNAMICS_LAW.md` §3 had
+  carried it as *"known, and said to him"*; this was the first seam at which it was heard.
+  *Result when done:* inside a sequence a written dynamic is ONE level whichever kind of box carries it — a straight `pp` IS the
+  waves' `low` — in Hear, in a box's preview and in the inserted score alike. An `attack` is a full (mf) attack played down by the
+  fader: the LG-14 colour.
+  - **G1 · ONE predicate, `isShaped(n)`**, replaces `(waves | fade | ramp) && kind !== 'fixed'` in `hearNotes` and `insert`: every
+    note that is not a FIXED-length sound is shaped. `shape(n)` already answers a flat note — `levelsOf` gives it two equal
+    breakpoints, `DynTable.range` gives `lo === hi`, and `Composer.heldCc7` answers `lo` whatever the height — so NOTHING in
+    `dyn_table.js`, `sequence.js` or `composer.html` changes. No `dyn_table.js` on the page → the old predicate, as it was.
+  - **G2 · Insert draws a flat note at its WRITTEN height** (`shape` returns `flat`), as a straight note always was — the fader
+    does not read the height when `lo === hi`, so the eye keeps the dynamic. It carries `velAbs` (mf, per pitch) and
+    `cc7Abs { T, T }`, and no `sonifyMode: 'plain'`, so the score gives it a curve channel by itself.
+  - **G3 · the box PREVIEW on the same scale** — or a box auditioned at `pp` would sound 18 dB over the same box in the sequence.
+    Sustained = the instrument has breath / bow ceilings (`BeatingCalc.CEILINGS`, `sequence.js` `noteInfo`'s own test).
+  - **G4 · a REAL seat's channel is taken** (found by the verification, not planned): the second vibraphone sits on its lane's
+    first curve channel, and the marker round robin dealt that same channel to the first — two players' faders on ONE CC7. It is
+    in his own recording (both vibraphones' waved notes on ch 2 at 4.9 s). `curveSeats` now skips a channel a real seat holds.
+  - **NOT in this step:** a FIXED-length sound (a strike: no breath, no bow, no measured fader curve) still takes its velocity, on
+    the 12 dB ladder · everything OUTSIDE a sequence (the strikes drawer's own notes, plain notes, trills) is a STRUCK note as
+    before · the score's own `curveChannelMap` and its handling of seats was not opened.
+  - **REQUIRED VERIFICATION (done, `score-5401`, no MIDI — §158 has every number):** `hearNotes` on waves · waves · `pp` attack ·
+    `mf` → 49 of 49 shaped, 0 on MAIN · Hear captured at the `pp` line → each player on a curve channel, struck at its mf velocity,
+    CC7 at the table's `pp` (EH 51 · Bsn 32 · Hn 32 · Tpt 32 · Vib 52 · Vc 51 · Db 51) · Insert → 49 notes, none `plain`, all with
+    `cc7Abs` and `velAbs`, the `pp` box drawn at y 1.5 · THE SCORE'S OWN PLAYBACK across the line captured → the same channels,
+    velocities and CC7, MAIN silent. `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184**.
+  - **His test (the 1e way):** the same five-box sequence, recorded as MIDI in the rack → `node tools/reaper_job.js run
+    reaper/bridge/jobs/cc7_by_channel.lua`. **Expected:** MAIN ch 1 EMPTY for every sustained player · box 5's notes on curve
+    channels at mf velocities (the v55 · v79 · v61 · v53 · v91 · v49 of §157 gone) · their CC7 at the table's `pp`. And his ear: the
+    attack into box 5 no louder than the waves at rest.
+
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +

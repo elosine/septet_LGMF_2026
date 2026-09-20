@@ -607,3 +607,30 @@ Hear used to start at the beginning or at a box's LEFT EDGE, and a rolled row ca
 - **The clock** in the head reads `elapsed / total` in `m:ss.s` while Hear plays, and **stops where Hear stops**.
 
 **Insert is untouched.** The cursor is for the ear, not for the score.
+
+## 21 · One scale: a straight box sits on the table too (1g)
+
+**What he heard:** *"the attacks are very loud"* — box 5, straight `pp`, entered by `attack`, after four boxes of `pp`–`mp` waves.
+The MIDI was right and the LAW had two scales: a straight box's notes were STRUCK (velocity = the dynamic, 12 dB from `ppp` to
+`fff`), a waves box's were SHAPED (struck at mf, the fader on the 4 dB table). The same `pp` was two levels about 18 dB apart.
+
+**Now every SUSTAINED note in a sequence is shaped** — waved, ramped, faded or simply held:
+
+| | |
+|---|---|
+| the strike | mf, per pitch, for everyone — as the waves always were |
+| the fader | the table value of the note's own dynamic: a `pp` box holds cello 51 · bassoon 32 · vibraphone 52, flat |
+| the channel | a curve channel, in Hear, in a box's preview and in the score. MAIN carries no sustained note of a sequence |
+| in the score | drawn at its WRITTEN height, as a straight note always was — `cc7Abs` lo = hi holds the fader whatever the height |
+
+- **A straight `pp` is the waves' `low`.** Stepping a box out of the waves no longer changes its level, only whether it moves.
+- **An `attack` is an mf attack played down by the fader** — the LG-14 colour — not a `pp` strike at the full fader.
+- **`as dealt` works the same way:** each note holds the table value of its own level from the take.
+- **A strike is not reached.** A fixed-length sound (no breath, no bow) still takes its velocity, on the old 12 dB ladder.
+
+**The two vibraphones no longer share a fader.** The second vibraphone is a real seat on the lane's first curve channel, and the
+first vibraphone's round robin used to be dealt that same channel — two players, one CC7. The round robin now skips it.
+
+**Verified in the running app, no MIDI (RUNNING_LOG §158 has every number):** 49 of 49 notes shaped, none on MAIN · Hear, Insert
+and the score's own playback captured at the `pp` line — curve channels, mf velocities, CC7 at the table's `pp`.
+**Not verified: sound.** His test is the 1e one — record it in the rack, `cc7_by_channel.lua`, MAIN empty.
