@@ -229,6 +229,15 @@ function validate(recipe, ctx) {
         const at = 'container ' + (i + 1) + ': ';
         if (!c || !(+c.dur > 0) || !isFinite(+c.dur)) msgs.push(at + 'a duration of ' + (c && c.dur) + ' s — a container must last more than 0 s');
         if (c && c.change != null && CHANGES.indexOf(c.change) < 0) msgs.push(at + 'change must be "attack" or "seamless" — got ' + JSON.stringify(c.change));
+        // 1d.12: a box may read the waves through a RANGE OF ITS OWN. It is checked wherever it is written — a range on a straight
+        // box is kept and ignored, because flipping that box to `waves` must give back the range he set on it.
+        if (c && c.range != null) {
+            const q = c.range;
+            if (!q || typeof q !== 'object') msgs.push(at + 'range must be { low, high }, two dynamics — got ' + JSON.stringify(q));
+            else if (!ladder) msgs.push(at + 'range needs the drawer\'s ladder (dyn_ui.js StrikeDyn) and it is not loaded');
+            else if (ladder.NAMES.indexOf(q.low) < 0 || ladder.NAMES.indexOf(q.high) < 0) msgs.push(at + 'range.low and range.high must be on the ladder ' + ladder.NAMES.join(' ') + ' — got ' + JSON.stringify(q.low) + ' and ' + JSON.stringify(q.high));
+            else if (!(ladder.ANCHOR[q.low] < ladder.ANCHOR[q.high])) msgs.push(at + 'range.low (' + q.low + ') must be below range.high (' + q.high + ')');
+        }
         if (c && c.chord === null) return;   // PLAN 1d.4: a REST — deliberate silence for its duration; nothing else to check
         if (!c || !Array.isArray(c.chord) || !c.chord.length) { msgs.push(at + 'an empty chord — choose a take for it, or make it a rest (chord: null)'); return; }
         const dyn = c.dyn == null ? AS_DEALT : c.dyn, named = dyn !== AS_DEALT && dyn !== WAVES;
@@ -300,17 +309,21 @@ function poolStream(TCm, pool, seed, tag) {
     };
 }
 
-// ---- the waves (PLAN 1d.7): one stream of swells per player — breakpoints [seconds from the sequence's start, level 0–1] ----
+// ---- the waves (PLAN 1d.7 · 1d.12): one stream of swells per player ----
+// The stream is a **SWELL HEIGHT, 0 … 1** — 0 at rest, 1 at a peak — in seconds from the sequence's start. It was written in
+// written LEVELS when 1d.7 built it; 1d.12 made it a height, because a box may now read the SAME dealt waves through a RANGE OF
+// ITS OWN, and a level can only be arrived at once the range is known. The deal, the timing and the swells are untouched by any
+// range: only the map at the end of it changes.
 function buildStream(TCm, W, key, until) {
     const rng = rngFor(W.seed, key + '~waves', 0), draw = poolStream(TCm, W.pool, W.seed, key + '~swells');
     let len = draw(), swells = 0, flats = 0;
-    if (len == null) return { points: [[0, W.lo], [r3(until), W.lo]], swells: 0, flats: 0 };
+    if (len == null) return { points: [[0, 0], [r3(until), 0]], swells: 0, flats: 0 };
     let t = -rng() * len;   // out of step from the first second: the first slot began before the sequence did
-    const pts = [[t, W.lo]];
+    const pts = [[t, 0]];
     while (t < until && len != null) {
         const isSwell = rng() < W.density, pj = rng();   // always two draws a slot
-        if (isSwell) { const pk = Math.max(0.1, Math.min(0.9, W.peak + (pj * 2 - 1) * WAVE_PEAK_JITTER)); pts.push([t + pk * len, W.hi]); swells++; } else flats++;
-        t += len; pts.push([t, W.lo]);
+        if (isSwell) { const pk = Math.max(0.1, Math.min(0.9, W.peak + (pj * 2 - 1) * WAVE_PEAK_JITTER)); pts.push([t + pk * len, 1]); swells++; } else flats++;
+        t += len; pts.push([t, 0]);
         len = draw();
     }
     return { points: pts.map(p => [r3(p[0]), p[1]]), swells: swells, flats: flats };
@@ -322,13 +335,56 @@ function levelAt(pts, x) {
     const p = pts[a], q = pts[b]; return p[1] + (q[1] - p[1]) * ((x - p[0]) / Math.max(1e-9, q[0] - p[0]));
 }
 const r4 = v => Math.round(v * 10000) / 10000;
+
+// ---- 1d.12: the RANGES a stream is read through, box by box ----
+// A box with no `range` reads the sequence's. WHERE TWO RANGES MEET THE LEVEL GLIDES ACROSS THE LINE over GLIDE_S — never a
+// step: a wave in mid-swell must not jump because a box changed underneath it. It is the RANGE that glides, not the level, so a
+// player at rest and a player at a peak cross the line together and neither is bent out of shape.
+const GLIDE_S = 0.5;
+function makeRanges(per, bounds, deflt) {
+    const last = per.length - 1, t0 = bounds[0], half = GLIDE_S / 2;
+    const same = (a, b) => a.lo === b.lo && a.hi === b.hi;
+    const own = per.some(p => !same(p, deflt));
+    const blend = (a, b, u) => { const w = Math.max(0, Math.min(1, u)); return { lo: a.lo + (b.lo - a.lo) * w, hi: a.hi + (b.hi - a.hi) * w }; };
+    const idxAt = x => { let i = 0; while (i < last && (bounds[i + 1] - t0) <= x + 1e-9) i++; return i; };
+    const at = own ? function (x) {
+        const i = idxAt(x), b0 = bounds[i] - t0, b1 = bounds[i + 1] - t0;
+        if (i > 0 && x < b0 + half && !same(per[i - 1], per[i])) return blend(per[i - 1], per[i], (x - (b0 - half)) / GLIDE_S);
+        if (i < last && x > b1 - half && !same(per[i], per[i + 1])) return blend(per[i], per[i + 1], (x - (b1 - half)) / GLIDE_S);
+        return per[i];
+    } : function () { return deflt; };
+    // the times inside (x0, x1) where the map itself bends — the two ends of every glide, and its middle (the level is
+    // quadratic across a glide, so its own extreme can sit between the ends and a ceiling must not miss it)
+    const bends = own ? function (x0, x1, out) {
+        for (let i = 1; i <= last; i++) {
+            if (same(per[i - 1], per[i])) continue;
+            const b = bounds[i] - t0;
+            [b - half, b, b + half].forEach(u => { if (u > x0 + 0.001 && u < x1 - 0.001) out.push(u); });
+        }
+        return out;
+    } : function (x0, x1, out) { return out; };
+    return { at: at, bends: bends, per: per, own: own };
+}
+// a height on the stream becomes a written level HERE, and nowhere else. The two ends are taken exactly, so a range that has not
+// changed gives back the numbers 1d.7 gave, to the last bit.
+function levelOfH(r, h) { return h === 0 ? r.lo : (h === 1 ? r.hi : r.lo + (r.hi - r.lo) * h); }
+function levelThrough(pts, RM, x) { return levelOfH(RM.at(x), levelAt(pts, x)); }
 // the LOUDEST the stream gets inside [x0, x1] — where a ceiling is read
-function peakOver(pts, x0, x1) { let m = Math.max(levelAt(pts, x0), levelAt(pts, x1)); pts.forEach(p => { if (p[0] > x0 && p[0] < x1 && p[1] > m) m = p[1]; }); return m; }
+function peakOver(pts, RM, x0, x1) {
+    let m = Math.max(levelThrough(pts, RM, x0), levelThrough(pts, RM, x1));
+    pts.forEach(p => { if (p[0] > x0 && p[0] < x1) { const v = levelOfH(RM.at(p[0]), p[1]); if (v > m) m = v; } });
+    RM.bends(x0, x1, []).forEach(u => { const v = levelThrough(pts, RM, u); if (v > m) m = v; });
+    return m;
+}
 // a note's own breakpoints: the stream over [x0, x0 + dur], in seconds from the note's start
-function sliceLevels(pts, x0, dur) {
-    const out = [[0, r4(levelAt(pts, x0))]];
-    pts.forEach(p => { if (p[0] > x0 + 0.001 && p[0] < x0 + dur - 0.001) out.push([r3(p[0] - x0), r4(p[1])]); });
-    out.push([r3(dur), r4(levelAt(pts, x0 + dur))]);
+function sliceLevels(pts, RM, x0, dur) {
+    const out = [[0, r4(levelThrough(pts, RM, x0))]];
+    const ts = [];
+    pts.forEach(p => { if (p[0] > x0 + 0.001 && p[0] < x0 + dur - 0.001) ts.push([p[0], p[1]]); });
+    RM.bends(x0, x0 + dur, []).forEach(u => ts.push([u, levelAt(pts, u)]));   // the glide's own corners, or it would be cut straight across
+    ts.sort((a, b) => a[0] - b[0]);
+    ts.forEach(p => out.push([r3(p[0] - x0), r4(levelOfH(RM.at(p[0]), p[1]))]));   // pushed as 1d.7 pushed them, in time order, duplicates and all
+    out.push([r3(dur), r4(levelThrough(pts, RM, x0 + dur))]);
     return out;
 }
 
@@ -349,9 +405,9 @@ function dealSpan(P, span, S, T) {
         const ci = S.containerAt(t), srcs = S.plan[ci][P.key];
         // 1d.7: the breath takes the MODE of the box it starts in — a straight dynamic, or the player's stream of swells
         const waved = S.dyns[ci] === WAVES, stream = waved ? S.streams[P.key].points : null, x = t - S.bounds[0];
-        const lvls = waved ? srcs.map(() => levelAt(stream, x)) : srcs.map(s => levelOf(s, S.dyns[ci], S.ladder));
+        const lvls = waved ? srcs.map(() => levelThrough(stream, S.RM, x)) : srcs.map(s => levelOf(s, S.dyns[ci], S.ladder));
         let loudest = Math.max.apply(null, lvls);   // the ceiling at the LOUDEST level: a straight note's own; under the waves, the most
-        if (waved) { const far = noteInfo(S.BC, srcs[0].inst, loudest); if (!far.fixed) loudest = peakOver(stream, x, x + far.ceiling); }   // the stream reaches anywhere the note could extend to
+        if (waved) { const far = noteInfo(S.BC, srcs[0].inst, loudest); if (!far.fixed) loudest = peakOver(stream, S.RM, x, x + far.ceiling); }   // the stream reaches anywhere the note could extend to
         if (span.loud) { const far = noteInfo(S.BC, srcs[0].inst, loudest); span.loud.forEach(z => { if (!far.fixed && t < z.end && t + far.ceiling > z.start && z.level > loudest) loudest = z.level; }); }   // 1d.8: a fade whose far end is LOUDER than the box
         const info = noteInfo(S.BC, srcs[0].inst, loudest);
         const jit = 1 + (rng() * 2 - 1) * S.jitter, gapJit = 1 + (rng() * 2 - 1) * S.jitter * 0.5;   // always two draws a breath
@@ -401,7 +457,7 @@ function dealSpan(P, span, S, T) {
             if (info.fixed && t + dur > span.to + 1e-9) f.push('RINGS');                        // it rings past the line, and says so
             if (!info.fixed && t + dur > S.bounds[ci + 1] + 1e-9) f.push('ACROSS');             // seamless: the old chord held across a line
             if (!info.fixed && dur < RUNT_S - 1e-6) f.push('RUNT');                             // (the 1e-6: a breath moved to EXACTLY the floor is not a runt — 1d.5)
-            const levels = (waved && !info.fixed) ? sliceLevels(stream, x, dur) : [[0, lvls[k]], [r3(dur), lvls[k]]];   // a fixed sound: the wave's level at its strike, no ramp
+            const levels = (waved && !info.fixed) ? sliceLevels(stream, S.RM, x, dur) : [[0, lvls[k]], [r3(dur), lvls[k]]];   // a fixed sound: the wave's level at its strike, no ramp
             const note = {
                 player: P.key, lane: src.lane, seat: src.seat || 0, inst: src.inst, tech: src.tech, midi: src.midi, cents: src.cents || 0,
                 partial: src.partial, container: ci, start: r3(t), end: r3(t + dur), dur: r3(dur), level: peakOf(levels), levels: levels,
@@ -468,9 +524,24 @@ function generate(recipe, ctx) {
         streams = {}; const TCm = poolOf(ctx);
         players.forEach(p => { streams[p.key] = buildStream(TCm, W, p.key, (end - bounds[0]) + MAX_SEG_HARD_S); });
     }
+    // 1d.12 — the range each box reads the stream through: its own, else the sequence's. No box with one of its own and the map
+    // is the sequence's range everywhere, which is 1d.7 exactly — the gate.
+    const deflt = W ? { lo: W.lo, hi: W.hi } : { lo: 0, hi: 1 };
+    const rangeOf = c => {
+        const q = c && c.range;
+        return (q && ladder && ladder.ANCHOR[q.low] != null && ladder.ANCHOR[q.high] != null)
+            ? { lo: clamp01((ladder.ANCHOR[q.low] - ladder.LO) / (ladder.HI - ladder.LO)), hi: clamp01((ladder.ANCHOR[q.high] - ladder.LO) / (ladder.HI - ladder.LO)) }
+            : deflt;
+    };
+    // A box that does not READ the waves has no opinion about their range and carries the last one forward — so a range set on a
+    // straight box changes nothing (it is kept, for when he flips that box to `waves`), and a breath that crosses a straight box
+    // still reading the waves keeps the range it began in, instead of gliding to a range nobody asked for.
+    const per = []; let cur = deflt;
+    R.containers.forEach((c, i) => { if (dyns[i] === WAVES) cur = rangeOf(c); per.push(cur); });
+    const RM = makeRanges(per, bounds, deflt);
     const S = {
         seed: B.seed | 0, striation: B.striation, length: +B.length, jitter: clamp01(+B.jitter), nPlayers: players.length,
-        BC: BC, ladder: ladder, plan: plan, dyns: dyns, bounds: bounds, pool: pool, TC: pool ? poolOf(ctx) : null, streams: streams,
+        BC: BC, ladder: ladder, plan: plan, dyns: dyns, bounds: bounds, pool: pool, TC: pool ? poolOf(ctx) : null, streams: streams, RM: RM,
         containerAt: t => { let i = 0; while (i < last && bounds[i + 1] <= t + 1e-9) i++; return i; },
     };
     const gapOf = (p, ci) => { const info = noteInfo(BC, plan[ci][p.key][0].inst, 0.5); return info.fixed ? 0 : Math.max(MIN_GAP_S, info.gapS); };   // the palette's gap does not move with the level
@@ -483,7 +554,7 @@ function generate(recipe, ctx) {
     if (T) {
         players.forEach(p => {
             p.ceil = Infinity;
-            plan.forEach((m, ci) => { const s = m[p.key]; if (s) p.ceil = Math.min(p.ceil, noteInfo(BC, s[0].inst, dyns[ci] === WAVES ? W.hi : Math.max.apply(null, s.map(x => levelOf(x, dyns[ci], ladder)))).ceiling); });   // a waves box: at `high`, the loudest it can get
+            plan.forEach((m, ci) => { const s = m[p.key]; if (s) p.ceil = Math.min(p.ceil, noteInfo(BC, s[0].inst, dyns[ci] === WAVES ? RM.per[ci].hi : Math.max.apply(null, s.map(x => levelOf(x, dyns[ci], ladder)))).ceiling); });   // a waves box: at ITS OWN `high`, the loudest it can get (1d.12)
         });
         order = players.slice().sort((a, b) => (a.ceil - b.ceil) || (a.index - b.index));   // ∞ − ∞ is NaN, which falls through to the score order
     }

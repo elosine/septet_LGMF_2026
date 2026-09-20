@@ -6477,3 +6477,48 @@ timestamp afterwards):
 - his takes store read back **8 panels · 216 strikes**, untouched by any of it.
 
 **His test is the one written at the foot of PLAN 1d.11** — and it includes a SERVER restart, which the AI did not run.
+
+## §152. PLAN 1d.12 BUILT — a RANGE of boxes, and a waves range of its own; the stream became a height (2026-09-20)
+
+**What prompted it (LG-48 · LG-50).** Between ONE box and ALL boxes there was nothing, and a rolled row can be thirty boxes
+long; and he wants part of a sequence to read the SAME waves through a DIFFERENT range.
+
+**THE CHECK THE PLAN ASKED FOR, and the answer was no.** *"CHECK how 1d.7 carries the stream (it wants to be a 0 … 1 swell
+height that is mapped late)."* It did not: `buildStream` wrote the WRITTEN LEVELS `W.lo` and `W.hi` straight into the stream's
+points, so the range was baked in at the deal. It is a **0 … 1 swell height** now — 0 at rest, 1 at a peak — and `levelOfH`
+is the one place a height becomes a level. **So the deal, the seeds, the slot lengths and the swells are untouched by any
+range: only the map at the end of them changes.** The two ends are mapped exactly (`h === 0 ? lo : h === 1 ? hi : …`), so a
+range that has not changed gives back 1d.7's numbers to the last bit — and the frozen baseline proves it.
+
+**THE GLIDE.** *"Where two ranges meet, the level GLIDES across the boundary over 0.5 s — never a step."* Built by gliding the
+**RANGE**, not the level: `makeRanges` returns `at(x)`, which blends the two neighbouring ranges across a 0.5 s window centred
+on the line. That way a player at rest and a player at a peak cross the line together and neither is bent out of shape — where
+gliding the LEVEL would have dragged a resting player up and a peaking player down by different amounts. `sliceLevels` inserts
+breakpoints at the glide's two ends AND its middle, so the shape is drawn rather than cut straight across, and `peakOver` reads
+the same three (the level is quadratic across a glide — the range is linear in time and the height is too — so its own extreme
+can sit between the ends, and a ceiling must not miss it).
+
+**A BOX THAT DOES NOT READ THE WAVES HAS NO OPINION, AND CARRIES THE LAST RANGE FORWARD.** This was not in the plan and the
+verification forced it: with a straight box's range taken at face value, *"a range on a straight box is kept and ignored"* was
+false — the glide either side of it moved its neighbours' levels. Carrying the last waves range forward makes a range on a
+straight box genuinely inert, and it also keeps a breath that crosses a straight box still reading the waves (the `ACROSS`
+rule) in the range it began in, instead of gliding toward a range nobody asked for.
+
+**KNOWN, AND TRUE BY DESIGN: a quieter range may LENGTHEN a breath.** The ceiling is read at the loudest level a note reaches
+and the palette gives a quiet note a longer bow, so lowering a range's `high` can let a breath run longer. That is the palette
+working, not the deal being re-run — and it is why the check asserts *"no onset and no length moves while the top is
+unchanged"* rather than the flat claim the plan sketched. The first draft of that assertion was the AI's own and it was wrong;
+the code was right.
+
+**In the drawer.** Click = one box, as ever · SHIFT+click = from the selected box to this one · the selection painted · ESC, a
+plain click, or `one box` returns to one. The edit line then sets `dyn` (which is also `waves | straight`), `enter` and
+**`range [low] [high]`** on every box of the selection; `take` and `seconds` stay per box. `sequence range` clears it. A box
+with a range of its own wears it as a tag (`ppp–mp`). Half a range is refused, not guessed at.
+
+**Verified in the running app** (`score-5401`, five boxes, nothing saved of his): SHIFT+click painted 2–4 and the edit line read
+`boxes 2–4 (3)` · `dyn waves` landed on 2 · 3 · 4 and on no other · `enter seamless` likewise · `range ppp–mp` likewise, with
+the tag on those three boxes only · the recipe carried it on those three · one end alone was refused · `sequence range` cleared
+it · a plain click and ESC both returned to one box · and a range survived the library round trip (saved, `new`, reopened).
+
+`sequence_check` **126 → 139**, including THE GATE twice more: with no box carrying a range the notes are the frozen ones, after
+the stream became a height.

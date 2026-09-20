@@ -303,7 +303,9 @@ const MA = SEQ.generate(wavesRow('attack', mix), ctx), MS = SEQ.generate(wavesRo
 const flatMf = n => !n.waves && n.levels.length === 2 && Math.abs(n.levels[0][1] - hOf('mf')) < EPS && Math.abs(n.levels[1][1] - hOf('mf')) < EPS;
 ok(MA.notes.filter(n => n.container === 1).every(flatMf) && j(MA.notes.filter(n => n.container === 2)) === j(WA.notes.filter(n => n.container === 2)),
     'THE SWAP, attack: box 2 steps out to `mf` — flat inside it — and box 3\'s notes EQUAL the all-waves deal\'s box 3: the streams were not restarted');
-ok(j(MS.streams) === j(WS.streams) && held(MS).filter(n => n.waves).every(n => Math.abs(n.levels[0][1] - SEQ.levelAt(MS.streams[n.player].points, n.start - T0)) < 0.0002 && Math.abs(n.levels[n.levels.length - 1][1] - SEQ.levelAt(MS.streams[n.player].points, n.end - T0)) < 0.0002),
+// 1d.12 made the stream a 0 … 1 SWELL HEIGHT, mapped to a written level late, per box — so a stream value is read through the range
+const thru = (G, k, x) => LO + (HI - LO) * SEQ.levelAt(G.streams[k].points, x);
+ok(j(MS.streams) === j(WS.streams) && held(MS).filter(n => n.waves).every(n => Math.abs(n.levels[0][1] - thru(MS, n.player, n.start - T0)) < 0.0002 && Math.abs(n.levels[n.levels.length - 1][1] - thru(MS, n.player, n.end - T0)) < 0.0002),
     'THE SWAP, seamless: the streams are the all-waves deal\'s, untouched by the straight box, and every waved note reads its player\'s stream at its own start and end');
 const outOf = MS.notes.filter(n => n.flags.includes('ACROSS') && n.container === 0), into = MS.notes.filter(n => n.flags.includes('ACROSS') && n.container === 1);
 ok(outOf.length > 0 && outOf.every(n => n.waves) && into.length > 0 && into.every(flatMf), 'seamless: the level belongs to the BREATH — ' + outOf.length + ' breaths begun in the waves keep reading them across the line into the `mf` box, ' + into.length + ' begun in the `mf` box stay flat into the waves');
@@ -379,6 +381,62 @@ eBad({ exit: 'fade' }, null, /edges\.exit must be/, 'an unknown exit');
 eBad({ fadeIn: -1 }, null, /edges\.fadeIn must be 0 s or more/, 'a fade of −1 s');
 eBad({ fadeIn: 4, fadeInFrom: 'loud' }, null, /edges\.fadeInFrom must be "niente" or a dynamic/, 'a fade from a dynamic that is not on the ladder');
 eBad(null, { 1: 'crossfade' }, /container 2: change must be/, 'a box with an unknown change rule');
+
+
+// ---------------------------------------------------------------- 16 · a RANGE of its own, box by box (PLAN 1d.12)
+// The stream is dealt ONCE and is a 0 … 1 swell height; a box only changes the low–high it is READ through. So a range may not
+// move a single onset or length — and where two ranges meet the level GLIDES across the line over 0.5 s, never a step.
+const rngRow = (change, dynsW, ranges, wOver) => {
+    const R = wavesRow(change, dynsW, wOver || {});
+    Object.keys(ranges || {}).forEach(k => { R.containers[+k].range = ranges[k]; });
+    return R;
+};
+const NO_R = SEQ.generate(rngRow('seamless', ['waves']), ctx);
+const ONE_R = SEQ.generate(rngRow('seamless', ['waves'], { 2: { low: 'ppp', high: 'p' } }), ctx);
+const shape = G => j(G.notes.map(n => [n.player, n.start, n.dur, n.container]));
+// A range whose TOP is the sequence's own leaves even the lengths alone: the ceiling is read at the loudest the stream can
+// reach, so only a change of `high` may move a breath — and when it does, that is the palette working, not the deal being re-run.
+const SAME_TOP = SEQ.generate(rngRow('seamless', ['waves'], { 2: { low: 'ppp', high: 'mf' } }), ctx);
+ok(shape(SAME_TOP) === shape(NO_R) && j(SAME_TOP.streams) === j(NO_R.streams) && j(SAME_TOP.notes) !== j(NO_R.notes),
+   'a box range moves NO onset and NO length while its top is unchanged, and no stream ever — the deal is untouched, only the map at the end of it (' + NO_R.notes.length + ' notes)');
+ok(j(ONE_R.streams) === j(NO_R.streams),
+   'and a range that lowers the top leaves the streams alone too — the breaths may lengthen, because a quieter note has a longer ceiling');
+// wholly inside box 3, clear of the 0.5 s glide at either line — a breath that crosses a line reads both ranges, by design
+const inBox2 = G => held(G).filter(n => n.container === 2 && n.waves && n.start - T0 > G.bounds[2] - T0 + 0.26 && n.end - T0 < G.bounds[3] - T0 - 0.26);
+const LOWR = hOf('ppp'), HIR = hOf('p');
+ok(inBox2(ONE_R).length > 0 && inBox2(ONE_R).every(n => n.levels.every(p => p[1] >= LOWR - LEPS && p[1] <= HIR + LEPS)) &&
+   inBox2(NO_R).some(n => n.levels.some(p => p[1] > HIR + LEPS)),
+   'box 3 reads the same waves through ppp–p: ' + inBox2(ONE_R).length + ' notes all inside ' + LOWR.toFixed(3) + ' … ' + HIR.toFixed(3) + ', where the sequence\'s pp–mf took them higher');
+ok(held(ONE_R).filter(n => n.container === 0).every(n => n.levels.every(p => p[1] >= LO - LEPS && p[1] <= HI + LEPS)),
+   'and every other box still reads the sequence\'s own range');
+// EQUAL DEPTHS, DIFFERENT HEIGHTS — the reason 1d.10 came first, now per box
+const DEEP = SEQ.generate(rngRow('attack', ['waves'], { 0: { low: 'ppp', high: 'mp' }, 1: { low: 'pp', high: 'mf' } }), ctx);
+const peakIn = (G, ci) => Math.max.apply(null, held(G).filter(n => n.container === ci && n.waves).map(n => n.level));
+ok(Math.abs(peakIn(DEEP, 0) - hOf('mp')) < 0.02 && Math.abs(peakIn(DEEP, 1) - hOf('mf')) < 0.02 && peakIn(DEEP, 0) < peakIn(DEEP, 1),
+   'two ranges of EQUAL DEPTH sit at different heights: box 1 peaks at ' + peakIn(DEEP, 0).toFixed(3) + ' (mp), box 2 at ' + peakIn(DEEP, 1).toFixed(3) + ' (mf)');
+// THE GLIDE — a note crossing the line moves through the middle, and no breakpoint jumps by the whole difference
+const GL = SEQ.generate(rngRow('seamless', ['waves'], { 0: { low: 'ppp', high: 'mp' }, 1: { low: 'pp', high: 'mf' } }), ctx);
+const crossers = held(GL).filter(n => n.waves && n.start - T0 < GL.bounds[1] - T0 - 0.26 && n.end - T0 > GL.bounds[1] - T0 + 0.26);
+const worstStep = ns => Math.max.apply(null, ns.map(n => Math.max.apply(null, n.levels.map((p, i) => i ? Math.abs(p[1] - n.levels[i - 1][1]) / Math.max(1e-6, p[0] - n.levels[i - 1][0]) : 0))));
+ok(crossers.length > 0 && crossers.every(n => n.levels.filter(p => { const x = n.start - T0 + p[0], b = GL.bounds[1] - T0; return x > b - 0.26 && x < b + 0.26; }).length >= 2),
+   crossers.length + ' notes cross the line between two ranges, and each carries breakpoints INSIDE the 0.5 s glide — the map bends, it does not step');
+ok(isFinite(worstStep(crossers)) && worstStep(crossers) < 1.5,
+   'no breakpoint jumps: the steepest move across those notes is ' + worstStep(crossers).toFixed(3) + ' of the ladder a second');
+// a range on a STRAIGHT box is kept and ignored
+const STR = SEQ.generate(rngRow('seamless', ['waves', 'mf'], { 1: { low: 'ppp', high: 'p' } }), ctx);
+const STR0 = SEQ.generate(rngRow('seamless', ['waves', 'mf']), ctx);
+ok(j(STR.notes) === j(STR0.notes), 'a range on a STRAIGHT box changes nothing — it is kept in the recipe so that flipping the box to `waves` gives it back');
+// THE GATE, once more: no box carries a range and the notes are the frozen ones
+['attack', 'seamless'].forEach(chg => {
+    const R0 = recipe(chg); R0.waves = Object.assign({}, WV);
+    R0.containers.forEach(c => { if (c.range != null) throw new Error('the case should carry no range'); });
+    ok(hashOf(R0).sha256 === BASE.cases[chg].sha256, 'THE GATE, after the stream became a height: no range anywhere = the frozen notes, ' + chg);
+});
+// refusals
+const rBad = (rng, re, what) => { const R = rngRow('seamless', ['waves'], { 1: rng }); const m = SEQ.validate(R, ctx); ok(m.some(x => re.test(x)), 'refused — ' + what + ': "' + (m.find(x => re.test(x)) || m[0] || 'NOTHING WAS REFUSED') + '"'); };
+rBad({ low: 'pp', high: 'quiet' }, /range\.low and range\.high must be on the ladder/, 'a range end that is not a dynamic');
+rBad({ low: 'ff', high: 'pp' }, /range\.low \(ff\) must be below range\.high/, 'a range upside down');
+rBad('pp-mf', /range must be \{ low, high \}/, 'a range that is not two dynamics');
 
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

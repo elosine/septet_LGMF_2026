@@ -1,4 +1,125 @@
 {
   "_version": 1,
-  "panels": {}
+  "panels": {
+    "untitled": {
+      "untitled 2026-09-20 16.03.00": {
+        "saved": "2026-09-20T20:03:56.064Z",
+        "comment": "",
+        "state": {
+          "row": {
+            "id": "smua8u03x",
+            "name": "",
+            "change": "attack",
+            "breath": {
+              "striation": "staggered",
+              "length": 8,
+              "jitter": 0.35,
+              "seed": 1,
+              "together": 0.2,
+              "apart": 0.6,
+              "lengths": null
+            },
+            "waves": {
+              "lengths": {
+                "values": [
+                  6,
+                  10,
+                  16
+                ],
+                "weights": null
+              },
+              "low": "pp",
+              "high": "mf",
+              "density": 0.7,
+              "peak": 0.5,
+              "seed": 1
+            },
+            "edges": {
+              "fadeIn": 0,
+              "fadeInFrom": "niente",
+              "fadeOut": 0,
+              "fadeOutTo": "niente",
+              "exit": "together"
+            },
+            "roll": {
+              "preset": "",
+              "values": "2 5 7 15",
+              "weights": "",
+              "tilt": 0,
+              "unit": 1,
+              "total": 60,
+              "count": "",
+              "stick": 0.8,
+              "jump": 0.1,
+              "contour": "flat",
+              "turn": 0.5,
+              "bow": 1,
+              "depth": 1,
+              "seed": 1
+            },
+            "rolled": false,
+            "boxes": [
+              {
+                "take": "",
+                "dur": 8,
+                "dyn": "as dealt",
+                "dynWas": "as dealt",
+                "change": null,
+                "range": null,
+                "chord": [],
+                "frozen": ""
+              },
+              {
+                "take": "",
+                "dur": 8,
+                "dyn": "waves",
+                "dynWas": "as dealt",
+                "change": "seamless",
+                "range": null,
+                "chord": [],
+                "frozen": ""
+              },
+              {
+                "take": "",
+                "dur": 8,
+                "dyn": "waves",
+                "dynWas": "as dealt",
+                "change": "seamless",
+                "range": {
+                  "low": "pp",
+                  "high": "ff"
+                },
+                "chord": [],
+                "frozen": ""
+              },
+              {
+                "take": "",
+                "dur": 8,
+                "dyn": "waves",
+                "dynWas": "as dealt",
+                "change": "seamless",
+                "range": {
+                  "low": "pp",
+                  "high": "ff"
+                },
+                "chord": [],
+                "frozen": ""
+              },
+              {
+                "take": "",
+                "dur": 8,
+                "dyn": "as dealt",
+                "dynWas": "as dealt",
+                "change": null,
+                "range": null,
+                "chord": [],
+                "frozen": ""
+              }
+            ]
+          },
+          "kept": null
+        }
+      }
+    }
+  }
 }

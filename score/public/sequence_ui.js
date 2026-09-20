@@ -159,14 +159,14 @@ const S = {
     farOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : SEQ.NIENTE; },   // the far end of a fade: niente, or a name on the ladder
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
     newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
-    newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, chord: [], frozen: '' }; },
+    newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, range: null, chord: [], frozen: '' }; },
     save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
     // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
     rowFrom(r) {
         if (!(r && typeof r.id === 'string' && Array.isArray(r.boxes))) return this.newRow();
         return { id: r.id, name: String(r.name || ''), change: SEQ.CHANGES.indexOf(r.change) >= 0 ? r.change : 'attack',
             breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: this.wavesDefaults(r.waves), edges: this.edgesDefaults(r.edges), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
-            boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: this.changeOk(b && b.change), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
+            boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: this.changeOk(b && b.change), range: this.rangeOk(b && b.range), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
     },
     restore() {
         let st = null; try { st = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { st = null; }
@@ -261,7 +261,7 @@ const S = {
         this.row = this.rowFrom(e.state.row);
         this.kept = (e.state.kept && e.state.kept.row) ? e.state.kept : null;
         this.libPanel = panel; this.libKey = name;
-        this.sel = this.row.boxes.length ? 0 : -1;
+        this.sel = this.row.boxes.length ? 0 : -1; this.selTo = null;
         if (this.row.rolled) this.rollOpen = true;
         if (!this.isDefaultBreath()) this.breathOpen = true;
         if (this.row.boxes.some(b => b.dyn === WAVES)) this.wavesOpen = true;
@@ -334,7 +334,7 @@ const S = {
         if (!window.confirm('Revert to the saved state?\n\nEverything changed since `save` is lost.')) return;
         this.stop();
         this.row = this.rowFrom(this.kept.row);
-        this.sel = this.row.boxes.length ? 0 : -1;
+        this.sel = this.row.boxes.length ? 0 : -1; this.selTo = null;
         this.save(); this._listSig = ''; this.render();
         this.setStatus('reverted to the saved state · ' + this.row.boxes.length + ' box' + (this.row.boxes.length === 1 ? '' : 'es'));
     },
@@ -375,6 +375,18 @@ const S = {
         const rv = q('#sqLibRevert'); if (rv) rv.disabled = !this.kept;
         const dl = q('#sqLibDel'); if (dl) dl.disabled = !(sel && sel.value);
     },
+    // ------------------------------------------------------------------ A RANGE OF BOXES (1d.12)
+    // Between ONE box and ALL boxes there was nothing, and a rolled row can be thirty boxes long. Click = one box, as ever;
+    // SHIFT+click = from the selected box to this one. What the edit line sets then goes on every box of the selection.
+    selSpan() { const n = this.row.boxes.length; if (this.sel < 0 || !n) return null; const cl = x => Math.max(0, Math.min(n - 1, x)); const a = cl(this.sel), b = this.selTo == null ? a : cl(this.selTo); return { a: Math.min(a, b), b: Math.max(a, b) }; },
+    selCount() { const s = this.selSpan(); return s ? (s.b - s.a + 1) : 0; },
+    inSel(i) { const s = this.selSpan(); return !!s && i >= s.a && i <= s.b; },
+    clearSel(render) { if (this.selTo == null) return; this.selTo = null; this.save(); if (render !== false) this.render(); },
+    // run over every box of the selection — one box or sixteen, the same path
+    eachSel(fn) { const s = this.selSpan(); if (!s) return 0; let n = 0; for (let i = s.a; i <= s.b; i++) { if (this.row.boxes[i]) { fn(this.row.boxes[i], i); n++; } } return n; },
+    selLabel() { const s = this.selSpan(); return !s ? '' : (s.a === s.b ? 'box ' + (s.a + 1) : 'boxes ' + (s.a + 1) + '–' + (s.b + 1)); },
+    rangeOk(q) { const L = LADDER(); return (L && q && L.NAMES.indexOf(q.low) >= 0 && L.NAMES.indexOf(q.high) >= 0 && L.ANCHOR[q.low] < L.ANCHOR[q.high]) ? { low: q.low, high: q.high } : null; },
+    rangeTag(b) { const q = this.rangeOk(b && b.range); return q ? q.low + '–' + q.high : ''; },
     straightOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : AS_DEALT; },   // a straight dynamic: `as dealt`, or a name on the ladder
     dynOk(d) { return d === WAVES ? WAVES : this.straightOk(d); },                                 // a box's dyn: a straight dynamic, or the waves (1d.7)
     levelOfName(name) { const L = LADDER(); return L && L.ANCHOR[name] != null ? clamp((L.ANCHOR[name] - L.LO) / (L.HI - L.LO), 0, 1) : 0.5; },
@@ -526,6 +538,14 @@ const S = {
             ev.preventDefault(); ev.stopPropagation();
             const e = E_(); if (e && e._playing) this.stop(); else this.hear();
         }, true);
+        // 1d.12: ESC returns a selection of boxes to one — the drawer's own key, and only while this strip was clicked last
+        window.addEventListener('keydown', ev => {
+            if (ev.key !== 'Escape' || !this.isOpen() || !this.active || this.selTo == null) return;
+            const t = ev.target, m = s => !!(t && t.matches && t.matches(s));
+            if (m('textarea, input[type=text], input[type=search]')) return;   // ESC in a text field is the field's own (it reverts it)
+            ev.preventDefault(); ev.stopPropagation();
+            this.clearSel(); this.setStatus('box ' + (this.sel + 1) + ' — one box again');
+        }, true);
     },
 
     toggle(force) {
@@ -641,7 +661,7 @@ const S = {
         if (bar != null) return +bar.toFixed(3);
         const e = this.entryOf(id); return e ? +(+e.recipe.t0 || 0).toFixed(3) : null;
     },
-    coreOf(r) { return JSON.stringify({ change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: r.waves ? this.wavesDefaults(r.waves) : null, edges: r.edges ? this.edgesDefaults(r.edges) : null, containers: (r.containers || []).map(c => ({ dur: +c.dur, dyn: c.dyn == null ? AS_DEALT : c.dyn, change: (c.change && c.change !== r.change) ? c.change : null, take: c.take || '', chord: c.chord || [] })) }); },
+    coreOf(r) { return JSON.stringify({ change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: r.waves ? this.wavesDefaults(r.waves) : null, edges: r.edges ? this.edgesDefaults(r.edges) : null, containers: (r.containers || []).map(c => ({ dur: +c.dur, dyn: c.dyn == null ? AS_DEALT : c.dyn, change: (c.change && c.change !== r.change) ? c.change : null, range: c.range || null, take: c.take || '', chord: c.chord || [] })) }); },
     // the row holds something the score does not: boxes never inserted, or changed since
     isDirty() { if (!this.row.boxes.length) return false; const e = this.entryOf(this.row.id); return !e || this.coreOf(e.recipe) !== this.coreOf(this.recipe(0)); },
     renderList() {
@@ -673,8 +693,8 @@ const S = {
         const R = e.recipe;
         this.row = { id: e.id, name: (e.name && e.name !== 'sequence ' + e.id) ? String(e.name) : '', change: SEQ.CHANGES.indexOf(R.change) >= 0 ? R.change : 'attack',
             breath: Object.assign({}, SEQ.DEFAULT_BREATH, R.breath || {}), waves: this.wavesDefaults(R.waves), edges: this.edgesDefaults(R.edges), roll: Object.assign(this.rollDefaults(), R.roll || {}), rolled: !!R.roll,
-            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), dynWas: this.straightOk(c.dynWas), change: (this.changeOk(c.change) && c.change !== R.change) ? c.change : null, chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })) };
-        this.sel = this.row.boxes.length ? 0 : -1;
+            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), dynWas: this.straightOk(c.dynWas), change: (this.changeOk(c.change) && c.change !== R.change) ? c.change : null, range: this.rangeOk(c.range), chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })) };
+        this.sel = this.row.boxes.length ? 0 : -1; this.selTo = null;
         if (this.row.rolled) this.rollOpen = true;   // a rolled sequence shows how its durations were made
         if (!this.isDefaultBreath()) this.breathOpen = true;   // and one whose breath was set shows its dials (1d.5)
         if (this.row.boxes.some(b => b.dyn === WAVES)) this.wavesOpen = true;   // and one that reads the waves shows theirs (1d.7)
@@ -708,18 +728,24 @@ const S = {
         }
         this.row.boxes.forEach((b, i) => {
             const on = i === this.sel, empty = !b.chord.length, np = this.players(b.chord);
+            const inSel = this.inSel(i), tag = this.rangeTag(b);   // 1d.12: in the SELECTION (painted), and its own waves range (a tag)
             const d = document.createElement('div');
             d.className = 'sqBox'; d.dataset.i = i;
             d.style.cssText = 'position:relative;flex:' + Math.max(0.1, +b.dur || 0) + ' 1 0;min-width:8.727em;box-sizing:border-box;padding:3px 6px;border-radius:4px;cursor:pointer;overflow:hidden;' +
                 // 1d.4: a box with no chord is a REST — deliberate, so it is drawn quiet (dashed, dim), not as a fault
-                'background:' + (on ? '#22404d' : (empty ? '#191d21' : '#20262c')) + ';border:1px ' + (empty ? 'dashed ' : 'solid ') + (on ? EDGE_ON : (empty ? '#56606a' : '#3a4650')) + ';display:flex;flex-direction:column;justify-content:center;white-space:nowrap';
+                'background:' + (on ? '#22404d' : (inSel ? '#1e343e' : (empty ? '#191d21' : '#20262c'))) + ';border:1px ' + (empty ? 'dashed ' : 'solid ') + (on ? EDGE_ON : (inSel ? '#3d7d96' : (empty ? '#56606a' : '#3a4650'))) + ';display:flex;flex-direction:column;justify-content:center;white-space:nowrap';
             d.title = empty ? 'a REST — silence for its duration: every player stops at its start and begins again after it. Choose a take to give it a chord' : this.chordText(b.chord);
             const own = (b.change && b.change !== this.row.change) ? b.change : null;   // 1d.8: a box entered another way than the sequence's rule wears it
             d.innerHTML = '<div style="color:#789;font-size:.9em">' + (i + 1) + (own ? ' <span style="color:#e6c46a" title="this box is entered by ' + own + ' — the sequence\'s rule is ' + this.row.change + '">' + (own === 'attack' ? '▶| attack' : '≈ seamless') + '</span>' : '') + '</div>' +
                 '<div style="overflow:hidden;text-overflow:ellipsis;color:' + (empty ? '#7d8790' : '#e6eef2') + (empty ? ';font-style:italic' : '') + '">' + esc(b.take || 'rest') + '</div>' +
-                '<div style="color:#9ab">' + fmtS(b.dur) + ' s' + (empty ? '' : ' · ' + (b.dyn === WAVES ? '<span style="color:' + WTINT + '">∿ waves</span>' : esc(b.dyn))) + '</div>' +   // 1d.7: a waves box wears a mark
+                '<div style="color:#9ab">' + fmtS(b.dur) + ' s' + (empty ? '' : ' · ' + (b.dyn === WAVES ? '<span style="color:' + WTINT + '">∿ waves</span>' : esc(b.dyn))) +
+                    (tag ? ' <span style="color:' + WTINT + ';opacity:.85" title="this box reads the waves through a range of its own — the sequence\'s is ' + esc(this.row.waves.low + '–' + this.row.waves.high) + '">' + esc(tag) + '</span>' : '') + '</div>' +   // 1d.7: a waves box wears a mark · 1d.12: and its own range
                 '<div style="color:' + (empty ? '#7d8790' : '#7a9') + ';font-size:.9em">' + (empty ? 'silence' : (np + ' player' + (np === 1 ? '' : 's') + (b.chord.length > np ? ' · ' + b.chord.length + ' notes' : ''))) + '</div>';
-            d.addEventListener('click', () => { this.sel = i; this.save(); this.render(); });
+            // 1d.12: a plain click is ONE box and clears the selection; SHIFT+click reaches from the selected box to this one
+            d.addEventListener('click', ev => {
+                if (ev.shiftKey && this.sel >= 0 && this.sel !== i) { this.selTo = i; this.save(); this.render(); this.setStatus(this.selLabel() + ' selected — `dyn`, `enter` and `range` go on all ' + this.selCount() + '. ESC, or a plain click, returns to one'); return; }
+                this.sel = i; this.selTo = null; this.save(); this.render();
+            });
             if (!empty) {   // the PREVIEW: this box's chord on its own — every box that holds a take has one
                 const on = this._previewing === i, pv = document.createElement('button');
                 pv.className = 'sqPrev'; pv.textContent = on ? '■' : '▸';
@@ -742,40 +768,72 @@ const S = {
         const names = D.takeNames ? D.takeNames() : [];
         const L = LADDER(), dyns = [AS_DEALT, WAVES].concat(L ? L.NAMES : []);
         const missing = b.take && names.indexOf(b.take) < 0;
+        const many = this.selCount() > 1;   // 1d.12: take and seconds stay per box; dyn, enter and range go on the whole selection
         ed.innerHTML =
-            '<b style="color:' + COLOR + '">box ' + (i + 1) + '</b>' +
+            '<b style="color:' + COLOR + '" title="' + (many ? 'SHIFT+click reached from box ' + (this.sel + 1) + ' to this one — what you set below goes on every box of the selection. ESC, or a plain click, returns to one' : 'click a box to select it · SHIFT+click another to select the range between them') + '">' + this.selLabel() + (many ? ' <span style="color:#9ab;font-weight:normal">(' + this.selCount() + ')</span>' : '') + '</b>' +
+            (many ? '<button id="sqSelClear" style="' + BTN + '" title="back to one box (ESC)">one box</button>' : '') +
+            (many ? '' :
             '<label title="a saved take of the strikes drawer. Choosing one LOADS it in the strikes drawer, so you see it — whatever is undealt there is replaced (save it as a take first) — and the box freezes its notes as `long tone` deals them">take <select id="sqTake" style="max-width:20em;' + INP + '"><option value="">— choose —</option>' +
                 (missing ? '<option value="' + esc(b.take) + '">' + esc(b.take) + ' (not in the list)</option>' : '') +
                 names.map(nm => '<option value="' + esc(nm) + '">' + esc(nm) + '</option>').join('') + '</select></label>' +
-            '<label><input id="sqDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>' +
+            '<label><input id="sqDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>') +
             '<label title="as dealt: each note keeps the level the take was saved at · waves: every player rises and falls on their own stream of swells, between the waves\' low and high (the `waves` line) · ppp … fff: the whole box at that dynamic, on the drawer\'s own written scale">dyn <select id="sqDyn" style="' + INP + '">' + dyns.map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('') + '</select></label>' +
             '<label title="how THIS box is entered — attack: everyone lands a breath before its line and starts AT it, together · seamless: each player takes it at their next breath. The head\'s `change` sets every box; this flips one. On box 1 it is how the sequence BEGINS: attack = everyone together, seamless = staggered">enter <select id="sqEnter" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
+            // 1d.12: the same dealt waves, read through a range of THIS selection's own. Blank = the sequence's.
+            '<label title="the waves range these boxes are read through — the same dealt swells, between two other dynamics. Blank (`sequence range`) = the sequence\'s own, ' + esc(this.row.waves.low + '–' + this.row.waves.high) + '. Where two ranges meet the level GLIDES across the line over half a second, never a step">range ' +
+                '<select id="sqRLo" style="' + INP + '"><option value="">—</option>' + (L ? L.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('') : '') + '</select> ' +
+                '<select id="sqRHi" style="' + INP + '"><option value="">—</option>' + (L ? L.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('') : '') + '</select></label>' +
+            '<button id="sqRClear" style="' + BTN + '" title="back to the sequence\'s own waves range">sequence range</button>' +
+            (many ? '' :
             '<button id="sqRefresh" style="' + BTN + '" title="read the take again — the box holds the notes as they were when it was chosen">refresh from take</button>' +
             '<button id="sqLeft" style="' + BTN + '" title="move this box earlier">◂</button><button id="sqRight" style="' + BTN + '" title="move this box later">▸</button>' +
-            '<button id="sqDel" style="' + BTN + '" title="remove this box">×</button>' +
-            '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9ab" title="' + esc(this.chordText(b.chord)) + '">' + esc(b.chord.length ? this.chordText(b.chord) : 'a REST — silence for its ' + fmtS(b.dur) + ' s; choose a take to give it a chord') + '</span>';
+            '<button id="sqDel" style="' + BTN + '" title="remove this box">×</button>') +
+            '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9ab" title="' + esc(this.chordText(b.chord)) + '">' + esc(many ? this.selCount() + ' boxes — take and seconds stay per box' : (b.chord.length ? this.chordText(b.chord) : 'a REST — silence for its ' + fmtS(b.dur) + ' s; choose a take to give it a chord')) + '</span>';
         const q = s => ed.querySelector(s);
-        q('#sqTake').value = b.take || ''; q('#sqDur').value = b.dur; q('#sqDyn').value = b.dyn; q('#sqEnter').value = b.change || this.row.change;
+        if (!many) { q('#sqTake').value = b.take || ''; q('#sqDur').value = b.dur; }
+        q('#sqDyn').value = b.dyn; q('#sqEnter').value = b.change || this.row.change;
+        const rq = this.rangeOk(b.range); q('#sqRLo').value = rq ? rq.low : ''; q('#sqRHi').value = rq ? rq.high : '';
         q('#sqEnter').addEventListener('change', e => {
-            const c = this.changeOk(e.target.value) || this.row.change; b.change = c === this.row.change ? null : c; e.target.blur(); this.save(); this.render();
-            this.setStatus('box ' + (i + 1) + ' is entered by ' + c + (b.change ? ' — the rest stay ' + this.row.change : ' — the sequence\'s own rule') + (i === 0 ? ' · box 1: this is how the sequence BEGINS (' + (c === 'attack' ? 'everyone together' : 'staggered') + ')' : ''));
+            const c = this.changeOk(e.target.value) || this.row.change; e.target.blur();
+            const n = this.eachSel(x => { x.change = c === this.row.change ? null : c; });
+            this.save(); this.render();
+            this.setStatus(this.selLabel() + ' ' + (n === 1 ? 'is' : 'are') + ' entered by ' + c + (c === this.row.change ? ' — the sequence\'s own rule' : ' — the rest stay ' + this.row.change) + (this.selSpan().a === 0 ? ' · box 1: this is how the sequence BEGINS (' + (c === 'attack' ? 'everyone together' : 'staggered') + ')' : ''));
         });
+        q('#sqDyn').addEventListener('change', e => {
+            const d = this.dynOk(e.target.value); e.target.blur();
+            const n = this.eachSel(x => {
+                if (d === WAVES && x.dyn !== WAVES) x.dynWas = x.dyn; else if (d !== WAVES) x.dynWas = d;   // the straight dyn is remembered, so stepping out of the waves restores it
+                x.dyn = d;
+            });
+            this.save(); this.render();
+            if (d === WAVES) this.wavesStatus(this.selLabel() + ' read' + (n === 1 ? 's' : '') + ' the waves');
+            else this.setStatus(this.selLabel() + ' at ' + d);
+        });
+        // both ends together: a range is two dynamics, and half of one is not a range
+        const setRange = () => {
+            const lo = q('#sqRLo').value, hi = q('#sqRHi').value;
+            if (!lo && !hi) { this.eachSel(x => { x.range = null; }); this.save(); this.render(); this.setStatus(this.selLabel() + ' back to the sequence\'s waves range (' + this.row.waves.low + '–' + this.row.waves.high + ')'); return; }
+            const ok = this.rangeOk({ low: lo, high: hi });
+            if (!ok) { this.setStatus(lo && hi ? 'a range runs upwards: ' + lo + ' must be below ' + hi : 'a range needs BOTH ends — pick a low and a high', true); return; }
+            const n = this.eachSel(x => { x.range = { low: ok.low, high: ok.high }; });
+            this.save(); this.render();
+            this.setStatus(this.selLabel() + ' read' + (n === 1 ? 's' : '') + ' the waves through ' + ok.low + '–' + ok.high + (this.row.boxes.some((x, k) => !this.inSel(k) && x.dyn === WAVES) ? ' · the rest stay ' + this.row.waves.low + '–' + this.row.waves.high + ', and the level GLIDES across the line between them' : ''));
+        };
+        q('#sqRLo').addEventListener('change', e => { e.target.blur(); setRange(); });
+        q('#sqRHi').addEventListener('change', e => { e.target.blur(); setRange(); });
+        q('#sqRClear').addEventListener('click', () => { const n = this.eachSel(x => { x.range = null; }); this.save(); this.render(); this.setStatus(this.selLabel() + ' — ' + n + ' box' + (n === 1 ? '' : 'es') + ' back to the sequence\'s waves range (' + this.row.waves.low + '–' + this.row.waves.high + ')'); });
+        if (many) { q('#sqSelClear').addEventListener('click', () => this.clearSel()); return; }
         q('#sqTake').addEventListener('change', e => { e.target.blur(); this.freeze(i, e.target.value); });
         q('#sqDur').addEventListener('change', e => { b.dur = clampDur(e.target.value); e.target.blur(); this.save(); this.render(); });
         q('#sqDur').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
-        q('#sqDyn').addEventListener('change', e => {
-            const d = this.dynOk(e.target.value); if (d === WAVES && b.dyn !== WAVES) b.dynWas = b.dyn; else if (d !== WAVES) b.dynWas = d;   // the straight dyn is remembered, so stepping out of the waves restores it
-            b.dyn = d; e.target.blur(); this.save(); this.render();
-            if (d === WAVES) this.wavesStatus('box ' + (i + 1) + ' reads the waves');
-        });
         q('#sqRefresh').addEventListener('click', () => { if (b.take) this.freeze(i, b.take); else this.setStatus('box ' + (i + 1) + ' has no take to refresh from', true); });
         q('#sqLeft').addEventListener('click', () => this.moveBox(i, -1));
         q('#sqRight').addEventListener('click', () => this.moveBox(i, 1));
         q('#sqDel').addEventListener('click', () => this.removeBox(i));
     },
-    addBox() { this.row.boxes.push(this.newBox()); this.sel = this.row.boxes.length - 1; this.save(); this.render(); this.setStatus('box ' + (this.sel + 1) + ' added — choose its take (a box left without one is a REST)'); },
-    removeBox(i) { if (!this.row.boxes[i]) return; this.row.boxes.splice(i, 1); this.sel = Math.min(i, this.row.boxes.length - 1); this.save(); this.render(); },
-    moveBox(i, by) { const j = i + by, B = this.row.boxes; if (!B[i] || j < 0 || j >= B.length) return; const t = B[i]; B[i] = B[j]; B[j] = t; this.sel = j; this.save(); this.render(); },
+    addBox() { this.row.boxes.push(this.newBox()); this.sel = this.row.boxes.length - 1; this.selTo = null; this.save(); this.render(); this.setStatus('box ' + (this.sel + 1) + ' added — choose its take (a box left without one is a REST)'); },
+    removeBox(i) { if (!this.row.boxes[i]) return; this.row.boxes.splice(i, 1); this.sel = Math.min(i, this.row.boxes.length - 1); this.selTo = null; this.save(); this.render(); },
+    moveBox(i, by) { const j = i + by, B = this.row.boxes; if (!B[i] || j < 0 || j >= B.length) return; const t = B[i]; B[i] = B[j]; B[j] = t; this.sel = j; this.selTo = null; this.save(); this.render(); },
     // 1d.11: `new` DESTROYS NOTHING — the row being left is already on disk in the library, so there is no longer a prompt
     startNew() { this.libNewRow(); },
 
@@ -1120,6 +1178,7 @@ const S = {
         const wavesToo = r.boxes.some(b => b.dyn === WAVES) || !this.isDefaultWaves();
         return Object.assign({ t0: +t0 || 0, change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}),
             containers: r.boxes.map(b => Object.assign({ dur: +b.dur, dyn: b.dyn, take: b.take, chord: b.chord.length ? b.chord : null }, b.dyn === WAVES ? { dynWas: b.dynWas || AS_DEALT } : {},
+                this.rangeOk(b.range) ? { range: this.rangeOk(b.range) } : {},   // 1d.12: a box may read the waves through a range of its own
                 (b.change && b.change !== r.change) ? { change: b.change } : {})) },   // 1d.8: a box carries its own `enter` only when it differs from the sequence's
             wavesToo ? { waves: this.wavesDefaults(r.waves) } : {},
             this.isDefaultEdges() ? {} : { edges: this.edgesDefaults(r.edges) },

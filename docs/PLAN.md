@@ -891,7 +891,15 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `new` → `library` (the first is in the list) → open it → name it, ENTER → change a dial → `save` → change another (`•`) →
       `revert` → `duplicate` → `×` on the copy.
   - **1d.12 — SELECT A RANGE OF BOXES** (click, SHIFT+click; the selection takes waves · `dyn` · `enter` · and a range of its own) —
-    `todo` — LG-48 · LG-50 · RUNNING_LOG §146.
+    **BUILT 2026-09-20 — RUNNING_LOG §152, SEQUENCE_TOOL §17; his test outstanding** — LG-48 · LG-50 · RUNNING_LOG §146.
+    - **AS BUILT — two things the plan asked to be CHECKED, and both needed the answer written down.** (a) *"CHECK how 1d.7
+      carries the stream (it wants to be a 0 … 1 swell height that is mapped late)"* — it did NOT: 1d.7 wrote written LEVELS into
+      the stream. It is a height now, mapped per box at the end, so the deal, the seeds and the swells are untouched by any
+      range. (b) **A box that does not READ the waves has no opinion about their range and carries the last one forward** — it
+      was the only way to make "a range on a straight box is kept and ignored" true, and it also keeps a breath that crosses a
+      straight box still reading the waves in the range it began in. **And one consequence to know:** lowering a range's `high`
+      may LENGTHEN a breath, because the ceiling is read at the loudest level a note reaches. With the `high` unchanged not one
+      onset or length moves — which is what `sequence_check` asserts. `sequence_check` **126 → 139**.
     *Why:* between ONE box and ALL boxes there is nothing, and a rolled row can be thirty boxes long; and he wants part of a
     sequence to read the SAME waves through a DIFFERENT range.
     *Result when done:* click box 15, SHIFT+click box 30, and whatever the head sets goes on all sixteen.

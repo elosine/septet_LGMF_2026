@@ -4,7 +4,7 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**126**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**139**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
@@ -13,6 +13,7 @@
 - the edges, and a change rule per box — `enter` on every box · fade in / fade out, from and to niente or a dynamic · `exit` together or one by one — §14 below · 1d.8, built 2026-09-19
 - the dynamics table — every written dynamic has a CC7 value of its own, 4 dB a step through the instrument's measured fader curve — **`docs/DYNAMICS_LAW.md` §3**, and §13 · §14 below · 1d.10, built 2026-09-20
 - the library — every sequence on disk in `bank/sequences.json`: an untitled rolling stack, named keepers, `save` · `revert` · `duplicate` · `×` — §16 below · 1d.11, built 2026-09-20
+- a RANGE of boxes — click, SHIFT+click; the selection takes `dyn` · `enter` · and a waves `range` of its own — §17 below · 1d.12, built 2026-09-20
 - not yet: his listen (1d.6) — nothing in this drawer has been heard by the AI, and the waves and the edges not yet by him
 
 ---
@@ -116,7 +117,7 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **126**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **139**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
 a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last ·
@@ -491,3 +492,31 @@ score` (§10) is untouched: that list is what is IN the open score, this one is 
 score is a row like any other — untitled until you name it.
 
 **Migration:** the one row in `localStorage` becomes the first untitled entry at the first load.
+
+## 17 · A range of boxes, and a waves range of its own (1d.12)
+
+**Between ONE box and ALL boxes there was nothing**, and a rolled row can be thirty boxes long.
+
+- **Click** = one box, as ever. **SHIFT+click** = from the selected box to this one. The selection is painted; **ESC**, a plain
+  click, or `one box` returns to one.
+- **What the edit line sets then goes on every box of the selection:** `dyn` (which is also `waves | straight`) · `enter` ·
+  **`range`**. `take` and `seconds` stay per box — they are what makes a box itself.
+- `all boxes →` in the head is unchanged: it is select-all-and-apply.
+
+**`range [low] [high]`** — the boxes read the SAME dealt waves through two other dynamics. Blank, or `sequence range`, is the
+sequence's own (the `waves` line). A box with one of its own wears it as a small tag (`ppp–mp`). Both ends together: half a range
+is refused, not guessed at.
+
+**In the generator.** The stream became a **0 … 1 swell height** (1d.7 wrote it in written levels), mapped to a level LATE, per
+box — so the deal, the seeds and the swells are untouched by any range and only the map at the end of them changes. Two
+consequences worth knowing:
+
+- **Where two ranges meet the level GLIDES across the line over 0.5 s, never a step.** It is the RANGE that glides, not the
+  level, so a player at rest and a player at a peak cross together and neither is bent out of shape.
+- **A box that does not READ the waves has no opinion about their range and carries the last one forward.** So a range set on a
+  straight box changes nothing (it is kept, for when you flip that box to `waves`), and a breath that crosses a straight box
+  still reading the waves keeps the range it began in.
+
+**A quieter range may lengthen a breath.** The ceiling is read at the loudest level a note reaches, and the palette gives a quiet
+note a longer bow — so lowering a range's `high` can let a breath run longer. That is the palette working, not the deal being
+re-run: with the `high` unchanged, not one onset or length moves.
