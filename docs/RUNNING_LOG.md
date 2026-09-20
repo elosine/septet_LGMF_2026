@@ -5667,3 +5667,29 @@ drawer restored to the bottom at full height · every font size. **Not verified:
 **Decided alone, his to reverse:** the default window is 1180 × 360 centred along the bottom, so the first open looks like the
 docked strip he knows · a minimum of 560 × 220 · the boxes row grows with the window rather than staying at 120 px · the geometry
 is per-browser (localStorage), not per-score.
+
+## §133. `together` 0.3 becomes the default of a NEW sequence — in the drawer, not in the generator (2026-09-20)
+
+**What prompted it.** A conversation about the `breath` line (his brief, LG-43; the asks collected for the next feature add, LG-44 ·
+LG-45 — PLAN 1d, THE NEXT FEATURE ADD). Asked how to use `together` and `apart`, the AI described four settings; of the third —
+*"`together 0.2`–`0.4`: that share of re-entries snaps onto another player's; mostly seamless, with an occasional small accent when
+two players land together"* — he said:
+
+> *"together 0.2–0.4. lets keep this as default"*
+
+**Decided: 0.3**, the middle of his range — a default has to be one number. `apart` stays 0.5, and is now live on a new sequence
+(it only matters while `together` is a number under 1).
+
+**Where it was put, and why there.** In `sequence_ui.js` — `NEW_TOGETHER = 0.3`, read by `newRow()` and by the dot on the `breath`
+button (which now means "off the DRAWER's defaults"). **Rejected: changing `DEFAULT_BREATH.together` in `sequence.js`.** That is the
+generator's default, and the 1d gate is defined on it — every dial at its default = the notes frozen in `tools/sequence_baseline.json`
+— and it is what an older recipe with no `together` of its own falls back to. Changing it there would have broken the gate and
+re-dealt sequences already placed. So: the generator still says free; a NEW row in the drawer says 0.3; a recipe carries what it was
+dealt with; the row he has open now keeps what it has; blank in the box is still free.
+
+**Other facts from the same conversation, for the record.** The formula as built: breath = `length` × (1 + `±` × r), r in −1 … +1 —
+`±` is a SHARE (the morph's `segVar`), so his `8 s ± 1` dealt 0 … 16 s: 8 RUNT (a breath under 1.5 s, flagged, not changed) and
+5 CEILING. Every player aims at the one `length`; the ceilings table only CAPS — at 8 ± 0.35 it touches the vibraphone (about half
+its breaths) and the double bass, and the english horn breathes as often as the trumpet. That is the gap `of max` would close.
+
+**Verified:** `node --check` only. **Not verified in the running app** — his test: `new` → `breath` → `together` reads 0.3.

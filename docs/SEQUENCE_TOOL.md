@@ -293,7 +293,7 @@ The gate: `tools/sequence_baseline.json`, frozen before the dials went in (§8).
 | `striation` | `staggered` | `morph.js` `DEFAULTS.carrier.striation` |
 | `length` | 8 s | `morph.js` `DEFAULTS.carrier.segLen` |
 | `±` (jitter) | 0.35 | `morph.js` `DEFAULTS.carrier.segVar` |
-| `together` | blank = `free` | this tool |
+| `together` | **0.3 on a NEW sequence** (his call, 2026-09-20 — RUNNING_LOG §133); blank = `free`, and `free` is still the GENERATOR's default, so an older recipe breathes as it was dealt | this tool |
 | `apart` | 0.5 s | this tool — a number for his ear |
 | `lengths` | none | this tool |
 | `seed` | 1 | — |
