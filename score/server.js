@@ -607,10 +607,26 @@ const server = http.createServer((req, res) => {
     // writes, stored verbatim, so a new panel needs no server edit. All the
     // merge rules (and their whys) live in score/snapshots.js, pinned by
     // tools/test_snapshots.js.
+    // PLAN 1d.11 — TWO STORES, and the client may name only these two. `store` is a KEY into
+    // this table, never a path: a client that could name a file could name any file. Absent =
+    // `panels`, so everything written before 1d.11 keeps working untouched. The sequence
+    // library is a file of its own because it AUTOSAVES every couple of seconds and
+    // panel_snapshots.json is 3.1 MB of his takes, rewritten whole on every save.
     if (url === '/api/snapshots') {
-        const SNAP_FILE = path.join(__dirname, '..', 'bank', 'panel_snapshots.json');
         const SNAP = require('./snapshots.js');
+        const fileFor = k => { const n = SNAP.storeFor(k); return n ? path.join(__dirname, '..', 'bank', n) : null; };
+        // temp file + rename: a save that dies half-written would otherwise leave a truncated
+        // store, and the sequence library is written far more often than a take ever was
+        const writeAtomic = (p, text) => {
+            const tmp = p + '.tmp-' + process.pid + '-' + Date.now();
+            fs.writeFileSync(tmp, text);
+            fs.renameSync(tmp, p);
+        };
         if (req.method === 'GET') {
+            const asked = (req.url.split('?')[1] || '').split('&')
+                .map(s => s.split('=')).filter(p => p[0] === 'store').map(p => decodeURIComponent(p[1] || ''))[0];
+            const SNAP_FILE = fileFor(asked);
+            if (!SNAP_FILE) return R.status(400).json({ success: false, error: 'unknown store' });
             try {
                 if (!fs.existsSync(SNAP_FILE)) {
                     // Say the file is missing rather than pretending it is empty:
@@ -624,14 +640,16 @@ const server = http.createServer((req, res) => {
         if (req.method === 'POST') {
             return readBody(req, (err, body) => {
                 if (err) return R.status(400).json({ success: false, error: 'bad body' });
+                const SNAP_FILE = fileFor(body && body.store);
+                if (!SNAP_FILE) return R.status(400).json({ success: false, error: 'unknown store' });
                 try {
                     const file = fs.existsSync(SNAP_FILE)
                         ? JSON.parse(fs.readFileSync(SNAP_FILE, 'utf8'))
                         : { _version: 1, panels: {} };
                     const r = SNAP.merge(file, body);
                     if (!r.ok) return R.status(400).json({ success: false, error: r.error });
-                    fs.writeFileSync(SNAP_FILE, JSON.stringify(file, null, 2) + '\n');
-                    return R.json({ success: true, action: r.action,
+                    writeAtomic(SNAP_FILE, JSON.stringify(file, null, 2) + '\n');
+                    return R.json({ success: true, store: path.basename(SNAP_FILE), action: r.action,
                                     existed: r.existed, panels: r.count });
                 } catch (e) { return R.status(500).json({ success: false, error: e.message }); }
             });

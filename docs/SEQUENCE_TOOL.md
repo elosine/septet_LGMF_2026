@@ -11,6 +11,8 @@
 - the breath dials — `together` from never to always · `apart` · a pool of lengths · `re-breathe` — §12 below · 1d.5, built 2026-09-19
 - the waves — a box is a straight dynamic OR reads its players' streams of swells — §13 below · 1d.7, built 2026-09-19
 - the edges, and a change rule per box — `enter` on every box · fade in / fade out, from and to niente or a dynamic · `exit` together or one by one — §14 below · 1d.8, built 2026-09-19
+- the dynamics table — every written dynamic has a CC7 value of its own, 4 dB a step through the instrument's measured fader curve — **`docs/DYNAMICS_LAW.md` §3**, and §13 · §14 below · 1d.10, built 2026-09-20
+- the library — every sequence on disk in `bank/sequences.json`: an untitled rolling stack, named keepers, `save` · `revert` · `duplicate` · `×` — §16 below · 1d.11, built 2026-09-20
 - not yet: his listen (1d.6) — nothing in this drawer has been heard by the AI, and the waves and the edges not yet by him
 
 ---
@@ -457,3 +459,35 @@ change that one number** — nothing clips.
 
 **Nothing in `strike_drawer.js` was touched** (his answer 2a: this panel only), and `sequence.js` was not touched either, so the
 1d gate stands untouched at `sequence_check` **126**.
+
+---
+
+## 16 · The library (1d.11) — a sequence is a document
+
+**Every sequence you make is on disk.** The row used to live in `localStorage` under ONE key: it survived a refresh, a server
+restart and a computer restart, but there was only one, `new` wiped a row that had never been inserted, and git could not see it.
+
+**The store is `bank/sequences.json`, a file of its own** — not a panel in `bank/panel_snapshots.json`, which is 3.1 MB of his
+takes and is rewritten WHOLE on every save; an autosave every couple of seconds must not touch it. `/api/snapshots` now takes a
+`store` field that is a **key into a whitelist of two**, never a path (`score/snapshots.js` `storeFor`, pinned by
+`tools/test_snapshots.js`); an absent `store` is the takes file, so everything written before 1d.11 works untouched. The store is
+written **temp file + rename**, because it is written often.
+
+**Its panels:** `library` (named) · `untitled` (the rolling stack) · `wavePresets` (1d.13) · `defaults` (1d.14). An entry's state
+is the row and **`kept`** — the state at his last `save`, or null.
+
+| | |
+|---|---|
+| **autosave** | `localStorage` on every change, instantly, as before · the DISK about **2 s** after the last change, and on `pagehide` (by `sendBeacon`, the one write a closing tab is guaranteed to make) |
+| **unnamed** | a row takes a timestamp name at its FIRST change — `untitled 2026-09-20 14.32.05`, sortable, and dots not colons because the store's name rule refuses a colon. The stack keeps the newest **50**; the oldest go at save |
+| **`new`** | starts a fresh untitled. **It destroys nothing** — the row you leave is already on disk — so it no longer asks |
+| **naming** | a name + ENTER **MOVES** it: saved under the name, the entry it came from deleted. A name already in the library asks first. Clearing a name moves it back to the untitled stack (it asks) — nothing is lost, because `kept` travels with the entry |
+| **`save` / `revert`** | `save` marks a keeper; `revert` comes back to it, asked once; a **`•`** beside the name while they differ (the RECIPE is compared, not which lines are open). **Two states per name and never more** — no cascade of versions. A variant is a second name |
+| **`duplicate`** | asks for a name and makes a copy — **with a new sequence id**, so Insert writes it BESIDE the original and not over it |
+| **`×`** | deletes the one chosen in the list, asked once. Delete the row's own entry and the row stays on screen; the next change saves it again as a new untitled |
+
+**Separate from the score.** Insert still copies the recipe into the score file's `databases.sequences`, and `sequences in this
+score` (§10) is untouched: that list is what is IN the open score, this one is what EXISTS. A placed sequence opened from the
+score is a row like any other — untitled until you name it.
+
+**Migration:** the one row in `localStorage` becomes the first untitled entry at the first load.

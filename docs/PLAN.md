@@ -854,7 +854,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       with the real bank loaded. (c) **The status lines now state the claim:** Hear and Insert say the fader span they actually
       sent, and name any instrument with no measured curve (the percussion lane has none and never shapes a note — a strike is
       `fixed` — so it is not reported as a fault).
-  - **1d.11 — THE LIBRARY** (a sequence is a DOCUMENT: it has a name, it autosaves, many coexist, and they ride in the repo) — `todo` —
+  - **1d.11 — THE LIBRARY** (a sequence is a DOCUMENT: it has a name, it autosaves, many coexist, and they ride in the repo) — **BUILT 2026-09-20 — RUNNING_LOG §151, SEQUENCE_TOOL §16; his test outstanding** —
     LG-47 · RUNNING_LOG §145 · §146.
     *Why:* today the row lives in `localStorage`, ONE key — it survives a refresh, a server restart and a computer restart, but
     there is only ONE, `new` wipes a row that was never inserted, and git cannot see it.

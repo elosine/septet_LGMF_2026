@@ -6421,3 +6421,59 @@ again. Its §5 now carries the crescendo tool's real state (PLAN `1f`: still on 
 **HIS TEST, the 1e way, is outstanding:** a waved sequence with two ranges, recorded as MIDI in the rack, read back by
 `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` — two different CC7 spans, neither topping at 127 unless
 its `high` is `fff`, MAIN ch 1 empty, every strike an mf velocity.
+
+## §151. PLAN 1d.11 BUILT — THE LIBRARY: a sequence is a document, on disk, in a store of its own (2026-09-20)
+
+**What prompted it (LG-47, RUNNING_LOG §145).** The row lived in `localStorage` under ONE key. It survived a refresh, a server
+restart and a computer restart — but there was only one of it, `new` wiped a row that had never been inserted, and git could not
+see any of it. *"Make the auto save number large, these are small files"* · *"without creating a cascade of new versions."*
+
+**THE STORE IS A FILE OF ITS OWN — and that is the decision the step turns on.** `bank/panel_snapshots.json` is **3.1 MB** and
+216 takes, and the server rewrites it WHOLE on every save. An autosave that fires two seconds after every dial move must not go
+anywhere near it. So `bank/sequences.json`, and `/api/snapshots` grew a `store` field.
+
+**`store` IS A KEY INTO A WHITELIST, NEVER A PATH.** A client that can name a file can name any file on the disk. The table is
+two entries and it lives in `score/snapshots.js`, not in the server, so that a node battery can pin it —
+`storeFor('panels' | 'sequences')`, anything else `null`, an absent key `panels` so everything written before 1d.11 works
+untouched. `tools/test_snapshots.js` is new (it never existed in this repo; it was piece #5's) and **26 checks green**: the six
+merge rules the module's own header states, and the whitelist against a relative path, an absolute path, a Windows path, a bare
+filename, a wrong case and `__proto__`.
+
+**The store is written TEMP FILE + RENAME.** It is written far more often than a take ever was, and a half-written store is a
+lost library. Applied to both stores, since it is the same line and strictly safer for his 3 MB of takes too.
+
+**The shape.** Panels `library` (named) · `untitled` (the rolling stack of **50**) · and, for the steps after this,
+`wavePresets` · `defaults`. An entry's state is the row and **`kept`** — the state at his last `save`, or null.
+
+- **Autosave:** `localStorage` on every change, instantly, exactly as before — the disk **2 s** after the last change, and on
+  `pagehide`. The `pagehide` write goes by **`navigator.sendBeacon`**: a closing tab kills a pending `fetch`, and a beacon is the
+  one request a browser guarantees to send.
+- **A row takes its name at its FIRST change** — `untitled 2026-09-20 14.32.05`. Sortable, and **dots, not colons**, because
+  `snapshots.js`'s name rule refuses a colon. Pinned in the battery, so nobody re-introduces one.
+- **Naming MOVES it** (the takes' way): saved under the name, the entry it came from deleted. Clearing a name moves it back to
+  the untitled stack, asked first — nothing is lost either way, because `kept` travels inside the entry.
+- **`new` destroys nothing** and so it no longer asks: the row being left is already on disk.
+- **`duplicate` gives the copy a NEW sequence id.** Not in the plan, and it had to be: the id is what Insert keys the score group
+  on, so a duplicate sharing it would have written itself OVER the original's notes instead of beside them.
+- **`save` / `revert` / `•`** — two states per name and never more. The `•` compares the RECIPE, not which lines are open.
+
+**One bug of the AI's own, found by verifying.** `save()` was made to schedule the disk write — and `libFlush()` calls `save()`
+to persist the key it just assigned, which scheduled another flush, which saved again: a POST every two seconds forever. Fixed
+with `save(quiet)`; the flush saves quietly. **And a second:** the `•` was painted only by `render()`, but a dial that changes a
+value calls `save()` and repaints its own line only — so the dot went stale, which is a lie about what `revert` would do. It is
+painted on every save now.
+
+**Verified in the running app** (`score-5401`, his score untouched, `bank/panel_snapshots.json` still at its 2026-09-19 16:34
+timestamp afterwards):
+
+- the row that lived only in `localStorage` became the first untitled entry at the first load — the migration, in passing;
+- naming moved it: `library` gained `test one`, the untitled entry was gone;
+- `save` → change → **`•` lit** → `revert` → the duration back at 12 and the dot out;
+- it survived a **reload**: the name, the boxes and the keeper all came back from disk;
+- `duplicate` → two named entries, the copy carrying a new row id;
+- `new` → an empty row, both named entries still on disk;
+- **the stack capped:** 55 untitled entries in, one flush, **50 left**, and the row's own entry kept;
+- the whitelist refused `../../bank/panel_snapshots` on POST and `../bank/balance` on GET, both `unknown store`;
+- his takes store read back **8 panels · 216 strikes**, untouched by any of it.
+
+**His test is the one written at the foot of PLAN 1d.11** — and it includes a SERVER restart, which the AI did not run.

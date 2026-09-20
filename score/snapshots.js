@@ -44,6 +44,19 @@
 
 const NAME_RE = /^[A-Za-z0-9._ -]{1,64}$/;
 
+// PLAN 1d.11 — THERE ARE TWO STORES, and the client names one by KEY, never by path: a client
+// that could name a file could name any file on the disk. `storeFor` is the whole whitelist, and
+// it lives here rather than in the server so that tools/test_snapshots.js can pin it.
+//   panels     — bank/panel_snapshots.json, his takes: 3.1 MB, rewritten whole on every save
+//   sequences  — bank/sequences.json, the sequence library: small, and AUTOSAVED every few seconds
+// An absent or empty key is `panels`, so everything written before 1d.11 keeps working untouched.
+const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json' };
+
+function storeFor(key) {
+    if (key == null || key === '') return STORES.panels;
+    return Object.prototype.hasOwnProperty.call(STORES, key) ? STORES[key] : null;
+}
+
 // The one place the name rule lives. Panels and snapshot names share it: a
 // panel key is written into the same JSON object and read back the same way.
 function badName(what, v) {
@@ -119,4 +132,5 @@ function merge(file, req) {
              count: countOf(file, r.panel) };
 }
 
-module.exports = { merge: merge, countOf: countOf, NAME_RE: NAME_RE };
+module.exports = { merge: merge, countOf: countOf, NAME_RE: NAME_RE,
+                   STORES: STORES, storeFor: storeFor };

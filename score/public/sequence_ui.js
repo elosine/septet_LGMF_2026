@@ -90,6 +90,12 @@ const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own
 const DT_ = () => root.DynTable || null;       // dyn_table.js — 1d.10, the CC7 of a written dynamic on a given instrument
 
 const STORE = 'lgmf.sequenceDrawer.v1';
+// PLAN 1d.11 — THE LIBRARY. `localStorage` above is the INSTANT layer and stays exactly what it was; the DISK is the durable one,
+// `bank/sequences.json`, a store of its own (never a panel in `panel_snapshots.json`, 3.1 MB of his takes rewritten whole on every
+// save — an autosave every couple of seconds must not touch it). A row is ALWAYS on disk: unnamed under a timestamp in a rolling
+// stack, named under its name — so `new` destroys nothing, and git can see what he made.
+const LIB = { store: 'sequences', named: 'library', untitled: 'untitled', max: 50, debounce: 2000 };
+const LIB_NAME_RE = /^[A-Za-z0-9._ -]{1,64}$/;   // score/snapshots.js's own rule, which refuses a colon — hence `14.32.05`
 const TC = () => root.TimeContainers || null;   // time_containers.js — piece #5's roll, its own module, not changed
 const ROW_H = 120;   // the boxes' row: its share of the window when nothing is saved. The row GROWS with the window now (floating, 2026-09-20)
 const FS = 15;       // +4 at his word (2026-09-20). THE ONE NUMBER: every size in this strip is this or a proportion of it — change it and the whole strip scales.
@@ -154,17 +160,220 @@ const S = {
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
     newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, chord: [], frozen: '' }; },
-    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen })); } catch (e) {} },
+    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
+    // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
+    rowFrom(r) {
+        if (!(r && typeof r.id === 'string' && Array.isArray(r.boxes))) return this.newRow();
+        return { id: r.id, name: String(r.name || ''), change: SEQ.CHANGES.indexOf(r.change) >= 0 ? r.change : 'attack',
+            breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: this.wavesDefaults(r.waves), edges: this.edgesDefaults(r.edges), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
+            boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: this.changeOk(b && b.change), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
+    },
     restore() {
         let st = null; try { st = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { st = null; }
         const r = st && st.row;
         if (r && typeof r.id === 'string' && Array.isArray(r.boxes)) {
-            this.row = { id: r.id, name: String(r.name || ''), change: SEQ.CHANGES.indexOf(r.change) >= 0 ? r.change : 'attack',
-                breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: this.wavesDefaults(r.waves), edges: this.edgesDefaults(r.edges), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
-                boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: this.changeOk(b && b.change), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
+            this.row = this.rowFrom(r);
             this.sel = Number.isInteger(st.sel) && st.sel >= 0 && st.sel < this.row.boxes.length ? st.sel : (this.row.boxes.length ? 0 : -1);
             this.hearFrom = st.hearFrom === 'box' ? 'box' : 'start'; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen; this.edgesOpen = !!st.edgesOpen;
+            this.libOpen = !!st.libOpen;
+            this.libKey = typeof st.libKey === 'string' ? st.libKey : null;                                  // 1d.11: which entry on disk this row IS
+            this.libPanel = st.libPanel === LIB.named || st.libPanel === LIB.untitled ? st.libPanel : null;
+            this.kept = (st.kept && st.kept.row) ? st.kept : null;                                           // the state at his last `save`
         } else { this.row = this.newRow(); this.sel = -1; }
+    },
+    // ------------------------------------------------------------------ THE LIBRARY (1d.11) — a sequence is a DOCUMENT
+    // It has a name, it autosaves, many coexist, and they ride in the repo. Two states per name and never more (his: *"without
+    // creating a cascade of new versions"*): the CURRENT one, autosaved, and `kept` — the state at his last `save`, which
+    // `revert` comes back to. A variant is a second name: `duplicate`.
+    libIx(panel) { return (this._lib && this._lib[panel]) || {}; },
+    libWhere() { return { panel: this.libPanel || LIB.untitled, name: this.libKey || null }; },
+    libState() { return JSON.parse(JSON.stringify({ row: this.row, kept: this.kept || null })); },
+    libStamp() {
+        const d = new Date(), p = n => String(n).padStart(2, '0');
+        return 'untitled ' + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' +
+            p(d.getHours()) + '.' + p(d.getMinutes()) + '.' + p(d.getSeconds());   // sortable, and DOTS not colons: the store's name rule refuses a colon
+    },
+    libBlank() { return !this.row.boxes.length && !this.row.name && !this.row.rolled; },
+    async libPost(body) {
+        const r = await fetch('/api/snapshots', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.assign({ store: LIB.store }, body)) });
+        const j = await r.json().catch(() => null);
+        if (!j || !j.success) throw new Error((j && j.error) || ('HTTP ' + r.status));
+        return j;
+    },
+    // every change schedules the DISK write; `localStorage` already has it, instantly
+    libTouch() { clearTimeout(this._libT); this._libT = setTimeout(() => { this.libFlush(); }, LIB.debounce); },
+    async libFlush() {
+        clearTimeout(this._libT);
+        if (this._libBusy) { this.libTouch(); return; }          // one writer at a time: the store is rewritten whole
+        if (this.libBlank() && !this.libKey) return;             // an untouched empty row is not a document
+        if (!this.libKey) { this.libKey = this.libStamp(); this.libPanel = LIB.untitled; }   // a row takes its name at its FIRST change
+        const w = this.libWhere(), state = this.libState();
+        this._libBusy = true;
+        try {
+            await this.libPost({ panel: w.panel, name: w.name, state: state });
+            this._lib = this._lib || {};
+            (this._lib[w.panel] = this._lib[w.panel] || {})[w.name] = { saved: new Date().toISOString(), comment: '', state: state };
+            this.save(true);
+            await this.libPrune();
+        } catch (e) { this.setStatus('the library did not save: ' + (e && e.message || e), true); }
+        this._libBusy = false;
+        this.paintLib();
+    },
+    // `pagehide` kills a pending fetch, so the last write of a closing or reloading tab goes by BEACON — the one request a
+    // browser guarantees to send. Nothing is read back, so there is no cache to update: the next load reads the disk.
+    libFlushBeacon() {
+        clearTimeout(this._libT);
+        if (this.libBlank() && !this.libKey) return;
+        if (!this.libKey) { this.libKey = this.libStamp(); this.libPanel = LIB.untitled; this.save(true); }
+        const w = this.libWhere();
+        const body = JSON.stringify({ store: LIB.store, panel: w.panel, name: w.name, state: this.libState() });
+        try {
+            if (navigator.sendBeacon) navigator.sendBeacon('/api/snapshots', new Blob([body], { type: 'application/json' }));
+            else fetch('/api/snapshots', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true });
+        } catch (e) {}
+    },
+    // the stack keeps the newest (his: *"make the auto save number large, these are small files"*); the oldest go at save
+    async libPrune() {
+        const u = this.libIx(LIB.untitled), keys = Object.keys(u);
+        if (keys.length <= LIB.max) return;
+        const old = keys.sort((a, b) => String(u[a] && u[a].saved || '').localeCompare(String(u[b] && u[b].saved || ''))).slice(0, keys.length - LIB.max);
+        for (const k of old) {
+            if (k === this.libKey) continue;
+            try { await this.libPost({ panel: LIB.untitled, name: k, delete: true }); delete u[k]; } catch (e) { break; }
+        }
+    },
+    async libLoad() {
+        try {
+            const r = await fetch('/api/snapshots?store=' + LIB.store, { cache: 'no-store' });
+            const j = await r.json(); this._lib = (j && j.panels) || {};
+        } catch (e) { this._lib = this._lib || {}; }
+        // MIGRATION, and the ordinary first save alike: the row that lived only in localStorage becomes the first untitled entry
+        if (!this.libKey && !this.libBlank()) await this.libFlush();
+        else this.paintLib();
+    },
+    // open an entry: the row being left is already safe on disk, so there is no prompt
+    async libOpenEntry(panel, name) {
+        const e = this.libIx(panel)[name];
+        if (!e || !e.state || !e.state.row) { this.setStatus('"' + name + '" is not in the library', true); this.paintLib(); return; }
+        await this.libFlush();
+        this.stop();
+        this.row = this.rowFrom(e.state.row);
+        this.kept = (e.state.kept && e.state.kept.row) ? e.state.kept : null;
+        this.libPanel = panel; this.libKey = name;
+        this.sel = this.row.boxes.length ? 0 : -1;
+        if (this.row.rolled) this.rollOpen = true;
+        if (!this.isDefaultBreath()) this.breathOpen = true;
+        if (this.row.boxes.some(b => b.dyn === WAVES)) this.wavesOpen = true;
+        if (!this.isDefaultEdges()) this.edgesOpen = true;
+        this.save(true); this._listSig = ''; this.render(); this.fitStrikes();
+        this.setStatus('opened "' + name + '" · ' + this.row.boxes.length + ' box' + (this.row.boxes.length === 1 ? '' : 'es') +
+            ' · ' + fmtS(this.total()) + ' s' + (this.kept ? ' · it has a saved state — `revert` comes back to it' : ''));
+    },
+    // NAMING MOVES IT (the takes' way): saved under the name, the entry it came from deleted. Clearing a name moves it back to
+    // the untitled stack — nothing is lost either way, because `kept` travels with the entry.
+    async libSetName(next) {
+        const name = String(next || '').trim(), w = this.libWhere();
+        if (name && !LIB_NAME_RE.test(name)) { this.setStatus('a name may hold letters, digits, dot, underscore, space or hyphen, up to 64 — not "' + name + '"', true); return false; }
+        if (name === (this.row.name || '')) return true;
+        if (name && name !== w.name && this.libIx(LIB.named)[name] &&
+            !window.confirm('"' + name + '" is already in the library.\n\nReplace it with this sequence?')) return false;
+        if (!name && w.panel === LIB.named &&
+            !window.confirm('Un-name this sequence?\n\nIt moves back to the untitled stack — nothing is lost, but it is no longer kept by name.')) return false;
+        const to = name ? { panel: LIB.named, name: name } : { panel: LIB.untitled, name: this.libStamp() };
+        this.row.name = name;
+        this.libPanel = to.panel; this.libKey = to.name;
+        await this.libFlush();
+        if (w.name && (w.panel !== to.panel || w.name !== to.name)) {
+            try { await this.libPost({ panel: w.panel, name: w.name, delete: true }); if (this._lib[w.panel]) delete this._lib[w.panel][w.name]; } catch (e) {}
+        }
+        this.paintLib(); this.render();
+        this.setStatus(name ? 'saved as "' + name + '" — it autosaves to that name from now on' : 'un-named — back in the untitled stack as "' + to.name + '"');
+        return true;
+    },
+    // a variant is a SECOND NAME, and it is its own sequence in the score: a new id, or Insert would replace the original's group
+    async libDuplicate() {
+        const suggest = this.row.name ? (this.row.name + ' 2').slice(0, 64) : '';
+        const name = String(window.prompt('Duplicate this sequence as:', suggest) || '').trim();
+        if (!name) return;
+        if (!LIB_NAME_RE.test(name)) { this.setStatus('a name may hold letters, digits, dot, underscore, space or hyphen, up to 64 — not "' + name + '"', true); return; }
+        if (this.libIx(LIB.named)[name] && !window.confirm('"' + name + '" is already in the library.\n\nReplace it?')) return;
+        await this.libFlush();                       // the original, under its own name, first
+        this.row.id = 's' + Date.now().toString(36);
+        this.row.name = name; this.libPanel = LIB.named; this.libKey = name; this.kept = null;
+        await this.libFlush();
+        this._listSig = ''; this.render();
+        this.setStatus('duplicated as "' + name + '" — a sequence of its own: Insert writes it beside the original, not over it');
+    },
+    async libDelete(panel, name) {
+        if (!window.confirm('Delete "' + name + '" from the library?\n\nThis cannot be undone.')) { this.paintLib(); return; }
+        try { await this.libPost({ panel: panel, name: name, delete: true }); } catch (e) { this.setStatus('not deleted: ' + (e && e.message || e), true); return; }
+        if (this._lib && this._lib[panel]) delete this._lib[panel][name];
+        const w = this.libWhere(), mine = panel === w.panel && name === w.name;
+        if (mine) { this.libKey = null; this.libPanel = null; this.save(true); }   // the row stays on screen; the next change writes it again, untitled
+        this.paintLib();
+        this.setStatus('deleted "' + name + '"' + (mine ? ' — the row is still here, and the next change saves it again as a new untitled' : ''));
+    },
+    async libNewRow() {
+        await this.libFlush();                       // the one being left is already on disk, so `new` destroys nothing
+        this.stop();
+        this.row = this.newRow(); this.kept = null; this.libKey = null; this.libPanel = null; this.sel = -1;
+        this.save(true); this._listSig = ''; this.render(); this.paintLib();
+        this.setStatus('a new sequence — "+ container" to begin. The one you left is in the library');
+    },
+    // `save` marks a keeper; `revert` returns to it; a `•` while they differ. The RECIPE is compared, not the panel's open lines.
+    libKeep() {
+        if (!this.row.boxes.length) { this.setStatus('nothing to save yet — "+ container" first', true); return; }
+        this.kept = { row: JSON.parse(JSON.stringify(this.row)), core: this.coreOf(this.recipe(0)) };
+        this.save(); this.paintLib();
+        this.setStatus('saved' + (this.libKey ? ' as the keeper of "' + this.libKey + '"' : '') + ' — `revert` comes back to this state');
+    },
+    libDirty() { return !!(this.kept && this.row.boxes.length && this.kept.core !== this.coreOf(this.recipe(0))); },
+    libRevert() {
+        if (!this.kept) { this.setStatus('there is no saved state to revert to — press `save` first', true); return; }
+        if (!window.confirm('Revert to the saved state?\n\nEverything changed since `save` is lost.')) return;
+        this.stop();
+        this.row = this.rowFrom(this.kept.row);
+        this.sel = this.row.boxes.length ? 0 : -1;
+        this.save(); this._listSig = ''; this.render();
+        this.setStatus('reverted to the saved state · ' + this.row.boxes.length + ' box' + (this.row.boxes.length === 1 ? '' : 'es'));
+    },
+    // the `•` beside the name is painted on every save, not only on a render: a dial that saves without re-rendering the
+    // whole strip would otherwise leave it stale, and a stale `•` is a lie about what `revert` would do
+    paintDot() {
+        const d = this.el && this.el.querySelector('#sqDot'); if (d) d.style.display = this.libDirty() ? '' : 'none';
+    },
+    paintLib() {
+        if (!this.el) return;
+        const q = s => this.el.querySelector(s);
+        const tog = q('#sqLibTog'); if (tog) { tog.textContent = this.libOpen ? 'library ▾' : 'library ▸'; tog.style.background = this.libOpen ? '#20303a' : '#2a2a30'; }
+        const line = q('#sqLib'); if (line) line.style.display = this.libOpen ? 'flex' : 'none';
+        this.paintDot();
+        const sel = q('#sqLibList');
+        if (sel) {
+            const named = Object.keys(this.libIx(LIB.named)).sort((a, b) => a.localeCompare(b));
+            const un = Object.keys(this.libIx(LIB.untitled)).sort((a, b) => b.localeCompare(a));   // newest first — the stamp sorts
+            const w = this.libWhere();
+            const opt = (panel, n) => {
+                const e = this.libIx(panel)[n], bx = ((e && e.state && e.state.row && e.state.row.boxes) || []).length;
+                return '<option value="' + esc(panel + '/' + n) + '">' + esc(n) + ' · ' + bx + ' box' + (bx === 1 ? '' : 'es') + (e && e.state && e.state.kept ? ' · saved' : '') + '</option>';
+            };
+            const sig = named.join('|') + '#' + un.join('|') + '@' + w.panel + '/' + w.name;
+            if (sig !== this._libSig) {
+                this._libSig = sig;
+                sel.innerHTML = '<option value="">the library (' + named.length + ' named · ' + un.length + ' untitled)</option>' +
+                    named.map(n => opt(LIB.named, n)).join('') + un.map(n => opt(LIB.untitled, n)).join('');
+                sel.value = w.name ? (w.panel + '/' + w.name) : '';
+            }
+        }
+        const where = q('#sqLibWhere');
+        if (where) {
+            const w = this.libWhere();
+            where.textContent = w.name ? (w.panel === LIB.named ? 'saved as "' + w.name + '"' : 'autosaving · ' + w.name) : 'not saved yet';
+            where.title = w.name ? 'this row autosaves to bank/sequences.json, panel `' + w.panel + '`, under "' + w.name + '"' : 'this row is saved to bank/sequences.json at its first change';
+        }
+        const rv = q('#sqLibRevert'); if (rv) rv.disabled = !this.kept;
+        const dl = q('#sqLibDel'); if (dl) dl.disabled = !(sel && sel.value);
     },
     straightOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : AS_DEALT; },   // a straight dynamic: `as dealt`, or a name on the ladder
     dynOk(d) { return d === WAVES ? WAVES : this.straightOk(d); },                                 // a box's dyn: a straight dynamic, or the waves (1d.7)
@@ -192,10 +401,12 @@ const S = {
         d.innerHTML =
             '<div id="sqHead" style="display:flex;gap:8px;row-gap:3px;flex-wrap:wrap;align-items:center;padding:4px 8px;white-space:nowrap;border-bottom:1px solid #2c3238">' +   // 1d.5: it WRAPS, as the roll line does — at 1280 px a placed sequence\'s head was 61 px too long before `breath` was added, and its × was cut off
               '<b style="color:' + COLOR + ';letter-spacing:.08em">SEQUENCE</b>' +
-              '<input id="sqName" type="text" placeholder="name" maxlength="48" style="width:10.909em;' + INP + '" title="a name for this sequence — it goes into the score file with the recipe">' +
+              '<input id="sqName" type="text" placeholder="name" maxlength="64" style="width:10.909em;' + INP + '" title="a name for this sequence. Naming it MOVES it in the library — it is saved under that name from then on, and the untitled entry is gone. The name also goes into the score file with the recipe">' +
+              '<span id="sqDot" title="changed since `save` — `revert` (the library line) comes back to the saved state" style="display:none;color:' + WTINT + ';font-size:1.2em;line-height:1">&bull;</span>' +
               '<select id="sqList" style="max-width:18.182em;' + INP + '" title="the sequences placed in the open score (its databases.sequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
               '<label title="how a new chord is taken — attack: everyone starts AT the line, together · seamless: each player takes the new chord at its next breath">change <select id="sqChange" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
               '<button id="sqAdd" style="' + BTN + '" title="add a container at the end of the row">+ container</button>' +
+              '<button id="sqLibTog" style="' + BTN + ';color:#7fc4e8" title="the LIBRARY: every sequence you make is on disk in bank/sequences.json — unnamed ones in a rolling stack, named ones by name. Open one, duplicate it, delete it; `save` marks a keeper and `revert` comes back to it">library</button>' +
               '<button id="sqRollTog" style="' + BTN + ';color:#e8a06a" title="the ROLL: a set of time containers rolled from a pool of numbers — it lays out the row\'s durations for you">roll</button>' +
               '<button id="sqBreathTog" style="' + BTN + ';color:#8fd0a0" title="the BREATH: how the players breathe and bow under the chords — the morph\'s numbers until you touch one. Never together, sometimes, always; short breaths with long">breath</button>' +
               '<button id="sqWavesTog" style="' + BTN + ';color:' + WTINT + '" title="the WAVES: every player rises and falls on a stream of swells of their own, out of step with the others. A box READS the waves when its dyn is `waves`; any box can step out to a straight dynamic and the waves run on under it">waves</button>' +
@@ -211,6 +422,14 @@ const S = {
               '<span id="sqTotal" style="color:#9ab"></span>' +
               '<span style="flex:1"></span>' +
               '<button id="sqClose" style="' + BTN + '" title="close the sequence drawer (the row is kept)">&times;</button>' +
+            '</div>' +
+            '<div id="sqLib" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238">' +
+              '<select id="sqLibList" style="max-width:24em;' + INP + '" title="every sequence on disk — named ones first, then the untitled stack, newest first. Pick one and it opens; the row you are leaving is already saved, so nothing is lost"></select>' +
+              '<button id="sqLibSave" style="' + BTN + '" title="mark this state as the keeper — `revert` comes back to it. Two states per name and never more: the current one and this">save</button>' +
+              '<button id="sqLibRevert" style="' + BTN + '" title="go back to the state you last pressed `save` at">revert</button>' +
+              '<button id="sqLibDup" style="' + BTN + '" title="a copy under a new name — its own sequence in the score, written beside the original and not over it">duplicate</button>' +
+              '<button id="sqLibDel" style="' + BTN + '" title="delete the sequence chosen in the list from bank/sequences.json">&times;</button>' +
+              '<span id="sqLibWhere" style="color:#9ab"></span>' +
             '</div>' +
             '<div id="sqRoll" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqBreath" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
@@ -241,8 +460,22 @@ const S = {
             if (this.isOpen() && g && (g.w !== this.el.offsetWidth || g.h !== this.el.offsetHeight)) this.saveWindow();
         });
         const q = s => d.querySelector(s);
-        q('#sqName').addEventListener('change', e => { this.row.name = e.target.value.trim(); this.save(); });
+        // 1d.11: a name + ENTER MOVES the sequence in the library — saved under that name, the entry it came from deleted
+        q('#sqName').addEventListener('change', async e => { const want = e.target.value.trim(); if (!(await this.libSetName(want))) e.target.value = this.row.name || ''; });
         q('#sqName').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
+        q('#sqLibTog').addEventListener('click', () => { this.libOpen = !this.libOpen; this.save(true); this.paintLib(); this.fitStrikes(); });
+        q('#sqLibList').addEventListener('change', e => {
+            const v = e.target.value; e.target.blur();
+            if (!v) { this.paintLib(); return; }
+            const i = v.indexOf('/'); this.libOpenEntry(v.slice(0, i), v.slice(i + 1));
+        });
+        q('#sqLibSave').addEventListener('click', () => this.libKeep());
+        q('#sqLibRevert').addEventListener('click', () => this.libRevert());
+        q('#sqLibDup').addEventListener('click', () => this.libDuplicate());
+        q('#sqLibDel').addEventListener('click', () => {
+            const v = q('#sqLibList').value; if (!v) { this.setStatus('choose a sequence in the list first', true); return; }
+            const i = v.indexOf('/'); this.libDelete(v.slice(0, i), v.slice(i + 1));
+        });
         q('#sqChange').addEventListener('change', e => {
             // 1d.8: the head's `change` is the sequence's rule AND sets every box — it asks before it overwrites boxes flipped by hand
             const c = SEQ.CHANGES.indexOf(e.target.value) >= 0 ? e.target.value : 'attack', flipped = this.row.boxes.filter(b => b.change && b.change !== c).length;
@@ -392,7 +625,7 @@ const S = {
         q('#sqChange').value = this.row.change; q('#sqFrom').value = this.hearFrom;
         const n = this.row.boxes.length;
         q('#sqTotal').textContent = n ? (n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s') : '';
-        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges();
+        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintLib(); this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges();
     },
 
     // ------------------------------------------------------------------ the sequences in the open score — the round trip (1d.3)
@@ -543,10 +776,8 @@ const S = {
     addBox() { this.row.boxes.push(this.newBox()); this.sel = this.row.boxes.length - 1; this.save(); this.render(); this.setStatus('box ' + (this.sel + 1) + ' added — choose its take (a box left without one is a REST)'); },
     removeBox(i) { if (!this.row.boxes[i]) return; this.row.boxes.splice(i, 1); this.sel = Math.min(i, this.row.boxes.length - 1); this.save(); this.render(); },
     moveBox(i, by) { const j = i + by, B = this.row.boxes; if (!B[i] || j < 0 || j >= B.length) return; const t = B[i]; B[i] = B[j]; B[j] = t; this.sel = j; this.save(); this.render(); },
-    startNew() {
-        if (this.row.boxes.length && !window.confirm('Start a new sequence?\n\nThe row in the drawer is cleared. A sequence already inserted stays in the score.')) return;
-        this.stop(); this.row = this.newRow(); this.sel = -1; this.save(); this.render(); this.setStatus('a new sequence — "+ container" to begin');
-    },
+    // 1d.11: `new` DESTROYS NOTHING — the row being left is already on disk in the library, so there is no longer a prompt
+    startNew() { this.libNewRow(); },
 
     // ------------------------------------------------------------------ the roll (1d.4): time_containers.js's dials, the strikes drawer's habit
     buildRoll() {
@@ -1174,7 +1405,13 @@ D.play = function (mode) {
     return _play.apply(this, arguments);
 };
 
-function boot() { if (S.el) return; S.restore(); S.build(); S.render(); S.setActive(false); }
+function boot() {
+    if (S.el) return;
+    S.restore(); S.build(); S.render(); S.setActive(false);
+    S.libLoad();                                            // 1d.11: the library from disk, and the first save of a row that only lived in localStorage
+    // the last change may be younger than the debounce — `pagehide` is the one event a tab always gets, on a close and on a reload alike
+    window.addEventListener('pagehide', () => { try { S.libFlushBeacon(); } catch (e) {} });
+}
 if (D.el) boot();
 else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(boot, 0));
 else setTimeout(boot, 0);
