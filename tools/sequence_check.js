@@ -277,5 +277,55 @@ const badT = recipe('attack'); badT.breath.together = 2; refuses(badT, /breath\.
 const badA = recipe('attack'); badA.breath.apart = 0; refuses(badA, /breath\.apart must be more than 0/, 'apart 0');
 const badL = recipe('attack'); badL.breath.lengths = { values: [] }; refuses(badL, /breath\.lengths needs values/, 'a pool with no values');
 
+// ---------------------------------------------------------------- 14 · the waves (PLAN 1d.7): a box is a straight dynamic OR reads its players' streams of swells
+const WV = { lengths: { values: [6, 10, 16], weights: null }, low: 'pp', high: 'mf', density: 0.7, peak: 0.5, seed: 1 };
+const wavesRow = (change, dynsW, wOver, bOver) => { const R = recipe(change); if (bOver) R.breath = Object.assign({}, R.breath, bOver); R.containers.forEach((c, i) => { c.dyn = dynsW[i % dynsW.length]; }); R.waves = Object.assign({}, WV, wOver || {}); return R; };
+const LO = hOf('pp'), HI = hOf('mf'), LEPS = 1e-4;   // a waved level is carried to four decimals
+['attack', 'seamless'].forEach(chg => {
+    const R0 = recipe(chg); R0.waves = Object.assign({}, WV);
+    ok(hashOf(R0).sha256 === BASE.cases[chg].sha256, 'THE GATE again — the waves\' dials in the recipe and EVERY BOX STRAIGHT: the frozen notes, ' + chg);
+});
+const WA = SEQ.generate(wavesRow('attack', ['waves']), ctx), WS = SEQ.generate(wavesRow('seamless', ['waves']), ctx);
+[['attack', WA], ['seamless', WS]].forEach(([chg, G]) => {
+    const h = held(G), inRange = h.every(n => n.levels.every(p => p[1] >= LO - LEPS && p[1] <= HI + LEPS));
+    const shaped = h.every(n => n.waves === true && n.levels.length >= 2 && n.levels[0][0] === 0 && Math.abs(n.levels[n.levels.length - 1][0] - n.dur) < 0.0015 && Math.abs(n.level - Math.max.apply(null, n.levels.map(p => p[1]))) < EPS && n.levels.every((p, i) => !i || p[0] > n.levels[i - 1][0]));
+    const moving = h.filter(n => new Set(n.levels.map(p => p[1])).size > 1).length, tops = h.filter(n => n.levels.length > 2).length;
+    ok(inRange && shaped && moving > h.length / 2 && tops > 0, 'all boxes waves, ' + chg + ': every level lies within pp … mf (' + LO.toFixed(3) + ' … ' + HI.toFixed(3) + '), breakpoints run 0 → dur, `level` is the loudest — ' + moving + ' of ' + h.length + ' notes move, ' + tops + ' hold a swell\'s top or foot inside them');
+    ok(!over(G).length, 'all boxes waves, ' + chg + ': no note longer than the ceiling at its LOUDEST level');
+});
+const keysW = Object.keys(WS.streams), slotsOf = k => WS.streams[k].points.map((p, i, a) => (i ? r3(p[0] - a[i - 1][0]) : 0)).slice(1).join(' ');
+ok(keysW.length === 8 && new Set(keysW.map(slotsOf)).size === 8 && new Set(keysW.map(k => r3(SEQ.levelAt(WS.streams[k].points, 0)))).size >= 4,
+    'every player has a stream of their own — eight, no two with the same run of lengths (not phase copies of one wave), and out of step from the first second: the levels at 0 s are ' + keysW.map(k => SEQ.levelAt(WS.streams[k].points, 0).toFixed(2)).join(' '));
+ok(j(SEQ.generate(wavesRow('seamless', ['waves']), ctx)) === j(WS) && j(SEQ.generate(wavesRow('seamless', ['waves'], { seed: 2 }), ctx).streams) !== j(WS.streams) && j(SEQ.generate(wavesRow('seamless', ['waves'], { seed: 2 }), ctx).bounds) === j(WS.bounds),
+    'the waves have a seed of their own: the same seed repeats; another (`re-wave`) deals other streams and leaves the boxes where they were');
+const mix = ['waves', 'mf', 'waves', 'waves', 'waves', 'waves'];
+const MA = SEQ.generate(wavesRow('attack', mix), ctx), MS = SEQ.generate(wavesRow('seamless', mix), ctx);
+const flatMf = n => !n.waves && n.levels.length === 2 && Math.abs(n.levels[0][1] - hOf('mf')) < EPS && Math.abs(n.levels[1][1] - hOf('mf')) < EPS;
+ok(MA.notes.filter(n => n.container === 1).every(flatMf) && j(MA.notes.filter(n => n.container === 2)) === j(WA.notes.filter(n => n.container === 2)),
+    'THE SWAP, attack: box 2 steps out to `mf` — flat inside it — and box 3\'s notes EQUAL the all-waves deal\'s box 3: the streams were not restarted');
+ok(j(MS.streams) === j(WS.streams) && held(MS).filter(n => n.waves).every(n => Math.abs(n.levels[0][1] - SEQ.levelAt(MS.streams[n.player].points, n.start - T0)) < 0.0002 && Math.abs(n.levels[n.levels.length - 1][1] - SEQ.levelAt(MS.streams[n.player].points, n.end - T0)) < 0.0002),
+    'THE SWAP, seamless: the streams are the all-waves deal\'s, untouched by the straight box, and every waved note reads its player\'s stream at its own start and end');
+const outOf = MS.notes.filter(n => n.flags.includes('ACROSS') && n.container === 0), into = MS.notes.filter(n => n.flags.includes('ACROSS') && n.container === 1);
+ok(outOf.length > 0 && outOf.every(n => n.waves) && into.length > 0 && into.every(flatMf), 'seamless: the level belongs to the BREATH — ' + outOf.length + ' breaths begun in the waves keep reading them across the line into the `mf` box, ' + into.length + ' begun in the `mf` box stay flat into the waves');
+const D0 = SEQ.generate(wavesRow('seamless', ['waves'], { density: 0 }), ctx), D1 = SEQ.generate(wavesRow('seamless', ['waves'], { density: 1 }), ctx);
+ok(held(D0).every(n => n.levels.every(p => Math.abs(p[1] - LO) < LEPS)) && keysW.every(k => D0.streams[k].swells === 0) && keysW.every(k => D1.streams[k].flats === 0 && D1.streams[k].swells > 5),
+    'density 0 = flat at `low` (' + LO.toFixed(3) + ') · density 1 = swells back to back (no flat slot; ' + keysW.map(k => D1.streams[k].swells).join(' ') + ' swells) — at 0.7: ' + keysW.map(k => WS.streams[k].swells + '/' + (WS.streams[k].swells + WS.streams[k].flats)).join(' '));
+const loudW = { low: 'ppp', high: 'fff' };
+const LW = SEQ.generate(wavesRow('seamless', ['waves'], loudW, { length: 20, jitter: 0.2 }), ctx), vibW = LW.notes.filter(n => n.inst === 'bowed_vibraphone');
+ok(!over(LW).length && held(LW).some(n => n.flags.includes('CEILING')) && Math.max.apply(null, vibW.map(n => n.dur)) > BC.ceilingFor('bowed_vibraphone', 1).seconds && vibW.some(n => n.level > 0.75 && n.dur <= BC.ceilingFor('bowed_vibraphone', 1).seconds + EPS),
+    'a wave can SHORTEN a breath and never the reverse (ppp … fff, a 20 s breath dial): nothing over its ceiling; the vibraphone bows ' + Math.max.apply(null, vibW.map(n => n.dur)) + ' s through a quiet stretch and no more than ' + BC.ceilingFor('bowed_vibraphone', 1).seconds + ' s where the wave passes its top');
+const RPW = RP('attack'); RPW.containers.forEach(c => { c.dyn = 'waves'; }); RPW.waves = Object.assign({}, WV);
+const PW2 = SEQ.generate(RPW, ctx), strikesW = PW2.notes.filter(n => n.lane === 4);
+ok(strikesW.length > 6 && strikesW.every(n => n.kind === 'fixed' && n.waves && n.levels.length === 2 && n.levels[0][1] === n.levels[1][1] && n.level >= LO - LEPS && n.level <= HI + LEPS) && new Set(strikesW.map(n => n.level)).size > 2,
+    'the percussion in a waves box: each strike takes the wave\'s level AT the strike, no ramp — ' + strikesW.length + ' strikes at ' + new Set(strikesW.map(n => n.level)).size + ' different levels');
+const TW = SEQ.generate(wavesRow('seamless', mix, null, { together: 0.5, lengths: { values: [3, 9], weights: null } }), ctx);
+ok(!over(TW).length && TW.notes.some(n => n.waves) && countFlag(TW, 'SNAP') > 0, 'the waves under the breath dials (together 0.5, a pool 3 9): nothing over its ceiling, ' + countFlag(TW, 'SNAP') + ' starts snapped');
+const wBad = (wOver, re, what) => refuses(wavesRow('attack', ['waves'], wOver), re, what);
+wBad({ low: 'mf', high: 'pp' }, /waves\.low \(mf\) must be below waves\.high \(pp\)/, 'waves with low above high');
+wBad({ low: 'niente' }, /must be on the ladder/, 'waves from niente — there is no niente inside the waves (option A)');
+wBad({ density: 2 }, /waves\.density must be 0/, 'a density of 2');
+let noLadW = null; try { SEQ.generate(wavesRow('attack', ['waves']), { ceilings: BC }); } catch (e) { noLadW = e.message; }
+ok(/waves need the drawer's ladder/.test(noLadW || ''), 'waves with no ladder loaded are refused, never guessed');
+
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

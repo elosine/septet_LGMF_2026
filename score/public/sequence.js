@@ -20,6 +20,7 @@
 //     change:     'attack' | 'seamless'
 //     breath:     { striation, length, jitter, seed,      — the morph's defaults: staggered · 8 s · 0.35 · seed 1
 //                   together, apart, lengths }            — the dials of PLAN 1d.5, below: null (free) · 0.5 s · null (no pool)
+//     waves:      { lengths { values, weights }, low, high, density, peak, seed }   — PLAN 1d.7, below; read only by a box whose dyn is 'waves'
 //   }
 //
 // THE TWO CHANGE RULES.
@@ -60,8 +61,25 @@
 //             from the one seed. A pool value is played as written: no jitter on it; the ceiling still binds, and flags. `length`
 //             then only spaces the first entries. The landing breaths still take what is left, so they are not pool values.
 //
-// A NOTE'S LEVEL IS BREAKPOINTS from the first day — `levels: [[0, level], [dur, level]]`, flat today — so the waves layer (1d.7) or
-// a drawn curve later changes the numbers, not the shape of what this file returns.
+// A NOTE'S LEVEL IS BREAKPOINTS from the first day — `levels: [[0, level], [dur, level]]`, flat in a straight box — so the waves layer
+// or a drawn curve later changes the numbers, not the shape of what this file returns.
+//
+// THE WAVES (PLAN 1d.7, RUNNING_LOG §109–§111 · §121–§122 · §128; his words LG-38 · LG-39). A box's dyn is a straight dynamic OR
+// `'waves'`. Every player has a STREAM of swells of their own — dealt, seeded, out of step with the others from the first second —
+// and a waves box READS it: a note there takes its level breakpoints from its player's stream over its own span.
+//   the stream  a function of TIME ALONE, in seconds from the sequence's start (so a sequence moved in the score keeps its waves),
+//               running under the whole sequence whether or not a box reads it — a box that steps out to a straight dynamic does
+//               not restart it, and the next waves box picks each player's wave up where it has got to. Slots of lengths drawn
+//               from the pool (time_containers.js, a third use); each slot a swell with probability `density`, else flat at
+//               `low`; a swell is three points — `low` → `high` at `peak` of its length (± a little seeded jitter) → `low`.
+//               The first slot began a random part of its length BEFORE the sequence did: nobody starts a swell on the downbeat.
+//   low · high  two WRITTEN dynamics (ppp … fff). There is no niente inside the waves — his call, option A: the law has nothing
+//               below ppp, and silence belongs to the sequence's EDGES (PLAN 1d.8).
+//   the breath  owns the level (§103): a breath takes the MODE of the box it starts in and keeps it across a line.
+//   the order   streams first (time alone), then breaths — a ceiling is read at the LOUDEST level the stream reaches anywhere the
+//               note could extend to, so a wave can shorten a breath and never the reverse.
+//   percussion  a fixed-length sound takes the wave's level at its strike; no ramp.
+// With every box straight the notes are exactly what they were — the baseline gate again. The waves have a seed of their own.
 //
 // Chains are keyed by SEAT, not lane: the two vibraphone bows stay two players. Two notes dealt to ONE seat are a double stop — they
 // share every breath (chord 5's cello holds E♭4 and A4 on one bow); the ceiling is read at the louder of the two.
@@ -81,6 +99,9 @@ const CHANGES = ['attack', 'seamless'];
 const AS_DEALT = 'as dealt';
 // morph.js DEFAULTS.carrier: segLen 8 · segVar 0.35 · striation 'staggered'. together · apart · lengths are this file's own (1d.5)
 const DEFAULT_BREATH = { striation: 'staggered', length: 8, jitter: 0.35, seed: 1, together: null, apart: 0.5, lengths: null };
+const WAVES = 'waves';   // a box's dyn: read the player's stream of swells instead of holding a straight dynamic (1d.7)
+const DEFAULT_WAVES = { lengths: { values: [6, 10, 16], weights: null }, low: 'pp', high: 'mf', density: 0.7, peak: 0.5, seed: 1 };   // §109's recommendation
+const WAVE_PEAK_JITTER = 0.1;    // a swell's top wanders this far (of its length) round `peak`, seeded
 
 const MIN_GAP_S = 0.05;          // two notes of one player never touch (the morph's 50 ms)
 const MAX_SEG_HARD_S = 30;       // the morph's absolute ceiling, a safety net over the palette
@@ -184,7 +205,7 @@ function validate(recipe, ctx) {
         if (!c || !(+c.dur > 0) || !isFinite(+c.dur)) msgs.push(at + 'a duration of ' + (c && c.dur) + ' s — a container must last more than 0 s');
         if (c && c.chord === null) return;   // PLAN 1d.4: a REST — deliberate silence for its duration; nothing else to check
         if (!c || !Array.isArray(c.chord) || !c.chord.length) { msgs.push(at + 'an empty chord — choose a take for it, or make it a rest (chord: null)'); return; }
-        const dyn = c.dyn == null ? AS_DEALT : c.dyn, named = dyn !== AS_DEALT;
+        const dyn = c.dyn == null ? AS_DEALT : c.dyn, named = dyn !== AS_DEALT && dyn !== WAVES;
         if (named && !ladder) msgs.push(at + 'dyn "' + dyn + '" needs the drawer\'s ladder (dyn_ui.js StrikeDyn) and it is not loaded');
         else if (named && ladder.NAMES.indexOf(dyn) < 0) msgs.push(at + 'dyn "' + dyn + '" is not on the ladder ' + ladder.NAMES.join(' '));
         c.chord.forEach((n, j) => {
@@ -192,10 +213,22 @@ function validate(recipe, ctx) {
             if (!n || !Number.isInteger(n.lane) || n.lane < 0) { msgs.push(nat + 'no lane'); return; }
             if (!isFinite(+n.midi)) msgs.push(nat + 'no pitch');
             if (!n.inst) msgs.push(nat + 'no instrument key (inst)');
-            if (!named && n.level == null && (n.vel == null || !ladder)) msgs.push(nat + '"as dealt" needs the note\'s own level (level 0–1, or vel with the ladder loaded)');
+            if (dyn === AS_DEALT && n.level == null && (n.vel == null || !ladder)) msgs.push(nat + '"as dealt" needs the note\'s own level (level 0–1, or vel with the ladder loaded)');
         });
     });
     if (C.every(c => c && c.chord === null)) msgs.push('every container is a rest — give one a chord');
+    // 1d.7: the waves' dials are read only when a box reads the waves
+    if (C.some(c => c && c.dyn === WAVES && c.chord !== null)) {
+        const W = Object.assign({}, DEFAULT_WAVES, R.waves || {}), L = W.lengths || {};
+        if (!ladder) msgs.push('waves need the drawer\'s ladder (dyn_ui.js StrikeDyn) for `low` and `high`, and it is not loaded');
+        else if (ladder.NAMES.indexOf(W.low) < 0 || ladder.NAMES.indexOf(W.high) < 0) msgs.push('waves.low and waves.high must be on the ladder ' + ladder.NAMES.join(' ') + ' — got ' + JSON.stringify(W.low) + ' and ' + JSON.stringify(W.high));
+        else if (!(ladder.ANCHOR[W.low] < ladder.ANCHOR[W.high])) msgs.push('waves.low (' + W.low + ') must be below waves.high (' + W.high + ')');
+        if (!Array.isArray(L.values) || !L.values.length || !L.values.every(x => isFinite(+x) && +x > 0)) msgs.push('waves.lengths needs values — seconds, each more than 0');
+        else if (L.weights != null && (!Array.isArray(L.weights) || L.weights.length > L.values.length)) msgs.push('waves.lengths.weights must be one weight per value, or none');
+        if (!(+W.density >= 0 && +W.density <= 1)) msgs.push('waves.density must be 0 … 1');
+        if (!(+W.peak >= 0 && +W.peak <= 1)) msgs.push('waves.peak must be 0 … 1');
+        if (!poolOf(ctx)) msgs.push('waves need time_containers.js and it is not loaded');
+    }
     return msgs;
 }
 
@@ -220,15 +253,48 @@ function freeNear(want, lo, hi, all, apart) {
     }));
     return best;
 }
-// a player's own stream of wanted lengths out of the pool: the time container generator, rolled a stretch at a time
-function poolStream(S, key, spanIdx) {
-    const base = ((hashStr(key + '@' + spanIdx + '~lengths') ^ Math.imul((S.seed | 0) + 1, 2654435761)) >>> 0) % 2000000000;
-    const total = Math.max(POOL_ROLL_S, 40 * Math.max.apply(null, S.pool.values));
+// a stream of lengths out of a pool — the time container generator, rolled a stretch at a time. `tag` names whose stream it is
+// (a player's breaths in one span · a player's swells), so every stream is its own and all come from the one seed handed in
+function poolStream(TCm, pool, seed, tag) {
+    const base = ((hashStr(tag) ^ Math.imul((seed | 0) + 1, 2654435761)) >>> 0) % 2000000000;
+    const total = Math.max(POOL_ROLL_S, 40 * Math.max.apply(null, pool.values));
     let buf = [], k = 0, n = 0;
     return function () {
-        if (k >= buf.length) { buf = S.TC.roll({ values: S.pool.values, weights: S.pool.weights, unit: 1, total: total, seed: 1 + base + n++ }).seq; k = 0; }
+        if (k >= buf.length) { buf = TCm.roll({ values: pool.values, weights: pool.weights, unit: 1, total: total, seed: 1 + base + n++ }).seq; k = 0; }
         return buf.length ? buf[k++] : null;
     };
+}
+
+// ---- the waves (PLAN 1d.7): one stream of swells per player — breakpoints [seconds from the sequence's start, level 0–1] ----
+function buildStream(TCm, W, key, until) {
+    const rng = rngFor(W.seed, key + '~waves', 0), draw = poolStream(TCm, W.pool, W.seed, key + '~swells');
+    let len = draw(), swells = 0, flats = 0;
+    if (len == null) return { points: [[0, W.lo], [r3(until), W.lo]], swells: 0, flats: 0 };
+    let t = -rng() * len;   // out of step from the first second: the first slot began before the sequence did
+    const pts = [[t, W.lo]];
+    while (t < until && len != null) {
+        const isSwell = rng() < W.density, pj = rng();   // always two draws a slot
+        if (isSwell) { const pk = Math.max(0.1, Math.min(0.9, W.peak + (pj * 2 - 1) * WAVE_PEAK_JITTER)); pts.push([t + pk * len, W.hi]); swells++; } else flats++;
+        t += len; pts.push([t, W.lo]);
+        len = draw();
+    }
+    return { points: pts.map(p => [r3(p[0]), p[1]]), swells: swells, flats: flats };
+}
+function levelAt(pts, x) {
+    if (x <= pts[0][0]) return pts[0][1];
+    const last = pts[pts.length - 1]; if (x >= last[0]) return last[1];
+    let a = 0, b = pts.length - 1; while (b - a > 1) { const m = (a + b) >> 1; if (pts[m][0] <= x) a = m; else b = m; }
+    const p = pts[a], q = pts[b]; return p[1] + (q[1] - p[1]) * ((x - p[0]) / Math.max(1e-9, q[0] - p[0]));
+}
+const r4 = v => Math.round(v * 10000) / 10000;
+// the LOUDEST the stream gets inside [x0, x1] — where a ceiling is read
+function peakOver(pts, x0, x1) { let m = Math.max(levelAt(pts, x0), levelAt(pts, x1)); pts.forEach(p => { if (p[0] > x0 && p[0] < x1 && p[1] > m) m = p[1]; }); return m; }
+// a note's own breakpoints: the stream over [x0, x0 + dur], in seconds from the note's start
+function sliceLevels(pts, x0, dur) {
+    const out = [[0, r4(levelAt(pts, x0))]];
+    pts.forEach(p => { if (p[0] > x0 + 0.001 && p[0] < x0 + dur - 0.001) out.push([r3(p[0] - x0), r4(p[1])]); });
+    out.push([r3(dur), r4(levelAt(pts, x0 + dur))]);
+    return out;
 }
 
 // ---- one span of one player's chain: breaths dealt from `from`, landing on `landAt` ----
@@ -236,7 +302,7 @@ function poolStream(S, key, spanIdx) {
 // T is the `together` dial's state — null while the dial is FREE, and then nothing below differs from 1d.1.
 function dealSpan(P, span, S, T) {
     const rng = rngFor(S.seed, P.key, span.idx), out = [];
-    const draw = S.pool ? poolStream(S, P.key, span.idx) : null;
+    const draw = S.pool ? poolStream(S.TC, S.pool, S.seed, P.key + '@' + span.idx + '~lengths') : null;
     const phase0 = striationPhase(S.striation, P.index, S.nPlayers, 0);
     let t = span.from, first = true, moved = null;
     if (span.entry === 'staggered') t += Math.min(phase0 * S.length * 0.5, 0.25 * (span.to - span.from));   // a POSITIVE offset, and never past a short span
@@ -246,8 +312,12 @@ function dealSpan(P, span, S, T) {
     }
     while (t < span.landAt - 0.02) {
         const ci = S.containerAt(t), srcs = S.plan[ci][P.key];
-        const lvls = srcs.map(s => levelOf(s, S.dyns[ci], S.ladder));
-        const info = noteInfo(S.BC, srcs[0].inst, Math.max.apply(null, lvls));   // the ceiling at the LOUDEST level (flat today, so a note's level is its loudest)
+        // 1d.7: the breath takes the MODE of the box it starts in — a straight dynamic, or the player's stream of swells
+        const waved = S.dyns[ci] === WAVES, stream = waved ? S.streams[P.key].points : null, x = t - S.bounds[0];
+        const lvls = waved ? srcs.map(() => levelAt(stream, x)) : srcs.map(s => levelOf(s, S.dyns[ci], S.ladder));
+        let loudest = Math.max.apply(null, lvls);   // the ceiling at the LOUDEST level: a straight note's own; under the waves, the most
+        if (waved) { const far = noteInfo(S.BC, srcs[0].inst, loudest); if (!far.fixed) loudest = peakOver(stream, x, x + far.ceiling); }   // the stream reaches anywhere the note could extend to
+        const info = noteInfo(S.BC, srcs[0].inst, loudest);
         const jit = 1 + (rng() * 2 - 1) * S.jitter, gapJit = 1 + (rng() * 2 - 1) * S.jitter * 0.5;   // always two draws a breath
         const flags = [];
         const drawn = draw ? draw() : null;                                                                     // 1d.5: a pool value is played as written — no jitter on it
@@ -295,12 +365,14 @@ function dealSpan(P, span, S, T) {
             if (info.fixed && t + dur > span.to + 1e-9) f.push('RINGS');                        // it rings past the line, and says so
             if (!info.fixed && t + dur > S.bounds[ci + 1] + 1e-9) f.push('ACROSS');             // seamless: the old chord held across a line
             if (!info.fixed && dur < RUNT_S - 1e-6) f.push('RUNT');                             // (the 1e-6: a breath moved to EXACTLY the floor is not a runt — 1d.5)
-            const levels = [[0, lvls[k]], [r3(dur), lvls[k]]];
-            out.push({
+            const levels = (waved && !info.fixed) ? sliceLevels(stream, x, dur) : [[0, lvls[k]], [r3(dur), lvls[k]]];   // a fixed sound: the wave's level at its strike, no ramp
+            const note = {
                 player: P.key, lane: src.lane, seat: src.seat || 0, inst: src.inst, tech: src.tech, midi: src.midi, cents: src.cents || 0,
                 partial: src.partial, container: ci, start: r3(t), end: r3(t + dur), dur: r3(dur), level: peakOf(levels), levels: levels,
                 kind: info.kind, ceiling: isFinite(info.ceiling) ? info.ceiling : null, flags: f,
-            });
+            };
+            if (waved) note.waves = true;   // only on a note that read the waves — a straight note is byte for byte what it was
+            out.push(note);
         });
         if (out.length >= MAX_NOTES_PER_SPAN) { out[out.length - 1].flags.push('SEGCAP'); break; }
         t = to != null ? to : t + period + gap; first = false;
@@ -327,9 +399,18 @@ function generate(recipe, ctx) {
     players.forEach((p, i) => { p.index = i; });
 
     const pool = B.lengths ? { values: B.lengths.values.map(Number), weights: B.lengths.weights || null } : null;
+    // 1d.7 — the streams FIRST: they depend on time alone. Dealt only when a box reads them; one per player, under the whole sequence
+    let Wd = null, W = null, streams = null;
+    if (R.containers.some(c => c.dyn === WAVES && c.chord !== null)) {
+        Wd = Object.assign({}, DEFAULT_WAVES, R.waves || {});
+        const hOf = name => clamp01((ladder.ANCHOR[name] - ladder.LO) / (ladder.HI - ladder.LO));
+        W = { pool: { values: Wd.lengths.values.map(Number), weights: Wd.lengths.weights || null }, lo: hOf(Wd.low), hi: hOf(Wd.high), density: clamp01(+Wd.density), peak: clamp01(+Wd.peak), seed: Wd.seed | 0 };
+        streams = {}; const TCm = poolOf(ctx);
+        players.forEach(p => { streams[p.key] = buildStream(TCm, W, p.key, (end - bounds[0]) + MAX_SEG_HARD_S); });
+    }
     const S = {
         seed: B.seed | 0, striation: B.striation, length: +B.length, jitter: clamp01(+B.jitter), nPlayers: players.length,
-        BC: BC, ladder: ladder, plan: plan, dyns: dyns, bounds: bounds, pool: pool, TC: pool ? poolOf(ctx) : null,
+        BC: BC, ladder: ladder, plan: plan, dyns: dyns, bounds: bounds, pool: pool, TC: pool ? poolOf(ctx) : null, streams: streams,
         containerAt: t => { let i = 0; while (i < last && bounds[i + 1] <= t + 1e-9) i++; return i; },
     };
     const gapOf = (p, ci) => { const info = noteInfo(BC, plan[ci][p.key][0].inst, 0.5); return info.fixed ? 0 : Math.max(MIN_GAP_S, info.gapS); };   // the palette's gap does not move with the level
@@ -342,7 +423,7 @@ function generate(recipe, ctx) {
     if (T) {
         players.forEach(p => {
             p.ceil = Infinity;
-            plan.forEach((m, ci) => { const s = m[p.key]; if (s) p.ceil = Math.min(p.ceil, noteInfo(BC, s[0].inst, Math.max.apply(null, s.map(x => levelOf(x, dyns[ci], ladder)))).ceiling); });
+            plan.forEach((m, ci) => { const s = m[p.key]; if (s) p.ceil = Math.min(p.ceil, noteInfo(BC, s[0].inst, dyns[ci] === WAVES ? W.hi : Math.max.apply(null, s.map(x => levelOf(x, dyns[ci], ladder)))).ceiling); });   // a waves box: at `high`, the loudest it can get
         });
         order = players.slice().sort((a, b) => (a.ceil - b.ceil) || (a.index - b.index));   // ∞ − ∞ is NaN, which falls through to the score order
     }
@@ -375,9 +456,10 @@ function generate(recipe, ctx) {
     notes.sort((a, b) => a.start - b.start || a.lane - b.lane || a.seat - b.seat);
     const out = { t0: bounds[0], end: end, total: r3(end - bounds[0]), bounds: bounds, change: R.change, breath: B, players: players, notes: notes };
     if (T) out.dealt = order.map(p => p.key);   // the order of the deal — the first is the leader
+    if (streams) { out.waves = Wd; out.streams = streams; }   // the dials as dealt, and every player's stream (seconds from t0) — for the drawer, the check, the curious
     return out;
 }
 
-return { generate, validate, keyChord, striationPhase, STRIATIONS, CHANGES, AS_DEALT, DEFAULT_BREATH,
+return { generate, validate, keyChord, striationPhase, levelAt, STRIATIONS, CHANGES, AS_DEALT, WAVES, DEFAULT_BREATH, DEFAULT_WAVES,
          NUMBERS: { MIN_GAP_S, MAX_SEG_HARD_S, MIN_BREATH_S, RUNT_S, FIXED_LEN_S, WAIT_MAX_S } };
 }));

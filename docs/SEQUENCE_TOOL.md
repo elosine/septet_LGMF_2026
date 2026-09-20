@@ -4,12 +4,13 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**88**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5)
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**107**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
 - the breath dials — `together` from never to always · `apart` · a pool of lengths · `re-breathe` — §12 below · 1d.5, built 2026-09-19
-- not yet: the waves (1d.7)
+- the waves — a box is a straight dynamic OR reads its players' streams of swells — §13 below · 1d.7, built 2026-09-19 · **⚠ heard today on the vibraphone only: the bank has no CC7 curve for the other six (§13)**
+- not yet: the edges and a change rule per box (1d.8)
 
 ---
 
@@ -112,7 +113,7 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **88**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **107**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
 a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last ·
@@ -342,3 +343,43 @@ the strip's defaults = the page's own `Morph.DEFAULTS.carrier` · `together` 0 /
 blank again = the free notes, byte for byte · a pool `3 9` · weights · `re-breathe` changing the deal and nothing else ·
 inserted, `new`, reopened with its breath · a page reload · the layout at 1280 px. `sequence_check` 88 · `palette_check` 184.
 **Not verified: sound.**
+
+## 13 · The waves (1d.7)
+
+**⚠ BUILT, AND TODAY HEARD ON THE VIBRAPHONE ONLY.** A wave is carried by the fader (CC7) through the score's measured law, and
+`bank/velocity_remap.json` holds a measured CC7 curve for the bowed vibraphone alone. For the other six the law answers 127: the wave
+is drawn, stored and inserted, and moves nothing. RUNNING_LOG §128; his decision (measure the six · borrow the vibraphone's curve).
+
+**A box's dyn is a straight dynamic OR `waves`** (his swap, LG-39). The head's `waves` button opens the line; `all boxes → waves | straight`
+sets every box at once; any box can be flipped on its own line. A waves box wears `∿ waves`; a box remembers the straight dyn it had.
+
+**The dials:** `lengths` `6 10 16` (a pool — values, weights) · `low` `pp` · `high` `mf` · `density` 0.7 · `peak` 0.5 · `seed` 1 · `re-wave`.
+- `low` and `high` are two WRITTEN dynamics. **No niente inside the waves** (his call, option A): the law has nothing below ppp.
+  Silence belongs to the sequence's edges (PLAN 1d.8).
+
+**The stream** — one per player, a function of time alone, in seconds from the sequence's start.
+- It runs under the whole sequence whether or not a box reads it. A box that steps out does not restart it.
+- Slots of lengths from the pool; each a swell with probability `density`, else flat at `low`.
+- A swell is three points: `low` → `high` at `peak` of its length (± 0.1, seeded) → `low`.
+- The first slot began a random part of its length BEFORE the sequence did — nobody starts a swell on the downbeat.
+- A sequence moved in the score keeps its waves.
+
+**Reading it**
+- A note in a waves box takes its breakpoints from its player's stream over its own span; `level` is the loudest of them.
+- The BREATH owns the level: it takes the mode of the box it starts in, and keeps it across a line.
+- The ceiling is read at the loudest level the stream reaches anywhere the note could extend to — a wave can shorten a breath,
+  never the reverse.
+- A strike (the percussion) takes the wave's level at the strike. No ramp.
+
+**How it sounds — one velocity, the fader moving (the morph's way)**
+- Every waved note is struck at `high`'s velocity; CC7 follows the curve through `Composer.heldCc7`. A breath re-entering
+  mid-wave does not lurch. With `high` loud, a quiet moment has a loud attack played down — the LG-14 colour.
+- **SPACE carries it, and the strikes drawer's player is not changed:** that player sends one CC7 a note, so this drawer sends
+  the ramp itself after `playNotes` — the same routes, the same timers (Stop and SPACE cut it), a point every 50 ms where the value
+  changes, the first 15 ms before the note-on.
+- **Insert:** a waved note is written DRAWN — its breakpoints as nodes, `velRef` = `high`. A straight note is written as it always was.
+
+**The recipe:** `waves { lengths, low, high, density, peak, seed }` — when a box reads them, or the dials were moved · `containers[i].dyn = 'waves'`
+(+ `dynWas`). `re-wave` re-deals the streams; a wave passing a louder top may shorten a breath.
+
+**Verified in the running app, no MIDI (RUNNING_LOG §128 has every number). `sequence_check` 107. Not verified: sound.**

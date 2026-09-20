@@ -5376,3 +5376,68 @@ entry's. The fade follows the shape of the entry or the exit it belongs to; one 
   instrument, and differs between them. Using it would put an uncalibrated number back into a rack calibrated in 1b.
 
 **Cost:** little — it is 1d.7's ramp with two more breakpoints. It is one more reason the waves are built first.
+
+## §128. PLAN 1d.7 BUILT — the waves — and A CORRECTION OF §121: on this rack the wave sounds on the vibraphone ONLY (2026-09-19)
+
+**His word:** *"go 1d.7"* — after option A (no niente inside, §122).
+
+**What was built.**
+- `sequence.js` — `waves { lengths, low, high, density, peak, seed }` and `dyn: 'waves'` on a box. One STREAM of swells per player,
+  a function of time alone in seconds from the sequence's start (a sequence moved in the score keeps its waves), built before any
+  breath is dealt; slots of lengths from the pool (`time_containers.js`, a third use), each a swell with probability `density`
+  else flat at `low`; a swell is three points, `low` → `high` at `peak` ± 0.1 seeded → `low`. **Added while building:** the
+  first slot begins a random part of its length BEFORE the sequence does — without it 70% of the players start a swell on the
+  downbeat together, which is exactly what he asked not to hear. A breath takes the MODE of the box it starts in and keeps it
+  across a line. The ceiling is read at the loudest level the stream reaches anywhere the note could extend to (the window is the
+  ceiling at the note's starting level — the longest it could be), so a wave can shorten a breath and never the reverse. A strike
+  takes the wave's level at the strike. A waved note carries `waves: true`; a straight note is byte for byte what it was.
+- `sequence_check` **107** (§14, 19 new): the gate twice more (the waves' dials in the recipe, every box straight) · levels within
+  pp … mf · eight streams, no two with the same run of lengths, out of step at 0 s · the waves' own seed · THE SWAP under both rules
+  (attack: box 3's notes EQUAL the all-waves deal's; seamless: the streams untouched and every note reading them) · 8 breaths carry
+  the waves across a line into the `mf` box and 7 stay flat the other way · density 0 and 1 · ppp … fff on a 20 s breath dial:
+  the vibraphone bows 8.732 s through a quiet stretch and no more than 6.068 s where the wave passes its top · the percussion ·
+  under `together` 0.5 and a pool · four refusals (low above high · niente · density 2 · no ladder).
+- `sequence_ui.js` — a `waves` button and line (lengths · weights · low … high · density · peak · seed · `re-wave` · all boxes →
+  `waves` | `straight`); `waves` in every box's dyn; a waves box wears `∿ waves` and the button counts them (`waves ∿2`); a box
+  remembers the straight dyn it had (`dynWas`). Hear: the ramp sent from here after `playNotes` (§121's third branch), a point every
+  50 ms where the value changes, the first 15 ms before the note-on. Insert: a waved note DRAWN, its breakpoints as nodes, `velRef` =
+  `high`. The box preview of a waves box plays the chord flat at `high`.
+
+**Verified in the running app, no MIDI** (throwaway :5401, never saved; three of his takes, 20 · 12 · 30 s): all → waves: 73 of 73 notes
+read the waves, every level within pp … mf, the first notes differ player by player · all → straight: the notes byte-identical to
+before the waves were touched, box 2 back on its `mp` · the middle box to `mp`: flat there, box 3 EQUAL to the all-waves deal's ·
+`re-wave`: the streams changed, the boxes and the breath dials did not · Insert: 71 notes, 56 waved — all drawn, none plain, `velRef`
+5.6 (= mf), 2 to 5 nodes each, heights 1.5 … 5.6; the 15 straight notes flat · the recipe carries `waves` and `dynWas` · `new` →
+defaults · reopened: the waves back, the line open, not dirty · the layout at 1280 px with all three lines open (strip 296 px).
+**The drawer's velocity and the score's are the same number** — for `high` = mf: EH 91 · Bsn 104 · Vib 99 · Db 88, both ways.
+
+**THE CORRECTION.** §121 said: *"The score already has the law … the waves need no new law … SPACE and the inserted score then sound
+the same by construction, the vibraphone included."* The first half was read from the code and is true of the CODE. **It is false of
+this rack.** What Hear actually sends was captured (the routes stubbed to record), per player, across the whole sequence:
+
+| player | CC7 messages | range |
+|---|---|---|
+| EH · Bsn · Hn · Tpt · Vc · Db | 6 to 8 each | **127 … 127** |
+| Vib | 57 | 66 … 89 |
+| Vib² | 82 | 51 … 81 |
+
+`heldCc7` → `cc7ForHeight` asks the bank for the instrument's MEASURED CC7 curve (`cc7Curve`: what each fader value costs in dB)
+and `bank/velocity_remap.json` holds one for the bowed vibraphone alone — five points, measured in 0d (44: −27.65 dB · 64: −17.86 ·
+84: −10.78 · 104: −5.23 · 127: 0). For the other six there is no curve, and the function's answer with no curve is 127. **So on this
+rack a drawn note's height moves nothing but the vibraphone: the waves are built, stored, drawn, inserted — and would be heard on two
+seats of eight.** SPACE and the score DO agree, as §121 claimed; they agree on silence of the effect.
+
+**This is wider than the waves.** Every DRAWN dynamic in this piece's score goes through the same function: a hand-drawn crescendo on
+the english horn plays flat at the velocity of its top. What has worked is what bypasses the law — `cc7Fade` (lgmf-ref's dal niente:
+a multiplier on 127, uncalibrated) and `cc7Abs` (the crescendo tool). 1b calibrated VELOCITY for seven instruments and CC7 for one
+— his call then was *"CC7 … reserved for crescendos everywhere else"* — and the curve that a crescendo needs was never measured.
+It will bite 1d.8's fades-to-a-dynamic the same way (its niente fades are `cc7Fade` and are not affected).
+
+**How it was found, for the paper:** by the rule that a confidence claim is verified in the running app. The claim survived reading
+three files; it did not survive asking the running page for one number (`heldCc7` at `low`: 127).
+
+**Put to him, his decision:** (A) MEASURE the six — the probe that measured the vibraphone, five points an instrument, in his rack;
+it makes every drawn dynamic in the piece true, not only the waves · (B) BORROW the vibraphone's curve for the six now, labelled as
+borrowed in the bank's builder (not by hand in the generated file), and measure later — plausible for the Kontakt three (the
+vibraphone's sampler), unknown for the UVI three · (C) waves by velocity per breath — steps at each breath, nothing moving inside a
+note; not what he asked for. **Nothing in the generator or the drawer changes under A or B — only the bank.**
