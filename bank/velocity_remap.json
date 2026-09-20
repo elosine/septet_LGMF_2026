@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-19T16:18:05.390Z",
+ "generatedAt": "2026-09-20T02:01:58.933Z",
  "planItem": "1b.4",
  "piece": "lgmf",
  "source": "bank/instrument_card.json",
@@ -1095,7 +1095,40 @@
    "builtFrom": "the register from 8 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
    "registerSpreadAtFffDb": 11.11,
    "clampedLow": 0,
-   "clampedHigh": 55
+   "clampedHigh": 55,
+   "cc7Curve": [
+    {
+     "cc7": 24,
+     "delta": -41.39,
+     "n": 1
+    },
+    {
+     "cc7": 44,
+     "delta": -27.49,
+     "n": 3
+    },
+    {
+     "cc7": 64,
+     "delta": -17.51,
+     "n": 3
+    },
+    {
+     "cc7": 84,
+     "delta": -10.73,
+     "n": 3
+    },
+    {
+     "cc7": 104,
+     "delta": -5.22,
+     "n": 3
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 3
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
   },
   "bassoon": {
    "label": "Bassoon",
@@ -2609,7 +2642,40 @@
    "builtFrom": "the register from 12 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
    "registerSpreadAtFffDb": 8.43,
    "clampedLow": 0,
-   "clampedHigh": 60
+   "clampedHigh": 60,
+   "cc7Curve": [
+    {
+     "cc7": 24,
+     "delta": -28.03,
+     "n": 3
+    },
+    {
+     "cc7": 44,
+     "delta": -17.82,
+     "n": 3
+    },
+    {
+     "cc7": 64,
+     "delta": -11.52,
+     "n": 3
+    },
+    {
+     "cc7": 84,
+     "delta": -6.95,
+     "n": 3
+    },
+    {
+     "cc7": 104,
+     "delta": -3.36,
+     "n": 3
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 3
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
   },
   "horn": {
    "label": "Horn",
@@ -3998,7 +4064,40 @@
    "builtFrom": "the register from 11 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
    "registerSpreadAtFffDb": 1.98,
    "clampedLow": 0,
-   "clampedHigh": 17
+   "clampedHigh": 17,
+   "cc7Curve": [
+    {
+     "cc7": 24,
+     "delta": -28.05,
+     "n": 3
+    },
+    {
+     "cc7": 44,
+     "delta": -17.88,
+     "n": 3
+    },
+    {
+     "cc7": 64,
+     "delta": -11.54,
+     "n": 3
+    },
+    {
+     "cc7": 84,
+     "delta": -6.97,
+     "n": 3
+    },
+    {
+     "cc7": 104,
+     "delta": -3.37,
+     "n": 3
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 3
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
   },
   "trumpet": {
    "label": "Trumpet",
@@ -5012,7 +5111,40 @@
    "builtFrom": "the register from 8 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
    "registerSpreadAtFffDb": 6.22,
    "clampedLow": 0,
-   "clampedHigh": 16
+   "clampedHigh": 16,
+   "cc7Curve": [
+    {
+     "cc7": 24,
+     "delta": -28.02,
+     "n": 3
+    },
+    {
+     "cc7": 44,
+     "delta": -17.82,
+     "n": 3
+    },
+    {
+     "cc7": 64,
+     "delta": -11.52,
+     "n": 3
+    },
+    {
+     "cc7": 84,
+     "delta": -6.94,
+     "n": 3
+    },
+    {
+     "cc7": 104,
+     "delta": -3.36,
+     "n": 3
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 3
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
   },
   "bowed_vibraphone": {
    "label": "Vibraphone",
@@ -11570,7 +11702,35 @@
    "builtFrom": "the register from 15 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
    "registerSpreadAtFffDb": 12.19,
    "clampedLow": 0,
-   "clampedHigh": 111
+   "clampedHigh": 111,
+   "cc7Curve": [
+    {
+     "cc7": 44,
+     "delta": -27.47,
+     "n": 2
+    },
+    {
+     "cc7": 64,
+     "delta": -17.73,
+     "n": 3
+    },
+    {
+     "cc7": 84,
+     "delta": -11.06,
+     "n": 3
+    },
+    {
+     "cc7": 104,
+     "delta": -5.1,
+     "n": 3
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 3
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
   },
   "double_bass": {
    "label": "D. Bass",
@@ -13209,7 +13369,35 @@
    "builtFrom": "the register from 13 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
    "registerSpreadAtFffDb": 10.86,
    "clampedLow": 0,
-   "clampedHigh": 96
+   "clampedHigh": 96,
+   "cc7Curve": [
+    {
+     "cc7": 44,
+     "delta": -27.49,
+     "n": 2
+    },
+    {
+     "cc7": 64,
+     "delta": -17.83,
+     "n": 2
+    },
+    {
+     "cc7": 84,
+     "delta": -10.78,
+     "n": 2
+    },
+    {
+     "cc7": 104,
+     "delta": -5.08,
+     "n": 2
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 2
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
   }
  },
  "notRemapped": {

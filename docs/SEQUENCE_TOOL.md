@@ -9,7 +9,7 @@
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
 - the breath dials — `together` from never to always · `apart` · a pool of lengths · `re-breathe` — §12 below · 1d.5, built 2026-09-19
-- the waves — a box is a straight dynamic OR reads its players' streams of swells — §13 below · 1d.7, built 2026-09-19 · **⚠ heard today on the vibraphone only: the bank has no CC7 curve for the other six (§13)**
+- the waves — a box is a straight dynamic OR reads its players' streams of swells — §13 below · 1d.7, built 2026-09-19
 - not yet: the edges and a change rule per box (1d.8)
 
 ---
@@ -346,9 +346,11 @@ inserted, `new`, reopened with its breath · a page reload · the layout at 1280
 
 ## 13 · The waves (1d.7)
 
-**⚠ BUILT, AND TODAY HEARD ON THE VIBRAPHONE ONLY.** A wave is carried by the fader (CC7) through the score's measured law, and
-`bank/velocity_remap.json` holds a measured CC7 curve for the bowed vibraphone alone. For the other six the law answers 127: the wave
-is drawn, stored and inserted, and moves nothing. RUNNING_LOG §128; his decision (measure the six · borrow the vibraphone's curve).
+**The fader law it rides on.** A wave is carried by CC7 through the score's measured law (D13: *velocity is the dynamic; CC7 shapes a
+held note*): `heldCc7` → `cc7ForHeight` → the instrument's `cc7Curve` in `bank/velocity_remap.json`, measured by 0d on the curve
+channels. *(When 1d.7 was built the bank held that curve for the vibraphone alone — the builder dropped the other six — and the
+waves moved two seats of eight. Found by capturing what Hear sends; fixed in `tools/build_remap_card.js`. RUNNING_LOG §128–§130.)*
+In the score a waved note is a DRAWN note, so it takes the curve channels round robin (D11) by itself.
 
 **A box's dyn is a straight dynamic OR `waves`** (his swap, LG-39). The head's `waves` button opens the line; `all boxes → waves | straight`
 sets every box at once; any box can be flipped on its own line. A waves box wears `∿ waves`; a box remembers the straight dyn it had.

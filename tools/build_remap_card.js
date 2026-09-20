@@ -276,13 +276,17 @@ for (const key of PITCHED) {
     entry.measuredSpanDb = Math.round(Math.max(...entry.pitches.map(p => p.spanDb)) * 100) / 100;
     entry.registerSpreadAtFffDb = isFinite(hi127 - lo127) ? Math.round((hi127 - lo127) * 100) / 100 : null;
     entry.clampedLow = clampLow; entry.clampedHigh = clampHigh;
-    if (byCc7) {
-        entry.cc7Curve = cc7CurveFor(key);
-        entry.cc7Note = 'the register is closed by CC7, measured by 0d and relative, so it survived every trim. '
+    // EVERY pitched instrument carries its measured fader law, not only the one whose REGISTER rides on it (2026-09-19, RUNNING_LOG
+    // §128-§130). D13: "velocity is the dynamic; CC7 SHAPES A HELD NOTE" - and the app shapes it through this curve: heldCc7 ->
+    // cc7ForHeight computes (target at the drawn height - the level the struck velocity makes) and asks cc7Curve for the CC7 that
+    // closes it. WITH NO CURVE IT ANSWERS 127: this builder wrote one for the vibraphone alone (inside `if (byCc7)`), so on the other
+    // six a drawn note's height moved nothing - every drawn crescendo in the piece played flat at the velocity of its top, and 1d.7's
+    // waves sounded on two seats of eight. 0d had measured all seven, on the curve channels (bank/balance.json `cc7`).
+    entry.cc7Curve = cc7CurveFor(key);
+    if (!entry.cc7Curve) console.error('  NO CC7 CURVE for ' + key + ' - a drawn note\'s height will not move it' + (byCc7 ? ', and the register will not be corrected' : ''));
+    else entry.cc7Note = (byCc7 ? 'the register is closed by CC7, measured by 0d and relative, so it survived every trim. ' : 'the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. ')
             + 'The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks '
             + 'this curve for the CC7 that closes it, then multiplies any cc7Fade on top.';
-        if (!entry.cc7Curve) console.error('  NO CC7 CURVE for ' + key + ' - the register will not be corrected');
-    }
     out.instruments[key] = entry;
     rows.push({ key, entry });
     if (clampLow || clampHigh) out.clamps.push({ inst: key, label: I.label, low: clampLow, high: clampHigh });

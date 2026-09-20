@@ -5480,3 +5480,59 @@ own, the hybrid uses the long-used map for its last step. Everything before that
 struck velocity is, how loud the wanted dynamic is, hence how many dB to drop. A few lines in `velocity_remap.js` /`heldCc7`; the
 vibraphone keeps its own curve; measuring the six later simply replaces the stand-in. Consequence named to him: every drawn note
 already in the six scores would begin to follow its drawn shape, where today it plays flat at its top.
+
+## §130. He was right twice — the fader curves were MEASURED in 0d; this morning's builder dropped six of them. Fixed in one `if` (2026-09-19)
+
+**His words:** *"We spent many hours this morning and several previous sessions doing probes and figuring out the CC7 round robin.
+You're sending it to different ports. So this should be well documented in the repo. And maybe the code too, but there should be
+some solid documentation about this."*
+
+**It is, and the AI had not read it.** §128 offered him three options — measure the six, borrow the vibraphone's curve, step the
+velocity — and §129 a fourth, the long-used `cc7_map.json`. **All four were wrong, because the measurement already existed.** What
+the record says, read now, in the order it was found:
+
+- **D13** (journal §4, his decision of 2026-09-18): *"VELOCITY IS THE DYNAMIC; CC7 SHAPES A HELD NOTE; THE TRIM LIVES ON THE FADER."*
+- **D11** (`composer.html` "THE CURVE CHANNELS", `docs/CRESCENDO.md`): every Kontakt port carries ch 1 MAIN — plain notes, *no moving
+  controller* — and ch 2/3/4 CURVE A/B/C, used **round robin** by any event that streams one; the SI2 three have their curve copies
+  on the `b` ports (D9). `curveChannelMap()` assigns them per playthrough, in time order. That is his "sending it to different
+  ports". **A waved note is written DRAWN, so in the score it takes this path by itself** — nothing in 1d.7 had to do it, and nothing
+  does. (Hear in the drawer rides the emit route with its ramp, as `swell_ui.js`'s audition and the morph panel's always have.)
+- **§47** (0d, 2026-09-18): the balance probe had a `cc7` role — *six CC7 values at velocity 100, ON THE CURVE CHANNEL the recipe
+  names — `LGBassoonb` ch3 · `LGHornb` ch3 · `LGTrumpetb` ch5 · the Xsample instruments' own ch2.* The results are in
+  `bank/balance.json` `cc7`, for all seven pitched instruments.
+- **`tools/build_remap_card.js`** (1b.4, this morning, §86–§87) has `cc7CurveFor(key)`, which turns that measurement into the
+  bank's `cc7Curve` — and called it inside `if (byCc7)`, the branch for instruments whose REGISTER rides on CC7: the vibraphone
+  alone. For the other six the curve was measured, the function to build it was three lines away, and the bank was written without it.
+
+**The fix:** the builder writes `cc7Curve` for every pitched instrument. Rebuilt; **everything in the bank but `generatedAt`,
+`cc7Curve` and `cc7Note` is byte-identical** (compared against a copy taken first). The curves, dB re CC7 127:
+
+| | 24 | 44 | 64 | 84 | 104 |
+|---|---|---|---|---|---|
+| bassoon · horn · trumpet (UVI) | −28.0 | −17.8 | −11.5 | −6.95 | −3.36 |
+| english horn · vibraphone · cello · double bass (Kontakt) | −41.4 (EH) | −27.5 | −17.5 … −17.9 | −10.7 … −11.1 | −5.1 … −5.2 |
+
+**Two fader laws, one per sampler, each agreeing across its instruments to 0.4 dB:** UVI sits on the MIDI volume law
+(40·log10(cc/127): −11.9 at 64), Kontakt on 60·log10 (−17.9). So §128's "borrow the vibraphone's curve" would have been 6 dB wrong
+at mid-fader on the three UVI instruments, and §129's long-used map 6 dB wrong on the three Kontakt ones. The measured curves are
+right for each, and they were there.
+
+**Verified in the running app** (throwaway :5401, the routes stubbed to record). The law, struck for mf, CC7 at mf · mp · p · pp:
+EH 127 · 121 · 113 · 106 — Bsn 127 · 116 · 104 · 95 — Hn 127 · 116 · 104 · 95 — Tpt 127 · 117 · 105 · 95 — Vib 87 · 82 · 77 · 72 —
+Vc 127 · 120 · 112 · 104 — Db 127 · 121 · 113 · 105. What Hear sends over two waves boxes (pp … mf): EH 105…127 · Bsn 94…127 ·
+Hn 94…127 · Tpt 94…127 · Vib 66…112 · Vib² 57…81 · Vc 104…127 · Db 104…127 — **917 fader moves where §128 captured 127 … 127 on six
+of them.** Not verified: sound.
+
+**What it changes beyond the waves — said to him.** Every DRAWN note already in the six scores now follows its drawn height on all
+seven instruments, where since this morning's rebuild it had played flat at the velocity of its top. That is D13 as decided; it is
+also a change in how those scores sound, and nothing since §75 has been heard. A PLAIN note is untouched (CC7 127, as always).
+
+**One assumption, named:** the SI2 three's curves were measured in 0d with the curve copies at `Dynamic` 0.70 and the copies are at
+1.00 now (§85). A fader is a pure gain and `Dynamic` is a velocity sensitivity, so the curve — relative to CC7 127 — should not have
+moved; the builder's own note makes the same argument for the vibraphone, where it was confirmed to 0.02 dB. Not re-measured.
+
+**For the paper — how this went wrong, plainly.** The AI verified a claim in the running app (good: §128 caught that the fader did
+not move), then reasoned FORWARD from the symptom to new work — a probe, a borrowed curve, a fallback — instead of BACKWARD into
+the project's own record, where two days of his work had already measured the thing. He had to say it twice. The habit to keep:
+when the sound path misbehaves, the first read is D11 · D13 · the 0d and 1b log entries · `bank/balance.json` · RACK_SETTINGS —
+before any proposal.
