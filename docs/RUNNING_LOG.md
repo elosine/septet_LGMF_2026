@@ -5812,3 +5812,24 @@ faded, or ramped to a dynamic) is heard on a curve route — `Composer.curveChan
 player, the ramp on the same route — by wrapping `D.routeFor` from outside, as `D.play` is already wrapped; `strike_drawer.js`
 untouched. A technique with no curve copy stays on MAIN and says so in the status. **Until then: the waves, the fades and the ramps
 of 1d.7 · 1d.8 cannot be judged by SPACE. Inserted and played from the score they take the curve channels.** (By design; not heard.)
+
+## §138. The waves by preset — what he has decided so far (2026-09-20)
+
+The AI's recommendations for the `waves` line (his brief LG-49) were: ONE preset menu that fills every dial · swell lengths as a
+shortest and a longest, each swell drawn anywhere between (no typed pool) · a tilt slider in place of weights · the SHAPE by name —
+`golden` (rise 0.618 of the moving time, fall 0.382) · `reverse golden` · `even` · `surge` · `bloom` · a HOLD at the top as a share
+of the swell (0.2: a 10 s swell sits 2 s, a 20 s swell 4 s) · `up` / `down` in STEPS of the ladder from the box's own dynamic ·
+density as words (`constant` 1 · `busy` 0.8 · `breathing` 0.6 · `occasional` 0.35 · `rare` 0.15) · five presets — `breathing` ·
+`tides` · `ripples` · `surges` · `blooms`.
+
+**His answer, verbatim:** *"presets good"* · *"a yes, b explain, breathing fine as default, probably need to refine all presets
+while composing"*.
+
+**Decided:** (a) **the shape goes ABOVE AND BELOW the box's level** — rest → up to the top → hold → down below the rest level → back
+up → rest; the box's dynamic is the water line, so a box has a dynamic AND waves · the five presets stand · **`breathing` is the
+default** · **the presets are provisional — he expects to refine all of them while composing**, so they must be cheap to change
+(the AI's proposal: a `save preset` of his own, kept on the server as the takes are). **Open:** (b) `up` / `down` in steps from the
+box's dynamic, or a fixed `low` / `high` — he asked for it to be explained again.
+
+**A number behind the default's depth:** one ladder step is about 1.7 dB on this rack (the 12 dB written span of 1b over seven
+steps — even steps ASSUMED, not checked against the anchors), so `breathing` was deepened from up 1 / down 1 to **up 2 / down 1**.
