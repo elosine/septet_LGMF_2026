@@ -1306,3 +1306,28 @@ would get the sequence's four endings (LG-42) with no new field: fade out or jus
 `release` block already has `exit` and `order`. His doubt about the morph's fades (*"not 100% sure that was working perfectly"*)
 has two candidate causes on record now, neither confirmed by ear: this one, and §130's — until today a drawn level moved the fader
 on the vibraphone only.
+
+### 2026-09-20 — LGMF 1e: THE VOLUME FIX — what the morph needs, written down for its revision (RUNNING_LOG §137–§142)
+
+**His instruction:** *"I'm going to want to revise the morphs tool a little bit later. So let's just have the methodology if it's
+morph tool specific or if it's a general machinery fix then the morph tool should just plug in … if it's specific to the morph tool
+then we'll have exactly what needs to be done out of this practice or exercise but then we'll implement it when i revise the morph tool."*
+
+*AI reading (mine, marked):* it is BOTH. The machinery is general and already in the score — per note, `cc7Abs { lo, hi }` (the
+drawn height 0 … 1 mapped straight onto the fader, bypassing the 12 dB ladder) and `velAbs` (the strike velocity), both from piece #5
+(§316 · §346 · §349). The morph plugs in by WRITING them. What is morph-specific, exactly:
+
+1. **A morph note whose level MOVES** (a crossfade between levels, a fade to a dynamic) is written with `cc7Abs { lo: 0, hi: 127 }`,
+   `velAbs` = the instrument's mf velocity (`VelocityRemap.heldNote(remap, instKey, midi, 100).vel`), and its heights re-based so
+   the TOP of the voice's shape is the full fader: `h' = 1 − (top − level)`. One `top` per VOICE across its breaths, so they join —
+   as the sequence uses one top per waved player. A morph note whose level does NOT move stays a struck note: velocity is its dynamic.
+2. **`morph_emit.js`'s audition does not read `cc7Abs`.** Its `ccOf` calls `VelocityRemap.cc7ForHeight` directly (~line 336) — the
+   ladder, 12 dB, bottoming out near CC7 88 (its own comment says so). It needs the branch `heldCc7` has: `cc7Abs` first. And the
+   strike there must honour `velAbs`. Until then the panel's Hear and the inserted score would disagree.
+3. **The audition's route:** it plays on `routeFor` — the technique's MAIN channel — and streams CC7 and bends there. His rack takes
+   a moving controller on the CURVE channels only (D11; measured today: on MAIN ch 1 nothing is heard to move). The revision routes a
+   moving morph note as the score does: `Composer.curveChannelsOf` / `curveRoute`, round robin.
+4. **Built now, in 1e (V3), because it is one line and the bug is live:** the panel's inserts call `C.curveDirty()` — without it a
+   morph inserted after a playthrough plays on MAIN until the tab is reloaded (RUNNING_LOG §139).
+5. **The cost to say out loud when it is done:** a shaped morph voice tops out at mf loudness (4–5 dB under a struck fff, uniform
+   across the seven), and its heights stop meaning calibrated dynamics — they mean fader positions under a top.

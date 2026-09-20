@@ -773,11 +773,68 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        seconds) with a tilt and a jitter · the shape by preset, his default a golden-section rise against fall, with a HOLD at the top ·
        between swells a player rests at THE BOX'S OWN DYNAMIC, not at `low` — so a box has a dynamic AND waves · presets for the whole
        line, and a default.
-    9. **THE WAVES FIX — HEAR ON THE CURVE CHANNELS** (RUNNING_LOG §137; his call 2026-09-20: *"waves fix to feature build"*). A BUG, not a
+    9. **→ MOVED INTO PLAN 1e (V2b), built there.** **THE WAVES FIX — HEAR ON THE CURVE CHANNELS** (RUNNING_LOG §137; his call 2026-09-20: *"waves fix to feature build"*). A BUG, not a
        feature: Hear sends every ramped note and its CC7 on MAIN ch 1, where his rack takes no moving controller (D11), so by SPACE the
        waves, the fades and the ramps of 1d.7 / 1d.8 are inaudible. In `sequence_ui.js` alone: a ramped note is heard on a curve route
        (`Composer.curveChannelsOf` / `curveRoute`, round robin per player, the ramp on the same route), `D.routeFor` wrapped from
        outside; `strike_drawer.js` untouched. **BUILD IT FIRST — nothing else about dynamics can be judged by ear until it is in.**
+
+
+- **1e — THE VOLUME FIX** (a shape in volume is THE NORMALIZED FADER, 0 → 1, on the curve channels, struck at mf) — `todo` —
+  **PLANNED 2026-09-20 at his word, to be built in ONE go** (RUNNING_LOG §137–§142). **It comes BEFORE the sequence feature add, which
+  is on deck.** Written to be executed cold.
+  *Why:* his recording read back (§140) — every waved note struck at the velocity of its TOP (127) with the fader moving only inside
+  the 12 dB ladder (CC7 63 … 127): *"between two high dynamic levels"*. His diagnosis (§141): in the tuba piece and the septet a
+  crescendo ran the fader from ZERO to max. **The machinery for that is ALREADY IN THE SCORE, per note, built in piece #5 for this very
+  reason (its §316 · §346 · §349): `wc.cc7Abs { lo, hi }` — `heldCc7` maps the drawn height 0 … 1 straight onto that CC7 range,
+  bypassing the ladder — and `wc.velAbs` — the playback strikes the note at exactly that velocity (`composer.html` ~11277,
+  `sonify_core.js` ~238). NOTHING IN `composer.html` CHANGES. The fix is what the TOOLS WRITE on their notes.**
+  *Result when done:* every SHAPED note a tool writes — waved, ramped to or from a dynamic, swelled — carries `cc7Abs { lo: 0, hi: 127 }`
+  and `velAbs` = its instrument's MF velocity, sounds on a curve channel in Hear as in the score, and its shape's TOP sits at the full
+  fader. Flat notes, plain notes, strikes, long tones, trills, the crescendo tool and niente fades are untouched.
+  - **THE TWO RULES (his decisions, §141–§142).**
+    - **mf for ALL instruments:** `velAbs = VelocityRemap.heldNote(Composer._velRemap, instKey, midi, 100).vel` — anchor 100 is mf on
+      the ladder (65 … 127, eight names evenly). From the bank: EH ≈ 96 · Bsn 98 · Hn 81 · Tpt 70 · Vib 99 · Vc 95 · Db 87 (averages
+      over pitch). No remap loaded → 100. The cost, accepted: a shape tops out at mf loudness, 4–5 dB under a struck fff, the same
+      for every instrument (3.9 … 5.4 dB), so the balance holds.
+    - **the top of the shape is the full fader:** a shaped note's drawn height becomes `h' = 1 − (top − level)`, floored at 0, where
+      `level` is 0 … 1 on the ladder and `top` is what `topOf(n, hiLevel)` gives today (the waves' `high` for a waved note — ONE top
+      for all its breaths, so they join — else the note's own loudest). So each dynamic step under the top is one seventh of the
+      fader, and ppp under an fff top is CC7 0. Nodes are written at `y = 10 · h'` (never under 0.05, as `yOf` does).
+  - **V1 · `sequence_ui.js` — INSERT.** For a `ramped` note (the flag that exists: waves · fade · ramp, `kind !== 'fixed'`): nodes from
+    `h'`; add `cc7Abs: { lo: 0, hi: 127 }` and `velAbs` (rule 1); keep `velRef` (the hybrid ignores it once `velAbs` is there, and a
+    note that loses `cc7Abs` by hand falls back sanely). A niente `cc7Fade` stays — `heldCc7` multiplies it in, before `cc7Abs` is
+    read. A straight, un-ramped note is written exactly as today.
+  - **V2 · `sequence_ui.js` — HEAR.** (a) the stand-in `wc` in `rampPoints` carries the same `cc7Abs`, and the levels it is asked
+    for are `h'`; the note handed to `D.playNotes` is struck at the mf velocity. `D.playNotes` remaps `n.vel` through `remapVel`, so
+    hand it the ANCHOR 100 for a ramped note, not an instrument velocity. (b) **THE ROUTE — this is feature-list item 9, moved here:**
+    a ramped note and its ramp go to a CURVE route. Wrap `D.routeFor` from outside (as `D.play` is wrapped; `strike_drawer.js`
+    untouched): a ramped note is given a marker seat (`'c0'`, `'c1'`, … — `playNotes` keys its route cache on `n.seat`, so a marked
+    note gets a route of its own); the wrapper resolves a marker to `Composer.curveRoute(lane, Composer.curveChannelsOf(lane, tech)[i])`
+    — an entry may be a NUMBER (a channel on the instrument's port) or `{ port, ch }` (the SI2 `b` ports): take the port's output from
+    `MorphEmit.outputFor(port)`; round robin per player in time order; a real seat (the second vibraphone) keeps its own route; a
+    technique with no curve copy stays on MAIN and the status says so. `scheduleRamps` uses the SAME marker.
+  - **V3 · the stale map, one line each** (§139's bug in two more places): `strike_drawer.js` `insert` and `morph_panel.js`'s inserts
+    call `C.curveDirty()` before `renderAll()` / `markDirty()`. *(Files outside the sequence's own — named to him, and his
+    instruction covers them: "making sure we're using the CC7 channel or path for all sorts of continuous swells in volume".)*
+  - **V4 · drawn swells.** `swell_ui.js` ALREADY writes `cc7Abs` and `velAbs` (§349) — it is on the proper path. One change:
+    `velAbs` = the mf velocity (rule 1) where it is the strike's own today. Its fader range stays its own (`lo: 65`) — a swell
+    rises from a sounding level, not from nothing; ONE number if he wants it from zero. **A shape drawn BY HAND on a note:** the note
+    card (`note_card.js`) gets one checkbox, `full fader` — on: `cc7Abs { 0, 127 }` + `velAbs` (mf); off: both removed.
+  - **V5 · the morph — METHOD ONLY, built when he revises the morph** (`docs/MORPH_NOTES.md` §3, 2026-09-20). It plugs into the same
+    two fields; nothing here is built for it except V3's one line.
+  - **V6 · ONE check, and no probe:** he records a waved sequence as MIDI in Reaper; `node tools/reaper_job.js run
+    reaper/bridge/jobs/cc7_by_channel.lua`. Expected: every note on a curve channel · struck at the mf velocities above · CC7 reaching
+    toward 0 under a deep wave · MAIN ch 1 empty. Before that, in the running app with no MIDI (`score-5401`, the verify recipe of
+    journal §2): Insert after a playthrough → the notes carry both fields and route to curve channels; Hear captured → the same.
+    `node tools/sequence_check.js` must still say **126** — `sequence.js` is NOT touched by any of this.
+  - **V7 · `docs/DYNAMICS_LAW.md`** — one page, named in CLAUDE.md's "Orient from docs" as the FIRST read for any sound-path work:
+    the two kinds of note (a STRUCK note: velocity is the dynamic, the ladder is 12 dB and the rest is timbre · a SHAPED note: struck
+    at mf, the fader 0 → 1, `cc7Abs` + `velAbs`) · moving CC7 lives on the curve channels only, MAIN takes none · the map is cached —
+    `curveDirty()` after writing · the first test is V6's, not a probe.
+  - **Known, accepted, for the feature plan on deck:** under this the waves' `low` / `high` set a DEPTH below a top that always sounds
+    at mf — so a waved box and a straight box beside it no longer share a calibrated level, and "waves by preset" (item 8: `up` /
+    `down` in steps round the box's dynamic) must be re-thought as depths below the top.
 
 
 ## 2. Notate — `todo`

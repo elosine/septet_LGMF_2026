@@ -5976,3 +5976,31 @@ the timbre.
 **The organisation he asked for:** the sequence FEATURE plan — ON DECK, DEFERRED (it is all in PLAN 1d: THE NEXT FEATURE ADD, items
 1–9, and 1d.9) · a NEW plan, THE VOLUME FIX, first, quick — the general machinery if it can be general, so the morph plugs in; else
 the morph's part written down and built when he revises the morph · the trills checked against piece #5 · the beating tool left.
+
+## §142. Step 1 — the trills are fine; step 2 — PLAN 1e, THE VOLUME FIX, written: the machinery was already in the score (2026-09-20)
+
+**His words:** *"yes mf for all instruments and lets move through the todo list, please keep track with where we are at any given
+time. And I'll continue to take model/clear recommendations."* — after the numbers he asked for. **The AI's "the brass lose a
+decibel or two" was WRONG — it quoted D13's state of 2026-09-18, before §85's Dynamic fix.** From `bank/velocity_remap.json`, the
+level lost by striking at mf in place of fff: EH 4.2 · Bsn 4.3 · Hn 4.9 · Tpt 4.9 · Vib 5.4 · Vc 3.9 · Db 3.9 dB (against f: 1.5 …
+2.0) — uniform, because 1b made it so (the raw velocity spans are 18 … 32 dB now, the horn's 26.3). Uniform is what made *mf for
+everything* the better rule: one rule, the balance kept.
+
+**Step 1 — the trills (read-only).** `trill_engine.js` differs from the septet's in 6 lines, all of them WHICH instrument's timing row
+stands in (the cello for everyone; it was violin 1) — nothing about volume. The septet's design (`TRILLS_TOOL.md`): a trill's volume
+is carried by the VELOCITY of each of its notes, read off the curve and translated through the remap; CC7 stays 127 (on the
+deterministic samplers a small per-note trim, 1 ms before the note). Separate struck notes — the shaped-fader question does not
+touch them. **Handled the same way here. Nothing to fix.**
+
+**Step 2 — the plan.** Looking for which tools already use the full fader found the whole answer in piece #5's own words in
+`composer.html` (§316, 2026-09-09): *"The held-note law above is a scale of ANCHOR VELOCITIES … the drawn 0-10 spans 9.96 dB, and
+drawn 0 sends CC7 88. That is right for ordinary music … and it makes a fade FROM SILENCE impossible … His instruction was literal
+and I had not honoured it: 'we start at the beginning zero CC7 and do a smooth curve up' … So `cc7Abs: {lo, hi}` maps the drawn
+height straight onto a CC7 range, bypassing the anchor scale."* And §349 added `velAbs`. **The same misunderstanding, made and mended
+eleven days ago in the last piece, and the mend is per note and still here.** So PLAN 1e changes nothing in the score's law: the
+tools WRITE `cc7Abs { 0, 127 }` + `velAbs` (mf) on their shaped notes, with heights re-based so the shape's top is the full fader
+(`h' = 1 − (top − level)`); Hear does the same and moves to the curve channels (the feature list's item 9, moved into 1e); the
+stale-map line goes into the strikes drawer's and the morph panel's inserts; the swell tool — already on this path — takes the mf
+strike; a hand-drawn shape gets a `full fader` checkbox; the morph's part is written into MORPH_NOTES §3 for its revision.
+**Rejected:** §140's "shape depth" multiplier (a new law beside two that exist) · a global switch in `heldCc7` for every non-flat
+drawn note (a morph note's heights MEAN dynamics — it would have dropped every morph voice already in the six scores by some 17 dB).
