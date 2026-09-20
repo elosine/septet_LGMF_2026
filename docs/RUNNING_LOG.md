@@ -5441,3 +5441,42 @@ it makes every drawn dynamic in the piece true, not only the waves · (B) BORROW
 borrowed in the bank's builder (not by hand in the generated file), and measure later — plausible for the Kontakt three (the
 vibraphone's sampler), unknown for the UVI three · (C) waves by velocity per breath — steps at each breath, nothing moving inside a
 note; not what he asked for. **Nothing in the generator or the drawer changes under A or B — only the bank.**
+
+## §129. His pushback on §128 — "the curve crescendo … what's the issue with using this mechanism?" — and he is right (2026-09-19)
+
+**His words:** *"There is the curve crescendo that we have been using for several pieces now. And we measured everything this morning
+and built the round robin. So what's the issue with using this mechanism?"*
+
+**Looked up, in order, because §128 had not asked the question he asked:**
+1. **The mechanism he means is in this repo and loaded.** `composer.html` `curveValToCC(h)`: a drawn height → a level in dB below
+   full (`levelSpanDb` 40) → CC7 through ONE measured fader map, `probes/cc7_map.json` (33 points, the E0 calibration carried
+   forward from piece #1; height 0 = true silence). "Drawn shape = heard dB shape." That is the curve crescendo of the earlier pieces.
+2. **It is SHADOWED here, by one line.** `heldCc7`: `if (!this._velRemap) return this.curveValToCC(h)`. Since 1b loaded a velocity
+   remap this morning, every drawn note takes the other branch — piece #5's held-note hybrid: velocity for the curve's top, then CC7
+   from a PER-INSTRUMENT fader curve in the bank (`cc7Curve`).
+3. **This morning's measurement did not include the fader.** `bank/instrument_card.json` (209 KB) holds `byVelocity` per instrument and
+   pitch and not one CC7 point; `tools/build_remap.js` writes `cc7Curve: false`. Only the bowed vibraphone has a curve, from 0d. With
+   no curve the hybrid answers 127 — it does NOT fall back to the map of point 1.
+
+**So the answer to him: nothing is wrong with the mechanism, and the waves already use it (a drawn curve, CC7 on the curve channel).
+The fault is a gap between two good things — the old map is switched off by the new calibration, and the new calibration lacks one
+table for six instruments.**
+
+**The numbers that withdraw §128's option B (borrow the vibraphone's curve).** dB re CC7 127:
+
+| CC7 | the long-used map (`cc7_map.json`) | the vibraphone, measured in 0d |
+|---|---|---|
+| 104 | −3.32 | −5.23 |
+| 84 | −6.81 | −10.78 |
+| 64 | −11.49 | −17.86 |
+| 44 | −17.78 | −27.65 |
+
+The vibraphone's fader is about half again as steep. Lending its curve to the other six would have been wrong by up to 6 dB at
+mid-fader and 10 dB lower down. The long-used map sits on the MIDI volume law (40·log10(64/127) = −11.9 dB) and is the better
+stand-in — for the Kontakt three at least; nothing is known of the UVI three's fader.
+
+**Proposed to him (a change to the score's playback law, so put to him first — LG-32):** where an instrument has no fader curve of its
+own, the hybrid uses the long-used map for its last step. Everything before that step is this morning's measurement — how loud the
+struck velocity is, how loud the wanted dynamic is, hence how many dB to drop. A few lines in `velocity_remap.js` /`heldCc7`; the
+vibraphone keeps its own curve; measuring the six later simply replaces the stand-in. Consequence named to him: every drawn note
+already in the six scores would begin to follow its drawn shape, where today it plays flat at its top.
