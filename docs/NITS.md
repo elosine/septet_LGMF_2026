@@ -187,3 +187,10 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   those ~16 ms — a tick or a bump at the moment the NEXT note on that channel arms. The score's own playback was not examined for
   the same thing. **Not designed:** the likely cure is for the pre-arm to send the note's own first fader value instead of 127.
   **Do not raise it again unless that symptom is HEARD.**
+
+- **2026-09-20 — one uncaught `TypeError` on every bare page load of `composer.html`** (RUNNING_LOG §169, found while verifying
+  PLAN 1h H1/H2). `Cannot read properties of null (reading 'parentNode')` at `score/public/sequence_ui.js:1652` — the sequence
+  drawer's `stop()`, which runs at init before its own DOM exists. **Reproduced on a clean reload with nothing touched**, so it is
+  not the morph work's. Two `400 Bad Request` fetches on the same load were not traced. **Nothing visible breaks** — the drawer, the
+  takes menu and Hear all work — so it is noted, not fixed. If a "sequence panel came up wrong after a reload" is ever reported,
+  this is the first read.

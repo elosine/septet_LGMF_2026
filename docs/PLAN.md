@@ -1111,7 +1111,15 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 - **1h — THE BLOOM ON A TAKE** (a TAKE from the strikes drawer chosen in the morph's PITCHES pulldown and read AS ASSIGNED — each
   pair on its JUST pitch — and the morph's dynamics brought under the law) — **`planned` 2026-09-20, session 11 (RUNNING_LOG
   §162–§166 · COMPOSITION_NOTES LG-52 · MORPH_NOTES 2026-09-20); the top line and the four steps approved as ONE summary
-  (*"yes good"*), the sub-steps the AI's, written to be executed cold. NOTHING BUILT.**
+  (*"yes good"*), the sub-steps the AI's, written to be executed cold.**
+  **► `doing` 2026-09-20 — H1 and H2.1…H2.5 ARE BUILT AND VERIFIED (RUNNING_LOG §169); H2.6 and H3 are next, H4 is his.**
+  **AS BUILT (H1 + H2.1…H2.5): the two steps went into ONE commit.** H1 alone would leave the line claiming *as assigned* while the
+  bloom still played the model's own set, and the REQUIRED VERIFICATION's own check (1) — the pulldown lists it first-group AND the
+  line shows pair · note · cents · partial — cannot be run on the chooser alone. Everything is in `morph_panel.js`; `morph.js`,
+  `morph_septet.js`, `strike_drawer.js`, `sequence_ui.js` and `composer.html` are untouched, as §165 predicted.
+  **One call the plan did not make:** the take branch sits **BEFORE** the named-voices branch in `applyPitch`, not after it — a
+  recalled bloom-on-a-take (H2.6) arrives with `source.kind: 'voices'` already on its params, and the older branch would pass it
+  through with no rows to draw.
   *Why:* his words — *"I want to make a bloom and then I want to be able to use one of the … TAKES from the [strikes] drawer, just
   like the sequences do … make sure I'm choosing the notes from the take that are comfortable in both the instruments' ranges. And
   then being able to see the partial number … I don't want to build a whole bunch of additional infrastructure."* The piece's second
@@ -1134,7 +1142,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   `DynTable` (`morph_emit.js` ~336 maps `h / 10` onto the anchors). The sequence's `mfVel` · `isShaped` · `shape`
   (`sequence_ui.js` ~1500–1535) are the pattern. `DynTable` exports `cc7 · range · height · hasCurve`; the score has
   `curveChannelsOf(lane, tech)` · `curveRoute(lane, entry)` · `curveChannelMap()` · `heldCc7` (`composer.html` ~11393–11430 · ~9692).
-  - **H1 · A take chosen in the morph's PITCHES pulldown.** *Result when done:* his takes are listed there under a heading of
+  - **H1 · A take chosen in the morph's PITCHES pulldown.** — **`done` 2026-09-20 (RUNNING_LOG §169).** *Result when done:* his takes are listed there under a heading of
     their own; choosing one makes it the bloom's pitches; the rule boxes beside it (`take · k · seed · per pair`) go grey and the
     line says *as assigned*; the two meanings of "take" get two different words.
     - H1.1 · `drawPitch` (`morph_panel.js` ~1420): a new optgroup **`takes · the strikes drawer`**, the FIRST group of
@@ -1155,7 +1163,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - H1.6 · ONE MODEL AT A TIME: `TAKE_MODELS = ['M1']`. Under any other model a take source is refused in the line (*"a take is
       read by BLOOM only so far — the model's own set plays"*) and `applyPitch` returns the params untouched. The next small build
       adds to the list.
-  - **H2 · The take read as assigned.** *Result when done:* each pair plays exactly what the take gave its two players, on the
+  - **H2 · The take read as assigned.** — **H2.1 … H2.5 `done` 2026-09-20 (RUNNING_LOG §169); H2.6 is next.** *Result when done:* each pair plays exactly what the take gave its two players, on the
     just pitch with the cents kept — both players on one note is a doubled pair; one alone, the partner doubles it; neither, the
     pair sits out. The line shows each pair's note · partial · cents; a note on a player outside the pairs is left out and said
     so; a partner that cannot hold a doubled note is a WARNING — a net only, the drawer is where he resolves it (§163).

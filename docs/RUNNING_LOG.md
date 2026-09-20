@@ -7123,3 +7123,73 @@ on after a recall. The verification must leave `bank/` exactly as it found it.
 
 **Answered to him in the same turn (§167's two):** the pitches hold while the dials move (the freeze) · the dynamics change
 reaches every model and every note the panel writes, and the fades stay a separate layer on top of it — now a named check, (6b).
+
+## §169. `1h` H1 + H2.1…H2.5 BUILT — a take from the strikes drawer in the morph's PITCHES pulldown, read AS ASSIGNED (2026-09-20)
+
+**What was built, and why the two steps went into one commit.** PLAN `1h`'s H1 is the CHOOSER (the take in the pulldown, frozen at
+choosing) and H2 is the READER (the frozen chord laid on the pairs). Split, H1 alone leaves the panel in a state where the line
+would have to claim "as assigned" while the bloom still played the model's own set — a UI that lies for the length of one commit.
+The plan's own REQUIRED VERIFICATION says the same thing: its check (1) — *"the pulldown lists it first-group, the line shows pair ·
+note · cents · partial"* — cannot be run on H1 alone. So H1 and H2.1–H2.5 are one build; **H2.6 (the actuals) and H3 (the dynamics)
+stay separate**, as the plan has them.
+
+**Everything is in `score/public/morph_panel.js`. `morph.js`, `morph_septet.js`, `strike_drawer.js`, `sequence_ui.js` and
+`composer.html` are untouched** — which is what §165 predicted when it read the two doors that already existed.
+
+- **H1.1** — `loadPitchSources` now reads `panels.strikes` out of the SAME `/api/snapshots` fetch it already made for
+  `panels.morphPitches`. `takeNames()` sorts by `saved` descending, exactly as the strikes drawer's own `takeNames()` does. The
+  optgroup **`takes · the strikes drawer`** is the FIRST group of `#morphPitchSrc`; each option is the name plus the take's comment
+  (`Just-b1-seed210 · harmony series@B1:just · HARMONIC SERIES`).
+- **H1.2** — `chooseSource(v)` replaces the pulldown's one-line change handler. A `dtake:` value DEALS ONCE, through
+  `SequenceDrawer.dealTake(name)` — **one reader of a take, not two** — and the chord is FROZEN into `pitch.takeChord` /
+  `takeName` / `takeAt` and saved. Every later Generate reads the frozen chord; the drawer is never reloaded under him. Any other
+  source drops the frozen chord.
+- **H1.3** — `↻` beside the pulldown, live only for a `dtake:` source (a recalled actual has nothing to re-read).
+- **H1.4** — with a frozen chord, `pick` · `k` · `seed` · `per pair` · `keep` · `✕` are disabled at 0.45 opacity, labels dimmed
+  with them. `root` is left alone.
+- **H1.5** — TWO WORDS: the drawer's is a **take**, the panel's reduction rule is now labelled **`pick`**. The label, the head line
+  and the sonority line only — `p.take`, `SEP.TAKES`, `#morphPitchTake` and every stored key are unchanged.
+- **H1.6** — `TAKE_MODELS = ['M1']`. Under any other model the line refuses in the warning colour and `applyPitch` returns the
+  params untouched.
+- **H2.1 · H2.2** — the take branch in `applyPitch` sits **BEFORE** the named-voices branch, not after it: a recalled bloom-on-a-take
+  (H2.6) arrives with `source.kind: 'voices'` already on its params, and the old branch would pass it straight through, leaving the
+  panel with no rows and no way to re-read. The reading is the plan's: both players hold a note → two voices · one alone → the
+  partner doubles it if `BC.holds` says it can, else ONE voice and a warning · neither → the pair sits out · a player holding more
+  than one note gives its lowest, and the line says so. Out go `source.kind: 'voices'` (midi · cents · partial), `lanes` and
+  `voices`, **pair by pair, a then b** — which is what makes M1 open each pair apart (`vi % 2`).
+- **H2.3** — `reattachTake(cast, info)`, called from `generate()` right after `castOf`. `cast()`'s voice-list branch marks every
+  pair silent ("this model names its own voices") — right for the LGMF models, wrong here. The pairs are re-attached from the take's
+  own rows, so the PAIRS rows draw and the ticks still hear one pair alone.
+- **H2.4** — the line, pair by pair: `EH + Bsn · B3 +0.0 c · partial 4 + B1 +0.0 c · partial 1 · both`, then
+  `left out: Vib B4 · Vib C#5 — not in a pair`.
+- **H2.5** — the take's TECHNIQUE and its LEVEL are not kept: only midi, cents and partial cross over.
+
+**VERIFIED IN `score-5401`, no MIDI, nothing written to `bank/`:**
+
+- **(1) his own take, through the real `dealTake`** — `Just-b1-seed210`, 8 notes. The pulldown's first group is `takes · the strikes
+  drawer` (216 names, 350 options in all). The three pairs read `EH + Bsn · B3 +0.0 c · partial 4 + B1 +0.0 c · partial 1 · both` ·
+  `Hn + Tpt · F#4 +2.0 c · partial 6 + A#5 −11.7 c · partial 15 · both` · `Vc + Db · B5 +0.0 c · partial 16 + F#3 +2.0 c ·
+  partial 3 · both`, and the two vibraphone notes are left out and said so.
+- **(2) a HAND-BUILT chord** for the cases his takes may not hold: EH alone on D4 −18 c → **Bsn doubles it**, same cents · Tpt alone
+  on F6 → **Hn cannot hold it** (`BC.holds` false), one voice, the row in the warning colour and
+  `TAKE: Hn cannot hold F6 — pair 2 plays as one voice` in the warnings · a vibraphone note left out · a player with two notes
+  (E4 +3 c and B3 −7 c) gives **B3**, and the row says *a player held more than one note — its lowest*.
+- **(3) the engine opens at the take's cents.** Sounding cents at each voice's first breakpoint = its take pitch to the bend's own
+  rounding: 5900 / 3500 / **6602** (want 6601.96) / **8188.3** (want 8188.27) / 8300 / **5402** (want 5401.96). And at the end of the
+  render voice a is **+25 c** and voice b **−25 c** in every pair — BLOOM's `target.cents: 25, direction: alternate` through
+  `vi % 2`, so each pair opens APART from its own just pitch. That is the whole point of the pair-by-pair ordering.
+- **the ticks still work** — un-ticking pair 2 took `heard()` from 20 notes to 10 and the marker label to ` · EH+Bsn`; the render
+  itself stayed at 20 (a pair alone keeps its timing in the whole, §203).
+- **(7) nothing else moved** — all four LGMF models still generate (118 · 113 · 79 · 76 notes, `source.kind: 'voices'`, the line
+  still *names its own voices*); a plain sonority (`stack of 5ths from F2`) still takes, folds and renders as before; the dials go
+  live again the moment a non-take source is chosen.
+- **(8)** `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184** · `test_snapshots` **26** — all green.
+
+**`bank/` was not written.** The deal path is `dealTake` → `loadDb` (GET) → `refreshTakes` (GET) → `loadTake`, and `loadTake` is
+in-memory only (`snapshot()` + `applyState`) — no POST anywhere in it. `bank/panel_snapshots.json` is still valid JSON, still
+3,113,425 bytes, still 216 takes. **Its mtime did move during the sitting (20:36 UTC), and that is HIS tab: `curl` shows his own
+server answering on :5400, so he is composing while this was built.** Nothing the AI ran can write that file.
+
+**Found on the way, not mine, flagged not fixed (NITS):** a bare page load of `composer.html` throws one uncaught
+`TypeError: Cannot read properties of null (reading 'parentNode')` at `sequence_ui.js:1652` (the drawer's `stop()`), with no morph
+interaction at all — reproduced on a clean reload before anything was touched. It breaks nothing visible.

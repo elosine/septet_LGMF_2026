@@ -424,6 +424,7 @@ const PANEL = {
         // the pitches folded per pair, the lanes and the palette (morph_septet.js; RUNNING_LOG §203)
         const pitched = this.applyPitch(merged);   // the pitch source into the model's params (§208)
         const cast = this.castOf(pitched);
+        this.reattachTake(cast, this._pitchInfo);   // PLAN 1h H2.3: with a TAKE the pairs own the voices — the cast's voice-list branch silenced them
         this._cast = cast;
         this._lastParams = cast ? cast.params : pitched;
         try {
@@ -1323,24 +1324,153 @@ const PANEL = {
     // harmony list — reduced to the pairs' notes by a named take rule, then written into the model's params before the cast.
     PITCH_KEY: 'septet.morphPitch.v1',
     PITCH_PANEL: 'morphPitches',
+    // ---------------------------------------------------------- PLAN 1h (2026-09-20) — A TAKE FROM THE STRIKES DRAWER IS A PITCH SOURCE
+    // His words (RUNNING_LOG §162): *"I want to make a bloom and then I want to be able to use one of the ... TAKES from the
+    // [strikes] drawer, just like the sequences do ... make sure I'm choosing the notes from the take that are comfortable in both
+    // the instruments' ranges. And then being able to see the partial number."*
+    //
+    // A take is NOT a sonority. The sonority path sorts, reduces, picks by a rule and folds by octaves — every one of those steps
+    // is wrong for a take, which is already CAST (he assigned each note to its players in the drawer) and already JUST (its cents
+    // are the piece: LG-27). So a take goes in by the engine's own `source.kind: 'voices'` door, which keeps the order and the
+    // cents (morph.js ~1270), and neither morph.js nor morph_septet.js is changed. `docs/PLAN.md` § 1h.
+    TAKES_PANEL: 'strikes',          // the drawer's own bucket in bank/panel_snapshots.json (strike_drawer.js's TAKES_PANEL)
+    TAKE_MODELS: ['M1'],             // H1.6 — ONE MODEL AT A TIME, by compositional need (§162): BLOOM first. The next small build adds to this list.
     loadPitch() {
-        const d = { src: 'model', root: 'F2', take: 'byRegister', k: 1, seed: 1, perPair: 1 };
+        // H1.2 — `takeChord` is the FROZEN chord of a chosen take: dealt ONCE when he picks it, then read by every later Generate,
+        // so a nudged dial or a poll never reloads the strikes drawer under him. The sequence box's `freeze` is the model.
+        const d = { src: 'model', root: 'F2', take: 'byRegister', k: 1, seed: 1, perPair: 1, takeName: '', takeAt: '', takeChord: null };
         try { const s = JSON.parse(localStorage.getItem(this.PITCH_KEY) || 'null'); if (s && typeof s === 'object') return Object.assign(d, s); } catch (e) {}
         return d;
     },
     savePitch() { try { localStorage.setItem(this.PITCH_KEY, JSON.stringify(this.pitch)); } catch (e) {} },
     async loadPitchSources() {
-        const S = { harm: { strikes: [], blasts: [], chordShapes: [] }, starters: [], kept: {} };
+        const S = { harm: { strikes: [], blasts: [], chordShapes: [] }, starters: [], kept: {}, takes: {} };
         const SEP = root.MorphSeptet;
         try { const db = await fetch('/bank/scattered_strikes.json?t=' + Date.now(), { cache: 'no-store' }).then(x => x.json());
               S.harm.strikes = Object.values(db.strikes || {}).sort((a, b) => a.index - b.index).map(s => ({ id: s.id, label: '#' + s.index, name: (+s.t0).toFixed(2) + ' s', pitches: (s.notes || []).map(n => n.midi) })); } catch (e) {}
         try { const b = await fetch('/bank/harmonies.json?t=' + Date.now(), { cache: 'no-store' }).then(x => x.json());
               ['blasts', 'chordShapes'].forEach(k => { const e = b && b.banks && b.banks[k] && b.banks[k].entries; if (e) S.harm[k] = e.map(x => ({ id: x.id, label: x.id, name: x.name, pitches: x.pitches })); }); } catch (e) {}
         try { const st = await fetch('/bank/morph_pitches.json?t=' + Date.now(), { cache: 'no-store' }).then(x => x.json()); S.starters = (st && st.sets) || []; } catch (e) {}
-        try { const f = await fetch('/api/snapshots', { cache: 'no-store' }).then(x => x.json()); S.kept = (f && f.panels && f.panels[this.PITCH_PANEL]) || {}; } catch (e) {}
+        try { const f = await fetch('/api/snapshots', { cache: 'no-store' }).then(x => x.json());
+              S.kept = (f && f.panels && f.panels[this.PITCH_PANEL]) || {};
+              S.takes = (f && f.panels && f.panels[this.TAKES_PANEL]) || {};   // H1.1: his strikes-drawer takes, out of the same one fetch
+        } catch (e) {}
         this.pitchSources = S;
         if (this.result && SEP) this.generate();   // a source chosen before the lists arrived takes effect now
     },
+    // ---------------------------------------------------------- PLAN 1h — THE TAKE (H1.1 … H2.5)
+    // H1.1 — his takes, newest first, exactly as the strikes drawer lists them (`saved` descending)
+    takeNames() { const t = (this.pitchSources && this.pitchSources.takes) || {}; return Object.keys(t).sort((a, b) => String(t[b].saved || '').localeCompare(String(t[a].saved || ''))); },
+    // H1.2 — is the pitch state a FROZEN CHORD? A take chosen here (`live`: ↻ re-deals it), or an actual recalled with its own
+    // voices (H2.6 — nothing to re-read). Null = it is not, and every other path behaves exactly as it did.
+    takeChordOn() {
+        const p = this.pitch || {}, s = String(p.src || '');
+        if (!p.takeChord || !p.takeChord.length) return null;
+        if (s.indexOf('dtake:') === 0 && s.slice(6) === p.takeName) return { name: p.takeName, live: true };
+        if (s.indexOf('actual:') === 0 && s.slice(7) === p.takeName) return { name: p.takeName, live: false };
+        return null;
+    },
+    // H1.2 — ONE reader of a take, not two: the sequence drawer's `dealTake`, which also LOADS the take in the strikes drawer on
+    // the way, so he sees there what the bloom is about to play. Read-only — nothing is written to bank/panel_snapshots.json.
+    async dealTakeInto(name) {
+        const SQ = root.SequenceDrawer;
+        if (!SQ || !SQ.dealTake) { this.setStatus('the sequence drawer is not on this page, so a take cannot be read — the model\'s own set plays', true); return false; }
+        try {
+            const chord = await SQ.dealTake(name);
+            if (!chord || !chord.length) { this.setStatus('take "' + name + '" dealt no notes — the sequence drawer\'s own status says why', true); return false; }
+            const p = this.pitch;
+            p.takeName = name; p.takeAt = new Date().toISOString();
+            // the PITCHES only: a take's technique and its level are not kept — the model's own technique dial and shape govern a morph (H2.5)
+            p.takeChord = chord.map(n => { const o = { lane: n.lane, inst: n.inst, midi: Math.round(+n.midi), cents: +(+n.cents || 0) }; if (n.partial != null) o.partial = n.partial; return o; });
+            return true;
+        } catch (e) { this.setStatus('take not read: ' + ((e && e.message) || e), true); return false; }
+    },
+    // the pulldown's own handler: a take DEALS ONCE here and is frozen; any other source drops the frozen chord
+    async chooseSource(v) {
+        const p = this.pitch;
+        const keep = !!v && ((v.indexOf('dtake:') === 0 && v.slice(6) === p.takeName) || (v.indexOf('actual:') === 0 && v.slice(7) === p.takeName));
+        p.src = v;
+        if (!keep) { p.takeName = ''; p.takeAt = ''; p.takeChord = null; }
+        let ok = true;
+        if (v && v.indexOf('dtake:') === 0 && !keep) ok = await this.dealTakeInto(v.slice(6));
+        this.savePitch(); this.generate();
+        if (ok && p.takeChord && v && v.indexOf('dtake:') === 0) this.setStatus('take "' + p.takeName + '" frozen · ' + p.takeChord.length + ' note' + (p.takeChord.length === 1 ? '' : 's') + ' — read as assigned');
+    },
+    // H2.1 — THE TAKE READ AS ASSIGNED. Each pair plays exactly what the take gave its OWN two players, on the just pitch with the
+    // cents kept (§163):
+    //   both players hold a note → two voices, each its own pitch (the pair beats between them)
+    //   one player alone         → the partner DOUBLES it, if it can hold it; if it cannot, the pair plays as ONE voice and says so
+    //   neither                  → the pair sits out
+    // The voices go out PAIR BY PAIR, a then b, because M1 opens voice `vi` by `vi % 2 === 0 ? + : −` (morph.js ~1515) — that
+    // ordering is what makes each pair open APART. An un-ticked pair is built like any other and dropped at Play/Insert by
+    // `filterResult`, as it always was. The WARNING is a net only: the strikes drawer is where he hears the notes and resolves a
+    // range conflict (§163).
+    takeVoices(params) {
+        const TK = this.takeChordOn(); if (!TK) return null;
+        const SEP = root.MorphSeptet, env = this.castEnv();
+        const chord = (this.pitch.takeChord || []).filter(n => Number.isInteger(n.lane) && isFinite(+n.midi));
+        if (!chord.length) return null;
+        const lab = lane => (env && SEP) ? SEP.labelOf(env, lane) : ('lane ' + lane);
+        // a player holding MORE than one note (a shift-click in the drawer) gives its LOWEST, and the line says so
+        const byLane = {}, multi = {};
+        chord.forEach(n => { const L = n.lane; if (byLane[L] == null) byLane[L] = n; else { multi[L] = 1; if (+n.midi < +byLane[L].midi) byLane[L] = n; } });
+        const voices = [], lanes = [], rows = [], warnings = [];
+        (this.pairs || []).forEach((pr, k) => {
+            const A = byLane[pr.a] || null, B = byLane[pr.b] || null;
+            const row = { k: k, a: pr.a, b: pr.b, labels: lab(pr.a) + ' + ' + lab(pr.b), on: pr.on !== false, notes: [], voiceIdx: [], why: '', warn: false };
+            const put = (lane, n) => {
+                const o = { midi: Math.round(+n.midi), cents: +(+n.cents || 0) };
+                if (n.partial != null) o.partial = n.partial;
+                row.voiceIdx.push(voices.length); voices.push(o); lanes.push(lane);
+                row.notes.push(Object.assign({ lane: lane }, o));
+            };
+            if (A && B) { put(pr.a, A); put(pr.b, B); row.why = 'both'; }
+            else if (A || B) {
+                const src = A || B, held = A ? pr.a : pr.b, partner = A ? pr.b : pr.a;
+                const pk = (env && SEP) ? SEP.instOf(env, partner) : null;
+                const can = !(env && pk && env.BC) || env.BC.holds(env.recipe, pk, Math.round(+src.midi));
+                put(held, src);
+                if (can) { put(partner, src); row.why = 'doubled'; }
+                else {
+                    row.why = lab(partner) + ' cannot hold it — one voice'; row.warn = true;
+                    warnings.push('TAKE: ' + lab(partner) + ' cannot hold ' + (SEP ? SEP.nm(Math.round(+src.midi)) : src.midi) + ' — pair ' + (k + 1) + ' plays as one voice');
+                }
+            } else row.why = 'no note in the take';
+            if (multi[pr.a] || multi[pr.b]) { row.multi = true; row.why += ' · a player held more than one note — its lowest'; }
+            rows.push(row);
+        });
+        if (!voices.length) return null;
+        // a note of the take on a player that is in NO pair (the vibraphones, the percussion) is left out, and said
+        const inPair = {}; (this.pairs || []).forEach(pr => { inPair[pr.a] = 1; inPair[pr.b] = 1; });
+        const leftOut = chord.filter(n => !inPair[n.lane]).map(n => ({ lane: n.lane, label: lab(n.lane), midi: Math.round(+n.midi), cents: +(+n.cents || 0) }));
+        // H2.2 — the params. `morph.js` and `morph_septet.js` are NOT changed: this is the door they already have.
+        const out = JSON.parse(JSON.stringify(params || {}));
+        out.source = { kind: 'voices', voices: voices.map(v => Object.assign({}, v)) };
+        out.lanes = lanes.slice();
+        out.voices = voices.length;
+        return { params: out, warnings: warnings,
+                 info: { take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length } };
+    },
+    // H2.3 — THE PAIR ROWS. `cast()`'s voice-list branch marks every pair silent ("this model names its own voices") — right for
+    // the LGMF models, wrong here, where the pairs DO own the voices. Re-attach them from the take's own rows, so the rows draw
+    // and the ticks (`heard()` → `filterResult`) still hear one pair alone.
+    reattachTake(cast, info) {
+        if (!cast || !info || !info.take || !info.rows) return cast;
+        cast.pairs.forEach(p => { p.silent = true; p.voices = []; p.why = 'no note in the take'; p.shift = 0; p.notesIn = []; p.notesOut = []; });
+        info.rows.forEach(r => {
+            const p = cast.pairs[r.k]; if (!p) return;
+            p.voices = (r.voiceIdx || []).slice();
+            p.silent = !p.voices.length;
+            p.why = p.silent ? (r.why || 'no note in the take') : '';
+            p.notesIn = r.notes.map(n => n.midi);
+            p.notesOut = p.notesIn.slice();
+            p.shift = 0;
+            p.takeRow = r;
+        });
+        (cast.voices || []).forEach((v, i) => { const r = info.rows.find(x => (x.voiceIdx || []).indexOf(i) >= 0); v.pair = r ? r.k : null; });
+        return cast;
+    },
+
     // the chosen source → { notes (the sonority), from } — null = the model's own set
     pitchSonority() { return this.sonorityOf(this.pitch && this.pitch.src, this.pitch && this.pitch.root); },
     // PLAN 1m step 3: the same reading of a source, for ANY caller — the crescendo bar takes its sonority from this menu rather
@@ -1367,7 +1497,23 @@ const PANEL = {
     applyPitch(params) {
         const SEP = root.MorphSeptet, son = this.pitchSonority();
         this._pitchInfo = null;
+        this._pitchWarnings = [];
         if (!SEP) return params;
+        // PLAN 1h — A TAKE IS READ FIRST, BEFORE the voice-list branch below. A recalled bloom-on-a-take arrives here with
+        // `source.kind: 'voices'` already on its params (H2.6), and the branch below would pass it straight through unchanged —
+        // right for the LGMF models, but it would leave the panel with no rows to draw and no way to re-read the take.
+        const TK = this.takeChordOn();
+        if (TK) {
+            const mdl = params && params.model;
+            if ((this.TAKE_MODELS || []).indexOf(mdl) < 0) {      // H1.6 — one model at a time
+                this._pitchInfo = { take: true, name: TK.name, refused: mdl || '?' };
+                return params;
+            }
+            const T = this.takeVoices(params);
+            if (T) { this._pitchInfo = T.info; this._pitchWarnings = T.warnings; return T.params; }
+            this._pitchInfo = { take: true, name: TK.name, empty: true };
+            return params;
+        }
         // A MODEL THAT NAMES ITS OWN VOICES HAS NO PITCH SOURCE (2026-09-19, PLAN 1a.6). The LGMF
         // transitions carry `source.kind: 'voices'` — every voice, its cents and its lane, and a target
         // and a mid station in the same order (morph.js, MORPH_NOTES §3). Running them through the
@@ -1419,14 +1565,19 @@ const PANEL = {
     },
     drawPitch(f, head, note) {
         const SEP = root.MorphSeptet; if (!SEP) return;
-        const S = this.pitchSources || { harm: { strikes: [], blasts: [], chordShapes: [] }, starters: [], kept: {} }, p = this.pitch;
+        const S = this.pitchSources || { harm: { strikes: [], blasts: [], chordShapes: [] }, starters: [], kept: {}, takes: {} }, p = this.pitch;
         const nmList = arr => arr.slice(0, 8).map(SEP.nm).join(' ') + (arr.length > 8 ? ' …' : '');
-        head('PITCHES · the sonority, then the take (three notes doubled, or two per pair) — §205–207');
+        const TK = this.takeChordOn();   // PLAN 1h: a frozen chord — the pick and its dials have nothing left to decide
+        // H1.5 — TWO WORDS. The strikes drawer's is a TAKE; the panel's own reduction rule is a PICK. The label and this head line
+        // only: `p.take`, `SEP.TAKES`, the element ids and every stored key are untouched.
+        head('PITCHES · a sonority and a pick (three notes doubled, or two per pair) — or a TAKE from the strikes drawer, as assigned');
         const row = document.createElement('div');
         row.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:3px 0';
         const sel = document.createElement('select'); sel.id = 'morphPitchSrc';
         sel.style.cssText = 'max-width:330px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px;font-size:13px';
         const og = (label, items) => { if (!items.length) return; const g = document.createElement('optgroup'); g.label = label; items.forEach(it => { const o = document.createElement('option'); o.value = it.value; o.textContent = it.text; if (it.value === p.src) o.selected = true; g.appendChild(o); }); sel.appendChild(g); };
+        // H1.1 — his takes first: the name, and the take's comment when it has one
+        og('takes · the strikes drawer', this.takeNames().map(n => ({ value: 'dtake:' + n, text: n + ((S.takes && S.takes[n] && S.takes[n].comment) ? ' · ' + S.takes[n].comment : '') })));
         og('the model', [{ value: 'model', text: 'the model\'s own set' }]);
         og('recalled from an ACTUAL', Object.keys(this.recalledSets || {}).map(e => ({ value: 'actual:' + e, text: e + ' · ' + nmList(this.recalledSets[e].notes) })));
         og('kept (yours)', Object.keys(S.kept).sort().map(n => ({ value: 'kept:' + n, text: n + ' · ' + nmList((S.kept[n].state && S.kept[n].state.notes) || []) })));
@@ -1439,24 +1590,35 @@ const PANEL = {
         og('strikes', S.harm.strikes.map(e => ({ value: 'harm:strikes:' + e.id, text: e.label + ' · ' + e.name + ' · ' + nmList(e.pitches) })));
         og('blasts · the tuba piece', S.harm.blasts.map(e => ({ value: 'harm:blasts:' + e.id, text: e.id + ' · ' + e.name + ' · ' + nmList(e.pitches) })));
         og('chord shapes · 2 pianos 2 percussion', S.harm.chordShapes.map(e => ({ value: 'harm:chordShapes:' + e.id, text: e.id + ' · ' + e.name + ' · ' + nmList(e.pitches) })));
-        sel.addEventListener('change', () => { p.src = sel.value; this.savePitch(); this.generate(); });
+        sel.addEventListener('change', () => { this.chooseSource(sel.value); });   // H1.2 — a take DEALS ONCE here, and is frozen
         row.appendChild(sel);
+        // H1.3 — deal this take AGAIN, for when he has changed it in the drawer and saved it under the same name. Dead for
+        // anything else, and dead for a recalled actual: there is nothing there to re-read.
+        const rl = document.createElement('button'); rl.id = 'morphPitchReload'; rl.textContent = '↻';
+        rl.title = (TK && TK.live) ? 'deal "' + TK.name + '" again — for when you have changed it in the strikes drawer and saved it under the same name'
+                                   : 'a take from the strikes drawer is re-dealt here';
+        if (!(TK && TK.live)) { rl.disabled = true; rl.style.opacity = '0.45'; }
+        rl.addEventListener('click', async () => {
+            const n = String(this.pitch.src || '').slice(6);
+            if (await this.dealTakeInto(n)) { this.savePitch(); this.generate(); this.setStatus('re-dealt "' + n + '" · ' + this.pitch.takeChord.length + ' notes'); }
+        });
+        row.appendChild(rl);
         const box = (label, id, val, width, onchange, type) => {
             const w = document.createElement('label'); w.style.cssText = 'color:#9a9;white-space:nowrap'; w.textContent = label + ' ';
             const i = document.createElement('input'); i.type = type || 'text'; i.id = id; i.value = val; i.style.cssText = 'width:' + width + 'px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px;font-size:13px';
             if (type === 'number') i.min = 1;
             i.addEventListener('change', () => { onchange(i.value); this.savePitch(); this.generate(); });
             i.addEventListener('keydown', e => { if (e.key === ' ') e.stopPropagation(); });
-            w.appendChild(i); row.appendChild(w); return i;
+            w.appendChild(i); row.appendChild(w); i.wrap = w; return i;
         };
         box('root', 'morphPitchRoot', p.root, 46, v => { p.root = v; });
-        const tk = document.createElement('label'); tk.style.cssText = 'color:#9a9;white-space:nowrap'; tk.textContent = 'take ';
+        const tk = document.createElement('label'); tk.style.cssText = 'color:#9a9;white-space:nowrap'; tk.textContent = 'pick ';   // H1.5
         const ts = document.createElement('select'); ts.id = 'morphPitchTake'; ts.style.cssText = 'background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px;font-size:13px';
         SEP.TAKES.forEach(t => { const o = document.createElement('option'); o.value = t.id; o.textContent = t.name; if (t.id === p.take) o.selected = true; ts.appendChild(o); });
         ts.addEventListener('change', () => { p.take = ts.value; this.savePitch(); this.generate(); });
         tk.appendChild(ts); row.appendChild(tk);
-        box('k', 'morphPitchK', p.k, 40, v => { p.k = Math.max(1, +v || 1); }, 'number');
-        box('seed', 'morphPitchSeed', p.seed, 46, v => { p.seed = Math.max(1, +v || 1); }, 'number');
+        const kEl = box('k', 'morphPitchK', p.k, 40, v => { p.k = Math.max(1, +v || 1); }, 'number');
+        const seedEl = box('seed', 'morphPitchSeed', p.seed, 46, v => { p.seed = Math.max(1, +v || 1); }, 'number');
         const pp = document.createElement('label'); pp.style.cssText = 'color:#9a9;white-space:nowrap'; pp.textContent = 'per pair ';
         const ps = document.createElement('select'); ps.id = 'morphPitchPer'; ps.style.cssText = 'background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px;font-size:13px';
         [[1, 'one, doubled'], [2, 'two']].forEach(([v, t]) => { const o = document.createElement('option'); o.value = String(v); o.textContent = t; if (+p.perPair === v) o.selected = true; ps.appendChild(o); });
@@ -1466,15 +1628,36 @@ const PANEL = {
         keep.addEventListener('click', () => this.keepPitch()); row.appendChild(keep);
         const rm = document.createElement('button'); rm.id = 'morphPitchRemove'; rm.textContent = '✕'; rm.title = 'remove the kept set chosen above';
         rm.addEventListener('click', () => this.removePitch()); row.appendChild(rm);
+        // H1.4 — with a take the pitches are ASSIGNED: the pick, k, seed, per pair, keep and ✕ have nothing to decide. The ROOT is
+        // left alone (it still reaches SPECTRAL's fundamental, and a take under SPECTRAL is refused in the line, not here).
+        if (TK) {
+            const dim = (el, wrap) => { if (el) { el.disabled = true; el.style.opacity = '0.45'; } if (wrap) wrap.style.opacity = '0.45'; };
+            dim(ts, tk); dim(kEl, kEl && kEl.wrap); dim(seedEl, seedEl && seedEl.wrap); dim(ps, pp); dim(keep, null); dim(rm, null);
+        }
         f.appendChild(row);
         const info = this._pitchInfo;
         const fund = info && info.fundamental != null ? ' · SPECTRAL\'s fundamental <b>' + SEP.nm(info.fundamental) + '</b> (' + info.fundamental + ')' + (info.stock ? ', the model\'s — type a root to move it' : ' from the root box') : '';
         if (!info) note(p.src === 'model' ? 'the model\'s own set (the pairs take it two by two)' : 'the chosen source is not loaded yet, or its root is not a note — the model\'s own set plays', '#9a9');
+        // H2.4 — THE LINE, pair by pair: the note as assigned, its cents and its partial, then what was left out. A pair whose
+        // partner cannot hold a doubled note is drawn in the warning colour; the drawer is where he resolves it (§163).
+        else if (info.take && info.refused) note('a take is read by <b>BLOOM</b> only so far (' + (this.TAKE_MODELS || []).join(' · ') + ') — under <b>' + info.refused + '</b> the model\'s own set plays', '#e0b062');
+        else if (info.take && info.empty) note('take <b>' + info.name + '</b> has no note on any of the pairs\' players — the model\'s own set plays', '#e0b062');
+        else if (info.take) {
+            const cts = c => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ' c';
+            const fmtN = n => '<b>' + SEP.nm(n.midi) + '</b> ' + cts(n.cents) + (n.partial != null ? ' · partial ' + n.partial : '');
+            note('take <b>' + info.name + '</b> · ' + info.voices + ' voices, <b>as assigned</b>' + (info.live ? '' : ' (from the actual)'), '#9a9');
+            info.rows.forEach(r => {
+                const u = []; r.notes.forEach(n => { if (!u.some(x => x.midi === n.midi && Math.abs(x.cents - n.cents) < 1e-6)) u.push(n); });
+                note('&nbsp;&nbsp;' + r.labels + ' · ' + (u.length ? u.map(fmtN).join(' + ') + ' · ' + r.why : '✕ ' + r.why) + (r.on ? '' : ' · not ticked'),
+                     r.warn ? '#e0b062' : (u.length ? '#9a9' : '#777'));
+            });
+            if (info.leftOut.length) note('&nbsp;&nbsp;left out: ' + info.leftOut.map(n => n.label + ' ' + SEP.nm(n.midi)).join(' · ') + ' — not in a pair', '#777');
+        }
         // A MODEL THAT NAMES ITS OWN VOICES has no sonority, no take and no pairs to report, and the row
         // below would throw on `info.sonority.slice` (2026-09-19, PLAN 1a.6 — it did).
         else if (info.named) note('this model names its own <b>' + info.voices + ' voices</b>, with their cents and their players — there is no sonority to choose here, and the pairs do not cast it', '#9a9');
         else if (info.rootOnly) note('the model\'s own set (the pairs take it two by two)' + fund, '#9a9');
-        else note('<b>' + info.from + '</b> — ' + nmList(info.sonority) + ' · take <b>' + (SEP.TAKES.find(t => t.id === p.take) || {}).name + '</b> → ' + info.taken.map(SEP.nm).join(' ') + (info.dropped.length ? ' · dropped ' + nmList(info.dropped) : '') + fund, '#9a9');
+        else note('<b>' + info.from + '</b> — ' + nmList(info.sonority) + ' · pick <b>' + (SEP.TAKES.find(t => t.id === p.take) || {}).name + '</b> → ' + info.taken.map(SEP.nm).join(' ') + (info.dropped.length ? ' · dropped ' + nmList(info.dropped) : '') + fund, '#9a9');
     },
     async keepPitch() {
         const SEP = root.MorphSeptet, son = this.pitchSonority();
