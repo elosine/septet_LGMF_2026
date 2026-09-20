@@ -134,32 +134,38 @@ its feature list grew and went ON DECK.*
 | N2 | **After that: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), **the morph's own revision** (`MORPH_NOTES.md`, now carrying 1e's method), and **how the six chords are used in time**. And the LGMF call, when he says | Fable to design | yes |
 | N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette` | Opus | — |
 
-**Open at session end — (MID-SESSION CHECKPOINT #3, 2026-09-20, Fable → Opus — THE SEQUENCE FEATURE ADD IS PLANNED AND APPROVED;
-NOTHING IS BUILT. This supersedes checkpoints #1 and #2 of this session, both of which are closed and correct as history):**
+**Open at session end — (MID-SESSION CHECKPOINT #4, 2026-09-20, Opus — THE SEQUENCE FEATURE ADD IS BUILT, END TO END, AND NONE OF
+IT HAS BEEN HEARD. This supersedes checkpoints #1, #2 and #3 of this session, all of which are closed and correct as history):**
 
-- **THE TASK: BUILD THE SEQUENCE FEATURE ADD, one step at a time, from a plan written to be executed cold.** The design talk that
-  opened it is CLOSED — all five questions answered, and the two that were parked for step 5 were answered too (§149). **Nothing in
-  the plan waits on him.** PLAN 1e (the volume fix) is done and proven in his rack; do not re-derive or re-prove it.
+- **THE TASK IS DONE ON THE AI'S SIDE AND IS NOW HIS.** At his word — *"try to move through the whole plan independently, the
+  whole build, please. And I'll test at the end."* — the whole running order of PLAN 1d's FEATURE ADD was built in one sitting:
+  **1d.10** the dynamics table · **1d.11** the library · **1d.12** select a range · **1d.13** the waves by preset ·
+  **1d.9 + 1d.14** the breath's lengths · **1d.15** the clock and the cursor. Each was verified in the running app with no MIDI,
+  journalled as it happened (RUNNING_LOG §150–§155), documented (SEQUENCE_TOOL §16–§20) and committed on its own. **PLAN 1e is
+  done and proven in his rack; do not re-derive or re-prove it.** **DO NOT START ANOTHER BUILD** — what comes next is his ear,
+  and then whatever he says about it.
+- **THE STATE OF THE BATTERIES, all green:** `sequence_check` **180** (was 126) · `dyn_table_check` **51** (new) ·
+  `test_snapshots` **26** (new) · `palette_check` 184 · `test_written_pitch` 10 · `spectrum_check` 35. **THE GATE HELD THROUGH ALL
+  SIX STEPS:** `tools/sequence_baseline.json` still gives its frozen notes — the new dials are absent from the generator's own
+  defaults, and absent means 1d.5's deal to the byte.
+- **THE NEW FILES:** `score/public/dyn_table.js` · `tools/dyn_table_check.js` · `tools/test_snapshots.js` ·
+  **`bank/sequences.json`** (the library's store, committed empty — it fills as he works).
+- *(the record of what opened it)* **The design talk was CLOSED before the build** — all five questions answered, and the two
+  parked for step 5 answered too (§149).
 - **What the talk settled, in one line each** (RUNNING_LOG §145–§149, COMPOSITION_NOTES LG-50 · LG-51):
   **HIS PRINCIPLE, LG-51, is the spine of it** — *a STATED dynamic range is what sounds, for the whole curve: drawn full for
   notation, performed between the two values, and the CC7 reflects it* (`mp → ff` ≈ 69 → 109, *"not up to the full 127"*). That
   makes the dynamics table the COMPOSER's, not the sequence drawer's · the library is a file of its own with an untitled stack ·
   a selection of boxes takes waves · `dyn` · `enter` · and a RANGE of its own · the waves rest at `low` (LG-49's water line
   REVERSED) · `of max` ON at 0.65 · `±` one number of seconds for all, default 1.3 s.
-- **Latest deliverable:** **`docs/PLAN.md` § 1d, THE FEATURE ADD** — the running order and the sub-steps **1d.10** (the dynamics
-  table) · **1d.11** (the library) · **1d.12** (select a range) · **1d.13** (the waves by preset) · **1d.14** (`±` in seconds, built
-  with 1d.9) · **1d.15** (the clock and the cursor) · and **`1f`**, the crescendo tool. Plus RUNNING_LOG **§145–§149**,
-  COMPOSITION_NOTES **LG-50 · LG-51**, `docs/MORPH_NOTES.md` 2026-09-20 (the morph's method amended), `docs/PLANNER.md`'s NOW ►
-  line. Commits **`54b650c`** and **`5a3314a`**, both pushed.
-- **AND THEN, THE SAME SESSION — `1d.10` BUILT (RUNNING_LOG §150):** `score/public/dyn_table.js` · `tools/dyn_table_check.js`
-  (**51** green) · `sequence_ui.js`'s `shape(n)` in place of 1e's `CC7_FULL` · `rebase` · `rebased` · `topOf` · one script tag in
-  `composer.html` · three `cc7Curve`s extended in `tools/build_remap_card.js` and the bank rebuilt · `docs/DYNAMICS_LAW.md` §3
-  rewritten and its banner removed · `docs/SEQUENCE_TOOL.md` §13 · §14 · PLAN § 1d.10 marked built with what the plan did not know.
-- **THE WHOLE RUNNING ORDER IS BUILT (RUNNING_LOG §150–§155) — SO THE NEXT CONCRETE STEP IS HIS, NOT THE AI'S.** At his word
-  (*"try to move through the whole plan independently, the whole build, please. And I'll test at the end."*) 1d.10 the dynamics
-  table · 1d.11 the library · 1d.12 select a range · 1d.13 the waves by preset · 1d.9 + 1d.14 the breath's lengths · 1d.15 the
-  clock and the cursor were all built in one sitting, each verified in the running app with no MIDI, each journalled and
-  committed on its own. **Nothing in PLAN 1d is left for the AI but 1d.6, his listen — which is his.**
+- **Latest deliverable:** the six steps themselves, in `score/public/sequence.js` · `score/public/sequence_ui.js` ·
+  `score/public/dyn_table.js` · `score/server.js` · `score/snapshots.js` · `bank/velocity_remap.json` ·
+  `tools/build_remap_card.js` · `tools/sequence_check.js` · `tools/dyn_table_check.js` · `tools/test_snapshots.js` ·
+  `bank/sequences.json`. The prose is **`docs/SEQUENCE_TOOL.md` §16–§20** and **`docs/DYNAMICS_LAW.md` §3**; the reasoning is
+  **RUNNING_LOG §150–§155**; **`docs/PLAN.md` § 1d** carries an **AS BUILT** note on every item where what was built differs from
+  what was planned. Seven commits, `4ee31be` … `1b278b5`, all pushed.
+- **THE NEXT CONCRETE STEP IS HIS, NOT THE AI'S. Do not start another build.** Ask him how the tests went and act on what he
+  says. If he reports a fault, read the RUNNING_LOG entry for THAT step first (§150 … §155) — it says what was measured and how.
 - **WHAT IS HIS NOW, in his Chrome (the in-app browser has no Web MIDI, so NOTHING HERE HAS BEEN HEARD):** the test written at
   the foot of each item — **1d.10** a waved sequence with two ranges recorded in the rack and read back by
   `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` (two different CC7 spans, neither topping at 127 unless
@@ -176,7 +182,8 @@ NOTHING IS BUILT. This supersedes checkpoints #1 and #2 of this session, both of
 - **Decisions pending him: NONE.** Every question of the design talk is answered. What is his and still outstanding is only his EAR
   (the N1 row of the table above): the strikes drawer's listen, the six scores, and his tests of 1d.7 · 1d.8 — all of which 1d.10
   changes the sound of, so they are better done after it.
-- **DELIBERATELY UNCOMMITTED — five paths, all his, unchanged all session:**
+- **DELIBERATELY UNCOMMITTED — five paths, all his, unchanged all session, and verified untouched by this build
+  (`bank/panel_snapshots.json` still carries its 2026-09-19 16:34 timestamp after every one of the six steps):**
   - `bank/panel_snapshots.json` (modified) — the takes he saves from his own tab. His data, mid-use. **216 takes, 3.1 MB; verified
     intact and valid JSON at 15:0x today after a shell slip of the AI's tried to execute it (§146) — nothing ran, the file's
     timestamp is still 2026-09-19 16:34.**
