@@ -5930,3 +5930,49 @@ ladder, a mp → f swell 7 dB where it is 3.4 now), inside the fader data alread
 are, so sequences write it and no existing score changes its sound; one opt-in in `heldCc7` — his word needed (LG-32). (3) ONE PAGE,
 `docs/DYNAMICS_LAW.md`, named in CLAUDE.md as the first read for any sound-path work, with this job as the first test — the lasting
 answer to *"AI forgets what we established before"*.
+
+## §141. HIS DIAGNOSIS — "we always made crescendos from zero … CC7 zero to CC7 max … a normalized one" — and how the work is to be organised (2026-09-20)
+
+**His question, and it was the heart of it:** *"I am pretty certain that in the tuba piece and in the last piece, we always made
+crescendos from zero. So I believe CC7 zero to CC7 max. So let's just call it a normalized one. Very simply, could this be the heart
+of the problem?"* **Yes.** The crescendo tool ran — and in this piece still runs — the fader over its WHOLE range (`cc7Abs`, lo 0 …
+hi 127). The waves, and every other DRAWN shape, go through the calibrated hybrid instead, which moves the fader only inside the
+12 dB ladder: CC7 63 … 127 in his recording (§140). Same mechanism, a sliver of the range. §140's "shape depth" multiplier is
+withdrawn for his simpler account: a shape in volume is THE NORMALIZED FADER, 0 → 1.
+
+**What is affected outside the sequences (asked twice, answered):** drawn swells on a note (by hand or by the swell tool) · the
+morph's level changes. NOT affected: plain notes, strikes, long tones (velocity is their dynamic) · the crescendo tool · fades to or
+from nothing. Trills and the beating tool: not opened.
+
+**His instruction, verbatim in its substance:**
+
+> *"We are going to develop the sequences tool, and there's a whole list of features … Let's keep that plan on deck, but defer it for
+> now. But I just want to make sure it's all there … Let's make this volume thing a new plan, but quick and efficient, please …
+> Without too many probes or unnecessary verifications and tests. I'm going to want to revise the morphs tool a little bit later. So
+> let's just have the methodology if it's morph tool specific or if it's a general machinery fix then the morph tool should just
+> plug in … if it's specific to the morph tool then we'll have exactly what needs to be done … but then we'll implement it when i
+> revise the morph tool then the individual swells yes that needs to be fixed to the proper path. The trills … were handled
+> correctly in the last piece, the septet. So take a look there and see how they were handled and just make sure we're handling
+> them the same way in this score because the curves affect the speed as well as volume … The beating tool is … not up to where I
+> want it to be. So that's fine. We leave that. And then, of course, the sequences is the main fix here … in addition to making sure
+> we're using the CC7 channel or path for all sorts of continuous swells in volume. We also need to address the Timbral change here.
+> So I think brass is the main thing that's affected in this piece."*
+>
+> *(The english horn's round robin: raised, then withdrawn — "disregard the English horn one. You can just use the standard preset,
+> but I just want to make sure we're using senza vibrato. For most sustained tone things.")*
+>
+> *"I think as a stopgap, we'll just leave all the instruments the way they are and just confirm my understanding is correct. We are
+> hitting all of those for the any sort of curve shape, volume shape … with 127 velocity and then just using CC7 from zero to one.
+> So I think the only ones really affected are trumpet and horn, the brass. So let's just only for the brass and the curves, let's
+> use the equivalent of mezzo forte velocity as the velocity for crescendos, et cetera, curve CC zero base crescendos."*
+
+**Two facts given back to him.** (1) *Senza vibrato:* yes — in today's captures and his own recording the english horn, the cello
+and the double bass all play `senza_vel` in a sequence (the vibraphone `bowed_vel`). (2) *"hitting all of those … with 127":* nearly —
+a shaped note is struck at the velocity of THE TOP OF ITS SHAPE, which is 127 only when the top is fff (and the trumpet's fff is 90,
+the bass's 93 … 113, by 1b's remap). **Why the brass stopgap costs nothing in level:** D13 records that the loaded SI2 horn and
+trumpet give only 4–5 dB across the WHOLE velocity range — so struck at mf in place of the top they lose a decibel or two and keep
+the timbre.
+
+**The organisation he asked for:** the sequence FEATURE plan — ON DECK, DEFERRED (it is all in PLAN 1d: THE NEXT FEATURE ADD, items
+1–9, and 1d.9) · a NEW plan, THE VOLUME FIX, first, quick — the general machinery if it can be general, so the morph plugs in; else
+the morph's part written down and built when he revises the morph · the trills checked against piece #5 · the beating tool left.

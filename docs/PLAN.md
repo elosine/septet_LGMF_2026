@@ -749,6 +749,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       and the vibes) → `outlier` 0.1 → SPACE (now and then one very short or very long breath) → `re-breathe` → SPACE.
     - **Not in this step unless he says:** `±` in seconds (item 5 below — the same formula; under `of max`, is `±` still one number
       of seconds for every player?) · an `of max` per player.
+  - **ON DECK, DEFERRED (his call 2026-09-20, RUNNING_LOG §141): THE VOLUME FIX comes first, as a plan of its own; this list waits, whole.**
   - **THE NEXT FEATURE ADD — a list being COLLECTED at his word (LG-44, 2026-09-20: *"let's just collect these features and the next
     build our feature add will slot these in. Just make a list for now."*). Not built, not yet planned — each goes through the
     planning method when he calls the build:**
