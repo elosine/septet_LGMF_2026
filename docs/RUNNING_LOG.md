@@ -5254,3 +5254,33 @@ topics named, one taken, two held: (1) how a sequence begins and ends — the fa
 - Both rules END the same way today: every player's last breath is dealt to LAND on the end, together.
 - His doubt about the morph's fade (*"not 100% sure that was working perfectly"*) is recorded in MORPH_NOTES §3 and NOT diagnosed —
   he did not say what he heard, and nothing was checked.
+
+## §123. A change rule PER BOX — and 1d.8 THE EDGES written into the plan, without the protocol (2026-09-19)
+
+**His words** (whole, in COMPOSITION_NOTES LG-41): *"no need for formal planning protocol; I also would like to add … attack or
+seamless per time container … one particular time container play together in unison, I would just select that and then swap it to
+attack. But the seamless for the rest would continue unless I change that."* The planning method entered in §122 is dropped at his
+word; the item is written straight into the plan so that a clear loses nothing.
+
+**What the request does to the design — it SIMPLIFIES it.** §122 had four dials at the edges: `entry` · `fade in` · `exit` ·
+`fade out`. With a tag on every box saying how that box is ENTERED, `entry` disappears: "start together, then seamless" is box 1
+flipped to `attack`. One mechanism, his, serves both asks.
+
+**Why the generator takes it without a new rule.** Today's two rules are the two extremes of one walk: a player's SPAN begins where
+the player comes in — at a box tagged `attack` (entry together, the striation moved into the first breath's length, the player
+landing a gap before that line) or after an absence or a rest (staggered) — and runs to the next `attack` line, a drop-out or the
+end. Every box `attack` = one span per box = today's attack. Every box `seamless` = one span per run = today's seamless. The
+random stream is keyed by the span's FIRST box in both, so with no box flipped the notes are the frozen baseline's — the gate holds
+and nothing built in 1d.1–1d.5 is reopened.
+
+**The ending: asked, not answered, built as a dial.** §122 asked whether a sequence ends with everyone landing together (today) or
+the players leaving one by one. He did not answer; he waved the protocol off instead. Taken as the AI's call, his to reverse:
+`exit [together | one by one]`, default together — it costs little and mirrors the entry.
+
+**The order, and why:** 1d.7 (the waves, niente option A) → 1d.8 (the edges) → 1d.6 (his listen). The fades need two things 1d.7
+builds anyway — notes written DRAWN with one velocity (`velRef`), and the CC7 ramp the sequence drawer sends under Hear — so the
+waves go first and the fades reuse them. **Held for the talk he asked for (LG-40):** the last container going on INTO A MORPH,
+the morph taking up the players' breaths · crossfades with a morph or another sequence.
+
+**1d.7's plan text corrected in place** (a pointer at its head to §121–§123): niente not wanted inside the waves · the drawer's
+player is not changed and `swell_ui.js` is not reused · the sentence on niente is wrong.

@@ -1458,3 +1458,18 @@ staggered; he wants together at the start AND seamless inside — so how a seque
 (4) **Going on into something else:** the last container of a sequence continuing "naturally" into a morph, the morph "adapting its
 breath patterns" — and crossfades with a morph or another sequence. Opened as a discussion, not a build: *"Let's discuss what might or
 could be done."* RUNNING_LOG §122.
+
+### LG-41 · 2026-09-19 — ATTACK OR SEAMLESS PER TIME CONTAINER: one box played together in unison, the rest going on seamless
+
+> *"no need for formal planning protocol; I also would like to add uh, a tag or seamless per time container. So I think we discussed this,
+> but maybe not in this context. Maybe it was with the waves. But I would like to be able to have together entries on one time container
+> and then go back into the separated. So for example, if I want one particular time container play together in unison, I would just
+> select that and then swap it to attack. But the seamless for the rest would continue unless I change that."* — composer, 2026-09-19,
+> session 10, dictated ("a tag or seamless" = attack or seamless, the dictation's hearing)
+
+*AI reading (mine, marked):* the waves' swap (LG-39), for the change rule. The sequence keeps ONE rule as its default and any single box
+can be flipped. A box's tag says how that box is ENTERED: `attack` = everyone lands a breath before its line and starts AT it, together;
+`seamless` = each player takes it at their next breath. After an `attack` box the next line is crossed seamlessly again — "go back
+into the separated". **And it swallows LG-40's "start together, then seamless": that is simply box 1 flipped to `attack`.** What is
+left of the edges is the fade in, the fade out, and how the END goes (together, or the players leaving one by one — asked, not yet
+answered; built as a dial). RUNNING_LOG §123; PLAN 1d.8.

@@ -588,7 +588,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His test:** reload → `Sequence` → one long container (40 s) → `together` 0, SPACE → `together` 0.5, SPACE → `lengths 3 9`,
       SPACE → `seamless` across two chords, SPACE.
   - **1d.7 — The waves layer** (each player on their own dealt stream of swells; a box is a straight dynamic OR reads the waves) —
-    `todo` — AMENDED INTO THE ITEM 2026-09-19, the same day the item was written (RUNNING_LOG §109–§111; his words verbatim in
+    `todo` — **READ RUNNING_LOG §121–§123 BEFORE BUILDING (session 10): his answer is option A — NO niente inside the waves, `low` and `high` are two WRITTEN dynamics (`ppp` … `fff`); true silence belongs to the EDGES (1d.8). Three sentences below are superseded: `swell_ui.js` is NOT reused and the strikes drawer's player is NOT changed — it cannot ramp, so the sequence drawer sends the CC7 ramp itself after `playNotes`, on the same routes and timers · the law is the score's own (`heldCc7`, every waved note stamped `velRef` = `high` and written DRAWN), which already carries the vibraphone's register · the sentence on `niente` is WRONG (the drawn bottom is ppp, 12 dB under fff, not silence; `lgmf-ref` reaches silence with `cc7Fade`, a one-way window).** — AMENDED INTO THE ITEM 2026-09-19, the same day the item was written (RUNNING_LOG §109–§111; his words verbatim in
     COMPOSITION_NOTES LG-38 and LG-39). **Position: after 1d.5, before his listen (1d.6)** — the id is the next free one, the place is
     the build order. Written at his word without review (*"go ahead and write in the plan and then check in before go"*), from the
     read-back he approved (*"thats good"*): the six dials, the swap, the three touches.
@@ -636,6 +636,51 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       RUNNING_LOG, MORPH_NOTES §3 (what the all-purpose dynamics layer would take from this), this plan; commit; push.
     - **His test:** reload → `Sequence` → three boxes → `all boxes → waves` → SPACE → flip the middle box to `mp` → SPACE →
       `re-wave` → SPACE → Insert → play the score.
+  - **1d.8 — The edges, and a change rule per box** (each box ENTERED by attack or seamless; the sequence faded in from nothing and out
+    to nothing; the end together or one by one) — `todo` — written 2026-09-19 (session 10) at his word WITHOUT the planning protocol
+    (*"no need for formal planning protocol"*); his brief COMPOSITION_NOTES LG-40 · LG-41, the reasoning RUNNING_LOG §122–§123.
+    **Position: after 1d.7** (the fades reuse the drawn notes and the Hear ramp 1d.7 builds), **before his listen (1d.6).**
+    *Why:* today how a sequence BEGINS is tied to how its chords CHANGE (`attack` = together, `seamless` = staggered), the rule is one
+    for the whole sequence, and a sequence can neither come from nothing nor go to nothing. He asked for all three: *"start together,
+    but then seamless within"* · *"one particular time container play together in unison … swap it to attack. But the seamless for the
+    rest would continue"* · *"starting the sequence from nothing and then ending the sequence to nothing, a bit like we did with the morphs"*.
+    *Result when done:* every box carries how it is ENTERED — `attack` (everyone lands a breath before its line and starts AT it,
+    together) or `seamless` (each player takes it at their next breath). The head's `change` sets every box at once and any box can be
+    flipped, as the waves' swap works. Box 1's tag IS the beginning — so "start together, then seamless" is box 1 flipped to `attack`.
+    An `edges` group in the strip: `fade in [s]` · `fade out [s]` · `exit [together | one by one]`. A faded sequence comes from
+    silence over its first seconds and goes to silence over its last, whatever lies under the fade — a straight dynamic or a wave;
+    with `exit` one by one the players leave at the ends of breaths spread across the last stretch instead of landing together. With
+    every box on the sequence's rule, no fades and `exit` together, the output is exactly what it was before this step.
+    - The generator: a player's span begins where the player comes in — at a box tagged `attack` (entry together, the striation moved
+      into the first breath's length, the player landing one gap before that line if it was playing) or after an absence or a rest
+      (staggered, as today) — and runs to the next `attack` line, a drop-out or the end. All-`attack` and all-`seamless` fall out as
+      today's two rules, and the random stream stays keyed by the span's first box, so the baseline gate holds. Recipe:
+      `containers[i].change`, absent = the sequence's.
+    - `exit: 'one by one'`: each player's chain ends at the end of a breath inside the last stretch (the fade-out's length, or one
+      breath's length when there is no fade), in the striation's order, never a runt. `together` is today's landing. *(The AI's call —
+      he was asked together / one by one / both and did not answer; his to reverse.)*
+    - The fades are the morph's own field, `cc7Fade` — a one-way window in score seconds, CC7 multiplied 0 → 1 (in) or 1 → 0 (out) —
+      stamped on every note that sounds inside a window, with `velRef` so the window is struck at one velocity; such a note is written
+      DRAWN. The score's `heldCc7` applies the fade before the law, so it multiplies a straight level or a wave alike. Hear: the ramp
+      1d.7 sends, computed with `heldCc7` and the note's fade. **Check first that a fade OUT is expressible with the field as the
+      score reads it** (1a's transitions end on one) — if it is not, that is put to him before anything in the score's playback is
+      touched (LG-32).
+    - His doubt is on record and undiagnosed (MORPH_NOTES §3: *"not 100% sure that was working perfectly"*). The first faded sequence
+      he hears is also the test of the morph's fade; anything wrong there is looked at in `heldCc7` / `fadeWeight`, once, for both tools.
+    - The drawer: `enter [attack | seamless]` on the box's line · a mark on a box that differs from the sequence's rule · the head's
+      `change` becomes "set every box" and asks before it overwrites flipped boxes · the `edges` dials. The recipe keeps
+      `edges { fadeIn, fadeOut, exit }`.
+    - `sequence_check.js` gains: the gate · a lone `attack` box inside a seamless row — everyone starts AT its line, lands a gap
+      before it, and the NEXT line is crossed seamlessly · box 1 `attack` + the rest seamless = together at the start, no line cut
+      after · `exit` one by one: the last ends spread, none a runt, none past the end · notes inside a fade window carry the fade
+      and the rest do not · the same seed repeats.
+    - Not designed here — held for the talk he asked for (LG-40): the last container going on INTO A MORPH with the morph taking
+      up the players' breaths · crossfades with a morph or another sequence.
+    - Verify in the running app, no MIDI: three boxes seamless, the middle flipped to `attack`; box 1 flipped; a 6 s fade in and out
+      over a straight box and over a waves box (the inserted notes' fields; Hear's ramp); `exit` one by one; a reopened sequence keeps
+      all of it. SEQUENCE_TOOL, RUNNING_LOG, MORPH_NOTES §3, this plan; commit; push.
+    - **His test:** reload → `Sequence` → three boxes, `seamless` → box 1 `enter attack` → SPACE → box 2 `enter attack` → SPACE →
+      `fade in` '6', `fade out` '6' → SPACE → `exit` one by one → SPACE → Insert → play the score.
   - **1d.6 — His listen** (a sequence of the six chords; the item closes on his verdict) — `todo`.
     *Result when done:* he has heard, on his Chrome, a sequence built one box at a time and one rolled, under `attack` and under
     `seamless`, with the default breaths and with `together` and a pool of lengths changed, with the waves on and one box stepped out to a straight dynamic (1d.7), and has reopened one and changed it. His
