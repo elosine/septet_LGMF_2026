@@ -7074,3 +7074,30 @@ the recalled-actual branch; `morph_emit.js`'s `play` (its `dynOf` · `velFor` ·
 
 **The switch point.** The plan is written to be executed cold, so the build is Opus's — after a checkpoint and a clear; journal
 §2's ► row names the resume reads the BUILD needs (PLAN § 1h · DYNAMICS_LAW · the verify recipe), not what this session wrote.
+
+## §167. Two questions of his on `1h` before the build — do the pitches hold while the dials move, and does the dynamics change reach the fades? (2026-09-20)
+
+**His words:** *"Once I pick the take in the Bloom Morphs uh, panel and it assigns the pitches, etc. Then can I change the parameters
+of the morph without reverting the pitch? So, you know, the length and the smoothness, etc. And then in a related note, everything
+in the morph panel will be reconfigured or touched by the dynamics change, correct? Even the fade ins and fade outs, that was like a
+separate part of the morph."* (They followed the AI's note that a RECALLED bloom-on-a-take keeps its cents for one render only,
+which he asked to have *"stated simply"* — the worry being whether the same thing happens in ordinary use.)
+
+**Answered from the plan as written (nothing is built, so nothing is claimed as seen):**
+
+1. **The pitches hold.** That is what H1.2's FREEZE is for: the take is dealt ONCE, when he chooses it, and the frozen chord is
+   what every later Generate reads — length, smoothness, seed, any dial. It survives a page reload (the pitch state is stored). It
+   changes only when he picks another source or presses `↻`. The recall case is different in kind: there the panel is rebuilt from a
+   saved ACTUAL, whose branch turns a voice list back into a bare sonority — and the cure is one click, pick the take again.
+2. **The dynamics change reaches every model and every note the panel writes** — Hear and Insert, any pitch source, not only a
+   bloom on a take (H3: *"It holds for EVERY pitch source"*). **The fades are the one part that is NOT rewritten.** He is right that
+   they were built as a separate layer: piece #5's §315–§317 moved the fade OUT of the level and INTO the fader, as a weight 0 … 1
+   multiplied onto whatever CC7 the note would otherwise get (*"THE FADE LIVES IN CC7, NOT IN LEVEL"*). H3 keeps that layer exactly
+   as it is and changes only what lies UNDER it: the value it multiplies is now the dynamics table's, and the strike is mf. Two
+   consequences, both to the good: a fade-in still opens from a shut fader, and the constant velocity that §315 had to STAMP onto
+   the notes inside a fade (`velRef`) is now true of every note by construction.
+
+**What the question changed:** the plan named the fade in a sentence (H3.2 · H3.3) and not in its REQUIRED VERIFICATION. It does
+now — **(6b)**: a bloom with a fade in and a fade out, Hear and the score's playback both captured; constant mf strike, CC7 from 0
+to the table value and back. Added because he named it as the part most likely to be missed, and a claim about it must be seen in
+the running app before it is made (AI_METHODOLOGY).

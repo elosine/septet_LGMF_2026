@@ -1223,7 +1223,12 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     above, voice b below, the pair's centre = `midi·100 + cents` · (4) Insert → every note object has `cc7Abs` (from the table,
     lo ≤ hi) and `velAbs` (the mf velocity for ITS pitch), none `plain` · (5) Hear captured (stub the emitter's own `outputFor`) →
     MAIN ch 1 silent, each voice on a curve channel — the SI2 three on their `b` ports — struck at `velAbs`, CC7 on the table ·
-    (6) THE SCORE'S OWN PLAYBACK of the inserted bloom captured → the same channels, velocities and CC7 as (5) · (7) the four
+    (6) THE SCORE'S OWN PLAYBACK of the inserted bloom captured → the same channels, velocities and CC7 as (5) · (6b) THE FADES (his question, RUNNING_LOG §167): a bloom with a fade IN and a fade OUT, Hear and the score's own playback
+    both captured → the strike constant at the mf velocity all through the fade, CC7 rising from 0 to the note's table value over
+    the fade-in and falling back to 0 over the fade-out — the fade still a WEIGHT ON TOP of the table value (`cc7Fade`, piece #5's
+    §315–§317), not rewritten. In whichever attack modes the panel offers (`fade` · `multiply` · `ceiling` in the engine): `fade`
+    reaches silence; the other two shape the LEVEL and so bottom at the table's `ppp`, a sounding level — SAY which was seen ·
+    (7) the four
     LGMF models still generate and their line still says *names its own voices*; a plain sonority source still works, and is now
     on the law too · (8) `sequence_check` 180 · `dyn_table_check` 51 · `palette_check` 184 · `test_snapshots` 26.
   - **His test:** RELOAD the tab · in the strikes drawer, load or build a chord, take the notes off everyone but the three he
