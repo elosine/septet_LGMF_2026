@@ -6998,3 +6998,16 @@ JUST pitch (the take's cents kept — the engine's `voices` door) or on the temp
    it now. It is §162's method at work: small builds, by compositional need.
 
 **Next:** the planning method's phase 2 — the top line — put to him in the chat.
+
+## §164. A COMPOSITION NOTE, given mid-plan: PART TWO is a sequence underneath and the multitempo / phase shift on top (COMPOSITION_NOTES LG-53) (2026-09-20)
+
+While the bloom's top line was waiting on him, he gave a note for the form, and asked that it be taken as one — verbatim in
+**LG-53**: part two's HARMONIC FRAMEWORK is made in the sequence drawer, which *"will already contain the orchestration, except
+for the non-pitched percussion"*; the RHYTHMS go on top with the multitempo / phase shift.
+
+**Why it is in the lab journal and not only on the sketch pad:** it is the first statement of how the piece's PARTS differ in
+METHOD, and it names the role of a tool that does not exist yet. Part one (in hand): a sequence, then a bloom on one of its takes.
+Part two: a sequence as the ground, rhythm as the figure. The sequence drawer, built two days ago as "the first tool of the design
+phase", has become the piece's harmonic spine in both. And it fixes one requirement for the multitempo tool before any design
+talk — it reads a placed sequence for its pitches and players rather than choosing its own (the AI's reading, marked as such in
+LG-53, with the two things he did not say). Nothing built, nothing planned; the bloom's phase 2 is still the work in hand.

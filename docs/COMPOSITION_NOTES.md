@@ -1687,3 +1687,25 @@ so the sequence and the bloom share their harmony by construction. Two musical c
 COMFORTABLE for both of its instruments — a doubled note is only as good as the worse of its two registers. And he wants to know
 WHICH PARTIAL of the fundamental each pair is sitting on: the bloom is composed in partials, as the takes are. His whole message,
 and the tool side of it, are RUNNING_LOG §162 and `docs/MORPH_NOTES.md` of the same date.
+
+### LG-53 · 2026-09-20 — THE SECOND PART OF THE PIECE: the sequence drawer lays the HARMONIC FRAMEWORK, and with it the ORCHESTRATION; the multitempo / phase shift puts the RHYTHMS on top; the non-pitched percussion stands outside it
+
+His words, given as a composition note in the middle of planning the bloom:
+
+> *"Please take this as a composition note. For the second part of this piece, I'll use the sequence drawer to create an underlying
+> harmonic framework. And then I'll use the multi-tempo slash phase shift for the rhythms on top. And the sequence drawer will
+> already contain the orchestration, except for the non-pitched percussion."*
+
+*AI reading (mine, marked):* a plan of LAYERS for part two, and a division of labour between two tools.
+**The lower layer is a sequence** — saved takes held in a row of time containers — and it does two jobs at once: it is the
+HARMONY of the part (which chord, for how long, how one gives way to the next), and, because a take is a chord ALREADY CAST, it
+is also the ORCHESTRATION: who holds which pitch is decided the moment the sequence is made. **The upper layer is rhythm** — the
+multitempo / phase-shift idea he has carried since the first notes (LG-5 · LG-11 · LG-12) — laid over that framework rather than
+bringing pitches or players of its own. **The non-pitched percussion is the exception:** a take has no seat for it, so it is not
+in the framework, and where its material comes from is not said here.
+**What it would ask of the tools, when the day comes (not now, nothing to build):** the multitempo tool has not been designed
+yet, and this note tells its design one thing in advance — it is a READER of a placed sequence. At any moment it needs to ask
+"which chord is sounding, and who has which note", and put its rhythms on THOSE players and THOSE pitches. That is the same
+sentence the bloom is being built on today (RUNNING_LOG §162–§163): the chord is made and cast in ONE place, and every generator
+reads it. **Not said, and his:** whether the rhythm layer REPLACES the held notes of the framework or sounds OVER them · whether
+the sequence itself is heard in part two or is only the scaffold.
