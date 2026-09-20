@@ -1436,3 +1436,25 @@ the morph does today and what was recommended: RUNNING_LOG §109.
 not anyone is reading it; a container chooses, per box, to read it or to hold a straight dynamic. "Jump back into the wave sequence" = the
 stream is not restarted — the next waves box picks it up where it has got to. Since a waves box has no dynamic of its own, the wave needs
 its own range: a `low` and a `high` for the layer. RUNNING_LOG §110.
+
+### LG-40 · 2026-09-19 — THE EDGES OF A SEQUENCE: from nothing and to nothing · start together, then seamless · the last container going on into a morph · crossfades
+
+> *"a related topic has come up. And this is the beginning and endings of sequences. And then maybe crossfading with either morphs or
+> other sequences. So for Niente, I think A is fine inside, but I would like to have the option of starting the sequence from nothing and
+> then ending the sequence to nothing, a bit like we did with the morphs. We added on a fade in and a fade out. So I'm not 100% sure that
+> was working perfectly, but it demonstrated the concept anyways. Also, I just noticed, same with the, the seamless versus attack. I would
+> like the option to start together, but then seamless within the sequence. So, mostly A throughout a sequence, but then let's talk about
+> how to manage beginnings and endings. And then also I'm gonna be working with the morph drawer, let's talk about how we could continue
+> one of the time containers, the sequences, into something else. So for example, that last time container of a sequence would just
+> naturally go into a morph and then adapt its breath patterns. Let's discuss what might or could be done."* — composer, 2026-09-19,
+> session 10, dictated
+> (his answer to 1d.7's one question — niente inside the waves now, or after — and three new topics opened with it)
+
+*AI reading (mine, marked):* four things, of different sizes. (1) **Decided:** inside a sequence the waves run between two WRITTEN
+dynamics (option A) — no true niente inside. (2) **The edges:** a fade IN from nothing at the start of a sequence and a fade OUT to
+nothing at its end, "like we did with the morphs" — the morph's device is a one-way fader window laid over the notes, which is exactly
+the shape of a beginning or an ending. (3) **The entry is its own choice:** today `attack` means together and `seamless` means
+staggered; he wants together at the start AND seamless inside — so how a sequence BEGINS separates from how its chords CHANGE.
+(4) **Going on into something else:** the last container of a sequence continuing "naturally" into a morph, the morph "adapting its
+breath patterns" — and crossfades with a morph or another sequence. Opened as a discussion, not a build: *"Let's discuss what might or
+could be done."* RUNNING_LOG §122.

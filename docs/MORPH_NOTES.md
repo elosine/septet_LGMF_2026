@@ -1266,3 +1266,18 @@ ones"*). Four things the revision should lift from `score/public/sequence.js` ra
 - **Small, but it bit:** the dial must have its OWN random stream, or turning it re-deals every length and nothing can be
   compared by ear. And `converging` / `diverging` are names that do nothing past the first entry in either tool — the
   revision should make them true or drop them.
+
+### 2026-09-19 — LGMF: his remark on the morph's fade in and fade out, and a wish — a sequence going on INTO a morph (COMPOSITION_NOTES LG-40)
+
+> *"a bit like we did with the morphs. We added on a fade in and a fade out. So I'm not 100% sure that was working perfectly, but it
+> demonstrated the concept anyways."* — and — *"I'm gonna be working with the morph drawer, let's talk about how we could continue one of
+> the time containers, the sequences, into something else. So for example, that last time container of a sequence would just naturally
+> go into a morph and then adapt its breath patterns."* — composer, 2026-09-19, dictated
+
+*AI reading (mine, marked):* two entries for the revision. **The fade:** he is not sure it worked perfectly and did not say what he heard;
+nothing has been checked, so nothing is diagnosed — but the sequence tool is about to borrow the same field (`cc7Fade`), so whatever is
+wrong with it will be inherited, and the first listen of a faded sequence is also a test of the morph's fade. **The join:** an
+all-purpose morph tool should be able to START from the state another tool left the players in — each player's pitch and, harder,
+each player's BREATH (where in a breath they are when the morph begins). The engine has half of this already: a source given voice by
+voice (`source.kind: 'voices'`, 1a.5) and a per-voice start time in the carrier's schedule (`sched.startT`). What it lacks is any way
+to be handed them from outside.

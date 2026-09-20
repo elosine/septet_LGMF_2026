@@ -5226,3 +5226,31 @@ plan's text leaned on them — and one of the plan's sentences turned out to be 
 **A thing to surface to him (memory: LG-14, the Ferneyhough parenthesized dynamic).** One velocity under a moving fader means a
 quiet moment inside a wave is struck with `high`'s attack and played down by CC7 — loud-attack energy at quiet volume. With
 `high` = mf it is mild; with `high` = ff it IS the LG-14 sound. It comes with the morph's way of doing it; said in the proposal.
+
+## §122. 1d.7's question answered — A inside — and the EDGES of a sequence opened under the planning method (2026-09-19)
+
+**His words** (whole, in COMPOSITION_NOTES LG-40): *"for Niente, I think A is fine inside, but I would like to have the option of
+starting the sequence from nothing and then ending the sequence to nothing, a bit like we did with the morphs … I would like the option
+to start together, but then seamless within the sequence … how we could continue one of the time containers, the sequences, into
+something else … that last time container of a sequence would just naturally go into a morph and then adapt its breath patterns. Let's
+discuss what might or could be done."*
+
+**Decided:** 1d.7's waves run between two written dynamics (option A of §121). True niente is not wanted INSIDE a sequence; it is wanted
+at its EDGES, which is a different and simpler thing — a one-way fade, the morph's own device, where §121 had found that device could
+not serve (a wave rises AND falls). The question dissolved the same way §109's did: he moved the need to where the existing tool fits.
+
+**The planning method was entered** (his user-level rule: a conversation that is plainly planning enters it without the command). Three
+topics named, one taken, two held: (1) how a sequence begins and ends — the fades, and the entry separated from the change rule ·
+(2) the last container going on into a morph, the morph taking up the players' breaths · (3) crossfades with a morph or another sequence.
+
+**The data put in front of him for topic 1, from the code:**
+- The morph's fade is `cc7Fade` on each note in the window: CC7 multiplied by a weight running one way, 0 → 1 (or to 0), over the window;
+  every note in it struck at ONE velocity (`velRef`). `lgmf-ref` uses it — dal niente → mf over 6 s; the transitions end on a 5 s fade.
+- The score's `heldCc7` applies the fade FIRST and then the ordinary law — so a fade multiplies whatever is under it, a straight
+  dynamic or a wave. It composes with 1d.7 with no new law. A note under a fade must be a DRAWN note (a plain one sends CC7 127).
+- Entry and change are tied today only by two words in `generate()`: `attack` spans enter `'together'`, `seamless` spans enter
+  `'staggered'`. `dealSpan` already takes the entry as its own argument — together, with the striation moved into the first
+  breath's length so the re-breaths still spread. Separating them is small.
+- Both rules END the same way today: every player's last breath is dealt to LAND on the end, together.
+- His doubt about the morph's fade (*"not 100% sure that was working perfectly"*) is recorded in MORPH_NOTES §3 and NOT diagnosed —
+  he did not say what he heard, and nothing was checked.
