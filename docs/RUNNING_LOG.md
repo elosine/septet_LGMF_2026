@@ -6810,3 +6810,45 @@ DECISION of which notes are shaped, and that decision had been made by 1e for a 
 note's top was the full fader, so a flat shaped note would have been meaningless; once the table made the fader ABSOLUTE, a flat
 note on it became not only meaningful but the only way two kinds of box could share a level. The amendment to the law was
 implied by 1d.10 and nobody drew it until his ear did.
+
+## §159. THE TAKES MENU — a ▸ beside every take, and a filter: his ask of §120, built as he meant it (2026-09-20)
+
+**What prompted it.** A screenshot of the box line's native `take` pull-down, 216 names long, and: *"did we ever get to the
+preview button? in the takes menu a small button next to the take to preview; check in first before any change"*.
+
+**The answer given first, from the record.** No. §120 (2026-09-19) has his words — *"can I get a preview button for each of the
+takes"* — and the AI's reading, told him then: each BOX, a `▸` at its top right, *"a button per take in the saved-take list would
+be another build — a native pull-down cannot hold buttons."* Put to him: (a) a list of our own, a `▸` per row that plays without
+choosing · (b) keep the native menu and audition while arrowing, which in a native menu IS choosing and would overwrite the box.
+Offered with (a): a type-to-filter box, *"only if you say so."* **His word:** *"a and with filter but this is the take box in the
+sequence panel and if it is still the same proposition go ahead and build"*. It was the same proposition.
+
+**What was built — `score/public/sequence_ui.js` only:**
+
+- the box line's `take` is a BUTTON showing the take's name; a click opens **`#sqTakeMenu`**, a list of our own on
+  `document.body` (`position: fixed`, so the floating panel cannot clip it), opening UPWARD when there is no room below — the box
+  line sits at the foot of the panel, and the native menu opened upward in his screenshot too;
+- each row: **`▸`** + the name. **The name CHOOSES** (as the pull-down did: `freeze`). **`▸` HEARS it and changes nothing in the
+  box** — 5 s, everyone together, at the SELECTED box's dyn, lit `■` while it sounds, click it again to stop. The menu stays open,
+  so several can be heard in turn. The current take is marked and scrolled to the centre; the first row is `— choose — (a REST)`;
+- **the filter:** every WORD typed must be in the name, in any order (`eb1 seed10` → 4 of 216); a count beside it; UP / DOWN move
+  a highlight, ENTER chooses it (or the first match), ESC or a click outside closes. Keys typed there STOP at the box — typing is
+  typing, not SPACE = Hear;
+- **one player for both previews.** `freeze` was split into `dealTake(name)` (the take's chord as `long tone` deals it) and the
+  box's part; `preview(i)` into `playChord(chord, dyn, ms, label)` and the box's part. So the takes menu's `▸` is on §158's ONE
+  SCALE by construction — mf strike, curve channel, the fader at the table value — not a second copy of it.
+
+**Known, and said to him before the build:** hearing a take LOADS it in the strikes drawer, exactly as choosing one does —
+`D.longNotes(D.notesFor('orch'))` deals from the loaded take, and there is no other way to get its chord.
+
+**Verified in the running app, no MIDI (`score-5401`, outputs stubbed):** 217 rows (216 takes + the REST), 216 `▸` · font 15 px,
+the panel's own · opened upward, 345 × 560 px · the filter `eb1 seed10` → `4 of 216`, focus in the filter · **`▸` on
+`Just-Eb1-seed100`: 8 players captured, every one on a curve channel at its mf velocity, CC7 at the table's `mf` (80 · 62 · 81),
+the button `■`, the box's take STILL `Just-b1-seed210`, the menu still open** · `▸` again → stopped, `▸` · ESC closes · a click on
+the NAME `Just-Eb1-seed105` → the box takes it (8 players frozen), the menu closes, the button reads the new name · a click
+outside closes. **Not verified: sound.**
+
+**A note on the tooling, for the next agent.** A `node` splice script written through a Bash heredoc lost its backslashes on the
+way in (`\\'` arrived as `'`, `\\n` as a real newline) — the anchor missed and, because the script validates before it writes,
+nothing was touched. The edit was then made with the Edit tool. The standing advice in journal §2 (Write the script to the
+scratchpad with the WRITE tool, never inline) already covers it; the heredoc was the shortcut that failed.

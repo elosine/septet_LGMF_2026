@@ -163,7 +163,7 @@ const MF_ANCHOR = 100;                 // mf on the ladder (65 ... 127, eight na
 const CC7_FULL = { lo: 0, hi: 127 };   // 1e's normalized fader — now only the fallback, for a page that did not load dyn_table.js
 
 const S = {
-    el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null, _previewing: -1, _pvT: 0,
+    el: null, row: null, sel: -1, hearFrom: 'start', active: false, _raf: 0, _painted: false, _listSig: null, _previewing: -1, _pvT: 0, _pvTake: null, _takeMenu: null,
 
     // ------------------------------------------------------------------ the row being built (remembered in the browser)
     // the roll's dials start from time_containers.js's OWN defaults — the ones the strikes drawer's `containers` shape starts from
@@ -829,9 +829,8 @@ const S = {
             '<b style="color:' + COLOR + '" title="' + (many ? 'SHIFT+click reached from box ' + (this.sel + 1) + ' to this one — what you set below goes on every box of the selection. ESC, or a plain click, returns to one' : 'click a box to select it · SHIFT+click another to select the range between them') + '">' + this.selLabel() + (many ? ' <span style="color:#9ab;font-weight:normal">(' + this.selCount() + ')</span>' : '') + '</b>' +
             (many ? '<button id="sqSelClear" style="' + BTN + '" title="back to one box (ESC)">one box</button>' : '') +
             (many ? '' :
-            '<label title="a saved take of the strikes drawer. Choosing one LOADS it in the strikes drawer, so you see it — whatever is undealt there is replaced (save it as a take first) — and the box freezes its notes as `long tone` deals them">take <select id="sqTake" style="max-width:20em;' + INP + '"><option value="">— choose —</option>' +
-                (missing ? '<option value="' + esc(b.take) + '">' + esc(b.take) + ' (not in the list)</option>' : '') +
-                names.map(nm => '<option value="' + esc(nm) + '">' + esc(nm) + '</option>').join('') + '</select></label>' +
+            '<label title="a saved take of the strikes drawer. Choosing one LOADS it in the strikes drawer, so you see it — whatever is undealt there is replaced (save it as a take first) — and the box freezes its notes as `long tone` deals them">take <button id="sqTake" type="button" style="max-width:20em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;cursor:pointer;' + INP + '">' +
+                esc(b.take ? b.take + (missing ? ' (not in the list)' : '') : '— choose —') + ' ▾</button></label>' +   // THE TAKES MENU — a list of our own, a ▸ beside every take (openTakeMenu)
             '<label><input id="sqDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>') +
             '<label title="as dealt: each note keeps the level the take was saved at · waves: every player rises and falls on their own stream of swells, between the waves\' low and high (the `waves` line) · ppp … fff: the whole box at that dynamic, on the drawer\'s own written scale">dyn <select id="sqDyn" style="' + INP + '">' + dyns.map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('') + '</select></label>' +
             '<label title="how THIS box is entered — attack: everyone lands a breath before its line and starts AT it, together · seamless: each player takes it at their next breath. The head\'s `change` sets every box; this flips one. On box 1 it is how the sequence BEGINS: attack = everyone together, seamless = staggered">enter <select id="sqEnter" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
@@ -846,7 +845,7 @@ const S = {
             '<button id="sqDel" style="' + BTN + '" title="remove this box">×</button>') +
             '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9ab" title="' + esc(this.chordText(b.chord)) + '">' + esc(many ? this.selCount() + ' boxes — take and seconds stay per box' : (b.chord.length ? this.chordText(b.chord) : 'a REST — silence for its ' + fmtS(b.dur) + ' s; choose a take to give it a chord')) + '</span>';
         const q = s => ed.querySelector(s);
-        if (!many) { q('#sqTake').value = b.take || ''; q('#sqDur').value = b.dur; }
+        if (!many) q('#sqDur').value = b.dur;
         q('#sqDyn').value = b.dyn; q('#sqEnter').value = b.change || this.row.change;
         const rq = this.rangeOk(b.range); q('#sqRLo').value = rq ? rq.low : ''; q('#sqRHi').value = rq ? rq.high : '';
         q('#sqEnter').addEventListener('change', e => {
@@ -879,7 +878,7 @@ const S = {
         q('#sqRHi').addEventListener('change', e => { e.target.blur(); setRange(); });
         q('#sqRClear').addEventListener('click', () => { const n = this.eachSel(x => { x.range = null; }); this.save(); this.render(); this.setStatus(this.selLabel() + ' — ' + n + ' box' + (n === 1 ? '' : 'es') + ' back to the sequence\'s waves range (' + this.row.waves.low + '–' + this.row.waves.high + ')'); });
         if (many) { q('#sqSelClear').addEventListener('click', () => this.clearSel()); return; }
-        q('#sqTake').addEventListener('change', e => { e.target.blur(); this.freeze(i, e.target.value); });
+        q('#sqTake').addEventListener('click', e => { e.preventDefault(); this.openTakeMenu(i, e.currentTarget); });
         q('#sqDur').addEventListener('change', e => { b.dur = clampDur(e.target.value); e.target.blur(); this.save(); this.render(); });
         q('#sqDur').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
         q('#sqRefresh').addEventListener('click', () => { if (b.take) this.freeze(i, b.take); else this.setStatus('box ' + (i + 1) + ' has no take to refresh from', true); });
@@ -1331,31 +1330,114 @@ const S = {
     },
 
     // ------------------------------------------------------------------ a box takes its chord: the take, LOADED in the strikes drawer, as `long tone` deals it
+    // the chord of a saved take, as `long tone` deals it — it LOADS the take in the strikes drawer, so he sees it. Null, and the status
+    // says why, when it cannot. Shared by `freeze` (the box takes it) and `previewTake` (the takes menu's ▸: heard, not chosen)
+    async dealTake(name) {
+        if (!D.db && D.loadDb) await D.loadDb(false);
+        if (!D.takeList || !D.takeList[name]) await D.refreshTakes();
+        const t = D.takeList && D.takeList[name];
+        if (!t) { this.setStatus('no take named "' + name + '" in bank/panel_snapshots.json', true); return null; }
+        await D.loadTake(name);
+        const want = t.state && t.state.strikeId;
+        if (!D.strike || (want && D.strike.id !== want)) { this.setStatus('"' + name + '" could not be loaded in the strikes drawer — its harmony (' + want + ') was not found', true); return null; }
+        const T = D.tracks(), L = LADDER(), lo = L ? L.LO : 65, hi = L ? L.HI : 127;
+        const dealt = D.longNotes(D.notesFor('orch'));
+        const chord = dealt.filter(n => Number.isInteger(n.lane) && n.lane >= 0 && T[n.lane] && isFinite(+n.midi)).map(n => {
+            const vel = clamp(Math.round(+n.vel || lo), lo, hi);
+            const o = { lane: n.lane, seat: n.seat || 0, inst: T[n.lane].instKey, tech: n.tech, midi: +n.midi, cents: +(+n.cents || 0).toFixed(2), level: +((vel - lo) / (hi - lo)).toFixed(4), vel: vel };
+            if (n.partial != null) o.partial = n.partial;
+            return o;
+        });
+        if (!chord.length) { this.setStatus('"' + name + '" dealt no notes — open the strikes drawer and look: nothing assigned, or every player busy at the playhead (PLAN 1t)', true); return null; }
+        return chord;
+    },
     async freeze(i, name) {
         const b = this.row.boxes[i]; if (!b) return;
         if (!name) { b.take = ''; b.chord = []; b.frozen = ''; this.save(); this.render(); this.setStatus('box ' + (i + 1) + ' is a REST — silence for its ' + fmtS(b.dur) + ' s'); return; }
         try {
-            if (!D.db && D.loadDb) await D.loadDb(false);
-            if (!D.takeList || !D.takeList[name]) await D.refreshTakes();
-            const t = D.takeList && D.takeList[name];
-            if (!t) { this.setStatus('no take named "' + name + '" in bank/panel_snapshots.json', true); this.renderEdit(); return; }
-            await D.loadTake(name);
-            const want = t.state && t.state.strikeId;
-            if (!D.strike || (want && D.strike.id !== want)) { this.setStatus('"' + name + '" could not be loaded in the strikes drawer — its harmony (' + want + ') was not found', true); this.renderEdit(); return; }
-            const T = D.tracks(), L = LADDER(), lo = L ? L.LO : 65, hi = L ? L.HI : 127;
-            const dealt = D.longNotes(D.notesFor('orch'));
-            const chord = dealt.filter(n => Number.isInteger(n.lane) && n.lane >= 0 && T[n.lane] && isFinite(+n.midi)).map(n => {
-                const vel = clamp(Math.round(+n.vel || lo), lo, hi);
-                const o = { lane: n.lane, seat: n.seat || 0, inst: T[n.lane].instKey, tech: n.tech, midi: +n.midi, cents: +(+n.cents || 0).toFixed(2), level: +((vel - lo) / (hi - lo)).toFixed(4), vel: vel };
-                if (n.partial != null) o.partial = n.partial;
-                return o;
-            });
-            if (!chord.length) { this.setStatus('"' + name + '" dealt no notes — open the strikes drawer and look: nothing assigned, or every player busy at the playhead (PLAN 1t)', true); this.renderEdit(); return; }
+            const chord = await this.dealTake(name);
+            if (!chord) { this.renderEdit(); return; }
             b.take = name; b.chord = chord; b.frozen = new Date().toISOString();
             this.save(); this.render();
             const np = this.players(chord);
             this.setStatus('box ' + (i + 1) + ' ← "' + name + '" · ' + np + ' player' + (np === 1 ? '' : 's') + ' frozen: ' + this.chordText(chord));
         } catch (e) { this.setStatus('take not read: ' + (e && e.message || e), true); this.renderEdit(); }
+    },
+
+    // ------------------------------------------------------------------ THE TAKES MENU (2026-09-20) — his ask of RUNNING_LOG 120, read then as a
+    // button per BOX: *"in the takes menu a small button next to the take to preview"*. A native pull-down cannot hold a button, so
+    // the box's `take` is a list of our own: a ▸ beside every take (HEAR it — 5 s, at this box's dyn — WITHOUT choosing it; click the
+    // lit one again to stop), the NAME chooses it, and a filter over the 200-odd names. ESC or a click outside closes it.
+    closeTakeMenu() {
+        const m = this._takeMenu; if (!m) return;
+        this._takeMenu = null; document.removeEventListener('mousedown', m._out, true); m.remove();
+    },
+    paintTakeMenu() {
+        const m = this._takeMenu; if (!m) return;
+        m.querySelectorAll('.sqTkPv').forEach(p => { const on = p.dataset.name === this._pvTake; p.textContent = on ? '■' : '▸'; p.style.background = on ? '#2a5a3a' : '#2a2a30'; });
+    },
+    openTakeMenu(i, anchor) {
+        if (this._takeMenu) { this.closeTakeMenu(); return; }
+        const b = this.row.boxes[i]; if (!b || !anchor) return;
+        const names = D.takeNames ? D.takeNames() : [], cs = getComputedStyle(anchor), r = anchor.getBoundingClientRect();
+        const below = window.innerHeight - r.bottom, above = r.top, up = below < 320 && above > below;
+        const m = document.createElement('div'); m.id = 'sqTakeMenu';
+        m.style.cssText = 'position:fixed;z-index:100000;left:' + Math.max(4, Math.min(r.left, window.innerWidth - 360)) + 'px;' +
+            (up ? 'bottom:' + (window.innerHeight - r.top + 2) + 'px;' : 'top:' + (r.bottom + 2) + 'px;') +
+            'width:23em;max-height:' + Math.max(160, Math.min(560, (up ? above : below) - 12)) + 'px;display:flex;flex-direction:column;background:#111114;color:#ddd;' +
+            'border:1px solid #556;border-radius:4px;box-shadow:0 6px 24px rgba(0,0,0,.6);font-family:' + cs.fontFamily + ';font-size:' + cs.fontSize;
+        const rowOf = (name, label) => '<div class="sqTkRow' + (name === (b.take || '') ? ' cur' : '') + '" data-name="' + esc(name) + '">' +
+            (name ? '<button type="button" class="sqTkPv" data-name="' + esc(name) + '" title="HEAR this take — ' + PREVIEW_S + ' s, at this box\'s dyn — without choosing it (it is loaded in the strikes drawer, as choosing does). Click again to stop" style="' + BTN + ';padding:0 .4em;flex:0 0 auto;font-size:inherit">▸</button>'
+                  : '<span style="width:1.7em;flex:0 0 auto"></span>') +
+            '<span class="sqTkNm">' + esc(label) + '</span></div>';
+        m.innerHTML = '<style>#sqTakeMenu .sqTkRow{display:flex;align-items:center;gap:.5em;padding:.12em .5em;cursor:pointer;white-space:nowrap}' +
+            '#sqTakeMenu .sqTkRow:hover,#sqTakeMenu .sqTkRow.hl{background:#20303a}#sqTakeMenu .sqTkRow.cur .sqTkNm{color:#7fc4e8;font-weight:bold}' +
+            '#sqTakeMenu .sqTkNm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}</style>' +
+            '<div style="display:flex;align-items:center;gap:.5em;padding:.3em .4em;border-bottom:1px solid #2c3238;flex:0 0 auto">' +
+              '<input id="sqTkFilter" type="text" spellcheck="false" placeholder="filter — part of a name" style="flex:1;min-width:0;font-size:inherit;' + INP + '">' +
+              '<span id="sqTkCount" style="color:#9ab;flex:0 0 auto"></span></div>' +
+            '<div id="sqTkList" style="overflow-y:auto;flex:1 1 auto">' + rowOf('', '— choose — (a REST)') +
+              ((b.take && names.indexOf(b.take) < 0) ? rowOf(b.take, b.take + ' (not in the list)') : '') +
+              names.map(nm => rowOf(nm, nm)).join('') + '</div>';
+        document.body.appendChild(m); this._takeMenu = m;
+        const fil = m.querySelector('#sqTkFilter'), rows = () => Array.from(m.querySelectorAll('.sqTkRow')), shown = () => rows().filter(x => x.style.display !== 'none');
+        const choose = name => { this.closeTakeMenu(); this.freeze(i, name); };
+        const count = () => { m.querySelector('#sqTkCount').textContent = shown().filter(x => x.dataset.name).length + ' of ' + names.length; };
+        const light = el => { rows().forEach(x => x.classList.remove('hl')); if (el) { el.classList.add('hl'); el.scrollIntoView({ block: 'nearest' }); } };
+        fil.addEventListener('input', () => {
+            const words = fil.value.toLowerCase().split(/\s+/).filter(Boolean);   // every word must be in the name, in any order
+            rows().forEach(x => { const nm = x.dataset.name.toLowerCase(); x.style.display = (!x.dataset.name && words.length) || !words.every(w => nm.indexOf(w) >= 0) ? 'none' : ''; });
+            count(); light(words.length ? shown()[0] : null);
+        });
+        fil.addEventListener('keydown', e => {
+            e.stopPropagation();   // typing here is typing: not SPACE = Hear, not the composer's own keys
+            const S_ = shown(), k = S_.findIndex(x => x.classList.contains('hl'));
+            if (e.key === 'Escape') { e.preventDefault(); this.closeTakeMenu(); }
+            else if (e.key === 'ArrowDown') { e.preventDefault(); light(S_[Math.min(S_.length - 1, k + 1)]); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); light(S_[Math.max(0, k - 1)]); }
+            else if (e.key === 'Enter') { e.preventDefault(); const el = S_[k] || (fil.value.trim() ? S_[0] : null); if (el) choose(el.dataset.name); }
+        });
+        m.addEventListener('click', e => {
+            const pv = e.target.closest('.sqTkPv'); if (pv) { e.stopPropagation(); this.previewTake(pv.dataset.name); fil.focus(); return; }
+            const row = e.target.closest('.sqTkRow'); if (row) choose(row.dataset.name);
+        });
+        m._out = e => { if (!m.contains(e.target) && !(e.target.closest && e.target.closest('#sqTake'))) { if (this._pvTake) this.stop(); this.closeTakeMenu(); } };
+        document.addEventListener('mousedown', m._out, true);
+        count(); this.paintTakeMenu();
+        const cur = m.querySelector('.sqTkRow.cur'); if (cur) cur.scrollIntoView({ block: 'center' });
+        fil.focus();
+    },
+    // the ▸ of the takes menu: the take's chord, everyone together, PREVIEW_S seconds at the SELECTED box's dyn — heard, not chosen
+    async previewTake(name) {
+        const was = this._pvTake; this.stop(); if (was === name || !name) return;
+        let chord = null;
+        try { chord = await this.dealTake(name); } catch (e) { this.setStatus('take not read: ' + (e && e.message || e), true); return; }
+        if (!chord) return;
+        const b = this.row.boxes[this.sel], dyn = b ? b.dyn : AS_DEALT, ms = PREVIEW_S * 1000;
+        const label = 'preview · take "' + name + '" · ' + this.players(chord) + ' players · ' + fmtS(ms / 1000) + ' s · ' + (dyn === WAVES ? 'flat at the waves\' high (' + this.row.waves.high + ')' : dyn) + ' — HEARD, not chosen: click its name to put it in the box';
+        if (!(await this.playChord(chord, dyn, ms, label))) return;
+        this._pvTake = name; this.paintTakeMenu();
+        clearTimeout(this._pvT); this._pvT = setTimeout(() => { if (this._pvTake === name) { this._pvTake = null; this.paintTakeMenu(); } }, ms + 400);
     },
 
     // ------------------------------------------------------------------ the recipe, and the notes derived from it
@@ -1526,14 +1608,21 @@ const S = {
         const b = this.row.boxes[i]; if (!b || !b.chord.length) return;
         const was = this._previewing; this.stop(); if (was === i) return;
         if (this.sel !== i) { this.sel = i; this.save(); this.render(); }
-        const L = LADDER(), dynP = b.dyn === WAVES ? this.row.waves.high : b.dyn, named = dynP !== AS_DEALT && L && L.ANCHOR[dynP] != null;   // a waves box previews its chord flat at the waves' `high` — the chord is what is auditioned, not the wave
+        const ms = Math.round(Math.min(PREVIEW_S, +b.dur || PREVIEW_S) * 1000);
+        const label = 'preview · box ' + (i + 1) + (b.take ? ' · ' + b.take : '') + ' · ' + this.players(b.chord) + ' players · ' + fmtS(ms / 1000) + ' s · ' + (b.dyn === WAVES ? 'flat at the waves’ high (' + this.row.waves.high + ')' : b.dyn);
+        if (!(await this.playChord(b.chord, b.dyn, ms, label))) return;
+        this._previewing = i; this.renderRow();
+        clearTimeout(this._pvT); this._pvT = setTimeout(() => { if (this._previewing === i) { this._previewing = -1; if (this.isOpen()) this.renderRow(); } }, ms + 400);
+    },
+    // ONE player for both previews — a box's ▸ and the takes menu's ▸: a chord, everyone together, `ms` long, at `dyn`. True when it plays
+    async playChord(chord, dyn, ms, label) {
+        const L = LADDER(), dynP = dyn === WAVES ? this.row.waves.high : dyn, named = dynP !== AS_DEALT && L && L.ANCHOR[dynP] != null;   // a waves box previews its chord flat at the waves' `high` — the chord is what is auditioned, not the wave
         const levelOf = n => named ? (L.ANCHOR[dynP] - L.LO) / (L.HI - L.LO) : (n.level != null ? +n.level : 0.5);
         const bends = {}; this.row.boxes.forEach(x => x.chord.forEach(n => { if (n.cents) bends[n.lane + ':' + (n.seat || 0)] = 1; }));   // as hearNotes: a player bent anywhere in the row is re-centred
-        const ms = Math.round(Math.min(PREVIEW_S, +b.dur || PREVIEW_S) * 1000);
         // PLAN 1g: the preview is on the SAME scale as Hear — a sustained note struck at mf, held at its table value on a curve
         // channel — or a box auditioned at `pp` would sound some 18 dB louder than the same box inside the sequence.
         const BC = root.BeatingCalc, durMs = Math.max(30, ms), notes = [], ramps = [];
-        b.chord.forEach(n => {
+        chord.forEach(n => {
             const lvl = levelOf(n), key = this.instKeyOf(n.lane), kind = (BC && BC.CEILINGS && BC.CEILINGS[key]) ? 'held' : 'fixed';   // sequence.js noteInfo's own test
             const shaped = this.isShaped({ kind: kind }), sh = shaped ? this.shape({ lane: n.lane, level: lvl, dur: durMs / 1000 }) : null;
             const rec = { lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: shaped ? MF_ANCHOR : anchorOf(lvl), onMs: 0, durMs: durMs,
@@ -1543,14 +1632,10 @@ const S = {
                 levels: sh.levels, velRef: yOf(this.mfLevel()), cc7Abs: sh.cc7Abs, fade: null, note: rec });
         });
         this.curveSeats(ramps);
-        const label = 'preview · box ' + (i + 1) + (b.take ? ' · ' + b.take : '') + ' · ' + this.players(b.chord) + ' players · ' + fmtS(ms / 1000) + ' s · ' + (b.dyn === WAVES ? 'flat at the waves\' high (' + dynP + ')' : b.dyn);
         await D.playNotes(notes, label);
         const e = E_();
-        if (e && e._playing) {
-            this.scheduleRamps({ ramps: ramps });
-            this._previewing = i; this.renderRow(); this.setStatus(label);
-            clearTimeout(this._pvT); this._pvT = setTimeout(() => { if (this._previewing === i) { this._previewing = -1; if (this.isOpen()) this.renderRow(); } }, ms + 400);
-        } else { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); }
+        if (e && e._playing) { this.scheduleRamps({ ramps: ramps }); this.setStatus(label); return true; }
+        const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); return false;
     },
     async hear() {
         if (this._previewing >= 0) this.stop();
@@ -1565,6 +1650,7 @@ const S = {
     stop() {
         const e = E_(); if (e && e._playing) { e.panic(); if (D.onStopped) D.onStopped(); } this.stopLine();
         if (this._previewing >= 0) { this._previewing = -1; clearTimeout(this._pvT); if (this.el && this.isOpen()) this.renderRow(); }
+        if (this._pvTake) { this._pvTake = null; clearTimeout(this._pvT); this.paintTakeMenu(); }
     },
     // ------------------------------------------------------------------ THE CLOCK AND THE CURSOR (1d.15)
     // Hear used to start at the beginning or at a box's LEFT EDGE, and a rolled row can run for minutes. The cursor is any

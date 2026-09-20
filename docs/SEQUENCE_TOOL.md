@@ -634,3 +634,19 @@ first vibraphone's round robin used to be dealt that same channel — two player
 **Verified in the running app, no MIDI (RUNNING_LOG §158 has every number):** 49 of 49 notes shaped, none on MAIN · Hear, Insert
 and the score's own playback captured at the `pp` line — curve channels, mf velocities, CC7 at the table's `pp`.
 **Not verified: sound.** His test is the 1e one — record it in the rack, `cc7_by_channel.lua`, MAIN empty.
+
+## 22 · The takes menu: hear a take before choosing it (2026-09-20)
+
+The box line's `take` is a button. Click it and a list opens — upward, when the panel's foot is near the bottom of the screen.
+
+- **`▸` beside a take = HEAR it.** 5 s, everyone together, at the selected box's dyn. **The box is not changed.** The button lights
+  `■`; click it again to stop. The list stays open, so you can go down it by ear.
+- **The NAME = choose it**, as the pull-down did: the box freezes its chord.
+- **The filter** at the top: every word you type must be in the name, in any order — `eb1 seed10`. The count says how many are
+  left. UP / DOWN move a highlight, ENTER takes it (or the first match), ESC or a click outside closes.
+- The take you have is marked and scrolled into view. The first row, `— choose —`, makes the box a REST.
+- **Hearing a take loads it in the strikes drawer**, exactly as choosing one does.
+
+It plays through the same player as a box's own `▸` — so on §21's one scale.
+
+**Verified in the running app, no MIDI (RUNNING_LOG §159). Not verified: sound.**
