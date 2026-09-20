@@ -6852,3 +6852,23 @@ outside closes. **Not verified: sound.**
 way in (`\\'` arrived as `'`, `\\n` as a real newline) — the anchor missed and, because the script validates before it writes,
 nothing was touched. The edit was then made with the Edit tool. The standing advice in journal §2 (Write the script to the
 scratchpad with the WRITE tool, never inline) already covers it; the heredoc was the shortcut that failed.
+
+## §160. SEEN IN THE TREE: the piece is begun — `piece-LGMF-Sec01`, and a named version `v1.1-1stSequence` (2026-09-20)
+
+**An observation, not a conversation.** At checkpoint #5 `git status` showed two untracked files that were not there when the
+sitting began, both his, both saved from his own tab:
+
+- `scores/piece-LGMF-Sec01.json — 2026-09-20 21:24 UTC, 122 KB`
+- `scores/piece-LGMF-Sec01-v1.1-1stSequence.json — 2026-09-20 21:24 UTC, 122 KB`
+
+The lowercase `piece-` is §156's answer put to use (his `Piece-LGMF`, capital P, could not reach the Piece menu), and
+`Name version` with the label `1stSequence` is D17's practice: freeze a chunk when it is done. **So the first sequence is in the
+piece, and it went in during the same sitting in which the sequence tool's dynamics were being corrected under it (§157–§158)
+and its takes menu rebuilt (§159)** — the tool and the first music made with it arrived together.
+
+**Not known, because he has not said and was not asked:** which sequence it is (`LGMF-R01a`, five boxes, is the one he was
+working in — R01a reads as refrain 01, version a, which would fit LG-6's rondo whose refrain is a morph, but that is the AI's
+guess and nothing more) · whether it was inserted before or after he reloaded the tab for 1g, i.e. whether its straight box is
+written on the OLD scale or the new one. **That second question matters to the score:** a sequence inserted before the reload
+carries struck notes in its straight boxes, and only a re-insert (the recipe is in the score file; `Insert` replaces it in
+place) brings it under Rule 3. To be put to him when he next speaks of it. The files were not opened.
