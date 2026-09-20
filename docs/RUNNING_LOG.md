@@ -5693,3 +5693,22 @@ dealt with; the row he has open now keeps what it has; blank in the box is still
 its breaths) and the double bass, and the english horn breathes as often as the trumpet. That is the gap `of max` would close.
 
 **Verified:** `node --check` only. **Not verified in the running app** — his test: `new` → `breath` → `together` reads 0.3.
+
+## §134. A correction of §133 — `together` 0.2, not 0.3; and `apart` 0.6 to go with it (2026-09-20)
+
+His words, minutes after §133:
+
+> *"sorry this description as default, lets go with .2 for together, what should apart be then to achieve what you describe
+> together 0.2–0.4. That share of re-entries snaps onto another player's. The result is mostly seamless, with an occasional small
+> accent when two players land together."*
+
+**`together` 0.2** on a new sequence — his number, replacing the AI's 0.3. **`apart` 0.6** — the AI's answer to his question, set
+with it because what he asked for is the DESCRIPTION as the default, and `apart` is half of what makes it true; his to reverse.
+
+**Why 0.6.** At 0.2, four re-entries in five are the ones KEPT APART, so `apart` does most of the work: it is what makes the texture
+"mostly seamless" and what makes the fifth, snapped entry stand out as an accent. Too small and a kept-apart pair lands close enough
+to blur into a near-unison — a false accent, and the real ones stop being occasional. Too large and the starts run out of room:
+measured in 1d.5 (§118), eight players on 8 s breaths have room for about 0.75 s — 0 CROWDED at 0.75, 5 of 40 at 0.9. 0.6 sits
+clear of that limit and wide of a blur on slow-speaking attacks (winds, bowed strings). **The crowding limit is measured; that 0.6
+SOUNDS right is not — it is a number for his ear.** Same place as §133: `NEW_BREATH` in `sequence_ui.js`; `sequence.js` and the
+gate untouched. **Verified:** `node --check` only.

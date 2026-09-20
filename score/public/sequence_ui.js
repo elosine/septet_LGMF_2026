@@ -101,7 +101,7 @@ const WAVES = SEQ.WAVES;   // a box's dyn: read the waves (1d.7)
 const RAMP_MS = 50, RAMP_LEAD_MS = 15;   // Hear's CC7 ramp: a point every 50 ms where the value changes; the first lands AFTER playNotes' own CC7 (30 ms before the note) and before the note-on
 const WTINT = '#c8a2ff';
 const PREVIEW_S = 5;     // a box's preview: its chord held this long (or the box's own seconds, if shorter) — under every ceiling
-const NEW_TOGETHER = 0.3;   // a NEW sequence's `together` (his call, 2026-09-20: "together 0.2-0.4. lets keep this as default" - RUNNING_LOG 133). THE DRAWER's default, not the generator's:
+const NEW_BREATH = { together: 0.2, apart: 0.6 };   // a NEW sequence's `together` and `apart` (his call, 2026-09-20: "lets go with .2 for together" - RUNNING_LOG 133 · 134). THE DRAWER's default, not the generator's:
                             // SEQ.DEFAULT_BREATH.together stays null (free), so the 1d gate and every recipe already dealt are untouched. Blank in the box is still free.
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px';   // the size comes from the panel (FS) through #sqStyle — one number, not one per control
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;cursor:pointer';
@@ -132,7 +132,7 @@ const S = {
     edgesDefaults(over) { const e = Object.assign({}, SEQ.DEFAULT_EDGES, over || {}); e.fadeIn = clamp(+e.fadeIn || 0, 0, 600); e.fadeOut = clamp(+e.fadeOut || 0, 0, 600); if (SEQ.EXITS.indexOf(e.exit) < 0) e.exit = SEQ.DEFAULT_EDGES.exit; e.fadeInFrom = this.farOk(e.fadeInFrom); e.fadeOutTo = this.farOk(e.fadeOutTo); return e; },
     farOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : SEQ.NIENTE; },   // the far end of a fade: niente, or a name on the ladder
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
-    newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, { together: NEW_TOGETHER }), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
+    newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, chord: [], frozen: '' }; },
     save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen })); } catch (e) {} },
     restore() {
@@ -765,7 +765,7 @@ const S = {
     },
 
     // ------------------------------------------------------------------ the breath (1d.5): the generator's own dials — the morph's numbers until he touches one
-    isDefaultBreath() { const b = this.row.breath, d = SEQ.DEFAULT_BREATH; return b.striation === d.striation && +b.length === d.length && +b.jitter === d.jitter && (b.seed | 0) === d.seed && (b.together == null ? null : +b.together) === NEW_TOGETHER && +b.apart === d.apart && !b.lengths; },
+    isDefaultBreath() { const b = this.row.breath, d = SEQ.DEFAULT_BREATH; return b.striation === d.striation && +b.length === d.length && +b.jitter === d.jitter && (b.seed | 0) === d.seed && (b.together == null ? null : +b.together) === NEW_BREATH.together && +b.apart === NEW_BREATH.apart && !b.lengths; },
     buildBreath() {
         const line = this.el.querySelector('#sqBreath'); if (!line) return;
         const lab = 'color:#8a8', d = SEQ.DEFAULT_BREATH;
