@@ -4,13 +4,14 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**107**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7)
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**126**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
 - the breath dials — `together` from never to always · `apart` · a pool of lengths · `re-breathe` — §12 below · 1d.5, built 2026-09-19
 - the waves — a box is a straight dynamic OR reads its players' streams of swells — §13 below · 1d.7, built 2026-09-19
-- not yet: the edges and a change rule per box (1d.8)
+- the edges, and a change rule per box — `enter` on every box · fade in / fade out, from and to niente or a dynamic · `exit` together or one by one — §14 below · 1d.8, built 2026-09-19
+- not yet: his listen (1d.6) — nothing in this drawer has been heard by the AI, and the waves and the edges not yet by him
 
 ---
 
@@ -113,7 +114,7 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **107**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **126**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
 a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last ·
@@ -385,3 +386,40 @@ sets every box at once; any box can be flipped on its own line. A waves box wear
 (+ `dynWas`). `re-wave` re-deals the streams; a wave passing a louder top may shorten a breath.
 
 **Verified in the running app, no MIDI (RUNNING_LOG §128 has every number). `sequence_check` 107. Not verified: sound.**
+
+## 14 · The edges, and a change rule per box (1d.8)
+
+**Attack or seamless, PER BOX** *(his words, LG-41)*
+- Every box's line has `enter [attack | seamless]` — how THAT box is entered.
+  - `attack`: everyone lands a breath before its line and starts AT it, together.
+  - `seamless`: each player takes it at their next breath.
+- The head's `change` sets every box (it asks before it overwrites flipped ones). A box that differs wears `▶| attack` or `≈ seamless`.
+- After an `attack` box the next line is crossed seamlessly again.
+- **Box 1's `enter` IS the beginning:** "start together, then seamless" = box 1 flipped to `attack`.
+- In the generator it is ONE walk: a player's span begins at an `attack` box (together) or after an absence or a rest (staggered),
+  and runs to the next `attack` line, a drop-out or the end. All-`attack` and all-`seamless` are its two ends — to the note.
+
+**The `edges` line** — the `edges` button opens it.
+
+| | together | at different times |
+|---|---|---|
+| **fade in** `[s] from [niente | ppp … fff]` | box 1 `attack` — one fade for everyone | box 1 `seamless` — each player on their own entry |
+| **fade out** `[s] to [niente | ppp … fff]` | `exit` together — one fade | `exit` one by one — each player on their own ending |
+
+- 0 s = it just starts, or just ends.
+- **`exit: one by one`** — each player finishes a last breath of their own: the ends spread over the last stretch BEFORE the line
+  (the fade out's length, else one breath), in score order, the latest ON the line. No runt, nothing past the end.
+- **niente** = true silence: the fader multiplied to zero (the score's `cc7Fade`). **A dynamic** = a calibrated ramp in the note's
+  own level, through the measured law — over a straight box or a wave alike; the far end may be LOUDER than the box (an entry that
+  settles), and the ceiling is read there.
+- A strike (the percussion) cannot ramp: it takes the fade's weight at its strike.
+- Only the players of the first sounding box fade in; only those of the last fade out or leave one by one.
+
+**The recipe:** `containers[i].change` (only where it differs) · `edges { fadeIn, fadeInFrom, fadeOut, fadeOutTo, exit }` (only when
+set). With nothing set the notes are the frozen baseline's.
+
+**In the score:** a note under a fade or a ramp is DRAWN, struck at one velocity (`velRef`), its CC7 following; a niente fade is
+the note's `cc7Fade` in SCORE seconds — so **a faded sequence dragged in the score keeps its old windows until it is re-inserted
+in place.** The fade OUT needed an opt-in `to` in `Morph.fadeWeight` (absent = 1, the line it always was) — RUNNING_LOG §131.
+
+**Verified in the running app, no MIDI (RUNNING_LOG §131 has every number). `sequence_check` 126. Not verified: sound.**

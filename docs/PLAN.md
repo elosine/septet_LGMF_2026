@@ -637,7 +637,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His test:** reload → `Sequence` → three boxes → `all boxes → waves` → SPACE → flip the middle box to `mp` → SPACE →
       `re-wave` → SPACE → Insert → play the score.
   - **1d.8 — The edges, and a change rule per box** (each box ENTERED by attack or seamless; the sequence faded in from nothing and out
-    to nothing; the end together or one by one) — `todo` — written 2026-09-19 (session 10) at his word WITHOUT the planning protocol
+    to nothing; the end together or one by one) — **BUILT 2026-09-19 (session 10, RUNNING_LOG §131; SEQUENCE_TOOL §14; `sequence_check` 126), HIS TEST OUTSTANDING** — *as built:* the generator's two change rules became ONE walk (every earlier check and the baseline gate passed untouched); `exit` one by one = a `landAt` of each player's own; niente = the note's `fade`, a dynamic = a ramp in its level. **One thing the text below said to put to him first was done WITHOUT asking, his to reverse:** a fade OUT was not expressible — `Morph.fadeWeight` could only arrive at 1 — so it took an opt-in `to` (absent = 1, the identity; two lines in `morph.js`). — written 2026-09-19 (session 10) at his word WITHOUT the planning protocol
     (*"no need for formal planning protocol"*); his brief COMPOSITION_NOTES LG-40 · LG-41, the reasoning RUNNING_LOG §122–§123.
     **Position: after 1d.7** (the fades reuse the drawn notes and the Hear ramp 1d.7 builds), **before his listen (1d.6).**
     *Why:* today how a sequence BEGINS is tied to how its chords CHANGE (`attack` = together, `seamless` = staggered), the rule is one

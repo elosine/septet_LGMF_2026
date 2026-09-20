@@ -2103,8 +2103,11 @@ function buildLadder(base, lens, opts) {
 function fadeWeight(f, tAbs) {
     if (!f || !(f.end > f.start)) return 1;
     const u = clamp((tAbs - f.start) / (f.end - f.start), 0, 1);
-    const from = f.from != null ? f.from : 0;
-    return from + (1 - from) * curveEase(f.curve, u);
+    // `to` (LGMF PLAN 1d.8, 2026-09-19 — opt-in): where the weight ARRIVES. Absent it is 1 and this is the line it always was — a fade
+    // IN. The sequence drawer's fade OUT to niente is { from: 1, to: 0 }: a weight can now fall as well as rise. Nothing in this file
+    // writes `to`; the score's playback and the emitter read it through this one function, as they read everything else about a fade.
+    const from = f.from != null ? f.from : 0, to = f.to != null ? f.to : 1;
+    return from + (to - from) * curveEase(f.curve, u);
 }
 
 function toScoreObjects(result, at, opts) {

@@ -60,6 +60,14 @@
 //   the morph's way: a breath re-entering mid-wave does not lurch, and the vibraphone's register rides in the law by itself.
 //   INSERT writes a waved note DRAWN (its level breakpoints as nodes, `velRef` = `high`); a straight note is written as it always was.
 //
+// THE EDGES, AND A CHANGE RULE PER BOX (PLAN 1d.8, RUNNING_LOG §131; his words LG-40 · LG-41 · LG-42). Every box's line has `enter
+// [attack | seamless]` — how THAT box is entered; a box that differs from the sequence's rule wears a mark, and the head's `change` sets
+// every box (it asks before it overwrites flipped ones). Box 1's `enter` IS the beginning: "start together, then seamless" is box 1
+// flipped to `attack`. An `edges` line: `fade in [s] from [niente | ppp … fff]` · `fade out [s] to [niente | ppp … fff]` · `exit
+// [together | one by one]`. The generator decides everything; this file only carries it: a note with a niente `fade` is written with
+// the score's own `cc7Fade` (absolute score seconds — so a faded sequence DRAGGED in the score keeps its old windows until it is
+// re-inserted), drawn, one velocity; Hear's ramp multiplies the same weight in, through the same Composer.heldCc7.
+//
 // TWO THINGS HE ASKED FOR FROM INSIDE IT (2026-09-19, RUNNING_LOG §119–§120). `count` on the roll line: the roll fills a SPAN and
 // never said how many boxes come out. Blank, the box shows what the dials give now; a number FILLS the `×` box — the seconds per
 // unit that makes that many fit the span, searched for THIS seed (so `re-roll` solves it again); a typed `×` clears it, as a typed
@@ -116,18 +124,21 @@ const S = {
             turn: d.turn != null ? d.turn : 0.5, bow: d.bow || 1, depth: d.depth != null ? d.depth : 1, seed: d.seed || 1 };
     },
     wavesDefaults(over) { const w = Object.assign(JSON.parse(JSON.stringify(SEQ.DEFAULT_WAVES)), over || {}); w.lengths = JSON.parse(JSON.stringify(w.lengths || SEQ.DEFAULT_WAVES.lengths)); return w; },
-    newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH), waves: this.wavesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
-    newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, chord: [], frozen: '' }; },
-    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen })); } catch (e) {} },
+    edgesDefaults(over) { const e = Object.assign({}, SEQ.DEFAULT_EDGES, over || {}); e.fadeIn = clamp(+e.fadeIn || 0, 0, 600); e.fadeOut = clamp(+e.fadeOut || 0, 0, 600); if (SEQ.EXITS.indexOf(e.exit) < 0) e.exit = SEQ.DEFAULT_EDGES.exit; e.fadeInFrom = this.farOk(e.fadeInFrom); e.fadeOutTo = this.farOk(e.fadeOutTo); return e; },
+    farOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : SEQ.NIENTE; },   // the far end of a fade: niente, or a name on the ladder
+    changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
+    newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
+    newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, chord: [], frozen: '' }; },
+    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen })); } catch (e) {} },
     restore() {
         let st = null; try { st = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { st = null; }
         const r = st && st.row;
         if (r && typeof r.id === 'string' && Array.isArray(r.boxes)) {
             this.row = { id: r.id, name: String(r.name || ''), change: SEQ.CHANGES.indexOf(r.change) >= 0 ? r.change : 'attack',
-                breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: this.wavesDefaults(r.waves), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
-                boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
+                breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: this.wavesDefaults(r.waves), edges: this.edgesDefaults(r.edges), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
+                boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: this.changeOk(b && b.change), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
             this.sel = Number.isInteger(st.sel) && st.sel >= 0 && st.sel < this.row.boxes.length ? st.sel : (this.row.boxes.length ? 0 : -1);
-            this.hearFrom = st.hearFrom === 'box' ? 'box' : 'start'; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen;
+            this.hearFrom = st.hearFrom === 'box' ? 'box' : 'start'; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen; this.edgesOpen = !!st.edgesOpen;
         } else { this.row = this.newRow(); this.sel = -1; }
     },
     straightOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : AS_DEALT; },   // a straight dynamic: `as dealt`, or a name on the ladder
@@ -162,6 +173,7 @@ const S = {
               '<button id="sqRollTog" style="' + BTN + ';color:#e8a06a" title="the ROLL: a set of time containers rolled from a pool of numbers — it lays out the row\'s durations for you">roll</button>' +
               '<button id="sqBreathTog" style="' + BTN + ';color:#8fd0a0" title="the BREATH: how the players breathe and bow under the chords — the morph\'s numbers until you touch one. Never together, sometimes, always; short breaths with long">breath</button>' +
               '<button id="sqWavesTog" style="' + BTN + ';color:' + WTINT + '" title="the WAVES: every player rises and falls on a stream of swells of their own, out of step with the others. A box READS the waves when its dyn is `waves`; any box can step out to a straight dynamic and the waves run on under it">waves</button>' +
+              '<button id="sqEdgesTog" style="' + BTN + ';color:#e6c46a" title="the EDGES: how the sequence begins and ends — a fade in from nothing (or from a dynamic), a fade out to nothing (or to a dynamic), and whether the players end together or one by one, each finishing a last breath of their own. How it BEGINS — together or staggered — is box 1\'s `enter`">edges</button>' +
               '<span style="width:1px;height:16px;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, or from the selected box on">hear <select id="sqFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option></select></label>' +
               '<button id="sqHear" style="' + BTN + '" title="play the sequence through the strikes drawer\'s own player — the same levels, the same bends (SPACE)">Hear</button>' +
@@ -176,6 +188,7 @@ const S = {
             '</div>' +
             '<div id="sqRoll" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqBreath" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
+            '<div id="sqEdges" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqWaves" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqStatus" style="padding:1px 8px;height:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
             '<div id="sqRowWrap" style="flex:none;height:' + ROW_H + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px">' +
@@ -187,7 +200,14 @@ const S = {
         const q = s => d.querySelector(s);
         q('#sqName').addEventListener('change', e => { this.row.name = e.target.value.trim(); this.save(); });
         q('#sqName').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
-        q('#sqChange').addEventListener('change', e => { this.row.change = SEQ.CHANGES.indexOf(e.target.value) >= 0 ? e.target.value : 'attack'; this.save(); e.target.blur(); this.setStatus('change: ' + this.row.change + (this.row.change === 'attack' ? ' — everyone starts at the line, together' : ' — each player takes the new chord at its next breath')); });
+        q('#sqChange').addEventListener('change', e => {
+            // 1d.8: the head's `change` is the sequence's rule AND sets every box — it asks before it overwrites boxes flipped by hand
+            const c = SEQ.CHANGES.indexOf(e.target.value) >= 0 ? e.target.value : 'attack', flipped = this.row.boxes.filter(b => b.change && b.change !== c).length;
+            e.target.blur();
+            if (flipped && !window.confirm('Set every box to ' + c + '?\n\n' + flipped + ' box' + (flipped === 1 ? ' is' : 'es are') + ' entered another way by hand — that will be overwritten.')) { e.target.value = this.row.change; return; }
+            this.row.change = c; this.row.boxes.forEach(b => { b.change = null; }); this.save(); this.render();
+            this.setStatus('change: every box is entered by ' + c + (c === 'attack' ? ' — everyone starts at the line, together' : ' — each player takes the new chord at its next breath') + ' · any one box can be flipped on its own line (`enter`)');
+        });
         q('#sqFrom').addEventListener('change', e => { this.hearFrom = e.target.value === 'box' ? 'box' : 'start'; this.save(); e.target.blur(); });
         q('#sqAdd').addEventListener('click', () => this.addBox());
         q('#sqRollTog').addEventListener('click', () => { this.rollOpen = !this.rollOpen; this.save(); this.paintRoll(); this.fitStrikes(); });
@@ -196,6 +216,8 @@ const S = {
         this.buildBreath();
         q('#sqWavesTog').addEventListener('click', () => { this.wavesOpen = !this.wavesOpen; this.save(); this.paintWaves(); this.fitStrikes(); });
         this.buildWaves();
+        q('#sqEdgesTog').addEventListener('click', () => { this.edgesOpen = !this.edgesOpen; this.save(); this.paintEdges(); this.fitStrikes(); });
+        this.buildEdges();
         window.addEventListener('resize', () => { if (this.isOpen()) this.fitStrikes(); });   // the roll line wraps with the width, and the strikes drawer stands on the strip
         q('#sqHear').addEventListener('click', () => this.hear());
         q('#sqStop').addEventListener('click', () => this.stop());
@@ -236,7 +258,7 @@ const S = {
         const b = document.getElementById('sequenceBtn');
         if (b) { b.style.background = show ? '#16323d' : ''; b.style.color = show ? '#bfe6f5' : ''; }
         const tab = document.getElementById('sequenceTab'); if (tab) tab.style.display = show ? 'none' : '';
-        if (show) { this.paintRoll(); this.paintBreath(); this.paintWaves(); }   // before the fit: the roll, breath and waves lines are part of the strip's height
+        if (show) { this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges(); }   // before the fit: the roll, breath, waves and edges lines are part of the strip's height
         this.fitStrikes();
         if (!show) { this.setActive(false); this.stop(); return; }
         this.setActive(true);
@@ -274,7 +296,7 @@ const S = {
         q('#sqChange').value = this.row.change; q('#sqFrom').value = this.hearFrom;
         const n = this.row.boxes.length;
         q('#sqTotal').textContent = n ? (n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s') : '';
-        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintRoll(); this.paintBreath(); this.paintWaves();
+        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintRoll(); this.paintBreath(); this.paintWaves(); this.paintEdges();
     },
 
     // ------------------------------------------------------------------ the sequences in the open score — the round trip (1d.3)
@@ -290,7 +312,7 @@ const S = {
         if (bar != null) return +bar.toFixed(3);
         const e = this.entryOf(id); return e ? +(+e.recipe.t0 || 0).toFixed(3) : null;
     },
-    coreOf(r) { return JSON.stringify({ change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: r.waves ? this.wavesDefaults(r.waves) : null, containers: (r.containers || []).map(c => ({ dur: +c.dur, dyn: c.dyn == null ? AS_DEALT : c.dyn, take: c.take || '', chord: c.chord || [] })) }); },
+    coreOf(r) { return JSON.stringify({ change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), waves: r.waves ? this.wavesDefaults(r.waves) : null, edges: r.edges ? this.edgesDefaults(r.edges) : null, containers: (r.containers || []).map(c => ({ dur: +c.dur, dyn: c.dyn == null ? AS_DEALT : c.dyn, change: (c.change && c.change !== r.change) ? c.change : null, take: c.take || '', chord: c.chord || [] })) }); },
     // the row holds something the score does not: boxes never inserted, or changed since
     isDirty() { if (!this.row.boxes.length) return false; const e = this.entryOf(this.row.id); return !e || this.coreOf(e.recipe) !== this.coreOf(this.recipe(0)); },
     renderList() {
@@ -321,12 +343,13 @@ const S = {
         this.stop();
         const R = e.recipe;
         this.row = { id: e.id, name: (e.name && e.name !== 'sequence ' + e.id) ? String(e.name) : '', change: SEQ.CHANGES.indexOf(R.change) >= 0 ? R.change : 'attack',
-            breath: Object.assign({}, SEQ.DEFAULT_BREATH, R.breath || {}), waves: this.wavesDefaults(R.waves), roll: Object.assign(this.rollDefaults(), R.roll || {}), rolled: !!R.roll,
-            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), dynWas: this.straightOk(c.dynWas), chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })) };
+            breath: Object.assign({}, SEQ.DEFAULT_BREATH, R.breath || {}), waves: this.wavesDefaults(R.waves), edges: this.edgesDefaults(R.edges), roll: Object.assign(this.rollDefaults(), R.roll || {}), rolled: !!R.roll,
+            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), dynWas: this.straightOk(c.dynWas), change: (this.changeOk(c.change) && c.change !== R.change) ? c.change : null, chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })) };
         this.sel = this.row.boxes.length ? 0 : -1;
         if (this.row.rolled) this.rollOpen = true;   // a rolled sequence shows how its durations were made
         if (!this.isDefaultBreath()) this.breathOpen = true;   // and one whose breath was set shows its dials (1d.5)
         if (this.row.boxes.some(b => b.dyn === WAVES)) this.wavesOpen = true;   // and one that reads the waves shows theirs (1d.7)
+        if (!this.isDefaultEdges()) this.edgesOpen = true;                      // and one with fades or an exit of its own shows the edges (1d.8)
         this.save(); this._listSig = ''; this.render(); this.fitStrikes();
         const at = this.placedAt(id), was = +(+R.t0 || 0).toFixed(3), n = this.row.boxes.length;
         this.setStatus('reopened "' + (e.name || id) + '" · ' + n + ' box' + (n === 1 ? '' : 'es') + ' · ' +
@@ -362,7 +385,8 @@ const S = {
                 // 1d.4: a box with no chord is a REST — deliberate, so it is drawn quiet (dashed, dim), not as a fault
                 'background:' + (on ? '#22404d' : (empty ? '#191d21' : '#20262c')) + ';border:1px ' + (empty ? 'dashed ' : 'solid ') + (on ? EDGE_ON : (empty ? '#56606a' : '#3a4650')) + ';display:flex;flex-direction:column;justify-content:center;white-space:nowrap';
             d.title = empty ? 'a REST — silence for its duration: every player stops at its start and begins again after it. Choose a take to give it a chord' : this.chordText(b.chord);
-            d.innerHTML = '<div style="color:#789;font-size:10px">' + (i + 1) + '</div>' +
+            const own = (b.change && b.change !== this.row.change) ? b.change : null;   // 1d.8: a box entered another way than the sequence's rule wears it
+            d.innerHTML = '<div style="color:#789;font-size:10px">' + (i + 1) + (own ? ' <span style="color:#e6c46a" title="this box is entered by ' + own + ' — the sequence\'s rule is ' + this.row.change + '">' + (own === 'attack' ? '▶| attack' : '≈ seamless') + '</span>' : '') + '</div>' +
                 '<div style="overflow:hidden;text-overflow:ellipsis;color:' + (empty ? '#7d8790' : '#e6eef2') + (empty ? ';font-style:italic' : '') + '">' + esc(b.take || 'rest') + '</div>' +
                 '<div style="color:#9ab">' + fmtS(b.dur) + ' s' + (empty ? '' : ' · ' + (b.dyn === WAVES ? '<span style="color:' + WTINT + '">∿ waves</span>' : esc(b.dyn))) + '</div>' +   // 1d.7: a waves box wears a mark
                 '<div style="color:' + (empty ? '#7d8790' : '#7a9') + ';font-size:10px">' + (empty ? 'silence' : (np + ' player' + (np === 1 ? '' : 's') + (b.chord.length > np ? ' · ' + b.chord.length + ' notes' : ''))) + '</div>';
@@ -396,12 +420,17 @@ const S = {
                 names.map(nm => '<option value="' + esc(nm) + '">' + esc(nm) + '</option>').join('') + '</select></label>' +
             '<label><input id="sqDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:56px;' + INP + '"> s</label>' +
             '<label title="as dealt: each note keeps the level the take was saved at · waves: every player rises and falls on their own stream of swells, between the waves\' low and high (the `waves` line) · ppp … fff: the whole box at that dynamic, on the drawer\'s own written scale">dyn <select id="sqDyn" style="' + INP + '">' + dyns.map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('') + '</select></label>' +
+            '<label title="how THIS box is entered — attack: everyone lands a breath before its line and starts AT it, together · seamless: each player takes it at their next breath. The head\'s `change` sets every box; this flips one. On box 1 it is how the sequence BEGINS: attack = everyone together, seamless = staggered">enter <select id="sqEnter" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
             '<button id="sqRefresh" style="' + BTN + '" title="read the take again — the box holds the notes as they were when it was chosen">refresh from take</button>' +
             '<button id="sqLeft" style="' + BTN + '" title="move this box earlier">◂</button><button id="sqRight" style="' + BTN + '" title="move this box later">▸</button>' +
             '<button id="sqDel" style="' + BTN + '" title="remove this box">×</button>' +
             '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9ab" title="' + esc(this.chordText(b.chord)) + '">' + esc(b.chord.length ? this.chordText(b.chord) : 'a REST — silence for its ' + fmtS(b.dur) + ' s; choose a take to give it a chord') + '</span>';
         const q = s => ed.querySelector(s);
-        q('#sqTake').value = b.take || ''; q('#sqDur').value = b.dur; q('#sqDyn').value = b.dyn;
+        q('#sqTake').value = b.take || ''; q('#sqDur').value = b.dur; q('#sqDyn').value = b.dyn; q('#sqEnter').value = b.change || this.row.change;
+        q('#sqEnter').addEventListener('change', e => {
+            const c = this.changeOk(e.target.value) || this.row.change; b.change = c === this.row.change ? null : c; e.target.blur(); this.save(); this.render();
+            this.setStatus('box ' + (i + 1) + ' is entered by ' + c + (b.change ? ' — the rest stay ' + this.row.change : ' — the sequence\'s own rule') + (i === 0 ? ' · box 1: this is how the sequence BEGINS (' + (c === 'attack' ? 'everyone together' : 'staggered') + ')' : ''));
+        });
         q('#sqTake').addEventListener('change', e => { e.target.blur(); this.freeze(i, e.target.value); });
         q('#sqDur').addEventListener('change', e => { b.dur = clampDur(e.target.value); e.target.blur(); this.save(); this.render(); });
         q('#sqDur').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
@@ -553,6 +582,49 @@ const S = {
         this.save(); this.render();
         this.setStatus('rolled ' + r.count + ' · ' + fmtS(r.filled) + ' of ' + fmtS(o.total) + ' s' + (r.short > 0.001 ? ' · ' + fmtS(r.short) + ' s short' : '') + '  →  ' + r.units.join(' ') +
             ' · seed ' + o.seed + ' · spread ' + r.spread + '×' + (c.count ? ' · count ' + c.count + ' → × ' + o.unit + ' s' : '') + (filled ? ' · chords kept by position' : ' · click each box and give it a take — a box left empty is a REST'));
+    },
+
+    // ------------------------------------------------------------------ the edges (1d.8): a fade in, a fade out, and how the players leave. How they ENTER is box 1's `enter`
+    isDefaultEdges() { return JSON.stringify(this.edgesDefaults(this.row.edges)) === JSON.stringify(this.edgesDefaults()); },
+    buildEdges() {
+        const line = this.el.querySelector('#sqEdges'); if (!line) return;
+        const lab = 'color:#8a8', L = LADDER(), far = '<option value="' + SEQ.NIENTE + '">niente</option>' + (L ? L.NAMES : []).map(x => '<option value="' + esc(x) + '">' + esc(x) + '</option>').join('');
+        line.innerHTML = '<span style="color:#e6c46a">edges</span>' +
+            '<label style="' + lab + '" title="the sequence comes IN over this many seconds. 0 = it just starts. The fade follows how it begins (box 1\'s `enter`): everyone together → one fade for all · staggered → each player fades in on their own entry">fade in <input id="sqEIn" type="number" step="0.5" min="0" max="600" style="' + INP + ';width:48px"> s</label>' +
+            '<label style="' + lab + '" title="where the fade in starts FROM — niente = true silence (the fader from zero) · a dynamic = a calibrated crescendo or diminuendo into the box; it may be LOUDER than the box — an entry that settles">from <select id="sqEFrom" style="' + INP + '">' + far + '</select></label>' +
+            '<span style="width:1px;height:16px;background:#3a4148"></span>' +
+            '<label style="' + lab + '" title="the sequence goes OUT over this many seconds. 0 = it just ends. The fade follows the exit: together → one fade for all · one by one → each player fades on their own ending">fade out <input id="sqEOut" type="number" step="0.5" min="0" max="600" style="' + INP + ';width:48px"> s</label>' +
+            '<label style="' + lab + '" title="where the fade out arrives — niente = true silence · a dynamic = a calibrated diminuendo or crescendo out of the box">to <select id="sqETo" style="' + INP + '">' + far + '</select></label>' +
+            '<span style="width:1px;height:16px;background:#3a4148"></span>' +
+            '<label style="' + lab + '" title="how the players LEAVE — together: every last breath lands on the end · one by one: each player finishes a last breath of their own, the ends spread over the last stretch before the line (the fade out\'s length, else one breath), the latest ON the line">exit <select id="sqEExit" style="' + INP + '">' + SEQ.EXITS.map(x => '<option value="' + x + '">' + x + '</option>').join('') + '</select></label>';
+        const q = s => line.querySelector(s);
+        ['sqEIn', 'sqEFrom', 'sqEOut', 'sqETo', 'sqEExit'].forEach(id => {
+            q('#' + id).addEventListener('change', e => {
+                e.target.blur();
+                this.row.edges = this.edgesDefaults({ fadeIn: q('#sqEIn').value, fadeInFrom: q('#sqEFrom').value, fadeOut: q('#sqEOut').value, fadeOutTo: q('#sqETo').value, exit: q('#sqEExit').value });
+                this.save(); this.paintEdges(); this.edgesStatus();
+            });
+            if (id === 'sqEIn' || id === 'sqEOut') q('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
+        });
+    },
+    paintEdges() {
+        const line = this.el && this.el.querySelector('#sqEdges'); if (!line) return;
+        line.style.display = this.edgesOpen ? 'flex' : 'none';
+        const tog = this.el.querySelector('#sqEdgesTog');
+        if (tog) { tog.textContent = 'edges' + (this.isDefaultEdges() ? '' : ' •') + (this.edgesOpen ? ' ▾' : ' ▸'); tog.style.background = this.edgesOpen ? '#3a3218' : '#2a2a30'; }
+        const e = this.row.edges, q = s => line.querySelector(s); if (!q('#sqEIn')) return;
+        const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
+        put('#sqEIn', e.fadeIn); put('#sqEFrom', e.fadeInFrom); put('#sqEOut', e.fadeOut); put('#sqETo', e.fadeOutTo); put('#sqEExit', e.exit);
+        q('#sqEFrom').parentNode.style.opacity = e.fadeIn > 0 ? 1 : 0.45; q('#sqETo').parentNode.style.opacity = e.fadeOut > 0 ? 1 : 0.45;
+    },
+    edgesStatus() {
+        const e = this.row.edges, b0 = this.row.boxes[0], begins = ((b0 && b0.change) || this.row.change) === 'attack' ? 'together' : 'staggered';
+        const txt = 'begins ' + begins + (e.fadeIn > 0 ? ', ' + fmtS(e.fadeIn) + ' s from ' + e.fadeInFrom + (begins === 'together' ? ' (one fade)' : ' (each on their own entry)') : '') +
+            ' · ends ' + e.exit + (e.fadeOut > 0 ? ', ' + fmtS(e.fadeOut) + ' s to ' + e.fadeOutTo + (e.exit === 'together' ? ' (one fade)' : ' (each on their own ending)') : '');
+        if (!this.row.boxes.some(x => x.chord.length)) { this.setStatus('edges: ' + txt + ' — no chord in the row yet'); return; }
+        const G = this.generate(0); if (!G) return;
+        const faded = G.notes.filter(n => n.fade).length, ramped = G.notes.filter(n => n.ramp).length;
+        this.setStatus('edges: ' + txt + '  →  ' + G.notes.length + ' notes' + (faded ? ' · ' + faded + ' under a niente fade' : '') + (ramped ? ' · ' + ramped + ' ramped to or from a dynamic' : '') + this.flagsText(G));
     },
 
     // ------------------------------------------------------------------ the waves (1d.7): every player on a stream of swells of their own; a box reads them or holds a straight dynamic
@@ -720,8 +792,10 @@ const S = {
         // 1d.7: the waves' dials travel when a box reads them, or when they were moved off their defaults; a waves box keeps the straight dyn it had
         const wavesToo = r.boxes.some(b => b.dyn === WAVES) || !this.isDefaultWaves();
         return Object.assign({ t0: +t0 || 0, change: r.change, breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}),
-            containers: r.boxes.map(b => Object.assign({ dur: +b.dur, dyn: b.dyn, take: b.take, chord: b.chord.length ? b.chord : null }, b.dyn === WAVES ? { dynWas: b.dynWas || AS_DEALT } : {})) },
+            containers: r.boxes.map(b => Object.assign({ dur: +b.dur, dyn: b.dyn, take: b.take, chord: b.chord.length ? b.chord : null }, b.dyn === WAVES ? { dynWas: b.dynWas || AS_DEALT } : {},
+                (b.change && b.change !== r.change) ? { change: b.change } : {})) },   // 1d.8: a box carries its own `enter` only when it differs from the sequence's
             wavesToo ? { waves: this.wavesDefaults(r.waves) } : {},
+            this.isDefaultEdges() ? {} : { edges: this.edgesDefaults(r.edges) },
             r.rolled ? { roll: JSON.parse(JSON.stringify(r.roll)) } : {});
     },
     generate(t0) {
@@ -741,22 +815,29 @@ const S = {
         G.notes.forEach(n => {
             if (n.end <= from + 0.02) return;
             const st = Math.max(n.start, from), onMs = Math.round((st - from) * 1000), durMs = Math.max(30, Math.round((n.end - st) * 1000));
-            const ramped = !!n.waves && n.kind !== 'fixed';   // 1d.7: a waved note is struck at `high`'s velocity and its CC7 ramp follows (scheduleRamps); a strike just takes its level
-            notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: anchorOf(ramped ? hiLevel : n.level), onMs: onMs, durMs: durMs,
+            // 1d.7 · 1d.8: a note whose level MOVES — it read the waves, it lies under a niente fade, it is ramped to or from a dynamic — is
+            // struck at ONE velocity (the waves' `high`, or its own loudest if that is louder) and its CC7 follows (scheduleRamps). A strike just takes its level
+            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed', top = this.topOf(n, hiLevel);
+            notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, seat: n.seat || 0, vel: anchorOf(ramped ? top : n.level), onMs: onMs, durMs: durMs,
                 cents: n.cents ? n.cents : (bends[n.player] ? RECENTRE : 0), partial: n.partial });
-            if (ramped) ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: onMs, durMs: durMs, skipS: st - n.start, levels: n.levels, velRef: yOf(hiLevel) });
+            if (ramped) ramps.push({ lane: n.lane, tech: n.tech, seat: n.seat || 0, midi: n.midi, onMs: onMs, durMs: durMs, skipS: st - n.start, noteStart: n.start, levels: n.levels, velRef: yOf(top), fade: n.fade || null });
         });
         return { G: G, from: from, notes: notes, ramps: ramps };
     },
     // 1d.7 — SPACE CARRIES THE WAVE (the head of this file has the why): each waved note's CC7 ramp, sent from here AFTER D.playNotes has
     // scheduled the notes — its routes, MorphEmit's timers, the score's own law (Composer.heldCc7 on a stand-in stamped velRef = high).
     // A point every RAMP_MS where the value changes. Returns how many messages were scheduled
+    // the level a moving note is STRUCK for: the waves' `high` for a note that read them, its own loudest otherwise — and never under its loudest
+    topOf(n, hiLevel) { return Math.max(n.waves ? hiLevel : 0, +n.level || 0); },
     rampPoints(w) {
         const C = C_(); if (!C || typeof C.heldCc7 !== 'function') return [];
-        const wc = { id: 'seq-hear-' + w.lane + '-' + w.midi, layer: w.lane, sonifyNote: w.midi, velRef: w.velRef, nodes: [] }, L = w.levels, out = [];
+        // 1d.8: a niente fade rides on the stand-in as the score's own `cc7Fade` — heldCc7 multiplies it in, at the time it is asked for
+        const wc = { id: 'seq-hear-' + w.lane + '-' + w.midi, layer: w.lane, sonifyNote: w.midi, velRef: w.velRef, nodes: [], cc7Fade: w.fade || null, startSeconds: w.noteStart }, L = w.levels, out = [];
         const at = x => { if (x <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (x <= L[i][0]) { const p = L[i - 1], q = L[i]; return p[1] + (q[1] - p[1]) * ((x - p[0]) / Math.max(1e-9, q[0] - p[0])); } return L[L.length - 1][1]; };
         let last = -1;
-        for (let ms = 0; ms <= w.durMs; ms += RAMP_MS) { const cc = C.heldCc7(wc, at(w.skipS + ms / 1000)); if (cc !== last) { out.push([ms, cc]); last = cc; } }
+        const point = ms => { const x = w.skipS + ms / 1000, cc = C.heldCc7(wc, at(x), w.noteStart + x); if (cc !== last) { out.push([ms, cc]); last = cc; } };
+        for (let ms = 0; ms < w.durMs; ms += RAMP_MS) point(ms);
+        point(w.durMs);   // and the note's very end, off the 50 ms grid — a fade to niente arrives AT zero, not one step short of it
         return out;
     },
     scheduleRamps(H) {
@@ -848,13 +929,16 @@ const S = {
             // 1d.7: a note that read the waves is written DRAWN — its breakpoints are the nodes above — and stamped `velRef` = the waves'
             // `high`, so the score strikes every waved note at ONE velocity and lets CC7 follow the curve (composer.html curveTop / heldCc7:
             // the morph's way). A strike (a fixed-length sound) took its level from the wave and stays plain.
-            const ramped = !!n.waves && n.kind !== 'fixed';
+            // 1d.8: the same for a note under a niente fade (it carries the score's own `cc7Fade`, in score seconds) and for one ramped to or
+            // from a dynamic (the ramp is already in its breakpoints). One velocity: the waves' `high`, or the note's own loudest if louder.
+            const ramped = (!!n.waves || !!n.fade || !!n.ramp) && n.kind !== 'fixed';
             C.objects.push(Object.assign({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
                 startSeconds: n.start, endSeconds: n.end, nodes: nodes, segments: segments,
                 color: COLOR, fillMode: 'bottom', opacity: 0.55, properties: {}, srcKind: 'sequence',
                 performanceNotes: name + ' · box ' + (n.container + 1) + (box.take ? ' · ' + box.take : '') + (n.partial != null ? ' · partial ' + n.partial : '') + (n.cents ? ' · ' + (n.cents > 0 ? '+' : '') + Math.round(n.cents) + '¢ just' : '') + (n.waves ? wavesTxt : ''),
                 sonifyNote: n.midi, technique: n.tech, recVel: anchorOf(n.level) },
-                ramped ? { velRef: yOf(hiLevel) } : {},
+                ramped ? { velRef: yOf(this.topOf(n, hiLevel)) } : {},
+                (ramped && n.fade) ? { cc7Fade: { start: n.fade.start, end: n.fade.end, from: n.fade.from, to: n.fade.to, curve: n.fade.curve } } : {},
                 (n.seat || n.cents || ramped) ? {} : { sonifyMode: 'plain' },   // 1c.3 / 1c.4, as D.insert: a seat's note or a bent note is DRAWN (its own curve channel), the rest hold MAIN
                 n.cents ? { morphBend: [[0, +(+n.cents).toFixed(2)], [n.dur, +(+n.cents).toFixed(2)]] } : {}));
             written++;

@@ -1294,3 +1294,15 @@ voice and its voices are dealt to land together; "each voice finishes its own la
 not exist. **No linkage between the tools is wanted** — §124's hand-over of each player's breath from a sequence to a morph is NOT to
 be built; he moves the first notes by hand so the morph "starts on their next breath". What would make that handwork easy is small:
 first entries that are easy to grab and re-time without the engine re-dealing them.
+
+### 2026-09-19 — LGMF 1d.8: the fade's weight can now FALL — and what the morph's own endings cannot do (RUNNING_LOG §131)
+
+*The AI's reading.* **One opt-in was added to `morph.js`:** `fadeWeight` takes `to` — where the weight ARRIVES (absent = 1, the line
+it always was). The sequence drawer writes `{ from: 1, to: 0 }` for a fade OUT to niente. Nothing in `morph.js` writes `to`.
+**For the revision:** the morph fades IN with the fader (`attack.mode 'fade'` → `cc7Fade`, true silence) and OUT with the LEVEL
+(`release { len, to, exit, curve }` tapers the drawn curve) — two mechanisms for one gesture, and the second cannot reach silence:
+the level's floor is the law's ppp. With `to` in place the release could ride the fader exactly as the attack does, and the morph
+would get the sequence's four endings (LG-42) with no new field: fade out or just end × `exit` together or staggered — the
+`release` block already has `exit` and `order`. His doubt about the morph's fades (*"not 100% sure that was working perfectly"*)
+has two candidate causes on record now, neither confirmed by ear: this one, and §130's — until today a drawn level moved the fader
+on the vibraphone only.

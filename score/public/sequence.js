@@ -21,7 +21,9 @@
 //     breath:     { striation, length, jitter, seed,      — the morph's defaults: staggered · 8 s · 0.35 · seed 1
 //                   together, apart, lengths }            — the dials of PLAN 1d.5, below: null (free) · 0.5 s · null (no pool)
 //     waves:      { lengths { values, weights }, low, high, density, peak, seed }   — PLAN 1d.7, below; read only by a box whose dyn is 'waves'
+//     edges:      { fadeIn, fadeInFrom, fadeOut, fadeOutTo, exit }                  — PLAN 1d.8, below: 0 s · 'niente' · 0 s · 'niente' · 'together'
 //   }
+//   and a container may carry its own `change` — how THAT box is entered; absent, the sequence's.
 //
 // THE TWO CHANGE RULES.
 //   attack    every player's chain is cut at each container boundary and restarted: everyone starts AT the line, together. A player
@@ -81,6 +83,25 @@
 //   percussion  a fixed-length sound takes the wave's level at its strike; no ramp.
 // With every box straight the notes are exactly what they were — the baseline gate again. The waves have a seed of their own.
 //
+// THE EDGES, AND A CHANGE RULE PER BOX (PLAN 1d.8, RUNNING_LOG §122–§127 · §131; his words LG-40 · LG-41 · LG-42).
+//   per box     a container's `change` says how that box is ENTERED: 'attack' = everyone lands a breath before its line and starts AT
+//               it, together · 'seamless' = each player takes it at their next breath. The two old rules are the two ends of ONE walk:
+//               a player's SPAN begins where the player comes in — at an `attack` box (entry together, the striation moved into the
+//               first breath's length) or after an absence or a rest (staggered) — and runs to the next `attack` line, a drop-out or
+//               the end. Box 1's tag IS the beginning: "start together, then seamless" is box 1 flipped to `attack`.
+//   exit        'together' = every last breath lands on the end (as always) · 'one by one' = each player lands on an end of their OWN,
+//               the ends spread over the last stretch BEFORE the line (the fade-out's length, else one breath's) in score order, the
+//               latest ON the line — his "everyone finishing their last breath … they'll end at different times".
+//   the fades   `fadeIn` seconds from `fadeInFrom`, `fadeOut` seconds to `fadeOutTo` — each 'niente' or a written dynamic. THE FADE
+//               FOLLOWS THE SHAPE: entries together (box 1 `attack`) or ends together → ONE window for everyone; staggered entries or
+//               ends one by one → each player fades on THEIR OWN entry or ending. Two mechanisms, because the law has nothing below ppp:
+//               NIENTE is the fader multiplied to zero — a note in the window carries `fade { start, end, from, to, curve }` (absolute
+//               seconds; the score's cc7Fade, true silence) · a WRITTEN DYNAMIC is a ramp in the note's own LEVEL breakpoints,
+//               `level = far + (what lies under it − far) · u` — over a straight box or a wave alike, and the far end may be LOUDER
+//               than the box (the ceiling is read there). A strike cannot ramp: it takes the fade's weight at its strike.
+//   Only the players of the first sounding box fade in, and only those of the last fade out or leave one by one.
+// With no box flipped, no fades and `exit` together, the notes are exactly what they were — the gate, once more.
+//
 // Chains are keyed by SEAT, not lane: the two vibraphone bows stay two players. Two notes dealt to ONE seat are a double stop — they
 // share every breath (chord 5's cello holds E♭4 and A4 on one bow); the ceiling is read at the louder of the two.
 // Pure and deterministic: one seed; the same recipe and seed give the same notes. Each (player, span) has its own random stream, so
@@ -102,6 +123,10 @@ const DEFAULT_BREATH = { striation: 'staggered', length: 8, jitter: 0.35, seed: 
 const WAVES = 'waves';   // a box's dyn: read the player's stream of swells instead of holding a straight dynamic (1d.7)
 const DEFAULT_WAVES = { lengths: { values: [6, 10, 16], weights: null }, low: 'pp', high: 'mf', density: 0.7, peak: 0.5, seed: 1 };   // §109's recommendation
 const WAVE_PEAK_JITTER = 0.1;    // a swell's top wanders this far (of its length) round `peak`, seeded
+const NIENTE = 'niente', EXITS = ['together', 'one by one'];   // the edges (1d.8)
+const DEFAULT_EDGES = { fadeIn: 0, fadeInFrom: NIENTE, fadeOut: 0, fadeOutTo: NIENTE, exit: 'together' };
+const FADE_CURVE = 'linear';     // the niente fade's weight, start to end (morph.js curveEase) — a number for his ear
+const RAMP_STEP_S = 0.5;         // a fade to a dynamic over a WAVE is two lines multiplied: sampled this often inside the window
 
 const MIN_GAP_S = 0.05;          // two notes of one player never touch (the morph's 50 ms)
 const MAX_SEG_HARD_S = 30;       // the morph's absolute ceiling, a safety net over the palette
@@ -203,6 +228,7 @@ function validate(recipe, ctx) {
     C.forEach((c, i) => {
         const at = 'container ' + (i + 1) + ': ';
         if (!c || !(+c.dur > 0) || !isFinite(+c.dur)) msgs.push(at + 'a duration of ' + (c && c.dur) + ' s — a container must last more than 0 s');
+        if (c && c.change != null && CHANGES.indexOf(c.change) < 0) msgs.push(at + 'change must be "attack" or "seamless" — got ' + JSON.stringify(c.change));
         if (c && c.chord === null) return;   // PLAN 1d.4: a REST — deliberate silence for its duration; nothing else to check
         if (!c || !Array.isArray(c.chord) || !c.chord.length) { msgs.push(at + 'an empty chord — choose a take for it, or make it a rest (chord: null)'); return; }
         const dyn = c.dyn == null ? AS_DEALT : c.dyn, named = dyn !== AS_DEALT && dyn !== WAVES;
@@ -217,6 +243,15 @@ function validate(recipe, ctx) {
         });
     });
     if (C.every(c => c && c.chord === null)) msgs.push('every container is a rest — give one a chord');
+    // 1d.8: the edges
+    if (R.edges != null) {
+        const E = Object.assign({}, DEFAULT_EDGES, R.edges);
+        if (EXITS.indexOf(E.exit) < 0) msgs.push('edges.exit must be "together" or "one by one" — got ' + JSON.stringify(E.exit));
+        [['fadeIn', 'fadeInFrom'], ['fadeOut', 'fadeOutTo']].forEach(k => {
+            if (!(+E[k[0]] >= 0) || !isFinite(+E[k[0]])) msgs.push('edges.' + k[0] + ' must be 0 s or more');
+            else if (+E[k[0]] > 0 && E[k[1]] !== NIENTE && !(ladder && ladder.NAMES.indexOf(E[k[1]]) >= 0)) msgs.push('edges.' + k[1] + ' must be "niente" or a dynamic on the ladder' + (ladder ? ' ' + ladder.NAMES.join(' ') : ' (dyn_ui.js is not loaded)') + ' — got ' + JSON.stringify(E[k[1]]));
+        });
+    }
     // 1d.7: the waves' dials are read only when a box reads the waves
     if (C.some(c => c && c.dyn === WAVES && c.chord !== null)) {
         const W = Object.assign({}, DEFAULT_WAVES, R.waves || {}), L = W.lengths || {};
@@ -317,6 +352,7 @@ function dealSpan(P, span, S, T) {
         const lvls = waved ? srcs.map(() => levelAt(stream, x)) : srcs.map(s => levelOf(s, S.dyns[ci], S.ladder));
         let loudest = Math.max.apply(null, lvls);   // the ceiling at the LOUDEST level: a straight note's own; under the waves, the most
         if (waved) { const far = noteInfo(S.BC, srcs[0].inst, loudest); if (!far.fixed) loudest = peakOver(stream, x, x + far.ceiling); }   // the stream reaches anywhere the note could extend to
+        if (span.loud) { const far = noteInfo(S.BC, srcs[0].inst, loudest); span.loud.forEach(z => { if (!far.fixed && t < z.end && t + far.ceiling > z.start && z.level > loudest) loudest = z.level; }); }   // 1d.8: a fade whose far end is LOUDER than the box
         const info = noteInfo(S.BC, srcs[0].inst, loudest);
         const jit = 1 + (rng() * 2 - 1) * S.jitter, gapJit = 1 + (rng() * 2 - 1) * S.jitter * 0.5;   // always two draws a breath
         const flags = [];
@@ -380,6 +416,30 @@ function dealSpan(P, span, S, T) {
     return out;
 }
 
+// ---- the edges (PLAN 1d.8): one fade window laid over the notes of one player's span ----
+// w = { start, end, dir: 'in' | 'out', level }: level null = NIENTE (the fader's multiplier — the note carries `fade`), else the written
+// dynamic at the fade's far end (a ramp in the note's own level breakpoints)
+function applyEdge(notes, w) {
+    const len = Math.max(1e-6, w.end - w.start), u = t => Math.max(0, Math.min(1, (t - w.start) / len));
+    notes.forEach(n => {
+        if (!(n.start < w.end - 1e-9 && n.end > w.start + 1e-9)) return;
+        const fixed = n.kind === 'fixed';
+        if (w.level == null) {
+            if (fixed) { const g = w.dir === 'in' ? u(n.start) : 1 - u(n.start); n.levels = n.levels.map(p => [p[0], r4(p[1] * g)]); n.level = peakOf(n.levels); }   // a strike cannot ramp: the weight at the strike
+            else if (!n.fade) n.fade = { start: r3(w.start), end: r3(w.end), from: w.dir === 'in' ? 0 : 1, to: w.dir === 'in' ? 1 : 0, curve: FADE_CURVE };
+            return;
+        }
+        const L = n.levels, at = x => { if (x <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (x <= L[i][0]) { const p = L[i - 1], q = L[i]; return p[1] + (q[1] - p[1]) * ((x - p[0]) / Math.max(1e-9, q[0] - p[0])); } return L[L.length - 1][1]; };
+        const mix = x => { const a = at(x), k = u(n.start + x); return r4(w.dir === 'in' ? w.level + (a - w.level) * k : a + (w.level - a) * k); };
+        if (fixed) { const v = mix(0); n.levels = [[0, v], [L[L.length - 1][0], v]]; n.level = v; n.ramp = true; return; }
+        const xs = L.map(p => p[0]), flat = L.every(p => p[1] === L[0][1]);
+        [w.start - n.start, w.end - n.start].forEach(x => { if (x > 0.001 && x < n.dur - 0.001) xs.push(r3(x)); });
+        if (!flat) for (let x = Math.max(0, w.start - n.start); x < Math.min(n.dur, w.end - n.start); x += RAMP_STEP_S) if (x > 0.001) xs.push(r3(x));   // two lines multiplied bend: sample it
+        const ts = Array.from(new Set(xs)).sort((a, b) => a - b);
+        n.levels = ts.map(x => [x, mix(x)]); n.level = peakOf(n.levels); n.ramp = true;
+    });
+}
+
 // ---- the generator ----
 function generate(recipe, ctx) {
     const msgs = validate(recipe, ctx);
@@ -428,25 +488,44 @@ function generate(recipe, ctx) {
         order = players.slice().sort((a, b) => (a.ceil - b.ceil) || (a.index - b.index));   // ∞ − ∞ is NaN, which falls through to the score order
     }
 
+    // 1d.8 — how each box is ENTERED (its own `change`, else the sequence's), and the edges
+    const tags = R.containers.map(c => (c.change != null ? c.change : R.change));
+    const E = Object.assign({}, DEFAULT_EDGES, R.edges || {});
+    const fin = Math.max(0, +E.fadeIn || 0), fout = Math.max(0, +E.fadeOut || 0), oneByOne = E.exit === 'one by one';
+    const hName = name => clamp01((ladder.ANCHOR[name] - ladder.LO) / (ladder.HI - ladder.LO));
+    const inLevel = (fin > 0 && E.fadeInFrom !== NIENTE) ? hName(E.fadeInFrom) : null, outLevel = (fout > 0 && E.fadeOutTo !== NIENTE) ? hName(E.fadeOutTo) : null;
+    let firstBox = 0; while (firstBox < last && R.containers[firstBox].chord === null) firstBox++;
+    let lastBox = last; while (lastBox > 0 && R.containers[lastBox].chord === null) lastBox--;
+    const leavers = players.filter(p => !!plan[lastBox][p.key]);   // `exit: one by one` — in score order, the last of them ON the line
+
     const notes = [];
     order.forEach(p => {
         const has = i => i >= 0 && i <= last && !!plan[i][p.key];
         if (T) { T.mine = []; T.rng = rngFor(S.seed, p.key + '~together', 0); }
-        if (R.change === 'attack') {
-            // every container the player is in is its own span; it lands a gap before the line when it attacks the next chord too
-            for (let i = 0; i <= last; i++) {
-                if (!has(i)) continue;
-                const landAt = has(i + 1) ? bounds[i + 1] - gapOf(p, i) : bounds[i + 1];
-                dealSpan(p, { from: bounds[i], to: bounds[i + 1], landAt: landAt, entry: 'together', idx: i }, S, T).forEach(n => notes.push(n));
+        // ONE WALK (1d.8): a span begins where the player comes in — at a box entered by `attack` (together; it lands a gap before that
+        // line if it was playing) or after an absence or a rest (staggered) — and runs to the next `attack` line, a drop-out or the end.
+        // Every box `attack` = a span a box; every box `seamless` = a span a run: the two rules 1d.1 began with, to the note.
+        for (let i = 0; i <= last; i++) {
+            if (!has(i)) continue;
+            let j = i; while (has(j + 1) && tags[j + 1] !== 'attack') j++;
+            const span = { from: bounds[i], to: bounds[j + 1], landAt: has(j + 1) ? bounds[j + 1] - gapOf(p, j) : bounds[j + 1], entry: tags[i] === 'attack' ? 'together' : 'staggered', idx: i };
+            const fadesIn = fin > 0 && i === firstBox, leaves = j === lastBox;
+            if (leaves && oneByOne && leavers.length > 1) {   // an end of its own, before the line; never past the middle of a short span
+                const r = leavers.indexOf(p), off = (fout > 0 ? fout : S.length) * (leavers.length - 1 - r) / leavers.length;
+                span.landAt = Math.max(span.landAt - off, span.from + 0.5 * (span.to - span.from));
             }
-        } else {
-            // every unbroken run of containers the player is in is one chain
-            for (let i = 0; i <= last; i++) {
-                if (!has(i)) continue;
-                let j = i; while (has(j + 1)) j++;
-                dealSpan(p, { from: bounds[i], to: bounds[j + 1], landAt: bounds[j + 1], entry: 'staggered', idx: i }, S, T).forEach(n => notes.push(n));
-                i = j;
+            if ((fadesIn && inLevel != null) || (leaves && outLevel != null)) {   // a far end LOUDER than the box: the ceiling is read there
+                span.loud = [];
+                if (fadesIn && inLevel != null) span.loud.push({ start: span.from, end: span.from + fin + 0.5 * S.length, level: inLevel });
+                if (leaves && outLevel != null) span.loud.push({ start: span.landAt - fout, end: span.landAt, level: outLevel });
             }
+            const got = dealSpan(p, span, S, T);
+            // THE FADE FOLLOWS THE SHAPE: entries together → one window from the line; staggered → from this player's own entry. Ends
+            // together → one window to the line; one by one → to this player's own ending (landAt is theirs already)
+            if (fadesIn && got.length) { const s0 = span.entry === 'together' ? span.from : got[0].start; applyEdge(got, { start: s0, end: s0 + fin, dir: 'in', level: inLevel }); }
+            if (leaves && fout > 0 && got.length) applyEdge(got, { start: span.landAt - fout, end: span.landAt, dir: 'out', level: outLevel });
+            got.forEach(n => notes.push(n));
+            i = j;
         }
         if (T) {   // what this player did is what the next ones move around: every start but an attack line's keeps them apart; a re-entry may be snapped onto
             T.mine.forEach(m => { if (!m.line) T.all.push(m.t); if (!m.entry) T.re.push(m.t); });
@@ -457,9 +536,10 @@ function generate(recipe, ctx) {
     const out = { t0: bounds[0], end: end, total: r3(end - bounds[0]), bounds: bounds, change: R.change, breath: B, players: players, notes: notes };
     if (T) out.dealt = order.map(p => p.key);   // the order of the deal — the first is the leader
     if (streams) { out.waves = Wd; out.streams = streams; }   // the dials as dealt, and every player's stream (seconds from t0) — for the drawer, the check, the curious
+    if (R.edges != null || R.containers.some(c => c.change != null)) { out.changes = tags; out.edges = E; }   // 1d.8: how each box is entered, and the edges as dealt
     return out;
 }
 
-return { generate, validate, keyChord, striationPhase, levelAt, STRIATIONS, CHANGES, AS_DEALT, WAVES, DEFAULT_BREATH, DEFAULT_WAVES,
+return { generate, validate, keyChord, striationPhase, levelAt, STRIATIONS, CHANGES, EXITS, NIENTE, AS_DEALT, WAVES, DEFAULT_BREATH, DEFAULT_WAVES, DEFAULT_EDGES,
          NUMBERS: { MIN_GAP_S, MAX_SEG_HARD_S, MIN_BREATH_S, RUNT_S, FIXED_LEN_S, WAIT_MAX_S } };
 }));

@@ -327,5 +327,58 @@ wBad({ density: 2 }, /waves\.density must be 0/, 'a density of 2');
 let noLadW = null; try { SEQ.generate(wavesRow('attack', ['waves']), { ceilings: BC }); } catch (e) { noLadW = e.message; }
 ok(/waves need the drawer's ladder/.test(noLadW || ''), 'waves with no ladder loaded are refused, never guessed');
 
+// ---------------------------------------------------------------- 15 · the edges, and a change rule per box (PLAN 1d.8)
+const edged = (change, edges, tagsOver, more) => { const R = recipe(change); if (edges) R.edges = edges; Object.keys(tagsOver || {}).forEach(i => { R.containers[+i].change = tagsOver[i]; }); return Object.assign(R, more || {}); };
+['attack', 'seamless'].forEach(chg => {
+    const R0 = edged(chg, { fadeIn: 0, fadeInFrom: 'niente', fadeOut: 0, fadeOutTo: 'niente', exit: 'together' }); R0.containers.forEach(c => { c.change = chg; });
+    ok(hashOf(R0).sha256 === BASE.cases[chg].sha256, 'THE GATE once more — the edges spelled out at their defaults and every box on the sequence\'s own rule: the frozen notes, ' + chg);
+});
+const EPS3 = 0.0015, keysAt = i => Object.keys(SEQ.keyChord(CHORDS[i]));
+// one box flipped to `attack` inside a seamless row (box 3, at 42 s): everyone together AT its line, a breath before it, and seamless again after
+const LA = SEQ.generate(edged('seamless', null, { 2: 'attack' }), ctx), chLA = chains(LA), b2 = LA.bounds[2], b3 = LA.bounds[3];
+ok(keysAt(2).every(k => chLA[k].some(n => n.start === b2)) && !held(LA).some(n => n.start < b2 - EPS && n.end > b2 + EPS) && keysAt(1).filter(k => keysAt(2).includes(k)).every(k => { const before = chLA[k].filter(n => n.end <= b2 + EPS && n.kind !== 'fixed').pop(); return before && before.end <= b2 - SEQ.NUMBERS.MIN_GAP_S + EPS3; }),
+    'one box flipped to `attack` in a seamless row: every player of chord 3 starts AT its line (' + b2 + ' s), nothing sounds across it, and those who were playing land a breath before it');
+ok(LA.notes.some(n => n.flags.includes('ACROSS') && n.start < LA.bounds[1] && n.end > LA.bounds[1]) && LA.notes.some(n => n.container === 2 && n.flags.includes('ACROSS') && n.end > b3),
+    '… and "back into the separated": the line BEFORE it (box 1 → 2) and the line AFTER it (box 3 → 4, at ' + b3 + ' s) are both crossed seamlessly');
+ok(j(LA.notes.filter(n => n.end <= LA.bounds[1] - 9)) === j(Sm.notes.filter(n => n.end <= Sm.bounds[1] - 9)) && LA.changes.join(' ') === 'seamless seamless attack seamless seamless seamless', 'the flip is local: the opening of the row is the all-seamless deal\'s, note for note · the tags as dealt: ' + LA.changes.join(' '));
+// box 1 flipped: START TOGETHER, THEN SEAMLESS
+const ST = SEQ.generate(edged('seamless', null, { 0: 'attack' }), ctx), chST = chains(ST);
+ok(keysAt(0).every(k => chST[k][0].start === T0) && ST.notes.filter(n => n.flags.includes('ACROSS')).length > 10 && new Set(keysAt(0).map(k => (chST[k].find(n => n.start > T0) || {}).start)).size >= 6,
+    'START TOGETHER, THEN SEAMLESS = box 1 flipped to `attack`: all ' + keysAt(0).length + ' enter at ' + T0 + ' s, the re-breaths are spread, and ' + ST.notes.filter(n => n.flags.includes('ACROSS')).length + ' notes cross lines seamlessly after');
+// the ending: one by one
+const lastEnds = G => keysAt(5).map(k => { const c = chains(G)[k].filter(n => n.kind !== 'fixed'); return c[c.length - 1].end; });
+['attack', 'seamless'].forEach(chg => {
+    const X = SEQ.generate(edged(chg, { exit: 'one by one' }), ctx), ends = lastEnds(X);
+    ok(new Set(ends).size === ends.length && Math.max.apply(null, ends) === X.end && Math.min.apply(null, ends) > X.end - 8 - EPS && !held(X).some(n => n.flags.includes('RUNT')) && X.notes.every(n => n.kind === 'fixed' || n.end <= X.end + EPS),
+        'exit ONE BY ONE, ' + chg + ': every player finishes a last breath of their own — the ends ' + ends.map(e => (e - X.end).toFixed(2)).join(' ') + ' s (spread over one breath, the latest ON the line, no runt, none past it)');
+});
+ok(lastEnds(SEQ.generate(edged('seamless', { exit: 'together' }), ctx)).every(e => Math.abs(e - Sm.end) < EPS3), 'exit TOGETHER is the landing it always was');
+// the fades to and from NIENTE follow the shape
+const FT = SEQ.generate(edged('seamless', { fadeIn: 6, fadeOut: 5 }, { 0: 'attack' }), ctx);
+const inWin = FT.notes.filter(n => n.fade && n.fade.to === 1), outWin = FT.notes.filter(n => n.fade && n.fade.to === 0);
+ok(inWin.length >= 8 && inWin.every(n => n.fade.start === T0 && n.fade.end === T0 + 6 && n.fade.from === 0 && n.start < T0 + 6) && held(FT).filter(n => n.start < T0 + 6 - EPS).every(n => n.fade) && outWin.length >= 8 && outWin.every(n => n.fade.start === FT.end - 5 && n.fade.end === FT.end && n.fade.from === 1) && held(FT).filter(n => n.start >= T0 + 6 && n.end <= FT.end - 5).every(n => !n.fade),
+    'fades from and to NIENTE, entries and ends TOGETHER: ONE window each — ' + inWin.length + ' notes carry ' + T0 + ' → ' + (T0 + 6) + ' s (0 → 1), ' + outWin.length + ' carry ' + (FT.end - 5) + ' → ' + FT.end + ' s (1 → 0), and nothing between carries a fade');
+const FS = SEQ.generate(edged('seamless', { fadeIn: 6, fadeOut: 5, exit: 'one by one' }), ctx), chFS = chains(FS);
+ok(keysAt(0).every(k => { const f = chFS[k][0].fade; return f && f.start === chFS[k][0].start && Math.abs(f.end - f.start - 6) < EPS3; }) && new Set(keysAt(0).map(k => chFS[k][0].fade.start)).size === keysAt(0).length
+    && keysAt(5).every(k => { const c = chFS[k].filter(n => n.kind !== 'fixed'), l = c[c.length - 1]; return l.fade && l.fade.to === 0 && Math.abs(l.fade.end - l.end) < EPS3; }) && new Set(lastEnds(FS)).size === keysAt(5).length,
+    'THE FADE FOLLOWS THE SHAPE — staggered entries, ends one by one: each player fades in from their OWN entry (' + keysAt(0).map(k => (chFS[k][0].fade.start - T0).toFixed(1)).join(' ') + ') and out to their OWN ending (' + lastEnds(FS).map(e => (e - FS.end).toFixed(1)).join(' ') + ')');
+// the fades to and from a WRITTEN DYNAMIC are ramps in the level, and the far end may be louder than the box
+const FD = SEQ.generate(edged('seamless', { fadeIn: 6, fadeInFrom: 'ff', fadeOut: 5, fadeOutTo: 'pp' }, { 0: 'attack' }), ctx), firstFD = keysAt(0).map(k => chains(FD)[k][0]);
+ok(firstFD.every(n => !n.fade && n.ramp && Math.abs(n.levels[0][1] - hOf('ff')) < 1e-4 && Math.abs(n.level - hOf('ff')) < 1e-4) && firstFD.every(n => { const p = n.levels.find(q => Math.abs(n.start + q[0] - (T0 + 6)) < 0.01); return !p || Math.abs(p[1] - 0.5) < 1e-4; }) && !over(FD).length
+    && keysAt(5).every(k => { const c = chains(FD)[k].filter(n => n.kind !== 'fixed'), l = c[c.length - 1]; return l.ramp && !l.fade && Math.abs(l.levels[l.levels.length - 1][1] - hOf('pp')) < 1e-4; }),
+    'fades from `ff` and to `pp` are RAMPS IN THE LEVEL (no fader multiplier): the entries start at ' + hOf('ff').toFixed(3) + ' and settle to the box\'s 0.5 by ' + (T0 + 6) + ' s, the last breaths arrive at ' + hOf('pp').toFixed(3) + ' — and the ceiling was read at the LOUD far end (nothing over)');
+const FW = SEQ.generate(Object.assign(wavesRow('seamless', ['waves']), { edges: { fadeIn: 8, fadeInFrom: 'ppp', fadeOut: 0, fadeOutTo: 'niente', exit: 'together' } }), ctx);
+ok(held(FW).filter(n => n.start < T0 + 0.01).every(n => n.waves && n.ramp && Math.abs(n.levels[0][1] - hOf('ppp')) < 1e-4) && !over(FW).length && held(FW).filter(n => n.start > T0 + 12).every(n => !n.ramp),   // staggered entries: the last player's window runs to 3.5 + 8 s
+    'a fade from `ppp` over a WAVES box: the waves grow out of ppp (' + hOf('ppp').toFixed(3) + ') — ramped inside the window, the plain wave after it');
+const PF = RP('attack'); PF.edges = { fadeIn: 6, fadeInFrom: 'niente', fadeOut: 0, fadeOutTo: 'niente', exit: 'together' };
+const pfS = SEQ.generate(PF, ctx).notes.filter(n => n.lane === 4 && n.start < T0 + 6);
+ok(pfS.length >= 1 && pfS.every(n => !n.fade && n.level <= 0.5 * ((n.start - T0) / 6) + 1e-4), 'a strike cannot ramp: inside a niente fade the percussion takes the fade\'s WEIGHT at its strike (' + pfS.map(n => (n.start - T0).toFixed(1) + ' s → ' + n.level.toFixed(2)).join(' · ') + '), and carries no fader move');
+ok(j(SEQ.generate(edged('seamless', { fadeIn: 6, fadeOut: 5, exit: 'one by one' }, { 2: 'attack' }), ctx)) === j(SEQ.generate(edged('seamless', { fadeIn: 6, fadeOut: 5, exit: 'one by one' }, { 2: 'attack' }), ctx)), 'with everything set — a flipped box, both fades, ends one by one — the same seed gives the same notes');
+const eBad = (e, tg, re, what) => refuses(edged('attack', e, tg), re, what);
+eBad({ exit: 'fade' }, null, /edges\.exit must be/, 'an unknown exit');
+eBad({ fadeIn: -1 }, null, /edges\.fadeIn must be 0 s or more/, 'a fade of −1 s');
+eBad({ fadeIn: 4, fadeInFrom: 'loud' }, null, /edges\.fadeInFrom must be "niente" or a dynamic/, 'a fade from a dynamic that is not on the ladder');
+eBad(null, { 1: 'crossfade' }, /container 2: change must be/, 'a box with an unknown change rule');
+
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);
