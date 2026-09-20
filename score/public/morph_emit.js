@@ -107,6 +107,47 @@ const EMIT = {
                  cc0: (tech && tech.cc0 != null) ? tech.cc0 : null, ks: (tech && tech.ks != null) ? tech.ks : null };
     },
 
+    // PLAN 1h H3.3 — THE ROUTE. A SHAPED note streams a moving fader, and his rack takes one only on the CURVE channels: MAIN
+    // ch 1 is plain notes, dynamics by velocity, articulation by CC0, nothing that streams (D11, docs/DYNAMICS_LAW.md §4). The
+    // score assigns them with `Composer.curveChannelMap()`; a tool's Hear must do it itself, and the sequence drawer already
+    // does exactly this in `curveSeats` (sequence_ui.js). Round robin PER PLAYER in time order, an entry free again its own
+    // span plus a breath (0.05 s), as `curveChannelMap` has it. A technique with NO curve copy stays on MAIN and the count is
+    // returned, because such a note's fader will not move and nothing else would say so.
+    curveSeatsFor(resolved) {
+        const C = HOST();
+        if (!C || typeof C.curveChannelsOf !== 'function' || typeof C.curveRoute !== 'function') {
+            return resolved.reduce((s, r) => s + (r.shape ? 1 : 0), 0);
+        }
+        const byLane = {};
+        let onMain = 0;
+        resolved.forEach(r => { if (r.shape) (byLane[r.lane] = byLane[r.lane] || []).push(r); });
+        Object.keys(byLane).forEach(k => {
+            const lane = +k, list = byLane[k].slice().sort((a, b) => a.onMs - b.onMs), freeAt = new Map();
+            list.forEach(r => {
+                const pool = C.curveChannelsOf(lane, r.n.technique) || [];
+                if (!pool.length) { onMain++; return; }
+                let pick = -1, best = Infinity;
+                for (let i = 0; i < pool.length; i++) {
+                    const f = freeAt.has(i) ? freeAt.get(i) : -Infinity;
+                    if (f <= r.onMs + 1e-9 && f < best) { best = f; pick = i; }
+                }
+                if (pick < 0) {
+                    let lo = Infinity;
+                    for (let i = 0; i < pool.length; i++) { const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f < lo) { lo = f; pick = i; } }
+                    if (pick < 0) pick = 0;
+                }
+                const cr = C.curveRoute(lane, pool[pick]);
+                const out = this.outputFor(cr.port);
+                if (!out) { onMain++; return; }                       // the curve copy's port is not open: MAIN, and say so
+                freeAt.set(pick, r.offMs + 50);
+                r.route = Object.assign({}, r.route, { out: out, port: cr.port, ch: cr.ch - 1 });
+                r.key = r.route.port + '|' + r.route.ch;
+                r.onCurve = true;
+            });
+        });
+        return onMain;
+    },
+
     // ---- primitives -------------------------------------------------------
     sendBend(route, cents) {
         const v = M.bendValue(cents, route.bendRangeSt || undefined);   // the instrument's measured range (§203); the tuba's 1.99 st when unknown
@@ -347,20 +388,32 @@ const EMIT = {
         // when the note spoke (the header's full story). Shifting every event
         // by a constant gives the opening notes a TRUE 250 ms of CC7 settle;
         // on a play button the delay is imperceptible.
+        // PLAN 1h H3.3 — THE MORPH ON THE DYNAMICS LAW. Every sustained note the morph writes is SHAPED: struck at mf for its
+        // own pitch, its fader between the table values of its own two written dynamics, on a curve channel — moving or not.
+        // Without `morph_dyn.js` or `dyn_table.js` on the page `S` is null for every note and this file behaves exactly as it
+        // did before (the tuba's path below). The fade is untouched: `fadeAt` still multiplies in on top of the answer.
+        const MD = root.MorphDyn || null;
+        const DTab = root.DynTable || null;
+        const unmeasured = {};
         const resolved = [];
         result.notes.forEach(n => {
-            const route = this.routeFor(laneOf(n.voice), n.technique);
+            const lane = laneOf(n.voice);
+            const route = this.routeFor(lane, n.technique);
             if (!route) {
                 skipped++;
                 const C = HOST();
-                const inst = C && C.trackInstrument ? C.trackInstrument(laneOf(n.voice)) : null;
-                missing[(inst && inst.port) || ('lane ' + laneOf(n.voice))] = 1;
+                const inst = C && C.trackInstrument ? C.trackInstrument(lane) : null;
+                missing[(inst && inst.port) || ('lane ' + lane)] = 1;
                 return;
             }
-            resolved.push({ n: n, route: route, key: route.port + '|' + route.ch,
+            const S = (MD && DTab && route.instKey) ? MD.shapeLevels(bank, route.instKey, n.midi, n.level) : null;
+            if (S && !S.measured) unmeasured[route.instKey] = 1;
+            resolved.push({ n: n, route: route, key: route.port + '|' + route.ch, lane: lane, shape: S,
                             onMs: n.tStart * 1000 + CC_LEAD_MS,
                             offMs: (n.tStart + n.dur) * 1000 + CC_LEAD_MS });
         });
+        // and each shaped note onto a CURVE channel, before anything is keyed on r.key
+        const onMain = this.curveSeatsFor(resolved);
 
         // this run re-arms these channels itself — a pending CC7=127 restore
         // from the previous stop firing mid-fade would be the old end blip
@@ -393,7 +446,12 @@ const EMIT = {
             // both places at once. See the note in morph.js toScoreObjects.
             const bend = n.bend.map(pt => [pt[0], pt[1]]);
 
-            const dyn = dynOf(n, route), cc7At = ccOf(n, route, dyn);
+            const S = r.shape;
+            const dyn = dynOf(n, route);
+            // H3.3 (b) — the fader is the TABLE's, read at the note's own level; (a) the strike is the mf velocity for this
+            // pitch, and `velFor`'s softening below level 0.4 is skipped, because the fader does that work now.
+            const cc7At = S ? (h => DTab.cc7(bank, route.instKey, Math.max(0, Math.min(1, (+h || 0) / 10)))) : ccOf(n, route, dyn);
+            const velOf = S ? S.velAbs : velFor(n, dyn);
             // EVERY MESSAGE IS COMPUTED NOW AND SENT LATER. The values all follow from the note's own level curve and the fade's
             // weight, both known before a sound is made — so the expensive part happens once, here, and the refill below is a walk
             // along a sorted list. What it does NOT do is hand them to the driver: see SCHED_AHEAD_MS.
@@ -408,7 +466,7 @@ const EMIT = {
             if (route.ks != null) { ev(armMs, [0x90 | route.ch, route.ks, 100]); ev(armMs, [0x80 | route.ch, route.ks, 0]); }
             const cc7Open = Math.max(0, Math.min(127, Math.round(cc7At(n.level[0][1]) * fadeAt(n, 0))));
             ev(armMs, [0xB0 | route.ch, 7, cc7Open]);
-            ev(r.onMs, [0x90 | route.ch, key, velFor(n, dyn)], 'on');
+            ev(r.onMs, [0x90 | route.ch, key, velOf], 'on');
             ev(r.offMs, [0x80 | route.ch, key, 0], 'off');
 
             // the CC7 stream, as events on the same list — repeats dropped, so a slow fade is a handful of messages a second
@@ -483,7 +541,12 @@ const EMIT = {
             this._raf = requestAnimationFrame(tick);
         };
         this._raf = requestAnimationFrame(tick);
-        return { scheduled: scheduled.length, skipped: skipped, reason: null };
+        // H3.4 — the claim his ear is judging: how many notes were shaped, the fader span that went out, what stayed on MAIN
+        let cc7Lo = 127, cc7Hi = 0, nShaped = 0;
+        resolved.forEach(r => { if (!r.shape) return; nShaped++; cc7Lo = Math.min(cc7Lo, r.shape.cc7Abs.lo); cc7Hi = Math.max(cc7Hi, r.shape.cc7Abs.hi); });
+        return { scheduled: scheduled.length, skipped: skipped,
+                 shaped: nShaped, cc7Lo: nShaped ? cc7Lo : null, cc7Hi: nShaped ? cc7Hi : null,
+                 onMain: onMain, unmeasured: Object.keys(unmeasured), reason: null };
     },
 
     // linear interpolation over [[dtSec, value], ...]

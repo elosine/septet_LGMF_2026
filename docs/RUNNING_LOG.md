@@ -7246,3 +7246,76 @@ byte-for-byte by name, the store's sha is back to `eaa1a1600a9a8c26`, and `git s
 **Batteries:** `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184** · `test_snapshots` **26** ·
 `model_bank --validate` **VALID** (its two warnings are the known ones: `provenance.palette` unrecognised, NITS N3, and the
 LGSPECTRAL-06 re-derivation drift).
+
+## §171. `1h` H3 BUILT — THE MORPH ON THE DYNAMICS LAW: every sustained morph note shaped, moving or not (2026-09-20)
+
+**The rule, and why it is not optional.** DYNAMICS_LAW §3 Rule 3 — *in a sequence, one scale* — carried to the morph. The piece's
+second object is a BLOOM following the first sequence **on the same take** (LG-52), and a still `pp` left on the struck ladder
+would sit about **18 dB** over that sequence's `pp` (§157, his *"the attacks are very loud"*). It therefore REPLACES the sentence
+of `MORPH_NOTES.md` 2026-09-20, *"a morph note whose level does NOT move stays a struck note"*, and it holds for **every pitch
+source**, not only a take. The call was flagged to him in §165 and approved with the rest of `1h`.
+
+**H3.1 — ONE helper, `score/public/morph_dyn.js`** (new, UMD, node-loadable, one script tag in `composer.html` after
+`dyn_table.js`): `shapeLevels(bank, instKey, midi, level)` → `velAbs` = the mf velocity for the note's own PITCH ·
+`cc7Abs` = the table values of its own lowest and highest written dynamics · `heights` = every breakpoint on its own table value ·
+`flat` · `measured`. Read by BOTH sides — `morph_panel.js` when it inserts, `morph_emit.js` when it hears — so the audition and
+the inserted score cannot drift apart. No `dyn_table.js` on the page → it answers null and both sides behave exactly as before.
+
+**H3.2 — INSERT.** `shapeObjects(objs)` runs over the note objects of `insert()` AND of `insertActual()`: `cc7Abs` · `velAbs` ·
+the nodes re-based onto the table. A FLAT note keeps the height it was DRAWN at (`heldCc7` answers `lo` whatever the height when
+lo === hi). No `sonifyMode: 'plain'` is written, so `isCurveEvent` still calls it a curve event. `velRef` and `cc7Fade` are left
+exactly as the engine wrote them. **It is applied at INSERT, not at save, and that is deliberate:** `model_bank.js` validates that
+`toScoreObjects(notes)` reproduces a stored actual's `objects`, so shaping at save would break the validator — and shaping at
+insert means an actual filed BEFORE this build still comes out on the law when it is placed.
+
+**H3.3 — HEAR.** (a) the strike is `velAbs` and `velFor`'s softening below level 0.4 is skipped, the fader doing that work now ·
+(b) the fader is `DynTable.cc7` at the note's own level, still multiplied by `fadeAt` · (c) `curveSeatsFor(resolved)` puts each
+shaped note on a CURVE channel, round robin per player in time order, exactly as `Composer.curveChannelMap()` does for the score
+and as the sequence drawer's `curveSeats` does for its own Hear. A technique with no curve copy, or a curve port that is not open,
+stays on MAIN and is counted. **H3.4** — `play()` now returns `shaped · cc7Lo · cc7Hi · onMain · unmeasured`, and the panel's
+status states them, as does Insert's.
+
+**VERIFIED IN `score-5401`, no MIDI, by CAPTURE (every port a logging stub, rAF a 16 ms timer):**
+
+- **(5) HEAR** — 32 notes scheduled, **32 shaped, 0 on MAIN**, no instrument without a measured curve. Captured over a 6 s span:
+  **zero note-ons and zero CC7 on ch 1**; every voice on a curve channel — `lgenghorn ch2` · `lgbassoonb ch3` + `ch4` ·
+  `lghornb ch3` · `lgtrumpetb ch5` · `lgcello ch2` · `lgbass ch2` — **the SI2 three on their `b` ports**. The velocities are the
+  bank's mf for each pitch: **EH 88 · Bsn 107 · Hn 85 · Tpt 65 · Vc 115 · Db 117**, equal to `shapeLevels`' own answer note by
+  note. CC7 26 … 117 against the per-note table ranges (EH 47–116 · Bsn 28–112 · Hn 29–110 · Tpt 28–112 · Vc 48–117 · Db 70–117).
+- **(4) INSERT** — every note object has `cc7Abs` with lo ≤ hi and `velAbs` equal to `VelocityRemap.heldNote(bank, instKey,
+  sonifyNote, 100).vel` **for its own pitch** (checked object by object), **none `plain`**, all still `isCurveEvent`, the nodes
+  re-based with the floor at 0.05. The status: *inserted 7 notes at 0.00 s as grp-morph-01 · 7 shaped, struck at mf on the curve
+  channels · the fader CC7 26…117*.
+- **(6) THE SCORE'S OWN PLAYBACK** of the inserted bloom, with the score isolated to that group in memory: **7 note-ons, 0 on
+  ch 1**, the SAME port/channel set as Hear and the SAME velocities (88 · 107 · 85 · 65 · 115 · 117). The CC7 floor per sounding
+  port is the table's: EH 47 · Bsn 26 · Hn 29 · Tpt 28 · Vc 48 · Db 70. *(The CC7 127s seen on ch 1 and on ports with no notes
+  are the app's PRELUDE — `composer.html` ~11524, "channel volume to unity" plus the technique's CC0, sent once per technique
+  channel before playback. Not a moving controller and not this build's.)*
+- **(6b) THE FADES — his question, §167, and they are a separate layer on top.** A `fade-in-slow` bloom (attack mode `fade`,
+  a 24 s window): the strike is **CONSTANT at the mf velocity through all five breaths** — EH velocity 88 at 0.25 · 8.30 · 16.53 ·
+  24.48 · 34.61 s — while **CC7 climbs from 0**: 0 · 1 · 2 · 3 · 4 · 5 … . A floor of 0 is one the table alone can never reach
+  (EH's own `lo` there is 47), so the weight is demonstrably multiplying in on top of the table's answer, not replacing it.
+  **Which modes were seen:** `fade` (reaches silence) and `multiply` (both of the panel's other presets resolve to it) — under
+  `multiply` there is no `cc7Fade` at all, the LEVEL is shaped, and the fall bottoms at **CC7 43–45** on the same note: the
+  table's value, a SOUNDING level. `ceiling` is the same code path as `multiply` and no panel preset offers it. **There is no
+  weight-based fade OUT in the morph:** `fadeWeight`'s `to` is written only by the sequence drawer (1d.8); a morph's ending falls
+  by LEVEL, and that fall is now on the table.
+- **(7)** all four LGMF models still generate — 118 · 113 · 79 · 76 notes, the line still *names its own voices*, 8 voices each —
+  and **a plain sonority is on the law too**: `stack of 5ths from F2` under BLOOM, 8 shaped, 0 on MAIN, mf velocities per
+  instrument, CC7 26 … 117. BLOOM's own stock set (no source at all) renders and is heard whole.
+- **(8)** `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184** · `test_snapshots` **26** ·
+  `model_bank --validate` **VALID**. `morph.js`, `morph_septet.js`, `sequence_ui.js` and `strike_drawer.js` are **untouched**
+  (`git diff --stat` empty for all four), as the plan required.
+
+**FOUND WHILE VERIFYING, NOT MINE, FLAGGED NOT FIXED (NITS · MORPH_NOTES):** with an **LGMF model** selected the panel's
+`heard()` returns NO notes — `cast()`'s voice-list branch marks every pair silent and `filterResult` keeps only ticked,
+non-silent pairs' voices — so **Play and Insert do nothing for the four models that name their own voices**. Measured: they render
+118 · 113 · 79 · 76 notes and `heard()` gives 0. It is pre-existing (`morph_septet.js` is untouched by this build) and has never
+been in the way, because the six LGMF scores were built by the tools and `bank/actuals/`, not by the panel. H2.3 is the
+pair-attaching version of the same problem, solved for a take.
+
+**H3.5 — DOCS:** `DYNAMICS_LAW.md` §1's third case and §3 **Rule 3** now read *in a sequence AND in a morph*, with the fade
+measurement written in; §4 gains the morph's `curveSeatsFor`; §5's "flat notes outside a sequence" becomes "outside a sequence or
+a morph". `MORPH_NOTES.md` carries an **AS BUILT** entry naming the sentence it replaces.
+
+**WHAT IS LEFT OF `1h` IS H4 — HIS LISTEN.** Nothing here has been heard: the in-app browser has no Web MIDI.

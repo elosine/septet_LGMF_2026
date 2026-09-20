@@ -1004,6 +1004,7 @@ const PANEL = {
                 startSeconds: +(o.startSeconds - t0 + at).toFixed(3),
                 endSeconds: +(o.endSeconds - t0 + at).toFixed(3),
             }));
+            const law = this.shapeObjects(placed);   // PLAN 1h H3.2 — a stored actual is placed verbatim, then brought under the law
             // marker in OBJECTS, never data.markers (Principle 4)
             C.objects.push({ id: 'mk-' + slug + '-' + seq, type: 'marker', layer: 0,
                 time: +at.toFixed(3), label: entity + ' — ' + (a.label || ''),
@@ -1027,7 +1028,7 @@ const PANEL = {
                 body: JSON.stringify({ entity: entity, score: C.sessionName || 'untitled',
                                        at: +at.toFixed(3), group: gid }),
             }).then(() => this.refresh(true)).catch(() => {});
-            this.setStatus('placed ' + entity + ' at ' + at.toFixed(2) + ' s as ' + gid);
+            this.setStatus('placed ' + entity + ' at ' + at.toFixed(2) + ' s as ' + gid + this.lawText(law));
         } catch (e) { this.setStatus('insert failed: ' + e.message, true); }
     },
 
@@ -1086,8 +1087,12 @@ const PANEL = {
             return;
         }
         btn.textContent = 'Playing…';
+        // H3.4 — the fader span that actually went out, and any instrument the table had to guess for
         this.setStatus('playing ' + r.scheduled + ' notes' +
-            (r.skipped ? ' (' + r.skipped + ' had no port)' : ''));
+            (r.skipped ? ' (' + r.skipped + ' had no port)' : '') +
+            (r.shaped ? ' · ' + r.shaped + ' shaped, struck at mf on the curve channels · the fader CC7 ' + r.cc7Lo + '…' + r.cc7Hi : '') +
+            (r.onMain ? ' · ' + r.onMain + ' had no curve channel — on MAIN, so their fader will not move' : '') +
+            (r.unmeasured && r.unmeasured.length ? ' · no measured fader curve for ' + r.unmeasured.join(' · ') : ''), !!r.onMain);
     },
 
     // FADE LADDER (day 14) — the fallback the composer asked for: audition the
@@ -1232,6 +1237,46 @@ const PANEL = {
         this.setStatus('lines for ' + g.groupId + (g.label ? ' (' + g.label + ')' : '') + ': ' + PC.describe(ms, opts) + (had ? ' — replaced ' + had : '') +
             (kept ? ' — ' + kept + ' made notes kept' : '') + ' — the bar on the piano lane shows them by kind and player; click a line — CTRL+Z undoes');
     },
+    // ---------------------------------------------------------- PLAN 1h H3.2 — EVERY NOTE THE MORPH INSERTS CARRIES THE LAW
+    // The mf strike for its own PITCH, the fader between its own two written dynamics, and its drawn heights re-based onto the
+    // table. No `sonifyMode: 'plain'` is written, so `Composer.isCurveEvent` still calls it a curve event and the score gives it
+    // a curve channel by itself. `velRef` and `cc7Fade` are left exactly as the engine wrote them: a niente fade multiplies in
+    // ON TOP of `cc7Abs` inside `heldCc7`, so the fades stay a separate layer over the table (his question, RUNNING_LOG §167).
+    // A FLAT note keeps the height it was DRAWN at — `heldCc7` answers `lo` whatever the height when lo === hi (1g's G2).
+    // It is applied at INSERT, not at save: `model_bank.js` validates that `toScoreObjects(notes)` reproduces a stored actual's
+    // `objects`, so an actual filed before this build still comes out on the law when it is placed.
+    shapeObjects(objs) {
+        const MD = root.MorphDyn, C = HOST(), bank = C ? C._velRemap : null;
+        const T = (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
+        const out = { n: 0, lo: null, hi: null, unmeasured: [], skipped: 0 };
+        if (!MD || !C) return out;
+        const un = {};
+        let lo = 127, hi = 0;
+        objs.forEach(o => {
+            if (!o || o.sonifyNote == null || !Array.isArray(o.nodes) || !o.nodes.length) return;
+            const key = (T[o.layer] || {}).instKey;
+            if (!key) { out.skipped++; return; }
+            const S = MD.shapeLevels(bank, key, o.sonifyNote, o.nodes.map(nd => [nd.pos, nd.y]));
+            if (!S) { out.skipped++; return; }
+            o.cc7Abs = S.cc7Abs;
+            o.velAbs = S.velAbs;
+            if (!S.flat) o.nodes.forEach((nd, i) => { nd.y = MD.yOf(S, i); });
+            if (!S.measured) un[key] = 1;
+            if (S.cc7Abs.lo < lo) lo = S.cc7Abs.lo;
+            if (S.cc7Abs.hi > hi) hi = S.cc7Abs.hi;
+            out.n++;
+        });
+        if (out.n) { out.lo = lo; out.hi = hi; }
+        out.unmeasured = Object.keys(un);
+        return out;
+    },
+    // H3.4 — the status states the fader span that went out, because "a stated range is what sounds" is only true if the
+    // numbers that went out say so (the sequence drawer's `rangeText`, LG-51)
+    lawText(S) {
+        if (!S || !S.n) return '';
+        return ' · ' + S.n + ' shaped, struck at mf on the curve channels · the fader CC7 ' + S.lo + '…' + S.hi +
+            (S.unmeasured.length ? ' · no measured fader curve for ' + S.unmeasured.join(' · ') + ' — the table is the UVI law\'s guess there' : '');
+    },
     insert() {
         const C = HOST();
         if (!C || !this.result) return;
@@ -1257,6 +1302,7 @@ const PANEL = {
             label: 'MORPH ' + this.result.meta.model + (p.label ? ' — ' + p.label : '') + this.castLabel(),
             color: '#7E57C2', groupId: gid, performanceNotes: '', properties: {},
         });
+        const law = this.shapeObjects(objs);   // PLAN 1h H3.2 — the law, on every note this morph writes
         objs.forEach(o => C.objects.push(o));
 
         // contour follows the morph's own dynamic shape: sample the mean level
@@ -1286,7 +1332,7 @@ const PANEL = {
         if (C.renderAll) C.renderAll();
         if (C.markDirty) C.markDirty();
         if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
-        this.setStatus('inserted ' + objs.length + ' notes at ' + at.toFixed(2) + ' s as ' + gid);
+        this.setStatus('inserted ' + objs.length + ' notes at ' + at.toFixed(2) + ' s as ' + gid + this.lawText(law));
     },
 
     // ------------------------------------------------------------- THE SEPTET'S CAST (morph_septet.js; RUNNING_LOG §197–203; CN-37)

@@ -1403,3 +1403,29 @@ to come back with it, whole — the players, the cents, the partial numbers — 
 branch knows one kind of pitch source (a sonority and a pick) and flattens everything else into it; that has now bitten twice
 (1a.6, RUNNING_LOG §74; and here). **The all-purpose tool stores the pitch source AS IT WAS GIVEN and recalls it as the same kind
 of thing** — a cast chord comes back a cast chord. Built for BLOOM in PLAN 1h (H2.6); the general form is the revision's.
+
+### 2026-09-20 — AS BUILT (PLAN 1h H3): every sustained morph note is SHAPED, moving or not — the sentence this replaces
+
+**It replaces this file's own sentence of earlier today**, *"a morph note whose level does NOT move stays a struck note"*. That was
+written when the morph stood alone. It cannot stand now: the piece's second object is a BLOOM following the first sequence **on the
+same take** (LG-52), and a still `pp` left on the struck ladder sits about **18 dB** over that sequence's `pp` (RUNNING_LOG §157,
+his *"the attacks are very loud"*). One scale, or the join between the two objects is the step his ear already caught once.
+
+**As built:** `score/public/morph_dyn.js` — `shapeLevels(bank, instKey, midi, level)` → `velAbs` (the mf velocity for the note's
+own PITCH) · `cc7Abs` (the table values of the note's own lowest and highest written dynamics) · `heights` (every breakpoint on its
+own table value). ONE helper, read by `morph_panel.js` when it INSERTS and by `morph_emit.js` when it HEARS, so the audition and
+the score cannot drift. In Hear, `curveSeatsFor` puts each shaped note on a CURVE channel, round robin per player in time order;
+in the score nothing was needed, because an inserted morph note has always been a curve event. It holds for **every pitch source**,
+not only a take.
+
+*AI reading (mine, marked):* for the revision — this is the second tool brought under one law after the fact, and both times the
+work was the same three lines (mf strike · the table · a curve channel) written into a DIFFERENT file. The all-purpose tool should
+not have a dynamics path of its own at all: it should ask one shared module what a written dynamic sounds at, exactly as it asks
+the engine what a pitch is. `dyn_table.js` + `morph_dyn.js` are that module in embryo; the crescendo tool (PLAN `1f`) is the third
+caller waiting, and it is still on the pre-1e law today.
+
+**And a second thing the revision must face, seen while verifying this (not fixed, NITS):** with an LGMF model selected, the panel's
+`heard()` returns NO notes — `cast()`'s voice-list branch marks every pair silent, and `filterResult` then keeps nothing — so Play
+and Insert do nothing for the four models that name their own voices. PLAN 1h H2.3 solves exactly this for a TAKE by re-attaching
+the pairs to the voices; the general answer is that a model which names its own voices should be heard WHOLE, since there is no pair
+to tick. Untouched here: `morph_septet.js` is not in 1h's scope.

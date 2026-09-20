@@ -1,6 +1,7 @@
 # THE DYNAMICS LAW — read this FIRST, before any work on the sound path
 
-*Written 2026-09-20 as PLAN 1e V7, and amended the same day by PLAN 1d.10 (§3 Rule 2). His reason, in his own words:*
+*Written 2026-09-20 as PLAN 1e V7, amended the same day by PLAN 1d.10 (§3 Rule 2) and by PLAN 1g and PLAN 1h H3 (§3 Rule 3 — a
+sequence, then a morph). His reason, in his own words:*
 > *"There's some fundamental misunderstanding or AI forgets what we established before."*
 
 *Twice in two days his ear caught a fault that "by construction" had said was impossible
@@ -22,8 +23,8 @@ rediscover it. It is short on purpose.*
 
 **The one sentence:** *a dynamic you can SEE MOVING is the fader, not the velocity.*
 
-**And in a SEQUENCE, a third case (PLAN 1g, §3 Rule 3):** a sustained note whose level does NOT move is written the
-shaped way all the same — struck at mf, on a curve channel, its fader held at its table value.
+**And in a SEQUENCE — and, since PLAN 1h, in a MORPH — a third case (§3 Rule 3):** a sustained note whose level does NOT
+move is written the shaped way all the same — struck at mf, on a curve channel, its fader held at its table value.
 
 ---
 
@@ -109,7 +110,7 @@ about 12 dB under a struck `mf`, and more toward the quiet end. A waved box and 
 beside it do not share a calibrated level. That is his model; `STEP_DB` is the one number that
 tunes it.
 
-### Rule 3 — IN A SEQUENCE, ONE SCALE *(PLAN 1g, 2026-09-20)*
+### Rule 3 — IN A SEQUENCE, AND IN A MORPH, ONE SCALE *(PLAN 1g · PLAN 1h H3, 2026-09-20)*
 
 His ear: *"the attacks are very loud"* — a straight `pp` box entered after a `pp`–`mp` waves box. His recording read back
 (RUNNING_LOG §157) showed both sides ON the law and the law at fault: a struck `pp` is about **10 dB** under a struck `fff` (1b's
@@ -127,8 +128,24 @@ flat note:  velAbs = the mf velocity · cc7Abs = { lo: T(level), hi: T(level) } 
 drawn where a straight note always was. A straight `pp` **is** the waves' `low`, by construction. An `attack` is an mf attack
 played down by the fader (LG-14).
 
+**AND THE SAME RULE IN A MORPH (PLAN 1h H3, 2026-09-20).** The piece's second object is a BLOOM following the first sequence on
+the SAME take (LG-52), so the two must stand on one scale or the join is the +10 … +18 dB step all over again — a still `pp` left
+on the struck ladder would sit about 18 dB over the sequence's `pp`. **Every sustained note the morph writes is shaped, moving or
+not, for EVERY pitch source and not only a take.** The helper both sides read is `score/public/morph_dyn.js` — `shapeLevels(bank,
+instKey, midi, level)` → `velAbs` · `cc7Abs` · `heights`, the morph's 0 … 10 levels onto the same table — so the panel's Hear
+(`morph_emit.js`) and the inserted score (`morph_panel.js`) cannot drift apart. It REPLACES the sentence of `MORPH_NOTES.md`
+2026-09-20, *"a morph note whose level does NOT move stays a struck note"*.
+
+**The fade is untouched, and that is the point of the layering** (his question, RUNNING_LOG §167): `velRef` and `cc7Fade` stay
+exactly as the engine wrote them, and `fadeWeight` still MULTIPLIES in on top of the table's answer. Measured 2026-09-20 on a
+`fade-in-slow` bloom: the strike held at the mf velocity through all five breaths of the 24 s window while CC7 climbed 0 · 1 · 2 ·
+3 … — a floor the table alone could never reach (the english horn's own `lo` there is 47). In the other attack modes
+(`multiply`, `ceiling`) there is no weight: the LEVEL is shaped, so the fall bottoms at the table's value — measured 43 on the
+same note — which is a SOUNDING level, not silence. The morph engine writes no `to` on a fade, so a weight that falls to niente is
+the sequence drawer's alone (1d.8).
+
 **Not reached:** a FIXED-length sound (a strike) — no breath, no bow, no measured fader curve — still takes its velocity. And
-nothing OUTSIDE a sequence changes: §1's table stands for every other tool.
+nothing OUTSIDE a sequence or a morph changes: §1's table stands for every other tool.
 
 **The check:** `node tools/dyn_table_check.js` — the CC7 the table gives is read BACK through the
 same curve and the eight names must land 4 dB apart on every instrument (51 checks).
@@ -146,6 +163,9 @@ on the `b` ports (`LGBassoonb` · `LGHornb` · `LGTrumpetb`).
   order, from `curveChannelsOf(lane, technique)`.
 - In a **tool's Hear**: the tool must route them itself. The sequence drawer does it by
   marking a shaped note's `seat` `'c0'`, `'c1'`, … and wrapping `D.routeFor` from outside.
+  The morph does it in `morph_emit.js` `curveSeatsFor` (PLAN 1h H3.3): the same round robin
+  per player in time order, overriding each shaped note's route before a single message is
+  built. The score needed nothing — an inserted morph note has always been a curve event.
 - A technique with **no curve copy** stays on MAIN — and the tool's status must SAY SO, because
   such a note's fader will not move and nothing else will tell you.
 
@@ -164,7 +184,7 @@ Who does, as of 2026-09-20: `sequence_ui` · `strike_drawer` · `morph_panel` (a
 
 ## 5 · What is NOT touched by any of this
 
-Flat notes **outside a sequence** (inside one, Rule 3) · plain notes · strikes · long tones · **trills** (the septet's trills carry volume
+Flat notes **outside a sequence or a morph** (inside either, Rule 3) · plain notes · strikes · long tones · **trills** (the septet's trills carry volume
 as separate STRUCK notes by velocity — checked 2026-09-20, nothing to fix) · niente fades
 (`cc7Fade` still multiplies in **on top of** the answer `cc7Abs` gives).
 
@@ -202,7 +222,7 @@ per channel. It is the instrument that settled this, and it is the instrument th
 
 ---
 
-*Rule 3: RUNNING_LOG §157 · §158, PLAN 1g.*
+*Rule 3: RUNNING_LOG §157 · §158, PLAN 1g — and for the morph, RUNNING_LOG §171, PLAN 1h H3 (`score/public/morph_dyn.js`).*
 
 *Source: RUNNING_LOG §137 · §139 · §140 · §141 · §142 · §143 — PLAN 1e (V1 … V7) — and for Rule 2 as it now
 stands, RUNNING_LOG §147 · §148 · §150, COMPOSITION_NOTES LG-51, PLAN 1d.10 —

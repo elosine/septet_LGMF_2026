@@ -1112,7 +1112,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   pair on its JUST pitch — and the morph's dynamics brought under the law) — **`planned` 2026-09-20, session 11 (RUNNING_LOG
   §162–§166 · COMPOSITION_NOTES LG-52 · MORPH_NOTES 2026-09-20); the top line and the four steps approved as ONE summary
   (*"yes good"*), the sub-steps the AI's, written to be executed cold.**
-  **► `doing` 2026-09-20 — H1, H2.1…H2.5 AND H2.6 ARE BUILT AND VERIFIED (RUNNING_LOG §169 · §170); H3 is next, H4 is his.**
+  **► `doing` 2026-09-20 — H1, H2 AND H3 ARE BUILT AND VERIFIED (RUNNING_LOG §169 · §170 · §171), AND EVERY NAMED CHECK OF THE
+  REQUIRED VERIFICATION HAS RUN. WHAT IS LEFT IS H4, HIS LISTEN — nothing here has been HEARD, the in-app browser has no Web MIDI.**
   **AS BUILT (H1 + H2.1…H2.5): the two steps went into ONE commit.** H1 alone would leave the line claiming *as assigned* while the
   bloom still played the model's own set, and the REQUIRED VERIFICATION's own check (1) — the pulldown lists it first-group AND the
   line shows pair · note · cents · partial — cannot be run on the chooser alone. Everything is in `morph_panel.js`; `morph.js`,
@@ -1203,7 +1204,14 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       Insert then keeps the cents. `↻` is dead for it — there is nothing to re-read. After a page reload the `actual:` option must
       still exist in the pulldown: re-seed `recalledSets[p.takeName]` from the stored `p.takeChord`. The LGMF models (M3 · M6,
       voices in their BASE params) and a recalled actual WITHOUT voices go exactly as they do today.
-  - **H3 · The morph's dynamics on the law.** *Result when done:* a bloom sounds on the same scale as a sequence — every
+  - **H3 · The morph's dynamics on the law.** — **`done` 2026-09-20 (RUNNING_LOG §171).**
+    **AS BUILT:** the helper is applied at INSERT, not at save — `model_bank.js` validates that `toScoreObjects(notes)`
+    reproduces a stored actual's `objects`, so shaping at save would break the validator, and shaping at insert means an actual
+    filed BEFORE this build still comes out on the law when it is placed. `insertActual` therefore shapes the PLACED copies.
+    **(6b) as seen:** the attack modes the panel actually offers are `fade` (a weight, reaches CC7 0) and `multiply` (no weight;
+    the LEVEL is shaped, so the fall bottoms at the table's value — measured CC7 43 on the english horn). `ceiling` is the same
+    code path as `multiply` and no preset offers it. **There is no weight-based fade OUT in the morph at all** — `fadeWeight`'s
+    `to` is written only by the sequence drawer (1d.8) — so a morph's ending falls by LEVEL, and that fall is now on the table. *Result when done:* a bloom sounds on the same scale as a sequence — every
     sustained note struck at mf, on a curve channel, its fader between the table values of its written dynamics; Hear and the
     inserted score behave the same. **THE RULE: EVERY sustained note the morph writes is shaped, moving or not** — DYNAMICS_LAW §3
     Rule 3 carried to the morph (the AI's call, flagged to him in §165 and approved with the rest). It REPLACES the sentence of
@@ -1231,7 +1239,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - H3.5 · DOCS at the build: `DYNAMICS_LAW.md` — §1's third case and §3 Rule 3 now read *in a sequence AND in a morph*; §4's
       "in a tool's Hear" gains the morph · `MORPH_NOTES.md` §3 — an AS BUILT entry naming the sentence it replaces ·
       `RUNNING_LOG.md` as it happens.
-  - **H4 · His listen.** *Result when done:* he has made a bloom take in the drawer and heard it there, pulled it into a bloom,
+  - **► H4 · His listen — THE ONLY THING LEFT IN `1h`, AND IT IS HIS.** *Result when done:* he has made a bloom take in the drawer and heard it there, pulled it into a bloom,
     heard the bloom, and inserted it after the sequence. His ear is the verdict; a recording read back proves the routing, as
     with 1e.
   - **NOT in this step:** anything in the strikes drawer · `morph.js` · `morph_septet.js` · `composer.html` beyond one script tag ·

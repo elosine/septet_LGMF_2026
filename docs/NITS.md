@@ -194,3 +194,12 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   not the morph work's. Two `400 Bad Request` fetches on the same load were not traced. **Nothing visible breaks** — the drawer, the
   takes menu and Hear all work — so it is noted, not fixed. If a "sequence panel came up wrong after a reload" is ever reported,
   this is the first read.
+
+- **2026-09-20 — with an LGMF model selected, the morph panel's Play and Insert do nothing** (RUNNING_LOG §171, seen while
+  verifying PLAN 1h H3; `MORPH_NOTES.md` has the design reading). `cast()`'s voice-list branch marks every pair silent
+  (*"this model names its own voices"*, PLAN 1a.6) and `filterResult` keeps only the voices of pairs that are ticked AND not
+  silent — so `heard()` returns an empty note list for LGSPECTRAL · LGBALANCE · LGBLOOM · LGCONVERGE, and both Play and Insert
+  take their notes from `heard()`. **Measured:** the four render 118 · 113 · 79 · 76 notes and `heard()` gives 0. **It is not new
+  and it is not 1h's** — `morph_septet.js` is untouched by that build — and it has never been in the way, because the six LGMF
+  scores were built by `bank/actuals/` and the tools, not by the panel. **The one-line shape of a fix:** when no pair owns any
+  voice, `filterResult` should pass the render through whole. PLAN 1h H2.3 does the pair-attaching version of this for a TAKE.
