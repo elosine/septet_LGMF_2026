@@ -6153,3 +6153,159 @@ of it rather than changing it.
 
 **NOT re-tested, because nothing asked for it:** the six scores, the strikes drawer's own listen, and 1d.7 · 1d.8, which 1e changes
 the sound of. Those are his ear's, not the bridge's.
+
+## §145. THE DESIGN TALK OPENS — (a) the SEQUENCE LIBRARY is settled: the takes' store, an untitled stack, and `save` as a keeper (2026-09-20)
+
+**What prompted it.** After the clear, the sequence feature add came off deck with four design questions owed (journal §2). He took
+(a), the library, first — and turned LG-47's *"explain how this would look"* into the question under it:
+
+> *"a but just talk me thru the specifics; I think mostly I want to know that a sequence I'm working on is saved, will survive a
+> refresh, will survive the server restart, etc., or a computer restart. And then I want to be able to give it a name and manual save
+> as well without creating a cascade of new versions. And then just have it be committed and pushed at the normal time, like
+> checkpoints, etc."*
+
+**What was read, to answer from the state and not from the plan's shorthand** (`sequence_ui.js` · `strike_drawer.js` ·
+`score/snapshots.js` · the `/api/snapshots` route in `score/server.js`):
+
+- **Today the row lives in `localStorage`, ONE key, saved on every change.** It therefore already survives a refresh, a server
+  restart AND a computer restart — localStorage is a file in his Chrome profile. **A correction to PLAN 1d item 6's wording** (*"the
+  row lives in the browser only"*), which reads as fragile: the real fragility is that there is only ONE row, that `new` wipes a row
+  never inserted, and that git cannot see it.
+- **The takes' store already does what he asked for.** `POST /api/snapshots` → `bank/panel_snapshots.json`, keyed panel → name →
+  state. A save under an existing name REPLACES it in place (the drawer reports `(replaced)`) — no versions by construction. An
+  unknown panel is CREATED, not rejected, and `state` is opaque (`snapshots.js` rules 1 · 2), so a `sequences` bucket needs NO server
+  edit. The file is tracked, so it commits and pushes at the wrap with everything else.
+
+**Decided, all his:**
+
+1. **The shape:** `localStorage` stays the instant working copy; the DISK holds the library, in `bank/panel_snapshots.json` under a
+   panel of its own.
+2. **An UNNAMED sequence autosaves into a rolling stack** — option (iii) of three put to him (one rolling slot · a new `untitled N`
+   per `new`, which is a cascade by another door · a short rolling stack). His answer: *"iii"*, and then *"lets make the auto save
+   number large these are small files"*. **The AI's number: the last 50, oldest dropped — his to change.**
+3. **Naming it MOVES it** out of the untitled stack into the library (a move, not a copy); from then on every change autosaves to
+   that name, on disk, a couple of seconds after he stops. Rename = the same entry under a new name.
+4. **`save` marks a KEEPER — option (B), his answer *"b"*.** Two states per name and never more: *where he is* (autosaved; what a
+   refresh brings back) and *his last `save`* (what `revert` brings back), a `•` beside the name when they differ. **Why this and not
+   (A), autosave-is-the-save:** the roll and `re-breathe` are dice — under (A) a deal he likes is gone the moment he turns another
+   dial, unless he duplicated BEFORE he knew he would want it. It is the score file's own shape (working copy · Save · Reload) without
+   `Name version`. **Rejected with it:** versions per name — the cascade he named.
+5. **(c) a `save preset` button for the waves presets — approved:** *"c is fine"*.
+
+**Still open in the talk:** (b) the waves' `up` / `down` in steps · (d) what a selected range of boxes takes · what 1e's depths do to
+the box's own dynamic in a waved box. Nothing is built; the library goes through the planning method when he calls the build.
+
+## §146. The design talk, continued — (b) a FIXED range with a per-selection override · rest at `low` (LG-49 reversed) · (d) all three · and the depths put as HIS question (2026-09-20)
+
+**His answers, verbatim in COMPOSITION_NOTES LG-50.** In short: *"b is fixed"* · a different range for a selection of boxes, *"same
+waves, timing, etc."* · *"I'll have it rest at the lowest dynamic"* · *"d all 3"*.
+
+**Decided:**
+
+1. **(b) — the waves' range is a FIXED `low`–`high`, one for the whole sequence.** The AI had recommended STEPS from each box's own
+   dynamic (`up 2 · down 1`); **rejected by him.** With it goes the reason for steps: he also **reversed LG-49's water line** —
+   between swells a player rests at `low`, not at the box's own dynamic. That is what 1d.7 already builds, so PLAN 1d item 8's *"a box
+   has a dynamic AND waves"* falls away: a box is waves OR straight, as today.
+2. **A SELECTION of boxes can carry its own `low`–`high`** (his example: the sequence at `pp–mf`, boxes 15–30 at `ppp–mp`). Same
+   dealt waves, same timing — only the range they are read through. It rides on item 7's selection.
+3. **(d) — a selected range of boxes takes all three:** `waves | straight` · `dyn` · `enter`. Take and seconds stay per box.
+4. **A correction to §145, the AI's own:** the library wants **a file of its own**, not a panel inside `bank/panel_snapshots.json`.
+   That file is 3.1 MB with 216 strikes takes and the server rewrites it WHOLE on every save; an autosave every few seconds should
+   not be touching it. A small server addition — so §145's *"needs NO server edit"* no longer holds. The AI's call, his to reverse.
+
+**The depths, (e) — open, and his own question settles what it IS.** He asked why the fader always runs 0 → 127, and why `p → f`
+could not be CC7 60 → 100. Two facts given to him: (i) it does not always run 0 → 127 — under 1e the TOP is always 127 and the bottom
+follows the depth, one seventh of the fader per written step, so `p → f` is about 73 → 127 and only a niente fade starts at 0;
+(ii) `cc7Abs { lo, hi }` is per note and takes any two numbers — the tools simply always write the top as 127. **The argument that
+decides it, found by setting his new override against 1e's law:** `pp–mf` and `ppp–mp` are both three steps deep, so today both
+play about 73 → 127 and **his per-selection range would be INAUDIBLE.** The remedy put to him: each WRITTEN dynamic gets a CC7 value
+of its own — one table, read by every shaped note. **The one limit, stated to him:** the strike is mf, so CC7 127 is the loudest a
+shaped note can be (about a struck mf); a table can only place things BELOW that. The table's numbers are not worked out — owed when
+it is planned, from the bank's measured fader curves. It would amend 1e's *"the shape's top is the full fader"*, which was his call
+this morning; his to decide.
+
+**A slip of the AI's, recorded because it touched his data:** a `node -e` script in a double-quoted bash string carried markdown
+backticks, so bash ran them as command substitution and tried to EXECUTE `bank/panel_snapshots.json` as a script. Every line failed
+as `command not found`; nothing ran. Checked after: valid JSON, 216 takes, the file's timestamp unchanged (2026-09-19 16:34). **The
+rule it leaves: a script with backticks in it goes to a FILE through a quoted heredoc, never into `node -e "…"`.**
+
+## §147. (e) DECIDED — THE DYNAMICS TABLE: each written dynamic gets a CC7 value of its own. The design talk is closed (2026-09-20)
+
+**His words:** *"yes go with the table no need to see the numbers; where are we now?"*
+
+**Decided:** in a shaped note every WRITTEN dynamic maps to ONE CC7 value, the same in every shaped note — so a wave `ppp–mp` really
+sits below a wave `pp–mf`, and his per-selection range (§146, LG-50) is audible. **This AMENDS PLAN 1e's Rule 2** (*"the top of the
+shape is the full fader"*, the heights re-based against the shape's own top): the top is no longer always 127, it is wherever the
+table puts the shape's `high`. Rule 1 stands untouched — the strike is still mf, per instrument and per pitch — and so does the
+limit it sets: CC7 127 is the loudest a shaped note can be, about a struck mf, and the table only places things below it.
+
+**Why this rather than leaving 1e as built:** under re-basing only the DEPTH of a shape is heard, so two ranges of equal depth are
+the same sound. That was known and accepted at 1e (§143, DYNAMICS_LAW §3 "a consequence"); what changed is that he now wants a
+RANGE to be something he sets per selection of boxes, and that needs the range to be heard.
+
+**Owed by the AI, not by him** (*"no need to see the numbers"*): the table itself. To be worked out when the step is planned — from
+the bank's measured fader curves (`cc7Curve`, UVI on 40·log10 and Kontakt on 60·log10), so that a written step is the same size in
+dB on every instrument; which dynamic sits at 127; and that `ppp` stays a SOUNDING level, true silence remaining the edges' niente.
+**When it is built, `docs/DYNAMICS_LAW.md` §3 Rule 2 is rewritten** — it is the first read for sound-path work and must not be left
+describing the old law.
+
+**The design talk is closed — all five:** (a) the library (§145, and §146's file of its own) · (b) a fixed range with a
+per-selection override, rest at `low` (§146) · (c) `save preset` · (d) a selection takes waves · `dyn` · `enter` · (e) this.
+**Next: the feature add is PLANNED under the planning method — the top line, then one step at a time.**
+
+## §148. HIS PRINCIPLE — a STATED dynamic range is what sounds, for the whole curve — makes the table the COMPOSER's; the crescendo tool is found still on the old law; and the feature add is PLANNED and approved (2026-09-20)
+
+**What prompted it.** Before approving the plan he asked the AI to disambiguate *"the overall dynamic situation"* — what 1e had
+fixed, where, and whether today's sequence decisions reached back into it. The answer given: 1e was composer-wide and has two rules
+(the mf strike · the top of the shape at CC7 127); the table amends only the second, and only where a shape is written in dynamic
+NAMES. The AI added that it had not looked at the crescendo tool, which also works in names. **His answer is the principle, verbatim
+in COMPOSITION_NOTES LG-51:** *"I would state a dynamic range at the beginning of a curve. And then for the whole duration of the
+curve, it is meant to go between those two values … the curve would be drawn full for notation, but the performer would always go
+between MP and FF. So the crescendo playback should be similar … a curve going from MP to FF should go … say 65 to 111 in CC7, not
+up to the full 127."*
+
+**What it settles.** The table is not the sequence drawer's — it is THE COMPOSER's: one function, one module
+(`score/public/dyn_table.js`), read by whatever writes a shape with a stated range. And it ties the playback to the notation he
+made in piece #5: the curve is DRAWN full, the RANGE is stated at its head, and the range is what the player — and so the sampler —
+performs.
+
+**The crescendo tool, looked at because he asked whether anything needs going back to.** Read in the code, not captured from what
+it sends: `cresc.js` · `cresc_run.js` · `cresc_card.js` · `cresc_panel.js` write NO `cc7Abs` and NO `velAbs`. A name goes to a
+drawn height by `Cr.dynHeight` (i / 7 × 10) and the score's OLD law plays it — struck at the velocity of the curve's TOP, the
+fader moving only inside the 12 dB ladder. **That is the fault 1e fixed for the sequence drawer, still standing in the crescendo
+tool.** 1e did not reach it; `DYNAMICS_LAW.md` §5 lists it as *"not touched"*, which a reader would take to mean *fine*; and
+`CRESCENDO.md` has carried it as an open item since piece #5 (*"a crescendo attacks at its loudest velocity and CC7 shapes it down
+… worth his ear on a ppp start"*). **So the answer to his question is YES for the crescendo tool and NO for everything else:**
+nothing built earlier needs undoing; the swell and the note card draw gestures with no names, so the table has nothing to say to
+them until the notation states a range for them. **Added to the plan as `1f`, `todo`, after 1d.10** — his instruction. **A
+correction to the AI's own summary of an hour earlier,** which said the swell and the note card would follow the table: only the
+sequence does; said to him.
+
+**The table's numbers — the AI's, by his word** (*"no need to see the numbers"*). `fff` = CC7 127; each written step below it is
+`STEP_DB` = **4 dB**, taken through each instrument's MEASURED fader curve by the helper the bank already has
+(`VelocityRemap.cc7ForDelta(inst.cc7Curve, −(7 − level) × 4)`). **Why 4, and why through the curve:** 1e as built gives "one
+seventh of the FADER per step", and the same CC7 is a different number of dB on the two sampler families (UVI 40·log10 · Kontakt
+60·log10) — three steps are 9.6 dB on a UVI instrument and 14.4 dB on a Kontakt one, so the same written depth was a different
+depth from one family to the other (INFERRED from the two laws in the bank's builder, NOT measured). About 4 dB a step is the depth he has now, averaged; taken through the curve it becomes THE SAME on
+every instrument. And it lands his own guess: `mp → ff` comes out CC7 69 → 109 on a Kontakt instrument, against his *"65 to 111"*.
+ONE constant, so his ear retunes it by changing one number. `ppp` = 28 dB under the ceiling: sounding; silence stays the niente.
+**Not verified:** that every `cc7Curve` in the bank reaches −28 dB (`cc7ForDelta` clamps at a curve's first point) — a CHECK FIRST
+in the step.
+
+**A consequence, said to him and written into the step:** the ceiling of a shaped note is an mf strike at CC7 127 — a struck mf —
+and the table counts down from `fff`, so a shaped note sits QUIETER than a struck note of the same name: 12 dB at `mf`, more toward
+the quiet end. It is his model (*"not up to the full 127"*) and `DYNAMICS_LAW` already accepts that a waved box and a straight box
+do not share a calibrated level; but it is larger than before at the quiet end, and the seam between a straight box and a waved box
+is where he will hear it. **Rejected, and why:** anchoring `mf` at 127 (a shaped mf = a struck mf, calibrated at the top) — it
+leaves `f`, `ff` and `fff` all clamped at 127, so his `mp → ff` would move 4 dB; and striking at the velocity of the stated top
+(calibrated everywhere at the top) — that is the pre-1e law he rejected this morning for its timbre.
+
+**THE FEATURE ADD IS PLANNED.** He asked for the whole plan as one conceptual summary rather than step by step, read it, and
+approved it whole: *"the sequence plan is good, approved. So go ahead and write that."* Written into `docs/PLAN.md` § 1d as THE
+FEATURE ADD — running order **1d.10** the dynamics table → **1d.11** the library → **1d.12** select a range → **1d.13** the waves
+by preset → **1d.9 + 1d.14** the breath's lengths → **1d.15** the clock and the cursor → **1d.6** his listen — with `1f` after it.
+The sub-steps are the AI's, written to be executed cold. **Two questions are still his and are asked when their step is reached:**
+`of max` on a new sequence, on or blank · `±` in seconds under `of max`, one number for all or a share of each player's own aim.
+**Also written:** a banner at the head of `DYNAMICS_LAW.md` (Rule 2 is amended and NOT YET BUILT; the crescendo tool is on the old
+law) — that page is the first read for sound-path work and must not mislead in the meantime · `MORPH_NOTES.md`, the morph's method
+amended by the table.

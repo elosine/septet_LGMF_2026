@@ -5,7 +5,9 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-09-20 (session 11, Opus → Fable → Opus) — **► PLAN 1e IS DONE AND PROVEN IN HIS RACK (RUNNING_LOG §143 · §144).**
+**NOW ►** 2026-09-20 (session 11, Opus → Fable → Opus) — **► THE SEQUENCE FEATURE ADD IS PLANNED AND APPROVED, NOTHING BUILT (RUNNING_LOG §145–§148 · LG-50 · LG-51).** `docs/PLAN.md` § 1d, THE FEATURE ADD — build in this order: **1d.10 THE DYNAMICS TABLE** (amends 1e's Rule 2: a STATED range is what sounds, every written dynamic gets a CC7 value of its own) → 1d.11 the library → 1d.12 select a range → 1d.13 the waves by preset → 1d.9 + 1d.14 the breath's lengths → 1d.15 the clock and the cursor → 1d.6 his listen. **And `1f`, `todo`: the crescendo tool was never brought under 1e.** Opus, after a checkpoint and a clear. *(What follows was the NOW line before the design talk.)*
+
+*Earlier the same day —* **► PLAN 1e IS DONE AND PROVEN IN HIS RACK (RUNNING_LOG §143 · §144).**
 He recorded the playback and `cc7_by_channel.lua` read it back: **MAIN ch 1 empty on all eighteen tracks** · every shaped note on a
 **curve channel**, three per player in rotation, the SI2 three on their `b` ports · **every strike an mf velocity** for its own pitch,
 checked against the bank · **CC7 reaching 0** on the first channel of every player, the floor of 56 elsewhere being `ppp` under an `mf`

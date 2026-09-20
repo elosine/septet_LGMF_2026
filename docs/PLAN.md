@@ -750,6 +750,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **Not in this step unless he says:** `±` in seconds (item 5 below — the same formula; under `of max`, is `±` still one number
       of seconds for every player?) · an `of max` per player.
   - **ON DECK, DEFERRED (his call 2026-09-20, RUNNING_LOG §141): THE VOLUME FIX comes first, as a plan of its own; this list waits, whole.**
+  - **→ THE LIST BELOW IS NOW PLANNED (2026-09-20) — see "THE FEATURE ADD", after it: 1d.10 … 1d.15, with 1d.9. The list is kept
+    as the record of how the asks arrived. Where it and the plan differ — item 8's water line and `up` / `down`, reversed by
+    LG-50 — THE PLAN WINS.**
   - **THE NEXT FEATURE ADD — a list being COLLECTED at his word (LG-44, 2026-09-20: *"let's just collect these features and the next
     build our feature add will slot these in. Just make a list for now."*). Not built, not yet planned — each goes through the
     planning method when he calls the build:**
@@ -767,6 +770,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        drawer, where I give it a name. And then it just auto saves to that name. But also can auto save generically if I haven't named
        it yet."* *Today the row lives in the browser only, ONE at a time, and `new` wipes a row that was never inserted.* **HIS INSTRUCTION
        FOR THE PLANNING: explain how this would LOOK first, and talk it through with him, before it is planned.**
+       **→ TALKED THROUGH AND SETTLED 2026-09-20 (RUNNING_LOG §145):** the takes' store (`bank/panel_snapshots.json`, a panel of its own) · an untitled rolling stack of 50 · naming MOVES it and it autosaves to the name · `save` marks a keeper, `revert` returns to it, two states per name and never more. Not yet planned.
     7. **SELECT A RANGE OF BOXES** (LG-48): *"if I have 30 boxes I can select 15-30 and make waves"*. *Today it is one box or ALL boxes.
        To settle when planned: click + SHIFT-click for the range; the range takes `waves | straight` — and `dyn` and `enter` too?*
     8. **THE WAVES BY PRESET** (LG-49) — UNDER DISCUSSION, the AI's recommendations put to him: swell lengths automated (no typed
@@ -778,6 +782,172 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
        waves, the fades and the ramps of 1d.7 / 1d.8 are inaudible. In `sequence_ui.js` alone: a ramped note is heard on a curve route
        (`Composer.curveChannelsOf` / `curveRoute`, round robin per player, the ramp on the same route), `D.routeFor` wrapped from
        outside; `strike_drawer.js` untouched. **BUILD IT FIRST — nothing else about dynamics can be judged by ear until it is in.**
+
+
+  - **THE FEATURE ADD — PLANNED AND APPROVED 2026-09-20** (his word: *"the sequence plan is good, approved. So go ahead and write
+    that"*). The design talk is RUNNING_LOG §145–§148; his briefs are COMPOSITION_NOTES LG-43 … LG-51. He asked for the whole plan
+    in one conceptual summary and approved it whole, so the sub-steps below are the AI's, written to be executed cold; **anything
+    marked PUT TO HIM is asked when its step is reached, not before.**
+    **RUNNING ORDER (position = order of building, the ids are only the next free ones):**
+    **1d.10** the dynamics table → **1d.11** the library → **1d.12** select a range → **1d.13** the waves by preset →
+    **1d.9 + 1d.14** the breath's lengths → **1d.15** the clock and the cursor → **1d.6** his listen.
+    *Why this order:* the table first, because every listen after it is judged through it · the library second, so nothing he makes
+    while testing the rest is lost · the selection before the presets, because the per-selection range rides on it.
+    **Each step ends on HIS test in his Chrome** (the in-app browser has no Web MIDI); the AI verifies note lists, objects and
+    routes in `score-5401`, never the sound, and never saves from its own pane.
+  - **1d.10 — THE DYNAMICS TABLE** (each WRITTEN dynamic has a CC7 value of its own, read by every shaped note the drawer writes) —
+    `todo` — **AMENDS PLAN 1e's Rule 2** (*"the top of the shape is the full fader"*); Rule 1 (the mf strike), the curve channels
+    and `curveDirty()` all stand. RUNNING_LOG §146–§148 · LG-50 · LG-51.
+    *Why:* under 1e only a shape's DEPTH is heard — `pp–mf` and `ppp–mp` are both three steps deep and both play about CC7 73 → 127,
+    so the range he now sets per selection of boxes (1d.12) would be inaudible. And his principle (LG-51): a STATED range is what
+    sounds, for the whole curve — *"a curve going from MP to FF should go … say 65 to 111 in CC7, not up to the full 127."*
+    *Result when done:* one function for the whole composer — the CC7 value of a written dynamic on a given instrument — and every
+    shaped note the SEQUENCE drawer writes (a wave · a ramp to or from a dynamic · an edge's fade to or from a dynamic) reads it, in
+    Hear as in the score. A wave `ppp–mp` sits audibly below a wave `pp–mf`.
+    - **THE LAW.** `fff` = CC7 127. Each written step below it is **`STEP_DB` = 4 dB**, taken through the instrument's MEASURED fader
+      curve: `VelocityRemap.cc7ForDelta(bank.instruments[instKey].cc7Curve, -(7 - level) * STEP_DB)` — `level` 0 … 7 = `ppp` … `fff`,
+      fractions allowed. **ONE constant**, so his ear retunes the whole table by changing one number. *Why 4:* 1e as built gives
+      three steps ≈ 9.6 dB on a UVI instrument and 14.4 dB on a Kontakt one (inferred from the two laws, not measured) — about 4 dB a
+      step — so the depth he has is kept, but is now THE SAME in dB on every instrument; and it lands his own guess — `mp → ff` is CC7 69 → 109 on a Kontakt
+      instrument. `ppp` is 28 dB under the ceiling: a SOUNDING level. True silence stays the edges' niente — `cc7Fade` multiplies in
+      on top, unchanged.
+    - **WHERE.** A small shared module, **`score/public/dyn_table.js`** (UMD, as `velocity_remap.js` is, so a node check can load it)
+      — NOT inside `sequence_ui.js`: `1f` (the crescendo tool) and the morph's revision read the same table. No bank loaded → the
+      UVI law, 127 × 10^(−dB / 40), and the status SAYS SO.
+    - **CHECK FIRST:** every instrument's `cc7Curve` in `bank/velocity_remap.json` reaches −28 dB. `cc7ForDelta` CLAMPS at the curve's
+      first point; if one stops short, extend it in the BUILDER (`tools/build_remap_card.js`, by the family's law — UVI 40·log10 ·
+      Kontakt 60·log10), never in the app. The rest of the bank stays byte-identical.
+    - **IN `sequence_ui.js`.** `rebased(n, top)` and the constant `CC7_FULL` are replaced. For each shaped note: `lo` / `hi` = the
+      lowest and highest LEVEL among its breakpoints · `cc7Abs = { lo: T(lo), hi: T(hi) }` · every breakpoint's height
+      `h = (T(level) − T(lo)) / (T(hi) − T(lo))`, so EVERY breakpoint lands exactly on its table value, not only the two ends · a
+      shaped note that is flat (`lo` = `hi`): `cc7Abs { T, T }`, h = 1. Nodes at `y = 10 · h` as now. The Hear stand-in already
+      copies the note's `cc7Abs` (~969), so Hear and the score stay one law. A note that crosses from a box with one range into a
+      box with another is still ONE note with ONE `cc7Abs` — the breakpoints carry the levels, nothing special is needed.
+      `velAbs` = the mf strike, per pitch, untouched.
+    - **`sequence.js` is not touched** if the levels already travel in written-dynamic units — CHECK; `sequence_check` stays **126**
+      and the gate against `tools/sequence_baseline.json` holds.
+    - **NOT touched:** the drawn swell (CC7 65 → 127, a gesture with no names) · the note card's `full fader` (0 → 127, by hand) ·
+      trills · strikes · plain notes · `composer.html`. **The crescendo tool is `1f`.**
+    - **`docs/DYNAMICS_LAW.md` §3 Rule 2 is REWRITTEN and the banner at its head removed; `docs/SEQUENCE_TOOL.md` §13 · §14 follow.**
+    - **Verification.** A new `tools/dyn_table_check.js`: monotone per instrument · `fff` = 127 · equal dB steps on the measured
+      curve, within rounding · `mp → ff` on a Kontakt instrument ≈ 69 → 109. `sequence_check` gains: two ranges of EQUAL depth give
+      DIFFERENT `cc7Abs` · every breakpoint lands on its table value. In the running app, no MIDI: capture what Hear sends for
+      `pp–mf` against `ppp–mp`.
+    - **His test — the 1e way:** a waved sequence with two ranges, recorded as MIDI in the rack →
+      `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` → two different CC7 spans, neither topping at 127 unless
+      its `high` is `fff` · MAIN ch 1 empty · every strike an mf velocity.
+    - **KNOWN, AND SAID TO HIM:** a shaped note now sits QUIETER than a struck note of the same name — a shaped `mf` is 12 dB under a
+      struck `mf`, because the ceiling (mf strike, CC7 127) IS a struck mf and the table counts down from `fff` — and more so toward
+      the quiet end. That is his model (*"not up to the full 127"*) and DYNAMICS_LAW already accepts that a waved box and a straight
+      box do not share a calibrated level. `STEP_DB` is the one number that tunes it; his ear decides at the listen.
+  - **1d.11 — THE LIBRARY** (a sequence is a DOCUMENT: it has a name, it autosaves, many coexist, and they ride in the repo) — `todo` —
+    LG-47 · RUNNING_LOG §145 · §146.
+    *Why:* today the row lives in `localStorage`, ONE key — it survives a refresh, a server restart and a computer restart, but
+    there is only ONE, `new` wipes a row that was never inserted, and git cannot see it.
+    *Result when done:* an unnamed sequence is always on disk in a rolling stack · a named one autosaves to its name · `save` marks a
+    keeper and `revert` returns to it · a `library` menu opens, duplicates and deletes · all of it in one tracked file, committed at
+    the wrap.
+    - **THE STORE: `bank/sequences.json`, a file of its own** — NOT a panel in `bank/panel_snapshots.json` (3.1 MB, 216 takes,
+      rewritten WHOLE on every save; an autosave every few seconds must not touch it). The `/api/snapshots` route takes a `store`
+      field checked against a WHITELIST of two names — never a path from the client. `score/snapshots.js`'s merge rules are reused
+      unchanged; `tools/test_snapshots.js` gains the second store. This store is written **temp file + rename**, because it is
+      written often.
+    - **Its panels:** `library` (named) · `untitled` (the stack) · `wavePresets` (1d.13). An entry's `state` = the recipe, the dials
+      and **`kept`** — the state at his last `save`, or null.
+    - **Autosave:** `localStorage` on every change, as today (instant; the window's geometry stays there, it is the browser's) ·
+      the DISK about 2 s after the last change, and on `pagehide`.
+    - **Unnamed:** a row takes a timestamp name at its first change (`untitled 2026-09-20 14.32.05` — sortable, and inside the
+      store's name rule, which refuses a colon). The stack keeps the newest **50** (his: *"make the auto save number large these are
+      small files"*; the number is the AI's, his to change), the oldest dropped at save. **`new` starts a fresh untitled — the old
+      one is already on disk, so `new` destroys nothing.**
+    - **Name + ENTER** (the takes' way): it MOVES — saved under the name, the untitled entry deleted. A name that exists asks
+      before it replaces. Rename is the same move, from a named one.
+    - **`save`** → `kept` = the current state · **`revert`** → the current state = `kept`, asked once · a **`•`** beside the name
+      when they differ (the RECIPE compared, not the panel's open lines). **Two states per name and never more — no versions**
+      (his: *"without creating a cascade of new versions"*). A variant is a second name: `duplicate`.
+    - **The `library` menu:** named first, by name; then untitled, newest first. Pick → it loads; no prompt, because the row being
+      left is already safe on disk. `duplicate` asks for a name · `×` asks, then deletes.
+    - **SEPARATE FROM THE SCORE.** Insert still copies the recipe into the score file's `databases.sequences`; `sequences in this
+      score` (1d.3) is untouched. A placed sequence opened from the score is a row like any other — untitled until he names it.
+    - **Migration:** the one row in `localStorage` today becomes the first untitled at first load.
+    - **Verification.** `test_snapshots` on the second store. In the running app: the autosave lands on disk after 2 s and survives
+      a reload AND a server restart · the stack caps at 50 · naming moves · `save` / `revert` / `•` · `duplicate` · `×` ·
+      `bank/panel_snapshots.json` byte-identical throughout.
+    - **His test:** reload → `Sequence` → three boxes → wait → reload (still there) → restart the server → reload (still there) →
+      `new` → `library` (the first is in the list) → open it → name it, ENTER → change a dial → `save` → change another (`•`) →
+      `revert` → `duplicate` → `×` on the copy.
+  - **1d.12 — SELECT A RANGE OF BOXES** (click, SHIFT+click; the selection takes waves · `dyn` · `enter` · and a range of its own) —
+    `todo` — LG-48 · LG-50 · RUNNING_LOG §146.
+    *Why:* between ONE box and ALL boxes there is nothing, and a rolled row can be thirty boxes long; and he wants part of a
+    sequence to read the SAME waves through a DIFFERENT range.
+    *Result when done:* click box 15, SHIFT+click box 30, and whatever the head sets goes on all sixteen.
+    - Click = one box, as today · SHIFT+click = from the selected box to this one · the selection painted · ESC or a plain click
+      returns to one. `all boxes →` stays: it is select-all and apply.
+    - **The selection takes all three (his: *"d all 3"*):** `waves | straight` · `dyn` · `enter [attack | seamless]` — **and
+      `range [low] [high]`, its own waves range.** Take and seconds stay per box.
+    - **Recipe:** a box may carry `range { low, high }`; absent = the sequence's. `sequence range` clears it on the selection. A
+      box with a range of its own shows it as a small tag (`ppp–mp`).
+    - **The generator:** the dealt waves and their timing are UNTOUCHED — a box only changes the `low`–`high` its stretch of each
+      player's stream is read through (CHECK how 1d.7 carries the stream; it wants to be a 0 … 1 swell height that is mapped late).
+      **Where two ranges meet, the level GLIDES across the boundary over 0.5 s — never a step.**
+    - **THE GATE:** no box carries a range → the notes frozen in `tools/sequence_baseline.json`.
+    - **Verification.** `sequence_check` gains: a box range changes levels and no onset or length · the boundary is a glide · the
+      recipe round trip · a range on a `straight` box is kept and ignored. In the running app: the selection paints, each of the
+      four controls lands on every selected box and on no other.
+    - **His test:** roll twelve boxes → click 5, SHIFT+click 9 → `waves` → `range ppp mp` → SPACE → `dyn p` on 1–4 → `enter
+      seamless` on 5–9 → SPACE.
+  - **1d.13 — THE WAVES BY PRESET** (one menu fills every dial; `breathing` is the default; `save preset` keeps his own) — `todo` —
+    LG-49 · RUNNING_LOG §138, **as amended by LG-50 (§146).**
+    *Why:* he does not want to type seconds, weights or a peak — *"a sort of presets situation … a way to easily generate a
+    behavior"* — and *"probably need to refine all presets while composing"*, so a preset must be cheap to change and keep.
+    *Result when done:* pick `breathing` and the whole `waves` line is set; turn any dial; `save preset` keeps it under a name.
+    - **THE SWELL (LG-50 — this REVERSES §138's water line, and `up` / `down` with it):** rest at `low` → rise to `high` → HOLD →
+      fall to `low` → rest at `low`. The range is the sequence's fixed `low`–`high` (a box's own under 1d.12). A box is waves OR
+      straight, as today.
+    - **The dials a preset fills:** swell lengths as `shortest` · `longest`, each swell drawn anywhere between, with a **`tilt`**
+      slider short ↔ long (no typed pool, no weights) · the SHAPE by name — **`golden`** (the rise 0.618 of the moving time, the
+      fall 0.382; his default) · `reverse golden` · `even` · `surge` · `bloom` · **`hold`** at the top as a share of the swell
+      (0.2: a 10 s swell sits 2 s) · DENSITY as words — `constant` 1 · `busy` 0.8 · `breathing` 0.6 · `occasional` 0.35 · `rare`
+      0.15 · the range, `pp–mf` by default (three steps, §138's depth).
+    - **The five:** **`breathing`** (default) · `tides` · `ripples` · `surges` · `blooms`. Their dial values are the AI's and
+      PROVISIONAL — starting points, written into `docs/SEQUENCE_TOOL.md` when built: `breathing` 8–20 s · golden · hold 0.2 ·
+      breathing · `tides` 20–45 s · even · hold 0.1 · constant · `ripples` 3–8 s · even · no hold · busy · `surges` 6–14 s · surge
+      · hold 0.1 · occasional · `blooms` 12–30 s · bloom · hold 0.35 · rare.
+    - **`save preset`** (approved, §145): a name + ENTER stores the whole `waves` line in `bank/sequences.json`, panel `wavePresets`
+      — so 1d.11 comes first. His presets list with the five; one saved under a BUILT-IN's name overrides it, so he can refine
+      `breathing` itself; `×` on his own brings the built-in back.
+    - **The generator** gains the hold and the named shapes (CHECK 1d.7's swell: it has a `peak` position and no hold). **Old
+      recipes — a typed pool, weights, `peak` — still load and still give their notes: THE GATE.**
+    - **Verification.** `sequence_check` gains: every swell's length inside `shortest` … `longest` · the tilt moves the mean · the
+      golden rise is 0.618 of the moving time · the hold's share · the density's share over a long deal · a preset fills every dial
+      · an old recipe is unchanged. In the running app: the menu sets the line, `save preset` lands in the store and returns after
+      a reload.
+    - **His test:** `waves` → `breathing` → SPACE → `tides` → SPACE → turn `hold` up → `save preset` 'mine' → reload → 'mine' is in
+      the menu.
+  - **1d.14 — THE BREATH'S `±` IN SECONDS** (`8 ± 2` means 6 … 10 s) — `todo` — LG-45. **Built WITH 1d.9** (`of max` · `outlier`,
+    planned in full above), in one go.
+    *Why:* `±` is the morph's `segVar`, a SHARE of the length — `± 1` reads as one second and deals 0 … 16 s (his re-breathe: 8
+    RUNT · 5 CEILING).
+    *Result when done:* the number beside `±` is seconds, and a musician reads it right.
+    - The recipe KEEPS the share for every recipe that has one (the gate reads it); a new field in seconds wins where it is present.
+      The drawer writes seconds from now on and shows an old recipe's share converted.
+    - **PUT TO HIM when the step is reached, both his:** under `of max` the lengths differ per player — is `±` still ONE number of
+      seconds for everyone, or a share of each player's own aim? · `of max` on a NEW sequence: on at 0.65, or blank?
+    - **Verification.** `sequence_check`: `8 ± 2` deals only 6 … 10 s · an old recipe is unchanged · the round trip.
+  - **1d.15 — THE CLOCK AND THE CURSOR** (a clock while it plays · click anywhere in the row and play from there) — `todo` — LG-44.
+    *Why:* Hear starts `from the start` or `from the box` — a box's left edge — and a rolled row can run for minutes.
+    *Result when done:* a running clock in the drawer's head, and a cursor he can put at any second of the sequence.
+    - **The clock:** elapsed / total, `m:ss.s`, while Hear plays; it stops where Hear stops.
+    - **The cursor:** a click in the row's time strip sets it — a thin line, the box and the seconds into it shown. SPACE plays
+      from the cursor. `from the start` and `from the box` remain.
+    - **Entering mid-note:** a note already sounding at the cursor starts AT the cursor with what is left of it, its fader at the
+      curve's value there. Hear's ramp already takes a skip (`w.skipS`, `sequence_ui.js` ~974) — CHECK that `from the box` enters
+      mid-note today; the cursor is the same path at any second.
+    - Insert is untouched — the cursor is for the ear, not for the score.
+    - **Verification**, no MIDI: the notes and the first CC7 value Hear sends from a cursor inside a box, against the same notes
+      from the start.
+    - **His test:** a four-box sequence → click inside box 3 → SPACE (it enters there, the clock reading that second) → click
+      earlier → SPACE.
 
 
 - **1e — THE VOLUME FIX** (a shape in volume is THE NORMALIZED FADER, 0 → 1, on the curve channels, struck at mf) — **`done` 2026-09-20,
@@ -838,6 +1008,31 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **Known, accepted, for the feature plan on deck:** under this the waves' `low` / `high` set a DEPTH below a top that always sounds
     at mf — so a waved box and a straight box beside it no longer share a calibrated level, and "waves by preset" (item 8: `up` /
     `down` in steps round the box's dynamic) must be re-thought as depths below the top.
+  - **→ AMENDED 2026-09-20 by 1d.10, THE DYNAMICS TABLE** (RUNNING_LOG §147 · §148, LG-51): Rule 2 — *"the top of the shape is
+    the full fader"* — gives way to a table in which every WRITTEN dynamic has a CC7 value of its own, so a range is HEARD and not
+    only its depth. Rule 1, the mf strike, stands. NOT YET BUILT — until it is, 1e above is what the score plays. **And `1f`: the
+    crescendo tool was never brought under 1e at all.**
+
+
+- **1f — THE CRESCENDO TOOL UNDER THE DYNAMICS LAW** (a crescendo `mp → ff` runs the fader between the table's `mp` and the table's
+  `ff` for the whole curve, struck at mf) — `todo` — **added to the list at his word 2026-09-20** (*"add it to the to-do list if we
+  do need to go back and update the crescendo tool in this score"*). COMPOSITION_NOTES LG-51 · RUNNING_LOG §148. **After 1d.10** —
+  it reads `score/public/dyn_table.js`.
+  *Why:* his principle — a STATED range is what sounds, for the whole duration of the curve, as the performer will play it, and the
+  CC7 values reflect it. **The finding (§148), read in the code and NOT captured from what it sends:** `cresc.js` · `cresc_run.js` ·
+  `cresc_card.js` · `cresc_panel.js` write NO `cc7Abs` and NO `velAbs`. A dynamic name becomes a drawn height (`Cr.dynHeight`,
+  i / 7 × 10) and the score's OLD law plays it: struck at the velocity of the curve's TOP, the fader moving only inside the 12 dB
+  ladder. That is the very fault 1e fixed for the sequence drawer; 1e did not reach the crescendo tool (`docs/DYNAMICS_LAW.md` §5
+  lists it as *"not touched"*), and `docs/CRESCENDO.md` has carried it as an open item since piece #5: *"a crescendo attacks at its
+  loudest velocity and CC7 shapes it down … worth his ear on a ppp start."*
+  *Result when done:* every crescendo the tool writes carries `velAbs` = its instrument's mf velocity for that pitch and
+  `cc7Abs` = { the table's `from`, the table's `to` }, sounds on a curve channel, and the card's and the panel's Hear play the same
+  (`cresc_card.js` ~255 and `cresc_panel.js` ~367 already stream through `heldCc7`, which reads `cc7Abs`).
+  - *To be laid out when he calls it.* Known already: the crescendo STRIKES (`cresc_strikes.js`, 1o) are STRUCK notes — the velocity
+    is the dynamic — check that they need nothing · the secco cut (CC7 0 ten ms before the note-off) stands · crescendi already in
+    a score are NOT rewritten (`scores/cresTest.json` is HIS) — a re-deal or the card's re-apply picks the law up.
+  - **For the same talk:** the drawn SWELL (CC7 65 → 127) and the note card's `full fader` (0 → 127) have no stated range today. The
+    NOTATION will state one at the head of every curve (LG-51); when it does, they read the same table.
 
 
 ## 2. Notate — `todo`

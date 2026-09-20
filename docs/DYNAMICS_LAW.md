@@ -1,5 +1,14 @@
 # THE DYNAMICS LAW — read this FIRST, before any work on the sound path
 
+> **⚠ AN AMENDMENT IS DECIDED AND NOT YET BUILT (2026-09-20, RUNNING_LOG §147 · §148 · COMPOSITION_NOTES LG-51).**
+> **§3 Rule 2 below — "the top of the shape is the full fader" — is giving way to THE DYNAMICS TABLE (PLAN 1d.10):** his
+> principle is that a STATED dynamic range is what sounds for the whole curve, so every WRITTEN dynamic gets a CC7 value of its
+> own (`mp → ff` ≈ CC7 69 → 109, *"not up to the full 127"*). Rule 1 (the mf strike), §4 (the curve channels, `curveDirty()`) and
+> §6 (how a claim is proved) all stand. **Until 1d.10 is built, this page describes what the score actually plays.**
+> **And §5 is not the whole truth about the crescendo tool:** it was never brought under this law at all — it writes no `cc7Abs`
+> and no `velAbs`, so it still strikes at its top's velocity with the fader inside the 12 dB ladder. That is PLAN **1f**, `todo`.
+> *Whoever builds 1d.10 rewrites §3 and removes this banner.*
+
 *Written 2026-09-20 as PLAN 1e V7. His reason, in his own words:*
 > *"There's some fundamental misunderstanding or AI forgets what we established before."*
 

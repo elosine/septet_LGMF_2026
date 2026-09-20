@@ -1331,3 +1331,17 @@ drawn height 0 … 1 mapped straight onto the fader, bypassing the 12 dB ladder)
    morph inserted after a playthrough plays on MAIN until the tab is reloaded (RUNNING_LOG §139).
 5. **The cost to say out loud when it is done:** a shaped morph voice tops out at mf loudness (4–5 dB under a struck fff, uniform
    across the seven), and its heights stop meaning calibrated dynamics — they mean fader positions under a top.
+
+### 2026-09-20 — LGMF 1d.10: the method of 1e is AMENDED — a stated range is what sounds, and the morph reads the same table (RUNNING_LOG §147 · §148, COMPOSITION_NOTES LG-51)
+
+His words, of curves in general (verbatim in LG-51): *"I would state a dynamic range at the beginning of a curve. And then for the
+whole duration of the curve, it is meant to go between those two values … a curve going from MP to FF should go … say 65 to 111 in
+CC7, not up to the full 127."*
+
+*AI reading (mine, marked):* the entry above (1e) told the morph's revision to write every shaped level with `cc7Abs { 0, 127 }`,
+the heights re-based against the shape's top. **That second half no longer holds.** The revision writes `cc7Abs` from THE DYNAMICS
+TABLE — `score/public/dyn_table.js`, PLAN 1d.10: `fff` = CC7 127, 4 dB a written step through each instrument's measured fader
+curve — between the morph level's lowest and highest WRITTEN dynamic, every breakpoint landing on its table value. The mf strike
+(`velAbs`), the curve channels and `Composer.curveDirty()` stand as written. **What an all-purpose tool would take from it:** a
+level in a morph is a position between two STATED dynamics, never a loudness of its own — the same sentence that now governs the
+sequence drawer and, at PLAN 1f, the crescendo tool. Method only, as before: nothing in `morph_panel.js` changes until the revision.

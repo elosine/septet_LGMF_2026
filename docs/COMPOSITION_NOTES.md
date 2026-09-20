@@ -1615,3 +1615,56 @@ a golden-section rise against fall, and a HOLD at the top — *"a few seconds �
 whole line, and a default. **The change of model:** between swells a player rests at THE BOX'S OWN DYNAMIC, not at `low` — *"they
 would rise and fall and then rise back up to the static volume and then sit there"* — so the box's dynamic is the water line and a
 wave goes above it AND below it. That means a box has a dynamic AND waves, not one or the other (today `waves` REPLACES the dyn).
+
+---
+
+### LG-50 · 2026-09-20 — THE WAVES' RANGE: one `low`–`high` for the sequence, a DIFFERENT range for a selection of boxes · rest at the LOWEST dynamic · and his own account of the two mechanisms
+
+His words, in the design talk that opens the sequence feature add (answering (b), the waves' range, and asking about the depths):
+
+> *"b is fixed So once I dial in a dynamic range for the waves, then that's the same for all the waves. However, can we have a thing,
+> I forgot, maybe it was like the breaths, where I can have a different range, same waves, timing, etc., but have a different range
+> for part of the sequence. And maybe we just do it by box. So I can make a selection of boxes and let's say the original was PP to
+> MF. I can change it to PPP to MP or something for the, that range of boxes. And let's change the rest area. I'll have it rest at the
+> lowest dynamic. during the waves. d all 3"*
+
+> *"what I currently understand, there's these two mechanisms. One is via velocity and one is via CC7. When we are doing continuous
+> change with volume, such as crescendos, and in this case, the waves, we switch to the CC7 mode. In the CC7 mode, the, di the
+> velocity is fixed. So we're pegging per instrument, whatever velocity was recorded for MF. Or I think I understand now that we
+> normalized using track faders. So MF should be the same velocity for all instruments. Anyway, let's pretend it's 50. Then every new
+> note or breath in the waves gets a 50 velocity. And then we use the CC7 0 through 127 to control the volume change. So what I don't
+> understand is why are we always going from 0 to 127? If it is going from P to F, why can't we use different values like sixty to
+> one hundred or something like that? That's the CC seven. Or am I misunderstanding the situation?"*
+
+*AI reading (mine, marked):* three decisions and one question. (1) The waves' range is a FIXED `low`–`high`, one for the whole
+sequence — not steps from each box's dynamic. (2) A SELECTION of boxes can carry its own `low`–`high`; the waves themselves and
+their timing are untouched — only the range those boxes read them through. (3) **Between swells a player rests at `low`. This
+REVERSES LG-49's change of model** (rest at the box's own dynamic, the "water line"); it is what 1d.7 already does. (4) The question
+— why not CC7 60 → 100 for p → f — is his own statement of what the AI had put to him as "the ceiling follows the box": each WRITTEN
+dynamic having a fader value of its own. His picture of the two mechanisms is right; the one correction is that the fader does not
+always run 0 → 127 — the TOP is always 127 and the bottom follows the depth.
+
+---
+
+### LG-51 · 2026-09-20 — A STATED DYNAMIC RANGE IS WHAT SOUNDS, FOR THE WHOLE CURVE: drawn full for notation, performed between the two values — and the CC7 reflects it
+
+His words, when the AI said the crescendo tool also works in named dynamics and asked whether it should share the table:
+
+> *"So the crescendo tool should go between the stated dynamics. So when I get to, when I got to the notation side of things, for
+> example, in the last piece, I would state a dynamic range at the beginning of a curve. And then for the whole duration of the
+> curve, it is meant to go between those two values. So if I said MP to FF, the curve would be drawn full for notation, but the
+> performer would always go between MP and FF. So the crescendo playback should be similar. For the full duration of the curve, it
+> should go from the stated range. And then that range should be reflected in the CC7 values. So a curve going from MP to FF should
+> go, I'm not sure what the numbers are, but say 65 to 111. in CC7, not up to the full 127. So then note whether we need to go back
+> and revise the dynamic tool for the crescendos and anything else, but it sounds like we don't need to change anything that was
+> earlier done or amended. Amend it. and then add it to the to-do list if we do need to go back and update the crescendo tool in
+> this score. And then the sequence plan is good, approved. So go ahead and write that."*
+
+*AI reading (mine, marked):* a principle that joins the NOTATION to the PLAYBACK, and it is older than this piece — it is how he
+notated curves in piece #5. A curve has two things: its SHAPE, which is drawn FULL HEIGHT whatever the dynamics, and its RANGE, two
+written dynamics stated once at its head. The performer plays the shape between those two values for the curve's whole length. The
+sampler must do the same: the fader runs between the CC7 value of the low dynamic and the CC7 value of the high one — his example,
+`mp → ff` ≈ 65 → 111 — and does NOT climb to 127 unless the stated top is `fff`. So there is ONE table, dynamic → CC7, and it
+belongs to the whole composer: the sequence drawer's waves, ramps and fades now (PLAN 1d.10), the crescendo tool next (PLAN 1f), the
+morph at its revision — and the drawn swell and the note card's hand-drawn shape on the day the notation states a range for them.
+**It also says what a drawn height MEANS:** not a loudness, but a position between two stated dynamics.
