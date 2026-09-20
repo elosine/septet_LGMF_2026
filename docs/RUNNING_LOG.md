@@ -6905,3 +6905,65 @@ untracked too: he did not name it, and he has moved on to the lowercase file.
 
 *(The two committed files differ, though they are the same size — `Name version` freezes a copy beside the file at the same
 instant. Not opened further; the version file is by design never overwritten.)*
+
+## §162. HIS TESTS ARE CLOSED AT HIS WORD · the 16 ms question goes to NITS · and the next work is named: THE MORPH PANEL, IN SMALL BUILDS — first a bloom on a take from the strikes drawer (2026-09-20)
+
+**What prompted it.** After a clear and the postclear playback (the next step named as his rack test of `1g`; the `D.playNotes`
+question of §158 listed as unanswered), his reply — dictated, quoted whole, with a screenshot of the morph panel's PITCHES line
+(the sonority pulldown open on the `VERT01-…` entries and the `chord shapes` group; `take spread · k 1 · seed 1 · per pair one,
+doubled · keep`):
+
+> *"Let's just note this somewhere for an issue that we might need to take care of in the future. No need to keep surfacing unless
+> the actual issue crops up again. And then mark everything else as complete. then I want to adapt or uh, add things to the morph
+> panel. We already have a plan for the dynamic curves. So let's take care of that at this build. And then I'm going to do small
+> builds at a time. And of course we can carry over whatever changes to the next one, but I'm going to work one model at a time,
+> depending on my current compositional need. So I want to make a bloom and then I want to be able to use one of the ticks, ticks,
+> T-A-K-E-S from the ticks drawer, just like the sequences do. So in the image there, in the pitches pulled down. And then I want to
+> talk about how the pitches end up in the pairs and if we can have some sort of shuffle there and understand maybe how to assign
+> particular pitches from the tape or the chord to the pairs. Let's have something more flexible. But what I'm concerned with in
+> this particular instance is to make sure I'm choosing the notes from the take that are comfortable in both the instruments'
+> ranges. And then being able to see the partial number. So actually, like the strikes drawer, that would be nice, except I don't
+> want to build a whole bunch of additional infrastructure. I'm wondering if I can't do something there. Bring up the take in the
+> strikes drawer and then save it as a different take, perhaps, and then use it, uh, assign the three pitches, maybe to one of the
+> instruments in the pair or something like that. and then be able to pull it up here and have those particular pitches already
+> assigned. In any case, let's discuss this, how this might best take shape."*
+
+*(Read through the transcription: "ticks … T-A-K-E-S" = TAKES, the strikes drawer's saved takes; "the tape or the chord" = the
+take; "pitches pulled down" = the PITCHES pulldown.)*
+
+**1 · The tests are closed — by his word, not by a report.** *"mark everything else as complete."* No test was run by the AI and
+none was reported one by one. What stands behind the word is §160–§161: he is COMPOSING with the tool — the piece's first sequence
+was made with it, on the new scale. Marked: the ► row of journal §2 (the rack test of `1g` · the tests of 1d.9–1d.15 · 1d.6 the
+listen), its N1 row (the strikes drawer's listen · the six scores · 1d.7 · 1d.8), and the fourteen "test outstanding" markers in
+`docs/PLAN.md` — thirteen closed at his word, and 1e's, which had been stale since §144, corrected to PASSED. **What this does NOT
+say:** that `cc7_by_channel.lua` has read a recording of `1g` back. It has not. If a fault is ever heard there, §157–§158 is the
+first read.
+
+**2 · The 16 ms question is parked where he asked** — `docs/NITS.md`, with what it would SOUND like if it ever bites, so that it
+can be recognised. Not to be raised again unless heard.
+
+**3 · How the morph work will go — his method, and it is not "the revision".** *"I'm going to do small builds at a time … one
+model at a time, depending on my current compositional need."* Not the all-purpose rewrite that `MORPH_NOTES.md` is collecting for
+(CN-29); that stays for after. This is CN-29's other half: *the tool is adjusted for the current use now*. Each small build carries
+forward to the next model. **First model: a bloom** — by the screenshot the inherited `BLOOM` (M1, the BEATING BLOOM: three pairs,
+each on a note, opening into beating; its PITCHES line is live), not `LGBLOOM` (M3, named voices, the six reference chords only).
+**And the morph's dynamics go into this first build** — no longer method-only. The method is already written (`MORPH_NOTES.md`
+2026-09-20, twice: PLAN 1e V5 as amended by 1d.10): a level that MOVES is struck at mf, on a curve channel, its fader between the
+table values of its two written dynamics; `morph_emit.js`'s audition learns `cc7Abs` · `velAbs` · the curve route.
+
+**4 · What was read before answering him (the data; nothing was changed):**
+
+| the question | what is there |
+|---|---|
+| how the morph gets its pitches today | a SONORITY (a bare list of MIDI numbers — the model's own, a kept set, a starter, a stack or a mode from the root, the harmony bank, a recalled actual) → a take RULE reduces it (`by register` · `lowest` · `highest` · `spread` · `consecutive from k` · `every other` · `random (seed)`) to three notes doubled, or six, two per pair → `deriveParams` writes them into the model → the cast. A *"both instruments of the pair can hold it"* test (`holds`) is handed to the rule. **Whole MIDI numbers only — no cents, no partial number, no say in WHO gets what.** |
+| what a strikes-drawer take holds, as `dealTake` reads it for the sequence drawer | per PLAYER: lane · seat · instrument · technique · MIDI · **cents** · level · **the partial number**. A take is a chord that is ALREADY CAST. |
+| is there a door into the engine that keeps cents and players | yes — `source.kind: 'voices'` (PLAN 1a.5 / 1a.6, built for the reference chords): `[{ midi, cents }]` in the given order with their lanes, not sorted, not reduced; the panel then says *"this model names its own voices"*. Whether M1 takes it as M3 does is for the build to check. |
+| the word "take" | means TWO things in that one line of the panel: the strikes drawer's saved TAKE (his meaning) and the morph's take RULE (`spread` …). To be kept apart in whatever is built. |
+
+**5 · The AI's reading, put to him (mine, marked):** his own sketch — *assign in the strikes drawer, save it as a take, pull it up
+in the morph with the pitches already assigned* — is the cheapest shape and nearly all of it exists, because the strikes drawer
+already IS the tool that shows partial numbers and lets a note be dealt, shuffled or put on a player by hand. So a take in the
+morph's pulldown would be read AS ASSIGNED: a pair in which ONE player holds a note doubles it; a pair in which BOTH hold one is
+two per pair; the take decides, the `per pair` box does not. The panel's part is small: list the takes, print each pair's note
+with its partial and its cents, and WARN when the partner cannot hold a doubled note. **Open, his:** whether the bloom sits on the
+JUST pitch (the take's cents kept — the engine's `voices` door) or on the tempered one. **The discussion is open; nothing is built.**

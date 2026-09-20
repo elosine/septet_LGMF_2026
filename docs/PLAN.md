@@ -477,7 +477,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       refused with a message. Registered in CLAUDE.md's checks line.
     - `docs/SEQUENCE_TOOL.md` opened — the recipe, the rules, the numbers; RUNNING_LOG; commit, push.
   - **1d.2 — The drawer, one container at a time** (a row of boxes — take · seconds · dyn — Hear, Insert, the recipe saved with the
-    score) — **BUILT 2026-09-19 (session 9, RUNNING_LOG §115), HIS TEST OUTSTANDING** — his "good", 2026-09-19.
+    score) — **BUILT 2026-09-19 (session 9, RUNNING_LOG §115), HIS TEST OUTSTANDING → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — his "good", 2026-09-19.
     *As built:* `score/public/sequence_ui.js` + two script tags; `strike_drawer.js` unchanged; verified in the running app with no
     MIDI (§115 has every number); `docs/SEQUENCE_TOOL.md` §9. Three calls made alone, shown him in the proposal, his to reverse:
     **SPACE goes to what he clicked last** (strip · strikes drawer · score) · **one row = one sequence = one place in the score**
@@ -505,7 +505,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       against the generator, the inserted objects (count, lanes, `morphBend`, heights), the META bar, the recipe in the saved score, a
       reload. `palette_check`. SEQUENCE_TOOL, RUNNING_LOG, this plan; commit; push.
     - **His test:** reload → `Sequence` → `+` → a take · 8 s · mf → `+` → another · 13 s → SPACE → Insert → play the score.
-  - **1d.3 — The round trip** (reopen a placed sequence, change anything, re-Insert replaces it in place) — **BUILT 2026-09-19 (session 9, RUNNING_LOG §116; SEQUENCE_TOOL §10), HIS TEST OUTSTANDING** — *as built:* all in `sequence_ui.js`; the list · the start read from the META bar · re-insert IN PLACE (this CHANGES 1d.2's "Insert again moves it" — kept as a separate `move to playhead` button, his to reverse) · the status counts notes changed or deleted by hand · an orphan stays in the list, marked · a dirty row asks before it is replaced · verified in the running app with no MIDI; NOT verified: sound, and a real canvas drag of the META bar — his "good",
+  - **1d.3 — The round trip** (reopen a placed sequence, change anything, re-Insert replaces it in place) — **BUILT 2026-09-19 (session 9, RUNNING_LOG §116; SEQUENCE_TOOL §10), HIS TEST OUTSTANDING → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — *as built:* all in `sequence_ui.js`; the list · the start read from the META bar · re-insert IN PLACE (this CHANGES 1d.2's "Insert again moves it" — kept as a separate `move to playhead` button, his to reverse) · the status counts notes changed or deleted by hand · an orphan stays in the list, marked · a dirty row asks before it is replaced · verified in the running app with no MIDI; NOT verified: sound, and a real canvas drag of the META bar — his "good",
     2026-09-19.
     *Result when done:* a placed sequence can be reopened and changed. The drawer lists the sequences in the open score; pick one and
     it comes back as it was — the boxes, the frozen chords, the seconds, the dyns, attack or seamless — with its start read from where
@@ -529,7 +529,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       updated; move the group in the score model → reopen reads the new start. SEQUENCE_TOOL, RUNNING_LOG, this plan; commit; push.
     - **His test:** reload → `Sequence` → pick a placed sequence → the second box to 20 s → Insert → play.
   - **1d.4 — The roll** (the time container generator in the drawer: a pool, an order, a contour → a row of empty boxes to fill) —
-    **BUILT 2026-09-19 (session 9, RUNNING_LOG §117; SEQUENCE_TOOL §11), HIS TEST OUTSTANDING** — *as built:* the generator takes `chord: null` as a rest with NO new machinery (the absent-player rule, for everyone; `sequence_check` 49 → 60) · the roll line in `sequence_ui.js`, `time_containers.js` unchanged, the dials and defaults `containers_ui.js`'s · `tilt` fills the weights box · the recipe keeps `roll { … }` · the strip's height is its content's. **ONE CALL CHANGED WHILE BUILDING, his to reverse: a roll over a row that holds chords KEEPS them, by position** (it still asks first, and says how many are kept or dropped) — the plan below says the row is replaced; a re-roll is a re-timing, and losing every chosen take to try another seed would make the roll unusable. Verified in the running app with no MIDI; not verified: sound — written at his word without review (*"go ahead and write up the rest of the plan, I don't need to see the rest"*,
+    **BUILT 2026-09-19 (session 9, RUNNING_LOG §117; SEQUENCE_TOOL §11), HIS TEST OUTSTANDING → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — *as built:* the generator takes `chord: null` as a rest with NO new machinery (the absent-player rule, for everyone; `sequence_check` 49 → 60) · the roll line in `sequence_ui.js`, `time_containers.js` unchanged, the dials and defaults `containers_ui.js`'s · `tilt` fills the weights box · the recipe keeps `roll { … }` · the strip's height is its content's. **ONE CALL CHANGED WHILE BUILDING, his to reverse: a roll over a row that holds chords KEEPS them, by position** (it still asks first, and says how many are kept or dropped) — the plan below says the row is replaced; a re-roll is a re-timing, and losing every chosen take to try another seed would make the roll unusable. Verified in the running app with no MIDI; not verified: sound — written at his word without review (*"go ahead and write up the rest of the plan, I don't need to see the rest"*,
     2026-09-19; RUNNING_LOG §107).
     *Result when done:* a `roll` strip in the drawer carries the generator's own dials — the values he types, their weights, the unit,
     the total to fill, stick and jump, the contour with its turn · bow · depth, the seed, the presets — the same module the strikes
@@ -588,7 +588,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His test:** reload → `Sequence` → one long container (40 s) → `together` 0, SPACE → `together` 0.5, SPACE → `lengths 3 9`,
       SPACE → `seamless` across two chords, SPACE.
   - **1d.7 — The waves layer** (each player on their own dealt stream of swells; a box is a straight dynamic OR reads the waves) —
-    **BUILT 2026-09-19 (session 10, RUNNING_LOG §128; SEQUENCE_TOOL §13; `sequence_check` 107) — **HIS TEST OUTSTANDING.** *(RESOLVED the same day, §130: the six fader curves had been MEASURED in 0d — `bank/balance.json` `cc7` — and this morning's `build_remap_card.js` wrote only the vibraphone's into the bank; the builder now writes all seven, the rest of the bank byte-identical, and Hear moves every player. What follows is the record of the finding as first made.)* ⚠ AS FIRST FOUND, THE WAVE SOUNDED ON THE VIBRAPHONE ONLY: `bank/velocity_remap.json` has a measured CC7 curve (`cc7Curve`) for the bowed vibraphone alone, and without one the score's law answers CC7 127 — for the other six a drawn height moves nothing. §121's "the score already has the law" was true of the code and false of this rack; caught by capturing what Hear sends. HIS DECISION, put to him: measure the six (the vibraphone's probe) · borrow the vibraphone's curve, labelled, and measure later. Nothing in the generator or the drawer changes either way — only the bank. It bites 1d.8's fades-to-a-dynamic the same way.** — before it: **READ RUNNING_LOG §121–§123 BEFORE BUILDING (session 10): his answer is option A — NO niente inside the waves, `low` and `high` are two WRITTEN dynamics (`ppp` … `fff`); true silence belongs to the EDGES (1d.8). Three sentences below are superseded: `swell_ui.js` is NOT reused and the strikes drawer's player is NOT changed — it cannot ramp, so the sequence drawer sends the CC7 ramp itself after `playNotes`, on the same routes and timers · the law is the score's own (`heldCc7`, every waved note stamped `velRef` = `high` and written DRAWN), which already carries the vibraphone's register · the sentence on `niente` is WRONG (the drawn bottom is ppp, 12 dB under fff, not silence; `lgmf-ref` reaches silence with `cc7Fade`, a one-way window).** — AMENDED INTO THE ITEM 2026-09-19, the same day the item was written (RUNNING_LOG §109–§111; his words verbatim in
+    **BUILT 2026-09-19 (session 10, RUNNING_LOG §128; SEQUENCE_TOOL §13; `sequence_check` 107) — **HIS TEST OUTSTANDING → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162).** *(RESOLVED the same day, §130: the six fader curves had been MEASURED in 0d — `bank/balance.json` `cc7` — and this morning's `build_remap_card.js` wrote only the vibraphone's into the bank; the builder now writes all seven, the rest of the bank byte-identical, and Hear moves every player. What follows is the record of the finding as first made.)* ⚠ AS FIRST FOUND, THE WAVE SOUNDED ON THE VIBRAPHONE ONLY: `bank/velocity_remap.json` has a measured CC7 curve (`cc7Curve`) for the bowed vibraphone alone, and without one the score's law answers CC7 127 — for the other six a drawn height moves nothing. §121's "the score already has the law" was true of the code and false of this rack; caught by capturing what Hear sends. HIS DECISION, put to him: measure the six (the vibraphone's probe) · borrow the vibraphone's curve, labelled, and measure later. Nothing in the generator or the drawer changes either way — only the bank. It bites 1d.8's fades-to-a-dynamic the same way.** — before it: **READ RUNNING_LOG §121–§123 BEFORE BUILDING (session 10): his answer is option A — NO niente inside the waves, `low` and `high` are two WRITTEN dynamics (`ppp` … `fff`); true silence belongs to the EDGES (1d.8). Three sentences below are superseded: `swell_ui.js` is NOT reused and the strikes drawer's player is NOT changed — it cannot ramp, so the sequence drawer sends the CC7 ramp itself after `playNotes`, on the same routes and timers · the law is the score's own (`heldCc7`, every waved note stamped `velRef` = `high` and written DRAWN), which already carries the vibraphone's register · the sentence on `niente` is WRONG (the drawn bottom is ppp, 12 dB under fff, not silence; `lgmf-ref` reaches silence with `cc7Fade`, a one-way window).** — AMENDED INTO THE ITEM 2026-09-19, the same day the item was written (RUNNING_LOG §109–§111; his words verbatim in
     COMPOSITION_NOTES LG-38 and LG-39). **Position: after 1d.5, before his listen (1d.6)** — the id is the next free one, the place is
     the build order. Written at his word without review (*"go ahead and write in the plan and then check in before go"*), from the
     read-back he approved (*"thats good"*): the six dials, the swap, the three touches.
@@ -637,7 +637,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His test:** reload → `Sequence` → three boxes → `all boxes → waves` → SPACE → flip the middle box to `mp` → SPACE →
       `re-wave` → SPACE → Insert → play the score.
   - **1d.8 — The edges, and a change rule per box** (each box ENTERED by attack or seamless; the sequence faded in from nothing and out
-    to nothing; the end together or one by one) — **BUILT 2026-09-19 (session 10, RUNNING_LOG §131; SEQUENCE_TOOL §14; `sequence_check` 126), HIS TEST OUTSTANDING** — *as built:* the generator's two change rules became ONE walk (every earlier check and the baseline gate passed untouched); `exit` one by one = a `landAt` of each player's own; niente = the note's `fade`, a dynamic = a ramp in its level. **One thing the text below said to put to him first was done WITHOUT asking, his to reverse:** a fade OUT was not expressible — `Morph.fadeWeight` could only arrive at 1 — so it took an opt-in `to` (absent = 1, the identity; two lines in `morph.js`). — written 2026-09-19 (session 10) at his word WITHOUT the planning protocol
+    to nothing; the end together or one by one) — **BUILT 2026-09-19 (session 10, RUNNING_LOG §131; SEQUENCE_TOOL §14; `sequence_check` 126), HIS TEST OUTSTANDING → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — *as built:* the generator's two change rules became ONE walk (every earlier check and the baseline gate passed untouched); `exit` one by one = a `landAt` of each player's own; niente = the note's `fade`, a dynamic = a ramp in its level. **One thing the text below said to put to him first was done WITHOUT asking, his to reverse:** a fade OUT was not expressible — `Morph.fadeWeight` could only arrive at 1 — so it took an opt-in `to` (absent = 1, the identity; two lines in `morph.js`). — written 2026-09-19 (session 10) at his word WITHOUT the planning protocol
     (*"no need for formal planning protocol"*); his brief COMPOSITION_NOTES LG-40 · LG-41, the reasoning RUNNING_LOG §122–§123.
     **Position: after 1d.7** (the fades reuse the drawn notes and the Hear ramp 1d.7 builds), **before his listen (1d.6).**
     *Why:* today how a sequence BEGINS is tied to how its chords CHANGE (`attack` = together, `seamless` = staggered), the rule is one
@@ -706,7 +706,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     curve per player. *(The waves of 1d.7 are NOT in lieu of the curve — his own correction, LG-38: "that might be an added feature
     later".)*
   - **1d.9 — The breath's lengths: `of max` and `outlier`** (each player's breath built round THEIR OWN maximum; one breath in ten far
-    from the rest) — **BUILT 2026-09-20 with 1d.14 — RUNNING_LOG §154, SEQUENCE_TOOL §19; his test outstanding** — **PLANNED 2026-09-20 at his word** (*"lets write this in to a plan, no need for the planning protocol"*);
+    from the rest) — **BUILT 2026-09-20 with 1d.14 — RUNNING_LOG §154, SEQUENCE_TOOL §19; his test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — **PLANNED 2026-09-20 at his word** (*"lets write this in to a plan, no need for the planning protocol"*);
     his brief COMPOSITION_NOTES LG-43 · LG-46, the reasoning RUNNING_LOG §133–§135.
     *Why:* today every player aims at the ONE `length` and the ceilings table only CAPS. At 8 s ± 0.35 the english horn, with 18 s of
     air, breathes as often as the trumpet; the table touches only the vibraphone (about half its breaths) and the double bass. And
@@ -797,7 +797,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     **Each step ends on HIS test in his Chrome** (the in-app browser has no Web MIDI); the AI verifies note lists, objects and
     routes in `score-5401`, never the sound, and never saves from its own pane.
   - **1d.10 — THE DYNAMICS TABLE** (each WRITTEN dynamic has a CC7 value of its own, read by every shaped note the drawer writes) —
-    **BUILT 2026-09-20 — RUNNING_LOG §150; his rack test outstanding** — **AMENDS PLAN 1e's Rule 2** (*"the top of the shape is the full fader"*); Rule 1 (the mf strike), the curve channels
+    **BUILT 2026-09-20 — RUNNING_LOG §150; his rack test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — **AMENDS PLAN 1e's Rule 2** (*"the top of the shape is the full fader"*); Rule 1 (the mf strike), the curve channels
     and `curveDirty()` all stand. RUNNING_LOG §146–§148 · LG-50 · LG-51.
     *Why:* under 1e only a shape's DEPTH is heard — `pp–mf` and `ppp–mp` are both three steps deep and both play about CC7 73 → 127,
     so the range he now sets per selection of boxes (1d.12) would be inaudible. And his principle (LG-51): a STATED range is what
@@ -854,7 +854,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       with the real bank loaded. (c) **The status lines now state the claim:** Hear and Insert say the fader span they actually
       sent, and name any instrument with no measured curve (the percussion lane has none and never shapes a note — a strike is
       `fixed` — so it is not reported as a fault).
-  - **1d.11 — THE LIBRARY** (a sequence is a DOCUMENT: it has a name, it autosaves, many coexist, and they ride in the repo) — **BUILT 2026-09-20 — RUNNING_LOG §151, SEQUENCE_TOOL §16; his test outstanding** —
+  - **1d.11 — THE LIBRARY** (a sequence is a DOCUMENT: it has a name, it autosaves, many coexist, and they ride in the repo) — **BUILT 2026-09-20 — RUNNING_LOG §151, SEQUENCE_TOOL §16; his test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** —
     LG-47 · RUNNING_LOG §145 · §146.
     *Why:* today the row lives in `localStorage`, ONE key — it survives a refresh, a server restart and a computer restart, but
     there is only ONE, `new` wipes a row that was never inserted, and git cannot see it.
@@ -891,7 +891,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `new` → `library` (the first is in the list) → open it → name it, ENTER → change a dial → `save` → change another (`•`) →
       `revert` → `duplicate` → `×` on the copy.
   - **1d.12 — SELECT A RANGE OF BOXES** (click, SHIFT+click; the selection takes waves · `dyn` · `enter` · and a range of its own) —
-    **BUILT 2026-09-20 — RUNNING_LOG §152, SEQUENCE_TOOL §17; his test outstanding** — LG-48 · LG-50 · RUNNING_LOG §146.
+    **BUILT 2026-09-20 — RUNNING_LOG §152, SEQUENCE_TOOL §17; his test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — LG-48 · LG-50 · RUNNING_LOG §146.
     - **AS BUILT — two things the plan asked to be CHECKED, and both needed the answer written down.** (a) *"CHECK how 1d.7
       carries the stream (it wants to be a 0 … 1 swell height that is mapped late)"* — it did NOT: 1d.7 wrote written LEVELS into
       the stream. It is a height now, mapped per box at the end, so the deal, the seeds and the swells are untouched by any
@@ -918,7 +918,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       four controls lands on every selected box and on no other.
     - **His test:** roll twelve boxes → click 5, SHIFT+click 9 → `waves` → `range ppp mp` → SPACE → `dyn p` on 1–4 → `enter
       seamless` on 5–9 → SPACE.
-  - **1d.13 — THE WAVES BY PRESET** (one menu fills every dial; `breathing` is the default; `save preset` keeps his own) — **BUILT 2026-09-20 — RUNNING_LOG §153, SEQUENCE_TOOL §18; his test outstanding** —
+  - **1d.13 — THE WAVES BY PRESET** (one menu fills every dial; `breathing` is the default; `save preset` keeps his own) — **BUILT 2026-09-20 — RUNNING_LOG §153, SEQUENCE_TOOL §18; his test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** —
     LG-49 · RUNNING_LOG §138, **as amended by LG-50 (§146).**
     *Why:* he does not want to type seconds, weights or a peak — *"a sort of presets situation … a way to easily generate a
     behavior"* — and *"probably need to refine all presets while composing"*, so a preset must be cheap to change and keep.
@@ -946,7 +946,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       a reload.
     - **His test:** `waves` → `breathing` → SPACE → `tides` → SPACE → turn `hold` up → `save preset` 'mine' → reload → 'mine' is in
       the menu.
-  - **1d.14 — THE BREATH'S `±` IN SECONDS** (`8 ± 2` means 6 … 10 s) — **BUILT 2026-09-20 with 1d.9 — RUNNING_LOG §154, SEQUENCE_TOOL §19; his test outstanding** — LG-45. **Built WITH 1d.9** (`of max` · `outlier`,
+  - **1d.14 — THE BREATH'S `±` IN SECONDS** (`8 ± 2` means 6 … 10 s) — **BUILT 2026-09-20 with 1d.9 — RUNNING_LOG §154, SEQUENCE_TOOL §19; his test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — LG-45. **Built WITH 1d.9** (`of max` · `outlier`,
     planned in full above), in one go.
     *Why:* `±` is the morph's `segVar`, a SHARE of the length — `± 1` reads as one second and deals 0 … 16 s (his re-breathe: 8
     RUNT · 5 CEILING).
@@ -966,7 +966,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       built-in. *The AI's reading of "if I establish that earlier" — a default he can set himself; his to correct.* The generator's
       own `DEFAULT_BREATH` does NOT change — it is what THE GATE reads.
     - **Verification.** `sequence_check`: `8 ± 2` deals only 6 … 10 s · an old recipe is unchanged · the round trip.
-  - **1d.15 — THE CLOCK AND THE CURSOR** (a clock while it plays · click anywhere in the row and play from there) — **BUILT 2026-09-20 — RUNNING_LOG §155, SEQUENCE_TOOL §20; his test outstanding** — LG-44.
+  - **1d.15 — THE CLOCK AND THE CURSOR** (a clock while it plays · click anywhere in the row and play from there) — **BUILT 2026-09-20 — RUNNING_LOG §155, SEQUENCE_TOOL §20; his test outstanding → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162)** — LG-44.
     - **AS BUILT:** the CHECK the item asked for is answered — `from the box` DID already enter mid-note (`w.skipS`), so the
       cursor is that same path at any second, and no new machinery was needed for it. The strip is a bar of its own above the
       boxes; the times are read off the boxes' own layout, so the cursor and the playing line agree by construction.
@@ -987,7 +987,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 
 - **1e — THE VOLUME FIX** (a shape in volume is THE NORMALIZED FADER, 0 → 1, on the curve channels, struck at mf) — **`done` 2026-09-20,
   session 11 (RUNNING_LOG §143) — V1 · V2 · V3 · V4 · V7 BUILT, V5 method-only by the plan, V6 checked in the app; HIS RACK TEST
-  OUTSTANDING.** `sequence_check` still **126**. The law now has a page of its own: **`docs/DYNAMICS_LAW.md`**, named in CLAUDE.md as
+  PASSED (RUNNING_LOG §144).** `sequence_check` still **126**. The law now has a page of its own: **`docs/DYNAMICS_LAW.md`**, named in CLAUDE.md as
   the first read for any sound-path work. *Read on for how it works — the item below is the built design, not a proposal.*
   **PLANNED 2026-09-20 at his word, built in ONE go** (RUNNING_LOG §137–§142). **It came BEFORE the sequence feature add, which
   is on deck.** Written to be executed cold.
@@ -1072,7 +1072,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 
 - **1g — IN A SEQUENCE, ONE SCALE** (a straight box sits on the dynamics table too: every SUSTAINED note a sequence writes is
   struck at mf on a curve channel, its fader on the table — flat if its level does not move) — **`built` 2026-09-20, session 11
-  (RUNNING_LOG §157 · §158); HIS RACK TEST OUTSTANDING.** Planned and built in one go at his word (*"a If no questions or
+  (RUNNING_LOG §157 · §158); HIS RACK TEST OUTSTANDING → CLOSED AT HIS WORD 2026-09-20 (RUNNING_LOG §162).** Planned and built in one go at his word (*"a If no questions or
   clarifications, just go ahead and plan it, and build it."*).
   *Why:* his ear — *"the attacks are very loud"* — on a straight `pp` box entered by `attack` after a `pp`–`mp` waves box. His
   recording read back (§157) showed BOTH sides on the law and the law itself at fault: a STRUCK note lives on 1b's ladder (12 dB

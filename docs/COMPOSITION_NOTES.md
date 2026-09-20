@@ -1668,3 +1668,22 @@ sampler must do the same: the fader runs between the CC7 value of the low dynami
 belongs to the whole composer: the sequence drawer's waves, ramps and fades now (PLAN 1d.10), the crescendo tool next (PLAN 1f), the
 morph at its revision — and the drawn swell and the note card's hand-drawn shape on the day the notation states a range for them.
 **It also says what a drawn height MEANS:** not a loudness, but a position between two stated dynamics.
+
+### LG-52 · 2026-09-20 — AFTER THE FIRST SEQUENCE, A BLOOM — on a take from the strikes drawer, its notes chosen to sit comfortably in BOTH instruments of a pair, the partial numbers in view
+
+His words (dictated — "ticks … T-A-K-E-S" is TAKES, the strikes drawer's; "the tape" is the take), with a screenshot of the morph
+panel's PITCHES line:
+
+> *"I'm going to do small builds at a time … I'm going to work one model at a time, depending on my current compositional need. So
+> I want to make a bloom and then I want to be able to use one of the ticks, ticks, T-A-K-E-S from the ticks drawer, just like the
+> sequences do. … And then I want to talk about how the pitches end up in the pairs and if we can have some sort of shuffle there
+> and understand maybe how to assign particular pitches from the tape or the chord to the pairs. Let's have something more
+> flexible. But what I'm concerned with in this particular instance is to make sure I'm choosing the notes from the take that are
+> comfortable in both the instruments' ranges. And then being able to see the partial number."*
+
+*AI reading (mine, marked):* the piece's second object. The first was a sequence of held takes (RUNNING_LOG §160–§161); now a
+BLOOM — by his screenshot the BEATING BLOOM, three pairs each opening from a note into beating — built on one of the SAME takes,
+so the sequence and the bloom share their harmony by construction. Two musical conditions ride on it. Each pair's note must be
+COMFORTABLE for both of its instruments — a doubled note is only as good as the worse of its two registers. And he wants to know
+WHICH PARTIAL of the fundamental each pair is sitting on: the bloom is composed in partials, as the takes are. His whole message,
+and the tool side of it, are RUNNING_LOG §162 and `docs/MORPH_NOTES.md` of the same date.

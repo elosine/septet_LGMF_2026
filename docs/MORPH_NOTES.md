@@ -1345,3 +1345,34 @@ curve — between the morph level's lowest and highest WRITTEN dynamic, every br
 (`velAbs`), the curve channels and `Composer.curveDirty()` stand as written. **What an all-purpose tool would take from it:** a
 level in a morph is a position between two STATED dynamics, never a loudness of its own — the same sentence that now governs the
 sequence drawer and, at PLAN 1f, the crescendo tool. Method only, as before: nothing in `morph_panel.js` changes until the revision.
+
+### 2026-09-20 — LGMF: THE MORPH PANEL IN SMALL BUILDS — one model at a time; first a BLOOM on a TAKE from the strikes drawer; how the pitches reach the pairs (RUNNING_LOG §162)
+
+His words (dictated — "ticks … T-A-K-E-S" is TAKES, the strikes drawer's; "the tape" is the take):
+
+> *"then I want to adapt or uh, add things to the morph panel. We already have a plan for the dynamic curves. So let's take care
+> of that at this build. And then I'm going to do small builds at a time. And of course we can carry over whatever changes to the
+> next one, but I'm going to work one model at a time, depending on my current compositional need. So I want to make a bloom and
+> then I want to be able to use one of the ticks, ticks, T-A-K-E-S from the ticks drawer, just like the sequences do. So in the
+> image there, in the pitches pulled down. And then I want to talk about how the pitches end up in the pairs and if we can have
+> some sort of shuffle there and understand maybe how to assign particular pitches from the tape or the chord to the pairs. Let's
+> have something more flexible. But what I'm concerned with in this particular instance is to make sure I'm choosing the notes from
+> the take that are comfortable in both the instruments' ranges. And then being able to see the partial number. So actually, like
+> the strikes drawer, that would be nice, except I don't want to build a whole bunch of additional infrastructure. I'm wondering if
+> I can't do something there. Bring up the take in the strikes drawer and then save it as a different take, perhaps, and then use
+> it, uh, assign the three pitches, maybe to one of the instruments in the pair or something like that. and then be able to pull
+> it up here and have those particular pitches already assigned."*
+
+*AI reading (mine, marked):* four things for this file.
+**(1) The way of working.** Not the revision this file is collecting for — small, piece-specific builds, one MODEL at a time as
+the composing calls for it, each carried forward to the next. The revision inherits whatever these builds prove.
+**(2) What an all-purpose tool should take from the ask.** The panel fuses two decisions that he thinks of separately: WHICH
+pitches (the sonority) and WHO plays them (today a take rule and then a fold — the player is never named, and he never sees the
+choice being made). He wants to make the second by eye and ear, with the partial numbers and both instruments' ranges in view —
+and the tool that shows exactly that already exists: the strikes drawer. A take from it is a chord ALREADY CAST (player · MIDI ·
+cents · partial), which is 1a.5's sentence again — *a chord is a list of VOICES, not a set of pitches.* An all-purpose morph would
+take its pitches from a cast chord as the ORDINARY case, and offer its reduction rules only when it is handed a bare set.
+**(3) A naming trap.** The PITCHES line already uses "take" for its reduction rule (`spread`, `lowest` …); the strikes drawer's
+TAKE is a different thing. They are about to sit in one line and need two words.
+**(4) The dynamics — the two entries above — are to be BUILT in this first small build**, no longer method-only, at his word:
+*"We already have a plan for the dynamic curves. So let's take care of that at this build."*

@@ -177,3 +177,13 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   a row of ticks in the banner (or a `partials: 1 3 5 7-11` box) filtering `Spectrum.makeStrike`'s notes before they become voices —
   the id would have to carry the filter (`sp:C2:just:1,3,5`) so a take still rebuilds it, which is the only real work in it.
   Plan item **1c.7**, deferred, not dropped.
+
+- **2026-09-20 — in Hear, a note's channel gets CC7 127 about 16 ms before its own fader value** (RUNNING_LOG §158, where it was
+  put to him; his answer, §162: *"Let's just note this somewhere for an issue that we might need to take care of in the future. No
+  need to keep surfacing unless the actual issue crops up again."*). `D.playNotes` (`score/public/strike_drawer.js`, his 2a —
+  untouched by all of the sequence work) sends CC7 127 on a note's channel 30 ms before the note; the sequence drawer's table value
+  for that note lands 16 ms after that. **Read in the code — never heard, never measured.** **What it would sound like if it ever
+  bites:** in the sequence drawer's Hear or a box preview, a release tail still ringing on that curve channel jumps to full for
+  those ~16 ms — a tick or a bump at the moment the NEXT note on that channel arms. The score's own playback was not examined for
+  the same thing. **Not designed:** the likely cure is for the pre-arm to send the note's own first fader value instead of 127.
+  **Do not raise it again unless that symptom is HEARD.**
