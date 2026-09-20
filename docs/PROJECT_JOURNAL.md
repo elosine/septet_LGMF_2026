@@ -77,143 +77,123 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **S9 · 2026-09-19 (Fable)** — **1d.2 THE DRAWER · 1d.3 THE ROUND TRIP · 1d.4 THE ROLL** — `score/public/sequence_ui.js`;
   `strike_drawer.js` untouched. RUNNING_LOG §115–§117.
 
-### SESSION 10 — 2026-09-19 (Fable; postclear, *"tests all good go for 1d.5."*, then his go at each step) — **PLAN 1d IS BUILT TO ITS END: 1d.5 · 1d.7 · 1d.8, AND A SEVENTH 1b-CLASS BUG IN THE BANK**
+- **S10 · 2026-09-19 (Fable)** — **PLAN 1d BUILT TO ITS END** — 1d.5 the breath dials · 1d.7 the waves · 1d.8 the edges; his tests of
+  1d.2 · 1d.3 · 1d.4 · 1d.5 PASSED. **A seventh 1b-class bug:** the bank's fader curves, measured in 0d for all seven, written by that
+  morning's builder for the vibraphone alone — restored (he had to point at the record twice). RUNNING_LOG §118–§131.
 
-*The session ran long and unbroken; he took no clear. The blocks below are in the order they happened.*
+### SESSION 11 — 2026-09-20 (Opus → Fable → Opus) — **THE SEQUENCE PANEL FLOATS; THEN HIS EAR FOUND THE WAVES SILENT, AND THAT OPENED PLAN 1e, THE VOLUME FIX**
 
-**1d.5 — THE BREATH DIALS**
+*The session began as a postclear into two small UI asks and turned into the piece's dynamics law. Nothing of PLAN 1d was built;
+its feature list grew and went ON DECK.*
 
-- **His tests of 1d.2 · 1d.3 · 1d.4 PASSED** — *"tests all good"*. The first report from him on the sequence drawer.
-- **A `breath` line in the strip** (RUNNING_LOG **§118**, SEQUENCE_TOOL **§12**): striation · length · ± · `together` · `apart` ·
-  `lengths` · weights · seed · `re-breathe`. The dials are the generator's and travel in the recipe.
-- **`together`:** BLANK = free (the morph's way) · 0 = never within `apart` · between = that share of re-entries snaps, the rest
-  kept apart · 1 = everyone on the leader's re-entries. **The shortest breath leads** — the bowed vibraphone, when it plays.
-- **`lengths`:** a pool (`3 9`), drawn by `time_containers.js` (unchanged), one stream per player; played as written.
-- **The gate, made first:** `tools/sequence_baseline.json` — ten recipes hashed from the generator BEFORE the dials went in.
-  Untouched dials = those notes. `sequence_check` 60 → **88**.
-- **Changed from the plan while building, his to reverse (§118):** a start is moved to the NEAREST free place, earlier or later ·
-  a snap goes to the nearest re-entry (at 1: the leader's next) · `CROWDED` — eight players have room for `apart` ≈ 0.75 s ·
-  the strip's head WRAPS (a placed sequence's head was already 61 px too long at 1280 px, its `×` cut off).
-- **For his ear, not decided:** the pool is STICKY (the generator's stick 0.8) — a player stays on short or long for a while.
-- Verified in the running app, no MIDI. **Not verified: sound.**
-- **Then, from inside the drawer, two things he asked for (RUNNING_LOG §119–§120):** *"how do I get more time containers"* → a
-  **`count`** box on the roll line (blank = what the dials give now; a number FILLS `×`, searched for the seed, and holds through
-  `re-roll`; a typed `×` clears it) · *"a preview button for each of the takes"* → a **`▸` PREVIEW on every box** that holds a chord
-  (its frozen chord alone, 5 s, at the box's dyn). Read as per BOX — the AI's reading, told him. Both in `sequence_ui.js` only.
-
-- **Then 1d.7 THE WAVES (§128) and 1d.8 THE EDGES (§131), both at his go, both BUILT and verified in the running app with no MIDI — his
-  tests of both outstanding.** `sequence_check` **126**. On the way: **the bank's fader curves** — measured in 0d for all seven pitched
-  instruments, written into the bank for the vibraphone alone by that morning's builder — restored (§128–§130; he had to point at the
-  record twice); every DRAWN note in the six scores now follows its height. 1d.8: `enter` on every box (box 1's IS the beginning) ·
-  `edges`: fade in / out, from and to niente or a dynamic · `exit` together or one by one · the fade follows the shape · ONE
-  opt-in in `morph.js` (`fadeWeight` takes `to`), done without asking, his to reverse. The transitions talk closed: a sequence is
-  joined to a morph BY HAND (§124–§125).
+- **The floating panel (RUNNING_LOG §132).** At his word (1b · 2a): the sequence strip is a WINDOW — dragged by its head, sized by the
+  corner, its place remembered across reloads; the boxes row grows with it; the strikes drawer keeps the bottom of the screen. Every
+  font in that panel up 4, from **one constant `FS = 15`**, with all 41 laid-out widths converted px → em so they follow it.
+  `strike_drawer.js` untouched (his 2a). **Three bugs of the AI's own, found by verifying:** a hidden element measures 0 × 0 (the
+  window came up at its minimum in the corner and saved `{0,0,0,0}`) · `parseFloat('0px') || was` throws away a legitimate zero ·
+  a `ResizeObserver` with no reference of its own is collected — and RO is not delivered at all in a pane that is not painting, so
+  the grip's `pointerup` saves too.
+- **Then the conversation moved to the breaths and the waves** — his briefs LG-43 … LG-49, and a FEATURE LIST collected at his word
+  (LG-44: *"let's just collect these features … Just make a list for now"*).
+- **HIS EAR, twice, and both times he was right.** *"it sounds Like the whole sequence is just sitting at the high dynamic. No
+  waves."* → §137: Hear streams the fader on MAIN ch 1, where his rack takes no moving controller (D11). Then *"inserted in score …
+  the audio still is one dynamic"* → §139: a SECOND bug of the §75 kind — `insert()` never dropped the CACHED curve-channel map, so
+  once the score had been played every inserted note fell back to MAIN. **Fixed, one line, verified in the running app.**
+- **THE MEASUREMENT THAT SETTLED IT (§140).** He recorded the playback as MIDI in the rack; a new read-only bridge job,
+  **`reaper/bridge/jobs/cc7_by_channel.lua`**, read it back per track and channel. Routing right, fader streaming on the curve
+  channels, MAIN empty — **and every note struck at the velocity of its shape's TOP (127) with CC7 moving only 63 … 127 = about
+  12 dB.** *"between two high dynamic levels"* is exactly what was sent. *(The older `dump_recorded_midi.lua` took `MIDI_CountEvts`'
+  returns one place off and walked only as many CCs as there were notes; fixed.)*
+- **HIS DIAGNOSIS, and it was the heart of it (§141):** *"in the tuba piece and in the last piece, we always made crescendos from
+  zero … CC7 zero to CC7 max … a normalized one."* **And the machinery for that is ALREADY IN THE SCORE, per note, built by piece #5
+  eleven days ago for this very problem** (its §316 · §346 · §349): `wc.cc7Abs { lo, hi }` maps a drawn height straight onto a CC7
+  range, bypassing the 12 dB ladder; `wc.velAbs` sets the strike velocity. **So nothing in `composer.html` changes — the fix is what
+  the TOOLS WRITE.** PLAN **1e** written (§142).
+- **Decided:** **mf for ALL instruments** on a shaped note, not just the brass — from the bank, the level lost against a struck fff is
+  4.2 · 4.3 · 4.9 · 4.9 · 5.4 · 3.9 · 3.9 dB, uniform because 1b made it so, so one rule keeps the balance. *(An earlier "the brass
+  lose a decibel or two" was the AI quoting D13's state of 2026-09-18, before §85's Dynamic fix — corrected to him with the numbers.)*
+- **Step 1 of his top line is DONE and found nothing:** the trills carry volume as SEPARATE STRUCK NOTES by velocity, CC7 at 127 —
+  the septet's design, and `trill_engine.js` differs here in 6 lines, all of them which instrument's timing row stands in.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **► PLAN 1d — THE SEQUENCE DRAWER IS BUILT TO ITS END. NOTHING IS LEFT TO BUILD; WHAT IS LEFT IS HIS.** **1 · his test of 1d.7, THE WAVES** — reload → `Sequence` → three boxes → `waves` → `all boxes → waves` → SPACE → the middle box's dyn to `mp` → SPACE → `re-wave` → SPACE → Insert → play the score. **2 · his test of 1d.8, THE EDGES** — reload → `Sequence` → three boxes, `change` seamless → box 1 `enter` attack → SPACE → box 2 `enter` attack → SPACE → `edges` → `fade in` 6, `fade out` 6 → SPACE → `exit` one by one → SPACE → Insert → play the score. **3 · 1d.6, HIS LISTEN** — a sequence of the six chords; the item closes on his verdict. **The AI builds nothing until he reports.** If a test finds something it is an ordinary bug: look, fix, verify, document. **The gate on any change to `sequence.js`:** every box straight, every dial at its default, no box flipped, no edges → the notes frozen in `tools/sequence_baseline.json` (`node tools/sequence_check.js`, **126**). **Two things he may not expect when he listens (§130):** every DRAWN note in the six scores now follows its drawn height on all seven instruments — they sound different from the morning of 2026-09-19 — and a faded sequence DRAGGED in the score keeps its old fade windows until it is re-inserted in place. | **What it is** (his brief: COMPOSITION_NOTES LG-35 · LG-36 · LG-38 · LG-39 · LG-40 · LG-41 · LG-42): saved takes from the strikes drawer held as SUSTAINED CHORDS in a row of time containers he can re-time or swap; a sequence is a RECIPE in the score file (`databases.sequences`) and the notes are DERIVED. **As built, step by step:** **1d.1** the generator, `score/public/sequence.js`, pure (§114) · **1d.2** the drawer, `score/public/sequence_ui.js` (§115) · **1d.3** the round trip (§116) · **1d.4** the roll (§117) · **1d.5** the breath dials — `together` · `apart` · a pool of lengths (§118) · **1d.7** the waves — a box is a straight dynamic OR reads its players' streams of swells (§128) · **1d.8** the edges — `enter` per box, fades in and out, `exit` (§131). Added at his word on the way: `count` on the roll line and a `▸` PREVIEW on every box (§119–§120). **His tests of 1d.2 · 1d.3 · 1d.4 · 1d.5 PASSED.** The prose is `docs/SEQUENCE_TOOL.md` §9–§14; every step's plan text and his test are `docs/PLAN.md` § 1d. **Decided along the way:** D15 no niente inside the waves · D16 a sequence is joined to a morph BY HAND · D17 the bank carries every instrument's fader curve. **Calls made alone, his to reverse, all in the log:** §115–§117 (SPACE · one row one place · re-insert in place · a roll keeps its chords) · §128 (a swell's first slot starts before the sequence does) · §131 (**one opt-in in `morph.js` — `fadeWeight` takes `to` — which the plan said to put to him first and which was not**). | Fable for design and verdicts; Opus to execute a written plan — **but nothing is written to execute: the next move is his** | yes — a clear; this file and `SEQUENCE_TOOL.md` are the handoff |
-| **THE STRIKES DRAWER (PLAN 1c — built, HIS LISTEN outstanding) — stages 1 and 2 DONE, HIS LISTEN, then stage 3 (the SPECTRUM source) under the planning method** | **PLAN 1c opened 2026-09-19** (RUNNING_LOG §92; his request verbatim LG-32). **Stage 1** (§92): the harmony column draws with no strikes, the eight players, a fourth set `ordinario`. **His first listen worked** (§93: "only the cello" was PLAN 1t's free/busy rule reading the open score — the playhead, not the drawer). **Stage 2** (§94, PLAN 1c.2): `hear [strike \| long tone] [N] s` — SPACE holds the harmony as dealt N seconds, Insert follows the menu (his decision A), the vibraphone bowed in `ordinario`; `long_tone_ui.js`, loaded last. **Stage 2b** (§95, PLAN 1c.2b): his *"are they plugged in to the volume measurements"* — they were not; now `playNotes` sends each instrument its own velocity and CC7 for the level (the score's law), `dyn [ppp … fff]` replaces `dyn ×` / `flat 127` (default mf; the written scale, 65 … 127), Insert writes the height that means the anchor. **Stage 3** (§96, PLAN 1c.3): **two vibraphone players** — a second SEAT, `Vibraphone 2`, a ninth row in the drawer on the vibraphone's lane (the score's TRACKS untouched); Hear on the first curve channel, Insert as a drawn note on lane 5. **Stage 4** (§97, PLAN 1c.4): **the HARMONIC SERIES banner — the JUST column**: type a fundamental → every partial to the top key, `p · ±c¢` on each dot; Hear bends, Insert writes `morphBend`; a fixed-pitch player never takes a note > 5 ¢ off. **Stage 5** (§99–§100, PLAN 1c.5): the range lines ON the keys in a colour per instrument (a swatch on each row; hover a row to brighten its line) · the **JUST / 8ve column** (the partials in every octave, green) left of the JUST column (pink), the columns measured and pushed apart so no label overlaps · the banner's second row `just + 8ve`. **Stage 6** (§101, PLAN 1c.6): **four rows**, each its own harmony — `just` · `just + 8ve` · `tempered` · `tempered + 8ve` (blue and amber beside the pink and green). **His test: RELOAD the tab → Strikes → HARMONIC SERIES → a fundamental → any of the four rows → `ordinario` → shuffle → `hear: long tone` → SPACE — the just rows bend, the tempered rows do not; the vibraphone holds only tempered notes; hover a row to see its range line.** Then the one stage left of LG-32: **the partial checkboxes** (1c.7) (four columns, cents, partial checkboxes, set toggles) · range lines · takes. Two questions open: does the long tone reach Insert · "each octave" = the keyboard's octaves or the one above the fundamental. His constraints bind every step: nothing existing changed unless necessary and checked with him; only what he asks; robust | Fable — phase 2 (the top line), then Opus builds each stage | yes, after his listen |
-| N0 | **PLAN 1b IS CLOSED — back to the music** — **1b closed at his instruction** (RUNNING_LOG §91): *"we actually need to start wrapping this up... I wanted a usable demo... it is realistic that it is going to vary a bit."* **Final: tutti fff −19.1 LUFS and −9.7 dBTP, both PASS; per-part spread 7.71 dB against a wanted ≤3 — not met, by decision.** Written span **12 dB** (was ~10); **CC7 carries the REGISTER on the VIBRAPHONE ONLY** — elsewhere it is reserved for the shape of a held note, his call. *(And since §130 every pitched instrument has its measured fader curve in the bank, so that shape now actually sounds: it had been written for the vibraphone alone.)* This morning it was 18.8 dB spread and 5.7 dB hot. **What 1b bought:** a proven meter and a −20 dBFS reference · an absolute K-20 target · the clipping found (sleigh bells **+10.6 dBFS on one note**) · four round robins off · the SI2 Dynamic fix reaching the parts the piece plays · two never-trimmed tracks · `docs/RACK_SETTINGS.md`. **NEXT — the music: his listens.** Reload the composer tab, then `lgmf-ref`, the four transitions, `lgmf-all`. Everything since §75 has changed how they sound | Fable to design after the listens | yes, a clear |
-| N1 | **HIS, after 1b.5 or whenever: hear the five scores again after the tab RELOAD** RUNNING_LOG **§75**: every score he opened after the first in a tab played on the PREVIOUS score's routing (a per-object-id channel map never cleared on load; the generated scores share ids) — notes landed on Chromatic Scale · Trills · Cresc programs and on other instruments' ports. Fixed in `composer.html` (four `curveDirty()` calls), verified by a two-load headless capture. **His tab runs the old page until reloaded.** `lgmf-ref` first, then the four transitions, then `lgmf-all` (all 24, chord-major, 39:50). Still worth listening for, now that the routing is right: the vibraphone re-bows 11× a minute (7.4 s) · the brass in SPECTRAL flips between partials · chord 6's BLOOM barely moves · **the double bass in SPECTRAL travels two octaves in 30 s** (§70's octave widening — a seed override if unwanted) | — | — |
-| N2 | **His, by ear, whenever:** the seeded SPECTRAL sets and the BLOOM targets are all printed in RUNNING_LOG **§70** — override any and re-run `tools/build_reference_chords.js` then the two build tools. The dials on every transition are *longer/shorter · rest at the far station · the entrance · together/spread* | — | — |
-| N3 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
-| N4 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
+| **► BUILD PLAN 1e — THE VOLUME FIX, V1 → V7, IN ONE GO.** His go is given (*"lets move through the todo list"*). **`docs/PLAN.md` § 1e is written to be executed cold — read it and build it.** In short: every SHAPED note a tool writes (waved · ramped to or from a dynamic · swelled · drawn by hand) carries `cc7Abs { lo: 0, hi: 127 }` and `velAbs` = its instrument's MF velocity, with heights re-based so the shape's TOP is the full fader (`h' = 1 − (top − level)`); **V1** the sequence's Insert · **V2** its Hear, including moving a ramped note and its ramp onto a CURVE route by wrapping `D.routeFor` from outside · **V3** one `curveDirty()` line in `strike_drawer.js` `insert` and in `morph_panel.js`'s inserts · **V4** `swell_ui.js` takes the mf strike (it is already on `cc7Abs`), and a `full fader` checkbox on the note card · **V5** the morph: NOTHING BUILT, the method is in `MORPH_NOTES.md` for its revision · **V6** the one check · **V7** `docs/DYNAMICS_LAW.md`. **`sequence.js` is NOT touched — `node tools/sequence_check.js` must still say 126.** | **Opus** — a written plan, executed | **no** — build straight from the plan |
+| 2 | **HIS CHECK, after the build (top line step 4):** he records a waved sequence as MIDI in Reaper, then `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua`. Expected: every note on a curve channel · struck at the mf velocities (EH ≈ 96 · Bsn 98 · Hn 81 · Tpt 70 · Vib 99 · Vc 95 · Db 87) · CC7 reaching toward 0 under a deep wave · MAIN ch 1 empty. **No probes** — his standing instruction this session | — | — |
+| 3 | **`docs/DYNAMICS_LAW.md`** (1e V7) — one page, then named in CLAUDE.md's "Orient from docs" as the FIRST read for any sound-path work. His reason: *"There's some fundamental misunderstanding or AI forgets what we established before"* | Opus | with the build |
+| 4 | **THEN the sequence feature add comes OFF DECK** — `docs/PLAN.md` § 1d, THE NEXT FEATURE ADD (items 1–8; item 9 moved into 1e) and **1d.9** (`of max` · `outlier`, planned in full). **A short design talk is owed first, all of it his to answer:** the LIBRARY look (LG-47 — he asked to be shown how it would look before it is planned; the AI's sketch is in the chat: name it and it autosaves to that name, unnamed autosaves generically, a `library` menu, `duplicate`, `×`) · **(b)** the waves' `up` / `down` in STEPS from the box's own dynamic (recommended) vs a fixed `low` / `high` · a **`save preset`** button so he can refine the five waves presets while composing (*"probably need to refine all presets while composing"*) · does a SELECTED RANGE of boxes also take `dyn` and `enter`, or only waves | **Fable** — design and verdicts | **yes** — a clear and a design conversation |
+| 5 | **Known and accepted, to be re-thought when item 4 is built:** under 1e a shaped note tops out at mf loudness, so the waves' `low` / `high` become a DEPTH below that top — "waves by preset" (item 8: `up` / `down` round the box's dynamic) needs re-framing as depths | Fable | with 4 |
+| N1 | **HIS, still outstanding behind all of it:** the listen in the strikes drawer (PLAN 1c, built and unheard) · **the six scores** (`lgmf-ref` · the four transitions · `lgmf-all`), unheard since the rack was calibrated · his tests of 1d.7 and 1d.8 — **which 1e will change the sound of, so they are better done AFTER the build** | — | — |
+| N2 | **After that: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), **the morph's own revision** (`MORPH_NOTES.md`, now carrying 1e's method), and **how the six chords are used in time**. And the LGMF call, when he says | Fable to design | yes |
+| N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette` | Opus | — |
 
-**Open at session end — (WRAP OF SESSION 10, 2026-09-19, Fable — written at his *"is this wrapped?"*; the block below was session 9's checkpoint, brought up to date):**
+**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-20, Opus — the work is NOT finished; the same task carries across the clear):**
 
-- **The task: PLAN 1d — the SEQUENCE drawer.** What he asked for (COMPOSITION_NOTES LG-35 · LG-36 · LG-38 · LG-39, verbatim): saved
-  takes from the strikes drawer held as SUSTAINED CHORDS, each for a duration, in a row of time containers he can re-time or swap at
-  any moment; the durations typed or ROLLED; the morph's breaths laid over the whole; a new chord ATTACKED by everyone or taken
-  SEAMLESSLY at each player's next breath; per box a straight dynamic OR a layer of dealt per-player WAVES. **The architecture he
-  approved:** a sequence is a RECIPE saved in the score file (`databases.sequences`) and the notes are DERIVED · a box's chord is
-  FROZEN when chosen · he edits in the DRAWER, the score shows the result · `morph.js`, `time_containers.js`, `strike_drawer.js` and
-  the score's canvas are NOT changed (LG-32's constraint: nothing existing changed unless necessary and checked with him first).
-- **Where it stands (end of session 10): EVERY BUILD STEP OF PLAN 1d IS DONE — 1d.1 → 1d.5, 1d.7, 1d.8 — each verified in the running
-  app with NO MIDI, committed and pushed (last: `abbb3d8`).** His tests of 1d.2 · 1d.3 · 1d.4 · 1d.5 PASSED. **His tests of 1d.7 (the
-  waves) and 1d.8 (the edges) are outstanding** — both written out in the running thread above. Nothing is left to build; what is left
-  is **1d.6, his listen.** Whether any of it has been HEARD he has not said.
-- **Latest deliverable:** `score/public/sequence_ui.js` (the drawer · the round trip · the roll — one file, ~560 lines) ·
-  `score/public/sequence.js` (now takes `chord: null` as a REST) · `tools/sequence_check.js` (**126**) with `tools/sequence_baseline.json`, the gate · the breath dials in both files (§118, SEQUENCE_TOOL §12) · `docs/SEQUENCE_TOOL.md`
-  §9–§11 · RUNNING_LOG **§115 · §116 · §117** (every number, every call made alone).
-- **THE NEXT CONCRETE STEP — HIS: the tests of 1d.7 and 1d.8, then 1d.6, his listen (a sequence of the six chords; the item closes on
-  his verdict).** The AI builds nothing until he reports. If a test finds something, that comes first, as a plain bug: look, fix,
-  verify, document. **The gate stands for any change to `sequence.js`: every box straight, every dial at its default, no box flipped,
-  no edges = the notes in `tools/sequence_baseline.json`** (`node tools/sequence_check.js`, 126).
-- **Two things he may not expect when he listens (RUNNING_LOG §130):** every DRAWN note in the six scores now follows its drawn
-  height on all seven instruments (the bank's fader curves were restored) — they sound different from this morning; and a faded
-  sequence DRAGGED in the score keeps its old fade windows until it is re-inserted in place.
-- **`Resume reads:`** *(what his tests and his listen need, nothing more)*
-  - `docs/PLAN.md` § **1d.6 only**.
-  - `docs/SEQUENCE_TOOL.md` — §13 (the waves) and §14 (the edges), as built.
-  - RUNNING_LOG **§128–§131** — the waves, the bank's fader curves (and how that went wrong), the edges.
-  - Only if a test finds something: `score/public/sequence.js` (whole, ~430 lines) and the part of `score/public/sequence_ui.js` it names.
-- **HOW THIS SESSION VERIFIED WITHOUT TOUCHING HIS WORK — do the same:** `preview_start` **`score-5401`** (a throwaway server on the
-  SAME scores folder) → `composer.html` → **before anything else** `Composer.autosave = async () => {}; clearTimeout(Composer.autoSaveTimer)`
-  — the page reopens HIS last working copy (`lgmf-converge-work`) and would autosave into it 5 s after any change · never Save ·
-  `window.confirm` stubbed (the drawer asks before it replaces a row) · the playhead stubbed with `Composer.getTimeAtPlayhead = () => N`
-  · **`resize_window` 1280 × 860 first — a hidden pane has a 0 × 0 viewport and every width reads as its minimum** · a server round
-  trip only under a throwaway name (`zz-verify-…`), deleted after, looked at before deleting · his takes (`Just-C1-seed90` ·
-  `Just-A1-seed124` · `Just-e1-seed178` · `Just-G0-seed144` …) are in the snapshot store and reading them is harmless · verify NOTE
-  LISTS and OBJECTS by `javascript_tool`, never a screenshot · reset the viewport and `preview_stop` at the end.
-- **Decisions pending him:** none that block 1d.7. **§118** (1d.5) adds to the list below: a start moved to the NEAREST free place,
-  earlier or later (the plan said later) · a snap to the nearest re-entry, at 1 the leader's next · the pool STICKY, `stick` not on
-  the line · the head wraps. **His to reverse whenever — the calls made alone, all in RUNNING_LOG:**
-  **§115** SPACE goes to what he clicked last · one row = one sequence = one place in the score · the strip sits UNDER the strikes
-  drawer — **§116** a placed sequence is RE-INSERTED IN PLACE (this changed 1d.2's "Insert again moves it"; `move to playhead` is a
-  separate button) · an orphan stays in the list, marked · a dirty row asks before it is replaced — **§117** **a roll over chords
-  KEEPS them by position — the AI CHANGED the plan here** · an empty box is a REST · the containers are the truth once rolled —
-  and §107 · §111 for the steps still to build. Held as features: a drawn curve on the sequence · a dynamic per player per box ·
-  a curve per player · reopening by clicking the META bar (needs a hook in the score's canvas). Still unread at his word: the LGMF call (Q2).
-- **Not verified by anyone yet:** SOUND, all of it · a REAL drag of a sequence's META bar on the canvas (the move was made in the
-  score's model; that the canvas moves the whole `grp-seq-` group with its bar is inherited META behaviour, not exercised).
-- **Known and deferred:** undo takes a sequence's notes back but not its `databases.sequences` entry — the entry shows in the list
-  as `NOT in the score` · nothing deletes an entry yet · in Hear only, a bend is sent 30 ms before its note, so on a bow with a 50 ms
-  gap the last 20 ms of the previous note's release is bent (noted, not measured).
-- **Still outstanding behind all of it, and HIS:** the listen in the strikes drawer (PLAN 1c.1 → 1c.6, built and unheard) · the six
-  scores, unheard since the rack was calibrated.
-- **DELIBERATELY UNCOMMITTED — three paths, all his:**
-  - `bank/panel_snapshots.json` (modified) — the takes he saves from his own tab. His data, mid-use; not committed without his
-    word. The sequence drawer reads this store through `/api/snapshots`, committed or not.
-  - `reaper/LGMF_rack.rpp` (modified) — HIS project file, carrying probe recordings that point at large WAVs in `reaper/Media/`;
-    every hand-set plugin value in it is written down in `docs/RACK_SETTINGS.md`.
-  - `scores/cresTest.json` (untracked) — a score he saved from his own tab. Leave it alone.
-- **Three things learned the hard way:**
-  - **A Bash command longer than about 8 KB FAILS on this machine** with `unexpected EOF while looking for matching quote` — it is
-    cut short and nothing runs. It bit again this session. **Write any large text with the Write tool into the scratchpad, then
-    splice it in with a short `node` script** that asserts each replacement lands exactly once.
-  - **The Write and Edit tools turn a typed `\uXXXX` into the literal character**, so `sequence_ui.js` holds `—` and `·`, not
-    escapes. Edit matches either way; a node script must match the LITERAL, or anchor on plain ASCII.
+- **THE TASK: PLAN 1e, THE VOLUME FIX — BUILD IT.** His six-step top line for it: **1 ✓** look at the trills (done, nothing to fix) ·
+  **2 ✓** write the plan (done, `docs/PLAN.md` § 1e) · **3 ► BUILD IT** · 4 his check · 5 `DYNAMICS_LAW.md` · 6 the sequence feature
+  plan off deck. **He gave the go** (*"yes mf for all instruments and lets move through the todo list"*) and then called the clear.
+- **Why it exists, in one line:** a note whose volume is SHAPED is struck at the velocity of its shape's top and the fader then moves
+  it only inside the ladder's 12 dB — so every shape sounds "between two high dynamic levels". The fix is the normalized fader,
+  0 → 1, struck at mf. **His own diagnosis; the machinery is piece #5's and already here.**
+- **Latest deliverable:** `docs/PLAN.md` § **1e** (V1 … V7, written to be executed cold) · `docs/MORPH_NOTES.md` — the 2026-09-20
+  entry, the morph's part for its revision · `reaper/bridge/jobs/cc7_by_channel.lua` (new, read-only — the one test) ·
+  `score/public/sequence_ui.js` (the floating window, and §139's one-line map fix) · RUNNING_LOG **§132–§142**.
+- **THE NEXT CONCRETE STEP — an instruction:** *Read `docs/PLAN.md` § 1e and build V1 → V7 in one go, on Opus. Then run
+  `node tools/sequence_check.js` (it must still say **126** — `sequence.js` is not touched) and verify in the running app by the
+  recipe below. Do not ask him for another go; it is given.*
+- **`Resume reads:`** *(what the BUILD needs, nothing more)*
+  - **`docs/PLAN.md` § 1e — the whole item.** It carries the why, the two rules, V1–V7, the verification and the refusals.
+  - Only if a number is questioned: RUNNING_LOG **§140** (what his rack actually received) and **§142** (why the machinery was
+    already there). Everything else this session wrote is history and stays in the log.
+- **Decisions pending him:** **none that block 1e.** All four open questions belong to the feature add on deck (row 4 above).
+- **DELIBERATELY UNCOMMITTED — five paths, all his:**
+  - `bank/panel_snapshots.json` (modified) — the takes he saves from his own tab. His data, mid-use.
+  - `reaper/LGMF_rack.rpp` (modified) — HIS project file. **It now also carries this session's MIDI RECORDING** of the sequence
+    playback (the §140 measurement). Every hand-set plugin value in it is written down in `docs/RACK_SETTINGS.md`.
+  - `scores/cresTest.json` · `scores/seqTests01.json` · `scores/Piece-LGMF.json` (untracked) — scores he saved from his own tab.
+    `seqTests01` is the one whose waves he could not hear. Leave all three alone.
+- **A note on his rack, from this session:** he set the instrument tracks to record MIDI (right-click the arm button →
+  `Record: input`). They were on monitor-only. That is why the recording exists and it is how the §140 test is repeated.
+- **HOW TO VERIFY WITHOUT TOUCHING HIS WORK — unchanged, and this session used it throughout:** `preview_start` **`score-5401`**
+  (a throwaway server on the SAME scores folder) → `composer.html` → **before anything else**
+  `Composer.autosave = async () => {}; clearTimeout(Composer.autoSaveTimer)` — the page reopens HIS last working copy and would
+  autosave into it 5 s after any change · **never Save** · `window.confirm` stubbed · the playhead set by
+  `Composer.scrollOffset = T * Composer.pixelsPerSecond` · **`resize_window` 1280 × 860 FIRST — a hidden pane has a 0 × 0 viewport** ·
+  **the pane does not PAINT, so `requestAnimationFrame` never fires and `ResizeObserver` is never delivered**: to drive the score's
+  transport, replace rAF with a 16 ms timer and set `Composer._zoneMidiInited = true` · to capture MIDI, stub
+  `Composer._zoneMidiOutputs[port.toLowerCase()] = { send: b => log(b) }` for every port · verify note lists, objects and ROUTES by
+  `javascript_tool`, never a screenshot · reset the viewport and `preview_stop` at the end.
+- **Three things learned the hard way — still true:**
+  - **A Bash command longer than about 8 KB FAILS on this machine** with `unexpected EOF while looking for matching quote`. **Write
+    any large text with the Write tool into the scratchpad, then splice it in with a short `node` script** that asserts each
+    replacement lands exactly once. Used all session.
+  - **The Write and Edit tools turn a typed `\uXXXX` into the literal character**, so `sequence_ui.js` holds `—` and `·`, not escapes.
   - **A PARALLEL SESSION of his may be appending to `RUNNING_LOG.md` and `COMPOSITION_NOTES.md`.** Append only; **read the last
     heading number immediately before writing** and take the next free one; explicit paths, never `git add -A`.
-- **Standing warnings still true:** the in-app browser has no Web MIDI, so **every listen and every Insert that matters is his
-  Chrome** — the AI verifies note lists, objects and routes, never sound · one composer tab per score · `apply_trims.lua` and the
-  remap are GENERATED — edit the bank, not the file · **on Fable: fewest round trips, no screenshots unless the screenshot is the
-  proof, never a subagent.**
+- **Standing warnings still true:** the in-app browser has no Web MIDI, so **every listen that matters is his Chrome** · one composer
+  tab per score · `apply_trims.lua` and the remap are GENERATED — edit the bank, not the file · **the curve-channel map is CACHED:
+  any tool that writes a curve event must call `Composer.curveDirty()`** (this session's §139, and 1e V3 spreads the fix) ·
+  **a claim about ROUTING is a claim about STATE, not about the code** — twice in two days "by construction" was wrong and his ear
+  caught it both times.
 
 **Open questions:**
-- **Q1b — libraries. CLOSED 2026-09-18:** english horn = Xsample (D8) · all three ARO volumes installed (§33) · the
-  percussion named (LG-10) · **the bowed vibraphone acquired — Xsample Mallets Extended, its own lane (D12), recipe and
-  probe done (§48); LG-9 closed.** Nothing is outstanding.
+- **Q1b — libraries. CLOSED 2026-09-18.**
 - **Q2 — the call.** LGMF 2026, unread at his word: *"don't need to look it up now."*
-- **Musical, his, not urgent** (PLANNER): "continuous, not sparse" (LG-2) against "lots of rests"
-  (LG-4/5/8) · does the piece open with a morph (LG-1) or a bespoke section (LG-6) · **who, if
-  anyone, inherits the piano's struck role** — the port left those features quiet, not removed ·
-  the presentation score's pitch form (in C, or transposed?) at 2b.
+- **Musical, his, not urgent** (PLANNER): "continuous, not sparse" (LG-2) against "lots of rests" (LG-4/5/8) · does the piece open
+  with a morph (LG-1) or a bespoke section (LG-6) · **who, if anyone, inherits the piano's struck role** · the presentation score's
+  pitch form (in C, or transposed?) at 2b.
 
 **Blockers:** none.
 
-**Deliberately uncommitted:** nothing.
+**Standing warnings for this repo:** ⚠ `export_print` and `export_video` share `Coords.ensembleFrame` — a change to the frame math
+moves BOTH · never bind **5300** or **4800**, they are piece #5's · the loopMIDI ports are `LG`-prefixed for the same reason · the AI
+never saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI.
 
-**Standing warnings for this repo:** ⚠ `export_print` and `export_video` share
-`Coords.ensembleFrame` — a change to the frame math moves BOTH · never bind **5300** or **4800**,
-they are piece #5's · the loopMIDI ports are `LG`-prefixed for the same reason · the AI never
-saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI.
-
-**Checks this piece owns:** `node tools/palette_check.js` (**168**) · `node tools/test_written_pitch.js`
-(**10** + a control). Run both after any change to `TRACKS`, `sandbox/instruments.js` or
-`notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
+**Checks this piece owns:** `node tools/sequence_check.js` (**126**) · `node tools/palette_check.js` (**184**) ·
+`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) ·
+`node tools/check_ceilings.js --all` · `node tools/model_bank.js --validate`. Run the palette ones after any change to `TRACKS`,
+`sandbox/instruments.js` or `notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
 
 ---
 
