@@ -176,10 +176,12 @@ history — EXCEPT three of its bullets, which still bind and are not repeated h
   - `docs/PLAN.md` § **1g** — the "His test" bullet and the "NOT in this step" bullet (a STRIKE is not reached).
   - **If he reports a fault in a step, the first read is that step's RUNNING_LOG entry** (§150 … §159) — it says what was measured.
 - **Decisions pending him:**
-  - **His scores are untracked — does he want them committed?** `piece-LGMF-Sec01` is now THE PIECE, and NAMING §1's rule is that
-    scores ARE committed because git is the only net under autosave — *the AI asks first*. **Asked at this checkpoint, unanswered.**
-  - **Said to him at this checkpoint, unanswered (§160):** if `1stSequence` was inserted BEFORE he reloaded the tab for 1g, its
-    straight boxes are written on the OLD scale (struck). `Insert` again after the reload replaces it in place, under Rule 3.
+  - **ANSWERED 2026-09-20 (RUNNING_LOG §161): *"a, commit the piece files"*** — `scores/piece-LGMF-Sec01.json` and
+    `scores/piece-LGMF-Sec01-v1.1-1stSequence.json` are IN GIT. **Five OTHER scores hold unsaved edits in their working copies**
+    (`cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest`, never saved at all · `seqTests01`) — `node tools/unsaved_check.js`
+    names them; they are his to Save or Reload, and none is the piece. **Keep committing the piece as he names versions.**
+  - **CLOSED by reading the file, not by asking (§161): the piece's first sequence is on the NEW scale.** 136 notes, **0**
+    `sonifyMode: 'plain'`, all 136 with `cc7Abs`, **38 of them FLAT** — which is Rule 3 itself. No re-insert is needed.
   - **Put to him, unanswered (§158):** `D.playNotes` sends CC7 127 on a note's channel 30 ms before it; the sequence's table value
     lands 16 ms later. A release tail still ringing on that curve channel would jump for those 16 ms. Not heard, not measured;
     `strike_drawer.js` is his 2a (untouched). His to call.
@@ -194,8 +196,8 @@ history — EXCEPT three of its bullets, which still bind and are not repeated h
   - `scores/Piece-LGMF.json` · `scores/cresTest.json` · `scores/seqTests01.json` (untracked) — scores he saved from his own tab.
     `cresTest.json` matters to `1f`: it holds crescendi written under the pre-1e law. `Piece-LGMF` (capital P) is the one the
     Piece menu could not list (§156); he has moved on to the lowercase name below.
-  - **`scores/piece-LGMF-Sec01.json` · `scores/piece-LGMF-Sec01-v1.1-1stSequence.json` (untracked, NEW)** — the piece's first
-    file and its first named version. See "Decisions pending him".
+  - *(no longer here: **`scores/piece-LGMF-Sec01.json`** and **`-v1.1-1stSequence.json`** were COMMITTED at his word, §161 — the
+    piece is tracked from now on, and each named version is committed as he makes it)*
 
 **(CHECKPOINT #4 — superseded as the entry point by #5 above; kept for the three bullets #5 names) — (2026-09-20, Opus — THE SEQUENCE FEATURE ADD IS BUILT, END TO END, AND NONE OF
 IT HAS BEEN HEARD. This supersedes checkpoints #1, #2 and #3 of this session, all of which are closed and correct as history):**

@@ -6872,3 +6872,36 @@ guess and nothing more) · whether it was inserted before or after he reloaded t
 written on the OLD scale or the new one. **That second question matters to the score:** a sequence inserted before the reload
 carries struck notes in its straight boxes, and only a re-insert (the recipe is in the score file; `Insert` replaces it in
 place) brings it under Rule 3. To be put to him when he next speaks of it. The files were not opened.
+
+## §161. THE PIECE IS IN GIT — and §160's open question is answered by the file itself: the first sequence is on the NEW scale (2026-09-20)
+
+**His word, at the checkpoint:** *"a, commit the piece files"* — option (a) of the two put to him, and NAMING §1's own rule
+(*"Everything in `scores/` is committed except `*-work.json` and `versions/` — autosave has eaten a score in every previous
+piece and git is the only net under it"*). Committed: **`scores/piece-LGMF-Sec01.json`** and
+**`scores/piece-LGMF-Sec01-v1.1-1stSequence.json`**.
+
+**What is in them, read before committing** (the standing rule: look at what is actually there):
+
+| | |
+|---|---|
+| objects | **137** — 136 notes and one META bar. **The whole score is that one sequence.** |
+| it ends at | **156.0 s** |
+| recipes in `databases.sequences` | 4 — the sequence placed, and three others the file has carried along |
+| `sonifyMode: 'plain'` (a STRUCK note) | **0** |
+| notes carrying `cc7Abs` | **136 — every one** |
+| of those, FLAT (`lo === hi`) | **38** |
+
+**So §160's open question is closed without asking him: it was inserted AFTER he reloaded the tab for 1g.** Those 38 flat
+`cc7Abs` notes ARE Rule 3 — a straight box's sustained notes, struck at mf and held at their table value — and under the old law
+they would have been `sonifyMode: 'plain'`, of which there are none. The piece's first music is on the one scale, and no
+re-insert is needed.
+
+**There is no `piece-LGMF-Sec01-work.json`**, which is the save system working as D17 describes: the working copy is discarded
+on Save, so its absence means the file holds everything he has done. `node tools/unsaved_check.js` names **five** other scores
+whose working copies hold edits their files do not — `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` (never saved at
+all) · `seqTests01`. **None of them is the piece**, and all five are his to Save or Reload; they were not touched and not
+committed. `scores/Piece-LGMF.json` (capital P, 27 KB, 10:13 — the one that could not reach the Piece menu, §156) was left
+untracked too: he did not name it, and he has moved on to the lowercase file.
+
+*(The two committed files differ, though they are the same size — `Name version` freezes a copy beside the file at the same
+instant. Not opened further; the version file is by design never overwritten.)*
