@@ -5193,3 +5193,36 @@ while he is choosing.
   vel 92 each = the take's own, the five just cents carried, one tempered note re-centred, both vibraphone seats · box 2 at
   `pp`, 3 s → vel 74 = the ladder's pp, 3000 ms · the lit button, the second click, the end, Hear after it · the button clear of
   the take's name. **Not verified: sound.**
+
+## §121. His test of 1d.5 passed; 1d.7 the waves — what the reading found before the proposal (2026-09-19)
+
+**His word:** *"test good 1d7"* — the breath dials passed his test (`together` 0 · 0.5 · a pool `3 9` · seamless across two
+chords), and the go-ahead for the last build step. He did not take the clear that was offered; the session runs on.
+
+1d.7 was written without his review (§111), so it opens with a short proposal. Three things were read first, because the
+plan's text leaned on them — and one of the plan's sentences turned out to be wrong.
+
+1. **The strikes drawer's player cannot ramp.** `strike_drawer.js` `playNotes` sends ONE CC7 per note (127, or the vibraphone's
+   register), 30 ms before the note-on, and the level travels in the VELOCITY. `swell_ui.js` — the file the plan said to reuse —
+   does not go through `playNotes` at all: it schedules its own audition on the same routes and timers and adds a ramp of its
+   own law (`65 + 62 · u^…`). So the plan's fork ("reuse it, or put a change to the player to him") has a third branch, and it
+   is the one to take: **the sequence drawer sends the ramp itself, after `playNotes` has scheduled the notes** — same routes
+   (`D.routeFor`), same timers (`MorphEmit._timers`), so Stop and SPACE still cut it. Nothing in the player changes.
+2. **The score already has the law.** A drawn note's velocity is chosen for the TOP of its curve (`heldDyn`), or for `velRef`
+   when the note carries one — the field the morph's fade stamps so that a whole window is struck at ONE velocity and CC7 alone
+   moves (composer.html §315). Its CC7 follows the height through the measured curves (`heldCc7` → `cc7ForHeight`), and that
+   function already carries the vibraphone's register. So the waves need no new law: stamp `velRef` = `high` on every waved
+   note, write the wave as the note's nodes, and compute Hear's ramp with the score's own `heldCc7` — SPACE and the inserted
+   score then sound the same by construction, the vibraphone included.
+3. **The plan's sentence on `niente` is wrong.** It says niente is "the bottom of the drawn height, as lgmf-ref's dal niente
+   entries write it". They do not: the drawn bottom is the law's FLOOR — the ppp anchor, 12 dB under fff on this rack, not
+   silence (composer.html §316 says so of piece #5: "a fade FROM SILENCE impossible"). `lgmf-ref` reaches silence with
+   `cc7Fade`, which is ONE monotone window per note (`Morph.fadeWeight`) and cannot rise and fall. The field that can is
+   `cc7Abs` (the drawn height mapped straight onto CC7) — already read by the score's playback — at the price that the drawn
+   height of such a note is a fader position and no longer the written dynamic; the true levels would have to ride on the note
+   for the day the extractor notates a hairpin. **This is the one question put to him:** waves between two WRITTEN dynamics now
+   and true niente as its own small step after he has heard them, or niente in this build.
+
+**A thing to surface to him (memory: LG-14, the Ferneyhough parenthesized dynamic).** One velocity under a moving fader means a
+quiet moment inside a wave is struck with `high`'s attack and played down by CC7 — loud-attack energy at quiet volume. With
+`high` = mf it is mild; with `high` = ff it IS the LG-14 sound. It comes with the morph's way of doing it; said in the proposal.
