@@ -281,7 +281,7 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
 | N3 | **After his listens: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), and **how the six chords are used in time** (nothing yet says their order, their durations or what happens between them). And the LGMF call, when he says | Fable to design | yes — a clear and a design conversation |
 | N4 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette`, which `buildActual` itself writes | Opus | with N2 |
 
-**Open at session end — (MID-SESSION CHECKPOINT, 2026-09-19, session 9, Fable; the builds that follow stay on Fable, at his word):**
+**Open at session end — (WRAP OF SESSION 10, 2026-09-19, Fable — written at his *"is this wrapped?"*; the block below was session 9's checkpoint, brought up to date):**
 
 - **The task: PLAN 1d — the SEQUENCE drawer.** What he asked for (COMPOSITION_NOTES LG-35 · LG-36 · LG-38 · LG-39, verbatim): saved
   takes from the strikes drawer held as SUSTAINED CHORDS, each for a duration, in a row of time containers he can re-time or swap at
@@ -290,26 +290,25 @@ proved through to a notation page (`lgmf-0i`) with the transposing parts at writ
   approved:** a sequence is a RECIPE saved in the score file (`databases.sequences`) and the notes are DERIVED · a box's chord is
   FROZEN when chosen · he edits in the DRAWER, the score shows the result · `morph.js`, `time_containers.js`, `strike_drawer.js` and
   the score's canvas are NOT changed (LG-32's constraint: nothing existing changed unless necessary and checked with him first).
-- **Where it stands (updated session 10): 1d.1 → 1d.5 are BUILT, each verified in the running app with NO MIDI.** His tests of
-  1d.2 · 1d.3 · 1d.4 PASSED (*"tests all good"*). **His test of 1d.5 is outstanding** (written out in the running thread above and
-  in PLAN § 1d.5). Whether any of it has been HEARD he has not said. Left to build: **1d.7 the waves → 1d.6 his listen.**
+- **Where it stands (end of session 10): EVERY BUILD STEP OF PLAN 1d IS DONE — 1d.1 → 1d.5, 1d.7, 1d.8 — each verified in the running
+  app with NO MIDI, committed and pushed (last: `abbb3d8`).** His tests of 1d.2 · 1d.3 · 1d.4 · 1d.5 PASSED. **His tests of 1d.7 (the
+  waves) and 1d.8 (the edges) are outstanding** — both written out in the running thread above. Nothing is left to build; what is left
+  is **1d.6, his listen.** Whether any of it has been HEARD he has not said.
 - **Latest deliverable:** `score/public/sequence_ui.js` (the drawer · the round trip · the roll — one file, ~560 lines) ·
-  `score/public/sequence.js` (now takes `chord: null` as a REST) · `tools/sequence_check.js` (**88**) with `tools/sequence_baseline.json`, the gate · the breath dials in both files (§118, SEQUENCE_TOOL §12) · `docs/SEQUENCE_TOOL.md`
+  `score/public/sequence.js` (now takes `chord: null` as a REST) · `tools/sequence_check.js` (**126**) with `tools/sequence_baseline.json`, the gate · the breath dials in both files (§118, SEQUENCE_TOOL §12) · `docs/SEQUENCE_TOOL.md`
   §9–§11 · RUNNING_LOG **§115 · §116 · §117** (every number, every call made alone).
-- **THE NEXT CONCRETE STEP (updated session 10) — his test of 1d.5; then build PLAN 1d.7, the waves, as the plan writes it.**
-  If he reports on the test first, what he found comes before 1d.7. 1d.7 was written WITHOUT his review (§111), so: read PLAN
-  § 1d.7, give a SHORT proposal that names every call the AI would make alone, build on his go. One step per chunk. **The gate
-  stands: every box straight and every dial at its default must give the notes in `tools/sequence_baseline.json`.**
-- **`Resume reads:`** *(what 1d.7 needs, nothing more)*
-  - `docs/PLAN.md` § **1d.7 only** (from `- **1d.7`).
-  - `docs/SEQUENCE_TOOL.md` — §5 (the dynamic) · §6 (what comes out) · §12 (the breath line as built — the pattern to copy).
-  - `score/public/sequence.js` — whole (~330 lines): `levelOf`, and in `dealSpan` the `levels` breakpoints and the ceiling read at the loudest level.
-  - `score/public/sequence_ui.js` — the `dyn` pull-down in `renderEdit` · `buildBreath` / `paintBreath` · `insert()`'s nodes from `levels`.
-  - RUNNING_LOG §109–§111 — the waves' reasoning, his words.
-  - **RUNNING_LOG §121–§122 — what the reading for 1d.7 found, and his answer (niente option A).** PLAN 1d.7's head note points here: the
-    strikes drawer's player cannot ramp, so the sequence drawer sends the CC7 ramp itself after `playNotes`; the law is the score's own.
-  - `score/public/composer.html` — `curveTop` · `heldDyn` · `heldCc7` only (≈ lines 9659–9707): the law Hear's ramp must use, `velRef`.
-  - `score/public/strike_drawer.js` — `playNotes` only (≈ lines 1287–1316): the routes, the timers, the 30 ms CC7 lead.
+- **THE NEXT CONCRETE STEP — HIS: the tests of 1d.7 and 1d.8, then 1d.6, his listen (a sequence of the six chords; the item closes on
+  his verdict).** The AI builds nothing until he reports. If a test finds something, that comes first, as a plain bug: look, fix,
+  verify, document. **The gate stands for any change to `sequence.js`: every box straight, every dial at its default, no box flipped,
+  no edges = the notes in `tools/sequence_baseline.json`** (`node tools/sequence_check.js`, 126).
+- **Two things he may not expect when he listens (RUNNING_LOG §130):** every DRAWN note in the six scores now follows its drawn
+  height on all seven instruments (the bank's fader curves were restored) — they sound different from this morning; and a faded
+  sequence DRAGGED in the score keeps its old fade windows until it is re-inserted in place.
+- **`Resume reads:`** *(what his tests and his listen need, nothing more)*
+  - `docs/PLAN.md` § **1d.6 only**.
+  - `docs/SEQUENCE_TOOL.md` — §13 (the waves) and §14 (the edges), as built.
+  - RUNNING_LOG **§128–§131** — the waves, the bank's fader curves (and how that went wrong), the edges.
+  - Only if a test finds something: `score/public/sequence.js` (whole, ~430 lines) and the part of `score/public/sequence_ui.js` it names.
 - **HOW THIS SESSION VERIFIED WITHOUT TOUCHING HIS WORK — do the same:** `preview_start` **`score-5401`** (a throwaway server on the
   SAME scores folder) → `composer.html` → **before anything else** `Composer.autosave = async () => {}; clearTimeout(Composer.autoSaveTimer)`
   — the page reopens HIS last working copy (`lgmf-converge-work`) and would autosave into it 5 s after any change · never Save ·
