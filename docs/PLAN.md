@@ -663,7 +663,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       latest ON the line, never a runt — so the container keeps its length. *(How the ends are spread is the AI's call; his to reverse,
       and he can drag a note.)*
     - **The fade follows the shape.** Ends together → ONE fade-out window for everyone, the last seconds before the line. Ends one by
-      one → each player fades on THEIR OWN last seconds. By symmetry *(the AI's call)* the fade IN follows box 1's tag: `seamless`
+      one → each player fades on THEIR OWN last seconds. The fade IN is the mirror, **asked for by him (§126: *"fade in can be together too from niente? also staggered from niente"*)** — from true NIENTE in both shapes, and it follows box 1's tag: `seamless`
       (staggered entries) → each player fades in on their own entry; `attack` → one window.
     - The fades are the morph's own field, `cc7Fade` — a one-way window in score seconds, CC7 multiplied 0 → 1 (in) or 1 → 0 (out) —
       stamped on every note that sounds inside a window, with `velRef` so the window is struck at one velocity; such a note is written

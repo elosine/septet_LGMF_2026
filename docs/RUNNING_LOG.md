@@ -5341,3 +5341,21 @@ but I don't think this impacts our build."*
 an end of its own, the ends spread over the last stretch BEFORE the line in the striation's order, the latest on the line — so the
 container keeps its length and no breath is cut or left a runt. The alternative — nobody re-dealt, each breath simply running past the
 line to its natural end — would push up to a breath's length into whatever comes next; not chosen, and he can drag a note either way.
+
+## §126. The fade in, confirmed as his: together or staggered, from niente — the mirror of the ending (2026-09-19)
+
+**His words:** *"fade in can be together too from niente? also staggered from niente and fade out to niente?"*
+
+**Answered yes to all three, and what §125 had as the AI's call "by symmetry" is now his request.** The edges of a sequence, whole:
+
+| | together | at different times |
+|---|---|---|
+| **fade in, from niente** | box 1 `attack` — one window, everyone up from silence together | box 1 `seamless` — each player up from silence on their own staggered entry |
+| **fade out, to niente** | `exit` together — one window | `exit` one by one — each player down to silence on their own ending |
+
+**Niente here is TRUE silence, unlike inside the waves** (§121–§122): the fade is a multiplier on the fader, 0 → 1 or 1 → 0, so it
+reaches CC7 0 — where the waves' floor is the law's ppp. Said to him with the standing caveat: nothing has been heard, his doubt
+about the morph's fade (MORPH_NOTES §3) is undiagnosed, and the first faded sequence is the test of both.
+
+**Not built, named to him:** the cross cases — staggered entries under ONE common window, or a fade whose shape differs from the
+entry's. The fade follows the shape of the entry or the exit it belongs to; one choice at each end, not two.
