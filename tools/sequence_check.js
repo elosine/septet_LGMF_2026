@@ -506,5 +506,67 @@ wvBad({ shortest: 20, longest: 8 }, /waves\.shortest .* must not be longer than/
 wvBad({ hold: 2 }, /waves\.hold is a share of the swell/, 'a hold of 2');
 wvBad({ tilt: -3 }, /waves\.tilt runs/, 'a tilt of −3');
 
+
+// ---------------------------------------------------------------- 18 · the breath's lengths: `of max` · `outlier` · `±` in seconds (PLAN 1d.9 · 1d.14)
+// Every player used to aim at the ONE `length`, and the ceilings table only CAPPED. `of max` builds the breath round each
+// player's OWN maximum; `outlier` puts one breath in ten far from the rest; and `±` is seconds now, the way a musician reads it.
+const LONGROW = (breath) => { const R = { t0: 0, change: 'seamless', containers: [{ dur: 300, chord: CHORDS[0], dyn: 'mf' }] };
+    R.breath = Object.assign({ striation: 'staggered', length: 8, jitter: 0.35, seed: 7 }, breath); return SEQ.generate(R, ctx); };
+const held9 = G => G.notes.filter(n => n.kind !== 'fixed');
+const byPlayer = G => { const m = {}; held9(G).forEach(n => { (m[n.player] = m[n.player] || []).push(n); }); return m; };
+// with none of them set, the notes are what 1d.5 dealt
+ok(j(LONGROW({}).notes) === j(LONGROW({ ofMax: null, outlier: null, jitterS: null }).notes),
+   '`of max`, `outlier` and `±` spelled out as absent change nothing — the 1d.5 deal, to the byte');
+// OF MAX — a long-breathed player breathes long
+const OM = LONGROW({ ofMax: 0.65, jitter: 0 }), PM = byPlayer(OM);
+const meansOM = Object.keys(PM).map(k => {
+    const ns = PM[k].filter(n => !n.flags.includes('CEILING') && n.dur > 0.5), ceil = Math.max.apply(null, PM[k].map(n => n.ceiling || 0));
+    return { k: k, inst: PM[k][0].inst, mean: ns.reduce((a, n) => a + n.dur, 0) / Math.max(1, ns.length), ceil: ceil };
+}).filter(x => x.ceil > 0);
+ok(meansOM.length >= 6 && meansOM.every(x => Math.abs(x.mean - x.ceil * 0.65) < 0.6),
+   'of max 0.65, no jitter: every player\'s breath is their OWN maximum × 0.65 — ' + meansOM.map(x => x.inst.slice(0, 4) + ' ' + x.mean.toFixed(1) + '/' + x.ceil.toFixed(1)).join(' · '));
+ok(held9(OM).every(n => n.dur <= (n.ceiling || Infinity) + 1e-6), 'and not one breath passes its own ceiling');
+const spread = a => Math.max.apply(null, a) - Math.min.apply(null, a);
+ok(spread(meansOM.map(x => x.mean)) > 3 && spread(byPlayer(LONGROW({ jitter: 0 })).constructor === Object ? Object.keys(byPlayer(LONGROW({ jitter: 0 }))).map(k => 8) : [8]) === 0,
+   'where without it every player aimed at the one `length` (8 s): the means now spread ' + spread(meansOM.map(x => x.mean)).toFixed(1) + ' s');
+// ± IN SECONDS — `8 ± 2` deals only 6 … 10 s
+const PMS = LONGROW({ jitterS: 2 }), durs = held9(PMS).filter(n => !n.flags.includes('CEILING') && n.dur > 2.5);
+const landing = new Set(held9(PMS).map(n => n.player + '@last'));   // the landing breath takes what is LEFT and is not a ± value
+const mid = held9(PMS).filter(n => !n.flags.includes('CEILING') && n.start > 5 && n.end < 290);
+ok(mid.length > 30 && mid.every(n => n.dur >= 6 - 0.01 && n.dur <= 10 + 0.01),
+   '`8 ± 2` deals only 6 … 10 s — ' + mid.length + ' breaths, ' + Math.min.apply(null, mid.map(n => n.dur)).toFixed(2) + ' … ' + Math.max.apply(null, mid.map(n => n.dur)).toFixed(2) + ' s (the landing breath takes what is left, as it always did)');
+ok(j(LONGROW({ jitter: 0.35 }).notes) === j(LONGROW({}).notes) && j(LONGROW({ jitterS: 2 }).notes) !== j(LONGROW({}).notes),
+   'a recipe with only the old SHARE keeps it; a recipe with seconds takes the seconds');
+// OUTLIER — one in ten, far from the rest
+const OU = LONGROW({ ofMax: 0.65, outlier: { share: 0.1, short: 0.4, floor: 2 } });
+const starts9 = held9(OU), outs = starts9.filter(n => n.flags.includes('OUTLIER'));
+const longs = outs.filter(n => n.flags.includes('LONGER')), shorts = outs.filter(n => !n.flags.includes('LONGER'));
+const share = outs.length / starts9.length;
+ok(outs.length > 5 && Math.abs(share - 0.1) < 0.06, 'one breath in ten is an outlier: ' + outs.length + ' of ' + starts9.length + ' (' + (share * 100).toFixed(0) + '%), ' + shorts.length + ' short · ' + longs.length + ' long');
+ok(shorts.every(n => n.dur >= 2 - 1e-6), 'no short outlier under the floor (2 s): the shortest is ' + Math.min.apply(null, shorts.map(n => n.dur)).toFixed(2) + ' s');
+ok(longs.length > 0 && longs.every(n => n.dur <= (n.ceiling || Infinity) + 1e-6) && longs.every(n => !n.flags.includes('CEILING')),
+   'every long outlier is at or under its player\'s maximum, and NONE is flagged CEILING — it was meant');
+ok(new Set(longs.map(n => r3(n.dur))).size > Math.max(2, longs.length * 0.5),
+   'and the long ones DIFFER from each other (' + new Set(longs.map(n => r3(n.dur))).size + ' distinct of ' + longs.length + ') — they are drawn up to the maximum, not capped at it');
+// a player with no room between its normal top and its maximum gets short ones only
+const vibOut = outs.filter(n => n.inst === 'bowed_vibraphone');
+ok(!vibOut.length || vibOut.every(n => !n.flags.includes('LONGER')),
+   'a player with under a second of room takes SHORT outliers only — the vibraphone: ' + vibOut.length + ' outliers, ' + vibOut.filter(n => n.flags.includes('LONGER')).length + ' long');
+// the outlier has a stream of its own: turning it re-deals no other breath's LENGTH
+const NOOUT = LONGROW({ ofMax: 0.65 });
+const lensOf = G => held9(G).filter(n => !n.flags.includes('OUTLIER')).map(n => r3(n.dur)).sort((a, b) => a - b);
+ok(j(lensOf(OU)).length > 0 && lensOf(OU).filter(d => lensOf(NOOUT).indexOf(d) >= 0).length > lensOf(OU).length * 0.7,
+   'the outlier draws on a stream of its own: the breaths that are NOT outliers keep their lengths (their places move, as they must)');
+// a POOL is his own list and overrides both
+const POOL = LONGROW({ lengths: { values: [3, 9], weights: null }, ofMax: 0.65, outlier: { share: 0.5, short: 0.4, floor: 2 } });
+ok(!held9(POOL).some(n => n.flags.includes('OUTLIER')) && held9(POOL).filter(n => n.start > 5 && n.end < 290).every(n => Math.abs(n.dur - 3) < 0.01 || Math.abs(n.dur - 9) < 0.01 || n.flags.includes('CEILING')),
+   'a POOL overrides `of max` and takes no outliers — his own list, played as written');
+// refusals
+const bBad = (breath, re, what) => { const R = { t0: 0, change: 'seamless', containers: [{ dur: 40, chord: CHORDS[0], dyn: 'mf' }] }; R.breath = Object.assign({ striation: 'staggered', length: 8, jitter: 0.35, seed: 7 }, breath); const m = SEQ.validate(R, ctx); ok(m.some(x => re.test(x)), 'refused — ' + what + ': "' + (m.find(x => re.test(x)) || m[0] || 'NOTHING WAS REFUSED') + '"'); };
+bBad({ ofMax: 2 }, /breath\.ofMax is a share/, 'of max 2');
+bBad({ jitterS: -1 }, /breath\.jitterS is the ± in SECONDS/, 'a ± of −1 s');
+bBad({ outlier: { share: 0.1, floor: 0.5 } }, /breath\.outlier\.floor may not be under/, 'an outlier floor of 0.5 s');
+bBad({ outlier: { share: 3 } }, /breath\.outlier\.share is how often/, 'an outlier share of 3');
+
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

@@ -120,6 +120,11 @@ const CHANGES = ['attack', 'seamless'];
 const AS_DEALT = 'as dealt';
 // morph.js DEFAULTS.carrier: segLen 8 · segVar 0.35 · striation 'staggered'. together · apart · lengths are this file's own (1d.5)
 const DEFAULT_BREATH = { striation: 'staggered', length: 8, jitter: 0.35, seed: 1, together: null, apart: 0.5, lengths: null };
+// PLAN 1d.9 · 1d.14 — `ofMax`, `outlier` and `jitterS` are ABSENT from the defaults above on purpose: absent means the notes are
+// exactly what they were, which is what tools/sequence_baseline.json gates. The DRAWER's own defaults for a new sequence are in
+// sequence_ui.js (`NEW_BREATH`), where `together` and `apart` already live.
+const OUTLIER_FLOOR_MIN_S = 1.5;   // the floor may not be typed under this: an outlier is never a RUNT
+const OUTLIER_ROOM_S = 1;          // under this much room between the normal top and the player's maximum, every outlier is a short one
 const WAVES = 'waves';   // a box's dyn: read the player's stream of swells instead of holding a straight dynamic (1d.7)
 const DEFAULT_WAVES = { lengths: { values: [6, 10, 16], weights: null }, low: 'pp', high: 'mf', density: 0.7, peak: 0.5, seed: 1 };   // §109's recommendation
 const WAVE_PEAK_JITTER = 0.1;    // a swell's top wanders this far (of its length) round `peak`, seeded
@@ -221,6 +226,18 @@ function validate(recipe, ctx) {
     if (B.jitter != null && !(+B.jitter >= 0 && +B.jitter <= 1)) msgs.push('breath.jitter must be 0 … 1');
     if (B.together != null && B.together !== '' && !(+B.together >= 0 && +B.together <= 1)) msgs.push('breath.together must be blank (free) or 0 … 1 — got ' + JSON.stringify(B.together));
     if (B.apart != null && !(+B.apart > 0)) msgs.push('breath.apart must be more than 0 s');
+    // 1d.9 · 1d.14
+    if (B.ofMax != null && B.ofMax !== '' && !(+B.ofMax > 0 && +B.ofMax <= 1)) msgs.push('breath.ofMax is a share of each player\'s own maximum, 0 … 1 — got ' + JSON.stringify(B.ofMax));
+    if (B.jitterS != null && B.jitterS !== '' && !(+B.jitterS >= 0)) msgs.push('breath.jitterS is the ± in SECONDS and cannot be negative — got ' + JSON.stringify(B.jitterS));
+    if (B.outlier != null) {
+        const O = B.outlier;
+        if (typeof O !== 'object') msgs.push('breath.outlier must be { share, short, floor }');
+        else {
+            if (!(+O.share >= 0 && +O.share <= 1)) msgs.push('breath.outlier.share is how often, 0 … 1 — got ' + JSON.stringify(O.share));
+            if (O.short != null && !(+O.short > 0 && +O.short <= 1)) msgs.push('breath.outlier.short is a factor on the player\'s own aim, 0 … 1 — got ' + JSON.stringify(O.short));
+            if (O.floor != null && !(+O.floor >= OUTLIER_FLOOR_MIN_S)) msgs.push('breath.outlier.floor may not be under ' + OUTLIER_FLOOR_MIN_S + ' s — an outlier is never a runt — got ' + JSON.stringify(O.floor));
+        }
+    }
     if (B.lengths != null) {
         const v = B.lengths.values, w = B.lengths.weights;
         if (!Array.isArray(v) || !v.length || !v.every(x => isFinite(+x) && +x > 0)) msgs.push('breath.lengths needs values — seconds, each more than 0');
@@ -423,6 +440,7 @@ function sliceLevels(pts, RM, x0, dur) {
 // T is the `together` dial's state — null while the dial is FREE, and then nothing below differs from 1d.1.
 function dealSpan(P, span, S, T) {
     const rng = rngFor(S.seed, P.key, span.idx), out = [];
+    const oRng = S.outlier ? rngFor(S.seed, P.key + '~outlier', span.idx) : null;   // 1d.9: a stream of its own, as `together` has
     const draw = S.pool ? poolStream(S.TC, S.pool, S.seed, P.key + '@' + span.idx + '~lengths') : null;
     const phase0 = striationPhase(S.striation, P.index, S.nPlayers, 0);
     let t = span.from, first = true, moved = null;
@@ -440,10 +458,32 @@ function dealSpan(P, span, S, T) {
         if (waved) { const far = noteInfo(S.BC, srcs[0].inst, loudest); if (!far.fixed) loudest = peakOver(stream, S.RM, x, x + far.ceiling); }   // the stream reaches anywhere the note could extend to
         if (span.loud) { const far = noteInfo(S.BC, srcs[0].inst, loudest); span.loud.forEach(z => { if (!far.fixed && t < z.end && t + far.ceiling > z.start && z.level > loudest) loudest = z.level; }); }   // 1d.8: a fade whose far end is LOUDER than the box
         const info = noteInfo(S.BC, srcs[0].inst, loudest);
-        const jit = 1 + (rng() * 2 - 1) * S.jitter, gapJit = 1 + (rng() * 2 - 1) * S.jitter * 0.5;   // always two draws a breath
+        const r1 = rng() * 2 - 1, jit = 1 + r1 * S.jitter, gapJit = 1 + (rng() * 2 - 1) * S.jitter * 0.5;   // always two draws a breath
         const flags = [];
         const drawn = draw ? draw() : null;                                                                     // 1d.5: a pool value is played as written — no jitter on it
-        let want = Math.max(MIN_BREATH_S, drawn != null ? drawn : S.length * jit);
+        // 1d.9 — `of max`: the breath is built round THIS PLAYER'S OWN maximum at the level it is playing, so a long-breathed
+        // player breathes long where before everyone aimed at the one `length` and the ceiling only CAPPED. A fixed-length sound
+        // (the percussion) has no maximum, so it keeps `length`.
+        const aim = (S.ofMax != null && !info.fixed && isFinite(info.ceiling)) ? info.ceiling * S.ofMax : S.length;
+        // 1d.14 — `±` IN SECONDS (`8 ± 2` is 6 … 10 s), where a recipe carries one. A recipe with only the old SHARE keeps it.
+        const nominal = S.jitterS != null ? aim + r1 * S.jitterS : aim * jit;
+        let want = Math.max(MIN_BREATH_S, drawn != null ? drawn : nominal);
+        // 1d.9 — `outlier`: one breath in ten far from the rest, SHORT or LONG on a coin toss. A POOL is his own list of lengths,
+        // played as written, and takes none. The stream is the outlier's OWN, so turning the dial re-deals no other breath's length.
+        if (S.outlier && drawn == null) {
+            const isOut = oRng() < S.outlier.share, coin = oRng(), pick = oRng();
+            if (isOut) {
+                const top = S.jitterS != null ? aim + S.jitterS : aim * (1 + S.jitter);
+                const room = (info.fixed || !isFinite(info.ceiling)) ? 0 : info.ceiling - top;
+                if (coin < 0.5 || room < OUTLIER_ROOM_S) {     // no room between the top and the maximum: this player's outliers are all short ones
+                    want = Math.max(S.outlier.floor, aim * S.outlier.short);
+                    flags.push('OUTLIER');
+                } else {                                        // drawn evenly up to the player's maximum — so long ones DIFFER, instead of all sitting at the cap
+                    want = top + pick * room;
+                    flags.push('OUTLIER', 'LONGER');            // not CEILING: it was meant
+                }
+            }
+        }
         if (first && span.entry === 'together') want = Math.max(0.25 * want, want - phase0 * S.length * 0.5);   // the striation, moved into the first breath
         if (want > info.ceiling) { want = info.ceiling; flags.push('CEILING'); }                                // split, never truncate
         let gap = info.fixed ? 0 : Math.max(MIN_GAP_S, info.gapS * gapJit);
@@ -478,6 +518,11 @@ function dealSpan(P, span, S, T) {
                 const k = flags.indexOf('CEILING'), atCeil = !info.fixed && period >= info.ceiling - 1e-9;
                 if (k >= 0 && !atCeil) flags.splice(k, 1); else if (k < 0 && atCeil) flags.push('CEILING');
             }
+        }
+        // 1d.9: an outlier that the LANDING rule or `together` then re-cut is not an outlier any more — it is a breath dealt to
+        // land, or moved. The flag must not claim a length the note does not have (a landing breath took 1.70 s under a 2 s floor).
+        if (flags.indexOf('OUTLIER') >= 0 && Math.abs(period - want) > 1e-6) {
+            for (const f of ['OUTLIER', 'LONGER']) { const k = flags.indexOf(f); if (k >= 0) flags.splice(k, 1); }
         }
         if (startFlag) flags.push(startFlag);
         if (T) T.mine.push({ t: r3(t), entry: first, line: first && span.entry === 'together' });
@@ -578,6 +623,12 @@ function generate(recipe, ctx) {
     const RM = makeRanges(per, bounds, deflt);
     const S = {
         seed: B.seed | 0, striation: B.striation, length: +B.length, jitter: clamp01(+B.jitter), nPlayers: players.length,
+        // 1d.9 · 1d.14 — absent (null) is 1d.5's behaviour, to the note. A POOL is his own list and overrides `of max`.
+        ofMax: (B.ofMax == null || B.ofMax === '' || B.lengths) ? null : Math.max(0.05, Math.min(1, +B.ofMax)),
+        jitterS: (B.jitterS == null || B.jitterS === '') ? null : Math.max(0, +B.jitterS),
+        outlier: (B.outlier && +B.outlier.share > 0 && !B.lengths)
+            ? { share: Math.max(0, Math.min(1, +B.outlier.share)), short: Math.max(0.05, Math.min(1, +B.outlier.short || 0.4)),
+                floor: Math.max(OUTLIER_FLOOR_MIN_S, +B.outlier.floor || OUTLIER_FLOOR_MIN_S) } : null,
         BC: BC, ladder: ladder, plan: plan, dyns: dyns, bounds: bounds, pool: pool, TC: pool ? poolOf(ctx) : null, streams: streams, RM: RM,
         containerAt: t => { let i = 0; while (i < last && bounds[i + 1] <= t + 1e-9) i++; return i; },
     };

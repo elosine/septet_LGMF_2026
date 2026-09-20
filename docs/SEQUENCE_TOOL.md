@@ -4,7 +4,7 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**163**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**180**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5 · the waves, 1d.7 · the edges, 1d.8)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
@@ -14,6 +14,7 @@
 - the dynamics table — every written dynamic has a CC7 value of its own, 4 dB a step through the instrument's measured fader curve — **`docs/DYNAMICS_LAW.md` §3**, and §13 · §14 below · 1d.10, built 2026-09-20
 - the library — every sequence on disk in `bank/sequences.json`: an untitled rolling stack, named keepers, `save` · `revert` · `duplicate` · `×` — §16 below · 1d.11, built 2026-09-20
 - a RANGE of boxes — click, SHIFT+click; the selection takes `dyn` · `enter` · and a waves `range` of its own — §17 below · 1d.12, built 2026-09-20
+- the breath's lengths — `of max` · `outlier` · `±` in seconds — §19 below · 1d.9 + 1d.14, built 2026-09-20
 - the waves by PRESET — one menu fills every dial: lengths between two numbers with a `tilt`, a named shape, a HOLD at the top, density in words; `save preset` keeps his own — §18 below · 1d.13, built 2026-09-20
 - not yet: his listen (1d.6) — nothing in this drawer has been heard by the AI, and the waves and the edges not yet by him
 
@@ -118,7 +119,7 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **163**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **180**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
 a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last ·
@@ -561,3 +562,31 @@ made, so turning `density` re-deals no length, exactly as before. The character 
 **An old sequence keeps its notes.** A waves line with a typed pool and a `peak` and **no `shape`** takes 1d.7's path in the
 generator, to the byte. The drawer shows the preset dials it WOULD take, greyed, with *made before the presets* beside them —
 **and converts it only when you turn a dial**, saying so when it does. Nothing converts by being opened.
+
+## 19 · The breath's lengths: `of max` · `outlier` · `±` in seconds (1d.9 · 1d.14)
+
+Every player used to aim at the ONE `length`, and the ceilings table only **capped** — so at 8 s the english horn, with 18 s of
+air, breathed as often as the trumpet. And every breath fell in one range, so turning `±` up to get a surprise made EVERY breath
+erratic.
+
+| dial | what it does |
+|---|---|
+| **`of max`** | the breath is built round **that player's own maximum** at the level it is playing: `ceiling × of max × (1 ± the jitter)`. At **0.65** the english horn and bassoon aim at about 12 s, horn and cello 10, trumpet 8, double bass 6.5, the vibraphone 5. Blank = the old way. With a number in it, `length` only spaces the first entries |
+| **`±` in seconds** | `8 ± 2` is **6 … 10 s** — the way a musician reads it. ONE number for everyone, under `of max` too (at `± 2` the english horn is 10 … 14 s and the vibraphone 3 … 7 s): the floor and each player's ceiling already protect the short-breathed |
+| **`outlier` · `short` · `floor`** | one breath in ten far from the rest, on a coin toss. **SHORT:** that player's own aim × `short` (0.4), never under `floor` (2 s, and it may not be typed under 1.5 — an outlier is never a RUNT). **LONG:** drawn evenly between the top of that player's normal range and their maximum, so the long ones DIFFER instead of all sitting at the cap. A player with under a second of room takes short ones only |
+
+**What stands outside them:** a **POOL** (`lengths`) is his own list, played as written — it overrides `of max` and takes no
+outliers · the **landing breath** still takes what is left · `together` / `apart` still move a start afterwards.
+
+**An outlier the landing rule or `together` then re-cut loses the flag** — it is a breath dealt to land, or moved, and the flag
+must not claim a length the note does not have.
+
+**The outlier draws on a stream of its own**, as `together` does, so turning the dial re-deals no other breath's length — though
+their places move, as they must when one breath among them changes. The status counts them: `11 OUTLIER (9 short · 2 long)`.
+
+**A new sequence starts at** `of max 0.65 · ± 1.3 s · outlier 0.1 · short 0.4 · floor 2 · together 0.2 · apart 0.6`, and
+**`save as default`** keeps HIS line instead (panel `defaults` in §16's store); `×` beside it brings the built-in back.
+
+**Nothing of this is in the generator's own defaults.** `ofMax`, `outlier` and `jitterS` are ABSENT there, and absent means the
+notes are exactly what 1d.5 dealt — which is what `tools/sequence_baseline.json` gates. A recipe made before 1d.14 carries only
+the morph's SHARE; the box shows it **converted** (share × length) and writes real seconds the moment he touches it.

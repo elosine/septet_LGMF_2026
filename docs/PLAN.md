@@ -706,7 +706,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     curve per player. *(The waves of 1d.7 are NOT in lieu of the curve — his own correction, LG-38: "that might be an added feature
     later".)*
   - **1d.9 — The breath's lengths: `of max` and `outlier`** (each player's breath built round THEIR OWN maximum; one breath in ten far
-    from the rest) — `todo` — **PLANNED 2026-09-20 at his word** (*"lets write this in to a plan, no need for the planning protocol"*);
+    from the rest) — **BUILT 2026-09-20 with 1d.14 — RUNNING_LOG §154, SEQUENCE_TOOL §19; his test outstanding** — **PLANNED 2026-09-20 at his word** (*"lets write this in to a plan, no need for the planning protocol"*);
     his brief COMPOSITION_NOTES LG-43 · LG-46, the reasoning RUNNING_LOG §133–§135.
     *Why:* today every player aims at the ONE `length` and the ceilings table only CAPS. At 8 s ± 0.35 the english horn, with 18 s of
     air, breathes as often as the trumpet; the table touches only the vibraphone (about half its breaths) and the double bass. And
@@ -946,7 +946,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       a reload.
     - **His test:** `waves` → `breathing` → SPACE → `tides` → SPACE → turn `hold` up → `save preset` 'mine' → reload → 'mine' is in
       the menu.
-  - **1d.14 — THE BREATH'S `±` IN SECONDS** (`8 ± 2` means 6 … 10 s) — `todo` — LG-45. **Built WITH 1d.9** (`of max` · `outlier`,
+  - **1d.14 — THE BREATH'S `±` IN SECONDS** (`8 ± 2` means 6 … 10 s) — **BUILT 2026-09-20 with 1d.9 — RUNNING_LOG §154, SEQUENCE_TOOL §19; his test outstanding** — LG-45. **Built WITH 1d.9** (`of max` · `outlier`,
     planned in full above), in one go.
     *Why:* `±` is the morph's `segVar`, a SHARE of the length — `± 1` reads as one second and deals 0 … 16 s (his re-breathe: 8
     RUNT · 5 CEILING).

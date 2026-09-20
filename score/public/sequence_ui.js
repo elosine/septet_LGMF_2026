@@ -123,7 +123,10 @@ const WAVES = SEQ.WAVES;   // a box's dyn: read the waves (1d.7)
 const RAMP_MS = 50, RAMP_LEAD_MS = 15;   // Hear's CC7 ramp: a point every 50 ms where the value changes; the first lands AFTER playNotes' own CC7 (30 ms before the note) and before the note-on
 const WTINT = '#c8a2ff';
 const PREVIEW_S = 5;     // a box's preview: its chord held this long (or the box's own seconds, if shorter) — under every ceiling
-const NEW_BREATH = { together: 0.2, apart: 0.6 };   // a NEW sequence's `together` and `apart` (his call, 2026-09-20: "lets go with .2 for together" - RUNNING_LOG 133 · 134). THE DRAWER's default, not the generator's:
+const DEFAULTS_PANEL = 'defaults', DEFAULTS_KEY = 'breath';   // 1d.14: HIS own default breath line, in the library's store
+// PLAN 1d.9 · 1d.14 — a NEW sequence's breath line (RUNNING_LOG 149: `of max` ON at 0.65 · `±` ONE number of seconds for
+// everyone, 1.3 s the AI's pick inside the range he named · `outlier` one in ten, his "one in 10 is fine").
+const NEW_BREATH = { together: 0.2, apart: 0.6, ofMax: 0.65, jitterS: 1.3, outlier: { share: 0.1, short: 0.4, floor: 2 } };   // a NEW sequence's `together` and `apart` (his call, 2026-09-20: "lets go with .2 for together" - RUNNING_LOG 133 · 134). THE DRAWER's default, not the generator's:
                             // SEQ.DEFAULT_BREATH.together stays null (free), so the 1d gate and every recipe already dealt are untouched. Blank in the box is still free.
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px';   // the size comes from the panel (FS) through #sqStyle — one number, not one per control
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;cursor:pointer';
@@ -199,7 +202,7 @@ const S = {
     edgesDefaults(over) { const e = Object.assign({}, SEQ.DEFAULT_EDGES, over || {}); e.fadeIn = clamp(+e.fadeIn || 0, 0, 600); e.fadeOut = clamp(+e.fadeOut || 0, 0, 600); if (SEQ.EXITS.indexOf(e.exit) < 0) e.exit = SEQ.DEFAULT_EDGES.exit; e.fadeInFrom = this.farOk(e.fadeInFrom); e.fadeOutTo = this.farOk(e.fadeOutTo); return e; },
     farOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : SEQ.NIENTE; },   // the far end of a fade: niente, or a name on the ladder
     changeOk(c) { return SEQ.CHANGES.indexOf(c) >= 0 ? c : null; },                              // a box's own `enter`; null = the sequence's rule
-    newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
+    newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH, this.breathDefault() || {}), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], roll: this.rollDefaults(), rolled: false }; },
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, range: null, chord: [], frozen: '' }; },
     save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
     // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
@@ -1186,26 +1189,64 @@ const S = {
     },
 
     // ------------------------------------------------------------------ the breath (1d.5): the generator's own dials — the morph's numbers until he touches one
-    isDefaultBreath() { const b = this.row.breath, d = SEQ.DEFAULT_BREATH; return b.striation === d.striation && +b.length === d.length && +b.jitter === d.jitter && (b.seed | 0) === d.seed && (b.together == null ? null : +b.together) === NEW_BREATH.together && +b.apart === NEW_BREATH.apart && !b.lengths; },
+    // the • on the `breath` button: a dial is off what a NEW sequence starts with — the built-in, or HIS own saved default (1d.14)
+    isDefaultBreath() {
+        const b = this.row.breath, mk = Object.assign({}, SEQ.DEFAULT_BREATH, NEW_BREATH, this.breathDefault() || {});
+        const same = k => JSON.stringify(b[k] == null ? null : b[k]) === JSON.stringify(mk[k] == null ? null : mk[k]);
+        return ['striation', 'length', 'jitter', 'together', 'apart', 'ofMax', 'jitterS', 'outlier'].every(same) && (b.seed | 0) === SEQ.DEFAULT_BREATH.seed && !b.lengths;
+    },
     buildBreath() {
         const line = this.el.querySelector('#sqBreath'); if (!line) return;
         const lab = 'color:#8a8', d = SEQ.DEFAULT_BREATH;
         line.innerHTML = '<span style="color:#8fd0a0">breath</span>' +
             '<label style="' + lab + '" title="how the players\' FIRST breaths are set against each other — the morph\'s five. staggered: one after another across half a breath · grouped: in three waves · aligned: together · converging / diverging: as the morph has them — they set the first entry only (converging starts staggered, diverging starts aligned)">striation <select id="sqBStri" style="' + INP + '">' + SEQ.STRIATIONS.map(s => '<option value="' + s + '">' + s + '</option>').join('') + '</select></label>' +
             '<label style="' + lab + '" title="the wanted length of a breath or a bow — the morph\'s ' + d.length + ' s. The instrument\'s ceiling still splits anything longer. With a pool of lengths this only spaces the first entries">length <input id="sqBLen" type="number" step="0.5" min="0.5" max="120" style="' + INP + ';width:4.364em"> s</label>' +
-            '<label style="' + lab + '" title="how far a breath may fall from the length — the morph\'s ' + d.jitter + ' = ±' + Math.round(d.jitter * 100) + '%. Not applied to a pool value">± <input id="sqBJit" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:4.364em"></label>' +
+            // 1d.9: the breath built round each player's OWN maximum, so a long-breathed player breathes long
+            '<label style="' + lab + '" title="build every breath round THAT PLAYER\'S own maximum at the level it is playing, instead of the one `length`: at 0.65 the english horn and bassoon aim at about 12 s, horn and cello 10, trumpet 8, double bass 6.5, the vibraphone 5 — the ± still on top. Blank = the old way, everyone at `length`. A pool of lengths overrides it">of max <input id="sqBOfMax" type="number" step="0.05" min="0.05" max="1" placeholder="off" style="' + INP + ';width:4.727em"></label>' +
+            // 1d.14: `±` in SECONDS — `8 ± 2` is 6 … 10 s, the way a musician reads it
+            '<label style="' + lab + '" title="how far a breath may fall from its aim, IN SECONDS: 8 ± 2 is 6 … 10 s. One number for everyone, under `of max` too (at ± 2 the english horn is 10 … 14 s and the vibraphone 3 … 7 s). Not applied to a pool value. A sequence made before this carries the morph\'s SHARE instead, and the box shows it converted until you touch it">± <input id="sqBJitS" type="number" step="0.1" min="0" max="60" style="' + INP + ';width:4.364em"> s</label>' +
             '<label style="' + lab + '" title="BLANK = free, the morph\'s way: two players begin a breath together only by chance · 0 = NEVER: every start is kept `apart` from every other player\'s · between: that share of the re-entries snaps onto another player\'s, the rest are kept apart · 1 = everyone re-enters together. The shortest breath leads (the bowed vibraphone, when it plays). An attack line is everyone, by design, and stands outside this">together <input id="sqBTog" type="number" step="0.1" min="0" max="1" placeholder="free" style="' + INP + ';width:4.727em"></label>' +
             '<label style="' + lab + '" title="how close two players\' starts may come while `together` is under 1 — a number for your ear. Eight players have room for about 0.75 s; past that some starts are flagged CROWDED and left where they fell">apart <input id="sqBApart" type="number" step="0.05" min="0.05" max="10" style="' + INP + ';width:4.364em"> s</label>' +
             '<input id="sqBVals" type="text" placeholder="lengths — a pool" style="' + INP + ';width:10em" title="a POOL of breath lengths in seconds, separated by spaces — short with long, e.g. 3 9. Each breath\'s wanted length is drawn from it (each player a stream of its own) instead of length ± jitter; the ceiling still binds. Blank = no pool">' +
             '<input id="sqBW" type="text" placeholder="weights" style="' + INP + ';width:8.182em" title="one weight per pool value, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
+            // 1d.9: one breath in ten far from the rest — his "one in 10 is fine … significantly shorter. And then, or longer, up to max"
+            '<label style="' + lab + '" title="how often a breath is an OUTLIER — far from the rest. 0.1 = one in ten. Each is a coin toss: SHORT (its player\'s own aim × the factor beside, never under the floor) or LONG (drawn up to that player\'s maximum, so the long ones differ instead of all sitting at the cap). A player with under a second of room takes short ones only. Blank = none">outlier <input id="sqBOut" type="number" step="0.05" min="0" max="1" placeholder="off" style="' + INP + ';width:4.727em"></label>' +
+            '<label style="' + lab + '" title="how short a SHORT outlier is, as a factor on that player\'s own aim">short <input id="sqBOutS" type="number" step="0.05" min="0.05" max="1" style="' + INP + ';width:4.364em">×</label>' +
+            '<label style="' + lab + '" title="a short outlier is never shorter than this, and this may not go under 1.5 s — an outlier is never a RUNT">floor <input id="sqBOutF" type="number" step="0.5" min="1.5" max="30" style="' + INP + ';width:4.364em"> s</label>' +
             '<label style="' + lab + '" title="the same seed deals the same breaths">seed <input id="sqBSeed" type="number" step="1" min="1" style="' + INP + ';width:4.364em"></label>' +
-            '<button id="sqBNext" style="' + BTN + ';color:#8fd0a0" title="the next seed: every breath is dealt again — the chords and the durations are not touched">re-breathe</button>';
+            '<button id="sqBNext" style="' + BTN + ';color:#8fd0a0" title="the next seed: every breath is dealt again — the chords and the durations are not touched">re-breathe</button>' +
+            '<button id="sqBDef" style="' + BTN + '" title="keep THIS breath line as the one a new sequence starts with — it goes into bank/sequences.json and rides in the repo. The built-in is of max 0.65 · ± 1.3 s · outlier 0.1 · short 0.4 · floor 2 · together 0.2 · apart 0.6">save as default</button>' +
+            '<button id="sqBDefX" style="' + BTN + '" title="back to the built-in defaults for a new sequence">&times;</button>';
         const q = s => line.querySelector(s);
-        ['sqBStri', 'sqBLen', 'sqBJit', 'sqBTog', 'sqBApart', 'sqBVals', 'sqBW', 'sqBSeed'].forEach(id => {
+        ['sqBStri', 'sqBLen', 'sqBOfMax', 'sqBJitS', 'sqBTog', 'sqBApart', 'sqBVals', 'sqBW', 'sqBOut', 'sqBOutS', 'sqBOutF', 'sqBSeed'].forEach(id => {
             q('#' + id).addEventListener('change', e => { if (e.target.tagName === 'SELECT' || e.target.type === 'number') e.target.blur(); this.readBreath(); this.save(); this.paintBreath(); this.breathStatus('breath'); });
             if (id !== 'sqBStri') q('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
         });
         q('#sqBNext').addEventListener('click', () => { this.stop(); this.row.breath.seed = Math.max(1, Math.round(+this.row.breath.seed || 1)) + 1; this.save(); this.paintBreath(); this.breathStatus('re-breathed'); });
+        q('#sqBDef').addEventListener('click', () => this.saveBreathDefault());
+        q('#sqBDefX').addEventListener('click', () => this.clearBreathDefault());
+    },
+    // 1d.14 — A DEFAULT OF HIS OWN (his: *"lets have a preset/default for this like everything else"*). The built-in is
+    // NEW_BREATH; his own, if he has saved one, is in the library's store and a new sequence takes it instead.
+    breathDefault() {
+        const e = ((this._lib && this._lib[DEFAULTS_PANEL]) || {})[DEFAULTS_KEY];
+        return (e && e.state && e.state.breath) ? e.state.breath : null;
+    },
+    async saveBreathDefault() {
+        const b = JSON.parse(JSON.stringify(this.row.breath)); delete b.seed;   // a seed is a deal, not a default
+        try { await this.libPost({ panel: DEFAULTS_PANEL, name: DEFAULTS_KEY, state: { breath: b } }); }
+        catch (e) { this.setStatus('the default did not save: ' + (e && e.message || e), true); return; }
+        this._lib = this._lib || {}; (this._lib[DEFAULTS_PANEL] = this._lib[DEFAULTS_PANEL] || {})[DEFAULTS_KEY] = { saved: new Date().toISOString(), state: { breath: b } };
+        this.paintBreath();
+        this.setStatus('saved as the default breath line — every NEW sequence starts here from now on (bank/sequences.json)');
+    },
+    async clearBreathDefault() {
+        if (!this.breathDefault()) { this.setStatus('there is no default of your own — a new sequence already starts at the built-in', true); return; }
+        if (!window.confirm('Back to the built-in default breath line for a new sequence?')) return;
+        try { await this.libPost({ panel: DEFAULTS_PANEL, name: DEFAULTS_KEY, delete: true }); } catch (e) { this.setStatus('not cleared: ' + (e && e.message || e), true); return; }
+        delete this._lib[DEFAULTS_PANEL][DEFAULTS_KEY];
+        this.paintBreath();
+        this.setStatus('back to the built-in: of max 0.65 · ± 1.3 s · outlier 0.1 · short 0.4 · floor 2 · together 0.2 · apart 0.6');
     },
     // the pool's weights read exactly as the roll's are (rollOpts): 20 · 20% · 0.2 all a fifth, a dash = share what is left
     parseWeights(nums, txt) {
@@ -1220,7 +1261,14 @@ const S = {
         const line = this.el.querySelector('#sqBreath'), q = s => line.querySelector(s), b = this.row.breath, d = SEQ.DEFAULT_BREATH;
         const num = (s, def) => { const v = q(s).value.trim(); return v === '' || !isFinite(+v) ? def : +v; };
         b.striation = SEQ.STRIATIONS.indexOf(q('#sqBStri').value) >= 0 ? q('#sqBStri').value : d.striation;
-        b.length = clamp(num('#sqBLen', d.length), 0.5, 120); b.jitter = clamp(num('#sqBJit', d.jitter), 0, 1);
+        b.length = clamp(num('#sqBLen', d.length), 0.5, 120);
+        // 1d.14: the drawer writes SECONDS from now on. The old share is left on a recipe that has one and is shown converted;
+        // the moment he touches the box, seconds are written and the share stops being read (the generator prefers `jitterS`).
+        b.jitterS = Math.max(0, num('#sqBJitS', NEW_BREATH.jitterS));
+        // 1d.9
+        const om = q('#sqBOfMax').value.trim(); b.ofMax = (om === '' || !isFinite(+om)) ? null : clamp(+om, 0.05, 1);
+        const os = q('#sqBOut').value.trim(), share = (os === '' || !isFinite(+os)) ? 0 : clamp(+os, 0, 1);
+        b.outlier = share > 0 ? { share: share, short: clamp(num('#sqBOutS', 0.4), 0.05, 1), floor: Math.max(1.5, num('#sqBOutF', 2)) } : null;
         const tg = q('#sqBTog').value.trim(); b.together = (tg === '' || !isFinite(+tg)) ? null : clamp(+tg, 0, 1);   // BLANK = free, the morph's way
         b.apart = clamp(num('#sqBApart', d.apart), 0.05, 10);
         const nums = String(q('#sqBVals').value || '').split(/[\s,]+/).map(Number).filter(x => isFinite(x) && x > 0);
@@ -1234,23 +1282,39 @@ const S = {
         if (tog) { tog.textContent = 'breath' + (this.isDefaultBreath() ? '' : ' •') + (this.breathOpen ? ' ▾' : ' ▸'); tog.style.background = this.breathOpen ? '#1d3325' : '#2a2a30'; }   // the dot: a dial is off the morph's numbers
         const b = this.row.breath, q = s => line.querySelector(s); if (!q('#sqBStri')) return;
         const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
-        put('#sqBStri', b.striation); put('#sqBLen', b.length); put('#sqBJit', b.jitter); put('#sqBTog', b.together == null ? '' : b.together); put('#sqBApart', b.apart);
+        // 1d.14: seconds. A recipe made before this carries only the morph's SHARE — shown CONVERTED (share × length), so the box
+        // never lies about what is sounding; it becomes a real seconds field the moment he changes it.
+        const secs = b.jitterS != null ? +b.jitterS : Math.round((+b.jitter || 0) * (+b.length || 0) * 10) / 10;
+        put('#sqBStri', b.striation); put('#sqBLen', b.length); put('#sqBJitS', secs); put('#sqBTog', b.together == null ? '' : b.together); put('#sqBApart', b.apart);
+        put('#sqBOfMax', b.ofMax == null ? '' : b.ofMax);
+        put('#sqBOut', b.outlier && b.outlier.share ? b.outlier.share : '');
+        put('#sqBOutS', b.outlier ? b.outlier.short : 0.4); put('#sqBOutF', b.outlier ? b.outlier.floor : 2);
+        q('#sqBLen').parentNode.style.opacity = b.ofMax != null ? 0.45 : 1;          // with `of max` set, `length` only spaces the first entries
+        [q('#sqBOutS'), q('#sqBOutF')].forEach(el => { el.parentNode.style.opacity = b.outlier ? 1 : 0.45; });
+        const dx = q('#sqBDefX'); if (dx) dx.style.opacity = this.breathDefault() ? 1 : 0.45;
         put('#sqBVals', b.lengths ? b.lengths.values.join(' ') : '');
         put('#sqBW', b.lengths && b.lengths.weights && b.lengths.weights.some(w => w != null) ? b.lengths.weights.map(w => (w == null ? '-' : (Math.round(w * 1000) / 10) + '%')).join(' ') : '');
         put('#sqBSeed', b.seed);
         q('#sqBApart').parentNode.style.opacity = (b.together == null || b.together >= 1) ? 0.45 : 1;   // `apart` means something only while together is 0 … under 1
-        q('#sqBLen').parentNode.style.opacity = q('#sqBJit').parentNode.style.opacity = b.lengths ? 0.45 : 1;
+        // with a POOL, or with `of max` set, `length` only spaces the first entries; a pool takes no ± and no outliers either
+        q('#sqBJitS').parentNode.style.opacity = b.lengths ? 0.45 : 1;
+        q('#sqBOfMax').parentNode.style.opacity = b.lengths ? 0.45 : 1;
+        q('#sqBOut').parentNode.style.opacity = b.lengths ? 0.45 : 1;
     },
     // what the dials made of the row: the notes, the starts snapped and kept apart, who leads — or what is wrong
     breathStatus(lead) {
         const b = this.row.breath;
-        const txt = b.striation + ' · ' + (b.lengths ? 'pool ' + b.lengths.values.join(' ') : fmtS(b.length) + ' s ± ' + b.jitter) +
+        const aim = b.lengths ? 'pool ' + b.lengths.values.join(' ') : ((b.ofMax != null ? 'of max ' + b.ofMax : fmtS(b.length) + ' s') + ' ± ' + (b.jitterS != null ? fmtS(b.jitterS) + ' s' : b.jitter));
+        const txt = b.striation + ' · ' + aim + (b.outlier ? ' · outlier ' + b.outlier.share : '') +
             ' · together ' + (b.together == null ? 'free' : b.together + (b.together < 1 ? ' (apart ' + b.apart + ' s)' : '')) + ' · seed ' + b.seed;
         if (!this.row.boxes.some(x => x.chord.length)) { this.setStatus(lead + ': ' + txt + ' — no chord in the row yet'); return; }
         const G = this.generate(0); if (!G) return;   // generate() has said why
         const crowded = G.notes.filter(n => (n.flags || []).indexOf('CROWDED') >= 0).length;
+        // 1d.9: the status COUNTS the outliers, short and long, because they are the point of the dial
+        const seen = {}, outs = { n: 0, long: 0 };
+        G.notes.forEach(n => { const k = n.player + '@' + n.start; if (seen[k] || (n.flags || []).indexOf('OUTLIER') < 0) return; seen[k] = 1; outs.n++; if (n.flags.indexOf('LONGER') >= 0) outs.long++; });
         const ld = G.dealt && G.dealt[0] ? G.dealt[0].split(':') : null;
-        this.setStatus(lead + ': ' + txt + '  →  ' + G.notes.length + ' notes' + this.flagsText(G) + (ld ? ' · led by ' + shortOf(+ld[0]) + (+ld[1] ? '²' : '') : '') +
+        this.setStatus(lead + ': ' + txt + '  →  ' + G.notes.length + ' notes' + (outs.n ? ' · ' + outs.n + ' OUTLIER (' + (outs.n - outs.long) + ' short · ' + outs.long + ' long)' : '') + this.flagsText(G, ['OUTLIER', 'LONGER']) + (ld ? ' · led by ' + shortOf(+ld[0]) + (+ld[1] ? '²' : '') : '') +
             (crowded ? ' — CROWDED: `apart` is wider than this many players have room for' : ''), !!crowded);
     },
 
@@ -1301,7 +1365,8 @@ const S = {
         try { return SEQ.generate(this.recipe(t0)); }
         catch (e) { this.setStatus(String(e && e.message || e).replace(/^sequence: /, ''), true); return null; }
     },
-    flagsText(G) { const c = {}; G.notes.forEach(n => (n.flags || []).forEach(f => { c[f] = (c[f] || 0) + 1; })); const k = Object.keys(c); return k.length ? ' · ' + k.map(f => c[f] + ' ' + f).join(' · ') : ''; },
+    // `skip` leaves a flag out where the line has already said it in its own words (the breath status counts the outliers itself)
+    flagsText(G, skip) { const c = {}; G.notes.forEach(n => (n.flags || []).forEach(f => { if (skip && skip.indexOf(f) >= 0) return; c[f] = (c[f] || 0) + 1; })); const k = Object.keys(c); return k.length ? ' · ' + k.map(f => c[f] + ' ' + f).join(' · ') : ''; },
 
     // what Hear plays: the generator's notes in the shape D.playNotes takes — from the start, or from the selected box on (a note
     // already sounding at that line is picked up there)

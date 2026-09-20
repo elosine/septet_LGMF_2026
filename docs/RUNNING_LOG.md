@@ -6567,3 +6567,55 @@ only when a dial was turned.
 
 `sequence_check` **139 → 163**: every slot inside `short` … `long` · the tilt's mean · each of the five shapes exact · the hold
 at 0 · 0.2 · 0.5 · the density's share over a hundred slots · each built-in preset · an old recipe unchanged · four refusals.
+
+## §154. PLAN 1d.9 + 1d.14 BUILT — the breath's lengths: each player round their OWN maximum, one in ten far from the rest, and `±` in seconds (2026-09-20)
+
+**What prompted it (LG-43 · LG-45 · LG-46; the reasoning §133–§135, the two open questions answered in §149).** Every player
+aimed at the ONE `length` and the ceilings table only CAPPED, so at 8 s the english horn — 18 s of air — breathed as often as
+the trumpet. And every breath fell in one range, so turning `±` up to get a surprise made EVERY breath erratic (his `8 ± 1`:
+8 RUNT · 5 CEILING). And `±` was the morph's SHARE, which reads as nothing a musician would say.
+
+**`of max`** — the breath is `ceiling × of max × (1 ± the jitter)`, the ceiling being the one the generator already reads for
+every note: that player's, at the LOUDEST level the note reaches. Measured with the jitter off at 0.65, over a 300 s row:
+
+```
+english horn 11.8 / 18.0   bassoon 11.8 / 18.0   horn 9.6 / 15.0   trumpet 7.8 / 12.0
+vibraphone 4.8 / 7.4 (both seats)   cello 9.5 / 15.0   double bass 6.4 / 10.0
+```
+
+Every player at their own maximum × 0.65 to within 0.6 s, none past their ceiling, and the means now **spread 7.0 s** where
+before every one of them aimed at 8.
+
+**`±` IN SECONDS (1d.14).** `8 ± 2` deals only 6 … 10 s — measured, 231 breaths between 6.00 and 9.97 s, the landing breath
+excepted because it takes what is left, as it always did. **The old SHARE is kept on a recipe that has one** (the generator
+prefers `jitterS` only where it is present), and the drawer SHOWS a share converted — 0.35 × 8 s = **2.8 s** in the box — and
+writes real seconds the moment he touches it. Nothing converts by being opened.
+
+**`outlier`** — one breath in ten, on a coin toss. SHORT: that player's own aim × `short`, never under `floor`. LONG: drawn
+evenly between the top of the player's normal range and their maximum — **rejected: one "how far" factor used both ways**, since
+a long one would nearly always pass the maximum and be capped AT it, so every long outlier of a player would be the same length.
+Measured: **37 of 333 breaths (11%), 29 short · 8 long, eight distinct long lengths**, the shortest 2.00 s dead on the floor, and
+the vibraphone — with under a second of room between its normal top and its maximum — took **16 outliers, none long**, which is
+the rule the plan asked for working by itself.
+
+**One thing the plan did not foresee, and the check caught it:** a short outlier came out at **1.70 s under a 2 s floor**,
+because the LANDING rule takes what is left and had re-cut it. The length was right — a landing breath is dealt to land — but
+the FLAG was a lie. An outlier that the landing rule or `together` then re-cuts now loses the flag.
+
+**The outlier has a random stream of its own**, as `together` has, so turning the dial re-deals no other breath's length; their
+places move, as they must when one breath among them changes.
+
+**A POOL overrides both and takes no outliers** — his own list, played as written.
+
+**THE GATE HOLDS: `ofMax`, `outlier` and `jitterS` are ABSENT from the generator's `DEFAULT_BREATH`**, and absent is 1d.5's deal
+to the byte. The DRAWER's `NEW_BREATH` is where the new sequence's dials live: **`of max 0.65 · ± 1.3 s · outlier 0.1 · short
+0.4 · floor 2 · together 0.2 · apart 0.6`** (§149: `of max` ON at 0.65 · `±` one number of seconds for everyone, 1.3 s the AI's
+pick inside the range he named). **`save as default`** keeps HIS line in `bank/sequences.json` panel `defaults` — 1d.11's store
+again — and `×` brings the built-in back; both verified in the running app.
+
+**One slip of the AI's, and the record already warned about it:** a node script with BACKTICKS in it was passed through
+`node -e "…"` in a double-quoted bash string, and bash executed `` `breath` `` as a command. Nothing ran (there is no such
+command) but one word was eaten out of a comment. Journal §2 has said since §146 that a script with backticks goes to a FILE.
+It was written to a file after that, and the comment restored.
+
+`sequence_check` **163 → 180**.
