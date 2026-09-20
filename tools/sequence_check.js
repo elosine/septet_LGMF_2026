@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // sequence_check — the sequence generator (score/public/sequence.js) on the six reference chords (PLAN 1d.1, 2026-09-19).
-// The container arithmetic · both change rules · the dynamic carry · the ceilings · the same seed giving the same result · the refusals.
+// The container arithmetic · both change rules · the dynamic carry · the ceilings · the same seed giving the same result · the refusals ·
+// a REST (1d.4) · THE GATE — untouched breath dials give the notes frozen in tools/sequence_baseline.json (1d.5, §12) · the breath dials (§13).
+//   node tools/sequence_check.js --freeze     writes the baseline; refuses to overwrite one
 //   node tools/sequence_check.js
 'use strict';
 const fs = require('fs');
@@ -184,6 +186,96 @@ const allRest = recipe('attack'); allRest.containers.forEach(c => { c.chord = nu
 refuses(allRest, /every container is a rest/, 'a sequence of nothing but rests');
 const stillEmpty = recipe('attack'); stillEmpty.containers[1].chord = [];
 refuses(stillEmpty, /container 2: an empty chord/, 'an empty chord object is still malformed — a rest is null, and deliberate');
+
+// ---------------------------------------------------------------- 12 · THE GATE (PLAN 1d.5): with no breath dial touched, the notes are 1d.4's
+// tools/sequence_baseline.json was frozen from the generator as it stood at 6115f52, BEFORE the breath dials went in. It holds a
+// sha256 of { bounds, notes } for each case below. `--freeze` writes it and refuses to overwrite: re-freezing is how a gate is lost.
+const crypto = require('crypto');
+const BASE_FILE = path.join(__dirname, 'sequence_baseline.json');
+const restAt2 = change => { const R = recipe(change); R.containers[2].chord = null; return R; };
+const BASE_CASES = {
+    'attack': () => recipe('attack'),
+    'seamless': () => recipe('seamless'),
+    'attack + dynamics': () => withDyn(recipe('attack')),
+    'seamless + dynamics': () => withDyn(recipe('seamless')),
+    'attack + percussion': () => RP('attack'),
+    'seamless + percussion': () => RP('seamless'),
+    'attack + a rest': () => restAt2('attack'),
+    'seamless + a rest': () => restAt2('seamless'),
+    'seamless, a 40 s breath at fff': () => recipe('seamless', long('fff')),
+    'seamless, grouped · 6 s · 0.5 · seed 3': () => recipe('seamless', { breath: { striation: 'grouped', length: 6, jitter: 0.5, seed: 3 } }),
+};
+const hashOf = R => { const G = SEQ.generate(R, ctx); return { notes: G.notes.length, sha256: crypto.createHash('sha256').update(JSON.stringify({ bounds: G.bounds, notes: G.notes })).digest('hex') }; };
+if (process.argv.includes('--freeze')) {
+    if (fs.existsSync(BASE_FILE)) { console.log('\nREFUSED: ' + BASE_FILE + ' exists. A baseline is frozen once; delete it by hand if the generator is MEANT to change.'); process.exit(1); }
+    const cases = {}; Object.keys(BASE_CASES).forEach(k => { cases[k] = hashOf(BASE_CASES[k]()); });
+    fs.writeFileSync(BASE_FILE, JSON.stringify({ what: 'sequence.js, every breath dial at its default: sha256 of { bounds, notes } per case (tools/sequence_check.js §12)', frozen: new Date().toISOString(), cases }, null, 2) + '\n');
+    console.log('\nfrozen: ' + Object.keys(cases).length + ' cases → ' + BASE_FILE); process.exit(0);
+}
+const BASE = fs.existsSync(BASE_FILE) ? JSON.parse(fs.readFileSync(BASE_FILE, 'utf8')) : null;
+ok(!!BASE, 'the baseline is there: tools/sequence_baseline.json' + (BASE ? ' (frozen ' + BASE.frozen.slice(0, 10) + ')' : ' — MISSING'));
+if (BASE) Object.keys(BASE_CASES).forEach(k => { const h = hashOf(BASE_CASES[k]()), b = BASE.cases[k] || {}; ok(h.sha256 === b.sha256, 'untouched dials = the frozen notes — ' + k + ' (' + h.notes + ' notes' + (h.sha256 === b.sha256 ? '' : ', the baseline has ' + b.notes) + ')'); });
+
+// ---------------------------------------------------------------- 13 · the breath dials (PLAN 1d.5): together · apart · lengths
+const dial = (change, breath, R) => { const X = R || recipe(change); X.change = change; X.breath = Object.assign({ striation: 'staggered', length: 8, jitter: 0.35, seed: 7 }, breath); return SEQ.generate(X, ctx); };
+const box40 = () => ({ t0: 0, change: 'seamless', containers: [{ dur: 40, chord: CHORDS[0], dyn: 'as dealt' }] });
+// every start of every player, once (a double stop is one start); `re` = not the first of its span; an attack line is marked
+const startsOf = G => {
+    const seen = {}, out = [], firstOf = {};
+    G.notes.forEach(n => {
+        const k = n.player + '@' + n.start; if (seen[k]) return; seen[k] = 1;
+        const line = G.change === 'attack' && G.bounds.indexOf(n.start) >= 0;
+        const spanKey = n.player + '#' + (G.change === 'attack' ? n.container : 'run');
+        const entry = line || firstOf[spanKey] == null; if (firstOf[spanKey] == null) firstOf[spanKey] = n.start;
+        out.push({ t: n.start, p: n.player, line: line, re: !entry, flags: n.flags });
+    });
+    return out;
+};
+const closest = G => { const s = startsOf(G).filter(x => !x.line); let m = Infinity; s.forEach((a, i) => s.forEach((b, k) => { if (k > i && a.p !== b.p) m = Math.min(m, Math.abs(a.t - b.t)); })); return m; };
+const sharedRe = G => { const s = startsOf(G); return s.filter(a => a.re && s.some(b => b.p !== a.p && Math.abs(b.t - a.t) < 0.0015)).length; };
+const countFlag = (G, f) => startsOf(G).filter(x => x.flags.includes(f)).length;
+ok(j(dial('attack', { together: null, apart: 0.5, lengths: null }).notes) === j(A.notes) && j(dial('seamless', { together: null, apart: 0.5, lengths: null }).notes) === j(Sm.notes),
+    'the new dials spelled out at their defaults (together free · apart 0.5 · no pool) change nothing, both rules');
+['seamless', 'attack'].forEach(chg => {
+    const G0 = dial(chg, { together: 0 }), c = closest(G0);
+    ok(c >= 0.5 - 0.0015 && !countFlag(G0, 'CROWDED') && countFlag(G0, 'APART') > 0, 'together 0, ' + chg + ', the six chords: no two players begin a breath within 0.5 s of each other' + (chg === 'attack' ? ' (the lines excepted — that is everyone, by design)' : '') + ' — closest ' + c.toFixed(3) + ' s, ' + countFlag(G0, 'APART') + ' starts moved; free, the closest were ' + closest(chg === 'attack' ? A : Sm).toFixed(3) + ' s');
+});
+const wide = dial('seamless', { together: 0, apart: 0.75 }, box40());
+ok(closest(wide) >= 0.75 - 0.0015 && !countFlag(wide, 'CROWDED'), 'apart 0.75 s on one 40 s box: the staggered ENTRIES (0.5 s apart as dealt) are moved later too — ' + startsOf(wide).filter(x => !x.re).map(x => x.t.toFixed(2)).sort((a, b) => a - b).join(' ') + ' · closest ' + closest(wide).toFixed(3) + ' s');
+// eight players breathing every ~8 s have room for about 0.75 s each way and no more: past it the rule cannot hold, and SAYS so
+const tooWide = dial('seamless', { together: 0, apart: 1.25 }, box40());
+ok(countFlag(tooWide, 'CROWDED') > 0 && !over(tooWide).length, 'apart 1.25 s is more room than eight players have: ' + countFlag(tooWide, 'CROWDED') + ' starts are flagged CROWDED and left where they fell — never silently broken');
+['seamless', 'attack'].forEach(chg => {
+    const G1 = dial(chg, { together: 1 }), s = startsOf(G1), re = s.filter(x => x.re), lead = G1.dealt[0];
+    const onLeader = re.filter(x => x.p === lead || s.some(y => y.p === lead && Math.abs(y.t - x.t) < 0.0015)).length;
+    ok(re.length > 20 && sharedRe(G1) === re.length && onLeader === re.length, 'together 1, ' + chg + ': every re-entry is shared, and every one is the leader\'s (' + lead + ') — ' + re.length + ' re-entries at ' + new Set(re.map(x => x.t)).size + ' moments; free, ' + sharedRe(chg === 'attack' ? A : Sm) + ' were shared');
+});
+const G0s = dial('seamless', { together: 0 }), Gh = dial('seamless', { together: 0.5 }), G1s = dial('seamless', { together: 1 });
+ok(sharedRe(G0s) === 0 && sharedRe(Gh) > 0 && sharedRe(Gh) < sharedRe(G1s) && countFlag(Gh, 'SNAP') > 0, 'together is one dial from never to always: shared re-entries ' + sharedRe(G0s) + ' at 0 · ' + sharedRe(Gh) + ' at 0.5 · ' + sharedRe(G1s) + ' at 1 (at 0.5: ' + countFlag(Gh, 'SNAP') + ' snapped, ' + countFlag(Gh, 'APART') + ' kept apart)');
+const unsnapped = startsOf(Gh).filter(a => !a.line && !startsOf(Gh).some(b => b.p !== a.p && Math.abs(b.t - a.t) < 0.0015));
+ok(unsnapped.every(a => startsOf(Gh).every(b => b.p === a.p || b.line || Math.abs(b.t - a.t) >= 0.5 - 0.0015)), 'together 0.5: a start that is not shared is still kept 0.5 s from every other player\'s (' + unsnapped.length + ' of them)');
+ok(G0s.dealt[0] === '5:0' && ['5:0'].every(k => [G0s, Gh, G1s].every(G => j(G.notes.filter(n => n.player === k)) === j(Sm.notes.filter(n => n.player === k)))),
+    'THE SHORTEST BREATH LEADS: the bowed vibraphone (ceiling ' + BC.ceilingFor('bowed_vibraphone', 0.5).seconds + ' s at mf) is dealt first, and its breaths are the free deal\'s at every setting — the dial re-deals no length. The order: ' + G0s.dealt.join(' '));
+let sound = true, maxWait = 0;
+[0, 0.5, 1].forEach(tg => ['attack', 'seamless'].forEach(chg => [null, { values: [3, 9], weights: null }].forEach(pl => {
+    const G = dial(chg, { together: tg, lengths: pl }), ch = chains(G);
+    if (over(G).length || !G.notes.every(n => n.start >= T0 - EPS && n.end <= G.end + EPS && n.dur > 0)) sound = false;
+    Object.keys(ch).forEach(k => ch[k].forEach((n, i) => { if (!i || n.start === ch[k][i - 1].start || ch[k][i - 1].kind === 'fixed') return; const g = n.start - ch[k][i - 1].end; if (g < SEQ.NUMBERS.MIN_GAP_S - 0.0015) sound = false; if (n.container === ch[k][i - 1].container || chg === 'seamless') maxWait = Math.max(maxWait, g); }));
+    if (!Object.keys(SEQ.keyChord(CHORDS[5])).every(k => Math.abs(ch[k][ch[k].length - 1].end - G.end) < 0.0015)) sound = false;
+})));
+ok(sound && maxWait <= 0.75 * (1 + 0.35 * 0.5) + SEQ.NUMBERS.WAIT_MAX_S + 0.0015, 'under every setting (together 0 · 0.5 · 1 × both rules × with and without a pool): no note over its ceiling, no two notes of a player touching, everyone still lands on the end — and the longest silence a moved start cost a player is ' + maxWait.toFixed(3) + ' s (the gap + at most ' + SEQ.NUMBERS.WAIT_MAX_S + ' s)');
+const PL = dial('seamless', { lengths: { values: [3, 9], weights: null } }), chP = chains(PL);
+let poolOk = true, n3 = 0, n9 = 0, nCeil = 0;
+Object.keys(chP).forEach(k => { const L = chP[k].filter((n, i) => !i || n.start !== chP[k][i - 1].start); L.slice(0, -2).forEach(n => { if (Math.abs(n.dur - 3) < 0.0015) n3++; else if (Math.abs(n.dur - 9) < 0.0015) n9++; else if (n.flags.includes('CEILING') && Math.abs(n.dur - ceilOf(n)) < 0.0015) nCeil++; else poolOk = false; }); });
+ok(poolOk && n3 > 0 && n9 > 0, 'a pool `3 9`, seamless: every breath but a chain\'s last two (the landing) is 3 s, 9 s, or its ceiling — ' + n3 + ' of 3 s · ' + n9 + ' of 9 s · ' + nCeil + ' at a ceiling under 9 s');
+const count = (G, v) => G.notes.filter(n => Math.abs(n.dur - v) < 0.0015).length;
+const PW = dial('seamless', { lengths: { values: [3, 9], weights: [0.9, null] } });
+ok(count(PW, 3) > 4 * count(PW, 9) && count(PW, 9) >= 0, 'a weighted pool (3 at 90%): ' + count(PW, 3) + ' breaths of 3 s against ' + count(PW, 9) + ' of 9 s — unweighted it was ' + count(PL, 3) + ' against ' + count(PL, 9));
+ok(j(dial('seamless', { together: 0.5, lengths: { values: [3, 9], weights: null } }).notes) === j(dial('seamless', { together: 0.5, lengths: { values: [3, 9], weights: null } }).notes) && j(dial('seamless', { together: 0.5, seed: 8 }).notes) !== j(Gh.notes),
+    'with the dials set: the same seed gives the same notes, another seed gives others (that is `re-breathe`)');
+const badT = recipe('attack'); badT.breath.together = 2; refuses(badT, /breath\.together must be blank/, 'together 2');
+const badA = recipe('attack'); badA.breath.apart = 0; refuses(badA, /breath\.apart must be more than 0/, 'apart 0');
+const badL = recipe('attack'); badL.breath.lengths = { values: [] }; refuses(badL, /breath\.lengths needs values/, 'a pool with no values');
 
 console.log('\n' + (fail ? 'SEQUENCE RED: ' + fail + ' failed' : 'SEQUENCE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);

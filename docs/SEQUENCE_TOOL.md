@@ -4,11 +4,12 @@
 (the dynamics LG-36, the waves LG-38 · LG-39). The reasoning: RUNNING_LOG §102–§111, §114.*
 
 **What exists today:**
-- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**60**) · 1d.1 (+ the rest, 1d.4)
+- the generator — `score/public/sequence.js` — and its check, `node tools/sequence_check.js` (**88**) · 1d.1 (+ the rest, 1d.4 · the breath dials, 1d.5)
 - the drawer — `score/public/sequence_ui.js` — §9 below · 1d.2, built 2026-09-19, **not yet heard**
 - the round trip — reopen a placed sequence, change it, re-insert in place — §10 below · 1d.3, built 2026-09-19
 - the roll — piece #5's time containers lay out the row; an empty box is a REST — §11 below · 1d.4, built 2026-09-19
-- not yet: the breath dials (1d.5) · the waves (1d.7)
+- the breath dials — `together` from never to always · `apart` · a pool of lengths · `re-breathe` — §12 below · 1d.5, built 2026-09-19
+- not yet: the waves (1d.7)
 
 ---
 
@@ -25,7 +26,7 @@
   t0:         seconds — where the sequence starts in the score
   containers: [ { dur, chord, dyn } … ]
   change:     'attack' | 'seamless'
-  breath:     { striation, length, jitter, seed }
+  breath:     { striation, length, jitter, seed, together, apart, lengths }
 }
 ```
 
@@ -41,7 +42,8 @@
   `chord: []` is still refused — a malformed box; a rest is `null` and deliberate.
 - **`dyn`** — `'as dealt'` (each note keeps its own level) or `'ppp'` … `'fff'`.
 - **`roll`** *(beside the containers, only on a rolled row — 1d.4)* — the dials that made the durations. The generator ignores it.
-- **`breath`** — the morph's defaults: `staggered` · `length` 8 s · `jitter` 0.35 · `seed` 1.
+- **`breath`** — the morph's defaults: `staggered` · `length` 8 s · `jitter` 0.35 · `seed` 1 —
+  and 1d.5's: `together` null (free) · `apart` 0.5 s · `lengths` null, or a pool `{ values, weights }`. §12.
 
 ## 3 · The two change rules
 
@@ -105,14 +107,19 @@ a dynamic not on the ladder · a named dynamic with no ladder loaded · a note w
 
 - The same recipe and seed give the same notes.
 - Each (player, span) has its own random stream.
-  So under `attack`, re-timing one box leaves the breaths of every other box where they were.
+  So under `attack`, re-timing one box leaves the breaths of every other box where they were
+  (with `together` free — a set `together` ties the players to each other, which is its point).
 
 ## 8 · The check
 
-`node tools/sequence_check.js` — **60**, on the six reference chords (`bank/reference_chords.json`):
+`node tools/sequence_check.js` — **88**, on the six reference chords (`bank/reference_chords.json`):
 the container arithmetic · both change rules · the double stop · the rest · the dynamic carry ·
 the ceilings at ppp / mf / fff · the seats · a fixed-length sound · one seed · the refusals · very short boxes ·
-a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last.
+a REST under both rules (nothing sounds in it, every chain lands on its start, everyone re-enters) · a rest first and last ·
+**THE GATE** (1d.5): ten recipes hashed against `tools/sequence_baseline.json`, frozen BEFORE the breath dials went in —
+untouched dials must give those notes. `--freeze` writes it and refuses to overwrite ·
+the breath dials: `together` 0 (no two starts within `apart`, both rules) · 1 (every re-entry shared, all the leader's) ·
+0.5 (between) · the leader unchanged by the dial · `CROWDED` said, never silent · the pool · weights · the refusals.
 
 ## 9 · The drawer (1d.2)
 
@@ -255,4 +262,74 @@ his set `3 9 7 8` · the same seed twice · `re-roll` · a weighted value · the
 a typed weight standing · two presets · a chord · a rest · a chord: nothing in the rest, 8 land, 8 re-enter, under both rules ·
 a roll over a filled row: cancel, then accept with the chords kept · inserted, reopened with its dials, re-rolled, re-inserted in place ·
 the layout at 1280 px with the roll line on one line and wrapped to two. `sequence_check` 60 · `palette_check` 184.
+**Not verified: sound.**
+
+## 12 · The breath dials (1d.5)
+
+**With nothing touched the sequence breathes exactly as 1d.1 made it breathe.**
+The gate: `tools/sequence_baseline.json`, frozen before the dials went in (§8).
+
+**The `breath` line** — the `breath` button in the head opens it. Built as the roll line is.
+- `striation` · `length` · `±` · `together` · `apart` · `lengths` · `weights` · `seed` · `re-breathe`.
+- A dot on the button = a dial is off the morph's numbers.
+- Every change re-deals the row. The status says what came of it: `… → 40 notes · 17 SNAP · 3 APART · led by Vib`.
+- The dials live in the recipe (`breath { … }`). A reopened sequence breathes as it was dealt, and opens the line.
+
+**The defaults, and where they come from**
+
+| Dial | Default | Source |
+|---|---|---|
+| `striation` | `staggered` | `morph.js` `DEFAULTS.carrier.striation` |
+| `length` | 8 s | `morph.js` `DEFAULTS.carrier.segLen` |
+| `±` (jitter) | 0.35 | `morph.js` `DEFAULTS.carrier.segVar` |
+| `together` | blank = `free` | this tool |
+| `apart` | 0.5 s | this tool — a number for his ear |
+| `lengths` | none | this tool |
+| `seed` | 1 | — |
+
+**`striation`** — the morph's five, by the morph's names, doing what the morph's do: they set the FIRST entry only.
+So `converging` starts as `staggered` and `diverging` as `aligned`. Not deepened, at his word.
+
+**`together`**
+- **blank = free.** The morph's way: two players begin a breath together only by chance.
+- **0 = never.** Every start is kept at least `apart` seconds from every other player's.
+- **between.** That share of the re-entries snaps onto another player's re-entry (`SNAP`). The rest are kept apart (`APART`).
+- **1 = always.** Every player takes the leader's next re-entry.
+- An `attack` line is everyone, by design — outside the rule.
+- A seamless first entry belongs to the striation: never snapped, but kept apart (moved later) while `together` is under 1.
+
+**How a start is moved** — by the breath BEFORE it.
+- Earlier: that breath is shortened. Never to less than half of itself, nor under 1.5 s.
+- Later: that breath is held longer, within its ceiling.
+- Only when the ceiling is in the way does the gap widen — by no more than 1 s. Measured worst case: 0.879 s of silence.
+- A kept-apart start goes to the NEAREST free place. A snap goes to the re-entry nearest to where the start would have fallen.
+
+**The shortest breath leads**
+- Players are dealt in order of ceiling, shortest first — each player's shortest, at the levels it plays.
+- Each moves or snaps to the ones dealt before. Anyone can match a shorter breath; no one can outlast their own ceiling.
+- With the bowed vibraphone in the chord it leads (8.73 s at mf, 7.4 s at fff). The status names the leader.
+- The dial has a random stream of its own: turning it re-deals no length. The leader's breaths never change with it.
+
+**`apart` has a limit — `CROWDED`**
+- Eight players on 8 s breaths have room for about **0.75 s**. Measured: 0 crowded at 0.75 · 5 of 40 starts at 0.9 · 10 of 37 at 1.25.
+- A start with no room is left where it fell and flagged. The status turns red and says so.
+
+**`lengths` — a pool**
+- Values in seconds, e.g. `3 9`. Weights as the roll's: `20` · `20%` · `0.2` · a dash.
+- Each breath's wanted length is drawn from the pool — `time_containers.js`, not changed, its order dials at their defaults.
+- One stream per (player, span), all from the one seed.
+- A pool value is played as written: no jitter. The ceiling still binds, and flags (`CEILING`).
+- `length` then only spaces the first entries. The landing breaths still take what is left.
+- **The pool is sticky** (the generator's `stick` 0.8): a player stays on short or on long for a while.
+  Across the ensemble it is still short against long. `stick` is not on the line — his ear decides if it should be.
+
+**`re-breathe`** — the next seed. The chords and the durations are not touched. The old seed typed back gives the old breaths.
+
+**The head wraps** (found here): at 1280 px a placed sequence's head was 61 px too long before `breath` was added, and its `×`
+was cut off. It wraps now, as the roll line does; the strikes drawer is re-fitted when the strip's height moves.
+
+**Verified in the running app, no MIDI (a throwaway :5401 tab, 2026-09-19; RUNNING_LOG §118 has every number):**
+the strip's defaults = the page's own `Morph.DEFAULTS.carrier` · `together` 0 / 0.5 / 1 on a 40 s box, the starts listed per player ·
+blank again = the free notes, byte for byte · a pool `3 9` · weights · `re-breathe` changing the deal and nothing else ·
+inserted, `new`, reopened with its breath · a page reload · the layout at 1280 px. `sequence_check` 88 · `palette_check` 184.
 **Not verified: sound.**

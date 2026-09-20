@@ -1243,3 +1243,26 @@ voices on one MIDI number). Each is now guarded. **For the revision, the general
 of what a morph's pitches are — a sonority, taken by a rule, folded onto pairs — and a piece whose chords are composed voice
 by voice needs the other idea, where the chord is given and the cast is fixed. Both should be first-class, and which one a
 model uses should be a property of the model rather than something three call sites infer.
+
+### 2026-09-19 — LGMF 1d.5: what an all-purpose carrier would take from the sequence tool's breath dials (RUNNING_LOG §118)
+
+*The AI's reading — he has not heard these dials yet.* The sequence tool borrowed the carrier's breath rules as numbers (8 s ·
+±0.35 · the five striations) and then had to add what the carrier has never had, because his brief asked for it (LG-35:
+*"strictly striated, never together, or … some probability where sometimes they're together … short ones combined with long
+ones"*). Four things the revision should lift from `score/public/sequence.js` rather than re-invent:
+
+- **The carrier has no idea of ANOTHER voice.** Every morph voice is dealt alone; whether two re-entries coincide is chance, and
+  the striation only sets the first entry. `together` is the missing dial: blank = today's behaviour · 0 = never within
+  `apart` seconds · between = that share snaps onto another voice's re-entry · 1 = everyone. It needs voices dealt IN AN ORDER,
+  each seeing the starts of the ones before — a real change of shape for `morph.js §5`, which deals each voice in isolation.
+- **The shortest breath leads.** The order that makes it work: shortest ceiling first. Anyone can match a shorter breath; no one
+  can outlast their own ceiling. In a mixed ensemble this is not optional — with the long-breathed voice leading, the
+  short-ceilinged ones cannot follow and the rule fails silently.
+- **A start is moved by the breath BEFORE it** — shortened (never below half of itself), held longer within its ceiling, and
+  only last the gap widened (capped at 1 s). Measured worst case 0.879 s. And the rule can be asked for more than there is:
+  eight voices on 8 s breaths have room for about 0.75 s each way — past it, say so (`CROWDED`), never break quietly.
+- **A pool of lengths instead of length ± jitter**, from the time container generator, one stream per voice. The carrier's
+  jitter is symmetric noise round one number; a pool is a CHOICE of numbers, and `3 9` is a different music from `6 ± 0.5`.
+- **Small, but it bit:** the dial must have its OWN random stream, or turning it re-deals every length and nothing can be
+  compared by ear. And `converging` / `diverging` are names that do nothing past the first entry in either tool — the
+  revision should make them true or drop them.

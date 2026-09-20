@@ -1,0 +1,46 @@
+{
+  "what": "sequence.js, every breath dial at its default: sha256 of { bounds, notes } per case (tools/sequence_check.js §12)",
+  "frozen": "2026-09-20T00:20:59.891Z",
+  "cases": {
+    "attack": {
+      "notes": 161,
+      "sha256": "0063a88295b452b7c19769ac0a7616b4ec68bba239ce50aeb39c00d3d2d8b6e7"
+    },
+    "seamless": {
+      "notes": 138,
+      "sha256": "8db9f252ba925c396e5cf1ffa0138003b2e3e2c353516f272db97bf63114bfb3"
+    },
+    "attack + dynamics": {
+      "notes": 163,
+      "sha256": "56eef4db2167ebc31a81c48398c75f989d4f17bbd60341df4bbaa9d6308df419"
+    },
+    "seamless + dynamics": {
+      "notes": 141,
+      "sha256": "abbf76fd80548ce2ab2212ad62f3bdaab6f28ce3d1f191461520678d5fc9ce08"
+    },
+    "attack + percussion": {
+      "notes": 181,
+      "sha256": "2c181639dc56214c99e16abd56784cee1029d610b6c05a16d734181a6bd3bd94"
+    },
+    "seamless + percussion": {
+      "notes": 154,
+      "sha256": "717a931c7d8e0653aef64e27e9f0f5c3b1c2fc5e1f26e7ebc88b813006d58d24"
+    },
+    "attack + a rest": {
+      "notes": 129,
+      "sha256": "8302432806ec46f6f4680bff9d27b4ca2378f39cc9f9dffbc1782336a3eb763c"
+    },
+    "seamless + a rest": {
+      "notes": 108,
+      "sha256": "c1b005a854c22ef24c3c41d0dcacb15f62e63e3d26754b9bcb63251cff052f87"
+    },
+    "seamless, a 40 s breath at fff": {
+      "notes": 300,
+      "sha256": "216e8fb955d6c61989115a85ea3dfb5713e2c7e7e02a29084dfab5783e05e10d"
+    },
+    "seamless, grouped · 6 s · 0.5 · seed 3": {
+      "notes": 179,
+      "sha256": "992edde21c2893e3a2de0bdcef672cab233c08c4475598310be1fcb667c4d963"
+    }
+  }
+}

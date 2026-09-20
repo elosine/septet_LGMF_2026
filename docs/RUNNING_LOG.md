@@ -5037,3 +5037,106 @@ re-applied on their own).
 
 **NOT verified: sound.** **His test (PLAN 1d.4):** reload → `Sequence` → `roll` with `3 9 7 8` → click each box, a take and a dyn →
 leave one empty → SPACE → Insert.
+
+## §118. PLAN 1d.5 BUILT — the breath dials: `together` from never to always, `apart`, a pool of lengths (2026-09-19)
+
+**What prompted it.** His postclear command carried a result and a word: *"tests all good go for 1d.5."* So his tests of
+1d.2 (the drawer), 1d.3 (the round trip) and 1d.4 (the roll) all passed — the first report from him on the sequence drawer.
+Recorded as he said it; he did not say what he heard.
+
+1d.5 had been written without his review (§107), so the build began with a short proposal naming the calls the AI would make
+alone. His answer: *"go"*. The five he approved:
+
+- **A. `together` has a third state — blank = `free`.** The plan contradicted itself: it said 0 = strict AND that an
+  untouched strip breathes exactly as 1d.1. Both cannot be 0. Blank is the morph's way (two players breathe together only by
+  chance) · 0 = never · 1 = always.
+- **B. Between 0 and 1 it is ONE dial.** A re-entry snaps onto another player's with that probability; the ones that do not
+  snap are still kept `apart`.
+- **C. The shortest breath leads.** Players are dealt in order of ceiling, shortest first; later players move or snap to the
+  ones before. Anyone can match a shorter breath; no one can outlast their own ceiling. Heard, this means the ensemble breathes
+  at the bowed vibraphone's pace at `together` 1 (its ceiling: 8.73 s at mf, 7.4 s at fff).
+- **D. A pool value is played as written** — no jitter; the ceiling still binds; `length` then only spaces the first entries;
+  the landing breaths still take what is left.
+- **E. `converging` / `diverging` stay the morph's** — first entry only (so `diverging` starts as `aligned`, `converging` as
+  `staggered`). His brief: *"I might not want to design too much there."*
+
+**The gate, made FIRST.** Before `sequence.js` was touched: `tools/sequence_baseline.json` — a sha256 of `{ bounds, notes }`
+for ten recipes (attack · seamless · each with dynamics, with percussion, with a rest · a 40 s breath at fff · a grouped
+striation on another seed), frozen from the generator as committed at `6115f52`. `sequence_check --freeze` writes it and
+REFUSES to overwrite — re-freezing is how a gate is lost. After the dials went in: all ten identical. 60 → 71 checks.
+
+**What was built.**
+- `sequence.js` — `breath { striation, length, jitter, seed, together, apart, lengths }`; defaults `together: null` ·
+  `apart: 0.5` · `lengths: null`. With `together` null the deal is 1d.1's code path, player by player in score order.
+  With a number: the players are dealt shortest ceiling first (each player's shortest ceiling, at the levels it actually plays);
+  each breath decides where the player's NEXT start falls — snapped (flag `SNAP`), kept apart (`APART`), or no room (`CROWDED`).
+  A pool: each (player, span) has its own stream out of `time_containers.js` (unchanged), rolled 600 s at a time.
+- `sequence_ui.js` — a `breath` button beside `roll`; a `breath` line built as the roll line is: striation · length · ± ·
+  together (placeholder `free`) · apart · lengths · weights · seed · `re-breathe`. Every change re-deals and reports in the
+  status: notes · flags · `led by Vib`. A dot on the button when a dial is off the morph's numbers. `apart` is dimmed when it
+  means nothing (free, or 1); `length` and `±` are dimmed under a pool. A reopened sequence with a set breath opens the line.
+- `sequence_check` **88** (§12 the gate, 11 · §13 the dials, 17).
+
+**The numbers** (reference chord 1, one 40 s box, seamless, seed 1 — starts per player, seconds):
+
+| player | free | together 0 | together 0.5 | together 1 |
+|---|---|---|---|---|
+| EH 0:0 | 0.00 8.32 18.03 28.77 37.26 | 0.00 8.16 18.26 29.34 38.10 | 0.00 8.66 17.76 25.51 33.32 | 0.00 8.66 16.73 25.51 32.62 |
+| Bsn 1:0 | 0.50 9.94 16.88 26.19 33.64 | 0.50 10.04 16.23 24.51 31.96 | 0.50 9.54 16.73 26.04 33.82 | 0.50 8.66 16.73 25.51 32.62 |
+| Hn 2:0 | 1.00 9.54 17.76 25.08 36.34 | 1.00 9.54 17.76 25.01 36.27 | 1.00 9.54 17.76 25.01 33.32 | 1.00 8.66 16.73 25.51 32.62 |
+| Tpt 3:0 | 1.50 11.72 21.37 31.77 | 1.50 12.28 22.40 33.12 | 1.50 11.28 21.40 32.62 | 1.50 8.66 16.73 25.51 32.62 |
+| Vib 5:0 (leads) | 2.00 8.66 16.73 25.51 32.62 | the same | the same | the same |
+| Vib² 5:1 | 2.50 11.28 16.79 22.66 30.48 37.16 | 2.50 11.28 17.23 23.10 30.92 37.60 | 2.50 11.28 17.23 25.51 33.32 | 2.50 8.66 16.73 25.51 32.62 |
+| Vc 6:0 | 3.00 11.89 18.73 25.25 34.99 | 3.00 12.78 19.62 26.14 35.20 | 3.00 11.89 17.76 25.01 33.32 | 3.00 8.66 16.73 25.51 32.62 |
+| Db 7:0 | 3.50 11.44 21.55 28.49 35.36 | 3.50 11.78 21.90 28.84 35.70 | 3.50 11.28 21.40 25.51 32.62 | 3.50 8.66 16.73 25.51 32.62 |
+
+- The order of the deal, by ceiling at mf: Vib 8.73 s · Vib² 8.73 · Db 11.8 · Tpt 14.16 · Hn 17.7 · Vc 17.7 · EH 21.24 · Bsn 21.24.
+- Free: the two closest starts of different players were **0.062 s** apart. At 0: **0.500 s**, 15 starts moved.
+- At 0.5: 17 snapped, 3 kept apart. At 1: 28 snapped — four moments, everyone at each.
+- On the six-chord row (132 s): at 0 the closest starts are 0.500 s under both rules (43 moved seamless · 36 attack; free they
+  were 0.003 s and 0.017 s) · shared re-entries **0 at 0 · 83 at 0.5 · 129 at 1** · at 1 every re-entry is the leader's,
+  129 re-entries at 17 moments (seamless), 109 at 15 (attack).
+- The longest silence a moved start cost any player, over every setting: **0.879 s** (a wind's 0.75 s gap, jittered, + the wait).
+- The pool `3 9`, free, seamless, six chords: 99 breaths of 3 s · 39 of 9 s · 24 at a ceiling under 9 s (the vibraphone).
+  Weighted `90% -`: 242 against 15.
+
+**What changed from the plan while building — calls made alone, his to reverse.**
+1. **A start is moved to the NEAREST free place, earlier or later** — the plan said "moved later". Later-only packs the starts
+   in a cascade behind one another and pays for it in widened gaps (silence). Earlier = the breath before it shortened — never
+   to less than HALF of itself, nor under 1.5 s. Later = held longer within its ceiling; only when the ceiling is in the way
+   does the gap widen, and by no more than 1 s (`WAIT_MAX_S`).
+2. **A snap goes to the re-entry nearest to where the start would have fallen**, either side — the plan said "the nearest
+   coming start". At exactly 1 it is the leader's NEXT re-entry instead, so that "everyone together" is literally true.
+3. **Entries.** An `attack` line is outside the rule (the plan). A seamless first entry is never snapped — the striation owns
+   it — but IS kept apart, moved later only. So `aligned` + `together 0` spreads the entries by `apart`: strict wins.
+4. **`CROWDED` — the rule can be asked for more than there is.** Measured: eight players on 8 s breaths have room for `apart`
+   up to **0.75 s** (0 crowded). At 0.9: 5 of 40 starts. At 1.25: 10 of 37. A crowded start is left where it fell, flagged,
+   and the status turns red and says why. Never silent.
+5. **The dial has its own random stream**, so turning it re-deals no length: the leader's breaths are the free deal's at every
+   setting (checked).
+6. **No `defaults` button.** Blank `together` = free, an empty pool = none; the tooltips carry the morph's 8 and 0.35.
+
+**Two things the verification found.**
+- **A runt by a float.** A breath shortened to exactly the 1.5 s floor came out 1.4999999 and was flagged `RUNT`. The flag now
+  has a 1e-6 tolerance; the baseline is unmoved by it.
+- **The strip's head was already too long.** At 1280 px a PLACED sequence's head (`Re-insert in place @ …` + `move to playhead`)
+  measured 1341 px before the `breath` button existed — 61 px over, the `×` cut off by `overflow: hidden`. §116's "no overflow"
+  was the page's, not the head's. The head now WRAPS, as the roll line does, and the strikes drawer is re-fitted when the
+  strip's height moves (`refit`). Measured after: head 45 px (two lines), `×` at 1272, the strikes drawer's bottom = the
+  strip's top (604).
+
+**Something for his ear, not decided.** The pool is STICKY. The plan kept the generator's order dials at their defaults
+(stick 0.8), so a player stays on short or on long for a while: one player's chain under `3 9` read
+`3 3 3 3 3 3 3 3 3 3 3 3.45`, another `9 9 9 3 3 3.25`. Across the ensemble it is still short against long at any moment.
+If he wants each player to alternate more, `stick` is one more box on the line.
+
+**Verified in the running app, no MIDI** (throwaway :5401, autosave off, never saved; his take `Just-C1-seed90`, 40 s,
+seamless): the strip's defaults = the page's own `Morph.DEFAULTS.carrier` (8 · 0.35 · staggered) · `together` 0 / 0.5 / 1
+through the input, the starts listed per player, `led by Vib` · blank again = the free notes, byte for byte · a pool `3 9` ·
+weights `80 -` → `80% -` · `re-breathe`: the boxes untouched, the notes changed, the old seed typed back = the old notes ·
+insert → the breath in the recipe in `databases.sequences` · `new` → the morph's numbers · reopen → the breath back, the line
+open, the dot on, the row not dirty · a page reload: the row back with its breath · the layout at 1280 px.
+`sequence_check` 88 · `palette_check` 184. **Not verified: sound** — his Chrome.
+
+**His test:** reload → `Sequence` → one long container (40 s) → `breath` → `together` '0', SPACE → '0.5', SPACE →
+`lengths` '3 9', SPACE → `seamless` across two chords, SPACE.

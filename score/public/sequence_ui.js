@@ -41,7 +41,13 @@
 // ROLLING OVER CHORDS KEEPS THEM, BY POSITION (mine, his to reverse — the plan said the row is replaced): a re-roll is a RE-TIMING,
 // and losing seven chosen takes to try another seed would make the roll unusable. It asks first and says how many are kept or dropped.
 // The recipe keeps the dials (`roll { … }`) once a row was rolled, so a reopened sequence shows how its durations were made and
-// `re-roll` works on it; the containers are the truth — a typed-over duration is never re-derived. The breath dials are 1d.5.
+// `re-roll` works on it; the containers are the truth — a typed-over duration is never re-derived.
+//
+// THE BREATH (PLAN 1d.5, RUNNING_LOG §118). A `breath` line, built as the roll line is, carries the generator's own dials — they live
+// in sequence.js and travel in the recipe (`breath { … }`), so a reopened sequence breathes as it was dealt: striation (the morph's
+// five) · length ± jitter (the morph's 8 s ± 0.35) · `together` (BLANK = free, the morph's way · 0 never · 1 always) · `apart` ·
+// `lengths`, a pool of values and weights · a seed with `re-breathe` (the next seed — the chords and the durations are not touched).
+// Every change re-deals the row and says what came of it in the status: the notes, the starts snapped and kept apart, who leads.
 //
 // A BEND THAT MUST BE TAKEN BACK. D.playNotes sends a bend only for a note WITH cents, and a chord of the strikes drawer has one note
 // a player, so nothing there ever needed re-centring. A sequence gives one player a just note and then a tempered one on the same
@@ -90,7 +96,7 @@ const S = {
     },
     newRow() { return { id: 's' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, SEQ.DEFAULT_BREATH), boxes: [], roll: this.rollDefaults(), rolled: false }; },
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, chord: [], frozen: '' }; },
-    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, rollOpen: !!this.rollOpen })); } catch (e) {} },
+    save() { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen })); } catch (e) {} },
     restore() {
         let st = null; try { st = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) { st = null; }
         const r = st && st.row;
@@ -99,7 +105,7 @@ const S = {
                 breath: Object.assign({}, SEQ.DEFAULT_BREATH, r.breath || {}), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
                 boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })) };
             this.sel = Number.isInteger(st.sel) && st.sel >= 0 && st.sel < this.row.boxes.length ? st.sel : (this.row.boxes.length ? 0 : -1);
-            this.hearFrom = st.hearFrom === 'box' ? 'box' : 'start'; this.rollOpen = !!st.rollOpen;
+            this.hearFrom = st.hearFrom === 'box' ? 'box' : 'start'; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen;
         } else { this.row = this.newRow(); this.sel = -1; }
     },
     dynOk(d) { const L = LADDER(); return (L && L.NAMES.indexOf(d) >= 0) ? d : AS_DEALT; },
@@ -123,13 +129,14 @@ const S = {
             'color:#ddd;font:11px/1.4 system-ui,sans-serif;display:none;box-shadow:0 -6px 24px rgba(0,0,0,.55);overflow:hidden;flex-direction:column;outline:none';
         const L = LADDER();
         d.innerHTML =
-            '<div id="sqHead" style="display:flex;gap:8px;align-items:center;padding:4px 8px;white-space:nowrap;overflow:hidden;border-bottom:1px solid #2c3238">' +
+            '<div id="sqHead" style="display:flex;gap:8px;row-gap:3px;flex-wrap:wrap;align-items:center;padding:4px 8px;white-space:nowrap;border-bottom:1px solid #2c3238">' +   // 1d.5: it WRAPS, as the roll line does — at 1280 px a placed sequence\'s head was 61 px too long before `breath` was added, and its × was cut off
               '<b style="color:' + COLOR + ';letter-spacing:.08em">SEQUENCE</b>' +
               '<input id="sqName" type="text" placeholder="name" maxlength="48" style="width:120px;' + INP + '" title="a name for this sequence — it goes into the score file with the recipe">' +
               '<select id="sqList" style="max-width:200px;' + INP + '" title="the sequences placed in the open score (its databases.sequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
               '<label title="how a new chord is taken — attack: everyone starts AT the line, together · seamless: each player takes the new chord at its next breath">change <select id="sqChange" style="' + INP + '">' + SEQ.CHANGES.map(c => '<option value="' + c + '">' + c + '</option>').join('') + '</select></label>' +
               '<button id="sqAdd" style="' + BTN + '" title="add a container at the end of the row">+ container</button>' +
               '<button id="sqRollTog" style="' + BTN + ';color:#e8a06a" title="the ROLL: a set of time containers rolled from a pool of numbers — it lays out the row\'s durations for you">roll</button>' +
+              '<button id="sqBreathTog" style="' + BTN + ';color:#8fd0a0" title="the BREATH: how the players breathe and bow under the chords — the morph\'s numbers until you touch one. Never together, sometimes, always; short breaths with long">breath</button>' +
               '<span style="width:1px;height:16px;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, or from the selected box on">hear <select id="sqFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option></select></label>' +
               '<button id="sqHear" style="' + BTN + '" title="play the sequence through the strikes drawer\'s own player — the same levels, the same bends (SPACE)">Hear</button>' +
@@ -143,6 +150,7 @@ const S = {
               '<button id="sqClose" style="' + BTN + '" title="close the sequence drawer (the row is kept)">&times;</button>' +
             '</div>' +
             '<div id="sqRoll" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
+            '<div id="sqBreath" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="sqStatus" style="padding:1px 8px;height:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
             '<div id="sqRowWrap" style="flex:none;height:' + ROW_H + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px">' +
               '<div id="sqRow" style="position:relative;display:flex;gap:3px;height:100%;min-width:100%"></div>' +
@@ -158,6 +166,8 @@ const S = {
         q('#sqAdd').addEventListener('click', () => this.addBox());
         q('#sqRollTog').addEventListener('click', () => { this.rollOpen = !this.rollOpen; this.save(); this.paintRoll(); this.fitStrikes(); });
         this.buildRoll();
+        q('#sqBreathTog').addEventListener('click', () => { this.breathOpen = !this.breathOpen; this.save(); this.paintBreath(); this.fitStrikes(); });
+        this.buildBreath();
         window.addEventListener('resize', () => { if (this.isOpen()) this.fitStrikes(); });   // the roll line wraps with the width, and the strikes drawer stands on the strip
         q('#sqHear').addEventListener('click', () => this.hear());
         q('#sqStop').addEventListener('click', () => this.stop());
@@ -198,7 +208,7 @@ const S = {
         const b = document.getElementById('sequenceBtn');
         if (b) { b.style.background = show ? '#16323d' : ''; b.style.color = show ? '#bfe6f5' : ''; }
         const tab = document.getElementById('sequenceTab'); if (tab) tab.style.display = show ? 'none' : '';
-        if (show) this.paintRoll();   // before the fit: the roll line is part of the strip's height
+        if (show) { this.paintRoll(); this.paintBreath(); }   // before the fit: the roll and breath lines are part of the strip's height
         this.fitStrikes();
         if (!show) { this.setActive(false); this.stop(); return; }
         this.setActive(true);
@@ -207,8 +217,9 @@ const S = {
     },
     // the two drawers one above the other: while this strip is open the strikes drawer stands ON it (styles only — its code is not touched)
     stripH() { return this.isOpen() ? Math.round(this.el.getBoundingClientRect().height) : 0; },
+    refit() { if (this.isOpen() && this.stripH() !== this._fitH) this.fitStrikes(); },   // the head wraps, so a longer Insert button may add a line: fit again only when the height moved
     fitStrikes() {
-        const open = this.isOpen(), STRIP_H = this.stripH();
+        const open = this.isOpen(), STRIP_H = this.stripH(); this._fitH = STRIP_H;
         if (D.el) {
             D.el.style.bottom = open ? STRIP_H + 'px' : '0';
             D.el.style.maxHeight = open ? 'calc(100vh - ' + STRIP_H + 'px)' : '';
@@ -235,7 +246,7 @@ const S = {
         q('#sqChange').value = this.row.change; q('#sqFrom').value = this.hearFrom;
         const n = this.row.boxes.length;
         q('#sqTotal').textContent = n ? (n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s') : '';
-        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintRoll();
+        this.renderRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintRoll(); this.paintBreath();
     },
 
     // ------------------------------------------------------------------ the sequences in the open score — the round trip (1d.3)
@@ -274,6 +285,7 @@ const S = {
             ? 'write the sequence at the playhead — one group, one META bar over the span — and its recipe into the score file'
             : 'this sequence is in the score at ' + at.toFixed(3) + ' s (read from its META bar, so a group you dragged is found where you left it). Its notes are REPLACED IN PLACE from that start and the recipe updated. The recipe is the truth: notes changed by hand inside the group are overwritten';
         if (mv) mv.style.display = at == null ? 'none' : '';
+        this.refit();
     },
     reopen(id) {
         const e = this.entryOf(id); if (!e) { this._listSig = ''; this.renderList(); return; }
@@ -285,6 +297,7 @@ const S = {
             boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })) };
         this.sel = this.row.boxes.length ? 0 : -1;
         if (this.row.rolled) this.rollOpen = true;   // a rolled sequence shows how its durations were made
+        if (!this.isDefaultBreath()) this.breathOpen = true;   // and one whose breath was set shows its dials (1d.5)
         this.save(); this._listSig = ''; this.render(); this.fitStrikes();
         const at = this.placedAt(id), was = +(+R.t0 || 0).toFixed(3), n = this.row.boxes.length;
         this.setStatus('reopened "' + (e.name || id) + '" · ' + n + ' box' + (n === 1 ? '' : 'es') + ' · ' +
@@ -473,6 +486,75 @@ const S = {
         this.save(); this.render();
         this.setStatus('rolled ' + r.count + ' · ' + fmtS(r.filled) + ' of ' + fmtS(o.total) + ' s' + (r.short > 0.001 ? ' · ' + fmtS(r.short) + ' s short' : '') + '  →  ' + r.units.join(' ') +
             ' · seed ' + o.seed + ' · spread ' + r.spread + '×' + (filled ? ' · chords kept by position' : ' · click each box and give it a take — a box left empty is a REST'));
+    },
+
+    // ------------------------------------------------------------------ the breath (1d.5): the generator's own dials — the morph's numbers until he touches one
+    isDefaultBreath() { const b = this.row.breath, d = SEQ.DEFAULT_BREATH; return b.striation === d.striation && +b.length === d.length && +b.jitter === d.jitter && (b.seed | 0) === d.seed && b.together == null && +b.apart === d.apart && !b.lengths; },
+    buildBreath() {
+        const line = this.el.querySelector('#sqBreath'); if (!line) return;
+        const lab = 'color:#8a8', d = SEQ.DEFAULT_BREATH;
+        line.innerHTML = '<span style="color:#8fd0a0">breath</span>' +
+            '<label style="' + lab + '" title="how the players\' FIRST breaths are set against each other — the morph\'s five. staggered: one after another across half a breath · grouped: in three waves · aligned: together · converging / diverging: as the morph has them — they set the first entry only (converging starts staggered, diverging starts aligned)">striation <select id="sqBStri" style="' + INP + '">' + SEQ.STRIATIONS.map(s => '<option value="' + s + '">' + s + '</option>').join('') + '</select></label>' +
+            '<label style="' + lab + '" title="the wanted length of a breath or a bow — the morph\'s ' + d.length + ' s. The instrument\'s ceiling still splits anything longer. With a pool of lengths this only spaces the first entries">length <input id="sqBLen" type="number" step="0.5" min="0.5" max="120" style="' + INP + ';width:48px"> s</label>' +
+            '<label style="' + lab + '" title="how far a breath may fall from the length — the morph\'s ' + d.jitter + ' = ±' + Math.round(d.jitter * 100) + '%. Not applied to a pool value">± <input id="sqBJit" type="number" step="0.05" min="0" max="1" style="' + INP + ';width:48px"></label>' +
+            '<label style="' + lab + '" title="BLANK = free, the morph\'s way: two players begin a breath together only by chance · 0 = NEVER: every start is kept `apart` from every other player\'s · between: that share of the re-entries snaps onto another player\'s, the rest are kept apart · 1 = everyone re-enters together. The shortest breath leads (the bowed vibraphone, when it plays). An attack line is everyone, by design, and stands outside this">together <input id="sqBTog" type="number" step="0.1" min="0" max="1" placeholder="free" style="' + INP + ';width:52px"></label>' +
+            '<label style="' + lab + '" title="how close two players\' starts may come while `together` is under 1 — a number for your ear. Eight players have room for about 0.75 s; past that some starts are flagged CROWDED and left where they fell">apart <input id="sqBApart" type="number" step="0.05" min="0.05" max="10" style="' + INP + ';width:48px"> s</label>' +
+            '<input id="sqBVals" type="text" placeholder="lengths — a pool" style="' + INP + ';width:110px" title="a POOL of breath lengths in seconds, separated by spaces — short with long, e.g. 3 9. Each breath\'s wanted length is drawn from it (each player a stream of its own) instead of length ± jitter; the ceiling still binds. Blank = no pool">' +
+            '<input id="sqBW" type="text" placeholder="weights" style="' + INP + ';width:90px" title="one weight per pool value, or blank. 20 or 20% or 0.2 all mean a fifth; a dash means “share what is left”">' +
+            '<label style="' + lab + '" title="the same seed deals the same breaths">seed <input id="sqBSeed" type="number" step="1" min="1" style="' + INP + ';width:48px"></label>' +
+            '<button id="sqBNext" style="' + BTN + ';color:#8fd0a0" title="the next seed: every breath is dealt again — the chords and the durations are not touched">re-breathe</button>';
+        const q = s => line.querySelector(s);
+        ['sqBStri', 'sqBLen', 'sqBJit', 'sqBTog', 'sqBApart', 'sqBVals', 'sqBW', 'sqBSeed'].forEach(id => {
+            q('#' + id).addEventListener('change', e => { if (e.target.tagName === 'SELECT' || e.target.type === 'number') e.target.blur(); this.readBreath(); this.save(); this.paintBreath(); this.breathStatus('breath'); });
+            if (id !== 'sqBStri') q('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
+        });
+        q('#sqBNext').addEventListener('click', () => { this.stop(); this.row.breath.seed = Math.max(1, Math.round(+this.row.breath.seed || 1)) + 1; this.save(); this.paintBreath(); this.breathStatus('re-breathed'); });
+    },
+    // the pool's weights read exactly as the roll's are (rollOpts): 20 · 20% · 0.2 all a fifth, a dash = share what is left
+    parseWeights(nums, txt) {
+        const raw = String(txt || '').split(/[\s,]+/).filter(x => x !== ''); if (!raw.length) return null;
+        return nums.map((v, i) => {
+            const t = raw[i]; if (t == null || t === '-') return null;
+            const n = parseFloat(String(t).replace('%', '')); if (!isFinite(n)) return null;
+            return String(t).indexOf('%') >= 0 || n > 1 ? n / 100 : n;
+        });
+    },
+    readBreath() {
+        const line = this.el.querySelector('#sqBreath'), q = s => line.querySelector(s), b = this.row.breath, d = SEQ.DEFAULT_BREATH;
+        const num = (s, def) => { const v = q(s).value.trim(); return v === '' || !isFinite(+v) ? def : +v; };
+        b.striation = SEQ.STRIATIONS.indexOf(q('#sqBStri').value) >= 0 ? q('#sqBStri').value : d.striation;
+        b.length = clamp(num('#sqBLen', d.length), 0.5, 120); b.jitter = clamp(num('#sqBJit', d.jitter), 0, 1);
+        const tg = q('#sqBTog').value.trim(); b.together = (tg === '' || !isFinite(+tg)) ? null : clamp(+tg, 0, 1);   // BLANK = free, the morph's way
+        b.apart = clamp(num('#sqBApart', d.apart), 0.05, 10);
+        const nums = String(q('#sqBVals').value || '').split(/[\s,]+/).map(Number).filter(x => isFinite(x) && x > 0);
+        b.lengths = nums.length ? { values: nums, weights: this.parseWeights(nums, q('#sqBW').value) } : null;
+        b.seed = Math.max(1, Math.round(num('#sqBSeed', d.seed)));
+    },
+    paintBreath() {
+        const line = this.el && this.el.querySelector('#sqBreath'); if (!line) return;
+        line.style.display = this.breathOpen ? 'flex' : 'none';
+        const tog = this.el.querySelector('#sqBreathTog');
+        if (tog) { tog.textContent = 'breath' + (this.isDefaultBreath() ? '' : ' •') + (this.breathOpen ? ' ▾' : ' ▸'); tog.style.background = this.breathOpen ? '#1d3325' : '#2a2a30'; }   // the dot: a dial is off the morph's numbers
+        const b = this.row.breath, q = s => line.querySelector(s); if (!q('#sqBStri')) return;
+        const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
+        put('#sqBStri', b.striation); put('#sqBLen', b.length); put('#sqBJit', b.jitter); put('#sqBTog', b.together == null ? '' : b.together); put('#sqBApart', b.apart);
+        put('#sqBVals', b.lengths ? b.lengths.values.join(' ') : '');
+        put('#sqBW', b.lengths && b.lengths.weights && b.lengths.weights.some(w => w != null) ? b.lengths.weights.map(w => (w == null ? '-' : (Math.round(w * 1000) / 10) + '%')).join(' ') : '');
+        put('#sqBSeed', b.seed);
+        q('#sqBApart').parentNode.style.opacity = (b.together == null || b.together >= 1) ? 0.45 : 1;   // `apart` means something only while together is 0 … under 1
+        q('#sqBLen').parentNode.style.opacity = q('#sqBJit').parentNode.style.opacity = b.lengths ? 0.45 : 1;
+    },
+    // what the dials made of the row: the notes, the starts snapped and kept apart, who leads — or what is wrong
+    breathStatus(lead) {
+        const b = this.row.breath;
+        const txt = b.striation + ' · ' + (b.lengths ? 'pool ' + b.lengths.values.join(' ') : fmtS(b.length) + ' s ± ' + b.jitter) +
+            ' · together ' + (b.together == null ? 'free' : b.together + (b.together < 1 ? ' (apart ' + b.apart + ' s)' : '')) + ' · seed ' + b.seed;
+        if (!this.row.boxes.some(x => x.chord.length)) { this.setStatus(lead + ': ' + txt + ' — no chord in the row yet'); return; }
+        const G = this.generate(0); if (!G) return;   // generate() has said why
+        const crowded = G.notes.filter(n => (n.flags || []).indexOf('CROWDED') >= 0).length;
+        const ld = G.dealt && G.dealt[0] ? G.dealt[0].split(':') : null;
+        this.setStatus(lead + ': ' + txt + '  →  ' + G.notes.length + ' notes' + this.flagsText(G) + (ld ? ' · led by ' + shortOf(+ld[0]) + (+ld[1] ? '²' : '') : '') +
+            (crowded ? ' — CROWDED: `apart` is wider than this many players have room for' : ''), !!crowded);
     },
 
     // ------------------------------------------------------------------ a box takes its chord: the take, LOADED in the strikes drawer, as `long tone` deals it
