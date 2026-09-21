@@ -7784,3 +7784,40 @@ again at 23:51. Read-only, all six of his blooms against the engine on disk:
 defaults, the stored notes reproduced exactly. **The server fix of §181 is in force on his machine**, proven by his own files
 rather than by a test of ours. The labels skip (`bloom06`, `bloom08`): he is making and discarding versions as he goes. **Only
 `03` and `04` remain wrong**, and their repair is still his call (§181). Nothing asked of him yet about how any of it sounds.
+
+## §183. THE COMPOSER'S LANES ARE EIGHT — the D. Bass lane had no place of its own and fell on top of the English horn (2026-09-21)
+
+**What prompted it, his words (given with the `/postclear`, with a screenshot):** *"in the composer score when we added the
+vibraphone track in addition to the percussion track. The lanes didn't get resized and the bass track got chopped off."* And,
+after the AI's first reading of the picture had guessed the stray shapes were the vibraphone's: *"the double bass graphics in the
+composer score got squeezed in just below the English horn and on top of the bassoon … there's the English horn and then there's
+a bunch of shapes covering it. That's the double bass."* His second screenshot settled it — a note card opened on one of the
+stray shapes reads `Db — D. Bass`, and the label at the top-left of the first lane reads `D. B`, not `Eng. Horn`.
+
+**The AI's first reading was WRONG and he corrected it.** From the first screenshot alone it put to him that the band under the
+English horn "looks like the vibraphone lane's low band". It was the double bass. Nothing had been read in the code at that
+point (the postclear rule), and it was offered as a guess, not a diagnosis — but the record should say the guess was wrong.
+
+**The cause, read in `score/public/composer.html`:** the page has EIGHT instrument lanes (`lane1` … `lane8`: Eng. Horn ·
+Bassoon · Horn · Trumpet · Percussion · Vibraphone · Cello · D. Bass — the percussionist on two, D12) and the stylesheet placed
+SEVEN — `.lane:nth-child(1)` … `(7)`, each `14.2857%`, under the comment *"seven instrument lanes (septet)"*, carried from piece
+#5 by the copy-forward. `.lane` is `position: absolute`, so lane 8, with no `top` and no `height`, sat at the container's top at
+its content's height: over the English horn and the bassoon's ruler. And seven lanes filled the whole container, so there was
+nowhere for an eighth — the "chopped off" bass. The lane ORDER in the HTML was already score order; nothing was re-ordered.
+
+**What was changed (CSS only, three rules' worth):** eight `nth-child` rules at `12.5%` each · the three CURVE windows A · B · C
+(TRILLS_TOOL §3b), which float over the LAST THREE lanes, moved from the sevenths `57.14 · 71.43 · 85.71 %` to `62.5 · 75 ·
+87.5 %` at `12.5%` — over Vibraphone · Cello · D. Bass here (in piece #5 they were Percussion · Cello · D. Bass; under the old
+sevenths in THIS piece they had been sitting over Percussion · Vibraphone · Cello, one lane off from the inherited comment).
+No JavaScript changed: `getLaneDims` reads each lane's own rectangle, so every drawn object follows its lane's new height.
+
+**His order, asked and answered:** *"a yes score order"* — EH · Bsn · Hn · Tpt · Perc · Vib · Vc · Db.
+
+**Verified in the running app (`score-5401`, 1280 × 860, autosave stubbed, no Save):** container 72 … 828 px; the eight lanes at
+top 72 · 167 · 261 · 356 · 450 · 545 · 639 · 734, each 95 px, labels in score order, `D. Bass` last and inside the container;
+the curve windows' computed `top` · `height` = `62.5% 12.5%` · `75% 12.5%` · `87.5% 12.5%`. **He must RELOAD his tab to have it.**
+Each lane is now 12.5 % of the window where it was 14.3 % — every lane is an eighth shorter than before; that is the cost of
+showing all eight.
+
+**Also closed at his word, the same message:** the repair of `ACT-BLOOM-03` · `-04` (§181–§182) — *"already refiled"*. He
+re-filed them himself after the restart; the AI re-renders nothing.

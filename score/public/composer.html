@@ -88,7 +88,7 @@
     }
     #drawBtn.on { background: #8a6d3b; color: #fff; }
     #metaBtn.on, #curveBtnA.on, #curveBtnB.on, #curveBtnC.on, #pointsBtn.on { background: #8a6d3b; color: #fff; }
-    /* CURVE windows A / B / C (TRILLS_TOOL §3b, composer 2026-09-05): float exactly over Percussion, Cello, D. Bass —
+    /* CURVE windows A / B / C (TRILLS_TOOL §3b, composer 2026-09-05): float exactly over the LAST THREE lanes (here Vibraphone, Cello, D. Bass; in piece #5 Percussion, Cello, D. Bass) —
        translucent, click-through except for their dots and lines; Points mode makes them catch clicks. */
     .curveLane { background: rgba(247,245,239,0.35); z-index: 39; display: none; border-top: 1px dashed; border-bottom: 1px dashed; pointer-events: none; }
     .curveLane.open { display: block; }
@@ -97,9 +97,9 @@
     .curveLane .contentGroup circle, .curveLane .contentGroup path.curveHit { pointer-events: auto; }
     .curveLane.points .contentGroup path.curveHit { cursor: inherit !important; }   /* Points on: the pencil, never the bend arrow (composer 2026-09-06) */
     .curveLane .laneLabel { left: auto; right: 8px; pointer-events: none; padding: 1px 5px; border-radius: 2px; background: rgba(247,245,239,0.75); font-size: 10px; }
-    #laneCurveA { top: 57.1429%; height: 14.2857%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
-    #laneCurveB { top: 71.4286%; height: 14.2857%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
-    #laneCurveC { top: 85.7143%; height: 14.2857%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
+    #laneCurveA { top: 62.5%; height: 12.5%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
+    #laneCurveB { top: 75%;   height: 12.5%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
+    #laneCurveC { top: 87.5%; height: 12.5%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
     #recBtn.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
     #recLaneSel, #recTechSel { width: 90px !important; }
     /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
@@ -112,14 +112,17 @@
     .soloBtn.on { background: #f9a825; border-color: #f57f17; color: #fff; }
     .lane.soloDim svg { opacity: 0.3; }
     body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
-    /* seven instrument lanes (septet); the META draw window has its own rule */
-    .lane:nth-child(1) { top: 0%      ; height: 14.2857%; }
-    .lane:nth-child(2) { top: 14.2857%; height: 14.2857%; }
-    .lane:nth-child(3) { top: 28.5714%; height: 14.2857%; }
-    .lane:nth-child(4) { top: 42.8571%; height: 14.2857%; }
-    .lane:nth-child(5) { top: 57.1429%; height: 14.2857%; }
-    .lane:nth-child(6) { top: 71.4286%; height: 14.2857%; }
-    .lane:nth-child(7) { top: 85.7143%; height: 14.2857%; }
+    /* EIGHT instrument lanes — seven players, the percussionist on two (Percussion + Vibraphone, D12); score order.
+       The META draw window has its own rule. (Seven rules were inherited from piece #5, so lane 8, the D. Bass, had no
+       place of its own and fell on top of lane 1 — composer 2026-09-21.) */
+    .lane:nth-child(1) { top: 0%   ; height: 12.5%; }
+    .lane:nth-child(2) { top: 12.5%; height: 12.5%; }
+    .lane:nth-child(3) { top: 25%  ; height: 12.5%; }
+    .lane:nth-child(4) { top: 37.5%; height: 12.5%; }
+    .lane:nth-child(5) { top: 50%  ; height: 12.5%; }
+    .lane:nth-child(6) { top: 62.5%; height: 12.5%; }
+    .lane:nth-child(7) { top: 75%  ; height: 12.5%; }
+    .lane:nth-child(8) { top: 87.5%; height: 12.5%; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }

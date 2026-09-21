@@ -141,6 +141,8 @@ its feature list grew and went ON DECK.*
 | N2 | **After that: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), **the morph's own revision** (`MORPH_NOTES.md`, now carrying 1e's method), and **how the six chords are used in time**. And the LGMF call, when he says | Fable to design | yes |
 | N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette` | Opus | — |
 
+**► SINCE CHECKPOINT #8 (2026-09-21, Fable — RUNNING_LOG §183): (1) THE REPAIR OF `ACT-BLOOM-03` · `-04` IS CLOSED — his word: *"already refiled"*; the AI re-renders NOTHING, and checkpoint #8's "next concrete step" and its repair recipe are history. (2) THE COMPOSER'S LANES ARE EIGHT — the stylesheet in `score/public/composer.html` placed seven (piece #5's), so lane 8, the D. Bass, had no place and fell on top of the English horn; now eight `nth-child` rules at 12.5 %, score order (his: *"a yes score order"*), the curve windows A · B · C over the last three lanes. CSS only, verified in `score-5401`. **HE MUST RELOAD HIS TAB.** (3) His named version `piece-LGMF-Sec01-v1.3-sec01-done` committed with the working copy under the standing rule (§161). Decisions pending him: NONE but his listens (`1j` BR4 · `1i` VB6 · `1h` H4) and the curating of his six bloom actuals.**
+
 **Open at session end — (MID-SESSION CHECKPOINT #8, 2026-09-20, Fable → Opus — `PLAN 1i` (THE VIBRAPHONES IN THE BLOOM) AND `PLAN 1j` (THE MORPH'S BREATHS) ARE BOTH BUILT END TO END, VERIFIED AND PUSHED, AND HE IS ALREADY COMPOSING WITH BOTH. WHAT IS LEFT IS HIS: ONE DECISION (the repair of two actuals) AND HIS LISTENS. THIS IS THE ENTRY POINT. Everything below it — the three `► SINCE / AND SINCE / AND AFTER` notes and checkpoints #7 … #4 — is history, EXCEPT three bullets of #4, which still bind: `HOW TO VERIFY WITHOUT TOUCHING HIS WORK` · `Five things learned the hard way` · `Standing warnings still true`.):**
 
 - **WHAT THIS SITTING DID** (RUNNING_LOG **§172–§182**, every one written as it happened; commits `1c3a5f0` … this one, all pushed):
@@ -183,7 +185,7 @@ its feature list grew and went ON DECK.*
   - **only if he reports a fault:** RUNNING_LOG **§176** (`1i`, what was captured) or **§181** (`1j` and the server), then
     `docs/DYNAMICS_LAW.md` if it is about level.
 - **Decisions pending him:**
-  - **the repair of `ACT-BLOOM-03` · `-04`** — (a) in place / (b) he re-files. Put to him in the chat at the end of the sitting; not
+  - **✓ ANSWERED 2026-09-21: he re-filed them himself (*"already refiled"*, RUNNING_LOG §183).** *(Was:)* **the repair of `ACT-BLOOM-03` · `-04`** — (a) in place / (b) he re-files. Put to him in the chat at the end of the sitting; not
     yet answered.
   - **committing his six bloom actuals and `bank/morph_models.json`** — his to name and curate first (checkpoint #7's rule: OFFER,
     do not just do it).
