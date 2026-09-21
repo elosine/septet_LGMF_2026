@@ -8742,3 +8742,10 @@ dice for box lengths — a pool of numbers drawn one after another until a span 
 span, stopping short · `count` blank shows what the dials give, typed it solves `×` · `stick` the memory · `interrupt` the leaps · the contour,
 the accordion · `seed` · `roll` · `re-roll`. **Read from his screenshot:** `×` stood at **300 s per unit** with `fill` 60 s, so silver's 10 · 24 ·
 58 became 3000 · 7200 · 17400 s and none fits — which is why `count` showed a grey **0**. Told him; nothing changed.
+
+## §210. The counterpoint passage's harmony row: about 240 s, rolled on the silver ratio (2026-09-21)
+
+**His words:** *"ok then about 240 sec long"* — after §209 showed his roll line set to `×` 300 with `fill` 60. **The first compositional
+number of the counterpoint passage:** a harmony row of about **240 s**, rolled from the silver-ratio pool **10 · 24 · 58** (5.8× spread).
+Settings given to him: `×` **1** · `fill` **240**. Equal weights average 30.7 s a box, so about **7–8 boxes**; the seed and `stick` decide
+the exact count, and the grey `count` shows it before the roll.
