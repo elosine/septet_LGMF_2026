@@ -1541,7 +1541,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **PERCUSSION AND VIBRAPHONE ARE ONE PLAYER in these tools** (LG-59) — seven players.
     - **LATER, at his word:** stretching a clip · custom patterns · copying the harmony row's layout.
   - **1l.1 — Texture plays this ensemble** (the panel as it is, sounding on his players in a real harmony — nothing new added yet) —
-    `todo`
+    `built` 2026-09-21 — **his listen outstanding** (RUNNING_LOG §199 · §200: the seven players, his articulations, the takes menu, every attack through `StrikeDrawer.playNotes`, `dyn ppp … fff`, Insert on the right lanes; the claves registered as `toys_claves`; one engine opt-in, `laneVoice`; LIVE hidden → NITS)
     *Result when done:* he opens Texture, picks a model (smear · ticks · rain · gallop · groove), chooses a harmony take, presses Play,
     and hears the pattern on the septet's instruments at the calibrated loudness, each player on their own note of the take. Every dial
     that worked for the tubas works. Insert puts the notes on the right lanes.

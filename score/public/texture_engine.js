@@ -475,6 +475,12 @@ function expandVoice(v, lanes, groupIndex, rnd, opts) {
     const rs = resolveSet(pspec, opts && opts.tonality);
     const policy = pspec ? (pspec.policy || 'unison') : 'unison';
 
+    // LGMF PLAN 1l.1 (2026-09-21) — OPT-IN: `opts.laneVoice(lane)` → { pitch, tech } gives a PLAYER their own
+    // pitch and articulation (the septet: every player a different instrument, the pitch read from a harmony take).
+    // It lands HERE, before generate(), so the ring, the clamp and the playability badge are computed on what will
+    // sound. A lane it answers null for keeps the group's own. Absent, not a byte changes (checked: every model and
+    // variant, at 10 and 7 lanes, clean and humanized, against the committed engine).
+    const laneVoice = (opts && typeof opts.laneVoice === 'function') ? opts.laneVoice : null;
     const out = [];
     for (let j = 0; j < n; j++) {
         // unison and perVoice are per-voice CONSTANTS, so they resolve here and
@@ -483,6 +489,9 @@ function expandVoice(v, lanes, groupIndex, rnd, opts) {
         // resolution, and they carry their set through to generate().
         let pitch = root;
         if (rs.set && policy === 'perVoice') pitch = perVoicePitch(rs.set, j, n);
+        const lv = laneVoice ? laneVoice(lanes[j]) : null;
+        const own = !!(lv && lv.pitch != null);
+        if (own) pitch = lv.pitch;
         // With a scatter CURVE the static delay takes the curve's t=0 value and
         // the rest of the journey is a drift (see steadyOnsets' offsetOf), so
         // the texture starts exactly where the curve says and travels from there.
@@ -491,7 +500,7 @@ function expandVoice(v, lanes, groupIndex, rnd, opts) {
         out.push({
             lanes: [lanes[j]],
             pitch: pitch,
-            tech: v.articulation || v.tech || 'staccato',
+            tech: (lv && lv.tech) || v.articulation || v.tech || 'staccato',
             bpm: v.bpm,
             bpmEnd: v.bpmEnd != null ? v.bpmEnd : undefined,
             rampFrom: v.rampFrom,
@@ -503,7 +512,7 @@ function expandVoice(v, lanes, groupIndex, rnd, opts) {
             scatterU: u[j],                        // this player's draw, for scatter(t)
             scatter0: sc0,
             ci: groupIndex,                        // colour follows the GROUP
-            pitchSet: (rs.set && (policy === 'draw' || policy === 'cycle')) ? rs.set : null,
+            pitchSet: (!own && rs.set && (policy === 'draw' || policy === 'cycle')) ? rs.set : null,
             pitchPolicy: policy,
             pitchNoRepeat: pspec ? pspec.noRepeat !== false : true,
             pitchIndex: j,

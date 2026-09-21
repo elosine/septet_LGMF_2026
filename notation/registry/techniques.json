@@ -561,6 +561,14 @@
     "piano"
    ]
   },
+  "toys_claves": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Claves (Spitfire ARO, Toys) — LGMF PLAN 1l.1, the Texture panel's percussion fallback",
+   "players": [
+    "percussion"
+   ]
+  },
   "plucked": {
    "family": "oneshot",
    "notate": null,

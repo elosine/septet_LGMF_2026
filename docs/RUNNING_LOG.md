@@ -8291,3 +8291,124 @@ agreed in this sitting, nothing built. The build is the execution of a written p
 
 **Committed at the checkpoint, by the standing rule of §161** (the piece file at every wrap): `scores/piece-LGMF-Sec01.json` — his Save
 of 2026-09-21 00:28, one line changed, one byte longer than his named `v1.3-sec01-done`. What changed inside it was not read.
+
+
+## §199. `1l.1` BUILD OPENS — his word *"continue through the plan as much as possible independently"*; the conceptual proposal, and the AI's judgment calls named for his correction (2026-09-21)
+
+**What prompted it.** After the `/postclear` playback (Opus): *"yes go ahead and continue through the plan as much as possible
+independantly"*. Read as §150's *"try to move through the whole plan independently"*: the proposal is written HERE rather than
+waited on, each step is built, verified by its REQUIRED VERIFICATION, journalled, committed and pushed on its own, and his listens
+are gathered at the end.
+
+**Read for the build, by the named question only:** `texture_panel.js` whole · `texture_engine.js` whole · `strike_drawer.js` (the
+ART_SETS, `playNotes`, `insert`) · `sequence_ui.js` (`dealTake`, the takes menu) · `dyn_ui.js` (the ladder: `ppp … fff` = anchors
+65 · 74 · 83 · 92 · 100 · 109 · 118 · 127) · `morph_emit.js` `routeFor` · the percussion recipe, `bank/perc_rack.json`, the ARO
+catalog's claves.
+
+**What was found, that the plan did not know:**
+- **The claves have no technique in the app.** The rack has them (LGPerc **ch 7**, the `Claves ARO` track, trimmed in 1b), but the
+  percussion recipe still carries only the placeholder `main` (ch 1 — which the rack happens to route to the Finger Cymbals track):
+  `bank/perc_selection.json` is empty, because the percussion instruments are HIS to choose (LG-9). Selecting the claves through
+  `tools/apply_perc.js` would REPLACE `main`, so every percussion note already written would change its sound — not done.
+- **Every model and variant is written for ten players** (the gallop 5 + 5, the accretion 4 · 6 · 8 · 10). The engine's own clamp
+  would make the gallop 5 + 2.
+- **This piece's `bank/sample_lengths.json` is already this ensemble's** (the Xsample one-shots: `stac_vel` · `spicc_vel` · …; the
+  SI2 `staccato` has no table, so it is clamped as a variable length) — but the engine looks a ring up by the GROUP's articulation
+  and the group's pitch, so it must be told each player's own.
+- **`tools/test_texture.js`, the engine's byte-identity corpus, did not come across in the port** (piece #4's). Any engine change
+  must therefore be opt-in and proved identical by hand.
+- **Texture's Insert puts its META shape on layer 10** — this piece's META lane is **8**.
+
+**THE PROPOSAL, as built (plain language):**
+1. **Seven players**, in score order — english horn · bassoon · horn · trumpet · percussion · cello · double bass. The engine
+   renders seven player slots; the panel maps each slot to its score lane (the vibraphone's lane is skipped: one player with the
+   percussion). A model asking for more than seven is **fitted in proportion** — ten → seven, the gallop 5 + 5 → 4 + 3 — and the
+   status says so.
+2. **A PLAYERS strip** at the head of the panel: each player's articulation from their OWN roster, his defaults set (english horn
+   Staccato Velocity · bassoon, horn, trumpet staccato · cello, bass Spiccato Velocity), and the note the take gives them.
+3. **The takes menu**, the sequence drawer's idiom: a filter over his takes, a `▸` beside each that HEARS THE CURRENT TEXTURE on
+   that take without choosing it, the name chooses. The take is dealt ONCE through the sequence drawer's own `dealTake` (which loads
+   it in the strikes drawer, as everywhere) and frozen.
+4. **Each player reads their own note(s) AS ASSIGNED** — the take's pitch, its cents, its partial. A player the take gives no note is
+   SILENT and the status names them (the foundation's WARNING). A player holding two notes plays both at every attack. **The
+   percussion:** the note the take gives the Percussion player, as the take plays it; with none, **the claves, pair 2 high**. The
+   vibraphone's notes are carried, not played.
+5. **The claves are registered as ONE technique on the percussion recipe, `toys_claves`, ch 7** — keyed exactly as
+   `tools/apply_perc.js` would key them, so a later selection takes it over unchanged; `main` stays the ordinary voice, so no written
+   note changes. Pair 2 high = **key 41** (the catalog lists the pair twice, at 41 and 65; the lower group is taken). Registered in
+   `notation/registry/techniques.json`, so material may use it.
+6. **The sound:** every attack through `StrikeDrawer.playNotes` — a STRUCK note (`DYNAMICS_LAW.md` §1): the written dynamic's anchor,
+   remapped per instrument and pitch through 1b's bank, on MAIN, with its CC0; a just pitch bends by its cents as the strikes
+   drawer's Hear bends it. **The tubas' `D29` ("Texture never bends") gives way for this piece:** the take's cents are part of its
+   pitch.
+7. **`level 0…10` becomes `dyn ppp … fff`** per group. The engine still reads a level (so a morph between models still moves it):
+   each name is its own level, `ppp` = 0 … `fff` = 10, and a note's anchor is 65 + 62 × level / 10 — exactly the ladder's anchor at
+   every name. The models' 7.5 lands on **f**.
+8. **One engine opt-in, `opts.laneVoice(slot) → { pitch, tech }`** — each player's own pitch and articulation reach the engine BEFORE
+   the notes are made, so the ring, the clamp and the playability badge are computed on what will sound. Without it not a byte
+   changes (checked on the five models and the seven variants against the committed engine).
+9. **Insert** writes the strikes drawer's kind of note on the right lanes (`plain`, `recVel` = the anchor, the height from it; a note
+   with cents as a drawn note carrying `morphBend`), the META shape on lane 8, `curveDirty()`, one undo step.
+10. **LIVE is hidden and parked in NITS** — it streams outside the one sound path, on the tubas' pitch presets (the species, the
+    30–65 window), which the plan says go. The engine's own pitch dials (policy · root · set) go from the panel too: the take is the
+    pitch. **With no take chosen, Play and Insert say so and do nothing.**
+
+**The AI's judgment calls, his to reverse:** the claves as a hand-registered technique (5) · key 41 rather than 65 · the proportional
+fit (1) · `f` for the models' 7.5 (7) · cents kept (6) · a two-note player plays both (4) · LIVE hidden (10).
+
+## §200. `1l.1` BUILT AND VERIFIED — Texture plays this ensemble; two inherited faults found on the way and fixed; his listen outstanding (2026-09-21)
+
+**Built as §199 proposed**, in four files: `score/public/texture_engine.js` (the one opt-in, `laneVoice`) · `score/public/texture_panel.js`
+(the players strip, the takes menu, `notesOf` — the one translation both Play and Insert read — Play through `StrikeDrawer.playNotes`,
+Insert as the strikes drawer writes, `dyn`, the fit, LIVE hidden) · `sandbox/instruments.js` (`toys_claves`, ch 7) ·
+`notation/registry/techniques.json` (`toys_claves` registered). `composer.html` did not change.
+
+**THE REQUIRED VERIFICATION — one capture in the running app with no MIDI** (`score-5401`, journal §2's method: autosave stubbed, never
+saved, every port's `send` captured). The take `Blm01c-wVibes-Just-A1-seed131mod` (cello · bass A2, trumpet · horn A4, english horn ·
+bassoon B4 +3.91 c, the vibraphones A5 · A#5, no percussion), the model `smear` (fitted 10 → 7), `f`, Play — **180 notes, every one where
+it belongs:**
+
+| player | port · ch | key | velocity (the remap at `f` = anchor 109) | CC0 | bend |
+|---|---|---|---|---|---|
+| english horn | LGEngHorn 1 | 71 | 93 × 26 | 18 (Staccato Velocity) | +3.91 c (8539) |
+| bassoon | LGBassoon 14 | 71 | 107 × 26 | — | +3.91 c (8353) |
+| horn | LGHorn 15 | 69 | 88 × 26 | — | — |
+| trumpet | LGTrumpetb 2 | 69 | 88 × 26 | — | — |
+| percussion | LGPerc **7** | **41** | 109 × 26 (not remapped — a one-shot's velocity IS its dynamic) | — | — |
+| cello | LGCello 1 | 45 | 89 × 25 | 15 (Spiccato Velocity) | — |
+| double bass | LGBass 1 | 45 | 80 × 25 | 15 | — |
+
+Each velocity equals `VelocityRemap.velocityFor(bank, instrument, key, 109)` computed in the page, to the digit. CC7 127 on every route
+(a struck note's fader is static). The vibraphones: nothing sent. The Play button returned to *Play* and every bend was re-centred
+(8192) by the drawer's own `panic`.
+
+**Insert** at 100 s: 180 notes + the marker + the META shape, one group `grp-tex-01` — each on its player's lane with its articulation,
+`recVel` 109, height 7.1 (the anchor's), `plain` where there are no cents, a drawn note carrying `morphBend [0, 3.91]` where there are
+(english horn, bassoon); the META shape on **lane 8**; `curveDirty()` called once.
+
+**And, by hand:** a chord giving the Percussion player key 60 plays `main` 60, unbent · a chord with no bassoon → *"SILENT — no note in
+the take: Bsn"* · a cello double stop plays both notes · a partial rides along · the menu lists his **222** takes, the filter `bloom
+seed132` leaves two · `▸` plays the texture on another take and the chosen take stays · with no take, Play and Insert refuse and say
+why · the gallop fits **5 + 5 → 4 + 3** · humanize, pin, A/B and the morph render · the take and the articulations survive a reload.
+**`7.2-a`** (an old take whose harmony is not in this piece's database) refused and the current take was kept — right.
+
+**Found by verifying, and fixed:**
+- **A fault as old as the panel (piece #4's):** clicking a MODEL set `_fieldStamp = null`, so the NEXT dial nudge failed `generate()`'s
+  stamp test and silently reloaded the FILE's variant — the model thrown away. Seen as a `dyn` change after `smear` coming back as variant
+  G. The same after a morph. Both now stamp the fields as current; checked: after `smear`, `dyn pp` and `bpm 90` both stay on `smear`;
+  after a morph, a seed nudge keeps `smear-to-rain` and its three curves.
+- **The panel's preflight failed if Texture was opened before the page's sample-length table had loaded** (it is fetched asynchronously
+  at boot), and the panel then never refreshed. It now waits for the table.
+- **A morph's target level now lands on a written dynamic** (the models' 7.5 → `f`), so a crescendo between models ends on a name.
+
+**The batteries:** `palette_check` **184** · `sequence_check` **180** · `dyn_table_check` **51** · `test_snapshots` **26** ·
+`spectrum_check` **35** · `test_written_pitch` **10** + control · `check_ceilings --all` green · `model_bank --validate` VALID (its known
+warnings) — and **the engine identity check: 48 renders** (the five models and seven variants × 10 and 7 lanes × clean and humanized)
+byte-identical to the committed engine without the opt-in.
+
+**What the numbers now say about the models (for his ear, not acted on):** with this ensemble's measured one-shots the ring check speaks
+loudly — the english horn's Staccato Velocity rings ≈ 1.1 s, so at the models' tempos the status reads *"past the 5.6/s ceiling"* and
+SAMPLE RING. That is the tubas' check reading this ensemble's physics truthfully. The re-articulation values are `1l.2`; re-tuning the
+models is his, by ear, later (the plan's *Not in this step*).
+
+**Not heard.** The in-app browser has no Web MIDI. `1l.1`'s last line is his listen in his Chrome.

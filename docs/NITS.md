@@ -218,3 +218,11 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   ACTUALs list would bend them; a RECALL re-renders them right. **His files — the repair is put to him, not done:** re-render the same params
   in place (labels and placements kept), or recall and re-file after the server restart. The cause is fixed (`score/server.js`
   `freshModelBank()`). **And a guess to check one day:** the nine drifting LG actuals above may be the same fault, from 2026-09-19.
+
+- **2026-09-21 — Texture's LIVE section is HIDDEN, not ported** (PLAN 1l.1, RUNNING_LOG §199 · §200). It streams its own attacks
+  with `E.noteOn` at a fixed velocity 95 on `routeFor(L, 'staccato')` for lanes 0 … 9 — the tubas' ten, which here include the META
+  lane and nothing — with the tubas' pitch presets (the VERT01 species, the 30–65 staccato window) and CC7 pinned at 127: outside the
+  strikes drawer's player, so off the dynamics law. PLAN 1l.1 said *"LIVE comes along if the one sound path carries it, else it is
+  parked in NITS"*: `playNotes` books a whole render, LIVE books 160 ms at a time, so it does not carry it. **The code is intact**
+  (`#texLive` is `display:none`). **The shape of a port:** read the seven players and their articulations from `P7()` / `artOf`, the
+  pitch from the take (`playerNotes`), and send each attack through a per-note version of `playNotes` (remap · CC0 · bend).

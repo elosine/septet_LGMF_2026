@@ -217,6 +217,14 @@ const INSTRUMENTS = {
     channels: { main: 1, curve: [2, 3, 4] },
     techniques: [
       { key: "main", label: "struck, plain (PROVISIONAL — the instruments are not chosen)", channel: 1 },
+      // LGMF PLAN 1l.1 (2026-09-21; LG-59, RUNNING_LOG §199) — the ONE exception to "catalogued, never typed here": the
+      // Texture panel's percussion fallback, his `claves pair 2 high`, on the rack's own Claves ARO track (ch 7, bank/perc_rack.json).
+      // Keyed EXACTLY as tools/apply_perc.js keys the catalog's toys_claves, so a later selection takes it over unchanged; `main`
+      // stays the ordinary voice, so no written note changes. Pair 2 High = key 41 (the catalog repeats the six at 60–69).
+      { key: "toys_claves", label: "Claves", channel: 7, rangeLow: 36, rangeHigh: 69,
+        keys: [{ midi: 36, label: "Pair 3 Low" }, { midi: 38, label: "Pair 3 High" }, { midi: 40, label: "Pair 2 Low" }, { midi: 41, label: "Pair 2 High" },
+               { midi: 43, label: "Pair 1 Low" }, { midi: 45, label: "Pair 1 High" }, { midi: 60, label: "Pair 3 Low" }, { midi: 62, label: "Pair 3 High" },
+               { midi: 64, label: "Pair 2 Low" }, { midi: 65, label: "Pair 2 High" }, { midi: 67, label: "Pair 1 Low" }, { midi: 69, label: "Pair 1 High" }] },
     ],
   },
 
