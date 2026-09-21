@@ -1759,6 +1759,39 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His, in his Chrome:** the look and the feel of it · the zoom's direction (the main score's; one word flips it) · **the claves by
       ear** · then the next step, laid out with him: the columns.
 
+  - **1m.2 — The columns: every ON mark orchestrated with the drawer's left side** — `doing` 2026-09-21 — agreed in RUNNING_LOG §224 …
+    §226 (COMPOSITION_NOTES LG-67 · LG-68), his word *"ok good for build"*.
+    *Result when done:* under every ON mark of the top row there is a column of the drawer's player rows — nine: eight players and the
+    vibraphone's second seat, the percussion's row kept but not addressed — a circle each, all off. He clicks a column to select it,
+    and it MIRRORS the orchestration drawer: its harmony, its deal, its seeds and its ticks come back into the left side, and every
+    shuffle, seed, voicing, articulation, harmony pick or hand assignment he makes there lands in the column at once (A). The circles
+    ARE the ticks. He hears the selected column alone with `Hear orchestrated` / `♪ as dealt`, and the whole pattern with its pitches
+    with SPACE, the claves under it or not. Nothing is inserted yet.
+    - Under every ON mark a column: the drawer's rows in its order, lined up with the players list; a circle per row.
+    - Click a column below its mark: SELECTED (its state recalled into the drawer). SHIFT+click adds a column, and the deal in the
+      drawer is copied into it — several selected, the same deal in each (his rule: the same note, for now). ESC clears the selection.
+      The mark itself still toggles on / off; a mark turned off leaves the selection, its column kept.
+    - A column is stored as a drawer TAKE (`state()`: the harmony, the cfg, the voices) plus its ticks (`laneOff`) and its dealt
+      notes. Recall is `applyState` — the take machinery; `strike_drawer.js` is not changed.
+    - LINKED (A): after every render of the drawer, the selected column(s) take its state, ticks and notes. The first selection of a
+      fresh column starts from what the drawer holds now.
+    - The circles are the ticks: unticked = a dim dot · ticked without a note = hollow · ticked with a note = filled (hover: the
+      notes). A click on a circle is a click on that row's tick, selecting the column first if need be.
+    - The column preview: `Hear orchestrated` and `♪ as dealt` play the drawer = the selected column, as today.
+    - The rhythm preview: SPACE plays every ON mark from the cursor to the right line — its column's notes on the ticked players, and
+      the claves under it while the `claves` toggle in the bar is on; a column with nobody on is claves alone, or silent.
+    - Remembered with the pattern (the browser's storage, as `1m.1`); the ticks of the strike mode are kept apart from the columns'.
+    - Unpitched percussion: its row is there and ticks; what its tick sounds as is not designed here. Insert: not in this build.
+      Dynamics: another pass. Re-attack: the miscellaneous list, at the end.
+    - **REQUIRED VERIFICATION** (`score-5401`, no MIDI, every POST stubbed): a column selected → the drawer holds its harmony, deal and
+      ticks (`strikeId`, `cfg.oSeedShuffle`, `laneOff`) · shuffle → the column's notes change, the others' do not · a second column
+      selected → the first's state is back on re-selection, byte for byte · SHIFT+click → both hold the same deal · a tick clicked in
+      the drawer → the circle; a circle clicked → the tick · SPACE → every ON mark's notes at the mark's milliseconds on their own
+      ports, the claves under them, none when the toggle is off · `Hear orchestrated` → the column alone · back on `the strike` the
+      strike's own ticks return · not one POST.
+    - **His, in his Chrome:** the look of it against the players list · the ear · what he meets in practice (*"I'll just have to see
+      them in practice"*).
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
