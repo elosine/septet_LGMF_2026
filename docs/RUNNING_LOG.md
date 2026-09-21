@@ -8214,3 +8214,41 @@ the collision warnings of merged lines resolved here, by muting.
 `edit` (a click opens the dot's card) · (B) a click selects, a key mutes, the card always open for the selection. The AI leaned A:
 muting is what he will do most, so it should be one click; and two buttons he can see need no modifier remembered (HOW_WE_WORK:
 *"the tool carries its own memory of what is taken … the AI never asks him to remember a modifier"*).
+
+## §196. `1l.6` AGREED AND WRITTEN (A — two visible modes) — and HIS CORRECTION ON LOOPING: it belongs to the SELECTION, a box never loops; `1l.4` amended; `1l.7`, the two crossfades, put to him (2026-09-21)
+
+**His words:**
+
+> *"sorry looping only for selection. So when I play or preview a cake from the texture panel, the looping would only be part of
+> the selection process. So I can choose one portion of that take, or I can loop the entire take, say, three times. Then three
+> versions of that take will end up in my final timeline, looped. So I don't need to loop any of the rhythm sequence boxes. then a
+> and the rest good"*
+
+**The AI's reading (marked):** *"a cake"* = a take. The AI had made `loops` a property of a BOX (its length (stop − start) × loops,
+every pass with dots of its own — a call named to him in §195). **He corrected it:** in the workshop he takes ONE PORTION of a take,
+OR the ENTIRE take looped N times; looped three times, *"three versions of that take will end up in my final timeline"* — read as
+THREE BOXES landing one after another on the rhythm row — and *"I don't need to loop any of the rhythm sequence boxes."* **Simpler
+than what the AI built in its head:** a box is take · start · stop and nothing else; *every pass its own dots* is no longer a rule,
+it is just what three boxes are. *(If he meant one box holding three passes, the chat's read-back asks him to say so.)*
+
+**Decided:** looping as above · **A — two visible modes on the dot view, `mute` | `edit`** · step 6 otherwise as put (*"the rest
+good"*), which takes in the AI's calls: mutes stay when a line moves · what a touch survives and does not. **Written at once:**
+`docs/PLAN.md` § `1l.4` amended (the loop, the save, its verification) and § `1l.6` in full.
+
+**`1l.7` as put to him — THE TWO CROSSFADES, one idiom for both rows.** The AI's design, from his brief (LG-56: harmony B *"would
+slowly take over Harmony A over those seven seconds … in some kind of random format, or … presets"*; the rhythm's *"something
+similar … one time container's rhythm is slowly taking over by the next one"*):
+- **Three settings on a box, in the place `enter` left free:** `crossfade` seconds · a PRESET · a PLACE (`before` · `across` · `after`
+  the boundary; `across` the default). Blank = a clean change at the boundary, as in `1l.3`–`1l.6`.
+- **The harmony crossfade works on the DOTS, because the map is silent:** inside the window each dot reads A or B, the chance of B
+  rising from none to all. Presets: **scattered** (dot by dot — both harmonies shimmer, B thickening) · **player by player** (each
+  player changes ONCE, at a moment of their own — order random · low to high · high to low · by pair). A shape: straight · slow
+  start · slow end.
+- **Only the HARMONY crossfades — who has which note. The DYNAMICS keep following the row in time** (a box's waves and edges are
+  defined inside its own span; *"harmony with the harmony"* is kept simple).
+- **The rhythm crossfade needs BOTH patterns present,** or it is a fade out and then a fade in with a hole between: inside the window
+  each box reads ON past its cut from its own take (wrapping at the take's end), and the outgoing dots drop out as the incoming ones
+  come in. The same presets — scattered · player by player (a player leaves the old line for the new one at a moment of their own: the
+  counterpoint handed over voice by voice). **By DENSITY, not by level** — the dynamics belong to the harmony row.
+- **Seen and overridable:** a dot dropped by a crossfade has a look of its own in the dot view, and HIS TOUCHES WIN over it (`1l.6`).
+- Seeded, with a re-deal; saved in the recipe.

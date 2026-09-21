@@ -154,11 +154,16 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   cursor, a click on a box jumping the view there (it belongs to `1l.5` and is written there on its agreement).
 - **`1l.5` THE WHOLE SEQUENCE SOUNDS AND INSERTS — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §194 · §195): the join for
   every dot · LG-60's dynamics rule · the hollow dot, the continuous map · THE CONTINUOUS DOT VIEW (B) · Hear · Insert · the round trip.
-- **`1l.6` THE DOTS, TOUCHED — PUT TO HIM, NOT YET AGREED** (§195 has it, with the AI's calls: one · several · a line · the dot's
-  card · mutes stay when a line moves · every pass of a loop its own dots · a touch survives a harmony change and a box move, not a
-  re-cut). **The question put: how a click works — (A) two visible modes, `mute` | `edit` · (B) click selects, a key mutes; the AI
-  leaned A.** On his word it is written and `1l.7` follows.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §195.
+- **`1l.6` THE DOTS, TOUCHED — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §195 · §196): **A — two visible modes,
+  `mute` | `edit`** · one dot, a marquee or a line · the dot's card · mutes stay when a line moves · the percussion's dots a non-pitched
+  instrument or the vibraphone · a touch survives a harmony change and a box move, not a re-cut. **AND HIS CORRECTION ON LOOPING
+  (§196, `1l.4` amended): looping belongs to the SELECTION — one portion of a take, or the ENTIRE take looped N times, which lands as
+  N BOXES on the rhythm row; a box never loops.**
+- **`1l.7` THE TWO CROSSFADES — PUT TO HIM, NOT YET AGREED** (§196 has the design: seconds · preset · place on a box · the harmony
+  crossfade works on the dots, scattered or player by player, the dynamics still following the row · the rhythm crossfade runs both
+  patterns inside the window, by density · his touches win). On his word it is written, `1l.8` is his listen, and the whole item is
+  shown once with *"is that it?"*.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §196.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

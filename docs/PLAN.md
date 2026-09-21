@@ -1615,12 +1615,14 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **See and hear:** the timeline, the scrolling cursor, click to play from there.
     - **Select:** drag a marquee, or click a start point and a stop point on the timeline; the length shows in seconds. **The cut falls
       exactly where he puts it — nothing snaps** (LG-58). Play plays the selection.
-    - **Loop:** a count — the selection, or the whole pattern, repeated that many times.
-    - **Save → the rhythm row:** the box remembers the take · start · stop · loops; its length is (stop − start) × loops. Several boxes
-      from one take are allowed — his *"several versions"*.
+    - **Loop — part of the SELECTION, never of a box (his correction, RUNNING_LOG §196):** he takes ONE PORTION of the take, or the
+      ENTIRE take looped a count of times. Looped three times, THREE BOXES land on the rhythm row one after another — *"I don't need to
+      loop any of the rhythm sequence boxes."*
+    - **Save → the rhythm row:** a box remembers the take · start · stop; its length is stop − start. Several boxes from one take are
+      allowed — his *"several versions"*.
     - **The box shows a miniature of its dots.**
-    - **REQUIRED VERIFICATION:** one capture with no MIDI — the right dots, each with its pitch and dynamic from the clicked box; a loop
-      gives N × the dots at the right offsets. **Then his listen.**
+    - **REQUIRED VERIFICATION:** one capture with no MIDI — the right dots, each with its pitch and dynamic from the clicked box; the whole
+      take looped N times gives N boxes end to end, each with the take's dots. **Then his listen.**
   - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — `todo`
     *Result when done:* he presses Hear and the whole rhythm sequence plays — every dot on its player, with the pitch and the written level
     the harmony has beneath it AT THAT INSTANT, across harmony changes, waves, ramps and edges. He sees all of it in one continuous view.
@@ -1646,9 +1648,30 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **REQUIRED VERIFICATION:** Hear and the score's own playback captured with no MIDI and agreeing note for note · a dot after a harmony
       change reads the NEW harmony · a dot inside a fade reads the FADED level · the batteries green. **Then his listen — the first time
       the counterpoint section sounds.**
-  - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — *to be laid out when we
-    discuss it.* *(Carried from LG-59 so it is not lost: the percussion's note or notes in a container are a non-pitched instrument,
-    OR the vibraphone — and then the pitch is drawn from one of the pitches the harmony take gave the vibraphone.)*
+  - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — `todo`
+    *Result when done:* in the continuous dot view he turns dots off and on quickly, and can change any dot's pitch, dynamic or
+    articulation — a dot he has not touched keeps reading the harmony. In any box he can give a line to another instrument. The
+    percussion's dots can become vibraphone notes. His touches are saved with the sequence.
+    - **HOW A CLICK WORKS — his choice, A: two VISIBLE modes on the view.** `mute`: a click turns a dot off or on. `edit`: a click opens
+      the dot's card. No modifier to remember.
+    - **Mute · unmute:** fast — and it is how the *"too close"* warnings of merged lines are cleared.
+    - **One dot, several (a marquee), or a whole line** take the same touch.
+    - **The dot's card:** *pitch* — chosen FIRST from the notes of the harmony beneath (it stays in the harmony, cents and all), then
+      free · *dynamic* — `ppp … fff` · *articulation* — from that player's list · *back to the harmony* clears the touch.
+    - **A line moved to another instrument** — per box, the same who-plays grid as Texture's (`1l.2`). Only the rhythm moves: the pitch
+      comes from the new player's note; the changed pitches and articulations on that line are dropped (LG-57); **its MUTES stay — they
+      are rhythm.**
+    - **The percussion's dots (LG-59):** a non-pitched instrument from its list — or the VIBRAPHONE, its pitch one of the vibraphone's two
+      notes in the harmony beneath; he picks which.
+    - **Each state its own look:** muted · changed · no note beneath (hollow) · too close (warning colour).
+    - **Saved with the sequence:** a touch is an EXCEPTION in the recipe, keyed to its box, its line and its dot's number — the same recipe
+      always gives the same dots (`1l.2`). **A touch survives** a change of the harmony row and a move of its box. **It does not survive**
+      a re-cut of its box (another take, start or stop) — before that, the panel says how many touches would be lost. *(LG-55's open
+      point — does a mute survive a re-cut — answered. A box never loops (`1l.4`), so every pass of a looped take is a box of its own with
+      touches of its own.)*
+    - **REQUIRED VERIFICATION:** every gesture tested as a REAL MOUSE SEQUENCE (HOW_WE_WORK — mousedown · move · up, the re-render between
+      a click and the next) · a touch survives a harmony change and a box move · the capture: muted dots do not sound, changed dots sound
+      as changed · re-insert in place keeps the touches. **Then his listen.**
   - **1l.7 — The two crossfades** (harmony A → B over N seconds · one rhythm container into the next) — *to be laid out when we discuss
     it.*
   - **1l.8 — His listen.**
