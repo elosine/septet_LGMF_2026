@@ -34,7 +34,7 @@ function create(host, opts) {
     opts = opts || {};
     const v = {
         host, rows: [], t0: 0, t1: 1, grid: null, cursor: null, sel: null, pxPerSec: opts.pxPerSec || null,
-        onSeek: null, onDot: null, onToggle: null,
+        onSeek: null, onDot: null, onToggle: null, onSpan: null,
     };
     host.innerHTML =
         '<div class="dvWrap" style="display:flex;align-items:flex-start;background:' + COL.bg + ';border:1px solid #333;border-radius:3px">' +
@@ -128,15 +128,29 @@ function create(host, opts) {
     v.scrollTo = t => { right.scrollLeft = Math.max(0, v.xOf(t) - 20); };
     v.setSel = s => { v.sel = s; v.draw(); };
 
-    // a click on the TIMELINE asks to play from there; a click in a row reports the nearest dot within reach (1l.6)
+    // a click on the TIMELINE reports a time (play from there — or, in the workshop, a start or a stop); a DRAG across the rows reports a
+    // span (the workshop's marquee, 1l.4 — nothing snaps: the span is where the pointer was); a plain click in a row reports the nearest dot (1l.6)
+    const clampT = px => Math.max(v.t0, Math.min(v.t1, v.tOf(px)));
     cv.addEventListener('mousedown', e => {
         const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
-        if (py < HEAD_H) { if (v.onSeek) v.onSeek(Math.max(v.t0, Math.min(v.t1, v.tOf(px))), e); return; }
-        const row = Math.floor((py - HEAD_H) / ROW_H);
-        if (!v.onDot || row < 0 || row >= v.rows.length) return;
-        let best = -1, bd = 7;
-        (v.rows[row].dots || []).forEach((d, i) => { const dd = Math.abs(v.xOf(d.t) - px); if (dd < bd) { bd = dd; best = i; } });
-        if (best >= 0) v.onDot(row, best, e);
+        if (py < HEAD_H) { if (v.onSeek) v.onSeek(clampT(px), e); return; }
+        const row = Math.floor((py - HEAD_H) / ROW_H), x0 = px;
+        let dragging = false;
+        const move = ev => {
+            const x = ev.clientX - cv.getBoundingClientRect().left;
+            if (!dragging && Math.abs(x - x0) > 4 && v.onSpan) dragging = true;
+            if (dragging) { const a = clampT(Math.min(x0, x)), b = clampT(Math.max(x0, x)); v.sel = { a, b }; v.draw(); }
+        };
+        const up = ev => {
+            window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up);
+            if (dragging) { const x = ev.clientX - cv.getBoundingClientRect().left; v.onSpan(clampT(Math.min(x0, x)), clampT(Math.max(x0, x)), ev); return; }
+            if (!v.onDot || row < 0 || row >= v.rows.length) return;
+            let best = -1, bd = 7;
+            (v.rows[row].dots || []).forEach((d, i) => { const dd = Math.abs(v.xOf(d.t) - x0); if (dd < bd) { bd = dd; best = i; } });
+            if (best >= 0) v.onDot(row, best, e);
+        };
+        window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+        e.preventDefault();
     });
 
     return v;

@@ -667,6 +667,24 @@ const PANEL = {
         if (this.view && this.view.cursor != null) this.view.setCursor(null);
     },
 
+    // ------------------------------------------- 1l.4: A RHYTHM TAKE REALIZED ANYWHERE (the rhythm sequence panel's workshop and boxes)
+    // The same machinery as the panel's own render, on a take's FROZEN recipe instead of what is on screen: an object that inherits every
+    // method above and carries its own who-plays, articulations and (optional) harmony. `notesOf` · `collisions` · `spanOf` · `originOf`
+    // then answer for that take exactly as they do here — one translation, not a second copy of it. Pure: it never touches the panel.
+    realize(state, chord) {
+        const R = Object.create(PANEL);
+        R.spec = JSON.parse(JSON.stringify((state && state.spec) || {}));
+        R.assign = state && Array.isArray(state.assign) ? state.assign : null;
+        R.arts = (state && state.arts) || {};
+        R.take = chord ? { name: '(harmony)', chord: chord } : null;
+        const C = HOST();
+        R.result = TX.render(R.spec, { maxLanes: MAX_LINES, sampleLengths: (C && C.sampleLen) || null, tonality: root.Tonality || null,
+            humanize: null, laneVoice: line => R.laneVoice(line) });
+        return R;
+    },
+    P7() { return P7(); },
+    CLAVES: CLAVES,
+
     // ------------------------------------------- 1l.2: RHYTHM TAKES — the recipe saved by name (bank/rhythm_takes.json)
     // A take is the RECIPE — the dials and the seed (the whole spec), who plays, the articulations — never the notes: the engine draws
     // nothing at random, so the same recipe always gives the same dots, which is what lets a touched dot be found again (1l.6).

@@ -8501,3 +8501,47 @@ and `sequence.js` are byte-identical** (`git diff` empty); `sequence_check` stay
   32…80"*. **No console errors.**
 
 **Not looked at by him yet** — his look-over is the step's last line. In his Chrome: restart the server, reload the tab, press `Rhythm`.
+
+## §203. `1l.4` BUILT AND VERIFIED — the workshop: a rhythm take seen and heard in a harmony box, cut or looped, saved to the rhythm row; and THE JOIN, built once for 1l.5; his listen outstanding (2026-09-21)
+
+**What was built (in the rhythm panel, `workshop ▸` in its head):**
+- **A rhythm take realized anywhere** — `TexturePanel.realize(state, chord)` (texture_panel.js): an object that inherits the panel's own
+  methods and carries its own who-plays, articulations and harmony, so `notesOf` · `collisions` · `spanOf` answer for a SAVED take exactly as
+  the panel answers for the one on screen. One translation, not a second copy.
+- **THE MAP AND THE JOIN** (`mapOf`, `joinDot` — built here, read by 1l.5). The harmony row as sequence.js deals it is notes with GAPS;
+  **the map is continuous**: at any instant inside a box a player's note is the one sounding, else the last before it in that box (its end
+  level held), else the first after it (its start level). A player the box does not deal, and every player in a REST box, has nothing
+  beneath — the dot is HOLLOW (LG-58). For a dot: its line's players (the take's who-plays) → each one's pitch with its cents and its
+  INTENDED WRITTEN LEVEL (LG-60) beneath → the strike at that level's ladder anchor, remapped per instrument by the strikes drawer's
+  player; the ARTICULATION is the rhythm take's (his short defaults). A niente fade's weight rides beside the level (1l.5 uses it).
+  **The percussion:** what the harmony gives the Percussion player, unbent — else, where anyone sounds, **the claves at the MEAN level of
+  every pitched player sounding there** (the AI's call; they have no note of their own to read a level from). First written to average
+  only the dot's own line — which made every percussion dot HOLLOW, because the percussion's line has only the percussionist; found in the
+  first run and fixed.
+- **THE WORKSHOP:** a menu of his rhythm takes (the `rhythms` store) · the dot view (the same `dot_view.js`) · the PREVIEW harmony = the
+  harmony box selected in the harmony row, dealt on its own and lengthened to cover the take, no edges · **a portion** — a START then a STOP
+  clicked on the dot view's timeline, or a DRAG across the dots (added to `dot_view.js`: `onSpan`), or typed to the hundredth; nothing
+  snaps — **or the whole take × N** · `▸ play` · `save → rhythm row`. Dots outside the cut are drawn muted.
+- **A rhythm box** keeps the take's name, its cut (start · stop, its length stop − start) and **the take's recipe FROZEN** (`state`), as a
+  harmony box freezes its chord: a later re-save of the take in Texture changes no placed box; `refresh from take` re-reads it on purpose.
+  The box shows **a miniature of its dots** (lines as rows, the cut across the box). The recipe carries every box's frozen take.
+- **Found on the way and fixed:** the workshop's ids began `rsW…`, and the waves line inherited from the drawer has `rsWSave` ("save
+  preset") — a duplicate id, found when a scripted click reached the wrong button. The workshop's ids are `rsK…` now; both panels were
+  scanned: no duplicate id.
+
+**THE REQUIRED VERIFICATION** (`score-5401`; no MIDI; a rhythm take `AI-test-1l4` saved from Texture — `smear`, 7 lines, 14.068 s):
+- **The right dots, each with its pitch and dynamic from the clicked box.** Box 1 (`Blm01c-wVibes-Just-A1-seed131mod`, as dealt): all 58
+  dots of the cut 2.00 → 6.50 s sound, none hollow — english horn B4 +3.91 c at level 0.290 (anchor 83), the percussion the claves at 0.290.
+  Box 2 (`Bloom01-Just-A1-seed132`, waves): every dot reads box 2's pitches (EH · Bsn 73, Hn · Tpt 67, Vc · Db 45); over the whole take the
+  english horn and bassoon move pp … mf (0.145 … 0.565). **Captured Play of the cut in box 2: 58 notes, every one on its route with its key
+  and its remapped velocity as computed in the page** — the bassoon's velocity climbing 70 → 91 through the cut as its wave rises, the
+  english horn holding 57 (pp).
+- **The whole take looped N times gives N boxes end to end, each with the take's dots:** × 3 → three boxes of 14.068 s at 18.000 · 32.068 ·
+  46.136 s (after the two rests of §202), each realized from its frozen recipe to the SAME dots as the take. A cut clicked 3.25 → 9.80 s →
+  one box of 6.55 s. A synthetic drag across row 3 from 4.0 to 8.5 s → the cut 3.998 → 8.488 s (the pointer's own resolution, 0.012 s a
+  pixel). Every box has its miniature.
+- **The batteries:** palette 184 · sequence 180 · dyn table 51 · snapshots 28 · spectrum 35 · written pitch 10 + control · ceilings green ·
+  model bank VALID · the engine identity check 48. `sequence_ui.js` · `sequence.js` unchanged. The test's take and rhythm sequence were
+  removed from `bank/`.
+
+**Not heard.** His listen, in his Chrome.

@@ -1605,7 +1605,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `buildCarrier` / `dealSpan` twins are the repo's own example.)*
     - **REQUIRED VERIFICATION:** the sequence drawer's batteries unchanged · a rhythm sequence saved, reloaded, identical · then he looks
       it over.
-  - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — `todo`
+  - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — `built` 2026-09-21 — **his listen outstanding** (RUNNING_LOG §203: the workshop in the rhythm panel; `TexturePanel.realize`; THE MAP AND THE JOIN, `mapOf` · `joinDot`, built here for 1l.5; a box freezes its take's recipe and shows its dots)
     *Result when done:* in the rhythm panel he clicks a harmony box, chooses a rhythm take, and SEES its lines as dots in time and HEARS
     it in that harmony, on that ensemble, at that box's dynamics. He marks a start and a stop — or sets a loop count — and saves: a box
     appears on the rhythm row with that length.

@@ -245,9 +245,9 @@ const S = {
     newRow() { return { id: 'r' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, MAP_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], rhythm: [], roll: this.rollDefaults(), rolled: false }; },
     // 1l.3 — A RHYTHM BOX: an excerpt of a rhythm take (1l.4: take · start · stop, its length stop − start), or, with no take, a REST
     newRBox() { return { take: '', start: 0, stop: 0, dur: DEF_DUR }; },
-    rboxFrom(b) { return { take: String((b && b.take) || ''), start: +(b && b.start) || 0, stop: +(b && b.stop) || 0, dur: clampDur(b && b.dur) }; },
+    rboxFrom(b) { return { take: String((b && b.take) || ''), start: +(b && b.start) || 0, stop: +(b && b.stop) || 0, dur: clampDur(b && b.dur), state: (b && b.state && typeof b.state === 'object') ? b.state : null }; },   // 1l.4: the take's recipe, FROZEN
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, range: null, chord: [], frozen: '' }; },
-    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, cursor: this.cursor == null ? null : this.cursor, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
+    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, cursor: this.cursor == null ? null : this.cursor, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, workOpen: !!this.workOpen, work: this.work || null, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
     // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
     rowFrom(r) {
         if (!(r && typeof r.id === 'string' && Array.isArray(r.boxes))) return this.newRow();
@@ -265,6 +265,7 @@ const S = {
             this.hearFrom = ['box', 'cursor'].indexOf(st.hearFrom) >= 0 ? st.hearFrom : 'start';
             this.cursor = (typeof st.cursor === 'number' && isFinite(st.cursor)) ? st.cursor : null; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen; this.edgesOpen = !!st.edgesOpen;
             this.libOpen = !!st.libOpen;
+            this.workOpen = !!st.workOpen; this.work = (st.work && typeof st.work === 'object') ? st.work : null;   // 1l.4: the workshop
             this.libKey = typeof st.libKey === 'string' ? st.libKey : null;                                  // 1d.11: which entry on disk this row IS
             this.libPanel = st.libPanel === LIB.named || st.libPanel === LIB.untitled ? st.libPanel : null;
             this.kept = (st.kept && st.kept.row) ? st.kept : null;                                           // the state at his last `save`
@@ -510,6 +511,7 @@ const S = {
               '<button id="rsRollTog" style="' + BTN + ';color:#e8a06a" title="the ROLL: a set of time containers rolled from a pool of numbers — it lays out the row\'s durations for you">roll</button>' +
               '<button id="rsWavesTog" style="' + BTN + ';color:' + WTINT + '" title="the WAVES: every player rises and falls on a stream of swells of their own, out of step with the others. A box READS the waves when its dyn is `waves`; any box can step out to a straight dynamic and the waves run on under it">waves</button>' +
               '<button id="rsEdgesTog" style="' + BTN + ';color:#e6c46a" title="the EDGES: how the sequence begins and ends — a fade in from nothing (or from a dynamic), a fade out to nothing (or to a dynamic), and whether the players end together or one by one, each finishing a last breath of their own. How it BEGINS — together or staggered — is box 1\'s `enter`">edges</button>' +
+              '<button id="rsWorkTog" style="' + BTN + ';color:#f0c890" title="the WORKSHOP (PLAN 1l.4): choose a rhythm take, SEE its lines as dots and HEAR it in the selected harmony box — each player\'s pitch and level from that box — then cut a portion (click a start and a stop on its timeline, or drag across the dots) or take the whole take looped, and save it to the rhythm row">workshop</button>' +
               '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, from the selected box on, or from the CURSOR (click the time strip above the boxes)">hear <select id="rsFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option><option value="cursor">from the cursor</option></select></label>' +
               '<button id="rsHear" style="' + BTN + '" title="AUDITION THE MAP: the harmony row as held chords, through the strikes drawer\'s own player, to check it by ear (SPACE). It is never inserted — the harmony is silent in the piece">Hear</button>' +
@@ -534,6 +536,7 @@ const S = {
             '<div id="rsRoll" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="rsEdges" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
             '<div id="rsWaves" style="display:none;gap:6px;row-gap:3px;align-items:center;flex-wrap:wrap;padding:3px 8px;white-space:nowrap;border-bottom:1px solid #2c3238"></div>' +
+            '<div id="rsWork" style="display:none;flex-direction:column;gap:4px;padding:4px 8px;border-bottom:1px solid #2c3238"></div>' +   // 1l.4: the workshop
             '<div id="rsStatus" style="padding:1px 8px;height:1.455em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9a9"></div>' +   // a line of its own: the head is full at 1280 px and the status is what tells him what happened
             '<div id="rsRowWrap" style="flex:1 1 auto;min-height:' + Math.round(ROW_H * 0.6) + 'px;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;padding:6px 8px;display:flex;flex-direction:column">' +
               // 1d.15: THE TIME STRIP — click anywhere along it to put the cursor there, and SPACE plays from there
@@ -594,6 +597,8 @@ const S = {
         this.buildWaves();
         q('#rsEdgesTog').addEventListener('click', () => { this.edgesOpen = !this.edgesOpen; this.save(); this.paintEdges(); this.fitStrikes(); });
         this.buildEdges();
+        q('#rsWorkTog').addEventListener('click', () => { this.workOpen = !this.workOpen; this.save(); this.paintWork(true); });   // 1l.4
+        this.buildWork();
         window.addEventListener('resize', () => { if (this.isOpen()) { this.clampWindow(); this.fitStrikes(); } });   // the screen changed under a floating window: bring it back into view
         q('#rsHear').addEventListener('click', () => this.hear());
         q('#rsStop').addEventListener('click', () => this.stop());
@@ -642,7 +647,7 @@ const S = {
         const b = document.getElementById('rhythmSeqBtn');
         if (b) { b.style.background = show ? '#3d2a16' : ''; b.style.color = show ? '#f5dcbf' : ''; }
         const tab = document.getElementById('rhythmSeqTab'); if (tab) tab.style.display = show ? 'none' : '';
-        if (show) { this.clampWindow(); this.paintRoll(); this.paintWaves(); this.paintEdges(); }   // clamp first: only now can the window be measured, and the screen may have changed while it was shut
+        if (show) { this.clampWindow(); this.paintRoll(); this.paintWaves(); this.paintEdges(); this.paintWork(true); }   // clamp first: only now can the window be measured, and the screen may have changed while it was shut
         this.fitStrikes();
         if (!show) { this.setActive(false); this.stop(); return; }
         this.setActive(true);
@@ -733,7 +738,7 @@ const S = {
         q('#rsFrom').value = this.hearFrom;
         const n = this.row.boxes.length, nr = (this.row.rhythm || []).length;
         q('#rsTotal').textContent = (n ? 'harmony ' + n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s' : '') + (nr ? (n ? ' · ' : '') + 'rhythm ' + nr + ' · ' + fmtS(this.rtotal()) + ' s' : '');
-        this.renderRow(); this.renderRRow(); this.renderEdit(); this.renderList(); this.paintInsert(); this.paintLib(); this.paintRoll(); this.paintWaves(); this.paintEdges();
+        this.renderRow(); this.renderRRow(); this.renderEdit(); this.paintWork(!!this.workOpen);   // 1l.4: the workshop's dots follow the harmony box he clicks this.renderList(); this.paintInsert(); this.paintLib(); this.paintRoll(); this.paintWaves(); this.paintEdges();
         this.paintCursor(); this.paintClock(null);   // 1d.15: after renderRow, which rebuilds the boxes the cursor is measured against
     },
 
@@ -951,12 +956,25 @@ const S = {
             d.innerHTML = '<span style="color:#a98">' + (i + 1) + '</span> <span style="color:' + (rest ? '#8a7a68;font-style:italic' : '#f5e6d4') + '">' + esc(rest ? 'rest' : b.take) + '</span> <span style="color:#b9a">' + fmtS(b.dur) + ' s</span>';
             d.addEventListener('click', () => { this.rsel = i; this.save(); this.render(); });
             row.appendChild(d);
+            if (!rest && b.state) this.miniature(d, b, wpx);   // 1l.4: the box shows a miniature of its dots
         });
+    },
+    // 1l.4: a rhythm box's dots in miniature — its lines as rows, the excerpt [start, stop) across the box
+    miniature(d, b, wpx) {
+        const W = this.realized(b.state); if (!W) return;
+        const n = Math.max(1, W.lines.length), w = Math.max(4, Math.round(wpx - 10)), h = Math.max(10, Math.round(FS * 1.3)), dpr = root.devicePixelRatio || 1;
+        const cv = document.createElement('canvas');
+        cv.width = w * dpr; cv.height = h * dpr; cv.style.cssText = 'display:block;width:' + w + 'px;height:' + h + 'px;margin-top:1px;pointer-events:none';
+        const x = cv.getContext('2d'); if (!x) return;
+        x.setTransform(dpr, 0, 0, dpr, 0, 0); x.fillStyle = '#e8c89a';
+        const dur = Math.max(0.001, b.stop - b.start);
+        W.lines.forEach((row, L) => row.forEach(dt => { if (dt.t < b.start - 1e-9 || dt.t >= b.stop - 1e-9) return; x.fillRect(Math.round((dt.t - b.start) / dur * (w - 2)), Math.round((L + 0.5) * h / n) - 1, 2, 2); }));
+        d.appendChild(cv);
     },
     renderREdit() {
         const ed = this.el.querySelector('#rsEdit'), i = this.rsel, b = this.row.rhythm[i];
         ed.innerHTML = '<b style="color:#f0c890">rhythm box ' + (i + 1) + '</b>' +
-            (b.take ? '<span style="color:#b9a">take "' + esc(b.take) + '" · ' + fmtS(b.start) + ' → ' + fmtS(b.stop) + ' s · ' + fmtS(b.dur) + ' s</span>'
+            (b.take ? '<span style="color:#b9a">take "' + esc(b.take) + '" · ' + (+b.start).toFixed(2) + ' → ' + (+b.stop).toFixed(2) + ' s · ' + fmtS(b.dur) + ' s</span><button id="rsRRef" style="' + BTN + '" title="read the rhythm take again from bank/rhythm_takes.json — the box holds its recipe as it was when it was cut">refresh from take</button>'
                     : '<label><input id="rsRDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>') +
             '<button id="rsRLeft" style="' + BTN + '" title="move this rhythm box earlier">◂</button><button id="rsRRight" style="' + BTN + '" title="move this rhythm box later">▸</button>' +
             '<button id="rsRDel" style="' + BTN + '" title="remove this rhythm box">×</button>' +
@@ -967,6 +985,11 @@ const S = {
             q('#rsRDur').addEventListener('change', e => { b.dur = clampDur(e.target.value); e.target.blur(); this.save(); this.render(); });
             q('#rsRDur').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
         }
+        if (q('#rsRRef')) q('#rsRRef').addEventListener('click', async () => {
+            const L = await this.workList(true), t = L[b.take];
+            if (!t || !t.state || !t.state.spec) { this.setStatus('no rhythm take named "' + b.take + '" in bank/rhythm_takes.json any more', true); return; }
+            b.state = JSON.parse(JSON.stringify(t.state)); this.save(); this.render(); this.setStatus('rhythm box ' + (i + 1) + ' re-read "' + b.take + '" — the same cut, ' + (+b.start).toFixed(2) + ' → ' + (+b.stop).toFixed(2) + ' s');
+        });
         q('#rsRLeft').addEventListener('click', () => this.moveRBox(i, -1));
         q('#rsRRight').addEventListener('click', () => this.moveRBox(i, 1));
         q('#rsRDel').addEventListener('click', () => this.removeRBox(i));
@@ -974,6 +997,252 @@ const S = {
     addRBox() { if (!this.row.rhythm) this.row.rhythm = []; this.row.rhythm.push(this.newRBox()); this.rsel = this.row.rhythm.length - 1; this.save(); this.render(); this.setStatus('rhythm box ' + (this.rsel + 1) + ' added — a rest for now; the workshop (1l.4) gives a box an excerpt of a rhythm take'); },
     removeRBox(i) { const R = this.row.rhythm || []; if (!R[i]) return; R.splice(i, 1); this.rsel = R.length ? Math.min(i, R.length - 1) : -1; this.save(); this.render(); },
     moveRBox(i, by) { const R = this.row.rhythm || [], j = i + by; if (!R[i] || j < 0 || j >= R.length) return; const t = R[i]; R[i] = R[j]; R[j] = t; this.rsel = j; this.save(); this.render(); },
+
+    // ------------------------------------------------------------------ 1l.4 · 1l.5 — THE MAP AND THE JOIN (LG-56 · LG-58 · LG-60)
+    // The harmony row, dealt by sequence.js, is a list of notes per player WITH GAPS — the breath before an attack line, a ceiling split.
+    // THE MAP IS CONTINUOUS (1l.5's caution for the build): at any instant inside a box, a player's note is the one sounding there, else
+    // the last one before it in that box (its END level held), else the first after it (its START level) — a gap never reads as "no note
+    // beneath". A player the box does not deal has nothing beneath, and a REST box has nothing for anyone (LG-58 — no borrowed notes:
+    // the dot is HOLLOW, silent, and the status warns). What a player has at an instant: [{ midi, cents, partial, tech, level, weight }],
+    // `level` the INTENDED WRITTEN LEVEL, 0…1 on the ladder (ppp … fff), and `weight` a niente fade's multiplier (1 outside any).
+    mapOf(G) {
+        const by = {}, B = G.bounds, last = B.length - 1;
+        G.notes.forEach(n => { const k = n.lane + ':' + (n.seat || 0); (by[k] || (by[k] = [])).push(n); });
+        const boxAt = t => { if (t < B[0] - 1e-9 || t >= B[last] - 1e-9) return -1; let i = 0; while (i < last - 1 && B[i + 1] <= t + 1e-9) i++; return i; };
+        const levelIn = (n, x) => { const L = (n.levels && n.levels.length) ? n.levels : [[0, n.level], [n.dur, n.level]]; if (x <= L[0][0]) return L[0][1]; for (let i = 1; i < L.length; i++) if (x <= L[i][0]) { const p = L[i - 1], q = L[i]; return p[1] + (q[1] - p[1]) * ((x - p[0]) / Math.max(1e-9, q[0] - p[0])); } return L[L.length - 1][1]; };
+        const weightOf = (n, t) => { const f = n.fade; if (!f) return 1; const u = clamp((t - f.start) / Math.max(1e-6, f.end - f.start), 0, 1); return clamp(f.from + (f.to - f.from) * u, 0, 1); };
+        const M = {
+            G, boxAt, bounds: B,
+            // the MEAN level and weight of every pitched player sounding at t (the harmony's whole chord, the vibraphones included) — what a
+            // percussion dot with no note of its own reads (the claves fallback)
+            meanAt(t) {
+                let n = 0, lv = 0, w = 0;
+                Object.keys(by).forEach(k => { const f = by[k][0]; if (!f || f.inst === 'percussion') return; const [lane, seat] = k.split(':').map(Number); const x = M.at(lane, seat, t); if (!x.length) return; n++; lv += x[0].level; w += x[0].weight; });
+                return n ? { level: lv / n, weight: w / n } : null;
+            },
+            at(lane, seat, t) {
+                const ci = boxAt(t); if (ci < 0) return [];
+                const mine = (by[lane + ':' + (seat || 0)] || []).filter(n => n.container === ci);
+                if (!mine.length) return [];
+                let cur = mine.filter(n => n.start <= t + 1e-9 && n.end > t + 1e-9), where = null;
+                if (!cur.length) {
+                    const before = mine.filter(n => n.end <= t + 1e-9);
+                    if (before.length) { const s0 = Math.max.apply(null, before.map(n => n.start)); cur = before.filter(n => n.start === s0); where = 'end'; }
+                    else { const s0 = Math.min.apply(null, mine.map(n => n.start)); cur = mine.filter(n => n.start === s0); where = 'start'; }
+                }
+                return cur.map(n => ({ midi: n.midi, cents: n.cents || 0, partial: n.partial, tech: n.tech,
+                    level: clamp(levelIn(n, where === 'end' ? n.dur : (where === 'start' ? 0 : t - n.start)), 0, 1), weight: weightOf(n, t), box: ci }));
+            },
+        };
+        return M;
+    },
+    // THE JOIN, for one dot of a realized rhythm take `R` at harmony time `T`: whose dot it is (the take's who-plays) → what each of those
+    // players has beneath at that instant → the pitch with its cents, and the intended written level. The ARTICULATION is the rhythm
+    // take's for that player (his short defaults, LG-59); the harmony gives pitch and level only. THE PERCUSSION: what the harmony beneath
+    // gives the Percussion player, as it plays it (unbent) — else, where the box has a chord, the claves (pair 2 high) at the MEAN level of
+    // every pitched player sounding there (the AI's call: the claves have no note of their own to read a level from). The strike is the
+    // level's ANCHOR on the ladder, which the strikes drawer's player remaps per instrument and pitch (LG-60: the written level is the
+    // ground truth); a niente fade's weight scales the strike and rides beside the level.
+    joinDot(R, map, dot, T) {
+        const TP = root.TexturePanel, P = TP ? TP.P7() : [], L = LADDER(), lo = L ? L.LO : 65, hi = L ? L.HI : 127;
+        const out = [], ps = R.assignOf(dot.line).map(s => P[s]).filter(Boolean);
+        const got = ps.map(p => ({ p, ns: map.at(p.lane, 0, T) }));
+        got.forEach(g => {
+            let ns = g.ns;
+            if (g.p.instKey === 'percussion') {
+                if (ns.length) ns = ns.map(n => Object.assign({}, n, { cents: 0 }));
+                else { const m = map.meanAt(T); if (m) ns = [{ midi: TP.CLAVES.midi, cents: 0, tech: TP.CLAVES.tech, level: m.level, weight: m.weight, fallback: true }]; }   // a REST box: nobody sounds, so no claves either
+            }
+            ns.forEach(n => {
+                const anchor = Math.round(lo + (hi - lo) * n.level);
+                out.push({ lane: g.p.lane, slot: g.p.slot, short: g.p.short, tech: g.p.instKey === 'percussion' ? (n.tech || 'main') : R.artOf(g.p),
+                    midi: n.midi, cents: n.cents || 0, partial: n.partial, level: n.level, weight: n.weight, vel: anchor, fallback: !!n.fallback });
+            });
+        });
+        return out;
+    },
+    // a realized rhythm take, cached by its frozen recipe (the same recipe always gives the same dots)
+    realized(state) {
+        const TP = root.TexturePanel; if (!TP || !state || !state.spec) return null;
+        const key = JSON.stringify(state);
+        this._real = this._real || new Map();
+        if (!this._real.has(key)) {
+            const R = TP.realize(state, null);
+            const b = R.notesOf(R.result, null);
+            this._real.set(key, { R, lines: b.lines.map(row => row || []), span: R.spanOf(R.result) });
+            if (this._real.size > 40) this._real.delete(this._real.keys().next().value);
+        }
+        return this._real.get(key);
+    },
+
+    // ------------------------------------------------------------------ 1l.4 — THE WORKSHOP (docs/PLAN.md § 1l.4)
+    // The dot view of 1l.2 (dot_view.js), a menu of his rhythm takes, and the harmony box selected in the harmony row as the PREVIEW
+    // harmony — for the preview only: a rhythm box carries no harmony of its own (LG-57). SEE the take's lines as dots in time, HEAR them
+    // in that harmony (each player's pitch AND level from that box — the join's first use), CUT a portion (a start and a stop clicked on
+    // the timeline, or a drag across the dots — nothing snaps, LG-58), or take the ENTIRE take looped N times (his correction, RUNNING_LOG
+    // §196: looping belongs to the selection, and lands as N boxes — a box never loops), and SAVE to the rhythm row. A box keeps the
+    // take's recipe FROZEN, as a harmony box keeps its chord.
+    workDefaults() { return { take: '', a: 0, b: 0, mode: 'cut', n: 2 }; },
+    buildWork() {
+        const line = this.el.querySelector('#rsWork'); if (!line) return;
+        const lab = 'color:#b9a';
+        line.innerHTML = '<div style="display:flex;gap:6px;row-gap:3px;flex-wrap:wrap;align-items:center;white-space:nowrap">' +
+            '<span style="color:#f0c890">workshop</span>' +
+            '<label style="' + lab + '" title="a RHYTHM TAKE saved in the Texture panel (bank/rhythm_takes.json) — its recipe: the dials, the seed, who plays each line, the articulations">rhythm take <select id="rsKTake" style="max-width:16em;' + INP + '"></select></label>' +
+            '<button id="rsKReload" style="' + BTN + '" title="read the list of rhythm takes again">↻</button>' +
+            '<span id="rsKHarm" style="color:#9ab" title="the PREVIEW harmony: the harmony box selected in the harmony row — click one. For the preview only: a rhythm box carries no harmony of its own"></span>' +
+            '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
+            '<label style="' + lab + '" title="a PORTION — click a start and then a stop on the timeline, or drag across the dots, or type them here to the hundredth — or the WHOLE take looped a number of times: each pass lands on the rhythm row as a box of its own">take <select id="rsKMode" style="' + INP + '"><option value="cut">a portion</option><option value="loop">the whole take ×</option></select></label>' +
+            '<span id="rsKCut" style="display:inline-flex;gap:4px;align-items:center"><label style="' + lab + '">from <input id="rsKA" type="number" step="0.01" min="0" style="width:5.2em;' + INP + '"> s</label><label style="' + lab + '">to <input id="rsKB" type="number" step="0.01" min="0" style="width:5.2em;' + INP + '"> s</label></span>' +
+            '<span id="rsKLoop" style="display:none;gap:4px;align-items:center"><input id="rsKN" type="number" step="1" min="1" max="64" style="width:3.6em;' + INP + '"><span style="' + lab + '">times</span></span>' +
+            '<span id="rsKLen" style="color:#f0c890"></span>' +
+            '<button id="rsKPlay" style="' + BTN + '" title="HEAR the selection — or the whole take — in the preview harmony: each player\'s pitch and level from that box, each player\'s articulation from the rhythm take. Click again to stop">▸ play</button>' +
+            '<button id="rsKSave" style="' + BTN + ';color:#f0c890" title="SAVE TO THE RHYTHM ROW: a box that remembers the take (its recipe, frozen) · the start · the stop — its length is stop − start. The whole take looped N times lands as N boxes, one after another">save → rhythm row</button>' +
+            '</div><div id="rsKView"></div>';
+        const q = s => line.querySelector(s);
+        q('#rsKTake').addEventListener('change', e => { e.target.blur(); this.workChoose(e.target.value); });
+        q('#rsKReload').addEventListener('click', () => this.workList(true));
+        q('#rsKMode').addEventListener('change', e => { e.target.blur(); this.work.mode = e.target.value === 'loop' ? 'loop' : 'cut'; this.save(true); this.paintWork(true); });
+        const typed = () => { const w = this.work, S = this.workSpan(); let a = clamp(+q('#rsKA').value || 0, 0, S), b = clamp(+q('#rsKB').value || 0, 0, S); if (b < a) { const t = a; a = b; b = t; } this.workSet(a, b, 'typed'); };
+        ['#rsKA', '#rsKB'].forEach(id => { q(id).addEventListener('change', e => { e.target.blur(); typed(); }); q(id).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } }); });
+        q('#rsKN').addEventListener('change', e => { e.target.blur(); this.work.n = clamp(Math.round(+e.target.value || 1), 1, 64); this.save(true); this.paintWork(false); });
+        q('#rsKPlay').addEventListener('click', () => this.workPlay());
+        q('#rsKSave').addEventListener('click', () => this.workSave());
+        this.wView = root.DotView ? root.DotView.create(line.querySelector('#rsKView')) : null;
+        if (this.wView) {
+            this.wView.onSeek = t => this.workMark(t);                  // a click on its timeline: a START, then a STOP
+            this.wView.onSpan = (a, b) => this.workSet(a, b, 'marquee'); // a drag across the dots
+        }
+        if (!this.work) this.work = this.workDefaults();
+    },
+    async workList(force) {
+        if (this._rt && !force) return this._rt;
+        try { const f = await fetch('/api/snapshots?store=rhythms', { cache: 'no-store' }).then(r => r.json()); this._rt = (f && f.panels && f.panels.rhythm) || {}; }
+        catch (e) { this._rt = {}; }
+        this.paintWork(true);
+        return this._rt;
+    },
+    workState() { const t = this.work && this.work.take && this._rt && this._rt[this.work.take]; return (t && t.state && t.state.spec) ? t.state : null; },
+    workSpan() { const W = this.workState() ? this.realized(this.workState()) : null; return W ? W.span : 0; },
+    workChoose(name) {
+        this.stop();
+        this.work = Object.assign(this.workDefaults(), { take: name || '', mode: this.work.mode, n: this.work.n });
+        const S = this.workSpan(); this.work.a = 0; this.work.b = +S.toFixed(3);
+        this._wMark = 'start';
+        this.save(true); this.paintWork(true);
+        if (name) this.setStatus('workshop: rhythm take "' + name + '" · ' + fmtS(S) + ' s — click a harmony box to hear it in that harmony; click a start and a stop on its timeline, or drag across the dots, to cut a portion');
+    },
+    // a click on the timeline: the START, then the STOP (then a new start). The cut falls exactly where he clicks — nothing snaps.
+    workMark(t) {
+        const w = this.work; if (!this.workState()) return;
+        if (w.mode === 'loop') { w.mode = 'cut'; }
+        if (this._wMark !== 'stop') { w.a = +t.toFixed(3); if (!(w.b > w.a)) w.b = +this.workSpan().toFixed(3); this._wMark = 'stop'; this.setStatus('start at ' + fmtS(w.a) + ' s — now click the STOP'); }
+        else { let a = w.a, b = +t.toFixed(3); if (b < a) { const x = a; a = b; b = x; } w.a = a; w.b = b; this._wMark = 'start'; this.setStatus('cut ' + w.a.toFixed(2) + ' → ' + w.b.toFixed(2) + ' s = ' + (w.b - w.a).toFixed(2) + ' s — ▸ play hears it, save puts it on the rhythm row'); }
+        this.save(true); this.paintWork(true);
+    },
+    workSet(a, b, how) {
+        const w = this.work; if (!this.workState()) return;
+        w.mode = 'cut'; w.a = +a.toFixed(3); w.b = +b.toFixed(3); this._wMark = 'start';
+        this.save(true); this.paintWork(true);
+        this.setStatus('cut ' + w.a.toFixed(2) + ' → ' + w.b.toFixed(2) + ' s = ' + (w.b - w.a).toFixed(2) + ' s' + (how === 'marquee' ? ' (dragged)' : '') + ' — ▸ play hears it, save puts it on the rhythm row');
+    },
+    // the PREVIEW map: the selected harmony box on its own, as the generator deals it — lengthened to cover the whole take, so a take longer
+    // than the box is still heard in that harmony (its waves run on). No edges: a single box previewed is not the sequence's beginning or end.
+    previewMap() {
+        const b = this.row.boxes[this.sel]; if (!b || !b.chord.length) return null;
+        const span = this.workSpan();
+        const recipe = { t0: 0, change: 'attack', breath: Object.assign({}, MAP_BREATH),
+            containers: [Object.assign({ dur: Math.max(+b.dur || 1, span + 0.5), dyn: b.dyn, chord: b.chord }, this.rangeOk(b.range) ? { range: this.rangeOk(b.range) } : {})] };
+        if (b.dyn === WAVES) recipe.waves = this.wavesDefaults(this.row.waves);
+        try { return this.mapOf(SEQ.generate(recipe)); } catch (e) { this.setStatus('the preview harmony could not be dealt: ' + String(e && e.message || e).replace(/^sequence: /, ''), true); return null; }
+    },
+    // the dots of the take in the preview harmony: each dot with its players' notes, and a look — ok · warn (too close on one player) ·
+    // hollow (nothing beneath) · silent (no player). `win` = [a, b) in take seconds, or the whole take.
+    workDots(map, win) {
+        const st = this.workState(), W = st ? this.realized(st) : null; if (!W) return null;
+        const col = W.R.collisions(W.lines);
+        const a = win ? win.a : 0, b = win ? win.b : W.span;
+        const rows = W.lines.map((row, L) => ({ label: 'L' + (L + 1), dots: row.map(d => {
+            const inWin = d.t >= a - 1e-9 && d.t < b - 1e-9;
+            const notes = (map && inWin) ? this.joinDot(W.R, map, d, d.t - a) : [];
+            const s = !W.R.assignOf(L).length ? 'silent' : (map && inWin && !notes.length) ? 'hollow' : col.flagged.has(L + ':' + d.i) ? 'warn' : 'ok';
+            return { t: d.t, s, dur: d.dur, line: L, i: d.i, notes, inWin };
+        }) }));
+        return { W, rows, col };
+    },
+    paintWork(full) {
+        const line = this.el && this.el.querySelector('#rsWork'); if (!line) return;
+        line.style.display = this.workOpen ? 'flex' : 'none';
+        const tog = this.el.querySelector('#rsWorkTog');
+        if (tog) { tog.textContent = this.workOpen ? 'workshop ▾' : 'workshop ▸'; tog.style.background = this.workOpen ? '#3a2a18' : '#2a2a30'; }
+        if (!this.workOpen) return;
+        if (!this._rt) { this.workList(false); return; }
+        if (!this.work) this.work = this.workDefaults();
+        const q = s => line.querySelector(s), w = this.work, names = Object.keys(this._rt).sort((x, y) => String(this._rt[y].saved || '').localeCompare(String(this._rt[x].saved || '')));
+        const sig = names.join('|') + '@' + w.take;
+        if (sig !== this._wSig) { this._wSig = sig; q('#rsKTake').innerHTML = '<option value="">— choose (' + names.length + ') —</option>' + names.map(n => '<option value="' + esc(n) + '">' + esc(n) + '</option>').join('') + ((w.take && names.indexOf(w.take) < 0) ? '<option value="' + esc(w.take) + '">' + esc(w.take) + ' (not in the list)</option>' : ''); }
+        q('#rsKTake').value = w.take || '';
+        const b = this.row.boxes[this.sel];
+        q('#rsKHarm').innerHTML = b && b.chord.length ? 'in <b style="color:#9fdcf5">harmony box ' + (this.sel + 1) + '</b> · ' + esc(b.take) + ' · ' + esc(b.dyn === WAVES ? 'waves' : b.dyn) : '<span style="color:#e0b062">click a harmony box below — the preview harmony</span>';
+        q('#rsKMode').value = w.mode;
+        q('#rsKCut').style.display = w.mode === 'cut' ? 'inline-flex' : 'none';
+        q('#rsKLoop').style.display = w.mode === 'loop' ? 'inline-flex' : 'none';
+        const S = this.workSpan();
+        const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
+        put('#rsKA', (+w.a || 0).toFixed(2)); put('#rsKB', (+w.b || 0).toFixed(2)); put('#rsKN', w.n || 2);
+        q('#rsKLen').textContent = !this.workState() ? '' : (w.mode === 'loop' ? '→ ' + (w.n || 1) + ' box' + ((w.n || 1) === 1 ? '' : 'es') + ' of ' + fmtS(S) + ' s = ' + fmtS(S * (w.n || 1)) + ' s' : '= ' + Math.max(0, (w.b || 0) - (w.a || 0)).toFixed(2) + ' s of ' + fmtS(S));
+        if (!full || !this.wView) return;
+        if (!this.workState()) { this.wView.set({ rows: [], t0: 0, t1: 1 }); return; }
+        const D2 = this.workDots(this.previewMap(), w.mode === 'cut' ? { a: w.a, b: w.b } : null);
+        this.wView.sel = w.mode === 'cut' && w.b > w.a ? { a: w.a, b: w.b } : null;
+        this.wView.set({ rows: D2.rows.map(r => ({ label: r.label, dots: r.dots.map(d => ({ t: d.t, s: (w.mode === 'cut' && !d.inWin) ? 'muted' : d.s })) })), t0: 0, t1: Math.max(0.5, D2.W.span) });
+    },
+    // HEAR the cut (or the whole take) in the preview harmony, through the strikes drawer's player — every dot a STRUCK note (docs/DYNAMICS_LAW.md)
+    async workPlay() {
+        if (this._wPlaying) { this.stop(); return; }
+        const st = this.workState(); if (!st) { this.setStatus('choose a rhythm take in the workshop first', true); return; }
+        const map = this.previewMap(); if (!map) { this.setStatus('click a harmony box with a chord — the workshop plays the take in THAT harmony', true); return; }
+        const w = this.work, win = w.mode === 'cut' ? { a: w.a, b: w.b } : { a: 0, b: this.workSpan() };
+        if (!(win.b > win.a)) { this.setStatus('the cut is empty — click a start and a stop on the workshop\'s timeline', true); return; }
+        this.stop();
+        const Dd = this.workDots(map, win), notes = [], hollow = [];
+        Dd.rows.forEach(r => r.dots.forEach(d => {
+            if (!d.inWin) return;
+            if (!d.notes.length) { if (d.s === 'hollow') hollow.push(r.label); return; }
+            d.notes.forEach(n => { const vel = Math.max(1, Math.round(n.vel)); if (n.weight <= 0.001) return;
+                notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, vel: vel, cents: n.cents, partial: n.partial, onMs: Math.round((d.t - win.a) * 1000), durMs: Math.max(20, Math.round(d.dur * 1000)) }); });
+        }));
+        if (!notes.length) { this.setStatus('nothing to play — ' + (hollow.length ? hollow.length + ' dots have no note beneath in this harmony' : 'no dots in the cut'), true); return; }
+        await D.playNotes(notes, 'workshop · ' + w.take + ' in harmony box ' + (this.sel + 1));
+        const e = E_();
+        if (!e || !e._playing) { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); return; }
+        this._wPlaying = true;
+        const b = this.row.boxes[this.sel];
+        this.setStatus('workshop: "' + w.take + '" ' + win.a.toFixed(2) + ' → ' + win.b.toFixed(2) + ' s in harmony box ' + (this.sel + 1) + ' (' + b.take + ', ' + (b.dyn === WAVES ? 'waves' : b.dyn) + ') · ' + notes.length + ' notes' + (hollow.length ? ' · ' + hollow.length + ' dots HOLLOW — nothing beneath them in this harmony' : ''));
+        clearInterval(this._wCur);
+        this._wCur = setInterval(() => {
+            const ee = E_();
+            if (!ee || !ee._playing) { clearInterval(this._wCur); this._wCur = null; this._wPlaying = false; if (this.wView) this.wView.setCursor(null); return; }
+            if (this.wView) this.wView.setCursor(win.a + Math.max(0, (performance.now() - D.base) / 1000));
+        }, 50);
+    },
+    // SAVE → THE RHYTHM ROW. A portion: one box — take · start · stop, its length stop − start. The whole take × N: N boxes end to end.
+    // Every box keeps the take's recipe FROZEN (`state`), so a later re-save of the take in Texture changes no box already placed.
+    workSave() {
+        const st = this.workState(), w = this.work; if (!st) { this.setStatus('choose a rhythm take in the workshop first', true); return; }
+        const S = +this.workSpan().toFixed(3), add = [];
+        if (w.mode === 'loop') { for (let k = 0; k < (w.n || 1); k++) add.push({ take: w.take, start: 0, stop: S, dur: clampDur(S), state: JSON.parse(JSON.stringify(st)) }); }
+        else {
+            if (!(w.b - w.a >= MIN_DUR)) { this.setStatus('the cut is too short — click a start and a stop on the workshop\'s timeline', true); return; }
+            add.push({ take: w.take, start: +w.a.toFixed(3), stop: +w.b.toFixed(3), dur: clampDur(w.b - w.a), state: JSON.parse(JSON.stringify(st)) });
+        }
+        if (!this.row.rhythm) this.row.rhythm = [];
+        const at = this.row.rhythm.length;
+        add.forEach(b => this.row.rhythm.push(b));
+        this.rsel = at; this.save(); this.render();
+        this.setStatus(add.length === 1 ? 'rhythm box ' + (at + 1) + ' ← "' + w.take + '" ' + add[0].start.toFixed(2) + ' → ' + add[0].stop.toFixed(2) + ' s (' + fmtS(add[0].dur) + ' s)'
+            : 'rhythm boxes ' + (at + 1) + '–' + (at + add.length) + ' ← the whole of "' + w.take + '", ' + add.length + ' times · ' + fmtS(S) + ' s each, end to end');
+    },
     removeBox(i) { if (!this.row.boxes[i]) return; this.row.boxes.splice(i, 1); this.sel = Math.min(i, this.row.boxes.length - 1); this.selTo = null; this.save(); this.render(); },
     moveBox(i, by) { const j = i + by, B = this.row.boxes; if (!B[i] || j < 0 || j >= B.length) return; const t = B[i]; B[i] = B[j]; B[j] = t; this.sel = j; this.selTo = null; this.save(); this.render(); },
     // 1d.11: `new` DESTROYS NOTHING — the row being left is already on disk in the library, so there is no longer a prompt
@@ -1407,7 +1676,7 @@ const S = {
         return Object.assign({ t0: +t0 || 0, change: 'attack', breath: Object.assign({}, MAP_BREATH),
             containers: r.boxes.map(b => Object.assign({ dur: +b.dur, dyn: b.dyn, take: b.take, chord: b.chord.length ? b.chord : null }, b.dyn === WAVES ? { dynWas: b.dynWas || AS_DEALT } : {},
                 this.rangeOk(b.range) ? { range: this.rangeOk(b.range) } : {})),   // 1d.12: a box may read the waves through a range of its own
-            rhythm: (r.rhythm || []).map(b => ({ take: b.take, start: +b.start || 0, stop: +b.stop || 0, dur: +b.dur })) },
+            rhythm: (r.rhythm || []).map(b => Object.assign({ take: b.take, start: +b.start || 0, stop: +b.stop || 0, dur: +b.dur }, b.state ? { state: b.state } : {})) },   // 1l.4: each box's rhythm take, frozen
             wavesToo ? { waves: this.wavesDefaults(r.waves) } : {},
             this.isDefaultEdges() ? {} : { edges: this.edgesDefaults(r.edges) },
             r.rolled ? { roll: JSON.parse(JSON.stringify(r.roll)) } : {});
