@@ -137,7 +137,75 @@ its feature list grew and went ON DECK.*
 | N2 | **After that: the rest of phase 1** — the tools he has named (multitempo LG-5/11/12 · the pattern tool LG-7 · the morph to a held beating LG-8 · animated conductions LG-3), **the morph's own revision** (`MORPH_NOTES.md`, now carrying 1e's method), and **how the six chords are used in time**. And the LGMF call, when he says | Fable to design | yes |
 | N3 | **Small, deferred, in NITS:** `beating_calc_check.js` and `morph_septet_check.js` are still piece #5's cast and crash · the model_bank validator does not know `provenance.palette` | Opus | — |
 
-**Open at session end — (MID-SESSION CHECKPOINT #6, 2026-09-20, Opus → Fable → Opus — HIS TESTS ARE CLOSED AT HIS WORD AND `PLAN 1h`, THE BLOOM ON A TAKE, IS PLANNED IN FULL AND APPROVED. NOTHING WAS BUILT THIS SITTING — no file under `score/` was touched. THIS IS THE ENTRY POINT. Checkpoints #5 and #4 below are history — EXCEPT three bullets of #4, which still bind and are not repeated here: `HOW TO VERIFY WITHOUT TOUCHING HIS WORK` · `Five things learned the hard way` · `Standing warnings still true`.):**
+**Open at session end — (MID-SESSION CHECKPOINT #7, 2026-09-20/21, Opus — `PLAN 1h`, THE BLOOM ON A TAKE, IS BUILT END TO END AND EVERY NAMED CHECK OF ITS REQUIRED VERIFICATION HAS RUN. WHAT IS LEFT IS `H4`, HIS LISTEN — AND HE HAS ALREADY BEGUN. THIS IS THE ENTRY POINT. Checkpoints #6, #5 and #4 below are history — EXCEPT three bullets of #4, which still bind and are not repeated here: `HOW TO VERIFY WITHOUT TOUCHING HIS WORK` · `Five things learned the hard way` · `Standing warnings still true`.):**
+
+- **THE TASK IS DONE ON THE AI'S SIDE AND IS NOW HIS.** At his word (*"yes, build and continue through the entire plan
+  independently as much as you can"*) the whole of `PLAN 1h` was built in one sitting, in three commits, each verified in
+  `score-5401` with no MIDI and journalled as it happened:
+  - **H1 + H2.1…H2.5** (`7f5d178`, RUNNING_LOG **§169**) — a TAKE is the FIRST group of the morph's PITCHES pulldown, dealt ONCE
+    through the sequence drawer's own `dealTake` and FROZEN, read **as assigned** pair by pair, a then b. `TAKE_MODELS = ['M1']`.
+  - **H2.6** (`9548ccb`, **§170**) — THE ACTUALS KEEP THE PITCHES: recall → vary → save as another → insert, all with the cents.
+  - **H3** (`8105787`, **§171**) — the morph on the DYNAMICS LAW, through the new **`score/public/morph_dyn.js`**.
+  - **the state line and the running thread** (`c52e4c0`). All four pushed.
+  **DO NOT RE-DERIVE OR RE-PROVE ANY OF IT, AND DO NOT START ANOTHER BUILD.** What comes next is his ear, and then whatever he says.
+- **► HE HAS ALREADY BEGUN H4 — READ THIS BEFORE ASKING ANYTHING.** Two bloom actuals of his own appeared in `bank/actuals/`
+  after the build was pushed: **`ACT-BLOOM-01` "LGMF-s1-blooma"** (01:43 UTC) and **`ACT-BLOOM-02` "LGMF-S01-BLOOM"** (02:08 UTC).
+  Both carry `source.kind: 'voices'`, six voices, lanes `[6,7,3,2,0,1]` (Vc+Db · Tpt+Hn · EH+Bsn), every pair DOUBLED, and the
+  just cents and partials intact — `[0, 0, −31.17, −31.17, −13.69, −13.69]` with partials `[2,2,7,7,10,10]` on the second.
+  **So H1, H2 and H2.6 demonstrably work on his OWN material.** What is NOT known is how it SOUNDED. **The first question to him
+  is that, not "shall I build something".**
+- **THE NEXT CONCRETE STEP, as an instruction:** ask him how the bloom sounded — by his own test (PLAN.md § 1h, H4): each pair
+  opening from ITS just pitch · the bloom's `pp` sitting where the sequence's `pp` sat · no loud attack. **If he reports a
+  fault, read the RUNNING_LOG entry for THAT step first** (§169 the reading · §170 the actuals · §171 the dynamics) — each says
+  exactly what was measured and how. **The routing proof, if he wants it, is the 1e way:** he records the inserted bloom as MIDI
+  in the rack, then `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` → MAIN ch 1 empty · every note on a
+  curve channel · mf velocities · CC7 on the table's values.
+- **THE STATE OF THE BATTERIES, all green:** `sequence_check` **180** · `dyn_table_check` **51** · `test_snapshots` **26** ·
+  `palette_check` **184** · `test_written_pitch` **10** · `spectrum_check` **35** · `model_bank --validate` **VALID** (its two
+  warnings are the known ones: `provenance.palette`, NITS N3, and the LGSPECTRAL-06 re-derivation drift).
+- **Latest deliverable:** **`score/public/morph_dyn.js`** (new) · `score/public/morph_panel.js` · `score/public/morph_emit.js` ·
+  one script tag in `score/public/composer.html`. The prose is **`docs/PLAN.md` § 1h** (each step marked `done` with an AS BUILT
+  note) · **`docs/DYNAMICS_LAW.md`** §1 · §3 Rule 3 · §4 · §5, which now read *in a sequence AND in a morph* ·
+  **`docs/MORPH_NOTES.md`** (an AS BUILT entry naming the sentence it replaces). The reasoning is **RUNNING_LOG §169–§171**.
+  **`morph.js`, `morph_septet.js`, `strike_drawer.js` and `sequence_ui.js` are untouched** (`git diff --stat` empty for all four).
+- **THREE CALLS THE AI MADE THAT ARE HIS TO REVERSE:** (1) H1 and H2.1…H2.5 went into ONE commit — H1 alone would have left the
+  line claiming *as assigned* while the bloom still played the model's own set, and the plan's own check (1) cannot be run on the
+  chooser alone. (2) **A DOUBLED pair goes out in PAIR order, a then b**, not held-then-partner — found by building H2.6, which
+  showed the other way comes back from an actual with the two lanes swapped; it also makes seat `a` always open ABOVE.
+  (3) H3's law is applied at INSERT, not at save, because `model_bank.js` validates that `toScoreObjects(notes)` reproduces a
+  stored actual's `objects` — which also means an actual filed BEFORE the build still comes out on the law when it is placed.
+- **`Resume reads:`** *(what the NEXT step needs — the history is in RUNNING_LOG and stays there)*
+  - **`docs/PLAN.md` § `1h`, the H4 paragraph and the REQUIRED VERIFICATION** — his test, and what was already proved, so nothing
+    is re-run that he is not asking for.
+  - **only if he reports a fault:** the RUNNING_LOG entry for that step (§169 · §170 · §171), then `docs/DYNAMICS_LAW.md` if it is
+    about level.
+- **Decisions pending him: NONE.** What is his, whenever he calls it: `1f` the crescendo tool (`todo`, still on the pre-1e law) ·
+  the way back to a sequence's start (parked) · his listens behind everything (the strikes drawer, the six scores).
+- **TWO THINGS FOUND WHILE VERIFYING, NEITHER MINE, BOTH FLAGGED IN `docs/NITS.md` AND NOT FIXED:** a bare page load of
+  `composer.html` throws one uncaught `TypeError` at `sequence_ui.js:1652` (reproduced before anything was touched; nothing
+  visible breaks) · with an **LGMF model** selected the panel's `heard()` returns NO notes, so Play and Insert do nothing for the
+  four models that name their own voices (`morph_septet.js` is untouched by this build; the six LGMF scores were built by the
+  tools, so it has never been in the way). The design reading of the second is in `MORPH_NOTES.md`.
+- **DELIBERATELY UNCOMMITTED — eight paths, ALL HIS, none written by the AI:**
+  - **`bank/actuals/ACT-BLOOM-01.json` · `ACT-BLOOM-02.json` (untracked) — HIS TWO BLOOM ACTUALS, made tonight with this build**
+    ("LGMF-s1-blooma", "LGMF-S01-BLOOM"). Left for HIM to name and curate before they are tracked; offer to commit them, do not
+    just do it.
+  - **`bank/morph_models.json` (modified) — HIS, and coupled to those two:** rev 126 → 128 and BLOOM's `actuals[]` now names
+    them. It is rewritten whole on every save, so committing it while he is filing actuals would race him. *(The AI's own two
+    `zz-1h-` test actuals were deleted and this file restored from a scratchpad pre-image, sha `eaa1a1600a9a8c26`, verified clean
+    at the time — RUNNING_LOG §170. Everything in it now is his.)*
+  - `bank/panel_snapshots.json` (modified) — **his 216 takes, 3.1 MB, mid-use**, autosaved by his own tab. `1h`'s verification
+    was read-only through the real `dealTake`: no take was saved or deleted.
+  - `bank/sequences.json` (modified) — **his sequence library**, written by his tab's autosave about every 2 s.
+  - `reaper/LGMF_rack.rpp` (modified) — his project file, carrying the MIDI recordings of §140 · §144 · §157.
+  - `scores/Piece-LGMF.json` · `scores/cresTest.json` · `scores/seqTests01.json` (untracked) — scores he saved from his own tab.
+    `cresTest.json` matters to `1f`: it holds crescendi written under the pre-1e law. **The piece itself is TRACKED** —
+    `scores/piece-LGMF-Sec01.json` and `-v1.1-1stSequence.json` (§161); keep committing it as he names versions.
+- **⚠ HIS TAB AND HIS SERVER WERE LIVE ALL THROUGH THE BUILD** (`:5400` answered 200 the whole time). He has since reloaded — the
+  two actuals prove it — but **any future build must assume the same**: verify on `score-5401`, never Save from the AI's pane,
+  and tell him to reload before he tests.
+
+**(CHECKPOINT #6 — superseded as the entry point by #7 above; kept as history) — (MID-SESSION CHECKPOINT #6, 2026-09-20, Opus → Fable → Opus — HIS TESTS ARE CLOSED AT HIS WORD AND `PLAN 1h`, THE BLOOM ON A TAKE, IS PLANNED IN FULL AND APPROVED. NOTHING WAS BUILT THAT SITTING — the build is checkpoint #7 above, which supersedes this. Checkpoints #5 and #4 below are history — EXCEPT three bullets of #4, which still bind and are not repeated here: `HOW TO VERIFY WITHOUT TOUCHING HIS WORK` · `Five things learned the hard way` · `Standing warnings still true`.):**
 
 - **THE TASK: BUILD `docs/PLAN.md` § `1h`, THE BLOOM ON A TAKE.** It is written to be executed cold — four steps in the words he
   approved, sub-steps `H1.1 … H3.5` that are the AI's, a NOT-in-this-step list, a REQUIRED VERIFICATION and his test.
