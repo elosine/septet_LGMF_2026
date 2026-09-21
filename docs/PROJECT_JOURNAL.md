@@ -170,11 +170,41 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   `strike_drawer.js` · the sequence drawer's takes menu in `sequence_ui.js`.
 - **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §198.
 
+### SESSION 12 · THE BUILD (2026-09-21, Opus) — `1l.1` … `1l.7` BUILT, EACH VERIFIED; `1l.8`, HIS LISTEN, IS NEXT
+
+*His word after the `/postclear`: "continue through the plan as much as possible independently". Built step by step, each by its REQUIRED
+VERIFICATION on `score-5401` (journal's method below, no MIDI), journalled, committed and pushed on its own. Nothing here has been HEARD.*
+
+- **`1l.1` Texture plays this ensemble (§199 · §200):** seven players (percussion + vibraphone one), his articulations, the takes menu, every
+  attack through `StrikeDrawer.playNotes`, `level` → `dyn ppp … fff`, Insert on the right lanes. The claves registered as `toys_claves`
+  (ch 7). One engine opt-in, `laneVoice` — byte-identical without it (48 renders). LIVE hidden (NITS). Two inherited faults fixed: a model or
+  morph was thrown away by the next dial nudge · the preflight before the sample lengths loaded.
+- **`1l.2` who plays each line · rhythm takes (§201):** `dot_view.js` (built once); who plays per line, doubling, merging, the collision check
+  on ONE player (the tuba's D17); rhythm takes in `bank/rhythm_takes.json` (store `rhythms`).
+- **`1l.3` the rhythm sequence panel (§202):** `rhythm_seq_ui.js`, born of `tools/once/make_rhythm_seq.js` (a guarded record); no breath, no
+  `enter` (MAP_BREATH + attack); two rows on one time scale; its library in `bank/rhythm_sequences.json` (store `rhythmseqs`).
+  `sequence_ui.js` · `sequence.js` untouched throughout (`sequence_check` 180).
+- **`1l.4` the workshop (§203):** a rhythm take seen and heard in the selected harmony box, cut (clicks · drag · typed) or the whole take × N;
+  boxes freeze the take and show their dots. THE MAP AND THE JOIN (`mapOf` · `joinDot`).
+- **`1l.5` the whole sequence sounds and inserts (§204):** `dotsOf`; Hear the rhythm, `map ▸` the harmony; the continuous dot view; Insert —
+  `recVel` = the written level, `velAbs` = what sounds (one opt-in in `strike_drawer.js` `playNotes`); the round trip. **Hear and the
+  score's own playback agree note for note (180/180, within 2 ms).**
+- **`1l.6` the dots touched (§205):** `mute | edit`; click · SHIFT+click a line · drag a box; the card; who plays per box; the percussion →
+  the vibraphone; touches keyed box·line·dot, surviving a harmony change, a box move, a reload, a re-insert.
+- **`1l.7` the two crossfades (§206):** on any box of either row; the harmony on the dots, the rhythm with both patterns running; a dropped dot
+  brought back by a click.
+- **His to reverse (the AI's calls, each named in its entry):** the claves as a hand-registered technique, key 41 · models fitted to seven in
+  proportion · the models' 7.5 → `f` · cents kept in Texture (D29 gives way) · a two-note player plays both · LIVE hidden · wave presets
+  shared by both panels · the claves at the chord's MEAN level when the harmony gives the percussion nothing · a niente fade scales the strike ·
+  a vibraphone dot struck on Standard Mallets · a line past the seventh wraps (merges) by default.
+- **In NITS, found on the way:** Texture's LIVE, parked · the strikes drawer's plain inserts may play `recVel` unremapped in the score (read in
+  the code, not captured — the rhythm panel writes `velAbs` and is not affected).
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►** | **BUILD `1l.1`, TEXTURE PLAYS THIS ENSEMBLE** — `1l` is planned in full, `1l.1` … `1l.8` in `docs/PLAN.md` § `1l`, nothing built (SESSION 12 SO FAR, above; RUNNING_LOG §185–§197) | **Opus** — executing a written plan | **yes** — `/checkpoint`, `/clear` |
+| **►** | **`1l.8`, HIS LISTEN** — `1l` is built end to end (SESSION 12 · THE BUILD, above; RUNNING_LOG §199–§206). In his Chrome: RESTART `node score/server.js`, reload, then a short counterpoint passage end to end — harmony takes → rhythm takes (Texture) → a rhythm sequence (`Rhythm`) → Insert. What he hears goes to the lab journal as he says it; a fault is read first against the step's RUNNING_LOG entry. Then the architecture looked at again (LG-56) | **Fable** — judgment, his ear | **yes** — after `/checkpoint` or `/session-end` |
 | N1 | **`1k` the morph's peaks against the sequence** — `todo`, BEFORE his next morph: *"fine for this section but I'd like to look into it before I do the next one"* | Fable to look · Opus to build | — |
 | N2 | **`1f` the crescendo tool under the dynamics law** — `todo`: `cresc*.js` write no `cc7Abs` / `velAbs` (read in the code, not captured) | Fable to lay out · Opus to build | — |
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are RUNNING_LOG §171 · §176 · §181 | his ear | — |
