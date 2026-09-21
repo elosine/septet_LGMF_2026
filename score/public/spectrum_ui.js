@@ -126,7 +126,11 @@ Object.assign(D, {
     paintKeyboardExtras() {
         const svg = this.el && this.el.querySelector('#skKb'), wrap = this.el && this.el.querySelector('#skKbWrap'); if (!svg || !wrap || !this.strike) return;
         const on = !!this.strike.spectrum;
-        const setW = W => { wrap.style.flex = '0 0 ' + W + 'px'; svg.setAttribute('width', W); svg.style.width = W + 'px'; };
+        // PLAN 1m.1 (2026-09-21, his note; RUNNING_LOG §219 · §220): the players' list sits AGAINST the keyboard side's widest label. The
+        // keyboard was already as wide as its longest label (measured below); the space he saw was #skGap, which GREW to 320 px on a wide
+        // window. It is now a fixed channel: 40 px past the labels, or — with no labels — what gives the dotted lines a 120 px run.
+        const setGap = W => { const g = this.el.querySelector('#skGap'); if (!g) return; g.style.flex = '0 0 ' + Math.max(40, 120 - (W - 130)) + 'px'; g.style.minWidth = '0'; g.style.maxWidth = 'none'; };
+        const setW = W => { wrap.style.flex = '0 0 ' + W + 'px'; svg.setAttribute('width', W); svg.style.width = W + 'px'; setGap(W); };
         // 1 · the range lines, ON the keys right of the note names — the core replaces the SVG's content every render, so nothing is stale
         svg.querySelectorAll('.skRange').forEach(x => x.remove());
         { const R = this.range(), h = this.rh(); let s = '';
