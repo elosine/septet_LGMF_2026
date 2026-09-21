@@ -15,8 +15,9 @@
 //   · on `a texture take`: the strike's rhythm controls and its strip are HIDDEN (CSS only — every value is where he left it), and in
 //     their place a takes menu (his rhythm takes from Texture, bank/rhythm_takes.json, the `rhythms` store) and THE TOP ROW: every
 //     attack of the take, ALL ITS LINES MERGED onto one timeline, spaced in time, all OFF. A click turns a dot on or off; `all on` ·
-//     `all off` act inside the range. Two onsets that land almost together stay TWO dots (LG-58) — drawn on stepped levels so each can
-//     be clicked.
+//     `all off` act inside the range. ONE ROW of thin MARKS, as a DAW draws MIDI notes (his word, §221): a mark's LEFT EDGE is the
+//     onset, its width follows the zoom (thin when zoomed out, never wider than its neighbours' gap allows), so the running cursor is
+//     seen to HIT it. Two onsets that land almost together stay TWO marks (LG-58) — they overlap until he zooms in, as notes do.
 //   · SPACE (and Hear orchestrated) plays the ON dots, each ONE CLAVES NOTE — `toys_claves`, pair 2 high (key 41), the rack's own
 //     Claves track (LGPerc ch 7) — through the drawer's one player, `playNotes`: a STRUCK note on MAIN (docs/DYNAMICS_LAW.md §1), its
 //     anchor mf. The claves are a way of LISTENING: nothing is assigned to the percussion, nothing is inserted.
@@ -34,13 +35,17 @@ const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit
 const TP_ = () => root.TexturePanel || null;
 
 const STORE = 'lgmf.textureRow.v1';
-const CTL_W = 150;                 // the controls' column, left of the row (the strike's own column is 132 px + its pad)
-const RULER_H = 16, ROW_TOP = 24, DOT_R = 5, LEVELS = 3, LEVEL_DY = 12, VIEW_H = ROW_TOP + LEVELS * LEVEL_DY + 14;
+const BAR_H = 24;                  // the command bar across the top; the timeline below it has the whole width
+const RULER_H = 16, ROW_TOP = 24, MARK_H = 18, MARK_MIN = 1.5, MARK_MAX = 7, VIEW_H = ROW_TOP + MARK_H + 14;
 const CLAVES_MS = 150, ANCHOR_MF = 100;
 const PERC_KEY = 'percussion';
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const HELP = ['click a mark: on / off', 'click the ruler or open ground: the cursor',
+    'drag a gold grip on the ruler: the range · double-click the ruler: the whole take',
+    'SPACE: play from the cursor, on the claves · SPACE again: stop',
+    'ALT + wheel: zoom at the pointer · wheel sideways: scroll', 'all on · all off act inside the range'].join(String.fromCharCode(10));
 const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 function loadStore() {
@@ -66,48 +71,48 @@ Object.assign(D, {
     txEnsureUI() {
         if (!this.el) return false;
         const wrap = this.el.querySelector('#skRhyWrap'); if (!wrap) return false;
-        if (wrap.querySelector('#txHead')) return true;
+        if (wrap.querySelector('#txBar')) return true;
         if (!document.getElementById('txStyle')) {
             const st = document.createElement('style'); st.id = 'txStyle';
             st.textContent =
                 '#skRhyWrap > #skRhyCtl { top: 22px !important; }' +                                   // room for the one `source` line
                 '#skRhyWrap.txOn > #skRhyCtl, #skRhyWrap.txOn > #skRhy { display: none !important; }' + // hidden, never rebuilt: his values stay
-                '#skRhyWrap:not(.txOn) > #txCtl, #skRhyWrap:not(.txOn) > #txView { display: none !important; }' +
+                '#skRhyWrap:not(.txOn) > #txView, #skRhyWrap:not(.txOn) #txBar .txOnly { display: none !important; }' +
                 '#skBody.txOn > #skSpacer { display: none !important; }' +                             // the row takes the free width
+                '#txBar { pointer-events: none; } #txBar > * { pointer-events: auto; }' +              // on the strike, the bar is only its `source` menu
                 '#txSvg .txDot { cursor: pointer; } #txSvg .txGrip { cursor: ew-resize; }';
             document.head.appendChild(st);
         }
-        const head = document.createElement('div'); head.id = 'txHead';
-        head.style.cssText = 'position:absolute;left:4px;top:2px;width:' + (CTL_W - 8) + 'px;font-size:10px;z-index:2;white-space:nowrap';
-        head.title = 'PLAN 1m.1 (2026-09-21): where the rhythm comes from — the strike: the drawer as it always was · a texture take: the attacks of one of your rhythm takes from Texture, as a row of dots to switch on and hear · multitempo: later';
-        head.innerHTML = '<label><span style="color:#9a9">source</span> <select id="txMode" style="' + INP + ';width:96px">' +
-            '<option value="strike">the strike</option><option value="texture">a texture take</option><option value="mt" disabled>multitempo — later</option></select></label>';
-        wrap.appendChild(head);
-        const ctl = document.createElement('div'); ctl.id = 'txCtl';
-        ctl.style.cssText = 'position:absolute;left:4px;top:22px;width:' + (CTL_W - 8) + 'px;display:flex;flex-direction:column;gap:4px;font-size:10px;z-index:2';
-        ctl.innerHTML =
-            '<span style="color:#9a9">texture take</span>' +
-            '<div style="display:flex;gap:3px"><select id="txTake" style="' + INP + ';flex:1 1 auto;min-width:0" title="your rhythm takes, saved in Texture (rhythm take · save) — the newest first"></select>' +
-            '<button id="txReload" style="' + BTN + '" title="read the rhythm takes again (after saving a new one in Texture)">&#8635;</button></div>' +
-            '<div><button id="txAllOn" style="' + BTN + '" title="every dot inside the range ON">all on</button> <button id="txAllOff" style="' + BTN + '" title="every dot inside the range OFF">all off</button></div>' +
-            '<div><button id="txWhole" style="' + BTN + '" title="the range back to the whole take">range: whole</button> <button id="txFit" style="' + BTN + '" title="the whole take in view">fit</button></div>' +
-            '<div id="txInfo" style="color:#9a9;white-space:normal;line-height:1.35"></div>' +
-            '<div style="color:#666;white-space:normal;line-height:1.35">click a dot: on / off · click the ground: the cursor · drag a grip on the ruler: the range · SPACE: play from the cursor, on the claves · ALT + wheel: zoom at the pointer · wheel sideways: scroll</div>';
-        wrap.appendChild(ctl);
+        // ONE COMMAND BAR across the top (his word, §221): the source, and — on a texture take — the take, all on · all off, the cursor's
+        // return, the zoom, the `i`. No text on the panel: every explanation is a hover. The timeline below it has the whole width.
+        const bar = document.createElement('div'); bar.id = 'txBar';
+        bar.style.cssText = 'position:absolute;left:4px;top:2px;right:4px;height:' + (BAR_H - 4) + 'px;display:flex;gap:6px;align-items:center;font-size:10px;z-index:2;white-space:nowrap';
+        bar.innerHTML =
+            '<label title="PLAN 1m.1 (2026-09-21): where the rhythm comes from — the strike: the drawer as it always was · a texture take: the attacks of one of your rhythm takes from Texture, as a row of marks to switch on and hear · multitempo: later"><span style="color:#9a9">source</span> <select id="txMode" style="' + INP + ';width:96px">' +
+            '<option value="strike">the strike</option><option value="texture">a texture take</option><option value="mt" disabled>multitempo — later</option></select></label>' +
+            '<select id="txTake" class="txOnly" style="' + INP + ';width:150px" title="your rhythm takes, saved in Texture (rhythm take · save) — the newest first"></select>' +
+            '<button id="txReload" class="txOnly" style="' + BTN + '" title="read the rhythm takes again (after saving a new one in Texture)">&#8635;</button>' +
+            '<button id="txAllOn" class="txOnly" style="' + BTN + '" title="every mark inside the range ON">all on</button>' +
+            '<button id="txAllOff" class="txOnly" style="' + BTN + '" title="every mark inside the range OFF">all off</button>' +
+            '<button id="txHome" class="txOnly" style="' + BTN + '" title="the cursor back to the left line of the range">&#9198;</button>' +
+            '<input id="txZoom" class="txOnly" type="range" min="0" max="1" step="0.005" value="0" style="width:140px" title="zoom — left: the whole take · right: close in (about the cursor when it is in view). ALT + wheel zooms at the pointer">' +
+            '<span id="txI" class="txOnly" style="flex:none;width:13px;height:13px;border:1px solid #666;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#9a9;font-size:9px;cursor:help">i</span>';
+        wrap.appendChild(bar);
         const view = document.createElement('div'); view.id = 'txView';
-        view.style.cssText = 'position:absolute;left:' + CTL_W + 'px;top:0;right:0;bottom:0;overflow:hidden';
+        view.style.cssText = 'position:absolute;left:0;top:' + BAR_H + 'px;right:0;bottom:0;overflow:hidden';
         view.innerHTML = '<svg id="txSvg" width="100%" height="' + VIEW_H + '" style="display:block;user-select:none"></svg>';
         wrap.appendChild(view);
 
-        head.querySelector('#txMode').addEventListener('change', e => this.txSetMode(e.target.value === 'texture' ? 'texture' : 'strike'));
-        ctl.querySelector('#txTake').addEventListener('change', e => this.txPick(e.target.value));
-        ctl.querySelector('#txReload').addEventListener('click', () => this.txRefreshTakes(true));
-        ctl.querySelector('#txAllOn').addEventListener('click', () => this.txAll(true));
-        ctl.querySelector('#txAllOff').addEventListener('click', () => this.txAll(false));
-        ctl.querySelector('#txWhole').addEventListener('click', () => { const p = this.txPat(); if (!p) return; p.range = null; this.txPersist(); this.txRender(); });
-        ctl.querySelector('#txFit').addEventListener('click', () => { this._txV = null; this.txRender(); });
+        bar.querySelector('#txMode').addEventListener('change', e => this.txSetMode(e.target.value === 'texture' ? 'texture' : 'strike'));
+        bar.querySelector('#txTake').addEventListener('change', e => this.txPick(e.target.value));
+        bar.querySelector('#txReload').addEventListener('click', () => this.txRefreshTakes(true));
+        bar.querySelector('#txAllOn').addEventListener('click', () => this.txAll(true));
+        bar.querySelector('#txAllOff').addEventListener('click', () => this.txAll(false));
+        bar.querySelector('#txHome').addEventListener('click', () => this.txCursorHome());
+        bar.querySelector('#txZoom').addEventListener('input', e => this.txZoomTo(+e.target.value));
         const svg = view.querySelector('#txSvg');
         svg.addEventListener('mousedown', ev => this.txDown(ev));
+        svg.addEventListener('dblclick', ev => { const p = this.txPat(); if (!p || ev.clientY - svg.getBoundingClientRect().top > RULER_H) return; p.range = null; this.txPersist(); this.txRender(); this.setStatus(this.txLine()); });   // the ruler, twice: the whole take
         view.addEventListener('wheel', ev => this.txWheel(ev), { passive: false });
         if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => { if (this.txIsOn()) this.txRender(); }).observe(view);
         return true;
@@ -166,7 +171,8 @@ Object.assign(D, {
             .sort((a, b) => a.startSeconds - b.startSeconds || a.layer - b.layer)
             .forEach(o => { const L = o.layer, i = count[L] = (count[L] == null ? 0 : count[L] + 1); dots.push({ k: L + ':' + i, line: L, i, t: +(o.startSeconds - origin).toFixed(4) }); });
         const span = Math.max(R.spanOf(R.result), dots.length ? dots[dots.length - 1].t + 0.25 : 0.001);
-        this._tx = { name, dots, span };
+        const gaps = dots.slice(1).map((d, i) => d.t - dots[i].t).filter(g => g > 0.002).sort((a, b) => a - b);
+        this._tx = { name, dots, span, gap10: gaps.length ? gaps[Math.floor(gaps.length * 0.1)] : 0.05 };
         const p = this.txPat();
         if (p.n !== dots.length) { const had = (p.on || []).length; p.n = dots.length; p.on = []; p.range = null; p.cursor = 0; if (had) this._txNote = 'the take "' + name + '" has changed since its pattern was made (' + had + ' dots were on) — the pattern starts again'; }
         this.txPersist();
@@ -178,7 +184,7 @@ Object.assign(D, {
     },
 
     // ---------------------------------------------------------------- the row
-    txW() { const v = this.el.querySelector('#txView'), w = this.el.querySelector('#skRhyWrap'); return Math.max(120, (v && v.clientWidth) || ((w && w.clientWidth) || 480) - CTL_W); },
+    txW() { const v = this.el.querySelector('#txView'), w = this.el.querySelector('#skRhyWrap'); return Math.max(120, (v && v.clientWidth) || (w && w.clientWidth) || 480); },
     txFitPx() { return (this.txW() - 24) / Math.max(0.001, this._tx.span); },
     txView() {
         if (!this._txV) this._txV = { px: this.txFitPx(), t0: -12 / this.txFitPx() };
@@ -188,11 +194,23 @@ Object.assign(D, {
         return v;
     },
     txX(t) { const v = this._txV; return (t - v.t0) * v.px; },
+    // the zoom slider: 0 = the whole take, 1 = the closest (a log scale between them); it zooms about the cursor when that is in view,
+    // else about the middle of the view
+    txZoomMax() { return Math.max(this.txFitPx() * 1.01, 4000); },
+    txZoomPos() { const f = this.txFitPx(); return clamp(Math.log(this._txV.px / f) / Math.log(this.txZoomMax() / f), 0, 1); },
+    txZoomTo(pos) {
+        if (!this._tx) return; const v = this.txView(), W = this.txW(), f = this.txFitPx(), p = this.txPat();
+        const xc = this.txX(+p.cursor || 0), x = (xc >= 0 && xc <= W) ? xc : W / 2, tAt = this.txT(x);
+        v.px = f * Math.pow(this.txZoomMax() / f, clamp(pos, 0, 1)); this.txView(); v.t0 = tAt - x / v.px; this.txRender();
+    },
+    // a mark's width in pixels: six tenths of the take's TYPICAL SMALL GAP (the tenth percentile of its onset-to-onset gaps) at this
+    // zoom — so it thins as he zooms out and never swallows the rhythm it shows
+    txMarkW() { return clamp(0.6 * (this._tx.gap10 || 0.05) * this._txV.px, MARK_MIN, MARK_MAX); },
     txT(x) { const v = this._txV; return v.t0 + x / v.px; },
     txRender() {
         if (!this.el || !this.txIsOn()) return;
-        const svg = this.el.querySelector('#txSvg'), info = this.el.querySelector('#txInfo'); if (!svg) return;
-        if (!this._tx) { svg.innerHTML = '<text x="8" y="28" font-size="11" fill="#777">choose a rhythm take at the left</text>'; if (info) info.textContent = ''; return; }
+        const svg = this.el.querySelector('#txSvg'), info = this.el.querySelector('#txI'); if (!svg) return;
+        if (!this._tx) { svg.innerHTML = '<text x="8" y="28" font-size="11" fill="#777">choose a rhythm take at the left</text>'; if (info) info.title = HELP; return; }
         const v = this.txView(), W = this.txW(), H = VIEW_H, p = this.txPat(), on = new Set(p.on), r = this.txRange();
         const tA = this.txT(0), tB = this.txT(W);
         let s = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#17171b"/><rect x="0" y="0" width="' + W + '" height="' + RULER_H + '" fill="#1e1e24"/>';
@@ -201,15 +219,13 @@ Object.assign(D, {
         const step = steps.find(x => x >= want) || 600, dec = step < 0.1 ? 2 : step < 1 ? 1 : 0;
         for (let t = Math.max(0, Math.ceil(tA / step) * step); t <= Math.min(this._tx.span, tB); t += step)
             s += '<line x1="' + this.txX(t) + '" y1="0" x2="' + this.txX(t) + '" y2="' + H + '" stroke="#2c2c33"/><text x="' + (this.txX(t) + 3) + '" y="11" font-size="9" fill="#777">' + t.toFixed(dec) + '</text>';
-        // the dots, on stepped levels where they would sit on one another (two near-together onsets stay TWO dots)
-        const last = []; let drawn = 0;
+        // the marks: ONE row; the left edge IS the onset; the width follows the zoom (§221)
+        const mw = this.txMarkW(); let drawn = 0;
         this._tx.dots.forEach(d => {
             const x = this.txX(d.t);
-            let lv = 0; while (lv < LEVELS - 1 && last[lv] != null && x - last[lv] < 2 * DOT_R + 1) lv++;
-            last[lv] = x;
-            if (x < -DOT_R || x > W + DOT_R) return;
-            const isOn = on.has(d.k), inR = d.t >= r[0] - 1e-6 && d.t <= r[1] + 1e-6, cy = ROW_TOP + DOT_R + lv * LEVEL_DY;
-            s += '<circle class="txDot" data-k="' + d.k + '" cx="' + x.toFixed(1) + '" cy="' + cy + '" r="' + DOT_R + '" fill="' + (isOn ? '#E8CF9A' : 'none') + '" stroke="' + (isOn ? '#E8CF9A' : '#7a7a86') + '" stroke-width="1.5" opacity="' + (inR ? 1 : 0.35) + '"><title>' + d.t.toFixed(3) + ' s · line ' + (d.line + 1) + ' · ' + (isOn ? 'ON' : 'off') + '</title></circle>';
+            if (x < -mw || x > W + mw) return;
+            const isOn = on.has(d.k), inR = d.t >= r[0] - 1e-6 && d.t <= r[1] + 1e-6, thin = mw < 3;
+            s += '<rect class="txDot" data-k="' + d.k + '" x="' + x.toFixed(1) + '" y="' + ROW_TOP + '" width="' + mw.toFixed(1) + '" height="' + MARK_H + '" fill="' + (isOn ? '#E8CF9A' : (thin ? '#6a6a76' : '#33333c')) + '" stroke="' + (thin ? 'none' : (isOn ? '#E8CF9A' : '#7a7a86')) + '" stroke-width="1" opacity="' + (inR ? 1 : 0.35) + '"><title>' + d.t.toFixed(3) + ' s · line ' + (d.line + 1) + ' · ' + (isOn ? 'ON' : 'off') + '</title></rect>';
             drawn++;
         });
         // the range: the ground outside it dimmed, a line and a grip at each end
@@ -225,7 +241,8 @@ Object.assign(D, {
         s += '<line x1="' + xc + '" y1="0" x2="' + xc + '" y2="' + H + '" stroke="#7fd4ff" stroke-width="1" pointer-events="none"/><path d="M' + (xc - 4) + ',0 l8,0 l-4,6 z" fill="#7fd4ff" pointer-events="none"/>';
         s += '<line id="txRun" x1="0" y1="0" x2="0" y2="' + H + '" stroke="#ff7f7f" stroke-width="1.5" pointer-events="none" style="display:none"/>';
         svg.setAttribute('height', H); svg.innerHTML = s;
-        if (info) info.textContent = this._tx.dots.length + ' dots · ' + p.on.length + ' on · ' + this._tx.span.toFixed(2) + ' s · range ' + r[0].toFixed(2) + '–' + r[1].toFixed(2) + ' · cursor ' + (+p.cursor || 0).toFixed(2);
+        if (info) info.title = this._tx.dots.length + ' marks · ' + p.on.length + ' on · ' + this._tx.span.toFixed(2) + ' s · range ' + r[0].toFixed(2) + '–' + r[1].toFixed(2) + ' s · cursor ' + (+p.cursor || 0).toFixed(2) + ' s' + String.fromCharCode(10, 10) + HELP;
+        { const z = this.el.querySelector('#txZoom'); if (z && document.activeElement !== z) z.value = this.txZoomPos(); }
         if (this._txRunT != null) this.txPaintRun();
     },
 
@@ -240,7 +257,21 @@ Object.assign(D, {
             if (at >= 0) p.on.splice(at, 1); else p.on.push(k);
             this.txPersist(); this.txRender(); return;
         }
+        // in the row, a click NEAR a thin mark is a click on it (the nearest within 4 px); on the ruler, or on open ground, the cursor
+        const y = ev.clientY - rect.top;
+        if (y >= ROW_TOP - 2 && y <= ROW_TOP + MARK_H + 2) {
+            const mw = this.txMarkW(); let best = null, bd = 1e9;
+            this._tx.dots.forEach(d => { const dx = Math.abs(x - (this.txX(d.t) + mw / 2)); if (dx < bd) { bd = dx; best = d; } });
+            if (best && bd <= Math.max(4, mw / 2 + 2)) { const at = p.on.indexOf(best.k); if (at >= 0) p.on.splice(at, 1); else p.on.push(best.k); this.txPersist(); this.txRender(); return; }
+        }
         p.cursor = +clamp(this.txT(x), 0, this._tx.span).toFixed(3); this.txPersist(); this.txRender();
+    },
+    // the cursor back to the left line of the range (his word, §221), the view brought to it
+    txCursorHome() {
+        const p = this.txPat(); if (!p) return;
+        p.cursor = +this.txRange()[0].toFixed(3); this.txPersist();
+        const v = this.txView(), xc = this.txX(p.cursor); if (xc < 0 || xc > this.txW() - 8) v.t0 = p.cursor - 24 / v.px;
+        this.txRender();
     },
     txDragGrip(g, rect) {
         const p = this.txPat(), move = ev => {

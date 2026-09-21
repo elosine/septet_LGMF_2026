@@ -1734,16 +1734,22 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - On `a texture take` the strike's controls and strip are hidden, never rebuilt — every value is where he left it on the way back.
     - A takes menu: his rhythm takes (`bank/rhythm_takes.json`), the newest first, `↻` to read them again.
     - THE TOP ROW: all the take's lines merged onto one timeline; all off; a click turns a dot on or off; `all on` · `all off` (inside
-      the range). Two onsets that land almost together stay TWO dots (LG-58), drawn on stepped levels so each can be clicked.
+      the range). ONE ROW of thin MARKS, as a DAW draws MIDI notes (§221): the left edge is the onset, the width follows the zoom. Two onsets that land almost together stay TWO marks (LG-58).
     - SPACE (and Hear orchestrated) plays the ON dots, each one claves note (`toys_claves`, pair 2 high, `LGPerc` ch 7), through the
       drawer's one player; SPACE again stops. The claves are a way of listening — nothing is assigned, nothing is inserted.
-    - A range — a left and a right line, dragged by their grips on the ruler; `range: whole`. A cursor — a click on empty ground; play
+    - A range — a left and a right line, dragged by their grips on the ruler (the ruler double-clicked: the whole take). `⏮` returns the cursor to the left line. A cursor — a click on empty ground; play
       starts at it (inside the range) and ends at the right line.
-    - THE ZOOM STANDARD (§219): ALT or CTRL + wheel zooms about the mouse pointer; a sideways wheel scrolls; `fit`.
+    - THE ZOOM STANDARD (§219): ALT or CTRL + wheel zooms about the mouse pointer; a sideways wheel scrolls; a zoom SLIDER.
     - Remembered in the browser: the source, the take, and per take the ON dots, the range and the cursor.
+    - **AMENDED IN HIS FIRST TEST (RUNNING_LOG §221):** one row of marks, not stepped circles · no text on the panel — the help and
+      the counts are the hover of an `i` · `range: whole` and `fit` gone, a zoom slider · ONE COMMAND BAR across the top, the timeline
+      the rhythm area's whole width · `⏮`.
     - THE PERCUSSION FAULT, FIRST: what the claves SEND is captured and right (below). **What SOUNDS is his rack's — and the rack file
       shows a track named `Percussion`, record-armed, unmuted, its input `LGPerc` on ALL channels, with an Abbey Road instance on it:
       every percussion note, whatever its channel, also plays there. HIS to try: mute that track, press SPACE on the row.**
+    - **HIS RECORDING READ BACK (§221, `reaper/bridge/jobs/perc_readback.lua`, read-only): the one claves note landed on TWO tracks —
+      18 `Claves ARO` (ch 7) and 10 `Percussion` (ALL channels, armed, monitoring, unmuted). THE TRIANGLE IS TRACK 10. His, in the rack:
+      mute it, or give its input a channel nothing uses — then into `docs/RACK_SETTINGS.md`.**
     - LAST, committed alone: the players' list sits against the keyboard side's widest label — `#skGap` no longer grows to 320 px.
     - **REQUIRED VERIFICATION** (run on `score-5401`, no MIDI, every POST stubbed, RUNNING_LOG §220): the source switches and is
       remembered across a reload · a take's dots = Texture's own, `line:i` for `line:i` (182 of 182) · a click on / off · the cursor where

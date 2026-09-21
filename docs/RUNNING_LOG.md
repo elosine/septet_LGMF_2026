@@ -9092,3 +9092,72 @@ lines a 120 px run. Verified with a series loaded: keyboard 268 px, gap **40 px*
 
 **Batteries:** none reaches these files (`sequence_check` · `palette_check` · `spectrum_check` read `sequence.js` · the palette ·
 `spectrum.js`); none was run. **He must RELOAD his tab** (static files; no server restart).
+
+## §221. His first test of `1m.1` — THE TRIANGLE FOUND IN HIS RECORDING (track 10, `Percussion`, takes every channel); the row redrawn as ONE ROW OF MARKS under ONE COMMAND BAR (2026-09-21)
+
+Follows §220. He reloaded, used the row, recorded one claves note in REAPER, and wrote four messages while the AI worked:
+
+> *"it's still playing triangles, I think. When I go in to Reaper and open the claves track and play the keyboard, it clearly sounds
+> claves. Claves. But it's sounding triangle. So you can see, I've recorded it. You can look into the Reaper session and see if
+> anything's going wrong. then the circles when zoomed out, when zoomed out, are stacking up. It shouldn't do that. It should just be a
+> single row. And then whatever the Zoom behavior in typical for a DAW is, like Reaper. I think the, for example, MIDI notes are just
+> squares and they just get smaller or thinner … it should have a similar behavior to like a MIDI zone in Reaper. If you zoom out, then
+> whatever happens to the little dots, I think they just shrink. and then a way to reset the cursor back to the left indicator, the
+> left zone. Again, probably just like a dot, like a return button or something like that."*
+
+> *"And then just the circles or indicators should be smaller with relationship to the timeline. So it's clear what kind of rhythm
+> they hold. So maybe squares are actually better because you can see the scrolling bar when they hit."*
+
+> *"And then let's avoid all the extra text in the GUI. Maybe we can have that as a help or a hover or something. If I want some
+> additional information or like an I button. And then the range, hole, and fit buttons. Let's get rid of those. Maybe just a zoom
+> slider."*
+
+> *"Then let's use the full horizontal space for the timeline and the ticks. So I guess we'll make the source and the hold controls a
+> command bar at top because we won't need all the vertical all the vertical space. So let's make it its own panel at the top and then
+> the timeline can take up as much horizontal space as possible."*
+
+**1 · THE TRIANGLE — his recording, read back.** A new READ-ONLY job, `reaper/bridge/jobs/perc_readback.lua` (in the manner of
+`cc7_by_channel.lua`): every track named `…ARO` or `Perc…` — mute · armed · monitoring · the MIDI input's device and channel · its
+instruments — and what his recording holds on it, the notes by channel AND KEY, every controller by channel and number.
+
+| track | input | mute · arm · mon | recorded |
+|---|---|---|---|
+| **10 `Percussion`** | `LGPerc` **ALL channels** | 0 · 1 · 1 | **ch 7 key 41 vel 100** · CC7 127 |
+| 12 … 17 (Finger Cymbals … Castanets) | ch 1 … 6 | 0 · 1 · 1 | nothing |
+| **18 `Claves ARO`** | ch 7 | 0 · 1 · 1 | **ch 7 key 41 vel 100** · CC7 127 |
+| 19 … 26 (Shakers … Tam Tams) | ch 8 … 14 | 0 · 1 · 1 | nothing |
+
+**The one note he played from the row landed on TWO tracks: the claves (right) and track 10, `Percussion` — session 1's placeholder,
+whose input is every channel of `LGPerc`, armed, monitoring, not muted, an Abbey Road instance on it.** That instance plays key 41 in
+whatever it holds, over the claves: the triangle. It is §220's reading of the `.rpp`, now CONFIRMED BY HIS RECORDING (what was SENT
+and what each track RECEIVED); the sound of track 10 itself the AI has not heard. It also explains his own check — the REAPER keyboard
+plays the SELECTED track only, so the claves track alone sounded claves. And it explains *"even if I chose a different instrument"*
+(§216): every percussion note on any channel has been doubled there since session 2 gave each instrument its own track. **The repair is
+HIS, in the rack: mute track 10 (or give its input a channel nothing uses)** — then `main` (ch 1, 241 notes of his harmony takes,
+§212) sounds on the Finger Cymbals track alone. It belongs in `docs/RACK_SETTINGS.md` once he has chosen which.
+
+**2 · THE ROW, at his word — `score/public/texture_row.js` only:**
+- **ONE ROW OF MARKS, not stepped circles.** A mark is a thin rectangle as a DAW draws a MIDI note: its LEFT EDGE is the onset (so the
+  running cursor is seen to hit it), 18 px tall, its width `0.6 × (the take's tenth-percentile onset gap) × the zoom`, held between
+  1.5 and 7 px — thin when zoomed out, never swallowing the rhythm it shows. Off = dim, on = gold. Two onsets a few milliseconds apart
+  stay two marks (LG-58) and overlap until he zooms in, as notes do. The AI's stepped levels (§220) are gone: they read as three rows.
+- **A click near a thin mark is a click on it** (the nearest within 4 px, in the row's band); the ruler or open ground: the cursor.
+- **`⏮`** — the cursor back to the left line of the range, the view brought to it.
+- **NO TEXT ON THE PANEL.** The instructions and the counts (marks · on · span · range · cursor) are the hover of an **`i`**; every
+  control keeps its own hover.
+- **`range: whole` and `fit` are gone; a ZOOM SLIDER** — 0 = the whole take, 1 = 4 px a millisecond, a log scale, zooming about the
+  cursor when it is in view (else the middle); it follows the ALT + wheel. The whole range: a double-click on the ruler.
+- **ONE COMMAND BAR across the top** — `source` · the take · `↻` · `all on` · `all off` · `⏮` · the zoom · `i` — and the timeline
+  below it has the rhythm area's WHOLE width. On `the strike` the bar is only its `source` menu and lets every click through
+  (`pointer-events: none` on the bar itself), so the strike's strip beneath it is untouched.
+
+**Verified on `score-5401`** (1600 × 860, no MIDI, every POST stubbed — none made): on `the strike` the bar shows `source` alone, the
+strike's controls and strip shown · on his take `LGMF-S2-R5a` (454 marks, 45.23 s, tenth-percentile gap 58.8 ms) the view is the
+wrap's whole 718 px, 24 px down · **one row** (one `y`), `rect`s · the mark 1.5 px at the whole take (15.3 px/s), 7 px at slider 0.6
+(432 px/s) and at 1 (4000 px/s) · the wheel moves the slider · a click 2 px off a mark toggled the nearest mark (at the whole-take zoom
+that was its 2-px neighbour — the DAW's behaviour: zoom in to choose) · a ruler click set the cursor · `⏮` → 5.00 s = the range's
+left line · the ruler double-clicked → the whole take · the `i` reads `454 marks · 1 on · 45.23 s · …`.
+
+**A trap of the AI's tooling, met twice in ten minutes:** a `\\n` typed inside a Bash-tool heredoc arrived in the patched file as a
+REAL line break inside a quoted string (the file then fails to load — `node --check` caught both). Text with escapes goes through the
+Write tool into a file the script reads; never through the shell.
