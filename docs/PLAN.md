@@ -1693,7 +1693,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **REQUIRED VERIFICATION:** at the window's start every dot reads A / belongs to the old rhythm; at its end every dot reads B /
       belongs to the new one · the same seed gives the same result · a touch wins over the crossfade · the batteries green. **Then his
       listen.**
-  - **1l.8 — His listen** — `todo`
+  - **1l.8 — His listen** — `in progress` (2026-09-21: he is composing with the tools — `LGMF-Rseq-01`)
     - He writes a short counterpoint passage end to end with the tools — harmony takes (the strikes drawer) → rhythm takes (Texture) → a
       rhythm sequence → Insert — in his Chrome (the in-app browser has no Web MIDI).
     - What he hears goes to the lab journal as he says it; a fault is read first against the RUNNING_LOG entry of the step that built it.
@@ -1705,6 +1705,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **FOUND IN HIS LISTEN — collected, to fix together at his word (RUNNING_LOG §207):** (a) the default percussion sounds like
       TRIANGLES, not claves · (b) Texture's drawer resizable from a corner, wider and longer · (c) SPACE after a model click plays the MAIN
       score — SPACE should stay Texture's while he works in it.
+    - **FIXED IN HIS LISTEN, at his word "now" (RUNNING_LOG §212 · §213):** the percussion has all fourteen rack instruments (32 techniques;
+      `apply_perc.js` now ADDS beside `main`) · the dot card's `played by` — a dot MOVED to another player or DOUBLED on several, each
+      reading their own note beneath · the card's grid.
 
 ## 2. Notate — `todo`
 

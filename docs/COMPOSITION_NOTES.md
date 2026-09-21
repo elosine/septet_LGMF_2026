@@ -1989,3 +1989,21 @@ LEVEL, not a controller value:** wherever the harmony row stands on the `ppp …
 dynamic, a ramp, a wave, an edge — that is the onset's intended dynamic, and it is struck at the velocity the calibrated scale gives
 that level. **The intended level is the ground truth, because it is what will be notated;** how loud the audition actually is can be
 corrected later. *"CC127"* = the 0 … 127 fader of a shaped note.
+
+### LG-61 · 2026-09-21 — MULTITEMPO AS A SECOND RHYTHM IN TEXTURE, ON THE SAME PLAYERS AND ORCHESTRATION — *"So it just imposes a different rhythm"*; steady ratios first, accel / decel later
+
+*"What would it be like to get access to multi-tempo as well? … I thought the texture drawer had the multi-tempo capability as well. … I
+guess it's just applying the settings in multi-tempo, creating an extra section in the texture. And then we have the same player and
+orchestration, etc. So it just imposes a different rhythm."* — and, asked whether the lines should also accelerate and decelerate (LG-11):
+*"both — steady ratios first, accel/decel later"*.
+
+*(The AI's reading, RUNNING_LOG §208 · §209:)* a `texture | multitempo` switch in Texture — ratios (`13:11:5`) · BPM · length making the
+lines, one line per ratio term — with everything after the lines unchanged: the take, who plays each line, the articulations, the dynamic,
+the rhythm take, the Rhythm panel. Phase 1 of the planning method is closed; nothing planned or built.
+
+### LG-62 · 2026-09-21 — THE FIRST COUNTERPOINT PASSAGE: a harmony row of about 240 s, rolled on the SILVER RATIO, shorter boxes, the BELLOWS; dots RE-ORCHESTRATED by hand — *"percussion should have access to all of the instruments"*
+
+*"ok then about 240 sec long"* · *"shorter boxes"* · the contour `open then close (the bellows)` (RUNNING_LOG §210 · §211). Composing in
+the Rhythm panel he asked to hand a dot to another player and to double one (*"cant change instrument only one choice"* · *"yes build
+doubling one dot too"*, §212 · §213); his named sequence `LGMF-Rseq-01` already hands a double-bass dot and a trumpet dot to the
+percussion — wood blocks, sleigh bells.
