@@ -168,7 +168,7 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   (its sound path: a plain velocity; `StrikeDrawer.playNotes` is this piece's player) · §190 (his defaults; percussion and vibraphone
   one player). Code is read when the build names a question: `score/public/texture_panel.js` · `texture_engine.js` ·
   `strike_drawer.js` · the sequence drawer's takes menu in `sequence_ui.js`.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §197.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §198.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
@@ -180,6 +180,33 @@ time; nothing is planned or built until his understanding and the AI's are one.*
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are RUNNING_LOG §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model | Opus | — |
+
+**Open at session end — MID-SESSION CHECKPOINT #1, session 12 (2026-09-21, Fable → Opus) (mid-session checkpoint):**
+
+- **The task:** `1l`, THE COUNTERPOINT SECTION. **State: PLANNED IN FULL, NOTHING BUILT.** He closed the planning with *"yes that's
+  it"* (RUNNING_LOG §198). The deliverable is `docs/PLAN.md` § `1l` — THE FOUNDATION (nine lines, as agreed) and `1l.1` … `1l.8`, each
+  written with a *Result when done*, sub-steps and a REQUIRED VERIFICATION. His words are COMPOSITION_NOTES LG-56 … LG-60; the
+  reasoning is RUNNING_LOG §185–§198. The "SESSION 12 SO FAR" block above has it in six bullets.
+- **THE NEXT CONCRETE STEP — BUILD `1l.1`, TEXTURE PLAYS THIS ENSEMBLE, on Opus.** After `/postclear`: play back and STOP (his standing
+  rule, top of §2). On his go: **(1)** read, by the named question only — `score/public/texture_panel.js` (its sound path: `play` around
+  lines 675–735 and LIVE around 1181–1216, both `MorphEmit.routeFor` + a plain velocity · `maxLanes: 10` at ~387 · `META_LAYER` · the
+  articulation list at ~569 · the pitch presets at ~128–150) · `texture_engine.js` (`assignLanes`, `perVoicePitch`, `RAILS.players`) ·
+  `strike_drawer.js` (`D.playNotes`, the `ordinario` map at ~92, the articulation roster) · the takes menu of `sequence_ui.js` (1g's
+  `take` list with its `▸`); **(2)** give him the CONCEPTUAL PROPOSAL for `1l.1` in plain language and wait for his go (HOW_WE_WORK:
+  a proposal before any code edit); **(3)** build · verify on `score-5401` by the method in STILL BINDING below (a capture with no MIDI:
+  every attack on the right port and channel for its player and articulation, a velocity from the remap) · the batteries · journal as
+  it happens · commit · push · then his listen in his Chrome.
+- **`Resume reads:`** `docs/PLAN.md` § `1l` — THE FOUNDATION and `1l.1` only · `docs/DYNAMICS_LAW.md` (a STRUCK note) · RUNNING_LOG
+  **§189 · §190** (Texture's sound path; his defaults — english horn `stac_vel` "Staccato Velocity", bassoon · horn · trumpet
+  `staccato`, cello · double bass `spicc_vel` "Spiccato Velocity", percussion from the take else `claves pair 2 high`; percussion and
+  vibraphone ONE player, seven in all). Nothing else until a question names it.
+- **Decisions pending him:** none in `1l` — every step is agreed. Still his, from session 11: whether `ACT-BLOOM-03` · `-04` stay in the
+  store · a `sec01-done` tag.
+- **Committed in this checkpoint:** `scores/piece-LGMF-Sec01.json` — his Save of 2026-09-21 00:28 (one line changed, one byte longer than
+  `v1.3-sec01-done`), by the standing rule that the piece file is committed at every wrap (§161).
+- **DELIBERATELY UNCOMMITTED — three paths, all his:** `bank/panel_snapshots.json` (his takes, autosaved by the strikes drawer) ·
+  `bank/sequences.json` (his sequence library, autosaved about every 2 s — committing mid-use races his tab) · `reaper/LGMF_rack.rpp`
+  (his REAPER project, with the MIDI recordings of §140 · §144 · §157). Same three, same reasons, as at session 11's close.
 
 **Open at session end (2026-09-21, session 11, Opus):**
 

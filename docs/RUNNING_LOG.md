@@ -8282,3 +8282,12 @@ patterns · copying the harmony row's layout · the look back at the architectur
 
 **The switch point, said to him in two lines:** the design is done and the build is the execution of a written plan — Opus, after a
 `/checkpoint` and a `/clear`; `1l.1` first.
+
+## §198. `1l` CLOSED AS A PLAN — *"yes that's it"*; a checkpoint before the build (2026-09-21)
+
+**His words**, to the whole item shown once with *"is that it?"* (§197): *"yes that's it, /checkpoint"* — and he switched the session
+from Fable to Opus himself, as §197's switch point advised. **So `1l` is planned in full and closed as a plan:** eight steps, each
+agreed in this sitting, nothing built. The build is the execution of a written plan, one step at a time, `1l.1` first.
+
+**Committed at the checkpoint, by the standing rule of §161** (the piece file at every wrap): `scores/piece-LGMF-Sec01.json` — his Save
+of 2026-09-21 00:28, one line changed, one byte longer than his named `v1.3-sec01-done`. What changed inside it was not read.
