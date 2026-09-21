@@ -1621,13 +1621,31 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **The box shows a miniature of its dots.**
     - **REQUIRED VERIFICATION:** one capture with no MIDI — the right dots, each with its pitch and dynamic from the clicked box; a loop
       gives N × the dots at the right offsets. **Then his listen.**
-  - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — *to be laid out when we discuss it.*
-    *(Carried from LG-60 so it is not lost: a dot takes BOTH its pitch and its DYNAMIC from the harmony row — the INTENDED WRITTEN LEVEL,
-    on the `ppp … fff` scale, that the row has for that player at that moment (single dynamics, ramps, waves, edges) — and that level
-    becomes the strike's velocity through 1b's remap. **The intended level is the ground truth, because it is what goes to notation;**
-    the audition level is tuned later if it turns out not right. No CC7-to-velocity translation is needed: the row holds the written
-    level, and the fader value and the velocity are two outputs of it. **A caution for the build:** the map must be CONTINUOUS — a breath
-    gap inside the generator's notes must never read as "no note beneath".)*
+  - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — `todo`
+    *Result when done:* he presses Hear and the whole rhythm sequence plays — every dot on its player, with the pitch and the written level
+    the harmony has beneath it AT THAT INSTANT, across harmony changes, waves, ramps and edges. He sees all of it in one continuous view.
+    Insert writes it into the score. He can come back, change either row, and re-insert in place.
+    - **The join, for every dot:** whose dot it is → what that player has beneath at that instant → the pitch (with its cents) and the
+      intended written level. Doubling: each player their own note. Percussion: what the harmony beneath assigns it, else the fallback
+      (`claves pair 2 high`).
+    - **THE DYNAMICS RULE (LG-60):** a dot takes the INTENDED WRITTEN LEVEL, on the `ppp … fff` scale, that the harmony row has for that
+      player at that moment — single dynamics, ramps, waves, edges — and that level becomes the strike's velocity through 1b's remap; a
+      level between two names interpolates. **The dot keeps its intended level: it is the ground truth, because it is what goes to
+      notation;** the audition level is tuned later if it turns out not right. No CC7-to-velocity translation is needed — the row holds
+      the written level, and the fader value and the velocity are two outputs of it.
+    - **A dot with no note beneath:** a warning in the status line, the dot drawn HOLLOW, silent (LG-58 — no gating, no borrowed note).
+      **A caution for the build:** the map must be CONTINUOUS — a breath gap inside the generator's notes must never read as "no note
+      beneath".
+    - **THE CONTINUOUS DOT VIEW (his B, RUNNING_LOG §194):** all the boxes' dots in one view, on the same timeline as the two rows;
+      it scrolls with the cursor; a click on a box jumps the view there.
+    - **Hear:** from the start, or from the cursor. The clock.
+    - **Insert:** as the sequence drawer does — one group, a META bar, the recipe saved in the score. The notes are the strikes drawer's
+      kind of struck note.
+    - **The round trip (1d.3's):** listed in the score · pick it, it is back in the rows · change, re-insert IN PLACE, the status counting
+      what he had edited by hand.
+    - **REQUIRED VERIFICATION:** Hear and the score's own playback captured with no MIDI and agreeing note for note · a dot after a harmony
+      change reads the NEW harmony · a dot inside a fade reads the FADED level · the batteries green. **Then his listen — the first time
+      the counterpoint section sounds.**
   - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — *to be laid out when we
     discuss it.* *(Carried from LG-59 so it is not lost: the percussion's note or notes in a container are a non-pitched instrument,
     OR the vibraphone — and then the pitch is drawn from one of the pitches the harmony take gave the vibraphone.)*

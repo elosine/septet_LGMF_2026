@@ -8186,3 +8186,31 @@ sequence drawer does — one group, a META bar, the recipe into the score — th
 ROUND TRIP of 1d.3: listed in the score, recalled into the rows, re-inserted IN PLACE, hand edits counted · the required
 verification — Hear and the score's own playback captured and agreeing note for note; a dot past a harmony change reads the NEW
 harmony; a dot inside a fade reads the faded level; then his listen, the first time the counterpoint section sounds.
+
+## §195. `1l.5` AGREED AND WRITTEN — *"step 5 is good"*; `1l.6`, the dots touched, put to him with four calls of the AI's own and one question (2026-09-21)
+
+**His word:** *"step 5 is good"*. **Written at once:** `docs/PLAN.md` § `1l.5` in full — the join · LG-60's dynamics rule · the hollow
+dot and the continuous-map caution · the continuous dot view (B) · Hear · Insert · the round trip · the required verification.
+
+**`1l.6` as put to him — THE DOTS, TOUCHED.** From his words (LG-55 · LG-56 · LG-57 · LG-59): mute and unmute QUICKLY · a dot's pitch,
+dynamic and articulation changed, else it reads the harmony · a line moved to another instrument in a placed box, only the rhythm
+moving · the percussion's dots a non-pitched instrument or the VIBRAPHONE, its pitch one of the vibraphone's in the harmony beneath ·
+the collision warnings of merged lines resolved here, by muting.
+
+**The AI's own calls inside it, each named to him for correction:**
+- **One dot, several (a marquee), or a whole line** take the same touch.
+- **The dot's card:** a pitch chosen FIRST from the notes of the harmony beneath (it stays in the harmony, cents and all), then free ·
+  a dynamic `ppp … fff` · an articulation from that player's list · *back to the harmony*, which clears the touch.
+- **When a line moves to another instrument, its MUTES stay** — they are rhythm (his *"just the rhythms"*) — while its changed pitches
+  and articulations are dropped, as he said.
+- **In a looped box every pass has its own dots** — pass 2 can be muted differently from pass 1, the oldest way to vary a loop.
+- **What a touch survives:** a change of the harmony row and a move of its box — a touch is kept in the recipe as a short list of
+  exceptions, keyed to its box, its line and its dot's number, and the same recipe always gives the same dots (`1l.2`). **What it does
+  not survive:** a re-cut of its box (another take, start, stop or loop count) — before that, the panel says how many touches would be
+  lost. *(This is LG-55's open point — whether a mute survives a re-cut — answered by construction; §186 had the reasoning.)*
+- **Each state its own look:** muted · changed · no note beneath (hollow) · too close (warning colour).
+
+**The ONE question put to him — how a click works:** (A) two VISIBLE modes on the view, `mute` (a click turns a dot off or on) and
+`edit` (a click opens the dot's card) · (B) a click selects, a key mutes, the card always open for the selection. The AI leaned A:
+muting is what he will do most, so it should be one click; and two buttons he can see need no modifier remembered (HOW_WE_WORK:
+*"the tool carries its own memory of what is taken … the AI never asks him to remember a modifier"*).

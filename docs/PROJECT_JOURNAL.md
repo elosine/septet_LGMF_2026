@@ -152,9 +152,13 @@ time; nothing is planned or built until his understanding and the AI's are one.*
 - **`1l.4` THE WORKSHOP — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §193 · §194). **AND DECIDED WITH IT — B: THE WHOLE
   RHYTHM SEQUENCE IS SEEN IN ONE CONTINUOUS DOT VIEW,** all the boxes' dots on the same timeline as the two rows, scrolling with the
   cursor, a click on a box jumping the view there (it belongs to `1l.5` and is written there on its agreement).
-- **`1l.5` THE WHOLE SEQUENCE SOUNDS AND INSERTS — PUT TO HIM, NOT YET AGREED** (§194 has it; LG-60's dynamics rule and the
-  continuous-map caution are already carried in the plan's `1l.5` line). On his word it is written and `1l.6` follows.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §194.
+- **`1l.5` THE WHOLE SEQUENCE SOUNDS AND INSERTS — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §194 · §195): the join for
+  every dot · LG-60's dynamics rule · the hollow dot, the continuous map · THE CONTINUOUS DOT VIEW (B) · Hear · Insert · the round trip.
+- **`1l.6` THE DOTS, TOUCHED — PUT TO HIM, NOT YET AGREED** (§195 has it, with the AI's calls: one · several · a line · the dot's
+  card · mutes stay when a line moves · every pass of a loop its own dots · a touch survives a harmony change and a box move, not a
+  re-cut). **The question put: how a click works — (A) two visible modes, `mute` | `edit` · (B) click selects, a key mutes; the AI
+  leaned A.** On his word it is written and `1l.7` follows.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §195.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
