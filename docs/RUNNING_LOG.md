@@ -8086,3 +8086,28 @@ per instrument, a table put to him (today's are the tubas' `D17`) · SAVE A RHYT
 assignment — in a store of its own · one capture, a save → reload → recall giving the same dots, then his listen. **No question
 put; the AI's two judgment calls are named for his correction: a collision is flagged not thinned · a take is the RECIPE (dials +
 seed + assignment), and the same recipe always gives the same dots.**
+
+## §191. `1l.2` IN DISCUSSION — he wants the lines DRAWN IN TIME with a timeline and a scrolling cursor, in the Texture drawer; and *"the re-articulation values — what is this? more simply pls"* (2026-09-21)
+
+**His words, on step 2 as put in §190:**
+
+> *"The grid. can we have this somewhat spatially proportionate, more or less? And then are we talking about the player in the
+> texture drawer here or somewhere else? I'm thinking similar to the sequence with a cursor, a scrolling cursor, ability to pop
+> into the um, to the line at any time point, maybe a small timeline."*
+
+> *"The re-articulation values. what is this? more simply pls"*
+
+**The AI's reading (marked):** *"spatially proportionate"* = the lines shown PROPORTIONAL IN TIME — each rhythm line a row of dots
+spaced as they fall — not a table of tick boxes beside an invisible pattern. With it: a small timeline above, a cursor that scrolls
+during Play, and a click on the timeline to play from that point — the sequence drawer's clock and cursor (PLAN 1d.15). *"The
+player"* is read as Texture's own transport: yes, all of step 2 lives in the Texture drawer. The AI had put "show the lines" as a
+LIST and the grid as a TABLE; both become one drawn view, with who plays at the left of each row.
+
+**A consequence the AI put to him:** this DOT VIEW — rows of dots on a timeline, with a cursor — is the same picture the workshop
+needs (`1l.4`, plus a selection) and the placed container needs (`1l.6`, plus a click on a dot). **Built ONCE here, used three
+times** — so step 2 grows, and steps 4 and 6 shrink by it.
+
+**"Re-articulation values", said simply (the AI's jargon, his correction of the register):** how fast ONE player can repeat a note —
+the smallest gap between two attacks. It matters only when several lines are merged onto one player: two dots can fall closer than
+that player can play, and the check marks them. The app's numbers are the tuba's; a spiccato cello or the claves repeat faster. In
+the plan it is renamed **the minimum gap** — one number per instrument, a small table put to him to correct.
