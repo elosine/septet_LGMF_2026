@@ -2072,3 +2072,34 @@ His words, following LG-64 (RUNNING_LOG §216; the dictation ran twice, given he
 > then I should have a Um, a range so like a left line and a right line so I can limit it to one part of the rhythmic pattern the
 > texture and just for playback sake I should have a cursor that I can pop into one part of the pattern So let's start there. Let's
 > just gather organize this and see what the initial requirements are."*
+
+### LG-66 · 2026-09-21 — THE SECOND MODE: THE PITCHES — the pattern a SEQUENCER ROW on top, a COLUMN of all the instruments under every ON onset, the drawer's left side orchestrating the selected column(s) — *"just like I do a single strike when I'm orchestrating it"*
+
+His words, following LG-65 (RUNNING_LOG §217):
+
+> *"then I'll want to orchestrate this. So I'll mention a couple different scenarios. It could just be one column. So one on dot. Or
+> let's call the rhythm pattern like a sequencer on top. And that's what I listened to with the claves. Like the top row. And then that
+> there could be like an on or off. So once I've decided the rhythm, I can just shut that off maybe. And then there'll be a column for
+> each of the ons. Yeah, that makes sense. So the thing will be like a column check mark for every onset. I can hear that in claves, but
+> that doesn't assign anything necessarily to the percussion. I can just click off the sound. And for every X at top, like the column
+> heading, I have a full column of all the instruments. And maybe they're off by default, but I only see those circles. And then what I
+> want to do is be able to select a column and use the left side to orchestrate that column. So the shuffle, uh, the strikes drawer, the
+> shuffle, the orchestration. So if I select the column, I can hit shuffle and then listen to just that column, just like I do a single
+> strike when I'm orchestrating it. That's the, the left three sides, the left three panels there. The strikes drawer, the keyboard, and
+> then the lines that go to the instrument, and then the articulations, I guess, is included. And so one scenario would maybe I just
+> want one instrument to play that. And so in my rhythm column, everything else is off, but I click on, say, the English horn. And then
+> each time I hit shuffle in the orchestration thing, it just deals a new English horn note that's assumed to be in its range, etc. And
+> on and on. So if I have two instruments chosen, say it's double bass and English horn, every time I hit shuffle for just for that
+> column, I'll get two different notes for those two instruments. And I'll be able to listen to that column. So scenario number two is
+> if I want to do something horizontal. So if I, I should be able to select, say, five columns in a row, and then maybe click different
+> instruments for each column. Let's say it's just English horn, bassoon, horn, trumpet, and cello. So column one is English horn, column
+> two is bassoon, etc. I'll click on those and then somehow select those five columns and then shuffle or whatever from the same chord
+> and it will reorchestrate all five of those notes from the same harmony, but just it'll reshuffle them and give each of the players
+> what they, uh, you know, from the new shuffle, but for those five columns. So this is the pitch part. So let me get some analysis
+> here if I missed anything or if there's something else my scenario wants. And maybe just read back your understanding of the
+> scenario. This is solely pitch and we'll We can include percussion, but we'll talk about that next, the articulation. So they'll be
+> assigned something. But apart from percussion, it'll be a way to assign pitches to different instruments."*
+
+*The AI's reading (not his words):* a selection of columns is, to the drawer, ONE STRIKE whose notes happen to lie in different
+columns — the players that are on across the selection are the strike's players, and the drawer's own shuffle deals the harmony to
+them as it does today. One column is the smallest case of it. That is why the left side can stay untouched.

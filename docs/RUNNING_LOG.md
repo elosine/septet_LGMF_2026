@@ -8921,3 +8921,31 @@ the triangle. That fits the AI's UNVERIFIED reading at the foot of §212 (the pe
 which in his rack are the Bell Tree · Sleigh Bells · TRIANGLES tracks, whatever instrument was asked for) better than a wrong key
 would; it is still unverified — nothing has been captured. His instruction: *"we just need to get that implementation right, be a
 little bit more careful there."* It becomes a REQUIRED part of this first step, not a collected item for later.
+
+## §217. The second mode, gathered: the pitches — a sequencer row, a column per ON onset, the drawer's left side orchestrating the selection; the AI's analysis of what the scenario also wants (2026-09-21)
+
+Follows §216. Phase 1; nothing planned, nothing built. His words whole: COMPOSITION_NOTES LG-66. He asked for a read-back and for
+*"some analysis here if I missed anything or if there's something else my scenario wants"*; percussion and articulation he put aside
+himself (*"we'll talk about that next"*).
+
+**The read-back given to him:** the pattern is the TOP ROW (the sequencer); its claves are for listening only, assign nothing to the
+percussion, and can be switched off · under every ON dot a COLUMN, one circle per instrument, all off · circles clicked on = who plays
+that onset · a selected column is what the drawer's left side works on (picker · keyboard · the lines to the players · articulations),
+as on one strike today: `shuffle` deals a note only to the players on in it, each in range, and Hear plays that column alone ·
+several columns selected, one shuffle: every note in them re-dealt from the SAME harmony · a column not selected never changes.
+
+**The AI's analysis — what the scenario also wants (given as observations, not questions, at his word "no follow-up questions"):**
+
+1. **A column must REMEMBER its harmony** (which pick, which deal) — so that selecting it later brings ITS chord back into the left
+   side, and so the whole thing can be saved and re-opened. Without it a re-selected column shows whatever chord was last loaded.
+2. **A selection of columns is ONE STRIKE spread over time** — the drawer's own shuffle then does the horizontal scenario as it stands:
+   five players, five different notes of one harmony. This is the reading that keeps the left side untouched.
+3. **NOT COVERED: the same player on in two of the selected columns.** A strike gives a player one note; here he needs two. Held.
+4. **Hearing the WHOLE pattern with its pitches** — SPACE from the cursor, inside the range, as in the first mode; he named only the
+   one-column Hear.
+5. **Named by nobody yet:** the dynamic of a note · a player on in two columns closer than he can re-attack (`1l`'s collision check,
+   D17) — flagged, never moved, as agreed in LG-58.
+
+**Against `1l`, for the paper:** the unit of orchestration has moved from the LINE (Texture's who-plays, carried into a rhythm box) to
+the ONSET. He reaches the pitch through the tool he has used for a whole section — pick, shuffle, listen — rather than through a map
+he cannot hear while he chooses.
