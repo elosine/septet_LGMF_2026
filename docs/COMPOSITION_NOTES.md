@@ -2103,3 +2103,31 @@ His words, following LG-65 (RUNNING_LOG §217):
 *The AI's reading (not his words):* a selection of columns is, to the drawer, ONE STRIKE whose notes happen to lie in different
 columns — the players that are on across the selection are the strike's players, and the drawer's own shuffle deals the harmony to
 them as it does today. One column is the smallest case of it. That is why the left side can stay untouched.
+
+### LG-67 · 2026-09-21 — THE COLUMNS, HIS ANSWERS: the shuffle re-deals THE WHOLE COLUMN as the orchestration panel does, the hand assignment too; a player in two columns gets the same note for now; a column preview and a rhythm preview; dynamics and re-attack another pass
+
+His words, on the read-back of LG-66 and the AI's analysis (RUNNING_LOG §224); he wrote them against the AI's own lines, which are
+kept here in italics so his answers read in place:
+
+*"Select a column, and the drawer's left side works on it, as it does on one strike today: the left side is the picker, the keyboard,
+the lines to the players and the articulations · `shuffle` deals a note only to the players that are on, each in range · you hear just
+that column."* —
+
+> *"Let's just have this shuffle work as it does for the orchestration panel. So regardless of how many are selected, it just reshuffles
+> the whole call. So even if I have just one selected, say the horn, it'll reshuffle the whole column so that if I turn on another
+> instrument, it'll have whatever's in the orchestration panel. And this also includes the manual. So if I double click on a keyboard
+> circle and then assign that pitch to one of the instruments, the column in the rhythm refreshes or whatever, it takes that assigned
+> pitch."*
+
+*"One case is not covered: the same player is on in two selected columns. A strike gives a player one note."* —
+
+> *"for now, let's just make it so that it either gets the same note or I have to do each column individually unless we can think of
+> something else. But let's not overcomplicate things for now."*
+
+*"You will need to hear the whole pattern with its pitches, not only one column."* —
+
+> *"So yes, I'll need a column preview, essentially the same as the orchestration panel. I think I can listen to that alone, right? And
+> then I'll need a rhythm preview. We'll deal with the dynamics at another pass. And let's have a sort of miscellaneous issues that
+> we'll deal with re-attack at the end. But that's going to be the same, same protections. But, but let's deal with that at another
+> time in another situation. I'm sending because I can't see. So just hold on to these, journal and hold on to these, and I'll respond
+> to the rest."*

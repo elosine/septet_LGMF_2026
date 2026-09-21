@@ -9200,3 +9200,33 @@ His pattern lives in HIS browser's storage, out of the AI's reach — and the ne
 **`crop`**, in the bar after `all off`: every mark outside the range goes off, inside it nothing changes; the status says how many.
 **Verified on `score-5401`** (his take `LGMF-S2-R5a`; no MIDI, no POST): range 10–20, every mark outside it on plus 16 chosen inside
 (392 on) → `crop` → **16 on, exactly the 16 chosen**, the range untouched, *"crop: 376 marks outside the range turned off"*.
+
+## §224. The columns, phase 1 — the discussion surfaced with the AI's analysis; his first answers, held (2026-09-21)
+
+His word: *"Let's have the pitch conversation and the columns. Um, and we can just ignore the percussion for now, the unpitched
+percussion. Go ahead and surface our previous discussion and the organized version plus whatever other analysis you have."*
+
+**Surfaced to him:** LG-66's scenario in seven lines · the five things the scenario also wants (§217) · **and new, from one read of the
+drawer** (`strike_drawer.js` 939–970: `busyLanes`, `laneTicked`, the tick on every player row; the shuffle deals onto TICKED rows
+only, §628): a column's circles and the drawer's player ticks can be ONE thing — select a column, the ticks show who is on in it; tick
+a player, the circle appears · the column's rows can line up with the players list, each row running on into the timeline · with the
+unpitched percussion set aside, EIGHT rows (seven pitched players + the vibraphone's second seat) · one column at a time needs nothing
+new from the shuffle; several at once needs a wider deal — a natural second step. **One question put:** A — every shuffle lands in the
+selected column at once · B — shuffle freely, `assign` when he likes one. (The AI guessed A.)
+
+**His answers, verbatim in COMPOSITION_NOTES LG-67; the AI's reading:**
+1. **THE SHUFFLE IS THE ORCHESTRATION PANEL'S, UNCHANGED.** It re-deals THE WHOLE COLUMN — every player, on or off — *"regardless of how
+   many are selected"*; a player switched on afterwards already holds *"whatever's in the orchestration panel"*. So a column holds a
+   full deal, and its ON circles only choose who SOUNDS from it. The hand assignment is in the same stream: a keyboard circle
+   double-clicked and given to a player lands in the column too — the column *"refreshes … takes that assigned pitch"*. **That is A**,
+   in effect, for the shuffle AND the hand — the column follows the panel.
+2. **A PLAYER IN TWO SELECTED COLUMNS: the same note, for now** — or he does the columns one at a time. *"Let's not overcomplicate
+   things for now."* (The AI's reading: a multi-column selection is then simply ONE deal COPIED into each selected column — the
+   simplest possible rule, and it makes "several columns, one shuffle" the same code as one column.)
+3. **TWO PREVIEWS:** a COLUMN preview — *"essentially the same as the orchestration panel"*, heard alone — and a RHYTHM preview (the
+   whole pattern with its pitches).
+4. **DEFERRED, his word:** dynamics — *"another pass"* · re-attack — a *"miscellaneous issues"* list, *"the same protections"*, at
+   the end.
+
+**Held:** he wrote *"I'm sending because I can't see … hold on to these, and I'll respond to the rest."* Nothing more was put to him;
+nothing is planned or built. The AI's A/B question is answered by 1 in effect, unconfirmed.
