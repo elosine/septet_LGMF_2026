@@ -8712,3 +8712,20 @@ are named points on those dials (smear · ticks · rain · gallop · groove). Th
 rev 21: one texture at rising tempo, G an accretion) — inherited, not this piece's. **The morph row** glides the CURRENT dials into another
 model's over N seconds — only bpm · jitter · scatter · dyn move, only those that differ, and the duration becomes N; the dials still show the
 START, the status line lists what moves. Unrelated to the Morph panel (the harmony's bends). A morph into the model already loaded does nothing.
+
+## §208. Multitempo INTO Texture — his idea, phase 1 of the planning method, nothing planned (2026-09-21)
+
+**Prompt, his words:** *"What would it be like to get access to multi-tempo as well? … I thought the texture drawer had the multi-tempo
+capability as well. … I guess it's just applying the settings in multi-tempo, creating an extra section in the texture. And then we have the
+same player and orchestration, etc. So it just imposes a different rhythm."*
+
+**What the code says (read for this question only):** `MT` (`multitempo.js`, piece #4's PLAN 2ac) is small and pure — ratios `r1:r2:…`
+(whole numbers, reduced by their GCD) against one BPM; stream 1 at the BPM, stream i at BPM · ri / r1; every stream realigns each cycle
+C = r1 · 60 / BPM, so the loop repeats with no drift. One stream is one player; pitch from the tubas' `bank/pulse_palette.json`. No accel /
+decel, no drift — that was the phase machinery (2ad), which Texture is the extraction of. **Why he thought Texture had it:** Texture's groups
+each carry their own bpm (`gallop` is two groups, 110 against 112) — but the panel cannot type ratios or add a group.
+
+**The AI's reading of his idea, given back to him:** a SECOND RHYTHM SOURCE inside Texture — `texture | multitempo` — the multitempo dials
+(ratios · BPM · length) making the lines, one line per ratio term; everything downstream of the lines unchanged: the take, the players, who
+plays each line (doubling, merging), the articulations, the dynamic, the rhythm take, the Rhythm panel. MT's engine gives the onsets only.
+Recommended over adapting the `MT` drawer itself, which would rebuild for a second panel what `1l.1` · `1l.2` built in Texture.
