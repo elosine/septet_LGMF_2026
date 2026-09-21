@@ -8858,3 +8858,38 @@ takes menu does (1g) — and the strip's drawing shows the chosen take's dots. A
 each. How a take's lines meet the drawer's pitches and players is the first of "the details", after the swap is agreed.
 
 **Decided:** nothing yet. **Not decided either:** what becomes of the Rhythm sequence panel and of `1l.8`. `docs/PLAN.md` is untouched.
+
+## §215. The texture take in the strikes drawer — the swap agreed in outline, a side question about hollow circles, and HIS SCENARIO: onsets on a timeline, each orchestrated by itself (2026-09-21)
+
+Follows §214. Phase 1 of the planning method; nothing planned, nothing built.
+
+**1 · The swap.** He asked what "the strike's dials" are; the AI listed the whole rhythm column (`strike_drawer.js` 1101–1133). His
+correction of the FORM: *"No, and let's simplify everything here. I don't want long answers, please. I just want very short, focused
+answers."* Confirmed to him in one line: with a texture take selected those controls disappear, and come back as left. **Seen in his
+screenshot and put to him, not answered:** the drawer ALREADY has a `rhythm from` menu at the foot of that column (`own` · another
+strike, `harm_source_ui.js`) — the texture take could be one more choice in it rather than a new switch.
+
+**2 · What the take does to the circles.** His words: *"with the texture selected, I should, for now, have just a takes menu. And if I
+select the take … the little circles that are there now, those spread out in the shape of the rhythm take."* And the method he wants:
+*"I want to build this one feature at a time. So I'm making sure it's functioning how I want. And we don't waste time."* The AI asked
+A (each note repeats at every onset of its line) or B (one circle per note, on the take's first onsets). Not answered — overtaken by
+the scenario below.
+
+**3 · A side question, from use.** His screenshot of the drawer (nine players, `even`, span × 3 = 3000 ms, gap 375): *"What's wrong
+here? Doesn't seem like I'm hearing the proper playback or there's a bunch of extra notes in the rhythm."* Read: `renderRhythm`
+(`strike_drawer.js` 1091–1092) draws a circle HOLLOW when no real player and no piano holds that voice; with `drop rests` its tooltip
+reads *"nobody plays it — out of the rhythm"*. In the screenshot the nine FILLED circles are even, 8 × 375 = 3000 ms — right; the many
+hollow ones are the rest of the loaded harmony (a harmonic-series selection, far more pitches than players). And the bottom bar read
+`hear: long tone · 30 s` (1c's menu, `long_tone_ui.js` 40) — Hear was holding notes, not striking them. He asked where `strike` is;
+told (the `hear` menu, right of Stop). **Not a diagnosis of a fault: the AI heard nothing, and he has not said whether it resolved.**
+
+**4 · His scenario** (COMPOSITION_NOTES LG-64, whole). In five steps, as read back to him: (1) pick a texture take → all its onsets on
+one timeline, x = time · (2) switch onsets on or off → the pattern · (3) give each ON onset a harmony — found in the drawer as now (pick,
+shuffle), then assigned to that onset; y = the players, as orchestrated · (4) in that onset's column, tick who plays, one or several ·
+(5) per player in that column, an articulation. **A grid: columns = onsets, rows = players.** He then said: *"let's have then the
+requirements conversation and help me just organize these things. I'll just talk through some scenarios."*
+
+**What this turns over from `1l`** (the AI's observation): in `1l` the harmony was a ROW IN TIME under the rhythm and every dot read
+whatever lay beneath it (LG-56 … LG-58); here the harmony is handed TO each onset, by hand, from the tool he trusts. The take shrinks
+from "lines with players" to, possibly, a source of onset TIMES only — which is the one question put to him: **A** the lines merge and
+the take gives only the times, who plays is chosen in the grid · **B** the lines stay and an onset remembers whose line it came from.

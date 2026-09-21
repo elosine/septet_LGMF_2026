@@ -2024,3 +2024,31 @@ His words, after composing `LGMF-Rseq-01` in the Rhythm panel (RUNNING_LOG §214
 harmony going to a new panel. The drawer keeps its own rhythm untouched; where that rhythm stands, a switch offers another source —
 a texture take now, the multitempo later (LG-61's idea, by another door). "This tool" is read as the `1l` route (the Rhythm sequence
 panel fed by Texture) — unconfirmed; he did not say what in it fell short, and the turn was kept to the one thing he asked for.
+
+### LG-64 · 2026-09-21 — THE SCENARIO: A TEXTURE TAKE'S ONSETS ON ONE TIMELINE, SOME SWITCHED ON, EACH ONE ORCHESTRATED BY ITSELF — *"the x-axis would be the rhythm. And the y-axis would be the harmony, so as orchestrated"*
+
+His words, following LG-63 (RUNNING_LOG §215). First, on the swap:
+
+> *"And then with texture selected. So I want to build this one feature at a time. So I'm making sure it's functioning how I want. And we
+> don't waste time. So with the texture selected, I should, for now, have just a takes menu. And if I select the take, the rhythms, the
+> little circles that are there now, those spread out in the shape of the rhythm take."*
+
+Then the scenario, whole:
+
+> *"Okay, I think I need some help organizing and focusing slash clarifying my thinking. So I'll step through it one bit at a time at a
+> scenario, and then we'll back up and build one bit at a time. So I'm imagining if I choose a texture, a take, the all the rhythms of
+> the take will fill in linearly. So there'll be like a dots on a timeline. And then what I want is to be able to select certain onsets,
+> certain partials of that rhythm. To be played. So then I would have a rhythmic pattern. And the x-axis would be the rhythm. And the
+> y-axis would be the harmony, so as orchestrated. But then I could have a different orchestrated harmony per onset of the texture of
+> each rhythm, of each member of the x-axis. And then I could click on, for any column, I could click on any of the instruments or not.
+> So basically, I think the process would be, I would first choose a pattern, like which onsets are on in the texture. And then I would
+> orchestrate each of those onsets. So I might pick a different, I would pick a thing from the strikes drawer, I would shuffle it, find
+> one I like, and then assign it to one of the onsets. And then I would choose which members are playing that onset. And it could be
+> multiple or it could be single. And I could, for that one onset, I could choose not only the instruments, but what articulations are
+> playing for that onset. So I need, sure, okay, well, let's, we'll get back to that. So let's have then the requirements conversation
+> and help me just organize these things. I'll just talk through some scenarios to make sure we have everything correct."*
+
+*The AI's reading (not his words):* a GRID. Columns = the take's onsets, in time; rows = the players. An onset is on or off (the
+pattern). Each ON onset carries a harmony of its own — found in the strikes drawer as he finds one now (pick, shuffle), then assigned
+to that onset. In the column, who plays is ticked, one or several; each of them with an articulation. Against `1l`: there the harmony
+lay UNDER the rhythm as a row in time and every dot read it; here the harmony is given TO each onset by hand.
