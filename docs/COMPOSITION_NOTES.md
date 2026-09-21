@@ -1709,3 +1709,24 @@ yet, and this note tells its design one thing in advance — it is a READER of a
 sentence the bloom is being built on today (RUNNING_LOG §162–§163): the chord is made and cast in ONE place, and every generator
 reads it. **Not said, and his:** whether the rhythm layer REPLACES the held notes of the framework or sounds OVER them · whether
 the sequence itself is heard in part two or is only the scaffold.
+
+### LG-54 · 2026-09-20 — THE VIBRAPHONES IN THE MORPH, AS A FOURTH PAIR THAT DOES NOT BEND: a curve, the fades, a trajectory — everything a pair has — with the pitch held still
+
+His words, opening a discussion straight after a clear:
+
+> *"is there a way to include the vibraphones in the morph as an extra pair, but that don't bend pitch at all. I want them to be
+> able to follow or have a, a curve and do the fade and everything. as one of the other pairs would, or, you know, its own
+> trajectory, but it just wouldn't do the pitch bend. lets discuss"*
+
+Asked what the two vibraphones HOLD — (a) the notes the take assigns them, held still, or (b) notes chosen in the morph panel:
+
+> *"a, as assigned in the take, held still"*
+
+*AI reading (mine, marked):* until now the bloom is something the three BENDING pairs do, and the vibraphones stand outside it by
+construction — they cannot bend, and the tool admits only instruments that can. He wants them INSIDE the object: entering, breathing,
+swelling and fading with it, as its one voice that does not move. **What they hold is decided the way everything about a take is
+decided — in the strikes drawer, where he hears it** (LG-52, RUNNING_LOG §163); the morph panel only reads.
+**One consequence, mine and unasked:** a vibraphone is tempered and the pairs sit on JUST pitches, so a vibraphone on the same note as
+a pair is already a few cents from that pair's centre before the bloom opens — a slow beating of its own, present from the first
+moment. Whether that is wanted is his, and he will hear it in the drawer before it ever reaches the morph.
+**Not said yet, and his:** whether the vibraphones FOLLOW the bloom's one shape or carry a trajectory of their own (the next question).

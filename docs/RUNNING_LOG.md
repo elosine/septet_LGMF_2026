@@ -7319,3 +7319,44 @@ measurement written in; §4 gains the morph's `curveSeatsFor`; §5's "flat notes
 a morph". `MORPH_NOTES.md` carries an **AS BUILT** entry naming the sentence it replaces.
 
 **WHAT IS LEFT OF `1h` IS H4 — HIS LISTEN.** Nothing here has been heard: the in-app browser has no Web MIDI.
+
+## §172. THE VIBRAPHONES AS A FOURTH PAIR THAT DOES NOT BEND — the discussion opened; what they HOLD is decided: as assigned in the take, held still (2026-09-20)
+
+**What prompted it** — his words, given with the `/postclear` itself, before anything else was said:
+
+> *"is there a way to include the vibraphones in the morph as an extra pair, but that don't bend pitch at all. I want them to be
+> able to follow or have a, a curve and do the fade and everything. as one of the other pairs would, or, you know, its own
+> trajectory, but it just wouldn't do the pitch bend. lets discuss"*
+
+So H4, his listen of `1h`, was not reported on; he went straight to the next compositional need. The planning method was entered at
+phase 1 (state and restate), nothing built.
+
+**What was read, and only this** — the question named first: *is the number of pairs fixed, and where are the vibraphones kept out
+today?* — `morph_septet.js` (`DEFAULT_PAIRS` · `cast()` · `bendingLanes()`) · `morph_panel.js` `drawPairs()` · the header of `morph.js`.
+
+**What was found:**
+
+- **The pairs are a LIST.** `cast()` works from `pairs.length`, and the panel draws one row per pair. Nothing in the pairs machinery
+  says three; three is the default cast.
+- **The vibraphones are out in two places, both deliberate:** `bendingLanes()` — the seat menus offer only lanes whose recipe has
+  `beating !== false` and a `playerBendSt` above zero · and PLAN `1h`'s take reading leaves a vibraphone note out (its REQUIRED
+  VERIFICATION, check (2), names the case).
+- **The engine's own header separates pitch from everything else.** Three orthogonal objects — MORPH `state(voice, p) → { cents,
+  technique, level }` · CARRIER (when each voice sounds: the breaths, the striation) · RENDER — and a morph note is *an ordinary score
+  waveCurve plus one new optional field, `bend`*. The level, the breaths and the fades do not pass through the pitch.
+- **Every dial in the panel is GLOBAL to the morph.** A pair owns its two seats and its tick and nothing else — so *"its own
+  trajectory"* has no place to live today, for ANY pair.
+- The sequence drawer already treats the two vibraphones as shaped, sustained players on the dynamics law (§158 — their `pp` is
+  CC7 52, a fader channel each).
+
+**Put to him, ONE question** — what do the two vibraphones HOLD, given that a bending pair opens from one just pitch and a vibraphone
+is tempered and fixed: **(a)** as assigned in the take, held still — `1h`'s rule minus the bend, the strikes drawer staying the place
+where the notes are heard and chosen (the AI's recommendation) · **(b)** chosen in the morph panel, a note field of the pair's own.
+
+**DECIDED — his word: *"a, as assigned in the take, held still"*.** Why that and not (b): no new rule, and no second place to choose
+pitches — §163 already made the strikes drawer the place where he hears the notes and resolves the conflicts, and the panel only reads.
+
+**NOT CHECKED, and said to him as such:** where a voice's pitch is best held still — inside the engine (a voice whose cents do not
+move) or after the render (the note written without its `bend`). The second would leave `morph.js` untouched; nothing has been read
+that says which is right. **Nothing built. The discussion continues with the second half of his sentence:** do the vibraphones FOLLOW
+the bloom's one shape, or have a trajectory of their own. His words are in COMPOSITION_NOTES LG-54 and MORPH_NOTES (2026-09-20).

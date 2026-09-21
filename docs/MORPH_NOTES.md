@@ -1429,3 +1429,22 @@ caller waiting, and it is still on the pre-1e law today.
 and Insert do nothing for the four models that name their own voices. PLAN 1h H2.3 solves exactly this for a TAKE by re-attaching
 the pairs to the voices; the general answer is that a model which names its own voices should be heard WHOLE, since there is no pair
 to tick. Untouched here: `morph_septet.js` is not in 1h's scope.
+
+### 2026-09-20 — LGMF: THE VIBRAPHONES AS A FOURTH PAIR THAT DOES NOT BEND — "can bend" is today the gate on being in a morph at all (RUNNING_LOG §172 · COMPOSITION_NOTES LG-54)
+
+> *"is there a way to include the vibraphones in the morph as an extra pair, but that don't bend pitch at all. I want them to be
+> able to follow or have a, a curve and do the fade and everything. as one of the other pairs would, or, you know, its own
+> trajectory, but it just wouldn't do the pitch bend. lets discuss"*
+
+And, asked what they hold: *"a, as assigned in the take, held still"*.
+
+*AI reading (mine, marked):* for the revision — today **"can bend" is the GATE on being in a morph at all**: the seat menus list only
+`bendingLanes()`, and PLAN 1h's take reading leaves a vibraphone note out. His wish pulls apart two things that gate fuses — being a
+member of the object (its time, its level, its fades) and taking part in its PITCH motion. **The engine already keeps them apart:**
+its header names three orthogonal objects (MORPH cents · technique · level — CARRIER when a voice sounds — RENDER), and a morph note
+is *an ordinary score waveCurve plus one optional field, `bend`*. A voice that does not bend is therefore not a special case; it is
+the engine's note without the optional field. **The all-purpose tool: any SUSTAINED player can sit in a pair; whether a seat bends is
+a property of the SEAT (the recipe's `playerBendSt`), which the model reads as "this voice's cents stay where they began" — not a
+condition of entry.**
+**A second thing the same sentence shows:** every dial in the panel is GLOBAL to the morph — a pair owns its two seats and its tick,
+nothing else. *"Its own trajectory"* has nowhere to live today, for ANY pair, bending or not.
