@@ -7604,3 +7604,44 @@ two tools or has to be re-made inside the engine is not known yet.
 
 **Put to him: which of the sequence's breath behaviours first** — the lengths alone (`of max` · `±` in seconds · `outlier`), or
 also `together` / `apart`, or the whole line. Nothing built, nothing planned yet.
+
+## §178. THE MORPH'S BREATHS — his *"a"*: the LENGTHS first (`of max` · `±` in seconds · `outlier`); and the read of the sequence's dealer: the rule is small, and it is not a thing that can be shared today (2026-09-20)
+
+**His word: *"a"*** — of the three put to him in §177 (the lengths only · the lengths and `together` / `apart` · the whole breath
+line), the lengths only. It is what his ear reported, and the smallest build; `together` / `apart` needs every voice dealt at once,
+where the morph deals each voice alone.
+
+**The read §177 owed** — the question named first: *how does `sequence.js` deal a breath's LENGTH under these three dials, and is it
+a function the engine could call?* Read: `dealSpan()` (~441–497).
+
+**The rule, whole — it is about fifteen lines of arithmetic:**
+
+- `aim` = the player's own ceiling at the level it is playing × `of max` — or the one `length` when `of max` is blank;
+- the breath = `aim ± jitterS` seconds (or `aim × (1 ± jitter)` for a recipe that carries only the old share);
+- `outlier`, on a random stream OF ITS OWN (so turning the dial re-deals no other breath): with probability `share`, a coin — SHORT:
+  `max(floor, aim × short)` · LONG: drawn evenly between the top of the normal range and the ceiling; a player with under 1 s of
+  room takes short ones only;
+- never over the ceiling.
+
+**It is not shareable as it stands.** It is INLINE in `dealSpan`, between the pool draw above it and the landing rule below it, reading
+the sequence's own state (`S.pool`, `S.plan`, the waves' streams, the span). There is no function to call. Two ways on:
+
+- **(A) lift it into a module both tools read** — the principle MORPH_NOTES names (*one breath generator*). But `morph.js` has NO
+  dependency today — *"PURE … loads in the browser and in node from the same file"* — and every page and tool that loads it would
+  have to load the new file first; and `sequence.js`'s hot loop would be re-cut under its baseline gate. A real refactor of two
+  engines, for fifteen lines.
+- **(B) the engine gets the same rule in `buildCarrier`, opt-in** — `carrier.ofMax` · `carrier.jitterS` · `carrier.outlier`, ABSENT
+  = today's notes, byte for byte, gated by all 26 stored actuals as `1i`'s opt-in was. The same dial names, the same arithmetic, the
+  twin named in a comment in both files.
+
+**THE AI'S CALL, HIS TO REVERSE: (B).** His method is small builds by compositional need, and his own words on `1h` were *"I don't
+want to build a whole bunch of additional infrastructure."* (A) is the revision's, and MORPH_NOTES (§177's entry) already says so.
+**What (B) costs, said plainly:** two copies of one rule, which can drift if one is tuned and the other forgotten.
+
+**What is particular to a morph, for the plan:** the engine already asks the ceiling AFRESH at every breath, at the level the voice
+has at that moment (`ctxForBreath(start)` → `pal.ceiling(level)`), so `of max` follows a swell by itself — shorter breaths as it
+gets louder · the bowed vibraphone's 7.4 s bow gives it re-bows of about 5 … 6 s, as in a sequence · a wind that is BENDING has its
+ceiling × 0.7 (`GLISS_AIR_COST`), so its aim shrinks while it moves — the sequence has no such case.
+
+**Put to him, ONE question:** does a NEW bloom breathe this way from the start, as a new sequence does (`of max 0.65 · ± 1.3 s ·
+outlier 0.1`), or is it a dial he turns on? Either way a stored actual keeps the breaths it was filed with.
