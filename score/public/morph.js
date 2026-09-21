@@ -1275,6 +1275,17 @@ function render(params, opts) {
     // is why the tuba baseline and the septet check stay byte-identical.
     const VOICES = (P.source && P.source.kind === 'voices' && Array.isArray(P.source.voices) && P.source.voices.length)
         ? P.source.voices : null;
+    // A VOICE THAT STAYS PUT (2026-09-20, LGMF PLAN 1i; MORPH_NOTES §3). His words: the vibraphones in the morph "as an
+    // extra pair, but that don't bend pitch at all … a curve and do the fade and everything … it just wouldn't do the pitch
+    // bend." A voice of the list marked `still: true` keeps its START cents from the first sample to the last — the model's
+    // pitch, the attack's motion and the release's motion are all excused in ONE place, `stateAt`, which is the only source
+    // of a voice's cents — while its level, its breaths or bows, its technique and its fades are any voice's. It lives HERE
+    // and not in the panel because the render is read by four things (Hear, Insert, Save as ACTUAL, and the bank's validator,
+    // which re-renders in node): a strip done after the render would never reach the fourth.
+    // ADDITIVE AND OPT-IN, the third such door (`kind: 'voices'` · `fadeWeight`'s `to`): without `still` not one line below
+    // behaves differently. KNOWN: the stagger and the level's rotation are dealt from the voice COUNT, so a still voice's
+    // presence moves the others' order — pitch geometry over the MOVING voices only is the revision's.
+    const STILL = VOICES ? VOICES.map(v => !!(v && v.still === true)) : [];
     const rawMidi = VOICES ? VOICES.map(v => v.midi)
         : resolveSource(P.source, o.resolveVert).slice().sort((a, b) => a - b);
     const cap = P.lanes ? P.lanes.length : (P.voices || o.maxVoices || 10);
@@ -1606,7 +1617,7 @@ function render(params, opts) {
         }
         const cents0 = moved.cents != null ? moved.cents : base.cents;
         return {
-            cents: cents0 + motionDev(vi, t, cents0),
+            cents: STILL[vi] ? startCents[vi] : cents0 + motionDev(vi, t, cents0),   // PLAN 1i: a still voice never leaves its start
             technique: technique,
             level: moved.level != null ? moved.level : base.level,
             p: p,

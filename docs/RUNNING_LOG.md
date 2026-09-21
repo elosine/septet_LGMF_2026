@@ -7442,3 +7442,38 @@ are kept as the take gives them, not zeroed · a chord frozen before the build i
 `morph_septet.js` stays untouched, and if that proves impossible the build STOPS and says so.
 
 **Nothing built.** `1h` H4, his listen, is still open — he has not said how the bloom sounded.
+
+## §175. `1i` VB3 BUILT FIRST — THE ENGINE HOLDS A VOICE STILL: two lines in `morph.js`, and the gate over all 26 stored actuals holds (2026-09-20)
+
+**His word: *"build here"*** — asked whether to switch to Opus for the build (the plan is written to be executed cold) or to build
+in the same sitting on Fable, he chose the second. The context was warm: every file the build touches had just been read.
+
+**A call on the ORDER, his to reverse: VB3 before VB1 and VB2.** His tab and his server are live on `:5400` and he can reload at
+any moment. Built in the plan's order, there would be a commit in which the panel hands the engine two vibraphone voices and the
+engine BENDS them. The engine's opt-in is inert without the mark, so it goes first and every commit leaves the app coherent.
+
+**What was read first:** `stateAt()` and `motionDev()` whole, and every caller of either (`grep`: `stateAt` is called from the
+carrier's callback, the bend sampler, the probe and the transient — and NOTHING else reads a voice's cents). So the plan's "three
+places" collapse into ONE: the `cents:` of `stateAt`'s return. There is no third station to excuse — a `target` or `mid` reaches a
+voice only through `modelFn`, which is upstream of that line.
+
+**As built — two edits:** `const STILL = VOICES ? VOICES.map(v => !!(v && v.still === true)) : []` beside the `voices` door, with the
+comment that says why it lives in the engine; and `cents: STILL[vi] ? startCents[vi] : cents0 + motionDev(vi, t, cents0)`.
+A still voice's notes keep the ordinary form — a `bend` array, every point the same offset from its key (0 for a tempered bar) — so
+nothing downstream meets a new shape of note.
+
+**THE GATE (VB3.0), made wider than the plan asked:** not four renders but ALL 26 stored actuals (`bank/actuals/`, read-only),
+each `resolvedParams` rendered with the septet's palette exactly as `tools/model_bank.js` does, 2 498 notes, hashed before the edit
+and after: **26 of 26 byte-identical.**
+
+**THE TEST — his own `ACT-BLOOM-02` params plus two vibraphone voices (D5, A4, lane 5), marked and, as a control, unmarked:**
+
+| | voices 0–5 (the three pairs) | voice 6 · voice 7 (the vibraphones) |
+|---|---|---|
+| marked `still` | each opens ≈ 24.9 c, a above · b below | **width 0.0 c** — 7400.0 and 6900.0 from first sample to last |
+| unmarked (control) | the same, to the digit | width 25.0 c — they bend like anyone |
+
+The six bending voices are IDENTICAL in the two runs: the mark touches nothing but the marked voice. The vibraphones' technique came
+out `bowed_vel` (the palette's ordinary voice IS the bowed one — VB4.3 answered on the way), their longest note 8.73 s = the
+measured 7.4 s bow × 1.18 for a quiet level, 16 and 15 bows over the span. `recipe.bowed_vibraphone.playerBendSt` is 0, which is
+what the panel will derive the mark from.
