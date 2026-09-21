@@ -128,9 +128,17 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   container a line can be moved to another instrument — only the rhythm moves · **the assignment is many-to-many** (a line doubled ·
   several lines merged onto one player, e.g. the percussion) · the strikes panel's rhythm view is the model, without its zones ·
   stretching a clip: later.
-- **PUT TO HIM, UNANSWERED:** a player with no note beneath (a rest, or a take that leaves them out) — (A) silent, the harmony gates
-  the rhythm · (B) borrow a note. The AI leaned A. **If that settles, the foundation is whole and phase 2, the top line, is next.**
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · RUNNING_LOG §185 · §186 · §187.
+- **THE FOUNDATION IS CLOSED (COMPOSITION_NOTES LG-58 · RUNNING_LOG §188):** collisions are TWO things — lines merged onto ONE
+  player get the standard per-instrument collision check (`D17` / `Composer.CONFLICT`, the tuba piece's values, may want updating) ·
+  onsets on DIFFERENT players are NEVER quantized or normalized (a few milliseconds apart is the material; no bands) · *"rhythm
+  with the rhythm and harmony with the harmony"*: no gating, no borrowed notes, a dot with no note beneath is a WARNING, silence is
+  made by muting dots.
+- **PHASE 2 — THE TOP LINE, PUT TO HIM, UNCONFIRMED:** (1) Texture plays this ensemble · (2) Texture: who plays each line · preview
+  in a harmony take · rhythm takes saved · (3) the rhythm sequence panel, the clone with two rows · (4) the workshop · (5) the whole
+  sequence sounds and inserts · (6) the dots touched · (7) the two crossfades · (8) his listen. Later, at his word: stretching a
+  clip · custom patterns · copying the harmony row's layout. **On his confirmation: phase 3, one step at a time, each written into
+  `docs/PLAN.md` § `1l` as it is agreed.**
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · RUNNING_LOG §185 · §186 · §187 · §188.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

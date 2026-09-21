@@ -7992,3 +7992,37 @@ The AI leaned A: the harmony row then sculpts the rhythm, and nothing sounds tha
 **Where the discussion stands:** if that settles, the AI holds the foundation to be whole and phase 2 (the top line) is next.
 Held, his word that they settle in the build: the non-pitched percussion (it takes lines through the same assignment; what it
 strikes is open) · the custom patterns · what each crossfade does · copying the harmony row's layout · stretching a clip.
+
+## §188. `1l`: THE FOUNDATION CLOSES — collisions are two separate things · *"rhythm with the rhythm and harmony with the harmony"* · PHASE 2, THE TOP LINE, put to him (2026-09-21)
+
+**What prompted it.** His answer to §187's two consequences and its question. **Verbatim: COMPOSITION_NOTES LG-58.**
+
+**Decided by him:**
+- **The AI's "one small rule" was two things wrongly joined, and he separated them.** Lines MERGED onto one player → *"the standard
+  collision check"*, per instrument (*"standard values, which may or may not need updating"*). Patterns on DIFFERENT instruments →
+  *"kept as is … shouldn't be normalized or quantized"* — *"even ones articulated a few milliseconds after another by different
+  instruments can still be quite interesting."* **This is also his reason for leaving the strikes drawer's bands behind:** he reads
+  them as quantization, or information about it. *(So the AI's suggestion that the "zones" keep one job is withdrawn — the job
+  belongs to the per-instrument collision check, which is a different object.)*
+- **The AI's question (a player with no note beneath) — neither A nor B:** *"let's keep rhythm with the rhythm and harmony with the
+  harmony."* The harmony row normally has no rests; if a dot finds no note, a WARNING; silence is made *"in the rhythm by muting
+  them."* **Rejected with it:** the harmony gating the rhythm (A) and borrowed notes (B) — both made one row reach into the other.
+- **Where the standard values live (read in §185, not re-read):** `texture_engine.js` carries `D17` — tongue reset 0.03 s · minimum
+  attack 0.11 s · 0.0093 s a semitone · at most 0.22 s added for a leap — *"the SAME numbers as `tools/audit_playability.js` and
+  `Composer.CONFLICT`"*. They are the tuba piece's.
+
+**PHASE 2 — the top line as the AI put it to him (his to confirm, reorder or rename):**
+1. Texture plays this ensemble.
+2. Texture: who plays each line · its preview in a harmony take · rhythm takes saved.
+3. The rhythm sequence panel: the clone, with its two rows.
+4. The workshop: see and hear a take in a harmony · cut or loop · save as a container.
+5. The whole sequence sounds and inserts — every dot reading the harmony beneath.
+6. The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument.
+7. The two crossfades.
+8. His listen.
+
+**Why that order (the AI's reasoning):** his ear early — step 1 is the smallest thing that sounds, his rhythm archetypes on his own
+instruments · each step leaves something he can use (takes after 2, containers after 4, a section in the score after 5) · the
+per-dot work and the crossfades come after the thing WORKS, his own order for the morph (*"get it working and then introduce some
+additional things"*, §185). **Left outside the line, at his word — later:** stretching a clip · the custom patterns · copying the
+harmony row's layout.

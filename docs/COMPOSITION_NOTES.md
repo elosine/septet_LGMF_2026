@@ -1922,3 +1922,27 @@ His words, answering the AI's organization of LG-56 point by point (RUNNING_LOG 
 5. **"Held for after this"** = after the foundation; many of those settle in the build, *"in particular, non-pitch percussion."*
 6. **The strikes panel's rhythm view:** *"it's not bad"*; the ZONES (onsets within a certain time counted as a unison) need not
    carry over; anything ported is discussed.
+
+### LG-58 · 2026-09-21 — BETWEEN DIFFERENT INSTRUMENTS A PATTERN IS NEVER QUANTIZED — *"even ones articulated a few milliseconds after another by different instruments can still be quite interesting"*; only lines MERGED onto one player get the standard collision check · *"rhythm with the rhythm and harmony with the harmony"*: silence is made by muting dots, not by the harmony
+
+His words, answering the AI's two consequences and its one question (RUNNING_LOG §187):
+
+> *"So I would separate these two things. If I merge the lines for one player, we should have the standard collision check. I
+> think we have some standard values, which may or may not need updating, but we have standard values where an instrument,
+> depending on the instrument, can't re-articulate within a certain amount of time. However, the patterns, if played by
+> different instruments, should be kept as is. So some of them are phase shifting ones. And so even ones articulated a few
+> milliseconds after another by different instruments can still be quite interesting. This is why I don't want the bands from
+> the strike straw rhythm, which I think was meant to provide some sort of quantization or at least information about
+> quantization. So those patterns to different instruments shouldn't be normalized or quantized. For the question, let's keep
+> rhythm with the rhythm and harmony with the harmony. So I guess then we don't need to check for this in the system, but
+> normally I wouldn't put any rests in the harmony. And if I do, we'll just have to resolve that or with a warning or something
+> like that. But that shouldn't be an issue. If I don't want notes to sound, however, I'll resolve that in the rhythm by muting
+> them."*
+
+*AI reading (mine, marked):* *"the strike straw rhythm"* is the speech-to-text of THE STRIKES DRAWER'S rhythm view. Two rules.
+**(1) Two kinds of closeness, kept apart.** Lines merged onto ONE player are checked against that instrument's re-articulation
+minimum — the standard values the app already carries (they may want updating for this ensemble). Onsets on DIFFERENT players are
+never touched: no quantizing, no normalizing, no band that gathers near-simultaneous attacks into a unison — in a phase-shifting
+pattern the few milliseconds between two instruments ARE the material. **(2) The two rows do not reach into each other.** The
+harmony row is normally without rests; it does not gate the rhythm, and nothing borrows a note. A dot that finds no note beneath
+it is a WARNING to resolve, not a rule to design. What should not sound is muted in the rhythm.
