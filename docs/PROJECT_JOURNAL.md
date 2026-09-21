@@ -109,6 +109,23 @@ time; nothing is planned or built until his understanding and the AI's are one.*
 - **`Resume reads:`** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES **LG-53 · LG-55** · PLAN `1l`. Nothing else until a question
   names it.
 
+### SESSION 12 SO FAR — `1l` IN DISCUSSION (2026-09-21, Fable): nothing planned, nothing built
+
+- **THE RHYTHM MACHINE IS THE TEXTURE PANEL** (`score/public/texture_engine.js` · `texture_panel.js`), **not `MT`** — his correction
+  (RUNNING_LOG §185, which has what Texture is and what it lacks for this piece). The *"ground in the repo"* bullet above names the
+  wrong files.
+- **HIS ARCHITECTURE (COMPOSITION_NOTES LG-56 verbatim · RUNNING_LOG §186):** Texture makes RHYTHM TAKES (archetypes), re-cast for
+  this ensemble with new articulations, its preview kept · **a CLONE of the sequence drawer — the RHYTHM SEQUENCE PANEL — not a
+  layer on it (his decision; reviewed after this version)**: the harmony row as now, a RHYTHM ROW of time containers on top, each
+  an excerpt (A→B, or several loops) of a rhythm take, its duration the excerpt's · a workshop BEFORE the container (take → hear it
+  over a harmony → see it → select → insert) · each onset reads pitch + dynamic from the harmony beneath · after the insert, dots
+  on a row: mute, or override pitch · dynamic · articulation · a CROSSFADE on each row (harmony A→B over N s; one rhythm container
+  into the next).
+- **PUT TO HIM, UNANSWERED:** what a rhythm take is — named players · anonymous streams cast at the insert · named and re-castable
+  (the AI leaned the last). **The AI's suggestion:** a rhythm container carries no harmony of its own; audition = over whichever
+  harmony box he clicks. **The AI's assumption, for his correction:** the harmony row is silent here, a map.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · RUNNING_LOG §185 · §186.
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |

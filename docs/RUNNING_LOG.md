@@ -7855,3 +7855,103 @@ read this sitting.
 **4 · Session 11 closed:** journal §2 cut to one line for the session and a cold entry point for `1l` (the long §2 is whole in git
 at `e6070fb`) · §4 **D18 … D23** promoted (the dynamics law · the table · one scale · the bloom on a take · the still vibraphones
 · the morph's breaths) · §6 **section 1 composed**, `piece-LGMF-Sec01-v1.3-sec01-done` — a tag suggested to him, not made.
+
+## §185. SESSION 12 OPENS ON `1l` — his correction: the rhythm machine is the TEXTURE panel, not `MT`; and his step back: concepts and requirements first, the machinery after (2026-09-21)
+
+**What prompted it.** Session 12 opened on `1l` under the planning method, phase 1. The AI's first turn read only the two header
+comments of `multitempo.js` · `multitempo_panel.js` (the files journal §2 named), read his brief LG-55 back as MAP · RHYTHM · JOIN ·
+per-onset touch, and asked one question (are the held notes heard, or is the sequence a silent map). He did not answer it; he
+corrected the ground and widened the frame:
+
+> *"It's actually the panel called Texture, which was the update, which incorporates multi-tempo and phase shifting patterns. So
+> we need to update this for this piece. So the proper instrumentation. This will probably need some significant updating and
+> eventually I'd like to add some things to it too. But like our other updates, like the morph, I probably want to get it working
+> and then introduce some additional things. But we should spend some time talking about the whole thing conceptually first and
+> then see what the right machinery for it is. I'd like to take a step back and discuss architecture first and see if we just
+> adapt the things in place now or build a new one or some kind of hybrid. But I don't think I have a firm grasp on what
+> precisely is we need. So let's discuss it, starting with the top level concepts and make sure we have the proper requirements
+> and then we can drill down into the machinery. But have a look at the texture panel so we know what we're working with and the
+> other ones as well."*
+
+**Correction to §184 and journal §2:** both named `multitempo.js` / `multitempo_panel.js` as "the multitempo machinery". His word:
+the machine he means is **Texture** (`score/public/texture_engine.js` 1094 lines · `texture_panel.js` 1343 lines).
+
+**What was read, and only this** (headers, the spec keys, the pitch layer, the window functions, the bank's model names — no
+function bodies beyond those):
+
+- **Texture (PLAN 2x of the tuba piece, carried through #5).** A pure, seeded ATTACK-FIELD engine. Its unit is a PLAYER PULSING:
+  a voice group has `players` · `bpm` (rampable: `bpmEnd`, `curves`) · `scatter` (a FIXED PER-PLAYER OFFSET inside the cycle —
+  the phase) · `jitterMs` · `level` · `articulation` · `pitch`. A panel voice is expanded into one one-player voice per player.
+  Five models in `bank/texture_models.json`: SMEAR · TICKS · RAIN · GALLOP · GROOVE. The panel: Generate · Play · Stop · Pin ·
+  A/B · Humanize · a dial MORPH between two models over N seconds · LIVE (stepping bpm / players in real time) · Insert.
+  **It already cuts a window A→B:** `windowToSpec` (the dials at the window, frozen or moving — a "pocket") and `windowNotes`
+  (the literal clip, which must slice the FULL render, never re-seed a short one). **Pitch is IMPOSED OVER the attacks** from one
+  injected set, four policies — `unison` · `perVoice` (each player one pitch) · `draw` · `cycle` — *"impose pitch sets and let
+  the chips fall where they may"*.
+- **What it is still cast for:** ten interchangeable tubas — lanes 0–9, `players: [1, 10]`, staccato one-shots at their MEASURED
+  ring lengths (`bank/sample_lengths.json`), a sounding window MIDI 30–65, the VERT01 species as pitch presets, D17's tuba
+  playability constants.
+- **Its own design rule (R10), in the panel's header:** *"THE PANEL GENERATES, AUDITIONS AND INSERTS. IT NEVER EDITS. No
+  selection, no drag, no per-note anything."* — his LG-55 point 5 (mute, articulation per note) is exactly what it excludes.
+- **MT** (`multitempo.js`): whole-number ratios against one BPM, stream i = player i, a common cycle that loops, audition only,
+  writes nothing to the score. **Pulse** (`pulse_seq.js`): the trance section's column grid.
+
+**An observation of the AI's, from the engine (marked as such):** "multitempo" and "phase shift" are ONE object here — a player
+pulsing at a tempo from a place in the cycle. Different tempi = multitempo; the same tempo with the places drifting (`scatter`
+as a curve, or a small `dBpm`) = phase shift. So the rhythm layer has one unit, the player's pulse stream.
+
+**Where the discussion stands:** nothing decided. The AI put the top-level split to him as FOUR JOBS — the MAP (a sequence) · the
+RHYTHM (generate, listen, cut A→B, lay in a row) · the JOIN (each attack reads its player's pitch and dynamic from the map) · the
+TOUCH-UP (mute, articulation per attack) — and asked only whether the split is right. Held aside, named: whether the map is
+heard · the non-pitched percussion (outside the map, LG-53) · adapt / new / hybrid, which he ordered AFTER the requirements.
+
+## §186. `1l`: HIS ARCHITECTURE FOR THE COUNTERPOINT SECTION — Texture makes rhythm takes, a CLONE of the sequence drawer carries a rhythm row over the harmony row; the AI's organization, its one suggestion, and the question put to him (2026-09-21)
+
+**What prompted it.** To the AI's four jobs (§185) he answered with the whole architecture as he imagines it, spoken in one run and
+ending *"All right, so that's a lot. Let's organize this and talk about it and see if this is the best architecture for this."*
+**The verbatim is COMPOSITION_NOTES LG-56** — not repeated here. His own summary of it: *"the big picture is rhythms from the
+textures, but I'd like to be able to have custom patterns. I'd like to be able to create a harmony sublayer that can be applied to
+a different rhythm pattern … harmony and dynamics. And then I'd like to have individual control after the fact."*
+
+**Decided by him in this exchange:**
+- **A CLONE of the sequence drawer, not a layer on it** — *"let's clone it instead of building on top of the sequence drawer"*;
+  the architecture is looked at again *"once we're done in this version."*
+- **Texture is to rhythm takes what the strikes drawer is to harmony takes** — re-cast for this ensemble, an updated set of
+  articulations, its own preview kept; additions later.
+- **A rhythm container's duration is its excerpt's duration.**
+
+**How the AI organized it (the chat's words):** THREE PLACES — (1) Texture makes the rhythm takes · (2) the rhythm sequence panel,
+two rows of time containers, harmony below and rhythm above, with a workshop that comes BEFORE a container exists (take → hear it
+over a harmony → see it → select A→B or several loops → insert) and a crossfade on each row · (3) after the insert, dots on a
+row: mute, or override pitch · dynamic · articulation.
+
+**The AI's assessment — why the architecture holds (reasoning, not verified in code):**
+- It is the shape he already works in: strikes drawer → harmony takes → sequence; now Texture → rhythm takes → rhythm sequence.
+- It keeps this piece's founding rule for a sequence (PLAN 1d): **the recipe is saved, the notes are derived.** A rhythm container
+  is a recipe line (which take, which window, how many loops); the dots are derived; his per-dot touches are a short list of
+  exceptions on top.
+- The JOIN asks the harmony row one question — *what does this player hold at this moment, and how loud* — and the sequence
+  generator exists to answer exactly that.
+- A clone cannot break the drawer section 1 was composed with.
+- **Noted for the machinery talk, not raised with him yet:** a per-dot exception needs each dot to keep its IDENTITY when the
+  row is re-derived. Texture is seeded, and its literal clip slices the FULL render (§185) — so the dots of a given take and
+  window are the same dots every time. An exception should therefore survive a change of the harmony beneath it or a move of its
+  container, and not survive a change of the take or the window. *An inference from two header comments — unverified.* (LG-55's
+  open point: whether a mute survives a re-cut.)
+
+**The AI's one suggestion — his own second thought, taken:** a rhythm container carries NO harmony of its own; it reads whatever
+lies under it. So there is no separate "preview harmony" to keep: to audition a rhythm take he clicks any harmony box and hears
+the rhythm over it. One concept fewer, and a moved container re-orchestrates itself. *(Rejected with it: the container that is
+inserted "with that particular harmony" — it would make two sources of harmony, the container's and the row's.)*
+
+**The AI's assumption, stated to him for correction:** the harmony row is SILENT in this panel — a map. His words carry it
+(*"as if it was going to be sustained notes"*, LG-55 · *"a harmony sublayer"*, LG-56); he has not said it outright.
+
+**The ONE question put to him — what a rhythm take IS, who plays:** Texture's players are ten anonymous, interchangeable tubas;
+his are eight different players, and the harmony gives each a pitch of its own. (A) NAMED — the take says english horn · bassoon ·
+cello and always plays on them · (B) ANONYMOUS — the take says "three streams" and he casts them at the insert · (C) named AND
+re-castable at the insert. The AI leaned C: Texture's preview needs real players to sound; *"archetype or prototype"* asks for
+the re-cast.
+
+**Held aside, named to him:** the custom patterns · what each crossfade does exactly · copying the harmony row's layout · the
+non-pitched percussion (outside the map, LG-53) · a player the harmony leaves without a note.
