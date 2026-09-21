@@ -9258,3 +9258,13 @@ player holds no note until a shuffle or a hand assignment, as the drawer does to
 preview only as claves, when the claves are on · unpitched percussion outside, at his word · **Insert is not in this build.**
 
 Not planned, not built: his answer to the list is next.
+
+## §226. Build 2, one correction: the percussion KEEPS ITS ROW in the column (2026-09-21)
+
+On line (1) of the Build 2 list (§225) — *"a column of eight rows: the seven pitched players and the second vibraphone seat"* — his
+words: *"let's keep non-pitched percussion in the column. I just don't want to address it in this build."*
+
+So a column has NINE rows, the drawer's own player rows as they stand (eight players and the vibraphone's second seat, in the drawer's
+order): the percussion's circle is there and ticks like the others; what a percussion tick MEANS in the pattern (which instrument,
+which key — the claves stand-in, `main`, the take's own) is not designed here and is not built here. The line is corrected in the
+plan when Build 2 is written. His answer to the rest of the list is pending.
