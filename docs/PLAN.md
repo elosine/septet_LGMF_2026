@@ -1417,6 +1417,78 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     vibraphones on different channels · mf velocities · CC7 on the table's values.
 
 
+- **1j — THE MORPH'S BREATHS** (the sequence drawer's three LENGTH dials — `of max` · `±` in seconds · `outlier` — in the morph: each
+  player breathes round ITS OWN maximum, and one breath in ten is far from the rest; ON from the start, at the default numbers) —
+  **`planned` 2026-09-20, session 11 (RUNNING_LOG §177–§180 · MORPH_NOTES 2026-09-20); the top line approved (*"yes, write the plan
+  and build here"*), the sub-steps the AI's.**
+  *Why:* his ear — *"the durations of the notes in the morph seem regular, predictable. Are they then the same length? And can we
+  discuss what it would be like to introduce a similar breath generator like in the sequences?"* Measured on his own `ACT-BLOOM-02`
+  (§177): 80 breaths, mean 8.03 s, sd 1.45, 5.65 … 10.40 — every player dealt `segLen × (1 ± segVar)` round the SAME 8 s, the ceiling
+  only a cap. It is the fault `SEQUENCE_TOOL.md` §19 opens with; the sequence borrowed these numbers from the morph and outgrew them.
+  His answers: the lengths first (*"a"*, §178) · on from the start, *"and can we have the default numbers to start"* (§179).
+  *Result when done:* in his Chrome a new bloom breathes with the english horn and the bassoon holding about 12 … 14 s, the horn and
+  the cello about 10, the trumpet 8, the double bass 6.5 and the vibraphones 5 … 6, one breath in ten a surprise; three boxes on the
+  panel move it; an actual filed before today recalls with those boxes BLANK and breathes exactly as it did.
+  *What the code already gives (read 2026-09-20, §177 · §178 — do not re-derive it):*
+  **(a)** `buildCarrier()` (`morph.js` ~475): one jitter draw, then `want = segLen × jitter`; then the ceiling, asked AFRESH at every
+  breath through `ctxForBreath(start)` — the palette's `ceiling(level)` at the level the voice has THEN, × `GLISS_AIR_COST` while a
+  wind bends — then the cap (`BREATH`), then one gap draw. A fixed-length sound takes its sample's length. The per-voice stream is
+  `mulberry32(P.seed * 7919 + vi * 104729)`, made by the ONE caller (~1629).
+  **(b)** the sequence's rule, whole (`sequence.js` `dealSpan` ~461–488): `aim = ceiling × ofMax` (else `length`) · `aim ± jitterS`
+  (else `aim × jit`) · `outlier { share, short, floor }` on a stream OF ITS OWN — SHORT `max(floor, aim × short)`, LONG drawn evenly
+  from the top of the normal range to the ceiling, short only when that room is under 1 s · never over the ceiling. It is INLINE
+  there and reads the sequence's own state — there is no function to share (§178).
+  **(c)** the panel's dials are FIELDS: `row(label, path, value, step)` draws an input with `data-path`; `readFields(p)` lays the
+  typed values over `current()`'s params, and **an EMPTY box DELETES the key** (~1060). A recalled actual renders ONCE from its
+  stored params, the fields are then drawn FROM them, and every later Generate reads them back — so whatever a recall shows in the
+  boxes persists through the nudges after it. `carrier` passes through `normaliseParams` whole (`Object.assign`), so a new carrier
+  key needs no schema change to reach the engine; `PARAM_PATHS` is the recipes' table.
+  - **BR1 · The engine deals a breath round the player's own maximum.** *Result when done:* with `carrier.ofMax`,
+    `carrier.jitterS` or `carrier.outlier` set, a breath is dealt by the sequence's rule, at the ceiling the voice has at THAT
+    moment; with none of them set not one byte of any render changes.
+    - BR1.0 · THE GATE first, as `1i`'s: all 26 stored actuals rendered before and after, byte-identical (the scratchpad's
+      `gate_1i.js`, re-run with a fresh `before`).
+    - BR1.1 · `buildCarrier`: keep the ONE jitter draw (`r1`) and the legacy expression exactly; when a dial is set and the sound is
+      not fixed-length, `aim = ofMax != null ? ceiling × ofMax : segLen`, `want = jitterS != null ? aim + r1 × jitterS : aim × (1 +
+      r1 × segVar)`, never under 0.5 s (the sequence's `MIN_BREATH_S`); then the outlier; then the cap as today.
+    - BR1.2 · the outlier's OWN stream — a 7th, optional argument of `buildCarrier`, made by the caller from the same seed
+      (`… + 15485863`) — three draws a breath whether or not it is one, as the sequence does, so turning the dial re-deals no other
+      breath's length. Flags: `OUTLIER`, and `LONGER` on a long one. They are counted in `summary.flags` and are NOT soft flags: an
+      outlier is meant.
+    - BR1.3 · `PARAM_PATHS` gains the five paths; a comment in `morph.js` AND in `sequence.js` names the other as its TWIN
+      (`sequence.js` gets the comment only — `sequence_check` must stay 180).
+  - **BR2 · The three dials on the morph panel, on from the start.** *Result when done:* under `segment (s)` there are `of max`,
+    `± (s)` and `outlier`; a bloom made from a model opens with 0.65 · 1.3 · 0.1; emptying a box turns that dial off; the status
+    counts the outliers.
+    - BR2.1 · `BREATH_DEFAULTS = { ofMax: 0.65, jitterS: 1.3, outlier: { share: 0.1, short: 0.4, floor: 2 } }` in the panel, its twin
+      named (the sequence drawer's built-in line). Laid into `current()`'s params where the MODEL does not carry its own — in
+      `generate()`, before the fields are read, so an emptied box still deletes. `short` and `floor` ride along at the defaults; no
+      boxes for them (his to ask).
+    - BR2.2 · three `row()`s after `segment (s)`: `carrier.ofMax` · `carrier.jitterS` · `carrier.outlier.share`, drawn `''` when
+      absent. `readFields` makes `carrier.outlier = {}` for an empty share: the engine reads no share as OFF.
+    - BR2.3 · the status line after Generate: `N outliers (s short · l long)` when there are any.
+  - **BR3 · The actuals keep the breaths they were filed with.** *Result when done:* his `ACT-BLOOM-01` · `-02` recall with the
+    three boxes BLANK and their renders deep-equal their stored notes, before AND after a nudged dial; an actual filed today carries
+    its three numbers, recalls with them, and the bank's validator reproduces it.
+    - BR3.1 · the defaults are NOT laid over `_recallParams` — a recalled actual renders as stored; the boxes then show what it had
+      (blank for an old one), and BR2.1's defaults must not creep back under a blank box on the next Generate (`readFields` deletes
+      them — verify, do not assume).
+  - **► BR4 · His listen.**
+  - **NOT in this step:** `together` / `apart` · the pool of lengths · `re-breathe` (the seed box already re-deals) · boxes for
+    `short` and `floor` · the sequence drawer's `save as default` reaching the morph · ONE shared breath module for the two tools
+    (MORPH_NOTES — the revision's) · the stagger of first entries · `sequence.js` beyond a comment.
+  - **REQUIRED VERIFICATION:** (1) THE GATE, 26 of 26 · (2) in node, his `ACT-BLOOM-02` params with the three dials set: per player
+    the mean breath and the range — EH · Bsn longest, then Hn · Vc, Tpt, Db, the vibraphones shortest — no breath over its ceiling,
+    none under 0.5 s; the outliers counted, short and long; `outlier` turned off → every OTHER breath's length unchanged · (3)
+    `score-5401`: a new bloom shows 0.65 · 1.3 · 0.1 and breathes so; an emptied box turns its dial off; Insert writes the notes ·
+    (3b) `ACT-BLOOM-02` recalled → three blank boxes, render = stored notes, then `seed` nudged and back → still the old lengths ·
+    a test actual filed WITH the dials → recalled with them → the validator VALID → `bank/` left exactly as found · (4) the
+    batteries, `sequence_check` 180 among them.
+  - **His test:** RELOAD the tab · morph panel → BLOOM → his take → **Play**: the winds hold longer than the strings and the
+    vibraphones, and now and then a breath is much shorter or longer than its neighbours · empty `of max` → **Play**: everyone
+    round 8 s again · `outlier` 0.3 → more surprises · recall `ACT-BLOOM-02` → the three boxes blank, the bloom as he filed it.
+
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +

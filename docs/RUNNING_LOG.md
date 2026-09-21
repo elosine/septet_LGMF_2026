@@ -7661,3 +7661,27 @@ recall AND through the dials he moves after it.
 
 **The top line put to him (phase 2):** 1 the engine deals a breath round the player's own maximum · 2 the three dials on the morph
 panel, on from the start · 3 the actuals keep the breaths they were filed with · 4 his listen. Nothing built.
+
+## §180. PLAN `1j`, THE MORPH'S BREATHS, WRITTEN — approved as the top line, the sub-steps the AI's; built in the same sitting (2026-09-20)
+
+**His word: *"yes, write the plan and build here"*.** `docs/PLAN.md` § `1j`: **BR1** the engine deals a breath round the player's
+own maximum · **BR2** the three dials on the morph panel, on from the start · **BR3** the actuals keep the breaths they were filed
+with · **BR4** his listen.
+
+**What was read for it, and what it settled:**
+
+- **The panel's dials are FIELDS, and an EMPTY box DELETES its key** (`readFields`, his own fix of 2026-09-09: *"and len cant be
+  changed now"*). That one rule carries the whole of BR3: a recalled actual renders once as stored, the boxes are drawn FROM it —
+  blank, for an actual filed before today — and every later Generate reads the blank back and deletes the default that `current()`
+  would have put there. **So "an old actual keeps its breaths through the dials he moves afterwards" needs no new machinery**, only
+  that the defaults are laid in BEFORE the fields are read and never over a recalled set. To be verified, not assumed.
+- **The ceiling is already asked afresh at every breath** (`ctxForBreath(start)`), at the level the voice has then and × 0.7 while
+  a wind bends. `of max` therefore follows a swell and a bend with no code of its own.
+- **`carrier` passes through `normaliseParams` whole**, so the three keys reach `buildCarrier` with no schema change; `PARAM_PATHS`
+  (the recipes' table) gains them for completeness.
+
+**Calls the AI made, his to reverse:** the engine's OWN copy of the rule, its twin named in both files (§178) · THREE boxes, not
+five — `short` 0.4 and `floor` 2 ride along unseen · the defaults are the PANEL's and reach every model it renders, not BLOOM alone
+(the carrier is orthogonal to the model, and the diagnosis — everyone at 8 s — is true of all of them); the tools that built the six
+scores never pass through the panel, so nothing stored moves · the outlier's flags are counted but are not SOFT flags — an outlier
+is meant · the sequence drawer's `save as default` does not reach the morph.
