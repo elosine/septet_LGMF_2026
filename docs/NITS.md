@@ -203,3 +203,12 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   and it is not 1h's** — `morph_septet.js` is untouched by that build — and it has never been in the way, because the six LGMF
   scores were built by `bank/actuals/` and the tools, not by the panel. **The one-line shape of a fix:** when no pair owns any
   voice, `filterResult` should pass the render through whole. PLAN 1h H2.3 does the pair-attaching version of this for a TAKE.
+
+- **2026-09-20 — the validator's RE-DERIVATION DRIFT stands on NINE stored actuals, not one** (RUNNING_LOG §176, seen while
+  verifying PLAN 1i). `node tools/model_bank.js --validate` is VALID, and warns that `render(resolvedParams)` no longer reproduces
+  the stored notes of `ACT-LGBLOOM-01 · -03 · -05` and `ACT-LGSPECTRAL-01 … -06` (e.g. 118 notes against 107). Journal §2's
+  checkpoint #7 names only `LGSPECTRAL-06`. **It is not 1i's:** the same nine drift identically under the engine as it was before
+  that build (both engines run side by side). The likeliest cause is a palette value moved after they were filed on 2026-09-19 — the
+  ceilings were re-based that day — but that is a guess, not a finding. **Nothing sounds wrong because of it:** the stored objects
+  stand, and the six scores were built from them. It matters only if one of those actuals is RECALLED and expected to come back
+  note for note.

@@ -7477,3 +7477,90 @@ The six bending voices are IDENTICAL in the two runs: the mark touches nothing b
 out `bowed_vel` (the palette's ordinary voice IS the bowed one — VB4.3 answered on the way), their longest note 8.73 s = the
 measured 7.4 s bow × 1.18 for a quiet level, 16 and 15 bows over the span. `recipe.bowed_vibraphone.playerBendSt` is 0, which is
 what the panel will derive the mark from.
+
+## §176. `1i` VB1 · VB2 · VB4 · VB5 BUILT AND VERIFIED — the vibraphones are the bloom's fourth row; VB6, his listen, is all that is left (2026-09-20)
+
+**Everything is in `score/public/morph_panel.js`** (VB3's two lines in `morph.js` are §175). `morph_septet.js`, `morph_emit.js`,
+`morph_dyn.js`, `strike_drawer.js`, `sequence_ui.js` and `composer.html` are untouched.
+
+**As built:**
+
+- **VB1 — the row.** A pair may name a SEAT and be STILL: `{ a: 5, b: 5, sa: 0, sb: 2, still: true, on }`. The lane comes from
+  `TRACKS` by `instKey`; the second seat's `2` is `seats_ui.js`'s own literal (a second seat's note leaves the drawer as `seat: 2`),
+  named once as `STILL_SEAT2` with the pointer beside it. `normPairs()` is the one door every list comes through — the stored list,
+  the default, a recalled actual's — keeping a still row it finds and making one where there is none, ALWAYS LAST. `ensurePairs()`
+  looks again wherever the pairs are about to be read, because `TRACKS` may not be on the page when the panel first loads.
+  `drawPairs()` draws the still row's seats as plain labels (`Vib` · `Vib²`, as the sequence drawer prints a seat).
+- **A thing the plan did not see: `swapSeat()` rebuilds EVERY row as `{ a, b, on }`** — one seat swap on a bending pair would have
+  stripped the still row of its seats and its mark and left a bending pair on lane 5 + lane 5. It lives in `morph_septet.js`, which
+  this build does not touch, so the panel hands it the bending rows only and puts the still row back behind them.
+- **VB1.4 — a take only.** `castOf()` gives `cast()` every row for a VOICE LIST and the bending rows for a SONORITY; `pairOrder()`
+  and `takeForPairs()` walk `bendingPairs()`. The still row is last, so `cast.pairs[k]` lines up with the panel's rows either way.
+- **VB2 — the reading.** The chord is keyed by `lane:seat`; the FROZEN chord and the recalled chord both keep `seat` now. A still
+  pair is read as assigned and NEVER doubled; its voices go out as `{ midi, cents, partial?, seat, still: true }`, last. A chord
+  frozen before the build has no `seat` anywhere: two vibraphone notes then read as one player's and the line says
+  *frozen before the vibraphones' seats were kept — ↻ re-deals it*.
+- **VB4 — NOTHING HAD TO BE BUILT.** An inserted morph note has been a curve event since `1h` H3, `toScoreObjects` lands both
+  vibraphone voices on lane 5, `shapeObjects` gives them the law by instrument, and both deals — the score's `curveChannelMap` and
+  Hear's `curveSeatsFor` — are round robin per LANE by time with a free-at clock, which is exactly what two overlapping voices on
+  one lane need. The 1g collision (a REAL seat's fixed channel against a dealt one) cannot come by this door: the morph never uses
+  `D.routeFor`, so neither vibraphone has a fixed channel. **That was a reading; the captures below are the proof.**
+- **VB5 — the actuals.** The recall branch carries `seat` back from the voice; `still` rides in the stored params.
+
+**VERIFIED IN `score-5401`, no MIDI, never Saved, his tab untouched:**
+
+1. **the stored list of three rows became four** — that origin's own `localStorage` held yesterday's three; the panel came up with
+   `{5,5,sa 0,sb 2,still}` as the last row. Six `<select>`s, two plain seat labels `Vib` · `Vib²`, four ticks.
+2. **a hand-built chord, three doubled pairs + Vib D5 + Vib² A4** → 8 voices, the last two `still` with seats 0 and 2, lanes
+   `[0,1,2,3,6,7,5,5]`, four rows on the line, `left out` empty. **Every vibraphone note sits at 7400.0 / 6900.0 cents, width 0;**
+   the six bending voices open a above, b below (7286.3 → 7311.3 · 7261.3 ← 7286.3 …). Technique `bowed_vel`.
+3. **one vibraphone only** → 7 voices, *one vibraphone · held still*, no doubling, no warning · **none** → 6 voices, none of them
+   carrying `seat` or `still`, row 4 *no note in the take* · **two notes on one seat + a percussion note** → the lowest, said, and
+   `left out: Perc C4` · **an old frozen chord (no `seat` at all)** → 7 voices and the re-deal warning.
+4. **the ticks:** row 4 alone → `heard()` holds voices 6 and 7 only (the marker reads *Vib+Vib²*); row 4 off → voices 0 … 5 only.
+5. **Insert** (with a fade-in preset made in memory) → 12 vibraphone objects on lane 5, all with `cc7Abs` and `velAbs` **99** (the
+   vibraphone's mf, §144's own number), none `plain`, `morphBend` flat at 0, `cc7Fade` from 0 on the opening notes; the status:
+   *44 shaped, struck at mf on the curve channels · the fader CC7 26…117*.
+6. **HEAR CAPTURED** (every port recorded through the emitter's `outputFor`; `ensureMidi` stubbed — the first attempt captured
+   nothing because `play()` returns at once without Web MIDI) and **THE SCORE'S OWN PLAYBACK CAPTURED** (rAF on a 16 ms timer, the
+   zone outputs a recording Proxy — the vibraphone's port `LGVibes` is not among the ten a fixed stub list names, §137's gap):
+
+   | | Hear | the score's playback |
+   |---|---|---|
+   | `LGVibes` note-ons | ch 2 · 3 · 4, four each, all **v99**, pitches 69 and 74 | the same |
+   | a note-on while the OTHER pitch sounds on that channel | **none** | **none** |
+   | pitch bend on those channels | one value, **8192** (centre) | the same |
+   | CC7 inside the run | **0 … 117**, opening 0, 1, 2, 3 … (the fade) | the same opening |
+   | MAIN ch 1, any port | **0 note-ons** | **0 note-ons** |
+   | the others' strikes | EH 82 · Bsn 91 · Hn 83 · Tpt 77 · Vc 83 · Db 65 | identical |
+
+   (A CC7 of 127 at the very end of each run is the emitter's own end-of-run restore, not the table.) The release in this preset is
+   a LEVEL fade — `shape.release.mode` is not a key the engine knows, and it said so — so it bottoms at the table's `ppp`, as `1h`'s
+   (6b) found; the fade-IN is `cc7Fade` and reaches 0.
+7. **THE ACTUALS, on real files:** `Save as ACTUAL` (`zz-1i-A`) → `ACT-BLOOM-03`: `source.voices` with `seat` and `still`, lanes
+   `[…,5,5]`, `pairs` with the still row → off the take → **recalled**: the frozen chord rebuilt with seats 0 and 2, row 4
+   *held still · 74 s0 + 69 s2* → **nudged** `carrier.span` 40 → 52, `segLen` 8 → 11 → voices unchanged → `zz-1i-B` →
+   `ACT-BLOOM-04`: voices and lanes deep-equal A's, span 52 against 40 → **`insertActual`**: 14 vibraphone objects on lane 5, the
+   law, flat bend. **His `ACT-BLOOM-02` recalls as it did** — six voices, his lanes `[6,7,3,2,0,1]`, row 4 *no note in the take* —
+   and **its render deep-equals its stored notes, 80 of 80.**
+8. **`bank/` LEFT EXACTLY AS FOUND.** The store's pre-image was kept (sha `913b49ec2118d926`, rev 128). The cleanup did not restore
+   blindly: it removed the two test entries from the LIVE store, set the rev back, and compared that with the pre-image — equal, so
+   he had written nothing in between and the pre-image went back byte for byte (rev 130 → 128, the same sha); had they differed,
+   only the two entries would have come out and his change stayed. The two files deleted; `bank/actuals` lists the same 26 names.
+9. **THE NODE-SIDE PROOF OF §174's REASON.** With the two test actuals still filed, every actual was re-rendered under the engine
+   AS IT IS and AS IT WAS before `1i`: **under the old engine `ACT-BLOOM-03` and `-04` drift (it bends the vibraphones); under the
+   new one they reproduce exactly.** That is what *stillness has to live in the render* means, measured.
+10. **HIS OWN TAKE, read-only through the real `dealTake`:** he has already made one — **`Bloom01b_w_vibs-Just-A1-seed132`** —
+    his three doubled pairs (A2 · G4 −31.17 · C♯5 −13.69) with **Vibraphone 1 on E6 and Vibraphone 2 on B♭5**. The line: *Vib + Vib² ·
+    held still · 88 s0 + 82 s2*, 8 voices, lanes `[6,7,3,2,0,1,5,5]`, `left out` empty. **The take this build is for exists.**
+11. a SONORITY source still casts three pairs and six voices, row 4 reading *held still · in a bloom on a TAKE only*; `LGBLOOM`
+    still names its own 8 voices, 79 notes. No uncaught error on the page through any of it.
+
+**Batteries:** `sequence_check` **180** · `dyn_table_check` **51** · `palette_check` **184** · `test_snapshots` **26** ·
+`test_written_pitch` **10** · `spectrum_check` **35** · `model_bank --validate` **VALID (with warnings)**.
+
+**FOUND ON THE WAY, NOT MINE, NOT FIXED (NITS):** the validator's RE-DERIVATION DRIFT warning stands on **NINE** stored actuals —
+`ACT-LGBLOOM-01 · -03 · -05` and `ACT-LGSPECTRAL-01 … -06` — not the one (`LGSPECTRAL-06`) checkpoint #7 names. It is identical
+under the pre-`1i` engine, so this build did not cause it; the stored objects stand and the six scores were built from them.
+
+**Seen and left:** an actual with both vibraphones reports `parts: 7` — the server counts LANES, and the two share one.

@@ -1278,9 +1278,19 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 
 
 - **1i — THE VIBRAPHONES IN THE BLOOM** (the two vibraphones as a FOURTH PAIR of a bloom on a take — as assigned, ONE note each,
-  HELD STILL — following the bloom's one shape) — **`planned` 2026-09-20, session 11 (RUNNING_LOG §172–§174 · COMPOSITION_NOTES
+  HELD STILL — following the bloom's one shape) — **`planned` and BUILT 2026-09-20, session 11 (RUNNING_LOG §172–§176 · COMPOSITION_NOTES
   LG-54 · MORPH_NOTES 2026-09-20 ×2); the top line approved (*"top line is good good to write plan and build"*), the sub-steps the
   AI's, written to be executed cold.**
+  **► `doing` 2026-09-20 — VB1 … VB5 ARE BUILT AND VERIFIED (RUNNING_LOG §175 · §176), EVERY NAMED CHECK OF THE REQUIRED VERIFICATION HAS RUN,
+  AND `bank/` WAS LEFT EXACTLY AS FOUND. WHAT IS LEFT IS VB6, HIS LISTEN — nothing here has been HEARD, the in-app browser has no Web MIDI.**
+  **AS BUILT:** VB3 went FIRST — the engine's opt-in is inert without the mark, so every commit left his live app coherent. The
+  plan's "three places" were ONE: `stateAt` is the only source of a voice's cents (two lines in `morph.js`; all 26 stored actuals
+  byte-identical). Everything else is in `morph_panel.js`. **VB4 needed NO code** — Insert and Hear already deal curve channels per
+  LANE by time, which is what two voices on one lane need; it was proven by capturing both. **One thing the plan did not see:**
+  `swapSeat()` (`morph_septet.js`, untouched) rebuilds every row as `{ a, b, on }` and would have stripped the still row, so the
+  panel hands it the bending rows only. The second seat's value is `seats_ui.js`'s literal `2`, named once (`STILL_SEAT2`).
+  **His take for it already exists: `Bloom01b_w_vibs-Just-A1-seed132`** (Vibraphone 1 on E6, Vibraphone 2 on B♭5) — read through
+  the real `dealTake`, it gives four rows and eight voices.
   *Why:* his words — *"is there a way to include the vibraphones in the morph as an extra pair, but that don't bend pitch at all. I
   want them to be able to follow or have a, a curve and do the fade and everything. as one of the other pairs would, or, you know,
   its own trajectory, but it just wouldn't do the pitch bend."* Three answers of his closed phase 1: what they hold — *"a, as assigned
@@ -1310,7 +1320,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   time order — what a SEQUENCE's two vibraphones already do (`sequence_ui.js` ~1552–1579 `curveSeats`, its Insert ~1784–1795).
   The morph's Hear has the same deal in `morph_emit.js` ~116 `curveSeatsFor` (called ~416). `morph_dyn.js`
   `shapeLevels(bank, instKey, midi, level)` is per instrument; the vibraphone has a measured curve and a table.
-  - **VB1 · The vibraphone pair in the panel.** *Result when done:* the PAIRS block has a fourth row — the two vibraphones, labelled
+  - **VB1 · The vibraphone pair in the panel.** — **`done` 2026-09-20 (RUNNING_LOG §176).** *Result when done:* the PAIRS block has a fourth row — the two vibraphones, labelled
     as the sequence drawer prints them — with its tick and NO seat menus; it appears in a panel that stored three rows yesterday; the
     three bending rows behave exactly as before.
     - VB1.1 · a pair may name a SEAT and may be STILL: `{ a, b, sa, sb, still: true, on }` — `sa` / `sb` absent = 0, so the three
@@ -1325,7 +1335,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `cast(params, this.pairs, env)` call (~1361, whose `want = pairs.length * 2`). With the still pair last, `cast.pairs[k]` still
       lines up with rows 0 … 2. For any source but a take, row 4 reads *a take only*. **All of this from the PANEL — if it cannot be
       done without editing `morph_septet.js`, STOP and say so.**
-  - **VB2 · The take gives them their notes.** *Result when done:* each vibraphone's note is read as assigned — two notes → two
+  - **VB2 · The take gives them their notes.** — **`done` 2026-09-20 (RUNNING_LOG §176).** *Result when done:* each vibraphone's note is read as assigned — two notes → two
     voices · one → ONE voice, no doubling, no warning · none → the row sits out; the line shows the fourth row with note · cents ·
     partial like any other; `left out` names only what is truly in no pair (the percussion).
     - VB2.1 · the FROZEN chord keeps `seat` (`dealTakeInto` ~1470: `seat: n.seat || 0`). A chord frozen BEFORE this build has no
@@ -1342,7 +1352,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       unless he has set otherwise in the drawer; do not zero it silently.
     - VB2.6 · H2.3's re-attachment of voices to rows (what the tick filter reads) includes row 4: *tick row 4 only* = a
       vibraphone-only bloom; untick it = the six, as today.
-  - **VB3 · The engine holds a voice still.** *Result when done:* a voice marked `still` in `source.voices` keeps its start cents
+  - **VB3 · The engine holds a voice still.** — **`done` 2026-09-20 (RUNNING_LOG §175).** *Result when done:* a voice marked `still` in `source.voices` keeps its start cents
     from the first sample to the last — through the model, the attack's motion and the release's motion — while its level, its bows,
     its technique and its fades are any voice's; **without the mark not one byte of any render changes.**
     - VB3.0 · **THE GATE, FIRST:** before touching `morph.js`, render in node the `resolvedParams` of his two stored actuals
@@ -1361,7 +1371,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       voice COUNT, so a take regenerated with its vibraphone notes in is not the six-voice bloom of the same seed plus two. His
       stored actuals carry their own six voices and do not move. (MORPH_NOTES: pitch geometry over the MOVING voices is the
       revision's.)
-  - **VB4 · They sound on the dynamics law.** *Result when done:* Hear and the score's own playback agree note for note — both
+  - **VB4 · They sound on the dynamics law.** — **`done` 2026-09-20 (RUNNING_LOG §176 — verified by capture, nothing had to be built).** *Result when done:* Hear and the score's own playback agree note for note — both
     vibraphones on the vibraphone's CURVE channels, never sharing one at the same moment, an mf strike for the pitch, CC7 on the
     table, the fades a weight on top, and no pitch-bend motion for them.
     - VB4.1 · Insert (`morph_panel.js`): a still voice's objects land on lane 5 carrying what a SEQUENCE writes for a vibraphone
@@ -1373,7 +1383,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - VB4.3 · the technique: the palette's ordinary voice for `bowed_vibraphone` (`BC.ordinaryVoice`) must be the BOWED long tone
       the sequence sustains with, not a strike. If it is not, the still voice takes the take note's own `tech`.
     - VB4.4 · `Composer.curveDirty()` after Insert is already there for all four inserts (1e) — confirm, do not re-add.
-  - **VB5 · The actuals keep them.** *Result when done:* `Save as ACTUAL` on a bloom with vibraphones → recall → nudge a dial → the
+  - **VB5 · The actuals keep them.** — **`done` 2026-09-20 (RUNNING_LOG §176).** *Result when done:* `Save as ACTUAL` on a bloom with vibraphones → recall → nudge a dial → the
     vibraphone voices are back on the same notes, the same seats, still → `Save as ACTUAL` again → Insert: all the same. His two
     existing actuals recall exactly as they did.
     - VB5.1 · the recall branch (~924–978) carries `seat` back from the voice into the rebuilt chord (absent = 0). `still` rides in

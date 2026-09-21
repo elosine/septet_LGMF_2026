@@ -1462,3 +1462,23 @@ now: it is exactly his *"another pass at the actual way the morph drawer works"*
 **And one thing for the engine's revision:** pitch motion enters a voice from three places (the model · the attack's motion · the
 release's motion), all keyed on the voice INDEX and the voice COUNT. A voice that stays put has to be excused in all three, and its
 presence still moves the stagger of the others. The all-purpose engine should deal pitch geometry over the MOVING voices only.
+
+### 2026-09-20 — AS BUILT (PLAN 1i): a voice that STAYS PUT, and a pair that names its SEATS — what the build taught (RUNNING_LOG §175 · §176)
+
+**As built:** `morph.js` — a voice of a `voices` list marked `still: true` keeps its start cents through everything; ONE line, because
+`stateAt` turned out to be the only source of a voice's cents. `morph_panel.js` — a fourth pair `{ a, b, sa, sb, still }`, always
+last, read from a take by `lane:seat`, never doubled, its voices sent last. Insert and Hear needed nothing.
+
+*AI reading (mine, marked):* for the revision, three things the build showed that the plan had not.
+**(1) A PLAYER IS NOT A LANE.** The whole cast machinery — `cast()`, `swapSeat()`, `pairRange()`, the take reading, the frozen chord,
+the recall — identifies a player by its score lane, and the two vibraphones are one lane. Every one of those had to be taught, or
+kept away from, a second key (`seat`). `swapSeat()` would have silently destroyed the still row on the first seat swap, because it
+rebuilds every row from `a`, `b` and `on` alone. **The all-purpose tool should cast PLAYERS — (lane, seat) — from the start, and a
+row should survive any function that does not know one of its fields.**
+**(2) The sound path was already general, and that is worth keeping.** Both channel deals are per lane, by time, with a free-at
+clock; two voices on one lane fell out of that with no code. The dynamics are asked of one module by instrument. Nothing in Hear or
+Insert knows what a vibraphone is.
+**(3) "Can bend" is now a property of the ROW, not of the seat's instrument.** The plan meant to derive the mark from the recipe's
+`playerBendSt`; as built it rides on the pair (`still`), because a pair is where the panel already keeps what it knows about two
+players. The recipe still decides which instrument gets such a row (`STILL_INST`). If a second non-bending instrument ever wants in,
+that constant becomes a list — and that is the moment to derive it from the recipe instead.

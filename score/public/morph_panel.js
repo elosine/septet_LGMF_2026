@@ -905,10 +905,11 @@ const PANEL = {
             this.activePreset = P.shapePreset || '';
             const rp = P.resolvedParams ? JSON.parse(JSON.stringify(P.resolvedParams)) : null;
             let note = '';
-            if (Array.isArray(P.pairs) && P.pairs.length) this.pairs = P.pairs.map(p => ({ a: +p.a, b: +p.b, on: p.on !== false }));
+            // PLAN 1i: `normPairs` keeps a stored still row (its seats, its tick) and gives one to an actual filed before there was one
+            if (Array.isArray(P.pairs) && P.pairs.length) this.pairs = this.normPairs(P.pairs);
             else if (rp && Array.isArray(rp.lanes) && rp.lanes.length >= 2) {   // an actual saved before the cast was stored: the pairs from its lanes in pitch order
                 const L = rp.lanes, pr = []; for (let k = 0; k + 1 < L.length; k += 2) pr.push({ a: L[k], b: L[k + 1], on: true });
-                this.pairs = pr; note += ' · the cast read from its lanes';
+                this.pairs = this.normPairs(pr); note += ' · the cast read from its lanes';
             }
             this.savePairs();
             // ---------------------------------------- PLAN 1h H2.6 — THE ACTUALS KEEP THE PITCHES (his word, RUNNING_LOG §168):
@@ -932,7 +933,7 @@ const PANEL = {
                     src: 'actual:' + entity, takeName: entity, takeAt: new Date().toISOString(),
                     takeChord: rv.map((v, i) => {
                         const ln = rp.lanes[i];
-                        const o = { lane: ln, inst: (TR[ln] || {}).instKey || null, midi: Math.round(+v.midi), cents: +(v.cents || 0) };
+                        const o = { lane: ln, seat: +v.seat || 0, inst: (TR[ln] || {}).instKey || null, midi: Math.round(+v.midi), cents: +(v.cents || 0) };   // PLAN 1i: the SEAT comes back too — two vibraphones share a lane
                         if (v.partial != null) o.partial = v.partial;
                         return o;
                     }),
@@ -1343,11 +1344,46 @@ const PANEL = {
         const SEP = root.MorphSeptet;
         try {
             const s = JSON.parse(localStorage.getItem(this.PAIRS_KEY) || 'null');
-            if (Array.isArray(s) && s.length) return s.map(p => ({ a: +p.a, b: +p.b, on: p.on !== false }));
+            if (Array.isArray(s) && s.length) return this.normPairs(s);
         } catch (e) {}
-        return (SEP ? SEP.DEFAULT_PAIRS : [{ a: 6, b: 5 }, { a: 3, b: 4 }, { a: 0, b: 1 }]).map(p => ({ a: p.a, b: p.b, on: true }));
+        return this.normPairs((SEP ? SEP.DEFAULT_PAIRS : [{ a: 6, b: 5 }, { a: 3, b: 4 }, { a: 0, b: 1 }]).map(p => ({ a: p.a, b: p.b, on: true })));
     },
     savePairs() { try { localStorage.setItem(this.PAIRS_KEY, JSON.stringify(this.pairs)); } catch (e) {} },
+    // ---------------------------------------------------------- PLAN 1i (2026-09-20) — THE VIBRAPHONES, A FOURTH PAIR THAT DOES NOT BEND
+    // His words (RUNNING_LOG §172): *"is there a way to include the vibraphones in the morph as an extra pair, but that don't bend
+    // pitch at all. I want them to be able to follow or have a, a curve and do the fade and everything. as one of the other pairs
+    // would … but it just wouldn't do the pitch bend."* Decided: as assigned in the take, ONE note each, HELD STILL, FOLLOWING the
+    // bloom's one shape (§172–§174).
+    //
+    // The two vibraphones are ONE SCORE LANE and TWO SEATS (PLAN 1c.3: `Vibraphone 2` is a second seat on the vibraphone's lane,
+    // and seats_ui.js sends its notes out as `seat: 2`). So this pair, alone among the four, names a SEAT for each of its players
+    // (`sa` · `sb`) and carries `still: true`, which `takeVoices` hands on to the engine voice by voice (morph.js, `STILL`).
+    // IT IS ALWAYS THE LAST ROW: the six bending voices keep their indices and their a-above / b-below parity, and every walk of
+    // the SONORITY path simply stops before it (`bendingPairs`) — the vibraphones are in a bloom ON A TAKE only.
+    STILL_INST: 'bowed_vibraphone',
+    STILL_SEAT2: 2,                  // seats_ui.js: a second seat's note leaves the drawer on its instrument's lane as `seat: 2`
+    stillPair() {
+        const tracks = (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
+        const lane = (tracks || []).findIndex(t => t && t.instKey === this.STILL_INST);
+        return lane < 0 ? null : { a: lane, b: lane, sa: 0, sb: this.STILL_SEAT2, still: true, on: true };
+    },
+    // any stored or recalled list → the panel's list: the bending rows as they were, then the ONE still row (made when the list
+    // predates it and the piece has the instrument). A three-row list of yesterday needs no migration beyond this.
+    normPairs(list) {
+        const out = (list || []).map(p => { const o = { a: +p.a, b: +p.b, on: p.on !== false }; if (p.still) { o.still = true; o.sa = +p.sa || 0; o.sb = +p.sb || 0; } return o; });
+        const still = out.filter(p => p.still).slice(0, 1);
+        if (!still.length) { const sp = this.stillPair(); if (sp) still.push(sp); }
+        return out.filter(p => !p.still).concat(still);
+    },
+    // TRACKS may not be on the page yet when the panel first loads its pairs, so the still row is looked for again wherever the
+    // pairs are about to be read
+    ensurePairs() {
+        if (!this.pairs) this.pairs = this.loadPairs();
+        if (!this.pairs.some(p => p.still)) { const n = this.normPairs(this.pairs); if (n.length !== this.pairs.length) { this.pairs = n; this.savePairs(); } }
+        return this.pairs;
+    },
+    bendingPairs() { return this.ensurePairs().filter(p => !p.still); },
+    seatLabel(env, lane, seat) { const s = (env && env.SEP) ? env.SEP.labelOf(env, lane) : ('lane ' + lane); return seat ? s + '²' : s; },   // as the sequence drawer prints a seat
     castEnv() {
         const SEP = root.MorphSeptet, BC = root.BeatingCalc;
         const recipe = (typeof INSTRUMENTS !== 'undefined') ? INSTRUMENTS : root.INSTRUMENTS;
@@ -1357,15 +1393,18 @@ const PANEL = {
     },
     castOf(params) {
         const env = this.castEnv(); if (!env) return null;
-        if (!this.pairs) this.pairs = this.loadPairs();
-        return env.SEP.cast(params, this.pairs, env);
+        // PLAN 1i: a VOICE LIST (a take, an LGMF model) is reported against every row; a SONORITY is cast onto the bending rows only
+        // — `cast()` deals `pairs.length * 2` seats, and the vibraphones are in a bloom on a take only. The still row is last, so
+        // `cast.pairs[k]` still lines up with the panel's rows either way.
+        const named = !!(params && params.source && params.source.kind === 'voices');
+        return env.SEP.cast(params, named ? this.ensurePairs() : this.bendingPairs(), env);
     },
     heard() { const env = this.castEnv(); return (env && this._cast) ? env.SEP.filterResult(this.result, this._cast) : this.result; },
     castLabel() {
         const env = this.castEnv(); if (!env || !this._cast) return '';
         const on = this._cast.pairs.filter(p => p.on && !p.silent);
         if (on.length === this._cast.pairs.filter(p => !p.silent).length) return '';
-        return ' · ' + on.map(p => env.SEP.labelOf(env, p.a) + '+' + env.SEP.labelOf(env, p.b)).join(' ');
+        return ' · ' + on.map(p => { const q = (this.pairs || [])[p.i] || {}; return q.still ? this.seatLabel(env, q.a, q.sa) + '+' + this.seatLabel(env, q.b, q.sb) : env.SEP.labelOf(env, p.a) + '+' + env.SEP.labelOf(env, p.b); }).join(' ');   // PLAN 1i: the still row names its seats
     },
     drawPairs(f, head, note) {
         const env = this.castEnv();
@@ -1373,7 +1412,7 @@ const PANEL = {
         const SEP = env.SEP, cast = this._cast;
         head('PAIRS · the cast — tick = heard by Play, written by Insert; a seat swaps with whoever sat there');
         const lanes = SEP.bendingLanes(env);
-        this.pairs.forEach((p, k) => {
+        this.ensurePairs().forEach((p, k) => {
             const w = document.createElement('div');
             w.style.cssText = 'display:flex;align-items:center;gap:5px;margin:3px 0;white-space:nowrap';
             const cb = document.createElement('input');
@@ -1384,17 +1423,26 @@ const PANEL = {
             const lab = document.createElement('span'); lab.style.cssText = 'color:#9a9;width:46px'; lab.textContent = 'pair ' + (k + 1); w.appendChild(lab);
             ['a', 'b'].forEach((seat, si) => {
                 if (si) { const plus = document.createElement('span'); plus.textContent = '+'; plus.style.color = '#777'; w.appendChild(plus); }
+                if (p.still) {   // PLAN 1i: the vibraphones' seats are not swapped — the menus list only players who bend
+                    const t = document.createElement('span'); t.className = 'morphSeatStill'; t.dataset.pair = String(k); t.dataset.seat = seat;
+                    t.style.cssText = 'display:inline-block;width:64px;color:#ddd;font-size:13px';
+                    t.textContent = this.seatLabel(env, p[seat], seat === 'a' ? p.sa : p.sb); t.title = 'does not bend — held still';
+                    w.appendChild(t); return;
+                }
                 const s = document.createElement('select');
                 s.className = 'morphSeat'; s.dataset.pair = String(k); s.dataset.seat = seat;
                 s.style.cssText = 'width:64px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px;font-size:13px';
                 lanes.forEach(L => { const o = document.createElement('option'); o.value = String(L); o.textContent = SEP.labelOf(env, L); if (L === p[seat]) o.selected = true; s.appendChild(o); });
-                s.addEventListener('change', () => { this.pairs = SEP.swapSeat(this.pairs, k, seat, +s.value); this.savePairs(); this.generate(); });
+                // PLAN 1i: `swapSeat` rebuilds every row as { a, b, on } — it would strip the still row of its seats and its mark, so
+                // only the bending rows go through it (k is theirs: the still row is last) and the still row is put back behind them
+                s.addEventListener('change', () => { this.pairs = this.normPairs(SEP.swapSeat(this.bendingPairs(), k, seat, +s.value).concat(this.pairs.filter(q => q.still))); this.savePairs(); this.generate(); });
                 w.appendChild(s);
             });
             const pt = document.createElement('span'); pt.className = 'morphPairPitch'; pt.style.cssText = 'color:#ddd;margin-left:4px';
             const cp = cast && cast.pairs[k];
-            pt.textContent = cp ? SEP.describePair(env, cp).replace(/^[^·]*· /, '') : '';
-            if (cp && cp.silent) pt.style.color = '#e06666';
+            pt.textContent = cp ? SEP.describePair(env, cp).replace(/^[^·]*· /, '') : (p.still ? 'held still · in a bloom on a TAKE only' : '');
+            if (cp && cp.silent) pt.style.color = p.still ? '#777' : '#e06666';
+            if (!cp && p.still) pt.style.color = '#777';
             w.appendChild(pt);
             f.appendChild(w);
         });
@@ -1467,7 +1515,8 @@ const PANEL = {
             const p = this.pitch;
             p.takeName = name; p.takeAt = new Date().toISOString();
             // the PITCHES only: a take's technique and its level are not kept — the model's own technique dial and shape govern a morph (H2.5)
-            p.takeChord = chord.map(n => { const o = { lane: n.lane, inst: n.inst, midi: Math.round(+n.midi), cents: +(+n.cents || 0) }; if (n.partial != null) o.partial = n.partial; return o; });
+            // PLAN 1i: …and the SEAT — the two vibraphones are one lane and two seats, told apart by nothing else
+            p.takeChord = chord.map(n => { const o = { lane: n.lane, seat: +n.seat || 0, inst: n.inst, midi: Math.round(+n.midi), cents: +(+n.cents || 0) }; if (n.partial != null) o.partial = n.partial; return o; });
             return true;
         } catch (e) { this.setStatus('take not read: ' + ((e && e.message) || e), true); return false; }
     },
@@ -1498,18 +1547,37 @@ const PANEL = {
         if (!chord.length) return null;
         const lab = lane => (env && SEP) ? SEP.labelOf(env, lane) : ('lane ' + lane);
         // a player holding MORE than one note (a shift-click in the drawer) gives its LOWEST, and the line says so
+        // PLAN 1i: A PLAYER IS A LANE AND A SEAT — the two vibraphones share a lane, so the chord is keyed by both. Every other
+        // player is seat 0, and a bending pair reads exactly as it did.
+        const keyOf = (lane, seat) => lane + ':' + (+seat || 0);
+        const labS = (lane, seat) => this.seatLabel(env, lane, seat);
         const byLane = {}, multi = {};
-        chord.forEach(n => { const L = n.lane; if (byLane[L] == null) byLane[L] = n; else { multi[L] = 1; if (+n.midi < +byLane[L].midi) byLane[L] = n; } });
+        chord.forEach(n => { const L = keyOf(n.lane, n.seat); if (byLane[L] == null) byLane[L] = n; else { multi[L] = 1; if (+n.midi < +byLane[L].midi) byLane[L] = n; } });
         const voices = [], lanes = [], rows = [], warnings = [];
-        (this.pairs || []).forEach((pr, k) => {
-            const A = byLane[pr.a] || null, B = byLane[pr.b] || null;
-            const row = { k: k, a: pr.a, b: pr.b, labels: lab(pr.a) + ' + ' + lab(pr.b), on: pr.on !== false, notes: [], voiceIdx: [], why: '', warn: false };
-            const put = (lane, n) => {
+        const PAIRS = this.ensurePairs();
+        if (PAIRS.some((pr, k) => pr.still && k !== PAIRS.length - 1)) console.warn('[morph] the still pair is not the last row — the bending voices\' parity is no longer guaranteed');
+        PAIRS.forEach((pr, k) => {
+            const sa = pr.still ? (+pr.sa || 0) : 0, sb = pr.still ? (+pr.sb || 0) : 0;
+            const KA = keyOf(pr.a, sa), KB = keyOf(pr.b, sb);
+            const A = byLane[KA] || null, B = byLane[KB] || null;
+            const row = { k: k, a: pr.a, b: pr.b, still: !!pr.still, labels: labS(pr.a, sa) + ' + ' + labS(pr.b, sb), on: pr.on !== false, notes: [], voiceIdx: [], why: '', warn: false };
+            const put = (lane, n, seat) => {
                 const o = { midi: Math.round(+n.midi), cents: +(+n.cents || 0) };
                 if (n.partial != null) o.partial = n.partial;
+                if (pr.still) { o.seat = +seat || 0; o.still = true; }   // morph.js reads `still`; Insert and Hear read `seat`
                 row.voiceIdx.push(voices.length); voices.push(o); lanes.push(lane);
                 row.notes.push(Object.assign({ lane: lane }, o));
             };
+            // PLAN 1i — A STILL PAIR IS READ AS ASSIGNED AND NEVER DOUBLED (his "as assigned in the take, held still" · "one each is
+            // right"). The doubling below exists so a bending pair can open APART from a unison; two vibraphones on one note would
+            // only thicken, and he did not put it there. One vibraphone = one voice, and that is not a warning.
+            if (pr.still) {
+                if (A) put(pr.a, A, sa);
+                if (B) put(pr.b, B, sb);
+                row.why = (A && B) ? 'held still' : (A || B) ? 'one vibraphone · held still' : 'no note in the take';
+                if (multi[KA] || multi[KB]) { row.multi = true; row.why += ' · a player held more than one note — its lowest'; }
+                rows.push(row); return;
+            }
             if (A && B) { put(pr.a, A); put(pr.b, B); row.why = 'both'; }
             else if (A || B) {
                 const src = A || B, held = A ? pr.a : pr.b, partner = A ? pr.b : pr.a;
@@ -1526,13 +1594,18 @@ const PANEL = {
                     warnings.push('TAKE: ' + lab(partner) + ' cannot hold ' + (SEP ? SEP.nm(Math.round(+src.midi)) : src.midi) + ' — pair ' + (k + 1) + ' plays as one voice');
                 }
             } else row.why = 'no note in the take';
-            if (multi[pr.a] || multi[pr.b]) { row.multi = true; row.why += ' · a player held more than one note — its lowest'; }
+            if (multi[KA] || multi[KB]) { row.multi = true; row.why += ' · a player held more than one note — its lowest'; }
             rows.push(row);
         });
         if (!voices.length) return null;
-        // a note of the take on a player that is in NO pair (the vibraphones, the percussion) is left out, and said
-        const inPair = {}; (this.pairs || []).forEach(pr => { inPair[pr.a] = 1; inPair[pr.b] = 1; });
-        const leftOut = chord.filter(n => !inPair[n.lane]).map(n => ({ lane: n.lane, label: lab(n.lane), midi: Math.round(+n.midi), cents: +(+n.cents || 0) }));
+        // a note of the take on a player that is in NO pair (the percussion; the vibraphones too, until PLAN 1i) is left out, and said
+        const inPair = {}; PAIRS.forEach(pr => { inPair[keyOf(pr.a, pr.still ? pr.sa : 0)] = 1; inPair[keyOf(pr.b, pr.still ? pr.sb : 0)] = 1; });
+        const leftOut = chord.filter(n => !inPair[keyOf(n.lane, n.seat)]).map(n => ({ lane: n.lane, label: labS(n.lane, n.seat), midi: Math.round(+n.midi), cents: +(+n.cents || 0) }));
+        // PLAN 1i VB2.1 — a chord FROZEN BEFORE the seats were kept has no `seat` on any note, so a second vibraphone's note reads as
+        // the first's and the lowest of the two wins. Not migrated — said, and ↻ re-deals it.
+        const SP = PAIRS.find(pr => pr.still);
+        if (SP && chord.filter(n => n.lane === SP.a).length > 1 && chord.every(n => n.seat === undefined))
+            warnings.push('TAKE: frozen before the vibraphones\' seats were kept — ↻ re-deals it with both vibraphones');
         // H2.2 — the params. `morph.js` and `morph_septet.js` are NOT changed: this is the door they already have.
         const out = JSON.parse(JSON.stringify(params || {}));
         out.source = { kind: 'voices', voices: voices.map(v => Object.assign({}, v)) };
@@ -1592,8 +1665,9 @@ const PANEL = {
     },
     // the pairs in register order (the midpoint of each pair's shared range), for the by-register take
     pairOrder() {
-        const env = this.castEnv(); if (!env) return this.pairs.map((p, i) => i);
-        return this.pairs.map((p, i) => { const r = env.SEP.pairRange(env, p.a, p.b); return { i: i, mid: r ? (r[0] + r[1]) / 2 : 0, r: r }; }).sort((x, y) => x.mid - y.mid);
+        const BP = this.bendingPairs();   // PLAN 1i: the sonority path never reaches the still row (it is last, so the indices hold)
+        const env = this.castEnv(); if (!env) return BP.map((p, i) => i);
+        return BP.map((p, i) => { const r = env.SEP.pairRange(env, p.a, p.b); return { i: i, mid: r ? (r[0] + r[1]) / 2 : 0, r: r }; }).sort((x, y) => x.mid - y.mid);
     },
     applyPitch(params) {
         const SEP = root.MorphSeptet, son = this.pitchSonority();
@@ -1639,7 +1713,7 @@ const PANEL = {
         }
         const env = this.castEnv(), order = this.pairOrder(), p = this.pitch;
         const holds = (band, midi) => { const o = order[band]; if (!o || !env) return true; const a = env.SEP.instOf(env, this.pairs[o.i].a), b = env.SEP.instOf(env, this.pairs[o.i].b); return env.BC.holds(env.recipe, a, midi) && env.BC.holds(env.recipe, b, midi); };
-        const res = SEP.takeForPairs(son.notes, this.pairs.length, p.take || 'byRegister', { k: +p.k || 1, seed: +p.seed || 1, perPair: +p.perPair === 2 ? 2 : 1, holds: holds });
+        const res = SEP.takeForPairs(son.notes, this.bendingPairs().length, p.take || 'byRegister', { k: +p.k || 1, seed: +p.seed || 1, perPair: +p.perPair === 2 ? 2 : 1, holds: holds });
         const out = SEP.deriveParams(params, res.notes, { perPair: +p.perPair === 2 ? 2 : 1, root: rootFund, warnings: (this._pitchWarnings = []) });
         this._pitchInfo = { from: son.from, sonority: res.sorted, taken: res.taken, dropped: res.dropped, notes: res.notes, fundamental: params && params.model === 'M2' ? rootFund : null };
         return out;
