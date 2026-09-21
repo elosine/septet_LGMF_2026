@@ -9161,3 +9161,31 @@ left line · the ruler double-clicked → the whole take · the `i` reads `454 m
 **A trap of the AI's tooling, met twice in ten minutes:** a `\\n` typed inside a Bash-tool heredoc arrived in the patched file as a
 REAL line break inside a quoted string (the file then fails to load — `node --check` caught both). Text with escapes goes through the
 Write tool into a file the script reads; never through the shell.
+
+## §222. `1m.1`, his test goes on: the range's lines SNAP TO THE CURSOR (`[` · `]`); `all on` · `all off` are THE WHOLE TAKE — the AI's call of §220 reversed (2026-09-21)
+
+His words:
+
+> *"a button to set the the zone indicators to the cursor. So one for start, I guess, and one for end. Or if you have a better idea
+> here, that's fine. So I click the cursor, I either click a button or a keyboard key, and the left in indicator snaps to the cursor,
+> or the right indicator snaps to the cursor. When I turn all off, and there's a, a selected zone already, the indicators are in place.
+> If I move the indicators bigger, it, it turns everything on that I move the indicator across, if that makes sense. So I guess it's
+> like all on and all off aren't affecting the things outside of the indicators. So at this point, if I do all off to get rid of those,
+> it turns off the ones I had on already."*
+
+**What he met** is the AI's own call of §220 — *"`all on` · `all off` act INSIDE the range"*. With a range in place, `all off` left
+the marks ON outside it; drawn at a third of their strength there, they read as off, and "turned on" as he dragged a line across them.
+To clear them he had to widen the range and `all off` again — which took the ones he wanted. He diagnosed it himself, exactly. **His
+original words were the rule all along** (LG-65: *"all on or all off … that'll mute everything and then I can just click on them"*):
+`all on` · `all off` now act on THE WHOLE TAKE, whatever the range. *(For the paper: a "convenient" refinement nobody asked for cost
+him a confusion within an hour of use — the argument for his one-step-at-a-time method, made by the tool itself.)*
+
+**The snap.** Two buttons in the bar, `[` and `]`, and the same two KEYS (while the drawer shows a texture take, never while he types
+in a box): the left / right line of the range goes to the cursor. A cursor on the far side of the other line sends that other line to
+the take's end, so the range is never inside out. The keys are the DAW habit (`[` · `]` for a selection's start and end); he left the
+choice to the AI (*"or if you have a better idea here, that's fine"*).
+
+**Verified on `score-5401`** (no MIDI, every POST stubbed — none made; his take `LGMF-S2-R5a`, 454 marks): range 10–20 with every mark
+under 30 s on → `all off` → **0 on**, the range untouched · `all on` → **454 of 454** · cursor 12.5, button `[` → 12.5–20 · cursor
+17.25, button `]` → 12.5–17.25 · the keys: 14 `[` → 14–17.25 · 16 `]` → 14–16 · cursor 30 (right of the right line) `[` → 30–45.234 ·
+cursor 5 `]` → 0–5 · on `the strike` the key does nothing.

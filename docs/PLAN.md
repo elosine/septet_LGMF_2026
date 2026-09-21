@@ -1733,7 +1733,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - A `source` menu at the head of the rhythm area: `the strike` · `a texture take` · `multitempo — later` (greyed).
     - On `a texture take` the strike's controls and strip are hidden, never rebuilt — every value is where he left it on the way back.
     - A takes menu: his rhythm takes (`bank/rhythm_takes.json`), the newest first, `↻` to read them again.
-    - THE TOP ROW: all the take's lines merged onto one timeline; all off; a click turns a dot on or off; `all on` · `all off` (inside
+    - THE TOP ROW: all the take's lines merged onto one timeline; all off; a click turns a dot on or off; `all on` · `all off` (THE WHOLE TAKE, §222 — first built as inside
       the range). ONE ROW of thin MARKS, as a DAW draws MIDI notes (§221): the left edge is the onset, the width follows the zoom. Two onsets that land almost together stay TWO marks (LG-58).
     - SPACE (and Hear orchestrated) plays the ON dots, each one claves note (`toys_claves`, pair 2 high, `LGPerc` ch 7), through the
       drawer's one player; SPACE again stops. The claves are a way of listening — nothing is assigned, nothing is inserted.

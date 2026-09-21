@@ -45,7 +45,7 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const HELP = ['click a mark: on / off', 'click the ruler or open ground: the cursor',
     'drag a gold grip on the ruler: the range · double-click the ruler: the whole take',
     'SPACE: play from the cursor, on the claves · SPACE again: stop',
-    'ALT + wheel: zoom at the pointer · wheel sideways: scroll', 'all on · all off act inside the range'].join(String.fromCharCode(10));
+    'ALT + wheel: zoom at the pointer · wheel sideways: scroll', '[ and ] (keys or buttons): the left / right line of the range to the cursor', 'all on · all off: the whole take'].join(String.fromCharCode(10));
 const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 function loadStore() {
@@ -92,9 +92,11 @@ Object.assign(D, {
             '<option value="strike">the strike</option><option value="texture">a texture take</option><option value="mt" disabled>multitempo — later</option></select></label>' +
             '<select id="txTake" class="txOnly" style="' + INP + ';width:150px" title="your rhythm takes, saved in Texture (rhythm take · save) — the newest first"></select>' +
             '<button id="txReload" class="txOnly" style="' + BTN + '" title="read the rhythm takes again (after saving a new one in Texture)">&#8635;</button>' +
-            '<button id="txAllOn" class="txOnly" style="' + BTN + '" title="every mark inside the range ON">all on</button>' +
-            '<button id="txAllOff" class="txOnly" style="' + BTN + '" title="every mark inside the range OFF">all off</button>' +
+            '<button id="txAllOn" class="txOnly" style="' + BTN + '" title="every mark of the take ON">all on</button>' +
+            '<button id="txAllOff" class="txOnly" style="' + BTN + '" title="every mark of the take OFF">all off</button>' +
             '<button id="txHome" class="txOnly" style="' + BTN + '" title="the cursor back to the left line of the range">&#9198;</button>' +
+            '<button id="txSetA" class="txOnly" style="' + BTN + '" title="the LEFT line of the range to the cursor — key [">[</button>' +
+            '<button id="txSetB" class="txOnly" style="' + BTN + '" title="the RIGHT line of the range to the cursor — key ]">]</button>' +
             '<input id="txZoom" class="txOnly" type="range" min="0" max="1" step="0.005" value="0" style="width:140px" title="zoom — left: the whole take · right: close in (about the cursor when it is in view). ALT + wheel zooms at the pointer">' +
             '<span id="txI" class="txOnly" style="flex:none;width:13px;height:13px;border:1px solid #666;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#9a9;font-size:9px;cursor:help">i</span>';
         wrap.appendChild(bar);
@@ -109,6 +111,8 @@ Object.assign(D, {
         bar.querySelector('#txAllOn').addEventListener('click', () => this.txAll(true));
         bar.querySelector('#txAllOff').addEventListener('click', () => this.txAll(false));
         bar.querySelector('#txHome').addEventListener('click', () => this.txCursorHome());
+        bar.querySelector('#txSetA').addEventListener('click', () => this.txSnap('a'));
+        bar.querySelector('#txSetB').addEventListener('click', () => this.txSnap('b'));
         bar.querySelector('#txZoom').addEventListener('input', e => this.txZoomTo(+e.target.value));
         const svg = view.querySelector('#txSvg');
         svg.addEventListener('mousedown', ev => this.txDown(ev));
@@ -281,11 +285,21 @@ Object.assign(D, {
         }, up = () => { window.removeEventListener('mousemove', move, true); window.removeEventListener('mouseup', up, true); this.txPersist(); this.setStatus(this.txLine()); };
         window.addEventListener('mousemove', move, true); window.addEventListener('mouseup', up, true);
     },
+    // `all on` · `all off` — THE WHOLE TAKE (his word, §222): inside-the-range left marks ON outside it that he could not clear
+    // without losing the ones he wanted
     txAll(on) {
         const p = this.txPat(); if (!p) return;
-        const r = this.txRange(), inside = new Set(this._tx.dots.filter(d => d.t >= r[0] - 1e-6 && d.t <= r[1] + 1e-6).map(d => d.k));
-        p.on = p.on.filter(k => !inside.has(k)); if (on) p.on = p.on.concat([...inside]);
+        p.on = on ? this._tx.dots.map(d => d.k) : [];
         this.txPersist(); this.txRender(); this.setStatus(this.txLine());
+    },
+    // a line of the range SNAPS TO THE CURSOR (his word, §222) — `[` the left, `]` the right; a cursor on the far side of the other line
+    // takes that other line to the take's end, so the range is never inside out
+    txSnap(g) {
+        const p = this.txPat(); if (!p) return;
+        const r = this.txRange(), c = clamp(+p.cursor || 0, 0, this._tx.span);
+        if (g === 'a') { if (c >= r[1] - 0.01) r[1] = this._tx.span; r[0] = Math.min(c, r[1] - 0.01); }
+        else { if (c <= r[0] + 0.01) r[0] = 0; r[1] = Math.max(c, r[0] + 0.01); }
+        p.range = [+r[0].toFixed(3), +r[1].toFixed(3)]; this.txPersist(); this.txRender(); this.setStatus(this.txLine());
     },
     // THE ZOOM STANDARD (§219): ALT or CTRL + wheel zooms about the POINTER's own time; a sideways wheel (or SHIFT + wheel) scrolls
     txWheel(ev) {
@@ -348,6 +362,13 @@ D.insert = function () {
     if (this.txIsOn()) { this.setStatus('source: a texture take — nothing to insert yet: the row is the rhythm alone (switch the source to the strike to insert a strike)', true); return; }
     return _insert.apply(this, arguments);
 };
+// 3b · the keys `[` and `]` — only while the drawer shows a texture take, and never while he types in a box
+window.addEventListener('keydown', ev => {
+    if ((ev.key !== '[' && ev.key !== ']') || ev.ctrlKey || ev.altKey || ev.metaKey) return;
+    if (!D.el || D.el.style.display === 'none' || !D.txIsOn() || !D._tx) return;
+    const t = ev.target; if (t && t.matches && t.matches('textarea, input[type=text], input[type=number], input[type=search], input:not([type])')) return;
+    ev.preventDefault(); ev.stopPropagation(); D.txSnap(ev.key === '[' ? 'a' : 'b');
+}, true);
 // 4 · the mode follows every render, and the drawer opening
 const _render = D.render;
 D.render = function () { const r = _render.apply(this, arguments); try { this.txApply(); } catch (e) { console.warn('[texture_row] apply:', e); } return r; };
