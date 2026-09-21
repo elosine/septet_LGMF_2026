@@ -8458,3 +8458,46 @@ console line that looked like the preflight failing again was the previous page'
 showed the fresh preflight passing.)*
 
 **Not heard.** His listen, in his Chrome, after restarting the server.
+
+## §202. `1l.3` BUILT AND VERIFIED — the rhythm sequence panel, a clone of the sequence drawer: a silent harmony row (the map) and a rhythm row on one time scale; his look-over outstanding (2026-09-21)
+
+**How the clone was made — a ONE-TIME TRANSFORM, not a copy-and-hack.** `tools/once/make_rhythm_seq.js` reads `sequence_ui.js` and writes
+`score/public/rhythm_seq_ui.js` (1,789 lines), every replacement asserted to land exactly where expected, then renames the panel's own names
+(`sq…` ids → `rs…`, its DOM ids, its localStorage key, its library store, its score key `databases.rhythmSequences`, its group prefix
+`grp-rseq-`). It is kept as a RECORD and refuses to run while the clone exists — the later steps edit the clone by hand. **`sequence_ui.js`
+and `sequence.js` are byte-identical** (`git diff` empty); `sequence_check` stays **180**.
+
+**What the clone keeps, leaves out, adds (the AI's reading of `1l.3`, his to correct):**
+- **Keeps**, for the harmony row: boxes of take · seconds · dynamic · the takes menu and its `▸` · the preview on a box · the roll · a range of
+  boxes · the waves by preset · **the edges** (his word) · the clock and the cursor · the library (untitled stack, named keepers, save ·
+  revert · duplicate · ×).
+- **Leaves out** the breath line and `enter`. The generator still needs a breath, so the map is handed a fixed one, **MAP_BREATH** —
+  `aligned`, each breath the player's OWN ceiling (`of max` 1), no jitter — and every box is entered by **`attack`**, so a player's pitch
+  changes exactly at the harmony's lines. A note still splits at the instrument's ceiling (the generator must) and lands one breath-gap
+  before an attack line: **the map is continuous only once 1l.5 bridges those gaps** — measured below, and written into 1l.5 already (its
+  "caution for the build").
+- **Adds THE RHYTHM ROW**: boxes of the same idiom above the harmony, `+ rhythm box` adds a REST (seconds, ◂ ▸ ×); 1l.4's workshop gives a box
+  its excerpt (take · start · stop, its length stop − start). **Both rows are laid out BY SECONDS on one shared scale** (the drawer lays its
+  boxes out by flex, with a minimum width, which cannot line two rows up); the cursor, the time strip and Hear's line run down both.
+- **His wave presets are ONE set for both panels** — read from, and saved to, the drawer's own store (`bank/sequences.json`, panel
+  `wavePresets`). *(A judgment call: a preset is a behaviour he refines while composing, and two diverging sets would be a nuisance.)*
+- **Its library is its own**: a fourth store, `rhythmseqs` → `bank/rhythm_sequences.json` (`test_snapshots` **27 → 28**). **His running server
+  must be RESTARTED for it** (as for `rhythms`, §201).
+- **Hear auditions the map** (held chords, the drawer's own shaped-note law — Rule 3); **Insert is hidden and refuses** until 1l.5 (the harmony
+  is never inserted; the rhythm is). The `sequences in this score` list is hidden until then too.
+- The `Rhythm` button sits beside `Sequence`; the panel is warm-coloured, opens a little above the drawer's default place, and its tab reads
+  `RHYTHM ▴`.
+
+**THE REQUIRED VERIFICATION** (`score-5401`, restarted for the store; no MIDI):
+- **The drawer's batteries unchanged:** `sequence_check` **180** · the drawer's source unchanged · the drawer's own row in the page untouched.
+- **A rhythm sequence saved, reloaded, identical:** two harmony boxes (`Blm01c-wVibes-Just-A1-seed131mod` 8 s as dealt, `Bloom01-Just-A1-seed132`
+  8 s on the waves) and two rhythm rests (5 s, 13 s — the second straddling the harmony change at 8 s). Flushed to the library → on disk, the
+  same row byte for byte → the page RELOADED → the same row → `new` (blank) → the entry opened from the library → the same row and the same
+  recipe. His `bank/sequences.json` was last written at 07:21, by him — untouched. The test's `bank/rhythm_sequences.json` was removed.
+- **One time scale:** 64.4 px a second; harmony box 2 at 515 px = 8.00 s, rhythm box 2 at 322 px = 5.00 s.
+- **The map as the generator deals it:** every wind 0.00–7.25 then 8.00–16.00 on the waves (the 0.75 s is the wind's breath gap before the
+  attack line), the strings 0.00–7.95 then 8.00–16.00, the two vibraphones 0.00–8.00 (the second take has none).
+- **Hear, captured:** 14 note-ons — 8 at 0.00 s, 6 at 8.00 s — every one on a curve channel, struck at mf, 119 fader moves, *"the fader CC7
+  32…80"*. **No console errors.**
+
+**Not looked at by him yet** — his look-over is the step's last line. In his Chrome: restart the server, reload the tab, press `Rhythm`.

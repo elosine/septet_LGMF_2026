@@ -54,7 +54,10 @@ const NAME_RE = /^[A-Za-z0-9._ -]{1,64}$/;
 //   rhythms    — bank/rhythm_takes.json, his RHYTHM TAKES from the Texture panel (a recipe: the dials, the seed, who plays). A file
 //                of its own, as the sequence library is, so a rhythm save never rewrites the 3 MB of harmony takes.
 // A RUNNING server keeps the module it started with — after this change `node score/server.js` must be RESTARTED for the store to exist.
-const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json', rhythms: 'rhythm_takes.json' };
+// LGMF PLAN 1l.3 — a FOURTH:
+//   rhythmseqs — bank/rhythm_sequences.json, the RHYTHM SEQUENCE panel's library (the clone of the sequence drawer): autosaved as the
+//                drawer's is, in a file of its own, so his sequence library is never touched.
+const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json', rhythms: 'rhythm_takes.json', rhythmseqs: 'rhythm_sequences.json' };
 
 function storeFor(key) {
     if (key == null || key === '') return STORES.panels;

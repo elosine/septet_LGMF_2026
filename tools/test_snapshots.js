@@ -14,17 +14,18 @@ const ok = (c, m) => { if (c) { pass++; console.log('  ok   ' + m); } else { fai
 const NOW = '2026-01-01T00:00:00.000Z';
 const fresh = () => ({ _version: 1, panels: {} });
 
-console.log('SNAPSHOTS — the merge rules, and the three stores\n');
+console.log('SNAPSHOTS — the merge rules, and the four stores\n');
 
 // --- the stores (1d.11) -----------------------------------------------------------------
 ok(S.storeFor('panels') === 'panel_snapshots.json', 'store `panels` → panel_snapshots.json');
 ok(S.storeFor('sequences') === 'sequences.json', 'store `sequences` → sequences.json — the library, a file of its own');
 ok(S.storeFor('rhythms') === 'rhythm_takes.json', 'store `rhythms` → rhythm_takes.json — the rhythm takes, a file of their own (PLAN 1l.2)');
+ok(S.storeFor('rhythmseqs') === 'rhythm_sequences.json', 'store `rhythmseqs` → rhythm_sequences.json — the rhythm sequence panel\'s library (PLAN 1l.3)');
 ok(S.storeFor(null) === 'panel_snapshots.json' && S.storeFor('') === 'panel_snapshots.json' && S.storeFor(undefined) === 'panel_snapshots.json',
    'an absent store is `panels` — everything written before 1d.11 keeps working');
-const NASTY = ['../../secrets', 'sequences.json', 'rhythm_takes.json', 'Rhythms', '/etc/passwd', 'C:\\Windows\\win.ini', 'Panels', '__proto__', 'constructor', 'toString'];
+const NASTY = ['../../secrets', 'sequences.json', 'rhythm_takes.json', 'Rhythms', 'rhythm_sequences.json', 'rhythmSeqs', '/etc/passwd', 'C:\\Windows\\win.ini', 'Panels', '__proto__', 'constructor', 'toString'];
 ok(NASTY.every(k => S.storeFor(k) === null), 'nothing else resolves — a path, a filename, a wrong case, or a prototype key: ' + NASTY.length + ' refused');
-ok(Object.keys(S.STORES).length === 3, 'there are exactly three stores');
+ok(Object.keys(S.STORES).length === 4, 'there are exactly four stores');
 
 // --- rule 1 · state is opaque, and rule 2 · an unknown panel is created ------------------
 let f = fresh();

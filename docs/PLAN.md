@@ -1586,7 +1586,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **THE DOT VIEW IS BUILT ONCE, HERE** — the workshop (`1l.4`) adds a selection to it, the placed container (`1l.6`) a click on a dot.
     - **REQUIRED VERIFICATION:** one capture with no MIDI — a doubled line sounds on both players at the same instants, each on their own
       pitch; a merged column sounds on one player · save → reload → recall gives the same dots · the batteries green. **Then his listen.**
-  - **1l.3 — The rhythm sequence panel: the clone, with its two rows** — `todo`
+  - **1l.3 — The rhythm sequence panel: the clone, with its two rows** — `built` 2026-09-21 — **his look-over outstanding; RESTART the server first** (RUNNING_LOG §202: `rhythm_seq_ui.js`, born of `tools/once/make_rhythm_seq.js`; MAP_BREATH + attack; the rhythm row on one time scale; the `rhythmseqs` store)
     *Result when done:* a new button opens the rhythm sequence panel. It looks and works like the sequence drawer. The bottom row is his
     harmony, built exactly as now. The top row is the rhythm row — empty, waiting for `1l.4`. The sequence drawer itself is not touched.
     - **A button and a floating panel of its own.** Not one byte of the sequence drawer changes (`sequence_check` stays 180).
