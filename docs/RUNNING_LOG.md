@@ -8749,3 +8749,13 @@ the accordion · `seed` · `roll` · `re-roll`. **Read from his screenshot:** `�
 number of the counterpoint passage:** a harmony row of about **240 s**, rolled from the silver-ratio pool **10 · 24 · 58** (5.8× spread).
 Settings given to him: `×` **1** · `fill` **240**. Equal weights average 30.7 s a box, so about **7–8 boxes**; the seed and `stick` decide
 the exact count, and the grey `count` shows it before the roll.
+
+## §211. The harmony row: shorter boxes, and the bellows (2026-09-21)
+
+**His words:** *"shorter boxes"* — then, his roll line showing `open then close (the bellows)` at the defaults (stick 0.8 · interrupt 0.1 ·
+turn 0.5 · bow 1 · depth 1 · seed 1): *"and then the rest? stick interrupt bellows etc"*. **Given:** `×` 0.5 → boxes of 5 · 12 · 29 s, about
+15–16 in 240 s (or a typed `count`, or the tilt toward short). **His contour choice: the bellows** — short at both ends, longest at the turn.
+With three sizes it can only step 5 → 12 → 29 → 12 → 5. The AI's advice: roll first at the defaults and re-roll to hear seeds; depth down if
+the shape is too plain, interrupt up if too predictable. Read from `time_containers.js` `roll()`: the contour follows TIME through the span,
+not the box count; at depth 1 a size far from the shape's target is drawn about 1 in 12 as often, at stick 0.8 a far size after a near one
+about 1 in 25.
