@@ -1730,3 +1730,8 @@ decided — in the strikes drawer, where he hears it** (LG-52, RUNNING_LOG §163
 a pair is already a few cents from that pair's centre before the bloom opens — a slow beating of its own, present from the first
 moment. Whether that is wanted is his, and he will hear it in the drawer before it ever reaches the morph.
 **Not said yet, and his:** whether the vibraphones FOLLOW the bloom's one shape or carry a trajectory of their own (the next question).
+
+**LG-54, continued · 2026-09-20 —** asked whether the vibraphones FOLLOW the bloom's one shape or carry a trajectory of their own,
+his word: *"a"* — **they follow.** Two more voices of the one bloom: its length, its level curve, its fades, their own breaths and
+their own place in the stagger — the voices that never open. *(AI, marked:)* an arc of their own remains possible as a second bloom
+with only their pair ticked, laid over the same stretch (RUNNING_LOG §173).

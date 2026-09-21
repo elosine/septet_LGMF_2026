@@ -7360,3 +7360,42 @@ pitches — §163 already made the strikes drawer the place where he hears the n
 move) or after the render (the note written without its `bend`). The second would leave `morph.js` untouched; nothing has been read
 that says which is right. **Nothing built. The discussion continues with the second half of his sentence:** do the vibraphones FOLLOW
 the bloom's one shape, or have a trajectory of their own. His words are in COMPOSITION_NOTES LG-54 and MORPH_NOTES (2026-09-20).
+
+## §173. THE VIBRAPHONE PAIR FOLLOWS THE BLOOM — decided; and where the pitch is held still: in the ENGINE, by one opt-in (the AI's call, his to reverse) (2026-09-20)
+
+**The second question of §172, put to him** — what *"follow … or its own trajectory"* means in the tool as it stands, with the fact
+first: every dial in the morph panel is GLOBAL to the morph, a pair owns only its two seats and its tick, so NO pair has a trajectory
+of its own today. Three readings: **(a) FOLLOW** — the vibraphones are two more voices of the one bloom, sharing its length, level
+curve, fades and breath dials, with their own place in the stagger and their own breaths like any voice, simply never opening ·
+**(b) OWN, AS A SECOND BLOOM** — tick only the vibraphone pair, set the dials, Insert over the same stretch; no new dials, the tick
+boxes already exist, so it comes nearly free once (a) is built · **(c) OWN, INSIDE ONE BLOOM** — per-pair dials, new machinery, and
+really part of his announced *"another pass at the actual way the morph drawer works"* (§163), for every pair and not only this one.
+The AI recommended (a), with (b) when the vibraphones want their own arc, and (c) left to the revision.
+
+**DECIDED — his word: *"a"*.** Phase 1 of the planning method is closed on three sentences: the two vibraphones are a fourth pair
+of a bloom on a take · they hold what the take assigns them, still · they follow the bloom's one shape.
+
+**Then the read that §172 left open — where is a voice's pitch best held still?** Read: `morph_panel.js` `takeVoices()` and the
+branch that calls it · `morph.js` the `voices` door, `stateAt()` and the shape's motion function.
+
+- **`takeVoices()` walks `this.pairs`.** A fourth row is read by the same loop, and `leftOut` is computed as *in no pair* — so the
+  vibraphones stop being left out the moment they ARE a pair. **One rule must not reach them:** a note held by one player of a pair is
+  DOUBLED onto the partner when the partner can hold it. That exists so a bending pair can open apart from a unison; for two
+  vibraphones it would only thicken, and it is not *"as assigned"*. For this pair: one alone = one voice, no warning.
+- **In the engine the pitch moves from THREE places, all keyed on the voice's index:** the model (`modelFn` — M1's ±50 c) · the
+  attack's motion (`converge` fans by `(vi − half) / half`, `half` from the voice count) · the release's motion (`disperse`
+  alternates by `vi % 2`, `to-unison` unwinds). The base is `startCents[vi]`.
+- **So stripping `bend` from the vibraphone notes AFTER the render was rejected.** The engine would still believe those voices bend:
+  it shortens a breath by `GLISS_AIR_COST` (× 0.7) while a voice is bending, and its flags judge reach. The notes would come out
+  right in pitch and wrong in length, for a reason nobody would find later. *(AI_METHODOLOGY: one robust build over a fragile one.)*
+- **THE AI'S CALL, HIS TO REVERSE: one additive opt-in in `morph.js`** — a voice marked still keeps its start cents through all three
+  places — the same kind of door as `source.kind: 'voices'` (PLAN 1a.5) and `fadeWeight`'s `to` (1d.8): without the mark not one line
+  behaves differently, so every baseline and every stored actual stays identical. `1h` kept `morph.js` untouched; this build cannot,
+  and says so in its top line. **The mark is DERIVED from the seat** (an instrument the recipe says cannot bend), not stored — *whether
+  a seat bends is a property of the seat* (MORPH_NOTES, §172's entry).
+- **Known and to be said in the plan:** the still voices go LAST in the voice list, so the six bending voices keep their indices and
+  their up / down parity; but the stagger order is dealt from the voice COUNT, so a take regenerated with its vibraphone notes in is
+  not the six-voice bloom of the same seed plus two. His stored actuals carry their own six voices and are untouched.
+
+**The top line put to him (phase 2):** 1 the vibraphone pair in the panel · 2 the take gives them their notes · 3 the engine holds a
+voice still · 4 they sound on the dynamics law · 5 the actuals keep them · 6 his listen. Nothing built.

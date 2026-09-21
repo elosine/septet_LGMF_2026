@@ -1448,3 +1448,17 @@ a property of the SEAT (the recipe's `playerBendSt`), which the model reads as "
 condition of entry.**
 **A second thing the same sentence shows:** every dial in the panel is GLOBAL to the morph — a pair owns its two seats and its tick,
 nothing else. *"Its own trajectory"* has nowhere to live today, for ANY pair, bending or not.
+
+### 2026-09-20 — LGMF: the vibraphone pair FOLLOWS the bloom (his *"a"*) — and per-pair dials are named as the revision's (RUNNING_LOG §173)
+
+Asked whether the vibraphones follow the bloom's one shape, get their own arc as a second bloom with only their pair ticked, or
+carry dials of their own inside one bloom — his word: *"a"*, follow.
+
+*AI reading (mine, marked):* for the revision — his first sentence asked for *"its own trajectory"* as well, and the tool could only
+offer it as a SECOND OBJECT (tick one pair, Insert again over the same stretch). That works, and it is how a pair's own arc will be
+made for now; but it is two blooms to keep in step by hand. **The all-purpose tool wants the dials in two layers: the morph's, and a
+pair's own that override them** — length inside the span, level curve, fades — for ANY pair, bending or not. Not built for one pair
+now: it is exactly his *"another pass at the actual way the morph drawer works"* (RUNNING_LOG §163), announced, his, not anticipated.
+**And one thing for the engine's revision:** pitch motion enters a voice from three places (the model · the attack's motion · the
+release's motion), all keyed on the voice INDEX and the voice COUNT. A voice that stays put has to be excused in all three, and its
+presence still moves the stagger of the others. The all-purpose engine should deal pitch geometry over the MOVING voices only.
