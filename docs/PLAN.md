@@ -1672,7 +1672,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **REQUIRED VERIFICATION:** every gesture tested as a REAL MOUSE SEQUENCE (HOW_WE_WORK — mousedown · move · up, the re-render between
       a click and the next) · a touch survives a harmony change and a box move · the capture: muted dots do not sound, changed dots sound
       as changed · re-insert in place keeps the touches. **Then his listen.**
-  - **1l.7 — The two crossfades** (one idiom, for both rows) — `todo`
+  - **1l.7 — The two crossfades** (one idiom, for both rows) — `built` 2026-09-21 — **his listen outstanding** (RUNNING_LOG §206: `crossfade in` · scattered | player by player · before | across | after · order · shape · seed ↻, on any box of either row; the harmony on the dots, the rhythm with both patterns running; a dropped dot brought back by a click)
     *Result when done:* on any box, in either row, he dials a crossfade in seconds, and over that time the new box slowly takes over from
     the old one. He sees it in the dot view, and his own touches still win.
     - **Three settings on a box, in the space `enter` left free:** `crossfade` seconds · a PRESET · a PLACE — `before` · `across` · `after`

@@ -247,7 +247,7 @@ const S = {
     // 1l.3 — A RHYTHM BOX: an excerpt of a rhythm take (1l.4: take · start · stop, its length stop − start), or, with no take, a REST
     newRBox() { return { take: '', start: 0, stop: 0, dur: DEF_DUR }; },
     rboxFrom(b) { return { take: String((b && b.take) || ''), start: +(b && b.start) || 0, stop: +(b && b.stop) || 0, dur: clampDur(b && b.dur), state: (b && b.state && typeof b.state === 'object') ? b.state : null,   // 1l.4: the take's recipe, FROZEN
-        touches: (b && b.touches && typeof b.touches === 'object') ? b.touches : {}, assign: (b && Array.isArray(b.assign)) ? b.assign : null }; },   // 1l.6: his touches · a line moved to another instrument
+        touches: (b && b.touches && typeof b.touches === 'object') ? b.touches : {}, assign: (b && Array.isArray(b.assign)) ? b.assign : null, xf: this.xfOk(b && b.xf) }; },   // 1l.6: his touches · a line moved to another instrument
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, range: null, chord: [], frozen: '' }; },
     save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, cursor: this.cursor == null ? null : this.cursor, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, workOpen: !!this.workOpen, work: this.work || null, dotMode: this.dotMode || 'mute', libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
     // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
@@ -255,7 +255,7 @@ const S = {
         if (!(r && typeof r.id === 'string' && Array.isArray(r.boxes))) return this.newRow();
         return { id: r.id, name: String(r.name || ''), change: 'attack',   // 1l.3: every box entered by attack; the map's own breath
             breath: Object.assign({}, MAP_BREATH), waves: this.wavesDefaults(r.waves), edges: this.edgesDefaults(r.edges), roll: Object.assign(this.rollDefaults(), r.roll || {}), rolled: !!r.rolled,
-            boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: null, range: this.rangeOk(b && b.range), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || '') })),
+            boxes: r.boxes.map(b => ({ take: String((b && b.take) || ''), dur: clampDur(b && b.dur), dyn: this.dynOk(b && b.dyn), dynWas: this.straightOk(b && b.dynWas), change: null, range: this.rangeOk(b && b.range), chord: Array.isArray(b && b.chord) ? b.chord : [], frozen: String((b && b.frozen) || ''), xf: this.xfOk(b && b.xf) })),
             rhythm: Array.isArray(r.rhythm) ? r.rhythm.map(b => this.rboxFrom(b)) : [] };
     },
     restore() {
@@ -557,7 +557,7 @@ const S = {
                 '<div id="rsRow" style="position:relative;flex:1 1 auto;min-height:5.2em"></div>' +
               '</div>' +
             '</div>' +
-            '<div id="rsEdit" style="display:flex;gap:8px;align-items:center;padding:4px 8px;border-top:1px solid #2c3238;white-space:nowrap;min-height:2.364em;overflow:hidden"></div>';
+            '<div id="rsEdit" style="display:flex;flex-wrap:wrap;gap:8px;row-gap:3px;align-items:center;padding:4px 8px;border-top:1px solid #2c3238;white-space:nowrap;min-height:2.364em;overflow:hidden"></div>';
         if (!document.getElementById('rsStyle')) {   // form controls do NOT inherit type: one rule gives every input, select and button in the strip the panel's size
             const st = document.createElement('style'); st.id = 'rsStyle';
             st.textContent = '#rhythmSeqPanel input,#rhythmSeqPanel select,#rhythmSeqPanel button{font:inherit}' +
@@ -798,7 +798,7 @@ const S = {
         const R = e.recipe;
         this.row = { id: e.id, name: (e.name && e.name !== 'sequence ' + e.id) ? String(e.name) : '', change: SEQ.CHANGES.indexOf(R.change) >= 0 ? R.change : 'attack',
             breath: Object.assign({}, SEQ.DEFAULT_BREATH, R.breath || {}), waves: this.wavesDefaults(R.waves), edges: this.edgesDefaults(R.edges), roll: Object.assign(this.rollDefaults(), R.roll || {}), rolled: !!R.roll,
-            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), dynWas: this.straightOk(c.dynWas), change: null, range: this.rangeOk(c.range), chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '' })),
+            boxes: (R.containers || []).map(c => ({ take: String(c.take || ''), dur: clampDur(c.dur), dyn: this.dynOk(c.dyn), dynWas: this.straightOk(c.dynWas), change: null, range: this.rangeOk(c.range), chord: JSON.parse(JSON.stringify(c.chord || [])), frozen: '', xf: this.xfOk(c.xf) })),
             rhythm: (R.rhythm || []).map(b => this.rboxFrom(b)) };
         this.sel = this.row.boxes.length ? 0 : -1; this.selTo = null;
         if (this.row.rolled) this.rollOpen = true;   // a rolled sequence shows how its durations were made
@@ -891,6 +891,7 @@ const S = {
                 '<select id="rsRLo" style="' + INP + '"><option value="">—</option>' + (L ? L.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('') : '') + '</select> ' +
                 '<select id="rsRHi" style="' + INP + '"><option value="">—</option>' + (L ? L.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('') : '') + '</select></label>' +
             '<button id="rsRClear" style="' + BTN + '" title="back to the sequence\'s own waves range">sequence range</button>' +
+            ((!many && i > 0) ? this.xfHtml(b, 'rsHX') : '') +   // 1l.7
             (many ? '' :
             '<button id="rsRefresh" style="' + BTN + '" title="read the take again — the box holds the notes as they were when it was chosen">refresh from take</button>' +
             '<button id="rsLeft" style="' + BTN + '" title="move this box earlier">◂</button><button id="rsRight" style="' + BTN + '" title="move this box later">▸</button>' +
@@ -925,6 +926,7 @@ const S = {
         q('#rsRClear').addEventListener('click', () => { const n = this.eachSel(x => { x.range = null; }); this.save(); this.render(); this.setStatus(this.selLabel() + ' — ' + n + ' box' + (n === 1 ? '' : 'es') + ' back to the sequence\'s waves range (' + this.row.waves.low + '–' + this.row.waves.high + ')'); });
         if (many) { q('#rsSelClear').addEventListener('click', () => this.clearSel()); return; }
         q('#rsTake').addEventListener('click', e => { e.preventDefault(); this.openTakeMenu(i, e.currentTarget); });
+        if (i > 0) this.xfBind(ed, b, 'rsHX', 'harmony box ' + (i + 1));   // 1l.7
         q('#rsDur').addEventListener('change', e => { b.dur = clampDur(e.target.value); e.target.blur(); this.save(); this.render(); });
         q('#rsDur').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
         q('#rsRefresh').addEventListener('click', () => { if (b.take) this.freeze(i, b.take); else this.setStatus('box ' + (i + 1) + ' has no take to refresh from', true); });
@@ -977,6 +979,7 @@ const S = {
             (b.take ? '<span style="color:#b9a">take "' + esc(b.take) + '" · ' + (+b.start).toFixed(2) + ' → ' + (+b.stop).toFixed(2) + ' s · ' + fmtS(b.dur) + ' s</span><button id="rsRRef" style="' + BTN + '" title="read the rhythm take again from bank/rhythm_takes.json — the box holds its recipe as it was when it was cut">refresh from take</button>'
                     : '<label><input id="rsRDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>') +
             (b.take ? '<button id="rsRWho" style="' + BTN + '" title="WHO PLAYS each line in this box — only the rhythm moves (1l.6)">who plays ▾</button>' + (this.touchCount(b) ? '<span style="color:#c8a2ff">' + this.touchCount(b) + ' touched</span>' : '') : '') +
+            ((i > 0 && b.take) ? this.xfHtml(b, 'rsRX') : '') +   // 1l.7
             '<button id="rsRLeft" style="' + BTN + '" title="move this rhythm box earlier">◂</button><button id="rsRRight" style="' + BTN + '" title="move this rhythm box later">▸</button>' +
             '<button id="rsRDel" style="' + BTN + '" title="remove this rhythm box">×</button>' +
             '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9ab">' + (b.take ? 'an excerpt of a rhythm take — its length is its cut' : 'a REST — silence for its ' + fmtS(b.dur) + ' s. The workshop (1l.4) gives a box an excerpt of a rhythm take') + '</span>';
@@ -995,6 +998,7 @@ const S = {
             b.state = JSON.parse(JSON.stringify(t.state)); this.save(); this.render(); this.setStatus('rhythm box ' + (i + 1) + ' re-read "' + b.take + '" — the same cut, ' + (+b.start).toFixed(2) + ' → ' + (+b.stop).toFixed(2) + ' s');
         });
         if (q('#rsRWho')) q('#rsRWho').addEventListener('click', e => this.openWho(i, e.currentTarget));   // 1l.6
+        if (i > 0 && b.take) this.xfBind(ed, b, 'rsRX', 'rhythm box ' + (i + 1));   // 1l.7
         q('#rsRLeft').addEventListener('click', () => this.moveRBox(i, -1));
         q('#rsRRight').addEventListener('click', () => this.moveRBox(i, 1));
         q('#rsRDel').addEventListener('click', () => this.removeRBox(i));
@@ -1256,6 +1260,61 @@ const S = {
     // the view, counted in the status, never sounded (LG-58). `quiet`: no status line (handEdits reads a recipe that is not on screen).
     // Each note: { lane, tech, midi, cents, partial, level, anchor (the level's ladder velocity — recVel), velAbs (what sounds — the anchor
     // remapped for this instrument and pitch, times a niente fade's weight), weight, dyn, start, end, box, line, i }.
+    // ------------------------------------------------------------------ 1l.7 — the controls, one idiom for both rows: seconds · preset · place · order · shape · seed ↻
+    xfHtml(b, P) {
+        const x = this.xfOk(b.xf) || this.xfOk({}), opt = (v, cur, lab) => '<option value="' + v + '"' + (v === cur ? ' selected' : '') + '>' + (lab || v) + '</option>';
+        return '<span style="display:inline-flex;gap:4px;align-items:center;border-left:1px solid #3a4148;padding-left:6px" title="CROSSFADE IN from the box before, over this many seconds — blank or 0: a clean change at the line. scattered: dot by dot · player by player: each player changes once, at a moment of their own. The window sits before, across or after the line. Only WHO HAS WHICH NOTE (the harmony) or WHICH PATTERN (the rhythm) crossfades — the dynamics keep following the harmony row. Seeded: the ↻ re-deals">' +
+            '<span style="color:#c8a2ff">crossfade in</span><input id="' + P + 'Sec" type="number" min="0" max="600" step="0.5" placeholder="—" value="' + (x.sec || '') + '" style="width:4em;' + INP + '"><span style="color:#9ab">s</span>' +
+            '<select id="' + P + 'Pre" style="' + INP + '">' + opt('scattered', x.preset) + opt('players', x.preset, 'player by player') + '</select>' +
+            '<select id="' + P + 'Place" style="' + INP + '">' + ['before', 'across', 'after'].map(v => opt(v, x.place)).join('') + '</select>' +
+            '<select id="' + P + 'Ord" style="' + INP + (x.preset === 'players' ? '' : ';display:none') + '">' + ['random', 'low to high', 'high to low', 'by pair'].map(v => opt(v, x.order)).join('') + '</select>' +
+            '<select id="' + P + 'Shape" style="' + INP + '">' + ['straight', 'slow start', 'slow end'].map(v => opt(v, x.shape)).join('') + '</select>' +
+            '<span style="color:#9ab">seed ' + x.seed + '</span><button id="' + P + 'Re" style="' + BTN + '" title="re-deal the crossfade: the next seed">↻</button></span>';
+    },
+    xfBind(ed, b, P, label) {
+        const q = s => ed.querySelector(s); if (!q('#' + P + 'Sec')) return;
+        const read = () => { b.xf = this.xfOk({ sec: +q('#' + P + 'Sec').value || 0, preset: q('#' + P + 'Pre').value, place: q('#' + P + 'Place').value, order: q('#' + P + 'Ord').value, shape: q('#' + P + 'Shape').value, seed: (b.xf && b.xf.seed) || 1 }); this.save(); this.render(); this.xfStatus(b, label); };
+        ['Sec', 'Pre', 'Place', 'Ord', 'Shape'].forEach(k => q('#' + P + k).addEventListener('change', e => { e.target.blur(); read(); }));
+        q('#' + P + 'Sec').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); e.target.blur(); } });
+        q('#' + P + 'Re').addEventListener('click', () => { b.xf = this.xfOk(Object.assign({}, b.xf || {}, { seed: ((b.xf && b.xf.seed) || 1) + 1 })); this.save(); this.render(); this.xfStatus(b, label); });
+    },
+    xfStatus(b, label) {
+        const x = this.xfOk(b.xf); if (!x || !(x.sec > 0)) { this.setStatus(label + ' — a clean change at its line'); return; }
+        const X = this._dotsX;
+        this.setStatus(label + ' crossfades in over ' + fmtS(x.sec) + ' s, ' + x.place + ' its line · ' + (x.preset === 'players' ? 'player by player (' + x.order + ')' : 'scattered, dot by dot') + ' · ' + x.shape + ' · seed ' + x.seed +
+            (X && X.dropped ? ' · ' + X.dropped + ' dots dropped by the rhythm crossfades — click one (mute mode) to bring it back' : ''));
+    },
+
+    // ------------------------------------------------------------------ 1l.7 — THE TWO CROSSFADES (docs/PLAN.md § 1l.7; one idiom, for both rows)
+    // A box may cross-fade INTO itself from the box before: `xf { sec, preset, place, order, shape, seed }` — `sec` blank or 0 = a clean change
+    // at the line (1l.3 – 1l.6). The window: `across` the line (the default) · `before` it · `after` it. Inside it the chance of the NEW rises
+    // from none to all — straight · slow start · slow end — and it is decided either dot by dot (`scattered`) or player by player (`players`:
+    // each player changes ONCE, at a moment of their own — in a random order, low to high, high to low, or by pair). Seeded, with a re-deal.
+    xfOk(x) {
+        if (!x || typeof x !== 'object') return null;
+        const sec = clamp(+x.sec || 0, 0, 600);
+        return { sec: sec, preset: x.preset === 'players' ? 'players' : 'scattered', place: ['before', 'after'].indexOf(x.place) >= 0 ? x.place : 'across',
+            order: ['low to high', 'high to low', 'by pair'].indexOf(x.order) >= 0 ? x.order : 'random',
+            shape: ['slow start', 'slow end'].indexOf(x.shape) >= 0 ? x.shape : 'straight', seed: Math.max(1, Math.round(+x.seed || 1)) };
+    },
+    xfWindow(xf, B) { const s = xf.sec; return xf.place === 'before' ? [B - s, B] : xf.place === 'after' ? [B, B + s] : [B - s / 2, B + s / 2]; },
+    xfU(xf, win, T) { const u = clamp((T - win[0]) / Math.max(1e-6, win[1] - win[0]), 0, 1); return xf.shape === 'slow start' ? u * u : xf.shape === 'slow end' ? 1 - (1 - u) * (1 - u) : u; },
+    xfRand(seed, key) { let h = 2166136261; const s = seed + '|' + key; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995); h ^= h >>> 15; return (h >>> 0) / 4294967296; },
+    // player by player: each player's moment in the window, 0 … 1 — by the ORDER dial, from the players' pitches in the OLD harmony (or row)
+    xfMoments(xf, tag, lanesPitched) {
+        const lanes = lanesPitched.map(x => x.lane), n = Math.max(1, lanes.length), m = {};
+        if (xf.order === 'random') lanes.forEach(l => { m[l] = this.xfRand(xf.seed, tag + '~m~' + l) * 0.999; });
+        else if (xf.order === 'by pair') {
+            const T = (typeof TRACKS !== 'undefined' ? TRACKS : []), pairOf = l => { const k = T[l] && T[l].instKey; return ({ english_horn: 0, bassoon: 0, horn: 1, trumpet: 1, percussion: 2, bowed_vibraphone: 2, cello: 3, double_bass: 3 })[k] != null ? ({ english_horn: 0, bassoon: 0, horn: 1, trumpet: 1, percussion: 2, bowed_vibraphone: 2, cello: 3, double_bass: 3 })[k] : 4; };
+            const pairs = [...new Set(lanes.map(pairOf))].map(p => ({ p, r: this.xfRand(xf.seed, tag + '~pair~' + p) })).sort((a, b) => a.r - b.r);
+            lanes.forEach(l => { const j = pairs.findIndex(q => q.p === pairOf(l)); m[l] = (j + 0.5) / pairs.length; });
+        } else {
+            const sorted = lanesPitched.slice().sort((a, b) => (a.pitch - b.pitch) || (a.lane - b.lane));
+            if (xf.order === 'high to low') sorted.reverse();
+            sorted.forEach((x, i) => { m[x.lane] = (i + 0.5) / n; });
+        }
+        return m;
+    },
     dotsOf(recipe, quiet) {
         let G = null;
         try { G = SEQ.generate(recipe); } catch (e) { if (!quiet) this.setStatus(String(e && e.message || e).replace(/^sequence: /, ''), true); return null; }
@@ -1263,49 +1322,107 @@ const S = {
         const nameOf = lv => names ? names[Math.max(0, Math.min(names.length - 1, Math.round(lv * (names.length - 1))))] : '';
         const levelOfName = nm => { const k = names ? names.indexOf(nm) : -1; return k < 0 ? null : k / (names.length - 1); };
         const T0 = +recipe.t0 || 0, vibLane = (typeof TRACKS !== 'undefined' ? TRACKS : []).findIndex(t => t.instKey === 'bowed_vibraphone');
-        const dots = [], notes = [], rows = [];
-        let s = T0, hollow = 0, muted = 0, changed = 0;
-        (recipe.rhythm || []).forEach((b, bi) => {
-            const W = (b.take && b.state) ? this.realized(b.state) : null;
-            if (W) {
-                // 1l.6: a line MOVED to another instrument in this box — only the rhythm moves (b.assign, else the take's own who-plays)
-                const RB = Array.isArray(b.assign) ? Object.assign(Object.create(W.R), { assign: b.assign }) : W.R;
-                const touches = (b.touches && typeof b.touches === 'object') ? b.touches : {};
-                W.lines.forEach((row, Lx) => row.forEach(d => {
-                    if (d.t < b.start - 1e-9 || d.t >= b.stop - 1e-9) return;
-                    const T = +(s + (d.t - b.start)).toFixed(4), ns = this.joinDot(RB, map, d, T), tch = touches[Lx + ':' + d.i] || null;
-                    // 1l.6: HIS TOUCHES — an EXCEPTION in the recipe, keyed box · line · dot: a mute (rhythm), or per player a pitch · a
-                    // dynamic · an articulation · the percussion become the vibraphone. An untouched dot keeps reading the harmony.
-                    let isChanged = false;
-                    if (tch && tch.p) ns.forEach(n => {
-                        const o = tch.p[n.slot]; if (!o) return;
-                        if (o.vib != null && vibLane >= 0) {
-                            const v = map.at(vibLane, o.vib, T)[0];
-                            if (v) Object.assign(n, { lane: vibLane, midi: v.midi, cents: v.cents || 0, partial: v.partial, level: v.level, weight: v.weight, tech: o.tech || VIB_TECH, fallback: false });
-                            else n.gone = true;   // no vibraphone note beneath: nothing to borrow (LG-58)
-                        } else {
-                            if (o.midi != null) { n.midi = o.midi; n.cents = +o.cents || 0; n.partial = o.partial != null ? o.partial : null; }
-                            if (o.tech) n.tech = o.tech;
-                        }
-                        if (o.dyn) { const lv = levelOfName(o.dyn); if (lv != null) n.level = lv; }
-                        n.vel = Math.round(lo + (hi - lo) * n.level); n.changed = true; isChanged = true;
-                    });
-                    const live = ns.filter(n => !n.gone), isMuted = !!(tch && tch.mute), sounding = isMuted ? [] : live.filter(n => n.weight > 0.001);
-                    const dot = { box: bi, line: Lx, i: d.i, T: T, dur: d.dur, notes: live, hollow: !live.length, silent: !RB.assignOf(Lx).length, muted: isMuted, changed: isChanged };
-                    dots.push(dot); if (dot.hollow && !dot.silent) hollow++; if (isMuted) muted++; if (isChanged) changed++;
-                    (rows[Lx] || (rows[Lx] = [])).push({ t: T - T0, box: bi, line: Lx, i: d.i,
-                        s: dot.silent ? 'silent' : isMuted ? 'muted' : dot.hollow ? 'hollow' : isChanged ? 'changed' : (!sounding.length ? 'muted' : 'ok') });
-                    sounding.forEach(n => {
-                        const velAbs = Math.max(1, Math.round(D.remapVel(n.lane, n.midi, n.vel) * n.weight));
-                        notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, cents: n.cents || 0, partial: n.partial, level: n.level, anchor: n.vel, velAbs: velAbs, weight: n.weight,
-                            dyn: nameOf(n.level), fallback: n.fallback, changed: !!n.changed, start: +T.toFixed(3), end: +(T + Math.max(0.02, d.dur)).toFixed(3), box: bi, line: Lx, i: d.i });
-                    });
-                }));
-            }
-            s += +b.dur || 0;
+        const TP = root.TexturePanel, P7s = TP ? TP.P7() : [];
+        // the HARMONY crossfades: one window per box that fades in, at its line
+        const hx = [];
+        (recipe.containers || []).forEach((c, k) => {
+            const xf = this.xfOk(c.xf); if (!xf || !(xf.sec > 0) || k === 0) return;
+            const B = G.bounds[k], win = this.xfWindow(xf, B);
+            const pitched = P7s.map(p => { const a = map.at(p.lane, 0, B - 1e-3)[0] || map.at(p.lane, 0, B + 1e-3)[0]; return a ? { lane: p.lane, pitch: a.midi } : null; }).filter(Boolean);
+            hx.push({ k, B, win, xf, m: xf.preset === 'players' ? this.xfMoments(xf, 'h' + k, pitched) : null });
         });
+        // a map seen through a harmony crossfade: the PITCH from the harmony the dot's player reads (A or B), the LEVEL from the row at that
+        // instant — only the harmony crossfades; the dynamics keep following the row in time
+        const viewFor = (T, dkey) => {
+            const w = hx.find(x => T >= x.win[0] - 1e-9 && T <= x.win[1] + 1e-9); if (!w) return map;
+            const U = this.xfU(w.xf, w.win, T);
+            const readsB = lane => w.xf.preset === 'players' ? (U >= (w.m[lane] != null ? w.m[lane] : 0.5) - 1e-9) : (this.xfRand(w.xf.seed, 'h' + w.k + '~' + dkey + '~' + lane) < U - 1e-9 || U >= 1);
+            return { boxAt: map.boxAt, bounds: map.bounds, G: map.G, meanAt: map.meanAt,
+                at(lane, seat, t) {
+                    const base = map.at(lane, seat, t), b = readsB(lane), inB = t >= w.B - 1e-9;
+                    if (b === inB) return base;                                               // it reads the harmony it is in
+                    const src = map.at(lane, seat, b ? w.B + 1e-3 : w.B - 1e-3); if (!src.length) return [];   // the other harmony gives this player nothing
+                    return src.map((n, j) => Object.assign({}, n, base[j] || base[0] ? { level: (base[j] || base[0]).level, weight: (base[j] || base[0]).weight } : {}, { xf: b ? 'B' : 'A' }));
+                } };
+        };
+        // the RHYTHM row, and its crossfades: an old box READS ON past its cut, a new box READS BACK before it — from its own take, wrapping at
+        // the take's end — so both patterns run inside the window; the old dots drop out as the new ones come in (by density, not by level)
+        const R = (recipe.rhythm || []), starts = []; let s = T0; R.forEach(b => { starts.push(s); s += +b.dur || 0; });
+        const rx = R.map((b, k) => { const xf = this.xfOk(b.xf); if (!xf || !(xf.sec > 0) || k === 0) return null; return { k, B: starts[k], win: this.xfWindow(xf, starts[k]), xf }; });
+        const cands = [];   // { bi, W, d, T, key, role: null | 'old' | 'new', w }
+        R.forEach((b, bi) => {
+            const W = (b.take && b.state) ? this.realized(b.state) : null; if (!W) return;
+            const span = W.span, into = rx[bi], outof = rx[bi + 1] || null, end = starts[bi] + (+b.dur || 0);
+            W.lines.forEach((row, Lx) => row.forEach(d => {
+                if (d.t < b.start - 1e-9 || d.t >= b.stop - 1e-9) return;
+                const T = starts[bi] + (d.t - b.start);
+                const role = (into && T <= into.win[1] + 1e-9 && T >= into.win[0] - 1e-9) ? 'new' : (outof && T >= outof.win[0] - 1e-9 && T <= outof.win[1] + 1e-9) ? 'old' : null;
+                cands.push({ bi, W, d, T, key: Lx + ':' + d.i, role, w: role === 'new' ? into : role === 'old' ? outof : null });
+            }));
+            // READ ON past the cut into the next box's window (after its line), and READ BACK before this box's line into its own window
+            const extra = (from, to, role, w, tOf) => {
+                if (!(to > from)) return;
+                W.lines.forEach((row, Lx) => {
+                    for (let cyc = -2; cyc <= 3; cyc++) row.forEach(d => {
+                        const pt = d.t + cyc * span, T = tOf(pt);
+                        if (T < from - 1e-9 || T >= to - 1e-9) return;
+                        cands.push({ bi, W, d, T, key: Lx + ':' + d.i + (cyc ? '~' + cyc : ''), role, w, extra: true });
+                    });
+                });
+            };
+            if (outof && outof.win[1] > end) extra(end, outof.win[1], 'old', outof, pt => starts[bi] + (pt - b.start));
+            if (into && into.win[0] < starts[bi]) extra(into.win[0], starts[bi], 'new', into, pt => starts[bi] + (pt - b.start));
+        });
+        const dots = [], notes = [], rows = [];
+        let hollow = 0, muted = 0, changed = 0, dropped = 0;
+        const rxMoments = {};
+        cands.forEach(c => {
+            const { bi, W, d } = c, b = R[bi], Lx = d.line != null ? d.line : +c.key.split(':')[0], T = +c.T.toFixed(4);
+            const RB = Array.isArray(b.assign) ? Object.assign(Object.create(W.R), { assign: b.assign }) : W.R;
+            const touches = (b.touches && typeof b.touches === 'object') ? b.touches : {}, tch = touches[c.key] || null;
+            const ns = this.joinDot(RB, viewFor(T, bi + ':' + c.key), d, T);
+            // 1l.7: the RHYTHM crossfade — an old dot stays while its player has not yet changed over; a new dot sounds once it has
+            let xfDrop = false;
+            if (c.role && c.w) {
+                const U = this.xfU(c.w.xf, c.w.win, T);
+                let m = null;
+                if (c.w.xf.preset === 'players') { const tag = 'r' + c.w.k; if (!rxMoments[tag]) rxMoments[tag] = this.xfMoments(c.w.xf, tag, P7s.map(p => { const a = map.at(p.lane, 0, c.w.B + 1e-3)[0] || map.at(p.lane, 0, c.w.B - 1e-3)[0]; return { lane: p.lane, pitch: a ? a.midi : 60 }; })); m = rxMoments[tag]; }
+                const switched = lane => m ? (U >= (m[lane] != null ? m[lane] : 0.5) - 1e-9) : (this.xfRand(c.w.xf.seed, 'r' + c.w.k + '~' + bi + ':' + c.key) < U - 1e-9 || U >= 1);
+                ns.forEach(n => { const sw = switched(n.lane); if ((c.role === 'old' && sw) || (c.role === 'new' && !sw)) n.xfOut = true; });
+                if (ns.length && ns.every(n => n.xfOut)) xfDrop = true;
+            }
+            const kept = !!(tch && tch.keep);   // HIS TOUCHES WIN: a dropped dot brought back
+            let isChanged = false;
+            if (tch && tch.p) ns.forEach(n => {
+                const o = tch.p[n.slot]; if (!o) return;
+                if (o.vib != null && vibLane >= 0) {
+                    const v = map.at(vibLane, o.vib, T)[0];
+                    if (v) Object.assign(n, { lane: vibLane, midi: v.midi, cents: v.cents || 0, partial: v.partial, level: v.level, weight: v.weight, tech: o.tech || VIB_TECH, fallback: false });
+                    else n.gone = true;
+                } else {
+                    if (o.midi != null) { n.midi = o.midi; n.cents = +o.cents || 0; n.partial = o.partial != null ? o.partial : null; }
+                    if (o.tech) n.tech = o.tech;
+                }
+                if (o.dyn) { const lv = levelOfName(o.dyn); if (lv != null) n.level = lv; }
+                n.vel = Math.round(lo + (hi - lo) * n.level); n.changed = true; isChanged = true;
+            });
+            const live = ns.filter(n => !n.gone && (kept || !n.xfOut)), isMuted = !!(tch && tch.mute);
+            const isDropped = xfDrop && !kept, sounding = isMuted ? [] : live.filter(n => n.weight > 0.001);
+            const dot = { box: bi, line: Lx, i: d.i, key: c.key, T: T, dur: d.dur, notes: live, hollow: !ns.filter(n => !n.gone).length, silent: !RB.assignOf(Lx).length, muted: isMuted,
+                changed: isChanged, dropped: isDropped, kept: kept && xfDrop, role: c.role, extra: !!c.extra };
+            dots.push(dot);
+            if (dot.hollow && !dot.silent) hollow++; if (isMuted) muted++; if (isChanged) changed++; if (isDropped) dropped++;
+            (rows[Lx] || (rows[Lx] = [])).push({ t: T - T0, box: bi, line: Lx, i: d.i, key: c.key, dropped: isDropped, kept: dot.kept,
+                s: dot.silent ? 'silent' : isMuted ? 'muted' : isDropped ? 'dropped' : dot.hollow ? 'hollow' : isChanged ? 'changed' : (!sounding.length ? 'muted' : 'ok') });
+            sounding.forEach(n => {
+                const velAbs = Math.max(1, Math.round(D.remapVel(n.lane, n.midi, n.vel) * n.weight));
+                notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, cents: n.cents || 0, partial: n.partial, level: n.level, anchor: n.vel, velAbs: velAbs, weight: n.weight,
+                    dyn: nameOf(n.level), fallback: n.fallback, changed: !!n.changed, xf: n.xf || null, start: +T.toFixed(3), end: +(T + Math.max(0.02, d.dur)).toFixed(3), box: bi, line: Lx, i: d.i, key: c.key });
+            });
+        });
+        rows.forEach(r => r && r.sort((a, b) => a.t - b.t));
         notes.sort((a, b) => a.start - b.start || a.lane - b.lane);
-        return { G, map, dots, notes, rows, hollow, muted, changed, end: s };
+        return { G, map, dots, notes, rows, hollow, muted, changed, dropped, end: s, hx, rx };
     },
     rhythmHasDots() { return (this.row.rhythm || []).some(b => b.take && b.state); },
     seqTotal() { return Math.max(this.total(), this.rtotal()); },
@@ -1372,8 +1489,8 @@ const S = {
         let X = null;
         try { X = this.row.boxes.length ? this.dotsOf(this.recipe(0), true) : null; } catch (e) { X = null; }
         this.dView.pxPerSec = this.pps || this.ppsNow();
-        const sel = new Set((this._selDots || []).map(d => d.box + ':' + d.line + ':' + d.i));
-        if (X) X.rows.forEach(r => (r || []).forEach(d => { d.sel = sel.has(d.box + ':' + d.line + ':' + d.i); }));
+        const kk = d => d.box + ':' + (d.key || (d.line + ':' + d.i)), sel = new Set((this._selDots || []).map(kk));
+        if (X) X.rows.forEach(r => (r || []).forEach(d => { d.sel = sel.has(kk(d)); }));
         const rows = X ? X.rows.map((r, Lx) => ({ label: 'L' + (Lx + 1), dots: r || [] })) : [];
         this.dView.set({ rows: rows, t0: 0, t1: Math.max(0.5, this.seqTotal()) });
         this._dotsX = X;
@@ -1394,15 +1511,20 @@ const S = {
     // LINE of its box (SHIFT+click), or several (drag a BOX over time and lines) take the same touch. A touch is an EXCEPTION kept on its
     // rhythm box, keyed line:dot — so it survives a change of the harmony row and a move of its box, and the recipe carries it. It does not
     // survive a RE-CUT of its box (the panel says how many would be lost, first). A mute is RHYTHM: it stays when a line moves.
-    touchKey(d) { return d.line + ':' + d.i; },
+    touchKey(d) { return d.key || (d.line + ':' + d.i); },
     dotsIn(a, b, r0, r1) { const X = this._dotsX; if (!X) return []; const out = []; for (let r = r0; r <= r1; r++) (X.rows[r] || []).forEach(d => { if (d.t >= a - 1e-9 && d.t <= b + 1e-9) out.push(d); }); return out; },
     lineOf(d) { const X = this._dotsX; return X ? [].concat(...X.rows.map(r => (r || []).filter(x => x.box === d.box && x.line === d.line))) : [d]; },
     touchesOf(bi) { const b = this.row.rhythm[bi]; if (!b) return null; if (!b.touches || typeof b.touches !== 'object') b.touches = {}; return b.touches; },
-    tidyTouch(bi, k) { const T = this.touchesOf(bi); const t = T && T[k]; if (!t) return; if (t.p && !Object.keys(t.p).length) delete t.p; if (!t.mute) delete t.mute; if (!Object.keys(t).length) delete T[k]; },
+    tidyTouch(bi, k) { const T = this.touchesOf(bi); const t = T && T[k]; if (!t) return; if (t.p && !Object.keys(t.p).length) delete t.p; if (!t.mute) delete t.mute; if (!t.keep) delete t.keep; if (!Object.keys(t).length) delete T[k]; },
     dotClick(row, idx, ev) {
         const X = this._dotsX, d = X && X.rows[row] && X.rows[row][idx]; if (!d) return;
         const set = ev && ev.shiftKey ? this.lineOf(d) : [d];
         if (this.dotMode === 'edit') { this.openCard(set, ev); return; }
+        if (!(ev && ev.shiftKey) && (d.dropped || d.kept)) {   // 1l.7: HIS TOUCHES WIN over a crossfade
+            const T = this.touchesOf(d.box), k = this.touchKey(d); if (!T) return;
+            if (d.kept) { if (T[k]) { delete T[k].keep; this.tidyTouch(d.box, k); } } else (T[k] || (T[k] = {})).keep = true;
+            this.save(); this.render(); this.setStatus(d.kept ? 'the crossfade takes that dot again' : 'brought back — the crossfade had dropped it; your touch wins'); return;
+        }
         this.toggleMute(set, ev && ev.shiftKey ? 'the line' : 'the dot');
     },
     dotSpan(a, b, ev, r0, r1) {
@@ -1955,9 +2077,9 @@ const S = {
         // 1l.3: the MAP's breath and `attack` at every line (nothing breathes here) — and the RHYTHM row, which sequence.js ignores
         return Object.assign({ t0: +t0 || 0, change: 'attack', breath: Object.assign({}, MAP_BREATH),
             containers: r.boxes.map(b => Object.assign({ dur: +b.dur, dyn: b.dyn, take: b.take, chord: b.chord.length ? b.chord : null }, b.dyn === WAVES ? { dynWas: b.dynWas || AS_DEALT } : {},
-                this.rangeOk(b.range) ? { range: this.rangeOk(b.range) } : {})),   // 1d.12: a box may read the waves through a range of its own
+                this.rangeOk(b.range) ? { range: this.rangeOk(b.range) } : {}, (b.xf && b.xf.sec > 0) ? { xf: this.xfOk(b.xf) } : {})),   // 1d.12 · 1l.7: its own waves range, its crossfade in
             rhythm: (r.rhythm || []).map(b => Object.assign({ take: b.take, start: +b.start || 0, stop: +b.stop || 0, dur: +b.dur }, b.state ? { state: b.state } : {},
-                (b.touches && Object.keys(b.touches).length) ? { touches: b.touches } : {}, Array.isArray(b.assign) ? { assign: b.assign } : {})) },   // 1l.6: the touches ride in the recipe   // 1l.4: each box's rhythm take, frozen
+                (b.touches && Object.keys(b.touches).length) ? { touches: b.touches } : {}, Array.isArray(b.assign) ? { assign: b.assign } : {}, (b.xf && b.xf.sec > 0) ? { xf: this.xfOk(b.xf) } : {})) },   // 1l.6: the touches ride in the recipe   // 1l.4: each box's rhythm take, frozen
             wavesToo ? { waves: this.wavesDefaults(r.waves) } : {},
             this.isDefaultEdges() ? {} : { edges: this.edgesDefaults(r.edges) },
             r.rolled ? { roll: JSON.parse(JSON.stringify(r.roll)) } : {});
@@ -2264,9 +2386,9 @@ const S = {
                 nodes: [{ pos: 0, y: y, smooth: 0.25 }, { pos: 1, y: y, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }],
                 color: COLOR, fillMode: 'bottom', opacity: 0.55, properties: {}, srcKind: 'rhythmSequence',
                 performanceNotes: name + ' · rhythm box ' + (n.box + 1) + (box.take ? ' · ' + box.take : '') + ' · L' + (n.line + 1) + ' dot ' + (n.i + 1) + ' · ' + n.dyn +
-                    (n.weight < 0.999 ? ' · faded ×' + n.weight.toFixed(2) : '') + (n.fallback ? ' · claves (no percussion note beneath)' : '') +
+                    (n.weight < 0.999 ? ' · faded ×' + n.weight.toFixed(2) : '') + (n.fallback ? ' · claves (no percussion note beneath)' : '') + (n.xf ? ' · crossfade: harmony ' + n.xf : '') +
                     (n.partial != null ? ' · partial ' + n.partial : '') + (cents ? ' · ' + (cents > 0 ? '+' : '') + Math.round(cents) + '¢ just' : ''),
-                sonifyNote: n.midi, technique: n.tech, recVel: n.anchor, velAbs: n.velAbs, rseqDot: n.box + ':' + n.line + ':' + n.i },
+                sonifyNote: n.midi, technique: n.tech, recVel: n.anchor, velAbs: n.velAbs, rseqDot: n.box + ':' + (n.key || (n.line + ':' + n.i)) },
                 cents ? { morphBend: [[0, +cents.toFixed(2)], [+(n.end - n.start).toFixed(3), +cents.toFixed(2)]], cc7Abs: { lo: 127, hi: 127 } } : { sonifyMode: 'plain' }));
             written++;
         });

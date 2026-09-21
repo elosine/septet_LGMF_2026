@@ -8639,3 +8639,47 @@ boxes; **every gesture a real mouse sequence**: mousedown on the canvas → mous
   model bank VALID · engine identity 48. The test data removed from `bank/`.
 
 **Not heard.** His listen, in his Chrome.
+
+## §206. `1l.7` BUILT AND VERIFIED — the two crossfades, one idiom for both rows; `1l` BUILT END TO END, `1l.1` … `1l.7`; what is left is `1l.8`, his listen (2026-09-21)
+
+**What was built (rhythm_seq_ui.js):**
+- **Three settings on a box, in either row — in the space `enter` left free, in its edit line:** `crossfade in [s]` (blank or 0 = a clean
+  change at the line, as 1l.3 – 1l.6) · `scattered | player by player` · `before | across | after` the line (`across` the default) · for
+  player by player an ORDER (`random · low to high · high to low · by pair`) · a SHAPE (`straight · slow start · slow end`) · `seed n ↻`
+  (the re-deal). A box crossfades INTO itself from the box before; the first box has none. Carried in the recipe — the library and the score.
+- **THE HARMONY CROSSFADE works on the DOTS** (the map is silent): inside the window each dot's player reads harmony A or B, the chance of B
+  rising from none to all — dot by dot (`scattered`: a seeded draw per dot and player) or player by player (each player's ONE moment; low
+  to high and high to low by the players' pitches at the line, by pair = english horn + bassoon · horn + trumpet · the percussionist · the
+  strings, the pairs in a seeded order). **Only the harmony crossfades — who has which note:** the PITCH comes from A or B, the LEVEL from the
+  row at that instant (a player the other harmony gives nothing is hollow there — no borrowed notes).
+- **THE RHYTHM CROSSFADE runs BOTH patterns inside the window:** the old box READS ON past its cut and the new box READS BACK before its line,
+  each from its own take, wrapping at the take's end (a read-on dot is keyed `line:dot~cycle` when it has wrapped); an old dot sounds while its
+  player has not yet changed over, a new dot once it has — dot by dot or player by player. **By density, not by level** — the dynamics stay
+  the harmony row's.
+- **Seen, and his to override:** a dot a crossfade dropped is drawn in its own look (`dropped`); **a click on it (mute mode) brings it back —
+  HIS TOUCHES WIN** (`keep`); a second click lets the crossfade take it again. A pitch or dynamic touch applies after the crossfade.
+- The status line says what a box's crossfade is and how many dots the rhythm crossfades dropped.
+
+**THE REQUIRED VERIFICATION** (`score-5401`; no MIDI; two rhythm takes saved from Texture — `AI-xf-smear` and `AI-xf-groove` — cut 0–8 s each as
+two rhythm boxes over the two harmony boxes of §204–§205; box 2 of each row crossfading in over 4 s, scattered, across its line → both windows
+6–10 s):
+- **At the window's start every dot reads A / belongs to the old rhythm; at its end every dot reads B / belongs to the new one.** The decision
+  at the window's two ends is exact: the shaped chance is **0 at its start and 1 at its end**. Measured on the notes (the players whose A and B
+  pitches differ — english horn, bassoon, horn, trumpet): before the window **0 of 13** read B, after it **13 of 13**; inside it the share rises
+  (0.25 · 0.13 · 0.63 · 1.0 by quarter, 7–8 notes a quarter — a seeded draw, so the small counts wander). The rhythm at the window's start:
+  **6 old dots sounding, every new dot dropped**; at its end: **every old dot dropped (5), the new sounding.** Player by player, low to high:
+  every player changes ONCE (`AAAAAABB` · `AAAAAAAB` · `AAABBBBB` · `AAAABBB`), the horn first and the bassoon last, by their pitches at the line.
+- **The same seed gives the same result:** two renders of the recipe identical; the seed re-dealt → different; back to seed 1 → identical again.
+- **A touch wins over the crossfade:** a dot the rhythm crossfade had dropped (the old box read on past its cut, 8.727 s, key `0:16`) → a real
+  click in mute mode → `{"keep":true}`, dropped 32 → 31, and it SOUNDS — english horn C#5, reading harmony B through the harmony crossfade —
+  a second click → dropped again, the touch gone.
+- **The round trip:** inserted at 800 s (153 notes), a `new` row, reopened from the score: both crossfades back, the same notes byte for byte.
+  The controls: typing 6 s and choosing player by player on harmony box 2 showed the order menu; `↻` re-dealt to seed 2; `after` on rhythm box 2;
+  box 1 shows no crossfade.
+- **The batteries:** palette 184 · sequence 180 · dyn table 51 · snapshots 28 · spectrum 35 · written pitch 10 + control · ceilings green · model
+  bank VALID · engine identity 48. The test takes and rhythm sequences removed from `bank/`.
+
+**`1l` IS BUILT END TO END — `1l.1` … `1l.7`, each verified by its own REQUIRED VERIFICATION, each committed and pushed on its own.** What is
+left is `1l.8`: HIS LISTEN — a short counterpoint passage written end to end in his Chrome (harmony takes → rhythm takes in Texture → a rhythm
+sequence → Insert), what he hears going to this journal as he says it, and the architecture looked at again (LG-56). **Before it, in his
+Chrome: RESTART `node score/server.js`** (two new stores, `rhythms` and `rhythmseqs`, and the score's own code) **and reload the tab.**
