@@ -7764,3 +7764,23 @@ reason.** Without the restart `1j`'s dials would be filed the same wrong way: he
 the engine on disk, labels and placements kept — or he can recall each and file it again after the restart. **And a guess, marked
 as one:** the nine "re-derivation drift" actuals of §176 may be this same fault from 2026-09-19 (the ceilings were re-based that
 day under a running server). Not examined.
+
+## §182. HE RESTARTED THE SERVER AND IS COMPOSING WITH `1i` + `1j` — two more blooms filed, both right; only `ACT-BLOOM-03` · `-04` remain wrong (2026-09-20)
+
+**Seen in the tree at the checkpoint, not said in the chat.** After `f1b4775` was pushed (23:37) two more bloom actuals appeared:
+**`ACT-BLOOM-05` "LGMF-s1-bloom06"** (23:43) and **`ACT-BLOOM-06` "lgmf-s01-bloom08"** (23:48); `scores/seqTests01.json` was saved
+again at 23:51. Read-only, all six of his blooms against the engine on disk:
+
+| actual | label | voices | still voices' width | breath dials | stored = the engine on disk |
+|---|---|---|---|---|---|
+| 01 | LGMF-s1-blooma | 6 | — | none | yes |
+| 02 | LGMF-S01-BLOOM | 6 | — | none | yes |
+| **03** | lgmf-s1-bloom03 | 8 | **25 · 25** | none | **no** |
+| **04** | LGMF-s1-bloom04 | 8 | **25 · 25** | none | **no** |
+| 05 | LGMF-s1-bloom06 | 8 | 0 · 0 | 0.65 · 1.3 · 0.1 | yes |
+| 06 | lgmf-s01-bloom08 | 8 | 0 · 0 | 0.65 · 1.3 · 0.1 | yes |
+
+**So the restart happened** — `05` and `06` were rendered by the new engine: the vibraphones still, the breath dials on at the
+defaults, the stored notes reproduced exactly. **The server fix of §181 is in force on his machine**, proven by his own files
+rather than by a test of ours. The labels skip (`bloom06`, `bloom08`): he is making and discarding versions as he goes. **Only
+`03` and `04` remain wrong**, and their repair is still his call (§181). Nothing asked of him yet about how any of it sounds.
