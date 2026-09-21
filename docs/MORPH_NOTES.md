@@ -1482,3 +1482,19 @@ Insert knows what a vibraphone is.
 `playerBendSt`; as built it rides on the pair (`still`), because a pair is where the panel already keeps what it knows about two
 players. The recipe still decides which instrument gets such a row (`STILL_INST`). If a second non-bending instrument ever wants in,
 that constant becomes a list — and that is the moment to derive it from the recipe instead.
+
+### 2026-09-20 — LGMF: the morph's note lengths *"seem regular, predictable"* — and a wish for the sequence's breath generator (RUNNING_LOG §177)
+
+> *"the durations of the notes in the morph seem regular, predictable. Are they then the same length? And can we discuss what it
+> would be like to introduce a similar breath generator like in the sequences?"*
+
+*Measured on his own `ACT-BLOOM-02`:* 80 breaths, mean 8.03 s, sd 1.45, 5.65 … 10.40 — every player dealt `segLen × (1 ± segVar)`
+round the SAME 8 s, the ceiling only a cap.
+
+*AI reading (mine, marked):* for the revision — the sequence drawer took its breath rules FROM the morph (SEQUENCE_TOOL §4), then
+grew them at his ear's word: a breath built round each player's OWN maximum (`of max`), `±` in seconds, one breath in ten an
+OUTLIER, `together` / `apart`, a pool of lengths, `re-breathe`. The morph still has the seed they grew from. **The all-purpose tool
+has ONE breath generator, and the sequence's is the grown one** — the same sentence this file wrote about the dynamics
+(*"should not have a dynamics path of its own at all"*), now about the breath. The engine is built for it: its CARRIER is already a
+separate object from the MORPH. What is particular to a morph and the shared generator must allow: the level — and so the ceiling —
+moves DURING the span, and a breath's place matters to the beating (a pair's beating stops while one of them breathes).

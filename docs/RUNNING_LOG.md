@@ -7564,3 +7564,43 @@ what the panel will derive the mark from.
 under the pre-`1i` engine, so this build did not cause it; the stored objects stand and the six scores were built from them.
 
 **Seen and left:** an actual with both vibraphones reports `parts: 7` — the server counts LANES, and the two share one.
+
+## §177. HIS EAR ON THE MORPH'S BREATHS — *"regular, predictable"* — and the measurement: one length for everyone, 8 s ± 30 % (2026-09-20)
+
+**What prompted it** — his words, after `1i` was built (he did not say whether this is from the new bloom with the vibraphones or
+from the first one; the measurement below is of his own `ACT-BLOOM-02`):
+
+> *"the durations of the notes in the morph seem regular, predictable. Are they then the same length? And can we discuss what it
+> would be like to introduce a similar breath generator like in the sequences?"*
+
+**The data first (the planning method, phase 1).** `ACT-BLOOM-02`, his own, 80 notes over 117 s; its carrier is
+`segLen 8 · segVar 0.3`:
+
+| player | breaths | their lengths, s |
+|---|---|---|
+| Vc | 14 | 9 · 8 · 9.1 · 9.2 · 5.8 · 5.6 · 10.3 · 9.1 · 9.3 · 8.1 · 8.5 · 8.2 · 6.6 · 7.2 |
+| Db | 15 | 7.7 · 6.3 · 10.2 · 6.6 · 8.2 · 7.4 · 8.5 · 6.8 · 8.2 · 9.5 · 7.6 · 6.3 · 6.4 · 6.4 · 9.8 |
+| Tpt | 13 | 9.1 · 10.4 · 8 · 7.9 · 6 · 9.9 · 6.9 · 9.8 · 9.7 · 6.3 · 7.3 · 5.9 · 5.9 |
+| Hn | 12 | 7.2 · 8.5 · 10 · 8.5 · 9.5 · 7.4 · 7.1 · 6 · 10.1 · 10.3 · 7.9 · 10 |
+| EH | 13 | 9.9 · 8.8 · 7.2 · 9.6 · 9 · 7.4 · 7.2 · 10.4 · 6.5 · 7.5 · 5.7 · 9.3 · 6.6 |
+| Bsn | 13 | 7 · 5.7 · 10 · 9.9 · 7.2 · 8.8 · 6.8 · 10.3 · 6.1 · 7.3 · 8.7 · 7.7 · 6.6 |
+
+**All 80: mean 8.03 s · sd 1.45 · shortest 5.65 · longest 10.40.** The gaps: the winds 0.64 … 0.86 s, the strings 0.05 s.
+
+**So: not the same length, but all drawn from ONE narrow band round ONE number.** `buildCarrier` (`morph.js` ~475) deals each
+breath as `segLen × (1 ± segVar)`, evenly, the same `segLen` for every voice, the player's ceiling only a CAP. The english horn,
+with 18 s of air, breathes as often as the trumpet. No breath is ever far from the rest. **This is word for word the diagnosis
+`SEQUENCE_TOOL.md` §19 opens with** — *"Every player used to aim at the ONE `length`, and the ceilings table only capped … And
+every breath fell in one range"* — because the sequence generator BORROWED these numbers from the morph (its §4: *the breath rules —
+the morph's, borrowed as numbers*) and then outgrew them in 1d.5 · 1d.9 · 1d.14. The morph still has the original. His ear has
+found in the morph exactly what it found in the sequence two days ago.
+
+**What the engine's design offers, read in its own header:** MORPH (what changes) and CARRIER (when a voice sounds) are orthogonal —
+*"Neither MORPH nor CARRIER knows about the other."* A different deal of breaths cuts the SAME pitch and level path at different
+places; the bloom itself does not move. **One real difference from a sequence, seen in the code:** the morph's ceiling is asked
+AFRESH at every breath, at the level the voice has at that moment (quiet = longer, loud = shorter) — a sequence knows its level per
+box. **NOT READ, and said to him as such:** the sequence's own breath dealer in `sequence.js` — so whether it can be SHARED by the
+two tools or has to be re-made inside the engine is not known yet.
+
+**Put to him: which of the sequence's breath behaviours first** — the lengths alone (`of max` · `±` in seconds · `outlier`), or
+also `together` / `apart`, or the whole line. Nothing built, nothing planned yet.
