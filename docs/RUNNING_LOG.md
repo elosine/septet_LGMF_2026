@@ -8136,3 +8136,31 @@ table of minimum gaps (the tuba's `D17` values stay until they are a problem). *
   harmony arithmetic (`sequence.js`) WITHOUT changing it — so a harmony row behaves identically in both, and the drawer he composes
   with cannot be broken by the clone. *(Rejected: cloning `sequence.js` too — two copies of the same arithmetic drift; the repo has
   already paid for that once, the `buildCarrier` / `dealSpan` twins of PLAN 1j.)*
+
+## §193. `1l.3` WRITTEN WITH HIS CORRECTION — the EDGES stay; an onset's dynamic is the INTENDED WRITTEN LEVEL of the harmony row, and no CC7-to-velocity translation is needed; `1l.4`, the workshop, put to him (2026-09-21)
+
+**What prompted it.** His answer to step 3. **Verbatim: COMPOSITION_NOTES LG-60.**
+
+**Decided by him:** the breath line may go (and with it `enter`, which only means something between breaths — the AI's extension,
+not objected) · **the EDGES STAY**, *"useful for dynamics"* — the AI had cut them as held-note machinery and was wrong about what
+they are FOR here · **an onset takes its dynamic from the harmony sequence as a level on the `ppp … fff` scale**, and *"the main
+important thing is the actual intended level. So that we'll be able to translate to notation"*; the audition level is sorted out
+later if it is not right.
+
+**The AI's answer to his worry (*"we'll have to figure out a way to translate the CC127 to the velocity-based strikes"*) —
+reasoning from `docs/DYNAMICS_LAW.md` and PLAN 1d.10, not re-verified in code:** no such translation is needed. The harmony row
+already thinks in WRITTEN dynamics: a box has a `dyn`, the waves are a 0 … 1 height *"mapped late"* between two written dynamics,
+the edges run from and to a dynamic or niente. CC7 was only ever ONE OUTPUT of that level (the dynamics table, 4 dB a written step,
+for a SHAPED note); the strike's velocity is the OTHER output (1b's remap, for a STRUCK note — *the velocity IS the dynamic*). So a
+dot reads the written level and goes to velocity directly; a level between two names interpolates. The same level, rounded to a
+name, is what notation gets.
+
+**Written at once:** `docs/PLAN.md` § `1l.3` in full, the edges kept; and the dynamics rule CARRIED INTO `1l.5` (the join) with a
+caution of the AI's own for the build — **the map must be CONTINUOUS: a breath gap inside the generator's notes must never read as
+"no note beneath".** *(He did not say "3 good"; he corrected it and went on. It is written as corrected, and the chat says so.)*
+
+**`1l.4` as put to him — THE WORKSHOP:** an area of the rhythm panel with the dot view of `1l.2` · a rhythm-takes menu · click a
+harmony box and the take plays with each player's pitch AND dynamic from that box (the join's first use) · select by marquee, or by
+a start and a stop point on the timeline — **the cut falls exactly where he puts it, nothing snaps** · Play plays the selection ·
+LOOP, a count · save → a box on the rhythm row, remembering take · start · stop · loops, its length (stop − start) × loops, several
+boxes from one take allowed · the box shows a miniature of its dots · one capture, then his listen.

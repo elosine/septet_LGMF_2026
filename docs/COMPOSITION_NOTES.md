@@ -1971,3 +1971,21 @@ instrument and the vibraphone's pitches. **Texture's preview** plays the percuss
 Percussion), and `claves pair 2 high` only as the FALLBACK when a take assigns none — his own correction of his first line. **The
 vibraphone's pitches wait for the rhythm container,** where the percussion's note or notes can be given to the vibraphone — pitch
 drawn from one of the vibraphone's pitches in the harmony beneath — or to a non-pitched instrument.
+
+### LG-60 · 2026-09-21 — AN ONSET TAKES ITS DYNAMIC FROM THE HARMONY SEQUENCE AS AN INTENDED WRITTEN LEVEL, `ppp … fff` — *"the main important thing is the actual intended level. So that we'll be able to translate to notation"*; the edges stay in the harmony row, *"useful for dynamics"*
+
+His words, on step 3 of `1l` (RUNNING_LOG §192):
+
+> *"Press OK to leave out, but the edges will be useful for dynamics. So leave those in. And if it wasn't clear before, the
+> rhythms, the onsets, will take both the harmony and the dynamic level from the sequence, the harmony sequence. And we'll have to
+> figure out a way to translate the CC127 to the velocity-based strikes. So in other words, whatever dynamic level on the PPP to
+> FFF scale, the harmony is on at that time. We'll use that value for the onset in the rhythm in terms of PPP to FFF, so the
+> translated velocity-based scale. the main important thing is the actual intended level. So that we'll be able to translate to
+> notation. We can sort out the demo slash audition level. If it turns out to be not right when we have time."*
+
+*AI reading (mine, marked):* *"Press OK to leave out"* is read as the speech-to-text of **"breaths OK to leave out"**. **The edges
+stay** — fade in, fade out, `exit` — as DYNAMICS: a dot inside a fade reads the faded level. **The dynamic of an onset is a WRITTEN
+LEVEL, not a controller value:** wherever the harmony row stands on the `ppp … fff` scale for that player at that moment — a single
+dynamic, a ramp, a wave, an edge — that is the onset's intended dynamic, and it is struck at the velocity the calibrated scale gives
+that level. **The intended level is the ground truth, because it is what will be notated;** how loud the audition actually is can be
+corrected later. *"CC127"* = the 0 … 127 fader of a shaped note.

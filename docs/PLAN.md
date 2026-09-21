@@ -1586,9 +1586,33 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **THE DOT VIEW IS BUILT ONCE, HERE** — the workshop (`1l.4`) adds a selection to it, the placed container (`1l.6`) a click on a dot.
     - **REQUIRED VERIFICATION:** one capture with no MIDI — a doubled line sounds on both players at the same instants, each on their own
       pitch; a merged column sounds on one player · save → reload → recall gives the same dots · the batteries green. **Then his listen.**
-  - **1l.3 — The rhythm sequence panel: the clone, with its two rows** — *to be laid out when we discuss it.*
+  - **1l.3 — The rhythm sequence panel: the clone, with its two rows** — `todo`
+    *Result when done:* a new button opens the rhythm sequence panel. It looks and works like the sequence drawer. The bottom row is his
+    harmony, built exactly as now. The top row is the rhythm row — empty, waiting for `1l.4`. The sequence drawer itself is not touched.
+    - **A button and a floating panel of its own.** Not one byte of the sequence drawer changes (`sequence_check` stays 180).
+    - **The harmony row keeps:** boxes of take · seconds · dynamic · the roll · a range of boxes · the waves by preset · **the EDGES
+      (fade in · fade out · `exit`) — kept at his word: *"the edges will be useful for dynamics"*** · the takes menu with its `▸` · the
+      preview on a box · the clock and the cursor.
+    - **It leaves out:** the breath line, and `enter` (attack | seamless — which only means something between breaths). Nothing is held
+      here, so nothing breathes.
+    - **The rhythm row — the same idiom:** boxes left to right, on the same time scale; an empty box is a rest. **Its boundaries are
+      independent of the harmony's** — a rhythm box can straddle a harmony change.
+    - **Hear auditions the map:** it plays the harmony row as held chords, to check it by ear. It never inserts.
+    - **Saved as a recipe,** under a name of its own in the score file, and in a library of its own. His sequence library is not touched.
+    - **Machinery (the AI's call, named to him):** the PANEL is cloned; underneath, the clone READS the sequence drawer's pure harmony
+      arithmetic (`score/public/sequence.js`) WITHOUT changing it — a harmony row behaves identically in both, and the drawer he composes
+      with cannot be broken by the clone. *(Rejected: cloning `sequence.js` too — two copies of one arithmetic drift; PLAN 1j's
+      `buildCarrier` / `dealSpan` twins are the repo's own example.)*
+    - **REQUIRED VERIFICATION:** the sequence drawer's batteries unchanged · a rhythm sequence saved, reloaded, identical · then he looks
+      it over.
   - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — *to be laid out when we discuss it.*
   - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — *to be laid out when we discuss it.*
+    *(Carried from LG-60 so it is not lost: a dot takes BOTH its pitch and its DYNAMIC from the harmony row — the INTENDED WRITTEN LEVEL,
+    on the `ppp … fff` scale, that the row has for that player at that moment (single dynamics, ramps, waves, edges) — and that level
+    becomes the strike's velocity through 1b's remap. **The intended level is the ground truth, because it is what goes to notation;**
+    the audition level is tuned later if it turns out not right. No CC7-to-velocity translation is needed: the row holds the written
+    level, and the fader value and the velocity are two outputs of it. **A caution for the build:** the map must be CONTINUOUS — a breath
+    gap inside the generator's notes must never read as "no note beneath".)*
   - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — *to be laid out when we
     discuss it.* *(Carried from LG-59 so it is not lost: the percussion's note or notes in a container are a non-pitched instrument,
     OR the vibraphone — and then the pitch is drawn from one of the pitches the harmony take gave the vibraphone.)*
