@@ -202,7 +202,7 @@ its feature list grew and went ON DECK.*
   - `bank/sequences.json` — his sequence library, autosaved by his tab.
   - `reaper/LGMF_rack.rpp` — his project file, with the MIDI recordings of §140 · §144 · §157.
   - `scores/Piece-LGMF.json` · `scores/cresTest.json` · `scores/seqTests01.json` — scores saved from his tab; **`seqTests01` (saved
-    23:51) is where he is trying the blooms**. The piece itself (`scores/piece-LGMF-Sec01*.json`) is tracked and unchanged.
+    23:51) is where he is trying the blooms**. The piece itself (`scores/piece-LGMF-Sec01*.json`) is tracked — and during the checkpoint he named a new version, **`piece-LGMF-Sec01-v1.2-sec01-preMorphInsert`**, committed with the working copy under the standing rule (§161): he is about to put a MORPH into the piece.
 - **⚠ Still true:** his tab and his server are live — verify on `score-5401`, never Save from the AI's pane, tell him to reload
   before a test. **A long-running server renders actuals with the engine it started with is now FIXED, but any OTHER server route
   that `require`s engine code keeps the stale copy** — if a future build changes `morph.js` or `model_bank.js`, say "restart the
