@@ -7955,3 +7955,40 @@ the re-cast.
 
 **Held aside, named to him:** the custom patterns · what each crossfade does exactly · copying the harmony row's layout · the
 non-pitched percussion (outside the map, LG-53) · a player the harmony leaves without a note.
+
+## §187. `1l`: THE FOUNDATION, SECOND PASS — his answers: the workshop shows dots and cuts or LOOPS · who plays is set in Texture per line, carried as is, changeable in the container · the assignment many-to-many (2026-09-21)
+
+**What prompted it.** His point-by-point answer to §186. **Verbatim: COMPOSITION_NOTES LG-57.**
+
+**Decided by him:**
+- **The harmony row is silent** — *"yes harmony row is silent"*. **A clone** — *"clone is better"*. **A rhythm container carries no
+  harmony of its own** — *"yes this is good"*; the harmony box he clicks in the workshop is for the PREVIEW only.
+- **The workshop shows dots on a row too** (the AI had put the dots only after the insert). Selection by marquee drag or by a start
+  and a stop point on a timeline bar; the result saved as a rhythm container — **an excerpt, or the pattern LOOPED several times.**
+  Stretching a clip is *"for later."*
+- **Who plays (the AI's question of §186) — neither A, B nor C as put, but his own order:** the players are assigned IN TEXTURE, per
+  rhythm line, with the current ensemble; Texture gets the TAKES menu so its preview sounds in an orchestrated harmony; the take is
+  carried into the rhythm sequence AS IS; **in a placed container a line can be moved to another instrument, and only the rhythm
+  moves** — *"the pitches won't carry over, nor will the articulations, just the rhythms."* *(Considered by him and dropped in the
+  same breath: switching the players in the workshop's preview — "actually, never mind. Let's just have it slotted in as I
+  previewed it.")*
+- **The assignment is flexible** — one player the whole pattern · a line doubled by a pair *"in unison"* · several lines to one
+  player as a single pattern (*"the percussion to play four of the six lines"*).
+- **The strikes panel's rhythm view is a fair model** (*"it's not bad"*) **without its zones.**
+
+**What the AI added, marked as its own:**
+- **A picture for the assignment:** a small GRID — lines down, players across, a tick where a player plays a line. Two ticks in a
+  row = doubling; several in a column = lines merged onto one player. The same grid in Texture and on a placed container.
+- **Doubling = the same RHYTHM; each player still reads their OWN pitch from the harmony** — stated to him for correction.
+- **Merged lines can collide:** two dots almost together on one player. One small rule will be needed — closer than X is one note —
+  which is the one job of the strikes panel's "zones" that may survive.
+- **A rhythm container may straddle a harmony change** — each dot reads what is under IT (a consequence of "no harmony of its
+  own"; not raised in chat, it follows).
+
+**The ONE question put to him — a player with no note beneath:** the harmony box below is a rest, or its take leaves that player
+out. (A) the dots stay SILENT — the harmony gates the rhythm · (B) they BORROW a note (the pair partner's, or the last harmony's).
+The AI leaned A: the harmony row then sculpts the rhythm, and nothing sounds that he did not cast.
+
+**Where the discussion stands:** if that settles, the AI holds the foundation to be whole and phase 2 (the top line) is next.
+Held, his word that they settle in the build: the non-pitched percussion (it takes lines through the same assignment; what it
+strikes is open) · the custom patterns · what each crossfade does · copying the harmony row's layout · stretching a clip.

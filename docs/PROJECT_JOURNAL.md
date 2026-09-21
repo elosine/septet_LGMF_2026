@@ -121,10 +121,16 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   over a harmony → see it → select → insert) · each onset reads pitch + dynamic from the harmony beneath · after the insert, dots
   on a row: mute, or override pitch · dynamic · articulation · a CROSSFADE on each row (harmony A→B over N s; one rhythm container
   into the next).
-- **PUT TO HIM, UNANSWERED:** what a rhythm take is — named players · anonymous streams cast at the insert · named and re-castable
-  (the AI leaned the last). **The AI's suggestion:** a rhythm container carries no harmony of its own; audition = over whichever
-  harmony box he clicks. **The AI's assumption, for his correction:** the harmony row is silent here, a map.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · RUNNING_LOG §185 · §186.
+- **ANSWERED (COMPOSITION_NOTES LG-57 · RUNNING_LOG §187):** the harmony row is SILENT · a clone · **a rhythm container carries no
+  harmony of its own** (the harmony box clicked in the workshop is for the preview only) · **the WORKSHOP shows dots on a row too**,
+  cut by marquee or by start / stop points on a timeline bar, saved as an EXCERPT or as the pattern LOOPED · **WHO PLAYS is assigned
+  in TEXTURE per rhythm line** (current ensemble; Texture gets the TAKES menu for its preview), carried AS IS, and in a placed
+  container a line can be moved to another instrument — only the rhythm moves · **the assignment is many-to-many** (a line doubled ·
+  several lines merged onto one player, e.g. the percussion) · the strikes panel's rhythm view is the model, without its zones ·
+  stretching a clip: later.
+- **PUT TO HIM, UNANSWERED:** a player with no note beneath (a rest, or a take that leaves them out) — (A) silent, the harmony gates
+  the rhythm · (B) borrow a note. The AI leaned A. **If that settles, the foundation is whole and phase 2, the top line, is next.**
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · RUNNING_LOG §185 · §186 · §187.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

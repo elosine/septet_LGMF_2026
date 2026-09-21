@@ -1856,3 +1856,69 @@ His words, session 12, after the AI had looked at the Texture panel and put the 
 overrides (LG-55 had mute and articulation only) · *"custom patterns"* beside the ones from Texture (not yet said what they are).
 **The AI's reading of one thing he did not say outright:** the harmony row is a SUBLAYER — a map, not held notes that sound.
 **Not read:** the strikes drawer's rhythm view he points at.
+
+### LG-57 · 2026-09-21 — THE FOUNDATION, SECOND PASS: the WORKSHOP also shows dots on a row and cuts by marquee or start / stop points · a take can be LOOPED instead of excerpted · WHO PLAYS is set in Texture per rhythm line, carried as is, changeable in the container (only the rhythm carries) · the assignment is FLEXIBLE — a line doubled, several lines to one player
+
+His words, answering the AI's organization of LG-56 point by point (RUNNING_LOG §186):
+
+> *"some version of 3 should come in the workshop; So the texture take is just the rhythm prototype. It's a pattern of rhythms.
+> When I'm in the rhythm sequence drawer, I'll need to listen to it there. So that's why it might adapt either one of the time
+> container, the harmony time containers, just for the preview. So I can hear it with that ensemble and that harmony. But I also
+> need to see it. So that's why the workshop also needs dots in a row. And then I could either drag, marquee drag, or select
+> begin and end. Maybe something similar to the way you have the punch in cursor for the sequence drawer. So somewhere in the
+> bar above, like a timeline above, I can click start point, stop point, and then save that pattern or the excerpt as a rhythm
+> container that goes in the layer on top. And then at this point, well, maybe this is for later. It might be useful at this
+> point, once I've made the clip, to be able to speed it up or slow it down, stretch it. But let's save that for later. Let's
+> get the fundamentals right."*
+
+> *"yes harmony row is silent"* · *"clone is better"*
+
+> *(on "a rhythm container carries no harmony of its own; it reads whatever lies under it")* *"yes this is good, it is just the
+> order as I described above in order to choose part of the rhythm or to have several versions. Oh, I forgot to mention that
+> earlier. It might be that I loop it several times rather than excerpt it. But for example, if I excerpt it, I just need to be
+> able to hear the pattern in something. So then click a harmony from the harmony sequence, choose a take from the texture
+> takes, and then see and preview that texture pattern in that harmony."*
+
+> *(on "who plays a rhythm take?")* *"first, this needs to be updated in the texture drawer. So I need to be able to choose the
+> rhythm archetypes using my current ensemble. And maybe it's worth adding the takes drawer like we did for the sequence. So I
+> could just switch to a take that I've already orchestrated for this ensemble. I guess we added it to the morphs as well. And
+> then who plays a rhythm take? That's a good point. This is something I hadn't thought about. Can we have it so that I can
+> switch them easily on the preview? So I'm previewing it with a selected chord. I'm listening to the entire rhythm pattern as
+> carried over in the take from the texture drawer. And then, actually, never mind. Let's just have it slotted in as I previewed
+> it. So, In the texture drawer, I have access to the proper ensemble and the takes. The takes are already orchestrated. And I
+> guess in the texture drawer, maybe I can assign the part per rhythm line. So I can reassign the rhythm there. And then I'll
+> just adapt the take into the rhythm sequence drawer. as is. So the rhythm line will be already assembled or assigned. However,
+> in the final selection, when it's a time container and the rhythm pattern is selected, and all, I can change individual lines
+> or swap them at that time. So in addition to being able to click single notes and change the articulation, etc., I can also,
+> for that time container, swap the rhythm to a different line, different instrument, but the pitches won't carry over, nor will
+> the articulations, just the rhythms."*
+
+> *(on "held for after this")* *"means after we finish discussing this foundation?, because many of these things will probably
+> be resolved at, during this build. in particular, non-pitch percussion. And that actually reminds me an addendum to the who
+> plays which harmony part or rhythm part. It's actually, I should be able to assign the rhythms individually. So it could be
+> that one instrument, so for example, the percussion plays the entire rhythmic pattern. So we should find an easy way to do
+> this as well. And then actually to complicate things, we should be able to double some rhythmic patterns. So it could be that
+> I choose pairs of instruments to play in unison, three different patterns, for example, and then the percussion to play four
+> of the six lines as a single pattern, something like that. So some flexibility there in assigning the rhythms. And then in
+> response to one of your notes, when you do look at the strikes panel rhythm, uh, it's not bad. It's the, one of the things I
+> probably don't need to carry over is the, the, the, I forgot what they're called, the zones or something like that. I think we
+> initially established these zones where certain onsets within a certain amount of time could be considered like a unison. In
+> any case, we can discuss anything that is ported over."*
+
+*AI reading (mine, marked) — organized, nothing added:*
+
+1. **THE WORKSHOP HEARS AND SHOWS.** Click a harmony box of the harmony row (its harmony and ensemble serve the PREVIEW only) ·
+   choose a rhythm take · SEE it as dots on a row and HEAR it in that harmony · select by MARQUEE DRAG, or by a START and a STOP
+   point clicked on a timeline bar above (like the sequence drawer's cursor) · save → a rhythm container on the top row. **Or the
+   pattern LOOPED several times instead of excerpted.** Stretching a clip (faster, slower): *"save that for later."*
+2. **Confirmed:** the harmony row is silent · a clone · a rhythm container carries no harmony of its own.
+3. **WHO PLAYS is set in TEXTURE, per rhythm line,** with the current ensemble — and Texture gets the TAKES menu (as the sequence
+   drawer and the morph have), so its preview sounds in a harmony already orchestrated. The take comes into the rhythm sequence
+   drawer AS IS — *"slotted in as I previewed it"* (he considered switching players in the workshop's preview and dropped it).
+   **In a placed container** a line can still be changed or swapped to another instrument: *"the pitches won't carry over, nor
+   will the articulations, just the rhythms."*
+4. **THE ASSIGNMENT IS FLEXIBLE:** one player can take the ENTIRE pattern (the percussion) · a line can be DOUBLED (pairs of
+   instruments in unison on a pattern) · one player can take SEVERAL lines as a single pattern (the percussion, four of six).
+5. **"Held for after this"** = after the foundation; many of those settle in the build, *"in particular, non-pitch percussion."*
+6. **The strikes panel's rhythm view:** *"it's not bad"*; the ZONES (onsets within a certain time counted as a unison) need not
+   carry over; anything ported is discussed.
