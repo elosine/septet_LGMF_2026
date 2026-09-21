@@ -1735,3 +1735,51 @@ moment. Whether that is wanted is his, and he will hear it in the drawer before 
 his word: *"a"* — **they follow.** Two more voices of the one bloom: its length, its level curve, its fades, their own breaths and
 their own place in the stagger — the voices that never open. *(AI, marked:)* an arc of their own remains possible as a second bloom
 with only their pair ticked, laid over the same stretch (RUNNING_LOG §173).
+
+### LG-55 · 2026-09-21 — THE NEXT SECTION, COUNTERPOINT: a SEQUENCE underneath as the harmony and the dynamics, RHYTHMS from the multitempo machine on top — every onset takes its pitch and its dynamic from the sequence; rhythm passages auditioned, cut A→B and assembled; mute and articulation per note
+
+His words, at the close of session 11, asking that it be the first thing discussed in the next session:
+
+> *"then I'd like to start the next section in the next session. So if you could have a, a resume point on this item. And that
+> will be to create a counterpuntal section using the rhythms from the multi-tempo phase shift machine. And I think I already
+> had a composition note about this, so you can surface that. But I'd like to build the harmony and dynamic background or under
+> underpin from the sequence. So I build a sequence, uh, adjust the dynamics, etc., as if it was going to be sustained notes.
+> And then I make the rhythms in the or I'd construct a sequence of rhythms from the multi-tempo drawer, and then I could connect
+> the two, and wherever there will be a onset from the rhythm, it'll look at the sequence and grab the appropriate dynamic pitch
+> from the sequence. And then we'll have to develop this more, but I'll put some initial thoughts. The multi-tempo, I want to be
+> able to hear it in the current ensemble. And then I want to be able to, for example, generate a multi-tempo passage, but then
+> maybe take a part of it and insert it into a rhythmic sequence. So maybe something similar to what we did with the sequences
+> drawer, but I can grab bits of rhythm passages and insert them into a sequence. Well, anyway, so we might have to discuss the
+> architecture overall, maybe it might make more sense to create a whole new drawer that looks like the sequences drawer, but we
+> can discuss that, whatever's best. And then I'd like to be able to grab So how about this actually? Have something, maybe we
+> can just clone the sequences drawer or put another layer on top of the sequences drawer. But I would go through and make time
+> containers. I'd apply harmonies to those from the takes drawer. I do all the same things, the breaths. Well, maybe not the
+> breaths, but the, um, the waves or the single dynamics, etc. And then I could have another sequence that lies on top of that,
+> that would be these rhythms. But I would be need to be able to audition them first. So I could whatever, do like 13 against 11
+> against five, and then hear that rhythm. If possible, in the, the time container harmony. Well, anyways, we, we need to sort
+> this out. Let's, uh, I'll, I'll talk about it more, but these are some initial ideas. That's the ideas. Grab sequences of
+> rhythms, listen to them, say, take point A, point B of that rhythm and insert it here, and then generate another rhythm and
+> listen to it and then say, you know, point C to point D and insert it into the sequence, that sort of thing. And then finally,
+> I would like to be able to easily in the rhythm sequence, turn mute notes on and off, and then also ch- uh, choose different
+> articulations per note. So anyways, let's, can you organize this and then just have it the first thing we discuss in the next
+> session?"*
+
+*AI reading (mine, marked) — his ideas organized, nothing added:*
+1. **The underpinning is a sequence**, made as now — time containers, a take's harmony in each, the waves or single dynamics
+   (*"maybe not the breaths"*) — *"as if it was going to be sustained notes."*
+2. **The rhythm comes from the multitempo machine** — *"13 against 11 against five"* — and is AUDITIONED first: in the current
+   ensemble, and if possible sounding in the time-container harmony.
+3. **A rhythm sequence is ASSEMBLED from excerpts:** generate a passage, listen, take point A to point B, insert it; generate
+   another, take C to D, insert it — the way the sequence drawer assembles takes.
+4. **The two are CONNECTED:** each onset of the rhythm looks up the sequence and takes the pitch and the dynamic sounding there.
+5. **Per note in the rhythm sequence:** mute on and off · a different articulation.
+6. **The architecture is open, and he leaves it to the discussion:** a second LAYER on the sequence drawer, or a new drawer that
+   looks like it (a clone) — *"whatever's best."*
+
+**This is LG-53 given its mechanism** (part two: the sequence lays the harmony and the orchestration, the multitempo / phase shift
+the rhythms on top — the note he asked to have surfaced). It gathers **LG-12** too (the multitempo patterns heard with a harmony;
+mute or re-orchestrate a note by clicking the final pattern) and stands beside **LG-11** (patterns joined by accelerating and
+decelerating parts) and **LG-5** (the pointillistic section). **LG-53's two open questions are still open, and point 4 sharpens the
+first:** does the rhythm layer REPLACE the held notes or sound OVER them · is the sequence heard in this section or only the
+scaffold. **One more, mine, for the discussion:** which PLAYER an onset belongs to — a multitempo stream is one line of onsets, a
+take is eight seats (RUNNING_LOG §184).

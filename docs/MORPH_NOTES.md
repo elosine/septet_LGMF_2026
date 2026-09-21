@@ -1519,3 +1519,16 @@ not in a constant in the UI.
 **And one thing about the WHOLE tool that this build uncovered (§181):** an ACTUAL is rendered by the SERVER, not stored from what
 was heard. Two renderers — the browser's for the ear, node's for the file — can disagree whenever the engine changes under a
 running server, and did. The all-purpose tool should either store what was heard, or render in ONE place.
+
+### 2026-09-21 — LGMF: the morph's PEAKS are much louder than the sequence before it — fine for section 1, to look into before the next morph (RUNNING_LOG §184 · PLAN `1k`)
+
+His words, at the close of session 11:
+
+> *"can you add to todo later to look into the morph dynamics and how to adjust them, the peaks of the morph I just made/inserted
+> are much louder than the preceeding sequence, its fine for this section but I'd like to look into it before I do the next one"*
+
+*AI reading (mine, marked):* two things — an OBSERVATION (a bloom placed after a sequence peaks well above it) and a WISH (a way to
+adjust a morph's dynamics). **Nothing is diagnosed and nothing was looked at** — he asked for a todo. Both tools have been on the
+dynamics law since H3 (RUNNING_LOG §171): each shaped note's fader moves between the table values of its own written dynamics, the
+fades a weight on top. So a look starts with WHICH written dynamics the bloom's peaks carry against the sequence's, in the placed
+score, before anything about the mechanism. The wish — a control — belongs to the revision as much as to this piece.

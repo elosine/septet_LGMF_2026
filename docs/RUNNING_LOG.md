@@ -7821,3 +7821,37 @@ showing all eight.
 
 **Also closed at his word, the same message:** the repair of `ACT-BLOOM-03` · `-04` (§181–§182) — *"already refiled"*. He
 re-filed them himself after the restart; the AI re-renders nothing.
+
+## §184. SESSION 11 CLOSES: his files committed at his word · his ear on the morph's peaks, to `1k` · the NEXT SECTION briefed — counterpoint, rhythms from the multitempo machine over a sequence (LG-55, `1l`) (2026-09-21)
+
+**What prompted it, his words** (after the lane fix of §183, closing with `/session-end`): *"yes you can commit the pieces, morph
+actuals, and new experiments"* — then an item for later, and the brief for the next section.
+
+**1 · Committed at his word** (one commit, his files only): `scores/Piece-LGMF.json` · `scores/cresTest.json` ·
+`scores/seqTests01.json` · `bank/actuals/ACT-BLOOM-01 … -06.json` · `bank/morph_models.json` (BLOOM's `actuals[]` naming all six).
+**Two facts put on the record with it, not acted on:**
+- `ACT-BLOOM-03` · `-04` still carry their files of 2026-09-20 23:03 · 23:16 — the two §181 found filed by the stale server with
+  the vibraphones bending. His *"already refiled"* (§183) is read by the AI as `-05` · `-06` (23:43 · 23:53, after the restart)
+  being the re-files, so `-03` · `-04` go into git as they are. **That reading is the AI's and unconfirmed.**
+- `node tools/unsaved_check.js` names `cresTest`'s working copy (2026-09-20 01:17) as holding edits its file (2026-09-19) does not.
+  The FILE is what was committed. (`lgmf-all` · `lgmf-bloom` · `longToneTest` are the same, and old.)
+- Left uncommitted, not named in his word: `bank/panel_snapshots.json` (his takes) · `bank/sequences.json` (his sequence library)
+  · `reaper/LGMF_rack.rpp`.
+
+**2 · His ear on the morph → PLAN `1k`, `todo`** (verbatim in MORPH_NOTES 2026-09-21): *"the peaks of the morph I just
+made/inserted are much louder than the preceeding sequence, its fine for this section but I'd like to look into it before I do the
+next one."* Not diagnosed and not looked at — he asked for a todo. Where a look starts is written into `1k`.
+
+**3 · THE NEXT SECTION — his brief, verbatim in COMPOSITION_NOTES LG-55; PLAN `1l`.** A counterpoint section: a sequence
+underneath as the harmony and the dynamics, *"as if it was going to be sustained notes"*; rhythms from the multitempo / phase-shift
+machine on top — generated, auditioned (*"13 against 11 against five"*), cut A→B and assembled into a rhythm sequence; every onset
+reads its pitch and dynamic from the sequence; mute and articulation per note. The architecture — a layer on the sequence drawer,
+or a new drawer cloned from it — is open: *"whatever's best"*. He named his earlier note himself (*"I think I already had a
+composition note about this"*): it is **LG-53** (part two: the sequence underneath, the multitempo on top), with **LG-12** and
+**LG-11** behind it. **It opens session 12 as a discussion under the planning method, phase 1** — nothing is planned or built
+here. The multitempo machinery in this repo is piece #5's, inherited: `score/public/multitempo.js` · `multitempo_panel.js` — not
+read this sitting.
+
+**4 · Session 11 closed:** journal §2 cut to one line for the session and a cold entry point for `1l` (the long §2 is whole in git
+at `e6070fb`) · §4 **D18 … D23** promoted (the dynamics law · the table · one scale · the bloom on a take · the still vibraphones
+· the morph's breaths) · §6 **section 1 composed**, `piece-LGMF-Sec01-v1.3-sec01-done` — a tag suggested to him, not made.

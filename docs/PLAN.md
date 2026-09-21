@@ -1499,6 +1499,27 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     round 8 s again · `outlier` 0.3 → more surprises · recall `ACT-BLOOM-02` → the three boxes blank, the bloom as he filed it.
 
 
+- **1k — THE MORPH'S PEAKS AGAINST THE SEQUENCE** (look into the morph's dynamics and how to adjust them — before his next
+  morph) — `todo` — his ear, 2026-09-21 (RUNNING_LOG §184 · MORPH_NOTES 2026-09-21): *"the peaks of the morph I just made/inserted
+  are much louder than the preceeding sequence, its fine for this section but I'd like to look into it before I do the next one."*
+  - **Nothing is diagnosed.** Where a look starts: the bloom he placed in `scores/piece-LGMF-Sec01-v1.3-sec01-done.json` and the
+    sequence before it — the written dynamics each note carries and the CC7 each reaches (read from the file; or the playback
+    recorded and read back by `cc7_by_channel.lua`, the 1e way) — then `docs/DYNAMICS_LAW.md` §3 and RUNNING_LOG §171 (H3: a morph
+    note's fader between the table values of its own written dynamics; the fades a weight on top).
+  - **Two parts, in his words:** the level (why the peaks stand above) and a control (*"how to adjust them"*). Under the planning
+    method when he calls it.
+- **1l — THE COUNTERPOINT SECTION: rhythms from the multitempo machine, their pitch and dynamic read from a sequence** — `todo` —
+  **THE FIRST THING DISCUSSED IN SESSION 12**, at his word; the planning method, phase 1 (state and restate) — nothing planned yet.
+  His brief: COMPOSITION_NOTES **LG-55** (after **LG-53** · LG-12 · LG-11); RUNNING_LOG §184.
+  - **His ideas, one line each (organized, nothing added):** (1) a SEQUENCE underneath, made as now, *"as if it was going to be
+    sustained notes"* · (2) multitempo passages GENERATED and AUDITIONED — *"13 against 11 against five"* — in the ensemble, over
+    the harmony if possible · (3) a RHYTHM SEQUENCE assembled from excerpts, A→B, C→D · (4) CONNECTED: each onset takes the pitch
+    and the dynamic the sequence has at that moment · (5) per note: MUTE on / off, an ARTICULATION · (6) the architecture open — a
+    layer on the sequence drawer, or a new drawer cloned from it, *"whatever's best"*.
+  - **The ground in the repo:** the sequence drawer (`score/public/sequence.js` · `sequence_ui.js` · `docs/SEQUENCE_TOOL.md`) · the
+    multitempo machinery inherited from piece #5 (`score/public/multitempo.js` · `multitempo_panel.js`, the `MT` button) — not read
+    for this entry.
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
