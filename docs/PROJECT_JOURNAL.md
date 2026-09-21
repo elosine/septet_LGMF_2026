@@ -140,10 +140,14 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   seven players, **percussion and vibraphone ONE player** · his default short articulations · every attack through the strikes
   drawer's player (a struck note under the dynamics law) · **the pitches from the TAKES MENU, as the sequence drawer's** (moved up
   from `1l.2`) · the percussion as the take assigns it, else `claves pair 2 high`.
-- **`1l.2` TEXTURE: WHO PLAYS EACH LINE · RHYTHM TAKES SAVED — PUT TO HIM, NOT YET AGREED** (§190 has it). **Saving a take from the
-  panel is NEW work: Texture today only reads a params file the AI wrote.** On his word it is written into the plan and `1l.3`
-  follows.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §190.
+- **`1l.2` TEXTURE: WHO PLAYS EACH LINE · RHYTHM TAKES SAVED — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §191 · §192):
+  the lines DRAWN IN TIME (rows of dots, a timeline, a scrolling cursor, click to play from there) with the seven players' ticks at
+  the left of each row · doubling · merging with the collision check on that one player, flagged never moved · **the tuba's minimum
+  gap stays** (his word) · a rhythm take saved by name from the panel, a RECIPE · **the dot view is built once, there.**
+- **`1l.3` THE RHYTHM SEQUENCE PANEL, THE CLONE WITH ITS TWO ROWS — PUT TO HIM, NOT YET AGREED** (§192 has it, with the AI's own
+  calls named: the harmony row leaves out breaths · `enter` · edges · Hear auditions the map and never inserts · the clone READS
+  `sequence.js` and does not change it). On his word it is written into the plan and `1l.4` follows.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §192.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

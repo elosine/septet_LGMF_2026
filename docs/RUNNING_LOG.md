@@ -8111,3 +8111,28 @@ times** — so step 2 grows, and steps 4 and 6 shrink by it.
 the smallest gap between two attacks. It matters only when several lines are merged onto one player: two dots can fall closer than
 that player can play, and the check marks them. The app's numbers are the tuba's; a spiccato cello or the claves repeat faster. In
 the plan it is renamed **the minimum gap** — one number per instrument, a small table put to him to correct.
+
+## §192. `1l.2` AGREED AND WRITTEN INTO THE PLAN — the tuba's minimum gap stays; the list, the grid and the doubling all stand, now DRAWN; `1l.3`, the clone, put to him (2026-09-21)
+
+**His words:** *"re articulation from tuba fine, we can revisit if this becomes an issue."* · then, quoting the first version's
+three bullets (show the lines · the grid · doubling): *"all of this still abides, yes?"* · *"then 2 good"*.
+
+**The AI's answer: yes, all of it abides.** §191 changed only HOW the lines are shown — each row is now a row of dots in time, with
+the seven players' ticks at its left — not what the rows, the grid or the doubling ARE. **Dropped at his word:** the per-instrument
+table of minimum gaps (the tuba's `D17` values stay until they are a problem). **Written at once:** `docs/PLAN.md` § `1l.2`.
+
+**`1l.3` as put to him — THE CLONE, WITH ITS TWO ROWS.** The AI's layout, and the calls inside it that are its own:
+- A button and a floating panel of its own; **the sequence drawer not touched by one byte** (`sequence_check` stays 180).
+- **The harmony row keeps** what the sequence drawer's row has — boxes of take · seconds · dyn, the roll, a range of boxes, the waves
+  by preset, the takes menu with its `▸`, the preview on a box, the clock and the cursor. **It leaves out the breath line, `enter`
+  and the edges** — nothing is held here, so nothing breathes, enters or fades (his own *"maybe not the breaths"*, LG-55; the edges
+  and `enter` are the AI's extension of it, named to him).
+- **The rhythm row is the same idiom:** boxes left to right on the same time scale, an empty box a rest, ITS BOUNDARIES INDEPENDENT of
+  the harmony's (his *"the same sort of time container structure for the rhythms as I do for the harmonies"*, LG-56). Empty until
+  `1l.4`.
+- **Hear AUDITIONS the map** — the harmony row as held chords, to check it by ear; it never inserts.
+- Saved as a recipe under a name of its own in the score file, and in a library of its own.
+- **The AI's machinery call, named to him in one line:** the PANEL is cloned; underneath, the clone READS the sequence drawer's pure
+  harmony arithmetic (`sequence.js`) WITHOUT changing it — so a harmony row behaves identically in both, and the drawer he composes
+  with cannot be broken by the clone. *(Rejected: cloning `sequence.js` too — two copies of the same arithmetic drift; the repo has
+  already paid for that once, the `buildCarrier` / `dealSpan` twins of PLAN 1j.)*

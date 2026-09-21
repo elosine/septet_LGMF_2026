@@ -1565,7 +1565,27 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       listen, in his Chrome.**
     - *Not in this step:* re-tuning the five models (made for ten tubas — his, by ear, later) · the re-articulation values (`1l.2`) ·
       LIVE comes along if the one sound path carries it, else it is parked in NITS.
-  - **1l.2 — Texture: who plays each line · rhythm takes saved** — *to be laid out when we discuss it.*
+  - **1l.2 — Texture: who plays each line · rhythm takes saved** — `todo`
+    *Result when done:* in Texture every rhythm line is drawn in time and shows who plays it, and he can change that — one line to
+    several players, several lines to one player. He hears what he assigned. He saves the pattern by name as a RHYTHM TAKE and recalls
+    it from a list, as with harmony takes.
+    - **The lines, drawn:** a pattern's lines one per row (a group of three players makes three lines), each a row of DOTS spaced as
+      they fall in time · a small timeline above · a cursor that scrolls during Play · a click on the timeline plays from that point —
+      the sequence drawer's clock and cursor (1d.15). All of it in the Texture drawer.
+    - **The grid — who plays, at the left of each row:** lines down, the seven players across, a tick where a player plays a line. The
+      default is Texture's own order — top line to first player, and so on.
+    - **Doubling:** two ticks in one row — both play that rhythm, each on their OWN note from the harmony take.
+    - **Merging:** several ticks in one column — one player plays those lines as one pattern. The collision check runs on THAT PLAYER
+      ONLY; dots closer than the minimum gap are DRAWN IN A WARNING COLOUR, never moved or dropped (his to mute, `1l.6`). Different
+      players are never checked against each other (LG-58).
+    - **The minimum gap** (how fast one player can repeat a note): the tuba piece's values stay — *"re articulation from tuba fine, we
+      can revisit if this becomes an issue."*
+    - **Save a rhythm take:** by name, from the panel — the dials, the seed, who plays — in a store of its own, as the sequence library
+      has. Recall puts everything back. **A take is the RECIPE; the same recipe always gives the same dots** (what lets a muted dot be
+      found again, `1l.6`). *(NEW work, not a port: today Texture only reads a params file the AI wrote, RUNNING_LOG §190.)*
+    - **THE DOT VIEW IS BUILT ONCE, HERE** — the workshop (`1l.4`) adds a selection to it, the placed container (`1l.6`) a click on a dot.
+    - **REQUIRED VERIFICATION:** one capture with no MIDI — a doubled line sounds on both players at the same instants, each on their own
+      pitch; a merged column sounds on one player · save → reload → recall gives the same dots · the batteries green. **Then his listen.**
   - **1l.3 — The rhythm sequence panel: the clone, with its two rows** — *to be laid out when we discuss it.*
   - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — *to be laid out when we discuss it.*
   - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — *to be laid out when we discuss it.*
