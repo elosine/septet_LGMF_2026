@@ -2052,3 +2052,23 @@ Then the scenario, whole:
 pattern). Each ON onset carries a harmony of its own — found in the strikes drawer as he finds one now (pick, shuffle), then assigned
 to that onset. In the column, who plays is ticked, one or several; each of them with an articulation. Against `1l`: there the harmony
 lay UNDER the rhythm as a row in time and every dot read it; here the harmony is given TO each onset by hand.
+
+### LG-65 · 2026-09-21 — THE FIRST MODE: GETTING THE RHYTHM PATTERN OUT OF A TEXTURE TAKE — dots on a timeline, all off, clicked on, heard on the claves; a range and a cursor — *"I think I want too much from every step"*
+
+His words, following LG-64 (RUNNING_LOG §216; the dictation ran twice, given here once):
+
+> *"Okay, let me not get any follow-up questions for now. And let's just, again, take this step by step in my actual process. And then
+> we can just list them. So let's take a step back. So the first thing I'll do is select a texture. I see a dot, more or less
+> proportionally spaced horizontally on the x-axis. Nothing orchestrated yet. And then I'll have something like a all on or all off
+> checkbox or menu or whatever. So I can just, then that'll mute everything and then I can just click on them and turn them on. This
+> will be the first mode to get the actual rhythm that I want. extracted from the texture, the full rhythm. And I'll want to hear it all
+> along. And so I guess I'll need the full column and I can click No, let's, let's make it simpler. I think I want too much from every
+> step. So then let's give me the ability to assign or Let's just have, it's assigned to a percussion instrument. let's say clave is for
+> now. So this is just getting the rhythm pattern. I let's just say by default they're all off. I click on certain ones, and I can just
+> press spacebar and listen to the rhythm pattern played by claves. So just one note will flesh these the out when we make the plan to
+> build. But it seemed nothing went right as far as percussion instruments were concerned. Like I just kept hearing triangle, even if I
+> chose a different instrument. So we just need to get that implementation right, be a little bit more careful there. So I listen to
+> the rhythm pattern, I turn some things on or off, mute or unmute, I press play, and I listen to the pattern. The rhythmic pattern. And
+> then I should have a Um, a range so like a left line and a right line so I can limit it to one part of the rhythmic pattern the
+> texture and just for playback sake I should have a cursor that I can pop into one part of the pattern So let's start there. Let's
+> just gather organize this and see what the initial requirements are."*

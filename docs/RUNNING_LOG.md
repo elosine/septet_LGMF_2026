@@ -8893,3 +8893,31 @@ requirements conversation and help me just organize these things. I'll just talk
 whatever lay beneath it (LG-56 … LG-58); here the harmony is handed TO each onset, by hand, from the tool he trusts. The take shrinks
 from "lines with players" to, possibly, a source of onset TIMES only — which is the one question put to him: **A** the lines merge and
 the take gives only the times, who plays is chosen in the grid · **B** the lines stay and an onset remembers whose line it came from.
+
+## §216. The first mode, gathered: the rhythm pattern extracted from a texture take — seven requirements; and new evidence on the percussion fault (2026-09-21)
+
+Follows §215. Phase 1 of the planning method; nothing planned, nothing built. He set the form: *"let me not get any follow-up questions
+for now … take this step by step in my actual process. And then we can just list them."* The A / B question of §215 (do a take's lines
+merge) is therefore NOT pressed; his description — *"I see a dot, more or less proportionally spaced horizontally on the x-axis.
+Nothing orchestrated yet"* — reads as one timeline of onsets, which is A in effect, unconfirmed.
+
+**He cut his own step down as he spoke** (COMPOSITION_NOTES LG-65): from a full column per onset to *"let's make it simpler. I think I
+want too much from every step"* — one sound, the claves, only to hear the pattern.
+
+**The requirements as gathered and given back to him, seven lines:**
+
+1. Pick a texture take (a takes menu) → its onsets are dots on ONE timeline, spaced in proportion to time. Nothing orchestrated.
+2. Every dot OFF by default; `all on` · `all off`.
+3. A click turns a dot on or off.
+4. SPACE plays the pattern: every ON dot is one claves note.
+5. The claves must really BE the claves — the percussion routing got right, carefully.
+6. A range — a left line and a right line — limits the pattern to one part of the take.
+7. A cursor he can drop anywhere; play starts from it.
+
+**NEW EVIDENCE ON THE PERCUSSION FAULT.** Collected item (a) of §207 was "triangles where the claves should be". He now says more:
+*"it seemed nothing went right as far as percussion instruments were concerned. Like I just kept hearing triangle, even if I chose a
+different instrument."* So it is not the claves' key alone — every percussion choice he made in the Rhythm panel / Texture sounded as
+the triangle. That fits the AI's UNVERIFIED reading at the foot of §212 (the percussion's notes leaving on a curve channel — 2 · 3 · 4 —
+which in his rack are the Bell Tree · Sleigh Bells · TRIANGLES tracks, whatever instrument was asked for) better than a wrong key
+would; it is still unverified — nothing has been captured. His instruction: *"we just need to get that implementation right, be a
+little bit more careful there."* It becomes a REQUIRED part of this first step, not a collected item for later.
