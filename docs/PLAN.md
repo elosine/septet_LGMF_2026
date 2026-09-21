@@ -1702,6 +1702,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **Outside the plan, and his:** the harmony takes themselves, made with this ensemble, the percussion assigned and the vibraphone's
       pitches in them · the five Texture models re-tuned by ear for seven players · a listen after each of `1l.1` … `1l.7` · **LATER, at
       his word:** stretching a clip · custom patterns · copying the harmony row's layout.
+    - **FOUND IN HIS LISTEN — collected, to fix together at his word (RUNNING_LOG §207):** (a) the default percussion sounds like
+      TRIANGLES, not claves · (b) Texture's drawer resizable from a corner, wider and longer · (c) SPACE after a model click plays the MAIN
+      score — SPACE should stay Texture's while he works in it.
 
 ## 2. Notate — `todo`
 

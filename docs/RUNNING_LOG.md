@@ -8683,3 +8683,32 @@ two rhythm boxes over the two harmony boxes of §204–§205; box 2 of each row 
 left is `1l.8`: HIS LISTEN — a short counterpoint passage written end to end in his Chrome (harmony takes → rhythm takes in Texture → a rhythm
 sequence → Insert), what he hears going to this journal as he says it, and the architecture looked at again (LG-56). **Before it, in his
 Chrome: RESTART `node score/server.js`** (two new stores, `rhythms` and `rhythmseqs`, and the score's own code) **and reload the tab.**
+
+## §207. `1l.8`, his listen, opens in Texture — three things COLLECTED for later, a primer on Texture and its morph row (2026-09-21)
+
+**Prompt, his words:** *"can you collect a few things and then we can update later? So the default percussion is playing triangles, I
+think, instead of claves. And then can we make the texture drawer uh, expandable? Like, can I drag one of the corners and make it wider or
+longer? when I click a new texture in the texture drawer spacebar plays the main score. So can we keep spacebar in the texture drawer while
+I'm working in the texture drawer? And then can you just give me a primer on the texture, the controls? … And help me understand what's
+going on with the morph section below."*
+
+**He has restarted the server and is in Texture** — `bank/rhythm_takes.json` exists (15:03), so the `rhythms` store answered a save. His
+screenshot: model `rain` (7 players · 110 bpm · scatter 0 · jitter 45 ms · 0.12 s · `f`, seed 11, 14 s) with three red SAMPLE RING flags
+(`stac_vel` rings 1.03 s · `spicc_vel` 0.86 s and 1.1 s against a re-attack every ≈ 0.47 s).
+
+**COLLECTED — nothing changed, at his word ("update later"):**
+1. **The default percussion sounds like TRIANGLES, not claves** (his ear, *"I think"*). The fallback is `CLAVES` in `texture_panel.js`
+   (`toys_claves`, key 41, `LGPerc` ch 7 — registered by hand in `1l.1`, §200). Not read further; the first read is §200 against his rack.
+2. **Texture's drawer RESIZABLE** — drag a corner, wider or longer. Today it is a fixed 360 px (wider with the lines open), its height capped
+   at the viewport.
+3. **SPACE after clicking a model plays the MAIN score.** The AI's reading, from the code, NOT verified: the panel takes SPACE only while
+   focus is inside it, and a model or tab click rebuilds those buttons — the clicked one leaves the page and focus falls to the body, where
+   the composer's own SPACE handler plays the score. His wish: SPACE stays Texture's while he works in Texture.
+
+**The primer given (the AI's summary of the code, for him):** Texture is ONE tempo shared by N lines, their attacks staggered so they
+interleave into one composite pulse (≈ players × bpm / 60 attacks a second; 7 × 110 ≈ 13 /s). `scatter` gives each line a FIXED random offset
+(it repeats every cycle — a groove); `jitter` a FRESH one on every attack (never repeats — rain); `seed` is which random draw. The five models
+are named points on those dials (smear · ticks · rain · gallop · groove). The tabs A–G are the tubas' research slate (`bank/texture_params.json`
+rev 21: one texture at rising tempo, G an accretion) — inherited, not this piece's. **The morph row** glides the CURRENT dials into another
+model's over N seconds — only bpm · jitter · scatter · dyn move, only those that differ, and the duration becomes N; the dials still show the
+START, the status line lists what moves. Unrelated to the Morph panel (the harmony's bends). A morph into the model already loaded does nothing.
