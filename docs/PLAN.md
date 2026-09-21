@@ -1605,7 +1605,22 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `buildCarrier` / `dealSpan` twins are the repo's own example.)*
     - **REQUIRED VERIFICATION:** the sequence drawer's batteries unchanged · a rhythm sequence saved, reloaded, identical · then he looks
       it over.
-  - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — *to be laid out when we discuss it.*
+  - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — `todo`
+    *Result when done:* in the rhythm panel he clicks a harmony box, chooses a rhythm take, and SEES its lines as dots in time and HEARS
+    it in that harmony, on that ensemble, at that box's dynamics. He marks a start and a stop — or sets a loop count — and saves: a box
+    appears on the rhythm row with that length.
+    - **The workshop area:** the dot view of `1l.2`, and a menu of his rhythm takes.
+    - **The preview harmony:** click any harmony box — the take plays with each player's pitch AND dynamic from that box (the join's
+      first use, `1l.5`). For the preview only: a rhythm container carries no harmony of its own.
+    - **See and hear:** the timeline, the scrolling cursor, click to play from there.
+    - **Select:** drag a marquee, or click a start point and a stop point on the timeline; the length shows in seconds. **The cut falls
+      exactly where he puts it — nothing snaps** (LG-58). Play plays the selection.
+    - **Loop:** a count — the selection, or the whole pattern, repeated that many times.
+    - **Save → the rhythm row:** the box remembers the take · start · stop · loops; its length is (stop − start) × loops. Several boxes
+      from one take are allowed — his *"several versions"*.
+    - **The box shows a miniature of its dots.**
+    - **REQUIRED VERIFICATION:** one capture with no MIDI — the right dots, each with its pitch and dynamic from the clicked box; a loop
+      gives N × the dots at the right offsets. **Then his listen.**
   - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — *to be laid out when we discuss it.*
     *(Carried from LG-60 so it is not lost: a dot takes BOTH its pitch and its DYNAMIC from the harmony row — the INTENDED WRITTEN LEVEL,
     on the `ppp … fff` scale, that the row has for that player at that moment (single dynamics, ramps, waves, edges) — and that level

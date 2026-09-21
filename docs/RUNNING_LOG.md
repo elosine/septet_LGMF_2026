@@ -8164,3 +8164,25 @@ harmony box and the take plays with each player's pitch AND dynamic from that bo
 a start and a stop point on the timeline — **the cut falls exactly where he puts it, nothing snaps** · Play plays the selection ·
 LOOP, a count · save → a box on the rhythm row, remembering take · start · stop · loops, its length (stop − start) × loops, several
 boxes from one take allowed · the box shows a miniature of its dots · one capture, then his listen.
+
+## §194. `1l.4` AGREED AND WRITTEN — and his question *"will we see the dots in the final rhythm sequence?"*: yes, and the WHOLE sequence in ONE continuous view (B); `1l.5`, the join for the whole row, put to him (2026-09-21)
+
+**His question on step 4:** *"will we see the dots in the final rhythm sequence?"* **The AI's answer:** yes, in three places — a
+miniature on every box of the rhythm row (`1l.4`) · full size in the dot view, where a dot is clicked (`1l.6`) · in the score after
+Insert, as ordinary notes. **The one thing put to him:** how much is seen at once — (A) one box at a time · (B) the whole sequence,
+all the boxes' dots in one continuous view on the same timeline as the two rows, scrolling with the cursor, a click on a box jumping
+the view there. The AI leaned B: a rhythm box can straddle a harmony change and in `1l.7` one box crossfades into the next — both
+are only visible ACROSS box edges.
+
+**His word:** *"B, and step 4 is good"*. **Written at once:** `docs/PLAN.md` § `1l.4`. B belongs to `1l.5` (where the whole row
+first sounds) and is written there on its agreement; until then it lives here and in journal §2.
+
+**`1l.5` as put to him — THE WHOLE SEQUENCE SOUNDS AND INSERTS:** the join for every dot of every box — whose it is → what that
+player has beneath AT THAT INSTANT → the pitch with its cents, and the intended written level (LG-60); doubling, each on their own
+note; the percussion as the harmony beneath assigns it, else the fallback · a dot with no note beneath: a warning in the status line,
+the dot drawn HOLLOW, silent (LG-58) · the level → the strike through the calibrated scale, interpolating between two names, **the
+dot keeping its intended level for notation** · THE CONTINUOUS DOT VIEW (B) · Hear from the start or from the cursor · INSERT as the
+sequence drawer does — one group, a META bar, the recipe into the score — the notes the strikes drawer's kind of struck note · THE
+ROUND TRIP of 1d.3: listed in the score, recalled into the rows, re-inserted IN PLACE, hand edits counted · the required
+verification — Hear and the score's own playback captured and agreeing note for note; a dot past a harmony change reads the NEW
+harmony; a dot inside a fade reads the faded level; then his listen, the first time the counterpoint section sounds.
