@@ -8985,3 +8985,29 @@ a few milliseconds apart is the material).
 **The AI's call, stated to him, his to reverse:** a new switch at the head of the column rather than one more entry in the existing
 `rhythm from` menu (§215) — that menu lends a HARMONY the onsets of another strike, inside the strike mode; the texture mode replaces
 the whole column, and his own words were *"check, uncheck the rhythm and check the textures"*.
+
+## §219. Build 1's additions agreed — the ZOOM STANDARD (REAPER's, at the mouse pointer) and a layout note on the strikes drawer (2026-09-21)
+
+Follows §218. His answer to the five additions: *"the rest of your ads are good"* — the percussion fault first · the pattern remembered ·
+SPACE stays the row's · two near-together onsets stay two dots. On the fifth, the zoom, he set a STANDARD:
+
+> *"A take is long, so the row zooms and scrolls. Yes, good catch. Let's have a standard set of behaviors. We might already have done
+> this, but it's alt right scroll, right horizontal scroll for zoom out and left horizontal scroll for zoom in, just like Reaper works.
+> And it zooms at the mouse pointer. So that's the focus of the zoom, wherever my mouse pointer is."*
+
+**Checked, one grep (`wheel` handlers in `score/public`):** it HAS been done — the main score (`composer.html` ≈ 2072–2090) and the
+beating panel (`beating_panel.js` 768–769, `laneWheel`) both zoom on CTRL or ALT + wheel about the pointer's own time (`frac` of the
+view under `clientX`) and scroll on a plain horizontal wheel. The top row takes the same behaviour and the same directions as the main
+score — read there at the build, not re-invented. **As a standard it should hold for every timeline this piece grows** (the Rhythm
+panel's and Texture's dot views were not checked against it).
+
+**And a layout note, with a screenshot of the drawer under a HARMONIC SERIES selection** (the keyboard's labels are long rows of
+partial numbers, `166 · 167 · … · 175`):
+
+> *"there's a fair bit of space between the keyboard, even with the long partial numbers, and the, um, the list of instruments. I don't
+> know if you could set some sort of detection so that the list of instruments is going to butt up against the furthest right label or
+> whatever's in the keyboard side. So accounting for different window size, etc."*
+
+Taken into build 1 as its LAST and separate item — the one place build 1 touches the drawer's existing layout, so it is committed on
+its own and can be reverted alone: the keyboard area as wide as its widest label, measured (as §347 measured the rhythm controls
+rather than guessing 130 px), the orchestration list against it, at any window size.
