@@ -211,6 +211,41 @@ VERIFICATION on `score-5401` (journal's method below, no MIDI), journalled, comm
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model | Opus | — |
 
+**Open at session end — MID-SESSION CHECKPOINT #2, session 12 (2026-09-21, Opus) (mid-session checkpoint):**
+
+- **The task:** `1l`, THE COUNTERPOINT SECTION. **State: `1l.1` … `1l.7` BUILT, each verified by its own REQUIRED VERIFICATION on
+  `score-5401` (no MIDI) and committed + pushed on its own. NOTHING HAS BEEN HEARD.** What is left is `1l.8`, his listen — his, not the
+  AI's. The "SESSION 12 · THE BUILD" block above has each step in one bullet, the AI's calls his to reverse, and what went to NITS.
+- **The latest deliverable:** `score/public/rhythm_seq_ui.js` (the `Rhythm` panel: harmony row · rhythm row · workshop · Hear / `map ▸` ·
+  the continuous dot view · `mute | edit` · crossfades · Insert) · `score/public/texture_panel.js` (Texture for this ensemble, who plays
+  each line, rhythm takes) · `score/public/dot_view.js` · `score/snapshots.js` (stores `rhythms` → `bank/rhythm_takes.json`, `rhythmseqs`
+  → `bank/rhythm_sequences.json`; neither file exists yet — his first save makes it). `docs/PLAN.md` § `1l`: `1l.1` … `1l.7` `built`.
+- **THE NEXT CONCRETE STEP — `1l.8`, HIS LISTEN (Fable).** After `/postclear`: play back and STOP (his standing rule). On his word, walk him
+  through it ONE STEP AT A TIME, in his Chrome: **(1)** he restarts `node score/server.js` (the new stores exist only after a restart; a save
+  otherwise answers *"unknown store — restart"*) and reloads `composer.html`; **(2)** harmony takes in the strikes drawer — his, as he makes
+  them (a take that gives the Percussion player a note is the only way the percussion plays anything but the claves); **(3)** `Texture` →
+  a model → the `take` button (a harmony take) → the players strip and `lines ▾` (who plays) → `▸ play` → `rhythm take` name + `save`;
+  **(4)** `Rhythm` → `+ harmony box` with takes → `workshop ▸` → his rhythm take → click a harmony box → cut (two clicks on its timeline,
+  or a drag) or `the whole take ×` N → `save → rhythm row` → `Hear` (`map ▸` hears the harmony alone) → `dots: mute | edit` → a
+  `crossfade in` on a box → `Insert @ playhead`. **Journal what he says verbatim as he says it** (RUNNING_LOG; musical ideas →
+  COMPOSITION_NOTES; tool remarks → the morph-notes habit applies to these panels in spirit). **A fault is read first against the RUNNING_LOG
+  entry of the step that built it** — §200 `1l.1` · §201 `1l.2` · §202 `1l.3` · §203 `1l.4` · §204 `1l.5` · §205 `1l.6` · §206 `1l.7`.
+  Then, at his word, the architecture looked at again (LG-56: *"once we're done in this version, we can look back and see if it's the right
+  architecture"*).
+- **`Resume reads:`** `docs/PLAN.md` § `1l.8` only (six lines). Nothing else until his report names a step — then that step's one RUNNING_LOG
+  entry above, and the code only when that entry names a question.
+- **Decisions pending him:** none blocking. The AI's calls (the "SESSION 12 · THE BUILD" block) are his to reverse — the claves at key 41 ·
+  models fitted to seven · 7.5 → `f` · cents kept in Texture · a two-note player plays both · LIVE hidden · wave presets shared by both panels
+  · the claves at the chord's mean level · a niente fade scales the strike · a vibraphone dot on Standard Mallets · a line past the seventh
+  wraps. Still his from session 11: `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag.
+- **Committed in this checkpoint:** this entry (the build itself was committed step by step: `2db2343` … `e06b557`, and `3e583c7` for the
+  state line, the planner and §2).
+- **DELIBERATELY UNCOMMITTED — three paths, all his, the same three as checkpoint #1:** `bank/panel_snapshots.json` (his takes, autosaved by
+  the strikes drawer) · `bank/sequences.json` (his sequence library, autosaved about every 2 s — committing mid-use races his tab) ·
+  `reaper/LGMF_rack.rpp` (his REAPER project, with the MIDI recordings of §140 · §144 · §157). **None was written by this session's tests**
+  — their times are 2026-09-20 23:13 · 2026-09-21 07:21 · 2026-09-20 16:56; every test take and rhythm sequence the AI made on `score-5401`
+  was removed from `bank/`. No untracked files.
+
 **Open at session end — MID-SESSION CHECKPOINT #1, session 12 (2026-09-21, Fable → Opus) (mid-session checkpoint):**
 
 - **The task:** `1l`, THE COUNTERPOINT SECTION. **State: PLANNED IN FULL, NOTHING BUILT.** He closed the planning with *"yes that's
