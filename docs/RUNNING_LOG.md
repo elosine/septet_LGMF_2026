@@ -7399,3 +7399,46 @@ branch that calls it · `morph.js` the `voices` door, `stateAt()` and the shape'
 
 **The top line put to him (phase 2):** 1 the vibraphone pair in the panel · 2 the take gives them their notes · 3 the engine holds a
 voice still · 4 they sound on the dynamics law · 5 the actuals keep them · 6 his listen. Nothing built.
+
+## §174. PLAN `1i`, THE VIBRAPHONES IN THE BLOOM, WRITTEN AND APPROVED — with a CORRECTION to §173's reason, and the fact that reshapes the build: the two vibraphones are ONE lane and TWO seats (2026-09-20)
+
+**His words.** Asked, before the top line was settled: *"the vibes can be on 2 different pitches vib 1 and vib 2 from the take?"* —
+yes, that is what *as assigned* means: two notes → two voices, the same note on both → doubled, one → one voice. The AI added the
+one limit he might have missed — each player gives a bloom ONE note, a seat holding several gives its lowest (`takeVoices`' `multi`
+rule) — and asked whether a vibraphone should be able to hold more. **His answer, and the approval in the same breath: *"one each is
+right, top line is good good to write plan and build"*.**
+
+**The top line, as approved:** 1 the vibraphone pair in the panel · 2 the take gives them their notes · 3 the engine holds a voice
+still · 4 they sound on the dynamics law · 5 the actuals keep them · 6 his listen. Written into `docs/PLAN.md` § `1i` as VB1 … VB6,
+the sub-steps the AI's, to be executed cold — the precedent is `1h` (§166).
+
+**A CORRECTION TO §173, said to him.** §173 rejected "strip the bend after the render" because *the engine shortens a breath by
+`GLISS_AIR_COST` while a voice bends*. **That is false for this instrument.** Read while writing the plan: `morph.js` ~520 —
+`if (info.bending) ceiling *= (info.kind === 'bow' ? 1 : GLISS_AIR_COST)` — *a bow costs no air*, and the vibraphone's ceiling is a
+BOW ceiling (`beating_calc.js` ~300, `bowS: 7.4, gapS: 0`, measured in 1a.2). So the vibraphones' note lengths would NOT have been
+cut. The AI told him a 30 % cut as fact; it was a line read out of its context. **The decision stands, for a different and better
+reason:** the render is read by FOUR things — Hear, Insert, `Save as ACTUAL`, and the bank's validator, which re-derives an actual's
+notes from its `resolvedParams` through the engine IN NODE. A strip done in the browser after the render would reach the first three
+at best and never the fourth: every actual with vibraphones would validate as drifted. Stillness has to live IN the render, and the
+mark has to ride in the params.
+
+**THE FACT THAT RESHAPES THE BUILD — the two vibraphones are ONE SCORE LANE and TWO SEATS.** `beating_calc.js` `ORDER`: lane 5 is
+`bowed_vibraphone` (D12). `strike_drawer.js` `EXTRA_SEATS` (PLAN 1c.3, his *"I want two vibraphone players, because they have two
+bows"*, §96): *Vibraphone 2* is a second SEAT on that lane; both seats' notes leave the drawer on lane 5, told apart by `seat`. So
+the fourth pair is not two lanes like the other three — it is lane 5 twice. What follows from it, all in the plan:
+- a pair must be able to name a SEAT (`sa` / `sb`), and the take reading must key by `lane:seat`, not by lane;
+- **the FROZEN chord drops `seat` today** (`dealTakeInto`) — harmless while the vibraphones were left out, wrong the moment they
+  are in; and the recall branch must carry the seat back from an actual's voices;
+- the ENGINE is untroubled: it schedules per VOICE and `lanes[i]` is only a tag, so two voices on one lane are fine;
+- in the score the two vibraphones' notes share lane 5 as curve events, dealt round robin across the instrument's curve channels —
+  exactly what a sequence's two vibraphones already do, and exactly where PLAN 1g found them sharing ONE fader channel (§158). The
+  morph's Hear has its own copy of that deal (`morph_emit.js` `curveSeatsFor`), so the same collision has to be looked for by
+  capture, not assumed away — VB4.2.
+
+**Calls the AI made in the sub-steps, his to reverse:** the still pair is ALWAYS THE LAST ROW and its voices go LAST, so the six
+bending voices keep their indices and their a-above / b-below parity · a still pair NEVER DOUBLES (one vibraphone = one voice, no
+warning) · the vibraphones are in a bloom ON A TAKE only — a sonority source casts three pairs as today · a vibraphone note's cents
+are kept as the take gives them, not zeroed · a chord frozen before the build is not migrated, the status says *re-deal* ·
+`morph_septet.js` stays untouched, and if that proves impossible the build STOPS and says so.
+
+**Nothing built.** `1h` H4, his listen, is still open — he has not said how the bloom sounded.
