@@ -8759,3 +8759,42 @@ With three sizes it can only step 5 → 12 → 29 → 12 → 5. The AI's advice:
 the shape is too plain, interrupt up if too predictable. Read from `time_containers.js` `roll()`: the contour follows TIME through the span,
 not the box count; at depth 1 a size far from the shape's target is drawn about 1 in 12 as often, at stick 0.8 a far size after a near one
 about 1 in 25.
+
+## §212. Two NOW fixes from his listen: the percussion has ALL fourteen instruments · a dot can be handed to ANOTHER player (2026-09-21)
+
+**His words**, on the dot card (percussion, `articulation` offering only `as the take` · `struck, plain (PROVISIONAL …)` · `Claves`):
+*"percussion should have access to all of the instruments"* · *"fix this one now pls"* — and then, on a bassoon dot whose `player` list
+held only `Bassoon`: *"cant change instrument only one choice  this is a now fix too"*.
+
+**1. THE PERCUSSION — all fourteen of his rack.** `bank/perc_selection.json` was EMPTY (the instruments were "his to choose", LG-9);
+his rack has had fourteen ARO tracks since session 2 (`bank/perc_rack.json`). The selection is now those fourteen, each on its own track's
+channel (ch 1 Finger Cymbals … ch 14 Tam Tams A), and `tools/apply_perc.js` wrote them into `sandbox/instruments.js`: **32 techniques** —
+one per instrument × beater, 31 generated + `main`. **The tool was CHANGED on the way (the AI's call, his to reverse):** its generated
+`applyAroPerc` used to REPLACE the placeholder `main` (and set the percussion's channels to `{ main: first, curve: [] }`); **his harmony takes
+carry 241 percussion notes on `main`** (`bank/panel_snapshots.json`), so replacing it would have changed the sound of everything he has
+made (§200 held back from selecting even the claves for the same reason). It now ADDS the selection beside `main`, which stays the ordinary
+voice on its own channels (ch 1 — the Finger Cymbals track, as it always sounded); the hand-registered `toys_claves` of `1l.1` gives way to
+the generated one of the SAME key (ch 7, 12 keys). No score in `scores/` has a percussion note on `main` or the claves (counted). `main`'s
+label now says what it is: *"the placeholder — ch 1, the rack's Finger Cymbals track"*. `palette_check` **184 → 198** (fourteen new
+"applied on LGPerc chN"), GREEN. Still in NITS, unchanged: the new keys are not in `notation/registry/techniques.json` (a note, not a fail).
+
+**2. A DOT HANDED TO ANOTHER PLAYER — the card's `played by`** (his LG-12, *"re-orchestrate a note by clicking"*). The card's `player` is
+whose dot it is — only the line's own player(s), which is why he saw one choice. A new row, **`played by`**: `the same player` or any of the
+seven. The dot then sounds on THAT player, who reads **their own note and level from the harmony beneath**, exactly as the join does for any
+player (LG-58: rhythm with the rhythm, harmony with the harmony); nothing beneath them → a hollow dot, the warning. The card's pitch ·
+dynamic · articulation then apply to the moved note, the articulation list following the NEW player (the percussion's 32 when it is the
+percussion). Kept as `to` in the dot's touch (`touches[line:dot].p[slot].to`), so it rides in the recipe, survives what a touch survives,
+and `back to the harmony` undoes it. In `dotsOf`, so Hear and Insert agree by construction. **And the card's grid was fixed on the way**
+(his screenshots): the hidden `free…` row left an empty cell, so every label below `pitch` sat beside the wrong box.
+
+**Verified on `score-5401`, no MIDI, his library read and never written** (`save` and the library write stubbed): the percussion has 32
+techniques at load, the claves once, `main` ordinary on `{ main: 1, curve: [2,3,4] }` as before · his latest rhythm sequence (`untitled
+2026-09-21 15.27.33`): a HORN dot (lane 2, G3 +2¢, `staccato`, pp) handed to the english horn sounds on lane 0 as **the english horn's own
+note beneath, G5 +2¢, `stac_vel`**, pp — the same as the english horn's own dots there; with the card's `pp` + `secco` it takes both; **the
+other 61 notes byte-identical**, 62 before and after · the card: `played by` lists the seven, each label beside its own box, and the
+percussion chosen shows its 32 + `as the take` and the vibraphone row. His `bank/rhythm_sequences.json` holds no test touch (its writes at
+16:45 are his tab's).
+
+**He must RELOAD his tab** for both (static files; no server restart). **The AI's reading of his earlier finding (a), NOT verified:** the
+percussion's CURVE channels are `[2, 3, 4]` — on his rack the Bell Tree · Sleigh Bells · TRIANGLES tracks — so any percussion note sent to
+a curve channel sounds on the triangles. Whether a Texture or rhythm dot takes that door is the first thing to read when (a) is fixed.

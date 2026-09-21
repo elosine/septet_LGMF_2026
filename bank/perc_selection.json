@@ -1,9 +1,77 @@
 {
   "_doc": "Which ARO percussion instruments THIS PIECE uses, and the channel each sits on. `slug` is a key of bank/aro_percussion_catalog.json `instruments`; only entries the catalog has keys for (status verified / partial / predicted) can be selected. One Spitfire instance per instrument = one Reaper track per entry, filtering on its channel on the port (Spitfire cannot switch instruments by MIDI — piece #2's decision 5). Up to 16 per port; give an entry its own `port` (`LGPerc2`) beyond that. `beaters` (optional) keeps only those beater blocks. After ANY change: node tools/apply_perc.js, then node tools/palette_check.js — and register the new technique keys in notation/registry/techniques.json before material uses them.",
   "_example": [
-    { "slug": "brake_drums", "channel": 1 },
-    { "slug": "susp_cymbals_dark", "channel": 2, "beaters": ["Bow", "Scrape"] }
+    {
+      "slug": "brake_drums",
+      "channel": 1
+    },
+    {
+      "slug": "susp_cymbals_dark",
+      "channel": 2,
+      "beaters": [
+        "Bow",
+        "Scrape"
+      ]
+    }
   ],
   "port": "LGPerc",
-  "instruments": []
+  "instruments": [
+    {
+      "slug": "small_metals_finger_cymbals",
+      "channel": 1
+    },
+    {
+      "slug": "small_metals_bell_tree",
+      "channel": 2
+    },
+    {
+      "slug": "small_metals_sleigh_bells",
+      "channel": 3
+    },
+    {
+      "slug": "small_metals_triangles",
+      "channel": 4
+    },
+    {
+      "slug": "small_metals_tambourines",
+      "channel": 5
+    },
+    {
+      "slug": "toys_castanets",
+      "channel": 6
+    },
+    {
+      "slug": "toys_claves",
+      "channel": 7
+    },
+    {
+      "slug": "toys_shakers",
+      "channel": 8
+    },
+    {
+      "slug": "brake_drums",
+      "channel": 9
+    },
+    {
+      "slug": "crashes_and_stack",
+      "channel": 10
+    },
+    {
+      "slug": "wood_blocks",
+      "channel": 11
+    },
+    {
+      "slug": "bass_drum_alt",
+      "channel": 12
+    },
+    {
+      "slug": "temple_bowls",
+      "channel": 13
+    },
+    {
+      "slug": "tam_tams_a",
+      "channel": 14
+    }
+  ],
+  "_selected": "2026-09-21 — all fourteen instruments of his rack (bank/perc_rack.json), each on its own track's channel: his word, \"percussion should have access to all of the instruments\" (RUNNING_LOG §212)"
 }

@@ -1393,8 +1393,18 @@ const S = {
             }
             const kept = !!(tch && tch.keep);   // HIS TOUCHES WIN: a dropped dot brought back
             let isChanged = false;
+            // HIS RE-ORCHESTRATION (2026-09-21, RUNNING_LOG §212 — the card's `played by`): a player's dot handed to ANOTHER player, who
+            // reads THEIR OWN note and level from the harmony beneath, as the join does for any player — rhythm with the rhythm, harmony
+            // with the harmony (LG-58). Nothing beneath the new player: the dot is hollow, the warning. The card's other choices (pitch ·
+            // dynamic · articulation) then apply to the moved note, read from the SAME touch (`from`).
+            if (tch && tch.p) ns.slice().forEach(n => {
+                const o = tch.p[n.slot]; if (!o || o.to == null || o.to === n.slot || !P7s[o.to]) return;
+                n.gone = true;
+                const Rto = Object.assign(Object.create(RB), { assignOf: () => [o.to] });
+                this.joinDot(Rto, viewFor(T, bi + ':' + c.key), d, T).forEach(m => { m.from = n.slot; if (n.xfOut) m.xfOut = true; ns.push(m); });
+            });
             if (tch && tch.p) ns.forEach(n => {
-                const o = tch.p[n.slot]; if (!o) return;
+                const o = tch.p[n.from != null ? n.from : n.slot]; if (!o || n.gone) return;
                 if (o.vib != null && vibLane >= 0) {
                     const v = map.at(vibLane, o.vib, T)[0];
                     if (v) Object.assign(n, { lane: vibLane, midi: v.midi, cents: v.cents || 0, partial: v.partial, level: v.level, weight: v.weight, tech: o.tech || VIB_TECH, fallback: false });
@@ -1562,9 +1572,12 @@ const S = {
                 '<span id="rsCardX" style="cursor:pointer;color:#888">&#10005;</span></div>' +
             '<div style="display:grid;grid-template-columns:5.5em 1fr;gap:3px 6px;align-items:center">' +
             '<span style="color:#b9a">player</span><select id="rsCardP" ' + SEL + '>' + slots.map(s => '<option value="' + s + '">' + esc((P[s] && P[s].label) || ('player ' + s)) + '</option>').join('') + '</select>' +
+            // his re-orchestration (RUNNING_LOG §212): the dot handed to any of the seven, who reads their own note from the harmony beneath
+            '<span style="color:#b9a">played by</span><select id="rsCardTo" ' + SEL + ' title="hand these dots to another player — they read THEIR OWN note and level from the harmony beneath">' +
+                '<option value="">the same player</option>' + P.map((p, s) => '<option value="' + s + '">' + esc(p.label || ('player ' + s)) + '</option>').join('') + '</select>' +
             '<span style="color:#b9a">pitch</span><select id="rsCardPitch" ' + SEL + '><option value="">as the harmony</option>' +
                 beneath.map((n, k) => '<option value="h' + k + '">' + esc(n.label) + ' (beneath)</option>').join('') + '<option value="free">free…</option></select>' +
-            '<span></span><span id="rsCardFree" style="display:none">midi <input id="rsCardMidi" type="number" min="21" max="108" step="1" style="width:4.5em;' + INP + '"> cents <input id="rsCardCents" type="number" min="-50" max="50" step="1" value="0" style="width:4em;' + INP + '"></span>' +
+            '<span id="rsCardFree" style="display:none;grid-column:2">midi<input id="rsCardMidi" type="number" min="21" max="108" step="1" style="width:4.5em;' + INP + '"> cents <input id="rsCardCents" type="number" min="-50" max="50" step="1" value="0" style="width:4em;' + INP + '"></span>' +
             '<span style="color:#b9a">dynamic</span><select id="rsCardDyn" ' + SEL + '><option value="">as the harmony</option>' + (L ? L.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('') : '') + '</select>' +
             '<span style="color:#b9a">articulation</span><select id="rsCardTech" ' + SEL + '></select>' +
             '<span style="color:#b9a" id="rsCardVibL">percussion</span><select id="rsCardVib" ' + SEL + '><option value="">as it is</option><option value="0">the vibraphone — note 1 beneath</option><option value="2">the vibraphone — note 2 beneath</option></select>' +
@@ -1574,16 +1587,26 @@ const S = {
             '<button id="rsCardMute" style="' + BTN + '" title="mute or unmute these dots — the rhythm itself, for every player of the line">mute / unmute</button></div>';
         document.body.appendChild(c); this._card = c;
         const q = s => c.querySelector(s);
+        // the player who will SOUND the dots: `played by` when it names another, else the line's own player
+        const effOf = slot => { const tv = q('#rsCardTo').value; return P[tv !== '' ? +tv : slot]; };
         const fillPlayer = () => {
-            const slot = +q('#rsCardP').value, p = P[slot], isPerc = p && p.instKey === 'percussion';
+            const slot = +q('#rsCardP').value, p = effOf(slot), isPerc = p && p.instKey === 'percussion';
             const vibOn = isPerc && q('#rsCardVib').value !== '', key = vibOn ? 'bowed_vibraphone' : (p && p.instKey), techs = (I[key] && I[key].techniques) || [];
             q('#rsCardTech').innerHTML = '<option value="">' + (vibOn ? 'Standard Mallets (the default)' : 'as the take') + '</option>' + techs.map(t => '<option value="' + esc(t.key) + '">' + esc(t.label || t.key) + '</option>').join('');
             q('#rsCardVib').style.display = isPerc ? '' : 'none'; q('#rsCardVibL').style.display = isPerc ? '' : 'none';
             q('#rsCardPitch').disabled = vibOn;
-            const cur = ((this.touchesOf(first.box) || {})[this.touchKey(first)] || {}).p, o = cur && cur[slot];
-            q('#rsCardDyn').value = (o && o.dyn) || ''; q('#rsCardTech').value = (o && o.tech) || ''; if (isPerc) q('#rsCardVib').value = (o && o.vib != null) ? String(o.vib) : q('#rsCardVib').value;
         };
-        q('#rsCardP').addEventListener('change', fillPlayer);
+        // what this player's dots already carry — the card opens on it
+        const loadPlayer = () => {
+            const slot = +q('#rsCardP').value;
+            const cur = ((this.touchesOf(first.box) || {})[this.touchKey(first)] || {}).p, o = cur && cur[slot];
+            q('#rsCardTo').value = (o && o.to != null) ? String(o.to) : '';
+            q('#rsCardVib').value = (o && o.vib != null) ? String(o.vib) : '';
+            fillPlayer();
+            q('#rsCardDyn').value = (o && o.dyn) || ''; q('#rsCardTech').value = (o && o.tech) || '';
+        };
+        q('#rsCardP').addEventListener('change', loadPlayer);
+        q('#rsCardTo').addEventListener('change', () => { q('#rsCardVib').value = ''; fillPlayer(); });
         q('#rsCardVib').addEventListener('change', () => { const keep = q('#rsCardVib').value; fillPlayer(); q('#rsCardVib').value = keep; });
         q('#rsCardPitch').addEventListener('change', e => { q('#rsCardFree').style.display = e.target.value === 'free' ? '' : 'none'; });
         q('#rsCardX').addEventListener('click', () => this.closeCard());
@@ -1594,19 +1617,20 @@ const S = {
             this.save(); this.closeCard(); this.render(); this.setStatus('back to the harmony — ' + set.length + ' dot' + (set.length === 1 ? '' : 's') + ' of ' + ((P[slot] && P[slot].label) || 'that player') + ' read the harmony again');
         });
         q('#rsCardApply').addEventListener('click', () => {
-            const slot = +q('#rsCardP').value, p = P[slot], isPerc = p && p.instKey === 'percussion', o = {};
+            const slot = +q('#rsCardP').value, p = P[slot], eff = effOf(slot), isPerc = eff && eff.instKey === 'percussion', o = {};
             const pv = q('#rsCardPitch').value, dyn = q('#rsCardDyn').value, tech = q('#rsCardTech').value, vib = isPerc ? q('#rsCardVib').value : '';
+            const tv = q('#rsCardTo').value; if (tv !== '' && +tv !== slot) o.to = +tv;
             if (vib !== '') o.vib = +vib;
             else if (pv === 'free') { const m = Math.round(+q('#rsCardMidi').value); if (!(m >= 21 && m <= 108)) { this.setStatus('a free pitch is a MIDI note, 21 … 108', true); return; } o.midi = m; o.cents = clamp(+q('#rsCardCents').value || 0, -50, 50); }
             else if (pv && pv[0] === 'h') { const n = beneath[+pv.slice(1)]; if (n) { o.midi = n.midi; o.cents = n.cents; if (n.partial != null) o.partial = n.partial; } }
             if (dyn) o.dyn = dyn;
             if (tech) o.tech = tech;
-            if (!Object.keys(o).length) { this.setStatus('nothing chosen — pick a pitch, a dynamic or an articulation (or `back to the harmony`)', true); return; }
+            if (!Object.keys(o).length) { this.setStatus('nothing chosen — pick a player, a pitch, a dynamic or an articulation (or `back to the harmony`)', true); return; }
             set.forEach(d => { const TT = this.touchesOf(d.box), k = this.touchKey(d); if (!TT) return; const t = TT[k] || (TT[k] = {}); (t.p || (t.p = {}))[slot] = Object.assign({}, o); });
             this.save(); this.closeCard(); this.render();
-            this.setStatus('changed ' + set.length + ' dot' + (set.length === 1 ? '' : 's') + ' of ' + ((p && p.label) || 'that player') + ': ' + [o.vib != null ? 'the vibraphone, note ' + (o.vib ? 2 : 1) + ' beneath' : '', o.midi != null ? pitchName(o.midi) + centsTxt(o.cents) : '', o.dyn || '', o.tech || ''].filter(Boolean).join(' · ') + ' — the rest keep reading the harmony');
+            this.setStatus('changed ' + set.length + ' dot' + (set.length === 1 ? '' : 's') + ' of ' + ((p && p.label) || 'that player') + ': ' + [o.to != null ? 'played by ' + ((eff && eff.label) || 'another player') : '', o.vib != null ? 'the vibraphone, note ' + (o.vib ? 2 : 1) + ' beneath' : '', o.midi != null ? pitchName(o.midi) + centsTxt(o.cents) : '', o.dyn || '', o.tech || ''].filter(Boolean).join(' · ') + ' — the rest keep reading the harmony');
         });
-        fillPlayer();
+        loadPlayer();
     },
     closeCard() { if (this._card) { this._card.remove(); this._card = null; } if (this._selDots) { this._selDots = null; this.drawDots(); } },
     touchCount(b) { return (b && b.touches) ? Object.keys(b.touches).length : 0; },

@@ -71,13 +71,15 @@ for (const I of insts) {
 }
 L.push('  ],');
 L.push('};');
-L.push('function applyAroPerc(all, sel) {   // the selection REPLACES the placeholder voice; nothing selected → nothing changes');
+// LGMF 2026-09-21 (RUNNING_LOG §212): the selection is ADDED beside the placeholder `main`, which STAYS the ordinary voice on its own
+// channels. It used to REPLACE it — but his harmony takes carry 241 percussion notes on `main`, so replacing it would change the sound
+// of everything already made. A hand-registered key (the claves of 1l.1) gives way to the generated one of the same key.
+L.push('function applyAroPerc(all, sel) {   // the selection is ADDED beside the placeholder `main`, which stays the ordinary voice on its own channels; nothing selected → nothing changes');
 L.push('  const P = all.percussion; if (!P || !sel || !sel.instruments || !sel.instruments.length) return;');
 L.push('  const techs = [];');
 L.push('  for (const I of sel.instruments) for (const q of I.techniques) techs.push(Object.assign({}, q, { keys: q.keys.slice() }));');
-L.push('  P.techniques = techs; P.ordinary = techs[0].key;');
-L.push('  P.rangeLow = Math.min(...techs.map(q => q.rangeLow)); P.rangeHigh = Math.max(...techs.map(q => q.rangeHigh));');
-L.push('  P.channels = { main: sel.instruments[0].channel, curve: [] };   // a curve voice on another channel would be another INSTRUMENT (cresc.js: empty = the voice\'s own channel)');
+L.push('  const gen = new Set(techs.map(q => q.key));');
+L.push('  P.techniques = P.techniques.filter(q => !gen.has(q.key)).concat(techs);');
 L.push('  P.aroInstruments = sel.instruments.map(I => ({ slug: I.slug, name: I.name, port: I.port, channel: I.channel }));');
 L.push('}');
 L.push('applyAroPerc(INSTRUMENTS, ARO_PERC);');
