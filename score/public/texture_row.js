@@ -213,11 +213,12 @@ Object.assign(D, {
     // zoom — so it thins as he zooms out and never swallows the rhythm it shows
     txMarkW() { return clamp(0.6 * (this._tx.gap10 || 0.05) * this._txV.px, MARK_MIN, MARK_MAX); },
     txT(x) { const v = this._txV; return v.t0 + x / v.px; },
+    txH() { return VIEW_H; },   // the drawing's height — the columns (1m.2, texture_cols.js) take the whole view
     txRender() {
         if (!this.el || !this.txIsOn()) return;
         const svg = this.el.querySelector('#txSvg'), info = this.el.querySelector('#txI'); if (!svg) return;
         if (!this._tx) { svg.innerHTML = '<text x="8" y="28" font-size="11" fill="#777">choose a rhythm take at the left</text>'; if (info) info.title = HELP; return; }
-        const v = this.txView(), W = this.txW(), H = VIEW_H, p = this.txPat(), on = new Set(p.on), r = this.txRange();
+        const v = this.txView(), W = this.txW(), H = this.txH(), p = this.txPat(), on = new Set(p.on), r = this.txRange();
         const tA = this.txT(0), tB = this.txT(W);
         let s = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#17171b"/><rect x="0" y="0" width="' + W + '" height="' + RULER_H + '" fill="#1e1e24"/>';
         // the ruler: a label about every 80 px

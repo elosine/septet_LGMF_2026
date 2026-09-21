@@ -9268,3 +9268,65 @@ So a column has NINE rows, the drawer's own player rows as they stand (eight pla
 order): the percussion's circle is there and ticks like the others; what a percussion tick MEANS in the pattern (which instrument,
 which key — the claves stand-in, `main`, the take's own) is not designed here and is not built here. The line is corrected in the
 plan when Build 2 is written. His answer to the rest of the list is pending.
+
+## §227. `1m.2` BUILT AND VERIFIED — the columns: a column is a drawer TAKE, linked and recalled; SPACE the rhythm preview (2026-09-21)
+
+His word after §226: *"ok good for build."* Written into the plan first (`docs/PLAN.md` § `1m.2`), then built in this session (Fable).
+
+**WHAT WAS BUILT.** `score/public/texture_cols.js`, a mixin on `texture_row.js` (itself a mixin on the drawer); one script tag in
+`composer.html`; ONE line in `texture_row.js` (`H = this.txH()`, a hook so the columns can take the whole view). **`strike_drawer.js`
+is not changed.**
+
+- **A COLUMN IS A DRAWER TAKE.** Under every ON mark: `{ state, off, notes }` — `state()` exactly as a saved take holds it (the harmony's
+  id, the cfg whole, the voices), `off` = the unticked rows (`laneOff`, which the drawer keeps OUT of a take because it belongs to the
+  playhead — here it belongs to the column), `notes` = the deal, each player · pitch once (the reading `♪ as dealt` uses). Recall is
+  `applyState` — the take machinery, which loads the harmony by id if it is not the one on screen.
+- **LINKED (A).** After every `render()` of the drawer the selected column(s) take its state, ticks and notes; after `renderOrch()` alone
+  (a tick, or the playhead's own redraw) only the ticks, and only if they changed. A guard (`_txApplying`) keeps the half-applied
+  renders of a recall from being written back. So a shuffle, a seed, a voicing, an articulation, a harmony pick in the list, a hand
+  assignment, an untick — everything the drawer does — lands in the column at once.
+- **SELECT.** A click in a column's band below the marks: that column alone, recalled. SHIFT+click: added, and the drawer's deal
+  COPIED into it (his rule of LG-67: the same note; a multi-selection is one deal in every member). A fresh column starts from what the
+  drawer holds now. ESC clears the selection. A mark turned off leaves the selection; its column is kept.
+- **THE CIRCLES ARE THE TICKS.** Nine rows — the drawer's own (`TRK`), read from the players list's row rectangles so they LINE UP with
+  it, evenly spaced when no list is drawn. Unticked = a dim dot · ticked, no note = hollow · ticked with a note = gold. A click on a
+  circle selects the column if need be and CLICKS THAT ROW'S TICK in the drawer (the drawer's own handler: an untick drops the player
+  now, FIX-NOW 5); a busy row's tick is refused with a word.
+- **THE TWO PREVIEWS.** `Hear orchestrated` and `♪ as dealt` on a texture take both play the drawer AS DEALT — the selected column, one
+  strike (the button's own capture listener tells `play('orch')` it was the button). SPACE = THE RHYTHM PREVIEW: every ON mark from
+  the cursor to the right line, its column's notes on its ticked rows at the mark's milliseconds, and the claves under every mark while
+  the bar's new **`claves`** toggle is on; a column with nobody on is claves alone, or silent.
+- **THE STRIKE MODE KEEPS ITS OWN TICKS** — `laneOff` saved on the way into a texture take, restored on the way back.
+- **Remembered** with the pattern (`lgmf.textureRow.v1`; `cols` · `sel` per take, `claves` global) — persisted 150 ms after a change.
+
+**The AI's calls, his to reverse:** `Hear orchestrated` plays the column AS DEALT (one onset — the strike's own rhythm has no meaning
+in a column) · SHIFT+click copies the deal INTO the added column rather than keeping what it had · a circle click on an unselected
+column selects it first · the rhythm preview's note lengths are the strike's own, held between 60 ms and 1.5 s · the claves toggle is
+one setting for every take.
+
+**VERIFIED on `score-5401`** (1600 × 900, no MIDI, every POST and `sendBeacon` stubbed — `__posts` empty throughout; his take
+`LGMF-S2-R1a`; the harmony on screen `sp:A1:just`):
+
+| check | result |
+|---|---|
+| four marks on → the columns | 4 bands, **36 circles**, at the nine players' own row heights (85 · 163 · … · 736 px), the svg the view's 790 px |
+| select `0:0` | selected (the band outlined), `strikeId sp:A1:just`, the drawer's seed 2 in it |
+| shuffle | seed 3 in the drawer AND in the column; its notes changed |
+| select `1:0` (fresh) | starts from the drawer now — the same deal as `0:0` |
+| shuffle | `1:0` seed 4, notes changed; **`0:0` untouched** (seed 3) |
+| click `0:0` again | recalled: seed 3 back in the drawer, `state()` **byte-identical** to the stored one |
+| untick lane 0 in the drawer | `0:0.off = [0]`, its circle a dim dot |
+| click a circle (row 2) in `1:0` | `1:0` selected, lane 2 unticked in the drawer, `off = [2]`, the dot dim |
+| SHIFT+click `2:1` | sel `1:0 · 2:1`, the same deal in both, `2:1.off = [2]`; a shuffle changes both alike, `0:0` untouched |
+| **SPACE** | 28 notes: marks at 0 · 136 · 818 ms each **8 pitched notes on their own ports + one claves** (`LGPerc` ch 7 key 41), the bare fourth mark claves alone; the running cursor shown |
+| `claves` off | 24 pitched note-ons, **0 on ch 7** |
+| `Hear orchestrated` | the column alone: 8 notes, all within **2 ms** — one strike |
+| ESC | the selection cleared |
+| back to `the strike` | `laneOff` empty again, every tick checked |
+| a reload | the three columns back, 24 gold circles; `0:0` selected → seed 3 and its ticks in the drawer, its notes in the status |
+
+**What sounded on the percussion row** (seen in the capture, as agreed not addressed): the harmonic-series take gives the Percussion
+player a note on `main`, so a column's percussion circle is gold and the rhythm preview sends it on `LGPerc` ch 1 (his Finger Cymbals
+track) — the drawer's own behaviour, carried as is.
+
+**Not run:** the batteries (none reaches these files). **He must RELOAD his tab.**

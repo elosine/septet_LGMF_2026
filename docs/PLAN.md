@@ -1759,7 +1759,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His, in his Chrome:** the look and the feel of it · the zoom's direction (the main score's; one word flips it) · **the claves by
       ear** · then the next step, laid out with him: the columns.
 
-  - **1m.2 — The columns: every ON mark orchestrated with the drawer's left side** — `doing` 2026-09-21 — agreed in RUNNING_LOG §224 …
+  - **1m.2 — The columns: every ON mark orchestrated with the drawer's left side** — `built` 2026-09-21 — **his test outstanding; RELOAD the tab** (RUNNING_LOG §227: `score/public/texture_cols.js`, a mixin on `texture_row.js`; a column is a drawer TAKE + its ticks + its notes, linked after every render, recalled by `applyState`; SPACE the rhythm preview with a `claves` toggle; `strike_drawer.js` unchanged) — agreed in RUNNING_LOG §224 …
     §226 (COMPOSITION_NOTES LG-67 · LG-68), his word *"ok good for build"*.
     *Result when done:* under every ON mark of the top row there is a column of the drawer's player rows — nine: eight players and the
     vibraphone's second seat, the percussion's row kept but not addressed — a circle each, all off. He clicks a column to select it,
