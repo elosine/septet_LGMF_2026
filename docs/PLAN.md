@@ -1709,6 +1709,50 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `apply_perc.js` now ADDS beside `main`) · the dot card's `played by` — a dot MOVED to another player or DOUBLED on several, each
       reading their own note beneath · the card's grid.
 
+- **1m — A TEXTURE TAKE IN THE STRIKES DRAWER: the rhythm from Texture, orchestrated onset by onset with the tool he trusts** — `doing` —
+  his verdict on `1l` IN USE, 2026-09-21: *"this tool is not working the way I expected it … Let's move to the strikes drawer … I don't
+  want to disturb any of the functionality because there's a lot of things that works good here. But then as an alternate module to the
+  rhythm one"* (RUNNING_LOG §214; COMPOSITION_NOTES LG-63 … LG-66).
+  **HIS METHOD HERE: BUILD ONE STEP AT A TIME, each step USED by him before the next is laid out** (§218: *"so I'm sure to get what I
+  want"*). So only the step in hand is written out below; the rest is his scenario, GATHERED, not planned.
+  - **The scenario, gathered (§215 … §217):** (1) THE PATTERN — a take's onsets as a top row of dots, all off, clicked on, heard on the
+    claves, a range, a cursor · (2) THE PITCHES — under every ON dot a COLUMN of the instruments, all off; circles clicked on = who plays
+    that onset; the drawer's left side (picker · keyboard · the lines to the players · articulations) works on the SELECTED column(s) as it
+    does on one strike today — a selection of columns is one strike spread over time, one shuffle re-deals every note in it from the same
+    harmony; a column not selected never changes · (3) articulation and percussion — not yet talked through.
+  - **Held, his to answer when its step comes:** the same player on in two selected columns (a strike gives a player one note) · a column
+    remembering its harmony · hearing the whole pattern with its pitches · the dynamic of a note · a re-attack closer than a player can
+    make (flagged, never moved — LG-58) · multitempo as a third source (LG-61) · what becomes of the Rhythm sequence panel and `1l.8`.
+  - **1m.1 — The switch and the top row** — `built` 2026-09-21 — **his test outstanding; RELOAD the tab** (RUNNING_LOG §220:
+    `score/public/texture_row.js`, a mixin on the drawer — `strike_drawer.js` is not changed; one script tag in `composer.html`; the
+    layout item is two lines in `spectrum_ui.js`, committed alone)
+    *Result when done:* in the strikes drawer he chooses where the rhythm comes from. On `the strike` the drawer is exactly what it was.
+    On `a texture take` the strike's rhythm controls step aside, he picks one of his rhythm takes from Texture, and sees every attack of
+    it as a dot on one timeline, spaced in time, all off. He clicks dots on, presses SPACE, and hears that pattern on the claves — really
+    the claves. He can limit it to a part of the take with a left and a right line, and drop a cursor to play from.
+    - A `source` menu at the head of the rhythm area: `the strike` · `a texture take` · `multitempo — later` (greyed).
+    - On `a texture take` the strike's controls and strip are hidden, never rebuilt — every value is where he left it on the way back.
+    - A takes menu: his rhythm takes (`bank/rhythm_takes.json`), the newest first, `↻` to read them again.
+    - THE TOP ROW: all the take's lines merged onto one timeline; all off; a click turns a dot on or off; `all on` · `all off` (inside
+      the range). Two onsets that land almost together stay TWO dots (LG-58), drawn on stepped levels so each can be clicked.
+    - SPACE (and Hear orchestrated) plays the ON dots, each one claves note (`toys_claves`, pair 2 high, `LGPerc` ch 7), through the
+      drawer's one player; SPACE again stops. The claves are a way of listening — nothing is assigned, nothing is inserted.
+    - A range — a left and a right line, dragged by their grips on the ruler; `range: whole`. A cursor — a click on empty ground; play
+      starts at it (inside the range) and ends at the right line.
+    - THE ZOOM STANDARD (§219): ALT or CTRL + wheel zooms about the mouse pointer; a sideways wheel scrolls; `fit`.
+    - Remembered in the browser: the source, the take, and per take the ON dots, the range and the cursor.
+    - THE PERCUSSION FAULT, FIRST: what the claves SEND is captured and right (below). **What SOUNDS is his rack's — and the rack file
+      shows a track named `Percussion`, record-armed, unmuted, its input `LGPerc` on ALL channels, with an Abbey Road instance on it:
+      every percussion note, whatever its channel, also plays there. HIS to try: mute that track, press SPACE on the row.**
+    - LAST, committed alone: the players' list sits against the keyboard side's widest label — `#skGap` no longer grows to 320 px.
+    - **REQUIRED VERIFICATION** (run on `score-5401`, no MIDI, every POST stubbed, RUNNING_LOG §220): the source switches and is
+      remembered across a reload · a take's dots = Texture's own, `line:i` for `line:i` (182 of 182) · a click on / off · the cursor where
+      clicked · the range where dragged · `all on` inside the range only · the zoom keeps the time under the pointer · SPACE → every
+      note-on `LGPerc` ch 7 key 41 at the dots' own milliseconds · from the cursor inside a range, 7 of 7 · SPACE stops · Insert refused
+      on a texture take · back on `the strike`: its controls, its 78 dots, SPACE → the strike's 9 of 9 notes · **not one POST**.
+    - **His, in his Chrome:** the look and the feel of it · the zoom's direction (the main score's; one word flips it) · **the claves by
+      ear** · then the next step, laid out with him: the columns.
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +

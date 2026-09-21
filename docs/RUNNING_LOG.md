@@ -9011,3 +9011,84 @@ partial numbers, `166 · 167 · … · 175`):
 Taken into build 1 as its LAST and separate item — the one place build 1 touches the drawer's existing layout, so it is committed on
 its own and can be reverted alone: the keyboard area as wide as its widest label, measured (as §347 measured the rhythm controls
 rather than guessing 130 px), the orchestration list against it, at any window size.
+
+## §220. `1m.1` BUILT AND VERIFIED — the `source` switch and THE TOP ROW in the strikes drawer; the claves' bytes captured; and a finding in his RACK that fits "I just kept hearing triangle" (2026-09-21)
+
+His word after §219: *"yes, write it into the plan and then go ahead and build here all the way through."* Built in this session (Fable),
+at that word. It is `docs/PLAN.md` § `1m` — a NEW item, not a ninth step of `1l`: the architecture has changed (§214).
+
+**WHAT WAS BUILT.** One new file, `score/public/texture_row.js`, a MIXIN on the strikes drawer in the form of `long_tone_ui.js`, and
+one script tag in `composer.html` (after `spectrum_ui.js`, so its wraps of `play` · `insert` · `onStopped` · `render` · `toggle` are
+the outermost). **`strike_drawer.js` is not changed.** On `the strike` every wrap passes straight through.
+
+- `source [the strike | a texture take | multitempo — later]` at the head of the rhythm area (its own little `#txHead`, because the
+  strike's own controls exist only once a strike is loaded). Two CSS classes do the swap — the strike's controls and its strip are
+  HIDDEN, never rebuilt, so every value is where he left it.
+- The takes menu reads the `rhythms` store (GET only). A take is a RECIPE, so it is REALIZED by Texture's own `TexturePanel.realize`
+  (1l.4) with no harmony, and the dots are numbered exactly as `notesOf` numbers them (time, then line; `i` within a line) — so
+  `line:i` names the same attack here, in Texture's lines view and in the rhythm panel. All lines are MERGED onto one timeline (his
+  *"I see a dot, more or less proportionally spaced horizontally on the x-axis"*; the A of §215, in effect).
+- The row: a ruler, the dots (hollow = off, gold = on; stepped onto up to three levels where they would sit on one another, so two
+  onsets a few milliseconds apart stay two clickable dots — LG-58), the range (two gold lines with grips on the ruler, the ground
+  outside it dimmed), the cursor he drops (blue), the cursor that runs while it plays (red), paging the view on when it leaves it.
+- The ear: SPACE and Hear orchestrated both call the drawer's `play('orch')`; on a texture take that plays the ON dots from the
+  cursor (if inside the range, else from the left line) to the right line, each ONE claves note — `toys_claves` key 41, anchor 100
+  (mf), 150 ms — through the drawer's one player `playNotes`: a STRUCK note on MAIN, DYNAMICS_LAW §1.
+- The zoom standard (§219): ALT or CTRL + wheel about the pointer's own time, a sideways wheel (or SHIFT + wheel) scrolls; `fit`.
+  Direction as the main score's (`delta > 0` = in).
+- Remembered under a localStorage key of its own, `lgmf.textureRow.v1` — NOT in the drawer's `cfg`, which a recalled harmony take
+  replaces whole (the next build recalls harmonies all the time). A take whose dot count has changed starts its pattern again, and says so.
+
+**THE AI'S CALLS, his to reverse:** a menu rather than two check boxes (room for the multitempo) · the strike's controls moved 20 px
+down for that one line · `all on` · `all off` act INSIDE the range · Insert REFUSED on a texture take (there is nothing of the row to
+insert yet, and the hidden strike would otherwise be inserted unseen) · play ends at the right line, no loop · the claves at mf ·
+on a texture take the row takes the drawer's free width · the pattern lives in the browser only, until a build needs it in a store.
+
+**VERIFIED on `score-5401`, no MIDI, the STILL BINDING method — and every non-GET `fetch` and `sendBeacon` stubbed, so nothing of his
+could be written (`__posts` empty at every step):**
+
+| check | result |
+|---|---|
+| the source switches; remembered across a reload | `texture` after reload, the view shown, the strike's controls `display: none` |
+| his take `LGMF-S2-R1a` | **182 dots**, 7 lines (26 · 26 · 26 · 25 · 27 · 26 · 26), 14.18 s, all off, sorted; **13 pairs under 10 ms apart, all kept** |
+| the dots against Texture's own numbering | **182 of 182** the same `line:i` at the same time |
+| clicks | `0:0` on, `1:0` on, `2:1` on, `0:0` off → `1:0` · `2:1` on, and drawn so |
+| the cursor | a click at x = 200 → 8.710 s (the view's own 8.711) |
+| the range | grips dragged to x = 100 · 260 → 4.077 – 11.491 s, to the digit |
+| `all on` | 97 dots inside the range → 99 on, the 2 outside kept |
+| the zoom about the pointer | 21.58 → 25.47 px/s; the time under x = 150: 6.3942 → 6.3941 s |
+| **SPACE → the bytes** | dots at 0 · 0 · 136 · 818 ms → note-ons at **0 · 0 · 135 · 818 ms, every one `LGPerc` ch 7 · key 41 · vel 100**, CC7 127 on ch 7, nothing on any other channel |
+| from the cursor in a range | cursor 0.5, range 0.1–1.0 → **7 of 7**, all ch 7 key 41 |
+| SPACE again | stopped; the running cursor hidden |
+| Insert on a texture take | refused, the score's 254 objects unchanged |
+| back on `the strike` | controls and strip shown, 78 dots, flex `0 0 480px`; shuffle → SPACE → **9 of 9** notes on their own ports |
+| and back again | the take, 27 on, the range — all returned |
+
+One fault of the AI's own on the way: a `//` comment typed into the MIDDLE of a one-line `if { … }` cut its closing brace; the file
+did not load and the page said so at once (`_txS` undefined). `node --check` now runs before the page.
+
+**THE PERCUSSION FAULT — what was found, and what was not.** His words (§216): *"I just kept hearing triangle, even if I chose a
+different instrument … get that implementation right, be a little bit more careful there."*
+1. **What the row SENDS is right, by capture** (above): `LGPerc` ch 7, key 41 — the rack's `Claves ARO` track (`bank/perc_rack.json`).
+2. **What TEXTURE sent was the same.** Computed for his three newest harmony takes (`Blm01c-wVibes-Just-A1-seed131mod` ·
+   `Just-A1-seed131mod` · `Bloom01b_w_vibs-Just-A1-seed132`): none gives the Percussion player a note, so each falls to the claves —
+   `toys_claves`, key 41, `LGPerc` ch 7. So §212's reading (a curve-channel door, 2 · 3 · 4) is NOT what happened there: the AI's own
+   earlier guess, now set aside.
+3. **THE RACK FILE, read (`reaper/LGMF_rack.rpp`, as he last saved it):** the fourteen ARO tracks each take ONE channel of `LGPerc` —
+   `REC 1 5697` … `5710` = device 50, channels 1 … 14, Claves 5703 = ch 7 ✓, Triangles 5700 = ch 4. **But a fifteenth track, `Percussion`
+   (line 15569), is `REC 1 5696` = the same device, channel 0 = ALL CHANNELS — record-armed, `MUTESOLO 0 0 0` (not muted), an Abbey Road
+   Orchestra instance on it, not bypassed, its main send on.** It is session 1's placeholder track. Every percussion note the app
+   sends, on whatever channel, therefore ALSO plays on that instance, in whatever preset it holds — which is exactly "the same sound
+   whatever instrument I chose". **Not verified: which preset that instance holds (the VST3 state is opaque), and nothing has been
+   HEARD.** The test is his and takes ten seconds: mute the `Percussion` track, SPACE on the row. If that is it, the repair is a rack
+   setting (mute it, or give its input a channel nothing uses) and belongs in `docs/RACK_SETTINGS.md` — and `main`, the placeholder
+   technique on ch 1, which 241 notes of his harmony takes use (§212), will then sound on the Finger Cymbals track ALONE.
+
+**THE LAYOUT ITEM, committed alone.** His note (§219): space between the keyboard's labels and the players' list. Read: the keyboard
+was ALREADY as wide as its longest label (`spectrum_ui.js` `paintKeyboardExtras` measures each column); what he saw was `#skGap`,
+`flex: 1 1 140px; max-width: 320px` — it GREW to 320 px on a wide window. Now a fixed channel set where the keyboard's width is set:
+`max(40, 120 − (W − 130))` px — 40 px past the labels of a series, or, with no labels (W = 150), the 100 px that keeps the dotted
+lines a 120 px run. Verified with a series loaded: keyboard 268 px, gap **40 px**. The plain case is arithmetic, not seen in the app.
+
+**Batteries:** none reaches these files (`sequence_check` · `palette_check` · `spectrum_check` read `sequence.js` · the palette ·
+`spectrum.js`); none was run. **He must RELOAD his tab** (static files; no server restart).
