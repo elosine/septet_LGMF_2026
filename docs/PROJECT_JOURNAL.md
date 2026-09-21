@@ -133,12 +133,17 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   onsets on DIFFERENT players are NEVER quantized or normalized (a few milliseconds apart is the material; no bands) · *"rhythm
   with the rhythm and harmony with the harmony"*: no gating, no borrowed notes, a dot with no note beneath is a WARNING, silence is
   made by muting dots.
-- **PHASE 2 — THE TOP LINE, CONFIRMED BY HIM (*"the order is good"*, RUNNING_LOG §189 — PHASE 3 IS OPEN ON STEP 1, each step given whole, goal + sub-steps; the question on step 1: a pitch stand-in, or the takes menu moved up from step 2):** (1) Texture plays this ensemble · (2) Texture: who plays each line · preview
-  in a harmony take · rhythm takes saved · (3) the rhythm sequence panel, the clone with two rows · (4) the workshop · (5) the whole
-  sequence sounds and inserts · (6) the dots touched · (7) the two crossfades · (8) his listen. Later, at his word: stretching a
-  clip · custom patterns · copying the harmony row's layout. **On his confirmation: phase 3, one step at a time, each written into
-  `docs/PLAN.md` § `1l` as it is agreed.**
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · RUNNING_LOG §185 · §186 · §187 · §188 · §189.
+- **PHASE 2 — THE TOP LINE, CONFIRMED** (*"the order is good"*, RUNNING_LOG §189) **— and it is now `docs/PLAN.md` § `1l`, items
+  `1l.1` … `1l.8`, with THE FOUNDATION as agreed above them. PHASE 3 IS OPEN, each step given to him WHOLE (goal + sub-steps) at his
+  word.**
+- **`1l.1` TEXTURE PLAYS THIS ENSEMBLE — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (COMPOSITION_NOTES LG-59 · RUNNING_LOG §190):
+  seven players, **percussion and vibraphone ONE player** · his default short articulations · every attack through the strikes
+  drawer's player (a struck note under the dynamics law) · **the pitches from the TAKES MENU, as the sequence drawer's** (moved up
+  from `1l.2`) · the percussion as the take assigns it, else `claves pair 2 high`.
+- **`1l.2` TEXTURE: WHO PLAYS EACH LINE · RHYTHM TAKES SAVED — PUT TO HIM, NOT YET AGREED** (§190 has it). **Saving a take from the
+  panel is NEW work: Texture today only reads a params file the AI wrote.** On his word it is written into the plan and `1l.3`
+  follows.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §190.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

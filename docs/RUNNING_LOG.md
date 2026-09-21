@@ -8053,3 +8053,36 @@ MIDI, then his listen.
 (B) the TAKES menu moved up from step 2 into step 1 — it exists twice already (the sequence drawer, the morph's PITCHES pulldown),
 each player reading their own note AS ASSIGNED, so his first listen is in a real harmony. The AI leaned B: a unison cannot even be
 written across english horn, horn and double bass, so a stand-in tells his ear little, and B throws nothing away.
+
+## §190. `1l.1` AGREED AND WRITTEN INTO THE PLAN — his defaults, the takes menu moved up (B), percussion and vibraphone ONE player; what was found about how Texture SAVES; `1l.2` put to him (2026-09-21)
+
+**What prompted it.** His answer to step 1 (§189). **Verbatim: COMPOSITION_NOTES LG-59.**
+
+**Decided by him:**
+- **The default short articulations:** english horn Staccato Velocity · bassoon, horn, trumpet staccato · the strings Spiccato
+  Velocity. *(Checked against `sandbox/instruments.js` by one grep: `staccato` exists for the SI2 three, `stac_vel` "Staccato
+  Velocity" and `spicc_vel` "Spiccato Velocity" in the Xsample lists. The claves were not looked for — the build resolves the key.)*
+- **Percussion and vibraphone are ONE player** in the rhythm tools — seven players. In a rhythm container the percussion's note or
+  notes are a non-pitched instrument, or the vibraphone with a pitch drawn from the vibraphone's pitches in the harmony beneath.
+- **B — the takes menu, *"same as in the sequence, current sequence drawer"*,** moved up from step 2. Texture's preview plays the
+  percussion as the take assigned it; `claves pair 2 high` is the fallback when a take assigns none (he corrected his own first line
+  in the same message). The vibraphone's pitches in a take are carried, not played, until the container.
+- **Rejected with it:** the pitch stand-in (A).
+
+**Written at once:** `docs/PLAN.md` § `1l` — status `doing`, the machine corrected, THE FOUNDATION as agreed (nine lines), the
+confirmed top line as `1l.1` … `1l.8`, and **`1l.1` in full** in the chat's words. `1l.2` … `1l.8` carry *to be laid out when we
+discuss it*; `1l.6` carries the percussion / vibraphone choice so it is not lost.
+
+**Found while laying out `1l.2` (one grep of `texture_panel.js`):** the panel only READS its state — it polls `/api/textureparams`
+and `/api/texturemodels`; `bank/texture_params.json` holds the variants and **was written by the AI, not by the panel** (its header:
+*"box edits are ephemeral until the AI writes them back into the file"*). **So "rhythm takes saved" is NEW WORK, not a port:** today
+he cannot save a pattern by name from Texture at all. The strikes drawer's takes and the sequence library (`/api/snapshots`, two
+stores, `test_snapshots` 26) are the model.
+
+**`1l.2` as put to him (the chat has it in the plan's format):** the lines shown one per row · THE GRID, lines down and the seven
+players across · doubling (each player on their OWN note) · merging, with the collision check on that one player — FLAGGED, never
+moved or dropped, his to mute in `1l.6`; different players never checked against each other · the re-articulation values reviewed
+per instrument, a table put to him (today's are the tubas' `D17`) · SAVE A RHYTHM TAKE by name from the panel — dials, seed,
+assignment — in a store of its own · one capture, a save → reload → recall giving the same dots, then his listen. **No question
+put; the AI's two judgment calls are named for his correction: a collision is flagged not thinned · a take is the RECIPE (dials +
+seed + assignment), and the same recipe always gives the same dots.**

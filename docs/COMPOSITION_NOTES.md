@@ -1946,3 +1946,28 @@ never touched: no quantizing, no normalizing, no band that gathers near-simultan
 pattern the few milliseconds between two instruments ARE the material. **(2) The two rows do not reach into each other.** The
 harmony row is normally without rests; it does not gate the rhythm, and nothing borrows a note. A dot that finds no note beneath
 it is a WARNING to resolve, not a rule to design. What should not sound is muted in the rhythm.
+
+### LG-59 · 2026-09-21 — TEXTURE'S DEFAULT SHORT ARTICULATIONS, his · PERCUSSION AND VIBRAPHONE ARE ONE PLAYER in the rhythm tools: in a rhythm container the percussion's notes are a non-pitched instrument OR the vibraphone, which then takes one of the pitches the harmony take gave the vibraphone · Texture's pitches come from a TAKE, as in the sequence drawer
+
+His words, answering step 1 of `1l` (RUNNING_LOG §189):
+
+> *"eh staccato velocity, bsn horn tpt staccato, perc claves pair 2 high, strings spiccato velocity, No separate vibraphone. We'll
+> treat percussion and vibraphone all as one. But in the final rhythm time container for the percussion assigned note or notes,
+> I can choose a vibraphone and then it'll get its pitch from the harmony time containers. Or I can choose a non-pitched
+> instrument."*
+
+> *(on "what pitches does step 1 play?")* *"b. same as in the sequence, current sequence drawer. So I would go to the blasts
+> drawer and create takes with this ensemble. I'll include both percussion and vibraphone but the preview can just play the
+> non-fixed pitch, the one labeled percussion in the strikes drawer. I want to grab pitches for the vibraphone in a take. So when
+> I'm assigning harmonies in the final rhythm sequence drawer, if I want a pitched value for the percussion, I can draw from one
+> of the pitches assigned to the vibraphone. But in the texture preview, let's just use the what I assigned it in the take. And
+> so that rolls back or modifies the uh, note above where percussion is clave pair too high. Maybe that is a default or fallback
+> if there isn't percussion. assigned in the take. Take."*
+
+*AI reading (mine, marked):* *"the blasts drawer"* is the STRIKES drawer under its older name. **The defaults:** english horn
+Staccato Velocity · bassoon, horn, trumpet staccato · cello and double bass Spiccato Velocity. **One percussionist, one player:**
+Texture has no vibraphone of its own — seven players, not eight lanes. A harmony take still carries BOTH the percussion's assigned
+instrument and the vibraphone's pitches. **Texture's preview** plays the percussion as the take assigned it (the player labelled
+Percussion), and `claves pair 2 high` only as the FALLBACK when a take assigns none — his own correction of his first line. **The
+vibraphone's pitches wait for the rhythm container,** where the percussion's note or notes can be given to the vibraphone — pitch
+drawn from one of the vibraphone's pitches in the harmony beneath — or to a non-pitched instrument.

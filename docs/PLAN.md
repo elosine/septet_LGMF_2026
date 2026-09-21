@@ -1508,7 +1508,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     note's fader between the table values of its own written dynamics; the fades a weight on top).
   - **Two parts, in his words:** the level (why the peaks stand above) and a control (*"how to adjust them"*). Under the planning
     method when he calls it.
-- **1l — THE COUNTERPOINT SECTION: rhythms from the multitempo machine, their pitch and dynamic read from a sequence** — `todo` —
+- **1l — THE COUNTERPOINT SECTION: rhythms from the multitempo machine, their pitch and dynamic read from a sequence** — `doing` —
   **THE FIRST THING DISCUSSED IN SESSION 12**, at his word; the planning method, phase 1 (state and restate) — nothing planned yet.
   His brief: COMPOSITION_NOTES **LG-55** (after **LG-53** · LG-12 · LG-11); RUNNING_LOG §184.
   - **His ideas, one line each (organized, nothing added):** (1) a SEQUENCE underneath, made as now, *"as if it was going to be
@@ -1519,6 +1519,62 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **The ground in the repo:** the sequence drawer (`score/public/sequence.js` · `sequence_ui.js` · `docs/SEQUENCE_TOOL.md`) · the
     multitempo machinery inherited from piece #5 (`score/public/multitempo.js` · `multitempo_panel.js`, the `MT` button) — not read
     for this entry.
+  **► `doing` 2026-09-21 (session 12) — UNDER THE PLANNING METHOD: PHASE 1 CLOSED, THE TOP LINE CONFIRMED, PHASE 3 OPEN, ONE STEP AT A
+  TIME (RUNNING_LOG §185–§190 · COMPOSITION_NOTES LG-56 · LG-57 · LG-58 · LG-59). NOTHING IS BUILT.**
+  - **THE MACHINE IS THE TEXTURE PANEL** (`score/public/texture_engine.js` · `texture_panel.js`), **NOT `MT`** — his correction (§185,
+    which has what Texture is and what in it is still the tubas'). The *"ground in the repo"* line above names the wrong files.
+  - **THE FOUNDATION, AS AGREED:**
+    - **Texture makes RHYTHM TAKES** — pattern archetypes — as the strikes drawer makes harmony takes.
+    - **THE RHYTHM SEQUENCE PANEL is a CLONE of the sequence drawer** (his decision; the architecture is looked at again after this
+      version): a HARMONY ROW as now — **SILENT here, a map** — and a RHYTHM ROW of time containers on top, each an EXCERPT or a LOOP
+      of a rhythm take, its duration the excerpt's.
+    - **A rhythm container carries NO harmony of its own:** every dot reads the pitch and the dynamic of ITS player from whatever lies
+      beneath it.
+    - **THE WORKSHOP comes before a container:** click a harmony box (for the preview only) · choose a rhythm take · SEE it as dots on
+      a row and HEAR it · cut by marquee, or by a start and a stop point on a timeline bar · save as a container.
+    - **WHO PLAYS is assigned in Texture, per rhythm line, and carried as is** — many-to-many: a line doubled · several lines merged
+      onto one player. In a placed container a line can be moved to another instrument, and only the rhythm moves.
+    - **Collisions are TWO things:** lines merged onto ONE player get the standard per-instrument collision check · onsets on
+      DIFFERENT players are NEVER quantized or normalized — a few milliseconds apart is the material. No bands.
+    - ***"Rhythm with the rhythm and harmony with the harmony":*** no gating, no borrowed notes · a dot with no note beneath it is a
+      WARNING · silence is made by muting dots.
+    - **PERCUSSION AND VIBRAPHONE ARE ONE PLAYER in these tools** (LG-59) — seven players.
+    - **LATER, at his word:** stretching a clip · custom patterns · copying the harmony row's layout.
+  - **1l.1 — Texture plays this ensemble** (the panel as it is, sounding on his players in a real harmony — nothing new added yet) —
+    `todo`
+    *Result when done:* he opens Texture, picks a model (smear · ticks · rain · gallop · groove), chooses a harmony take, presses Play,
+    and hears the pattern on the septet's instruments at the calibrated loudness, each player on their own note of the take. Every dial
+    that worked for the tubas works. Insert puts the notes on the right lanes.
+    - **The players:** SEVEN — english horn · bassoon · horn · trumpet · percussion · cello · double bass — in place of the ten tubas.
+      **No separate vibraphone: percussion and vibraphone are ONE player here.**
+    - **The articulations:** each player's own list, from the strikes drawer's roster, in place of the tubas' five. **The defaults are
+      his:** english horn `Staccato Velocity` · bassoon, horn, trumpet `staccato` · cello, double bass `Spiccato Velocity` ·
+      percussion: what the take assigns it, else `claves pair 2 high`.
+    - **The sound:** every attack through the strikes drawer's own player (`StrikeDrawer.playNotes`, as the sequence drawer's Hear) —
+      a STRUCK note under `docs/DYNAMICS_LAW.md`, its velocity its dynamic through 1b's remap. Texture's `level 0…10` becomes a written
+      dynamic, `ppp … fff`. *(Found, §189: today Texture sends a plain velocity straight to the rack.)*
+    - **The note lengths:** this ensemble's, in place of the tubas' measured one-shots (`Composer.sampleLen`).
+    - **The pitches — THE TAKES MENU, as in the sequence drawer** (moved up from `1l.2` at his word): he makes takes in the strikes
+      drawer with this ensemble; in Texture he chooses one, and each player reads their own note AS ASSIGNED. The tubas' presets (the
+      species, the 30–65 window) go. **The percussion plays what the take gave the player labelled Percussion; with none assigned, the
+      fallback `claves pair 2 high`. The vibraphone's pitches in a take are NOT played by Texture's preview — they are carried for
+      `1l.6`.**
+    - **Insert:** writes the same kind of struck note the strikes drawer writes, on this piece's lanes.
+    - **REQUIRED VERIFICATION:** one capture in the running app with no MIDI (`score-5401`, journal §2's method) — every attack on the
+      right port and channel for its player and articulation, at a velocity from the remap · the batteries still green. **Then his
+      listen, in his Chrome.**
+    - *Not in this step:* re-tuning the five models (made for ten tubas — his, by ear, later) · the re-articulation values (`1l.2`) ·
+      LIVE comes along if the one sound path carries it, else it is parked in NITS.
+  - **1l.2 — Texture: who plays each line · rhythm takes saved** — *to be laid out when we discuss it.*
+  - **1l.3 — The rhythm sequence panel: the clone, with its two rows** — *to be laid out when we discuss it.*
+  - **1l.4 — The workshop: see and hear a take in a harmony · cut or loop · save as a container** — *to be laid out when we discuss it.*
+  - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — *to be laid out when we discuss it.*
+  - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — *to be laid out when we
+    discuss it.* *(Carried from LG-59 so it is not lost: the percussion's note or notes in a container are a non-pitched instrument,
+    OR the vibraphone — and then the pitch is drawn from one of the pitches the harmony take gave the vibraphone.)*
+  - **1l.7 — The two crossfades** (harmony A → B over N seconds · one rhythm container into the next) — *to be laid out when we discuss
+    it.*
+  - **1l.8 — His listen.**
 
 ## 2. Notate — `todo`
 
