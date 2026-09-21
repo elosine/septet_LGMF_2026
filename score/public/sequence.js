@@ -461,6 +461,8 @@ function dealSpan(P, span, S, T) {
         const r1 = rng() * 2 - 1, jit = 1 + r1 * S.jitter, gapJit = 1 + (rng() * 2 - 1) * S.jitter * 0.5;   // always two draws a breath
         const flags = [];
         const drawn = draw ? draw() : null;                                                                     // 1d.5: a pool value is played as written — no jitter on it
+        // THE TWIN of the next twenty lines is `morph.js` `buildCarrier` (LGMF PLAN 1j, 2026-09-20): the morph deals its breaths by
+        // this same arithmetic, in a copy of its own (RUNNING_LOG §178 says why). TUNE ONE, TUNE THE OTHER.
         // 1d.9 — `of max`: the breath is built round THIS PLAYER'S OWN maximum at the level it is playing, so a long-breathed
         // player breathes long where before everyone aimed at the one `length` and the ceiling only CAPPED. A fixed-length sound
         // (the percussion) has no maximum, so it keeps `length`.

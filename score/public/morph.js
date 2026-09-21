@@ -74,6 +74,10 @@ const BREATH_GAP_FLOOR = 0.40;  // snatch breath — flagged if used
 const GLISS_AIR_COST = 0.7;     // breath multiplier while bending
 const CROSS_ONSET_MIN = 0.08;   // two voices must not re-attack within this
 const MAX_SEG_HARD_S = 30.0;    // absolute segment ceiling, safety net
+// PLAN 1j — the sequence's own three numbers (sequence.js), kept equal to their twins there
+const MIN_BREATH_S = 0.5;          // the jitter may not deal a breath shorter than this
+const OUTLIER_FLOOR_MIN_S = 1.5;   // an outlier is never a RUNT
+const OUTLIER_ROOM_S = 1;          // under this much room between the normal top and the maximum, every outlier is a short one
 
 // maxBreath(register, dyn) in seconds — ESTIMATE.
 const BREATH_TABLE = [
@@ -472,7 +476,7 @@ function striationPhase(pattern, vi, nVoices, segIdx, rng) {
 
 // Build one voice's segment list across the span. Never silently truncates: if a
 // model implies a segment longer than the player can hold, it SPLITS and flags.
-function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
+function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched, oRng) {
     // Segments are built across the WHOLE timeline — body plus run-down — not
     // across the gliss length. With no duration set the two are the same number.
     const TIMING = carrierTiming(carrier);
@@ -508,8 +512,29 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
     // boundary — the same "split, never truncate" rule the breath ceiling uses.
     const bounds = (sched && sched.boundaries) || null;
 
+    // THE BREATH'S LENGTH ROUND THE PLAYER'S OWN MAXIMUM (2026-09-20, LGMF PLAN 1j; MORPH_NOTES §3). His ear: "the durations of the
+    // notes in the morph seem regular, predictable" — measured on his own bloom: 80 breaths, mean 8.03 s, sd 1.45, every player
+    // dealt `segLen × (1 ± segVar)` round the SAME number, the ceiling only a CAP, so the english horn with 18 s of air breathed as
+    // often as the trumpet and no breath was ever far from the rest. The sequence drawer borrowed these numbers from this file and
+    // then outgrew them at his ear's word (SEQUENCE_TOOL §19); this is that rule, brought home:
+    //   `carrier.ofMax`   — the aim is THIS player's ceiling, as it stands at THIS breath (its level, a bending wind's air), × ofMax
+    //   `carrier.jitterS` — ± in SECONDS round the aim (`8 ± 2` is 6 … 10 s); absent, the old share `segVar`
+    //   `carrier.outlier` — { share, short, floor }: one breath in ten far from the rest, on a stream OF ITS OWN so that turning it
+    //                       re-deals no other breath — SHORT: max(floor, aim × short) · LONG: drawn evenly between the top of the
+    //                       normal range and the ceiling, so long ones DIFFER; a player with under a second of room takes short ones
+    // THE TWIN of this arithmetic is `sequence.js` `dealSpan` (its 1d.9 · 1d.14 lines). They are two copies on purpose — that one is
+    // inline in the sequence's own state, and this file has no dependency (RUNNING_LOG §178). TUNE ONE, TUNE THE OTHER.
+    // ADDITIVE AND OPT-IN: with none of the three set, not one line below behaves differently — the jitter is the same ONE draw.
+    const ofMax = (carrier.ofMax != null && carrier.ofMax !== '' && +carrier.ofMax > 0) ? Math.max(0.05, Math.min(1, +carrier.ofMax)) : null;
+    const jitterS = (carrier.jitterS != null && carrier.jitterS !== '' && +carrier.jitterS >= 0) ? +carrier.jitterS : null;
+    const OUT = (oRng && carrier.outlier && +carrier.outlier.share > 0)
+        ? { share: Math.min(1, +carrier.outlier.share), short: Math.max(0.05, Math.min(1, +carrier.outlier.short || 0.4)),
+            floor: Math.max(OUTLIER_FLOOR_MIN_S, +carrier.outlier.floor || OUTLIER_FLOOR_MIN_S) } : null;
+    const breathOn = ofMax != null || jitterS != null || !!OUT;
+
     while (t < limit && segs.length < 512) {
-        const jitter = 1 + (seedRng() * 2 - 1) * segVar;
+        const r1 = seedRng() * 2 - 1;                  // ONE draw a breath, as always
+        const jitter = 1 + r1 * segVar;
         let want = segLen * jitter;
         const start = Math.max(0, t);
         const flags = [];
@@ -521,9 +546,24 @@ function buildCarrier(vi, nVoices, carrier, seedRng, ctxForBreath, sched) {
         ceiling = Math.min(ceiling, MAX_SEG_HARD_S);
         if (info.fixedLen != null) {
             want = info.fixedLen;              // D9: the sample decides, not us
-        } else if (want > ceiling) {
-            want = ceiling;
-            flags.push('BREATH');              // split, never truncate silently
+        } else {
+            if (breathOn) {                    // PLAN 1j — see the head of this function; the sequence's rule, line for line
+                const aim = (ofMax != null && isFinite(ceiling)) ? ceiling * ofMax : segLen;
+                want = Math.max(MIN_BREATH_S, jitterS != null ? aim + r1 * jitterS : aim * jitter);
+                if (OUT) {
+                    const isOut = oRng() < OUT.share, coin = oRng(), pick = oRng();   // always three draws: the dial re-deals nothing else
+                    if (isOut) {
+                        const top = jitterS != null ? aim + jitterS : aim * (1 + segVar);
+                        const room = isFinite(ceiling) ? ceiling - top : 0;
+                        if (coin < 0.5 || room < OUTLIER_ROOM_S) { want = Math.max(OUT.floor, aim * OUT.short); flags.push('OUTLIER'); }
+                        else { want = top + pick * room; flags.push('OUTLIER', 'LONGER'); }   // not BREATH: it was meant
+                    }
+                }
+            }
+            if (want > ceiling) {
+                want = ceiling;
+                flags.push('BREATH');          // split, never truncate silently
+            }
         }
 
         // LET THEM FINISH (FR-6). Truncating every voice at the end time is a
@@ -1017,6 +1057,9 @@ const PARAM_PATHS = {
     'carrier.span': 'number', 'carrier.segLen': 'number', 'carrier.segVar': 'number',
     'carrier.striation': 'string',
     'carrier.duration': 'number', 'carrier.release': 'number',
+    // PLAN 1j — the breath round the player's own maximum (buildCarrier)
+    'carrier.ofMax': 'number', 'carrier.jitterS': 'number',
+    'carrier.outlier.share': 'number', 'carrier.outlier.short': 'number', 'carrier.outlier.floor': 'number',
     'target.dwell': 'number',
 
     'dyn.base': 'number', 'dyn.shape': 'string', 'dyn.amount': 'number',
@@ -1639,7 +1682,9 @@ function render(params, opts) {
                 fixedLen: cls === 'fixed' ? fixedLength(tech, midi, o.sampleLengths) : null,
                 ceilingS: pal ? pal.ceiling(s.level / 10) : null, gapS: pal ? pal.gapS : null, kind: pal ? pal.kind : null,
             };
-        }, shapeSched[vi]);
+        }, shapeSched[vi],
+        // PLAN 1j: the OUTLIER's own stream, made only when the dial is on — from the same seed, apart from the voice's
+        (P.carrier.outlier && +P.carrier.outlier.share > 0) ? mulberry32(P.seed * 7919 + vi * 104729 + 15485863) : null);
 
         let prevTech = null;
         segs.forEach(seg => {
