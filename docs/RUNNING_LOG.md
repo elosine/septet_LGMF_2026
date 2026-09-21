@@ -9189,3 +9189,14 @@ choice to the AI (*"or if you have a better idea here, that's fine"*).
 under 30 s on → `all off` → **0 on**, the range untouched · `all on` → **454 of 454** · cursor 12.5, button `[` → 12.5–20 · cursor
 17.25, button `]` → 12.5–17.25 · the keys: 14 `[` → 14–17.25 · 16 `]` → 14–16 · cursor 30 (right of the right line) `[` → 30–45.234 ·
 cursor 5 `]` → 0–5 · on `the strike` the key does nothing.
+
+## §223. `1m.1`: `crop` — every mark OUTSIDE the range off (2026-09-21)
+
+His words, after §222, with a pattern already made under the old rule: *"Okay, but what do I do about my current situation? I have
+certain ones selected, but all the ones outside the indicators are on. So how do I keep the ones I selected, but turn all the ones
+outside the indicator off?"*
+
+His pattern lives in HIS browser's storage, out of the AI's reach — and the need is a general one, so it is a command, not a repair:
+**`crop`**, in the bar after `all off`: every mark outside the range goes off, inside it nothing changes; the status says how many.
+**Verified on `score-5401`** (his take `LGMF-S2-R5a`; no MIDI, no POST): range 10–20, every mark outside it on plus 16 chosen inside
+(392 on) → `crop` → **16 on, exactly the 16 chosen**, the range untouched, *"crop: 376 marks outside the range turned off"*.

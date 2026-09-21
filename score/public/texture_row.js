@@ -45,7 +45,7 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const HELP = ['click a mark: on / off', 'click the ruler or open ground: the cursor',
     'drag a gold grip on the ruler: the range · double-click the ruler: the whole take',
     'SPACE: play from the cursor, on the claves · SPACE again: stop',
-    'ALT + wheel: zoom at the pointer · wheel sideways: scroll', '[ and ] (keys or buttons): the left / right line of the range to the cursor', 'all on · all off: the whole take'].join(String.fromCharCode(10));
+    'ALT + wheel: zoom at the pointer · wheel sideways: scroll', '[ and ] (keys or buttons): the left / right line of the range to the cursor', 'all on · all off: the whole take', 'crop: every mark outside the range off'].join(String.fromCharCode(10));
 const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 function loadStore() {
@@ -94,6 +94,7 @@ Object.assign(D, {
             '<button id="txReload" class="txOnly" style="' + BTN + '" title="read the rhythm takes again (after saving a new one in Texture)">&#8635;</button>' +
             '<button id="txAllOn" class="txOnly" style="' + BTN + '" title="every mark of the take ON">all on</button>' +
             '<button id="txAllOff" class="txOnly" style="' + BTN + '" title="every mark of the take OFF">all off</button>' +
+            '<button id="txCrop" class="txOnly" style="' + BTN + '" title="crop: every mark OUTSIDE the range off — the ones inside stay as they are">crop</button>' +
             '<button id="txHome" class="txOnly" style="' + BTN + '" title="the cursor back to the left line of the range">&#9198;</button>' +
             '<button id="txSetA" class="txOnly" style="' + BTN + '" title="the LEFT line of the range to the cursor — key [">[</button>' +
             '<button id="txSetB" class="txOnly" style="' + BTN + '" title="the RIGHT line of the range to the cursor — key ]">]</button>' +
@@ -110,6 +111,7 @@ Object.assign(D, {
         bar.querySelector('#txReload').addEventListener('click', () => this.txRefreshTakes(true));
         bar.querySelector('#txAllOn').addEventListener('click', () => this.txAll(true));
         bar.querySelector('#txAllOff').addEventListener('click', () => this.txAll(false));
+        bar.querySelector('#txCrop').addEventListener('click', () => this.txCrop());
         bar.querySelector('#txHome').addEventListener('click', () => this.txCursorHome());
         bar.querySelector('#txSetA').addEventListener('click', () => this.txSnap('a'));
         bar.querySelector('#txSetB').addEventListener('click', () => this.txSnap('b'));
@@ -291,6 +293,13 @@ Object.assign(D, {
         const p = this.txPat(); if (!p) return;
         p.on = on ? this._tx.dots.map(d => d.k) : [];
         this.txPersist(); this.txRender(); this.setStatus(this.txLine());
+    },
+    // `crop` (his word, §223): every mark OUTSIDE the range off; inside it nothing changes
+    txCrop() {
+        const p = this.txPat(); if (!p) return;
+        const r = this.txRange(), inside = new Set(this._tx.dots.filter(d => d.t >= r[0] - 1e-6 && d.t <= r[1] + 1e-6).map(d => d.k));
+        const had = p.on.length; p.on = p.on.filter(k => inside.has(k));
+        this.txPersist(); this.txRender(); this.setStatus('crop: ' + (had - p.on.length) + ' marks outside the range turned off · ' + this.txLine());
     },
     // a line of the range SNAPS TO THE CURSOR (his word, §222) — `[` the left, `]` the right; a cursor on the far side of the other line
     // takes that other line to the take's end, so the range is never inside out
