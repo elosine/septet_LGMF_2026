@@ -7645,3 +7645,19 @@ ceiling × 0.7 (`GLISS_AIR_COST`), so its aim shrinks while it moves — the seq
 
 **Put to him, ONE question:** does a NEW bloom breathe this way from the start, as a new sequence does (`of max 0.65 · ± 1.3 s ·
 outlier 0.1`), or is it a dial he turns on? Either way a stored actual keeps the breaths it was filed with.
+
+## §179. THE MORPH'S BREATHS — ON FROM THE START, with the default numbers; phase 1 closed, the top line put to him (2026-09-20)
+
+**His word: *"a and can we have the default numbers to start"*** — a new bloom breathes the new way from the start, as a new
+sequence does, and it starts on the sequence drawer's own built-in line: **`of max 0.65 · ± 1.3 s · outlier 0.1 · short 0.4 ·
+floor 2`**. *(Checked, read-only, because "the default numbers" could also have meant a line of HIS: `bank/sequences.json` holds
+`library` and `untitled` and NO `defaults` panel — he has never pressed the sequence drawer's `save as default`, so the built-in
+numbers are the only defaults there are.)*
+
+**Phase 1 of the planning method is closed on four sentences:** the morph's breaths get the sequence's three LENGTH dials, same
+names, same arithmetic (§178) · each player's maximum is asked afresh at every breath, so the lengths follow the bloom's level by
+themselves · a new bloom has them ON, at the default numbers · a stored actual keeps the breaths it was filed with — through a
+recall AND through the dials he moves after it.
+
+**The top line put to him (phase 2):** 1 the engine deals a breath round the player's own maximum · 2 the three dials on the morph
+panel, on from the start · 3 the actuals keep the breaths they were filed with · 4 his listen. Nothing built.
