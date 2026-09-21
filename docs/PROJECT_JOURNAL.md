@@ -133,12 +133,12 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   onsets on DIFFERENT players are NEVER quantized or normalized (a few milliseconds apart is the material; no bands) · *"rhythm
   with the rhythm and harmony with the harmony"*: no gating, no borrowed notes, a dot with no note beneath is a WARNING, silence is
   made by muting dots.
-- **PHASE 2 — THE TOP LINE, PUT TO HIM, UNCONFIRMED:** (1) Texture plays this ensemble · (2) Texture: who plays each line · preview
+- **PHASE 2 — THE TOP LINE, CONFIRMED BY HIM (*"the order is good"*, RUNNING_LOG §189 — PHASE 3 IS OPEN ON STEP 1, each step given whole, goal + sub-steps; the question on step 1: a pitch stand-in, or the takes menu moved up from step 2):** (1) Texture plays this ensemble · (2) Texture: who plays each line · preview
   in a harmony take · rhythm takes saved · (3) the rhythm sequence panel, the clone with two rows · (4) the workshop · (5) the whole
   sequence sounds and inserts · (6) the dots touched · (7) the two crossfades · (8) his listen. Later, at his word: stretching a
   clip · custom patterns · copying the harmony row's layout. **On his confirmation: phase 3, one step at a time, each written into
   `docs/PLAN.md` § `1l` as it is agreed.**
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · RUNNING_LOG §185 · §186 · §187 · §188.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · RUNNING_LOG §185 · §186 · §187 · §188 · §189.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 

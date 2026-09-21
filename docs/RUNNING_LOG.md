@@ -8026,3 +8026,30 @@ instruments · each step leaves something he can use (takes after 2, containers 
 per-dot work and the crossfades come after the thing WORKS, his own order for the morph (*"get it working and then introduce some
 additional things"*, §185). **Left outside the line, at his word — later:** stretching a clip · the custom patterns · copying the
 harmony row's layout.
+
+## §189. `1l`: THE TOP LINE CONFIRMED — phase 3 opens on step 1, TEXTURE PLAYS THIS ENSEMBLE; what in Texture is the tubas', read; one question put (2026-09-21)
+
+**His word:** *"the order is good, let's go to step 1 with sub-steps included each step pls"* — so the eight-line top line of §188
+stands as put, and **each step is given to him WHOLE: the goal and its sub-steps in one turn** (the planning method's two formats
+joined, at his word), then discussed, then written into `docs/PLAN.md` § `1l`.
+
+**Read for step 1, by grep only (the question named first: what in Texture is the tubas', and what does this piece already have
+in its place):**
+- `texture_panel.js`: `maxLanes: 10` and `META_LAYER` (ten players) · the articulation list `staccato · ord · flz · fortepiano ·
+  cuivre` · note lengths from `Composer.sampleLen` (the tubas' measured one-shots) · the pitch presets (the VERT01 species, the
+  staccato window MIDI 30–65) · **the sound path: `MorphEmit.routeFor(lane, technique)` + `noteOn(route, key, vel)` — a PLAIN
+  velocity (`recVel`; `level 0…10` → velocity; LIVE strikes at a fixed 95), NOT through 1b's remap.**
+- What this piece has in its place: **`StrikeDrawer.playNotes(notes, label)`** — the remap of 1c.2b, the bends of 1c.4, the seat's
+  curve channel of 1c.3; the sequence drawer's Hear already plays through it (`sequence_ui.js` head) · the strikes drawer's
+  ARTICULATION picker, each player's full roster grouped by kind, and its `ordinario` map.
+
+**The AI's proposal for step 1 (the chat has it in the plan's format):** eight lanes for ten · each player's own articulations,
+a default SHORT one proposed per player · every attack through the strikes drawer's player, so it is a STRUCK note under the
+dynamics law and `level` becomes a written dynamic · note lengths for this ensemble · the percussion on one struck instrument from
+its list (the first answer to "what does it strike") · Insert writing the strikes drawer's kind of struck note · one capture with no
+MIDI, then his listen.
+
+**The ONE question put to him — what step 1 plays as PITCH:** (A) a stand-in, each player on one fixed note, thrown away in step 2 ·
+(B) the TAKES menu moved up from step 2 into step 1 — it exists twice already (the sequence drawer, the morph's PITCHES pulldown),
+each player reading their own note AS ASSIGNED, so his first listen is in a real harmony. The AI leaned B: a unison cannot even be
+written across english horn, horn and double bass, so a stand-in tells his ear little, and B throws nothing away.
