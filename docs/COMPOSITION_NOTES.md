@@ -2131,3 +2131,17 @@ that column."* —
 > we'll deal with re-attack at the end. But that's going to be the same, same protections. But, but let's deal with that at another
 > time in another situation. I'm sending because I can't see. So just hold on to these, journal and hold on to these, and I'll respond
 > to the rest."*
+
+### LG-68 · 2026-09-21 — THE COLUMNS, THE REST OF HIS ANSWERS: a selected column MIRRORS the orchestration drawer — *"just as long as it's linked and there's recall as I click a different column"*; the answer is A
+
+His words, on the rest of the read-back (RUNNING_LOG §225), the AI's lines in italics:
+
+*"The drawer already has a tick beside every player, and the shuffle deals only to ticked rows. A column's circles and those ticks
+can be the same thing · select a column and the ticks show who is on in it · tick a player and the circle appears."* —
+
+> *"That's fine. We can try this. Uh, so I guess each column when selected will just be mirror the orchestration drawer. That's fine.
+> And I can do my selection and whatnot in the orchestration drawer and reshuffle, etc., and use the seeds. That, that will work just
+> as long as it's linked and there's recall as I click a different column. The rest of your suggestions are good for now. I'll just
+> have to see them in practice. And then the answer would be A."*
+
+*(A: every shuffle lands in the selected column at once — what he hears is what it holds.)*

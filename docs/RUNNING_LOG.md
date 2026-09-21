@@ -9230,3 +9230,31 @@ selected column at once · B — shuffle freely, `assign` when he likes one. (Th
 
 **Held:** he wrote *"I'm sending because I can't see … hold on to these, and I'll respond to the rest."* Nothing more was put to him;
 nothing is planned or built. The AI's A/B question is answered by 1 in effect, unconfirmed.
+
+## §225. The columns — his answers complete; BUILD 2 put to him as a list (2026-09-21)
+
+His words are COMPOSITION_NOTES LG-68. **The two sentences that settle the design:** *"each column when selected will just be mirror
+the orchestration drawer"* and *"just as long as it's linked and there's recall as I click a different column."* And **A**: every
+shuffle lands in the selected column at once.
+
+**The AI's reading, and the one architectural consequence.** A column IS a drawer state — the harmony picked, the deal (voicing ·
+order · orchestration · the seeds · the articulation set · the hand assignments) and the player ticks — plus which players are ON.
+The drawer ALREADY saves and recalls exactly that as a TAKE (`state()` · `applyState`, the machinery `long_tone_ui.js` and the takes
+menu ride on). So "linked and recall" is: select a column → `applyState(column.state)`; any change in the drawer → the selected
+column's state is written back (A). Nothing new inside `strike_drawer.js`; a mixin, as `texture_row.js` is. Several columns selected:
+one state applied to all, one deal copied into each — his rule of LG-67 (the same note) falls out of it.
+
+**BUILD 2 as put to him, seven lines:** (1) under every ON mark a COLUMN of eight rows — the seven pitched players and the vibraphone's
+second seat, lined up with the players list, a circle each, all off · (2) click a column below its mark to SELECT it, SHIFT+click adds
+more; the mark itself still toggles on / off · (3) a selected column MIRRORS the drawer — its harmony, deal, seeds and ticks load into
+the left side; every shuffle, seed, voicing, articulation or hand assignment writes back into it at once (A); several selected, the
+same deal into each · (4) the circles ARE the ticks — tick a player in the drawer, the circle lights; click a circle, the tick follows ·
+(5) the column preview: Hear and `♪ as dealt` play the selected column alone, as today · (6) the rhythm preview: SPACE plays the whole
+pattern with its pitches; a `claves` toggle in the bar keeps or drops the claves under it · (7) remembered with the pattern.
+
+**The AI's additions, "so nothing is missing":** a column is stored as a drawer TAKE plus who is on, so recall is the take machinery ·
+the first time a column is selected it starts from what the drawer holds NOW, so a deal carries from column to column · a newly ticked
+player holds no note until a shuffle or a hand assignment, as the drawer does today · a column with nobody on sounds in the rhythm
+preview only as claves, when the claves are on · unpitched percussion outside, at his word · **Insert is not in this build.**
+
+Not planned, not built: his answer to the list is next.
