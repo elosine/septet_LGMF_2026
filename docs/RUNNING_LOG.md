@@ -8729,3 +8729,16 @@ each carry their own bpm (`gallop` is two groups, 110 against 112) — but the p
 (ratios · BPM · length) making the lines, one line per ratio term; everything downstream of the lines unchanged: the take, the players, who
 plays each line (doubling, merging), the articulations, the dynamic, the rhythm take, the Rhythm panel. MT's engine gives the onsets only.
 Recommended over adapting the `MT` drawer itself, which would rebuild for a second panel what `1l.1` · `1l.2` built in Texture.
+
+## §209. Multitempo into Texture — his answer: BOTH, steady ratios first, accel / decel later; and a primer on the roll (2026-09-21)
+
+**His words:** *"both — steady ratios first, accel/decel later ; and a quick primer on the roll function"* — answering §208's one question
+(steady integer ratios as `MT` has them, or lines that also accelerate and decelerate, his LG-11). **Decided: both, in that order** — the
+steady ratios are the first build, accel / decel a later one. The understanding of §208 stands as read back; nothing yet in `docs/PLAN.md`.
+The planning method's phase 2 (the top line) is next, at his word.
+
+**The roll primer given** (the sequence drawer's `roll` line, piece #5's `time_containers.js`, the same line in the rhythm sequence panel):
+dice for box lengths — a pool of numbers drawn one after another until a span is full, one draw one box; `×` seconds per unit · `fill` the
+span, stopping short · `count` blank shows what the dials give, typed it solves `×` · `stick` the memory · `interrupt` the leaps · the contour,
+the accordion · `seed` · `roll` · `re-roll`. **Read from his screenshot:** `×` stood at **300 s per unit** with `fill` 60 s, so silver's 10 · 24 ·
+58 became 3000 · 7200 · 17400 s and none fits — which is why `count` showed a grey **0**. Told him; nothing changed.
