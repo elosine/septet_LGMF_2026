@@ -8412,3 +8412,49 @@ SAMPLE RING. That is the tubas' check reading this ensemble's physics truthfully
 models is his, by ear, later (the plan's *Not in this step*).
 
 **Not heard.** The in-app browser has no Web MIDI. `1l.1`'s last line is his listen in his Chrome.
+
+## §201. `1l.2` BUILT AND VERIFIED — the lines drawn in time, who plays each, doubling and merging with the check on one player, rhythm takes saved; his listen outstanding (2026-09-21)
+
+**The design as built (the AI's reading of `1l.2`, nothing asked — his word §199):**
+- **A LINE is one of the engine's players** (a group of three makes three lines). **WHO PLAYS a line is a set of the seven players,**
+  kept per line (`assign`); the default is Texture's own order, line k → player k, and lines past the seventh wrap round (merging). So the
+  engine renders up to **ten lines** again (its own limit: its humanize stage and `D17` are ten lanes wide); a model TAKEN UP is still fitted
+  to seven lines, one per player, so the default is one-to-one. The players dial may then raise the lines to ten.
+- **`dot_view.js`, THE DOT VIEW, built once** (a new file, one script tag in `composer.html`): rows of dots in time on a canvas, a small
+  timeline, a cursor, a click on the timeline reports a time, a click in a row reports the nearest dot (for `1l.6`), a selection band (for
+  `1l.4`), a fixed scale that scrolls with the cursor (for `1l.5`), and at the left an optional GRID of ticks. Each dot state has its own look:
+  ok · warn · hollow · muted · silent · dropped. It only draws and reports; the caller owns the data.
+- **In Texture:** the panel widens to the lines view (`lines ▾`, 860 px; `lines ▸` folds it back to 360). Every line a row, who plays it ticked
+  at the left; a tick DOUBLES (each player on their OWN note of the take) or MERGES (one player, several lines). `default` puts the order back.
+  A click on the timeline plays from there; a cursor runs during Play. The time origin is the pattern's first section start (the engine's
+  `t0`), so a time on the view is a time in the pattern — what a cut in `1l.4` will be measured in; Insert lands that origin on the playhead.
+- **THE COLLISION CHECK, per player only (LG-58):** every attack a player makes from every line they play, through the engine's own
+  `pairTier` — the D17 law of the tuba piece and `Composer.CONFLICT` (HARD = two attacks sounding at once · SOFT = closer than the minimum
+  gap, the leap counted), **the tuba's values kept at his word**. A pair is drawn in the warning colour and counted (*"too close on Hn ×26"*),
+  never moved or dropped. Different players are never compared.
+- **RHYTHM TAKES:** a third store, `rhythms` → `bank/rhythm_takes.json` (`score/snapshots.js`; `test_snapshots` **26 → 27**: the store,
+  its file name refused as a key, exactly three stores). A take is the RECIPE — the whole spec (dials, seed, sections, curves), who plays, the
+  articulations — saved by name from the panel, recalled from a list, deleted by name. No harmony in it: a rhythm take has none.
+  **His running server keeps the module it started with: `node score/server.js` must be RESTARTED before his first save**, or the save says
+  *"unknown store — restart"*.
+
+**THE REQUIRED VERIFICATION** (`score-5401`, restarted for the new store; no MIDI, every `send` captured; the take
+`Blm01c-wVibes-Just-A1-seed131mod`, the model `rain`, 7 lines × 25–26 dots over 14.1 s):
+- **A DOUBLED line sounds on both players at the same instants, each on their own pitch:** L1 ticked for the english horn AND the cello (L6
+  unticked) → english horn **26 notes, B4, vel 93** · cello **26 notes, A2, vel 89** · the same instants to **0 ms**. (First tried with the
+  bassoon, which in this take holds the english horn's own B4 — right instants, but it could not show "own pitch", so the cello was used.)
+- **A MERGED column sounds on one player:** L2 moved to the horn, which also plays L3 → LGHorn ch 15 **52 notes** = L2 ∪ L3, within 10 ms
+  (browser timers); the bassoon, left with nothing, sent nothing; the view drew all 26 pairs of the horn in the warning colour — adjacent
+  lines of a 7-player smear sit 0.078 s apart, under the tuba's 0.11 s.
+- **Save → reload → recall gives the same dots:** seed 17 and scatter 0.3 set, saved as a take; the page RELOADED; `groove` loaded and who-plays
+  reset (the dots differed); the take recalled → **the same dots and states, the same who-plays, the same spec,** byte for byte. The test take
+  was deleted through the panel and the empty `bank/rhythm_takes.json` it had created removed.
+- **The batteries:** palette **184** · sequence **180** · dyn table **51** · snapshots **27** · spectrum **35** · written pitch **10** + control
+  · ceilings green · model bank VALID · the engine identity check **48 renders** identical.
+
+**Found on the way and fixed:** the status line and a saved take's label named the params file's VARIANT (G) while a model was loaded — one
+helper, `labelOf`, now uses the variant's label only while the spec IS that variant's, else the spec's name and its dials. *(And a
+console line that looked like the preflight failing again was the previous page's — the console keeps its history across a reload; a marker
+showed the fresh preflight passing.)*
+
+**Not heard.** His listen, in his Chrome, after restarting the server.

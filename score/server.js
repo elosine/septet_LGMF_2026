@@ -607,6 +607,7 @@ const server = http.createServer((req, res) => {
     // writes, stored verbatim, so a new panel needs no server edit. All the
     // merge rules (and their whys) live in score/snapshots.js, pinned by
     // tools/test_snapshots.js.
+    // LGMF PLAN 1l.2: a THIRD, `rhythms` (bank/rhythm_takes.json, Texture's rhythm takes) — the table is score/snapshots.js STORES.
     // PLAN 1d.11 — TWO STORES, and the client may name only these two. `store` is a KEY into
     // this table, never a path: a client that could name a file could name any file. Absent =
     // `panels`, so everything written before 1d.11 keeps working untouched. The sequence

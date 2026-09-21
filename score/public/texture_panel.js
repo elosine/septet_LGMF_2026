@@ -57,6 +57,9 @@ const ART_DEFAULT = { english_horn: 'stac_vel', bassoon: 'staccato', horn: 'stac
 const CLAVES = { tech: 'toys_claves', midi: 41, name: 'claves · pair 2 high' };
 const PERC = 'percussion', VIB = 'bowed_vibraphone';
 const STORE = 'septet.texture.lgmf.v1';        // the chosen take and the articulations — this browser's convenience only
+const RHYTHM_PANEL = 'rhythm';                 // 1l.2: the bucket in bank/rhythm_takes.json (the `rhythms` store)
+const RHYTHM_NAME = /^[A-Za-z0-9._ -]{1,64}$/; // the server's name rule (score/snapshots.js), checked here first
+const MAX_LINES = 10;                          // 1l.2: the engine's own limit (its humanize stage and D17 are ten lanes wide)
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const nn = m => NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const escH = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -82,6 +85,9 @@ const PANEL = {
     pinned: null, abSide: 'cur', humanized: false, timing: null,
     // 1l.1: the harmony take (dealt once, frozen: { name, chord, at }), each player's articulation by instKey, the takes menu
     take: null, arts: {}, _takeMenu: null, _pvTake: null, _fitNote: '',
+    // 1l.2: WHO PLAYS EACH LINE — per line, the player slots that play it (null = the default, line k → player k); the lines view;
+    // the rhythm takes (bank/rhythm_takes.json) and the one in hand; the cursor
+    assign: null, linesOpen: true, view: null, rhythmName: '', rhythms: {}, _curT: null, _lines: null,
     // LIVE mode (PLAN 2ag): a streaming scheduler the composer drives in real
     // time. `data` mirrors the params file's `live` block; box edits are
     // ephemeral until the AI writes them back into the file.
@@ -111,10 +117,13 @@ const PANEL = {
             const s = JSON.parse(localStorage.getItem(STORE) || 'null');
             if (s && s.arts && typeof s.arts === 'object') this.arts = s.arts;
             if (s && s.take && s.take.name && Array.isArray(s.take.chord)) this.take = s.take;
+            if (s && Array.isArray(s.assign)) this.assign = s.assign;                 // 1l.2
+            if (s && typeof s.linesOpen === 'boolean') this.linesOpen = s.linesOpen;
+            if (s && typeof s.rhythmName === 'string') this.rhythmName = s.rhythmName;
         } catch (e) {}
     },
     persist() {
-        try { localStorage.setItem(STORE, JSON.stringify({ arts: this.arts, take: this.take })); } catch (e) {}
+        try { localStorage.setItem(STORE, JSON.stringify({ arts: this.arts, take: this.take, assign: this.assign, linesOpen: this.linesOpen, rhythmName: this.rhythmName })); } catch (e) {}
     },
 
     build() {
@@ -144,6 +153,21 @@ const PANEL = {
             ' title="the harmony: each player plays their own note(s) of this take, as assigned — the list has a ▸ beside every take to HEAR this texture on it without choosing it">',
             '— choose a harmony take — ▾</button></div>',
             '<div id="texPlayers" style="margin-bottom:8px"></div>',
+            // 1l.2 — THE LINES, drawn in time, with WHO PLAYS each at the left (the dot view, dot_view.js)
+            '<div style="display:flex;gap:6px;align-items:center;color:#8fd6ab;border-top:1px solid #3a3a44;padding-top:5px;margin-bottom:4px">',
+            '<button id="texLinesTog" style="font-size:10px;padding:0 5px">lines ▾</button>',
+            '<span id="texLinesInfo" style="flex:1;color:#9a9;font-weight:400"></span>',
+            '<button id="texAssignReset" style="font-size:10px;padding:0 5px" title="who plays: back to Texture\'s own order — top line to the first player, and so on">default</button>',
+            '</div>',
+            '<div id="texLines" style="margin-bottom:8px"></div>',
+            // 1l.2 — RHYTHM TAKES: the recipe (the dials, the seed, who plays, the articulations) saved by name; recall from the list
+            '<div style="display:flex;gap:5px;align-items:center;margin-bottom:8px">',
+            '<span style="color:#9a9">rhythm take</span>',
+            '<input id="texRtName" type="text" spellcheck="false" placeholder="name" style="width:120px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px">',
+            '<button id="texRtSave" title="save the pattern as a RHYTHM TAKE — the dials, the seed, who plays, the articulations (bank/rhythm_takes.json)">save</button>',
+            '<select id="texRtSel" style="flex:1;min-width:0;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px"><option value="">recall…</option></select>',
+            '<button id="texRtDel" title="delete the rhythm take named in the box">×</button>',
+            '</div>',
             '<div id="texTabs" style="margin-bottom:6px"></div>',
             '<div id="texModels" style="margin-bottom:8px"></div>',
             '<div id="texFields" style="max-height:250px;overflow:auto;margin-bottom:8px"></div>',
@@ -265,6 +289,20 @@ const PANEL = {
             this.humanized = false;
             if (this.spec) this.renderSpec(this.spec);
         });
+        // 1l.2: the lines view — who plays is ticked in its grid; a click on its timeline plays from there
+        if (root.DotView) {
+            this.view = root.DotView.create(d.querySelector('#texLines'));
+            this.view.onToggle = (line, slot, on) => this.toggleAssign(line, slot, on);
+            this.view.onSeek = t => this.play(null, t);
+        }
+        d.querySelector('#texLinesTog').addEventListener('click', () => { this.linesOpen = !this.linesOpen; this.persist(); this.applyWidth(); this.drawLines(); });
+        d.querySelector('#texAssignReset').addEventListener('click', () => { this.assign = null; this.persist(); this.humanized = false; if (this.spec) this.renderSpec(this.spec); });
+        // 1l.2: rhythm takes
+        d.querySelector('#texRtSave').addEventListener('click', () => this.saveRhythm(d.querySelector('#texRtName').value.trim()));
+        d.querySelector('#texRtSel').addEventListener('change', e => { const n = e.target.value; e.target.value = ''; if (n) this.recallRhythm(n); });
+        d.querySelector('#texRtDel').addEventListener('click', () => this.deleteRhythm(d.querySelector('#texRtName').value.trim()));
+        d.querySelector('#texRtName').value = this.rhythmName || '';
+        this.applyWidth();
         d.querySelector('#texMorphGo').addEventListener('click', () => this.morphTo());
         d.querySelector('#texLvGo').addEventListener('click', () => this.lvPlay());
         d.querySelector('#texLvRun').addEventListener('click', () => this.lvRun());
@@ -332,6 +370,7 @@ const PANEL = {
             const b = d.querySelector('#texPlay');
             if (b) b.textContent = 'Play';
             if (this._pvTake) { this._pvTake = null; this.paintTakeMenu(); }   // 1l.1: a take's ▸ preview ended
+            this.stopCursor();                                                   // 1l.2: the lines view's cursor
             // ONE stop path: any panic (main Play, Morph, ours) also lands the
             // live stream. lvStop flips `playing` before its own panic, so this
             // cannot recurse.
@@ -387,6 +426,7 @@ const PANEL = {
             // and the panel never refreshed (found verifying 1l.1). Wait for it instead.
             const C = HOST();
             if (C && !C.sampleLen && typeof C.loadSampleLengths === 'function') { try { await C.loadSampleLengths(); } catch (e) {} }
+            this.refreshRhythms();                                              // 1l.2: the rhythm takes' list
             const bad = this.preflight();
             this.el.focus();
             if (bad.length) { this.setStatus('PREFLIGHT: ' + bad.join(' · '), true); return; }
@@ -488,38 +528,206 @@ const PANEL = {
         const tech = this.artOf(p);
         return mine.map(n => ({ midi: Math.round(+n.midi), cents: +(+n.cents || 0).toFixed(2), tech, partial: n.partial != null ? n.partial : null }));
     },
-    // the engine's opt-in (texture_engine.js `laneVoice`): the player's own pitch — their lowest note; a two-note player is expanded
-    // after the render — and articulation, so the ring and the badge are the real ones. A player given nothing keeps the rhythm's
-    // place: their attacks are made and then left out as SILENT, so nobody else's rhythm moves.
-    laneVoice(slot) {
-        const p = P7()[slot]; if (!p) return null;
-        const ns = this.playerNotes(p);
-        return { pitch: ns.length ? ns[0].midi : null, tech: ns.length ? ns[0].tech : this.artOf(p) };
+    // ------------------------------------------- 1l.2: WHO PLAYS EACH LINE
+    // A LINE is one of the engine's players (a group of three makes three lines). WHO PLAYS it is a set of the seven players —
+    // many-to-many (LG-57): two ticks in one row DOUBLE the line, each player on their OWN note; several ticks in one column MERGE
+    // lines onto one player. The default is Texture's own order: line k → player k (lines past the seventh wrap round, merging).
+    assignOf(line) {
+        const a = this.assign && this.assign[line];
+        return Array.isArray(a) ? a.filter(s => s >= 0 && s < P7().length) : [line % P7().length];
     },
-    // THE ONE TRANSLATION, for Play and Insert alike: every rendered attack → the note(s) its player sounds, in the strikes drawer's
-    // note form ({ lane, tech, midi, vel = the ANCHOR of its written dynamic, onMs, durMs, cents, partial }) plus its times
+    toggleAssign(line, slot, on) {
+        const n = Math.max(line + 1, (this.assign || []).length, this.lineCount());
+        const a = [];
+        for (let k = 0; k < n; k++) a.push(this.assignOf(k).slice());
+        const set = new Set(a[line]);
+        if (on) set.add(slot); else set.delete(slot);
+        a[line] = [...set].sort((x, y) => x - y);
+        this.assign = a;
+        this.persist();
+        this.humanized = false;
+        if (this.spec) this.renderSpec(this.spec);
+    },
+    lineCount() {
+        const objs = ((this.result && this.result.objects) || []).filter(o => o.type === 'waveCurve');
+        return objs.length ? Math.max.apply(null, objs.map(o => o.layer)) + 1 : 0;
+    },
+    // the engine's opt-in (texture_engine.js `laneVoice`): a LINE's pitch and articulation — its first player who has a note (a
+    // two-note player, a doubled line: all of them are expanded after the render) — so the ring and the badge are the real ones.
+    // A line nobody plays, or whose players the take gives nothing, keeps its place: its attacks are made and left out, so nobody
+    // else's rhythm moves.
+    laneVoice(line) {
+        const ps = this.assignOf(line).map(s => P7()[s]).filter(Boolean);
+        for (const p of ps) { const ns = this.playerNotes(p); if (ns.length) return { pitch: ns[0].midi, tech: ns[0].tech }; }
+        return ps.length ? { pitch: null, tech: this.artOf(ps[0]) } : null;
+    },
+    // the time origin of a render: its first section's start (the engine's t0), so the lead-in before a first attack is kept and a
+    // time on the lines view is a time in the pattern — what a cut (1l.4) is measured in
+    originOf(result) { return (result && result.spec && result.spec.t0 != null) ? result.spec.t0 : 2; },
+    spanOf(result) {
+        const o = this.originOf(result);
+        let end = o;
+        ((result && result.report) || []).forEach(r => { end = Math.max(end, r.t0 + (r.sec && r.sec.dur || 0)); });
+        ((result && result.objects) || []).forEach(x => { if (x.type === 'waveCurve') end = Math.max(end, x.endSeconds); });
+        return Math.max(0.001, end - o);
+    },
+    // THE ONE TRANSLATION, for Play, Insert and the lines view alike: every rendered attack → the note(s) its players sound, in the
+    // strikes drawer's note form ({ lane, tech, midi, vel = the ANCHOR of its written dynamic, onMs, durMs, cents, partial }) plus its
+    // times (`t` from the origin) and where it came from (`line`, `i` — the dot's number in its line)
     notesOf(result, chord) {
-        const P = P7(), out = [], silent = {}, stray = {}, cache = {};
+        const P = P7(), out = [], silent = {}, unplayed = {}, cache = {};
         const objs = ((result && result.objects) || []).filter(o => o.type === 'waveCurve');
-        if (!objs.length) return { notes: out, silent, stray, t0: 0 };
-        const t0 = Math.min.apply(null, objs.map(o => o.startSeconds));
-        objs.forEach(o => {
-            const p = P[o.layer];
-            if (!p) { stray[o.layer] = (stray[o.layer] || 0) + 1; return; }
-            const ns = cache[p.slot] || (cache[p.slot] = this.playerNotes(p, chord));
-            if (!ns.length) { silent[p.short] = (silent[p.short] || 0) + 1; return; }
+        const origin = this.originOf(result);
+        if (!objs.length) return { notes: out, silent, unplayed, origin, lines: [] };
+        const lines = [];
+        objs.slice().sort((a, b) => a.startSeconds - b.startSeconds || a.layer - b.layer).forEach(o => {
+            const L = o.layer, row = lines[L] || (lines[L] = []), i = row.length;
             const lv = (o.nodes && o.nodes[0]) ? o.nodes[0].y : 7.5;
-            ns.forEach(n => out.push({
-                lane: p.lane, tech: n.tech, midi: n.midi, vel: anchorOfLevel(lv), cents: n.cents || 0, partial: n.partial,
-                onMs: Math.round((o.startSeconds - t0) * 1000), durMs: Math.max(20, Math.round((o.endSeconds - o.startSeconds) * 1000)),
-                start: o.startSeconds, end: o.endSeconds, dyn: nameOfLevel(lv),
-            }));
+            const dot = { line: L, i, t: +(o.startSeconds - origin).toFixed(4), dur: o.endSeconds - o.startSeconds, level: lv, players: [], hollow: true };
+            row.push(dot);
+            const ps = this.assignOf(L).map(s => P[s]).filter(Boolean);
+            if (!ps.length) { unplayed['L' + (L + 1)] = (unplayed['L' + (L + 1)] || 0) + 1; return; }
+            ps.forEach(p => {
+                const ns = cache[p.slot] || (cache[p.slot] = this.playerNotes(p, chord));
+                if (!ns.length) { silent[p.short] = (silent[p.short] || 0) + 1; return; }
+                dot.hollow = false; dot.players.push(p.slot);
+                ns.forEach(n => out.push({
+                    lane: p.lane, slot: p.slot, tech: n.tech, midi: n.midi, vel: anchorOfLevel(lv), cents: n.cents || 0, partial: n.partial,
+                    onMs: Math.round(dot.t * 1000), durMs: Math.max(20, Math.round(dot.dur * 1000)),
+                    start: o.startSeconds, end: o.endSeconds, t: dot.t, dyn: nameOfLevel(lv), line: L, i,
+                }));
+            });
         });
-        return { notes: out, silent, stray, t0 };
+        return { notes: out, silent, unplayed, origin, lines };
+    },
+    // THE COLLISION CHECK, on ONE PLAYER at a time (LG-58): the D17 law the tuba piece used and Composer.CONFLICT still uses (texture
+    // engine `pairTier` — HARD = two attacks sounding at once, SOFT = too close to re-articulate, the leap counted), over every attack
+    // that player makes from every line they play. A pair is FLAGGED — both dots drawn in the warning colour — never moved or dropped
+    // (his to mute, 1l.6). Different players are never checked against each other. The minimum gap stays the tuba's, at his word.
+    collisions(lines) {
+        const byPlayer = {};
+        lines.forEach(row => (row || []).forEach(d => d.players.forEach(s => (byPlayer[s] || (byPlayer[s] = [])).push(d))));
+        const flagged = new Set(), per = {};
+        Object.keys(byPlayer).forEach(s => {
+            const p = P7()[+s], first = this.playerNotes(p)[0];
+            const ev = byPlayer[s].map(d => ({ d, startSeconds: d.t, endSeconds: d.t + d.dur, sonifyNote: first ? first.midi : 60 }))
+                .sort((a, b) => a.startSeconds - b.startSeconds || a.d.line - b.d.line);
+            for (let a = 0; a < ev.length; a++) {
+                for (let b = a + 1; b < ev.length; b++) {
+                    if (ev[b].startSeconds - ev[a].endSeconds > TX.D17.WINDOW) break;
+                    if (TX.pairTier(ev[a], ev[b]) === 'free') continue;
+                    flagged.add(ev[a].d.line + ':' + ev[a].d.i); flagged.add(ev[b].d.line + ':' + ev[b].d.i);
+                    per[p.short] = (per[p.short] || 0) + 1;
+                }
+            }
+        });
+        return { flagged, per };
     },
     silentText(b) {
-        const s = Object.keys(b.silent || {});
-        return s.length ? 'SILENT — no note in the take: ' + s.join(' · ') : '';
+        const s = Object.keys(b.silent || {}), u = Object.keys(b.unplayed || {});
+        return [s.length ? 'SILENT — no note in the take: ' + s.join(' · ') : '', u.length ? 'no player: ' + u.join(' · ') : ''].filter(Boolean).join(' · ');
+    },
+
+    // THE LINES VIEW — every line a row of dots in time, who plays it ticked at the left; a click on the timeline plays from there
+    applyWidth() {
+        if (!this.el) return;
+        this.el.style.width = this.linesOpen ? 'min(860px, calc(100vw - 40px))' : '360px';
+        const box = this.el.querySelector('#texLines'); if (box) box.style.display = this.linesOpen ? '' : 'none';
+        const tog = this.el.querySelector('#texLinesTog'); if (tog) tog.textContent = this.linesOpen ? 'lines ▾' : 'lines ▸';
+    },
+    drawLines() {
+        const info = this.el && this.el.querySelector('#texLinesInfo');
+        if (!this.result) return;
+        const b = this.notesOf(this.result, this.take ? this.take.chord : null), col = this.collisions(b.lines);
+        const P = P7(), span = this.spanOf(this.result);
+        const rows = b.lines.map((row, L) => ({
+            label: 'L' + (L + 1),
+            dots: (row || []).map(d => ({ t: d.t, s: !this.assignOf(L).length ? 'silent' : d.hollow ? 'hollow' : col.flagged.has(L + ':' + d.i) ? 'warn' : 'ok' })),
+        }));
+        this._lines = { b, col, span };
+        const per = Object.keys(col.per);
+        if (info) info.innerHTML = b.lines.length + ' line' + (b.lines.length === 1 ? '' : 's') + ' · ' + span.toFixed(1) + ' s' +
+            (per.length ? ' · <span style="color:#e0b062">too close on ' + per.map(k => escH(k) + ' ×' + col.per[k]).join(' · ') + '</span>' : ' · <span style="color:#6a6">no player too close</span>');
+        if (!this.view || !this.linesOpen) return;
+        this.view.set({
+            rows, t0: 0, t1: span,
+            grid: { heads: P.map(p => p.short), on: L => new Set(this.assignOf(L)), title: (L, c) => 'L' + (L + 1) + ' played by ' + P[c].label },
+        });
+    },
+    startCursor(from) {
+        this.stopCursor();
+        const D = SD(); if (!D || !this.view) return;
+        this._curT = setInterval(() => {
+            if (!E.isPlaying()) { this.stopCursor(); return; }
+            this.view.setCursor(Math.max(from, from + (performance.now() - D.base) / 1000));
+        }, 50);
+    },
+    stopCursor() {
+        if (this._curT) { clearInterval(this._curT); this._curT = null; }
+        if (this.view && this.view.cursor != null) this.view.setCursor(null);
+    },
+
+    // ------------------------------------------- 1l.2: RHYTHM TAKES — the recipe saved by name (bank/rhythm_takes.json)
+    // A take is the RECIPE — the dials and the seed (the whole spec), who plays, the articulations — never the notes: the engine draws
+    // nothing at random, so the same recipe always gives the same dots, which is what lets a touched dot be found again (1l.6).
+    // A store of its own (`rhythms`, score/snapshots.js), as the sequence library has one: a rhythm save never rewrites his harmony takes.
+    rhythmState() {
+        return { v: 1, spec: JSON.parse(JSON.stringify(this.spec)), assign: this.assign ? JSON.parse(JSON.stringify(this.assign)) : null,
+                 arts: Object.assign({}, this.arts), variant: this.active, label: this.labelOf(this.spec) };
+    },
+    async refreshRhythms() {
+        try {
+            const f = await fetch('/api/snapshots?store=rhythms', { cache: 'no-store' }).then(r => r.json());
+            this.rhythms = (f && f.panels && f.panels[RHYTHM_PANEL]) || {};
+        } catch (e) { this.rhythms = {}; }
+        this.fillRhythms();
+    },
+    fillRhythms() {
+        const sel = this.el && this.el.querySelector('#texRtSel'); if (!sel) return;
+        const names = Object.keys(this.rhythms).sort((a, b) => String(this.rhythms[b].saved || '').localeCompare(String(this.rhythms[a].saved || '')));
+        sel.innerHTML = '<option value="">recall… (' + names.length + ')</option>' + names.map(n => '<option value="' + escH(n) + '">' + escH(n) + '</option>').join('');
+    },
+    async postRhythm(body) {
+        const r = await fetch('/api/snapshots', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.assign({ store: 'rhythms', panel: RHYTHM_PANEL }, body)) });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.success) throw new Error(j.error || ('HTTP ' + r.status) + (j.error === 'unknown store' ? ' — restart node score/server.js (the rhythms store is new)' : ''));
+        return j;
+    },
+    async saveRhythm(name) {
+        if (!this.spec) { this.setStatus('nothing to save — generate a texture first', true); return; }
+        if (!RHYTHM_NAME.test(name || '')) { this.setStatus('a rhythm take needs a name: 1–64 letters, digits, dot, underscore, space or hyphen', true); return; }
+        try {
+            const r = await this.postRhythm({ name, comment: this.rhythmState().label, state: this.rhythmState() });
+            this.rhythmName = name; this.persist();
+            await this.refreshRhythms();
+            this.setStatus('rhythm take ' + (r.existed ? 'REPLACED' : 'saved') + ': "' + name + '" · ' + r.panels + ' in bank/rhythm_takes.json');
+        } catch (e) { this.setStatus('rhythm take not saved: ' + e.message, true); }
+    },
+    async recallRhythm(name) {
+        if (!this.rhythms[name]) await this.refreshRhythms();
+        const t = this.rhythms[name], s = t && t.state;
+        if (!s || !s.spec) { this.setStatus('no rhythm take named "' + name + '"', true); return; }
+        this.spec = JSON.parse(JSON.stringify(s.spec));
+        this.assign = Array.isArray(s.assign) ? JSON.parse(JSON.stringify(s.assign)) : null;
+        if (s.arts && typeof s.arts === 'object') this.arts = Object.assign({}, s.arts);
+        this._fieldStamp = this.active + '@' + this.rev;   // the fields drawn from the recalled spec ARE its dials
+        this._fitNote = '';
+        this.humanized = false;
+        this.rhythmName = name; this.persist();
+        const nb = this.el.querySelector('#texRtName'); if (nb) nb.value = name;
+        this.renderSpec(this.spec);
+        this.setStatus('rhythm take recalled: "' + name + '" — ' + (s.label || ''), false);
+    },
+    async deleteRhythm(name) {
+        if (!name) { this.setStatus('type the name of the rhythm take to delete', true); return; }
+        if (!window.confirm('Delete the rhythm take "' + name + '"?')) return;
+        try {
+            const r = await this.postRhythm({ name, delete: true });
+            if (this.rhythmName === name) { this.rhythmName = ''; this.persist(); }
+            await this.refreshRhythms();
+            this.setStatus(r.existed ? 'rhythm take deleted: "' + name + '" · ' + r.panels + ' left' : 'no rhythm take named "' + name + '" — nothing deleted', !r.existed);
+        } catch (e) { this.setStatus('not deleted: ' + e.message, true); }
     },
 
     // THE PLAYERS STRIP: each player's articulation (their own roster; his default marked ·) and the note(s) the take gives them
@@ -656,25 +864,29 @@ const PANEL = {
         // rewriting the params file, resets to what the file actually says.
         const stamp = this.active + '@' + this.rev;
         const fresh = !(this._fieldStamp === stamp && this.spec);
-        if (fresh) this._fitNote = '';     // 1l.1: a spec newly taken from the file says afresh what fitting it changed
+        // 1l.1 · 1l.2: a spec newly taken from the file is fitted to the ensemble, and says what fitting it changed
         const merged = !fresh
             ? this.readFields()
-            : JSON.parse(JSON.stringify(p.spec));
+            : this.adopt(JSON.parse(JSON.stringify(p.spec)));
         this._fieldStamp = stamp;
         this.spec = merged;
         this.renderSpec(merged);
     },
 
+    // 1l.2: a spec TAKEN UP (from the params file, or a model) is fitted to the ensemble — seven lines, one per player, by default.
+    // After that the players dial may raise the lines to ten (the engine's limit); who plays each is the lines view's grid.
+    adopt(spec) {
+        this._fitNote = this.fitSpec(spec);
+        return spec;
+    },
     renderSpec(spec) {
-        const fit = this.fitSpec(spec);
-        if (fit) this._fitNote = fit;      // kept until another spec is taken up: a re-render of a fitted spec changes nothing
         try {
             this.result = TX.render(spec, {
-                maxLanes: P7().length,                               // 1l.1: seven player slots, P7() maps them to lanes
+                maxLanes: MAX_LINES,                                 // 1l.2: the LINES; who plays each is assignOf()
                 sampleLengths: (HOST() && HOST().sampleLen) || null, // this piece's bank/sample_lengths.json — this ensemble's one-shots
                 tonality: root.Tonality || null,
                 humanize: this.humanized ? this.humanizeSettings() : null,
-                laneVoice: slot => this.laneVoice(slot),             // 1l.1: each player's own pitch and articulation (the engine's opt-in)
+                laneVoice: line => this.laneVoice(line),             // 1l.1: each line's own pitch and articulation (the engine's opt-in)
             });
         } catch (e) {
             this.setStatus('render failed: ' + e.message, true);
@@ -712,6 +924,12 @@ const PANEL = {
     // R9 — every render is self-describing. If a variant carries no label, one is
     // composed from the dials that actually moved, in plain language, so a render
     // is never anonymous and the numbers stay learnable (§6's two-sided contract).
+    // 1l.2: the variant's own label only while the spec IS that variant's; a model, a morph or a recalled rhythm take is described by
+    // its name and its dials (the label named variant G while `smear` was loaded — found verifying 1l.2)
+    labelOf(spec) {
+        const p = this.current() || {};
+        return (p.label && p.spec && spec && p.spec.name === spec.name) ? p.label : ((spec && spec.name ? spec.name + ' · ' : '') + this.autoLabel(spec));
+    },
     autoLabel(spec) {
         const v = ((spec.sections || [])[0] || {}).voices || [];
         if (!v.length) return spec.name || 'texture';
@@ -733,7 +951,7 @@ const PANEL = {
         const p = this.current() || {};
         const dens = r.report.reduce((a, s) => a + s.lines.reduce((x, l) => x + l.composite, 0), 0)
                      / Math.max(1, r.report.length);
-        const label = p.label || this.autoLabel(spec);
+        const label = this.labelOf(spec);
         // THE CEILING FOLLOWS THE PITCH SET, it is not the flat 23/s. That figure
         // is C3-specific — the whole research arc ran on one C3, which is among
         // the SHORTEST staccato samples — so a texture given real pitches has a
@@ -760,6 +978,7 @@ const PANEL = {
             (this._fitNote ? '<br><span style="color:#9ab">' + escH(this._fitNote) + '</span>' : ''),
             false, true);
         this.drawPlayers();
+        this.drawLines();                  // 1l.2
 
         // ---- variant tabs
         const tabs = this.el.querySelector('#texTabs');
@@ -787,12 +1006,11 @@ const PANEL = {
             b.title = store[name].heard || name;
             b.style.cssText = 'margin-right:3px;font-size:10px;padding:1px 5px';
             b.addEventListener('click', () => {
-                this.spec = JSON.parse(JSON.stringify(store[name].spec));
+                this.spec = this.adopt(JSON.parse(JSON.stringify(store[name].spec)));   // 1l.2: fitted to the ensemble as it is taken up
                 // the model IS the truth now, not the fields — and the fields drawn from it ARE its dials. LGMF 1l.1 (2026-09-21):
                 // this was `null`, so the next nudge failed the stamp test in generate() and silently reloaded the FILE's variant,
                 // throwing the model away (found verifying 1l.1: a `dyn` change after `smear` came back as variant G). Stamp it.
                 this._fieldStamp = this.active + '@' + this.rev;
-                this._fitNote = '';
                 this.humanized = false;
                 this.renderSpec(this.spec);
             });
@@ -859,7 +1077,7 @@ const PANEL = {
                                      : 'group ' + (gi + 1) +
                                        ((sec.voices.length > 1) ? '' : ' — the dials'));
                 row('players', base + 'players', g.players != null ? g.players : (g.lanes || []).length,
-                    1, [1, P7().length]);                                  // 1l.1: this ensemble's seven
+                    1, [1, MAX_LINES]);                                    // 1l.2: the LINES (up to the engine's ten); who plays each: the lines view
                 row('bpm (per player)', base + 'bpm', g.bpm, 1);
                 row('scatter 0…1', base + 'scatter', g.scatter || 0, 0.05, TX.RAILS.scatter);
                 row('jitter (ms)', base + 'jitterMs', g.jitterMs || 0, 5, TX.RAILS.jitterMs);
@@ -964,21 +1182,23 @@ const PANEL = {
     // just pitch bent by its cents, on MAIN; the seat and the route as the drawer resolves them. Before this, Texture sent a plain
     // velocity (level / 10 × 127) with CC7 pinned at 127 straight to the rack, bypassing the remap (§189). The drawer's `panic`
     // is the one stop path, as it was (`E.onStop` resets the Play button). The browser-timer drift meter went with the old loop.
-    async play(which) {
+    async play(which, from) {
         const src = (which === 'pin' && this.pinned) ? this.pinned : { result: this.result, tag: 'current' };
         if (!src.result) { this.generate(); src.result = this.result; }
         if (!src.result) return;
         if (!this.take) { this.setStatus('choose a harmony take first — the take button at the top: each player plays their own note of it', true); return; }
-        await this.playResult(src.result, this.take.chord, src.tag + ' · take "' + this.take.name + '"');
+        await this.playResult(src.result, this.take.chord, src.tag + ' · take "' + this.take.name + '"', from);
     },
-    async playResult(result, chord, tag) {
+    // `from` (seconds on the lines view, 1l.2): play from that point — the notes before it are left out and the rest keep their times
+    async playResult(result, chord, tag, from) {
         const D = SD();
         if (!D || typeof D.playNotes !== 'function') { this.setStatus('the strikes drawer is not on this page — its player is the one sound path', true); return false; }
-        const b = this.notesOf(result, chord);
-        if (!b.notes.length) { this.setStatus('nothing to play — ' + (this.silentText(b) || 'no attacks'), true); return false; }
+        const b = this.notesOf(result, chord), t0 = Math.max(0, +from || 0);
+        const notes = t0 > 0 ? b.notes.filter(n => n.t >= t0 - 1e-6).map(n => Object.assign({}, n, { onMs: Math.round((n.t - t0) * 1000) })) : b.notes;
+        if (!notes.length) { this.setStatus('nothing to play' + (t0 > 0 ? ' after ' + t0.toFixed(2) + ' s' : '') + ' — ' + (this.silentText(b) || 'no attacks'), true); return false; }
         const btn = this.el.querySelector('#texPlay');
         btn.textContent = 'starting…';
-        await D.playNotes(b.notes, 'texture · ' + tag);
+        await D.playNotes(notes, 'texture · ' + tag);
         if (!E.isPlaying()) {
             btn.textContent = 'Play';
             const why = D.el && D.el.querySelector('#skStatus');
@@ -986,8 +1206,9 @@ const PANEL = {
             return false;
         }
         btn.textContent = 'Playing…';
+        this.startCursor(t0);
         const s = this.silentText(b);
-        this.setStatus('playing ' + b.notes.length + ' notes · ' + tag + (s ? ' · ' + s : ''));
+        this.setStatus('playing ' + notes.length + ' notes' + (t0 > 0 ? ' from ' + t0.toFixed(2) + ' s' : '') + ' · ' + tag + (s ? ' · ' + s : ''));
         return true;
     },
 
@@ -1056,7 +1277,7 @@ const PANEL = {
             result: this.result,
             tag: (this.humanized ? 'H · ' : '') + this.active + ' seed ' +
                  ((this.spec && this.spec.seed) != null ? this.spec.seed : '?'),
-            label: p.label || this.autoLabel(this.spec),
+            label: this.labelOf(this.spec),
         };
         this.abSide = 'cur';
         this.draw(this.spec);
@@ -1119,10 +1340,9 @@ const PANEL = {
         while (C.objects.some(o => o.groupId === 'grp-tex-' + String(seq).padStart(2, '0'))) seq++;
         const gid = 'grp-tex-' + String(seq).padStart(2, '0');
         if (typeof C.pushUndoState === 'function') C.pushUndoState();
-        const label = p.label || this.autoLabel(this.spec);
+        const label = this.labelOf(this.spec);
         const markers = this.result.objects.filter(o => o.type === 'marker');
-        const first = Math.min.apply(null, [b.t0].concat(markers.map(m => m.time)));
-        const shift = at - first;
+        const shift = at - b.origin;       // 1l.2: the pattern's origin lands on the playhead — a time on the lines view is a time after it
         const starts = [];
         let maxEnd = at;
         b.notes.forEach(n => {

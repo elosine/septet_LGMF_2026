@@ -1565,7 +1565,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       listen, in his Chrome.**
     - *Not in this step:* re-tuning the five models (made for ten tubas — his, by ear, later) · the re-articulation values (`1l.2`) ·
       LIVE comes along if the one sound path carries it, else it is parked in NITS.
-  - **1l.2 — Texture: who plays each line · rhythm takes saved** — `todo`
+  - **1l.2 — Texture: who plays each line · rhythm takes saved** — `built` 2026-09-21 — **his listen outstanding; RESTART the server first** (RUNNING_LOG §201: `dot_view.js`; who plays per line, doubling, merging, the check on one player; rhythm takes in `bank/rhythm_takes.json`, the `rhythms` store)
     *Result when done:* in Texture every rhythm line is drawn in time and shows who plays it, and he can change that — one line to
     several players, several lines to one player. He hears what he assigned. He saves the pattern by name as a RHYTHM TAKE and recalls
     it from a list, as with harmony takes.
