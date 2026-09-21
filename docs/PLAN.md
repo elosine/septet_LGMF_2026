@@ -1623,7 +1623,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **The box shows a miniature of its dots.**
     - **REQUIRED VERIFICATION:** one capture with no MIDI — the right dots, each with its pitch and dynamic from the clicked box; the whole
       take looped N times gives N boxes end to end, each with the take's dots. **Then his listen.**
-  - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — `todo`
+  - **1l.5 — The whole sequence sounds and inserts — every dot reading the harmony beneath** — `built` 2026-09-21 — **his listen outstanding — the first time the section sounds** (RUNNING_LOG §204: `dotsOf`; Hear the rhythm, `map ▸` the harmony; the continuous dot view; Insert with `recVel` = the written level and `velAbs` = what sounds; the round trip; Hear and the score agree note for note)
     *Result when done:* he presses Hear and the whole rhythm sequence plays — every dot on its player, with the pitch and the written level
     the harmony has beneath it AT THAT INSTANT, across harmony changes, waves, ramps and edges. He sees all of it in one continuous view.
     Insert writes it into the score. He can come back, change either row, and re-insert in place.

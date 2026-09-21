@@ -33,7 +33,7 @@ function niceStep(span, px) {                 // a tick every 1 · 2 · 5 × 10^
 function create(host, opts) {
     opts = opts || {};
     const v = {
-        host, rows: [], t0: 0, t1: 1, grid: null, cursor: null, sel: null, pxPerSec: opts.pxPerSec || null,
+        host, rows: [], t0: 0, t1: 1, grid: null, cursor: null, sel: null, pxPerSec: opts.pxPerSec || null, pad: opts.pad != null ? opts.pad : PAD,   // pad 0: x = t · pxPerSec exactly, to line up under other rows (1l.5)
         onSeek: null, onDot: null, onToggle: null, onSpan: null,
     };
     host.innerHTML =
@@ -44,9 +44,9 @@ function create(host, opts) {
     const left = host.querySelector('.dvLeft'), right = host.querySelector('.dvRight'), cv = host.querySelector('.dvCanvas');
 
     v.width = () => Math.max(120, right.clientWidth || host.clientWidth || 400);
-    v.scale = () => v.pxPerSec || (v.width() - 2 * PAD) / Math.max(0.001, v.t1 - v.t0);
-    v.xOf = t => PAD + (t - v.t0) * v.scale();
-    v.tOf = x => v.t0 + (x - PAD) / v.scale();
+    v.scale = () => v.pxPerSec || (v.width() - 2 * v.pad) / Math.max(0.001, v.t1 - v.t0);
+    v.xOf = t => v.pad + (t - v.t0) * v.scale();
+    v.tOf = x => v.t0 + (x - v.pad) / v.scale();
 
     // data: { rows: [{ label, dots: [{ t, s }] }], t0, t1, grid: { heads: [..], on(row) → Set of columns, title(row, col) } }
     v.set = data => {
@@ -75,7 +75,7 @@ function create(host, opts) {
     });
 
     v.draw = () => {
-        const W = v.pxPerSec ? Math.max(v.width(), Math.ceil(2 * PAD + (v.t1 - v.t0) * v.pxPerSec)) : v.width();
+        const W = v.pxPerSec ? Math.max(v.width(), Math.ceil(2 * v.pad + (v.t1 - v.t0) * v.pxPerSec)) : v.width();
         const H = HEAD_H + Math.max(1, v.rows.length) * ROW_H + 2, dpr = root.devicePixelRatio || 1;
         if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) {
             cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px';
@@ -84,7 +84,7 @@ function create(host, opts) {
         x.setTransform(dpr, 0, 0, dpr, 0, 0);
         x.clearRect(0, 0, W, H);
         // the timeline
-        const span = v.t1 - v.t0, step = niceStep(span, W - 2 * PAD);
+        const span = v.t1 - v.t0, step = niceStep(span, W - 2 * v.pad);
         x.font = '9px system-ui,sans-serif'; x.textBaseline = 'top';
         x.strokeStyle = COL.grid; x.lineWidth = 1;
         x.beginPath(); x.moveTo(0, HEAD_H - 0.5); x.lineTo(W, HEAD_H - 0.5); x.stroke();

@@ -226,3 +226,13 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   parked in NITS"*: `playNotes` books a whole render, LIVE books 160 ms at a time, so it does not carry it. **The code is intact**
   (`#texLive` is `display:none`). **The shape of a port:** read the seven players and their articulations from `P7()` / `artOf`, the
   pitch from the take (`playerNotes`), and send each attack through a per-note version of `playNotes` (remap · CC0 · bend).
+
+- **2026-09-21 — the strikes drawer's INSERTED plain strikes may play LOUDER in the score than its Hear played them** (found reading the
+  score's note-on while building PLAN 1l.5, RUNNING_LOG §204 — READ IN THE CODE, NOT CAPTURED). `composer.html` ~11284 sends a `plain` note's
+  `recVel` AS IT STANDS (`wc.velAbs != null ? wc.velAbs : (plain && recVel != null ? recVel : …)`), and `strike_drawer.js` `insert` writes
+  `recVel` = the ANCHOR (65 … 127, the ensemble's written scale) — while its Hear (`playNotes`) sends `remapVel(anchor)`, the instrument's own
+  velocity for that level. Where the remap lowers a velocity (the english horn's `p` anchor 83 → 71 in §203), the score would strike 83.
+  The comment at the insert says *"the inserted note plays back at the level Hear played"*, which holds for a DRAWN note (heldDyn remaps it)
+  and not, by this reading, for a plain one. **The rhythm sequence panel does not have this fault:** it writes `velAbs` beside `recVel` and
+  its capture agreed with the score note for note (§204). **The shape of a fix, if a capture confirms it:** the strikes drawer writes
+  `velAbs: remapVel(anchor)` on a plain strike (one field; the score already honours it). Percussion is unaffected (no remap entry).

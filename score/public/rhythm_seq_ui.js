@@ -504,7 +504,7 @@ const S = {
               '<b style="color:' + COLOR + ';letter-spacing:.08em">RHYTHM SEQUENCE</b>' +
               '<input id="rsName" type="text" placeholder="name" maxlength="64" style="width:10.909em;' + INP + '" title="a name for this sequence. Naming it MOVES it in the library — it is saved under that name from then on, and the untitled entry is gone. The name also goes into the score file with the recipe">' +
               '<span id="rsDot" title="changed since `save` — `revert` (the library line) comes back to the saved state" style="display:none;color:' + WTINT + ';font-size:1.2em;line-height:1">&bull;</span>' +
-              '<select id="rsList" style="display:none;max-width:18.182em;' + INP + '" title="the sequences placed in the open score (its databases.rhythmSequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
+              '<select id="rsList" style="max-width:18.182em;' + INP + '" title="the sequences placed in the open score (its databases.rhythmSequences) — pick one and it comes back as it was: the boxes, the frozen chords, the seconds, the dyns, attack or seamless. Change anything, then re-insert: it is replaced IN PLACE"></select>' +
               '<button id="rsAdd" style="' + BTN + '" title="add a HARMONY box at the end of the harmony row — a take, its seconds, its dynamic: the map the rhythm reads">+ harmony box</button>' +
               '<button id="rsRAdd" style="' + BTN + ';color:#f0c890" title="add a RHYTHM box at the end of the rhythm row — a rest until the workshop (1l.4) gives it an excerpt of a rhythm take. Its lines are its own: it may straddle a harmony change">+ rhythm box</button>' +
               '<button id="rsLibTog" style="' + BTN + ';color:#7fc4e8" title="the LIBRARY: every sequence you make is on disk in bank/rhythm_sequences.json — unnamed ones in a rolling stack, named ones by name. Open one, duplicate it, delete it; `save` marks a keeper and `revert` comes back to it">library</button>' +
@@ -514,9 +514,10 @@ const S = {
               '<button id="rsWorkTog" style="' + BTN + ';color:#f0c890" title="the WORKSHOP (PLAN 1l.4): choose a rhythm take, SEE its lines as dots and HEAR it in the selected harmony box — each player\'s pitch and level from that box — then cut a portion (click a start and a stop on its timeline, or drag across the dots) or take the whole take looped, and save it to the rhythm row">workshop</button>' +
               '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, from the selected box on, or from the CURSOR (click the time strip above the boxes)">hear <select id="rsFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option><option value="cursor">from the cursor</option></select></label>' +
-              '<button id="rsHear" style="' + BTN + '" title="AUDITION THE MAP: the harmony row as held chords, through the strikes drawer\'s own player, to check it by ear (SPACE). It is never inserted — the harmony is silent in the piece">Hear</button>' +
+              '<button id="rsHear" style="' + BTN + '" title="HEAR THE RHYTHM SEQUENCE: every dot on its player, with the pitch and the written level the harmony has beneath it at that instant — from the start, the box, or the cursor (SPACE)">Hear</button>' +
+              '<button id="rsHearMap" style="' + BTN + '" title="AUDITION THE MAP: the harmony row alone, as held chords, to check it by ear. It is never inserted — the harmony is silent in the piece">map ▸</button>' +
               '<button id="rsStop" style="' + BTN + '">Stop</button>' +
-              '<button id="rsInsert" style="' + BTN + ';display:none">Insert @ playhead</button>' +   // 1l.3: Insert arrives with 1l.5 — the rhythm, every dot reading the harmony
+              '<button id="rsInsert" style="' + BTN + '">Insert @ playhead</button>' +   // 1l.5: the RHYTHM, every dot reading the harmony
               '<button id="rsMove" style="' + BTN + ';display:none" title="move this sequence to the playhead — the notes where it sits now are removed and it is written again from the playhead">move to playhead</button>' +
               '<button id="rsNew" style="' + BTN + '" title="start a fresh sequence — the row is cleared; a sequence already in the score stays there">new</button>' +
               '<span id="rsSpace" title="SPACE goes to what you clicked last — this strip, the strikes drawer, or the score" style="padding:0 5px;border:1px solid #444;border-radius:3px;font-size:.9em;letter-spacing:.08em">SPACE</span>' +
@@ -543,6 +544,7 @@ const S = {
               '<div id="rsTime" title="click to put the CURSOR at that second — SPACE then plays from there, entering a note already sounding with what is left of it. Click it again to clear" style="position:relative;height:1.1em;min-width:100%;flex:0 0 auto;margin-bottom:3px;border-bottom:1px solid #2c3238;cursor:crosshair"></div>' +
               // 1l.3: TWO ROWS ON ONE TIME SCALE — the rhythm row on top, the harmony row (the map) beneath; the cursor and Hear's line run down both
               '<div id="rsRows" style="position:relative;flex:1 1 auto;display:flex;flex-direction:column;gap:3px">' +
+                '<div id="rsDots" style="display:none;flex:0 0 auto"></div>' +   // 1l.5: THE CONTINUOUS DOT VIEW — every box's dots, on the rows' own scale
                 '<div style="color:#b09070;font-size:.8em;line-height:1">rhythm</div>' +
                 '<div id="rsRRow" style="position:relative;flex:0 0 3.2em"></div>' +
                 '<div style="color:#7a9aa8;font-size:.8em;line-height:1">harmony — the map (silent)</div>' +
@@ -601,6 +603,7 @@ const S = {
         this.buildWork();
         window.addEventListener('resize', () => { if (this.isOpen()) { this.clampWindow(); this.fitStrikes(); } });   // the screen changed under a floating window: bring it back into view
         q('#rsHear').addEventListener('click', () => this.hear());
+        q('#rsHearMap').addEventListener('click', () => this.hearMap());   // 1l.5
         q('#rsStop').addEventListener('click', () => this.stop());
         q('#rsInsert').addEventListener('click', () => this.insert(false));
         q('#rsMove').addEventListener('click', () => this.insert(true));
@@ -799,19 +802,7 @@ const S = {
             (at == null ? 'its notes are no longer in the score — Insert writes it at the playhead'
                 : 'it sits at ' + at.toFixed(3) + ' s' + (Math.abs(at - was) > 0.002 ? ' (moved in the score — the recipe said ' + was.toFixed(3) + ' s)' : '') + ' — change anything, then re-insert in place'));
     },
-    // how many of the old group's notes are not where the SAVED recipe puts them — moved, stretched or re-pitched by hand — and how
-    // many the recipe expects that are gone
-    handEdits(entry, start, oldNotes) {
-        try {
-            const want = SEQ.generate(Object.assign({}, entry.recipe, { t0: start })).notes.map(n => ({ lane: n.lane, midi: n.midi, s: n.start, e: n.end, used: false }));
-            let edited = 0;
-            oldNotes.forEach(o => {
-                const w = want.find(x => !x.used && x.lane === o.layer && x.midi === o.sonifyNote && Math.abs(x.s - (+o.startSeconds)) < 0.01 && Math.abs(x.e - (+o.endSeconds)) < 0.01);
-                if (w) w.used = true; else edited++;
-            });
-            return { edited: edited, missing: want.filter(x => !x.used).length };
-        } catch (e) { return null; }
-    },
+
     // 1l.3 — ONE TIME SCALE FOR BOTH ROWS: pixels a second, from the longer row and the room there is (never under MIN_PPS — then the rows scroll)
     rtotal() { return (this.row.rhythm || []).reduce((a, b) => a + (+b.dur || 0), 0); },
     ppsNow() {
@@ -822,6 +813,7 @@ const S = {
         const row = this.el.querySelector('#rsRow'); row.innerHTML = '';
         const rows = this.el.querySelector('#rsRows'), pps = this.pps = this.ppsNow();
         rows.querySelectorAll('#rsLine,#rsCursorLine').forEach(x => x.remove());
+        this.drawDots();   // 1l.5
         rows.style.width = Math.ceil(Math.max(this.total(), this.rtotal()) * pps) + 'px'; rows.style.minWidth = '100%';
         let at = 0;
         if (!this.row.boxes.length) {
@@ -849,7 +841,7 @@ const S = {
             // 1d.12: a plain click is ONE box and clears the selection; SHIFT+click reaches from the selected box to this one
             d.addEventListener('click', ev => {
                 if (ev.shiftKey && this.sel >= 0 && this.sel !== i) { this.selTo = i; this.save(); this.render(); this.setStatus(this.selLabel() + ' selected — `dyn`, `enter` and `range` go on all ' + this.selCount() + '. ESC, or a plain click, returns to one'); return; }
-                this.sel = i; this.selTo = null; this.rsel = -1; this.save(); this.render();
+                this.sel = i; this.selTo = null; this.rsel = -1; this.save(); this.render(); this.jumpTo(this.row.boxes.slice(0, i).reduce((x, y) => x + (+y.dur || 0), 0));
             });
             if (!empty) {   // the PREVIEW: this box's chord on its own — every box that holds a take has one
                 const on = this._previewing === i, pv = document.createElement('button');
@@ -954,7 +946,7 @@ const S = {
                 'background:' + (on ? '#4a3420' : (rest ? '#1f1a16' : '#2c241c')) + ';border:1px ' + (rest ? 'dashed ' : 'solid ') + (on ? EDGE_ON : (rest ? '#6a5a4a' : '#6a5030'));
             d.title = rest ? 'a REST in the rhythm row — silence for its ' + fmtS(b.dur) + ' s' : 'rhythm take "' + b.take + '" · ' + fmtS(b.start) + ' → ' + fmtS(b.stop) + ' s';
             d.innerHTML = '<span style="color:#a98">' + (i + 1) + '</span> <span style="color:' + (rest ? '#8a7a68;font-style:italic' : '#f5e6d4') + '">' + esc(rest ? 'rest' : b.take) + '</span> <span style="color:#b9a">' + fmtS(b.dur) + ' s</span>';
-            d.addEventListener('click', () => { this.rsel = i; this.save(); this.render(); });
+            d.addEventListener('click', () => { this.rsel = i; this.save(); this.render(); this.jumpTo(R.slice(0, i).reduce((x, y) => x + (+y.dur || 0), 0)); });
             row.appendChild(d);
             if (!rest && b.state) this.miniature(d, b, wpx);   // 1l.4: the box shows a miniature of its dots
         });
@@ -1243,6 +1235,118 @@ const S = {
         this.setStatus(add.length === 1 ? 'rhythm box ' + (at + 1) + ' ← "' + w.take + '" ' + add[0].start.toFixed(2) + ' → ' + add[0].stop.toFixed(2) + ' s (' + fmtS(add[0].dur) + ' s)'
             : 'rhythm boxes ' + (at + 1) + '–' + (at + add.length) + ' ← the whole of "' + w.take + '", ' + add.length + ' times · ' + fmtS(S) + ' s each, end to end');
     },
+    // ------------------------------------------------------------------ 1l.5 — THE WHOLE SEQUENCE: every dot reading the harmony beneath (docs/PLAN.md § 1l.5)
+    // A recipe in (the harmony boxes, the waves, the edges, and the rhythm row with every box's take FROZEN), and out: every dot of every
+    // rhythm box at its place in time, and for each of its players the note it sounds — the pitch (with its cents) and the INTENDED
+    // WRITTEN LEVEL the harmony has for that player AT THAT INSTANT (LG-60): across harmony changes, waves, ramps and edges. The rhythm row
+    // starts where the harmony does (`t0`); its boxes follow one another; a rest is silence. A dot with nothing beneath is HOLLOW — kept in
+    // the view, counted in the status, never sounded (LG-58). `quiet`: no status line (handEdits reads a recipe that is not on screen).
+    // Each note: { lane, tech, midi, cents, partial, level, anchor (the level's ladder velocity — recVel), velAbs (what sounds — the anchor
+    // remapped for this instrument and pitch, times a niente fade's weight), weight, dyn, start, end, box, line, i }.
+    dotsOf(recipe, quiet) {
+        let G = null;
+        try { G = SEQ.generate(recipe); } catch (e) { if (!quiet) this.setStatus(String(e && e.message || e).replace(/^sequence: /, ''), true); return null; }
+        const map = this.mapOf(G), L = LADDER(), names = L ? L.NAMES : null;
+        const nameOf = lv => names ? names[Math.max(0, Math.min(names.length - 1, Math.round(lv * (names.length - 1))))] : '';
+        const dots = [], notes = [], rows = [];
+        let s = +recipe.t0 || 0, hollow = 0;
+        (recipe.rhythm || []).forEach((b, bi) => {
+            const W = (b.take && b.state) ? this.realized(b.state) : null;
+            if (W) {
+                W.lines.forEach((row, Lx) => row.forEach(d => {
+                    if (d.t < b.start - 1e-9 || d.t >= b.stop - 1e-9) return;
+                    const T = +(s + (d.t - b.start)).toFixed(4), ns = this.joinDot(W.R, map, d, T), sounding = ns.filter(n => n.weight > 0.001);
+                    const dot = { box: bi, line: Lx, i: d.i, T: T, dur: d.dur, notes: ns, hollow: !ns.length, silent: !W.R.assignOf(Lx).length };
+                    dots.push(dot); if (dot.hollow && !dot.silent) hollow++;
+                    (rows[Lx] || (rows[Lx] = [])).push({ t: T - (+recipe.t0 || 0), s: dot.silent ? 'silent' : dot.hollow ? 'hollow' : (!sounding.length ? 'muted' : 'ok') });
+                    sounding.forEach(n => {
+                        const velAbs = Math.max(1, Math.round(D.remapVel(n.lane, n.midi, n.vel) * n.weight));
+                        notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, cents: n.cents || 0, partial: n.partial, level: n.level, anchor: n.vel, velAbs: velAbs, weight: n.weight,
+                            dyn: nameOf(n.level), fallback: n.fallback, start: +T.toFixed(3), end: +(T + Math.max(0.02, d.dur)).toFixed(3), box: bi, line: Lx, i: d.i });
+                    });
+                }));
+            }
+            s += +b.dur || 0;
+        });
+        notes.sort((a, b) => a.start - b.start || a.lane - b.lane);
+        return { G, map, dots, notes, rows, hollow, end: s };
+    },
+    rhythmHasDots() { return (this.row.rhythm || []).some(b => b.take && b.state); },
+    seqTotal() { return Math.max(this.total(), this.rtotal()); },
+
+    // HEAR — the whole rhythm sequence, from the start, from the selected box, or from the cursor, through the strikes drawer's player:
+    // every dot a STRUCK note at `velAbs`; a just note on a curve channel with its bend, as the score routes it (curveSeats, 1e V2b).
+    async hear() {
+        if (this._previewing >= 0) this.stop();
+        if (!this.rhythmHasDots()) { this.setStatus('the rhythm row has no excerpt yet — the workshop fills it. `map ▸` auditions the harmony', true); return; }
+        const X = this.dotsOf(this.recipe(0)); if (!X) return;
+        const from = this.hearFrom === 'cursor' ? Math.max(0, +this.cursor || 0)
+            : (this.hearFrom === 'box' ? (this.rsel >= 0 ? this.row.rhythm.slice(0, this.rsel).reduce((a, b) => a + (+b.dur || 0), 0) : (this.sel > 0 && X.G.bounds[this.sel] != null ? X.G.bounds[this.sel] : 0)) : 0);
+        const bends = {}; X.notes.forEach(n => { if (n.cents) bends[n.lane] = 1; });
+        const notes = [], jus = [];
+        X.notes.forEach(n => {
+            if (n.start < from - 1e-6) return;
+            const rec = { lane: n.lane, tech: n.tech, midi: n.midi, seat: 0, vel: n.anchor, velAbs: n.velAbs, cents: n.cents ? n.cents : (bends[n.lane] ? RECENTRE : 0), partial: n.partial,
+                onMs: Math.round((n.start - from) * 1000), durMs: Math.max(20, Math.round((n.end - n.start) * 1000)) };
+            notes.push(rec);
+            if (n.cents) jus.push({ lane: n.lane, tech: n.tech, seat: 0, midi: n.midi, onMs: rec.onMs, durMs: rec.durMs, note: rec });
+        });
+        if (!notes.length) { this.setStatus('nothing to hear from ' + fmtS(from) + ' s' + (X.hollow ? ' — ' + X.hollow + ' dots have nothing beneath' : ''), true); return; }
+        const onMain = this.curveSeats(jus);   // a just note streams its bend on a CURVE channel, as the inserted note will
+        const label = 'the rhythm sequence · ' + this.row.rhythm.length + ' rhythm boxes over ' + this.row.boxes.length + ' harmony boxes' + (from ? ' from ' + fmtS(from) + ' s' : '');
+        await D.playNotes(notes, label);
+        const e = E_();
+        if (!e || !e._playing) { const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); return; }
+        this._heardNotes = notes;   // what went out, for the verification and the curious
+        this.setStatus('hearing ' + label + ' · ' + notes.length + ' notes from ' + X.dots.length + ' dots' + (X.hollow ? ' · ' + X.hollow + ' dot' + (X.hollow === 1 ? '' : 's') + ' HOLLOW — nothing beneath them' : '') +
+            (jus.length ? ' · ' + jus.length + ' just, on the curve channels' + (onMain ? ' (' + onMain + ' had none — on MAIN)' : '') : ''));
+        this.startRLine(from, X.end - (+X.G.t0 || 0));
+    },
+    // the line, the clock and the dot view's cursor while the rhythm plays — and the rows scroll to keep them in sight (1l.5)
+    startRLine(from, end) {
+        this.stopLine();
+        const wrap = this.el.querySelector('#rsRowWrap');
+        const tick = () => {
+            const e = E_(), line = this.el && this.el.querySelector('#rsLine');
+            if (!e || !e._playing || !line || !this.isOpen()) { this.stopLine(); return; }
+            const t = from + (performance.now() - D.base) / 1000;
+            if (t >= end + 0.5) { this.stopLine(); return; }
+            const pps = this.pps || this.ppsNow(), x = clamp(t, 0, this.seqTotal()) * pps;
+            if (t >= 0) { line.style.left = x + 'px'; line.style.display = 'block'; }
+            if (this.dView) this.dView.setCursor(t);
+            if (wrap && (x < wrap.scrollLeft + 20 || x > wrap.scrollLeft + wrap.clientWidth - 40)) wrap.scrollLeft = Math.max(0, x - wrap.clientWidth * 0.25);
+            this.paintClock(t);
+            this._raf = requestAnimationFrame(tick);
+        };
+        this._raf = requestAnimationFrame(tick);
+    },
+    // THE CONTINUOUS DOT VIEW (his B, RUNNING_LOG §194): every rhythm box's dots in ONE view on the rows' own time scale — so it scrolls
+    // with them — each line a row, each dot's look its state (ok · hollow · silent · muted under a fade to nothing)
+    drawDots() {
+        const host = this.el && this.el.querySelector('#rsDots'); if (!host) return;
+        if (!this.rhythmHasDots()) { host.style.display = 'none'; return; }
+        host.style.display = '';
+        if (!this.dView && root.DotView) { this.dView = root.DotView.create(host, { pad: 0, pxPerSec: this.pps || this.ppsNow() }); this.dView.onSeek = t => this.setCursorAt(t); }
+        if (!this.dView) return;
+        let X = null;
+        try { X = this.row.boxes.length ? this.dotsOf(this.recipe(0), true) : null; } catch (e) { X = null; }
+        this.dView.pxPerSec = this.pps || this.ppsNow();
+        const rows = X ? X.rows.map((r, Lx) => ({ label: 'L' + (Lx + 1), dots: r || [] })) : [];
+        this.dView.set({ rows: rows, t0: 0, t1: Math.max(0.5, this.seqTotal()) });
+        this._dotsX = X;
+    },
+    // a click on the dot view's timeline puts the CURSOR there (as the time strip does)
+    setCursorAt(t) {
+        this.cursor = Math.round(t * 100) / 100; this.hearFrom = 'cursor'; this.save(); this.render();
+        this.setStatus('cursor at ' + this.mss(this.cursor) + ' — SPACE plays the rhythm sequence from there');
+    },
+    // a click on a box JUMPS the rows there when it is out of sight (the continuous view scrolls with them)
+    jumpTo(t0) {
+        const wrap = this.el && this.el.querySelector('#rsRowWrap'); if (!wrap) return;
+        const x = t0 * (this.pps || this.ppsNow());
+        if (x < wrap.scrollLeft || x > wrap.scrollLeft + wrap.clientWidth - 30) wrap.scrollLeft = Math.max(0, x - 20);
+    },
+
     removeBox(i) { if (!this.row.boxes[i]) return; this.row.boxes.splice(i, 1); this.sel = Math.min(i, this.row.boxes.length - 1); this.selTo = null; this.save(); this.render(); },
     moveBox(i, by) { const j = i + by, B = this.row.boxes; if (!B[i] || j < 0 || j >= B.length) return; const t = B[i]; B[i] = B[j]; B[j] = t; this.sel = j; this.selTo = null; this.save(); this.render(); },
     // 1d.11: `new` DESTROYS NOTHING — the row being left is already on disk in the library, so there is no longer a prompt
@@ -1864,7 +1968,8 @@ const S = {
         if (e && e._playing) { this.scheduleRamps({ ramps: ramps }); this.setStatus(label); return true; }
         const s = D.el && D.el.querySelector('#skStatus'); this.setStatus((s && s.textContent) || 'could not play', true); return false;
     },
-    async hear() {
+    // 1l.3's audition of the MAP (held chords) — `map ▸` in the head; Hear (above) is the rhythm sequence since 1l.5
+    async hearMap() {
         if (this._previewing >= 0) this.stop();
         const H = this.hearNotes(); if (!H) return;
         if (!H.notes.length) { this.setStatus('nothing to hear', true); return; }
@@ -1885,8 +1990,8 @@ const S = {
     mss(s) { const v = Math.max(0, +s || 0), m = Math.floor(v / 60), r = v - m * 60; return m + ':' + (r < 10 ? '0' : '') + r.toFixed(1); },
     // where a click along the strip falls, in seconds from the sequence's start — read off the BOXES, which carry the layout
     // 1l.3: the two rows share ONE scale (this.pps pixels a second), so a time is a place and a place a time — on either row
-    timeAtX(x) { const pps = this.pps || this.ppsNow(); return this.row.boxes.length ? clamp(x / pps, 0, this.total()) : null; },
-    xAtTime(t) { const pps = this.pps || this.ppsNow(); return this.row.boxes.length ? clamp(t, 0, this.total()) * pps : null; },
+    timeAtX(x) { const pps = this.pps || this.ppsNow(); return this.row.boxes.length ? clamp(x / pps, 0, this.seqTotal()) : null; },
+    xAtTime(t) { const pps = this.pps || this.ppsNow(); return this.row.boxes.length ? clamp(t, 0, this.seqTotal()) * pps : null; },
     clickTime(ev) {
         const row = this.el.querySelector('#rsRows'); if (!row || !this.row.boxes.length) return;
         const x = ev.clientX - row.getBoundingClientRect().left;
@@ -1933,7 +2038,7 @@ const S = {
         const c = this.el && this.el.querySelector('#rsClock'); if (!c) return;
         if (t == null) { if (!this._clockAt) { c.textContent = ''; } return; }
         this._clockAt = t;
-        c.textContent = this.mss(t) + ' / ' + this.mss(this.total());
+        c.textContent = this.mss(t) + ' / ' + this.mss(this.seqTotal());
     },
     startLine(H) {
         this.stopLine();
@@ -1948,66 +2053,50 @@ const S = {
         };
         this._raf = requestAnimationFrame(tick);
     },
-    stopLine() { if (this._raf) cancelAnimationFrame(this._raf); this._raf = 0; const line = this.el && this.el.querySelector('#rsLine'); if (line) line.style.display = 'none'; },
+    stopLine() { if (this._raf) cancelAnimationFrame(this._raf); this._raf = 0; const line = this.el && this.el.querySelector('#rsLine'); if (line) line.style.display = 'none'; if (this.dView && this.dView.cursor != null) this.dView.setCursor(null); },
 
-    // ------------------------------------------------------------------ Insert @ playhead: the objects D.insert writes, as ONE group, and the recipe into the score file
-    // 1d.3: a sequence that is IN the score is replaced IN PLACE — from where its META bar sits now; `toPlayhead` (the `move to
-    // playhead` button) is the one way a placed sequence still moves. A sequence not in the score is written at the playhead.
+    // ------------------------------------------------------------------ 1l.5 — INSERT: the RHYTHM, every dot reading the harmony beneath, as ONE group
+    // As the sequence drawer inserts (1d.3's round trip kept whole): a sequence already IN the score is replaced IN PLACE from where its META
+    // bar sits now; `move to playhead` is the one way it moves; the recipe (both rows, every rhythm box's take frozen) goes into the score
+    // file as databases.rhythmSequences. THE HARMONY IS NEVER INSERTED — it is the map. Each dot becomes, for each of its players, the
+    // strikes drawer's kind of STRUCK note (docs/DYNAMICS_LAW.md §1): `recVel` = the anchor of the INTENDED WRITTEN LEVEL (the ground
+    // truth, LG-60 — what goes to notation), `velAbs` = the velocity Hear sends (that level remapped for the instrument and the pitch, times
+    // a niente fade's weight) — the score sends `velAbs` as it stands, so the score and Hear agree note for note. A plain note holds MAIN; a
+    // just note (cents) is drawn — `morphBend` — on a curve channel, its fader held at 127 (`cc7Abs`), as Hear routes it. Every note
+    // carries `rseqDot` = box:line:dot — its place in the recipe, for 1l.6's touches.
     insert(toPlayhead) {
-        // 1l.3: NOT YET. The harmony row is a silent MAP and is never inserted; what goes into the score is the RHYTHM, every dot reading
-        // its pitch and written level from the harmony beneath — PLAN 1l.5 writes that. The drawer's insert is kept below for 1l.5 to rework.
-        if (!this.allowInsert) { this.setStatus('Insert arrives with PLAN 1l.5 — the rhythm, every dot reading the harmony beneath. The harmony row is a silent map: it is never inserted', true); return; }
         const C = C_(); if (!C || typeof C.getTimeAtPlayhead !== 'function') { this.setStatus('the composer is not reachable', true); return; }
-        const id = this.row.id, group = 'grp-rseq-' + id, ML = METAL(), name = this.row.name || ('sequence ' + id);
+        const id = this.row.id, group = 'grp-rseq-' + id, ML = METAL(), name = this.row.name || ('rhythm sequence ' + id);
         const sits = this.placedAt(id), inPlace = sits != null && !toPlayhead;
         const t0 = inPlace ? sits : +C.getTimeAtPlayhead().toFixed(3);
-        const G = this.generate(t0); if (!G) return;
-        // the recipe is the truth: count what he changed by hand inside the group — the old notes against what the SAVED recipe generates there
+        const X = this.dotsOf(this.recipe(t0)); if (!X) return;
+        if (!X.notes.length) { this.setStatus('nothing to insert — ' + (X.dots.length ? X.hollow + ' dots have no note beneath them' : 'the rhythm row has no excerpt yet (the workshop fills it)'), true); return; }
         const saved = this.entryOf(id), oldNotes = C.objects.filter(o => o.groupId === group && o.sonifyNote != null);
         const he = (saved && sits != null && oldNotes.length) ? this.handEdits(saved, sits, oldNotes) : null;
         C.pushUndoState();
         const before = C.objects.length;
         C.objects = C.objects.filter(o => o.groupId !== group);   // one row = one place in the score: the old group's objects go, by their id
         const gone = before - C.objects.length;
-        let maxEnd = G.end, written = 0; const busy = [], shaped = [];
-        const wavesTxt = G.waves ? ' · waves ' + G.waves.low + '…' + G.waves.high : '';
-        G.notes.forEach(n => {
+        let maxEnd = t0, written = 0; const busy = [];
+        X.notes.forEach(n => {
             if (typeof C.trillCovers === 'function' && C.trillCovers(n.lane, n.start)) { busy.push(shortOf(n.lane) + '@' + n.start.toFixed(2)); return; }   // TRILLS_TOOL §7, as D.insert
             maxEnd = Math.max(maxEnd, n.end);
-            // PLAN 1d.10 (amending 1e's rule 2): a SHAPED note's heights are the drawn heights that put each breakpoint on the CC7 of
-            // its own written dynamic, between the two the note asks for. A straight note is drawn as it always was.
-            // PLAN 1g: EVERY sustained note is shaped. One whose level does not MOVE is DRAWN at its written height, as a straight note
-            // always was — `cc7Abs` lo === hi holds the fader at its table value whatever the height, so the eye keeps the dynamic.
-            const ramped = this.isShaped(n), sh = ramped ? this.shape(n) : null;
-            if (sh) shaped.push(sh);
-            const src = (ramped && !sh.flat) ? sh.levels : (n.levels && n.levels.length >= 2 ? n.levels : [[0, n.level], [n.dur, n.level]]);
-            const nodes = src.map(p => ({ pos: n.dur > 0 ? clamp(p[0] / n.dur, 0, 1) : 0, y: yOf(p[1]), smooth: 0.25 }));
-            const segments = []; for (let k = 1; k < nodes.length; k++) segments.push({ model: 'power', slope: 0 });
-            const box = this.row.boxes[n.container] || {};
-            // 1d.7: a note that read the waves is written DRAWN — its breakpoints are the nodes above — and stamped `velRef` = the waves'
-            // `high`, so the score strikes every waved note at ONE velocity and lets CC7 follow the curve (composer.html curveTop / heldCc7:
-            // the morph's way). A strike (a fixed-length sound) took its level from the wave and stays plain.
-            // 1d.8: the same for a note under a niente fade (it carries the score's own `cc7Fade`, in score seconds) and for one ramped to or
-            // from a dynamic (the ramp is already in its breakpoints). One velocity: the waves' `high`, or the note's own loudest if louder.
-            // 1e: `ramped` and its top are computed with the nodes above, because the nodes are now re-based against that top.
+            const y = yOf(n.level), cents = +n.cents || 0, box = this.row.rhythm[n.box] || {};
             C.objects.push(Object.assign({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
-                startSeconds: n.start, endSeconds: n.end, nodes: nodes, segments: segments,
+                startSeconds: n.start, endSeconds: n.end,
+                nodes: [{ pos: 0, y: y, smooth: 0.25 }, { pos: 1, y: y, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }],
                 color: COLOR, fillMode: 'bottom', opacity: 0.55, properties: {}, srcKind: 'rhythmSequence',
-                performanceNotes: name + ' · box ' + (n.container + 1) + (box.take ? ' · ' + box.take : '') + (n.partial != null ? ' · partial ' + n.partial : '') + (n.cents ? ' · ' + (n.cents > 0 ? '+' : '') + Math.round(n.cents) + '¢ just' : '') + (n.waves ? wavesTxt : ''),
-                sonifyNote: n.midi, technique: n.tech, recVel: anchorOf(n.level) },
-                // PLAN 1e: the NORMALIZED FADER and the MF STRIKE, per note. `velRef` is kept and now means the mf height, so a note that
-                // loses `cc7Abs` or `velAbs` by hand still falls back to being struck at mf with its fader on the ladder from there.
-                ramped ? { velRef: yOf(this.mfLevel()), cc7Abs: { lo: sh.cc7Abs.lo, hi: sh.cc7Abs.hi }, velAbs: this.mfVel(n.lane, n.midi) } : {},
-                (ramped && n.fade) ? { cc7Fade: { start: n.fade.start, end: n.fade.end, from: n.fade.from, to: n.fade.to, curve: n.fade.curve } } : {},
-                (n.seat || n.cents || ramped) ? {} : { sonifyMode: 'plain' },   // 1c.3 / 1c.4, as D.insert: a seat's note or a bent note is DRAWN (its own curve channel), the rest hold MAIN
-                n.cents ? { morphBend: [[0, +(+n.cents).toFixed(2)], [n.dur, +(+n.cents).toFixed(2)]] } : {}));
+                performanceNotes: name + ' · rhythm box ' + (n.box + 1) + (box.take ? ' · ' + box.take : '') + ' · L' + (n.line + 1) + ' dot ' + (n.i + 1) + ' · ' + n.dyn +
+                    (n.weight < 0.999 ? ' · faded ×' + n.weight.toFixed(2) : '') + (n.fallback ? ' · claves (no percussion note beneath)' : '') +
+                    (n.partial != null ? ' · partial ' + n.partial : '') + (cents ? ' · ' + (cents > 0 ? '+' : '') + Math.round(cents) + '¢ just' : ''),
+                sonifyNote: n.midi, technique: n.tech, recVel: n.anchor, velAbs: n.velAbs, rseqDot: n.box + ':' + n.line + ':' + n.i },
+                cents ? { morphBend: [[0, +cents.toFixed(2)], [+(n.end - n.start).toFixed(3), +cents.toFixed(2)]], cc7Abs: { lo: 127, hi: 127 } } : { sonifyMode: 'plain' }));
             written++;
         });
-        C.objects.push({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: ML, groupId: group, startSeconds: t0, endSeconds: +maxEnd.toFixed(3),
+        C.objects.push({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: ML, groupId: group, startSeconds: t0, endSeconds: +Math.max(maxEnd, t0 + 0.1).toFixed(3),
             nodes: [{ pos: 0, y: 8.5, smooth: 0 }, { pos: 1, y: 8.5, smooth: 0 }], segments: [{ model: 'power', slope: 0 }],
             color: COLOR, fillMode: 'bottom', opacity: 0.6, srcKind: 'rhythmSequence',
-            performanceNotes: name + ' · ' + this.row.boxes.length + ' boxes · ' + this.row.change + ' — a SEQUENCE: change it in the Sequence drawer and Insert again', properties: {} });
-        // the recipe into the score file: the working copy and every named version carry it (collectData saves `databases` whole)
+            performanceNotes: name + ' · ' + this.row.rhythm.length + ' rhythm boxes over ' + this.row.boxes.length + ' harmony boxes — a RHYTHM SEQUENCE: change it in the Rhythm panel and Insert again', properties: {} });
         if (!C.databases) C.databases = {};
         if (!Array.isArray(C.databases.rhythmSequences)) C.databases.rhythmSequences = [];
         const entry = { id: id, name: name, group: group, inserted: new Date().toISOString(), notes: written, recipe: JSON.parse(JSON.stringify(this.recipe(t0))) };
@@ -2015,20 +2104,29 @@ const S = {
         if (k >= 0) C.databases.rhythmSequences[k] = entry; else C.databases.rhythmSequences.push(entry);
         C.lastInsertGroup = group;
         if (typeof C.openMetaWin === 'function') C.openMetaWin();
-        // THE CURVE-CHANNEL MAP IS CACHED (D11, composer.html curveChannelMap): once the score has been played, a note that is not in the map falls
-        // back to MAIN ch 1 - and a waved, faded or bent note is a CURVE event, whose moving CC7 his rack takes only on the curve channels.
-        // Every other tool that writes curve events drops the map (swell_ui, fill_ui, cresc_*, note_card); this one did not, so an inserted
-        // sequence played flat, at one dynamic, until the tab was reloaded (his report, RUNNING_LOG 139).
-        if (C.curveDirty) C.curveDirty();
+        if (C.curveDirty) C.curveDirty();   // docs/DYNAMICS_LAW.md §4: a just note is a curve event, and the map is cached
         C.renderAll(); C.markDirty();
         this._listSig = ''; this.renderList(); this.paintInsert();
         const how = inPlace ? 're-inserted IN PLACE' : (sits != null ? 'MOVED to the playhead' : 'inserted');
-        this.setStatus(how + ' · ' + written + ' notes · ' + t0.toFixed(3) + ' → ' + G.end.toFixed(3) + ' s as ' + group + ' · the recipe is in the score file' +
+        this.setStatus(how + ' · ' + written + ' notes from ' + X.dots.length + ' dots · ' + t0.toFixed(3) + ' → ' + maxEnd.toFixed(3) + ' s as ' + group + ' · the recipe is in the score file' +
+            (X.hollow ? ' · ' + X.hollow + ' dot' + (X.hollow === 1 ? '' : 's') + ' HOLLOW — nothing beneath, not written' : '') +
             (gone ? ' · replaced ' + gone + ' objects' + (sits != null && !inPlace ? ' at ' + sits.toFixed(3) + ' s' : '') : '') +
             (he && he.edited ? ' · ' + he.edited + ' note' + (he.edited === 1 ? '' : 's') + ' had been moved or re-pitched by hand — overwritten: the recipe is the truth' : '') +
-            (he && he.missing > he.edited ? ' · ' + (he.missing - he.edited) + ' of its notes had been deleted — written again' : '') +   // a changed note is also a wanted note unmatched: count only the surplus
-            (shaped.length ? ' · ' + shaped.length + ' shaped' + this.rangeText(shaped) + this.tableNote(shaped) : '') +
-            this.flagsText(G) + (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
+            (he && he.missing > he.edited ? ' · ' + (he.missing - he.edited) + ' of its notes had been deleted — written again' : '') +
+            (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
+    },
+    // 1d.3's count, for the rhythm: how many of the old group's notes are not where the SAVED recipe puts them — and how many it expects that are gone
+    handEdits(entry, start, oldNotes) {
+        try {
+            const X = this.dotsOf(Object.assign({}, entry.recipe, { t0: start }), true);
+            const want = X.notes.map(n => ({ lane: n.lane, midi: n.midi, s: n.start, e: n.end, used: false }));
+            let edited = 0;
+            oldNotes.forEach(o => {
+                const w = want.find(x => !x.used && x.lane === o.layer && x.midi === o.sonifyNote && Math.abs(x.s - (+o.startSeconds)) < 0.01 && Math.abs(x.e - (+o.endSeconds)) < 0.01);
+                if (w) w.used = true; else edited++;
+            });
+            return { edited: edited, missing: want.filter(x => !x.used).length };
+        } catch (e) { return null; }
     },
 };
 

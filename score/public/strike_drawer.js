@@ -1302,7 +1302,10 @@ const D = {
         notes.forEach(n => {
             const r = routes[rk(n)]; if (!r) return;
             const on = this.base + n.onMs, off = on + n.durMs;
-            const vel = this.remapVel(n.lane, n.midi, n.vel), cc7 = this.remapCc7(n.lane, n.midi, vel, n.vel);
+            // LGMF PLAN 1l.5 (2026-09-21) — OPT-IN: a note carrying `velAbs` is sent at exactly that velocity (the score's own `velAbs`, which
+            // pins a note-on): the rhythm sequence panel writes the remapped strike scaled by a niente fade's weight, and Hear must send what
+            // the score will. Absent, nothing changes.
+            const vel = n.velAbs != null ? clamp(Math.round(n.velAbs), 1, 127) : this.remapVel(n.lane, n.midi, n.vel), cc7 = this.remapCc7(n.lane, n.midi, vel, n.vel);
             // 1c.4: a note with cents (a just partial) gets its bend with the CC7 and the CC0, through the instrument's measured range
             // (MorphEmit.sendBend, as the score bends a morph note); panic re-centres every channel at the end, as it always did
             const cents = +n.cents || 0;

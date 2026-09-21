@@ -8545,3 +8545,51 @@ and `sequence.js` are byte-identical** (`git diff` empty); `sequence_check` stay
   removed from `bank/`.
 
 **Not heard.** His listen, in his Chrome.
+
+## §204. `1l.5` BUILT AND VERIFIED — the whole rhythm sequence sounds and inserts, every dot reading the harmony beneath; Hear and the score agree note for note; his listen outstanding — the first time the counterpoint section sounds (2026-09-21)
+
+**What was built (rhythm_seq_ui.js, unless named):**
+- **`dotsOf(recipe)` — the whole sequence.** The harmony as sequence.js deals it (with the edges), the continuous map of §203, and the rhythm
+  row laid from the same `t0`, box after box, each box's dots inside its cut read from its FROZEN take: every dot at its place in time, and
+  for each of its players the pitch (with its cents) and the intended written level beneath AT THAT INSTANT. A dot with nothing beneath is
+  HOLLOW — counted, drawn, never sounded.
+- **THE DYNAMICS RULE (LG-60), as written:** the level is on the ladder; its anchor is the dot's `recVel` — the ground truth, what goes to
+  notation; what SOUNDS is `velAbs` = that anchor remapped by 1b's bank for the instrument and the pitch, **times a niente fade's weight**
+  (the law has nothing below ppp, so a fade to niente is a fall of the strike itself toward silence; a dot whose weight has reached 0 is not
+  sounded). A level between two names interpolates, as the harmony's own does (waves, ramps).
+- **Hear** is the rhythm sequence now (from the start, the selected box, or the cursor; the clock; the line and the dot view's cursor; the rows
+  scroll to keep them in sight); **`map ▸`** keeps 1l.3's audition of the harmony alone. A just note is routed to a CURVE channel with its bend
+  (the drawer's `curveSeats`), as the score will route it; a technique with no curve copy (the SI2 staccato) bends on its own channel and the
+  status counts it.
+- **THE CONTINUOUS DOT VIEW** (his B): `#rsDots` at the top of the rows, the same `dot_view.js` given a pad of 0 and the rows' own pixels a
+  second, so every box's dots sit exactly over their boxes and scroll with them; a click on its timeline puts the cursor there; a click on a
+  box jumps the rows to it when it is out of sight.
+- **Insert** (the drawer's own round trip, reworked): one group `grp-rseq-<id>`, one META bar, the recipe — both rows, every rhythm box's take
+  frozen — into `databases.rhythmSequences`; re-insert IN PLACE from where the META bar sits; `move to playhead`; the hand edits counted. **The
+  harmony is never inserted.** Each note is the strikes drawer's kind of struck note, with `recVel` = the anchor, `velAbs` = what Hear sent,
+  `plain` on MAIN — or, with cents, drawn with `morphBend` and its fader held at 127 (`cc7Abs`) on a curve channel — and `rseqDot` = box:line:dot
+  for 1l.6.
+- **One additive opt-in in `strike_drawer.js` `playNotes`:** a note carrying `velAbs` is sent at exactly that velocity (the score's own field).
+  Absent, nothing changes. `sequence_ui.js` · `sequence.js` unchanged.
+
+**Why `velAbs` on every dot — found reading the score, and the reason the capture agrees:** the score sends a `plain` note's `recVel` AS IT
+STANDS (composer.html ~11284), while the strikes drawer's Hear sends it REMAPPED. Writing `recVel` alone would have made the score strike the
+anchor where Hear struck the instrument's own velocity. The same reading suggests the strikes drawer's own inserted strikes have that
+difference — NOT captured, put in NITS for a capture to settle.
+
+**THE REQUIRED VERIFICATION** (`score-5401`; no MIDI; a rhythm take `AI-test-1l5` — `smear`, 7 lines — as ONE rhythm box of 14.068 s over two
+harmony boxes: `Blm01c-wVibes-Just-A1-seed131mod` 8 s as dealt · `Bloom01-Just-A1-seed132` 8 s on the waves; the edges: a 4 s fade out to niente):
+- **A dot after a harmony change reads the NEW harmony:** the english horn's dots are B4 (71) before 8 s and C#5 (73) after it (8.73 s, 9.27 s).
+- **A dot inside a fade reads the FADED level:** at 12.54 · 13.09 · 13.64 s the weight is 0.86 · 0.73 · 0.59 and the strike 67 · 59 · 48 (the
+  anchors under them 95 · 98 · 100 — the wave rising while the fade falls).
+- **Hear and the score's own playback, captured and agreeing note for note:** Hear — 180 notes (74 just on the curve channels, the english
+  horn rotating over its ch 2 · 3 · 4). Inserted at 600 s (180 notes + 1 META bar, the recipe in `databases.rhythmSequences`), then the score
+  played from 599.7 s with its transport driven by a timer (journal §2's method): **180 notes — every one the same port, channel, key and
+  velocity as Hear's, the timing within 2 ms.**
+- **The round trip:** listed in the score (*"rhythm sequence … · 2 boxes · 16 s · @ 600.0 s"*) · a `new` row · reopened from the list, both
+  rows back · one inserted note nudged 0.1 s by hand · box 2 changed to `f` · re-inserted with the playhead at 0 → **IN PLACE at 600.000 s**,
+  *"1 note had been moved or re-pitched by hand — overwritten"*, the english horn after 8 s now `recVel` 109, one group only.
+- **The batteries:** palette 184 · sequence 180 · dyn table 51 · snapshots 28 · spectrum 35 · written pitch 10 + control · ceilings green ·
+  model bank VALID · engine identity 48. The test take and the rhythm sequences were removed from `bank/`; the score was never saved.
+
+**Not heard.** This is where the counterpoint section first SOUNDS — his listen, in his Chrome (restart the server; reload).
