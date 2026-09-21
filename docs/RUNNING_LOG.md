@@ -8252,3 +8252,33 @@ similar … one time container's rhythm is slowly taking over by the next one"*)
   counterpoint handed over voice by voice). **By DENSITY, not by level** — the dynamics belong to the harmony row.
 - **Seen and overridable:** a dot dropped by a crossfade has a look of its own in the dot view, and HIS TOUCHES WIN over it (`1l.6`).
 - Seeded, with a re-deal; saved in the recipe.
+
+## §197. `1l` IS PLANNED IN FULL — *"step 7 is good"*; `1l.7` and `1l.8` written; the whole item shown to him once with *"is that it?"* (2026-09-21)
+
+**His word:** *"step 7 is good"* — the two crossfades as put in §196, the presets *scattered* and *player by player* included.
+**Written at once:** `docs/PLAN.md` § `1l.7` in full and § `1l.8`, his listen (a short passage written end to end with the tools, in
+his Chrome · the architecture looked at again, his own word of LG-56 · what sits outside the plan and is his).
+
+**The item, as it stands in the plan — eight steps, every one agreed by him in this sitting, NOTHING BUILT:**
+`1l.1` Texture plays this ensemble · `1l.2` Texture: who plays each line, rhythm takes saved · `1l.3` the rhythm sequence panel, the
+clone with its two rows · `1l.4` the workshop · `1l.5` the whole sequence sounds and inserts · `1l.6` the dots, touched · `1l.7` the
+two crossfades · `1l.8` his listen.
+
+**How the planning went, for the paper:** one sitting, on Fable, under the planning method. Phase 1 took five exchanges and was
+RESET once by him — the AI had read the wrong machine (`MT`, from the journal's pointer) and asked a narrow question; he named the
+Texture panel and asked for *"the top level concepts"* first (§185). From there the architecture was HIS, spoken in one run (LG-56),
+and the AI's work was to organize it, to say why it held (it is the strikes drawer → takes → sequence shape, one level up; it keeps
+"the recipe is saved, the notes are derived"), and to find the consequences he had not said: a rhythm container carries no harmony
+(his own second thought, taken) · the assignment of lines to players (his *"something I hadn't thought about"*) · that a dot must keep
+its identity for a mute to find it again. **Three times the AI's proposal was more complicated than what he wanted and he cut it
+back:** near-simultaneous onsets need no rule between different players, only the standard check within one (LG-58) · a rest in the
+harmony needs no rule at all — *"rhythm with the rhythm and harmony with the harmony"* · a box never loops; looping is a way of
+SELECTING (§196). **Once the AI cut too much and he put it back:** the edges, *"useful for dynamics"* (LG-60). Phase 3 ran one step a
+turn with the goal and the sub-steps given together, at his word, each written into the plan and pushed before the next was shown.
+
+**Named to him as outside the plan and his:** the harmony takes (with the percussion assigned and the vibraphone's pitches) · a listen
+after each step, in his Chrome · the five models re-tuned by ear for seven players · later, at his word: stretching a clip · custom
+patterns · copying the harmony row's layout · the look back at the architecture after this version.
+
+**The switch point, said to him in two lines:** the design is done and the build is the execution of a written plan — Opus, after a
+`/checkpoint` and a `/clear`; `1l.1` first.

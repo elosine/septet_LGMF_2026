@@ -159,17 +159,22 @@ time; nothing is planned or built until his understanding and the AI's are one.*
   instrument or the vibraphone · a touch survives a harmony change and a box move, not a re-cut. **AND HIS CORRECTION ON LOOPING
   (§196, `1l.4` amended): looping belongs to the SELECTION — one portion of a take, or the ENTIRE take looped N times, which lands as
   N BOXES on the rhythm row; a box never loops.**
-- **`1l.7` THE TWO CROSSFADES — PUT TO HIM, NOT YET AGREED** (§196 has the design: seconds · preset · place on a box · the harmony
-  crossfade works on the dots, scattered or player by player, the dynamics still following the row · the rhythm crossfade runs both
-  patterns inside the window, by density · his touches win). On his word it is written, `1l.8` is his listen, and the whole item is
-  shown once with *"is that it?"*.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §196.
+- **`1l.7` THE TWO CROSSFADES and `1l.8` HIS LISTEN — AGREED, WRITTEN INTO THE PLAN** (RUNNING_LOG §196 · §197). **`1l` IS PLANNED IN
+  FULL: `1l.1` … `1l.8` in `docs/PLAN.md` § `1l`, every step agreed by him, NOTHING BUILT.** The whole item was shown to him once with
+  *"is that it?"* — his answer is the last thing pending in the planning.
+- **NEXT: BUILD `1l.1`, TEXTURE PLAYS THIS ENSEMBLE — on Opus, after a `/checkpoint` and a `/clear`.** The build opens, as every
+  chunk does (HOW_WE_WORK), with a conceptual proposal before any code edit. **Resume reads for the BUILD:** `docs/PLAN.md` § `1l` (THE
+  FOUNDATION + `1l.1`) · `docs/DYNAMICS_LAW.md` (a struck note) · RUNNING_LOG §185 (what Texture is, what in it is the tubas') · §189
+  (its sound path: a plain velocity; `StrikeDrawer.playNotes` is this piece's player) · §190 (his defaults; percussion and vibraphone
+  one player). Code is read when the build names a question: `score/public/texture_panel.js` · `texture_engine.js` ·
+  `strike_drawer.js` · the sequence drawer's takes menu in `sequence_ui.js`.
+- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §197.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►** | **`1l` THE COUNTERPOINT SECTION — the discussion** (above) | **Fable** — design | a new session |
+| **►** | **BUILD `1l.1`, TEXTURE PLAYS THIS ENSEMBLE** — `1l` is planned in full, `1l.1` … `1l.8` in `docs/PLAN.md` § `1l`, nothing built (SESSION 12 SO FAR, above; RUNNING_LOG §185–§197) | **Opus** — executing a written plan | **yes** — `/checkpoint`, `/clear` |
 | N1 | **`1k` the morph's peaks against the sequence** — `todo`, BEFORE his next morph: *"fine for this section but I'd like to look into it before I do the next one"* | Fable to look · Opus to build | — |
 | N2 | **`1f` the crescendo tool under the dynamics law** — `todo`: `cresc*.js` write no `cc7Abs` / `velAbs` (read in the code, not captured) | Fable to lay out · Opus to build | — |
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are RUNNING_LOG §171 · §176 · §181 | his ear | — |

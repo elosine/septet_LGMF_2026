@@ -1672,9 +1672,36 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **REQUIRED VERIFICATION:** every gesture tested as a REAL MOUSE SEQUENCE (HOW_WE_WORK — mousedown · move · up, the re-render between
       a click and the next) · a touch survives a harmony change and a box move · the capture: muted dots do not sound, changed dots sound
       as changed · re-insert in place keeps the touches. **Then his listen.**
-  - **1l.7 — The two crossfades** (harmony A → B over N seconds · one rhythm container into the next) — *to be laid out when we discuss
-    it.*
-  - **1l.8 — His listen.**
+  - **1l.7 — The two crossfades** (one idiom, for both rows) — `todo`
+    *Result when done:* on any box, in either row, he dials a crossfade in seconds, and over that time the new box slowly takes over from
+    the old one. He sees it in the dot view, and his own touches still win.
+    - **Three settings on a box, in the space `enter` left free:** `crossfade` seconds · a PRESET · a PLACE — `before` · `across` · `after`
+      the boundary (`across` the default). Blank = a clean change at the boundary, as in `1l.3`–`1l.6`.
+    - **The harmony crossfade works on the DOTS, because the map is silent:** inside the window each dot reads harmony A or harmony B;
+      the chance of B rises from none to all.
+    - **Two presets to start:** **scattered** — dot by dot; both harmonies shimmer, B thickening · **player by player** — each player
+      changes ONCE, at a moment of their own (order: random · low to high · high to low · by pair). A shape: straight · slow start ·
+      slow end.
+    - **Only the HARMONY crossfades — who has which note. The DYNAMICS keep following the row in time.**
+    - **The rhythm crossfade runs BOTH patterns inside the window** — each box reads on past its cut, from its own take (wrapping at the
+      take's end) — the old dots dropping out as the new ones come in. *(Without both present it is a fade-out, a hole, and a fade-in.)*
+      The same two presets; *player by player* = each player leaves the old line for the new one at a moment of their own — the
+      counterpoint handed over voice by voice.
+    - **By DENSITY, not by level** — the dynamics belong to the harmony row.
+    - **Seen, and his to override:** a dot dropped by a crossfade has a look of its own; a click brings it back — HIS TOUCHES WIN (`1l.6`).
+    - **Seeded, with a re-deal.** Saved in the recipe.
+    - **REQUIRED VERIFICATION:** at the window's start every dot reads A / belongs to the old rhythm; at its end every dot reads B /
+      belongs to the new one · the same seed gives the same result · a touch wins over the crossfade · the batteries green. **Then his
+      listen.**
+  - **1l.8 — His listen** — `todo`
+    - He writes a short counterpoint passage end to end with the tools — harmony takes (the strikes drawer) → rhythm takes (Texture) → a
+      rhythm sequence → Insert — in his Chrome (the in-app browser has no Web MIDI).
+    - What he hears goes to the lab journal as he says it; a fault is read first against the RUNNING_LOG entry of the step that built it.
+    - **The architecture is looked at again — his word (LG-56):** *"once we're done in this version, we can look back and see if it's
+      the right architecture."*
+    - **Outside the plan, and his:** the harmony takes themselves, made with this ensemble, the percussion assigned and the vibraphone's
+      pitches in them · the five Texture models re-tuned by ear for seven players · a listen after each of `1l.1` … `1l.7` · **LATER, at
+      his word:** stretching a clip · custom patterns · copying the harmony row's layout.
 
 ## 2. Notate — `todo`
 
