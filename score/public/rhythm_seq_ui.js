@@ -147,7 +147,8 @@ const COLOR = '#C08A52', EDGE_ON = '#f0c890', EDGE_OFF = '#5a4630';   // 1l.3: w
 // still splits a note at the instrument's ceiling (it must, and a split is continuous for the map — 1l.5 bridges the gap), so each
 // breath is built round the player's OWN maximum with no jitter, aligned, and every box is entered by attack.
 const MAP_BREATH = { striation: 'aligned', length: 30, jitter: 0, seed: 1, together: null, apart: 0.5, lengths: null, ofMax: 1, jitterS: 0 };
-const MIN_PPS = 6;   // 1l.3: the two rows' shared time scale never goes below this many pixels a second (the rows then scroll)
+const MIN_PPS = 6;
+const VIB_TECH = 'std_mallets_vel';   // 1l.6: a percussion dot become the vibraphone is STRUCK — Standard Mallets (the AI's call; the card offers the roster)   // 1l.3: the two rows' shared time scale never goes below this many pixels a second (the rows then scroll)
 const AS_DEALT = SEQ.AS_DEALT;
 const DEF_DUR = 8, MIN_DUR = 0.1, MAX_DUR = 3600;   // 0.1: a rolled container on a small unit may be short
 const RECENTRE = 1e-6;   // cents — rounds to the centre; see the head of this file
@@ -245,9 +246,10 @@ const S = {
     newRow() { return { id: 'r' + Date.now().toString(36), name: '', change: 'attack', breath: Object.assign({}, MAP_BREATH), waves: this.wavesDefaults(), edges: this.edgesDefaults(), boxes: [], rhythm: [], roll: this.rollDefaults(), rolled: false }; },
     // 1l.3 — A RHYTHM BOX: an excerpt of a rhythm take (1l.4: take · start · stop, its length stop − start), or, with no take, a REST
     newRBox() { return { take: '', start: 0, stop: 0, dur: DEF_DUR }; },
-    rboxFrom(b) { return { take: String((b && b.take) || ''), start: +(b && b.start) || 0, stop: +(b && b.stop) || 0, dur: clampDur(b && b.dur), state: (b && b.state && typeof b.state === 'object') ? b.state : null }; },   // 1l.4: the take's recipe, FROZEN
+    rboxFrom(b) { return { take: String((b && b.take) || ''), start: +(b && b.start) || 0, stop: +(b && b.stop) || 0, dur: clampDur(b && b.dur), state: (b && b.state && typeof b.state === 'object') ? b.state : null,   // 1l.4: the take's recipe, FROZEN
+        touches: (b && b.touches && typeof b.touches === 'object') ? b.touches : {}, assign: (b && Array.isArray(b.assign)) ? b.assign : null }; },   // 1l.6: his touches · a line moved to another instrument
     newBox() { return { take: '', dur: DEF_DUR, dyn: AS_DEALT, dynWas: AS_DEALT, change: null, range: null, chord: [], frozen: '' }; },
-    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, cursor: this.cursor == null ? null : this.cursor, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, workOpen: !!this.workOpen, work: this.work || null, libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
+    save(quiet) { try { localStorage.setItem(STORE, JSON.stringify({ row: this.row, sel: this.sel, hearFrom: this.hearFrom, cursor: this.cursor == null ? null : this.cursor, win: this._win || null, rollOpen: !!this.rollOpen, breathOpen: !!this.breathOpen, wavesOpen: !!this.wavesOpen, edgesOpen: !!this.edgesOpen, libOpen: !!this.libOpen, workOpen: !!this.workOpen, work: this.work || null, dotMode: this.dotMode || 'mute', libKey: this.libKey || null, libPanel: this.libPanel || null, kept: this.kept || null })); } catch (e) {} if (!quiet) { this.libTouch(); this.paintDot(); } },
     // one normalisation of a stored row, whichever store it came from — localStorage, the library on disk, or `revert`'s own copy
     rowFrom(r) {
         if (!(r && typeof r.id === 'string' && Array.isArray(r.boxes))) return this.newRow();
@@ -265,6 +267,7 @@ const S = {
             this.hearFrom = ['box', 'cursor'].indexOf(st.hearFrom) >= 0 ? st.hearFrom : 'start';
             this.cursor = (typeof st.cursor === 'number' && isFinite(st.cursor)) ? st.cursor : null; this.rollOpen = !!st.rollOpen; this.breathOpen = !!st.breathOpen; this.wavesOpen = !!st.wavesOpen; this.edgesOpen = !!st.edgesOpen;
             this.libOpen = !!st.libOpen;
+            this.dotMode = st.dotMode === 'edit' ? 'edit' : 'mute';   // 1l.6
             this.workOpen = !!st.workOpen; this.work = (st.work && typeof st.work === 'object') ? st.work : null;   // 1l.4: the workshop
             this.libKey = typeof st.libKey === 'string' ? st.libKey : null;                                  // 1d.11: which entry on disk this row IS
             this.libPanel = st.libPanel === LIB.named || st.libPanel === LIB.untitled ? st.libPanel : null;
@@ -511,6 +514,9 @@ const S = {
               '<button id="rsRollTog" style="' + BTN + ';color:#e8a06a" title="the ROLL: a set of time containers rolled from a pool of numbers — it lays out the row\'s durations for you">roll</button>' +
               '<button id="rsWavesTog" style="' + BTN + ';color:' + WTINT + '" title="the WAVES: every player rises and falls on a stream of swells of their own, out of step with the others. A box READS the waves when its dyn is `waves`; any box can step out to a straight dynamic and the waves run on under it">waves</button>' +
               '<button id="rsEdgesTog" style="' + BTN + ';color:#e6c46a" title="the EDGES: how the sequence begins and ends — a fade in from nothing (or from a dynamic), a fade out to nothing (or to a dynamic), and whether the players end together or one by one, each finishing a last breath of their own. How it BEGINS — together or staggered — is box 1\'s `enter`">edges</button>' +
+              '<span style="color:#b9a" title="what a click on a DOT does (the dot view over the rows) — mute: off or on · edit: its card. SHIFT+click = the whole line of that box · drag a box over dots = several">dots</span>' +
+              '<button id="rsDMmute" style="' + BTN + '" title="MUTE: a click turns a dot off or on (SHIFT+click: its whole line in that box; drag a box: several)">mute</button>' +
+              '<button id="rsDMedit" style="' + BTN + '" title="EDIT: a click opens the dot\'s card — pitch (from the harmony beneath, then free), dynamic, articulation; the percussion can become the vibraphone">edit</button>' +
               '<button id="rsWorkTog" style="' + BTN + ';color:#f0c890" title="the WORKSHOP (PLAN 1l.4): choose a rhythm take, SEE its lines as dots and HEAR it in the selected harmony box — each player\'s pitch and level from that box — then cut a portion (click a start and a stop on its timeline, or drag across the dots) or take the whole take looped, and save it to the rhythm row">workshop</button>' +
               '<span style="width:1px;height:1.455em;background:#3a4148"></span>' +
               '<label title="what SPACE and Hear play — the whole sequence, from the selected box on, or from the CURSOR (click the time strip above the boxes)">hear <select id="rsFrom" style="' + INP + '"><option value="start">from the start</option><option value="box">from the box</option><option value="cursor">from the cursor</option></select></label>' +
@@ -599,6 +605,8 @@ const S = {
         this.buildWaves();
         q('#rsEdgesTog').addEventListener('click', () => { this.edgesOpen = !this.edgesOpen; this.save(); this.paintEdges(); this.fitStrikes(); });
         this.buildEdges();
+        q('#rsDMmute').addEventListener('click', () => { this.dotMode = 'mute'; this.closeCard(); this.save(true); this.paintDotMode(); });   // 1l.6
+        q('#rsDMedit').addEventListener('click', () => { this.dotMode = 'edit'; this.save(true); this.paintDotMode(); });
         q('#rsWorkTog').addEventListener('click', () => { this.workOpen = !this.workOpen; this.save(); this.paintWork(true); });   // 1l.4
         this.buildWork();
         window.addEventListener('resize', () => { if (this.isOpen()) { this.clampWindow(); this.fitStrikes(); } });   // the screen changed under a floating window: bring it back into view
@@ -741,7 +749,7 @@ const S = {
         q('#rsFrom').value = this.hearFrom;
         const n = this.row.boxes.length, nr = (this.row.rhythm || []).length;
         q('#rsTotal').textContent = (n ? 'harmony ' + n + ' box' + (n > 1 ? 'es' : '') + ' · ' + fmtS(this.total()) + ' s' : '') + (nr ? (n ? ' · ' : '') + 'rhythm ' + nr + ' · ' + fmtS(this.rtotal()) + ' s' : '');
-        this.renderRow(); this.renderRRow(); this.renderEdit(); this.paintWork(!!this.workOpen);   // 1l.4: the workshop's dots follow the harmony box he clicks this.renderList(); this.paintInsert(); this.paintLib(); this.paintRoll(); this.paintWaves(); this.paintEdges();
+        this.renderRow(); this.renderRRow(); this.renderEdit(); this.paintWork(!!this.workOpen); this.paintDotMode();   // 1l.4: the workshop's dots follow the harmony box he clicks this.renderList(); this.paintInsert(); this.paintLib(); this.paintRoll(); this.paintWaves(); this.paintEdges();
         this.paintCursor(); this.paintClock(null);   // 1d.15: after renderRow, which rebuilds the boxes the cursor is measured against
     },
 
@@ -968,6 +976,7 @@ const S = {
         ed.innerHTML = '<b style="color:#f0c890">rhythm box ' + (i + 1) + '</b>' +
             (b.take ? '<span style="color:#b9a">take "' + esc(b.take) + '" · ' + (+b.start).toFixed(2) + ' → ' + (+b.stop).toFixed(2) + ' s · ' + fmtS(b.dur) + ' s</span><button id="rsRRef" style="' + BTN + '" title="read the rhythm take again from bank/rhythm_takes.json — the box holds its recipe as it was when it was cut">refresh from take</button>'
                     : '<label><input id="rsRDur" type="number" min="' + MIN_DUR + '" max="' + MAX_DUR + '" step="0.5" style="width:5.091em;' + INP + '"> s</label>') +
+            (b.take ? '<button id="rsRWho" style="' + BTN + '" title="WHO PLAYS each line in this box — only the rhythm moves (1l.6)">who plays ▾</button>' + (this.touchCount(b) ? '<span style="color:#c8a2ff">' + this.touchCount(b) + ' touched</span>' : '') : '') +
             '<button id="rsRLeft" style="' + BTN + '" title="move this rhythm box earlier">◂</button><button id="rsRRight" style="' + BTN + '" title="move this rhythm box later">▸</button>' +
             '<button id="rsRDel" style="' + BTN + '" title="remove this rhythm box">×</button>' +
             '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#9ab">' + (b.take ? 'an excerpt of a rhythm take — its length is its cut' : 'a REST — silence for its ' + fmtS(b.dur) + ' s. The workshop (1l.4) gives a box an excerpt of a rhythm take') + '</span>';
@@ -980,8 +989,12 @@ const S = {
         if (q('#rsRRef')) q('#rsRRef').addEventListener('click', async () => {
             const L = await this.workList(true), t = L[b.take];
             if (!t || !t.state || !t.state.spec) { this.setStatus('no rhythm take named "' + b.take + '" in bank/rhythm_takes.json any more', true); return; }
+            const nt = this.touchCount(b);   // 1l.6: a RE-CUT loses the touches — say how many, first
+            if (nt && JSON.stringify(t.state) !== JSON.stringify(b.state) && !window.confirm('The rhythm take has changed since this box was cut.\n\nRe-reading it LOSES ' + nt + ' touch' + (nt === 1 ? '' : 'es') + ' on this box (mutes and changed dots). Go on?')) return;
+            if (JSON.stringify(t.state) !== JSON.stringify(b.state)) { b.touches = {}; b.assign = null; }
             b.state = JSON.parse(JSON.stringify(t.state)); this.save(); this.render(); this.setStatus('rhythm box ' + (i + 1) + ' re-read "' + b.take + '" — the same cut, ' + (+b.start).toFixed(2) + ' → ' + (+b.stop).toFixed(2) + ' s');
         });
+        if (q('#rsRWho')) q('#rsRWho').addEventListener('click', e => this.openWho(i, e.currentTarget));   // 1l.6
         q('#rsRLeft').addEventListener('click', () => this.moveRBox(i, -1));
         q('#rsRRight').addEventListener('click', () => this.moveRBox(i, 1));
         q('#rsRDel').addEventListener('click', () => this.removeRBox(i));
@@ -1246,30 +1259,53 @@ const S = {
     dotsOf(recipe, quiet) {
         let G = null;
         try { G = SEQ.generate(recipe); } catch (e) { if (!quiet) this.setStatus(String(e && e.message || e).replace(/^sequence: /, ''), true); return null; }
-        const map = this.mapOf(G), L = LADDER(), names = L ? L.NAMES : null;
+        const map = this.mapOf(G), L = LADDER(), names = L ? L.NAMES : null, lo = L ? L.LO : 65, hi = L ? L.HI : 127;
         const nameOf = lv => names ? names[Math.max(0, Math.min(names.length - 1, Math.round(lv * (names.length - 1))))] : '';
+        const levelOfName = nm => { const k = names ? names.indexOf(nm) : -1; return k < 0 ? null : k / (names.length - 1); };
+        const T0 = +recipe.t0 || 0, vibLane = (typeof TRACKS !== 'undefined' ? TRACKS : []).findIndex(t => t.instKey === 'bowed_vibraphone');
         const dots = [], notes = [], rows = [];
-        let s = +recipe.t0 || 0, hollow = 0;
+        let s = T0, hollow = 0, muted = 0, changed = 0;
         (recipe.rhythm || []).forEach((b, bi) => {
             const W = (b.take && b.state) ? this.realized(b.state) : null;
             if (W) {
+                // 1l.6: a line MOVED to another instrument in this box — only the rhythm moves (b.assign, else the take's own who-plays)
+                const RB = Array.isArray(b.assign) ? Object.assign(Object.create(W.R), { assign: b.assign }) : W.R;
+                const touches = (b.touches && typeof b.touches === 'object') ? b.touches : {};
                 W.lines.forEach((row, Lx) => row.forEach(d => {
                     if (d.t < b.start - 1e-9 || d.t >= b.stop - 1e-9) return;
-                    const T = +(s + (d.t - b.start)).toFixed(4), ns = this.joinDot(W.R, map, d, T), sounding = ns.filter(n => n.weight > 0.001);
-                    const dot = { box: bi, line: Lx, i: d.i, T: T, dur: d.dur, notes: ns, hollow: !ns.length, silent: !W.R.assignOf(Lx).length };
-                    dots.push(dot); if (dot.hollow && !dot.silent) hollow++;
-                    (rows[Lx] || (rows[Lx] = [])).push({ t: T - (+recipe.t0 || 0), s: dot.silent ? 'silent' : dot.hollow ? 'hollow' : (!sounding.length ? 'muted' : 'ok') });
+                    const T = +(s + (d.t - b.start)).toFixed(4), ns = this.joinDot(RB, map, d, T), tch = touches[Lx + ':' + d.i] || null;
+                    // 1l.6: HIS TOUCHES — an EXCEPTION in the recipe, keyed box · line · dot: a mute (rhythm), or per player a pitch · a
+                    // dynamic · an articulation · the percussion become the vibraphone. An untouched dot keeps reading the harmony.
+                    let isChanged = false;
+                    if (tch && tch.p) ns.forEach(n => {
+                        const o = tch.p[n.slot]; if (!o) return;
+                        if (o.vib != null && vibLane >= 0) {
+                            const v = map.at(vibLane, o.vib, T)[0];
+                            if (v) Object.assign(n, { lane: vibLane, midi: v.midi, cents: v.cents || 0, partial: v.partial, level: v.level, weight: v.weight, tech: o.tech || VIB_TECH, fallback: false });
+                            else n.gone = true;   // no vibraphone note beneath: nothing to borrow (LG-58)
+                        } else {
+                            if (o.midi != null) { n.midi = o.midi; n.cents = +o.cents || 0; n.partial = o.partial != null ? o.partial : null; }
+                            if (o.tech) n.tech = o.tech;
+                        }
+                        if (o.dyn) { const lv = levelOfName(o.dyn); if (lv != null) n.level = lv; }
+                        n.vel = Math.round(lo + (hi - lo) * n.level); n.changed = true; isChanged = true;
+                    });
+                    const live = ns.filter(n => !n.gone), isMuted = !!(tch && tch.mute), sounding = isMuted ? [] : live.filter(n => n.weight > 0.001);
+                    const dot = { box: bi, line: Lx, i: d.i, T: T, dur: d.dur, notes: live, hollow: !live.length, silent: !RB.assignOf(Lx).length, muted: isMuted, changed: isChanged };
+                    dots.push(dot); if (dot.hollow && !dot.silent) hollow++; if (isMuted) muted++; if (isChanged) changed++;
+                    (rows[Lx] || (rows[Lx] = [])).push({ t: T - T0, box: bi, line: Lx, i: d.i,
+                        s: dot.silent ? 'silent' : isMuted ? 'muted' : dot.hollow ? 'hollow' : isChanged ? 'changed' : (!sounding.length ? 'muted' : 'ok') });
                     sounding.forEach(n => {
                         const velAbs = Math.max(1, Math.round(D.remapVel(n.lane, n.midi, n.vel) * n.weight));
                         notes.push({ lane: n.lane, tech: n.tech, midi: n.midi, cents: n.cents || 0, partial: n.partial, level: n.level, anchor: n.vel, velAbs: velAbs, weight: n.weight,
-                            dyn: nameOf(n.level), fallback: n.fallback, start: +T.toFixed(3), end: +(T + Math.max(0.02, d.dur)).toFixed(3), box: bi, line: Lx, i: d.i });
+                            dyn: nameOf(n.level), fallback: n.fallback, changed: !!n.changed, start: +T.toFixed(3), end: +(T + Math.max(0.02, d.dur)).toFixed(3), box: bi, line: Lx, i: d.i });
                     });
                 }));
             }
             s += +b.dur || 0;
         });
         notes.sort((a, b) => a.start - b.start || a.lane - b.lane);
-        return { G, map, dots, notes, rows, hollow, end: s };
+        return { G, map, dots, notes, rows, hollow, muted, changed, end: s };
     },
     rhythmHasDots() { return (this.row.rhythm || []).some(b => b.take && b.state); },
     seqTotal() { return Math.max(this.total(), this.rtotal()); },
@@ -1326,11 +1362,18 @@ const S = {
         const host = this.el && this.el.querySelector('#rsDots'); if (!host) return;
         if (!this.rhythmHasDots()) { host.style.display = 'none'; return; }
         host.style.display = '';
-        if (!this.dView && root.DotView) { this.dView = root.DotView.create(host, { pad: 0, pxPerSec: this.pps || this.ppsNow() }); this.dView.onSeek = t => this.setCursorAt(t); }
+        if (!this.dView && root.DotView) {
+            this.dView = root.DotView.create(host, { pad: 0, pxPerSec: this.pps || this.ppsNow(), marquee2d: true });
+            this.dView.onSeek = t => this.setCursorAt(t);
+            this.dView.onDot = (r, i, ev) => this.dotClick(r, i, ev);            // 1l.6: mute or edit, by the mode he has lit
+            this.dView.onSpan = (a, b, ev, r0, r1) => this.dotSpan(a, b, ev, r0, r1);
+        }
         if (!this.dView) return;
         let X = null;
         try { X = this.row.boxes.length ? this.dotsOf(this.recipe(0), true) : null; } catch (e) { X = null; }
         this.dView.pxPerSec = this.pps || this.ppsNow();
+        const sel = new Set((this._selDots || []).map(d => d.box + ':' + d.line + ':' + d.i));
+        if (X) X.rows.forEach(r => (r || []).forEach(d => { d.sel = sel.has(d.box + ':' + d.line + ':' + d.i); }));
         const rows = X ? X.rows.map((r, Lx) => ({ label: 'L' + (Lx + 1), dots: r || [] })) : [];
         this.dView.set({ rows: rows, t0: 0, t1: Math.max(0.5, this.seqTotal()) });
         this._dotsX = X;
@@ -1346,6 +1389,139 @@ const S = {
         const x = t0 * (this.pps || this.ppsNow());
         if (x < wrap.scrollLeft || x > wrap.scrollLeft + wrap.clientWidth - 30) wrap.scrollLeft = Math.max(0, x - 20);
     },
+    // ------------------------------------------------------------------ 1l.6 — THE DOTS, TOUCHED (docs/PLAN.md § 1l.6; his A: two VISIBLE modes)
+    // On the continuous dot view: `mute` — a click turns a dot off or on; `edit` — a click opens the dot's CARD. One dot (a click), a whole
+    // LINE of its box (SHIFT+click), or several (drag a BOX over time and lines) take the same touch. A touch is an EXCEPTION kept on its
+    // rhythm box, keyed line:dot — so it survives a change of the harmony row and a move of its box, and the recipe carries it. It does not
+    // survive a RE-CUT of its box (the panel says how many would be lost, first). A mute is RHYTHM: it stays when a line moves.
+    touchKey(d) { return d.line + ':' + d.i; },
+    dotsIn(a, b, r0, r1) { const X = this._dotsX; if (!X) return []; const out = []; for (let r = r0; r <= r1; r++) (X.rows[r] || []).forEach(d => { if (d.t >= a - 1e-9 && d.t <= b + 1e-9) out.push(d); }); return out; },
+    lineOf(d) { const X = this._dotsX; return X ? [].concat(...X.rows.map(r => (r || []).filter(x => x.box === d.box && x.line === d.line))) : [d]; },
+    touchesOf(bi) { const b = this.row.rhythm[bi]; if (!b) return null; if (!b.touches || typeof b.touches !== 'object') b.touches = {}; return b.touches; },
+    tidyTouch(bi, k) { const T = this.touchesOf(bi); const t = T && T[k]; if (!t) return; if (t.p && !Object.keys(t.p).length) delete t.p; if (!t.mute) delete t.mute; if (!Object.keys(t).length) delete T[k]; },
+    dotClick(row, idx, ev) {
+        const X = this._dotsX, d = X && X.rows[row] && X.rows[row][idx]; if (!d) return;
+        const set = ev && ev.shiftKey ? this.lineOf(d) : [d];
+        if (this.dotMode === 'edit') { this.openCard(set, ev); return; }
+        this.toggleMute(set, ev && ev.shiftKey ? 'the line' : 'the dot');
+    },
+    dotSpan(a, b, ev, r0, r1) {
+        const set = this.dotsIn(a, b, r0, r1); if (!set.length) { this.setStatus('no dots in that box', true); return; }
+        if (this.dotMode === 'edit') { this.openCard(set, ev); return; }
+        this.toggleMute(set, 'the box');
+    },
+    // MUTE: every dot of the set off — unless every one is already off, then every one back on
+    toggleMute(set, what) {
+        const allOff = set.every(d => { const t = (this.touchesOf(d.box) || {})[this.touchKey(d)]; return !!(t && t.mute); });
+        set.forEach(d => { const T = this.touchesOf(d.box), k = this.touchKey(d); if (!T) return; if (allOff) { if (T[k]) { delete T[k].mute; this.tidyTouch(d.box, k); } } else { (T[k] || (T[k] = {})).mute = true; } });
+        this.save(); this.render();
+        this.setStatus((allOff ? 'unmuted ' : 'muted ') + what + (set.length > 1 ? ' (' + set.length + ' dots)' : '') + ' — ' + (allOff ? 'it reads the harmony again' : 'silent, and it stays silent if its line moves to another player'));
+    },
+    // THE CARD: pitch — first the notes of the harmony BENEATH (it stays in the harmony, cents and all), then free · dynamic · articulation ·
+    // for the percussion, the vibraphone (one of its two notes beneath) · back to the harmony. One player at a time (a doubled line has two).
+    openCard(set, ev) {
+        this.closeCard();
+        this._selDots = set.slice(); this.drawDots();
+        const TP = root.TexturePanel, P = TP ? TP.P7() : [], X = this._dotsX; if (!X || !set.length) return;
+        const first = set[0], b = this.row.rhythm[first.box], W = b && this.realized(b.state); if (!W) return;
+        const RB = Array.isArray(b.assign) ? Object.assign(Object.create(W.R), { assign: b.assign }) : W.R;
+        const slots = [...new Set(set.flatMap(d => { const bb = this.row.rhythm[d.box], WW = bb && this.realized(bb.state); if (!WW) return []; const R2 = Array.isArray(bb.assign) ? Object.assign(Object.create(WW.R), { assign: bb.assign }) : WW.R; return R2.assignOf(d.line); }))].sort((x, y) => x - y);
+        if (!slots.length) { this.setStatus('nobody plays these dots — give the line a player (who plays, on the rhythm box)', true); return; }
+        const T = +(first.t + (X.G.t0 || 0)).toFixed(4), beneath = [];
+        (typeof TRACKS !== 'undefined' ? TRACKS : []).forEach((tr, lane) => [0, 2].forEach(seat => { X.map.at(lane, seat, T).forEach(n => beneath.push({ lane, seat, midi: n.midi, cents: n.cents || 0, partial: n.partial, label: (tr.short || tr.label) + (seat ? '²' : '') + ' ' + pitchName(n.midi) + centsTxt(n.cents) })); }));
+        const L = LADDER(), I = (typeof INSTRUMENTS !== 'undefined' ? INSTRUMENTS : {});
+        const c = document.createElement('div'); c.id = 'rsCard';
+        const x0 = ev && ev.clientX != null ? ev.clientX : window.innerWidth / 2, y0 = ev && ev.clientY != null ? ev.clientY : window.innerHeight / 2;
+        c.style.cssText = 'position:fixed;z-index:100001;left:' + Math.max(4, Math.min(x0 + 8, window.innerWidth - 380)) + 'px;top:' + Math.max(4, Math.min(y0 + 8, window.innerHeight - 300)) + 'px;width:360px;' +
+            'background:#16141a;color:#ddd;border:1px solid ' + EDGE_ON + ';border-radius:5px;padding:8px 10px;font:12px/1.5 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.6)';
+        const SEL = 'style="' + INP + ';max-width:15em"';
+        c.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><b style="color:' + EDGE_ON + '">' +
+                (set.length === 1 ? 'dot · rhythm box ' + (first.box + 1) + ' · L' + (first.line + 1) + ' · ' + fmtS(T - (this._dotsX.G.t0 || 0)) + ' s' : set.length + ' dots') + '</b>' +
+                '<span id="rsCardX" style="cursor:pointer;color:#888">&#10005;</span></div>' +
+            '<div style="display:grid;grid-template-columns:5.5em 1fr;gap:3px 6px;align-items:center">' +
+            '<span style="color:#b9a">player</span><select id="rsCardP" ' + SEL + '>' + slots.map(s => '<option value="' + s + '">' + esc((P[s] && P[s].label) || ('player ' + s)) + '</option>').join('') + '</select>' +
+            '<span style="color:#b9a">pitch</span><select id="rsCardPitch" ' + SEL + '><option value="">as the harmony</option>' +
+                beneath.map((n, k) => '<option value="h' + k + '">' + esc(n.label) + ' (beneath)</option>').join('') + '<option value="free">free…</option></select>' +
+            '<span></span><span id="rsCardFree" style="display:none">midi <input id="rsCardMidi" type="number" min="21" max="108" step="1" style="width:4.5em;' + INP + '"> cents <input id="rsCardCents" type="number" min="-50" max="50" step="1" value="0" style="width:4em;' + INP + '"></span>' +
+            '<span style="color:#b9a">dynamic</span><select id="rsCardDyn" ' + SEL + '><option value="">as the harmony</option>' + (L ? L.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('') : '') + '</select>' +
+            '<span style="color:#b9a">articulation</span><select id="rsCardTech" ' + SEL + '></select>' +
+            '<span style="color:#b9a" id="rsCardVibL">percussion</span><select id="rsCardVib" ' + SEL + '><option value="">as it is</option><option value="0">the vibraphone — note 1 beneath</option><option value="2">the vibraphone — note 2 beneath</option></select>' +
+            '</div><div style="display:flex;gap:6px;margin-top:6px">' +
+            '<button id="rsCardApply" style="' + BTN + ';color:' + EDGE_ON + '">apply</button>' +
+            '<button id="rsCardClear" style="' + BTN + '" title="this player on these dots reads the harmony again — pitch, dynamic, articulation">back to the harmony</button>' +
+            '<button id="rsCardMute" style="' + BTN + '" title="mute or unmute these dots — the rhythm itself, for every player of the line">mute / unmute</button></div>';
+        document.body.appendChild(c); this._card = c;
+        const q = s => c.querySelector(s);
+        const fillPlayer = () => {
+            const slot = +q('#rsCardP').value, p = P[slot], isPerc = p && p.instKey === 'percussion';
+            const vibOn = isPerc && q('#rsCardVib').value !== '', key = vibOn ? 'bowed_vibraphone' : (p && p.instKey), techs = (I[key] && I[key].techniques) || [];
+            q('#rsCardTech').innerHTML = '<option value="">' + (vibOn ? 'Standard Mallets (the default)' : 'as the take') + '</option>' + techs.map(t => '<option value="' + esc(t.key) + '">' + esc(t.label || t.key) + '</option>').join('');
+            q('#rsCardVib').style.display = isPerc ? '' : 'none'; q('#rsCardVibL').style.display = isPerc ? '' : 'none';
+            q('#rsCardPitch').disabled = vibOn;
+            const cur = ((this.touchesOf(first.box) || {})[this.touchKey(first)] || {}).p, o = cur && cur[slot];
+            q('#rsCardDyn').value = (o && o.dyn) || ''; q('#rsCardTech').value = (o && o.tech) || ''; if (isPerc) q('#rsCardVib').value = (o && o.vib != null) ? String(o.vib) : q('#rsCardVib').value;
+        };
+        q('#rsCardP').addEventListener('change', fillPlayer);
+        q('#rsCardVib').addEventListener('change', () => { const keep = q('#rsCardVib').value; fillPlayer(); q('#rsCardVib').value = keep; });
+        q('#rsCardPitch').addEventListener('change', e => { q('#rsCardFree').style.display = e.target.value === 'free' ? '' : 'none'; });
+        q('#rsCardX').addEventListener('click', () => this.closeCard());
+        q('#rsCardMute').addEventListener('click', () => { this.toggleMute(this._selDots || set, (this._selDots || set).length + ' dot' + ((this._selDots || set).length === 1 ? '' : 's')); this.closeCard(); });
+        q('#rsCardClear').addEventListener('click', () => {
+            const slot = +q('#rsCardP').value;
+            set.forEach(d => { const TT = this.touchesOf(d.box), k = this.touchKey(d); if (TT && TT[k] && TT[k].p) { delete TT[k].p[slot]; this.tidyTouch(d.box, k); } });
+            this.save(); this.closeCard(); this.render(); this.setStatus('back to the harmony — ' + set.length + ' dot' + (set.length === 1 ? '' : 's') + ' of ' + ((P[slot] && P[slot].label) || 'that player') + ' read the harmony again');
+        });
+        q('#rsCardApply').addEventListener('click', () => {
+            const slot = +q('#rsCardP').value, p = P[slot], isPerc = p && p.instKey === 'percussion', o = {};
+            const pv = q('#rsCardPitch').value, dyn = q('#rsCardDyn').value, tech = q('#rsCardTech').value, vib = isPerc ? q('#rsCardVib').value : '';
+            if (vib !== '') o.vib = +vib;
+            else if (pv === 'free') { const m = Math.round(+q('#rsCardMidi').value); if (!(m >= 21 && m <= 108)) { this.setStatus('a free pitch is a MIDI note, 21 … 108', true); return; } o.midi = m; o.cents = clamp(+q('#rsCardCents').value || 0, -50, 50); }
+            else if (pv && pv[0] === 'h') { const n = beneath[+pv.slice(1)]; if (n) { o.midi = n.midi; o.cents = n.cents; if (n.partial != null) o.partial = n.partial; } }
+            if (dyn) o.dyn = dyn;
+            if (tech) o.tech = tech;
+            if (!Object.keys(o).length) { this.setStatus('nothing chosen — pick a pitch, a dynamic or an articulation (or `back to the harmony`)', true); return; }
+            set.forEach(d => { const TT = this.touchesOf(d.box), k = this.touchKey(d); if (!TT) return; const t = TT[k] || (TT[k] = {}); (t.p || (t.p = {}))[slot] = Object.assign({}, o); });
+            this.save(); this.closeCard(); this.render();
+            this.setStatus('changed ' + set.length + ' dot' + (set.length === 1 ? '' : 's') + ' of ' + ((p && p.label) || 'that player') + ': ' + [o.vib != null ? 'the vibraphone, note ' + (o.vib ? 2 : 1) + ' beneath' : '', o.midi != null ? pitchName(o.midi) + centsTxt(o.cents) : '', o.dyn || '', o.tech || ''].filter(Boolean).join(' · ') + ' — the rest keep reading the harmony');
+        });
+        fillPlayer();
+    },
+    closeCard() { if (this._card) { this._card.remove(); this._card = null; } if (this._selDots) { this._selDots = null; this.drawDots(); } },
+    touchCount(b) { return (b && b.touches) ? Object.keys(b.touches).length : 0; },
+
+    // WHO PLAYS, per box (the same grid as Texture's, 1l.2): only the RHYTHM moves — the pitch comes from the new player's note; the pitches and
+    // articulations changed on that line are DROPPED (LG-57); its MUTES stay — they are rhythm
+    openWho(bi, anchor) {
+        this.closeWho();
+        const b = this.row.rhythm[bi], W = b && this.realized(b.state), TP = root.TexturePanel; if (!W || !TP) return;
+        const P = TP.P7(), RB = Array.isArray(b.assign) ? Object.assign(Object.create(W.R), { assign: b.assign }) : W.R, n = W.lines.length;
+        const r = anchor ? anchor.getBoundingClientRect() : { left: 200, bottom: 200 };
+        const w = document.createElement('div'); w.id = 'rsWho';
+        w.style.cssText = 'position:fixed;z-index:100001;left:' + Math.max(4, Math.min(r.left, window.innerWidth - 320)) + 'px;top:' + Math.max(4, Math.min(r.bottom + 4, window.innerHeight - 40 - n * 22)) + 'px;background:#16141a;color:#ddd;border:1px solid ' + EDGE_ON + ';border-radius:5px;padding:6px 8px;font:12px/1.4 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.6)';
+        let h = '<div style="display:flex;justify-content:space-between;margin-bottom:3px"><b style="color:' + EDGE_ON + '">who plays · rhythm box ' + (bi + 1) + '</b><span id="rsWhoX" style="cursor:pointer;color:#888;margin-left:12px">&#10005;</span></div><table style="border-collapse:collapse"><tr><td></td>' + P.map(p => '<td style="padding:0 3px;color:#b9a;text-align:center">' + esc(p.short) + '</td>').join('') + '</tr>';
+        for (let L = 0; L < n; L++) { const on = new Set(RB.assignOf(L)); h += '<tr><td style="color:#9a9;padding-right:4px">L' + (L + 1) + '</td>' + P.map((p, c) => '<td style="text-align:center"><input type="checkbox" data-l="' + L + '" data-c="' + c + '"' + (on.has(c) ? ' checked' : '') + '></td>').join('') + '</tr>'; }
+        h += '</table><div style="color:#888;margin-top:3px">only the rhythm moves: a moved line reads its NEW player\'s note; its changed pitches and articulations go, its mutes stay</div>';
+        w.innerHTML = h; document.body.appendChild(w); this._who = w;
+        w.querySelector('#rsWhoX').addEventListener('click', () => this.closeWho());
+        w.addEventListener('change', e => {
+            const cb = e.target.closest('input[data-l]'); if (!cb) return;
+            const L = +cb.dataset.l, c = +cb.dataset.c, cur = [];
+            const RBnow = Array.isArray(b.assign) ? Object.assign(Object.create(W.R), { assign: b.assign }) : W.R;   // as it stands NOW — not as the grid opened
+            for (let k = 0; k < n; k++) cur.push(RBnow.assignOf(k).slice());
+            const set = new Set(cur[L]); if (cb.checked) set.add(c); else set.delete(c); cur[L] = [...set].sort((x, y) => x - y);
+            b.assign = cur;
+            let dropped = 0; const TT = this.touchesOf(bi) || {};
+            Object.keys(TT).forEach(k => { if (+k.split(':')[0] === L && TT[k].p) { dropped += Object.keys(TT[k].p).length; delete TT[k].p; this.tidyTouch(bi, k); } });
+            this.save(); this.render();
+            this.setStatus('rhythm box ' + (bi + 1) + ' · L' + (L + 1) + ' now played by ' + (cur[L].length ? cur[L].map(s => P[s].short).join(' + ') : 'nobody') + (dropped ? ' · ' + dropped + ' changed pitch/articulation touch' + (dropped === 1 ? '' : 'es') + ' dropped — its mutes stay' : ''));
+        });
+    },
+    closeWho() { if (this._who) { this._who.remove(); this._who = null; } },
+    paintDotMode() {
+        const m = this.dotMode === 'edit' ? 'edit' : 'mute';
+        ['mute', 'edit'].forEach(k => { const b = this.el && this.el.querySelector('#rsDM' + k); if (b) { b.style.background = k === m ? '#4a3420' : '#2a2a30'; b.style.color = k === m ? '#f0c890' : '#ccc'; } });
+    },
+
 
     removeBox(i) { if (!this.row.boxes[i]) return; this.row.boxes.splice(i, 1); this.sel = Math.min(i, this.row.boxes.length - 1); this.selTo = null; this.save(); this.render(); },
     moveBox(i, by) { const j = i + by, B = this.row.boxes; if (!B[i] || j < 0 || j >= B.length) return; const t = B[i]; B[i] = B[j]; B[j] = t; this.sel = j; this.selTo = null; this.save(); this.render(); },
@@ -1780,7 +1956,8 @@ const S = {
         return Object.assign({ t0: +t0 || 0, change: 'attack', breath: Object.assign({}, MAP_BREATH),
             containers: r.boxes.map(b => Object.assign({ dur: +b.dur, dyn: b.dyn, take: b.take, chord: b.chord.length ? b.chord : null }, b.dyn === WAVES ? { dynWas: b.dynWas || AS_DEALT } : {},
                 this.rangeOk(b.range) ? { range: this.rangeOk(b.range) } : {})),   // 1d.12: a box may read the waves through a range of its own
-            rhythm: (r.rhythm || []).map(b => Object.assign({ take: b.take, start: +b.start || 0, stop: +b.stop || 0, dur: +b.dur }, b.state ? { state: b.state } : {})) },   // 1l.4: each box's rhythm take, frozen
+            rhythm: (r.rhythm || []).map(b => Object.assign({ take: b.take, start: +b.start || 0, stop: +b.stop || 0, dur: +b.dur }, b.state ? { state: b.state } : {},
+                (b.touches && Object.keys(b.touches).length) ? { touches: b.touches } : {}, Array.isArray(b.assign) ? { assign: b.assign } : {})) },   // 1l.6: the touches ride in the recipe   // 1l.4: each box's rhythm take, frozen
             wavesToo ? { waves: this.wavesDefaults(r.waves) } : {},
             this.isDefaultEdges() ? {} : { edges: this.edgesDefaults(r.edges) },
             r.rolled ? { roll: JSON.parse(JSON.stringify(r.roll)) } : {});

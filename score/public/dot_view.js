@@ -19,7 +19,7 @@
 
 const ROW_H = 14, HEAD_H = 18, R = 2.6, PAD = 6;
 const COL = {
-    ok: '#8fd6ab', warn: '#e0b062', hollow: '#8fd6ab', muted: '#4d4d55', silent: '#44444c', dropped: '#6a5a8a',
+    ok: '#8fd6ab', warn: '#e0b062', hollow: '#8fd6ab', muted: '#4d4d55', silent: '#44444c', dropped: '#6a5a8a', changed: '#c8a2ff',   // changed: a dot he touched (1l.6)
     grid: '#2c2c34', tick: '#555', text: '#8a8', cursor: '#e8cf9a', sel: 'rgba(127,196,232,0.18)', selEdge: '#7fc4e8', bg: '#18181c',
 };
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -35,6 +35,7 @@ function create(host, opts) {
     const v = {
         host, rows: [], t0: 0, t1: 1, grid: null, cursor: null, sel: null, pxPerSec: opts.pxPerSec || null, pad: opts.pad != null ? opts.pad : PAD,   // pad 0: x = t · pxPerSec exactly, to line up under other rows (1l.5)
         onSeek: null, onDot: null, onToggle: null, onSpan: null,
+        marquee2d: !!opts.marquee2d, box: null,   // 1l.6: a drag draws a BOX over time AND rows, and reports both
     };
     host.innerHTML =
         '<div class="dvWrap" style="display:flex;align-items:flex-start;background:' + COL.bg + ';border:1px solid #333;border-radius:3px">' +
@@ -109,8 +110,14 @@ function create(host, opts) {
                 x.beginPath(); x.arc(px, cy, R, 0, 2 * Math.PI);
                 if (s === 'hollow') { x.strokeStyle = COL.hollow; x.lineWidth = 1; x.stroke(); }
                 else { x.fillStyle = COL[s] || COL.ok; x.fill(); }
+                if (d.sel) { x.beginPath(); x.arc(px, cy, R + 2, 0, 2 * Math.PI); x.strokeStyle = '#ffffff'; x.lineWidth = 1; x.stroke(); }   // 1l.6: selected
             });
         });
+        // the marquee box (1l.6)
+        if (v.box) {
+            const a = v.xOf(v.box.a), b = v.xOf(v.box.b), y0 = HEAD_H + v.box.r0 * ROW_H, y1 = HEAD_H + (v.box.r1 + 1) * ROW_H;
+            x.fillStyle = COL.sel; x.fillRect(a, y0, b - a, y1 - y0); x.strokeStyle = COL.selEdge; x.strokeRect(a + 0.5, y0 + 0.5, b - a - 1, y1 - y0 - 1);
+        }
         // the cursor
         if (v.cursor != null && v.cursor >= v.t0 && v.cursor <= v.t1) {
             const px = Math.round(v.xOf(v.cursor)) + 0.5;
@@ -135,15 +142,24 @@ function create(host, opts) {
         const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
         if (py < HEAD_H) { if (v.onSeek) v.onSeek(clampT(px), e); return; }
         const row = Math.floor((py - HEAD_H) / ROW_H), x0 = px;
+        const rowAt = cy => Math.max(0, Math.min(Math.max(0, v.rows.length - 1), Math.floor((cy - HEAD_H) / ROW_H)));
         let dragging = false;
         const move = ev => {
-            const x = ev.clientX - cv.getBoundingClientRect().left;
+            const rr = cv.getBoundingClientRect(), x = ev.clientX - rr.left, y = ev.clientY - rr.top;
             if (!dragging && Math.abs(x - x0) > 4 && v.onSpan) dragging = true;
-            if (dragging) { const a = clampT(Math.min(x0, x)), b = clampT(Math.max(x0, x)); v.sel = { a, b }; v.draw(); }
+            if (!dragging) return;
+            const a = clampT(Math.min(x0, x)), b = clampT(Math.max(x0, x));
+            if (v.marquee2d) { const r0 = rowAt(Math.min(py, y)), r1 = rowAt(Math.max(py, y)); v.box = { a, b, r0, r1 }; } else v.sel = { a, b };
+            v.draw();
         };
         const up = ev => {
             window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up);
-            if (dragging) { const x = ev.clientX - cv.getBoundingClientRect().left; v.onSpan(clampT(Math.min(x0, x)), clampT(Math.max(x0, x)), ev); return; }
+            if (dragging) {
+                const rr = cv.getBoundingClientRect(), x = ev.clientX - rr.left, y = ev.clientY - rr.top;
+                const r0 = rowAt(Math.min(py, y)), r1 = rowAt(Math.max(py, y));
+                if (v.marquee2d) { v.box = null; v.draw(); }
+                v.onSpan(clampT(Math.min(x0, x)), clampT(Math.max(x0, x)), ev, r0, r1); return;
+            }
             if (!v.onDot || row < 0 || row >= v.rows.length) return;
             let best = -1, bd = 7;
             (v.rows[row].dots || []).forEach((d, i) => { const dd = Math.abs(v.xOf(d.t) - x0); if (dd < bd) { bd = dd; best = i; } });

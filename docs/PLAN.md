@@ -1648,7 +1648,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **REQUIRED VERIFICATION:** Hear and the score's own playback captured with no MIDI and agreeing note for note · a dot after a harmony
       change reads the NEW harmony · a dot inside a fade reads the FADED level · the batteries green. **Then his listen — the first time
       the counterpoint section sounds.**
-  - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — `todo`
+  - **1l.6 — The dots, touched: mute · pitch · dynamic · articulation · a line moved to another instrument** — `built` 2026-09-21 — **his listen outstanding** (RUNNING_LOG §205: `mute | edit`; click · SHIFT+click a line · drag a box; the card; who plays per box; the percussion become the vibraphone; touches keyed box·line·dot, in the recipe)
     *Result when done:* in the continuous dot view he turns dots off and on quickly, and can change any dot's pitch, dynamic or
     articulation — a dot he has not touched keeps reading the harmony. In any box he can give a line to another instrument. The
     percussion's dots can become vibraphone notes. His touches are saved with the sequence.

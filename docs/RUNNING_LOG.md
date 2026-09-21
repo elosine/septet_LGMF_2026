@@ -8593,3 +8593,49 @@ harmony boxes: `Blm01c-wVibes-Just-A1-seed131mod` 8 s as dealt · `Bloom01-Just-
   model bank VALID · engine identity 48. The test take and the rhythm sequences were removed from `bank/`; the score was never saved.
 
 **Not heard.** This is where the counterpoint section first SOUNDS — his listen, in his Chrome (restart the server; reload).
+
+## §205. `1l.6` BUILT AND VERIFIED — the dots, touched: two visible modes, mute · the dot's card · a line moved to another instrument · the percussion become the vibraphone; his listen outstanding (2026-09-21)
+
+**What was built (rhythm_seq_ui.js · dot_view.js):**
+- **His A — two VISIBLE modes** in the rhythm panel's head: `dots · mute | edit`. On the continuous dot view, **a click** takes one dot,
+  **SHIFT+click** the whole line of that box, **a drag** a box over time AND lines (`dot_view.js`: `marquee2d` reports both, and draws the box).
+- **mute** turns the set off — or, when every dot of it is already off, back on. A mute is RHYTHM: it stays when a line moves.
+- **edit** selects (a white ring) and opens **the dot's card**: *player* (a doubled line has two) · *pitch* — first the notes of the harmony
+  BENEATH that dot, every player's, cents and all (it stays in the harmony), then free (MIDI + cents) · *dynamic* `ppp … fff` or as the
+  harmony · *articulation* from that player's roster or as the take · for the percussion, **the vibraphone — note 1 or note 2 beneath**
+  (LG-59; struck on Standard Mallets by default — the AI's call — on the vibraphone's lane, at that vibraphone note's own level) · `apply` ·
+  `back to the harmony` · `mute / unmute`.
+- **WHO PLAYS, per box** (`who plays ▾` on a rhythm box — the same grid as Texture's): only the rhythm moves; the moved line reads its NEW
+  player's note; the pitches and articulations changed on that line are DROPPED (LG-57), its MUTES stay.
+- **A touch is an EXCEPTION kept on its rhythm box, keyed line:dot** (`b.touches`, `b.assign`), carried in the recipe — the library and the
+  score file — so it survives a change of the harmony row and a move of its box. **A re-cut** (`refresh from take` when the take has
+  changed) says how many touches would be lost, and asks, first.
+- **Each state its own look** on the view: muted (grey) · changed (violet) · hollow (a ring) · too close (amber) · silent.
+- `dotsOf` applies them all: a muted dot is not sounded and not written; a changed note sounds and is written as changed; the rest keep
+  reading the harmony.
+
+**Found by the real-mouse test, and fixed:** the who-plays grid kept the assignment it had opened with, so a SECOND tick in the same grid
+re-added the player the first had removed (L2 came out `[Bsn, Hn]` where `[Hn]` was meant). It now reads the assignment as it stands at
+every tick. *(And a status that said "8 dots (8 dots)".)*
+
+**THE REQUIRED VERIFICATION** (`score-5401`; no MIDI; a rhythm take `AI-test-1l6` — `smear`, 7 lines — as one rhythm box over two harmony
+boxes; **every gesture a real mouse sequence**: mousedown on the canvas → mousemove → mouseup on the window, the panel re-rendered between):
+- **mute:** a click on L1's 4th dot → `{"0:3":{"mute":true}}`, drawn muted; a second click → unmuted, the touch gone · SHIFT+click on L7 →
+  25 of 25 muted · a drag over L2–L3 from 2 to 4 s → exactly the 8 dots inside (2.26 … 3.97 s).
+- **edit:** the mode button clicked; a click on an english-horn dot → the card, one ring; the pitch list offered the harmony beneath (EH B4
+  +4 c · Bsn B4 +4 c · Hn A4 · Tpt A4 · Vib A5 · …); chosen *Vc A2* and *ff* → the dot sounds A2 (partial 2 carried) at level 0.857, drawn
+  violet · a percussion dot → *the vibraphone, note 1 beneath* → lane 5, Standard Mallets, A5, at the harmony's level.
+- **who plays:** L2 moved from the bassoon to the horn (two real clicks in the grid) → `[[0],[2],[2],…]`; L2's changed dynamic DROPPED, its
+  4 mutes STAYED; its dots now read the horn's notes (A4, then G4).
+- **A touch survives a harmony change and a box move:** box 1 set to `f` → every untouched english-horn dot reads the new level (0.290 →
+  0.710) while the changed dot stays A2 ff and the vibraphone dot A5 · a 2 s rest put before the take's box with the real ◂ → every touched
+  dot 2.00 s later, all 35 touches kept. They also survived a page reload.
+- **The capture:** 147 notes heard = 180 dots − 33 muted; the muted double bass line sends nothing; the changed dot goes out
+  `LGEngHorn ch1 k45 v114 @7.45 s`; the percussion dot `LGVibes ch1 k81 v109 @4.49 s`.
+- **Re-insert in place keeps the touches:** inserted at 700 s (147 notes; the changed note `recVel` 118 · `velAbs` 114, *"L1 dot 11 · ff ·
+  partial 2"*; the vibraphone note on its lane); a `new` row; reopened from the list — 35 touches and the moved line back; re-inserted with
+  the playhead at 0 → IN PLACE, the same 147 notes, byte for byte.
+- **The batteries:** palette 184 · sequence 180 · dyn table 51 · snapshots 28 · spectrum 35 · written pitch 10 + control · ceilings green ·
+  model bank VALID · engine identity 48. The test data removed from `bank/`.
+
+**Not heard.** His listen, in his Chrome.
