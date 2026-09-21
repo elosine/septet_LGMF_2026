@@ -8949,3 +8949,39 @@ several columns selected, one shuffle: every note in them re-dealt from the SAME
 **Against `1l`, for the paper:** the unit of orchestration has moved from the LINE (Texture's who-plays, carried into a rhythm box) to
 the ONSET. He reaches the pitch through the tool he has used for a whole section — pick, shuffle, listen — rather than through a map
 he cannot hear while he chooses.
+
+## §218. His method for this tool: BUILD ONE STEP AT A TIME — and BUILD 1 scoped: the `strike | texture` switch, the takes menu, the top row (2026-09-21)
+
+Follows §217. His words:
+
+> *"Actually, just could you journal this, record this, as well as your questions and reactions? And let's just build one step at a
+> time. I think that's probably a better approach, so I'm sure to get what I want. So what I'd like to do is build the, I guess it's
+> kind of like first two steps, but build the possibility of choosing either rhythm, uh, strike rhythm or texture, and then have the
+> ability to bring on a take of a texture, and then this top row that I talked about. And so this is the one you called step one, except
+> we won't have any dots yet. We'll just have the top row, but still spatially spaced out so I can kind of see the rhythm. All dots off,
+> I can click a dot to turn it on. The playback, the range. So all of step one. Let's let's make a plan to build this. Or let's talk, we
+> don't have to do full planning, but let's talk about what this is and make sure we've included all."*
+
+**The method, and why (for the paper).** `1l` was planned in full — eight steps, each agreed in words — then built end to end in one
+sitting, and only then used; in use it *"is not working the way I expected it"* (§214). His remedy is not a better plan but a shorter
+loop: one small build, used by him, then the next — *"so I'm sure to get what I want"*. The whole scenario is still gathered first
+(§215–§217: the pattern · the pitches · articulation and percussion, the last not yet talked through), but only as far as it takes to
+see where build 1 sits. **The record he asked for — his words, the AI's questions and its reactions — is §214 … §217 and LG-63 … LG-66,
+written as each turn happened.**
+
+**BUILD 1 as given back to him — six lines:** (1) a switch at the head of the rhythm column, `strike | texture`; on `strike` the
+drawer exactly as today · (2) on `texture` the strike's controls disappear and a takes menu stands there (his rhythm takes from
+Texture) · (3) a take picked → THE TOP ROW: every onset of the take a dot on one timeline, spaced in time, all off · (4) a click turns
+a dot on or off; `all on` · `all off` · (5) SPACE plays / stops; every ON dot one claves note · (6) a range (a left and a right line)
+and a cursor (dropped by a click; play starts there). *"We won't have any dots yet"* is read as: no COLUMNS yet — the instruments'
+circles under each onset are the next build.
+
+**The AI's additions, "so nothing is missing" — given as lines, his to strike:** the percussion fault FIRST (why every percussion choice
+sounded as the triangle — found, fixed, confirmed by HIS ear, before the claves are built on it) · a take is long, so the row zooms and
+scrolls · the pattern is remembered (a reload; `strike` and back) · SPACE stays the row's after any click in the drawer (collected
+item (c) of §207, the same fault by another door) · two onsets from different lines that land almost together stay TWO dots (LG-58:
+a few milliseconds apart is the material).
+
+**The AI's call, stated to him, his to reverse:** a new switch at the head of the column rather than one more entry in the existing
+`rhythm from` menu (§215) — that menu lends a HARMONY the onsets of another strike, inside the strike mode; the texture mode replaces
+the whole column, and his own words were *"check, uncheck the rhythm and check the textures"*.
