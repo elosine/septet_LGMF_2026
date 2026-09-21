@@ -8824,3 +8824,37 @@ touches) has a double-bass dot and a trumpet dot handed to the PERCUSSION, on `w
 `small_metals_sleigh_bells_sleigh_bells`. **For the method (STILL BINDING):** the rhythm panel writes its library at `pagehide` by BEACON —
 a test page must stub `libFlushBeacon` as well as `save` · `libTouch` · `libFlush`, or closing the pane writes the test's row into his store.
 **He must reload his tab.**
+
+## §214. His verdict on the `1l` route — *"this tool is not working the way I expected it"* — and a new direction: a TEXTURE TAKE in the place of the strikes drawer's rhythm; phase 1, nothing planned, nothing built (2026-09-21)
+
+**What prompted it.** After a `/clear` + `/postclear` (Fable), offered the three ways on from checkpoint #3 (his listen · the three
+collected items · the multitempo top line), he named none of them (COMPOSITION_NOTES LG-63 has it whole):
+
+> *"So this tool is not working the way I expected it. So let's consider our options. Let's move to the strikes drawer. So let's just
+> take one little tiny thing at a time. In the strikes drawer … I don't want to disturb any of the functionality because there's a lot
+> of things that works good here. But then as an alternate module to the rhythm one, so we keep the rhythm … check, uncheck the rhythm
+> and check the textures drawer. And eventually the multi-tempo drawer. … in the place of rhythm, I can choose … a texture take. And
+> let's not worry about anything else. Just what this would look like. Just the swap, and then we'll get into the details."*
+
+**The AI's reading, unconfirmed.** "This tool" is read as the `1l` route he has been composing `LGMF-Rseq-01` with — the Rhythm
+sequence panel, fed by Texture's rhythm takes. He did not say WHAT in it is not as expected, and was not asked: his word was *"one
+little tiny thing at a time"*, and the one thing was the swap. The look back that LG-56 reserved — *"once we're done in this version,
+we can look back and see if it's the right architecture"* — has in effect arrived early, and from USE, not from review.
+
+**What was read, by the named question only** ("what stands where the rhythm is, in the strikes drawer?"): the header of
+`score/public/strike_drawer.js`. The drawer is five areas left to right — 0 the sequence · 1 the keyboard · 2 the orchestration ·
+3 the articulation picker · 4 THE RHYTHM STRIP (rows aligned with the keyboard, time left → right, the 60 ms bands, the transforms
+and the order) — over a bottom bar (voicing · Hear · Insert · takes). Its model (STRIKES_TOOL L) is three lists paired freely:
+pitches · onsets · players. The drawer already takes modules from files of their own (`harm_source_ui.js`, `seats_ui.js`), which is
+how something can be added beside it without disturbing it.
+
+**What was put to him (the planning method, phase 1 — the read-back and the picture, nothing more).** One switch at the head of
+area 4: `rhythm from: the strike | a texture take | multitempo (later, greyed)`. On `the strike` the strip is exactly as it is today.
+On `a texture take` the strike's rhythm dials fold away (their values kept for the way back) and ONE takes menu stands in their place
+— his rhythm takes from Texture (`bank/rhythm_takes.json`), each with a `▸` to hear it before choosing, as the sequence drawer's
+takes menu does (1g) — and the strip's drawing shows the chosen take's dots. Areas 0–3 and the bottom bar do not move.
+
+**Held aside, named to him in one line.** A strike's rhythm is ONE onset per note; a texture take is several LINES of many onsets
+each. How a take's lines meet the drawer's pitches and players is the first of "the details", after the swap is agreed.
+
+**Decided:** nothing yet. **Not decided either:** what becomes of the Rhythm sequence panel and of `1l.8`. `docs/PLAN.md` is untouched.
