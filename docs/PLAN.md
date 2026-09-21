@@ -1419,8 +1419,18 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
 
 - **1j — THE MORPH'S BREATHS** (the sequence drawer's three LENGTH dials — `of max` · `±` in seconds · `outlier` — in the morph: each
   player breathes round ITS OWN maximum, and one breath in ten is far from the rest; ON from the start, at the default numbers) —
-  **`planned` 2026-09-20, session 11 (RUNNING_LOG §177–§180 · MORPH_NOTES 2026-09-20); the top line approved (*"yes, write the plan
+  **`planned` and BUILT 2026-09-20, session 11 (RUNNING_LOG §177–§181 · MORPH_NOTES 2026-09-20); the top line approved (*"yes, write the plan
   and build here"*), the sub-steps the AI's.**
+  **► `doing` 2026-09-20 — BR1 · BR2 · BR3 ARE BUILT AND VERIFIED (RUNNING_LOG §181). WHAT IS LEFT IS BR4, HIS LISTEN — AND ONE ACTION OF HIS
+  FIRST: RESTART THE `:5400` SERVER.** Found by BR3's own check: `Save as ACTUAL` is rendered by the SERVER, through the `morph.js` node loaded
+  when the process started — so his long-running server filed two blooms (`ACT-BLOOM-03` · `-04`) with the vibraphones BENDING, though what he heard
+  and inserted was right. Fixed in `score/server.js` (`freshModelBank()`: a save loads the engine from disk); it takes effect at the restart, and
+  without it this item's dials would be filed the same wrong way. The two actuals are his; repairing them is put to him, not done.
+  **AS BUILT:** the outlier "re-deals nothing else" is NARROWER in a morph than in a sequence — a voice with no outlier is untouched, and so is every
+  breath before a voice's first outlier; after it the places move, and with a moving level the aim moves a little too. BR3 needed one line: a
+  shareless `outlier` left by an emptied box is dropped, so an old-way bloom files old-way params. The with-dials actual was checked from MEMORY
+  (a stubbed `fetch`), not filed — he was filing actuals in those minutes and the bank was not raced. The defaults reach every MODEL the panel
+  renders (LGBLOOM too — the panel only); a scratch variant is left alone.
   *Why:* his ear — *"the durations of the notes in the morph seem regular, predictable. Are they then the same length? And can we
   discuss what it would be like to introduce a similar breath generator like in the sequences?"* Measured on his own `ACT-BLOOM-02`
   (§177): 80 breaths, mean 8.03 s, sd 1.45, 5.65 … 10.40 — every player dealt `segLen × (1 ± segVar)` round the SAME 8 s, the ceiling
@@ -1443,7 +1453,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   stored params, the fields are then drawn FROM them, and every later Generate reads them back — so whatever a recall shows in the
   boxes persists through the nudges after it. `carrier` passes through `normaliseParams` whole (`Object.assign`), so a new carrier
   key needs no schema change to reach the engine; `PARAM_PATHS` is the recipes' table.
-  - **BR1 · The engine deals a breath round the player's own maximum.** *Result when done:* with `carrier.ofMax`,
+  - **BR1 · The engine deals a breath round the player's own maximum.** — **`done` 2026-09-20 (RUNNING_LOG §181).** *Result when done:* with `carrier.ofMax`,
     `carrier.jitterS` or `carrier.outlier` set, a breath is dealt by the sequence's rule, at the ceiling the voice has at THAT
     moment; with none of them set not one byte of any render changes.
     - BR1.0 · THE GATE first, as `1i`'s: all 26 stored actuals rendered before and after, byte-identical (the scratchpad's
@@ -1457,7 +1467,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       outlier is meant.
     - BR1.3 · `PARAM_PATHS` gains the five paths; a comment in `morph.js` AND in `sequence.js` names the other as its TWIN
       (`sequence.js` gets the comment only — `sequence_check` must stay 180).
-  - **BR2 · The three dials on the morph panel, on from the start.** *Result when done:* under `segment (s)` there are `of max`,
+  - **BR2 · The three dials on the morph panel, on from the start.** — **`done` 2026-09-20 (RUNNING_LOG §181).** *Result when done:* under `segment (s)` there are `of max`,
     `± (s)` and `outlier`; a bloom made from a model opens with 0.65 · 1.3 · 0.1; emptying a box turns that dial off; the status
     counts the outliers.
     - BR2.1 · `BREATH_DEFAULTS = { ofMax: 0.65, jitterS: 1.3, outlier: { share: 0.1, short: 0.4, floor: 2 } }` in the panel, its twin
@@ -1467,7 +1477,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - BR2.2 · three `row()`s after `segment (s)`: `carrier.ofMax` · `carrier.jitterS` · `carrier.outlier.share`, drawn `''` when
       absent. `readFields` makes `carrier.outlier = {}` for an empty share: the engine reads no share as OFF.
     - BR2.3 · the status line after Generate: `N outliers (s short · l long)` when there are any.
-  - **BR3 · The actuals keep the breaths they were filed with.** *Result when done:* his `ACT-BLOOM-01` · `-02` recall with the
+  - **BR3 · The actuals keep the breaths they were filed with.** — **`done` 2026-09-20 (RUNNING_LOG §181).** *Result when done:* his `ACT-BLOOM-01` · `-02` recall with the
     three boxes BLANK and their renders deep-equal their stored notes, before AND after a nudged dial; an actual filed today carries
     its three numbers, recalls with them, and the bank's validator reproduces it.
     - BR3.1 · the defaults are NOT laid over `_recallParams` — a recalled actual renders as stored; the boxes then show what it had

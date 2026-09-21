@@ -690,6 +690,7 @@ const server = http.createServer((req, res) => {
             return readBody(req, (err, body) => {
                 if (err) return R.status(400).json({ success: false, error: 'bad body' });
                 try {
+                    const MB = freshModelBank();   // the engine ON DISK — see freshModelBank (RUNNING_LOG §181)
                     const built = MB.buildActual(body.model, {
                         recipeSettings: body.recipeSettings || {},
                         seed: body.seed, label: body.label, tags: body.tags,
@@ -1174,6 +1175,20 @@ const server = http.createServer((req, res) => {
     res.statusCode = 404;
     res.end('Not found');
 });
+
+// AN ACTUAL IS RENDERED BY THE ENGINE ON DISK, NOT BY THE ENGINE THIS PROCESS STARTED WITH (2026-09-20, RUNNING_LOG §181).
+// `Save as ACTUAL` does not store the browser's notes: `buildActual` RENDERS the posted params here, through `morph.js` as node
+// `require`d it — and node keeps the first copy it loaded for the life of the process. His server runs for days while the engine
+// is being built under it, so on 2026-09-20 two blooms he filed with the vibraphones marked `still` (PLAN 1i) were rendered by
+// an engine from before that mark existed: what he HEARD and INSERTED from the panel was right (the browser reloads its scripts),
+// and the stored `notes` and `objects` of the actual bent both vibraphones 25 cents. So a save drops the cached copies of the
+// model bank and of the three files it renders with, and loads them again. A few milliseconds a save; GETs only read files.
+function freshModelBank() {
+    ['../tools/model_bank.js', './public/morph.js', './public/morph_septet.js', './public/beating_calc.js'].forEach(m => {
+        try { delete require.cache[require.resolve(m)]; } catch (e) { /* never loaded — nothing to drop */ }
+    });
+    return require('../tools/model_bank.js');
+}
 
 server.listen(PORT, () => {
     console.log(`Composer score (septet LGMF 2026) at http://localhost:${PORT}/composer.html`);

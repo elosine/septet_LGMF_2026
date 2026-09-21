@@ -395,8 +395,23 @@ const PANEL = {
     },
 
     // ------------------------------------------------------------- rendering
+    // ---------------------------------------------------------- PLAN 1j (2026-09-20) — THE BREATHS ARE ON FROM THE START
+    // His ear: *"the durations of the notes in the morph seem regular, predictable"* (RUNNING_LOG §177 — 80 breaths, mean 8.03 s,
+    // sd 1.45, every player round the same 8 s). His words on the fix: *"a and can we have the default numbers to start"* (§179).
+    // These ARE the sequence drawer's built-in line for a new sequence (sequence_ui.js, `save as default`'s title) — THE TWIN; keep
+    // the two equal. `short` and `floor` ride along without boxes of their own.
+    // Laid into a MODEL's resolved params only where the model carries none of the three, BEFORE the fields are read — so an
+    // emptied box still deletes its key (readFields) — and NEVER over a recalled actual, which renders as stored: an actual filed
+    // before today comes back with three blank boxes and breathes exactly as it did, through every dial he moves after it.
+    BREATH_DEFAULTS: { ofMax: 0.65, jitterS: 1.3, outlier: { share: 0.1, short: 0.4, floor: 2 } },
+    layBreathDefaults(p) {
+        if (!p || this.mode !== 'models') return p;   // `current()` hands MODELS a fresh object; a scratch variant is the params file's own
+        const c = (p.carrier = p.carrier || {}), D = this.BREATH_DEFAULTS;
+        if (c.ofMax === undefined && c.jitterS === undefined && c.outlier === undefined) { c.ofMax = D.ofMax; c.jitterS = D.jitterS; c.outlier = Object.assign({}, D.outlier); }
+        return p;
+    },
     generate() {
-        const p = this.current();
+        const p = this.layBreathDefaults(this.current());
         if (!p) { this.setStatus('no variant', true); return; }
         // THE FIELDS BELONG TO A VARIANT. Reading them blindly merged the
         // PREVIOUS variant's dials into the new one — switching from A to N
@@ -420,6 +435,9 @@ const PANEL = {
             : (this._fieldStamp === stamp) ? this.readFields(p) : JSON.parse(JSON.stringify(p));
         this._recallParams = null;
         this._fieldStamp = stamp;
+        // PLAN 1j: an emptied `outlier` box leaves { short, floor } behind — inert in the engine, but a bloom that breathes the old
+        // way should carry old-way params into an actual, not a stub of a dial that is off
+        if (merged.carrier && merged.carrier.outlier && !(+merged.carrier.outlier.share > 0)) delete merged.carrier.outlier;
         // exactly what was rendered, so Save as ACTUAL can store what was HEARD — the septet's CAST included: the pairs' players,
         // the pitches folded per pair, the lanes and the palette (morph_septet.js; RUNNING_LOG §203)
         const pitched = this.applyPitch(merged);   // the pitch source into the model's params (§208)
@@ -468,7 +486,10 @@ const PANEL = {
             (r.meta && r.meta.totalLength
                 ? '<b>' + r.meta.totalLength.toFixed(1) + ' s</b> &middot; ' : '') +
             (s.hard ? '<b style="color:#e06666">' + s.hard + ' hard</b> / ' : '') +
-            (soft ? '<span style="color:#e0b062">' + soft + ' soft</span>' : 'clean'), false, true);
+            (soft ? '<span style="color:#e0b062">' + soft + ' soft</span>' : 'clean') +
+            // PLAN 1j BR2.3 — the outliers are MEANT, so they are counted here and not among the soft flags
+            ((s.flags && s.flags.OUTLIER) ? ' &middot; ' + s.flags.OUTLIER + ' outlier' + (s.flags.OUTLIER === 1 ? '' : 's') + ' (' +
+                (s.flags.OUTLIER - (s.flags.LONGER || 0)) + ' short &middot; ' + (s.flags.LONGER || 0) + ' long)' : ''), false, true);
 
         const tabs = this.el.querySelector('#morphTabs');
         tabs.innerHTML = '';
@@ -569,10 +590,11 @@ const PANEL = {
             });
             return;
         }
-        const row = (label, path, val, step) => {
+        const row = (label, path, val, step, tip) => {
             const w = document.createElement('div');
             w.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:2px 0';
             w.innerHTML = '<span style="color:#9a9">' + label + '</span>';
+            if (tip) w.title = tip;   // PLAN 1j: the breath rows say what they do
             const i = document.createElement('input');
             i.type = 'number'; i.step = step; i.value = val; i.dataset.path = path;
             i.style.cssText = 'width:84px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px;font-size:13px';
@@ -724,6 +746,15 @@ const PANEL = {
         row('release (s)', 'carrier.release',
             p.carrier.release != null ? p.carrier.release : '', 5);
         row('segment (s)', 'carrier.segLen', p.carrier.segLen, 0.5);
+        // PLAN 1j BR2.2 — THE BREATH'S LENGTH, the sequence drawer's three dials by the sequence drawer's names. An EMPTY box is
+        // that dial OFF (readFields deletes the key), and with all three empty the breaths are `segment` ± its old share, as before.
+        // With `of max` set, `segment` only spaces the first entries — as `length` does in a sequence.
+        row('of max 0…1', 'carrier.ofMax', p.carrier.ofMax != null ? p.carrier.ofMax : '', 0.05,
+            'each player\'s breath is built round ITS OWN maximum at the level it is playing × this — 0.65: english horn and bassoon about 12 s, horn and cello 10, trumpet 8, double bass 6.5, vibraphone 5. Empty = everyone round `segment`');
+        row('± (s)', 'carrier.jitterS', p.carrier.jitterS != null ? p.carrier.jitterS : '', 0.1,
+            '± in SECONDS round the aim — 8 ± 2 is 6 … 10 s. Empty = the old share of the length');
+        row('outlier 0…1', 'carrier.outlier.share', (p.carrier.outlier && p.carrier.outlier.share != null) ? p.carrier.outlier.share : '', 0.05,
+            'how often a breath is FAR from the rest — 0.1 is one in ten; short (the aim × 0.4, never under 2 s) or long (up to the player\'s maximum) on a coin toss. Empty or 0 = never');
         row('bias  −1…+1', 'dials.bias', p.dials.bias, 0.1);
         row('spread 0…1', 'dials.spread', p.dials.spread, 0.1);
         row('depth 0…1', 'dials.depth', p.dials.depth, 0.1);

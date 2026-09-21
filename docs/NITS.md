@@ -212,3 +212,9 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   ceilings were re-based that day — but that is a guess, not a finding. **Nothing sounds wrong because of it:** the stored objects
   stand, and the six scores were built from them. It matters only if one of those actuals is RECALLED and expected to come back
   note for note.
+
+- **2026-09-20 — `ACT-BLOOM-03` and `ACT-BLOOM-04` were FILED WITH THE VIBRAPHONES BENDING 25 c** (RUNNING_LOG §181). Their params are
+  right (`still: true`); their stored `notes` and `objects` were rendered by his running server's stale engine. `hear` / `insert` from the
+  ACTUALs list would bend them; a RECALL re-renders them right. **His files — the repair is put to him, not done:** re-render the same params
+  in place (labels and placements kept), or recall and re-file after the server restart. The cause is fixed (`score/server.js`
+  `freshModelBank()`). **And a guess to check one day:** the nine drifting LG actuals above may be the same fault, from 2026-09-19.

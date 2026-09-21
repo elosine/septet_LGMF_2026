@@ -1498,3 +1498,24 @@ has ONE breath generator, and the sequence's is the grown one** — the same sen
 (*"should not have a dynamics path of its own at all"*), now about the breath. The engine is built for it: its CARRIER is already a
 separate object from the MORPH. What is particular to a morph and the shared generator must allow: the level — and so the ceiling —
 moves DURING the span, and a breath's place matters to the beating (a pair's beating stops while one of them breathes).
+
+### 2026-09-20 — AS BUILT (PLAN 1j): the morph breathes round each player's own maximum — and what the build taught (RUNNING_LOG §181)
+
+**As built:** `morph.js` `buildCarrier` — `carrier.ofMax` · `carrier.jitterS` · `carrier.outlier { share, short, floor }`, the
+sequence's rule in a copy of the engine's own, opt-in. `morph_panel.js` — three boxes after `segment (s)`, ON from the start at
+0.65 · 1.3 · 0.1 (`BREATH_DEFAULTS`), blank for an actual filed before. Measured on his own bloom: EH 11.1 · Bsn 11.8 · Hn 10.2 ·
+Vc 10.7 · Tpt 7.6 · Db 5.9 · Vib 4.6 s where everyone had been at 8.
+
+*AI reading (mine, marked):* for the revision, three things.
+**(1) TWO COPIES OF ONE RULE NOW EXIST** (`sequence.js` `dealSpan` · `morph.js` `buildCarrier`), each naming the other. The
+all-purpose tool has ONE breath generator; what it must allow that the sequence's does not: the ceiling asked afresh at every breath
+(a morph's level moves, and a bending wind has less air), and no landing rule (a morph's last breath runs out).
+**(2) "The dial re-deals nothing else" is a weaker promise in a morph.** The draws are untouched, but a breath that moves is read at
+a different level, so its aim shifts a little. If that ever matters to him, the aim would have to be fixed per breath INDEX, not per
+moment — a design choice, not a bug.
+**(3) THE PANEL'S DEFAULTS ARE NOT THE MODEL'S.** They are laid in by the panel, so they reach every model it renders and nothing
+the tools build. When the models are revised, the breath belongs in a model's own params — or in one place above all models — and
+not in a constant in the UI.
+**And one thing about the WHOLE tool that this build uncovered (§181):** an ACTUAL is rendered by the SERVER, not stored from what
+was heard. Two renderers — the browser's for the ear, node's for the file — can disagree whenever the engine changes under a
+running server, and did. The all-purpose tool should either store what was heard, or render in ONE place.

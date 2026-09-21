@@ -7685,3 +7685,82 @@ five — `short` 0.4 and `floor` 2 ride along unseen · the defaults are the PAN
 (the carrier is orthogonal to the model, and the diagnosis — everyone at 8 s — is true of all of them); the tools that built the six
 scores never pass through the panel, so nothing stored moves · the outlier's flags are counted but are not SOFT flags — an outlier
 is meant · the sequence drawer's `save as default` does not reach the morph.
+
+## §181. `1j` BR1 · BR2 · BR3 BUILT AND VERIFIED — and, found by verifying: HIS RUNNING SERVER FILES ACTUALS WITH A STALE ENGINE; two of his blooms were filed with the vibraphones bending (2026-09-20)
+
+### The build
+
+- **BR1, the engine** (`morph.js` `buildCarrier`, commit `f262ab1`): `carrier.ofMax` · `carrier.jitterS` · `carrier.outlier
+  { share, short, floor }`, the sequence's rule line for line — the aim is the player's ceiling AS IT STANDS AT THAT BREATH × `of max`,
+  ± seconds, an outlier on a stream of its own (a 7th optional argument, made by the one caller from the same seed). The jitter is the
+  same ONE draw, the legacy expression untouched. Flags `OUTLIER` · `LONGER`, counted, not soft. The twin is named in both files;
+  `sequence.js` got the comment only (`sequence_check` 180). **THE GATE: all 28 stored actuals byte-identical** (28, not 26 — he had
+  filed two more by then; see below).
+- **The numbers, in node, on his own `ACT-BLOOM-02` params + two still vibraphones** (means without the last breath):
+
+  | | Vc | Db | Tpt | Hn | EH | Bsn | Vib | Vib² |
+  |---|---|---|---|---|---|---|---|---|
+  | the old way | 8.2 | 7.6 | 8.1 | 8.4 | 8.2 | 8.0 | 7.1 | 7.0 |
+  | `0.65 · ± 1.3 s · outlier 0.1` | **10.7** | **5.9** | **7.6** | **10.2** | **11.1** | **11.8** | **4.6** | **4.9** |
+  | its range | 8.5…14.8 | 2.1…8.7 | 3.1…10.5 | 7.7…12.6 | 5.5…15.1 | 9.2…14.3 | 2.0…6.6 | 2.9…6.5 |
+
+  9 outliers (7 short · 2 long); at `outlier 0.3`, 34. No breath over its ceiling, none under the 2 s floor, 0 hard, and the
+  `BREATH` (hit-the-ceiling) flags went from **20 to 0** — under the old way the double bass and the vibraphones were being capped
+  twenty times. Deterministic.
+- **What "the outlier re-deals nothing else" means IN A MORPH — narrower than in a sequence, and measured:** a voice with no outlier
+  is untouched to the digit (Hn · Bsn · Vib² identical with the dial on and off), and inside a voice every breath BEFORE its first
+  outlier is untouched; after it the places move, and because a morph's level moves, the ceiling at the new place — and so the aim —
+  moves a little too. The draws do not change; the moment they are read at does.
+- **BR2, the panel** (`morph_panel.js`): `BREATH_DEFAULTS` (its twin the sequence drawer's built-in line) laid into a MODEL's resolved
+  params in `generate()`, before the fields are read and never over a recalled set; three rows after `segment (s)` — `of max` ·
+  `± (s)` · `outlier` — each with a tooltip; the status counts the outliers. MODELS mode only: a scratch variant is the params
+  file's own object and is left alone.
+- **BR3 needed one line:** an emptied `outlier` box left `{ short, floor }` behind in the params — inert, but a bloom that breathes
+  the old way should file old-way params — so a shareless `outlier` is dropped after the fields are read.
+
+**VERIFIED IN `score-5401`, no MIDI, never Saved:** on HIS take `Bloom01b_w_vibs-Just-A1-seed132` a new bloom opens with
+**0.65 · 1.3 · 0.1** in the boxes and breathes EH 15.1 · Bsn 13.3 · Hn 10 · Vc 9.4 · Tpt 8.2 · Db 6.4 · Vib 4.4 · 5.4; the status
+*41 notes · 3 soft · 5 outliers (2 short · 3 long)* · `of max` emptied → everyone round 8 s again; all three emptied → the carrier
+carries none of them and the `BREATH` flags are back · typed back, `outlier 0.3` → 16 · Insert → 44 note objects = the 44 heard,
+all on the law · **`ACT-BLOOM-02` RECALLED: three BLANK boxes, the render deep-equals its 80 stored notes; a plain re-Generate — the
+same, and its carrier deep-equals the stored carrier; the seed nudged away (differs, no dial crept in) and back — equal again** ·
+an actual carrying `0.5 · 2 · 0.2` recalls with those in the boxes and keeps them through a re-Generate. **That last one was served
+from memory by a stubbed `fetch`, NOT filed** — he was filing actuals of his own in those minutes, and the bank was left alone
+rather than raced. `LGBLOOM` in the panel now breathes the new way too (107 notes against 79) — the panel only; the tools that built
+the six scores never pass through it. Seen and left: a bloom with NO `duration` cuts its last notes at the span's end, so a last
+note can be a fraction of a second — old behaviour, and his own blooms set `duration` and `release`, where the last breath runs out.
+
+**Batteries:** `sequence_check` 180 · `dyn_table_check` 51 · `palette_check` 184 · `test_snapshots` 26 · `test_written_pitch` 10 ·
+`spectrum_check` 35 · `model_bank --validate` VALID (with warnings).
+
+### The finding — an eighth bug of the kind that outlives a piece
+
+**How it surfaced.** BR3's check recalled his `ACT-BLOOM-04` — a bloom WITH the vibraphones that he had filed at 23:16, twenty
+minutes after `1i` was pushed — and its render did NOT equal its stored notes, though the params were identical key for key.
+Looked at: **in the stored notes both vibraphone voices open 25 cents** (8100.0 … 8125.0 · 8175.0 … 8200.0), and 31 stored
+objects on lane 5 carry `morphBend` −25 … +25 — while the params beside them say `still: true`. The same in `ACT-BLOOM-03` (23:03).
+
+**The cause, proven and not inferred.** `Save as ACTUAL` does not store the browser's notes. The server's `buildActual` RENDERS the
+posted params itself, through `morph.js` as node `require`d it — and node keeps the first copy it loaded for the life of the
+process. His `:5400` server has been running since before `1i`; the browser reloads its scripts (the static handler already sends
+`no-store`), the server never does. **Reproduced exactly:** an engine that has never heard of `still`, given his `ACT-BLOOM-04`
+params, produces his stored notes BYTE FOR BYTE; with the cached modules dropped, the same call gives the vibraphones a width of 0
+and 0 of 31 lane-5 objects bending.
+
+**What was and was not wrong for him.** What he HEARD from Play and what he INSERTED from the panel were right — his own
+`seqTests01.json`, saved 23:24, holds 31 vibraphone morph notes and none bends. What is wrong is the two FILED actuals' stored
+`notes` and `objects`: `hear` and `insert` from the ACTUALs list use those, and would bend both vibraphones a quarter-tone's half.
+Their params are right, so a RECALL re-renders them correctly. **`1i`'s own check (VB5) could not see this:** it ran on a throwaway
+server started AFTER the engine edit. *A claim about what is filed is a claim about the state of HIS server, not of the code* —
+the same sentence as §75 and §139, by a third door.
+
+**The fix** (`score/server.js`): `freshModelBank()` — a save drops the cached `tools/model_bank.js`, `morph.js`,
+`morph_septet.js` and `beating_calc.js` and loads them again, so an actual is always rendered by the engine on disk. GETs only
+read files and keep the cached copy. **It takes effect only when his server is RESTARTED — once; after that, never again for this
+reason.** Without the restart `1j`'s dials would be filed the same wrong way: heard with the new breaths, stored with the old.
+**NOT verified end to end on his server** (it is his process); verified as logic in node, above, and `server.js` parses.
+
+**Put to him, not done:** `ACT-BLOOM-03` and `-04` are HIS files. They can be repaired in place — the same params re-rendered by
+the engine on disk, labels and placements kept — or he can recall each and file it again after the restart. **And a guess, marked
+as one:** the nine "re-derivation drift" actuals of §176 may be this same fault from 2026-09-19 (the ceilings were re-based that
+day under a running server). Not examined.
