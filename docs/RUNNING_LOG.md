@@ -8798,3 +8798,29 @@ percussion chosen shows its 32 + `as the take` and the vibraphone row. His `bank
 **He must RELOAD his tab** for both (static files; no server restart). **The AI's reading of his earlier finding (a), NOT verified:** the
 percussion's CURVE channels are `[2, 3, 4]` — on his rack the Bell Tree · Sleigh Bells · TRIANGLES tracks — so any percussion note sent to
 a curve channel sounds on the triangles. Whether a Texture or rhythm dot takes that door is the first thing to read when (a) is fixed.
+
+## §213. A dot DOUBLED — `played by` ticks several players (2026-09-21)
+
+**His words:** *"how to assign to more than 1 player"* — told: a LINE is doubled in the rhythm box's `who plays ▾` (or in Texture's
+`lines ▾`), and a single dot's `played by` took one player — then: *"yes build doubling one dot too"*.
+
+**Built:** the card's `played by` is now a row of the seven, TICKED (EH · Bsn · Hn · Tpt · Perc · Vc · Db), the line's own player ticked
+when the card opens. One other player ticked = the dot MOVES (§212); several = the dot is DOUBLED — it sounds on every ticked player, each
+on THEIR OWN note and level from the harmony beneath; the line's own player is among them only if ticked; none ticked is refused (*"tick at
+least one player — or mute the dots"*). Stored as `to`: a number for one player (§212's form, still read), an array for several. With
+players of DIFFERENT instruments ticked the articulation list is `as the take (each their own)` only — and in `dotsOf` a card's
+articulation now lands only on a player whose roster HAS it (a doubled dot may cross instruments); the card's vibraphone choice applies only
+to the percussion's note.
+
+**Verified on `score-5401`, no MIDI, his library read, never written** (`save` · `libTouch` · `libFlush` · `libFlushBeacon` stubbed): on
+his `untitled 2026-09-21 14.09.43`, an english horn dot (B4 +4¢, `secco`, p) — ticked EH + Bsn → **two notes, EH B4 +4¢ `secco` · Bsn B4
++4¢ `staccato`**, each the note that player has beneath there · Bsn + Hn + Tpt → Bsn 71 · Hn 69 · Tpt 69, the EH's own note gone · a single
+number (`to: 1`) still moves it · a card articulation `staccato` on EH + Bsn lands on the bassoon only (the english horn has no `staccato`)
+· every other note byte-identical (169 → 170 → 171). The card: the seven ticks, the own one checked; ticking the bassoon → the articulation
+list `as the take (each their own)`; `apply` stored `{ to: [0, 1] }` and said *"played by EH + Bsn"*.
+
+**Seen in his library while checking it held no test data:** he is already using §212 — `LGMF-Rseq-01` (named, 5 harmony boxes, 51
+touches) has a double-bass dot and a trumpet dot handed to the PERCUSSION, on `wood_blocks_hard_mallets` and
+`small_metals_sleigh_bells_sleigh_bells`. **For the method (STILL BINDING):** the rhythm panel writes its library at `pagehide` by BEACON —
+a test page must stub `libFlushBeacon` as well as `save` · `libTouch` · `libFlush`, or closing the pane writes the test's row into his store.
+**He must reload his tab.**
