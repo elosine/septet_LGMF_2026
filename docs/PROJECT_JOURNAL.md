@@ -126,7 +126,7 @@ Presets set aside; a saved set of his own noted (LG-79).
 - ✓ **CONFIRMED (LG-83): THE ONE RULE for a take** (§251) · **J** a mark switched off keeps its column
 - **► A … H under the lens** — restated one line each (§249); B walked by scenario (§250 · §251) — **THE ONE RULE for a take** (§251) put to him; **E (the pattern changes) is the one still open**
 - ✓ **I · J · K decided (§251 · §257):** I (b) click, SHIFT+click = the range, CTRL+click = one · J a mark off keeps its column · K (b) `deal: repeat | spread`, the plan's last step, built only on his word
-- **✓ PHASES 1 · 2 · 3 CLOSED — `1m.4 articulation` WRITTEN INTO PLAN (§260), phase 3 skipped at his word; the calls made alone are marked [call] there. ► NEXT: checkpoint + clear → BUILD on Opus (1m.4.1 → .3 → .4 → .5 → .6, one commit each, the shield in each; .2 at his rack; .7 on his word) → his ONE test → vet `1n dynamics` on Fable → `1o the save structure`**
+- **✓ PHASES 1 · 2 · 3 CLOSED — `1m.4 articulation` WRITTEN INTO PLAN (§260), phase 3 skipped at his word; the calls made alone are marked [call] there. HIS ORDER (§261): DESIGN EVERY PLAN NOW — ► NEXT: vet `1n dynamics` (Fable, after `/postclear`) → vet `1o the save structure` — THEN BUILD AND TEST ONE AT A TIME, LATER, `1m.4` first (Opus)**
 - ✓ **E RESOLVED (LG-84 → LG-85, §254 · §255): a texture load is always EMPTY; a pattern is a document of its own, saved under its own name, several per texture, and it CARRIES A COPY of the onsets** — so Texture needs no save protection (§254's decision 1 dropped). Today's code (one pattern per texture name, brought back on load) is the opposite and changes in the separate plan.
 - **SEPARATE PLAN, noted at his word (LG-84): WHAT IS SAVED FROM THIS BUILD** — the pattern as a named document, what it holds, where it lives (today: the browser only, one store per tab — L). No answer now.
 - **HIS STANDARD for the rest of 1m.4 (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second
@@ -144,7 +144,9 @@ Presets set aside; a saved set of his own noted (LG-79).
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **BUILD `1m.4 articulation`** — PLAN § `1m.4` written 2026-09-22 (§260): 1m.4.1 → .3 → .4 → .5 → .6, one commit per step, THE SHIELD verified in each; 1m.4.2 at his rack; 1m.4.7 on his word. Then HIS ONE TEST (duration vetted in it) | Opus | yes — checkpoint first |
+| **►►** | **VET `1n dynamics`** — plan 2 of 3 (hairpins and crescendos, LG-74; `1f` folded in): phase 1 with him, HIS WORDS FIRST — checkpoint #1 above has what the plan must honour | Fable | after `/postclear` — the resume is the checkpoint |
+| ► | **VET `1o the save structure`** — plan 3 of 3 (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, a library, where it lives, how Insert reads it) | Fable | yes |
+| ► | **THEN BUILD AND TEST ONE AT A TIME, LATER — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build → then `1o` + Insert | Opus | yes, each |
 | ► | **plan 2 — DYNAMICS with hairpins and crescendos** (LG-74; nothing said yet; `1f` belongs to it) | Fable | yes — checkpoint first |
 | ► | **plan 3 — THE SAVE STRUCTURE** (LG-84 · LG-85: the pattern as a named document, a library, where it lives, how Insert reads it) | Fable | yes |
 | ► | **the builds, one per clear, his listen between:** `1m.4` → dynamics → the save structure + Insert. His tests of `1m.1` · `1m.2` · `1m.3` still owed — what matters from them now is the SOUND and the row (step 5 of `1m.4` replaces the column's gestures) | Opus | yes |
@@ -157,6 +159,35 @@ Presets set aside; a saved set of his own noted (LG-79).
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are RUNNING_LOG §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open at session end — CHECKPOINT #1 (2026-09-22, session 13, Fable) *(mid-session checkpoint)*:**
+
+- **THE ORDER OF WORK, HIS (LG-82 · RUNNING_LOG §258 · §261):** while his listening is limited he is DESIGNING EVERY PLAN NOW — `1m.4 articulation`
+  ✓ written · **`1n dynamics` NEXT** · `1o the save structure` after it — and will LATER BUILD AND TEST THEM ONE AT A TIME: `1m.4 articulation`
+  first (build → his one test → revise if needed), then `1n dynamics`, then `1o`. **Nothing is built in this session.**
+- **The task in hand:** plan 2, **`1n dynamics`** — hairpins and crescendos included (his brief, COMPOSITION_NOTES LG-74). Under the planning
+  method, phase 1: HIS WORDS FIRST, then the data. Nothing of it has been said yet beyond LG-74.
+- **Latest deliverable:** `docs/PLAN.md` § `1m.4` — *Types of articulation, and the orchestration panel as a LENS on the columns* — seven steps
+  1m.4.1 … 1m.4.7, each with its REQUIRED VERIFICATION, the build order, the [call]s marked; commit `98f1d2b`. Its record: RUNNING_LOG §240 … §260,
+  COMPOSITION_NOTES LG-74 … LG-85. **WHEN IT IS TIME TO BUILD IT:** open PLAN § `1m.4` — the build order is its last bullet (1m.4.1 → .3 → .4 → .5
+  → .6, one commit each, THE SHIELD verified in each; 1m.4.2 at his rack; 1m.4.7 on his word); on Opus, after a clear; his ONE test after 1m.4.6.
+- **The next concrete step, after `/postclear` on Fable:** say the position (plan 2 of 3; `1m.4` written, not built), then ask for his words on
+  dynamics in the texture take — what he wants a dynamic to be (per column · per player · a hairpin across columns), and how hairpins and
+  crescendos relate to the score's crescendo tool `1f`. Read back; the data first where it is about the state of things.
+- **What the dynamics plan already has to honour (decided in `1m.4`):** a dynamic is a COLUMN property, never a take's (the one rule, §251 ·
+  §252) · set in the orchestration panel per row and per column, shown on the column as a mark (1m.4.5 reserves it) · under the DYNAMICS LAW
+  (a struck note: velocity IS the dynamic; a shaped note: struck at mf, the fader normalized on a curve channel) · `1f` the crescendo tool is
+  still on the old law (no `cc7Abs` / `velAbs`) and belongs to this plan.
+- **`Resume reads:`** `docs/PLANNING_METHOD.md` · `docs/DYNAMICS_LAW.md` · PLAN § `1f` · PLAN § `1m.4` (the header and 1m.4.4 · 1m.4.5 only) ·
+  COMPOSITION_NOTES LG-74. Code only when a question names it.
+- **Decisions pending him:** the [call]s in PLAN § `1m.4` (§260 lists them) · the triangle on track 10 (§221) · `ACT-BLOOM-03` · `-04` in the
+  store · a `sec01-done` tag.
+- **His tests of `1m.1` · `1m.2` · `1m.3`: CLOSED at his word, untested (§259).** Old tests and feedback are not carried forward.
+- **Unsaved working copies** (`node tools/unsaved_check.js` at this checkpoint): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same
+  four as session 12's close, none the piece; his to Save or Reload; no score is committed here.
+- **DELIBERATELY UNCOMMITTED — five paths, all his, none written by this session:** `bank/panel_snapshots.json` (his harmony takes, autosaved) ·
+  `bank/sequences.json` (his sequence library, autosaved every 2 s — committing mid-use races his tab) · `reaper/LGMF_rack.rpp` (his REAPER
+  project) · `bank/rhythm_sequences.json` and `bank/rhythm_takes.json` (untracked — his rhythm sequences and takes; whether they go into git is his call).
 
 **Open at session end (2026-09-21, session 12, Opus):**
 

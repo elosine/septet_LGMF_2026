@@ -10223,3 +10223,15 @@ and REQUIRED VERIFICATION (THE SHIELD in every one), and the build order (1 → 
 **The next steps, as told to him:** checkpoint + clear → BUILD on Opus, one commit per step → his ONE test → then the next plan to VET on Fable:
 **`1n dynamics`** (hairpins and crescendos; `1f` the crescendo tool under the law belongs to it), then `1o the save structure`. If he would rather
 vet `1n` while `1m.4` waits for his test, that is one session of Fable either way.
+
+## §261. CHECKPOINT #1 — his order fixed: DESIGN EVERY PLAN NOW, BUILD AND TEST ONE AT A TIME LATER; postclear lands on vetting `1n dynamics` (2026-09-22)
+
+His words at the checkpoint: *"/checkpoint but make sure it is clear that I am building all of the plans now and will later build and test them 1
+at a time, so next articulation, I'll test and revise if necessary, then move on to the dynamics build etc. postclear will land on the dynamics plan
+vetting but make sure in the future we'll be able to easily find the articulations plan when it is time to build"*
+
+**Taken, and written where the next session reads:** journal §2 — a checkpoint entry (the order, the task in hand, where `1m.4` lives and its
+build order, the next concrete step, the resume reads, the uncommitted list) and the NEXT STEPS table's first three rows (vet `1n dynamics` ·
+vet `1o the save structure` · then build and test one at a time, `1m.4 articulation` first) · PLANNER's NOW line · CLAUDE.md's state line. "Easy to
+find": PLAN § `1m.4`, whose LAST BULLET is the build order — named in all three places. He switched to Opus and back to Fable before this; the
+wrap ran on Fable at his word, and the resume is Fable (a planning session).
