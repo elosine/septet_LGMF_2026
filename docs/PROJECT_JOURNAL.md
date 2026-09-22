@@ -165,7 +165,7 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open — THE `1m.4` BUILD DONE (2026-09-22, session 13, Fable) *(READ THIS ONE)*:**
+**Open at session end — CHECKPOINT #4 (2026-09-22, session 13, Fable's build, the wrap on Opus) *(mid-session checkpoint — READ THIS ONE)*:**
 
 - **`1m.4 articulation` IS BUILT — 1m.4.1 · .3 · .4 · .5 · .6, one commit each (`485842c` · `383b5a2` · `6290d36` · `85f0847` · the sixth), THE SHIELD
   verified in each on `score-5401` with no MIDI (RUNNING_LOG §279 … §283). Not built, by the plan: `1m.4.2` (his rack, 26 pending) · `1m.4.7` (his word).**
@@ -181,7 +181,9 @@ Presets set aside; a saved set of his own noted (LG-79).
   its READ is `docs/DYNAMICS_LAW.md`) · journal §2 STILL BINDING · §283's last paragraph (the pane's frame scaling, the screenshot prerequisite, the
   timer clamping) · the code as each step names it.
 - **Decisions pending him from this build** (the calls made alone, §283): the strike mode's menu group `key` · a pending voice's note names in the picker
-  only · a fresh column from the defaults' harmony · a by-key voice in the strike mode sounding at the first onset · the drawer's `back` in a texture take.
+  only · a fresh column from the defaults' harmony · a by-key voice in the strike mode sounding at the first onset · the drawer's `back` in a texture take. **Carried from checkpoint #3, still his:** the [call]s in PLAN § `1n` (§275) and § `1o` (§278) · the triangle on track 10 (§221) · `ACT-BLOOM-03` · `-04` · a `sec01-done` tag · whether `bank/patterns.json` goes into git when `1o` creates it.
+- **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short` at this checkpoint): `bank/panel_snapshots.json` (his harmony takes, written by the app as he works) · `bank/sequences.json` (his sequence library) · `reaper/LGMF_rack.rpp` (his rack, saved by Reaper) · **untracked** `bank/rhythm_takes.json` and `bank/rhythm_sequences.json` (the Texture stores of `1l`; his takes, never committed). **Unsaved working copies** (`node tools/unsaved_check.js`): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same four as checkpoints #2 and #3, none of them the piece; his to Save or Reload. No score is committed here.
+- **The verification method this build added, for whoever builds next** (RUNNING_LOG §283's last paragraph, beside journal §2 STILL BINDING): the pane is SCALED to its frame, so a DOM rectangle must be multiplied by frame/viewport before a `computer` click · the click tool refuses coordinates until one screenshot of the loaded document exists · `browser_batch` puts clicks, typing, keys and reads in one round trip · a hidden pane clamps its timers, so compare a burst of MIDI as a SET and check per note that its prelude precedes its note-on.
 
 **Open at session end — CHECKPOINT #3 (2026-09-22, session 13, Opus) *(before it)*:**
 
