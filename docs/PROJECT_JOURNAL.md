@@ -86,277 +86,66 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   on a take · 1i the vibraphones in it, held still · 1j the morph's breaths · the server's stale-engine fault fixed · the composer's
   eight lanes. **He named `piece-LGMF-Sec01-v1.3-sec01-done`.** D18–D23. RUNNING_LOG §132–§184.
 
-### SESSION 12 OPENS ON THIS — `1l`, THE COUNTERPOINT SECTION: A DISCUSSION FIRST (his word, 2026-09-21)
+- **S12 · 2026-09-21 (Fable → Opus → Fable → Opus)** — **THE COUNTERPOINT ROUTE, BUILT AND SET ASIDE; A TEXTURE TAKE IN THE STRIKES
+  DRAWER, BEGUN.** `1l` planned in full, built end to end (`1l.1` … `1l.7`: Texture plays this ensemble and saves rhythm takes · the
+  Rhythm sequence panel) and composed with (`LGMF-Rseq-01`) — then his verdict in use, *"this tool is not working the way I expected
+  it"*, and `1m`: the strikes drawer's rhythm area takes a texture take, BUILT ONE STEP AT A TIME, each used by him first — `1m.1` the
+  row · `1m.2` the columns (third form: a column's players are its ticks) · `1m.3` duration. D24–D26. RUNNING_LOG §185–§239.
 
-*Run `/session-start` (the subject is new) on **Fable** (design). The planning method, phase 1 — state and restate, one topic at a
-time; nothing is planned or built until his understanding and the AI's are one.*
+### SESSION 13 OPENS ON THIS — TYPES OF ARTICULATION (his word at the close, 2026-09-21)
 
-- **His brief is COMPOSITION_NOTES LG-55, verbatim** — read it whole first. PLAN `1l` has it in six lines: (1) a sequence
-  underneath, *"as if it was going to be sustained notes"* · (2) multitempo passages generated and auditioned — *"13 against 11
-  against five"* — in the ensemble, over the harmony if possible · (3) a rhythm sequence assembled from excerpts, A→B, C→D ·
-  (4) every onset takes its pitch and dynamic from the sequence · (5) per note: mute, articulation · (6) the architecture open — a
-  layer on the sequence drawer, or a new drawer cloned from it, *"whatever's best"*.
-- **He asked that his earlier note be SURFACED:** it is **LG-53** (part two: the sequence lays the harmony AND the orchestration,
-  the multitempo / phase shift the rhythms on top, the non-pitched percussion outside). Behind it **LG-12** (multitempo patterns
-  heard with a harmony; mute or re-orchestrate a note by clicking) · **LG-11** (patterns joined by accelerating / decelerating
-  parts) · **LG-5** (the pointillistic section).
-- **Open, and his (LG-53 · LG-55):** does the rhythm REPLACE the held notes or sound OVER them · is the sequence heard, or only the
-  scaffold · which player an onset belongs to (a multitempo stream is one line; a take is eight seats) · whether a mute or an
-  articulation survives a re-cut.
-- **The ground in the repo** (read only when a named question needs it): the sequence drawer — `score/public/sequence.js` ·
-  `sequence_ui.js` · `docs/SEQUENCE_TOOL.md` · the multitempo machinery, inherited from piece #5 — `score/public/multitempo.js` ·
-  `multitempo_panel.js` (the `MT` button), not yet read in this piece.
-- **`Resume reads:`** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES **LG-53 · LG-55** · PLAN `1l`. Nothing else until a question
-  names it.
+*Run `/session-start` on **Fable** (design). `1m` is built by HIS METHOD: one step laid out with him (the planning method), built,
+USED by him before the next — so nothing of articulation is planned yet.*
 
-### SESSION 12 SO FAR — `1l` IN DISCUSSION (2026-09-21, Fable): nothing planned, nothing built
-
-- **THE RHYTHM MACHINE IS THE TEXTURE PANEL** (`score/public/texture_engine.js` · `texture_panel.js`), **not `MT`** — his correction
-  (RUNNING_LOG §185, which has what Texture is and what it lacks for this piece). The *"ground in the repo"* bullet above names the
-  wrong files.
-- **HIS ARCHITECTURE (COMPOSITION_NOTES LG-56 verbatim · RUNNING_LOG §186):** Texture makes RHYTHM TAKES (archetypes), re-cast for
-  this ensemble with new articulations, its preview kept · **a CLONE of the sequence drawer — the RHYTHM SEQUENCE PANEL — not a
-  layer on it (his decision; reviewed after this version)**: the harmony row as now, a RHYTHM ROW of time containers on top, each
-  an excerpt (A→B, or several loops) of a rhythm take, its duration the excerpt's · a workshop BEFORE the container (take → hear it
-  over a harmony → see it → select → insert) · each onset reads pitch + dynamic from the harmony beneath · after the insert, dots
-  on a row: mute, or override pitch · dynamic · articulation · a CROSSFADE on each row (harmony A→B over N s; one rhythm container
-  into the next).
-- **ANSWERED (COMPOSITION_NOTES LG-57 · RUNNING_LOG §187):** the harmony row is SILENT · a clone · **a rhythm container carries no
-  harmony of its own** (the harmony box clicked in the workshop is for the preview only) · **the WORKSHOP shows dots on a row too**,
-  cut by marquee or by start / stop points on a timeline bar, saved as an EXCERPT or as the pattern LOOPED · **WHO PLAYS is assigned
-  in TEXTURE per rhythm line** (current ensemble; Texture gets the TAKES menu for its preview), carried AS IS, and in a placed
-  container a line can be moved to another instrument — only the rhythm moves · **the assignment is many-to-many** (a line doubled ·
-  several lines merged onto one player, e.g. the percussion) · the strikes panel's rhythm view is the model, without its zones ·
-  stretching a clip: later.
-- **THE FOUNDATION IS CLOSED (COMPOSITION_NOTES LG-58 · RUNNING_LOG §188):** collisions are TWO things — lines merged onto ONE
-  player get the standard per-instrument collision check (`D17` / `Composer.CONFLICT`, the tuba piece's values, may want updating) ·
-  onsets on DIFFERENT players are NEVER quantized or normalized (a few milliseconds apart is the material; no bands) · *"rhythm
-  with the rhythm and harmony with the harmony"*: no gating, no borrowed notes, a dot with no note beneath is a WARNING, silence is
-  made by muting dots.
-- **PHASE 2 — THE TOP LINE, CONFIRMED** (*"the order is good"*, RUNNING_LOG §189) **— and it is now `docs/PLAN.md` § `1l`, items
-  `1l.1` … `1l.8`, with THE FOUNDATION as agreed above them. PHASE 3 IS OPEN, each step given to him WHOLE (goal + sub-steps) at his
-  word.**
-- **`1l.1` TEXTURE PLAYS THIS ENSEMBLE — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (COMPOSITION_NOTES LG-59 · RUNNING_LOG §190):
-  seven players, **percussion and vibraphone ONE player** · his default short articulations · every attack through the strikes
-  drawer's player (a struck note under the dynamics law) · **the pitches from the TAKES MENU, as the sequence drawer's** (moved up
-  from `1l.2`) · the percussion as the take assigns it, else `claves pair 2 high`.
-- **`1l.2` TEXTURE: WHO PLAYS EACH LINE · RHYTHM TAKES SAVED — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §191 · §192):
-  the lines DRAWN IN TIME (rows of dots, a timeline, a scrolling cursor, click to play from there) with the seven players' ticks at
-  the left of each row · doubling · merging with the collision check on that one player, flagged never moved · **the tuba's minimum
-  gap stays** (his word) · a rhythm take saved by name from the panel, a RECIPE · **the dot view is built once, there.**
-- **`1l.3` THE RHYTHM SEQUENCE PANEL, THE CLONE — WRITTEN INTO THE PLAN AS HE CORRECTED IT, NOT BUILT** (COMPOSITION_NOTES LG-60 ·
-  RUNNING_LOG §192 · §193): the harmony row leaves out the breath line and `enter`; **THE EDGES STAY** (*"useful for dynamics"*) · a
-  rhythm row of the same idiom, its boundaries independent · Hear auditions the map, never inserts · the clone READS `sequence.js`.
-  **AND THE DYNAMICS RULE (carried into `1l.5`): a dot takes the INTENDED WRITTEN LEVEL of the harmony row, `ppp … fff`, struck at
-  the velocity 1b's remap gives it — the intended level is the ground truth, it is what goes to notation.**
-- **`1l.4` THE WORKSHOP — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §193 · §194). **AND DECIDED WITH IT — B: THE WHOLE
-  RHYTHM SEQUENCE IS SEEN IN ONE CONTINUOUS DOT VIEW,** all the boxes' dots on the same timeline as the two rows, scrolling with the
-  cursor, a click on a box jumping the view there (it belongs to `1l.5` and is written there on its agreement).
-- **`1l.5` THE WHOLE SEQUENCE SOUNDS AND INSERTS — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §194 · §195): the join for
-  every dot · LG-60's dynamics rule · the hollow dot, the continuous map · THE CONTINUOUS DOT VIEW (B) · Hear · Insert · the round trip.
-- **`1l.6` THE DOTS, TOUCHED — AGREED, WRITTEN INTO THE PLAN, NOT BUILT** (RUNNING_LOG §195 · §196): **A — two visible modes,
-  `mute` | `edit`** · one dot, a marquee or a line · the dot's card · mutes stay when a line moves · the percussion's dots a non-pitched
-  instrument or the vibraphone · a touch survives a harmony change and a box move, not a re-cut. **AND HIS CORRECTION ON LOOPING
-  (§196, `1l.4` amended): looping belongs to the SELECTION — one portion of a take, or the ENTIRE take looped N times, which lands as
-  N BOXES on the rhythm row; a box never loops.**
-- **`1l.7` THE TWO CROSSFADES and `1l.8` HIS LISTEN — AGREED, WRITTEN INTO THE PLAN** (RUNNING_LOG §196 · §197). **`1l` IS PLANNED IN
-  FULL: `1l.1` … `1l.8` in `docs/PLAN.md` § `1l`, every step agreed by him, NOTHING BUILT.** The whole item was shown to him once with
-  *"is that it?"* — his answer is the last thing pending in the planning.
-- **NEXT: BUILD `1l.1`, TEXTURE PLAYS THIS ENSEMBLE — on Opus, after a `/checkpoint` and a `/clear`.** The build opens, as every
-  chunk does (HOW_WE_WORK), with a conceptual proposal before any code edit. **Resume reads for the BUILD:** `docs/PLAN.md` § `1l` (THE
-  FOUNDATION + `1l.1`) · `docs/DYNAMICS_LAW.md` (a struck note) · RUNNING_LOG §185 (what Texture is, what in it is the tubas') · §189
-  (its sound path: a plain velocity; `StrikeDrawer.playNotes` is this piece's player) · §190 (his defaults; percussion and vibraphone
-  one player). Code is read when the build names a question: `score/public/texture_panel.js` · `texture_engine.js` ·
-  `strike_drawer.js` · the sequence drawer's takes menu in `sequence_ui.js`.
-- **Resume reads for this:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-55 · LG-56 · LG-57 · LG-58 · LG-59 · LG-60 · docs/PLAN.md § 1l · RUNNING_LOG §185 … §198.
-
-### SESSION 12 · THE BUILD (2026-09-21, Opus) — `1l.1` … `1l.7` BUILT, EACH VERIFIED; `1l.8`, HIS LISTEN, IS NEXT
-
-*His word after the `/postclear`: "continue through the plan as much as possible independently". Built step by step, each by its REQUIRED
-VERIFICATION on `score-5401` (journal's method below, no MIDI), journalled, committed and pushed on its own. Nothing here has been HEARD.*
-
-- **`1l.1` Texture plays this ensemble (§199 · §200):** seven players (percussion + vibraphone one), his articulations, the takes menu, every
-  attack through `StrikeDrawer.playNotes`, `level` → `dyn ppp … fff`, Insert on the right lanes. The claves registered as `toys_claves`
-  (ch 7). One engine opt-in, `laneVoice` — byte-identical without it (48 renders). LIVE hidden (NITS). Two inherited faults fixed: a model or
-  morph was thrown away by the next dial nudge · the preflight before the sample lengths loaded.
-- **`1l.2` who plays each line · rhythm takes (§201):** `dot_view.js` (built once); who plays per line, doubling, merging, the collision check
-  on ONE player (the tuba's D17); rhythm takes in `bank/rhythm_takes.json` (store `rhythms`).
-- **`1l.3` the rhythm sequence panel (§202):** `rhythm_seq_ui.js`, born of `tools/once/make_rhythm_seq.js` (a guarded record); no breath, no
-  `enter` (MAP_BREATH + attack); two rows on one time scale; its library in `bank/rhythm_sequences.json` (store `rhythmseqs`).
-  `sequence_ui.js` · `sequence.js` untouched throughout (`sequence_check` 180).
-- **`1l.4` the workshop (§203):** a rhythm take seen and heard in the selected harmony box, cut (clicks · drag · typed) or the whole take × N;
-  boxes freeze the take and show their dots. THE MAP AND THE JOIN (`mapOf` · `joinDot`).
-- **`1l.5` the whole sequence sounds and inserts (§204):** `dotsOf`; Hear the rhythm, `map ▸` the harmony; the continuous dot view; Insert —
-  `recVel` = the written level, `velAbs` = what sounds (one opt-in in `strike_drawer.js` `playNotes`); the round trip. **Hear and the
-  score's own playback agree note for note (180/180, within 2 ms).**
-- **`1l.6` the dots touched (§205):** `mute | edit`; click · SHIFT+click a line · drag a box; the card; who plays per box; the percussion →
-  the vibraphone; touches keyed box·line·dot, surviving a harmony change, a box move, a reload, a re-insert.
-- **`1l.7` the two crossfades (§206):** on any box of either row; the harmony on the dots, the rhythm with both patterns running; a dropped dot
-  brought back by a click.
-- **His to reverse (the AI's calls, each named in its entry):** the claves as a hand-registered technique, key 41 · models fitted to seven in
-  proportion · the models' 7.5 → `f` · cents kept in Texture (D29 gives way) · a two-note player plays both · LIVE hidden · wave presets
-  shared by both panels · the claves at the chord's MEAN level when the harmony gives the percussion nothing · a niente fade scales the strike ·
-  a vibraphone dot struck on Standard Mallets · a line past the seventh wraps (merges) by default.
-- **In NITS, found on the way:** Texture's LIVE, parked · the strikes drawer's plain inserts may play `recVel` unremapped in the score (read in
-  the code, not captured — the rhythm panel writes `velAbs` and is not affected).
+- **His words:** *"Next session will start with types of articulation."* It is item (3) of his `1m` scenario — *"articulation and
+  percussion — not yet talked through"* (PLAN § `1m`, the scenario gathered; RUNNING_LOG §215 … §217).
+- **Where it stands in the code (read, not heard):** a column's notes are the drawer's deal (`texture_cols.js` `txColNotes`, taken from
+  `notesFor('orch')`), each keeping the `tech` the drawer gave it — the drawer's articulation per player. Nothing in the texture take
+  chooses an articulation of its own yet.
+- **The ground behind it:** his default SHORT articulations, chosen for Texture in `1l.1` (RUNNING_LOG §190 — english horn `stac_vel`,
+  bassoon · horn · trumpet `staccato`, cello · double bass `spicc_vel`, the percussion from the take, else `claves pair 2 high`) · the
+  strikes drawer's articulation per player (PLAN 1c, `ordinario`) · the Rhythm panel's dot card, which set an articulation per dot (`1l.6`,
+  §205 · §213) · the standard short, 120 ms, and the lengths of `1m.3` (§236 · §237).
+- **Also his, behind it, in the order he names:** Insert · the percussion row · dynamics · re-attack (PLAN § `1m`, *Held*).
+- **`Resume reads:`** `docs/PLANNING_METHOD.md` · PLAN § `1m` (the header, the scenario, *Held*; `1m.3` for the latest form) ·
+  RUNNING_LOG §190 · §217. Code only when a question names it: `score/public/texture_cols.js` · the drawer's articulation roster in
+  `strike_drawer.js`.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **IN DISCUSSION (2026-09-21, Fable · RUNNING_LOG §214 · LG-63): his verdict on the `1l` route — *"this tool is not working the way I expected it"* — and a new direction: in the STRIKES DRAWER, a TEXTURE TAKE as an alternate module in the rhythm strip's place** (a switch: the strike's rhythm · a texture take · multitempo later), nothing of the drawer disturbed. Phase 1, then HIS METHOD FOR THIS TOOL: **BUILD ONE STEP AT A TIME**, each used by him before the next (RUNNING_LOG §214 … §218 · LG-63 … LG-66 — his words, the AI's questions and reactions, as he asked). His scenario is gathered: (1) THE PATTERN — a take's onsets as a top row of dots, all off, clicked on, heard on the claves, a range, a cursor · (2) THE PITCHES — a column of the instruments under every ON dot, the drawer's left side orchestrating the selected column(s), a selection of columns = one strike spread over time · (3) articulation and percussion — not yet talked through. **BUILD 1 = PLAN `1m.1`, THE SWITCH AND THE TOP ROW — BUILT AND VERIFIED with no MIDI (RUNNING_LOG §220; `score/public/texture_row.js`, a mixin — `strike_drawer.js` unchanged). HIS TEST IS OUTSTANDING — he RELOADS his tab: `source [the strike | a texture take]` at the head of the rhythm area → a rhythm take → the dots, all off → click some on → SPACE, on the claves → the range grips, the cursor, ALT + wheel. THE PERCUSSION: what the row sends is captured and right (`LGPerc` ch 7 key 41); the rack file shows a `Percussion` track taking `LGPerc` on ALL channels, armed and unmuted — HIS ten-second test: mute it, press SPACE.** THEN HIS FIRST TEST (§221 … §223): the triangle FOUND in his recording — track 10 `Percussion` takes `LGPerc` on ALL channels (his to mute) · one row of thin MARKS under ONE COMMAND BAR · a zoom slider · `[` `]` snap the range to the cursor · `crop` · `all on / off` the whole take. **THEN `1m.2`, THE COLUMNS — agreed (§224 … §226, LG-67 · LG-68), BUILT AND VERIFIED with no MIDI (§227; `score/public/texture_cols.js`): a column under every ON mark is a drawer TAKE + its ticks + its notes, LINKED after every render, RECALLED by a click (`applyState`), SHIFT+click the same deal into several, the circles ARE the ticks, `Hear orchestrated` the column as dealt, SPACE the rhythm preview with a `claves` toggle. THEN HIS TESTS (§228 … §232) turned the columns over twice and found the error at the bottom — one drawer, one set of ticks, columns that need players of their own — and **THE THIRD FORM IS BUILT AND VERIFIED (§233): A COLUMN'S PLAYERS ARE ITS TICKS, tick = on = dealt = sounds, a fresh column empty, the drawer a VIEW of one column, the others dealt offline by the drawer's own code, no order of operations. HIS TEST IS OUTSTANDING — he RELOADS his tab.** THEN DURATION was agreed (§234 … §236, LG-73): a STANDARD SHORT of 120 ms, `hear: strike` following it; a `length` per column in seconds, shared by a multi-selection; an override per player by a double-click on the circle; the lengths drawn as bars — **`1m.3` BUILT AND VERIFIED with no MIDI (§237; `texture_cols.js` alone): `short` 120 ms in the bar · `length` per column, shared by a multi-selection · a player's own by a double-click (the box opened by the SECOND PRESS itself — §238, after his first test *"just toggles it on and off"*: no click or dblclick follows a press on a re-drawn circle; the first's tick taken back, the circle remembered, the list's rows move) · the bars · `hear: strike` the short on a texture take, the strike mode its own. HIS TEST IS OUTSTANDING — he RELOADS his tab.** Then with him: Insert · the percussion row · dynamics · re-attack, in the order he names. **Resume reads for that:** PLAN § `1m` · RUNNING_LOG §220 · COMPOSITION_NOTES LG-66. **Testing the row on `score-5401`: stub every non-GET `fetch` and `sendBeacon` first (§220) — the row itself writes only to localStorage.** What becomes of the Rhythm panel and `1l.8` is not decided; what becomes of the Rhythm panel and `1l.8` is not decided | Fable | — |
-| **►** | **`1l.8`, HIS LISTEN — IN PROGRESS: he is composing with the tools** (`LGMF-Rseq-01`). Stay with him, one step at a time; what he hears goes to the lab journal as he says it; a fault is read first against the step's RUNNING_LOG entry (§200 … §206, and §212 · §213 for today's fixes). He reloads his tab after any build (static files). Then the architecture looked at again (LG-56) | **Opus** while he is fixing as he goes (his choice this session) · Fable for judgment | — |
-| N0a | **the three COLLECTED items, "update later" — at his word** (`docs/PLAN.md` § `1l.8`; RUNNING_LOG §207): (a) triangles where the claves should be — read first the AI's unverified reading at the foot of §212 (the percussion's curve channels 2 · 3 · 4 are his Bell Tree · Sleigh Bells · TRIANGLES tracks) · (b) Texture's drawer resizable from a corner · (c) SPACE stays Texture's after a model or tab click (the AI's reading in §207: the clicked button is rebuilt, focus falls to the body) | Opus | — |
-| N0b | **MULTITEMPO INTO TEXTURE — the planning method, phase 2: THE TOP LINE** (LG-61; RUNNING_LOG §208 · §209). Phase 1 is closed: a `texture | multitempo` rhythm source, ratios · BPM · length, one line per ratio term, everything after the lines unchanged; **steady ratios first, accel / decel later** | Fable | yes |
+| **►►** | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
+| **►** | **his tests of `1m.1` · `1m.2` · `1m.3`** — he reloads the tab: the row · the columns (a column's players are its ticks, §233) · `short` · `length` · a double-click on a lit circle (§237 · §238). A fault is read first against that step's RUNNING_LOG entry | his · Fable to read a fault | — |
+| N0 | **the rest of `1m`, in the order he names:** Insert · the percussion row · dynamics · re-attack (PLAN § `1m`, *Held*) | Fable to lay out · Opus to build | — |
+| N0a | **the Rhythm sequence panel and `1l.8`** — not decided since his verdict (§214); he composed `LGMF-Rseq-01` with it. The three items collected in it (§207: triangles where the claves should be · Texture resizable · SPACE stays Texture's) wait on that decision | his | — |
+| N0b | **MULTITEMPO AS A RHYTHM SOURCE** (LG-61; RUNNING_LOG §208 · §209) — planning phase 1 closed for Texture: ratios · BPM · length, steady first, accel / decel later; `1m`'s `source` menu already reserves `multitempo — later` | Fable | yes |
 | N1 | **`1k` the morph's peaks against the sequence** — `todo`, BEFORE his next morph: *"fine for this section but I'd like to look into it before I do the next one"* | Fable to look · Opus to build | — |
 | N2 | **`1f` the crescendo tool under the dynamics law** — `todo`: `cresc*.js` write no `cc7Abs` / `velAbs` (read in the code, not captured) | Fable to lay out · Opus to build | — |
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are RUNNING_LOG §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
-| N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model | Opus | — |
+| N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — MID-SESSION CHECKPOINT #4, session 12 (2026-09-21, Fable) (mid-session checkpoint):**
+**Open at session end (2026-09-21, session 12, Opus):**
 
-- **SINCE THIS CHECKPOINT (2026-09-21, Fable): `1m.3` IS BUILT AND VERIFIED (RUNNING_LOG §237 · §238, the double-click fixed after his first report, with real clicks) — HIS TEST OUTSTANDING; he RELOADS his tab.
-  The "NEXT CONCRETE STEP" below is done. What is next is HIS: the test — then, with him, the next step of `1m`: Insert · the percussion
-  row · dynamics · re-attack, in the order he names. Nothing new uncommitted beyond the five paths below.**
-
-- **The task:** PLAN `1m`, A TEXTURE TAKE IN THE STRIKES DRAWER — his new direction after `1l` (§214), built ONE STEP AT A TIME, each
-  used by him before the next. **State:** `1m.1` the switch and the top row and `1m.2` the columns are BUILT and IN HIS HANDS; the columns
-  went through three forms under his tests (§227 · §228 · §233 — the third: A COLUMN'S PLAYERS ARE ITS TICKS, tick = on = dealt =
-  sounds, no order of operations; his test of it is outstanding). **`1m.3` DURATION is AGREED and written into the plan, NOT BUILT.**
-- **The latest deliverable:** `score/public/texture_row.js` (the row) · `score/public/texture_cols.js` (the columns, third form; rewritten
-  whole at §233) · one script tag each in `composer.html`; `strike_drawer.js` unchanged throughout. `docs/PLAN.md` § `1m` — `1m.1` built ·
-  `1m.2` built · `1m.3` todo (its sub-steps and REQUIRED VERIFICATION written).
-- **THE NEXT CONCRETE STEP — BUILD `1m.3`, DURATION.** After `/postclear`: play back and STOP (his standing rule). On his go: build it in
-  `texture_cols.js` (a `short` box and a `length` box in the bar — `#txBar`, beside `claves` — an override by double-click on a circle,
-  the bars drawn in `txRenderCols`, the lengths applied in `txPlay` · `txHearColumn` · the drawer's `hear: strike` while a texture take
-  is on) · verify by the item's REQUIRED VERIFICATION on `score-5401` (the method: STILL BINDING below — and **stub every non-GET
-  `fetch` and `navigator.sendBeacon` first**, as every test since §220 has) · journal · commit · push · then his test in his Chrome.
-- **`Resume reads:`** `docs/PLAN.md` § `1m.3` only. Then the code it names when the build opens: `score/public/texture_cols.js` (whole —
-  it is the file being changed; its header is the rule) · `texture_row.js` only where `txPlay` · the bar · `txMarkW` are wrapped.
-  Nothing else.
-- **Decisions pending him:** the triangle — track 10 `Percussion` in his rack takes `LGPerc` on ALL channels (§221): mute it, or give
-  its input a channel nothing uses — then `docs/RACK_SETTINGS.md` · the AI's calls in `1m.2`'s third form (§233), his to reverse · what
-  becomes of the Rhythm sequence panel and `1l.8` (not decided, §214) · after `1m.3`: the next step with him — Insert · the percussion
-  row · dynamics · re-attack, in the order he names.
-- **Committed in this checkpoint:** this entry · PLAN § `1m.3` · the state line (CLAUDE.md) · PLANNER NOW ►. Everything built this session
-  was committed and pushed step by step (`22d8821` … `e5d9d6a`).
-- **DELIBERATELY UNCOMMITTED — five paths, all his, unchanged from checkpoint #3:** `bank/panel_snapshots.json` · `bank/sequences.json` ·
-  `reaper/LGMF_rack.rpp` · `bank/rhythm_sequences.json` (untracked) · `bank/rhythm_takes.json` (untracked). None was written by this
-  session's tests (every POST stubbed; the row and the columns live in the browser's storage only).
-
-**Open at session end — MID-SESSION CHECKPOINT #3, session 12 (2026-09-21, Opus) (mid-session checkpoint):**
-
-- **The task:** `1l.8`, HIS LISTEN — **in progress, and it turned into composing.** He restarted the server, made rhythm takes in Texture,
-  and is writing `LGMF-Rseq-01` in the Rhythm panel: a harmony row of about 240 s rolled on the silver ratio (10 · 24 · 58), shorter boxes,
-  the bellows (LG-62; RUNNING_LOG §210 · §211), dots re-orchestrated by hand — a double-bass and a trumpet dot handed to the percussion.
-- **Fixed at his word "now", each verified on `score-5401` and committed:** **§212** the percussion has ALL FOURTEEN rack instruments —
-  `bank/perc_selection.json` filled from `bank/perc_rack.json`, `tools/apply_perc.js` changed to ADD the selection beside `main` (his
-  takes use `main` on 241 notes), 32 techniques, `palette_check` **198** · the dot card's `played by` MOVES a dot to another player, who
-  reads their own note beneath · the card's grid. **§213** `played by` is seven ticks: several = the dot DOUBLED, each on their own note;
-  `to` a number or an array; a card articulation lands only on a player whose roster has it.
-- **Collected, not fixed — "update later" (§207, `docs/PLAN.md` § `1l.8`):** (a) triangles where the claves should be · (b) Texture
-  resizable · (c) SPACE in Texture. **Given him as primers (no change):** Texture's controls and its morph row (§207) · the roll line (§209) ·
-  how to double a line (who plays ▾ / lines ▾) · a rhythm sequence survives a reload (autosaved to `bank/rhythm_sequences.json` 2 s after a
-  change; untitled ones roll at 50 — `library` → `save` keeps one).
-- **Planning, phase 1 closed:** MULTITEMPO INTO TEXTURE (LG-61, §208 · §209) — steady ratios first, accel / decel later. Nothing in PLAN.md.
-- **THE NEXT CONCRETE STEP:** after `/postclear`, play back and STOP (his standing rule). On his word, whichever he names: **go on with his
-  listen** (answer what he asks from the panel; fix what he calls "now"; collect the rest into PLAN § `1l.8`) · or **build the three collected
-  items** (row N0a) · or **the multitempo top line** (row N0b, Fable, the planning method's phase 2: the steps numbered, nothing more).
-- **`Resume reads:`** `docs/PLAN.md` § `1l.8` only (the collected list is there). Then only what the step he names needs: (a) RUNNING_LOG
-  §207 + the last paragraph of §212 · (b) (c) §207 · multitempo §208 · §209 + `docs/PLANNING_METHOD.md` · a new fault, that step's entry.
-- **Decisions pending him:** the AI's calls, his to reverse — `main` kept as the percussion's ordinary voice (ch 1, his Finger Cymbals track)
-  beside the fourteen · a card articulation skipped for a player who lacks it. Whether his two new libraries go into git (below). Still open
-  from before: the AI's calls of the build (the "SESSION 12 · THE BUILD" block) · `ACT-BLOOM-03` · `-04` · a `sec01-done` tag.
-- **TESTING ON `score-5401` — ONE MORE STUB (§213):** the Rhythm panel writes its library at `pagehide` by BEACON; a test page stubs
-  `RhythmSequence.save` · `libTouch` · `libFlush` · **`libFlushBeacon`**, or closing the pane writes the test row into HIS store.
-- **Committed in this checkpoint:** this entry · the state line (CLAUDE.md) · PLANNER NOW ► · PLAN § `1l.8` (`in progress`, the fixes
-  listed) · COMPOSITION_NOTES LG-61 · LG-62. (The fixes themselves: `ef68e09` … `7db7793`.)
-- **DELIBERATELY UNCOMMITTED — five paths, all his:** `bank/panel_snapshots.json` (his harmony takes, autosaved by the strikes drawer;
-  2026-09-20 23:13) · `bank/sequences.json` (his sequence library, autosaved about every 2 s — committing mid-use races his tab; 16:49 today)
-  · `reaper/LGMF_rack.rpp` (his REAPER project, the MIDI recordings of §140 · §144 · §157) · **`bank/rhythm_sequences.json` — NEW, untracked:
-  his rhythm sequence library, `LGMF-Rseq-01` in it, autosaved from his tab every 2 s (same race)** · **`bank/rhythm_takes.json` — NEW,
-  untracked: his rhythm takes from Texture (15:19).** None was written by this session's tests. Tracking the two new ones is his call — at
-  a session end, as `bank/sequences.json` is.
-
-**Open at session end — MID-SESSION CHECKPOINT #2, session 12 (2026-09-21, Opus) (mid-session checkpoint):**
-
-- **The task:** `1l`, THE COUNTERPOINT SECTION. **State: `1l.1` … `1l.7` BUILT, each verified by its own REQUIRED VERIFICATION on
-  `score-5401` (no MIDI) and committed + pushed on its own. NOTHING HAS BEEN HEARD.** What is left is `1l.8`, his listen — his, not the
-  AI's. The "SESSION 12 · THE BUILD" block above has each step in one bullet, the AI's calls his to reverse, and what went to NITS.
-- **The latest deliverable:** `score/public/rhythm_seq_ui.js` (the `Rhythm` panel: harmony row · rhythm row · workshop · Hear / `map ▸` ·
-  the continuous dot view · `mute | edit` · crossfades · Insert) · `score/public/texture_panel.js` (Texture for this ensemble, who plays
-  each line, rhythm takes) · `score/public/dot_view.js` · `score/snapshots.js` (stores `rhythms` → `bank/rhythm_takes.json`, `rhythmseqs`
-  → `bank/rhythm_sequences.json`; neither file exists yet — his first save makes it). `docs/PLAN.md` § `1l`: `1l.1` … `1l.7` `built`.
-- **THE NEXT CONCRETE STEP — `1l.8`, HIS LISTEN (Fable).** After `/postclear`: play back and STOP (his standing rule). On his word, walk him
-  through it ONE STEP AT A TIME, in his Chrome: **(1)** he restarts `node score/server.js` (the new stores exist only after a restart; a save
-  otherwise answers *"unknown store — restart"*) and reloads `composer.html`; **(2)** harmony takes in the strikes drawer — his, as he makes
-  them (a take that gives the Percussion player a note is the only way the percussion plays anything but the claves); **(3)** `Texture` →
-  a model → the `take` button (a harmony take) → the players strip and `lines ▾` (who plays) → `▸ play` → `rhythm take` name + `save`;
-  **(4)** `Rhythm` → `+ harmony box` with takes → `workshop ▸` → his rhythm take → click a harmony box → cut (two clicks on its timeline,
-  or a drag) or `the whole take ×` N → `save → rhythm row` → `Hear` (`map ▸` hears the harmony alone) → `dots: mute | edit` → a
-  `crossfade in` on a box → `Insert @ playhead`. **Journal what he says verbatim as he says it** (RUNNING_LOG; musical ideas →
-  COMPOSITION_NOTES; tool remarks → the morph-notes habit applies to these panels in spirit). **A fault is read first against the RUNNING_LOG
-  entry of the step that built it** — §200 `1l.1` · §201 `1l.2` · §202 `1l.3` · §203 `1l.4` · §204 `1l.5` · §205 `1l.6` · §206 `1l.7`.
-  Then, at his word, the architecture looked at again (LG-56: *"once we're done in this version, we can look back and see if it's the right
-  architecture"*).
-- **`Resume reads:`** `docs/PLAN.md` § `1l.8` only (six lines). Nothing else until his report names a step — then that step's one RUNNING_LOG
-  entry above, and the code only when that entry names a question.
-- **Decisions pending him:** none blocking. The AI's calls (the "SESSION 12 · THE BUILD" block) are his to reverse — the claves at key 41 ·
-  models fitted to seven · 7.5 → `f` · cents kept in Texture · a two-note player plays both · LIVE hidden · wave presets shared by both panels
-  · the claves at the chord's mean level · a niente fade scales the strike · a vibraphone dot on Standard Mallets · a line past the seventh
-  wraps. Still his from session 11: `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag.
-- **Committed in this checkpoint:** this entry (the build itself was committed step by step: `2db2343` … `e06b557`, and `3e583c7` for the
-  state line, the planner and §2).
-- **DELIBERATELY UNCOMMITTED — three paths, all his, the same three as checkpoint #1:** `bank/panel_snapshots.json` (his takes, autosaved by
-  the strikes drawer) · `bank/sequences.json` (his sequence library, autosaved about every 2 s — committing mid-use races his tab) ·
-  `reaper/LGMF_rack.rpp` (his REAPER project, with the MIDI recordings of §140 · §144 · §157). **None was written by this session's tests**
-  — their times are 2026-09-20 23:13 · 2026-09-21 07:21 · 2026-09-20 16:56; every test take and rhythm sequence the AI made on `score-5401`
-  was removed from `bank/`. No untracked files.
-
-**Open at session end — MID-SESSION CHECKPOINT #1, session 12 (2026-09-21, Fable → Opus) (mid-session checkpoint):**
-
-- **The task:** `1l`, THE COUNTERPOINT SECTION. **State: PLANNED IN FULL, NOTHING BUILT.** He closed the planning with *"yes that's
-  it"* (RUNNING_LOG §198). The deliverable is `docs/PLAN.md` § `1l` — THE FOUNDATION (nine lines, as agreed) and `1l.1` … `1l.8`, each
-  written with a *Result when done*, sub-steps and a REQUIRED VERIFICATION. His words are COMPOSITION_NOTES LG-56 … LG-60; the
-  reasoning is RUNNING_LOG §185–§198. The "SESSION 12 SO FAR" block above has it in six bullets.
-- **THE NEXT CONCRETE STEP — BUILD `1l.1`, TEXTURE PLAYS THIS ENSEMBLE, on Opus.** After `/postclear`: play back and STOP (his standing
-  rule, top of §2). On his go: **(1)** read, by the named question only — `score/public/texture_panel.js` (its sound path: `play` around
-  lines 675–735 and LIVE around 1181–1216, both `MorphEmit.routeFor` + a plain velocity · `maxLanes: 10` at ~387 · `META_LAYER` · the
-  articulation list at ~569 · the pitch presets at ~128–150) · `texture_engine.js` (`assignLanes`, `perVoicePitch`, `RAILS.players`) ·
-  `strike_drawer.js` (`D.playNotes`, the `ordinario` map at ~92, the articulation roster) · the takes menu of `sequence_ui.js` (1g's
-  `take` list with its `▸`); **(2)** give him the CONCEPTUAL PROPOSAL for `1l.1` in plain language and wait for his go (HOW_WE_WORK:
-  a proposal before any code edit); **(3)** build · verify on `score-5401` by the method in STILL BINDING below (a capture with no MIDI:
-  every attack on the right port and channel for its player and articulation, a velocity from the remap) · the batteries · journal as
-  it happens · commit · push · then his listen in his Chrome.
-- **`Resume reads:`** `docs/PLAN.md` § `1l` — THE FOUNDATION and `1l.1` only · `docs/DYNAMICS_LAW.md` (a STRUCK note) · RUNNING_LOG
-  **§189 · §190** (Texture's sound path; his defaults — english horn `stac_vel` "Staccato Velocity", bassoon · horn · trumpet
-  `staccato`, cello · double bass `spicc_vel` "Spiccato Velocity", percussion from the take else `claves pair 2 high`; percussion and
-  vibraphone ONE player, seven in all). Nothing else until a question names it.
-- **Decisions pending him:** none in `1l` — every step is agreed. Still his, from session 11: whether `ACT-BLOOM-03` · `-04` stay in the
-  store · a `sec01-done` tag.
-- **Committed in this checkpoint:** `scores/piece-LGMF-Sec01.json` — his Save of 2026-09-21 00:28 (one line changed, one byte longer than
-  `v1.3-sec01-done`), by the standing rule that the piece file is committed at every wrap (§161).
-- **DELIBERATELY UNCOMMITTED — three paths, all his:** `bank/panel_snapshots.json` (his takes, autosaved by the strikes drawer) ·
-  `bank/sequences.json` (his sequence library, autosaved about every 2 s — committing mid-use races his tab) · `reaper/LGMF_rack.rpp`
-  (his REAPER project, with the MIDI recordings of §140 · §144 · §157). Same three, same reasons, as at session 11's close.
-
-**Open at session end (2026-09-21, session 11, Opus):**
-
-- **Committed at his word** (RUNNING_LOG §184): his scores `Piece-LGMF` · `cresTest` · `seqTests01`, his six bloom actuals and
-  `bank/morph_models.json`. **`ACT-BLOOM-03` · `-04` still carry the stale server's bend in their stored notes** (their files of
-  2026-09-20 23:03 · 23:16); his *"already refiled"* is read as `-05` · `-06` being the re-files — the AI's reading, unconfirmed.
-  Whether they stay in the store is his.
-- **DELIBERATELY UNCOMMITTED — three paths, all his, not named in his word:** `bank/panel_snapshots.json` (his takes, autosaved) ·
-  `bank/sequences.json` (his sequence library, autosaved about every 2 s — committing mid-use races his tab) ·
-  `reaper/LGMF_rack.rpp` (his project, with the MIDI recordings of §140 · §144 · §157).
-- **Unsaved working copies** (`node tools/unsaved_check.js`): `cresTest` (edits of 2026-09-20 01:17 the committed file lacks) ·
-  `lgmf-all` · `lgmf-bloom` · `longToneTest` (never saved) — his to Save or Reload; none is the piece.
-- **The piece is tracked:** `scores/piece-LGMF-Sec01.json` and its named versions `-v1.1` · `-v1.2` · `-v1.3-sec01-done` — keep
-  committing each as he names it (§161).
-- **Decisions pending him:** none but the discussion above. A git tag for section 1 (`sec01-done`) was suggested at the close — his.
-- *(The long §2 of session 11 — checkpoints #4 … #8, every build's account — was cut at this close. It is whole in git:
-  `git show e6070fb:docs/PROJECT_JOURNAL.md`.)*
+- **In his hands, his tests outstanding — he RELOADS his tab:** `1m.1` the row (`texture_row.js`) · `1m.2` the columns, third form
+  (`texture_cols.js`) · `1m.3` duration (the same file; §238 fixed his first report). All of it lives in the browser's storage, key
+  `lgmf.textureRow.v1` — nothing of `1m` is on disk or in a score yet (Insert is not built).
+- **THE TRIANGLE:** track 10 `Percussion` in his rack takes `LGPerc` on ALL channels (§221) — his to mute, or give its input a channel
+  nothing uses; then `docs/RACK_SETTINGS.md`.
+- **The AI's calls, his to reverse:** `1l`'s build — the claves at key 41 · models fitted to seven · 7.5 → `f` · cents kept in Texture ·
+  a two-note player plays both · LIVE hidden · wave presets shared · the claves at the chord's mean level · a niente fade scales the
+  strike · a vibraphone dot on Standard Mallets · a line past the seventh wraps (§200–§206) · `main` beside the fourteen percussion
+  instruments, a card articulation skipped where the roster lacks it (§212 · §213) · `1m.2`'s third form (§233) · `1m.3` (§237).
+- **Still his from session 11:** `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag.
+- **Unsaved working copies** (`node tools/unsaved_check.js`, run at this close): `cresTest` · `lgmf-all` · `lgmf-bloom` ·
+  `longToneTest` — the same four as session 11's close, none of them the piece; his to Save or Reload.
+- **DELIBERATELY UNCOMMITTED — five paths, all his:** `bank/panel_snapshots.json` (his harmony takes, autosaved) · `bank/sequences.json`
+  (his sequence library, autosaved every 2 s — committing mid-use races his tab) · `reaper/LGMF_rack.rpp` (his REAPER project) ·
+  `bank/rhythm_sequences.json` and `bank/rhythm_takes.json` (untracked — his rhythm sequences, `LGMF-Rseq-01` among them, and his rhythm
+  takes; whether they go into git is his call). None was written by this session's tests.
+- *(The long §2 of session 12 — its opening brief, the `1l` discussion and build, checkpoints #1 … #4 — was cut at this close. It is
+  whole in git: `git show 0f1d58f:docs/PROJECT_JOURNAL.md`.)*
 
 ### STILL BINDING — carried whole from session 11's checkpoint #4
 
@@ -369,6 +158,10 @@ VERIFICATION on `score-5401` (journal's method below, no MIDI), journalled, comm
   transport, replace rAF with a 16 ms timer and set `Composer._zoneMidiInited = true` · to capture MIDI, stub
   `Composer._zoneMidiOutputs[port.toLowerCase()] = { send: b => log(b) }` for every port · verify note lists, objects and ROUTES by
   `javascript_tool`, never a screenshot · reset the viewport and `preview_stop` at the end.
+- **AND SINCE (session 12):** stub every non-GET `fetch` and `navigator.sendBeacon` too (§220), and the Rhythm panel's
+  `RhythmSequence.save` · `libTouch` · `libFlush` · `libFlushBeacon` when it is open (§213) · **a mouse GESTURE is verified with the
+  pane's REAL input** (`computer` double_click · type · key), not with events dispatched by script — a dispatched `dblclick` hid that
+  Chrome sends NONE when the pressed element is re-drawn under the mouse (§238); the pane's `Return` arrives nameless, send `Enter`.
 - **Five things learned the hard way — all still true:**
   - **A Bash command longer than about 8 KB FAILS on this machine** with `unexpected EOF while looking for matching quote`. **Write
     any large text with the Write tool into the scratchpad, then splice it in with a short `node` script** that asserts each
@@ -403,7 +196,7 @@ VERIFICATION on `score-5401` (journal's method below, no MIDI), journalled, comm
 moves BOTH · never bind **5300** or **4800**, they are piece #5's · the loopMIDI ports are `LG`-prefixed for the same reason · the AI
 never saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI · **the composer's lanes are laid out by CSS `nth-child` rules in `composer.html`, the curve windows A · B · C over the last three — a lane added to `TRACKS` needs its rule, and `palette_check` does not look** (RUNNING_LOG §183) · **a server route that `require`s engine code keeps the copy it started with** — after a build that changes `morph.js` or `model_bank.js`, say "restart the server" as well as "reload the tab" (§181).
 
-**Checks this piece owns:** `node tools/sequence_check.js` (**180**) · `node tools/dyn_table_check.js` (**51**) · `node tools/test_snapshots.js` (**26**) · `node tools/palette_check.js` (**198**) ·
+**Checks this piece owns:** `node tools/sequence_check.js` (**180**) · `node tools/dyn_table_check.js` (**51**) · `node tools/test_snapshots.js` (**28**) · `node tools/palette_check.js` (**198**) ·
 `node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) ·
 `node tools/check_ceilings.js --all` · `node tools/model_bank.js --validate`. Run the palette ones after any change to `TRACKS`,
 `sandbox/instruments.js` or `notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
@@ -624,6 +417,24 @@ this repo only when they bite.)*
   PLAYER'S OWN MAXIMUM**, ON from the start: `of max` 0.65 · `±` 1.3 s · `outlier` 0.1, the sequence drawer's three length dials;
   an actual filed before keeps its breaths. The engine has its OWN copy of the rule, the twin of `sequence.js` `dealSpan` — tune
   one, tune the other. *Rejected, for now:* one shared breath module for both tools — the morph's revision. RUNNING_LOG §177–§181.
+- **D24** *(2026-09-21, PLAN 1l; composer, LG-56 … LG-60)* — **THE COUNTERPOINT SECTION'S FIRST ROUTE: RHYTHM TAKES MADE IN TEXTURE,
+  ASSEMBLED IN A CLONE OF THE SEQUENCE DRAWER** — the Rhythm sequence panel: a SILENT harmony row (the map: pitch + the intended written
+  dynamic) under a rhythm row of boxes, each an excerpt of a rhythm take; every dot reads its player's pitch and level from beneath; a
+  dot takes the INTENDED WRITTEN LEVEL, struck at the remap's velocity; onsets on different players are never quantized. Built end to
+  end (`1l.1` … `1l.7`) and composed with (`LGMF-Rseq-01`). *Rejected:* a layer on the sequence drawer (his call, "reviewed after this
+  version") · `MT` as the rhythm machine (Texture, his correction). **Then his verdict in use — *"this tool is not working the way I
+  expected it"* — and D25.** What becomes of the panel is not decided. RUNNING_LOG §185–§214.
+- **D25** *(2026-09-21, PLAN 1m; composer, LG-63 … LG-72: "as an alternate module to the rhythm one")* — **A TEXTURE TAKE IN THE
+  STRIKES DRAWER, BUILT ONE STEP AT A TIME, EACH USED BY HIM BEFORE THE NEXT IS LAID OUT.** A `source` switch in the rhythm area (the
+  strike · a texture take); a take's attacks as a top row of marks, switched on; under every ON mark a COLUMN orchestrated with the
+  drawer's left side. **A column's players ARE its ticks** — tick = on = dealt = sounds; a fresh column is empty; the drawer is a VIEW of
+  one column, the others dealt offline by the drawer's own code; no order of operations. `strike_drawer.js` unchanged — mixins.
+  *Rejected, by his tests:* the circles as the drawer's one set of ticks (§227) · who sounds apart from the ticks (§228 · §231).
+  RUNNING_LOG §214–§233.
+- **D26** *(2026-09-21, PLAN 1m.3; composer, LG-73: "120 ms is fine, and yes, hear strike follows it")* — **DURATION: A STANDARD
+  SHORT OF 120 ms**, in the bar and kept with the pattern — every column note, the claves, and `hear: strike` on a texture take; a
+  `length` per column in seconds (his A of §235), shared by a multi-selection; a player's own by a double-click on their circle; the
+  lengths drawn as bars. STRUCK notes held N seconds (DYNAMICS_LAW §1). RUNNING_LOG §234–§238.
 
 ## §5 Playbooks
 
@@ -645,6 +456,8 @@ across when its system lands here and is first used.)*
 - 2026-09-20 — **THE SEQUENCE DRAWER** (1d, its feature add, 1g) closed at his word and in use · **the bloom on a take**
   (1h · 1i · 1j) built and in use — his listens unreported (RUNNING_LOG §150–§182).
 - 2026-09-21 — **SECTION 1 COMPOSED:** `scores/piece-LGMF-Sec01-v1.3-sec01-done.json`, named by him (commit `e6070fb`).
+- 2026-09-21 — **`1l`, THE COUNTERPOINT ROUTE, built end to end** (`1l.1` … `1l.7`) and composed with — then set aside at his verdict for
+  **`1m`**, whose first three steps are built and in his hands (RUNNING_LOG §199–§238).
 
 ---
 

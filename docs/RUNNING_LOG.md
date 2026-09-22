@@ -9660,3 +9660,20 @@ with no name, and it costs nothing.
 sends both.)*
 
 **He must RELOAD his tab** again.
+
+## §239. Session 12 closed — *"Next session will start with types of articulation"* (2026-09-21)
+
+His words at the close: *"Nothing more from me. Just close it out. Next session will start with types of articulation."* So no lessons
+and no human notes were added at the close, at his word.
+
+**Session 12 in one paragraph:** `1l`, the counterpoint section, was planned in full (§185–§198), built end to end (§199–§206) and composed
+with (`LGMF-Rseq-01`, §207–§213). His verdict in use turned it to `1m`, a texture take in the strikes drawer, built one step at a time
+and used by him before the next: the row (§220–§223), the columns in three forms (§224–§233), duration (§234–§238). The decisions are
+the journal's D24 · D25 · D26.
+
+**Why articulation next:** it is item (3) of his `1m` scenario (§215 … §217), *"articulation and percussion — not yet talked through"*.
+Today a column note keeps the articulation the drawer dealt it; nothing in the texture take chooses one of its own.
+
+**Left his at the close:** the tests of `1m.1` · `1m.2` · `1m.3` · the triangle on track 10 (§221) · what becomes of the Rhythm panel
+and `1l.8` (§214) · four unsaved working copies, none the piece · whether `bank/rhythm_takes.json` and `bank/rhythm_sequences.json`
+go into git.

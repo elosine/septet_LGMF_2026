@@ -1720,6 +1720,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     that onset; the drawer's left side (picker · keyboard · the lines to the players · articulations) works on the SELECTED column(s) as it
     does on one strike today — a selection of columns is one strike spread over time, one shuffle re-deals every note in it from the same
     harmony; a column not selected never changes · (3) articulation and percussion — not yet talked through.
+  - **NEXT, his word at session 12's close (2026-09-21):** *"Next session will start with types of articulation"* — scenario item (3),
+    laid out with him under the planning method, then written here as `1m.4` (RUNNING_LOG §239).
   - **Held, his to answer when its step comes:** the same player on in two selected columns (a strike gives a player one note) · a column
     remembering its harmony · hearing the whole pattern with its pitches · the dynamic of a note · a re-attack closer than a player can
     make (flagged, never moved — LG-58) · multitempo as a third source (LG-61) · what becomes of the Rhythm sequence panel and `1l.8`.
