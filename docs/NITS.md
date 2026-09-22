@@ -236,3 +236,18 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   and not, by this reading, for a plain one. **The rhythm sequence panel does not have this fault:** it writes `velAbs` beside `recVel` and
   its capture agreed with the score note for note (§204). **The shape of a fix, if a capture confirms it:** the strikes drawer writes
   `velAbs: remapVel(anchor)` on a plain strike (one field; the score already honours it). Percussion is unaffected (no remap entry).
+
+
+### Deferred at his word — a GLOBAL volume normalization of the whole composer, by the texture's split (2026-09-22, RUNNING_LOG §264 · LG-88)
+
+- **The bugbear:** struck notes sit on 1b's 12 dB ladder (velocity), shaped notes on 1d.10's 28 dB table (the fader) — one written name,
+  two levels up to ≈ 18 dB apart. 1g cured it inside a sequence and a morph by shaping every sustained note; nothing cures it between a
+  struck note and a shaped one anywhere else (`docs/DYNAMICS_LAW.md` §3 Rule 2, *"a shaped note sits QUIETER than a struck note of the same
+  name"*). A wider velocity ladder cannot fix it: after the register correction the english horn, the cello and the double bass have
+  5.4 … 6.6 dB of velocity room (`tools/build_remap_card.js`, header).
+- **The candidate, if he ever takes it on** — the split plan `1n` uses for the texture's short notes (B2, §263 · §264): every STRUCK note
+  keeps its ladder velocity for the timbre and goes out on a curve channel with its fader SET ONCE before the note-on from a residual
+  table on the measured curve (≈ 2.29 dB a step), so velocity + fader = the table's 4 dB a step. One scale for the whole composer, no
+  rack change, no probe. The cost is routing: every plain note of every tool moves from MAIN ch 1 to the curve channels (three per player,
+  the SI2 `b` ports), and every tool's Hear must route the same way. His words: *"note this solution to consider if I ever want to tackle
+  the global volume normalization for the entire composer."* **Not a plan. Nothing to do until he calls it.**

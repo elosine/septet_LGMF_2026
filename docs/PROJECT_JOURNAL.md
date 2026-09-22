@@ -129,6 +129,7 @@ Presets set aside; a saved set of his own noted (LG-79).
 - **✓ PHASES 1 · 2 · 3 CLOSED — `1m.4 articulation` WRITTEN INTO PLAN (§260), phase 3 skipped at his word; the calls made alone are marked [call] there. HIS ORDER (§261): DESIGN EVERY PLAN NOW — ► NEXT: vet `1n dynamics` (Fable, after `/postclear`) → vet `1o the save structure` — THEN BUILD AND TEST ONE AT A TIME, LATER, `1m.4` first (Opus)**
 - ✓ **E RESOLVED (LG-84 → LG-85, §254 · §255): a texture load is always EMPTY; a pattern is a document of its own, saved under its own name, several per texture, and it CARRIES A COPY of the onsets** — so Texture needs no save protection (§254's decision 1 dropped). Today's code (one pattern per texture name, brought back on load) is the opposite and changes in the separate plan.
 - **SEPARATE PLAN, noted at his word (LG-84): WHAT IS SAVED FROM THIS BUILD** — the pattern as a named document, what it holds, where it lives (today: the browser only, one store per tab — L). No answer now.
+- **✓ `1n dynamics` DESIGNED AND WRITTEN (2026-09-22, later the same day — RUNNING_LOG §262 … §275, LG-86 … LG-99; PLAN § `1n`, 1n.1 … 1n.6): short samples · B2 one scale · `sample | follow | auto` · levels absolute, no base layer, a generate overwrites · flat · ramp · pointillistic · waves · `enter` · the `dyn` box · mod wheel on the fader · `1f` OUT. ► NEXT: `1o the save structure`.**
 - **HIS STANDARD for the rest of 1m.4 (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second
 - B. Primary-only versus shared actions
 - C. A fresh column
@@ -144,10 +145,10 @@ Presets set aside; a saved set of his own noted (LG-79).
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **VET `1n dynamics`** — plan 2 of 3 (hairpins and crescendos, LG-74; `1f` folded in): phase 1 with him, HIS WORDS FIRST — checkpoint #1 above has what the plan must honour | Fable | after `/postclear` — the resume is the checkpoint |
-| ► | **VET `1o the save structure`** — plan 3 of 3 (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, a library, where it lives, how Insert reads it) | Fable | yes |
-| ► | **THEN BUILD AND TEST ONE AT A TIME, LATER — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build → then `1o` + Insert | Opus | yes, each |
-| ► | **plan 2 — DYNAMICS with hairpins and crescendos** (LG-74; nothing said yet; `1f` belongs to it) | Fable | yes — checkpoint first |
+| ✓ | **`1n dynamics` WRITTEN INTO PLAN 2026-09-22** — PLAN § `1n`, six steps 1n.1 … 1n.6, phase 3 skipped at his word; RUNNING_LOG §262 … §275, LG-86 … LG-99; `1f` stays OUT, its own `todo` (§274) | Fable | — |
+| **►►** | **VET `1o the save structure`** — plan 3 of 3 (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, a library, where it lives, how Insert reads it; now also the ranges and by-hand values of `1n`, which live with the pattern) — phase 1 with him, HIS WORDS FIRST | Fable | yes — checkpoint on Opus, clear, `/postclear` on Fable |
+| ► | **THEN BUILD AND TEST ONE AT A TIME, LATER — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build (PLAN § `1n`, 1n.1 → 1n.5 one commit each, 1n.6 his; its first act is the READ named in 1n.1) → then `1o` + Insert | Opus | yes, each |
+| ✓ | **plan 2 — DYNAMICS** — written 2026-09-22 as PLAN § `1n` (see above); `1f` does NOT belong to it (§274) | — | — |
 | ► | **plan 3 — THE SAVE STRUCTURE** (LG-84 · LG-85: the pattern as a named document, a library, where it lives, how Insert reads it) | Fable | yes |
 | ► | **the builds, one per clear, his listen between:** `1m.4` → dynamics → the save structure + Insert. His tests of `1m.1` · `1m.2` · `1m.3` still owed — what matters from them now is the SOUND and the row (step 5 of `1m.4` replaces the column's gestures) | Opus | yes |
 | ✓ phase 1 | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
@@ -161,6 +162,8 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
 **Open at session end — CHECKPOINT #1 (2026-09-22, session 13, Fable) *(mid-session checkpoint)*:**
+
+- **UPDATE, later the same day (Fable): `1n dynamics` IS WRITTEN** — PLAN § `1n`, RUNNING_LOG §262 … §275, COMPOSITION_NOTES LG-86 … LG-99. **The task in hand is now plan 3 of 3, `1o the save structure`** (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, several per texture, a library, where it lives, how Insert reads it — and now the ranges and `dyn` values of `1n`, which live with the pattern). `1f` stays its own `todo`. The morphs: *"something is off there"* — MORPH_NOTES §3, undiagnosed. **`Resume reads:` for `1o`:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-84 · LG-85 · RUNNING_LOG §254 · §255 · PLAN § `1m.4` (the header) · PLAN § `1n` (the header). Code only when a question names it (`score/public/texture_row.js` · `texture_cols.js` · `strike_drawer.js`'s takes store, `bank/panel_snapshots.json`).
 
 - **THE ORDER OF WORK, HIS (LG-82 · RUNNING_LOG §258 · §261):** while his listening is limited he is DESIGNING EVERY PLAN NOW — `1m.4 articulation`
   ✓ written · **`1n dynamics` NEXT** · `1o the save structure` after it — and will LATER BUILD AND TEST THEM ONE AT A TIME: `1m.4 articulation`

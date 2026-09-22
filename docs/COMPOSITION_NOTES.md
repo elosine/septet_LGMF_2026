@@ -2352,3 +2352,225 @@ in the texture drawer"*
 several per texture; nothing rides on the texture. His conclusion — no save protection needed in Texture — holds on ONE condition, put to him in
 §255: the pattern carries its OWN COPY of the texture's onsets, so a take overwritten later cannot reach it. Decision 1 of §254 is dropped in favour
 of that copy. Today's code (one pattern per texture name, brought back on load) is the opposite of his model and changes in the "what is saved" plan.
+
+### LG-86 · 2026-09-22 — DYNAMICS in the texture take, his brief for plan `1n`: the scenarios, a pointillistic passage tool by presets, the onsets under a wave, zones, single notes
+
+His words, dictated as two messages meant as one prompt (*"sending now cause I cant see but no action yet just hold on as if one
+prompt"*), at the opening of plan 2 of 3 after `/postclear` — asked first *"we are vetting the 1n dynamics plan correct?"* and told there
+was no `1n` yet to vet, that "vet" here means design it as `1m.4` was:
+
+> conceptually: assigning volume levels to different parts across a time span; a variety of typical scenarios: a base volume and
+> excursions throughout the course of the section; a number of sub sections each with their own base vol level; counterpuntal like the
+> sequence waves, different parts come in and out in different vol levels; transitions: abrupt, new vol level starts at onset;
+> cres/decres gradual movement to new vol levels ; both of these are also gestural; cres/decres can act as swells, a one off gesture;
+> also there can be single abrupt, a loud note in a quiet section or sudden changes between dynamics for a certian type of texture; the
+> objective of this build is to facilitate the making of these things for a rhythmic sequence, in simple direct way, with trouble free,
+> not too complicated machineary; maybe take some or all of these scenarios and come up with solutions; so the webern like
+> pointilitistic textures with a variety of individual dynamic changes, I could select a passage on the main timeline, similar to the
+> begin and start indicators we have now, set min and max vol and have a few dials with presets like rate of change, every note to
+> every few notes to 2 times a passage etc. distribution of changes over time, like few changes to lots of changes over the passage etc.
+> lets try to build models though based on practical knowledge, ie what it is likely to sound like, I want to avoid making a slate of
+> decisions each time I apply a pattern to a passage; next scenario, something akin to the waves in the sequences graidents of volume
+> over time either together as an ensemble or apart or in small groups, sending now cause I cant see but no action yet just hold on as
+> if one prompt
+
+> the issue is the sequences were long tones so hear I need help figuring out how the individual onsets behave, do they sample the
+> wave dynamic or do they if held for a certain length exhibit cres/decres behavior; then the sub-section seems streight forward,
+> designate zones in the timeline and assign a dynamic level and have a simple crossfade function they transition abruptly to the new
+> dynamic for that subsection or swell/fade into it over a certian amount of time, this and the previous means system will have some
+> facility with how/when to use single dynamics vs swells etc; and should have ways to assign individual notes with dynamics with the
+> possibility of cres/de for any custom alterations; any other things to consider regarding different scenarios or how to implement my
+> stated scenarios welcome
+
+*AI's reading, marked as such:* three kinds of dynamic on a texture — ZONES of the timeline, each a base level, joined abruptly or by
+a swell / fade over a set time · PATTERNS over a selected passage (the range's own begin / end marks), in two families: the
+pointillistic one (min · max · a rate of change · a distribution over the passage, by PRESETS built from practical knowledge, so that
+applying one is not a slate of decisions) and the gradients (the sequence drawer's waves — together, apart, in small groups) · SINGLE
+NOTES, a dynamic or a crescendo / decrescendo on one, the loud note in a quiet section. The one question he put: what an ONSET does
+under a wave — sample it, or follow it if held. The AI's answer and the caveat it carries are RUNNING_LOG §262.
+
+### LG-87 · 2026-09-22 — The short note samples, agreed; a held note should have the OPTION to sample or follow; the two scales are *"a bug bear"* — the expedient fix, B, if it touches nothing else; *"morphs need to be revisited"*
+
+His words, two messages meant as one (*"sending but continuing, just hold"*), answering the read-back of LG-86 and the onset rule put
+in RUNNING_LOG §262:
+
+> I agree about short note but A held note (a length) FOLLOWS the wave for its span. Struck at mf, the fader on a curve channel
+> tracing the wave. A 0.3 s note "follows" too — the move is just too small to hear. should have the option for either and we should
+> discuss more if I'm delegating to a model generation how to figure this out;
+> short and held sit on two scales this has been a bug bear for a while and I'm reluctant to try to resolve mor systemically because
+> last few attempts have been very time consuming and have mixed results; I can confirm mixed are too different even for the demo
+> standards/bar; so I'll take an expediant solution that doesn't involve a lot of rebuilding of the rack or a bunch of probes that may
+> or may not yield usful data; I should say that previous experience seems to point that different velocities at different cc7 behave
+> differently, so in piece 1 I believe I targeted a lower velocity because it sounded louder or better with the cc7 swell, maybe
+> something to do with round robin samples, in any case I think it is too complex to try to come up with a universal solution
+> sending but continuing, just hold
+
+> so b, but if it can be done without too much additional faffing and doesn't impact other things like crescendos, sequence waves
+> etc, we have those things finally in a good space though morphs need to be revisited, something is off there
+
+*AI's reading, marked as such:* four things. (1) A SHORT note samples the wave at its onset — agreed. (2) A HELD note gets a CHOICE,
+sample or follow, and when a MODEL generates the pattern the rule by which it chooses is still to be discussed. (3) The two scales
+(strikes on 1b's 12 dB ladder, shaped notes on the 28 dB table) are confirmed by his ear as too far apart even for the demo; the fix
+is option B of §262 — a strikes ladder on the table's decibels — ONLY as an expedient: no rack rebuild, no probes, and nothing that
+reaches the crescendo tool, the sequence's waves or the sequences, which are *"finally in a good space"*. His piece-1 memory — a lower
+velocity sounding louder or better under a CC7 swell — is noted as a reason not to seek a universal law. (4) The morphs: *"something
+is off there"* — to MORPH_NOTES §3, undiagnosed, beside `1k`.
+
+### LG-88 · 2026-09-22 — B2 chosen for the texture's short notes; and the same idea noted for a global volume normalization of the whole composer, if ever
+
+His words, answering the three variants of RUNNING_LOG §263:
+
+> b2, also note this solution to consider if I ever want to tackle the global volume normalization for the entire composer
+
+*AI's reading, marked as such:* DECIDED — the texture's short notes take B2: the ladder velocity for the timbre, a fader set once
+before the note-on from a residual table on the measured curve, so that velocity and fader together make 4 dB a written step, the held
+notes' scale. And a NOTE, not a plan: the same split (velocity for the timbre within the samples' room, the fader for the decibels
+the samples cannot give) is the candidate if he ever takes on the composer-wide normalization he has set aside twice (1b's 12 dB span;
+LG-87's *"bug bear"*). Written to `docs/NITS.md`, deferred at his word.
+
+### LG-89 · 2026-09-22 — A held note under a wave: `sample | follow | auto`, and auto's rule is ONE WRITTEN STEP — *"analysis/recommendation good, A good"*
+
+His words, answering RUNNING_LOG §264's next topic (the switch and the rule a model uses):
+
+> analysis/recommendation good, A good
+
+*AI's reading, marked as such:* DECIDED — a held note under a wave carries a switch, `sample` (one level for its span, read at its
+onset — the B2 rule held flat) · `follow` (struck at mf, the fader tracing the wave — a hairpin inside the note) · `auto` (the
+default); and `auto` follows when the wave moves ONE WRITTEN STEP (4 dB) or more across the note's span, else samples — a hairpin is
+written only when it spans at least a dynamic. Fixed, no dial; a preset applied to a passage asks nothing. Rejected: a length threshold
+(a long note under a slow wave is a held level, a short one under a fast wave a swell — length gets both wrong) · a threshold the preset
+carries (a dial he did not want).
+
+### LG-90 · 2026-09-22 — A pattern's levels are ABSOLUTE: *"choose a timeframe, set pp to mf and generate; all dynamics will be from pp to mf"* — the three layers collapse into ranges and single notes
+
+His words, after asking for the question in simpler terms (RUNNING_LOG §266 has the exchange) and whether the three-layer stacking
+was informational or decided:
+
+> If I am reading this correctly, then I would say it stems from the pattern pre overlay; so I would want the webern scenario, choose
+> a timeframe, set pp to mf and generate; all dynamics will be from pp to mf; if I'm doing waves same set ppp to fff  all waves flow
+> from low of ppp to fff; was this the question or am I missing a scenario
+
+*AI's reading, marked as such:* DECIDED — option B, absolute. A pattern is applied to a RANGE with a low and a high written dynamic
+and a model, and GENERATES the levels of the notes in it, between those two names. Nothing rides a separate base: a sub-section with
+one level is the same action with low = high, so the ZONE layer of §264's read-back is not a layer of its own, and the three-layer
+stacking is withdrawn. What remains: ranges, each generated between two names by a model; single-note overrides on top. The join
+between ranges (abrupt, or a fade over a time) is a property of the application, still to lay out.
+
+### LG-91 · 2026-09-22 — A re-generate over a range OVERWRITES everything in it, hand-set notes included — *"A"*
+
+His word, to the question of RUNNING_LOG §266 (a range generated, a few notes set by hand, the same stretch generated again):
+
+> One question left on ranges: you generate a range, then set a few notes by hand. Later you generate again over the same stretch. A
+
+*AI's reading, marked as such:* DECIDED — generate overwrites every note's level in the range; a hand-set note does not survive it.
+Hand-set notes are the LAST thing done on a stretch. Rejected: overrides that survive a re-generate (option B) — a second rule to
+remember, and a stretch whose sound no longer follows its range.
+
+Before it, the two questions of §265 (the three layers, and a pattern riding a base) had to be put a third time — *"still don't
+understand take one more shot"* — and were answered as already closed by LG-90: no separate base level, so two things only (a range
+you generate, single notes you set by hand); and a pattern set `pp` to `mf` gives `pp` to `mf`, whatever the section.
+
+### LG-92 · 2026-09-22 — The scale of a range is any length; ramp is one movement together, waves many apart; the single note's four; and three additions taken — who · niente · accents
+
+His words, across the exchange that settled the MODELS (RUNNING_LOG §268):
+
+> sorry what scale are we working on ? relate to scenarios pls and more clear; global?: flat 3 minutes, min 1 is pp, min 2 is f,
+> min 3 is ppp; or local? 5th onset p, 6th onset f etc; ramp and swell are 2 different scales to me; ramp global 3 min go from pp
+> to ff 1.5min ff to pp1.5min, swell might be 6th onset swells from p to f over 4 seconds; how am I misunderstanding the question?
+> what needs to actually be decided?
+
+> what is the difference between ramp and waves, ramp is singular? or something else?
+
+> and these are the 4 possibilities? so a single note can have one value eg mp, or be a cres/desc mp-f; or hairpin mp-f-mp yes?
+
+> yes, but were there others I might have missed or did you already do that check?
+
+> y
+
+*AI's reading, marked as such:* DECIDED — a range is any length (three minutes or four seconds), the same action. RANGE MODELS:
+flat · ramp (one movement, the ensemble together) · pointillistic · waves (many movements, the players apart or in groups). SWELL
+is not a range model — it is local, the single note's. SINGLE NOTE, by hand: one value · crescendo · decrescendo · swell, the last
+three on a held note only. Three additions at his *"y"*: WHO — every model applies to all players or to chosen rows (his *"parts
+come in and out in different vol levels"*) · NIENTE as a ramp's low end (a fade in from nothing, out to nothing — the sequence's
+edges) · ACCENTS as a pointillistic PRESET (few changes, high contrast — the loud note in a quiet section, generated). Checked and
+folded in as presets or shapes, not models: steps, drift, echo, forte-piano.
+
+### LG-93 · 2026-09-22 — Every range has `enter: abrupt | fade N s`, the fade climbing from whatever came before — *"a"*
+
+His word, to the join between neighbouring ranges (RUNNING_LOG §269):
+
+> a
+
+*AI's reading, marked as such:* DECIDED — an `enter` setting on every range, abrupt by default (the first note of the new range at
+its level), or a fade over N seconds (the notes in the first N seconds of the range ramp from the level before it to the range's
+own). Nothing else to set. Rejected: no setting, the fade made by hand as a short ramp range (B).
+
+### LG-94 · 2026-09-22 — The pointillistic presets drafted by the AI and tuned by his ear; the dials always reachable — *"a but the dials should be able to be manifested if I wanted to tweek individual settings"*
+
+His words, to the pointillistic model's dials and presets (RUNNING_LOG §270):
+
+> a but the dials should be able to be manifested if I wanted to tweek individual settings
+
+*AI's reading, marked as such:* DECIDED — three dials in words (`rate`: every note · every few · every many · twice a passage ·
+`distribution`: even · few then many · many then few · `contrast`: small steps · any · extremes only); about five named presets
+drafted in the plan from practical knowledge (Webern · accents · drift · terraced · wild, names provisional) and tuned by his ear
+after the build; and the dials SHOWN, every preset's settings visible and editable, a tweak turning the preset's name to "custom".
+Rejected: laying the presets out now, one by one (B).
+
+### LG-95 · 2026-09-22 — The waves model is the sequence's waves reused whole, plus `who moves`: *"each player, together, or custom groups"*
+
+His words, to the waves model (RUNNING_LOG §271):
+
+> a. but who moves : each player, together, or custom groups
+
+*AI's reading, marked as such:* DECIDED — the sequence drawer's waves machinery (1d.7 · 1d.13: rise · hold · fall per stream, the
+dials `short` · `long` · `tilt` · `shape` · `hold` · `density`, the five presets, `save preset`, one library) runs between the
+range's two names; a short note samples its wave, a held note follows or samples by the one-step rule (LG-89). One new dial, `who
+moves`: EACH PLAYER their own wave · TOGETHER one wave for all · CUSTOM GROUPS — his own grouping of the rows, not the fixed pairs the
+AI offered. Rejected: a simpler waves of its own for textures (B) · fixed pairs as the only grouping.
+
+### LG-96 · 2026-09-22 — A single note's dynamic is one typed box per row in the orchestration panel — *"a what is the separater between the values 3 boxes, space, dash?"*
+
+His words, to the single note by hand (RUNNING_LOG §272):
+
+> a what is the separater between the values 3 boxes, space, dash?
+
+*AI's reading, marked as such:* DECIDED — one `dyn` box per row, typed as written: one name a value, two a crescendo or
+decrescendo, three a swell; on a short note only one name counts; with several columns selected it goes to all (the lens); the
+column shows the result per row as a mark beside the circle. The separator: the box accepts a DASH or a SPACE (`mp-f`, `mp f`) and
+shows a dash. Rejected: menus (B) · three boxes.
+
+### LG-97 · 2026-09-22 — The mod-wheel voices take their dynamics on the fader like every other voice; the mod wheel itself stays untouched — *"a"*
+
+His word, to the mod-wheel voices (RUNNING_LOG §273):
+
+> a
+
+*AI's reading, marked as such:* DECIDED — a voice whose loudness source is the mod wheel (Xsample's `MW` presets, 1m.4.1's data) is
+treated by `1n` like every other voice: the fader carries the level, set before the note (B2) or following the wave; the mod wheel
+keeps one fixed value per voice, its default. Consistent with LG-75, where he held *"modulation wheel or a certain velocity"* for
+another time. Rejected: the level moving the mod wheel too (B) — an uncalibrated second lever.
+
+### LG-98 · 2026-09-22 — `1f` stays out of `1n`: the score's crescendo tool is its own `todo`, touched only if his ear says so — *"a"*
+
+His word, to whether `1f` belongs in the dynamics plan (RUNNING_LOG §274):
+
+> a
+
+*AI's reading, marked as such:* DECIDED — `1f` is NOT folded into `1n`. It stays its own `todo` in PLAN, at his word of 2026-09-20,
+and is touched only if his ear ever finds the fault the code reading describes. Consistent with his *"we have those things finally in
+a good space"* (LG-87). Rejected: one small step inside `1n` writing the two fields on the crescendo tool (B) — nothing in `1n`
+depends on it, and he did not ask for it.
+
+
+### LG-99 · 2026-09-22 — The top line of `1n dynamics` stood as put; phase 3 skipped — *"good, you can build plan no need for steps review"*
+
+His words, to the six-line top line of RUNNING_LOG §274:
+
+> good, you can build plan no need for steps review
+
+*AI's reading, marked as such:* the top line is confirmed in the order put (1 one scale · 2 the note by hand · 3 ranges, flat and
+ramp · 4 the pointillistic model · 5 the waves model · 6 his one test), and phase 3 — each step's goal and sub-steps discussed one at
+a time — is skipped at his word, as it was for `1m.4` (LG-82's standard, §260's precedent). The AI writes the six steps into PLAN alone,
+the calls it makes marked [call], his to reverse.
+

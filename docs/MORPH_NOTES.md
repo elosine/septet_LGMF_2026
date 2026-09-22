@@ -1532,3 +1532,13 @@ adjust a morph's dynamics). **Nothing is diagnosed and nothing was looked at** �
 dynamics law since H3 (RUNNING_LOG §171): each shaped note's fader moves between the table values of its own written dynamics, the
 fades a weight on top. So a look starts with WHICH written dynamics the bloom's peaks carry against the sequence's, in the placed
 score, before anything about the mechanism. The wish — a control — belongs to the revision as much as to this piece.
+
+### 2026-09-22 — LGMF: *"morphs need to be revisited, something is off there"* — said in passing during the dynamics plan (RUNNING_LOG §263 · COMPOSITION_NOTES LG-87)
+
+His words, in the discussion of plan `1n dynamics`, naming what is in a good space and what is not:
+
+> *"we have those things finally in a good space though morphs need to be revisited, something is off there"*
+
+*AI reading (mine, marked):* nothing more was said and nothing was looked at. It stands beside the 2026-09-21 entry above (the peaks
+against the sequence, PLAN `1k`) and may be the same thing heard again or another. The look, when he calls it, starts as that entry
+says — the placed score's written dynamics first — and belongs to the revision as much as to this piece.
