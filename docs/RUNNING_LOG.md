@@ -9443,3 +9443,36 @@ on recall (*"take Just-C1-seed90"*) · `Hear orchestrated` with 2 on: strike →
 (no reshuffle) → 2 note-ons, **none off within 1.5 s**.
 
 **His tab: RELOAD.** The reload alone clears the stale ticks (they live in memory); his columns keep their deals and their players.
+
+## §232. *"What's going on? Can we figure it out?"* — THE ERROR AT THE BOTTOM: one drawer, one set of ticks, and columns that need players of their own; a v3 of the columns proposed, not built (2026-09-21)
+
+His words: COMPOSITION_NOTES LG-72. His screenshot: the drawer holds a harmonic-series harmony (seed 181), **seven players unticked,
+Cello and D. Bass TICKED and DEALT (A#4 −49¢ · G#4 −14¢), `2 free · 0 busy`**; the selected column (13.5 s) shows every circle gray;
+one older column shows the Horn gold.
+
+**What is going on, read in the screenshot against the code.** He did what the panel invites: `all off`, tick two players, shuffle — and
+the drawer dealt them two notes. But since §228 a TICK and a CIRCLE are two different switches: the tick is *whom the shuffle may deal
+to* (the drawer's), the circle is *who sounds at this onset* (the column's). His two ticked players have notes in the deal, and the
+column's circles for them are OFF, so nothing shows and nothing sounds — *"the notes just won't assign to them."* His question of a
+minute before — *"is that supposed to check the box in the orchestration?"* — was the seam itself.
+
+**The error at the bottom** (the AI's diagnosis): the drawer has ONE set of ticks, and they belong to the playhead, not to a strike;
+the columns need players OF THEIR OWN, one set per onset. Three builds have tried to bridge that with the one drawer: (1) §227 made the
+circles the drawer's ticks — one set, so every selected column shared it and a fresh column inherited the last one's (§228, his
+complaints 2 and 3); (2) §228 split "who sounds" from the ticks — which fixed those two and made the tick meaningless to him (he ticks
+a player, nothing lights); (3) §231 took the ticks out of the columns altogether — leaving the panel's own `all off` to strand him with
+seven unticked players. Each fix was right against the last complaint and wrong against the drawer's own tick, which he keeps reaching
+for because it is the control in front of him.
+
+**THE RULE THAT RESOLVES IT — proposed to him, in five lines, his to confirm before a byte is written:**
+1. A column's PLAYERS are its ticks. Tick = on = dealt = sounds. One switch, shown in two places: the circles in the column, the boxes
+   in the panel (the panel shows the column that was clicked last).
+2. A fresh column has NO players. Tick one and it gets a note from the harmony at once (an unassigned pitch that fits, chosen by the
+   seed); untick one and its note leaves — nobody else moves. Shuffle re-deals the column's players from the harmony.
+3. Several columns selected: they share the HARMONY and the SHUFFLE, each dealt on its OWN players. A harmony picked or a take loaded
+   goes to all of them, each dealt on its own players.
+4. The panel's tick boxes, while a texture take is on, follow rule 2 (the drawer's own untick, which MOVES a note to another player,
+   stays the strike mode's).
+5. `Hear orchestrated` = the clicked column's players; SPACE = the pattern; `all on` · `all off` = the column's players.
+
+**Not built.** His answer next.

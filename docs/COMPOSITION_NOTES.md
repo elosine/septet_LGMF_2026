@@ -2178,3 +2178,15 @@ His words, with three screenshots (RUNNING_LOG §231):
 
 > *"And then strangely, for some reason, they all reverted to long tones, just for reasons. or I should say several columns reverted
 > to long tones."*
+
+### LG-72 · 2026-09-21 — *"things just aren't working and this is the third or fourth go at this. What do we need to get this working right?"*
+
+His words, with a screenshot (RUNNING_LOG §232):
+
+> *"things just aren't working and I've this is the third or fourth go at this. What do we need to get this working right? the column
+> behavior is inconsistent. I've chosen the column, I assigned a take, and then I shuffled. And then I assigned two players and the
+> notes just won't assign to them. What can we do to pick up the error at the bottom of this? I don't want to troubleshoot this piece
+> by piece any longer. It's just not working right. What's going on? Can we figure it out?"*
+
+And, just before it: *"if I click on a column and then click on a note or a circle, is that supposed to check the box in the
+orchestration?"*
