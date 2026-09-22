@@ -10573,3 +10573,104 @@ static `cc7Abs` with a velocity of its own, and the sequence drawer's shaped-not
 
 **The state of the three plans (his order, §261):** `1m.4 articulation` written · `1n dynamics` written · `1o the save structure` NEXT —
 then the builds, one at a time, `1m.4` first.
+
+## §276. `1o the save structure` — his method for it, the reads, the AI's design, three decisions put, the top line (2026-09-22)
+
+**What prompted it.** After `/postclear` (checkpoint #2's next step: his words first on the save structure), his instruction instead:
+*"1o the save structure will mostly be AI designed, surface any decisions that I should make and ai should vet the plan to make sure it
+covers all the requirements then I'll see the topline"*. So phase 1 is the AI's here: design, vet against the record, put the decisions,
+then the top line.
+
+**Read (not run):** `texture_row.js` 20 … 70 (the store `lgmf.textureRow.v1` = `{mode, take, pats: {name: {n, on, range, cursor}}}`,
+`txPat` one per texture NAME) · 169 … 186 (`txLoad` realizes the take through `TexturePanel.realize` on EVERY load and RESETS the pattern
+when the dot count changed) · `texture_cols.js` 14 … 30 · 54 … 70 · 191 … 200 (a column = `{state, players, notes, take, len, lens}`;
+`short` · `sel` · `lenV` on the pattern) · `snapshots.js` 44 … 66 (four stores by key; `test_snapshots` pins "exactly four") ·
+`server.js` 616 … 660 (`/api/snapshots`, temp file + rename) · `sequence_ui.js` 1746 … 1830 (Insert: `grp-seq-<id>`, one META bar, the
+entry `{id, name, group, inserted, notes, recipe}` into `databases.sequences`, `curveDirty`, `trillCovers`) and its library methods
+209 … 422 · SEQUENCE_TOOL §10 · §16 · PLAN 1m.4.4 … 1m.4.7 and 1n.1 … 1n.3 (what they put on the pattern: the lens, `deal`, `dyn`,
+`follow`, the ranges `{columns, rows, low, high, model, dials, enter, seed}`, the one helper `texture_dyn.js`) · `bank/rhythm_takes.json`
+(a take = `{saved, comment, state: {v, spec: {name, seed, sections}, assign, arts, variant, label}}`, ≈ 600 bytes) · `bank/sequences.json`
+(an entry = `{saved, comment, state: {row, kept}}`) · the score's databases in use: `cells` · `chordShapes` · `sets` · `sequences` ·
+`rhythmSequences`.
+
+**The design (the AI's, under LG-84 · LG-85 · §254 · §255 and the expedient rule LG-82):**
+- **THE DOCUMENT.** Today's `pats[name]` object becomes a document of its own — `{v, id, name, texture: {name, n, span, gap10, dots:
+  [{k, line, i, t}]}, on, range, cursor, short, cols, sel}` plus what `1m.4` and `1n` add (`deal`; per column `dyn` · `follow`; `ranges`).
+  `txPat()` returns the OPEN document, so `texture_cols.js` and `1n`'s code read it unchanged. The dots are copied ONCE, when the pattern is
+  started; the texture's name is a label. Consequences: a pattern reopens without Texture on the page (`realize` runs only to start one) ·
+  the "take has changed" reset of `txLoad` goes · nothing done in Texture later reaches a pattern.
+- **STARTING AND RECALLING.** `texture ▾` starts a NEW, EMPTY, untitled pattern on that take (LG-85: the texture is the spine, a load never
+  brings anything) · `pattern ▾` recalls one by its own name · several per texture · the tab remembers the open one (`libKey` · `libPanel`,
+  the sequence drawer's way).
+- **THE STORE.** A fifth key `patterns` → `bank/patterns.json`, panels `library` · `untitled`, an entry `{saved, comment, state: {doc,
+  kept}}` · localStorage instantly, the disk 2 s after the last change and on pagehide by beacon · the untitled stack of 50 ·
+  `test_snapshots` pins five · the server restarted. MIGRATION: each of today's `pats[name]` → one untitled entry with its dots copied at
+  first load, once. L (§253) closes: the library is global, in the bank; what is in a score is the score's own copy.
+- **THE LIBRARY CONTROLS.** `name [ ] save revert • duplicate × new` in the row's bar, the sequence library's rules verbatim (SEQUENCE_TOOL
+  §16) — a clone in a new mixin `texture_lib.js`; `sequence_ui.js` untouched (the shield).
+- **INSERT.** The sequence's idiom exactly: `Insert @ playhead` · `Re-insert in place @ t` from the META bar's start · `move to playhead` ·
+  `patterns in this score` from `databases.patterns`, `NOT in the score` and orphans marked · one group `grp-pat-<id>` + one META bar over
+  the span, `srcKind: 'pattern'` · the entry `{id, name, group, inserted, notes, doc}` with the document copied WHOLE, dots included, so a
+  score file stands alone · the notes are what SPACE plays, from `1n.1`'s one helper `texture_dyn.js` (`velAbs` · `cc7Abs` · the route: a
+  short or sampled note struck on its ladder with a static fader, a `follow` note shaped on a curve channel) · the lengths of 1m.3 · the
+  percussion row's by-key notes as 1m.4.1's data · the claves never inserted · a note under a trill skipped (`trillCovers`) ·
+  `Composer.curveDirty()` · hand edits counted, the document is the truth · reopening by a click on the META bar not built, as the
+  sequence's is not.
+
+**Put to him — the three decisions only he can make:**
+- **A. What Insert writes:** the RANGE — its left line at the playhead, only the ON marks inside it (recommended: Hear already plays inside
+  the range) — or every ON mark from the take's first dot.
+- **B. One player whose note runs into their next onset:** cut at the next onset (recommended: one player, one sound; two note-offs on one
+  channel collide; LG-58's flag stays) — or overlap as written.
+- **C. Insert inside `1o`** (recommended: it is "how Insert reads it") — or a plan of its own after.
+
+**The calls made alone, his to reverse:** the word "pattern" (`rhythmSequences` in the score file is the `1l` panel's) · dots only, not
+the take's recipe (the texture is upstream; a re-roll is a new pattern) · the migration · the clone mixin · `bank/patterns.json` under
+`bank/sequences.json`'s git policy (his to commit).
+
+**Vetted against the requirements (LG-84 · LG-85 · §254 · §255 · checkpoint #2):** a named document of its own ✓ (1) · several per
+texture, a load always empty ✓ (2) · a copy of the onsets, so no save protection in Texture ✓ (1) · the texture's name as a label ✓ (1) ·
+marks · range · columns with take · players · articulations · lengths ✓ (1) · `1n`'s ranges and `dyn` values with the pattern ✓ (1: slots
+in the document, `1n` writes them) · where it lives ✓ (3: browser · bank · score) · a library ✓ (3 · 4) · how Insert reads it ✓ (5) · L
+closed ✓ (3) · today's one-pattern-per-texture code replaced ✓ (2) · THE SHIELD on every step ✓ · `sequence_ui.js` untouched ✓.
+Dependency: `1o` is built after `1m.4` and `1n` (the document holds what they add; step 5 reads `1n.1`'s helper).
+
+**The top line put (phase 2):** 1 the document · 2 starting and recalling · 3 the store · 4 the library controls · 5 Insert · 6 his one
+test. Nothing written into PLAN yet — his word on the decisions and the top line first.
+
+## §277. DECIDED for `1o`: A the range · B two rules, both placed in `1n.1` (the cut · the standard warning) · C Insert inside `1o` (2026-09-22)
+
+**What prompted it.** §276's three decisions. His answers, one turn each: *"aa"* (A = the range) → *"b is in the score or in the drawer?"*
+→ *"but what I mean is the original is in the drawer and it is whatever that is the score that might force a cut, you're not talking
+about a conflict in the drawer yes?"* → *"so how is this part of the save build? or are there some issues not dealt with in the rest of
+the build plans?"* → *"what would precipitate the overlaps?"* → *"two onsets same instrument from the texture rhythm too close, we've
+done this type a couple times how are we resolving this now in other things? warning? disallow?"* → *"1 as stated, 2 cut; ca"*.
+
+**What was clarified on the way.**
+- B is NOT a save issue. It is a gap `1m.3 duration` left — a length past the same player's next onset — that none of the three plans
+  covered; it surfaced because Insert makes the notes permanent. Nothing else surfaced in §276's reads that the plans leave open.
+- The score forces nothing: Insert writes the notes as the drawer realized them and refuses only a note under a trill (`trillCovers`,
+  the standing rule); notes already on the lane are not touched.
+- What precipitates an overlap: the same player ON in two columns closer than their first note's length — a `length` typed on a
+  stretch (the likely one), on one column, a per-row length, a mark turned ON between two, or the 120 ms short under onsets closer
+  than 120 ms. Two different pitches → the sampler plays both, one player two notes; the same pitch → the first note-off cuts the
+  second, or the voice restarts.
+- Two cases told apart. **(1) Two ATTACKS too close:** the record's rule is Texture's standard collision check (LG-58; `texture_panel.js`
+  `collisions`, `Composer.CONFLICT` — HARD = two attacks at once, SOFT = closer than the instrument's minimum gap, the tuba's values at
+  his word): flagged in the warning colour and counted, never moved, never dropped, never disallowed; his to mute; different players
+  never checked against each other. The sequence generator keeps a player's notes apart by construction (`MIN_GAP_S` 50 ms). `1m` had
+  deferred re-attack to *"the miscellaneous list, the same protections"* (PLAN 1m.2 · 1m.3). **(2) A LENGTH running into the next
+  attack:** not a collision — what a player does: they stop the first note and play the second. The cut.
+
+**DECIDED (his, *"1 as stated, 2 cut; ca"*):**
+- **A = (a):** Insert writes the RANGE — its left line at the playhead, only the ON marks inside it.
+- **B1:** two attacks of one player closer than their minimum gap → the standard warning on the pattern's columns, as Texture: both
+  circles in the warning colour, a count in the status; never moved; his to untick.
+- **B2:** a length that runs into that player's next onset → CUT there; the column's bar drawn to the cut; the stored length untouched,
+  so turning the next mark off restores it.
+- **C = (a):** Insert is a step of `1o`.
+- B1 and B2 live in `1n.1`'s one helper (the notes as Hear and Insert read them) and the columns' drawing — not in `1o`. Written into
+  PLAN § `1n.1` now (two bullets, two checks in its REQUIRED VERIFICATION); PLAN § `1m` *Held* points there.
+
+**Where it stands:** §276's top line — 1 the document · 2 starting and recalling · 3 the store · 4 the library controls · 5 Insert · 6 his
+one test — stands as put, not yet confirmed by him. Phase 3 next: stepwise, or written whole as `1n` was (§275), his call.

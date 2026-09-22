@@ -1724,7 +1724,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     laid out with him under the planning method, then written here as `1m.4` (RUNNING_LOG §239). **WRITTEN 2026-09-22 — `1m.4` below (RUNNING_LOG §240 … §260).**
   - **Held, his to answer when its step comes:** the same player on in two selected columns (a strike gives a player one note) · a column
     remembering its harmony · hearing the whole pattern with its pitches · the dynamic of a note · a re-attack closer than a player can
-    make (flagged, never moved — LG-58) · multitempo as a third source (LG-61) · what becomes of the Rhythm sequence panel and `1l.8`. · **a SAVED SET OF ARTICULATIONS** — the ensemble's rows set as he wants them and saved as a preset of his own, recalled by name from the `set` line (LG-79, 2026-09-22; with the presets, set aside until the definition and the state model are settled, RUNNING_LOG §243 · §245). · **WHAT IS SAVED FROM THIS BUILD — a separate plan** (LG-84 · LG-85, RUNNING_LOG §254 · §255; decided in principle): a texture load is always EMPTY; a pattern is a named DOCUMENT of its own — a COPY of the onsets + the texture's name + marks · range · columns — several per texture, a library of them; where it lives and how Insert reads it are that plan's. Because the pattern carries its copy, Texture needs no save protection. Today's code (one pattern per texture name, brought back on load) is the opposite and changes there.
+    make (flagged, never moved — LG-58; **its two rules are in `1n.1` since 2026-09-22, RUNNING_LOG §277**) · multitempo as a third source (LG-61) · what becomes of the Rhythm sequence panel and `1l.8`. · **a SAVED SET OF ARTICULATIONS** — the ensemble's rows set as he wants them and saved as a preset of his own, recalled by name from the `set` line (LG-79, 2026-09-22; with the presets, set aside until the definition and the state model are settled, RUNNING_LOG §243 · §245). · **WHAT IS SAVED FROM THIS BUILD — a separate plan** (LG-84 · LG-85, RUNNING_LOG §254 · §255; decided in principle): a texture load is always EMPTY; a pattern is a named DOCUMENT of its own — a COPY of the onsets + the texture's name + marks · range · columns — several per texture, a library of them; where it lives and how Insert reads it are that plan's. Because the pattern carries its copy, Texture needs no save protection. Today's code (one pattern per texture name, brought back on load) is the opposite and changes there.
   - **1m.1 — The switch and the top row** — `built` 2026-09-21 — **his test closed at his word 2026-09-22, untested — one test after `1m.4` (RUNNING_LOG §259)** (RUNNING_LOG §220:
     `score/public/texture_row.js`, a mixin on the drawer — `strike_drawer.js` is not changed; one script tag in `composer.html`; the
     layout item is two lines in `spectrum_ui.js`, committed alone)
@@ -1956,6 +1956,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       STEP or more across the note's span, else `sample` (§265). The switch is data on a row, a column or a range; its box arrives with 1n.2's row.
     - **No measured fader curve → velocity alone, as today:** the percussion (no remap entry) and the vibraphone's mallet voice (the card measured the
       bowed one) — the status names them when they are in the column **[call]**.
+    - **Two rules on ONE player's notes, decided for `1o` and placed here (RUNNING_LOG §277, 2026-09-22):** a length that runs into that
+      player's next onset is CUT there — the note ends at the next attack, the column's bar drawn to the cut, the stored length untouched
+      (turn the next mark off and the full length is back) · two attacks closer than the instrument's minimum gap are FLAGGED, never moved:
+      the standard collision check (`Composer.CONFLICT`, Texture's `collisions`, LG-58) over the pattern's columns, both circles in the
+      warning colour and a count in the status; his to untick. Different players are never checked against each other.
     - **ONE helper**, `score/public/texture_dyn.js` (as `morph_dyn.js` is to the morph): a note's level in → `velAbs` · `cc7Abs` · the route; the drawer's
       Hear (`playNotes`) and the eventual Insert both read it, so they cannot drift.
     - **REQUIRED VERIFICATION** (`score-5401`, MIDI stubbed, §2's method): a capture of `Hear orchestrated` on one column, eight rows at `pp` → every
@@ -1963,7 +1968,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       `fff` → CC7 127 · a held note `follow` under `pp-f` → struck at mf, CC7 rising from the table's `pp` to its `f` · `auto`: a 0.3 s note under a
       slow level → sample, a 3 s note under a fast one → follow · the english horn's Multiphonics MW in a row → the same rule, CC1 at its default
       (§273) · `dyn_table_check` 51 + the new · `sequence_check` 180 · **THE SHIELD:** the strike mode's Hear captured before and after, byte-identical;
-      a sequence's and a morph's Hear the same. His rack in 1n.6.
+      a sequence's and a morph's Hear the same · a 3 s note with the same player ON 1 s later → ends at 1 s, the bar drawn to it, the stored
+      length still 3 s · two onsets 40 ms apart on one player → both circles in the warning colour, the count in the status, nothing moved.
+      His rack in 1n.6.
 
   - **1n.2 — The single note by hand** (one typed `dyn` box per row; the column's mark)
     - In the players list (1m.4.5's rows), texture mode only: a `dyn` box per row — `mp` a value · `mp-f` / `f-mp` a crescendo / decrescendo inside the
