@@ -10674,3 +10674,23 @@ done this type a couple times how are we resolving this now in other things? war
 
 **Where it stands:** §276's top line — 1 the document · 2 starting and recalling · 3 the store · 4 the library controls · 5 Insert · 6 his
 one test — stands as put, not yet confirmed by him. Phase 3 next: stepwise, or written whole as `1n` was (§275), his call.
+
+## §278. `1o the save structure` WRITTEN INTO THE PLAN at his word (*"a"*), the top line confirmed — six steps, the calls made alone; committed (2026-09-22)
+
+**What prompted it.** §277's close: the top line put once more, phase 3 offered as (a) written whole as `1n` was (§275) or (b) one step at a
+time. His answer: *"a"*.
+
+**Written:** PLAN § `1o`, 1o.1 … 1o.6, in §276's design with §277's decisions in place — 1o.1 the document · 1o.2 starting and recalling ·
+1o.3 the store · 1o.4 the library controls · 1o.5 Insert · 1o.6 his one test. Each step carries its REQUIRED VERIFICATION and THE SHIELD; the
+build order is the item's last bullet: after `1m.4` and `1n`, 1o.1 → 1o.5 one commit each, 1o.6 his, the server restarted after 1o.3.
+
+**One consequence of the confirmed order, told here:** 1o.2 (starting and recalling) comes before 1o.3 (the store), so 1o.2 keeps its several
+documents in the browser key by `id`, and 1o.3 moves them to disk — the migration is 1o.3's, and it runs once.
+
+**The calls made alone, marked [call] in the plan, his to reverse:** the texture's name inside an untitled entry's timestamp name · a migrated
+pattern whose take is gone kept with its dots at unknown times, said in the status · a clone mixin `texture_lib.js`, not an extraction from
+`sequence_ui.js` · the `•` ignores `sel` and `cursor` · and from §276: the word "pattern" · dots only, not the take's recipe · the migration
+itself · `bank/patterns.json` under `bank/sequences.json`'s git policy.
+
+**Where it stands:** ALL THREE PLANS are designed and written — `1m.4 articulation` · `1n dynamics` · `1o the save structure` — and nothing is
+built, by his order (§261). The builds next, one at a time, `1m.4` first, on Opus, after a checkpoint and a clear.

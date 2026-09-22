@@ -130,6 +130,7 @@ Presets set aside; a saved set of his own noted (LG-79).
 - ✓ **E RESOLVED (LG-84 → LG-85, §254 · §255): a texture load is always EMPTY; a pattern is a document of its own, saved under its own name, several per texture, and it CARRIES A COPY of the onsets** — so Texture needs no save protection (§254's decision 1 dropped). Today's code (one pattern per texture name, brought back on load) is the opposite and changes in the separate plan.
 - **SEPARATE PLAN, noted at his word (LG-84): WHAT IS SAVED FROM THIS BUILD** — the pattern as a named document, what it holds, where it lives (today: the browser only, one store per tab — L). No answer now.
 - **✓ `1n dynamics` DESIGNED AND WRITTEN (2026-09-22, later the same day — RUNNING_LOG §262 … §275, LG-86 … LG-99; PLAN § `1n`, 1n.1 … 1n.6): short samples · B2 one scale · `sample | follow | auto` · levels absolute, no base layer, a generate overwrites · flat · ramp · pointillistic · waves · `enter` · the `dyn` box · mod wheel on the fader · `1f` OUT. ► NEXT: `1o the save structure`.**
+- **✓ `1o the save structure` DESIGNED BY THE AI AT HIS WORD, VETTED, AND WRITTEN (2026-09-22, Fable, after checkpoint #2 — RUNNING_LOG §276 … §278; PLAN § `1o`, 1o.1 … 1o.6): a pattern a named document with a COPY of its onsets · `texture ▾` starts one empty, `pattern ▾` recalls · `bank/patterns.json` a fifth store, the sequence library's rules · Insert the sequence's idiom, the range written, the document into the score. His three decisions (§277): A the range · B the two rules on one player's notes → `1n.1` · C Insert inside `1o`. ► ALL THREE PLANS WRITTEN, NOTHING BUILT. NEXT: checkpoint on Opus + clear → BUILD `1m.4`.**
 - **HIS STANDARD for the rest of 1m.4 (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second
 - B. Primary-only versus shared actions
 - C. A fresh column
@@ -146,8 +147,8 @@ Presets set aside; a saved set of his own noted (LG-79).
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | ✓ | **`1n dynamics` WRITTEN INTO PLAN 2026-09-22** — PLAN § `1n`, six steps 1n.1 … 1n.6, phase 3 skipped at his word; RUNNING_LOG §262 … §275, LG-86 … LG-99; `1f` stays OUT, its own `todo` (§274) | Fable | — |
-| **►►** | **VET `1o the save structure`** — plan 3 of 3 (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, a library, where it lives, how Insert reads it; now also the ranges and by-hand values of `1n`, which live with the pattern) — phase 1 with him, HIS WORDS FIRST | Fable | yes — checkpoint on Opus, clear, `/postclear` on Fable |
-| ► | **THEN BUILD AND TEST ONE AT A TIME, LATER — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build (PLAN § `1n`, 1n.1 → 1n.5 one commit each, 1n.6 his; its first act is the READ named in 1n.1) → then `1o` + Insert | Opus | yes, each |
+| ✓ | **`1o the save structure` WRITTEN INTO PLAN 2026-09-22** — PLAN § `1o`, six steps 1o.1 … 1o.6, designed by the AI at his word and vetted (§276), his three decisions (§277), phase 3 written whole at his word (§278); the two rules on one player's notes went into `1n.1` | Fable | — |
+| **►►** | **BUILD AND TEST ONE AT A TIME — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build (PLAN § `1n`, 1n.1 → 1n.5 one commit each, 1n.6 his; its first act is the READ named in 1n.1) → then `1o` + Insert | Opus | yes — checkpoint on Opus, clear, `/postclear` on Opus |
 | ✓ | **plan 2 — DYNAMICS** — written 2026-09-22 as PLAN § `1n` (see above); `1f` does NOT belong to it (§274) | — | — |
 | ► | **the builds, one per clear, his listen between:** `1m.4` → dynamics → the save structure + Insert. His tests of `1m.1` · `1m.2` · `1m.3` still owed — what matters from them now is the SOUND and the row (step 5 of `1m.4` replaces the column's gestures) | Opus | yes |
 | ✓ phase 1 | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
@@ -159,6 +160,19 @@ Presets set aside; a saved set of his own noted (LG-79).
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are RUNNING_LOG §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open — 2026-09-22, session 13, Fable, after checkpoint #2 (the block below it is still the checkpoint; read this first):**
+
+- **`1o the save structure` IS WRITTEN** (PLAN § `1o`; RUNNING_LOG §276 … §278). **ALL THREE PLANS ARE DESIGNED AND WRITTEN, NOTHING BUILT, BY HIS
+  ORDER (§261).** Commit `f04c5d1` (the decisions) and the one after it (the item).
+- **The task in hand is now THE BUILDS, one at a time: `1m.4 articulation` first** — on Opus, after a checkpoint and a clear. Its build order is PLAN
+  § `1m.4`'s last bullet (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; 1m.4.2 at his rack; 1m.4.7 on his word); his ONE test after.
+- **`Resume reads:` for the `1m.4` build:** PLAN § `1m.4` whole · `docs/DYNAMICS_LAW.md` · journal §2 STILL BINDING (the verification method) · the code
+  it names: `score/public/texture_cols.js` · `texture_row.js` · `strike_drawer.js` (the articulation roster, read not changed) · `sandbox/instruments.js`.
+  RUNNING_LOG §240 … §260 only where a step's reasoning is needed.
+- **Decisions pending him:** the [call]s in PLAN § `1m.4` (§260) · § `1n` (§275) · § `1o` (§278) · the triangle on track 10 (§221) · `ACT-BLOOM-03` · `-04` ·
+  a `sec01-done` tag · whether `bank/patterns.json` (not yet existing) goes into git, as `bank/sequences.json`'s policy.
+- **The tree:** the same five uncommitted paths as checkpoint #2, all his, none written by this session.
 
 **Open at session end — CHECKPOINT #2 (2026-09-22, session 13, Opus) *(mid-session checkpoint)*:**
 

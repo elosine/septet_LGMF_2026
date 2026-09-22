@@ -2032,6 +2032,113 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE BUILD ORDER:** after `1m.4` — 1n.1 → 1n.2 → 1n.3 → 1n.4 → 1n.5, one commit each, THE SHIELD verified in each; 1n.6 his. Opus, one step per
     clear.
 
+- **1o — THE SAVE STRUCTURE: a pattern is a document of its own, in a library of its own, placed in the score by Insert** — `planned` 2026-09-22 —
+  **not built** — designed by the AI at his word (*"1o the save structure will mostly be AI designed, surface any decisions that I should make and
+  ai should vet the plan to make sure it covers all the requirements then I'll see the topline"*, RUNNING_LOG §276), vetted against the record
+  (LG-84 · LG-85 · §254 · §255), his three decisions taken (§277: A Insert writes the range · B the two rules on one player's notes, placed in
+  `1n.1` · C Insert inside `1o`), the top line confirmed and phase 3 written by the AI alone at his word (*"a"*, §278). **The calls made alone are
+  marked [call], his to reverse.** Depends on `1m.4` and `1n` being built first: the document holds what they add, and Insert reads `1n.1`'s one
+  helper.
+  *Why:* his model (LG-84 · LG-85): *"the texture is upstream … I load a texture turn onsets on/off assign takes dynamics etc, this belongs to
+  another save file right, I can save it, recall it later make changes, but not change its underlying texture"* · *"texture is the spine for a new
+  thing always empty. so I can build several different rhythm sequences on the same texture."* Today the pattern lives in the browser only, one per
+  texture NAME, brought back when that texture is loaded, in no score and no library (§253's L) — the opposite of his model.
+  *Result when done:* a pattern is a NAMED DOCUMENT of its own carrying a COPY of its onsets, the texture only a label — several patterns on one
+  texture, a texture load always empty, nothing done in Texture later reaching a pattern · every pattern is on disk in a library of its own,
+  autosaved, named or untitled, as the sequence library is · Insert writes it into the score at the playhead or back in place, one group and one
+  META bar, the document copied into the score file so the score stands alone · `patterns in this score` brings a placed one back · what SPACE
+  plays is what Insert writes · **THE SHIELD: the strike mode, the sequence drawer, the morph and the crescendo tool behave exactly as before,
+  verified on every step; `sequence_ui.js` and `strike_drawer.js` are not changed.**
+  **His standard (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second.
+  **Held, not in this item:** reopening a placed pattern by a click on its META bar (not built for the sequence either, SEQUENCE_TOOL §10) · a
+  pattern re-pointed at another texture (rejected, §254) · the Rhythm sequence panel and `1l.8` (journal N0a) · the two rules on one player's
+  notes (`1n.1`, §277).
+
+  - **1o.1 — The document** (a pattern is a document of its own: a copy of its onsets, the texture a label; `txPat()` returns the open one)
+    - Today's `pats[name]` object becomes THE DOCUMENT: `{ v: 1, id, name, texture: { name, n, span, gap10, dots: [{ k, line, i, t }] }, on, range,
+      cursor, short, cols, sel }` — plus what `1m.4` and `1n` put on the pattern (`deal` · a column's `dyn` and `follow` · `ranges`), untouched.
+      `txPat()` returns the OPEN document, so `texture_cols.js` and `1n`'s code read it unchanged. `id` is new and stable (the sequence's idiom).
+    - The dots are copied ONCE, when the pattern is started (1o.2), by the one `realize` that `txLoad` runs today; from then on the row reads the
+      document's own dots. The texture's name is a label in the bar and in the status.
+    - So: a pattern opens without Texture on the page · the "take has changed" reset of `txLoad` goes · a take re-saved or deleted in Texture touches
+      nothing (§255: no save protection in Texture).
+    - Undo, the range, the cursor, `short`, the columns and the selection work as today, on the document.
+    - **REQUIRED VERIFICATION** (`score-5401`, no MIDI, journal §2's method): a pattern started on a take, three columns dealt → the document holds
+      the dots, the marks, the columns · Texture's take re-rolled under the same name (the store stubbed) → the pattern unchanged, no reset in the
+      status · the page with `TexturePanel` removed → the pattern still opens and draws · SPACE plays the same list as before, byte-identical ·
+      THE SHIELD: the strike mode's Hear captured before and after, byte-identical.
+
+  - **1o.2 — Starting and recalling** (`texture ▾` starts a new empty pattern; `pattern ▾` recalls one by its own name; several per texture)
+    - `texture ▾` (today's take pulldown, renamed): choosing a take STARTS a new, empty, untitled pattern on it — the dots copied, no marks on, no
+      columns (LG-85). It asks nothing: the pattern he leaves is kept (in the browser key by `id` until 1o.3, on disk from then on).
+    - `pattern ▾` beside it: every pattern kept — named ones first, then the untitled stack newest first — each line `name · texture · N on · M
+      columns`; pick one and it is open: its dots, marks, range, columns, ranges. The texture label follows the document.
+    - The tab remembers the open pattern (`libPanel` · `libKey`, the sequence drawer's way) and reopens it on reload; `mode` stays in the browser
+      key as today.
+    - `txLoad` becomes two things: `txStart(takeName)` (realize once, copy the dots, a fresh document) and `txOpen(doc)`. After either no column is
+      selected, as today.
+    - **REQUIRED VERIFICATION** (`score-5401`): start on take A, mark and deal → start on A again → EMPTY, the first still in the list · open the
+      first → back whole · start on B → its own dots · reload → the open one reopens · `pattern ▾` lists all three · THE SHIELD.
+
+  - **1o.3 — The store** (`bank/patterns.json`, a fifth store; autosaved as the sequence library is; today's browser patterns migrated once)
+    - `score/snapshots.js` `STORES` gains `patterns: 'patterns.json'`; `tools/test_snapshots.js` pins FIVE (28 → 30: the key resolves, nothing else
+      does). `/api/snapshots` is not changed. **A running server keeps its module: RESTART it.**
+    - Panels `library` (named) · `untitled` (the rolling stack of 50, the oldest dropped at save); an entry `{ saved, comment, state: { doc, kept } }`,
+      `kept` = the document at his last `save`, or null — SEQUENCE_TOOL §16's shape.
+    - Autosave: the browser instantly on every change (today's `txPersist`) · the disk about 2 s after the last change and on `pagehide` by
+      `sendBeacon` · an untitled document takes a timestamp name at its first change, `untitled <texture> 2026-09-22 14.32.05` **[call: the texture
+      in the name, so the stack reads]**.
+    - **Migration, once, at the first load:** every pattern in `lgmf.textureRow.v1` → one untitled entry with its dots copied from the take realized
+      THEN (Texture is on `composer.html`); a take no longer in the store → the pattern is kept with `n` dots at unknown times and the status says so
+      **[call]**. The browser key then holds `mode`, the open pattern's key and nothing else.
+    - `bank/patterns.json` sits under the same git policy as `bank/sequences.json`: autosaved, his to commit.
+    - **REQUIRED VERIFICATION:** `test_snapshots` 30 · a change → the file within 3 s, temp + rename · a closing tab → the beacon (stubbed, counted) ·
+      51 untitled → 50 after a save · the migration on a browser key with two textures → two untitled entries, the key trimmed, run twice → no
+      duplicates · THE SHIELD: the sequence library's file untouched, byte-identical.
+
+  - **1o.4 — The library controls** (`name · save · revert · • · duplicate · × · new` in the row's bar — the sequence library's rules, verbatim)
+    - In the row's command bar, texture mode only: a name box · `save` · `revert` · the `•` while the document differs from `kept` · `duplicate` · `×`
+      · `new`. The rules of SEQUENCE_TOOL §16, word for word: a name + ENTER MOVES the entry (a name in use asks; a cleared name moves it back to
+      the stack, asked) · `save` keeps, `revert` returns, two states per name and never more · `duplicate` asks for a name and copies WITH A NEW ID,
+      so Insert writes it beside · `×` deletes the one chosen, asked once · `new` = an empty pattern on the same texture, destroys nothing.
+    - A clone, trimmed, in a new mixin `score/public/texture_lib.js` (one script tag in `composer.html`); `sequence_ui.js` is not changed **[call: a
+      clone, not an extraction — the sequence drawer is "finally in a good space"]**.
+    - The `•` compares the document less `sel` and `cursor` (what is open is not a change) **[call]**.
+    - **REQUIRED VERIFICATION** (`score-5401`, the pane's REAL input): name + ENTER → in `library`, gone from `untitled` · the same name again → asked
+      · `save` → `kept`; a mark toggled → `•`; `revert` → back, no `•` · `duplicate` → a second entry, another id · `×` → gone, asked once · `new` →
+      empty on the same texture, the old one in the list · 1280 px: no overflow · THE SHIELD.
+
+  - **1o.5 — Insert** (at the playhead, in place, or moved; one group + one META bar; the document into the score; `patterns in this score`)
+    - The sequence's idiom exactly (SEQUENCE_TOOL §10; `sequence_ui.js` `insert` as the pattern to copy): `Insert @ playhead` · `Re-insert in place
+      @ t` when the pattern is in the score, `t` read from its META bar's start · `move to playhead` shown only then · `patterns in this score` from
+      the score's `databases.patterns` — each line `name · N notes · @ t s`, or `NOT in the score`; an orphan marked; pick one and it is open (a
+      row like any other, untitled until named).
+    - **What is written (A, §277): the RANGE** — its left line at the playhead, only the ON marks inside it; the cursor is not consulted.
+    - **The notes are what SPACE plays:** the list from `1n.1`'s one helper `texture_dyn.js` — each ON column's notes as dealt, `velAbs` · `cc7Abs` ·
+      the route; a short or `sample` note struck on its ladder with a static fader, a `follow` note shaped on a curve channel (`velRef` · `cc7Abs` ·
+      `velAbs` as the sequence writes them) · the lengths of `1m.3` with `1n.1`'s cut · `sonifyNote` and `technique` from the column, a by-key
+      voice's key as `1m.4.1`'s data · a bent note's cents as `morphBend`; a seat's or a bent note DRAWN, the rest `plain` (the sequence's rule) ·
+      the claves NEVER written · a note under a trill skipped and counted (`trillCovers`).
+    - One group `grp-pat-<id>`, `srcKind: 'pattern'`, `performanceNotes` = the name · the column's take · the length; one META bar over the span
+      (`t0` → the last note's end) saying *a PATTERN: change it in the strikes drawer and Insert again*.
+    - The entry `{ id, name, group, inserted, notes, doc }` — the document copied WHOLE, dots included, into `databases.patterns` (the score's Save
+      and Name version carry it, as `databases.sequences`); the old group's objects go first; hand edits counted against what the saved document
+      writes (the document is the truth) · `Composer.curveDirty()` after the write (§75 · §139) · `renderAll` · `markDirty` · the META window opened.
+    - Refused, with the reason in the status: no pattern open · no ON mark inside the range · the composer not reachable.
+    - **REQUIRED VERIFICATION** (`score-5401`, MIDI stubbed): a pattern of eight ON marks, three players, one `follow` note → Insert at 12.5 s → the
+      objects' starts = 12.5 + (dot.t − the range's left) within 1 ms, lanes and pitches the column's, `velAbs` · `cc7Abs` as the helper gives, the
+      `follow` note with `velRef` and a curve route, the short notes 120 ms, the cut one ended at the next onset, one META bar, one entry with the
+      dots inside it, `curveDirty` called · a mark outside the range → not written · SPACE's list and the written list agree note for note · a note
+      moved by hand → re-insert in place counts 1 and overwrites · `move to playhead` · an orphan marked · a note under a trill skipped · **THE
+      SHIELD:** a sequence inserted before and after, byte-identical; the strike mode's Insert byte-identical.
+
+  - **1o.6 — His one test** — in his rack, after 1o.5: start a pattern on a texture, name it, deal a few columns with one held `follow` note, close
+    and reopen the tab, `pattern ▾` brings it back, Insert at a playhead, play the score — the same notes as SPACE, MAIN ch 1 empty for the shaped
+    ones; then a second pattern on the same texture. Revise on his word; old tests are not carried forward.
+
+  - **THE BUILD ORDER:** after `1m.4` and `1n` — 1o.1 → 1o.2 → 1o.3 → 1o.4 → 1o.5, one commit each, THE SHIELD verified in each; 1o.6 his. Opus, one
+    step per clear. **The server restarted after 1o.3.**
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
