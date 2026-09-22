@@ -9572,3 +9572,60 @@ number = seconds, shared by a multi-selection as the harmony is · a player's ov
 on the spot; blank = the column's) · and the drawing as a DAW draws it: from each lit circle a bar to the right, as long as the note
 in the row's time, so a length is seen against the marks; the short = the circle alone. Under the DYNAMICS LAW these stay STRUCK
 notes held N seconds (the velocity the dynamic), as the drawer's long tone is.
+
+## §237. `1m.3` DURATION, BUILT AND VERIFIED — the standard short, a length per column, a player's own by a double-click, the bars; `hear: strike` follows the short on a texture take (2026-09-21)
+
+His go, after the `/postclear` playback: *"yes, build 1m.3."* Built as agreed in §234 … §236 (LG-73), in `score/public/texture_cols.js`
+alone — `texture_row.js`, `strike_drawer.js`, `long_tone_ui.js` and `composer.html` untouched.
+
+**What was built:**
+- **`short` in the bar**, beside `claves`: one number in ms, 120 unless he says (10 … 5000), kept with the PATTERN (`p.short` in the
+  row's store; absent = 120). Every column note and the claves take it where nothing longer is set.
+- **`length` in the bar** for the SELECTED column(s): blank = the short; a number = seconds (0.01 … 600), stored in the column as `len`;
+  set with several selected → all of them (the box shows the first's). Disabled while no column is selected.
+- **A player's own length**: a DOUBLE-CLICK on their lit circle opens a small number box on the spot (placeholder: the column's length,
+  or `short`); ENTER or leaving the box sets it, ESC leaves it as it was; blank = the column's. Stored in the column as `lens` {row: s}.
+- **The drawing**: from each lit circle a bar to the right, the note's length at the zoom — a column's length filled light, a player's
+  own outlined; the short = the circle alone. A bar past the right edge of the view is cut at the edge.
+- **The sound**: the rhythm preview (SPACE) reads every column note's length at PLAY TIME — a player's own over the column's over the
+  short; the claves at the short. `Hear orchestrated` and the drawer's `hear: strike` read the same rule through one wrap of `notesFor`
+  (hook 7): the column the drawer shows, else the short; `long tone` (long_tone_ui.js) keeps its own; the STRIKE mode keeps the
+  strike's own lengths. A note stored in a column no longer carries a `durMs` (older columns stripped once) — the length is a
+  reading, not a copy.
+
+**The double-click and the moving rows — found by the verification, fixed before it closed.** A double-click on a circle is two presses
+and a `dblclick`; the FIRST press ticks the player (as a click must) and the SECOND takes that tick back exactly (the undo snapshot the
+first press pushed — `txRevertLast`; a press that changed nothing reverts nothing). The first form failed in the running app: the second
+press missed the circle. Why: a tick re-renders the drawer, and the players list's ROWS CHANGE HEIGHT with their chips (17 · 33 · 48 px
+measured), so the circle — lined up with its row since 1m.2 — had moved 3 … 13 px under the pointer. Now the first press REMEMBERS its
+circle (700 ms) and the second press and the `dblclick` use it; the box is placed where the circle is NOW. His circles will still
+shift when a row's chips wrap — that is 1m.2's alignment, not touched here.
+
+**The AI's calls, his to reverse:** a player's own length LEAVES with them when unticked (`all off` too) · `length` is shared by the
+box only — the write-back that shares a harmony and a shuffle across a multi-selection does not carry a length · a bar is drawn only
+for a length he set; the short draws nothing · `length` and a player's own are UNDONE by ↶ / CTRL+Z; `short` is a setting and is not ·
+`short` 10 … 5000 ms; a length 0.01 … 600 s.
+
+**VERIFIED on `score-5401`** (1600 × 900, no MIDI, every non-GET `fetch` and `sendBeacon` stubbed — none made; his take `LGMF-S2-R1a`;
+three marks on: two at 0 s (lines 0 · 4), one at 0.136 s; the note-offs read from the stubbed ports to the millisecond):
+
+| check | result |
+|---|---|
+| SPACE, nothing set | every note-off 120 ms after its note-on — 7 pitched notes and 3 claves (`LGPerc` ch 7 key 41) alike |
+| column at 0 s → `length` 2 | its three (EH 67 · Vc 69 · Hn 71) at 2000 · 2001 · 2001; the other columns' at 121; the claves 121 |
+| Horn double-clicked → 0.5 | first press: Horn off · second press: Horn back with its note (the same pitch) · the box opens on the spot, placeholder `2 s`, focused · ENTER → `lens {2: 0.5}` · SPACE: Hn 500, EH · Vc 2000 |
+| two columns selected, `length` 1 | both hold `len 1`; the box reads 1, its hover says 2 selected; SPACE: Tpt · Bsn · Perc · Vib at 1000 · 1001; the first column's still 2000 · 501 |
+| `Hear orchestrated`, the column at 0 s | EH · Vc 2001, Hn 500 — the column's lengths, as SPACE plays them |
+| `hear: strike`, a fresh column with nothing set · no column selected | `notesFor` 120 · Hear 119 — the short |
+| the STRIKE mode | `notesFor` 100 — the strike's own (`durX` 1); back on the texture take at once |
+| the bars, zoom 0 (53.1 px/s) | 2 s → 106.2 px · 0.5 s → 26.6 px OUTLINED · 1 s → 53.1 px; zoom 0.5 (460.9 px/s): 230.5 · 460.9, the 2 s bars cut at the view's edge |
+| `short` 200 | stored with the pattern (`pats[…].short: 200`), the box reads 200; SPACE: the claves 201; blank → 120 again and the key gone |
+| a reload | the mode, the take, the three marks, the columns with their players and the `len 2` all back; the selection dropped (a take re-read, §233) |
+| POSTs | none, through the whole run |
+
+*(One reading in the last SPACE looked wrong and is not: with the short at 200 the two claves at 0 s overlap the one at 165 ms on the
+same key and channel, and the read-back paired the third note-on with the first pair's note-off — 64 ms. The raw events show the
+third's own note-off 201 ms after it. Overlapping identical notes on one channel are the rack's business, and the claves are a way of
+listening.)*
+
+**He must RELOAD his tab.** His columns come forward with no length set: everything at the short, 120 ms, until he says.

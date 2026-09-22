@@ -19,6 +19,14 @@
 //   { state: the drawer's `state()` — the harmony's id, the cfg, the voices with their players (THE DEAL) · players: [drawer rows] ·
 //     notes: the deal as notes, each player · pitch once · take: the name of the harmony take it came from }
 // remembered with the pattern (localStorage, as 1m.1). `hear` is STRIKE here (§228 · §230). UNDO: ↶ · CTRL+Z (§228).
+//
+// 1m.3 DURATION (§234 … §237, LG-73): every note has a length he chose, or THE STANDARD SHORT — `short` in the bar, 120 ms, kept with
+// the pattern — for the column notes, the claves, and the drawer's `hear: strike` while a texture take is on (so the column preview
+// and the pattern agree; the strike mode keeps the strike's own lengths; `long tone` is long_tone_ui's and still wins). A column takes
+// a `length` in seconds from the bar (blank = the short), shared by a multi-selection as the harmony is; one player takes a length of
+// their own by a DOUBLE-CLICK on their lit circle (a box on the spot; blank = the column's). Stored in the column: `len` (s) and
+// `lens` {row: s}; the notes stored in a column carry NO length — it is read at play time. SEEN: from each lit circle a bar to the
+// right, the note's length at the zoom; the short = the circle alone. Under the DYNAMICS LAW these stay STRUCK notes held N seconds.
 (function (root) {
 'use strict';
 const D = root.StrikeDrawer;
@@ -29,7 +37,8 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const nm = m => ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'][((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const ROW_TOP = 24, MARK_H = 18, COL_TOP = ROW_TOP + MARK_H + 6, CIRC_R = 4.5, BAND_MIN = 10, PICK_PX = 6, UNDO_MAX = 40;
-const CLAVES_MS = 150, ANCHOR_MF = 100;
+const ANCHOR_MF = 100, SHORT_MS = 120, SHORT_MIN = 10, SHORT_MAX = 5000, LEN_MIN = 0.01, LEN_MAX = 600;   // 1m.3: the standard short (ms) and a length's bounds (s)
+const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
 const ON_COL = '#E8CF9A', OFF_FILL = '#55555f', SEL_BG = 'rgba(201,160,90,.16)', SEL_LINE = '#C9A05A';
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
 const NOT_APPLIED = ['hearMode', 'longS'];   // the drawer's `hear` menu is the page's, not a column's
@@ -54,6 +63,7 @@ Object.assign(D, {
             c.notes = (c.notes || []).filter(n => keep.has(n.row));
             delete c.on; delete c.off;
         });
+        if (p.lenV !== 1) { Object.keys(p.cols).forEach(k => { const c = p.cols[k]; ((c && c.notes) || []).forEach(n => { delete n.durMs; }); }); p.lenV = 1; }   // 1m.3: a stored note carries no length — it is read at play time
         return p;
     },
     txSel() { const p = this.txCols(); return p ? p.sel : []; },
@@ -83,18 +93,94 @@ Object.assign(D, {
         return T.map((t, i) => COL_TOP + step * (i + 0.5));
     },
 
+    // ---------------------------------------------------------------- duration (1m.3)
+    txShortMs() { const p = this.txPat(), v = p ? +p.short : NaN; return isFinite(v) && v > 0 ? v : SHORT_MS; },
+    // a player's length in a column: their own (`lens`) over the column's (`len`); null = the standard short
+    txLenS(c, lane) {
+        const o = c && c.lens ? +c.lens[lane] : NaN; if (isFinite(o) && o > 0) return { s: o, own: true };
+        const l = c ? +c.len : NaN; if (isFinite(l) && l > 0) return { s: l, own: false };
+        return null;
+    },
+    txLenMs(c, lane) { const l = this.txLenS(c, lane); return l ? Math.round(l.s * 1000) : this.txShortMs(); },
+    txLenWord(c, lane) { const l = this.txLenS(c, lane); return l ? l.s + ' s' + (l.own ? ' (their own)' : '') : 'the short, ' + this.txShortMs() + ' ms'; },
+    txSetShort(raw) {
+        const p = this.txPat(); if (!p) return;
+        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? SHORT_MS : clamp(Math.round(+s) || SHORT_MS, SHORT_MIN, SHORT_MAX);
+        if (v === SHORT_MS) delete p.short; else p.short = v;
+        this.txPersist(); this.txRender(); this.setStatus('the standard short: ' + v + ' ms — every note where nothing longer is set, the claves, and hear: strike');
+    },
+    // `length` for the SELECTED column(s): blank = the short; seconds otherwise — set with several selected → all of them
+    txSetLen(raw) {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintLenUI(); this.setStatus('select a column first — length is the selected column(s)\'', true); return; }
+        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
+        if (s !== '' && !(v > 0)) { this.txPaintLenUI(); this.setStatus('length: seconds, or blank for the short', true); return; }
+        this.txPushUndo();
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (v == null) delete c.len; else c.len = v; });
+        this.txPersistSoon(); this.txRender();
+        this.setStatus((p.sel.length === 1 ? 'the column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + (v == null ? ': the short again (' + this.txShortMs() + ' ms)' : ': ' + v + ' s — a player\'s own length still stands over it'));
+    },
+    // one player's own length in one column: blank = the column's
+    txSetOverride(k, lane, raw) {
+        const p = this.txCols(), c = p && p.cols[k], t = TRK()[lane]; if (!c || !t) return;
+        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
+        if (s !== '' && !(v > 0)) { this.setStatus('a length of their own: seconds, or blank for the column\'s', true); return; }
+        this.txPushUndo();
+        if (v == null) this.txClearOverride(c, lane); else { c.lens = c.lens || {}; c.lens[lane] = v; }
+        this.txPersistSoon(); this.txRender();
+        this.setStatus(t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s: ' + (v == null ? 'the column\'s length again (' + this.txLenWord(c, lane) + ')' : v + ' s, their own'));
+    },
+    txClearOverride(c, lane) { if (c && c.lens) { delete c.lens[lane]; if (!Object.keys(c.lens).length) delete c.lens; } },
+    // the box on the spot (a double-click on a lit circle): ENTER or leaving it sets, ESC leaves it as it was
+    txOpenLenBox(k, lane, cx, cy) {
+        this.txCloseLenBox();
+        const view = this.el && this.el.querySelector('#txView'), p = this.txCols(), c = p && p.cols[k], t = TRK()[lane]; if (!view || !c || !t) return;
+        const own = c.lens ? +c.lens[lane] : NaN, col = +c.len;
+        const box = document.createElement('input'); box.id = 'txLenBox'; box.type = 'number'; box.step = '0.05'; box.min = LEN_MIN; box.max = LEN_MAX;
+        box.value = isFinite(own) && own > 0 ? own : ''; box.placeholder = isFinite(col) && col > 0 ? col + ' s' : 'short';
+        box.title = t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s — a length of their own, in seconds; blank = the column\'s. ENTER sets · ESC leaves it';
+        box.style.cssText = 'position:absolute;left:' + Math.round(cx + CIRC_R + 4) + 'px;top:' + Math.round(cy - 9) + 'px;width:56px;z-index:3;' + INP;
+        view.appendChild(box);
+        let done = false;
+        const end = ok => { if (done) return; done = true; const v = box.value; box.remove(); if (ok) this.txSetOverride(k, lane, v); else this.setStatus(t.label + ': length left as it was'); };
+        box.addEventListener('keydown', ev => { ev.stopPropagation(); if (ev.key === 'Enter') { ev.preventDefault(); end(true); } else if (ev.key === 'Escape') { ev.preventDefault(); end(false); } });
+        box.addEventListener('blur', () => end(true));
+        box.focus(); box.select();
+        this.setStatus(t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s — their own length in seconds; blank = the column\'s (' + this.txLenWord(c, -1) + ')');
+    },
+    txCloseLenBox() { const b = this.el && this.el.querySelector('#txLenBox'); if (b) b.remove(); },
+    // the bar's two boxes follow the pattern and the selection
+    txPaintLenUI() {
+        const sb = this.el && this.el.querySelector('#txShort'), lb = this.el && this.el.querySelector('#txLen'); if (!sb || !lb || !this.txIsOn()) return;
+        const p = this.txCols(), k = this.txPrimary(), c = p && k ? p.cols[k] : null, l = c ? +c.len : NaN;
+        if (document.activeElement !== sb) sb.value = this.txShortMs();
+        lb.disabled = !k; lb.style.opacity = k ? '' : 0.45;
+        if (document.activeElement !== lb) lb.value = isFinite(l) && l > 0 ? l : '';
+        lb.placeholder = k ? 'short' : '—';
+        lb.title = 'the length of the SELECTED column(s), in seconds — blank: the standard short; set with several selected, all of them take it' + (p && p.sel.length > 1 ? ' (' + p.sel.length + ' selected; the box shows the first)' : '') + '. A player\'s own length (double-click their circle) stands over it';
+    },
+
     // ---------------------------------------------------------------- undo (§228)
     txUndoSnap() { const p = this.txCols(); return p ? JSON.stringify({ on: p.on, cols: p.cols, sel: p.sel, range: p.range }) : null; },
     txPushUndo() { const s = this.txUndoSnap(); if (s == null) return null; if (this._txUndo[this._txUndo.length - 1] !== s) { this._txUndo.push(s); if (this._txUndo.length > UNDO_MAX) this._txUndo.shift(); } return s; },
     txDropUndoIfSame(s) { if (s != null && this._txUndo.length && this._txUndo[this._txUndo.length - 1] === s && this.txUndoSnap() === s) this._txUndo.pop(); },
+    txRestore(s) {
+        const p = this.txCols(); if (!p) return;
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        const o = JSON.parse(s); p.on = o.on; p.cols = o.cols; p.sel = o.sel; p.range = o.range;
+        if (p.sel.length && p.cols[p.sel[0]]) this.txRecall(p.sel[0], true);
+        this.txPersistSoon(); this.txRender();
+    },
     txUndo() {
         const p = this.txCols(); if (!p) return;
         const now = this.txUndoSnap(); let s = this._txUndo.pop(); if (s === now) s = this._txUndo.pop();
         if (s == null) { this.setStatus('nothing to undo'); return; }
-        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
-        const o = JSON.parse(s); p.on = o.on; p.cols = o.cols; p.sel = o.sel; p.range = o.range;
-        if (p.sel.length && p.cols[p.sel[0]]) this.txRecall(p.sel[0], true);
-        this.txPersistSoon(); this.txRender(); this.setStatus('undone · ' + this._txUndo.length + ' more');
+        this.txRestore(s); this.setStatus('undone · ' + this._txUndo.length + ' more');
+    },
+    // the last change taken back exactly — the second press of a double-click undoes the first press's tick (1m.3)
+    txRevertLast() {
+        const now = this.txUndoSnap(), top = this._txUndo[this._txUndo.length - 1]; if (top == null || top === now) return false;
+        while (this._txUndo.length && this._txUndo[this._txUndo.length - 1] === top) this._txUndo.pop();
+        this.txRestore(top); return true;
     },
 
     // ---------------------------------------------------------------- the drawer as a VIEW of one column
@@ -104,7 +190,7 @@ Object.assign(D, {
         if (!this.strike) return [];
         const seen = new Set(), out = [];
         let ns = []; try { ns = this.notesFor('orch') || []; } catch (e) { ns = []; }
-        ns.forEach(n => { const k = rowOf(n) + '|' + n.tech + '|' + n.midi; if (seen.has(k)) return; seen.add(k); out.push(Object.assign({}, n, { row: rowOf(n), onMs: 0, durMs: clamp(+n.durMs || 100, 60, 1500) })); });
+        ns.forEach(n => { const k = rowOf(n) + '|' + n.tech + '|' + n.midi; if (seen.has(k)) return; seen.add(k); const o = Object.assign({}, n, { row: rowOf(n), onMs: 0 }); delete o.durMs; out.push(o); });   // 1m.3: no length stored — read at play time
         return out;
     },
     txCapture() { return { state: this.state(), players: this.txPlayersNow(), notes: this.txColNotes(), take: this.txTakeName() }; },
@@ -162,9 +248,9 @@ Object.assign(D, {
         this.txPushUndo();
         if (!p.cols[k]) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; } p.cols[k] = this.txFresh(); }
         let dealt = null, word = '';
-        const fn = function () {
+        const fn = function (c) {
             if (on) { delete this.laneOff[lane]; dealt = this.txDealTo(lane); if (!dealt) word = ' — no pitch of this harmony fits ' + t.label + ' (may fold, or another harmony)'; }
-            else { this.laneOff[lane] = true; this.txDropLane(lane); }
+            else { this.laneOff[lane] = true; this.txDropLane(lane); this.txClearOverride(c, lane); }   // 1m.3: their own length leaves with them
         };
         if (this.txOnDrawer(k)) { fn.call(this, p.cols[k]); this.save(); this.render(); }   // the render writes it back
         else if (!this.txWithColumn(k, fn)) { this.setStatus('that column\'s harmony is no longer in this score\'s list — select it, pick one and shuffle', true); return; }
@@ -175,7 +261,7 @@ Object.assign(D, {
         const k = this.txPrimary(); if (!k) { this.setStatus('select a column first', true); return; }
         const p = this.txCols(); this.txPushUndo();
         if (!p.cols[k]) p.cols[k] = this.txFresh();
-        const fn = function () { TRK().forEach((t, lane) => { if (on) { delete this.laneOff[lane]; this.txDealTo(lane); } else { this.laneOff[lane] = true; this.txDropLane(lane); } }); };
+        const fn = function (c) { TRK().forEach((t, lane) => { if (on) { delete this.laneOff[lane]; this.txDealTo(lane); } else { this.laneOff[lane] = true; this.txDropLane(lane); this.txClearOverride(c, lane); } }); };
         if (this.txOnDrawer(k)) { fn.call(this, p.cols[k]); this.save(); this.render(); }
         else this.txWithColumn(k, fn);
         this.txPersistSoon(); this.txRender(); this.setStatus(on ? 'every player on in this column, each dealt a pitch that fits' : 'every player off in this column');
@@ -229,43 +315,70 @@ Object.assign(D, {
     txColLine() {
         const p = this.txCols(), T = TRK(); if (!p.sel.length) return 'no column selected';
         const c = p.cols[p.sel[0]], who = c ? (c.notes || []).map(n => (T[n.row] ? T[n.row].short : '?') + ' ' + nm(n.midi)).join(' · ') : '';
-        return (p.sel.length === 1 ? 'column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + ' selected — the drawer is theirs' + (c && c.take ? ' · take ' + c.take : '') + (who ? ' · ' + who : ' · nobody on yet: tick players');
+        const len = c && isFinite(+c.len) && +c.len > 0 ? ' · length ' + c.len + ' s' : '', own = c && c.lens && Object.keys(c.lens).length ? ' · ' + Object.keys(c.lens).length + ' with a length of their own' : '';
+        return (p.sel.length === 1 ? 'column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + ' selected — the drawer is theirs' + (c && c.take ? ' · take ' + c.take : '') + len + own + (who ? ' · ' + who : ' · nobody on yet: tick players');
     },
 
     // ---------------------------------------------------------------- the drawing, over the row's
     txRenderCols() {
         const svg = this.el && this.el.querySelector('#txSvg'), run = svg && svg.querySelector('#txRun'); if (!svg || !run || !this._tx) return;
-        const p = this.txCols(), T = TRK(), W = this.txW(), H = this.txH(), ys = this.txRowsY(), mw = this.txMarkW(), sel = new Set(p.sel), on = new Set(p.on);
-        const bw = Math.max(mw, BAND_MIN); let s = '';
+        const p = this.txCols(), T = TRK(), W = this.txW(), H = this.txH(), ys = this.txRowsY(), mw = this.txMarkW(), sel = new Set(p.sel), on = new Set(p.on), px = this._txV ? this._txV.px : 0;
+        const bw = Math.max(mw, BAND_MIN); let bands = '', bars = '', circs = '';
         this._tx.dots.forEach(d => {
             if (!on.has(d.k)) return;
             const x = this.txX(d.t), cx = x + mw / 2, x0 = cx - bw / 2; if (x0 > W + bw || x0 + bw < -bw) return;
             const c = p.cols[d.k], isSel = sel.has(d.k), players = new Set(c ? c.players : []);
-            s += '<rect class="txCol" data-k="' + d.k + '" x="' + x0.toFixed(1) + '" y="' + COL_TOP + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, H - COL_TOP) + '" fill="' + (isSel ? SEL_BG : 'rgba(255,255,255,.02)') + '" stroke="' + (isSel ? SEL_LINE : 'none') + '" stroke-width="1"/>';
+            bands += '<rect class="txCol" data-k="' + d.k + '" x="' + x0.toFixed(1) + '" y="' + COL_TOP + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, H - COL_TOP) + '" fill="' + (isSel ? SEL_BG : 'rgba(255,255,255,.02)') + '" stroke="' + (isSel ? SEL_LINE : 'none') + '" stroke-width="1"/>';
             ys.forEach((cy, lane) => {
-                const t = T[lane], isOn = players.has(lane), mine = c ? (c.notes || []).filter(n => n.row === lane) : [];
-                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => nm(n.midi) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') : isOn ? ' · no pitch fits (may fold, or another harmony)' : '');
-                s += '<circle class="txCirc" data-k="' + d.k + '" data-lane="' + lane + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + CIRC_R + '" fill="' + (isOn ? (mine.length ? ON_COL : 'none') : OFF_FILL) + '" stroke="' + (isOn ? ON_COL : OFF_FILL) + '" stroke-width="1.3" style="cursor:pointer"><title>' + escH(title) + '</title></circle>';
+                const t = T[lane], isOn = players.has(lane), mine = c ? (c.notes || []).filter(n => n.row === lane) : [], L = isOn && mine.length ? this.txLenS(c, lane) : null;
+                // 1m.3: a length set = a bar to the right, the note's length at the zoom (a player's own outlined); the short = the circle alone
+                if (L) { const w = Math.min(Math.max(1, L.s * px), W - cx + 12); bars += '<rect class="txLen" x="' + cx.toFixed(1) + '" y="' + (cy - 3).toFixed(1) + '" width="' + w.toFixed(1) + '" height="6" rx="2" fill="' + ON_COL + '" fill-opacity="' + (L.own ? 0.5 : 0.3) + '" stroke="' + (L.own ? ON_COL : 'none') + '" stroke-width="1" pointer-events="none"/>'; }
+                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => nm(n.midi) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') + ' · ' + this.txLenWord(c, lane) + ' · double-click: a length of their own' : isOn ? ' · no pitch fits (may fold, or another harmony)' : '');
+                circs += '<circle class="txCirc" data-k="' + d.k + '" data-lane="' + lane + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + CIRC_R + '" fill="' + (isOn ? (mine.length ? ON_COL : 'none') : OFF_FILL) + '" stroke="' + (isOn ? ON_COL : OFF_FILL) + '" stroke-width="1.3" style="cursor:pointer"><title>' + escH(title) + '</title></circle>';
             });
         });
-        run.insertAdjacentHTML('beforebegin', s);
+        run.insertAdjacentHTML('beforebegin', bands + bars + circs);
         const i = this.el.querySelector('#txI'); if (i && p.sel.length) i.title = this.txColLine() + String.fromCharCode(10) + i.title;
+        this.txPaintLenUI();
     },
 
     // ---------------------------------------------------------------- the hand
     // a click in the columns' area: on a circle = that player of that column · in a column's band = select (SHIFT: add) · else the row's own
-    txColDown(ev) {
-        if (!this._tx || ev.button !== 0) return false;
+    txColHit(ev) {   // what is under the pointer in the columns' area: the nearest ON mark's column, and the player's row if on a circle
         const svg = this.el.querySelector('#txSvg'), rect = svg.getBoundingClientRect(), x = ev.clientX - rect.left, y = ev.clientY - rect.top;
-        if (y < COL_TOP) return false;
+        if (y < COL_TOP) return null;
         const p = this.txCols(), mw = this.txMarkW(), bw = Math.max(mw, BAND_MIN), on = new Set(p.on);
         let best = null, bd = 1e9;
         this._tx.dots.forEach(d => { if (!on.has(d.k)) return; const dx = Math.abs(x - (this.txX(d.t) + mw / 2)); if (dx < bd) { bd = dx; best = d; } });
-        if (!best || bd > Math.max(PICK_PX, bw / 2)) return false;
-        ev.preventDefault();
+        if (!best || bd > Math.max(PICK_PX, bw / 2)) return null;
         const ys = this.txRowsY(); let lane = -1; ys.forEach((cy, i) => { if (Math.abs(y - cy) <= CIRC_R + 3) lane = i; });
-        if (lane >= 0) { const c = p.cols[best.k]; this.txTick(best.k, lane, !(c && c.players.includes(lane))); return true; }
-        this.txSelect(best.k, !!ev.shiftKey);
+        return { d: best, lane, cx: this.txX(best.t) + mw / 2, cy: lane >= 0 ? ys[lane] : y };
+    },
+    // the circle the FIRST press of a double-click landed on, kept for the second press and the `dblclick`: a tick re-renders the
+    // drawer and the list's rows change height, so the circle has moved under the pointer by then
+    txLastCirc() { const h = this._txLastCirc; return h && performance.now() - h.at < 700 ? h : null; },
+    txColDown(ev) {
+        if (!this._tx || ev.button !== 0) return false;
+        const hit = this.txColHit(ev), last = this.txLastCirc();
+        if (!hit && !(last && ev.detail >= 2)) return false;
+        ev.preventDefault();
+        if (ev.detail >= 2) { if (ev.detail === 2 && last) this.txRevertLast(); return true; }   // 1m.3: the second press of a double-click takes the first press's tick back; `dblclick` then opens the length box
+        if (hit.lane >= 0) { this._txLastCirc = { k: hit.d.k, lane: hit.lane, at: performance.now() }; const c = this.txCols().cols[hit.d.k]; this.txTick(hit.d.k, hit.lane, !(c && c.players.includes(hit.lane))); return true; }
+        this._txLastCirc = null;
+        this.txSelect(hit.d.k, !!ev.shiftKey);
+        return true;
+    },
+    // 1m.3: a DOUBLE-CLICK on a lit circle — that player's own length, in a box on the spot (where the circle is NOW)
+    txColDbl(ev) {
+        if (!this._tx || !this.txIsOn()) return false;
+        const last = this.txLastCirc(), hit = last ? null : this.txColHit(ev);
+        const k = last ? last.k : hit && hit.lane >= 0 ? hit.d.k : null, lane = last ? last.lane : hit ? hit.lane : -1; if (k == null || lane < 0) return false;
+        this._txLastCirc = null;
+        ev.preventDefault(); ev.stopImmediatePropagation();
+        const c = this.txCols().cols[k], t = TRK()[lane];
+        if (!c || !c.players.includes(lane)) { this.setStatus((t ? t.label : 'that player') + ' is off in this column — tick them first, then double-click for a length of their own', true); return true; }
+        const ys = this.txRowsY(), d = this.txDot(k);
+        this.txOpenLenBox(k, lane, this.txX(d.t) + this.txMarkW() / 2, ys[lane] != null ? ys[lane] : COL_TOP);
         return true;
     },
 
@@ -277,22 +390,22 @@ Object.assign(D, {
         const c0 = +p.cursor || 0, from = (c0 > r[0] && c0 < r[1]) ? c0 : r[0];
         const dots = this._tx.dots.filter(d => on.has(d.k) && d.t >= from - 1e-6 && d.t <= r[1] + 1e-6);
         if (!dots.length) { this.setStatus(p.on.length ? 'no ON mark between ' + from.toFixed(2) + ' s and ' + r[1].toFixed(2) + ' s — move the cursor or the range' : 'every mark is off — click some on (or all on)', true); return; }
-        const notes = []; let pitched = 0, bare = 0;
+        const notes = [], short = this.txShortMs(); let pitched = 0, bare = 0;
         dots.forEach(d => {
             const onMs = Math.round((d.t - from) * 1000), c = p.cols[d.k], mine = c ? (c.notes || []) : [];
-            mine.forEach(n => notes.push(Object.assign({}, n, { onMs })));
+            mine.forEach(n => notes.push(Object.assign({}, n, { onMs, durMs: this.txLenMs(c, n.row) })));   // 1m.3: the column's length, a player's own over it, else the short
             if (mine.length) pitched++; else bare++;
-            if (claves && lane >= 0) notes.push({ lane, tech: cl.tech, midi: cl.midi, vel: ANCHOR_MF, cents: 0, onMs, durMs: CLAVES_MS });
+            if (claves && lane >= 0) notes.push({ lane, tech: cl.tech, midi: cl.midi, vel: ANCHOR_MF, cents: 0, onMs, durMs: short });
         });
         if (!notes.length) { this.setStatus('nothing to hear: no column has a player on and the claves are off', true); return; }
-        await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players · ' + bare + ' bare' + (claves ? ' · the claves under them' : '') + ' · from ' + from.toFixed(2) + ' s');
+        await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players · ' + bare + ' bare' + (claves ? ' · the claves under them' : '') + ' · short ' + short + ' ms · from ' + from.toFixed(2) + ' s');
         const e = E_(); if (e && e._playing) this.txStartRun(from, r[1]);
     },
     async txHearColumn() {   // THE COLUMN PREVIEW: the primary column's players, read from the drawer LIVE (the `hear` menu applies at once)
         const k = this.txPrimary();
         if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; }
         const seen = new Set(), all = [];
-        (this.notesFor('orch') || []).forEach(n => { const row = rowOf(n), key = row + '|' + n.tech + '|' + n.midi; if (seen.has(key)) return; seen.add(key); all.push(Object.assign({}, n, { row, onMs: 0, durMs: this.isLong && this.isLong() ? n.durMs : Math.max(600, +n.durMs || 0) })); });
+        (this.notesFor('orch') || []).forEach(n => { const row = rowOf(n), key = row + '|' + n.tech + '|' + n.midi; if (seen.has(key)) return; seen.add(key); all.push(Object.assign({}, n, { row, onMs: 0, durMs: Math.max(30, +n.durMs || 0) })); });   // 1m.3: the lengths come through notesFor (hook 7) — the column's, or the short; `long tone` its own
         if (!all.length) { this.setStatus(k ? 'nobody is on in this column — tick players' : 'nothing dealt — tick players and shuffle', true); return; }
         return this.playNotes(all, k ? 'the column at ' + this.txDot(k).t.toFixed(2) + ' s · ' + all.length + ' players' : 'the deal · ' + all.length);
     },
@@ -301,7 +414,7 @@ Object.assign(D, {
 // ---------------------------------------------------------------- the hooks
 // 1 · the drawing: the columns over the row's; the `claves` toggle and ↶ in the bar; the players list's tick boxes
 const _txRender = D.txRender;
-D.txRender = function () { const r = _txRender.apply(this, arguments); try { this.txRenderCols(); } catch (e) { console.warn('[texture_cols] render:', e); } return r; };
+D.txRender = function () { const r = _txRender.apply(this, arguments); try { this.txRenderCols(); this.txPaintLenUI(); } catch (e) { console.warn('[texture_cols] render:', e); } return r; };
 const _txEnsureUI = D.txEnsureUI;
 D.txEnsureUI = function () {
     const r = _txEnsureUI.apply(this, arguments);
@@ -315,6 +428,17 @@ D.txEnsureUI = function () {
         lab.innerHTML = '<input id="txClaves" type="checkbox"' + (this.txClavesOn() ? ' checked' : '') + '> claves';
         bar.insertBefore(lab, zoom);
         lab.querySelector('#txClaves').addEventListener('change', e => { this._txS.claves = !!e.target.checked; this.txPersist(); this.setStatus(this._txS.claves ? 'claves under every ON mark' : 'claves off — the pitches alone'); });
+        // 1m.3: `short` (ms, the pattern's) and `length` (s, the selected column(s)') beside the claves; ENTER sets, ESC puts the value back
+        const len = document.createElement('span'); len.className = 'txOnly'; len.style.cssText = 'display:inline-flex;align-items:center;gap:6px';
+        len.innerHTML = '<label style="display:inline-flex;align-items:center;gap:3px" title="THE STANDARD SHORT (1m.3): the length of every note where nothing longer is set — the column notes, the claves, and hear: strike while a texture take is on. 120 ms unless you say; kept with the pattern"><span style="color:#9a9">short</span><input id="txShort" type="number" min="' + SHORT_MIN + '" max="' + SHORT_MAX + '" step="10" style="' + INP + ';width:46px"><span style="color:#777">ms</span></label>' +
+            '<label style="display:inline-flex;align-items:center;gap:3px"><span style="color:#9a9">length</span><input id="txLen" type="number" min="' + LEN_MIN + '" max="' + LEN_MAX + '" step="0.1" style="' + INP + ';width:52px" placeholder="short"><span style="color:#777">s</span></label>';
+        bar.insertBefore(len, zoom);
+        const sb = len.querySelector('#txShort'), lb = len.querySelector('#txLen');
+        sb.addEventListener('change', e => this.txSetShort(e.target.value));
+        lb.addEventListener('change', e => this.txSetLen(e.target.value));
+        [sb, lb].forEach(b => b.addEventListener('keydown', ev => { ev.stopPropagation(); if (ev.key === 'Enter') { ev.preventDefault(); b.blur(); } else if (ev.key === 'Escape') { ev.preventDefault(); this.txPaintLenUI(); b.blur(); } }));
+        const svg = this.el.querySelector('#txSvg');
+        if (svg && !svg._txColDbl) { svg._txColDbl = true; svg.addEventListener('dblclick', ev => { try { this.txColDbl(ev); } catch (e) { console.warn('[texture_cols] dblclick:', e); } }); }
         const hearO = this.el.querySelector('#skHearO'); if (hearO && !hearO._txBound) { hearO._txBound = true; hearO.addEventListener('click', () => { this._txFromBtn = true; }, true); }
         // the players list's tick boxes, while a texture take is on and a column is selected, are the column's players (rule 4): one
         // rule, not the drawer's own untick (which moves a note to another player)
@@ -405,6 +529,15 @@ D.txSetMode = function (m) {
         this._txHearSet = false;
     }
     return r;
+};
+// 7 · 1m.3: `hear: strike` while a texture take is on = the lengths of the column the drawer shows (its `len`, a player's own) or THE
+//     STANDARD SHORT; the strike mode keeps the strike's own lengths; `long tone` (long_tone_ui.js) keeps its own, whichever wraps last
+const _notesFor = D.notesFor;
+D.notesFor = function (mode) {
+    const out = _notesFor.apply(this, arguments);
+    if (mode !== 'orch' || !this.txIsOn() || this._txApplying || (this.isLong && this.isLong()) || !Array.isArray(out)) return out;
+    const p = this.txCols(), k = this._txHeld, c = p && k && p.cols[k] && this.txOnDrawer(k) ? p.cols[k] : null;
+    return out.map(n => Object.assign({}, n, { durMs: this.txLenMs(c, rowOf(n)) }));
 };
 // 6 · ESC clears the selection; CTRL+Z undoes (the row's [ · ] keys live in texture_row.js)
 window.addEventListener('keydown', ev => {

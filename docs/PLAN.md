@@ -1798,7 +1798,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His, in his Chrome:** the look of it against the players list · the ear · what he meets in practice (*"I'll just have to see
       them in practice"*).
 
-  - **1m.3 — Duration: a standard short, a length per column, an override per player** — `todo`, agreed 2026-09-21 (RUNNING_LOG §234 …
+  - **1m.3 — Duration: a standard short, a length per column, an override per player** — `built` 2026-09-21 — **his test outstanding; RELOAD the tab** (RUNNING_LOG §237; `score/public/texture_cols.js` alone; `texture_row.js` · `strike_drawer.js` unchanged) — agreed 2026-09-21 (RUNNING_LOG §234 …
     §236, COMPOSITION_NOTES LG-73; his go: *"lets clear then build"*).
     *Result when done:* every note in the pattern has a length he chose. Where he chose nothing it is THE STANDARD SHORT, 120 ms — the
     column notes, the claves, and the drawer's `hear: strike` while a texture take is on, so the column preview and the pattern agree.
@@ -1818,6 +1818,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       the column's others at 2000 · two columns selected, `length` set → both · `hear: strike` on a texture take → 120 ms; on the strike
       mode → the strike's own · the bars drawn with the right widths at two zooms · remembered across a reload · not one POST.
     - **His, in his Chrome:** the look of the bars · the ear · what the standard short sounds like on each articulation.
+    - **Built 2026-09-21 as agreed (RUNNING_LOG §237), with these calls of the AI's, his to reverse:** a player's own length leaves with
+      them when unticked · `length` is shared by the box only, not by the write-back · a bar is drawn only for a length he set · `length`
+      and a player's own are undone by ↶, `short` is not · found on the way: a double-click's second press missed the circle because a
+      tick re-renders the list and its rows change height — the first press now remembers its circle for the second and the `dblclick`.
 
 ## 2. Notate — `todo`
 
