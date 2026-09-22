@@ -8,6 +8,15 @@
 //     note. `ks` = keyswitch notes. `oneShot: true` marks presets that revert after one note.
 //   - Ranges are MIDI numbers, middle C = 60, SOUNDING pitch. Written pitch is the notation
 //     layer's business (notation/registry/ensemble.json), never this file's.
+//   - EVERY VOICE KNOWS ITSELF (LGMF PLAN 1m.4.1, 2026-09-22; RUNNING_LOG §243 · §244): every technique entry carries
+//     `kind` — `pitched` (the harmony note sounds) · `key` (the key chooses one of N named sounds: the percussion,
+//     multiphonics, key clicks, noises — dealt NO pitch, its note IS the key) · `fixed` (open strings, natural harmonics:
+//     the nearest to the harmony note) — and `loud`, where its loudness comes from: `vel` (velocity — the dynamics law's
+//     struck note) or `mw` (the mod wheel, Xsample's `MW` presets). A `Velocity … MW` preset is `vel` with `shape: "mw"`:
+//     the wheel shapes it, the velocity is its loudness. A `key` entry carries `keys: [{ midi, label }]` — the percussion's
+//     from the catalog; the SI2 and Xsample by-key voices `keys: "pending"` until 1m.4.2 reads them from his rack. The
+//     drawer's name rule (strike_drawer.js kindOf) is the FALLBACK for an entry without `kind`; tools/roster_check.js
+//     names any such entry.
 //
 // ============================ STATUS: PROVISIONAL ============================
 // **Nothing here has been heard.** Every channel number, every port name and every range not
@@ -216,12 +225,14 @@ const INSTRUMENTS = {
     ordinary: "main", beating: false, playerBendSt: 0, bendRangeSt: 0,
     channels: { main: 1, curve: [2, 3, 4] },
     techniques: [
-      { key: "main", label: "struck, plain (the placeholder — ch 1, the rack's Finger Cymbals track)", channel: 1 },
+      // 1m.4.1: `main` is PITCHED on purpose — the placeholder takes any note it is dealt (his harmony takes carry 241 percussion
+      // notes on it, RUNNING_LOG §212); a real instrument is chosen by NAME from the by-key voices below it.
+      { key: "main", label: "struck, plain (the placeholder — ch 1, the rack's Finger Cymbals track)", channel: 1, kind: "pitched", loud: "vel" },
       // LGMF PLAN 1l.1 (2026-09-21; LG-59, RUNNING_LOG §199) — the ONE exception to "catalogued, never typed here": the
       // Texture panel's percussion fallback, his `claves pair 2 high`, on the rack's own Claves ARO track (ch 7, bank/perc_rack.json).
       // Keyed EXACTLY as tools/apply_perc.js keys the catalog's toys_claves, so a later selection takes it over unchanged; `main`
       // stays the ordinary voice, so no written note changes. Pair 2 High = key 41 (the catalog repeats the six at 60–69).
-      { key: "toys_claves", label: "Claves", channel: 7, rangeLow: 36, rangeHigh: 69,
+      { key: "toys_claves", label: "Claves", channel: 7, rangeLow: 36, rangeHigh: 69, kind: "key", loud: "vel",
         keys: [{ midi: 36, label: "Pair 3 Low" }, { midi: 38, label: "Pair 3 High" }, { midi: 40, label: "Pair 2 Low" }, { midi: 41, label: "Pair 2 High" },
                { midi: 43, label: "Pair 1 Low" }, { midi: 45, label: "Pair 1 High" }, { midi: 60, label: "Pair 3 Low" }, { midi: 62, label: "Pair 3 High" },
                { midi: 64, label: "Pair 2 Low" }, { midi: 65, label: "Pair 2 High" }, { midi: 67, label: "Pair 1 Low" }, { midi: 69, label: "Pair 1 High" }] },
@@ -279,9 +290,20 @@ const INSTRUMENTS = {
 // The one Xsample string roster, instantiated per instrument (fresh arrays, so per-instrument
 // range exceptions at 0c never bleed across). `s` = the four open strings low→high; lo/hi = the
 // instrument's standard zone. Hoisted function declaration, so the table above may use it.
+// 1m.4.1 (2026-09-22): what an Xsample preset IS (`kind`) and where its loudness comes from (`loud`), read from the preset NAME —
+// `Velocity` in the name = the velocity; a bare `MW` = the wheel; both = the velocity, shaped by the wheel (`shape: "mw"`). The
+// by-key and the fixed voices are named per roster; everything else is pitched. Hoisted, like the rosters.
+function xsLoud(label) { const v = /Velocity/.test(label), m = /\bMW\b/.test(label); return v ? (m ? { loud: "vel", shape: "mw" } : { loud: "vel" }) : (m ? { loud: "mw" } : { loud: "vel" }); }
+function xsKind(key, fixed, byKey) { return byKey.has(key) ? { kind: "key", keys: "pending" } : fixed.has(key) ? { kind: "fixed" } : { kind: "pitched" }; }
 function xsStringTechs(s, lo, hi, ranges) {
   const r = ranges || {};   // per-preset zone exceptions, registered as the composer uses them: { key: [lo, hi] }
-  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: (r[key] || [lo, hi])[0], rangeHigh: (r[key] || [lo, hi])[1], ...(mw ? { mw: true } : {}) });
+  // 1m.4.1: the strings' FIXED voices — the open strings and the natural harmonics (the nearest string to the harmony note) — and
+  // their BY-KEY voices — tailpiece · behind the bridge · peg box · finger · body · undefined — whose keys 1m.4.2 reads from his rack
+  const FIXED = new Set(["arco_open_vel", "arco_open_mw", "marcato_stac_open_vel", "spicc_open_vel", "stac_open_vel", "trem_open_vel", "trem_open_mw",
+    "nh_gliss_slow_vel", "nh_gliss_slow_mw", "nh_gliss_fast_vel", "nh_gliss_fast_mw", "nh_sul1_vel", "nh_sul1_mw", "nh_sul2_vel", "nh_sul2_mw", "nh_sul3_vel", "nh_sul3_mw", "nh_sul4_vel", "nh_sul4_mw",
+    "sord_open_vel", "sord_open_mw", "sord_spicc_open_vel", "pizz_open_vel", "pizz_h_sul1_vel", "pizz_h_sul2_vel", "pizz_h_sul3_vel", "pizz_h_sul4_vel", "pizz_sp_open_vel"]);
+  const KEY = new Set(["tailpiece_vel", "tailpiece_mw", "pizz_behind_bridge_vel", "pizz_peg_box_vel", "finger_vel", "body_vel", "undef_vel", "undef_mw"]);
+  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: (r[key] || [lo, hi])[0], rangeHigh: (r[key] || [lo, hi])[1], ...(mw ? { mw: true } : {}), ...xsKind(key, FIXED, KEY), ...xsLoud(label) });
   return [
     P(1, "vib_vel_mwinv", "Vibrato Velocity + MW inverted", true),
     P(2, "vib_vel", "Vibrato Velocity"),
@@ -384,7 +406,7 @@ function xsStringTechs(s, lo, hi, ranges) {
 // at 0d, not assumed. Every preset is given the instrument's whole compass: an Xsample mallet instrument is
 // one sample set per preset, so unlike the winds there is no narrower zone to find.
 function xsVibraphoneTechs(lo, hi) {
-  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: lo, rangeHigh: hi, ...(mw ? { mw: true } : {}) });
+  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: lo, rangeHigh: hi, ...(mw ? { mw: true } : {}), kind: "pitched", ...xsLoud(label) });   // 1m.4.1: every mallet preset is pitched
   return [
     P(1,  "std_mallets_vel",     "Standard Mallets Velocity CC4 Vibrato MW Speed", true),
     P(2,  "damped_vel",          "Damped Velocity"),
@@ -413,7 +435,9 @@ function xsVibraphoneTechs(lo, hi) {
 }
 
 function xsEnglishHornTechs(lo, hi) {
-  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: lo, rangeHigh: hi, ...(mw ? { mw: true } : {}) });
+  // 1m.4.1: the by-key voices — multiphonics (2) · key noises · various noises · air noises (2) · undefined tones; their keys at 1m.4.2
+  const KEY = new Set(["mp_short", "mp_loop", "key_noises", "various_noises", "air_noises", "air_noises_mw", "undef_tones"]);
+  const P = (n, key, label, mw) => ({ key, label: label + " (#" + n + ")", channel: 1, cc0: n - 1, rangeLow: lo, rangeHigh: hi, ...(mw ? { mw: true } : {}), ...xsKind(key, new Set(), KEY), ...xsLoud(label) });
   return [
     P(1,  "vib_mw",               "Vibrato MW", true),
     P(2,  "senza_mw",             "Senza Vibrato MW", true),
@@ -547,97 +571,97 @@ applyUviParts(INSTRUMENTS, UVI_PARTS);
 // ---- end of the UVI parts ----
 
 // ---- ARO PERCUSSION (generated by tools/apply_perc.js from bank/perc_selection.json — do not edit by hand) ----
-const ARO_PERC = {   // 14 instrument(s) selected 2026-09-21: small_metals_finger_cymbals ch1 · small_metals_bell_tree ch2 · small_metals_sleigh_bells ch3 · small_metals_triangles ch4 · small_metals_tambourines ch5 · toys_castanets ch6 · toys_claves ch7 · toys_shakers ch8 · brake_drums ch9 · crashes_and_stack ch10 · wood_blocks ch11 · bass_drum_alt ch12 · temple_bowls ch13 · tam_tams_a ch14
+const ARO_PERC = {   // 14 instrument(s) selected 2026-09-22: small_metals_finger_cymbals ch1 · small_metals_bell_tree ch2 · small_metals_sleigh_bells ch3 · small_metals_triangles ch4 · small_metals_tambourines ch5 · toys_castanets ch6 · toys_claves ch7 · toys_shakers ch8 · brake_drums ch9 · crashes_and_stack ch10 · wood_blocks ch11 · bass_drum_alt ch12 · temple_bowls ch13 · tam_tams_a ch14
   port: "LGPerc",
   instruments: [
     { slug: "small_metals_finger_cymbals", name: "Finger Cymbals", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 1, techniques: [
-      { key: "small_metals_finger_cymbals", label: "Finger Cymbals", channel: 1, rangeLow: 36, rangeHigh: 62,
+      { key: "small_metals_finger_cymbals", label: "Finger Cymbals", channel: 1, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 62,
         keys: [{"midi":36,"label":"Low"},{"midi":38,"label":"High"},{"midi":60,"label":"Low · 36"},{"midi":62,"label":"High · 38"}] },
     ] },
     { slug: "small_metals_bell_tree", name: "Bell Tree", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 2, techniques: [
-      { key: "small_metals_bell_tree", label: "Bell Tree", channel: 2, rangeLow: 36, rangeHigh: 69,
+      { key: "small_metals_bell_tree", label: "Bell Tree", channel: 2, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 69,
         keys: [{"midi":36,"label":"Half Gliss. - Low"},{"midi":38,"label":"Half Gliss. - High"},{"midi":40,"label":"Continuous Gliss"},{"midi":41,"label":"Full Gliss Short"},{"midi":43,"label":"Full Gliss Medium"},{"midi":45,"label":"Full Gliss Long"},{"midi":60,"label":"Half Gliss. - Low · 36"},{"midi":62,"label":"Half Gliss. - High · 38"},{"midi":64,"label":"Continuous Gliss · 40"},{"midi":65,"label":"Full Gliss Short · 41"},{"midi":67,"label":"Full Gliss Medium · 43"},{"midi":69,"label":"Full Gliss Long · 45"}] },
     ] },
     { slug: "small_metals_sleigh_bells", name: "Sleigh Bells & Indian Bells", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 3, techniques: [
-      { key: "small_metals_sleigh_bells_sleigh_bells", label: "Sleigh Bells & Indian Bells — Sleigh Bells", channel: 3, rangeLow: 36, rangeHigh: 64,
+      { key: "small_metals_sleigh_bells_sleigh_bells", label: "Sleigh Bells & Indian Bells — Sleigh Bells", channel: 3, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 64,
         keys: [{"midi":36,"label":"Single Shake L"},{"midi":38,"label":"Single Shake R"},{"midi":40,"label":"Long Shake / Roll"},{"midi":60,"label":"Single Shake L"},{"midi":62,"label":"Single Shake R"},{"midi":64,"label":"Long Shake / Roll"}] },
-      { key: "small_metals_sleigh_bells_indian_rope_bells", label: "Sleigh Bells & Indian Bells — Indian Rope Bells", channel: 3, rangeLow: 48, rangeHigh: 76,
+      { key: "small_metals_sleigh_bells_indian_rope_bells", label: "Sleigh Bells & Indian Bells — Indian Rope Bells", channel: 3, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 76,
         keys: [{"midi":48,"label":"Single Shake L"},{"midi":50,"label":"Single Shake R"},{"midi":52,"label":"Long Shake / Roll"},{"midi":72,"label":"Single Shake L"},{"midi":74,"label":"Single Shake R"},{"midi":76,"label":"Long Shake / Roll"}] },
     ] },
     { slug: "small_metals_triangles", name: "Small Metals Triangles", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 4, techniques: [
-      { key: "small_metals_triangles_triangle_beater", label: "Small Metals Triangles — Triangle Beater", channel: 4, rangeLow: 36, rangeHigh: 105,
+      { key: "small_metals_triangles_triangle_beater", label: "Small Metals Triangles — Triangle Beater", channel: 4, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 105,
         keys: [{"midi":36,"label":"Low · Hit"},{"midi":37,"label":"Low · Choked Hit"},{"midi":38,"label":"Low · Hit"},{"midi":39,"label":"Low · Choked Hit"},{"midi":40,"label":"Low · Roll"},{"midi":41,"label":"Low · Damped Short"},{"midi":43,"label":"Low · Damped Medium"},{"midi":45,"label":"Low · Damped Long"},{"midi":48,"label":"Middle · Hit"},{"midi":49,"label":"Middle · Choked Hit"},{"midi":50,"label":"Middle · Hit"},{"midi":51,"label":"Middle · Choked Hit"},{"midi":52,"label":"Middle · Roll"},{"midi":53,"label":"Middle · Damped Short"},{"midi":55,"label":"Middle · Damped Medium"},{"midi":57,"label":"Middle · Damped Long"},{"midi":60,"label":"High · Hit"},{"midi":61,"label":"High · Choked Hit"},{"midi":62,"label":"High · Hit"},{"midi":63,"label":"High · Choked Hit"},{"midi":64,"label":"High · Roll"},{"midi":65,"label":"High · Damped Short"},{"midi":67,"label":"High · Damped Medium"},{"midi":69,"label":"High · Damped Long"},{"midi":72,"label":"Low · Hit"},{"midi":73,"label":"Low · Choked Hit"},{"midi":74,"label":"Low · Hit"},{"midi":75,"label":"Low · Choked Hit"},{"midi":76,"label":"Low · Roll"},{"midi":77,"label":"Low · Damped Short"},{"midi":79,"label":"Low · Damped Medium"},{"midi":81,"label":"Low · Damped Long"},{"midi":84,"label":"Low · Hit"},{"midi":85,"label":"Low · Choked Hit"},{"midi":86,"label":"Low · Hit"},{"midi":87,"label":"Low · Choked Hit"},{"midi":88,"label":"Low · Roll"},{"midi":89,"label":"Low · Damped Short"},{"midi":91,"label":"Low · Damped Medium"},{"midi":93,"label":"Low · Damped Long"},{"midi":96,"label":"Low · Hit"},{"midi":97,"label":"Low · Choked Hit"},{"midi":98,"label":"Low · Hit"},{"midi":99,"label":"Low · Choked Hit"},{"midi":100,"label":"Low · Roll"},{"midi":101,"label":"Low · Damped Short"},{"midi":103,"label":"Low · Damped Medium"},{"midi":105,"label":"Low · Damped Long"}] },
     ] },
     { slug: "small_metals_tambourines", name: "Tambourines", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 5, techniques: [
-      { key: "small_metals_tambourines_pop_tambourine", label: "Tambourines — Pop Tambourine", channel: 5, rangeLow: 36, rangeHigh: 81,
+      { key: "small_metals_tambourines_pop_tambourine", label: "Tambourines — Pop Tambourine", channel: 5, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 81,
         keys: [{"midi":36,"label":"Short Shake L"},{"midi":37,"label":"Accent L"},{"midi":38,"label":"Short Shake R"},{"midi":39,"label":"Accent R"},{"midi":40,"label":"Shake Roll"},{"midi":41,"label":"Hand Hit L"},{"midi":43,"label":"Hand Hit R"},{"midi":45,"label":"Hand Roll"},{"midi":72,"label":"Short Shake L · 2"},{"midi":73,"label":"Accent L · 2"},{"midi":74,"label":"Short Shake R · 2"},{"midi":75,"label":"Accent R · 2"},{"midi":76,"label":"Shake Roll · 2"},{"midi":77,"label":"Hand Hit L · 2"},{"midi":79,"label":"Hand Hit R · 2"},{"midi":81,"label":"Hand Roll · 2"}] },
-      { key: "small_metals_tambourines_alt_tambourine", label: "Tambourines — Alt Tambourine", channel: 5, rangeLow: 48, rangeHigh: 93,
+      { key: "small_metals_tambourines_alt_tambourine", label: "Tambourines — Alt Tambourine", channel: 5, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 93,
         keys: [{"midi":48,"label":"Hand Hit Open L"},{"midi":50,"label":"Hand Hit Open R"},{"midi":52,"label":"Hand Roll Open"},{"midi":53,"label":"Hand Hit Closed L"},{"midi":55,"label":"Hand Hit Closed R"},{"midi":57,"label":"Hand Roll Closed"},{"midi":84,"label":"Hand Hit Open L · 2"},{"midi":86,"label":"Hand Hit Open R · 2"},{"midi":88,"label":"Hand Roll Open · 2"},{"midi":89,"label":"Hand Hit Closed L · 2"},{"midi":91,"label":"Hand Hit Closed R · 2"},{"midi":93,"label":"Hand Roll Closed · 2"}] },
-      { key: "small_metals_tambourines_orchestral_tambourine", label: "Tambourines — Orchestral Tambourine", channel: 5, rangeLow: 60, rangeHigh: 103,
+      { key: "small_metals_tambourines_orchestral_tambourine", label: "Tambourines — Orchestral Tambourine", channel: 5, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 103,
         keys: [{"midi":60,"label":"Short Shake L"},{"midi":61,"label":"Accent L"},{"midi":62,"label":"Short Shake R"},{"midi":63,"label":"Accent R"},{"midi":64,"label":"Shake Roll"},{"midi":65,"label":"Hand Hit L"},{"midi":67,"label":"Hand Hit R"},{"midi":96,"label":"Short Shake L · 2"},{"midi":97,"label":"Accent L · 2"},{"midi":98,"label":"Short Shake R · 2"},{"midi":99,"label":"Accent R · 2"},{"midi":100,"label":"Shake Roll · 2"},{"midi":101,"label":"Hand Hit L · 2"},{"midi":103,"label":"Hand Hit R · 2"}] },
     ] },
     { slug: "toys_castanets", name: "Castanets", library: "ARO High Percussion", status: "verified", port: "LGPerc", channel: 6, techniques: [
-      { key: "toys_castanets_handle", label: "Castanets — Handle", channel: 6, rangeLow: 36, rangeHigh: 65,
+      { key: "toys_castanets_handle", label: "Castanets — Handle", channel: 6, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 65,
         keys: [{"midi":36,"label":"1 · Single L"},{"midi":38,"label":"1 · Single R"},{"midi":40,"label":"1 · Roll"},{"midi":41,"label":"1 · Flam"},{"midi":60,"label":"2 · Single L"},{"midi":62,"label":"2 · Single R"},{"midi":64,"label":"2 · Roll"},{"midi":65,"label":"2 · Flam"}] },
-      { key: "toys_castanets_machine", label: "Castanets — Machine", channel: 6, rangeLow: 48, rangeHigh: 77,
+      { key: "toys_castanets_machine", label: "Castanets — Machine", channel: 6, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 77,
         keys: [{"midi":48,"label":"1 · Single L"},{"midi":50,"label":"1 · Single R"},{"midi":52,"label":"1 · Roll"},{"midi":53,"label":"1 · Flam"},{"midi":72,"label":"2 · Single L"},{"midi":74,"label":"2 · Single R"},{"midi":76,"label":"2 · Roll"},{"midi":77,"label":"2 · Flam"}] },
     ] },
     { slug: "toys_claves", name: "Claves", library: "ARO High Percussion", status: "verified", port: "LGPerc", channel: 7, techniques: [
-      { key: "toys_claves", label: "Claves", channel: 7, rangeLow: 36, rangeHigh: 69,
+      { key: "toys_claves", label: "Claves", channel: 7, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 69,
         keys: [{"midi":36,"label":"Pair 3 Low"},{"midi":38,"label":"Pair 3 High"},{"midi":40,"label":"Pair 2 Low"},{"midi":41,"label":"Pair 2 High"},{"midi":43,"label":"Pair 1 Low"},{"midi":45,"label":"Pair 1 High"},{"midi":60,"label":"Pair 3 Low"},{"midi":62,"label":"Pair 3 High"},{"midi":64,"label":"Pair 2 Low"},{"midi":65,"label":"Pair 2 High"},{"midi":67,"label":"Pair 1 Low"},{"midi":69,"label":"Pair 1 High"}] },
     ] },
     { slug: "toys_shakers", name: "Shakers", library: "ARO High Percussion", status: "verified", port: "LGPerc", channel: 8, techniques: [
-      { key: "toys_shakers_pair_a", label: "Shakers — Pair A", channel: 8, rangeLow: 36, rangeHigh: 63,
+      { key: "toys_shakers_pair_a", label: "Shakers — Pair A", channel: 8, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 63,
         keys: [{"midi":36,"label":"Low"},{"midi":37,"label":"High"},{"midi":38,"label":"Low · 36"},{"midi":39,"label":"High · 37"},{"midi":60,"label":"Low · 36"},{"midi":61,"label":"High · 37"},{"midi":62,"label":"Low · 38"},{"midi":63,"label":"High · 39"}] },
-      { key: "toys_shakers_pair_b", label: "Shakers — Pair B", channel: 8, rangeLow: 48, rangeHigh: 75,
+      { key: "toys_shakers_pair_b", label: "Shakers — Pair B", channel: 8, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 75,
         keys: [{"midi":48,"label":"Low"},{"midi":49,"label":"High"},{"midi":50,"label":"Low · 48"},{"midi":51,"label":"High · 49"},{"midi":72,"label":"Low · 48"},{"midi":73,"label":"High · 49"},{"midi":74,"label":"Low · 50"},{"midi":75,"label":"High · 51"}] },
     ] },
     { slug: "brake_drums", name: "Brake Drums", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 9, techniques: [
-      { key: "brake_drums_poly_beater", label: "Brake Drums — Poly Beater", channel: 9, rangeLow: 36, rangeHigh: 43,
+      { key: "brake_drums_poly_beater", label: "Brake Drums — Poly Beater", channel: 9, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 43,
         keys: [{"midi":36,"label":"Low · Hit L"},{"midi":37,"label":"Middle · Hit L"},{"midi":38,"label":"Low · Hit R"},{"midi":39,"label":"Middle · Hit R"},{"midi":41,"label":"High · Hit L"},{"midi":43,"label":"High · Hit R"}] },
-      { key: "brake_drums_rubber_mallets", label: "Brake Drums — Rubber Mallets", channel: 9, rangeLow: 60, rangeHigh: 67,
+      { key: "brake_drums_rubber_mallets", label: "Brake Drums — Rubber Mallets", channel: 9, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 67,
         keys: [{"midi":60,"label":"Low · Hit L"},{"midi":61,"label":"Middle · Hit L"},{"midi":62,"label":"Low · Hit R"},{"midi":63,"label":"Middle · Hit R"},{"midi":65,"label":"High · Hit L"},{"midi":67,"label":"High · Hit R"}] },
     ] },
     { slug: "crashes_and_stack", name: "Crashes and Stack", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 10, techniques: [
-      { key: "crashes_and_stack_sticks", label: "Crashes and Stack — Sticks", channel: 10, rangeLow: 36, rangeHigh: 50,
+      { key: "crashes_and_stack_sticks", label: "Crashes and Stack — Sticks", channel: 10, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 50,
         keys: [{"midi":36,"label":"12\" Crasher · Hit L"},{"midi":38,"label":"12\" Crasher · Hit R"},{"midi":41,"label":"Cymbal Stack · Hit L"},{"midi":43,"label":"Cymbal Stack · Hit R"},{"midi":48,"label":"14\" Crasher · Hit L"},{"midi":50,"label":"14\" Crasher · Hit R"}] },
-      { key: "crashes_and_stack_rods", label: "Crashes and Stack — Rods", channel: 10, rangeLow: 60, rangeHigh: 74,
+      { key: "crashes_and_stack_rods", label: "Crashes and Stack — Rods", channel: 10, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 74,
         keys: [{"midi":60,"label":"12\" Crasher · Hit L"},{"midi":62,"label":"12\" Crasher · Hit R"},{"midi":72,"label":"14\" Crasher · Hit L"},{"midi":74,"label":"14\" Crasher · Hit R"}] },
-      { key: "crashes_and_stack_dreads", label: "Crashes and Stack — Dreads", channel: 10, rangeLow: 65, rangeHigh: 67,
+      { key: "crashes_and_stack_dreads", label: "Crashes and Stack — Dreads", channel: 10, kind: "key", loud: "vel", rangeLow: 65, rangeHigh: 67,
         keys: [{"midi":65,"label":"Cymbal Stack · Hit L"},{"midi":67,"label":"Cymbal Stack · Hit R"}] },
     ] },
     { slug: "wood_blocks", name: "Wood Blocks", library: "ARO High Percussion", status: "verified", port: "LGPerc", channel: 11, techniques: [
-      { key: "wood_blocks_hard_mallets", label: "Wood Blocks — Hard Mallets", channel: 11, rangeLow: 36, rangeHigh: 44,
+      { key: "wood_blocks_hard_mallets", label: "Wood Blocks — Hard Mallets", channel: 11, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
         keys: [{"midi":36,"label":"Block 4 · Hit L"},{"midi":37,"label":"Block 3 · Hit L"},{"midi":38,"label":"Block 4 · Hit R"},{"midi":39,"label":"Block 3 · Hit R"},{"midi":41,"label":"Block 2 · Hit L"},{"midi":42,"label":"Block 1 · Hit L"},{"midi":43,"label":"Block 2 · Hit R"},{"midi":44,"label":"Block 1 · Hit R"}] },
-      { key: "wood_blocks_soft_mallets", label: "Wood Blocks — Soft Mallets", channel: 11, rangeLow: 48, rangeHigh: 56,
+      { key: "wood_blocks_soft_mallets", label: "Wood Blocks — Soft Mallets", channel: 11, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 56,
         keys: [{"midi":48,"label":"Block 4 · Hit L"},{"midi":49,"label":"Block 3 · Hit L"},{"midi":50,"label":"Block 4 · Hit R"},{"midi":51,"label":"Block 3 · Hit R"},{"midi":53,"label":"Block 2 · Hit L"},{"midi":54,"label":"Block 1 · Hit L"},{"midi":55,"label":"Block 2 · Hit R"},{"midi":56,"label":"Block 1 · Hit R"}] },
     ] },
     { slug: "bass_drum_alt", name: "Bass Drum (Alt)", library: "ARO Low Percussion", status: "verified", port: "LGPerc", channel: 12, techniques: [
-      { key: "bass_drum_alt_sticks", label: "Bass Drum (Alt) — Sticks", channel: 12, rangeLow: 36, rangeHigh: 45,
+      { key: "bass_drum_alt_sticks", label: "Bass Drum (Alt) — Sticks", channel: 12, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 45,
         keys: [{"midi":36,"label":"Single Hit L"},{"midi":37,"label":"Hand Damped Hit L"},{"midi":38,"label":"Single Hit R"},{"midi":39,"label":"Hand Damped Hit R"},{"midi":40,"label":"Roll"},{"midi":41,"label":"Rim Hit L"},{"midi":43,"label":"Rim Hit R"},{"midi":45,"label":"Rim Roll"}] },
-      { key: "bass_drum_alt_hard_felt", label: "Bass Drum (Alt) — Hard Felt", channel: 12, rangeLow: 48, rangeHigh: 52,
+      { key: "bass_drum_alt_hard_felt", label: "Bass Drum (Alt) — Hard Felt", channel: 12, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 52,
         keys: [{"midi":48,"label":"Single Hit L"},{"midi":50,"label":"Single Hit R"},{"midi":52,"label":"Roll"}] },
-      { key: "bass_drum_alt_hard_felt_cloth_damped", label: "Bass Drum (Alt) — Hard Felt (Cloth Damped)", channel: 12, rangeLow: 53, rangeHigh: 57,
+      { key: "bass_drum_alt_hard_felt_cloth_damped", label: "Bass Drum (Alt) — Hard Felt (Cloth Damped)", channel: 12, kind: "key", loud: "vel", rangeLow: 53, rangeHigh: 57,
         keys: [{"midi":53,"label":"Single Hit L"},{"midi":55,"label":"Single Hit R"},{"midi":57,"label":"Roll"}] },
-      { key: "bass_drum_alt_medium_felt", label: "Bass Drum (Alt) — Medium Felt", channel: 12, rangeLow: 60, rangeHigh: 64,
+      { key: "bass_drum_alt_medium_felt", label: "Bass Drum (Alt) — Medium Felt", channel: 12, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 64,
         keys: [{"midi":60,"label":"Single Hit L"},{"midi":61,"label":"Hand Damped Hit L"},{"midi":62,"label":"Single Hit R"},{"midi":63,"label":"Hand Damped Hit R"},{"midi":64,"label":"Roll"}] },
-      { key: "bass_drum_alt_rods", label: "Bass Drum (Alt) — Rods", channel: 12, rangeLow: 65, rangeHigh: 70,
+      { key: "bass_drum_alt_rods", label: "Bass Drum (Alt) — Rods", channel: 12, kind: "key", loud: "vel", rangeLow: 65, rangeHigh: 70,
         keys: [{"midi":65,"label":"Single Hit L"},{"midi":66,"label":"Rim Hit L"},{"midi":67,"label":"Single Hit R"},{"midi":68,"label":"Rim Hit R"},{"midi":69,"label":"Roll"},{"midi":70,"label":"Rim Roll"}] },
-      { key: "bass_drum_alt_brushes", label: "Bass Drum (Alt) — Brushes", channel: 12, rangeLow: 72, rangeHigh: 88,
+      { key: "bass_drum_alt_brushes", label: "Bass Drum (Alt) — Brushes", channel: 12, kind: "key", loud: "vel", rangeLow: 72, rangeHigh: 88,
         keys: [{"midi":72,"label":"Center Hit Open L"},{"midi":73,"label":"Center Hit Closed L"},{"midi":74,"label":"Center Hit Open R"},{"midi":75,"label":"Center Hit Closed R"},{"midi":76,"label":"Roll"},{"midi":77,"label":"Edge Hit Open L"},{"midi":78,"label":"Edge Hit Closed L"},{"midi":79,"label":"Edge Hit Open R"},{"midi":80,"label":"Edge Hit Closed R"},{"midi":84,"label":"Short Sweep L"},{"midi":85,"label":"Long Sweep L"},{"midi":86,"label":"Short Sweep R"},{"midi":87,"label":"Long Sweep R"},{"midi":88,"label":"Swirling"}] },
     ] },
     { slug: "temple_bowls", name: "Temple Bowls", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 13, techniques: [
-      { key: "temple_bowls_rubber_mallet", label: "Temple Bowls — Rubber Mallet", channel: 13, rangeLow: 36, rangeHigh: 44,
+      { key: "temple_bowls_rubber_mallet", label: "Temple Bowls — Rubber Mallet", channel: 13, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
         keys: [{"midi":36,"label":"Bowl 4 Single Hit L"},{"midi":37,"label":"Bowl 3 Single Hit L"},{"midi":38,"label":"Bowl 4 Single Hit R"},{"midi":39,"label":"Bowl 3 Single Hit R"},{"midi":41,"label":"Bowl 2 Single Hit L"},{"midi":42,"label":"Bowl 1 Single Hit L"},{"midi":43,"label":"Bowl 2 Single Hit R"},{"midi":44,"label":"Bowl 1 Single Hit R"}] },
-      { key: "temple_bowls_brush", label: "Temple Bowls — Brush", channel: 13, rangeLow: 48, rangeHigh: 56,
+      { key: "temple_bowls_brush", label: "Temple Bowls — Brush", channel: 13, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 56,
         keys: [{"midi":48,"label":"Bowl 4 Single Hit L"},{"midi":49,"label":"Bowl 3 Single Hit L"},{"midi":50,"label":"Bowl 4 Single Hit R"},{"midi":51,"label":"Bowl 3 Single Hit R"},{"midi":53,"label":"Bowl 2 Single Hit L"},{"midi":54,"label":"Bowl 1 Single Hit L"},{"midi":55,"label":"Bowl 2 Single Hit R"},{"midi":56,"label":"Bowl 1 Single Hit R"}] },
     ] },
     { slug: "tam_tams_a", name: "Tam Tams A", library: "ARO Metal Percussion", status: "verified", port: "LGPerc", channel: 14, techniques: [
-      { key: "tam_tams_a_tam_tam_mallet", label: "Tam Tams A — Tam Tam Mallet", channel: 14, rangeLow: 36, rangeHigh: 44,
+      { key: "tam_tams_a_tam_tam_mallet", label: "Tam Tams A — Tam Tam Mallet", channel: 14, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
         keys: [{"midi":36,"label":"Tam Tam A 30\" Single Hit"},{"midi":37,"label":"Tam Tam A 30\" Single Hit Choked"},{"midi":38,"label":"Tam Tam A 30\" Single Hit"},{"midi":39,"label":"Tam Tam A 30\" Single Hit Choked"},{"midi":41,"label":"Tam Tam A 30\" Roll"},{"midi":42,"label":"Tam Tam A 30\" Swells"},{"midi":43,"label":"Tam Tam A 30\" Roll Choked"},{"midi":44,"label":"Tam Tam A 30\" Swells Choked"}] },
-      { key: "tam_tams_a_scrape", label: "Tam Tams A — Scrape", channel: 14, rangeLow: 48, rangeHigh: 56,
+      { key: "tam_tams_a_scrape", label: "Tam Tams A — Scrape", channel: 14, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 56,
         keys: [{"midi":48,"label":"Tam Tam A 30\" Fast Scrape 1"},{"midi":49,"label":"Tam Tam A 30\" Fast Scrape 2"},{"midi":50,"label":"Tam Tam A 30\" Fast Scrape 3"},{"midi":51,"label":"Tam Tam A 30\" Fast Scrape 4"},{"midi":53,"label":"Tam Tam A 30\" Medium Scrape 1"},{"midi":54,"label":"Tam Tam A 30\" Medium Scrape 2"},{"midi":55,"label":"Tam Tam A 30\" Medium Scrape 3"},{"midi":56,"label":"Tam Tam A 30\" Medium Scrape 4"}] },
-      { key: "tam_tams_a_superball", label: "Tam Tams A — Superball", channel: 14, rangeLow: 60, rangeHigh: 69,
+      { key: "tam_tams_a_superball", label: "Tam Tams A — Superball", channel: 14, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 69,
         keys: [{"midi":60,"label":"Tam Tam A 30\" Short Drag 1"},{"midi":61,"label":"Tam Tam A 30\" Short Drag 2"},{"midi":62,"label":"Tam Tam A 30\" Short Drag 3"},{"midi":63,"label":"Tam Tam A 30\" Short Drag 4"},{"midi":65,"label":"Tam Tam A 30\" Medium Drag 1"},{"midi":66,"label":"Tam Tam A 30\" Medium Drag 2"},{"midi":67,"label":"Tam Tam A 30\" Medium Drag 3"},{"midi":68,"label":"Tam Tam A 30\" Medium Drag 4"},{"midi":69,"label":"Tam Tam A 30\" Long Continuous Drag"}] },
     ] },
   ],
@@ -705,6 +729,31 @@ function applyMeasuredBend(all, measured) {   // the measured range replaces the
 }
 applyMeasuredBend(INSTRUMENTS, MEASURED_BEND);
 // ---- end of the measured bend ranges ----
+
+
+// ---- 1m.4.1 (2026-09-22): THE SI2 THREE KNOW THEMSELVES ----
+// The three IRCAM tables above are typed by hand, one line per preset, and stay readable: their `kind` and `loud` are stamped here
+// from ONE table that names the by-key voices — everything else of these three is pitched, by velocity (on UVI the loudness is the
+// velocity; no wheel). The horn and the trumpet have no by-key voice on the manual's list; 1m.4.2 checks at the rack (RUNNING_LOG
+// §244: suspects, not facts). ONLY the instruments named here are stamped — an entry of any other instrument without `kind` is
+// caught by tools/roster_check.js, never defaulted.
+const SI2_KINDS = {
+  bassoon: { blow_no_reed: "key", key_click: "key", multiphonics: "key" },
+  horn: {},
+  trumpet: {},
+};
+function applySi2Kinds(all, table) {
+  for (const [inst, byKey] of Object.entries(table)) {
+    const I = all[inst]; if (!I || !I.techniques) continue;
+    for (const q of I.techniques) {
+      if (q.kind == null) q.kind = byKey[q.key] || "pitched";
+      if (q.loud == null) q.loud = "vel";
+      if (q.kind === "key" && q.keys == null) q.keys = "pending";
+    }
+  }
+}
+applySi2Kinds(INSTRUMENTS, SI2_KINDS);
+// ---- end of the SI2 kinds ----
 
 
 // Hardware capture input. Keystation 88 MK3 exposes "Keystation 88 MK3" (keys) and

@@ -1842,7 +1842,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     itself (LG-75) · Insert and where the pattern lives (plan `1o` the save structure) · dynamics (plan `1n`).
     **Two dependencies, not questions:** 1m.4.2 needs his rack open (a rack window, his) · Insert needs plan `1o`.
 
-    - **1m.4.1 — Every voice knows itself** (kind · loudness source · keys, as data on every entry; a check that none is missing)
+    - **1m.4.1 — Every voice knows itself** (kind · loudness source · keys, as data on every entry; a check that none is missing) — `built` 2026-09-22
+      (RUNNING_LOG §279: 339 voices, 26 `pending` for 1m.4.2; `tools/roster_check.js`; THE SHIELD held — the deal under the same set, the four sets and
+      the MIDI bytes byte-identical; the row menus' group headings are the one visible change, `key` where `noise` · `multiphonic` stood)
       - In `sandbox/instruments.js` every technique entry gets `kind`: `pitched` · `key` (the key chooses one of N named sounds — the
         percussion, multiphonics, key clicks, noises) · `fixed` (open strings, natural harmonics: the nearest to the harmony note). Filled by
         the AI from the names, the manuals and the catalog; the drawer's name rule `kindOf` becomes the fallback where the field is missing,

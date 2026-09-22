@@ -102,7 +102,11 @@ function plainTech(inst) {
     for (const k of PLAIN_PREF) { const t = techs.find(q => q.key === k); if (t) return t.key; }
     return techs.length ? techs[0].key : null;
 }
-// the KIND of an articulation (S): until the recipe file carries a `kind` field (0c), a name rule
+// the KIND of an articulation (S). LGMF 1m.4.1 (2026-09-22): the recipe's own `kind` FIRST (sandbox/instruments.js — pitched · key ·
+// fixed, on every entry); the name rule below is the FALLBACK for an entry without one (tools/roster_check.js names those).
+// `key` = the key chooses one of N named sounds (the percussion, multiphonics, key clicks, noises); the name rule's `noise` and
+// `multiphonic` are its two older names and sound the same way — a stand-in, never the harmony pitch.
+const KINDS = ['pitched', 'fixed', 'key', 'noise', 'multiphonic'];   // the order the row menus and the picker group by
 function kindOf(tech) {
     if (!tech) return 'pitched';
     if (tech.kind) return tech.kind;
@@ -960,7 +964,7 @@ const D = {
             const techs = (inst && inst.techniques) || [];
             const groups = {}; techs.forEach(tq => { const k = kindOf(tq); (groups[k] = groups[k] || []).push(tq); });
             const cur = here.length ? (here[0].r.tech || this.defaultTech(lane)) : this.defaultTech(lane);
-            const menu = '<select class="skTech" data-lane="' + lane + '" style="' + inp + '">' + ['pitched', 'fixed', 'noise', 'multiphonic'].filter(k => groups[k]).map(k => '<optgroup label="' + k + '">' + groups[k].map(tq => '<option value="' + tq.key + '"' + (tq.key === cur ? ' selected' : '') + '>' + tq.label + '</option>').join('') + '</optgroup>').join('') + '</select>';
+            const menu = '<select class="skTech" data-lane="' + lane + '" style="' + inp + '">' + KINDS.filter(k => groups[k]).map(k => '<optgroup label="' + k + '">' + groups[k].map(tq => '<option value="' + tq.key + '"' + (tq.key === cur ? ' selected' : '') + '>' + tq.label + '</option>').join('') + '</optgroup>').join('') + '</select>';
             const notes = here.map(({ v, r }) => '<span class="skChip" data-i="' + v.i + '" data-r="' + (r === v ? 'p' : v.also.indexOf(r)) + '" title="click: take ' + nm(v.pitch) + ' off this player" style="cursor:pointer;color:' + this.pcColor(v.pc) + '">' + nm(this.soundingPitchR(v, r)) + (r.fold ? (r.fold > 0 ? '↑' : '↓') : '') + (r.standIn != null ? '*' : '') + (r.skip ? ' ✕' : '') + '</span>').join(' ');
             const soloed = mine.length > 0 && mine.every(v => v.solo);
             // PLAN 1t step 4: the tick at the row's left edge, before the landing dot. A row BUSY at the playhead is dimmed, its
@@ -1040,7 +1044,7 @@ const D = {
         const groups = {}; techs.forEach(tq => { const k = kindOf(tq); (groups[k] = groups[k] || []).push(tq); });
         const cur = here.length ? here[0].r.tech : null;
         let s = '<div style="color:#e8cf9a;margin-bottom:4px">' + T[lane].label + ' · articulations</div>';
-        ['pitched', 'fixed', 'noise', 'multiphonic'].forEach(k => {
+        KINDS.forEach(k => {
             if (!groups[k]) return;
             s += '<div style="color:#9a9;margin:4px 0 2px">' + k + '</div>' + groups[k].map(tq => '<div class="skPickT" data-key="' + tq.key + '" style="cursor:pointer;padding:0 4px;' + (tq.key === cur ? 'background:rgba(201,160,90,.25)' : '') + '">' + tq.label + '</div>').join('');
         });

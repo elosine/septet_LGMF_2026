@@ -45,7 +45,7 @@ for (const item of SEL.instruments || []) {
   const techniques = [];
   for (const [b, ks] of byBeater) {
     ks.sort((x, y) => x.midi - y.midi);
-    const q = { key: b ? it.slug + '_' + slugify(b) : it.slug, label: e.name + (b ? ' — ' + b : ''), channel: ch };
+    const q = { key: b ? it.slug + '_' + slugify(b) : it.slug, label: e.name + (b ? ' — ' + b : ''), channel: ch, kind: 'key', loud: 'vel' };   // 1m.4.1: a Spitfire instrument is BY KEY (the key is the sound), loud by velocity
     if (port !== DEFAULT_PORT) q.port = port;
     q.rangeLow = ks[0].midi; q.rangeHigh = ks[ks.length - 1].midi;
     q.keys = ks.map(k => ({ midi: k.midi, label: Object.entries(k).filter(([f, v]) => !['note', 'midi', 'beater'].includes(f) && v != null && v !== '').map(([, v]) => String(v)).join(' · ') }));
