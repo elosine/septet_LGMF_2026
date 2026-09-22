@@ -1826,7 +1826,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       tick re-renders the list and its rows change height — the first press now remembers its circle for the second press, WHICH OPENS THE BOX ITSELF:
       no click or dblclick follows a press on a circle the tick re-drew (§238, after his first test, *"just toggles it on and off"*).
 
-  - **1m.4 — Types of articulation, and the orchestration panel as a LENS on the columns** — `planned` 2026-09-22 — **not built** —
+  - **1m.4 — Types of articulation, and the orchestration panel as a LENS on the columns** — `planned` 2026-09-22 — **`built` 2026-09-22: 1m.4.1 · .3 · .4 · .5 · .6,
+    one commit each, THE SHIELD verified in each (RUNNING_LOG §279 … §283); HIS ONE TEST OUTSTANDING (reload the tab); 1m.4.2 at his rack (26 pending);
+    1m.4.7 on his word** —
     laid out with him under the planning method, phase 1 whole (RUNNING_LOG §240 … §259; COMPOSITION_NOTES LG-74 … LG-85); the top line
     stood as put (§257 · §259); phase 3 written by the AI alone at his word — *"we can skip the formal planning as long as you are comfortable
     that the plan has been vetted and there aren't any open questions"* (§260). **The calls made alone are marked [call], his to reverse.**
@@ -1912,7 +1914,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       - **REQUIRED VERIFICATION** (`score-5401`, the pane's REAL input — §238): a click on a circle selects and does NOT tick · a double-click
         opens nothing · a `len` typed on a row with three columns selected → all three · the bars drawn at two zooms · THE SHIELD.
 
-    - **1m.4.6 — Selecting a stretch** (click, SHIFT+click = the range; CTRL+click = one — the sequence drawer's idiom, 1d.12)
+    - **1m.4.6 — Selecting a stretch** (click, SHIFT+click = the range; CTRL+click = one — the sequence drawer's idiom, 1d.12) — `built` 2026-09-22
+      (RUNNING_LOG §283, verified with the pane's real input; THE SHIELD held)
       - Click = that column alone · SHIFT+click = every ON column between the primary and it, by time · CTRL+click = add or remove one (today's
         SHIFT). The status line names the range.
       - **REQUIRED VERIFICATION:** click 1, SHIFT+click 5 → 1 … 5 (the ON ones) · CTRL+click 3 → 1 2 4 5 · CTRL+click 3 again → 1 … 5 · THE SHIELD.

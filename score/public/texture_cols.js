@@ -338,8 +338,8 @@ Object.assign(D, {
         }
         this.txPersistSoon(); this.txRender();
     },
-    // SELECT: plain = this column alone, recalled (a fresh one: the harmony with nobody on) · shift = added, kept as it is until the
-    // next shuffle or harmony, which it then shares
+    // SELECT: plain = this column alone, recalled (a fresh one: the harmony with nobody on) · `add` (CTRL+click since 1m.4.6; it was SHIFT) =
+    // added or removed, kept as it is until the next shuffle or harmony, which it then shares
     txSelect(k, add) {
         const p = this.txCols(); if (!p) return;
         const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
@@ -411,8 +411,23 @@ Object.assign(D, {
         // double-click does nothing more. (1m.3's tick-on-the-circle and its double-click for a length are gone: the players list has
         // the box and the `len` box, and the lens puts them on every selected column.)
         if (ev.detail >= 2) return true;
-        this.txSelect(hit.d.k, !!ev.shiftKey);
+        // 1m.4.6 SELECTING A STRETCH (the sequence drawer's idiom, 1d.12): click = that column alone · SHIFT+click = every ON column between
+        // the primary and it, by time · CTRL+click = add or remove one
+        if (ev.shiftKey) this.txSelectRange(hit.d.k); else this.txSelect(hit.d.k, !!(ev.ctrlKey || ev.metaKey));
         return true;
+    },
+    // SHIFT+click: the primary stays the primary; every ON mark between it and the clicked one (by time, both ends in) joins, in time order
+    txSelectRange(k) {
+        const p = this.txCols(); if (!p) return;
+        const prim = this.txPrimary(); if (!prim || prim === k) return this.txSelect(k, false);
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        this.txPushUndo();
+        const t0 = this.txDot(prim).t, t1 = this.txDot(k).t, lo = Math.min(t0, t1), hi = Math.max(t0, t1), on = new Set(p.on);
+        const between = this._tx.dots.filter(d => on.has(d.k) && d.k !== prim && d.t >= lo - 1e-6 && d.t <= hi + 1e-6).sort((a, b) => a.t - b.t).map(d => d.k);
+        between.forEach(kk => { if (!p.cols[kk]) p.cols[kk] = this.txFresh(); });
+        p.sel = [prim].concat(between);
+        this.txPersistSoon(); this.txRender();
+        this.setStatus('the stretch ' + lo.toFixed(2) + '–' + hi.toFixed(2) + ' s: ' + p.sel.length + ' columns selected (every ON mark between), the primary at ' + t0.toFixed(2) + ' s — CTRL+click adds or removes one · ESC clears');
     },
     // that player's own length in that column — the box on the spot, where the circle is NOW (after the revert's redraw)
     txOwnLength(k, lane) {

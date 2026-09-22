@@ -10898,3 +10898,35 @@ own*, the box reading 1.5 ✓ · the bars drawn at two zooms: at 180 px/s all th
 clipped at the view's right edge as they always were (517 · 461 · 336 px, the full 1983 px not fitting) ✓ · **THE SHIELD**: the strike
 mode's rows carry no `len` box; the deal under `ordinario` and the `spiccato` set with their routes byte-identical to §279 ✓ · no
 console error ✓.
+
+## §283. `1m.4.6` SELECTING A STRETCH — built and verified with the pane's real input; THE `1m.4` BUILD CLOSES, HIS ONE TEST NEXT (2026-09-22, Fable)
+
+**What changed** (`score/public/texture_cols.js`, `txColDown` and a new `txSelectRange`): the sequence drawer's idiom (1d.12) on the
+columns — **click** = that column alone · **SHIFT+click** = every ON column between the primary and it, by time, both ends in, in time
+order, the primary staying the primary (a fresh one made from the defaults) · **CTRL+click** (⌘ on a Mac) = add or remove one, what
+SHIFT did until now. The status names the stretch and the count; ESC clears (as before).
+
+**REQUIRED VERIFICATION, run with the pane's REAL input** (§238; his first rhythm take, six marks on, zoomed so the marks stand apart;
+marks 0 and 1 fall on the same instant and were left aside): click column 2 → `2` · SHIFT+click column 4 → `2 3 4` (*the stretch
+0.14–0.27 s: 3 columns selected*) · CTRL+click column 3 → `2 4` (*left the selection · 2 selected*) · CTRL+click column 3 again →
+`2 4 3` = the set `2 3 4`, the primary still 2 ✓ · no console error ✓ · **THE SHIELD**: the strike mode's deal under `ordinario` and the
+`percussive` set with their routes byte-identical to §279 on this reload ✓.
+
+**THE `1m.4` BUILD, CLOSED AT THE CODE'S END.** At his word after `/postclear` — *"build 1m.4 articulation all the way thru
+independantly as much as possible"* — five steps in five commits, THE SHIELD verified in each: `1m.4.1` every voice knows itself
+(§279, `485842c`) · `1m.4.3` the menus (§280, `383b5a2`) · `1m.4.4` the lens (§281, `6290d36`) · `1m.4.5` the passive column (§282,
+`85f0847`) · `1m.4.6` the stretch (this entry). **Not built, by the plan:** `1m.4.2` the by-key maps — his rack, 26 voices pending
+(`node tools/roster_check.js` names them; until then a pending voice is its heading in the pull-down and plain note names in the
+picker) · `1m.4.7 deal: repeat | spread` — on his word. **What waits on him: ONE test** (PLAN § 1m.4's last bullet; duration vetted in
+it, §259) — reload his tab, no server restart needed (every change is a page file or the recipe). **The calls made alone in the
+build, his to reverse:** the strike mode's menu group heading `key` where `noise` · `multiphonic` stood (§279) · a pending voice's note
+names in the PICKER only, not the pull-down (§280) · a fresh column from the DEFAULTS' harmony, not the primary's (§281) · a by-key
+voice on a row sounding at the strike's first onset in the strike mode (§280) · the drawer's own `back` left as it was in a texture
+take, the ↶ being the undo there (§281).
+
+**The verification method this build used, for the record** (journal §2 STILL BINDING, extended): the pane at 1280 × 860 is SCALED to
+its frame (800 × 537 this session) — `computer` coordinates are the frame's, so a DOM rectangle is multiplied by 800/1280 and 537/860
+before a real click; the click tool refuses coordinates until one screenshot of the loaded document exists (taken at scale 0.3 — a
+prerequisite, not proof); `browser_batch` runs clicks, typing, keys and `javascript_tool` reads in one round trip; a hidden pane clamps
+its timers, so a burst of MIDI comes out in insertion order — compare the bytes as a SET, and per note that the prelude precedes its
+note-on.

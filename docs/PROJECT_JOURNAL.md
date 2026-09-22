@@ -131,6 +131,7 @@ Presets set aside; a saved set of his own noted (LG-79).
 - **SEPARATE PLAN, noted at his word (LG-84): WHAT IS SAVED FROM THIS BUILD** — the pattern as a named document, what it holds, where it lives (today: the browser only, one store per tab — L). No answer now.
 - **✓ `1n dynamics` DESIGNED AND WRITTEN (2026-09-22, later the same day — RUNNING_LOG §262 … §275, LG-86 … LG-99; PLAN § `1n`, 1n.1 … 1n.6): short samples · B2 one scale · `sample | follow | auto` · levels absolute, no base layer, a generate overwrites · flat · ramp · pointillistic · waves · `enter` · the `dyn` box · mod wheel on the fader · `1f` OUT. ► NEXT: `1o the save structure`.**
 - **✓ `1o the save structure` DESIGNED BY THE AI AT HIS WORD, VETTED, AND WRITTEN (2026-09-22, Fable, after checkpoint #2 — RUNNING_LOG §276 … §278; PLAN § `1o`, 1o.1 … 1o.6): a pattern a named document with a COPY of its onsets · `texture ▾` starts one empty, `pattern ▾` recalls · `bank/patterns.json` a fifth store, the sequence library's rules · Insert the sequence's idiom, the range written, the document into the score. His three decisions (§277): A the range · B the two rules on one player's notes → `1n.1` · C Insert inside `1o`. ► ALL THREE PLANS WRITTEN, NOTHING BUILT. NEXT: checkpoint on Opus + clear → BUILD `1m.4`.**
+- **✓ `1m.4 articulation` BUILT (2026-09-22, Fable — his word after `/postclear`: *"build 1m.4 articulation all the way thru independantly as much as possible"*): 1m.4.1 · .3 · .4 · .5 · .6, ONE COMMIT EACH, THE SHIELD verified in each (RUNNING_LOG §279 … §283) — every voice knows itself (`kind` · `loud` · `keys`, `roster_check`) · a by-key voice a ROW VOICE (`rowKeys`) · THE LENS (`texture_lens.js`: the broadcast, THE ONE RULE for a take, `rowTechs`, mixed marks, grey + the defaults) · the passive column with a `len` box per row · the stretch. `1m.4.2` waits on his rack (26 pending) · `1m.4.7` on his word. ► NEXT: HIS ONE TEST (reload the tab) → then `1n dynamics` on Opus.**
 - **HIS STANDARD for the rest of 1m.4 (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second
 - B. Primary-only versus shared actions
 - C. A fresh column
@@ -148,7 +149,10 @@ Presets set aside; a saved set of his own noted (LG-79).
 |---|---|---|---|
 | ✓ | **`1n dynamics` WRITTEN INTO PLAN 2026-09-22** — PLAN § `1n`, six steps 1n.1 … 1n.6, phase 3 skipped at his word; RUNNING_LOG §262 … §275, LG-86 … LG-99; `1f` stays OUT, its own `todo` (§274) | Fable | — |
 | ✓ | **`1o the save structure` WRITTEN INTO PLAN 2026-09-22** — PLAN § `1o`, six steps 1o.1 … 1o.6, designed by the AI at his word and vetted (§276), his three decisions (§277), phase 3 written whole at his word (§278); the two rules on one player's notes went into `1n.1` | Fable | — |
-| **►►** | **BUILD AND TEST ONE AT A TIME — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build (PLAN § `1n`, 1n.1 → 1n.5 one commit each, 1n.6 his; its first act is the READ named in 1n.1) → then `1o` + Insert | Opus | yes — checkpoint on Opus, clear, `/postclear` on Opus |
+| ✓ | **`1m.4 articulation` BUILT 2026-09-22** — 1m.4.1 · .3 · .4 · .5 · .6, five commits, THE SHIELD in each (RUNNING_LOG §279 … §283); the calls made alone listed in §283 | Fable | — |
+| **►►** | **HIS ONE TEST of `1m.4`** — reload the tab (no restart); the texture take: the menus by name and key, the lens on a selection, a click selects a column, SHIFT / CTRL for a stretch, the `len` box per row, the sets leaving the percussion; duration vetted in it (§259). Then revise if needed → **BUILD `1n dynamics`** (PLAN § `1n`, 1n.1 → 1n.5 one commit each, 1n.6 his; its first act is the READ named in 1n.1) → then `1o` + Insert | his ear · then Opus | yes before `1n` — checkpoint, clear, `/postclear` on Opus |
+| — | **`1m.4.2` the by-key maps** — whenever he sits at the rack: 26 voices pending (`node tools/roster_check.js` names them) | his rack + the AI reading | — |
+| — | **`1m.4.7 deal: repeat \| spread`** — written, built only on his word | Opus | — |
 | ✓ | **plan 2 — DYNAMICS** — written 2026-09-22 as PLAN § `1n` (see above); `1f` does NOT belong to it (§274) | — | — |
 | ► | **the builds, one per clear, his listen between:** `1m.4` → dynamics → the save structure + Insert. His tests of `1m.1` · `1m.2` · `1m.3` still owed — what matters from them now is the SOUND and the row (step 5 of `1m.4` replaces the column's gestures) | Opus | yes |
 | ✓ phase 1 | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
@@ -161,7 +165,25 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — CHECKPOINT #3 (2026-09-22, session 13, Opus) *(mid-session checkpoint — READ THIS ONE)*:**
+**Open — THE `1m.4` BUILD DONE (2026-09-22, session 13, Fable) *(READ THIS ONE)*:**
+
+- **`1m.4 articulation` IS BUILT — 1m.4.1 · .3 · .4 · .5 · .6, one commit each (`485842c` · `383b5a2` · `6290d36` · `85f0847` · the sixth), THE SHIELD
+  verified in each on `score-5401` with no MIDI (RUNNING_LOG §279 … §283). Not built, by the plan: `1m.4.2` (his rack, 26 pending) · `1m.4.7` (his word).**
+- **THE NEXT CONCRETE STEP: HIS ONE TEST** — he reloads his tab (no server restart: page files and the recipe only). What to try, in the texture take:
+  the row menus (a `key` voice a heading, its keys under it; `mw` greyed) · a key chosen on the percussion → its note the key, no pitch dealt · a
+  column selected by a click (not a tick any more), the panel editing it · SHIFT+click a stretch, CTRL+click one · a set, a voice, a tick, `len` on
+  a row with several selected → all of them · a take onto a dealt column (its pitches only) and onto an empty one (its players too) · ESC → the
+  defaults. Old feedback is not carried forward (§259). Then `1n dynamics` on Opus after a checkpoint + clear.
+- **Latest deliverables:** `sandbox/instruments.js` (kind · loud · keys) · `tools/roster_check.js` · `score/public/strike_drawer.js` (KINDS, `rowKeys`,
+  `chooseTech`, the menus and the picker) · `score/public/texture_cols.js` (the passive column, `len` per row, the stretch) · `score/public/texture_lens.js`
+  (new) · `tools/apply_perc.js` (writes `kind` · `loud`).
+- **`Resume reads:` for his test's feedback** — RUNNING_LOG §279 … §283 (one per step) · PLAN § `1m.4`. **For the `1n` build:** PLAN § `1n` (1n.1 first;
+  its READ is `docs/DYNAMICS_LAW.md`) · journal §2 STILL BINDING · §283's last paragraph (the pane's frame scaling, the screenshot prerequisite, the
+  timer clamping) · the code as each step names it.
+- **Decisions pending him from this build** (the calls made alone, §283): the strike mode's menu group `key` · a pending voice's note names in the picker
+  only · a fresh column from the defaults' harmony · a by-key voice in the strike mode sounding at the first onset · the drawer's `back` in a texture take.
+
+**Open at session end — CHECKPOINT #3 (2026-09-22, session 13, Opus) *(before it)*:**
 
 - **ALL THREE PLANS ARE DESIGNED AND WRITTEN, NOTHING IS BUILT — by his order (LG-82 · RUNNING_LOG §258 · §261):** `1m.4 articulation`
   ✓ · `1n dynamics` ✓ · `1o the save structure` ✓. **The design phase of session 13 is CLOSED. The task in hand is now THE BUILDS, one at a
