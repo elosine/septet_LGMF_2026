@@ -9544,3 +9544,20 @@ that column; where neither is set, what it is today. **The first question put to
 here — (A) seconds · (B) held to the next mark of the pattern (legato across the rhythm) · (C) held to THAT player's next mark ·
 (D) a fraction of the gap to the next mark, so the pattern can breathe as one — with the AI's note that C is what a player would
 do and A is what the drawer's long tone already does.
+
+## §235. Duration: A — seconds; and *"a standard short"* — what a short note is today, in three places (2026-09-21)
+
+His words: *"a but then let's have a standard short. Do we have a standard yet? Or let's discuss what a short note should be. What the
+strike. The here strike."* — the length is in SECONDS (A of §234), and a STANDARD SHORT under it.
+
+**Is there a standard? No — three lengths, none chosen** (read: `strike_drawer.js` 137 · 878 · 1270, `texture_cols.js`, `texture_panel.js`):
+- **The drawer's `hear: strike`** plays each note for the harmony's RECORDED length × the foot's `dur ×` (1), never under 30 ms — and a
+  harmony with no recorded length (a HARMONIC SERIES selection, which is what he has been composing with) gets **100 ms**.
+- **The columns** take the same, held between 60 ms and 1.5 s; **the claves 150 ms**.
+- **Texture** plays its attacks at the model's own length (his `rain` model: 0.12 s).
+So a short note today is a strike's own length, and for his harmonic-series columns it is 100 ms by a fallback nobody chose.
+
+**Put to him:** ONE standard short, a number in the bar, the default 120 ms (Texture's), used wherever nothing longer is set —
+every column note, the claves, and the drawer's `hear: strike` while a texture take is on, so the column preview and the pattern
+agree; the sample's own articulation (his staccato · spiccato) still ends a note sooner if it is shorter than that. His to set the
+number, and to say whether `hear: strike` follows it.
