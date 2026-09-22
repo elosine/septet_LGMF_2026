@@ -9476,3 +9476,56 @@ for because it is the control in front of him.
 5. `Hear orchestrated` = the clicked column's players; SPACE = the pattern; `all on` · `all off` = the column's players.
 
 **Not built.** His answer next.
+
+## §233. `1m.2` THE THIRD FORM, BUILT AND VERIFIED — a column's players ARE its ticks; the drawer a view of one column; the others dealt offline by the drawer's own code (2026-09-21)
+
+His words: *"it seems as if I have to select the column, shuffle, check boxes, and check the notes in the column. But if I don't do it in
+the right order, it doesn't seem to work."* — and *"Okay, let's try this build."* `score/public/texture_cols.js` rewritten whole (the
+second form is in git, `9651f7e`); `texture_row.js` and `strike_drawer.js` untouched.
+
+**THE ONE RULE (§232), as built.** A column is `{ state, players, notes, take }` — the drawer's `state()` (harmony · cfg · the voices
+with their players = THE DEAL), its players (drawer rows), the deal as notes, its harmony take's name. **The drawer is a VIEW of one
+column at a time — the PRIMARY (`_txHeld`, set by a recall): selecting a column puts its harmony, deal and players on the drawer
+(`applyState`, the ticks from `players`, the take box); every render of the drawer is written back into it, and ONLY into it — a
+drawer showing something else (a reload, a take re-read) is never written into a column.** The other columns are worked OFFLINE by
+`txWithColumn`: the drawer takes that column (or another's harmony as `base`) with that column's players, the drawer's own code runs
+(`shuffleOrch`, `assign`, `dropReal`), the result is stored, the drawer is put back as it was — one rule for every column, and no
+second copy of the deal.
+
+- **Tick = on = dealt = sounds.** A circle click, or a tick box in the players list while a column is selected (a capture listener
+  takes the click before the drawer's own handler — the drawer's untick MOVES a note to another player; here it must not):
+  ON → `txDealTo`: an unassigned pitch of the harmony that fits, in range first, folded only under `may fold`, chosen by the seed;
+  none free → a held pitch DOUBLED (`also`); nothing fits → on but hollow, with a word. OFF → the player's notes leave (`dropReal`),
+  nobody else moves. A fresh column: the drawer's harmony with every voice unassigned, no players.
+- **Shuffle** re-deals the primary's players (the drawer's own `shuffleOrch` on its ticks). **A harmony picked** in the list leaves
+  every voice unassigned, so the column's players are dealt it at once. **A take loaded** is a deal on ITS players: the ticks follow
+  the take. **Several selected** share the harmony · the shuffle · the take: when one of those moves on the primary, every other
+  selected column is dealt the primary's harmony on its OWN players with the same seed (`txWithColumn` + `shuffleOrch`).
+- `all on` · `all off` in the players list = the column's players while one is selected (each ON dealt in turn; the drawer's own
+  ticks otherwise). `Hear orchestrated` = the primary's players, read live. SPACE = the pattern, every column's notes.
+- Older columns brought forward once: `on` (§228) or `off` (§227) → `players`, the stored deal cut to them.
+
+**VERIFIED on `score-5401`** (1600 × 900, no MIDI, every POST stubbed — none made; his take `LGMF-S2-R1a`):
+
+| check | result |
+|---|---|
+| a fresh column | no players, no notes, `0 free`, every box clear |
+| Horn ticked in the COLUMN, Cello in the PANEL | both dealt at once (`2:66 6:76`), both boxes ticked, both circles gold |
+| Horn unticked | its note gone, the Cello's kept |
+| shuffle | the two players re-dealt (`2:73 6:80`), nobody else |
+| a second fresh column | no players; the first's kept |
+| a circle in the UNSELECTED first column | dealt offline (`7:` added), the drawer still showing the second |
+| back on the first | boxes 2 · 6 · 7, chips 2 · 6 · 7, *"Db C4 · Hn C#5 · Vc G#5"* |
+| two selected, one shuffle | both moved, each on its own players (`2 6 7` · `0 1`), the same harmony and seed |
+| a harmony picked with both selected | both on the new harmony, each dealt on its own players at once |
+| a take loaded with both selected | the primary's ticks = the take's seven players; the other dealt the take's harmony on its `0 1`; the name in both; `hear` still strike |
+| `all on` · `all off` · undo | 9 · 9 · 9 → 0 · 0 · 0 → 9 · 9 |
+| SPACE | marks at 0 · 135 · 820 ms: 7 · 2 · 9 pitched notes as the columns hold, one claves each |
+| `Hear orchestrated` | the primary's 9 players |
+| HIS ORDER REVERSED: tick 2 players → load a take → shuffle | 2 dealt → the take's 7 players → 7 re-dealt; no order needed |
+| a reload with an old-form column selected | no selection, nothing overwritten; `on: [3, 4]` → `players [3, 4]`; clicked → boxes 3 · 4 |
+
+**Found and fixed on the way:** at a reload the remembered selection made the drawer's UNRELATED state write itself into the primary
+column (the first form of the write-back trusted `sel` alone) — hence `_txHeld`, and a take re-read now drops the selection.
+
+**He must RELOAD his tab.** His columns come forward with their players.
