@@ -9378,3 +9378,20 @@ orchestrated` → the 3 ON players, one strike (0 ms spread).
 
 **He must RELOAD his tab.** His pattern and columns survive (the browser's storage); a column made before this gets its `on` from its
 ticks once.
+
+## §229. `1m.2`, his test goes on — three things HELD at his word (2026-09-21)
+
+His words are COMPOSITION_NOTES LG-70: *"you can hold on to these for now."* Nothing built. The AI's reading of each, for the build
+when he calls it:
+
+1. **`all on` · `all off` for the players' TICKS, in the orchestration panel** (the drawer's own list, `.skTick`) — one click instead
+   of nine. A drawer-side control; the columns read the ticks as they always did.
+2. **`hear` long tone WITHOUT a reshuffle.** Read in the code: a column's stored `notes` are taken at write-back (a render) from
+   `notesFor('orch')`, and the column preview (`txHearColumn`) plays those stored notes with their lengths held between 60 ms and 1.5 s
+   — so the menu's `long tone` reaches a column only through the next render, and even then is capped. The fix when he calls it: the
+   column preview reads the drawer's `notesFor('orch')` LIVE (the long-tone wrap holds it N s), filtered to the column's ON rows; the
+   stored notes stay the rhythm preview's (short, as strikes).
+3. **Which TAKE a column holds, shown on recall.** `state()` carries the harmony's id (`strikeId`) — the list row lights on recall —
+   but not the NAME of the harmony take it was loaded from (`#skTakeName` is not in a take's state). The fix when he calls it: the
+   column remembers the take name at write-back (the name box, when a take was loaded) and the status / the `i` / the take box show it
+   on recall.

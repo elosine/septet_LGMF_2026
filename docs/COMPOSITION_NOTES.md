@@ -2156,3 +2156,13 @@ His words, with a screenshot of three columns carrying the same two rows (RUNNIN
 > still assign individual instruments per column. the gray off dots are too small. You can leave them the same size as the on dots,
 > just gray instead of colored in. Also, is it possible to have an undo? If that's too difficult, that's okay. Let's fix these things
 > first and I'll continue my test."*
+
+### LG-70 · 2026-09-21 — THREE MORE FROM THE COLUMNS' TEST, HELD: all on / all off for the players' ticks; `hear` long tone without a reshuffle; which take a column holds — *"you can hold on to these for now"*
+
+His words (RUNNING_LOG §229):
+
+> *"an, all off, all on button or checkbox in the orchestration panel. to change the here. So from strike to long tone, I have to
+> reshuffle. Can we just be able to change the strike long tone to here without reshuffling? and then something that shows what tape
+> was selected when I go back and select a different column. you can hold on to these for now."*
+
+*("the here" · "tape" — speech-to-text for `hear` and take.)*
