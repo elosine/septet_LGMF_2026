@@ -46,6 +46,8 @@ const rowOf = n => (n.row != null ? n.row : n.lane);
 const lcg = seed => { let s = (seed >>> 0) || 1; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; };
 const shuffled = (a, rnd) => { const o = a.slice(); for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; };
 const SHARED = st => (st ? st.strikeId + '|' + (st.cfg && st.cfg.oSeedShuffle) : '');   // what a multi-selection shares: the harmony and the shuffle
+const isEnter = ev => ev.key === 'Enter' || ev.code === 'Enter' || ev.code === 'NumpadEnter' || ev.keyCode === 13;   // by name or by code: an automated key can come with no name
+const isEsc = ev => ev.key === 'Escape' || ev.code === 'Escape' || ev.keyCode === 27;
 
 Object.assign(D, {
     _txApplying: false, _txFromBtn: false, _txSavedOff: null, _txSavedHear: null, _txPersistT: null, _txUndo: [], _txHearSet: false, _txHeld: null,   // _txHeld: the column the drawer shows now (set by a recall) — the only one written back
@@ -142,7 +144,7 @@ Object.assign(D, {
         view.appendChild(box);
         let done = false;
         const end = ok => { if (done) return; done = true; const v = box.value; box.remove(); if (ok) this.txSetOverride(k, lane, v); else this.setStatus(t.label + ': length left as it was'); };
-        box.addEventListener('keydown', ev => { ev.stopPropagation(); if (ev.key === 'Enter') { ev.preventDefault(); end(true); } else if (ev.key === 'Escape') { ev.preventDefault(); end(false); } });
+        box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); end(true); } else if (isEsc(ev)) { ev.preventDefault(); end(false); } });
         box.addEventListener('blur', () => end(true));
         box.focus(); box.select();
         this.setStatus(t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s — their own length in seconds; blank = the column\'s (' + this.txLenWord(c, -1) + ')');
@@ -362,23 +364,28 @@ Object.assign(D, {
         const hit = this.txColHit(ev), last = this.txLastCirc();
         if (!hit && !(last && ev.detail >= 2)) return false;
         ev.preventDefault();
-        if (ev.detail >= 2) { if (ev.detail === 2 && last) this.txRevertLast(); return true; }   // 1m.3: the second press of a double-click takes the first press's tick back; `dblclick` then opens the length box
+        // 1m.3: THE SECOND PRESS of a double-click takes the first press's tick back and opens the length box HERE. No `click` or
+        // `dblclick` follows a press on a circle: the first press re-drew the columns, so the circle the mouse went down on has left
+        // the DOM, and Chrome fires no click for it (his report — *"double click on players circle just toggles it on and off"*)
+        if (ev.detail >= 2) { if (ev.detail === 2 && last) { this._txLastCirc = null; this.txRevertLast(); this.txOwnLength(last.k, last.lane); } return true; }
         if (hit.lane >= 0) { this._txLastCirc = { k: hit.d.k, lane: hit.lane, at: performance.now() }; const c = this.txCols().cols[hit.d.k]; this.txTick(hit.d.k, hit.lane, !(c && c.players.includes(hit.lane))); return true; }
         this._txLastCirc = null;
         this.txSelect(hit.d.k, !!ev.shiftKey);
         return true;
     },
-    // 1m.3: a DOUBLE-CLICK on a lit circle — that player's own length, in a box on the spot (where the circle is NOW)
-    txColDbl(ev) {
-        if (!this._tx || !this.txIsOn()) return false;
-        const last = this.txLastCirc(), hit = last ? null : this.txColHit(ev);
-        const k = last ? last.k : hit && hit.lane >= 0 ? hit.d.k : null, lane = last ? last.lane : hit ? hit.lane : -1; if (k == null || lane < 0) return false;
-        this._txLastCirc = null;
-        ev.preventDefault(); ev.stopImmediatePropagation();
+    // that player's own length in that column — the box on the spot, where the circle is NOW (after the revert's redraw)
+    txOwnLength(k, lane) {
         const c = this.txCols().cols[k], t = TRK()[lane];
-        if (!c || !c.players.includes(lane)) { this.setStatus((t ? t.label : 'that player') + ' is off in this column — tick them first, then double-click for a length of their own', true); return true; }
+        if (!c || !c.players.includes(lane)) { this.setStatus((t ? t.label : 'that player') + ' is off in this column — tick them first, then double-click for a length of their own', true); return; }
         const ys = this.txRowsY(), d = this.txDot(k);
         this.txOpenLenBox(k, lane, this.txX(d.t) + this.txMarkW() / 2, ys[lane] != null ? ys[lane] : COL_TOP);
+    },
+    // a browser that does send the `dblclick` (one that fires a click for a re-drawn target): nothing more once the box is open
+    txColDbl(ev) {
+        if (!this._tx || !this.txIsOn()) return false;
+        if (this.el.querySelector('#txLenBox')) { ev.preventDefault(); ev.stopImmediatePropagation(); return true; }
+        const hit = this.txColHit(ev); if (!hit || hit.lane < 0) return false;
+        ev.preventDefault(); ev.stopImmediatePropagation(); this.txOwnLength(hit.d.k, hit.lane);
         return true;
     },
 
@@ -436,7 +443,7 @@ D.txEnsureUI = function () {
         const sb = len.querySelector('#txShort'), lb = len.querySelector('#txLen');
         sb.addEventListener('change', e => this.txSetShort(e.target.value));
         lb.addEventListener('change', e => this.txSetLen(e.target.value));
-        [sb, lb].forEach(b => b.addEventListener('keydown', ev => { ev.stopPropagation(); if (ev.key === 'Enter') { ev.preventDefault(); b.blur(); } else if (ev.key === 'Escape') { ev.preventDefault(); this.txPaintLenUI(); b.blur(); } }));
+        [sb, lb].forEach(b => b.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); b.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintLenUI(); b.blur(); } }));
         const svg = this.el.querySelector('#txSvg');
         if (svg && !svg._txColDbl) { svg._txColDbl = true; svg.addEventListener('dblclick', ev => { try { this.txColDbl(ev); } catch (e) { console.warn('[texture_cols] dblclick:', e); } }); }
         const hearO = this.el.querySelector('#skHearO'); if (hearO && !hearO._txBound) { hearO._txBound = true; hearO.addEventListener('click', () => { this._txFromBtn = true; }, true); }

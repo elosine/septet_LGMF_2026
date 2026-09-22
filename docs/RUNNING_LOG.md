@@ -9629,3 +9629,34 @@ third's own note-off 201 ms after it. Overlapping identical notes on one channel
 listening.)*
 
 **He must RELOAD his tab.** His columns come forward with no length set: everything at the short, 120 ms, until he says.
+
+## §238. `1m.3`, his first test: *"double click on players circle just toggles it on and off"* — no `click` or `dblclick` follows a press on a circle the tick re-drew; the box now opens on the second press (2026-09-21)
+
+His report, on reloading: *"double click on players circle just toggles it on and off."* Read first against §237: the second press DID
+take the first press's tick back (that is the on-and-off he saw); the box never came. **Reproduced with REAL clicks** — the browser
+pane's own double-click on the Horn circle, not events dispatched by hand as §237's verification had done. What the page received:
+`mousedown` (detail 1) · `mouseup` · `mousedown` (detail 2) · `mouseup` — **and no `click`, no `dblclick`.** Why: the first press
+ticks the player and re-draws the columns (`svg.innerHTML`), so the circle the mouse went down on has left the DOM by the time the
+mouse comes up, and Chrome fires no click for a target that is gone — and so no double-click either. §237's synthetic sequence
+dispatched the `dblclick` itself and could not see this. The row-shift fix of §237 still stands and still matters; it was not the
+whole story.
+
+**Fixed:** the SECOND PRESS opens the box itself (`txColDown`, `detail === 2`): the first press's tick taken back, the box placed on
+the circle as it stands after that redraw, focused; the mousedown's default is prevented so the focus stays. The `dblclick` listener
+stays for a browser that does send one, and does nothing when the box is already open. Along the way: ENTER and ESC in the box and
+in the bar's two boxes are read by key NAME or CODE (`Enter` · `NumpadEnter` · 13 · `Escape` · 27) — an automated key can arrive
+with no name, and it costs nothing.
+
+**VERIFIED on `score-5401` with real mouse and keyboard** (the pane's own double-click, typing and keys; every POST stubbed — none):
+
+| gesture | result |
+|---|---|
+| a real double-click on Horn's lit circle | `mousedown 1 · mouseup · mousedown 2 · mouseup` reach the page, no click, no dblclick — the box is open, focused, placeholder `2 s`, ten seconds later still; Horn on, his note kept |
+| `0.5` typed, ENTER | the box goes, `lens {2: 0.5}` in the column and in the browser's store, the bar outlined at 0.5 × 42.9 px, *"Horn at 0.00 s: 0.5 s, their own"* |
+| a second double-click, `1` typed, a click elsewhere (the ruler) | the box goes on the click, `lens {2: 1}`, the bar 42.9 px; the cursor moved as the ruler click should |
+| a second double-click aimed where the circle WAS | missed — the circle had moved 11 px after the first commit's redraw (the rows re-flow, §237); aimed where it IS, it worked. His circles do move after every render; that is 1m.2's alignment, left as it is |
+
+*(The pane's `Return` key arrives with no name and no code and never commits; its `Enter` carries the name and does. His keyboard
+sends both.)*
+
+**He must RELOAD his tab** again.

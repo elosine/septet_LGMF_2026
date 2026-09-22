@@ -1821,7 +1821,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **Built 2026-09-21 as agreed (RUNNING_LOG §237), with these calls of the AI's, his to reverse:** a player's own length leaves with
       them when unticked · `length` is shared by the box only, not by the write-back · a bar is drawn only for a length he set · `length`
       and a player's own are undone by ↶, `short` is not · found on the way: a double-click's second press missed the circle because a
-      tick re-renders the list and its rows change height — the first press now remembers its circle for the second and the `dblclick`.
+      tick re-renders the list and its rows change height — the first press now remembers its circle for the second press, WHICH OPENS THE BOX ITSELF:
+      no click or dblclick follows a press on a circle the tick re-drew (§238, after his first test, *"just toggles it on and off"*).
 
 ## 2. Notate — `todo`
 
