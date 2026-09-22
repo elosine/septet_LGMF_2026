@@ -111,12 +111,44 @@ USED by him before the next — so nothing of articulation is planned yet.*
   RUNNING_LOG §190 · §217. Code only when a question names it: `score/public/texture_cols.js` · the drawer's articulation roster in
   `strike_drawer.js`.
 
+### SESSION 13 · RUNNING ORDER — `1m.4` THE DISCUSSION (2026-09-22, Fable; his word: *"as long as you are keeping track and pls keep the overall organization"*)
+
+*Phase 1 of the planning method, one issue at a time; nothing built. Position is announced at every wrap. Reorder only on his approval.*
+
+**Part I — WHAT AN ARTICULATION IS** (RUNNING_LOG §243 · §244) — **agreed:** one named voice of one instrument; every entry carries as DATA its
+kind (pitched · by key · fixed) · its loudness source (velocity · mod wheel) · its keys where by key. The by-key maps must be read from his rack.
+Presets set aside; a saved set of his own noted (LG-79).
+
+**Part II — THE ORCHESTRATION PANEL versus THE COLUMNS** (RUNNING_LOG §245; the terms there):
+- ✓ 0. THE ARCHITECTURE — **DECIDED: THE LENS** (LG-81, RUNNING_LOG §248 · §249): the column owns its orchestration; the panel shows and edits the selection and keeps only a DEFAULTS memory. Rejected: mother → child · templates. *(promote to §4 at the close)*
+- **BINDING from here (his, LG-81): THE SHIELD** — the strike mode (strikes · rhythm · long tone) behaves exactly as before `1m`; a required verification of every `1m` step.
+- ✓ **DECIDED (LG-83, RUNNING_LOG §252): THE COLUMN IS A PASSIVE INDICATOR** — one gesture (select); every control in the OP, in two kinds kept apart: what a take carries (harmony · deal · articulations) and what the column alone carries (plays · length · dynamic, per row and per column). The double-click of 1m.3 goes. Closes D and H. *(promote to §4 at the close)*
+- ✓ **CONFIRMED (LG-83): THE ONE RULE for a take** (§251) · **J** a mark switched off keeps its column
+- **► A … H under the lens** — restated one line each (§249); B walked by scenario (§250 · §251) — **THE ONE RULE for a take** (§251) put to him; **E (the pattern changes) is the one still open**
+- ✓ **I · J · K decided (§251 · §257):** I (b) click, SHIFT+click = the range, CTRL+click = one · J a mark off keeps its column · K (b) `deal: repeat | spread`, the plan's last step, built only on his word
+- **✓ PHASES 1 · 2 · 3 CLOSED — `1m.4 articulation` WRITTEN INTO PLAN (§260), phase 3 skipped at his word; the calls made alone are marked [call] there. ► NEXT: checkpoint + clear → BUILD on Opus (1m.4.1 → .3 → .4 → .5 → .6, one commit each, the shield in each; .2 at his rack; .7 on his word) → his ONE test → vet `1n dynamics` on Fable → `1o the save structure`**
+- ✓ **E RESOLVED (LG-84 → LG-85, §254 · §255): a texture load is always EMPTY; a pattern is a document of its own, saved under its own name, several per texture, and it CARRIES A COPY of the onsets** — so Texture needs no save protection (§254's decision 1 dropped). Today's code (one pattern per texture name, brought back on load) is the opposite and changes in the separate plan.
+- **SEPARATE PLAN, noted at his word (LG-84): WHAT IS SAVED FROM THIS BUILD** — the pattern as a named document, what it holds, where it lives (today: the browser only, one store per tab — L). No answer now.
+- **HIS STANDARD for the rest of 1m.4 (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second
+- B. Primary-only versus shared actions
+- C. A fresh column
+- D. The panel with nothing selected
+- E. The pattern changes — what becomes of the columns
+- F. Reload and source switch — what the panel shows on return
+- G. Two defaults for a column's articulation (A's twin)
+- H. The players list in a multi-selection
+
+**Then:** the top line of `1m.4` (phase 2) → the steps (phase 3) → written into PLAN → **plan 2, DYNAMICS with hairpins and crescendos** (his agenda item 2, LG-74).
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
-| **►** | **his tests of `1m.1` · `1m.2` · `1m.3`** — he reloads the tab: the row · the columns (a column's players are its ticks, §233) · `short` · `length` · a double-click on a lit circle (§237 · §238). A fault is read first against that step's RUNNING_LOG entry | his · Fable to read a fault | — |
+| **►►** | **BUILD `1m.4 articulation`** — PLAN § `1m.4` written 2026-09-22 (§260): 1m.4.1 → .3 → .4 → .5 → .6, one commit per step, THE SHIELD verified in each; 1m.4.2 at his rack; 1m.4.7 on his word. Then HIS ONE TEST (duration vetted in it) | Opus | yes — checkpoint first |
+| ► | **plan 2 — DYNAMICS with hairpins and crescendos** (LG-74; nothing said yet; `1f` belongs to it) | Fable | yes — checkpoint first |
+| ► | **plan 3 — THE SAVE STRUCTURE** (LG-84 · LG-85: the pattern as a named document, a library, where it lives, how Insert reads it) | Fable | yes |
+| ► | **the builds, one per clear, his listen between:** `1m.4` → dynamics → the save structure + Insert. His tests of `1m.1` · `1m.2` · `1m.3` still owed — what matters from them now is the SOUND and the row (step 5 of `1m.4` replaces the column's gestures) | Opus | yes |
+| ✓ phase 1 | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
 | N0 | **the rest of `1m`, in the order he names:** Insert · the percussion row · dynamics · re-attack (PLAN § `1m`, *Held*) | Fable to lay out · Opus to build | — |
 | N0a | **the Rhythm sequence panel and `1l.8`** — not decided since his verdict (§214); he composed `LGMF-Rseq-01` with it. The three items collected in it (§207: triangles where the claves should be · Texture resizable · SPACE stays Texture's) wait on that decision | his | — |
 | N0b | **MULTITEMPO AS A RHYTHM SOURCE** (LG-61; RUNNING_LOG §208 · §209) — planning phase 1 closed for Texture: ratios · BPM · length, steady first, accel / decel later; `1m`'s `source` menu already reserves `multitempo — later` | Fable | yes |
@@ -128,9 +160,7 @@ USED by him before the next — so nothing of articulation is planned yet.*
 
 **Open at session end (2026-09-21, session 12, Opus):**
 
-- **In his hands, his tests outstanding — he RELOADS his tab:** `1m.1` the row (`texture_row.js`) · `1m.2` the columns, third form
-  (`texture_cols.js`) · `1m.3` duration (the same file; §238 fixed his first report). All of it lives in the browser's storage, key
-  `lgmf.textureRow.v1` — nothing of `1m` is on disk or in a score yet (Insert is not built).
+- **His tests of `1m.1 the row` · `1m.2 the columns` · `1m.3 duration` — CLOSED at his word, untested (2026-09-22, RUNNING_LOG §259): one test after the `1m.4 articulation` build, duration vetted in it.** All of `1m` lives in the browser's storage, key `lgmf.textureRow.v1` — nothing on disk or in a score yet (Insert is not built).
 - **THE TRIANGLE:** track 10 `Percussion` in his rack takes `LGPerc` on ALL channels (§221) — his to mute, or give its input a channel
   nothing uses; then `docs/RACK_SETTINGS.md`.
 - **The AI's calls, his to reverse:** `1l`'s build — the claves at key 41 · models fitted to seven · 7.5 → `f` · cents kept in Texture ·

@@ -2195,3 +2195,160 @@ orchestration?"*
 
 His words (RUNNING_LOG §234): *"All right, let's discuss duration. I like to be able to set a duration per column, column, but also
 uh, per note, per instrument. So I guess like an override. Let's discuss."*
+
+### LG-74 · 2026-09-22 — THE TWO PLANS: articulations, then dynamics with hairpins and crescendos
+
+His words at the opening of session 13 (typed as the argument of `/postclear` — *"I meant to do /session-start"* — then `/session-start`
+run in its place): *"Let's make a plan to put in articulations. And then let's make a separate plan to do dynamics. And in the dynamics,
+I want to include hairpins, crescendos."* And to the agenda: *"Go."*
+
+*AI's reading, marked as such:* two plan items, one after the other, each under the planning method. (1) articulation in the texture
+take — `1m`'s scenario item (3), to be written as `1m.4`; (2) a SEPARATE item for dynamics, hairpins and crescendos named by him.
+Whether (2) is the texture take's dynamics only (the Held list's "the dynamic of a note") or reaches the score's crescendo tool as well
+(`1f`, still on the old law) is held for its own phase 1 — one topic at a time.
+
+### LG-75 · 2026-09-22 — ARTICULATION in the texture take: switch the PRESET; the percussion's is an instrument AND a MIDI note
+
+His words, phase 1 of `1m.4`, after the AI's table of what a fresh column sounds with today (RUNNING_LOG §240): *"Just one correction
+is for a rhythm, the new rhythm sequence texture. We're using, I believe, Ordinario as the default. And for this articulation, I mean,
+I want to be able to switch essentially the preset. And in some cases, there might be some additional specification, like in the
+percussion, there will be a MIDI note. So I might want to do claves high paired one. And that not only would be the claves track and
+port number, but also a particular MIDI note. And then in some other cases, there might be some other types of considerations which we
+can address in another time, like modulation wheel or a certain velocity. But those particulars, not for this time."*
+
+*AI's reading, marked as such:* (1) the articulation of the texture take is the drawer's `set` line — the PRESET (percussive · spiccato ·
+staccato · ordinario) — switched, not a new roster; (2) the percussion's articulation is two things, the instrument (its track and port)
+AND a particular key on it — *"claves high paired one"* = the Claves track, the key of pair 1 high; (3) held by him for another time: a
+modulation-wheel value, a set velocity. His belief about the default (ordinario) is checked against the code in RUNNING_LOG §241.
+
+### LG-76 · 2026-09-22 — THE PERCUSSION IS A PLAYER LIKE THE OTHERS: one articulation menu, the instruments, their keys indented
+
+His words, to the question of whether the percussion row is this step or the next (RUNNING_LOG §241): *"the percussion should be treated
+like the other instruments. So currently in the orchestration panel, I can pull down the articulation menu for any instrument and select,
+for example, Bartok Pizzicato for the cello. This would be the same for the percussion. One menu, all of the instruments, and then also the
+ability to add, as we add instruments to the rack. And then within each of those instruments, the different articulations. Maybe they can be
+just indented by separate selections on the menu. So claves, and then maybe just indented It would be claves high pair, claves low pair,
+whatever."*
+
+*AI's reading, marked as such:* the percussion's row in the drawer gets the SAME menu as every other row — one pull-down — whose entries are
+the rack's percussion instruments, and under each, indented, its keys by name ("Pair 1 High" …); a choice is instrument + key; the list grows
+when he adds an instrument to the rack. So the percussion is IN this step (his (b) of §241, by his description rather than by the letter), and
+the held item "the percussion row" is settled by it: a ticked percussion plays its chosen instrument and key at the onset — no pitch is dealt to it.
+
+### LG-77 · 2026-09-22 — KEY-BASED ARTICULATIONS beyond the percussion: multiphonics, key clicks — unpitched, the key picks a distinct effect
+
+His words, agreeing to the recommendation of RUNNING_LOG §243 (kind · loudness source · keys as data on every voice, before any menu):
+*"Okay, yes, I agree with this, but also I would add that some of the instruments have key-based articulations. For example, I believe
+multiphonics, I'm not sure if the horn or trumpet have them, but in some of the SI instruments, multiphonics or key clicks, that sort of thing,
+they aren't pitched, but they use pitch MIDI uh, key numbers to produce a certain effect that are distinct from each other."*
+
+*AI's reading, marked as such:* the percussion is not the only BY-KEY case. A by-key voice is one where the key number does not choose a pitch
+but one of several distinct sounds — the percussion's Pair 1 High, a bassoon multiphonic, an english horn key noise. So the definition's KIND
+gets the value "by key", and every by-key voice needs a table of its keys with names, as the claves entry has. The drawer's stand-in for
+"noise / multiphonic" was a way of coping without that table.
+
+### LG-78 · 2026-09-22 — THE ORCHESTRATION PANEL (his name for it) versus the columns: what carries over, what survives — *"a lot of problems"*
+
+His words, after the by-key read-back (RUNNING_LOG §244): *"No, there are a couple more issues to discuss here. And one is the way the drawer, the
+orchestration panel, let's give it that a proper name that's easily to identify. I'll just call it the orchestration panel. That's fine, but let's
+make sure we understand, have the same understanding. So the orchestration panel versus the column selection. and how things get carried over
+yeah. and are survived. There's been a lot of problems. So I just want to clear these things up, but I need your help to organize it a little bit.
+So there are a number of issues concerning the relationship between the orchestration panel, the individual columns, and then how uh, carryover or
+switching it's done, or when I select a new panel or select a new take, all these things need to get sort of smoothed out. But I need some help
+organizing what issues are there and coming up with the proper uh, spec for them."*
+
+*AI's reading, marked as such:* a second topic inside `1m.4`, and the larger one — the STATE MODEL of the texture take: what a column holds, what
+the orchestration panel holds, and what every event (select · add to the selection · tick · shuffle · pick a harmony · load a take · change an
+articulation or the set · a length · reload · switch source · change the pattern) does to each. LG-71 and LG-72 were failures of exactly this.
+He asks for the issues organized first, then a spec — the planning method's phase 1, one issue at a time.
+
+### LG-79 · 2026-09-22 — A SAVED SET OF ARTICULATIONS: set the ensemble's articulations, save them as a preset of his own, recall by name
+
+His words, a note for later, before the panel-versus-columns issues are taken up (RUNNING_LOG §245): *"Just a note before we get there, or for
+when we get there, so I don't forget. I want a way to save a set of articulations. So like we have staccato now, or percussive. I want to be able
+to set a ensemble's articulations and then save it as a preset to recall."*
+
+*AI's reading, marked as such:* the four built-in sets (percussive · spiccato · staccato · ordinario) become the first entries of a list HE can
+add to — set every row's articulation as he wants it, `save` as a named preset, recall it from the `set` line. The wave presets of the sequence
+drawer (`save preset`, 1d.13) are the idiom. Presets are set aside at his word until the definition (§243 · §244) and the state model (§245) are
+settled; this waits with them. Written into PLAN § `1m` *Held* so it is not lost.
+
+### LG-80 · 2026-09-22 — A STEP BACK: is the orchestration panel the mother and the column the child? what other architectures; what follows downstream
+
+His words, in issue A (RUNNING_LOG §247), after asking what the panel's dials are: *"let me just take a step back one of the models in my head, and
+I'm not sure it is the correct one, is that the orchPanel OP is the mother and the column is the child. is this the right architecture? are there
+others to consider? then what is the downstream consequence to our current decision? and I rely on you to keep things organized and in their right
+order as far as upstream/downstream effects and methodology vs practical impacts on code/workflow"*
+
+*AI's reading, marked as such:* the architecture is UPSTREAM of every issue A … H — who owns the truth of a column's orchestration, the panel or the
+column — and must be decided first. He names the model he holds (mother → child) and asks whether it is the right one. The running order gets a
+step 0 before A.
+
+### LG-81 · 2026-09-22 — THE LENS, decided; SHIELD everything before the texture mods; and a later idea — the column's dots as indicators only, the controls on the panel
+
+His words, to the three models of RUNNING_LOG §248: *"ok lens I think, on the lens; and I forgot to mention at the top that I would like to sheild
+the original rhythm/strikes functionality and the longtone we added later so all of the functionality before the texture mods, make sure that we
+are not interfering with that; and then, this may come later, but I was imagining the mother/child being that the column dots etc are just
+indicators, moving all the controls back to the op but we can talk later about this and any pitfalls or scenarios that we would need some controls
+on the column tool. and can I get a-h more simply"*
+
+*AI's reading, marked as such:* (1) DECIDED — the lens: the column owns its orchestration, the panel shows and edits the selection and keeps only a
+defaults memory. (2) A BINDING CONSTRAINT on every texture build: the strike mode — the strikes, its rhythm, the long tone (1c.2) — must behave
+exactly as before; the texture code is a mixin that acts only while a texture take is the source. (3) HELD for later, at his word: the column's
+circles as INDICATORS only, every control on the panel — with the pitfalls and the scenarios where the column itself needs a control (the tick,
+the double-click length) talked through before it is decided.
+
+### LG-82 · 2026-09-22 — TWO SCENARIOS, dictated: a harmony and a set over a stretch, then the middle second re-harmonized; "the expedient solution even if some things are less convenient"
+
+His words (B of RUNNING_LOG §250): *"let me dictate one or 2 scenarios and you can keep track of the issues/architecture it touches and then after
+we can see if there are more issues to consider not surfaced by the scenarios; I want a certian harmony and articulation set to preside over a
+certian duration of time, so I select the columns over 3 seconds, apply a take and preset of articulations, I would then still like to go thru and:
+toggle on/off some of the columns, shuffle the pitch assignments of certian columns, select the players for the individual columns, maybe change
+some configurations; more complex: I decide the middle second should be a different harmony, so I select all of those columns and change the take
+and then what for those, ressign the custom articulations? how about duration s and dynamics which we havent talked about, do those come with the
+take, I just realized I wanted to quarantene dynamics including hairpins, durations, but they might need to come in to the takes vs column
+discussion; I don't want to overthink this, I just mainly want to preserve functionality and avoid unnessary troubleshooting, so the expediant
+solution even if some things are less convienent"*
+
+*AI's reading, marked as such:* the scenarios are the test of A · B · E · G at once; his questions — do the custom articulations survive a new
+take, do lengths and dynamics come with a take — are answered by ONE rule (a take brings pitches, and on an empty column its players; everything
+else is the column's and stays), which keeps dynamics quarantined. His standard for the whole of `1m.4`: the expedient rule, functionality
+preserved, troubleshooting avoided, convenience second. Walked in RUNNING_LOG §251.
+
+### LG-83 · 2026-09-22 — The rule holds, J is right; and the columns as PASSIVE INDICATORS: lit / grey, the length bars, a dynamic — set in the OP, kept apart from the take
+
+His words, to the walk of RUNNING_LOG §251: *"yes the rule holds, J is right, and how my mother/child with the added dimentions so this is column
+vs. op not necessarily take which I think we settled. so if cols are passive indicators, lit/grey does that inst play, duration lines for dur,
+dynamic? and should we set them in the op but keep them separate from the take?"*
+
+*AI's reading, marked as such:* the held idea of LG-81 comes forward, sharpened — it is about the column and the orchestration panel, the take
+being settled by the one rule. A column becomes a DISPLAY: a lit or grey circle = that player plays or not · a bar = the length · a mark = the
+dynamic (plan 2). Every control lives in the OP: the row's box (plays), its articulation, its length, its dynamic; the column-level length and
+dynamic in the bar. All of these are the COLUMN's properties, never a take's — which is the one rule. The column keeps one gesture: being selected.
+
+### LG-84 · 2026-09-22 — Prune at source: Texture never overwrites a take by name; the texture is UPSTREAM and the orchestrated pattern is its own save; "what is saved from this build" is a separate plan
+
+His words, to E (RUNNING_LOG §253): *"I need this more simple and broken down around the actual decisions that need to be made and the things I
+need to understand/consider. 2 things: My initial reaction is to prune at source lets make the texture panel not alowed to override so likes saves
+tex02b-(1) or something like that; but this brings up the larger point as to what the interaction is, so when all is said and done what is saved
+from this build, the texture rithms etc, so like morphs dials or what? but no answer now this issue will be a separate build/plan just take note;
+but here if I reload a texture it is a new file essentially right? so the texture is upstream? I load a texture turn onsets on/off assign takes
+dynamics etc, this belongs to another save file right, I can save it, recall it later make changes, but not change its underlying texture right? if
+I want a new texture, I start over and that is a different save file? or what is the alternative if worth considering if not nevermind"*
+
+*AI's reading, marked as such:* (1) DECISION — Texture saves a new name rather than overwrite (`tex02b-(1)`); E's hole closes at the source. (2) HIS
+MODEL, confirmed by the code: the texture (the rhythm take) is upstream and read-only under the pattern; the orchestrated pattern — marks · range ·
+columns with their takes, players, articulations, lengths, later dynamics — is a thing of its own, saved, recalled, changed, never changing its
+texture; a new texture is a new one. (3) NOTED FOR A SEPARATE PLAN, no answer now: what this build SAVES when all is said and done — the pattern as
+a named document, what it holds, where it lives (browser · library · score).
+
+### LG-85 · 2026-09-22 — The texture is the SPINE for a new thing, always empty; several patterns on one texture; so no save protection in Texture
+
+His words, correcting RUNNING_LOG §254's "one pattern per texture, by name": *"no. texture is the spine for a new thing always empty. so I can
+build several different rhythm sequences on the same texture. texture load never comes with anything. so I guess we don't need the save protection
+in the texture drawer"*
+
+*AI's reading, marked as such:* loading a texture STARTS a new, empty pattern; a pattern is a document of its own, saved under its own name,
+several per texture; nothing rides on the texture. His conclusion — no save protection needed in Texture — holds on ONE condition, put to him in
+§255: the pattern carries its OWN COPY of the texture's onsets, so a take overwritten later cannot reach it. Decision 1 of §254 is dropped in favour
+of that copy. Today's code (one pattern per texture name, brought back on load) is the opposite of his model and changes in the "what is saved" plan.

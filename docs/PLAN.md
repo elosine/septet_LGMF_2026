@@ -1721,11 +1721,11 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     does on one strike today — a selection of columns is one strike spread over time, one shuffle re-deals every note in it from the same
     harmony; a column not selected never changes · (3) articulation and percussion — not yet talked through.
   - **NEXT, his word at session 12's close (2026-09-21):** *"Next session will start with types of articulation"* — scenario item (3),
-    laid out with him under the planning method, then written here as `1m.4` (RUNNING_LOG §239).
+    laid out with him under the planning method, then written here as `1m.4` (RUNNING_LOG §239). **WRITTEN 2026-09-22 — `1m.4` below (RUNNING_LOG §240 … §260).**
   - **Held, his to answer when its step comes:** the same player on in two selected columns (a strike gives a player one note) · a column
     remembering its harmony · hearing the whole pattern with its pitches · the dynamic of a note · a re-attack closer than a player can
-    make (flagged, never moved — LG-58) · multitempo as a third source (LG-61) · what becomes of the Rhythm sequence panel and `1l.8`.
-  - **1m.1 — The switch and the top row** — `built` 2026-09-21 — **his test outstanding; RELOAD the tab** (RUNNING_LOG §220:
+    make (flagged, never moved — LG-58) · multitempo as a third source (LG-61) · what becomes of the Rhythm sequence panel and `1l.8`. · **a SAVED SET OF ARTICULATIONS** — the ensemble's rows set as he wants them and saved as a preset of his own, recalled by name from the `set` line (LG-79, 2026-09-22; with the presets, set aside until the definition and the state model are settled, RUNNING_LOG §243 · §245). · **WHAT IS SAVED FROM THIS BUILD — a separate plan** (LG-84 · LG-85, RUNNING_LOG §254 · §255; decided in principle): a texture load is always EMPTY; a pattern is a named DOCUMENT of its own — a COPY of the onsets + the texture's name + marks · range · columns — several per texture, a library of them; where it lives and how Insert reads it are that plan's. Because the pattern carries its copy, Texture needs no save protection. Today's code (one pattern per texture name, brought back on load) is the opposite and changes there.
+  - **1m.1 — The switch and the top row** — `built` 2026-09-21 — **his test closed at his word 2026-09-22, untested — one test after `1m.4` (RUNNING_LOG §259)** (RUNNING_LOG §220:
     `score/public/texture_row.js`, a mixin on the drawer — `strike_drawer.js` is not changed; one script tag in `composer.html`; the
     layout item is two lines in `spectrum_ui.js`, committed alone)
     *Result when done:* in the strikes drawer he chooses where the rhythm comes from. On `the strike` the drawer is exactly what it was.
@@ -1761,7 +1761,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His, in his Chrome:** the look and the feel of it · the zoom's direction (the main score's; one word flips it) · **the claves by
       ear** · then the next step, laid out with him: the columns.
 
-  - **1m.2 — The columns: every ON mark orchestrated with the drawer's left side** — `built` 2026-09-21 — **his test outstanding; RELOAD the tab** (RUNNING_LOG §227: `score/public/texture_cols.js`, a mixin on `texture_row.js`; a column is a drawer TAKE + its ticks + its notes, linked after every render, recalled by `applyState`; SPACE the rhythm preview with a `claves` toggle; `strike_drawer.js` unchanged) — agreed in RUNNING_LOG §224 …
+  - **1m.2 — The columns: every ON mark orchestrated with the drawer's left side** — `built` 2026-09-21 — **his test closed at his word 2026-09-22, untested — one test after `1m.4` (RUNNING_LOG §259)** (RUNNING_LOG §227: `score/public/texture_cols.js`, a mixin on `texture_row.js`; a column is a drawer TAKE + its ticks + its notes, linked after every render, recalled by `applyState`; SPACE the rhythm preview with a `claves` toggle; `strike_drawer.js` unchanged) — agreed in RUNNING_LOG §224 …
     §226 (COMPOSITION_NOTES LG-67 · LG-68), his word *"ok good for build"*.
     *Result when done:* under every ON mark of the top row there is a column of the drawer's player rows — nine: eight players and the
     vibraphone's second seat, the percussion's row kept but not addressed — a circle each, all off. He clicks a column to select it,
@@ -1800,7 +1800,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His, in his Chrome:** the look of it against the players list · the ear · what he meets in practice (*"I'll just have to see
       them in practice"*).
 
-  - **1m.3 — Duration: a standard short, a length per column, an override per player** — `built` 2026-09-21 — **his test outstanding; RELOAD the tab** (RUNNING_LOG §237; `score/public/texture_cols.js` alone; `texture_row.js` · `strike_drawer.js` unchanged) — agreed 2026-09-21 (RUNNING_LOG §234 …
+  - **1m.3 — Duration: a standard short, a length per column, an override per player** — `built` 2026-09-21 — **his test closed at his word 2026-09-22, untested — one test after `1m.4` (RUNNING_LOG §259)** (RUNNING_LOG §237; `score/public/texture_cols.js` alone; `texture_row.js` · `strike_drawer.js` unchanged) — agreed 2026-09-21 (RUNNING_LOG §234 …
     §236, COMPOSITION_NOTES LG-73; his go: *"lets clear then build"*).
     *Result when done:* every note in the pattern has a length he chose. Where he chose nothing it is THE STANDARD SHORT, 120 ms — the
     column notes, the claves, and the drawer's `hear: strike` while a texture take is on, so the column preview and the pattern agree.
@@ -1825,6 +1825,100 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       and a player's own are undone by ↶, `short` is not · found on the way: a double-click's second press missed the circle because a
       tick re-renders the list and its rows change height — the first press now remembers its circle for the second press, WHICH OPENS THE BOX ITSELF:
       no click or dblclick follows a press on a circle the tick re-drew (§238, after his first test, *"just toggles it on and off"*).
+
+  - **1m.4 — Types of articulation, and the orchestration panel as a LENS on the columns** — `planned` 2026-09-22 — **not built** —
+    laid out with him under the planning method, phase 1 whole (RUNNING_LOG §240 … §259; COMPOSITION_NOTES LG-74 … LG-85); the top line
+    stood as put (§257 · §259); phase 3 written by the AI alone at his word — *"we can skip the formal planning as long as you are comfortable
+    that the plan has been vetted and there aren't any open questions"* (§260). **The calls made alone are marked [call], his to reverse.**
+    *Why:* his word at session 12's close — *"Next session will start with types of articulation"* — and, under it, the relationship between the
+    orchestration panel and the columns that broke in his hands twice (LG-71 · LG-72).
+    *Result when done:* every voice carries as data what it is and what it needs · the percussion and every by-key voice are chosen by NAME from a
+    menu, the instrument then its key · the orchestration panel is a LENS on the selected column(s): every action to all of them, "mixed" where
+    they differ, grey with nothing selected, a fresh column empty · a take brings its pitches, and onto an empty column its players and their
+    articulations, never its dials · the column is a passive indicator with one gesture, select · a stretch is selected by click, SHIFT+click ·
+    `deal: repeat | spread` written, not built · **THE STRIKE MODE BEHAVES EXACTLY AS BEFORE — THE SHIELD, verified on every step.**
+    **His standard (LG-82):** the expedient rule, functionality preserved, troubleshooting avoided, convenience second.
+    **Held, not in this item:** presets (the set switched for the selection IS 1m.4.4; a saved set of his own, LG-79, waits) · the mod wheel
+    itself (LG-75) · Insert and where the pattern lives (plan `1o` the save structure) · dynamics (plan `1n`).
+    **Two dependencies, not questions:** 1m.4.2 needs his rack open (a rack window, his) · Insert needs plan `1o`.
+
+    - **1m.4.1 — Every voice knows itself** (kind · loudness source · keys, as data on every entry; a check that none is missing)
+      - In `sandbox/instruments.js` every technique entry gets `kind`: `pitched` · `key` (the key chooses one of N named sounds — the
+        percussion, multiphonics, key clicks, noises) · `fixed` (open strings, natural harmonics: the nearest to the harmony note). Filled by
+        the AI from the names, the manuals and the catalog; the drawer's name rule `kindOf` becomes the fallback where the field is missing,
+        and the check names those entries.
+      - Every entry gets `loud`: `vel` (velocity — the law's struck note) or `mw` (the mod wheel — Xsample's `MW` presets). An `MW Shape` /
+        `MW inverted` preset is `vel` with `shape: 'mw'` — its loudness is velocity, the wheel only shapes it **[call]**.
+      - Every `key` entry gets `keys: [{ midi, label }]` — the percussion's are there already (apply_perc.js); the SI2 and Xsample by-key
+        voices get `keys: 'pending'` until 1m.4.2 fills them.
+      - `tools/roster_check.js`: every entry has `kind` and `loud`; every `key` entry has `keys` or `pending`; counts per instrument; the
+        pending list printed. Joins the palette battery in CLAUDE.md.
+      - The only code change: `kindOf` reads the field first. Nothing sounds different.
+      - **REQUIRED VERIFICATION:** `roster_check` zero missing · `palette_check` 198 · THE SHIELD: one strike's notes and routes captured in
+        the strike mode before and after (`score-5401`, no MIDI, every POST stubbed), byte-identical.
+
+    - **1m.4.2 — The by-key maps, read from his rack** (a rack window: his, with the AI reading the sampler's own key display)
+      - One instrument at a time, the part or preset open in his rack: the mapped keys and their names read from the sampler (UVI: the part's
+        keyboard · Kontakt: the instrument's mapping) into `keys` — bassoon multiphonics · key click · blow without reed; english horn
+        multiphonics (2) · key noises · various noises · air noises (2) · undefined tones; cello and bass tailpiece (2) · behind the bridge ·
+        peg box · finger · body · undefined (2); horn and trumpet checked for any (§244's list are suspects, not facts).
+      - Where the sampler names nothing, the key's note name is the label (`C2`) **[call]**.
+      - Runs whenever he sits at the rack — after 1m.4.3 … 1m.4.6 is fine: a `pending` voice shows its keys as plain note names until filled **[call]**.
+      - **REQUIRED VERIFICATION:** `roster_check` prints no `pending` · one by-key voice per library heard on his Chrome at the key chosen.
+
+    - **1m.4.3 — The menus** (a by-key voice's keys indented under it, the percussion the same; the wheel voices marked; a key chosen sets the note)
+      - The row's pull-down and the picker: a `key` voice is a heading with its keys indented under it (`Claves` → `Pair 1 High` …); choosing a
+        key sets the row's voice AND its note. The percussion and every by-key voice alike.
+      - A `key` voice is dealt NO pitch: its note is the key; the shuffle and the mini-deal leave it; the keyboard shows it as a dot at the key.
+      - A `mw` voice is shown greyed, still selectable, with a status line — *takes its loudness from the mod wheel; nothing sends it yet* **[call]**.
+      - The four sets never write the percussion row (today every set writes `main`, the placeholder) **[call]**.
+      - A take saves and recalls the key with the voice (`tech` + `midi`), in the strike mode too; a take saved before has no key and takes the
+        voice's first **[call]**.
+      - **REQUIRED VERIFICATION** (`score-5401`, no MIDI, every POST stubbed): the menus render for all eight rows · a key chosen → that midi in
+        the orchestration's notes · shuffle leaves it · a `mw` voice greyed · a set pressed leaves the percussion row · save → reload → recall keeps
+        the key · THE SHIELD, byte-identical.
+
+    - **1m.4.4 — The lens** (the panel edits the selection; the one rule for a take; grey with nothing selected; a fresh column empty)
+      - Every panel action goes to every selected column: harmony · take · shuffle · a row's box · a row's articulation · the set · the dials ·
+        `length` (today only harmony · shuffle · take · length are shared). `txWriteBack`'s primary-only path becomes the shared path.
+      - THE ONE RULE for a take (§251 · §252): its pitches to every selected column, dealt on that column's own players; onto a column with NO
+        players its players and their articulations too; never its `cfg`. The take branch of `txWriteBack`, and `applyState`'s cfg merge while a
+        texture take is on, follow it.
+      - "Mixed": where the selected columns differ, the panel shows the primary's value and marks it — the harmony's name · a row's box (a third
+        state) · a row's articulation · the set · `length`.
+      - Nothing selected → the panel grey; the takes list, the row and SPACE still live; a click on a grey control does nothing and the status says so.
+      - A fresh column is EMPTY: no players, the panel's DEFAULTS for its set and dials. The defaults memory is the drawer's own cfg while a
+        texture take is on, labelled `defaults` in the bar when nothing is selected **[call]**; `txFresh` inherits no harmony.
+      - Undo (↶ · CTRL+Z) covers every action on the selection, as today.
+      - **REQUIRED VERIFICATION** (`score-5401`): three columns selected, a row's articulation changed → all three · the set → all three · a take
+        loaded onto two empty columns and one dealt → the two carry its players, the third only its pitches on its own players, no cfg key moved ·
+        nothing selected → grey, a tick does nothing · a fresh column has no players and the defaults · undo restores all three · THE SHIELD.
+
+    - **1m.4.5 — The column as a passive indicator** (select only; the box and a length per row in the panel; the double-click gone; the bars drawn)
+      - The column takes one gesture: a click selects (1m.4.6 names the modifiers). The circle's click as a tick and 1m.3's double-click go.
+      - The players list, texture mode only: beside each row's box and articulation a `len` box (seconds; blank = the column's) — 1m.3's
+        per-player length moved to the panel; `length` in the bar stays for the column. THE SHIELD: the strike mode's rows do not change.
+      - The column shows: a lit or grey circle per row (plays or not) · a bar from a lit circle for the length · a dynamic mark reserved for `1n`.
+      - Hear: `Hear orchestrated` = the primary column · SPACE = the pattern · `all on` · `all off` in the panel — unchanged.
+      - **REQUIRED VERIFICATION** (`score-5401`, the pane's REAL input — §238): a click on a circle selects and does NOT tick · a double-click
+        opens nothing · a `len` typed on a row with three columns selected → all three · the bars drawn at two zooms · THE SHIELD.
+
+    - **1m.4.6 — Selecting a stretch** (click, SHIFT+click = the range; CTRL+click = one — the sequence drawer's idiom, 1d.12)
+      - Click = that column alone · SHIFT+click = every ON column between the primary and it, by time · CTRL+click = add or remove one (today's
+        SHIFT). The status line names the range.
+      - **REQUIRED VERIFICATION:** click 1, SHIFT+click 5 → 1 … 5 (the ON ones) · CTRL+click 3 → 1 2 4 5 · CTRL+click 3 again → 1 … 5 · THE SHIELD.
+
+    - **1m.4.7 — `deal: repeat | spread`** — `written, built only on his word` (LG-82 · RUNNING_LOG §250 · §256 · §257)
+      - A toggle in the bar, default `repeat` (today: each column dealt on its own; same players + same harmony = the same notes). `spread`: a
+        multi-selection shuffled as ONE strike over time — every pitch of the harmony used once across the selected columns, in time order,
+        before any repeats; cycled when the columns outnumber the notes **[call]**; a player in several columns gets different notes.
+        Remembered with the pattern.
+      - **REQUIRED VERIFICATION:** six columns, the cello alone in each, a five-note harmony: `spread` → five different pitches then one from
+        the cycle · `repeat` → today's result, unchanged.
+
+    - **THE BUILD ORDER:** 1m.4.1 → 1m.4.3 → 1m.4.4 → 1m.4.5 → 1m.4.6, one commit each, the shield check in each · 1m.4.2 whenever he sits at
+      the rack · 1m.4.7 on his word. **HIS TEST: ONE, after 1m.4.6 — duration vetted in it (RUNNING_LOG §259). Old tests and feedback are not
+      carried forward.**
 
 ## 2. Notate — `todo`
 

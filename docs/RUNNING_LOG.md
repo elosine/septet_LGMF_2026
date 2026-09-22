@@ -9677,3 +9677,549 @@ Today a column note keeps the articulation the drawer dealt it; nothing in the t
 **Left his at the close:** the tests of `1m.1` · `1m.2` · `1m.3` · the triangle on track 10 (§221) · what becomes of the Rhythm panel
 and `1l.8` (§214) · four unsaved working copies, none the piece · whether `bank/rhythm_takes.json` and `bank/rhythm_sequences.json`
 go into git.
+
+## §240. Session 13 opens — the two plans named; phase 1 of ARTICULATION opened with the state read (2026-09-22)
+
+**What prompted it.** He opened the session with `/postclear` carrying his brief, then *"I meant to do /session-start"*; the session-start
+path was run (HOW_WE_WORK · SESSION_PROTOCOL · PLAN's status lines · journal §2 and §7). His brief, verbatim: COMPOSITION_NOTES LG-74 —
+*"Let's make a plan to put in articulations. And then let's make a separate plan to do dynamics. And in the dynamics, I want to include
+hairpins, crescendos."* The agenda he took at *"Go."*: (1) plan articulations as `1m.4` · (2) plan dynamics as a SEPARATE item, hairpins
+and crescendos in it · (3) the build of `1m.4` only on his go, after a clear, on Opus. The tree matched session 12's close exactly — the
+five uncommitted paths, all his.
+
+**The named question before his words (the planning method: the data first):** what IS an articulation today, in the strikes drawer and
+in a column of the texture take? Read in the code, not captured — one grep each of `strike_drawer.js` · `texture_cols.js` · `texture_row.js`.
+
+- **In the drawer,** an articulation is a LAYER on a voice (the drawer's own S): the voice keeps its harmony pitch, the KIND of the
+  articulation decides what sounds. Three ways to set it — a menu on every player's row · a picker of the player's FULL roster grouped by
+  kind (click the row's name) · a `set` line that fills every row at once. Four sets: **`percussive`** (the default of a strike —
+  english horn `secco` · bassoon · horn · trumpet `ord` · cello `gettato_vel` · double bass `bartok_vel` · percussion `main`) ·
+  `spiccato` · `staccato` · `ordinario` (PLAN 1c.1, with the bowed vibraphone). `defaultTech(lane)` = the set in force's key for that
+  player, `percussive` unless he pressed another.
+- **In a column of the texture take,** a note carries whatever `tech` the drawer's row held when the column was dealt. A player TICKED
+  into a column (`1m.2`, third form) is given `defaultTech(lane)` — so with nothing pressed, a fresh column sounds the `percussive` set:
+  the winds and brass on their plain `ord` cut at `1m.3`'s 120 ms short, the cello a gettato, the bass a Bartók pizzicato. The claves
+  are fixed (`toys_claves`, key 41). **Texture's own short defaults of `1l.1` (§190 — `stac_vel` · `staccato` · `spicc_vel`) live in
+  the Texture panel and are NOT what a column uses** — two defaults for the same instrument, in two tools, one of them provisional
+  since the port (the drawer's comment: *"Revisit at 0c with the real recipes"*).
+- **What no tool does yet:** an articulation chosen for the texture take as such — per column, per player in a column, or per note —
+  other than by driving the drawer's rows while a column is its view.
+
+**Put to him next:** his words on "types of articulation" — which articulations, and where they live. Nothing proposed before them.
+
+## §241. `1m.4` phase 1 — his brief: SWITCH THE PRESET; his belief about the default checked; the percussion's articulation is instrument + key (2026-09-22)
+
+**What prompted it.** His answer to the table of §240 — verbatim in COMPOSITION_NOTES LG-75. Three things in it: (1) *"We're using, I believe,
+Ordinario as the default"* for the texture take; (2) *"I want to be able to switch essentially the preset"*; (3) the percussion's articulation is
+*"not only … the claves track and port number, but also a particular MIDI note"* — *"claves high paired one"*. Mod wheel and a set velocity
+he held for another time.
+
+**His belief checked against the code (read, not captured — `strike_drawer.js` 137 · 527–542 · `texture_cols.js` 44 · 237 · 507):**
+- The drawer's own default is `artSet: 'percussive'` (cfg line 137). The `set` line writes `cfg.artSet` and the cfg is saved with the
+  drawer — so **the set he last pressed is the default of every column ticked since.** If he pressed `ordinario` once (PLAN 1c.1's fourth
+  button), his belief is right in practice: every ticked player has been given the ordinario voice, cut at `1m.3`'s 120 ms short.
+- **The set is ALREADY per column in storage:** a column's state carries the drawer's cfg whole, and `artSet` is not in `NOT_APPLIED`
+  (only `hearMode` · `longS` are), so a recalled column brings its own set back, and the offline deal (`txWithColumn`) ticks a player with
+  THAT column's `defaultTech`. What a multi-selection SHARES is the harmony and the shuffle (`SHARED`, line 48) and a take loaded — not
+  the set. So today: press `set` with columns selected → the drawer's view changes; the other selected columns keep theirs.
+- Nothing here was run in the app; it is the reading the plan will be built on, and the build's verification names it.
+
+**The percussion's shape, from the catalog (`bank/aro_percussion_catalog.json` `toys_claves`):** ONE technique (`toys_claves`, the Claves
+track, `LGPerc` ch 7) covering keys 36 … 69; the catalog names six pitches — Pair 3 Low · Pair 3 High · Pair 2 Low · Pair 2 High · Pair 1 Low ·
+Pair 1 High — in two variant groups (36 … 45 and 60 … 69); `articulationMethod: byNote`. So *"claves high paired one"* = `toys_claves` + key 45
+(or 69). Every panel today hard-codes ONE key: pair 2 high, 41 (`texture_panel.js` CLAVES · `texture_row.js` · `rhythm_seq_ui.js` 1051).
+This is exactly his sentence: the instrument (track and port) AND a particular note.
+
+**The read-back put to him:** the articulation of the texture take is the drawer's `set` line — the four presets as they are — acting on the
+SELECTED column(s) and shared by a multi-selection as `length` is; a player's own articulation stays the row's menu, per column; the
+percussion's articulation is an instrument AND a key on it. **The one question put (his alone):** whether the percussion row in the columns
+is part of this step or the next.
+
+## §242. `1m.4` phase 1 — the percussion's menu is the roster it already has: instrument → keys; a ticked percussion plays a key, is dealt no pitch (2026-09-22)
+
+**What prompted it.** His answer to §241's question, verbatim in COMPOSITION_NOTES LG-76: the percussion *"treated like the other instruments"* —
+the row's articulation menu, *"one menu, all of the instruments"*, the keys of each *"indented"*, growing *"as we add instruments to the rack"*.
+
+**Read against the code (not run) — the data is already there; the rendering and one rule are not:**
+- **A percussion technique IS an instrument × beater** (`tools/apply_perc.js`, PLAN 0c): one per selected rack instrument, on its own track and
+  channel, with a `keys` table — `{ midi, label }` for every key, the labels from piece #2's catalog (`"Pair 1 High"` …). The claves entry in
+  `sandbox/instruments.js` (lines 224 …) is exactly this shape, twelve keys named. **His indented menu is this table rendered under each instrument.**
+- **Adding an instrument** is `bank/perc_selection.json` + `node tools/apply_perc.js` — exists since 0c; the fourteen were added by it on 2026-09-21
+  (§212). Nothing new to build for *"the ability to add"*; the menu reads the roster.
+- **What a percussion tick sounds TODAY is wrong for a byNote instrument:** the drawer's `kindOf` has no rule for the percussion (no name matches →
+  `'pitched'`), so a percussion voice is DEALT a harmony pitch and folded into the technique's key range — a clave pair chosen by the harmony, not
+  by him. That is why "the percussion row" sat on the held list. **His answer settles it: a ticked percussion plays the row's instrument + key at
+  the onset; no pitch is dealt to it** (the AI's reading of his words; the drawer's percussion voice would carry the key as its `midi`, the way
+  the Texture panel's CLAVES does — `tech + midi`).
+
+**Read back to him, as one picture (his to correct):** (1) the preset switched for the SELECTED column(s), shared by a multi-selection as
+`length` is — standing from §241, not disputed; (2) the percussion row's menu = the rack's instruments, each with its keys indented, one
+pull-down; a choice is instrument + key; (3) a ticked percussion sounds that key, not a dealt pitch; (4) the percussion is in this step.
+**Two calls of the AI's, named as his to reverse:** a preset never touches the percussion's row (today every set writes `main`, the ch-1
+placeholder — with a named key on the row, a preset overwriting it would lose his choice) · a row's menu set with SEVERAL columns selected
+goes to all of them, as `length` does (today the row acts on the drawer's view alone). **Then: "is that the whole picture?" → phase 2, the top line.**
+
+## §243. `1m.4` phase 1, narrowed at his word to ONE question — WHAT IS AN ARTICULATION: the definition read from the code, and three holes in it (2026-09-22)
+
+**What prompted it.** His redirection after §242's picture: *"Let's try to keep things simple and separate it one issue at a time. My understanding
+right now, we were just trying to define what an articulation is. So let's just stick with that. Leave aside presets and how to choose things for
+now. I think I want to make sure that's a little bit more robust than we've been doing previously. So is there anything left on figuring out what an
+articulation is, what those actual pull-down menus in the orchestration panel are, and what they will do when selected?"* Presets and the way of
+choosing are set aside — §241's read-back and §242's two calls are NOT agreed, only parked.
+
+**The definition, as the code has it (three greps: `sandbox/instruments.js` `kind:` · `mechanism:` · the CC1 send; `strike_drawer.js` `kindOf` ·
+`routeFor` · the CC0 lead):** an articulation is ONE NAMED VOICE OF ONE INSTRUMENT — a `techniques[]` entry — and selecting it on a row makes every
+note that player plays (in the strike, or in the column) sound with that voice. What one entry carries, and how:
+1. **a name** — the label the menu shows;
+2. **a route and the way the sampler is told** — Xsample (english horn · cello · double bass · vibraphone, `mechanism: "cc0"`): a preset number
+   sent as CC0 on the channel before the note (`r.tech.cc0`, the CC0 lead) · IRCAM SI2 (bassoon · horn · trumpet): a UVI PART of its own on its own
+   channel (`UVI_PARTS`, read from the running rack 2026-09-18) · Spitfire percussion: a track per instrument, `articulationMethod: byNote` — the KEY
+   is the articulation;
+3. **a pitch behaviour, the KIND** — pitched (takes the harmony note, folded by octave into the voice's range) · fixed (the note is a key, or the
+   nearest open string) · noise / multiphonic (a stand-in);
+4. **a range** (`rangeLow` … `rangeHigh`, else the instrument's);
+5. **a loudness source** — velocity (the law's STRUCK note, DYNAMICS_LAW §1) — or the MOD WHEEL for Xsample's `MW` presets;
+6. **a length behaviour** — ends itself (staccato · pizzicato · a strike) or is held for the note's length (ord · a bowed tone), which the 120 ms
+   short of `1m.3` cuts.
+**The menus today:** the row's pull-down = the roster flat, by label · the picker (click the row's name) = the roster grouped by KIND · counts EH 36 ·
+Bsn 22 · Hn 25 · Tpt 35 · Vc 88 · Db 88 · Vib 13 · Perc 32 (instrument × beater; the keys not shown). **Selecting does:** on the row, the voice takes
+the entry, its pitch is re-fitted to the range, a stand-in if the kind needs one (`fitReal`); at Hear / Insert / a column, the note is sent to the
+entry's port and channel, CC0 first where the mechanism is CC0, then CC7 and the note at its velocity, for the length.
+
+**Three holes — what is NOT robust, each verified by a grep, none run in the app:**
+- **(a) KIND is guessed from the name, not stored:** `grep -c "kind:" sandbox/instruments.js` → **0**; `kindOf` is a regex over key + label. Some
+  guesses are wrong — *Crow On Reed* is a noise, the rule calls it pitched; a wrong kind gives a wrong stand-in or a folded pitch on a voice that
+  cannot take one. The drawer's own comment names 0c as where the field was to come from.
+- **(b) 90 of the 225 Xsample entries are MOD-WHEEL voices and nothing sends the wheel:** EH 16 of 36 · Vc 33 of 88 · Db 33 of 88 · Vib 8 of 13
+  (a regex over key + label: `_mw` · `mwshape` · `mwinv` · `mwdamp` · `MW`); no `0xB0 … 1` send anywhere in `sonify_core.js` · `strike_drawer.js` ·
+  `strike_sounds.js` · `composer.html`. Selecting one gives a note whose loudness (or shape) nothing controls — the wheel's last position in his
+  Kontakt. He held the wheel for another time (LG-75); the definition can still SAY which entries need it.
+- **(c) THE PERCUSSION'S KEY IS THE ARTICULATION, and the drawer deals it a pitch** (§242): the `keys` table is in the roster; no menu shows it and
+  no rule uses it.
+
+**Put to him:** is this the definition, and do (a) (b) (c) belong in it? The AI's recommendation: yes, all three, as DATA on every entry — kind ·
+loudness source · keys — before any menu or preset work, so that what a menu shows is what the note does.
+
+## §244. `1m.4` phase 1 — BY-KEY voices are a kind of their own; which voices look like it; the manuals give the keyswitch, not the map inside (2026-09-22)
+
+**What prompted it.** His agreement to §243's recommendation, with an addition — COMPOSITION_NOTES LG-77: multiphonics, key clicks *"aren't pitched,
+but they use … key numbers to produce a certain effect that are distinct from each other."*
+
+**What it does to the definition.** KIND becomes three values, and the stand-in goes: **pitched** (the harmony note, folded into the range) ·
+**by key** (the key chooses one of N named sounds — a `keys` table on the entry, as the percussion has) · **fixed** (open strings, natural
+harmonics: the nearest to the harmony note). The drawer's "noise / multiphonic → stand-in" was the app coping without the keys table; with the
+table, a by-key voice is chosen by name from a menu, the same as Claves → Pair 1 High.
+
+**Which voices look BY-KEY, from their names alone (`sandbox/instruments.js`; which really are is read from the rack, not from a name):**
+- bassoon: multiphonics menu · key click · blow without reed · chromatic scale (?) — horn: slap pitched (?) · chromatic scale (?) — trumpet: vocalize
+  on harmonics (?) · increasing intervals legato (?);
+- english horn: Multiphonics Velocity · Multiphonics MW · Key Noises · Various Noises · Air Noises (2) · Undefined Tones — seven of 36;
+- cello and double bass, each: Tailpiece Bowed (2) · Pizzicato Behind Bridge · Pizzicato In Peg Box · Finger · Body Strokes · Undefined Sounds (2) —
+  eight of 88; the open-string and natural-harmonic presets are `fixed`, not by-key;
+- percussion: all 32, the keys already named (apply_perc.js from the catalog).
+
+**Where the key maps are — checked in repo #3's manual extracts (`docs/manuals/extracted/`):**
+- The SI2 manual lists, per instrument, the KEYSWITCH that selects each technique (`Multiphonics Menu ....... G1` · `Key Click ....... A1`, six
+  instruments) — NOT which key inside the menu gives which multiphonic. The keys mapped inside a UVI part show on the part's own keyboard in his
+  rack (the manual's own words: *"Gray keys have no sample mapped to them"*).
+- The Xsample manual names the presets (`multiphonics … MW / 6` · `key noises … Vel / 7` · `undefined tones … Vel / 67`) and nothing about which
+  key is which sound. Kontakt's keyboard shows the mapped keys; the names, if any, are on the instrument's panel.
+- `sandbox/instruments.js` line 46 says the same: *"every preset, NOT read — 0d measures them (the flutter, multiphonic and noise presets will be
+  narrower"* — 0d measured the ordinary voices' notes (103/103), not these.
+**So the keys of every by-key voice must be READ FROM THE RACK — a rack window, his, with the AI reading the mapped keys per part — or heard.**
+The percussion's came from piece #2's catalog, which was made exactly that way.
+
+**Put to him:** the definition with the three kinds; the by-key list as a list of suspects, not facts; the rack window as the way to the maps.
+Then: is the definition complete → the top line.
+
+## §245. THE ORCHESTRATION PANEL versus THE COLUMNS — the terms, the events as the code has them, and the eight issues organized for him (2026-09-22)
+
+**What prompted it.** COMPOSITION_NOTES LG-78 — *"I need some help organizing what issues are there and coming up with the proper spec for them."*
+Read for it: the model as written at the head of `texture_cols.js` (the third form, §233) · LG-71 · LG-72 · `txFresh` · `txCapture` · `txWriteBack`
+(lines 268 … 300) · `txSelect`. Not run.
+
+**The terms, proposed to him:** THE ORCHESTRATION PANEL (his name) = the drawer's left side: the harmony list and the takes menu · the keyboard · the
+players list (a box, a name, an articulation menu per row) · the `set` line · shuffle · Hear. THE PATTERN = the top row of marks. A COLUMN = the nine
+circles under an ON mark; it holds a harmony (which take or pick) · a deal (who has which pitch) · its players (its ticks) · each player's
+articulation · a length · per-player lengths. THE SELECTION = the column(s) selected; the first = THE PRIMARY, the one the panel SHOWS. A TAKE = a
+saved harmony from the takes list — the harmony, a deal on the players it was saved with, and the panel's settings as they were then.
+
+**The events, and what the code does today:**
+1. click a column → the only selection, the primary; its harmony · deal · players · articulations onto the panel. A FRESH column = the panel's
+   current harmony with nobody on (`txFresh`: the state with every voice unassigned).
+2. SHIFT+click → added, kept as it is until the next shared action.
+3. tick a circle or a row box → that column's player on / off; on = dealt a pitch at once, with the column's default articulation (its `set`).
+4. shuffle → every selected column re-dealt on its own players.
+5. pick a harmony in the list → every selected column takes it, re-dealt on its own players.
+6. load a take → every selected column; a take is a deal on ITS players, so **the ticks follow the take** (`txWriteBack`: "a take loaded is a deal
+   on ITS players: the ticks follow it") — the column's players are replaced by the take's.
+7. a row's articulation menu · the `set` line → the PRIMARY only.
+8. `length` → every selected; a player's own length → that column only.
+9. deselect (click empty) → not read.
+10. switch source strike ↔ texture take → the drawer's own ticks and hear mode saved and restored (`_txSavedOff` · `_txSavedHear`).
+11. reload → the pattern and its columns from storage; which column the panel shows on return → not read (§230 was a bug of this kind).
+12. change the pattern (another rhythm take, a crop) → the columns are keyed by mark; what becomes of them → not read.
+13. Insert → not built.
+
+**The eight issues, as put to him (one at a time from here; his order):**
+- **A. What a take brings into a column** — today its players, its articulations and its settings, replacing the column's (LG-71's *"previous
+  orchestration"*). Only the pitches? the deal too? everything?
+- **B. Primary-only versus shared** — harmony · shuffle · take · length go to every selected column; a row's articulation · the set · a player's own
+  length go to the primary only. Stated nowhere he can see.
+- **C. A fresh column** — the panel's current harmony with nobody on; or a copy of its left neighbour; or empty until he acts.
+- **D. The panel with nothing selected** — what it shows; where a change there goes.
+- **E. The pattern changes** — another rhythm take, a crop, the range: what becomes of the columns.
+- **F. Reload and source switch** — what the panel shows on return; what is remembered.
+- **G. Two defaults for a column's articulation** — the panel's remembered set versus the take's own articulations (A's twin).
+- **H. The players list in a multi-selection** — its boxes are the primary's; a box ticked there ticks the primary only.
+**The AI's recommendation for the first:** A — both LG-71 and LG-72 were failures of a take loaded into a column.
+
+## §246. Noted for later, at his word: a saved set of articulations — the ensemble's rows as a preset of his own (2026-09-22)
+
+COMPOSITION_NOTES LG-79, verbatim there. Saved, not built (HOW_WE_WORK: *"save all unless I say otherwise"*): PLAN § `1m` *Held* carries it; it
+belongs with the presets, set aside in §243 until the definition and the state model are settled. The idiom when it comes: the sequence drawer's
+wave presets (`save preset`, 1d.13) — a name, a list the built-ins head, recall from the `set` line.
+
+## §247. Issue A opened — what a take HOLDS (three things), what loading it into a column does today, and the three rules put to him (2026-09-22)
+
+**What prompted it.** His pick of A from §245's list — *"A as long as you are keeping track and pls keep the overall organization"*. The running
+order is in journal §2 (SESSION 13 · RUNNING ORDER); position is announced at every wrap.
+
+**The data (`strike_drawer.js` `state()` 1453 · `applyState` 1454 … 1459 · `texture_cols.js` `txRecall` 202 … 210 · `txWriteBack` 268 … 300; read, not run).**
+A take is the drawer's `state()`, three things:
+1. **the harmony** — `strikeId`, the chord's pitches with their cents and partials (the voices' `pitch`);
+2. **the deal** — per voice: which player (`lane`, and `also[]` for a doubled note), that player's articulation (`tech`), fold, stand-in, skip, solo;
+3. **the panel's settings** — `cfg` whole: the set (`artSet`), the shuffle seed, `durX` · `dynX` · flatten · mayFold · the locks · transpose · the
+   hear mode and long-tone seconds (these two excluded on a column, `NOT_APPLIED`) … every dial.
+**Loading a take into a selected column today:** `applyState` puts all three onto the panel (the cfg merged over the drawer's, every voice
+overwritten), then `txWriteBack` sees the take's name change and **replaces the column's players with the take's** ("a take loaded is a deal on
+ITS players: the ticks follow it"); the other selected columns are dealt the same take offline, each on its OWN players. So on the primary the
+take wins over the ticks; on the others the ticks win over the take — two behaviours in one action, which is LG-71's loop.
+
+**The three rules put to him (lettered, one to choose):**
+- **(a) A take brings its HARMONY only.** The pitches are dealt on the column's own players, as picking a harmony in the list does; the column's
+  articulations and settings stay. The take's deal is ignored. One rule for the primary and the others.
+- **(b) A take brings its harmony AND its deal** — the take's players, pitches and articulations replace the column's; the settings stay the
+  column's. What the drawer does in strike mode, minus the dials.
+- **(c) Everything** — today's behaviour on the primary, made the same on every selected column.
+**The AI's recommendation: (a), with one addition — a column with NO players yet takes the take's players too**, so a take lands whole on an empty
+column and never overwrites players he ticked. Reason: the third form's one rule, *a column's players are its ticks*; a take that re-ticks a column
+broke that rule in his hands twice (LG-71 · LG-72). Held for G: whether the take's articulations come with the harmony.
+
+## §248. STEP 0, upstream of A … H — THREE ARCHITECTURES for the orchestration panel and the columns; the lens recommended; what each does to A … H (2026-09-22)
+
+**What prompted it.** COMPOSITION_NOTES LG-80 — *"the orchPanel OP is the mother and the column is the child. is this the right architecture? are
+there others to consider? then what is the downstream consequence …"* Issue A is paused behind it; the running order in journal §2 says so.
+
+**The one question:** who owns the truth of a column's orchestration — the panel, the column, or a shared take?
+
+**The three models put to him:**
+1. **MOTHER AND CHILD** (his model; the code's today, in part). The panel has a state of its own; a column is a snapshot of it. Click a column →
+   its snapshot goes onto the panel; change the panel → the primary column takes it. A fresh column = the panel as it stands (`txFresh`). Two
+   copies of one truth, kept in step by a write-back after every render — the sync IS the bug surface (LG-71 · LG-72; the primary; carry-over).
+2. **THE LENS** (the third form's stated intent, §233: *"the drawer is a VIEW of one column at a time"*; not what the code does in full). The column
+   owns everything; the panel owns nothing in texture mode — it shows the selection and edits it. A fresh column is empty. With nothing selected the
+   panel is grey. A take is a SOURCE loaded into the selection, never a state the panel keeps. No carry-over exists to go wrong.
+3. **TEMPLATES.** A column POINTS at a take and keeps only overrides (its ticks, lengths); the panel edits the take; every column on that take
+   changes together. `1l`'s box-references-a-take model, and `1m.2`'s first form (a column = a LINKED take + ticks, §227), which his tests turned
+   over. Strong for changing a harmony everywhere at once; wrong for what he does — hear and shape ONE onset at a time.
+
+**Recommendation: 2, the lens — with one explicit exception:** the panel keeps a small DEFAULTS memory (the articulation set and the dials to give
+a fresh column), shown as such, never mistaken for a column. Why: it is what §233 said the third form was; the code is already most of the way
+(`applyState` puts a column on the panel; `txWithColumn` deals offline); what goes is the panel's own carried state (`txFresh` inheriting it, a
+take's cfg merged in, the primary-only actions) — less code, not more.
+
+**Downstream, under the lens — the consequence for every issue:**
+- **A** a take brings the chord (and, on an EMPTY column, its deal); never its dials — the dials are the column's. (c) is ruled out by the model.
+- **B** every panel action applies to the whole selection; no primary-only actions. Where the selected columns differ, the panel shows the
+  primary's value marked "mixed".
+- **C** a fresh column is EMPTY (the panel's defaults for its set and dials); "copy the column to the left" is an action, not a default.
+- **D** nothing selected = the panel grey (the takes list and Hear-the-pattern still live).
+- **E** unchanged by the model — columns keyed to marks; what a pattern change does is its own question.
+- **F** reload restores the selection; the panel shows it, or grey.
+- **G** the set is a column property; a take's articulations come only with its deal (A, an empty column).
+- **H** dissolved by B.
+**Methodology versus code:** decide the model in one line (this), then A … H fall out of it and are mostly one-liners; the code work is a
+subtraction in `texture_cols.js` (`txFresh` · the take path of `txWriteBack` · the primary-only branches) plus the grey state and "mixed".
+
+## §249. STEP 0 DECIDED — THE LENS; the shield on everything before the texture mods; the indicators-only idea held; A … H restated under the lens (2026-09-22)
+
+**Decided by him (COMPOSITION_NOTES LG-81):** **the lens** — the column owns everything; the panel shows the selection and edits it; a defaults
+memory (the set and the dials a fresh column starts with) is the panel's only state of its own, shown as such. Journal §2 carries it for D-promotion
+at the close. Rejected with it: mother and child (two copies of one truth, the sync the bug surface — LG-71 · LG-72) · templates (the first form,
+§227, turned over in his hands).
+
+**The shield, his constraint, binding on every texture build from here:** the strike mode — the strikes, their rhythm and run, the long tone of
+1c.2 — behaves exactly as it did before `1m`. In the code this is already the shape (`texture_row.js` · `texture_cols.js` are mixins that act only
+while `txIsOn()`; `strike_drawer.js` is unchanged since 1c) and it becomes a REQUIRED VERIFICATION of every `1m` step: the strike mode's notes,
+routes and lengths captured before and after, byte-identical.
+
+**Held at his word, for later:** the circles as INDICATORS only, every control moved back to the panel — with the pitfalls and the scenarios where
+the column itself needs a control (a tick on the spot, a player's own length by double-click) talked through first. Written into PLAN § `1m` *Held*
+at the next wrap.
+
+**A … H under the lens, as put to him in one line each:** A a take brings the chord; on an empty column its players too; never its dials · B what
+he does on the panel happens to every selected column; where they differ the panel says "mixed" · C a new column starts empty with the defaults ·
+D nothing selected → the panel grey · E the pattern changes → still open, its own talk · F after a reload the selection is back and the panel shows
+it · G articulations belong to the column; a take's come only with its players · H gone, covered by B. **Put to him: any to change; else E next.**
+
+## §250. Issue B by scenario — what a multi-select is for; the deal across a selection REPEATS today (no column in the seed); repeat versus spread put to him (2026-09-22)
+
+**What prompted it.** His ask: *"scenario based discussion what actually happens in a multi select and what type of changes would I make under a
+multiselect scenario"* (B of §245, under the lens of §249).
+
+**The fact that shapes B (`texture_cols.js` 48 · 231 · 294; read, not run):** the seed of a deal is `oSeedShuffle * 7919 + lane * 31 + 1` — the
+shuffle seed and the PLAYER, no column term; a shared shuffle re-deals every selected column with `shuffleOrch` on the same seed. **So columns with
+the same players and the same harmony get IDENTICAL deals.** The cello alone in six columns = the same pitch six times. §217's held item (3), *"the
+same player on in two of the selected columns"*, is this.
+
+**The seven changes he would make to a stretch of columns at once:** one harmony for the stretch · a different note per column from one harmony
+(a chord spread over time · a line for one player) · one articulation for the stretch (a row, or the set) · one length (1m.3, done) · a player on
+or off for the stretch · a re-shuffle · the dials (transpose · voicing · locks).
+
+**The scenarios put to him:**
+1. A CHORD SPREAD OVER TIME — five columns, a different player on in each, one five-note harmony. Wanted: the five notes once each. Today: each
+   column dealt alone; players may land on the same note.
+2. A LINE — the cello on in six columns, one harmony. Wanted: six notes, a melody. Today: one note six times.
+3. A REPEATED CHORD — six columns, everybody on, one harmony. Wanted: the same chord six times. Today: yes. (1 and 2 want the opposite of 3, so it
+   is a control, not a rule.)
+4. ONE PLAYER'S ARTICULATION FOR A STRETCH — ten selected, the cello's row → spiccato. Under B: all ten. Today: the primary only.
+5. THE SET FOR A STRETCH — the same.
+6. A PLAYER ON FOR A STRETCH — the bassoon's box ticked → on in all ten, each dealt. Today: the primary only. Some on, some off → the box shows a
+   third state, "mixed"; a click → all on.
+7. DIFFERENT HARMONIES SELECTED, THEN SHUFFLE — each column on its own harmony (the lens: an action applies to each column's own state); a harmony
+   picked makes them the same.
+
+**What the panel shows in a multi-select:** the primary's values; "mixed" wherever the selected columns differ — the harmony's name · a player's
+box (third state) · a row's articulation · the set · the length; the keyboard shows the primary's deal.
+
+**Put to him — B as stated, plus one control:** `deal: repeat | spread` for the shuffle over a selection. REPEAT = today (each column dealt on its
+own; same players + same harmony = the same notes). SPREAD = the selection is ONE STRIKE spread over time: every note of the harmony is used once
+before any repeats, in the seed's order, so a player in several columns gets different notes — scenarios 1 and 2. More columns than notes → the
+harmony is cycled again by the seed (the AI's call, his to reverse). Default `repeat`, remembered with the pattern.
+
+## §251. His two scenarios walked under the lens — each step and the issue it touches; the one rule that answers his questions; three issues the scenarios surfaced (2026-09-22)
+
+**What prompted it.** COMPOSITION_NOTES LG-82. His standard, stated there and binding on the rest of `1m.4`: *"the expediant solution even if some
+things are less convienent"* — preserve functionality, avoid troubleshooting.
+
+**Scenario 1 — a harmony and a set preside over three seconds:**
+1. select the columns over 3 s → today SHIFT+click one by one; a drag or the range as a selection is not there → **new issue I** (a convenience;
+   SHIFT+click is the expedient answer).
+2. apply a take → **A**: the chord to every selected column; the columns are fresh (empty under the lens, C) so the take's players and their
+   articulations come too — the take lands whole on the stretch, which is what "preside" means.
+3. apply a preset of articulations → **B**: the set to every selected column, over whatever the take brought (G).
+4. toggle marks on / off → the PATTERN, not the columns: a mark switched off hides its column; is the column kept for when the mark comes back? →
+   **new issue J** (touches E; the expedient answer: kept).
+5. shuffle certain columns → select them, shuffle → **B**: each re-dealt on its own players. With one column selected, shuffle advances that
+   column's seed — so a line is made by hand, column by column (the `spread` control of §250 is deferred: the expedient answer is `repeat` only).
+6. select the players of individual columns → click one, tick circles → the third form's rule; the lens makes it that column alone.
+7. change some configurations → **B**: the dials to every selected column.
+
+**Scenario 2 — the middle second gets a different harmony:**
+1. select those columns, change the take → **A**: they are NOT empty now, so only the chord comes, re-dealt on each column's own players.
+2. *"reassign the custom articulations?"* → **G**: no — they are the column's and stay; the take's articulations come only onto an empty column.
+   (If he wants the take's, he presses the preset or the row's menu again.)
+3. *"durations and dynamics — do those come with the take?"* → no. The lengths of 1m.3 are stored in the column, never in a take's state; the
+   dynamics, when they come (plan 2), are column properties the same way; the take's `dynX` · `flatten` dials never come (A). **Dynamics stay
+   quarantined: the only thing said of them here is that a take does not carry them.**
+
+**THE ONE RULE (the expedient answer to every question in both scenarios):** a take brings its PITCHES; onto an EMPTY column it also brings its
+players and their articulations; everything else — articulations already set, lengths, dynamics, dials — is the column's and stays.
+
+**Surfaced by the scenarios, not in A … H:** **I** selecting a stretch by time (drag or range) — held, SHIFT+click for now · **J** a mark switched
+off and on keeps its column — the expedient answer, to be confirmed · **K** `spread` (§250) — deferred; `repeat` only, a line made column by column.
+**Not surfaced yet (the AI's list, for his "after"):** D (nothing selected), F (reload) — untouched by the scenarios, standing as stated; E still open.
+
+## §252. DECIDED with him — the one rule for a take · J · and THE COLUMN AS A PASSIVE INDICATOR: one gesture (select), every control in the OP, the column's own properties apart from the take (2026-09-22)
+
+**What prompted it.** COMPOSITION_NOTES LG-83.
+
+**Confirmed by him:** THE ONE RULE (§251) — a take brings its pitches; onto an empty column its players and their articulations too; everything
+else is the column's · **J** — a mark switched off keeps its column.
+
+**Decided, on his sharpening of the held idea (LG-81 → LG-83):** the column is a PASSIVE INDICATOR. It shows: a lit or grey circle per player (plays
+or not) · a bar from a lit circle (the length) · a dynamic mark (plan 2, the look decided there). It takes ONE gesture: click / SHIFT+click to
+select. Every control is in the orchestration panel, in two kinds that the panel keeps visibly apart:
+- **what a take carries** — the harmony (the list, the takes menu), the deal (shuffle, the keyboard), the articulations (the rows' menus, the set);
+- **what the column alone carries, never a take** — per row: the box (plays) · a length (blank = the column's) · a dynamic (plan 2); per column,
+  in the bar: `length` · `dyn` (plan 2). A multi-selection takes these as B says; "mixed" where they differ.
+**Consequences named to him:** `1m.3`'s double-click on a circle goes (its box moves to the row); the circle's own click as a tick goes; `all on` ·
+`all off` stay in the panel. A player is turned on by: select the column, tick the row — one more click than today, and one whole class of
+column-side gestures gone (the double-click that never fired, §238, was one of them). Under his standard (LG-82) this is the expedient side.
+**Pitfalls, talked through as he asked (LG-81):** (1) selecting stays ON the column, so the column is not entirely inert — it is the only
+gesture it has; (2) with nothing selected the panel is grey (D), so a stray tick goes nowhere — good; (3) the new per-row boxes (length · dynamic)
+exist only in texture mode — THE SHIELD: the strike mode's rows do not change; (4) the players list shows the primary's values with "mixed" (B);
+(5) the length bar and the dynamic mark must stay readable at the row's zoom — a drawing question for the build.
+**Journal §2 running order:** the held item closed as decided; D and H closed by it.
+
+## §253. Issue E — what a "pattern change" can be; the columns are kept per rhythm take by name and keyed `line:index`; one hole (a take re-saved under its name); the expedient rule put (2026-09-22)
+
+**What prompted it.** His *"ok E next"* after §252. Read: `texture_row.js` 64 … 68 (`txPat`) · 175 … 186 (the dots and their keys; the reset when
+a take's count changes) · 298 … 303 (`crop`) · `texture_cols.js` 54 … 66 (`txCols` on the pattern). Not run.
+
+**The facts:**
+- **One pattern per rhythm take, by NAME** (`pats[name]`): its on-marks, range, cursor — and, since 1m.2, its columns and selection. Choose another
+  take → that take's own pattern and columns; the first take's stay in storage and are there when he comes back.
+- **A column is keyed to its mark by `line:index`** (`L:i` — the dot's line in the take and its count on that line), not by time.
+- **A take whose dot count changed since its pattern was made** (re-saved in Texture under the same name with another recipe): the marks, the
+  range and the cursor are RESET with a note in the status line; **the columns are NOT touched** — they stay under keys that now name other
+  onsets, or none. With the SAME count and different dots, nothing is noticed at all: the columns sit on onsets they were not made for. The hole.
+  Rare by design — a take is a recipe and *"the same recipe always gives the same dots"* (§190); it happens only when he overwrites a take by name.
+- **`crop`** turns marks outside the range off and touches nothing else — the columns are kept, which is J.
+- **The store is the browser's, not the score's** (`lgmf.textureRow.v1`): one store for every score opened in that tab; nothing of `1m` is in a
+  score file yet (Insert not built). Named for the "after" pass as **L** — it bears on F (reload) and on Insert.
+
+**The five changes and the rule for each, put to him:**
+1. another take chosen → its own pattern and columns (today; keep);
+2. marks toggled · crop · the range moved → columns kept (J; today; keep);
+3. the same take re-saved with a DIFFERENT dot count → **the columns are cleared with the marks, and the note says so** (the expedient fix:
+   one line; today they are orphaned silently);
+4. the same take re-saved with the SAME count and other dots → cannot be told apart today; accepted as is (rare; his to avoid by naming a new take);
+5. a take deleted in Texture → its pattern stays in storage, harmless.
+**Rejected as not expedient:** keying columns by TIME so they survive a re-roll where the onset still exists — more code and a migration of every
+stored key, for a case his naming already avoids.
+
+## §254. E resolved at the source — Texture never overwrites a take by name; his upstream model confirmed against the code; "what is saved" noted as a separate plan (2026-09-22)
+
+**What prompted it.** COMPOSITION_NOTES LG-84 — *"prune at source"* and the model question.
+
+**Decision 1 (his): Texture does not overwrite a take by name — it saves `name-(1)`.** With it, E's cases 3 and 4 (§253) cannot happen: a take's dots
+never change under its name, so a pattern's columns always sit on the onsets they were made for. E's rule is then only: another take → its own
+pattern; marks toggled · crop · range → columns kept; a take deleted → its pattern stays, harmless. **A small build of its own, in Texture's save
+(`1l.2`'s store), not in `1m`** — written to journal §2 and PLAN § `1m` *Held* as a to-do; not built.
+
+**His model, checked against the code (`txPat`, one pattern per take NAME — §253):** correct. The texture is UPSTREAM: the pattern never writes
+into the take; it only says which of the take's onsets are on and what each column holds. Loading a texture that HAS a pattern brings that pattern
+back (one per name); loading a texture never used starts a fresh, empty one. A new texture = a new pattern; the old one stays. **Precision offered
+to him:** "a new file" is true only for a texture never used before; a texture used before reopens with its pattern.
+
+**The alternative, named and set aside:** re-pointing a saved pattern at ANOTHER texture (columns matched by time or by index) — different onsets,
+columns landing on nothing or on the wrong dot; not worth it, and his model does not need it.
+
+**Noted for a SEPARATE plan, at his word, no answer now: WHAT IS SAVED FROM THIS BUILD.** Today the pattern lives in the browser only
+(`lgmf.textureRow.v1`, one store per tab for every score — §253's L), unnamed beyond its texture's name, not in the score, not in a library. The
+plan will decide: the pattern as a named DOCUMENT (the sequence library's idiom, 1d.11) · what it holds (texture name · marks · range · columns:
+take · players · articulations · lengths · dynamics) · where it lives · how Insert reads it. L folds into that plan.
+
+## §255. CORRECTED — a texture load is always EMPTY; the pattern is a document of its own with a COPY of the onsets; the Texture save protection dropped on that condition (2026-09-22)
+
+**What prompted it.** COMPOSITION_NOTES LG-85, his *"no"* to §254's one-pattern-per-texture.
+
+**His model, restated and taken:** the texture is the SPINE. Loading one starts a NEW pattern, empty — no marks on, no columns. He builds on it,
+saves the pattern under ITS OWN name, and can build several patterns on the same texture. A texture load never brings a pattern with it; a pattern
+is recalled by its own name, never by loading its texture.
+
+**The condition on dropping the protection (put to him as the one thing to understand):** if a pattern only NAMED its texture, a take overwritten
+in Texture would change the onsets under every pattern built on it — the protection would be needed more, not less. If a pattern carries its OWN
+COPY of the onsets (the dot times, taken once when the pattern is started), nothing Texture does later can reach it, and the protection is
+unnecessary. **So: the pattern embeds a copy of its texture's onsets and remembers the texture's name only as a label.** Decision 1 of §254 (Texture
+saves `name-(1)`) is DROPPED; PLAN's Held note is rewritten to this.
+
+**What it settles of the SEPARATE "what is saved" plan, in principle (the details stay for that plan):** a pattern is a named DOCUMENT = a copy of
+the onsets + the texture's name + marks · range · columns (take · players · articulations · lengths · dynamics later); several per texture; a
+library of them (the sequence library's idiom); where it lives (browser · bank · score) and how Insert reads it are that plan's.
+
+**What it means for TODAY'S code, said to him plainly:** `txPat` keys one pattern per texture name and brings it back on load — the opposite of his
+model. Until the "what is saved" plan is built, that is how the tab behaves: loading a texture he has used reopens its pattern. Nothing of `1m.4`'s
+build depends on changing it, so it waits there.
+
+## §256. The after pass — I (selecting a stretch) and K (`spread`): the facts and the options put (2026-09-22)
+
+**What prompted it.** His *"ok after pass, I and K first"*. Read: `texture_cols.js` `txSelect` 300 … 312 · `strike_drawer.js` 983 (the shuffle
+button). Not run.
+
+**I — selecting a stretch of columns.** Today: a plain click = that column alone; SHIFT+click = ADD one to the selection, or remove it if it is in
+(a toggle). The sequence drawer's idiom (1d.12) is click, then SHIFT+click = the RANGE between. The two panels disagree on what SHIFT means.
+Options put: (a) leave it — SHIFT+click one by one (nothing to build); (b) the sequence drawer's idiom — click the first, SHIFT+click the last →
+every ON column between; CTRL+click adds or removes one (one function; the idiom the score already has — HOW_WE_WORK: a panel borrows the score's
+idiom); (c) a drag across the row (new gesture code, the kind the shield warns against). **Recommended: (b).**
+
+**K — `spread`.** The fact: the shuffle button advances its seed every press, so a SINGLE column shuffled gives a new deal each time; a line for
+one player can be made column by column under `repeat`, at the cost of a press per column and random repeats among the pitches that fit.
+`spread` (§250) deals a multi-selection as ONE strike over time — every pitch of the harmony used once across the selected columns before any
+repeats, in the seed's order, cycled when the columns outnumber the notes. Options put: (a) defer — `repeat` only, a line by hand (nothing to
+build now); (b) in `1m.4`'s plan as its LAST step, a `deal: repeat | spread` toggle in the bar, default `repeat`, built only when he asks after the
+rest is in use (a small, separate piece of code that touches only the multi-selection shuffle). **Recommended: (b) — written, not built.**
+
+**Also named for the after pass, from the AI's list:** F (reload) — the selection comes back; WHICH pattern comes back is the separate plan's
+(today: the texture's) · the keyboard in a multi-selection — a pitch given by hand goes to that player in every selected column (B; no question) ·
+Hear — `Hear orchestrated` stays the primary column; SPACE the pattern (no change) · **Insert** — the next `1m` item after articulation, and it needs
+the pattern document, so the separate "what is saved" plan comes before or with it.
+
+## §257. I and K decided — (b) and (b); PHASE 1 CLOSED; the TOP LINE of `1m.4` put to him (2026-09-22)
+
+**Decided by him, two letters:** *"Ib; kb"* — **I (b)**: click the first, SHIFT+click the last = every ON column between; CTRL+click adds or removes
+one — the sequence drawer's idiom (1d.12). **K (b)**: `deal: repeat | spread`, a toggle in the bar, default `repeat`, written into `1m.4` as its last
+step and BUILT ONLY ON HIS WORD after the rest is in use.
+
+**Phase 1 is closed.** Nothing missed at the after pass beyond what §256 named (F and Insert wait on the separate "what is saved" plan).
+
+**The top line put to him (phase 2 — the lines, numbered, nothing more):**
+1. Every voice knows itself — kind · loudness source · keys, as data in the recipe file; a check that none is missing.
+2. The by-key maps — read from his rack, one instrument at a time, into the recipe.
+3. The menus — a by-key voice's keys indented under it, the percussion the same; the wheel voices marked; choosing a key sets the note.
+4. The lens — the panel edits the selection: every action to every selected column · "mixed" · grey with nothing selected · a fresh column
+   empty with the defaults · the one rule for a take.
+5. The column as an indicator — select only; the box and the length per row in the panel; the double-click gone; the bars drawn.
+6. Selecting a stretch — click, SHIFT+click the range, CTRL+click one.
+7. `deal: repeat | spread` — written, built on his word.
+Standing on every step: THE SHIELD — the strike mode captured before and after, byte-identical.
+
+## §258. Orientation check-in — his approach fixed: DESIGN EVERY PLAN FIRST, THEN BUILD ONE BY ONE WITH A LISTEN BETWEEN; the whole order laid out (2026-09-22)
+
+**What prompted it.** His words: *"so lets have an orientation checkin; there was a durations build I think I still owe an evaluation and feedback
+on that yes? then we planed the articulation build, still needs to be built and evaluated and revised if necessary; then I want to plan/build
+dynamics; and the save file structure above; anything else?, I'm limited in my listening now so the approach was to review and design the plans,
+then build one by one with listening revising between each plan"*
+
+**His approach, taken as the order of work (journal §2 NEXT STEPS rewritten to it):** while his listening is limited, DESIGN the plans — `1m.4`
+articulation (phase 3 still to do: the top line of §257 is put, not yet confirmed, and no step is written into PLAN yet) · plan 2 DYNAMICS with
+hairpins and crescendos (nothing said of it yet beyond LG-74; `1f`, the crescendo tool still on the old law, belongs to it) · plan 3 THE SAVE
+STRUCTURE (LG-84 · LG-85: the pattern as a named document; Insert needs it) — THEN build one by one, a listen and a revision between each.
+
+**Corrections to his list, said to him:** (1) he owes his tests of `1m.1` · `1m.2` AND `1m.3` (the row, the columns, duration), not duration
+alone — and `1m.4` step 5 will replace the column's gestures, so what still matters from those tests is the SOUND (the short, the lengths, the
+claves) and the row; (2) the percussion row is no longer a separate item — it is inside `1m.4` (by-key voices, §244 · §249); (3) Insert waits on
+plan 3.
+
+**Anything else — the standing list, from journal §2 and PLAN § `1m` *Held*:** re-attack (a player on in two columns closer than they can
+re-attack — flagged, LG-58) · the Rhythm sequence panel and `1l.8`, undecided since §214 · multitempo as a rhythm source (LG-61) · `1k` the morph's
+peaks before his next morph · his listens never reported (`1h` H4 · `1i` VB6 · `1j` BR4) · the triangle on track 10 (§221) · LG-79 a saved set of
+articulations · the LGMF call (Q2) · journal §7 (the Tempus checkbox, 2026-10-15).
+
+**Model · clear, at this juncture:** phase 3 of `1m.4` now on Fable, no clear (every decision of §240 … §257 is in this context and would have to
+be re-read) → checkpoint + clear → plan 2 dynamics on Fable → plan 3 the save structure on Fable → the builds on Opus, one per clear, his listen
+between each.
+
+## §259. His tests of `1m.1` … `1m.3` CLOSED at his word — one test after the `1m.4` build, duration vetted then; "lets not hold on to previous tests/feedback" (2026-09-22)
+
+His words: *"ok skip those tests I just need to vet duration one more time to make sure it is behaving; as we move on lets not hold on to previous
+tests/feedback; and I think duration issues will surface later I think we have a better hold on the underling architecture so lets move on to the
+plan on deck and have a test after articulation build"*
+
+**Taken:** the outstanding tests of `1m.1 the row` · `1m.2 the columns` · `1m.3 duration` are closed, untested, at his word. ONE test follows the
+build of `1m.4 articulation`, and duration is vetted in it. The journal's "in his hands, tests outstanding" bullets and PLAN's three "his test
+outstanding; RELOAD the tab" marks are rewritten to this. **A standing instruction from here:** old tests and feedback are not carried forward
+once a plan moves on — the next test covers what stands.
+
+**The top line of §257 stands as put** (he moved on without reordering); phase 3 opens with step 1, *Every voice knows itself*.
+
+## §260. `1m.4` WRITTEN INTO THE PLAN at his word, phase 3 skipped — seven steps, two dependencies, the calls made alone; committed (2026-09-22)
+
+**What prompted it.** His words after step 1's goal: *"we can skip the formal planning as long as you are comfortable that the plan has been vetted
+and there aren't any open questions, then build plan and I assume next steps are build and then my test, tell me if wrong and let me know what the
+next topic/plan is to vet"*
+
+**The AI's answer:** comfortable — no question is left that only he can answer; two DEPENDENCIES remain (1m.4.2 needs his rack open; Insert needs
+plan `1o`), and the calls made alone are marked **[call]** in the plan, his to reverse: an `MW Shape` preset is velocity with a wheel shape · a
+nameless key is labelled by its note name · 1m.4.2 may run after the rest, a pending voice showing note names · a `mw` voice greyed but selectable
+· the four sets never write the percussion row · a take saved before takes a key voice's first key · the defaults memory is the drawer's own cfg
+labelled `defaults` · `spread` cycles the harmony when the columns outnumber the notes.
+
+**Written:** `docs/PLAN.md` § `1m.4` — the item's why, its result when done, his standard, what is held, 1m.4.1 … 1m.4.7 each with its sub-steps
+and REQUIRED VERIFICATION (THE SHIELD in every one), and the build order (1 → 3 → 4 → 5 → 6; 2 at the rack; 7 on his word). One test after 1m.4.6.
+
+**The next steps, as told to him:** checkpoint + clear → BUILD on Opus, one commit per step → his ONE test → then the next plan to VET on Fable:
+**`1n dynamics`** (hairpins and crescendos; `1f` the crescendo tool under the law belongs to it), then `1o the save structure`. If he would rather
+vet `1n` while `1m.4` waits for his test, that is one session of Fable either way.
