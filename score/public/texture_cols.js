@@ -24,9 +24,16 @@
 // the pattern — for the column notes, the claves, and the drawer's `hear: strike` while a texture take is on (so the column preview
 // and the pattern agree; the strike mode keeps the strike's own lengths; `long tone` is long_tone_ui's and still wins). A column takes
 // a `length` in seconds from the bar (blank = the short), shared by a multi-selection as the harmony is; one player takes a length of
-// their own by a DOUBLE-CLICK on their lit circle (a box on the spot; blank = the column's). Stored in the column: `len` (s) and
-// `lens` {row: s}; the notes stored in a column carry NO length — it is read at play time. SEEN: from each lit circle a bar to the
-// right, the note's length at the zoom; the short = the circle alone. Under the DYNAMICS LAW these stay STRUCK notes held N seconds.
+// their own in the `len` box on their row of the players list (1m.4.5 — it was a double-click on the circle; blank = the column's).
+// Stored in the column: `len` (s) and `lens` {row: s}; the notes stored in a column carry NO length — it is read at play time. SEEN:
+// from each lit circle a bar to the right, the note's length at the zoom; the short = the circle alone. Under the DYNAMICS LAW these
+// stay STRUCK notes held N seconds.
+//
+// 1m.4.5 THE COLUMN AS A PASSIVE INDICATOR (LG-83, RUNNING_LOG §252): the column takes ONE gesture — a click SELECTS it (1m.4.6 names
+// the modifiers). The circle's click as a tick and 1m.3's double-click are gone: every control is in the orchestration panel, in two
+// kinds kept apart — what a take carries (harmony · deal · articulations) and what the column alone carries (plays · length, per row
+// and per column). The column SHOWS: a lit or grey circle per row (plays or not) · a bar from a lit circle for the length · a dynamic
+// mark reserved for 1n.
 (function (root) {
 'use strict';
 const D = root.StrikeDrawer;
@@ -132,7 +139,41 @@ Object.assign(D, {
         this.setStatus(t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s: ' + (v == null ? 'the column\'s length again (' + this.txLenWord(c, lane) + ')' : v + ' s, their own'));
     },
     txClearOverride(c, lane) { if (c && c.lens) { delete c.lens[lane]; if (!Object.keys(c.lens).length) delete c.lens; } },
-    // the box on the spot (a double-click on a lit circle): ENTER or leaving it sets, ESC leaves it as it was
+    // 1m.4.5: the `len` box on each row of the players list (texture mode only) — a player's own length in the SELECTED column(s); blank =
+    // the column's. Set with several selected, all of them take it; the box shows the primary's, dashed where they differ.
+    txPaintRowLens() {
+        const orch = this.el && this.el.querySelector('#skOrch'); if (!orch) return;
+        const on = this.txIsOn(), p = on ? this.txCols() : null, k = p && this.txPrimary(), c = k ? p.cols[k] : null;
+        const cols = p && p.sel.length > 1 ? p.sel.map(kk => p.cols[kk]).filter(Boolean) : [];
+        orch.querySelectorAll('.skRow').forEach(row => {
+            const lane = +row.dataset.lane; let box = row.querySelector('.txRowLen');
+            if (!on) { if (box) box.remove(); return; }   // THE SHIELD: the strike mode's rows do not change
+            if (!box) {
+                box = document.createElement('input'); box.className = 'txRowLen'; box.type = 'number'; box.step = '0.05'; box.min = LEN_MIN; box.max = LEN_MAX; box.placeholder = 'len';
+                box.style.cssText = INP + ';width:44px;margin-left:4px;flex:none';
+                box.addEventListener('change', e => this.txSetRowLen(lane, e.target.value));
+                box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); box.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintRowLens(); box.blur(); } });
+                row.appendChild(box);
+            }
+            const own = c && c.lens ? +c.lens[lane] : NaN, colLen = c ? +c.len : NaN;
+            box.disabled = !k; box.style.opacity = k ? '' : 0.45;
+            if (document.activeElement !== box) box.value = isFinite(own) && own > 0 ? own : '';
+            box.placeholder = k ? (isFinite(colLen) && colLen > 0 ? colLen + ' s' : 'short') : '—';
+            const vals = cols.map(cc => (cc && cc.lens && isFinite(+cc.lens[lane]) && +cc.lens[lane] > 0) ? +cc.lens[lane] : null), mixed = cols.length > 1 && new Set(vals.map(String)).size > 1;
+            box.style.outline = mixed ? '1px dashed #C9A05A' : '';
+            box.title = (TRK()[lane] ? TRK()[lane].label : 'row ' + lane) + ' — a length of their own in the selected column(s), seconds; blank = the column\'s (' + (c ? this.txLenWord(c, -1) : 'the short') + ')' + (mixed ? ' · mixed: ' + vals.map(v => v == null ? 'column\'s' : v + ' s').join(' · ') : '') + '. ENTER sets · ESC puts it back';
+        });
+    },
+    txSetRowLen(lane, raw) {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintRowLens(); this.setStatus('select a column first — len is the selected column(s)\'', true); return; }
+        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX), t = TRK()[lane];
+        if (s !== '' && !(v > 0)) { this.txPaintRowLens(); this.setStatus('a length of their own: seconds, or blank for the column\'s', true); return; }
+        this.txPushUndo();
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (v == null) this.txClearOverride(c, lane); else { c.lens = c.lens || {}; c.lens[lane] = v; } });
+        this.txPersistSoon(); this.txRender(); this.txPaintRowLens();
+        this.setStatus((t ? t.label : 'row ' + lane) + (p.sel.length === 1 ? ' at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : ' → ' + p.sel.length + ' columns') + ': ' + (v == null ? 'the column\'s length again' : v + ' s, their own'));
+    },
+    // 1m.3's box on the spot — kept for a browser gesture no longer bound (1m.4.5: the `len` box on the row replaced it)
     txOpenLenBox(k, lane, cx, cy) {
         this.txCloseLenBox();
         const view = this.el && this.el.querySelector('#txView'), p = this.txCols(), c = p && p.cols[k], t = TRK()[lane]; if (!view || !c || !t) return;
@@ -158,7 +199,7 @@ Object.assign(D, {
         lb.disabled = !k; lb.style.opacity = k ? '' : 0.45;
         if (document.activeElement !== lb) lb.value = isFinite(l) && l > 0 ? l : '';
         lb.placeholder = k ? 'short' : '—';
-        lb.title = 'the length of the SELECTED column(s), in seconds — blank: the standard short; set with several selected, all of them take it' + (p && p.sel.length > 1 ? ' (' + p.sel.length + ' selected; the box shows the first)' : '') + '. A player\'s own length (double-click their circle) stands over it';
+        lb.title = 'the length of the SELECTED column(s), in seconds — blank: the standard short; set with several selected, all of them take it' + (p && p.sel.length > 1 ? ' (' + p.sel.length + ' selected; the box shows the first)' : '') + '. A player\'s own length (the len box on their row) stands over it';
     },
 
     // ---------------------------------------------------------------- undo (§228)
@@ -337,7 +378,7 @@ Object.assign(D, {
                 const t = T[lane], isOn = players.has(lane), mine = c ? (c.notes || []).filter(n => n.row === lane) : [], L = isOn && mine.length ? this.txLenS(c, lane) : null;
                 // 1m.3: a length set = a bar to the right, the note's length at the zoom (a player's own outlined); the short = the circle alone
                 if (L) { const w = Math.min(Math.max(1, L.s * px), W - cx + 12); bars += '<rect class="txLen" x="' + cx.toFixed(1) + '" y="' + (cy - 3).toFixed(1) + '" width="' + w.toFixed(1) + '" height="6" rx="2" fill="' + ON_COL + '" fill-opacity="' + (L.own ? 0.5 : 0.3) + '" stroke="' + (L.own ? ON_COL : 'none') + '" stroke-width="1" pointer-events="none"/>'; }
-                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => (n.keyLabel || nm(n.midi)) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') + ' · ' + this.txLenWord(c, lane) + ' · double-click: a length of their own' : isOn ? ' · no pitch fits (may fold, or another harmony)' : '');
+                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => (n.keyLabel || nm(n.midi)) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') + ' · ' + this.txLenWord(c, lane) : isOn ? ' · no pitch fits (may fold, or another harmony)' : '') + ' · click: select the column (the panel edits it)';   // 1m.4.5: an indicator
                 circs += '<circle class="txCirc" data-k="' + d.k + '" data-lane="' + lane + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + CIRC_R + '" fill="' + (isOn ? (mine.length ? ON_COL : 'none') : OFF_FILL) + '" stroke="' + (isOn ? ON_COL : OFF_FILL) + '" stroke-width="1.3" style="cursor:pointer"><title>' + escH(title) + '</title></circle>';
             });
         });
@@ -363,15 +404,13 @@ Object.assign(D, {
     txLastCirc() { const h = this._txLastCirc; return h && performance.now() - h.at < 700 ? h : null; },
     txColDown(ev) {
         if (!this._tx || ev.button !== 0) return false;
-        const hit = this.txColHit(ev), last = this.txLastCirc();
-        if (!hit && !(last && ev.detail >= 2)) return false;
+        const hit = this.txColHit(ev);
+        if (!hit) return false;
         ev.preventDefault();
-        // 1m.3: THE SECOND PRESS of a double-click takes the first press's tick back and opens the length box HERE. No `click` or
-        // `dblclick` follows a press on a circle: the first press re-drew the columns, so the circle the mouse went down on has left
-        // the DOM, and Chrome fires no click for it (his report — *"double click on players circle just toggles it on and off"*)
-        if (ev.detail >= 2) { if (ev.detail === 2 && last) { this._txLastCirc = null; this.txRevertLast(); this.txOwnLength(last.k, last.lane); } return true; }
-        if (hit.lane >= 0) { this._txLastCirc = { k: hit.d.k, lane: hit.lane, at: performance.now() }; const c = this.txCols().cols[hit.d.k]; this.txTick(hit.d.k, hit.lane, !(c && c.players.includes(hit.lane))); return true; }
-        this._txLastCirc = null;
+        // 1m.4.5: ONE gesture — a press anywhere in the column's band, a circle included, SELECTS the column; a second press of a
+        // double-click does nothing more. (1m.3's tick-on-the-circle and its double-click for a length are gone: the players list has
+        // the box and the `len` box, and the lens puts them on every selected column.)
+        if (ev.detail >= 2) return true;
         this.txSelect(hit.d.k, !!ev.shiftKey);
         return true;
     },
@@ -382,12 +421,11 @@ Object.assign(D, {
         const ys = this.txRowsY(), d = this.txDot(k);
         this.txOpenLenBox(k, lane, this.txX(d.t) + this.txMarkW() / 2, ys[lane] != null ? ys[lane] : COL_TOP);
     },
-    // a browser that does send the `dblclick` (one that fires a click for a re-drawn target): nothing more once the box is open
+    // 1m.4.5: a double-click in the columns' area opens nothing (the ruler's own double-click, above the columns, is texture_row's)
     txColDbl(ev) {
         if (!this._tx || !this.txIsOn()) return false;
-        if (this.el.querySelector('#txLenBox')) { ev.preventDefault(); ev.stopImmediatePropagation(); return true; }
-        const hit = this.txColHit(ev); if (!hit || hit.lane < 0) return false;
-        ev.preventDefault(); ev.stopImmediatePropagation(); this.txOwnLength(hit.d.k, hit.lane);
+        const hit = this.txColHit(ev); if (!hit) return false;
+        ev.preventDefault(); ev.stopImmediatePropagation();
         return true;
     },
 
@@ -423,7 +461,7 @@ Object.assign(D, {
 // ---------------------------------------------------------------- the hooks
 // 1 · the drawing: the columns over the row's; the `claves` toggle and ↶ in the bar; the players list's tick boxes
 const _txRender = D.txRender;
-D.txRender = function () { const r = _txRender.apply(this, arguments); try { this.txRenderCols(); this.txPaintLenUI(); } catch (e) { console.warn('[texture_cols] render:', e); } return r; };
+D.txRender = function () { const r = _txRender.apply(this, arguments); try { this.txRenderCols(); this.txPaintLenUI(); this.txPaintRowLens(); } catch (e) { console.warn('[texture_cols] render:', e); } return r; };
 const _txEnsureUI = D.txEnsureUI;
 D.txEnsureUI = function () {
     const r = _txEnsureUI.apply(this, arguments);
@@ -485,6 +523,7 @@ D.render = function () { const r = _render.apply(this, arguments); try { this.tx
 const _renderOrch = D.renderOrch;
 D.renderOrch = function () {
     const r = _renderOrch.apply(this, arguments);
+    try { this.txPaintRowLens(); } catch (e) { console.warn('[texture_cols] row lens:', e); }   // 1m.4.5: the `len` box per row, texture mode only
     try {
         const fc = this.el && this.el.querySelector('#skFreeCount');
         if (fc && !fc.parentNode.querySelector('#skTickAll')) {

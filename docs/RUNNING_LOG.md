@@ -10871,3 +10871,30 @@ here they go to the primary (the one the drawer shows), as everything did before
   ✓; `rowTechs` empty and the panel not greyed on `the strike` ✓; the bytes of `♪ as dealt` under `percussive`: the same 25 messages as
   a SET ✓ — their order in this run followed insertion (prelude · on · off per note): the pane was hidden and its timers clamped into
   one batch (journal §2 STILL BINDING: the pane does not paint); every prelude still precedes its own note-on.
+
+## §282. `1m.4.5` THE COLUMN AS A PASSIVE INDICATOR — built and verified with the pane's real input; THE SHIELD held (2026-09-22, Fable)
+
+**What changed** (`score/public/texture_cols.js` alone; LG-83, §252): the column takes ONE gesture — a press anywhere in its band, a
+circle included, SELECTS it (SHIFT adds, as before; 1m.4.6 names the modifiers). 1m.3's tick-on-the-circle and its double-click for a
+length are gone (`txColDown` no longer ticks; a second press does nothing; `txColDbl` opens nothing — 1m.3's box on the spot,
+`txOpenLenBox`, stays in the file unbound). Every control is in the orchestration panel, in two kinds kept apart: what a take carries
+(harmony · deal · articulations) and what the column alone carries (plays · length, per row and per column).
+
+- **The `len` box per row** (`txPaintRowLens`, texture mode only — appended to each `.skRow` after every render of the panel and of the
+  row; the strike mode's rows do not get one, THE SHIELD): a player's own length in the SELECTED column(s), seconds; blank = the
+  column's (`length` in the bar), whose value is the placeholder; the box shows the primary's, outlined dashed where the selected columns
+  differ (the tooltip names them); ENTER sets, ESC puts it back; set with several selected, all of them take it (`txSetRowLen`, one undo
+  step); disabled and dim with nothing selected.
+- **The column shows** what it showed: a lit or grey circle per row, a bar from a lit circle for the length (the standard short = the
+  circle alone), and — reserved for `1n` — a dynamic mark beside each. The circle's tooltip now ends *click: select the column*.
+- Hear unchanged: `Hear orchestrated` = the primary column, SPACE = the pattern, `all on` · `all off` in the panel (now to every
+  selected column, 1m.4.4).
+
+**REQUIRED VERIFICATION, run with the pane's REAL input (§238 — `computer` clicks, not dispatched events; the pane at 1280 × 860, its
+frame 800 × 537, the coordinates scaled):** a click on the cello's circle of a column → the column selected, the cello NOT ticked ✓ · a
+double-click on the next column's circle → that column selected, no box opened, no tick ✓ · three columns selected (the cello on in
+each) and `1.5` TYPED into the cello row's `len` box, ENTER → `lens {6: 1.5}` in all three, the status *Cello → 3 columns: 1.5 s, their
+own*, the box reading 1.5 ✓ · the bars drawn at two zooms: at 180 px/s all three 270 px = 1.5 × 180 exactly; at 1322 px/s the bars
+clipped at the view's right edge as they always were (517 · 461 · 336 px, the full 1983 px not fitting) ✓ · **THE SHIELD**: the strike
+mode's rows carry no `len` box; the deal under `ordinario` and the `spiccato` set with their routes byte-identical to §279 ✓ · no
+console error ✓.

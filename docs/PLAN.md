@@ -1901,7 +1901,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
         loaded onto two empty columns and one dealt → the two carry its players, the third only its pitches on its own players, no cfg key moved ·
         nothing selected → grey, a tick does nothing · a fresh column has no players and the defaults · undo restores all three · THE SHIELD.
 
-    - **1m.4.5 — The column as a passive indicator** (select only; the box and a length per row in the panel; the double-click gone; the bars drawn)
+    - **1m.4.5 — The column as a passive indicator** (select only; the box and a length per row in the panel; the double-click gone; the bars drawn) — `built`
+      2026-09-22 (RUNNING_LOG §282: a press in the band selects, the circle's tick and the double-click gone; a `len` box per row of the players list, texture
+      mode only, to every selected column; verified with the pane's real input; THE SHIELD held)
       - The column takes one gesture: a click selects (1m.4.6 names the modifiers). The circle's click as a tick and 1m.3's double-click go.
       - The players list, texture mode only: beside each row's box and articulation a `len` box (seconds; blank = the column's) — 1m.3's
         per-player length moved to the panel; `length` in the bar stays for the column. THE SHIELD: the strike mode's rows do not change.
