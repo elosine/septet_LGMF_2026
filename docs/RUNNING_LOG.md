@@ -9529,3 +9529,18 @@ second copy of the deal.
 column (the first form of the write-back trusted `sel` alone) — hence `_txHeld`, and a take re-read now drops the selection.
 
 **He must RELOAD his tab.** His columns come forward with their players.
+
+## §234. Duration in the columns — phase 1 opened: what a note's length is today, his idea read back, the first question (2026-09-21)
+
+His words: COMPOSITION_NOTES LG-73. The planning method, phase 1 — the data first.
+
+**What a note's length is TODAY** (read in `texture_cols.js` `txColNotes` and `strike_drawer.js` `select`): a column's note takes the
+length of the harmony's own note as it was RECORDED in the strike (`n.durMs || 100`, then the drawer's `dur ×`), held between 60 ms
+and 1.5 s; the claves 150 ms. So every attack in the pattern is short — a strike's length, not a chosen one — and it is the same for
+every column.
+
+**His idea, read back to him:** a length for the whole column (every player in it), and on top of it an override for one player in
+that column; where neither is set, what it is today. **The first question put to him, the one only he can answer:** what a length IS
+here — (A) seconds · (B) held to the next mark of the pattern (legato across the rhythm) · (C) held to THAT player's next mark ·
+(D) a fraction of the gap to the next mark, so the pattern can breathe as one — with the AI's note that C is what a player would
+do and A is what the drawer's long tone already does.

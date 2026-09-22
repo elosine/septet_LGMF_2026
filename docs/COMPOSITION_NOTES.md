@@ -2190,3 +2190,8 @@ His words, with a screenshot (RUNNING_LOG §232):
 
 And, just before it: *"if I click on a column and then click on a note or a circle, is that supposed to check the box in the
 orchestration?"*
+
+### LG-73 · 2026-09-21 — DURATION in the columns: per column, and an override per note / per instrument
+
+His words (RUNNING_LOG §234): *"All right, let's discuss duration. I like to be able to set a duration per column, column, but also
+uh, per note, per instrument. So I guess like an override. Let's discuss."*
