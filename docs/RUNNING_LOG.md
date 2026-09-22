@@ -9395,3 +9395,14 @@ when he calls it:
    but not the NAME of the harmony take it was loaded from (`#skTakeName` is not in a take's state). The fix when he calls it: the
    column remembers the take name at write-back (the name box, when a take was loaded) and the status / the `i` / the take box show it
    on recall.
+
+## §230. *"still defaulting to long tone"* — the strike rule of §228 ran only on the SWITCH, not at a page that loads in the texture mode (2026-09-21)
+
+His words: *"still defaulting to long tone."* Read: §228 set `hear` to strike inside `txSetMode('texture')` — the switch — but his tab
+RELOADS with the texture mode remembered, and at load the mode is applied by `txApply`, never by the switch; his drawer's own saved
+`hearMode` (`long`) stood. Now `txHearStrike()` runs on the switch AND on every `txApply` while a texture take is on: the mode's own
+setting saved once, `strike` set, restored on the way back to the strike mode (`_txHearSet` guards it from running twice).
+
+**Verified on `score-5401`** (no MIDI, every POST stubbed — none made): the page saved with `hear = long` and the texture mode
+remembered, reloaded → the drawer opened: `hear = strike`, the menu `strike` · back to `the strike`: `long` again · into the texture
+take again: `strike`. **He must RELOAD his tab.**

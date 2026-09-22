@@ -53,6 +53,14 @@ Object.assign(D, {
     },
     txSel() { const p = this.txCols(); return p ? p.sel : []; },
     txClavesOn() { return this._txS.claves !== false; },
+    // `hear` = STRIKE while a texture take is on the page (§228 · §230): the mode's own setting saved once, set to strike, restored on the
+    // way back to the strike mode. Called on the switch AND on every apply, so a page that LOADS in the texture mode is strike too.
+    txHearStrike() {
+        if (this._txHearSet) return; this._txHearSet = true;
+        if (!this._txSavedHear) this._txSavedHear = { hearMode: this.cfg.hearMode, longS: this.cfg.longS };
+        if (this.cfg.hearMode !== 'strike') { this.cfg.hearMode = 'strike'; this.save(); }
+        if (typeof this.paintLongUI === 'function') try { this.paintLongUI(); } catch (e) {}
+    },
     txPersistSoon() { clearTimeout(this._txPersistT); this._txPersistT = setTimeout(() => this.txPersist(), 150); },
     txH() {
         const view = this.el && this.el.querySelector('#txView');
@@ -243,6 +251,9 @@ D.txEnsureUI = function () {
     }
     return r;
 };
+// 1b · the mode on the page: a texture take active (at load as on the switch) → `hear` is strike
+const _txApply = D.txApply;
+D.txApply = function () { const r = _txApply.apply(this, arguments); try { if (this.txIsOn()) this.txHearStrike(); } catch (e) {} return r; };
 // 2 · the hand: the columns first, then the row's own click (one undo step, dropped if only the cursor moved)
 const _txDown = D.txDown;
 D.txDown = function (ev) {
@@ -275,15 +286,12 @@ D.txLoad = function () { const r = _txLoad.apply(this, arguments); try { this._t
 const _txSetMode = D.txSetMode;
 D.txSetMode = function (m) {
     const was = this.txIsOn();
-    if (m === 'texture' && !was) {
-        this._txSavedOff = Object.assign({}, this.laneOff || {});
-        this._txSavedHear = { hearMode: this.cfg.hearMode, longS: this.cfg.longS };
-        this.cfg.hearMode = 'strike'; this.save(); if (typeof this.paintLongUI === 'function') try { this.paintLongUI(); } catch (e) {}
-    }
+    if (m === 'texture' && !was) { this._txSavedOff = Object.assign({}, this.laneOff || {}); this.txHearStrike(); }
     const r = _txSetMode.apply(this, arguments);
     if (m === 'strike' && was) {
         if (this._txSavedOff) { this.laneOff = this._txSavedOff; this._txSavedOff = null; if (this.strike) this.renderOrch(); }
         if (this._txSavedHear) { Object.assign(this.cfg, this._txSavedHear); this._txSavedHear = null; this.save(); if (typeof this.paintLongUI === 'function') try { this.paintLongUI(); } catch (e) {} }
+        this._txHearSet = false;
     }
     return r;
 };
