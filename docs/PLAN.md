@@ -1798,6 +1798,27 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **His, in his Chrome:** the look of it against the players list · the ear · what he meets in practice (*"I'll just have to see
       them in practice"*).
 
+  - **1m.3 — Duration: a standard short, a length per column, an override per player** — `todo`, agreed 2026-09-21 (RUNNING_LOG §234 …
+    §236, COMPOSITION_NOTES LG-73; his go: *"lets clear then build"*).
+    *Result when done:* every note in the pattern has a length he chose. Where he chose nothing it is THE STANDARD SHORT, 120 ms — the
+    column notes, the claves, and the drawer's `hear: strike` while a texture take is on, so the column preview and the pattern agree.
+    A column can be given a length in seconds, shared by a multi-selection as the harmony is; one player in a column can be given a
+    length of their own over it. He SEES the lengths: from each lit circle a bar to the right, as long as the note in the row's time.
+    - `short` in the bar: one number, 120 ms by default, remembered with the pattern; every column note and the claves take it where
+      nothing longer is set; `hear: strike` follows it while a texture take is on (the strike mode keeps the strike's own lengths).
+    - `length` in the bar for the SELECTED column(s): blank = the short; a number = seconds. Stored in the column; a multi-selection
+      shares it as it shares the harmony (set with several selected → all of them).
+    - A player's override: double-click their circle → a small box on the spot; blank = the column's. Stored in the column by row.
+    - The drawing: a bar from each lit circle to the right, its width the note's length at the zoom; the short = the circle alone.
+    - The sound: STRUCK notes held N seconds (the velocity the dynamic — DYNAMICS_LAW §1), as the drawer's long tone is; the sample's own
+      articulation ends a note sooner when it is shorter. In the rhythm preview a note's length is its own; nothing is cut at the next
+      mark (a player's re-attack is the miscellaneous list's, later).
+    - **REQUIRED VERIFICATION** (`score-5401`, no MIDI, every POST stubbed): SPACE with nothing set → every note-off 120 ms after its
+      note-on · a column set to 2 s → its notes off at 2000 ms, the others at 120 · one player overridden to 0.5 s → that note at 500,
+      the column's others at 2000 · two columns selected, `length` set → both · `hear: strike` on a texture take → 120 ms; on the strike
+      mode → the strike's own · the bars drawn with the right widths at two zooms · remembered across a reload · not one POST.
+    - **His, in his Chrome:** the look of the bars · the ear · what the standard short sounds like on each articulation.
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
