@@ -9330,3 +9330,51 @@ player a note on `main`, so a column's percussion circle is gold and the rhythm 
 track) — the drawer's own behaviour, carried as is.
 
 **Not run:** the batteries (none reaches these files). **He must RELOAD his tab.**
+
+## §228. `1m.2`, his first test: WHO SOUNDS is the column's own (the circles are no longer the ticks); `hear` = strike here; no carry-over; the off circles full size; UNDO (2026-09-21)
+
+His words are COMPOSITION_NOTES LG-69. Five things, all in `score/public/texture_cols.js` (rewritten); `texture_row.js` and
+`strike_drawer.js` untouched.
+
+**1 · "The circles are the ticks" — the AI's proposal of §224, which he agreed to try (§225: *"That's fine. We can try this"*) — is
+REVERSED BY HIS TEST.** The drawer's tick means *eligible for the deal*; what he wants of a circle is *who SOUNDS at this onset*. With
+the two fused, a multi-selection shared one set of ticks, so *"I can't select individual notes per column"*. Now a column holds THE
+DEAL (its take: harmony · cfg · voices · the drawer's ticks · the dealt notes — shared by every selected column, as he asked) and,
+its own, **`on`: who sounds** — never written by the drawer, toggled by a click on the circle of THAT column, selected or not, one or
+many. A column made before this change gets `on` from its ticks once, so nothing he had is lost. *(For the paper: the deal and the
+choice were one thing in the drawer, where a strike has one player per note; they are two things in a grid, where one deal serves
+many onsets. It took his hands on it to see the seam.)*
+
+**2 · No carry-over.** A fresh column takes the drawer's deal with NOBODY on — the previous column's players no longer follow him into
+the next (his screenshot: three columns, the same two rows lit).
+
+**3 · `hear` is STRIKE here.** Every recall applied the column's stored `cfg` whole, `hearMode` with it, so a column made while the menu
+stood at `long tone` brought that back each time (*"I have to switch it for every column now"*). Now: on the way into a texture take
+the menu is set to `strike` (the strike mode's own setting saved and restored on the way back), and a recall never applies a column's
+`hearMode` / `longS`. *(The AI's reading of "strike" as the `hear` menu — it is the one per-column thing that fits his sentence; his to
+correct.)*
+
+**4 · The off circles** are the size of the on ones, filled gray (`#55555f`); on = gold; on with no note in the deal = a hollow gold
+ring (hover: why).
+
+**5 · UNDO** — `↶` in the bar and CTRL+Z (in a texture take, not while typing): the marks, the columns, the selection and the range,
+forty steps, in memory for this page. A step is taken before every hand action (a mark, a circle, `all on / off`, `crop`, `[` `]`, a
+range drag, a selection) and before every change the DRAWER writes into the selected columns (a shuffle, an assignment, a harmony
+pick) — so undoing a shuffle puts the column's deal back AND recalls it into the drawer. A click that only moved the cursor leaves no
+step.
+
+**Also:** `Hear orchestrated` on a texture take now plays the selected column's ON players as one strike (nobody on → its whole deal,
+and the status says so).
+
+**VERIFIED on `score-5401`** (1600 × 900, no MIDI, every POST stubbed — none made; his take `LGMF-S2-R1a`, harmony `sp:A1:just`):
+`hear` = long tone in the strike mode → `strike` on entering the texture take (the menu too) → `long` again on the way back · a
+fresh column: `on = []`, the off circle r 4.5 gray · two rows clicked on: `[2, 5]`, the selection untouched · a second fresh column:
+`on = []`, the first's `[2, 5]` kept, the same deal · a row clicked in an UNSELECTED column: that column alone changed, the selection
+untouched · SHIFT-select both + shuffle: the seed moved, the same deal in both, `[2, 5, 7]` and `[]` kept apart · a column's stored
+`hearMode: 'long'` → recalled with the menu still `strike` · `↶` and CTRL+Z each undid one step (13 → 12 → 11) · a shuffle undone:
+the column's notes back and the drawer's seed with them · after a shuffle the deal has 9 notes, the on rows gold, the off rows gray ·
+**SPACE: the mark with 3 on → 3 pitched notes + claves; the three bare marks claves alone**, at 0 · 135 · 820 · 1635 ms · `Hear
+orchestrated` → the 3 ON players, one strike (0 ms spread).
+
+**He must RELOAD his tab.** His pattern and columns survive (the browser's storage); a column made before this gets its `on` from its
+ticks once.

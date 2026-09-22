@@ -2145,3 +2145,14 @@ can be the same thing · select a column and the ticks show who is on in it · t
 > have to see them in practice. And then the answer would be A."*
 
 *(A: every shuffle lands in the selected column at once — what he hears is what it holds.)*
+
+### LG-69 · 2026-09-21 — THE COLUMNS IN HIS HANDS, FIRST TEST: who sounds is the column's own — *"assign the same harmony to multi-selects and to shuffle all of them, but still assign individual instruments per column"*; strike the default; no carry-over; undo
+
+His words, with a screenshot of three columns carrying the same two rows (RUNNING_LOG §228):
+
+> *"lets make strike the default for here, I have to switch it for every column now. and then whatever I selected in the last column
+> is on in my next selection if I select a different column. Let's not have that. when I have multiple columns selected, I can't
+> select individual notes per column. I want to be able to assign the same harmony to multi-selects and to shuffle all of them, but
+> still assign individual instruments per column. the gray off dots are too small. You can leave them the same size as the on dots,
+> just gray instead of colored in. Also, is it possible to have an undo? If that's too difficult, that's okay. Let's fix these things
+> first and I'll continue my test."*
