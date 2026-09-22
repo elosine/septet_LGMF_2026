@@ -10812,3 +10812,62 @@ rows, one pitched player fewer — and the plan says *"dealt NO pitch"*.
 
 **Left to the next steps:** the lens (1m.4.4) makes a row's articulation, a tick, the set and a key voice go to EVERY selected column —
 here they go to the primary (the one the drawer shows), as everything did before.
+
+## §281. `1m.4.4` THE LENS — built and verified with no MIDI; THE ONE RULE for a take; THE SHIELD held (2026-09-22, Fable)
+
+**What it is** (LG-81 · LG-83, §248 … §252, now code): `score/public/texture_lens.js`, a mixin after `texture_cols.js` (one line in
+`composer.html`, one in `texture_cols.js`). The orchestration panel is a LENS on the selected column(s):
+
+- **Every panel action goes to every selected column** — a tick · `all on` / `all off` · a row's voice by name or by key · the set —
+  through `txBroadcast`: the action runs on the drawer (the primary, written back by its render) and offline on each other selected
+  column through `txWithColumn`; ONE undo step for the lot; the status says `→ 3 columns`. The harmony and the DEAL dials (the shuffle
+  seed · may fold · the locks · the voicing) go through the write-back as before, each column dealt on its own players — and, NEW, with
+  its OWN set and other dials kept (`txHarmonyInto`): the old path applied the primary's whole cfg to the others, which the first test
+  caught (a column selected with `staccato` came out `ordinario` after a harmony pick). Every other dial changed on the primary is
+  copied to the others without a re-deal. `length` was shared already (1m.3).
+- **`rowTechs[lane]`** — a row's articulation as the COLUMN carries it: a pitched voice chosen by name is remembered on the row, the
+  drawer's `defaultTech` reads it while a texture take is on, so a re-deal (a shuffle, a new harmony, a take) keeps it; a set pressed
+  clears them (every row on the set); in `state()`, so in every column and take. Why: in the drawer a voice's articulation lives on the
+  NOTE, and every deal resets it to the set — right for a strike, wrong for a column he has orchestrated. On `the strike` it is empty and
+  never read (THE SHIELD).
+- **THE ONE RULE for a take** (`txTakeInto`): loaded BY HAND from the drawer's take menu onto a selection (`_txTakeHand`, set round
+  `loadTake`), a take gives every selected column its PITCHES, dealt on that column's own players with their own articulations and key
+  voices; onto a column with NO players its players and their articulations come too, the deal as the take has it; NEVER its cfg (the
+  column's own dials stay — measured: the take's `durX` 7.5 did not move a column's 1). The primary is handled in the `applyState`
+  wrap (before the drawer's cfg could be replaced), the others in the write-back once the take's name is known; the status adds *onto
+  an empty column: its players and their articulations too* or *its pitches dealt on this column's own players*.
+- **"Mixed"** where the selected columns differ (`txPaintMixed`, after every render of the panel and of the row): a row's box a THIRD
+  state (indeterminate, its tooltip counting `on in 1 of 3`) · a row's menu, the set buttons and the `length` box outlined dashed with
+  the values named in the tooltip · the harmony named as differing · the `i` and the status line listing what is mixed.
+- **Nothing selected → the panel and the picker greyed** (opacity .45); a click, a change or a mousedown on them does nothing and the
+  status says *no column selected — the panel edits the selected column(s)* (a capture listener; the row's name may still open the
+  picker to LOOK). The harmony list, the rhythm takes, the row and SPACE stay live. **The drawer is then the DEFAULTS memory**
+  (`_txS.defaults`, saved on every write-back with nothing selected and when a selection starts from nothing); the bar says
+  `defaults` · `column 1.23 s` · `3 columns` (`#txWho`). ESC (`txClearSel`) and a take re-read bring the defaults back onto the drawer.
+- **A fresh column is EMPTY**: no players, no key voices, no row articulations, the DEFAULTS' set, dials and harmony — not the
+  primary's (`txFresh` from the defaults; on its own with nothing saved yet, from the drawer as before) **[call]**: *"inherits no
+  harmony"* read as *not the primary's* — a column must have SOME harmony to deal from, and the defaults' is the one he loaded when
+  nothing was selected. A new harmony picked while a column is held keeps the column's players, articulations and key voices (the
+  drawer's `select` would have cleared the key voices — as played has none).
+- **Not done here:** the drawer's own `back` (its one-step undo) applies a snapshot whole; in a texture take the ↶ is the undo.
+  `sequence_ui`'s `D.loadTake` (a box loading a take in the drawer) passes through the same wrap — with a column held it now follows
+  THE ONE RULE, as it followed 1m.2's tick rule before; unlikely in use, noted.
+
+**REQUIRED VERIFICATION, run (`score-5401`, no MIDI, every POST and the beacon stubbed; his first rhythm take, `cs-012`):**
+- three columns selected, the cello ticked → `6` in all three ✓ · `spicc_vel` chosen for the cello → `spicc_vel` in all three, `rowTechs
+  {6: spicc_vel}` in each ✓ · the `staccato` set → `stac_vel` in all three, `rowTechs {}` ✓ · `sp_vel` then the claves `Pair 2 High` →
+  the key voice in all three ✓ · a new shuffle seed → every column re-dealt with the cello still on `sp_vel` and the claves kept ✓
+- nothing selected → the panel at opacity .45, `defaults` in the bar; a click on the cello's box changes nothing (no column made, the
+  status says so) ✓ · a fresh column: 0 players, 0 notes, the defaults' set `ordinario` and harmony `cs-012` ✓
+- the horn ticked in ONE column of three → its box indeterminate, the line says `mixed: Hn on/off` ✓ · ↶ → all three back ✓
+- **the take** `Blm01c-wVibes-Just-A1-seed131mod` (lanes 0 1 2 3 5 6 7 8, harmony `sp:A1:just`) loaded onto an EMPTY primary and two
+  dealt columns (players 4 · 6 — the claves and the cello on `sp_vel`, `ordinario`): the empty one takes its eight players, its harmony,
+  8 notes, `durX` 1 (the take's 7.5 never came) ✓ · the two dealt keep players `4,6`, the claves, `sp_vel`, their set, take the harmony,
+  their notes on rows `4,6` ✓ · the take's name on all three ✓ · the status names the rule ✓
+- the harmony-shared path after the fix: column A `staccato` with the english horn on `vib_vel`, column B `ordinario`; B primary, A
+  added, `cs-011` picked → both on `cs-011`, seed 5 shared, A still `staccato` with `vib_vel`, B `ordinario`, each on its own players ✓
+- ESC → `defaults` back on the drawer (`ordinario`, `cs-012`, every player), the panel grey ✓ · no console error ✓
+- **THE SHIELD** (§279's routine, `cs-012`, `may fold`, seed 5): the deal under `ordinario`, the four sets and their routes byte-identical
+  ✓; `rowTechs` empty and the panel not greyed on `the strike` ✓; the bytes of `♪ as dealt` under `percussive`: the same 25 messages as
+  a SET ✓ — their order in this run followed insertion (prelude · on · off per note): the pane was hidden and its timers clamped into
+  one batch (journal §2 STILL BINDING: the pane does not paint); every prelude still precedes its own note-on.

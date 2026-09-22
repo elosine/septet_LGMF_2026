@@ -217,7 +217,7 @@ Object.assign(D, {
         this._txApplying = true;
         try {
             this.txSetPlayersNow(c.players); this.applyState(st);
-            if (base) this.rowKeys = Object.assign({}, (c.state && c.state.rowKeys) || {});   // 1m.4.3: another column's harmony, this column's own by-key voices
+            if (base) { this.rowKeys = Object.assign({}, (c.state && c.state.rowKeys) || {}); this.rowTechs = Object.assign({}, (c.state && c.state.rowTechs) || {}); }   // 1m.4.3 · 1m.4.4: another column's harmony, this column's own by-key voices and row articulations
             fn.call(this, c);
             const cap = this.txCapture(); c.state = cap.state; c.players = cap.players; c.notes = cap.notes; if (!base) c.take = cap.take;
         } finally {

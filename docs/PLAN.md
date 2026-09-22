@@ -1882,7 +1882,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
         the orchestration's notes · shuffle leaves it · a `mw` voice greyed · a set pressed leaves the percussion row · save → reload → recall keeps
         the key · THE SHIELD, byte-identical.
 
-    - **1m.4.4 — The lens** (the panel edits the selection; the one rule for a take; grey with nothing selected; a fresh column empty)
+    - **1m.4.4 — The lens** (the panel edits the selection; the one rule for a take; grey with nothing selected; a fresh column empty) — `built` 2026-09-22
+      (RUNNING_LOG §281: `score/public/texture_lens.js`, a mixin — the broadcast, THE ONE RULE for a take, `rowTechs` so a column's row articulation survives a
+      re-deal, the harmony-shared path keeping each column's own set [found and fixed], mixed marks, grey + the defaults memory, `txFresh` from the defaults [call];
+      THE SHIELD held)
       - Every panel action goes to every selected column: harmony · take · shuffle · a row's box · a row's articulation · the set · the dials ·
         `length` (today only harmony · shuffle · take · length are shared). `txWriteBack`'s primary-only path becomes the shared path.
       - THE ONE RULE for a take (§251 · §252): its pitches to every selected column, dealt on that column's own players; onto a column with NO
