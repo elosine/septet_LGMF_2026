@@ -9406,3 +9406,40 @@ setting saved once, `strike` set, restored on the way back to the strike mode (`
 **Verified on `score-5401`** (no MIDI, every POST stubbed — none made): the page saved with `hear = long` and the texture mode
 remembered, reloaded → the drawer opened: `hear = strike`, the menu `strike` · back to `the strike`: `long` again · into the texture
 take again: `strike`. **He must RELOAD his tab.**
+
+## §231. HIS LOOP, RUN DOWN: the ticks were a column's and came back on the drawer, so a shuffle dealt to nobody; a harmony take brought `long tone` with it — and the three held fixes built (2026-09-21)
+
+His words: COMPOSITION_NOTES LG-71. Two faults, both read in his screenshots and in the code, then the three items of §229 at his word
+(*"make those other fixes too"*). All in `score/public/texture_cols.js`.
+
+**1 · THE LOOP.** His second screenshot shows it: **every tick on the players list cleared — `0 free · 0 busy`** — while the players still
+show the notes of the take he had just loaded. A shuffle deals onto TICKED rows only (PLAN 1t step 4), so with none ticked it dealt to
+nobody and the take's notes vanished (his third screenshot: seed 199, every row `·`). Where the unticking came from: the FIRST build of
+the columns (§227) made the circles the ticks, so a column with two players on was stored with SEVEN ROWS UNTICKED; §228 separated who
+sounds from the ticks, but a column still stored its `off` and a recall still put it ON THE DRAWER. The column he turned on fresh
+then copied the drawer's ticks — all off — and was born unassignable. The loop closed on itself: recall → nothing ticked → shuffle →
+nothing dealt. **Fixed at the root: the ticks are the DRAWER's, never a column's.** A column keeps its deal (`state`, `notes`), the name
+of its harmony take and who sounds (`on`); its stored `off` is dropped at the next write-back and never applied. *(For the paper: the
+first build's coupling outlived its reversal by one field. What §228 removed from the model it left in the store, and the store came
+back through the recall.)*
+
+**2 · THE LONG TONES.** A harmony TAKE carries the drawer's whole `cfg` as it stood when it was saved — `hearMode` with it — and his
+takes of 2026-09-19 were saved on `long tone`. §228 kept the page's `hear` across a COLUMN recall but not across a TAKE load, so every
+column he gave a take from that day *"reverted to long tones"*. Now `applyState` itself, while a texture take is on, keeps the page's
+`hearMode` / `longS` whatever state it is handed.
+
+**3 · THE THREE HELD FIXES (§229):** (a) `all on` · `all off` for the ticks, in the orchestration panel's header beside `n free · n
+busy` — `all off` unticks every player and silences every note now, as one untick does (`back` undoes it) · (b) the column preview
+(`Hear orchestrated`) reads the drawer LIVE — `notesFor('orch')`, each player · pitch once, filtered to the column's ON rows — so the
+`hear` menu's strike or long tone applies at once, no reshuffle · (c) a column remembers the NAME of its harmony take (the take box at
+write-back; a loaded take names the box only after its own promise resolves, so the load is awaited), the box and the status show it on
+recall.
+
+**VERIFIED on `score-5401`** (1600 × 900, no MIDI, every POST stubbed — none made; his rhythm take `LGMF-S2-R1a`): a column given
+`off = [0 … 8]` by hand (the first build's poison) → recalled → the drawer still **9 free**, `off` gone from the column; shuffle → **9
+notes on 9 players** · `all off` → 0 ticked, 0 chips, the column's notes 0; `all on` + shuffle → 9 · 9 · 9 · the harmony take
+`Just-C1-seed90`, saved on `long`, loaded → **`hear` still `strike`** · the take's name in the column, back in the box and in the status
+on recall (*"take Just-C1-seed90"*) · `Hear orchestrated` with 2 on: strike → 2 note-ons, both off within 1.5 s; `long tone` 4 s
+(no reshuffle) → 2 note-ons, **none off within 1.5 s**.
+
+**His tab: RELOAD.** The reload alone clears the stale ticks (they live in memory); his columns keep their deals and their players.

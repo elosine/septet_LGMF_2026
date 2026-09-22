@@ -11,8 +11,8 @@
 // A mixin on texture_row.js (which is a mixin on the strikes drawer); `strike_drawer.js` is not changed:
 //   · under every ON mark a COLUMN of the drawer's own player rows (TRK order — eight players and the vibraphone's second seat, the
 //     percussion's row kept but not addressed here), lined up with the players list; a circle per row.
-//   · A COLUMN IS A DRAWER TAKE: `state()` (the harmony, the cfg, the voices) + the drawer's ticks (`laneOff`) + its dealt notes —
-//     THE DEAL — and, its own, WHO SOUNDS (`on`: rows). Select a column → `applyState` (the take machinery). LINKED (A): after every
+//   · A COLUMN IS A DRAWER TAKE: `state()` (the harmony, the cfg, the voices) + its dealt notes + the name of the harmony take it
+//     came from — THE DEAL — and, its own, WHO SOUNDS (`on`: rows). The drawer's ticks are the drawer's (§231), never a column's. Select a column → `applyState` (the take machinery). LINKED (A): after every
 //     render of the drawer, the selected column(s) take its deal; `on` is never touched by the drawer.
 //   · the circles are WHO SOUNDS: gold = on, with a note in the deal · hollow gold = on, no note (tick the player and shuffle, or
 //     assign) · gray, the same size = off. A click toggles that column's row alone — selected or not, one column or many.
@@ -98,35 +98,32 @@ Object.assign(D, {
         ns.forEach(n => { const k = rowOf(n) + '|' + n.tech + '|' + n.midi; if (seen.has(k)) return; seen.add(k); out.push(Object.assign({}, n, { row: rowOf(n), onMs: 0, durMs: clamp(+n.durMs || 100, 60, 1500) })); });
         return out;
     },
-    txOffNow() { return Object.keys(this.laneOff || {}).filter(l => this.laneOff[l]).map(Number); },
+    txTakeName() { const b = this.el && this.el.querySelector('#skTakeName'); return b ? String(b.value || '').trim() : ''; },
     txSounding(c) { const on = new Set((c && c.on) || []); return c ? (c.notes || []).filter(n => on.has(n.row)) : []; },
     // LINKED (A): the selected column(s) take the drawer's DEAL as it stands; `on` is theirs
-    txWriteBack(ticksOnly) {
+    // THE TICKS ARE THE DRAWER'S, NEVER A COLUMN'S (§231 — his loop: columns from the first build carried their unticked rows, a recall
+    // set them on the drawer, and a shuffle then dealt to nobody). A column keeps its deal, its notes, its take's name and who sounds.
+    txWriteBack() {
         if (!this.txIsOn() || !this._tx || this._txApplying || !this.strike) return;
         const p = this.txCols(); if (!p || !p.sel.length) return;
-        const off = this.txOffNow();
-        if (ticksOnly) {
-            if (p.sel.every(k => !p.cols[k] || JSON.stringify(p.cols[k].off) === JSON.stringify(off))) return;
-            this.txPushUndo(); p.sel.forEach(k => { if (p.cols[k]) p.cols[k].off = off; });
-            this.txPersistSoon(); this.txRender(); return;
-        }
-        const st = this.state(), notes = this.txColNotes();
+        const st = this.state(), notes = this.txColNotes(), take = this.txTakeName();
         const before = this.txUndoSnap();
-        const next = {}; p.sel.forEach(k => { next[k] = Object.assign({}, p.cols[k] || { on: [] }, { state: st, off, notes }); });
+        const next = {}; p.sel.forEach(k => { const c = Object.assign({}, p.cols[k] || { on: [] }, { state: st, notes, take }); delete c.off; next[k] = c; });
         const same = p.sel.every(k => JSON.stringify(next[k]) === JSON.stringify(p.cols[k]));
         if (same) return;
         this._txUndo.push(before); if (this._txUndo.length > UNDO_MAX) this._txUndo.shift();
         p.sel.forEach(k => { p.cols[k] = next[k]; });
         this.txPersistSoon(); this.txRender();
     },
-    // RECALL: a column's deal into the drawer (the take machinery), its ticks with it; the page's `hear` menu stays
+    // RECALL: a column's deal into the drawer (the take machinery); the ticks and the page's `hear` menu stay as they are
     txRecall(k, quiet) {
         const p = this.txCols(), c = p && p.cols[k]; if (!c) return false;
         if (!c.state || !this.strikeById(c.state.strikeId)) { this.setStatus('that column\'s harmony is no longer in this score\'s list — shuffle to deal it afresh', true); return false; }
         const st = JSON.parse(JSON.stringify(c.state)); NOT_APPLIED.forEach(key => { if (this.cfg[key] != null) st.cfg[key] = this.cfg[key]; else delete st.cfg[key]; });
         this._txApplying = true;
-        try { if (!quiet) this.snapshot(); this.laneOff = {}; (c.off || []).forEach(l => { this.laneOff[l] = true; }); this.applyState(st); }
+        try { if (!quiet) this.snapshot(); this.applyState(st); }
         finally { this._txApplying = false; }
+        { const b = this.el.querySelector('#skTakeName'); if (b) b.value = c.take || ''; }
         if (!quiet) this.txWriteBack();
         return true;
     },
@@ -152,7 +149,7 @@ Object.assign(D, {
     txToggleRow(k, lane) {
         const p = this.txCols(); if (!p) return;
         this.txPushUndo();
-        if (!p.cols[k]) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; } p.cols[k] = { state: this.state(), off: this.txOffNow(), notes: this.txColNotes(), on: [] }; }
+        if (!p.cols[k]) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; } p.cols[k] = { state: this.state(), notes: this.txColNotes(), take: this.txTakeName(), on: [] }; }
         const c = p.cols[k], at = c.on.indexOf(lane); if (at >= 0) c.on.splice(at, 1); else c.on.push(lane);
         this.txPersistSoon(); this.txRender();
         const t = TRK()[lane], note = (c.notes || []).filter(n => n.row === lane);
@@ -161,7 +158,7 @@ Object.assign(D, {
     txColLine() {
         const p = this.txCols(), T = TRK(); if (!p.sel.length) return 'no column selected';
         const c = p.cols[p.sel[0]], who = this.txSounding(c).map(n => (T[n.row] ? T[n.row].short : '?') + ' ' + nm(n.midi)).join(' · ');
-        return (p.sel.length === 1 ? 'column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + ' selected — the drawer is theirs' + (who ? ' · ' + who : ' · nobody on yet: click circles');
+        return (p.sel.length === 1 ? 'column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + ' selected — the drawer is theirs' + (c && c.take ? ' · take ' + c.take : '') + (who ? ' · ' + who : ' · nobody on yet: click circles');
     },
 
     // ---------------------------------------------------------------- the drawing, over the row's
@@ -220,13 +217,16 @@ Object.assign(D, {
         await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players on · ' + bare + ' bare' + (claves ? ' · the claves under them' : '') + ' · from ' + from.toFixed(2) + ' s');
         const e = E_(); if (e && e._playing) this.txStartRun(from, r[1]);
     },
-    // THE COLUMN PREVIEW: the selected column's ON players as one strike; nobody on → the whole deal
+    // THE COLUMN PREVIEW: the selected column's ON players as one strike, read from the drawer LIVE (`notesFor('orch')` — so the `hear`
+    // menu's strike or long tone applies at once, no reshuffle: §229 item 2); nobody on → the whole deal
     async txHearColumn() {
         const p = this.txCols(), k = p && p.sel[0];
         if (!k) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; } return this.hearDealt(); }
-        const c = p.cols[k], mine = this.txSounding(c);
-        if (!mine.length) { const r = await this.hearDealt(); this.setStatus('nobody is on in this column — hearing its whole deal'); return r; }
-        return this.playNotes(mine.map(n => Object.assign({}, n, { onMs: 0, durMs: Math.max(600, +n.durMs || 0) })), 'the column at ' + this.txDot(k).t.toFixed(2) + ' s · ' + mine.length + ' on');
+        const c = p.cols[k], on = new Set((c && c.on) || []), seen = new Set(), all = [];
+        (this.notesFor('orch') || []).forEach(n => { const row = rowOf(n), key = row + '|' + n.tech + '|' + n.midi; if (seen.has(key)) return; seen.add(key); all.push(Object.assign({}, n, { row, onMs: 0, durMs: this.isLong && this.isLong() ? n.durMs : Math.max(600, +n.durMs || 0) })); });
+        const mine = all.filter(n => on.has(n.row));
+        if (!mine.length) { const r = await this.playNotes(all, 'this column\'s whole deal'); this.setStatus('nobody is on in this column — hearing its whole deal · ' + all.length + ' notes'); return r; }
+        return this.playNotes(mine, 'the column at ' + this.txDot(k).t.toFixed(2) + ' s · ' + mine.length + ' on');
     },
 });
 
@@ -270,8 +270,41 @@ D.txDragGrip = function () { this.txPushUndo(); return _txDragGrip.apply(this, a
 // 3 · LINKED: after every render of the drawer the selected column(s) take its deal; after the players list alone, its ticks
 const _render = D.render;
 D.render = function () { const r = _render.apply(this, arguments); try { this.txWriteBack(); } catch (e) { console.warn('[texture_cols] link:', e); } return r; };
+// 3b · `all on` · `all off` for the players' TICKS, in the orchestration panel (his word, §229 item 1) — the drawer's own ticks, one click
 const _renderOrch = D.renderOrch;
-D.renderOrch = function () { const r = _renderOrch.apply(this, arguments); try { this.txWriteBack(true); } catch (e) { console.warn('[texture_cols] ticks:', e); } return r; };
+D.renderOrch = function () {
+    const r = _renderOrch.apply(this, arguments);
+    try {
+        const fc = this.el && this.el.querySelector('#skFreeCount');
+        if (fc && !fc.parentNode.querySelector('#skTickAll')) {
+            const b = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';
+            const span = document.createElement('span'); span.style.cssText = 'display:inline-flex;gap:4px;margin-left:6px';
+            span.innerHTML = '<button id="skTickAll" style="' + b + '" title="tick every player: the shuffle may deal onto all of them">all on</button><button id="skTickNone" style="' + b + '" title="untick every player: their notes fall silent now, as one untick does; tick some and shuffle">all off</button>';
+            fc.parentNode.insertBefore(span, fc.nextSibling);
+            span.querySelector('#skTickAll').addEventListener('click', () => { this.laneOff = {}; this.renderOrch(); this.setStatus('every player ticked'); });
+            span.querySelector('#skTickNone').addEventListener('click', () => {
+                this.snapshot(); const T = TRK();
+                T.forEach((t, l) => { this.laneOff[l] = true; });
+                this.voices.forEach(v => { v.lane = -1; v.also = []; v.piano = false; v.fold = 0; v.standIn = null; v.skip = false; });
+                this.save(); this.render(); this.setStatus('every player unticked — every note silent; tick some and shuffle, or assign (back undoes it)');
+            });
+        }
+    } catch (e) { console.warn('[texture_cols] ticks:', e); }
+    return r;
+};
+// 3d · a harmony take LOADED names the box only after applyState has rendered — so the column takes the name in one more write-back
+const _loadTake = D.loadTake;
+D.loadTake = function () {   // another mixin makes loadTake ASYNC (it answers a promise): the write-back waits for it
+    const r = _loadTake.apply(this, arguments), after = () => { try { if (this.txIsOn()) this.txWriteBack(); } catch (e) {} };
+    if (r && typeof r.then === 'function') return r.then(v => { after(); return v; });
+    after(); return r;
+};
+// 3c · a harmony TAKE loaded while a texture take is on keeps the page's `hear` (§231: takes saved on long tone brought it back)
+const _applyState = D.applyState;
+D.applyState = function (st) {
+    if (this.txIsOn() && st && st.cfg) { const cfg = Object.assign({}, st.cfg); NOT_APPLIED.forEach(key => { if (this.cfg[key] != null) cfg[key] = this.cfg[key]; else delete cfg[key]; }); st = Object.assign({}, st, { cfg }); }
+    return _applyState.call(this, st);
+};
 // 4 · Hear orchestrated is the COLUMN; SPACE is the rhythm. Both reach play('orch'); the button's own capture listener says which
 const _play = D.play;
 D.play = async function (mode) {

@@ -2166,3 +2166,15 @@ His words (RUNNING_LOG §229):
 > was selected when I go back and select a different column. you can hold on to these for now."*
 
 *("the here" · "tape" — speech-to-text for `hear` and take.)*
+
+### LG-71 · 2026-09-21 — *"I'm stuck in some sort of loop here"*: a take assigned, a shuffle that takes the note out; columns reverting to long tones
+
+His words, with three screenshots (RUNNING_LOG §231):
+
+> *"I'm stuck in some sort of loop here. I selected the column and then I assigned a take. But when you assign a take, it has, I
+> guess, a previous orchestration or something like that. And then when I hit shuffle, it takes my node out and uh, removes the take.
+> this was a column at the top there that wasn't selected before and I turned it on. And now it can't be assigned, it's stuck in a
+> loop. go ahead and run this down and then make those other fixes too, please."*
+
+> *"And then strangely, for some reason, they all reverted to long tones, just for reasons. or I should say several columns reverted
+> to long tones."*
