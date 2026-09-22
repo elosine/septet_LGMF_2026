@@ -2574,3 +2574,24 @@ ramp · 4 the pointillistic model · 5 the waves model · 6 his one test), and p
 a time — is skipped at his word, as it was for `1m.4` (LG-82's standard, §260's precedent). The AI writes the six steps into PLAN alone,
 the calls it makes marked [call], his to reverse.
 
+
+### LG-100 · 2026-09-22 — A player's own notes in a texture pattern: too-close ATTACKS are warned, never disallowed (LG-58's rule, kept); a LENGTH running into the next attack is CUT there — *"1 as stated, 2 cut"*
+
+His words, asking how the piece already handles it and then deciding, in one turn each:
+
+> *"two onsets same instrument from the texture rhythm too close, we've done this type a couple times how are we resolving this now in
+> other things? warning? disallow?"*
+
+and, on the two cases told apart:
+
+> *"1 as stated, 2 cut"*
+
+*AI's reading, marked as such:* the precedent he was reaching for is his own LG-58 — merged lines on ONE player get the standard collision
+check (`Composer.CONFLICT`, Texture's `collisions`: HARD = two attacks sounding at once, SOFT = closer than that instrument's minimum
+re-articulation gap, the tuba piece's values kept at his word), the pair FLAGGED in the warning colour and counted, never moved, never
+dropped, his to clear by muting; different players never checked against each other, because in a phase-shifting pattern the few
+milliseconds between two instruments are the material. **1 as stated** = that rule, unchanged, now over a texture pattern's columns.
+**2 cut** = a second case the tools had never met: a note's LENGTH (1m.3) running past that same player's next onset is not a collision at
+all but what a player does — they stop the first note and play the second — so the note ends at the next attack, the bar in the column is
+drawn to the cut, and the length he typed is kept in the document, so turning that next mark off brings the full length back. Both are
+realized in one place (`1n.1`'s helper), so what SPACE plays and what Insert writes cannot differ. The record: RUNNING_LOG §277.

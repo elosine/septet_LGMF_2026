@@ -161,7 +161,49 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open — 2026-09-22, session 13, Fable, after checkpoint #2 (the block below it is still the checkpoint; read this first):**
+**Open at session end — CHECKPOINT #3 (2026-09-22, session 13, Opus) *(mid-session checkpoint — READ THIS ONE)*:**
+
+- **ALL THREE PLANS ARE DESIGNED AND WRITTEN, NOTHING IS BUILT — by his order (LG-82 · RUNNING_LOG §258 · §261):** `1m.4 articulation`
+  ✓ · `1n dynamics` ✓ · `1o the save structure` ✓. **The design phase of session 13 is CLOSED. The task in hand is now THE BUILDS, one at a
+  time, his one test after each.**
+- **THE NEXT CONCRETE STEP, as an instruction:** on **Opus**, after `/clear` + `/postclear` — **build `1m.4.1` (Every voice knows itself)**, the
+  first step of PLAN § `1m.4`'s build order (its last bullet: 1m.4.1 → .3 → .4 → .5 → .6, ONE COMMIT EACH, the step's REQUIRED VERIFICATION and
+  THE SHIELD run in each; **1m.4.2 waits on his rack**; 1m.4.7 `spread` only on his word). `1m.4.1` is data in `sandbox/instruments.js` — `kind`
+  (`pitched` · `key` · `fixed`) and `loud` (`vel` · `mw`) on every technique entry, the by-key entries' keys, and a check that names what is
+  missing. **His ONE test comes after 1m.4.6, not before.** Do not start any of it until he says go (his standing postclear rule).
+- **Latest deliverable:** `docs/PLAN.md` § `1o` — *The save structure: a pattern is a document of its own, in a library of its own, placed in the
+  score by Insert* — six steps 1o.1 … 1o.6, each with its REQUIRED VERIFICATION and THE SHIELD, the build order its last bullet, the [call]s
+  marked; commit `10d2df7`. Its record: RUNNING_LOG §276 … §278, COMPOSITION_NOTES LG-100. Before it, PLAN § `1n` (`b7aa818`) and § `1m.4`
+  (`98f1d2b`).
+- **WHAT `1o` DECIDED, in one breath** (so nothing is re-litigated): a pattern is a NAMED DOCUMENT carrying a COPY of its onsets, the texture only
+  a label — so a take re-saved or deleted in Texture can never reach it and Texture needs no save protection · `texture ▾` STARTS a new empty
+  pattern (the spine, LG-85), `pattern ▾` recalls one by its own name, several per texture · `bank/patterns.json`, a FIFTH store (`test_snapshots`
+  28 → 30, **the server must be restarted**), named keepers + an untitled stack of 50, autosaved as the sequence library is, today's browser
+  patterns migrated ONCE · the library controls are the sequence library's rules verbatim, in a CLONE mixin `texture_lib.js` (`sequence_ui.js`
+  untouched) · **Insert is the sequence's idiom exactly** — at the playhead or re-inserted in place from its META bar, one group `grp-pat-<id>`,
+  the document copied WHOLE into `databases.patterns`, `patterns in this score`, `curveDirty()`, a note under a trill skipped — and **it writes
+  THE RANGE**, its left line at the playhead (his A, §277).
+- **Decided this session and NOT in `1o`** (his B, §277 · LG-100): two rules on ONE player's notes, written into **PLAN § `1n.1`** — a length that
+  runs into that player's next onset is **CUT** there (the bar drawn to it, the typed length kept in the document) · two attacks closer than the
+  instrument's minimum gap are **FLAGGED and counted, never moved** (LG-58's rule, Texture's `collisions`). Different players are never checked
+  against each other. `1m` *Held* points there.
+- **`Resume reads:` for the `1m.4.1` build** — PLAN § `1m.4` (the header and 1m.4.1 only; the rest as its step comes) · journal §2 **STILL BINDING**
+  (the verification method, `score-5401`) · `sandbox/instruments.js` and the drawer's `kindOf` in `strike_drawer.js`, when the build starts.
+  **Not needed:** `docs/DYNAMICS_LAW.md` (it is `1n.1`'s, not `1m.4.1`'s) · PLAN § `1n` · § `1o` · RUNNING_LOG §240 … §278 (open one only when a
+  question sends you there).
+- **Decisions pending him:** the [call]s in PLAN § `1m.4` (§260 lists them) · § `1n` (§275) · § `1o` (§278: the texture in an untitled name · a
+  migrated pattern whose take is gone · a clone mixin rather than an extraction · the `•` ignoring `sel` and `cursor`) · the triangle on track 10
+  (§221) · `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag · whether `bank/patterns.json` goes into git when it exists.
+- **His tests of `1m.1` · `1m.2` · `1m.3`: CLOSED at his word, untested (§259).** ONE test after the `1m.4` build; old feedback is not carried forward.
+- **The morphs:** his aside, *"morphs need to be revisited, something is off there"* — MORPH_NOTES §3, 2026-09-22, undiagnosed, beside `1k`.
+- **Unsaved working copies** (`node tools/unsaved_check.js`, run at this checkpoint): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the
+  same four as checkpoint #2, none of them the piece; his to Save or Reload. No score is committed here.
+- **DELIBERATELY UNCOMMITTED — five paths, all his, none written by this session** (`git status --short` at this checkpoint):
+  `bank/panel_snapshots.json` (his harmony takes, 3 MB, autosaved by his tab) · `bank/sequences.json` (his sequence library, autosaved every 2 s —
+  committing mid-use races his tab) · `reaper/LGMF_rack.rpp` (his REAPER project, saved by REAPER) · `bank/rhythm_sequences.json` and
+  `bank/rhythm_takes.json` (untracked — his rhythm sequences and takes; whether they go into git is his call).
+
+*(Superseded — the plain open block written before this checkpoint; its content is above.)*
 
 - **`1o the save structure` IS WRITTEN** (PLAN § `1o`; RUNNING_LOG §276 … §278). **ALL THREE PLANS ARE DESIGNED AND WRITTEN, NOTHING BUILT, BY HIS
   ORDER (§261).** Commit `f04c5d1` (the decisions) and the one after it (the item).
@@ -174,7 +216,9 @@ Presets set aside; a saved set of his own noted (LG-79).
   a `sec01-done` tag · whether `bank/patterns.json` (not yet existing) goes into git, as `bank/sequences.json`'s policy.
 - **The tree:** the same five uncommitted paths as checkpoint #2, all his, none written by this session.
 
-**Open at session end — CHECKPOINT #2 (2026-09-22, session 13, Opus) *(mid-session checkpoint)*:**
+*(Superseded — CHECKPOINT #2, the same day: its task, `1o the save structure`, is written. Kept for the record; do not resume from it.)*
+
+**CHECKPOINT #2 (2026-09-22, session 13, Opus) *(mid-session checkpoint)*:**
 
 - **THE ORDER OF WORK, HIS (LG-82 · RUNNING_LOG §258 · §261):** while his listening is limited he is DESIGNING EVERY PLAN FIRST and will BUILD AND TEST
   THEM ONE AT A TIME afterwards. **`1m.4 articulation` ✓ written · `1n dynamics` ✓ written · `1o the save structure` NEXT.** Nothing has been built in
