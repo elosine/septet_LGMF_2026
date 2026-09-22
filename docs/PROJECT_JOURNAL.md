@@ -111,7 +111,7 @@ USED by him before the next — so nothing of articulation is planned yet.*
   RUNNING_LOG §190 · §217. Code only when a question names it: `score/public/texture_cols.js` · the drawer's articulation roster in
   `strike_drawer.js`.
 
-### SESSION 13 · RUNNING ORDER — `1m.4` THE DISCUSSION (2026-09-22, Fable; his word: *"as long as you are keeping track and pls keep the overall organization"*)
+### SESSION 13 · RUNNING ORDER — TWO PLANS DESIGNED, `1m.4` THEN `1n` (2026-09-22, Fable; his word: *"as long as you are keeping track and pls keep the overall organization"*)
 
 *Phase 1 of the planning method, one issue at a time; nothing built. Position is announced at every wrap. Reorder only on his approval.*
 
@@ -149,7 +149,6 @@ Presets set aside; a saved set of his own noted (LG-79).
 | **►►** | **VET `1o the save structure`** — plan 3 of 3 (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, a library, where it lives, how Insert reads it; now also the ranges and by-hand values of `1n`, which live with the pattern) — phase 1 with him, HIS WORDS FIRST | Fable | yes — checkpoint on Opus, clear, `/postclear` on Fable |
 | ► | **THEN BUILD AND TEST ONE AT A TIME, LATER — `1m.4 articulation` FIRST:** PLAN § `1m.4`, its last bullet is the build order (1m.4.1 → .3 → .4 → .5 → .6, one commit each, THE SHIELD in each; .2 at his rack; .7 on his word) → his ONE test → revise if needed → then the `1n dynamics` build (PLAN § `1n`, 1n.1 → 1n.5 one commit each, 1n.6 his; its first act is the READ named in 1n.1) → then `1o` + Insert | Opus | yes, each |
 | ✓ | **plan 2 — DYNAMICS** — written 2026-09-22 as PLAN § `1n` (see above); `1f` does NOT belong to it (§274) | — | — |
-| ► | **plan 3 — THE SAVE STRUCTURE** (LG-84 · LG-85: the pattern as a named document, a library, where it lives, how Insert reads it) | Fable | yes |
 | ► | **the builds, one per clear, his listen between:** `1m.4` → dynamics → the save structure + Insert. His tests of `1m.1` · `1m.2` · `1m.3` still owed — what matters from them now is the SOUND and the row (step 5 of `1m.4` replaces the column's gestures) | Opus | yes |
 | ✓ phase 1 | **TYPES OF ARTICULATION in the texture take — his word; `1m`'s scenario item (3).** The planning method's phase 1 with him, then his method for this tool: one step laid out, built, used by him (the block above) | Fable | yes — a new session |
 | N0 | **the rest of `1m`, in the order he names:** Insert · the percussion row · dynamics · re-attack (PLAN § `1m`, *Held*) | Fable to lay out · Opus to build | — |
@@ -161,9 +160,46 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — CHECKPOINT #1 (2026-09-22, session 13, Fable) *(mid-session checkpoint)*:**
+**Open at session end — CHECKPOINT #2 (2026-09-22, session 13, Opus) *(mid-session checkpoint)*:**
 
-- **UPDATE, later the same day (Fable): `1n dynamics` IS WRITTEN** — PLAN § `1n`, RUNNING_LOG §262 … §275, COMPOSITION_NOTES LG-86 … LG-99. **The task in hand is now plan 3 of 3, `1o the save structure`** (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, several per texture, a library, where it lives, how Insert reads it — and now the ranges and `dyn` values of `1n`, which live with the pattern). `1f` stays its own `todo`. The morphs: *"something is off there"* — MORPH_NOTES §3, undiagnosed. **`Resume reads:` for `1o`:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-84 · LG-85 · RUNNING_LOG §254 · §255 · PLAN § `1m.4` (the header) · PLAN § `1n` (the header). Code only when a question names it (`score/public/texture_row.js` · `texture_cols.js` · `strike_drawer.js`'s takes store, `bank/panel_snapshots.json`).
+- **THE ORDER OF WORK, HIS (LG-82 · RUNNING_LOG §258 · §261):** while his listening is limited he is DESIGNING EVERY PLAN FIRST and will BUILD AND TEST
+  THEM ONE AT A TIME afterwards. **`1m.4 articulation` ✓ written · `1n dynamics` ✓ written · `1o the save structure` NEXT.** Nothing has been built in
+  this session, by design.
+- **The task in hand:** plan 3 of 3, **`1o the save structure`** — under the planning method, **phase 1: HIS WORDS FIRST**, then the data. Nothing of it
+  has been said beyond LG-84 · LG-85. What it must settle: the orchestrated PATTERN as a document of its own with a name (several per texture), carrying
+  A COPY of its onsets · where it lives (today: the browser only, one store per tab, key `lgmf.textureRow.v1`) · a library · how Insert reads it · and now
+  also the RANGES and by-hand `dyn` values of `1n`, which live with the pattern, never with a take.
+- **The next concrete step, after `/postclear` on Fable:** say the position (plan 3 of 3; `1m.4` and `1n` written, not built), then ask for his words on
+  the save structure. Read back in his terms; the data first where it is about the state of things. **Do not start until he answers.**
+- **Latest deliverable:** `docs/PLAN.md` § `1n` — *Dynamics in the texture take: one scale for short and held, a note by hand, ranges generated by four
+  models* — six steps 1n.1 … 1n.6, each with its REQUIRED VERIFICATION and THE SHIELD, the build order its last bullet, the [call]s marked; commit
+  `b7aa818`. Its record: RUNNING_LOG §262 … §275, COMPOSITION_NOTES LG-86 … LG-99. Before it, `docs/PLAN.md` § `1m.4` (commit `98f1d2b`).
+- **WHAT `1n` DECIDED, in one breath** (so nothing is re-litigated): a SHORT note samples the level at its onset, a HELD note takes `sample | follow |
+  auto` and `auto` follows when the level moves ONE WRITTEN STEP across its span · **B2, the one scale:** a short note keeps its ladder velocity for the
+  timbre and gets a fader SET ONCE from a new RESIDUAL table (≈ 2.29 dB a step) so velocity + fader = the table's 4 dB a step — no rack change, no probe,
+  nothing else touched · a pattern's levels are ABSOLUTE and there is NO base layer (a sub-section is a range with low = high) · a generate OVERWRITES
+  everything in its range, hand-set notes last · four range models: `flat` · `ramp` (niente allowed) · `pointillistic` (three dials in words, five
+  presets, the dials always shown) · `waves` (the sequence's reused whole, `who moves`: each player · together · custom groups) · `enter: abrupt | fade
+  N s` on every range · one typed `dyn` box per row (`mp` · `mp-f` · `mp-f-mp`, a dash or a space) · the mod-wheel voices on the fader like the rest,
+  CC1 untouched · **`1f` the score's crescendo tool is OUT of `1n`**, still its own `todo` (§274).
+- **The morphs:** his aside, *"morphs need to be revisited, something is off there"* — MORPH_NOTES §3, 2026-09-22, undiagnosed, beside `1k`. Nothing was
+  looked at.
+- **`Resume reads:`** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES **LG-84 · LG-85** · RUNNING_LOG **§254 · §255** · PLAN § `1m` (the header and *Held*
+  only). Code only when a question names it (`score/public/texture_row.js` · `texture_cols.js`). **Not needed for `1o`:** `docs/DYNAMICS_LAW.md` and PLAN
+  § `1n` — open them only if a question sends you there.
+- **Decisions pending him:** the [call]s in PLAN § `1m.4` (§260 lists them) and in PLAN § `1n` (§275 lists them) · the triangle on track 10 (§221) ·
+  `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag.
+- **His tests of `1m.1` · `1m.2` · `1m.3`: CLOSED at his word, untested (§259).** Old tests and feedback are not carried forward; ONE test after the
+  `1m.4` build.
+- **Unsaved working copies** (`node tools/unsaved_check.js`, run at this checkpoint): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same
+  four as session 12's close, none of them the piece; his to Save or Reload. No score is committed here.
+- **DELIBERATELY UNCOMMITTED — five paths, all his, none written by this session:** `bank/panel_snapshots.json` (his harmony takes, autosaved) ·
+  `bank/sequences.json` (his sequence library, autosaved every 2 s — committing mid-use races his tab) · `reaper/LGMF_rack.rpp` (his REAPER project) ·
+  `bank/rhythm_sequences.json` and `bank/rhythm_takes.json` (untracked — his rhythm sequences and takes; whether they go into git is his call).
+
+*(Superseded — CHECKPOINT #1, the same day: its task, `1n dynamics`, is the deliverable above. Kept for the record; do not resume from it.)*
+
+- **WAS: `1n dynamics` IS WRITTEN** — PLAN § `1n`, RUNNING_LOG §262 … §275, COMPOSITION_NOTES LG-86 … LG-99. **The task in hand is now plan 3 of 3, `1o the save structure`** (LG-84 · LG-85: the pattern as a named document with a copy of its onsets, several per texture, a library, where it lives, how Insert reads it — and now the ranges and `dyn` values of `1n`, which live with the pattern). `1f` stays its own `todo`. The morphs: *"something is off there"* — MORPH_NOTES §3, undiagnosed. **`Resume reads:` for `1o`:** `docs/PLANNING_METHOD.md` · COMPOSITION_NOTES LG-84 · LG-85 · RUNNING_LOG §254 · §255 · PLAN § `1m.4` (the header) · PLAN § `1n` (the header). Code only when a question names it (`score/public/texture_row.js` · `texture_cols.js` · `strike_drawer.js`'s takes store, `bank/panel_snapshots.json`).
 
 - **THE ORDER OF WORK, HIS (LG-82 · RUNNING_LOG §258 · §261):** while his listening is limited he is DESIGNING EVERY PLAN NOW — `1m.4 articulation`
   ✓ written · **`1n dynamics` NEXT** · `1o the save structure` after it — and will LATER BUILD AND TEST THEM ONE AT A TIME: `1m.4 articulation`
