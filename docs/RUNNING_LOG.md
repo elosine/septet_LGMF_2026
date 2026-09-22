@@ -9561,3 +9561,14 @@ So a short note today is a strike's own length, and for his harmonic-series colu
 every column note, the claves, and the drawer's `hear: strike` while a texture take is on, so the column preview and the pattern
 agree; the sample's own articulation (his staccato · spiccato) still ends a note sooner if it is shorter than that. His to set the
 number, and to say whether `hear: strike` follows it.
+
+## §236. Duration: THE STANDARD SHORT IS 120 ms and `hear: strike` follows it — decided; the column length and the override put to him as a picture (2026-09-21)
+
+His words: *"120 ms is fine, and yes, hear strike follows it."* **Decided:** one `short`, 120 ms, in the bar — every column note, the
+claves, and the drawer's `hear: strike` while a texture take is on; a sample shorter than that ends when it ends.
+
+**Put to him next, the picture of the rest (phase 1):** a `length` box in the bar for the SELECTED column(s) — blank = the short; a
+number = seconds, shared by a multi-selection as the harmony is · a player's override by a double-click on their circle (a small box
+on the spot; blank = the column's) · and the drawing as a DAW draws it: from each lit circle a bar to the right, as long as the note
+in the row's time, so a length is seen against the marks; the short = the circle alone. Under the DYNAMICS LAW these stay STRUCK
+notes held N seconds (the velocity the dynamic), as the drawer's long tone is.
