@@ -196,7 +196,7 @@ Object.assign(D, {
         return out;
     },
     txCapture() { return { state: this.state(), players: this.txPlayersNow(), notes: this.txColNotes(), take: this.txTakeName() }; },
-    txClearedState() { const st = this.state(); (st.voices || []).forEach(v => { v.lane = -1; v.also = []; v.fold = 0; v.standIn = null; v.skip = false; v.piano = false; }); return st; },
+    txClearedState() { const st = this.state(); (st.voices || []).forEach(v => { v.lane = -1; v.also = []; v.fold = 0; v.standIn = null; v.skip = false; v.piano = false; }); st.rowKeys = {}; return st; },   // 1m.4.3: no by-key voice either
     txFresh() { return { state: this.txClearedState(), players: [], notes: [], take: this.txTakeName() }; },
     // RECALL: a column onto the drawer — its harmony and deal (`applyState`, the take machinery), its players as the ticks, its take's name
     txRecall(k, quiet) {
@@ -217,6 +217,7 @@ Object.assign(D, {
         this._txApplying = true;
         try {
             this.txSetPlayersNow(c.players); this.applyState(st);
+            if (base) this.rowKeys = Object.assign({}, (c.state && c.state.rowKeys) || {});   // 1m.4.3: another column's harmony, this column's own by-key voices
             fn.call(this, c);
             const cap = this.txCapture(); c.state = cap.state; c.players = cap.players; c.notes = cap.notes; if (!base) c.take = cap.take;
         } finally {
@@ -228,6 +229,7 @@ Object.assign(D, {
     // THE MINI-DEAL: one player ticked → an unassigned pitch of the harmony that fits (in range first, folded if `may fold`), chosen by
     // the seed; none free → a pitch already held is doubled. Nobody else moves. Answers the voice, or null with nothing changed.
     txDealTo(lane) {
+        if (this.rowKeys && this.rowKeys[lane]) return null;   // 1m.4.3: a by-key row voice is dealt NO pitch — its note is the key
         const rnd = lcg((+this.cfg.oSeedShuffle || 1) * 7919 + lane * 31 + 1);
         const free = shuffled(this.voices.filter(v => v.lane < 0 && !v.piano), rnd);
         const tryOn = v => { this.assign(v, lane); if (!v.skip && (v.fold === 0 || this.cfg.mayFold)) return true; v.lane = -1; v.fold = 0; v.standIn = null; v.skip = false; return false; };
@@ -240,7 +242,7 @@ Object.assign(D, {
         }
         return null;
     },
-    txDropLane(lane) { this.onLane(lane).slice().forEach(({ v, r }) => this.dropReal(v, r)); },   // the player's notes leave; nobody else moves
+    txDropLane(lane) { this.onLane(lane).slice().forEach(({ v, r }) => this.dropReal(v, r)); if (this.rowKeys) delete this.rowKeys[lane]; },   // the player's notes leave (a by-key voice too, 1m.4.3); nobody else moves
     txOnDrawer(k) { const p = this.txCols(); return k === this.txPrimary() && !!this.strike && !!p.cols[k] && this.strike.id === (p.cols[k].state || {}).strikeId; },
     // TICK: a player of one column on or off — on the drawer when the column is the primary, offline otherwise; the selection untouched
     txTick(k, lane, on) {
@@ -251,7 +253,7 @@ Object.assign(D, {
         if (!p.cols[k]) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; } p.cols[k] = this.txFresh(); }
         let dealt = null, word = '';
         const fn = function (c) {
-            if (on) { delete this.laneOff[lane]; dealt = this.txDealTo(lane); if (!dealt) word = ' — no pitch of this harmony fits ' + t.label + ' (may fold, or another harmony)'; }
+            if (on) { delete this.laneOff[lane]; if (this.rowKeys && this.rowKeys[lane]) word = ' · ' + this.rowKeyLabel(lane); else { dealt = this.txDealTo(lane); if (!dealt) word = ' — no pitch of this harmony fits ' + t.label + ' (may fold, or another harmony)'; } }   // 1m.4.3: a by-key row voice is the note
             else { this.laneOff[lane] = true; this.txDropLane(lane); this.txClearOverride(c, lane); }   // 1m.3: their own length leaves with them
         };
         if (this.txOnDrawer(k)) { fn.call(this, p.cols[k]); this.save(); this.render(); }   // the render writes it back
@@ -281,7 +283,7 @@ Object.assign(D, {
         }
         // a take loaded is a deal on ITS players: the ticks follow it
         if (prev && prev.take !== cap.take && cap.take) {
-            const played = new Set(); (this.voices || []).forEach(v => this.reals(v).forEach(r => { if (r.lane >= 0) played.add(r.lane); }));
+            const played = new Set(); (this.voices || []).forEach(v => this.reals(v).forEach(r => { if (r.lane >= 0) played.add(r.lane); })); Object.keys(this.rowKeys || {}).forEach(l => played.add(+l));   // 1m.4.3: a by-key row voice is a player too
             if (played.size) { this.txSetPlayersNow([...played]); this._txApplying = true; try { this.renderOrch(); } finally { this._txApplying = false; } cap.players = this.txPlayersNow(); }
         }
         const next = Object.assign({}, prev || {}, cap);
@@ -316,7 +318,7 @@ Object.assign(D, {
     txDot(k) { return this._tx.dots.find(d => d.k === k) || { t: 0 }; },
     txColLine() {
         const p = this.txCols(), T = TRK(); if (!p.sel.length) return 'no column selected';
-        const c = p.cols[p.sel[0]], who = c ? (c.notes || []).map(n => (T[n.row] ? T[n.row].short : '?') + ' ' + nm(n.midi)).join(' · ') : '';
+        const c = p.cols[p.sel[0]], who = c ? (c.notes || []).map(n => (T[n.row] ? T[n.row].short : '?') + ' ' + (n.keyLabel || nm(n.midi))).join(' · ') : '';   // 1m.4.3: a by-key note by its key's name
         const len = c && isFinite(+c.len) && +c.len > 0 ? ' · length ' + c.len + ' s' : '', own = c && c.lens && Object.keys(c.lens).length ? ' · ' + Object.keys(c.lens).length + ' with a length of their own' : '';
         return (p.sel.length === 1 ? 'column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + ' selected — the drawer is theirs' + (c && c.take ? ' · take ' + c.take : '') + len + own + (who ? ' · ' + who : ' · nobody on yet: tick players');
     },
@@ -335,7 +337,7 @@ Object.assign(D, {
                 const t = T[lane], isOn = players.has(lane), mine = c ? (c.notes || []).filter(n => n.row === lane) : [], L = isOn && mine.length ? this.txLenS(c, lane) : null;
                 // 1m.3: a length set = a bar to the right, the note's length at the zoom (a player's own outlined); the short = the circle alone
                 if (L) { const w = Math.min(Math.max(1, L.s * px), W - cx + 12); bars += '<rect class="txLen" x="' + cx.toFixed(1) + '" y="' + (cy - 3).toFixed(1) + '" width="' + w.toFixed(1) + '" height="6" rx="2" fill="' + ON_COL + '" fill-opacity="' + (L.own ? 0.5 : 0.3) + '" stroke="' + (L.own ? ON_COL : 'none') + '" stroke-width="1" pointer-events="none"/>'; }
-                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => nm(n.midi) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') + ' · ' + this.txLenWord(c, lane) + ' · double-click: a length of their own' : isOn ? ' · no pitch fits (may fold, or another harmony)' : '');
+                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => (n.keyLabel || nm(n.midi)) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') + ' · ' + this.txLenWord(c, lane) + ' · double-click: a length of their own' : isOn ? ' · no pitch fits (may fold, or another harmony)' : '');
                 circs += '<circle class="txCirc" data-k="' + d.k + '" data-lane="' + lane + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + CIRC_R + '" fill="' + (isOn ? (mine.length ? ON_COL : 'none') : OFF_FILL) + '" stroke="' + (isOn ? ON_COL : OFF_FILL) + '" stroke-width="1.3" style="cursor:pointer"><title>' + escH(title) + '</title></circle>';
             });
         });

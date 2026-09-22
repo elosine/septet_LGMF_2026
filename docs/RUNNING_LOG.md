@@ -10755,3 +10755,60 @@ the deal is the same to the byte. The one thing that LOOKS different in the stri
 picker (`key` where `noise` · `multiphonic` stood, the wrong `fixed` groups gone) — 1m.4.3 rebuilds those menus in any case.
 
 **Not done here, by the plan:** the keys of the 26 pending voices (1m.4.2, his rack) · the menus (1m.4.3, next).
+
+## §280. `1m.4.3` THE MENUS — built and verified with no MIDI; a BY-KEY ROW VOICE; THE SHIELD held (2026-09-22, Fable)
+
+**What it is.** The row's pull-down and the picker list a `key` voice as a HEADING with its keys indented under it (`Claves` → `· Pair 2
+High` …), the percussion and every by-key voice alike; a key chosen sets the row's voice AND its note. The design question the plan
+left to the code was WHAT a by-key voice IS on a row, and the answer is **a row voice, not a harmony voice**: `rowKeys[lane] = { tech,
+midi }` on the drawer — its note IS the key, it is dealt NO pitch of the harmony (the shuffle and the mini-deal leave the row alone),
+it sounds at the strike's first sounding onset (in a column, with the column) at the harmony's own level (the voices' median velocity)
+and length, and it is remembered in `state()` — so in every take and every column. Choosing a key on a row DROPS the harmony note the
+row held (the pitch goes back to the pool: measured, `free` 3 → 4); choosing a pitched voice again, or a harmony note put on the row
+by hand, takes the key voice off; in a texture take the row is still a player, so it is dealt a pitch again at once. The older way — a
+harmony note put on a key-kind voice, sounding its stand-in — still plays exactly as it did, so every earlier take is whole (the plan's
+*"a take saved before has no key and takes the voice's first"* is answered by that: nothing to migrate). Why not a harmony voice
+carrying the key as its stand-in (the picker's `variants` of old): it would CONSUME a pitch of the harmony — with seven notes and nine
+rows, one pitched player fewer — and the plan says *"dealt NO pitch"*.
+
+- **The pull-down:** option values `tech` (a pitched voice) or `tech@midi` (a key); the heading alone (`tech@`) = the voice's first key.
+  A voice whose keys are `pending` (1m.4.2) is its heading alone in the pull-down and its note names in the picker, only while it is the
+  row's voice **[call — the plan said note names; 8 pending string voices × 40 names in one pull-down was unusable]**. The percussion's
+  pull-down: 31 headings, 282 keys, 314 options. A `mw` voice greyed (`#888`, `· MW` after its name), still selectable; chosen, the
+  status says *takes its loudness from the mod wheel; nothing sends it yet (LG-75)*.
+- **The picker:** the same, one line per voice, its keys indented with ▶ to hear each (`hearOne`), the chosen key lit; the old
+  `variants` block stays for a harmony note on a fixed voice (the open strings) or on a name-rule `noise` / `multiphonic` voice.
+- **The row:** a by-key voice shows the key's name as a gold chip (click = take it off), the landing dot lit; the keyboard shows a hollow
+  gold SQUARE at the key with the row's short name, and a line from it to the row.
+- **The sets [call]:** `applyArtSet` never writes the PERCUSSION row (every set names `main`, the placeholder — pressing a set must not
+  undo the instrument he chose by name) nor a row holding a by-key voice; `artSetNow` (the lit button) ignores those rows likewise.
+- **One path** for the menu and the picker: `chooseTech(lane, key, midi)` → a `key` voice by `setRowKey`, any other on the row's notes
+  as before. `dropLane` (a strike-mode untick) and `txDropLane` (a column's) take the key voice off; `asPlayedOrchestration` clears
+  them; a fresh column (`txClearedState`) has none; a column worked offline on another column's harmony keeps its own (`txWithColumn`).
+- **The column note** carries `keyLabel`, so the status line and the circle's title say `Pair 2 High`, not `F2`.
+
+**REQUIRED VERIFICATION, run (`score-5401`, no MIDI, every POST and the beacon stubbed, the ports stubbed to a byte log):**
+- the menus render for all nine rows (36 · 22 · 25 · 35 · **314** · 13 · 88 · 88 · 13 options; the percussion 31 headings + 282 keys;
+  `Finger Cymbals` → `· Low` `· High`) ✓ · the english horn's `Multiphonics Velocity (#6) · keys pending` heading ✓ · the cello's
+  `vib_mw` greyed with `· MW` ✓, its status line ✓
+- `chooseTech(4, 'toys_claves', 41)` → the orchestration's notes carry `4: toys_claves@41 vel 92 at 0 ms · Pair 2 High`, the harmony
+  note the row held is gone and its pitch (67) free, the keyboard square drawn, the chip `Pair 2 High`, the menu on `toys_claves@41` ✓
+- shuffle → the key voice stays, the percussion row is dealt no voice, the note still `toys_claves@41` ✓ · the `staccato` set pressed →
+  the key voice stays and the set lights ✓ · `state()` → cleared → `applyState` → the key back (a take's round trip; the POST is
+  stubbed, nothing written to his bank) ✓ · the picker: 32 voices, 282 keys, the chosen one lit; a click on `Wood Blocks — Hard
+  Mallets › Block 1 · Hit L` sets it; the chip's click takes it off ✓
+- **the texture take** (his first rhythm take): a column, the percussion ticked → `main@68` dealt · `Claves › Pair 2 High` chosen → the
+  column's notes `EH 67 · Vc 69 · Hn 71 · Perc toys_claves@41 Pair 2 High`, the 68 freed, the circle lit · the cello ticked beside it →
+  dealt 66, the claves untouched · a second column selected → no key voice on the drawer · back → the key recalled, the menu on it ·
+  both selected and shuffled → the first keeps its claves, the second is dealt on its own players, no key voice leaks · the column
+  preview (`Hear orchestrated`) and the rhythm preview (SPACE) both carry `4: toys_claves@41` · unticked → the key voice leaves with
+  the tick · ↶ brings it back ✓. No console error anywhere.
+- **THE SHIELD:** the same routine as §279 (`cs-012`, `may fold`, seed 5): the deal under `ordinario`, the four sets and their routes —
+  **byte-identical**; the bytes `♪ as dealt` sends under `percussive` — the same 25 messages, every note-on and note-off identical, and
+  the ONLY difference the ORDER of the eleven CC preludes (the trumpet's CC7 arrived eleventh instead of first: timers set with equal
+  delays, sorted by sub-millisecond fire time — jitter, not a change; every prelude still precedes every note-on). *(My own first
+  comparison ran `♪ as dealt` under a different set than the before-run had — the test's fault, re-run under the same set.)*
+- `palette_check` 198 ✓.
+
+**Left to the next steps:** the lens (1m.4.4) makes a row's articulation, a tick, the set and a key voice go to EVERY selected column —
+here they go to the primary (the one the drawer shows), as everything did before.

@@ -1868,7 +1868,9 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       - Runs whenever he sits at the rack — after 1m.4.3 … 1m.4.6 is fine: a `pending` voice shows its keys as plain note names until filled **[call]**.
       - **REQUIRED VERIFICATION:** `roster_check` prints no `pending` · one by-key voice per library heard on his Chrome at the key chosen.
 
-    - **1m.4.3 — The menus** (a by-key voice's keys indented under it, the percussion the same; the wheel voices marked; a key chosen sets the note)
+    - **1m.4.3 — The menus** (a by-key voice's keys indented under it, the percussion the same; the wheel voices marked; a key chosen sets the note) — `built`
+      2026-09-22 (RUNNING_LOG §280: a by-key voice is a ROW VOICE, `rowKeys[lane] = { tech, midi }` — its note is the key, no harmony pitch dealt, kept in
+      `state()`; the older stand-in way still plays; a pending voice's note names in the picker only [call]; THE SHIELD held — notes, routes and bytes identical)
       - The row's pull-down and the picker: a `key` voice is a heading with its keys indented under it (`Claves` → `Pair 1 High` …); choosing a
         key sets the row's voice AND its note. The percussion and every by-key voice alike.
       - A `key` voice is dealt NO pitch: its note is the key; the shuffle and the mini-deal leave it; the keyboard shows it as a dot at the key.

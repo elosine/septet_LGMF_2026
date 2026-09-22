@@ -116,6 +116,15 @@ function kindOf(tech) {
     if (/body|undef|key_click|key_noises|slap|air_noise|jet_whistle|tongue_ram|whistle|noise|finger_vel|tailpiece|gliss_undef/.test(s)) return 'noise';
     return 'pitched';
 }
+// 1m.4.3: the keys a by-key voice is chosen by — its own table (the percussion's from the catalog, 1m.4.2's from his rack); a voice
+// whose keys are `pending` gives the plain note names of its range, at most 40, until they are read
+function keysOf(inst, tech) {
+    if (!tech) return [];
+    if (Array.isArray(tech.keys) && tech.keys.length) return tech.keys.map(k => ({ midi: k.midi, label: k.label || nm(k.midi) }));
+    const [lo, hi] = techRange(inst, tech);
+    return [...Array(Math.max(0, Math.min(40, hi - lo + 1))).keys()].map(i => ({ midi: lo + i, label: nm(lo + i) }));
+}
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 function techRange(inst, tech) {
     const lo = (tech && tech.rangeLow != null) ? tech.rangeLow : (inst ? inst.rangeLow : 0);
     const hi = (tech && tech.rangeHigh != null) ? tech.rangeHigh : (inst ? inst.rangeHigh : 127);
@@ -136,6 +145,7 @@ function foldInto(pitch, lo, hi) {
 const D = {
     el: null, body: null, db: null, seq: null, strike: null,
     voices: [], slots: [], ph: null, base: 0, prev: null, pickerLane: null,
+    rowKeys: {},   // 1m.4.3: lane → { tech, midi } — a BY-KEY row voice (the percussion, a multiphonic, a noise): its note IS the key, no harmony pitch is dealt to it; in state() and so in every take and column
     cfg: { strikeId: null, show88: false, rowH: 0, full: true, heightPx: 0, voicing: 'original', vSeed: 1, clusterOct: 0,
            timeX: 1, shape: 'played', amount: 1, jitterMs: 0, reverse: false, rotate: 0, rSeed: 1, dropRests: true, aFirst: 100, aRatio: 0.85, aFloor: 45, aMin: 250, aSeed: 1, aRedeal: true, ...ACCEL_DEFAULTS, order: 'played', oSeed: 1, simMs: 60, keepRhythm: false,
            durX: 1, dynX: 1, flatten: true, mayFold: false, topLock: -1, bottomLock: -1, oSeedShuffle: 1, zoomPxPerMs: 0, rhythmW: 480, artSet: 'percussive', transpose: 0 },
@@ -465,6 +475,7 @@ const D = {
         // as played: every voice on its recorded lane (the piano), no player assignment yet
         const T = TRK();
         this.voices.forEach(v => { const n = this.strike.notes[v.i]; const lane = T.findIndex(t => t.instKey === n.instKey); v.lane = -1; v.also = []; v.piano = lane >= 0 && T[lane].instKey === 'piano'; v.tech = null; v.fold = 0; v.standIn = null; });
+        this.rowKeys = {};   // 1m.4.3: as played has no by-key row voice
     },
 
     // ------------------------------------------------------------------ voicing presets (B)
@@ -537,13 +548,16 @@ const D = {
     applyArtSet(k) {
         if (!ART_SETS[k]) return;
         this.snapshot(); this.cfg.artSet = k;
-        this.voices.forEach(v => this.reals(v).forEach(r => { r.tech = this.setTech(k, r.lane); r.standIn = null; this.fitReal(v, r); }));
+        // 1m.4.3 [call]: a set never writes the PERCUSSION row (every set names `main`, the placeholder — pressing one must not undo the
+        // instrument he chose by name) nor a row holding a by-key voice
+        this.voices.forEach(v => this.reals(v).forEach(r => { if (this.setSkips(r.lane)) return; r.tech = this.setTech(k, r.lane); r.standIn = null; this.fitReal(v, r); }));
         if (this.chordDirty) this.chordDirty();
         this.save(); this.render();
         const T = TRK(); this.setStatus('articulations: ' + k + ' — ' + T.map((t, lane) => t.short + ' ' + ((this.instOf(lane) && (this.instOf(lane).techniques || []).find(q => q.key === this.setTech(k, lane))) || {}).label).join(' · '));
     },
     // the set every row equals right now (null once a row has been changed by hand)
-    artSetNow() { const k = this.cfg.artSet || 'percussive'; return this.voices.every(v => this.reals(v).every(r => r.tech === this.setTech(k, r.lane))) ? k : null; },
+    setSkips(lane) { const t = TRK()[lane]; return !!(this.rowKeys[lane] || (t && t.instKey === 'percussion')); },   // 1m.4.3: the rows a set leaves alone
+    artSetNow() { const k = this.cfg.artSet || 'percussive'; return this.voices.every(v => this.reals(v).every(r => this.setSkips(r.lane) || r.tech === this.setTech(k, r.lane))) ? k : null; },
     techOf(v) { return this.techOfR(v); },
     techOfR(r) { const inst = this.instOf(r.lane); return inst ? ((inst.techniques || []).find(t => t.key === r.tech) || null) : null; },
     fitVoice(v) { return this.fitReal(v, v); },
@@ -633,6 +647,7 @@ const D = {
         // candidate. §AF's "an assignment that survives a shuffle", in its small form.
         { const B = this.busyLanes();
           [...free].forEach(l => { if (!this.laneTicked(l, B)) free.delete(l); }); }
+        Object.keys(this.rowKeys).forEach(l => free.delete(+l));   // 1m.4.3: a row holding a by-key voice is dealt no pitch — the shuffle leaves it
         const give = (v, lane) => { v.lane = lane; v.tech = this.defaultTech(lane); this.fitVoice(v); free.delete(lane); };
         const fits = (v, lane) => { const inst = this.instOf(lane); if (!inst) return false; if (this.mayTake && !this.mayTake(v, lane)) return false; const tk = this.defaultTech(lane); const [lo, hi] = techRange(inst, (inst.techniques || []).find(t => t.key === tk)); return this.cfg.mayFold ? !!foldInto(v.pitch, lo, hi) : (v.pitch >= lo && v.pitch <= hi); };   // 1c.4: mayTake — a hook (spectrum_ui.js): a fixed-pitch player never takes a note more than the tolerance off
         // locks first: the highest and the lowest voice
@@ -651,6 +666,7 @@ const D = {
     // Its doublings go; each of its own notes moves to a free TICKED player that fits (the others keep their notes — this is not a
     // reshuffle), or falls silent with a word. Ticking it back changes nothing until he shuffles or assigns.
     dropLane(lane) {
+        if (this.rowKeys[lane]) { this.snapshot(); const was = this.rowKeyLabel(lane); delete this.rowKeys[lane]; this.save(); this.render(); this.setStatus((TRK()[lane] || {}).label + ' unticked — ' + was + ' taken off'); return; }   // 1m.4.3: a by-key row voice leaves with the tick
         const here = this.onLane(lane); if (!here.length) { this.renderOrch(); return; }
         this.snapshot();
         const B = this.busyLanes(), T = TRK();
@@ -669,6 +685,43 @@ const D = {
             + (silent ? ' · ' + silent + ' silent (no free ticked player fits — tick one, or shuffle)' : ''));
     },
     assign(v, lane, tech) { v.lane = lane; v.fold = 0; v.standIn = null; if (lane >= 0) { v.tech = tech || this.defaultTech(lane); if (!this.fitVoice(v)) v.skip = true; } },   // tech: the row's current technique, if it has one (U7)
+    // ---- 1m.4.3: A BY-KEY ROW VOICE ------------------------------------------------------------------------------------------
+    // A `key` voice (the percussion, a multiphonic, a key click, a noise — sandbox/instruments.js `kind: "key"`) is chosen for a ROW by its
+    // KEY, and its note IS that key: it takes NO pitch of the harmony (the shuffle and the mini-deal leave the row alone), it sounds at the
+    // strike's first onset (in a column, with the column), and it is remembered with the take and with the column (`state()`). The older
+    // way — a harmony note put on such a voice, sounding its stand-in — still plays as it did, so every earlier take is whole.
+    rowKeyTech(lane) { const rk = this.rowKeys[lane], inst = this.instOf(lane); return rk && inst ? ((inst.techniques || []).find(t => t.key === rk.tech) || null) : null; },
+    rowKeyLabel(lane) { const rk = this.rowKeys[lane], tq = this.rowKeyTech(lane); if (!rk) return ''; const k = tq ? keysOf(this.instOf(lane), tq).find(x => x.midi === rk.midi) : null; return (tq ? tq.label : rk.tech) + ' › ' + (k ? k.label : nm(rk.midi)); },
+    // a voice chosen for a row (the menu, the picker): a `key` voice by its key; any other on the notes the row holds, as before — and a
+    // by-key row voice it replaces is taken off; in a texture take the row is still a player, so it is dealt a pitch again
+    chooseTech(lane, key, midi) {
+        const inst = this.instOf(lane), tq = inst && (inst.techniques || []).find(t => t.key === key); if (!tq) return;
+        if (kindOf(tq) === 'key') return this.setRowKey(lane, key, midi);
+        this.snapshot();
+        const had = !!this.rowKeys[lane]; delete this.rowKeys[lane];
+        this.onLane(lane).forEach(({ v, r }) => { r.tech = key; r.standIn = null; this.fitReal(v, r); });
+        if (had && this.txIsOn && this.txIsOn() && !(this.laneOff || {})[lane] && this.txDealTo) this.txDealTo(lane);
+        this.render();
+        if (tq.loud === 'mw') this.setStatus((TRK()[lane] || {}).label + ': ' + tq.label + ' — takes its loudness from the mod wheel; nothing sends it yet (LG-75)');
+    },
+    setRowKey(lane, techKey, midi) {
+        const inst = this.instOf(lane), tq = inst && (inst.techniques || []).find(t => t.key === techKey); if (!tq) return;
+        const ks = keysOf(inst, tq), k = ks.find(x => x.midi === midi) || ks[0];
+        if (!k) { this.setStatus('no keys known for ' + tq.label, true); return; }
+        this.snapshot();
+        this.onLane(lane).slice().forEach(({ v, r }) => this.dropReal(v, r));   // the harmony note it held goes back — a key voice takes no pitch
+        this.rowKeys[lane] = { tech: tq.key, midi: k.midi };
+        if (this.laneOff && this.laneOff[lane]) delete this.laneOff[lane];   // chosen on an unticked row: it plays now
+        this.render();
+        this.setStatus((TRK()[lane] || {}).label + ': ' + tq.label + ' › ' + k.label + ' (key ' + nm(k.midi) + ')' + (tq.keys === 'pending' ? ' — its keys are not read yet (1m.4.2): plain note names until then' : '') + (tq.loud === 'mw' ? ' · takes its loudness from the mod wheel; nothing sends it yet' : ''));
+    },
+    clearRowKey(lane) {
+        if (!this.rowKeys[lane]) return;
+        this.snapshot(); const was = this.rowKeyLabel(lane); delete this.rowKeys[lane];
+        let dealt = null; if (this.txIsOn && this.txIsOn() && !(this.laneOff || {})[lane] && this.txDealTo) dealt = this.txDealTo(lane);   // a column's player still: a pitch again
+        this.render();
+        this.setStatus((TRK()[lane] || {}).label + ': ' + was + ' taken off' + (dealt ? ' · dealt ' + nm(dealt.pitch) : ''));
+    },
     pianoQuick(k) {
         const vs = [...this.voices].sort((a, b) => a.pitch - b.pitch);
         const T = TRK(); const pianoLane = T.findIndex(t => t.instKey === 'piano');
@@ -928,8 +981,13 @@ const D = {
                 if (k === 0) s += '<text x="40" y="' + (cy + 3) + '" font-size="' + Math.max(8, Math.min(11, h + 2)) + '" fill="' + col + '" text-anchor="end">' + nm(m) + '</text>';
             });
         });
+        // 1m.4.3: a by-key row voice is a hollow SQUARE at its key with the row's name beside it — not a note of the harmony
+        const keyRows = Object.keys(this.rowKeys).map(l => +l), TK = TRK();
+        keyRows.forEach(lane => { const m = this.rowKeys[lane].midi; if (m < R.lo || m > R.hi) return; const cy = this.keyY(m) + h / 2;
+            s += '<rect class="skKeyDot" data-lane="' + lane + '" x="' + (122 - r) + '" y="' + (cy - r) + '" width="' + (2 * r) + '" height="' + (2 * r) + '" rx="1.5" fill="none" stroke="#e8cf9a" stroke-width="1.5"><title>' + esc((TK[lane] || {}).label + ' · ' + this.rowKeyLabel(lane) + ' · key ' + nm(m)) + '</title></rect>' +
+                 '<text x="' + (122 + r + 3) + '" y="' + (cy + 3) + '" font-size="' + Math.max(8, Math.min(10, h + 1)) + '" fill="#e8cf9a">' + esc((TK[lane] || {}).short || '') + '</text>'; });
         // out-of-view voices (the 88 case): arrows at the edges
-        const above = this.voices.filter(v => v.pitch > R.hi).length, below = this.voices.filter(v => v.pitch < R.lo).length;
+        const above = this.voices.filter(v => v.pitch > R.hi).length + keyRows.filter(l => this.rowKeys[l].midi > R.hi).length, below = this.voices.filter(v => v.pitch < R.lo).length + keyRows.filter(l => this.rowKeys[l].midi < R.lo).length;
         if (above) s += '<text x="120" y="10" fill="#e88" font-size="10">▲' + above + '</text>';
         if (below) s += '<text x="120" y="' + (H - 2) + '" fill="#e88" font-size="10">▼' + below + '</text>';
         svg.innerHTML = s;
@@ -963,9 +1021,17 @@ const D = {
             const inst = INST()[t.instKey]; const here = this.onLane(lane); const mine = here.map(h => h.v);
             const techs = (inst && inst.techniques) || [];
             const groups = {}; techs.forEach(tq => { const k = kindOf(tq); (groups[k] = groups[k] || []).push(tq); });
-            const cur = here.length ? (here[0].r.tech || this.defaultTech(lane)) : this.defaultTech(lane);
-            const menu = '<select class="skTech" data-lane="' + lane + '" style="' + inp + '">' + KINDS.filter(k => groups[k]).map(k => '<optgroup label="' + k + '">' + groups[k].map(tq => '<option value="' + tq.key + '"' + (tq.key === cur ? ' selected' : '') + '>' + tq.label + '</option>').join('') + '</optgroup>').join('') + '</select>';
-            const notes = here.map(({ v, r }) => '<span class="skChip" data-i="' + v.i + '" data-r="' + (r === v ? 'p' : v.also.indexOf(r)) + '" title="click: take ' + nm(v.pitch) + ' off this player" style="cursor:pointer;color:' + this.pcColor(v.pc) + '">' + nm(this.soundingPitchR(v, r)) + (r.fold ? (r.fold > 0 ? '↑' : '↓') : '') + (r.standIn != null ? '*' : '') + (r.skip ? ' ✕' : '') + '</span>').join(' ');
+            // 1m.4.3: the row's menu — a `key` voice is a HEADING with its keys indented under it (value `tech@midi`; the heading alone = the
+            // voice's first key; a voice whose keys are pending, 1m.4.2, is its heading alone here and its note names in the picker); a `mw`
+            // voice is greyed, still selectable. A row holding a by-key voice shows that key as its chip and its menu on that key.
+            const rk = this.rowKeys[lane];
+            const cur = String((rk ? rk.tech + '@' + rk.midi : here.length ? (kindOf(this.techOfR(here[0].r)) === 'key' ? here[0].r.tech + '@' + (here[0].r.standIn != null ? here[0].r.standIn : '') : (here[0].r.tech || this.defaultTech(lane))) : this.defaultTech(lane)) || '');
+            const optTech = tq => { const grey = tq.loud === 'mw'; return '<option value="' + tq.key + '"' + (tq.key === cur ? ' selected' : '') + (grey ? ' style="color:#888"' : '') + '>' + esc(tq.label) + (grey ? ' · MW' : '') + '</option>'; };
+            const optKeys = tq => { const pend = tq.keys === 'pending', ks = pend ? [] : keysOf(inst, tq), vals = ks.map(k => tq.key + '@' + k.midi), headSel = cur === tq.key + '@' || (cur.startsWith(tq.key + '@') && !vals.includes(cur));
+                return '<option value="' + tq.key + '@"' + (headSel ? ' selected' : '') + ' style="font-weight:bold' + (tq.loud === 'mw' ? ';color:#888' : '') + '">' + esc(tq.label) + (pend ? ' · keys pending' : '') + (tq.loud === 'mw' ? ' · MW' : '') + '</option>' +
+                    ks.map((k, i) => '<option value="' + vals[i] + '"' + (vals[i] === cur ? ' selected' : '') + '>&nbsp;&nbsp;&middot; ' + esc(k.label) + '</option>').join(''); };
+            const menu = '<select class="skTech" data-lane="' + lane + '" style="' + inp + '">' + KINDS.filter(k => groups[k]).map(k => '<optgroup label="' + k + '">' + groups[k].map(tq => k === 'key' ? optKeys(tq) : optTech(tq)).join('') + '</optgroup>').join('') + '</select>';
+            const notes = (rk ? '<span class="skKeyChip" data-lane="' + lane + '" title="' + esc(this.rowKeyLabel(lane)) + ' — click: take this voice off the row" style="cursor:pointer;color:#e8cf9a">' + esc(this.rowKeyLabel(lane).split(' › ').pop()) + '</span> ' : '') + here.map(({ v, r }) => '<span class="skChip" data-i="' + v.i + '" data-r="' + (r === v ? 'p' : v.also.indexOf(r)) + '" title="click: take ' + nm(v.pitch) + ' off this player" style="cursor:pointer;color:' + this.pcColor(v.pc) + '">' + nm(this.soundingPitchR(v, r)) + (r.fold ? (r.fold > 0 ? '↑' : '↓') : '') + (r.standIn != null ? '*' : '') + (r.skip ? ' ✕' : '') + '</span>').join(' ');
             const soloed = mine.length > 0 && mine.every(v => v.solo);
             // PLAN 1t step 4: the tick at the row's left edge, before the landing dot. A row BUSY at the playhead is dimmed, its
             // tick cleared and disabled, and says until when; a free row is ticked unless he unticked it.
@@ -975,7 +1041,7 @@ const D = {
                 '<input class="skTick" type="checkbox" data-lane="' + lane + '"' + (ticked ? ' checked' : '') + (busy ? ' disabled' : '') +
                     ' style="flex:none;margin:0" title="' + (busy ? 'busy at the playhead until ' + (B.until[sl] != null ? B.until[sl].toFixed(2) : '?') + ' s'
                     : 'ticked: the shuffle may deal onto this player') + '">' +
-                '<span class="skLand" style="flex:none;width:8px;height:8px;border-radius:50%;background:' + (mine.length ? '#e8cf9a' : '#444') + '" title="the lines land here"></span>' +
+                '<span class="skLand" style="flex:none;width:8px;height:8px;border-radius:50%;background:' + (mine.length || rk ? '#e8cf9a' : '#444') + '" title="the lines land here"></span>' +
                 '<span class="skRowName" style="width:64px;cursor:pointer;color:#e8cf9a" title="click: the full articulation list">' + t.label + '</span>' +
                 '<button class="skSolo" data-lane="' + lane + '" style="' + btn + ';padding:0 4px;' + (soloed ? 'background:#e8cf9a;color:#222' : '') + '" title="solo this player\'s voices">S</button>' +
                 '<span style="width:88px;overflow:hidden;white-space:nowrap">' + (notes || '<span style="color:#555">·</span>')
@@ -997,7 +1063,7 @@ const D = {
             if (cb.checked) { delete this.laneOff[lane]; this.renderOrch(); }
             else { this.laneOff[lane] = true; this.dropLane(lane); }   // FIX-NOW 5 (§421): an untick drops the player NOW
         }));
-        box.querySelectorAll('.skTech').forEach(sel => sel.addEventListener('change', e => { const lane = +sel.dataset.lane; this.snapshot(); this.onLane(lane).forEach(({ v, r }) => { r.tech = e.target.value; r.standIn = null; this.fitReal(v, r); }); this.render(); }));
+        box.querySelectorAll('.skTech').forEach(sel => sel.addEventListener('change', e => { const lane = +sel.dataset.lane, val = String(e.target.value), at = val.indexOf('@'); if (at >= 0) this.chooseTech(lane, val.slice(0, at), val.slice(at + 1) === '' ? null : +val.slice(at + 1)); else this.chooseTech(lane, val); }));   // 1m.4.3: one path for the menu and the picker
         box.querySelectorAll('.skRowName').forEach(el => el.addEventListener('click', () => { const lane = +el.parentNode.dataset.lane; this.pickerLane = this.pickerLane === lane ? null : lane; this.render(); }));
         box.querySelectorAll('.skSolo').forEach(el => el.addEventListener('click', ev => { ev.stopPropagation(); const lane = +el.dataset.lane; const mine = this.onLane(lane).map(h => h.v); if (!mine.length) return; this.snapshot(); const on = !mine.every(v => v.solo); mine.forEach(v => { v.solo = on; }); this.render(); }));
         box.querySelectorAll('.skRow').forEach(row => { row.addEventListener('mouseenter', () => { this.hoverLane = +row.dataset.lane; this.renderLines(); }); row.addEventListener('mouseleave', () => { this.hoverLane = null; this.renderLines(); }); });
@@ -1013,6 +1079,7 @@ const D = {
             if (ev.target.tagName === 'SELECT' || ev.target.tagName === 'BUTTON' || ev.target.classList.contains('skRowName')) return;
             const lane = +row.dataset.lane, T = TRK(); const name = l => l >= 0 && T[l] ? T[l].label : 'nobody';
             if (this.pendingVoice == null) {
+                const kc = ev.target.closest && ev.target.closest('.skKeyChip'); if (kc) { this.clearRowKey(+kc.dataset.lane); return; }   // 1m.4.3
                 const chip = ev.target.closest && ev.target.closest('.skChip'); if (!chip) return;
                 const v = this.voices[+chip.dataset.i]; if (!v) return;
                 const r = chip.dataset.r === 'p' ? v : v.also[+chip.dataset.r]; if (!r) return;
@@ -1026,6 +1093,7 @@ const D = {
             const first = this.onLane(lane)[0]; const rowTech = first ? first.r.tech : null;
             const there = ev.shiftKey ? [] : this.onLane(lane).filter(h => h.v !== v);
             this.snapshot();
+            delete this.rowKeys[lane];   // 1m.4.3: a harmony note put on the row takes the by-key voice off it
             there.forEach(({ v: o, r }) => this.dropReal(o, r));
             if (v.lane < 0) this.assign(v, lane, rowTech);
             else { const r = { lane, tech: rowTech || this.defaultTech(lane), fold: 0, standIn: null, skip: false }; (v.also = v.also || []).push(r); if (!this.fitReal(v, r)) r.skip = true; }
@@ -1042,25 +1110,35 @@ const D = {
         const here = this.onLane(lane); const mine = here.map(h => h.v);
         const techs = (inst && inst.techniques) || [];
         const groups = {}; techs.forEach(tq => { const k = kindOf(tq); (groups[k] = groups[k] || []).push(tq); });
-        const cur = here.length ? here[0].r.tech : null;
+        // 1m.4.3: a by-key row voice — its keys are listed under it, the chosen one lit; a `key` voice with keys shows them under its line, a
+        // pending one (1m.4.2) its note names only while it is the row's voice; a `mw` voice greyed, still chosen by a click
+        const rk = this.rowKeys[lane];
+        const cur = rk ? rk.tech : (here.length ? here[0].r.tech : null);
         let s = '<div style="color:#e8cf9a;margin-bottom:4px">' + T[lane].label + ' · articulations</div>';
         KINDS.forEach(k => {
             if (!groups[k]) return;
-            s += '<div style="color:#9a9;margin:4px 0 2px">' + k + '</div>' + groups[k].map(tq => '<div class="skPickT" data-key="' + tq.key + '" style="cursor:pointer;padding:0 4px;' + (tq.key === cur ? 'background:rgba(201,160,90,.25)' : '') + '">' + tq.label + '</div>').join('');
+            s += '<div style="color:#9a9;margin:4px 0 2px">' + k + (k === 'key' ? ' <span style="color:#666">— the key is the sound: click one</span>' : '') + '</div>';
+            groups[k].forEach(tq => {
+                const isCur = tq.key === cur, grey = tq.loud === 'mw', pend = tq.keys === 'pending';
+                s += '<div class="skPickT" data-key="' + tq.key + '" style="cursor:pointer;padding:0 4px;' + (isCur ? 'background:rgba(201,160,90,.25);' : '') + (grey ? 'color:#888' : '') + '">' + esc(tq.label) + (grey ? ' <span style="color:#777">· MW</span>' : '') + (pend ? ' <span style="color:#777">· keys pending</span>' : '') + '</div>';
+                if (k === 'key' && (!pend || isCur)) s += keysOf(inst, tq).map(kk => { const lit = rk ? (rk.tech === tq.key && rk.midi === kk.midi) : (isCur && here.length && here[0].r.standIn === kk.midi);
+                    return '<div style="display:flex;gap:4px;padding-left:14px"><span class="skKeyPick" data-key="' + tq.key + '" data-m="' + kk.midi + '" style="cursor:pointer;flex:1;' + (lit ? 'color:#e8cf9a' : '') + '">&middot; ' + esc(kk.label) + ' <span style="color:#666">' + nm(kk.midi) + '</span></span><span class="skVarHear" data-key="' + tq.key + '" data-k="' + kk.midi + '" style="cursor:pointer;color:#9fd3db">&#9654;</span></div>'; }).join('');
+            });
         });
-        // variants (T): open strings / the technique's keys
-        if (mine.length && cur) {
+        // variants (T): the stand-in of a HARMONY note on a fixed voice (the open strings) or on a voice the name rule calls noise / multiphonic
+        if (mine.length && cur && !rk) {
             const tech = techs.find(t => t.key === cur), kind = kindOf(tech);
-            if (kind !== 'pitched') {
+            if (kind !== 'pitched' && kind !== 'key') {
                 const [lo, hi] = techRange(inst, tech);
                 const keys = kind === 'fixed' && OPEN_STRINGS[T[lane].instKey] ? OPEN_STRINGS[T[lane].instKey] : [...Array(Math.max(0, Math.min(40, hi - lo + 1))).keys()].map(i => lo + i);
-                s += '<div style="color:#9a9;margin:6px 0 2px">variants · click = select, ▶ = hear</div>' + keys.map(k => '<div style="display:flex;gap:4px"><span class="skVar" data-k="' + k + '" style="cursor:pointer;flex:1;' + (here[0].r.standIn === k ? 'color:#e8cf9a' : '') + '">' + nm(k) + ' <span style="color:#666">' + k + '</span></span><span class="skVarHear" data-k="' + k + '" style="cursor:pointer;color:#9fd3db">&#9654;</span></div>').join('');
+                s += '<div style="color:#9a9;margin:6px 0 2px">variants · click = select, ▶ = hear</div>' + keys.map(k => '<div style="display:flex;gap:4px"><span class="skVar" data-k="' + k + '" style="cursor:pointer;flex:1;' + (here[0].r.standIn === k ? 'color:#e8cf9a' : '') + '">' + nm(k) + ' <span style="color:#666">' + k + '</span></span><span class="skVarHear" data-key="' + cur + '" data-k="' + k + '" style="cursor:pointer;color:#9fd3db">&#9654;</span></div>').join('');
             }
         }
         box.innerHTML = s; box.style.display = '';
-        box.querySelectorAll('.skPickT').forEach(el => el.addEventListener('click', () => { this.snapshot(); here.forEach(({ v, r }) => { r.tech = el.dataset.key; r.standIn = null; this.fitReal(v, r); }); this.render(); }));
+        box.querySelectorAll('.skPickT').forEach(el => el.addEventListener('click', () => this.chooseTech(lane, el.dataset.key)));
+        box.querySelectorAll('.skKeyPick').forEach(el => el.addEventListener('click', () => this.setRowKey(lane, el.dataset.key, +el.dataset.m)));
         box.querySelectorAll('.skVar').forEach(el => el.addEventListener('click', () => { this.snapshot(); here.forEach(({ r }) => { r.standIn = +el.dataset.k; }); this.render(); }));
-        box.querySelectorAll('.skVarHear').forEach(el => el.addEventListener('click', () => this.hearOne(lane, cur, +el.dataset.k)));
+        box.querySelectorAll('.skVarHear').forEach(el => el.addEventListener('click', () => this.hearOne(lane, el.dataset.key, +el.dataset.k)));
     },
     renderRhythm() {
         const wrap = this.el.querySelector('#skRhyWrap'), svg = this.el.querySelector('#skRhy');
@@ -1252,6 +1330,11 @@ const D = {
             const hot = this.hoverLane === r.lane, dim = this.hoverLane != null && !hot;
             s += '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="' + this.pcColor(v.pc) + '" stroke-width="' + (hot ? 2.2 : 1) + '" stroke-dasharray="' + (hot ? '5 3' : '3 3') + '" opacity="' + (hot ? 1 : dim ? 0.3 : 0.8) + '"/>';
         });
+        // 1m.4.3: a line from a by-key row voice's key to its row
+        Object.keys(this.rowKeys).forEach(l => { const lane = +l, dot = kb.querySelector('.skKeyDot[data-lane="' + lane + '"]'), row = rows[lane]; if (!dot || !row) return;
+            const land = row.querySelector('.skLand') || row, a = dot.getBoundingClientRect(), b = land.getBoundingClientRect();
+            const hot = this.hoverLane === lane, dim = this.hoverLane != null && !hot;
+            s += '<line x1="' + (a.left + a.width - bb.left + body.scrollLeft) + '" y1="' + (a.top + a.height / 2 - bb.top + body.scrollTop) + '" x2="' + (b.left + b.width / 2 - bb.left + body.scrollLeft) + '" y2="' + (b.top + b.height / 2 - bb.top + body.scrollTop) + '" stroke="#e8cf9a" stroke-width="' + (hot ? 2.2 : 1) + '" stroke-dasharray="' + (hot ? '5 3' : '3 3') + '" opacity="' + (hot ? 1 : dim ? 0.3 : 0.8) + '"/>'; });
         svg.innerHTML = s;
     },
 
@@ -1283,6 +1366,13 @@ const D = {
             this.reals(v).forEach(r => { if (!r.skip) out.push({ lane: r.lane, tech: r.tech || plainTech(this.instOf(r.lane)), midi: this.soundingPitchR(v, r), vel, onMs: q.onMs, durMs: q.durMs, cents: r.standIn != null ? 0 : (v.cents || 0), partial: v.partial }); });   // U10: one note per player that has it — 1c.4: with the voice's cents and partial (a stand-in carries none)
             if (v.piano && !this.reals(v).some(r => r.lane === pianoLane)) out.push({ lane: pianoLane, tech: plainTech(this.instOf(pianoLane)), midi: v.pitch, vel, onMs: q.onMs, durMs: q.durMs });
         });
+        // 1m.4.3: the by-key row voices — each ONE note at its key, at the strike's first sounding onset (in a column: with the column), at
+        // the harmony's own level (the voices' median velocity) and the voices' median length; not while a voice is soloed; never the piano
+        if (mode !== 'piano' && !anySolo && Object.keys(this.rowKeys).length) {
+            const on = this.timed().filter(q => this.sounds(q.v)).map(q => q.onMs), first = on.length ? Math.min(...on) : 0;
+            const vel = clamp(Math.round((this.cfg.flatten ? 127 : (median(this.voices.map(v => v.vel)) || 100)) * this.cfg.dynX), 1, 127), dur = Math.max(30, (median(this.voices.map(v => v.durMs)) || 100) * this.cfg.durX);
+            Object.keys(this.rowKeys).forEach(l => { const lane = +l, rk = this.rowKeys[l]; if (!this.instOf(lane)) return; out.push({ lane, tech: rk.tech, midi: rk.midi, vel, onMs: first, durMs: dur, cents: 0, keyLabel: this.rowKeyLabel(lane).split(' › ').pop() }); });
+        }
         return out;
     },
     async play(mode) { if (!this.strike) return; return this.playNotes(this.notesFor(mode), mode === 'piano' ? 'the harmony on the piano' : 'orchestrated'); },
@@ -1454,10 +1544,11 @@ const D = {
     },
 
     // ------------------------------------------------------------------ back / takes (O)
-    state() { return JSON.parse(JSON.stringify({ strikeId: this.cfg.strikeId, cfg: this.cfg, voices: this.voices.map(v => ({ i: v.i, pitch: v.pitch, lane: v.lane, fold: v.fold, tech: v.tech, standIn: v.standIn, piano: v.piano, solo: !!v.solo, slot: v.slot, skip: !!v.skip, also: (v.also || []).map(r => ({ lane: r.lane, tech: r.tech, fold: r.fold, standIn: r.standIn, skip: !!r.skip })) })) })); },
+    state() { return JSON.parse(JSON.stringify({ strikeId: this.cfg.strikeId, cfg: this.cfg, rowKeys: this.rowKeys, voices: this.voices.map(v => ({ i: v.i, pitch: v.pitch, lane: v.lane, fold: v.fold, tech: v.tech, standIn: v.standIn, piano: v.piano, solo: !!v.solo, slot: v.slot, skip: !!v.skip, also: (v.also || []).map(r => ({ lane: r.lane, tech: r.tech, fold: r.fold, standIn: r.standIn, skip: !!r.skip })) })) })); },
     applyState(st) {
         if (!st || !this.strike || st.strikeId !== this.strike.id) { if (st && st.strikeId && this.strikeById(st.strikeId)) { this.select(st.strikeId); } if (!st || st.strikeId !== (this.strike && this.strike.id)) return; }
         Object.assign(this.cfg, ACCEL_DEFAULTS, st.cfg); this.cfg.strikeId = this.strike.id;   // 1h: a take from before the run's dials gets their defaults, not the last strike's
+        this.rowKeys = Object.assign({}, st.rowKeys || {});   // 1m.4.3: the by-key row voices; a take from before has none (a harmony note it put on such a voice still sounds its stand-in)
         st.voices.forEach(sv => { const v = this.voices[sv.i]; if (!v) return; Object.assign(v, { pitch: sv.pitch, lane: sv.lane, fold: sv.fold, tech: sv.tech, standIn: sv.standIn, piano: sv.piano, solo: !!sv.solo, slot: sv.slot, skip: sv.skip, also: (sv.also || []).map(r => ({ lane: r.lane, tech: r.tech, fold: r.fold, standIn: r.standIn, skip: !!r.skip })) }); });
         this.writeFields(); this.render();
     },
