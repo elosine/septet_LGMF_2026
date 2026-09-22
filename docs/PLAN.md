@@ -1775,7 +1775,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       notes. Recall is `applyState` — the take machinery; `strike_drawer.js` is not changed.
     - LINKED (A): after every render of the drawer, the selected column(s) take its state, ticks and notes. The first selection of a
       fresh column starts from what the drawer holds now.
-    - **AMENDED IN HIS FIRST TEST (RUNNING_LOG §228): the circles are WHO SOUNDS, the column's own, apart from the drawer's ticks** — the deal is shared by a multi-selection, the players are chosen per column · a fresh column starts with nobody on ·  is strike here · the off circles full size, gray · UNDO (, CTRL+Z). *(As first built:)* The circles are the ticks: unticked = a dim dot · ticked without a note = hollow · ticked with a note = filled (hover: the
+    - **AMENDED IN HIS FIRST TEST (RUNNING_LOG §228): the circles are WHO SOUNDS, the column's own, apart from the drawer's ticks** — the deal is shared by a multi-selection, the players are chosen per column · a fresh column starts with nobody on · `hear` is strike here · the off circles full size, gray · UNDO (`↶`, CTRL+Z). *(As first built:)* The circles are the ticks: unticked = a dim dot · ticked without a note = hollow · ticked with a note = filled (hover: the
       notes). A click on a circle is a click on that row's tick, selecting the column first if need be.
     - The column preview: `Hear orchestrated` and `♪ as dealt` play the drawer = the selected column, as today.
     - The rhythm preview: SPACE plays every ON mark from the cursor to the right line — its column's notes on the ticked players, and
