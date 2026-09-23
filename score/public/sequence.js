@@ -702,5 +702,7 @@ function generate(recipe, ctx) {
 }
 
 return { generate, validate, keyChord, striationPhase, levelAt, STRIATIONS, CHANGES, EXITS, NIENTE, AS_DEALT, WAVES, DEFAULT_BREATH, DEFAULT_WAVES, DEFAULT_EDGES, SHAPES, DEFAULT_SHAPE, DEFAULT_HOLD,
+         buildStream, rngFor,   // LGMF PLAN 1n.5 (2026-09-22): the waves generator reused WHOLE by the texture's dynamics (texture_dyn.js) — one stream of swells per player or group; `generate` is untouched
+
          NUMBERS: { MIN_GAP_S, MAX_SEG_HARD_S, MIN_BREATH_S, RUNT_S, FIXED_LEN_S, WAIT_MAX_S } };
 }));

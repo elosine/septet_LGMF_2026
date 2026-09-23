@@ -11463,3 +11463,78 @@ note ENDED (a hairpin's end, not its start) · `who` as a row of ticks behind on
 the stored range on a fresh selection · a range with no columns left goes.
 
 **Status:** `1n.3` BUILT, one commit. NEXT: `1n.4` the pointillistic model.
+
+## §299. `1n.4` THE POINTILLISTIC MODEL — built and verified: three dials in words, five presets, one stream in time order; THE SHIELD (2026-09-22, Fable)
+
+**Built — `score/public/texture_dyn.js` (the 1n.4 section of its mixin, and the `dynamics` line's pointillistic dials).** When the
+line's model is `pointillistic` its own dials appear, in WORDS: `preset` · `rate` (every note · every few · every many · twice a
+passage) · `distribution` (even · few then many · many then few) · `contrast` (small steps · any · extremes only) · `save preset`.
+- **The five presets, PROVISIONAL, his ear to tune [call, §275]:** `Webern` (every note · even · any) · `accents` (every many · even ·
+  extremes only) · `drift` (every note · even · small steps) · `terraced` (twice a passage · even · any) · `wild` (every note · few then
+  many · extremes only). A preset fills the three dials; a moved dial reads `— custom —`; `save preset` keeps his own under a name in the
+  SEQUENCE store's `pointPresets` panel, beside the wave presets [call] — one saved under a built-in's name overrides it.
+- **THE DEAL [call, §275]:** ONE seeded stream over the range's notes in TIME ORDER across the chosen rows (the seed the line's, `↻` the
+  next): `rate` says how many CHANGES fall on the N notes (every note = N · every few ≈ N/3 · every many ≈ N/8 · twice = 2),
+  `distribution` where they fall (a uniform draw mapped along the passage: even = u · few then many = √u · many then few = u²), `contrast`
+  how far each moves — `small steps`: a neighbouring name, which then HOLDS · `any`: any name between `low` and `high`, never the one in
+  force, held · `extremes only`: the rest sit at `low` and a change is a single-note ACCENT to the far end — the loud note in a quiet
+  section; with a change on every note the ends alternate. Every level a written name; a held note reads it by `auto` (flat → sample).
+  Rejected in the writing: a change that holds under `extremes only` — it made `accents` a terrace of loud runs, not lone accents.
+
+**REQUIRED VERIFICATION — `score-5401`, the stubs first, no MIDI (every port stubbed):** a fresh pattern on `LGMF-S2-R2a` (30.16 s;
+line 0's 55 onsets on, every player everywhere, the seat row included) —
+- **`Webern` over five columns, 45 notes, `pp … ff`** → every level a written name between the two (45 of 45), **neighbours differ** in
+  time order (the first twelve: mp pp p ff mf mp f ff mf mp ff p) ✓
+- **the same seed → the same 45 names; `↻` (seed 2) → another sequence** ✓
+- **`accents`** → **40 at `pp`, 5 at `ff`, none between** — `.F...........F.F..................F.......F..` ✓
+- **`terraced`** → **two changes** across the stretch: pp × 15 · p × 19 · ff × 11 ✓
+- **a dial moved** (contrast → small steps under `terraced`) → the preset reads `— custom —` (it read `— terraced —` before) ✓
+- **`save preset` as `mine-test`** → the POST to the sequence store (`panel: pointPresets`, stubbed here) and the menu lists *mine-test
+  (yours)* at once; on disk in his tab, so in the menu after a reload there (the store's own reload path, the sequence drawer's) ✓
+- **THE SHIELD:** no `dynamics` line in the strike mode; `sequence_check` 180 (the generator untouched) ✓
+
+**The calls made alone, his to reverse:** the meaning of the three dials as written above · the presets' settings · `extremes only` as
+single-note accents · the stream across the seat row too · `pointPresets` as the panel's name.
+
+**Status:** `1n.4` BUILT — committed together with `1n.5` (§300), one commit for the two, a call: the two models share the line's code.
+
+## §300. `1n.5` THE WAVES MODEL — built and verified: the sequence's waves reused whole, `who moves`, one library; THE `1n` BUILD CLOSES, HIS ONE TEST NEXT (2026-09-22, Fable)
+
+**Built — `score/public/sequence.js` exports `buildStream` and `rngFor` (one line; `generate` untouched, the gate 180) ·
+`score/public/texture_dyn.js` (the 1n.5 section of its mixin, and the line's waves dials).** When the line's model is `waves` the
+sequence drawer's OWN dials appear — `preset` (its menu: the five built-ins and his own) · `short` · `long` · `tilt` · `shape` · `hold` ·
+`density` (in words) — with `who moves` (`each player` · `together` · `groups`, the grouping typed beside: `EH Bsn | Hn Tpt | Vc Db |
+Perc`, one stream per group, a row not named keeps its own) and `save preset`. **ONE LIBRARY:** the `wavePresets` panel of the sequence
+store — a preset saved in the sequence drawer is in this menu, one saved here (with the range's `low` · `high`, the sequence's shape of
+a preset) is in the sequence drawer's names. **The streams:** `Sequence.buildStream` run with the line's dials over the range's span plus
+a margin, keyed by the range's id and the stream's name, seconds from the range's start; each a 0 … 1 height mapped between the range's
+two names; a note reads its stream across its span — the stream's breakpoints inside it — a short note sampling at its onset (1n.1), a
+held note by `auto`; inside an `enter: fade` the two ends stand for the shape. The seed is the line's, `↻` the next.
+
+**REQUIRED VERIFICATION — `score-5401`, on the same pattern (55 columns, 30 s — the plan said 60 s; his longest texture runs 30):**
+- **`breathing` over the 55 columns, `ppp … fff`, `each player`** → **eight different streams** (no two rows the same run of levels),
+  every level within the two names, every row passing through all eight names over the take; the english horn's first twelve onsets pp
+  ppp ppp pp p mp mf f f ff fff fff — a swell ✓
+- **`together`** → every row the same level at every onset (55 of 55) ✓
+- **`EH Bsn | Hn Tpt Perc Vib Vc Db Vib2`** → EH = Bsn at every onset, the rest equal among themselves, EH ≠ the rest — **two streams** ✓
+- a cello length of 6 s in the first column → cut at its next onset (0.545 s, the cello plays every column) and, the breathing swell
+  moving under a step in that span, **`sample`** at ppp — `auto`'s rule, as 1n.1 wrote it ✓
+- **one library:** `seq-test` saved the sequence drawer's way (its `libPost` to `wavePresets`) → in this menu, *seq-test (yours)*;
+  `tx-test` saved here → in `SequenceDrawer.presetNames()` ✓
+- the band *waves ppp→fff* drawn ✓ · **THE SHIELD:** no line in the strike mode · `sequence_check` 180 · `dyn_table_check` 68 ·
+  `test_snapshots` 30 ✓ · six non-GET fetches, all stubbed; no confirm ✓
+
+**The calls made alone, his to reverse:** the streams keyed by the range's id (a re-generate with the same seed repeats them; another
+range with the same seed has its own) · a row outside every typed group keeps a stream of its own · a preset saved here carries the
+range's `low` · `high` so the sequence drawer can read it whole.
+
+**THE `1n` BUILD, CLOSED AT THE CODE'S END.** At his word after `/postclear` — *"go for the 1n dynamics build, try to build as much
+as possible independantly"* — five steps in four commits, THE SHIELD verified in each: `1n.1` one scale (§296, `1eb43f7`) · `1n.2` the
+single note by hand (§297, `c9a64c0`) · `1n.3` ranges (§298, `4fae1fe`) · `1n.4` + `1n.5` (§299 · this entry). **What waits on him:
+`1n.6`, HIS ONE TEST — in his rack, after a RELOAD of his tab (no restart: page files only; `1o.6`'s restart for the fifth store still
+stands if he has not done it):** a texture with a `flat pp` range · a `ramp` · a `Webern` stretch · a `waves` stretch · one hand swell;
+recorded; `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` read back — every short note at its ladder velocity with a
+CC7 before it on a curve channel, MAIN ch 1 EMPTY of the pitched rows (the percussion and the mallets there by design), every `follow` at
+mf with CC7 moving; **his ear on the one scale — a short `pp` beside a held `pp`.** And the finding of §296 for his call: the SI2 three
+carry a curve copy for `ord` alone, so a brass short on `staccato` stays on velocity alone. Revise on his word; old tests are not
+carried forward.

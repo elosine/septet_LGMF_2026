@@ -396,6 +396,22 @@ D.txRenderCols = function () { const r = _txRenderCols.apply(this, arguments); t
 // band re-selects its columns and refills the line; a generate over columns an older range holds takes those columns from it [call].
 const MODELS = { flat: 'flat', up: 'ramp ↑', down: 'ramp ↓', pointillistic: 'pointillistic', waves: 'waves' };
 const BAND_COL = '#8ab4d6';
+// 1n.4 — THE POINTILLISTIC MODEL (RUNNING_LOG §270): three dials in WORDS. `rate` = how many CHANGES the stream makes over the range's
+// N notes · `distribution` = where they fall (a mapping of a uniform draw along the passage) · `contrast` = how far a change moves.
+const RATES = { 'every note': n => n, 'every few': n => Math.max(1, Math.round(n / 3)), 'every many': n => Math.max(1, Math.round(n / 8)), 'twice a passage': n => Math.min(n, 2) };
+const DISTS = { 'even': u => u, 'few then many': u => Math.sqrt(u), 'many then few': u => u * u };
+const CONTRASTS = { 'small steps': 'step', 'any': 'any', 'extremes only': 'ends' };
+// the five presets, PROVISIONAL — drafted from what each will sound like, tuned by his ear after the build [call, §275]
+const POINT_PRESETS = {
+    Webern:   { rate: 'every note', dist: 'even', contrast: 'any' },
+    accents:  { rate: 'every many', dist: 'even', contrast: 'extremes only' },
+    drift:    { rate: 'every note', dist: 'even', contrast: 'small steps' },
+    terraced: { rate: 'twice a passage', dist: 'even', contrast: 'any' },
+    wild:     { rate: 'every note', dist: 'few then many', contrast: 'extremes only' },
+};
+const POINT_PANEL = 'pointPresets', WAVE_PANEL = 'wavePresets';   // both in the SEQUENCE store (bank/sequences.json), beside each other [call]
+const DENSITY_WORDS = [['constant', 1], ['busy', 0.8], ['breathing', 0.6], ['occasional', 0.35], ['rare', 0.15]];   // the sequence drawer's own words
+const S_ = () => root.SequenceDrawer || null, SEQ_ = () => root.SequenceGen || root.Sequence || null;
 const nameOpts = (withN) => (withN ? '<option value="n">n</option>' : '') + X.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('');
 Object.assign(D, {
     _txDynDraft: null,   // the line's values while nothing stored matches the selection: { low, high, who, model, enter, fadeS, seed }
@@ -404,7 +420,9 @@ Object.assign(D, {
     // the stored range whose columns are exactly the selection, if any
     txRangeOfSel() { const p = this.txCols(); if (!p || !p.sel.length) return null; const s = p.sel.slice().sort().join('|'); return this.txRanges().find(r => (r.columns || []).slice().sort().join('|') === s) || null; },
     txColsByTime(keys) { const tx = this._tx; return (keys || []).slice().sort((a, b) => this.txDot(a).t - this.txDot(b).t); },
-    txDynDraft() { if (!this._txDynDraft) this._txDynDraft = { low: 'pp', high: 'mf', who: null, model: 'flat', enter: 'abrupt', fadeS: 2, seed: 1 }; return this._txDynDraft; },
+    txDynDraft() { if (!this._txDynDraft) this._txDynDraft = { low: 'pp', high: 'mf', who: null, model: 'flat', enter: 'abrupt', fadeS: 2, seed: 1, point: Object.assign({}, POINT_PRESETS.Webern), waves: this.txWavesDefault(), whoMoves: 'each', groups: '' }; return this._txDynDraft; },
+    // the waves' dials: the sequence drawer's `breathing` (its own default), without its low · high (the range's) and seed (the line's)
+    txWavesDefault(over) { const S = S_(); const w = S && S.wavesDefaults ? S.wavesDefaults(over || undefined) : Object.assign({ shortest: 8, longest: 20, tilt: 0, shape: 'golden', hold: 0.2, density: 0.6 }, over || {}); delete w.seed; delete w.low; delete w.high; delete w.lengths; delete w.peak; return w; },
     // the level function of a range over [t0, t1], by TIME
     txRangeLevel(R, t0, t1) {
         const lo = R.low === 'n' ? X.NIENTE : X.levelOfName(R.low), hi = R.high === 'n' ? X.NIENTE : X.levelOfName(R.high);
@@ -431,11 +449,14 @@ Object.assign(D, {
         if (d.model !== 'flat' && d.high === 'n') { this.setStatus('n (niente) is the LOW end of a ramp only — set high to a dynamic', true); return; }
         if (d.model === 'pointillistic' && typeof this.txGenPoint !== 'function') { this.setStatus('the pointillistic model arrives with 1n.4', true); return; }
         if (d.model === 'waves' && typeof this.txGenWaves !== 'function') { this.setStatus('the waves model arrives with 1n.5', true); return; }
+        if ((d.model === 'pointillistic' || d.model === 'waves') && (d.low === 'n' || d.low === d.high)) { this.setStatus(MODELS[d.model] + ' needs two written names, low under high (niente is a ramp\'s low end only)', true); return; }
+        if (d.model === 'waves' && !(SEQ_() && SEQ_().buildStream)) { this.setStatus('the waves generator (sequence.js buildStream) is not on this page', true); return; }
         this.txPushUndo();
         const cols = this.txColsByTime(p.sel), t0 = this.txDot(cols[0]).t, tEnd = this.txDot(cols[cols.length - 1]).t, T = TRK();
         const rows = Array.isArray(d.who) && d.who.length ? d.who.slice() : null;
         const R = have || { id: 'r' + Date.now().toString(36) + Math.floor(Math.random() * 1e3).toString(36) };
-        Object.assign(R, { columns: cols.slice(), rows, low: d.low, high: d.model === 'flat' ? d.low : d.high, model: d.model, enter: d.enter === 'fade' ? { kind: 'fade', s: Math.max(0.05, +d.fadeS || 2) } : { kind: 'abrupt' }, seed: Math.max(1, Math.round(+d.seed || 1)), dials: R.dials || {} });
+        Object.assign(R, { columns: cols.slice(), rows, low: d.low, high: d.model === 'flat' ? d.low : d.high, model: d.model, enter: d.enter === 'fade' ? { kind: 'fade', s: Math.max(0.05, +d.fadeS || 2) } : { kind: 'abrupt' }, seed: Math.max(1, Math.round(+d.seed || 1)),
+            dials: { point: Object.assign({}, d.point || POINT_PRESETS.Webern), waves: this.txWavesDefault(d.waves), whoMoves: d.whoMoves || 'each', groups: d.groups || '' } });
         // an older range's columns taken over [call]; one left with none goes
         const ranges = this.txRanges(), mine = new Set(cols);
         for (let i = ranges.length - 1; i >= 0; i--) { const o = ranges[i]; if (o === R) continue; o.columns = (o.columns || []).filter(k => !mine.has(k)); if (!o.columns.length) ranges.splice(i, 1); }
@@ -447,15 +468,15 @@ Object.assign(D, {
             (c.notes || []).forEach(nt => {
                 const lane = nt.row != null ? nt.row : nt.lane; if (rows && !rows.includes(lane)) return; if (!(c.players || []).includes(lane)) return;
                 const dur = this.txPlayLenMs(p, this._tx, c, k, lane).ms / 1000;
-                let at = special ? special(lane, k, t) : null;   // a function of time for this note, or null → the range's own
-                const lv = at || L;
+                let at = special ? special(lane, k, t) : null;   // a function of time for this note (the waves' carries its shape as `.pts`), or null → the range's own
+                const lv = (typeof at === 'function') ? at : L;
                 let pts;
                 if (fadeS > 0 && t < t0 + fadeS - 1e-9) {
                     const before = this.txLevelBefore(p, lane, t0), from = before == null ? (R.low === 'n' ? X.NIENTE : X.levelOfName(R.low)) : before;
                     const f = tt => { const u = Math.max(0, Math.min(1, (tt - t0) / fadeS)); return from + (lv(tt) - from) * u; };
                     pts = [[0, f(t)], [dur, f(t + dur)]]; faded++;
                 } else pts = [[0, lv(t)], [dur, lv(t + dur)]];
-                if (special && at && at.pts) pts = at.pts;   // a model that gives the whole shape itself (the waves)
+                if (!(fadeS > 0 && t < t0 + fadeS - 1e-9) && at && at.pts) pts = at.pts;   // a model that gives the whole shape itself (the waves); inside a fade the two ends stand for it
                 c.dyn = c.dyn || {}; if (c.hand && c.hand[lane]) { hand++; delete c.hand[lane]; }
                 c.dyn[lane] = { pts: pts.map(q => [+q[0].toFixed(3), +(+q[1]).toFixed(4)]), r: R.id }; written++;
             });
@@ -486,7 +507,24 @@ Object.assign(D, {
                 '<label title="the level (flat), or the ramp\'s start (ramp ↑) / end (ramp ↓); n = niente, a ramp\'s low end only">low <select id="txDLo" style="' + INP + '">' + nameOpts(true) + '</select></label>' +
                 '<label title="the ramp\'s other end (a flat range uses low alone)">high <select id="txDHi" style="' + INP + '">' + nameOpts(false) + '</select></label>' +
                 '<span title="every row, or only the rows ticked"><button id="txDWho" style="' + BTN_ + '">who: all ▾</button><span id="txDWhoRows" style="display:none;gap:4px;margin-left:4px"></span></span>' +
-                '<label title="flat: one level · ramp: from low to high (or high to low) across the stretch by TIME, a held note following it by auto · pointillistic (1n.4) · waves (1n.5)">model <select id="txDModel" style="' + INP + '">' + Object.keys(MODELS).map(m => '<option value="' + m + '">' + MODELS[m] + '</option>').join('') + '</select></label>' +
+                '<label title="flat: one level · ramp: from low to high (or high to low) across the stretch by TIME, a held note following it by auto · pointillistic: every note its own level between the two, by rate and distribution (1n.4) · waves: the sequence\'s streams of swells between the two, who moves (1n.5)">model <select id="txDModel" style="' + INP + '">' + Object.keys(MODELS).map(m => '<option value="' + m + '">' + MODELS[m] + '</option>').join('') + '</select></label>' +
+                '<span id="txDPoint" style="display:none;gap:5px;align-items:center;flex-wrap:wrap">' +
+                    '<label title="PLAN 1n.4: the pointillistic PRESETS — provisional, tuned by your ear; a moved dial reads custom; save preset keeps your own beside the wave presets">preset <select id="txDPPre" style="' + INP + '"></select></label>' +
+                    '<label title="how often the level CHANGES along the passage — the stream runs over every note of the chosen rows in time order, so the texture as a whole is pointillistic">rate <select id="txDPRate" style="' + INP + '">' + Object.keys(RATES).map(k => '<option value="' + k + '">' + k + '</option>').join('') + '</select></label>' +
+                    '<label title="WHERE the changes fall: evenly, few early then many, many early then few">distribution <select id="txDPDist" style="' + INP + '">' + Object.keys(DISTS).map(k => '<option value="' + k + '">' + k + '</option>').join('') + '</select></label>' +
+                    '<label title="how far a change moves: a neighbouring name · any name between low and high · the two ends only (a change is a single-note accent to the far end; the rest at low)">contrast <select id="txDPCon" style="' + INP + '">' + Object.keys(CONTRASTS).map(k => '<option value="' + k + '">' + k + '</option>').join('') + '</select></label>' +
+                    '<button id="txDPSave" style="' + BTN_ + '" title="keep these three dials as a preset of your own, under a name — in the sequence store beside the wave presets">save preset</button></span>' +
+                '<span id="txDWaves" style="display:none;gap:5px;align-items:center;flex-wrap:wrap">' +
+                    '<label title="PLAN 1n.5: the sequence drawer\'s wave presets — ONE library (bank/sequences.json wavePresets): one saved there is here, one saved here is there">preset <select id="txDWPre" style="' + INP + '"></select></label>' +
+                    '<label title="the shortest swell, seconds">short <input id="txDWShort" type="number" min="0.5" step="0.5" style="' + INP + ';width:40px"></label>' +
+                    '<label title="the longest swell, seconds">long <input id="txDWLong" type="number" min="0.5" step="0.5" style="' + INP + ';width:40px"></label>' +
+                    '<label title="−1 short … +1 long: which lengths the draw favours">tilt <input id="txDWTilt" type="number" min="-1" max="1" step="0.1" style="' + INP + ';width:40px"></label>' +
+                    '<label title="the swell\'s shape: where its top sits">shape <select id="txDWShape" style="' + INP + '"></select></label>' +
+                    '<label title="how long a swell sits at its top, a share of its length">hold <input id="txDWHold" type="number" min="0" max="1" step="0.05" style="' + INP + ';width:40px"></label>' +
+                    '<label title="how much of the time a player is inside a swell — the rest sits at low">density <select id="txDWDen" style="' + INP + '"></select></label>' +
+                    '<label title="WHO MOVES (§271): each player — a stream of their own · together — one stream for every chosen row · groups — your grouping typed beside, e.g. EH Bsn | Hn Tpt | Vc Db | Perc, one stream per group (a row not named keeps its own)">who moves <select id="txDWWho" style="' + INP + '"><option value="each">each player</option><option value="together">together</option><option value="groups">groups</option></select></label>' +
+                    '<input id="txDWGroups" type="text" placeholder="EH Bsn | Hn Tpt | Vc Db | Perc" spellcheck="false" style="' + INP + ';width:150px" title="the groups, the rows\' short names, | between groups">' +
+                    '<button id="txDWSave" style="' + BTN_ + '" title="keep these dials as a wave preset of your own, under a name — the sequence drawer sees it too">save preset</button></span>' +
                 '<label title="how the range is ENTERED: abrupt — the first note sounds at the range\'s level · fade N s — the notes in the range\'s first N seconds ramp from the level before the range (that row\'s level in the last column before it, else the range\'s low) to the range\'s level">enter <select id="txDEnter" style="' + INP + '"><option value="abrupt">abrupt</option><option value="fade">fade</option></select> <input id="txDFade" type="number" min="0.05" step="0.5" style="' + INP + ';width:40px" title="the fade\'s seconds"> s</label>' +
                 '<label title="the seed of a pointillistic or waves deal; ↻ the next">seed <input id="txDSeed" type="number" min="1" step="1" style="' + INP + ';width:40px"><button id="txDNext" style="' + BTN_ + '" title="the next seed">↻</button></label>' +
                 '<button id="txDGen" style="' + BTN_ + ';color:#e8cf9a" title="write the level of every note in the selected columns for the chosen rows — hand-set values are overwritten and counted">generate</button>' +
@@ -497,12 +535,36 @@ Object.assign(D, {
             q('#txDNext').addEventListener('click', () => { this.txDraftFromLine(); const d = this.txDynDraft(); d.seed = Math.max(1, Math.round(+d.seed || 1)) + 1; this.txPaintDynLine(); });
             q('#txDWho').addEventListener('click', () => { const r = q('#txDWhoRows'); r.style.display = r.style.display === 'none' ? 'inline-flex' : 'none'; });
             q('#txDGen').addEventListener('click', () => { this.txDraftFromLine(); this.txGenerate(); });
+            // 1n.4 · 1n.5: the models' dials — a change reads the line into the draft (a moved dial makes the preset `custom`); a preset fills its dials
+            ['#txDPRate', '#txDPDist', '#txDPCon', '#txDWShort', '#txDWLong', '#txDWTilt', '#txDWShape', '#txDWHold', '#txDWDen', '#txDWWho', '#txDWGroups'].forEach(s => { const el = q(s); el.addEventListener('change', e => { if (e.target.tagName === 'SELECT') e.target.blur(); this.txDraftFromLine(); this.txPaintDynLine(); }); el.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); ev.target.blur(); } }); });
+            q('#txDPPre').addEventListener('change', e => { const n = e.target.value; e.target.blur(); if (n) this.txApplyPointPreset(n); });
+            q('#txDWPre').addEventListener('change', e => { const n = e.target.value; e.target.blur(); if (n) this.txApplyWavePreset(n); });
+            q('#txDPSave').addEventListener('click', () => this.txSavePointPreset());
+            q('#txDWSave').addEventListener('click', () => this.txSaveWavePreset());
         }
         const q = s => line.querySelector(s), R = this.txRangeOfSel(), d = this.txDynDraft();
-        if (R && !this._txDynEdited) { d.low = R.low; d.high = R.high; d.model = R.model; d.enter = R.enter && R.enter.kind === 'fade' ? 'fade' : 'abrupt'; if (R.enter && R.enter.s) d.fadeS = R.enter.s; d.seed = R.seed || 1; d.who = R.rows ? R.rows.slice() : null; }
+        if (R && !this._txDynEdited) { d.low = R.low; d.high = R.high; d.model = R.model; d.enter = R.enter && R.enter.kind === 'fade' ? 'fade' : 'abrupt'; if (R.enter && R.enter.s) d.fadeS = R.enter.s; d.seed = R.seed || 1; d.who = R.rows ? R.rows.slice() : null;
+            const dl = R.dials || {}; if (dl.point) d.point = Object.assign({}, dl.point); if (dl.waves) d.waves = this.txWavesDefault(dl.waves); if (dl.whoMoves) d.whoMoves = dl.whoMoves; if (dl.groups != null) d.groups = dl.groups; }
         const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
         put('#txDLo', d.low); put('#txDHi', d.high); put('#txDModel', d.model); put('#txDEnter', d.enter); put('#txDFade', d.fadeS); put('#txDSeed', d.seed);
         q('#txDHi').disabled = d.model === 'flat'; q('#txDHi').style.opacity = d.model === 'flat' ? 0.45 : ''; q('#txDFade').disabled = d.enter !== 'fade';
+        // 1n.4 · 1n.5: the model's own dials, shown for the model in force
+        q('#txDPoint').style.display = d.model === 'pointillistic' ? 'inline-flex' : 'none'; q('#txDWaves').style.display = d.model === 'waves' ? 'inline-flex' : 'none';
+        if (d.model === 'pointillistic') {
+            const P = d.point, names = this.txPointPresetNames(), here = this.txPointPresetMatch(P), mine = this.txPresetIx(POINT_PANEL);
+            const sig = names.map(n => n + (mine[n] ? '*' : '')).join('|') + '@' + here; if (sig !== this._txPPreSig) { this._txPPreSig = sig; q('#txDPPre').innerHTML = '<option value="">' + (here ? '— ' + here + ' —' : '— custom —') + '</option>' + names.map(n => '<option value="' + n + '">' + n + (mine[n] ? (POINT_PRESETS[n] ? ' (yours, over the built-in)' : ' (yours)') : '') + '</option>').join(''); }
+            q('#txDPPre').value = ''; put('#txDPRate', P.rate); put('#txDPDist', P.dist); put('#txDPCon', P.contrast);
+        }
+        if (d.model === 'waves') {
+            const W = d.waves, S = S_(), SEQ = SEQ_(), names = S && S.presetNames ? S.presetNames() : [], here = this.txWavePresetMatch(W), mine = this.txPresetIx(WAVE_PANEL);
+            const sig = names.map(n => n + (mine[n] ? '*' : '')).join('|') + '@' + here; if (sig !== this._txWPreSig) { this._txWPreSig = sig; q('#txDWPre').innerHTML = '<option value="">' + (here ? '— ' + here + ' —' : '— your own dials —') + '</option>' + names.map(n => '<option value="' + n + '">' + n + (mine[n] ? ' (yours)' : '') + '</option>').join(''); }
+            q('#txDWPre').value = '';
+            if (!q('#txDWShape').options.length && SEQ) q('#txDWShape').innerHTML = Object.keys(SEQ.SHAPES).map(s => '<option value="' + s + '">' + s + '</option>').join('');
+            if (!q('#txDWDen').options.length) q('#txDWDen').innerHTML = DENSITY_WORDS.map(p => '<option value="' + p[0] + '">' + p[0] + '</option>').join('');
+            put('#txDWShort', W.shortest); put('#txDWLong', W.longest); put('#txDWTilt', W.tilt || 0); put('#txDWShape', W.shape); put('#txDWHold', W.hold);
+            const dw = DENSITY_WORDS.find(p => Math.abs(p[1] - W.density) < 1e-9); put('#txDWDen', dw ? dw[0] : 'breathing');
+            put('#txDWWho', d.whoMoves || 'each'); put('#txDWGroups', d.groups || ''); q('#txDWGroups').style.display = d.whoMoves === 'groups' ? '' : 'none';
+        }
         const rowsBox = q('#txDWhoRows');
         if (!rowsBox.children.length) { rowsBox.innerHTML = T.map((t, i) => '<label style="display:inline-flex;align-items:center;gap:1px"><input type="checkbox" data-lane="' + i + '">' + t.short + '</label>').join(''); rowsBox.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => { const on = [...rowsBox.querySelectorAll('input')].filter(x => x.checked).map(x => +x.dataset.lane); this.txDynDraft().who = on.length && on.length < T.length ? on : null; this._txDynEdited = true; this.txPaintDynLine(); })); }
         rowsBox.querySelectorAll('input').forEach(cb => { cb.checked = !d.who || d.who.includes(+cb.dataset.lane); });
@@ -510,7 +572,19 @@ Object.assign(D, {
         line.style.opacity = k ? '' : 0.45; q('#txDGen').disabled = !k;
         q('#txDNote').textContent = !k ? '' : R ? 'this selection is the range "' + MODELS[R.model] + ' ' + (R.model === 'flat' ? R.low : R.low + ' → ' + R.high) + '" — generate re-runs it' : (p.sel.length + ' column' + (p.sel.length === 1 ? '' : 's') + ' selected — generate makes a range of them');
     },
-    txDraftFromLine() { const line = this.el && this.el.querySelector('#txDynLine'); if (!line) return; const q = s => line.querySelector(s), d = this.txDynDraft(); d.low = q('#txDLo').value; d.high = q('#txDHi').value; d.model = q('#txDModel').value; d.enter = q('#txDEnter').value; d.fadeS = +q('#txDFade').value || d.fadeS; d.seed = Math.max(1, Math.round(+q('#txDSeed').value || 1)); this._txDynEdited = true; },
+    txDraftFromLine() {
+        const line = this.el && this.el.querySelector('#txDynLine'); if (!line) return; const q = s => line.querySelector(s), d = this.txDynDraft();
+        d.low = q('#txDLo').value; d.high = q('#txDHi').value; d.model = q('#txDModel').value; d.enter = q('#txDEnter').value; d.fadeS = +q('#txDFade').value || d.fadeS; d.seed = Math.max(1, Math.round(+q('#txDSeed').value || 1));
+        if (q('#txDPoint').style.display !== 'none') { d.point = { rate: q('#txDPRate').value, dist: q('#txDPDist').value, contrast: q('#txDPCon').value }; }
+        if (q('#txDWaves').style.display !== 'none') {
+            const W = d.waves, num = (s, def) => { const v = q(s).value.trim(); return v === '' || !isFinite(+v) ? def : +v; };
+            W.shortest = Math.max(0.5, num('#txDWShort', W.shortest)); W.longest = Math.max(W.shortest, num('#txDWLong', W.longest)); W.tilt = Math.max(-1, Math.min(1, num('#txDWTilt', 0)));
+            const SEQ = SEQ_(); W.shape = (SEQ && SEQ.SHAPES[q('#txDWShape').value] != null) ? q('#txDWShape').value : W.shape; W.hold = Math.max(0, Math.min(1, num('#txDWHold', W.hold)));
+            const den = DENSITY_WORDS.find(p => p[0] === q('#txDWDen').value); W.density = den ? den[1] : W.density;
+            d.whoMoves = q('#txDWWho').value; d.groups = q('#txDWGroups').value;
+        }
+        this._txDynEdited = true;
+    },
     // THE BAND under the marks: one per range, its columns' span, its names on it; behind the pointer (a click is read by geometry in txDown)
     txDynBands(p) {
         const svg = this.el && this.el.querySelector('#txSvg'), run = svg && svg.querySelector('#txRun'); if (!svg || !run || !this._tx || !p) return;
@@ -532,6 +606,79 @@ Object.assign(D, {
     },
 });
 const BTN_ = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
+// ================================================================ 1n.4 · 1n.5 — THE TWO GENERATORS AND THEIR PRESETS
+Object.assign(D, {
+    // THE POINTILLISTIC DEAL (§270; PLAN § 1n.4): ONE seeded stream over the range's notes in TIME ORDER across the chosen rows [call] —
+    // `rate` says how many CHANGES fall on the N notes, `distribution` where (a uniform draw mapped along the passage), `contrast` how far
+    // each moves: `small steps` a neighbouring name that then HOLDS · `any` any name between low and high (never the one in force), held ·
+    // `extremes only` — the rest sit at `low` and a change is a single-note ACCENT to the far end (the loud note in a quiet section); with a
+    // change on every note the ends alternate. Every level a written name; a held note reads it by `auto`. Answers (lane, k, t) → () => level.
+    txGenPoint(R, cols, t0, tEnd) {
+        const p = this.txCols(), rows = R.rows, P = (R.dials && R.dials.point) || POINT_PRESETS.Webern, SEQ = SEQ_();
+        const list = []; cols.forEach(k => { const c = p.cols[k]; if (!c) return; const t = this.txDot(k).t; (c.notes || []).forEach(nt => { const lane = nt.row != null ? nt.row : nt.lane; if (rows && !rows.includes(lane)) return; if (!(c.players || []).includes(lane)) return; list.push({ k, lane, t }); }); });
+        list.sort((a, b) => a.t - b.t || a.lane - b.lane);
+        const N = list.length, out = new Map(); if (!N) return () => null;
+        const rng = SEQ && SEQ.rngFor ? SEQ.rngFor(R.seed, 'point:' + R.id, 0) : (() => { let s = ((R.seed | 0) * 2654435761 + 12345) >>> 0; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; })();
+        const iA = X.NAMES.indexOf(R.low), iB = X.NAMES.indexOf(R.high), a = Math.min(iA, iB), b = Math.max(iA, iB);
+        const M = (RATES[P.rate] || RATES['every note'])(N), map = DISTS[P.dist] || DISTS.even, mode = CONTRASTS[P.contrast] || 'any';
+        const pos = new Set(); if (P.rate === 'every note') { for (let i = 0; i < N; i++) pos.add(i); } else { for (let j = 0; j < M; j++) pos.add(Math.min(N - 1, Math.floor(map(rng()) * N))); }
+        let cur = mode === 'ends' ? a : a + Math.floor(rng() * (b - a + 1)), prev = cur;
+        list.forEach((n, i) => {
+            let lv;
+            if (mode === 'ends') lv = pos.has(i) ? (prev === a ? b : a) : a;
+            else if (pos.has(i)) {
+                if (mode === 'step') { const dir = rng() < 0.5 ? -1 : 1; let nx = cur + dir; if (nx < a || nx > b) nx = cur - dir; cur = Math.max(a, Math.min(b, nx)); }
+                else { let nx = a + Math.floor(rng() * (b - a + 1)); if (b > a && nx === cur) nx = a + ((nx - a + 1 + Math.floor(rng() * (b - a))) % (b - a + 1)); cur = nx; }
+                lv = cur;
+            } else lv = cur;
+            prev = lv; out.set(n.k + '|' + n.lane, lv / X.STEPS);
+        });
+        return (lane, k) => { const v = out.get(k + '|' + lane); return v == null ? null : (() => v); };
+    },
+    // THE WAVES MODEL (§271; PLAN § 1n.5): the sequence's `buildStream` run over the range's span with the line's dials, each stream a 0 … 1
+    // height in seconds from the range's start, mapped between the range's two names; a stream per row (`each player`), one for every
+    // chosen row (`together`) or one per typed group (`groups`, a row not named keeps its own). A note reads its stream across its span —
+    // the breakpoints inside it — a short note sampling at its onset, a held one by `auto`. Answers (lane, k, t) → a function of time
+    // carrying the note's own shape as `.pts`.
+    txGenWaves(R, cols, t0, tEnd) {
+        const SEQ = SEQ_(); if (!SEQ || !SEQ.buildStream) return null;
+        const p = this.txCols(), W0 = this.txWavesDefault((R.dials && R.dials.waves) || null), lo = X.levelOfName(R.low), hi = X.levelOfName(R.high), T = TRK();
+        const W = { lo, hi, density: +W0.density, peak: 0.5, seed: R.seed | 0, shape: W0.shape, rise: SEQ.SHAPES[W0.shape] != null ? SEQ.SHAPES[W0.shape] : SEQ.SHAPES[SEQ.DEFAULT_SHAPE], hold: +W0.hold, shortest: +W0.shortest, longest: +W0.longest, tilt: +W0.tilt || 0 };
+        const who = (R.dials && R.dials.whoMoves) || 'each', keyOf = {};
+        if (who === 'groups') { const groups = String((R.dials && R.dials.groups) || '').split('|').map(g => g.trim().toLowerCase().split(/[\s,]+/).filter(Boolean)); T.forEach((t, i) => { const gi = groups.findIndex(g => g.includes(String(t.short || '').toLowerCase())); keyOf[i] = gi >= 0 ? 'group' + gi : 'row' + i; }); }
+        else T.forEach((t, i) => { keyOf[i] = who === 'together' ? 'all' : 'row' + i; });
+        const until = (tEnd - t0) + Math.max(60, W.longest * 2), streams = {};
+        const streamOf = key => streams[key] || (streams[key] = SEQ.buildStream(null, W, R.id + ':' + key, until).points);
+        return (lane, k, t) => {
+            const c = p.cols[k]; if (!c) return null;
+            const dur = this.txPlayLenMs(p, this._tx, c, k, lane).ms / 1000, pts = streamOf(keyOf[lane]), x0 = t - t0, x1 = x0 + dur;
+            const lvl = x => lo + (hi - lo) * SEQ.levelAt(pts, x);
+            const fn = tt => lvl(tt - t0);
+            const L = [[0, lvl(x0)]]; pts.forEach(q => { if (q[0] > x0 + 1e-6 && q[0] < x1 - 1e-6) L.push([q[0] - x0, lo + (hi - lo) * q[1]]); }); L.push([dur, lvl(x1)]);
+            fn.pts = L; return fn;
+        };
+    },
+    // ---------------------------------------------------------------- the presets: the pointillistic ones beside the wave presets in the SEQUENCE store [call]
+    txPresetIx(panel) { const S = S_(); return (S && S._lib && S._lib[panel]) || {}; },
+    txPointPresetNames() { const mine = Object.keys(this.txPresetIx(POINT_PANEL)).sort((a, b) => a.localeCompare(b)), built = Object.keys(POINT_PRESETS); return built.concat(mine.filter(n => built.indexOf(n) < 0)); },
+    txPointPresetOf(name) { const his = this.txPresetIx(POINT_PANEL)[name]; if (his && his.state && his.state.point) return Object.assign({}, his.state.point); return POINT_PRESETS[name] ? Object.assign({}, POINT_PRESETS[name]) : null; },
+    txPointPresetMatch(P) { if (!P) return null; return this.txPointPresetNames().find(n => { const q = this.txPointPresetOf(n); return q && q.rate === P.rate && q.dist === P.dist && q.contrast === P.contrast; }) || null; },
+    txApplyPointPreset(name) { const q = this.txPointPresetOf(name); if (!q) { this.setStatus('no pointillistic preset named "' + name + '"', true); return; } this.txDraftFromLine(); this.txDynDraft().point = q; this._txDynEdited = true; this.txPaintDynLine(); this.setStatus('pointillistic preset "' + name + '": ' + q.rate + ' · ' + q.dist + ' · ' + q.contrast + ' — generate'); },
+    txWavePresetMatch(W) { const S = S_(); if (!S || !S.presetNames || !W) return null; return S.presetNames().find(n => { const q = S.presetOf(n); return q && q.shape != null && ['shortest', 'longest', 'tilt', 'hold', 'density'].every(k => Math.abs((+q[k] || 0) - (+W[k] || 0)) < 1e-9) && q.shape === W.shape; }) || null; },
+    txApplyWavePreset(name) { const S = S_(), q = S && S.presetOf ? S.presetOf(name) : null; if (!q) { this.setStatus('no wave preset named "' + name + '"', true); return; } this.txDraftFromLine(); this.txDynDraft().waves = this.txWavesDefault(q); this._txDynEdited = true; this.txPaintDynLine(); this.setStatus('waves preset "' + name + '": ' + q.shortest + '–' + q.longest + ' s · ' + q.shape + ' · hold ' + q.hold + ' — generate'); },
+    async txSavePreset(panel, key, value, nameGiven, suggest) {
+        const S = S_(); if (!S || !S.libPost) { this.setStatus('the sequence store is not on this page', true); return false; }
+        const name = String(nameGiven || window.prompt('Keep these dials as a preset called:', suggest || '') || '').trim(); if (!name) return false;
+        if (!/^[A-Za-z0-9._ -]{1,64}$/.test(name)) { this.setStatus('a preset name may hold letters, digits, dot, underscore, space or hyphen, up to 64 — not "' + name + '"', true); return false; }
+        const state = {}; state[key] = JSON.parse(JSON.stringify(value));
+        try { await S.libPost({ panel, name, state }); } catch (e) { this.setStatus('the preset did not save: ' + (e && e.message || e), true); return false; }
+        S._lib = S._lib || {}; (S._lib[panel] = S._lib[panel] || {})[name] = { saved: new Date().toISOString(), state };
+        this._txPPreSig = ''; this._txWPreSig = ''; if (S._preSig != null) S._preSig = ''; if (typeof S.paintWaves === 'function' && S.isOpen && S.isOpen()) try { S.paintWaves(); } catch (e) {}
+        this.txPaintDynLine(); return name;
+    },
+    async txSavePointPreset(nameGiven) { this.txDraftFromLine(); const P = this.txDynDraft().point; const n = await this.txSavePreset(POINT_PANEL, 'point', P, nameGiven, this.txPointPresetMatch(P)); if (n) this.setStatus('pointillistic preset "' + n + '" saved · bank/sequences.json, beside the wave presets'); },
+    async txSaveWavePreset(nameGiven) { this.txDraftFromLine(); const d = this.txDynDraft(), w = Object.assign(this.txWavesDefault(d.waves), { low: d.low, high: d.high }); const n = await this.txSavePreset(WAVE_PANEL, 'waves', w, nameGiven, this.txWavePresetMatch(d.waves)); if (n) this.setStatus('waves preset "' + n + '" saved · bank/sequences.json — the sequence drawer sees it too'); },
+});
 // the undo snapshot carries the ranges too
 const _txUndoSnap = D.txUndoSnap;
 D.txUndoSnap = function () { const s = _txUndoSnap.apply(this, arguments); if (s == null) return s; const p = this.txCols(); const o = JSON.parse(s); o.ranges = (p && p.ranges) || []; return JSON.stringify(o); };
