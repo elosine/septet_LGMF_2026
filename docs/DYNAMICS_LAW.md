@@ -172,10 +172,15 @@ with one CC7 before its note-on and keeps the timbre of its own dynamic. Residua
 **A held note chooses** `sample | follow | auto` (§265): `follow` traces its level (a hairpin typed on it, or a generated level that
 moves ONE WRITTEN STEP or more across its span); else it is sampled at its onset and held flat on the residual. No length dial.
 
+**A voice with NO curve copy — his "b", D27 (2026-09-23, §301):** the SI2 three carry `ord` alone on their `b` ports
+(`curveTechniques: ["ord"]`). A SAMPLED note there is a fader SET ONCE, not a moving controller, so it goes out on the note's OWN
+channel — instance 1's part for the voice — with its residual pre-armed before it, exactly where a plain note gets its 127 today. The
+score does this by itself: the note is a curve event, the map finds no pool, `preArm` sends `heldCc7` on the voice's channel. Only a
+`follow` (a moving fader) still needs a copy: it stays velocity alone, struck on the LADDER at its first level, and the status says so.
+
 **Not reached, and the status must say so:** no measured fader curve (the percussion; the vibraphone's mallet voices — the card
-measured the bowed one) → velocity alone on MAIN, as before; and **a voice with NO curve copy** — the SI2 three carry `ord` alone on
-their `b` ports (`curveTechniques: ["ord"]`), so a brass short on `staccato` stays on its own channel at its velocity. The one helper is
-`score/public/texture_dyn.js`; SPACE, the column preview and Insert all read it (§296).
+measured the bowed one) → velocity alone on MAIN, as before. The one helper is `score/public/texture_dyn.js`; SPACE, the column
+preview and Insert all read it (§296 · §301).
 
 ## 4 · Moving CC7 lives on the CURVE CHANNELS only
 

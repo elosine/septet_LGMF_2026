@@ -192,9 +192,20 @@ Object.assign(D, {
     // curve bank, resolved by the wrap of D.routeFor (sequence_ui.js) — round robin per player in time order, a breath after each; a
     // real seat (the second vibraphone) already sits on curve[0] and keeps it, and the pool skips that entry for the first vibraphone;
     // a technique with NO curve copy stays on MAIN with its velocity and is counted for the status
+    // HIS CALL 2026-09-23, "b" (RUNNING_LOG §301): a voice with NO curve copy is not left on velocity alone — a SAMPLED note is a fader SET
+    // ONCE, not a moving controller, so it goes out on the note's OWN channel (instance 1's part) with its residual before it, exactly as
+    // a plain note gets its CC7 127 there today; only a FOLLOW (a moving fader) still needs a copy and stays velocity alone, counted.
+    txDynOwn(n) {
+        if (!n.dyn) return;
+        if (n.dyn.how === 'sample') { n.dyn.how = 'own'; delete n.seat; }
+        else if (n.dyn.how === 'follow') {   // velocity alone: struck on the LADDER at its first level, not at mf — the fader will not move it down
+            n.dyn.how = 'main'; n.dyn.cc7Abs = null; delete n.seat;
+            n.dyn.velAbs = X.ladderVel(this._txDynBank(), this.txDynKey(n.lane), n.midi, n.dyn.level); n.velAbs = n.dyn.velAbs;
+        }
+    },
     txDynSeats(notes) {
         const C = C_(); let onMain = 0;
-        if (!C || typeof C.curveChannelsOf !== 'function') { notes.forEach(n => { if (n.dyn && n.dyn.how !== 'plain') { n.dyn.how = 'main'; n.dyn.cc7Abs = null; delete n.seat; onMain++; } }); return onMain; }
+        if (!C || typeof C.curveChannelsOf !== 'function') { notes.forEach(n => { if (n.dyn && n.dyn.how !== 'plain') { this.txDynOwn(n); if (n.dyn.how === 'main') onMain++; } }); return onMain; }
         const T = TRK(), held = {};
         notes.forEach(n => { const t = T[n.lane]; if (!(t && t.seatOf != null)) return; const inst = this.instOf(t.seatOf), cur = inst && inst.channels && Array.isArray(inst.channels.curve) ? inst.channels.curve[0] : null; if (cur != null) (held[t.seatOf] = held[t.seatOf] || new Set()).add(JSON.stringify(cur)); });
         const byLane = {};
@@ -209,7 +220,7 @@ Object.assign(D, {
             const lane = +k, real = this.scoreLane ? this.scoreLane(lane) : lane, list = byLane[k].slice().sort((a, b) => a.onMs - b.onMs), freeAt = new Map();
             list.forEach(n => {
                 const pool = C.curveChannelsOf(real, n.tech) || [];
-                if (!pool.length) { n.dyn.how = 'main'; n.dyn.cc7Abs = null; delete n.seat; onMain++; return; }
+                if (!pool.length) { this.txDynOwn(n); if (n.dyn.how === 'main') onMain++; return; }   // no curve copy for the voice: a set fader on its own channel; a moving one stays velocity alone
                 const open = i => !(held[real] && held[real].has(JSON.stringify(pool[i])) && held[real].size < pool.length);
                 let pick = -1, best = Infinity;
                 for (let i = 0; i < pool.length; i++) { if (!open(i)) continue; const f = freeAt.has(i) ? freeAt.get(i) : -Infinity; if (f <= n.onMs + 1e-9 && f < best) { best = f; pick = i; } }
@@ -218,7 +229,7 @@ Object.assign(D, {
                 n.seat = 'c' + pick;
                 // the marker must RESOLVE to a curve channel (the wrap in sequence_ui.js); if it does not, the note would stream on MAIN — so it stays a velocity note there, and the status says
                 const base = this.routeFor(lane, n.tech), r = this.routeFor(lane, n.tech, n.seat);
-                if (!r || !base || (r.ch === base.ch && r.port === base.port)) { n.dyn.how = 'main'; n.dyn.cc7Abs = null; delete n.seat; onMain++; }
+                if (!r || !base || (r.ch === base.ch && r.port === base.port)) { this.txDynOwn(n); if (n.dyn.how === 'main') onMain++; }
             });
         });
         return onMain;
@@ -229,8 +240,8 @@ Object.assign(D, {
         const e = E_(); if (!e || !e._playing || !notes) return 0;
         let sent = 0;
         notes.forEach(n => {
-            const S = n.dyn; if (!S || !S.cc7Abs || (S.how !== 'sample' && S.how !== 'follow')) return;
-            const r = this.routeFor(n.lane, n.tech, n.seat); if (!r || !r.out) return;
+            const S = n.dyn; if (!S || !S.cc7Abs || (S.how !== 'sample' && S.how !== 'follow' && S.how !== 'own')) return;
+            const r = this.routeFor(n.lane, n.tech, n.seat); if (!r || !r.out) return;   // `own`: no seat — the note's own channel, the base route
             X.rampPoints(S, n.durMs, RAMP_MS, S.skipMs).forEach(pt => {
                 const when = this.base + n.onMs + pt[0] - RAMP_LEAD_MS, cc = pt[1];
                 e._timers.push(setTimeout(() => { try { r.out.send([0xB0 | r.ch, 7, cc]); } catch (x) {} }, Math.max(0, when - performance.now()))); sent++;
@@ -240,15 +251,16 @@ Object.assign(D, {
     },
     // the status line's account of what went out — a claim about the sound, said rather than assumed
     txDynText(notes) {
-        const shaped = (notes || []).filter(n => n.dyn && (n.dyn.how === 'sample' || n.dyn.how === 'follow'));
+        const shaped = (notes || []).filter(n => n.dyn && (n.dyn.how === 'sample' || n.dyn.how === 'follow' || n.dyn.how === 'own'));
         if (!(notes || []).some(n => n.dyn)) return '';
-        const follow = shaped.filter(n => n.dyn.how === 'follow').length;
+        const follow = shaped.filter(n => n.dyn.how === 'follow').length, own = shaped.filter(n => n.dyn.how === 'own').length;
         let lo = 127, hi = 0; shaped.forEach(n => { lo = Math.min(lo, n.dyn.cc7Abs.lo); hi = Math.max(hi, n.dyn.cc7Abs.hi); });
         const plain = [...new Set((notes || []).filter(n => n.dyn && n.dyn.how === 'plain').map(n => shortOf(n.lane) + (this.txDynKey(n.lane) === 'bowed_vibraphone' ? ' (mallet)' : '')))];
         const main = [...new Set((notes || []).filter(n => n.dyn && n.dyn.how === 'main').map(n => shortOf(n.lane) + ' ' + n.tech))];
-        return (shaped.length ? ' · ' + shaped.length + ' on the one scale (' + (shaped.length - follow) + ' set, ' + follow + ' follow) · the fader CC7 ' + lo + '…' + hi + ' on the curve channels' : '') +
+        const owns = [...new Set((notes || []).filter(n => n.dyn && n.dyn.how === 'own').map(n => shortOf(n.lane) + ' ' + n.tech))];
+        return (shaped.length ? ' · ' + shaped.length + ' on the one scale (' + (shaped.length - follow) + ' set, ' + follow + ' follow) · the fader CC7 ' + lo + '…' + hi + (own && own === shaped.length ? ' on their own channels' : own ? ' on the curve channels, ' + own + ' set on their own channel (no curve copy: ' + owns.join(', ') + ')' : ' on the curve channels') : '') +
             (plain.length ? ' · velocity alone, no measured curve: ' + plain.join(', ') : '') +
-            (main.length ? ' · on MAIN, no curve copy for the voice (velocity alone): ' + main.join(', ') : '');
+            (main.length ? ' · velocity alone — a MOVING fader needs a curve copy the voice has not got: ' + main.join(', ') : '');
     },
     // THE FLAG (§277, LG-58): on ONE player, two ATTACKS closer than the instrument's minimum gap — the score's own law (Composer.CONFLICT
     // `requiredAttack`: the slur-speed limit at a half step, the leap adding to it) over the pattern's ON columns. The attacks alone are

@@ -11538,3 +11538,44 @@ CC7 before it on a curve channel, MAIN ch 1 EMPTY of the pitched rows (the percu
 mf with CC7 moving; **his ear on the one scale — a short `pp` beside a held `pp`.** And the finding of §296 for his call: the SI2 three
 carry a curve copy for `ord` alone, so a brass short on `staccato` stays on velocity alone. Revise on his word; old tests are not
 carried forward.
+
+## §301. THE BRASS SET UP — his "b": a short note on a voice with no curve copy takes its set fader on its OWN channel; no rack change; built and verified through the score's own playback (2026-09-23, Fable)
+
+**Prompted by:** *"lets set up the brass"*, then *"b"* — his answer to §296's finding (the SI2 three carry a curve copy for `ord`
+alone, so B2 could not reach a brass short on `staccato`, Texture's own default). The data put to him first: instance `b` of each
+IRCAM instrument holds the overflow voices plus three Ordinario copies (bassoon and horn 11 parts free, trumpet 9); and a plain note
+ALREADY receives a CC7 of 127 on its own instance-1 channel 30 ms before it — the main parts take CC7 today, only ever at 127. Two
+ways: **A** copies of Staccato on the `b` instances (his rack work, a curve bank per voice in the recipe, only the copied voices
+reached) · **B** the set fader on the note's own channel (a SAMPLED note is a fader SET ONCE, not a moving controller, so D11's rule is
+not touched; reaches every voice of every instrument that lacks a copy; code only). Recommended B; **his word: B.**
+
+**Built — `score/public/texture_dyn.js` `txDynOwn`, read by `txDynSeats` wherever a voice has no curve bank or its marker seat does not
+resolve; `texture_insert.js` two words.** A `sample` note on such a voice becomes **`own`**: no seat (the base route — instance 1's
+channel for the voice), its residual `cc7Abs` kept, the one CC7 point sent before its note-on by `txScheduleDyn` as for a seated note;
+Insert writes it as a CURVE EVENT (no `plain`) with `velAbs` and the static `cc7Abs`, so the score's own map finds no pool, leaves it on
+the voice's channel, and pre-arms its residual there (`composer.html` `preArm`: a non-plain note's CC7 is `heldCc7` — the static value;
+nothing in the engine changed). A `follow` on such a voice stays velocity alone (`main`) — a MOVING fader needs a copy — and the status
+names it. **Found and fixed on the way:** the demoted follow kept the mf velocity of a shaped note; struck at mf on a fader that will
+not move it down, it would have been LOUD — it now takes the LADDER velocity of its first level. The status: *N on the one scale … the
+fader CC7 lo…hi on their own channels* (or *… on the curve channels, N set on their own channel (no curve copy: Bsn staccato)*), and
+*velocity alone — a MOVING fader needs a curve copy the voice has not got: Bsn staccato*.
+
+**REQUIRED VERIFICATION — `score-5401`, the stubs first, every port captured, THE SHIELD first:** the strike mode's Hear on the starter
+harmony is the strike's own — the bassoon at v90 (`remapVel` of the anchor) with CC7 127 on MAIN, the percussion v100, the second
+vibraphone on its seat channel — ten messages, the same list as §297's capture ✓. Then a pattern on `LGMF-S2-R1a`: column A the bassoon
+on `staccato` at `pp` (short); column B the bassoon on `staccato` under a 2 s length and `pp-f` (a follow, no copy) —
+- **the dressed list:** A `own`, velAbs **67** (the ladder's pp), cc7Abs 57 · 57; B `main`, velAbs **67** (after the fix; 90 before) ✓
+- **the drawer's Hear and SPACE:** on `lgbassoon` channel 14 (the staccato part) CC7 127 → **57** → note-on 61 v67; the follow's note
+  CC7 127 → v67 ✓; the status as above ✓
+- **Insert at 100 s:** A a curve event, `cc7Abs` 57 · 57, `velAbs` 67, *short · pp (own channel)*; B `plain`, `velAbs` 67, *pp-f (velocity
+  alone)* ✓
+- **THE SCORE'S OWN PLAYBACK** (`Composer.startPlay()` from 99.5 s, rAF a timer): on `lgbassoon/14` **CC7 57 at 13235 ms, the note-on
+  61 v67 at 13320** — the residual pre-armed 85 ms before the note on the voice's own channel — then for B CC7 127 → v67 ✓
+- `sequence_check` 180 · `dyn_table_check` 68 · `test_snapshots` 30 ✓ · the throwaway's three keys cleared, no `bank/patterns.json`.
+
+**Not verified, and his:** how his rack ANSWERS a CC7 under 127 on an instance-1 part — the copies were measured (0d), the main parts
+never were; the same UVI engine and the same program, so the measured curve is the law applied, but a claim about routing is a claim
+about state. His `1n.6` test carries it: a brass short at `pp` on `staccato` beside one on `ord`.
+
+**Decided — D27.** Rejected: A (his rack work, and only the copied voices reached); also rejected in passing, on the law: a demoted
+follow struck at mf.

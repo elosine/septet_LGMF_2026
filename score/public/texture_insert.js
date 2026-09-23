@@ -96,12 +96,12 @@ Object.assign(D, {
             //   the fader between the table values of its own two names, every breakpoint on its own value (the sequence's idiom), `velRef`
             //   the mf height · `plain` / `main` — velocity alone (`velAbs`), MAIN, as the strike writes it: no measured curve, or no
             //   curve copy for the voice. Without the helper on the page: 1c.2b's rule, as 1o.5 wrote it.
-            const S = n.dyn || null, shaped = !!(S && (S.how === 'sample' || S.how === 'follow') && S.cc7Abs);
+            const S = n.dyn || null, shaped = !!(S && (S.how === 'sample' || S.how === 'follow' || S.how === 'own') && S.cc7Abs);   // `own` (his "b", 2026-09-23): a set fader on the note's own channel — a curve event the score's map leaves on the voice's channel, its CC7 pre-armed there
             const yOf = h => Math.max(MIN_Y, Math.min(10, Math.round(1000 * 10 * Math.max(0, Math.min(1, h))) / 1000));
             const lv = S ? yOf(S.level < 0 ? 0 : S.level) : Math.max(0.05, Math.round(((clamp(Math.round(n.vel), 65, 127) - 65) / 62) * 100) / 10);   // 1c.2b: the drawn height MEANS the written level — (vel − 65) / 62
             const nodes = (shaped && S.how === 'follow' && !S.flat) ? S.heights.map(h => ({ pos: h[0], y: yOf(h[1]), smooth: 0.25 })) : [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }];
             const segments = []; for (let q = 1; q < nodes.length; q++) segments.push({ model: 'power', slope: 0 });
-            const dynTxt = S ? ' · ' + (S.text || '') + (S.how === 'follow' ? ' (follow)' : S.how === 'sample' ? '' : ' (velocity alone)') : '';
+            const dynTxt = S ? ' · ' + (S.text || '') + (S.how === 'follow' ? ' (follow)' : S.how === 'sample' ? '' : S.how === 'own' ? ' (own channel)' : ' (velocity alone)') : '';
             C.objects.push(Object.assign({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
                 startSeconds: start, endSeconds: n.end,
                 nodes: nodes, segments: segments,
