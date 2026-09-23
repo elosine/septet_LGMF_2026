@@ -11085,3 +11085,46 @@ by-key maps stand as written — the english horn's multiphonics (§287), the ba
 21 pending voices stay `pending`: a heading in the pull-down, plain note names in the picker (§280). When he reaches for one, its name and
 the Preset Designer's `low · high` typed in the chat are all the AI needs (§289's method; the bass −12). `tools/roster_check.js` keeps
 naming them. Nothing else of `1m.4` is open but his one test.
+
+## §291. `1o.1` THE DOCUMENT — built and verified on the throwaway tab; a pattern owns a copy of its onsets (2026-09-22, Fable)
+
+**What prompted it:** his one word after `/postclear` — *"go"* — on the next concrete step of checkpoint #5: build `1o.1 the document`
+(PLAN § `1o`, the first of the five steps; §288 put `1o` (one-oh) before `1n`). On Fable, at his choice.
+
+**What was built — `score/public/texture_row.js` alone; `texture_cols.js`, `texture_lens.js`, `strike_drawer.js`, `sequence_ui.js`
+untouched.** Today's `pats[takeName]` object IS THE DOCUMENT: `{ v: 1, id, name: '', texture: { name, n, span, gap10, dots: [{ k, line, i, t }] },
+on, range, cursor, short, cols, sel }` (plus `lenV` and whatever `1m.4` · `1n` put on it, untouched). `txPat()` returns `_txDoc`, the open
+document; `_tx` is now `_txDoc.texture` — the same shape the row, the columns and the lens always read (`.dots` · `.span` · `.gap10` ·
+`.name`), so not a line of them changed. The realize that `txLoad` ran on every load is now `txRealize(name)`, run ONCE to start a
+document (`txDocNew`); `txLoad(name)` opens the document when there is one (`txDocOf`) and never asks Texture. The "the take has
+changed … the pattern starts again" reset is gone. The takes menu (`txRefreshTakes`) keeps a remembered pattern open when its take has
+left the store — one more option, `name (not in the store)` — and `txPick('')` drops the document with the take. `id` is the sequence's
+idiom (`'p' + Date.now().toString(36)`). Until 1o.2 the document is still kept under its texture's name, one per texture.
+
+**The calls made alone, his to reverse:** (1) a pattern made BEFORE 1o.1 (marks and columns, no dots of its own — his real ones at :5400)
+is UPGRADED IN PLACE at its first open: the take realized once, the dots copied in, its marks, range, cursor, columns and `short` kept; a
+mark or column naming an onset the take no longer has is dropped and the status says how many — no reset, ever. (2) the menu's
+`(not in the store)` line, so a pattern whose take was deleted in Texture still opens by its label. (3) the status when Texture is not on
+the page now says a started pattern opens without it.
+
+**REQUIRED VERIFICATION — run on `score-5401` with no MIDI, journal §2's method (`playNotes` stubbed to capture the list; every non-GET
+fetch and the beacon stubbed, none escaped; the `rhythms` GET stubbable).** The 5401 origin held no pattern, so one was made first on the
+OLD code: the drawer's harmony `hs::starter:0` (a STARTER of the banners, by `HarmSource.harmId`), rhythm take `LGMF-S2-R1a` (182 dots ·
+14.18 s), six marks on, three columns dealt — players 0 1 2 · 3 4 · 6 7, notes 3 · 2 · 2 — and the "before" captured: SPACE 13 notes
+(7 pitched + 6 claves), the strike mode's Hear after a shuffle 3 notes, the document's `on` and `cols`. Then the splice, a reload:
+- **the document** — the pre-1o.1 pattern came back UPGRADED: `v 1` · an `id` · `texture.dots` 182 · no `n` · `on` and `cols` byte-identical
+  to before ✓ · persisted in the browser key with the dots (v 1 · 182 · 6 on · 3 columns) ✓
+- **SPACE plays the same list** — 13 notes, byte-identical ✓
+- **THE SHIELD** — the strike mode's Hear on the same drawer state, 3 notes, byte-identical ✓
+- **the take re-rolled under the same name, the store stubbed** — the `rhythms` GET answered with R2a's recipe under R1a's name (a realize
+  under the stub gives 387 dots): after ↻ the document is the same object, unchanged · after choosing the take again, unchanged, the
+  status the plain line, no reset ✓
+- **the page without Texture** — `TexturePanel` nulled, the pattern re-opened: 182 marks and 54 circles drawn, SPACE the same 13 notes ✓
+- no console error · 0 POSTs escaped ✓. Viewport reset, the server stopped, the scratch key removed.
+
+**Seen on the way, not a fault:** the drawer's take `00-a` names the strike `ss-ScatteredStrikes01-wc-13`, which the throwaway page cannot
+resolve (its strike db has no strikes; that id is a scanned sequence's) — a harmony from the banners was used instead. His tab is not
+affected.
+
+**Next: `1o.2 starting and recalling`** — `texture ▾` starts a new empty pattern, `pattern ▾` recalls one by its own name, several per
+texture, the document keyed by `id` in the browser until 1o.3.

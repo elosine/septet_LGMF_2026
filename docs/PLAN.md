@@ -2066,7 +2066,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   pattern re-pointed at another texture (rejected, §254) · the Rhythm sequence panel and `1l.8` (journal N0a) · the two rules on one player's
   notes (`1n.1`, §277).
 
-  - **1o.1 — The document** (a pattern is a document of its own: a copy of its onsets, the texture a label; `txPat()` returns the open one)
+  - **1o.1 — The document** (a pattern is a document of its own: a copy of its onsets, the texture a label; `txPat()` returns the open one) — **`built` 2026-09-22 (Fable, RUNNING_LOG §291), every named check run, THE SHIELD byte-identical; [call] a pre-1o.1 pattern is UPGRADED in place at its first open, its marks kept, the "starts again" reset gone; `(not in the store)` in the takes menu**
     - Today's `pats[name]` object becomes THE DOCUMENT: `{ v: 1, id, name, texture: { name, n, span, gap10, dots: [{ k, line, i, t }] }, on, range,
       cursor, short, cols, sel }` — plus what `1m.4` and `1n` put on the pattern (`deal` · a column's `dyn` and `follow` · `ranges`), untouched.
       `txPat()` returns the OPEN document, so `texture_cols.js` and `1n`'s code read it unchanged. `id` is new and stable (the sequence's idiom).
