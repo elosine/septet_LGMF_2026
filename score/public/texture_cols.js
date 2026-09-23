@@ -453,12 +453,27 @@ Object.assign(D, {
     },
 
     // ---------------------------------------------------------------- the ear
+    // ONE LIST (1o.5): the notes of the ON marks between `from` and `to` in `doc` (the open pattern unless given), each at its column's deal
+    // with its length (1m.3), `onMs` counted from `from` — what SPACE plays from the cursor and what Insert writes from the range's left line,
+    // so the two agree note for note by construction. `cols[i]` names the column of `notes[i]` (null for a claves note).
+    txNotesBetween(from, to, withClaves, doc) {
+        const p = doc || this.txCols(), tx = p && p.texture ? p.texture : this._tx; if (!p || !tx) return { notes: [], cols: [], dots: [], pitched: 0, bare: 0 };
+        const on = new Set(p.on || []), lane = this.txPercLane(), short = (isFinite(+p.short) && +p.short > 0) ? +p.short : SHORT_MS;
+        const T = root.TexturePanel, cl = (T && T.CLAVES) || { tech: 'toys_claves', midi: 41 };
+        const dots = tx.dots.filter(d => on.has(d.k) && d.t >= from - 1e-6 && d.t <= to + 1e-6);
+        const notes = [], cols = []; let pitched = 0, bare = 0;
+        dots.forEach(d => {
+            const onMs = Math.round((d.t - from) * 1000), c = (p.cols || {})[d.k], mine = c ? (c.notes || []) : [];
+            mine.forEach(n => { notes.push(Object.assign({}, n, { onMs, durMs: this.txLenMs(c, n.row) })); cols.push(d.k); });   // 1m.3: the column's length, a player's own over it, else the short
+            if (mine.length) pitched++; else bare++;
+            if (withClaves && lane >= 0) { notes.push({ lane, tech: cl.tech, midi: cl.midi, vel: ANCHOR_MF, cents: 0, onMs, durMs: short }); cols.push(null); }
+        });
+        return { notes, cols, dots, pitched, bare };
+    },
     async txPlay() {   // THE RHYTHM PREVIEW
         if (!this._tx) { this.setStatus('choose a rhythm take first', true); return; }
         const p = this.txCols(), r = this.txRange(), on = new Set(p.on), lane = this.txPercLane(), claves = this.txClavesOn();
-        const T = root.TexturePanel, cl = (T && T.CLAVES) || { tech: 'toys_claves', midi: 41 };
         const c0 = +p.cursor || 0, from = (c0 > r[0] && c0 < r[1]) ? c0 : r[0];
-        const dots = this._tx.dots.filter(d => on.has(d.k) && d.t >= from - 1e-6 && d.t <= r[1] + 1e-6);
         // §285: a note that began BEFORE the cursor and is still sounding there plays from the cursor for what is left of it — a play from
         // mid-way hears what the display shows (its bar running in from the left edge); the claves are the onset's alone, none for these
         const held = [];
@@ -466,14 +481,9 @@ Object.assign(D, {
             if (!on.has(d.k) || d.t >= from - 1e-6) return;
             const c = p.cols[d.k]; ((c && c.notes) || []).forEach(n => { const left = Math.round((d.t - from) * 1000) + this.txLenMs(c, n.row); if (left > 0) held.push(Object.assign({}, n, { onMs: 0, durMs: left })); });
         });
+        const L = this.txNotesBetween(from, r[1], claves && lane >= 0), dots = L.dots, pitched = L.pitched, bare = L.bare, short = this.txShortMs();
         if (!dots.length && !held.length) { this.setStatus(p.on.length ? 'no ON mark between ' + from.toFixed(2) + ' s and ' + r[1].toFixed(2) + ' s — move the cursor or the range' : 'every mark is off — click some on (or all on)', true); return; }
-        const notes = held.slice(), short = this.txShortMs(); let pitched = 0, bare = 0;
-        dots.forEach(d => {
-            const onMs = Math.round((d.t - from) * 1000), c = p.cols[d.k], mine = c ? (c.notes || []) : [];
-            mine.forEach(n => notes.push(Object.assign({}, n, { onMs, durMs: this.txLenMs(c, n.row) })));   // 1m.3: the column's length, a player's own over it, else the short
-            if (mine.length) pitched++; else bare++;
-            if (claves && lane >= 0) notes.push({ lane, tech: cl.tech, midi: cl.midi, vel: ANCHOR_MF, cents: 0, onMs, durMs: short });
-        });
+        const notes = held.concat(L.notes);
         if (!notes.length) { this.setStatus('nothing to hear: no column has a player on and the claves are off', true); return; }
         await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players · ' + bare + ' bare' + (held.length ? ' · ' + held.length + (held.length === 1 ? ' note' : ' notes') + ' still sounding at the cursor' : '') + (claves ? ' · the claves under them' : '') + ' · short ' + short + ' ms · from ' + from.toFixed(2) + ' s');
         const e = E_(); if (e && e._playing) this.txStartRun(from, r[1]);

@@ -2045,7 +2045,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     clear.
 
 - **1o — THE SAVE STRUCTURE: a pattern is a document of its own, in a library of its own, placed in the score by Insert** — `planned` 2026-09-22 —
-  **not built** — designed by the AI at his word (*"1o the save structure will mostly be AI designed, surface any decisions that I should make and
+  **`built` 2026-09-22 (Fable): 1o.1 → 1o.5, five commits, THE SHIELD in each (RUNNING_LOG §291 … §295); `1o.6` HIS ONE TEST is what is left — RESTART the server first (a fifth store), then reload** — — designed by the AI at his word (*"1o the save structure will mostly be AI designed, surface any decisions that I should make and
   ai should vet the plan to make sure it covers all the requirements then I'll see the topline"*, RUNNING_LOG §276), vetted against the record
   (LG-84 · LG-85 · §254 · §255), his three decisions taken (§277: A Insert writes the range · B the two rules on one player's notes, placed in
   `1n.1` · C Insert inside `1o`), the top line confirmed and phase 3 written by the AI alone at his word (*"a"*, §278). **The calls made alone are
@@ -2120,7 +2120,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       · `save` → `kept`; a mark toggled → `•`; `revert` → back, no `•` · `duplicate` → a second entry, another id · `×` → gone, asked once · `new` →
       empty on the same texture, the old one in the list · 1280 px: no overflow · THE SHIELD.
 
-  - **1o.5 — Insert** (at the playhead, in place, or moved; one group + one META bar; the document into the score; `patterns in this score`)
+  - **1o.5 — Insert** (at the playhead, in place, or moved; one group + one META bar; the document into the score; `patterns in this score`) — **`built` 2026-09-22 (Fable, RUNNING_LOG §295), every named check run (the `follow` and the cut wait on `1n.1`, §288), THE SHIELD byte-identical: a sequence and the strike's Insert; [call] the drawer's own Insert button writes the pattern on a texture take**
     - The sequence's idiom exactly (SEQUENCE_TOOL §10; `sequence_ui.js` `insert` as the pattern to copy): `Insert @ playhead` · `Re-insert in place
       @ t` when the pattern is in the score, `t` read from its META bar's start · `move to playhead` shown only then · `patterns in this score` from
       the score's `databases.patterns` — each line `name · N notes · @ t s`, or `NOT in the score`; an orphan marked; pick one and it is open (a

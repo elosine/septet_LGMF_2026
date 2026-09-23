@@ -11211,3 +11211,56 @@ stable over seven renders, both lines fit ✓ · **THE SHIELD**: the strike mode
 console error · 0 POSTs escaped to another store ✓.
 
 **Next: `1o.5 Insert`** — the sequence's idiom; the document into the score; `patterns in this score`.
+
+## §295. `1o.5` INSERT — the pattern into the score, the sequence's idiom; THE `1o` BUILD CLOSES, HIS ONE TEST NEXT (2026-09-22, Fable)
+
+**Built — `score/public/texture_insert.js`, new (a mixin on texture_cols.js and texture_lib.js); `texture_cols.js` one shared list;
+`composer.html` one script tag; `sequence_ui.js` and `strike_drawer.js` untouched.** The drawer's OWN `Insert @ playhead` button, on a
+texture take, writes THE OPEN PATTERN [call: no new button — its word becomes `Re-insert in place @ t` when the pattern is in the score,
+and the strike's word comes back on the switch; the strike's `@ original time` and `@ after previous` are refused on a texture take].
+**What is written (his A, §277): THE RANGE** — its left line on the playhead, only the ON marks inside it; the cursor is not consulted.
+**The notes are what SPACE plays, by construction:** `txNotesBetween(from, to, claves, doc)` in texture_cols.js is now ONE list — SPACE
+reads it from the cursor with the claves, Insert from the range's left line without them (the claves are never written) — each ON
+column's notes as dealt, the column's length or the player's own or the standard short (1m.3), `technique` and the pitch from the column
+(a by-key voice's key is its `midi` already, so it is covered by the same list), a bent note's cents as `morphBend`, a seat's or a bent
+note DRAWN and the rest `plain` (the strike's rule), a note under a trill skipped and counted. **Until `1n.1` (§288): struck at the deal's
+velocity on the strike's height rule (1c.2b), the lengths uncut, no `follow`.** One group `grp-pat-<id>`, `srcKind: 'pattern'`, the
+colour `#7FB8A4` (the strike gold, the sequence blue), one META bar over the span; the entry `{ id, name, group, inserted, notes, t0, doc }`
+— THE DOCUMENT WHOLE, dots included — into `databases.patterns`, the score standing alone. In place from where its META bar sits; the old
+group's objects go first; hand edits counted and overwritten (the document is the truth); `move to playhead` and `patterns in this score`
+on the pattern line; an orphan marked; a placed one reopened is a row like any other (its id kept, untitled until named); `curveDirty()`
+after every write.
+
+**REQUIRED VERIFICATION — `score-5401`, no MIDI, journal §2's method, the confirms counted, the trill stubbed:** **THE SHIELD FIRST** — his
+sequence `LGMF-R01c` re-inserted in place on the fresh page: **137 objects byte-identical** to the capture taken before the build; the strike
+mode's Insert on the same state: **4 objects byte-identical**; the drawer's Insert word restored on the strike ✓ · a pattern of eight marks
+on, three players over three columns, the range dot 2 → dot 6 (dots 0 and 1 fall on the same instant, §283) → Insert at 12.5 s → **written
+= expected**, every start 12.5 + (dot.t − the range's left) within 1 ms, lanes · pitches · techniques · velocities · lengths **note for note
+with SPACE's list** (`agree`), the shorts 120 ms, all `plain` (a starter harmony has no seat and no cents), ONE META bar 12.500 → 13.029,
+the entry with its 182 dots and 8 marks inside, `curveDirty` called once, the button `Re-insert in place @ 12.50 s`, `move to playhead`
+shown, the list `pattern … · 4 notes · @ 12.5 s` ✓ · **a mark outside the range → not written** (the column before the left line, 2 notes,
+absent; 2 written = 2 expected; the first note at 12.542 = 12.5 + 0.042) ✓ · a note moved by hand 0.3 s → re-insert in place: *"1 note had
+been moved or re-pitched by hand — overwritten"*, back in place, the count and the one bar unchanged ✓ · `move to playhead` at 30 s → placed
+at 30.000, the group at 12.5 gone ✓ · the group's objects removed → `NOT in the score` in the list, `placedAt` null; reopened → *"its
+notes are no longer in the score — Insert writes it at the playhead"* ✓ · `trillCovers` stubbed on the first note → 3 of 4 written,
+*"1 skipped — trilling: Bsn@30.00"* ✓ · no console error · the one non-pattern POST (the sequence library's autosave on open) blocked ✓.
+Not verified, because `1n` is not built: a `follow` note and the cut at the next onset (§288 — `1n.1` re-points Insert beside SPACE).
+
+**ONE THING NOT ESTABLISHED, told him:** `bank/sequences.json` was byte-identical at 1o.3's check (git hash `6ffbbbcd…`); at this wrap it
+had been re-saved at **21:12:00** with its one named entry, `LGMF-R01c`, re-stamped — the row inside it BYTE-IDENTICAL to the row the
+throwaway tab held (the entry as opened from the library, its `kept` with it), so nothing in the library changed but the stamp. The
+writer is not established: the throwaway's non-pattern POSTs and its beacon were stubbed in every load and a forced flush from it after
+the fact reached no disk; his own tab at :5400 autosaves this file on any touch of its sequence drawer. The claim stands as: the
+sequence's and the strike's INSERTS byte-identical; the library FILE unchanged in content, once re-stamped by a writer not pinned.
+
+**THE `1o` BUILD, CLOSED AT THE CODE'S END.** At his word — *"go ahead and move through the whole 1o plan independantly as much as
+possible"* — five steps in five commits, THE SHIELD verified in each: `1o.1` the document (§291, `4eecec5`) · `1o.2` starting and
+recalling (§292, `ee3a172`) · `1o.3` the store (§293, `abbf901`) · `1o.4` the library controls (§294, `416bfa6`) · `1o.5` Insert (this
+entry). **What waits on him: `1o.6`, HIS ONE TEST — FIRST RESTART `node score/server.js` (the fifth store) AND RELOAD his tab.** Then, in
+his rack: start a pattern on a texture, name it, deal a few columns, close and reopen the tab, `pattern ▾` brings it back, Insert at a
+playhead, play the score — the same notes as SPACE (MAIN ch 1 carries them: struck notes, until `1n`); then a second pattern on the same
+texture. `bank/patterns.json` is created by his first pattern (the throwaway's copy, five test entries, was deleted after §293's check);
+whether it goes into git is his call (§278). **The calls made alone in the build, his to reverse:** a pre-1o.1 pattern upgraded in place
+(§291) · the texture in an untitled name, and the id beside it (§293) · a blank pattern is not a document (§293) · the row grows to its
+bar lines on a texture take (§294) · the `•` ignores `sel` and `cursor` (§294) · the drawer's own Insert button taken over, the strike's
+other two inserts refused on a texture take (this entry) · the pattern's colour.
