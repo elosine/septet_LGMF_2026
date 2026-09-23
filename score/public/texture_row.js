@@ -29,6 +29,9 @@
 //     replaces whole: the mode, the take, and per take the ON dots (by `line:i`, 1l.6's identity of a dot), the range and the cursor.
 //   · 1o.1 (2026-09-22, PLAN § `1o` the save structure): what is remembered per take is A DOCUMENT OF ITS OWN carrying a COPY of the
 //     take's onsets — see `txLoad`. The row reads the document's dots, never Texture's, after the one realize that starts it.
+//   · 1o.2: the documents are kept BY `id`, several on one texture — `texture ▾` STARTS a new empty pattern on a take (LG-85: *"texture
+//     is the spine for a new thing always empty"*), `pattern ▾` on a second bar line RECALLS one by its own name; a pre-1o.1 pattern
+//     becomes a document at the first load that can realize its take (`txMigrateLegacy`).
 (function (root) {
 'use strict';
 const D = root.StrikeDrawer;
@@ -37,7 +40,7 @@ const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit
 const TP_ = () => root.TexturePanel || null;
 
 const STORE = 'lgmf.textureRow.v1';
-const BAR_H = 24;                  // the command bar across the top; the timeline below it has the whole width
+const LINE_H = 20, BAR_H = 2 * LINE_H + 4;   // the command bar across the top: TWO lines (1o.2 — the texture's, the pattern's); the timeline below has the whole width
 const RULER_H = 16, ROW_TOP = 24, MARK_H = 18, MARK_MIN = 1.5, MARK_MAX = 7, VIEW_H = ROW_TOP + MARK_H + 14;
 const CLAVES_MS = 150, ANCHOR_MF = 100;
 const PERC_KEY = 'percussion';
@@ -51,8 +54,19 @@ const HELP = ['click a mark: on / off', 'click the ruler or open ground: the cur
 const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 function loadStore() {
-    try { const s = JSON.parse(localStorage.getItem(STORE) || 'null'); if (s && typeof s === 'object') return Object.assign({ mode: 'strike', take: '', pats: {} }, s); } catch (e) {}
-    return { mode: 'strike', take: '', pats: {} };
+    let s = null; try { s = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) {}
+    s = Object.assign({ mode: 'strike', pats: {}, docs: {}, open: null }, (s && typeof s === 'object') ? s : {});
+    if (!s.pats || typeof s.pats !== 'object') s.pats = {}; if (!s.docs || typeof s.docs !== 'object') s.docs = {};
+    // 1o.2: the documents BY ID. A 1o.1 document, kept under its texture's name, moves over once; a pre-1o.1 pattern (marks and columns,
+    // no dots of its own) waits in `pats` for a load that can realize its take (txMigrateLegacy). `take` (the remembered texture) is
+    // now `open` (the remembered document).
+    Object.keys(s.pats).forEach(n => {
+        const d = s.pats[n];
+        if (d && d.texture && Array.isArray(d.texture.dots)) { if (!d.id) d.id = 'p' + Date.now().toString(36); s.docs[d.id] = d; delete s.pats[n]; if (s.take === n) s.open = d.id; }
+        else if (s.take === n) s.openLegacy = n;
+    });
+    delete s.take;
+    return s;
 }
 
 Object.assign(D, {
@@ -61,6 +75,7 @@ Object.assign(D, {
     _txS: loadStore(),  // what is remembered
     _txV: null,         // the view: { px (per second), t0 (seconds at the left edge) }
     _txTakes: null,     // the rhythm takes, by name
+    _txPatSig: '',      // the pattern menu as last painted (1o.2)
 
     txIsOn() { return this._txS.mode === 'texture'; },
     txPersist() { try { localStorage.setItem(STORE, JSON.stringify(this._txS)); } catch (e) {} },
@@ -77,7 +92,7 @@ Object.assign(D, {
             st.textContent =
                 '#skRhyWrap > #skRhyCtl { top: 22px !important; }' +                                   // room for the one `source` line
                 '#skRhyWrap.txOn > #skRhyCtl, #skRhyWrap.txOn > #skRhy { display: none !important; }' + // hidden, never rebuilt: his values stay
-                '#skRhyWrap:not(.txOn) > #txView, #skRhyWrap:not(.txOn) #txBar .txOnly { display: none !important; }' +
+                '#skRhyWrap:not(.txOn) > #txView, #skRhyWrap:not(.txOn) > #txBar2, #skRhyWrap:not(.txOn) #txBar .txOnly { display: none !important; }' +
                 '#skBody.txOn > #skSpacer { display: none !important; }' +                             // the row takes the free width
                 '#txBar { pointer-events: none; } #txBar > * { pointer-events: auto; }' +              // on the strike, the bar is only its `source` menu
                 '#txSvg .txDot { cursor: pointer; } #txSvg .txGrip { cursor: ew-resize; }';
@@ -86,11 +101,11 @@ Object.assign(D, {
         // ONE COMMAND BAR across the top (his word, §221): the source, and — on a texture take — the take, all on · all off, the cursor's
         // return, the zoom, the `i`. No text on the panel: every explanation is a hover. The timeline below it has the whole width.
         const bar = document.createElement('div'); bar.id = 'txBar';
-        bar.style.cssText = 'position:absolute;left:4px;top:2px;right:4px;height:' + (BAR_H - 4) + 'px;display:flex;gap:6px;align-items:center;font-size:10px;z-index:2;white-space:nowrap';
+        bar.style.cssText = 'position:absolute;left:4px;top:2px;right:4px;height:' + (LINE_H - 2) + 'px;display:flex;gap:6px;align-items:center;font-size:10px;z-index:2;white-space:nowrap';
         bar.innerHTML =
             '<label title="PLAN 1m.1 (2026-09-21): where the rhythm comes from — the strike: the drawer as it always was · a texture take: the attacks of one of your rhythm takes from Texture, as a row of marks to switch on and hear · multitempo: later"><span style="color:#9a9">source</span> <select id="txMode" style="' + INP + ';width:96px">' +
             '<option value="strike">the strike</option><option value="texture">a texture take</option><option value="mt" disabled>multitempo — later</option></select></label>' +
-            '<select id="txTake" class="txOnly" style="' + INP + ';width:150px" title="your rhythm takes, saved in Texture (rhythm take · save) — the newest first"></select>' +
+            '<select id="txTake" class="txOnly" style="' + INP + ';width:170px" title="PLAN 1o.2: TEXTURE ▾ — your rhythm takes, saved in Texture (rhythm take · save), the newest first. Choosing one STARTS A NEW, EMPTY PATTERN on it (the onsets copied, nothing on); the pattern you leave is kept under pattern ▾ below"></select>' +
             '<button id="txReload" class="txOnly" style="' + BTN + '" title="read the rhythm takes again (after saving a new one in Texture)">&#8635;</button>' +
             '<button id="txAllOn" class="txOnly" style="' + BTN + '" title="every mark of the take ON">all on</button>' +
             '<button id="txAllOff" class="txOnly" style="' + BTN + '" title="every mark of the take OFF">all off</button>' +
@@ -101,6 +116,15 @@ Object.assign(D, {
             '<input id="txZoom" class="txOnly" type="range" min="0" max="1" step="0.005" value="0" style="width:140px" title="zoom — left: the whole take · right: close in (about the cursor when it is in view). ALT + wheel zooms at the pointer">' +
             '<span id="txI" class="txOnly" style="flex:none;width:13px;height:13px;border:1px solid #666;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#9a9;font-size:9px;cursor:help">i</span>';
         wrap.appendChild(bar);
+        // THE SECOND LINE (1o.2): the PATTERN — the document that is open, and the menu that brings one back
+        const bar2 = document.createElement('div'); bar2.id = 'txBar2';
+        bar2.style.cssText = 'position:absolute;left:4px;top:' + (LINE_H + 2) + 'px;right:4px;height:' + (LINE_H - 2) + 'px;display:flex;gap:6px;align-items:center;font-size:10px;z-index:2;white-space:nowrap';
+        bar2.innerHTML =
+            '<span style="color:#9a9;cursor:help" title="PLAN 1o (2026-09-22): THE PATTERN — a document of its own on one texture: its marks, range, cursor, short and columns, carrying its own copy of the onsets. texture ▾ above starts a new empty one; this menu brings one back">pattern</span>' +
+            '<select id="txPatSel" style="' + INP + ';width:250px" title="every pattern kept — the named ones first (A → Z), then the untitled, newest first: name · texture · marks on · columns"></select>' +
+            '<span id="txTexLabel" style="color:#bbb;cursor:help" title="the texture this pattern was started on — a LABEL: the pattern carries its own copy of the onsets, so a take re-saved or deleted in Texture does not reach it"></span>';
+        wrap.appendChild(bar2);
+        bar2.querySelector('#txPatSel').addEventListener('change', e => { const id = e.target.value; if (id) this.txOpen(id); else this.txPaintPat(); });
         const view = document.createElement('div'); view.id = 'txView';
         view.style.cssText = 'position:absolute;left:0;top:' + BAR_H + 'px;right:0;bottom:0;overflow:hidden';
         view.innerHTML = '<svg id="txSvg" width="100%" height="' + VIEW_H + '" style="display:block;user-select:none"></svg>';
@@ -138,7 +162,7 @@ Object.assign(D, {
         const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
         this._txS.mode = m; this.txPersist(); this.txApply();
         if (m === 'strike') { if (this.strike) this.render(); this.setStatus('source: the strike — the drawer as it always was'); }
-        else this.setStatus(this._tx ? this.txLine() : 'source: a texture take — choose one of your rhythm takes');
+        else this.setStatus(this._tx ? this.txLine() : 'source: a texture take — choose a texture to start a pattern on, or bring one back with pattern ▾');
     },
 
     // ---------------------------------------------------------------- the takes
@@ -148,20 +172,20 @@ Object.assign(D, {
             this._txTakes = (f && f.panels && f.panels.rhythm) || {};
         } catch (e) { this._txTakes = {}; }
         const names = Object.keys(this._txTakes).sort((a, b) => String(this._txTakes[b].saved || '').localeCompare(String(this._txTakes[a].saved || '')));
-        const sel = this.el.querySelector('#txTake'), keep = this._txS.take, kept = !!(keep && !this._txTakes[keep] && this.txDocOf(keep));   // 1o.1: a pattern whose take left the store still opens — its texture is a label
-        sel.innerHTML = '<option value="">' + (names.length ? 'choose… (' + names.length + ')' : 'none saved yet') + '</option>' + names.map(n => '<option value="' + escH(n) + '">' + escH(n) + '</option>').join('') + (kept ? '<option value="' + escH(keep) + '">' + escH(keep) + ' (not in the store)</option>' : '');
-        if (keep && (this._txTakes[keep] || kept)) { sel.value = keep; if (!this._tx || this._tx.name !== keep) this.txLoad(keep); }
-        else { this._tx = null; this._txDoc = null; }
-        this.txRender();
+        const sel = this.el.querySelector('#txTake');
+        sel.innerHTML = '<option value="">' + (names.length ? 'texture ▾ · start a new pattern on… (' + names.length + ')' : 'no textures saved yet') + '</option>' + names.map(n => '<option value="' + escH(n) + '">' + escH(n) + '</option>').join('');
+        sel.value = '';   // 1o.2: the menu STARTS; what is open is named on the second line
+        this.txMigrateLegacy();
+        const d = this._txS.open && this.txDocs()[this._txS.open];   // the remembered document opens whether or not its take is still in the store
+        if (d) { if (this._txDoc !== d) this.txLoad(d); } else { this._tx = null; this._txDoc = null; }
+        this.txRender(); this.txPaintPat();
         if (say) this.setStatus(names.length + ' rhythm take' + (names.length === 1 ? '' : 's') + ' in bank/rhythm_takes.json');
-        if (!names.length && this.txIsOn()) this.setStatus('no rhythm takes yet — make one in Texture (rhythm take · save), then ↻ here', true);
+        if (!names.length && this.txIsOn() && !this._txDoc) this.setStatus('no rhythm takes yet — make one in Texture (rhythm take · save), then ↻ here', true);
     },
+    // `texture ▾`: choosing a take STARTS a new pattern on it (1o.2); the menu goes back to its heading so the same texture can be chosen again
     txPick(name) {
-        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
-        this._txS.take = name || ''; this.txPersist();
-        if (!name) { this._tx = null; this._txDoc = null; this.txRender(); return; }
-        this.txLoad(name); this.txRender();
-        if (this._tx) this.setStatus(this.txLine());
+        const sel = this.el && this.el.querySelector('#txTake'); if (sel) sel.value = '';
+        if (name) this.txStart(name);
     },
     // ---------------------------------------------------------------- the document (1o.1, PLAN § `1o` the save structure)
     // A pattern is a DOCUMENT OF ITS OWN: `{ v, id, name, texture: { name, n, span, gap10, dots }, on, range, cursor, short, cols, sel }` —
@@ -170,15 +194,23 @@ Object.assign(D, {
     // without Texture. The texture's name is a LABEL (the takes menu, the status). Until 1o.2 the document is kept under its texture's
     // name, one per texture; 1o.2 keys it by `id` and starts several on one texture; 1o.3 moves it to disk.
     txDocNew(R) { return { v: 1, id: 'p' + Date.now().toString(36), name: '', texture: R, on: [], range: null, cursor: 0 }; },
-    txDocOf(name) { const d = this._txS.pats[name]; return d && d.texture && Array.isArray(d.texture.dots) ? d : null; },
+    txDocs() { return this._txS.docs; },
+    txDocTime(d) { const n = parseInt(String(d && d.id || '').slice(1), 36); return isFinite(n) ? n : 0; },
+    // the list (1o.2): the named first, A → Z; then the untitled, newest first
+    txDocList() {
+        const L = Object.values(this.txDocs()).filter(d => d && d.texture && Array.isArray(d.texture.dots));
+        const named = L.filter(d => d.name).sort((a, b) => String(a.name).localeCompare(String(b.name))), un = L.filter(d => !d.name).sort((a, b) => this.txDocTime(b) - this.txDocTime(a));
+        return named.concat(un);
+    },
+    txDocLine(d) { const cols = Object.keys(d.cols || {}).filter(k => d.cols[k] && (d.cols[k].players || []).length).length; return (d.name || 'untitled') + ' · ' + (d.texture.name || '?') + ' · ' + (d.on || []).length + ' on · ' + cols + ' column' + (cols === 1 ? '' : 's'); },
     // A take is a RECIPE (1l.2): realized ONCE by Texture's own machinery (`TexturePanel.realize`, 1l.4), with no harmony — only its
     // attacks are wanted. The dots are numbered as `notesOf` numbers them (time, then line; `i` counts within a line), so `line:i`
     // names the same attack here, in Texture's lines view and in the rhythm panel.
-    txRealize(name) {
-        const T = TP_(), t = this._txTakes && this._txTakes[name], s = t && t.state;
-        if (!T || typeof T.realize !== 'function') { this.setStatus('Texture is not on this page — its engine draws a take to start a pattern on (one already started opens without it)', true); return null; }
-        if (!s || !s.spec) { this.setStatus('no rhythm take named "' + name + '"', true); return null; }
-        let R; try { R = T.realize(s, null); } catch (e) { this.setStatus('that take could not be drawn: ' + e.message, true); return null; }
+    txRealize(name, quiet) {
+        const T = TP_(), t = this._txTakes && this._txTakes[name], s = t && t.state, say = m => { if (!quiet) this.setStatus(m, true); };
+        if (!T || typeof T.realize !== 'function') { say('Texture is not on this page — its engine draws a take to start a pattern on (one already started opens without it)'); return null; }
+        if (!s || !s.spec) { say('no rhythm take named "' + name + '"'); return null; }
+        let R; try { R = T.realize(s, null); } catch (e) { say('that take could not be drawn: ' + e.message); return null; }
         const origin = R.originOf(R.result), count = {}, dots = [];
         ((R.result && R.result.objects) || []).filter(o => o.type === 'waveCurve')
             .sort((a, b) => a.startSeconds - b.startSeconds || a.layer - b.layer)
@@ -187,32 +219,63 @@ Object.assign(D, {
         const gaps = dots.slice(1).map((d, i) => d.t - dots[i].t).filter(g => g > 0.002).sort((a, b) => a - b);
         return { name, n: dots.length, span, gap10: gaps.length ? gaps[Math.floor(gaps.length * 0.1)] : 0.05, dots };
     },
-    // OPEN the pattern on this texture: the document when there is one (no realize, no reset); else the take realized once and a fresh
-    // document started on it — or, for a pattern made before 1o.1 (marks and columns, no dots of its own), that pattern UPGRADED in
-    // place with the dots as the take stands now, its marks and columns kept; a mark or column naming an onset the take no longer has
-    // is dropped and said [call — the old "starts again" reset is gone]
-    txLoad(name) {
-        this._tx = null; this._txDoc = null; this._txV = null;
-        let doc = this.txDocOf(name);
-        if (!doc) {
-            const R = this.txRealize(name); if (!R) return;
-            const old = this._txS.pats[name];
-            if (old && typeof old === 'object') {
-                doc = Object.assign(this.txDocNew(R), old, { texture: R }); delete doc.n;
-                const keys = new Set(R.dots.map(d => d.k)), had = (doc.on || []).length;
-                doc.on = (doc.on || []).filter(k => keys.has(k)); if (Array.isArray(doc.sel)) doc.sel = doc.sel.filter(k => keys.has(k));
-                Object.keys(doc.cols || {}).forEach(k => { if (!keys.has(k)) delete doc.cols[k]; });
-                if (had !== doc.on.length) this._txNote = 'the pattern on "' + name + '" was made before its onsets were its own and the take has changed since: ' + (had - doc.on.length) + ' of its ' + had + ' marks named onsets the take no longer has and were dropped';
-            } else doc = this.txDocNew(R);
-            this._txS.pats[name] = doc;
-        }
-        this._txDoc = doc; this._tx = doc.texture;
-        this.txPersist();
+    // START (1o.2): a texture chosen starts a NEW, EMPTY pattern on it — the dots copied, nothing on, no columns (LG-85). It asks nothing:
+    // the pattern he leaves is kept (in the browser by `id` until 1o.3, on disk from then on)
+    txStart(name) {
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        const R = this.txRealize(name); if (!R) return false;
+        const doc = this.txDocNew(R); this.txDocs()[doc.id] = doc;
+        this.txLoad(doc); this.txRender();
+        this.setStatus('a new pattern on "' + name + '" · ' + R.n + ' onsets, none on · the one you left is under pattern ▾');
+        return true;
+    },
+    // OPEN (1o.2): a pattern by its own line in `pattern ▾` — its dots, marks, range, columns; the texture label follows it
+    txOpen(id) {
+        const doc = this.txDocs()[id]; if (!doc) { this.setStatus('that pattern is no longer here', true); this.txPaintPat(); return false; }
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        this.txLoad(doc); this.txRender(); this.setStatus('opened ' + this.txLine());
+        return true;
+    },
+    // the OPEN document: the row, the columns and the lens read it through `txPat()`. The wraps in texture_cols.js (no column selected,
+    // the undo stack emptied) and texture_lens.js (the defaults back) hook this.
+    txLoad(doc) {
+        this._txV = null;
+        if (!doc || !doc.texture) { this._tx = null; this._txDoc = null; this._txS.open = null; this.txPersist(); this.txPaintPat(); return; }
+        this._txDoc = doc; this._tx = doc.texture; this._txS.open = doc.id;
+        this.txPersist(); this.txPaintPat();
+    },
+    // a pattern made before 1o.1 (marks and columns, no dots of its own — his at :5400) becomes a document at the first load that can
+    // realize its take: the dots as the take stands now, its marks, range, cursor, columns and `short` kept; a mark or column naming an
+    // onset the take no longer has is dropped and said [call — the old "starts again" reset is gone]. One whose take is not in the store
+    // waits in `pats`, untouched, for a load that has it (1o.3's migration takes it over).
+    txMigrateLegacy() {
+        const P = this._txS.pats || {}; let moved = 0;
+        Object.keys(P).forEach(name => {
+            const old = P[name]; if (!old || typeof old !== 'object') { delete P[name]; return; }
+            const R = this.txRealize(name, true); if (!R) return;
+            const doc = Object.assign(this.txDocNew(R), old, { texture: R }); delete doc.n;
+            const keys = new Set(R.dots.map(d => d.k)), had = (doc.on || []).length;
+            doc.on = (doc.on || []).filter(k => keys.has(k)); if (Array.isArray(doc.sel)) doc.sel = doc.sel.filter(k => keys.has(k));
+            Object.keys(doc.cols || {}).forEach(k => { if (!keys.has(k)) delete doc.cols[k]; });
+            if (had !== doc.on.length) this._txNote = 'the pattern on "' + name + '" was made before its onsets were its own and the take has changed since: ' + (had - doc.on.length) + ' of its ' + had + ' marks named onsets the take no longer has and were dropped';
+            this.txDocs()[doc.id] = doc; delete P[name]; moved++;
+            if (this._txS.openLegacy === name) { this._txS.open = doc.id; delete this._txS.openLegacy; }
+        });
+        if (moved) this.txPersist();
+        return moved;
+    },
+    // the pattern menu and the texture label, painted after every render — the menu rebuilt only when its lines changed
+    txPaintPat() {
+        const sel = this.el && this.el.querySelector('#txPatSel'), lab = this.el && this.el.querySelector('#txTexLabel'); if (!sel) return;
+        const L = this.txDocList(), open = this._txDoc ? this._txDoc.id : '';
+        const sig = L.map(d => d.id + '|' + this.txDocLine(d)).join(String.fromCharCode(10)) + '@' + open;
+        if (sig !== this._txPatSig) { this._txPatSig = sig; sel.innerHTML = '<option value="">pattern ▾ (' + L.length + ')</option>' + L.map(d => '<option value="' + escH(d.id) + '">' + escH(this.txDocLine(d)) + '</option>').join(''); sel.value = open; }
+        if (lab) lab.textContent = this._txDoc ? 'on "' + (this._tx.name || '?') + '"' : '';
     },
     txLine() {
-        if (!this._tx) return 'no take';
+        if (!this._tx) return 'no pattern';
         const p = this.txPat(), r = this.txRange(), note = this._txNote; this._txNote = '';
-        return (note ? note + ' · ' : '') + 'texture take "' + this._tx.name + '" · ' + this._tx.dots.length + ' dots · ' + p.on.length + ' on · ' + this._tx.span.toFixed(2) + ' s · range ' + r[0].toFixed(2) + '–' + r[1].toFixed(2) + ' s';
+        return (note ? note + ' · ' : '') + 'pattern ' + (p.name ? '"' + p.name + '"' : '(untitled)') + ' on "' + this._tx.name + '" · ' + this._tx.dots.length + ' dots · ' + p.on.length + ' on · ' + this._tx.span.toFixed(2) + ' s · range ' + r[0].toFixed(2) + '–' + r[1].toFixed(2) + ' s';
     },
 
     // ---------------------------------------------------------------- the row
@@ -243,7 +306,7 @@ Object.assign(D, {
     txRender() {
         if (!this.el || !this.txIsOn()) return;
         const svg = this.el.querySelector('#txSvg'), info = this.el.querySelector('#txI'); if (!svg) return;
-        if (!this._tx) { svg.innerHTML = '<text x="8" y="28" font-size="11" fill="#777">choose a rhythm take at the left</text>'; if (info) info.title = HELP; return; }
+        if (!this._tx) { svg.innerHTML = '<text x="8" y="28" font-size="11" fill="#777">choose a texture at the left — it starts a new pattern; pattern ▾ brings one back</text>'; if (info) info.title = HELP; this.txPaintPat(); return; }
         const v = this.txView(), W = this.txW(), H = this.txH(), p = this.txPat(), on = new Set(p.on), r = this.txRange();
         const tA = this.txT(0), tB = this.txT(W);
         let s = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#17171b"/><rect x="0" y="0" width="' + W + '" height="' + RULER_H + '" fill="#1e1e24"/>';
@@ -277,6 +340,7 @@ Object.assign(D, {
         if (info) info.title = this._tx.dots.length + ' marks · ' + p.on.length + ' on · ' + this._tx.span.toFixed(2) + ' s · range ' + r[0].toFixed(2) + '–' + r[1].toFixed(2) + ' s · cursor ' + (+p.cursor || 0).toFixed(2) + ' s' + String.fromCharCode(10, 10) + HELP;
         { const z = this.el.querySelector('#txZoom'); if (z && document.activeElement !== z) z.value = this.txZoomPos(); }
         if (this._txRunT != null) this.txPaintRun();
+        this.txPaintPat();
     },
 
     // ---------------------------------------------------------------- the hand

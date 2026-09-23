@@ -11128,3 +11128,27 @@ affected.
 
 **Next: `1o.2 starting and recalling`** — `texture ▾` starts a new empty pattern, `pattern ▾` recalls one by its own name, several per
 texture, the document keyed by `id` in the browser until 1o.3.
+
+## §292. `1o.2` STARTING AND RECALLING — built and verified; the documents by id, `texture ▾` starts, `pattern ▾` recalls (2026-09-22, Fable)
+
+**What prompted it:** his word after 1o.1 — *"go ahead and move through the whole 1o plan independantly as much as possible"*. So 1o.2 …
+1o.5 follow without a pause, one commit each, THE SHIELD in each; 1o.6 is his.
+
+**Built — `score/public/texture_row.js` alone.** The browser key now holds the documents BY ID (`docs`, `open` the one on screen); a 1o.1
+document kept under its texture's name moves over at load; a pre-1o.1 pattern waits in `pats` until a load can realize its take
+(`txMigrateLegacy`, the upgrade of §291 moved there — the note about dropped marks kept). The command bar is TWO LINES (`BAR_H` 24 → 44):
+line 1 the texture's, as it was, its takes menu now **`texture ▾ · start a new pattern on…`** — choosing a take STARTS a new, empty,
+untitled pattern on it (the dots copied, nothing on, no columns; LG-85) and the menu goes back to its heading so the same texture can be
+chosen again; line 2 the PATTERN's: **`pattern ▾`** (the named first A → Z, then the untitled newest first, each `name · texture · N on ·
+M columns`) and the texture as a LABEL beside it. `txLoad(doc)` is the one door (the wraps of texture_cols and texture_lens still hook
+it); `txStart(name)` · `txOpen(id)` · `txDocList()` · `txPaintPat()` are new. Nothing asks: the pattern he leaves is kept.
+
+**REQUIRED VERIFICATION — `score-5401`, no MIDI, the stubs of §291, two page loads:** the 1o.1 document came over by id (`docs` 1, `pats`
+0, `open` its id, `take` gone) ✓ · start on A (R1a) → a NEW document, 182 dots, 0 on, 0 columns, the first still kept ✓ · four marks on and
+two players dealt in one column ✓ · start on A again → EMPTY (0 on · 0 columns), three in the list ✓ · open the first → the same object,
+byte-identical to what was left (4 on · 1 column) ✓ · start on B (R2a) → its own 387 dots, open ✓ · reload → B reopens (387 dots), four in
+the list ✓ · `pattern ▾` lists all four with their lines ✓ · the label `on "LGMF-S2-R2a"` ✓ · line 2 shown on a texture take, `display:
+none` on the strike, the view's top at 44 px ✓ · **THE SHIELD**: the strike mode's Hear on the same drawer state, 3 notes, byte-identical ✓ ·
+no console error · 0 POSTs escaped ✓. (The drawer was closed on the second load, so the bars' overflow is measured in 1o.4.)
+
+**Next: `1o.3 the store`** — `bank/patterns.json`, the fifth key; the documents move to disk and the browser keeps the open one.

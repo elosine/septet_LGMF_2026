@@ -2080,7 +2080,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       status · the page with `TexturePanel` removed → the pattern still opens and draws · SPACE plays the same list as before, byte-identical ·
       THE SHIELD: the strike mode's Hear captured before and after, byte-identical.
 
-  - **1o.2 — Starting and recalling** (`texture ▾` starts a new empty pattern; `pattern ▾` recalls one by its own name; several per texture)
+  - **1o.2 — Starting and recalling** (`texture ▾` starts a new empty pattern; `pattern ▾` recalls one by its own name; several per texture) — **`built` 2026-09-22 (Fable, RUNNING_LOG §292), every named check run, THE SHIELD byte-identical; the bar is two lines, the pattern's the second**
     - `texture ▾` (today's take pulldown, renamed): choosing a take STARTS a new, empty, untitled pattern on it — the dots copied, no marks on, no
       columns (LG-85). It asks nothing: the pattern he leaves is kept (in the browser key by `id` until 1o.3, on disk from then on).
     - `pattern ▾` beside it: every pattern kept — named ones first, then the untitled stack newest first — each line `name · texture · N on · M
