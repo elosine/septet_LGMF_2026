@@ -755,6 +755,102 @@ function applySi2Kinds(all, table) {
 applySi2Kinds(INSTRUMENTS, SI2_KINDS);
 // ---- end of the SI2 kinds ----
 
+// ---- THE BY-KEY MAPS (1m.4.2, 2026-09-22) — where each by-key voice's keys sit ----
+// A voice's keys come from one of three sources, named per entry: his PICTURE of the sampler's keyboard (Kontakt names its keys
+// C3 = 60, RUNNING_LOG §3820 · §287) · the SI2 MANUAL's own list (the bassoon's multiphonics: one line per key, the label the
+// pitches it sounds in the manual's own naming, '+' a quarter-tone up; UVI names C1 = 36) · the instrument's RANGE assumed where
+// nothing better is on file (marked assumed — a dead key is silent, his ear trims it). { lo, hi } = every key from lo to hi, named
+// by its note (C4 = 60, the app's naming); keys: [...] = as listed. A voice not named here stays pending (tools/roster_check.js
+// prints them). His word (2026-09-22): "just put them in there. We don't have to give them labels yet."
+const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+function noteName(midi) { return NOTE_NAMES[midi % 12] + (Math.floor(midi / 12) - 1); }
+const BY_KEY_MAPS = {
+  english_horn: {
+    mp_short: { lo: 52, hi: 60, source: "his picture 2026-09-22: Kontakt E2–C3 marked, nine keys (RUNNING_LOG §287; one press confirms the reading)" },
+  },
+  bassoon: {
+    key_click:    { lo: 34, hi: 75, source: "assumed: the bassoon's range — the click of each fingering" },
+    blow_no_reed: { lo: 34, hi: 75, source: "assumed: the bassoon's range" },
+    multiphonics: { source: "the SI2 manual, BASSOON Multiphonics (page 76–77), C1 = 36; the label = the pitches it sounds, as the manual names them", keys: [
+      { midi: 36, label: "A#1+ A#2+" },   // C1
+      { midi: 37, label: "A#1+ D4+ F3+" },   // C#1
+      { midi: 38, label: "A#1+ D4+" },   // D1
+      { midi: 39, label: "A#1 C#2 C2 C#5" },   // D#1
+      { midi: 40, label: "A#1 D#4 F#3 D4" },   // E1
+      { midi: 41, label: "A#2 C#4 E3" },   // F1
+      { midi: 42, label: "A#3+ B1+ G#3 B2" },   // F#1
+      { midi: 43, label: "A#3+ B1 G#3 C#2" },   // G1
+      { midi: 44, label: "A#3 B2 A3" },   // G#1
+      { midi: 45, label: "A1 A2+ C#4 E4" },   // A1
+      { midi: 46, label: "A3+ G#1+" },   // A#1
+      { midi: 47, label: "A3 G#2 B2+ D4" },   // B1
+      { midi: 48, label: "B1+ A4 F#3+ E4" },   // C2
+      { midi: 49, label: "B1 D#4 B2 C#3" },   // C#2
+      { midi: 50, label: "B1 D#4 F#5" },   // D2
+      { midi: 51, label: "C#2 F4 G#3 F3" },   // D#2
+      { midi: 52, label: "C#3 C3 C#4" },   // E2
+      { midi: 53, label: "C#3 C3 C2 C#4" },   // F2
+      { midi: 54, label: "C#3 C3" },   // F#2
+      { midi: 55, label: "C#3 C4 D3+" },   // G2
+      { midi: 56, label: "C#3 D3 C#4 B4" },   // G#2
+      { midi: 57, label: "C#4 A#1 C#3 C3+" },   // A2
+      { midi: 58, label: "C2+ A#4 C2 C#3+" },   // A#2
+      { midi: 59, label: "C2+ A#4 G3+ C#4" },   // B2
+      { midi: 60, label: "C3+ E3+" },   // C3
+      { midi: 61, label: "C3 B4 G4 F#4" },   // C#3
+      { midi: 62, label: "C3 C#4 A#1" },   // D3
+      { midi: 63, label: "C4 D#4 D4 G#3" },   // D#3
+      { midi: 64, label: "D#2 D#2+ A#3 G4" },   // E3
+      { midi: 65, label: "D#3+ D#2 B4 C#4" },   // F3
+      { midi: 66, label: "D#3+ D3 D4 A5+" },   // F#3
+      { midi: 67, label: "D#3 A4 D4 A#4" },   // G3
+      { midi: 68, label: "D#3 F#3 E3 D#5" },   // G#3
+      { midi: 69, label: "D#4 C#3 A#3 G3" },   // A3
+      { midi: 70, label: "D#4 F#3 A#4 C#5" },   // A#3
+      { midi: 71, label: "D2 F#4 A3 C3" },   // B3
+      { midi: 72, label: "D3 C#3 C#4 A4" },   // C4
+      { midi: 73, label: "D3 E2+ A4 E4" },   // C#4
+      { midi: 74, label: "E2+ C3 E4 A#5" },   // D4
+      { midi: 75, label: "E2+ C5 D#4 F#3" },   // D#4
+      { midi: 76, label: "E3+ E2 C5 E4+" },   // E4
+      { midi: 77, label: "E3 C3+ G4 D3" },   // F4
+      { midi: 78, label: "E3 F3+ E4" },   // F#4
+      { midi: 79, label: "E4 C#3 A#4 F#3" },   // G4
+      { midi: 80, label: "E4 C4+ C#3 C5" },   // G#4
+      { midi: 81, label: "F#4+ C#4" },   // A4
+      { midi: 82, label: "F2+ B4 B2+ C#4" },   // A#4
+      { midi: 83, label: "F2+ C4+ A4+ F4+" },   // B4
+      { midi: 84, label: "F2 C4 F#3 G3" },   // C5
+      { midi: 85, label: "F2 D5 A4 C4" },   // C#5
+      { midi: 86, label: "F3+ A#3+ F3" },   // D5
+      { midi: 87, label: "F3+ C5 F2 A#5" },   // D#5
+      { midi: 88, label: "F3 D#3+ E4+" },   // E5
+      { midi: 89, label: "G#2 D#4 C5 C3" },   // F5
+      { midi: 90, label: "G2 B4 D4 G3" },   // F#5
+      { midi: 91, label: "G2 D4 B4 A3+" },   // G5
+    ] },
+  },
+  // The strings: Xsample's Preset Designer shows every preset's own low / high (Kontakt C3 = 60 — the vibraphone's range was read the same
+  // way, §3820). THE BASS IS KEYED AN OCTAVE ABOVE SOUNDING and Reaper adds the +12 (midi_transpose, the note above): the app's key = the
+  // sampler's key − 12, so Kontakt "E1 · A2" (sampler 40–57) is written here as 28–45 — and the app's note names then read as Kontakt's.
+  double_bass: {
+    tailpiece_vel: { lo: 28, hi: 45, source: "his Preset Designer picture 2026-09-22: 58 Tailpiece Bowed Velocity, low E1 · high A2 (sampler 40–57, −12 for Reaper's +12; RUNNING_LOG §289)" },
+  },
+};
+function applyKeyMaps(all, table) {
+  for (const [inst, byKey] of Object.entries(table)) {
+    const I = all[inst]; if (!I || !I.techniques) throw new Error("BY_KEY_MAPS: no instrument " + inst);
+    for (const [key, m] of Object.entries(byKey)) {
+      const q = I.techniques.find(t => t.key === key); if (!q) throw new Error("BY_KEY_MAPS: no voice " + inst + "/" + key);
+      if (q.kind !== "key") throw new Error("BY_KEY_MAPS: " + inst + "/" + key + " is not a key voice");
+      q.keys = m.keys ? m.keys.map(k => ({ midi: k.midi, label: k.label })) : Array.from({ length: m.hi - m.lo + 1 }, (_, i) => ({ midi: m.lo + i, label: noteName(m.lo + i) }));
+      q.keySource = m.source;
+    }
+  }
+}
+applyKeyMaps(INSTRUMENTS, BY_KEY_MAPS);
+// ---- end of the by-key maps ----
+
 
 // Hardware capture input. Keystation 88 MK3 exposes "Keystation 88 MK3" (keys) and
 // "MIDIIN2 (Keystation 88 MK3)" (DAW control - never bind). See piece #3's SAMPLER_QUIRKS.md.

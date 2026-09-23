@@ -1827,7 +1827,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       no click or dblclick follows a press on a circle the tick re-drew (§238, after his first test, *"just toggles it on and off"*).
 
   - **1m.4 — Types of articulation, and the orchestration panel as a LENS on the columns** — `planned` 2026-09-22 — **`built` 2026-09-22: 1m.4.1 · .3 · .4 · .5 · .6,
-    one commit each, THE SHIELD verified in each (RUNNING_LOG §279 … §283); HIS ONE TEST OUTSTANDING (reload the tab); 1m.4.2 at his rack (26 pending);
+    one commit each, THE SHIELD verified in each (RUNNING_LOG §279 … §283); HIS ONE TEST OUTSTANDING (reload the tab); 1m.4.2 CLOSED AT HIS WORD 2026-09-22 — five written from his pictures and the manual, 21 pending, each picked up when he uses it (RUNNING_LOG §287 · §289 · §290);
     1m.4.7 on his word** —
     laid out with him under the planning method, phase 1 whole (RUNNING_LOG §240 … §259; COMPOSITION_NOTES LG-74 … LG-85); the top line
     stood as put (§257 · §259); phase 3 written by the AI alone at his word — *"we can skip the formal planning as long as you are comfortable
@@ -1936,7 +1936,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   **not built** — laid out with him under the planning method, phase 1 whole (RUNNING_LOG §262 … §274; COMPOSITION_NOTES LG-86 … LG-98); the top
   line stood as put (§274); phase 3 written by the AI alone at his word — *"good, you can build plan no need for steps review"* (§275). **The calls
   made alone are marked [call], his to reverse.** Depends on `1m.4` being built first: it writes into 1m.4.4's lens, 1m.4.5's rows and mark, and
-  1m.4.6's selection.
+  1m.4.6's selection. **Built AFTER `1o` — his order 2026-09-22 (RUNNING_LOG §288); `1n.1` re-points `1o.5`'s Insert at the one helper beside SPACE.**
   *Why:* his brief (LG-74 · LG-86): *"assigning volume levels to different parts across a time span … in simple direct way, with trouble free, not
   too complicated machineary … I want to avoid making a slate of decisions each time I apply a pattern to a passage"* — a base and its excursions,
   sub-sections, the sequence's waves on a rhythm, abrupt and gradual transitions, the loud note in a quiet section, the Webern passage.
@@ -2049,8 +2049,8 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   ai should vet the plan to make sure it covers all the requirements then I'll see the topline"*, RUNNING_LOG §276), vetted against the record
   (LG-84 · LG-85 · §254 · §255), his three decisions taken (§277: A Insert writes the range · B the two rules on one player's notes, placed in
   `1n.1` · C Insert inside `1o`), the top line confirmed and phase 3 written by the AI alone at his word (*"a"*, §278). **The calls made alone are
-  marked [call], his to reverse.** Depends on `1m.4` and `1n` being built first: the document holds what they add, and Insert reads `1n.1`'s one
-  helper.
+  marked [call], his to reverse.** **BUILT BEFORE `1n` — his order 2026-09-22 (RUNNING_LOG §288):** depends on `1m.4` only; `1o.5` writes today's notes (the deal's velocity,
+  1m.3's lengths uncut, no `follow`) until `1n.1`'s one helper lands and Insert is re-pointed at it beside SPACE; `1o.1`'s document gains `1n`'s fields when `1n` adds them.
   *Why:* his model (LG-84 · LG-85): *"the texture is upstream … I load a texture turn onsets on/off assign takes dynamics etc, this belongs to
   another save file right, I can save it, recall it later make changes, but not change its underlying texture"* · *"texture is the spine for a new
   thing always empty. so I can build several different rhythm sequences on the same texture."* Today the pattern lives in the browser only, one per
@@ -2148,7 +2148,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     and reopen the tab, `pattern ▾` brings it back, Insert at a playhead, play the score — the same notes as SPACE, MAIN ch 1 empty for the shaped
     ones; then a second pattern on the same texture. Revise on his word; old tests are not carried forward.
 
-  - **THE BUILD ORDER:** after `1m.4` and `1n` — 1o.1 → 1o.2 → 1o.3 → 1o.4 → 1o.5, one commit each, THE SHIELD verified in each; 1o.6 his. Opus, one
+  - **THE BUILD ORDER:** after `1m.4`, BEFORE `1n` (§288) — 1o.1 → 1o.2 → 1o.3 → 1o.4 → 1o.5, one commit each, THE SHIELD verified in each; 1o.6 his. Opus, one
     step per clear. **The server restarted after 1o.3.**
 
 ## 2. Notate — `todo`

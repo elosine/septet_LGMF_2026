@@ -2595,3 +2595,20 @@ milliseconds between two instruments are the material. **1 as stated** = that ru
 all but what a player does — they stop the first note and play the second — so the note ends at the next attack, the bar in the column is
 drawn to the cut, and the length he typed is kept in the document, so turning that next mark off brings the full length back. Both are
 realized in one place (`1n.1`'s helper), so what SPACE plays and what Insert writes cannot differ. The record: RUNNING_LOG §277.
+
+### LG-101 · 2026-09-22 — Extending the sequence: successive Inserts with a round trip from the score, or textures chained inside the strikes drawer — *"I would like to be able to extend the sequence"*
+
+Said during his one test of `1m.4`, verbatim:
+
+> *"And then I'm realizing that I would like to be able to extend the sequence so we can do it one of two ways and also brings up another
+> item. So one way would be to insert this rhythmic sequence into the score and then just keep working on more and reinserting them or
+> inserting them successively. So the one issue it brings up is, is this then once we get the save file sorted or the final build made, does
+> the plan include what the sequence drawer has, I think, which is you click the meta or double click it and then it opens up, it re comes
+> back to the sequence drawer or one of the drawers works like that. And then you can edit and then reinsert at original location. And then
+> the other possibility is just to continue to add textures after already inserted ones and just continue the sequence inside the strikes
+> drawer. Give me an assessment of each and then let's either build the part if it belongs to something that's already been built or I
+> guess just make a plan to build it or add it to a plan that's our, uh, that it belongs to."*
+
+*AI's reading, marked as such:* the piece grows as a chain of texture patterns; the question is WHERE the chain is made — in the score (each
+pattern a unit, placed and re-placed, the sequence drawer's idiom, LG-42's *joined by hand in the score*) or in the drawer (one long pattern
+of several textures end to end). The assessment against the plan: RUNNING_LOG §286.

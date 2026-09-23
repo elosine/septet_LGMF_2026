@@ -10930,3 +10930,158 @@ before a real click; the click tool refuses coordinates until one screenshot of 
 prerequisite, not proof); `browser_batch` runs clicks, typing, keys and `javascript_tool` reads in one round trip; a hidden pane clamps
 its timers, so a burst of MIDI comes out in insertion order — compare the bytes as a SET, and per note that the prelude precedes its
 note-on.
+
+## §284. HIS ONE TEST of `1m.4`, first finding: a length bar vanished once its circle scrolled off the left edge — fixed (2026-09-22, Fable)
+
+**What prompted it:** his first report from the test, with two screenshots of `LGMF-S2-R4a` at the column 8.44 s — *"when the scroll goes
+past the dot, the line duration line disappears."* In the first shot four rows carry a long bar from a lit circle at 6.4 · 6.7 · 7.2 · 7.4 s;
+in the second, scrolled to 6.9 s, the two rows whose circle had left the view show NO bar, while the two whose circle is still in view keep
+theirs.
+
+**The cause, read in `txRenderCols` (`score/public/texture_cols.js`):** a column is culled by its BAND — `if (x0 > W + bw || x0 + bw < -bw)
+return;` — before anything of it is drawn, so once the column's own instant scrolls out on the left its bars go with it, though the note it
+draws is still sounding across the view. The right edge never had the fault: a bar is capped at `W - cx + 12` and the svg clips it (§282).
+
+**The fix, one condition:** a column off the LEFT edge is kept while any length bar of its still reaches into the view — `txReachS(c)`, the
+longest of the column's `len` and its players' own `lens`, in seconds; kept means drawn as before, its band and circles at a negative x and
+clipped by the svg, its bar clipped at the left edge exactly as at the right. Off the right edge, and off the left with nothing reaching in,
+culled as before. The strike mode never enters `txRenderCols` (THE SHIELD by construction); no MIDI path is touched. **Verified by him, not
+by me:** he reloads his tab and scrolls past a lit circle; the bar should now run in from the left edge. Committed on his word.
+
+## §285. HIS ONE TEST of `1m.4`, second finding: a play from mid-way heard nothing of a note still sounding there — fixed (2026-09-22, Fable)
+
+**What prompted it:** his next report, a screenshot of `LGMF-S2-R4a` scrolled to 10–15 s, the cursor at 11.8 s, the column 6.39 s selected
+with a length of 6 s on the top row — *"actually nothing works from mid way display no play."*
+
+**The cause, read in `txPlay` (`score/public/texture_cols.js`, THE RHYTHM PREVIEW):** the preview gathered the ON marks from the cursor to
+the range's right line and nothing else — an onset player. A note that began at 6.39 s and runs to 12.39 s does not exist to a play from
+11.8 s; with the columns after the cursor bare and the claves off, the status said *nothing to hear* and he heard nothing. The display had
+the same fault from the other side (§284: the bar culled with its circle) — the two findings are one thing seen twice: **what is still
+sounding at a point in time was neither drawn nor played once its onset lay behind the view or the cursor.**
+
+**The fix:** every ON mark BEFORE the cursor whose column's notes still have time left at the cursor (`(d.t − from) + the note's length > 0`,
+the column's length or the player's own, 1m.3) plays from the cursor for what is left of it — `onMs 0`, `durMs` the remainder — beside the
+onsets after it; the status counts them (*3 notes still sounding at the cursor*). No claves for these: the claves mark the onset alone. A play
+from the range's left line treats marks before the line the same way (until `crop` takes them off, they are ON). The note is STRUCK at the
+cursor — a fresh attack of a note that in the piece would be mid-flight; the expedient rule (LG-82): a preview, not the score.
+**Decided alone, his to reverse.** THE SHIELD by construction: `txPlay` runs only on a texture take. **Verified by him:** reload, put the
+cursor inside a long note, SPACE.
+
+## §286. EXTENDING THE SEQUENCE — two ways assessed against PLAN § `1o`; nothing decided yet (2026-09-22, Fable)
+
+**What prompted it:** his words in the middle of his one test of `1m.4`, LG-101 — *"I would like to be able to extend the sequence"* — two ways
+put, an assessment asked for, then *"build the part if it belongs to something that's already been built or … add it to a plan that it belongs to."*
+
+**The data first — what PLAN § `1o` already holds (read, 2026-09-22):**
+- **Way A, successive Inserts with a round trip, IS `1o.5 Insert`:** `Insert @ playhead` · `Re-insert in place @ t` (t read from the META bar) ·
+  `move to playhead` · `patterns in this score` — pick one and it is open in the drawer, edit, re-insert in place. The sequence's idiom exactly
+  (1d.3, SEQUENCE_TOOL §10). The next pattern: `new` (1o.4, empty on the same texture) or `texture ▾` (1o.2, another take). Nothing to add.
+- **One correction to his memory of the sequence drawer:** the round trip there is by the drawer's `sequences in this score` list, not by a
+  click on the META bar — a click on a META bar opens its window, never a drawer. `1o` HOLDS *reopening a placed pattern by a click on its META
+  bar (not built for the sequence either)* — a convenience, addable to `1o.5` for both tools if he wants it; LG-82 puts convenience second.
+- **Way B, textures chained inside the drawer, is NOT in the plan.** `1o.1`'s document holds ONE texture (`texture: { name, n, span, dots }`); the
+  row, the marks `p.on`, the columns `p.cols[d.k]`, the range, `crop`, the cursor and the zoom all assume one take on one timeline. Chaining =
+  a document of SEGMENTS (`[{ texture, t0, dots }]`, keys qualified by segment), the row drawing them end to end, the columns re-keyed — a change
+  through `texture_row.js` and `texture_cols.js` and the document schema, and a join between two textures (gap · butt · overlap) to design.
+- **What Way B buys that A does not:** hearing the whole chain under one cursor in the drawer, before anything is in the score. What A has that
+  B duplicates: the score already chains units and plays the join — the sequence and the morph are joined there by hand and nothing links
+  them (LG-42, §124 · §125); a pattern would be the third unit of the same kind.
+- **Timing, the real constraint:** `1o` is built AFTER `1n dynamics` (the build order he set, §261 · §278), and `1o.5` reads `1n.1`'s helper for what
+  Insert writes (`velAbs` · `cc7Abs` · `follow`). So neither way is in his hands until two builds are done — unless `1o` is pulled forward with
+  Insert writing today's notes (velocity as SPACE plays them now) and re-pointed at the helper when `1n.1` lands.
+
+**The AI's recommendation, put to him:** Way A — it is the piece's idiom and it is already planned whole; add the META-bar click to `1o.5` only if
+he wants the convenience; do not build B. The one decision that is his: the ORDER — `1n` then `1o` as set, or `1o` (the document, the library,
+Insert) first so he can extend the sequence sooner, `1n` after. Nothing decided in this entry.
+
+## §287. `1m.4.2` BEGUN FROM THE RECORD AND HIS PICTURES — four by-key maps written, 22 pending; how the rest arrive (2026-09-22, Fable)
+
+**What prompted it:** *"could you just fill in all the articulations that you say, new keys pending? I believe on file is either the
+available keys or I took pictures and I think I gave them to you … just put them in there. We don't have to give them labels yet. Or you
+can just put the key name label."* Then, on the AI's reading of the record: *"I'm not sure it's in the manual. I believe we took pictures
+… We did all the ranges, so I presume we did the ranges for all the multiphonic ones as well."* Then one picture: the Kontakt keyboard of
+*"eh multiphonics velocity"*.
+
+**What the record holds — read before writing (the data first):** no key map of any pending voice is on file. `bank/technique_ranges.json`
+is piece #5's cello, eight one-shots (§594: the port carried only the cello's measurements); this piece's 0d measured VELOCITY CURVES at
+three pitches, not ranges (§2230 …); §32 says of the english horn *"ranges assumed 52–81 for every preset, not read"*; the pictures he
+sent then were the PRESET MENUS (names, §32), and the percussion's key maps came from the ARO catalogue. Piece #3's Xsample deep map has
+the BASS CLARINET's noise zones (undefined tones · key noises · air noises across its range, the multiphonics on 13 keys) — the family's
+layout, not the english horn's keys. The SI2 manual lists the BASSOON's multiphonics key by key (pages 76–77, C1 … G5, the pitches each
+sounds); its key-click and blow-without-reed keyboards are pictures the text extraction lost. The Xsample manual has the strings' noises
+by name only.
+
+**His picture, read by measurement, not by eye** (§1683's lesson): the crop scanned column by column (PowerShell, `System.Drawing`) at
+three heights, then enlarged 4×. Every pixel neutral grey — no key colour. Octave labels `2` and `3` on the C keys; Kontakt names C3 = 60
+(§3820), so the crop runs B1 … F3 = 47 … 65. Two looks: the NORMAL look (white keys 198, black keys 47) on B1 · C2 · D2 and D3 · E3 · F3;
+an INVERTED look — white keys dark (45), black keys light (198) — on E2 F2 F#2 G2 G#2 A2 A#2 B2 C3. The inverted keys form ONE contiguous
+block, 52 … 60, both ends inside the crop; the black keys inside it are light where a plain unmapped key would be dark, so the block is
+the script's marking of the voice's zone, not Kontakt's dimming of an empty one. **Read: the english horn's multiphonics sit on nine keys,
+MIDI 52–60 (Kontakt E2–C3).** The reading of WHICH look is the mapped one is an inference; one press on his side settles it (D2 silent,
+E2 sounding → confirmed; the reverse → the outside keys are the map).
+
+**Written** — `sandbox/instruments.js`, a `BY_KEY_MAPS` block after the SI2 kinds, `applyKeyMaps` at load, `noteName` (C4 = 60, the app's
+naming); each entry names its SOURCE and the technique carries it as `keySource`:
+- `english_horn/mp_short` (Multiphonics Velocity, #6): 52–60, note names — his picture.
+- `bassoon/multiphonics` (Multiphonics Menu): the manual's 56 keys, C1 … G5 → 36 … 91 (UVI C1 = 36, the recipe's convention, `ks: 36`),
+  each labelled with the pitches it sounds as the manual names them (`+` a quarter-tone up) — a label for free, better than a note name.
+- `bassoon/key_click` · `bassoon/blow_no_reed`: the bassoon's range 34–75, note names — **assumed** (the click of each fingering); a dead
+  key is silent and his ear trims it.
+- **Checks:** `roster_check` GREEN, 339 voices, **22 pending** (26 → 22) · `palette_check` 198 · `check_ceilings --all` GREEN · `model_bank
+  --validate` VALID. The by-key pull-down of 1m.4.3 lists each new voice as a heading with its keys under it.
+
+**The 22 still pending and how they arrive:** the english horn's key noises · various noises · air noises (2) · multiphonics MW · undefined
+tones — the cello's and the double bass's tailpiece (2) · behind the bridge · peg box · finger · body · undefined (2). One PICTURE each of
+the Kontakt keyboard with the preset loaded, several in one message, each named, the whole marked block and the octave numbers in the
+frame — the AI reads them as above. The alternative, a recorded sweep of every key (piece #5's `--ranges` method), is a probe he has ruled
+out (LG-82 · LG-87); the pictures cost him a click each. `mp_loop` (Multiphonics MW) is likely the same nine keys as `mp_short` — left
+pending rather than assumed, one picture decides.
+
+## §288. THE ORDER OF THE BUILDS, DECIDED AT HIS WORD: `1o` (one-oh) THE SAVE STRUCTURE BEFORE `1n` DYNAMICS (2026-09-22, Fable)
+
+**What prompted it:** his reply to §286 — *"A is fine. Just, I think the decision asked me when, just decide when the best place to build
+it is. And just confirm that this is, it's a two-way, correct? So in other words, I finish creating one in the drawer, in the strikes drawer,
+I insert it. Do some other things, come back to it, and then can edit it again in the strikes drawer, and it just replaces the one that's
+there."* And, first: *"remember a reminder to spell out the number. So like one O or one and one, tell me what it is."*
+
+**Confirmed: two-way.** PLAN § `1o.5` — Insert at the playhead · `patterns in this score` brings a placed pattern back into the drawer ·
+edit · `Re-insert in place @ t` replaces the group that is there (the old group's objects go first; hand edits to those notes are counted
+and overwritten — the document is the truth) · `move to playhead` apart. The sequence drawer's round trip, verbatim.
+
+**Decided by the AI at his word — `1o` before `1n`.** Why: without `1o.5` no texture pattern can reach the score at all — Insert is what
+lets him EXTEND the sequence (LG-101), and that is the blocking need; dynamics are quality on top. The rework is nil: `1n.1` was always going
+to introduce the one helper and re-point SPACE at it — re-pointing Insert at the same time is one more call site. Every early insert is
+revisable by the round trip, so patterns placed before `1n` take their dynamics later by a re-insert in place. What `1o` loses by going
+first: `1o.5` writes today's notes — the deal's velocity, the lengths of 1m.3 uncut (§277's cut rule sits in `1n.1`), no `follow` — until
+`1n.1` lands; `1o.1`'s document gains `1n`'s fields when `1n` adds them. The META-bar click (§286) stays HELD: convenience second (LG-82),
+and he did not ask for it. PLAN § `1n` · § `1o`, journal §2 and CLAUDE.md now carry the order. **His to reverse.**
+
+## §289. THE RANGES ARE IN THE PRESET DESIGNER — Xsample's own `low / high` per preset; the bass's tailpiece written, 21 pending (2026-09-22, Fable)
+
+**What prompted it:** five screenshots, *"i1 is eh"* — the english horn's Kontakt (`5 Flutter Tongue MW`, low E2 · high C5), the cello's
+(`54 Bow Overpressure Velocity`, C1 · B3, and `6 Senza Vibrato Velocity`, C1 · B4), the bass's (`49 Sul Ponticello Tremolo Velocity`, E1 ·
+A4) and, twice, the bass's **`58 Tailpiece Bowed Velocity`, low E1 · high A2**.
+
+**What they settle — the METHOD, his *"we did all the ranges"*:** Xsample's Preset Designer prints every preset's own `low` and `high` as
+text, in Kontakt's C3 = 60 naming — exactly what §3820 read for the vibraphone (F2 · F5 → 53–89, the recipe's numbers). So a by-key voice's
+keys are its preset's `low … high`, read off the panel; no keyboard pixels (§287's reading of the multiphonics crop stands until its panel
+says E2 · C3). The cello's `6 Senza Vibrato` C1 · B4 = 36–83, the recipe's range, confirms the naming once more.
+
+**The bass's octave (the recipe's note, §67):** the library is keyed an octave above sounding and REAPER adds the +12 (`midi_transpose` at
+the head of the Bass XS chain); the app sends sounding numbers raw. So a bass preset's Kontakt `E1 · A2` = sampler keys 40–57 is written in
+the app as **28–45** — and the app's note names for those keys then read exactly as Kontakt's. The cello and the english horn are not
+transposed: Kontakt `C1` = 36 = the app's C2.
+
+**Written:** `double_bass/tailpiece_vel` (#58) = 28–45, eighteen keys, note names — `BY_KEY_MAPS`, with the arithmetic in its comment.
+`roster_check` GREEN, **21 pending** · `palette_check` 198. Of the five pictures, four were pitched presets — nothing to write from them.
+
+**How the 21 arrive now — TYPED, no picture needed:** for each pending preset, its name and the panel's `low · high` (e.g. *tailpiece MW:
+E1 · A2*). The AI does the octave arithmetic. The english horn's `6 Multiphonics Velocity` panel would also confirm §287's 52–60 (E2 · C3).
+
+## §290. `1m.4.2` CLOSED AT HIS WORD — five written, 21 pending, each picked up when he uses it (2026-09-22, Fable)
+
+**His word:** *"these ones are fine for now. We'll pick ones up if I use them, otherwise in the future for a different piece."* So the
+by-key maps stand as written — the english horn's multiphonics (§287), the bassoon's three (§287), the bass's tailpiece (§289) — and the
+21 pending voices stay `pending`: a heading in the pull-down, plain note names in the picker (§280). When he reaches for one, its name and
+the Preset Designer's `low · high` typed in the chat are all the AI needs (§289's method; the bass −12). `tools/roster_check.js` keeps
+naming them. Nothing else of `1m.4` is open but his one test.
