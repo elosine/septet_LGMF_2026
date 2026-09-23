@@ -168,7 +168,52 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — CHECKPOINT #5 (2026-09-22, session 13, Fable) *(mid-session checkpoint — READ THIS ONE)*:**
+**Open at session end — CHECKPOINT #6 (2026-09-22, session 13, Fable's build, the wrap on Opus) *(mid-session checkpoint — READ THIS ONE)*:**
+
+- **`1o` (one-oh) THE SAVE STRUCTURE IS BUILT — 1o.1 … 1o.5, ONE COMMIT EACH, THE SHIELD verified in each (RUNNING_LOG §291 … §295;
+  commits `4eecec5` · `ee3a172` · `abbf901` · `416bfa6` · `9681a78`).** At his word: *"go ahead and move through the whole 1o plan
+  independantly as much as possible"*. A texture pattern is now A DOCUMENT OF ITS OWN carrying a copy of its onsets · kept on disk in
+  `bank/patterns.json`, THE FIFTH STORE · `texture ▾` starts an empty one, `pattern ▾` recalls, several per texture · name · save ·
+  revert · • · duplicate · × · new on the pattern line · the drawer's own Insert writes it into the score, the sequence's idiom.
+  **Not built, by the plan: `1o.6` — HIS ONE TEST.**
+- **THE NEXT CONCRETE STEP IS HIS, AND IT NEEDS A SERVER RESTART: `1o.6`.** Tell him, then wait: **restart `node score/server.js`** (a
+  fifth store — a running server keeps the module it started with) **and reload the tab.** Then in his rack: `texture ▾` starts a
+  pattern on a texture · name it + ENTER · deal a few columns · close and reopen the tab · `pattern ▾` brings it back · Insert at a
+  playhead (the drawer's OWN `Insert @ playhead`; the range's left line lands there) · play the score — the same notes as SPACE, struck
+  on MAIN until `1n` · then `new` for a second pattern on the same texture. His existing patterns come over as untitled entries at the
+  first load. Old tests are not carried forward.
+- **THE STEP AFTER, as an instruction:** on **Opus**, after his word on `1o.6` — **build `1n.1`**, the first step of PLAN § `1n`'s build
+  order (its READ is `docs/DYNAMICS_LAW.md`; one helper `texture_dyn.js` that SPACE *and* Insert both read — `1o.5` writes today's notes
+  until it lands, §288; the two rules on one player's notes are in `1n.1`, §277). One commit per step, the step's REQUIRED VERIFICATION
+  and THE SHIELD run in each on `score-5401`. Do not start until he says go (his standing postclear rule).
+- **Latest deliverables:** `score/public/texture_insert.js` (new — Insert) · `score/public/texture_lib.js` (new — the store and the
+  library controls) · `score/public/texture_row.js` (the document, the two-line bar, `pattern ▾`) · `score/public/texture_cols.js`
+  (`txNotesBetween`, ONE list for SPACE and Insert) · `score/snapshots.js` + `tools/test_snapshots.js` (the fifth store, **30**) ·
+  `score/public/composer.html` (two script tags).
+- **`Resume reads:`** journal §2 **STILL BINDING** (the verification method, `score-5401`) · RUNNING_LOG **§295** (what `1o.5` writes and
+  what it does not — the next question about Insert is answered there). **For his test's feedback:** PLAN § `1o` (the step he faults).
+  **For the `1n` build:** PLAN § `1n` (the header and 1n.1 only; the rest as its step comes) · `docs/DYNAMICS_LAW.md` · §283's last
+  paragraph (the pane's frame scaling, the screenshot prerequisite, the timer clamping). **Not needed:** RUNNING_LOG §291 … §294 (open
+  one only when a question sends you there).
+- **Decisions pending him:** his one test of `1o` (`1o.6`) · his one test of `1m.4` and the two fixes in it (§284 · §285), still owed ·
+  whether `bank/patterns.json` goes into git once his first pattern creates it (§278) · **the calls made alone in this build, his to
+  reverse** (§295 lists all seven: a pre-1o.1 pattern upgraded in place · the texture and the id in an untitled name · a blank pattern is
+  not a document · the row grows to its bar lines on a texture take · the `•` ignores `sel` and `cursor` · the drawer's own Insert button
+  taken over and the strike's other two inserts refused on a texture take · the pattern's colour) · the [call]s in PLAN § `1n` (§275) ·
+  the triangle on track 10 (§221) · `ACT-BLOOM-03` · `-04` · a `sec01-done` tag.
+- **ONE THING NOT ESTABLISHED, in §295:** `bank/sequences.json` was byte-identical at 1o.3's check and had been re-saved at **21:12** by
+  the wrap, its one named entry `LGMF-R01c` re-stamped with its row BYTE-IDENTICAL. The throwaway tab's non-pattern POSTs and its beacon
+  were stubbed in every load and a forced flush from it reached no disk, so the writer was most likely his own tab at :5400. Nothing in
+  the library changed but the stamp; the file is his to commit either way.
+- **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short`): `bank/panel_snapshots.json` (his harmony
+  takes, written by the app) · `bank/sequences.json` (his sequence library — see the line above) · `reaper/LGMF_rack.rpp` (his rack,
+  saved by Reaper) · **untracked** `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`; his takes).
+  **`bank/patterns.json` is NOT here:** the throwaway server created it with five test entries during `1o.3`'s check and it was
+  DELETED at the end of the build, so his first real pattern creates it clean. **Unsaved working copies** (`node tools/unsaved_check.js`):
+  `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same four as checkpoints #2 … #5, none the piece; his to Save or Reload.
+  No score is committed here.
+
+**Open at session end — CHECKPOINT #5 (2026-09-22, session 13, Fable) *(before it)*:**
 
 - **THE TASK IN HAND: BUILD `1o` (one-oh) THE SAVE STRUCTURE — nothing of it built.** His word: *"ok lets do the save next 1o"*. It goes
   BEFORE `1n` (one-en) dynamics, decided at his word (RUNNING_LOG §288): Insert is what lets him EXTEND the sequence (LG-101). `1m.4
