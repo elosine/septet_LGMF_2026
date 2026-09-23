@@ -165,6 +165,34 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
+**Open at session end — CHECKPOINT #5 (2026-09-22, session 13, Fable) *(mid-session checkpoint — READ THIS ONE)*:**
+
+- **THE TASK IN HAND: BUILD `1o` (one-oh) THE SAVE STRUCTURE — nothing of it built.** His word: *"ok lets do the save next 1o"*. It goes
+  BEFORE `1n` (one-en) dynamics, decided at his word (RUNNING_LOG §288): Insert is what lets him EXTEND the sequence (LG-101). `1m.4
+  articulation` is built and closed; `1m.4.2` closed at his word with 21 voices pending (§290).
+- **THE NEXT CONCRETE STEP, as an instruction:** on **Opus**, after `/clear` + `/postclear` and HIS GO — **build `1o.1 the document`**: PLAN §
+  `1o`, its first step — today's `pats[name]` becomes THE DOCUMENT `{ v, id, name, texture: { name, n, span, gap10, dots }, on, range, cursor,
+  short, cols, sel }`, the dots copied ONCE at the start, `txPat()` returning the open one, the "take has changed" reset gone; its REQUIRED
+  VERIFICATION and THE SHIELD run on `score-5401` (no MIDI, the POSTs stubbed), then ONE COMMIT. Then 1o.2 → 1o.3 (**restart the server after
+  it** — a fifth store) → 1o.4 → 1o.5, one commit each; 1o.6 his. **`1o.5` Insert writes TODAY's notes** (the deal's velocity, 1m.3's lengths
+  uncut, no `follow`) — `1n.1` re-points it later (§288). The calls made alone go in the log, marked, his to reverse.
+- **Latest deliverables (this checkpoint's commit):** `score/public/texture_cols.js` — two fixes from his one test of `1m.4`: a length bar
+  drawn when its circle is off the left edge (§284) · a play from mid-way sounds the notes still sounding at the cursor (§285) — **his reload
+  and word on them still owed**; `sandbox/instruments.js` `BY_KEY_MAPS` (§287 · §289; commit `d882f30`).
+- **`Resume reads:`** PLAN § `1o` (whole — the six steps, each with its REQUIRED VERIFICATION and THE SHIELD) · RUNNING_LOG §288 (the order,
+  what Insert writes now) · journal §2 STILL BINDING and §283's last paragraph (the pane's verification method) · SEQUENCE_TOOL §10 · §16
+  (the sequence's Insert and library, the idiom `1o.4` · `1o.5` copy). Code only as each step names it: `score/public/texture_row.js`
+  (`txLoad`, `realize`, the browser key) · `texture_cols.js` (`txCols`, `txPersist`) · `sequence_ui.js` (`insert`, the library) ·
+  `score/snapshots.js` (`STORES`).
+- **Decisions pending him:** his one test of `1m.4` (reload; §284 · §285 in it) · the [call]s in PLAN § `1o` (§278) and § `1n` (§275) · whether
+  `bank/patterns.json` goes into git when `1o.3` creates it · the five calls of §283 · the triangle on track 10 (§221) · `ACT-BLOOM-03` · `-04`
+  · a `sec01-done` tag.
+- **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short`): `bank/panel_snapshots.json` (his harmony takes,
+  written by the app) · `bank/sequences.json` (his sequence library) · `reaper/LGMF_rack.rpp` (his rack, saved by Reaper) · **untracked**
+  `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`; his takes). **Unsaved working copies** (`node
+  tools/unsaved_check.js`): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same four as checkpoints #2 … #4, none the piece;
+  his to Save or Reload. No score is committed here.
+
 **Open at session end — CHECKPOINT #4 (2026-09-22, session 13, Fable's build, the wrap on Opus) *(mid-session checkpoint — READ THIS ONE)*:**
 
 - **`1m.4 articulation` IS BUILT — 1m.4.1 · .3 · .4 · .5 · .6, one commit each (`485842c` · `383b5a2` · `6290d36` · `85f0847` · the sixth), THE SHIELD

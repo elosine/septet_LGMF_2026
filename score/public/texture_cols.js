@@ -111,6 +111,11 @@ Object.assign(D, {
         return null;
     },
     txLenMs(c, lane) { const l = this.txLenS(c, lane); return l ? Math.round(l.s * 1000) : this.txShortMs(); },
+    txReachS(c) {   // §284: the longest bar a column can draw, seconds — its `len` or any player's own; 0 when every note is the short
+        let m = isFinite(+c.len) && +c.len > 0 ? +c.len : 0;
+        if (c.lens) Object.keys(c.lens).forEach(k => { const v = +c.lens[k]; if (isFinite(v) && v > m) m = v; });
+        return m;
+    },
     txLenWord(c, lane) { const l = this.txLenS(c, lane); return l ? l.s + ' s' + (l.own ? ' (their own)' : '') : 'the short, ' + this.txShortMs() + ' ms'; },
     txSetShort(raw) {
         const p = this.txPat(); if (!p) return;
@@ -371,8 +376,11 @@ Object.assign(D, {
         const bw = Math.max(mw, BAND_MIN); let bands = '', bars = '', circs = '';
         this._tx.dots.forEach(d => {
             if (!on.has(d.k)) return;
-            const x = this.txX(d.t), cx = x + mw / 2, x0 = cx - bw / 2; if (x0 > W + bw || x0 + bw < -bw) return;
+            const x = this.txX(d.t), cx = x + mw / 2, x0 = cx - bw / 2; if (x0 > W + bw) return;
             const c = p.cols[d.k], isSel = sel.has(d.k), players = new Set(c ? c.players : []);
+            // §284: a column off the LEFT edge is kept while a length bar of its still reaches into the view — the note is still sounding
+            // there; its band and circles land at a negative x and the svg clips them, the bar clipped at the left edge as at the right
+            if (x0 + bw < -bw && !(c && cx + this.txReachS(c) * px > 0)) return;
             bands += '<rect class="txCol" data-k="' + d.k + '" x="' + x0.toFixed(1) + '" y="' + COL_TOP + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, H - COL_TOP) + '" fill="' + (isSel ? SEL_BG : 'rgba(255,255,255,.02)') + '" stroke="' + (isSel ? SEL_LINE : 'none') + '" stroke-width="1"/>';
             ys.forEach((cy, lane) => {
                 const t = T[lane], isOn = players.has(lane), mine = c ? (c.notes || []).filter(n => n.row === lane) : [], L = isOn && mine.length ? this.txLenS(c, lane) : null;
@@ -451,8 +459,15 @@ Object.assign(D, {
         const T = root.TexturePanel, cl = (T && T.CLAVES) || { tech: 'toys_claves', midi: 41 };
         const c0 = +p.cursor || 0, from = (c0 > r[0] && c0 < r[1]) ? c0 : r[0];
         const dots = this._tx.dots.filter(d => on.has(d.k) && d.t >= from - 1e-6 && d.t <= r[1] + 1e-6);
-        if (!dots.length) { this.setStatus(p.on.length ? 'no ON mark between ' + from.toFixed(2) + ' s and ' + r[1].toFixed(2) + ' s — move the cursor or the range' : 'every mark is off — click some on (or all on)', true); return; }
-        const notes = [], short = this.txShortMs(); let pitched = 0, bare = 0;
+        // §285: a note that began BEFORE the cursor and is still sounding there plays from the cursor for what is left of it — a play from
+        // mid-way hears what the display shows (its bar running in from the left edge); the claves are the onset's alone, none for these
+        const held = [];
+        this._tx.dots.forEach(d => {
+            if (!on.has(d.k) || d.t >= from - 1e-6) return;
+            const c = p.cols[d.k]; ((c && c.notes) || []).forEach(n => { const left = Math.round((d.t - from) * 1000) + this.txLenMs(c, n.row); if (left > 0) held.push(Object.assign({}, n, { onMs: 0, durMs: left })); });
+        });
+        if (!dots.length && !held.length) { this.setStatus(p.on.length ? 'no ON mark between ' + from.toFixed(2) + ' s and ' + r[1].toFixed(2) + ' s — move the cursor or the range' : 'every mark is off — click some on (or all on)', true); return; }
+        const notes = held.slice(), short = this.txShortMs(); let pitched = 0, bare = 0;
         dots.forEach(d => {
             const onMs = Math.round((d.t - from) * 1000), c = p.cols[d.k], mine = c ? (c.notes || []) : [];
             mine.forEach(n => notes.push(Object.assign({}, n, { onMs, durMs: this.txLenMs(c, n.row) })));   // 1m.3: the column's length, a player's own over it, else the short
@@ -460,7 +475,7 @@ Object.assign(D, {
             if (claves && lane >= 0) notes.push({ lane, tech: cl.tech, midi: cl.midi, vel: ANCHOR_MF, cents: 0, onMs, durMs: short });
         });
         if (!notes.length) { this.setStatus('nothing to hear: no column has a player on and the claves are off', true); return; }
-        await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players · ' + bare + ' bare' + (claves ? ' · the claves under them' : '') + ' · short ' + short + ' ms · from ' + from.toFixed(2) + ' s');
+        await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players · ' + bare + ' bare' + (held.length ? ' · ' + held.length + (held.length === 1 ? ' note' : ' notes') + ' still sounding at the cursor' : '') + (claves ? ' · the claves under them' : '') + ' · short ' + short + ' ms · from ' + from.toFixed(2) + ' s');
         const e = E_(); if (e && e._playing) this.txStartRun(from, r[1]);
     },
     async txHearColumn() {   // THE COLUMN PREVIEW: the primary column's players, read from the drawer LIVE (the `hear` menu applies at once)
