@@ -282,6 +282,108 @@ Object.assign(D, {
     txCollisionText(col) { const c = col || this.txCollisions(); return c.n ? ' · ' + c.n + ' too close on one player (' + Object.keys(c.per).map(s => s + ' ' + c.per[s]).join(' · ') + ') — flagged, nothing moved' : ''; },
 });
 
+// ================================================================ 1n.2 — THE SINGLE NOTE BY HAND (RUNNING_LOG §272; PLAN § 1n.2)
+// In the players list (1m.4.5's rows), texture mode only: a `dyn` box per row — `mp` a value · `mp-f` / `f-mp` a crescendo /
+// decrescendo inside the held note · `mp-f-mp` a swell; a dash or a space between names, a dash shown; case forgiven; `n` = niente at
+// an end; anything else refused, the status saying so; on a SHORT note only the first name counts and the status says so; blank = the
+// level the range or the column gives. Beside it the switch of 1n.1 — `auto | sample | follow` (§265). The lens (1m.4.4): both write to
+// every selected column, "mixed" where they differ. The column's MARK (reserved by 1m.4.5): beside each lit circle the RESULTING level —
+// a letter-mark, a wedge for a hairpin — generated or by hand alike [call on the look]. Lives with the pattern, never with a take (§251 ·
+// §252): `c.dyn[lane]` a typed string (or a generator's `{ pts }`, 1n.3), `c.hand[lane]` when typed, `c.fol[lane]` the switch. Undo covers it.
+const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
+const MIXED = '1px dashed #C9A05A', MARK_COL = '#E8CF9A';
+const isEnter = ev => ev.key === 'Enter' || ev.code === 'Enter' || ev.code === 'NumpadEnter' || ev.keyCode === 13;
+const isEsc = ev => ev.key === 'Escape' || ev.code === 'Escape' || ev.keyCode === 27;
+Object.assign(D, {
+    // what the box shows for a column: a typed string as typed; a generator's points as a placeholder (their names); nothing → blank
+    txDynCell(c, lane) { const s = this.txDynSpec(c, lane); return { value: typeof s === 'string' ? s : '', gen: (s && typeof s === 'object') ? X.fmtPts(X.pointsOf(s, (s.pts && s.pts[s.pts.length - 1][0]) || 1, 0)) : '' }; },
+    // the two boxes on every row, texture mode only — the `len` box's idiom (texture_cols.js txPaintRowLens)
+    txPaintRowDyn() {
+        const orch = this.el && this.el.querySelector('#skOrch'); if (!orch) return;
+        const on = this.txIsOn(), p = on ? this.txCols() : null, k = p && this.txPrimary(), c = k ? p.cols[k] : null;
+        const cols = p && p.sel.length > 1 ? p.sel.map(kk => p.cols[kk]).filter(Boolean) : [];
+        orch.querySelectorAll('.skRow').forEach(row => {
+            const lane = +row.dataset.lane; let box = row.querySelector('.txRowDyn'), sel = row.querySelector('.txRowFol');
+            if (!on) { if (box) box.remove(); if (sel) sel.remove(); return; }   // THE SHIELD: the strike mode's rows do not change
+            if (!box) {
+                box = document.createElement('input'); box.className = 'txRowDyn'; box.type = 'text'; box.placeholder = 'dyn'; box.spellcheck = false;
+                box.style.cssText = INP + ';width:48px;margin-left:4px;flex:none';
+                box.addEventListener('change', e => this.txSetRowDyn(lane, e.target.value));
+                box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); box.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintRowDyn(); box.blur(); } });
+                row.appendChild(box);
+                sel = document.createElement('select'); sel.className = 'txRowFol'; sel.style.cssText = INP + ';width:58px;margin-left:2px;flex:none';
+                sel.innerHTML = '<option value="auto">auto</option><option value="sample">sample</option><option value="follow">follow</option>';
+                sel.addEventListener('change', e => { e.target.blur(); this.txSetRowFol(lane, e.target.value); });
+                sel.addEventListener('keydown', ev => ev.stopPropagation());
+                row.appendChild(sel);
+            }
+            const cell = c ? this.txDynCell(c, lane) : { value: '', gen: '' };
+            box.disabled = !k; box.style.opacity = k ? '' : 0.45; sel.disabled = !k; sel.style.opacity = k ? '' : 0.45;
+            if (document.activeElement !== box) box.value = cell.value;
+            box.placeholder = k ? (cell.gen ? cell.gen : 'dyn') : '—';
+            const vals = cols.map(cc => JSON.stringify(this.txDynSpec(cc, lane))), mixed = cols.length > 1 && new Set(vals).size > 1;
+            box.style.outline = mixed ? MIXED : '';
+            const fols = cols.map(cc => (cc && cc.fol && cc.fol[lane]) || 'auto'), fMixed = cols.length > 1 && new Set(fols).size > 1;
+            const f = c && c.fol && c.fol[lane]; if (document.activeElement !== sel) sel.value = (f === 'sample' || f === 'follow') ? f : 'auto';
+            sel.style.outline = fMixed ? MIXED : '';
+            const who = (TRK()[lane] ? TRK()[lane].label : 'row ' + lane);
+            box.title = who + ' — the dynamic of their note in the selected column(s): a value (mp), a hairpin inside a held note (mp-f · f-mp), a swell (mp-f-mp); n = niente at an end; a dash or a space between names; blank = the level the range gives (or the deal\'s own). On a short note only the first name counts' + (cell.gen ? ' · generated: ' + cell.gen + ' (typing overrides it; a re-generate takes it back)' : '') + (mixed ? ' · mixed: ' + [...new Set(vals)].map(v => v === 'null' ? '(none)' : v).join(' · ') : '') + '. ENTER sets · ESC puts it back';
+            sel.title = who + ' — a HELD note under a level that moves: auto = follow it when it moves one written step or more across the note, else sample it at the onset · sample · follow (1n.1, §265). A short note always samples; a typed hairpin always follows' + (fMixed ? ' · mixed: ' + [...new Set(fols)].join(' · ') : '');
+        });
+    },
+    txSetRowDyn(lane, raw) {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintRowDyn(); this.txGreySay(); return; }
+        const P = X.parse(raw), t = TRK()[lane], who = t ? t.label : 'row ' + lane;
+        if (!P.ok) { this.txPaintRowDyn(); this.setStatus(who + ': ' + P.err, true); return; }
+        this.txPushUndo();
+        let shorts = 0, off = 0;
+        p.sel.forEach(k => {
+            const c = p.cols[k]; if (!c) return;
+            if (!(c.players || []).includes(lane)) off++;
+            if (P.empty) { if (c.dyn) delete c.dyn[lane]; if (c.hand) delete c.hand[lane]; }
+            else { c.dyn = c.dyn || {}; c.dyn[lane] = P.text; c.hand = c.hand || {}; c.hand[lane] = 1; if (P.names.length > 1 && !this.txLenS(c, lane)) shorts++; }
+        });
+        this.txPersistSoon(); this.txRender(); this.txPaintRowDyn();
+        const where = p.sel.length === 1 ? ' at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : ' → ' + p.sel.length + ' columns';
+        this.setStatus(who + where + ': ' + (P.empty ? 'no dynamic of their own — the level the range gives, else the deal\'s (a generated value comes back with a re-generate)' : P.text + (P.names.length > 1 ? ' — a hairpin: the note follows it' : '')) +
+            (shorts ? ' · on a SHORT note only the first name counts (' + P.names[0] + ')' + (p.sel.length > 1 ? ' — ' + shorts + ' of them' : '') : '') + (off ? ' · ' + who + ' is off in ' + off + ' of them (the value waits there)' : ''));
+    },
+    txSetRowFol(lane, v) {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintRowDyn(); this.txGreySay(); return; }
+        const t = TRK()[lane], who = t ? t.label : 'row ' + lane, val = (v === 'sample' || v === 'follow') ? v : null;
+        this.txPushUndo();
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (!val) { if (c.fol) { delete c.fol[lane]; if (!Object.keys(c.fol).length) delete c.fol; } } else { c.fol = c.fol || {}; c.fol[lane] = val; } });
+        this.txPersistSoon(); this.txRender(); this.txPaintRowDyn();
+        this.setStatus(who + (p.sel.length === 1 ? ' at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : ' → ' + p.sel.length + ' columns') + ': ' + (val ? val + (val === 'follow' ? ' — a held note traces its level (a short one still samples)' : ' — one level for the span, read at the onset') : 'auto — follow when the level moves a written step across the note, else sample'));
+    },
+    // THE MARK (1m.4.5's reserved one): beside each lit circle with a note, the RESULTING level — the name at the onset, a wedge for a
+    // hairpin (< rising, > falling, <> a swell), drawn only when the marks are far enough apart to read; the circle's title always has it
+    txDynMarks(p, ys) {
+        const svg = this.el && this.el.querySelector('#txSvg'), run = svg && svg.querySelector('#txRun'); if (!svg || !run || !this._tx || !p) return;
+        const mw = this.txMarkW(), px = this._txV ? this._txV.px : 0, gap = (this._tx.gap10 || 0.05) * px, W = this.txW(), on = new Set(p.on || []);
+        if (gap < 22) return;   // too dense to read at this zoom
+        let s = '';
+        this._tx.dots.forEach(d => {
+            if (!on.has(d.k)) return; const c = p.cols[d.k]; if (!c) return;
+            const cx = this.txX(d.t) + mw / 2; if (cx < -20 || cx > W + 20) return;
+            (c.notes || []).forEach(n => {
+                const lane = n.row != null ? n.row : n.lane, cy = ys[lane]; if (cy == null || !(c.players || []).includes(lane)) return;
+                const dur = this.txPlayLenMs(p, this._tx, c, d.k, lane).ms / 1000, spec = this.txDynSpec(c, lane), pts = X.pointsOf(spec, dur, X.levelOfAnchor(n.vel));
+                const isShort = !this.txLenS(c, lane), first = X.nameOf(isShort ? (typeof spec === 'string' ? pts[0][1] : X.levelAt(pts, 0)) : pts[0][1]);
+                let wedge = '';
+                if (!isShort && pts.length > 1) { const a = pts[0][1], m = Math.max(...pts.map(q => q[1])), z = pts[pts.length - 1][1], lo = Math.min(...pts.map(q => q[1])); if (m > a + 1e-9 && m > z + 1e-9) wedge = '<>'; else if (lo < a - 1e-9 && lo < z - 1e-9) wedge = '><'; else if (z > a + 1e-9) wedge = '<'; else if (z < a - 1e-9) wedge = '>'; }
+                s += '<text class="txMark" x="' + (cx + 6.5).toFixed(1) + '" y="' + (cy - 5.5).toFixed(1) + '" font-size="8" fill="' + MARK_COL + '" opacity="' + ((c.hand || {})[lane] ? 1 : 0.75) + '" pointer-events="none" font-style="' + ((c.hand || {})[lane] ? 'normal' : 'italic') + '">' + first + (wedge ? ' ' + wedge : '') + '</text>';
+            });
+        });
+        if (s) run.insertAdjacentHTML('beforebegin', s);
+    },
+});
+// the two boxes after every render of the panel; the marks after every render of the columns
+const _renderOrch = D.renderOrch;
+D.renderOrch = function () { const r = _renderOrch.apply(this, arguments); try { this.txPaintRowDyn(); } catch (e) { console.warn('[texture_dyn] row dyn:', e); } return r; };
+const _txRenderCols = D.txRenderCols;
+D.txRenderCols = function () { const r = _txRenderCols.apply(this, arguments); try { if (this.txIsOn()) { const p = this.txCols(); if (p && this._tx) this.txDynMarks(p, this.txRowsY()); this.txPaintRowDyn(); } } catch (e) { console.warn('[texture_dyn] marks:', e); } return r; };
+
 // the count in the status: the row's line and the column's line both carry it (the flag is drawn by texture_cols.js txRenderCols)
 const _txLine = D.txLine;
 D.txLine = function () { const s = _txLine.apply(this, arguments); try { return this._tx ? s + this.txCollisionText(this.txCollisions()) : s; } catch (e) { return s; } };

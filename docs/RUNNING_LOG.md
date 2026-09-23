@@ -11369,3 +11369,50 @@ with no level anywhere keeps the deal's own velocity as its level · a voice wit
 a typed hairpin on a short note takes its first name (§272) · the residual's span from the bank.
 
 **Status:** `1n.1` BUILT, one commit. NEXT: `1n.2` the single note by hand (the `dyn` box per row, the column's mark).
+
+## §297. `1n.2` THE SINGLE NOTE BY HAND — built and verified with the pane's real input: the `dyn` box and the switch per row, the lens, the mark, undo; THE SHIELD (2026-09-22, Fable)
+
+**Built — `score/public/texture_dyn.js` alone (the 1n.2 section of its mixin); `texture_cols.js` · `texture_lens.js` · `strike_drawer.js`
+untouched.** In the players list, texture mode only, after 1m.4.5's `len` box on every row:
+- **the `dyn` box** — typed: `mp` a value · `mp-f` / `f-mp` a hairpin inside the held note · `mp-f-mp` a swell; a dash or a space
+  between names, a dash shown (`MP F` reads as `mp-f`); `n` = niente at an end; anything else refused with the reason in the status
+  (*"x" is not a dynamic — ppp pp p mp mf f ff fff, or n at an end*); ENTER sets, ESC puts the value back; blank = the level the range
+  gives, else the deal's own (a generated value comes back with a re-generate). Written into `c.dyn[lane]` with `c.hand[lane]` = 1 on
+  every SELECTED column (the lens), "mixed" (the dashed outline, the values in the title) where they differ; a generated `{ pts }` (1n.3)
+  shows as the placeholder in its names and typing overrides it. On a SHORT note only the first name counts and the status says so.
+- **the switch of 1n.1** beside it — `auto | sample | follow` (§265) — `c.fol[lane]` on every selected column, mixed marked the same way.
+- **THE MARK** (1m.4.5's reserved one): beside each lit circle with a note, the resulting level at its onset as a letter-mark — hand-set
+  upright, generated or the deal's own in italics — and a wedge for a hairpin on a held note (`<` rising · `>` falling · `<>` a swell ·
+  `><` a dip). **[call on the look]:** drawn only when the take's typical small gap is 22 px or more at the zoom — denser than that the
+  marks would sit on each other, and the circle's title carries the level at every zoom.
+- Undo covers both (the snapshot holds `cols`); the pattern document carries them (never a take, §251 · §252).
+
+**REQUIRED VERIFICATION — `score-5401`, the pane's REAL input (`computer` click by ref · type · Enter; `form_input` on the select), the
+stubs first, no MIDI:** on the test pattern of §296 (column A every player, the cello a 3 s length, the horn 2 s) —
+- `mp-f-mp` typed on the cello → `dyn[6]` = `mp-f-mp`, `hand[6]` = 1; the dressed note `follow`, **`cc7Abs` 69 → 94 (the cello's table
+  mp … f)**, the heights `[0, 0] [0.5, 1] [1, 0]` — the swell; struck at mf (89); the status *a hairpin: the note follows it* ✓
+- `MP F` typed on the horn → `mp-f`, follow, 50 → 79 (the horn's mp, f) ✓
+- `mp-f` typed on the english horn (a short) → `sample` at **mp** — CC7 90 (the residual's mp), v90 (the ladder's mp) — the status *on a
+  SHORT note only the first name counts (mp)* ✓
+- `x` typed on the trumpet → refused with the reason, the box empty, `dyn[3]` absent, the note at the deal's level ✓
+- the stretch A → B (three columns) selected, `pp` typed on the bassoon → all three columns `pp`; the status *Bassoon → 3 columns: pp*;
+  one of the three set apart by script → the box outlined dashed, *mixed* in its title ✓
+- the cello's switch → `sample` on all three; ESC (its own step — the selection cleared) · CTRL+Z (the selection back) · CTRL+Z (the
+  switch gone, the values kept) · CTRL+Z (the `pp` gone in all three, the box empty) — *undone · 16 more* ✓
+- the marks at a readable zoom (`txZoomTo(0.75)`, 1455 px/s, the gap 23.6 px): `mp <` (the horn, upright) · `mp <>` (the cello) · `mp`
+  (the english horn) · `mf` in italics on the rest (the deal's level) · the bassoon at C `mf` — ten marks for ten notes; at the whole-take
+  zoom (3 px a gap) none drawn ✓
+- **THE SHIELD:** the strike mode's rows carry no `dyn`, no switch, no `len` box (0 of them in the DOM); the strike's Hear on the starter
+  harmony is the strike's own — the bassoon at v90 (`remapVel` of the anchor) with CC7 127 on MAIN, the percussion at v100, the second
+  vibraphone on its seat channel with CC7 100 — no 1n code in its path (every 1n.2 wrap returns before touching a row while the source
+  is the strike) ✓ · `dyn_table_check` 68 · `sequence_check` 180 · `test_snapshots` 30 ✓
+- no non-GET fetch reached the disk (5 stubbed), no confirm ✓
+
+**Found on the way, and it is the method:** an element ref from `find` goes stale as soon as the drawer re-renders its rows — a typed
+value re-renders them — so the refs are fetched again before every typing batch; a `find` on the box's title does not match (the
+accessible name is the placeholder), the nine `dyn` boxes are taken in row order.
+
+**The calls made alone, his to reverse:** the marks hidden under 22 px a gap · a hand-set mark upright and a generated one in italics ·
+the switch a select on the row rather than a column-level box · blank = the deal's own level (a re-generate restores the range's).
+
+**Status:** `1n.2` BUILT, one commit. NEXT: `1n.3` ranges — `flat` and `ramp`, the `dynamics` line, `enter`, the band.
