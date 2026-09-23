@@ -152,6 +152,31 @@ same curve and the eight names must land 4 dB apart on every instrument (51 chec
 
 ---
 
+### Rule 4 — IN A TEXTURE, ONE SCALE FOR SHORT AND HELD *(PLAN 1n.1, 2026-09-22 — his B2, RUNNING_LOG §264 · §296)*
+
+A texture has both kinds by nature: SHORT notes (the standard short of 1m.3) and HELD ones (a length). Rule 3's cure — shape every
+sustained note — does not reach a short note, and a short `pp` on the struck ladder (1b's 12 dB span) beside a held `pp` on the table
+(28 dB) is the +18 dB step of §157 all over again. A wider velocity ladder cannot close it (the english horn, the cello and the bass have
+5–7 dB to give, §263). **His call, B2:**
+
+```js
+short or sampled:  velAbs = the LADDER velocity for its level, per pitch   · cc7Abs = { lo: R, hi: R }, R = DynTable.residual(level)
+follow:            velAbs = the mf velocity (Rule 1)                        · cc7Abs = the table's two values of its own names (Rule 2)
+```
+
+**THE RESIDUAL** (`dyn_table.js residual`): each written step below `fff` is `STEP_DB − spanDb / 7` ≈ 2.29 dB through the instrument's
+measured curve, `spanDb` the remap's written span (12). The ladder gives 1.71 dB a name, the set fader 2.29: together the table's 4 dB —
+one scale for short and held on every instrument, whatever room its samples have. A short note therefore goes out on a CURVE channel
+with one CC7 before its note-on and keeps the timbre of its own dynamic. Residual `pp`: cello 76 · bassoon 57 · english horn 75.
+
+**A held note chooses** `sample | follow | auto` (§265): `follow` traces its level (a hairpin typed on it, or a generated level that
+moves ONE WRITTEN STEP or more across its span); else it is sampled at its onset and held flat on the residual. No length dial.
+
+**Not reached, and the status must say so:** no measured fader curve (the percussion; the vibraphone's mallet voices — the card
+measured the bowed one) → velocity alone on MAIN, as before; and **a voice with NO curve copy** — the SI2 three carry `ord` alone on
+their `b` ports (`curveTechniques: ["ord"]`), so a brass short on `staccato` stays on its own channel at its velocity. The one helper is
+`score/public/texture_dyn.js`; SPACE, the column preview and Insert all read it (§296).
+
 ## 4 · Moving CC7 lives on the CURVE CHANNELS only
 
 D11: **MAIN ch 1 takes no moving controller** — his rack is built that way. Plain notes,
@@ -178,7 +203,7 @@ different doors (RUNNING_LOG §75, then §139) and cost most of a session each t
 > **Any tool that writes a curve event calls `Composer.curveDirty()` before `renderAll()`.**
 
 Who does, as of 2026-09-20: `sequence_ui` · `strike_drawer` · `morph_panel` (all four inserts)
-· `swell_ui` · `fill_ui` · `cresc_*` · `note_card`.
+· `swell_ui` · `fill_ui` · `cresc_*` · `note_card` · and since 2026-09-22 `texture_insert` (1o.5 · 1n.1).
 
 ---
 

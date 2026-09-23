@@ -236,6 +236,8 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   and not, by this reading, for a plain one. **The rhythm sequence panel does not have this fault:** it writes `velAbs` beside `recVel` and
   its capture agreed with the score note for note (§204). **The shape of a fix, if a capture confirms it:** the strikes drawer writes
   `velAbs: remapVel(anchor)` on a plain strike (one field; the score already honours it). Percussion is unaffected (no remap entry).
+  **2026-09-22 — CLOSED FOR THE TEXTURE by PLAN 1n.1 (RUNNING_LOG §296):** `texture_insert.js` writes `velAbs` on EVERY note it inserts (the
+  ladder velocity, or mf for a follow), verified note for note against SPACE's list. The strike's own Insert (`strike_drawer.js`) still stands as read above.
 
 
 ### Deferred at his word — a GLOBAL volume normalization of the whole composer, by the texture's split (2026-09-22, RUNNING_LOG §264 · LG-88)

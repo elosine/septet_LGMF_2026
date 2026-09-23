@@ -29,6 +29,7 @@ const copy = v => JSON.parse(JSON.stringify(v));
 const escH = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const shortOf = lane => { const t = TRK()[lane]; return (t && (t.short || t.label)) || ('L' + lane); };
 const COLOR = '#7FB8A4';   // the pattern's colour in the score — the strike is gold, the sequence blue
+const MIN_Y = 0.05, MF_LEVEL = (100 - 65) / 62;   // 1n.1: a drawn node never sits at zero; mf on the written ladder (the sequence's `mfLevel`)
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
 
@@ -88,15 +89,29 @@ Object.assign(D, {
             if (typeof C.trillCovers === 'function' && C.trillCovers(n.lane, start)) { busy.push(shortOf(n.lane) + '@' + start.toFixed(2)); return; }   // TRILLS_TOOL §7, as D.insert
             maxEnd = Math.max(maxEnd, n.end);
             const c = (doc.cols || {})[n.k] || {}, len = this.txLenS(c, n.row != null ? n.row : n.lane);
-            // 1c.2b (D.insert): the drawn height MEANS the anchor — (vel − 65) / 62, a hair above 0 so the curve stays visible
-            const lv = Math.max(0.05, Math.round(((clamp(Math.round(n.vel), 65, 127) - 65) / 62) * 100) / 10);
+            // 1n.1 — THE ONE HELPER'S ANSWER (texture_dyn.js, dressed onto the list by txNotesBetween, so Insert writes WHAT SPACE PLAYS):
+            //   `sample` (a short note, or a held one whose level does not move a written step) — B2: struck at its LADDER velocity
+            //   (`velAbs`), its fader SET ONCE from the residual (`cc7Abs` lo === hi, so heldCc7 answers it whatever the height), DRAWN at
+            //   its written height, a CURVE EVENT (no `plain`) so the score's map puts it on a curve channel · `follow` — struck at MF,
+            //   the fader between the table values of its own two names, every breakpoint on its own value (the sequence's idiom), `velRef`
+            //   the mf height · `plain` / `main` — velocity alone (`velAbs`), MAIN, as the strike writes it: no measured curve, or no
+            //   curve copy for the voice. Without the helper on the page: 1c.2b's rule, as 1o.5 wrote it.
+            const S = n.dyn || null, shaped = !!(S && (S.how === 'sample' || S.how === 'follow') && S.cc7Abs);
+            const yOf = h => Math.max(MIN_Y, Math.min(10, Math.round(1000 * 10 * Math.max(0, Math.min(1, h))) / 1000));
+            const lv = S ? yOf(S.level < 0 ? 0 : S.level) : Math.max(0.05, Math.round(((clamp(Math.round(n.vel), 65, 127) - 65) / 62) * 100) / 10);   // 1c.2b: the drawn height MEANS the written level — (vel − 65) / 62
+            const nodes = (shaped && S.how === 'follow' && !S.flat) ? S.heights.map(h => ({ pos: h[0], y: yOf(h[1]), smooth: 0.25 })) : [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }];
+            const segments = []; for (let q = 1; q < nodes.length; q++) segments.push({ model: 'power', slope: 0 });
+            const dynTxt = S ? ' · ' + (S.text || '') + (S.how === 'follow' ? ' (follow)' : S.how === 'sample' ? '' : ' (velocity alone)') : '';
             C.objects.push(Object.assign({ id: 'wc-' + (C.nextId++), type: 'waveCurve', layer: n.lane, groupId: group,
                 startSeconds: start, endSeconds: n.end,
-                nodes: [{ pos: 0, y: lv, smooth: 0.25 }, { pos: 1, y: lv, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }],
+                nodes: nodes, segments: segments,
                 color: COLOR, fillMode: 'bottom', opacity: 0.55, properties: {}, srcKind: 'pattern',
-                performanceNotes: name + (c.take ? ' · ' + c.take : '') + ' · ' + (len ? len.s + ' s' + (len.own ? ' (their own)' : '') : 'short') + (n.partial != null ? ' · partial ' + n.partial : '') + (n.cents ? ' · ' + (n.cents > 0 ? '+' : '') + Math.round(n.cents) + '¢ just' : ''),
+                performanceNotes: name + (c.take ? ' · ' + c.take : '') + ' · ' + (len ? len.s + ' s' + (len.own ? ' (their own)' : '') : 'short') + dynTxt + (n.partial != null ? ' · partial ' + n.partial : '') + (n.cents ? ' · ' + (n.cents > 0 ? '+' : '') + Math.round(n.cents) + '¢ just' : ''),
                 sonifyNote: n.midi, technique: n.tech, recVel: n.vel },
-                (n.seat || n.cents) ? {} : { sonifyMode: 'plain' },   // 1c.3 / 1c.4, as D.insert: a seat's note or a bent note is DRAWN (its own curve channel), the rest hold MAIN
+                S ? { velAbs: S.velAbs } : {},   // 1n.1: the note-on pinned — the ladder velocity (B2), or mf for a follow; the plain-strike fault of NITS closed for the texture
+                shaped ? { cc7Abs: { lo: S.cc7Abs.lo, hi: S.cc7Abs.hi } } : {},
+                (shaped && S.how === 'follow') ? { velRef: yOf(MF_LEVEL) } : {},
+                (shaped || n.seat || n.cents) ? {} : { sonifyMode: 'plain' },   // 1c.3 / 1c.4, as D.insert: a seat's note or a bent note is DRAWN (its own curve channel); 1n.1: a shaped note too; the rest hold MAIN
                 n.cents ? { morphBend: [[0, +(+n.cents).toFixed(2)], [dur, +(+n.cents).toFixed(2)]] } : {}));
             written++;
         });
@@ -120,6 +135,7 @@ Object.assign(D, {
             (gone ? ' · replaced ' + gone + ' objects' + (sits != null && !inPlace ? ' at ' + sits.toFixed(3) + ' s' : '') : '') +
             (he && he.edited ? ' · ' + he.edited + ' note' + (he.edited === 1 ? '' : 's') + ' had been moved or re-pitched by hand — overwritten: the pattern is the truth' : '') +
             (he && he.missing > he.edited ? ' · ' + (he.missing - he.edited) + ' of its notes had been deleted — written again' : '') +
+            (typeof this.txDynText === 'function' ? this.txDynText(L.notes) : '') +   // 1n.1: what went onto the one scale, and what stayed on velocity alone
             (busy.length ? ' · ' + busy.length + ' skipped — trilling: ' + busy.join(' ') : ''));
     },
     // REOPEN a placed pattern from the score's list: a row like any other, untitled until named; it keeps its id, so a re-insert replaces its group

@@ -60,5 +60,19 @@
     const a = cc7(bank, instKey, lo), b = cc7(bank, instKey, hi);
     return b === a ? 1 : clamp01((cc7(bank, instKey, level) - a) / (b - a));
   }
-  return { NAMES, STEP_DB, FALLBACK_K, levelOfName, dbOf, curveOf, hasCurve, cc7, range, height };
+  // PLAN 1n.1 (LGMF, 2026-09-22; RUNNING_LOG §263 · §264 — his B2): THE RESIDUAL. A SHORT note in a texture keeps its LADDER velocity
+  // (1b's remap — the timbre of its dynamic; the written span is `spanDb`, 12 dB over the seven steps, ≈ 1.71 dB a name) and goes out
+  // on a curve channel with its fader SET ONCE from this second table: each written step below `fff` is (STEP_DB − spanDb / 7) dB
+  // ≈ 2.29, through the SAME measured curve — so velocity + fader = STEP_DB a name, the held notes' scale, on every instrument whatever
+  // room its samples have. Nothing above changes: the sequences, the morph and the crescendo tool read `range` / `height` as before.
+  // `spanDb` is read from the bank where it records it (`scale.spanDb`), else 12 [call, §275]. A level below 0 is niente → CC7 0.
+  function spanDb(bank) { const s = bank && bank.scale ? +bank.scale.spanDb : NaN; return (s > 0 && s < STEPS * STEP_DB) ? s : 12; }
+  function residualStepDb(bank) { return STEP_DB - spanDb(bank) / STEPS; }
+  function residual(bank, instKey, level) {
+    if (level < 0) return 0;
+    const db = -(1 - clamp01(level)) * STEPS * residualStepDb(bank), c = curveOf(bank, instKey), V = VR && VR();
+    if (c && V && V.cc7ForDelta) return clampCc(V.cc7ForDelta(c, db));
+    return clampCc(127 * Math.pow(10, db / FALLBACK_K));
+  }
+  return { NAMES, STEP_DB, FALLBACK_K, levelOfName, dbOf, curveOf, hasCurve, cc7, range, height, spanDb, residualStepDb, residual };
 });

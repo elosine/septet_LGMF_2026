@@ -11264,3 +11264,108 @@ whether it goes into git is his call (§278). **The calls made alone in the buil
 (§291) · the texture in an untitled name, and the id beside it (§293) · a blank pattern is not a document (§293) · the row grows to its
 bar lines on a texture take (§294) · the `•` ignores `sel` and `cursor` (§294) · the drawer's own Insert button taken over, the strike's
 other two inserts refused on a texture take (this entry) · the pattern's colour.
+
+## §296. `1n.1` ONE SCALE FOR SHORT AND HELD — built and verified: B2's residual, `sample | follow | auto`, the one helper, the cut and the flag; THE SHIELD byte-identical (2026-09-22, Fable)
+
+**Prompted by:** his word after `/postclear` — *"go for the 1n dynamics build, try to build as much as possible independantly"* — given on
+Fable (the checkpoint had said Opus for the build; his word decides). `1o.6`, his one test of the save structure, is still his; nothing
+of it was waited for. Built from PLAN § `1n.1` as written (§275) and `docs/DYNAMICS_LAW.md`.
+
+**Built — five files, one new:**
+- `score/public/dyn_table.js` gains THE RESIDUAL beside the table, nothing else changed: `residual(bank, key, level)` = the CC7 of a
+  written level at `(STEP_DB − spanDb / 7)` dB per step under 127, through the instrument's measured curve; `spanDb` read from the bank's
+  `scale.spanDb` (12) else 12 [call, §275]; `STEP_DB` stays 4; a level below 0 is niente → 0. So the ladder's 1.714 dB a name + the
+  residual's 2.286 = 4.000, the held notes' scale, on every instrument. The residual rows (ppp … fff): english horn 68 75 82 90 98 107
+  117 127 · bassoon / horn / trumpet 50 57 64 74 85 97 111 127 · vibraphone / cello / bass 69 76 82 90 98 107 117 127.
+- `tools/dyn_table_check.js` **51 → 68**: the two steps sum to STEP_DB · the span read from the bank · per instrument the residual's
+  fff = 127, monotone, every name within 0.4 dB of its (STEP_DB − span/7) step (worst 0.15 dB) · niente → 0, no bank → the UVI law.
+- **`score/public/texture_dyn.js`, NEW — THE ONE HELPER** (as `morph_dyn.js` is to the morph). Two parts. The PURE core (`TextureDyn`,
+  node-loadable): `parse` (the typed box of §272 — one to three names, dash or space, case forgiven, `n` only at an end, anything else
+  refused with the reason) · `pointsOf` (a note's level breakpoints from a typed string spread evenly, a generator's `{ pts }`, a number, or
+  the fallback) · `decide(mode, pts)` (§265: `auto` = follow when the level moves one written step or more across the span) ·
+  `shapeShort` (B2: `velAbs` = the LADDER velocity per pitch, `cc7Abs` lo = hi = the residual) · `shapeHeld` (`velAbs` = mf per pitch,
+  `cc7Abs` between the table values of the note's lowest and highest level, every breakpoint on its own value, niente = 0) ·
+  `shapePlain` (velocity alone) · `rampPoints` (the CC7 points Hear sends). The MIXIN on the drawer: `txDress(list, doc)` puts the answer
+  on every column note (`n.dyn` · `n.velAbs`) — a note with no length is a SHORT and samples (a typed hairpin on it: the first name, §272);
+  a note with a length is HELD and takes `sample | follow | auto` (the row's own `fol[lane]`, else the column's `follow`, else auto; a
+  typed hairpin = follow); the level with no spec = the deal's own velocity on the ladder, so an untouched pattern keeps its velocities ·
+  `txDynMeasured` (the bank's curve; on the vibraphone the BOWED voices only — the card measured the bowed one [call]) · `txDynSeats`
+  (the sequence's `curveSeats`: a marker seat `'cN'` per shaped note, round robin per player in time order, resolved by sequence_ui's wrap
+  of `routeFor`; a real seat keeps its channel and the pool skips it; NO curve copy for the voice → the note stays on its own channel with
+  its velocity and is counted) · `txScheduleDyn` (after `playNotes`: one CC7 point for a set fader, the ramp every 50 ms for a follow,
+  each 15 ms before its moment — after playNotes' own CC7 at 30 ms, before the note-on: the sequence's idiom) · `txDynText` (the status:
+  how many on the one scale, set and follow, the fader's span, who is on velocity alone and why) · `txCollisions` (THE FLAG, below).
+- `score/public/texture_cols.js`: `txNotesBetween` (the ONE list) takes the cut length and is dressed at the end — so SPACE and Insert read
+  one answer; `txPlay` dresses the whole list (the notes already sounding at the cursor included, §285, their fader started mid-way) and
+  schedules the faders after `playNotes`; `txHearColumn` the same for the column preview; `txRenderCols` draws the bar TO THE CUT and the
+  flagged circles in the warning colour; the `i` and the lines carry the count. **THE CUT (§277, his B):** `txNextOnset` · `txPlayLenMs` —
+  a length that runs into that player's next ON onset ends there; the stored length untouched.
+- `score/public/texture_insert.js`: the note block re-pointed at the dressed list — a `sample` note DRAWN at its written height with
+  `velAbs` (the ladder) and `cc7Abs` lo = hi (the residual), no `plain`, so the score's own map puts it on a curve channel; a `follow` note's
+  nodes = the helper's heights, `velAbs` = mf, `cc7Abs` its two table values, `velRef` the mf height; a `plain` / `main` note `plain` with
+  `velAbs` (velocity alone, as the strike writes it — **the plain-strike fault of NITS is closed for the texture**: Insert now writes what Hear
+  sends); the performance note names the level and `(follow)` or `(velocity alone)`; the status carries `txDynText`.
+- `composer.html`: one script tag after `texture_cols.js`. `strike_drawer.js` · `sequence_ui.js` · `texture_row.js` · `texture_lens.js`
+  · `texture_lib.js` untouched.
+
+**THE FLAG (§277, LG-58), and a call made while verifying it:** the first form used the score's `pairTier` whole — and flagged the CUT
+cello against its own next onset 1.09 s later, because the cut leaves no tongue reset (the law's SOFT tier counts the silence between a
+note-off and the next note-on). His rule is *two ATTACKS closer than the instrument's minimum gap*; the sounding overlap is what the cut
+removes by construction. So the flag judges the attacks alone — `Composer.requiredAttack` (0.11 s at a half step, the leap adding up to
+0.22 s) — over the pattern's ON columns, on one player at a time [call]. Both circles in the warning colour, the count in the row's line
+and the column's line, nothing moved.
+
+**REQUIRED VERIFICATION — `score-5401`, journal §2's method, no MIDI (the outputs stubbed and captured), the confirms counted, every
+non-GET fetch and the beacon stubbed:** a fresh pattern on `LGMF-S2-R1a` with a synthetic onset 40 ms after the first (the document's
+own dots), three marks on — A at 0.000 with every player, C at 0.040 with the bassoon, B at 1.091 with the cello; on A every row `pp`, the
+cello a 3 s length under `pp-f`, the horn 3 s under a fast `{ pts }` (pp → mf), the bass 0.3 s under a slow one (pp → pp + 0.05).
+- **`Hear orchestrated` at `pp`** (the button, the column): every SHORT note-on at its LADDER velocity — Bsn 67 · EH 72 · Tpt 58 · Db 61 —
+  and, on the same port and channel before it, a CC7 = the RESIDUAL's `pp` — 57 · 75 · 57 · 76 — on a CURVE channel (`lgbassoonb/3`,
+  `lgenghorn/2`, `lgtrumpetb/5`, `lgbass/2`); the cello struck at **mf (89)** with CC7 **51 → 94** (the table's pp → f) rising every 50 ms;
+  the horn at mf (83), 32 → 63; **MAIN ch 1: the percussion alone (v74, CC7 127) and the two vibraphone mallets (v79)** — velocity alone,
+  named in the status; CC1: none ✓
+- **`auto`:** the 0.3 s bass under the slow level → `sample` (the level moves 0.05, under a step); the 3 s horn under the fast one →
+  `follow` ✓
+- **at `fff`:** every shaped note's CC7 before its note-on **127**, the velocities the ladder's fff per instrument (Bsn 119 · Db 116 · Vc
+  123 · the rest 127) ✓
+- **the english horn on `senza_mw` (loud: mw):** the same rule — CC0 1, CC7 75 before the note-on v72 on ch 2; **no CC1** ✓
+- **SPACE from the cursor, the claves off:** 11 notes over the three columns; every shaped note's CC7 before it; the cut cello's ramp
+  51 … 94 over 1.091 s (24 points) on ch 2, then the cello at B on ch 3 (its seat rotated; 98 = the mf residual, the deal's own level);
+  MAIN ch 1 the percussion and the mallets only ✓
+- **Insert at 100 s:** 11 written = 11 wanted, every object's `velAbs` and `cc7Abs` equal to the list's, `plain` exactly where the helper
+  said velocity alone (`isCurveEvent` true for the eight shaped, false for the three plain), the follow note's nodes 0.05 → 10 with `velRef`
+  5.645, the sample notes at 1.429 (pp's written height), the cut cello 1.091 s long, one META bar, `curveDirty` called ONCE, the status
+  naming *8 on the one scale (7 set, 1 follow) · CC7 51…98 · velocity alone: Perc, Vib (mallet)* ✓
+- **THE CUT:** the cello at A under a 3 s length with the cello ON at B (1.091 s) → `durMs` 1091, `lens[6]` still 3, the bar 68.7 px at
+  62.97 px/s = 1.091 s (the horn's uncut bar 188.9 = 3.0 s) ✓
+- **THE FLAG:** the bassoon at A and C, 40 ms apart → both circles in the warning colour, *1 too close on one player (Bsn 1) — flagged,
+  nothing moved* in the row's line and the column's line, the dots' times unchanged ✓ (the cut cello NOT flagged, after the call above)
+- **`dyn_table_check` 68 · `sequence_check` 180 · `test_snapshots` 30** ✓
+- **THE SHIELD — captured BEFORE on HEAD's files (the build stashed, the tab reloaded) and AFTER, byte-identical:** the strike mode's
+  Hear on the starter harmony (3 messages) · the strike's Insert (2 objects) · his sequence `LGMF-R01c`'s Hear (243 messages) · its
+  Insert (137 objects). The morph's Hear was NOT captured: no morph file changed and `dyn_table.js`'s existing functions are byte-identical
+  in behaviour; the claim rests on that, not on a capture.
+
+**A FINDING FOR HIM, from the staccato capture:** the SI2 three carry a curve copy for **`ord` alone** (`curveTechniques: ["ord"]` — the
+`b` ports hold one voice). A texture short on the bassoon's `staccato` therefore stays on its own channel (`lgbassoon/14`) at its velocity
+with the fader at 127 — B2 cannot reach it — and the status says so: *on MAIN, no curve copy for the voice (velocity alone): Bsn staccato*.
+On the drawer's current set the three brass deal `ord`, so the capture at `pp` had them on the one scale; Texture's own short defaults
+of `1l.1` (`staccato` for Bsn · Hn · Tpt) would not be. Whether the `b` instances should carry a second voice is his call (the rack, LG-82's
+rule against a rebuild); nothing here decides it.
+
+**Two things about the method, pinned:** (1) **§295's mystery writer of `bank/sequences.json` is the THROWAWAY PAGE ITSELF** — at boot
+the sequence drawer POSTs the row its localStorage holds (`libLoad`, *"the first save of a row that only lived in localStorage"*), 2 s
+after load; on this session's first load the stub was installed after a 2.5 s sleep and the file was re-stamped again at 21:38:55
+(`LGMF-R01c`, the row as the throwaway held it), and `bank/patterns.json` was created at 21:38:53 by the pattern library's migration of the
+throwaway's own untitled document. Every later load installed the stub FIRST and wrote nothing. The rule for the binding block: **the
+fetch and beacon stubs go in the same batch as the navigation, before any sleep**; and at a session's end **clear the throwaway's
+`lgmf.sequenceDrawer.v1` · `lgmf.rhythmSequence.v1` · `lgmf.textureRow.v1`**, so the next first load has nothing to save (done today).
+`bank/patterns.json` deleted again (the throwaway's one entry); `bank/sequences.json` re-stamped once more, its row unchanged — his file,
+his to commit. (2) The strike Hear's first BEFORE capture was the sequence's: the sequence drawer was open and ACTIVE from the throwaway's
+state, and its wrap of `play('orch')` takes SPACE — `SequenceDrawer.setActive(false)` before capturing the strike.
+
+**The calls made alone, his to reverse:** the flag on attacks alone (above) · the vibraphone's bowed voices the measured ones · a note
+with no level anywhere keeps the deal's own velocity as its level · a voice with no curve copy on velocity alone rather than mf on MAIN ·
+a typed hairpin on a short note takes its first name (§272) · the residual's span from the bank.
+
+**Status:** `1n.1` BUILT, one commit. NEXT: `1n.2` the single note by hand (the `dyn` box per row, the column's mark).

@@ -82,5 +82,22 @@ ok(nb[nb.length - 1] === 127 && nb.every((v, i) => i === 0 || v > nb[i - 1]) && 
 ok(T.levelOfName('mf') === 4 / 7 && T.levelOfName('nonesuch') === null, 'levelOfName: mf = 4/7, an unknown name is null');
 ok(T.dbOf(1) === 0 && T.dbOf(0) === -28 && T.cc7(BANK, 'cello', 2) === 127 && T.cc7(BANK, 'cello', -1) === T.cc7(BANK, 'cello', 0), 'levels clamp to 0 … 1 (ppp … fff)');
 
+// 11 — PLAN 1n.1, THE RESIDUAL (B2, RUNNING_LOG §264): the ladder's step plus the residual's step = STEP_DB on every instrument; the
+//      residual read back through the curve lands its eight names (STEP_DB − span/7) dB apart; fff = 127; monotone; niente = 0
+console.log('\nTHE RESIDUAL (1n.1) — a set fader under a short note struck on the ladder: ' + T.residualStepDb(BANK).toFixed(3) + ' dB a step (span ' + T.spanDb(BANK) + ' dB over ' + (T.NAMES.length - 1) + ' steps)\n');
+console.log('  instrument         ' + T.NAMES.map(n => n.padStart(4)).join(''));
+for (const k of PITCHED) console.log('  ' + k.padEnd(18) + T.NAMES.map(n => String(T.residual(BANK, k, L(n))).padStart(4)).join(''));
+console.log('');
+ok(T.spanDb(BANK) === 12 && Math.abs(T.spanDb(BANK) / (T.NAMES.length - 1) + T.residualStepDb(BANK) - T.STEP_DB) < 1e-9, 'the ladder\'s step (' + (T.spanDb(BANK) / (T.NAMES.length - 1)).toFixed(3) + ' dB) + the residual\'s (' + T.residualStepDb(BANK).toFixed(3) + ' dB) = STEP_DB ' + T.STEP_DB + ' — one scale for short and held');
+ok(T.spanDb(null) === 12 && T.spanDb({ scale: { spanDb: 10 } }) === 10, 'the span is read from the bank where it records it, else 12');
+for (const k of PITCHED) {
+    const row = T.NAMES.map(n => T.residual(BANK, k, L(n))), c = T.curveOf(BANK, k);
+    ok(row[row.length - 1] === 127 && row.every((v, i) => i === 0 || v > row[i - 1]), k + ': residual fff = 127, monotone, ' + row.join(' → '));
+    const errs = T.NAMES.map((n, i) => dbAt(c, T.residual(BANK, k, L(n))) - (-(T.NAMES.length - 1 - i) * T.residualStepDb(BANK)));
+    const worst = Math.max(...errs.map(Math.abs));
+    ok(worst <= 0.4, k + ': every residual name within 0.4 dB of its (STEP_DB − span/7) step (worst ' + worst.toFixed(2) + ' dB)');
+}
+ok(T.residual(BANK, 'cello', -1) === 0 && T.residual(null, null, L('fff')) === 127 && T.residual(null, null, L('ppp')) < 127, 'niente → 0 · no bank → the UVI law, fff 127');
+
 console.log('\n' + (fail ? 'DYN TABLE RED: ' + fail + ' failed' : 'DYN TABLE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);
