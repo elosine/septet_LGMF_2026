@@ -192,5 +192,134 @@ function boot() {
 }
 boot();
 
+// ---------------------------------------------------------------- THE LIBRARY CONTROLS (1o.4) — SEQUENCE_TOOL §16's rules, word for word
+// `name` + ENTER MOVES the entry (a name in use asks; a cleared name moves it back to the stack, asked) · `save` keeps, `revert` returns —
+// two states per name and never more · `•` while the document differs from its keeper (less `sel` and `cursor`: what is open is not a
+// change [call]) · `duplicate` asks for a name and copies WITH A NEW ID, so Insert writes it beside · `×` deletes the one chosen, asked
+// once · `new` = an empty pattern on the same texture (this document's own onsets), destroys nothing.
+const isEnter = ev => ev.key === 'Enter' || ev.code === 'Enter' || ev.code === 'NumpadEnter' || ev.keyCode === 13;
+const isEsc = ev => ev.key === 'Escape' || ev.code === 'Escape' || ev.keyCode === 27;
+const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
+const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
+const strip = d => { const o = Object.assign({}, d); delete o.sel; delete o.cursor; return JSON.stringify(o); };
+Object.assign(D, {
+    tlibDirty() { const d = this.txPat(), k = this._txS.kept; return !!(d && k && strip(d) !== strip(k)); },
+    async tlibSetName(next) {
+        const doc = this.txPat(); if (!doc) return false;
+        const name = String(next || '').trim(), w = this.tlibWhere();
+        if (name && !NAME_RE.test(name)) { this.setStatus('a name may hold letters, digits, dot, underscore, space or hyphen, up to 64 — not "' + name + '"', true); this.txPaintLib(); return false; }
+        if (name === (doc.name || '')) { this.txPaintLib(); return true; }
+        if (name && name !== w.name && this.tlibIx(LIB.named)[name] && !window.confirm('"' + name + '" is already in the pattern library.\n\nReplace it with this pattern?')) { this.txPaintLib(); return false; }
+        if (!name && w.panel === LIB.named && !window.confirm('Un-name this pattern?\n\nIt moves back to the untitled stack — nothing is lost, but it is no longer kept by name.')) { this.txPaintLib(); return false; }
+        const to = name ? { panel: LIB.named, name } : { panel: LIB.untitled, name: this.tlibStamp(doc) };
+        doc.name = name; this._txS.lib = to; this.txPersist(true);
+        await this.tlibFlush();
+        if (w.name && (w.panel !== to.panel || w.name !== to.name)) {
+            try { await this.tlibPost({ panel: w.panel, name: w.name, delete: true }); if (this._tlib[w.panel]) delete this._tlib[w.panel][w.name]; } catch (e) {}
+        }
+        this.txPaintPat(); this.txRender();
+        this.setStatus(name ? 'saved as "' + name + '" — it autosaves to that name from now on' : 'un-named — back in the untitled stack as "' + to.name + '"');
+        return true;
+    },
+    tlibKeep() {
+        const doc = this.txPat(); if (!doc) return;
+        if (this.tlibBlank(doc)) { this.setStatus('nothing to save yet — turn marks on, deal a column, or name it first', true); return; }
+        this._txS.kept = copy(doc); this.txPersist();
+        this.setStatus('saved' + (this._txS.lib ? ' as the keeper of "' + this._txS.lib.name + '"' : '') + ' — revert comes back to this state');
+    },
+    tlibRevert() {
+        const k = this._txS.kept; if (!k) { this.setStatus('there is no saved state to revert to — press save first', true); return; }
+        if (!window.confirm('Revert to the saved state?\n\nEverything changed since save is lost.')) return;
+        const e = (typeof MorphEmit !== 'undefined' ? MorphEmit : root.MorphEmit); if (e && e._playing) { e.panic(); this.onStopped(); }
+        const w = this._txS.lib, doc = copy(k);
+        this.txLoad(doc, w ? { panel: w.panel, name: w.name, kept: k } : null);
+        this.txRender(); this.setStatus('reverted to the saved state · ' + (doc.on || []).length + ' on');
+    },
+    async tlibDuplicate() {
+        const doc = this.txPat(); if (!doc) return;
+        const suggest = doc.name ? (doc.name + ' 2').slice(0, 64) : '';
+        const name = String(window.prompt('Duplicate this pattern as:', suggest) || '').trim();
+        if (!name) return;
+        if (!NAME_RE.test(name)) { this.setStatus('a name may hold letters, digits, dot, underscore, space or hyphen, up to 64 — not "' + name + '"', true); return; }
+        if (this.tlibIx(LIB.named)[name] && !window.confirm('"' + name + '" is already in the pattern library.\n\nReplace it?')) return;
+        await this.tlibFlush();                                  // the original, under its own name, first
+        doc.id = 'p' + Date.now().toString(36); doc.name = name;
+        this._txS.lib = { panel: LIB.named, name }; this._txS.kept = null; this.txPersist(true);
+        await this.tlibFlush();
+        this.txPaintPat(); this.txRender();
+        this.setStatus('duplicated as "' + name + '" — a pattern of its own: Insert writes it beside the original, not over it');
+    },
+    async tlibDelete(key) {
+        const w = this.txOpenKey(key) || this.tlibWhere(); if (!w || !w.name) { this.setStatus('choose a pattern in the list to delete, or this one once it is saved', true); return; }
+        if (!window.confirm('Delete "' + w.name + '" from the pattern library?\n\nThis cannot be undone.')) { this.txPaintPat(); return; }
+        try { await this.tlibPost({ panel: w.panel, name: w.name, delete: true }); } catch (e) { this.setStatus('not deleted: ' + (e && e.message || e), true); return; }
+        if (this._tlib && this._tlib[w.panel]) delete this._tlib[w.panel][w.name];
+        const me = this.tlibWhere(), mine = w.panel === me.panel && w.name === me.name;
+        if (mine) { this._txS.lib = null; this._tlibLast = ''; this.txPersist(true); }   // the pattern stays on screen; the next change writes it again, untitled
+        this._txPatSig = ''; this.txPaintPat();
+        this.setStatus('deleted "' + w.name + '"' + (mine ? ' — the pattern is still here, and the next change saves it again as a new untitled' : ''));
+    },
+    // `new`: an empty pattern on the same texture — this document's own copy of the onsets, so it needs neither Texture nor the store
+    tlibNew() {
+        const doc = this.txPat(); if (!doc) { this.setStatus('choose a texture first', true); return; }
+        this.tlibFlush();
+        const e = (typeof MorphEmit !== 'undefined' ? MorphEmit : root.MorphEmit); if (e && e._playing) { e.panic(); this.onStopped(); }
+        const fresh = this.txDocNew(copy(doc.texture)); if (doc.short) fresh.short = doc.short;
+        this.txLoad(fresh, null); this._tlibLast = ''; this.txRender();
+        this.setStatus('a new pattern on "' + doc.texture.name + '" · ' + doc.texture.n + ' onsets, none on · the one you left is under pattern ▾');
+    },
+    txPaintLib() {
+        const q = s => this.el && this.el.querySelector(s), doc = this.txPat(), w = this.tlibWhere();
+        const nb = q('#txName'); if (nb && document.activeElement !== nb) nb.value = doc ? (doc.name || '') : '';
+        const dot = q('#txDot'); if (dot) dot.style.display = this.tlibDirty() ? '' : 'none';
+        const rv = q('#txRevert'); if (rv) rv.disabled = !this._txS.kept;
+        const wh = q('#txWhere'); if (wh) { wh.textContent = !doc ? '' : w.name ? (w.panel === LIB.named ? 'saved as "' + w.name + '"' : 'autosaving') : 'not saved yet'; wh.title = w.name ? 'this pattern autosaves to bank/patterns.json, panel `' + w.panel + '`, under "' + w.name + '"' : 'this pattern is saved to bank/patterns.json at its first change'; }
+    },
+});
+const _txEnsureUI = D.txEnsureUI;
+D.txEnsureUI = function () {
+    const r = _txEnsureUI.apply(this, arguments);
+    const bar2 = this.el && this.el.querySelector('#txBar2');
+    if (bar2 && !bar2.querySelector('#txName')) {
+        const box = document.createElement('span'); box.style.cssText = 'display:inline-flex;align-items:center;gap:5px';
+        box.innerHTML =
+            '<input id="txName" type="text" placeholder="name" maxlength="64" style="' + INP + ';width:110px" title="PLAN 1o.4: the pattern\'s NAME — ENTER saves it under that name in the library (a name in use asks); clear it and ENTER moves it back to the untitled stack. It autosaves either way">' +
+            '<span id="txDot" style="color:#E8CF9A;font-size:14px;line-height:10px;display:none" title="changed since save — revert comes back to the saved state">&#8226;</span>' +
+            '<button id="txSave" style="' + BTN + '" title="keep this state — revert comes back to it; two states per name and never more">save</button>' +
+            '<button id="txRevert" style="' + BTN + '" title="back to the saved state (asked once)">revert</button>' +
+            '<button id="txDup" style="' + BTN + '" title="a copy under another name, WITH A NEW ID — Insert writes it beside the original, not over it">duplicate</button>' +
+            '<button id="txDel" style="' + BTN + '" title="delete the pattern chosen in the list (or this one, once saved) from the library — asked once">&#215;</button>' +
+            '<button id="txNew" style="' + BTN + '" title="an empty pattern on the same texture — the one you leave is already in the library">new</button>' +
+            '<span id="txWhere" style="color:#777;cursor:help"></span>';
+        bar2.appendChild(box);
+        const nb = box.querySelector('#txName');
+        nb.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); this.tlibSetName(nb.value); nb.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintLib(); nb.blur(); } });
+        nb.addEventListener('change', () => this.tlibSetName(nb.value));
+        box.querySelector('#txSave').addEventListener('click', () => this.tlibKeep());
+        box.querySelector('#txRevert').addEventListener('click', () => this.tlibRevert());
+        box.querySelector('#txDup').addEventListener('click', () => this.tlibDuplicate());
+        box.querySelector('#txDel').addEventListener('click', () => { const s = this.el.querySelector('#txPatSel'); this.tlibDelete(s && s.value ? s.value : null); });
+        box.querySelector('#txNew').addEventListener('click', () => this.tlibNew());
+    }
+    return r;
+};
+const _txPaintPat = D.txPaintPat;
+D.txPaintPat = function () { const r = _txPaintPat.apply(this, arguments); try { this.txPaintLib(); this.txFitBars(); } catch (e) { console.warn('[texture_lib] paint:', e); } return r; };
+// the row's width is the drawer's `rhythmW` (480 unless he dragged it), sized for the strike's controls; on a texture take the two bar
+// lines need more, so the row's flex basis grows to the wider of them (texture mode only — the strike keeps its width) [call]
+D.txFitBars = function () {
+    const wrap = this.el && this.el.querySelector('#skRhyWrap'); if (!wrap || !this.txIsOn()) return;
+    const b1 = wrap.querySelector('#txBar'), b2 = wrap.querySelector('#txBar2'); if (!b1 || !b2) return;
+    const content = b => { const c = b.lastElementChild; return c ? c.getBoundingClientRect().right - b.getBoundingClientRect().left : 0; };   // the CONTENT's width — a bar spans the row, so its scrollWidth is the row's
+    const need = this._txFitNeed = Math.max(this._txFitNeed || 0, Math.ceil(Math.max(content(b1), content(b2))) + 14);   // grows, never shrinks: the controls stay put as the words change
+    const basis = Math.max(320, Math.min(1400, this.cfg.rhythmW || 480));
+    const want = '1 0 ' + Math.min(1400, Math.max(basis, need)) + 'px';
+    if (wrap.style.flex !== want) wrap.style.flex = want;   // txApply sets the strike's basis on every render; this follows it
+};
+const _txApply = D.txApply;
+D.txApply = function () { const r = _txApply.apply(this, arguments); try { this.txFitBars(); } catch (e) {} return r; };
+const _txPersist2 = D.txPersist;
+D.txPersist = function () { const r = _txPersist2.apply(this, arguments); try { this.txPaintLib(); } catch (e) {} return r; };
+
 root.TextureLib = { LIB, NAME_RE };
 }(typeof self !== 'undefined' ? self : this));

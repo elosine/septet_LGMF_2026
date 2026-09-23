@@ -2108,7 +2108,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       51 untitled → 50 after a save · the migration on a browser key with two textures → two untitled entries, the key trimmed, run twice → no
       duplicates · THE SHIELD: the sequence library's file untouched, byte-identical.
 
-  - **1o.4 — The library controls** (`name · save · revert · • · duplicate · × · new` in the row's bar — the sequence library's rules, verbatim)
+  - **1o.4 — The library controls** (`name · save · revert · • · duplicate · × · new` in the row's bar — the sequence library's rules, verbatim) — **`built` 2026-09-22 (Fable, RUNNING_LOG §294), verified with the pane's real input, THE SHIELD byte-identical; [call] the row grows to its bars on a texture take**
     - In the row's command bar, texture mode only: a name box · `save` · `revert` · the `•` while the document differs from `kept` · `duplicate` · `×`
       · `new`. The rules of SEQUENCE_TOOL §16, word for word: a name + ENTER MOVES the entry (a name in use asks; a cleared name moves it back to
       the stack, asked) · `save` keeps, `revert` returns, two states per name and never more · `duplicate` asks for a name and copies WITH A NEW ID,

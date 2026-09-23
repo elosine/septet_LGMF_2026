@@ -127,7 +127,7 @@ Object.assign(D, {
         bar2.style.cssText = 'position:absolute;left:4px;top:' + (LINE_H + 2) + 'px;right:4px;height:' + (LINE_H - 2) + 'px;display:flex;gap:6px;align-items:center;font-size:10px;z-index:2;white-space:nowrap';
         bar2.innerHTML =
             '<span style="color:#9a9;cursor:help" title="PLAN 1o (2026-09-22): THE PATTERN — a document of its own on one texture: its marks, range, cursor, short and columns, carrying its own copy of the onsets. texture ▾ above starts a new empty one; this menu brings one back">pattern</span>' +
-            '<select id="txPatSel" style="' + INP + ';width:250px" title="every pattern kept — the named ones first (A → Z), then the untitled, newest first: name · texture · marks on · columns — every pattern is on disk, bank/patterns.json (1o.3)"></select>' +
+            '<select id="txPatSel" style="' + INP + ';width:200px" title="every pattern kept — the named ones first (A → Z), then the untitled, newest first: name · texture · marks on · columns — every pattern is on disk, bank/patterns.json (1o.3)"></select>' +
             '<span id="txTexLabel" style="color:#bbb;cursor:help" title="the texture this pattern was started on — a LABEL: the pattern carries its own copy of the onsets, so a take re-saved or deleted in Texture does not reach it"></span>';
         wrap.appendChild(bar2);
         bar2.querySelector('#txPatSel').addEventListener('change', e => { const id = e.target.value; if (id) this.txOpen(id); else this.txPaintPat(); });

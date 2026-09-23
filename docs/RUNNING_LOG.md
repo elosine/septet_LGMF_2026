@@ -11181,3 +11181,33 @@ dots on disk, written temp + rename (no `.tmp` left) ✓ · `pagehide` → **1 b
 is DELETED at the end of the `1o` build so his first real use creates it clean; whether it then goes into git is his call (§278).
 
 **Next: `1o.4 the library controls`** — name · save · revert · • · duplicate · × · new on the pattern line, SEQUENCE_TOOL §16's rules verbatim.
+
+## §294. `1o.4` THE LIBRARY CONTROLS — name · save · revert · • · duplicate · × · new on the pattern line, verified with the pane's real input (2026-09-22, Fable)
+
+**Built — `score/public/texture_lib.js` (the 1o.4 half); `texture_row.js` one width; `sequence_ui.js` untouched.** On the pattern line, after
+`pattern ▾` and the texture label: a **name** box · **•** · **save** · **revert** · **duplicate** · **×** · **new** · a word saying where it is
+(`saved as "…"` · `autosaving` · `not saved yet`). SEQUENCE_TOOL §16's rules verbatim: a name + ENTER MOVES the entry into `library` and
+deletes the one it came from (a name in use asks; a cleared name moves it back to the stack, asked) · `save` keeps the document as
+`kept`, `revert` comes back to it (asked once) — two states per name and never more · the `•` while the document differs from its keeper,
+compared LESS `sel` and `cursor` [call, §278] · `duplicate` asks for a name and copies WITH A NEW ID (the original flushed first), so
+Insert will write it beside · `×` deletes the one chosen in the list, or the open one once saved, asked once — the pattern stays on screen
+and its next change writes it again as a new untitled · `new` = an empty pattern on the same texture from THIS DOCUMENT'S OWN COPY of the
+onsets (neither Texture nor the store is needed), the one left already on disk.
+
+**Found by the 1280-px check and fixed on the way [call]:** the row is the drawer's `rhythmW` (480 unless he dragged it) and at 1280 px
+BOTH bar lines overflowed it — the first (1m's, 965 px) already did before `1o`; the drawer's body already scrolls sideways at 1280
+(1847 px). So on a texture take the row's flex basis now grows to what its two lines need (`txFitBars`, after every apply and paint;
+texture mode only — the strike keeps its width), measured on the bars' CONTENT (a bar spans the row, so its scrollWidth is the row's —
+the first cut fed itself 14 px a paint to the 1400 cap) and grow-only, so the controls stay put as the words change (the first real-input
+run missed the name box because `new` shortened the word beside it and the row shrank under the pointer). The pattern menu 250 → 200 px.
+
+**REQUIRED VERIFICATION — `score-5401`, the pane's REAL input (`computer` clicks by ref, `type`, `Enter`), the confirms stubbed and COUNTED,
+the prompt stubbed:** name `first one` + ENTER → in `library`, gone from `untitled`, `saved as "first one"`, no ask ✓ · `new` → empty on the
+same texture (0 on · 0 columns), `first one` in the list ✓ · the same name typed again → ASKED once (*"already in the pattern library"*),
+replaced by this one ✓ · `save` → `kept`, no dot; every mark on → the `•` and `tlibDirty` ✓ · `revert` → asked once, back to 0 on, no dot ✓ ·
+`duplicate` (`copy one`) → a second entry, ANOTHER id, the copy open, the menu on it ✓ · `×` → asked once, gone, the pattern still on
+screen, `not saved yet` ✓ · `new` → empty on the same texture, `first one` in the list ✓ · **1280 px: no overflow** — the row 992 px,
+stable over seven renders, both lines fit ✓ · **THE SHIELD**: the strike mode's Hear on the same state, 3 notes, byte-identical ✓ · no
+console error · 0 POSTs escaped to another store ✓.
+
+**Next: `1o.5 Insert`** — the sequence's idiom; the document into the score; `patterns in this score`.
