@@ -384,6 +384,171 @@ D.renderOrch = function () { const r = _renderOrch.apply(this, arguments); try {
 const _txRenderCols = D.txRenderCols;
 D.txRenderCols = function () { const r = _txRenderCols.apply(this, arguments); try { if (this.txIsOn()) { const p = this.txCols(); if (p && this._tx) this.txDynMarks(p, this.txRowsY()); this.txPaintRowDyn(); } } catch (e) { console.warn('[texture_dyn] marks:', e); } return r; };
 
+// ================================================================ 1n.3 — RANGES: `flat` and `ramp` (RUNNING_LOG §266 … §269; PLAN § 1n.3)
+// THE RANGE IS THE SELECTION (1m.4.6). A `dynamics` line at the head of the orchestration panel, texture mode only: `low` · `high` (`n`
+// for niente at a ramp's low end) · `who` (all, or rows ticked) · `model` (`flat` · `ramp ↑` · `ramp ↓` · `pointillistic` · `waves` — the
+// last two arrive with 1n.4 · 1n.5) · `enter` (`abrupt` · `fade N s`) · `seed` ↻ · GENERATE. A generate writes the level of every note in
+// the selected columns for the chosen rows as a generator's `{ pts, r }` (seconds from the onset; `r` the range's id); every hand-set value
+// inside is overwritten and counted (§267). `flat`: every note at `low`. `ramp`: from `low` to `high` across the stretch by TIME, a held
+// note following by `auto`. `enter: fade N s`: the notes in the range's first N seconds ramp from the level BEFORE the range — that row's
+// level in the last column before it, else the range's own `low` — to the range's level (§269). Remembered on the document as `ranges`
+// `[{ id, columns, rows, low, high, model, dir, dials, enter, seed }]`, drawn as a BAND under the marks with its names on it; a click on the
+// band re-selects its columns and refills the line; a generate over columns an older range holds takes those columns from it [call].
+const MODELS = { flat: 'flat', up: 'ramp ↑', down: 'ramp ↓', pointillistic: 'pointillistic', waves: 'waves' };
+const BAND_COL = '#8ab4d6';
+const nameOpts = (withN) => (withN ? '<option value="n">n</option>' : '') + X.NAMES.map(n => '<option value="' + n + '">' + n + '</option>').join('');
+Object.assign(D, {
+    _txDynDraft: null,   // the line's values while nothing stored matches the selection: { low, high, who, model, enter, fadeS, seed }
+    txRanges() { const p = this.txCols(); if (!p) return []; if (!Array.isArray(p.ranges)) p.ranges = []; return p.ranges; },
+    txRangeById(id) { return this.txRanges().find(r => r.id === id) || null; },
+    // the stored range whose columns are exactly the selection, if any
+    txRangeOfSel() { const p = this.txCols(); if (!p || !p.sel.length) return null; const s = p.sel.slice().sort().join('|'); return this.txRanges().find(r => (r.columns || []).slice().sort().join('|') === s) || null; },
+    txColsByTime(keys) { const tx = this._tx; return (keys || []).slice().sort((a, b) => this.txDot(a).t - this.txDot(b).t); },
+    txDynDraft() { if (!this._txDynDraft) this._txDynDraft = { low: 'pp', high: 'mf', who: null, model: 'flat', enter: 'abrupt', fadeS: 2, seed: 1 }; return this._txDynDraft; },
+    // the level function of a range over [t0, t1], by TIME
+    txRangeLevel(R, t0, t1) {
+        const lo = R.low === 'n' ? X.NIENTE : X.levelOfName(R.low), hi = R.high === 'n' ? X.NIENTE : X.levelOfName(R.high);
+        const a = lo == null ? 0 : lo, b = hi == null ? a : hi, span = Math.max(1e-6, t1 - t0);
+        if (R.model === 'flat') return () => a;
+        if (R.model === 'up') return t => a + (b - a) * Math.max(0, Math.min(1, (t - t0) / span));
+        if (R.model === 'down') return t => b + (a - b) * Math.max(0, Math.min(1, (t - t0) / span));
+        return () => a;
+    },
+    // a row's level at the last ON column before `t0` where it plays — the level before the range (§269); null when there is none
+    txLevelBefore(p, lane, t0) {
+        const on = new Set(p.on || []); let best = null;
+        this._tx.dots.forEach(d => { if (!on.has(d.k) || d.t >= t0 - 1e-6) return; const c = p.cols[d.k]; if (!c || !(c.players || []).includes(lane)) return; if (!best || d.t > best.t) best = { t: d.t, k: d.k }; });
+        if (!best) return null;
+        const c = p.cols[best.k], nt = (c.notes || []).find(n => (n.row != null ? n.row : n.lane) === lane); if (!nt) return null;
+        const dur = this.txPlayLenMs(p, this._tx, c, best.k, lane).ms / 1000, pts = X.pointsOf(this.txDynSpec(c, lane), dur, X.levelOfAnchor(nt.vel));
+        return pts[pts.length - 1][1];   // where the note before ended
+    },
+    // GENERATE: the line's values over the selection → a range on the document, every note's level in it written
+    txGenerate() {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txGreySay(); return; }
+        const d = this.txDynDraft(), have = this.txRangeOfSel();
+        if (d.model === 'flat' && d.low === 'n') { this.setStatus('a flat range cannot be niente — give it a dynamic (n is for a ramp\'s low end)', true); return; }
+        if (d.model !== 'flat' && d.high === 'n') { this.setStatus('n (niente) is the LOW end of a ramp only — set high to a dynamic', true); return; }
+        if (d.model === 'pointillistic' && typeof this.txGenPoint !== 'function') { this.setStatus('the pointillistic model arrives with 1n.4', true); return; }
+        if (d.model === 'waves' && typeof this.txGenWaves !== 'function') { this.setStatus('the waves model arrives with 1n.5', true); return; }
+        this.txPushUndo();
+        const cols = this.txColsByTime(p.sel), t0 = this.txDot(cols[0]).t, tEnd = this.txDot(cols[cols.length - 1]).t, T = TRK();
+        const rows = Array.isArray(d.who) && d.who.length ? d.who.slice() : null;
+        const R = have || { id: 'r' + Date.now().toString(36) + Math.floor(Math.random() * 1e3).toString(36) };
+        Object.assign(R, { columns: cols.slice(), rows, low: d.low, high: d.model === 'flat' ? d.low : d.high, model: d.model, enter: d.enter === 'fade' ? { kind: 'fade', s: Math.max(0.05, +d.fadeS || 2) } : { kind: 'abrupt' }, seed: Math.max(1, Math.round(+d.seed || 1)), dials: R.dials || {} });
+        // an older range's columns taken over [call]; one left with none goes
+        const ranges = this.txRanges(), mine = new Set(cols);
+        for (let i = ranges.length - 1; i >= 0; i--) { const o = ranges[i]; if (o === R) continue; o.columns = (o.columns || []).filter(k => !mine.has(k)); if (!o.columns.length) ranges.splice(i, 1); }
+        if (!have) ranges.push(R);
+        const L = this.txRangeLevel(R, t0, tEnd), fadeS = R.enter.kind === 'fade' ? R.enter.s : 0;
+        let written = 0, hand = 0, faded = 0; const special = (d.model === 'pointillistic' || d.model === 'waves') ? (d.model === 'pointillistic' ? this.txGenPoint(R, cols, t0, tEnd) : this.txGenWaves(R, cols, t0, tEnd)) : null;   // 1n.4 · 1n.5: a level function per row, or per note
+        cols.forEach(k => {
+            const c = p.cols[k]; if (!c) return; const t = this.txDot(k).t;
+            (c.notes || []).forEach(nt => {
+                const lane = nt.row != null ? nt.row : nt.lane; if (rows && !rows.includes(lane)) return; if (!(c.players || []).includes(lane)) return;
+                const dur = this.txPlayLenMs(p, this._tx, c, k, lane).ms / 1000;
+                let at = special ? special(lane, k, t) : null;   // a function of time for this note, or null → the range's own
+                const lv = at || L;
+                let pts;
+                if (fadeS > 0 && t < t0 + fadeS - 1e-9) {
+                    const before = this.txLevelBefore(p, lane, t0), from = before == null ? (R.low === 'n' ? X.NIENTE : X.levelOfName(R.low)) : before;
+                    const f = tt => { const u = Math.max(0, Math.min(1, (tt - t0) / fadeS)); return from + (lv(tt) - from) * u; };
+                    pts = [[0, f(t)], [dur, f(t + dur)]]; faded++;
+                } else pts = [[0, lv(t)], [dur, lv(t + dur)]];
+                if (special && at && at.pts) pts = at.pts;   // a model that gives the whole shape itself (the waves)
+                c.dyn = c.dyn || {}; if (c.hand && c.hand[lane]) { hand++; delete c.hand[lane]; }
+                c.dyn[lane] = { pts: pts.map(q => [+q[0].toFixed(3), +(+q[1]).toFixed(4)]), r: R.id }; written++;
+            });
+        });
+        this._txDynEdited = false;   // the stored range now IS the line
+        this.txPersistSoon(); this.txRender(); this.txPaintDynLine();
+        this.setStatus('generated ' + MODELS[R.model] + ' ' + (R.model === 'flat' ? R.low : R.low + ' → ' + R.high) + ' over ' + cols.length + ' columns (' + t0.toFixed(2) + '–' + tEnd.toFixed(2) + ' s)' + (rows ? ' · rows ' + rows.map(l => T[l] ? T[l].short : l).join(' ') : ' · every row') + ' · ' + written + ' notes' + (hand ? ' · ' + hand + ' hand-set value' + (hand === 1 ? '' : 's') + ' overwritten' : '') + (fadeS ? ' · enter: fade ' + fadeS + ' s (' + faded + ' notes in it)' : ' · enter: abrupt') + (have ? ' · re-generated' : ''));
+    },
+    // a click on a band: its columns become the selection, the line refilled
+    txSelectRangeById(id) {
+        const p = this.txCols(), R = this.txRangeById(id); if (!p || !R) return;
+        const cols = this.txColsByTime((R.columns || []).filter(k => (p.on || []).includes(k))); if (!cols.length) return;
+        this.txPushUndo(); p.sel = cols.slice(); this._txDynDraft = null; this._txDynEdited = false;
+        if (p.cols[cols[0]]) this.txRecall(cols[0], true);
+        this.txPersistSoon(); this.txRender(); this.txPaintDynLine();
+        this.setStatus('range ' + MODELS[R.model] + ' ' + (R.model === 'flat' ? R.low : R.low + ' → ' + R.high) + ' selected · ' + cols.length + ' columns — change the line and generate to re-run it');
+    },
+    // the `dynamics` line at the head of the orchestration panel (texture mode only); filled from the stored range the selection matches, else the draft
+    txPaintDynLine() {
+        const orch = this.el && this.el.querySelector('#skOrch'); if (!orch) return;
+        const on = this.txIsOn(); let line = orch.querySelector('#txDynLine');
+        if (!on) { if (line) line.remove(); return; }   // THE SHIELD
+        const p = this.txCols(), k = p && this.txPrimary(), T = TRK();
+        if (!line) {
+            line = document.createElement('div'); line.id = 'txDynLine';
+            line.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:2px 6px;font-size:10px;border-bottom:1px solid #333';
+            line.innerHTML = '<span style="color:#9a9;cursor:help" title="PLAN 1n.3 (2026-09-22): DYNAMICS over the SELECTED columns (the range is the selection: click · SHIFT+click · CTRL+click). Set low, high, who, the model and how the range is entered, then generate: every note in it takes its level, hand-set values overwritten (the status counts them). The range is remembered on the pattern and drawn as a band under the marks; a click on the band re-selects it">dynamics</span>' +
+                '<label title="the level (flat), or the ramp\'s start (ramp ↑) / end (ramp ↓); n = niente, a ramp\'s low end only">low <select id="txDLo" style="' + INP + '">' + nameOpts(true) + '</select></label>' +
+                '<label title="the ramp\'s other end (a flat range uses low alone)">high <select id="txDHi" style="' + INP + '">' + nameOpts(false) + '</select></label>' +
+                '<span title="every row, or only the rows ticked"><button id="txDWho" style="' + BTN_ + '">who: all ▾</button><span id="txDWhoRows" style="display:none;gap:4px;margin-left:4px"></span></span>' +
+                '<label title="flat: one level · ramp: from low to high (or high to low) across the stretch by TIME, a held note following it by auto · pointillistic (1n.4) · waves (1n.5)">model <select id="txDModel" style="' + INP + '">' + Object.keys(MODELS).map(m => '<option value="' + m + '">' + MODELS[m] + '</option>').join('') + '</select></label>' +
+                '<label title="how the range is ENTERED: abrupt — the first note sounds at the range\'s level · fade N s — the notes in the range\'s first N seconds ramp from the level before the range (that row\'s level in the last column before it, else the range\'s low) to the range\'s level">enter <select id="txDEnter" style="' + INP + '"><option value="abrupt">abrupt</option><option value="fade">fade</option></select> <input id="txDFade" type="number" min="0.05" step="0.5" style="' + INP + ';width:40px" title="the fade\'s seconds"> s</label>' +
+                '<label title="the seed of a pointillistic or waves deal; ↻ the next">seed <input id="txDSeed" type="number" min="1" step="1" style="' + INP + ';width:40px"><button id="txDNext" style="' + BTN_ + '" title="the next seed">↻</button></label>' +
+                '<button id="txDGen" style="' + BTN_ + ';color:#e8cf9a" title="write the level of every note in the selected columns for the chosen rows — hand-set values are overwritten and counted">generate</button>' +
+                '<span id="txDNote" style="color:#8ab4d6"></span>';
+            orch.insertBefore(line, orch.firstChild);
+            const q = s => line.querySelector(s), read = () => { const d = this.txDynDraft(); d.low = q('#txDLo').value; d.high = q('#txDHi').value; d.model = q('#txDModel').value; d.enter = q('#txDEnter').value; d.fadeS = +q('#txDFade').value || d.fadeS; d.seed = Math.max(1, Math.round(+q('#txDSeed').value || 1)); this.txPaintDynLine(); };
+            ['#txDLo', '#txDHi', '#txDModel', '#txDEnter', '#txDFade', '#txDSeed'].forEach(s => { q(s).addEventListener('change', e => { if (e.target.tagName === 'SELECT') e.target.blur(); this.txDraftFromLine(); read(); }); q(s).addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); ev.target.blur(); } }); });
+            q('#txDNext').addEventListener('click', () => { this.txDraftFromLine(); const d = this.txDynDraft(); d.seed = Math.max(1, Math.round(+d.seed || 1)) + 1; this.txPaintDynLine(); });
+            q('#txDWho').addEventListener('click', () => { const r = q('#txDWhoRows'); r.style.display = r.style.display === 'none' ? 'inline-flex' : 'none'; });
+            q('#txDGen').addEventListener('click', () => { this.txDraftFromLine(); this.txGenerate(); });
+        }
+        const q = s => line.querySelector(s), R = this.txRangeOfSel(), d = this.txDynDraft();
+        if (R && !this._txDynEdited) { d.low = R.low; d.high = R.high; d.model = R.model; d.enter = R.enter && R.enter.kind === 'fade' ? 'fade' : 'abrupt'; if (R.enter && R.enter.s) d.fadeS = R.enter.s; d.seed = R.seed || 1; d.who = R.rows ? R.rows.slice() : null; }
+        const put = (s, v) => { const el = q(s); if (el && document.activeElement !== el) el.value = v; };
+        put('#txDLo', d.low); put('#txDHi', d.high); put('#txDModel', d.model); put('#txDEnter', d.enter); put('#txDFade', d.fadeS); put('#txDSeed', d.seed);
+        q('#txDHi').disabled = d.model === 'flat'; q('#txDHi').style.opacity = d.model === 'flat' ? 0.45 : ''; q('#txDFade').disabled = d.enter !== 'fade';
+        const rowsBox = q('#txDWhoRows');
+        if (!rowsBox.children.length) { rowsBox.innerHTML = T.map((t, i) => '<label style="display:inline-flex;align-items:center;gap:1px"><input type="checkbox" data-lane="' + i + '">' + t.short + '</label>').join(''); rowsBox.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => { const on = [...rowsBox.querySelectorAll('input')].filter(x => x.checked).map(x => +x.dataset.lane); this.txDynDraft().who = on.length && on.length < T.length ? on : null; this._txDynEdited = true; this.txPaintDynLine(); })); }
+        rowsBox.querySelectorAll('input').forEach(cb => { cb.checked = !d.who || d.who.includes(+cb.dataset.lane); });
+        q('#txDWho').textContent = 'who: ' + (d.who ? d.who.map(l => T[l] ? T[l].short : l).join(' ') : 'all') + ' ▾';
+        line.style.opacity = k ? '' : 0.45; q('#txDGen').disabled = !k;
+        q('#txDNote').textContent = !k ? '' : R ? 'this selection is the range "' + MODELS[R.model] + ' ' + (R.model === 'flat' ? R.low : R.low + ' → ' + R.high) + '" — generate re-runs it' : (p.sel.length + ' column' + (p.sel.length === 1 ? '' : 's') + ' selected — generate makes a range of them');
+    },
+    txDraftFromLine() { const line = this.el && this.el.querySelector('#txDynLine'); if (!line) return; const q = s => line.querySelector(s), d = this.txDynDraft(); d.low = q('#txDLo').value; d.high = q('#txDHi').value; d.model = q('#txDModel').value; d.enter = q('#txDEnter').value; d.fadeS = +q('#txDFade').value || d.fadeS; d.seed = Math.max(1, Math.round(+q('#txDSeed').value || 1)); this._txDynEdited = true; },
+    // THE BAND under the marks: one per range, its columns' span, its names on it; behind the pointer (a click is read by geometry in txDown)
+    txDynBands(p) {
+        const svg = this.el && this.el.querySelector('#txSvg'), run = svg && svg.querySelector('#txRun'); if (!svg || !run || !this._tx || !p) return;
+        const mw = this.txMarkW(), W = this.txW(), y = 24 + 18 - 5, h = 10; let s = ''; this._txBands = [];   // ROW_TOP + MARK_H of texture_cols.js
+        (p.ranges || []).forEach(R => {
+            const cols = this.txColsByTime((R.columns || []).filter(k => this._tx.dots.some(d => d.k === k))); if (!cols.length) return;
+            const x0 = this.txX(this.txDot(cols[0]).t), x1 = this.txX(this.txDot(cols[cols.length - 1]).t) + mw; if (x1 < 0 || x0 > W) return;
+            const label = MODELS[R.model] + ' ' + (R.model === 'flat' ? R.low : R.low + '→' + R.high) + (R.enter && R.enter.kind === 'fade' ? ' · fade ' + R.enter.s + ' s' : '') + (R.rows ? ' · ' + R.rows.map(l => (TRK()[l] || {}).short || l).join(' ') : '');
+            const sel = this.txRangeOfSel() === R;
+            s += '<rect class="txBand" x="' + Math.max(-2, x0).toFixed(1) + '" y="' + y + '" width="' + Math.max(2, Math.min(W + 4, x1) - Math.max(-2, x0)).toFixed(1) + '" height="' + h + '" rx="2" fill="' + BAND_COL + '" fill-opacity="' + (sel ? 0.55 : 0.3) + '" stroke="' + (sel ? BAND_COL : 'none') + '" pointer-events="none"/>' +
+                 '<text x="' + (Math.max(2, x0) + 3).toFixed(1) + '" y="' + (y + 8) + '" font-size="8" fill="#dfeeff" pointer-events="none">' + label + '</text>';
+            this._txBands.push({ id: R.id, x0, x1, y0: y, y1: y + h });
+        });
+        if (s) run.insertAdjacentHTML('beforebegin', s);
+    },
+    txBandHit(ev) {
+        const svg = this.el.querySelector('#txSvg'), rect = svg.getBoundingClientRect(), x = ev.clientX - rect.left, y = ev.clientY - rect.top;
+        return (this._txBands || []).find(b => x >= b.x0 && x <= b.x1 && y >= b.y0 && y <= b.y1) || null;
+    },
+});
+const BTN_ = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
+// the undo snapshot carries the ranges too
+const _txUndoSnap = D.txUndoSnap;
+D.txUndoSnap = function () { const s = _txUndoSnap.apply(this, arguments); if (s == null) return s; const p = this.txCols(); const o = JSON.parse(s); o.ranges = (p && p.ranges) || []; return JSON.stringify(o); };
+const _txRestore = D.txRestore;
+D.txRestore = function (s) { const r = _txRestore.apply(this, arguments); try { const p = this.txCols(); const o = JSON.parse(s); if (p) p.ranges = Array.isArray(o.ranges) ? o.ranges : []; this._txDynEdited = false; this.txPaintDynLine(); } catch (e) {} return r; };
+// the bands after the columns; the line after the panel; a click on a band re-selects; a fresh selection resets the line to the stored range
+const _txRenderCols2 = D.txRenderCols;
+D.txRenderCols = function () { const r = _txRenderCols2.apply(this, arguments); try { if (this.txIsOn()) { const p = this.txCols(); if (p && this._tx) this.txDynBands(p); this.txPaintDynLine(); } } catch (e) { console.warn('[texture_dyn] bands:', e); } return r; };
+const _renderOrch2 = D.renderOrch;
+D.renderOrch = function () { const r = _renderOrch2.apply(this, arguments); try { this.txPaintDynLine(); } catch (e) { console.warn('[texture_dyn] line:', e); } return r; };
+const _txDown = D.txDown;
+D.txDown = function (ev) {
+    try { if (this.txIsOn() && this._tx && ev.button === 0 && !ev.shiftKey && !ev.ctrlKey) { const b = this.txBandHit(ev); if (b) { ev.preventDefault(); this.txSelectRangeById(b.id); return; } } } catch (e) { console.warn('[texture_dyn] band click:', e); }
+    return _txDown.apply(this, arguments);
+};
+['txSelect', 'txSelectRange', 'txClearSel'].forEach(name => { const orig = D[name]; if (typeof orig !== 'function') return; D[name] = function () { this._txDynEdited = false; return orig.apply(this, arguments); }; });
+
 // the count in the status: the row's line and the column's line both carry it (the flag is drawn by texture_cols.js txRenderCols)
 const _txLine = D.txLine;
 D.txLine = function () { const s = _txLine.apply(this, arguments); try { return this._tx ? s + this.txCollisionText(this.txCollisions()) : s; } catch (e) { return s; } };

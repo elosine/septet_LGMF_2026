@@ -11416,3 +11416,50 @@ accessible name is the placeholder), the nine `dyn` boxes are taken in row order
 the switch a select on the row rather than a column-level box · blank = the deal's own level (a re-generate restores the range's).
 
 **Status:** `1n.2` BUILT, one commit. NEXT: `1n.3` ranges — `flat` and `ramp`, the `dynamics` line, `enter`, the band.
+
+## §298. `1n.3` RANGES, `flat` AND `ramp` — built and verified: the `dynamics` line, generate, `who`, `enter: fade`, the bands, undo; THE SHIELD (2026-09-22, Fable)
+
+**Built — `score/public/texture_dyn.js` alone (the 1n.3 section of its mixin); nothing else changed.** THE RANGE IS THE SELECTION
+(1m.4.6). A `dynamics` line at the head of the orchestration panel, texture mode only: `low` · `high` (`n` = niente, a ramp's low end
+only — refused on a flat range and as a high) · `who` (a button that opens a row of ticks; all by default) · `model` (`flat` · `ramp ↑` ·
+`ramp ↓` · `pointillistic` · `waves`, the last two refused with *"arrives with 1n.4 / 1n.5"* until they land) · `enter` (`abrupt` · `fade`
+with its seconds) · `seed` and ↻ · **generate**. A generate writes every note's level in the selected columns for the chosen rows as a
+generator's `{ pts, r }` — seconds from the onset, `r` the range's id — every hand-set value inside overwritten and counted (§267);
+`flat`: every note at `low`; `ramp`: from `low` to `high` across the stretch by TIME, a held note following by `auto` (1n.1); `enter:
+fade N s`: the notes in the range's first N seconds ramp from the level BEFORE the range — that row's level where its last note before
+the range ended, else the range's own `low` — to the range's level (§269). Remembered on the document as `ranges` `[{ id, columns, rows,
+low, high, model, enter, seed, dials }]`; drawn as a BAND under the marks (the marks' lower five pixels), its names on it, the selected one
+brighter; a click on the band re-selects its columns and refills the line; a generate over the selection that IS a stored range re-runs
+it in place; a generate over columns an older range holds takes those columns from it, and a range left with none goes [call]. The line
+keeps a DRAFT while it is being edited and refills from the stored range on every fresh selection; the undo snapshot carries `ranges`.
+
+**REQUIRED VERIFICATION — `score-5401`, the stubs first, no MIDI, every port stubbed:** a fresh pattern on `LGMF-S2-R1a`, sixteen columns
+(line 0's onsets, 0.000 … 8.18 s) each with every player (the stretch selected, `all on` once), the cello a 3 s length in the third, a
+hand-set `fff` on the horn in the fourth —
+- **`flat pp` over the first eight** → all 72 notes at `pp` (0.1429 flat), *1 hand-set value overwritten*, the horn's `hand` cleared ✓
+- **`ramp pp → ff` re-generated over the same selection** (the line said *this selection is the range — generate re-runs it*): the english
+  horn's levels by time pp · p · p · mp · mf · f · f · ff, monotone, the first `pp`, the last `ff` (0.857) · the 3 s cello inside (the cello
+  freed in the five columns after it, so its note runs its length) → **`follow` p → ff over 3000 ms, seat c2, CC7 63 → 109** ✓
+- **`who` = EH · Bsn, `flat ff`** → those two rows `ff` in every column, the cello keeps its ramp (pp · p · p …) ✓
+- **a second range, `flat f` over the next eight, `enter: fade 2 s`**, after the first was put back to `flat pp`: the notes in the first
+  2 s of it — 0.00 · 0.55 · 1.09 · 1.64 s — at pp(0.14→0.18) · p(0.30) · mp(0.45) · mf(0.61→0.64), between the level before (pp) and `f`;
+  from 2.18 s on `f`; *36 notes in it* ✓
+- **the bands:** two, *flat pp* and *flat f · fade 2 s*, 241.9 px each at the zoom; **a REAL click on the first band** (the frame's
+  coordinates from the DOM rectangle, scaled 800/1280 × 537/860 after one screenshot; the band sat ten frame pixels lower on a second
+  load — read the rectangle each time) → its eight columns selected, the primary the first, the line refilled `pp · ff · ramp ↑ · abrupt`,
+  the status *range ramp ↑ pp → ff selected · 8 columns — change the line and generate to re-run it* ✓ (the first attempt showed the
+  line keeping the DRAFT after the click: the edited flag was not reset by the band's select — fixed, and the flag is cleared after a
+  generate too, the stored range then being the line)
+- **undo** after a re-generate → the ranges back to *flat pp · flat f*, the levels with them ✓
+- **THE SHIELD:** no `dynamics` line in the strike mode (`#txDynLine` absent); nothing outside texture_dyn.js changed; `dyn_table_check`
+  68 · `sequence_check` 180 · `test_snapshots` 30 ✓ · no non-GET fetch reached the disk, no confirm ✓
+
+**Seen on the way:** with only one port stubbed, a shaped note whose port has no output falls back to *velocity alone* and the status
+says *on MAIN, no curve copy* — the seat check resolves the marker through `routeFor`, and without an output the marker resolves to the
+base route; his rack has every port, the throwaway must stub them all before a claim about seats.
+
+**The calls made alone, his to reverse:** the band in the marks' lower five pixels · the level before a fade read where the row's last
+note ENDED (a hairpin's end, not its start) · `who` as a row of ticks behind one button · the draft kept while editing, refilled from
+the stored range on a fresh selection · a range with no columns left goes.
+
+**Status:** `1n.3` BUILT, one commit. NEXT: `1n.4` the pointillistic model.
