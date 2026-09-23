@@ -32,6 +32,9 @@
 //   · 1o.2: the documents are kept BY `id`, several on one texture — `texture ▾` STARTS a new empty pattern on a take (LG-85: *"texture
 //     is the spine for a new thing always empty"*), `pattern ▾` on a second bar line RECALLS one by its own name; a pre-1o.1 pattern
 //     becomes a document at the first load that can realize its take (`txMigrateLegacy`).
+//   · 1o.3: the documents live ON DISK — `bank/patterns.json`, the pattern library (texture_lib.js). The browser key keeps the OPEN
+//     document (`doc`, the instant layer), where it sits on disk (`lib`), its keeper (`kept`) — and `mode` · `claves` · `defaults`.
+//     `docs` and `pats` of 1o.2 stay only until texture_lib's migration has moved them.
 (function (root) {
 'use strict';
 const D = root.StrikeDrawer;
@@ -55,8 +58,9 @@ const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;'
 
 function loadStore() {
     let s = null; try { s = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) {}
-    s = Object.assign({ mode: 'strike', pats: {}, docs: {}, open: null }, (s && typeof s === 'object') ? s : {});
+    s = Object.assign({ mode: 'strike', pats: {}, docs: {}, open: null, doc: null, lib: null, kept: null }, (s && typeof s === 'object') ? s : {});
     if (!s.pats || typeof s.pats !== 'object') s.pats = {}; if (!s.docs || typeof s.docs !== 'object') s.docs = {};
+    if (s.doc && !(s.doc.texture && Array.isArray(s.doc.texture.dots))) s.doc = null;
     // 1o.2: the documents BY ID. A 1o.1 document, kept under its texture's name, moves over once; a pre-1o.1 pattern (marks and columns,
     // no dots of its own) waits in `pats` for a load that can realize its take (txMigrateLegacy). `take` (the remembered texture) is
     // now `open` (the remembered document).
@@ -66,6 +70,8 @@ function loadStore() {
         else if (s.take === n) s.openLegacy = n;
     });
     delete s.take;
+    // 1o.3: the open document is `doc`; a 1o.2 key names it by `open` (the same object stays in `docs` for the migration to name on disk)
+    if (!s.doc && s.open && s.docs[s.open]) s.doc = s.docs[s.open];
     return s;
 }
 
@@ -121,7 +127,7 @@ Object.assign(D, {
         bar2.style.cssText = 'position:absolute;left:4px;top:' + (LINE_H + 2) + 'px;right:4px;height:' + (LINE_H - 2) + 'px;display:flex;gap:6px;align-items:center;font-size:10px;z-index:2;white-space:nowrap';
         bar2.innerHTML =
             '<span style="color:#9a9;cursor:help" title="PLAN 1o (2026-09-22): THE PATTERN — a document of its own on one texture: its marks, range, cursor, short and columns, carrying its own copy of the onsets. texture ▾ above starts a new empty one; this menu brings one back">pattern</span>' +
-            '<select id="txPatSel" style="' + INP + ';width:250px" title="every pattern kept — the named ones first (A → Z), then the untitled, newest first: name · texture · marks on · columns"></select>' +
+            '<select id="txPatSel" style="' + INP + ';width:250px" title="every pattern kept — the named ones first (A → Z), then the untitled, newest first: name · texture · marks on · columns — every pattern is on disk, bank/patterns.json (1o.3)"></select>' +
             '<span id="txTexLabel" style="color:#bbb;cursor:help" title="the texture this pattern was started on — a LABEL: the pattern carries its own copy of the onsets, so a take re-saved or deleted in Texture does not reach it"></span>';
         wrap.appendChild(bar2);
         bar2.querySelector('#txPatSel').addEventListener('change', e => { const id = e.target.value; if (id) this.txOpen(id); else this.txPaintPat(); });
@@ -176,8 +182,8 @@ Object.assign(D, {
         sel.innerHTML = '<option value="">' + (names.length ? 'texture ▾ · start a new pattern on… (' + names.length + ')' : 'no textures saved yet') + '</option>' + names.map(n => '<option value="' + escH(n) + '">' + escH(n) + '</option>').join('');
         sel.value = '';   // 1o.2: the menu STARTS; what is open is named on the second line
         this.txMigrateLegacy();
-        const d = this._txS.open && this.txDocs()[this._txS.open];   // the remembered document opens whether or not its take is still in the store
-        if (d) { if (this._txDoc !== d) this.txLoad(d); } else { this._tx = null; this._txDoc = null; }
+        const S = this._txS, d = S.doc;   // the remembered document opens whether or not its take is still in the store
+        if (d && d.texture) { if (this._txDoc !== d) this.txLoad(d, S.lib ? { panel: S.lib.panel, name: S.lib.name, kept: S.kept } : null); } else { this._tx = null; this._txDoc = null; }
         this.txRender(); this.txPaintPat();
         if (say) this.setStatus(names.length + ' rhythm take' + (names.length === 1 ? '' : 's') + ' in bank/rhythm_takes.json');
         if (!names.length && this.txIsOn() && !this._txDoc) this.setStatus('no rhythm takes yet — make one in Texture (rhythm take · save), then ↻ here', true);
@@ -194,14 +200,6 @@ Object.assign(D, {
     // without Texture. The texture's name is a LABEL (the takes menu, the status). Until 1o.2 the document is kept under its texture's
     // name, one per texture; 1o.2 keys it by `id` and starts several on one texture; 1o.3 moves it to disk.
     txDocNew(R) { return { v: 1, id: 'p' + Date.now().toString(36), name: '', texture: R, on: [], range: null, cursor: 0 }; },
-    txDocs() { return this._txS.docs; },
-    txDocTime(d) { const n = parseInt(String(d && d.id || '').slice(1), 36); return isFinite(n) ? n : 0; },
-    // the list (1o.2): the named first, A → Z; then the untitled, newest first
-    txDocList() {
-        const L = Object.values(this.txDocs()).filter(d => d && d.texture && Array.isArray(d.texture.dots));
-        const named = L.filter(d => d.name).sort((a, b) => String(a.name).localeCompare(String(b.name))), un = L.filter(d => !d.name).sort((a, b) => this.txDocTime(b) - this.txDocTime(a));
-        return named.concat(un);
-    },
     txDocLine(d) { const cols = Object.keys(d.cols || {}).filter(k => d.cols[k] && (d.cols[k].players || []).length).length; return (d.name || 'untitled') + ' · ' + (d.texture.name || '?') + ' · ' + (d.on || []).length + ' on · ' + cols + ' column' + (cols === 1 ? '' : 's'); },
     // A take is a RECIPE (1l.2): realized ONCE by Texture's own machinery (`TexturePanel.realize`, 1l.4), with no harmony — only its
     // attacks are wanted. The dots are numbered as `notesOf` numbers them (time, then line; `i` counts within a line), so `line:i`
@@ -219,29 +217,27 @@ Object.assign(D, {
         const gaps = dots.slice(1).map((d, i) => d.t - dots[i].t).filter(g => g > 0.002).sort((a, b) => a - b);
         return { name, n: dots.length, span, gap10: gaps.length ? gaps[Math.floor(gaps.length * 0.1)] : 0.05, dots };
     },
+    // the list of patterns kept and the open of one are the LIBRARY's (texture_lib.js, 1o.3) — with no library on the page there is none
+    txDocList() { return []; },
+    txOpen(key) { this.setStatus('the pattern library is not on this page (texture_lib.js)', true); return false; },
     // START (1o.2): a texture chosen starts a NEW, EMPTY pattern on it — the dots copied, nothing on, no columns (LG-85). It asks nothing:
-    // the pattern he leaves is kept (in the browser by `id` until 1o.3, on disk from then on)
+    // the pattern he leaves is already on disk (1o.3), the library sends its last change first
     txStart(name) {
         const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
         const R = this.txRealize(name); if (!R) return false;
-        const doc = this.txDocNew(R); this.txDocs()[doc.id] = doc;
-        this.txLoad(doc); this.txRender();
+        const doc = this.txDocNew(R);
+        this.txLoad(doc, null); this.txRender();
         this.setStatus('a new pattern on "' + name + '" · ' + R.n + ' onsets, none on · the one you left is under pattern ▾');
-        return true;
-    },
-    // OPEN (1o.2): a pattern by its own line in `pattern ▾` — its dots, marks, range, columns; the texture label follows it
-    txOpen(id) {
-        const doc = this.txDocs()[id]; if (!doc) { this.setStatus('that pattern is no longer here', true); this.txPaintPat(); return false; }
-        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
-        this.txLoad(doc); this.txRender(); this.setStatus('opened ' + this.txLine());
         return true;
     },
     // the OPEN document: the row, the columns and the lens read it through `txPat()`. The wraps in texture_cols.js (no column selected,
     // the undo stack emptied) and texture_lens.js (the defaults back) hook this.
-    txLoad(doc) {
-        this._txV = null;
-        if (!doc || !doc.texture) { this._tx = null; this._txDoc = null; this._txS.open = null; this.txPersist(); this.txPaintPat(); return; }
-        this._txDoc = doc; this._tx = doc.texture; this._txS.open = doc.id;
+    // `where` (1o.3): where the document sits on disk — { panel, name, kept } — or null for one not yet written
+    txLoad(doc, where) {
+        this._txV = null; const S = this._txS;
+        if (!doc || !doc.texture) { this._tx = null; this._txDoc = null; S.doc = null; S.lib = null; S.kept = null; this.txPersist(); this.txPaintPat(); return; }
+        this._txDoc = doc; this._tx = doc.texture; S.doc = doc;
+        S.lib = (where && where.panel && where.name) ? { panel: where.panel, name: where.name } : null; S.kept = (where && where.kept) || null;
         this.txPersist(); this.txPaintPat();
     },
     // a pattern made before 1o.1 (marks and columns, no dots of its own — his at :5400) becomes a document at the first load that can
@@ -258,8 +254,8 @@ Object.assign(D, {
             doc.on = (doc.on || []).filter(k => keys.has(k)); if (Array.isArray(doc.sel)) doc.sel = doc.sel.filter(k => keys.has(k));
             Object.keys(doc.cols || {}).forEach(k => { if (!keys.has(k)) delete doc.cols[k]; });
             if (had !== doc.on.length) this._txNote = 'the pattern on "' + name + '" was made before its onsets were its own and the take has changed since: ' + (had - doc.on.length) + ' of its ' + had + ' marks named onsets the take no longer has and were dropped';
-            this.txDocs()[doc.id] = doc; delete P[name]; moved++;
-            if (this._txS.openLegacy === name) { this._txS.open = doc.id; delete this._txS.openLegacy; }
+            (this._txS.docs = this._txS.docs || {})[doc.id] = doc; delete P[name]; moved++;
+            if (this._txS.openLegacy === name) { this._txS.doc = doc; delete this._txS.openLegacy; }
         });
         if (moved) this.txPersist();
         return moved;
@@ -267,9 +263,9 @@ Object.assign(D, {
     // the pattern menu and the texture label, painted after every render — the menu rebuilt only when its lines changed
     txPaintPat() {
         const sel = this.el && this.el.querySelector('#txPatSel'), lab = this.el && this.el.querySelector('#txTexLabel'); if (!sel) return;
-        const L = this.txDocList(), open = this._txDoc ? this._txDoc.id : '';
-        const sig = L.map(d => d.id + '|' + this.txDocLine(d)).join(String.fromCharCode(10)) + '@' + open;
-        if (sig !== this._txPatSig) { this._txPatSig = sig; sel.innerHTML = '<option value="">pattern ▾ (' + L.length + ')</option>' + L.map(d => '<option value="' + escH(d.id) + '">' + escH(this.txDocLine(d)) + '</option>').join(''); sel.value = open; }
+        const L = this.txDocList(), open = (typeof this.txCurrentKey === 'function' ? this.txCurrentKey() : '') || '';
+        const sig = L.map(d => d.key + '|' + d.line).join(String.fromCharCode(10)) + '@' + open;
+        if (sig !== this._txPatSig) { this._txPatSig = sig; sel.innerHTML = '<option value="">pattern ▾ (' + L.length + ')</option>' + L.map(d => '<option value="' + escH(d.key) + '">' + escH(d.line) + '</option>').join(''); sel.value = open; }
         if (lab) lab.textContent = this._txDoc ? 'on "' + (this._tx.name || '?') + '"' : '';
     },
     txLine() {

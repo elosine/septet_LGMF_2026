@@ -11152,3 +11152,32 @@ none` on the strike, the view's top at 44 px ✓ · **THE SHIELD**: the strike m
 no console error · 0 POSTs escaped ✓. (The drawer was closed on the second load, so the bars' overflow is measured in 1o.4.)
 
 **Next: `1o.3 the store`** — `bank/patterns.json`, the fifth key; the documents move to disk and the browser keeps the open one.
+
+## §293. `1o.3` THE STORE — `bank/patterns.json`, the fifth key; every pattern on disk, the browser keeps the open one (2026-09-22, Fable)
+
+**Built.** `score/snapshots.js` `STORES` gains `patterns: 'patterns.json'`; `tools/test_snapshots.js` **28 → 30** (the key resolves; the file is
+one of its own — never the sequence library, never the takes; `patterns.json` · `Patterns` refused). The server is untouched: it creates a
+store file at its first POST and answers `_missing` before — **but a running server keeps its module: RESTART `node score/server.js`.**
+**`score/public/texture_lib.js`, new — a mixin on texture_row.js, `sequence_ui.js` not changed:** panels `library` (named) · `untitled`
+(the rolling stack of 50, the oldest dropped at a save, never the open one); an entry `{ saved, comment, state: { doc, kept } }`; the disk
+about 2 s after the last change (`txPersist` wrapped → `tlibTouch` → `tlibFlush`, one writer at a time, nothing written when nothing
+changed) and on `pagehide` by `sendBeacon`; an untitled document takes its name at its FIRST change — `untitled <texture> 2026-09-22
+20.49.19` [call: the texture in the name]; an untouched empty pattern (no mark, no player dealt, no name) is not a document. The library is
+read once the takes are (the migration realizes a legacy pattern and needs them; texture_row boots first, so the lib waits for them
+itself). `texture_row.js`: the browser key now holds `mode · claves · defaults · doc (the open document) · lib { panel, name } · kept`;
+`txLoad(doc, where)`; `txDocList()` and `txOpen(key)` are the library's (the row's own are empty), `pattern ▾` lists the disk. **MIGRATION,
+once:** the documents 1o.2 kept by id and any pre-1o.1 pattern become untitled entries — a legacy one realized then, or, its take gone, kept
+with its marks at unknown times [call]; the names are derived from the document (its id's time AND its id — two started in one second
+collided in the first run and one was skipped, found by the check), so a repeated run writes no duplicates; a blank one is dropped.
+`composer.html`: one script tag after the lens.
+
+**REQUIRED VERIFICATION — the throwaway server RESTARTED on the five-store table, the tab's non-pattern POSTs blocked, the beacon stubbed and
+counted:** `test_snapshots` **30** ✓ · the migration on a browser key holding 1o.2's documents → **3** untitled entries, `docs · pats · open`
+gone from the key, the open one reopened under its new name ✓ · every mark on → **the file within 3 s**, the entry's `on` 387 and its 387
+dots on disk, written temp + rename (no `.tmp` left) ✓ · `pagehide` → **1 beacon** to /api/snapshots ✓ · the index seeded to **51** untitled
+→ a change → **50**, the open one kept ✓ · a synthetic key with TWO textures (one mark each) → **two** untitled entries, the key trimmed; reload
+→ the same five, **no duplicates**; the open one back with its cursor ✓ · **THE SHIELD: `bank/sequences.json` byte-identical** (git hash
+`6ffbbbcd…` before and after) ✓ · no console error ✓. `bank/patterns.json` now exists with the throwaway's five untitled test entries — it
+is DELETED at the end of the `1o` build so his first real use creates it clean; whether it then goes into git is his call (§278).
+
+**Next: `1o.4 the library controls`** — name · save · revert · • · duplicate · × · new on the pattern line, SEQUENCE_TOOL §16's rules verbatim.

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // test_snapshots — score/snapshots.js: the merge rules its own header states, and (PLAN 1d.11)
-// the two-store whitelist.
+// the store whitelist (five since LGMF PLAN 1o.3).
 //   node tools/test_snapshots.js
 //
 // PURE, so it asserts every rule without starting a server or touching a disk. The store table
@@ -14,18 +14,20 @@ const ok = (c, m) => { if (c) { pass++; console.log('  ok   ' + m); } else { fai
 const NOW = '2026-01-01T00:00:00.000Z';
 const fresh = () => ({ _version: 1, panels: {} });
 
-console.log('SNAPSHOTS — the merge rules, and the four stores\n');
+console.log('SNAPSHOTS — the merge rules, and the five stores\n');
 
 // --- the stores (1d.11) -----------------------------------------------------------------
 ok(S.storeFor('panels') === 'panel_snapshots.json', 'store `panels` → panel_snapshots.json');
 ok(S.storeFor('sequences') === 'sequences.json', 'store `sequences` → sequences.json — the library, a file of its own');
 ok(S.storeFor('rhythms') === 'rhythm_takes.json', 'store `rhythms` → rhythm_takes.json — the rhythm takes, a file of their own (PLAN 1l.2)');
 ok(S.storeFor('rhythmseqs') === 'rhythm_sequences.json', 'store `rhythmseqs` → rhythm_sequences.json — the rhythm sequence panel\'s library (PLAN 1l.3)');
+ok(S.storeFor('patterns') === 'patterns.json', 'store `patterns` → patterns.json — the texture take\'s PATTERN library, a file of its own (LGMF PLAN 1o.3)');
 ok(S.storeFor(null) === 'panel_snapshots.json' && S.storeFor('') === 'panel_snapshots.json' && S.storeFor(undefined) === 'panel_snapshots.json',
    'an absent store is `panels` — everything written before 1d.11 keeps working');
-const NASTY = ['../../secrets', 'sequences.json', 'rhythm_takes.json', 'Rhythms', 'rhythm_sequences.json', 'rhythmSeqs', '/etc/passwd', 'C:\\Windows\\win.ini', 'Panels', '__proto__', 'constructor', 'toString'];
+const NASTY = ['../../secrets', 'sequences.json', 'rhythm_takes.json', 'Rhythms', 'rhythm_sequences.json', 'rhythmSeqs', 'patterns.json', 'Patterns', '/etc/passwd', 'C:\\Windows\\win.ini', 'Panels', '__proto__', 'constructor', 'toString'];
 ok(NASTY.every(k => S.storeFor(k) === null), 'nothing else resolves — a path, a filename, a wrong case, or a prototype key: ' + NASTY.length + ' refused');
-ok(Object.keys(S.STORES).length === 4, 'there are exactly four stores');
+ok(Object.keys(S.STORES).length === 5, 'there are exactly five stores');
+ok(new Set(Object.values(S.STORES)).size === 5 && S.storeFor('patterns') !== S.storeFor('sequences') && S.storeFor('patterns') !== S.storeFor(''), 'the pattern library is a FILE OF ITS OWN — never the sequence library, never the takes (1o.3, THE SHIELD)');
 
 // --- rule 1 · state is opaque, and rule 2 · an unknown panel is created ------------------
 let f = fresh();

@@ -2092,7 +2092,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     - **REQUIRED VERIFICATION** (`score-5401`): start on take A, mark and deal → start on A again → EMPTY, the first still in the list · open the
       first → back whole · start on B → its own dots · reload → the open one reopens · `pattern ▾` lists all three · THE SHIELD.
 
-  - **1o.3 — The store** (`bank/patterns.json`, a fifth store; autosaved as the sequence library is; today's browser patterns migrated once)
+  - **1o.3 — The store** (`bank/patterns.json`, a fifth store; autosaved as the sequence library is; today's browser patterns migrated once) — **`built` 2026-09-22 (Fable, RUNNING_LOG §293), `test_snapshots` 30, every named check run, THE SHIELD byte-identical; the server must be RESTARTED**
     - `score/snapshots.js` `STORES` gains `patterns: 'patterns.json'`; `tools/test_snapshots.js` pins FIVE (28 → 30: the key resolves, nothing else
       does). `/api/snapshots` is not changed. **A running server keeps its module: RESTART it.**
     - Panels `library` (named) · `untitled` (the rolling stack of 50, the oldest dropped at save); an entry `{ saved, comment, state: { doc, kept } }`,

@@ -57,7 +57,10 @@ const NAME_RE = /^[A-Za-z0-9._ -]{1,64}$/;
 // LGMF PLAN 1l.3 — a FOURTH:
 //   rhythmseqs — bank/rhythm_sequences.json, the RHYTHM SEQUENCE panel's library (the clone of the sequence drawer): autosaved as the
 //                drawer's is, in a file of its own, so his sequence library is never touched.
-const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json', rhythms: 'rhythm_takes.json', rhythmseqs: 'rhythm_sequences.json' };
+// LGMF PLAN 1o.3 (2026-09-22) — a FIFTH:
+//   patterns   — bank/patterns.json, THE PATTERN LIBRARY of the strikes drawer's texture take (a pattern is a document of its own carrying a
+//                copy of its onsets): named keepers and an untitled stack of 50, autosaved as the sequence library is. RESTART the server.
+const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json', rhythms: 'rhythm_takes.json', rhythmseqs: 'rhythm_sequences.json', patterns: 'patterns.json' };
 
 function storeFor(key) {
     if (key == null || key === '') return STORES.panels;
