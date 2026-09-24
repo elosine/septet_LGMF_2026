@@ -2169,7 +2169,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     passes `LEN_MAX`. An end past the player's next onset is CUT there at play time, as a length is (1n.1); past the pattern's end is
     allowed. The status line names both: `length 2.40 s · ends 6.60 s`. The switch is a PANEL PREFERENCE kept in the browser (beside the
     drawer's other preferences), not in the document — a pattern recalled reads in whatever mode the panel is in [call]. Back in `len`
-    mode the boxes read the lengths as before.
+    mode the boxes read the lengths as before. **AMENDED at his word after the build (RUNNING_LOG §304, his A): the choice is PER ROW — a `len | end` menu on every row of the orchestration panel, beside its box, each instrument choosing for itself (`_txS.endRows[lane]`, a browser preference per row); the bar's menu means the COLUMN's box alone. Built and verified the same day.**
     - **REQUIRED VERIFICATION** (`score-5401`, MIDI stubbed, the POSTs stubbed in the navigation batch): a column at onset 4.20 s → `end`
       → type 6.60 → `len` 2.40 in the document (± 0.005) → a row's box 7.00 → `lens[row]` 2.80 → back to `len`: the boxes read 2.40 · 2.80
       → three columns at 4.20 · 5.10 · 6.00 selected, `end` 9.00 in the column box → their lens 4.80 · 3.90 · 3.00, the bars drawn to one

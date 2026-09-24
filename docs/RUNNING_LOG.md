@@ -11665,3 +11665,36 @@ drawer's), so the strike must be re-selected after `txSetMode('strike')` before 
 the boxes · the row box's placeholder stays the column's value (the plan said the word `end`; the menu carries the word) · a refused
 column named in the status while the rest take the end · a length typed in `length` mode names its end too · one commit for the two
 steps.
+
+## §304. `1p.1` PER ROW — his correction after the build: *"the length option is meant to be in the orch panel per instrument"*; a `len | end` menu on every row of the orchestration panel, the bar's menu for the column's box alone; built and verified, THE SHIELD byte-identical (2026-09-24, Fable)
+
+**Prompted by:** his screenshot of the Eng. Horn's row (the voice menu · `3.4` · `p` · `auto`) with *"the length option is meant to be in
+the orch panel per instrument check in first"*. §303 had put ONE menu on the command bar's length line, flipping every box at once — the
+column's and all the rows'. Read back: he wants the choice on each instrument's row, beside its box. Two ways put: **A** a `len | end`
+menu on every row beside its box, each instrument choosing for itself, remembered per row in the browser, the bar's menu kept for the
+column's own box · **B** one switch moved into the panel's header, all rows flipping together, the column box following. Recommended
+A; **his word: "a".**
+
+**Built — `score/public/texture_cols.js` alone:** `txEndMode(lane)` — with a lane, `_txS.endRows[lane]`; without, the bar's `_txS.end`
+for the column's box. `txPaintRowLens` creates a `select.txRowLenMode` (`len` · `end`) once per row, INSERTED BEFORE the row's `len` box
+(the row reads: the voice menu · `len|end` · the box · `dyn` · the switch), its value from the row's preference, disabled with the box
+when no column is selected; its change writes `endRows[lane]` (a `len` choice deletes the key), `txPersist()` at once, repaints the rows.
+`txSetRowLen` asks `txEndMode(lane)`. The bar's menu keeps the column's box: its title and status now say so. In the strike mode the
+menu is removed with the box.
+
+**REQUIRED VERIFICATION — `score-5401`, the stubs in the navigation batch, every port captured, his `Sec2_01a` opened from the library,
+every POST caught by the stub:** nine rows, nine menus, the order on the Eng. Horn's row `skTech · txRowLenMode · txRowLen · txRowDyn ·
+txRowFol` · the Eng. Horn's menu `len` by default, its box 3.4 (his own) · its menu → `end`: the box reads 3.55, `endRows {0: true}`, the
+Bassoon's menu still `len`, the bar's menu still `len` and the column box blank — independent · 7.00 typed in the Eng. Horn's box →
+`lens[0]` 6.854, the box `7.00`, *"Eng. Horn: the column at 0.15 s ends at 7.00 s — length 6.85 s, their own"* · the Bassoon's row in
+`len` on the column at 0.007 s: its box 0.1, 2.5 typed → `lens[1]` 2.5, a LENGTH, *"Bassoon at 0.01 s: 2.5 s, their own · ends 2.51 s"*
+· three columns selected, 9.00 in the Eng. Horn's box → her `lens` 8.854 · 8.613 · 8.376, every end 9.00, the box not "mixed" (the ends
+equal) · the document against its kept copy unchanged but `len` · `lens` · `sel` · `cursor`, no `end` or `endRows` in it · after a
+reload the Eng. Horn's menu reads `end` and the Bassoon's `len` (`endRows` written at once by `txPersist`; the document itself came
+back at an earlier state because the reload fell inside `txPersistSoon`'s debounce — 1o's timing, not this build's) · **THE SHIELD:**
+the strike mode has no row menu and no row box; the strike's Hear on the deterministic deal (the starter, lanes 8 · 1 · 4 assigned) —
+the same six messages as §303's capture on HEAD's files, byte-identical.
+
+**The calls made alone, his to reverse:** the row's menu sits BEFORE its box (his screenshot's order kept: menu · length · dyn · switch)
+· the bar's menu stays for the column's box rather than going · a row's preference is per lane in this browser, so a pattern recalled
+reads in whatever each row is set to.

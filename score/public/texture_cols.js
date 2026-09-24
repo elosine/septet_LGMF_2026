@@ -135,7 +135,9 @@ Object.assign(D, {
     // `lens` exactly as before; the switch (`_txS.end`, beside `claves`) lives in the browser, never in the document. In `end` mode a
     // box SHOWS onset + len and a typed end WRITES the length behind it, each selected column from its OWN onset: one end over several
     // columns is a release together.
-    txEndMode() { return !!(this._txS && this._txS.end); },
+    // the column's box follows the bar's menu (`_txS.end`); each ROW has a menu of its own beside its box (`_txS.endRows[lane]` — his A, §304:
+    // *"the length option is meant to be in the orch panel per instrument"*)
+    txEndMode(lane) { const S = this._txS || {}; return lane != null ? !!(S.endRows && S.endRows[lane]) : !!S.end; },
     txOnsetOf(k) { const d = k != null ? this.txDot(k) : null; return d ? +d.t : 0; },
     txEndOf(k, s) { return +(this.txOnsetOf(k) + s).toFixed(2); },
     // a typed end → column k's length, or null with the reason: at or before the onset · under the short · past LEN_MAX
@@ -194,8 +196,8 @@ Object.assign(D, {
         const on = this.txIsOn(), p = on ? this.txCols() : null, k = p && this.txPrimary(), c = k ? p.cols[k] : null;
         const cols = p && p.sel.length > 1 ? p.sel.map(kk => p.cols[kk]).filter(Boolean) : [];
         orch.querySelectorAll('.skRow').forEach(row => {
-            const lane = +row.dataset.lane; let box = row.querySelector('.txRowLen');
-            if (!on) { if (box) box.remove(); return; }   // THE SHIELD: the strike mode's rows do not change
+            const lane = +row.dataset.lane; let box = row.querySelector('.txRowLen'), sel = row.querySelector('.txRowLenMode');
+            if (!on) { if (box) box.remove(); if (sel) sel.remove(); return; }   // THE SHIELD: the strike mode's rows do not change
             if (!box) {
                 box = document.createElement('input'); box.className = 'txRowLen'; box.type = 'number'; box.step = '0.05'; box.min = LEN_MIN; box.max = LEN_MAX; box.placeholder = 'len';
                 box.style.cssText = INP + ';width:44px;margin-left:4px;flex:none';
@@ -203,7 +205,16 @@ Object.assign(D, {
                 box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); box.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintRowLens(); box.blur(); } });
                 row.appendChild(box);
             }
-            const own = c && c.lens ? +c.lens[lane] : NaN, colLen = c ? +c.len : NaN, em = this.txEndMode();   // 1p.1: in `end` mode the box reads onset + len
+            if (!sel) {   // 1p.1 (his A, §304): this row's own `len | end` menu, beside its box — a browser preference per row, never in the pattern
+                sel = document.createElement('select'); sel.className = 'txRowLenMode'; sel.innerHTML = '<option value="len">len</option><option value="end">end</option>';
+                sel.style.cssText = INP + ';width:46px;margin-left:6px;flex:none';
+                sel.title = 'this row\'s box: len — a length in seconds from the onset · end — the time the note ENDS on the pattern\'s clock (the readout beside ⏮); the length is written behind it, each selected column from its own onset. Remembered in this browser, not in the pattern';
+                sel.addEventListener('change', e => { const S = this._txS; S.endRows = S.endRows || {}; if (e.target.value === 'end') S.endRows[lane] = true; else delete S.endRows[lane]; this.txPersist(); this.txPaintRowLens(); this.setStatus((TRK()[lane] ? TRK()[lane].label : 'row ' + lane) + (e.target.value === 'end' ? ': the box reads the time the note ENDS on the pattern\'s clock — type one and the length is written behind it' : ': the box reads seconds from the onset again')); });
+                sel.addEventListener('keydown', ev => ev.stopPropagation());
+                row.insertBefore(sel, box);
+            }
+            const own = c && c.lens ? +c.lens[lane] : NaN, colLen = c ? +c.len : NaN, em = this.txEndMode(lane);   // 1p.1: in `end` mode the box reads onset + len
+            if (document.activeElement !== sel) sel.value = em ? 'end' : 'len'; sel.disabled = !k; sel.style.opacity = k ? '' : 0.45;
             box.disabled = !k; box.style.opacity = k ? '' : 0.45;
             if (document.activeElement !== box) box.value = isFinite(own) && own > 0 ? (em ? this.txEndOf(k, own).toFixed(2) : own) : '';
             box.placeholder = k ? (isFinite(colLen) && colLen > 0 ? (em ? this.txEndOf(k, colLen).toFixed(2) : colLen) + ' s' : 'short') : '—';
@@ -216,7 +227,7 @@ Object.assign(D, {
     txSetRowLen(lane, raw) {
         const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintRowLens(); this.setStatus('select a column first — len is the selected column(s)\'', true); return; }
         const s = String(raw == null ? '' : raw).trim(), t = TRK()[lane];
-        if (s !== '' && this.txEndMode()) { if (!isFinite(+s)) { this.txPaintRowLens(); this.setStatus('end: seconds on the pattern\'s clock, or blank for the column\'s', true); return; } return this.txSetEnd(+s, lane); }   // 1p.1
+        if (s !== '' && this.txEndMode(lane)) { if (!isFinite(+s)) { this.txPaintRowLens(); this.setStatus('end: seconds on the pattern\'s clock, or blank for the column\'s', true); return; } return this.txSetEnd(+s, lane); }   // 1p.1
         const v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
         if (s !== '' && !(v > 0)) { this.txPaintRowLens(); this.setStatus('a length of their own: seconds, or blank for the column\'s', true); return; }
         this.txPushUndo();
@@ -574,13 +585,13 @@ D.txEnsureUI = function () {
         // 1m.3: `short` (ms, the pattern's) and `length` (s, the selected column(s)') beside the claves; ENTER sets, ESC puts the value back
         const len = document.createElement('span'); len.className = 'txOnly'; len.style.cssText = 'display:inline-flex;align-items:center;gap:6px';
         len.innerHTML = '<label style="display:inline-flex;align-items:center;gap:3px" title="THE STANDARD SHORT (1m.3): the length of every note where nothing longer is set — the column notes, the claves, and hear: strike while a texture take is on. 120 ms unless you say; kept with the pattern"><span style="color:#9a9">short</span><input id="txShort" type="number" min="' + SHORT_MIN + '" max="' + SHORT_MAX + '" step="10" style="' + INP + ';width:46px"><span style="color:#777">ms</span></label>' +
-            '<label style="display:inline-flex;align-items:center;gap:3px"><select id="txLenMode" style="' + INP + ';width:58px" title="1p.1 (2026-09-24): what this box and the len box on every row MEAN — length: seconds from the note\'s onset · end: the time the note ENDS on the pattern\'s clock (seconds from its start, the readout beside ⏮); the length is written behind it, each selected column from its own onset, so one end over several columns is a release together. Remembered in this browser, not in the pattern"><option value="len">length</option><option value="end">end</option></select><input id="txLen" type="number" min="' + LEN_MIN + '" max="' + LEN_MAX + '" step="0.1" style="' + INP + ';width:52px" placeholder="short"><span style="color:#777">s</span></label>';
+            '<label style="display:inline-flex;align-items:center;gap:3px"><select id="txLenMode" style="' + INP + ';width:58px" title="1p.1 (2026-09-24): what the COLUMN\'s box means (each row\'s box has a menu of its own) — length: seconds from the note\'s onset · end: the time the note ENDS on the pattern\'s clock (seconds from its start, the readout beside ⏮); the length is written behind it, each selected column from its own onset, so one end over several columns is a release together. Remembered in this browser, not in the pattern"><option value="len">length</option><option value="end">end</option></select><input id="txLen" type="number" min="' + LEN_MIN + '" max="' + LEN_MAX + '" step="0.1" style="' + INP + ';width:52px" placeholder="short"><span style="color:#777">s</span></label>';
         bar.insertBefore(len, zoom);
         const sb = len.querySelector('#txShort'), lb = len.querySelector('#txLen');
         sb.addEventListener('change', e => this.txSetShort(e.target.value));
         lb.addEventListener('change', e => this.txSetLen(e.target.value));
         const lm = len.querySelector('#txLenMode'); lm.value = this.txEndMode() ? 'end' : 'len';   // 1p.1: the switch, a browser preference
-        lm.addEventListener('change', e => { this._txS.end = e.target.value === 'end'; this.txPersist(); this.txPaintLenUI(); this.txPaintRowLens(); this.setStatus(this._txS.end ? 'end: the boxes read the time a note ENDS on the pattern\'s clock — type one and the length is written behind it, each column from its own onset' : 'length: the boxes read seconds from the onset again'); });
+        lm.addEventListener('change', e => { this._txS.end = e.target.value === 'end'; this.txPersist(); this.txPaintLenUI(); this.txPaintRowLens(); this.setStatus(this._txS.end ? 'end: the column\'s box reads the time its notes END on the pattern\'s clock — type one and the length is written behind it, each selected column from its own onset' : 'length: the column\'s box reads seconds from the onset again'); });
         lm.addEventListener('keydown', ev => ev.stopPropagation());
         [sb, lb].forEach(b => b.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); b.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintLenUI(); b.blur(); } }));
         const svg = this.el.querySelector('#txSvg');
