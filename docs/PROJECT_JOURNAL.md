@@ -180,6 +180,48 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
+**Open at session end — CHECKPOINT #9 (2026-09-24, session 13 — `1q` planned and built on Fable, the top bar and the wrap on Opus) *(mid-session checkpoint — READ THIS ONE; #8 below still holds for `1p` · `1n.6` · `1o.6`)*:**
+- **THE TASK: HIS TESTS — nothing is being built.** Four builds wait on his ear, all in his tab, all page files (RELOAD, no restart):
+  **`1q` a take's harmony onto a selection · the marquee · the stack** (new today) · the top bar (new today) · `1p` · `1n.6` · `1o.6`
+  (checkpoints #8 · #7 below).
+- **WHAT TODAY PUT IN HIS HANDS (all committed, pushed):**
+  - **`1q` (PLAN § `1q`; LG-103; RUNNING_LOG §306 … §311 the talk and the plan, §312 · §313 · §314 the builds; commits `f44d4f1` plan ·
+    `aa89d13` · `376b9b4` · `431a1af`):** `score/public/harmony_sel.js` (new, a mixin) — THE HARMONY STRIP at the top right of the score
+    whenever pitched notes or trills are selected (`harmony · N notes · M players · take ▾ · back (n)`); `take ▾` is the sequence drawer's
+    takes menu through a new optional `opts { onChoose, current }` on `SequenceDrawer.openTakeMenu` (`sequence_ui.js`, five lines); a chosen
+    take re-pitches every selected note from ITS player's note of the take (cents as `morphBend`, the note DRAWN; the vibraphone's two seats in
+    time order; a trill its lower note, interval kept, no cents); the original remembered ONCE on the object (`hq.was`), `back` restores it ·
+    **CTRL+drag** on empty lane space = the marquee (touched objects on player lanes; SHIFT+CTRL adds; ESC cancels) — one block in the container's
+    mousedown, BEFORE the SHIFT-span branch · **the stack:** the 2026-09-09 cycling (`pickFromStack`) verified with real clicks, **ALT+click**
+    the list on every player lane, the place on the strip (`2 of 3 in this stack`), a trill zone now in `stackAt`.
+  - **The top bar (RUNNING_LOG §315, commit `bd9f707`)** — his *"move that passages menu over … because I can't select the solo for English
+    horn"*: the fixed 32 px bar wrapped and hung over the first lane. The literal move and a right-align were tried and REJECTED (fragile:
+    at 1000 px a full wrapped line still covered the solo). Kept: `#topBar` grows (`min-height`), the lanes, the save hints and the
+    Insertion strip start at `var(--barH)`, set by `Composer.fitTopBar()` (ResizeObserver + resize); `#saveStatus` one fixed share
+    (`flex 100 1 36em`, cut with …, whole text on hover) so a status never moves the lanes. `passages.js` unchanged. The cost: the lanes shorter
+    by what the bar wraps.
+- **THE NEXT CONCRETE STEP IS HIS. Tell him, then wait:** reload the tab → `1q.4` (journal §2 ►► row): a REAL CTRL+drag over a chord passage
+  (the pane's drag tool could not hold CTRL — that path ran on dispatched events) → the strip counts → `take ▾` → `▸` a take → its name →
+  play → `back` → a second take · SHIFT+CTRL+drag adds · a chord on one part clicked three times, ALT+click · a trill in a selection · the
+  English horn's solo now clickable at his window width. Then `1p` · `1n.6` · `1o.6` as checkpoints #8 · #7 say. Revise on his word, on Opus.
+- **`Resume reads:`** only for his feedback — on `1q`: RUNNING_LOG §312 · §313 · §314 (the step he faults) and PLAN § `1q`; on the top bar:
+  §315; on `1p` · `1n` · `1o`: as checkpoints #8 · #7 name. Journal §2 STILL BINDING before any verification. Code: `score/public/harmony_sel.js`
+  first. **Nothing else.**
+- **Decisions pending him (new today):** the calls of §312 (the strip at the top right · the key `hq` on the object · a note bent before and
+  straight now on the RECENTRE bend · a seat's note DRAWN · the `performanceNotes` stamp · the time-order round robin for the vibraphone · the
+  selection kept after a take · `opts` on the drawer's menu rather than a clone) · §313 (touched, not enclosed · META and the curve windows out)
+  · §314 (the list's look · the place on the strip) · §315 (the lanes shorter when the bar wraps · the status cut at 36em). **Carried from #8:**
+  a column `dyn` box · the bottom bar scrolling sideways · a brick dragged to another lane keeping its articulation · the calls of §303 · §304 ·
+  his word on `1p` · `1n.6` · `1o.6` · `1m.4` (§284 · §285) · whether `bank/patterns.json` goes into git · the triangle on track 10 (§221) ·
+  `ACT-BLOOM-03` · `-04` · a `sec01-done` tag.
+- **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short`): `bank/panel_snapshots.json` (his harmony takes,
+  written by the app) · `bank/sequences.json` (his sequence library) · `reaper/LGMF_rack.rpp` (his rack, saved by Reaper) · untracked
+  `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`) · untracked `bank/patterns.json` (his patterns; git
+  is his call, §278) · untracked `scores/pointilistic01a.json` (HIS score, saved by his tab; no score is committed here). The throwaway
+  `score-5401` wrote nothing (every POST caught, 0 in every run; its three localStorage keys cleared; stopped). **Unsaved working copies**
+  (`node tools/unsaved_check.js`): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same four as #2 … #8, none the piece — and
+  **`pointilistic01a`**, his score, the working copy a minute newer than the file: he is working in it; his to Save.
+
 **Open at session end — CHECKPOINT #8 (2026-09-24, session 13 — `1p` planned and built on Fable, the tabs and the wrap on Opus) *(mid-session checkpoint — READ THIS ONE; #7 below still holds for `1n.6`)*:**
 - **THE TASK: HIS TESTS — nothing is being built.** Three builds wait on his ear, all in his tab: **`1p` the end time and the cursor's
   clock** (new today) · `1n.6` dynamics (checkpoint #7 below) · `1o.6` the save structure (he is using it already).
@@ -523,6 +565,7 @@ Presets set aside; a saved set of his own noted (LG-79).
   `RhythmSequence.save` · `libTouch` · `libFlush` · `libFlushBeacon` when it is open (§213) · **a mouse GESTURE is verified with the
   pane's REAL input** (`computer` double_click · type · key), not with events dispatched by script — a dispatched `dblclick` hid that
   Chrome sends NONE when the pressed element is re-drawn under the mouse (§238); the pane's `Return` arrives nameless, send `Enter`.
+- **AND SINCE (session 13, §312 … §315): the pane's `left_click_drag` CANNOT HOLD CTRL** (its `modifiers` serve clicks; a CTRL+drag reaches the page as a plain drag) — dispatch the gesture, say so, and leave the real one to his test · **`Composer.isGrain(wc)` is TRUE for every pitched note on a player lane** — "grain" is this code's word for a note; never exclude by it · **one gesture per `javascript_tool` call when a click must be observed** — a `setTimeout(0)` removal runs after the whole script, so a one-shot click swallow eats every later synthetic click in the same call · **a page variable dies with a reload** (`window.__x` → undefined → a null deal that looks like a real refusal) · **the pane delivers no ResizeObserver: call `Composer.fitTopBar()`** before measuring the lanes' top.
 - **AND SINCE (session 13, §296): THE STUBS GO IN THE SAME BATCH AS THE NAVIGATION, BEFORE ANY SLEEP** — the throwaway page writes HIS bank files at boot on its own: the sequence drawer POSTs the row its localStorage holds 2 s after load (`libLoad`), the pattern library migrates and writes its untitled documents; a stub installed after a sleep is too late (that was §295's "writer not pinned": the throwaway itself). **At the session's end clear the throwaway's `lgmf.sequenceDrawer.v1` · `lgmf.rhythmSequence.v1` · `lgmf.textureRow.v1`**, so the next first load has nothing to save; delete a `bank/patterns.json` the throwaway created. **A `find` ref goes stale at every re-render of the drawer's rows** (a typed value re-renders them) — fetch the refs again before each typing batch. **Stub EVERY port before a claim about curve seats** — a marker seat on a port with no output resolves to the base route and the note reads as "velocity alone". **`SequenceDrawer.setActive(false)` before capturing the strike's Hear** — its wrap of `play('orch')` takes SPACE while it is active. **THE SHIELD's BEFORE is captured on HEAD's files:** `git stash push -- <the changed paths>`, reload, capture, `git stash pop`, reload (the throwaway serves from disk). **AND (§303): THE SHIELD's two captures need a DETERMINISTIC deal** — `shuffleOrch` is seeded but the deal is not persisted across a reload and the seed moves, so a BEFORE on one shuffle and an AFTER on another differ in velocity for no reason of the build: `select('hs::starter:0')` then `assign(voice, lane)` the same lanes both sides; and a texture take REPLACES the drawer's strike, so re-select it after `txSetMode('strike')`.
 - **Five things learned the hard way — all still true:**
   - **A Bash command longer than about 8 KB FAILS on this machine** with `unexpected EOF while looking for matching quote`. **Write
