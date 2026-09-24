@@ -4672,9 +4672,14 @@ const Composer = {
             // plain clicks at the same spot cycle down through the stack.
             // …and the same for every other lane (2026-09-09): notes played together stack, and the one underneath was unreachable.
             let target = wc;
-            if (e.altKey && wc.layer === META_LAYER) { this.openMetaStackPicker(e); return; }
+            if (e.altKey) {   // 1q.3 (2026-09-24): ALT+click = the LIST of the stack on EVERY lane — META's picker as before, a player's through harmony_sel.js
+                if (wc.layer === META_LAYER) this.openMetaStackPicker(e);
+                else if (typeof HarmonySel !== 'undefined' && HarmonySel.openStackPicker) HarmonySel.openStackPicker(e, wc.layer);
+                return;
+            }
             target = this.pickFromStack(e, wc.layer) || wc;
             this.selectObject(target);
+            if (target.type === 'zone') return;   // 1q.3: a trill picked out of the stack is selected, never dragged as a note
             this.startWCBodyDrag(target, e);
         });
         hp.addEventListener('dblclick', (e) => {
@@ -5392,12 +5397,13 @@ const Composer = {
     // other, and I can't choose the one underneath."* The rule is the same everywhere — narrowest first, so a short note buried under
     // a long one is the FIRST pick rather than the last; then by pitch, top down, which is how a stacked chord is read.
     stackAt(timeSec, layer) {
+        // PLAN 1q.3 (2026-09-24): a TRILL zone is in the stack too — a trill over notes, or a note under a trill, is reached by the same clicks
+        const s0 = o => (o.type === 'zone' ? o.startTime : o.startSeconds), e0 = o => (o.type === 'zone' ? o.endTime : o.endSeconds),
+              p0 = o => (o.type === 'zone' ? ((o.trill && o.trill.pitch) || 0) : (o.sonifyNote || 0));
         return this.objects
-            .filter(o => o.type === 'waveCurve' && o.layer === layer &&
-                timeSec >= o.startSeconds && timeSec <= o.endSeconds)
-            .sort((a, b) => (a.endSeconds - a.startSeconds) - (b.endSeconds - b.startSeconds) ||
-                (b.sonifyNote || 0) - (a.sonifyNote || 0) ||
-                a.startSeconds - b.startSeconds);
+            .filter(o => (o.type === 'waveCurve' || (o.type === 'zone' && o.midiModel === 'trill')) && o.layer === layer &&
+                timeSec >= s0(o) && timeSec <= e0(o))
+            .sort((a, b) => (e0(a) - s0(a)) - (e0(b) - s0(b)) || p0(b) - p0(a) || s0(a) - s0(b));
     },
     metaStackAt(timeSec) { return this.stackAt(timeSec, META_LAYER); },
 
@@ -5430,6 +5436,10 @@ const Composer = {
     stackLabel(wc) {
         if (wc.layer >= META_LAYER) return this.metaShapeLabel(wc);
         const N = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        if (wc.type === 'zone' && wc.midiModel === 'trill') {   // 1q.3: a trill names itself by its lower note and its interval
+            const p = wc.trill && isFinite(+wc.trill.pitch) ? Math.round(+wc.trill.pitch) : null;
+            return 'trill' + (p == null ? '' : ' ' + N[((p % 12) + 12) % 12] + (Math.floor(p / 12) - 1) + (wc.trill.interval ? ' +' + wc.trill.interval : ''));
+        }
         const m = wc.sonifyNote;
         return (m == null ? 'note' : N[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1)) +
                (wc.technique ? ' · ' + wc.technique : '');
@@ -9248,6 +9258,15 @@ const Composer = {
                 return;
             }
 
+            // 1q.3 (2026-09-24): a press on a trill that is ALREADY selected cycles the stack under it, as a note's press does; ALT+click lists it.
+            // Another object picked is selected, never dragged as a zone. The first press selects the trill itself, as before.
+            if (zone.midiModel === 'trill') {
+                if (e.altKey && typeof HarmonySel !== 'undefined' && HarmonySel.openStackPicker) { HarmonySel.openStackPicker(e, zone.layer); return; }
+                if (this.selectedObject === zone && this.selectedObjects.length <= 1) {
+                    const t = this.pickFromStack(e, zone.layer);
+                    if (t && t !== zone) { this.selectObject(t); return; }
+                }
+            }
             this.selectObject(zone);
             this.pushUndoState();
             let hasMoved = false;

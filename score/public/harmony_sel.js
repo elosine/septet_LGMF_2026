@@ -81,8 +81,9 @@ const H = {
         if (!P.length) { el.style.display = 'none'; return; }
         const notes = P.filter(o => this.isNote(o)).length, trills = P.length - notes, lanes = new Set(P.map(o => o.layer)).size;
         const withOrig = P.filter(o => o.hq && o.hq.was).length;
-        el.querySelector('#hqCount').textContent = notes + (notes === 1 ? ' note' : ' notes') + (trills ? ' · ' + trills + (trills === 1 ? ' trill' : ' trills') : '') +
-            ' · ' + lanes + (lanes === 1 ? ' player' : ' players');
+        const place = this.stackPlace();   // 1q.3: the place in a stack, beside the counts
+        el.querySelector('#hqCount').textContent = [notes ? notes + (notes === 1 ? ' note' : ' notes') : '', trills ? trills + (trills === 1 ? ' trill' : ' trills') : '',
+            lanes + (lanes === 1 ? ' player' : ' players'), place].filter(Boolean).join(' · ');
         const b = el.querySelector('#hqBack'); b.textContent = 'back' + (withOrig ? ' (' + withOrig + ')' : ''); b.disabled = !withOrig; b.style.opacity = withOrig ? '1' : '.45';
         const s = el.querySelector('#hqStatus'); s.textContent = this.status; s.style.color = this.bad ? '#a33' : '#555';
         el.style.display = 'flex'; this.place();
@@ -192,6 +193,44 @@ const H = {
         const lanes = new Set(list.map(o => o.layer)).size;
         this.say(list.length ? ('marquee: ' + list.length + (list.length === 1 ? ' object' : ' objects') + (add ? ' added' : ' selected') + ' on ' + lanes + (lanes === 1 ? ' player' : ' players')) : (add ? 'marquee: nothing new inside it' : 'marquee: nothing inside it'), false);
         this.refresh();
+    },
+
+    // ---------------------------------------------------------------- 1q.3 THE STACK — ALT+click = the list of what is stacked here, on every player lane
+    // (the cycling by repeated clicks is the composer's own, `pickFromStack`, 2026-09-09 — RUNNING_LOG §311; META keeps its own picker)
+    closeStackPicker() {
+        const p = this._stackPick; if (!p) return; this._stackPick = null;
+        document.removeEventListener('mousedown', p._out, true); document.removeEventListener('keydown', p._key, true); p.remove();
+    },
+    openStackPicker(e, layer) {
+        const C = C_(); if (!C || typeof C.stackAt !== 'function') return; this.closeStackPicker();
+        const stack = C.stackAt(C.clientXToTime(e.clientX), layer); if (!stack.length) return;
+        const box = document.createElement('div'); box.id = 'hqStackPicker';
+        box.style.cssText = 'position:fixed;z-index:9999;background:#222;border:1px solid #5E8C7A;border-radius:6px;padding:6px;box-shadow:0 4px 16px rgba(0,0,0,.5);min-width:190px;' +
+            'left:' + Math.min(e.clientX, window.innerWidth - 240) + 'px;top:' + Math.max(4, Math.min(e.clientY + 10, window.innerHeight - 30 - stack.length * 24)) + 'px;font:11px system-ui,sans-serif;color:#ddd';
+        const head = document.createElement('div'); head.textContent = stack.length + ' stacked here — ' + shortOf(layer); head.style.cssText = 'color:#8fb3a5;font-size:10px;margin:0 0 4px 2px'; box.appendChild(head);
+        stack.forEach((s, i) => {
+            const row = document.createElement('div'); const cur = C.selectedObject === s;
+            row.style.cssText = 'display:flex;align-items:center;gap:6px;padding:4px 6px;cursor:pointer;border-radius:4px;background:' + (cur ? '#33473f' : 'none');
+            const sw = document.createElement('span'); sw.style.cssText = 'width:10px;height:10px;border-radius:2px;flex:none;background:' + (s.color || '#888');
+            const tx = document.createElement('span'); tx.textContent = C.stackLabel(s) + '  ' + (endOf(s) - startOf(s)).toFixed(1) + ' s';
+            row.appendChild(sw); row.appendChild(tx);
+            row.addEventListener('mouseenter', () => { row.style.background = '#33473f'; });
+            row.addEventListener('mouseleave', () => { row.style.background = cur ? '#33473f' : 'none'; });
+            row.addEventListener('mousedown', ev => {
+                ev.stopPropagation(); ev.preventDefault(); this.closeStackPicker();
+                C._metaCycle = { x: e.clientX, idx: i, ids: stack.map(q => q.id).join(',') };   // the cycle continues from here
+                C.selectObject(s); this.say('selected ' + C.stackLabel(s) + ' — ' + (i + 1) + ' of ' + stack.length + ' in this stack', false); this.refresh();
+            });
+            box.appendChild(row);
+        });
+        document.body.appendChild(box); this._stackPick = box;
+        box._out = ev => { if (!box.contains(ev.target)) this.closeStackPicker(); };
+        box._key = ev => { if (ev.key === 'Escape') { ev.stopPropagation(); this.closeStackPicker(); } };
+        setTimeout(() => { if (this._stackPick === box) { document.addEventListener('mousedown', box._out, true); document.addEventListener('keydown', box._key, true); } }, 0);
+    },
+    stackPlace() {   // the primary's place in the stack it was picked from (`pickFromStack` keeps it in `_metaCycle`), for the strip
+        const C = C_(), cyc = C && C._metaCycle, prim = C && C.selectedObject; if (!cyc || !cyc.ids || !prim) return '';
+        const ids = cyc.ids.split(','); return ids[cyc.idx] === prim.id && ids.length > 1 ? ((cyc.idx + 1) + ' of ' + ids.length + ' in this stack — click again for the next, ALT+click for the list') : '';
     },
 
     back() {
