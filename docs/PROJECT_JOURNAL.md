@@ -176,6 +176,39 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
+**Open at session end — CHECKPOINT #8 (2026-09-24, session 13 — `1p` planned and built on Fable, the tabs and the wrap on Opus) *(mid-session checkpoint — READ THIS ONE; #7 below still holds for `1n.6`)*:**
+- **THE TASK: HIS TESTS — nothing is being built.** Three builds wait on his ear, all in his tab: **`1p` the end time and the cursor's
+  clock** (new today) · `1n.6` dynamics (checkpoint #7 below) · `1o.6` the save structure (he is using it already).
+- **WHAT TODAY PUT IN HIS HANDS (all committed, pushed):**
+  - **`1p` (PLAN § `1p`; RUNNING_LOG §302 the talk · §303 the build · §304 his correction; LG-102):** on EVERY ROW of the orchestration
+    panel a `len | end` menu just before the row's box — `end` shows `onset + len` and a typed end writes the length behind it, each selected
+    column from its own onset (one end over several columns = a release together); per row, in the browser (`_txS.endRows`), never in the
+    pattern. The bar's `length | end` menu means the COLUMN's box alone. The cursor's time `#txClock` after `]`, running while SPACE plays.
+    Code: `score/public/texture_cols.js` · `texture_row.js`. Commits `def7369` · `30c71dc`.
+  - **The panel tabs off the composer's bottom bar (§305, commit `d71eb02`):** RHYTHM · SEQUENCE · BEATING · STRIKES at `bottom: 34px`,
+    side by side — one CSS block in `score/public/composer.html`. All 28 bar controls reachable at a width where the bar fits.
+  - **Answered, nothing built:** a whole column's length = the bar's `length` box (a row's own stands over it) · a whole column's dynamic
+    = the `dynamics` line, `flat`, `low` = `high`, all `who` · recording captures every held key (poly) whatever the lane — `onHwMidi`
+    tracks each key · a brick moves to another part by a vertical drag (SHIFT locks the axis).
+- **THE NEXT CONCRETE STEP IS HIS. Tell him, then wait:** reload the tab (page files only) → `1p`: select three columns, a row's menu to
+  `end`, one time typed → the three notes end together; another row left on `len`; the clock while SPACE runs. `1n.6` as in checkpoint #7
+  below. Revise on his word, on Opus.
+- **`Resume reads:`** only for his feedback — on `1p`: RUNNING_LOG §303 · §304 and PLAN § `1p`; on `1n`: as checkpoint #7 names; journal §2
+  STILL BINDING before any verification. Code: `score/public/texture_cols.js` first. **Nothing else.**
+- **Decisions pending him (new today):** a column `dyn` box beside the column's `length` (offered, not taken up) · the bottom bar scrolling
+  sideways on a narrow window (its controls need ~2,140 px; offered) · a brick dragged to another lane KEEPS its old articulation — the drop
+  does not re-pick it (`composer.html` ~5707, read, not heard; seen, not changed) · the calls of §303 · §304 (the preference per row in the
+  browser · two decimals · the menu before the box · the bar's menu kept for the column box). **Carried from #7:** his word on `1n.6` ·
+  `1o.6` · `1m.4` (§284 · §285) · the calls of §296 … §301 · whether `bank/patterns.json` goes into git · the triangle on track 10 (§221) ·
+  `ACT-BLOOM-03` · `-04` · a `sec01-done` tag.
+- **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short`): `bank/panel_snapshots.json` (his harmony takes,
+  written by the app) · `bank/sequences.json` (his sequence library) · `reaper/LGMF_rack.rpp` (his rack, saved by Reaper) · untracked
+  `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`) · untracked `bank/patterns.json` (his patterns —
+  `Sec2_01a` and two untitled; git is his call, §278) · **untracked `scores/pointilistic01a.json` — HIS new score, saved by his tab today; no
+  score is committed here.** The throwaway `score-5401` wrote nothing: every POST caught by the stub, its three localStorage keys cleared,
+  the server stopped. **Unsaved working copies** (`node tools/unsaved_check.js`): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` —
+  the same four as checkpoints #2 … #7, none the piece; his to Save or Reload.
+
 **Open at session end — CHECKPOINT #7 (2026-09-22/23, amended 2026-09-24 — session 13, the builds on Fable, the wraps on Opus) *(mid-session checkpoint — READ THIS ONE)*:**
 - **SINCE THE FIRST WRITING OF THIS BLOCK — THE BRASS SET UP (2026-09-23, his *"lets set up the brass"* then *"b"*; D27, RUNNING_LOG §301,
   commit `16680c3`):** a short note on a voice with NO curve copy (the SI2 three have one for `ord` alone) takes its set fader on its OWN
