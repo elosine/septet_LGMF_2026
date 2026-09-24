@@ -19,6 +19,9 @@
 //        drawer as `dealTake` loads it, `D.voices` the series with cents and partials), in the player's range for the note's own
 //        technique, folded when the take's `mayFold` says so, a fixed-pitch player within its tolerance (`D.mayTake`), one seeded stream
 //        (the drawer's `mulberry32`), a seed box and the last five seeds as chips. `back` restores the original as before.
+//   the dyn box (2026-09-24, his "am i able to multiselect and batch update the dynamic?"): `dyn ▾` and a height box on the strip
+//        set every selected NOTE's dynamic through the note card's one rule (`NoteCard.applyLevel`: a played note by its velocity,
+//        a shaped note by the table, a full-fader note by its height); shown as the selection's common name when there is one.
 //
 // A mixin: it wraps `Composer.selectObject` and `Composer.deselectAll` to repaint the strip; composer.html carries its script tag alone.
 (function (root) {
@@ -70,12 +73,17 @@ const H = {
             '<button type="button" id="hqShuffle" style="' + BTN + '" title="1q.7: each selected note dealt ANOTHER partial of its own take\'s harmonic series, in its player\'s range, with its cents — the strikes drawer\'s shuffle; the next seed, or the one typed">shuffle</button>' +
             '<label style="color:#6a6a60">seed <input id="hqSeed" type="number" min="1" step="1" style="width:52px;font:inherit;padding:0 3px;border:1px solid #b9b4a6;border-radius:3px;background:#fff;color:#333" title="the seed of the next shuffle — ENTER shuffles"></label>' +
             '<span id="hqSeeds" style="display:inline-flex;gap:3px" title="the last five seeds — a chip deals that seed again, the same result on the same selection"></span>' +
+            '<label style="color:#6a6a60" title="the dynamic of every selected note — the note card\'s own rule on each: a played note by its velocity, a shaped note by the table, a full-fader note by its height">dyn <select id="hqDyn" style="font:inherit;padding:0 2px;border:1px solid #b9b4a6;border-radius:3px;background:#fff;color:#333"><option value="">—</option>' + ['ppp', 'pp', 'p', 'mp', 'mf', 'f', 'ff', 'fff'].map(n => '<option value="' + n + '">' + n + '</option>').join('') + '</select></label>' +
+            '<input id="hqLevel" type="number" min="0" max="10" step="0.1" style="width:46px;font:inherit;padding:0 3px;border:1px solid #b9b4a6;border-radius:3px;background:#fff;color:#333" title="the same as a tile height, 0 … 10 — ENTER applies it">' +
             '<span id="hqStatus" style="color:#555;overflow:hidden;text-overflow:ellipsis;min-width:0"></span>';
         ['mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'keydown'].forEach(ev => el.addEventListener(ev, e => e.stopPropagation()));   // the score's own handlers stay out of the strip
         el.querySelector('#hqTake').addEventListener('click', e => { this.openMenu(e.currentTarget); });
         el.querySelector('#hqBack').addEventListener('click', () => { this.back(); });
         el.querySelector('#hqShuffle').addEventListener('click', () => { this.shuffleNext(); });
         el.querySelector('#hqSeed').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); this.shuffleNext(); } });
+        el.querySelector('#hqDyn').addEventListener('change', e => { const n = e.target.value; if (!n) return; const CR = root.Cresc; const h = CR && CR.dynHeight ? CR.dynHeight(n) : null; if (h != null) this.setDyn(h, n, root.DynTable && root.DynTable.levelOfName ? root.DynTable.levelOfName(n) : null); });
+        el.querySelector('#hqLevel').addEventListener('change', e => { const h = +e.target.value; if (isFinite(h) && e.target.value !== '') this.setDyn(h, String(Math.round(h * 10) / 10)); });
+        el.querySelector('#hqLevel').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.target.dispatchEvent(new Event('change')); } });
         document.body.appendChild(el); this.el = el;
         window.addEventListener('resize', () => { try { this.place(); } catch (e) {} });
         return el;
@@ -105,6 +113,12 @@ const H = {
             lanes + (lanes === 1 ? ' player' : ' players'), tk.text, place].filter(Boolean).join(' · ');
         cnt.title = tk.title;
         const sb = el.querySelector('#hqSeed'); if (document.activeElement !== sb) sb.value = this.seed || '';
+        { const CR = root.Cresc, notesSel = P.filter(o => this.isNote(o));   // the dyn box: the selection's common name and height, blank when mixed
+          const hs = notesSel.map(o => { const ys = (o.nodes || []).map(x => +x.y).filter(y => !isNaN(y)); return ys.length ? Math.round(Math.max.apply(null, ys) * 10) / 10 : null; }).filter(h => h != null);
+          const one = hs.length && hs.every(h => h === hs[0]) ? hs[0] : null;
+          const ds = el.querySelector('#hqDyn'), lb = el.querySelector('#hqLevel');
+          if (document.activeElement !== ds) ds.value = one != null && CR && CR.dynName ? CR.dynName(one) : '';
+          if (document.activeElement !== lb) lb.value = one != null ? one : ''; }
         const sc = el.querySelector('#hqSeeds'); sc.innerHTML = '';
         this.seeds.slice(0, 5).forEach(s => { const b = document.createElement('button'); b.type = 'button'; b.textContent = s; b.className = 'hqSeedChip';
             b.title = 'seed ' + s + ' again — the same result on the same selection'; b.style.cssText = BTN + ';padding:0 4px' + (s === this.seed ? ';background:#e8dcc0;font-weight:600' : ''); b.addEventListener('click', () => { this.shuffle(s); }); sc.appendChild(b); });
@@ -275,6 +289,25 @@ const H = {
         if (stuck) parts.push(stuck + ' with no partial in range, left as ' + (stuck === 1 ? 'is' : 'they are'));
         if (noTake.length) parts.push(noTake.length + ' without a take skipped — choose a take first');
         const uniq = Array.from(new Set(pitches)); if (uniq.length) parts.push(uniq.join(' · '));
+        this.say(parts.join(' · '), false);
+        this.refresh();
+    },
+
+    // ---------------------------------------------------------------- THE DYN BOX — the note card's one rule on every selected note
+    setDyn(h, label, level) {
+        const C = C_(); if (!C) return;
+        const NC = root.NoteCard; if (!NC || typeof NC.applyLevel !== 'function') { this.say('the note card is not on the page — no dyn', true); return; }
+        const P = this.pitched(), notes = P.filter(o => this.isNote(o)), trills = P.length - notes.length;
+        if (!notes.length) { this.say('dyn: no notes selected' + (trills ? ' (a trill\'s dynamic is its own)' : ''), true); return; }
+        C.pushUndoState();
+        const kinds = {}, lanes = new Set();
+        notes.forEach(o => { const k = NC.applyLevel(o, h, level); kinds[k] = (kinds[k] || 0) + 1; lanes.add(o.layer); this.rerender(o); });
+        if (typeof C.curveDirty === 'function') C.curveDirty();   // a shaped note's fader range changed
+        C.markDirty(); if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
+        if (NC.wc && notes.includes(NC.wc) && NC.el && NC.el.style.display !== 'none') { try { NC.paint(); } catch (e) {} }   // the card open on one of them follows
+        const parts = ['dyn ' + label + ' → ' + notes.length + (notes.length === 1 ? ' note' : ' notes') + ' on ' + lanes.size + (lanes.size === 1 ? ' player' : ' players')];
+        parts.push(Object.keys(kinds).map(k => kinds[k] + ' ' + k).join(' · '));
+        if (trills) parts.push(trills + (trills === 1 ? ' trill' : ' trills') + ' skipped (a trill\'s dynamic is its own)');
         this.say(parts.join(' · '), false);
         this.refresh();
     },

@@ -2304,6 +2304,16 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
       → `back` → all identical to before the take. **THE SHIELD:** the strikes drawer's own `shuffle` unchanged; a take (`apply`) on a
       fresh selection identical to `1q.1`'s writes but for the new `hq` fields; all untouched objects byte-identical; 0 POSTs.
 
+  - **1q.9 — The dyn box** (his *"am i able to multiselect and batch update the dynamic? where card?"*, LG-105; RUNNING_LOG §320) — **`built`
+    2026-09-24 (Fable), one commit:** `dyn ▾` (`ppp … fff`) and a height box `0 … 10` on the strip, after the seed chips, setting every
+    selected NOTE through THE ONE RULE, `NoteCard.applyLevel(wc, h, level)` — the card's own setter lifted out and brought under
+    DYNAMICS_LAW §3: a struck note by its velocity (the tile's height the value, `recVel` in step, a `velAbs` that was the recVel
+    following — §318's pin), a full-fader note by its height, a SHAPED note by the table (Rule 2: `cc7Abs` on the new written
+    dynamic, flat, the mf strike untouched — the card too, now), anything else by its height; a trill skipped and counted; one undo
+    step; the boxes READ the selection's common dynamic back, blank when mixed. A name travels to the table as its exact step
+    (found and fixed: `ff` through the rounded height landed on 101, not 100). Verified by capture on his `pointilistic01a`: five
+    notes to `ff` by the pane's real form input — the four played ones at vel 109 (the pinned horn on its curve channel), the shaped
+    one on the table's `ff`; one undo restores. [call: a shaped wave is FLATTENED at the new level, the card's rule.]
   - **1q.8 — His one test** — reload the tab (page files only): one re-pitched note selected → the strip names its take, the card (P)
     shows the note with its cents · partial · take, `+8va` keeps the cents → a chord on one part → `shuffle`, the chips, `back`.
     Revise on his word.

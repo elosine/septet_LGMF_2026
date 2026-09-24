@@ -81,6 +81,32 @@
             s.style.color = known ? '#8a9' : '#e06666';
         },
 
+        // ---- THE ONE RULE FOR A NOTE'S DYNAMIC (2026-09-24, his "am i able to multiselect and batch update the dynamic?") ----------
+        // The card's own setter since 2026-09-09, lifted out so the harmony strip's `dyn` box can apply it to every selected note, and
+        // brought under DYNAMICS_LAW §3 for the kinds the setter did not know. `h` is the tile height 0 … 10 (a written name is
+        // Cresc.dynHeight(name)). Returns the kind it treated the note as, for the status.
+        //   struck  — a played note (`plain`, or a `recVel`): the tile's height IS the value and the velocity moves in step, the
+        //             card's rule; a `velAbs` that was the recVel (§318's pin on a re-pitched struck note) follows it
+        //   full    — a `full fader` note (cc7Abs 0 … 127): the height IS the fader (1e), so the height alone
+        //   shaped  — velAbs + a table range (a sequence's, a texture's): Rule 2 — the fader on the table value of the NEW written
+        //             dynamic, lo = hi (flat), the mf strike untouched; the heights at the written height
+        //   drawn   — anything else: the height is its level on the anchor scale
+        applyLevel(wc, h, level) {   // level: the exact written step 0 … 1 when the caller had a NAME (DynTable.levelOfName), so the table lands to the digit; else h / 10
+            const v = Math.max(0, Math.min(10, Math.round(h * 10) / 10)), setY = () => { (wc.nodes || []).forEach(nd => { nd.y = v; }); };
+            if (wc.sonifyMode === 'plain' || wc.recVel != null) {
+                const was = wc.recVel; setY();
+                wc.recVel = Math.max(1, Math.min(127, Math.round(v / 10 * 127)));
+                if (wc.velAbs != null && was != null && wc.velAbs === was) wc.velAbs = wc.recVel;
+                return 'struck';
+            }
+            if (wc.velAbs != null && wc.cc7Abs) {
+                if (wc.cc7Abs.lo === 0 && wc.cc7Abs.hi === 127) { setY(); return 'full'; }
+                const T = root.DynTable, Cp = C(), bank = Cp ? Cp._velRemap : null, tr = (typeof TRACKS !== 'undefined' ? TRACKS : root.TRACKS || [])[wc.layer], key = tr && tr.instKey;
+                if (T && key) { const lvl = (level != null && isFinite(level)) ? Math.max(0, Math.min(1, +level)) : v / 10; wc.cc7Abs = T.range(bank, key, lvl, lvl); setY(); return 'shaped'; }
+            }
+            setY(); return 'drawn';
+        },
+
         // ---- open / close -------------------------------------------------------------------------
         open(wc, ev) {
             const Cp = C();
@@ -215,14 +241,10 @@
             });
             // one setter for all three faces of the dynamic: the tile's drawn height IS the value, and a captured note's replay
             // velocity is kept in step with it so what is seen and what is heard cannot disagree
-            const setLevel = (l) => commit(wc => {
-                const v = Math.max(0, Math.min(10, Math.round(l * 10) / 10));
-                (wc.nodes || []).forEach(nd => { nd.y = v; });
-                if (wc.sonifyMode === 'plain' || wc.recVel != null) wc.recVel = Math.max(1, Math.min(127, Math.round(v / 10 * 127)));
-            });
+            const setLevel = (l, level) => commit(wc => { CARD.applyLevel(wc, l, level); });   // 2026-09-24: the one rule, `applyLevel` below — the harmony strip's `dyn` box applies it to a whole selection
             d.querySelector('#ncDyn').addEventListener('change', (e) => {
                 const h = CR() && CR().dynHeight ? CR().dynHeight(e.target.value) : null;
-                if (h != null) setLevel(h);
+                if (h != null) setLevel(h, root.DynTable && root.DynTable.levelOfName ? root.DynTable.levelOfName(e.target.value) : null);
             });
             d.querySelector('#ncLevel').addEventListener('change', (e) => setLevel(+e.target.value));
             d.querySelector('#ncStart').addEventListener('change', (e) => commit(wc => {
