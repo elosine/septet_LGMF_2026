@@ -64,10 +64,11 @@ const H = {
         window.addEventListener('resize', () => { try { this.place(); } catch (e) {} });
         return el;
     },
-    place() {
+    place() {   // the top right of the score — BELOW the top bar's lowest control: a wrapped bar line hangs over the lanes, at the right end
         const lc = document.getElementById('laneContainer'); if (!lc || !this.el) return;
-        const r = lc.getBoundingClientRect();
-        this.el.style.top = Math.max(0, r.top + 6) + 'px';
+        const r = lc.getBoundingClientRect(), bar = document.getElementById('topBar');
+        const barBottom = bar ? Math.max(0, ...Array.from(bar.children).map(c => { const b = c.getBoundingClientRect(); return b.height ? b.bottom : 0; })) : 0;
+        this.el.style.top = Math.max(0, r.top, barBottom) + 6 + 'px';
         this.el.style.right = Math.max(8, window.innerWidth - r.right + 8) + 'px';
     },
     say(msg, bad) {

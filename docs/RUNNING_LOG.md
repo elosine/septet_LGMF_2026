@@ -11846,3 +11846,27 @@ controls need 2,136 px, so on a narrower window the right half is off-screen wha
 **THE SHIELD:** `openMetaStackPicker` and the META cycle untouched (the ALT branch keeps META on its own picker); a single note selected on the first click as before.
 
 **Seen, not changed:** the composer's `saveStatus` keeps the last stack text after a lone click (its own habit — the strip's own status is what changes) · the first click at a stack spot picks the SHORTEST object, not the one drawn on top (the 2026-09-09 design; the strip's place makes it legible).
+
+## §315. THE TOP BAR GROWS AND THE LANES START BELOW IT — his *"move that passages menu over … to the end of the row because I can't select the solo for English horn"*; the literal move tried first and found fragile (2026-09-24, Opus)
+
+**What prompted it — his words, with a screenshot** (the `-- Passages --` select sitting just right of the first lane's `Eng.` label): *"And you move that passages menu over maybe just to the end of the row because I can't select the solo for English horn."*
+
+**The cause, read:** `#topBar` is `position: fixed; height: 32px; flex-wrap: wrap` and the lanes start at a fixed `top: 32px`. The bar's controls — the save group, the two selects, the status, `passages.js`'s group (≈ 565 px: select · insert · from/to · capture), Insertion and the seven drawer buttons — need far more than a typical window, so the bar WRAPS and its second, third and fourth lines hang over the first lane: its label and its solo button. Where exactly a line breaks also depends on the STATUS text's length (a long *"working copy of … autosave lives here …"* is 427 px).
+
+**Tried, in order, each checked on `score-5401` with `elementFromPoint` at the centre of every `.soloBtn`:**
+1. **The literal move — `margin-left: auto` on the passages group** (so its wrapped line packs right). At 1280 the group went right, but the Insertion button wrapped to a line of its own at the LEFT and covered the solo. Rejected.
+2. **`justify-content: flex-end` on the bar** (every wrapped line packs right). 1280 · 1100: the solos free. **1000: the first solo still covered** — the wrapped line is full-width, nothing can pack right — and line 1 itself shifted right whenever the flex spacer wrapped off it. Rejected: fragile, and his window is likely about that width (the passages select at x ≈ 52 in his screenshot is where it sat at 1000 in the old layout).
+3. **Kept: the bar GROWS and the lanes follow it.** `#topBar`: `min-height: 32px` (was `height`), `padding: 3px 12px`, `box-sizing: border-box`. `#laneContainer`: `top: var(--barH, 32px)`; the save hints and the Insertion strip at `top: var(--barH, 32px)`; `toggleHints` and the Insertion strip's push-down now `calc(var(--barH) + h)`. `Composer.fitTopBar()` sets `--barH` from the bar's height (a ResizeObserver on the bar, and the window's resize for a pane that delivers none) and, on a change, fires `resize` so the score re-lays out through its own path (`generateTicks` · `renderAll` · `applyScroll`). **The status can no longer move the lanes:** `#saveStatus` takes one fixed share of the bar — `flex: 100 1 36em` (≈ its usual width, the line's spare room on top), `nowrap`, cut with … — and a MutationObserver mirrors its whole text into its `title` (hover). `passages.js` is back as it was. `harmony_sel.js`'s strip is placed below the bar's lowest control as well (its first placement, at the lanes' top-right, would have sat under a wrapped line).
+
+**Verified on `score-5401`** (the stubs in the navigation batch, 0 POSTs; the throwaway's saved hints on, so the lanes sit below the hints too):
+
+| width | bar | lanes' top | anything below the lanes' top? | solos clickable | status shown |
+|---|---|---|---|---|---|
+| 1000 | 123 px (4 lines) | 180 | no | 8 / 8 | 740 px, whole |
+| 1280 | 91 (3) | 131 | no | 8 / 8 | 449, whole |
+| 1920 | 61 (2) | 101 | no | 8 / 8 | 708, whole |
+| 2400 | 59 (2) | 83 | no | 8 / 8 | 413 of 427 |
+
+The harmony strip's `take ▾` hit by `elementFromPoint` at 2400.
+
+**The cost, his to weigh:** the lanes are shorter by what the bar wraps — even at 2400 px the drawer buttons take a second line (27 px), where before they hung over the first lane's right end. A long status is cut with … on a narrow line; the whole of it on hover.

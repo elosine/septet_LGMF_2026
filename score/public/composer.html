@@ -34,17 +34,22 @@
     }
 
     /* Top bar */
+    /* LGMF 2026-09-24 (RUNNING_LOG §315 — his "move that passages menu over … because I can't select the solo for English horn"): the bar
+       WRAPS on a window narrower than its controls; it was a fixed 32 px, so the wrapped lines hung over the first lane's label and solo.
+       Now it GROWS (min-height) and the lanes start below its real bottom (--barH, set by fitTopBar). */
     #topBar { flex-wrap: wrap; row-gap: 3px; font-size: 11px;
-        position: fixed; top: 0; left: 0; right: 0; height: 32px; z-index: 100;
+        position: fixed; top: 0; left: 0; right: 0; min-height: 32px; box-sizing: border-box; z-index: 100;
         background: #f5f5f5; border-bottom: 1px solid #ccc;
-        display: flex; align-items: center; padding: 0 12px; gap: 10px; font-size: 12px;
+        display: flex; align-items: center; padding: 3px 12px; gap: 10px; font-size: 12px;
     }
     #topBar label { color: #666; }
     #topBar input[type="text"] { border: 1px solid #ccc; padding: 2px 6px; font-size: 12px; width: 140px; }
     #topBar select { border: 1px solid #ccc; padding: 2px 4px; font-size: 12px; width: 160px; }
     #topBar button { border: 1px solid #ccc; background: #fff; padding: 2px 8px; font-size: 12px; cursor: pointer; }
     #topBar button:hover { background: #eee; }
-    #saveStatus { color: #999; font-size: 11px; }
+    /* the status keeps ONE share of the bar whatever its text (a 36em basis — about the old status's usual width — the line's spare room on top of it, the rest cut with … and
+       the whole text on hover) — so a long message can never add a line to the bar and make the lanes jump (§315) */
+    #saveStatus { color: #999; font-size: 11px; flex: 100 1 36em; min-width: 6em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     #timeDisplay { color: #333; font-weight: bold; font-size: 13px; font-family: 'Consolas', monospace; margin-left: auto; }
 
     /* Bottom bar (reserved for future controls) */
@@ -55,7 +60,7 @@
 
     /* Lane container */
     #laneContainer {
-        position: absolute; top: 32px; left: 0; right: 0; bottom: 32px;
+        position: absolute; top: var(--barH, 32px); left: 0; right: 0; bottom: 32px;
     }
 
     /* Individual lanes */
@@ -371,7 +376,7 @@
 </div>
 <!-- D17 (composer 2026-09-04: "put in some hints ... reminders how to use the save system"): one line,
      toggled by the ? button, remembered per browser; the lane container moves down while it shows -->
-<div id="saveHints" style="display:none; position:fixed; top:32px; left:0; right:0; z-index:99; background:#fff8e6; border-bottom:1px solid #e0c274; color:#5a4a1a; font-size:11px; padding:3px 12px; line-height:1.5">
+<div id="saveHints" style="display:none; position:fixed; top:var(--barH, 32px); left:0; right:0; z-index:99; background:#fff8e6; border-bottom:1px solid #e0c274; color:#5a4a1a; font-size:11px; padding:3px 12px; line-height:1.5">
   <b>Saving:</b> open a score &#8594; you are in its <b>working copy</b> (autosave lives there; the file changes only on Save) &#183;
   <b>Save / CTRL+S</b> when it's good &#183; <b>Name version</b> when a chunk is done (freezes a copy, e.g. <i>-v1.5</i>) &#183; <b>Restore&#8230;</b> makes a named version the file again (the file as it is now frozen first) &#183;
   <b>Reload</b> if it went wrong (drops the unsaved edits) &#183; a name starting <i>piece-</i> lives in the Piece menu, everything else in Experiments.
@@ -384,7 +389,7 @@
 <!-- BLASTS: sonority insertion strip (composer 2026-08-14). UI for the
      hammered loop (flip/audition/insert); reorchestration of inserted shapes
      is done by AI prompt, per the sandbox design principle. -->
-<div id="blastStrip" style="display:none; position:fixed; top:32px; left:0; right:0; z-index:65; background:#202024; border-bottom:1px solid #555; box-shadow:0 4px 14px rgba(0,0,0,.5); padding:5px 10px">
+<div id="blastStrip" style="display:none; position:fixed; top:var(--barH, 32px); left:0; right:0; z-index:65; background:#202024; border-bottom:1px solid #555; box-shadow:0 4px 14px rgba(0,0,0,.5); padding:5px 10px">
   <div style="display:flex; align-items:center; gap:8px">
     <span id="blastInfo" style="color:#ffd479; font-size:12px; font-family:Consolas,monospace; flex:1 1 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">← → to step · click a strip to hear it · then insert at the playhead</span>
     <select id="blastSrcSel" title="which material family to browse">
@@ -1605,6 +1610,22 @@ const Composer = {
                 segments: JSON.parse(JSON.stringify(s.segments)),
                 color: '#2E8B57', opacity: 0.5 });
         });
+        // §315 (LGMF 2026-09-24): the top bar wraps on a narrow window — the lanes start below its REAL bottom. --barH follows the bar's
+        // height (a ResizeObserver, and the window's resize for a pane that delivers none); a change re-lays the score out through the
+        // resize path below. The status's whole text on hover, since the bar cuts a long one (#saveStatus).
+        this.fitTopBar = () => {
+            const bar = document.getElementById('topBar'); if (!bar) return;
+            const hgt = Math.max(32, Math.ceil(bar.getBoundingClientRect().height));
+            if (hgt === this._barH) return;
+            this._barH = hgt; document.documentElement.style.setProperty('--barH', hgt + 'px');
+            window.dispatchEvent(new Event('resize'));
+        };
+        { const bar = document.getElementById('topBar');
+          if (bar && typeof ResizeObserver !== 'undefined') new ResizeObserver(() => this.fitTopBar()).observe(bar);
+          window.addEventListener('resize', () => this.fitTopBar());
+          const st = document.getElementById('saveStatus');
+          if (st && typeof MutationObserver !== 'undefined') new MutationObserver(() => { st.title = st.textContent; }).observe(st, { childList: true, characterData: true, subtree: true });
+          this.fitTopBar(); }
         // Window resize: lane geometry changes, everything must re-render
         let _rsz = null;
         window.addEventListener('resize', () => {
@@ -3437,7 +3458,7 @@ const Composer = {
         h.style.display = show ? '' : 'none';
         try { localStorage.setItem('composerSaveHints', show ? 'on' : 'off'); } catch (e) {}
         const b = document.getElementById('hintBtn'); if (b) { b.style.background = show ? '#fff8e6' : ''; b.style.borderColor = show ? '#e0c274' : ''; }
-        const lc = document.getElementById('laneContainer'); if (lc) lc.style.top = show ? (32 + h.offsetHeight) + 'px' : '32px';
+        const lc = document.getElementById('laneContainer'); if (lc) lc.style.top = show ? 'calc(var(--barH, 32px) + ' + h.offsetHeight + 'px)' : '';   // §315: below the bar's real bottom
     },
 
     // MEASURED one-shot sample lengths (bank/sample_lengths.json — the septet's own rows since 2026-09-06, PLAN 0d, RUNNING_LOG
@@ -18347,7 +18368,7 @@ document.addEventListener('DOMContentLoaded', () => Composer.init());
     // absolutely positioned, so nothing reflows on its own)
     const lanes = document.getElementById('laneContainer');
     const h = show ? strip.getBoundingClientRect().height : 0;
-    if (lanes) lanes.style.top = (32 + h) + 'px';
+    if (lanes) lanes.style.top = h ? 'calc(var(--barH, 32px) + ' + h + 'px)' : '';   // §315: below the bar's real bottom
     const ft = document.getElementById('floatingTime');
     if (ft) ft.style.top = (show ? h + 40 : 60) + 'px';
     if (Composer.renderAll) { Composer.generateTicks(); Composer.applyScroll(); Composer.renderAll(); }
