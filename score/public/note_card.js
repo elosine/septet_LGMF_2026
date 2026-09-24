@@ -126,6 +126,8 @@
                   '<button id="ncOctDn" style="padding:0 5px;font-size:11px">&minus;8va</button>' +
                   '<button id="ncOctUp" style="padding:0 5px;font-size:11px">+8va</button>' +
                   '<span id="ncRange" style="font-size:11px;color:#777"></span></div>' +
+                // 1q.6 (2026-09-24): what a take left on the note — the sounding note with its cents, the partial, the take (HarmonySel.info)
+                '<div id="ncJust" style="display:none;margin:1px 0 3px 58px;font-size:11px;color:#c9b27a"></div>' +
                 // THE DYNAMIC (2026-09-09, his *"also no ability to change dynamic in panel"*). One value underneath, the drawn
                 // height 0-10, shown three ways because each is what he wants at a different moment: the ensemble's own ppp…fff
                 // scale (Cresc.DYN, so the card cannot drift from the crescendos), the height the tile is drawn at, and the MIDI
@@ -323,6 +325,17 @@
             this.el.querySelector('#ncFullV').textContent = full ? 'struck at vel ' + (wc.velAbs != null ? wc.velAbs : 100) + ' - CC7 0-127' : '';
             this.el.querySelector('#ncPitch').value = wc.sonifyNote;
             this.el.querySelector('#ncName').textContent = nm(wc.sonifyNote);
+            // 1q.6: the cents from a flat `morphBend` (a moving one as a range), the partial and the take from HarmonySel.info — a
+            // transpose keeps the cents (setPitch touches the note number alone); the partial stands through an octave (the drawer's
+            // convention — the fold speaks through the pitch); a move NOT by octaves is said, from the take's dealt pitch (`hq.midi`)
+            { const j = this.el.querySelector('#ncJust'); const HS = root.HarmonySel, info = HS && HS.info ? HS.info(wc) : null;
+              const bp = Array.isArray(wc.morphBend) ? wc.morphBend.map(p => +p[1]).filter(x => isFinite(x)) : [];
+              const cmin = bp.length ? Math.min.apply(null, bp) : 0, cmax = bp.length ? Math.max.apply(null, bp) : 0;
+              const ct = c => (c > 0 ? '+' : '\u2212') + Math.abs(Math.round(c)) + '\u00a2', bits = [];
+              if (bp.length && (Math.abs(cmin) >= 0.5 || Math.abs(cmax) >= 0.5)) bits.push(Math.abs(cmax - cmin) < 0.5 ? nm(wc.sonifyNote) + ' ' + ct(cmax) : 'bend ' + ct(cmin) + ' \u2026 ' + ct(cmax));
+              if (info && info.partial != null) { let p = 'partial ' + info.partial; if (info.midi != null) { const d = wc.sonifyNote - info.midi; if (d % 12) p += ' (moved ' + (d > 0 ? '+' : '') + d + ' st)'; } bits.push(p); }
+              if (info && info.take) bits.push('\u2190 take "' + info.take + '"' + (info.seed != null ? ' \u00b7 shuffle ' + info.seed : ''));
+              j.textContent = bits.join(' \u00b7 '); j.style.display = bits.length ? '' : 'none'; }
             this.el.querySelector('#ncStart').value = Math.round(wc.startSeconds * 100) / 100;
             this.el.querySelector('#ncLen').value = Math.round((wc.endSeconds - wc.startSeconds) * 100) / 100;
             // how many notes are stacked under this one, so he knows there is something to cycle to

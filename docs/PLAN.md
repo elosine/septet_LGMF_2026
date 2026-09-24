@@ -2188,12 +2188,13 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE BUILD ORDER:** 1p.1 → 1p.2, one commit for the two [call] — Opus, at his word, after `/postclear`; each step's REQUIRED VERIFICATION
     and THE SHIELD run on `score-5401`. His one test after: in his rack, three columns released together by one `end`, heard.
 
-- **1q — A TAKE'S HARMONY ONTO A SELECTION · A MARQUEE · THE STACK: the composer score's own selection re-pitched from a harmony take, with a `back`** — **`built` 2026-09-24 (Fable) — `1q.1` RUNNING_LOG §312 · `1q.2` §313 (the marquee branch placed before the SHIFT-span's; the real CTRL+drag is his 1q.4) · `1q.3` §314 (the cycling verified with real clicks; the ALT+click list on every lane; a trill in the stack); three commits; `1q.4` HIS ONE TEST next** — `planned` 2026-09-24 (Fable) —
+- **1q — A TAKE'S HARMONY ONTO A SELECTION · A MARQUEE · THE STACK: the composer score's own selection re-pitched from a harmony take, with a `back`** — **`built` 2026-09-24 (Fable), GROWN the same day (`1q.5` … `1q.8`, from his test — RUNNING_LOG §316) and the additions BUILT the same day (`1q.5` · `1q.6` · `1q.7` RUNNING_LOG §317, one commit; `1q.8` HIS ONE TEST next) — `1q.1` RUNNING_LOG §312 · `1q.2` §313 (the marquee branch placed before the SHIFT-span's; the real CTRL+drag is his 1q.4) · `1q.3` §314 (the cycling verified with real clicks; the ALT+click list on every lane; a trill in the stack); three commits; `1q.4` HIS ONE TEST next** — `planned` 2026-09-24 (Fable) —
   his words LG-103; the talk RUNNING_LOG §306 … §311 (phase 1 one topic at a time, his answers A · A · a · a · a; phase 3 skipped at his word,
   *"if you are ready for plan we can skip one at a time and you can build"*). *Why:* the drawers write harmony INTO the score; nothing yet
   re-harmonises what is already there. A passage composed by hand or by a pattern — its rhythm, lengths, dynamics and articulations kept —
   can take its pitches from any of his 200-odd harmony takes, be heard, and go back. The marquee is the selection that makes a passage one
-  gesture; the stack is what a chord on one part needs. The calls made alone are marked [call], his to reverse.
+  gesture; the stack is what a chord on one part needs. The calls made alone are marked [call], his to reverse. **GROWN 2026-09-24 from his `1q.4` test** (RUNNING_LOG §316 · LG-104):
+  `1q.5` the take named on the strip · `1q.6` the note card · `1q.7` the shuffle · `1q.8` his one test — below, after `1q.4`.
 
   - **1q.1 — The take onto a selection** — a new mixin `score/public/harmony_sel.js` (`HarmonySel`; one script tag in `composer.html`).
     **THE HARMONY STRIP:** a small fixed strip at the top right of the score area, shown whenever the selection holds at least one PITCHED
@@ -2254,6 +2255,64 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **1q.4 — His one test** — reload the tab (page files only): CTRL+drag over a chord passage → `take ▾` on the strip → `▸` a take, its
     name → played → `back`; a second take on the same selection; a stack clicked three times, ALT+click for the list; a trill in a
     selection. Revise on his word.
+
+  - **1q.5 — The take named on the strip** (his `1q.4` feedback, RUNNING_LOG §316 · LG-104: *"can we show that in the main sort of
+    brown menu at top? Even when I just select one of the notes that got changed"*). The strip reads the take FROM THE NOTE, never from
+    its own memory: `hq` gains `take` · `midi` (the dealt pitch) · `cents` · `partial` at every write (a take, the shuffle); a note
+    re-pitched before this step has the same facts in its `performanceNotes` fragment (` · ← take "NAME" · partial n · +c¢ just`, §312)
+    and one parser (`HarmonySel.info(o)`) reads either. Beside the counts: `take "Just-e1-seed191"`, or `on 3 of 5` when not every
+    selected note has one, or `2 takes` (the names in the title) when mixed; nothing when none. The menu's BLUE name is the selection's
+    own take, or none [call: the strip's `lastTake` no longer lights it — the blue means "what these notes came from", his reading].
+    - **REQUIRED VERIFICATION** (`score-5401`): a take onto four notes → deselect → ONE of them selected → the strip names the take,
+      the menu opened lights it → a note whose take is in `performanceNotes` alone (`hq.take` deleted by hand) → named the same →
+      two takes over two selections, then both selected → `2 takes` → `back` → nothing named, nothing lit.
+
+  - **1q.6 — The note card** (*"can we reflect the actual note there with the sense deviation there? … what take it's from"*).
+    `score/public/note_card.js`: under the pitch row one muted line, `F5 −31¢ · partial 14 · ← take "Just-e1-seed191"` — the cents
+    from a flat `morphBend` (a moving bend reads `bend −31 … +12¢`), the partial and the take from `HarmonySel.info` (a drawer's own
+    insert carries `partial n · ±c¢ just` in the same words and reads the same); hidden when there is nothing to say. **A transpose by the
+    card keeps the cents** (as built: every pitch control goes through one `setPitch`, which sets the note number alone; `morphBend` is
+    note-relative). **The partial stands through an octave** — the drawer's own convention writes the series' partial number and lets the
+    fold speak through the pitch (`soundingPitchR`, `v.partial` unchanged), so `partial 14` an octave up is still partial 14 folded
+    [call: the "2n" relabel offered at the top line is DROPPED for this reason]. A transpose NOT by whole octaves breaks the just
+    relation: the line reads `partial 14 (moved +1 st)` from `hq.midi`, `performanceNotes` left as stored [call]. `back` returns to
+    the pitch before the take, as built — his word (*"back goes back to orig pitch"*).
+    - **REQUIRED VERIFICATION** (`score-5401`): the card on a re-pitched note (P) → the line with cents · partial · take → `+8va` by a
+      real click → the number +12, `morphBend` byte-identical, the line the same cents and partial → `+` → `(moved +1 st)` → CTRL+Z
+      twice → the line as first → a plain note → no line. **THE SHIELD:** the card's every other field byte-identical to before;
+      `setPitch` untouched.
+
+  - **1q.7 — The shuffle** (*"can I select individual ones of those pitches and then do like a shuffle and then … be assigned another
+    note in that same harmony"*; his pool **b**, *"the equivalent of shuffle in the strikes drawer"*). On the strip after `back`:
+    `shuffle` · `seed [n]` · the last five seeds as chips, the one in force lit — the drawer's own row. **The pool of a note is ITS
+    take's harmony:** the take loaded into the strikes drawer as `dealTake` loads it (`D.loadTake` → `select(strikeId)`), then
+    `D.voices` — every partial of the series with its `pitch` · `cents` · `partial` (`spectrum_ui.js` §2), not the eight dealt
+    notes. **The draw:** the selected notes in time order, one seeded stream (`mulberry32`, the drawer's); a note on lane L may take a
+    voice that fits L's range for the note's OWN technique (else the lane's default) — folded by octaves when the take's `mayFold` is
+    set, literal otherwise, the drawer's `fits` — and passes `D.mayTake` (a fixed-pitch player within ±5¢, its cents dropped as
+    `notesFor` drops them); a voice other than the note's current partial when one exists, and one not already dealt to another
+    selected note on the same lane in this shuffle when enough remain [call: "another note" means another]. Written as a take is
+    written (`writeNote`: pitch, cents as the bend, DRAWN, the `performanceNotes` fragment), `hq.was` remembered once, `hq.take` ·
+    `midi` · `cents` · `partial` · `seed` set. A trill takes the partial's pitch, cents dropped, counted. A selected note with NO take
+    is skipped and counted (*choose a take first*). `shuffle` = the next seed (the box's, if typed); a chip = that seed again, the
+    same result on the same selection. `pushUndoState` before, `curveDirty` and `markDirty` after; the status: `shuffle 157 → 4 notes
+    on 2 players · Hn D5 −31¢ · Hn G4 +2¢ · …`. `back` restores the original as before.
+    - **REQUIRED VERIFICATION** (`score-5401`): a take onto six notes, three of them on one lane (the same pitch) → `shuffle` by a real
+      click → the three on different partials of the series, each within the horn's range for its technique, each with its cents and
+      partial written, `hq.was` still the original → the chip of that seed by a real click → byte-identical result → `shuffle` again →
+      another → a vibraphone note in the selection → tempered, cents 0, within tolerance → a note without a take → skipped and counted
+      → `back` → all identical to before the take. **THE SHIELD:** the strikes drawer's own `shuffle` unchanged; a take (`apply`) on a
+      fresh selection identical to `1q.1`'s writes but for the new `hq` fields; all untouched objects byte-identical; 0 POSTs.
+
+  - **1q.8 — His one test** — reload the tab (page files only): one re-pitched note selected → the strip names its take, the card (P)
+    shows the note with its cents · partial · take, `+8va` keeps the cents → a chord on one part → `shuffle`, the chips, `back`.
+    Revise on his word.
+
+  - **THE BUILD ORDER OF THE ADDITIONS:** 1q.5 → 1q.6 → 1q.7 in ONE commit (all three live in `harmony_sel.js`; the card's lines
+    in `note_card.js`), the three REQUIRED VERIFICATIONs and THE SHIELD in one `score-5401` session — Fable, at his word (*"all good
+    you can move to build unless there are additional questions"*); `1q.8` his. **DONE 2026-09-24 (RUNNING_LOG §317):** every named
+    check ran, the real clicks on `+8va` · `shuffle` · a chip; found and fixed before the commit: the shuffle's "another" is measured
+    against the take's DEALT partial (`hq.dealt`), so a seed reproduces; the "2n" relabel of `1q.6` dropped (the drawer's convention).
 
   - **THE BUILD ORDER:** 1q.1 → 1q.2 → 1q.3, one commit each, each step's REQUIRED VERIFICATION and THE SHIELD run on `score-5401`
     — Fable, at his word (*"if you can just move streight to build go ahead"*); `1q.4` his.

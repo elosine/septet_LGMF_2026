@@ -12,6 +12,13 @@
 //        remembers its original ON ITSELF (`hq.was`, saved with the score, never overwritten by a later take — his A, §307) and
 //        `back` restores it. The property panel is on demand only (P), which is why the strip exists (§311).
 //   1q.2 · 1q.3 arrive in their own commits (the marquee on CTRL+drag; the stack).
+//   1q.5 · 1q.6 · 1q.7 (2026-09-24, his `1q.4` test — RUNNING_LOG §316, LG-104): the strip NAMES the take a selection came from,
+//        read from the note (`hq.take` · `midi` · `cents` · `partial`, or the `performanceNotes` fragment of a note written before —
+//        one parser, `info`), the menu's blue name the selection's own; the note card's line (note_card.js reads `info`); and a
+//        SHUFFLE — his pool b: each selected note dealt ANOTHER partial of ITS take's harmonic series (the take loaded into the strikes
+//        drawer as `dealTake` loads it, `D.voices` the series with cents and partials), in the player's range for the note's own
+//        technique, folded when the take's `mayFold` says so, a fixed-pitch player within its tolerance (`D.mayTake`), one seeded stream
+//        (the drawer's `mulberry32`), a seed box and the last five seeds as chips. `back` restores the original as before.
 //
 // A mixin: it wraps `Composer.selectObject` and `Composer.deselectAll` to repaint the strip; composer.html carries its script tag alone.
 (function (root) {
@@ -30,9 +37,13 @@ const shortOf = L => { const t = TR()[L]; return t ? (t.short || t.label || t.id
 const startOf = o => (o.startSeconds != null ? +o.startSeconds : (o.startTime != null ? +o.startTime : 0));
 const endOf = o => (o.endSeconds != null ? +o.endSeconds : (o.endTime != null ? +o.endTime : startOf(o)));
 const BTN = 'font:inherit;padding:1px 7px;border:1px solid #b9b4a6;border-radius:3px;background:#fbfaf6;color:#333;cursor:pointer';
+// 1q.7 — the strikes drawer's own two helpers, copied (strike_drawer.js: `foldInto` · `mulberry32`), so the strip's shuffle draws as the drawer's does
+function foldInto(pitch, lo, hi) { let p = pitch, n = 0; while (p < lo && n < 8) { p += 12; n++; } while (p > hi && n > -8) { p -= 12; n--; } return (p >= lo && p <= hi) ? { pitch: p, oct: n } : null; }
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
 const H = {
     el: null, status: '', bad: false, lastTake: '',
+    seed: 0, seeds: [],   // 1q.7: the seed in force and the last five, newest first
 
     // ---------------------------------------------------------------- what the strip serves
     isNote(o) {   // the composer's own `isGrain`: a pitched waveCurve on a player lane IS a note (composer.html ~2508); a cue line is an empty one
@@ -56,10 +67,15 @@ const H = {
         el.innerHTML = '<span style="color:#6a6a60">harmony ·</span><span id="hqCount"></span>' +
             '<button type="button" id="hqTake" style="' + BTN + '" title="the takes menu of the sequence drawer: ▸ hears a take without choosing it, the name re-pitches the selection">take ▾</button>' +
             '<button type="button" id="hqBack" style="' + BTN + '" title="back to the pitches these notes had before their first take">back</button>' +
+            '<button type="button" id="hqShuffle" style="' + BTN + '" title="1q.7: each selected note dealt ANOTHER partial of its own take\'s harmonic series, in its player\'s range, with its cents — the strikes drawer\'s shuffle; the next seed, or the one typed">shuffle</button>' +
+            '<label style="color:#6a6a60">seed <input id="hqSeed" type="number" min="1" step="1" style="width:52px;font:inherit;padding:0 3px;border:1px solid #b9b4a6;border-radius:3px;background:#fff;color:#333" title="the seed of the next shuffle — ENTER shuffles"></label>' +
+            '<span id="hqSeeds" style="display:inline-flex;gap:3px" title="the last five seeds — a chip deals that seed again, the same result on the same selection"></span>' +
             '<span id="hqStatus" style="color:#555;overflow:hidden;text-overflow:ellipsis;min-width:0"></span>';
         ['mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'keydown'].forEach(ev => el.addEventListener(ev, e => e.stopPropagation()));   // the score's own handlers stay out of the strip
         el.querySelector('#hqTake').addEventListener('click', e => { this.openMenu(e.currentTarget); });
         el.querySelector('#hqBack').addEventListener('click', () => { this.back(); });
+        el.querySelector('#hqShuffle').addEventListener('click', () => { this.shuffleNext(); });
+        el.querySelector('#hqSeed').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); this.shuffleNext(); } });
         document.body.appendChild(el); this.el = el;
         window.addEventListener('resize', () => { try { this.place(); } catch (e) {} });
         return el;
@@ -83,8 +99,15 @@ const H = {
         const notes = P.filter(o => this.isNote(o)).length, trills = P.length - notes, lanes = new Set(P.map(o => o.layer)).size;
         const withOrig = P.filter(o => o.hq && o.hq.was).length;
         const place = this.stackPlace();   // 1q.3: the place in a stack, beside the counts
-        el.querySelector('#hqCount').textContent = [notes ? notes + (notes === 1 ? ' note' : ' notes') : '', trills ? trills + (trills === 1 ? ' trill' : ' trills') : '',
-            lanes + (lanes === 1 ? ' player' : ' players'), place].filter(Boolean).join(' · ');
+        const tk = this.takeText(P);       // 1q.5: the take these notes came from, read from the notes
+        const cnt = el.querySelector('#hqCount');
+        cnt.textContent = [notes ? notes + (notes === 1 ? ' note' : ' notes') : '', trills ? trills + (trills === 1 ? ' trill' : ' trills') : '',
+            lanes + (lanes === 1 ? ' player' : ' players'), tk.text, place].filter(Boolean).join(' · ');
+        cnt.title = tk.title;
+        const sb = el.querySelector('#hqSeed'); if (document.activeElement !== sb) sb.value = this.seed || '';
+        const sc = el.querySelector('#hqSeeds'); sc.innerHTML = '';
+        this.seeds.slice(0, 5).forEach(s => { const b = document.createElement('button'); b.type = 'button'; b.textContent = s; b.className = 'hqSeedChip';
+            b.title = 'seed ' + s + ' again — the same result on the same selection'; b.style.cssText = BTN + ';padding:0 4px' + (s === this.seed ? ';background:#e8dcc0;font-weight:600' : ''); b.addEventListener('click', () => { this.shuffle(s); }); sc.appendChild(b); });
         const b = el.querySelector('#hqBack'); b.textContent = 'back' + (withOrig ? ' (' + withOrig + ')' : ''); b.disabled = !withOrig; b.style.opacity = withOrig ? '1' : '.45';
         const s = el.querySelector('#hqStatus'); s.textContent = this.status; s.style.color = this.bad ? '#a33' : '#555';
         el.style.display = 'flex'; this.place();
@@ -97,7 +120,48 @@ const H = {
         if (!this.pitched().length) return;
         if (S._takeMenu) { S.closeTakeMenu(); return; }
         try { if (D && D.refreshTakes && !Object.keys(D.takeList || {}).length) await D.refreshTakes(); } catch (e) {}
-        S.openTakeMenu(-1, anchor, { current: this.lastTake, onChoose: name => { this.apply(name); } });
+        S.openTakeMenu(-1, anchor, { current: this.takeText(this.pitched()).one, onChoose: name => { this.apply(name); } });   // 1q.5: the blue name is what THESE notes came from, or none
+    },
+
+    // ---------------------------------------------------------------- 1q.5 what a take left on a note — read from the object, one parser
+    info(o) {   // { take, midi, cents, partial, seed } — `hq` first (1q.5+), else the `performanceNotes` fragment (§312: ` · ← take "NAME" · partial n · +c¢ just`; a drawer's own insert carries the last two in the same words)
+        if (!o) return null;
+        const q = o.hq || {}, t = String(o.performanceNotes || '');
+        const mT = t.match(/← take "([^"]*)"/), mP = t.match(/ · partial (\d+)/), mC = t.match(/ · ([+−-]?\d+)¢ just/);
+        const take = q.take != null ? q.take : (mT ? mT[1] : null);
+        const partial = q.partial != null ? q.partial : (mP ? +mP[1] : null);
+        const cents = q.cents != null ? q.cents : (mC ? +mC[1].replace('−', '-') : null);
+        if (take == null && partial == null && cents == null) return null;
+        return { take, midi: q.midi != null ? q.midi : null, cents, partial, seed: q.seed != null ? q.seed : null };
+    },
+    stamp(o, name, n, seed) {   // what was written, on the object beside `was` — the strip and the card read it back
+        const q = o.hq = o.hq || {}; q.take = name; q.midi = Math.round(+n.midi); q.cents = +(+n.cents || 0).toFixed(2);
+        if (n.partial != null) q.partial = n.partial; else delete q.partial;
+        if (seed != null) q.seed = seed; else { delete q.seed; q.dealt = { midi: q.midi, partial: q.partial != null ? q.partial : null }; }   // a take's own deal, kept through every shuffle: what 'another' means, and what makes a seed reproducible
+    },
+    takeText(P) {   // the strip's words for where the selection came from: `take "X"` · `2 takes` (the names in the title) · `on 3 of 5` when not all
+        const names = []; let k = 0;
+        P.forEach(o => { const i = this.info(o); if (i && i.take) { k++; if (!names.includes(i.take)) names.push(i.take); } });
+        if (!k) return { text: '', title: '', one: '' };
+        const one = names.length === 1 ? names[0] : '';
+        return { text: (one ? 'take "' + one + '"' : names.length + ' takes') + (k < P.length ? ' on ' + k + ' of ' + P.length : ''), title: names.join('\n'), one };
+    },
+    rangeOf(D, L, o) {   // 1q.7: the note's OWN technique's range when the instrument has it, else the lane's default — the drawer's `fits`
+        const inst = D && D.instOf ? D.instOf(L) : null; if (!inst) return [0, 127];
+        const techs = inst.techniques || [], dk = D.defaultTech ? D.defaultTech(L) : null;
+        const tech = techs.find(t => t.key === o.technique) || techs.find(t => t.key === dk) || null;
+        return [(tech && tech.rangeLow != null) ? tech.rangeLow : (inst.rangeLow != null ? inst.rangeLow : 0), (tech && tech.rangeHigh != null) ? tech.rangeHigh : (inst.rangeHigh != null ? inst.rangeHigh : 127)];
+    },
+    async pool(name) {   // 1q.7: the take's HARMONY — loaded into the strikes drawer exactly as `dealTake` loads it; `D.voices` = every partial of the series with its cents and partial number (spectrum_ui.js §2)
+        const D = D_(); if (!D) return null;
+        if (!D.db && D.loadDb) await D.loadDb(false);
+        if (!D.takeList || !D.takeList[name]) await D.refreshTakes();
+        const t = D.takeList && D.takeList[name]; if (!t) return null;
+        await D.loadTake(name);
+        const want = t.state && t.state.strikeId;
+        if (!D.strike || (want && D.strike.id !== want)) return null;
+        const voices = (D.voices || []).map(v => ({ pitch: Math.round(+v.pitch), cents: +v.cents || 0, partial: v.partial != null ? v.partial : null })).filter(v => isFinite(v.pitch));
+        return { voices, mayFold: !!(D.cfg && D.cfg.mayFold) };
     },
 
     // ---------------------------------------------------------------- the take onto the selection
@@ -138,6 +202,7 @@ const H = {
             this.remember(o);
             if (this.isTrill(o)) { o.trill.pitch = Math.round(+n.midi); if (n.cents) trillCents++; try { C.regenerateTrill(o); } catch (e) {} trills++; }
             else { this.writeNote(o, n, name); notes++; }
+            this.stamp(o, name, n, null);   // 1q.5
             touched.add(L); pitches.push(shortOf(L) + ' ' + pn(n.midi) + centsTxt(n.cents));
             this.rerender(o);
         });
@@ -152,6 +217,61 @@ const H = {
         this.say(parts.join(' · '), false);
         this.refresh();
     },
+    // ---------------------------------------------------------------- 1q.7 THE SHUFFLE — his pool b: another partial of the note's OWN take's series
+    shuffleNext() {   // the box's seed when he typed one, else the next after the seed in force
+        const sb = this.el && this.el.querySelector('#hqSeed'); const typed = sb ? Math.round(+sb.value) : 0;
+        this.shuffle((typed > 0 && typed !== this.seed) ? typed : (this.seed || 0) + 1);
+    },
+    async shuffle(seed) {
+        const C = C_(), D = D_(); if (!C || !D) { this.say('the strikes drawer is not on the page — no shuffle', true); return; }
+        const P = this.pitched(); if (!P.length) { this.say('nothing pitched is selected', true); return; }
+        const withTake = [], noTake = [];
+        P.forEach(o => { const i = this.info(o); if (i && i.take) withTake.push({ o, take: i.take, partial: i.partial }); else noTake.push(o); });
+        if (!withTake.length) { this.say('shuffle: none of the selected notes came from a take — choose a take first', true); return; }
+        const pools = {};
+        for (const name of Array.from(new Set(withTake.map(w => w.take)))) {   // each take loaded once
+            let p = null; try { p = await this.pool(name); } catch (e) { this.say('shuffle: take "' + name + '" not read: ' + (e && e.message || e), true); return; }
+            if (!p || !p.voices.length) { this.say('shuffle: take "' + name + '" could not be loaded in the strikes drawer — its harmony was not found', true); return; }
+            pools[name] = p;
+        }
+        C.pushUndoState();
+        const rnd = mulberry32(seed * 104729 + 3), given = {}, pitches = [], touched = new Set();
+        let notes = 0, trills = 0, trillCents = 0, stuck = 0, folded = 0;
+        withTake.sort((a, b) => startOf(a.o) - startOf(b.o) || (a.o.yOffset || 0) - (b.o.yOffset || 0)).forEach(w => {
+            const o = w.o, L = o.layer, pool = pools[w.take], fixed = !!(D.fixedPitch && D.fixedPitch(L)), [lo, hi] = this.rangeOf(D, L, o);
+            let cands = [];
+            pool.voices.forEach(v => {
+                if (D.mayTake && !D.mayTake(v, L)) return;                                                     // a fixed-pitch player: within the tolerance only
+                const f = pool.mayFold ? foldInto(v.pitch, lo, hi) : ((v.pitch >= lo && v.pitch <= hi) ? { pitch: v.pitch, oct: 0 } : null);
+                if (f) cands.push({ midi: f.pitch, oct: f.oct, cents: fixed ? 0 : v.cents, partial: v.partial });   // its cents dropped on a fixed-pitch player, as notesFor drops them
+            });
+            if (!cands.length) { stuck++; return; }
+            const key = c => (c.partial != null ? 'p' + c.partial : 'm' + c.midi);
+            if (!o.hq) o.hq = {}; if (!o.hq.dealt) o.hq.dealt = { midi: o.hq.midi != null ? o.hq.midi : (this.isTrill(o) ? o.trill.pitch : o.sonifyNote), partial: w.partial != null ? w.partial : null };   // a note written before 1q.5: its take's deal is what it holds now
+            const dl = o.hq.dealt;
+            let c2 = cands.filter(c => (c.partial != null && dl.partial != null) ? c.partial !== dl.partial : c.midi !== dl.midi); if (c2.length) cands = c2;   // ANOTHER note than the take's own — a stable rule, so the same seed on the same selection deals the same
+            const g = given[L] || (given[L] = new Set());
+            c2 = cands.filter(c => !g.has(key(c))); if (c2.length) cands = c2;                                     // apart from this player's other notes of this shuffle
+            const n = cands[Math.floor(rnd() * cands.length)]; g.add(key(n));
+            this.remember(o);
+            if (this.isTrill(o)) { o.trill.pitch = n.midi; if (n.cents) trillCents++; try { C.regenerateTrill(o); } catch (e) {} trills++; }
+            else { this.writeNote(o, n, w.take); notes++; }
+            this.stamp(o, w.take, n, seed); if (n.oct) folded++;
+            touched.add(L); pitches.push(shortOf(L) + ' ' + pn(n.midi) + centsTxt(n.cents) + (n.partial != null ? ' (' + n.partial + ')' : ''));
+            this.rerender(o);
+        });
+        if (typeof C.curveDirty === 'function') C.curveDirty();
+        C.markDirty();
+        this.seed = seed; this.seeds = [seed].concat(this.seeds.filter(s => s !== seed)).slice(0, 5);
+        const parts = ['shuffle ' + seed + ' → ' + notes + (notes === 1 ? ' note' : ' notes') + (trills ? ' · ' + trills + (trills === 1 ? ' trill' : ' trills') + (trillCents ? ' (no cents on a trill)' : '') : '') + ' on ' + touched.size + (touched.size === 1 ? ' player' : ' players')];
+        if (folded) parts.push(folded + ' folded by octave');
+        if (stuck) parts.push(stuck + ' with no partial in range, left as ' + (stuck === 1 ? 'is' : 'they are'));
+        if (noTake.length) parts.push(noTake.length + ' without a take skipped — choose a take first');
+        const uniq = Array.from(new Set(pitches)); if (uniq.length) parts.push(uniq.join(' · '));
+        this.say(parts.join(' · '), false);
+        this.refresh();
+    },
+
     // ---------------------------------------------------------------- 1q.2 THE MARQUEE — CTRL+drag on empty lane space (his "a", §308)
     // A fixed rectangle follows the mouse; on mouseup every object on a PLAYER lane whose drawn box TOUCHES it is selected, as SHIFT+click
     // selects (selectObject additive: pushed, lit, the last the primary); SHIFT held at the start ADDS to the selection; ESC cancels; under
