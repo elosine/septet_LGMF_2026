@@ -182,6 +182,28 @@ score does this by itself: the note is a curve event, the map finds no pool, `pr
 measured the bowed one) → velocity alone on MAIN, as before. The one helper is `score/public/texture_dyn.js`; SPACE, the column
 preview and Insert all read it (§296 · §301).
 
+### Rule 5 — A STRUCK NOTE RE-PITCHED WITH CENTS KEEPS ITS VELOCITY *(PLAN 1q, 2026-09-24 — his ear, RUNNING_LOG §318 · §319)*
+
+His ear: *"if I apply a take like just-b1-seed208 it seems louder."* A note he PLAYED (`sonifyMode: 'plain'`, `recVel` 45) that takes a
+pitch WITH CENTS from a harmony take needs a bend, and a bend needs a curve channel — so the tool un-plained it (the drawers' rule
+for their own inserts, 1c.3 · 1c.4). But a drawn note without `velAbs` is struck from the anchor scale, `HELD_LO … HELD_HI` = 65 … 127
+by its tile's height, whose FLOOR is 65 by design; his 45 was lifted to ≈ 87. The route was right, the level was the fault.
+
+**So a struck note stays struck through a take and a shuffle** (`harmony_sel.js` `writeNote`):
+
+```js
+if (wasStruck && sonifyMode == null && velAbs == null && cc7Abs == null) { velAbs = recVel; cc7Abs = { lo: 127, hi: 127 }; }
+```
+
+The velocity is still the dynamic (§1's first kind), the fader is pinned full as a plain note's pre-arm sends it, and the note goes
+out on a curve channel with its bend — 1n.1's B2 shape (Rule 4) for a captured note. `back` restores `velAbs` · `cc7Abs` with the
+rest. A note that already carries its own pin (a sequence's, a texture's) is not touched. Verified by capture (§319): the horn
+note 69 at velocity 45 on MAIN → note 75 at velocity 45 on `lghornb` ch 4 with its bend, CC7 127 → `back` → byte-identical.
+
+**The general form, for the next tool that re-pitches what is already in the score:** a note's LEVEL lives in its KIND as much
+as in its fields — change the kind (plain → drawn, or back) and the level moves even when every dynamic field is untouched. A tool
+that changes a note's kind must carry its level across explicitly.
+
 ## 4 · Moving CC7 lives on the CURVE CHANNELS only
 
 D11: **MAIN ch 1 takes no moving controller** — his rack is built that way. Plain notes,

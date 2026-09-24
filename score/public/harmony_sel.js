@@ -171,14 +171,21 @@ const H = {
             sonifyNote: o.sonifyNote,
             morphBend: o.morphBend ? JSON.parse(JSON.stringify(o.morphBend)) : null,
             sonifyMode: o.sonifyMode != null ? o.sonifyMode : null,
+            velAbs: o.velAbs != null ? o.velAbs : null, cc7Abs: o.cc7Abs ? JSON.parse(JSON.stringify(o.cc7Abs)) : null,   // §318: a struck note's pin, restored by back
             performanceNotes: o.performanceNotes != null ? o.performanceNotes : null } };
     },
     writeNote(o, n, name) {
+        const wasStruck = o.sonifyMode === 'plain';   // §318: a captured note — the velocity IS its dynamic (DYNAMICS_LAW §3)
         o.sonifyNote = Math.round(+n.midi);
         const dur = Math.max(0.001, endOf(o) - startOf(o)), c = +(+n.cents || 0).toFixed(2);
         if (c) { o.morphBend = [[0, c], [dur, c]]; delete o.sonifyMode; }                     // a bent note is DRAWN — its own curve channel (1c.3 · 1c.4)
         else if (o.morphBend) { o.morphBend = [[0, RECENTRE], [dur, RECENTRE]]; }               // bent before, straight now: the channel brought back to centre
         if (n.seat) delete o.sonifyMode;                                                        // a seat's note (the vibraphone's second) is DRAWN too, as every drawer writes it
+        // §318 (his ear: 'it seems louder'): un-plained for a bend or a seat, a STRUCK note would be struck from the drawn anchor scale
+        // (65 … 127 by its tile's height, composer.html 1453 · 9748) instead of its own recVel — a note played at 45 lifted to ≈ 87 — with
+        // the fader dropped from 127 to the ladder's. So it keeps its sound: velAbs = its recVel, cc7Abs pinned full, on a curve channel
+        // with its bend (1n.1's B2 shape). A note that already carries its own velAbs · cc7Abs (a sequence's, a texture's) is left alone.
+        if (wasStruck && o.sonifyMode == null && o.velAbs == null && o.cc7Abs == null) { o.velAbs = o.recVel != null ? Math.round(+o.recVel) : 100; o.cc7Abs = { lo: 127, hi: 127 }; }
         let t = String(o.performanceNotes || '').replace(/ · ← take "[^"]*"/g, '').replace(/ · [+−-]?\d+¢ just/g, '').replace(/ · partial \d+/g, '');
         t += ' · ← take "' + name + '"' + (n.partial != null ? ' · partial ' + n.partial : '') + (c ? ' · ' + (c > 0 ? '+' : '') + Math.round(c) + '¢ just' : '');
         o.performanceNotes = t.replace(/^ · /, '');
@@ -365,6 +372,8 @@ const H = {
                 o.sonifyNote = w.sonifyNote;
                 if (w.morphBend) o.morphBend = JSON.parse(JSON.stringify(w.morphBend)); else delete o.morphBend;
                 if (w.sonifyMode != null) o.sonifyMode = w.sonifyMode; else delete o.sonifyMode;
+                if ('velAbs' in w) { if (w.velAbs != null) o.velAbs = w.velAbs; else delete o.velAbs; }              // §318: the pin, only when this back knows it
+                if ('cc7Abs' in w) { if (w.cc7Abs) o.cc7Abs = JSON.parse(JSON.stringify(w.cc7Abs)); else delete o.cc7Abs; }
                 if (w.performanceNotes != null) o.performanceNotes = w.performanceNotes; else delete o.performanceNotes;
             }
             delete o.hq;

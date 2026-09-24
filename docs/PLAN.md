@@ -2313,6 +2313,10 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
     you can move to build unless there are additional questions"*); `1q.8` his. **DONE 2026-09-24 (RUNNING_LOG §317):** every named
     check ran, the real clicks on `+8va` · `shuffle` · a chip; found and fixed before the commit: the shuffle's "another" is measured
     against the take's DEALT partial (`hq.dealt`), so a seed reproduces; the "2n" relabel of `1q.6` dropped (the drawer's convention).
+  - **AMENDED 2026-09-24 by his ear (RUNNING_LOG §318 · §319 — *"it seems louder"*):** `1q.1`'s call "a bent note is DRAWN" lifted a
+    STRUCK note's velocity to the drawn scale's floor (65 … 127 by its tile's height; his 45 → ≈ 87). Now a struck note re-pitched with
+    cents or a seat keeps its velocity — `velAbs = recVel` · `cc7Abs` pinned full, on its curve channel with the bend; `back` restores
+    the pin; the shuffle the same. Verified by capture on his `pointilistic01a`. DYNAMICS_LAW §3 **Rule 5**.
 
   - **THE BUILD ORDER:** 1q.1 → 1q.2 → 1q.3, one commit each, each step's REQUIRED VERIFICATION and THE SHIELD run on `score-5401`
     — Fable, at his word (*"if you can just move streight to build go ahead"*); `1q.4` his.
