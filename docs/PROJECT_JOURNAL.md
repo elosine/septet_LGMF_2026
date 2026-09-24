@@ -175,7 +175,15 @@ Presets set aside; a saved set of his own noted (LG-79).
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — CHECKPOINT #7 (2026-09-22/23, session 13 — the build on Fable, the wrap on Opus) *(mid-session checkpoint — READ THIS ONE)*:**
+**Open at session end — CHECKPOINT #7 (2026-09-22/23, amended 2026-09-24 — session 13, the builds on Fable, the wraps on Opus) *(mid-session checkpoint — READ THIS ONE)*:**
+- **SINCE THE FIRST WRITING OF THIS BLOCK — THE BRASS SET UP (2026-09-23, his *"lets set up the brass"* then *"b"*; D27, RUNNING_LOG §301,
+  commit `16680c3`):** a short note on a voice with NO curve copy (the SI2 three have one for `ord` alone) takes its set fader on its OWN
+  channel — instance 1's part — no rack change; verified through the score's own playback (the bassoon on `staccato`: CC7 57 pre-armed
+  85 ms before the note-on v67 on `lgbassoon` ch 14). A `follow` on such a voice stays velocity alone, struck on the ladder, the status
+  saying so. Only `score/public/texture_dyn.js` (`txDynOwn`) and two words of `texture_insert.js` changed.
+- **HE IS USING `1o` ALREADY:** `bank/patterns.json` was written by HIS tab on 2026-09-24, 11:26 … 11:52 — two untitled patterns and a
+  NAMED one, `Sec2_01a` on `LGMF-S2-R01a` (7 on, 7 columns, no ranges). So he has restarted the server (the fifth store). His word on
+  `1o.6` is not in; do not claim it passed.
 - **THE TASK: `1n` (one-en) DYNAMICS IN THE TEXTURE TAKE — BUILT END TO END, NOTHING OF IT HEARD.** His word after `/postclear`: *"go for
   the 1n dynamics build, try to build as much as possible independantly"* (built on Fable at his word, over checkpoint #6's Opus).
   `1n.1` … `1n.5` in four commits, THE SHIELD verified in each on `score-5401` (RUNNING_LOG §296 … §300): `1eb43f7` one scale for short and
@@ -196,7 +204,8 @@ Presets set aside; a saved set of his own noted (LG-79).
   breathing`, `who moves: each player`; one row with a length → type `mp-f-mp` in its `dyn` box; SPACE to hear; Insert; play the score;
   record; `node tools/reaper_job.js run reaper/bridge/jobs/cc7_by_channel.lua` → every short note at its ladder velocity with a CC7 before
   it on a curve channel · MAIN ch 1 empty of the pitched rows (the percussion and the vibraphone's mallets are there by design) · every
-  `follow` at mf with CC7 moving. **His ear on the one point: a short `pp` beside a held `pp`.** Revise on his word; old tests are not
+  `follow` at mf with CC7 moving. **His ear on the one point: a short `pp` beside a held `pp`** — and, for D27, **a brass short at `pp` on
+  `staccato` beside one on `ord`** (his rack's answer to a CC7 under 127 on an instance-1 part is the one thing not verified). Revise on his word; old tests are not
   carried forward.
 - **Latest deliverables:** `score/public/texture_dyn.js` (new — the helper and all five steps' UI) · `score/public/dyn_table.js` (the
   residual) · `tools/dyn_table_check.js` (**68**) · `score/public/texture_cols.js` (the cut, the flag, SPACE dressed) ·
@@ -219,8 +228,8 @@ Presets set aside; a saved set of his own noted (LG-79).
 - **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short` at this checkpoint): `bank/panel_snapshots.json`
   (his harmony takes, written by the app) · `bank/sequences.json` (his sequence library — re-stamped once more at 2026-09-22 21:38:55 by the
   THROWAWAY page's boot save, `LGMF-R01c`'s row unchanged; his to commit) · `reaper/LGMF_rack.rpp` (his rack, saved by Reaper) · untracked
-  `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`; his takes). **`bank/patterns.json` does not exist:**
-  the throwaway created it and it was deleted, so his first pattern creates it clean. **Unsaved working copies** (`node
+  `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`; his takes) · **untracked `bank/patterns.json` —
+  HIS, written by his own tab 2026-09-24 (`Sec2_01a` and two untitled); whether it goes into git is his call (§278).** **Unsaved working copies** (`node
   tools/unsaved_check.js`, run at this checkpoint): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the same four as checkpoints
   #2 … #6, none the piece; his to Save or Reload. No score is committed here.
 **Open at session end — CHECKPOINT #6 (2026-09-22, session 13, Fable's build, the wrap on Opus) *(before it)*:**
