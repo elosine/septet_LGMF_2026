@@ -183,6 +183,14 @@
     #bottomBar select { border: 1px solid #ccc; padding: 2px 4px; font-size: 12px; }
     #bottomBar button { border: 1px solid #ccc; background: #fff; padding: 2px 8px; font-size: 12px; cursor: pointer; }
     #bottomBar button:hover { background: #eee; }
+    /* 2026-09-24, his word ("so I can reach the buttons under the panel ones"): the four panel tabs sit JUST ABOVE the bottom bar,
+       side by side (measured widths: strikes 88 · beating 101 · sequence 131 · rhythm 115 px, 10 px apart) — they were on top of
+       the bar's buttons and SEQUENCE sat under BEATING. !important because each panel writes its tab's inline style. */
+    #strikesTab, #beatingTab, #sequenceTab, #rhythmSeqTab { bottom: 34px !important; }
+    #strikesTab { right: 14px !important; }
+    #beatingTab { right: 112px !important; }
+    #sequenceTab { right: 223px !important; }
+    #rhythmSeqTab { right: 364px !important; }
 
     /* Floating property panel */
     #propertyPanel {

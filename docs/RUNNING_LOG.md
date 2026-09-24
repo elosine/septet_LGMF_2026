@@ -11698,3 +11698,24 @@ the same six messages as §303's capture on HEAD's files, byte-identical.
 **The calls made alone, his to reverse:** the row's menu sits BEFORE its box (his screenshot's order kept: menu · length · dyn · switch)
 · the bar's menu stays for the column's box rather than going · a row's preference is per lane in this browser, so a pattern recalled
 reads in whatever each row is set to.
+
+## §305. THE PANEL TABS LIFTED OFF THE BOTTOM BAR — his *"so I can reach the buttons under the panel ones"*; CSS alone (2026-09-24, Opus)
+
+**Prompted by:** his screenshot of the composer's bottom bar with the four panel tabs — RHYTHM · SEQUENCE · BEATING · STRIKES — sitting on
+top of its buttons, and *"in the composer score can you make it so I can see all of the buttons? please not a major overhaul just an
+expeidient solution so I can reach the buttons under the panel ones"*.
+
+**The data:** each panel writes its own tab as `position:fixed; bottom:0` at a hand-picked `right` (strikes 14 · sequence 118 · beating
+124 · rhythm 262 px), inside the bar's 32 px (z 8999 against the bar's 100) — so the tabs covered the bar's controls, and SEQUENCE sat
+almost wholly under BEATING (118 against 124). Measured widths: strikes 88 · beating 101 · sequence 131 · rhythm 115 px.
+
+**Done — `score/public/composer.html`, one CSS block after the bar's rules:** the four tabs at `bottom: 34px`, just above the bar, and
+side by side from the right, 10 px apart (strikes 14 · beating 112 · sequence 223 · rhythm 364), each with `!important` because the
+panels write their tabs' inline style (and `sequence_ui` · `rhythm_seq_ui` reset the strikes tab's `bottom` to 0). The panels' own
+show / hide of their tabs (`display`) is untouched. Rejected: a flex container made by script (more moving parts than four numbers) ·
+padding the bar's right side (its controls would squeeze further).
+
+**Verified — `score-5401`, the stubs first, no POST:** at 1280 × 860 the four tabs end at y 826 against the bar's top 828, none overlapping
+another; at 2200 × 900 (a width where the bar's 2,136 px of controls fit) every one of the bar's 28 controls answers `elementFromPoint` at
+its centre — none covered; the strikes tab hides while its drawer is open and returns at close. **Seen, not changed:** the bar's
+controls need 2,136 px, so on a narrower window the right half is off-screen whatever the tabs do — put to him in one line.
