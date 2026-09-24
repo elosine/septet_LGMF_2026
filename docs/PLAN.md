@@ -2188,7 +2188,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE BUILD ORDER:** 1p.1 → 1p.2, one commit for the two [call] — Opus, at his word, after `/postclear`; each step's REQUIRED VERIFICATION
     and THE SHIELD run on `score-5401`. His one test after: in his rack, three columns released together by one `end`, heard.
 
-- **1q — A TAKE'S HARMONY ONTO A SELECTION · A MARQUEE · THE STACK: the composer score's own selection re-pitched from a harmony take, with a `back`** — `planned` 2026-09-24 (Fable) —
+- **1q — A TAKE'S HARMONY ONTO A SELECTION · A MARQUEE · THE STACK: the composer score's own selection re-pitched from a harmony take, with a `back`** — **`1q.1` `built` 2026-09-24 (Fable, RUNNING_LOG §312, one commit; 1q.2 · 1q.3 next)** — `planned` 2026-09-24 (Fable) —
   his words LG-103; the talk RUNNING_LOG §306 … §311 (phase 1 one topic at a time, his answers A · A · a · a · a; phase 3 skipped at his word,
   *"if you are ready for plan we can skip one at a time and you can build"*). *Why:* the drawers write harmony INTO the score; nothing yet
   re-harmonises what is already there. A passage composed by hand or by a pattern — its rhythm, lengths, dynamics and articulations kept —

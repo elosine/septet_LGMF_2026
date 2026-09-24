@@ -1376,9 +1376,12 @@ const S = {
         const m = this._takeMenu; if (!m) return;
         m.querySelectorAll('.sqTkPv').forEach(p => { const on = p.dataset.name === this._pvTake; p.textContent = on ? '■' : '▸'; p.style.background = on ? '#2a5a3a' : '#2a2a30'; });
     },
-    openTakeMenu(i, anchor) {
+    openTakeMenu(i, anchor, opts) {
         if (this._takeMenu) { this.closeTakeMenu(); return; }
-        const b = this.row.boxes[i]; if (!b || !anchor) return;
+        // PLAN 1q.1 (2026-09-24): with `opts { onChoose, current }` the menu serves another caller — the composer's HARMONY STRIP
+        // (harmony_sel.js) — no box behind it, the ▸ hears the take as dealt, the name goes to `onChoose`. Without `opts`, the box's menu as before.
+        const O = (opts && typeof opts.onChoose === 'function') ? opts : null;
+        const b = O ? { take: O.current || '' } : this.row.boxes[i]; if (!b || !anchor) return;
         const names = D.takeNames ? D.takeNames() : [], cs = getComputedStyle(anchor), r = anchor.getBoundingClientRect();
         const below = window.innerHeight - r.bottom, above = r.top, up = below < 320 && above > below;
         const m = document.createElement('div'); m.id = 'sqTakeMenu';
@@ -1387,7 +1390,7 @@ const S = {
             'width:23em;max-height:' + Math.max(160, Math.min(560, (up ? above : below) - 12)) + 'px;display:flex;flex-direction:column;background:#111114;color:#ddd;' +
             'border:1px solid #556;border-radius:4px;box-shadow:0 6px 24px rgba(0,0,0,.6);font-family:' + cs.fontFamily + ';font-size:' + cs.fontSize;
         const rowOf = (name, label) => '<div class="sqTkRow' + (name === (b.take || '') ? ' cur' : '') + '" data-name="' + esc(name) + '">' +
-            (name ? '<button type="button" class="sqTkPv" data-name="' + esc(name) + '" title="HEAR this take — ' + PREVIEW_S + ' s, at this box\'s dyn — without choosing it (it is loaded in the strikes drawer, as choosing does). Click again to stop" style="' + BTN + ';padding:0 .4em;flex:0 0 auto;font-size:inherit">▸</button>'
+            (name ? '<button type="button" class="sqTkPv" data-name="' + esc(name) + '" title="HEAR this take — ' + PREVIEW_S + ' s, ' + (O ? 'as dealt' : 'at this box\'s dyn') + ' — without choosing it (it is loaded in the strikes drawer, as choosing does). Click again to stop" style="' + BTN + ';padding:0 .4em;flex:0 0 auto;font-size:inherit">▸</button>'
                   : '<span style="width:1.7em;flex:0 0 auto"></span>') +
             '<span class="sqTkNm">' + esc(label) + '</span></div>';
         m.innerHTML = '<style>#sqTakeMenu .sqTkRow{display:flex;align-items:center;gap:.5em;padding:.12em .5em;cursor:pointer;white-space:nowrap}' +
@@ -1396,12 +1399,12 @@ const S = {
             '<div style="display:flex;align-items:center;gap:.5em;padding:.3em .4em;border-bottom:1px solid #2c3238;flex:0 0 auto">' +
               '<input id="sqTkFilter" type="text" spellcheck="false" placeholder="filter — part of a name" style="flex:1;min-width:0;font-size:inherit;' + INP + '">' +
               '<span id="sqTkCount" style="color:#9ab;flex:0 0 auto"></span></div>' +
-            '<div id="sqTkList" style="overflow-y:auto;flex:1 1 auto">' + rowOf('', '— choose — (a REST)') +
+            '<div id="sqTkList" style="overflow-y:auto;flex:1 1 auto">' + (O ? '' : rowOf('', '— choose — (a REST)')) +
               ((b.take && names.indexOf(b.take) < 0) ? rowOf(b.take, b.take + ' (not in the list)') : '') +
               names.map(nm => rowOf(nm, nm)).join('') + '</div>';
         document.body.appendChild(m); this._takeMenu = m;
         const fil = m.querySelector('#sqTkFilter'), rows = () => Array.from(m.querySelectorAll('.sqTkRow')), shown = () => rows().filter(x => x.style.display !== 'none');
-        const choose = name => { this.closeTakeMenu(); this.freeze(i, name); };
+        const choose = name => { this.closeTakeMenu(); if (O) O.onChoose(name); else this.freeze(i, name); };
         const count = () => { m.querySelector('#sqTkCount').textContent = shown().filter(x => x.dataset.name).length + ' of ' + names.length; };
         const light = el => { rows().forEach(x => x.classList.remove('hl')); if (el) { el.classList.add('hl'); el.scrollIntoView({ block: 'nearest' }); } };
         fil.addEventListener('input', () => {
@@ -1421,7 +1424,7 @@ const S = {
             const pv = e.target.closest('.sqTkPv'); if (pv) { e.stopPropagation(); this.previewTake(pv.dataset.name); fil.focus(); return; }
             const row = e.target.closest('.sqTkRow'); if (row) choose(row.dataset.name);
         });
-        m._out = e => { if (!m.contains(e.target) && !(e.target.closest && e.target.closest('#sqTake'))) { if (this._pvTake) this.stop(); this.closeTakeMenu(); } };
+        m._out = e => { if (!m.contains(e.target) && !(e.target.closest && e.target.closest('#sqTake')) && !(anchor.contains && anchor.contains(e.target))) { if (this._pvTake) this.stop(); this.closeTakeMenu(); } };
         document.addEventListener('mousedown', m._out, true);
         count(); this.paintTakeMenu();
         const cur = m.querySelector('.sqTkRow.cur'); if (cur) cur.scrollIntoView({ block: 'center' });
