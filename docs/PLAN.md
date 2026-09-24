@@ -2151,7 +2151,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE BUILD ORDER:** after `1m.4`, BEFORE `1n` (§288) — 1o.1 → 1o.2 → 1o.3 → 1o.4 → 1o.5, one commit each, THE SHIELD verified in each; 1o.6 his. Opus, one
     step per clear. **The server restarted after 1o.3.**
 
-- **1p — THE END TIME AND THE CURSOR'S CLOCK: a `len | end` switch on the length line, the cursor's time beside the transport** — `planned` 2026-09-24 —
+- **1p — THE END TIME AND THE CURSOR'S CLOCK: a `len | end` switch on the length line, the cursor's time beside the transport** — **`built` 2026-09-24 (Fable, RUNNING_LOG §303; one commit, THE SHIELD byte-identical; his one test next)** — `planned` 2026-09-24 —
   his words LG-102; the talk RUNNING_LOG §302. *Why:* a length says *for*, an end time says *until* — and *until* is how a release TOGETHER
   is composed: several players, or several columns starting at different onsets, ending at one moment; a note held until a point in the
   texture. The end time is on the PATTERN'S clock (0 at its start; a pattern lands at the playhead on Insert), and the cursor's time shown

@@ -119,6 +119,7 @@ Object.assign(D, {
             '<button id="txHome" class="txOnly" style="' + BTN + '" title="the cursor back to the left line of the range">&#9198;</button>' +
             '<button id="txSetA" class="txOnly" style="' + BTN + '" title="the LEFT line of the range to the cursor — key [">[</button>' +
             '<button id="txSetB" class="txOnly" style="' + BTN + '" title="the RIGHT line of the range to the cursor — key ]">]</button>' +
+            '<span id="txClock" class="txOnly" style="font-family:monospace;color:#7fd4ff;flex:none;min-width:56px;text-align:right;cursor:help" title="1p.2 (2026-09-24): the cursor\'s time on the pattern\'s clock — seconds from the pattern\'s start; while SPACE plays, the running time, then the dropped cursor again. An end typed in a length box (1p.1) is on this clock">0.00 s</span>' +
             '<input id="txZoom" class="txOnly" type="range" min="0" max="1" step="0.005" value="0" style="width:140px" title="zoom — left: the whole take · right: close in (about the cursor when it is in view). ALT + wheel zooms at the pointer">' +
             '<span id="txI" class="txOnly" style="flex:none;width:13px;height:13px;border:1px solid #666;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#9a9;font-size:9px;cursor:help">i</span>';
         wrap.appendChild(bar);
@@ -334,6 +335,7 @@ Object.assign(D, {
         s += '<line id="txRun" x1="0" y1="0" x2="0" y2="' + H + '" stroke="#ff7f7f" stroke-width="1.5" pointer-events="none" style="display:none"/>';
         svg.setAttribute('height', H); svg.innerHTML = s;
         if (info) info.title = this._tx.dots.length + ' marks · ' + p.on.length + ' on · ' + this._tx.span.toFixed(2) + ' s · range ' + r[0].toFixed(2) + '–' + r[1].toFixed(2) + ' s · cursor ' + (+p.cursor || 0).toFixed(2) + ' s' + String.fromCharCode(10, 10) + HELP;
+        this.txPaintClock();   // 1p.2
         { const z = this.el.querySelector('#txZoom'); if (z && document.activeElement !== z) z.value = this.txZoomPos(); }
         if (this._txRunT != null) this.txPaintRun();
         this.txPaintPat();
@@ -424,6 +426,12 @@ Object.assign(D, {
         await this.playNotes(notes, 'the texture row on the claves · from ' + from.toFixed(2) + ' s');
         const e = E_(); if (e && e._playing) this.txStartRun(from, r[1]);
     },
+    // 1p.2 (RUNNING_LOG §302): the cursor's time beside the transport — the dropped cursor, or the running one while it plays
+    txPaintClock(t) {
+        const ck = this.el && this.el.querySelector('#txClock'); if (!ck) return;
+        const p = this.txPat(), v = t != null ? t : (this._txRunAt != null ? Math.max(this._txRunFrom, this._txRunAt) : (p ? (+p.cursor || 0) : 0));
+        ck.textContent = v.toFixed(2) + ' s';
+    },
     txStartRun(from, to) {
         this.txStopRun(); this._txRunFrom = from; this._txRunTo = to;
         this._txRunT = setInterval(() => {
@@ -438,10 +446,12 @@ Object.assign(D, {
     txPaintRun() {
         const ln = this.el && this.el.querySelector('#txRun'); if (!ln || this._txRunAt == null) return;
         const x = this.txX(Math.max(this._txRunFrom, this._txRunAt)); ln.setAttribute('x1', x); ln.setAttribute('x2', x); ln.style.display = '';
+        this.txPaintClock(Math.max(this._txRunFrom, this._txRunAt));   // 1p.2: the running time
     },
     txStopRun() {
         if (this._txRunT != null) { clearInterval(this._txRunT); this._txRunT = null; }
         this._txRunAt = null; const ln = this.el && this.el.querySelector('#txRun'); if (ln) ln.style.display = 'none';
+        this.txPaintClock();   // 1p.2: the dropped cursor again
     },
 });
 

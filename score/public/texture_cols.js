@@ -130,6 +130,34 @@ Object.assign(D, {
         return m;
     },
     txLenWord(c, lane) { const l = this.txLenS(c, lane); return l ? l.s + ' s' + (l.own ? ' (their own)' : '') : 'the short, ' + this.txShortMs() + ' ms'; },
+    // ---------------------------------------------------------------- 1p.1 (RUNNING_LOG §302): `len | end`
+    // An END TIME on the pattern's clock is the length said the other way round — `end = onset + len` — so the document keeps `len` ·
+    // `lens` exactly as before; the switch (`_txS.end`, beside `claves`) lives in the browser, never in the document. In `end` mode a
+    // box SHOWS onset + len and a typed end WRITES the length behind it, each selected column from its OWN onset: one end over several
+    // columns is a release together.
+    txEndMode() { return !!(this._txS && this._txS.end); },
+    txOnsetOf(k) { const d = k != null ? this.txDot(k) : null; return d ? +d.t : 0; },
+    txEndOf(k, s) { return +(this.txOnsetOf(k) + s).toFixed(2); },
+    // a typed end → column k's length, or null with the reason: at or before the onset · under the short · past LEN_MAX
+    txLenFrom(k, end) {
+        const s = +(end - this.txOnsetOf(k)).toFixed(3), sh = this.txShortMs() / 1000;
+        if (!(s > 0)) return { s: null, why: 'at or before its onset' };
+        if (s < sh) return { s: null, why: 'under the short' };
+        if (s > LEN_MAX) return { s: null, why: 'more than ' + LEN_MAX + ' s long' };
+        return { s: Math.max(s, LEN_MIN) };
+    },
+    // the end typed in the column's box (lane null → `len`) or in a row's box (→ `lens[lane]`), over the selected columns; the ones it
+    // cannot reach are refused by name and the rest take it
+    txSetEnd(end, lane) {
+        const p = this.txCols(), t = lane != null ? TRK()[lane] : null, who = lane != null ? (t ? t.label : 'row ' + lane) + ': ' : '';
+        const ok = [], no = [];
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; const r = this.txLenFrom(k, end); if (r.s == null) no.push(this.txOnsetOf(k).toFixed(2) + ' s ' + r.why); else ok.push({ k, c, s: r.s }); });
+        if (!ok.length) { if (lane != null) this.txPaintRowLens(); else this.txPaintLenUI(); this.setStatus(who + 'an end of ' + end.toFixed(2) + ' s reaches no selected column — ' + no.join(' · '), true); return; }
+        this.txPushUndo();
+        ok.forEach(o => { if (lane == null) o.c.len = o.s; else { o.c.lens = o.c.lens || {}; o.c.lens[lane] = o.s; } });
+        this.txPersistSoon(); this.txRender();
+        this.setStatus(who + (ok.length === 1 ? 'the column at ' + this.txOnsetOf(ok[0].k).toFixed(2) + ' s ends' : ok.length + ' columns end') + ' at ' + end.toFixed(2) + ' s — length ' + ok.map(o => o.s.toFixed(2)).join(' · ') + ' s' + (lane != null ? ', their own' : '') + (no.length ? ' · refused: ' + no.join(' · ') : ''));
+    },
     txSetShort(raw) {
         const p = this.txPat(); if (!p) return;
         const s = String(raw == null ? '' : raw).trim(), v = s === '' ? SHORT_MS : clamp(Math.round(+s) || SHORT_MS, SHORT_MIN, SHORT_MAX);
@@ -139,12 +167,14 @@ Object.assign(D, {
     // `length` for the SELECTED column(s): blank = the short; seconds otherwise — set with several selected → all of them
     txSetLen(raw) {
         const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintLenUI(); this.setStatus('select a column first — length is the selected column(s)\'', true); return; }
-        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
+        const s = String(raw == null ? '' : raw).trim();
+        if (s !== '' && this.txEndMode()) { if (!isFinite(+s)) { this.txPaintLenUI(); this.setStatus('end: seconds on the pattern\'s clock, or blank for the short', true); return; } return this.txSetEnd(+s, null); }   // 1p.1
+        const v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
         if (s !== '' && !(v > 0)) { this.txPaintLenUI(); this.setStatus('length: seconds, or blank for the short', true); return; }
         this.txPushUndo();
         p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (v == null) delete c.len; else c.len = v; });
         this.txPersistSoon(); this.txRender();
-        this.setStatus((p.sel.length === 1 ? 'the column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + (v == null ? ': the short again (' + this.txShortMs() + ' ms)' : ': ' + v + ' s — a player\'s own length still stands over it'));
+        this.setStatus((p.sel.length === 1 ? 'the column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + (v == null ? ': the short again (' + this.txShortMs() + ' ms)' : ': ' + v + ' s' + (p.sel.length === 1 ? ' · ends ' + this.txEndOf(p.sel[0], v).toFixed(2) + ' s' : '') + ' — a player\'s own length still stands over it'));
     },
     // one player's own length in one column: blank = the column's
     txSetOverride(k, lane, raw) {
@@ -173,23 +203,26 @@ Object.assign(D, {
                 box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); box.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintRowLens(); box.blur(); } });
                 row.appendChild(box);
             }
-            const own = c && c.lens ? +c.lens[lane] : NaN, colLen = c ? +c.len : NaN;
+            const own = c && c.lens ? +c.lens[lane] : NaN, colLen = c ? +c.len : NaN, em = this.txEndMode();   // 1p.1: in `end` mode the box reads onset + len
             box.disabled = !k; box.style.opacity = k ? '' : 0.45;
-            if (document.activeElement !== box) box.value = isFinite(own) && own > 0 ? own : '';
-            box.placeholder = k ? (isFinite(colLen) && colLen > 0 ? colLen + ' s' : 'short') : '—';
-            const vals = cols.map(cc => (cc && cc.lens && isFinite(+cc.lens[lane]) && +cc.lens[lane] > 0) ? +cc.lens[lane] : null), mixed = cols.length > 1 && new Set(vals.map(String)).size > 1;
+            if (document.activeElement !== box) box.value = isFinite(own) && own > 0 ? (em ? this.txEndOf(k, own).toFixed(2) : own) : '';
+            box.placeholder = k ? (isFinite(colLen) && colLen > 0 ? (em ? this.txEndOf(k, colLen).toFixed(2) : colLen) + ' s' : 'short') : '—';
+            if (em) { box.removeAttribute('min'); box.removeAttribute('max'); } else { box.min = LEN_MIN; box.max = LEN_MAX; }
+            const vals = (cols.length > 1 ? p.sel : []).map(kk => { const cc = p.cols[kk], o = cc && cc.lens ? +cc.lens[lane] : NaN; return isFinite(o) && o > 0 ? (em ? this.txEndOf(kk, o) : o) : null; }), mixed = vals.length > 1 && new Set(vals.map(String)).size > 1;
             box.style.outline = mixed ? '1px dashed #C9A05A' : '';
-            box.title = (TRK()[lane] ? TRK()[lane].label : 'row ' + lane) + ' — a length of their own in the selected column(s), seconds; blank = the column\'s (' + (c ? this.txLenWord(c, -1) : 'the short') + ')' + (mixed ? ' · mixed: ' + vals.map(v => v == null ? 'column\'s' : v + ' s').join(' · ') : '') + '. ENTER sets · ESC puts it back';
+            box.title = (TRK()[lane] ? TRK()[lane].label : 'row ' + lane) + (em ? ' — the END of their own note in the selected column(s), seconds on the pattern\'s clock (the length is written behind it, each column from its own onset); blank = the column\'s (' : ' — a length of their own in the selected column(s), seconds; blank = the column\'s (') + (c ? this.txLenWord(c, -1) : 'the short') + ')' + (mixed ? ' · mixed: ' + vals.map(v => v == null ? 'column\'s' : v + ' s').join(' · ') : '') + '. ENTER sets · ESC puts it back';
         });
     },
     txSetRowLen(lane, raw) {
         const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintRowLens(); this.setStatus('select a column first — len is the selected column(s)\'', true); return; }
-        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX), t = TRK()[lane];
+        const s = String(raw == null ? '' : raw).trim(), t = TRK()[lane];
+        if (s !== '' && this.txEndMode()) { if (!isFinite(+s)) { this.txPaintRowLens(); this.setStatus('end: seconds on the pattern\'s clock, or blank for the column\'s', true); return; } return this.txSetEnd(+s, lane); }   // 1p.1
+        const v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
         if (s !== '' && !(v > 0)) { this.txPaintRowLens(); this.setStatus('a length of their own: seconds, or blank for the column\'s', true); return; }
         this.txPushUndo();
         p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (v == null) this.txClearOverride(c, lane); else { c.lens = c.lens || {}; c.lens[lane] = v; } });
         this.txPersistSoon(); this.txRender(); this.txPaintRowLens();
-        this.setStatus((t ? t.label : 'row ' + lane) + (p.sel.length === 1 ? ' at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : ' → ' + p.sel.length + ' columns') + ': ' + (v == null ? 'the column\'s length again' : v + ' s, their own'));
+        this.setStatus((t ? t.label : 'row ' + lane) + (p.sel.length === 1 ? ' at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : ' → ' + p.sel.length + ' columns') + ': ' + (v == null ? 'the column\'s length again' : v + ' s, their own' + (p.sel.length === 1 ? ' · ends ' + this.txEndOf(p.sel[0], v).toFixed(2) + ' s' : '')));
     },
     // 1m.3's box on the spot — kept for a browser gesture no longer bound (1m.4.5: the `len` box on the row replaced it)
     txOpenLenBox(k, lane, cx, cy) {
@@ -212,12 +245,14 @@ Object.assign(D, {
     // the bar's two boxes follow the pattern and the selection
     txPaintLenUI() {
         const sb = this.el && this.el.querySelector('#txShort'), lb = this.el && this.el.querySelector('#txLen'); if (!sb || !lb || !this.txIsOn()) return;
-        const p = this.txCols(), k = this.txPrimary(), c = p && k ? p.cols[k] : null, l = c ? +c.len : NaN;
+        const p = this.txCols(), k = this.txPrimary(), c = p && k ? p.cols[k] : null, l = c ? +c.len : NaN, em = this.txEndMode();   // 1p.1
         if (document.activeElement !== sb) sb.value = this.txShortMs();
         lb.disabled = !k; lb.style.opacity = k ? '' : 0.45;
-        if (document.activeElement !== lb) lb.value = isFinite(l) && l > 0 ? l : '';
+        if (document.activeElement !== lb) lb.value = isFinite(l) && l > 0 ? (em ? this.txEndOf(k, l).toFixed(2) : l) : '';
         lb.placeholder = k ? 'short' : '—';
-        lb.title = 'the length of the SELECTED column(s), in seconds — blank: the standard short; set with several selected, all of them take it' + (p && p.sel.length > 1 ? ' (' + p.sel.length + ' selected; the box shows the first)' : '') + '. A player\'s own length (the len box on their row) stands over it';
+        if (em) { lb.removeAttribute('min'); lb.removeAttribute('max'); } else { lb.min = LEN_MIN; lb.max = LEN_MAX; }
+        const lm = this.el.querySelector('#txLenMode'); if (lm && document.activeElement !== lm) lm.value = em ? 'end' : 'len';
+        lb.title = (em ? 'the END of the SELECTED column(s)\' notes, seconds on the pattern\'s clock (1p.1) — the length is written behind it, each column from its own onset (one end over several columns: a release together); blank: the standard short' : 'the length of the SELECTED column(s), in seconds — blank: the standard short; set with several selected, all of them take it') + (p && p.sel.length > 1 ? ' (' + p.sel.length + ' selected; the box shows the first)' : '') + '. A player\'s own (the box on their row) stands over it';
     },
 
     // ---------------------------------------------------------------- undo (§228)
@@ -539,11 +574,14 @@ D.txEnsureUI = function () {
         // 1m.3: `short` (ms, the pattern's) and `length` (s, the selected column(s)') beside the claves; ENTER sets, ESC puts the value back
         const len = document.createElement('span'); len.className = 'txOnly'; len.style.cssText = 'display:inline-flex;align-items:center;gap:6px';
         len.innerHTML = '<label style="display:inline-flex;align-items:center;gap:3px" title="THE STANDARD SHORT (1m.3): the length of every note where nothing longer is set — the column notes, the claves, and hear: strike while a texture take is on. 120 ms unless you say; kept with the pattern"><span style="color:#9a9">short</span><input id="txShort" type="number" min="' + SHORT_MIN + '" max="' + SHORT_MAX + '" step="10" style="' + INP + ';width:46px"><span style="color:#777">ms</span></label>' +
-            '<label style="display:inline-flex;align-items:center;gap:3px"><span style="color:#9a9">length</span><input id="txLen" type="number" min="' + LEN_MIN + '" max="' + LEN_MAX + '" step="0.1" style="' + INP + ';width:52px" placeholder="short"><span style="color:#777">s</span></label>';
+            '<label style="display:inline-flex;align-items:center;gap:3px"><select id="txLenMode" style="' + INP + ';width:58px" title="1p.1 (2026-09-24): what this box and the len box on every row MEAN — length: seconds from the note\'s onset · end: the time the note ENDS on the pattern\'s clock (seconds from its start, the readout beside ⏮); the length is written behind it, each selected column from its own onset, so one end over several columns is a release together. Remembered in this browser, not in the pattern"><option value="len">length</option><option value="end">end</option></select><input id="txLen" type="number" min="' + LEN_MIN + '" max="' + LEN_MAX + '" step="0.1" style="' + INP + ';width:52px" placeholder="short"><span style="color:#777">s</span></label>';
         bar.insertBefore(len, zoom);
         const sb = len.querySelector('#txShort'), lb = len.querySelector('#txLen');
         sb.addEventListener('change', e => this.txSetShort(e.target.value));
         lb.addEventListener('change', e => this.txSetLen(e.target.value));
+        const lm = len.querySelector('#txLenMode'); lm.value = this.txEndMode() ? 'end' : 'len';   // 1p.1: the switch, a browser preference
+        lm.addEventListener('change', e => { this._txS.end = e.target.value === 'end'; this.txPersist(); this.txPaintLenUI(); this.txPaintRowLens(); this.setStatus(this._txS.end ? 'end: the boxes read the time a note ENDS on the pattern\'s clock — type one and the length is written behind it, each column from its own onset' : 'length: the boxes read seconds from the onset again'); });
+        lm.addEventListener('keydown', ev => ev.stopPropagation());
         [sb, lb].forEach(b => b.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); b.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintLenUI(); b.blur(); } }));
         const svg = this.el.querySelector('#txSvg');
         if (svg && !svg._txColDbl) { svg._txColDbl = true; svg.addEventListener('dblclick', ev => { try { this.txColDbl(ev); } catch (e) { console.warn('[texture_cols] dblclick:', e); } }); }

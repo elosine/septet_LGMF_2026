@@ -11623,3 +11623,45 @@ remain his.
 **Rejected:** B for the box (two boxes — width, and a mode is one word) · B for the readout (a go-to box — not asked; a click on the
 ruler places the cursor already) · storing the end in the document (onsets are the pattern's own copy and never move, so `len` and
 `end` are the same fact; keeping one keeps Insert and 1n.1's cut untouched).
+
+## §303. `1p` THE END TIME AND THE CURSOR'S CLOCK — built and verified: the `length | end` switch, the readout beside the transport; THE SHIELD byte-identical (2026-09-24, Fable)
+
+**Prompted by:** *"you can go ahead and build here now."* — on Fable, after §302's plan. Both steps in one commit (the plan's [call]).
+
+**Built — `score/public/texture_cols.js` (1p.1) · `score/public/texture_row.js` (1p.2); nothing else.** 1p.1: the word `length` on the
+length line is now a two-word menu, `length | end` (`#txLenMode`, inside the `txOnly` span); `txEndMode()` reads `_txS.end` — a browser
+preference beside `claves`, never in the document. In `end` mode the column's box and every row's `len` box SHOW `onset + len`
+(`txEndOf`, two decimals) and their `min` · `max` come off; a typed value goes to `txSetEnd(end, lane)`: for every selected column
+`txLenFrom(k, end)` = `end − onset` (three decimals), refused by name at or before the onset · under the short · past `LEN_MAX`, the
+rest written as `len` (the column's box) or `lens[lane]` (a row's) — so one end over several columns is each column's own length, a
+release together. Blank still = the short. The status names both (*"ends at 6.60 s — length 6.45 s"*); a length typed in `length` mode
+now names its end too. `txPaintRowLens`' "mixed" compares ENDS in `end` mode (three columns released together are not mixed). 1p.2:
+`#txClock` after `]` in the command bar, monospace, `txOnly`; `txPaintClock(t)` — the dropped cursor at every `txRender`, the running
+cursor from `txPaintRun` on its own 40 ms timer, the dropped cursor again from `txStopRun`.
+
+**REQUIRED VERIFICATION — `score-5401`, the stubs in the navigation batch, every port captured, his `Sec2_01a` (7 columns, onsets
+0.007 … 1.175 s, span 35.93 s) opened from the library with every POST stubbed (two POSTs to `/api/snapshots` were caught by the stub
+and reached no disk):** the column at 0.1455 s selected → `end` → the Eng. Horn's row box reads 3.55 (his own 3.4 + the onset) · type
+6.60 in the column box → `len` 6.454, the box reads 6.6, *"ends at 6.60 s — length 6.45 s"* · 7.00 in the row box → `lens[0]` 6.854,
+*"Eng. Horn: … ends at 7.00 s — length 6.85 s, their own"* · back to `length`: the boxes read 6.454 · 6.854, `min` back · three columns at
+0.1455 · 0.3873 · 0.6239 selected, `end` 9.00 → lens 8.854 · 8.613 · 8.376, every `txEndOf` 9.00, the three bars' x one number (268.2)
+· 0.10 on the 0.1455 column → *"reaches no selected column — 0.15 s at or before its onset"*, `len` unchanged · 0.20 → *"under the
+short"* · blank → *"the short again"* · undo → 8.854 back · the document against its kept copy differs only in `len` · `lens` · `sel` ·
+`cursor` (the two I moved), no `end` in it · after a reload the preference holds (`end` in the menu), the column box reads `9.00`, the
+row's placeholder `9.00 s` (the display polish), and `txNotesBetween` gives the Eng. Horn's note 8854 ms at 146 ms — SPACE's list
+carries the length. 1p.2: the cursor 12.3456 → `12.35 s` · 0.5 → `0.50 s` · SPACE from 0.50 → the readout 0.57 then 1.17 while the run
+cursor moves, `0.50 s` again after the stop · `⏮` by the pane's REAL click → `0.00 s`, `p.cursor` 0. **THE SHIELD:** in the strike
+mode `#txLenMode` · `#txClock` have no client rects and no row has a `len` box; the strike's Hear on the starter harmony, the three
+voices ASSIGNED to lanes 8 · 1 · 4 (not shuffled — see below), captured on HEAD's files (`git stash`) and on the build: the same six
+messages, byte-identical (bassoon 61 v75, percussion 62 v83, CC7 127 each, the note-offs).
+
+**Found on the way, method (into STILL BINDING):** `shuffleOrch` is SEEDED but the deal is not persisted across a reload and the seed
+moves — a BEFORE captured on one shuffle and an AFTER on another differed in VELOCITY (v90 · v100 against v75 · v83) for no reason of
+the build. THE SHIELD's two captures must use a deterministic deal: `select('hs::starter:0')` then `assign(voice, lane)` for each
+voice, the same lanes both sides. And the drawer's strike is REPLACED while a texture take is on (the column's take becomes the
+drawer's), so the strike must be re-selected after `txSetMode('strike')` before the AFTER capture.
+
+**The calls made alone, his to reverse:** the switch a browser preference, not in the pattern · two decimals on the readout and in
+the boxes · the row box's placeholder stays the column's value (the plan said the word `end`; the menu carries the word) · a refused
+column named in the status while the rest take the end · a length typed in `length` mode names its end too · one commit for the two
+steps.
