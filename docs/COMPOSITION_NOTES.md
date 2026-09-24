@@ -2612,3 +2612,19 @@ Said during his one test of `1m.4`, verbatim:
 *AI's reading, marked as such:* the piece grows as a chain of texture patterns; the question is WHERE the chain is made — in the score (each
 pattern a unit, placed and re-placed, the sequence drawer's idiom, LG-42's *joined by hand in the score*) or in the drawer (one long pattern
 of several textures end to end). The assessment against the plan: RUNNING_LOG §286.
+
+### LG-102 · 2026-09-24 — An END TIME beside the length in the texture take, and the cursor's time shown — *"I want to alternatively also be able to type in an ending time"*
+
+Said on Fable, his first words of the day, verbatim:
+
+> *"for the strike drawer rhythm sequence, what would it be like to have for the individual notes for there to be an ending time in a
+> additional or alongside the duration. So right now I can type in a duration in the orchestration panel, but I want to alternatively also
+> be able to type in an ending time. And then related is the transport there in the rhythm sequence panel. Can I show the time? for the
+> transport of the cursor. discuss first"*
+
+His calls in the talk, verbatim: *"A, and yes the pattern's clock where would the read out be?"* — then *"a"*.
+
+*AI's reading, marked as such:* "the strike drawer rhythm sequence" is the TEXTURE TAKE in the strikes drawer (`1m`), whose row is one of
+his rhythm takes; "the orchestration panel" its `len` boxes (1m.3 · 1m.4.5); "the transport" the cursor SPACE plays from. An end time is
+the length said the other way round — *until*, not *for* — and pays where several players or several columns end TOGETHER, or a note holds
+until a point in the texture. The talk and the decisions: RUNNING_LOG §302; the item: PLAN § `1p`.

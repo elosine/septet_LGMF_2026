@@ -11579,3 +11579,47 @@ about state. His `1n.6` test carries it: a brass short at `pp` on `staccato` bes
 
 **Decided — D27.** Rejected: A (his rack work, and only the copied voices reached); also rejected in passing, on the law: a demoted
 follow struck at mf.
+
+## §302. `1p` THE END TIME AND THE CURSOR'S CLOCK — planned at his word: a `len | end` switch on the length line, the cursor's time beside the transport (2026-09-24, Fable)
+
+**Prompted by:** his first words of the day (LG-102, verbatim there): *"what would it be like to have for the individual notes for there
+to be an ending time in a additional or alongside the duration … I want to alternatively also be able to type in an ending time. And
+then related is the transport … Can I show the time? for the transport of the cursor. discuss first"*. Under the planning method, one
+topic at a time.
+
+**The data first (read, not changed — `texture_row.js` · `texture_cols.js`):** a pattern's timeline is SECONDS FROM THE PATTERN'S
+START, 0 at the left; the cursor (`p.cursor`, three decimals), the range and every column's onset (`txDot(k).t`) are on that clock.
+Length: `len` on the column, shared by a multi-selection (the `#txLen` box on the length line of the command bar) · a player's own in
+`lens {row: s}` (the `len` box on their row, 1m.4.5) · blank = the standard short (`short`, 120 ms). The notes stored in a column carry
+NO length — it is read at play time (1m.3), and 1n.1 cuts it at that player's next onset. The cursor's time is shown NOWHERE on the
+bar — only in the `i` tooltip (`… · cursor 12.35 s`); a running cursor is drawn while SPACE plays (`_txRunAt`).
+
+**Topic 1 — the end time.** An end time is the same fact as a length said the other way round — `end = onset + len` — so it costs the
+document, Insert and the cut NOTHING; the only design question is how the box reads. Read back to him: *until*, not *for*; where it
+pays — several players, or several COLUMNS starting at different onsets, ENDING TOGETHER; a note held until a point in the texture;
+and the end time is on the PATTERN'S clock, not the score's (a pattern lands at the playhead on Insert), the same clock a cursor
+readout would show — which is what makes it typeable. Two ways put: **A** a `len | end` SWITCH on the length line — one word flips
+what every length box means, the column's and each row's; in `end` mode a box shows `onset + len` and typing an end writes the length
+behind it; a multi-selection in `end` mode gives each column its OWN length from the one end — the release-together gesture for free;
+nothing in the document, Insert or the cut changes · **B** two boxes per row and per column, `len` and `end`, both always visible,
+typing either recomputing the other — more to read at a glance, the rows wider (each already holds the voice, the tick, `len`, `dyn`,
+the switch). Recommended A. **His word: A, and the pattern's clock: yes.** The rules under it, stated and not objected to: an end
+before the onset (or under the short) is REFUSED with a status · an end past the player's next onset is CUT there, as a length is ·
+past the pattern's end is allowed.
+
+**Topic 2 — the readout.** Where: the command bar, right after `⏮ [ ]` — the cursor is driven from there, so its time belongs there;
+a small monospace `12.35 s`, the dropped cursor's time on the pattern's clock; while SPACE plays, the running time, then back to the
+dropped cursor when it stops. How it serves the end box: click the ruler where the note should end, read the time, type it. Two ways:
+**A** the readout alone, read-only, the cursor placed by clicking as now · **B** the readout also a box — type a time and ENTER, the
+cursor jumps there (hear from an exact time). Recommended A. **His word: "a".**
+
+**Decided, in one breath:** `1p` — one small item, two steps — **1p.1** the `len | end` switch (the length written behind an end; a
+multi-selection released together; the switch a panel preference in the browser, not in the document [call]) · **1p.2** the cursor's
+readout, read-only, two decimals [call], running while it plays. THE SHIELD on both: the switch and the readout are `txOnly`, hidden
+in the strike mode; the strike's Hear byte-identical. Written into PLAN § `1p` with each step's REQUIRED VERIFICATION; phase 3 written
+whole — the item is two steps and the talk settled both. Build on Opus at his word, one commit for the two [call]; `1n.6` and `1o.6`
+remain his.
+
+**Rejected:** B for the box (two boxes — width, and a mode is one word) · B for the readout (a go-to box — not asked; a click on the
+ruler places the cursor already) · storing the end in the document (onsets are the pattern's own copy and never move, so `len` and
+`end` are the same fact; keeping one keeps Insert and 1n.1's cut untouched).

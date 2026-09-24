@@ -2151,6 +2151,43 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE BUILD ORDER:** after `1m.4`, BEFORE `1n` (§288) — 1o.1 → 1o.2 → 1o.3 → 1o.4 → 1o.5, one commit each, THE SHIELD verified in each; 1o.6 his. Opus, one
     step per clear. **The server restarted after 1o.3.**
 
+- **1p — THE END TIME AND THE CURSOR'S CLOCK: a `len | end` switch on the length line, the cursor's time beside the transport** — `planned` 2026-09-24 —
+  his words LG-102; the talk RUNNING_LOG §302. *Why:* a length says *for*, an end time says *until* — and *until* is how a release TOGETHER
+  is composed: several players, or several columns starting at different onsets, ending at one moment; a note held until a point in the
+  texture. The end time is on the PATTERN'S clock (0 at its start; a pattern lands at the playhead on Insert), and the cursor's time shown
+  on the bar is what makes it typeable — click the ruler where the note should end, read, type. An end time is the length said the other
+  way round, `end = onset + len`, so the document, Insert and 1n.1's cut do not change. The calls made alone are marked [call], his to
+  reverse.
+
+  - **1p.1 — The `len | end` switch** — on the length line of the command bar (beside `short` and the column's `len` box) a two-word switch,
+    `len | end`, `txOnly`. In `end` mode every length box — the column's `#txLen` and each row's `len` box (1m.4.5) — SHOWS `onset + len`
+    (two decimals; the column's onset is `txDot(k).t`), its placeholder reads `end`, and a typed end WRITES the length behind it: the
+    column's `len = end − onset`, a row's `lens[row] = end − onset` — stored as `len` · `lens` exactly as today, nothing new in the
+    document. A MULTI-SELECTION in `end` mode: the one typed end gives EACH selected column its own length from its own onset (the
+    release together) — the column box for the column's length, a row's box for that row in every selected column. Blank still = the
+    standard short. Refused with a status, the box repainted: an end at or before the onset, or under the short; an end whose length
+    passes `LEN_MAX`. An end past the player's next onset is CUT there at play time, as a length is (1n.1); past the pattern's end is
+    allowed. The status line names both: `length 2.40 s · ends 6.60 s`. The switch is a PANEL PREFERENCE kept in the browser (beside the
+    drawer's other preferences), not in the document — a pattern recalled reads in whatever mode the panel is in [call]. Back in `len`
+    mode the boxes read the lengths as before.
+    - **REQUIRED VERIFICATION** (`score-5401`, MIDI stubbed, the POSTs stubbed in the navigation batch): a column at onset 4.20 s → `end`
+      → type 6.60 → `len` 2.40 in the document (± 0.005) → a row's box 7.00 → `lens[row]` 2.80 → back to `len`: the boxes read 2.40 · 2.80
+      → three columns at 4.20 · 5.10 · 6.00 selected, `end` 9.00 in the column box → their lens 4.80 · 3.90 · 3.00, the bars drawn to one
+      x → an end of 4.00 on the 4.20 column refused, the status says so, the document unchanged → the document byte-identical apart from
+      `len` · `lens` (the switch is not in it) → SPACE's list carries the lengths (1n.1's cut where one runs into the next onset).
+      **THE SHIELD:** the strike mode shows no switch; the strike's Hear captured before and after, byte-identical.
+
+  - **1p.2 — The cursor's readout** — in the command bar right after `⏮ [ ]`, a small monospace `12.35 s` (`#txClock`, `txOnly`, two
+    decimals [call]): the dropped cursor's time on the pattern's clock, painted at every render; while SPACE plays, the running cursor's
+    time on the same timer that moves it (`_txRunAt`); at stop, back to the dropped cursor. Read-only — the cursor is placed by a click on
+    the ruler, as now.
+    - **REQUIRED VERIFICATION** (`score-5401`): a click on the ruler → the readout equals `p.cursor` to two decimals; the same after `⏮`
+      and after `[` · `]`; SPACE → the readout advances with the running cursor (sampled twice, increasing); stop → back to the dropped
+      cursor. **THE SHIELD:** no readout in the strike mode; the strike's Hear byte-identical.
+
+  - **THE BUILD ORDER:** 1p.1 → 1p.2, one commit for the two [call] — Opus, at his word, after `/postclear`; each step's REQUIRED VERIFICATION
+    and THE SHIELD run on `score-5401`. His one test after: in his rack, three columns released together by one `end`, heard.
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
