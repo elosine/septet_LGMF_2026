@@ -2054,6 +2054,11 @@ const Composer = {
 
         container.addEventListener('mousedown', (e) => {
             if (this.drawMode) return;   // freehand capture owns the mouse
+            // PLAN 1q.2 (2026-09-24): CTRL-drag on empty lane space = the MARQUEE — the bricks it touches are selected, SHIFT+CTRL adds
+            // (harmony_sel.js). Before the SHIFT-span branch, so SHIFT+CTRL is the marquee's add and SHIFT alone is still the span.
+            if ((e.ctrlKey || e.metaKey) && e.button === 0 && e.target.closest('.lane') && !e.target.closest('.composerObject') && !e.target.closest('.metaLane') && typeof HarmonySel !== 'undefined' && HarmonySel.beginMarquee) {
+                if (HarmonySel.beginMarquee(e)) { e.preventDefault(); return; }
+            }
             // SHIFT-drag on empty lane space = mark a span for a trill (TRILLS_TOOL phase 2)
             if (e.shiftKey && e.button === 0 && e.target.closest('.lane') && !e.target.closest('.composerObject') && !e.target.closest('.metaLane')) {
                 if (this.beginSpanSelect(e)) { e.preventDefault(); return; }

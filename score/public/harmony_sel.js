@@ -150,6 +150,50 @@ const H = {
         this.say(parts.join(' · '), false);
         this.refresh();
     },
+    // ---------------------------------------------------------------- 1q.2 THE MARQUEE — CTRL+drag on empty lane space (his "a", §308)
+    // A fixed rectangle follows the mouse; on mouseup every object on a PLAYER lane whose drawn box TOUCHES it is selected, as SHIFT+click
+    // selects (selectObject additive: pushed, lit, the last the primary); SHIFT held at the start ADDS to the selection; ESC cancels; under
+    // 4 px it is a click and nothing happens. The click the browser fires after the mouseup is swallowed once, so the container's own
+    // click cannot deselect what was just selected. Called from composer.html's container mousedown (one line); returns true when it took the press.
+    beginMarquee(e) {
+        const C = C_(); if (!C || C.drawMode || C.pointsMode || this._mq) return false;
+        const x0 = e.clientX, y0 = e.clientY, add = !!e.shiftKey;
+        const box = document.createElement('div'); box.id = 'hqMarquee';
+        box.style.cssText = 'position:fixed;z-index:70;left:' + x0 + 'px;top:' + y0 + 'px;width:0;height:0;border:1px dashed #5E8C7A;background:rgba(94,140,122,0.14);pointer-events:none';
+        document.body.appendChild(box);
+        let last = { x: x0, y: y0 }, done = false;
+        const rect = () => ({ l: Math.min(x0, last.x), t: Math.min(y0, last.y), r: Math.max(x0, last.x), b: Math.max(y0, last.y) });
+        const paint = () => { const R = rect(); box.style.left = R.l + 'px'; box.style.top = R.t + 'px'; box.style.width = (R.r - R.l) + 'px'; box.style.height = (R.b - R.t) + 'px'; };
+        const onMove = ev => { last = { x: ev.clientX, y: ev.clientY }; paint(); };
+        const finish = cancel => {
+            if (done) return; done = true; this._mq = null;
+            window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); window.removeEventListener('keydown', onKey, true);
+            box.remove();
+            const R = rect(), small = (R.r - R.l) < 4 && (R.b - R.t) < 4;
+            if (cancel) { this.say('marquee cancelled', false); return; }
+            if (small) return;   // a click: the container's own click does what it always did
+            const eat = ev => { ev.stopPropagation(); ev.preventDefault(); };   // the click that follows this mouseup, once
+            window.addEventListener('click', eat, true); setTimeout(() => window.removeEventListener('click', eat, true), 0);
+            this.selectTouched(R, add);
+        };
+        const onUp = () => finish(false);
+        const onKey = ev => { if (ev.key === 'Escape') { ev.stopPropagation(); ev.preventDefault(); finish(true); } };
+        this._mq = { box };
+        window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp); window.addEventListener('keydown', onKey, true);
+        return true;
+    },
+    selectTouched(R, add) {
+        const C = C_(); if (!C) return;
+        const touched = (C.objects || []).filter(o => o && o.layer < META() && o.type !== 'marker' && o.type !== 'curveDot' && o._els && o._els.group && o._els.group.isConnected)
+            .filter(o => { const b = o._els.group.getBoundingClientRect(); return b.width > 0 && b.height > 0 && b.left <= R.r && b.right >= R.l && b.top <= R.b && b.bottom >= R.t; });
+        if (!add) C.deselectAll();
+        const list = touched.filter(o => !(C.selectedObjects || []).includes(o));
+        list.forEach(o => C.selectObject(o, { additive: true }));   // exactly SHIFT+click's path: pushed, lit, the handles, the last the primary
+        const lanes = new Set(list.map(o => o.layer)).size;
+        this.say(list.length ? ('marquee: ' + list.length + (list.length === 1 ? ' object' : ' objects') + (add ? ' added' : ' selected') + ' on ' + lanes + (lanes === 1 ? ' player' : ' players')) : (add ? 'marquee: nothing new inside it' : 'marquee: nothing inside it'), false);
+        this.refresh();
+    },
+
     back() {
         const C = C_(); if (!C) return;
         const P = this.pitched().filter(o => o.hq && o.hq.was); if (!P.length) return;
