@@ -11719,3 +11719,80 @@ padding the bar's right side (its controls would squeeze further).
 another; at 2200 × 900 (a width where the bar's 2,136 px of controls fit) every one of the bar's 28 controls answers `elementFromPoint` at
 its centre — none covered; the strikes tab hides while its drawer is open and returns at close. **Seen, not changed:** the bar's
 controls need 2,136 px, so on a narrower window the right half is off-screen whatever the tabs do — put to him in one line.
+
+## §306. `1q` A TAKE'S HARMONY ONTO A SELECTION · A MARQUEE · THE STACK — his brief for the composer score, the data first, the questions put (2026-09-24, Fable)
+
+**What prompted it — his words, after `/postclear` on Opus and a switch to Fable:** COMPOSITION_NOTES LG-103, verbatim. Three things in one brief: (1) select a range of bricks in the composer score, a takes menu *"just like in the sequences drawer"*, and *"assign that take harmony to that group of notes"*, with *"a back to original"*; (2) *"a marquee drag ... selection in the composer score"*; (3) *"an easy way to select any one of"* a stack of overlapping notes on one part, *"let's see what you recommend"*. And: *"check in with any questions or clarifications before the build."* Entered under the planning method (phase 1), one topic at a time: the take onto a selection first; the marquee and the stack held aside.
+
+**The data first — what the composer score has today (read, not run; `score/public/composer.html`, `sequence_ui.js`, `strike_drawer.js`):**
+
+| what | today |
+|---|---|
+| selecting bricks | a click selects one (`selectedObject`, the primary); SHIFT+click toggles it into `selectedObjects`; SHIFT+A adds a column (§ ~2350); the property panel shows the selection; `deselectAll` on a click in empty space |
+| a drag on empty lane space | plain = SCROLL (grab, ~2054); SHIFT+drag = mark a span for a trill (`beginSpanSelect`); middle button = scroll. **No marquee exists** (the comments at ~2351 and ~3781 say so: SHIFT+A was built "without needing a marquee") |
+| a brick's place in its lane | free — `yOffset` 0…1 and `zoneHeight`, set by the drag; NOT by pitch. So a chord's notes on one part sit on top of each other, the topmost taking every click |
+| the takes menu | the sequence drawer's `openTakeMenu(i, anchor)` (SEQUENCE_TOOL §22): a list of our own, `▸` hears the take 5 s through the strikes drawer without choosing it, the name chooses, a filter over `D.takeNames()`; ESC or a click outside closes it. Written for a BOX index — reusable with the box generalised |
+| a take's deal | `SequenceDrawer.dealTake(name)`: `D.loadTake` into the strikes drawer, `D.longNotes(D.notesFor('orch'))` → per player ONE pitch with `midi` · `cents` · `partial` · `tech` · `vel` (`lane:seat` — the vibraphone two seats, 0 and 2) |
+| a note's pitch and cents in the score | the brick's pitch number; cents as `morphBend: [[0, c], [dur, c]]`; a bent note (or a seat's) is DRAWN — its own curve channel — the rest `sonifyMode: 'plain'` (`texture_insert.js` ~114, the strikes drawer's rule 1c.3 · 1c.4); the just text in `performanceNotes` |
+| undo | `pushUndoState()` exists (CTRL+Z) — a plain one-step undo, not a "back to original" |
+
+**The read-back put to him (one line each):** (1) TAKE → SELECTION: select bricks on any lanes → the sequence drawer's takes menu → every selected note takes ITS player's pitch and cents from the take; length · dynamic · articulation untouched → `back` returns the pitches as they were. (2) MARQUEE: a rectangle dragged over the score selects the bricks it touches, across lanes. (3) THE STACK: pick one brick out of several on top of each other in one lane.
+
+**The questions put (topic 1 only; the marquee and the stack after it):**
+- Q1 — `back` goes back to WHAT: **A** the pitches before the FIRST take, kept ON the note so several tries and a save all keep it (recommended) · **B** one step back only (what CTRL+Z does already).
+- Q2 — HEARING: **A** the menu's `▸` hears the take alone, as the sequence drawer does; to hear the result, choose it and play the score, `back` if not wanted (recommended — small, nothing new to build for the hearing) · **B** the `▸` plays the SELECTED notes re-pitched, in place, through the score's own playback (a bigger build).
+
+**The calls proposed to be made alone, his to reverse:** a player the take leaves out keeps their note, the status saying so · the vibraphone's two notes go to its bricks in order (the first brick seat 0, the second seat 2, then round again) · only pitched notes on player lanes take a pitch — trills, curves, wedges and META are skipped and counted · the controls sit on the selection's property panel: `take ▾` · `back` · the selection stays selected after a take, so a second take or `back` needs no re-selection.
+
+**Held aside, after this:** the marquee's MODIFIER — a plain drag scrolls today and SHIFT+drag marks a trill span, so the marquee needs a key of its own (CTRL+drag is free on empty space) · the stack: the recommendation ready (a repeated click cycles down the stack; a popped list of the stack's pitches the alternative).
+
+## §307. `1q` — his answers Q1 A · Q2 A; the read-back corrected on the CURVES (a note in the score IS a waveCurve); the labor to include trills and wedges (2026-09-24, Fable)
+
+**His answers, verbatim:** *"1 a, 2a"* — `back` returns the pitches before the FIRST take, kept on the note (A) · the menu's `▸` hears the take alone, the result heard by playing the score, `back` if not wanted (A). **And his question:** *"trills, curves, wedges are skipped what is the labor to include these if desired"*.
+
+**The data (read: `texture_insert.js` ~106, `sequence_ui.js` ~1484, `composer.html` 2184 · 2508 · 2600 · 4100 · 9911):**
+
+| kind | what it carries | labor to include |
+|---|---|---|
+| a NOTE on a player's lane — every note the drawers write, and a recorded one | `type: 'waveCurve'` with `sonifyNote` (the pitch), `technique`, `recVel`, `velAbs` / `cc7Abs`, cents as `morphBend`; `sonifyMode: 'plain'` on a struck one. **The read-back of §306 was wrong to call these "curves, skipped": a brick IS a waveCurve.** The composer's own comment at 2508: *"curves never carry sonifyNote; generated grains always do — safe discriminator"* | none — this is the main case |
+| a curve WITHOUT `sonifyNote` (META, or a bare dynamic curve on a lane) | no pitch | nothing to assign — zero |
+| a WEDGE (`lineWedge`) | `nodes: [{ pos, thickness }]` — a drawn hairpin, no pitch | nothing to assign — zero |
+| a TRILL (`type: 'zone'`, `midiModel: 'trill'`) | `trill.pitch` + `trill.interval`, the pair kept inside the technique's range by octave (`trillPitchInRange`), regenerated by `regenerateTrill` | SMALL — `trill.pitch` takes the player's take pitch, the interval kept, `regenerateTrill` after; `back` remembers `trill.pitch` too. Cents cannot go on a trill (its notes are struck through the trill engine, no bend) — dropped, the status saying so. One rule to settle: the interval kept (the trill stays as wide as he made it) |
+| a BEATING (`midiModel: 'beating'`) | two pitches on two lanes with a partner | not offered — its own panel owns both pitches |
+
+**Put to him:** **A** include the trills now — the lower note from the take, the interval kept, no cents, counted in the status (recommended: small) · **B** leave the trills for later, skipped and counted.
+
+## §308. `1q` — trills IN at his "a"; topic 1 closed; topic 2 THE MARQUEE put, the data first (2026-09-24, Fable)
+
+**His answer, verbatim:** *"a"* — the trills are included: the lower note from the take, the interval kept, no cents (the status says so), counted. **Topic 1 (a take's harmony onto a selection) is settled in phase 1:** every selected note on a player's lane — a waveCurve with `sonifyNote`, or a trill zone — takes its own player's pitch (and cents, where it can carry them) from the take chosen in the sequence drawer's takes menu; length · dynamic · articulation untouched; `back` restores what stood before the FIRST take, remembered on the note; the `▸` hears the take alone; a player the take leaves out keeps their note; the vibraphone's two notes to its bricks in order; wedges, bare curves, META and beatings skipped and counted; the controls on the selection's property panel; the selection stays selected.
+
+**Topic 2 — the marquee. The data (`composer.html` ~2054, the container's mousedown):** a plain LEFT drag on empty lane space SCROLLS the score (grab) · a MIDDLE drag scrolls too · SHIFT+drag on empty lane space marks a SPAN for a trill (`beginSpanSelect`) · CTRL+drag on empty space does nothing today (on a NOTE, CTRL+drag duplicates it, ~9199) · a plain CLICK on empty space deselects and sets the active lane. There is no marquee; SHIFT+A (a column) was built in its place.
+
+**Put to him — the key:** **A** CTRL+drag on empty lane space is the marquee; the plain drag keeps scrolling, SHIFT+drag keeps the trill span (recommended: nothing he uses today moves) · **B** the plain drag becomes the marquee and scrolling goes to the middle button and the wheel · **C** ALT+drag (on Windows the ALT key alone can take the browser's menu focus — a reason against). **Calls proposed alone:** a brick the rectangle TOUCHES is selected (Reaper's rule), not only one it encloses · SHIFT held with the marquee ADDS to the selection · the rectangle spans every player lane; META is left out · the marquee's selection is the same `selectedObjects` the SHIFT+click builds, so the take, `back`, the group drag and SHIFT+C all read it.
+
+## §309. `1q` — the marquee on CTRL+drag at his "a"; topic 2 closed; topic 3 THE STACK put with the recommendation (2026-09-24, Fable)
+
+**His answer, verbatim:** *"a"* — CTRL+drag on empty lane space is the marquee; the plain drag keeps scrolling, SHIFT+drag keeps the trill span; the calls of §308 stand (touched, SHIFT adds, player lanes only, the same `selectedObjects`). **Topic 2 settled in phase 1.**
+
+**Topic 3 — one brick out of a stack. The data:** a brick's place in its lane is free (`yOffset`), so a chord's notes on one part sit on the same spot and the TOPMOST (the last drawn) takes every click; nothing today reaches the ones beneath but moving the top one away. A click on a brick is `bodyHit`'s mousedown (~9188): a plain press selects and may start a drag; SHIFT toggles; CTRL+drag duplicates; ALT is free.
+
+**Put to him:** **A** a REPEATED CLICK cycles down the stack — the first click takes the top brick, the next click on the same spot the one beneath, round again at the bottom; only a click without movement cycles (a drag still moves); the status names it (*"2 of 4 in this stack — click again for the next"*) and the note card shows its pitch (recommended: one gesture, no new surface; ALT+click instead if he wants the plain click left alone) · **B** a click on a stack pops a small list of the stack's pitches beside it, a click on a name selects that brick · **C** the stack is DRAWN fanned — every brick in a stack gets a strip of its own in the lane, so each shows an edge to click (a change to how the score looks).
+
+## §310. `1q` — the stack by a repeated click at his "a"; PHASE 1 CLOSED on all three; phase 2, the top line put (2026-09-24, Fable)
+
+**His answer, verbatim:** *"a"* — a repeated click cycles down a stack; a drag still moves; the status counts, the note card shows the pitch. **Phase 1 is closed on all three topics** (§306 … §309).
+
+**Phase 2 — the top line put to him, in the order of his brief:** 1. `1q.1` the take onto a selection (`take ▾` · `back` on the selection's panel; notes and trills) · 2. `1q.2` the marquee (CTRL+drag) · 3. `1q.3` the stack (the repeated click) · 4. `1q.4` his one test. His to confirm, reorder or rename.
+
+## §311. `1q` — the top line taken at his word, phase 3 skipped, PLAN § `1q` WRITTEN; two finds at the plan: the stack-cycling EXISTS, the property panel is on demand only (2026-09-24, Fable)
+
+**His words, verbatim:** *"if you are ready for plan we can skip one at a time and you can build, so write plan if needed or if you can just move streight to build go ahead"*. So phase 3 is skipped at his word; the plan is written whole (the record a clear needs), then the build, on Fable at his word.
+
+**Two finds, reading the code the build touches (`composer.html`):**
+- **THE STACK-CYCLING HE ASKED FOR ALREADY EXISTS** — piece #5's, 2026-09-09, `pickFromStack` (~4665) in the note's press handler: *"plain clicks at the same spot cycle down through the stack … and the same for every other lane (2026-09-09): notes played together stack, and the one underneath was unreachable."* `saveStatus` reads `E4 · ord — 2/4 stacked (click again to cycle · ALT+click = list)`. **But** the ALT+click list is META-only (`if (e.altKey && wc.layer === META_LAYER) openMetaStackPicker`), the status lives in the bottom bar, and a trill's press (`bodyHit`, ~9188) has no stack logic. §309's option A was, unknowingly, a description of what is there. `1q.3` becomes: verify it with real clicks · the list on every lane · the place shown on the strip · the trill's press joins. If it fails in his tab, that is the step.
+- **THE PROPERTY PANEL IS HIDDEN FOR A NOTE unless P is pressed** (`showPropertyPanel` ~5937: *"panel on demand only (P key) — composer 2026-08-13"*; the same for trills). §306's "the controls on the selection's property panel" would put them where he does not look. So the controls get THE HARMONY STRIP — a small fixed strip at the top right of the score, shown whenever pitched objects are selected [call].
+- **The deal is safe with the playhead anywhere:** `dealTake` → `D.loadTake` → `D.notesFor('orch')` reads the loaded take's ASSIGNMENT (`reals(v)`); the "busy at the playhead" rule (`busyLanes`, 1c.3 · PLAN 1t) belongs to the SHUFFLE, not to a loaded take.
+- **The takes menu** (`SequenceDrawer.openTakeMenu(i, anchor)`) is box-bound (`this.row.boxes[i]`, `freeze(i, name)`); it gains an optional `opts { onChoose, current }` — the box path untouched without it [call: one menu; a clone rejected]. `previewTake` works with no box selected (`this.sel = -1` → `AS_DEALT`); `this.row` exists from boot (`libLoad`).
+- **`hq` on the object persists:** `collectData` saves `this.objects` whole through JSON (`_els` dropped on load), so an `hq: { was }` key rides with the score.
+
+**PLAN § `1q` written** — 1q.1 the take onto a selection (the strip · the menu with `opts` · the deal onto notes and trills · `hq` · `back`) · 1q.2 the marquee (CTRL+drag, one line in the container's mousedown) · 1q.3 the stack (verify · the list on every lane · the strip · the trill's press) · 1q.4 his one test; the build order 1q.1 → 1q.2 → 1q.3, one commit each, THE SHIELD in each.

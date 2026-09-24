@@ -2188,6 +2188,76 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **THE BUILD ORDER:** 1p.1 → 1p.2, one commit for the two [call] — Opus, at his word, after `/postclear`; each step's REQUIRED VERIFICATION
     and THE SHIELD run on `score-5401`. His one test after: in his rack, three columns released together by one `end`, heard.
 
+- **1q — A TAKE'S HARMONY ONTO A SELECTION · A MARQUEE · THE STACK: the composer score's own selection re-pitched from a harmony take, with a `back`** — `planned` 2026-09-24 (Fable) —
+  his words LG-103; the talk RUNNING_LOG §306 … §311 (phase 1 one topic at a time, his answers A · A · a · a · a; phase 3 skipped at his word,
+  *"if you are ready for plan we can skip one at a time and you can build"*). *Why:* the drawers write harmony INTO the score; nothing yet
+  re-harmonises what is already there. A passage composed by hand or by a pattern — its rhythm, lengths, dynamics and articulations kept —
+  can take its pitches from any of his 200-odd harmony takes, be heard, and go back. The marquee is the selection that makes a passage one
+  gesture; the stack is what a chord on one part needs. The calls made alone are marked [call], his to reverse.
+
+  - **1q.1 — The take onto a selection** — a new mixin `score/public/harmony_sel.js` (`HarmonySel`; one script tag in `composer.html`).
+    **THE HARMONY STRIP:** a small fixed strip at the top right of the score area, shown whenever the selection holds at least one PITCHED
+    object on a player lane — a note (a `waveCurve` with `sonifyNote`, `layer < META_LAYER`) or a trill zone — and hidden otherwise
+    [call: the property panel is on demand only (P), so the strip is the home; the strip, not the panel, is where §306 said "the panel"].
+    It reads `harmony · 12 notes · 5 players`, then `take ▾`, `back (n)`, and a status of its own. **`take ▾`** opens THE SEQUENCE DRAWER'S
+    TAKES MENU (SEQUENCE_TOOL §22) — `SequenceDrawer.openTakeMenu(i, anchor, opts)` gains an optional third argument `{ onChoose, current }`;
+    with it the menu needs no box, the `▸` hears the take alone as it does today (`previewTake`, as dealt), the name calls `onChoose`; without
+    it nothing changes for the boxes [call: one menu, one behaviour — a clone rejected]. **Choosing** deals the take through
+    `SequenceDrawer.dealTake(name)` (the strikes drawer loads it, as a box does; per player one pitch with cents · partial · seat) and
+    writes it onto the selection: **a note** on lane L takes the chord's entry for L — `sonifyNote = midi`; cents → `morphBend =
+    [[0, c], [dur, c]]` and the note DRAWN (`sonifyMode: 'plain'` removed), as every drawer writes a bent note (1c.3 · 1c.4); no cents on
+    a note that carried a bend → the RECENTRE bend (1e-6 ¢, the sequence's rule) so its channel is re-centred [call]; no cents and no bend
+    → the pitch alone; `performanceNotes` gains ` · ← take "NAME"` with the new cents and partial, an old ` · ±N¢ just` / ` · partial N`
+    stripped. **The vibraphone's two notes** (lane 5, seats 0 and 2) go to its selected notes in time order, seat 0 · seat 2 · round again
+    [call]. **A trill** (`zone`, `midiModel: 'trill'`) takes the pitch on `trill.pitch`, the interval kept, `regenerateTrill`; cents
+    dropped and counted (his "a", §307). **A player the take leaves out** keeps their note, counted. **Skipped and counted:** wedges, bare
+    curves, META, beatings, every other zone. Length · dynamic · articulation · `velAbs` · `cc7Abs` untouched. Before the first write on
+    an object its ORIGINAL is remembered ON IT — `hq: { was: { sonifyNote, morphBend|null, sonifyMode|null, performanceNotes } }`, a trill's
+    `{ trillPitch }` — once, never overwritten by a later take (his A, §307), saved with the score since objects are saved whole [call].
+    **`back (n)`** restores every selected object that has an `hq`, deletes it, counts; grey at 0. One `pushUndoState()` before each
+    write, `curveDirty()` after (a note's route may change), `renderZone` per object, `markDirty()`; the selection stays selected; the
+    strip's status names it all: `take "X" → 12 notes on 5 players · 2 trills (no cents) · Bsn left as is (not in the take) · 1 wedge skipped`.
+    - **REQUIRED VERIFICATION** (`score-5401`, MIDI and every POST stubbed in the navigation batch, autosave off, never Save): a
+      selection of notes on ≥ 3 lanes by SHIFT+click → the strip appears with the counts → `take ▾` lists the takes with the filter → `▸`
+      on one plays through the stubbed ports without choosing → the name chosen → every selected note's `sonifyNote` equals the take's pitch
+      for its lane (read by `javascript_tool` against `dealTake`'s chord), the cents in `morphBend` and `sonifyMode` gone on a bent one, the
+      `hq.was` equal to the fields before → a SECOND take → `hq.was` unchanged → `back` → the objects byte-identical to before the first
+      take (`hq` gone), `saveStatus` counting → a trill in the selection: `trill.pitch` the take's, the interval kept → a selection with a
+      wedge: skipped and counted → the playhead INSIDE the selection: every player of the take still dealt → CTRL+Z after a take restores
+      too. **THE SHIELD:** a box's `take ▾` in the sequence drawer still chooses and freezes (`openTakeMenu` with no `opts`); `composer.html`
+      changed by the script tag alone in this step; an unselected note's fields byte-identical.
+
+  - **1q.2 — The marquee** — CTRL+drag on empty lane space (his "a", §308): ONE line in the container's mousedown (`composer.html` ~2054,
+    the SHIFT-span's twin, before the scroll branch) calls `HarmonySel.beginMarquee(e)`. A fixed-position rectangle follows the mouse; on
+    mouseup every object on a PLAYER lane (`layer < META_LAYER`) whose drawn box touches the rectangle is selected — the set built as
+    SHIFT+click builds it (`selectedObjects`, the primary the last, highlights, node handles), the panel and the strip refreshed once; SHIFT
+    held ADDS to the selection; the `click` the browser fires after the mouseup is swallowed so the container's own click cannot deselect;
+    ESC cancels; a rectangle under 4 px is a click. Plain drag still scrolls, SHIFT+drag still marks the trill span, middle drag scrolls.
+    [call: touched, not enclosed · META and the curve windows left out.]
+    - **REQUIRED VERIFICATION** (`score-5401`): a CTRL+drag with the pane's real input over notes on three lanes → exactly the touched
+      notes in `selectedObjects`, the highlights on, the strip's counts right → SHIFT+CTRL+drag adds → a plain drag scrolls as before
+      (`scrollOffset` moves, nothing selected) → SHIFT+drag marks a span as before → ESC mid-drag: nothing selected, the rectangle gone.
+      **THE SHIELD:** `composer.html` changed by one line; the group drag and SHIFT+C read the marquee's selection as they read SHIFT+click's.
+
+  - **1q.3 — The stack** — **FOUND at the plan (RUNNING_LOG §311): the cycling he asked for EXISTS** — piece #5's, 2026-09-09
+    (`composer.html` ~4665, `pickFromStack`): a plain click at the same spot selects the next note down the stack, `saveStatus` reading
+    `E4 · ord — 2/4 stacked (click again to cycle · ALT+click = list)`; but the ALT+click list opens on META alone (`openMetaStackPicker`),
+    the status sits in the bottom bar where it is easy to miss, and a trill's press (`bodyHit`, ~9188) knows no stack. So: (a) VERIFY the
+    cycling with the pane's real clicks on a stack of notes; (b) the ALT+click LIST on every player lane — `openStackPicker(e, layer)` on
+    `stackAt` and `stackLabel`, the META picker unchanged [call: the code is there]; (c) the place in the stack shown on the HARMONY STRIP
+    too, beside the counts (`2 of 4 in this stack — click again`) [call]; (d) the trill's press joins `pickFromStack` so a trill under a
+    note, or a note under a trill, is reachable. If (a) fails in his tab, that fault is the step.
+    - **REQUIRED VERIFICATION** (`score-5401`): three notes at one spot on one lane; three real clicks → the primary selection walks
+      1 → 2 → 3 → 1, the strip counting; ALT+click → the list of three, a name chosen → selected; a click elsewhere resets the cycle.
+      **THE SHIELD:** the META picker and cycle unchanged; a single note (no stack) selected on the first click as before.
+
+  - **1q.4 — His one test** — reload the tab (page files only): CTRL+drag over a chord passage → `take ▾` on the strip → `▸` a take, its
+    name → played → `back`; a second take on the same selection; a stack clicked three times, ALT+click for the list; a trill in a
+    selection. Revise on his word.
+
+  - **THE BUILD ORDER:** 1q.1 → 1q.2 → 1q.3, one commit each, each step's REQUIRED VERIFICATION and THE SHIELD run on `score-5401`
+    — Fable, at his word (*"if you can just move streight to build go ahead"*); `1q.4` his.
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
