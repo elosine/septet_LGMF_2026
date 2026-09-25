@@ -2430,7 +2430,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
-  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345)** — `planned` 2026-09-25 (Fable,
+  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345 · 2c.5 WRITTEN — §346, NOTATION_STANDARDS §5; STOPPED for his read before 2c.6)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
   agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
   #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
@@ -2473,7 +2473,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     on the note, never a rule. **THE CHECKER, `tools/check_screen_edges.js`:** the film's tiled pages, measured in Chrome as the print's
     are — nothing timed left of x(t0), nothing right of the frame, every go-time indicator at x(t) to the pixel, the pages tiling the
     window exactly, every drawn class carrying an `edge` entry; exit 1 on any failure; a build gate.
-  - **2c.5 — The print standards, written first** (`docs/NOTATION_STANDARDS.md` § THE PAGE TURN, from the engraving references — Gould's
+  - **2c.5 — The print standards, written first** **`written` 2026-09-25 (§346 — `docs/NOTATION_STANDARDS.md` §5 THE PAGE TURN; his read next, then 2c.6).** (`docs/NOTATION_STANDARDS.md` § THE PAGE TURN, from the engraving references — Gould's
     system-break conventions — one line per class with its `edge.print` value; his read before 2c.6 builds): the GC — WHOLE, never cut,
     pushed with the cut moving to the top of its descent · the duration line — the head + `durationStubSs` **2** (provisional, §340: *"I
     have to see it to make a decision precisely"*) or over whole, continued from the next page's staff start without a head · beams and

@@ -153,3 +153,66 @@ tool: `tools/notate_morph.js` / `notation/lib/morph_overlays.js` / `notate_secti
 - **A HOW only where the instrument has one:** brass — the valve combination (`T23`, "natural harmonic, do not correct") · a string's
   natural harmonic — the SOUNDING note with the circle + the string numeral, **no diamond** · double reeds and stopped strings — none.
 - Under about 20 cents, no special accidental (the AI's rule of thumb, his to move).
+
+## §5 THE PAGE TURN — LAKE GEORGE (piece #6), PLAN 2c.5. WRITTEN 2026-09-25 FOR HIS READ; 2c.6 builds the print plan on it once he has read it.
+
+*His design (RUNNING_LOG §340): the page edge is **two rule-sets on one engine**. ON SCREEN the performer's constant sweep wins — built
+(2c.1 … 2c.4, §342 … §345: the pages tile, a long object is cut like paper, a unit is clamped and its go-time indicator never moves).
+IN PRINT the whole object wins — **the cut is placed by the objects, as late as the rules allow**: "fit in as much as possible on the page
+before the page turn". This section is the print's rule, one line per drawn kind; `page_rules.edge.<kind>.print` will carry the value
+when 2c.6 builds it (today the registry holds only `screen`).*
+
+**The margins (built, 2c.1):** print **12.7 mm all round** (`container.json print.marginIn` 0.5 in; `--margin` overrides) · the screen
+**40 · 40 px** (`prefatory.marginPx`) · on both, t0 = left margin + gutter, tω = the width less the right margin, and nothing timed ever
+in the gutter. The right margin holds a last object's overhang (both exporters assert it).
+
+**The values:** `whole` — drawn on the page that owns its time, complete, never cut · `stub` — may take the cut only if its head and a
+minimum stub fit before it, else it goes over whole · `never-sever` — a cut may not fall inside it · `continue` — broken at the cut and
+continued on the next page · `furniture` — the page's own. **Ownership stays half-open** (#5's D59, kept for print, §340 (4)): an event
+exactly ON the cut belongs to the next page.
+
+| Drawn kind (render.js) | `print` | The rule | Basis |
+|---|---|---|---|
+| `gc` — the GC arc and its impact | **whole** | never cut. If any of its arc would fall past the cut, the whole GC goes to the next page, and **that page's t0 is the top of its descent** (t_impact − GC.pre) — so the page opens exactly where its first object's ink begins | his words, §340 |
+| `brick` · `ringbar` — a note's DURATION LINE | **stub** | the head + at least **`durationStubSs` 2** of line before the cut (provisional — *"I have to see it to make a decision precisely"*), else the note goes over whole; continued from the next page's staff start **without a head** | his words, §340; the tie-over-a-break convention (below) |
+| `envcurve` · `cresccurve` · `glisscurve` — the level / glissando curve of a held note | **continue** | follows its note: if the note goes over whole, so does the curve; if the note takes the cut with its stub, the curve is broken at the cut and picks up at the next staff start at the same height (a paper cut, as on screen) | the hairpin convention (below) |
+| `beam` | **never-sever** | no cut inside a beamed group (the splicer's stamp-atomic cut, #4 → #5, kept) | engraving practice: a beamed group is not split across a system break |
+| `tuplet` | **never-sever** | no cut inside a tuplet bracket (it belongs to its beam group) | the same |
+| `glyph` · `rest` · `stem` · `dot` · `ledger` — the note unit | **whole** | on the page that owns its time; a unit whose ink starts before the cut and whose time is after it belongs to the next page, whole | D59 |
+| `text` · `tempotext` · `barline` | **whole** | a mark with its note; a tempo or text instruction continuing over the cut is RESTATED at the next page's start with `continuationPrefix` "(cont.) " (`page_rules.reshowAtCut`, as now) | #4's page rule, kept |
+| `glissline` · `niente` · `dynarrow` · `lvslur` | **whole** | all four are short marks inside one unit (a rule between two heads · the niente circle · the surge's arrow · the let-ring crescent) — whole with their note | — |
+| `ottava` | **whole** | in THIS engine the ottava is a bracket over one notehead, so it is whole with its note. A multi-note 8va LINE, when one is drawn, is `continue` (below) | the per-note bracket, #2's standard |
+| `goline` · `attackline` · `tick` — the go-time indicators | **whole** | with their note, at x(t) | — |
+| `staff` · `clef` | **furniture** | the staff drawn to the system's end on every page; the clef in the gutter on every system | — |
+
+**Kinds this engine does not draw yet — the rule they arrive with** (the PLAN header's standing rule: each new kind adds its line
+here and in `page_rules.edge`, or the checkers fail):
+
+| Kind | `print` | The rule |
+|---|---|---|
+| a TIE | continue | broken at the system's end — the first half to the end of the staff, the second half starting before the tied note at the next system's start, after the clef |
+| a SLUR / phrase mark | continue | the same: the first part to the end of the system, the second from the next system's start |
+| a HAIRPIN | continue | open at the system's end, and continued on the next system at the width it had reached — a continuing hairpin never starts from a point |
+| a TRILL's wavy line | continue | to the system's end; restated on the next system with **(tr)** in parentheses (the mechanism: `page_rules.reshowAtCut`) |
+| an 8va / 8vb / 15ma LINE over several notes | continue | to the system's end; the sign restated at the next system's start **in parentheses** — (8va) |
+| a GLISSANDO line between notes on two pages | continue | drawn to the system's end and resumed from the next system's start into its note |
+| a text instruction held over a span (*sul pont.* …) | continue | restated in parentheses at the next page's start, as the tempo label is |
+
+**How 2c.6 will place the cut** (the rule above, as the plan): from a page's t0 the cut is the LATEST time ≤ t0 + the page's span at which
+no kind's rule is broken — a GC or a note that would be split is pushed whole and the cut moves back to where its ink starts; a pushed GC
+sets the next page's t0 at the top of its descent; a duration line takes the cut only if head + stub fit. The window is `[t0, cut]` and
+the system ENDS at the cut, so the blank at a page's right is exactly what was pushed. The two reserves of D59 (`edgeReserveMarginSs`, the
+print's `musicStartBufferSs`) retire; `minPageSeconds` stays. `check_print_edges.js` is re-pointed: every page's ink inside
+`[x(t0), x(cut)]`, every owned object whole, every object on exactly one page. **The time scale never changes** from page to page (distance
+is time).
+
+**For HIS read — the AI's calls, each his to reverse:**
+- the duration line's stub **2 ss** — judged on the proof at 2c.7;
+- a level curve **follows its note** (it does not decide the cut itself);
+- a GC impact exactly on the cut → the next page (print's half-open rule), where on screen it goes to the page BEFORE (§340);
+- the "(cont.)" prefix for a continued text or tempo, and parentheses for a restated sign — (tr) · (8va);
+- a cut may fall inside a held note's duration line (with its stub) but never inside a beamed group, a tuplet or a GC.
+
+**Sources:** the ties · slurs · hairpins · octave lines · trill lines across a system break are the standard engraving conventions
+(Elaine Gould, *Behind Bars*, the chapters on system breaks and octave signs) **as the AI knows them — not re-checked against the book this
+session**. Page turns in PARTS (a turn where the player rests) are PLAN 3's, not this score's.

@@ -12738,3 +12738,21 @@ failing with heads straddling or inside the gutter — page 26 (300 s) among the
   times read before and after: untouched; the throwaway's `lgmf.sequenceDrawer.v1` · `lgmf.rhythmSequence.v1` cleared.
 
 **THE SHIELD** (the pre-2c registry, `eeb78bb`): 7/7 byte-identical; the eight batteries GREEN; `test_coords` its one pre-existing failure.
+
+## §346. 2c.5 THE PRINT STANDARDS — written for his read; STOP before 2c.6 (2026-09-25, Opus)
+
+**Written:** `docs/NOTATION_STANDARDS.md` **§5 THE PAGE TURN** — his two rule-sets restated (screen built, print the whole object) · the
+margins as built · the five values (`whole` · `stub` · `never-sever` · `continue` · `furniture`) · **one line per drawn kind** with its
+`print` value, its rule and its basis: the GC **whole** (pushed whole, the next t0 the top of its descent) · the duration line (`brick` ·
+`ringbar`) **stub** — head + 2 ss or over whole, continued without a head · the three curves **continue**, following their note · `beam` ·
+`tuplet` **never-sever** · the note unit, the marks, the go-time indicators **whole** · `ottava` whole (a per-note bracket in this engine) ·
+`staff` · `clef` furniture · **the kinds not drawn yet**, each with the rule it arrives with — ties · slurs · hairpins (continued at the
+width reached) · trill lines ((tr) restated) · 8va lines ((8va) restated) · glissando lines · held text instructions · **how 2c.6 will
+place the cut** · **his read, the AI's calls listed** (the 2 ss stub · a curve follows its note · a GC on the cut → the next page in
+print, the page before on screen · "(cont.)" and parentheses · a cut may fall in a duration line, never in a beam, a tuplet or a GC).
+Nothing in the registry yet — `page_rules.edge.<kind>.print` is written at 2c.6, after his read, so a change of his is one edit, not two.
+
+**Honest about the source:** the tie · slur · hairpin · octave-line · trill-line conventions are written from the AI's knowledge of the
+standard (Gould, *Behind Bars*), not re-checked against the book this session.
+
+**STOP here, by the plan** — 2c.6 (the print plan) builds only on his read of §5.
