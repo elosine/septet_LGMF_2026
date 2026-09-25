@@ -12756,3 +12756,17 @@ Nothing in the registry yet — `page_rules.edge.<kind>.print` is written at 2c.
 standard (Gould, *Behind Bars*), not re-checked against the book this session.
 
 **STOP here, by the plan** — 2c.6 (the print plan) builds only on his read of §5.
+
+## §347. His word on the 2c stop: the specific resolutions DEFERRED to when the notation is in (2026-09-25, Opus)
+
+**His words:** *"as long as the rules and machinery are in the system, lets defer any specific resolutions to when the actual notation is
+in; anything left to resolve/build for the rules/machinary? any non-notation specific decisions from me?"*
+
+**Deferred at his word, to the specific notation:** the FLAG of §345 (the 5 clamped units with no go line of their own — his 300 s whole
+note among them) · the 2 ss stub · the margins' numbers (40 · 40 px, 12.7 mm — data, judged on a proof) · every call listed in
+NOTATION_STANDARDS §5. The rules stand as written; the values are provisional data.
+
+**Answered — what is left of the MACHINERY:** 2c.6 the print plan (the cut placed by the objects; `page_rules.edge.<kind>.print`;
+`check_print_edges.js` re-pointed) · 2c.7 its verification (both checkers green over every page) · optionally the clamp's go-line
+exception as a registry switch, default off, so the §345 resolution is a data flip later. **His decisions (not notation-specific):**
+whether 2c.6 builds now on the provisional values, and whether the switch is built.
