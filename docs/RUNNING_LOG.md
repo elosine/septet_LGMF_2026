@@ -13215,3 +13215,440 @@ tab on :5400):
 
 **`1t` is built end to end: 1t.1 … 1t.4, four commits, THE SHIELD in each. `1t.5` is his: RESTART the server (`morph.js`
 changed — the server's Save as ACTUAL renders with the engine it loaded) and reload the tab.**
+
+## §368. THE NOTATION OF THE ENGLISH HORN, SECTION 1 — his pivot back to the notation; the sequence's big picture, stats first (2026-09-25, Fable, session 15)
+
+**His words, after `1t` closed on the build side (his listen `1t.5` still his):** *"back to lgmf notation lets make notation for EH for
+sec 1 that is the sequence and morph; 1 by one; start with stats, in the sequence, before morph give me the run down by catagory, lets
+start with crescendos, when to when, which level to which level, actuall first start with the big picture, in the sequesnce, loudest and
+softest, not including morph yet"* — so: the EH alone · section 1 = the sequence, then the morph · the sequence first · stats by
+category (the dynamics first, the crescendos), and before any category the big picture: the loudest and the softest.
+
+**The source read:** `scores/piece-LGMF-Sec01-v1.3-sec01-done.json` (his `sec01-done`, 254 objects, two groups). Section 1 is the
+sequence **`LGMF-R01c`** (`grp-seq-smu90t537`, 137 notes, 0 … 156 s, `databases.sequences[0]`) followed by the morph
+**`ACT-BLOOM-06`** (`grp-act-bloom-06-01`, 117 objects, 151.35 … 279.39 s; the EH's first morph note at 158.4 s). No markers.
+
+**The EH in the sequence — 13 notes, 0 … 149 s, `senza_vel` throughout, nine boxes** (the recipe: `change seamless` · the breath
+`staggered`, `together 0.2`, `apart 0.6`, `ofMax 0.65`, the outlier one in ten · the waves `golden`, 8 … 20 s, `hold 0.2`,
+`density 0.6`, **`low pp` · `high mp`** on every box · the edges **fade in 6 s from niente**, **fade out 8 s to ppp**, `exit one by one`).
+
+**The levels, read through the EH's OWN ladder** (`DynTable.cc7(bank, 'english_horn', …)`, the measured curve: ppp 43 · pp 51 ·
+p 59 · mp 68 · mf 80 · f 94 · ff 109 · fff 127; each note's CC7 = `cc7Abs.lo + (hi − lo) · y/10` at its breakpoints, `composer.html`
+`heldCc7`):
+
+| note | box | time (s) | midi | fader range | reached |
+|---|---|---|---|---|---|
+| wc-3127 | 1 | 0 … 12.8 | 80 | pp flat, **fade in 0 → 6 s from niente** | pp |
+| wc-3140 | 1 | 13.7 … 28.0 | 80 | pp … mp | pp @13.7 → **mp @25.0** |
+| wc-3156 | 2 | 28.7 … 43.6 | 79 | pp … mp | pp @30.9 → mp @39.1 |
+| wc-3169 | 3 | 44.3 … 49.8 | 74 | pp … p+ (61) | p+ @44.3 → pp @47.4 |
+| wc-3175 | 4 | 50.7 … 56.6 | 62 | pp flat | pp |
+| wc-3182 | 4 | 57.3 … 72.5 | 62 | pp … mp | pp @57.3 → mp @69.1 |
+| wc-3196 | 5 | 72.9 … 86.3 | 55 | pp … mp | pp @74.5 → mp @83.6 |
+| wc-3206 | 6 | 87.3 … 99.2 | 71 | pp … mp | mp @87.3 → pp @93.0 |
+| wc-3216 | 7 | 100.0 … 113.1 | 76 | pp … mp | mp @100.0 → pp @104.7 |
+| wc-3228 | 7 | 113.8 … 126.7 | 76 | pp … p− (56) | p− @113.8 → pp @114.7 |
+| wc-3240 | 8 | 127.1 … 141.0 | 80 | pp … mp | pp @127.1 → mp @140.0 |
+| wc-3255 | 9 | 142.0 … 149.0 | 79 | **ppp … mp−** (43 … 65), 18 breakpoints | mp− @142.0 → **ppp @149.0** (the fade out) |
+
+**THE BIG PICTURE:** the whole EH line lives between **pp and mp** — the waves' two written names — with **niente at the very start**
+(the 6 s fade in, 0 … 6 s) and **ppp at the very end** (the 8 s fade out, on the last note, 141 … 149 s). **Softest: ppp at 149 s**
+(niente before 0 s aside). **Loudest: mp — first at 25 s, and reached in 8 of the 13 notes.** Two notes never leave pp (0 … 12.8 s
+under the fade in; 50.7 … 56.6 s flat). The twelve breath gaps are 0.4 … 1.0 s.
+
+**Read on the way, not raised to him:** the notes' `cc7Abs.hi` is 69 where the EH's table says mp = 68 — one CC7 step (≈ 0.1 dB),
+immaterial to the notation, noted so nobody hunts it later. The waves' per-note range differs by note (p+ · p− on two of them) because
+each note takes its own slice of the one gliding stream (1d.12).
+
+**Method for the run-down by category, agreed by his order:** the big picture (this §) → the crescendos (when to when, which level
+to which level) → the other categories one at a time → then the morph. Nothing built; the notation's design talk comes after the
+stats.
+
+## §369. THE EH'S SEQUENCE NOTATION — his initial sketch organised, the analysis, what was forgotten; and a correction to §368's count (2026-09-25, Fable, session 15)
+
+**CORRECTION to §368 (a new entry, never an edit):** the EH has **12** notes in the sequence, not 13 — the survey's `count 22` was the
+sequence's 12 plus the morph's 9 notes and its marker. So: **11** breath gaps, not twelve; **mp reached in 7 of the 12** (the seven notes
+whose top is CC7 69), not 8 of 13. The table in §368 is right row by row; only the prose counts were wrong.
+
+**His sketch, verbatim: COMPOSITION_NOTES LG-111.** The form he names is piece #5's morph notation — the tuba's settled vocabulary
+(`for_seven_tubas/docs/MORPH_NOTATION.md`; #5's NOTATION_STANDARDS §3, D44 … D50; the look D42, `CURVE_LOOK.md`): a HEADER at the
+part's entry in ss offsets from the first go line (never stretching with the zoom) · one go line per breath, no onset heads · the
+lane in two halves, the gliss curve (brightOrange) on top, the crescendo (limeGreen `#99FF00`) below · the meters = piece #2's curve
+follower (8 px, its right edge 3 px left of the cursor, outline 1.5 px @ 0.8, fill @ 0.3), one per half · piece #2's MOTIVE PIE
+(CURVE_LOOK §7: a square of side staffHeight/4 at the lane top, 2 px left of the meter; a clock counting DOWN — full at the start,
+empty at the end, the item's colour @ 0.3, a black 1 px hand; recorded in #5, OFF there).
+
+**THE SKETCH, ORGANISED — two parts:**
+
+*Part 1 — THE BLOCK (the header at the EH's entry, hanging before the first go line):*
+1. one full-size OPEN notehead — the pitch at entry (midi 80 +41 c, partial 26 of C1 — see feedback A for its marks);
+2. the dynamic figure `pp → mp` (dyn1 · arrow · dyn2) — the LEGEND of the bottom half-lane: bottom = pp, top = mp;
+3. "senza vib." — the house technique text, its latest use #5's "pizz." (Crimson Pro Light Italic 1.0998 ss, above, starting at the
+   head's left edge, 0.45 ss clear of the unit's ink);
+4. the opening from niente — the niente circle (the tuba's, DRAWN not a glyph: diameter 0.4695 ss, the `m` of `mf`) followed by a
+   hairpin — **"lets discuss this more"** (feedback B).
+
+*Part 2 — THE SCROLLING LANE (the meters):*
+5. the lane in two halves as the morph's — the TOP half the pitch meter, empty in the sequence and kept so the morph that follows is
+   consistent; the BOTTOM half the level curve at half height;
+6. the level curve: limeGreen, ONE CONTINUOUS CURVE across the breaths (the waves stream itself — the notes are slices of one gliding
+   stream, 1d.12, so it is continuous by nature; the breath gap is not a dip), absolute on the `pp → mp` legend — "full curve";
+7. the curve follower riding it (#2's meter, confined to the bottom half);
+8. the PIE, re-purposed: a BREATH CLOCK — one dial = one breath's length, at the very top of the lane (over both halves), left of the meter;
+9. at every new breath: a go line with a "pre go line like the GCs" — the GC's approach into the go point;
+10. at every new breath: the pitch in parentheses, an open notehead ("open notehead used throughout");
+11. somewhere on the lane — to decide where — a SMALL parenthesised dynamic that updates when the level crosses a name's threshold
+    ("when it gets to p threshold, dynamic updates to p").
+
+**THE ANALYSIS AND WHAT WAS FORGOTTEN (the AI's, put to him):**
+
+- **A. The pitch CHANGES at most breaths — it is not a reminder.** The sequence is `change: seamless`: each new chord's note is taken at
+  the player's next breath. At the EH's 11 breaths the pitch is NEW at 8 (28.7 · 44.3 · 50.7 · 72.9 · 87.3 · 100.0 · 127.1 · 142.0 s)
+  and the same at 3 (13.7 · 57.3 · 113.8 s). Nine pitches in all: G♯5 +41 (26° of C1) · G5 +2 (12° of c2) · D5 +4 (18° of C1) ·
+  D4 +4 (9° of C1) · G3 −14 (5° of E♭1) · B4 +41 (13° of E♭1) · E5 +5 (17° of E♭1) · G♯5 −12 (15° of A1) · G5 −31 (14° of A1).
+  Proposed: a NEW pitch = a plain open head with THIS PIECE'S just marks (`docs/research/just_partials_notation.md`, DECIDED
+  2026-09-19: the accidental · the cents from the tempered note · the partial `n°`, the fundamental named where it changes, no HOW for a
+  double reed) — **not #5's D45 quarter-tone spelling**; the SAME pitch = the parenthesised open head, no marks. His to reverse.
+- **B. The legend's floor cannot show the two edges.** `pp → mp` puts pp at the bottom of the half-lane — but the line OPENS from
+  niente (the 6 s fade, 0 → 6 s) and CLOSES on ppp (the 8 s fade, 141 → 149 s), both under the floor. Two ways: (i) the legend
+  `○ → mp` with the curve absolute from nothing (D46's way) — then pp sits at ≈ ¾ of the half-lane and the waves live in the top
+  quarter, the shape flattened; (ii) his sketch: the legend `pp → mp`, the waves fill the half-lane, and the two edges are SIGNS —
+  the opening `○ ——<` and, forgotten, the closing `——> ppp` (the mirror). Recommended (ii). Within it, the open question is WHETHER
+  THE HAIRPIN IS TIMED — a lane object over 0 → 6 s that stretches with the zoom (it is a real duration, and the print score has no
+  cursor) — or a fixed sign in the block. Recommended timed. **Discuss.**
+- **C. The pie counts DOWN in #2's spec** — full at the breath's onset, empty at its release: the time LEFT in the breath, which is
+  what a player needs to prepare the next attack. Matches his "1 dial length of breath"; confirm down, not up. Its box at the lane
+  top per the spec = "the very top of both meters".
+- **D. The GC meant PERCUSSIVE in #5** (the trills lost theirs for it: "a GC means percussive here"). Here the GC-like approach will
+  mean "breathe and re-attack" — fine as this piece's rule, said once. Or a distinct shape for a breath. His call.
+- **E. The parenthesised dynamic — WHERE and WHEN.** The waves cross p every few seconds up and down (7 of 12 notes go pp → mp → pp),
+  so a threshold label flips ~2× per wave. Two designs: (i) his — a label at each threshold crossing (rising: p at 59, mp at 68 on the
+  EH's ladder; falling the same values), a timed text on the lane at the crossing time, so print and screen agree; add a 1 s dwell so
+  a grazing touch does not flicker; (ii) fewer and truer — a label at each TURNING POINT only: the crest's name, the trough's name
+  (`(mp)` at 25.0 s, `(pp)` at 30.9 s …), which is exactly conventional hairpin writing reduced to its marks. Placement either way:
+  on the dynamic row under the staff (the house `dynY`), cue size, in parentheses. Recommended (ii), at `dynY`.
+- **F. Forgotten — the close.** The fade out to ppp (141 → 149 s) and `exit one by one` need the closing sign (B ii) and, at 149 s,
+  the end of the line (nothing after it until the morph's EH at 158.4 s).
+- **G. Forgotten — the fundamental.** Rule 2 of the just standard names it once per chord; on one part's lane every new pitch is a new
+  chord, so carry `n°/F` on every new pitch (`26°/C1` at the entry) — five fundamentals across the nine boxes (C1 · c2 · C1 · C1 · E♭1 ×3
+  · A1 ×2).
+- **H. The two legends differ.** The sequence's half-lane is pp … mp; the morph's will be its own range — the same height means a
+  different level on either side of the join. Each block is a legend, so it is honest; said once.
+- **I. Nothing else changes:** `senza_vel` holds through the sequence AND the morph — "senza vib." once, in the block · the presentation
+  score in C, the EH's G3 … G♯5 on the treble clef · no duration line (the morph's way) · the breath gap (0.4 … 1 s) marked by the go
+  line and the pie, never by the curve.
+
+**Nothing built. Phase 1 of the planning method: the restatement above is put to him; the first topic on his word, B (the niente
+opening) being the one he flagged.**
+
+## §370. THE EH'S SEQUENCE NOTATION — his decisions on §369's feedback; the form after them (2026-09-25, Fable, session 15)
+
+**His words: COMPOSITION_NOTES LG-112.** Decided, point by point against §369:
+
+- **B — the opening is a SIGN, not timed:** *"no hairpin symbolic not timed, I'll explain in the perf notes."* The niente circle + hairpin
+  sits in the block; the performance notes carry its meaning.
+- **A · G — the pitch's marks deferred:** *"take note to sort out cents etc later once we have big picture"* · *"G et al, settle in its own
+  conversation."* The head's FORM stands (a plain open head for a new pitch, parenthesised for the same); the cents · partial · fundamental
+  are their own conversation, after the big picture.
+- **C — the pie counts DOWN:** *"full to empty, countdown."*
+- **D — NO GC. The head to the LEFT of the go line:** *"Tufte principle 2+2=3 so if showing onset with line, dont show again with
+  notehead thus to the left like gc pitch, and thats all I meant with gc approach, no actual gc just note head and associated + go line."*
+  The go line IS the onset; the head and what hangs on it sit before the line, as a GC's pitch does (#5's reading regime: head · go
+  line). Nothing else.
+- **E — the dynamics at the turning points:** *"E good."*
+- **F · H — the morph is its own notation block:** *"so is it that we end after sequence and restart all at morph?"* — *"more evidence that
+  morph should be its own notation block though I dragged the bricks so in fact the morph note starts immediately after the sequence note
+  ends, but we'll see if we can restate a header there; new curve can start at morph but lets discuss the morph in earnest after the
+  sequence EH, and we'll talk then about what carries to morph."*
+
+**Read in the saves for F:** in all three (`sec01-done` · `-Sec02-sec03a` · `-Sec02-Sec3start`, the last saved today 14:54) the EH's
+sequence ends at **149.0 s** and its first morph note starts at **158.4 s** — a **9.4 s gap** on the EH, the same 12 sequence notes
+(`wc-3127 … wc-3255`, times and levels identical, so §368's stats hold for whichever save the notation is extracted from). The
+immediate join he describes is not in a save of the EH — perhaps another part's bricks, or an unsaved working copy; told him.
+
+**THE FORM AFTER HIS DECISIONS — the top line:**
+
+*THE BLOCK (the entry, hanging before the first go line, ss offsets):* open head (its marks later) · `○ ——<` · `pp → mp` the legend ·
+"senza vib." (the house text, #5's "pizz." size and face).
+
+*THE LANE:* two halves, the top empty · the level curve, green, continuous, absolute on pp … mp in the bottom half · the curve follower ·
+the pie at the lane top, counting down each breath · at every breath a GO LINE with the head to its LEFT (plain if the pitch is new,
+parenthesised if the same) · a parenthesised cue-size dynamic on the dynamic row at each turning point, the nearest name.
+
+*THE CLOSE:* open — see the questions.
+
+**Questions put to him (only what he can answer):** (1) the close — a sign too (`——> ppp` at the last breath's head, the mirror of
+the opening), or nothing on the page and the performance notes? (2) the dynamic row of the block reads `○ ——< pp → mp` on one row —
+the opening sign leading into the legend — or two rows? (3) a turning point that reaches only p+ / p− (61 · 56 on the EH's ladder,
+44.3 and 113.8 s) — labelled with the nearest name `(p)`, or only the crests that reach a full name? (the AI's call: nearest name.)
+(4) the fade-out's last 8 s: the curve itself sinks under the legend's floor to ppp — draw it clamped at the floor, or let it dip
+below the half-lane's bottom line? (the AI's call: clamped; the sign says the rest.)
+
+**Nothing built.**
+
+## §371. THE EH'S SEQUENCE NOTATION — the block's vertical layout, his four answers, and the CONCEPT AUDIT of the curve (2026-09-25, Fable, session 15)
+
+**His words:** *"the block lets lay out a proto type in a expermental save in the composer score; where should the niente go vertically,
+already have vert loc for senzavib? 1. good but need to see prototype 2. opening sign own row 3. yes sign says leave curve 4. yes — last
+few issues is prompting a general concept audit; especially with curve; I think it is probably ok but see if there are any more logical
+approaches to the notation from the big picture; so for example curve absolute from ppp to fff? I worry about visibility, then the
+excursion from p to mp not that many pixels; taper curve below staff for begining or end, different color, dotted line?; maybe mark
+dyamics on all peaks? or header at the beginning of each hump? pp->p? other improvements or I would be willing to consider an entire
+different design logic if one screams out"*
+
+**Decided (§370's questions):** (1) the close as a sign — judged on the prototype · (2) the opening sign on its OWN row · (3) the curve
+clamped at the floor through the fades, the sign says the rest · (4) a small turning point labelled by the nearest name.
+
+**The block's vertical layout (the AI's proposal, the prototype decides):**
+- "senza vib." — the house technique text has a location already: #5's "pizz." rule — ABOVE the unit, starting at the head's left edge,
+  0.45 ss above the unit's ink or the staff, Crimson Pro Light Italic 1.0998 ss.
+- the legend `pp → mp` — on the house dynamic row `dynY` (−4.6 ss; the 0.45 ss spacer under lower ink), the row the morph's block uses
+  for ITS legend, so the row means the same thing in both blocks.
+- the opening sign `○ ——<` — the row UNDER the legend (≈ one dynamic height + the spacer lower), nearest the half-lane's floor where the
+  curve it describes begins. The alternative is the swap (the sign on `dynY`, the legend under) — one number.
+
+**THE AUDIT — the evidence first.** Measured on today's save (`-Sec3start`): the SHAPED notes (a `cc7Abs`, the curve's kind) exist only in
+section 1, 0 … 279 s; sections 2 and 3 are struck notes (the EH: 138 without `cc7Abs`, the texture patterns). Every player's shaped
+range, on its own ladder: **the sequence ppp … mp** (the fades to ppp at the edges, the waves pp … mp) · **the bloom ppp … ff** (the
+EH's peak CC7 103 ≈ ff) — the same picture on all seven.
+
+**The logics on the table:**
+- **(A) his — a legend per block:** the curve fills the half-lane between the block's two names; the edges as signs; the morph restates
+  the legend. Full resolution on the waves.
+- **(B) one fixed scale** (ppp … fff, or measured ppp … ff for section 1): the same height = the same loudness across blocks and players,
+  the fades on-scale — but the sequence's whole pp … mp life is **2 of 7 steps (29 %)** or **2 of 6 (33 %)** of the half-lane. His worry is
+  right: at a half-lane of H px the swing is H under (A) and ≈ H/3 under (B).
+- **(C) the conventional logic — hairpins and names, no curve:** everyone reads it; the niente hairpin is standard. But it drops the
+  follower (the animated score's core) and flattens the golden wave with its hold into straight wedges. Not recommended; it is the
+  "entirely different logic", and it does not scream.
+
+**The refinements he named, judged:**
+- **a taper under the floor for the fades (dotted, another colour):** against decision (3) — and the half-lane's floor sits where the
+  dynamic rows are, so a taper below it meets the block's rows; the sign carries it. No.
+- **dynamics on all peaks · a header per hump (`pp → p`):** the turning-point labels (E) already give every crest and trough its name; a
+  per-hump header repeats the same two names — Tufte's 2 + 2 = 3. No.
+- **one addition worth trying on the prototype:** the legend's INNER name as a tick — `p` at its table height (59 on 51 … 68 = 47 % up)
+  on the follower's tube; the eye then reads the level at the cursor against a mark, and the labels carry the print page. One tick, one
+  number.
+
+**Recommendation:** keep (A) with E and the signs; build the prototype with **the scale as a parameter** so both (A) `pp … mp` and (B)
+`ppp … ff` are seen on the real lane at the real height — the visibility question is answered by looking, not by argument.
+
+**THE PROTOTYPE — what it is:** the notation engine, not the composer score: an experimental IR extracted from a COPY of his save (his
+file untouched), the header overlay's sequence variant (one head · the legend on `dynY` · the opening sign under it · "senza vib."
+above), rendered in the notation app at 0 s; the scale a parameter. A build — Opus, from a plan item. Not started.
+
+## §372. THE PARTS' RESOLUTION — his question on height vs. time scale, and what piece #1 actually did (2026-09-25, Fable, session 15)
+
+**His words:** *"I think clearly in presentation score full height resolution will be too small, one thing to consider is the usage so
+presentation score just needs to give the sense, the rehearsal/performance parts will need the better resolution; performance score not
+done but speculate for me if a performer had more space ie 4 pages/lanes per ipad screen would we be able to increase vertical height
+while maintaining time x resolution and aspect ratio? I think we did in piece 1"*
+
+**The engine's answer — yes, by construction.** `coords.js` maps time onto x from the system WIDTH alone (`[left margin + gutter,
+width − right margin]` over the seconds-per-system, 12 s); a lane's HEIGHT is its share of the frame (`realizations.<view>.lanes`, weights
+per view). The two never meet. A PART is a realization (`container.json` A21b: *a realization = view config + transport binding + device
+set + styling*): one part, M systems stacked on the screen — the same seconds-per-system, the same px/s where the system is the same
+width, the lane height = the screen height / M. The staff stays its absolute 31.6 px (or is raised — one number); the extra height goes
+to the curve halves.
+
+**The numbers (rough):** the video frame gives a lane ≈ 110 px (1080 over nine lanes with pads and gaps), a half-lane ≈ 55 px — the whole
+pp … mp swing under the per-block legend, ≈ 18 px under a fixed ppp … ff. An iPad in landscape at 4 systems (≈ 1024 CSS px tall) gives a
+lane ≈ 250 px, a half-lane ≈ 125 px — the fixed ppp … ff swing ≈ 42 px, about what the per-block legend gives on the video today.
+
+**What piece #1 actually did — half of what he remembers.** Its part view (`?track=N&pages=M`, M = 4 · 6 · 8, default 6) STACKED one
+track's page-strips on the 4:3 screen — but it spent the space on LOOK-AHEAD, not height: the page count fell from 32 (full score) to
+16 (4 strips) · 11 (6) · 8 (8), i.e. each strip held 2× · ~3× · 4× the time of a full-score page at the same strip height (≈ the full
+score's track height), and `MAX_ELEMENT_PAGES` capped the elements slightly smaller in 4-page mode ("intentional and matches screen").
+The stacking is precedent; the taller lane at the same px/s is NOT — it is a choice piece #1 did not make, and this engine allows.
+
+**The consequence for the audit (§371):** the presentation score "gives the sense" — the per-block legend (A) serves it; a part can
+afford the fixed scale (B) because its height pays for the resolution. Two scales for two realizations is within the architecture
+(styling per realization). His to decide when the parts are designed; nothing built.
+
+## §373. pp → mp IN PIXELS — the video frame against an iPad part, computed (2026-09-25, Fable, session 15)
+
+**His words:** *"More simply, on iPad how many px pp to MP on full scale vs on presentation score"*
+
+Computed from the registry (video-jury: 8 lanes, the percussion brace 2.109, pads 8 · 8, gap 4 → 113.7 px a lane, the half-lane 56.9)
+and an iPad part at 4 systems (the same pads and gap; CSS px, landscape). The scale is linear in written steps (ppp … fff = 7).
+
+| | half-lane | pp → mp, per-block legend | pp → mp, fixed ppp … fff | pp → mp, fixed ppp … ff |
+|---|---|---|---|---|
+| video 1920 × 1080 | 57 px | **57** | **16** | 19 |
+| iPad 12.9" (1366 × 1024), 4 systems | 125 px | 125 | **36** | 42 |
+| iPad 12.9", 2 systems | 251 px | 251 | 72 | 84 |
+| iPad 11" (1194 × 834), 4 systems | 101 px | 101 | 29 | 34 |
+
+So the fixed full scale on an iPad at 4 systems (36 px) is a little UNDER the per-block legend on the video (57 px); at 2 systems (72 px)
+it passes it. Nothing decided.
+
+## §374. THE AI'S ASSESSMENT — the per-block legend or one fixed scale (2026-09-25, Fable, session 15)
+
+**His words:** *"So your assessment, current plan or full resolution"*
+
+**The assessment: ONE FIXED SCALE — niente at the floor, fff at the top of the half-lane — for the whole piece, every player, every
+realization.** Why, in order of weight:
+1. **It is the lineage's own lesson.** The tuba normalised every curve to its peak ("regardless of how much change, it will go the full
+   track height"); #5 reversed it in D46 — *the crescendo curve is ABSOLUTE on that scale* — because a normalised curve draws a pp … mp
+   ripple as a mountain. A legend per block is the same normalisation by another door: the sequence's gentle swell would fill the
+   half-lane, then the bloom's real rise to ff would fill the same half-lane — the same height for a 2-step swing and a 6-step one.
+2. **The edges become true.** The 6 s fade from nothing and the 8 s fall to ppp are drawn by the curve itself (the fade weight multiplies
+   the height to 0); no floor clamp, no symbolic hairpin needed for the drawing — the signs can stay as his performance-note device or go.
+3. **The blocks simplify and the join stops mattering:** no legend row, no restatement at the morph (§369 H); the `pp → mp` in the block
+   becomes a written range in words, as conventional notation states one.
+4. **The parts pay for the resolution:** 36 px at 4 systems on the 12.9" iPad, 72 at 2 — where the player reads it.
+**The cost:** 16 px on the presentation score — a shallow, long undulation across most of a 12 s system. That is the truth of the music
+(a gentle swell), the follower's fill still rises and falls, and the turning-point labels and the block's words carry the range for a
+jury, whose score "just needs to give the sense" (his words, §372).
+**The fallback, if the proof says 16 px is illegible:** the per-block legend for the presentation realization ONLY — styling is per
+realization — the parts staying absolute. **The prototype carries the scale as a parameter, so the eye decides at no extra cost.**
+Nothing decided; put to him.
+
+## §375. DECIDED: ONE FIXED SCALE — and the decisions still open before the prototype (2026-09-25, Fable, session 15)
+
+**His word on §374:** *"Okay, good. Were there any other decisions to weigh in on?"* — **the fixed absolute scale is decided**: niente at
+the floor, fff at the top of the half-lane, the whole piece, every player, every realization; the presentation score's 16 px accepted;
+the per-block legend kept only as the fallback for the presentation realization if the proof fails. §371's decision (3), the clamp, is
+moot — the curve draws the fades.
+
+**Put to him, only what he can answer:**
+- (a) the opening sign `○ ——<` and its mirror `——> ppp`: KEEP (his performance-note meaning, §371) or DROP (the curve now draws both; his
+  own 2 + 2 = 3 of §370). The AI: keep only if the sign says something the curve does not — his perf-note meaning decides.
+- (b) ticks on the meter's tube at every name (a ruler on the follower: 8 px apart on the video, 18 on the iPad at 4 systems) — yes / no.
+- (c) the prototype's scope: the block alone, or the WHOLE EH sequence lane (block · curve on the fixed scale · follower · pie · go lines
+  with heads · turning-point labels). The AI: the whole lane — the block's rows are judged against the curve under them, and the scale
+  is judged only with the curve.
+- (d) seconds per system for section 1: the registry's 12 (provisional, "could be 16") or longer for this sustained material (notes 5 … 15 s,
+  waves 8 … 20 s). The AI: leave 12 for the prototype; judge on the proof.
+
+**The AI's calls, stated, his to reverse:** a NEW pitch's head full-size open; the SAME pitch a cue-size parenthesised open head ·
+the pie from the registry's `animated.motivePie` numbers (topPx 14, r 9, `#607D8B` @ 0.75), switched on for this piece · "senza vib."
+as the abbreviation · the prototype's IR extracted from a COPY of the latest save (`-Sec3start`; section 1 is identical in all three) under
+its own id, the MAIN `piece-lgmf` untouched · the pitch marks and the morph deferred at his word (§370).
+
+## §376. HIS ANSWERS ON §375 — no signs, no ticks, one of each thing; the prototype's TOP LINE proposed (2026-09-25, Fable, session 15)
+
+**His words:** *"A yourlene , b  just the ticks right? No labels. Let's skip, no ticks , c enough for one of each thing. Initial block,
+dynamic labels on the curve. Uh, reminder or new notes on rebreaths."* (d) not answered — the AI's lean stands: 12 s a system for the
+prototype.
+
+**Read as:** (a) the AI's lean — the curve now draws both fades, so the opening and closing signs are DROPPED from the prototype; if his
+performance-note meaning needs a sign it is one item back · (b) no ticks on the meter's tube (the labels at the turning points stay — he
+checked: the ticks alone were the question) · (c) the prototype shows ONE OF EACH THING: the block · a dynamic label on the curve · a
+re-breath with the reminder head (the same pitch) · a re-breath with a new pitch. The EH's first three systems hold all of it: the block
+at 0 s · the fade from nothing 0 … 6 s · the same-pitch breath at 13.7 s · `(mp)` at 25.0 s · the new pitch G5 +2 at 28.7 s · `(pp)` at
+30.9 s — 0 … 36 s at 12 s a system.
+
+**The top line put to him — PLAN § `2d` THE ENGLISH HORN'S SEQUENCE NOTATION: THE PROTOTYPE** (phase 2 of the planning method; nothing
+written into PLAN.md yet): 2d.1 the `sequence` device in the extractor (the group classified, the block's data, the level at 100/s with
+the fade weight in and continuous across the breath gaps, the breaths with new / same, the turning points; the IR extracted from a COPY
+of today's save under its own id) · 2d.2 the block (the header overlay's sequence variant) · 2d.3 the curve on the fixed scale + the
+follower (`crescMeter`), its edge class registered · 2d.4 the breaths (the go line, the head to its left — the tuba's unused `onsetHead`
+flag revived — full-size for a new pitch, cue-size parenthesised for the same; the pie on, counting down each breath) · 2d.5 the labels
+at the turning points on `dynY`, their edge class registered · 2d.6 THE SHIELD + the required verification (the eight batteries, the tuba
+probe byte-identical on HEAD's registry — 2a's recipe; `check_screen_edges` on the proto IR; the DOM read on `score-5401`) · 2d.7 his eye.
+Opus builds from the written item; a checkpoint and a clear before it.
+
+## §377. THE PITCH CONVERSATION FIRST — his pivot before the prototype; the just standard summarised, §9's open check answered (2026-09-25, Fable, session 15)
+
+**His words:** *"Sorry, no, let's have the pitch conversation before the prototype. There should be a document already prepared. Can you
+give me a summary of the recommendations? And then let's figure out a precise language or symbols to include and where to place them."*
+The prototype's top line (§376) waits; PLAN § `2d` is not written.
+
+**The document:** `docs/research/just_partials_notation.md` — DECIDED 2026-09-19 (his *"I'll pursue the recommendation"*, §113; LG-37;
+the research §108). Summarised to him: three layers (WHERE at a glance = the accidental · WHERE exact = the cents · WHAT = the partial)
+for everyone, a fourth (HOW) where the instrument has one — the valve combination for brass, the harmonic circle + string numeral for a
+natural harmonic, nothing for double reeds and stopped strings; the rules — cents from the plain tempered note, never from the
+microtonal accidental (the accidental is a picture of the same deviation, the legend says so in one sentence) · the fundamental named
+once per chord, `11°/F♯` where it differs · under about 20 c no special accidental · spell within ±50 c · brass "natural harmonic, do not
+correct"; §9's unverified list.
+
+**§9's open check, answered from the save today:** the PARTIAL IS SAVED for a sequence note — in its `performanceNotes` (`… · partial 26
+· +41¢ just …`) and in the recipe (`databases.sequences[].recipe.containers[].chord[].partial` with `cents` and `inst`); the cents also as
+`morphBend`. A MORPH note carries the cents (`morphBend`) and its `performanceNotes` names only the actual and the technique
+(`lgmf-s01-bloom08 senza_vel`) — its partial must be read from the take the actual was dealt on (`bank/panel_snapshots.json`) at
+extraction. So the sequence notation has every mark's source in the file; the morph needs the take join.
+
+**Opened with him, one topic at a time (the planning method):** topic 1 — the ACCIDENTAL's picture, the bands. The doc names two
+pictures (a small arrow · a quarter-tone sign) and one threshold (under ~20 c, plain) but not the edge between arrow and quarter sign.
+Put to him as a table over the partials the piece uses (the AI's proposal: |c| < 20 plain · 20 … 37 an arrow · ≥ 37 the quarter-tone
+sign — so 7 · 21 · 23 take the arrow, 11 · 13 the quarter sign, 3 · 5 · 9 · 15 · 17 · 19 plain). Then the cents' form · the partial and the
+fundamental's form · the placement round the head (and beside "senza vib." on the block) · the legend sentence.
+
+## §378. THE PITCH MARKS — topic 1 decided (the bands); topic 2, the engraving: what the engine has, what is new, the fonts and glyphs (2026-09-25, Fable, session 15)
+
+**Topic 1, his word:** *"Yes, good."* — THE ACCIDENTAL'S BANDS ARE DECIDED: |c| < 20 plain · 20 … 37 an arrow on the note's own accidental
+(alone on a natural) · ≥ 37 the quarter-tone sign. Over this piece's partials: 3 · 5 · 9 · 15 · 17 · 19 plain · 7 · 21 ↓ · 23 ↑ · 11 ¼♭ · 13 ¼♯.
+
+**Topic 2, his words:** *"Let's discuss engraving. So what is new and what fonts slash glyphs should we use?"*
+
+**The inventory (`notation/lib/glyphs.json`, read):** accidentals `sharp · flat · natural · quarterSharp · quarterFlat · threeQuarterSharp ·
+threeQuarterFlat · leftParen · rightParen` — Emmentaler paths ported from piece #2 (the parens baked from LilyPond 2.24.4 `emmentaler-20.otf`
+directly; that is the recipe for any new glyph) · text: ONE baked instruction, `pizz.` (piece #2's opentype.js render of Crimson Pro Light
+Italic at the locked 1.0998 ss) · the live text sizes `TS` in `layout.js` 247: dynamic 0.9 · instruction 0.75 · tempo 0.75 · technique 0.7 ss ·
+D45's CENTS already exist as a live `text` item at `TS.instruction` 0.75 ss, centred over the head, ≥ 0.6 ss above it (`layout.js` 830).
+No arrowed accidental of any kind.
+
+**So — what is NEW for the EH's marks:**
+1. **six arrowed accidentals** — ♯↑ ♯↓ ♭↑ ♭↓ ♮↑ ♮↓ (Emmentaler `accidentals.sharp.arrowup` … `natural.arrowdown`), baked from the same
+   `emmentaler-20.otf` as the parens; the 20 … 37 band needs them (7 · 21 · 23).
+2. **the partial as a text item** — `26°` (the degree sign, Crimson Pro Light upright, 0.75 ss — the cents' own size and mechanism), with the
+   fundamental `26°/C1`.
+3. **"senza vib."** — a second baked instruction text, the `pizz.` recipe exactly (Crimson Pro Light Italic 1.0998 ss).
+4. **a rule, not a glyph:** the accidental's PICTURE is computed from the tempered spelling IN THE REALIZATION'S WRITTEN PITCH — the video
+   in C (G♯5 +41 → ♯ with the ¼ = threeQuarterSharp), the EH part +7 (D♯6 +41 → the same picture on D); the cents and the partial never
+   change with the transposition.
+**Exists and is reused:** the quarter and three-quarter signs (the ≥ 37 band — on a ♯ note, −49 = quarterSharp, +41 = threeQuarterSharp; on
+a ♭ note the mirror; on a natural quarterSharp / quarterFlat) · the parens (the reminder head; #5 parenthesised the trill's neighbour) · the
+cents item.
+
+**The forms proposed (the AI's, his to reverse):** numbers UPRIGHT (Crimson Pro Light — the registry's mapping: Light for labels, Light
+Italic for instructions), the cents ALWAYS signed with the true minus (U+2212), no `¢` (the legend says what the number is) · the partial
+`n°`, the fundamental after a slash, `n°/C1` — on a single part's line ALWAYS written (the player sees no chord), the AI's call against
+the doc's "once per chord" · one size, 0.75 ss, for both numbers.
+
+**Seen, for the strings later, not the EH:** the doc's `7°` (partial) and the harmonic circle `°` on a string harmonic are the same shape in
+two roles — a text degree sign against a music glyph; distinguishable by place, worth one line when the strings' turn comes.
+
+**Next topic put to him:** the PLACEMENT — the column over the head (cents nearest, the partial above it — the doc's worked example) and where
+"senza vib." sits on the block against that column.
+
+## §379. THE PITCH MARKS — topic 2 decided (the engraving); topic 3, the PLACEMENT, proposed (2026-09-25, Fable, session 15)
+
+**Topic 2, his word:** *"Okay, good."* — DECIDED as §378 proposes: Emmentaler for the six arrowed accidentals (baked from `emmentaler-20.otf`
+as the parens were) · numbers in Crimson Pro Light upright at 0.75 ss (the cents' own size) · the cents always signed, the true minus,
+no `¢` · the partial `n°/F`, the fundamental always written on a part's line · "senza vib." baked on the `pizz.` recipe · the accidental's
+picture from the tempered spelling in the realization's written pitch.
+
+**Topic 3 — THE PLACEMENT, the AI's proposal (house rules reused; the prototype shows it):**
+- **Over a NEW-pitch head — a column of two rows, centred on the head:** the CENTS nearest the head at D45's height (≥ 0.6 ss over the
+  head's ink, never inside the staff — `layout.js` 830: `max(y + 0.5, 2) + 0.6`); the PARTIAL `26°/C1` one row above it (1.0 ss baseline
+  to baseline). A low head (the EH's G3 at −4.5 ss) keeps its column above the staff, as D45 does — the eye always looks in one place.
+- **Never across the go line:** the head sits before the line (the GC-pitch regime); a column wider than the head (`26°/C1` ≈ 2.5 ss)
+  is right-aligned to the head's right edge instead of centred, so no text crosses the line.
+- **"senza vib." on the block:** the `pizz.` rule with the column counted as the unit's ink — 0.45 ss above the column's top, starting at
+  the head's left edge, Light Italic 1.1 ss. On the block only; nothing at the breaths.
+- **The reminder head (the same pitch):** no column — the parenthesised cue-size head alone.
+- **Under the staff:** the dynamic row `dynY` (−4.6 ss) — the block's `pp → mp` and the turning-point `(dyn)`s; the spacer under lower ink
+  as in #5.
+- **The vertical budget on the EH (in C):** G♯5 at +2.5 ss → cents at 3.6, partial 4.6, "senza vib." ≈ 5.7 ss over the middle line — into
+  the lane's top half, which is empty in the sequence (the tuba's header sat over its curve the same way).
+
+**Put to him:** the column's ORDER — cents nearest the head, the partial above (the doc's worked example), or the reverse.
+
+## §380. THE PITCH CONVERSATION CLOSED — topic 3 decided; the standard's doc updated; the prototype's top line amended (2026-09-25, Fable, session 15)
+
+**Topic 3, his word:** *"All good."* — THE PLACEMENT IS DECIDED as §379 proposes, the column's order the doc's (cents nearest the head,
+the partial above). The three topics (§378 the bands · §378 the engraving · §379 the placement) are written into
+`docs/research/just_partials_notation.md` as a new **§1a — The engraving, DECIDED 2026-09-25**, and §9's partial-number check is
+answered there (the file is current state, rewritten freely). The legend sentence and the performance notes are his, later.
+
+**The prototype's top line (§376) amended by it:** 2d.1 the device carries each note's partial · cents · fundamental (from the sequence's
+recipe and note text) and the six arrowed glyphs are baked into `glyphs.json` (with "senza vib.") · 2d.2 the block's head carries its
+column (cents · partial) with "senza vib." above it · 2d.4 a NEW-pitch head at a breath carries its column; the reminder head none.
+"One of each thing" now includes one column: the block's `+41` · `26°/C1` — and the new pitch at 28.7 s, `+2` · `12°/c2` (partial 12 of
+c2, |2| < 20: a plain head). No arrowed accidental appears in 0 … 36 s (the first arrow the EH meets is G5 −31, `14°/A1`, at 142 s) — the
+glyphs are baked in 2d.1 regardless, one of each thing on the page being his scope.
+
+**Put to him:** approve the amended top line → PLAN § `2d` written whole → checkpoint → clear → Opus builds.

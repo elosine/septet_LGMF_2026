@@ -41,6 +41,25 @@ A just note carries up to three LAYERS. Two are for everyone; the third only whe
 7. **Double reeds — no HOW.** Small deviations are lipped — what they do on every major third. The near-quarter-tones (11th · 13th) want a
    special fingering, and it stays the player's. The charts are in §8.
 
+## 1a. The engraving — DECIDED 2026-09-25 (RUNNING_LOG §377 … §380; laid out on the english horn, section 1)
+
+**The accidental's bands** (rule 3 made precise): **|c| < 20 → plain · 20 … 37 → an arrow on the note's own accidental (alone on a
+natural) · ≥ 37 → the quarter-tone sign.** Over this piece's partials: 3 · 5 · 9 · 15 · 17 · 19 plain · 7 · 21 ↓ · 23 ↑ · 11 ¼♭ · 13 ¼♯.
+On a ♯ note −49 = ¼♯, +41 = ¾♯; on a ♭ note the mirror; on a natural ¼♯ / ¼♭. The picture is computed from the tempered spelling
+**in the realization's written pitch** (the video in C, the part transposed); the cents and the partial never change with it.
+
+**Glyphs and fonts.** Music signs: Emmentaler (`notation/lib/glyphs.json`) — the quarter and three-quarter signs and the parens exist;
+**six arrowed accidentals are NEW** (♯↑ ♯↓ ♭↑ ♭↓ ♮↑ ♮↓, baked from `emmentaler-20.otf` as the parens were). Numbers: **Crimson Pro Light
+upright, 0.75 ss** (the cents' own size, `TS.instruction`) — the cents always signed with the true minus, no `¢` (`+41` · `−49`); the
+partial `n°` with the fundamental after a slash, `26°/C1`, **always written on a part's line** (the player never sees the chord — this
+piece's call against rule 2's "once per chord", which still holds on a score page). Instructions ("senza vib.") in Crimson Pro Light
+Italic 1.0998 ss, baked on the `pizz.` recipe.
+
+**Placement.** Over a new-pitch head, a column of two rows centred on the head: **the cents nearest the head** at D45's height (≥ 0.6 ss
+over the head's ink, never inside the staff), **the partial one row above** (1.0 ss). A low head keeps its column above the staff. The
+column never crosses a go line — wider than the head, it is right-aligned to the head's right edge. A reminder head (the same pitch,
+parenthesised, cue size) carries no column. An instruction text sits 0.45 ss above the column's top, from the head's left edge.
+
 ## 2. What each mark is for — the why
 
 Each mark serves a different MOMENT, which is why none of them is redundant.
@@ -187,6 +206,7 @@ Techniques of Oboe Playing* · Gallois, *The Techniques of Bassoon Playing* **[m
 - **Haas's notation is from memory;** so are Saariaho's and Murail's grids, the trumpet's usable partials, how high string harmonics speak.
 - **The 20-cent threshold (rule 3) is the AI's rule of thumb.**
 - **The 11th sits on a tuner's flip point** — C −49 reads as B +51 if the player is a hair flat. The players are told once.
-- **Not checked: whether the PARTIAL NUMBER is saved with the note.** The cents are (`morphBend`, RUNNING_LOG §97), and the strikes
-  drawer shows `p · ±c¢` on its chips (§98) — whether `p` reaches the save and the IR was not looked at. If it does not, the notation
-  step needs it carried, because rule 1's three marks are all derived from it.
+- **CHECKED 2026-09-25 (RUNNING_LOG §377): the PARTIAL IS SAVED for a sequence note** — in its `performanceNotes` (`… · partial 26 ·
+  +41¢ just …`) and in the recipe (`databases.sequences[].recipe.containers[].chord[].partial`, with `cents` and `inst`); the cents also
+  as `morphBend`. **A morph note carries the cents only** — its partial is read from the take the actual was dealt on
+  (`bank/panel_snapshots.json`) at extraction. Not yet in the IR: the extractor carries neither until the notation device is built.
