@@ -2366,7 +2366,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **1s.6 — His one test:** reload the tab — page files only, **no restart** (`morph.js` untouched). MORPH → CONVERGE or BLOOM on his take → `min pp · max ff` → Generate → the status names them → Play. Revise on his word.
   - **THE BUILD ORDER:** 1s.1 → 1s.4 in ONE commit with 1s.5 — Fable, at his word; 1s.6 his.
 
-## 2. Notate — `doing` *(2a built 2026-09-25, the names in; 2c THE PAGE EDGES planned 2026-09-25, to build on Opus; then 2a.6 the clefs; 2b to be laid out)*
+## 2. Notate — `doing` *(2a built 2026-09-25, the names in; 2c THE PAGE EDGES built 2026-09-25, his eye deferred to the notation; then 2a.6 the clefs or the specific notation, his order; 2b to be laid out)*
 
 *2a the engine adapted to this piece's staves and material · 2b the presentation score (video + print) — #5's shape. Laid out one
 item at a time, each in his hands before the next (his order, 2026-09-25: "really do just one thing at a time").*
@@ -2428,7 +2428,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   instructions (web + two print pages; the percussion legend, §334) · the cut list · `render_reaper` · the batteries re-pointed at
   this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
 
-- **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
+- **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`built` 2026-09-25 (2c.1 … 2c.7, RUNNING_LOG §342 … §349; his eye DEFERRED at his word to the specific notation, §347 — every value provisional data)** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
   2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345 · 2c.5 WRITTEN — §346, NOTATION_STANDARDS §5 · his word §347: the specific resolutions deferred to the notation, the machinery built — 2c.6 built — §348)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
@@ -2487,7 +2487,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     window is `[t0, cut]` and the system ends AT the cut, the last object whole by construction; the blank at the right is exactly what was
     pushed. `minPageSeconds` kept. `check_print_edges.js` re-pointed: every page's ink inside `[x(t0), x(cut)]`, every owned object whole,
     every object on exactly one page.
-  - **2c.7 — REQUIRED VERIFICATION, then his eye:** (i) THE SHIELD — the eight batteries GREEN; `export_video --ir db1 --probe 100` on
+  - **2c.7 — REQUIRED VERIFICATION, then his eye:** **`run` 2026-09-25 (§349; (i) … (iv) all held; his eye deferred, §347).** (i) THE SHIELD — the eight batteries GREEN; `export_video --ir db1 --probe 100` on
     HEAD's registry and HEAD's page rules **byte-identical** (no margins, no `edge`, no `screenPlan`: today's behaviour) · (ii)
     `piece-lgmf` on the new data: the app's video view at 300 s — his whole note on the page before, or clamped right of the staff's start
     with its go line true; a boundary with a GC found from the plan; `export_video --probe` on both pages of it; `export_print` two facing

@@ -12821,3 +12821,26 @@ x 119.37 = 112 + 0.05 × 147.33.
 
 **THE SHIELD** (the pre-2c registry): the video probes ×4, the zoom probe, the print pages 1–3 byte-identical; the print plan JSON
 identical once its three new fields are removed (80 pages); the eight batteries GREEN; `test_coords` its one pre-existing failure.
+
+## §349. 2c.7 THE REQUIRED VERIFICATION — run; 2c THE PAGE EDGES BUILT END TO END (his eye deferred to the notation, §347) (2026-09-25, Opus)
+
+- **(i) THE SHIELD — at every step** (§342 … §348): the new engine against HEAD's, both on the registry from before 2c (`eeb78bb`: no
+  margins, no `edge`, no `screenPlan`, no `printPlan`) — the db1 video probes at 5 · 11.9 · 100 · 300 s, the zoom probe at 100 s and the
+  print pages 1–3 **byte-identical** at 2c.1 · 2c.2 · 2c.3 · 2c.4 · the 2c.6 refactor · 2c.6 (the plan JSON identical once its three new
+  fields are removed); the eight engine batteries GREEN each time; `test_coords` its one pre-existing failure throughout.
+- **(ii) The new data, looked at:** the app on `score-5401` at 300 s (§345) — his E.H. whole note's ink from 112.0, the staff's first
+  pixel; its go line would be at x 119.37 with the switch on 'add'. `piece-lgmf` has no GC and draws no duration line on paper (the
+  bricks hidden, D4), so the GC and duration-line proofs are on `db1`: **the screen seam at 24 s** (a GC's descent 23.931 → impact
+  24.291) — page 1 ends with the arc's first sliver at the staff's end, page 2 picks the descent up at the staff's start at the same
+  height, down to its impact, the unit clear of the gutter · **print pages 1–3** (rasterized by resvg from the exporter's own HTML) — a
+  level curve cut at page 1's end with a straight edge and continued at page 2's staff start at the same height; page 2's system ending
+  early (1.06 s blank, every GC on it whole) because a horn GC was pushed, **page 3 opening with that GC's arc starting at the staff's
+  first line — the top of its descent**.
+- **(iii) Both checkers GREEN over every page:** `check_screen_edges` — `piece-lgmf` 48 pages · `db1` 63; `check_print_edges` —
+  `piece-lgmf` 55 · `db1` 75.
+- **(iv) The numbers:** the margins 40 · 40 px on screen, 12.7 mm in print · the stub 2 ss · **screen:** 7 units clamped on `piece-lgmf`
+  (the widest 15.9 px), 5 with no go line of their own (`clampGoLine` 'flag') · **print:** `piece-lgmf` 55 pages (59 under D59), 46 full ·
+  8 pushed · 0 forced, **the widest blank 0.12 s (1 % of the width)** — the "space in the right margin" of #5's print is gone for this piece.
+
+**His eye — deferred at his word (§347)** to when the specific notation is in: the margins · the 2 ss stub · the go-line switch · every
+call in NOTATION_STANDARDS §5. The machinery holds each as one number or one word in `page_rules.json` / `container.json`.
