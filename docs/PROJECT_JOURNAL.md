@@ -49,23 +49,7 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 15 · IN PROGRESS (2026-09-25, Fable) — THE NOTATION LAYER: `2a` THE STAVES BUILT, HIS EYE OWED — READ THIS FIRST
-
-- **THE STATE:** PLAN § `2a` THE STAVES is BUILT, VERIFIED AND COMMITTED (RUNNING_LOG §338; the design §332 … §337 at his word, one
-  decision at a time; the survey of the port §330; the percussion inventory §331). The MAIN notation file exists: `notation/ir/piece-lgmf.ir.json`
-  (the whole newest save, 775 events, VALID, first in the picker). Engine: `coords.js` (the joined lane) · `layout.js` (a lined staff: a note on
-  its technique's line) · `render.js` (the lines, the line labels, the brace span) · `notation.html` · the exporters; registry: `ensemble.json`
-  part 4 `staff` + `weight 2.109`, the brace `joined`; `container.json` `video-jury` in C; `techniques.json` +8.
-- **THE NEXT STEP — HIS, `2a.5`:** tell him: *no restart — open http://localhost:5400/notation/app/notation.html → the picker's `piece-lgmf` (first) →
-  the video view → type 300 in the time box → the brace, the seven lines, the names, the heads on their lines; `z` flips to the zoom.* The staff
-  size on the A3 page is judged on `export_print --ir piece-lgmf --at 330` if he asks. Revise on his word. **Then `2a.6`** the clefs by register
-  (a tenor clef; Bsn bass · tenor, Vc and Db bass · tenor · treble — §335's numbers; `ev-wc-3489`, the bass's A5, already clamps at 15ma).
-- **DEFERRED at his word (§335):** the note unit — stem · flag · GC · the dynamic's place — and the cents (the just-partial standard): the specific
-  notation, a topic of its own, after the staves are seen.
-- **`Resume reads:`** on his 2a feedback — RUNNING_LOG §338 · PLAN § `2a` · the code the fault names (`coords.js` `joinedSystems` · `layout.js`
-  `staffInfoOf` · `spelledOf` · `render.js` the label block). On 2a.6: `layout.js` `clefOf` · `staffPos` · `MIDDLE`, `render.js` `CLEF_AT`,
-  `glyphs.json` `clef`. Nothing else.
-- **DELIBERATELY UNCOMMITTED — all his, unchanged from CHECKPOINT #2's list** (the actuals, the stores, the rack, his four scores).
+### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER. The cold-start block is **SESSION 15 · CHECKPOINT #1** under *Open at session end* below — READ IT FIRST.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -137,7 +121,9 @@ whole in git, see the close block below.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). Revise on his word; then `2a.6` the clefs by register | his eye · then Fable | — |
+| **►►** | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). Revise on his word — a look question on Fable, a fault on Opus | his eye | — |
+| N-2a | **`2a.6` the clefs by register** — a TENOR clef in the engine (the C clef on line 4; the engine draws treble · alto · bass) and an automatic clef per stretch: Bsn bass · tenor, Vc and Db bass · tenor · treble (§335's numbers; `ev-wc-3489`, the bass's A5, clamps at 15ma today). One line in PLAN § `2a` — lay out its sub-steps (thresholds · where a change may fall · the clef glyph at a change) and THE SHIELD before building. Re-extract `piece-lgmf` after | Opus (the thresholds the AI's, his to reverse) | yes |
+| N-2b | **THE SPECIFIC NOTATION — deferred at his word (§335):** the note unit (stem · flag · GC · the dynamic's place) — the percussion first, then each technique; and the cents (`docs/research/just_partials_notation.md`, decided, nothing built). A design talk, one topic at a time, the planning method | Fable | yes |
 | **►►** | **`1s.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart: `morph.js` untouched).** MORPH → CONVERGE or BLOOM on his take → `min` · `max` in place of `dyn amount` (a recalled dial reads `≈ pp` · `≈ ff`) → `pp` · `ff` → Generate → the status ends *· min pp · max ff* → Play → Insert. BUILT AND VERIFIED 2026-09-24 on Fable (RUNNING_LOG §329; §326 … §328 the design). **His call, found on the way (§329):** a model's own dips (CONVERGE's soft entries) go UNDER `min`, as they went under `base − amount` before — one clamp in `morph.js` if he wants `min` a hard floor, and every stored render moves. Revise on his word | his ear · then Fable | — |
 | **►►** | **`1r.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart: `morph.js` untouched).** CONVERGE · `Just-c2-seed143` on the pulldown · Generate → the line *as assigned — the arrival* · Play → Vc F4 → E4 −14 ¢ · Db B2 → C3 · Tpt G5 → F♯5 −49 ¢ · Hn B4 → C5 · EH C♯4 → C4 · Bsn B1 → C2, the vibraphones still on D6 · C♯6 · Save as ACTUAL if he keeps it. BUILT AND VERIFIED 2026-09-24 on Fable (RUNNING_LOG §325; §322 … §324 the design). Revise on his word | his ear · then Fable | — |
 | **►►** | **`1q.8` HIS ONE TEST — RELOAD the tab (page files only).** FIRST the level: `pointilistic01a` 15.64 s, `Just-b1-seed208` onto the chord — no louder than his playing (§319). Then one re-pitched note selected → the strip names its take, the menu lights it → P → the card's line (note · cents · partial · take), `+8va` keeps the cents → a chord passage with several notes on one part → `take ▾` → `shuffle`, again, a chip back, `back` → a marquee → `dyn ▾` → `ff` → play → CTRL+Z (§317 · §320). Revise on his word | his ear · then Fable | — |
@@ -157,7 +143,53 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 14 · CHECKPOINT #2 (2026-09-25, Fable built, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 15 · CHECKPOINT #1 (2026-09-25, Fable built, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE TASK:** the NOTATION LAYER, opened at his word (*"I want to start building the notation layer"*), worked ONE THING AT A TIME (*"let's
+  break it down pretty good and really do just one thing at a time"*). The survey of what the port carried (RUNNING_LOG §330) is his SCAFFOLDING
+  (*"hang on to this analysis and list"*): gates on the file (91 → 83 unregistered keys · the cents · the phase-1 fields · the dynamics' names ·
+  texture / sequence objects) · staves and marks · animated devices (LG-3 conductions · LG-5 balls) · 2b. The first thing, THE STAVES, is done.
+- **THE STATE:** nothing is being built. **PLAN § `2a` THE STAVES is BUILT, VERIFIED, COMMITTED AND PUSHED** (`d10dcf6`; RUNNING_LOG §331 the
+  percussion inventory · §332 … §337 his decisions · §338 the build and every check). What exists:
+  - **`notation/ir/piece-lgmf.ir.json` — THE MAIN NOTATION FILE** (NAMING §1): `notate_section --score piece-LGMF-Sec01-Sec02-sec03a --all --bricks
+    --id piece-lgmf`, 775 events, VALID `--against-source --complete`, first in the picker. Regenerable from its `provenance.build`; re-extract it when
+    his score moves on (it is the save as of 2026-09-25 00:19).
+  - **The percussionist's brace, a JOINED lane:** the SEVEN-LINE unpitched staff (2 ss between lines, no clef, top → bottom sleigh bells · castanets ·
+    tambourine · temple bowl · wood block · brake drum · bass drum, the short names in the gutter, a note ON its instrument's line by technique-key
+    prefix) over the vibraphone's treble staff, 6 ss between them — `ensemble.json` part 4 `staff` + `weight 2.109`, the brace `joined`.
+  - **The presentation score IN C** — `container.json` `video-jury`: EH · Hn `transpose 0`; the default keeps +7 · +7 for the parts.
+  - **A fixed frame on every print page** (his "a", §337) — nothing to build, it is how the exporters already work.
+- **THE NEXT STEP — HIS, `2a.5`:** tell him: *no restart (page files only) — open http://localhost:5400/notation/app/notation.html → the picker
+  opens on `piece-lgmf` → type `300` in the time box, ENTER → the brace, the seven lines, the names, the heads on their lines; `z` flips to the
+  zoom.* If he asks for paper: `node tools/export_print.js --out <file>.pdf --ir piece-lgmf --at 330` (one A3 page at 5:25). Revise on his word — a
+  look question on Fable, a fault on Opus. **Then, in HIS order:** `2a.6` the clefs (the N-2a row) or the specific notation (N-2b) — ask which.
+- **`Resume reads:`** only on his 2a feedback — RUNNING_LOG §338 · PLAN § `2a` · then the code the fault names (`coords.js` `joinedSystems` ·
+  `layout.js` `staffInfoOf` · `spelledOf` · `render.js` the label block). For `2a.6`: PLAN § `2a` (its 2a.6 line) · RUNNING_LOG §335's table ·
+  `layout.js` `clefOf` · `staffPos` · `MIDDLE` · `render.js` `CLEF_AT` · `glyphs.json` `clef`. Nothing else.
+- **HOW 2a WAS VERIFIED — reuse it for 2a.6:** THE SHIELD = stage the tuba goldens from #4's HEAD **excluding `notation/ir/index.json` and the
+  README** (the `notation/ir/README.md` recipe's `git ls-files notation/ir` includes them and would overwrite THIS repo's picker), from a list written
+  first, deleted after; the eight engine batteries (render · layout · animobj · splice · graphic · pattern_fit · stamps · ir_validate_battery) GREEN
+  before and after; `export_video --ir db1 --view video --probe 100` byte-identical with **HEAD's registry** swapped in (the new registry changes a
+  tuba page by design — the exporters lay every page on this piece's ensemble). The layout model checked in node (every lined-staff head at its
+  line); the app on `score-5401` read by the DOM (the app's `state` is module-scoped — `#sheet svg` `.sys-p4`), the zoom by the `z` key.
+- **Pending him:**
+  - **`2a.5`**, above · **the staff size on A3** — one brace lane takes 2.1 units, so every staff on the page is smaller than #5's; #5's one-number
+    switch (`staff.staffHeightPx` 31.6 → 28) if he wants it.
+  - **The percussion as METRIC figures?** Without `--bricks` the extractor promotes the strikes to 156 beamed `trance-stream` chunks (the tuba's
+    notation). `--bricks` keeps every note plain until the note unit is decided — his to reverse when that talk comes.
+  - Everything pending at SESSION 14 · CHECKPOINT #2 (below) — `1s.6` · `1r.6` · `min` as a hard floor · his session-13 tests.
+- **Seen, not touched:** `ev-wc-3489` (the double bass's A5 sounding) needs three octaves of ottava in bass clef — 2a.6 takes it · 4 of the 7
+  percussion instruments play keys outside their `keys` table (§331) — his to raise if he hears it.
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as CHECKPOINT #2):
+  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab wrote with them
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores (`-sec03a` is the
+    save `piece-lgmf` was extracted from; the IR records it by name, the score stays his)
+- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
+  `longToneTest`), none the piece.
+
+**Open at session end — SESSION 14 · CHECKPOINT #2 (2026-09-25, Fable built, Opus wraps) (mid-session checkpoint) — superseded by SESSION 15 · CHECKPOINT #1 above; its pending lines still hold:**
 - **THE STATE:** nothing is being built. **`1s` THE MORPH BETWEEN `min` AND `max` is BUILT, VERIFIED, COMMITTED AND PUSHED** (`c142659`;
   PLAN § `1s`; RUNNING_LOG §326 the diagnosis — `dyn amount` was the half-swing round a hidden `base`, why the top never came down · §327
   the morph's level read to him — one slow curve cut into breaths, not the waves, the same `pp` as everything else · §328 his "A", the
