@@ -2415,7 +2415,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     two pages at the middle section and `export_video --probe 330` — looked at · (v) `palette_check` 198 · `roster_check` 3 · the
     ensemble ids = TRACKS (`notate_section`'s own refusal is the check).
   - **2a.5 — His eye:** open http://localhost:5400/notation/app/notation.html → the picker's `piece-lgmf` → the video view → 5:00 … 6:50.
-    The staff size on the A3 page (#5's C-switch 31.6 → 28) is judged on the proof. Revise on his word.
+    The staff size on the A3 page (#5's C-switch 31.6 → 28) is judged on the proof. Revise on his word. **IN PROGRESS 2026-09-25 (Fable, RUNNING_LOG §339):** the names at his word — no periods; `Db → DB`; the seven lines `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`, `TemBwl` on condition the gutter does not widen — measured in the app: 4.6 px of air to the brace in the video/print frame, the gutter 72 untouched. Still his: the E.H. sharp over the clef at 300 s (a/b/c, §339) · the A3 staff size.
   - **2a.6 — The clefs by register:** a TENOR clef (the C clef on line 4) and an automatic clef per stretch — Bsn bass · tenor; Vc and Db
     bass · tenor · treble (§335: the bassoon 47 of 78 notes at or above G3, the cello 32 of 57 at or above D4, the bass 28 at or above C3
     sounding). Its own step, after 2a.5.

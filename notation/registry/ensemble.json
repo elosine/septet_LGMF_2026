@@ -19,10 +19,11 @@
       { "short": "SlBl", "match": "small_metals_sleigh_bells", "instrument": "sleigh bells" },
       { "short": "Cast", "match": "toys_castanets", "instrument": "castanets" },
       { "short": "Tamb", "match": "small_metals_tambourines", "instrument": "tambourine" },
-      { "short": "TBwl", "match": "temple_bowls", "instrument": "temple bowl (Bowl 4)" },
-      { "short": "WBlk", "match": "wood_blocks", "instrument": "wood block (Block 4)" },
+      { "short": "TemBwl", "match": "temple_bowls", "instrument": "temple bowl (Bowl 4)" },
+      { "short": "WB", "match": "wood_blocks", "instrument": "wood block (Block 4)" },
       { "short": "BrDr", "match": "brake_drums", "instrument": "brake drum" },
-      { "short": "BDr", "match": "bass_drum_alt", "instrument": "bass drum" } ] },
+      { "short": "BD", "match": "bass_drum_alt", "instrument": "bass drum" } ] },
+    "_shortNote": "2026-09-25, his words on 2a.5: no periods anywhere (#5's house style); the seven lines SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD — TemBwl on condition the gutter does not widen (measured in the app, RUNNING_LOG §339); the pitched parts as they were, except Db → DB (a lower-case b reads as the flat).",
     "_staffNote": "PLAN 2a (2026-09-25, RUNNING_LOG §332 … §337, his decisions): THE SEVEN-LINE UNPITCHED STAFF after Ferneyhough's Bone Alphabet — one line per instrument, top to bottom in HIS order (§334: high to low, no two neighbours of one material), the lines 2 ss apart (§333: measured on the page, about twice a standard staff), NO clef (`noClef`), the short names drawn in the gutter at their lines, the full legend in the performance instructions. A note sits ON the line of its instrument: layout.js matches the event's technique key against `match` as a PREFIX, so every beater of an instrument lands on its line, and its sonifyNote (the sampler key) is never read. `clef` stays treble as the POSITION GRID the stand-in pitches are spelled on; it is not drawn. A part without `staff` is the five-line staff exactly as before.",
     "_weightNote": "The lane weight, #5's way (its piano 1.576): the brace [4, 5] is a JOINED group — ONE lane of the frame holding 12 ss (this staff) + 6 ss (the gap, the piano grand staff's, §332) + 4 ss (the vibraphone) = 22 ss of staves, with the air a single player's lane has above and below its staff. extra = 22 − 4 = 18 ss over a unit lane; the video-jury frame gives A = (1080 − 16 − 6 × 4) / 7.9 = 131.6 ss for seven lanes, six of them units: u = (A − extra) / 7 = 16.23 ss, w = 1 + 18 / u = 2.109. The print block gets the same fractions (coords.ensembleFrame).",
     "_clefNote": "2a, 2026-09-25: DRAWN as the seven-line staff above (`staff`); what follows is the port's note. PLACEHOLDER still, but narrower than it was: the fourteen ARO instruments are chosen and mapped (LG-10, RUNNING_LOG §37–§42) and they are all SMALL METALS and other unpitched percussion, so this lane wants percussion notation proper — a percussion clef, one-line and five-line staff types, unpitched noteheads — which is on the 2a list. Treble is what the engine can draw today. The bowed vibraphone is NO LONGER in this lane: it took part 5 at his word on 2026-09-18 (D12) because the opening sustains it continuously (LG-15). Same PLAYER, two parts." },
@@ -30,7 +31,7 @@
     "_clefNote": "SINGLE staff, treble clef, and NO transposition — the standard for vibraphone and confirmed by him 2026-09-18. Range F3–F6 sounding (MIDI 53–89), which sits inside treble with a few ledger lines at the bottom; a grand staff belongs to the marimba, not here, and LG-15's two overlapping pitches read better as a dyad on one staff than split across two. Played by the PERCUSSIONIST (part 4's player), which is why parts 4 and 5 are joined by a brace rather than a bracket." },
   { "part": 6, "id": "cello", "short": "Vc", "clef": "bass",
     "_clefNote": "As piece #5. Tenor clef for the upper register is on the 2a list." },
-  { "part": 7, "id": "double_bass", "short": "Db", "clef": "bass", "transpose": 12,
+  { "part": 7, "id": "double_bass", "short": "DB", "clef": "bass", "transpose": 12,
     "_transposeNote": "The double bass sounds an OCTAVE BELOW its written part, so written = sounding + 12. The IR holds the sounding pitch (E1 = 28 upward); the staff shows it an octave higher, which is what a player expects." }
  ],
  "groups": [
