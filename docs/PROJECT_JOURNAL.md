@@ -49,6 +49,24 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### SESSION 15 · IN PROGRESS (2026-09-25, Fable) — THE NOTATION LAYER: `2a` THE STAVES BUILT, HIS EYE OWED — READ THIS FIRST
+
+- **THE STATE:** PLAN § `2a` THE STAVES is BUILT, VERIFIED AND COMMITTED (RUNNING_LOG §338; the design §332 … §337 at his word, one
+  decision at a time; the survey of the port §330; the percussion inventory §331). The MAIN notation file exists: `notation/ir/piece-lgmf.ir.json`
+  (the whole newest save, 775 events, VALID, first in the picker). Engine: `coords.js` (the joined lane) · `layout.js` (a lined staff: a note on
+  its technique's line) · `render.js` (the lines, the line labels, the brace span) · `notation.html` · the exporters; registry: `ensemble.json`
+  part 4 `staff` + `weight 2.109`, the brace `joined`; `container.json` `video-jury` in C; `techniques.json` +8.
+- **THE NEXT STEP — HIS, `2a.5`:** tell him: *no restart — open http://localhost:5400/notation/app/notation.html → the picker's `piece-lgmf` (first) →
+  the video view → type 300 in the time box → the brace, the seven lines, the names, the heads on their lines; `z` flips to the zoom.* The staff
+  size on the A3 page is judged on `export_print --ir piece-lgmf --at 330` if he asks. Revise on his word. **Then `2a.6`** the clefs by register
+  (a tenor clef; Bsn bass · tenor, Vc and Db bass · tenor · treble — §335's numbers; `ev-wc-3489`, the bass's A5, already clamps at 15ma).
+- **DEFERRED at his word (§335):** the note unit — stem · flag · GC · the dynamic's place — and the cents (the just-partial standard): the specific
+  notation, a topic of its own, after the staves are seen.
+- **`Resume reads:`** on his 2a feedback — RUNNING_LOG §338 · PLAN § `2a` · the code the fault names (`coords.js` `joinedSystems` · `layout.js`
+  `staffInfoOf` · `spelledOf` · `render.js` the label block). On 2a.6: `layout.js` `clefOf` · `staffPos` · `MIDDLE`, `render.js` `CLEF_AT`,
+  `glyphs.json` `clef`. Nothing else.
+- **DELIBERATELY UNCOMMITTED — all his, unchanged from CHECKPOINT #2's list** (the actuals, the stores, the rack, his four scores).
+
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
 - **S1 · 2026-09-17 (Fable + Opus)** — **THE PORT.** Piece #5's whole stack carried across and re-paletted onto the seven
@@ -119,6 +137,7 @@ whole in git, see the close block below.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►** | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). Revise on his word; then `2a.6` the clefs by register | his eye · then Fable | — |
 | **►►** | **`1s.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart: `morph.js` untouched).** MORPH → CONVERGE or BLOOM on his take → `min` · `max` in place of `dyn amount` (a recalled dial reads `≈ pp` · `≈ ff`) → `pp` · `ff` → Generate → the status ends *· min pp · max ff* → Play → Insert. BUILT AND VERIFIED 2026-09-24 on Fable (RUNNING_LOG §329; §326 … §328 the design). **His call, found on the way (§329):** a model's own dips (CONVERGE's soft entries) go UNDER `min`, as they went under `base − amount` before — one clamp in `morph.js` if he wants `min` a hard floor, and every stored render moves. Revise on his word | his ear · then Fable | — |
 | **►►** | **`1r.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart: `morph.js` untouched).** CONVERGE · `Just-c2-seed143` on the pulldown · Generate → the line *as assigned — the arrival* · Play → Vc F4 → E4 −14 ¢ · Db B2 → C3 · Tpt G5 → F♯5 −49 ¢ · Hn B4 → C5 · EH C♯4 → C4 · Bsn B1 → C2, the vibraphones still on D6 · C♯6 · Save as ACTUAL if he keeps it. BUILT AND VERIFIED 2026-09-24 on Fable (RUNNING_LOG §325; §322 … §324 the design). Revise on his word | his ear · then Fable | — |
 | **►►** | **`1q.8` HIS ONE TEST — RELOAD the tab (page files only).** FIRST the level: `pointilistic01a` 15.64 s, `Just-b1-seed208` onto the chord — no louder than his playing (§319). Then one re-pitched note selected → the strip names its take, the menu lights it → P → the card's line (note · cents · partial · take), `+8va` keeps the cents → a chord passage with several notes on one part → `take ▾` → `shuffle`, again, a chip back, `back` → a marquee → `dyn ▾` → `ff` → play → CTRL+Z (§317 · §320). Revise on his word | his ear · then Fable | — |

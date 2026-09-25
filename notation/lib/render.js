@@ -123,6 +123,9 @@
       ? ((t0, t1) => t1 > OWN[0] + 1e-9 && (ownsEnd ? t0 <= OWN[1] + 1e-9 : t0 < OWN[1] - 1e-9))
       : ((t0, t1) => !(t1 < w0 || t0 > wInk));
 
+    // [2a, LGMF 2026-09-25] a system's staff lines come from its model (a lined staff: registry part.staff); five at 1 ss otherwise
+    const modelByKey = new Map(model.systems.map(sm => [sm.key !== undefined ? sm.key : sm.part, sm]));
+    const linesOf = sm => (sm && sm.staffLines) || [-2, -1, 0, 1, 2];
     for (const sysModel of model.systems) {
       let sys;
       // [2a.1] a staff of a multi-staff part is its own system ('<part>:<i>')
@@ -165,7 +168,15 @@
       // fraction of the font size: an explicit number, so Chrome and the
       // export rasterizer agree (no dominant-baseline). Without the ensemble:
       // the tuba's top-of-lane label, unchanged.
-      if (!(sysModel.staff > 0)) {
+      if (sysModel.lineLabels && sysModel.staffLines) {
+        // [2a] a lined staff names its LINES in the gutter (his short names, top to bottom), centred on each line as a part label is
+        const sz = E.partLabel.sizeSs * (E.partLabel.lineLabelScale || 0.85) * ssPx;
+        const below = (E.partLabel.baselineBelowEm != null ? E.partLabel.baselineBelowEm : 0.32) * sz;
+        sysModel.lineLabels.forEach((lab, i) => {
+          if (!lab || sysModel.staffLines[i] === undefined) return;
+          parts.push('<text x="' + E.partLabel.xPx + '" y="' + (Y(sysModel.staffLines[i]) + below).toFixed(1) + '" font-size="' + sz.toFixed(1) + '"' + fontAttr + ' fill="' + o.muted + '">' + esc(lab) + '</text>');
+        });
+      } else if (!(sysModel.staff > 0)) {
         let ly = sys.yTopPx + E.partLabel.yOffsetSs * ssPx;
         if (ENS) {
           let lane = sys;
@@ -203,7 +214,7 @@
           const t0 = (full && it.t0 <= mw[0] + 1e-9) ? w0 : Math.max(it.t0, w0);
           const t1 = (full && it.t1 >= mw[1] - 1e-9) ? wInk : Math.min(it.t1, wInk);
           const x0 = view.xOfSeconds(t0), x1 = view.xOfSeconds(t1);
-          for (let line = -2; line <= 2; line++) {
+          for (const line of linesOf(sysModel)) {
             const y = Y(line) - (stds.staff.lineThickness * ssPx) / 2;
             parts.push('<rect x="' + x0.toFixed(2) + '" y="' + y.toFixed(2) + '" width="' + (x1 - x0).toFixed(2) +
               '" height="' + (stds.staff.lineThickness * ssPx).toFixed(2) + '"/>');
@@ -646,7 +657,8 @@
         try { top = view.system(keysOf(g.parts[0])[0]); bot = view.system(keysOf(g.parts[g.parts.length - 1])[1]); }
         catch (e) { continue; }   // a group whose parts are not all in this view
         const ss = top.ssPx;
-        const yT = top.yOfSs(2), yB = bot.yOfSs(-2);
+        const kT = keysOf(g.parts[0])[0], kB = keysOf(g.parts[g.parts.length - 1])[1];
+        const yT = top.yOfSs(Math.max(...linesOf(modelByKey.get(kT)))), yB = bot.yOfSs(Math.min(...linesOf(modelByKey.get(kB))));   // [2a] a lined staff's outer lines
         const clefLeft = view.gutterPx - (clefW + E.clefGutterGapSs) * ss;
         const tipW = ((glyphs.bracketTip && glyphs.bracketTip.up) || { wSs: 0 }).wSs;
         const xL = clefLeft - (SS.gapSs + tipW) * ss;       // the bracket line's left edge

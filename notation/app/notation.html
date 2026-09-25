@@ -177,6 +177,11 @@
   // withStaves places a part's staves at it, centred in the lane; absent = each staff centred in its share
   function grandStaffOpts() { const g = (((state.container || {}).engraving || {}).layout || {}).grandStaff; return g && g.interStaffGapSs > 0 ? { interStaffGapSs: g.interStaffGapSs } : undefined; }
   const weightOf = p => { const e = ensPart(p); return (e && e.weight) || 1; };
+  // [2a, 2026-09-25] a JOINED group (the percussionist's brace) is one lane: coords.joinedOf reads it, laneParts drops the members
+  // that ride the lead's lane, withStaves places them at the registry gap keyed by their own part numbers
+  const joinedOf = () => (NotationCoords.joinedOf ? NotationCoords.joinedOf(state.ensemble) : {});
+  const lanePartsOf = ps => (NotationCoords.laneParts ? NotationCoords.laneParts(ps, joinedOf()) : ps);
+  const stavesOpts = () => Object.assign({ joined: joinedOf() }, grandStaffOpts() || {});
   // hoisted: a RESTORED container view (UI persistence) runs the whole
   // transport/anim/MIDI path during the INITIAL render, which the old
   // top-to-bottom declaration order never had to survive
@@ -671,7 +676,7 @@
         ownsEnd = t1 >= secEnd - 1e-9; // boundary events belong to the NEXT window
       }
       const sel = $('parts').value;
-      const parts = sel === 'all' ? state.ir.source.parts : [parseInt(sel, 10)];
+      const parts = sel === 'all' ? lanePartsOf(state.ir.source.parts) : [parseInt(sel, 10)];
       const perSystem = sel === 'all' ? 110 : 260;
       // [2a.1] a part's lane weight (the piano's grand staff = 2) and its
       // staves — the staff size stays one size across the frame
@@ -682,7 +687,7 @@
       if (state.ensemble) sysList.forEach((s, i) => { s.ssPerSystem = NotationCoords.DEFAULTS.ssPerSystem * wts[i]; });
       const view = NotationCoords.makeView({
         widthPx, heightPx, window: [t0, t1],
-        systems: NotationCoords.withStaves(sysList, stavesOf, grandStaffOpts()),
+        systems: NotationCoords.withStaves(sysList, stavesOf, stavesOpts()),
       });
       $('sheet').innerHTML = NotationRender.renderSection(state.model, view, state.glyphs, { markers: state.markers, reshow, ownsEnd, hideBricks: !$('bricks').checked, staffFull: !paged, ensemble: state.ensemble,
         // [D42, §447] the curve look is the same in every view: the window view passes the registry's three curve entries (only those —
@@ -726,6 +731,15 @@
         state.vPagesW = pageSeconds;
         state.pageIdx = Math.min(state.pageIdx, state.vPages.length - 1);
       }
+      // [2a, 2026-09-25] THE BAND through Coords.ensembleFrame — the function the exporters call (PLAN 2b.1.2); the app kept its
+      // own copy until it was next opened, and the joined lane opened it. Without an ensemble the same equal-lane math as before.
+      const FR = NotationCoords.ensembleFrame(parts, {
+        heightPx: H, lanes, staffHeightPx: (C.staff && C.staff.staffHeightPx) || 31.6,
+        grandStaff: ((C.engraving || {}).layout || {}).grandStaff,
+        weightOf: state.ensemble ? weightOf : undefined, stavesOf, ensemble: state.ensemble,
+      });
+      const systems = FR.systems, ssPerSystem = FR.ssPerSystem, lanePx = FR.lanePx;
+      /* the copy it replaces, kept for the record of what it did:
       let topPad = lanes.padTopPx / H, botPad = lanes.padBotPx / H;
       const gap = lanes.gapPx / H;
       // [2a.1] with the ensemble, lanes are WEIGHTED (the piano's grand staff
@@ -750,6 +764,7 @@
         systems.forEach((s, i) => { s.ssPerSystem = ssPerSystem * weights[i]; });
         systems = NotationCoords.withStaves(systems, stavesOf, grandStaffOpts());
       }
+      */
       const p = state.vPages[state.pageIdx];
       // CONSTANT TIME SCALE (day 22, second note — composer: "in page two
       // the cursor speeds up significantly"): every page's window is

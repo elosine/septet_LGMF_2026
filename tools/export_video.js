@@ -99,6 +99,7 @@ const FRAME = Coords.ensembleFrame(FRAME_PARTS, {
   grandStaff: ((C.engraving || {}).layout || {}).grandStaff,
   weightOf: ENS ? (p => (ensPart(p) && ensPart(p).weight) || 1) : undefined,
   stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1,
+  ensemble: ENS,   // [2a] the joined lane (the percussionist's brace) is read from it
 });
 const systems = FRAME.systems, ssPerSystem = FRAME.ssPerSystem, lanePx = FRAME.lanePx;
 // Z is the ZOOM FACTOR, not a mode flag. It was gated on viewMode==='zoom',

@@ -1,6 +1,16 @@
 {
  "irs": [
   {
+   "id": "piece-lgmf",
+   "label": "piece-lgmf · the piece as it stands (Sec01 · Sec02 · Sec03a)",
+   "score": "piece-LGMF-Sec01-Sec02-sec03a",
+   "window": [
+    0,
+    565
+   ],
+   "profile": "trance"
+  },
+  {
    "id": "lgmf-0i",
    "label": "lgmf-0i (trance)",
    "score": "0i-test",

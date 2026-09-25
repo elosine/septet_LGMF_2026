@@ -3,6 +3,7 @@
  "_notate": "`notate` = the written instruction, where the composer has named one. null = NO MARK YET — stated, never a silent default; the notation of each technique is decided with him, note by note (the #4 method), and lands here. On 2026-09-11 exactly one is named: the flute `pizzicato` sample is written TONGUE RAM (composer 2026-09-04, RUNNING_LOG §44).",
  "_familyRule": "Generated once (2026-09-11) by ONE rule, then data: a key is `oneshot` when bank/sample_lengths.json measures it OR its name is a strike or a short note (pizz* · tongue_ram · stac* · spicc* · marcato_stac/spicc · slap · secco · key_click/noises · bartok · gettato · col_legno · finger · body · plucked · muted · harmonics (the piano's prepared harmonics) · fortepiano · sforzando); everything else — bowed, blown and held sounds, tremolos, trills, harmonic glisses, multiphonics — is `sustained`. Correct any entry by hand.",
  "_usedInPieceSeptet": "on 2026-09-11: senza_vel 235 · main 147 · gettato_vel 146 · bartok_vel 143 · slap 74 · pizzicato 72 · ord 50 · plucked 32",
+ "_usedInPieceLGMF": "2026-09-25, piece-LGMF-Sec01-Sec02-sec03a (PLAN 2a.1, RUNNING_LOG §331): senza_vel 226 · ord 230 · bowed_vel 143 · senza_mw 1 · the seven percussion voices 104. The percussion keys are STRUCK one-shots on an UNPITCHED staff: a note sits on the LINE of its instrument (ensemble.json part 4 staff.lines, matched by key prefix), never at its sonifyNote.",
  "familyDevice": {
   "_doc": "The provisional LOOK of a technique the engraving registry (container.json engraving.layout.devices.byTechnique) does not name — 2a's page, so that every note shows its written pitch in its clef: the notehead unit (head, accidental, ledgers, ottava) just before the attack, the parachute brick carrying the duration; a filled head for a one-shot, an open head for a sustained note; the notate text above the head. NO go line, no GC, no dynamics — those are his to assign, per technique. A byTechnique entry wins where one exists (the tuba vocabulary: ord, staccato, fortepiano, cuivre).",
   "oneshot": {
@@ -1482,6 +1483,70 @@
     "violin2",
     "viola",
     "cello"
+   ]
+  },
+  "small_metals_sleigh_bells_sleigh_bells": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Sleigh Bells & Indian Bells — Sleigh Bells",
+   "players": [
+    "percussion"
+   ]
+  },
+  "toys_castanets_machine": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Castanets — Machine",
+   "players": [
+    "percussion"
+   ]
+  },
+  "small_metals_tambourines_orchestral_tambourine": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Tambourines — Orchestral Tambourine",
+   "players": [
+    "percussion"
+   ]
+  },
+  "temple_bowls_brush": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Temple Bowls — Brush",
+   "players": [
+    "percussion"
+   ]
+  },
+  "wood_blocks_soft_mallets": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Wood Blocks — Soft Mallets",
+   "players": [
+    "percussion"
+   ]
+  },
+  "brake_drums_poly_beater": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Brake Drums — Poly Beater",
+   "players": [
+    "percussion"
+   ]
+  },
+  "bass_drum_alt_medium_felt": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Bass Drum (Alt) — Medium Felt",
+   "players": [
+    "percussion"
+   ]
+  },
+  "bowed_vel": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Bowed Velocity RRoff (#13)",
+   "players": [
+    "bowed_vibraphone"
    ]
   }
  }

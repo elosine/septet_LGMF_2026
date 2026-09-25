@@ -12305,3 +12305,284 @@ CONVERGE actual. Untouched.
 
 **Left as found:** `bank/` untouched (0 POSTs, no test actual filed). `git diff --stat` among the AI's files: `morph_panel.js` · `PLAN.md`
 · the docs of the wrap. **`1s.6`, his one test: reload the tab — no restart.**
+
+
+## §330. SESSION 15 OPENS ON THE NOTATION LAYER — the survey: what the port carried, what still has to be built (2026-09-25, Fable)
+
+**What prompted it — his word at `/postclear`:** *"I want to start building the notation layer and you start by first seeing what has been
+ported from the previous piece and what still remains to be brought over."* The checkpoint's next step (`1s.6`, his test) is superseded.
+
+**Method:** `diff -rq` of `notation/` against `C:\Users\jwloy\GitHub\septet_2026` (read-only), the 21 notation tools and the seven
+notation docs file by file, `git log` of #5 since the port, `palette_check`, and the record — RUNNING_LOG §17 · §18, PLAN 0g · 0i, NITS.
+
+**Found — ported and proved:**
+- `notation/lib/` (25 files) · `schema/` · `glyph_sources/` · `app/` are **byte-identical to #5 @ `ba318e1`** — and `ba318e1` is
+  still #5's HEAD: **piece #5 has written nothing in its notation layer since the port.** There is nothing left to bring over.
+- The registry: `accommodations` · `classes` · `page_rules` identical; `ensemble.json` · `container.json` · `techniques.json` re-paletted
+  at 0g. `ensemble.json` already carries the EIGHT parts (D12), three pair-brackets, the brace 4–5, EH +7 · Hn +7 · Db +12.
+- The tools: 16 of 21 identical; `check_print_edges` · `_frame` · `_front` · `_pages` · `render_reaper` differ only in their default
+  id (`piece-lgmf`) and the rack file's name.
+- The docs: seven carried with provenance lines; `NAMING` §1 names the MAIN file to come, `piece-lgmf.ir.json`.
+- Proved at the port: both exporters on the SEVEN-lane ensemble (§17, before D12's eighth part) · 0i's save → IR → page (§18).
+
+**Not ported, by design:** #5's pages, audio, video renders and cuts, print PDFs, cover SVGs; `docs/notation_instructions/` (its
+performance-instructions web page — a template for ours).
+
+**What remains — the scaffolding list, kept here at his word (*"hang on to this analysis and list as a scaffolding"*):**
+1. **Gates on the file.** `palette_check`: **91 recipe keys not in `techniques.json`** (18 at the port; the percussion's and the
+   vibraphone's joined). **Cents:** the just-partial standard is DECIDED (`docs/research/just_partials_notation.md`), nothing built —
+   `extract_core.js` · `classify.js` · `ir_v0.schema.json` carry no `cents`; the classifier knows `morphBend` alone. **The fields phase 1
+   writes** — `cents` · `partial` · `hq` · `cc7Abs` · `velAbs` · `shaped` · `plain` — none existed at 0i (11 events, a 30 s save).
+   **Dynamics:** the extractor names a shaped note's dynamic from curve height 0…1 (#5's D23); under the law the written dynamic is the
+   TABLE's name. **New object kinds** with no IR class: texture columns / patterns, the sequences' META bars.
+2. **Staves and marks:** percussion notation proper (clef, one-line / five-line staves, unpitched heads; the lane draws treble) · tenor clef ·
+   mute marks · a B♭ trumpet part? · the presentation score's pitch form (the `video-jury` override emptied at the port).
+3. **Animated devices:** conductions (LG-3) · the balls per player in their own tempo (LG-5) · what the texture material needs.
+4. **2b:** `piece-lgmf.ir.json` · cover · performance instructions (web + two print pages) · the cut list · `render_reaper` · the batteries
+   (`test_septet_notation` · `test_trills` · `test_morph_notation` · `test_cross_staff` · `test_identity` read #5's fixtures) and
+   `tools/fixtures/*_snapshot.json`.
+
+**His order for the work:** *"let's break it down pretty good and really do just one thing at a time. Let's start with percussion staves."*
+PLAN § 2 stays `todo` until the discussion lays it out.
+
+## §331. PERCUSSION STAVES, step one — the inventory: what the percussionist plays in the newest save (2026-09-25, Fable)
+
+**His word:** *"Can you do a scan of the most recent save file and in particular the middle section and just gather a list or a database
+of all the percussion instruments I use. Outside of those it will be just vibraphone — gather the instruments, techniques and mallets and
+then check back in and we'll discuss."*
+
+**The file:** `scores/piece-LGMF-Sec01-Sec02-sec03a.json` (his, newest by mtime — 2026-09-25 00:19; 780 objects, last ends 9:24.8; markers
+`ACT-BLOOM-06` at 2:36.4 and `MORPH M3 — BEATING CONVERGE` at 7:07.0). Read-only scan, a scratchpad script over `objects` by layer with the
+recipe's technique entries (`sandbox/instruments.js`, `keys` tables) — nothing written.
+
+**The shape of the piece, as the percussionist sees it — his sentence is exactly what the data says:**
+- **Lane 5 Vibraphone: 143 notes, ALL `bowed_vel`** (Bowed Velocity RRoff #13), G3–F6 sounding, velocity 99 on every note (the
+  law's mf strike on a curve channel), in 0:02 … 4:14 (Sec01: the sequence `LGMF-R01c`'s boxes 1–9 and `lgmf-s01-bloom08`) and
+  7:07 … 9:19 (`BEATING CONVERGE`). **Silent between 4:14 and 7:07.**
+- **Lane 4 Percussion: 104 notes, 4:57.4 … 6:46.9** — the middle section only; every one a texture TAKE (`performanceNotes: "TAKE"`),
+  `sonifyMode: plain`, struck (velocity = dynamic, 43 … 117).
+
+**THE INVENTORY — 7 of the 14 selected instruments, one beater each:**
+
+| instrument (ARO) | beater / technique | `LGPerc` ch | keys used (label) | notes | span | vel |
+|---|---|---|---|---|---|---|
+| Bass Drum (Alt) | Medium Felt | 12 | 50 ×15 · 48 ×1 — **not in its `keys` table** (60–64) | 16 | 4:57–6:47 | 43–93 |
+| Brake Drums | Poly Beater | 9 | 50 ×14 — **not in its table** (36–43) | 14 | 4:59–6:43 | 47–99 |
+| Sleigh Bells & Indian Bells | Sleigh Bells | 3 | 62 Single Shake R ×12 · 60 Single Shake L ×4 | 16 | 5:00–6:37 | 57–90 |
+| Tambourines | Orchestral Tambourine | 5 | 43 ×14 · 41 ×1 — **not in its table** (60–67 · 96–103) | 15 | 5:02–6:45 | 60–98 |
+| Temple Bowls | Brush | 13 | 50 Bowl 4 Hit R ×10 · 48 Bowl 4 Hit L ×2 | 12 | 4:58–6:34 | 48–105 |
+| Castanets | Machine | 6 | 62 ×13 · 60 ×6 — **not in its table** (48–53 · 72–77) | 19 | 4:58–6:39 | 55–110 |
+| Wood Blocks | Soft Mallets | 11 | 48 Block 4 · Hit L ×12 | 12 | 5:03–6:39 | 54–117 |
+
+**Unused of the fourteen:** finger cymbals · bell tree · triangles · claves · shakers · crashes & stack · tam-tams A. Unused beaters of
+the used seven: bass drum sticks · hard felt · hard felt cloth-damped · rods · brushes — brake drums rubber mallets — tambourine pop · alt —
+temple bowls rubber mallet — castanets handle — wood blocks hard mallets — sleigh bells' Indian rope bells.
+
+**Found on the way, NOT diagnosed:** four of the seven instruments have every note on keys OUTSIDE their `keys` table (bass drum 48 · 50
+against 60–64; brake drums 50 against 36–43; tambourine 41 · 43 against 60–67; castanets 60 · 62 against 48–53). The pattern — every
+instrument on one of the pairs 48·50 · 60·62 · 41·43 — looks like the texture deal's choice of key, not his. Whether those keys SOUND is a
+rack question (ARO mirrors keys by the octave on at least the brake drums: its table has 60 = "Low · 36"); his ear has heard this section.
+For the STAFF it matters: the key label is what the notation says (which block, which bowl, which hand). Put to him, not fixed.
+
+## §332. PERCUSSION STAVES — his design, verbatim, and the numbers it points at in piece #5 (2026-09-25, Fable)
+
+**His words (voice, transcribed as it came):** *"let's talk about staff or staffs in general. So we're going to include the braces for each
+instrument group like in the last piece, the Tempus Septet. The percussion will have two staff systems in its brace. The top will be the
+unpitched percussion and then below it the single vibraphone staff. The space between the two staffs will be the same amount of vertical
+space I use in the piano grand staff again in the last piece. So the amount of space between the top treble clef and the bottom bass clef
+in the piano grand staff from the Tempus septet. For the top staff I would like to use as a model Brian Ferneyhough Bone Alphabet — I'll
+send an image if you can't find one — basically just a line for every non-pitched instrument and the lines are more spaced out than a
+standard staff. So I'll ask you to make a determination, but it's probably about the same as double the amount of space between a normal
+staff. And then I'll say it's, I think, 7, right? Seven lines for all my instruments."*
+
+**Read in piece #5's registry and engine (read-only), the numbers his design names:**
+- **The groups as #5 drew them:** `ensemble.json` groups — a BRACKET over the winds [0,1], a BRACE on the piano [2], a BRACKET over the
+  strings [3–6]. This piece's registry already has its own: brackets [0,1] · [2,3] · [6,7] and a **brace [4,5]** on the percussionist's two
+  parts (D12). His "braces for each instrument group" = those.
+- **The piano's grand-staff gap:** `container.json` `engraving.layout.grandStaff.interStaffGapSs: 6` — six staff spaces between the
+  treble's bottom line and the bass's top line, i.e. **10 ss middle line to middle line** (`layout.js` 540: `c2c = 4 + interStaffGapSs`;
+  `coords.js` `withStaves` places the two staves at exactly that, centred in the lane). At the house staff of **31.6 px** (`staff.staffHeightPx`,
+  1 ss = 7.9 px) the gap is **47.4 px**. The number carries as it is: this repo's `container.json` is #5's re-paletted.
+- **The mechanism differs from the piano's:** #5's piano was ONE part with `staves: [{treble},{bass}]`; here the percussionist is TWO
+  parts (4 · 5, two lanes in the composer, the IR's `part` = the lane) joined by the brace. The gap becomes a property of a brace GROUP
+  rather than of a part's staves — an engine adaptation, the AI's to make; the composer decides nothing here.
+- **A standard staff:** 5 lines, 4 ss tall. His seven-line staff at "about double" = **2 ss between lines → 12 ss tall (≈ 95 px at 31.6)**,
+  three standard staves' height; the lane's weight in the frame follows from it (2a.1's lane weights — the piano's was 1.576).
+- **Bone Alphabet (Ferneyhough, 1991, solo percussion):** as the AI recalls it — seven instruments of the player's choosing, one line
+  each on a seven-line staff, noteheads on the lines only, the lines spaced wider than a standard staff; he sends the image, and the
+  spacing determination is made from the page, not from memory.
+- **The seven:** §331's inventory — the newest save uses exactly seven of the fourteen (bass drum · brake drums · sleigh bells · tambourine ·
+  temple bowls · castanets · wood blocks). Put to him: these seven, and in what order top to bottom.
+
+## §333. PERCUSSION STAVES — Bone Alphabet measured: the lines are spaced about TWICE a standard staff's; the order put to him (2026-09-25, Fable)
+
+**His words:** *(the Drive link to a Bone Alphabet page)* *"then let's discuss the order. Probably similar to Ferneyhough by material, but give
+me the standard options. What would typically be used for these particular instruments?"*
+
+**The image:** `stretta-image-368770-1.webp`, Edition Peters No. 7389's preview page (750 × 545 px, a low-resolution JPEG; the file
+downloaded through the Drive connector into the scratchpad and decoded there — nothing kept in the repo; a copyrighted page, looked at,
+not stored). Three seven-line systems on the page, no five-line staff to compare against, so the reference is the NOTEHEAD, which on a
+standard staff fills one space (1 ss high, ≈ 1.3 ss wide).
+
+**Measured (`ffmpeg` to raw grey, a row scan for the lines, connected components for the heads):** line spacing **9.17 px** on both
+clean systems (7 lines, 55 px) · notehead full height through its centre column median **4 px** (n = 24; 3 … 5 the body of the
+histogram) · notehead width median **6 px** (5 … 9). So line gap / head height ≈ **2.3**, line gap / (width ÷ 1.3) ≈ **2.0**. At this
+resolution ±10 %; the eye on the 4× crop agrees — a head sits on its line with about half a line-gap of air above and below.
+
+**DETERMINATION (his to move): 2 ss between lines** — his own estimate, *"about double"*. The seven-line staff is then 6 × 2 = **12 ss
+tall ≈ 95 px** at the house staff of 31.6 (three standard staves' height); a head on a line has 0.5 ss of air each side. Bone Alphabet's
+own preface, as recalled (not on the preview page): seven instruments of the player's choosing, arranged high to low, **no two adjacent
+instruments of the same material** — a compositional constraint on the choice, not an engraving standard.
+
+**The standard orderings put to him, for these seven** (Gould *Behind Bars*, Stone *Music Notation in the Twentieth Century*, Solomon
+*How to Write for Percussion* — from the AI's knowledge, not re-read today; a LEGEND naming each line stands at the front of every option):
+- (a) **relative pitch, high at the top** — the default for a multi-percussion setup on one staff; his keys are the lowest block (Block 4)
+  and the lowest bowl (Bowl 4) of their sets, and the small metals and the castanets are all "high" — a judgement per neighbour, his ear.
+- (b) **by family, metals · woods · skins**, pitch order inside each — common in contemporary multi-percussion (Xenakis's groups); the
+  families themselves still fall high to low: metals above, drums at the bottom.
+- (c) **Ferneyhough's alternation**, high to low with neighbours of different material: sleigh bells (M) · castanets (W) · tambourine (S) ·
+  temple bowl (M) · wood block (W) · brake drum (M) · bass drum (S).
+- (d) **the setup**, the staff mirroring the player's layout (Zyklus, Kontakte) — needs a player's setup; not now.
+- The tambourine is the ambiguous one: a skin with jingles, classed with the drums in (b) and (c), heard among the small metals.
+
+## §334. PERCUSSION STAVES — DECIDED: the order is Ferneyhough's alternation, (c) (2026-09-25, Fable)
+
+**His word:** *"C"* — to §333's options.
+
+**The seven lines, top to bottom, high to low, no two neighbours of one material:**
+
+| line | instrument | material | beater in the save | `LGPerc` ch |
+|---|---|---|---|---|
+| 1 (top) | sleigh bells | metal | Sleigh Bells | 3 |
+| 2 | castanets | wood | Machine | 6 |
+| 3 | tambourine | skin (+ jingles) | Orchestral | 5 |
+| 4 | temple bowl (Bowl 4) | metal | Brush | 13 |
+| 5 | wood block (Block 4) | wood | Soft Mallets | 11 |
+| 6 | brake drum | metal | Poly Beater | 9 |
+| 7 (bottom) | bass drum | skin | Medium Felt | 12 |
+
+**Decided so far for the percussionist's brace (§332 · §333 · here):** two staves under one brace — the seven-line unpitched staff above,
+the vibraphone's single treble staff below · **2 ss between the seven lines** (12 ss tall) · **6 ss** between the two staves (#5's
+`grandStaff.interStaffGapSs`) · the order above. Goes to the journal's decisions at the wrap.
+
+**The AI's call on the staff's furniture, his to reverse (AI_METHODOLOGY: not his minutiae):** the MODEL has no clef — Bone Alphabet's
+systems open with the brace and a time signature and nothing else — and this piece has no metre, so the seven-line staff opens with
+**no clef**; each line is named by its SHORT name in the gutter at the start of a print page (the gutter is 72 px, seven names at 2 ss
+fit), and the full legend — instrument · beater · line — stands in the performance instructions, where Bone Alphabet's own key would.
+
+## §335. THE STAVES — his confirmations; the register scan of every lane; what is left at staff level (2026-09-25, Fable)
+
+**His words:** *"percussion staff order good; no clef; short name in gutter; full legend; the struck note will be on the line, I don't think I
+use any variations, pitch or otherwise per instrument, but hold on the rest, stemming etc, we'll decide those separately when we get to
+the specific notation; anything else for any of the staffs, the percussion or otherwise?"* — §334's calls CONFIRMED; the note unit
+(stem · flag · GC · dynamic placement) DEFERRED to the specific notation, at his word.
+
+**The register scan** (`piece-LGMF-Sec01-Sec02-sec03a.json`, sounding MIDI; written = sounding + the registry's transpose):
+
+| part | notes | sounding | written | the clef question |
+|---|---|---|---|---|
+| EH | 169 | E3–D6 | B3–A6 | treble; the top by the engine's ottava rule |
+| Bsn | 78 | A♯1–D5 | — | **47 of 78 at or above G3, 37 at or above C4** — bass alone is ledger lines; TENOR wanted |
+| Hn | 70 | A2–G5 | E3–D6 | treble holds it (5 notes at or below C3 sounding) |
+| Tpt | 82 | G3–A♯5 | — | treble |
+| Perc | 104 | keys 41–62 | — | lines, no clef (§334) |
+| Vib | 143 | G3–F6 | — | treble |
+| Vc | 57 | C♯2–B5 | — | **32 at or above D4, 19 at or above C5** — TENOR and TREBLE wanted |
+| Db | 72 | F♯1–A5 | F♯2–A6 | **28 at or above C3 sounding** (the high partials as harmonics) — TENOR / TREBLE wanted |
+
+**Left at staff level, and who decides:**
+1. **Clef changes by register** — the AI's, his to reverse: a TENOR clef for the engine (the alto's C-clef on line 4 — the engine draws
+   treble · alto · bass today, §17) and an automatic clef choice per stretch of material for Bsn (bass · tenor), Vc and Db (bass · tenor ·
+   treble), the standard thresholds; the other parts keep one clef.
+2. **THE PRESENTATION SCORE'S PITCH FORM — HIS** (NITS; #5's D55 was a score in C): in C (EH · Hn at sounding pitch) or transposed (EH ·
+   Hn written a fifth up). The double bass keeps its octave transposition either way, the convention for octave-transposing instruments
+   in a C score. A B♭ trumpet part arises only if transposed, and only for the parts.
+3. **Empty staves** — the seven-line staff is silent for ≈ 7½ of 9½ minutes, the vibraphone for ≈ 3: the frame is FIXED in the animated
+   score by nature, and the print's frame is the video's (`Coords.ensembleFrame`, the standing warning) — the AI's recommendation is the
+   fixed frame on every page, #5's way; hiding empty staves per page is the alternative, his call.
+4. **The frame's vertical budget** — eight parts, one brace of 12 + 6 + 4 = 22 ss: the staff size may need #5's one-number C-switch
+   (31.6 → 28) for the A3 page. Engine work; his eye judges the proof.
+
+## §336. DECIDED: THE PRESENTATION SCORE IS IN C (2026-09-25, Fable)
+
+**His word:** *"a, in C"* — to §335's item 2. The presentation score (video + print, the jury's) shows the english horn and the horn at
+SOUNDING pitch; the double bass keeps its octave transposition (written = sounding + 12), the convention for octave-transposing
+instruments in a C score. #5's D55 is the precedent. A B♭ trumpet part does not arise. **Where it lands:** the `video-jury` realization
+in `notation/registry/container.json`, whose part override was emptied at the port (§17) for exactly this call — it now gets
+`english_horn` and `horn` at `transpose: 0`; the ensemble default (the registry's +7 · +7 · +12) stays the WRITTEN form for the parts
+and the performance score, PLAN 3's question, not answered here. Goes to the journal's decisions at the wrap. NITS' open line closes.
+
+## §337. DECIDED: A FIXED FRAME ON EVERY PRINT PAGE — the staff level is closed (2026-09-25, Fable)
+
+**His word:** *"a"* — to §336's question: the print keeps the fixed frame of the animated score on every page, #5's way; an empty
+staff stays empty (the seven-line staff for ≈ 7½ of 9½ minutes, the vibraphone for ≈ 3). Print and video keep one frame math
+(`Coords.ensembleFrame`). Hiding empty staves per page rejected — it would part the page from the screen.
+
+**THE STAFF LEVEL, CLOSED — the decisions of §332 … §337, in one place:**
+- brackets on the three pairs · a BRACE on the percussionist's two parts (4 · 5)
+- inside the brace: the seven-line unpitched staff above, the vibraphone's treble staff below · 6 ss between them
+- the seven-line staff: 2 ss between lines (12 ss tall) · no clef · the lines top → bottom: sleigh bells · castanets · tambourine ·
+  temple bowl (Bowl 4) · wood block (Block 4) · brake drum · bass drum · a struck note on its line, one key per instrument · short names
+  in the gutter · the full legend (instrument · beater · line) in the performance instructions
+- clefs: tenor added to the engine; an automatic clef per stretch for Bsn (bass · tenor), Vc and Db (bass · tenor · treble); the rest one clef
+- the presentation score in C (EH · Hn sounding; Db at the octave)
+- a fixed frame on every print page; the staff size may take #5's C-switch (31.6 → 28) — his eye on the proof
+- DEFERRED at his word: the note unit (stem · flag · GC · the dynamic's place) — the specific notation, a topic of its own
+
+## §338. PLAN 2a THE STAVES — BUILT AND VERIFIED: the MAIN notation file, the percussionist's brace, the seven-line staff, the score in C (2026-09-25, Fable, at his word *"a, write the plan item and build"*)
+
+**Planned and built in one sitting** (PLAN § 2a, 2a.1 … 2a.4; the design is §332 … §337). One commit.
+
+**2a.1 — the gate, then the extraction.** `techniques.json` +8 keys (the seven percussion voices `oneshot`, `bowed_vel` `sustained`;
+149 → 157; `palette_check` now counts 83 unregistered). `notate_section --score piece-LGMF-Sec01-Sec02-sec03a --all --bricks --id piece-lgmf`
+→ **`notation/ir/piece-lgmf.ir.json`, the MAIN file (NAMING §1): 775 events · 600 chunks · VALID `--against-source --complete`**, first in the
+picker. `--bricks` is #5's own MAIN recipe (its provenance: `--bricks --trills --trillRate 100`; this save has no trill zones): every chunk
+unresolved, the family device per note — a filled head before the attack and the brick — which is exactly the deferred note unit (§335).
+WITHOUT `--bricks` the segmenter promoted the percussion strikes to 156 `trance-stream` chunks (152 simple-bar grids): beamed metric figures,
+the tuba's notation — his to want or not, later. **The count closes: 780 objects = 775 events + 3 META + 2 markers.** The extractor read the
+phase-1 fields (`cents` · `hq` · `cc7Abs` …) without a murmur — unread, as planned; one warning of substance: `ev-wc-3489` (the double bass's
+A5 in bass clef) *"3 octaves exceeds 15ma — clamped"* — 2a.6's clefs.
+
+**2a.2 — the registry.** `ensemble.json` part 4: `weight 2.109` · `staff { gapSs 2, noClef, lines[7] }` with `short` · `match` (the
+technique-key PREFIX) · `instrument` per line in his order; the brace group `joined: true, gapSs: 6`; the notes carry the derivation
+(`u = (131.6 − 18) / 7 = 16.23 ss`, `w = 1 + 18 / u`). `container.json` `video-jury.ensemble.parts`: `english_horn` · `horn` at `transpose 0`
+(§336), `_decided` beside the port's `_pitchFormNote`.
+
+**2a.3 — the engine.** `coords.js`: `staffHalfSs` · `joinedOf(ens)` · `laneParts(parts, joined)` · `joinedSystems` (the members at
+half + gap + half centre-to-centre, the block centred in the lane, each member's band from gap-middle to gap-middle at ONE ssPx, keyed by its
+PART; the lane entry keyed `4+5`); `withStaves` takes `opts.joined`; `ensembleFrame` takes `o.ensemble` (or `o.joined`), returns `lanes`.
+`layout.js`: `staffInfoOf(pc)` · `standInSpelled(offset, clef)` (a diatonic stand-in whose `staffPos` IS the line, alter 0 — the unit, the
+column and the chord code run unchanged); `spelledOf` uses it on a lined staff (an unmatched key: the middle line + one warning);
+`positionResolver` takes the technique; inside the per-system closure `ledgersFor` is shadowed to none and `oSys` lifts the ottava threshold
+on a lined staff (the two `th` sites); no `clef` item on `noClef`; the system model carries `staffLines` · `lineLabels` · `noClef`.
+`render.js`: the lines from the model (`linesOf`), the label per line for a lined staff (`partLabel.lineLabelScale`, 0.85), the bracket and
+brace from the outer LINES of the staves they span (`modelByKey`). `notation.html`: `joinedOf` · `lanePartsOf` · `stavesOpts`; the window
+view through them; the container view's band through `Coords.ensembleFrame` (the copy it kept is left in a comment). The exporters pass
+`ensemble: ENS`; the print's lane count line reads `FRAME.lanes`.
+
+**2a.4 — every check:**
+- (i) **THE SHIELD.** The tuba goldens staged from #4's HEAD (26 files from a list written first; deleted after — `index.json` and the README
+  EXCLUDED from the recipe, the recipe's `git ls-files notation/ir` would have overwritten this repo's picker). The eight batteries GREEN on
+  HEAD's engine and GREEN on the build (render · layout · animobj · splice · graphic · pattern_fit · stamps · ir_validate_battery, the snapshot
+  fixtures stable). `export_video --ir db1 --probe 100`: HEAD's engine + HEAD's registry vs the NEW engine + HEAD's registry → **byte-identical
+  PNG**. (The first comparison, new engine + NEW registry, DIFFERED — by design: the exporters lay every page on THIS registry, so a tuba page
+  gets the brace lane and the C form too. The shield is the engine, not the data.)
+- (ii) `piece-lgmf` VALID; 780 = 775 + 3 + 2.
+- (iii) The layout model of the video-jury frame: systems `0 1 2 3 4(lines 6,4,2,0,−2,−4,−6) noClef 5 6 7`; **all 104 part-4 heads on their
+  instrument's line (0 off)**, the offsets used {6:16, 4:19, 2:15, 0:12, −2:12, −4:14, −6:16}; part 4: 0 ledgers · 0 accidentals · 0 clef · 0
+  ottava; part 5 keeps its clef. `coords.ensembleFrame`: lanes `[0,1,2,3,4,6,7]`, weights `[1,1,1,1,2.109,1,1]`, unit lane 128.25 px = 16.23 ss,
+  ssPx 7.900; **perc–vib middle lines 14.00 ss apart, the gap 6.000 ss, air above and below the joined lane 6.12 ss = a unit lane's**, both members
+  at ssPx 7.900. The app on `score-5401` (`notation.html`, `piece-lgmf` selected by itself, VIDEO page 28 at 321–333 s): 8 `sys-p*` groups, 7 lines
+  at 2 ss, 5 for the vibraphone, c2c 14, gap 6, the seven labels, 1 brace + 3 brackets, no error; ZOOM ×2 (the `z` key) the same at ssPx 15.8.
+  The `video-jury` copy: EH · Hn `transpose 0`, Db 12; the default keeps +7 · +7.
+- (iv) `export_video --ir piece-lgmf --probe 330,120` and `export_print --ir piece-lgmf --at 330` (page 35, 5:25–5:34) — looked at: the three
+  brackets, the brace from the seven-line staff's top line to the vibraphone's bottom line, the heads on the lines, the names in the gutter, the
+  vibraphone staff empty in the middle section, the horn's low notes under an `8vb` in C. The percussion heads carry NO stem, flag, GC or dynamic
+  — the family device, the deferred unit.
+- (v) `palette_check` 198 GREEN · `roster_check` 3 GREEN.
+
+**Not done, by design:** the note unit (§335) · the cents (the specific notation) · 2a.6 the clefs by register · the staff size on A3 (his eye:
+the unit lane on the A3 page is now smaller than #5's 35.5 mm, one brace lane taking 2.1 units).
+
+**Seen on the way, not diagnosed:** the app's `state` is module-scoped (the DOM was read instead) · `ev-wc-3489` needs three octaves of ottava
+(the double bass at A5 sounding in bass clef) — 2a.6.

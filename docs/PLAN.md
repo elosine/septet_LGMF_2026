@@ -2363,10 +2363,67 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **1s.6 — His one test:** reload the tab — page files only, **no restart** (`morph.js` untouched). MORPH → CONVERGE or BLOOM on his take → `min pp · max ff` → Generate → the status names them → Play. Revise on his word.
   - **THE BUILD ORDER:** 1s.1 → 1s.4 in ONE commit with 1s.5 — Fable, at his word; 1s.6 his.
 
-## 2. Notate — `todo`
+## 2. Notate — `doing` *(2a built 2026-09-25, his eye owed; 2a.6 the clefs next; 2b to be laid out)*
 
-*To be laid out when we discuss it.* 2a engine adaptation · 2b presentation score (video +
-print) — #5's shape.
+*2a the engine adapted to this piece's staves and material · 2b the presentation score (video + print) — #5's shape. Laid out one
+item at a time, each in his hands before the next (his order, 2026-09-25: "really do just one thing at a time").*
+
+- **2a — THE STAVES: the percussionist's brace, the seven-line staff, the score in C — the first page of this piece** — **`built` 2026-09-25 (Fable, session 15, at his word *"a, write the plan item and build"*; RUNNING_LOG §338 the build and every check of 2a.4; one commit; `2a.5` his eye next — no restart, the notation app)** — `planned` 2026-09-25 (Fable, session 15; RUNNING_LOG §330 the survey · §331 the inventory · §332 … §337 his decisions, one at a time) —
+  **Result when done:** `notation/ir/piece-lgmf.ir.json` exists — the MAIN notation file (NAMING §1), the whole newest save extracted,
+  valid, first in the picker — and in the notation app and the exporters it shows: brackets on the three pairs · a BRACE on parts 4 · 5
+  with the seven-line unpitched staff above and the vibraphone's treble staff below, 6 ss between them · the seven lines 2 ss apart,
+  no clef, his order top → bottom (sleigh bells · castanets · tambourine · temple bowl · wood block · brake drum · bass drum), every
+  percussion note a filled head ON its instrument's line, the short names in the gutter · the english horn and the horn at SOUNDING
+  pitch in the `video-jury` realization (the print borrows it) · a fixed frame, every page. The note unit (stem · flag · GC · the
+  dynamic) is NOT decided here (§335, his word) — the percussion note is the family device's plain filled head until it is.
+  - **The design line:** the percussionist is TWO PARTS (4 · 5, two composer lanes, the IR's `part` = the lane), not #5's one-part
+    grand staff, so the join is a property of the brace GROUP: a `joined` group is ONE LANE of the frame holding its members' staves at
+    a set gap, each member keeping its own part number as its system key — every consumer keeps finding parts 4 and 5. A staff is data
+    on the part (`staff: { lines, gapSs }`); an unpitched part positions a note by its technique's LINE, never by pitch. The engine knows
+    staves and lines, not sleigh bells (D9 §6).
+  - **2a.1 — The gate, then the extraction:** `notation/registry/techniques.json` gets the eight keys the save uses and lacks — the
+    seven percussion voices (family `oneshot`, the recipe's label, `players: ['percussion']`) and `bowed_vel` (`sustained`,
+    `['bowed_vibraphone']`) · `node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-sec03a --all --id piece-lgmf` →
+    `ir_validate --against-source --complete` → `index.json` with `piece-lgmf` FIRST. What the classifier refuses is fixed here or
+    named with a count; the phase-1 fields (`cents` · `partial` · `hq` · `cc7Abs` · `velAbs`) pass through unread — the cents are the
+    specific notation's item, not this one's.
+  - **2a.2 — The registry:** `ensemble.json` — part 4 `clef: "treble"` (the position grid only; drawn NOT), `staff: { lines: 7, gapSs: 2,
+    noClef: true, lines: [ {short, match} × 7 ] }` top → bottom, `match` the technique-key PREFIX of the instrument (every beater of an
+    instrument lands on its line) · the brace group `{ kind: 'brace', parts: [4, 5], joined: true, gapSs: 6 }` · part 4 `weight` so the joined
+    lane holds its 12 + 6 + 4 ss of staves with the air of a unit lane (`u = (A − extra) / (n0 + 1)`, `w = 1 + extra / u`; the video-jury frame:
+    A 131.6 ss, extra 18, n0 6 → u 16.23, **w 2.109**; the derivation in a `_weightNote`, #5's way) · `container.json`
+    `realizations.video-jury.ensemble.parts` = `english_horn: { transpose: 0 }` · `horn: { transpose: 0 }` (§336) with its note.
+  - **2a.3 — The engine:** `coords.js` — `joinedOf(ens)` reads the joined groups and each member's staff half-height; `laneParts(parts, ens)`
+    the frame's lanes (a member that is not its group's lead drops out); `withStaves` places a joined lane's members at their
+    centre-to-centre distances, centred, keyed by PART, each with the band that keeps one ssPx; `ensembleFrame` uses both ·
+    `layout.js` — a spec carries the part's staff (`lines`, `gapSs`, `noClef`, `lineOf`); an unpitched event's position is its line's
+    offset (a diatonic stand-in spelled from the offset, so the unit, the column and the chord code run unchanged, alter 0 → no
+    accidental); no ledger lines and no ottava inside a lined staff; no `clef` item for a `noClef` staff; the system model carries its
+    line offsets · `render.js` — the staff's lines from the model (five at 1 ss when absent); the bracket and brace from the top line to
+    the bottom line of the staves they span; a lined staff's gutter shows the short names at the lines, not one label ·
+    `notation.html` — both views use `laneParts` and the joined `withStaves` (the container view through `ensembleFrame`, NITS' intent) ·
+    the exporters through `ensembleFrame`, untouched otherwise. A caller that passes no ensemble, and any part without `staff`, gets
+    EXACTLY what it got: five lines, ledgers, the clef, one label.
+  - **2a.4 — REQUIRED VERIFICATION:** (i) THE SHIELD — the tuba goldens staged from #4's HEAD (`notation/ir/README.md`, the list written
+    first, deleted after): `test_render` · `test_layout` · `test_animobj` · `test_splice` · `test_graphic` · `test_pattern_fit` ·
+    `test_stamps` · `ir_validate_battery` GREEN, and `export_video --probe` on a tuba page rendered on HEAD and on the build
+    byte-identical · (ii) `piece-lgmf` valid `--against-source --complete`; every one of the save's 780 objects accounted for (events +
+    meta + markers = the count) · (iii) the page in the notation app on `score-5401`, video view at 5:30: eight systems, the brace from the
+    seven-line staff's top line to the vibraphone's bottom line, the three brackets, 7 lines 2 ss apart, no clef on it, the seven
+    short names, every percussion event's head at ITS line (`SlB` +6 … `BD` −6, checked by `javascript_tool` against `lineOf`), the
+    vibraphone empty there, the horn's B4 at B4 on its staff (in C) — and the window view at 2:00 the same lanes · (iv) `export_print`
+    two pages at the middle section and `export_video --probe 330` — looked at · (v) `palette_check` 198 · `roster_check` 3 · the
+    ensemble ids = TRACKS (`notate_section`'s own refusal is the check).
+  - **2a.5 — His eye:** open http://localhost:5400/notation/app/notation.html → the picker's `piece-lgmf` → the video view → 5:00 … 6:50.
+    The staff size on the A3 page (#5's C-switch 31.6 → 28) is judged on the proof. Revise on his word.
+  - **2a.6 — The clefs by register:** a TENOR clef (the C clef on line 4) and an automatic clef per stretch — Bsn bass · tenor; Vc and Db
+    bass · tenor · treble (§335: the bassoon 47 of 78 notes at or above G3, the cello 32 of 57 at or above D4, the bass 28 at or above C3
+    sounding). Its own step, after 2a.5.
+  - **THE BUILD ORDER:** 2a.1 → 2a.3 in ONE commit with 2a.4 — Fable, at his word *"a, write the plan item and build"*; 2a.5 his; 2a.6 next.
+
+- **2b — The presentation score (video + print)** — `todo` — *laid out when 2a is in his hands.* The cover · the performance
+  instructions (web + two print pages; the percussion legend, §334) · the cut list · `render_reaper` · the batteries re-pointed at
+  this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
 
 ## 3. Performance score — `todo`
 

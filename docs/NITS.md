@@ -84,7 +84,7 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
 
 ### Open work this port created or uncovered
 
-- **18 recipe technique keys are not in `notation/registry/techniques.json`** — the brass and
+- **83 recipe technique keys are not in `notation/registry/techniques.json`** (2026-09-25: was 18 at the port, then 91 once the percussion's and the vibraphone's voices joined; PLAN 2a.1 registered the EIGHT the piece uses — the seven percussion voices and `bowed_vel`; the rest are registered as material uses them) — the brass and
   bassoon extras (`cuivre`, `ord_to_cuivre`, `cuivre_to_ord`, `stopped`, `open_to_stopped`,
   `stopped_to_open`, `flz_stopped`, `slap_pitched`, `half_valve_gliss`, `gliss_embouchure`,
   `harmonics_gliss`, `pedal_tone`, `gliss_throat`, `blow_no_reed`). `tools/palette_check.js`
@@ -98,7 +98,7 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   driven by this stack**; that is real work, not a transcription.
 - ~~The english horn's library is unnamed; its two techniques are placeholders~~ — **closed 2026-09-17**: Xsample (D8),
   the roster of 36 presets written from his Preset Menu (RUNNING_LOG §32). Ranges still assumed until 0d.
-- **The presentation score's pitch form is undecided for this piece.** The `video-jury`
+- ~~The presentation score's pitch form is undecided for this piece.~~ **CLOSED 2026-09-25 (RUNNING_LOG §336, PLAN 2a.2): IN C** — `video-jury.ensemble.parts` puts the english horn and the horn at `transpose 0`; the registry keeps the written form for the parts. *(What follows is the port's note.)* The `video-jury`
   realization's part override was emptied at the port because it named `bass_clarinet` and
   `layout.js ensembleFor()` **throws** on an override for a part that does not exist (§17).
   In C, or at written pitch? His call at 2b; #5's D55 is the precedent, not the answer.

@@ -62,9 +62,61 @@
   // staves are placed at that distance, CENTRED IN THE LANE; each keeps its half-lane band
   // (the GC's impact stays at the gap's middle) and gets a `midFrac` the view honours for
   // its middle line. Without opts: each staff centred in its own share, as before.
+  // [2a, LGMF 2026-09-25 — RUNNING_LOG §332 · §337] A JOINED GROUP (registry groups[].joined): several PARTS in ONE lane
+  // of the frame — the percussionist's seven-line staff over the vibraphone's treble staff, 6 ss apart, under one brace.
+  // Piece #5's grand staff was one part with two staves; here the IR's part is the composer lane, so the join is a
+  // property of the GROUP: the lead part (the first) carries the lane's weight, every member keeps its own part number as
+  // its system key (every consumer keeps finding parts 4 and 5), the staves sit at their centre-to-centre distances
+  // (half + gap + half), centred in the lane, and each member's band is its share of the lane at ONE ssPx. A staff's
+  // half-height comes from the part's staff entry ({ lines: [...] | n, gapSs }) — five lines at 1 ss = 2 when absent.
+  function staffHalfSs(pc) {
+    const st = pc && pc.staff;
+    const n = st && st.lines ? (Array.isArray(st.lines) ? st.lines.length : st.lines) : 5;
+    return (n - 1) / 2 * ((st && st.gapSs > 0) ? st.gapSs : 1);
+  }
+  // { leadPart: { members: [{ key, halfSs }...], gapSs } } — empty when the ensemble has no joined group
+  function joinedOf(ens) {
+    const out = {};
+    for (const g of (ens && ens.groups) || []) {
+      if (!g.joined || !Array.isArray(g.parts) || g.parts.length < 2) continue;
+      const members = g.parts.map(p => ({ key: p, halfSs: staffHalfSs((ens.parts || []).find(q => q.part === p)) }));
+      out[g.parts[0]] = { members, gapSs: g.gapSs > 0 ? g.gapSs : 6 };
+    }
+    return out;
+  }
+  // the frame's LANES from its parts: a joined group's members after the lead drop out (they ride the lead's lane)
+  function laneParts(parts, joined) {
+    const drop = new Set();
+    for (const lead of Object.keys(joined || {})) for (const m of joined[lead].members.slice(1)) drop.add(m.key);
+    return parts.filter(p => !drop.has(p));
+  }
+  // one joined lane -> its members' systems (the lane entry itself is keyed '<lead>+<members>' so no part key is ambiguous)
+  function joinedSystems(s, j) {
+    const out = [Object.assign({}, s, { part: j.members.map(m => m.key).join('+'), joinedLane: true })];
+    const laneSs = s.laneFrac1 - s.laneFrac0, fracPerSs = s.ssPerSystem > 0 ? laneSs / s.ssPerSystem : 0;
+    if (!(fracPerSs > 0)) return out.concat(j.members.map((m, i) => Object.assign({}, s, { part: m.key, lane: s.part, staff: i })));
+    // staff middles, ss below the first staff's middle: p0 = 0, p_i = p_(i-1) + half_(i-1) + gap + half_i
+    const pos = [];
+    j.members.forEach((m, i) => { pos.push(i === 0 ? 0 : pos[i - 1] + j.members[i - 1].halfSs + j.gapSs + m.halfSs); });
+    const last = j.members.length - 1;
+    const centre = (pos[last] + j.members[last].halfSs - j.members[0].halfSs) / 2;   // the block of staves, centred in the lane
+    const laneMid = (s.laneFrac0 + s.laneFrac1) / 2;
+    j.members.forEach((m, i) => {
+      const midFrac = laneMid + (pos[i] - centre) * fracPerSs;
+      // the member's band: from the middle of the gap above to the middle of the gap below (the lane's edges at the ends)
+      const f0 = i === 0 ? s.laneFrac0 : laneMid + (pos[i] - centre - m.halfSs - j.gapSs / 2) * fracPerSs;
+      const f1 = i === last ? s.laneFrac1 : laneMid + (pos[i] - centre + m.halfSs + j.gapSs / 2) * fracPerSs;
+      out.push(Object.assign({}, s, { part: m.key, lane: s.part, staff: i, laneFrac0: f0, laneFrac1: f1,
+        ssPerSystem: (f1 - f0) / fracPerSs, midFrac }));
+    });
+    return out;
+  }
+
   function withStaves(systems, stavesOf, opts) {
     const out = [];
     for (const s of systems) {
+      const J = opts && opts.joined && typeof s.part === 'number' ? opts.joined[s.part] : null;
+      if (J) { for (const x of joinedSystems(s, J)) out.push(x); continue; }
       out.push(s);
       const n = (typeof s.part === 'number' && stavesOf(s.part)) || 1;
       if (n < 2) continue;
@@ -109,9 +161,12 @@
   // lanePx is ONE WEIGHT UNIT — a player's lane — in the frame's own pixels;
   // ssPerSystem is a RATIO (lane height / one staff space), so a consumer at a
   // different size (the printed page) reuses both untouched.
-  function ensembleFrame(parts, o) {
+  function ensembleFrame(partsIn, o) {
     const H = o.heightPx, lanes = o.lanes || {};
     const ens = typeof o.weightOf === 'function';
+    // [2a] the frame's LANES: a joined group is one lane (o.joined, or read from o.ensemble); without either, parts = lanes
+    const joined = o.joined || (ens && o.ensemble ? joinedOf(o.ensemble) : {});
+    const parts = ens ? laneParts(partsIn, joined) : partsIn;
     let topPad = (lanes.padTopPx || 0) / H, botPad = (lanes.padBotPx || 0) / H;
     const gap = (lanes.gapPx || 0) / H;
     const weights = ens ? parts.map(o.weightOf) : lanes.weights;
@@ -130,9 +185,9 @@
       systems.forEach((s, i) => { s.ssPerSystem = ssPerSystem * weights[i]; });
       const gs = o.grandStaff;
       systems = withStaves(systems, o.stavesOf || (() => 1),
-        gs && gs.interStaffGapSs > 0 ? { interStaffGapSs: gs.interStaffGapSs } : undefined);
+        Object.assign(gs && gs.interStaffGapSs > 0 ? { interStaffGapSs: gs.interStaffGapSs } : {}, { joined }));
     }
-    return { systems, ssPerSystem, lanePx, weights, units, topPad, botPad, gap };
+    return { systems, ssPerSystem, lanePx, weights, units, topPad, botPad, gap, lanes: parts };
   }
 
   // A View binds the persistent layers to one viewport. All px appear here
@@ -211,5 +266,5 @@
     });
   }
 
-  return { makeView, systemsForParts, withStaves, ensembleFrame, zoomCfg, DEFAULTS };
+  return { makeView, systemsForParts, withStaves, ensembleFrame, zoomCfg, DEFAULTS, joinedOf, laneParts, staffHalfSs };
 });

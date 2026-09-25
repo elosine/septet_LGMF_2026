@@ -104,6 +104,32 @@
     if (nStavesOf(pc) > 1) return (pc.staves[staff] && pc.staves[staff].clef) || 'bass';
     return pc.clef || 'bass';
   }
+  // [2a, LGMF 2026-09-25 — RUNNING_LOG §332 … §337] A LINED STAFF (registry part.staff): the percussionist's seven-line
+  // unpitched staff after Bone Alphabet. staff = { lines: [{ short, match }...] | n, gapSs, noClef }. An event on such a part
+  // sits on the LINE of its instrument — the first line entry whose `match` is a PREFIX of the event's technique key (every
+  // beater of an instrument lands on its line) — never at its pitch. The offsets are in ss from the middle line, top first.
+  // A part without `staff` is untouched: five lines, the clef, ledgers, the pitch.
+  function staffInfoOf(pc) {
+    const st = pc && pc.staff;
+    if (!st) return null;
+    const list = Array.isArray(st.lines) ? st.lines : null;
+    const n = list ? list.length : ((st.lines > 0) ? st.lines : 5);
+    const gap = st.gapSs > 0 ? st.gapSs : 1;
+    const offsets = []; for (let i = 0; i < n; i++) offsets.push((n - 1) / 2 * gap - i * gap);
+    const labels = list ? list.map(l => l.short || '') : null;
+    const offsetOf = technique => {
+      if (!list) return 0;
+      const i = list.findIndex(l => l.match && typeof technique === 'string' && technique.startsWith(l.match));
+      return i < 0 ? null : offsets[i];
+    };
+    return { n, gapSs: gap, offsets, labels, noClef: !!st.noClef, lined: list !== null || n !== 5 || gap !== 1, offsetOf };
+  }
+  // a diatonic stand-in whose staffPos on the given clef IS the offset, alter 0 — so the unit, the column and the chord
+  // code run unchanged and no accidental is drawn; a half-step offset rounds to the nearest line
+  function standInSpelled(offsetSs, clef) {
+    const idx = Math.round((MIDDLE[clef] !== undefined ? MIDDLE[clef] : MIDDLE_BASS) + 2 * offsetSs);
+    return { step: 'CDEFGAB'[((idx % 7) + 7) % 7], alter: 0, octave: Math.floor(idx / 7) };
+  }
   // [§400] a TECHNIQUE may transpose too (techniques.json `written`: the
   // flute's tongue ram is written at the FINGERING, a M7 above the sound);
   // it adds to the part's transposition, the IR staying sounding (D9)
@@ -118,12 +144,13 @@
   // followers): (part, sounding midi) -> { key, ySs } — the system key the
   // pitch lands in and its staff position there. One copy of the rules.
   function positionResolver(ens) {
-    return (part, midi) => {
+    return (part, midi, technique) => {
       const pc = partCfgOf(ens, part);
       const st = staffIdxOf(pc, midi);
+      const si = staffInfoOf(pc);   // [2a] a lined staff: the technique's line (the middle line when it names none)
       return {
         key: nStavesOf(pc) > 1 ? part + ':' + st : part,
-        ySs: staffPos(writtenOf(pc, midi, spellMidi(midi)), clefOf(pc, st)),
+        ySs: si ? (si.offsetOf(technique) != null ? si.offsetOf(technique) : 0) : staffPos(writtenOf(pc, midi, spellMidi(midi)), clefOf(pc, st)),
       };
     };
   }
@@ -136,6 +163,8 @@
     for (let n = 3; n <= Math.floor(a + 0.001); n++) out.push(s * n);
     return out;
   }
+
+  const ledgersForStd = ledgersFor;   // [2a] the five-line rule by a second name: a lined staff shadows `ledgersFor` with none
 
   const ACC_KIND = { '1': 'sharp', '-1': 'flat', '0': 'natural' };
 
@@ -364,7 +393,19 @@
     const pcOfEv = e => partCfgOf(ENS, partOfEv.get(e.id));
     const staffOfEv = e => staffIdxOf(pcOfEv(e), e.pitch.midi);
     const TW = techWrittenOf(o.techniques);
-    const spelledOf = e => respell.get(e.id) || writtenOf(pcOfEv(e), e.pitch.midi, e.pitch.spelled, TW(e.technique));
+    const unmatchedLine = new Set();
+    const spelledOf = e => {
+      const pc = pcOfEv(e), si = staffInfoOf(pc);
+      if (si && si.lined) {   // [2a] a lined staff: the technique's line, as a stand-in pitch on the part's grid clef
+        let off = si.offsetOf(e.technique);
+        if (off == null) {
+          off = 0;
+          if (!unmatchedLine.has(e.technique)) { unmatchedLine.add(e.technique); warnings.push('lined staff: no line matches technique "' + e.technique + '" (part ' + partOfEv.get(e.id) + ') — drawn on the middle line'); }
+        }
+        return standInSpelled(off, clefOf(pc, 0));
+      }
+      return respell.get(e.id) || writtenOf(pc, e.pitch.midi, e.pitch.spelled, TW(e.technique));
+    };
     const posOfEv = e => staffPos(spelledOf(e), clefOf(pcOfEv(e), staffOfEv(e)));
     // [§400] THE ONE-SHOT DYNAMIC BANDS, one table for the mark and for the
     // on-change rule below (was inline at the mark)
@@ -594,11 +635,15 @@
     const specs = [];
     for (const part of frame) {
       const pc = partCfgOf(ENS, part), n = nStavesOf(pc);
-      for (let i = 0; i < n; i++) specs.push({ part, staff: i, multi: n > 1, key: n > 1 ? part + ':' + i : part, clef: clefOf(pc, i) });
+      for (let i = 0; i < n; i++) specs.push({ part, staff: i, multi: n > 1, key: n > 1 ? part + ':' + i : part, clef: clefOf(pc, i), staffInfo: staffInfoOf(pc) });
     }
     const systems = specs.map(spec => {
       const part = spec.part;
       const first = spec.staff === 0;
+      // [2a] a LINED staff draws no ledger lines and never folds a note under an ottava: its lines are where its notes go
+      const lined = !!(spec.staffInfo && spec.staffInfo.lined);
+      const ledgersFor = lined ? (() => []) : ledgersForStd;
+      const oSys = lined ? Object.assign({}, o, { ottavaLedgerThreshold: 1e6 }) : o;
       const posOf = sp => staffPos(sp, spec.clef);
       // a stream (notated metric chunk) stays WHOLE on the staff most of its
       // notes belong to — a run is not split mid-beam; a single note goes on
@@ -624,7 +669,7 @@
         const tChord = Math.min(...evs.map(e => e.onset));
         if (evs.some(e => e.onset - tChord > CC.chordTolSeconds + 1e-9)) return out;   // not one simultaneity
         const stds = glyphs.standards;
-        const th = 2 + (o.ottavaLedgerThreshold != null ? o.ottavaLedgerThreshold : ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3));
+        const th = 2 + (oSys.ottavaLedgerThreshold != null ? oSys.ottavaLedgerThreshold : ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3));
         const lf = (stds.ledgerLine && stds.ledgerLine.lengthFraction) || 0.25;
         const m = [];
         for (const e of evs) {
@@ -688,7 +733,7 @@
         cur = Math.max(cur, b);
       }
       if (cur < w1) items.push({ k: 'staff', t0: cur, t1: w1 });
-      items.push({ k: 'clef', t: w0 });
+      if (!(spec.staffInfo && spec.staffInfo.noClef)) items.push({ k: 'clef', t: w0 });   // [2a] a lined staff may carry none
       for (const g of glissCurves) if (g.part === part && first)
         items.push({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples });
       for (const cc of crescCurves) if (cc.part === part && first)
@@ -969,7 +1014,7 @@
                 }
               }
             }
-            const th = 2 + (o.ottavaLedgerThreshold != null ? o.ottavaLedgerThreshold : ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3));
+            const th = 2 + (oSys.ottavaLedgerThreshold != null ? oSys.ottavaLedgerThreshold : ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3));
             let octShift = 0;
             while (yDraw > th) { yDraw -= 3.5; octShift++; }
             while (yDraw < -th) { yDraw += 3.5; octShift--; }
@@ -2834,7 +2879,8 @@
       }
       // key/staff/clef only with an ensemble: without one the model is
       // byte-identical to the tuba piece's (the snapshot batteries)
-      return ENS ? { part, key: spec.key, staff: spec.staff, clef: spec.clef, items } : { part, items };
+      return ENS ? Object.assign({ part, key: spec.key, staff: spec.staff, clef: spec.clef, items },
+        spec.staffInfo ? { staffLines: spec.staffInfo.offsets, lineLabels: spec.staffInfo.labels || undefined, noClef: spec.staffInfo.noClef } : {}) : { part, items };
     });
 
     // [§495] THE PAIR BEAMS, once both staves are laid out: one 8th beam per

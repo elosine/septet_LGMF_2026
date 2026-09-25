@@ -143,6 +143,7 @@ const FRAME = Coords.ensembleFrame(FRAME_PARTS, {
   grandStaff: ((C.engraving || {}).layout || {}).grandStaff,
   weightOf: ENS ? (p => (ensPart(p) && ensPart(p).weight) || 1) : undefined,
   stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1,
+  ensemble: ENS,   // [2a] the joined lane (the percussionist's brace) is read from it
 });
 const systems = FRAME.systems, ssPerSystem = FRAME.ssPerSystem;
 const laneFrac = FRAME.lanePx / VH;              // ONE WEIGHT UNIT — a player's lane
@@ -541,7 +542,7 @@ if (!quiet) {
   console.log('export_print: ' + irId + ' · ' + FMT.label);
   console.log('  page      ' + mm(pageW).toFixed(0) + ' x ' + mm(pageH).toFixed(0) + ' mm · margin ' + mm(margin).toFixed(1) + ' mm');
   console.log('  music     ' + mm(blockW).toFixed(0) + ' x ' + mm(blockH).toFixed(0) + ' mm');
-  console.log('  ' + N + ' lanes  lane ' + mm(lanePx).toFixed(1) + ' mm  STAFF ' + mm(staffPx).toFixed(2) + ' mm');
+  console.log('  ' + (FRAME.lanes ? FRAME.lanes.length : N) + ' lanes  lane ' + mm(lanePx).toFixed(1) + ' mm  STAFF ' + mm(staffPx).toFixed(2) + ' mm');
   console.log('  reserves  left ' + leftReserve.toFixed(3) + ' s  right ' + rightReserve.toFixed(3) +
     ' s  -> ' + advanceSeconds.toFixed(2) + ' s of music per page   [2b.7]');
   console.log('  ' + pageSeconds.toFixed(2) + ' s/page' + (secArg == null ? '  [default = the video\'s approved density]' : '') +
