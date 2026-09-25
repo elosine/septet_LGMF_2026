@@ -14,5 +14,36 @@
     "tempoLabelContinuation"
   ],
   "_doc_alwaysShown": "the clef pins to the view's left edge and part labels always draw — render behavior, not rules; only tempoLabelContinuation is rule-gated here",
-  "continuationPrefix": "(cont.) "
+  "continuationPrefix": "(cont.) ",
+  "screenPlan": "tile",
+  "_doc_screenPlan": "LGMF PLAN 2c.2 (2026-09-25, RUNNING_LOG §340 — the composer: 'the priority here is consistant end/begining of page; so scrolling cursor starts each screen at the same point and ends at the same point on the screen'): 'tile' = Splice.tilePages — every SCREEN page (the app's video and zoom views, export_video) is one fixed span from the IR's start, t0 and tω at the same x on every page, nothing shown twice, the film turning AT tω; musicStartBufferSs does not apply on screen. Absent = planPages, the film's old overlap. PRINT is not affected (export_print plans its own pages).",
+  "edge": {
+    "_doc": "LGMF PLAN 2c (2026-09-25, RUNNING_LOG §340): THE EDGE CLASS OF EVERY DRAWN KIND (render.js item kinds). screen: 'cut' = drawn on every page it crosses, clipped at [x(t0), x(tω)] like paper, the remainder picked up at the next t0 at the same height (2c.3) · 'clamp' = a point item of the note unit: owned by the page with t0 <= t < tω, and if the unit's ink hangs left of x(t0) it is shifted right by the difference (2c.4) · 'atomic' = a GO-TIME INDICATOR: owned the same way, drawn at x(t) to the pixel, never moved, never clipped · 'furniture' = the page's own (staff, clef), not the music's. boundary 'before' = an item exactly at tω belongs to the page BEFORE (the GC impact: the performer sees it before the eye moves). The PLAN header's standing rule: every item that draws a NEW kind adds its line here; a kind with no entry fails tools/check_screen_edges.js. Read only on a tiled screen page — absent = today's behaviour.",
+    "glyph": { "screen": "clamp" },
+    "rest": { "screen": "clamp" },
+    "stem": { "screen": "clamp" },
+    "dot": { "screen": "clamp" },
+    "ledger": { "screen": "clamp" },
+    "text": { "screen": "clamp" },
+    "barline": { "screen": "clamp" },
+    "tempotext": { "screen": "clamp" },
+    "glissline": { "screen": "clamp" },
+    "niente": { "screen": "clamp" },
+    "dynarrow": { "screen": "clamp" },
+    "ottava": { "screen": "clamp" },
+    "lvslur": { "screen": "clamp" },
+    "attackline": { "screen": "atomic" },
+    "tick": { "screen": "atomic" },
+    "goline": { "screen": "atomic" },
+    "gc": { "screen": "cut", "boundary": "before", "_note": "the ARC is cut like paper; the IMPACT is a go-time indicator at x(t), owned (t0, tω] — at exactly tω on the page before" },
+    "beam": { "screen": "cut", "_note": "drawn through every tip on a page it crosses, clipped; each tip follows its unit's clamp" },
+    "tuplet": { "screen": "cut" },
+    "envcurve": { "screen": "cut" },
+    "cresccurve": { "screen": "cut" },
+    "glisscurve": { "screen": "cut" },
+    "ringbar": { "screen": "cut" },
+    "brick": { "screen": "cut" },
+    "staff": { "screen": "furniture" },
+    "clef": { "screen": "furniture" }
+  }
 }

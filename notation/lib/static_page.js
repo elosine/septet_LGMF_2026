@@ -58,6 +58,8 @@
     // one are the same to render.js, so the film stays byte-identical.
     if (o.owned) opts.owned = o.owned;
     if (o.inkEnd != null) opts.inkEnd = o.inkEnd;
+    // [2c.2] a tiled SCREEN page's edge rules (page_rules.edge + whether it is the first page) — absent on every other path
+    if (o.screenEdges) opts.screenEdges = o.screenEdges;
     const svg = Render.renderSection(o.model, view, o.glyphs, opts);
 
     // the system TERMINAL barline, exactly as notation.html appends it

@@ -2430,7 +2430,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
-  2c.1 built — RUNNING_LOG §342)** — `planned` 2026-09-25 (Fable,
+  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
   agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
   #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
@@ -2453,7 +2453,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     projector's overscan (action-safe is 3.5 % of the width, 67 px, and the gutter already adds 72 on the left), and the right holds a
     clamped unit's overhang (3.44 ss = 27 px at 7.9) with air; print **12.7 mm all round as now**, made a registry number (A3 engraving
     margins run 12–20 mm; the right must hold the same overhang at the print's staff size — the exporter asserts it).
-  - **2c.2 — The screen plan:** `Splice.tilePages(ir, S)` beside `planPages` — `[t0_i, tω_i] = [w0 + i·S, w0 + (i+1)·S]`, the last page
+  - **2c.2 — The screen plan:** **`built` 2026-09-25 (§343; THE SHIELD byte-identical; the edge registry is `page_rules.edge`, one line per drawn kind).** `Splice.tilePages(ir, S)` beside `planPages` — `[t0_i, tω_i] = [w0 + i·S, w0 + (i+1)·S]`, the last page
     short with the terminal barline at the material's end as now; `page_rules.screenPlan: 'tile'` selects it (absent = `planPages`, the
     film's old overlap). The app's video view and `export_video` read it; the film turns the page AT tω; the §404 buffer no longer applies
     on screen. Ownership on screen: a point item belongs to the page with `t0 ≤ t < tω`, **except a GC impact exactly at tω, which belongs

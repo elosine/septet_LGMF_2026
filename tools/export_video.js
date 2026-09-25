@@ -109,12 +109,16 @@ const systems = FRAME.systems, ssPerSystem = FRAME.ssPerSystem, lanePx = FRAME.l
 // [2i.10.2] the septet cut renders its close-ups at the registry's video-cut zoom (1.85: the strings fit a 1080 frame)
 const CUT_RZ = (C.realizations || {})['video-cut'] || null;
 const Z = zoomZ || (CUT_RZ && CUT_RZ.zoomZ) || ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2;
-const pages = Splice.planPages(ir, pageRules, pageSeconds);
+// [2c.2] THE SCREEN PLAN: page_rules.screenPlan 'tile' = the constant sweep (Splice.tilePages) — absent = planPages, the overlap
+const TILE = pageRules.screenPlan === 'tile';
+const pages = TILE ? Splice.tilePages(ir, pageRules, pageSeconds) : Splice.planPages(ir, pageRules, pageSeconds);
 const srcEnd = ir.source.window[1];
+// the edge rules a tiled screen page renders by (render.js opts.screenEdges); `first` = the window opens at the IR's start
+const screenEdgesAt = t0 => TILE ? { edge: pageRules.edge || {}, first: t0 <= ir.source.window[0] + 1e-9 } : undefined;
 
 // [§404 on the page] THE BUFFER AFTER THE CLEF: each page's window opens page_rules.musicStartBufferSs staff spaces early (never before
 // the IR's start), so the page — and its turn, at window[1] — runs that much earlier, as renderContainerView draws it
-const bufSs = pageRules.musicStartBufferSs || 0;
+const bufSs = TILE ? 0 : (pageRules.musicStartBufferSs || 0);   // [2c.2] no buffer on a tiled screen: t0 IS the page's start
 // [2c.1] the frame's edges — the gutter and the two margins — from the registry, through the reader the app uses
 const EDGES = Coords.edgesOf(C);
 const pxPerSecPage = Coords.musicPx(W, EDGES) / pageSeconds;
@@ -172,15 +176,16 @@ function buildSegments(mode) {
       const cfg = Coords.zoomCfg(baseCfgFor(pi), Z, tCur);
       const end = Math.min(cfg.window[1], srcEnd);
       out.push({ t0: tCur, t1: end, view: Coords.makeView(cfg),
-        reshow: pages[pi].reshow, ownsEnd: end >= srcEnd - 1e-9 });
+        reshow: pages[pi].reshow, ownsEnd: end >= srcEnd - 1e-9, screenEdges: screenEdgesAt(cfg.window[0]) });
       tCur = tCur + span;
     }
   } else {
     for (let i = 0; i < pages.length; i++) {
-      const end = Math.min(pageT0Of(i) + pageSeconds, srcEnd);   // [2i.10.1] the buffered window turns at its own end
+      // [2i.10.1] the buffered window turns at its own end · [2c.2] a tiled page turns AT its tω
+      const end = TILE ? pages[i].t1 : Math.min(pageT0Of(i) + pageSeconds, srcEnd);
       if (end <= tCur) continue;
       out.push({ t0: tCur, t1: end, view: Coords.makeView(baseCfgFor(i)),
-        reshow: pages[i].reshow, ownsEnd: i === pages.length - 1 });
+        reshow: pages[i].reshow, ownsEnd: i === pages.length - 1, screenEdges: screenEdgesAt(pageT0Of(i)) });
       tCur = end;
     }
   }
@@ -205,6 +210,7 @@ function staticSvg(i, list) {
   return StaticPage.staticPageSvg({
     model, view: seg.view, glyphs, C, srcEnd,
     reshow: seg.reshow, ownsEnd: seg.ownsEnd, ensemble: ENS,   // [2i.10.1] the labels, brackets and brace
+    screenEdges: seg.screenEdges,   // [2c.2] a tiled screen page's edge rules (undefined off the tile plan)
   });
 }
 

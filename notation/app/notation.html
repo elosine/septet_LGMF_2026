@@ -726,8 +726,11 @@
       const pageSeconds = $('eng').checked
         ? Math.max(2, parseFloat($('w').value) || regSeconds)
         : regSeconds;
-      if (!state.vPages || state.vPagesW !== pageSeconds) {
-        state.vPages = NotationSplice.planPages(state.ir, state.pageRules, pageSeconds);
+      // [2c.2] THE SCREEN PLAN: page_rules.screenPlan 'tile' = the constant sweep (NotationSplice.tilePages); absent = planPages
+      const TILE = !!(state.pageRules && state.pageRules.screenPlan === 'tile');
+      if (!state.vPages || state.vPagesW !== pageSeconds || state.vPagesTile !== TILE) {
+        state.vPages = (TILE ? NotationSplice.tilePages : NotationSplice.planPages)(state.ir, state.pageRules, pageSeconds);
+        state.vPagesTile = TILE;
         state.vPagesW = pageSeconds;
         state.pageIdx = Math.min(state.pageIdx, state.vPages.length - 1);
       }
@@ -777,7 +780,7 @@
       // own onset, and the unit hangs LEFT of its go line — so the window opens that many staff spaces
       // early and the first note's ink clears the gutter. ss -> seconds through this view's own scale,
       // which makes it zoom-invariant; never before the IR's own start.
-      const bufSs = (state.pageRules && state.pageRules.musicStartBufferSs) || 0;
+      const bufSs = TILE ? 0 : ((state.pageRules && state.pageRules.musicStartBufferSs) || 0);   // [2c.2] no buffer on a tiled screen
       // [2c.1] the frame's edges — the gutter and the two margins (registry prefatory) — from the one reader the exporters use
       const EDGES = NotationCoords.edgesOf(C);
       const pxPerSec = NotationCoords.musicPx(W, EDGES) / pageSeconds;
@@ -799,6 +802,8 @@
       let svg = NotationRender.renderSection(state.model, view, state.glyphs, {
         reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
         hideBricks: !$('bricks').checked, ensemble: state.ensemble,
+        // [2c.2] a tiled screen page renders by the edge registry (page_rules.edge); `first` = it opens at the IR's start
+        screenEdges: TILE ? { edge: state.pageRules.edge || {}, first: view.window[0] <= state.ir.source.window[0] + 1e-9 } : undefined,
       });
       // system TERMINAL barline at the right edge — the visible statement
       // that the system ENDS here by design (composer, G1: staff lines

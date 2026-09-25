@@ -142,5 +142,37 @@
     return pages;
   }
 
-  return { planPages, chooseCut, interruptedChunks, materialExtents, beamablePairs };
+  // [2c.2, LGMF 2026-09-25 — RUNNING_LOG §340] THE SCREEN PLAN: the constant sweep (the composer: "scrolling cursor starts each
+  // screen at the same point and ends at the same point on the screen"). Page i is [w0 + i·S, w0 + (i+1)·S] — t0 and tω at the
+  // same x on every page, nothing shown twice, the film turning AT tω; the last page is short, ending at the material's end (its
+  // window stays S wide, the terminal barline where the music stops). No cut is CHOSEN and no beam protected: on screen a long
+  // object is cut like paper at tω (2c.3) and a unit hanging over a page's start is clamped (2c.4). A chunk continuing over t0
+  // re-shows its tempo label exactly as on a planned page; `interrupted` · `severed` · `offGrid` are recorded, never acted on.
+  // Selected by page_rules.screenPlan: 'tile' — absent = planPages, the film's overlap.
+  function tilePages(ir, rules, S) {
+    if (!(isFinite(S) && S > 0)) throw new Error('splice: pageSeconds must be a finite number > 0');
+    const [w0, w1] = ir.source.window;
+    const ext = materialExtents(ir);
+    const allPairs = new Map(ir.chunks.map(c => [c.id, beamablePairs(ir, c)]));
+    const wantReshow = !rules.reshowAtCut || rules.reshowAtCut.includes('tempoLabelContinuation');
+    const n = Math.max(1, Math.ceil((w1 - w0) / S - EPS));
+    const pages = [];
+    for (let i = 0; i < n; i++) {
+      const t = w0 + i * S, last = i === n - 1;
+      const cut = last ? w1 : w0 + (i + 1) * S;   // the SAME expression as the next page's t0, so the pages abut to the bit
+      const inter = last ? [] : interruptedChunks(ir, ext, cut);
+      let severed = 0;
+      for (const c of inter) severed += severedPairs(allPairs.get(c.id) || [], cut);
+      const reshow = [];
+      if (wantReshow) for (const c of ir.chunks) {
+        const e = ext.get(c.id);
+        if (c.tempo && e[0] < t - EPS && t < e[1] - EPS)
+          reshow.push({ part: c.part, text: rules.continuationPrefix + c.tempo.label });
+      }
+      pages.push({ t0: t, t1: cut, kind: last ? 'end' : 'tile', interrupted: inter.map(c => c.id), offGrid: offGridChunks(inter, cut), severed, reshow });
+    }
+    return pages;
+  }
+
+  return { planPages, tilePages, chooseCut, interruptedChunks, materialExtents, beamablePairs };
 });

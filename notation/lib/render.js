@@ -110,6 +110,14 @@
     const owns = OWN
       ? (t => t >= OWN[0] - 1e-9 && (ownsEnd ? t <= OWN[1] + 1e-9 : t < OWN[1] - 1e-9))
       : inWin;
+    // [2c.2, LGMF 2026-09-25 — RUNNING_LOG §340] A TILED SCREEN PAGE (page_rules.screenPlan 'tile'): opts.screenEdges =
+    // { edge: page_rules.edge, first }. The window IS the page, so a point item is owned half-open as above; a kind whose edge
+    // entry says boundary 'before' is owned (t0, tω] instead — at exactly tω on this page, at exactly t0 on the page before
+    // (the first page keeps its t0). ABSENT = today's behaviour exactly.
+    const SCR = (opts && opts.screenEdges) || null;
+    const EDGE = SCR ? (SCR.edge || {}) : null;
+    const boundaryBefore = k => !!(EDGE && EDGE[k] && EDGE[k].boundary === 'before');
+    const ownsBefore = t => (t > w0 + 1e-9 || !!SCR.first) && t <= w1 + 1e-9;
     // [2b.7.4] THE SYSTEM ENDS WHERE THE PAGE'S MUSIC ENDS: staff, ruler and
     // long items stop at the cut + the right reserve rather than at the window
     // edge — the ragged right edge of a page whose cut fell early. In a
@@ -610,7 +618,7 @@
           const d = GC.trajectory(P).map((p, i) =>
             (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');
           parts.push('<path class="gc-arc" d="' + d + '" stroke="' + color + '" stroke-width="' + (G.look.arcStrokePx * G.k).toFixed(2) + '" fill="none"/>');
-          if (OWN || inWin(it.t)) parts.push('<circle class="gc-impact" cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
+          if (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t))) parts.push('<circle class="gc-impact" cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
             '" r="' + (G.look.impactRadiusPx * G.k).toFixed(2) + '" fill="' + color + '"/>');
         } else if (it.k === 'ringbar') {
           // the sounding-length bar: left edge flush with the go line,

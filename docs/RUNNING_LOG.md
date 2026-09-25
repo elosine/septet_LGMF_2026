@@ -12652,3 +12652,27 @@ design). Both assertions pass (video 27.2 px ≤ 40; print at its own staff size
 
 **Seen, not touched:** `tools/capture_lane.js` keeps piece #5's own copy of the band (it predates 2a's joined lane as well) — it does not
 read the margins; NITS.
+
+## §343. 2c.2 THE SCREEN PLAN — built: the pages tile, the film turns at tω, the GC impact at tω on the page before; THE SHIELD byte-identical (2026-09-25, Opus)
+
+**What it does:** `splice.js` `tilePages(ir, rules, S)` beside `planPages` — page i = `[w0 + i·S, w0 + (i+1)·S]`, the seam computed by the
+SAME expression on both sides so the pages abut to the bit; the last page short (it ends at the material's end, its window still S);
+the tempo-label reshow as on a planned page; `interrupted` · `severed` · `offGrid` recorded, never acted on (no cut is chosen on screen —
+2c.3 cuts, 2c.4 clamps). **`page_rules.screenPlan: 'tile'`** selects it in the app's video (and zoom) view and in `export_video`; the
+§404 buffer is 0 on a tiled screen (t0 IS the page's start); the film's video segments turn AT each page's tω. **The EDGE REGISTRY**,
+`page_rules.edge`, one line per drawn kind (render.js's 26): `clamp` — the note unit's point items (glyph · rest · stem · dot · ledger ·
+text · barline · tempotext · glissline · niente · dynarrow · ottava · lvslur) · `atomic` — the go-time indicators (goline · attackline ·
+tick) · `cut` — beam · tuplet · the four curves · ringbar · brick · the GC's arc · `furniture` — staff · clef; the GC `boundary: 'before'`.
+**Ownership on a tiled page** (`render.js` `opts.screenEdges = { edge, first }`): a point item half-open `[t0, tω)` as before; a
+`boundary: 'before'` kind `(t0, tω]` — **a GC impact exactly at tω is drawn on the page before** (§340: the performer sees the impact before
+the eye moves), and not at the next page's t0 (the first page keeps its own t0). Passed through `static_page.js`.
+
+**THE SHIELD** (the new engine vs HEAD's, both on HEAD's `page_rules.json` — no `screenPlan`, no `edge`): the db1 video probes ×4, the zoom
+probe, the print plan and print pages 1–3 **7/7 byte-identical**; the eight batteries GREEN; `test_coords` its one pre-existing failure.
+The script is kept in the scratchpad (`shield.sh`) and re-run for 2c.3 · 2c.4.
+
+**On the new data (`piece-lgmf`, 0 – 565 s):** 48 tiled pages (the old plan also 48, with overlaps), 0 seams not abutting, page 25 =
+300.00 – 312.00 s (it was 299.19 – 311.19), the last page 564 – 565 s (one second of music on a full-width page — the tiling's honest end),
+no event exactly on a seam, 4 chunks interrupted at seams (recorded).
+
+**Not yet (by the order):** the arcs and curves are not clipped (2c.3) and a unit over t0 still hangs into the gutter (2c.4).
