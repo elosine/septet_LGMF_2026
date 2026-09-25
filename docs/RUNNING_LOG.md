@@ -11975,3 +11975,91 @@ The harmony strip's `take ▾` hit by `elementFromPoint` at 2400.
 **Not verified.** Read in the code, not tried: the in-app browser has no Web MIDI, and a claim about routing is a claim about STATE (journal §2 STILL BINDING). His try is a ►► row of journal §2.
 
 **Then** session 13 closed on Opus (`/session-end`): journal §2 trimmed to SESSION 14 OPENS ON THIS, the NEXT STEPS table and one close block — checkpoints #3 … #10 and session 12's close cut, whole in git at `fbf501f` · D28 the lens · D29 the pattern a document · D30 one scale (B2) · D31 a take onto a selection and Rule 5, promoted to §4 · §6 one line for session 13 · §7: the percussion named, the english horn library and the bowed vibraphone marked done from the record · CLAUDE.md's instrumentation and library lines brought up to date.
+
+## §322. HIS EAR ON `ACT-CONVERGE-01` (`lgmf-s03-convergeA`) — *"I like what it is doing now with the take"*: it is NOT the take, it is the stock CONVERGE; and the vibraphones' two doors into a CONVERGE, put to him (2026-09-24, Fable, session 14)
+
+**What prompted it — his words, in order.** On the morph panel: *"in the morph panel how do I keep the vibraphones"* → the pairs row reads
+*held still · in a bloom on a TAKE only* → *"it says vibs in a bloom take only, this is converge can I get the vibes there as well?"* →
+*"can you tell what it is doing it now? if I gave you the actual or added it to the score. I like what it is doing now with the take"* — and
+he filed the actual: `ACT-CONVERGE-01`, label `lgmf-s03-convergeA`, tags beating · resolving · fusion, placed once in
+`piece-LGMF-Sec01-Sec02done-work` at 427 s (its `placements`).
+
+**Why the vibraphones are not there — from the code (§174 · §176).** The still row enters the cast only through a VOICE LIST
+(`castOf`: `source.kind === 'voices'` → every row; a SONORITY → the bending rows only), and a voice list comes from a take — and a take is
+read under `TAKE_MODELS = ['M1']`, BLOOM alone (H1.6, *one model at a time, by compositional need*, §162; *the next small build adds to
+this list*). Under CONVERGE (`M3`) `applyPitch` refuses the take and returns the params untouched; the line says so in orange:
+*a take is read by BLOOM only so far (M1) — under M3 the model's own set plays*. His screenshot shows exactly that line.
+
+**The actual, read (`provenance.resolvedParams`):**
+
+- model `M3` · source `pitches [50, 52, 55, 57, 60, 62]` · target `midi [51, 51, 56, 56, 61, 61]` · **no `mid`, no `dwell`** — two
+  stations, open → close, not the LGMF three-station shape
+- carrier span 30 · segLen 8 · segVar 0.3 · staggered · ofMax 0.65 · jitter 1.3 s · outlier 0.1 · duration 107 · dyn base 0.5 `swell`
+  0.4 · seed 7 · lanes `[6, 7, 3, 2, 0, 1]` · six voices · label BEATING CONVERGE
+- `pitch.src` **`dtake:Just-c2-seed143`** (the take on the pulldown, `takeAt` 2026-09-25T02:37Z) — carried in the provenance, **refused
+  in the render**
+- `pairs` carries the still row `{ a 5, b 5, sa 0, sb 2, still }` — present in the list, absent from the cast
+- 71 objects, all `waveCurve`, 71 shaped at mf on the curve channels, CC7 26 … 115 (the panel's own status)
+- the bends read back from the objects agree with a two-station M3: Vc's first note 0 → +36.3 c over 11.9 s, its second re-keyed on 51 at
+  −63.4 → −12.7 c — one voice climbing 100 c toward D♯3 across its breaths; Db 0 → −19 c then −19 → −64 c on 52, falling to D♯3
+
+**So what he likes is the STOCK CONVERGE on its stock chord.** Three whole-tone pairs closing to unison: Vc D3 · Db E3 → **D♯3** · Tpt G3
+· Hn A3 → **G♯3** · EH C4 · Bsn D4 → **C♯4** (a stack of fourths), each pair closing over the 107 s, the breaths round each player's own
+maximum (T2 9.3 s OUTLIER, LONGER · T1 11.9 s SEAM · T3 21.0 s SEAM …), the swell. **The take `Just-c2-seed143` contributed nothing to the
+sound.** Said to him plainly; the harmony he wants to keep is D♯ · G♯ · C♯, not the take's.
+
+**The vibraphones' two doors — nothing built, his call:**
+
+- **Door 1 — a take under CONVERGE:** `TAKE_MODELS` grows to `M3` and `takeVoices` builds M3's stations from a pair's two ASSIGNED
+  notes (the pair closes onto its mean · onto one of its notes · each player round its own note). Real, small — but it CHANGES THE
+  HARMONY: the take's chord replaces the stock chord he likes. Not what he asked for today.
+- **Door 2 — the still row cast on the SONORITY path too,** each vibraphone given a note of the chord and held still on it through the
+  whole run, following the shape (level, breaths round its own ≈ 5 s, the swell) — the engine already holds a `still` voice still under
+  ANY model (`stateAt` is the one source of cents, §175), so the engine half is free; the panel half is `castOf` → `ensurePairs()` for a
+  sonority and a rule for the vibraphones' notes. **Which notes is his:** the natural reading of CONVERGE is the PURE notes — the targets
+  — sounding from the start, the pairs beating against them and resolving INTO them (LG-31: friction into *"something very clean and
+  pure"*); the bowed vibraphone's compass in the sandbox is F3 … F6 (MIDI 53 … 89, `xsVibraphoneTechs(53, 89)`), so of D♯3 (51) · G♯3 (56) · C♯4 (61) the vibraphones take the
+  two that fit, or the pure notes an octave up.
+- **Door 0 — by hand:** two held vibraphone notes drawn on lane 5 over the morph. Free, but they would not breathe with the morph nor
+  swell with it, and a bowed vibraphone bar is re-bowed about every 5 s — many notes to draw. Named, not recommended.
+
+Put to him as lettered options; the RUNNING_LOG entry for his decision follows it.
+
+## §323. CONVERGE ON A TAKE — his "a": the take is the ARRIVAL; PLAN § `1r` written, nothing built (2026-09-24, Fable, session 14)
+
+**What prompted it.** After §322: *"ok it looks like it is using its own model; lets get converge to accept a take give your
+questions again and tell me what its own model is doing"* — and, to the one question (where does the take sit), **"a"**.
+
+**What the stock CONVERGE does, as told to him** (from `ACT-CONVERGE-01`'s `resolvedParams` and `morph.js` `M3`): six pitches in
+three pairs a whole tone apart — D3·E3 · G3·A3 · C4·D4 — each closing onto the note BETWEEN them (D♯3 · G♯3 · C♯4), both players a
+semitone each; one straight run start → end over the whole duration (107 s), two stations, no dwell (his LGCONVERGE actuals are the
+three-station kind: chord → pure → chord); the breaths, the swell and the stagger laid over it; the bends carry across each re-breath
+by the re-key.
+
+**The one question, both answers, his choice.**
+
+- **(a) the take is the ARRIVAL** — each player opens a semitone around their own just note (a above, b below, the bloom's way) and
+  closes onto it. The friction is the opening; the take's just chord is the purity, cents and all (LG-27, *the cents are the piece*).
+  A pair the drawer doubled onto one note does today's gesture in just intonation. No player is asked for more bend than they have.
+  **The AI's recommendation, and his word: "a".**
+- **(b) the take is the START** — the pair's two assigned notes are the friction and close onto the pitch between them; *"beating
+  slows to 0 Hz"* with the take choosing which intervals beat. Rejected: only when pair-mates are within reach (≈ a semitone for the
+  strings and English horn, a whole tone for the brass — `reachCents` 90 … 200 in the palette); every other pair would have to be
+  refused in the line.
+
+**The AI's calls, his to reverse — written into the item:** two stations, open → close, ending on the take (a dwell later if he wants
+it) · the opening the stock's, a semitone each way, no dial · the bloom's take rules unchanged (one alone → the partner doubles when
+it can; neither → the pair sits out; two notes on a player → its lowest) · the vibraphones in, held still on their assigned notes, as
+in the bloom (`1i`) · SPECTRAL and COLOUR stay refused (a fundamental is not a chord; COLOUR holds pitch) · an opened note outside the
+player's compass opens on the OTHER side, both sides out → it stays on its note, said in the line.
+
+**The item, PLAN § `1r`:** 1r.1 the door (`TAKE_MODELS` grows to `M3`; the refusal text generic; the still row's label) · 1r.2 the
+stations (`takeVoices`: the OPENED chord as `source.voices`, the take as `target.voices` in the source's order, `target.midi` dropped,
+a still voice not opened; `morph.js` and `morph_septet.js` untouched — the fourth use of the `voices` door) · 1r.3 the line · 1r.4 the
+actuals (nothing to build if H2.6's recall holds — verified by the round trip, not assumed) · 1r.5 REQUIRED VERIFICATION (the
+validator over the 31 actuals byte-identical · the stock CONVERGE's params identical to `ACT-CONVERGE-01`'s · BLOOM + the take
+byte-identical to HEAD · the take under CONVERGE read as designed, first sample opened, last on the take, the still voices flat ·
+Hear captured on the curve channels, MAIN ch 1 empty · Insert · the actual round trip) · 1r.6 his one test, a RELOAD only — the
+engine file is untouched, so the server's copy is not stale (§181's trap does not apply). One commit, Opus at his word.
+
+**The switch point:** planning closed on Fable; the build is the execution of a written item — Opus. Said to him in one line.
