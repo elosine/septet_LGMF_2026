@@ -12101,3 +12101,65 @@ was offered again with its reach limit and not taken.
 Every opened note is inside its player's compass (Bsn B1 = 35 ≥ its 34; Tpt G5 = 79 ≤ 82). No pair shares a note, so no pair fuses
 here. In THIS take seat a is the higher player in all three pairs, so the seat rule and the away rule coincide — the away rule is what
 keeps it right when the menus are set the other way round.
+
+## §325. `1r` CONVERGE ON A TAKE — BUILT AND VERIFIED, one commit; his one test next (2026-09-24, Fable, session 14, at his word *"build here go"*)
+
+**Everything is in `score/public/morph_panel.js`; `morph.js` and `morph_septet.js` are untouched** — the fourth use of the engine's
+`voices` door (`kind: 'voices'` · `fadeWeight`'s `to` · `still` · now `target.voices` as the arrival).
+
+**As built:**
+
+- **1r.1 — the door.** `TAKE_MODELS: ['M1', 'M3']`. **Found before the build could go in: the LG models are engine M3 too** —
+  `bank/morph_models.json`: LGSPECTRAL · LGBLOOM · LGCONVERGE all `M3` with their voices in their BASE params (BALANCE · LGBALANCE M6).
+  The engine model alone cannot tell CONVERGE from LGCONVERGE, and with M3 in the list the take path would have REPLACED an LG model's
+  own voices and the recall branch (H2.6) would have read the eighteen LG actuals as takes and opened them. So `namesOwnVoices(key)` —
+  the model's base `source.kind === 'voices'` — gates both doors: `applyPitch` refuses a take under an LG model with a line of its own
+  (*LGCONVERGE names its own voices — the take is not read; the model's own set plays*) and the recall branch skips them exactly as
+  before. The refusal for the rest: *a take is read by BLOOM · CONVERGE so far (M1 · M3) — under X the model's own set plays*; the
+  still row's label *held still · on a TAKE (BLOOM · CONVERGE)*.
+- **1r.2 — the stations.** In `takeVoices`, under M3: `arrival` = the take's voices copied BEFORE the opening; each bending row's two
+  voices compared by `midi * 100 + cents` — the higher `+ 1`, the lower `− 1` (equal → seat a up, seat b down); a lone voice up; a
+  still row untouched; `env.BC.holds` on the opened note, the other side if not, neither → it stays, `row.warn` and a `TAKE:`
+  warning; `partial` deleted from an opened voice (it is not that partial — the arrival keeps it). `out.target = { …, kind: 'voices',
+  voices: arrival }` and `delete out.target.midi` (the stock's `[51, 51, …]` must not linger). `info.arrival` for the line.
+- **1r.3 — the line.** *take NAME · 8 voices, as assigned — the arrival: each pair opens a semitone each way, away from the partner,
+  and closes onto it (PLAN 1r)*; each bending row's `why` gains `· opens ±1 st → closes onto it`.
+- **1r.4 — the actuals.** The recall branch rebuilds the frozen chord from `target.voices` when the model is M3 and the two lists
+  match in length (`rvTgt`), from `source.voices` as before otherwise.
+
+**VERIFIED on `score-5401`** — STILL BINDING's recipe: the stubs in the navigation batch (autosave, every non-GET fetch, sendBeacon,
+`confirm` · `prompt`, rAF a 16 ms timer, all eleven ports recording), never Saved, the throwaway's session `lgmf` (the stub score);
+**0 POSTs in every pass**:
+
+1. **(i)** `node tools/model_bank.js --validate` → VALID with the known warnings only (`palette` unrecognised in a provenance; the
+   re-derivation drift on `ACT-LGSPECTRAL-06`, journal N4). The engine file is untouched, so the store cannot have moved.
+2. **(ii) the stock CONVERGE** (`src: 'model'`, his pairs) on HEAD's file and on the build's: source `[50, 52, 55, 57, 60, 62]` ·
+   target `[51, 51, 56, 56, 61, 61]` · lanes `[6, 7, 3, 2, 0, 1]` · 25 notes — identical, and identical to `ACT-CONVERGE-01`'s
+   `resolvedParams`. On HEAD, CONVERGE + the take = refused (`M3`) = the stock, as §322 read it.
+3. **(iii) BLOOM + `Just-c2-seed143`** on HEAD's file (`git stash push -- score/public/morph_panel.js`, reload, capture, pop, reload)
+   and on the build's: params hash 1298250528 · notes hash −292868459 · 749 chars · 41 notes — identical.
+4. **(iv) CONVERGE + `Just-c2-seed143`** (dealt through `chooseSource`, 8 notes frozen; his pairs `Vc+Db · Tpt+Hn · EH+Bsn · Vib+Vib²`
+   set through `normPairs`): `source.voices` `65 −13.69 · 47 · 79 −48.68 · 71 · 61 · 35 · 86 (18, still) · 85 (17, still)` ·
+   `target.voices` `64 −13.69 (5) · 48 (2) · 78 −48.68 (11) · 72 (8) · 60 (4) · 36 (1) · 86 (18) · 85 (17)` · `target` keys `kind ·
+   voices` only · lanes `[6, 7, 3, 2, 0, 1, 5, 5]` · no warnings · 41 notes. **The render's first and last samples per voice: Vc F4
+   −13.7 → E4 −13.7 · Db B2 → C3 · Tpt G5 −48.7 → F♯5 −48.7 · Hn B4 → C5 · EH C♯4 → C4 · Bsn B1 → C2 · Vib D6 flat · Vib² C♯6 flat**
+   — §324's table to the cent. The line as 1r.3. Reproduced across three reloads (params hash 683955373 · notes hash 1048756311).
+   The edge cases came free from the throwaway's STALE pairs on the first pass (`Vc+Vib · Tpt+Perc`): a vibraphone in a bending pair
+   *has no room to open — stays on its note* (`BC.holds` refuses the fixed-pitch player), the lone voice of `Tpt+Perc` opened above,
+   and Vc as the LOWER of its pair opened DOWN (64 → 63) — the rule, not the seat.
+5. **(v) Hear captured** (`MorphPanel.play()`, the first 3 s of the 107 s run — the emitter schedules on its own timers): 129 sends ·
+   **MAIN ch 1: 0 note-ons** · every voice on a curve channel — `lgcello ch2 65 v86 · lgbass ch2 47 v76 · lgtrumpetb ch5 79 v62 ·
+   lghornb ch3 71 v81 · lgenghorn ch2 61 v94 · lgbassoonb ch3 35 v107 · lgvibes ch2 86 v99` — the SI2 three on their `b` ports, the
+   vibraphone at its mf 99 (§144's number), its bend ONE value, 8192, centre; CC7 moving (11 in the window).
+6. **(vi) Insert** at the cursor: 43 objects — 41 notes on lanes 0 · 1 · 2 · 3 · 6 · 7 and 16 on lane 5, EVERY note with `velAbs`
+   and `cc7Abs` (the law, `1h` H3), the 16 vibraphone objects' `morphBend` flat, the contour on the META layer (8 in this piece), the
+   marker; `Composer.curveDirty()` called once.
+7. **(vii) the round trip** without touching the store: a synthetic actual built from the render (`resolvedParams` · `pairs` ·
+   `pitch`) served by a fetch stub at `/api/actuals/ZZ-1R`; the take DROPPED first (`src: 'model'`, `takeChord: null`);
+   `recallActual('ZZ-1R')` → `pitch.src` `actual:ZZ-1R`, the frozen chord rebuilt from the ARRIVAL (`64 −13.69 partial 5 …`, both
+   vibraphones with their seats — not the opened 65), params hash 683955373 and notes hash 1048756311, identical to the live take's,
+   `arrival: true`.
+
+**Left as found:** the throwaway's `localStorage` cleared of the drawers' keys and the panel's pitch reset; `bank/` untouched (0
+POSTs, no `zz` actual filed). **`1r.6`, his one test: reload the tab — no restart.** `git diff --stat`: `morph_panel.js` alone among
+the AI's files (the rest of the working tree is his).

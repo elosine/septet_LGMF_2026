@@ -955,10 +955,14 @@ const PANEL = {
             //
             // So a recalled actual whose model READS TAKES rebuilds the FROZEN CHORD from its own voices and re-enters the same
             // as-assigned branch a take uses: ONE path for pitches that came with their players, whether they came from the drawer
-            // a minute ago or from an actual a week ago. The LGMF models (their voices are in their BASE params, and M3/M6 are not
-            // in TAKE_MODELS) and any actual WITHOUT voices go exactly as they went before.
-            const rv = (rp && rp.source && rp.source.kind === 'voices' && Array.isArray(rp.source.voices)) ? rp.source.voices : null;
-            if (rv && rv.length && (this.TAKE_MODELS || []).indexOf(rp.model) >= 0 && Array.isArray(rp.lanes) && rp.lanes.length === rv.length) {
+            // a minute ago or from an actual a week ago. The LGMF models (their voices are in their BASE params — `namesOwnVoices`,
+            // PLAN 1r, now that M3 IS in TAKE_MODELS) and any actual WITHOUT voices go exactly as they went before.
+            // PLAN 1r — a CONVERGE-on-a-take actual stores the OPENED chord as its source and the take as `target.voices`: the take
+            // is the arrival, so the frozen chord is rebuilt from the target, not the source.
+            const rvSrc = (rp && rp.source && rp.source.kind === 'voices' && Array.isArray(rp.source.voices)) ? rp.source.voices : null;
+            const rvTgt = (rvSrc && rp.model === 'M3' && rp.target && rp.target.kind === 'voices' && Array.isArray(rp.target.voices) && rp.target.voices.length === rvSrc.length) ? rp.target.voices : null;
+            const rv = rvTgt || rvSrc;
+            if (rv && rv.length && (this.TAKE_MODELS || []).indexOf(rp.model) >= 0 && !this.namesOwnVoices(P.model) && Array.isArray(rp.lanes) && rp.lanes.length === rv.length) {
                 const TR = (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
                 this.pitch = Object.assign(this.loadPitch(), {
                     src: 'actual:' + entity, takeName: entity, takeAt: new Date().toISOString(),
@@ -1425,7 +1429,7 @@ const PANEL = {
     castOf(params) {
         const env = this.castEnv(); if (!env) return null;
         // PLAN 1i: a VOICE LIST (a take, an LGMF model) is reported against every row; a SONORITY is cast onto the bending rows only
-        // — `cast()` deals `pairs.length * 2` seats, and the vibraphones are in a bloom on a take only. The still row is last, so
+        // — `cast()` deals `pairs.length * 2` seats, and the vibraphones ride in on a take only (BLOOM · CONVERGE, PLAN 1i · 1r). The still row is last, so
         // `cast.pairs[k]` still lines up with the panel's rows either way.
         const named = !!(params && params.source && params.source.kind === 'voices');
         return env.SEP.cast(params, named ? this.ensurePairs() : this.bendingPairs(), env);
@@ -1471,7 +1475,7 @@ const PANEL = {
             });
             const pt = document.createElement('span'); pt.className = 'morphPairPitch'; pt.style.cssText = 'color:#ddd;margin-left:4px';
             const cp = cast && cast.pairs[k];
-            pt.textContent = cp ? SEP.describePair(env, cp).replace(/^[^·]*· /, '') : (p.still ? 'held still · in a bloom on a TAKE only' : '');
+            pt.textContent = cp ? SEP.describePair(env, cp).replace(/^[^·]*· /, '') : (p.still ? 'held still · on a TAKE (BLOOM · CONVERGE)' : '');
             if (cp && cp.silent) pt.style.color = p.still ? '#777' : '#e06666';
             if (!cp && p.still) pt.style.color = '#777';
             w.appendChild(pt);
@@ -1499,7 +1503,10 @@ const PANEL = {
     // are the piece: LG-27). So a take goes in by the engine's own `source.kind: 'voices'` door, which keeps the order and the
     // cents (morph.js ~1270), and neither morph.js nor morph_septet.js is changed. `docs/PLAN.md` § 1h.
     TAKES_PANEL: 'strikes',          // the drawer's own bucket in bank/panel_snapshots.json (strike_drawer.js's TAKES_PANEL)
-    TAKE_MODELS: ['M1'],             // H1.6 — ONE MODEL AT A TIME, by compositional need (§162): BLOOM first. The next small build adds to this list.
+    TAKE_MODELS: ['M1', 'M3'],       // H1.6 — ONE MODEL AT A TIME, by compositional need (§162): BLOOM first; PLAN 1r (2026-09-24): CONVERGE.
+    // PLAN 1r — an LG model (LGSPECTRAL · LGBLOOM · LGCONVERGE are engine M3 too) NAMES ITS OWN VOICES in its base params: a take must
+    // not cast it, and a recalled LG actual must not be read as a take. The engine model alone cannot tell them from CONVERGE; this can.
+    namesOwnVoices(key) { const m = this.models && this.models.models && this.models.models[key || this.activeModel]; return !!(m && m.baseParams && m.baseParams.source && m.baseParams.source.kind === 'voices'); },
     loadPitch() {
         // H1.2 — `takeChord` is the FROZEN chord of a chosen take: dealt ONCE when he picks it, then read by every later Generate,
         // so a nudged dial or a poll never reloads the strikes drawer under him. The sequence box's `freeze` is the model.
@@ -1637,13 +1644,43 @@ const PANEL = {
         const SP = PAIRS.find(pr => pr.still);
         if (SP && chord.filter(n => n.lane === SP.a).length > 1 && chord.every(n => n.seat === undefined))
             warnings.push('TAKE: frozen before the vibraphones\' seats were kept — ↻ re-deals it with both vibraphones');
+        // PLAN 1r — CONVERGE ON A TAKE: THE TAKE IS THE ARRIVAL (his "a", RUNNING_LOG §323; the opening AWAY FROM THE PARTNER, his
+        // word, §324). Under M3 the take's notes go out as `target.voices` — the purity, cents and all (LG-27) — and the source is the
+        // OPENED chord: of a pair's two voices the higher opens a semitone UP, the lower a semitone DOWN, so every pair starts a whole
+        // tone wider than its just interval and tunes in; a doubled pair (one note on both) opens a above, b below, the stock's own
+        // gesture in just intonation; a lone voice opens above; a still voice (the vibraphones) is not opened. An opened note the
+        // player cannot hold opens on the other side; no room either way → it stays on its note, said. The engine reads it as it
+        // stands — `targetCents` prefers `target.voices`, M3 runs start → target, two stations — so `morph.js` and `morph_septet.js`
+        // are untouched: the fourth use of the `voices` door. The stock's `target.midi` must not linger beside the list.
+        const M3 = !!(params && params.model === 'M3');
+        const arrival = M3 ? voices.map(v => Object.assign({}, v)) : null;
+        if (M3) {
+            const holds = (lane, midi) => { const pk = (env && SEP) ? SEP.instOf(env, lane) : null; return !(env && pk && env.BC) || env.BC.holds(env.recipe, pk, midi); };
+            const pc = i => voices[i].midi * 100 + voices[i].cents;
+            rows.forEach(r => {
+                if (r.still || !r.voiceIdx.length) return;
+                const idx = r.voiceIdx; let up = [], down = [];
+                if (idx.length >= 2) { const [i0, i1] = idx; if (pc(i0) >= pc(i1)) { up = [i0]; down = [i1]; } else { up = [i1]; down = [i0]; } }
+                else up = [idx[0]];
+                const open = (i, d) => {
+                    const v = voices[i], ln = lanes[i];
+                    if (holds(ln, v.midi + d)) { v.midi += d; }
+                    else if (holds(ln, v.midi - d)) { v.midi -= d; r.why += ' · ' + lab(ln) + ' opens the other way (no room)'; }
+                    else { r.warn = true; r.why += ' · ' + lab(ln) + ' has no room to open — stays on its note'; warnings.push('TAKE: ' + lab(ln) + ' cannot open a semitone either way round ' + (SEP ? SEP.nm(v.midi) : v.midi) + ' — it stays on its note'); return; }
+                    delete v.partial;   // the opened note is not that partial; the arrival keeps it
+                };
+                up.forEach(i => open(i, +1)); down.forEach(i => open(i, -1));
+                r.why += ' · opens ±1 st → closes onto it';
+            });
+        }
         // H2.2 — the params. `morph.js` and `morph_septet.js` are NOT changed: this is the door they already have.
         const out = JSON.parse(JSON.stringify(params || {}));
         out.source = { kind: 'voices', voices: voices.map(v => Object.assign({}, v)) };
+        if (arrival) { out.target = Object.assign({}, out.target || {}, { kind: 'voices', voices: arrival }); delete out.target.midi; }
         out.lanes = lanes.slice();
         out.voices = voices.length;
         return { params: out, warnings: warnings,
-                 info: { take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length } };
+                 info: { take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length, arrival: !!arrival } };
     },
     // H2.6 — `recalledSets` lives in MEMORY, so after a page reload the `actual:` option that a recalled bloom-on-a-take is
     // sitting on would vanish from the pulldown and the panel would look as though it had lost his pitches. The FROZEN CHORD is
@@ -1711,6 +1748,10 @@ const PANEL = {
         const TK = this.takeChordOn();
         if (TK) {
             const mdl = params && params.model;
+            if (this.namesOwnVoices()) {                          // PLAN 1r — an LG model's voices are its own; the take is not read
+                this._pitchInfo = { take: true, name: TK.name, refused: mdl || '?', own: this.activeModel };
+                return params;
+            }
             if ((this.TAKE_MODELS || []).indexOf(mdl) < 0) {      // H1.6 — one model at a time
                 this._pitchInfo = { take: true, name: TK.name, refused: mdl || '?' };
                 return params;
@@ -1847,12 +1888,13 @@ const PANEL = {
         if (!info) note(p.src === 'model' ? 'the model\'s own set (the pairs take it two by two)' : 'the chosen source is not loaded yet, or its root is not a note — the model\'s own set plays', '#9a9');
         // H2.4 — THE LINE, pair by pair: the note as assigned, its cents and its partial, then what was left out. A pair whose
         // partner cannot hold a doubled note is drawn in the warning colour; the drawer is where he resolves it (§163).
-        else if (info.take && info.refused) note('a take is read by <b>BLOOM</b> only so far (' + (this.TAKE_MODELS || []).join(' · ') + ') — under <b>' + info.refused + '</b> the model\'s own set plays', '#e0b062');
+        else if (info.take && info.refused && info.own) note('<b>' + info.own + '</b> names its own voices — the take is not read; the model\'s own set plays', '#e0b062');
+        else if (info.take && info.refused) note('a take is read by <b>BLOOM · CONVERGE</b> so far (' + (this.TAKE_MODELS || []).join(' · ') + ') — under <b>' + info.refused + '</b> the model\'s own set plays', '#e0b062');
         else if (info.take && info.empty) note('take <b>' + info.name + '</b> has no note on any of the pairs\' players — the model\'s own set plays', '#e0b062');
         else if (info.take) {
             const cts = c => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ' c';
             const fmtN = n => '<b>' + SEP.nm(n.midi) + '</b> ' + cts(n.cents) + (n.partial != null ? ' · partial ' + n.partial : '');
-            note('take <b>' + info.name + '</b> · ' + info.voices + ' voices, <b>as assigned</b>' + (info.live ? '' : ' (from the actual)'), '#9a9');
+            note('take <b>' + info.name + '</b> · ' + info.voices + ' voices, <b>as assigned</b>' + (info.arrival ? ' — <b>the arrival</b>: each pair opens a semitone each way, away from the partner, and closes onto it (PLAN 1r)' : '') + (info.live ? '' : ' (from the actual)'), '#9a9');
             info.rows.forEach(r => {
                 const u = []; r.notes.forEach(n => { if (!u.some(x => x.midi === n.midi && Math.abs(x.cents - n.cents) < 1e-6)) u.push(n); });
                 note('&nbsp;&nbsp;' + r.labels + ' · ' + (u.length ? u.map(fmtN).join(' + ') + ' · ' + r.why : '✕ ' + r.why) + (r.on ? '' : ' · not ticked'),
