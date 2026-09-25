@@ -1598,3 +1598,26 @@ His question, verbatim, is COMPOSITION_NOTES LG-108. *AI reading (mine, marked),
 **His words, verbatim (2026-09-25):** *"well, I'll transition from sequence to morph, so I'll just drag sequence bricks and not morph bricks; please come back if you have better solution, and I'll defer a proper transition rework in the morph rebuild later"*
 
 *AI reading (mine, marked), for the all-purpose revision:* THE TRANSITION INTO A MORPH is a rework item — today the entries stagger inside half a breath (`striationPhase` × `segLen` × 0.5) and the join with what came before is made by hand on the score; the revision should let the morph be told how it enters (together · staggered · striated) and where it joins, on the panel. What exists and is not on the panel: `carrier.striation` — `aligned` puts every first breath at t = 0 and touches nothing else (`striationPhase` is read only for the first entry and for a shape's `striated` entry, `morph.js` 507 · 1464); the LG models fix it at `staggered` in the bank.
+
+### 2026-09-25 — LGMF: THE MORPH BETWEEN TAKES — AS BUILT, PLAN `1t` (RUNNING_LOG §364 … §367); two piece-specific engine adjustments
+
+**Built (Opus, session 15, at his word *"a and build as much as possible independantly"*):** `TAKES` *"TAKE → TAKE"* in the bank
+(M3, two stations, names no voices) · on the panel `from` and `to ▾` (the sequence drawer's takes menu), each voice from its
+player's note in A to its player's note in B by lane:seat, a mismatch FLAGGED (holds · left out · doubles) · ONE `duration` box that
+writes `carrier.span`, the fold box hidden · `vibes switch 0…1` · the line on Play and Insert naming both takes · the actual keeps
+both and recalls hash-identical.
+
+*AI reading (mine, marked), for the all-purpose revision — what the build had to add to the ENGINE, both opt-in:*
+
+- **`switchAt` on a voice** — a STEP from the start's cents to the target's at a share of the travel (the vibraphones: a bar cannot
+  slide). The step alone was NOT enough: sampled across it, the re-key split a breath into three and struck a stray note BETWEEN the
+  two bars (§366). The breath has to be CUT at the moment. The revision should treat "switch" as a first-class motion (a re-strike
+  at a time), not as a pitch curve the sampler has to survive.
+- **`carrier.releaseHolds`** — the engine's release runs every voice's progress back to 0 (*"the bloom CLOSES as it fades"*, FR-6):
+  a bloom's gesture baked into a generic fade. For A → B it sent every player back to A under the fade (§367). The revision should
+  separate the LEVEL's fade from the PITCH's return — a release that fades wherever the body ended is the general case.
+- **The red "N hard" counts the re-key seams** (the quartet's intentional 5 ms overlap) as conflicts (NITS 2026-09-25) — a morph
+  that travels far always looks faulty on the panel.
+- **Without a `release` the transition ends at the last arrival** — the last mover is heard on its target for a breath's gap or not
+  at all, and a switch at the arrival is never heard. The revision's "the end = the last arrival + the fade" (§353) wants the fade to
+  be there by default, or the end drawn.

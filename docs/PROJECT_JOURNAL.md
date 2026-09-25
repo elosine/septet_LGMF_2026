@@ -49,7 +49,7 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, THEN HIS PIVOT TO THE MORPH (`1t`). The cold-start block is **SESSION 15 · CHECKPOINT #4** under *Open at session end* below — READ IT FIRST.
+### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, THEN HIS PIVOT TO THE MORPH (`1t`). The cold-start block is **SESSION 15 · CHECKPOINT #5** under *Open at session end* below — READ IT FIRST (`1t` built end to end; `1t.5` his listen).
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -147,7 +147,68 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 15 · CHECKPOINT #4 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 15 · CHECKPOINT #5 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE TASK:** `1t` THE MORPH BETWEEN TAKES — take A → take B, each player from their own note to their own note (his pivot from the
+  notation, CHECKPOINT #4 below). **BUILT END TO END** at his word *"a and build as much as possible independantly"*, four commits,
+  pushed, THE SHIELD in each (RUNNING_LOG §364 … §367; PLAN § `1t` `built`; MORPH_NOTES §3 the same day):
+  - `a7ae62c` **1t.1** `TAKES` *"TAKE → TAKE"* in `bank/morph_models.json` (M3, two stations, names no voices) — **his three CONVERGE
+    actuals + the index were committed WITH it (his "a")**.
+  - `dc7c76c` **1t.2** `morph_panel.js`: `from` (the PITCHES pulldown) + `to ▾` (the sequence drawer's takes menu); `takeVoices` reads B
+    by lane:seat as `target.voices`; the flags (*no note in "to"; holds* · *no note in "from"; left out* · *doubles EH*); ONE
+    `duration (s)` box = `carrier.span`, the fold box hidden and forced null; `1r`'s arrival keyed off TAKES (`M3 && !TAKES`).
+  - `312d88f` **1t.3** `morph.js` `switchAt` on a voice (a STEP at a share of the travel) **+ the breath CUT at the moment** (the re-key
+    alone struck a stray note between the bars, §366) · the panel's `vibes switch 0…1` (a pitch-state dial, `pitch.switchAt`, default 1;
+    seat 0 at the dial, seat 2 3 s later, both kept inside the travel: dial 1 on 60 s → 57 · 60 s); a vibraphone whose bar is the same
+    in B stays still; `switchesUnheard()` flags a switch after the last note.
+  - `4e03d2b` **1t.4** the line on Play and Insert (`takesText`) · the recall rebuilds `from` from the SOURCE and `to` from the target,
+    the dial from the filed pitch · **`carrier.releaseHolds`** (`morph.js`, opt-in; `true` on TAKES in the bank, `rev` 137): the engine's
+    release had sent every player back to A under the fade (§367) · the required verification (a … g) run, every check passed.
+- **THE STATE:** nothing is being built. **`1t.5` IS HIS.**
+- **THE NEXT STEP:** after `/postclear`, check in (his rule). Then give him `1t.5`, one step at a time if he asks: RESTART
+  `node score/server.js` (`morph.js` changed — the server files actuals with the engine it loaded) and RELOAD the tab → MORPH → MODELS →
+  [TAKES] → `from` a take · `to ▾` another (▸ hears one) → `duration (s)` '60' → Generate → read the line → Play (the far voices'
+  seams) → `vibes switch` '1' then '0.5' → `release (s)` '8' (the fade on B) → Insert after a sequence ending `one by one`. **Revise on his
+  word:** a design question (the default release, the switch rule, the seat gap) on Fable; a fault on Opus. **When `1t` closes:** ask in
+  one line the notation's pick — `2a.6` the clefs (Opus) or the specific notation (Fable) — the `his` row of the table.
+- **`Resume reads:`** nothing beyond §2 for the listen. On his feedback: RUNNING_LOG §367 (and §366 for the vibraphones, §365 for the
+  panel) · PLAN § `1t` · then only the code the fault names — `morph_panel.js` `takeVoices` (the TAKES block after the pairs) ·
+  `switchTimes` · `drawSwitch` · `takesText` · `recallActual` (`TKA`); `morph.js` `SWITCH` (after `travel`) · `stateAt` cents · the cut
+  (`segsV`, after `buildCarrier`) · `carrierTiming` `holdRelease`.
+- **HOW THE SHIELD WAS RUN — reuse it for any 1t revision** (the scratchpad scripts may not survive the clear):
+  - **the bank, in node:** render every model's `baseParams` (with the septet palette, as `model_bank --validate`'s `renderOptsFor`,
+    and without) and every actual's `resolvedParams` through `score/public/morph.js`; hash the notes; compare BEFORE (HEAD) and AFTER.
+    Result every step: 0 of 53 changed (11 actuals were already `≠ stored` on HEAD — the known drift, N4, and `ACT-BLOOM-03` · `-04`).
+    Plus `node tools/model_bank.js --validate`.
+  - **the panel, on `score-5401`:** nine renders, params hash + notes hash (`djb2` of `JSON.stringify`) — CONVERGE · BLOOM · SPECTRAL ·
+    LGCONVERGE on the model's set, then BLOOM · CONVERGE · LGCONVERGE · LGBLOOM · COLOUR on `Just-c2-seed143` — on HEAD's file
+    (`git stash push -- score/public/morph_panel.js`, reload) and the build's. HEAD's values: CONVERGE model `1968928830 / 530474326` ·
+    CONVERGE + take `-2104884896 / -1498654004` · BLOOM + take `397563063 / -1417760538` (the rest in §365's run).
+  - **the test pair:** A `Just-c2-seed143` → B `Just-e1-seed193` (both all eight players); a take without the vibraphones for the flags:
+    `Bloom01-Just-A1-seed132`. With `release 8` · switch 0.5 the render is params `2037844696` · notes `1545617143` · 93 notes.
+- **Learned this session:** in the throwaway, `Composer` is a script-scope binding — stub it bare (`Composer.autosave = …`), never
+  `window.Composer` (a guarded stub silently skipped it once) · a `computer` click by coordinate needs a `screenshot` first (its frame
+  is scaled: 800 × 538 for a 1280 × 860 viewport) · the fetch stub can SERVE a synthetic actual (`/api/actuals/ZZ-…`) for a recall
+  round trip without touching the store · **backticks inside a double-quoted `node -e` ran as a command substitution again** (a harmless
+  missing command; the notes text was repaired) — the STILL BINDING rule holds: any script with backticks goes to a FILE.
+- **Pending him:**
+  - **A default `release` for TAKES?** Blank, the transition ends at the last arrival: the last mover is heard on B for a breath's gap or
+    not at all, and at the default switch (1) the second vibraphone never sounds its new bar (the line says so). One number in the bank.
+  - **The red "N hard" = the re-key seams** (NITS 2026-09-25) — a one-condition fix that re-flags stored actuals' notes; his call.
+  - **`min` as a hard floor** (§329) — 8 body notes open a few CC7 under the table's `pp` here too.
+  - **The AI's calls, his to reverse:** PLAN § `1t`'s (seat gap 3 s · the default switch at the arrival · the fold box hidden · a missing
+    target holds · `staggered` kept) and the build's (the cut's 0.25 s minimum piece · both seats kept inside the travel, so at 1 the
+    first goes 3 s before the arrival · a vibraphone on the same bar in B stays still · `releaseHolds` on TAKES in the bank).
+  - The notation's pick when `1t` closes · everything pending at CHECKPOINT #3 and before (below).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — 12 paths; his three
+  CONVERGE actuals and the store's index are no longer on this list, committed at his word in `a7ae62c`):
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · **`-Sec02-Sec3start.json` (new, saved by his tab
+    at 14:54 during this build)** · `scores/pointilistic01a.json` — HIS scores
+- **Also:** `bank/morph_models.json` is clean now (rev 137); if his tab files an actual it will change again — his, as before.
+
+**Open at session end — SESSION 15 · CHECKPOINT #4 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #5 above (`1t` is built; the bank-file question was answered "a"); its design lines still hold:**
 - **THE TASK:** `1t` THE MORPH BETWEEN TAKES — a morph from take A to take B, each player sliding from their own note to their own
   note. His pivot from the notation at his word (*"I want to work on the morph drawer and make the spacing model good for using
   takes"*). The concept talked through under the planning method, one topic at a time (RUNNING_LOG §350 … §362 · COMPOSITION_NOTES
