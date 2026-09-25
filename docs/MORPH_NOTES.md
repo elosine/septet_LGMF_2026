@@ -1562,3 +1562,39 @@ entries) go UNDER `min` — the revision should decide whether `min` is a hard f
 drawer's per-player generator between `min` and `max` — was offered and declined for now (§327, B); feasible in the panel, which already
 rewrites every note's nodes; (4) the drawing shows each note's SHAPE stretched between its own two ends, never its absolute level (LG-51),
 so `pp … ff` and `mp … mf` look the same on the lane — the status line is the only place the range is stated; the revision might draw it.
+
+### 2026-09-25 — LGMF: *"make the spacing model good for using takes"* — the talk opened (session 15, Fable; nothing decided)
+
+**His words, verbatim (2026-09-25):** *"I want to work on the morph drawer and make the spacing model good for using takes, lets start by
+you explaining to me very simply what the instruments do in a spacing model and use the specific example of the original model"*
+
+*AI reading (mine, marked):* SPACING MIGRATION (engine M5) is the third model asked to read a take, after BLOOM (H1, 2026-09-20) and
+CONVERGE (PLAN `1r`, 2026-09-24) — `TAKE_MODELS = ['M1', 'M3']` today, so under SPACING a take on the PITCHES pulldown is refused and the
+model's own set plays. What M5 does today, read in `morph.js` (the model function and `stateAt`): every voice slides in a STRAIGHT LINE
+from its start pitch to its end pitch over the whole morph — the end pitch = start + `away × steps` semitones, `away` running −1 … +1
+from the bottom of the voice list to the top, so the outer voices travel the full `steps` and the middle barely moves — and the
+carrier's breaths re-attack it on the way (his 2026-08-16 ear: the re-articulations "sound like pulses"). The stock set: six pitches
+Bb2 · F3 · A3 · C4 · D4 · F4, `steps` 4, 40 s, breaths 8 s ± 30 %, staggered — 19 semitones opening to 27; the tuba original eight
+G2 … G3, 12 opening to 20 (the bank's "character" line). **For the all-purpose revision:** the comment on M5 says the voices "step by
+whole degrees at staggered times" but the arithmetic is a continuous glide sampled at every instant — the name and the code disagree;
+the revision should choose one and say which.
+
+### 2026-09-25 — LGMF: THE MORPH BETWEEN TAKES — his brief, the same day (COMPOSITION_NOTES LG-106 verbatim · RUNNING_LOG §350 the running list)
+
+His brief, verbatim, is LG-106: *"I want to use the morph to transition between 2 takes … something like the spacing/spectral models combined … please keep everything organized as we move thru."* The list of topics and where each settles is §350 and the §§ after it. *AI reading (mine, marked), for the all-purpose revision:* this is the third time a model has been asked to read a take (BLOOM · CONVERGE · now the transition itself), and the first time the SOURCE is a series — the PITCHES pulldown, the actual's `voices`, and `TAKE_MODELS` were each built for one take at a time (H1.6, "one model at a time, by compositional need"). The revision should make a take, or a list of them, a first-class source for every model rather than a door opened per model.
+
+### 2026-09-25 — LGMF: THE CYCLES — *"morph dur 180s, I'd like 3 cycles gliss apart, gliss back"* — FOR THE REWORK, not this piece's build (COMPOSITION_NOTES LG-107 · RUNNING_LOG §351)
+
+**His words, verbatim (2026-09-25):** *"I would like to rework the morph drawer but not now, so the timing and coordination would be nice some day to be able to say something like morph dur 180s, I'd like  3 cycles gliss apart, gliss back for most instruments, end when all have reached or passed gliss back in the last cycle, and variations of this, but this for later"*
+
+*AI reading (mine, marked), for the all-purpose revision:* the morph stated as a WHOLE DURATION and a COUNT OF CYCLES, each cycle a there-and-back for "most" instruments, the end defined by a CONDITION (every player has reached or passed the return in the last cycle) rather than a clock — the carrier as a rule about arrivals, not about segments. Today's engine states the opposite way round: a span, a segment length, a striation pattern, and the arrival is wherever p = 1 lands. This is the largest single item on the revision's list; the transition between takes being built now (§350 …) is the two-station special case of it, deliberately.
+
+### 2026-09-25 — LGMF: *"how does everyone move in relation to each other today?"* — the timing is invisible on the panel (RUNNING_LOG §353)
+
+His question, verbatim, is COMPOSITION_NOTES LG-108. *AI reading (mine, marked), for the all-purpose revision:* he could not tell from the panel or the lane whether the pairs move together — the stagger order is a seeded shuffle, the window `spread × 0.8`, the moves all one length, and none of that is drawn or said. The revision should SHOW the schedule (who leaves when, who arrives when) before Hear, and let the duration be the move rather than the whole — his rule for this piece (§353): none together, the end the last arrival plus the fade.
+
+### 2026-09-25 — LGMF: the entry stays as it is; *"I'll defer a proper transition rework in the morph rebuild later"* (RUNNING_LOG §355 · §356)
+
+**His words, verbatim (2026-09-25):** *"well, I'll transition from sequence to morph, so I'll just drag sequence bricks and not morph bricks; please come back if you have better solution, and I'll defer a proper transition rework in the morph rebuild later"*
+
+*AI reading (mine, marked), for the all-purpose revision:* THE TRANSITION INTO A MORPH is a rework item — today the entries stagger inside half a breath (`striationPhase` × `segLen` × 0.5) and the join with what came before is made by hand on the score; the revision should let the morph be told how it enters (together · staggered · striated) and where it joins, on the panel. What exists and is not on the panel: `carrier.striation` — `aligned` puts every first breath at t = 0 and touches nothing else (`striationPhase` is read only for the first entry and for a shape's `striated` entry, `morph.js` 507 · 1464); the LG models fix it at `staggered` in the bank.

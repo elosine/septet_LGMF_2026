@@ -2648,3 +2648,40 @@ until a point in the texture. The talk and the decisions: RUNNING_LOG §302; the
 **His words (verbatim):** *"am i able to multiselect and batch update the dynamic? where card?"* — and, to the offer of a `dyn` box on the harmony strip: *"go, build the dyn box on the strip"*.
 
 **The AI's reading (marked as such):** a selection of notes across lanes (the marquee, SHIFT+click) should take ONE written dynamic at once, as the note card sets it on one note; the card is where a single note's dynamic lives (it opens by itself on a clicked note). Built the same day as the `dyn ▾` and height box on the harmony strip, through the card's one rule (RUNNING_LOG §320; PLAN § `1q.9`).
+
+### LG-106 · 2026-09-25 — THE MORPH BETWEEN TAKES: a transition from one take to the next, or through a series — *"I want to use the morph to transition between 2 takes"*
+
+**His words, verbatim (2026-09-25, session 15, Fable):**
+
+> *"ok , rather than start with a model then lets start with what I want to do, this will end up I think being something like the spacing/spectral models combined; I want to use the morph to transition between 2 takes; a few things to flesh out among others lets take them one at a time and then when we settle all of the requirements, we'll work out how to add to morphs drawer; not in any particular order:*
+> *option to move between 2 chords/takes or a series, so for example 5 takes one to the next*
+> *one thing is the distance of pitch change, sometimes takes have distant pitches we have to make sure we can handle this in MIDI, i wouldn't want to spend too much perfecting this just an expediant faximilie , and then I'd like to consider some sort of pitch span pacer so to manage the amount of audible gliss, so maybe a certian pace per semitone , but may ending up not using this rule, just worth investigating*
+> *another is how to manage the vibraphones, probably just switch pitches at a certian interval in the transition, we can try at arrival of new chord for all others, or 1/2 way thru; so lets start with ironing out the concept, see what else there is to consider besides my points; lets then work thru the list and then talk about what needs to be added to morph architecture to accomodate, write a plan, build; please keep everything organized as we move thru"*
+
+*AI reading (mine, marked):* a morph whose stations are TAKES — two, or a series of five — every player sliding from their own note in one take to their own note in the next, cents and all. The four things he names: a series · distant pitches in MIDI (an expedient facsimile, not perfection) · a pace per semitone to govern how much gliss is heard (an investigation, may be dropped) · the vibraphones switching at a point in the move. Planned under the planning method, one topic at a time; the working record is RUNNING_LOG §350; the working ID `1t`.
+
+### LG-107 · 2026-09-25 — THE MORPH BETWEEN TAKES, his answers on the list: two takes · a designated time, the holds from the sequence · the breath rule continues · ordinary long tone — and, for later, the cycles — *"morph dur 180s, I'd like 3 cycles gliss apart, gliss back"*
+
+**His words, verbatim (2026-09-25, on the list of RUNNING_LOG §350):**
+
+> *"5, flag, but I think simpler to manage/resolve in strikes drawer rather than morph, so I would go back to strikes and save a new take with all the instruments; 6, a principle and 2 things; I would like to rework the morph drawer but not now, so the timing and coordination would be nice some day to be able to say something like morph dur 180s, I'd like  3 cycles gliss apart, gliss back for most instruments, end when all have reached or passed gliss back in the last cycle, and variations of this, but this for later, for 6 now lets come up with an expediant solution for this situation I probably want to reach the next cord in a designated amount of time and I'll use sequence machine for the holds, and maybe its more expediant to say just 2 takes cause thats how I'll use it now; I think we adapted the sequences breaths or some version of it, just continue this, somewhere around comfortable dur for 1 breath per instrument + jitter; technique just the ordinary longtone for now, eventually take this on more substancially; reorder as makes sense, then lets go thru them"*
+
+*AI reading (mine, marked):* five topics settled in one breath (RUNNING_LOG §351). The cycles — *"3 cycles gliss apart, gliss back … end when all have reached or passed gliss back in the last cycle"* — is a design for the morph drawer's REWORK, not this piece's build; it is in MORPH_NOTES §3 for the revision.
+
+### LG-108 · 2026-09-25 — THE MORPH BETWEEN TAKES, the timing: *"lets have none move precisely together, lets have the morph end at when the last one reaches its destination + tacked on fade out if present, I'll control pace via duration"*
+
+**His words, verbatim (2026-09-25):** *"ok one issue that I want to dive into more later but probably needs some resolution now, how does everyone move in relation to each other today? bloom move timesynced in pairs, but the pairs don't move together right? and a very brief explaination of how each pair gets its timing; so for this one, lets have none move precisely together, lets have the morph end at when the last one reaches its destination + tacked on fade out if present (exsists), I'll control pace via duration"*
+
+*AI reading (mine, marked):* topic 3 (the pacer) closes as "no rule — the duration is the pace" and topic 6 gains its shape: scattered starts, no two together; the end a CONSEQUENCE (the last arrival, then the fade) rather than a clock. What the typed duration governs — each player's move, or the whole — was put to him (RUNNING_LOG §353). "Dive into more later" = the rework's coordination question (MORPH_NOTES §3, the cycles).
+
+### LG-109 · 2026-09-25 — THE MORPH BETWEEN TAKES, the entry: *"I've been inserting into composer score then dragging the brick start point back to meet the end of the previous thing, what does this actually do to the brick?"*
+
+**His words, verbatim (2026-09-25):** *"lets discuss the entry, they then entered staggered? I'll work with this, I've been inserting into composer score then dragging the brick start point back to meet the end of the previous thing, what does this actually do to the brick? makes the whole brick dur longer, but is the rise longer, iow by doing this do I resync the entries between voices?"*
+
+*AI reading (mine, marked):* his working method between a sequence hold and a morph is a hand drag of each voice's first brick — the tool should do it: the entry a rule (together at the start, on the old chord), the morph inserted at the playhead. What the drag actually does is RUNNING_LOG §355.
+
+### LG-110 · 2026-09-25 — THE JOINS, his design: each part's morph starts a breath after that part's sequence ended; each part's next sequence starts a breath after that part's morph ended — *"reads the end of sequence per part"*
+
+**His words, verbatim (2026-09-25):** *"more simply pls; there is a sequence and morph staggered end begin yes? then sequence ends on take A, staggered, start morph on take a, reads the end of sequence per part, morph for that part starts about a breath gap away from the end of the sequence line; morph ends on take b, all parts end at different times, staggered, sequence starts on take b, all parts end at different times, staggered, sequence starts on take b, can see when the morph for the part ended per line and starts new sequence breath away form previous thing in that part corrections?"*
+
+*AI reading (mine, marked):* a PER-PART join on both sides — the tool reads, per lane, where the previous thing ended and starts that part a gap later; and the morph ENDS staggered, each part at its own arrival. Two new things; the corrections and the read-back are RUNNING_LOG §358. (The quote above repeats a clause — his text, kept as sent.)

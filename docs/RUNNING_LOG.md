@@ -12844,3 +12844,171 @@ identical once its three new fields are removed (80 pages); the eight batteries 
 
 **His eye — deferred at his word (§347)** to when the specific notation is in: the margins · the 2 ss stub · the go-line switch · every
 call in NOTATION_STANDARDS §5. The machinery holds each as one number or one word in `page_rules.json` / `container.json`.
+
+## §350. THE MORPH BETWEEN TAKES — his brief, the running list of topics (2026-09-25, session 15, Fable; planning method phase 1 opened)
+
+**What prompted it:** his brief, verbatim in COMPOSITION_NOTES LG-106 — *"I want to use the morph to transition between 2 takes"*, *"something like the spacing/spectral models combined"*, *"please keep everything organized as we move thru"*. He set the order himself: iron out the concept → the AI adds what else there is to consider → the topics one at a time → what the morph's architecture needs → a plan → the build. Working ID `1t` (reserved here, no PLAN item until phase 3).
+
+**The read-back given to him:** a morph whose stations are takes — two, or a series (five, one to the next) — each player sliding from THEIR note in one take to THEIR note in the next, the cents kept, the dynamics riding on top as they do (PLAN `1s`).
+
+**The running list of topics — his four first, in his order, then the AI's additions** (this entry is the list's origin; each topic settles in its own § below, and the list is re-stated there when it changes):
+
+1. Two takes or a series — e.g. five, one to the next.
+2. Distant pitches — what the MIDI can do when a take's note is far from the last; an expedient facsimile, not perfection.
+3. A pitch-span pacer — a pace per semitone to govern the audible gliss; to investigate, may not be used.
+4. The vibraphones — switch pitch at a point in the move: at the arrival, or halfway.
+5. (AI) Who plays between takes — a player with a note in one take and none in the next: leaves, enters, or holds? (BLOOM's rule for a take is both / one alone → the partner doubles / neither → sits out, H2.)
+6. (AI) The shape in time — a dwell on each chord against the time spent moving; the same for every station or per station.
+7. (AI) The breaths during the move — re-attacked pulses on the way (SPACING's character) or as few re-breaths as the players' air allows.
+8. (AI) The technique — the take's own per-note technique carried through, or the model's base technique.
+
+**Held aside for the architecture pass, explicitly:** the PITCHES pulldown holding several takes · saving and recalling a series in an ACTUAL (H2.6's rule: the actuals keep the pitches) · Hear = Insert · the notation's gliss (2b reads what the morph inserts).
+
+**A fact the AI holds for the architecture pass, not raised as a model:** the engine's M3 FAN is already "chord A → chord B, each voice at its own rate", with a third station and a dwell since 1a.5, and CONVERGE (M3) reads a take as its arrival (PLAN `1r`); M2 SPECTRAL sends each voice to its nearest free partial. His "spacing/spectral combined" has most of its machinery in those two, and the tuba's M2 note records the first sighting of topic 2: "1681 cents of bend against a patch that has 199".
+
+## §351. THE MORPH BETWEEN TAKES — five topics settled at his word; the list reordered; topic 2 opened with the data (2026-09-25, Fable)
+
+**What prompted it:** his answers on §350's list, verbatim in COMPOSITION_NOTES LG-107.
+
+**Settled (his words, his reasons):**
+- **1 — TWO takes, not a series.** *"maybe its more expediant to say just 2 takes cause thats how I'll use it now."* A series stays a note for the revision.
+- **5 — a player in one take and not the other: FLAG it, do not resolve it.** *"simpler to manage/resolve in strikes drawer … I would go back to strikes and save a new take with all the instruments."* The model assumes the same players in both takes; a mismatch is a warning on the line, the strikes drawer is the fix.
+- **6 — the shape in time: ONE designated duration to reach the next chord; no dwell in the morph — the holds come from the sequence drawer.** *"I probably want to reach the next cord in a designated amount of time and I'll use sequence machine for the holds."* The cycles (*"morph dur 180s, 3 cycles gliss apart, gliss back for most instruments, end when all have reached or passed gliss back in the last cycle, and variations"*) are FOR LATER — the drawer's rework, MORPH_NOTES §3.
+- **7 — the breaths: the rule already in the morph continues** (PLAN `1j`: each breath round the player's own maximum × `ofMax`, ± `jitterS`, the outlier) — *"somewhere around comfortable dur for 1 breath per instrument + jitter."*
+- **8 — the technique: the ordinary long tone for now.** *"eventually take this on more substancially."*
+
+**The list now — his order to reorder "as makes sense":** **2 distant pitches → 3 the pacer → 4 the vibraphones.** The pacer builds on what the MIDI can do and on 6's one duration; the vibraphones' switch point is a question about the move's timing, so it goes last.
+
+**Topic 2 opened — the data first, read in the code (`morph.js` 190 … 202 · 1719 … 1744 · `morph_septet.js` 24 · 70; `sandbox/instruments.js` 714 … 731):**
+- **The engine already handles a wide move — SEGMENTED RE-KEY (the tuba's plan §8):** beyond the reach one note cannot bend, so the note is SPLIT — bend to the edge, re-key, continue — the splits emitted as consecutive notes with no gap (a 5 ms overlap at the seam, 1833), the run keeping one key while some key reaches the arrival within the sampler's measured range + `CLAMP_CENTS` (the quartet's rule, §200 · §203); what still cannot be expressed is FLAGGED, never clipped. The tubas heard it *"as seamless"* (their D26). Nothing here has been heard in THIS rack — CONVERGE on a take (1r) moved a semitone and never re-keyed.
+- **The reach per voice = min(a whole tone, the sampler's measured range)** (`reachCents`, `MORPH_PLAYER_ST` 2): EH 0.92 st · Bsn 1.99 · Hn 2.00 · Tpt 2.00 · Vc 1.01 · Db 0.90 · the bowed vibraphone 0.33; the struck vibraphone bends nothing (`playerBendSt` 0). So a 7-semitone move on the english horn is ~8 bends stitched by re-keys; on the trumpet ~4.
+- **The take's cents ride in as absolute cents** (as 1r's arrival did) — no new pitch path.
+
+**Put to him:** is the existing re-key the "expedient facsimile" (a), or does he want a JUMP at a point for any interval past the reach, the vibraphones' way (b)? His answer settles topic 2 in the next §.
+
+## §352. THE MORPH BETWEEN TAKES — topic 2 settled: the existing re-key IS the facsimile (his "a"); topic 3 opened — the pacer's three forms (2026-09-25, Fable)
+
+**Topic 2 — DECIDED, his word "a":** a distant pitch is reached by the engine's SEGMENTED RE-KEY as it stands (bend to the reach's edge, re-key, continue, no gap; a flag for what cannot be expressed) — no jump, no new pitch path. The reaches are §351's table. The seams have never sounded in this rack; the build's listen is where they are judged.
+
+**Topic 3 — THE PACER, opened.** His brief: *"some sort of pitch span pacer so to manage the amount of audible gliss, so maybe a certian pace per semitone, but may ending up not using this rule, just worth investigating."* The AI's reading of the problem: under 6's ONE designated time every player takes the same time whatever the distance, so a player moving 7 semitones smears and a player moving 1 barely drifts (T = 60 s: 8.6 s per semitone against 60 s per semitone; 1 semitone over 60 s is 1.7 cents a second, which reads as intonation, not gliss). A pace per semitone makes every gliss the SAME SPEED. The question is then what gives, since the same speed and the same time cannot both hold for different distances — three forms, put to him one question at a time:
+- **(a) same speed, everyone ARRIVES together** — the far players start first, the near ones hold the OLD note and leave late (the pace derived from T and the widest travel, or a dial with T the latest arrival).
+- **(b) same speed, everyone LEAVES together** — the near players arrive early and hold the NEW note; the far one arrives last, at T.
+- **(c) same time, today's way** — start and arrive together, the speeds differ; the pacer only REPORTS (the fastest player's s/st on the line, a flag past a limit) — the investigation without the rule.
+- **(d) not now.**
+The engine's carrier already staggers entries by voice (the striations) and M3 spreads rates by dial, so any of (a) … (c) is arithmetic on p per voice, not new machinery — held for the architecture pass.
+
+## §353. THE MORPH BETWEEN TAKES — how the voices move against each other TODAY (the data, `voiceProgress` · `staggerOrder`); his rule for this one: none together, the end = the last arrival + the fade, the duration the pace (2026-09-25, Fable)
+
+**What prompted it:** his question, verbatim in COMPOSITION_NOTES LG-108 — *"how does everyone move in relation to each other today? bloom move timesynced in pairs, but the pairs don't move together right?"*
+
+**The data — `morph.js` `voiceProgress` (313 … 357) · `staggerOrder` (237 … 245) · `stateAt` (1584):**
+- **There is no pair rule.** The order the voices set off in is a SEEDED SHUFFLE of all the voices (`staggerOrder`) — "another version" is a new seed. A pair's two voices are adjacent in it or far apart by chance.
+- **Each voice starts at its rank's share of a stagger window** = `dials.spread × 0.8` of the travel (at most 80 %), and **every voice's move is the SAME length**, `(1 − spread × 0.8) × travel`; the last in the order arrives exactly at the end of the travel, the others arrive earlier and hold. `bias` bends the ramp (front- or back-loaded), `depth` scales it.
+- **The LG models (`LGBLOOM` · `LGCONVERGE`): `spread` 0.15, travel 90 s** → the starts fall inside 10.8 s (eight voices, ≈ 1.5 s apart), every move 79 s, then the three-station dwell (⅓ at the mid). The stock `BLOOM`: `spread` 0.35 → 28 % / 72 %.
+- **So what he hears as "timesynced in pairs" is the PITCH, not the timing:** the two voices of a beating pair go to and from the SAME note (62 −14 and 62 0 → 65 +2 and 65 +2 in `LGBLOOM`), so their paths look locked; the timing offsets are seconds on a 79 s move — everyone moves nearly together, pairs and all.
+
+**His rule for this one (decided):** *"lets have none move precisely together, lets have the morph end at when the last one reaches its destination + tacked on fade out if present (exsists), I'll control pace via duration"* — topic 3 CLOSES as (c)-without-the-flag: no pacer rule, the duration IS the pace; topic 6 gains its shape: scattered starts, no two together; the end a consequence — the last arrival, then the fade if one is set. **"Dive into more later"** — the coordination question is the rework's (MORPH_NOTES §3, the cycles).
+
+**Put to him — what the typed duration governs:** (a) EACH PLAYER'S MOVE — the starts scattered, each move ≈ the duration (a little jitter so none coincide), the whole = the last start + its move + the fade, derived and shown on the line · (b) THE WHOLE, today's way — the last arrival at the end of the duration, the starts scattered before it, the moves shorter than the duration. The width of the scatter is the question after.
+
+## §354. THE MORPH BETWEEN TAKES — the timing settled (his "b": the duration is the whole, today's stagger); topic 4 opened — the vibraphones' switch (2026-09-25, Fable)
+
+**Topics 3 + 6 — DECIDED, his word "b":** the typed duration governs THE WHOLE — the last arrival at its end, the starts scattered before it, every move the same length (today's `voiceProgress`: the seeded shuffle of starts inside `spread × 0.8` of the travel). "None precisely together" is met by the shuffle (distinct ranks); the WIDTH of the scatter is today's `spread`, a share of the duration. **The AI's call, his to reverse:** the dial stays a share, not seconds — nothing to build there; the default is whatever the panel shows, his to turn (the LG models sit at 0.15 ≈ the first 12 %). The fade, if set, is tacked on after the arrival (`carrier.release`, as today).
+
+**Topic 4 — THE VIBRAPHONES, opened. The data:** two seats on one lane (1i), each ONE note from the take, HELD STILL in a bloom or a converge (`still` on the voice), re-struck at every breath — a vibraphone's breath is its ring, ≈ 5 s round its own ceiling (1j) — and following the one dynamic shape. The bowed vibraphone's reach is 0.33 st, the struck one's nothing: a vibraphone cannot slide, it can only be struck again on the new note. His brief: *"probably just switch pitches at a certian interval in the transition, we can try at arrival of new chord for all others, or 1/2 way thru."*
+
+**The AI's recommendation, put to him:** the switch point a DIAL, a share of the duration — 0 = at the start, 0.5 = halfway, 1 = at the arrival — his two tries the marks on it; from that moment the vibraphone's breaths take the new note (a re-strike, never a bend); and the two seats a few seconds apart, not at one instant, in the spirit of "none together". One yes/no.
+
+## §355. THE MORPH BETWEEN TAKES — the entry: what dragging a morph brick's start back actually does (the data, `composer.html` 5211 … 5286 · 11312 … 11370); the entry rule put to him (2026-09-25, Fable)
+
+**What prompted it:** COMPOSITION_NOTES LG-109 — *"dragging the brick start point back to meet the end of the previous thing, what does this actually do to the brick? … is the rise longer, iow by doing this do I resync the entries between voices?"*
+
+**The entries today — two staggers, read in `morph.js`:** (1) WHEN THE SOUND ENTERS — each voice's first breath begins at `striationPhase × segLen × 0.5` (`buildCarrier` 507 … 508): under `staggered`, the voices' first notes fall inside HALF A BREATH (segLen 12 → 6 s, ≈ 0.75 s apart for eight); (2) WHEN THE PITCH BEGINS TO MOVE — the voice's turn in the `spread` window (§353). The two are independent; the first is why his morph never starts flush with the previous thing.
+
+**What the drag does — read in `composer.html`:** a morph brick is a GRAIN with a swell (`isGrain` true, the level nodes not flat), so its left handle is `grainDur` (5222), not the plain edge:
+- **the level (the drawn hump):** the peak and everything after it STAY PUT in time; the rise before the peak is STRETCHED over the new, longer pre-peak span (5274 … 5283) — so yes, the DYNAMIC rise gets longer.
+- **the pitch (`morphBend`, breakpoints in SECONDS from the brick's start, 11312 · `morphBendAt` 11361):** NOT rewritten by the resize (nothing outside playback touches `morphBend`). It begins at the new, earlier start, runs its original seconds, then HOLDS its last value to the brick's end — so the PITCH rise is not longer: it happens EARLIER by the amount dragged, then a plateau. The seam with the next brick still matches (the last value is the end pitch), so no jump.
+- **does it re-sync the entries?** It re-syncs the SOUND's entries (the bricks now start together) and DE-syncs the pitch moves by accident: each voice's first-breath motion shifts earlier by ITS OWN drag, the later breaths keep their original schedule, so after the plateau every voice resumes where it was. Not a re-sync of the motion — a local distortion of the first breath, different per voice.
+
+**Put to him — the entry as a RULE of the tool, so no brick is dragged (the morph inserted at the playhead, flush with the previous thing):** (a) ALL ENTER TOGETHER at the start, on the old chord, each holding until its turn to move (the AI's recommendation — the take-A chord sounds, then the voices peel off) · (b) staggered as today, inside half a breath · (c) each voice enters when its move begins, silence before.
+
+## §356. THE MORPH BETWEEN TAKES — the entry DECIDED: as today, he drags the sequence's bricks; the better solution found in the code — `striation: 'aligned'` (2026-09-25, Fable)
+
+**His word (MORPH_NOTES §3, verbatim):** the entry stays staggered as today; between a sequence and the morph he will lengthen the SEQUENCE's bricks to meet the morph's entries, not drag the morph's; a proper transition rework is the rebuild's. *"please come back if you have better solution."*
+
+**The better solution, read in the code:** `carrier.striation` has a value `aligned` — every voice's first breath at t = 0, entries TOGETHER; `striationPhase` is consulted only for that first entry (and a shape's `striated` entry), so nothing else in the render changes (`morph.js` 466 … 474 · 507 · 1464). It is not on the panel (`morph_panel.js` has no `striation`); the LG models carry `striated: 'staggered'` in their bank recipes. So the new model can carry `aligned` in its OWN recipe — one word, no build, no drag: inserted at the playhead, every player enters on chord A flush with the sequence's last hold. Put to him: (a) `aligned` the new model's default (the AI's recommendation) · (b) keep `staggered`, he drags the sequence.
+
+**Topic 4 (the vibraphones' switch dial, §354) still waits on his yes.**
+
+## §357. THE MORPH BETWEEN TAKES — the joins on both sides, the data: a sequence ends TOGETHER by default, `exit: one by one` spreads the ends BEFORE the line; the morph ends together at its span (2026-09-25, Fable)
+
+**What prompted it:** *"I finish a sequence, I think they end together, look into it and tell me if there is an option to end staggered, either way, it really is the sequence side that has to adapt to the morph on both ends"* (his words, 2026-09-25).
+
+**The data (SEQUENCE_TOOL §14, 1d.8; `morph.js` `buildCarrier` 490 · 509):**
+- **A sequence ends TOGETHER by default** (`exit: together` — one fade, or it just ends on the line). **`exit: one by one` exists:** each player finishes a last breath of their own, the ends spread over the last stretch BEFORE the line (the fade-out's length, else one breath), in SCORE ORDER, the latest ON the line, nothing past it.
+- **A sequence begins** with box 1's `enter`: `attack` = everyone at the line, together · `seamless` = each at their next breath, staggered after it.
+- **The morph ends together:** every voice's segments run to the span's end (a release fade, if set, after) — the arrivals are staggered but everyone holds chord B to the end.
+- **So a dovetailed join (the sequence's ends into the morph's staggered entries) cannot be made by either tool's dials:** `one by one` spreads the ends on the far side of the line from the morph's entries, and in score order, not the morph's voice order. His description — lengthen the sequence's bricks by hand to each morph entry — IS what has to happen for that join; confirmed.
+- **The clean join needs no drag on either side:** the morph `aligned` (§356) enters together on chord A flush with the sequence's `exit: together`; the morph's held end hands over to the next sequence's box 1 `enter: attack`. Together at both joins, or the hand drag for a dovetail — his ear's call per join.
+
+**Standing:** the entry as today (§356) with `aligned` put to him as the new model's default; topic 4's yes still owed.
+
+## §358. THE MORPH BETWEEN TAKES — his design for the joins, read back with the corrections: two NEW things (the per-part entry that reads the score, the morph's staggered end); `aligned` withdrawn (2026-09-25, Fable)
+
+**What prompted it:** COMPOSITION_NOTES LG-110, his own step-by-step of the joins, *"corrections?"*
+
+**Read back against what exists — five steps, his order:**
+1. *a sequence and morph, staggered end / begin* — YES, both exist: the sequence's `exit: one by one` (§357), the morph's staggered entry (§355).
+2. *the sequence ends on take A, staggered* — YES, today.
+3. *the morph starts on take A, READS THE END OF THE SEQUENCE PER PART, and that part's morph starts about a breath gap after it* — NEW. Today the morph's stagger is its own (voice order, inside half a breath) and it reads nothing from the score. The new rule: at Insert, per lane, the start = the end of the last note on that lane before the playhead + a gap.
+4. *the morph ends on take B, all parts at different times, staggered* — NEW. Today every part holds chord B to the span's end and all end together (§357). The new rule: each part ends at its own arrival (its last breath after arriving); the last arrival is still at the duration's end (his "b", §354).
+5. *the next sequence starts on take B, sees where each part's morph ended, and starts that part a breath after it* — NEW, the same rule as 3 on the sequence side: box 1's first entry per lane = that lane's last end before the playhead + a gap.
+
+**So: two new things, one rule shared** — (i) THE PER-PART ENTRY THAT READS THE SCORE (one helper: per lane, the last end before the playhead + a gap; the morph's Insert and the sequence's Insert both call it) · (ii) THE MORPH'S STAGGERED END (a part stops when it arrives). Everything else is there. **The `aligned` question of §356 is withdrawn** — his design replaces it. **"A breath gap"** read as the breathing time, a short rest, not a breath's length — a number for the architecture pass, his to set.
+
+**Put to him:** is this the design — the two new things — yes or a correction?
+
+## §359. THE MORPH BETWEEN TAKES — the joins: build or by hand? The AI's assessment and recommendation (2026-09-25, Fable)
+
+**What prompted it:** *"maybe, is this a big/disruptive build, or is it more expediant for me to insert staggered end/beginning morphs and drag sequence bricks to morph beginning/ends?"*
+
+**The assessment, read against the code:** neither new thing is disruptive to the engine — `buildCarrier` already takes a per-voice `sched.startT` · `endT` (the PLAN 2z shape schedule) — but each is a real build on the panels: (i) the per-part entry needs a helper that reads each lane's last end before the playhead, the morph's Insert and the sequence's Insert calling it, and the offsets carried in the recipe so a recalled actual or a re-inserted sequence renders the same (H2.6 · 1d.3) — the sequence's generator has no per-player start offset today; (ii) the staggered end needs the arrival time per voice turned into its `endT` and the release re-thought per voice. Two or three chunks with THE SHIELD in each; not one afternoon. Against it: a rondo's handful of joins, a minute of dragging each, and his own deferral of the transition rework to the rebuild (§356).
+
+**The recommendation — BY HAND, with the dials he already has, no build:** before the morph `exit: one by one` (the sequence's ends spread, §357) · the morph's own staggered entry · the morph ends together · after it the next sequence's box 1 `enter: seamless` (each player at their next breath — the staggered start he wants, from the sequence's own walk, §14) · a drag only where a gap looks wrong. The per-part join stays the rebuild's item (MORPH_NOTES §3, §356). His choice pending: (a) build now · (b) by hand.
+
+## §360. THE MORPH BETWEEN TAKES — the concept CLOSED (his *"good by hand, vibes"*); the architecture pass read in the code; the top line proposed (2026-09-25, Fable; planning method phase 1 → 2)
+
+**His word:** *"good by hand, vibes"* — the joins BY HAND (§359 b); "vibes" read as the yes on §354's switch dial (the AI's reading; his to correct). **The concept list is done.**
+
+**THE REQUIREMENTS, settled (§350 … §359):** two takes, A → B · each player from their own note in A to their own note in B, cents kept · one typed duration = the whole, the last arrival at its end, the starts scattered by the seeded shuffle inside the `spread` window, no two together · a distant pitch by the engine's re-key · no pacer · the breaths as 1j (own max ± jitter, the outlier) · ordinary long tone · min · max as 1s · the fade = the release, tacked on · a player in A and not in B: a FLAG, the strikes drawer the fix · the vibraphones: a dial 0 … 1 of the duration for the switch, a re-strike never a bend, the two seats a few seconds apart · the joins by hand.
+
+**THE ARCHITECTURE PASS — what exists, what is added (read: `morph_panel.js` `takeVoices` 1649 … 1751 · `applyPitch` 1808 … 1833 · `namesOwnVoices` 1577 · `TAKE_MODELS` 1574; `morph.js` `STILL` 1331 · 1663; M3 396 … 428):**
+- **EXISTS — M3's two-station shape IS the transition:** `source.kind: 'voices'` (the start) → `target.kind: 'voices'` (the arrival), per voice, linear in p; `voiceProgress` the scatter; `carrier.span` the duration, `release` the fade, `striation` staggered; the 1j breath dials; `dyn` min · max; the re-key; Hear and Insert one render; Save as ACTUAL and recall byte-identical with the voices in the recipe (H2.6, proven on CONVERGE).
+- **ADDED 1 — a model entry in the bank, "take → take"** (M3, no `mid`, no `dwell`; its `baseParams` WITHOUT `source.kind: 'voices'`, so `namesOwnVoices` is false and the pulldown's take is read; added to `TAKE_MODELS`).
+- **ADDED 2 — a second take on the panel, `to`:** `takeVoices` builds the start from take A as today and the target from take B BY LANE:SEAT (the same mapping); a player in A with no note in B holds their A note and the line FLAGS it (topic 5); a player in B with none in A is left out (the flag names both).
+- **ADDED 3 — the vibraphones' switch:** `switchAt` on a voice (0 … 1 of the travel), the sibling of `still` in `stateAt` — before it the start cents, after it the target's: a STEP, which the adaptive sampling + re-key turns into a cut and a re-strike on the new key (the struck reach is nil, the bowed 33 c) — opt-in, two lines, every stored render byte-identical without it; the panel's dial sets seat 0 at the dial and seat 2 a few seconds later; a vibraphone's `still` is dropped for this model.
+- **ADDED 4 — the line and the actual:** the status names both takes, the flagged players, the vibes' switch times; the recipe carries take B's name beside A's (`info`) for the recall's line.
+- **THE SHIELD, by data absence:** no `switchAt`, no new model → not a byte moves; the tuba goldens + the eight batteries as 2c (journal §2).
+
+**THE TOP LINE proposed (phase 2), for his confirm / reorder / rename:** 1 the model in the bank + `TAKE_MODELS` · 2 the `to` take on the panel, the target by lane, the flags · 3 the vibraphones' switch in the engine + the dial · 4 the line, the actual, the required verification · 5 his listen.
+
+## §361. THE MORPH BETWEEN TAKES — where the duration is typed: the panel's THREE time boxes and the fold (2026-09-25, Fable)
+
+**What prompted it:** *"the current duration field in morphs panel will be the duration? iow, 1st inst leaves ta last inst arrives tb in that duration more or less?, so the question is about where I enter dur; and does the pace: gliss field become moot?"*
+
+**The data (`morph_panel.js` 739 … 747 · `morph.js` `carrierTiming` 286 … 300 · `foldPhase` 307):** the panel has three time boxes —
+- **`pace: gliss (s)` = `carrier.span`, the ONE-WAY travel:** the first voice leaves A at 0, the last arrives at B at its end (exactly: the last start is at the end of the `spread` window, its move ends at the gliss's end). **This is the number he means.** Not moot — it IS the duration of the transition.
+- **`duration (s)` = `carrier.duration`, the BODY — and a body longer than the gliss FOLDS:** `cycling = duration > span` → `foldPhase` sends the trajectory 0 → 1 → 0 → 1 …, out and BACK toward A with no discontinuity (the pair's gliss out and back). For a take → take transition a number in this box is WRONG by construction — everyone would turn round and head back to A.
+- **`release (s)`** — the fade, tacked on after the body: stays.
+
+**The AI's call, his to reverse (into the plan's panel item):** under "take → take" the panel shows ONE box named **`duration (s)`** that writes `carrier.span` (the gliss), the fold box hidden and forced blank so a stray number cannot send the players back; `release` stays as the fade. Every other model's panel unchanged.
+
+## §362. THE MORPH BETWEEN TAKES — the duration holds both staggers; the fade stays (2026-09-25, Fable)
+
+**What prompted it:** *"duration still includes all the staggared entries as I described? and still operable the fade out if chosen?"*
+
+**Yes and yes (read: `buildCarrier` 507 … 509 · `voiceProgress` 313 … 331 · `carrierTiming` 298 · `stateAt` 1609 … 1614):** the gliss clock runs from 0; the SOUND's entries fall inside the first half-breath (`striationPhase × segLen × 0.5`), the PITCH moves start inside the `spread` window, the last move ends at the gliss's end — both staggers inside the one number. `release` = the fade after it, every voice tapering over it on chord B (`relFade`), `total = duration + release`. **One caveat, named to him:** the two staggers are independent, so a voice whose move was dealt an early start and whose first note enters late (up to half a breath) enters ALREADY MOVING — a few cents off A (a 60 s gliss, entry at 4 s: ≈ 7 % of its travel, half a semitone of seven). Tiny; his ear's to raise in the listen.
+
+## §363. `1t` THE MORPH BETWEEN TAKES — the plan written whole at his word, not built (2026-09-25, Fable, session 15)
+
+**His word:** *"good to write whole plan, skip step by step, check in before build ty"* — the top line of §360 confirmed as it stood; phase 3 condensed into one write. **PLAN § `1t`** carries the requirements (§360), 1t.1 the model in the bank · 1t.2 the `to` take, the arrival by player, the flags, the one `duration` box (§361) · 1t.3 the vibraphones' switch, engine + dial · 1t.4 the line, the actual, the required verification · 1t.5 his listen; the AI's calls named as his to reverse; the rebuild's items pointed to MORPH_NOTES §3. **Found writing it:** `1r`'s "opens a semitone away" is keyed on the model TYPE (`takeVoices` 1724, `const arrival = M3 ? …`) — the new model is M3 too, so that branch must move to the CONVERGE key or `TAKES` would open every pair a semitone; written into 1t.2. Journal §2's ►► row and PLANNER's NOW ► re-pointed; the notation's pick demoted to a `his` row until `1t` closes. **NOT BUILT — STOP for his word; then a checkpoint on Opus, a clear, the build on Opus one commit per step.**
