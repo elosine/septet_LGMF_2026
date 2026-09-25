@@ -12699,3 +12699,42 @@ edge, no plan) for both sides and the engine from HEAD vs the build. Re-run: **7
 staff · clef · brick · glyph · ledger · ottava · goline, so on it the cut reaches only the bricks) page 8 (96 – 108 s): the clip x 112 →
 1880, all 35 arcs inside it, 50 cut groups, the 35 impacts outside it; page 9 the same (6 · 17 · 6). The measuring of every page is
 2c.4's checker.
+
+## §345. 2c.4 THE CLAMP ON SCREEN + `tools/check_screen_edges.js` — built; his whole note at 300 s clears the staff's start; THE SHIELD byte-identical (2026-09-25, Opus)
+
+**The clamp (`render.js`):** on a tiled screen page a UNIT is the clamp-kind items of one system at one time (a chord's heads, their
+accidentals and ledgers, the marks beside them). Each item's ink span is computed from the drawing's own numbers (a glyph's box about
+its anchor, a ledger's width, a dot's radius, an ottava's widened label, … — `inkSpanPx`); a unit whose ink reaches left of x(t0) is
+shifted right by the difference (`curShift` inside `X`, `x + 0 = x` elsewhere). **The go-time indicators are never moved** — go line ·
+attack line · tick · the GC impact are drawn at `view.xOfSeconds(t)`; a beam tip, a tuplet end and a ring bar follow their unit's
+shift. No clamp at the right: ink overhangs into the margin. A shifted unit that reaches the next one is recorded in `opts.edgeReport`
+(flagged, never resolved by a rule — his word, case by case), and so is a clamped unit with no go-time indicator of its own. On a tiled
+page only, a go-time indicator carries `data-go="t"` and the clef is wrapped `g.clef` — what the checker reads; every other page stays
+byte-identical.
+
+**The checker, `tools/check_screen_edges.js`** (the print gate's twin): `export_video --screenJson` dumps the film's own segments (window,
+x mapping, the edge registry, the kinds, the clamp report) and `--screenHtml` every page's SVG; the checker never re-derives geometry.
+A. the pages tile (the first at the source start, the last at its end, every seam abutting to the bit, every window one span, t0 and tω
+at the same x on every page) · every drawn kind has an edge class (render's 26 + whatever the model draws) · the clamp report. B. in
+headless Chrome: every leaf of every system right of x(t0), or furniture (a label, the clef) ENTIRELY left of it; a cut kind inside a
+clip whose rect is exactly [x(t0), x(tω)]; nothing past the frame; every go-time indicator at x(t) within 0.01 px and owned by its page.
+Exit 1 on any failure. **Seen to go red** (the glyph's class switched off, the ledger's entry deleted): the missing entry named, and 7 pages
+failing with heads straddling or inside the gutter — page 26 (300 s) among them.
+
+**The numbers:**
+- **`piece-lgmf`, video: PASS** — 48 pages tiled 0 → 565 s, every window 12 s, music x 112 → 1880 · 26 kinds classed · **7 units
+  clamped, the widest 15.9 px** · 5030 leaves measured, 1008 furniture leaves in the gutter, nothing timed there · the rightmost ink at
+  1880.0 · 230 go-time indicators exact. **FLAG: 5 of the 7 clamped units have no go-time indicator of their own** — p1 E.H. @ 0.00
+  (+15.86 px) · p16 part 6 @ 180.06 (+1.15) · **p26 E.H. @ 300.05 (+7.73) — his whole note** · p27 E.H. @ 312.02 (+12.47) · p40 E.H.
+  @ 468.07 (+4.49). With the bricks hidden in the video and no go line on these parts, the head IS where the eye reads the time, so
+  the shift moves it by up to 0.11 s at 147 px/s. The PLAN's own exception (2c.4 (b): such a note takes a go line, one per note) is his
+  to call — put to him at the 2c.5 stop. No collision on either IR.
+- **`db1`, video: PASS** — 63 pages tiled 0 → 753 s · 19 units clamped, the widest 19.2 px, 1 flagged with no go line (p52 part 2 @
+  612.06) · 29706 leaves, 1611 inside the page clip · the rightmost ink at **1911.8 — 31.8 px into the 40 px right margin** (more than
+  the 27 px the 3.44 ss overhang predicted; still inside the frame) · 4030 go-time indicators exact.
+- **The app on `score-5401`** (`notation.html`, page files only): opens on the tiled plan (page 28/48 = 324.0 – 336.0 s); page 26 =
+  300.0 – 312.0 s — the E.H. unit's ink from **112.0**, the staff's first pixel, nothing of any system left of 112, labels at 44, the
+  clip 112 → 1880, no error. The zoom ×2: 300.0 – 305.5 s, the clip 224 → 1840, nothing left of 224, the label at 84. His bank stores'
+  times read before and after: untouched; the throwaway's `lgmf.sequenceDrawer.v1` · `lgmf.rhythmSequence.v1` cleared.
+
+**THE SHIELD** (the pre-2c registry, `eeb78bb`): 7/7 byte-identical; the eight batteries GREEN; `test_coords` its one pre-existing failure.

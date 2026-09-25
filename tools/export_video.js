@@ -48,9 +48,10 @@ const tEnd = arg('t1') != null ? parseFloat(arg('t1')) : null;
 const probes = (arg('probe', '') || '').split(',').filter(Boolean).map(Number);
 const probeDir = arg('probeDir', path.join(ROOT, 'notation', 'video', 'probe'));
 const dumpPage = arg('dumpPage');
+const screenJson = arg('screenJson', null);   // [2c.4] dump the screen plan + the clamp report (+ --screenHtml: every page's SVG), then stop
 const fadeFrames = Math.max(0, Math.round(parseFloat(arg('fade', '8')) || 0));   // W2: 0 = hard cuts
 const fadeMode = arg('fadeMode', 'dip');                                        // dip | cross
-if (!outFile && !probes.length && dumpPage == null) {
+if (!outFile && !probes.length && dumpPage == null && !screenJson) {
   console.error('usage: export_video.js --ir <id> --view video|zoom --fps N --audio <wav> --out <mp4>');
   console.error('       (or --probe t1,t2,... --probeDir <dir> to write single frames instead)');
   console.error('       (or --dumpPage N [--dumpTo file.svg] to write one static page SVG)');
@@ -333,6 +334,35 @@ function cropHalf(px, h) {
     out.set(px.subarray(sy * rowBytes, (sy + 1) * rowBytes), y * rowBytes);
   }
   return out;
+}
+
+// ---------------------------------------------------------------- [2c.4] THE SCREEN PLAN, DUMPED
+// ONE source for the geometry, as export_print's --planJson is for print: tools/check_screen_edges.js reads the pages, their
+// windows and x mapping, the edge registry and the clamp report from HERE rather than re-deriving them, and measures the SVGs
+// written by --screenHtml in Chrome. The pages are the film's own segments (the --view's), drawn by the film's own staticSvg.
+if (screenJson) {
+  const htmlOut = arg('screenHtml', null);
+  const kindsInModel = [...new Set(model.systems.flatMap(s => (s.items || []).map(it => it.k)))].sort();
+  const svgs = [];
+  const out = {
+    ir: irId, view: viewMode, tile: TILE, pageSeconds, srcStart: ir.source.window[0], srcEnd,
+    edges: EDGES, edge: pageRules.edge || null,
+    kinds: { point: Render.POINT_KINDS, long: Render.LONG_KINDS, furniture: Render.FURNITURE_KINDS, other: ['tuplet'] }, kindsInModel,
+    pages: segments.map((seg, i) => {
+      const rep = [];
+      svgs.push(StaticPage.staticPageSvg({ model, view: seg.view, glyphs, C, srcEnd, reshow: seg.reshow, ownsEnd: seg.ownsEnd,
+        ensemble: ENS, screenEdges: seg.screenEdges, edgeReport: rep }));
+      const v = seg.view;
+      return { n: i + 1, t0: seg.t0, t1: seg.t1, w0: v.window[0], w1: v.window[1], x0: v.musicX0Px, x1: v.musicX1Px,
+        pps: v.pxPerSecond, widthPx: v.widthPx, heightPx: v.heightPx, first: !!(seg.screenEdges && seg.screenEdges.first), ownsEnd: seg.ownsEnd, clamps: rep };
+    }),
+  };
+  fs.writeFileSync(screenJson, JSON.stringify(out, null, 1));
+  if (htmlOut) fs.writeFileSync(htmlOut, '<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}.page{display:block}' +
+    '@font-face{font-family:"Crimson Pro Light";src:url("' + ('file:///' + FONTS[0].split(path.sep).join('/')) + '")}</style></head><body>\n' +
+    svgs.map((s, i) => '<div class="page" data-n="' + (i + 1) + '">' + s + '</div>').join('\n') + '\n</body></html>');
+  console.log('screen plan -> ' + screenJson + '  (' + out.pages.length + ' ' + viewMode + ' pages' + (TILE ? ', tiled' : ', planned') + ')' + (htmlOut ? '  + ' + htmlOut : ''));
+  process.exit(0);
 }
 
 // ---------------------------------------------------------------- dump mode

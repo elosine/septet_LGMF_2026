@@ -2430,7 +2430,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
-  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344)** — `planned` 2026-09-25 (Fable,
+  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
   agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
   #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
@@ -2463,7 +2463,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     every page they cross, CLIPPED to `[x(t0), x(tω)]` by an SVG `clip-path` on the page's timed group — a paper cut, the shape keeps its
     identity, the remainder on the next page from x(t0) at the same height by construction. Point items are not clipped (2c.4). Nothing
     in the gutter by construction.
-  - **2c.4 — The clamp on screen** (`edge.screen: 'clamp'` — the note unit: head · accidental · ledgers, later the stem and flag; text
+  - **2c.4 — The clamp on screen** **`built` 2026-09-25 (§345; `check_screen_edges` PASS on `piece-lgmf` and `db1`; THE SHIELD byte-identical; FLAG for him: 5 clamped units with no go line of their own).** (`edge.screen: 'clamp'` — the note unit: head · accidental · ledgers, later the stem and flag; text
     marks; stamps): at a page's start, a unit whose ink-left < x(t0) is shifted right by the difference **and its go-time indicator does
     not move** — (a) a unit WITH a go line (the attack line, the brick's start — every class today: the family device's head sits before
     its attack) keeps the line at x(t) and the ink lands right of it; (b) a class whose head's left edge IS the go time (none today; the

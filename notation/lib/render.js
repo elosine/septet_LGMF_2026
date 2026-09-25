@@ -125,6 +125,10 @@
     const cutKind = k => !!(EDGE && EDGE[k] && EDGE[k].screen === 'cut');
     const CLIP_ID = SCR ? ('twclip-' + Math.round(w0 * 1000)) : null;
     const clipOpen = CLIP_ID ? '<g class="tw-cut" clip-path="url(#' + CLIP_ID + ')">' : '';
+    // [2c.4] on a tiled screen page only (so every other page stays byte-identical): a go-time indicator carries its time, the
+    // clef is marked as the gutter's furniture — what tools/check_screen_edges.js reads
+    const GO = t => SCR ? ' data-go="' + t + '"' : '';
+    const CLEF_OPEN = SCR ? '<g class="clef">' : '', CLEF_CLOSE = SCR ? '</g>' : '';
     if (CLIP_ID) {
       const cx0 = view.xOfSeconds(w0), cx1 = view.xOfSeconds(w1);
       parts.push('<defs><clipPath id="' + CLIP_ID + '"><rect x="' + cx0.toFixed(2) + '" y="0" width="' + (cx1 - cx0).toFixed(2) +
@@ -171,11 +175,81 @@
       };
       const lane = laneOf(sysModel, sys);
       const hasGc = new Set((sysModel.items || []).filter(x => x.k === 'gc' && x.ev).map(x => x.ev));   // §401h
-      const X = (t, dxSs) => view.xOfSeconds(t) + (dxSs || 0) * ssPx;
+      // [2c.4] curShift: the clamp's shift for the item being drawn (0 unless it is a clamp kind in a shifted unit — x + 0 = x)
+      let curShift = 0;
+      const X = (t, dxSs) => view.xOfSeconds(t) + (dxSs || 0) * ssPx + curShift;
       const Y = ss => sys.yOfSs(ss);
       // [§495] an item placed against ANOTHER staff of the same part (the beamed
       // pair's bass stem reaching the treble beam, its pizz. on the treble row)
       const sysYOf = key => { try { const s2 = view.system(key); return ss => s2.yOfSs(ss); } catch (e) { return Y; } };
+      // [2c.4] THE CLAMP (the composer, §340: "all of the notation gets pushed right so its beginning, left side, clears the left
+      // starting point … it all depends on go time indicators; in some cases there is a go line, this has to be pixel/time accurate,
+      // the rest can work around it"). On a tiled screen page a UNIT is the clamp-kind items of ONE system at ONE time (a chord's
+      // heads, their accidentals and ledgers, the marks beside them). If a unit's ink reaches left of x(t0) the whole unit is shifted
+      // right by the difference; the go-time indicators (the atomic kinds — go line · attack line · tick · the GC impact) are never
+      // moved, and a beam tip, a tuplet end and a ring bar follow the unit they belong to. At the right edge nothing is clamped: ink
+      // may overhang into the right margin (2c.1 sized it). A shifted unit that reaches the next unit is FLAGGED in opts.edgeReport,
+      // never resolved by a rule (his word: case by case). The spans below use the drawing's own numbers.
+      const clampKind = k => !!(EDGE && EDGE[k] && EDGE[k].screen === 'clamp');
+      const tk = t => Math.round(t * 1e6);
+      const shiftAt = new Map();
+      const inkSpanPx = it => {
+        const x = view.xOfSeconds(it.t) + (it.dxSs || 0) * ssPx;
+        switch (it.k) {
+          case 'glyph': {
+            const b0 = boxFor(it.g), kx = it.scale || 1, a = it.align ? (b0.anchors[it.align] || { x: 0 }) : { x: 0 };
+            return [x - a.x * kx * ssPx, x + (b0.wSs - a.x) * kx * ssPx];
+          }
+          case 'rest': { const rg = glyphs.rest['rest' + it.dur]; return [x, x + ((rg && rg.wSs) || 1) * ssPx]; }
+          case 'stem': { const h = stds.stem.thickness * ssPx / 2; return [x - h, x + h]; }
+          case 'dot': { const r = glyphs.standards.staccatoDot.diameter / 2 * ssPx; return [x - r, x + r]; }
+          case 'ledger': { const w = (it.wSs || glyphs.notehead.filled.wSs) * (1 + 2 * stds.ledgerLine.lengthFraction) * ssPx; return [x - w / 2, x + w / 2]; }
+          case 'text': {   // no font metrics here: half an em a character, the anchor honoured
+            const w = String(it.text || '').length * 0.5 * (it.size || 1) * ssPx * E.textScale;
+            return it.anchor === 'middle' ? [x - w / 2, x + w / 2] : it.anchor === 'end' ? [x - w, x] : [x, x + w];
+          }
+          case 'barline': { const h = E.barLine.thickSs * ssPx / 2; return [x - h, x + h]; }
+          case 'tempotext': { const hw = glyphs.notehead.filled.wSs * ssPx * E.barLine.tempoHeadScale / 2; return [x - hw, x + (E.barLine.tempoGapSs + 3) * ssPx]; }
+          case 'glissline': case 'dynarrow': {
+            const xa = view.xOfSeconds(it.t) + (it.dx0Ss || 0) * ssPx, xb = view.xOfSeconds(it.t) + (it.dx1Ss || 0) * ssPx;
+            return [Math.min(xa, xb), Math.max(xa, xb)];
+          }
+          case 'niente': { const r = (it.diaSs || 0.47) * ssPx / 2; return [x - r, x + r]; }
+          case 'ottava': {
+            const O = stds.ottava || {}, lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
+            let xl = view.xOfSeconds(it.t) + (it.dx0Ss || 0) * ssPx;
+            const xh = view.xOfSeconds(it.t) + (it.dx1Ss || 0) * ssPx;
+            const lgW = lg ? (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx : 0, minSpan = (O.minBracketSpanSs || 1.37) * ssPx;
+            if (xh - (xl + lgW) < minSpan) xl = xh - minSpan - lgW;
+            return [xl, xh];
+          }
+          case 'lvslur': return [x, x + ((glyphs.letRing && glyphs.letRing.wSs) || 1.6) * ssPx];
+          default: return null;
+        }
+      };
+      if (SCR) {
+        const X0 = view.xOfSeconds(w0);
+        const L = new Map(), R = new Map();
+        for (const it of sysModel.items) {
+          if (!clampKind(it.k) || it.t === undefined || !owns(it.t)) continue;
+          const e = inkSpanPx(it);
+          if (!e) continue;
+          const k = tk(it.t);
+          L.set(k, Math.min(L.has(k) ? L.get(k) : Infinity, e[0]));
+          R.set(k, Math.max(R.has(k) ? R.get(k) : -Infinity, e[1]));
+        }
+        for (const [k, l] of L) if (l < X0 - 1e-6) shiftAt.set(k, X0 - l);
+        if (shiftAt.size && opts && Array.isArray(opts.edgeReport)) {
+          const keys = [...L.keys()].sort((a, b) => a - b);
+          const goAt = new Set(sysModel.items.filter(x => (x.k === 'goline' || x.k === 'attackline' || x.k === 'tick' || x.k === 'gc') && x.t !== undefined).map(x => tk(x.t)));
+          for (const [k, s] of shiftAt) {
+            const nx = keys.find(q => q > k);
+            const overlap = nx === undefined ? 0 : (R.get(k) + s) - (L.get(nx) + (shiftAt.get(nx) || 0));
+            opts.edgeReport.push({ part: sysModel.part, t: k / 1e6, shiftPx: +s.toFixed(2), collidesPx: overlap > 0 ? +overlap.toFixed(2) : 0, goLine: goAt.has(k) });
+          }
+        }
+      }
+      const shiftOf = t => shiftAt.get(tk(t)) || 0;
       // class carries the part so a caller can restyle ONE lane without a
       // re-render — the per-part solo dim (day 24). Presentation-neutral:
       // a class attribute adds no ink and no geometry.
@@ -227,6 +301,7 @@
       for (const it of itemsInLayers) {
         // [2c.3] a cut kind's ink goes inside the page's clip — wrapped in `finally`, so every branch's `continue` is honoured
         const cutMark = (cutKind(it.k) && it.k !== 'gc') ? parts.length : -1;   // the GC wraps its arc alone (its impact is a point)
+        curShift = (SCR && it.t !== undefined && clampKind(it.k)) ? shiftOf(it.t) : 0;   // [2c.4] the unit's clamp
         try {
         if (it.k === 'staff') {
           // staff is FURNITURE: in a free window wider than the material
@@ -262,10 +337,10 @@
             // than vanishing off-screen — invisible failure is worse
             const cw = glyphs.clef[ck].wSs * ssPx;
             const cx = Math.max(ML + 2, MX0 - cw - E.clefGutterGapSs * ssPx);
-            parts.push(Stamps.toSvg(cStamp, { xPx: cx, yPx: Y(CL.line), ssPx, align: CL.anchor }));
+            parts.push(CLEF_OPEN + Stamps.toSvg(cStamp, { xPx: cx, yPx: Y(CL.line), ssPx, align: CL.anchor }) + CLEF_CLOSE);
           } else {
             const cx = Math.max(view.xOfSeconds(it.t), ML);
-            parts.push(Stamps.toSvg(cStamp, { xPx: cx + E.clefInsetSs * ssPx, yPx: Y(CL.line), ssPx, align: CL.anchor }));
+            parts.push(CLEF_OPEN + Stamps.toSvg(cStamp, { xPx: cx + E.clefInsetSs * ssPx, yPx: Y(CL.line), ssPx, align: CL.anchor }) + CLEF_CLOSE);
           }
         } else if (it.k === 'glyph') {
           if (!owns(it.t)) continue;
@@ -317,8 +392,9 @@
           // up-stems, up the page for down-stems (review finding: down-stem
           // beams hung beyond the tips)
           const t = stds.beam.thickness * ssPx * (it.dir === 'down' ? -1 : 1);
-          const fwd = tips.map(p => X(p.t, p.dxSs).toFixed(2) + ',' + Y(p.ySs).toFixed(2));
-          const back = tips.slice().reverse().map(p => X(p.t, p.dxSs).toFixed(2) + ',' + (Y(p.ySs) + t).toFixed(2));
+          // [2c.4] each tip follows its own unit's clamp (shiftOf is 0 off a tiled screen page)
+          const fwd = tips.map(p => (X(p.t, p.dxSs) + shiftOf(p.t)).toFixed(2) + ',' + Y(p.ySs).toFixed(2));
+          const back = tips.slice().reverse().map(p => (X(p.t, p.dxSs) + shiftOf(p.t)).toFixed(2) + ',' + (Y(p.ySs) + t).toFixed(2));
           parts.push('<polygon points="' + fwd.concat(back).join(' ') + '"/>');
         } else if (it.k === 'text') {
           if (!owns(it.t)) continue;
@@ -330,11 +406,11 @@
         } else if (it.k === 'attackline') {
           if (!owns(it.t)) continue;
           // M4: a vertical stroke straddling the pitch position
-          parts.push('<rect x="' + (X(it.t, 0) - E.attackLine.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs + E.attackLine.offsetSs)).toFixed(2) +
+          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.attackLine.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs + E.attackLine.offsetSs)).toFixed(2) +
             '" width="' + (E.attackLine.wSs * ssPx).toFixed(2) + '" height="' + (E.attackLine.hSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'tick') {
           if (!owns(it.t)) continue;
-          parts.push('<rect x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - E.tick.hSs * ssPx).toFixed(2) +
+          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - E.tick.hSs * ssPx).toFixed(2) +
             '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (E.tick.hSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'envcurve') {
           // the drawn level curve over the FULL lane band (piece #1: value
@@ -531,8 +607,8 @@
           const hIn = (TP.hGapSs != null ? TP.hGapSs : 0.35) * ssPx;
           // dx1Ss: layout anchored the right end to the bracket's own trailing
           // rest glyph (day 29) — use it instead of the symmetric inset
-          const x0 = view.xOfSeconds(it.t0) + hIn;
-          const x1 = it.dx1Ss != null ? view.xOfSeconds(it.t1) + it.dx1Ss * ssPx : view.xOfSeconds(it.t1) - hIn;
+          const x0 = view.xOfSeconds(it.t0) + hIn + shiftOf(it.t0);   // [2c.4] the ends follow their units' clamps
+          const x1 = (it.dx1Ss != null ? view.xOfSeconds(it.t1) + it.dx1Ss * ssPx : view.xOfSeconds(it.t1) - hIn) + shiftOf(it.t1);
           const size = (TP.numeralSizeSs || 1.2348) * ssPx;
           const gap = (it.text || '3:2').length * (TP.numeralGapPerCharSs || 0.88) * ssPx;
           const gMid = (x0 + x1) / 2, gA = gMid - gap / 2, gB = gMid + gap / 2;
@@ -615,7 +691,7 @@
               gy2 = b.yOfSs(-2) + (a.yOfSs(2) - gy1);
             } catch (e) { /* no ensemble or staves: the lane bottom stands */ }
           }
-          parts.push('<line x1="' + gx + '" y1="' + gy1.toFixed(1) + '" x2="' + gx + '" y2="' + gy2.toFixed(1) +
+          parts.push('<line' + GO(it.t) + ' x1="' + gx + '" y1="' + gy1.toFixed(1) + '" x2="' + gx + '" y2="' + gy2.toFixed(1) +
             '" stroke="' + GL.color + '" stroke-width="' + GL.wPx + '" stroke-opacity="' + GL.opacity +
             '" stroke-dasharray="' + GL.dash + '"/>');
         } else if (it.k === 'gc') {
@@ -640,7 +716,7 @@
             (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');
           const arc = '<path class="gc-arc" d="' + d + '" stroke="' + color + '" stroke-width="' + (G.look.arcStrokePx * G.k).toFixed(2) + '" fill="none"/>';
           parts.push(cutKind('gc') ? clipOpen + arc + '</g>' : arc);   // [2c.3] the arc cut like paper; the impact below is a point
-          if (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t))) parts.push('<circle class="gc-impact" cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
+          if (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t))) parts.push('<circle class="gc-impact"' + GO(it.t) + ' cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
             '" r="' + (G.look.impactRadiusPx * G.k).toFixed(2) + '" fill="' + color + '"/>');
         } else if (it.k === 'ringbar') {
           // the sounding-length bar: left edge flush with the go line,
@@ -650,7 +726,7 @@
           const RB = E.ringBar;
           // dx0Ss (day 24): the bar begins after the nh-unit's ink, not at the
           // go line — layout computes it from the unit's own right edge.
-          const x0 = X(Math.max(it.t0, w0), it.t0 >= w0 ? it.dx0Ss : 0), x1 = view.xOfSeconds(Math.min(it.t1, wInk));
+          const x0 = X(Math.max(it.t0, w0), it.t0 >= w0 ? it.dx0Ss : 0) + (it.t0 >= w0 ? shiftOf(it.t0) : 0), x1 = view.xOfSeconds(Math.min(it.t1, wInk));   // [2c.4] after its unit's ink
           const h = RB.hSs * ssPx;
           parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - h / 2).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
             '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
