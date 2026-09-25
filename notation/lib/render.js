@@ -118,6 +118,18 @@
     const EDGE = SCR ? (SCR.edge || {}) : null;
     const boundaryBefore = k => !!(EDGE && EDGE[k] && EDGE[k].boundary === 'before');
     const ownsBefore = t => (t > w0 + 1e-9 || !!SCR.first) && t <= w1 + 1e-9;
+    // [2c.3] THE MATISSE CUT (the composer: "arc starts on p1, ends 1/2 way down at page cut so 1/2 of a descending magenta line, p2
+    // picks up the line 1/2 way on descent, but nothing in gutter"): a kind whose edge entry says screen 'cut' is drawn on every page
+    // it crosses — WHOLE, not sampled to the window — inside a clip to [x(t0), x(tω)], so the shape keeps its identity and the
+    // remainder starts on the next page at x(t0) at the same height by construction. Point items are never clipped (2c.4).
+    const cutKind = k => !!(EDGE && EDGE[k] && EDGE[k].screen === 'cut');
+    const CLIP_ID = SCR ? ('twclip-' + Math.round(w0 * 1000)) : null;
+    const clipOpen = CLIP_ID ? '<g class="tw-cut" clip-path="url(#' + CLIP_ID + ')">' : '';
+    if (CLIP_ID) {
+      const cx0 = view.xOfSeconds(w0), cx1 = view.xOfSeconds(w1);
+      parts.push('<defs><clipPath id="' + CLIP_ID + '"><rect x="' + cx0.toFixed(2) + '" y="0" width="' + (cx1 - cx0).toFixed(2) +
+        '" height="' + view.heightPx + '"/></clipPath></defs>');
+    }
     // [2b.7.4] THE SYSTEM ENDS WHERE THE PAGE'S MUSIC ENDS: staff, ruler and
     // long items stop at the cut + the right reserve rather than at the window
     // edge — the ragged right edge of a page whose cut fell early. In a
@@ -213,6 +225,9 @@
       const LAYER = k => (k === 'envcurve' ? 1 : k === 'goline' ? 2 : 0);
       const itemsInLayers = [...sysModel.items].sort((a, b) => LAYER(a.k) - LAYER(b.k));
       for (const it of itemsInLayers) {
+        // [2c.3] a cut kind's ink goes inside the page's clip — wrapped in `finally`, so every branch's `continue` is honoured
+        const cutMark = (cutKind(it.k) && it.k !== 'gc') ? parts.length : -1;   // the GC wraps its arc alone (its impact is a point)
+        try {
         if (it.k === 'staff') {
           // staff is FURNITURE: in a free window wider than the material
           // (opts.staffFull, notation-view window mode) the outer segments
@@ -294,8 +309,10 @@
           parts.push('<rect x="' + (X(it.t, it.dxSs) - w / 2).toFixed(2) + '" y="' + (Y(it.ySs) - stds.ledgerLine.thickness * ssPx / 2).toFixed(2) +
             '" width="' + w.toFixed(2) + '" height="' + (stds.ledgerLine.thickness * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'beam') {
-          const tips = it.tips.filter(p => owns(p.t));
+          // [2c.3] cut: every tip, on each page the beam crosses — the clip ends it at the page's edge like paper
+          const tips = cutKind('beam') ? it.tips : it.tips.filter(p => owns(p.t));
           if (tips.length < 2) continue;
+          if (cutKind('beam') && !crosses(Math.min(...tips.map(p => p.t)), Math.max(...tips.map(p => p.t)))) continue;
           // beam thickness extends TOWARD the noteheads: down the page for
           // up-stems, up the page for down-stems (review finding: down-stem
           // beams hung beyond the tips)
@@ -339,9 +356,10 @@
           const samples = it.samples;
           const n = samples.length;
           const pts = [];
+          const whole = cutKind('envcurve');   // [2c.3] cut like paper: every sample, the clip trims it at the page's edges
           for (let i = 0; i < n; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
-            if (t < w0 - 1e-9 || t > wInk + 1e-9) continue;
+            if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
             pts.push([view.xOfSeconds(t), yB - samples[i] * (yB - yT)]);
           }
           if (pts.length >= 2) {
@@ -431,9 +449,10 @@
           const yB = sys.yBotPx;
           const yCeil = it.full ? sys.yTopPx : (sys.yTopPx + sys.yBotPx) / 2;
           const n2 = it.samples.length, cp = [];
+          const whole = cutKind('cresccurve');   // [2c.3]
           for (let i = 0; i < n2; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n2 - 1));
-            if (t < w0 - 1e-9 || t > wInk + 1e-9) continue;
+            if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
             cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yCeil)]);
           }
           if (cp.length >= 2) {
@@ -458,9 +477,10 @@
           const GC2 = E.glissCurve;
           const yT = sys.yTopPx, yMid = (sys.yTopPx + sys.yBotPx) / 2;
           const n = it.samples.length, gp = [];
+          const whole = cutKind('glisscurve');   // [2c.3]
           for (let i = 0; i < n; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
-            if (t < w0 - 1e-9 || t > wInk + 1e-9) continue;
+            if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
             gp.push([view.xOfSeconds(t), yMid - it.samples[i] * (yMid - yT)]);
           }
           if (gp.length >= 2) {
@@ -501,6 +521,7 @@
           // descending toward the notes, the horizontal in TWO segments with a
           // gap for the numeral, which straddles the line. Geometry:
           // engraving.layout.tuplet.
+          if (cutKind('tuplet') && !crosses(it.t0, it.t1)) continue;   // [2c.3] a bracket off this page is not drawn at all (it had no gate)
           const TP = E.tuplet || {};
           const th = (TP.thicknessSs || 0.16) * ssPx, hook = (TP.hookLengthSs || 0.7) * ssPx;
           const yL = Y(it.ySs);
@@ -617,7 +638,8 @@
           const color = (E.gc && E.gc.color) || G.look.color;
           const d = GC.trajectory(P).map((p, i) =>
             (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');
-          parts.push('<path class="gc-arc" d="' + d + '" stroke="' + color + '" stroke-width="' + (G.look.arcStrokePx * G.k).toFixed(2) + '" fill="none"/>');
+          const arc = '<path class="gc-arc" d="' + d + '" stroke="' + color + '" stroke-width="' + (G.look.arcStrokePx * G.k).toFixed(2) + '" fill="none"/>';
+          parts.push(cutKind('gc') ? clipOpen + arc + '</g>' : arc);   // [2c.3] the arc cut like paper; the impact below is a point
           if (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t))) parts.push('<circle class="gc-impact" cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
             '" r="' + (G.look.impactRadiusPx * G.k).toFixed(2) + '" fill="' + color + '"/>');
         } else if (it.k === 'ringbar') {
@@ -643,6 +665,9 @@
           parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - 0.5 * ssPx).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
             '" height="' + (1 * ssPx).toFixed(2) + '" fill="' + o.brick + '" opacity="' + E.brickOpacity + '"' +
             (tip ? ' pointer-events="all">' + tip + '</rect>' : '/>'));
+        }
+        } finally {
+          if (cutMark >= 0 && parts.length > cutMark) { parts.splice(cutMark, 0, clipOpen); parts.push('</g>'); }
         }
       }
       parts.push('</g>');

@@ -2430,7 +2430,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
-  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343)** — `planned` 2026-09-25 (Fable,
+  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
   agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
   #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
@@ -2459,7 +2459,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     on screen. Ownership on screen: a point item belongs to the page with `t0 ≤ t < tω`, **except a GC impact exactly at tω, which belongs
     to the page before** (§340: the performer sees the impact before the eye moves) — the class's `boundary: 'before'`. The zoom view
     steps by its own span, contiguous, unchanged.
-  - **2c.3 — The Matisse cut on screen** (`edge.screen: 'cut'` — GC arcs · duration lines and bricks · curves, the `crosses` set): drawn on
+  - **2c.3 — The Matisse cut on screen** **`built` 2026-09-25 (§344; THE SHIELD byte-identical on the pre-2c registry).** (`edge.screen: 'cut'` — GC arcs · duration lines and bricks · curves, the `crosses` set): drawn on
     every page they cross, CLIPPED to `[x(t0), x(tω)]` by an SVG `clip-path` on the page's timed group — a paper cut, the shape keeps its
     identity, the remainder on the next page from x(t0) at the same height by construction. Point items are not clipped (2c.4). Nothing
     in the gutter by construction.

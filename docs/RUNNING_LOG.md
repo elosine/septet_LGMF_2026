@@ -12676,3 +12676,26 @@ The script is kept in the scratchpad (`shield.sh`) and re-run for 2c.3 · 2c.4.
 no event exactly on a seam, 4 chunks interrupted at seams (recorded).
 
 **Not yet (by the order):** the arcs and curves are not clipped (2c.3) and a unit over t0 still hangs into the gutter (2c.4).
+
+## §344. 2c.3 THE MATISSE CUT ON SCREEN — built: a cut kind drawn whole inside the page's clip; THE SHIELD byte-identical (2026-09-25, Opus)
+
+**What it does (`render.js` alone):** on a tiled screen page, a kind whose `page_rules.edge` entry says `screen: 'cut'` is drawn on every
+page it crosses, WHOLE, inside an SVG `clipPath` of `[x(t0), x(tω)]` × the frame's height (one `<defs>` per page, id `twclip-<t0 ms>`, so
+print's many pages in one document can never share one) — a paper cut: the shape keeps its identity and the remainder starts on the
+next page at x(t0) at the same height by construction, and nothing of it can reach the gutter. Per kind: the three curves (env · cresc ·
+gliss) no longer drop the samples outside the window — every sample is drawn and the clip trims it exactly at the edge (before, the
+curve began at the first sample inside, up to a sample-step late) · the beam is drawn through ALL its tips on each page it crosses
+(before, only between owned tips) · the tuplet bracket, which had no gate at all, is drawn only on a page it crosses · the ringbar and
+the brick keep their own edge clamps, wrapped too · **the GC wraps its ARC alone** — the impact is a point, a go-time indicator, never
+clipped (2c.2's ownership). The wrap is in a `try … finally` round the kind chain, so every branch's `continue` is honoured.
+
+**THE SHIELD — a correction to the recipe, found by running it:** the first run compared HEAD's engine with the new one on HEAD's
+`page_rules.json` — and HEAD (2c.2's commit) already carries `screenPlan` and `edge`, so both sides were TILED and 5 of 7 differed, by
+design. The shield by data absence is the registry from BEFORE 2c: `shield.sh` now takes the registry from `eeb78bb` (no margins, no
+edge, no plan) for both sides and the engine from HEAD vs the build. Re-run: **7/7 byte-identical**; the eight batteries GREEN;
+`test_coords` its one pre-existing failure. (2c.2's run was sound: its HEAD registry had the margins but no `screenPlan` or `edge`.)
+
+**On the new data:** `db1` (the tuba page, 429 GCs · 96 curves · 228 beams · 42 tuplets — it exercises the cut; `piece-lgmf` draws only
+staff · clef · brick · glyph · ledger · ottava · goline, so on it the cut reaches only the bricks) page 8 (96 – 108 s): the clip x 112 →
+1880, all 35 arcs inside it, 50 cut groups, the 35 impacts outside it; page 9 the same (6 · 17 · 6). The measuring of every page is
+2c.4's checker.
