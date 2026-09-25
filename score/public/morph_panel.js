@@ -758,7 +758,8 @@ const PANEL = {
         row('bias  −1…+1', 'dials.bias', p.dials.bias, 0.1);
         row('spread 0…1', 'dials.spread', p.dials.spread, 0.1);
         row('depth 0…1', 'dials.depth', p.dials.depth, 0.1);
-        row('dyn amount', 'dyn.amount', p.dyn.amount, 0.05);
+        // PLAN 1s — `dyn amount` is gone from the face of the panel: `min` · `max` in written dynamics (the methods above readFields)
+        this.drawDyn(f, p);
         // Under cycling this is the difference between one peak per cycle
         // (`rise`, loudness tracking how open the bloom is) and two (`swell`,
         // whose arch is symmetric in progress so it peaks going out AND back).
@@ -1068,6 +1069,73 @@ const PANEL = {
         } catch (e) { this.setStatus('insert failed: ' + e.message, true); }
     },
 
+    // ------------------------------------------------------------ PLAN 1s — THE MORPH BETWEEN `min` AND `max` (2026-09-24, RUNNING_LOG §326 … §329)
+    // His ear: *"the max vol seems quite loud no matter how I lower dyn amount"*. `dyn amount` was the HALF-SWING round `dyn.base`, a
+    // centre with no box (CONVERGE 0.5, the engine 0.6), so lowering it narrowed the band round mf and never lowered the top. Now two
+    // menus in WRITTEN DYNAMICS — the table's names, the waves' `low · high` idiom — and the engine's own dials are DERIVED from them:
+    // base = (min + max) / 2, amount = (max − min) / 2 on the table's 0 … 1 level (a name = its `levelOfName`, DYNAMICS_LAW §3 Rule 2).
+    // The engine is untouched: `dynLevel` still reads base ± amount × w, w −1 … +1, so the trough IS `min` and the peak IS `max` under
+    // every shape (`flat` reads base alone — one menu, `level`). Two HIDDEN number boxes still carry `dyn.base` · `dyn.amount` at full
+    // precision and `readFields` reads THEM, never the menus — so every stored model and actual recalls and regenerates byte-identical;
+    // the menus show the NEAREST name (`≈` when the dial sits between names) and write only when he changes one.
+    DYN_NAMES_FALLBACK: ['ppp', 'pp', 'p', 'mp', 'mf', 'f', 'ff', 'fff'],
+    dynNamesList() { const T = root.DynTable; return (T && T.NAMES) || this.DYN_NAMES_FALLBACK; },
+    dynLevelOf(name) { const T = root.DynTable; if (T && T.levelOfName) return T.levelOfName(name); const L = this.DYN_NAMES_FALLBACK, i = L.indexOf(name); return i < 0 ? null : i / (L.length - 1); },
+    // the nearest name to a 0 … 1 level, and whether the level sits exactly on it
+    dynNameOf(level) {
+        const L = this.dynNamesList(), n = L.length - 1, v = Math.max(0, Math.min(1, +level || 0)), i = Math.round(v * n);
+        return { name: L[i], exact: Math.abs(v - i / n) < 1e-6 };
+    },
+    // what the dials say in names — `flat`: one `level`; otherwise the swing's two ends `min` · `max`
+    dynNames(dyn) {
+        const d = dyn || {};
+        const base = d.base != null ? +d.base : 0.6, amt = d.amount != null ? +d.amount : 0.35;   // the engine's DEFAULTS when the params carry none
+        return { flat: (d.shape || 'swell') === 'flat', level: this.dynNameOf(base), min: this.dynNameOf(base - amt), max: this.dynNameOf(base + amt) };
+    },
+    // the status line's words for what went out — 1s.4: *"a stated range is what sounds"* holds only if the line says the names
+    dynText(dyn) {
+        const N = this.dynNames(dyn), nm = x => (x.exact ? '' : '≈') + x.name;
+        return N.flat ? ' · level ' + nm(N.level) : ' · min ' + nm(N.min) + ' · max ' + nm(N.max);
+    },
+    drawDyn(f, p) {
+        const d = p.dyn || {}, N = this.dynNames(d), L = this.dynNamesList();
+        // the engine's dials, hidden — readFields reads these; the menus only ever WRITE them. Drawn at full precision (`i.value = val`
+        // round-trips a JS number exactly, as the old `dyn amount` box did), so an untouched recall re-renders byte-identical.
+        const hid = (path, val) => {
+            const i = document.createElement('input'); i.type = 'number'; i.step = 'any'; i.dataset.path = path;
+            i.value = val == null ? '' : val; i.style.display = 'none'; f.appendChild(i); return i;
+        };
+        const hb = hid('dyn.base', d.base), ha = hid('dyn.amount', d.amount);
+        const menu = (label, cur, tip, onPick) => {
+            const w = document.createElement('div');
+            w.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:2px 0';
+            w.innerHTML = '<span style="color:#9a9">' + label + '</span>'; w.title = tip;
+            const s = document.createElement('select');   // NO data-path: readFields skips it; the hidden boxes carry the numbers
+            s.style.cssText = 'width:96px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px;font-size:13px';
+            L.forEach(o => {
+                const op = document.createElement('option'); op.value = o;
+                op.textContent = (o === cur.name && !cur.exact) ? '≈ ' + o : o;
+                if (o === cur.name) op.selected = true; s.appendChild(op);
+            });
+            s.addEventListener('change', () => { onPick(); this.generate(); });
+            w.appendChild(s); f.appendChild(w); return s;
+        };
+        if (N.flat) {
+            const sL = menu('level', N.level, 'flat: ONE written dynamic — the table\'s CC7 for each instrument, struck at mf (DYNAMICS_LAW §3)',
+                () => { hb.value = this.dynLevelOf(sL.value); });
+            return;
+        }
+        // both menus write BOTH dials from the two names shown, the lower as the trough whichever menu holds it — a dial that sat off the
+        // names (a recalled actual's 0.5 ± 0.4) snaps to its nearest names the first time he touches either menu, never before
+        let sLo, sHi;
+        const write = () => {
+            const a = this.dynLevelOf(sLo.value), b = this.dynLevelOf(sHi.value), mn = Math.min(a, b), mx = Math.max(a, b);
+            hb.value = (mn + mx) / 2; ha.value = (mx - mn) / 2;
+        };
+        sLo = menu('min', N.min, 'the shape\'s TROUGH, in written dynamics — the table\'s CC7 for each instrument, struck at mf (DYNAMICS_LAW §3 Rule 2)', write);
+        sHi = menu('max', N.max, 'the shape\'s PEAK — swell: min → max → min each pass · rise / fall: one climb or fall over the gesture · rotate: a sine between them', write);
+    },
+
     readFields(p) {
         const merged = JSON.parse(JSON.stringify(p));
         // Walk to the parent of a dotted path. Shape rows are only drawn for
@@ -1126,7 +1194,7 @@ const PANEL = {
         // H3.4 — the fader span that actually went out, and any instrument the table had to guess for
         this.setStatus('playing ' + r.scheduled + ' notes' +
             (r.skipped ? ' (' + r.skipped + ' had no port)' : '') +
-            (r.shaped ? ' · ' + r.shaped + ' shaped, struck at mf on the curve channels · the fader CC7 ' + r.cc7Lo + '…' + r.cc7Hi : '') +
+            (r.shaped ? ' · ' + r.shaped + ' shaped, struck at mf on the curve channels · the fader CC7 ' + r.cc7Lo + '…' + r.cc7Hi + this.dynText(this._lastParams && this._lastParams.dyn) : '') +
             (r.onMain ? ' · ' + r.onMain + ' had no curve channel — on MAIN, so their fader will not move' : '') +
             (r.unmeasured && r.unmeasured.length ? ' · no measured fader curve for ' + r.unmeasured.join(' · ') : ''), !!r.onMain);
     },
@@ -1310,7 +1378,7 @@ const PANEL = {
     // numbers that went out say so (the sequence drawer's `rangeText`, LG-51)
     lawText(S) {
         if (!S || !S.n) return '';
-        return ' · ' + S.n + ' shaped, struck at mf on the curve channels · the fader CC7 ' + S.lo + '…' + S.hi +
+        return ' · ' + S.n + ' shaped, struck at mf on the curve channels · the fader CC7 ' + S.lo + '…' + S.hi + this.dynText(this._lastParams && this._lastParams.dyn) +
             (S.unmeasured.length ? ' · no measured fader curve for ' + S.unmeasured.join(' · ') + ' — the table is the UVI law\'s guess there' : '');
     },
     insert() {

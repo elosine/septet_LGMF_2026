@@ -119,6 +119,7 @@ whole in git, see the close block below.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►** | **`1s.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart: `morph.js` untouched).** MORPH → CONVERGE or BLOOM on his take → `min` · `max` in place of `dyn amount` (a recalled dial reads `≈ pp` · `≈ ff`) → `pp` · `ff` → Generate → the status ends *· min pp · max ff* → Play → Insert. BUILT AND VERIFIED 2026-09-24 on Fable (RUNNING_LOG §329; §326 … §328 the design). **His call, found on the way (§329):** a model's own dips (CONVERGE's soft entries) go UNDER `min`, as they went under `base − amount` before — one clamp in `morph.js` if he wants `min` a hard floor, and every stored render moves. Revise on his word | his ear · then Fable | — |
 | **►►** | **`1r.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart: `morph.js` untouched).** CONVERGE · `Just-c2-seed143` on the pulldown · Generate → the line *as assigned — the arrival* · Play → Vc F4 → E4 −14 ¢ · Db B2 → C3 · Tpt G5 → F♯5 −49 ¢ · Hn B4 → C5 · EH C♯4 → C4 · Bsn B1 → C2, the vibraphones still on D6 · C♯6 · Save as ACTUAL if he keeps it. BUILT AND VERIFIED 2026-09-24 on Fable (RUNNING_LOG §325; §322 … §324 the design). Revise on his word | his ear · then Fable | — |
 | **►►** | **`1q.8` HIS ONE TEST — RELOAD the tab (page files only).** FIRST the level: `pointilistic01a` 15.64 s, `Just-b1-seed208` onto the chord — no louder than his playing (§319). Then one re-pitched note selected → the strip names its take, the menu lights it → P → the card's line (note · cents · partial · take), `+8va` keeps the cents → a chord passage with several notes on one part → `take ▾` → `shuffle`, again, a chip back, `back` → a marquee → `dyn ▾` → `ff` → play → CTRL+Z (§317 · §320). Revise on his word | his ear · then Fable | — |
 | **►►** | **THE PERCUSSION OVERDUB — his try (§321).** `Rec` lane `Percussion` → technique e.g. `Wood Blocks — Hard Mallets` (keys 36–44) → arm, play, disarm → the technique to another instrument (e.g. `Tam Tams A — Tam Tam Mallet`, 36–44) → playhead back → arm, play over it → play the score: each pass on its own `LGPerc` channel. A switch of the Rec LANE menu resets the technique to `main` — re-pick the voice. If a triangle sounds under every pass, it is §221's track 10. Read in the code, never heard | his ear | — |
@@ -136,6 +137,21 @@ whole in git, see the close block below.)*
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open at session end — SESSION 14 · `1s` BUILT (2026-09-24, Fable) — READ THIS ONE FIRST:**
+- **THE STATE:** nothing is being built. **`1s` THE MORPH BETWEEN `min` AND `max` is BUILT, VERIFIED, COMMITTED AND PUSHED** (PLAN § `1s`;
+  RUNNING_LOG §326 the diagnosis — `dyn amount` the half-swing round a hidden `base`, why the top never came down · §327 the morph's level
+  read to him — one slow curve cut into breaths, not the waves, the same `pp` as everything else · §328 his "A" and the top line · §329 the
+  build and every check). `score/public/morph_panel.js` alone; `morph.js` untouched — page files only.
+- **THE NEXT STEP — HIS, `1s.6`:** reload the tab (no restart) → MORPH → `min pp · max ff` → Generate → the status names them → Play.
+  Then `1r.6` (the ►► row below it), then his session-13 tests.
+- **Pending him (§329):** whether `min` should be a HARD FLOOR — the engine's floor and a model's own dips (CONVERGE's soft entries start
+  at 0.4 of 10 on HEAD too: 18 of `ACT-CONVERGE-01`'s 88 breaths) go under `min`; one clamp in `morph.js`, and every stored render would
+  move. A `waves` shape for the morph — declined for now (§327 B).
+- **`Resume reads:`** only on his `1s` feedback — RUNNING_LOG §329 · PLAN § `1s` · `morph_panel.js` `drawDyn` · `dynText`; on the floor
+  question, `morph.js` `dynLevel` (~251) and `stateAt` (~1639 … 1665). STILL BINDING before any verification.
+- **DELIBERATELY UNCOMMITTED — all his:** CHECKPOINT #1's list below, plus **`bank/actuals/ACT-CONVERGE-02.json`** (new, filed by his tab
+  during this build) and `bank/morph_models.json` (its index).
 
 **Open at session end — SESSION 14 · CHECKPOINT #1 (2026-09-24, Fable built, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
 - **THE STATE:** nothing is being built. **`1r` CONVERGE ON A TAKE is BUILT, VERIFIED, COMMITTED AND PUSHED** (`f084f99`; PLAN § `1r`;

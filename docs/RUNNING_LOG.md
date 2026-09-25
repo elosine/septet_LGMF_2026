@@ -12163,3 +12163,145 @@ keeps it right when the menus are set the other way round.
 **Left as found:** the throwaway's `localStorage` cleared of the drawers' keys and the panel's pitch reset; `bank/` untouched (0
 POSTs, no `zz` actual filed). **`1r.6`, his one test: reload the tab — no restart.** `git diff --stat`: `morph_panel.js` alone among
 the AI's files (the rest of the working tree is his).
+
+## §326. THE MORPH'S LEVEL — his ear on `dyn amount`, the status line's "CC7 32…84" read back, a `min · max` asked for (2026-09-24, Fable, session 14, after `/postclear`)
+
+**What prompted it — his words, at the `/postclear`:** *"can we look at the morph dynamic level now. the max vol seems quite loud no
+matter how I lower dyn amount. can we have it move between a min and max level"* — and, with a screenshot of the MORPH panel on
+CONVERGE · `Just-c2-seed143` (the `1r` arrival, playing): *"it says cc7 32 - 84 why?"*. His panel: `dyn amount 0.1` · `dyn shape swell`
+· `bias 0.4` · `spread 0.3` · `depth 1` · seed 7. The status: *playing 124 notes · 124 shaped, struck at mf on the curve channels · the
+fader CC7 32…84*.
+
+**Where the level comes from today (read, not guessed):**
+- `morph.js` `dynLevel`: `level = (dyn.base + dyn.amount × w) × 10`, `w` the shape's swing in −1 … +1 (`swell` an arch, `rise` · `fall`
+  · `rotate`), then `× relFade` inside the release window (`relFade` 1 → 0 over `release (s)` after the body ends), floor 0.4 of 10.
+- **`dyn.base` is NOT on the panel.** CONVERGE's model params (`bank/morph_models.json` `models.CONVERGE.baseParams.dyn`) set
+  `base 0.5 · amount 0.4 · swell · spread 0.5`; the engine's own default is `base 0.6`. So `amount` is the HALF-SWING round a centre he
+  cannot see — lowering it narrows the band round 0.5 and the top stays at `base + amount`. At his 0.1 the band is 0.4 … 0.6 of the
+  drawn height; at 0 it would be 0.5 flat. That is exactly *"the max seems quite loud no matter how I lower dyn amount"*.
+- `morph_dyn.js` `shapeLevels` (H3, DYNAMICS_LAW §3 Rule 2 · 3): each note's lowest and highest LEVEL become the fader's two ends through
+  the TABLE, `fff` = 127 and 4 dB a written step, per instrument's measured curve. Level 0.4 = −16.8 dB (just under `mp`), level 0.6 =
+  −11.2 dB (just over `mf`).
+- **The numbers, computed through `dyn_table.js` on `bank/velocity_remap.json`:** at 0.4 → english horn 66 · bassoon 47 · horn 47 ·
+  trumpet 47 · vibraphone 67 · cello 67 · double bass 67; at 0.6 → 83 · 65 · 65 · 65 · 83 · **84** · 83.
+- **So 84 is the cello at the swing's top (0.6, a hair over `mf`).** **32 is a UVI instrument (bassoon · horn · trumpet: their `pp` is
+  exactly 32) at level ≈ 0.14 — a note inside the RELEASE, where `relFade` has pulled the level down from 0.4 toward the floor.** The
+  status line is the MIN of every note's low end and the MAX of every note's high end over all 124 (`morph_panel.js` ~1290 · `lawText`,
+  H3.4), across instruments whose curves differ — not one player's range. (Whether his `release (s)` box holds a number is not in the
+  screenshot; the 32 says it does.)
+
+**The AI's reading of his ask, put to him (phase 1 of the planning method, not decided):** replace the hidden `base` + `dyn amount` on the
+panel with **`min` and `max` in WRITTEN DYNAMICS** — the table's names, `ppp` … `fff`, the sequence drawer's waves idiom (`low` · `high`)
+— the shape moving between exactly those two, `flat` = one level, the status line reading the names back. **Panel-only, `morph.js`
+untouched, as `1r` was:** `min · max` ↔ `base · amount` is arithmetic (`base = (min + max) / 2`, `amount = (max − min) / 2` on the 0 … 1
+level scale, a name = its `levelOfName`), so every stored model and actual recalls unchanged and the engine's dial stays its own. The
+release's run-down stays a separate layer (it fades from wherever the level stands at the body's end, as 2z decided).
+
+## §327. THE MORPH'S LEVEL, READ TO HIM — one slow curve, each breath a window onto it; the same `pp` as everything else (2026-09-24, Fable, session 14)
+
+**His words, on §326's reading (*"yes that is it"*), then:** *"what method is morph using the cc7? like waves etc"* — and, with a screenshot
+of `ACT-BLOOM-06` (`lgmf-s01-bloom08`, 155 … 220 s, every lane a row of humps with a dot at each peak): *"explain to me more clearly what
+the morph is actually doing. I see that each part has its humps. So does that mean that in the new system, if I set PP to FF, each parts
+hump will go from PP to FF? And it's this comparable to everything else we're doing. So it's, it's the same PP as everything else."*
+
+**What the morph does with the level (read in `morph.js` `dynLevel` · the segment loop ~1690 · `morph_dyn.js`):**
+- NOT the waves. The waves (sequence drawer · texture) move every player's level on its own, breath by breath, random lengths and heights
+  between `low` and `high`. The morph has one SLOW CURVE over the whole gesture's PROGRESS, per voice, phase-shifted by `spread`:
+  `swell` = min → max → min over one pass · `rise` · `fall` · `rotate` (a sine, `turns`) · `flat`. Under CYCLING (a bloom opens and
+  closes) the progress goes out and back, so `swell` gives ONE HUMP PER PASS — that is what his picture shows, a hump per cycle in every
+  lane, staggered by `spread`.
+- EACH BREATH IS A NOTE, and its 12 fader nodes SAMPLE that curve across the breath's own span. So a breath is a WINDOW onto the slow
+  curve: one that starts at a trough rises; one that starts at a peak falls (his sawtooth at 193 … 196 s); one that sits in a trough is
+  flat-low (197 … 205 s). The humps are not the breaths — they are the curve, cut into breaths.
+- The TABLE then maps each node to CC7 between that note's own lowest and highest level (`cc7Abs`), struck at mf, on a curve channel.
+  The fades multiply in on top.
+- **THE DRAWING IS THE SHAPE, NOT THE LEVEL:** `shapeLevels` re-bases every note's nodes between its OWN two ends (`T.height(level, lo,
+  hi)`, LG-51 *"drawn full for the notation, performed between the two values"*), so a hump that runs mp → mf is drawn as tall as one that
+  runs pp → ff. The absolute level is in the note's `cc7Abs` and in the status line, not in the height of the hump.
+
+**So, answered to him:** with `min pp · max ff`, the curve's trough IS `pp` and its peak IS `ff`; under `swell` each pass climbs from `pp`
+to `ff` and back, so each part's hump does go pp → ff — a breath that is only part of a hump covers only that part; `spread` staggers the
+parts; the release still fades below `pp` at the very end. And it IS the same `pp`: one table (`dyn_table.js`), `fff` = 127, 4 dB a
+written step, each instrument's own measured curve — the sequence drawer's waves `low: pp`, the texture's held `pp`, the strip's `dyn ▾`
+`pp`, and now the morph's `min pp` are the same CC7 on the same instrument. That is DYNAMICS_LAW §3 Rule 3, the reason H3 put the morph on
+the law. (A texture's SHORT `pp` lands there too, by Rule 4's residual.) The names will land on the table's exact steps, where today's
+`base ± amount` lands between them (0.4 ≈ a hair under `mp`).
+
+**Still open with him (phase 1):** A) `min · max` with the morph's own five shapes — smallest, panel-only · B) A plus a `waves` shape
+borrowed from the sequence drawer's generator, per player between `min` and `max` — bigger, feasible in the panel since it already rewrites
+every note's nodes. His letter decides; then the top line.
+
+## §328. `1s` THE MORPH BETWEEN `min` AND `max` — his "A, write the top line"; the top line put to him (2026-09-24, Fable, session 14)
+
+**His words:** *"so this standard is the mf velocity with cc7 0-127?"* — answered: half. The strike is the mf velocity for the pitch
+(Rule 1); the fader runs between the TABLE's values of the two written dynamics, not 0 … 127 (Rule 2 — `pp → ff` cello 51 → 109, bassoon
+32 → 100); 0 … 127 appears only in a niente fade (`cc7Fade` on top) and the card's `full fader`; 1e's 0 … 127 was what 1d.10 replaced.
+Then: *"A, write the top line"* — A of §327: `min · max` with the morph's own five shapes, panel-only, no `waves` shape.
+
+**The top line, phase 2 (put to him, nothing written to the PLAN yet):**
+1. `1s.1` the two boxes — `min` and `max` in written dynamics on the panel, in place of `dyn amount`; they read and write the engine's
+   `dyn.base` · `dyn.amount` by arithmetic, `morph.js` untouched.
+2. `1s.2` the shapes between them — `swell` · `rise` · `fall` · `rotate` run trough = `min`, peak = `max`; `flat` = one level.
+3. `1s.3` the stored models and actuals — every one recalls and regenerates byte-identical; the boxes show the nearest names and write only
+   when he touches them.
+4. `1s.4` the status line reads the names back beside the CC7.
+5. `1s.5` REQUIRED VERIFICATION on `score-5401` — THE SHIELD (a stored actual byte-identical) · `pp … ff` on his `Just-c2-seed143`
+   CONVERGE → every note's `cc7Abs` inside its instrument's table `pp … ff` · Hear = Insert.
+6. `1s.6` his one test — reload the tab, no restart.
+
+## §329. `1s` THE MORPH BETWEEN `min` AND `max` — BUILT AND VERIFIED, one commit; his one test next (2026-09-24, Fable, session 14, at his word *"go direct to plan and build pls"*)
+
+**His word** on §328's top line: *"go direct to plan and build pls"* — phase 3 skipped at his word, the item written whole into PLAN § `1s`
+and built in the same sitting, on Fable.
+
+**THE BUILD — `score/public/morph_panel.js` alone** (`morph.js` · `morph_emit.js` · `morph_dyn.js` untouched; `docs/PLAN.md` § `1s`):
+- `drawDyn(f, p)` in place of the `dyn amount` row: two menus `min` · `max` of the table's names (`root.DynTable.NAMES`; a fallback list
+  of the same eight), with NO `data-path` — `readFields` would write a `select`'s value as a STRING — and two HIDDEN number boxes carrying
+  `dyn.base` · `dyn.amount` at full precision, which `readFields` reads exactly as it read the old box. A change on either menu writes BOTH
+  dials from the two names shown (`base = (lo + hi) / 2`, `amount = (hi − lo) / 2` on `levelOfName`'s 0 … 1, the lower name the trough
+  whichever menu holds it) and regenerates. Under `flat` one menu, `level`, writes `base` alone.
+- `dynNames` · `dynNameOf` · `dynText`: the nearest name to a dial (`≈` when it sits between names); the status line on Play and on Insert
+  now ends `· min pp · max ff` (or `· level mf`).
+- The menus show a recalled dial's nearest names and write nothing until he touches one — a stored `0.5 ± 0.4` reads `≈ pp` · `≈ ff`
+  and renders exactly as filed.
+- On the way: a comment line spliced through a double-quoted bash string lost its backticked words to command substitution (§146's
+  lesson, again — `dyn amount`, `min`, `max` ran as commands, "not found"); re-spliced from a file. Nothing else ran.
+
+**VERIFIED on `score-5401`** — STILL BINDING's recipe (the stubs in the navigation batch, eleven ports recording, `confirm` · `prompt`
+stubbed, rAF a timer; **0 POSTs in every pass**; the throwaway's drawer keys cleared after, the viewport reset, the server stopped):
+1. **(i)** `node tools/model_bank.js --validate` → VALID with the two known warnings (`palette`; the `ACT-LGSPECTRAL-06` drift, N4).
+2. **(ii) THE SHIELD** — HEAD's file (`git stash push -- score/public/morph_panel.js`, reload) against the build's (pop, reload), the same
+   localStorage, his pairs through `normPairs`: the stock CONVERGE params 265012691 · notes −1302450351 · 25 notes; BLOOM +
+   `Just-c2-seed143` 1298250528 · −292868459 · 41; CONVERGE + the take 683955373 · 1048756311 · 41 — **identical on both files, and
+   §325's numbers to the digit.** On the build the `dyn amount` box is gone, the hidden boxes read 0.5 · 0.4 (`display: none`), the menus
+   `≈ pp` · `≈ ff` (0.1 and 0.9 are between names).
+3. **(iii) `min pp · max ff`** on CONVERGE + the take: `dyn.base` 0.5 · `dyn.amount` 0.357142857… · the rendered levels' top 0.86 (`ff` =
+   6/7 = 0.857; the engine rounds a node to a tenth of ten) · Insert at the cursor: 41 notes, every one with `velAbs` (10 distinct — mf per
+   pitch) and `cc7Abs`, the status *inserted 41 notes … the fader CC7 26…110 · min pp · max ff*; the inserted tops per instrument:
+   english horn 110 · vibraphone 110 · cello 109 · double bass 109 · bassoon 101 · horn 101 · trumpet 101 against the table's `ff` 109 /
+   100 — one CC7 over where a node sits 0.003 above `ff` (the tenth), the table's own resolution.
+4. **(iv) `flat` + `level mf`:** under `flat` the menus are `level` alone (`min` · `max` absent) · `dyn.base` 0.5714… (4/7) · Insert:
+   bassoon `{62, 62}` · trumpet `{62, 62}` · horn `{62, 62}` (table 63) · cello `{81, 81}` · english horn `{80, 80}` · vibraphone ·
+   double bass `{80, 80}` (table 81) — the first note of every instrument flat on the table's `mf` to within one CC7 (the tenth again); the
+   status *… CC7 42…81 · level mf* (the 42: see the finding below).
+5. **(v) Hear = Insert:** `MorphPanel.play()` → *playing 41 notes · 41 shaped, struck at mf on the curve channels · the fader CC7 26…110 ·
+   min pp · max ff* — the same span and the same names as Insert's line; **MAIN ch 1: 0 note-ons** in the captured window.
+6. **(vi) a recalled actual:** `recallActual('ACT-CONVERGE-01')` → `dyn` `{ base 0.5, amount 0.4, swell, spread 0.5 }` = the stored
+   `resolvedParams.dyn`, the whole `_lastParams` equal to the stored `resolvedParams` (`JSON.stringify` equal), the menus `≈ pp` · `≈ ff`,
+   71 notes; nothing written.
+
+**FOUND ON THE WAY — THE ENGINE'S OWN, NOT THE BUILD'S, AND HIS CALL:** with `min pp` the fader still reached CC7 26 on the horn and
+trumpet (their `pp` is 32) and 45 on the cello and bass (`pp` 51): 33 of the 41 rendered breaths hold a level under `pp`, most STARTING at
+the engine's floor 0.4 of 10 and rising through the breath (Vc at 7.8 s: 0.4 → 3.3; Db at 9.8 s: 0.4 → 6.7; Hn at 11.5 s: 0.4 → 7.9). No
+shape block, no preset, `release` 0 — so not the fades. **The same on HEAD's engine, in node:** `render(ACT-CONVERGE-01.resolvedParams)`,
+`base 0.5 · amount 0.4` (a floor of 1.0 from the dyn layer), gives 19 of 88 breaths under 1.0, 18 of them starting at 0.4. So it is the
+engine's own level move — a model's `moved.level` in `stateAt` (CONVERGE's soft entries) or the breath's own entry — and it predates this
+build. **`min` bounds the DYN LAYER's swing exactly; a model's own dips go under it**, as they went under `base − amount` before. Read,
+not changed (`morph.js` untouched is the design). Whether `min` should be a HARD FLOOR is put to him: one clamp in the engine, and every
+stored render moves — a decision, not a fix.
+
+**Also noticed, his:** a new `bank/actuals/ACT-CONVERGE-02.json` and the store index moved while this was built — his tab filed a second
+CONVERGE actual. Untouched.
+
+**Left as found:** `bank/` untouched (0 POSTs, no test actual filed). `git diff --stat` among the AI's files: `morph_panel.js` · `PLAN.md`
+· the docs of the wrap. **`1s.6`, his one test: reload the tab — no restart.**

@@ -1542,3 +1542,23 @@ His words, in the discussion of plan `1n dynamics`, naming what is in a good spa
 *AI reading (mine, marked):* nothing more was said and nothing was looked at. It stands beside the 2026-09-21 entry above (the peaks
 against the sequence, PLAN `1k`) and may be the same thing heard again or another. The look, when he calls it, starts as that entry
 says — the placed score's written dynamics first — and belongs to the revision as much as to this piece.
+
+### 2026-09-24 — LGMF: *"the max vol seems quite loud no matter how I lower dyn amount. can we have it move between a min and max level"* — AS BUILT, PLAN `1s` (RUNNING_LOG §326 … §329)
+
+**His words, verbatim (2026-09-24):** *"can we look at the morph dynamic level now. the max vol seems quite loud no matter how I lower dyn
+amount. can we have it move between a min and max level"* · *"it says cc7 32 - 84 why?"* · *"what method is morph using the cc7? like
+waves etc"* · *"explain to me more clearly what the morph is actually doing. I see that each part has its humps. So does that mean that in
+the new system, if I set PP to FF, each parts hump will go from PP to FF? And it's this comparable to everything else we're doing. So it's,
+it's the same PP as everything else."* · *"so this standard is the mf velocity with cc7 0-127?"* · *"A, write the top line"* · *"go direct
+to plan and build pls"*.
+
+**The AI's reading.** `dyn amount` was the HALF-SWING round `dyn.base`, a centre with no box (CONVERGE 0.5, the engine 0.6) — so the dial
+narrowed the band round mf and never lowered the top. An all-purpose tool must never hide the centre of a range behind a width dial.
+**Adjusted for this piece (built):** `min` · `max` in written dynamics on the panel, the engine's `base` · `amount` derived and hidden, the
+status line naming both (`morph_panel.js` `drawDyn` · `dynText`); `morph.js` untouched, every stored render byte-identical.
+**For the all-purpose revision:** (1) the level dials belong in WRITTEN DYNAMICS everywhere, one table (DYNAMICS_LAW §3), so a morph's
+`pp` is the sequence's and the texture's; (2) the engine's floor (0.4 of 10) and a model's own level dips (`moved.level`, CONVERGE's soft
+entries) go UNDER `min` — the revision should decide whether `min` is a hard floor (his call, §329); (3) a `waves` shape — the sequence
+drawer's per-player generator between `min` and `max` — was offered and declined for now (§327, B); feasible in the panel, which already
+rewrites every note's nodes; (4) the drawing shows each note's SHAPE stretched between its own two ends, never its absolute level (LG-51),
+so `pp … ff` and `mp … mf` look the same on the lane — the status line is the only place the range is stated; the revision might draw it.
