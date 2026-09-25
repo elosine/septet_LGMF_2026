@@ -181,8 +181,11 @@ const secOfSs = ss => (ssPerSystem > 0 && pxPerSecPage > 0) ? ss * ssPx / pxPerS
 const bufSec = secOfSs(bufSs);
 const gcP = GC.params((((C.engraving && C.engraving.render) || {}).gc || {}).preset || {});
 const edgeMarginSec = secOfSs(pageRules.edgeReserveMarginSs != null ? pageRules.edgeReserveMarginSs : 1.2);
-const leftReserve = Math.max(bufSec, gcP.pre + edgeMarginSec);
-const rightReserve = gcP.post + edgeMarginSec;
+// [2c.6, LGMF 2026-09-25 — NOTATION_STANDARDS §5] page_rules.printPlan 'objects': THE CUT PLACED BY THE OBJECTS — the reserves
+// retire (0 · 0), the plan targets the whole window, and every page opens where its first object's ink begins. Absent = D59 as above.
+const OBJ = pageRules.printPlan === 'objects';
+const leftReserve = OBJ ? 0 : Math.max(bufSec, gcP.pre + edgeMarginSec);
+const rightReserve = OBJ ? 0 : gcP.post + edgeMarginSec;
 const advanceSeconds = pageSeconds - leftReserve - rightReserve;
 if (!(advanceSeconds > 0)) { console.error('--sec ' + pageSeconds.toFixed(2) + ' leaves no music after the edge reserves'); process.exit(2); }
 
@@ -211,7 +214,18 @@ try {
 
 // ---------------------------------------------------------------- pages
 // [2b.7.3] planned at the ADVANCE, not the window width: page i owns [pages[i].t0, pages[i].t1).
-const pages = Splice.planPages(ir, pageRules, advanceSeconds);
+// [2c.6] under 'objects': the forbidden intervals of every drawn object (Splice.edgeIntervals — the unit's ink from Render.inkSpanSs,
+// the GC's reach and its dot, the duration line's head + stub, the beam and the tuplet), then Splice.planObjectPages
+const ER = (C.engraving && C.engraving.render) || {};
+const gcLook = Object.assign({}, GC.LOOK, (ER.gc && ER.gc.look) || {});
+const gcPadSec = ((gcLook.impactRadiusPx || 4) + (gcLook.arcStrokePx || 1.5) / 2) * (blockH / (gcLook.frameHeightPx || 1080)) / pxPerSecPage;
+const pages = OBJ
+  ? Splice.planObjectPages(ir, pageRules, pageSeconds, Splice.edgeIntervals(ir, model, {
+      edge: pageRules.edge, inkSpanSs: it => Render.inkSpanSs(it, glyphs, ER), secPerSs: secOfSs(1),
+      gcPrePost: it => Render.gcPrePost(it, ER), gcPadSec, stubSec: secOfSs(pageRules.durationStubSs != null ? pageRules.durationStubSs : 2),
+      hideBricks: true,   // the print page draws no bricks (static_page, D4)
+    }))
+  : Splice.planPages(ir, pageRules, advanceSeconds);
 let sel = pages.map((_, i) => i);
 if (atArg != null) {
   // the page containing a given second — the page plan changes with --sec, so
@@ -232,12 +246,12 @@ if (pagesArg) {
 // [PLAN 2b.1.5, then 2b.7.2] THE WINDOW OPENS BEFORE THE CUT. §404 (the composer, on a viola note sitting on the alto clef:
 // "in the tuba score we had a buffer zone after the clef") bought the notehead unit 4.2 ss of room; the GC arc's approach is
 // 7.3 ss and was never counted, which is how arcs came to be drawn over the clefs. leftReserve is now the larger of the two.
-const pageT0Of = i => Math.max(ir.source.window[0], pages[i].t0 - leftReserve);
+const pageT0Of = i => OBJ ? pages[i].w0 : Math.max(ir.source.window[0], pages[i].t0 - leftReserve);   // [2c.6] the page's first ink
 // THE OWNED SPAN and THE INK END (2b.7.1 / 2b.7.4). The page draws only the events it owns; the right reserve past its cut is
 // where the last owned strike's rebound goes, and the system STOPS there — a ragged right edge on a page whose cut fell early,
 // which in a proportional score is the honest reading (blank staff reads as silence).
 const ownedOf = i => [pages[i].t0, pages[i].t1];
-const inkEndOf = (i, view) => Math.min(view.window[1], pages[i].t1 + rightReserve);
+const inkEndOf = (i, view) => Math.min(view.window[1], OBJ ? pages[i].inkEnd : pages[i].t1 + rightReserve);   // [2c.6] the system ends AT the cut
 
 function viewFor(i) {
   // THE LAST PAGE REACHES THE PIECE'S END. Measured day 37: with the default
@@ -271,7 +285,7 @@ if (planJson) {
   const longs = items.filter(x => x.long && isFinite(x.t0) && isFinite(x.t1));
   const CURVE = ((C.engraving && C.engraving.render) || {});
   const out = {
-    ir: irId,
+    ir: irId, printPlan: OBJ ? 'objects' : 'reserves',
     // the two D42 curve colours, read from the registry so the checker never hard-codes them
     curveColorGreen: (CURVE.envCurve || {}).color, curveColorOrange: (CURVE.glissCurve || {}).color, format: formatName, pageSeconds, advanceSeconds, leftReserve, rightReserve,
     gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0, blockW, srcStart: ir.source.window[0], srcEnd,
@@ -290,6 +304,8 @@ if (planJson) {
       const inDrawn = x => !(x.t1 < view.window[0] || x.t0 > inkEnd);
       return {
         n: i + 1, t0: p.t0, t1: p.t1, kind: p.kind, severed: p.severed,
+        // [2c.6] the objects plan: the blank a push left at the right, what was pushed, and a forced page's broken objects
+        blank: p.blank != null ? p.blank : null, pushed: p.pushed ? p.pushed.length : 0, forced: p.forced || [],
         w0: view.window[0], w1: view.window[1], inkEnd,
         xInk: view.xOfSeconds(inkEnd), xMusic0: view.musicX0Px,
         points: mine.length, gc: mine.filter(x => x.k === 'gc').length,
@@ -512,6 +528,7 @@ function buildHtml() {
       reshow: pages[i].reshow, ownsEnd: i === pages.length - 1,
       owned: ownedOf(i), inkEnd: inkEndOf(i, view),   // [2b.7.1/.4] a page owns [cut, next cut); its ink stops at the cut + the right reserve
       ensemble: ENS,        // [PLAN 2b.1.4] the part labels, the winds' and strings' brackets, the piano's brace (§558)
+      printEdges: OBJ ? (pageRules.edge || {}) : undefined,   // [2c.6] the objects plan's print page (absent under D59)
       // composer, day 37: no bar line at the right of every page. On paper the
       // page edge is not a musical event; the bar draws only at the true end.
       edgeBar: false,

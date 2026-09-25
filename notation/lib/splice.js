@@ -174,5 +174,141 @@
     return pages;
   }
 
-  return { planPages, tilePages, chooseCut, interruptedChunks, materialExtents, beamablePairs };
+  // [2c.6, LGMF 2026-09-25 — RUNNING_LOG §340, NOTATION_STANDARDS §5] THE PRINT PLAN, PLACED BY THE OBJECTS (the composer: "fit in
+  // as much as possible on the page before the page turn"). Every drawn object whose print rule forbids a cut inside it becomes an
+  // OPEN interval (a, b) in seconds where no cut may fall, from the layout model and the print's own geometry:
+  //   · a UNIT (the 'whole' point kinds of one system at one time — heads, accidentals, ledgers, marks, its go-time indicators): its
+  //     ink, from Render.inkSpanSs — and never (…, t] when its ink ends at its own time, so a unit ON a cut is wholly the next page's
+  //   · a GC ('whole'): t − pre … t + post, padded by the impact dot and the stroke
+  //   · a duration line ('stub'): from its unit's ink to the head + durationStubSs of line — after that a cut may fall inside it; a
+  //     line shorter than that is whole. A hidden brick (the print draws none, D4) is no object. And its TAIL: no cut in its last
+  //     durationStubSs either, so what continues on the next page is at least a stub, never a sliver (the AI's call, 2c.6)
+  //   · a beam and a tuplet ('never-sever'): first tip to last tip · and the IR's beamable pairs, the splicer's stamp-atomic rule
+  //   · a 'continue' kind (the level and glissando curves) FOLLOWS ITS NOTE: the same head + stub and tail rule as a duration line —
+  //     with the print's bricks hidden, the curve IS the note's visible length (db1 p52: a curve starting 0.01 s before a cut had no
+  //     samples to draw on its first page)
+  //   o = { edge, inkSpanSs(it) → [l, r] ss, secPerSs, gcPrePost(it) → [pre, post] s, gcPadSec, stubSec, hideBricks }
+  function edgeIntervals(ir, model, o) {
+    const out = [];
+    const P = k => o.edge && o.edge[k] && o.edge[k].print;
+    const sec = ss => ss * o.secPerSs, key = t => Math.round(t * 1e6);
+    for (const sys of (model && model.systems) || []) {
+      const items = sys.items || [];
+      const units = new Map();
+      for (const it of items) {
+        if (it.t === undefined || it.k === 'gc' || P(it.k) !== 'whole') continue;
+        const e = o.inkSpanSs(it);
+        if (!e) continue;
+        const u = units.get(key(it.t)) || { t: it.t, a: Infinity, b: -Infinity };
+        u.a = Math.min(u.a, it.t + sec(e[0])); u.b = Math.max(u.b, it.t + sec(e[1]));
+        units.set(key(it.t), u);
+      }
+      for (const u of units.values()) out.push({ a: u.a, b: Math.max(u.b, u.t + EPS), kind: 'unit', part: sys.part, t: u.t });
+      for (const it of items) {
+        const pv = P(it.k);
+        if (it.k === 'gc' && pv === 'whole') {
+          const [pre, post] = o.gcPrePost(it);
+          out.push({ a: it.t - pre - o.gcPadSec, b: it.t + post + o.gcPadSec, kind: 'gc', part: sys.part, t: it.t });
+        } else if (pv === 'never-sever') {
+          if (it.k === 'beam' && it.tips && it.tips.length >= 2) {
+            const ts = it.tips.map(p => p.t);
+            out.push({ a: Math.min(...ts), b: Math.max(...ts), kind: 'beam', part: sys.part, t: Math.min(...ts) });
+          } else if (isFinite(it.t0) && isFinite(it.t1)) out.push({ a: it.t0, b: it.t1, kind: it.k, part: sys.part, t: it.t0 });
+        } else if ((pv === 'stub' || pv === 'continue') && isFinite(it.t0) && isFinite(it.t1)) {
+          if (it.k === 'brick' && o.hideBricks) continue;
+          const u = units.get(key(it.t0));
+          const lineStart = it.t0 + (it.dx0Ss ? sec(it.dx0Ss) : 0);
+          const need = Math.max(u ? u.b : it.t0, lineStart) + o.stubSec;
+          out.push({ a: u ? Math.min(u.a, it.t0) : it.t0, b: Math.min(need, it.t1), kind: it.k + ' (head + stub)', part: sys.part, t: it.t0 });
+          if (it.t1 - o.stubSec > need) out.push({ a: it.t1 - o.stubSec, b: it.t1, kind: it.k + ' (tail stub)', part: sys.part, t: it.t0 });
+        }
+      }
+    }
+    // the splicer's stamp-atomic rule, kept: no cut between two beam-adjacent onsets of the IR
+    for (const c of ir.chunks || []) for (const p of beamablePairs(ir, c)) out.push({ a: p[0], b: p[1], kind: 'beamable', part: c.part, t: p[0] });
+    return out.filter(x => x.b > x.a + EPS).sort((x, y) => x.a - y.a);
+  }
+
+  // The planner (page_rules.printPlan 'objects'; absent = planPages + D59's reserves). A page OWNS [t0, t1) — half-open, an event ON a
+  // cut is the next page's — and its window is [w0, w0 + S] at the one time scale. From each page's window start the cut is the LATEST
+  // time ≤ w0 + S outside every interval: when w0 + S falls inside a block of intervals the cut moves back to the block's start — the
+  // objects are pushed whole, a pushed GC's block starting at the top of its descent — so the next page opens exactly where its first
+  // object's ink begins, and the system ENDS at the cut (inkEnd = t1): the blank at a page's right is exactly what was pushed.
+  // FORCED, the exception: a block longer than a page (a dense GC stream, a very long beam) has no clean cut. Then the cut is the
+  // LATEST at which every object it crosses can still be drawn whole on the page that owns its onset — this page's ink runs on to its
+  // end inside the window, the next page's window opens at its ink start (D59, locally) — severing the fewest beams (a beam cannot be
+  // kept whole that way); the page is recorded 'forced' with what it crosses.
+  function planObjectPages(ir, rules, S, intervals) {
+    if (!(isFinite(S) && S > 0)) throw new Error('splice: pageSeconds must be a finite number > 0');
+    const [w0, w1] = ir.source.window;
+    const minPage = rules.minPageSeconds || 0;
+    const ext = materialExtents(ir);
+    const allPairs = new Map(ir.chunks.map(c => [c.id, beamablePairs(ir, c)]));
+    const wantReshow = !rules.reshowAtCut || rules.reshowAtCut.includes('tempoLabelContinuation');
+    const merged = [];
+    for (const x of intervals) {
+      const m = merged[merged.length - 1];
+      if (m && x.a < m.b - EPS) { m.b = Math.max(m.b, x.b); m.objs.push(x); }
+      else merged.push({ a: x.a, b: x.b, objs: [x] });
+    }
+    const blockAt = t => {   // the merged block with t strictly inside it, by bisection
+      let lo = 0, hi = merged.length - 1;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1, m = merged[mid];
+        if (t <= m.a + EPS) hi = mid - 1; else if (t >= m.b - EPS) lo = mid + 1; else return m;
+      }
+      return null;
+    };
+    const straddling = c => intervals.filter(x => x.a < c - EPS && c < x.b - EPS);
+    // an object is this page's when its onset is before the cut — by RENDER'S OWN tolerance (render.js owns: t < cut − 1e-9), not the
+    // planner's EPS: db1 p3 cut at a unit's t + 1e-6, and a GC at that t was drawn on the page but not counted in its ink end
+    const ownedBefore = (x, c) => x.t < c - 1e-9;
+    const desc = x => x.kind + ' part ' + x.part + ' @' + x.t.toFixed(3);
+    const pages = [];
+    let t = w0, w = w0, guard = 0;
+    while (t < w1 - EPS) {
+      if (++guard > 100000) throw new Error('splice: object page planning did not converge');
+      const target = w + S;
+      let cut, inkEnd, nextW, kind, pushed = [], forced = [];
+      if (target >= w1 - minPage) { cut = w1; inkEnd = w1; nextW = w1; kind = 'end'; }
+      else {
+        const lo = Math.max(t + minPage, w + minPage);
+        const m = blockAt(target);
+        if (!m) { cut = target; kind = 'full'; }
+        else if (m.a >= lo - EPS) { cut = m.a; kind = 'pushed'; pushed = m.objs.filter(x => x.b > m.a + EPS && x.a < target - EPS); }
+        else {
+          const cands = new Set([target]);
+          for (const x of m.objs) for (const e of [x.a, x.b, x.t]) if (e >= lo - EPS && e <= target + EPS) cands.add(e);
+          const SEVER = new Set(['beam', 'beamable', 'tuplet']);
+          let best = null;
+          for (const c of cands) {
+            const st = straddling(c);
+            if (st.some(x => ownedBefore(x, c) && x.b > target + EPS)) continue;   // an owned object would run off the window
+            const sev = st.filter(x => SEVER.has(x.kind)).length;
+            if (!best || sev < best.sev || (sev === best.sev && c > best.c)) best = { c, sev };
+          }
+          cut = best ? best.c : target; kind = 'forced'; forced = straddling(cut);
+        }
+        const mine = forced.filter(x => ownedBefore(x, cut)), theirs = forced.filter(x => !ownedBefore(x, cut));
+        inkEnd = Math.min(target, Math.max(cut, ...mine.map(x => x.b)));
+        nextW = Math.min(cut, ...theirs.map(x => x.a));
+      }
+      if (!(cut > t + EPS)) throw new Error('splice: object cut did not advance past ' + t);
+      const inter = cut >= w1 - EPS ? [] : interruptedChunks(ir, ext, cut);
+      let severed = 0;
+      for (const c of inter) severed += severedPairs(allPairs.get(c.id) || [], cut);
+      const reshow = [];
+      if (wantReshow) for (const c of ir.chunks) {
+        const e = ext.get(c.id);
+        if (c.tempo && e[0] < t - EPS && t < e[1] - EPS)
+          reshow.push({ part: c.part, text: rules.continuationPrefix + c.tempo.label });
+      }
+      pages.push({ t0: t, t1: cut, w0: w, inkEnd, kind, blank: Math.max(0, target - cut), pushed: pushed.map(desc), forced: forced.map(desc),
+        interrupted: inter.map(c => c.id), offGrid: offGridChunks(inter, cut), severed, reshow });
+      t = cut; w = nextW;
+    }
+    return pages;
+  }
+
+  return { planPages, tilePages, planObjectPages, edgeIntervals, chooseCut, interruptedChunks, materialExtents, beamablePairs };
 });

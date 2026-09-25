@@ -803,7 +803,7 @@
         reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
         hideBricks: !$('bricks').checked, ensemble: state.ensemble,
         // [2c.2] a tiled screen page renders by the edge registry (page_rules.edge); `first` = it opens at the IR's start
-        screenEdges: TILE ? { edge: state.pageRules.edge || {}, first: view.window[0] <= state.ir.source.window[0] + 1e-9 } : undefined,
+        screenEdges: TILE ? { edge: state.pageRules.edge || {}, first: view.window[0] <= state.ir.source.window[0] + 1e-9, clampGoLine: state.pageRules.clampGoLine } : undefined,
       });
       // system TERMINAL barline at the right edge — the visible statement
       // that the system ENDS here by design (composer, G1: staff lines

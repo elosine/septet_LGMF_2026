@@ -60,7 +60,8 @@
     if (o.inkEnd != null) opts.inkEnd = o.inkEnd;
     // [2c.2] a tiled SCREEN page's edge rules (page_rules.edge + whether it is the first page) — absent on every other path
     if (o.screenEdges) opts.screenEdges = o.screenEdges;
-    if (o.edgeReport) opts.edgeReport = o.edgeReport;   // [2c.4] the clamp's report sink (tools/check_screen_edges.js)
+    if (o.edgeReport) opts.edgeReport = o.edgeReport;
+    if (o.printEdges) opts.printEdges = o.printEdges;   // [2c.6] a print page of the objects plan   // [2c.4] the clamp's report sink (tools/check_screen_edges.js)
     const svg = Render.renderSection(o.model, view, o.glyphs, opts);
 
     // the system TERMINAL barline, exactly as notation.html appends it

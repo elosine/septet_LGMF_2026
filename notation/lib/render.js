@@ -22,12 +22,10 @@
       '" stroke-opacity="' + (C.strokeOpacity != null ? C.strokeOpacity : 1) + '" stroke-linejoin="round" opacity="' + C.pathOpacity + '"/>';
   }
 
-  function renderSection(model, view, glyphs, opts) {
-    const o = Object.assign({ ink: '#111', brick: '#4E7A9B', muted: '#8a8a8a', paper: '#fff' }, opts || {});
-    // engraving registry (V0.10/V1): every look number in one mergeable
-    // block; code defaults = the census values, so a caller without opts
-    // renders identically. The shell passes container.json engraving.render.
-    const E = Object.assign({
+  // [2c.6] THE ENGRAVING DEFAULTS, once — renderSection merges the registry over a fresh copy; inkSpanSs does the same, so the
+  // clamp on screen and the print plan measure a unit with the numbers it is drawn with
+  function engravingDefaults() {
+    return {
       fontFamily: 'sans-serif',
       partLabel: { xPx: 4, yOffsetSs: 0.9, sizeSs: 1.1 },
       textScale: 1.3,
@@ -62,11 +60,10 @@
       goLine: { wPx: 1.5, opacity: 0.85, dash: '5,4', color: '#333' },
       // the ring bar (wc-23 element 2): 2/3 of the brick height, always black
       ringBar: { hSs: 0.667, color: '#111', opacity: 1 },
-    }, (opts && opts.engraving) || {});
-    const FONT = esc0 => String(esc0).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-    const fontAttr = ' font-family="' + FONT(E.fontFamily).replace(/"/g, '&quot;') + '"';
-    const S = Stamps.makeStamps(glyphs);
-    const boxFor = g => {
+    };
+  }
+  function boxForOf(S) {
+    return g => {
       if (g === 'notehead') return S.notehead();
       if (g === 'notehead-open') return S.noteheadOpen();
       if (g.startsWith('dyn-')) return S.dynamic(g.slice(4));
@@ -77,7 +74,70 @@
       if (g.startsWith('pedal-')) return S.pedal(g.slice('pedal-'.length));    // [2h.5] piece #2's 'Ped.'
       throw new Error('render: unknown glyph item "' + g + '"');
     };
+  }
+  // [2c.4 → 2c.6] A POINT ITEM'S INK, in staff spaces, relative to x(it.t) — [left, right] — from the drawing's own numbers (a glyph's
+  // box about its anchor, a ledger's width, a dot's radius, an ottava's widened label …); null for a kind that is not a unit's.
+  // The screen clamp multiplies it by the system's ssPx; the print plan (export_print, Splice.edgeIntervals) turns it into seconds.
+  function spanSsOf(it, c) {
+    const { boxFor, glyphs, E } = c, stds = glyphs.standards, dx = it.dxSs || 0;
+    switch (it.k) {
+      case 'glyph': {
+        const b0 = boxFor(it.g), kx = it.scale || 1, a = it.align ? (b0.anchors[it.align] || { x: 0 }) : { x: 0 };
+        return [dx - a.x * kx, dx + (b0.wSs - a.x) * kx];
+      }
+      case 'rest': { const rg = glyphs.rest['rest' + it.dur]; return [dx, dx + ((rg && rg.wSs) || 1)]; }
+      case 'stem': { const h = stds.stem.thickness / 2; return [dx - h, dx + h]; }
+      case 'dot': { const r = glyphs.standards.staccatoDot.diameter / 2; return [dx - r, dx + r]; }
+      case 'ledger': { const w = (it.wSs || glyphs.notehead.filled.wSs) * (1 + 2 * stds.ledgerLine.lengthFraction); return [dx - w / 2, dx + w / 2]; }
+      case 'text': {   // no font metrics here: half an em a character, the anchor honoured
+        const w = String(it.text || '').length * 0.5 * (it.size || 1) * E.textScale;
+        return it.anchor === 'middle' ? [dx - w / 2, dx + w / 2] : it.anchor === 'end' ? [dx - w, dx] : [dx, dx + w];
+      }
+      case 'barline': { const h = E.barLine.thickSs / 2; return [dx - h, dx + h]; }
+      case 'tempotext': { const hw = glyphs.notehead.filled.wSs * E.barLine.tempoHeadScale / 2; return [dx - hw, dx + E.barLine.tempoGapSs + 3]; }
+      case 'glissline': case 'dynarrow': { const a = it.dx0Ss || 0, b = it.dx1Ss || 0; return [Math.min(a, b), Math.max(a, b)]; }
+      case 'niente': { const r = (it.diaSs || 0.47) / 2; return [dx - r, dx + r]; }
+      case 'ottava': {
+        const O = stds.ottava || {}, lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
+        let xl = it.dx0Ss || 0;
+        const xh = it.dx1Ss || 0, lgW = lg ? lg.wSs + (O.textGapBeforeLineSs || 0.1) : 0, minSpan = O.minBracketSpanSs || 1.37;
+        if (xh - (xl + lgW) < minSpan) xl = xh - minSpan - lgW;
+        return [xl, xh];
+      }
+      case 'lvslur': return [dx, dx + ((glyphs.letRing && glyphs.letRing.wSs) || 1.6)];
+      // the go-time indicators sit at x(t) — in a unit's span, never the reason it is wide
+      case 'goline': return [0, 0];
+      case 'attackline': return [-E.attackLine.wSs / 2, E.attackLine.wSs / 2];
+      case 'tick': return [-E.tick.wSs / 2, E.tick.wSs / 2];
+      default: return null;
+    }
+  }
+  const _stampsOf = new WeakMap();
+  // the same span for a caller with no view (export_print's plan): the registry's engraving merged over the defaults, as renderSection does
+  function inkSpanSs(it, glyphs, engraving) {
+    let S = _stampsOf.get(glyphs);
+    if (!S) { S = boxForOf(Stamps.makeStamps(glyphs)); _stampsOf.set(glyphs, S); }
+    return spanSsOf(it, { boxFor: S, glyphs, E: Object.assign(engravingDefaults(), engraving || {}) });
+  }
+  // a GC item's reach in SECONDS — [pre, post] — by the params render draws it with (the registry preset under the item's own)
+  function gcPrePost(it, engraving) {
+    const E = engraving || {};
+    const P = GC.params(Object.assign({}, (E.gc && E.gc.preset) || {}, it.preset || {}));
+    return [P.pre, P.post];
+  }
+
+  function renderSection(model, view, glyphs, opts) {
+    const o = Object.assign({ ink: '#111', brick: '#4E7A9B', muted: '#8a8a8a', paper: '#fff' }, opts || {});
+    // engraving registry (V0.10/V1): every look number in one mergeable
+    // block; code defaults = the census values, so a caller without opts
+    // renders identically. The shell passes container.json engraving.render.
+    const E = Object.assign(engravingDefaults(), (opts && opts.engraving) || {});
+    const FONT = esc0 => String(esc0).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const fontAttr = ' font-family="' + FONT(E.fontFamily).replace(/"/g, '&quot;') + '"';
+    const S = Stamps.makeStamps(glyphs);
+    const boxFor = boxForOf(S);
     const stds = glyphs.standards;
+    const SPANCTX = { boxFor, glyphs, E };   // [2c.6] what spanSsOf reads — the clamp here and the print plan (inkSpanSs) share it
     // [2a, the septet] the ensemble registry (notation/registry/ensemble.json)
     // — labels, brackets, the brace. Absent = the tuba page exactly.
     const ENS = (opts && opts.ensemble) || null;
@@ -85,7 +145,7 @@
     // (margin + gutter). A view without margins has ML 0 and MX0 = gutterPx — the page exactly as before.
     const ML = view.marginLeftPx || 0;
     const MX0 = view.musicX0Px != null ? view.musicX0Px : (view.gutterPx || 0);
-    const CLEF_AT ={ bass: { line: 1, anchor: 'fLine' }, treble: { line: -1, anchor: 'gLine' }, alto: { line: 0, anchor: 'cLine' } };
+    const CLEF_AT = { bass: { line: 1, anchor: 'fLine' }, treble: { line: -1, anchor: 'gLine' }, alto: { line: 0, anchor: 'cLine' } };
     const parts = [];
     parts.push('<svg xmlns="http://www.w3.org/2000/svg" width="' + view.widthPx + '" height="' + view.heightPx +
       '" viewBox="0 0 ' + view.widthPx + ' ' + view.heightPx + '" style="background:' + o.paper + '">');
@@ -115,6 +175,18 @@
     // entry says boundary 'before' is owned (t0, tω] instead — at exactly tω on this page, at exactly t0 on the page before
     // (the first page keeps its t0). ABSENT = today's behaviour exactly.
     const SCR = (opts && opts.screenEdges) || null;
+    const PRE = (opts && opts.printEdges) || null;   // [2c.6] a print page of the objects plan (page_rules.printPlan 'objects'): page_rules.edge
+    // [2c.6] on such a page a curve is cut EXACTLY at the page's edges: its end points interpolated at max(t0, w0) and min(t1, inkEnd)
+    // (db1 p51: a 102 s crescendo of 401 samples left 0.23 s — one sample — on its last page, and was not drawn at all)
+    const edgeCurvePts = (it, yOf) => {
+      const s = it.samples, n = s.length, ta = Math.max(it.t0, w0), tb = Math.min(it.t1, wInk), pts = [];
+      if (!(n >= 2 && tb > ta && it.t1 > it.t0)) return pts;
+      const vAt = t => { const u = (t - it.t0) / (it.t1 - it.t0) * (n - 1), i = Math.min(n - 2, Math.max(0, Math.floor(u))); return s[i] + (s[i + 1] - s[i]) * (u - i); };
+      pts.push([view.xOfSeconds(ta), yOf(vAt(ta))]);
+      for (let i = 0; i < n; i++) { const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1)); if (t > ta + 1e-9 && t < tb - 1e-9) pts.push([view.xOfSeconds(t), yOf(s[i])]); }
+      pts.push([view.xOfSeconds(tb), yOf(vAt(tb))]);
+      return pts;
+    };
     const EDGE = SCR ? (SCR.edge || {}) : null;
     const boundaryBefore = k => !!(EDGE && EDGE[k] && EDGE[k].boundary === 'before');
     const ownsBefore = t => (t > w0 + 1e-9 || !!SCR.first) && t <= w1 + 1e-9;
@@ -193,39 +265,13 @@
       const clampKind = k => !!(EDGE && EDGE[k] && EDGE[k].screen === 'clamp');
       const tk = t => Math.round(t * 1e6);
       const shiftAt = new Map();
+      const addGo = [];   // [2c.6] the go lines the exception adds (clampGoLine 'add')
+      // [2c.6] the unit's ink from the ONE span function (module level, spanSsOf) — the print plan reads the same numbers
       const inkSpanPx = it => {
-        const x = view.xOfSeconds(it.t) + (it.dxSs || 0) * ssPx;
-        switch (it.k) {
-          case 'glyph': {
-            const b0 = boxFor(it.g), kx = it.scale || 1, a = it.align ? (b0.anchors[it.align] || { x: 0 }) : { x: 0 };
-            return [x - a.x * kx * ssPx, x + (b0.wSs - a.x) * kx * ssPx];
-          }
-          case 'rest': { const rg = glyphs.rest['rest' + it.dur]; return [x, x + ((rg && rg.wSs) || 1) * ssPx]; }
-          case 'stem': { const h = stds.stem.thickness * ssPx / 2; return [x - h, x + h]; }
-          case 'dot': { const r = glyphs.standards.staccatoDot.diameter / 2 * ssPx; return [x - r, x + r]; }
-          case 'ledger': { const w = (it.wSs || glyphs.notehead.filled.wSs) * (1 + 2 * stds.ledgerLine.lengthFraction) * ssPx; return [x - w / 2, x + w / 2]; }
-          case 'text': {   // no font metrics here: half an em a character, the anchor honoured
-            const w = String(it.text || '').length * 0.5 * (it.size || 1) * ssPx * E.textScale;
-            return it.anchor === 'middle' ? [x - w / 2, x + w / 2] : it.anchor === 'end' ? [x - w, x] : [x, x + w];
-          }
-          case 'barline': { const h = E.barLine.thickSs * ssPx / 2; return [x - h, x + h]; }
-          case 'tempotext': { const hw = glyphs.notehead.filled.wSs * ssPx * E.barLine.tempoHeadScale / 2; return [x - hw, x + (E.barLine.tempoGapSs + 3) * ssPx]; }
-          case 'glissline': case 'dynarrow': {
-            const xa = view.xOfSeconds(it.t) + (it.dx0Ss || 0) * ssPx, xb = view.xOfSeconds(it.t) + (it.dx1Ss || 0) * ssPx;
-            return [Math.min(xa, xb), Math.max(xa, xb)];
-          }
-          case 'niente': { const r = (it.diaSs || 0.47) * ssPx / 2; return [x - r, x + r]; }
-          case 'ottava': {
-            const O = stds.ottava || {}, lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
-            let xl = view.xOfSeconds(it.t) + (it.dx0Ss || 0) * ssPx;
-            const xh = view.xOfSeconds(it.t) + (it.dx1Ss || 0) * ssPx;
-            const lgW = lg ? (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx : 0, minSpan = (O.minBracketSpanSs || 1.37) * ssPx;
-            if (xh - (xl + lgW) < minSpan) xl = xh - minSpan - lgW;
-            return [xl, xh];
-          }
-          case 'lvslur': return [x, x + ((glyphs.letRing && glyphs.letRing.wSs) || 1.6) * ssPx];
-          default: return null;
-        }
+        const e = spanSsOf(it, SPANCTX);
+        if (!e) return null;
+        const x = view.xOfSeconds(it.t);
+        return [x + e[0] * ssPx, x + e[1] * ssPx];
       };
       if (SCR) {
         const X0 = view.xOfSeconds(w0);
@@ -239,13 +285,18 @@
           R.set(k, Math.max(R.has(k) ? R.get(k) : -Infinity, e[1]));
         }
         for (const [k, l] of L) if (l < X0 - 1e-6) shiftAt.set(k, X0 - l);
+        const goAt = new Set(sysModel.items.filter(x => (x.k === 'goline' || x.k === 'attackline' || x.k === 'tick' || x.k === 'gc') && x.t !== undefined).map(x => tk(x.t)));
+        // [2c.6 — his "2a", 2026-09-25] THE GO-LINE EXCEPTION as a switch (page_rules.clampGoLine): 'add' = a clamped unit with no go-time
+        // indicator of its own takes a go line at x(t), so its time stays exact (PLAN 2c.4 (b), one per note); 'flag' (the default) =
+        // reported only. The decision is his, deferred to the specific notation (RUNNING_LOG §347) — this is the machinery for it.
+        if (SCR.clampGoLine === 'add') for (const k of shiftAt.keys()) if (!goAt.has(k)) addGo.push({ k: 'goline', t: k / 1e6, added: true });
         if (shiftAt.size && opts && Array.isArray(opts.edgeReport)) {
           const keys = [...L.keys()].sort((a, b) => a - b);
-          const goAt = new Set(sysModel.items.filter(x => (x.k === 'goline' || x.k === 'attackline' || x.k === 'tick' || x.k === 'gc') && x.t !== undefined).map(x => tk(x.t)));
           for (const [k, s] of shiftAt) {
             const nx = keys.find(q => q > k);
             const overlap = nx === undefined ? 0 : (R.get(k) + s) - (L.get(nx) + (shiftAt.get(nx) || 0));
-            opts.edgeReport.push({ part: sysModel.part, t: k / 1e6, shiftPx: +s.toFixed(2), collidesPx: overlap > 0 ? +overlap.toFixed(2) : 0, goLine: goAt.has(k) });
+            opts.edgeReport.push({ part: sysModel.part, t: k / 1e6, shiftPx: +s.toFixed(2), collidesPx: overlap > 0 ? +overlap.toFixed(2) : 0,
+              goLine: goAt.has(k) ? true : (SCR.clampGoLine === 'add' ? 'added' : false) });
           }
         }
       }
@@ -297,7 +348,7 @@
       // overlay is its own SVG above everything; within a layer, push order
       // holds — stable sort.)
       const LAYER = k => (k === 'envcurve' ? 1 : k === 'goline' ? 2 : 0);
-      const itemsInLayers = [...sysModel.items].sort((a, b) => LAYER(a.k) - LAYER(b.k));
+      const itemsInLayers = [...sysModel.items, ...addGo].sort((a, b) => LAYER(a.k) - LAYER(b.k));
       for (const it of itemsInLayers) {
         // [2c.3] a cut kind's ink goes inside the page's clip — wrapped in `finally`, so every branch's `continue` is honoured
         const cutMark = (cutKind(it.k) && it.k !== 'gc') ? parts.length : -1;   // the GC wraps its arc alone (its impact is a point)
@@ -438,6 +489,7 @@
             if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
             pts.push([view.xOfSeconds(t), yB - samples[i] * (yB - yT)]);
           }
+          if (PRE && OWN) pts.splice(0, pts.length, ...edgeCurvePts(it, v => yB - v * (yB - yT)));   // [2c.6]
           if (pts.length >= 2) {
             const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
             if (EC.pathOpacity != null) {   // [D42] the two-piano look: one closed path, stroked round, opacity on the whole
@@ -531,6 +583,7 @@
             if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
             cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yCeil)]);
           }
+          if (PRE && OWN) cp.splice(0, cp.length, ...edgeCurvePts(it, v => yB - v * (yB - yCeil)));   // [2c.6]
           if (cp.length >= 2) {
             const cline = cp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
             if (CC.pathOpacity != null) {   // [D42]
@@ -559,6 +612,7 @@
             if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
             gp.push([view.xOfSeconds(t), yMid - it.samples[i] * (yMid - yT)]);
           }
+          if (PRE && OWN) gp.splice(0, gp.length, ...edgeCurvePts(it, v => yMid - v * (yMid - yT)));   // [2c.6]
           if (gp.length >= 2) {
             const line = gp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
             // the fill closes on the HALF-LANE baseline, not the lane floor —
@@ -597,7 +651,9 @@
           // descending toward the notes, the horizontal in TWO segments with a
           // gap for the numeral, which straddles the line. Geometry:
           // engraving.layout.tuplet.
-          if (cutKind('tuplet') && !crosses(it.t0, it.t1)) continue;   // [2c.3] a bracket off this page is not drawn at all (it had no gate)
+          // [2c.3] a bracket off this page is not drawn at all (it had no gate) · [2c.6] nor on a print page of the objects plan, where
+          // every tuplet in the score was drawn off to the right of page 1 (db1: to x 11046 — under D59's reserves too)
+          if ((cutKind('tuplet') || (PRE && OWN)) && !crosses(it.t0, it.t1)) continue;
           const TP = E.tuplet || {};
           const th = (TP.thicknessSs || 0.16) * ssPx, hook = (TP.hookLengthSs || 0.7) * ssPx;
           const yL = Y(it.ySs);
@@ -821,5 +877,5 @@
   // belongs to a beam group and the splicer is stamp-atomic — no cut severs a
   // beam (measured 0 of 63 on this score), so a bracket never crosses a cut.
 
-  return { renderSection, POINT_KINDS, LONG_KINDS, FURNITURE_KINDS };
+  return { renderSection, POINT_KINDS, LONG_KINDS, FURNITURE_KINDS, inkSpanSs, gcPrePost };
 });

@@ -2430,7 +2430,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
-  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345 · 2c.5 WRITTEN — §346, NOTATION_STANDARDS §5; STOPPED for his read before 2c.6)** — `planned` 2026-09-25 (Fable,
+  2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345 · 2c.5 WRITTEN — §346, NOTATION_STANDARDS §5 · his word §347: the specific resolutions deferred to the notation, the machinery built — 2c.6 built — §348)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
   agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
   #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
@@ -2480,7 +2480,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     tuplet brackets — never severed (the splicer's stamp-atomic cut, kept) · ties and slurs — broken at the system's end, restarted at the
     next start · hairpins — broken and continued · trill and 8va lines — continued, the sign restated in parentheses (`reshowAtCut` has the
     mechanism) · text and tempo — `continuationPrefix` as now · a note ON the cut — the next page (half-open, kept for print).
-  - **2c.6 — The print plan:** `Splice.planPages` re-written on 2c.5: from a page's t0 the cut is the LATEST time ≤ t0 + S at which no
+  - **2c.6 — The print plan:** **`built` 2026-09-25 (§348; `Splice.edgeIntervals` + `planObjectPages` beside `planPages`, selected by `page_rules.printPlan: 'objects'`; `check_print_edges` PASS on `piece-lgmf` and `db1`; + the go-line switch `page_rules.clampGoLine` 'flag' | 'add', his "2a"; THE SHIELD: the print pages byte-identical).** `Splice.planPages` re-written on 2c.5: from a page's t0 the cut is the LATEST time ≤ t0 + S at which no
     class's rule is broken; an object that would break it is pushed whole and the cut moves to its ink-start; **a pushed GC sets the next
     page's t0 at the top of its descent** (t_impact − GC.pre), so a page's t0 is where its first object's ink begins; a duration line
     takes the cut only if head + stub fit before it. The reserves retire (`edgeReserveMarginSs`, the print's `musicStartBufferSs`): the

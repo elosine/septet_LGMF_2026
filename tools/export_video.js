@@ -115,7 +115,7 @@ const TILE = pageRules.screenPlan === 'tile';
 const pages = TILE ? Splice.tilePages(ir, pageRules, pageSeconds) : Splice.planPages(ir, pageRules, pageSeconds);
 const srcEnd = ir.source.window[1];
 // the edge rules a tiled screen page renders by (render.js opts.screenEdges); `first` = the window opens at the IR's start
-const screenEdgesAt = t0 => TILE ? { edge: pageRules.edge || {}, first: t0 <= ir.source.window[0] + 1e-9 } : undefined;
+const screenEdgesAt = t0 => TILE ? { edge: pageRules.edge || {}, first: t0 <= ir.source.window[0] + 1e-9, clampGoLine: pageRules.clampGoLine } : undefined;
 
 // [§404 on the page] THE BUFFER AFTER THE CLEF: each page's window opens page_rules.musicStartBufferSs staff spaces early (never before
 // the IR's start), so the page — and its turn, at window[1] — runs that much earlier, as renderContainerView draws it

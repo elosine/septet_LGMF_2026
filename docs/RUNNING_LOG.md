@@ -12770,3 +12770,54 @@ NOTATION_STANDARDS §5. The rules stand as written; the values are provisional d
 `check_print_edges.js` re-pointed) · 2c.7 its verification (both checkers green over every page) · optionally the clamp's go-line
 exception as a registry switch, default off, so the §345 resolution is a data flip later. **His decisions (not notation-specific):**
 whether 2c.6 builds now on the provisional values, and whether the switch is built.
+
+## §348. 2c.6 THE PRINT PLAN — built: the cut placed by the objects; + the go-line switch; `check_print_edges` PASS on both; THE SHIELD held (2026-09-25, Opus, at his word *"1a 2a, build through independently"*)
+
+**His two answers (§347's questions):** 1a — build the print plan now on the provisional values · 2a — build the go-line switch now,
+off by default.
+
+**What was built:**
+- **`render.js` — one span function.** The engraving defaults lifted to `engravingDefaults()` and the glyph lookup to `boxForOf(S)`
+  (module level); the clamp's ink spans became `spanSsOf(it, ctx)` in STAFF SPACES about x(t) — the screen clamp multiplies by ssPx,
+  the print plan turns it into seconds (`Render.inkSpanSs`, `Render.gcPrePost` exported). The refactor alone was shielded first: 7/7
+  byte-identical, the screen checker's numbers unchanged (7 clamped, 15.9 px).
+- **`splice.js` — `edgeIntervals(ir, model, o)`:** every object whose print rule forbids a cut inside it becomes an open interval in
+  seconds — the UNIT (the `whole` point kinds of one system at one time, its ink) · the GC (t − pre … t + post, padded by the impact dot
+  and the stroke at the print's scale) · the duration line (`stub`: its unit's ink → head + `durationStubSs`, and its last
+  `durationStubSs`) · the curves (`continue` — the same head and tail rule: with the print's bricks hidden the curve IS the note's
+  length) · beams and tuplets (`never-sever`) · the IR's beamable pairs (the old stamp-atomic rule). **`planObjectPages(ir, rules, S,
+  intervals)`:** from each window start the cut is the LATEST time ≤ w0 + S outside every interval; inside a merged block the cut moves
+  back to the block's start (the objects pushed whole — a pushed GC's block starts at the top of its descent), the next page opening
+  there; the system ends at the cut. **FORCED** when a block is longer than a page: the latest cut at which every crossing object can be
+  drawn whole on the page owning its onset (this page's ink runs on inside its window, the next page opens at its ink start), fewest
+  beams severed; the page carries what it crosses.
+- **`export_print.js`:** `page_rules.printPlan: 'objects'` selects it — reserves 0 · 0, the window at the page's first ink, the ink end at
+  the cut; the planJson carries `printPlan` · `blank` · `pushed` · `forced`. **`page_rules.json`:** `printPlan` · `durationStubSs` 2 ·
+  `clampGoLine` 'flag' · each of the 26 kinds' `print` value (§5's table).
+- **`check_print_edges.js` re-pointed:** under the objects plan every page must open at its cut unless the page before was forced; the
+  pushes, the widest blank and each forced page are reported (FLAG, not failure — the ink test proves wholeness).
+- **The go-line switch (his "2a"):** `page_rules.clampGoLine` — `'add'` gives a clamped screen unit with no go-time indicator a go line
+  at x(t) (a synthetic `goline` item, drawn and checked like any other), `'flag'` (the registry's value) reports it.
+
+**Found by the gate on `db1` (the tuba page exercises every kind), each fixed:**
+1. **Tuplet brackets had no window gate at all** — every tuplet of the score was drawn off the right of print pages 1–10 (ink to
+   x 11046). **Under D59 too** (the checker run on db1 with `printPlan` removed failed the same way) — piece #5's score had no tuplets, so
+   it never showed. Fixed on the objects plan only (`opts.printEdges`: a tuplet drawn only on a page it crosses), so D59 stays
+   byte-identical.
+2. **A curve could leave a sliver too short to draw:** a 102 s crescendo of 401 samples (one per 0.26 s) had 0.23 s — one sample — on page
+   51, and was not drawn. Fixed twice over: the TAIL stub (no cut in a line's or a curve's last `durationStubSs`) and, on a print page of
+   the objects plan, a curve's end points interpolated at the page's edges (`edgeCurvePts`).
+3. **The first FORCED rule left 5.5 – 6.2 s blanks** (the cut breaking the fewest objects, which fell early); replaced by the latest cut
+   that keeps every crossing object whole.
+4. **The planner and the renderer disagreed on ownership by a hair:** a cut at a unit's t + 1e-6 made a GC at t this page's in render
+   (t < cut − 1e-9) but the next page's in the planner (t < cut − 1e-6), so its rebound ran 25 px past the ink end (p3, p14). The
+   planner now uses render's own rule.
+
+**The numbers:** **`piece-lgmf` — 55 print pages (59 under D59), 46 full · 8 pushed (8 objects) · 0 forced, the widest blank 0.12 s (1 % of
+the width); `check_print_edges` PASS.** `db1` — 75 pages (80 under D59), 50 full · 21 pushed (555 objects moved whole) · 3 forced (p3 ·
+p9 · p14, dense GC streams), the widest blank 4.13 s (40 %); 429 GC arcs + 429 impact dots = 429 owned strikes; PASS. The screen checker
+PASS on both; with `clampGoLine` 'add' in a temporary copy: 5 go lines added, 235 go-time indicators exact, his 300.05 s note's line at
+x 119.37 = 112 + 0.05 × 147.33.
+
+**THE SHIELD** (the pre-2c registry): the video probes ×4, the zoom probe, the print pages 1–3 byte-identical; the print plan JSON
+identical once its three new fields are removed (80 pages); the eight batteries GREEN; `test_coords` its one pre-existing failure.

@@ -154,13 +154,13 @@ tool: `tools/notate_morph.js` / `notation/lib/morph_overlays.js` / `notate_secti
   natural harmonic — the SOUNDING note with the circle + the string numeral, **no diamond** · double reeds and stopped strings — none.
 - Under about 20 cents, no special accidental (the AI's rule of thumb, his to move).
 
-## §5 THE PAGE TURN — LAKE GEORGE (piece #6), PLAN 2c.5. WRITTEN 2026-09-25 FOR HIS READ; 2c.6 builds the print plan on it once he has read it.
+## §5 THE PAGE TURN — LAKE GEORGE (piece #6), PLAN 2c.5 · 2c.6. WRITTEN 2026-09-25; BUILT the same day (2c.6, RUNNING_LOG §348) at his word — *"as long as the rules and machinery are in the system, lets defer any specific resolutions to when the actual notation is in"* (§347): the values below are PROVISIONAL DATA, judged when the notation is in.
 
 *His design (RUNNING_LOG §340): the page edge is **two rule-sets on one engine**. ON SCREEN the performer's constant sweep wins — built
 (2c.1 … 2c.4, §342 … §345: the pages tile, a long object is cut like paper, a unit is clamped and its go-time indicator never moves).
 IN PRINT the whole object wins — **the cut is placed by the objects, as late as the rules allow**: "fit in as much as possible on the page
 before the page turn". This section is the print's rule, one line per drawn kind; `page_rules.edge.<kind>.print` will carry the value
-when 2c.6 builds it (today the registry holds only `screen`).*
+— now in the registry (`page_rules.printPlan: 'objects'`, `durationStubSs`, each kind's `print`), the planner `Splice.planObjectPages`, the gate `tools/check_print_edges.js` re-pointed.*
 
 **The margins (built, 2c.1):** print **12.7 mm all round** (`container.json print.marginIn` 0.5 in; `--margin` overrides) · the screen
 **40 · 40 px** (`prefatory.marginPx`) · on both, t0 = left margin + gutter, tω = the width less the right margin, and nothing timed ever
@@ -205,6 +205,8 @@ the system ENDS at the cut, so the blank at a page's right is exactly what was p
 print's `musicStartBufferSs`) retire; `minPageSeconds` stays. `check_print_edges.js` is re-pointed: every page's ink inside
 `[x(t0), x(cut)]`, every owned object whole, every object on exactly one page. **The time scale never changes** from page to page (distance
 is time).
+
+**Added in the build (2c.6), the AI's calls:** a duration line's TAIL keeps a stub too — no cut in its last `durationStubSs`, so what continues on the next page is never a sliver · a curve carries its note's head + stub and tail rule (with the print's bricks hidden, the curve IS the note's visible length) and is cut exactly at the page's edges (its end points interpolated) · **FORCED**, the one exception: a block of objects longer than a page (a dense GC stream) has no clean cut — the cut is the latest at which every object it crosses can be drawn whole on the page owning its onset (that page's ink runs on to its end, the next page opens at its ink start: D59, locally), severing the fewest beams; the page is flagged by the gate · a tuplet bracket is drawn only on a page it crosses (it had no gate: every tuplet of the tuba page was drawn off the right of page 1, under D59 too).
 
 **For HIS read — the AI's calls, each his to reverse:**
 - the duration line's stub **2 ss** — judged on the proof at 2c.7;

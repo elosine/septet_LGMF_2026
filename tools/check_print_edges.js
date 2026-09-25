@@ -31,6 +31,12 @@
 //        · every GC arc is WHOLE: the arcs and impact dots a page draws equal
 //          the strikes it owns, and each arc lies inside [gutter, system end].
 //
+// [LGMF 2c.6, 2026-09-25 — NOTATION_STANDARDS §5] RE-POINTED at the objects plan (page_rules.printPlan 'objects'): the cut placed by
+// the objects, the reserves 0 · 0, the system ending AT the cut. Pass B's tests are the same questions asked of the new plan — every
+// page's ink inside [x(t0), x(cut)], every owned object whole, every object on exactly one page — and pass A adds: every page opens at
+// its cut (a page may open earlier only after a FORCED one, where an object crossing the cut is drawn whole on the page owning its
+// onset), and it reports the pushes, the widest blank and the forced pages. Under D59 (no printPlan) it reads as before.
+//
 // Exit 1 on any failure. It is a build gate in print/score/build.sh.
 const fs = require('fs');
 const path = require('path');
@@ -90,6 +96,17 @@ const inReserve = pages.reduce((a, p) => a + p.inReserveOnly, 0);
 console.log('   ok  ' + P.longTotal + ' long items (' + JSON.stringify(P.longByKind).replace(/[{}"]/g, '').replace(/,/g, ' ') +
   ');  ' + inReserve + ' lie in a reserve without crossing the page that draws it — pass B proves none of them inks');
 
+if (P.printPlan === 'objects') {
+  for (let i = 1; i < pages.length; i++) {
+    const p = pages[i], prev = pages[i - 1];
+    if (p.w0 < p.t0 - 1e-6 && prev.kind !== 'forced') fail('page ' + p.n + "'s window opens " + (p.t0 - p.w0).toFixed(3) + ' s before its cut after a clean page ' + prev.n);
+  }
+  const pushed = pages.filter(p => p.kind === 'pushed'), forced = pages.filter(p => p.kind === 'forced');
+  console.log('   ok  the objects plan: ' + pages.filter(p => p.kind === 'full').length + ' pages full · ' + pushed.length + ' pushed (' +
+    pushed.reduce((a, p) => a + p.pushed, 0) + ' objects moved whole to the next page) · ' + forced.length + ' forced');
+  for (const p of forced) console.log('  FLAG  page ' + p.n + ' is FORCED — a block of objects longer than a page; each object it crosses is kept whole on the page owning its onset: ' +
+    p.forced.slice(0, 5).join(' · ') + (p.forced.length > 5 ? ' …' : ''));
+}
 const ragged = pages.slice(0, -1).map(p => p.w1 - p.inkEnd);
 console.log('   ok  ' + ragged.filter(g => g > 0.5).length + ' pages end more than 0.5 s early, at most ' +
   Math.max(...ragged).toFixed(2) + ' s (' + (100 * Math.max(...ragged) / P.pageSeconds).toFixed(0) + '% of the width)' +

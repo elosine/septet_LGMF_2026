@@ -71,8 +71,9 @@ else console.log('   ok  every drawn kind (' + kinds.length + ') carries its edg
 
 // the clamp report
 const clamps = pages.flatMap(p => p.clamps.map(c => Object.assign({ page: p.n }, c)));
-const collide = clamps.filter(c => c.collidesPx > 0), noGo = clamps.filter(c => !c.goLine);
+const collide = clamps.filter(c => c.collidesPx > 0), noGo = clamps.filter(c => !c.goLine), added = clamps.filter(c => c.goLine === 'added');
 console.log('   ok  ' + clamps.length + ' unit(s) clamped' + (clamps.length ? ', the widest shift ' + Math.max(...clamps.map(c => c.shiftPx)).toFixed(1) + ' px' : ''));
+if (added.length) console.log('   ok  ' + added.length + ' go line(s) ADDED to clamped units that had none (page_rules.clampGoLine "add")');
 for (const c of collide) console.log('  FLAG  page ' + c.page + ' part ' + c.part + ' @' + c.t.toFixed(3) + ' s: the clamped unit (+' + c.shiftPx + ' px) reaches its neighbour by ' + c.collidesPx + ' px');
 if (noGo.length) console.log('  FLAG  ' + noGo.length + ' clamped unit(s) have no go-time indicator of their own — the shift moves where the eye reads the time: ' +
   noGo.slice(0, 8).map(c => 'p' + c.page + ' part ' + c.part + ' @' + c.t.toFixed(2) + ' +' + c.shiftPx).join(' · ') + (noGo.length > 8 ? ' …' : ''));
