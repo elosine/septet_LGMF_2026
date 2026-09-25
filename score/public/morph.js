@@ -295,8 +295,11 @@ function carrierTiming(carrier) {
     // run-down must not rewrite the gesture it is running down from.
     const cycling = duration > span + 1e-9;   // the BODY repeats (folds)
     const extended = cycling || release > 0;  // anything past the legacy one-shot
+    // LGMF PLAN 1t.4 (2026-09-25): `releaseHolds` — the release FADES WHERE THE BODY ENDED and the pitch stays there. Without it the
+    // release runs every voice's progress back to 0, which is a bloom closing as it fades (below) — and for a morph from take A to
+    // take B, every player sliding back to A under the fade. Opt-in; absent, not a byte of any render changes.
     return { span: span, duration: duration, release: release,
-             total: duration + release, cycling: cycling, extended: extended };
+             total: duration + release, cycling: cycling, extended: extended, holdRelease: carrier.releaseHolds === true };
 }
 
 // 0 -> 1 -> 0 -> 1 …  The trajectory reverses instead of stopping, so the pair
@@ -351,7 +354,7 @@ function voiceProgress(voiceIdx, nVoices, t, span, dials, order, cyc) {
         // downward half — which is why it was chosen over decoupling the two.
         const held = phaseAt(cyc.duration);
         const k2 = clamp((t - cyc.duration) / cyc.release, 0, 1);
-        x = held * (1 - k2);
+        x = cyc.holdRelease ? held : held * (1 - k2);   // LGMF PLAN 1t.4: `releaseHolds` — the fade on the arrival, no return
     }
     return applyBias(x, dials.bias) * clamp(dials.depth, 0, 1);
 }

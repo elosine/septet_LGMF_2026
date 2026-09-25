@@ -896,7 +896,9 @@ const PANEL = {
         // reads back (composer, 2026-09-07 late: "the naming can it increment per model? because I lose track of which one")
         const mine = (this.actuals || []).filter(a => a.model === m.id).map(a => +String(a.entity || '').split('-').pop() || 0);
         let nn = 1; while (mine.indexOf(nn) >= 0) nn++;
-        const srcShort = this._pitchInfo && this._pitchInfo.from ? ' · ' + String(this._pitchInfo.from).replace(/\s*\(.*\)\s*$/, '').slice(0, 28) : '';
+        const PI = this._pitchInfo;
+        const srcShort = (PI && PI.take && PI.takes) ? ' · ' + (PI.origFrom || PI.name) + ' → ' + (PI.to ? PI.to.name : '?')   // PLAN 1t.4: both takes
+            : PI && PI.from ? ' · ' + String(PI.from).replace(/\s*\(.*\)\s*$/, '').slice(0, 28) : '';
         const label = window.prompt('Label for this actual — one breath, your words:',
             m.id + '-' + String(nn).padStart(2, '0') + ' · ' + Math.round(this.result.meta.span) + ' s' + srcShort);
         if (label == null) return;
@@ -971,8 +973,11 @@ const PANEL = {
             // PLAN 1r, now that M3 IS in TAKE_MODELS) and any actual WITHOUT voices go exactly as they went before.
             // PLAN 1r — a CONVERGE-on-a-take actual stores the OPENED chord as its source and the take as `target.voices`: the take
             // is the arrival, so the frozen chord is rebuilt from the target, not the source.
+            // PLAN 1t.4 — a TAKE → TAKE actual stores take A as its source and take B as its target: the frozen `from` chord is rebuilt
+            // from the SOURCE (not CONVERGE's arrival rule) and the frozen `to` chord from the target, the dial from the filed pitch
+            const TKA = P.model === this.TAKES_MODEL;
             const rvSrc = (rp && rp.source && rp.source.kind === 'voices' && Array.isArray(rp.source.voices)) ? rp.source.voices : null;
-            const rvTgt = (rvSrc && rp.model === 'M3' && rp.target && rp.target.kind === 'voices' && Array.isArray(rp.target.voices) && rp.target.voices.length === rvSrc.length) ? rp.target.voices : null;
+            const rvTgt = (!TKA && rvSrc && rp.model === 'M3' && rp.target && rp.target.kind === 'voices' && Array.isArray(rp.target.voices) && rp.target.voices.length === rvSrc.length) ? rp.target.voices : null;
             const rv = rvTgt || rvSrc;
             if (rv && rv.length && (this.TAKE_MODELS || []).indexOf(rp.model) >= 0 && !this.namesOwnVoices(P.model) && Array.isArray(rp.lanes) && rp.lanes.length === rv.length) {
                 const TR = (typeof TRACKS !== 'undefined') ? TRACKS : (root.TRACKS || []);
@@ -985,6 +990,16 @@ const PANEL = {
                         return o;
                     }),
                 });
+                if (TKA) {
+                    const tv = (rp.target && rp.target.kind === 'voices' && Array.isArray(rp.target.voices) && rp.target.voices.length === rv.length) ? rp.target.voices : null;
+                    const PP = P.pitch || {};
+                    Object.assign(this.pitch, {
+                        fromOrig: PP.fromOrig || PP.takeName || '',
+                        toName: tv ? (PP.toName || entity + ' · to') : '', toAt: tv ? new Date().toISOString() : '', toLive: false,
+                        toChord: tv ? tv.map((v, i) => { const ln = rp.lanes[i]; const o = { lane: ln, seat: +v.seat || 0, inst: (TR[ln] || {}).instKey || null, midi: Math.round(+v.midi), cents: +(v.cents || 0) }; if (v.partial != null) o.partial = v.partial; return o; }) : null,
+                        switchAt: PP.switchAt != null ? PP.switchAt : undefined,
+                    });
+                }
                 this.recalledSets = this.recalledSets || {};
                 this.recalledSets[entity] = { notes: [...new Set(rv.map(v => Math.round(+v.midi)))].sort((x, y) => x - y),
                                               from: entity + ' as stored' + (a.label ? ' (' + a.label + ')' : '') };
@@ -1204,7 +1219,7 @@ const PANEL = {
         btn.textContent = 'Playing…';
         // H3.4 — the fader span that actually went out, and any instrument the table had to guess for
         this.setStatus('playing ' + r.scheduled + ' notes' +
-            (r.skipped ? ' (' + r.skipped + ' had no port)' : '') +
+            (r.skipped ? ' (' + r.skipped + ' had no port)' : '') + this.takesText() +
             (r.shaped ? ' · ' + r.shaped + ' shaped, struck at mf on the curve channels · the fader CC7 ' + r.cc7Lo + '…' + r.cc7Hi + this.dynText(this._lastParams && this._lastParams.dyn) : '') +
             (r.onMain ? ' · ' + r.onMain + ' had no curve channel — on MAIN, so their fader will not move' : '') +
             (r.unmeasured && r.unmeasured.length ? ' · no measured fader curve for ' + r.unmeasured.join(' · ') : ''), !!r.onMain);
@@ -1447,7 +1462,16 @@ const PANEL = {
         if (C.renderAll) C.renderAll();
         if (C.markDirty) C.markDirty();
         if (C.scheduleConflictRefresh) C.scheduleConflictRefresh();
-        this.setStatus('inserted ' + objs.length + ' notes at ' + at.toFixed(2) + ' s as ' + gid + this.lawText(law));
+        this.setStatus('inserted ' + objs.length + ' notes at ' + at.toFixed(2) + ' s as ' + gid + this.takesText() + this.lawText(law));
+    },
+    // PLAN 1t.4 — THE LINE on Play and Insert under TAKE → TAKE: both takes, the voices, the flags, the vibraphones' switch; the fader
+    // span and min · max follow it (`lawText` · `dynText`). Empty for every other model.
+    takesText() {
+        const I = this._pitchInfo; if (!I || !I.take || !I.takes) return '';
+        const SR = (I.rows || []).find(r => r.still), un = this.switchesUnheard().length;
+        return ' · take ' + I.name + (I.origFrom ? ' (' + I.origFrom + ')' : '') + ' → ' + (I.to ? 'take ' + I.to.name : 'no "to" take — A held') +
+            ' · ' + I.voices + ' voices as assigned' + ((I.flags || []).length ? ' · ⚑ ' + I.flags.join(' · ') : '') +
+            (SR && SR.switchS && SR.switchS.length ? ' · vibes switch ' + SR.switchS.map(x => x.t.toFixed(1) + ' s').join(' · ') + (un ? ' (' + un + ' never heard on the new bar)' : '') : '');
     },
 
     // ------------------------------------------------------------- THE SEPTET'S CAST (morph_septet.js; RUNNING_LOG §197–203; CN-37)
@@ -1881,7 +1905,7 @@ const PANEL = {
         out.voices = voices.length;
         return { params: out, warnings: warnings,
                  info: Object.assign({ take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length, arrival: !!arrival },
-                                     TAKES ? { takes: true, to: TO, flags: flags, leftOutTo: leftOutTo } : {}) };
+                                     TAKES ? { takes: true, to: TO, flags: flags, leftOutTo: leftOutTo, origFrom: TK.live ? '' : (this.pitch.fromOrig || '') } : {}) };
     },
     // H2.6 — `recalledSets` lives in MEMORY, so after a page reload the `actual:` option that a recalled bloom-on-a-take is
     // sitting on would vanish from the pulldown and the panel would look as though it had lost his pitches. The FROZEN CHORD is
@@ -2101,7 +2125,7 @@ const PANEL = {
         if (info && info.take && info.takes) {   // PLAN 1t.2 — THE LINE, player by player: A → B, and the flags
             const cts = c => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ' c';
             const fmtN = n => '<b>' + SEP.nm(n.midi) + '</b> ' + cts(n.cents) + (n.partial != null ? ' · partial ' + n.partial : '');
-            note('take <b>' + info.name + '</b> → ' + (info.to ? 'take <b>' + info.to.name + '</b>' : '<b>— choose a "to" take —</b>') + ' · ' + info.voices + ' voices, <b>as assigned</b>, each player from their note to their note (PLAN 1t)' +
+            note('take <b>' + info.name + '</b>' + (info.origFrom ? ' (' + info.origFrom + ')' : '') + ' → ' + (info.to ? 'take <b>' + info.to.name + '</b>' : '<b>— choose a "to" take —</b>') + ' · ' + info.voices + ' voices, <b>as assigned</b>, each player from their note to their note (PLAN 1t)' +
                  (info.live ? '' : ' (from the actual)'), info.to ? '#9a9' : '#e0b062');
             info.rows.forEach(r => {
                 const pairs = r.notes.map((n, j) => fmtN(n) + ' → ' + fmtN((r.tgts || [])[j] || n));

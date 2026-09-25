@@ -13147,3 +13147,71 @@ identical to HEAD's, all nine. **TAKES, `Just-c2-seed143` → `Just-e1-seed193`:
 (2.932) · 57.000 k83`, seat 2 on k85 to 59.998 and the ⚑ line; the dial set to 0.5 through its input's `change` → `switchAt` 0.5 ·
 0.55, seat 0 `30.000 k83`, seat 2 `33.000 k73`, the row line *switch at 30.0 s · 33.0 s*, `pitch.switchAt` 0.5. **RESTART the server
 before an actual is filed from this build** — Save as ACTUAL renders on the server with the engine it loaded at start (journal §2).
+
+## §367. `1t.4` THE LINE, THE ACTUAL, THE REQUIRED VERIFICATION — built and run; found on the way: the RELEASE sent every player back to take A (`carrier.releaseHolds`); `1t` built end to end (2026-09-25, Opus, session 15)
+
+**As built:**
+
+- **The line on Play and Insert** (`takesText`, TAKES only): *playing 93 notes · take Just-c2-seed143 → take Just-e1-seed193 · 8
+  voices as assigned · vibes switch 30.0 s · 33.0 s · 93 shaped, struck at mf on the curve channels · the fader CC7 26…110 · min pp
+  · max ff* — the flags after the voices when there are any (*⚑ Vib — no note in "to"; holds · …*), and *(N never heard on the new
+  bar)* after the switch times when a switch falls after a vibraphone's last note.
+- **Save as ACTUAL** files what was heard as before — `resolvedParams` carries `source.voices` (take A, the vibraphones'
+  `switchAt`) and `target.voices` (take B); the filed `pitch` carries `takeName` · `toName` · `switchAt` (`info {take, to}` in the
+  plan's words). The default label names both takes (`TAKES-NN · 60 s · A → B` — read in the code; the throwaway's prompt is stubbed, so not captured).
+- **The recall** (`recallActual`): a TAKES actual rebuilds the frozen `from` chord from its SOURCE — not CONVERGE's arrival rule,
+  which rebuilds from the target (`rvTgt` now skips TAKES) — and the frozen `to` chord from its target, lane and seat; `fromOrig` ·
+  `toName` from the filed pitch, the dial from the filed `switchAt` (blank → 1). The line reads *take ACT-TAKES-01
+  (Just-c2-seed143) → take Just-e1-seed193 … (from the actual)*.
+
+**FOUND ON THE WAY — THE RELEASE RETURNED EVERY PLAYER TO TAKE A.** Running (b) with a `release` of 8 s (his fade, "tacked on"),
+every gliding voice's LAST sample was its A note — the cello 63.863, its start — and never B. The engine's release (`voiceProgress`,
+FR-6) runs each voice's progress from where it stands back to 0: *"driving it to 0 returns the pitch to unison AND the level to its
+floor in one motion: the bloom CLOSES as it fades"* — right for a bloom, and for a morph from A to B it is every player sliding back
+to A under the fade. §362 read this path as *"every voice tapering over it on chord B"*; the capture says otherwise, and the plan's
+requirement (*"the fade = release, tacked on"*, on B) is the one kept. **The fix, opt-in, the fifth such door:**
+`carrier.releaseHolds: true` → `carrierTiming` carries `holdRelease` and the release branch holds the progress where the body ended
+(`x = held` instead of `held × (1 − k2)`); the level still fades (`relFade`, the frozen `pDyn`). **`TAKES` carries it in the bank**
+(`baseParams.carrier.releaseHolds: true`, `rev` 136 → 137, its notes line says why) — a model property, so an actual stores it and
+re-derives. Without the key not a byte of any render moves (THE SHIELD, below). The vibraphones were never affected: a switch is a
+step in time, not a progress.
+
+**Also seen, NOT changed — the status's red "hard" under TAKES is the re-key seams:** the render's overlap check counts every
+5 ms overlap at a re-key (the quartet's rule, `REKEY_OVERLAP_S` — *"the previous key ends after this one starts"*) as a HARD
+conflict; here all 13 are exactly that (−0.005 s between two `REKEY` notes). It shows in red on any morph whose voices travel past
+their reach. Changing the count would re-flag the notes of every stored actual with a re-key — his call, to NITS.
+
+**THE REQUIRED VERIFICATION (a … g)** on `score-5401`, STILL BINDING's stubs (the fetch stub also SERVES a synthetic actual for
+(f)); **0 POSTs in every pass; the bank and the scores untouched by the throwaway** (mtimes read before and after — the only
+changes are this build's `morph_models.json` and his own new `scores/piece-LGMF-Sec01-Sec02-Sec3start.json`, saved 14:54 from his
+tab on :5400):
+
+- **(a) THE SHIELD.** The bank: every stored model (×2) and actual re-rendered through the final `morph.js` — **0 of 53 changed**
+  since before 1t.1, TAKES the two added; `model_bank --validate` VALID. The panel: the nine renders of §365 — params and notes
+  hash identical to HEAD's, at 1t.2, at 1t.3 and on the final build.
+- **(b) the transition,** `Just-c2-seed143` → `Just-e1-seed193`, `duration` 60, `release` 8, switch 0.5 — 93 notes, **every voice's
+  first sample at A and its last at B, to the cent:** Vc 63.863 → 74.863 · Db 48.000 → 59.000 · Tpt 77.513 → 81.883 · Hn 72.000 →
+  66.020 · EH 60.000 → 76.513 · Bsn 36.000 → 35.000 · Vib 86 → 83 · Vib² 85 → 73. **The moves start apart** (first sample off A):
+  1.86 · 2.26 · 4.91 · 5.65 · 6.39 · 8.16 s — no two together; the model's last mover (EH, the stagger's end, 7.2 s) arrives at the
+  duration's end, 60 s (its first sample on B at 60.76, after a breath's gap); the rest earlier (54.07 … 59.23 s).
+- **(c) the far voices:** Vc (+11 st) 6 · Db (+11) 6 · EH (+16.5) 12 notes `REKEY`, every seam −0.005 s (the quartet's overlap, no
+  gap), every bend inside the player's reach + the engine's `CLAMP_CENTS` 8: Vc 108.1 / 101 · Db 91.1 / 90 · EH 100 / 92 (the
+  `CLAMP` soft flag on 4 notes — a few cents at a start, by the rule).
+- **(d) the vibraphones:** seat 0 one note-on on B5 (k83) at **30.000 s**, seat 2 one on C♯5 (k73) at **33.000 s** — three seconds
+  later — bend 0 on every vibraphone note (the reach 33 c never used).
+- **(e) the flag:** `to` = `Bloom01-Just-A1-seed132` (no vibraphones) → *⚑ Vib — no note in "to"; holds* · *Vib²* the same, both
+  vibraphones STILL on their A bars (no switch, one key each), the line naming them.
+- **(f) the round trip:** a synthetic actual `ZZ-1T` from the live render (params · notes · pairs · pitch), served by the fetch
+  stub; the take, the `to`, the dial and the release nudge DROPPED first (BLOOM, the model's set); `recallActual('ZZ-1T')` → TAKES,
+  `src actual:ZZ-1T`, `fromOrig Just-c2-seed143`, `toName Just-e1-seed193`, `switchAt 0.5` — **params hash 2037844696 · notes hash
+  1545617143 · 93 notes: identical to the live render, and again on a regenerate from the live fields.** The SERVER's path (the
+  node palette, `buildActual`'s `renderOptsFor`) on the same params: the same notes hash, deterministic.
+- **(g) the law:** Hear captured (`MorphPanel.play()`, 3.5 s, 102 sends): **MAIN ch 1: 0 note-ons** · `lgcello ch2 64 v92 ·
+  lgbass ch2 48 v81 · lgenghorn ch2 61 v94 · lghornb ch3 72 v81 · lgtrumpetb ch5 78 v66` — the SI2 three on their `b` ports, each at
+  its own mf for its pitch, the faders opening at the table's `pp` (cello · EH · bass 51, horn · trumpet 32). Insert at 1000 s: 95
+  objects (93 notes + the marker *MORPH M3 — TAKE → TAKE* + the META contour), **every note with `velAbs` and `cc7Abs`**, the 29
+  vibraphone notes' `morphBend` flat, the status = Hear's. 8 body notes open a few CC7 under the table's `pp` (e.g. trumpet 27 against
+  32) — the engine's soft entries, the same notes §329 named: **his `min`-as-a-hard-floor call, still open.**
+
+**`1t` is built end to end: 1t.1 … 1t.4, four commits, THE SHIELD in each. `1t.5` is his: RESTART the server (`morph.js`
+changed — the server's Save as ACTUAL renders with the engine it loaded) and reload the tab.**

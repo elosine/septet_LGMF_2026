@@ -1,6 +1,6 @@
 {
   "_comment": "MODEL store (PLAN 2y). A model = a point in parameter space, plus the directions worth travelling from it and how far. Seeded from bank/morph_recipes.json, which stays FROZEN as the day-10 audit record and is never regenerated over. The AI edits this file in conversation (recipes, verdicts, tags) and bumps `rev`; the panel polls it the same way it polls morph_params.json. Validate with: node tools/model_bank.js --validate",
-  "rev": 136,
+  "rev": 137,
   "seededFrom": "bank/morph_recipes.json (captured 2026-08-16)",
   "models": {
     "BALANCE": {
@@ -2192,7 +2192,7 @@
         "transition",
         "two-station"
       ],
-      "notes": "PLAN § 1t. Engine M3 with no `target.mid` and no `dwell` — the plain start → target interpolation (morph.js M3). The base names NO voices (`source.kind` is not `voices`), so `namesOwnVoices` is false and the panel reads the pulldown's takes: `from` into `source.voices`, `to` into `target.voices`, both by lane:seat (1t.2). `carrier.span` IS the transition under this model — the panel's one `duration` box writes it, and `carrier.duration` stays null (a body longer than the gliss folds everyone back toward A). The breath dials are PLAN 1j's defaults; `dyn` is PLAN 1s's standard, min pp · max ff (base = (pp + ff) / 2, amount = (ff − pp) / 2 on the table's level).",
+      "notes": "`carrier.releaseHolds` (1t.4): the release fades ON take B — without it the engine's release runs every voice back to its start, a bloom closing as it fades. PLAN § 1t. Engine M3 with no `target.mid` and no `dwell` — the plain start → target interpolation (morph.js M3). The base names NO voices (`source.kind` is not `voices`), so `namesOwnVoices` is false and the panel reads the pulldown's takes: `from` into `source.voices`, `to` into `target.voices`, both by lane:seat (1t.2). `carrier.span` IS the transition under this model — the panel's one `duration` box writes it, and `carrier.duration` stays null (a body longer than the gliss folds everyone back toward A). The breath dials are PLAN 1j's defaults; `dyn` is PLAN 1s's standard, min pp · max ff (base = (pp + ff) / 2, amount = (ff − pp) / 2 on the table's level).",
       "actuals": [],
       "baseParams": {
         "model": "M3",
@@ -2229,6 +2229,7 @@
           "striation": "staggered",
           "duration": null,
           "release": null,
+          "releaseHolds": true,
           "ofMax": 0.65,
           "jitterS": 1.3,
           "outlier": {

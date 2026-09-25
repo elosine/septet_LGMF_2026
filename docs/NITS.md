@@ -242,6 +242,12 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   `velAbs: remapVel(anchor)` on a plain strike (one field; the score already honours it). Percussion is unaffected (no remap entry).
   **2026-09-22 — CLOSED FOR THE TEXTURE by PLAN 1n.1 (RUNNING_LOG §296):** `texture_insert.js` writes `velAbs` on EVERY note it inserts (the
   ladder velocity, or mf for a follow), verified note for note against SPACE's list. The strike's own Insert (`strike_drawer.js`) still stands as read above.
+- **2026-09-25 — the morph panel's red "N hard" counts the RE-KEY SEAMS** (PLAN 1t.4, RUNNING_LOG §367). `morph.js`'s overlap check
+  (`summary.hard`, the `OVERLAP` flag) counts every 5 ms overlap the quartet's re-key rule writes on purpose (`REKEY_OVERLAP_S`, *"the
+  previous key ends after this one starts"*) as a HARD conflict — on `TAKES` `Just-c2-seed143` → `Just-e1-seed193` all 13 "hard" are
+  exactly that. It reads as a fault on any morph whose voices travel past their reach. The fix is one condition in the check (skip an
+  overlap of exactly `REKEY_OVERLAP_S` between two `REKEY` notes), but the `OVERLAP` flag lives IN the notes, so every stored actual
+  with a re-key would re-derive differently (a drift warning, the stored objects still standing). His call.
 
 
 ### Deferred at his word — a GLOBAL volume normalization of the whole composer, by the texture's split (2026-09-22, RUNNING_LOG §264 · LG-88)
