@@ -438,6 +438,8 @@ const PANEL = {
         // PLAN 1j: an emptied `outlier` box leaves { short, floor } behind — inert in the engine, but a bloom that breathes the old
         // way should carry old-way params into an actual, not a stub of a dial that is off
         if (merged.carrier && merged.carrier.outlier && !(+merged.carrier.outlier.share > 0)) delete merged.carrier.outlier;
+        // PLAN 1t.2: under TAKE → TAKE the fold is off by construction — the transition goes one way, A → B
+        if (this.isTakes() && merged.carrier) merged.carrier.duration = null;
         // exactly what was rendered, so Save as ACTUAL can store what was HEARD — the septet's CAST included: the pairs' players,
         // the pitches folded per pair, the lanes and the palette (morph_septet.js; RUNNING_LOG §203)
         const pitched = this.applyPitch(merged);   // the pitch source into the model's params (§208)
@@ -740,9 +742,17 @@ const PANEL = {
         // `duration` is how long the body runs. Blank means "not set", which is
         // the legacy form where the gliss fills the whole gesture: readFields
         // ignores NaN, so an empty box stays null rather than becoming 0.
-        row('pace: gliss (s)', 'carrier.span', p.carrier.span, 1);
-        row('duration (s)', 'carrier.duration',
-            p.carrier.duration != null ? p.carrier.duration : '', 10);
+        // PLAN 1t.2 — under TAKE → TAKE ONE box, `duration`, and it writes the GLISS: the first player leaves A at 0, the last arrives
+        // at B at its end, both staggers inside it (RUNNING_LOG §361 · §362). The fold box is not drawn and `generate` forces it null:
+        // a body longer than the gliss FOLDS (`carrierTiming`, `foldPhase`) and would send every player back toward A.
+        if (this.isTakes()) {
+            row('duration (s)', 'carrier.span', p.carrier.span, 1,
+                'TAKE → TAKE: the WHOLE transition — the first player leaves take A at 0, the last arrives at take B at its end; the starts scattered inside `spread`, no two together. `release` is the fade after it');
+        } else {
+            row('pace: gliss (s)', 'carrier.span', p.carrier.span, 1);
+            row('duration (s)', 'carrier.duration',
+                p.carrier.duration != null ? p.carrier.duration : '', 10);
+        }
         row('release (s)', 'carrier.release',
             p.carrier.release != null ? p.carrier.release : '', 5);
         row('segment (s)', 'carrier.segLen', p.carrier.segLen, 0.5);
@@ -1575,10 +1585,47 @@ const PANEL = {
     // PLAN 1r — an LG model (LGSPECTRAL · LGBLOOM · LGCONVERGE are engine M3 too) NAMES ITS OWN VOICES in its base params: a take must
     // not cast it, and a recalled LG actual must not be read as a take. The engine model alone cannot tell them from CONVERGE; this can.
     namesOwnVoices(key) { const m = this.models && this.models.models && this.models.models[key || this.activeModel]; return !!(m && m.baseParams && m.baseParams.source && m.baseParams.source.kind === 'voices'); },
+    // ---------------------------------------------------------- PLAN 1t (2026-09-25) — THE MORPH BETWEEN TAKES
+    // His words (RUNNING_LOG §350): *"I want to use the morph to transition between 2 takes."* The model `TAKES` (bank, 1t.1) is
+    // engine M3 like CONVERGE; what tells them apart is the KEY. Under it the PITCHES pulldown is `from` (take A, the start, read as
+    // BLOOM reads a take) and a second take, `to` (take B), is the target — each voice from its note in A to ITS player's note in B,
+    // by lane:seat. `toChord` is frozen once when he picks it, as `takeChord` is.
+    TAKES_MODEL: 'TAKES',
+    isTakes() { return this.mode === 'models' && this.activeModel === this.TAKES_MODEL; },
+    toChordOn() {
+        const p = this.pitch || {};
+        if (!p.toChord || !p.toChord.length || !p.toName) return null;
+        return { name: p.toName, live: p.toLive !== false };
+    },
+    async dealToInto(name) {
+        const SQ = root.SequenceDrawer;
+        if (!SQ || !SQ.dealTake) { this.setStatus('the sequence drawer is not on this page, so a take cannot be read', true); return false; }
+        try {
+            const chord = await SQ.dealTake(name);
+            if (!chord || !chord.length) { this.setStatus('take "' + name + '" dealt no notes — the sequence drawer\'s own status says why', true); return false; }
+            const p = this.pitch;
+            p.toName = name; p.toAt = new Date().toISOString(); p.toLive = true;
+            p.toChord = chord.map(n => { const o = { lane: n.lane, seat: +n.seat || 0, inst: n.inst, midi: Math.round(+n.midi), cents: +(+n.cents || 0) }; if (n.partial != null) o.partial = n.partial; return o; });
+            return true;
+        } catch (e) { this.setStatus('take not read: ' + ((e && e.message) || e), true); return false; }
+    },
+    async chooseTo(name) {
+        if (!name) return;
+        const ok = await this.dealToInto(name);
+        this.savePitch(); this.generate();
+        if (ok) this.setStatus('to: take "' + name + '" frozen · ' + this.pitch.toChord.length + ' note' + (this.pitch.toChord.length === 1 ? '' : 's') + ' — each player goes to their own note in it');
+    },
+    async openToMenu(anchor) {
+        const S = root.SequenceDrawer, D = root.StrikeDrawer;
+        if (!S || typeof S.openTakeMenu !== 'function') { this.setStatus('the sequence drawer is not on the page — no takes menu', true); return; }
+        if (S._takeMenu) { S.closeTakeMenu(); return; }
+        try { if (D && D.refreshTakes && !Object.keys(D.takeList || {}).length) await D.refreshTakes(); } catch (e) {}
+        S.openTakeMenu(-1, anchor, { current: (this.pitch && this.pitch.toName) || '', onChoose: name => { this.chooseTo(name); } });   // ▸ hears a take without choosing it
+    },
     loadPitch() {
         // H1.2 — `takeChord` is the FROZEN chord of a chosen take: dealt ONCE when he picks it, then read by every later Generate,
         // so a nudged dial or a poll never reloads the strikes drawer under him. The sequence box's `freeze` is the model.
-        const d = { src: 'model', root: 'F2', take: 'byRegister', k: 1, seed: 1, perPair: 1, takeName: '', takeAt: '', takeChord: null };
+        const d = { src: 'model', root: 'F2', take: 'byRegister', k: 1, seed: 1, perPair: 1, takeName: '', takeAt: '', takeChord: null, toName: '', toAt: '', toChord: null };
         try { const s = JSON.parse(localStorage.getItem(this.PITCH_KEY) || 'null'); if (s && typeof s === 'object') return Object.assign(d, s); } catch (e) {}
         return d;
     },
@@ -1693,7 +1740,7 @@ const PANEL = {
                 // H2.6). Two reasons: seat `a` is then always the even voice, so it always opens ABOVE and `b` below whichever
                 // player happened to hold the note in the drawer; and a recalled actual rebuilds the chord from both lanes at
                 // once, so held-then-partner would come back with the two lanes swapped and the pair would open the other way.
-                if (can) { put(pr.a, A || src); put(pr.b, B || src); row.why = 'doubled'; }
+                if (can) { put(pr.a, A || src); put(pr.b, B || src); row.why = 'doubled'; row.doubles = { lane: partner, of: held }; }
                 else {
                     put(held, src);
                     row.why = lab(partner) + ' cannot hold it — one voice'; row.warn = true;
@@ -1720,7 +1767,9 @@ const PANEL = {
         // player cannot hold opens on the other side; no room either way → it stays on its note, said. The engine reads it as it
         // stands — `targetCents` prefers `target.voices`, M3 runs start → target, two stations — so `morph.js` and `morph_septet.js`
         // are untouched: the fourth use of the `voices` door. The stock's `target.midi` must not linger beside the list.
-        const M3 = !!(params && params.model === 'M3');
+        // PLAN 1t: the arrival is CONVERGE's — keyed on the MODEL, not the engine type, because TAKES is M3 too and reads both takes plain
+        const TAKES = this.isTakes();
+        const M3 = !!(params && params.model === 'M3') && !TAKES;
         const arrival = M3 ? voices.map(v => Object.assign({}, v)) : null;
         if (M3) {
             const holds = (lane, midi) => { const pk = (env && SEP) ? SEP.instOf(env, lane) : null; return !(env && pk && env.BC) || env.BC.holds(env.recipe, pk, midi); };
@@ -1741,14 +1790,49 @@ const PANEL = {
                 r.why += ' · opens ±1 st → closes onto it';
             });
         }
+        // PLAN 1t.2 — TAKE → TAKE: THE TARGET IS TAKE B, BY PLAYER. Each voice goes to the note take B gave ITS player (lane:seat, the
+        // same key the start is read by) — cents and partial kept. His rule for a mismatch (§351 topic 5): *"simpler to manage/resolve
+        // in strikes drawer"* — so it is FLAGGED, never resolved here: a player with a voice and no note in B HOLDS its A note; a player
+        // with a note in B and none of its own in A is named (doubling its partner, or left out). No `to` yet → everyone holds A.
+        let tgt = null, flags = [], TO = null, leftOutTo = [];
+        if (TAKES) {
+            TO = this.toChordOn();
+            const byB = {};
+            if (TO) (this.pitch.toChord || []).filter(n => Number.isInteger(n.lane) && isFinite(+n.midi))
+                .forEach(n => { const L = keyOf(n.lane, n.seat); if (byB[L] == null || +n.midi < +byB[L].midi) byB[L] = n; });
+            const has = {}, flagged = {};
+            tgt = voices.map((v, i) => {
+                const L = keyOf(lanes[i], v.seat); has[L] = 1;
+                const n = TO ? byB[L] : null;
+                const o = n ? { midi: Math.round(+n.midi), cents: +(+n.cents || 0) } : { midi: v.midi, cents: v.cents };
+                if (n && n.partial != null) o.partial = n.partial; else if (!n && v.partial != null) o.partial = v.partial;
+                if (v.seat != null) o.seat = v.seat;
+                if (TO && !n && !flagged[L]) { flagged[L] = 1; flags.push(labS(lanes[i], v.seat) + ' — no note in "to"; holds'); }
+                return o;
+            });
+            if (TO) {
+                rows.forEach(r => {
+                    if (r.doubles && byB[keyOf(r.doubles.lane, 0)]) flags.push(lab(r.doubles.lane) + ' — no note in "from"; doubles ' + lab(r.doubles.of));
+                });
+                PAIRS.forEach(pr => [[pr.a, pr.still ? pr.sa : 0], [pr.b, pr.still ? pr.sb : 0]].forEach(([ln, st]) => {
+                    const L = keyOf(ln, st);
+                    if (byB[L] && !has[L] && !flagged[L]) { flagged[L] = 1; flags.push(labS(ln, st) + ' — no note in "from"; left out'); }
+                }));
+                leftOutTo = (this.pitch.toChord || []).filter(n => !inPair[keyOf(n.lane, n.seat)]).map(n => ({ lane: n.lane, label: labS(n.lane, n.seat), midi: Math.round(+n.midi), cents: +(+n.cents || 0) }));
+            } else warnings.push('TAKE → TAKE: choose a "to" take — until then take A is held');
+            flags.forEach(f => warnings.push('TAKE → TAKE: ' + f));
+            rows.forEach(r => { r.tgts = (r.voiceIdx || []).map(i => Object.assign({ lane: lanes[i] }, tgt[i])); });
+        }
         // H2.2 — the params. `morph.js` and `morph_septet.js` are NOT changed: this is the door they already have.
         const out = JSON.parse(JSON.stringify(params || {}));
         out.source = { kind: 'voices', voices: voices.map(v => Object.assign({}, v)) };
         if (arrival) { out.target = Object.assign({}, out.target || {}, { kind: 'voices', voices: arrival }); delete out.target.midi; }
+        if (tgt) { out.target = Object.assign({}, out.target || {}, { kind: 'voices', voices: tgt }); delete out.target.midi; }
         out.lanes = lanes.slice();
         out.voices = voices.length;
         return { params: out, warnings: warnings,
-                 info: { take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length, arrival: !!arrival } };
+                 info: Object.assign({ take: true, name: TK.name, live: TK.live, at: this.pitch.takeAt || '', rows: rows, leftOut: leftOut, voices: voices.length, arrival: !!arrival },
+                                     TAKES ? { takes: true, to: TO, flags: flags, leftOutTo: leftOutTo } : {}) };
     },
     // H2.6 — `recalledSets` lives in MEMORY, so after a page reload the `actual:` option that a recalled bloom-on-a-take is
     // sitting on would vanish from the pulldown and the panel would look as though it had lost his pitches. The FROZEN CHORD is
@@ -1886,9 +1970,12 @@ const PANEL = {
         const TK = this.takeChordOn();   // PLAN 1h: a frozen chord — the pick and its dials have nothing left to decide
         // H1.5 — TWO WORDS. The strikes drawer's is a TAKE; the panel's own reduction rule is a PICK. The label and this head line
         // only: `p.take`, `SEP.TAKES`, the element ids and every stored key are untouched.
-        head('PITCHES · a sonority and a pick (three notes doubled, or two per pair) — or a TAKE from the strikes drawer, as assigned');
+        const TT = this.isTakes();   // PLAN 1t.2: TAKE → TAKE — the pulldown is `from`, and `to ▾` sits beside it
+        head(TT ? 'PITCHES · TAKE → TAKE — `from` a take and `to` a take, each player from their own note to their own note'
+                : 'PITCHES · a sonority and a pick (three notes doubled, or two per pair) — or a TAKE from the strikes drawer, as assigned');
         const row = document.createElement('div');
         row.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:3px 0';
+        if (TT) { const fl = document.createElement('span'); fl.style.cssText = 'color:#9a9'; fl.textContent = 'from'; row.appendChild(fl); }
         const sel = document.createElement('select'); sel.id = 'morphPitchSrc';
         sel.style.cssText = 'max-width:330px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 2px;font-size:13px';
         const og = (label, items) => { if (!items.length) return; const g = document.createElement('optgroup'); g.label = label; items.forEach(it => { const o = document.createElement('option'); o.value = it.value; o.textContent = it.text; if (it.value === p.src) o.selected = true; g.appendChild(o); }); sel.appendChild(g); };
@@ -1919,6 +2006,14 @@ const PANEL = {
             if (await this.dealTakeInto(n)) { this.savePitch(); this.generate(); this.setStatus('re-dealt "' + n + '" · ' + this.pitch.takeChord.length + ' notes'); }
         });
         row.appendChild(rl);
+        if (TT) {   // PLAN 1t.2 — `to ▾`: the sequence drawer's takes menu (a filter, ▸ hears a take without choosing it)
+            const tb = document.createElement('button'); tb.id = 'morphPitchTo';
+            tb.textContent = 'to ' + (p.toName ? '"' + p.toName + '"' : '— choose —') + ' ▾';
+            tb.title = 'take B — each player goes to their own note in it (lane and seat, as in the strikes drawer). ▸ in the menu hears a take without choosing it';
+            tb.style.cssText = 'max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;' + (p.toName ? 'color:#7fc4e8' : '');
+            tb.addEventListener('click', () => this.openToMenu(tb));
+            row.appendChild(tb);
+        }
         const box = (label, id, val, width, onchange, type) => {
             const w = document.createElement('label'); w.style.cssText = 'color:#9a9;white-space:nowrap'; w.textContent = label + ' ';
             const i = document.createElement('input'); i.type = type || 'text'; i.id = id; i.value = val; i.style.cssText = 'width:' + width + 'px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px;font-size:13px';
@@ -1953,11 +2048,26 @@ const PANEL = {
         f.appendChild(row);
         const info = this._pitchInfo;
         const fund = info && info.fundamental != null ? ' · SPECTRAL\'s fundamental <b>' + SEP.nm(info.fundamental) + '</b> (' + info.fundamental + ')' + (info.stock ? ', the model\'s — type a root to move it' : ' from the root box') : '';
-        if (!info) note(p.src === 'model' ? 'the model\'s own set (the pairs take it two by two)' : 'the chosen source is not loaded yet, or its root is not a note — the model\'s own set plays', '#9a9');
+        if (TT && !TK) note('TAKE → TAKE reads TWO takes — choose a take in <b>from</b> and one in <b>to</b>; until then the model\'s own set glides', '#e0b062');
+        if (info && info.take && info.takes) {   // PLAN 1t.2 — THE LINE, player by player: A → B, and the flags
+            const cts = c => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ' c';
+            const fmtN = n => '<b>' + SEP.nm(n.midi) + '</b> ' + cts(n.cents) + (n.partial != null ? ' · partial ' + n.partial : '');
+            note('take <b>' + info.name + '</b> → ' + (info.to ? 'take <b>' + info.to.name + '</b>' : '<b>— choose a "to" take —</b>') + ' · ' + info.voices + ' voices, <b>as assigned</b>, each player from their note to their note (PLAN 1t)' +
+                 (info.live ? '' : ' (from the actual)'), info.to ? '#9a9' : '#e0b062');
+            info.rows.forEach(r => {
+                const pairs = r.notes.map((n, j) => fmtN(n) + ' → ' + fmtN((r.tgts || [])[j] || n));
+                note('&nbsp;&nbsp;' + r.labels + ' · ' + (pairs.length ? pairs.join(' + ') + ' · ' + r.why : '✕ ' + r.why) + (r.on ? '' : ' · not ticked'),
+                     r.warn ? '#e0b062' : (pairs.length ? '#9a9' : '#777'));
+            });
+            (info.flags || []).forEach(f => note('&nbsp;&nbsp;⚑ ' + f + ' — the strikes drawer is the fix', '#e0b062'));
+            const lo = (info.leftOut || []).map(n => n.label + ' ' + SEP.nm(n.midi) + ' (from)').concat((info.leftOutTo || []).map(n => n.label + ' ' + SEP.nm(n.midi) + ' (to)'));
+            if (lo.length) note('&nbsp;&nbsp;left out: ' + lo.join(' · ') + ' — not in a pair', '#777');
+        }
+        else if (!info) note(p.src === 'model' ? 'the model\'s own set (the pairs take it two by two)' : 'the chosen source is not loaded yet, or its root is not a note — the model\'s own set plays', '#9a9');
         // H2.4 — THE LINE, pair by pair: the note as assigned, its cents and its partial, then what was left out. A pair whose
         // partner cannot hold a doubled note is drawn in the warning colour; the drawer is where he resolves it (§163).
         else if (info.take && info.refused && info.own) note('<b>' + info.own + '</b> names its own voices — the take is not read; the model\'s own set plays', '#e0b062');
-        else if (info.take && info.refused) note('a take is read by <b>BLOOM · CONVERGE</b> so far (' + (this.TAKE_MODELS || []).join(' · ') + ') — under <b>' + info.refused + '</b> the model\'s own set plays', '#e0b062');
+        else if (info.take && info.refused) note('a take is read by <b>BLOOM · CONVERGE · TAKE → TAKE</b> so far (' + (this.TAKE_MODELS || []).join(' · ') + ') — under <b>' + info.refused + '</b> the model\'s own set plays', '#e0b062');
         else if (info.take && info.empty) note('take <b>' + info.name + '</b> has no note on any of the pairs\' players — the model\'s own set plays', '#e0b062');
         else if (info.take) {
             const cts = c => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ' c';

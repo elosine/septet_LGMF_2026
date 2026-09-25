@@ -13049,3 +13049,59 @@ lands, TAKES + a take on the pulldown would read as CONVERGE's arrival (the bran
 **Committed with it, at his word (a):** `bank/actuals/ACT-CONVERGE-01.json` (`lgmf-s03-convergeA`, 114.28 s) · `-02`
 (`lgmf-s03-converge02`, 137.85 s) · `-03` (`lgmf sec3 converge05`, 137.83 s) — all three on the stock CONVERGE, filed by his tab
 on 2026-09-25 — and the index lines that list them (`CONVERGE.actuals`). His other working files stay his and uncommitted.
+
+## §365. `1t.2` THE `to` TAKE ON THE PANEL, THE ARRIVAL BY PLAYER, THE FLAGS, THE ONE DURATION BOX — built and verified (2026-09-25, Opus, session 15)
+
+**All in `score/public/morph_panel.js`; `morph.js` and `morph_septet.js` untouched.**
+
+**As built:**
+
+- **The switch is the KEY.** `TAKES_MODEL: 'TAKES'` · `isTakes()` = MODELS mode on the `TAKES` chip. **`1r`'s arrival moved off the
+  engine type:** `const M3 = model === 'M3' && !TAKES` — every M3 but TAKES keeps CONVERGE's "opens a semitone away" exactly as
+  before (a scratch M3 variant included, so nothing but TAKES can move).
+- **`to` beside `from`.** Under TAKES the PITCHES pulldown is labelled `from` and a button **`to "NAME" ▾`** sits after its `↻` —
+  the sequence drawer's own takes menu through its `opts` (`openTakeMenu(-1, anchor, { current, onChoose })`, 1q.1's door): the
+  filter, `▸` hears a take without choosing it, the name chooses. `chooseTo` deals it ONCE through `SequenceDrawer.dealTake` (the one
+  reader of a take — it loads the take in the strikes drawer on the way, as `from` does) and freezes it in the pitch state:
+  `toName · toAt · toLive · toChord` (lane · seat · inst · midi · cents · partial), persisted with the rest (`septet.morphPitch.v1`).
+- **The target by player.** `takeVoices` builds the START from take A exactly as BLOOM reads a take (pairs, doubling, the still
+  row), then under TAKES the TARGET: for each voice, take B's note on the SAME `lane:seat` (the lowest if a player held more than
+  one), cents and partial kept, the seat carried on a vibraphone's target → `target: { kind: 'voices', voices }`, the base's
+  `target.midi` deleted. **The flags (his §351 rule — flag, never resolve):** a voice whose player has no note in B HOLDS its A note
+  → *`Bsn — no note in "to"; holds`* · a player in a pair with a note in B and no voice in the start → *`… no note in "from"; left
+  out`* · a doubled player (no note of its own in A, doubling its partner) with a note in B → *`… no note in "from"; doubles EH`*.
+  Each goes on the line (⚑, amber, *the strikes drawer is the fix*) and into the render's warnings. No `to` chosen → every voice
+  holds A and the line says *choose a "to" take*.
+- **The line:** *take A → take B · 8 voices, as assigned, each player from their note to their note (PLAN 1t)*, then pair by pair
+  `note cents · partial → note cents · partial`, the flags, and what is left out of either take (a player in no pair).
+- **The one duration box.** Under TAKES the time rows are `duration (s)` → **`carrier.span`** (its tooltip: the WHOLE transition,
+  first leaves A at 0, last arrives at B at its end, `release` the fade after) and `release (s)`; the fold box is not drawn and
+  `generate` forces `carrier.duration = null` (§361: a body longer than the gliss would fold everyone back toward A). Every other
+  model's rows unchanged. The refusal line now names *BLOOM · CONVERGE · TAKE → TAKE*.
+
+**VERIFIED on `score-5401`** (STILL BINDING's stubs in the navigation batch — note: `Composer` is a script-scope binding, not
+`window.Composer`, so the stub is written bare; autosave · every non-GET fetch · sendBeacon · confirm/prompt · rAF · all eleven
+ports; the throwaway opened on `pointilistic01a-work`, never saved) — **0 POSTs in every pass**:
+
+1. **THE SHIELD — the panel.** Nine renders on HEAD's `morph_panel.js` (`git stash push` of the one file, reload) and on the
+   build's, the same localStorage pairs (`Vc+Db · Tpt+Hn · EH+Bsn · Vib+Vib²`): CONVERGE · BLOOM · SPECTRAL · LGCONVERGE on their own
+   sets, then BLOOM · CONVERGE · LGCONVERGE · LGBLOOM · COLOUR on `Just-c2-seed143` — **params hash and notes hash identical, all
+   nine** (e.g. CONVERGE + the take 41 notes `−2104884896 / −1498654004`, the 1r arrival untouched). THE SHIELD — the bank: the node
+   shield unchanged (this step touches no engine and no bank file).
+2. **TAKE → TAKE, `Just-c2-seed143` → `Just-e1-seed193`** (both takes all eight players): `source.voices` `64 −13.69 · 48 · 78 −48.68
+   · 72 · 60 · 36 · 86 (still) · 85 (still)` → `target.voices` `75 −13.69 · 59 · 82 −11.73 · 66 +1.96 · 77 −48.68 · 35 · 83 · 73`,
+   `target` keys `kind · voices` only, `carrier.duration` null, `dyn` 0.5 ± 0.357 (min pp · max ff), 84 notes, no warning. **The
+   render's first and last samples per voice:** Vc 63.863 → 74.863 · Db 48 → 59 · Tpt 77.513 → 81.882 · Hn 72 → 66.020 · Bsn 36 → 35
+   — to the cent; the three far voices RE-KEY (Vc ×6 · Db ×6 · EH ×12 notes flagged `REKEY`, 11 · 11 · 16.5 semitones); the
+   vibraphones held on A (still — their switch is 1t.3). **One thing seen:** the English horn — the voice whose move ends last, AT
+   60 s — has its last breath end at 59.95 s (the breath gap), so its last sample is 76.499 against B's 76.513, **1.4 c short**;
+   with no `release` the transition ends as the last player arrives and that player is heard for its last 0.05 s not at all. With a
+   `release` every voice holds B through the fade. Named for his listen, not changed.
+3. **The flags:** `to` = `Bloom01-Just-A1-seed132` (no vibraphones) → *Vib — no note in "to"; holds* · *Vib² — …*, the two
+   vibraphone targets their A notes with their seats (`86:0 · 85:2`); `from` = that take, `to` = `Just-e1-seed193` → *Vib — no note in
+   "from"; left out* · *Vib² — …*, six voices on lanes `6 7 3 2 0 1`, the still row *✕ no note in the take*. **The doubled player** (the bassoon dropped from the frozen `from` chord in memory, restored after): the bassoon doubles the English horn's C4 (source `… 60 · 60 …`) and goes to ITS note in B (72) — *Bsn — no note in "from"; doubles EH*.
+4. **The time boxes** under TAKES, read from the DOM: `carrier.span=60 [duration (s)]` · `carrier.release [release (s)]` ·
+   `segLen` · `ofMax` · `jitterS` · `outlier.share` — no `carrier.duration` box.
+5. **The `to ▾` menu with the pane's REAL input:** a click on the button → the sequence drawer's menu (`222` takes) → typed
+   `d1 seed160` → *1 of 222*, `Just-d1-seed160` → ENTER → menu closed, `toName` = it, the button *to "Just-d1-seed160" ▾*, the status
+   *to: take "Just-d1-seed160" frozen · 8 notes*, the target re-read (`77 · 54 · 81 · 69 · 79 · 72 · 75 · 88`).
