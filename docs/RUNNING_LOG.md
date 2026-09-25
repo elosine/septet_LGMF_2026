@@ -12063,3 +12063,41 @@ Hear captured on the curve channels, MAIN ch 1 empty · Insert · the actual rou
 engine file is untouched, so the server's copy is not stale (§181's trap does not apply). One commit, Opus at his word.
 
 **The switch point:** planning closed on Fable; the build is the execution of a written item — Opus. Said to him in one line.
+
+## §324. `1r` AMENDED BEFORE THE BUILD — the opening is AWAY FROM THE PARTNER, not by seat; his take spelled out pair by pair (2026-09-24, Fable, session 14)
+
+**What prompted it.** His three questions on §323's design, in order: *"Each player opens a semitone around their own just note (a above,
+b below) and closes onto it what is a and b how to choose?"* → *"ok so regardless of pairing, each instrument is closing from a
+wholestep to their assigned note in the take, not 2 closing to the same pitch as the original model?"* → *"so spell out my
+particular case and include what you proposed as to how to choose above or below"* (two screenshots: the drawer's take and the PAIRS
+rows) → *"so Away from the partner is the described scenario? then yes this one"*.
+
+**What his first question found.** `1r` as written opened by SEAT — a above, b below, the bloom's convention — and with a take the two
+players of a pair hold DIFFERENT notes, so the seat order would decide something real: the higher player in seat a → the pair starts a
+whole tone WIDER than its just interval and closes in (a converge); the lower in seat a → it starts narrower and opens OUT (not a
+converge for that pair). **Amended at his word: each player opens AWAY FROM THEIR PARTNER — the higher of the pair up, the lower
+down — a semitone each, and closes onto their own note.** Every pair starts a whole tone wider than its interval in the take and
+tunes in; the seat order decides nothing; a doubled pair (one note on both) opens a above, b below as before. PLAN § `1r` (the
+design line · 1r.2 · 1r.5 (iv)), CLAUDE.md and PLANNER amended.
+
+**The correction to his second question.** A SEMITONE each, not a whole step (the stock's own: D3 → D♯3); the PAIR is a whole tone
+apart because each moved one. Two players close onto ONE pitch only where the take gave them one — the drawer's doubling; then it is
+the stock gesture in just intonation. Where the take gave two notes, each closes onto its own and the pair ends on the take's just
+interval. **So the take decides which pairs fuse** — both in one take. The (b) reading (every pair fusing, the partner travelling)
+was offered again with its reach limit and not taken.
+
+**His take (the drawer, `ordinario`; the harmonic series on C2, just), pair by pair under the rule:**
+
+| pair | player · take note | opens on | closes onto | the arrival |
+|---|---|---|---|---|
+| 1 | Vc E4 −14 ¢ (partial 5), the higher | F4 −14 ¢ | E4 −14 ¢ | 5:2, the just major tenth |
+| 1 | Db C3 (partial 2), the lower | B2 | C3 | |
+| 2 | Tpt F♯5 −49 ¢ (partial 11), the higher | G5 −49 ¢ | F♯5 −49 ¢ | 11:8 over C5 |
+| 2 | Hn C5 (partial 8), the lower | B4 | C5 | |
+| 3 | EH C4 (partial 4), the higher | C♯4 | C4 | 4:1, two octaves |
+| 3 | Bsn C2 (partial 1), the lower | B1 | C2 | |
+| 4 | Vib D6 (18, tempered) · Vib² C♯6 (17, tempered) | — | — | held still from the first second |
+
+Every opened note is inside its player's compass (Bsn B1 = 35 ≥ its 34; Tpt G5 = 79 ≤ 82). No pair shares a note, so no pair fuses
+here. In THIS take seat a is the higher player in all three pairs, so the seat rule and the away rule coincide — the away rule is what
+keeps it right when the menus are set the other way round.
