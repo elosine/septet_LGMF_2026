@@ -49,7 +49,7 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER. The cold-start block is **SESSION 15 · CHECKPOINT #3** under *Open at session end* below — READ IT FIRST.
+### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, THEN HIS PIVOT TO THE MORPH (`1t`). The cold-start block is **SESSION 15 · CHECKPOINT #4** under *Open at session end* below — READ IT FIRST.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -147,7 +147,50 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 15 · CHECKPOINT #3 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 15 · CHECKPOINT #4 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE TASK:** `1t` THE MORPH BETWEEN TAKES — a morph from take A to take B, each player sliding from their own note to their own
+  note. His pivot from the notation at his word (*"I want to work on the morph drawer and make the spacing model good for using
+  takes"*). The concept talked through under the planning method, one topic at a time (RUNNING_LOG §350 … §362 · COMPOSITION_NOTES
+  LG-106 … LG-110 · MORPH_NOTES §3 the same day), then the plan written whole at his word *"good to write whole plan, skip step by
+  step, check in before build"* (§363).
+- **THE STATE:** **PLANNED IN FULL, NOT BUILT** — PLAN § `1t` (`0e992c3`): the requirements · 1t.1 the model in the bank (`TAKES`,
+  M3, two stations) · 1t.2 the `to` take on the panel, the arrival by `lane:seat`, the flags, ONE `duration` box writing
+  `carrier.span` (the fold box hidden — a body longer than the gliss folds everyone back toward A) · 1t.3 the vibraphones' switch
+  (`switchAt` on a voice, the sibling of `still`, opt-in; the dial 0 … 1, default 1, seat 2 + 3 s) · 1t.4 the line, the actual, the
+  REQUIRED VERIFICATION (a … g) · 1t.5 his listen (restart + reload).
+- **THE NEXT STEP:** after `/postclear`, check in (his rule) — he said *"check in before build"*. On his go: **ASK HIM FIRST the
+  bank-file question below**, then build **1t.1** from PLAN § `1t`, then 1t.2 → 1t.3 → 1t.4, one commit per step, pushed, THE SHIELD
+  in each, a RUNNING_LOG § per step (the next free § is **§364** — read the last heading before writing). STOP after 1t.4 for his
+  listen (1t.5); tell him to RESTART the server (`morph.js` changes in 1t.3) and reload the tab.
+- **⚠ THE BANK-FILE QUESTION — ask before 1t.1:** 1t.1 writes a new entry into `bank/morph_models.json`, and that file carries HIS
+  uncommitted change (`rev` 132 → 135 and `CONVERGE.actuals` = `ACT-CONVERGE-01 · -02 · -03`, written by his tab when he filed those
+  three actuals, which are untracked). A commit of 1t.1 would carry his change with it, and his tab may rewrite the file (Save as
+  ACTUAL) while the build runs. Put to him: **(a)** commit his three actuals + the index together with 1t.1 (his files, his word) ·
+  **(b)** leave his in the working tree and stage only the `TAKES` entry (a patch applied to the index with `git apply --cached`;
+  no interactive staging here) · and ask him NOT to save an actual from his tab during the build.
+- **`Resume reads:`** PLAN § `1t` (all of it). Then per step, only the code it names: 1t.1 `bank/morph_models.json` the `LGCONVERGE`
+  entry (~1902) as the template · `tools/model_bank.js --validate` · 1t.2 `morph_panel.js` `TAKE_MODELS` 1574 · `namesOwnVoices` 1577 ·
+  `takeVoices` 1649 … 1751 (the `arrival = M3 ?` line 1724 moves to the CONVERGE key) · `applyPitch` 1808 … 1833 · the time boxes
+  739 … 747 · the status `note(…)` ~1960 … 1965 · 1t.3 `morph.js` `STILL` 1331 · `stateAt` 1583 … 1668 · the re-key 1719 … 1744 ·
+  1t.4 journal §2 STILL BINDING (the throwaway recipe — it is in §2 already). RUNNING_LOG §360 … §362 only if a design question
+  needs his words.
+- **THE SHIELD for 1t — by data absence:** no `switchAt` on any voice and no `TAKES` model selected → not a byte of any stored render
+  moves. Re-render every stored model and actual before and after each step (`model_bank --validate` + the LG actuals); `morph.js`
+  changes only in 1t.3; CHECKPOINT #3's tuba-goldens recipe (below) is for the notation engine and is NOT needed here unless a step
+  touches `notation/`.
+- **Pending him:** the bank-file question (above) · the AI's calls in PLAN § `1t` (seat offset 3 s · switch default at the arrival ·
+  the fold box hidden · a missing target holds · `staggered` kept) · **the notation's pick, deferred while `1t` is built** — `2a.6`
+  the clefs or the specific notation (the `his` row in the table above) · everything pending at CHECKPOINT #3 and before (below).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as
+  CHECKPOINT #3):
+  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab
+    wrote with them (**see the bank-file question — 1t.1 touches this file**)
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
+
+**Open at session end — SESSION 15 · CHECKPOINT #3 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — superseded by CHECKPOINT #4 above; its 2c record, SHIELD recipe and pending lines still hold:**
 - **THE TASK:** the NOTATION LAYER, one thing at a time. **`2c` THE PAGE EDGES is BUILT END TO END and pushed** (PLAN § `2c` `built`;
   RUNNING_LOG §342 … §349; `67a38fd` 2c.1 · `7562f0e` 2c.2 · `d3e23d6` 2c.3 · `d7c9694` 2c.4 · `8985026` 2c.5 · `2205e46` 2c.6 · `6007b91` 2c.7),
   at his words *"go, build through as much as possible independantly"* and *"1a 2a, build through independently"*. What exists:
