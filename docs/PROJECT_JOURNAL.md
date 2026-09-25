@@ -49,7 +49,7 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER. The cold-start block is **SESSION 15 · CHECKPOINT #2** under *Open at session end* below — READ IT FIRST.
+### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER. The cold-start block is **SESSION 15 · CHECKPOINT #3** under *Open at session end* below — READ IT FIRST.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -121,6 +121,7 @@ whole in git, see the close block below.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►** | **HIS PICK, after 2c (his order, §330's scaffolding): (a) `2a.6` the clefs by register — the N-2a row, a build · (b) THE SPECIFIC NOTATION — the N-2b row (the note unit · the cents), a design talk under the planning method.** Ask in one line after `/postclear`; start only on his word | (a) Opus · (b) Fable | yes — done at CHECKPOINT #3 |
 | ✓ | **`2c` THE PAGE EDGES — BUILT END TO END** (2026-09-25, Opus; RUNNING_LOG §342 … §349; `67a38fd` · `7562f0e` · `d3e23d6` · `d7c9694` · `8985026` · `2205e46` + 2c.7): the margins 40 · 40 px / 12.7 mm · the screen tiles, the paper cut, the clamp (`check_screen_edges.js`) · the print cut placed by the objects (`printPlan: 'objects'`, `check_print_edges.js` re-pointed; `piece-lgmf` 55 pages, the widest blank 0.12 s) · the go-line switch `clampGoLine` 'flag' · THE SHIELD byte-identical at every step. **His eye DEFERRED at his word to the specific notation (§347):** the margins · the 2 ss stub · the switch · NOTATION_STANDARDS §5's calls — each one number or word in the registry | — | — |
 | ✓ | **`2a.5` the names** — no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`, `TemBwl` 4.6 px clear of the brace (§339, `1dd46bf`) | — | — |
 | his | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). **IN PROGRESS — the names decided and in (§339: no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`; `TemBwl` 4.6 px clear of the brace, the gutter 72 untouched; #5's three gutter fixes carried, the print-edge checker not yet run here — 2b); his a/b/c on the E.H. sharp over the clef at 300 s pending.** Revise on his word — a look question on Fable, a fault on Opus | his eye | — |
@@ -145,7 +146,64 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 15 · CHECKPOINT #2 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 15 · CHECKPOINT #3 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE TASK:** the NOTATION LAYER, one thing at a time. **`2c` THE PAGE EDGES is BUILT END TO END and pushed** (PLAN § `2c` `built`;
+  RUNNING_LOG §342 … §349; `67a38fd` 2c.1 · `7562f0e` 2c.2 · `d3e23d6` 2c.3 · `d7c9694` 2c.4 · `8985026` 2c.5 · `2205e46` 2c.6 · `6007b91` 2c.7),
+  at his words *"go, build through as much as possible independantly"* and *"1a 2a, build through independently"*. What exists:
+  - **the margins** — `container.json` `prefatory.marginPx {40, 40}` · `prefatory.overhangSs 3.44` (both exporters assert the right margin
+    holds it) · `print.marginIn 0.5`; `coords.js` `makeView` maps time onto `[musicX0Px, musicX1Px]`, `Coords.edgesOf(C)` · `musicPx`.
+  - **the screen** (`page_rules.screenPlan 'tile'`) — `Splice.tilePages`: every page one 12 s span, t0/tω at the same x, the film turning AT
+    tω · the paper cut (an SVG clip on every `cut` kind) · the clamp (a unit over x(t0) shifted right, go-time indicators never moved) ·
+    a GC impact exactly at tω on the page before · the gate **`tools/check_screen_edges.js`** (via `export_video --screenJson/--screenHtml`).
+  - **the print** (`page_rules.printPlan 'objects'`) — `Splice.edgeIntervals` + `planObjectPages`: the cut placed by the objects (pushed
+    whole; a pushed GC opens the next page at the top of its descent; the system ends at the cut; FORCED only for a block longer than a
+    page), `durationStubSs 2` head + tail, `check_print_edges.js` re-pointed. `piece-lgmf`: 55 print pages (59 under D59), widest blank 0.12 s.
+  - **the edge registry** — `page_rules.edge`: every drawn kind's `screen` + `print` class (NOTATION_STANDARDS §5 is the table).
+  - **the go-line switch** — `page_rules.clampGoLine 'flag'` (5 clamped `piece-lgmf` units have no go line of their own, his 300 s whole
+    note among them); `'add'` gives each a go line at x(t) — built and seen working, left on `'flag'`.
+  - `render.js` now exports `inkSpanSs` · `gcPrePost` (one span function for the clamp and the print plan).
+- **THE STATE:** nothing being built. **HIS WORD (§347): every SPECIFIC resolution of 2c is DEFERRED to when the actual notation is in** —
+  the margins · the 2 ss stub · the go-line switch · NOTATION_STANDARDS §5's calls. Each is one number or word in the registry; do not
+  raise them again until the notation they concern exists.
+- **THE NEXT STEP:** after `/postclear`, check in (his rule) — then ask him, in one line, which comes next (his order, §330's scaffolding):
+  **(a) `2a.6` the clefs by register** (the N-2a row — a build, Opus) or **(b) the specific notation** (the N-2b row — the note unit ·
+  the cents; a design talk under the planning method, Fable). Start only on his word.
+- **`Resume reads:`** nothing beyond §2 until he picks. Then — for (a): PLAN § `2a` (its 2a.6 line) · RUNNING_LOG §335's table · `layout.js`
+  `clefOf` · `staffPos` · `MIDDLE` · `render.js` `CLEF_AT` · `glyphs.json` `clef`. For (b): RUNNING_LOG §335 (the deferral) ·
+  `docs/research/just_partials_notation.md`.
+- **STANDING FOR ANY NEW DRAWN KIND (the PLAN header's rule, now enforced):** add its line to `page_rules.edge` with BOTH `screen` and
+  `print`, and a row to NOTATION_STANDARDS §5 — `check_screen_edges.js` fails on a kind with no entry. Run both checkers after any change
+  to `render.js` · `coords.js` · `splice.js` · `page_rules.json` or the frame: `node tools/check_screen_edges.js --ir piece-lgmf` ·
+  `node tools/check_print_edges.js --ir piece-lgmf` (each ~1 min, Chrome).
+- **HOW 2c WAS SHIELDED — reuse it for 2a.6:** stage the tuba goldens from #4's HEAD from a list written FIRST (`git -C
+  ../for_seven_tubas ls-files notation/ir` minus `index.json` and `README.md`, plus the nine scores of `notation/ir/README.md`; check none
+  exists here; 26 files), then **HEAD's engine vs the build's, BOTH on the registry from BEFORE the work** (`git show <ref>:notation/registry/
+  page_rules.json` and `container.json` — for 2c that was `eeb78bb`; NOT HEAD's once the work's data is committed step by step: that
+  compares two tiled runs and differs by design, §344): `export_video --ir db1 --view video --probe 5,11.9,100,300` · `--view zoom --probe
+  100` · `export_print --ir db1 --planJson` and `--htmlOnly --pages 1-3` → byte-identical; the eight batteries (render · layout · animobj ·
+  splice · graphic · pattern_fit · stamps · ir_validate_battery) GREEN; `test_coords` has ONE pre-existing failure ("layout.js is
+  pixel-free", NITS). Restore the new files, delete the staged ones from the same list. (This session's script was
+  `<scratchpad>/shield.sh`; the scratchpad may not survive the clear — the recipe above is the record.)
+- **Learned this session:** the Read tool cannot render a PDF here (no `pdftoppm`) — rasterize the print HTML's page SVGs with
+  `@resvg/resvg-js` (the video exporter's own) and crop · `grep -c $'\r$'` misreports in this Git Bash — count CRs with
+  `tr -cd '\r' < f | wc -c` · `docs/PLAN.md` is LF throughout now (STILL BINDING's "mixed within itself" is out of date; the splice rule
+  — detect the file's own ending — still holds) · the tuba page `db1` is the one IR that exercises every kind (GCs · curves · beams ·
+  tuplets); `piece-lgmf` draws only staff · clef · brick · glyph · ledger · ottava · goline, so a 2c-class check needs both.
+- **Seen, not touched:** under D59 (no `printPlan`) the tuba's tuplets still draw off the right of every early print page — fixed only
+  on the objects plan, which this piece uses · `tools/capture_lane.js` keeps #5's own band copy, no margins (NITS).
+- **Pending him:** the 2c values when the notation is in (above) · `TemBwl` at 1 mm from the brace on paper (`TBwl` the fallback) · the A3
+  staff size · the percussion as metric figures (`--bricks`) · everything pending at CHECKPOINT #1 and SESSION 14 · CHECKPOINT #2 (below) —
+  `1s.6` · `1r.6` · `min` as a hard floor · his session-13 tests.
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as CHECKPOINT #2):
+  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab wrote with them
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
+- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
+  `longToneTest`), none the piece.
+
+**Open at session end — SESSION 15 · CHECKPOINT #2 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #3 above; its pending lines still hold:**
 - **THE TASK:** the NOTATION LAYER, one thing at a time. `2a` the staves is built (`d10dcf6`); his eye on it (`2a.5`) produced two things:
   - **THE NAMES — DONE, pushed (`1dd46bf`; RUNNING_LOG §339):** no periods · `Db → DB` · the seven lines `SlBl · Cast · Tamb · TemBwl · WB ·
     BrDr · BD` — `TemBwl` on his condition that the gutter does not widen: measured in the app, 4.6 px of air to the brace in the video/print
