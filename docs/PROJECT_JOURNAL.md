@@ -138,22 +138,38 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 14 · `1s` BUILT (2026-09-24, Fable) — READ THIS ONE FIRST:**
-- **THE STATE:** nothing is being built. **`1s` THE MORPH BETWEEN `min` AND `max` is BUILT, VERIFIED, COMMITTED AND PUSHED** (PLAN § `1s`;
-  RUNNING_LOG §326 the diagnosis — `dyn amount` the half-swing round a hidden `base`, why the top never came down · §327 the morph's level
-  read to him — one slow curve cut into breaths, not the waves, the same `pp` as everything else · §328 his "A" and the top line · §329 the
-  build and every check). `score/public/morph_panel.js` alone; `morph.js` untouched — page files only.
-- **THE NEXT STEP — HIS, `1s.6`:** reload the tab (no restart) → MORPH → `min pp · max ff` → Generate → the status names them → Play.
-  Then `1r.6` (the ►► row below it), then his session-13 tests.
-- **Pending him (§329):** whether `min` should be a HARD FLOOR — the engine's floor and a model's own dips (CONVERGE's soft entries start
-  at 0.4 of 10 on HEAD too: 18 of `ACT-CONVERGE-01`'s 88 breaths) go under `min`; one clamp in `morph.js`, and every stored render would
-  move. A `waves` shape for the morph — declined for now (§327 B).
+**Open at session end — SESSION 14 · CHECKPOINT #2 (2026-09-25, Fable built, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE STATE:** nothing is being built. **`1s` THE MORPH BETWEEN `min` AND `max` is BUILT, VERIFIED, COMMITTED AND PUSHED** (`c142659`;
+  PLAN § `1s`; RUNNING_LOG §326 the diagnosis — `dyn amount` was the half-swing round a hidden `base`, why the top never came down · §327
+  the morph's level read to him — one slow curve cut into breaths, not the waves, the same `pp` as everything else · §328 his "A", the
+  standard answered (mf strike + the TABLE's two values, not 0 … 127), the top line · §329 the build and every check).
+  `score/public/morph_panel.js` alone; `morph.js` untouched — page files only.
+  - **What it does:** `min` · `max` menus of written dynamics (`ppp … fff`) replace `dyn amount`; the engine's `dyn.base` · `dyn.amount`
+    are derived from the two names and carried in hidden boxes, so a recalled actual renders byte-identical and its menus read `≈ pp` ·
+    `≈ ff` until he touches one; `flat` shows one menu, `level`; the status on Play and Insert ends `· min pp · max ff`.
+- **THE NEXT STEP — HIS, `1s.6`:** tell him: *reload the tab (no restart) → MORPH → CONVERGE or BLOOM on his take → `min pp` · `max ff` →
+  Generate → the status ends "· min pp · max ff" → Play → Insert if he keeps it.* Revise on his word — a design question on Fable, a fault
+  on Opus. **Then `1r.6`** (the ►► row below — he was playing it when this began; his tab has since filed `ACT-CONVERGE-02` · `-03`, not
+  read, perhaps his `1r.6` keeps), **then his session-13 tests** (the `his` rows).
 - **`Resume reads:`** only on his `1s` feedback — RUNNING_LOG §329 · PLAN § `1s` · `morph_panel.js` `drawDyn` · `dynText`; on the floor
-  question, `morph.js` `dynLevel` (~251) and `stateAt` (~1639 … 1665). STILL BINDING before any verification.
-- **DELIBERATELY UNCOMMITTED — all his:** CHECKPOINT #1's list below, plus **`bank/actuals/ACT-CONVERGE-02.json`** (new, filed by his tab
-  during this build) and `bank/morph_models.json` (its index).
+  question, `morph.js` `dynLevel` (~251) and `stateAt` (~1639 … 1665). STILL BINDING before any verification. Nothing else.
+- **Pending him:**
+  - **`min` as a HARD FLOOR? (§329)** — a model's own level dips go under `min`: CONVERGE's soft entries start breaths at the engine's floor
+    0.4 of 10 and rise (on HEAD too — 18 of `ACT-CONVERGE-01`'s 88 breaths). One clamp in `morph.js`; every stored render would move.
+  - **A `waves` shape for the morph** — offered (§327 B), declined for now; feasible in the panel later.
+  - The calls of § `1r` and everything pending at CHECKPOINT #1 and session 13's close (below).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint):
+  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals (01 the stock CONVERGE at 427 s in Sec02; 02 · 03 filed by
+    his tab during `1s`, unread)
+  - `bank/morph_models.json` — the store's index, written by his tab with those actuals
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
+- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` ·
+  `lgmf-bloom` · `longToneTest`), none the piece. **`piece-LGMF-Sec01-Sec02-sec03a` is now SAVED.**
 
-**Open at session end — SESSION 14 · CHECKPOINT #1 (2026-09-24, Fable built, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 14 · CHECKPOINT #1 (2026-09-24, Fable built, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #2 above; its `1r` lines still hold:**
 - **THE STATE:** nothing is being built. **`1r` CONVERGE ON A TAKE is BUILT, VERIFIED, COMMITTED AND PUSHED** (`f084f99`; PLAN § `1r`;
   RUNNING_LOG §322 his actual read · §323 his "a" · §324 "away from the partner" + his take pair by pair · §325 the build and every
   check). `score/public/morph_panel.js` alone; `morph.js` · `morph_septet.js` untouched.
