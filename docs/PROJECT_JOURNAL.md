@@ -137,8 +137,38 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 13 CLOSED (2026-09-24, Opus) — READ THIS ONE:**
-- **SESSION 14, IN PROGRESS (2026-09-24, Fable):** `1r` CONVERGE ON A TAKE is BUILT AND VERIFIED at his word (PLAN § `1r` · RUNNING_LOG §322 … §325; one commit, `morph_panel.js` alone; found on the way: the LG models are engine M3 too — `namesOwnVoices` gates them) — his one test is the ►► row above, a reload only. His session-13 tests are still owed (the rows below). `ACT-CONVERGE-01` (`lgmf-s03-convergeA`) is HIS — filed this session, placed at 427 s in `piece-LGMF-Sec01-Sec02done-work`; it is the stock CONVERGE, the take on the pulldown refused. Uncommitted and his: everything at session 13's close plus `bank/actuals/ACT-CONVERGE-01.json` and its index — the AI commits none of it.
+**Open at session end — SESSION 14 · CHECKPOINT #1 (2026-09-24, Fable built, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE STATE:** nothing is being built. **`1r` CONVERGE ON A TAKE is BUILT, VERIFIED, COMMITTED AND PUSHED** (`f084f99`; PLAN § `1r`;
+  RUNNING_LOG §322 his actual read · §323 his "a" · §324 "away from the partner" + his take pair by pair · §325 the build and every
+  check). `score/public/morph_panel.js` alone; `morph.js` · `morph_septet.js` untouched.
+  - **What it does:** under CONVERGE a take is the ARRIVAL — each player opens a semitone AWAY FROM THEIR PARTNER (the higher up, the
+    lower down; a doubled pair a up, b down) and closes onto their own just note, cents kept; the vibraphones held still on their notes.
+  - **Found on the way:** the LG models (LGSPECTRAL · LGBLOOM · LGCONVERGE) are engine M3 too — `namesOwnVoices(key)` keeps them
+    refusing a take and recalling exactly as before.
+- **THE NEXT STEP — HIS, `1r.6`:** tell him: *reload the tab (no restart) → CONVERGE → `Just-c2-seed143` on the PITCHES pulldown →
+  Generate → the line reads "as assigned — the arrival" → Play → Save as ACTUAL if he keeps it.* Expected: Vc F4 → E4 −14 ¢ · Db B2 →
+  C3 · Tpt G5 → F♯5 −49 ¢ · Hn B4 → C5 · EH C♯4 → C4 · Bsn B1 → C2 · Vib D6 · Vib² C♯6 still. Revise on his word — a design question
+  (the opening width, a dwell, three stations) on Fable; a fault in the reading on Opus.
+- **Then his session-13 tests,** unchanged (the `his` rows of the table above): `1q.8` the level first · the percussion overdub ·
+  `1q.4` · `1p` · `1n.6` · `1o.6` · `1m.4`.
+- **`Resume reads:`** only on his feedback on `1r` — RUNNING_LOG §325 (the build, the numbers) · PLAN § `1r` · code `morph_panel.js`
+  `takeVoices` · `applyPitch` · `namesOwnVoices`. On anything else: the session-13 table below maps each tool to its §. STILL BINDING
+  before any verification.
+- **Pending him:** the calls in § `1r` (two stations, no dwell · a semitone, no dial · SPECTRAL and COLOUR still refuse a take) — his
+  to reverse. Everything pending at session 13's close still stands (below).
+- **Answered this session, nothing built:** how the vibraphones get into a morph (a take + row 4 ticked) · how to get back an undone
+  insert (CTRL+SHIFT+Z first; then [Reload] = the last Save, [Restore…] = a named version, the file frozen `-before-restore` first).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint):
+  - `bank/morph_models.json` — the store's index, written by his tab when he filed `ACT-CONVERGE-01`
+  - `bank/actuals/ACT-CONVERGE-01.json` — HIS actual (`lgmf-s03-convergeA`, the stock CONVERGE; placed at 427 s in Sec02)
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
+- **Unsaved working copies** (`node tools/unsaved_check.js`): **`piece-LGMF-Sec01-Sec02-sec03a` — his LIVE score (working copy 02:47,
+  file 02:43), his to Save** · the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest`).
+
+**Open at session end — SESSION 13 CLOSED (2026-09-24, Opus) — its tool table and its pending list still hold:**
 - **THE STATE:** nothing is being built. Every tool of session 13 is committed, pushed and in his tab. The next step is his (the ►► rows).
 - **WHERE EACH TOOL LIVES** — for his feedback, open the § of the step he faults, then its code (under `score/public/` unless named):
 
