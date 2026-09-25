@@ -199,6 +199,9 @@
   // labels; the cursor enters at xOfSeconds(t0) = gutterPx).
   // [A21/V1] a systems entry may carry its own ssPerSystem — lane height
   // and staff scale are independent ("taller lane, same staff, more air").
+  // [2c.1, LGMF 2026-09-25 — RUNNING_LOG §340] THE MARGINS AS A RULE: cfg.marginLeftPx · marginRightPx, blank paper at the frame's
+  // two edges. Time maps onto [musicX0Px, musicX1Px] = [marginLeft + gutter, width − marginRight] — t0 at the staff's first
+  // line, tω at its last; the label block starts at the left margin. ABSENT = 0 = the frame exactly as before.
   function makeView(cfg) {
     const { widthPx, heightPx } = cfg;
     const [t0, t1] = cfg.window;
@@ -207,10 +210,13 @@
     const ssPerSystem = cfg.ssPerSystem || DEFAULTS.ssPerSystem;
     const gutterPx = cfg.gutterPx || 0;
     if (!(gutterPx >= 0 && gutterPx < widthPx)) throw new Error('coords: gutter must leave music room');
-    const pxPerSecond = (widthPx - gutterPx) / (t1 - t0);
+    const marginLeftPx = cfg.marginLeftPx || 0, marginRightPx = cfg.marginRightPx || 0;
+    const musicX0Px = marginLeftPx + gutterPx, musicX1Px = widthPx - marginRightPx;
+    if (!(marginLeftPx >= 0 && marginRightPx >= 0 && musicX1Px > musicX0Px)) throw new Error('coords: margins must leave music room');
+    const pxPerSecond = (musicX1Px - musicX0Px) / (t1 - t0);
 
-    const xOfSeconds = t => gutterPx + (t - t0) * pxPerSecond;
-    const secondsOfX = x => t0 + (x - gutterPx) / pxPerSecond;
+    const xOfSeconds = t => musicX0Px + (t - t0) * pxPerSecond;
+    const secondsOfX = x => t0 + (x - musicX0Px) / pxPerSecond;
     const yOfLaneFrac = f => f * heightPx;
     const laneFracOfY = y => y / heightPx;
 
@@ -235,6 +241,7 @@
 
     return {
       widthPx, heightPx, window: [t0, t1], pxPerSecond, ssPerSystem, gutterPx,
+      marginLeftPx, marginRightPx, musicX0Px, musicX1Px,
       xOfSeconds, secondsOfX, yOfLaneFrac, laneFracOfY,
       systems,
       system: part => {
@@ -251,20 +258,31 @@
   // The window RE-CUTS to what still fits full-width: span' =
   // (widthPx − Z·gutter) / (Z·pxPerSecond). (Naive span/Z is exact only at
   // gutter 0.) Vertical overflow is the zoom shell's scroll, by design.
+  // [2c.1] the margins magnify with the gutter (a clamped unit's overhang into the right margin grows ×Z too).
   function zoomCfg(cfg, Z, t0) {
     if (!(Z > 0)) throw new Error('coords: zoom factor must be positive');
     const [b0, b1] = cfg.window;
     const G = cfg.gutterPx || 0;
-    const basePps = (cfg.widthPx - G) / (b1 - b0);
+    const mL = cfg.marginLeftPx || 0, mR = cfg.marginRightPx || 0;
+    const dead = G + mL + mR;
+    const basePps = (cfg.widthPx - dead) / (b1 - b0);
     const start = t0 === undefined ? b0 : t0;
-    const span = (cfg.widthPx - Z * G) / (Z * basePps);
+    const span = (cfg.widthPx - Z * dead) / (Z * basePps);
     if (!(span > 0)) throw new Error('coords: zoom leaves no music width');
     return Object.assign({}, cfg, {
       heightPx: cfg.heightPx * Z,
       gutterPx: G * Z,
       window: [start, start + span],
-    });
+    }, mL ? { marginLeftPx: mL * Z } : {}, mR ? { marginRightPx: mR * Z } : {});
   }
 
-  return { makeView, systemsForParts, withStaves, ensembleFrame, zoomCfg, DEFAULTS, joinedOf, laneParts, staffHalfSs };
+  // [2c.1] THE FRAME'S EDGES, read once from the registry (container.json prefatory): the gutter and the two margins, spread
+  // into a view cfg by the app, export_video and capture_lane alike. musicPx = the timed width a frame of widthPx leaves.
+  function edgesOf(C) {
+    const pf = (C && C.prefatory) || {}, m = pf.marginPx || {};
+    return { gutterPx: pf.gutterPx || 0, marginLeftPx: m.left || 0, marginRightPx: m.right || 0 };
+  }
+  const musicPx = (widthPx, e) => widthPx - (e.gutterPx || 0) - (e.marginLeftPx || 0) - (e.marginRightPx || 0);
+
+  return { makeView, systemsForParts, withStaves, ensembleFrame, zoomCfg, DEFAULTS, joinedOf, laneParts, staffHalfSs, edgesOf, musicPx };
 });

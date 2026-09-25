@@ -54,6 +54,10 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
 
 ### Carried code that still speaks of other pieces
 
+- **`tools/capture_lane.js` keeps piece #5's own copy of the band** (2026-09-25, RUNNING_LOG §342) — not `Coords.ensembleFrame`, so it
+  knows neither 2a's joined lane nor 2c.1's margins (`Coords.edgesOf`); its part names are #5's (`fl bcl pno vn1 …`). Re-point it when the
+  performance instructions' images are made (2b).
+
 - **The piano as a ROLE survives in twelve modules** (`strike_sounds` · `strike_drawer` ·
   `chord_run` · `strike_chords_ui` · `swell_ui` · `cresc_panel` · `morph_panel` ·
   `cue_picker` · `piano_cues` · `piano_harmonics` · `cresc_strikes` · `composer.html`

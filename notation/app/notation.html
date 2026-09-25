@@ -778,14 +778,15 @@
       // early and the first note's ink clears the gutter. ss -> seconds through this view's own scale,
       // which makes it zoom-invariant; never before the IR's own start.
       const bufSs = (state.pageRules && state.pageRules.musicStartBufferSs) || 0;
-      const pxPerSec = (W - ((C.prefatory && C.prefatory.gutterPx) || 0)) / pageSeconds;
+      // [2c.1] the frame's edges — the gutter and the two margins (registry prefatory) — from the one reader the exporters use
+      const EDGES = NotationCoords.edgesOf(C);
+      const pxPerSec = NotationCoords.musicPx(W, EDGES) / pageSeconds;
       const bufSec = bufSs > 0 ? (bufSs * ssPerSystem > 0 ? bufSs * (lanePx / ssPerSystem) / pxPerSec : 0) : 0;
       const pageT0 = Math.max(state.ir.source.window[0], p.t0 - bufSec);
-      const baseCfg = {
+      const baseCfg = Object.assign({
         widthPx: W, heightPx: H, window: [pageT0, pageT0 + pageSeconds],
-        gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0,
         systems, ssPerSystem,
-      };
+      }, EDGES);
       let cfg = baseCfg, Z = 1;
       if (mode === 'zoom') {
         Z = ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2;
@@ -808,7 +809,7 @@
       if (eb && view.systems.length) {
         const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
         // at the material's end when that falls inside the page, else the edge
-        const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.widthPx;
+        const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.musicX1Px;   // [2c.1] the system's right edge, inside the margin
         endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
           '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
       }

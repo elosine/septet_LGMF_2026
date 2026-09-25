@@ -46,7 +46,8 @@ const outFile = arg('out', null);
 // [PLAN 2b.2.1 — 2026-09-17] A3 LANDSCAPE IS THE DEFAULT. The call, verbatim: "The score as an Adobe PDF document with a
 // maximum size of DIN A3 (297 x 420 mm)". Tabloid — #4's format, and this tool's old default — is 431.8 mm long: 11.8 mm OVER.
 const formatName = arg('format', 'a3-landscape');
-const marginIn = parseFloat(arg('margin', '0.5'));
+// [2c.1] the page margin is REGISTRY DATA (container.json print.marginIn, 12.7 mm all round); --margin overrides it
+const marginArg = arg('margin', null);
 const secArg = arg('sec', null);
 const pagesArg = arg('pages', null);
 const atArg = arg('at', null);        // select the page(s) CONTAINING this second — a comma list makes a proof PDF (2b.3)
@@ -59,7 +60,7 @@ const quiet = flag('quiet');
 
 if (!outFile && !planJson) {   // [2b.7.5] --planJson needs no output file: it dumps the plan and stops
   console.error('usage: export_print.js --out <file.pdf> [--ir db1] [--sec N] [--pages a-b] [--at SEC]');
-  console.error('       [--format a3-landscape|tabloid-landscape|letter-landscape] [--margin 0.5]');
+  console.error('       [--format a3-landscape|tabloid-landscape|letter-landscape] [--margin IN (default: registry print.marginIn)]');
   console.error('       [--ruler on|off] [--cover on|off] [--instructions on|off] [--htmlOnly]');
   process.exit(2);
 }
@@ -126,6 +127,7 @@ const staffHeightPx = (C.staff && C.staff.staffHeightPx) || 31.6;
 const videoPageSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
 
 const pageW = FMT.w * PX, pageH = FMT.h * PX;
+const marginIn = marginArg != null ? parseFloat(marginArg) : ((C.print && C.print.marginIn > 0) ? C.print.marginIn : 0.5);
 const margin = marginIn * PX;
 const headerPx = wantRuler ? 32 : 0;                   // the time-ruler strip
 const footerPx = 19;                                   // folio
@@ -149,6 +151,12 @@ const systems = FRAME.systems, ssPerSystem = FRAME.ssPerSystem;
 const laneFrac = FRAME.lanePx / VH;              // ONE WEIGHT UNIT — a player's lane
 const lanePx = laneFrac * blockH;
 const ssPx = lanePx / ssPerSystem;
+// [2c.1] THE RIGHT MARGIN HOLDS THE OVERHANG at the print's own staff size (registry prefatory.overhangSs; absent = no check)
+const overhangSs = C.prefatory && C.prefatory.overhangSs;
+if (overhangSs > 0 && margin < overhangSs * ssPx) {
+  console.error('margin ' + (margin / PX * 25.4).toFixed(1) + ' mm cannot hold the ' + overhangSs + ' ss overhang (' +
+    (overhangSs * ssPx / PX * 25.4).toFixed(1) + ' mm at this staff)'); process.exit(2);
+}
 const staffPx = 4 * ssPx;
 const mm = px => px / PX * 25.4;
 
@@ -283,7 +291,7 @@ if (planJson) {
       return {
         n: i + 1, t0: p.t0, t1: p.t1, kind: p.kind, severed: p.severed,
         w0: view.window[0], w1: view.window[1], inkEnd,
-        xInk: view.xOfSeconds(inkEnd), xMusic0: view.gutterPx,
+        xInk: view.xOfSeconds(inkEnd), xMusic0: view.musicX0Px,
         points: mine.length, gc: mine.filter(x => x.k === 'gc').length,
         golines: mine.filter(x => x.k === 'goline').length,
         // LONG ITEMS (his eye, 2026-09-17: "pg 2 in piano, extra from next page trill ; vc pg 14").

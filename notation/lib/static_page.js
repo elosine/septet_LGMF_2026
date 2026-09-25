@@ -67,7 +67,8 @@
     const endInWindow = o.srcEnd > view.window[0] && o.srcEnd <= view.window[1];
     if (eb && view.systems.length && (endInWindow || edgeBar)) {
       const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
-      const xEnd = endInWindow ? view.xOfSeconds(o.srcEnd) : view.widthPx;
+      // [2c.1] the right edge of the SYSTEM — the frame less its right margin (no margin: the frame's edge, as before)
+      const xEnd = endInWindow ? view.xOfSeconds(o.srcEnd) : (view.musicX1Px != null ? view.musicX1Px : view.widthPx);
       endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
         '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
     }

@@ -91,6 +91,26 @@ for (const t of [10, 23.7, 40]) eq(vg.secondsOfX(vg.xOfSeconds(t)), t, 1e-9, 'gu
 threw = false; try { Coords.makeView({ widthPx: 100, heightPx: 100, window: [0, 1], systems, gutterPx: 100 }); } catch (e) { threw = true; }
 ok(threw, 'gutter that leaves no music room throws');
 
+// ---------- LGMF 2c.1: THE MARGINS — time maps onto [marginLeft + gutter, width − marginRight] ----------
+const vmg = Coords.makeView({ widthPx: 1920, heightPx: 1080, window: [0, 12], systems, gutterPx: 72, marginLeftPx: 40, marginRightPx: 40 });
+eq(vmg.xOfSeconds(0), 112, 1e-9, 'margins: t0 at left margin + gutter');
+eq(vmg.xOfSeconds(12), 1880, 1e-9, 'margins: tω at width − right margin');
+eq(vmg.musicX0Px, 112, 1e-9, 'margins: musicX0Px'); eq(vmg.musicX1Px, 1880, 1e-9, 'margins: musicX1Px');
+eq(vmg.pxPerSecond, 1768 / 12, 1e-9, 'margins: pxPerSecond over the timed width');
+for (const t of [0, 5.5, 12]) eq(vmg.secondsOfX(vmg.xOfSeconds(t)), t, 1e-9, 'margins round-trip ' + t);
+eq(vg.musicX0Px, 48, 1e-9, 'no margins: musicX0Px = gutter'); eq(vg.musicX1Px, 1200, 1e-9, 'no margins: musicX1Px = width');
+const edg = Coords.edgesOf({ prefatory: { gutterPx: 72, marginPx: { left: 40, right: 40 } } });
+ok(edg.gutterPx === 72 && edg.marginLeftPx === 40 && edg.marginRightPx === 40, 'edgesOf reads the registry');
+const edg0 = Coords.edgesOf({ prefatory: { gutterPx: 72 } });
+ok(edg0.marginLeftPx === 0 && edg0.marginRightPx === 0, 'edgesOf: no marginPx = 0 · 0');
+eq(Coords.musicPx(1920, edg), 1768, 1e-9, 'musicPx');
+threw = false; try { Coords.makeView({ widthPx: 200, heightPx: 100, window: [0, 1], systems, gutterPx: 72, marginLeftPx: 64, marginRightPx: 64 }); } catch (e) { threw = true; }
+ok(threw, 'margins that leave no music room throw');
+const zmg = Coords.makeView(Coords.zoomCfg({ widthPx: 1920, heightPx: 1080, window: [0, 12], systems, gutterPx: 72, marginLeftPx: 40, marginRightPx: 40 }, 2));
+eq(zmg.marginLeftPx, 80, 1e-9, 'zoom: left margin ×2'); eq(zmg.marginRightPx, 80, 1e-9, 'zoom: right margin ×2');
+eq(zmg.pxPerSecond, 2 * vmg.pxPerSecond, 1e-9, 'zoom with margins: pxPerSecond ×2');
+eq(zmg.xOfSeconds(zmg.window[1]), 1840, 1e-6, 'zoom with margins: tω at width − 2 × right margin');
+
 // ---------- V1: the PP-6 zoom invariant — EVERY coordinate scales ×Z ----------
 // (uniform AND irregular lanes; prove-red mutates the zoom cfg's staff scale)
 function assertZoomInvariant(baseCfg, Z, label, sabotage) {

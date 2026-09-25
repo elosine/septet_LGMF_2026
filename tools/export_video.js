@@ -115,15 +115,23 @@ const srcEnd = ir.source.window[1];
 // [§404 on the page] THE BUFFER AFTER THE CLEF: each page's window opens page_rules.musicStartBufferSs staff spaces early (never before
 // the IR's start), so the page — and its turn, at window[1] — runs that much earlier, as renderContainerView draws it
 const bufSs = pageRules.musicStartBufferSs || 0;
-const pxPerSecPage = (W - ((C.prefatory && C.prefatory.gutterPx) || 0)) / pageSeconds;
+// [2c.1] the frame's edges — the gutter and the two margins — from the registry, through the reader the app uses
+const EDGES = Coords.edgesOf(C);
+const pxPerSecPage = Coords.musicPx(W, EDGES) / pageSeconds;
 const bufSec = bufSs > 0 && ssPerSystem > 0 ? bufSs * (lanePx / ssPerSystem) / pxPerSecPage : 0;
+// [2c.1] THE RIGHT MARGIN HOLDS THE OVERHANG: ink may enter it, never pass the frame (registry prefatory.overhangSs; absent = no check)
+const overhangSs = C.prefatory && C.prefatory.overhangSs;
+if (overhangSs > 0 && EDGES.marginRightPx < overhangSs * (lanePx / ssPerSystem)) {
+  console.error('right margin ' + EDGES.marginRightPx + ' px cannot hold the ' + overhangSs + ' ss overhang (' +
+    (overhangSs * lanePx / ssPerSystem).toFixed(1) + ' px at this staff)'); process.exit(2);
+}
 const pageT0Of = i => Math.max(ir.source.window[0], pages[i].t0 - bufSec);
 function baseCfgFor(pageIdx) {
   const t0 = pageT0Of(pageIdx);
-  return {
+  return Object.assign({
     widthPx: W, heightPx: H, window: [t0, t0 + pageSeconds],
-    gutterPx: (C.prefatory && C.prefatory.gutterPx) || 0, systems, ssPerSystem,
-  };
+    systems, ssPerSystem,
+  }, EDGES);
 }
 const pageContaining = t => {
   let best = 0;

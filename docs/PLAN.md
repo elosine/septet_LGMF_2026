@@ -2428,7 +2428,9 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   instructions (web + two print pages; the percussion legend, §334) · the cut list · `render_reaper` · the batteries re-pointed at
   this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
 
-- **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — `planned` 2026-09-25 (Fable,
+- **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`doing` 2026-09-25 (Opus,
+  session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
+  2c.1 built — RUNNING_LOG §342)** — `planned` 2026-09-25 (Fable,
   session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
   agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
   #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
@@ -2444,7 +2446,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     `edge: { screen: 'cut' | 'clamp' | 'atomic', print: 'whole' | 'stub' | 'never-sever' | 'continue' }` — and a class without one
     fails the checker (the header's standing rule; #4's day-19 bucket, NOTATION_ARCHITECTURE §268, per class at last). **ABSENT = today's
     behaviour exactly:** with #4's registry and page rules the tuba probe is byte-identical — the new behaviour only where the data asks.
-  - **2c.1 — The margins:** `container.json` `prefatory.marginPx { left, right }` for the frame and `print.marginIn` (the `--margin`
+  - **2c.1 — The margins:** **`built` 2026-09-25 (§342; THE SHIELD byte-identical).** `container.json` `prefatory.marginPx { left, right }` for the frame and `print.marginIn` (the `--margin`
     default moved into data; the flag overrides) · `coords.js` `makeView` maps `[t0, tω]` onto `[leftMargin + gutterPx, widthPx − rightMargin]`
     (absent = 0, today's frame) · the label block at `leftMargin + partLabel.xPx` · the app, `export_video`, `export_print` through the one
     view. **The AI's proposals, his on the proof [call]:** screen **40 · 40 px** — 2.1 % a side: the label and the last note inside a

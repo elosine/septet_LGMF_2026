@@ -12625,3 +12625,30 @@ the unit lane on the A3 page is now smaller than #5's 35.5 mm, one brace lane ta
 **His words:** *"we can skip steps, just orient me in summary"* — then *"yes write 2c"*. The orientation given: what is being done and what follows (the clefs · the note unit · the cents · the animated devices · 2b); the downstream reassurance — every later item that draws a new class carries one required line, *its edge class*, and a class with no entry fails the checker (now the PLAN header's standing rule); the logistics — checkpoint on Opus, clear, Opus builds, his eye on the proof.
 
 **Written:** PLAN § `2c`, 2c.1 the margins (the AI's proposals 40 · 40 px on screen, 12.7 mm in print, with their justifications — his on the proof) · 2c.2 the screen plan (tiling, `screenPlan: 'tile'`, the GC impact at tω to the page before) · 2c.3 the Matisse cut (an SVG clip on the timed group) · 2c.4 the clamp (the go-time indicator never moves; forms (a) and (b); the right margin's overhang; `check_screen_edges.js`) · 2c.5 the print standards written first, his read · 2c.6 the print plan (the cut placed by the objects, a pushed GC setting the next t0) · 2c.7 the required verification — THE SHIELD by data absence (ABSENT = today's behaviour, the tuba probe byte-identical on HEAD's registry and rules) and both checkers green over every page. Nothing built.
+
+## §342. 2c.1 THE MARGINS — built; THE SHIELD byte-identical (2026-09-25, Opus, session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*)
+
+**What it does:** the margins are a RULE of the frame. `coords.js` `makeView` takes `marginLeftPx` · `marginRightPx` and maps time onto
+`[musicX0Px, musicX1Px] = [marginLeft + gutter, width − marginRight]` (the view carries all four); `zoomCfg` magnifies the margins with the
+gutter; `edgesOf(C)` reads `container.json` `prefatory` once (gutter + margins) and `musicPx(W, e)` gives the timed width — the app's
+video view and `export_video` spread the same edges into their cfg, so the §404 buffer's seconds follow the narrower music width.
+`render.js` — the part and line labels at `marginLeft + partLabel.xPx`, the clef column, the reshow and the bracket/brace from
+`musicX0Px`; the edge bar (`static_page.js`, `notation.html`) at `musicX1Px`, so the staff and the system end at the right margin.
+**Data:** `prefatory.marginPx { left 40, right 40 }` (the AI's proposal, his on the proof) · `prefatory.overhangSs 3.44` (both exporters
+assert that the right margin holds it at their own staff size) · `print.marginIn 0.5` (12.7 mm, the old `--margin` default made a registry
+number; the flag still overrides). **Print keeps its gutter-only view:** its margin is OUTSIDE the block, so the screen's `marginPx` does
+not apply on paper.
+
+**THE SHIELD (by data absence):** the tuba goldens staged from #4's HEAD (26 files, the list written first, `index.json` and the README
+excluded). BEFORE on HEAD: the eight batteries GREEN (render · layout · animobj · splice · graphic · pattern_fit · stamps ·
+ir_validate_battery); `export_video --ir db1` probes at 5 · 11.9 · 100 · 300 s (video) and 100 s (zoom); `export_print --ir db1` the
+plan JSON and pages 1–3 as HTML. AFTER, the new engine with HEAD's `container.json` swapped in: **all seven byte-identical**; the eight
+GREEN. `test_coords` was RED on HEAD with one failure (*"px boundary: layout.js is pixel-free"* — pre-existing, not this build's) and has
+the same one after; its new margin checks (t0 112, tω 1880, the round trip, `edgesOf`, the ×2 zoom's 80 · 80) pass.
+
+**On the new data:** `piece-lgmf` page 25 (299.19 – 311.19 s): every label at x 44, every staff line 112 → 1880, the end bar at 1880,
+the brackets and brace moved in with the clefs; the probe at 300 s looked at. The print plan: 59 pages, `xMusic0` 72 (unchanged by
+design). Both assertions pass (video 27.2 px ≤ 40; print at its own staff size ≤ 12.7 mm).
+
+**Seen, not touched:** `tools/capture_lane.js` keeps piece #5's own copy of the band (it predates 2a's joined lane as well) — it does not
+read the margins; NITS.

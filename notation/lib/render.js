@@ -81,7 +81,11 @@
     // [2a, the septet] the ensemble registry (notation/registry/ensemble.json)
     // — labels, brackets, the brace. Absent = the tuba page exactly.
     const ENS = (opts && opts.ensemble) || null;
-    const CLEF_AT = { bass: { line: 1, anchor: 'fLine' }, treble: { line: -1, anchor: 'gLine' }, alto: { line: 0, anchor: 'cLine' } };
+    // [2c.1] THE MARGINS: the label block starts at the left margin, the clef column and the reshow at the music's start
+    // (margin + gutter). A view without margins has ML 0 and MX0 = gutterPx — the page exactly as before.
+    const ML = view.marginLeftPx || 0;
+    const MX0 = view.musicX0Px != null ? view.musicX0Px : (view.gutterPx || 0);
+    const CLEF_AT ={ bass: { line: 1, anchor: 'fLine' }, treble: { line: -1, anchor: 'gLine' }, alto: { line: 0, anchor: 'cLine' } };
     const parts = [];
     parts.push('<svg xmlns="http://www.w3.org/2000/svg" width="' + view.widthPx + '" height="' + view.heightPx +
       '" viewBox="0 0 ' + view.widthPx + ' ' + view.heightPx + '" style="background:' + o.paper + '">');
@@ -174,7 +178,7 @@
         const below = (E.partLabel.baselineBelowEm != null ? E.partLabel.baselineBelowEm : 0.32) * sz;
         sysModel.lineLabels.forEach((lab, i) => {
           if (!lab || sysModel.staffLines[i] === undefined) return;
-          parts.push('<text x="' + E.partLabel.xPx + '" y="' + (Y(sysModel.staffLines[i]) + below).toFixed(1) + '" font-size="' + sz.toFixed(1) + '"' + fontAttr + ' fill="' + o.muted + '">' + esc(lab) + '</text>');
+          parts.push('<text x="' + (ML + E.partLabel.xPx) + '" y="' + (Y(sysModel.staffLines[i]) + below).toFixed(1) + '" font-size="' + sz.toFixed(1) + '"' + fontAttr + ' fill="' + o.muted + '">' + esc(lab) + '</text>');
         });
       } else if (!(sysModel.staff > 0)) {
         let ly = sys.yTopPx + E.partLabel.yOffsetSs * ssPx;
@@ -183,14 +187,14 @@
           try { lane = view.system(sysModel.part); } catch (e) { /* no lane entry: the staff itself */ }
           ly = lane.yMidPx + (E.partLabel.baselineBelowEm != null ? E.partLabel.baselineBelowEm : 0.32) * E.partLabel.sizeSs * ssPx;
         }
-        parts.push('<text x="' + E.partLabel.xPx + '" y="' + ly.toFixed(1) + '" font-size="' + (E.partLabel.sizeSs * ssPx).toFixed(1) +
+        parts.push('<text x="' + (ML + E.partLabel.xPx) + '" y="' + ly.toFixed(1) + '" font-size="' + (E.partLabel.sizeSs * ssPx).toFixed(1) +
           '"' + fontAttr + ' fill="' + o.muted + '">' + (pcfg ? esc(pcfg.short) : 'T' + (sysModel.part + 1)) + '</text>');
       }
       // page-edge rule: a chunk continuing across the cut re-shows its tempo
       // label at the page start (splice.js planPages -> page.reshow)
       for (const rs of (opts && opts.reshow) || []) {
         if (rs.part !== sysModel.part) continue;
-        parts.push('<text x="' + (view.gutterPx + E.reshow.xSs * ssPx).toFixed(1) + '" y="' + Y(4.6).toFixed(1) + '" font-size="' +
+        parts.push('<text x="' + (MX0 + E.reshow.xSs * ssPx).toFixed(1) + '" y="' + Y(4.6).toFixed(1) + '" font-size="' +
           (E.reshow.sizeSs * ssPx * E.textScale).toFixed(1) + '"' + fontAttr + ' fill="' + o.muted + '">' + esc(rs.text) + '</text>');
       }
 
@@ -234,10 +238,10 @@
             // VISIBLY into the music (protrusion-detector territory) rather
             // than vanishing off-screen — invisible failure is worse
             const cw = glyphs.clef[ck].wSs * ssPx;
-            const cx = Math.max(2, view.gutterPx - cw - E.clefGutterGapSs * ssPx);
+            const cx = Math.max(ML + 2, MX0 - cw - E.clefGutterGapSs * ssPx);
             parts.push(Stamps.toSvg(cStamp, { xPx: cx, yPx: Y(CL.line), ssPx, align: CL.anchor }));
           } else {
-            const cx = Math.max(view.xOfSeconds(it.t), 0);
+            const cx = Math.max(view.xOfSeconds(it.t), ML);
             parts.push(Stamps.toSvg(cStamp, { xPx: cx + E.clefInsetSs * ssPx, yPx: Y(CL.line), ssPx, align: CL.anchor }));
           }
         } else if (it.k === 'glyph') {
@@ -659,7 +663,7 @@
         const ss = top.ssPx;
         const kT = keysOf(g.parts[0])[0], kB = keysOf(g.parts[g.parts.length - 1])[1];
         const yT = top.yOfSs(Math.max(...linesOf(modelByKey.get(kT)))), yB = bot.yOfSs(Math.min(...linesOf(modelByKey.get(kB))));   // [2a] a lined staff's outer lines
-        const clefLeft = view.gutterPx - (clefW + E.clefGutterGapSs) * ss;
+        const clefLeft = MX0 - (clefW + E.clefGutterGapSs) * ss;
         const tipW = ((glyphs.bracketTip && glyphs.bracketTip.up) || { wSs: 0 }).wSs;
         const xL = clefLeft - (SS.gapSs + tipW) * ss;       // the bracket line's left edge
         const cls = ' class="sysgrp sysgrp-' + g.kind + '"';
