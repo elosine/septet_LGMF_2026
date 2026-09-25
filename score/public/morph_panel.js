@@ -755,6 +755,7 @@ const PANEL = {
         }
         row('release (s)', 'carrier.release',
             p.carrier.release != null ? p.carrier.release : '', 5);
+        if (this.isTakes()) this.drawSwitch(f);   // PLAN 1t.3 — the vibraphones' switch, a panel dial (not a param: the voices carry it)
         row('segment (s)', 'carrier.segLen', p.carrier.segLen, 0.5);
         // PLAN 1j BR2.2 — THE BREATH'S LENGTH, the sequence drawer's three dials by the sequence drawer's names. An EMPTY box is
         // that dial OFF (readFields deletes the key), and with all three empty the breaths are `segment` ± its old share, as before.
@@ -1592,6 +1593,18 @@ const PANEL = {
     // by lane:seat. `toChord` is frozen once when he picks it, as `takeChord` is.
     TAKES_MODEL: 'TAKES',
     isTakes() { return this.mode === 'models' && this.activeModel === this.TAKES_MODEL; },
+    // PLAN 1t.3 — THE VIBRAPHONES' SWITCH (his §354: *"switch pitches at a certian interval in the transition, we can try at arrival of
+    // new chord for all others, or 1/2 way thru"*). One dial, a share of the transition: 0 at the start · 0.5 halfway · 1 at the arrival
+    // (the default, his first try). The first vibraphone (seat 0) switches at the dial, the second 3 s later (the AI's call, "none
+    // together"); both are kept inside the transition, so at the arrival the first goes 3 s before it and the second on it.
+    SWITCH_SEAT_GAP_S: 3,
+    switchDial() { const v = this.pitch && this.pitch.switchAt; return (v != null && isFinite(+v)) ? Math.max(0, Math.min(1, +v)) : 1; },
+    switchTimes(travel) {
+        const T = Math.max(0.01, +travel || 0), G = this.SWITCH_SEAT_GAP_S;
+        let t0 = this.switchDial() * T, t2 = t0 + G;
+        if (t2 > T) { t2 = T; t0 = Math.max(0, T - G); }
+        return { t0: t0, t2: t2, travel: T };
+    },
     toChordOn() {
         const p = this.pitch || {};
         if (!p.toChord || !p.toChord.length || !p.toName) return null;
@@ -1608,6 +1621,25 @@ const PANEL = {
             p.toChord = chord.map(n => { const o = { lane: n.lane, seat: +n.seat || 0, inst: n.inst, midi: Math.round(+n.midi), cents: +(+n.cents || 0) }; if (n.partial != null) o.partial = n.partial; return o; });
             return true;
         } catch (e) { this.setStatus('take not read: ' + ((e && e.message) || e), true); return false; }
+    },
+    // the dial's row, under `release`: NO data-path (readFields skips it) — it writes the pitch state and each vibraphone's `switchAt`
+    drawSwitch(f) {
+        const w = document.createElement('div');
+        w.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:2px 0';
+        w.innerHTML = '<span style="color:#9a9">vibes switch 0…1</span>';
+        w.title = 'when the vibraphones change bar, as a share of the transition — 0 at the start · 0.5 halfway · 1 at the arrival (the default). A re-strike on the new bar, never a bend; the second vibraphone 3 s after the first, both inside the transition';
+        const i = document.createElement('input'); i.id = 'morphVibSwitch';
+        i.type = 'number'; i.step = 0.05; i.min = 0; i.max = 1; i.value = this.switchDial();
+        i.style.cssText = 'width:84px;background:#1b1b20;color:#ddd;border:1px solid #444;padding:1px 4px;font-size:13px';
+        i.addEventListener('keydown', e => { if (e.key === ' ') e.stopPropagation(); });
+        i.addEventListener('change', () => { const v = parseFloat(i.value); this.pitch.switchAt = isFinite(v) ? Math.max(0, Math.min(1, v)) : 1; this.savePitch(); this.generate(); });
+        w.appendChild(i); f.appendChild(w);
+    },
+    // which switching vibraphones are never heard on their new bar (the switch falls after their last note — no `release` at the arrival)
+    switchesUnheard() {
+        const I = this._pitchInfo, R = this.result; if (!I || !I.takes || !R) return [];
+        const SR = (I.rows || []).find(r => r.still); if (!SR || !SR.switchS) return [];
+        return SR.switchS.filter(x => !R.notes.some(n => n.voice === x.i && n.tStart >= x.t - 1e-3));
     },
     async chooseTo(name) {
         if (!name) return;
@@ -1822,6 +1854,23 @@ const PANEL = {
             } else warnings.push('TAKE → TAKE: choose a "to" take — until then take A is held');
             flags.forEach(f => warnings.push('TAKE → TAKE: ' + f));
             rows.forEach(r => { r.tgts = (r.voiceIdx || []).map(i => Object.assign({ lane: lanes[i] }, tgt[i])); });
+            // PLAN 1t.3 — the vibraphones are NOT still under TAKE → TAKE: each carries `switchAt` (a share of the travel) and the
+            // engine steps it from A's bar to B's at that moment, a cut and a re-strike (morph.js, `SWITCH`)
+            const SR = rows.find(r => r.still);
+            if (SR && SR.voiceIdx.length) {
+                const ST = this.switchTimes(params && params.carrier && params.carrier.span);
+                const sa = +((PAIRS.find(pr => pr.still) || {}).sa) || 0;
+                const at = [];
+                SR.voiceIdx.forEach(i => {
+                    const v = voices[i];
+                    if (tgt[i].midi === v.midi && Math.abs(tgt[i].cents - v.cents) < 1e-6) return;   // the same bar in B (or no `to`): it stays still
+                    delete v.still;
+                    const t = (SR.voiceIdx.length === 1 || (+v.seat || 0) === sa) ? ST.t0 : ST.t2;
+                    v.switchAt = t / ST.travel; at.push({ i: i, t: t });
+                });
+                SR.switchS = at.slice();
+                if (at.length) SR.why = 'switch' + (at.length > 1 ? ' at ' + at.map(x => x.t.toFixed(1) + ' s').join(' · ') : 'es at ' + at[0].t.toFixed(1) + ' s') + ' — a re-strike on the new bar';
+            }
         }
         // H2.2 — the params. `morph.js` and `morph_septet.js` are NOT changed: this is the door they already have.
         const out = JSON.parse(JSON.stringify(params || {}));
@@ -2060,6 +2109,9 @@ const PANEL = {
                      r.warn ? '#e0b062' : (pairs.length ? '#9a9' : '#777'));
             });
             (info.flags || []).forEach(f => note('&nbsp;&nbsp;⚑ ' + f + ' — the strikes drawer is the fix', '#e0b062'));
+            const LP = this._lastParams || {}, envS = this.castEnv();
+            this.switchesUnheard().forEach(x => { const sv = ((LP.source || {}).voices || [])[x.i] || {};
+                note('&nbsp;&nbsp;⚑ ' + this.seatLabel(envS, (LP.lanes || [])[x.i], sv.seat) + ' switches at ' + x.t.toFixed(1) + ' s — after its last note, so it is never heard on its new bar; a <b>release</b> holds the new chord (or an earlier <b>vibes switch</b>)', '#e0b062'); });
             const lo = (info.leftOut || []).map(n => n.label + ' ' + SEP.nm(n.midi) + ' (from)').concat((info.leftOutTo || []).map(n => n.label + ' ' + SEP.nm(n.midi) + ' (to)'));
             if (lo.length) note('&nbsp;&nbsp;left out: ' + lo.join(' · ') + ' — not in a pair', '#777');
         }

@@ -1426,6 +1426,16 @@ function render(params, opts) {
     const TIMING = carrierTiming(P.carrier);
     const travel = TIMING.span;          // the one-way gliss — pace
     const span = TIMING.total;           // the timeline, as everything below means
+    // A VOICE THAT SWITCHES (2026-09-25, LGMF PLAN 1t.3; RUNNING_LOG §354). His words for the vibraphones between two takes:
+    // *"probably just switch pitches at a certian interval in the transition"* — a bar cannot slide, it is struck again on the new
+    // note. A voice of the list with `switchAt` (0 … 1 of the TRAVEL) holds its START cents until `switchAt × travel` seconds and its
+    // TARGET's from then on — a STEP, never a glide, with no attack or release motion (the sibling of `still`, in `stateAt`). The
+    // breath that straddles the moment is CUT there (below, after `buildCarrier`), so the step is one note ending on the old bar and
+    // one note-on on the new — a re-strike — rather than a re-key split sampled across it.
+    // ADDITIVE AND OPT-IN, the fourth such door (`kind: 'voices'` · `fadeWeight`'s `to` · `still`): with no `switchAt` on any voice
+    // `SWITCH` is all null and not one line below behaves differently.
+    const SWITCH = VOICES ? VOICES.map(v => (v && v.switchAt != null && isFinite(+v.switchAt)) ? clamp(+v.switchAt, 0, 1) * travel : null) : [];
+    const switchCents = vi => (targetCents && targetCents.length) ? targetCents[vi % targetCents.length] : startCents[vi];
 
     // Per-voice release override, filled by the scheduler below. Empty (all
     // undefined) means every voice tapers over the shape's own release window.
@@ -1660,7 +1670,9 @@ function render(params, opts) {
         }
         const cents0 = moved.cents != null ? moved.cents : base.cents;
         return {
-            cents: STILL[vi] ? startCents[vi] : cents0 + motionDev(vi, t, cents0),   // PLAN 1i: a still voice never leaves its start
+            cents: STILL[vi] ? startCents[vi]                                         // PLAN 1i: a still voice never leaves its start
+                : SWITCH[vi] != null ? (t < SWITCH[vi] ? startCents[vi] : switchCents(vi)) // PLAN 1t.3: a switching voice steps, at its moment
+                : cents0 + motionDev(vi, t, cents0),
             technique: technique,
             level: moved.level != null ? moved.level : base.level,
             p: p,
@@ -1678,7 +1690,7 @@ function render(params, opts) {
             const pal = palOf(vi);
             return {
                 midi: midi, level01: s.level / 10,
-                bending: Math.abs(sMid.cents - s.cents) > 5,
+                bending: SWITCH[vi] == null && Math.abs(sMid.cents - s.cents) > 5,   // PLAN 1t.3: a switch is a step, not a bend
                 fixedLen: cls === 'fixed' ? fixedLength(tech, midi, o.sampleLengths) : null,
                 ceilingS: pal ? pal.ceiling(s.level / 10) : null, gapS: pal ? pal.gapS : null, kind: pal ? pal.kind : null,
             };
@@ -1686,8 +1698,29 @@ function render(params, opts) {
         // PLAN 1j: the OUTLIER's own stream, made only when the dial is on — from the same seed, apart from the voice's
         (P.carrier.outlier && +P.carrier.outlier.share > 0) ? mulberry32(P.seed * 7919 + vi * 104729 + 15485863) : null);
 
+        // PLAN 1t.3 — THE CUT AT A SWITCH. Found in the capture, not assumed: sampled across the step, the re-key split the breath
+        // into three and struck a stray note BETWEEN the two bars for 0.08 … 0.44 s (keys 85 · 79 on a D6 → B5 · C♯6 → C♯5 switch),
+        // flagged OVERLAP. So the breath that holds the moment is cut there: the old bar to `tS − 2 ms`, the new bar from `tS` — every
+        // sample of each piece on one side of the step, one note-on on the new key. A piece under 0.25 s is not struck: the breath
+        // then starts ON the new bar, or ends on the old one and the next breath takes the new. A switch at or after the voice's last
+        // sound is never heard, and the panel says so.
+        const tSw = SWITCH[vi];
+        const segsV = tSw == null ? segs : (() => {
+            const GAP = 0.002, MIN = 0.25, out = [];
+            segs.forEach(s => {
+                const end = s.start + s.dur;
+                if (s.start >= tSw || end <= tSw - GAP) { out.push(s); return; }
+                const a = (tSw - GAP) - s.start, b = end - tSw;
+                if (a >= MIN) out.push(Object.assign({}, s, { dur: round3(a) }));
+                if (b >= MIN) out.push(a >= MIN ? { idx: s.idx + 1, start: round3(tSw), dur: round3(b), flags: [] }
+                                                : Object.assign({}, s, { start: round3(tSw), dur: round3(b) }));
+                if (a < MIN && b < MIN) out.push(Object.assign({}, s, a >= b ? { dur: round3(Math.max(0.02, a)) } : { start: round3(tSw), dur: round3(b) }));
+            });
+            return out;
+        })();
+
         let prevTech = null;
-        segs.forEach(seg => {
+        segsV.forEach(seg => {
             const s0 = stateAt(vi, seg.start);
             const flags = seg.flags.slice();
 

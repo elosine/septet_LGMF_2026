@@ -13105,3 +13105,45 @@ ports; the throwaway opened on `pointilistic01a-work`, never saved) — **0 POST
 5. **The `to ▾` menu with the pane's REAL input:** a click on the button → the sequence drawer's menu (`222` takes) → typed
    `d1 seed160` → *1 of 222*, `Just-d1-seed160` → ENTER → menu closed, `toName` = it, the button *to "Just-d1-seed160" ▾*, the status
    *to: take "Just-d1-seed160" frozen · 8 notes*, the target re-read (`77 · 54 · 81 · 69 · 79 · 72 · 75 · 88`).
+
+## §366. `1t.3` THE VIBRAPHONES' SWITCH — engine + dial, built and verified; the capture found the re-key alone strikes a stray note, so the breath is CUT at the switch (2026-09-25, Opus, session 15)
+
+**The engine (`score/public/morph.js`) — opt-in, the fourth `voices` door:**
+
+- **`switchAt` on a voice** (0 … 1 of the TRAVEL, `carrier.span`) → `SWITCH[vi]` = that share × travel, in seconds; `null` on
+  every voice without it. In `stateAt`, beside `still`: before the moment the voice's START cents, from it the TARGET's
+  (`targetCents[vi]`) — a STEP, no glide, no attack/release motion. The carrier's `bending` info is false for a switching voice
+  (a step is not a bend: no air cost on the breath before it).
+- **THE CUT — found in the capture, not assumed** (the plan said *"verified in the capture, not assumed"*, and it was right to).
+  Probe (node, TAKES on `Just-c2-seed143` → `Just-e1-seed193`, the vibraphones on the bowed palette, reach 33 c): with the step in
+  `stateAt` ALONE, the adaptive sampling + the quartet's re-key split the straddling breath into THREE and struck a STRAY NOTE
+  between the two bars — seat 0 D6 → B5 at 30 s: `27.022 k86 · 29.630 k85 (0.44 s, bend +100 → −200) · 30.064 k83`; seat 2 C♯6 →
+  C♯5 at 33 s: `30.092 k85 · 32.947 k79 (0.08 s, bend ±600) · 33.022 k73` — the switch late by one sample step (0.06 s) and the
+  middle notes flagged `REKEY,OVERLAP` (OVERLAP is a HARD flag). So for a switching voice the breath that holds the moment is
+  **cut there**: the old bar to `tS − 2 ms`, the new bar from `tS` (a fresh breath, `idx + 1`, no flags) — every sample of each
+  piece on one side of the step. A piece under 0.25 s is not struck (the breath then starts ON the new bar, or ends on the old and
+  the next breath takes the new). After the cut the same probe: `27.022 k86 (2.976) · 30.000 k83` and `30.092 k85 (2.906) ·
+  33.000 k73` — **one note-on on the new key at the switch's own time, per seat, bend 0 throughout, no flag.**
+- **THE SHIELD — the bank:** every stored model (×2, with and without the palette) and actual re-rendered — **0 of 55 changed**;
+  `model_bank --validate` VALID.
+
+**The panel (`morph_panel.js`):**
+
+- **`vibes switch 0…1`**, a row under `release` shown under TAKES only — a panel dial, NOT a param (no `data-path`; `readFields`
+  skips it): it writes `pitch.switchAt` (persisted, and filed with an actual's `pitch`), default **1 = at the arrival**.
+- **`switchTimes(travel)`:** seat 0 at `dial × travel`, seat 2 **3 s after** (`SWITCH_SEAT_GAP_S`, the AI's call); both kept INSIDE
+  the transition — past the end, seat 2 sits ON the arrival and seat 0 3 s before it (dial 1 on 60 s → 57 s · 60 s). One vibraphone
+  alone switches at the dial.
+- **Under TAKES the vibraphones are NOT still:** in `takeVoices`, a vibraphone whose note in B differs from its note in A loses
+  `still` and gains `switchAt` (the seconds ÷ travel); one whose bar is the same in B — or with no `to` — stays still (no pointless
+  re-strike). The row's line: *switch at 30.0 s · 33.0 s — a re-strike on the new bar*.
+- **The flag that matters for his listen:** a switch at or after the vibraphone's LAST note is never heard on the new bar —
+  `switchesUnheard()` reads the render and the line says *⚑ Vib² switches at 60.0 s — after its last note, so it is never heard on
+  its new bar; a release holds the new chord (or an earlier vibes switch)*. **At the default (dial 1, `release` blank) this is what
+  happens to the second vibraphone:** the transition ends as the last player arrives. Every other model: nothing drawn.
+
+**VERIFIED on `score-5401`** (the stubs; 0 POSTs): **THE SHIELD — the panel:** the same nine renders as §365 — params and notes hash
+identical to HEAD's, all nine. **TAKES, `Just-c2-seed143` → `Just-e1-seed193`:** dial 1 → `switchAt` 0.95 · 1, seat 0 `54.066 k86
+(2.932) · 57.000 k83`, seat 2 on k85 to 59.998 and the ⚑ line; the dial set to 0.5 through its input's `change` → `switchAt` 0.5 ·
+0.55, seat 0 `30.000 k83`, seat 2 `33.000 k73`, the row line *switch at 30.0 s · 33.0 s*, `pitch.switchAt` 0.5. **RESTART the server
+before an actual is filed from this build** — Save as ACTUAL renders on the server with the engine it loaded at start (journal §2).
