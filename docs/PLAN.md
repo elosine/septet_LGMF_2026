@@ -9,6 +9,9 @@
 > not yet discussed carries one line: *to be laid out when we discuss it.* The phase-0 IDs
 > below mirror piece #5's on purpose, so its record (`septet_2026/docs/PLAN.md` § 0 and
 > `RUNNING_LOG.md` §1–§63) reads as the precedent item by item.
+>
+> **Standing rule (2c, 2026-09-25 — RUNNING_LOG §340):** every item that draws a NEW notated class names *its edge class* — how it
+> cuts, clamps or stays whole at a page edge, on screen and in print (§ 2c the design line). A class with no entry fails the checker.
 
 ## The piece in one line
 
@@ -2363,7 +2366,7 @@ beating and holds (LG-8) · animated conductions (LG-3). None of those is 1a; 1a
   - **1s.6 — His one test:** reload the tab — page files only, **no restart** (`morph.js` untouched). MORPH → CONVERGE or BLOOM on his take → `min pp · max ff` → Generate → the status names them → Play. Revise on his word.
   - **THE BUILD ORDER:** 1s.1 → 1s.4 in ONE commit with 1s.5 — Fable, at his word; 1s.6 his.
 
-## 2. Notate — `doing` *(2a built 2026-09-25, his eye owed; 2a.6 the clefs next; 2b to be laid out)*
+## 2. Notate — `doing` *(2a built 2026-09-25, the names in; 2c THE PAGE EDGES planned 2026-09-25, to build on Opus; then 2a.6 the clefs; 2b to be laid out)*
 
 *2a the engine adapted to this piece's staves and material · 2b the presentation score (video + print) — #5's shape. Laid out one
 item at a time, each in his hands before the next (his order, 2026-09-25: "really do just one thing at a time").*
@@ -2424,6 +2427,75 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
 - **2b — The presentation score (video + print)** — `todo` — *laid out when 2a is in his hands.* The cover · the performance
   instructions (web + two print pages; the percussion legend, §334) · the cut list · `render_reaper` · the batteries re-pointed at
   this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
+
+- **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — `planned` 2026-09-25 (Fable,
+  session 15; RUNNING_LOG §339 his whole note in the gutter · §340 the design talk, his words verbatim and the four decisions; the top line
+  agreed, the steps written at his word *"we can skip steps"*) — ***why:*** his whole note with its sharp drawn over the clef at 300 s, and
+  #5's print with *"quite a bit of space in right margin"*; the print had D59 and the screen had only the §404 buffer, which fixed a note AT
+  the cut and made a 0.22 s zone before it — and his design for the two surfaces is not one rule but two.
+  **Result when done:** on every surface time begins at the staff's first line (`t0 = leftMargin + gutter`) and ends at its last
+  (`tω = width − rightMargin`); nothing timed is ever drawn in the gutter. ON SCREEN every page sweeps the same x-span, nothing is shown
+  twice, a long graphic is cut at tω and picked up at the next t0 at the same height, a stamp is clamped without moving its go-time
+  indicator, ink may overhang the right margin. IN PRINT the cut is placed by the objects as late as the rules allow — every GC whole, a
+  duration line keeps its head and a minimum stub or goes over whole, beams and tuplets never severed, the rest by a WRITTEN standard.
+  Two checkers prove it on every build; his eye judges the margins and the stub on the proof.
+  - **The design line:** two rule-sets, one engine, one frame. The screen's priority is the performer's constant sweep — t0 and tω at
+    the same x on every page; the print's is the whole object. **Every notated CLASS names its edge behaviour in the registry** —
+    `edge: { screen: 'cut' | 'clamp' | 'atomic', print: 'whole' | 'stub' | 'never-sever' | 'continue' }` — and a class without one
+    fails the checker (the header's standing rule; #4's day-19 bucket, NOTATION_ARCHITECTURE §268, per class at last). **ABSENT = today's
+    behaviour exactly:** with #4's registry and page rules the tuba probe is byte-identical — the new behaviour only where the data asks.
+  - **2c.1 — The margins:** `container.json` `prefatory.marginPx { left, right }` for the frame and `print.marginIn` (the `--margin`
+    default moved into data; the flag overrides) · `coords.js` `makeView` maps `[t0, tω]` onto `[leftMargin + gutterPx, widthPx − rightMargin]`
+    (absent = 0, today's frame) · the label block at `leftMargin + partLabel.xPx` · the app, `export_video`, `export_print` through the one
+    view. **The AI's proposals, his on the proof [call]:** screen **40 · 40 px** — 2.1 % a side: the label and the last note inside a
+    projector's overscan (action-safe is 3.5 % of the width, 67 px, and the gutter already adds 72 on the left), and the right holds a
+    clamped unit's overhang (3.44 ss = 27 px at 7.9) with air; print **12.7 mm all round as now**, made a registry number (A3 engraving
+    margins run 12–20 mm; the right must hold the same overhang at the print's staff size — the exporter asserts it).
+  - **2c.2 — The screen plan:** `Splice.tilePages(ir, S)` beside `planPages` — `[t0_i, tω_i] = [w0 + i·S, w0 + (i+1)·S]`, the last page
+    short with the terminal barline at the material's end as now; `page_rules.screenPlan: 'tile'` selects it (absent = `planPages`, the
+    film's old overlap). The app's video view and `export_video` read it; the film turns the page AT tω; the §404 buffer no longer applies
+    on screen. Ownership on screen: a point item belongs to the page with `t0 ≤ t < tω`, **except a GC impact exactly at tω, which belongs
+    to the page before** (§340: the performer sees the impact before the eye moves) — the class's `boundary: 'before'`. The zoom view
+    steps by its own span, contiguous, unchanged.
+  - **2c.3 — The Matisse cut on screen** (`edge.screen: 'cut'` — GC arcs · duration lines and bricks · curves, the `crosses` set): drawn on
+    every page they cross, CLIPPED to `[x(t0), x(tω)]` by an SVG `clip-path` on the page's timed group — a paper cut, the shape keeps its
+    identity, the remainder on the next page from x(t0) at the same height by construction. Point items are not clipped (2c.4). Nothing
+    in the gutter by construction.
+  - **2c.4 — The clamp on screen** (`edge.screen: 'clamp'` — the note unit: head · accidental · ledgers, later the stem and flag; text
+    marks; stamps): at a page's start, a unit whose ink-left < x(t0) is shifted right by the difference **and its go-time indicator does
+    not move** — (a) a unit WITH a go line (the attack line, the brick's start — every class today: the family device's head sits before
+    its attack) keeps the line at x(t) and the ink lands right of it; (b) a class whose head's left edge IS the go time (none today; the
+    note unit's design, §335, may make one) keeps the head — only what hangs before it moves, and if that cannot be placed the note takes
+    a go line and clamps as (a), the exception, one per note. At the right edge no clamp: overhang into the right margin, ink past the
+    frame a failure (2c.1 sizes the margin). A clamp that lands on a neighbour is FLAGGED, resolved case by case (his word) — an overlay
+    on the note, never a rule. **THE CHECKER, `tools/check_screen_edges.js`:** the film's tiled pages, measured in Chrome as the print's
+    are — nothing timed left of x(t0), nothing right of the frame, every go-time indicator at x(t) to the pixel, the pages tiling the
+    window exactly, every drawn class carrying an `edge` entry; exit 1 on any failure; a build gate.
+  - **2c.5 — The print standards, written first** (`docs/NOTATION_STANDARDS.md` § THE PAGE TURN, from the engraving references — Gould's
+    system-break conventions — one line per class with its `edge.print` value; his read before 2c.6 builds): the GC — WHOLE, never cut,
+    pushed with the cut moving to the top of its descent · the duration line — the head + `durationStubSs` **2** (provisional, §340: *"I
+    have to see it to make a decision precisely"*) or over whole, continued from the next page's staff start without a head · beams and
+    tuplet brackets — never severed (the splicer's stamp-atomic cut, kept) · ties and slurs — broken at the system's end, restarted at the
+    next start · hairpins — broken and continued · trill and 8va lines — continued, the sign restated in parentheses (`reshowAtCut` has the
+    mechanism) · text and tempo — `continuationPrefix` as now · a note ON the cut — the next page (half-open, kept for print).
+  - **2c.6 — The print plan:** `Splice.planPages` re-written on 2c.5: from a page's t0 the cut is the LATEST time ≤ t0 + S at which no
+    class's rule is broken; an object that would break it is pushed whole and the cut moves to its ink-start; **a pushed GC sets the next
+    page's t0 at the top of its descent** (t_impact − GC.pre), so a page's t0 is where its first object's ink begins; a duration line
+    takes the cut only if head + stub fit before it. The reserves retire (`edgeReserveMarginSs`, the print's `musicStartBufferSs`): the
+    window is `[t0, cut]` and the system ends AT the cut, the last object whole by construction; the blank at the right is exactly what was
+    pushed. `minPageSeconds` kept. `check_print_edges.js` re-pointed: every page's ink inside `[x(t0), x(cut)]`, every owned object whole,
+    every object on exactly one page.
+  - **2c.7 — REQUIRED VERIFICATION, then his eye:** (i) THE SHIELD — the eight batteries GREEN; `export_video --ir db1 --probe 100` on
+    HEAD's registry and HEAD's page rules **byte-identical** (no margins, no `edge`, no `screenPlan`: today's behaviour) · (ii)
+    `piece-lgmf` on the new data: the app's video view at 300 s — his whole note on the page before, or clamped right of the staff's start
+    with its go line true; a boundary with a GC found from the plan; `export_video --probe` on both pages of it; `export_print` two facing
+    pages at a pushed GC and at a cut duration line · (iii) **both checkers GREEN over every page** · (iv) the numbers to him: the margins
+    · the stub · how many units clamped, how many objects pushed, the widest blank. His eye: the margins and the 2 ss are judged HERE.
+  - **[call]s, the AI's, his to reverse:** 40 · 40 px · 12.7 mm · the stub 2 ss · a GC impact at tω → the page before · a class with no
+    `edge` fails · print's half-open cut kept · the clamp flags a collision rather than resolving it.
+  - **THE BUILD ORDER:** 2c.1 → 2c.2 → 2c.3 → 2c.4 (with its checker) → 2c.5 (written, his read) → 2c.6 → 2c.7 — Opus, one commit per
+    step, THE SHIELD in each; checkpoint + clear first. Downstream (§340): every later item that draws a new class — the crescendo curves
+    of section 3, the trill and 8va lines, the beating figures, the conduction devices — carries one required line, *its edge class*.
 
 ## 3. Performance score — `todo`
 
