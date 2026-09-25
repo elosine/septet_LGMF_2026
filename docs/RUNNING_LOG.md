@@ -13012,3 +13012,40 @@ The engine's carrier already staggers entries by voice (the striations) and M3 s
 ## §363. `1t` THE MORPH BETWEEN TAKES — the plan written whole at his word, not built (2026-09-25, Fable, session 15)
 
 **His word:** *"good to write whole plan, skip step by step, check in before build ty"* — the top line of §360 confirmed as it stood; phase 3 condensed into one write. **PLAN § `1t`** carries the requirements (§360), 1t.1 the model in the bank · 1t.2 the `to` take, the arrival by player, the flags, the one `duration` box (§361) · 1t.3 the vibraphones' switch, engine + dial · 1t.4 the line, the actual, the required verification · 1t.5 his listen; the AI's calls named as his to reverse; the rebuild's items pointed to MORPH_NOTES §3. **Found writing it:** `1r`'s "opens a semitone away" is keyed on the model TYPE (`takeVoices` 1724, `const arrival = M3 ? …`) — the new model is M3 too, so that branch must move to the CONVERGE key or `TAKES` would open every pair a semitone; written into 1t.2. Journal §2's ►► row and PLANNER's NOW ► re-pointed; the notation's pick demoted to a `his` row until `1t` closes. **NOT BUILT — STOP for his word; then a checkpoint on Opus, a clear, the build on Opus one commit per step.**
+
+## §364. `1t.1` THE MODEL IN THE BANK — built; his three CONVERGE actuals committed with it at his word (2026-09-25, Opus, session 15)
+
+**His words, after the checkpoint's bank-file question:** *"a and build as much as possible independantly"* — (a) = his three
+actuals and the store's index his tab wrote with them go into git together with 1t.1 (his files, his word); and the whole of
+1t.1 … 1t.4 is to run without stopping, one commit per step, THE SHIELD in each, STOP before 1t.5 his listen.
+
+**THE SHIELD, set up first (reused at every step):** a node script (`<scratchpad>/shield.js`) renders every stored model's
+`baseParams` — twice, with the septet palette the way `model_bank --validate` does and without it — and every actual's
+`resolvedParams` through `morph.js`, and hashes the notes. BEFORE: **10 models × 2 + 33 actuals = 53 renders**; 11 of the 33
+actuals already `≠ stored` on HEAD — the known re-derivation drift (the six LGSPECTRAL, LGBLOOM-01 · -03 · -05, journal N4) and
+`ACT-BLOOM-03` · `-04` (filed by the stale-engine server, §181). The shield compares BEFORE to AFTER, so that drift is not the
+build's; what it guards is that nothing MOVES.
+
+**As built:** `bank/morph_models.json` gains a stock model **`TAKES` — *"TAKE → TAKE"*** (spliced as text, so his index change
+beside it stays byte for byte; `rev` 135 → 136 so his open panel picks it up at its next poll):
+
+- `modelType 'M3'`, **no `target.mid` and no `dwell`** — the engine's plain `start → target` interpolation, two stations
+  (`morph.js` M3, the `else` branch).
+- **The base names NO voices** — `source: { kind: 'pitches', midi: [50, 52, 55, 57, 60, 62] }` (the stock CONVERGE's set) ·
+  `target: { midi: [48, 53, 56, 58, 59, 64] }` — so `namesOwnVoices('TAKES')` is false and the panel will read the pulldown's
+  take(s). Without a take the model plays its own set as a plain glide (47 notes, no warning, no conflict).
+- `carrier` span **60** · `duration` null · `release` null · segLen 12 · segVar 0.3 · `staggered` · PLAN 1j's breath dials ON
+  (`ofMax 0.65 · jitterS 1.3 · outlier {0.1, 0.4, 2}`) · `dials` spread 0.15 · bias 0 · depth 1.
+- `dyn` = PLAN 1s's standard, **min pp · max ff**: base = (pp + ff) / 2 = **0.5**, amount = (ff − pp) / 2 = **0.357142…**, read
+  from `DynTable.levelOfName` (pp 1/7 · ff 6/7), shape `swell`.
+- `recipes: []` (none at first, as planned) · `actuals: []` · a character line in his words (§350) and a notes line naming the
+  panel's two doors 1t.2 will use.
+
+**Checked:** `node tools/model_bank.js --validate` → **VALID**, exit 0, 11 models, 33 actuals, no warning on TAKES (the known
+ones only: `palette` · `pairs` · `pitch` unrecognised in a provenance, the drift) · **THE SHIELD: 0 of 53 changed**, 2 added
+(TAKES with and without the palette). `TAKE_MODELS` already holds `'M3'` — nothing in the panel changes in this step; until 1t.2
+lands, TAKES + a take on the pulldown would read as CONVERGE's arrival (the branch 1t.2 moves).
+
+**Committed with it, at his word (a):** `bank/actuals/ACT-CONVERGE-01.json` (`lgmf-s03-convergeA`, 114.28 s) · `-02`
+(`lgmf-s03-converge02`, 137.85 s) · `-03` (`lgmf sec3 converge05`, 137.83 s) — all three on the stock CONVERGE, filed by his tab
+on 2026-09-25 — and the index lines that list them (`CONVERGE.actuals`). His other working files stay his and uncommitted.
