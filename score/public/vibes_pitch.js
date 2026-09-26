@@ -11,6 +11,12 @@
 //        cannot bend), the two SEATS as the lane's two chains by overlap, and what the OTHER players hold at the breath's start — then
 //        one of three rules: `neighbours` (the partial one above and one below each partial the others hold) · `within a tone` (every
 //        member inside a whole tone of another player's pitch) · `any` (the whole series in range).
+//   1u.2 THE DRAW — the breaths of both seats walked in time: a seat holds its note until a change; the anchors (the first breath of
+//        each seat, the first of a new take) as dealt; `change` the chance of a new pitch at a breath; `random` · `exhaust` · `walk` ·
+//        `shadow` on one seeded stream; the other seat kept clear over the whole breath. The write through the strip's own `remember` ·
+//        `writeNote` · `stamp` (+ `hq.seat`), one undo — so `back` and CTRL+Z are the way back.
+//   1u.3 THE ROW — `vibes ▾` on the strip (shown when vibraphone notes are selected) opens a second line: pool · change · draw · seed ·
+//        the tolerance shown · go; the status on the strip; the dials remembered in the browser.
 //
 // The CORE below is pure and loads in node (`tools/vibes_pitch_check.js`); the browser part is a mixin on `HarmonySel`, as
 // `texture_cols.js` is on the strikes drawer. No engine file is touched: `morph.js` · `sequence.js` never see this.
@@ -271,8 +277,17 @@ const D_ = () => root.StrikeDrawer || null;
 const META = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : 8);
 const TR = () => (typeof TRACKS !== 'undefined' ? TRACKS : (root.TRACKS || []));
 const VIB_KEY = 'bowed_vibraphone', PERC_KEY = 'percussion';
+const BTN = 'font:inherit;padding:1px 7px;border:1px solid #b9b4a6;border-radius:3px;background:#fbfaf6;color:#333;cursor:pointer';   // the strip's own
+const SEL = 'font:inherit;padding:0 2px;border:1px solid #b9b4a6;border-radius:3px;background:#fff;color:#333';
+const NNU = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+const pnU = m => NNU[((Math.round(+m) % 12) + 12) % 12] + (Math.floor(Math.round(+m) / 12) - 1);
+const LS = 'lgmf.vibesPitch.v1', PREF0 = { open: false, pool: 'any', change: 'always', draw: 'exhaust' };
+const loadPrefs = () => { try { const p = JSON.parse(localStorage.getItem(LS) || '{}') || {}; const o = Object.assign({}, PREF0, p);
+    if (!Core.RULES.includes(o.pool)) o.pool = PREF0.pool; if (Core.CHANGE[o.change] == null) o.change = PREF0.change; if (!Core.DRAWS.includes(o.draw)) o.draw = PREF0.draw; return o; } catch (e) { return Object.assign({}, PREF0); } };
+const savePrefs = p => { try { localStorage.setItem(LS, JSON.stringify(p)); } catch (e) {} };
 
 Object.assign(H, {
+    vibRow: null, vibPrefs: null, vibSeed: 0, vibSeeds: [],   // 1u.3: the row, its dials, the seed in force and the last five
     vibLane() { return TR().findIndex(t => t && t.instKey === VIB_KEY && t.seatOf == null); },
     vibOthers() { const T = TR(), v = this.vibLane(), s = new Set(); T.forEach((t, i) => { if (t && t.seatOf == null && i !== v && t.instKey !== PERC_KEY && i < META()) s.add(i); }); return s; },
     vibNotes() { const L = this.vibLane(); return L < 0 ? [] : this.pitched().filter(o => this.isNote(o) && o.layer === L); },
@@ -336,5 +351,110 @@ Object.assign(H, {
         this._vibLast = { P, R, written, opts };
         return { P, R, written };
     },
+
+    // ------------------------------------------------------------ 1u.3 THE ROW — `vibes ▾` on the strip opens a second line under it
+    // pool · change · draw · seed (ENTER = go; the last five as chips) · the tolerance shown · go. The dials remembered in the browser.
+    // A fixed line placed under the strip (its own DOM, so the strip's first line is untouched but for the one toggle before its status).
+    vibEnsure() {
+        const el = this.ensure(); if (this.vibRow) return this.vibRow;
+        this.vibPrefs = loadPrefs();
+        const tg = document.createElement('button'); tg.type = 'button'; tg.id = 'hqVibes'; tg.style.cssText = BTN; tg.textContent = 'vibes ▾';
+        tg.title = 'PLAN 1u: the two vibraphones change pitch at their breaths — the bowing untouched — from their take\'s own harmonic series. Opens a line of dials under the strip; back and CTRL+Z undo it';
+        tg.addEventListener('click', () => { this.vibPrefs.open = !this.vibPrefs.open; savePrefs(this.vibPrefs); this.vibRefresh(); });
+        el.insertBefore(tg, el.querySelector('#hqStatus'));
+        const row = document.createElement('div'); row.id = 'hqVibRow';
+        row.style.cssText = 'position:fixed;z-index:60;display:none;align-items:center;gap:8px;padding:3px 8px;border:1px solid #cfcabc;border-radius:4px;' +
+            'background:rgba(247,245,239,0.96);color:#333;font:11px/1.5 system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.15);user-select:none;white-space:nowrap';
+        const sel = (id, list, names, tip) => '<select id="' + id + '" style="' + SEL + '" title="' + tip + '">' + list.map(k => '<option value="' + k + '">' + (names ? names[k] : k) + '</option>').join('') + '</select>';
+        row.innerHTML = '<span style="color:#6a6a60">vibes ·</span><span id="hvTake" style="color:#555"></span>' +
+            '<label style="color:#6a6a60">pool ' + sel('hvPool', Core.RULES, Core.RULE_NAMES, 'which partials of the take may come: neighbours = one above or one below a partial another player holds at that breath · within a tone = within 200 ¢ of another player\'s pitch · any = the whole series in the vibraphone\'s range — never the pitch the other vibraphone holds') + '</label>' +
+            '<label style="color:#6a6a60">change ' + sel('hvChange', Object.keys(Core.CHANGE), null, 'the chance of a new pitch at each breath — never · rarely (1 in 5) · half · often (4 in 5) · always. Between changes a vibraphone holds its note; the first breath of each (and the first of a new take) stays as the take dealt it') + '</label>' +
+            '<label style="color:#6a6a60">draw ' + sel('hvDraw', Core.DRAWS, null, 'how the new pitch is chosen — random · exhaust (none again until all have sounded) · walk (one step up or down the pool) · shadow (the pitch nearest another player\'s)') + '</label>' +
+            '<label style="color:#6a6a60">seed <input id="hvSeed" type="number" min="1" step="1" style="width:52px;' + SEL + '" title="the seed of the next go — ENTER goes"></label>' +
+            '<span id="hvSeeds" style="display:inline-flex;gap:3px" title="the last five seeds — a chip goes again with that seed: the same result on the same notes"></span>' +
+            '<span id="hvTol" style="color:#6a6a60"></span>' +
+            '<button type="button" id="hvGo" style="' + BTN + ';font-weight:600" title="walk the selected vibraphone breaths in time and change their pitches by the dials — one undo">go</button>';
+        ['mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'keydown'].forEach(ev => row.addEventListener(ev, e => e.stopPropagation()));
+        ['hvPool', 'hvChange', 'hvDraw'].forEach((id, i) => row.querySelector('#' + id).addEventListener('change', e => { this.vibPrefs[['pool', 'change', 'draw'][i]] = e.target.value; savePrefs(this.vibPrefs); }));
+        row.querySelector('#hvSeed').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); this.vibGoNext(); } });
+        row.querySelector('#hvGo').addEventListener('click', () => { this.vibGoNext(); });
+        document.body.appendChild(row); this.vibRow = row;
+        return row;
+    },
+    vibRefresh() {
+        const el = this.el; if (!el) return;
+        const row = this.vibEnsure(), tg = el.querySelector('#hqVibes');
+        const vn = el.style.display !== 'none' ? this.vibNotes() : [];
+        tg.style.display = vn.length ? '' : 'none';
+        tg.textContent = 'vibes ' + (this.vibPrefs.open ? '▴' : '▾');
+        if (!vn.length || !this.vibPrefs.open) { row.style.display = 'none'; return; }
+        const t = this.vibTakeText(vn), tk = row.querySelector('#hvTake'); tk.textContent = t.text; tk.title = t.title; tk.style.color = t.one || t.n ? '#555' : '#a33';
+        [['hvPool', 'pool'], ['hvChange', 'change'], ['hvDraw', 'draw']].forEach(([id, k]) => { const s = row.querySelector('#' + id); if (document.activeElement !== s) s.value = this.vibPrefs[k]; });
+        const sb = row.querySelector('#hvSeed'); if (document.activeElement !== sb) sb.value = this.vibSeed || '';
+        const D = D_(), tol = D && D.specTol ? D.specTol() : 5, tl = row.querySelector('#hvTol');
+        tl.textContent = '±' + tol + '¢'; tl.title = 'the tolerance: a vibraphone takes only the partials within ±' + tol + ' ¢ of a key (the strikes drawer\'s rule for a player who cannot bend) — shown, not a dial';
+        const sc = row.querySelector('#hvSeeds'); sc.innerHTML = '';
+        this.vibSeeds.slice(0, 5).forEach(s => { const b = document.createElement('button'); b.type = 'button'; b.textContent = s; b.className = 'hvSeedChip';
+            b.title = 'seed ' + s + ' again — the same result on the same notes'; b.style.cssText = BTN + ';padding:0 4px' + (s === this.vibSeed ? ';background:#e8dcc0;font-weight:600' : ''); b.addEventListener('click', () => { this.vibGoSeed(s); }); sc.appendChild(b); });
+        row.style.display = 'flex'; this.vibPlace();
+    },
+    vibPlace() {
+        const row = this.vibRow; if (!row || !this.el) return;
+        const r = this.el.getBoundingClientRect();
+        row.style.top = Math.round(r.bottom + 3) + 'px'; row.style.right = this.el.style.right || '8px';
+    },
+    vibTakeText(vn) {   // the take(s) the selected breaths come from — an actual not yet read is fetched once, then the line repaints
+        const C = C_(), acts = this._vibActuals || {}, tried = this._vibTried = this._vibTried || new Set();
+        const tctx = { info: o => this.info(o), sequences: (C.databases && C.databases.sequences) || [], objects: C.objects, meta: META(), actuals: acts };
+        const names = []; let none = 0, fetch = false;
+        vn.forEach(o => { const t = Core.takeOf(o, tctx); if (t && t.take) { [t.take, t.to].forEach(n => { if (n && !names.includes(n)) names.push(n); }); return; }
+            none++; const e = Core.actualOf(o, C.objects); if (e && !acts[e] && !tried.has(e)) { tried.add(e); fetch = true; } });
+        if (fetch) this.vibActuals(vn).then(() => { try { this.vibRefresh(); } catch (e) {} });
+        const n = names.length, one = n === 1 ? names[0] : '';
+        const text = n ? ((one ? 'take "' + one + '"' : n + ' takes') + (none ? ' on ' + (vn.length - none) + ' of ' + vn.length : '')) : 'no take on these notes — pick one with take ▾';
+        return { text, title: names.join('\n'), one, n };
+    },
+    vibGoNext() {   // the box's seed when he typed another, else the next after the seed in force (the shuffle's idiom)
+        const sb = this.vibRow && this.vibRow.querySelector('#hvSeed'), typed = sb ? Math.round(+sb.value) : 0;
+        return this.vibGoSeed((typed > 0 && typed !== this.vibSeed) ? typed : (this.vibSeed || 0) + 1);
+    },
+    async vibGoSeed(seed) {
+        if (this._vibBusy) return null; this._vibBusy = true;
+        const pr = this.vibPrefs || loadPrefs();
+        let out = null;
+        try {
+            this.say('vibes: reading the takes …', false);
+            out = await this.vibGo({ pool: pr.pool, change: pr.change, draw: pr.draw, seed });
+            if (out) { this.vibSeed = seed; this.vibSeeds = [seed].concat(this.vibSeeds.filter(s => s !== seed)).slice(0, 5); this.say(this.vibStatus(out, pr, seed), false); }
+        } catch (e) { console.warn('[vibes_pitch] go:', e); this.say('vibes: ' + (e && e.message || e), true); }
+        finally { this._vibBusy = false; this.refresh(); }
+        return out;
+    },
+    vibStatus(out, pr, seed) {   // `vibes · take "…" · pool neighbours (4) · change half · draw exhaust · seed 17 → 12 of 19 breaths changed · seat 1: B5 → C6 → B5 … · …`
+        const { P, R, written } = out;
+        const names = []; R.breaths.forEach(b => { if (!names.includes(b.take)) names.push(b.take); });
+        const post = R.breaths.filter(b => !R.res.get(b).anchor).map(b => b.pool.length);
+        const lo = post.length ? Math.min.apply(null, post) : 0, hi = post.length ? Math.max.apply(null, post) : 0;
+        const parts = ['vibes · ' + (names.length === 1 ? 'take "' + names[0] + '"' : names.length + ' takes'), 'pool ' + Core.RULE_NAMES[pr.pool] + ' (' + (lo === hi ? lo : lo + '…' + hi) + ')',
+            'change ' + pr.change, 'draw ' + pr.draw, 'seed ' + seed + ' → ' + R.changed + ' of ' + R.breaths.length + ' breaths changed'];
+        [0, 2].forEach(s => {
+            const q = []; R.breaths.filter(b => b.seat === s).forEach(b => { const m = R.res.get(b).midi; if (q[q.length - 1] !== m) q.push(m); });
+            if (q.length) parts.push('seat ' + (s ? 2 : 1) + ': ' + q.slice(0, 6).map(pnU).join(' → ') + (q.length > 6 ? ' …' : ''));
+        });
+        if (R.empty) parts.push(R.empty + (R.empty === 1 ? ' empty pool' : ' empty pools'));
+        if (R.forced) parts.push(R.forced + ' made to change off the other seat\'s note');
+        if (R.clash) parts.push(R.clash + ' still on the other seat\'s note — nothing else in the pool');
+        if (P.crowded) parts.push(P.crowded + ' crowded (a third voice on the lane)');
+        if (P.noTake.length) parts.push(P.noTake.length + ' without a take, left as they are');
+        if (P.missing.length) parts.push('not loaded: ' + P.missing.join(', '));
+        if (!written) parts.push('nothing to write — every breath already holds it');
+        return parts.join(' · ');
+    },
 });
+
+// the strip's refresh and place carry the row with them
+const _refresh = H.refresh;
+H.refresh = function () { const r = _refresh.apply(this, arguments); try { this.vibRefresh(); } catch (e) { console.warn('[vibes_pitch] refresh:', e); } return r; };
+const _place = H.place;
+H.place = function () { const r = _place.apply(this, arguments); try { if (this.vibRow && this.vibRow.style.display !== 'none') this.vibPlace(); } catch (e) {} return r; };
 }(typeof self !== 'undefined' ? self : this));

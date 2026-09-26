@@ -14099,3 +14099,35 @@ screenshot's chord:
 **THE SHIELD** — by construction at this step: `composer.html` does not load `vibes_pitch.js` until 1u.3, and no file the page loads
 changed. The captured shield (§317 · §319 on his `pointilistic01a`) runs at 1u.3, when the page first loads the new code, and again at
 1u.5 (a).
+
+## §392. `1u.3` THE ROW — built: `vibes ▾` on the harmony strip, a second line of dials, the status; the page loads the file; THE SHIELD by capture (2026-09-26, Opus, session 16)
+
+**What was built** — in `score/public/vibes_pitch.js` (the strip's side) and ONE script tag in `composer.html`, after `harmony_sel.js`:
+- **`vibes ▾`** — a button on the strip's first line, before its status, shown only when the selection holds notes on the vibraphone
+  lane (TRACKS' `bowed_vibraphone`). It opens and closes a SECOND LINE placed under the strip: its own fixed element, so the strip's
+  first line is untouched but for the toggle (`H.refresh` and `H.place` wrapped to carry it).
+- **The line:** `vibes ·` the take (`take "…"` · `N takes` · `on k of n` · in red `no take on these notes — pick one with take ▾`; a
+  placed actual not yet read is fetched once and the line repaints) · `pool [neighbours | within a tone | any]` · `change [never | rarely
+  | half | often | always]` · `draw [random | exhaust | walk | shadow]` · `seed` (ENTER goes) · the last five seeds as chips · `±5¢`
+  (read from the drawer's `specTol`, the title saying it is shown, not a dial) · `go`. Each control's title says what it does in
+  words. The dials and the open state remembered in the browser (`lgmf.vibesPitch.v1`; defaults `any · always · exhaust`, his 1u.6
+  order).
+- **`go`** = the seed typed when it differs, else the next after the seed in force (the shuffle's idiom); a chip = that seed again.
+- **The status** on the strip and the composer's status line: `vibes · take "…" · pool neighbours (4) · change half · draw exhaust ·
+  seed 17 → 12 of 19 breaths changed · seat 1: B5 → C6 → B5 … · seat 2: C♯5 → F♯5 …` — the pool's size over the breaths after the
+  anchors (`2…5` when it moves) · then only what happened: empty pools · made to change · still on the other seat's note · crowded ·
+  without a take · a take not loaded · *nothing to write*.
+
+**THE SHIELD — verified by capture on `score-5401`** (STILL BINDING: the stubs in the navigation batch — fetch non-GET, sendBeacon,
+confirm, autosave, rAF a 16 ms timer, all eleven `LG` ports logging; autosave stubbed again after `openScore`; never Save). His
+`pointilistic01a` opened in memory, 408 objects; the four TAKE notes of §319 selected (they start at 15.73 s — the probe at 16.0 s: EH ·
+Tpt · Hn · Vc, `plain`, `recVel` 55 · 51 · 45 · 50); `apply('Just-b1-seed208')` → `shuffle(1)` → `back`, the score's own playback
+captured from 15.4 s for 0.9 s after each. **BEFORE** = the page without the script tag (`git stash push -- composer.html`, a fresh
+load); **AFTER** = with it, a fresh load. **All twelve hashes identical** — the whole score and the four notes at the start, after the
+take, after the shuffle, after `back`; the MIDI at each. The take: `lgenghorn 145,78,55 · lgtrumpetb 149,77,51 · lgcello 146,79,50 ·
+lghornb 147,75,45` (§319's numbers: the horn on its `b` port, ch 4, note 75, velocity 45); `back` gives the start again, objects and
+MIDI byte for byte. 0 POSTs. The toggle exists and stays hidden on a selection without the vibraphone.
+- *Learned:* the first BEFORE run was the page's THIRD capture and its after-`back` MIDI differed from its start; on a fresh load it
+  is identical — the transport's state carries between captures in one page, so a shield compares fresh load with fresh load.
+
+**Not yet seen working in the page** — the row's own `go`: that is 1u.5 (c) … (f), on a copy of one of his passages.
