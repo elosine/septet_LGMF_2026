@@ -49,9 +49,20 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 16 · IN PROGRESS (2026-09-26, Fable planned, Opus built) — `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — BUILT END TO END, 1u.1 … 1u.5 (PLAN § `1u`; RUNNING_LOG §388 … §394; LG-114); **`1u.6` IS HIS — a reload only.** The cold-start block is **SESSION 16 · CHECKPOINT #2** under *Open at session end* below — READ IT FIRST. Session 15's checkpoint #7 (2d.7 · the page-start call) stands below under *Open at session end*. **Working title: _Recombination_ (D32).**
+### SESSION 17 OPENS ON THIS — `/session-start`; nothing is being built (session 16 closed 2026-09-26, Opus)
 
-### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, HIS PIVOT TO THE MORPH (`1t`), THEN BACK TO THE NOTATION: THE EH'S SEQUENCE (`2d`). The cold-start block is **SESSION 15 · CHECKPOINT #7** under *Open at session end* below — READ IT FIRST (`2d` BUILT 2d.1 … 2d.6; his call on the page-start clash, then 2d.7 his eye; `1t.5` in his hands — he filed `ACT-TAKES-01`). **Working title: _Recombination_ (D32).**
+- **The piece:** _Recombination_ (D32). He composes section 3 and has named `scores/piece-Recombination-Draft01-done.json` (new at this
+  close; its working copy held edits the file did not at 22:15 — **his to Save**). Every score is his, untracked.
+- **Session 16** (Fable planned + fixed from his tests, Opus built + wrapped) — `1u` THE VIBRAPHONES' PITCHES ON THE STRIP (D38, LG-114):
+  planned (§388 · §389), built 1u.1 … 1u.5 (§390 … §394), then **his `1u.6` in use, and four fixes from it** (§395 … §401): a morph the
+  panel's own Insert placed named no take (the take now on the marker; those placed before matched to their saved actual by the KEYS of
+  the other players, the match written onto the marker) · the first breath of each seat now draws · the row lets go of the keyboard
+  focus (SPACE after `go` re-clicked it) · `neighbours` on a morph is mostly empty by the rule (the others mid-glide) — `within a tone` ·
+  `any` there. His ear on the last chord (§403): a linear fader fade is gone ≈ 3 s before the shapes end — **his word: "leave"** (§404).
+- **Nothing is queued.** His moves: `1u.6` (in use, not closed by his word) · the page-start call + `2d.7` · `1t.5` · the older `his` rows.
+- **`Resume reads:`** nothing beyond §2 for the `/session-start`. On `1u` feedback: RUNNING_LOG §395 … §401, then
+  `score/public/vibes_pitch.js` (core `takeOf` · `matchScore` · `bestActual` · `draw`; strip `vibActuals` · `vibGo` · `vibTakeText`).
+  STILL BINDING before any verification.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -102,33 +113,26 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   `1q` a take's harmony onto a selection in the score (the strip · the marquee · the stack · the take named · the shuffle · the dyn box) · the
   volume fix (DYNAMICS_LAW Rule 5). He uses `1o` already and composes in `pointilistic01a`. D27 … D31. RUNNING_LOG §240 … §321.
 
-### SESSION 14 OPENS ON THIS — HIS TESTS (2026-09-24, session 13's close)
+- **S14 · 2026-09-24/25 (Fable builds, Opus wraps)** — **THE MORPH READS THE TAKE AND THE WRITTEN DYNAMICS:** `1r` CONVERGE on a take
+  (the take is the arrival; each player opens a semitone away from their partner) · `1s` `min` · `max` in written dynamics in place of
+  `dyn amount`. D33. RUNNING_LOG §322 … §329.
 
-*Run `/session-start`. Nothing is being built. Everything below is in his tab as page files — RELOAD, no restart.*
+- **S15 · 2026-09-25 (Fable plans, Opus builds)** — **THE NOTATION LAYER OPENED, AND THE MORPH BETWEEN TAKES.** `2a` the staves
+  (`piece-lgmf` the main notation file · the percussion's seven-line staff · the presentation score in C) · `2c` the page edges (his two
+  rule-sets) · `1t` take A → take B · `2d` the english horn's sequence notation prototype (`lgmf-eh-proto`; the just marks decided) · the
+  working title _Recombination_. D32 · D34 … D37. RUNNING_LOG §330 … §387.
 
-- **His last words, after the last `/postclear`:** *"can you check and make sure the full percussion is available in the menu, strikes may
-  be the most up to date; and then recording in the composer score can I 'overdub' in percussion?"* — answered from the code (RUNNING_LOG
-  §321): the menu holds all fourteen instruments, 32 voices, ONE list for the composer and the strikes drawer; overdub works by construction,
-  recording only ADDS notes. **Not yet tried by him.**
-- **His tests, in this order** (the ►► and `his` rows of the table below): `1q.8`, the level first · the percussion overdub · `1q.4`'s real
-  CTRL+drag · `1p` · `1n.6` · `1o.6` · `1m.4`.
-- **Then:** revise on his word — `1q` on Fable · `1n` · `1o` · `1p` on Opus, unless his ear questions the one scale itself (Fable).
-  **THE SHIELD (D28) is a required verification of any revision of `1m` · `1n` · `1o` · `1p`.**
-- **`Resume reads:`** only for his feedback — the RUNNING_LOG § of the step he faults (the table in *Open at session end* below maps each
-  tool to its §, its PLAN item and its code) · anything on the LEVEL: `docs/DYNAMICS_LAW.md` §3 FIRST · STILL BINDING before any
-  verification. Code only when a fault names it.
+- **S16 · 2026-09-26 (Fable plans + fixes, Opus builds + wraps)** — **`1u` THE VIBRAPHONES' PITCHES ON THE STRIP**, built and in his
+  hands; four fixes from his own tests; the last chord's fade read and left. D38. RUNNING_LOG §388 … §404.
 
-**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. Session 13's ✓ rows were cut at its close —
-whole in git, see the close block below.)*
+**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. The ✓ rows of sessions 13 … 16 were cut at
+the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **`1u.6` HIS ONE TEST — RELOAD the tab AGAIN (page files only, NO restart).** **His second try (RUNNING_LOG §396 · §397): *no change* under `neighbours` on the 576 s morph = the pool empty there (the others mid-glide; `within a tone` · `any` change 8 of 10 — nothing broken); and *"the first pair selected does not change"* → the first breath of each seat is NO LONGER an anchor (one condition in `Core.draw`; a breath of another take still is, his to reverse; `vibes_pitch_check` 61; §397).** **His first try found a gap, FIXED 2026-09-26 on Fable at his word "b" (RUNNING_LOG §395; PLAN 1u.6 (b); `vibes_pitch_check` 61):** the row read *no take* on his section-3 morph — a morph the panel's own [Insert] placed carried its take nowhere (only the actuals list's Insert did). Now Insert writes the take on the marker (`properties.pitch`), and a morph placed before is matched to its saved actual BY CONTENT (his two → `ACT-TAKES-02` · `-03`, 62 of 62 breaths; verified in the page). The test as written: a sequence passage → CTRL+drag over the vibraphone lane → `vibes ▾` → `any · always · exhaust` → `go` → play → `back` → `neighbours · half · walk` · a new seed → keep one; then the sequence drawer: a box's take from its menu → SPACE. BUILT 2026-09-26 on Opus, 1u.1 … 1u.5, one commit each (RUNNING_LOG §390 … §394; `f5bb5b9` · `fb779c2` · `a1b0e3d` · `ae1ee5d` · `dedfc63`; `vibes_pitch_check` 50; THE SHIELD 13 / 13 by content). The AI's readings (§391: a seat holds until a change · a new take's first breath is an anchor · the other seat clear over the whole breath) his to reverse. *(The build's row, done:)* **BUILD `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — PLAN § `1u`, 1u.1 → 1u.5 in order, one commit per step, pushed, THE SHIELD in each (the §317 · §319 captures byte-identical, the batteries green); 1u.6 his — a RELOAD only.** PLANNED IN FULL 2026-09-26 (Fable, session 16, at his word *"Go ahead and write the whole plan. No need for steps."*; RUNNING_LOG §388 the talk · §389 the item; LG-114): the two bowed vibraphones in a placed sequence or morph change pitch at their breaths, the bowing untouched — ON THE NOTES (`1q`'s way), a `vibes ▾` row on the harmony strip: `pool` neighbours · within a tone · any (the take's series, in range, under `mayTake`'s ±5 ¢, minus the other seat) · `change` never … always · `draw` random · exhaust · walk · shadow · a seed · `go`; get back = `back` + CTRL+Z; the two seats one pool, kept apart; the first breath of each seat kept [call]; the take resolved from `hq` · the sequence's recipe · the morph's actual · the fragment · the pick. **1u.4 fixes the drawer's SPACE fault** (the take menu on `document.body` deactivates the drawer — one line at `sequence_ui.js` 578). New file `score/public/vibes_pitch.js` + `tools/vibes_pitch_check.js`; no engine file touched. He opened this at the `/postclear`; the notation's 2d.7 and the page-start call (the row below) wait | his ear · then Fable (a reading) / Opus (a fault) | — |
+| **►►** | **`1u.6` HIS — IN USE** (not closed by his word). Built 2026-09-26 (1u.1 … 1u.5, §390 … §394); four fixes from his tests, each verified in the page on his own score (§395 … §401; `0d36216` · `240a0c0` · `268fe04` · `b3a23dd`; `vibes_pitch_check` 50 → **65**): the take of a morph the panel's Insert placed (on the marker; those placed before matched by the KEYS of the other players to a saved actual, the match written onto the marker) · the first breath of each seat draws · the row blurs its buttons · `neighbours` on a morph mostly empty (by the rule — `within a tone` · `any` there). **Offered, not taken up:** the strip's own buttons (`shuffle` · `back` · `take ▾` · `dyn ▾`) blurred the same way (a `shuffle` then SPACE re-shuffles) · a status that leads with WHY when nothing changed · `neighbours` in a morph read from the others' "to" notes (§396 (c), a design talk first). **The AI's calls, his to reverse:** a seat holds its note until a change · a breath of another take kept as dealt · the other seat clear over the whole breath · the match written onto his marker (§401) | his ear · then Fable (a reading) / Opus (a fault) | — |
 | **►►** | **`2d.7` HIS EYE — `2d` IS BUILT, 2d.1 … 2d.6** (2026-09-25, Opus, at his word *"go, build through as much as possible independently"*; RUNNING_LOG §382 … §387; `4c471c4` · `8db3a7e` · `4e784fc` · `ba587fc` · `c239311` · the 2d.6 commit; `node tools/sequence_notation_check.js` 58 / 58; the shield byte-identical against `6d6866c`). **FIRST HIS CALL — THE PAGE-START CLASH** (PLAN § `2d`, the FOUND line): the block at 0 s has no room left of x(0) — the screen clamps it right of its go line, paper draws it into the clef gutter (`check_print_edges --ir lgmf-eh-proto` fails page 1): (a) a lead-in [recommended] · (b) the clamp on both · (c) as they are. **Then his eye, no restart:** the notation app → the picker → `lgmf-eh-proto` → the video view (the working page, the EH written in F: D♯6) → `0` · `20` (the curve, the follower, the pie) · `28.7` (the new pitch) · `z`. The presentation score (in C) is the exporter's. *(The build's row, done:)* **BUILD `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE — PLAN § `2d`, 2d.1 → 2d.6 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2d.6 for his eye (2d.7).** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §368 … §380; LG-111 · LG-112; `c08cf37`): a page of its own `lgmf-eh-proto`, the EH's 0 … 36 s, ONE OF EACH THING — the block (G♯5 ¾♯ · `+41` over `26°/C1` · "senza vib." · `pp → mp`) · the level curve on the FIXED SCALE (niente … fff in eighths) + the follower · the pie counting each breath down · a same-pitch breath (13.7 s, parenthesised cue head) · a new-pitch breath (28.7 s, G5 `+2` · `12°/C2`) · `(mp)` 25.0 · `(pp)` 30.9. The pitch marks decided (`docs/research/just_partials_notation.md` §1a). **His pick on the notation is made: (b) the specific notation, begun on the EH** | his eye · then Fable (a look) / Opus (a fault) | — |
 | **►►** | **`1t.5` HIS LISTEN — RESTART the server (`morph.js` changed) and reload the tab.** MORPH → `TAKES` → `from` a take · `to ▾` a take → `duration` 60 → Generate → the line → Play → the far voices' seams · the vibraphones at the default (1: the first 3 s before the arrival, the second ON it — never heard on its new bar unless `release` is set; the line says so) then at 0.5 → a `release` (8) — the fade on B → Insert after a sequence ending `one by one`. BUILT 2026-09-25 on Opus, 1t.1 … 1t.4 (RUNNING_LOG §364 … §367; `a7ae62c` · `dc7c76c` · `312d88f` · 1t.4). Found: the switch needed a CUT (§366); the release returned every player to A — `carrier.releaseHolds` on TAKES (§367); the red "hard" count is the re-key seams (§367, NITS). *(The build's row, done:)* **BUILD `1t` THE MORPH BETWEEN TAKES — PLAN § `1t`, 1t.1 → 1t.4, one commit per step, THE SHIELD in each; STOP before 1t.1 for his word.** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §350 … §363; LG-106 … LG-110): take A → take B by player, one duration, the scatter, the re-key, the vibraphones' switch dial, the joins by hand. He pivoted here from the notation at his word (*"I want to work on the morph drawer"*); the notation's pick (the row below) waits | Opus | yes — checkpoint first |
-| ✓ | **HIS PICK on the notation — MADE 2026-09-25: (b) THE SPECIFIC NOTATION, begun on the english horn's section-1 sequence (`2d`, the ►► row above).** *(Was: (a) `2a.6` the clefs · (b) the specific notation — the N-2a / N-2b rows; `2a.6` still waits.)* | — | — |
-| ✓ | **`2c` THE PAGE EDGES — BUILT END TO END** (2026-09-25, Opus; RUNNING_LOG §342 … §349; `67a38fd` · `7562f0e` · `d3e23d6` · `d7c9694` · `8985026` · `2205e46` + 2c.7): the margins 40 · 40 px / 12.7 mm · the screen tiles, the paper cut, the clamp (`check_screen_edges.js`) · the print cut placed by the objects (`printPlan: 'objects'`, `check_print_edges.js` re-pointed; `piece-lgmf` 55 pages, the widest blank 0.12 s) · the go-line switch `clampGoLine` 'flag' · THE SHIELD byte-identical at every step. **His eye DEFERRED at his word to the specific notation (§347):** the margins · the 2 ss stub · the switch · NOTATION_STANDARDS §5's calls — each one number or word in the registry | — | — |
-| ✓ | **`2a.5` the names** — no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`, `TemBwl` 4.6 px clear of the brace (§339, `1dd46bf`) | — | — |
 | his | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). **IN PROGRESS — the names decided and in (§339: no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`; `TemBwl` 4.6 px clear of the brace, the gutter 72 untouched; #5's three gutter fixes carried, the print-edge checker not yet run here — 2b); his a/b/c on the E.H. sharp over the clef at 300 s pending.** Revise on his word — a look question on Fable, a fault on Opus | his eye | — |
 | N-2a | **`2a.6` the clefs by register** — a TENOR clef in the engine (the C clef on line 4; the engine draws treble · alto · bass) and an automatic clef per stretch: Bsn bass · tenor, Vc and Db bass · tenor · treble (§335's numbers; `ev-wc-3489`, the bass's A5, clamps at 15ma today). One line in PLAN § `2a` — lay out its sub-steps (thresholds · where a change may fall · the clef glyph at a change) and THE SHIELD before building. Re-extract `piece-lgmf` after | Opus (the thresholds the AI's, his to reverse) | yes |
 | N-2b | **THE SPECIFIC NOTATION — deferred at his word (§335):** the note unit (stem · flag · GC · the dynamic's place) — the percussion first, then each technique; and the cents (`docs/research/just_partials_notation.md`, decided, nothing built). A design talk, one topic at a time, the planning method | Fable | yes |
@@ -151,586 +155,42 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 16 · CHECKPOINT #2 (2026-09-26, Opus built and wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
-- **THE TASK:** `1u` THE VIBRAPHONES' PITCHES ON THE STRIP (LG-114) — the two bowed vibraphones of a placed sequence or morph change
-  pitch at their breaths, the bowing untouched, with a way back. **BUILT END TO END** at his word *"go, build as much as possible
-  independently"*, five commits, pushed, THE SHIELD in each (RUNNING_LOG §390 … §394; PLAN § `1u` `built`): `f5bb5b9` 1u.1 the pool ·
-  `fb779c2` 1u.2 the draw · `a1b0e3d` 1u.3 the row + `composer.html`'s one script tag · `ae1ee5d` 1u.4 the SPACE fault · `dedfc63` 1u.5
-  the shield + the required verification (a … g, every check passed).
-- **THE STATE:** nothing is being built. **`1u.6` IS HIS — a reload only** (page files; no server or engine file changed). **After his
-  first try (2026-09-26, Fable): 1u.6 (b) built** — the take of a morph the panel's own Insert placed (RUNNING_LOG §395): on the marker
-  from now on, and BY CONTENT against the saved actuals for the two he placed before (`ACT-TAKES-02` · `-03`, still uncommitted, his —
-  the match lives on them). `vibes_pitch.js` · `morph_panel.js insert()` · `vibes_pitch_check.js` 61. He reloads again.
-- **THE DELIVERABLE:** `score/public/vibes_pitch.js` (NEW — a pure CORE, loadable in node, + a mixin on `HarmonySel`) ·
-  `tools/vibes_pitch_check.js` (NEW, **50 / 50**, named in CLAUDE.md's checks) · `score/public/sequence_ui.js` (two lines: a BOX's take
-  menu is `_box` and a click in it counts as inside the drawer). What he sees: vibraphone notes selected → `vibes ▾` on the harmony strip →
-  a second line under it: the take · `pool [neighbours | within a tone | any]` · `change [never | rarely | half | often | always]` · `draw
-  [random | exhaust | walk | shadow]` · `seed` + the last five as chips · `±5¢` · `go` → the status *`vibes · take "…" · pool … (n) · change
-  … · draw … · seed s → k of N breaths changed · seat 1: … · seat 2: …`*; the way back `back` and CTRL+Z (one undo).
-- **THE NEXT STEP:** after `/postclear`, check in (his rule). Then give him 1u.6 (PLAN § `1u`, 1u.6), one step at a time if he asks:
-  *RELOAD the tab (no restart) → a sequence passage with the vibraphones → CTRL+drag over the vibraphone lane → [vibes ▾] → `any · always ·
-  exhaust` → [go] → play → [back] → `neighbours · half · walk` · a new seed → keep one → then the sequence drawer: a box's take from its menu
-  → SPACE (the drawer hears; the score does not play).* He saved `scores/piece-LGMF-draft01-preVibesFix.json` during the build — he is
-  getting ready for this test. **Revise on his word:** a design question (a reading below) on Fable; a fault on Opus.
-- **THE AI'S READINGS IN THE BUILD — his to reverse** (§391 · §393; the PLAN item's header names the first three):
-  - a seat HOLDS its note between changes; `change` = the chance of a NEW pitch at a breath; `never` holds the first note throughout (the
-    other reading: an unchanged breath returns to the take's note).
-  - a breath whose take is not its seat's previous breath's (a new box, the TAKE → TAKE switch) is an ANCHOR, kept as dealt, like the
-    first breath of each seat — in his 9-box `LGMF-R01c` that keeps **18 of 55** breaths; the PLAN's 1u.5 (c) said *"every breath after
-    the first of each seat"*. If he wants every box line to move too, it is one condition in `Core.draw` (the anchor set).
-  - the other seat kept clear over the WHOLE breath, not only at its start (what "no two seats on one pitch at any overlap" needs).
-  - a sequence note's box read from its fragment's `box N` before the box by time (a seamless change plays a box across its line).
-  - the SPACE fix counts only a BOX's menu; the harmony strip's use of the same menu is unchanged.
-  - and the plan's own calls (§389): the first breath kept · the seats by overlap · an unstamped player's partial = the nearest within
-    20 ¢ · `exhaust` per seat · the dials remembered in the browser · a new file.
-- **`Resume reads:`** nothing beyond §2 for the check-in and his test. On his feedback, ONLY the RUNNING_LOG § his remark names — §390
-  the pool, the take, the seats · §391 the draw and its readings · §392 the row · §393 SPACE · §394 the verification's numbers — then the
-  code it names in `score/public/vibes_pitch.js` (core: `takeOf` · `seatChains` · `othersAt` · `poolAt` · `plan` · `draw`; the strip:
-  `vibPlan` · `vibGo` · `vibEnsure` · `vibRefresh` · `vibTakeText` · `vibStatus`). STILL BINDING (below) before any verification.
-- **HOW THE SHIELD WAS RUN — reuse it for any `1u` revision** (the scratchpad's `shield_page.js` may not survive; §394 is the record):
-  - `score-5401`; in the navigation batch the stubs: fetch non-GET · `sendBeacon` · `confirm` · `Composer.autosave` + its timer · rAF a 16 ms
-    timer · `_zoneMidiInited` · all ELEVEN ports logging (`LGEngHorn LGBassoon LGBassoonb LGHorn LGHornb LGTrumpet LGTrumpetb LGPerc LGVibes
-    LGCello LGBass`) → `Composer.openScore('pointilistic01a')` → autosave stubbed again → the four TAKE notes sounding at **16.0 s** (they
-    start at 15.73; the objects carry `startSeconds`) → `apply('Just-b1-seed208')` → `shuffle(1)` → `back`; at each stage the whole score and
-    the four hashed (canonical JSON without `_` keys, djb2) and the playback from 15.4 s for 0.9 s **by CONTENT** (note-ons · bends · CC7
-    values, sorted, unique — the raw stream's edges move from run to run).
-  - BEFORE = the page files of the commit before the work, written to disk (`git show <ref>:<path> > <path>`; restored with `git checkout
-    -- <path>`), AFTER = HEAD; each side a FRESH load with the throwaway's `lgmf.sequenceDrawer.v1 · lgmf.rhythmSequence.v1 ·
-    lgmf.textureRow.v1 · lgmf.vibesPitch.v1` cleared first.
-  - The values at `dedfc63`: h0 324096178 · s0 −2094993535 · m0 −1401951298 · hA 1203124070 · sA 399031797 · mA −1313330536 · hB
-    −849720015 · sB −287015104 · mB −2139813605 · hC = h0 · sC = s0 · mC = m0. They hang on his `pointilistic01a` working copy — if he has
-    touched it, re-run BEFORE rather than compare against these.
-- **Learned this session:** a shield compares a fresh load with a fresh load (the transport's state and the drawer's stored row carry
-  within a page) · MIDI by content, not the raw stream · `find` does not reach a `<select>` by its title — find it by its selected
-  option's text · the throwaway's `+ container` POSTs `/api/snapshots` (caught by the stub) · `composer.html` is CRLF throughout,
-  `vibes_pitch.js` · `sequence_ui.js` · the docs LF — a splice keeps each file's own ending.
-- **Pending him:** 1u.6 · the readings above · **still open from CHECKPOINT #7 below:** the page-start call on `lgmf-eh-proto` ((a) a
-  lead-in, recommended) and 2d.7 his eye · `1t.5` his listen — his actuals `ACT-TAKES-01` · `-02` · **`-03` (NEW this session)** with their
-  index in `bank/morph_models.json`; commit them only at his word.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — 27 paths; CHECKPOINT #1's 23
-  plus four new today):
-  - `bank/actuals/ACT-TAKES-01.json` · `-02.json` · **`-03.json` (NEW)** · `ACT-BLOOM-07.json` · `ACT-BLOOM-08.json` — his actuals ·
-    `bank/morph_models.json` — their index, written by his tab
-  - `bank/panel_snapshots.json` — his takes (a take `Just-e1-seed191mod` saved from his tab at 12:53 during the build — his naming; nothing
-    the throwaway ran saves a take) · `bank/sequences.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json`
-    — his libraries, autosaved by his live tab (committing races it) · `bank/passages/lgmf-sec2.json` — his passage
-  - `reaper/LGMF_rack.rpp` — his rack, saved by Reaper
-  - `scores/piece-LGMF-Sec01-Sec02*.json` (five) · `scores/piece-LGMF-Sec03-Try01.json` · `-Try02.json` · `-Try02p1a` · `-Try02p2a` ·
-    `-Try02p3a` · **`-Try02p4a` · `-Try02p5` (NEW)** · **`scores/piece-LGMF-draft01-preVibesFix.json` (NEW — his save before trying `1u`)** ·
-    `scores/pointilistic01a.json` — his named saves; he is composing section 3
-
-**Open at session end — SESSION 16 · CHECKPOINT #1 (2026-09-26, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #2 above (`1u` is built); its design lines still hold:**
-- **THE TASK:** `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — his new subject, opened at the last `/postclear` (LG-114). The two bowed
-  vibraphones in a placed sequence or morph hold one note each; he wants them to change pitch AT THEIR BREATHS, the bowing untouched,
-  with a way back. The talk ran one topic at a time (RUNNING_LOG §388, his answers *yes · b · all good · a · b · all three*), then the
-  scenario read back (*"Good"*), then *"Go ahead and write the whole plan. No need for steps."*
-- **THE STATE: PLANNED IN FULL, NOT BUILT** — PLAN § `1u`, 1u.1 … 1u.6 (`b41c476`, pushed). No code touched this session.
-- **THE DELIVERABLE:** PLAN § `1u` — `score/public/vibes_pitch.js` (NEW, a mixin on `HarmonySel`, its pure part loadable in node) · a
-  `vibes ▾` row on the harmony strip: `pool` neighbours · within a tone · any · `change` never · rarely · half · often · always · `draw`
-  random · exhaust · walk · shadow · `seed` + chips · `±5¢` shown · `go` · the write through the strip's own `remember` · `writeNote` ·
-  `stamp` so `back` and CTRL+Z are the way back · `tools/vibes_pitch_check.js` · 1u.4 the sequence drawer's SPACE fault (one line at
-  `sequence_ui.js` ~578: count `this._takeMenu` as inside the drawer).
-- **THE NEXT STEP:** after `/postclear` on OPUS, check in (his rule). On his word, BUILD **1u.1 the pool** from PLAN § `1u` — then 1u.2 →
-  1u.5 in order, one commit per step, pushed, RUNNING_LOG § per step (§390 on), THE SHIELD in each. STOP after 1u.5 for his one test
-  (1u.6 — a RELOAD only, no restart: no server or engine file changes).
-- **THE SHIELD for `1u` (PLAN 1u.2 · 1u.5 (a)):** `harmony_sel.js` `apply` · `shuffle` · `back` byte-identical on a COPY of his
-  `pointilistic01a` on `score-5401` — §317 · §319 give the captures and their numbers; the batteries green before and after
-  (`model_bank --validate` · `sequence_check` 180 · `test_snapshots` · `sequence_notation_check` 58). No engine file is in scope, so every
-  stored render is shielded by construction — say so, do not claim it measured.
-- **`Resume reads:`** PLAN § `1u` whole · RUNNING_LOG §389 (what was read in the code — the tolerance, the seat, the take's five sources,
-  the SPACE fault) · RUNNING_LOG §317 · §319 (the capture recipe for THE SHIELD — their *verified* paragraphs only) · the code the step
-  names: `score/public/harmony_sel.js` (the strip: `pool` · `range` · `info` · `remember` · `writeNote` · `stamp` · `apply` · `shuffle`) ·
-  `score/public/spectrum_ui.js` `mayTake` (~58). For 1u.4 only: `sequence_ui.js` 570 … 600 · `openTakeMenu` (~1380 … 1410). STILL
-  BINDING (§2, below) before any verification. Nothing else.
-- **THE AI'S CALLS in `1u`, his to reverse** (each in PLAN § `1u`): the first breath of each seat kept as dealt · the seats found as the
-  lane's two chains by overlap (a score object carries no seat) · an unstamped player's partial = the series' nearest within 20 ¢ · `exhaust`
-  per seat · the dials remembered in the browser · a new file rather than growing `harmony_sel.js`.
-- **Pending him:** the go for the build · **still open from CHECKPOINT #7 below:** the page-start call on `lgmf-eh-proto` ((a) a lead-in,
-  recommended) and 2d.7 his eye · `1t.5` his listen — he has filed `ACT-TAKES-01` AND now `ACT-TAKES-02` (11:47 today) with their index
-  in `bank/morph_models.json`; commit them only at his word.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — 23 paths; the 16 of
-  CHECKPOINT #7 plus five new ones today, and his live working copy `piece-LGMF-Sec03-Try02p3a-work.json`, gitignored, 12:12):
-  - `bank/actuals/ACT-TAKES-01.json` · **`ACT-TAKES-02.json` (NEW, 11:47)** — his actuals · `bank/morph_models.json` — their index,
-    written by his tab
+**Open at session end — SESSION 16 CLOSED (2026-09-26, Opus) — the pending list of sessions 14 … 16 in one place:**
+- **THE STATE:** nothing is being built; everything committed and pushed. Every tool is in his tab as page files — no restart owed but
+  `1t.5`'s.
+- **Pending him — the decisions** (each written out in the § cited):
+  - **`2d` THE PAGE-START CLASH** (§383 · §387): the EH's block at 0 s has no room left of x(0) — the screen clamps it right of its go
+    line; paper draws it into the clef gutter and `check_print_edges --ir lgmf-eh-proto` FAILS page 1. (a) a LEAD-IN [recommended] ·
+    (b) the clamp on both · (c) as they are. If (a): one PLAN item first (the lead-in's length; both media; THE SHIELD by data absence).
+    Then **`2d.7` his eye:** reload the notation tab → `lgmf-eh-proto` → the video view (the working page, the EH in F: the block reads
+    D♯6) → `0` · `20` · `28.7` · `z`. The AI's calls of `2d` are listed in §387.
+  - **`1t`** (§366 · §367): a default `release` for TAKES (without one the last mover is barely heard on B, and at switch 1 the second
+    vibraphone never sounds its new bar) · the red "N hard" = the re-key seams (NITS 2026-09-25) · `min` as a hard floor (§329, also
+    `1s`'s). **`1t.5` his listen:** RESTART the server + reload.
+  - **`2c`** (§347): every specific value deferred to when the notation is in — the margins 40 · 40 px / 12.7 mm · the 2 ss stub · the
+    go-line switch · NOTATION_STANDARDS §5's calls. **`2a`:** `TemBwl` 1 mm from the brace on paper (`TBwl` the fallback) · the A3 staff
+    size (`staffHeightPx` 31.6 → 28) · the percussion as metric figures (`--bricks` today).
+  - **`1u`:** the offers and the calls on its ►► row above · `neighbours` on a morph (§396).
+  - **Housekeeping, his:** his actuals `ACT-TAKES-01` · `-02` · `-03` · `ACT-BLOOM-07` · `-08` and their index in
+    `bank/morph_models.json` — commit only at his word (once he saves, the §401 match lives on his markers, so `-02` · `-03` are no
+    longer needed for it) · whether `bank/patterns.json` goes into git (§278) · THE TRIANGLE — track 10 `Percussion` takes `LGPerc` on
+    ALL channels (§221) · `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag.
+- **Where the earlier record lives:** session 13's tool table (`1m.4` · `1o` · `1n` · `1p` · `1q` · the volume fix · the percussion menu)
+  and every checkpoint block of sessions 14 … 16 — with their SHIELD recipes (`1t` §365 · `2c` §344 · `2d` §387 · `1u` §394) — are
+  whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.
+- **Learned in session 16:** a report of "nothing happens" after a build is first a question of the TAB — ask for a reload before
+  reading the code (§398 · §402) · a content match on a placed object must survive the edits the strip itself makes (§401: `go` ate a
+  time match) · a clicked `<button>` keeps the focus and takes SPACE as its own click — a row with buttons blurs them (§400).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this close — 29 paths):
+  - `bank/actuals/ACT-TAKES-01.json` · `-02` · `-03` · `ACT-BLOOM-07` · `-08` — his actuals · `bank/morph_models.json` — their index
   - `bank/panel_snapshots.json` · `bank/sequences.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json`
-    — his takes, sequences, patterns and rhythm libraries, autosaved by his live tab (committing races it)
-  - `bank/actuals/ACT-BLOOM-07.json` · `ACT-BLOOM-08.json` — his actuals · `bank/passages/lgmf-sec2.json` — his passage
-  - `reaper/LGMF_rack.rpp` — his rack, saved by Reaper
-  - `scores/piece-LGMF-Sec01-Sec02*.json` (five) · `scores/piece-LGMF-Sec03-Try01.json` · `-Try02.json` · **`-Try02p1a` · `-Try02p2a` ·
-    `-Try02p3a` (NEW, 11:32 … 11:55)** · `scores/pointilistic01a.json` — his named saves; he is composing section 3 (`Try02p3a` live)
-
-**Open at session end — SESSION 15 · CHECKPOINT #7 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — STILL OPEN beside SESSION 16 · CHECKPOINT #1 above: the page-start call and 2d.7 are his when he returns to the notation:**
-- **THE TASK:** the SPECIFIC NOTATION, begun on the english horn's line in section 1's sequence — PLAN § `2d` THE EH'S SEQUENCE NOTATION
-  PROTOTYPE, one of each thing on the fixed scale. His word for the build: *"go, build through as much as possible independently"*.
-- **THE STATE: `2d` IS BUILT, 2d.1 … 2d.6, one commit per step, all pushed** (RUNNING_LOG §382 … §387; PLAN § `2d` `built`):
-  `4c471c4` 2d.1 the device + the IR · `8db3a7e` 2d.2 the block · `4e784fc` 2d.3 the curve + the follower · `ba587fc` 2d.4 the breaths +
-  the pie · `c239311` 2d.5 the labels · `42c5cad` 2d.6 the shield + the verification. **What is left is 2d.7, HIS EYE — and before it, HIS
-  CALL on the page-start clash (below).**
-- **THE DELIVERABLE:** `notation/ir/lgmf-eh-proto.ir.json` (in the picker after `piece-lgmf`, which is untouched), extracted from a COPY of
-  his `piece-LGMF-Sec01-Sec02-Sec3start` save (`--scoreFile` — the copy was in the scratchpad; if it is gone the tool falls back to the named
-  save and says so). What it draws: the block at 0 s (G♯5 ¾♯ · `+41` over `26°/C1` · "senza vib." · `pp → mp`) · the level curve on the
-  fixed scale (`cresccurve`, the bottom half-lane) + the follower (`crescMeter`) · the breath clock (`motivePie`, re-pointed to the breaths)
-  · the reminder `(¾♯○)` at 13.71 s · the new G5 `+2` / `12°/C2` at 28.71 s · `(mp)` 25.03 · `(pp)` 30.91. The check:
-  `node tools/sequence_notation_check.js` — **58 / 58**. Where it lives in the code: `notation/lib/sequence_overlays.js` (the IR's line) ·
-  `layout.js` the sequence branch (grep `LGMF PLAN 2d.2`; `justAccOf` · `justHead`) · `animobj.js` (grep `LGMF 2d.3` · `2d.4`) · the
-  registry `container.json` `devices.byEnv.sequence` (`block` · `reminder` · `label` · `techTexts`) and `animated.motivePie` (`source:
-  'breaths'`) · `tools/notate_section.js` `--sequence` · `--scoreFile` · `--after` · `tools/bake_text.js` · `tools/glyph_scripts.py`.
-- **THE NEXT STEP:** after `/postclear`, check in (his rule). Then, on his word, put THE PAGE-START DECISION to him inline, lettered, the
-  reasons visible:
-  - **The clash (§383 · §387):** the EH enters at 0 s = t0 of page 1; the block needs ~6 ss left of its go line and there is none. SCREEN:
-    the 2c clamp moves the whole block right of its own go line. PAPER: no clamp — the block is drawn INTO THE CLEF GUTTER and "senza vib."
-    straddles its edge, so **`check_print_edges --ir lgmf-eh-proto` FAILS page 1** (the only red gate). His 2c deferral (§347) is what
-    left it open. **(a) a LEAD-IN** [the AI's recommendation]: the piece's 0 a few seconds into the first page — screen: the tiling offset
-    by it, every page still one span; paper: page 1's t0 placed by the objects (the first unit's ink start), as a pushed GC places the next
-    page's t0 · **(b)** the clamp on both · **(c)** as they are (the print gate stays red).
-  - **Then 2d.7, his eye:** *no restart — reload the notation tab → the picker → `lgmf-eh-proto` → the video view → `0` · `20` (the curve,
-    the follower, the pie) · `28.7` (the new pitch) · `z` the zoom.* **Tell him the app's video view is the WORKING page** (the default
-    ensemble, the EH written in F: the block reads **D♯6**, two ledgers); the presentation score in C (G♯5) is the exporter's
-    (`export_video --ir lgmf-eh-proto --view video --probe <t>`). What it settles (PLAN 2d.7): the scale on the eye (the 14 px pp → mp swing)
-    · the rows' order under the staff · the column and the arrow glyphs (none in 0 … 36 s; the first is at 142 s — a second page extracted
-    with `--w0 140 --w1 160 --id <new>`) · the pie · 12 s a system · whether the opening sign returns.
-  - **Revise on his word:** a look question on Fable, a fault on Opus. If he picks (a): write it into the PLAN as one item first (the
-    lead-in's length — the first unit's ink, or a fixed number; both media; THE SHIELD by data absence), then build.
-- **`Resume reads:`** nothing beyond §2 for the check-in and the decision. On his feedback, ONLY the RUNNING_LOG § of the step he faults
-  (§382 the IR · §383 the block · §384 the curve · §385 the breaths and the pie · §386 the labels · §387 the shield) and the code it names.
-  For (a): `notation/lib/splice.js` `tilePages` · `planObjectPages` · `tools/export_print.js` the objects plan · `page_rules.json`.
-- **HOW THE SHIELD WAS RUN — reuse it for any 2d revision** (the scratchpad scripts may not survive the clear):
-  - **per step, quick:** `git show HEAD:notation/lib/layout.js > notation/lib/_layout_head_tmp.js` (inside `lib/` so its requires resolve;
-    DELETE after) and `git show HEAD:notation/registry/container.json` → run both engines' `layoutSection` on `piece-lgmf` and `lgmf-0i` in
-    both realizations (default · video-jury) → `JSON.stringify` equal (262 160 / 260 105 characters on `piece-lgmf`); `animobj.collect`
-    likewise (327 980, with his `sec03a` save, read); the eight batteries on the tuba goldens staged from a list written first
-    (notation/ir/README.md's recipe, `index.json` and `README.md` EXCLUDED; 26 files; unstaged after).
-  - **the full shield (2d.6):** two `git worktree add --detach` in the scratchpad (the commit before the work · HEAD), `NODE_PATH=<repo>/
-    node_modules`, the goldens + a read-only copy of his `sec03a` staged in each; `export_video --ir db1 --view video --probe
-    5,11.9,100,300` · `--view zoom --probe 100` · `export_print --ir db1 --planJson` · `--htmlOnly --pages 1-3` · `export_video --ir
-    piece-lgmf --view video --probe 300`; hashed across old engine + old registry · new engine + OLD registry · new + new — all eight
-    identical; batteries in both; `git worktree remove --force` + `prune`. None of it touches his files.
-- **Learned this session:** `window.__notationFrame(t)` draws the app's animation overlay at any t (the pane has no rAF) and the `goto` box
-  turns the page on a dispatched `keydown` Enter · the pane's `zoom` crop is not supported — a proof image is the exporter's `--probe` PNG,
-  cropped with pngjs · `export_video --dumpPage` is 0-based · **the house accidentals are Emmentaler at HALF size** (piece #2's set) — a new
-  accidental is baked at 0.5 with a `noteY` anchor if it is not symmetric · this repo has no `opentype.js` (`bake_text.js` reads piece #2's
-  copy in place) · the ensemble-drift check now compares part ids (2a.5's `DB` had broken every re-extract) · `preview_start score-5401`
-  opened the composer at the root for seconds: its origin held two small drawer rows — cleared; the drawer writes at boot only as a NEW
-  untitled entry, and none appeared.
-- **Pending him:** the page-start decision (above) · 2d.7 · **`ACT-TAKES-01`** — his tab filed it at 23:05 (*"TAKES-01 · 58 s ·
-  Just-c2-seed133Mod → Just-G0-seed144mod"*, with the index in `bank/morph_models.json`): `1t.5` is in his hands; commit the actual and the
-  index only at his word (the CONVERGE actuals went in with `a7ae62c` at his "a") · **the AI's calls of 2d, his to reverse** (each in its §):
-  env `sequence` opt-in by group · the level before the fader's rounding · a turning point at its plateau's start · the arrowed accidentals
-  at 0.5 + `noteY` · `techTexts` in the device registry · the column's width by render's estimate, in the house grey · the block's head 0.45
-  before the go line (D45's spacer; the breaths 0.25) · the tuba's `onsetHead` NOT revived (the heads come from the overlay) · a reminder
-  keeps its accidental inside its parens (0.67) · the pie's colour (`#607D8B` @ 0.75) and place (the lane top, 2 px left of the follower)
-  · the labels as glyph items, not a new kind (parens 0.43 — they read large beside a cue `mp`) · `cresccurve` reused for the level ·
-  everything pending at CHECKPOINT #6 and before.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — 16 paths):
-  - `bank/actuals/ACT-TAKES-01.json` — HIS new actual (23:05) · `bank/morph_models.json` — the store's index his tab wrote with it
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his live tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `-Sec02-Sec3start.json` · **`-Sec02-Sec3a.json`
-    (NEW — his tab, 22:45, saved again 23:07)** · `scores/pointilistic01a.json` — HIS scores
-
-**Open at session end — SESSION 15 · CHECKPOINT #6 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #7 above (`2d` is built); its design lines and numbers still hold:**
-- **THE TASK:** THE NOTATION LAYER, the SPECIFIC NOTATION begun — **the english horn's line in section 1's SEQUENCE** (`LGMF-R01c`,
-  0 … 149 s), one thing at a time, his order (*"make notation for EH for sec 1 that is the sequence and morph; 1 by one"*). The morph
-  (`ACT-BLOOM-06`, the EH from 158.4 s) and the other six players come after, at his word. **Working title: _Recombination_ (D32).**
-- **THE STATE: PLANNED IN FULL, NOT BUILT** — PLAN § `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE (`c08cf37`). How it was reached, all
-  in the RUNNING_LOG: §368 the stats (the EH's 12 notes, pp … mp, niente in over 6 s, ppp out over 8 s; §369 corrects the count) ·
-  §369 · §370 his sketch and his decisions (LG-111 · LG-112: the tuba/#5 two-part form — a BLOCK at the entry and the LANE; no GC,
-  the head LEFT of the go line, Tufte's 2 + 2 = 3; the pie counts each breath DOWN; `(dyn)` labels at the turning points; the morph
-  its own block later) · §371 … §374 the audit → **ONE FIXED SCALE**, niente at the floor … fff at the top of the half-lane, the whole
-  piece, every realization (the presentation score's 14 … 16 px for pp → mp accepted; the per-block legend only the fallback for the
-  presentation realization; the parts pay for the resolution — 36 px on a 12.9" iPad at 4 systems) · §375 · §376 no opening/closing
-  signs (the curve draws both fades), no ticks, ONE OF EACH THING on the prototype · §377 … §380 THE PITCH MARKS DECIDED, written
-  into `docs/research/just_partials_notation.md` **§1a** (the bands |c| < 20 plain · 20 … 37 an arrow · ≥ 37 the quarter sign; six
-  arrowed Emmentaler accidentals NEW; numbers Crimson Pro Light upright 0.75 ss, the true minus, no ¢; `n°/F` always on a part's line;
-  the column cents-nearest, the partial above; "senza vib." baked on the `pizz.` recipe).
-- **THE NEXT STEP:** after `/postclear`, check in (his rule). On his go, **BUILD `2d` from PLAN § `2d`, 2d.1 → 2d.6 in order, one
-  commit per step, pushed, THE SHIELD in each, a RUNNING_LOG § per step (the next free is §382 — read the last heading first); STOP
-  after 2d.6** and give him 2d.7: *no restart — the notation app → the picker → `lgmf-eh-proto` → the video view → `0` in the time box;
-  `20` for the curve, the follower and the pie; `28.7` for the new pitch; `z` the zoom.* Revise on his word — a look question on Fable,
-  a fault on Opus.
-- **`Resume reads:`** PLAN § `2d` (all of it) · `docs/research/just_partials_notation.md` §1a (the marks). Then per step, ONLY the code the
-  item names: 2d.1 `notation/lib/extract_core.js` (where `surge` · `trill` · the morph are classified) · `tools/notate_section.js` (the
-  `--morph` path) · `notation/lib/glyphs.json` `accidental.leftParen._provenance` (the bake recipe) and `text._provenance` · 2d.2
-  `notation/lib/layout.js` ~792 … 835 (D45's header branch) · `notation/lib/morph_overlays.js` `header` · 2d.3 `morph_overlays.js`
-  `fit('level')` · `curvePathD42` · `notation/registry/page_rules.json` `edge` · 2d.4 the `onsetHead` flag (grep it) ·
-  `notation/lib/animobj.js` (`motivePie` · `crescMeter`) · `container.json` `animated.motivePie` · 2d.6 CHECKPOINT #3's *HOW 2c WAS
-  SHIELDED* (below) + STILL BINDING. Nothing else.
-- **Numbers the build can trust (read from the save, §368 · §369):** the EH's sequence notes `wc-3127 … wc-3255` in
-  `grp-seq-smu90t537`, identical in all three saves — extract from a COPY of `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` (his file
-  never opened for writing) · the EH's ladder ppp 43 · pp 51 · p 59 · mp 68 · mf 80 · f 94 · ff 109 · fff 127 (`DynTable.cc7`, the
-  measured curve) · the block G♯5 (midi 80) +40.53 c, partial 26 of C1 · the same-pitch breath 13.71 s · `(mp)` at 25.0 s (CC7 69) ·
-  the new pitch 28.71 s G5 (midi 79) +1.96 c, partial 12 of **C2** (the take's name writes it `c2`; the fundamental is C2 — the PLAN's
-  `12°/C2` was corrected to `12°/C2` at this checkpoint) · `(pp)` at 30.9 s · the fade `cc7Fade {start 0, end 6, from 0, to 1, linear}`
-  on `wc-3127`.
-- **Pending him:** `1t.5` his listen (CHECKPOINT #5 below — restart the server + reload; it does not block `2d`) and its pending lines ·
-  the AI's calls in PLAN § `2d` (the eighths · the breath-gap bridge · the 1 s label dwell · the cue scales 0.844 / 0.75 · the pie's
-  colour · `n°/F` always · the 0 … 40 s range) · the legend sentence and the performance notes (his, later) · the morph's block and the
-  join 149 → 158.4 s (his *"we'll see if we can restate a header there"*; the EH's gap is 9.4 s in every save — his "the morph note
-  starts immediately after" was not found in a save of the EH, told him) · everything pending at CHECKPOINT #3 and before.
-- **Learned this session:** **backticks inside a double-quoted `node -e` ran as a command substitution AGAIN** (at this checkpoint: D32's
-  `septet_LGMF_2026` and `LG` vanished — harmless, repaired). THE RULE HOLDS, NO EXCEPTIONS: any text with backticks goes to a FILE (the
-  Write tool) and a short splice script from a FILE · a Bash heredoc over ~8 KB still fails with a fake quote error — write to the
-  scratchpad and `cat >>` it.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 12 as CHECKPOINT #5):
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `-Sec02-Sec3start.json` · `scores/pointilistic01a.json` — HIS scores
-    (`-Sec3start` is the save `2d` extracts from, BY COPY)
-
-**Open at session end — SESSION 15 · CHECKPOINT #5 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — superseded by CHECKPOINT #6 above; its `1t` lines, its SHIELD recipe and `1t.5` still hold:**
-- **THE TASK:** `1t` THE MORPH BETWEEN TAKES — take A → take B, each player from their own note to their own note (his pivot from the
-  notation, CHECKPOINT #4 below). **BUILT END TO END** at his word *"a and build as much as possible independantly"*, four commits,
-  pushed, THE SHIELD in each (RUNNING_LOG §364 … §367; PLAN § `1t` `built`; MORPH_NOTES §3 the same day):
-  - `a7ae62c` **1t.1** `TAKES` *"TAKE → TAKE"* in `bank/morph_models.json` (M3, two stations, names no voices) — **his three CONVERGE
-    actuals + the index were committed WITH it (his "a")**.
-  - `dc7c76c` **1t.2** `morph_panel.js`: `from` (the PITCHES pulldown) + `to ▾` (the sequence drawer's takes menu); `takeVoices` reads B
-    by lane:seat as `target.voices`; the flags (*no note in "to"; holds* · *no note in "from"; left out* · *doubles EH*); ONE
-    `duration (s)` box = `carrier.span`, the fold box hidden and forced null; `1r`'s arrival keyed off TAKES (`M3 && !TAKES`).
-  - `312d88f` **1t.3** `morph.js` `switchAt` on a voice (a STEP at a share of the travel) **+ the breath CUT at the moment** (the re-key
-    alone struck a stray note between the bars, §366) · the panel's `vibes switch 0…1` (a pitch-state dial, `pitch.switchAt`, default 1;
-    seat 0 at the dial, seat 2 3 s later, both kept inside the travel: dial 1 on 60 s → 57 · 60 s); a vibraphone whose bar is the same
-    in B stays still; `switchesUnheard()` flags a switch after the last note.
-  - `4e03d2b` **1t.4** the line on Play and Insert (`takesText`) · the recall rebuilds `from` from the SOURCE and `to` from the target,
-    the dial from the filed pitch · **`carrier.releaseHolds`** (`morph.js`, opt-in; `true` on TAKES in the bank, `rev` 137): the engine's
-    release had sent every player back to A under the fade (§367) · the required verification (a … g) run, every check passed.
-- **THE STATE:** nothing is being built. **`1t.5` IS HIS.**
-- **THE NEXT STEP:** after `/postclear`, check in (his rule). Then give him `1t.5`, one step at a time if he asks: RESTART
-  `node score/server.js` (`morph.js` changed — the server files actuals with the engine it loaded) and RELOAD the tab → MORPH → MODELS →
-  [TAKES] → `from` a take · `to ▾` another (▸ hears one) → `duration (s)` '60' → Generate → read the line → Play (the far voices'
-  seams) → `vibes switch` '1' then '0.5' → `release (s)` '8' (the fade on B) → Insert after a sequence ending `one by one`. **Revise on his
-  word:** a design question (the default release, the switch rule, the seat gap) on Fable; a fault on Opus. **When `1t` closes:** ask in
-  one line the notation's pick — `2a.6` the clefs (Opus) or the specific notation (Fable) — the `his` row of the table.
-- **`Resume reads:`** nothing beyond §2 for the listen. On his feedback: RUNNING_LOG §367 (and §366 for the vibraphones, §365 for the
-  panel) · PLAN § `1t` · then only the code the fault names — `morph_panel.js` `takeVoices` (the TAKES block after the pairs) ·
-  `switchTimes` · `drawSwitch` · `takesText` · `recallActual` (`TKA`); `morph.js` `SWITCH` (after `travel`) · `stateAt` cents · the cut
-  (`segsV`, after `buildCarrier`) · `carrierTiming` `holdRelease`.
-- **HOW THE SHIELD WAS RUN — reuse it for any 1t revision** (the scratchpad scripts may not survive the clear):
-  - **the bank, in node:** render every model's `baseParams` (with the septet palette, as `model_bank --validate`'s `renderOptsFor`,
-    and without) and every actual's `resolvedParams` through `score/public/morph.js`; hash the notes; compare BEFORE (HEAD) and AFTER.
-    Result every step: 0 of 53 changed (11 actuals were already `≠ stored` on HEAD — the known drift, N4, and `ACT-BLOOM-03` · `-04`).
-    Plus `node tools/model_bank.js --validate`.
-  - **the panel, on `score-5401`:** nine renders, params hash + notes hash (`djb2` of `JSON.stringify`) — CONVERGE · BLOOM · SPECTRAL ·
-    LGCONVERGE on the model's set, then BLOOM · CONVERGE · LGCONVERGE · LGBLOOM · COLOUR on `Just-c2-seed143` — on HEAD's file
-    (`git stash push -- score/public/morph_panel.js`, reload) and the build's. HEAD's values: CONVERGE model `1968928830 / 530474326` ·
-    CONVERGE + take `-2104884896 / -1498654004` · BLOOM + take `397563063 / -1417760538` (the rest in §365's run).
-  - **the test pair:** A `Just-c2-seed143` → B `Just-e1-seed193` (both all eight players); a take without the vibraphones for the flags:
-    `Bloom01-Just-A1-seed132`. With `release 8` · switch 0.5 the render is params `2037844696` · notes `1545617143` · 93 notes.
-- **Learned this session:** in the throwaway, `Composer` is a script-scope binding — stub it bare (`Composer.autosave = …`), never
-  `window.Composer` (a guarded stub silently skipped it once) · a `computer` click by coordinate needs a `screenshot` first (its frame
-  is scaled: 800 × 538 for a 1280 × 860 viewport) · the fetch stub can SERVE a synthetic actual (`/api/actuals/ZZ-…`) for a recall
-  round trip without touching the store · **backticks inside a double-quoted `node -e` ran as a command substitution again** (a harmless
-  missing command; the notes text was repaired) — the STILL BINDING rule holds: any script with backticks goes to a FILE.
-- **Pending him:**
-  - **A default `release` for TAKES?** Blank, the transition ends at the last arrival: the last mover is heard on B for a breath's gap or
-    not at all, and at the default switch (1) the second vibraphone never sounds its new bar (the line says so). One number in the bank.
-  - **The red "N hard" = the re-key seams** (NITS 2026-09-25) — a one-condition fix that re-flags stored actuals' notes; his call.
-  - **`min` as a hard floor** (§329) — 8 body notes open a few CC7 under the table's `pp` here too.
-  - **The AI's calls, his to reverse:** PLAN § `1t`'s (seat gap 3 s · the default switch at the arrival · the fold box hidden · a missing
-    target holds · `staggered` kept) and the build's (the cut's 0.25 s minimum piece · both seats kept inside the travel, so at 1 the
-    first goes 3 s before the arrival · a vibraphone on the same bar in B stays still · `releaseHolds` on TAKES in the bank).
-  - The notation's pick when `1t` closes · everything pending at CHECKPOINT #3 and before (below).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — 12 paths; his three
-  CONVERGE actuals and the store's index are no longer on this list, committed at his word in `a7ae62c`):
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · **`-Sec02-Sec3start.json` (new, saved by his tab
-    at 14:54 during this build)** · `scores/pointilistic01a.json` — HIS scores
-- **Also:** `bank/morph_models.json` is clean now (rev 137); if his tab files an actual it will change again — his, as before.
-
-**Open at session end — SESSION 15 · CHECKPOINT #4 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #5 above (`1t` is built; the bank-file question was answered "a"); its design lines still hold:**
-- **THE TASK:** `1t` THE MORPH BETWEEN TAKES — a morph from take A to take B, each player sliding from their own note to their own
-  note. His pivot from the notation at his word (*"I want to work on the morph drawer and make the spacing model good for using
-  takes"*). The concept talked through under the planning method, one topic at a time (RUNNING_LOG §350 … §362 · COMPOSITION_NOTES
-  LG-106 … LG-110 · MORPH_NOTES §3 the same day), then the plan written whole at his word *"good to write whole plan, skip step by
-  step, check in before build"* (§363).
-- **THE STATE:** **PLANNED IN FULL, NOT BUILT** — PLAN § `1t` (`0e992c3`): the requirements · 1t.1 the model in the bank (`TAKES`,
-  M3, two stations) · 1t.2 the `to` take on the panel, the arrival by `lane:seat`, the flags, ONE `duration` box writing
-  `carrier.span` (the fold box hidden — a body longer than the gliss folds everyone back toward A) · 1t.3 the vibraphones' switch
-  (`switchAt` on a voice, the sibling of `still`, opt-in; the dial 0 … 1, default 1, seat 2 + 3 s) · 1t.4 the line, the actual, the
-  REQUIRED VERIFICATION (a … g) · 1t.5 his listen (restart + reload).
-- **THE NEXT STEP:** after `/postclear`, check in (his rule) — he said *"check in before build"*. On his go: **ASK HIM FIRST the
-  bank-file question below**, then build **1t.1** from PLAN § `1t`, then 1t.2 → 1t.3 → 1t.4, one commit per step, pushed, THE SHIELD
-  in each, a RUNNING_LOG § per step (the next free § is **§364** — read the last heading before writing). STOP after 1t.4 for his
-  listen (1t.5); tell him to RESTART the server (`morph.js` changes in 1t.3) and reload the tab.
-- **⚠ THE BANK-FILE QUESTION — ask before 1t.1:** 1t.1 writes a new entry into `bank/morph_models.json`, and that file carries HIS
-  uncommitted change (`rev` 132 → 135 and `CONVERGE.actuals` = `ACT-CONVERGE-01 · -02 · -03`, written by his tab when he filed those
-  three actuals, which are untracked). A commit of 1t.1 would carry his change with it, and his tab may rewrite the file (Save as
-  ACTUAL) while the build runs. Put to him: **(a)** commit his three actuals + the index together with 1t.1 (his files, his word) ·
-  **(b)** leave his in the working tree and stage only the `TAKES` entry (a patch applied to the index with `git apply --cached`;
-  no interactive staging here) · and ask him NOT to save an actual from his tab during the build.
-- **`Resume reads:`** PLAN § `1t` (all of it). Then per step, only the code it names: 1t.1 `bank/morph_models.json` the `LGCONVERGE`
-  entry (~1902) as the template · `tools/model_bank.js --validate` · 1t.2 `morph_panel.js` `TAKE_MODELS` 1574 · `namesOwnVoices` 1577 ·
-  `takeVoices` 1649 … 1751 (the `arrival = M3 ?` line 1724 moves to the CONVERGE key) · `applyPitch` 1808 … 1833 · the time boxes
-  739 … 747 · the status `note(…)` ~1960 … 1965 · 1t.3 `morph.js` `STILL` 1331 · `stateAt` 1583 … 1668 · the re-key 1719 … 1744 ·
-  1t.4 journal §2 STILL BINDING (the throwaway recipe — it is in §2 already). RUNNING_LOG §360 … §362 only if a design question
-  needs his words.
-- **THE SHIELD for 1t — by data absence:** no `switchAt` on any voice and no `TAKES` model selected → not a byte of any stored render
-  moves. Re-render every stored model and actual before and after each step (`model_bank --validate` + the LG actuals); `morph.js`
-  changes only in 1t.3; CHECKPOINT #3's tuba-goldens recipe (below) is for the notation engine and is NOT needed here unless a step
-  touches `notation/`.
-- **Pending him:** the bank-file question (above) · the AI's calls in PLAN § `1t` (seat offset 3 s · switch default at the arrival ·
-  the fold box hidden · a missing target holds · `staggered` kept) · **the notation's pick, deferred while `1t` is built** — `2a.6`
-  the clefs or the specific notation (the `his` row in the table above) · everything pending at CHECKPOINT #3 and before (below).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as
-  CHECKPOINT #3):
-  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab
-    wrote with them (**see the bank-file question — 1t.1 touches this file**)
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
-
-**Open at session end — SESSION 15 · CHECKPOINT #3 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — superseded by CHECKPOINT #4 above; its 2c record, SHIELD recipe and pending lines still hold:**
-- **THE TASK:** the NOTATION LAYER, one thing at a time. **`2c` THE PAGE EDGES is BUILT END TO END and pushed** (PLAN § `2c` `built`;
-  RUNNING_LOG §342 … §349; `67a38fd` 2c.1 · `7562f0e` 2c.2 · `d3e23d6` 2c.3 · `d7c9694` 2c.4 · `8985026` 2c.5 · `2205e46` 2c.6 · `6007b91` 2c.7),
-  at his words *"go, build through as much as possible independantly"* and *"1a 2a, build through independently"*. What exists:
-  - **the margins** — `container.json` `prefatory.marginPx {40, 40}` · `prefatory.overhangSs 3.44` (both exporters assert the right margin
-    holds it) · `print.marginIn 0.5`; `coords.js` `makeView` maps time onto `[musicX0Px, musicX1Px]`, `Coords.edgesOf(C)` · `musicPx`.
-  - **the screen** (`page_rules.screenPlan 'tile'`) — `Splice.tilePages`: every page one 12 s span, t0/tω at the same x, the film turning AT
-    tω · the paper cut (an SVG clip on every `cut` kind) · the clamp (a unit over x(t0) shifted right, go-time indicators never moved) ·
-    a GC impact exactly at tω on the page before · the gate **`tools/check_screen_edges.js`** (via `export_video --screenJson/--screenHtml`).
-  - **the print** (`page_rules.printPlan 'objects'`) — `Splice.edgeIntervals` + `planObjectPages`: the cut placed by the objects (pushed
-    whole; a pushed GC opens the next page at the top of its descent; the system ends at the cut; FORCED only for a block longer than a
-    page), `durationStubSs 2` head + tail, `check_print_edges.js` re-pointed. `piece-lgmf`: 55 print pages (59 under D59), widest blank 0.12 s.
-  - **the edge registry** — `page_rules.edge`: every drawn kind's `screen` + `print` class (NOTATION_STANDARDS §5 is the table).
-  - **the go-line switch** — `page_rules.clampGoLine 'flag'` (5 clamped `piece-lgmf` units have no go line of their own, his 300 s whole
-    note among them); `'add'` gives each a go line at x(t) — built and seen working, left on `'flag'`.
-  - `render.js` now exports `inkSpanSs` · `gcPrePost` (one span function for the clamp and the print plan).
-- **THE STATE:** nothing being built. **HIS WORD (§347): every SPECIFIC resolution of 2c is DEFERRED to when the actual notation is in** —
-  the margins · the 2 ss stub · the go-line switch · NOTATION_STANDARDS §5's calls. Each is one number or word in the registry; do not
-  raise them again until the notation they concern exists.
-- **THE NEXT STEP:** after `/postclear`, check in (his rule) — then ask him, in one line, which comes next (his order, §330's scaffolding):
-  **(a) `2a.6` the clefs by register** (the N-2a row — a build, Opus) or **(b) the specific notation** (the N-2b row — the note unit ·
-  the cents; a design talk under the planning method, Fable). Start only on his word.
-- **`Resume reads:`** nothing beyond §2 until he picks. Then — for (a): PLAN § `2a` (its 2a.6 line) · RUNNING_LOG §335's table · `layout.js`
-  `clefOf` · `staffPos` · `MIDDLE` · `render.js` `CLEF_AT` · `glyphs.json` `clef`. For (b): RUNNING_LOG §335 (the deferral) ·
-  `docs/research/just_partials_notation.md`.
-- **STANDING FOR ANY NEW DRAWN KIND (the PLAN header's rule, now enforced):** add its line to `page_rules.edge` with BOTH `screen` and
-  `print`, and a row to NOTATION_STANDARDS §5 — `check_screen_edges.js` fails on a kind with no entry. Run both checkers after any change
-  to `render.js` · `coords.js` · `splice.js` · `page_rules.json` or the frame: `node tools/check_screen_edges.js --ir piece-lgmf` ·
-  `node tools/check_print_edges.js --ir piece-lgmf` (each ~1 min, Chrome).
-- **HOW 2c WAS SHIELDED — reuse it for 2a.6:** stage the tuba goldens from #4's HEAD from a list written FIRST (`git -C
-  ../for_seven_tubas ls-files notation/ir` minus `index.json` and `README.md`, plus the nine scores of `notation/ir/README.md`; check none
-  exists here; 26 files), then **HEAD's engine vs the build's, BOTH on the registry from BEFORE the work** (`git show <ref>:notation/registry/
-  page_rules.json` and `container.json` — for 2c that was `eeb78bb`; NOT HEAD's once the work's data is committed step by step: that
-  compares two tiled runs and differs by design, §344): `export_video --ir db1 --view video --probe 5,11.9,100,300` · `--view zoom --probe
-  100` · `export_print --ir db1 --planJson` and `--htmlOnly --pages 1-3` → byte-identical; the eight batteries (render · layout · animobj ·
-  splice · graphic · pattern_fit · stamps · ir_validate_battery) GREEN; `test_coords` has ONE pre-existing failure ("layout.js is
-  pixel-free", NITS). Restore the new files, delete the staged ones from the same list. (This session's script was
-  `<scratchpad>/shield.sh`; the scratchpad may not survive the clear — the recipe above is the record.)
-- **Learned this session:** the Read tool cannot render a PDF here (no `pdftoppm`) — rasterize the print HTML's page SVGs with
-  `@resvg/resvg-js` (the video exporter's own) and crop · `grep -c $'\r$'` misreports in this Git Bash — count CRs with
-  `tr -cd '\r' < f | wc -c` · `docs/PLAN.md` is LF throughout now (STILL BINDING's "mixed within itself" is out of date; the splice rule
-  — detect the file's own ending — still holds) · the tuba page `db1` is the one IR that exercises every kind (GCs · curves · beams ·
-  tuplets); `piece-lgmf` draws only staff · clef · brick · glyph · ledger · ottava · goline, so a 2c-class check needs both.
-- **Seen, not touched:** under D59 (no `printPlan`) the tuba's tuplets still draw off the right of every early print page — fixed only
-  on the objects plan, which this piece uses · `tools/capture_lane.js` keeps #5's own band copy, no margins (NITS).
-- **Pending him:** the 2c values when the notation is in (above) · `TemBwl` at 1 mm from the brace on paper (`TBwl` the fallback) · the A3
-  staff size · the percussion as metric figures (`--bricks`) · everything pending at CHECKPOINT #1 and SESSION 14 · CHECKPOINT #2 (below) —
-  `1s.6` · `1r.6` · `min` as a hard floor · his session-13 tests.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as CHECKPOINT #2):
-  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab wrote with them
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
-- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
+    — his libraries, autosaved by his tab · `bank/passages/lgmf-sec2.json` — his passage · `reaper/LGMF_rack.rpp` — his rack
+  - `scores/` — `piece-LGMF-Sec01-Sec02*` (five) · `piece-LGMF-Sec03-Try01` · `-Try02` · `-Try02p1a` … `-Try02p4a` · `-Try02p5` ·
+    `piece-LGMF-draft01-preVibesFix` · **`piece-LGMF-draft01-VibesFix` (new)** · **`piece-Recombination-Draft01-done` (new)** ·
+    `pointilistic01a` — his named saves
+- **Unsaved working copies** (`node tools/unsaved_check.js`, at this close): **`piece-Recombination-Draft01-done` — his live score
+  (working copy 22:15, file 22:11), his to Save** · the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
   `longToneTest`), none the piece.
-
-**Open at session end — SESSION 15 · CHECKPOINT #2 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #3 above; its pending lines still hold:**
-- **THE TASK:** the NOTATION LAYER, one thing at a time. `2a` the staves is built (`d10dcf6`); his eye on it (`2a.5`) produced two things:
-  - **THE NAMES — DONE, pushed (`1dd46bf`; RUNNING_LOG §339):** no periods · `Db → DB` · the seven lines `SlBl · Cast · Tamb · TemBwl · WB ·
-    BrDr · BD` — `TemBwl` on his condition that the gutter does not widen: measured in the app, 4.6 px of air to the brace in the video/print
-    frame, the gutter 72 untouched. `ensemble.json` `short` only.
-  - **THE PAGE EDGES — PLANNED IN FULL, NOT BUILT (`f7879db`; PLAN § `2c`, 2c.1 … 2c.7; RUNNING_LOG §340 the design talk, his words verbatim ·
-    §341):** his whole note drawn with its sharp over the clef at 300 s, and #5's print with *"quite a bit of space in right margin"*. The
-    cause: print had D59 (ownership + fixed reserves), the screen only the §404 buffer, which made a 0.22 s zone before each cut. **His
-    design is TWO rule-sets:** SCREEN — the constant sweep (every page tiles one span, t0 and tω the same x every page; long graphics cut
-    like paper; a stamp CLAMPED right but **a go-time indicator never moves**; a GC impact at tω on the page BEFORE; ink may enter the right
-    margin, never the gutter) · PRINT — the cut placed by the objects, as late as the rules allow (a GC whole or pushed whole, the next t0 at
-    the top of its descent; a duration line head + a 2 ss stub or over whole; beams · tuplets never; the rest from a WRITTEN standard) ·
-    MARGINS as a rule on both (t0 = left margin + gutter, tω = width − right margin). **The PLAN header now carries the standing rule:**
-    every new notated class names its edge class; a class with none fails the checker.
-- **THE STATE:** nothing being built. The E.H. a/b/c question of §339 is SUPERSEDED by `2c` (his whole note is 2c's own case).
-- **THE NEXT STEP:** after `/postclear`, check in (his rule) — then, on his word, **BUILD `2c` on OPUS from PLAN § `2c`, in its build
-  order:** 2c.1 the margins → 2c.2 the screen plan → 2c.3 the Matisse cut → 2c.4 the clamp + `tools/check_screen_edges.js` → **2c.5: WRITE
-  the print standards into `docs/NOTATION_STANDARDS.md` § THE PAGE TURN and STOP for his read** → on his word 2c.6 the print plan
-  (`check_print_edges.js` re-pointed) → 2c.7 the required verification, then his eye (the margins 40 · 40 px / 12.7 mm and the 2 ss stub are
-  judged THERE). One commit per step, pushed, THE SHIELD in each, RUNNING_LOG § per step.
-- **THE SHIELD for 2c is BY DATA ABSENCE** (the item's design line): with no `marginPx`, no `edge`, no `screenPlan` the engine does exactly
-  what it does today. Reuse CHECKPOINT #1's *HOW 2a WAS VERIFIED* recipe below — the tuba goldens staged from #4's HEAD (EXCLUDING
-  `notation/ir/index.json` and the README), the eight batteries GREEN before and after, `export_video --ir db1 --view video --probe 100`
-  byte-identical on HEAD's engine vs the new engine **both with the registry and `page_rules.json` of the commit before the step** swapped in.
-  ⚠ `export_print` and `export_video` share `Coords.ensembleFrame` — 2c.1 moves BOTH.
-- **`Resume reads:`** PLAN § `2c` (all of it). Then per step, only the code it names: 2c.1 `container.json` `prefatory` · `coords.js`
-  `makeView` · `ensembleFrame` · `render.js` the label block (~160–195) · 2c.2 `splice.js` `planPages` · `notation.html` ~750–816 ·
-  `export_video.js` 112–180 · 2c.3 `render.js` 90–124 (`owns` · `crosses` · `wInk`) · 2c.4 `check_print_edges.js` (its pass B is the model)
-  · 2c.6 `export_print.js` 125–230 · `page_rules.json`. RUNNING_LOG §340 only if a design question needs his words.
-- **Learned this session (§339):** `preview_start score-5401` opens the COMPOSER at the root for the seconds before a `navigate` — navigate
-  in the same breath, clear its `lgmf.sequenceDrawer.v1` · `lgmf.rhythmSequence.v1` · `lgmf.textureRow.v1` at the end, read the five bank
-  stores' mtimes against the clock · the notation app opens in whichever view it was left (video or zoom) — read the viewBox before measuring.
-- **Pending him:** `2c.5` his read of the print standards · at `2c.7` the margins and the stub on the proof · `TemBwl` at 1 mm from the brace
-  on paper (`TBwl` the fallback) · the A3 staff size · the percussion as metric figures (`--bricks`) · everything pending at CHECKPOINT #1 and
-  SESSION 14 · CHECKPOINT #2 (below) — `1s.6` · `1r.6` · `min` as a hard floor · his session-13 tests.
-- **After 2c, in HIS order:** `2a.6` the clefs (the N-2a row) or the specific notation (N-2b) — ask which.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as CHECKPOINT #1):
-  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab wrote with them
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
-- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
-  `longToneTest`), none the piece.
-
-**Open at session end — SESSION 15 · CHECKPOINT #1 (2026-09-25, Fable built, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #2 above; its SHIELD recipe and its pending lines still hold:**
-- **THE TASK:** the NOTATION LAYER, opened at his word (*"I want to start building the notation layer"*), worked ONE THING AT A TIME (*"let's
-  break it down pretty good and really do just one thing at a time"*). The survey of what the port carried (RUNNING_LOG §330) is his SCAFFOLDING
-  (*"hang on to this analysis and list"*): gates on the file (91 → 83 unregistered keys · the cents · the phase-1 fields · the dynamics' names ·
-  texture / sequence objects) · staves and marks · animated devices (LG-3 conductions · LG-5 balls) · 2b. The first thing, THE STAVES, is done.
-- **THE STATE:** nothing is being built. **PLAN § `2a` THE STAVES is BUILT, VERIFIED, COMMITTED AND PUSHED** (`d10dcf6`; RUNNING_LOG §331 the
-  percussion inventory · §332 … §337 his decisions · §338 the build and every check). What exists:
-  - **`notation/ir/piece-lgmf.ir.json` — THE MAIN NOTATION FILE** (NAMING §1): `notate_section --score piece-LGMF-Sec01-Sec02-sec03a --all --bricks
-    --id piece-lgmf`, 775 events, VALID `--against-source --complete`, first in the picker. Regenerable from its `provenance.build`; re-extract it when
-    his score moves on (it is the save as of 2026-09-25 00:19).
-  - **The percussionist's brace, a JOINED lane:** the SEVEN-LINE unpitched staff (2 ss between lines, no clef, top → bottom sleigh bells · castanets ·
-    tambourine · temple bowl · wood block · brake drum · bass drum, the short names in the gutter, a note ON its instrument's line by technique-key
-    prefix) over the vibraphone's treble staff, 6 ss between them — `ensemble.json` part 4 `staff` + `weight 2.109`, the brace `joined`.
-  - **The presentation score IN C** — `container.json` `video-jury`: EH · Hn `transpose 0`; the default keeps +7 · +7 for the parts.
-  - **A fixed frame on every print page** (his "a", §337) — nothing to build, it is how the exporters already work.
-- **THE NEXT STEP — HIS, `2a.5`:** tell him: *no restart (page files only) — open http://localhost:5400/notation/app/notation.html → the picker
-  opens on `piece-lgmf` → type `300` in the time box, ENTER → the brace, the seven lines, the names, the heads on their lines; `z` flips to the
-  zoom.* If he asks for paper: `node tools/export_print.js --out <file>.pdf --ir piece-lgmf --at 330` (one A3 page at 5:25). Revise on his word — a
-  look question on Fable, a fault on Opus. **Then, in HIS order:** `2a.6` the clefs (the N-2a row) or the specific notation (N-2b) — ask which.
-- **`Resume reads:`** only on his 2a feedback — RUNNING_LOG §338 · PLAN § `2a` · then the code the fault names (`coords.js` `joinedSystems` ·
-  `layout.js` `staffInfoOf` · `spelledOf` · `render.js` the label block). For `2a.6`: PLAN § `2a` (its 2a.6 line) · RUNNING_LOG §335's table ·
-  `layout.js` `clefOf` · `staffPos` · `MIDDLE` · `render.js` `CLEF_AT` · `glyphs.json` `clef`. Nothing else.
-- **HOW 2a WAS VERIFIED — reuse it for 2a.6:** THE SHIELD = stage the tuba goldens from #4's HEAD **excluding `notation/ir/index.json` and the
-  README** (the `notation/ir/README.md` recipe's `git ls-files notation/ir` includes them and would overwrite THIS repo's picker), from a list written
-  first, deleted after; the eight engine batteries (render · layout · animobj · splice · graphic · pattern_fit · stamps · ir_validate_battery) GREEN
-  before and after; `export_video --ir db1 --view video --probe 100` byte-identical with **HEAD's registry** swapped in (the new registry changes a
-  tuba page by design — the exporters lay every page on this piece's ensemble). The layout model checked in node (every lined-staff head at its
-  line); the app on `score-5401` read by the DOM (the app's `state` is module-scoped — `#sheet svg` `.sys-p4`), the zoom by the `z` key.
-- **Pending him:**
-  - **`2a.5`**, above · **the staff size on A3** — one brace lane takes 2.1 units, so every staff on the page is smaller than #5's; #5's one-number
-    switch (`staff.staffHeightPx` 31.6 → 28) if he wants it.
-  - **The percussion as METRIC figures?** Without `--bricks` the extractor promotes the strikes to 156 beamed `trance-stream` chunks (the tuba's
-    notation). `--bricks` keeps every note plain until the note unit is decided — his to reverse when that talk comes.
-  - Everything pending at SESSION 14 · CHECKPOINT #2 (below) — `1s.6` · `1r.6` · `min` as a hard floor · his session-13 tests.
-- **Seen, not touched:** `ev-wc-3489` (the double bass's A5 sounding) needs three octaves of ottava in bass clef — 2a.6 takes it · 4 of the 7
-  percussion instruments play keys outside their `keys` table (§331) — his to raise if he hears it.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 15 as CHECKPOINT #2):
-  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals · `bank/morph_models.json` — the store's index his tab wrote with them
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores (`-sec03a` is the
-    save `piece-lgmf` was extracted from; the IR records it by name, the score stays his)
-- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
-  `longToneTest`), none the piece.
-
-**Open at session end — SESSION 14 · CHECKPOINT #2 (2026-09-25, Fable built, Opus wraps) (mid-session checkpoint) — superseded by SESSION 15 · CHECKPOINT #1 above; its pending lines still hold:**
-- **THE STATE:** nothing is being built. **`1s` THE MORPH BETWEEN `min` AND `max` is BUILT, VERIFIED, COMMITTED AND PUSHED** (`c142659`;
-  PLAN § `1s`; RUNNING_LOG §326 the diagnosis — `dyn amount` was the half-swing round a hidden `base`, why the top never came down · §327
-  the morph's level read to him — one slow curve cut into breaths, not the waves, the same `pp` as everything else · §328 his "A", the
-  standard answered (mf strike + the TABLE's two values, not 0 … 127), the top line · §329 the build and every check).
-  `score/public/morph_panel.js` alone; `morph.js` untouched — page files only.
-  - **What it does:** `min` · `max` menus of written dynamics (`ppp … fff`) replace `dyn amount`; the engine's `dyn.base` · `dyn.amount`
-    are derived from the two names and carried in hidden boxes, so a recalled actual renders byte-identical and its menus read `≈ pp` ·
-    `≈ ff` until he touches one; `flat` shows one menu, `level`; the status on Play and Insert ends `· min pp · max ff`.
-- **THE NEXT STEP — HIS, `1s.6`:** tell him: *reload the tab (no restart) → MORPH → CONVERGE or BLOOM on his take → `min pp` · `max ff` →
-  Generate → the status ends "· min pp · max ff" → Play → Insert if he keeps it.* Revise on his word — a design question on Fable, a fault
-  on Opus. **Then `1r.6`** (the ►► row below — he was playing it when this began; his tab has since filed `ACT-CONVERGE-02` · `-03`, not
-  read, perhaps his `1r.6` keeps), **then his session-13 tests** (the `his` rows).
-- **`Resume reads:`** only on his `1s` feedback — RUNNING_LOG §329 · PLAN § `1s` · `morph_panel.js` `drawDyn` · `dynText`; on the floor
-  question, `morph.js` `dynLevel` (~251) and `stateAt` (~1639 … 1665). STILL BINDING before any verification. Nothing else.
-- **Pending him:**
-  - **`min` as a HARD FLOOR? (§329)** — a model's own level dips go under `min`: CONVERGE's soft entries start breaths at the engine's floor
-    0.4 of 10 and rise (on HEAD too — 18 of `ACT-CONVERGE-01`'s 88 breaths). One clamp in `morph.js`; every stored render would move.
-  - **A `waves` shape for the morph** — offered (§327 B), declined for now; feasible in the panel later.
-  - The calls of § `1r` and everything pending at CHECKPOINT #1 and session 13's close (below).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint):
-  - `bank/actuals/ACT-CONVERGE-01.json` · `-02.json` · `-03.json` — HIS actuals (01 the stock CONVERGE at 427 s in Sec02; 02 · 03 filed by
-    his tab during `1s`, unread)
-  - `bank/morph_models.json` — the store's index, written by his tab with those actuals
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
-- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 only (`cresTest` · `lgmf-all` ·
-  `lgmf-bloom` · `longToneTest`), none the piece. **`piece-LGMF-Sec01-Sec02-sec03a` is now SAVED.**
-
-**Open at session end — SESSION 14 · CHECKPOINT #1 (2026-09-24, Fable built, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #2 above; its `1r` lines still hold:**
-- **THE STATE:** nothing is being built. **`1r` CONVERGE ON A TAKE is BUILT, VERIFIED, COMMITTED AND PUSHED** (`f084f99`; PLAN § `1r`;
-  RUNNING_LOG §322 his actual read · §323 his "a" · §324 "away from the partner" + his take pair by pair · §325 the build and every
-  check). `score/public/morph_panel.js` alone; `morph.js` · `morph_septet.js` untouched.
-  - **What it does:** under CONVERGE a take is the ARRIVAL — each player opens a semitone AWAY FROM THEIR PARTNER (the higher up, the
-    lower down; a doubled pair a up, b down) and closes onto their own just note, cents kept; the vibraphones held still on their notes.
-  - **Found on the way:** the LG models (LGSPECTRAL · LGBLOOM · LGCONVERGE) are engine M3 too — `namesOwnVoices(key)` keeps them
-    refusing a take and recalling exactly as before.
-- **THE NEXT STEP — HIS, `1r.6`:** tell him: *reload the tab (no restart) → CONVERGE → `Just-c2-seed143` on the PITCHES pulldown →
-  Generate → the line reads "as assigned — the arrival" → Play → Save as ACTUAL if he keeps it.* Expected: Vc F4 → E4 −14 ¢ · Db B2 →
-  C3 · Tpt G5 → F♯5 −49 ¢ · Hn B4 → C5 · EH C♯4 → C4 · Bsn B1 → C2 · Vib D6 · Vib² C♯6 still. Revise on his word — a design question
-  (the opening width, a dwell, three stations) on Fable; a fault in the reading on Opus.
-- **Then his session-13 tests,** unchanged (the `his` rows of the table above): `1q.8` the level first · the percussion overdub ·
-  `1q.4` · `1p` · `1n.6` · `1o.6` · `1m.4`.
-- **`Resume reads:`** only on his feedback on `1r` — RUNNING_LOG §325 (the build, the numbers) · PLAN § `1r` · code `morph_panel.js`
-  `takeVoices` · `applyPitch` · `namesOwnVoices`. On anything else: the session-13 table below maps each tool to its §. STILL BINDING
-  before any verification.
-- **Pending him:** the calls in § `1r` (two stations, no dwell · a semitone, no dial · SPECTRAL and COLOUR still refuse a take) — his
-  to reverse. Everything pending at session 13's close still stands (below).
-- **Answered this session, nothing built:** how the vibraphones get into a morph (a take + row 4 ticked) · how to get back an undone
-  insert (CTRL+SHIFT+Z first; then [Reload] = the last Save, [Restore…] = a named version, the file frozen `-before-restore` first).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint):
-  - `bank/morph_models.json` — the store's index, written by his tab when he filed `ACT-CONVERGE-01`
-  - `bank/actuals/ACT-CONVERGE-01.json` — HIS actual (`lgmf-s03-convergeA`, the stock CONVERGE; placed at 427 s in Sec02)
-  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab)
-  - `reaper/LGMF_rack.rpp` — his rack
-  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
-  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `scores/pointilistic01a.json` — HIS scores
-- **Unsaved working copies** (`node tools/unsaved_check.js`): **`piece-LGMF-Sec01-Sec02-sec03a` — his LIVE score (working copy 02:47,
-  file 02:43), his to Save** · the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest`).
-
-**Open at session end — SESSION 13 CLOSED (2026-09-24, Opus) — its tool table and its pending list still hold:**
-- **THE STATE:** nothing is being built. Every tool of session 13 is committed, pushed and in his tab. The next step is his (the ►► rows).
-- **WHERE EACH TOOL LIVES** — for his feedback, open the § of the step he faults, then its code (under `score/public/` unless named):
-
-  | Tool | RUNNING_LOG | PLAN | Code first |
-  |---|---|---|---|
-  | `1m.4` articulation | §279 … §285 · §287 … §290 | § `1m.4` | `texture_lens.js` · `sandbox/instruments.js` |
-  | `1o` the save structure | §291 … §295 | § `1o` | `texture_lib.js` · `texture_insert.js` |
-  | `1n` dynamics in the texture take | §296 … §301 | § `1n` | `texture_dyn.js` |
-  | `1p` the end time · the cursor's clock | §302 … §304 | § `1p` | `texture_cols.js` |
-  | the top bar that grows | §315 | — | `composer.html` `fitTopBar` |
-  | `1q` a take's harmony onto a selection | §306 … §314 · §316 · §317 | § `1q` | `harmony_sel.js` · `note_card.js` |
-  | the volume fix | §318 · §319 | § `1q` | `harmony_sel.js` `writeNote` · DYNAMICS_LAW §3 Rule 5 |
-  | `1q.9` the dyn box | §320 | § `1q.9` | `note_card.js` `applyLevel` |
-  | the percussion menu · overdub | §321 | — | `composer.html` `onHwMidi` · `sandbox/instruments.js` `applyAroPerc` |
-
-- **Decisions pending him — each written out in the § cited:**
-  - **The AI's calls, his to reverse:** `1q` §312 … §315 · §317 · §320 · `1p` §303 · §304 · `1n` §296 … §300 · `1o` §295 · `1m.4` §283 ·
-    the PLAN [call]s of § `1m.4` (§260) · § `1n` (§275) · § `1o` (§278) · session 12's for `1l` and `1m.1` … `1m.3` (§200 … §206 · §212 ·
-    §213 · §233 · §237).
-  - **Offered, not taken up:** a column `dyn` box beside the column's `length` · the bottom bar scrolling sideways on a narrow window (its
-    controls need ~2,140 px) · a brick dragged to another lane KEEPS its old articulation — the drop does not re-pick it (`composer.html`
-    ~5707, read, not heard).
-  - **Seen, not touched:** 17 notes in `pointilistic01a` in the DRAWERS' bent-insert shape (`recVel`, no `plain`, no `velAbs` —
-    `strike_drawer.js` ~1529), struck from the anchor scale by height rather than at their `recVel` — §318's fault by the drawers' own
-    door; his to raise if he hears it (§320).
-  - **Housekeeping, his:** whether `bank/patterns.json` goes into git (§278) · THE TRIANGLE — track 10 `Percussion` takes `LGPerc` on ALL
-    channels (§221), his to mute or re-channel, then `docs/RACK_SETTINGS.md` · `ACT-BLOOM-03` · `-04` in the store · a `sec01-done` tag.
-- **DELIBERATELY UNCOMMITTED — all his, none of it mine to touch** (`git status --short` at this close): `bank/panel_snapshots.json` (his
-  harmony takes) · `bank/sequences.json` (his sequence library, autosaved — committing mid-use races his tab) · `reaper/LGMF_rack.rpp` (his
-  rack) · untracked `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` (the Texture stores of `1l`) · `bank/patterns.json` (his
-  patterns; §278) · `scores/pointilistic01a.json` (HIS score, now saved) · **`scores/piece-LGMF-Sec01-Sec02.json` and
-  `bank/passages/lgmf-sec2.json` — new, written by his tab during this close: he has begun SECTION 2 in a score of its own.** No score is
-  committed here.
-- **Unsaved working copies** (`node tools/unsaved_check.js`, at this close): `cresTest` · `lgmf-all` · `lgmf-bloom` · `longToneTest` — the
-  same four since session 11, none the piece; his to Save or Reload. `pointilistic01a` is saved.
-- *(Session 13's long §2 — its opening brief, the running order of the three plans, checkpoints #3 … #10 — and session 12's close block
-  were cut at this close. They are whole in git: `git show fbf501f:docs/PROJECT_JOURNAL.md`.)*
 
 ### STILL BINDING — carried whole from session 11's checkpoint #4
 
@@ -784,8 +244,9 @@ whole in git, see the close block below.)*
 moves BOTH · never bind **5300** or **4800**, they are piece #5's · the loopMIDI ports are `LG`-prefixed for the same reason · the AI
 never saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI · **the composer's lanes are laid out by CSS `nth-child` rules in `composer.html`, the curve windows A · B · C over the last three — a lane added to `TRACKS` needs its rule, and `palette_check` does not look** (RUNNING_LOG §183) · **a server route that `require`s engine code keeps the copy it started with** — after a build that changes `morph.js` or `model_bank.js`, say "restart the server" as well as "reload the tab" (§181).
 
-**Checks this piece owns:** `node tools/sequence_check.js` (**180**) · `node tools/dyn_table_check.js` (**51**) · `node tools/test_snapshots.js` (**28**) · `node tools/palette_check.js` (**198**) · `node tools/roster_check.js` (**3** over **339** voices, **26** pending — 1m.4.1) ·
-`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) ·
+**Checks this piece owns:** `node tools/sequence_check.js` (**180**) · `node tools/dyn_table_check.js` (**51**) · `node tools/test_snapshots.js` (**30**) · `node tools/palette_check.js` (**198**) · `node tools/roster_check.js` (**3** over **339** voices, **26** pending — 1m.4.1) ·
+`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) · `node tools/sequence_notation_check.js` (**58**, 2d) · `node tools/vibes_pitch_check.js` (**65**, 1u) ·
+`node tools/check_screen_edges.js --ir piece-lgmf` · `node tools/check_print_edges.js --ir piece-lgmf` (2c, Chrome, ~1 min each) ·
 `node tools/check_ceilings.js --all` · `node tools/model_bank.js --validate`. Run the palette ones after any change to `TRACKS`,
 `sandbox/instruments.js` or `notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
 
@@ -1063,6 +524,49 @@ this repo only when they bite.)*
   checkpoint #6 of session 15; no reason given, none inferred. The repo, the folders and the ports keep their names (`septet_LGMF_2026`,
   the `LG` ports) — a title is not a rename. COMPOSITION_NOTES LG-113 · RUNNING_LOG §381.
 
+- **D33** *(2026-09-24, PLAN 1r · 1s; composer, his "a" §323 · "away from the partner" §324 · his "A" §328)* — **THE MORPH READS THE
+  TAKE AND THE WRITTEN DYNAMICS.** Under CONVERGE a take is the ARRIVAL: each player opens a semitone AWAY FROM THEIR PARTNER (the higher
+  up, the lower down) and closes onto their own just note, cents kept; the vibraphones held still. The morph's level is set by `min` ·
+  `max` in written dynamics, the engine's `dyn.base` · `dyn.amount` derived and hidden, so every stored render stays byte-identical.
+  *Rejected:* the take refused under M3 (the panel before, §322) · `dyn amount`, the half-swing round a hidden `base` — why the top never
+  came down (§326). Open: `min` as a hard floor (§329). RUNNING_LOG §322 … §329.
+- **D34** *(2026-09-25, PLAN 2a; composer, §332 … §337)* — **THE STAVES.** `notation/ir/piece-lgmf.ir.json` is the MAIN notation file
+  (NAMING §1); the percussionist's brace is a JOINED lane — a SEVEN-LINE unpitched staff in his order (sleigh bells … bass drum), no clef,
+  a note ON its instrument's line, over the vibraphone's treble staff; the presentation score IN C (`video-jury`), the parts transposed;
+  a fixed frame on every print page. *Rejected (deferred, his to reverse):* the percussion as metric figures — without `--bricks` the
+  extractor promotes the strikes to 156 beamed `trance-stream` chunks, the tuba's notation, before the note unit is decided (§338).
+  RUNNING_LOG §330 … §339.
+- **D35** *(2026-09-25, PLAN 2c; composer, his design §340 verbatim · his deferral §347)* — **THE PAGE EDGES: TWO RULE-SETS.** SCREEN —
+  the constant sweep: every page tiles one span, t0 and tω at the same x every page, long graphics cut like paper, a stamp clamped right
+  but a go-time indicator NEVER moved, ink may enter the right margin, never the gutter. PRINT — the cut placed by the objects, as late
+  as the rules allow (a GC whole, a duration line's 2 ss stub, beams never). The margins a rule on both; **every drawn kind names its edge
+  class, or the screen gate fails.** Every specific value deferred to when the notation is in. *Rejected:* print's D59 ownership + fixed
+  reserves (*"quite a bit of space in right margin"*) · the screen's §404 buffer (a 0.22 s dead zone before each cut). RUNNING_LOG §340
+  … §349; NOTATION_STANDARDS §5.
+- **D36** *(2026-09-25, PLAN 1t; composer, LG-106 … LG-110)* — **THE MORPH BETWEEN TAKES.** Take A → take B, each player from their own
+  note to their own note by lane:seat, cents kept; ONE `duration` box = `carrier.span`, the starts scattered, no two together; the
+  engine's re-key for a distant pitch; the vibraphones a switch dial — one re-strike, the breath CUT at the moment, the seats 3 s apart;
+  the release HOLDS B (`carrier.releaseHolds`); a missing player flagged; the joins with the sequences BY HAND. *Rejected:* a pacer · the
+  fold box (a body longer than the gliss folds everyone back toward A — hidden) · the engine's release as it was (it sent every player
+  back to A under the fade, §367) · the switch as a pitch step alone (it struck a stray note between the bars, §366). RUNNING_LOG §350 …
+  §367; MORPH_NOTES §3.
+- **D37** *(2026-09-25, PLAN 2d; composer, LG-111 · LG-112; `just_partials_notation.md` §1a)* — **THE SEQUENCE'S NOTATION, BEGUN ON THE
+  ENGLISH HORN.** The tuba/#5 two-part form: a BLOCK at the entry (the open head LEFT of the go line, its column cents over partial/
+  fundamental, the technique, the dynamic span) and the LANE — the level on ONE FIXED SCALE (niente … fff, the whole piece, every
+  realization) + the follower · a pie counting each breath down · `(dyn)` labels at the turning points · a parenthesised cue at a
+  same-pitch breath, a column at a new one. The just marks: |c| < 20 plain · 20 … 37 an arrowed accidental · ≥ 37 the quarter sign; the
+  numbers Crimson Pro Light, the true minus, no ¢. *Rejected:* a GC at the entry · a per-block scale legend (the presentation fallback
+  only) · opening/closing signs (the curve draws both fades) · ticks. Open: the page-start clash (§387). RUNNING_LOG §368 … §387.
+- **D38** *(2026-09-26, PLAN 1u; composer, LG-114, his answers §388 · his word §397)* — **THE VIBRAPHONES CHANGE PITCH AT THEIR BREATHS,
+  ON THE NOTES.** `1q`'s way: the breaths selected, `vibes ▾` on the harmony strip — `pool` (neighbours · within a tone · any: the take's
+  own series, in range, under the ±5 ¢ tolerance) · `change` (never … always) · `draw` (random · exhaust · walk · shadow) · a seed ·
+  `go`; the two seats one pool, kept apart; `back` + CTRL+Z the way back; one module for a sequence, a morph, any held passage — no
+  engine file touched. A placed morph names its take on its MARKER (Insert writes it; an older one matched to its saved actual by the KEYS
+  of the other players, the match written there, §395 · §401). *Rejected:* the change in the RECIPE (a sequence's / morph's own dial —
+  reproducible, surviving a re-insert; the caveat of the notes accepted: a re-insert regenerates and the change is gone) · the first
+  breath of each seat kept as dealt (the plan's call, reversed at his word *"the first pair selected does not change"*, §397) · a content
+  match by time (eaten by `go` and by his hand, §401). RUNNING_LOG §388 … §401.
+
 ## §5 Playbooks
 
 *(Mode-specific procedures and gotchas. Piece #5's §5 holds the engine's playbooks; bring one
@@ -1088,6 +592,9 @@ across when its system lands here and is first used.)*
 - 2026-09-24 — **SESSION 13: FIVE TOOLS BUILT END TO END** — `1m.4` articulation · `1o` the save structure · `1n` dynamics in the
   texture take · `1p` the end time · `1q` a take's harmony onto a selection — each verified in the running app, his tests owed; he uses
   `1o` already and composes in `pointilistic01a` (RUNNING_LOG §279 … §321).
+- 2026-09-25 — **THE NOTATION LAYER OPENED:** `piece-lgmf` the main notation file (`2a` the staves) · `2c` the page edges · `2d` the
+  english horn's sequence notation prototype (`lgmf-eh-proto`) — and the morph grew: `1r` · `1s` · `1t` take A → take B (RUNNING_LOG §322 … §387).
+- 2026-09-26 — **`1u` THE VIBRAPHONES' PITCHES ON THE STRIP built, and in use in section 3** (RUNNING_LOG §388 … §401).
 
 ---
 
