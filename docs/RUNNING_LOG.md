@@ -14154,3 +14154,55 @@ engine never ran), every gesture the pane's REAL input:
 - the harmony strip: a note selected, `take ▾` clicked → the same menu, `_box` false → `Just-A1-seed131mod` clicked → the note
   re-pitched (`EH G5−31¢`), **the drawer stays inactive** — the strip's use unchanged.
 - 2 POSTs, both `/api/snapshots` from the new box's library save — caught by the stub; nothing reached the bank.
+
+## §394. `1u.5` THE SHIELD AND THE REQUIRED VERIFICATION — every check of (a) … (g) passes; `1u` is built, 1u.6 is his (2026-09-26, Opus, session 16)
+
+**On `score-5401`** with the stubs of STILL BINDING (fetch non-GET · sendBeacon · confirm · autosave, again after every `openScore` ·
+rAF a 16 ms timer · all eleven `LG` ports logging); his scores opened IN MEMORY only, never saved. Gestures by the pane's real input
+where the step names one (the `vibes ▾` toggle, `go`, `back`, a seed chip, CTRL+Z, the three dials by form input); the selection by
+script — the marquee's CTRL+drag the pane cannot hold (§313), his at 1u.6.
+
+- **(a) THE SHIELD — 13 of 13 identical.** His `pointilistic01a`, the four TAKE notes of §319 (EH · Tpt · Hn · Vc at 16.0 s):
+  `apply('Just-b1-seed208')` → `shuffle(1)` → `back`; the whole score and the four notes hashed at each stage, and the playback's MIDI
+  from 15.4 s. BEFORE = the page files of `e70f7d8` (the commit before `1u`: no script tag, `sequence_ui.js` without 1u.4) written to
+  disk, AFTER = HEAD; both from a fresh load with the throwaway's drawer storage cleared. The take's note-ons as §319:
+  `lgcello 146,79,50 · lgenghorn 145,78,55 · lghornb 147,75,45 · lgtrumpetb 149,77,51`; `back` = the start, objects and MIDI.
+  **Batteries:** `model_bank --validate` VALID (its standing warnings) · `sequence_check` 180 · `test_snapshots` 30 ·
+  `sequence_notation_check` 58 / 58 · `vibes_pitch_check` 50 / 50. No engine file changed, so every stored render is shielded by
+  construction — not measured, and not claimed as measured.
+  - *Learned — a shield compares MIDI by CONTENT:* the raw stream of a 0.9 s capture moves at its edges from run to run (a CC7 or a
+    note-off in or out of the window). Hashing the whole stream made a false alarm twice (different captures differing in each run while
+    every object hash matched); the note-ons, bends and CC7 values, sorted and unique, are stable. And the throwaway's drawer storage
+    (a row left by the 1u.4 test) is state a fresh load carries — cleared before each side.
+- **(b)** `vibes_pitch_check` 50 / 50.
+- **(c) his `piece-LGMF-Sec01-Sec02`, the sequence `LGMF-R01c`** (a copy in memory; 662 objects): its 55 vibraphone breaths + one EH
+  note selected → the strip `56 notes · 2 players` → `vibes ▾` (real click) → the second line under the strip (its top 3 px under the
+  strip's bottom, the same right edge), `9 takes`, `any · always · exhaust`, `±5¢` → `go` (real click) → *`vibes · 9 takes · pool any
+  (10…13) · change always · draw exhaust · seed 1 → 37 of 55 breaths changed · seat 1: D♯6 → D6 → C4 → D5 → C6 → C4 … · seat 2: C6 →
+  G3 → C♯5 → G5 → D6 → C♯6 …`*. **18 anchors = 9 takes × 2 seats** (the first breath of each seat in each box), every one of the other
+  37 re-pitched · 0 places where the two seats share a pitch over an overlap · every pitch a member of its breath's take under ±5 ¢
+  in F3 … F6 · onsets, lengths, `velAbs`, `cc7Abs`, `nodes`, `cc7Fade`, `sonifyMode`, technique of all 55 identical to before · the EH
+  note untouched (the vibes line ignores other lanes) → `back` (real click) → *37 objects restored*, **all 662 objects byte-identical to
+  the start** → the chip `1` (real click) → the same 55 pitches → CTRL+Z (real key) → **the start again in one undo**. 0 POSTs.
+  - **Seen, the AI's call to name to him:** in a sequence of several takes the take-boundary anchors keep a third of the breaths as
+    dealt (18 of 55 here); the plan's (c) says *"every breath after the first of each seat"*. The anchors are the reading of §391.
+- **(d) `half · neighbours · walk`** (the three dials by form input, remembered in the browser; `go`, seed 2): **17 of the 37** breaths
+  after the anchors changed · every change one step along its breath's pool, nothing stepped over but the other seat's pitch · 0 shared
+  pitches · the pools 0 … 5 members as the chord moves. `back` → the start.
+- **(e) the placed morph `ACT-BLOOM-06`** (44 vibraphone breaths): the line names `take "Blm01c-wVibes-Just-A1-seed131mod"` — the actual
+  fetched once from the store and read by its marker · `go` → 42 of 44 changed, 2 anchors (A5 · A♯5, its deal), 0 shared pitches, every
+  pitch a member, every non-pitch field identical, the take found for all 44 by the actual · each written bend the centred pair
+  `[[0, 1e-6], [dur, 1e-6]]` in place of the morph's flat many-point bend.
+- **(f) the captured MIDI of one re-pitched breath** (`wc-3282`, the morph's second seat at 172.51 s, A♯5 → A4): AFTER — `lgvibes 145,69,99`
+  on **ch 2**, the bend `225,0,64` (centre), CC7 59 · 60 · 61 … on ch 2; BEFORE (after `back`) — on ch 2 `177,7,59` · `225,0,64` ·
+  `145,82,99` · `177,7,60` · `61` … — **the same channel, velocity, bend and fader; only the key moved.** MAIN ch 1: no note-on. (A
+  second 82 on ch 4 in the BEFORE window is the previous breath, chased at the play's start.)
+- **(g)** 1u.4's check — §393.
+
+**Housekeeping:** the throwaway's `lgmf.sequenceDrawer.v1` · `lgmf.rhythmSequence.v1` · `lgmf.textureRow.v1` · `lgmf.vibesPitch.v1`
+cleared, the viewport reset, the server stopped. The bank's and the scores' times read before and after: `bank/panel_snapshots.json`
+changed at 12:53:15 — its newest entry is a take `Just-e1-seed191mod` saved at that second, his naming, from his live tab (he also saved a
+new score `piece-LGMF-Sec03-Try02p4a` at 12:41 … 12:48); nothing the throwaway ran saves a take, and its POSTs were all caught.
+
+**`1u` IS BUILT** — 1u.1 `f5bb5b9` · 1u.2 `fb779c2` · 1u.3 `a1b0e3d` · 1u.4 `ae1ee5d` · 1u.5 this commit. **What is left is 1u.6, his:**
+reload the tab (page files only, no restart).
