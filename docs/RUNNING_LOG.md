@@ -14051,3 +14051,51 @@ instruments · `spectrum_ui.js` `mayTake` against a stub drawer · `harmony_sel.
 
 **Not in this step:** the draw and the write (1u.2) · the strip's row (1u.3). No verification in the page — the plan names none for
 1u.1; the browser half (`vibActuals` · `vibPlan`) is exercised at 1u.5 (c) … (e).
+
+## §391. `1u.2` THE DRAW — built: the breaths walked in time, both seats together, and the write through the strip's own path (2026-09-26, Opus, session 16)
+
+**What was built** — in `score/public/vibes_pitch.js`: the core's `draw(breaths, { change, draw, seed })` and the strip's
+`vibGo({ pool, change, draw, seed })`. Still not loaded by the page (1u.3's script tag).
+
+**How the draw reads the dials — one reading the plan left open, the AI's, his to reverse:** a seat HOLDS its pitch from breath to
+breath until a change. `change` is the chance of a NEW pitch at a breath: `never` 0 · `rarely` 0.2 · `half` 0.5 · `often` 0.8 ·
+`always` 1. The other reading — an unchanged breath goes back to the note the take dealt — would make the take's note a home the line
+keeps returning to; the plan's own words (*"a change always a DIFFERENT pitch"*, *"walk … from the current pitch's place"*, the status
+*"seat 1: B5 → C6 → B5 …"*) read as a line that moves only when it changes. `never` holds the first note throughout.
+- **The anchors** — left as they stand: the first selected breath of each seat (the plan's call) AND a breath whose take is not its
+  seat's previous breath's — a box of another take in a sequence, the TAKE → TAKE switch. **This second kind is the AI's extension:**
+  holding a pitch across a box line would carry the old take's note into the new take's harmony; the new box's deal is its anchor.
+- **The other seat, over the whole breath** (the plan said *"at that moment"*): what the other seat holds over any part of the breath —
+  its breaths already drawn as drawn, an anchor as it stands; a later breath that is not an anchor keeps clear of this one at its own
+  turn. At a moment only, a seat could take a pitch in the other's breath gap and meet it on its next breath; 1u.5 (c) asks for *"no
+  two seats on one pitch at any overlap"*, which needs the whole breath.
+- **Made to change (`forced`)** — a breath that would hold a pitch the other seat now sounds over it draws instead. **An empty pool** =
+  no change, the seat holds (`empty`), a forced one with nowhere to go counted `clash`.
+- **The stream:** two draws per breath after the anchors, always (the chance, then the pick), so every breath's draw is the same
+  whatever the breaths before it decided — a seed reproduces on the same selection.
+- **The four draws** as the plan: `random` uniform · `exhaust` a cycle per seat (uniform among the members not yet sounded — the
+  same law as walking a shuffled order; a member the other seat holds is skipped and stays unsounded; an anchor starts a new cycle) ·
+  `walk` the pool by pitch, one step, the direction by the stream, a bounce at the ends, a step over the other seat's pitch · `shadow`
+  the member nearest in cents to another player's pitch at the breath's start, ties by the stream (none sounding → uniform).
+
+**The write (`vibGo`)** — `pushUndoState` once for the whole `go`; for each breath whose pitch differs from what it holds: `remember`
+(`hq.was`, once) · `hq.dealt` = the take's own note if not already kept (what the shuffle means by *another*) · `writeNote(o, { midi,
+cents 0, partial }, take)` — the tempered key; a morph note's bend becomes writeNote's centred pair · `stamp(o, take, n, seed)` ·
+`hq.seat` 0 or 2 · `rerender`; then `curveDirty` · `markDirty`. No `seat` is passed to `writeNote`, so no note's route changes (a plain
+vibraphone note stays plain on MAIN with its new key; a drawn one stays drawn). `back` and CTRL+Z need nothing new.
+
+**The check — `node tools/vibes_pitch_check.js` 50 / 50** (1u.1's 31 + 19). A passage of two seats, ten breaths each, over his
+screenshot's chord:
+- `always · any · exhaust · seed 17` → seat 0 B5 F♯4 C♯5 C♯6 C6 D6 B4 B3 F♯3 F♯5 · seat 2 C♯5 C♯6 B3 F♯5 F♯3 F♯4 D6 B5 B4 C6 — the
+  anchors kept, 18 of 20 changed, every pitch a member, never a repeat at a change, each seat's first seven all different, no two
+  seats on one pitch at any overlap; seed 17 again → the same; 18 → another · `never` → every breath as it stands.
+- `half · neighbours · walk · seed 5` → 10 of 18 changed, every change one step along 3 · 9 · 12 · 16 with only the other seat's
+  pitch stepped over (seat 0: B5 → F♯5 … F♯5 → F♯3 over the C♯5 the other seat held).
+- `always · any · shadow · seed 9` → the members nearest the others: B3 on the bass's B3, F♯4 on the horn's F♯4 +2, B5 when both are
+  taken — a narrow ping-pong, which is what the rule means.
+- a pool of one (F♯5): the first seat takes it and holds it, the second waits on C♯5 (3 empty pools) · a box of another take kept as
+  an anchor · a seat that would hold B5 over the other seat's new B5 made to change (forced 1).
+
+**THE SHIELD** — by construction at this step: `composer.html` does not load `vibes_pitch.js` until 1u.3, and no file the page loads
+changed. The captured shield (§317 · §319 on his `pointilistic01a`) runs at 1u.3, when the page first loads the new code, and again at
+1u.5 (a).

@@ -184,6 +184,80 @@ const Core = {
         });
         return { breaths, noTake, crowded };
     },
+
+    // ------------------------------------------------------------ 1u.2 THE DRAW — the breaths walked in time, both seats together
+    // A seat HOLDS its pitch from breath to breath until a change (the AI's reading of "change never … always": the chance of a new pitch
+    // at a breath; `never` holds the first note throughout). THE ANCHORS are left as they stand: the first selected breath of each seat,
+    // and a breath whose take is not its seat's previous breath's (a box of another take, a TAKE → TAKE switch) — the take's own deal
+    // [call]. At every other breath one draw of the seeded stream against the chance; on a change the pool of that moment minus the
+    // seat's own pitch minus what the OTHER SEAT holds over the breath (its notes overlapping it: a drawn one as drawn, an anchor as it
+    // stands — a later one that is not an anchor keeps clear of this one when its turn comes). A breath that holds a pitch the other seat
+    // now sounds is made to change (`forced`). An empty pool = no change (`empty`).
+    //   random   a uniform draw
+    //   exhaust  a cycle per seat: none of the pool again until all of it has sounded (a member the other seat holds is skipped, kept)
+    //   walk     the pool by pitch, one step up or down from where the seat is, the direction by the stream, a bounce at the ends, a step
+    //            over the other seat's pitch
+    //   shadow   the member nearest in cents to another player's pitch at that moment, ties by the stream
+    CHANGE: { never: 0, rarely: 0.2, half: 0.5, often: 0.8, always: 1 },
+    DRAWS: ['random', 'exhaust', 'walk', 'shadow'],
+    mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; },
+    draw(breaths, opts) {
+        const p = Math.max(0, Math.min(1, +opts.change || 0)), mode = opts.draw || 'random';
+        const rnd = this.mulberry32(Math.round(+opts.seed || 0) * 7919 + 17);
+        const B = breaths.slice().sort((a, b) => a.start - b.start || a.seat - b.seat);
+        const prev = {}, anchor = new Set();
+        B.forEach(b => { const q = prev[b.seat]; if (!q || q.take !== b.take) anchor.add(b); prev[b.seat] = b; });
+        const res = new Map(), cur = {}, used = {};
+        let changed = 0, forced = 0, empty = 0, clash = 0;
+        const overlap = (a, b) => a.start < b.end - 1e-9 && b.start < a.end - 1e-9;
+        const otherHeld = b => B.filter(x => x.seat !== b.seat && overlap(x, b) && (res.has(x) || anchor.has(x))).map(x => res.has(x) ? res.get(x).midi : x.midi);
+        const pick = (b, want, r) => {
+            const held = otherHeld(b), from = cur[b.seat];
+            const cands = this.without(b.pool, held.concat([from]));
+            if (!cands.length) return null;
+            if (mode === 'exhaust') {
+                const u = used[b.seat] || (used[b.seat] = new Set());
+                let c2 = cands.filter(m => !u.has(m.midi)); if (!c2.length) { u.clear(); if (from != null) u.add(from); c2 = cands; }
+                const m = c2[Math.floor(r * c2.length)]; u.add(m.midi); return m;
+            }
+            if (mode === 'walk') {
+                const S = b.pool, heldS = new Set(held), dir0 = r < 0.5 ? 1 : -1;
+                const stepFrom = dir => {
+                    let i = S.findIndex(m => m.midi === from), j;
+                    if (i >= 0) j = i + dir; else { j = -1; if (dir > 0) j = S.findIndex(m => m.midi > from); else for (let k = S.length - 1; k >= 0; k--) if (S[k].midi < from) { j = k; break; } }
+                    while (j >= 0 && j < S.length && heldS.has(S[j].midi)) j += dir;
+                    return (j >= 0 && j < S.length && S[j].midi !== from) ? S[j] : null;
+                };
+                return stepFrom(dir0) || stepFrom(-dir0);
+            }
+            if (mode === 'shadow') {
+                if (!b.others.length) return cands[Math.floor(r * cands.length)];
+                const d = m => Math.min.apply(null, b.others.map(o => Math.abs(m.midi - o.pitch) * 100));
+                const lo = Math.min.apply(null, cands.map(d)), ties = cands.filter(m => d(m) <= lo + 0.5);
+                return ties[Math.floor(r * ties.length)];
+            }
+            return cands[Math.floor(r * cands.length)];
+        };
+        B.forEach(b => {
+            if (anchor.has(b)) {
+                const m = b.pool.find(x => x.midi === b.midi) || b.members.find(x => x.midi === b.midi) || null;
+                res.set(b, { midi: b.midi, partial: m ? m.partial : null, anchor: true }); cur[b.seat] = b.midi;
+                if (used[b.seat]) used[b.seat].clear(); (used[b.seat] = used[b.seat] || new Set()).add(b.midi);
+                return;
+            }
+            const u = rnd(), r = rnd();   // two draws per breath, always: the stream stays in step whatever each breath decides
+            let want = u < p, f = false;
+            if (!want && otherHeld(b).includes(cur[b.seat])) { want = true; f = true; }
+            if (want) {
+                const m = pick(b, true, r);
+                if (m) { res.set(b, { midi: m.midi, partial: m.partial, changed: true, forced: f }); cur[b.seat] = m.midi; changed++; if (f) forced++; return; }
+                empty++; if (f) clash++;
+            }
+            const held = b.members.find(x => x.midi === cur[b.seat]) || b.pool.find(x => x.midi === cur[b.seat]) || null;
+            res.set(b, { midi: cur[b.seat], partial: held ? held.partial : null, held: true });
+        });
+        return { res, anchors: anchor.size, changed, forced, empty, clash, breaths: B };
+    },
 };
 
 if (typeof module === 'object' && module.exports) { module.exports = Core; return; }
@@ -234,6 +308,33 @@ Object.assign(H, {
         });
         P.takes = takes; P.missing = missing;
         return P;
+    },
+    // 1u.2: the draw written onto the notes — the strip's own path (`remember` · `writeNote` · `stamp`), so `back`, CTRL+Z and the note
+    // card work as they do for a take. The tempered key, cents 0: a channel bent before is brought back to centre by writeNote's rule.
+    // opts { pool, change ('never' … 'always'), draw, seed } → { P, R, written } (null when nothing could be done; the status says why)
+    async vibGo(opts) {
+        const C = C_(); if (!C) return null;
+        const P = await this.vibPlan(opts.pool);
+        if (!P) { this.say('vibes: the strikes drawer is not on the page', true); return null; }
+        if (!P.breaths.length) { this.say(P.noTake.length ? 'vibes: no take on these notes — pick one with take ▾' : 'vibes: no vibraphone notes selected', true); this.refresh(); return null; }
+        const R = Core.draw(P.breaths, { change: Core.CHANGE[opts.change] != null ? Core.CHANGE[opts.change] : +opts.change, draw: opts.draw, seed: opts.seed });
+        C.pushUndoState();
+        let written = 0;
+        R.breaths.forEach(b => {
+            const r = R.res.get(b), o = b.o; if (!r || r.midi === +o.sonifyNote) return;
+            const before = this.info(o) || {};
+            this.remember(o);
+            const q = o.hq; if (!q.dealt) q.dealt = { midi: q.was && q.was.sonifyNote != null ? +q.was.sonifyNote : +o.sonifyNote, partial: before.partial != null ? before.partial : null };   // the take's own deal: what `shuffle` means by another
+            const n = { midi: r.midi, cents: 0, partial: r.partial };
+            this.writeNote(o, n, b.take);
+            this.stamp(o, b.take, n, Math.round(+opts.seed || 0));
+            o.hq.seat = b.seat;
+            this.rerender(o); written++;
+        });
+        if (typeof C.curveDirty === 'function') C.curveDirty();   // a morph note's bend re-centred changes nothing of its route, but the map is cheap to drop (§75)
+        C.markDirty();
+        this._vibLast = { P, R, written, opts };
+        return { P, R, written };
     },
 });
 }(typeof self !== 'undefined' ? self : this));

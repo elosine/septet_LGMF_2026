@@ -132,6 +132,81 @@ const P = V.plan(tk, { rule: 'any', takeOf: o => V.takeOf(o, tctx2), voicesOf: n
 ok(eq(P.breaths.map(b => b.take === TAKE ? 'A' : 'B'), ['A', 'A', 'B', 'B']), 'a TAKE → TAKE actual: the seat reads "from" until its re-strike on a new bar, "to" after it');
 ok(P.breaths[2].members.length && P.breaths[2].members.every(m => C1.some(v => v.partial === m.partial)), 'after the switch the pool is "to"\'s series (C1)');
 
+// ---------------------------------------------------------------- 1u.2 THE DRAW — a passage of two seats over his screenshot's chord
+console.log('\n  1u.2 the draw');
+const vibSeq = (id, t0, t1, k) => { const v = voices.find(x => x.partial === k); return { id, type: 'waveCurve', layer: VIB, groupId: 'grp-seq-b1test', startSeconds: t0, endSeconds: t1, sonifyNote: v.pitch, technique: 'bowed_vel', performanceNotes: 'S · box 1 · ' + TAKE + ' · partial ' + k }; };
+const PASS = [], LONG = Object.keys(ASSIGN).map((k, i) => seqNote(k, ASSIGN[k], 0, 29, 'wc-L' + i));
+for (let i = 0; i < 10; i++) { PASS.push(vibSeq('va' + i, +(i * 2.8).toFixed(2), +(i * 2.8 + 2.75).toFixed(2), 16)); PASS.push(vibSeq('vb' + i, +(i * 2.8 + 1.3).toFixed(2), +(Math.min(29, i * 2.8 + 4.05)).toFixed(2), 9)); }
+const pctx = rule => { const objs = LONG.concat(PASS); const tcx = { info: o => H.info(o), sequences: SEQS, objects: objs, meta: 7, actuals: {} };
+    return { rule, takeOf: o => V.takeOf(o, tcx), voicesOf: n => n === TAKE ? voices : null, rangeOf: () => range, may, objects: objs, otherLanes, isPitched, info: o => H.info(o) }; };
+const planOf = rule => V.plan(PASS, pctx(rule));
+const seq = (R, s) => R.breaths.filter(b => b.seat === s).map(b => R.res.get(b).midi);
+const clashFree = R => R.breaths.every(a => R.breaths.every(b => a.seat === b.seat || !(a.start < b.end - 1e-9 && b.start < a.end - 1e-9) || R.res.get(a).midi !== R.res.get(b).midi));
+const nm = m => SP.nm(m);
+{
+    const P1 = planOf('any'); ok(P1.breaths.length === 20 && P1.crowded === 0 && P1.breaths.filter(b => b.seat === 0).every(b => b.midi === 83), 'the passage: 20 breaths, two seats found (B5 · C♯5), the take of each from the sequence');
+    const R = V.draw(P1.breaths, { change: 1, draw: 'exhaust', seed: 17 });
+    console.log('  ·    always · any · exhaust · seed 17 — seat 0: ' + seq(R, 0).map(nm).join(' ') + '  seat 2: ' + seq(R, 2).map(nm).join(' '));
+    ok(R.anchors === 2 && R.changed === 18 && R.empty === 0 && R.forced === 0, '`always`: the first breath of each seat kept, every other breath changed (18 of 20)');
+    ok(R.breaths.every(b => R.res.get(b).anchor ? R.res.get(b).midi === b.midi : true), 'the anchors hold what the take dealt (B5 · C♯5)');
+    ok(R.breaths.every(b => mem.some(m => m.midi === R.res.get(b).midi)), 'every pitch a member: a partial of B1 under ±5 ¢ in F3 … F6');
+    ok(clashFree(R), 'no two seats on one pitch wherever they overlap');
+    ok([0, 2].every(s => { const q = seq(R, s); for (let i = 1; i < q.length; i++) if (q[i] === q[i - 1]) return false; return true; }), 'a change is always a different pitch');
+    ok([0, 2].every(s => new Set(seq(R, s).slice(0, 7)).size === 7), '`exhaust`: the first seven pitches of each seat all different (the pool is ten)');
+    const R2 = V.draw(P1.breaths, { change: 1, draw: 'exhaust', seed: 17 }), R3 = V.draw(P1.breaths, { change: 1, draw: 'exhaust', seed: 18 });
+    ok(eq(seq(R2, 0).concat(seq(R2, 2)), seq(R, 0).concat(seq(R, 2))), 'the same seed → the same result');
+    ok(!eq(seq(R3, 0).concat(seq(R3, 2)), seq(R, 0).concat(seq(R, 2))), 'another seed → another result');
+    const R0 = V.draw(P1.breaths, { change: 0, draw: 'random', seed: 17 });
+    ok(R0.changed === 0 && R0.breaths.every(b => R0.res.get(b).midi === b.midi), '`never`: every breath as it stands');
+    const RA = V.draw(P1.breaths, { change: 1, draw: 'random', seed: 3 });
+    ok(RA.changed === 18 && clashFree(RA) && RA.breaths.every(b => mem.some(m => m.midi === RA.res.get(b).midi)), '`random` · `always`: 18 changed, members, clear of the other seat');
+}
+{   // half · neighbours · walk
+    const P2 = planOf('neighbours');
+    ok(P2.breaths.every(b => eq(parts(b.pool), [3, 9, 12, 16])), '`neighbours` at every breath of the passage (the chord holds): 3 · 9 · 12 · 16');
+    const R = V.draw(P2.breaths, { change: 0.5, draw: 'walk', seed: 5 });
+    console.log('  ·    half · neighbours · walk · seed 5 — seat 0: ' + seq(R, 0).map(nm).join(' ') + '  seat 2: ' + seq(R, 2).map(nm).join(' ') + ' · ' + R.changed + ' changed · ' + R.empty + ' empty');
+    ok(R.changed >= 5 && R.changed <= 13, '`half`: ' + R.changed + ' of the 18 breaths after the anchors changed (about half)');
+    ok(clashFree(R), 'no two seats on one pitch wherever they overlap');
+    const stepOk = R.breaths.every((b, i) => {
+        const r = R.res.get(b); if (!r.changed) return true;
+        const before = R.breaths.slice(0, i).filter(x => x.seat === b.seat).map(x => R.res.get(x).midi).pop();
+        const held = R.breaths.filter(x => x.seat !== b.seat && x.start < b.end && b.start < x.end && R.breaths.indexOf(x) < i).map(x => R.res.get(x).midi);
+        const lo = Math.min(before, r.midi), hi = Math.max(before, r.midi);
+        return b.pool.filter(m => m.midi > lo && m.midi < hi).every(m => held.includes(m.midi));   // nothing skipped but the other seat's pitch
+    });
+    ok(stepOk, '`walk`: every change one step along the pool from where the seat was — only the other seat\'s pitch stepped over');
+}
+{   // shadow
+    const P3 = planOf('any');
+    const R = V.draw(P3.breaths, { change: 1, draw: 'shadow', seed: 9 });
+    const pitches = LONG.map(o => V.pitchAt(o, 1));
+    const ok3 = R.breaths.every((b, i) => {
+        const r = R.res.get(b); if (!r.changed) return true;
+        const from = R.breaths.slice(0, i).filter(x => x.seat === b.seat).map(x => R.res.get(x).midi).pop();
+        const held = R.breaths.filter(x => x.seat !== b.seat && x.start < b.end && b.start < x.end && R.breaths.indexOf(x) < i).map(x => R.res.get(x).midi).concat(R.breaths.filter(x => x.seat !== b.seat && R.res.get(x).anchor && x.start < b.end && b.start < x.end).map(x => x.midi));
+        const d = m => Math.min.apply(null, pitches.map(p => Math.abs(m - p) * 100));
+        const c = b.pool.filter(m => m.midi !== from && !held.includes(m.midi));
+        return d(r.midi) <= Math.min.apply(null, c.map(m => d(m.midi))) + 0.5;
+    });
+    console.log('  ·    always · any · shadow · seed 9 — seat 0: ' + seq(R, 0).map(nm).join(' ') + '  seat 2: ' + seq(R, 2).map(nm).join(' '));
+    ok(ok3 && clashFree(R), '`shadow`: every change the member nearest another player\'s pitch (of those left), clear of the other seat');
+}
+{   // a pool of one: the second seat waits
+    const mb = (seat, t0, t1, k, pool) => { const v = mem.find(m => m.partial === k); return { o: {}, seat, start: t0, end: t1, midi: v.midi, take: TAKE, members: mem, pool, others: [] }; };
+    const one12 = mem.filter(m => m.partial === 12);
+    const Bs = [mb(0, 0, 5, 16, one12), mb(2, 1, 6, 9, one12), mb(0, 5.05, 10, 16, one12), mb(2, 6.05, 11, 9, one12), mb(0, 10.05, 15, 16, one12), mb(2, 11.05, 16, 9, one12)];
+    const R = V.draw(Bs, { change: 1, draw: 'random', seed: 1 });
+    ok(eq(seq(R, 0), [83, 78, 78]) && eq(seq(R, 2), [73, 73, 73]) && R.empty >= 2 && clashFree(R), 'a pool of one (12, F♯5): the first seat takes it and holds it; the second waits on C♯5, its empty pools counted (' + R.empty + ')');
+}
+{   // an anchor at a take's change, and a held breath made to change
+    const mb = (seat, t0, t1, midi, take) => ({ o: {}, seat, start: t0, end: t1, midi, take, members: mem, pool: mem, others: [] });
+    const Bs = [mb(0, 0, 4, 83, TAKE), mb(2, 0, 5, 73, TAKE), mb(2, 5, 9, 83, 'T2'), mb(0, 6, 10, 83, TAKE)];
+    const R = V.draw(Bs, { change: 0, draw: 'random', seed: 1 });
+    ok(R.res.get(Bs[2]).anchor && R.res.get(Bs[2]).midi === 83, 'a breath of another take (a new box) is an anchor: kept as dealt (B5)');
+    ok(R.forced === 1 && R.res.get(Bs[3]).midi !== 83 && clashFree(R), 'at `never`, a seat that would hold B5 over the other seat\'s new B5 is made to change (forced 1)');
+}
+
 // ---------------------------------------------------------------- his save, read only — told, not gated (his file moves as he composes)
 const his = path.join(ROOT, 'scores', 'piece-LGMF-Sec01-Sec02.json');
 if (fs.existsSync(his)) {
