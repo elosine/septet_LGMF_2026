@@ -13782,3 +13782,28 @@ characters) — no page before 2d holds a `sequence` overlay.
 **The AI's calls, his to reverse:** the column's width by render.js's estimate · the numbers' ink top from the '/' · the column in the
 house text grey (D45's cents are) · the block's head 0.45 before the go line (D45's spacer; the breaths of 2d.4 take nhGapSs 0.25, the
 plan's).
+
+## §384. `2d.3` THE CURVE AND THE FOLLOWER — built; the line on the fixed scale, to the pixel (2026-09-25, Opus, session 15)
+
+**What was built:**
+- **`layout.js`** — the sequence's level is drawn as the morph's crescendo kind, **`cresccurve`** (the bottom half of the lane, D42's look —
+  the registry's `crescCurve`: limeGreen, fill 0.3 · 2 px · path 0.3 — the standard "across the board", which the PLAN's "no border"
+  predates), carrying the IR's samples AS THE HEIGHT: niente at the half-lane's floor, fff at its top, no normalisation, no floor; the
+  6 s fade from nothing is in the samples (2d.1); continuous through the breath gaps (the IR's bridge). The top half left empty.
+- **Reusing the kind, not a new one** [the AI's call]: `cresccurve` already has its edge class (`cut` · `continue`, 2c), its print rule and
+  its follower, so the 2c rule is met by the entry that exists; NOTATION_STANDARDS §5's row now names the sequence's line too.
+- **`animobj.js`** — a `sequence` overlay gives ONE `crescMeter` over its level's span, riding the same samples; the overlay's span is
+  OWNED like a morph's (`gliss` · `cresc`), so the per-note `curveMeter`s stand down under it (W1b's rule — without it every breath's
+  101 normalised samples would have drawn a second meter at the cursor).
+
+**THE REQUIRED CHECK:**
+- **the DOM, the app on `score-5401`** (the video view, page 1; the lane 8.0 … 136.3 px, the half-lane 64.15 px, 147.33 px/s): the curve's
+  y at x(0) = **136.3 = the floor** · at x(6) **120.2 = 2.008/8** · at x(25.0) **103.6 = 4.078/8** (mp + the CC7 69 against 68) · at
+  x(30.9) **120.1 = 2.02/8** (pp) · drawn WHOLE under the page clip (`.tw-cut`, 4 003 points to x 6005 = 40 s).
+- **`node tools/check_screen_edges.js --ir lgmf-eh-proto`: PASS** — 4 pages, 268 leaves, nothing timed left of x(t0), 4 inside the page clip,
+  nothing past the frame, 3 go-time indicators at x(t) to the pixel.
+- **the model and the follower** (`sequence_notation_check`, **49 / 49**): one `cresccurve` with the IR's own samples over 0 … 40 s · no
+  per-note `envcurve` · `animobj.collect` gives ONE `crescMeter` (`ir-sequence`, the same samples) and no `curveMeter`.
+
+**THE SHIELD:** `piece-lgmf` and `lgmf-0i` — the layout models (both realizations) and the `animobj` instances (327 980 characters on
+`piece-lgmf`, with its save) byte-identical, HEAD's engine against the new · the eight engine batteries GREEN on the tuba goldens.

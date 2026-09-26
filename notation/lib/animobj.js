@@ -283,7 +283,8 @@
     for (const ov of ((ir && ir.overlays) || [])) {
       const tg = ov.target || {};
       if (tg.part === undefined || !tg.span) continue;
-      if (ov.kind === 'gliss' || ov.kind === 'cresc') {
+      // [LGMF 2d.3] a sequence's line owns its lane the same way: its follower is the section follower
+      if (ov.kind === 'gliss' || ov.kind === 'cresc' || ov.kind === 'sequence') {
         if (!owned.has(tg.part)) owned.set(tg.part, []);
         owned.get(tg.part).push(tg.span);
       }
@@ -333,6 +334,12 @@
       if (ov.kind === 'cresc' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
         out.push({ kind: 'crescMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples,
           full: !!ov.value.fullHeight, _src: 'ir-cresc' });
+      }
+      // [LGMF PLAN 2d.3] a sequence's level curve (the `sequence` overlay's value.level, the fixed scale): the crescendo's follower
+      // rides it in the bottom half of the lane, over the level's own span — the same samples the page draws
+      const LV = ov.kind === 'sequence' && ov.value && ov.value.level;
+      if (LV && tg.part !== undefined && Array.isArray(LV.samples) && LV.samples.length >= 2 && LV.t1 > LV.t0 && has(tg.part)) {
+        out.push({ kind: 'crescMeter', part: tg.part, t0: LV.t0, t1: LV.t1, samples: LV.samples, _src: 'ir-sequence' });
       }
     }
     // notes whose device already visualizes progress (a drawn level curve →

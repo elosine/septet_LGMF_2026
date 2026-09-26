@@ -941,6 +941,13 @@
       };
       for (const sq of sequences) if (sq.part === part && first) {
         const en = sq.v.entry, t = en.t;
+        // [LGMF PLAN 2d.3 — RUNNING_LOG §384] THE LEVEL CURVE: the morph's crescendo kind (`cresccurve` — the bottom half of the lane,
+        // D42's look, its edge class `cut` / `continue`), drawn ABSOLUTE on the fixed scale: the IR's samples ARE the height (niente at
+        // the half-lane's floor, fff at its top), no normalisation, no floor; the fade from nothing is in the samples; continuous
+        // through the breath gaps (the IR's bridge). The top half is left empty — the pitch half of the morph to come.
+        const LV = sq.v.level;
+        if (LV && Array.isArray(LV.samples) && LV.samples.length >= 2 && LV.t1 > LV.t0)
+          items.push({ k: 'cresccurve', t0: LV.t0, t1: LV.t1, samples: LV.samples, seq: 'level' });
         const H = justHead(t, en, -SQB.headGapSs, { column: true, ev: en.event });
         const TG = en.techText && glyphs.text && glyphs.text[en.techText];
         if (en.techText && !TG) warnings.push('sequence ' + (sq.v.name || sq.v.group) + ': text glyph "' + en.techText + '" missing (glyphs.text) — not drawn (tools/bake_text.js)');

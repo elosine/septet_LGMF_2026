@@ -106,6 +106,16 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
     'pp → mp on dynY, right to left mp · spacer · arrow · spacer · pp, ending one spacer before the go line');
   ok(!at0.some(x => x.k === 'niente'), 'no niente sign in the block (§376 (a))');
   ok(!model.warnings.length, 'no layout warnings — got ' + JSON.stringify(model.warnings));
+  // 2d.3 THE CURVE AND THE FOLLOWER — the morph's crescendo kind, ABSOLUTE: the IR's samples are the height (no normalisation, no floor)
+  const cc = sys.items.filter(x => x.k === 'cresccurve');
+  ok(cc.length === 1 && cc[0].samples === v.level.samples && cc[0].t0 === v.level.t0 && cc[0].t1 === v.level.t1 && !cc[0].full,
+    'one level curve (cresccurve, the bottom half-lane) carrying the IR’s samples over ' + v.level.t0 + ' … ' + v.level.t1 + ' s');
+  ok(!sys.items.some(x => x.k === 'envcurve'), 'no per-note envcurve under the line');
+  const A2 = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
+  const inst = A2.collect(ir, null, C.animated, { parts: [0] });
+  const cm = inst.filter(x => x.kind === 'crescMeter');
+  ok(cm.length === 1 && cm[0].samples === v.level.samples && cm[0].t0 === v.level.t0 && cm[0].t1 === v.level.t1, 'one follower (crescMeter) riding the same samples');
+  ok(!inst.some(x => x.kind === 'curveMeter'), 'no per-note curveMeter (the line owns the lane)');
 }
 
 console.log((fail ? 'FAILED ' : 'ALL PASS ') + pass + ' / ' + (pass + fail));
