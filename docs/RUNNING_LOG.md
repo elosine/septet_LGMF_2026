@@ -14389,3 +14389,36 @@ letter — and after the store answered **`2 takes`**, `vibPlan('any')` 24 breat
 (the 576 s marker untouched — its notes were not asked). Cleared, reset, stopped; nothing saved.
 
 **Seen on the way:** his working copy `-work.json` was gone by the end (a Save of his, or a rename) — read once, never written.
+
+## §402. `1u.6` — his tab, after the reload: the 725 s morph's take found (2026-09-26, Fable, session 16)
+
+His screenshot of *no take* on five breaths of the 725 s morph (730.96 · 736.93 · 739.26 …) was taken before the reload; his word a
+moment later: *"needed reload"*. §401 holds in his tab. Nothing changed.
+
+## §403. HIS EAR ON THE LAST CHORD — *"it seems to fade out before the shapes end … the sound is gone around 878"*: a linear fader fade, read (2026-09-26, Fable, session 16)
+
+**What prompted it** — his screenshot of 858 … 882 s (the light-blue notes) and *"Just tell me what's going on first."* Read in
+`piece-LGMF-draft01-VibesFix.json`, nothing changed.
+
+**What is there:** the sequence `lgmf-lastChord` (`grp-seq-smuin6jkq`, 5 boxes, seamless, 799.664 → 880.664) with `edges: fadeOut 15 s
+→ niente, exit together`. Every note that reaches into the last 15 s carries `cc7Fade { start 865.664, end 880.664, from 1, to 0,
+linear }` — the window is one for all players, from the sequence's END back 15 s, as 1d.8 wrote it; the notes' own shapes are untouched
+(the plateaus and falls drawn to 880.664 are the waves).
+
+**How it sounds:** `Composer.heldCc7` = the table's fader (`cc7Abs` lo … hi by the drawn height) **× the fade weight**, linear 1 → 0
+over the window (DYNAMICS_LAW §3: *the fade is a statement about the fader … it multiplies the answer*). The weight at 873 s is 0.5, at
+876 s 0.31, at 878 s 0.18. The faders here are low to begin with (the EH 43 … 59, the bassoon 24 … 40, the cello 43 … 60, the bass
+43) — so at 878 the EH sends CC7 ≈ 11, the cello ≈ 11, the bassoon ≈ 7, the horn ≈ 7: under the samplers' floor (the 0d curves: the
+Kontakt three lose the signal below CC7 ≈ 24; the UVI three follow 40·log10). In decibels: the EH is −12 dB at 873, −20 dB at 876,
+−29 dB at 878 against its written level; the Kontakt instruments (60·log10) −18 · −31 · −45. **A linear CC7 fade is front-loaded in
+loudness — half of it is spent in the first quarter of the window and the last 3 … 5 s sit below the floor** — and the picture does
+not show it: the fade is a weight on top of the drawn heights, so the shapes stand full to 880.664 while the sound leaves at ≈ 877.
+
+**Put to him, not built:** (a) the fade's LAW — the weight falling in decibels (through the instrument's own fader curve: from the
+note's written dynamic down the ladder to ppp over the window, niente only in the last second), an opt-in `curve` on `cc7Fade` beside
+`linear`, THE SHIELD by data absence · (b) the PICTURE — the fade drawn into the shapes, so the eye sees what sounds · (c) no code —
+`fadeOut → ppp` (LGMF-R01c's own choice) or a shorter window, so the last seconds stay audible.
+
+## §404. His word on §403 — *"leave"* (2026-09-26, Fable, session 16)
+
+The last chord's fade stays as it is: linear in the fader, 15 s to niente, the shapes undrawn. None of (a) · (b) · (c) built.
