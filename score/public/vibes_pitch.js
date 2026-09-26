@@ -11,8 +11,9 @@
 //        cannot bend), the two SEATS as the lane's two chains by overlap, and what the OTHER players hold at the breath's start — then
 //        one of three rules: `neighbours` (the partial one above and one below each partial the others hold) · `within a tone` (every
 //        member inside a whole tone of another player's pitch) · `any` (the whole series in range).
-//   1u.2 THE DRAW — the breaths of both seats walked in time: a seat holds its note until a change; the anchors (the first breath of
-//        each seat, the first of a new take) as dealt; `change` the chance of a new pitch at a breath; `random` · `exhaust` · `walk` ·
+//   1u.2 THE DRAW — the breaths of both seats walked in time: a seat holds its note until a change; the anchor (the first breath of
+//        a new take) as dealt — the first breath of each seat draws like any other since §397; `change` the chance of a new pitch at a
+//        breath; `random` · `exhaust` · `walk` ·
 //        `shadow` on one seeded stream; the other seat kept clear over the whole breath. The write through the strip's own `remember` ·
 //        `writeNote` · `stamp` (+ `hq.seat`), one undo — so `back` and CTRL+Z are the way back.
 //   1u.3 THE ROW — `vibes ▾` on the strip (shown when vibraphone notes are selected) opens a second line: pool · change · draw · seed ·
@@ -242,8 +243,10 @@ const Core = {
         const p = Math.max(0, Math.min(1, +opts.change || 0)), mode = opts.draw || 'random';
         const rnd = this.mulberry32(Math.round(+opts.seed || 0) * 7919 + 17);
         const B = breaths.slice().sort((a, b) => a.start - b.start || a.seat - b.seat);
+        // 1u.6, his word (RUNNING_LOG §397: "the first pair selected does not change"): the first breath of each seat is NOT an anchor —
+        // it draws like any other, from the note it was dealt; only a breath of another take is kept as dealt [call, his to reverse]
         const prev = {}, anchor = new Set();
-        B.forEach(b => { const q = prev[b.seat]; if (!q || q.take !== b.take) anchor.add(b); prev[b.seat] = b; });
+        B.forEach(b => { const q = prev[b.seat]; if (q && q.take !== b.take) anchor.add(b); prev[b.seat] = b; });
         const res = new Map(), cur = {}, used = {};
         let changed = 0, forced = 0, empty = 0, clash = 0;
         const overlap = (a, b) => a.start < b.end - 1e-9 && b.start < a.end - 1e-9;
@@ -276,6 +279,7 @@ const Core = {
             return cands[Math.floor(r * cands.length)];
         };
         B.forEach(b => {
+            if (cur[b.seat] == null) { cur[b.seat] = b.midi; (used[b.seat] = used[b.seat] || new Set()).add(b.midi); }   // the seat starts where the take put it
             if (anchor.has(b)) {
                 const m = b.pool.find(x => x.midi === b.midi) || b.members.find(x => x.midi === b.midi) || null;
                 res.set(b, { midi: b.midi, partial: m ? m.partial : null, anchor: true }); cur[b.seat] = b.midi;

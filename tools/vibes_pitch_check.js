@@ -173,8 +173,8 @@ const nm = m => SP.nm(m);
     const P1 = planOf('any'); ok(P1.breaths.length === 20 && P1.crowded === 0 && P1.breaths.filter(b => b.seat === 0).every(b => b.midi === 83), 'the passage: 20 breaths, two seats found (B5 · C♯5), the take of each from the sequence');
     const R = V.draw(P1.breaths, { change: 1, draw: 'exhaust', seed: 17 });
     console.log('  ·    always · any · exhaust · seed 17 — seat 0: ' + seq(R, 0).map(nm).join(' ') + '  seat 2: ' + seq(R, 2).map(nm).join(' '));
-    ok(R.anchors === 2 && R.changed === 18 && R.empty === 0 && R.forced === 0, '`always`: the first breath of each seat kept, every other breath changed (18 of 20)');
-    ok(R.breaths.every(b => R.res.get(b).anchor ? R.res.get(b).midi === b.midi : true), 'the anchors hold what the take dealt (B5 · C♯5)');
+    ok(R.anchors === 0 && R.changed === 20 && R.empty === 0 && R.forced === 0, '`always`: every breath changed, the first of each seat too (20 of 20; his word, §397 — no anchor within one take)');
+    ok(R.breaths.every(b => !R.res.get(b).anchor) && [0, 2].every(s => { const f = R.breaths.find(b => b.seat === s); return R.res.get(f).midi !== f.midi; }), 'the first breath of each seat left its dealt note (B5 · C♯5)');
     ok(R.breaths.every(b => mem.some(m => m.midi === R.res.get(b).midi)), 'every pitch a member: a partial of B1 under ±5 ¢ in F3 … F6');
     ok(clashFree(R), 'no two seats on one pitch wherever they overlap');
     ok([0, 2].every(s => { const q = seq(R, s); for (let i = 1; i < q.length; i++) if (q[i] === q[i - 1]) return false; return true; }), 'a change is always a different pitch');
@@ -185,14 +185,14 @@ const nm = m => SP.nm(m);
     const R0 = V.draw(P1.breaths, { change: 0, draw: 'random', seed: 17 });
     ok(R0.changed === 0 && R0.breaths.every(b => R0.res.get(b).midi === b.midi), '`never`: every breath as it stands');
     const RA = V.draw(P1.breaths, { change: 1, draw: 'random', seed: 3 });
-    ok(RA.changed === 18 && clashFree(RA) && RA.breaths.every(b => mem.some(m => m.midi === RA.res.get(b).midi)), '`random` · `always`: 18 changed, members, clear of the other seat');
+    ok(RA.changed === 20 && clashFree(RA) && RA.breaths.every(b => mem.some(m => m.midi === RA.res.get(b).midi)), '`random` · `always`: 20 changed, members, clear of the other seat');
 }
 {   // half · neighbours · walk
     const P2 = planOf('neighbours');
     ok(P2.breaths.every(b => eq(parts(b.pool), [3, 9, 12, 16])), '`neighbours` at every breath of the passage (the chord holds): 3 · 9 · 12 · 16');
     const R = V.draw(P2.breaths, { change: 0.5, draw: 'walk', seed: 5 });
     console.log('  ·    half · neighbours · walk · seed 5 — seat 0: ' + seq(R, 0).map(nm).join(' ') + '  seat 2: ' + seq(R, 2).map(nm).join(' ') + ' · ' + R.changed + ' changed · ' + R.empty + ' empty');
-    ok(R.changed >= 5 && R.changed <= 13, '`half`: ' + R.changed + ' of the 18 breaths after the anchors changed (about half)');
+    ok(R.changed >= 5 && R.changed <= 15, '`half`: ' + R.changed + ' of the 20 breaths changed (about half)');
     ok(clashFree(R), 'no two seats on one pitch wherever they overlap');
     const stepOk = R.breaths.every((b, i) => {
         const r = R.res.get(b); if (!r.changed) return true;
@@ -223,7 +223,7 @@ const nm = m => SP.nm(m);
     const one12 = mem.filter(m => m.partial === 12);
     const Bs = [mb(0, 0, 5, 16, one12), mb(2, 1, 6, 9, one12), mb(0, 5.05, 10, 16, one12), mb(2, 6.05, 11, 9, one12), mb(0, 10.05, 15, 16, one12), mb(2, 11.05, 16, 9, one12)];
     const R = V.draw(Bs, { change: 1, draw: 'random', seed: 1 });
-    ok(eq(seq(R, 0), [83, 78, 78]) && eq(seq(R, 2), [73, 73, 73]) && R.empty >= 2 && clashFree(R), 'a pool of one (12, F♯5): the first seat takes it and holds it; the second waits on C♯5, its empty pools counted (' + R.empty + ')');
+    ok(eq(seq(R, 0), [78, 78, 78]) && eq(seq(R, 2), [73, 73, 73]) && R.empty >= 3 && clashFree(R), 'a pool of one (12, F♯5): the first seat takes it at its first breath (§397) and holds it; the second waits on C♯5, its empty pools counted (' + R.empty + ')');
 }
 {   // an anchor at a take's change, and a held breath made to change
     const mb = (seat, t0, t1, midi, take) => ({ o: {}, seat, start: t0, end: t1, midi, take, members: mem, pool: mem, others: [] });

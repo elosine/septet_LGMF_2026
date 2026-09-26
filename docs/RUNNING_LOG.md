@@ -14265,3 +14265,45 @@ the chain did not see a change. His ear decides at 1u.6; not looked into.
 
 **What is left:** his reload (page files only, no restart). A morph placed from now on names its take on its marker; the two placed
 before are found through their actuals for as long as `ACT-TAKES-02` · `-03` stay in the store (uncommitted, his).
+
+## §396. `1u.6` HIS SECOND TRY — *"no change"* under `neighbours` on the 576 s morph: the pool is empty there, by the rule (2026-09-26, Fable, session 16)
+
+**What prompted it** — his screenshot after §395's reload: the ten vibraphone breaths at 594 … 615 s selected, the row reading *2 takes*
+(the fix holds), `pool neighbours · change often · draw random · seed 1` → `go` → *"no change;"* — `back` greyed, nothing written.
+
+**Read in node on his `piece-LGMF-draft01-preVibesFix`** (the core's own `plan` and `draw` on the ten breaths, the takes' series as the
+just series on A1, `matched` → `ACT-TAKES-02`): every breath resolves to `Just-a1-seed174mod` (the "from" take — the switch is at
+0.5 × 78 s = 615.5 s, after all ten; §395's *seen, not touched* line is answered), seats 0 · 2 by overlap, the series in range
+`4 · 6 · 8 · 9 · 12 · 16 · 17 · 18 · 19 · 24`.
+- **`neighbours` → the pool EMPTY on 8 of 10 breaths** (the two anchors apart): the other players are mid-glide — a TAKE → TAKE morph
+  carries every player between A's partial and B's — so at a breath's start their pitches (69.5 · 72.6 · 79.2 · 61.6 · 51.1 …) sit
+  on no partial of the take within 20 ¢; only the bass holds partial 2 (later the trumpet 15), whose neighbours 1 · 3 lie below the
+  vibraphone's range and 16 IS the seat's own A5, taken out. Drawn at `often` and at `always`: **0 changed, 8 empty**. The status
+  said it — *0 of 10 breaths changed · 8 empty pools* — and the strip's line is off his screenshot.
+- **`within a tone` → 8 of 10 change** (the members within 200 ¢ of a gliding pitch count, partial or not) · **`any` → 8 of 10**.
+
+**So:** nothing is broken; `neighbours` reads the OTHERS ON THE TAKE'S PARTIALS, and in a morph they are between takes for most of its
+length. Put to him: use `within a tone` or `any` on a morph (nothing to build) · a status that leads with WHY when nothing changed
+(one line in `vibStatus`) · or a design change — in a morph, read each other player's partial from where they are GOING (their
+"to" note) or coming from, so `neighbours` has something to say mid-glide (a reading for him, the planning method). Nothing built.
+
+## §397. `1u.6` HIS WORD — *"the first pair selected does not change"*: the first breath of each seat is no longer an anchor (2026-09-26, Fable, session 16)
+
+**What prompted it** — after §396, with `any` on the ten breaths of the 576 s morph: eight changed, the first breath of each seat did
+not. That was the plan's own call (PLAN § `1u`, THE AI'S CALLS: *the first breath of each seat kept*; §391's anchors = the first
+breath of each seat + a breath of another take). His word reverses it.
+
+**What was changed** — `score/public/vibes_pitch.js` `Core.draw`: the anchor set is now only a breath whose take is not its seat's
+previous breath's (a box line, the TAKE → TAKE switch — still [call], his to reverse); a seat's first breath draws like any other,
+and the seat's position starts where the take put it (`cur[seat] = b.midi`, and that note counts as used for `exhaust`) — so `walk`
+has a place to step from, `never` holds the dealt note, and the first breath's draw keeps clear of what the other seat already holds.
+The header comment and PLAN § `1u` say so.
+
+**The check — `tools/vibes_pitch_check.js` 61 / 61**, three expectations moved with the rule: `always` on the 20-breath passage → 20
+of 20 (was 18, the two anchors), the first breath of each seat off its dealt B5 · C♯5; `half` → about half of 20; a pool of one →
+the first seat takes F♯5 at its FIRST breath and holds it, the second waits on C♯5 (its empty pools counted). The box-line anchor
+test stands. **On his ten breaths (the §396 script): `any · always` → 10 of 10, `within a tone · always` → 10 of 10; `often` → 9.**
+The page is not touched by this (the draw is the core); his reload picks it up.
+
+**THE SHIELD:** the core alone; no engine file; `model_bank --validate` VALID · `test_snapshots` 30 as at §395. A `go` he made before
+this draws differently now for the same seed — `back` and CTRL+Z are the way back, as before.
