@@ -14131,3 +14131,26 @@ MIDI byte for byte. 0 POSTs. The toggle exists and stays hidden on a selection w
   is identical — the transport's state carries between captures in one page, so a shield compares fresh load with fresh load.
 
 **Not yet seen working in the page** — the row's own `go`: that is 1u.5 (c) … (f), on a copy of one of his passages.
+
+## §393. `1u.4` THE SPACE FAULT IN THE SEQUENCE DRAWER — fixed and verified with the pane's real input (2026-09-26, Opus, session 16)
+
+**What prompted it** — his, LG-114: *"when I select a take for one of the containers the space bar then reverts to starting the main
+score play"*. Read in the code at §389: the box's take menu is appended to `document.body`; the drawer's `pointerdown` capture set
+`active = this.el.contains(target)`, so a click in the menu was OUTSIDE, the drawer stood down, and the composer's own SPACE played the
+score.
+
+**The fix** (`score/public/sequence_ui.js`, two lines): the menu is marked `_box` when a BOX opened it (`!O` — no `opts`), and the
+capture counts a click inside such a menu as inside the drawer. **The AI's narrowing of the plan's one line:** the plan's
+`this._takeMenu.contains(t)` alone would have made a click in the HARMONY STRIP's use of the same menu (1q, `opts`) take SPACE for the
+drawer too; the plan said that use is untouched, so only a box's menu counts.
+
+**Verified on `score-5401`** (the stubs of STILL BINDING; `SequenceDrawer.hear` and `Composer.togglePlay` replaced by counters — the
+engine never ran), every gesture the pane's REAL input:
+- the drawer open, `+ container`, the box's `— choose — ▾` clicked → the menu (`_box` true) → `Just-b1-seed208` clicked → the box
+  holds it, the drawer still `active` → SPACE → **the drawer's `hear` 1, the score's `togglePlay` 0**.
+- the menu again, `b1 ` typed into its filter → the space went into the field, hear and play unchanged · ESC → the menu closed, the
+  drawer still active.
+- a click on the score → `active` false → SPACE → **`togglePlay` 1** — as before.
+- the harmony strip: a note selected, `take ▾` clicked → the same menu, `_box` false → `Just-A1-seed131mod` clicked → the note
+  re-pitched (`EH G5−31¢`), **the drawer stays inactive** — the strip's use unchanged.
+- 2 POSTs, both `/api/snapshots` from the new box's library save — caught by the stub; nothing reached the bank.

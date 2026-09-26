@@ -576,7 +576,8 @@ const S = {
 
         // SPACE goes to what he clicked last: this strip, or anything else
         document.addEventListener('pointerdown', ev => {
-            const inside = !!(this.el && this.el.contains(ev.target));
+            // PLAN 1u.4 (his, LG-114): a box's take menu hangs on document.body, so a click in it counted as OUTSIDE and SPACE went to the score
+            const tm = this._takeMenu, inside = !!(this.el && this.el.contains(ev.target)) || !!(tm && tm._box && tm.contains(ev.target));
             this.setActive(inside);
             if (inside) { this.renderList(); this.paintInsert(); }   // 1d.3: the score may have changed under the strip (a drag, an undo, another score opened)
         }, true);
@@ -1402,6 +1403,7 @@ const S = {
             '<div id="sqTkList" style="overflow-y:auto;flex:1 1 auto">' + (O ? '' : rowOf('', '— choose — (a REST)')) +
               ((b.take && names.indexOf(b.take) < 0) ? rowOf(b.take, b.take + ' (not in the list)') : '') +
               names.map(nm => rowOf(nm, nm)).join('') + '</div>';
+        m._box = !O;   // 1u.4: a box's menu is the drawer's own (SPACE stays with the drawer); the harmony strip's is not
         document.body.appendChild(m); this._takeMenu = m;
         const fil = m.querySelector('#sqTkFilter'), rows = () => Array.from(m.querySelectorAll('.sqTkRow')), shown = () => rows().filter(x => x.style.display !== 'none');
         const choose = name => { this.closeTakeMenu(); if (O) O.onChoose(name); else this.freeze(i, name); };
