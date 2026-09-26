@@ -14307,3 +14307,31 @@ The page is not touched by this (the draw is the core); his reload picks it up.
 
 **THE SHIELD:** the core alone; no engine file; `model_bank --validate` VALID · `test_snapshots` 30 as at §395. A `go` he made before
 this draws differently now for the same seed — `back` and CTRL+Z are the way back, as before.
+
+## §398. `1u.6` HIS THIRD TRY — *"with just these two selected nothing changes on go"*: his tab runs the OLD `vibes_pitch.js`; the served file changes both (2026-09-26, Fable, session 16)
+
+**What prompted it** — after §397's reload: the first pair of the 576 s morph (589.61 A5 · 589.78 E4) selected alone, `any · always ·
+random`, five seeds (11 · 10 · 9 · 8 · 7) → nothing; with more selected, *"the subsequent ones change"* — exactly §391's anchor rule,
+the one §397 removed.
+
+**Read two ways, both on `240a0c0`:**
+- **In node** (the §396 script on the two breaths): the pool `any` (10) for both; seed 11 → A5 → E5 · E4 → A5; 10 → E4 · A3; 9 → E6 ·
+  C6; 8 → E6 · A♯5; 7 → A4 · A3 — **2 of 2 changed at every seed**, no anchors, no empty pool.
+- **In the page** (`score-5401`, the file served from disk — asserted: the served `vibes_pitch.js` carries the §397 line — his draft
+  opened read-only under STILL BINDING's stubs, the two notes selected, `vibGoSeed(11)`): **2 of 2 changed, 2 written** (81 → 76 · 64
+  → 81, the same as node's), the status *2 of 2 breaths changed · seat 1: E5 · seat 2: A5*. Cleared, reset, stopped.
+
+**So the code does what §397 says and his tab does not have it:** a plain reload kept Chrome's cached copy of `vibes_pitch.js` (the
+server sends the page files with no cache header; the morph panel's own message for a stale file is *hard reload (CTRL+SHIFT+R)*,
+from the same lesson). Told him: **CTRL+SHIFT+R**. Nothing built; the cache header for the page files offered as one line in
+`server.js` (a restart) so a reload is always the file on disk.
+
+## §399. A correction to §398 — the server DOES send the page files `no-store` (2026-09-26, Fable, session 16)
+
+§398 said the page files go out with no cache header. Wrong: `score/server.js` (≈ 1172) sets `Cache-Control: no-store` on every static
+file — *"never let the browser cache app code"*, the 2026-08-13 lesson. So Chrome's cache is not the likely door; the likelier one is
+that his tab had not been reloaded after `240a0c0` landed (his screenshot's row is the one §395's reload drew). What §398 VERIFIED
+stands: the served `vibes_pitch.js` on `240a0c0` changes both breaths of the first pair (2 of 2, written) — his five `go`s (seeds
+11 … 7, chips added, `back` greyed) are the old rule's result: a run, nothing written. Read on the way: nothing in `vibGo`'s write
+path (`remember` · `writeNote` · `stamp`) can refuse a breath the draw changed. Told him: CTRL+SHIFT+R, `go`, read the strip's line —
+expected *seed N → 2 of 2 breaths changed*; if it reads 0 of 2, the status text is what I need next.
