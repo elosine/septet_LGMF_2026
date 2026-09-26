@@ -13868,3 +13868,43 @@ drawn.
 the eight batteries GREEN.
 
 **For his eye (2d.7):** the parentheses read large beside a cue-size `mp` (0.9 against 0.5 ss) — one number in the registry.
+
+## §387. `2d.6` THE SHIELD AND THE REQUIRED VERIFICATION — the shield byte-identical; every required check but one passes; the one is the page-start clash, his at 2d.7 (2026-09-25, Opus, session 15)
+
+**THE SHIELD — by data absence, proven against the commit BEFORE 2d.1 (`6d6866c`)**, in two clean git worktrees in the scratchpad (the old
+engine at `6d6866c`, the build at `c239311`), each with the tuba goldens staged from #4's HEAD (index.json and README.md excluded) and a
+READ-ONLY copy of his `piece-LGMF-Sec01-Sec02-sec03a` save (`piece-lgmf`'s source, so the animation layer — the pies and followers — is in
+the frames); removed after (`git worktree prune`). Three runs: the old engine + old registry · the build + the OLD registry (§344's rule) ·
+the build + its own registry. **All eight outputs byte-identical across the three** (sha1):
+- `export_video --ir db1 --view video --probe 5,11.9,100,300` — four frames · `--view zoom --probe 100` — one frame
+- `export_print --ir db1 --planJson` · `--htmlOnly --pages 1-3`
+- `export_video --ir piece-lgmf --view video --probe 300` — the registry's pie switch reaches nothing there.
+- **the eight engine batteries GREEN before (`6d6866c`) and after (`c239311`)** — with `test_animobj`'s two lines amended at 2d.4 (§385).
+
+**The gates:** `check_screen_edges --ir piece-lgmf` **PASS** (5 030 leaves, 230 go-time indicators at x(t) to the pixel) ·
+`check_screen_edges --ir lgmf-eh-proto` **PASS** · **`check_print_edges --ir lgmf-eh-proto` FAILS ON PAGE 1: one element straddles the clef
+gutter** — found with a scratchpad copy of the checker that names it: a path 26.4 units wide from 11.1 left of the gutter's edge = **"senza
+vib."**, which runs right from the head's left edge (§380's placement) across x(0). **The cause is the page-start clash of §383, in its print
+form:** the EH enters at 0 s = t0 of page 1 and paper has no clamp, so the whole block (head, ¾♯, column, `pp → mp`) is drawn INTO THE CLEF
+GUTTER (counted as gutter-only ink, which the gate does not fail) and the text straddles its edge. On screen the same block is clamped right
+of its own go line (§383). Nothing was changed: the page's first moment is a 2c rule he deferred to *"when the notation is in"* (§347), and
+this is the first notation that meets it. **The decision for 2d.7, one for both media** — (a) **a LEAD-IN** [the AI's recommendation]: the
+piece's 0 sits a few seconds into the first page — on screen the tiling offset by it, every page still one span; on paper page 1's t0 placed
+by the objects (the first unit's ink start), as a pushed GC places the next page's t0 at the top of its descent (his print rule, §340) ·
+(b) keep the screen's clamp and give paper the same clamp · (c) accept both as they are (the gate stays red on any page 1 that opens on a
+block).
+
+**THE REQUIRED CHECKS of 2d.1 … 2d.5** — all run, their numbers in §382 … §386; `node tools/sequence_notation_check.js` **58 / 58**.
+
+**THE ONE SCREENSHOT** — the pane's screenshot of the video view at 20 s is the whole 8-lane frame at 800 px (the pane cannot crop), so the
+proof for his eye is the exporter's own frame at 20 s (`export_video --probe 20`, the video view by construction, in C), cropped to the EH's
+lane: the reminder `(♯o)` left of the 13.7 s go line · the level on the fixed scale in the lower half (the pp band) · the follower at the
+cursor · the pie at the lane's top, the breath a little over half gone.
+
+**The throwaway, checked at the end:** `preview_start score-5401` opens the composer at the root for the seconds before the first navigate
+(journal §2's note); its origin held `lgmf.sequenceDrawer.v1` (857 chars) and `lgmf.rhythmSequence.v1` (861) — **cleared now**. The drawer
+writes at boot only when its row belongs to no library entry, and then as a NEW untitled entry (`sequence_ui.js` `libLoad`): no untitled
+entry from today exists in `bank/sequences.json` or `bank/rhythm_sequences.json`, so nothing was written into his libraries. His tab is
+live on :5400 (`panel_snapshots.json` written at 22:55 with the throwaway stopped; a new save `piece-LGMF-Sec01-Sec02-Sec3a` at 22:45) — his.
+
+**`2d` is BUILT, 2d.1 … 2d.6** (`4c471c4` 2d.1 · `8db3a7e` 2d.2 · `4e784fc` 2d.3 · `ba587fc` 2d.4 · `c239311` 2d.5 · this, 2d.6). **What is left is 2d.7, his eye.**
