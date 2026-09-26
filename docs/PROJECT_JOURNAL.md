@@ -49,7 +49,7 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 16 · IN PROGRESS (2026-09-26, Fable) — HIS NEW SUBJECT AT THE `/postclear`: `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — PLANNED IN FULL, NOT BUILT (PLAN § `1u`; RUNNING_LOG §388 · §389; LG-114). The cold-start block is **SESSION 16 · CHECKPOINT #1** under *Open at session end* below — READ IT FIRST (its `Resume reads:` list is the build's). Session 15's checkpoint #7 (2d.7 · the page-start call) stands below under *Open at session end*. **Working title: _Recombination_ (D32).**
+### SESSION 16 · IN PROGRESS (2026-09-26, Fable planned, Opus built) — `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — BUILT END TO END, 1u.1 … 1u.5 (PLAN § `1u`; RUNNING_LOG §388 … §394; LG-114); **`1u.6` IS HIS — a reload only.** The cold-start block is **SESSION 16 · CHECKPOINT #2** under *Open at session end* below — READ IT FIRST. Session 15's checkpoint #7 (2d.7 · the page-start call) stands below under *Open at session end*. **Working title: _Recombination_ (D32).**
 
 ### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, HIS PIVOT TO THE MORPH (`1t`), THEN BACK TO THE NOTATION: THE EH'S SEQUENCE (`2d`). The cold-start block is **SESSION 15 · CHECKPOINT #7** under *Open at session end* below — READ IT FIRST (`2d` BUILT 2d.1 … 2d.6; his call on the page-start clash, then 2d.7 his eye; `1t.5` in his hands — he filed `ACT-TAKES-01`). **Working title: _Recombination_ (D32).**
 
@@ -123,7 +123,7 @@ whole in git, see the close block below.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►** | **CHECKPOINT #1 WRITTEN (Opus) — BUILD `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — PLAN § `1u`, 1u.1 → 1u.5 in order, one commit per step, pushed, THE SHIELD in each (the §317 · §319 captures byte-identical, the batteries green); 1u.6 his — a RELOAD only.** PLANNED IN FULL 2026-09-26 (Fable, session 16, at his word *"Go ahead and write the whole plan. No need for steps."*; RUNNING_LOG §388 the talk · §389 the item; LG-114): the two bowed vibraphones in a placed sequence or morph change pitch at their breaths, the bowing untouched — ON THE NOTES (`1q`'s way), a `vibes ▾` row on the harmony strip: `pool` neighbours · within a tone · any (the take's series, in range, under `mayTake`'s ±5 ¢, minus the other seat) · `change` never … always · `draw` random · exhaust · walk · shadow · a seed · `go`; get back = `back` + CTRL+Z; the two seats one pool, kept apart; the first breath of each seat kept [call]; the take resolved from `hq` · the sequence's recipe · the morph's actual · the fragment · the pick. **1u.4 fixes the drawer's SPACE fault** (the take menu on `document.body` deactivates the drawer — one line at `sequence_ui.js` 578). New file `score/public/vibes_pitch.js` + `tools/vibes_pitch_check.js`; no engine file touched. He opened this at the `/postclear`; the notation's 2d.7 and the page-start call (the row below) wait | Opus | yes — checkpoint first |
+| **►►** | **`1u.6` HIS ONE TEST — RELOAD the tab (page files only, NO restart).** A sequence passage → CTRL+drag over the vibraphone lane → `vibes ▾` → `any · always · exhaust` → `go` → play → `back` → `neighbours · half · walk` · a new seed → keep one; then the sequence drawer: a box's take from its menu → SPACE. BUILT 2026-09-26 on Opus, 1u.1 … 1u.5, one commit each (RUNNING_LOG §390 … §394; `f5bb5b9` · `fb779c2` · `a1b0e3d` · `ae1ee5d` · `dedfc63`; `vibes_pitch_check` 50; THE SHIELD 13 / 13 by content). The AI's readings (§391: a seat holds until a change · a new take's first breath is an anchor · the other seat clear over the whole breath) his to reverse. *(The build's row, done:)* **BUILD `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — PLAN § `1u`, 1u.1 → 1u.5 in order, one commit per step, pushed, THE SHIELD in each (the §317 · §319 captures byte-identical, the batteries green); 1u.6 his — a RELOAD only.** PLANNED IN FULL 2026-09-26 (Fable, session 16, at his word *"Go ahead and write the whole plan. No need for steps."*; RUNNING_LOG §388 the talk · §389 the item; LG-114): the two bowed vibraphones in a placed sequence or morph change pitch at their breaths, the bowing untouched — ON THE NOTES (`1q`'s way), a `vibes ▾` row on the harmony strip: `pool` neighbours · within a tone · any (the take's series, in range, under `mayTake`'s ±5 ¢, minus the other seat) · `change` never … always · `draw` random · exhaust · walk · shadow · a seed · `go`; get back = `back` + CTRL+Z; the two seats one pool, kept apart; the first breath of each seat kept [call]; the take resolved from `hq` · the sequence's recipe · the morph's actual · the fragment · the pick. **1u.4 fixes the drawer's SPACE fault** (the take menu on `document.body` deactivates the drawer — one line at `sequence_ui.js` 578). New file `score/public/vibes_pitch.js` + `tools/vibes_pitch_check.js`; no engine file touched. He opened this at the `/postclear`; the notation's 2d.7 and the page-start call (the row below) wait | his ear · then Fable (a reading) / Opus (a fault) | — |
 | **►►** | **`2d.7` HIS EYE — `2d` IS BUILT, 2d.1 … 2d.6** (2026-09-25, Opus, at his word *"go, build through as much as possible independently"*; RUNNING_LOG §382 … §387; `4c471c4` · `8db3a7e` · `4e784fc` · `ba587fc` · `c239311` · the 2d.6 commit; `node tools/sequence_notation_check.js` 58 / 58; the shield byte-identical against `6d6866c`). **FIRST HIS CALL — THE PAGE-START CLASH** (PLAN § `2d`, the FOUND line): the block at 0 s has no room left of x(0) — the screen clamps it right of its go line, paper draws it into the clef gutter (`check_print_edges --ir lgmf-eh-proto` fails page 1): (a) a lead-in [recommended] · (b) the clamp on both · (c) as they are. **Then his eye, no restart:** the notation app → the picker → `lgmf-eh-proto` → the video view (the working page, the EH written in F: D♯6) → `0` · `20` (the curve, the follower, the pie) · `28.7` (the new pitch) · `z`. The presentation score (in C) is the exporter's. *(The build's row, done:)* **BUILD `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE — PLAN § `2d`, 2d.1 → 2d.6 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2d.6 for his eye (2d.7).** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §368 … §380; LG-111 · LG-112; `c08cf37`): a page of its own `lgmf-eh-proto`, the EH's 0 … 36 s, ONE OF EACH THING — the block (G♯5 ¾♯ · `+41` over `26°/C1` · "senza vib." · `pp → mp`) · the level curve on the FIXED SCALE (niente … fff in eighths) + the follower · the pie counting each breath down · a same-pitch breath (13.7 s, parenthesised cue head) · a new-pitch breath (28.7 s, G5 `+2` · `12°/C2`) · `(mp)` 25.0 · `(pp)` 30.9. The pitch marks decided (`docs/research/just_partials_notation.md` §1a). **His pick on the notation is made: (b) the specific notation, begun on the EH** | his eye · then Fable (a look) / Opus (a fault) | — |
 | **►►** | **`1t.5` HIS LISTEN — RESTART the server (`morph.js` changed) and reload the tab.** MORPH → `TAKES` → `from` a take · `to ▾` a take → `duration` 60 → Generate → the line → Play → the far voices' seams · the vibraphones at the default (1: the first 3 s before the arrival, the second ON it — never heard on its new bar unless `release` is set; the line says so) then at 0.5 → a `release` (8) — the fade on B → Insert after a sequence ending `one by one`. BUILT 2026-09-25 on Opus, 1t.1 … 1t.4 (RUNNING_LOG §364 … §367; `a7ae62c` · `dc7c76c` · `312d88f` · 1t.4). Found: the switch needed a CUT (§366); the release returned every player to A — `carrier.releaseHolds` on TAKES (§367); the red "hard" count is the re-key seams (§367, NITS). *(The build's row, done:)* **BUILD `1t` THE MORPH BETWEEN TAKES — PLAN § `1t`, 1t.1 → 1t.4, one commit per step, THE SHIELD in each; STOP before 1t.1 for his word.** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §350 … §363; LG-106 … LG-110): take A → take B by player, one duration, the scatter, the re-key, the vibraphones' switch dial, the joins by hand. He pivoted here from the notation at his word (*"I want to work on the morph drawer"*); the notation's pick (the row below) waits | Opus | yes — checkpoint first |
 | ✓ | **HIS PICK on the notation — MADE 2026-09-25: (b) THE SPECIFIC NOTATION, begun on the english horn's section-1 sequence (`2d`, the ►► row above).** *(Was: (a) `2a.6` the clefs · (b) the specific notation — the N-2a / N-2b rows; `2a.6` still waits.)* | — | — |
@@ -151,7 +151,72 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 16 · CHECKPOINT #1 (2026-09-26, Fable planned, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 16 · CHECKPOINT #2 (2026-09-26, Opus built and wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE TASK:** `1u` THE VIBRAPHONES' PITCHES ON THE STRIP (LG-114) — the two bowed vibraphones of a placed sequence or morph change
+  pitch at their breaths, the bowing untouched, with a way back. **BUILT END TO END** at his word *"go, build as much as possible
+  independently"*, five commits, pushed, THE SHIELD in each (RUNNING_LOG §390 … §394; PLAN § `1u` `built`): `f5bb5b9` 1u.1 the pool ·
+  `fb779c2` 1u.2 the draw · `a1b0e3d` 1u.3 the row + `composer.html`'s one script tag · `ae1ee5d` 1u.4 the SPACE fault · `dedfc63` 1u.5
+  the shield + the required verification (a … g, every check passed).
+- **THE STATE:** nothing is being built. **`1u.6` IS HIS — a reload only** (page files; no server or engine file changed).
+- **THE DELIVERABLE:** `score/public/vibes_pitch.js` (NEW — a pure CORE, loadable in node, + a mixin on `HarmonySel`) ·
+  `tools/vibes_pitch_check.js` (NEW, **50 / 50**, named in CLAUDE.md's checks) · `score/public/sequence_ui.js` (two lines: a BOX's take
+  menu is `_box` and a click in it counts as inside the drawer). What he sees: vibraphone notes selected → `vibes ▾` on the harmony strip →
+  a second line under it: the take · `pool [neighbours | within a tone | any]` · `change [never | rarely | half | often | always]` · `draw
+  [random | exhaust | walk | shadow]` · `seed` + the last five as chips · `±5¢` · `go` → the status *`vibes · take "…" · pool … (n) · change
+  … · draw … · seed s → k of N breaths changed · seat 1: … · seat 2: …`*; the way back `back` and CTRL+Z (one undo).
+- **THE NEXT STEP:** after `/postclear`, check in (his rule). Then give him 1u.6 (PLAN § `1u`, 1u.6), one step at a time if he asks:
+  *RELOAD the tab (no restart) → a sequence passage with the vibraphones → CTRL+drag over the vibraphone lane → [vibes ▾] → `any · always ·
+  exhaust` → [go] → play → [back] → `neighbours · half · walk` · a new seed → keep one → then the sequence drawer: a box's take from its menu
+  → SPACE (the drawer hears; the score does not play).* He saved `scores/piece-LGMF-draft01-preVibesFix.json` during the build — he is
+  getting ready for this test. **Revise on his word:** a design question (a reading below) on Fable; a fault on Opus.
+- **THE AI'S READINGS IN THE BUILD — his to reverse** (§391 · §393; the PLAN item's header names the first three):
+  - a seat HOLDS its note between changes; `change` = the chance of a NEW pitch at a breath; `never` holds the first note throughout (the
+    other reading: an unchanged breath returns to the take's note).
+  - a breath whose take is not its seat's previous breath's (a new box, the TAKE → TAKE switch) is an ANCHOR, kept as dealt, like the
+    first breath of each seat — in his 9-box `LGMF-R01c` that keeps **18 of 55** breaths; the PLAN's 1u.5 (c) said *"every breath after
+    the first of each seat"*. If he wants every box line to move too, it is one condition in `Core.draw` (the anchor set).
+  - the other seat kept clear over the WHOLE breath, not only at its start (what "no two seats on one pitch at any overlap" needs).
+  - a sequence note's box read from its fragment's `box N` before the box by time (a seamless change plays a box across its line).
+  - the SPACE fix counts only a BOX's menu; the harmony strip's use of the same menu is unchanged.
+  - and the plan's own calls (§389): the first breath kept · the seats by overlap · an unstamped player's partial = the nearest within
+    20 ¢ · `exhaust` per seat · the dials remembered in the browser · a new file.
+- **`Resume reads:`** nothing beyond §2 for the check-in and his test. On his feedback, ONLY the RUNNING_LOG § his remark names — §390
+  the pool, the take, the seats · §391 the draw and its readings · §392 the row · §393 SPACE · §394 the verification's numbers — then the
+  code it names in `score/public/vibes_pitch.js` (core: `takeOf` · `seatChains` · `othersAt` · `poolAt` · `plan` · `draw`; the strip:
+  `vibPlan` · `vibGo` · `vibEnsure` · `vibRefresh` · `vibTakeText` · `vibStatus`). STILL BINDING (below) before any verification.
+- **HOW THE SHIELD WAS RUN — reuse it for any `1u` revision** (the scratchpad's `shield_page.js` may not survive; §394 is the record):
+  - `score-5401`; in the navigation batch the stubs: fetch non-GET · `sendBeacon` · `confirm` · `Composer.autosave` + its timer · rAF a 16 ms
+    timer · `_zoneMidiInited` · all ELEVEN ports logging (`LGEngHorn LGBassoon LGBassoonb LGHorn LGHornb LGTrumpet LGTrumpetb LGPerc LGVibes
+    LGCello LGBass`) → `Composer.openScore('pointilistic01a')` → autosave stubbed again → the four TAKE notes sounding at **16.0 s** (they
+    start at 15.73; the objects carry `startSeconds`) → `apply('Just-b1-seed208')` → `shuffle(1)` → `back`; at each stage the whole score and
+    the four hashed (canonical JSON without `_` keys, djb2) and the playback from 15.4 s for 0.9 s **by CONTENT** (note-ons · bends · CC7
+    values, sorted, unique — the raw stream's edges move from run to run).
+  - BEFORE = the page files of the commit before the work, written to disk (`git show <ref>:<path> > <path>`; restored with `git checkout
+    -- <path>`), AFTER = HEAD; each side a FRESH load with the throwaway's `lgmf.sequenceDrawer.v1 · lgmf.rhythmSequence.v1 ·
+    lgmf.textureRow.v1 · lgmf.vibesPitch.v1` cleared first.
+  - The values at `dedfc63`: h0 324096178 · s0 −2094993535 · m0 −1401951298 · hA 1203124070 · sA 399031797 · mA −1313330536 · hB
+    −849720015 · sB −287015104 · mB −2139813605 · hC = h0 · sC = s0 · mC = m0. They hang on his `pointilistic01a` working copy — if he has
+    touched it, re-run BEFORE rather than compare against these.
+- **Learned this session:** a shield compares a fresh load with a fresh load (the transport's state and the drawer's stored row carry
+  within a page) · MIDI by content, not the raw stream · `find` does not reach a `<select>` by its title — find it by its selected
+  option's text · the throwaway's `+ container` POSTs `/api/snapshots` (caught by the stub) · `composer.html` is CRLF throughout,
+  `vibes_pitch.js` · `sequence_ui.js` · the docs LF — a splice keeps each file's own ending.
+- **Pending him:** 1u.6 · the readings above · **still open from CHECKPOINT #7 below:** the page-start call on `lgmf-eh-proto` ((a) a
+  lead-in, recommended) and 2d.7 his eye · `1t.5` his listen — his actuals `ACT-TAKES-01` · `-02` · **`-03` (NEW this session)** with their
+  index in `bank/morph_models.json`; commit them only at his word.
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — 27 paths; CHECKPOINT #1's 23
+  plus four new today):
+  - `bank/actuals/ACT-TAKES-01.json` · `-02.json` · **`-03.json` (NEW)** · `ACT-BLOOM-07.json` · `ACT-BLOOM-08.json` — his actuals ·
+    `bank/morph_models.json` — their index, written by his tab
+  - `bank/panel_snapshots.json` — his takes (a take `Just-e1-seed191mod` saved from his tab at 12:53 during the build — his naming; nothing
+    the throwaway ran saves a take) · `bank/sequences.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json`
+    — his libraries, autosaved by his live tab (committing races it) · `bank/passages/lgmf-sec2.json` — his passage
+  - `reaper/LGMF_rack.rpp` — his rack, saved by Reaper
+  - `scores/piece-LGMF-Sec01-Sec02*.json` (five) · `scores/piece-LGMF-Sec03-Try01.json` · `-Try02.json` · `-Try02p1a` · `-Try02p2a` ·
+    `-Try02p3a` · **`-Try02p4a` · `-Try02p5` (NEW)** · **`scores/piece-LGMF-draft01-preVibesFix.json` (NEW — his save before trying `1u`)** ·
+    `scores/pointilistic01a.json` — his named saves; he is composing section 3
+
+**Open at session end — SESSION 16 · CHECKPOINT #1 (2026-09-26, Fable planned, Opus wraps) (mid-session checkpoint) — superseded by CHECKPOINT #2 above (`1u` is built); its design lines still hold:**
 - **THE TASK:** `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — his new subject, opened at the last `/postclear` (LG-114). The two bowed
   vibraphones in a placed sequence or morph hold one note each; he wants them to change pitch AT THEIR BREATHS, the bowing untouched,
   with a way back. The talk ran one topic at a time (RUNNING_LOG §388, his answers *yes · b · all good · a · b · all three*), then the
