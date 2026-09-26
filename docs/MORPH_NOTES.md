@@ -1621,3 +1621,16 @@ both and recalls hash-identical.
 - **Without a `release` the transition ends at the last arrival** — the last mover is heard on its target for a breath's gap or not
   at all, and a switch at the arrival is never heard. The revision's "the end = the last arrival + the fade" (§353) wants the fade to
   be there by default, or the end drawn.
+
+### 2026-09-26 — LGMF: the panel's Insert carried no provenance into the score (session 16, Fable; RUNNING_LOG §395)
+
+**What surfaced it:** `1u`'s first test — the vibraphones' strip read *no take* on a morph he had placed with the panel's own [Insert].
+The marker read `MORPH M3 — TAKE → TAKE` (the engine model, the model's label) and the take was written nowhere; only the ACTUALS
+list's Insert named its entity, and the take lived in the actual on disk. The panel knew the take (`this.pitch.takeName`) and did not
+write it down. Fixed here: Insert puts `properties.pitch { src, takeName, toName }` on the marker; the two morphs placed before are
+matched to their saved actuals BY CONTENT (`ACT-TAKES-02` · `-03`).
+
+*AI reading (mine, marked), for the all-purpose revision:* a placed morph should carry its whole provenance in the score — the model,
+the seed, the pitch source, the params hash — on the marker, whether or not it was ever saved as an actual; the actual is a FILE
+of the same thing, not the only record. Every downstream reader (the strip, the notation's morph block, a re-run) then reads the
+score alone. The content match is a crutch for what was placed before; the revision should not need it.

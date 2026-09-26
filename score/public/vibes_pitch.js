@@ -59,14 +59,43 @@ const Core = {
         for (let k = 0; k < C.length; k++) { const b = a + (+C[k].dur || 0); if (t < b - 1e-9) return k; a = b; }
         return C.length - 1;
     },
-    actualOf(o, objects) {   // a placed actual: its group's marker reads `ENTITY — label` (morph_panel.js insertActual)
-        if (!o || !o.groupId) return null;
-        const mk = (objects || []).find(x => x && x.type === 'marker' && x.groupId === o.groupId && typeof x.label === 'string');
-        const m = mk && mk.label.match(/^([A-Z0-9][A-Z0-9-]*) — /);
-        return m ? m[1] : null;
+    markerOf(o, objects) { return (o && o.groupId) ? ((objects || []).find(x => x && x.type === 'marker' && x.groupId === o.groupId) || null) : null; },
+    // a placed actual: its group's marker reads `ENTITY — label` (morph_panel.js insertActual) — or, 1u.6 (b), a morph the panel's own
+    // Insert placed (`MORPH MODEL — label`, no entity) that was MATCHED by content to a saved actual (`matched`: groupId → entity)
+    actualOf(o, objects, matched) {
+        const mk = this.markerOf(o, objects);
+        const m = mk && typeof mk.label === 'string' && mk.label.match(/^([A-Z0-9][A-Z0-9-]*) — /);
+        if (m) return m[1];
+        return (mk && matched && Object.prototype.hasOwnProperty.call(matched, o.groupId)) ? matched[o.groupId] : null;
+    },
+    // 1u.6 (b) — RUNNING_LOG §395: the panel's own Insert wrote its marker as `MORPH MODEL — label` and put the take NOWHERE in the
+    // score (his section-3 morphs), so the row read "no take". Two doors now: Insert writes the pitch source on the marker's
+    // `properties.pitch` (as the actual's `provenance.pitch`), and a morph placed before that is matched to a saved actual BY CONTENT —
+    // the actual's objects are the same render's, so its notes are these notes at the same offsets.
+    morphMarkerOf(o, objects) { const mk = this.markerOf(o, objects); return (mk && typeof mk.label === 'string' && /^MORPH /.test(mk.label)) ? mk : null; },
+    groupOf(gid, objects) { return (objects || []).filter(x => x && x.groupId === gid); },
+    // the shape of a placed morph's notes, free of where it sits: lane · key · start from an ORIGIN · length. The panel's Insert put every
+    // note at `at + tStart` and its marker at `at`; an actual's objects sit at `0 + tStart` — so the group's origin is its marker, the
+    // actual's is 0 (a note he has since dragged does not move the origin; without a marker, the first note)
+    fingerprint(objs, origin) {
+        const n = (objs || []).filter(x => x && x.type === 'waveCurve' && x.sonifyNote != null && x.morphBend);
+        if (!n.length) return [];
+        const t0 = origin != null ? +origin : Math.min.apply(null, n.map(startOf));
+        return n.map(x => ({ k: x.layer + ':' + x.sonifyNote, s: startOf(x) - t0, d: endOf(x) - startOf(x) }));
+    },
+    MATCH_TOL: 0.02,     // seconds — the render's 3 decimals, through two roundings
+    MATCH_SHARE: 0.8,    // of the placed notes found in the actual (a note he moved or re-pitched by hand since is allowed for), never fewer than 4
+    matchesActual(groupObjs, actual) {
+        const mk = (groupObjs || []).find(x => x && x.type === 'marker'), TOL = this.MATCH_TOL;
+        const g = this.fingerprint(groupObjs, (mk && mk.time != null) ? +mk.time : null), a = this.fingerprint(actual && actual.objects, 0);
+        if (!g.length || !a.length) return false;
+        const left = a.slice(); let hit = 0;
+        g.forEach(e => { const i = left.findIndex(f => f.k === e.k && Math.abs(f.s - e.s) <= TOL && Math.abs(f.d - e.d) <= TOL); if (i >= 0) { left.splice(i, 1); hit++; } });
+        return hit >= Math.max(4, Math.ceil(g.length * this.MATCH_SHARE));
     },
     // in the plan's order: a 1q write (`hq.take`, or its `← take "…"` fragment) · the sequence's recipe (the note's box) · a placed
-    // morph's actual (`provenance.pitch.takeName`; `toName` after a TAKE → TAKE switch) · the fragment's take · none
+    // morph's marker (`properties.pitch`, 1u.6) · its actual (`provenance.pitch.takeName`; `toName` after a TAKE → TAKE switch) · the
+    // fragment's take · none
     takeOf(o, ctx) {
         const i = ctx.info ? ctx.info(o) : null;
         if (i && i.take) return { take: i.take, how: 'hq' };
@@ -77,7 +106,9 @@ const Core = {
             const box = (e.recipe.containers || [])[k];
             if (box && box.take) return { take: box.take, how: 'sequence', seq: e.name || e.id, box: k + 1 };
         }
-        const ent = this.actualOf(o, ctx.objects);
+        const mk = this.markerOf(o, ctx.objects), mp = mk && mk.properties && mk.properties.pitch;
+        if (mp && mp.takeName) return { take: mp.takeName, to: mp.toName || null, how: 'marker' };
+        const ent = this.actualOf(o, ctx.objects, ctx.matched);
         if (ent) {
             const a = ctx.actuals && ctx.actuals[ent], p = a && a.provenance && a.provenance.pitch;
             if (p && p.takeName) return { take: p.takeName, to: p.toName || null, how: 'actual', entity: ent };
@@ -293,12 +324,23 @@ Object.assign(H, {
     vibNotes() { const L = this.vibLane(); return L < 0 ? [] : this.pitched().filter(o => this.isNote(o) && o.layer === L); },
     // the actuals the selected breaths were placed from, each read once from the store (the morph's own route)
     async vibActuals(notes) {
-        const C = C_(), out = this._vibActuals = this._vibActuals || {};
-        const ents = Array.from(new Set(notes.map(o => Core.actualOf(o, C.objects)).filter(Boolean)));
-        for (const e of ents) {
-            if (out[e]) continue;
-            try { const r = await fetch('/api/actuals/' + encodeURIComponent(e), { cache: 'no-store' }); if (r.ok) out[e] = await r.json(); } catch (err) { console.warn('[vibes_pitch] actual ' + e + ':', err); }
+        const C = C_(), out = this._vibActuals = this._vibActuals || {}, M = this._vibMatched = this._vibMatched || {};   // M: groupId → entity, or null once asked
+        const get = async e => { if (out[e]) return out[e]; try { const r = await fetch('/api/actuals/' + encodeURIComponent(e), { cache: 'no-store' }); if (r.ok) out[e] = await r.json(); } catch (err) { console.warn('[vibes_pitch] actual ' + e + ':', err); } return out[e] || null; };
+        // 1u.6 (b): a panel Insert's group with no take on its marker — matched by content to a saved actual, the list read once per ask
+        const gids = Array.from(new Set(notes.map(o => { const mk = Core.morphMarkerOf(o, C.objects); return (mk && !(mk.properties && mk.properties.pitch && mk.properties.pitch.takeName) && !Object.prototype.hasOwnProperty.call(M, o.groupId)) ? o.groupId : null; }).filter(Boolean)));
+        if (gids.length) {
+            let list = null;
+            try { const r = await fetch('/api/actuals', { cache: 'no-store' }); if (r.ok) list = ((await r.json()).actuals) || []; } catch (err) { console.warn('[vibes_pitch] actuals:', err); }
+            if (list) for (const gid of gids) {
+                M[gid] = null;
+                const g = Core.groupOf(gid, C.objects), n = Core.fingerprint(g).length;
+                const bar = g.find(x => x && x.type === 'waveCurve' && x.sonifyNote == null), span = bar ? (+bar.endSeconds - +bar.startSeconds) : null;
+                const cands = list.filter(a => a && a.entity && (+a.notes || 0) >= n && (span == null || a.spanSec == null || Math.abs(+a.spanSec - span) < 0.02));
+                for (const a of cands) { const A = await get(a.entity); if (A && Core.matchesActual(g, A)) { M[gid] = a.entity; break; } }
+            }
         }
+        const ents = Array.from(new Set(notes.map(o => Core.actualOf(o, C.objects, M)).filter(Boolean)));
+        for (const e of ents) await get(e);
         return out;
     },
     // 1u.1: the selected breaths, each with its take, seat and pool under `rule` — { breaths, noTake, crowded, takes, missing }
@@ -306,7 +348,7 @@ Object.assign(H, {
         const C = C_(), D = D_(); if (!C || !D) return null;
         const notes = this.vibNotes(); if (!notes.length) return { breaths: [], noTake: [], crowded: 0, takes: {}, missing: [] };
         const actuals = await this.vibActuals(notes);
-        const tctx = { info: o => this.info(o), sequences: (C.databases && C.databases.sequences) || [], objects: C.objects, meta: META(), actuals };
+        const tctx = { info: o => this.info(o), sequences: (C.databases && C.databases.sequences) || [], objects: C.objects, meta: META(), actuals, matched: this._vibMatched || {} };
         const takeOf = o => Core.takeOf(o, tctx);
         const names = new Set();
         notes.forEach(o => { const t = takeOf(o); if (t && t.take) { names.add(t.take); if (t.to) names.add(t.to); } });
@@ -404,11 +446,12 @@ Object.assign(H, {
         row.style.top = Math.round(r.bottom + 3) + 'px'; row.style.right = this.el.style.right || '8px';
     },
     vibTakeText(vn) {   // the take(s) the selected breaths come from — an actual not yet read is fetched once, then the line repaints
-        const C = C_(), acts = this._vibActuals || {}, tried = this._vibTried = this._vibTried || new Set();
-        const tctx = { info: o => this.info(o), sequences: (C.databases && C.databases.sequences) || [], objects: C.objects, meta: META(), actuals: acts };
+        const C = C_(), acts = this._vibActuals || {}, M = this._vibMatched || {}, tried = this._vibTried = this._vibTried || new Set();
+        const tctx = { info: o => this.info(o), sequences: (C.databases && C.databases.sequences) || [], objects: C.objects, meta: META(), actuals: acts, matched: M };
         const names = []; let none = 0, fetch = false;
         vn.forEach(o => { const t = Core.takeOf(o, tctx); if (t && t.take) { [t.take, t.to].forEach(n => { if (n && !names.includes(n)) names.push(n); }); return; }
-            none++; const e = Core.actualOf(o, C.objects); if (e && !acts[e] && !tried.has(e)) { tried.add(e); fetch = true; } });
+            none++; const e = Core.actualOf(o, C.objects, M); if (e && !acts[e] && !tried.has(e)) { tried.add(e); fetch = true; }
+            else if (!e && Core.morphMarkerOf(o, C.objects) && !Object.prototype.hasOwnProperty.call(M, o.groupId) && !tried.has(o.groupId)) { tried.add(o.groupId); fetch = true; } });   // 1u.6 (b): ask the store once for a match
         if (fetch) this.vibActuals(vn).then(() => { try { this.vibRefresh(); } catch (e) {} });
         const n = names.length, one = n === 1 ? names[0] : '';
         const text = n ? ((one ? 'take "' + one + '"' : n + ' takes') + (none ? ' on ' + (vn.length - none) + ' of ' + vn.length : '')) : 'no take on these notes — pick one with take ▾';

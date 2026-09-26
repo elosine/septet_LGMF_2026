@@ -121,6 +121,32 @@ ok(T(none) === null, 'a note from no take → none (the strip says: pick one)');
 ok(eq(V.parseFragment('LGMF-R01c · box 1 · Just-C1-seed90 · partial 38 · waves pp…mp'), { box: 1, take: 'Just-C1-seed90' }) && eq(V.parseFragment('S · box 4 · partial 3'), { box: 4, take: null }),
    'the fragment\'s box and take, as his LGMF-R01c writes them; a box with no take');
 
+// ---------------------------------------------------------------- 1u.6 (b): a morph the panel's own Insert placed — the take on the marker, or the actual matched by content
+const mkP = { id: 'mk-morph-1', type: 'marker', layer: 0, groupId: 'grp-morph-01', time: 500, label: 'MORPH M3 — TAKE → TAKE', properties: { pitch: { src: 'dtake:T-from', takeName: 'T-from', toName: 'T-to' } } };
+const pm = vn('pm', 500, 508, 81, { groupId: 'grp-morph-01', morphBend: [[0, 0], [8, 0]], performanceNotes: 'TAKE → TAKE senza_vel' });
+const mkQ = { id: 'mk-morph-2', type: 'marker', layer: 0, groupId: 'grp-morph-02', time: 600, label: 'MORPH BLOOM — sec3', properties: {} };
+const mkBar = { id: 'wc-morphmeta-2', type: 'waveCurve', layer: 7, groupId: 'grp-morph-02', startSeconds: 600, endSeconds: 660 };
+// the group as Insert placed it at 600 s (`at + tStart`, one note pre-armed before the marker) and the actual of the same render (`0 + tStart`)
+const gq = [vn('g1', 600, 608, 81), vn('g2', 599.6, 605, 64, { layer: 0 }), vn('g3', 608, 616, 83), vn('g4', 600, 608, 61, { layer: 1 }), vn('g5', 604, 612, 76, { layer: 3 })]
+    .map(o => Object.assign(o, { groupId: 'grp-morph-02', morphBend: [[0, 0], [8, 0]], performanceNotes: 'BLOOM bowed_vel' }));
+const actQ = { entity: 'ACT-BLOOM-99', objects: [vn('a1', 0, 8.001, 81), vn('a2', -0.4, 5, 64, { layer: 0 }), vn('a3', 8.01, 16, 83), vn('a4', 0, 8, 61, { layer: 1 }), vn('a5', 4, 12, 76, { layer: 3 }), vn('a6', 2, 6, 66, { layer: 2 })]
+    .map(o => Object.assign(o, { morphBend: [[0, 0], [8, 0]] })), provenance: { pitch: { src: 'dtake:T-matched', takeName: 'T-matched' } } };
+const grpQ = [mkQ, mkBar].concat(gq);
+const tcm = { info: o => H.info(o), sequences: [], objects: [mkP, pm].concat(grpQ), meta: 7, actuals: { 'ACT-BLOOM-99': actQ }, matched: { 'grp-morph-02': 'ACT-BLOOM-99' } };
+const Tm = o => { const r = V.takeOf(o, tcm); return r ? r.take + (r.to ? ' → ' + r.to : '') + ' (' + r.how + ')' : null; };
+ok(Tm(pm) === 'T-from → T-to (marker)', 'a panel Insert after 1u.6: the take (and "to") on the marker\'s `properties.pitch`');
+ok(V.takeOf(gq[0], Object.assign({}, tcm, { matched: {} })) === null && V.actualOf(gq[0], tcm.objects) === null, 'a panel Insert before 1u.6, unmatched → none (the store not yet asked)');
+ok(Tm(gq[0]) === 'T-matched (actual)' && V.actualOf(gq[0], tcm.objects, tcm.matched) === 'ACT-BLOOM-99', 'the same group matched to a saved actual → the actual\'s take');
+ok(V.takeOf(gq[0], Object.assign({}, tcm, { matched: { 'grp-morph-02': null } })) === null, 'a group the store was asked about and found nothing for → none, asked once');
+const fp = V.fingerprint(gq, 600).map(e => e.k + ':' + e.s.toFixed(2) + ':' + e.d.toFixed(2)).sort();
+ok(eq(fp, ['0:64:-0.40:5.40', '1:61:0.00:8.00', '3:76:4.00:8.00', VIB + ':81:0.00:8.00', VIB + ':83:8.00:8.00']), 'the fingerprint from the marker: lane · key · start (a pre-armed note negative) · length');
+ok(V.matchesActual(grpQ, actQ), 'the placed group is in the actual at the same offsets, to 0.02 s (the actual has a sixth note: a subset)');
+ok(V.matchesActual(grpQ.map(o => o.id === 'g3' ? Object.assign({}, o, { sonifyNote: 84 }) : o), actQ), 'one note re-pitched by hand since (4 of 5) → still the actual');
+ok(!V.matchesActual(grpQ.map(o => (o.id === 'g3' || o.id === 'g5') ? Object.assign({}, o, { sonifyNote: 84 }) : o), actQ), 'two of five off → no match (fewer than 4)');
+ok(!V.matchesActual(grpQ.map(o => o.sonifyNote != null ? Object.assign({}, o, { startSeconds: 600 + (o.startSeconds - 600) * 1.1, endSeconds: 600 + (o.endSeconds - 600) * 1.1 }) : o), actQ), 'the group stretched by its bar → no match');
+ok(!V.matchesActual(grpQ, { objects: actQ.objects.map(o => Object.assign({}, o, { sonifyNote: o.sonifyNote + 1 })) }), 'another render (every key off) → no match');
+ok(!V.matchesActual([], actQ) && !V.matchesActual(grpQ, { objects: [] }), 'an empty side never matches');
+
 // ---------------------------------------------------------------- the plan: a TAKE → TAKE actual's vibraphone switches take at its re-strike
 const mkT = { id: 'mk-t', type: 'marker', layer: 0, groupId: 'grp-act-takes-01-01', time: 0, label: 'ACT-TAKES-01 — x' };
 const tk = [vn('t1', 0, 5, 81), vn('t2', 5, 10, 81), vn('t3', 10, 15, 83), vn('t4', 15, 20, 83)].map(o => Object.assign(o, { groupId: 'grp-act-takes-01-01' }));
@@ -216,6 +242,19 @@ if (fs.existsSync(his)) {
     const how = {}; vib.forEach(o => { const r = V.takeOf(o, { info: x => H.info(x), sequences: (S.databases || {}).sequences || [], objects: objs, meta: 7, actuals: acts }); const k = r ? r.how : 'none'; how[k] = (how[k] || 0) + 1; });
     const ch = V.seatChains(vib);
     console.log('  ·    his piece-LGMF-Sec01-Sec02 (read only): ' + vib.length + ' vibraphone breaths · the take by ' + Object.keys(how).map(k => k + ' ' + how[k]).join(' · ') + ' · ' + ch.crowded + ' crowded');
+}
+// 1u.6 (b), told: every MORPH group the panel's Insert placed in his newest save, matched against the actuals on disk
+const hisNewest = ['piece-LGMF-draft01-preVibesFix', 'piece-LGMF-Sec03-Try02p5'].map(n => path.join(ROOT, 'scores', n + '.json')).find(f => fs.existsSync(f));
+if (hisNewest) {
+    const S = JSON.parse(fs.readFileSync(hisNewest, 'utf8')), objs = S.objects || [], ADIR = path.join(ROOT, 'bank', 'actuals');
+    const acts = fs.existsSync(ADIR) ? fs.readdirSync(ADIR).filter(f => /\.json$/i.test(f)).map(f => JSON.parse(fs.readFileSync(path.join(ADIR, f), 'utf8'))) : [];
+    const mks = objs.filter(o => o.type === 'marker' && /^MORPH /.test(o.label || ''));
+    const matched = {}; mks.forEach(mk => { const g = V.groupOf(mk.groupId, objs); const a = acts.find(x => V.matchesActual(g, x)); matched[mk.groupId] = a ? a.entity : null; });
+    const vib = objs.filter(o => o.layer === VIB && o.sonifyNote != null && o.type === 'waveCurve' && matched[o.groupId] !== undefined);
+    const A = {}; acts.forEach(a => { A[a.entity] = a; });
+    const found = vib.filter(o => { const r = V.takeOf(o, { info: x => H.info(x), sequences: [], objects: objs, meta: 7, actuals: A, matched }); return r && r.take; }).length;
+    console.log('  ·    his ' + path.basename(hisNewest, '.json') + ' (read only): ' + mks.length + ' MORPH group' + (mks.length === 1 ? '' : 's') + ' from the panel\'s Insert → ' +
+        mks.map(mk => (mk.properties && mk.properties.pitch && mk.properties.pitch.takeName) ? 'take on the marker' : (matched[mk.groupId] || 'no actual matches')).join(' · ') + ' · ' + found + ' of ' + vib.length + ' vibraphone breaths with a take');
 }
 
 console.log('\n' + pass + ' passed, ' + fail + ' failed');

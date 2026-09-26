@@ -1427,10 +1427,13 @@ const PANEL = {
         // shape on layer 10, so there was nothing to grab and group-scaling had
         // no handle. Caught by the Phase 4 gate, not by inspection.
         const span = this.result.meta.span;
+        // PLAN 1u.6 (b), RUNNING_LOG §395: the pitch source rides on the marker, as `provenance.pitch` rides on an actual — a placed morph
+        // names its take without ever having been saved (the vibraphones' strip reads it; before this it read "no take")
+        const PS = this.pitch || {}, pitchProv = PS.takeName ? { src: PS.src || '', takeName: PS.takeName, toName: PS.toName || '' } : null;
         C.objects.push({
             id: 'mk-morph-' + seq, type: 'marker', layer: 0, time: +at.toFixed(3),
             label: 'MORPH ' + this.result.meta.model + (p.label ? ' — ' + p.label : '') + this.castLabel(),
-            color: '#7E57C2', groupId: gid, performanceNotes: '', properties: {},
+            color: '#7E57C2', groupId: gid, performanceNotes: '', properties: pitchProv ? { pitch: pitchProv } : {},
         });
         const law = this.shapeObjects(objs);   // PLAN 1h H3.2 — the law, on every note this morph writes
         objs.forEach(o => C.objects.push(o));

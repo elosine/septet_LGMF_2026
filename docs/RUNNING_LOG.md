@@ -14206,3 +14206,62 @@ new score `piece-LGMF-Sec03-Try02p4a` at 12:41 … 12:48); nothing the throwaway
 
 **`1u` IS BUILT** — 1u.1 `f5bb5b9` · 1u.2 `fb779c2` · 1u.3 `a1b0e3d` · 1u.4 `ae1ee5d` · 1u.5 this commit. **What is left is 1u.6, his:**
 reload the tab (page files only, no restart).
+
+## §395. `1u.6` HIS FIRST TEST — "no take" on a morph the panel's own Insert placed: the take on the marker, the actual matched by content (2026-09-26, Fable, session 16)
+
+**What prompted it** — his first test of `1u` (1u.6), a screenshot: ten vibraphone notes of section 3 selected (605 … 650 s),
+`vibes ▾` open, the row reading *no take on these notes — pick one with take ▾* — *"isn't finding the take for these notes it is
+from the morph"*.
+
+**The reading (the code, not a guess):** `takeOf` knew a placed morph by its group's MARKER reading `ACT-BLOOM-08 — label` — the
+actuals list's Insert (`morph_panel.js insertActual`) — and read the take from the actual on disk (`provenance.pitch.takeName`). The
+panel's OWN [Insert] (`insert()`) writes its marker as `MORPH M3 — TAKE → TAKE` (the engine model and the MODEL's label, not his) and
+puts the take NOWHERE: the panel knew it (`this.pitch.takeName`) and never wrote it down. §390's 99-breath check on his Sec01-Sec02
+passed because every morph there had been placed from an actual. His section-3 saves (`piece-LGMF-draft01-preVibesFix`,
+`Sec03-Try02p5`) hold two such groups: `grp-morph-01` at 576.56 s (80 notes, 30 vibraphone breaths, the bar 78 s) and `grp-morph-02`
+at 724.998 s (80 · 32 · 74 s).
+
+**Offered:** (a) the take on the marker at Insert · (b) (a) + a fallback for the morphs already placed · (c) `take ▾` by hand (fine for a
+BLOOM, wrong for a TAKE → TAKE morph — every breath would read as A). **His word: *"b pls build here"*** — built on Fable at his word.
+
+**What (b) turned out to need** — the offer said *a saved actual with that same label*; his placed markers carry the model's label,
+not his, so a label never matches. The match is BY CONTENT instead: an actual's `objects` are the same render's, so the actual he saved
+of a panel Insert holds these notes at the same offsets — Insert put every note at `at + tStart` and its marker at `at`; the actual's
+objects sit at `0 + tStart`. The origins are the group's MARKER and the actual's 0 — not the first note: in `grp-morph-02` one
+vibraphone breath starts 0.39 s before the bar (moved by hand, or the switch), and anchored on it every offset was off by 0.39. The
+tolerance is 0.02 s (the render's three decimals through two roundings — on a string compare 15 of `grp-morph-01`'s 80 notes differed
+by 0.01). The share is 80 % of the placed notes found, never fewer than 4 — a note he moved or re-pitched by hand since is allowed for;
+a group stretched by its bar, or another render, is not.
+
+**What was built** (three page files; no engine file):
+- `score/public/vibes_pitch.js` — `Core.markerOf` · `morphMarkerOf` · `groupOf` · `fingerprint(objs, origin)` ·
+  `matchesActual(group, actual)` (`MATCH_TOL` 0.02 · `MATCH_SHARE` 0.8); `actualOf(o, objects, matched)` takes a `matched` map
+  (groupId → entity, or `null` once asked); `takeOf` gains a route BEFORE the actual's: the marker's `properties.pitch` (`how: 'marker'`;
+  `toName` kept). The mixin: `vibActuals` reads `/api/actuals` once per unasked group, the candidates by note count and the bar's span
+  (0.02 s), fetches each and keeps the first that matches; `vibTakeText` asks once per group (`_vibTried`) and repaints when the answer
+  is in; `vibPlan` and `vibTakeText` pass `matched`.
+- `score/public/morph_panel.js` `insert()` — the marker carries `properties.pitch { src, takeName, toName }` from `this.pitch` when a
+  take is the source (what `saveActual` files as `provenance.pitch`); nothing on the notes; a model's own set writes nothing.
+- `tools/vibes_pitch_check.js` **61 / 61** (was 50): the marker route with "to" · unmatched → none · matched → the actual's take ·
+  asked-and-nothing → none, asked once · the fingerprint from the marker (a pre-armed note negative) · a subset (the actual's sixth
+  note) · one of five re-pitched by hand still matches · two of five do not · a stretched group does not · another render does not · an
+  empty side never. Told: **his `piece-LGMF-draft01-preVibesFix`: 2 MORPH groups from the panel's Insert → `ACT-TAKES-02` ·
+  `ACT-TAKES-03`, 62 of 62 vibraphone breaths with a take.**
+
+**Verified in the page** (`score-5401`, STILL BINDING's stubs in the navigation batch, his draft opened read-only, the autosave stubbed
+again after `openScore`, never saved): `grp-morph-01`'s 30 breaths selected → `vibTakeText` first *no take on these notes*, 3 s later
+*2 takes* (`_vibMatched` = `grp-morph-01 → ACT-TAKES-02`, `grp-morph-02 → ACT-TAKES-03`); `vibPlan('any')` → 30 breaths, 0 without a
+take, the takes `Just-a1-seed174mod` and `Just-a1-seed174Converge` loaded, none missing; `grp-morph-02` the same way (*no take* →
+*2 takes*). The throwaway's four localStorage keys cleared, the viewport reset, the server stopped; his files untouched.
+
+**THE SHIELD, by construction:** `morph.js` · `sequence.js` untouched; `model_bank --validate` VALID; `test_snapshots` 30 green.
+Insert's only change is a field on the MARKER — the notes it writes are byte-identical, so every §365-style panel hash (params +
+notes) stands; the actuals list's Insert is untouched; a note with `hq.take` or in a sequence resolves as before (the new route sits
+after both).
+
+**Seen, not touched:** on `grp-morph-01` (a TAKE → TAKE morph) all 30 breaths resolved to the "from" take — under §391's rule a seat
+reads "to" only after its note first changes; either the vibraphones' bars are the same in B (then still, 1t.3) or the switch fell where
+the chain did not see a change. His ear decides at 1u.6; not looked into.
+
+**What is left:** his reload (page files only, no restart). A morph placed from now on names its take on its marker; the two placed
+before are found through their actuals for as long as `ACT-TAKES-02` · `-03` stay in the store (uncommitted, his).
