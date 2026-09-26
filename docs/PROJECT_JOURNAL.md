@@ -186,10 +186,10 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
   - `bank/panel_snapshots.json` · `bank/sequences.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json`
     — his libraries, autosaved by his tab · `bank/passages/lgmf-sec2.json` — his passage · `reaper/LGMF_rack.rpp` — his rack
   - `scores/` — `piece-LGMF-Sec01-Sec02*` (five) · `piece-LGMF-Sec03-Try01` · `-Try02` · `-Try02p1a` … `-Try02p4a` · `-Try02p5` ·
-    `piece-LGMF-draft01-preVibesFix` · **`piece-LGMF-draft01-VibesFix` (new)** · **`piece-Recombination-Draft01-done` (new)** ·
+    `piece-LGMF-draft01-preVibesFix` · **`piece-LGMF-draft01-VibesFix` (new)** · **`piece-Recombination-Draft01-done` (new — COMMITTED at his word)** ·
     `pointilistic01a` — his named saves
-- **Unsaved working copies** (`node tools/unsaved_check.js`, at this close): **`piece-Recombination-Draft01-done` — his live score
-  (working copy 22:15, file 22:11), his to Save** · the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
+- **Unsaved working copies** (`node tools/unsaved_check.js`, at this close): `piece-Recombination-Draft01-done` SAVED by him and
+  COMMITTED at his word (*"saved comitt pls"*) · the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
   `longToneTest`), none the piece.
 
 ### STILL BINDING — carried whole from session 11's checkpoint #4
@@ -594,6 +594,7 @@ across when its system lands here and is first used.)*
   `1o` already and composes in `pointilistic01a` (RUNNING_LOG §279 … §321).
 - 2026-09-25 — **THE NOTATION LAYER OPENED:** `piece-lgmf` the main notation file (`2a` the staves) · `2c` the page edges · `2d` the
   english horn's sequence notation prototype (`lgmf-eh-proto`) — and the morph grew: `1r` · `1s` · `1t` take A → take B (RUNNING_LOG §322 … §387).
+- 2026-09-26 — **DRAFT 01 DONE:** `scores/piece-Recombination-Draft01-done.json` (1,086 objects), named by him, committed at his word.
 - 2026-09-26 — **`1u` THE VIBRAPHONES' PITCHES ON THE STRIP built, and in use in section 3** (RUNNING_LOG §388 … §401).
 
 ---
