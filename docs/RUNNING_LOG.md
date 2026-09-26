@@ -13732,3 +13732,53 @@ the documents equal; with the group named, 136 events gain env `sequence` and no
 
 **The AI's calls, his to reverse:** opt-in by group (above) · the level taken before the fader's rounding · a turning point placed at its
 plateau's start · the arrowed accidentals at the house set's size (0.5) · `techTexts` in the device registry.
+
+## §383. `2d.2` THE BLOCK — built; its geometry exact; at the page's first moment the 2c clamp moves it right of its go line — his call (2026-09-25, Opus, session 15)
+
+**What was built** (`notation/lib/layout.js`, the sequence branch after D45's header; the numbers in `container.json`
+`devices.byEnv.sequence.block`):
+- **`justAccOf(alter, cents)`** — the bands of `just_partials_notation.md` §1a as one function (module level, exported): |c| < 20 the
+  written spelling's own sign · 20 … 37 an arrow on it (alone on a natural) · ≥ 37 the quarter sign (on a ♯ +c ¾♯ / −c ¼♯, on a ♭ the
+  mirror, on a natural ¼♯ / ¼♭). `alter` is the REALIZATION's written spelling; the cents never change with it.
+- **`justHead(t, marks, rightSs, opt)`** — one just-intoned head placed by its right ink edge: the open head on its written pitch,
+  ledgers, the accidental by the bands (aligned on its `noteY` anchor where it has one), optional parentheses and a cue scale (for
+  2d.4), optional THE COLUMN — the cents at D45's height (`max(head top, 2) + 0.6`, `TS.instruction`, the true minus), the partial one
+  row (1.0) above; a column wider than the head (by render.js's own estimate, half an em a character) is right-aligned to the head's
+  right edge, else centred.
+- **The block** at the entry: `justHead` with its right edge 0.45 before the go line (the D45 header's spacer) and the column ·
+  "senza vib." (`glyphs.text`, 2d.1's bake) 0.45 above the column's INK top — the partial row's baseline + 0.711 em (Crimson Pro Light's
+  '/', measured with opentype.js) × 0.975 ss (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, noted in the
+  registry) — from the head's left edge · the range on the dynamic row, right to left from the go line: spacer · `mp` · spacer · arrow
+  2.0 · spacer · `pp` (the house `dynArrow`), the lower-ink rule of #5 §479. No niente sign.
+
+**THE REQUIRED CHECK:**
+- **the model** (`tools/sequence_notation_check.js`, now **45 / 45**): the bands on the piece's partials (3 · 5 · 9 · 15 · 17 · 19 plain ·
+  7 · 21 ↓ · 23 ↑ · 11 ¼♭ · 13 ¼♯ · ♯ −49 ¼♯ · ♯ +41 ¾♯ · the ♭ mirror) · in C (video-jury): the head G♯5 at ySs 2.5, its right edge 0.45
+  before the go line · ¾♯ · `+41` at D45's height · `26°/C1` one row above · the column right-aligned to the head · "senza vib." 0.45 over
+  the column's ink from the head's left edge · `mp · arrow · pp` on dynY ending one spacer before the go line · no niente · no warnings.
+- **the DOM, the app on `score-5401`** (the video view, 0 s, `.sys-p0`): the app draws the WORKING page — the ensemble's default, the EH
+  written in F — so the head is **D♯6** (+7), two ledgers, `+41` → ¾♯ still (a ♯ note); the column's right edge on the ledger's end
+  (153.8 px), "senza vib." at the head's left edge (144.9 px), its bottom 3.54 px = **0.448 ss** over the partial's ink; `mp`'s right
+  edge 0.45 ss before the unit's go-line reference. The zoom view (`z`) the same at 15.8 px/ss.
+- **the presentation page** (`export_video --ir lgmf-eh-proto --view video --dumpPage 0`, video-jury, in C): the head **G♯5** at ySs
+  **2.50**, ¾♯ left of it, `+41` · `26°/C1` anchored `end` at x 155.9 = the head's right edge, baselines at ySs 3.54 · 4.54, "senza vib."
+  bottom at ySs 5.68 = the column's ink 5.235 + 0.45.
+
+**FOUND — THE BLOCK AT A PAGE'S FIRST MOMENT (the one clash, for his eye at 2d.7):** the EH enters at 0 s = t0 of the first page, and 2c's
+clamp (§340, his rule: *"all of the notation gets pushed right so its beginning, left side, clears the left starting point … it all
+depends on go time indicators"*) treats the block as a stamp: the whole unit (its leftmost ink, the `pp`, 6.0 ss left of the go line)
+is shifted right by 47.5 px, and the go line — a go-time indicator — stays at x(0). **So on the first page the block sits RIGHT of its own
+go line**, over the curve's first 0.3 s (the curve is at niente there, 0.4 px tall). The block's geometry inside the unit is as designed.
+Nothing was changed: the go-line switch (`clampGoLine`) is one of the 2c values he deferred *"to when the notation is in"* (§347), and
+a page cannot start before 0 (the schema's spans are ≥ 0; no lead-in exists). The options, for 2d.7: **(a)** keep the clamp — at a
+page's first moment a block reads right of its go line · **(b)** a LEAD-IN: the screen tiling offset so the piece's 0 sits a few seconds
+into page 1 (every page still one span; the cuts move by the offset) · **(c)** the block at a page start drawn in the gutter's last
+ss, the clef column moved left — the AI does not recommend it (the names and the clef live there).
+
+**THE SHIELD:** the eight engine batteries GREEN (the tuba goldens staged and unstaged, 26 files) · **`piece-lgmf` and `lgmf-0i`'s layout
+MODELS byte-identical**, HEAD's `layout.js` + registry against the new, in both realizations (default · video-jury — 262 160 and 260 105
+characters) — no page before 2d holds a `sequence` overlay.
+
+**The AI's calls, his to reverse:** the column's width by render.js's estimate · the numbers' ink top from the '/' · the column in the
+house text grey (D45's cents are) · the block's head 0.45 before the go line (D45's spacer; the breaths of 2d.4 take nhGapSs 0.25, the
+plan's).

@@ -69,5 +69,44 @@ for (const [k, base] of [['sharpArrowUp', 'sharp'], ['flatArrowDown', 'flat'], [
   ok(a.hSs > p.hSs && a.hSs < p.hSs * 1.6 && a.anchors.noteY, k + ' at the house size beside ' + base + ' (' + a.hSs + ' vs ' + p.hSs + ' ss) with a noteY anchor');
 }
 
+// 2d.2 THE BLOCK — the bands (just_partials_notation §1a) and the block in the layout MODEL, as export_video builds it (video-jury, in C)
+const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
+{
+  const J = Layout.justAccOf, c = n => 1200 * Math.log2(n) % 100 > 50 ? 1200 * Math.log2(n) % 100 - 100 : 1200 * Math.log2(n) % 100;
+  // the partials' own cents against the nearest key (C1's series): plain · arrowed · quarter
+  for (const n of [3, 5, 9, 15, 17, 19]) ok(J(0, c(n)) === null && J(1, c(n)) === 'sharp', 'partial ' + n + ' (' + c(n).toFixed(1) + ' c) plain');
+  ok(J(0, c(7)) === 'naturalArrowDown' && J(0, c(21)) === 'naturalArrowDown' && J(0, c(23)) === 'naturalArrowUp' && J(1, c(23)) === 'sharpArrowUp' && J(-1, c(7)) === 'flatArrowDown',
+    'partials 7 · 21 ↓, 23 ↑ (' + [7, 21, 23].map(n => c(n).toFixed(1)).join(' · ') + ' c)');
+  ok(J(0, c(11)) === 'quarterFlat' && J(0, c(13)) === 'quarterSharp', 'partials 11 ¼♭ · 13 ¼♯ on a natural');
+  ok(J(1, -49) === 'quarterSharp' && J(1, 41) === 'threeQuarterSharp' && J(-1, 49) === 'quarterFlat' && J(-1, -41) === 'threeQuarterFlat', 'on a ♯ note −49 = ¼♯, +41 = ¾♯; on a ♭ the mirror');
+}
+{
+  const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const ens = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'ensemble.json'), 'utf8'));
+  const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));
+  const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
+  const model = Layout.layoutSection(ir, G, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T }, C.engraving.layout));
+  const sys = model.systems.find(s => s.part === 0 && !(s.staff > 0));
+  const at0 = sys.items.filter(x => x.t === 0);
+  const head = at0.find(x => x.g === 'notehead-open'), acc = at0.find(x => x.k === 'glyph' && /^accidental-/.test(x.g));
+  const hw = G.notehead.open.wSs, B = C.engraving.layout.devices.byEnv.sequence.block;
+  ok(head && head.ySs === 2.5 && Math.abs(head.dxSs + hw / 2 + B.headGapSs) < 1e-9, 'the block’s head: G♯5 (ySs 2.5), its right edge ' + B.headGapSs + ' ss before the go line');
+  ok(acc && acc.g === 'accidental-threeQuarterSharp', 'the head’s accidental ¾♯ (G♯ +41) — got ' + (acc && acc.g));
+  const cents = at0.find(x => x.seq === 'cents'), part = at0.find(x => x.seq === 'partial');
+  ok(cents && cents.text === '+41' && Math.abs(cents.ySs - (Math.max(head.ySs + G.notehead.open.hSs / 2, 2) + B.centsGapSs)) < 1e-9, 'the cents +41 at D45’s height');
+  ok(part && part.text === '26°/C1' && Math.abs(part.ySs - cents.ySs - B.rowSs) < 1e-9, 'the partial 26°/C1 one row above');
+  ok(cents.anchor === 'end' && Math.abs(cents.dxSs - (head.dxSs + hw / 2)) < 1e-9 && part.dxSs === cents.dxSs, 'the column (wider than the head) right-aligned to the head’s right edge');
+  const tx = at0.find(x => x.seq === 'techText'), TG = G.text['senza vib.'];
+  ok(tx && Math.abs((tx.ySs - TG.hSs / 2) - (part.ySs + B.slashTopEm * B.numEmSs + B.textGapSs)) < 1e-9 && Math.abs((tx.dxSs - TG.wSs / 2) - (head.dxSs - hw / 2)) < 1e-9,
+    '"senza vib." ' + B.textGapSs + ' ss above the column’s ink, from the head’s left edge');
+  const hi = at0.find(x => x.seq === 'rangeHi'), ar = at0.find(x => x.seq === 'rangeArrow'), lo = at0.find(x => x.seq === 'rangeLo');
+  const A = C.engraving.layout.dynArrow || { gapSs: 0.45, lenSs: 2 };
+  ok(hi && hi.g === 'dyn-mp' && lo && lo.g === 'dyn-pp' && ar && hi.ySs === C.engraving.layout.dynY && Math.abs(hi.dxSs + G.dynamic.mp.wSs / 2 + A.gapSs) < 1e-9
+    && Math.abs(ar.dx1Ss - (hi.dxSs - G.dynamic.mp.wSs / 2 - A.gapSs)) < 1e-9 && Math.abs(lo.dxSs + G.dynamic.pp.wSs / 2 - (ar.dx0Ss - A.gapSs)) < 1e-9,
+    'pp → mp on dynY, right to left mp · spacer · arrow · spacer · pp, ending one spacer before the go line');
+  ok(!at0.some(x => x.k === 'niente'), 'no niente sign in the block (§376 (a))');
+  ok(!model.warnings.length, 'no layout warnings — got ' + JSON.stringify(model.warnings));
+}
+
 console.log((fail ? 'FAILED ' : 'ALL PASS ') + pass + ' / ' + (pass + fail));
 process.exit(fail ? 1 : 0);

@@ -168,6 +168,19 @@
 
   const ACC_KIND = { '1': 'sharp', '-1': 'flat', '0': 'natural' };
 
+  // [LGMF PLAN 2d.2, 2026-09-25 — docs/research/just_partials_notation.md §1a] THE JUST MARK'S ACCIDENTAL, by the bands: |c| < 20
+  // the tempered spelling's own sign (none on a natural) · 20 … 37 an ARROW on it (alone on a natural) · ≥ 37 the quarter-tone sign
+  // — on a ♯ note +c = ¾♯, −c = ¼♯; on a ♭ note the mirror; on a natural ¼♯ / ¼♭. `alter` is the WRITTEN spelling's (the
+  // realization's transposition); the cents never change with it. Returns a glyphs.accidental key, or null.
+  function justAccOf(alter, cents) {
+    const c = +cents || 0, a = Math.abs(c), base = alter > 0 ? 'sharp' : alter < 0 ? 'flat' : 'natural';
+    if (a < 20) return alter ? base : null;
+    if (a < 37) return base + (c > 0 ? 'ArrowUp' : 'ArrowDown');
+    if (alter > 0) return c > 0 ? 'threeQuarterSharp' : 'quarterSharp';
+    if (alter < 0) return c < 0 ? 'threeQuarterFlat' : 'quarterFlat';
+    return c > 0 ? 'quarterSharp' : 'quarterFlat';
+  }
+
   // ONE copy of the membership rules (D50): byTechnique → byEnv → per-item
   // override. layoutSection uses it internally; deviceResolver exposes the
   // same function to other modules (animobj's per-note GC) so the rules are
@@ -294,8 +307,12 @@
     const crescCurves = [];      // {part, span:[a,b], samples:[0..1]} — bottom half of the lane
     const tempos = [];           // {t, bpm} — a bar line + a tempo mark
     const headers = [];          // {part, t, endMark} — the section header block
+    const sequences = [];        // [LGMF 2d.2] {part, span, v} — one part's line of a sequence (the `sequence` overlay, IR amendment 10)
     for (const ov of ir.overlays || []) {
       const tgt = ov.target || {};
+      if (ov.kind === 'sequence' && tgt.part !== undefined && ov.value && ov.value.entry) {
+        sequences.push({ part: tgt.part, span: tgt.span, v: ov.value }); continue;
+      }
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
       if (ov.kind === 'engraving' && tgt.event) { engrave.set(tgt.event, ov.value || {}); continue; }
       if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
@@ -873,6 +890,78 @@
         items.push({ k: 'niente', t: h.t, dxSs: cirC, ySs: y, diaSs: HD.circleDiaSs, thickSs: A.thickSs });
         items.push({ k: 'dynarrow', t: h.t, dx0Ss: arrL, dx1Ss: arrR, ySs: y, headSs: A.headSs, thickSs: A.thickSs });
         items.push({ k: 'glyph', g: 'dyn-' + h.endMark, t: h.t, dxSs: markC, ySs: y, align: 'center' });
+      }
+      // [LGMF PLAN 2d.2, 2026-09-25 — RUNNING_LOG §383] THE SEQUENCE'S BLOCK at the part's entry (LG-111 · LG-112; the tuba/#5 two-part
+      // form): in ss offsets from the entry's go line, never stretching with the zoom — ONE full-size open head on its WRITTEN pitch
+      // with its accidental by the bands (justAccOf) and its ledgers · THE COLUMN over it: the cents at D45's height (the true minus,
+      // no ¢), the partial `n°/F` one row above; a column wider than the head is right-aligned to the head's right edge · the
+      // technique's text 0.45 above the column, from the head's left edge (the pizz. recipe) · the written range on the dynamic row,
+      // right to left from the go line: spacer · high mark · spacer · arrow · spacer · low mark (the tuba header's chain, the two
+      // names in place of circle and mark). No niente sign, no hairpin (§376 (a)). `justHead` is shared with the breaths (2d.4).
+      const SQB = Object.assign({ headGapSs: 0.45, centsGapSs: 0.6, rowSs: 1.0, textGapSs: 0.45, numEmSs: 0.975, slashTopEm: 0.711 },
+        ((DEV.byEnv || {}).sequence || {}).block || {});
+      const pcSeq = partCfgOf(ENS, part), trSeq = (pcSeq && pcSeq.transpose) || 0;
+      // one just-intoned head, its right ink edge at `rightSs` from x(t): { cx, y, lowInk, topInk, leftInk } — the column when `column`
+      const justHead = (t, m, rightSs, opt) => {
+        const q = opt || {}, k = q.scale || 1, HEAD = glyphs.notehead.open, hw = HEAD.wSs * k;
+        const sp = spellMidi(m.midi + trSeq), y = posOf(sp);
+        const LL = (glyphs.standards || {}).ledgerLine, lf = (LL && LL.lengthFraction) || 0.25;
+        const ledg = ledgersFor(y), overhang = ledg.length ? hw * lf : 0;
+        const accK = q.noAcc ? null : justAccOf(sp.alter, m.cents), ag = accK ? glyphs.accidental[accK] : null;
+        const PL = q.paren ? glyphs.accidental.leftParen : null, PR = q.paren ? glyphs.accidental.rightParen : null;
+        const pk = q.parenScale || k, pGap = q.parenGapSs != null ? q.parenGapSs : 0.1;
+        let x = rightSs;
+        if (PR) { items.push({ k: 'glyph', g: 'accidental-rightParen', t, dxSs: x - PR.wSs * pk / 2, ySs: y, align: 'center', scale: pk, ev: q.ev }); x -= PR.wSs * pk + pGap; }
+        const cx = x - overhang - hw / 2;
+        items.push({ k: 'glyph', g: 'notehead-open', t, dxSs: cx, ySs: y, align: 'center', scale: k, ev: q.ev });
+        for (const Lg of ledg) items.push({ k: 'ledger', t, dxSs: cx, ySs: Lg, wSs: hw, ev: q.ev });
+        let left = cx - hw / 2 - overhang;
+        if (ag) {
+          const accGap = (o.accGap || 0.25) * k;
+          items.push({ k: 'glyph', g: 'accidental-' + accK, t, dxSs: cx - hw / 2 - accGap - ag.wSs * k / 2, ySs: y,
+            align: ag.anchors && ag.anchors.noteY ? 'noteY' : 'center', scale: k, ev: q.ev });
+          left = Math.min(left, cx - hw / 2 - accGap - ag.wSs * k);
+        }
+        if (PL) { items.push({ k: 'glyph', g: 'accidental-leftParen', t, dxSs: left - pGap - PL.wSs * pk / 2, ySs: y, align: 'center', scale: pk, ev: q.ev }); left -= pGap + PL.wSs * pk; }
+        const headTop = y + (HEAD.hSs || 1) * k / 2;
+        let topInk = Math.max(headTop, ...ledg), lowInk = Math.min(y - (HEAD.hSs || 1) * k / 2, ...ledg);
+        let colTop = null;
+        if (q.column && m.centsText != null) {
+          const yC = Math.max(headTop, 2) + SQB.centsGapSs;                    // D45's height: over the head's ink, never inside the staff
+          const yP = yC + SQB.rowSs;
+          const estW = s => String(s || '').length * 0.5 * SQB.numEmSs;         // render.js spanSsOf's estimate: half an em a character
+          const wide = Math.max(estW(m.centsText), estW(m.partialText)) > hw;
+          const ax = wide ? cx + hw / 2 : cx, anchor = wide ? 'end' : 'middle';
+          items.push({ k: 'text', t, dxSs: ax, anchor, text: String(m.centsText), size: TS.instruction, ySs: yC, seq: 'cents', ev: q.ev });
+          if (m.partialText) items.push({ k: 'text', t, dxSs: ax, anchor, text: String(m.partialText), size: TS.instruction, ySs: yP, seq: 'partial', ev: q.ev });
+          colTop = (m.partialText ? yP : yC) + SQB.slashTopEm * SQB.numEmSs;   // the row's ink top (Crimson Pro's '/' reaches 0.711 em)
+          topInk = Math.max(topInk, colTop);
+        }
+        return { cx, y, hw, lowInk, topInk, colTop, left, headTop };
+      };
+      for (const sq of sequences) if (sq.part === part && first) {
+        const en = sq.v.entry, t = en.t;
+        const H = justHead(t, en, -SQB.headGapSs, { column: true, ev: en.event });
+        const TG = en.techText && glyphs.text && glyphs.text[en.techText];
+        if (en.techText && !TG) warnings.push('sequence ' + (sq.v.name || sq.v.group) + ': text glyph "' + en.techText + '" missing (glyphs.text) — not drawn (tools/bake_text.js)');
+        if (TG) {
+          const yBot = (H.colTop != null ? H.colTop : H.topInk) + SQB.textGapSs;
+          items.push({ k: 'glyph', g: 'text-' + en.techText, t, dxSs: H.cx - H.hw / 2 + TG.wSs / 2, ySs: yBot + TG.hSs / 2, align: 'center', seq: 'techText' });
+        }
+        // the written range on the dynamic row — the lower-ink rule (#5 §479): a standard spacer under the lowest head or ledger
+        const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
+        const rg = Array.isArray(en.range) ? en.range.filter(n => (glyphs.dynamic || {})[n]) : [];
+        if (rg.length) {
+          const gHi = glyphs.dynamic[rg[rg.length - 1]], gLo = glyphs.dynamic[rg[0]];
+          const yDyn = Math.min(o.dynY, H.lowInk - A.gapSs - (gHi.hSs || 1) / 2);
+          const hiC = -A.gapSs - gHi.wSs / 2;
+          items.push({ k: 'glyph', g: 'dyn-' + rg[rg.length - 1], t, dxSs: hiC, ySs: yDyn, align: 'center', seq: 'rangeHi' });
+          if (rg.length > 1) {
+            const arrR = hiC - gHi.wSs / 2 - A.gapSs, arrL = arrR - A.lenSs;
+            items.push({ k: 'dynarrow', t, dx0Ss: arrL, dx1Ss: arrR, ySs: yDyn, headSs: A.headSs, thickSs: A.thickSs, seq: 'rangeArrow' });
+            items.push({ k: 'glyph', g: 'dyn-' + rg[0], t, dxSs: arrL - A.gapSs - gLo.wSs / 2, ySs: yDyn, align: 'center', seq: 'rangeLo' });
+          }
+        }
       }
       for (const d of dynTexts) if (d.part === part && first) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic });
       for (const ins of instrTexts) if (ins.parts.includes(part) && first) items.push({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, size: TS.instruction });
@@ -2955,5 +3044,5 @@
     return smp;
   }
 
-  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor };
+  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor, justAccOf };
 });

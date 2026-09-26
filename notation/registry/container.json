@@ -194,7 +194,9 @@
       "dynPair": false,
       "dynMark": false,
       "techText": false,
-      "techTexts": { "senza_vel": "senza vib." }
+      "techTexts": { "senza_vel": "senza vib." },
+      "block": { "headGapSs": 0.45, "centsGapSs": 0.6, "rowSs": 1.0, "textGapSs": 0.45, "numEmSs": 0.975, "slashTopEm": 0.711 },
+      "_blockNote": "LGMF PLAN 2d.2 (2026-09-25, RUNNING_LOG §383; docs/research/just_partials_notation.md §1a): the block at the part's entry, in ss from its go line — headGapSs the head's right ink edge before the go line (the D45 header's spacer) · centsGapSs the cents' baseline over the head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text over the column's ink top · numEmSs the numbers' rendered em (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, change both) · slashTopEm Crimson Pro Light's '/' top in em, the partial row's ink top (measured, opentype.js). The range on the dynamic row takes the house dynArrow."
      },
      "_sequenceNote": "LGMF PLAN 2d.1 (2026-09-25, RUNNING_LOG §382; LG-111 · LG-112): a note of a SEQUENCE (the score's srcKind 'sequence', one grp-seq-* group; extract_core env 'sequence', opt-in by notate_section --sequence <group>) is a BREATH of one line per part. Its own device is the go line alone — the morph's 'one go line per breath' — and every other mark of the line (the block at the entry, the level curve on the fixed scale, the breath heads, the pie, the (dyn) labels) comes from the part's `sequence` overlay (notation/lib/sequence_overlays.js), drawn once. techTexts: the technique's text written once in the block (senza_vel → 'senza vib.', Crimson Pro Light Italic, the pizz. recipe); a technique with none writes nothing. No IR before 2d holds env 'sequence', so no page before it moves."
     },
