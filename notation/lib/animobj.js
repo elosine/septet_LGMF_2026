@@ -226,8 +226,33 @@
   // motivePie: inst {t0, t1, color}; a pie at the group's start, top of
   // the frame, filling over the group's span (gesture groups = this
   // piece's motive instances).
+  // [LGMF PLAN 2d.4, 2026-09-25 — RUNNING_LOG §385; CURVE_LOOK §7, piece #2's `_drawMotivePie`] THE BREATH'S CLOCK: an instance
+  // with `countdown` (a sequence breath, inst {part, t0 onset, t1 release}) is drawn PER LANE AT THE CURSOR — at the lane's top, just
+  // left of the crescendo's follower (2 px), the registry's radius and colour — counting the breath DOWN: the REMAINING sector filled
+  // (full at the onset, empty at the release), the hand from the centre to the progress angle, black 1 px, round cap.
+  function remainPath(cx, cy, r, frac) { // the sector from the progress angle round to 12 o'clock, clockwise
+    if (frac >= 1) return '';
+    if (frac <= 0) return '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '"/>';
+    const a = -Math.PI / 2 + frac * 2 * Math.PI;
+    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    return '<path d="M ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' L ' + x.toFixed(1) + ' ' + y.toFixed(1) +
+      ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 ' + ((1 - frac) > 0.5 ? 1 : 0) + ' 1 ' + cx.toFixed(1) + ' ' + (cy - r).toFixed(1) + ' Z"/>';
+  }
   register('motivePie', (inst, view, t, st) => {
     if (t < inst.t0 || t > inst.t1) return [];
+    if (inst.countdown && inst.part !== undefined) {
+      const s = view.system(inst.part), r = st.radiusPx || 9;
+      const frac = Math.max(0, Math.min(1, (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0)));
+      const meter = (st.meterWPx != null ? st.meterWPx : 8) + (st.meterGapPx != null ? st.meterGapPx : 3);
+      const cx = view.xOfSeconds(t) - meter - (st.gapPx != null ? st.gapPx : 2) - r, cy = s.yTopPx + (st.laneTopPx != null ? st.laneTopPx : 1) + r;
+      const a = -Math.PI / 2 + frac * 2 * Math.PI;
+      return [
+        '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="none" stroke="' + st.color + '" stroke-width="1" opacity="0.5"/>',
+        '<g class="breath-pie" fill="' + st.color + '" opacity="' + st.opacity + '">' + remainPath(cx, cy, r, frac) + '</g>',
+        '<line class="breath-hand" x1="' + cx.toFixed(1) + '" y1="' + cy.toFixed(1) + '" x2="' + (cx + r * Math.cos(a)).toFixed(1) + '" y2="' + (cy + r * Math.sin(a)).toFixed(1) +
+          '" stroke="#000" stroke-width="1" stroke-linecap="round"/>',
+      ];
+    }
     const frac = (t - inst.t0) / (inst.t1 - inst.t0);
     const cx = view.xOfSeconds(inst.t0), cy = st.topPx, r = st.radiusPx;
     return [
@@ -341,6 +366,13 @@
       if (LV && tg.part !== undefined && Array.isArray(LV.samples) && LV.samples.length >= 2 && LV.t1 > LV.t0 && has(tg.part)) {
         out.push({ kind: 'crescMeter', part: tg.part, t0: LV.t0, t1: LV.t1, samples: LV.samples, _src: 'ir-sequence' });
       }
+      // [LGMF PLAN 2d.4] THE BREATHS' CLOCK: with the registry's motivePie `source: 'breaths'` the pie counts each breath of a sequence
+      // down — the entry's, then every breath's, onset → release; between a release and the next onset nothing
+      if (ov.kind === 'sequence' && tg.part !== undefined && has(tg.part) && style && style.motivePie && style.motivePie.source === 'breaths') {
+        const V = ov.value || {}, list = [].concat(V.entry ? [{ onset: V.entry.t, release: V.entry.release }] : [], V.breaths || []);
+        for (const b of list) if (b.release > b.onset)
+          out.push({ kind: 'motivePie', part: tg.part, t0: b.onset, t1: b.release, countdown: true, _src: 'ir-sequence-breath' });
+      }
     }
     // notes whose device already visualizes progress (a drawn level curve →
     // envcurve + curveMeter) don't get the generic hold-wedge on top
@@ -375,6 +407,7 @@
       }
       for (const [id, g] of groups) {
         if (style.motivePie && style.motivePie.enabled === false) break;   // registry off-switch (day 24)
+        if (style.motivePie && style.motivePie.source && style.motivePie.source !== 'groups') break;   // [LGMF 2d.4] re-pointed to the breaths
         if (![...g.layers].every(has)) continue;   // the whole group or no pie
         out.push({ kind: 'motivePie', t0: g.t0, t1: g.t1, color: g.color, groupId: id, _src: 's1-group' });
       }

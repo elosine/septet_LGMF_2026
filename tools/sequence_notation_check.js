@@ -116,6 +116,23 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   const cm = inst.filter(x => x.kind === 'crescMeter');
   ok(cm.length === 1 && cm[0].samples === v.level.samples && cm[0].t0 === v.level.t0 && cm[0].t1 === v.level.t1, 'one follower (crescMeter) riding the same samples');
   ok(!inst.some(x => x.kind === 'curveMeter'), 'no per-note curveMeter (the line owns the lane)');
+  // 2d.4 THE BREATHS — the head LEFT of each go line, its right ink one nhGapSs before it
+  const nhG = C.engraving.layout.nhGapSs, RM = C.engraving.layout.devices.byEnv.sequence.reminder;
+  const at = tt => sys.items.filter(x => Math.abs(x.t - tt) < 1e-6);
+  const s1 = at(v.breaths[0].onset), s2 = at(v.breaths[1].onset);
+  const rp = s1.find(x => x.g === 'accidental-rightParen'), lp = s1.find(x => x.g === 'accidental-leftParen'), h1 = s1.find(x => x.g === 'notehead-open');
+  ok(s1.some(x => x.k === 'goline') && rp && lp && h1 && h1.scale === RM.scale && h1.ySs === 2.5 && Math.abs(rp.dxSs + G.accidental.rightParen.wSs * RM.parenScale / 2 + nhG) < 1e-9,
+    'at 13.71 s: a go line, a parenthesised cue head (' + RM.scale + ') at G♯5, its right paren ' + nhG + ' ss before the line');
+  ok(s1.some(x => x.g === 'accidental-threeQuarterSharp' && x.scale === RM.scale) && !s1.some(x => x.k === 'text'), 'the reminder keeps its ¾♯ inside the parentheses, and carries no column');
+  const h2 = s2.find(x => x.g === 'notehead-open'), c2 = s2.filter(x => x.k === 'text');
+  ok(s2.some(x => x.k === 'goline') && h2 && h2.scale === 1 && h2.ySs === 2.5 && Math.abs(h2.dxSs + G.notehead.open.wSs / 2 + nhG) < 1e-9 && !s2.some(x => /^accidental-/.test(x.g || '')),
+    'at 28.71 s: a go line, a full open head at G5 (plain: +2 c), its right edge ' + nhG + ' ss before the line');
+  ok(c2.length === 2 && c2[0].text === '+2' && c2[1].text === '12°/C2' && c2.every(x => x.anchor === 'end' && Math.abs(x.dxSs + nhG) < 1e-9), 'its column +2 · 12°/C2, right-aligned to the head');
+  // the pie — the breaths, re-pointed
+  const pies = inst.filter(x => x.kind === 'motivePie');
+  ok(pies.length === 3 && pies.every(x => x.countdown && x.part === 0) && pies[1].t0 === v.breaths[0].onset && pies[1].t1 === v.breaths[0].release,
+    'three breath clocks (the entry and two breaths), each onset → release');
+  ok(C.animated.motivePie.enabled === true && C.animated.motivePie.source === 'breaths', 'the registry’s pie ON, re-pointed to the breaths');
 }
 
 console.log((fail ? 'FAILED ' : 'ALL PASS ') + pass + ' / ' + (pass + fail));

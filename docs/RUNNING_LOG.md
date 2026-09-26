@@ -13807,3 +13807,41 @@ plan's).
 
 **THE SHIELD:** `piece-lgmf` and `lgmf-0i` — the layout models (both realizations) and the `animobj` instances (327 980 characters on
 `piece-lgmf`, with its save) byte-identical, HEAD's engine against the new · the eight engine batteries GREEN on the tuba goldens.
+
+## §385. `2d.4` THE BREATHS AND THE PIE — built; every head left of its go line, the clock counting each breath down (2026-09-25, Opus, session 15)
+
+**What was built:**
+- **The breath heads** (`layout.js`, the sequence branch): each breath's go line is its event's own device (`byEnv.sequence`, 2d.1); the
+  HEAD goes to its LEFT through the block's `justHead`, its right ink edge one `nhGapSs` (0.25) before the line —
+  - `same` → a **cue-size (0.844) open head in parentheses, its accidental INSIDE them** (a reminder, not a change) [the AI's reading of
+    the PLAN's "no accidental change": in a score with no bar lines an accidental holds for its one note, so a reminder head without its
+    ¾♯ would read as a G♮], no column; the parens at 0.67 (the trill neighbour's 0.63 for its 0.794 head, in proportion), 0.15 ss from
+    what they hold (`byEnv.sequence.reminder`) —
+  - `new` → a full-size open head, its accidental by the bands and its column (2d.2's rule).
+  - **The tuba's `onsetHead` / `onsetAcc` flags were NOT revived** [the AI's call, against the PLAN's letter]: they draw a small black head
+    AFTER the line (the morph's quarter-tone approximation, left-aligned to the go time) — the opposite regime. The heads come from the
+    overlay, which already knows same / new and the marks.
+- **The pie** (`animobj.js`): the registry's `motivePie` **ON and RE-POINTED** — `source: 'breaths'`; `'groups'` (or no source) is the day-24
+  group pie, which stays OFF (no group pie is collected with `source: 'breaths'`). One instance per breath of a `sequence` overlay (the
+  entry's too), onset → release, with `countdown`: drawn PER LANE AT THE CURSOR (CURVE_LOOK §7, piece #2's `_drawMotivePie`) — at the lane's
+  top, `gapPx` 2 left of the crescendo's follower, the registry's radius 9 and colour `#607D8B` @ 0.75 — the REMAINING sector filled (full
+  at the onset, empty at the release; `remainPath`, new), the hand black 1 px round cap; between a release and the next onset nothing.
+- **`tools/test_animobj.js`** amended (2 lines): it pinned the day-24 registry value (`enabled === false`); it now pins the contract — off
+  for GROUPS, on only for the breaths — and forces `source: 'groups'` for the group-coverage check. GREEN.
+
+**THE REQUIRED CHECK:**
+- **the presentation page, in C** (`export_video --dumpPage 1 · 2`): at **13.712 s** the go line at x **364.23** = x(t), the right paren's
+  right edge 1.97 px = **0.25 ss** before it, the cue head on **G♯5** (ySs 2.50), ¾♯ and the left paren to its left, **no texts** · at
+  **28.714 s** the go line at x **806.53**, a full head on **G5** (plain, +2 c), its right edge 1.98 px = 0.25 ss before the line, **`+2` ·
+  `12°/C2`** anchored `end` at the head's right edge, no accidental.
+- **the pie, the app on `score-5401`** (the page turned by the go-to box, the frame drawn by `window.__notationFrame(t)` — the pane has no
+  requestAnimationFrame): at **t = 20 s** the remaining sector **0.5579** against 1 − (20 − 13.712)/(27.968 − 13.712) = **0.5589** (± 0.02 ✓),
+  its centre at the lane top + 10 px, its right edge 2 px left of the follower · at **28.3 s** (the gap) **no pie** (the follower still
+  there, on the bridge) · at 13.8 s 0.995 · at 27.9 s 0.005.
+- **the model** (`sequence_notation_check`, **55 / 55**): the reminder at 13.71 (parens, 0.844, ¾♯ inside, no column, 0.25 before the line)
+  · the new head at 28.71 (full, plain, `+2` · `12°/C2` right-aligned) · three breath clocks · the registry's pie on for the breaths.
+- **`check_screen_edges --ir lgmf-eh-proto`: PASS.**
+
+**THE SHIELD:** `piece-lgmf` and `lgmf-0i` — layout models (both realizations) and `animobj` instances byte-identical, HEAD's engine AND
+registry against the new (the pie's switch reaches nothing there: no sequence overlay, no group pie) · the eight batteries GREEN (with
+`test_animobj`'s two lines amended as above).

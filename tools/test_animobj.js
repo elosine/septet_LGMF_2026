@@ -68,13 +68,15 @@ ok(byKind('lineWedge').length === 0, 'lineWedge OFF collects no wedges');
   ok(w.length === 1, 'long hold -> lineWedge (switch on; morph and short notes excluded)');
   var WEDGE = w[0];   // the port checks below ride the switch-on instance
 }
-// the pie port: OFF in the registry since day 24 (the density build's groups are
-// provenance, not motives), so the coverage check runs with the switch forced on —
-// and the registry value itself is asserted off, so a silent flip back is caught
-ok(ST.motivePie.enabled === false, 'registry: motivePie is OFF (day 24)');
-ok(byKind('motivePie').length === 0, 'motivePie OFF collects no pies');
+// the pie port: OFF for score GROUPS since day 24 (the density build's groups are
+// provenance, not motives), so the coverage check runs with the group source forced on —
+// and the registry value itself is asserted, so a silent flip back is caught.
+// [LGMF PLAN 2d.4, 2026-09-25 — RUNNING_LOG §385] the registry's pie is ON and RE-POINTED to a
+// sequence's breaths (source 'breaths'): still no GROUP pie on any page, which is the day-24 contract
+ok(ST.motivePie.enabled === false || ST.motivePie.source === 'breaths', 'registry: motivePie is OFF for groups (day 24; LGMF 2d.4: on for the breaths only)');
+ok(byKind('motivePie').length === 0, 'motivePie OFF for groups collects no group pies');
 {
-  const ON = JSON.parse(JSON.stringify(ST)); ON.motivePie.enabled = true;
+  const ON = JSON.parse(JSON.stringify(ST)); ON.motivePie.enabled = true; ON.motivePie.source = 'groups';
   const pies = Anim.collect(ir, score, ON).filter(i => i.kind === 'motivePie');
   ok(pies.length === 1 && pies[0].t0 === 14 && pies[0].t1 === 17.5, 'group span -> motivePie (switch on)');
 }

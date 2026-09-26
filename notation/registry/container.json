@@ -196,6 +196,8 @@
       "techText": false,
       "techTexts": { "senza_vel": "senza vib." },
       "block": { "headGapSs": 0.45, "centsGapSs": 0.6, "rowSs": 1.0, "textGapSs": 0.45, "numEmSs": 0.975, "slashTopEm": 0.711 },
+      "reminder": { "scale": 0.844, "parenScale": 0.67, "parenGapSs": 0.15 },
+      "_reminderNote": "LGMF PLAN 2d.4 (RUNNING_LOG §385): a breath on the SAME pitch — a cue-size open head (the house cue scale 0.844) in parentheses, its accidental inside them (a reminder, not a change), no column; the parens at 0.67 — the trill neighbour's 0.63 for its 0.794 head, in proportion [the AI's], 0.15 ss from what they hold.",
       "_blockNote": "LGMF PLAN 2d.2 (2026-09-25, RUNNING_LOG §383; docs/research/just_partials_notation.md §1a): the block at the part's entry, in ss from its go line — headGapSs the head's right ink edge before the go line (the D45 header's spacer) · centsGapSs the cents' baseline over the head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text over the column's ink top · numEmSs the numbers' rendered em (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, change both) · slashTopEm Crimson Pro Light's '/' top in em, the partial row's ink top (measured, opentype.js). The range on the dynamic row takes the house dynArrow."
      },
      "_sequenceNote": "LGMF PLAN 2d.1 (2026-09-25, RUNNING_LOG §382; LG-111 · LG-112): a note of a SEQUENCE (the score's srcKind 'sequence', one grp-seq-* group; extract_core env 'sequence', opt-in by notate_section --sequence <group>) is a BREATH of one line per part. Its own device is the go line alone — the morph's 'one go line per breath' — and every other mark of the line (the block at the entry, the level curve on the fixed scale, the breath heads, the pie, the (dyn) labels) comes from the part's `sequence` overlay (notation/lib/sequence_overlays.js), drawn once. techTexts: the technique's text written once in the block (senza_vel → 'senza vib.', Crimson Pro Light Italic, the pizz. recipe); a technique with none writes nothing. No IR before 2d holds env 'sequence', so no page before it moves."
@@ -708,7 +710,13 @@
    "opacity": 0.75
   },
   "motivePie": {
-   "enabled": false,
+   "enabled": true,
+   "source": "breaths",
+   "gapPx": 2,
+   "meterWPx": 8,
+   "meterGapPx": 3,
+   "laneTopPx": 1,
+   "_breathsNote": "LGMF PLAN 2d.4 (2026-09-25, RUNNING_LOG §385): ON, RE-POINTED from a score group to a SEQUENCE's BREATHS (source 'breaths'; 'groups' — or no source — is the day-24 group pie, which stays off: no group pie is drawn with source 'breaths'). A clock per lane AT THE CURSOR counting each breath down (CURVE_LOOK §7, piece #2's _drawMotivePie): its centre radiusPx + laneTopPx under the lane's top, gapPx left of the crescendo's follower (meterWPx + meterGapPx = animated.crescMeter wPx + gapPx — a copy, change both); the remaining sector in color at opacity [the AI's: the registry's own colour], the hand black 1 px. Only a page with a sequence overlay has one.",
    "topPx": 14,
    "radiusPx": 9,
    "color": "#607D8B",

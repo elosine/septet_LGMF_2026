@@ -948,6 +948,22 @@
         const LV = sq.v.level;
         if (LV && Array.isArray(LV.samples) && LV.samples.length >= 2 && LV.t1 > LV.t0)
           items.push({ k: 'cresccurve', t0: LV.t0, t1: LV.t1, samples: LV.samples, seq: 'level' });
+        // [LGMF PLAN 2d.4 — RUNNING_LOG §385] THE BREATHS: each breath's go line is its event's own device (byEnv.sequence); the HEAD
+        // goes to its LEFT (the reading regime of NOTATION_STANDARDS §1: head before the line), its right ink edge one nhGapSs before
+        // the line — `same` (the pitch before it, again): a cue-size open head in parentheses, its accidental inside them, no column ·
+        // `new`: a full-size open head, its accidental by the bands and its column. The tuba's `onsetHead` flags stay the tuba's (a
+        // small head AFTER the line); these heads come from the overlay, drawn by the block's `justHead` [the AI's call].
+        const RM = Object.assign({ scale: 0.844, parenScale: 0.67, parenGapSs: 0.15 }, ((DEV.byEnv || {}).sequence || {}).reminder || {});
+        let lastMarks = en;
+        for (const b of sq.v.breaths || []) {
+          if (b.pitch === 'new') {
+            justHead(b.onset, b, -o.nhGapSs, { column: true, ev: b.event });
+            lastMarks = b;
+          } else {
+            justHead(b.onset, { midi: b.midi, cents: lastMarks.cents }, -o.nhGapSs,
+              { scale: RM.scale, paren: true, parenScale: RM.parenScale, parenGapSs: RM.parenGapSs, ev: b.event });
+          }
+        }
         const H = justHead(t, en, -SQB.headGapSs, { column: true, ev: en.event });
         const TG = en.techText && glyphs.text && glyphs.text[en.techText];
         if (en.techText && !TG) warnings.push('sequence ' + (sq.v.name || sq.v.group) + ': text glyph "' + en.techText + '" missing (glyphs.text) — not drawn (tools/bake_text.js)');
