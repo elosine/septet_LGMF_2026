@@ -14000,3 +14000,54 @@ drawer, `harmony_sel.js` itself on the composer), its pure part loadable in node
 strip's own `remember` · `writeNote` · `stamp`, so `back` and the card work unchanged; no engine file touched — THE SHIELD is the §317 ·
 §319 captures byte-identical and the batteries green. **Build on Opus after a checkpoint + clear, 1u.1 → 1u.5, one commit per step;
 1u.6 his — a reload only.**
+
+## §390. `1u.1` THE POOL — built: the take of each breath, the series in range and tolerance, the two seats, the three rules (2026-09-26, Opus, session 16)
+
+**What prompted it** — his word at the `/postclear`: *"go, build as much as possible independently"*. PLAN § `1u`, 1u.1.
+
+**What was built** — `score/public/vibes_pitch.js` (NEW) and `tools/vibes_pitch_check.js` (NEW). The file is two parts: a CORE that
+reads nothing of the page and loads in node, and a mixin on `HarmonySel` (`vibLane` · `vibOthers` · `vibNotes` · `vibActuals` ·
+`vibPlan(rule)`). `composer.html` does not load it yet — its script tag is 1u.3's, as the plan orders.
+- **The take of a breath**, in the plan's order: `HarmonySel.info(o).take` (a `1q` write — `hq.take`, or its older `← take "…"`) · the
+  sequence's recipe (`databases.sequences`, the note's group; the box is the one its fragment NAMES — `box N` — and only without a
+  fragment the box its start falls in, from the META bar as `placedAt` finds it) · a placed morph's actual (the group's marker reads
+  `ENTITY — label`; the actual's `provenance.pitch.takeName`, `toName` after a TAKE → TAKE switch) · the fragment's take · none.
+  **A refinement of the plan, the AI's:** the box by the fragment's `box N` before the box by time — the fragment is what the
+  generator wrote, and a SEAMLESS change takes the new chord at each player's next breath, so a breath near a box line can sit in
+  one box and play the other.
+- **A TAKE → TAKE actual:** each seat reads "from" until its note first changes (the switch is one re-strike, PLAN 1t.3), "to" after —
+  its pitch before any strip write (`hq.was`) is what is compared.
+- **The series** = `HarmonySel.pool(name)` as it stands (the shuffle's own read of `D.voices`) · **the range** = `rangeOf(D, lane, o)`,
+  the note's own technique · **the tolerance** = `StrikeDrawer.mayTake(v, lane)` — asked, not copied · **one member per key** (the
+  vibraphone plays the key; the lowest partial names it) · **no folding** — a folded note is not a partial of the series.
+- **The seats** = the lane's two chains by overlap. Sorted by start; a breath follows a chain that has ended (0.01 s of grace): the one
+  its `hq.seat` names (a 1u write), else the one whose last note was ITS pitch, else the one that ended last; a third voice over both is
+  put on the chain that ends first and counted `crowded`. The pitch rule was added when a hand-made case showed the danger: two seats
+  ending 0.02 s apart and both free — "the one that ended last" alone would swap them, and the next breath would continue from the
+  wrong seat's pitch.
+- **The others at a breath's start** = every pitched object on another player's lane (not the percussion, not the vibraphone) sounding
+  at t: its pitch = key + its bend at t (`morphBendAt`'s arithmetic, cents) · its partial = the one its note carries when its take is
+  the breath's take, else the series' nearest within 20 ¢ [call], else none (a pitch without a partial: it counts for `within a
+  tone`, not for `neighbours`).
+- **The rules:** `neighbours` p − 1 and p + 1 of each other's partial · `within a tone` every member whose KEY is ≤ 200 ¢ from another
+  player's pitch (the key, because the key is what the vibraphone sounds) · `any` all. The other seat and the current pitch are taken
+  out at the draw (1u.2), where the other seat's pitch at that moment is known.
+
+**The check — `node tools/vibes_pitch_check.js` 31 / 31**, the app's own files run in node (TRACKS out of `composer.html` · the
+instruments · `spectrum_ui.js` `mayTake` against a stub drawer · `harmony_sel.js` `info` · `rangeOf`), not copies:
+- **`any` on B1 = 3 · 4 · 6 · 8 · 9 · 12 · 16 · 17 · 18 · 19** (F♯3 +2 · B3 · F♯4 +2 · B4 · C♯5 +4 · F♯5 +2 · B5 · C6 +5 · C♯6 +4 ·
+  D6 −2), the range F3 … F6 for `bowed_vel`. His examples hold: 8 · 9 · 16 · 17 in, 10 (−14) · 13 (+41) out. 3 and 4 are in too —
+  the plan's list said *"and the rest the range allows"*; they are the rest.
+- **His screenshot's assignment** (EH 11 · Bsn 1 · Hn 6 · Tpt 15 · Vc 10 · Db 4) written as a sequence's notes → **`neighbours` =
+  3 · 9 · 12 · 16** · **`within a tone` = 4 · 6 · 9 · 12 · 16** (Db · Hn · Vc · EH · Tpt; 17 is 212 ¢ from the trumpet and stays out).
+  With the vibraphones on 16 and 9: seat 1's pool without the other seat = 3 · 12 · 16, a change from 16 → 3 · 12. A pool of one held
+  by one seat leaves the other nothing.
+- The seats on his `LGMF-R01c`'s own shape (0.05 s between a seat's breaths, the box change at 20.9 s) → seat 0 · seat 2 exactly; a
+  morph's cello at D♯5 −14 → partial 10; at +30 → no partial; the take resolved on a `1q` note, an old `1q` note, a sequence note (by
+  its box, and by time), a placed morph's note (`ACT-BLOOM-06` → `Blm01c-wVibes-Just-A1-seed131mod`), a fragment alone, none; the
+  TAKE → TAKE switch.
+- **Told, not gated** (his file moves as he composes): his `piece-LGMF-Sec01-Sec02`, read only — **99 vibraphone breaths, the take
+  found for every one: 55 by the sequence, 44 by the actual; 0 crowded.**
+
+**Not in this step:** the draw and the write (1u.2) · the strip's row (1u.3). No verification in the page — the plan names none for
+1u.1; the browser half (`vibActuals` · `vibPlan`) is exercised at 1u.5 (c) … (e).
