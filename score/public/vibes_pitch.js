@@ -406,7 +406,7 @@ Object.assign(H, {
         this.vibPrefs = loadPrefs();
         const tg = document.createElement('button'); tg.type = 'button'; tg.id = 'hqVibes'; tg.style.cssText = BTN; tg.textContent = 'vibes ▾';
         tg.title = 'PLAN 1u: the two vibraphones change pitch at their breaths — the bowing untouched — from their take\'s own harmonic series. Opens a line of dials under the strip; back and CTRL+Z undo it';
-        tg.addEventListener('click', () => { this.vibPrefs.open = !this.vibPrefs.open; savePrefs(this.vibPrefs); this.vibRefresh(); });
+        tg.addEventListener('click', () => { tg.blur(); this.vibPrefs.open = !this.vibPrefs.open; savePrefs(this.vibPrefs); this.vibRefresh(); });   // §400: the focus let go, SPACE stays the score's
         el.insertBefore(tg, el.querySelector('#hqStatus'));
         const row = document.createElement('div'); row.id = 'hqVibRow';
         row.style.cssText = 'position:fixed;z-index:60;display:none;align-items:center;gap:8px;padding:3px 8px;border:1px solid #cfcabc;border-radius:4px;' +
@@ -422,8 +422,11 @@ Object.assign(H, {
             '<button type="button" id="hvGo" style="' + BTN + ';font-weight:600" title="walk the selected vibraphone breaths in time and change their pitches by the dials — one undo">go</button>';
         ['mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'keydown'].forEach(ev => row.addEventListener(ev, e => e.stopPropagation()));
         ['hvPool', 'hvChange', 'hvDraw'].forEach((id, i) => row.querySelector('#' + id).addEventListener('change', e => { this.vibPrefs[['pool', 'change', 'draw'][i]] = e.target.value; savePrefs(this.vibPrefs); }));
-        row.querySelector('#hvSeed').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); this.vibGoNext(); } });
+        row.querySelector('#hvSeed').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); this.vibGoNext(); } });
         row.querySelector('#hvGo').addEventListener('click', () => { this.vibGoNext(); });
+        // his 1u.6 (RUNNING_LOG §400): a clicked button kept the keyboard focus, so SPACE re-clicked `go` (another seed each press) and
+        // never reached the score. The row lets go of the focus after any click on one of its buttons — the drawers' idiom.
+        row.addEventListener('click', e => { const b = e.target && e.target.closest ? e.target.closest('button') : null; if (b) b.blur(); });
         document.body.appendChild(row); this.vibRow = row;
         return row;
     },

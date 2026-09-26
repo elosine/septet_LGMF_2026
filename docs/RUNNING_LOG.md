@@ -14335,3 +14335,21 @@ stands: the served `vibes_pitch.js` on `240a0c0` changes both breaths of the fir
 11 … 7, chips added, `back` greyed) are the old rule's result: a run, nothing written. Read on the way: nothing in `vibGo`'s write
 path (`remember` · `writeNote` · `stamp`) can refuse a breath the draw changed. Told him: CTRL+SHIFT+R, `go`, read the strip's line —
 expected *seed N → 2 of 2 breaths changed*; if it reads 0 of 2, the status text is what I need next.
+
+## §400. `1u.6` HIS WORD — *"vibes strip captures space after clicking go"*: the clicked button kept the focus; the row lets it go (2026-09-26, Fable, session 16)
+
+**What prompted it** — his report after §398's reload. **Reproduced with the pane's REAL input** on `score-5401` (his draft read-only,
+STILL BINDING's stubs, `Composer.togglePlay` · `StrikeDrawer.play` · `SequenceDrawer.play` counted): a real click on `go` → 2 written,
+`document.activeElement` = `BUTTON#hvGo`; a real SPACE → `togglePlay` 0, the strikes and sequence drawers silent, **and the seed chips
+went 1 → 2 · 1**: the focused button took SPACE as its own click and ran `go` again with the next seed. The composer's SPACE handler
+never saw the key (the sequence drawer's rule was not it: `active` false, its element closed; the strikes drawer closed).
+
+**The fix** — `score/public/vibes_pitch.js`: one delegated listener on the row — a click on any of its buttons (`go`, the seed chips)
+blurs it afterwards; ENTER in the seed box blurs the box before `go`; the `vibes ▾` toggle on the strip blurs itself. The drawers' idiom
+(`sequence_ui.js` blurs its selects and buttons the same way).
+
+**Verified the same way, after a reload of the served file:** click `go` → 2 written, the active element BODY; SPACE → `togglePlay` 1,
+the seeds still `[1]`; click `vibes ▾` → SPACE → `togglePlay` 2, the row closed as the click asked. Cleared, reset, stopped.
+
+**Seen, not touched:** the harmony strip's own buttons (`take ▾` · `back` · `shuffle` · `dyn ▾`) are wired the same way as `go` was
+(`harmony_sel.js` has no blur) — a `shuffle` followed by SPACE would re-shuffle. One line there if he meets it; not asked.
