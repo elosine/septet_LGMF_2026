@@ -127,9 +127,9 @@ const pm = vn('pm', 500, 508, 81, { groupId: 'grp-morph-01', morphBend: [[0, 0],
 const mkQ = { id: 'mk-morph-2', type: 'marker', layer: 0, groupId: 'grp-morph-02', time: 600, label: 'MORPH BLOOM — sec3', properties: {} };
 const mkBar = { id: 'wc-morphmeta-2', type: 'waveCurve', layer: 7, groupId: 'grp-morph-02', startSeconds: 600, endSeconds: 660 };
 // the group as Insert placed it at 600 s (`at + tStart`, one note pre-armed before the marker) and the actual of the same render (`0 + tStart`)
-const gq = [vn('g1', 600, 608, 81), vn('g2', 599.6, 605, 64, { layer: 0 }), vn('g3', 608, 616, 83), vn('g4', 600, 608, 61, { layer: 1 }), vn('g5', 604, 612, 76, { layer: 3 })]
+const gq = [vn('g1', 600, 608, 81), vn('g2', 599.6, 605, 64, { layer: 0 }), vn('g3', 608, 616, 83), vn('g4', 600, 608, 61, { layer: 1 }), vn('g5', 604, 612, 76, { layer: 3 }), vn('g6', 602, 606, 66, { layer: 2 }), vn('g7', 603, 611, 45, { layer: 6 })]
     .map(o => Object.assign(o, { groupId: 'grp-morph-02', morphBend: [[0, 0], [8, 0]], performanceNotes: 'BLOOM bowed_vel' }));
-const actQ = { entity: 'ACT-BLOOM-99', objects: [vn('a1', 0, 8.001, 81), vn('a2', -0.4, 5, 64, { layer: 0 }), vn('a3', 8.01, 16, 83), vn('a4', 0, 8, 61, { layer: 1 }), vn('a5', 4, 12, 76, { layer: 3 }), vn('a6', 2, 6, 66, { layer: 2 })]
+const actQ = { entity: 'ACT-BLOOM-99', objects: [vn('a1', 0, 8.001, 81), vn('a2', -0.4, 5, 64, { layer: 0 }), vn('a3', 8.01, 16, 83), vn('a4', 0, 8, 61, { layer: 1 }), vn('a5', 4, 12, 76, { layer: 3 }), vn('a6', 2, 6, 66, { layer: 2 }), vn('a7', 3, 11, 45, { layer: 6 }), vn('a8', 1, 7, 50, { layer: 7 })]
     .map(o => Object.assign(o, { morphBend: [[0, 0], [8, 0]] })), provenance: { pitch: { src: 'dtake:T-matched', takeName: 'T-matched' } } };
 const grpQ = [mkQ, mkBar].concat(gq);
 const tcm = { info: o => H.info(o), sequences: [], objects: [mkP, pm].concat(grpQ), meta: 7, actuals: { 'ACT-BLOOM-99': actQ }, matched: { 'grp-morph-02': 'ACT-BLOOM-99' } };
@@ -139,13 +139,21 @@ ok(V.takeOf(gq[0], Object.assign({}, tcm, { matched: {} })) === null && V.actual
 ok(Tm(gq[0]) === 'T-matched (actual)' && V.actualOf(gq[0], tcm.objects, tcm.matched) === 'ACT-BLOOM-99', 'the same group matched to a saved actual → the actual\'s take');
 ok(V.takeOf(gq[0], Object.assign({}, tcm, { matched: { 'grp-morph-02': null } })) === null, 'a group the store was asked about and found nothing for → none, asked once');
 const fp = V.fingerprint(gq, 600).map(e => e.k + ':' + e.s.toFixed(2) + ':' + e.d.toFixed(2)).sort();
-ok(eq(fp, ['0:64:-0.40:5.40', '1:61:0.00:8.00', '3:76:4.00:8.00', VIB + ':81:0.00:8.00', VIB + ':83:8.00:8.00']), 'the fingerprint from the marker: lane · key · start (a pre-armed note negative) · length');
-ok(V.matchesActual(grpQ, actQ), 'the placed group is in the actual at the same offsets, to 0.02 s (the actual has a sixth note: a subset)');
-ok(V.matchesActual(grpQ.map(o => o.id === 'g3' ? Object.assign({}, o, { sonifyNote: 84 }) : o), actQ), 'one note re-pitched by hand since (4 of 5) → still the actual');
-ok(!V.matchesActual(grpQ.map(o => (o.id === 'g3' || o.id === 'g5') ? Object.assign({}, o, { sonifyNote: 84 }) : o), actQ), 'two of five off → no match (fewer than 4)');
-ok(!V.matchesActual(grpQ.map(o => o.sonifyNote != null ? Object.assign({}, o, { startSeconds: 600 + (o.startSeconds - 600) * 1.1, endSeconds: 600 + (o.endSeconds - 600) * 1.1 }) : o), actQ), 'the group stretched by its bar → no match');
-ok(!V.matchesActual(grpQ, { objects: actQ.objects.map(o => Object.assign({}, o, { sonifyNote: o.sonifyNote + 1 })) }), 'another render (every key off) → no match');
-ok(!V.matchesActual([], actQ) && !V.matchesActual(grpQ, { objects: [] }), 'an empty side never matches');
+ok(eq(fp, ['0:64:-0.40:5.40', '1:61:0.00:8.00', '2:66:2.00:4.00', '3:76:4.00:8.00', VIB + ':81:0.00:8.00', VIB + ':83:8.00:8.00', '6:45:3.00:8.00']), 'the fingerprint from the marker: lane · key · start (a pre-armed note negative) · length');
+const FO = { skipLane: VIB };
+ok(eq(V.fingerprint(gq, 600, FO).map(e => e.k).sort(), ['0:64', '1:61', '2:66', '3:76', '6:45']), '§401: with other players in the morph, the fingerprint is THEIR lanes — the vibraphone\'s breaths are what `go` moves');
+ok(eq(V.fingerprint([gq[0], gq[2]], 600, FO).map(e => e.k).sort(), [VIB + ':81', VIB + ':83']) && eq(V.fingerprint([gq[0], Object.assign({}, gq[2], { hq: { take: 'x' } })], 600, Object.assign({ untouched: true }, FO)).map(e => e.k), [VIB + ':81']),
+   'a vibraphone-only morph keeps its own breaths — minus those the strip has written (`hq`)');
+ok(V.matchesActual(grpQ, actQ, FO), 'the placed group is in the actual at the same offsets, to 0.02 s (the actual has three more notes: a subset)');
+ok(V.matchesActual(grpQ.map(o => o.id === 'g3' ? Object.assign({}, o, { sonifyNote: 84 }) : o), actQ, FO), 'one note re-pitched by hand since → still the actual');
+ok(V.matchesActual(grpQ.map(o => o.layer === VIB ? Object.assign({}, o, { sonifyNote: o.sonifyNote + 3, hq: { take: 'T-matched', seat: 0 } }) : o), actQ, FO), '§401: every vibraphone breath re-pitched by `go` (his case) → still the actual, the other players carry it');
+ok(!V.matchesActual(grpQ.map(o => (o.id === 'g2' || o.id === 'g5') ? Object.assign({}, o, { sonifyNote: 84 }) : o), actQ, FO), 'two of the five other-player notes off → no match (fewer than 4)');
+const stretched = grpQ.map(o => o.sonifyNote != null ? Object.assign({}, o, { startSeconds: 600 + (o.startSeconds - 600) * 1.1, endSeconds: 600 + (o.endSeconds - 600) * 1.1 }) : o);
+ok(V.matchesActual(stretched, actQ, FO) && V.matchScore(stretched, actQ, FO).time < 5, '§401: the group stretched by its bar, or its ends held longer (his 725 s morph) → still the actual: the KEYS carry it, the times are his to edit');
+ok(!V.matchesActual(grpQ, { objects: actQ.objects.map(o => Object.assign({}, o, { sonifyNote: o.sonifyNote + 1 })) }, FO), 'another render (every key off) → no match');
+ok(!V.matchesActual([], actQ, FO) && !V.matchesActual(grpQ, { objects: [] }, FO), 'an empty side never matches');
+const actQ2 = { entity: 'ACT-BLOOM-98', objects: actQ.objects.map(o => Object.assign({}, o, { startSeconds: o.startSeconds + 1.5 })), provenance: { pitch: { takeName: 'T-same-takes-other-seed' } } };
+ok(V.bestActual(grpQ, [actQ2, actQ], FO) === actQ && V.bestActual(grpQ, [actQ2], FO) === actQ2 && V.bestActual(grpQ, [{ objects: [] }], FO) === null, '§401: of two actuals of the same keys, the one at the same offsets wins; alone, the other serves; none passes → null');
 
 // ---------------------------------------------------------------- the plan: a TAKE → TAKE actual's vibraphone switches take at its re-strike
 const mkT = { id: 'mk-t', type: 'marker', layer: 0, groupId: 'grp-act-takes-01-01', time: 0, label: 'ACT-TAKES-01 — x' };
@@ -249,7 +257,7 @@ if (hisNewest) {
     const S = JSON.parse(fs.readFileSync(hisNewest, 'utf8')), objs = S.objects || [], ADIR = path.join(ROOT, 'bank', 'actuals');
     const acts = fs.existsSync(ADIR) ? fs.readdirSync(ADIR).filter(f => /\.json$/i.test(f)).map(f => JSON.parse(fs.readFileSync(path.join(ADIR, f), 'utf8'))) : [];
     const mks = objs.filter(o => o.type === 'marker' && /^MORPH /.test(o.label || ''));
-    const matched = {}; mks.forEach(mk => { const g = V.groupOf(mk.groupId, objs); const a = acts.find(x => V.matchesActual(g, x)); matched[mk.groupId] = a ? a.entity : null; });
+    const matched = {}; mks.forEach(mk => { const g = V.groupOf(mk.groupId, objs); const a = acts.find(x => V.matchesActual(g, x, { skipLane: VIB })); matched[mk.groupId] = a ? a.entity : null; });
     const vib = objs.filter(o => o.layer === VIB && o.sonifyNote != null && o.type === 'waveCurve' && matched[o.groupId] !== undefined);
     const A = {}; acts.forEach(a => { A[a.entity] = a; });
     const found = vib.filter(o => { const r = V.takeOf(o, { info: x => H.info(x), sequences: [], objects: objs, meta: 7, actuals: A, matched }); return r && r.take; }).length;

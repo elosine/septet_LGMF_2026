@@ -14353,3 +14353,39 @@ the seeds still `[1]`; click `vibes ▾` → SPACE → `togglePlay` 2, the row c
 
 **Seen, not touched:** the harmony strip's own buttons (`take ▾` · `back` · `shuffle` · `dyn ▾`) are wired the same way as `go` was
 (`harmony_sel.js` has no blur) — a `shuffle` followed by SPACE would re-shuffle. One line there if he meets it; not asked.
+
+## §401. `1u.6` HIS WORD — *"no take on next morph"* · *"missing 5 for some reason"*: the content match eaten by `go` and by his hand; now by the KEYS, and written on the marker (2026-09-26, Fable, session 16)
+
+**What prompted it** — after §400: on the 725 s morph two breaths (736.71 · 739.26) read *no take*; then 24 selected read *2 takes on 19
+of 24* — five without.
+
+**Read in his LIVE working copy (`piece-LGMF-draft01-VibesFix-work.json`, read only) and in the draft:** the 576 s morph had 23 of 30
+vibraphone breaths stamped by his `go`s (`hq.take`), the 725 s one 21 of 32. The §395 match compared EVERY placed note to the actual's
+by lane · key · start · length within 0.02 s: the 576 s group had fallen from 73 of 80 (the draft) to **50 of 80**, the 725 s one from
+68 to **47 of 80** — under 80 %, so the breaths `go` had not reached lost their take (5 of the 24). Two eaters: `go` itself re-pitches
+the vibraphone breaths (a key mismatch each), and his hand — in the 725 s morph every player's FIRST breath is cut at the front (the
+score's starts 1.3 … 4.7 s after the actual's, shorter) and the LAST breaths are held longer (10 … 15 s against 4 … 8) — a release he
+set after the save, or the joins done by hand (§124: *by hand*). With the vibraphone lane left out the 725 s group still matched only
+38 of 48 by time — **but 48 of 48 by key**, and the 576 s group 50 of 50.
+
+**The rule now** (`Core.matchScore` · `matchesActual` · `bestActual`): the group's side = the notes the strip has NOT written (no
+`hq`), on the OTHER players' lanes when the morph has them (`skipLane`, the vibraphone; a vibraphone-only morph keeps its own untouched
+breaths); each is matched to the actual by lane · key with multiplicity; 80 %, never fewer than 4; a hit that also sits at the actual's
+offset counts as `time`, the tie-break between two actuals of the same keys (the best-scoring wins, `bestActual`); the span filter is
+gone (a group he stretched keeps its keys), the note-count filter stays. **The keys ARE the takes, which is what is asked.** A `-mod`
+take differing from its parent in one player would still pass — and name the parent: the same fundamental, the same series, the same
+pool; the strip's name off by a suffix. **And the match is WRITTEN ON THE MARKER** (`properties.pitch { src: 'actual:ENT', takeName,
+toName }`, `markDirty`) [call, his to reverse]: asked once for good, read next session by the marker route, immune to later edits.
+
+**The check — `vibes_pitch_check` 65 / 65:** the other lanes carry the fingerprint · a vibraphone-only morph its own untouched breaths ·
+every vibraphone breath re-pitched by `go` → still the actual · the group stretched or its ends held → still the actual (the keys) · two
+of five other-player notes off → none · another render → none · of two actuals of the same keys the one at the same offsets wins. Told:
+the draft's two groups → `ACT-TAKES-02` · `-03`, 62 of 62.
+
+**Verified in the page on his LIVE score** (`score-5401`, `piece-LGMF-draft01-VibesFix` opened read-only under STILL BINDING's stubs,
+his 24 breaths of the 725 s morph selected — 19 with `hq.take`): the first paint **`2 takes on 19 of 24`** — his screenshot to the
+letter — and after the store answered **`2 takes`**, `vibPlan('any')` 24 breaths, 0 without a take, `Just-db2-seed171` and
+`Just-e1-seed191mod` loaded; `_vibMatched` = `grp-morph-02 → ACT-TAKES-03`; the marker now carries `properties.pitch` with both names
+(the 576 s marker untouched — its notes were not asked). Cleared, reset, stopped; nothing saved.
+
+**Seen on the way:** his working copy `-work.json` was gone by the end (a Save of his, or a rename) — read once, never written.

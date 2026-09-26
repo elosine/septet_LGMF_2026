@@ -78,21 +78,37 @@ const Core = {
     // the shape of a placed morph's notes, free of where it sits: lane · key · start from an ORIGIN · length. The panel's Insert put every
     // note at `at + tStart` and its marker at `at`; an actual's objects sit at `0 + tStart` — so the group's origin is its marker, the
     // actual's is 0 (a note he has since dragged does not move the origin; without a marker, the first note)
-    fingerprint(objs, origin) {
-        const n = (objs || []).filter(x => x && x.type === 'waveCurve' && x.sonifyNote != null && x.morphBend);
+    fingerprint(objs, origin, opts) {
+        const o = opts || {};
+        let n = (objs || []).filter(x => x && x.type === 'waveCurve' && x.sonifyNote != null && x.morphBend && !(o.untouched && x.hq));   // `hq`: the strip wrote it (a take, the shuffle, `go`)
+        if (o.skipLane != null && n.some(x => x.layer !== o.skipLane)) n = n.filter(x => x.layer !== o.skipLane);   // the other players identify the render; a vibraphone-only morph keeps its own
         if (!n.length) return [];
         const t0 = origin != null ? +origin : Math.min.apply(null, n.map(startOf));
         return n.map(x => ({ k: x.layer + ':' + x.sonifyNote, s: startOf(x) - t0, d: endOf(x) - startOf(x) }));
     },
-    MATCH_TOL: 0.02,     // seconds — the render's 3 decimals, through two roundings
+    MATCH_TOL: 0.02,     // seconds — the render's 3 decimals, through two roundings (the tie-break only, §401)
     MATCH_SHARE: 0.8,    // of the placed notes found in the actual (a note he moved or re-pitched by hand since is allowed for), never fewer than 4
-    matchesActual(groupObjs, actual) {
+    // §401: the match is by the KEYS — lane · key, with multiplicity — on what the strip has NOT written (`hq`) and, when the morph has
+    // other players, on their lanes alone. `go` re-pitches the vibraphone breaths (his second `go` had eaten a time match: 50 of 80), and
+    // the times are his to edit — his 725 s morph had every first breath cut at the front and every last one held longer than the actual's
+    // (48 of 48 keys, 38 of 48 with the times). The keys ARE the takes, which is what is being asked. `time` = the hits that also sit at
+    // the actual's offsets, the tie-break between two actuals of the same takes.
+    matchScore(groupObjs, actual, opts) {
         const mk = (groupObjs || []).find(x => x && x.type === 'marker'), TOL = this.MATCH_TOL;
-        const g = this.fingerprint(groupObjs, (mk && mk.time != null) ? +mk.time : null), a = this.fingerprint(actual && actual.objects, 0);
-        if (!g.length || !a.length) return false;
-        const left = a.slice(); let hit = 0;
-        g.forEach(e => { const i = left.findIndex(f => f.k === e.k && Math.abs(f.s - e.s) <= TOL && Math.abs(f.d - e.d) <= TOL); if (i >= 0) { left.splice(i, 1); hit++; } });
-        return hit >= Math.max(4, Math.ceil(g.length * this.MATCH_SHARE));
+        const g = this.fingerprint(groupObjs, (mk && mk.time != null) ? +mk.time : null, Object.assign({ untouched: true }, opts || {})), a = this.fingerprint(actual && actual.objects, 0);
+        const left = a.slice(); let hit = 0, time = 0;
+        g.forEach(e => {
+            let i = left.findIndex(f => f.k === e.k && Math.abs(f.s - e.s) <= TOL && Math.abs(f.d - e.d) <= TOL); if (i >= 0) time++;
+            if (i < 0) i = left.findIndex(f => f.k === e.k);
+            if (i >= 0) { left.splice(i, 1); hit++; }
+        });
+        return { n: g.length, hit, time, ok: g.length > 0 && a.length > 0 && hit >= Math.max(4, Math.ceil(g.length * this.MATCH_SHARE)) };
+    },
+    matchesActual(groupObjs, actual, opts) { return this.matchScore(groupObjs, actual, opts).ok; },
+    bestActual(groupObjs, actuals, opts) {   // the actual that carries the most of the group's keys, the times the tie-break; null when none passes
+        let best = null;
+        (actuals || []).forEach(a => { const s = this.matchScore(groupObjs, a, opts); if (!s.ok) return; if (!best || s.hit > best.s.hit || (s.hit === best.s.hit && s.time > best.s.time)) best = { a, s }; });
+        return best ? best.a : null;
     },
     // in the plan's order: a 1q write (`hq.take`, or its `← take "…"` fragment) · the sequence's recipe (the note's box) · a placed
     // morph's marker (`properties.pitch`, 1u.6) · its actual (`provenance.pitch.takeName`; `toName` after a TAKE → TAKE switch) · the
@@ -337,10 +353,15 @@ Object.assign(H, {
             try { const r = await fetch('/api/actuals', { cache: 'no-store' }); if (r.ok) list = ((await r.json()).actuals) || []; } catch (err) { console.warn('[vibes_pitch] actuals:', err); }
             if (list) for (const gid of gids) {
                 M[gid] = null;
-                const g = Core.groupOf(gid, C.objects), n = Core.fingerprint(g).length;
-                const bar = g.find(x => x && x.type === 'waveCurve' && x.sonifyNote == null), span = bar ? (+bar.endSeconds - +bar.startSeconds) : null;
-                const cands = list.filter(a => a && a.entity && (+a.notes || 0) >= n && (span == null || a.spanSec == null || Math.abs(+a.spanSec - span) < 0.02));
-                for (const a of cands) { const A = await get(a.entity); if (A && Core.matchesActual(g, A)) { M[gid] = a.entity; break; } }
+                const g = Core.groupOf(gid, C.objects), fo = { skipLane: this.vibLane(), untouched: true }, n = Core.fingerprint(g, null, fo).length;
+                const cands = list.filter(a => a && a.entity && (+a.notes || 0) >= n);   // §401: no span filter — a group he stretched still has its keys
+                const loaded = []; for (const a of cands) { const A = await get(a.entity); if (A) loaded.push(A); }
+                const A = Core.bestActual(g, loaded, fo); if (!A) continue;
+                M[gid] = A.entity;
+                // §401 [call]: the match is written on the marker as Insert writes it now, so it is asked once for good — the next
+                // session reads the marker, and later edits of the notes (a `go`, a hand move) cannot lose it
+                const mk = g.find(x => x && x.type === 'marker'), p = A.provenance && A.provenance.pitch;
+                if (mk && p && p.takeName) { mk.properties = mk.properties || {}; mk.properties.pitch = { src: 'actual:' + A.entity, takeName: p.takeName, toName: p.toName || '' }; if (typeof C.markDirty === 'function') C.markDirty(); }
             }
         }
         const ents = Array.from(new Set(notes.map(o => Core.actualOf(o, C.objects, M)).filter(Boolean)));
