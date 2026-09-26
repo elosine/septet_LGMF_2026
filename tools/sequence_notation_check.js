@@ -133,6 +133,16 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   ok(pies.length === 3 && pies.every(x => x.countdown && x.part === 0) && pies[1].t0 === v.breaths[0].onset && pies[1].t1 === v.breaths[0].release,
     'three breath clocks (the entry and two breaths), each onset → release');
   ok(C.animated.motivePie.enabled === true && C.animated.motivePie.source === 'breaths', 'the registry’s pie ON, re-pointed to the breaths');
+  // 2d.5 THE LABELS — (mp) 25.0 · (pp) 30.9 on dynY, centred on x(t); nothing else on the row in 0 … 36 s but the block's chain
+  const LB = C.engraving.layout.devices.byEnv.sequence.label, dynY = C.engraving.layout.dynY;
+  for (const [tt, mk] of [[v.labels[0].t, 'mp'], [v.labels[1].t, 'pp']]) {
+    const g3 = sys.items.filter(x => x.t === tt && (x.seq === 'label' || x.seq === 'labelParen'));
+    const d = g3.find(x => x.seq === 'label'), L = g3.find(x => x.g === 'accidental-leftParen'), R = g3.find(x => x.g === 'accidental-rightParen');
+    ok(d && d.g === 'dyn-' + mk && d.dxSs === 0 && d.ySs === dynY && d.scale === LB.scale && L && R && Math.abs(L.dxSs + R.dxSs) < 1e-9 && L.ySs === dynY,
+      '(' + mk + ') at ' + tt + ' s: the dynamic at ' + LB.scale + ' centred on x(t) between its parentheses, on dynY');
+  }
+  const row = sys.items.filter(x => x.ySs === dynY && x.t <= 36);
+  ok(row.every(x => (x.t === 0 && /rangeHi|rangeLo|rangeArrow/.test(x.seq || '')) || /label/.test(x.seq || '')), 'nothing else on the dynamic row in 0 … 36 s but the block’s chain — got ' + row.map(x => x.t + ':' + (x.g || x.k)).join(' '));
 }
 
 console.log((fail ? 'FAILED ' : 'ALL PASS ') + pass + ' / ' + (pass + fail));

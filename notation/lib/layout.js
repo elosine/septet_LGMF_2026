@@ -953,6 +953,21 @@
         // the line — `same` (the pitch before it, again): a cue-size open head in parentheses, its accidental inside them, no column ·
         // `new`: a full-size open head, its accidental by the bands and its column. The tuba's `onsetHead` flags stay the tuba's (a
         // small head AFTER the line); these heads come from the overlay, drawn by the block's `justHead` [the AI's call].
+        // [LGMF PLAN 2d.5 — RUNNING_LOG §386] THE LABELS: a `(dyn)` at each of the IR's turning points — the dynamic at a cue scale
+        // between parentheses, on the dynamic row, centred on x(t). Glyph items (edge class `glyph`: clamp · whole — a stamp, never a
+        // go-time indicator), so a label is one unit at its time like any mark; a name with no glyph (niente) is said, not drawn.
+        const LB = Object.assign({ scale: 0.75, parenScale: 0.43, parenGapSs: 0.1 }, ((DEV.byEnv || {}).sequence || {}).label || {});
+        const PLg = glyphs.accidental.leftParen, PRg = glyphs.accidental.rightParen;
+        for (const lb of sq.v.labels || []) {
+          const dg = (glyphs.dynamic || {})[lb.mark];
+          if (!dg) { warnings.push('sequence ' + (sq.v.name || sq.v.group) + ': a label "' + lb.mark + '" at ' + lb.t + ' s has no dynamic glyph — not drawn'); continue; }
+          const hw2 = dg.wSs * LB.scale / 2;
+          items.push({ k: 'glyph', g: 'dyn-' + lb.mark, t: lb.t, dxSs: 0, ySs: o.dynY, align: 'center', scale: LB.scale, seq: 'label' });
+          if (PLg && PRg) {
+            items.push({ k: 'glyph', g: 'accidental-leftParen', t: lb.t, dxSs: -(hw2 + LB.parenGapSs + PLg.wSs * LB.parenScale / 2), ySs: o.dynY, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
+            items.push({ k: 'glyph', g: 'accidental-rightParen', t: lb.t, dxSs: hw2 + LB.parenGapSs + PRg.wSs * LB.parenScale / 2, ySs: o.dynY, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
+          }
+        }
         const RM = Object.assign({ scale: 0.844, parenScale: 0.67, parenGapSs: 0.15 }, ((DEV.byEnv || {}).sequence || {}).reminder || {});
         let lastMarks = en;
         for (const b of sq.v.breaths || []) {

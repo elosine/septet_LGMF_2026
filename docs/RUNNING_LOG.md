@@ -13845,3 +13845,26 @@ plan's).
 **THE SHIELD:** `piece-lgmf` and `lgmf-0i` — layout models (both realizations) and `animobj` instances byte-identical, HEAD's engine AND
 registry against the new (the pie's switch reaches nothing there: no sequence overlay, no group pie) · the eight batteries GREEN (with
 `test_animobj`'s two lines amended as above).
+
+## §386. `2d.5` THE LABELS — built; `(mp)` 25.0 · `(pp)` 30.9 on the dynamic row, centred on their times (2026-09-25, Opus, session 15)
+
+**What was built** (`layout.js`, the sequence branch; `byEnv.sequence.label`): a `(dyn)` at each of the IR's turning points — the dynamic
+glyph at **0.75** (the PLAN's cue scale) between the parentheses at **0.43** (0.9 ss tall: the tallest cue dynamic, `f` at 0.73 ss, with
+room) [the AI's], 0.1 ss from the mark, on `dynY`, centred on x(t). A label whose name has no glyph (a trough at niente) is warned, not
+drawn.
+- **Glyph items, not a new drawn kind** [the AI's call, against the PLAN's letter]: `glyph` already carries exactly the class the PLAN
+  names (screen `clamp` — a stamp, never a go-time indicator — print `whole`), so a label is one unit at its time like any mark, with no new
+  render code and no new span rule for the clamp and the print plan to learn. NOTATION_STANDARDS §5's note-unit row names the sequence's
+  block, breath heads and labels.
+
+**THE REQUIRED CHECK:**
+- **the DOM, the app on `score-5401`** (page 3, 24 … 36 s): `(mp)` centred at **263.75 px = x(25.03)**, `(pp)` at **1130.07 px = x(30.91)**,
+  both on the dynamic row (centre 108.47 against dynY's 108.44), each paren 0.8 px = 0.1 ss off its mark, symmetric.
+- **the model** (`sequence_notation_check`, **58 / 58**): the two labels as above, and **nothing else on the dynamic row in 0 … 36 s but the
+  block's chain** (`mp · arrow · pp` at 0 s).
+- **`check_screen_edges --ir lgmf-eh-proto`: PASS.**
+
+**THE SHIELD:** `piece-lgmf` and `lgmf-0i` — layout models (both realizations) byte-identical, HEAD's engine and registry against the new ·
+the eight batteries GREEN.
+
+**For his eye (2d.7):** the parentheses read large beside a cue-size `mp` (0.9 against 0.5 ss) — one number in the registry.

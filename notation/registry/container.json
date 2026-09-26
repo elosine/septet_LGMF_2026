@@ -197,6 +197,8 @@
       "techTexts": { "senza_vel": "senza vib." },
       "block": { "headGapSs": 0.45, "centsGapSs": 0.6, "rowSs": 1.0, "textGapSs": 0.45, "numEmSs": 0.975, "slashTopEm": 0.711 },
       "reminder": { "scale": 0.844, "parenScale": 0.67, "parenGapSs": 0.15 },
+      "label": { "scale": 0.75, "parenScale": 0.43, "parenGapSs": 0.1 },
+      "_labelNote": "LGMF PLAN 2d.5 (RUNNING_LOG §386): a (dyn) label at a turning point of the level — the dynamic glyph at 0.75 (the PLAN's cue scale) between the parens at 0.43 (0.9 ss tall: the tallest cue dynamic, f at 0.73 ss, with room) [the AI's], 0.1 ss from the mark, on dynY, centred on x(t).",
       "_reminderNote": "LGMF PLAN 2d.4 (RUNNING_LOG §385): a breath on the SAME pitch — a cue-size open head (the house cue scale 0.844) in parentheses, its accidental inside them (a reminder, not a change), no column; the parens at 0.67 — the trill neighbour's 0.63 for its 0.794 head, in proportion [the AI's], 0.15 ss from what they hold.",
       "_blockNote": "LGMF PLAN 2d.2 (2026-09-25, RUNNING_LOG §383; docs/research/just_partials_notation.md §1a): the block at the part's entry, in ss from its go line — headGapSs the head's right ink edge before the go line (the D45 header's spacer) · centsGapSs the cents' baseline over the head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text over the column's ink top · numEmSs the numbers' rendered em (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, change both) · slashTopEm Crimson Pro Light's '/' top in em, the partial row's ink top (measured, opentype.js). The range on the dynamic row takes the house dynArrow."
      },
