@@ -2707,3 +2707,20 @@ until a point in the texture. The talk and the decisions: RUNNING_LOG §302; the
 
 *AI reading (mine, marked):* the piece has a working title, *Recombination* — recorded as D32 (journal §4) and in CLAUDE.md's header.
 Nothing else said about it; its reasons, if he gives them, go here.
+
+### LG-114
+*2026-09-26 (session 16) — THE VIBRAPHONES' PITCHES IN A PLACED SEQUENCE OR MORPH, his brief after the `/postclear` (a new subject; the notation's 2d.7 waits):*
+
+*"I'd like to work on a way to shuffle and add different pitches to the vibraphone parts in the score. So these are for the sequences and the morphs that are in the score. And the, the vibraphones hold the same notes throughout the sequence or the morph. What I'd like to do is let them play other notes as well. We'll keep the same breathing or bowing, but they'll just switch their pitches. So first, I, I want to make sure I can get back, in case I don't like it, to what it is now. And then I'd like to use, these are from takes. So I'd like to see, so that I guess the, this module will need to see which take those vibraphone pitches are from, or see what other notes are in the ensemble at the time, and then grab as the pool of pitches, the partials, in the vibraphone range that are close in pitch to the other instruments. So like a semitone or less or slightly more, semitone, whole tone, and then that will be the pool of pitches. Or like this one is just B1 seed 193 take. And the vibraphone in relation to the English horn would have partials 10, 12, and 13 available. And then in addition, so I guess maybe the adjacent partials, it doesn't have to be a whole tone or semitone. So like the horn would be seven and five available, but the pool should pull from the partials in that harmonic spectrum. Oh, also, sorry. They should be the closest ones that are, we already discussed, uh, under a certain amount of sense deviation. So I guess maybe those wouldn't be available, a lot of those. But just to introduce some variety. So I'm looking at maybe like partial 16 or 8, partial 9 is just plus 4 cents, 17, etc. Let's... Let's discuss the, the re requirements."*
+
+*(With it, a screenshot of the strikes drawer on `Just-B1-seed193`: EH F5 · 11 −49¢ · Bsn B1 · 1 · Hn F♯4 · 6 +2¢ · Tpt A♯5 · 15 · Vib B5 · 16 · Vc D♯5 · 10 · Db B3 · 4 · Vib 2 C♯5 · 9.)*
+
+*On the AI's reading back (adjacent = neighbouring PARTIAL NUMBERS of what the others hold, then the vibraphone's cents filter, so 13 (+41) and 7 (−31) fall out and 8 · 9 · 16 · 17 stay):*
+
+*"yes read is correct, but may expand to any available partial, in vibes temperment/range, should have as option anyway, or a methodology to select from a few options"*
+
+*And, in the same breath, a fault in the sequence drawer to fix alongside the build:*
+
+*"note in sequence drawer when I select a take for one of the containers the space bar then reverts to starting the main score play and I have to click back into the sequence box to play the sequence could you just fix this alongside the build when we get there"*
+
+*AI reading (mine, marked):* the two vibraphones in a placed sequence or morph keep their breaths and bows exactly and change PITCH at (some of) them · a way back to the pitches as they stand · the pool is the passage's own take's harmonic series, in the vibraphone's range and under its cents tolerance (it cannot bend) — narrowed, as one option, to the partials NEIGHBOURING those the other players hold at that moment, or opened to every available partial; the pool's rule a menu of a few choices · the SPACE fault: after a take is picked in a container the key falls back to the score's play until the drawer is clicked again — a focus fault, one fix inside the build.

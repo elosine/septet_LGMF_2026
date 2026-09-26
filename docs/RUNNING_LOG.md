@@ -13908,3 +13908,95 @@ entry from today exists in `bank/sequences.json` or `bank/rhythm_sequences.json`
 live on :5400 (`panel_snapshots.json` written at 22:55 with the throwaway stopped; a new save `piece-LGMF-Sec01-Sec02-Sec3a` at 22:45) — his.
 
 **`2d` is BUILT, 2d.1 … 2d.6** (`4c471c4` 2d.1 · `8db3a7e` 2d.2 · `4e784fc` 2d.3 · `ba587fc` 2d.4 · `c239311` 2d.5 · this, 2d.6). **What is left is 2d.7, his eye.**
+
+## §388. THE VIBRAPHONES' PITCHES IN A PLACED SEQUENCE OR MORPH — a new subject opened at the `/postclear`; the planning method, phase 1 (2026-09-26, Fable, session 16)
+
+**What prompted it** — his `/postclear` argument (COMPOSITION_NOTES LG-114, verbatim): the notation's 2d.7 and the page-start call
+stand; he opens the vibraphones instead. The checkpoint's tree matched (the 16 uncommitted paths, all his).
+
+**The intention, read back and confirmed** (*"yes read is correct"*):
+- The two vibraphones in a placed sequence or morph hold one note each the whole way (`1i` VB — *held still*; `1t` the switch dial
+  is the only movement they have, one re-strike at the arrival). He wants them to CHANGE PITCH AT THEIR BREATHS, the bowing and the
+  breathing untouched.
+- A way back to what stands now.
+- THE POOL: the passage's own take is known (since `1q.5` a note carries `hq.take` · `partial` · `cents`). The pool is that take's
+  harmonic series, inside the vibraphone's range and under its cents tolerance (the vibraphone cannot bend — the same rule that dealt
+  it 16 and 9 in `Just-B1-seed193`). *Adjacent* means NEIGHBOURING PARTIAL NUMBERS of what the other players hold at that moment (EH
+  on 11 → 10 · 12 · 13; Hn on 6 → 5 · 7), not an interval; then the cents filter (13 at +41 and 7 at −31 fall out; 8 · 9 (+4) · 16 ·
+  17 (+5) stay).
+- **His expansion:** *"may expand to any available partial, in vibes temperment/range, should have as option anyway, or a methodology
+  to select from a few options"* — so the pool's rule is a CHOICE: the neighbours of the ensemble's partials, or every available
+  partial of the series; a small menu.
+
+**Filed with it, to fix inside the build (his word *"could you just fix this alongside the build"*):** in the sequence drawer, once a
+take is picked for a container, SPACE starts the SCORE's play until the drawer is clicked again — a keyboard-focus fault (the take menu
+takes the focus and the drawer's key handler is scoped to it). Not looked at in the code yet; one sub-step of the plan item.
+
+**Open, in order (phase 1 continues):** how often a pitch changes (every breath · some) · where the change LIVES — on the notes in
+the score (`1q`'s way: `back` on the object, lost on a re-insert of the recipe) or in the recipe (a sequence's / morph's own dial,
+reproducible by seed, surviving a re-insert) — the *"get back"* depends on it · the two seats (one pool for both, never the same
+pitch at once?) · the morph: the vibraphones are `still` there, so a change at a breath is the `1t` switch's re-strike generalised.
+
+**Decided (his "b"):** WHICH BREATHS CHANGE is a dial in words — `never · rarely · half · often · always` — `always` = every breath,
+`never` = today; a change lands on a DIFFERENT pitch when the pool allows (his sub-choice, unopposed). **And a second dial, his:** HOW the
+pitch is drawn from the pool — *"random or shuffle and exhaust, others?"* — the draw methods laid out next.
+
+**Decided (his "all good"):** THE DRAW is a dial of four — `random` (an independent draw, never the pitch just left) · `exhaust` (the
+pool shuffled once and walked through, reshuffled when spent) · `walk` (a step to the pool's neighbour up or down) · `shadow` (the pool
+member nearest one of the others' pitches at that moment; earns its place with the *any partial* pool). One seeded draw, `1q.7`'s idiom:
+a seed reproduces. Next: WHERE THE CHANGE LIVES — on the notes or in the recipe.
+
+**Decided (his "a"):** THE CHANGE LIVES ON THE NOTES IN THE SCORE — `1q`'s way: the vibraphone notes of a passage selected (the
+marquee), a `vibes ▾` control on the harmony strip carrying pool · change · draw + a seed; the module walks the selected breaths in time
+order and re-pitches at the change points; **get back = the strip's `back` + undo.** One module for a sequence, a morph and any held
+passage — all notes by then; `morph.js` and the sequence generator untouched. Caveat, stated and accepted: a re-insert of a sequence's
+recipe regenerates and the change is gone (the status counts hand changes). To confirm in the code before the item is written: each
+vibraphone breath in a placed sequence or morph is its own note object. Next: the two seats.
+
+**Decided (his "b"):** THE TWO SEATS draw from ONE pool and are KEPT APART — a seat never takes the pitch the other holds at that
+moment (the take's two-note spread kept); a pool of one leaves the second seat waiting; one seat selected alone treats the other as a
+pitch to avoid. Unisons with the other players allowed (the `any partial` pool and `shadow` exist for that). Next: the pool dial's
+exact options.
+
+**Decided (his "all three"):** THE POOL DIAL — `neighbours` (the partial one above and one below each partial the others hold) ·
+`within a tone` (every partial inside a whole tone of any other player's pitch) · `any` (the whole series); all inside the vibraphone's
+range, under its cents tolerance (the strikes drawer's own number, SHOWN on the strip, not a dial), minus what the other seat holds;
+"what the others hold" read from their notes in the score at the breath's moment. **Phase 1 closed.** Phase 2, the top line, next.
+
+## §389. `1u` THE VIBRAPHONES' PITCHES ON THE STRIP — the plan item written whole at his word (2026-09-26, Fable, session 16)
+
+**What prompted it** — after the scenario read back (§388's close) and the top line, his word: *"Good. Top line, good. Go ahead and write the
+whole plan. No need for steps."* Phase 3 skipped, as `1q` and `1t` were. PLAN § `1u`, 1u.1 … 1u.6.
+
+**The scenario, as he asked for it simply and confirmed ("Good"):** select the vibraphone lane's breaths with the marquee → the strip
+names the take → `vibes ▾` opens one row of dials in words → `go` → the pitches in the composer score change, the notation and print
+following from the save → `back`, CTRL+Z or another seed.
+
+**Read in the code before writing (the named questions, nothing else opened):**
+- **The tolerance is 5 cents** — `spectrum_ui.js` `mayTake(v, lane)`: false when |cents| > 5 and the player cannot bend (`playerBendSt` 0:
+  the vibraphone, its second seat, the percussion). His examples hold: 8 · 9 (+4) · 16 · 17 (+5) in, 10 (−14) · 13 (+41) out. The pool
+  asks `mayTake` itself rather than copying the number.
+- **The series and the range are the strip's own** — `H.pool(name)` loads the take as `dealTake` does and reads `D.voices` (every partial
+  with cents and number); `H.range(o)` the technique's range. `1q.7`'s shuffle already draws from exactly this pool; `1u` narrows it by the
+  three rules and walks the breaths in time instead of dealing each note alone.
+- **A score object carries NO seat.** `seats_ui.js` sends a departing note out as `seat: 2`, but the sequence's Insert writes the object
+  without it and the composer has no `seat` field (three references in `composer.html`, none on an object). The strip's `apply` alternates a
+  lane's two seats BY TIME (§312, "the round robin over a player's two seats"). So `1u` finds the seats as the lane's two CHAINS by overlap
+  — sorted by start, each note joined to the chain that ended before it — and stamps `hq.seat` when it writes. The AI's call.
+- **The take is NOT on a sequence's notes the way `info()` reads it.** `HarmonySel.info` parses `← take "…"` (a `1q` write) and the
+  ` · partial n · ±c¢ just` fragments; the sequence's Insert writes `name · box N · TAKE · partial n · …` — the partial and cents come
+  through, the take name does not. So 1u.1 resolves the take in order: `hq.take` · the sequence's recipe in the score (`databases.sequences`,
+  the group's box at the breath's start — a sequence of several takes gives each breath its own) · a placed morph's actual (`info.take` /
+  `info.to`) · the fragment · the strip's `take ▾` pick.
+- **Each breath is its own object:** the generator's notes are one per breath, chains keyed by seat (`sequence.js` 105); the sequence's
+  Insert writes one `waveCurve` per note (1786); a morph's Insert places the actual's objects verbatim, one per breath (`morph_panel.js`
+  1065). "Re-pitch at a breath" is "re-pitch that note" — to be counted on one of his passages at 1u.5 (c), not claimed.
+- **THE SPACE FAULT, found:** the box's take menu is appended to `document.body` (`sequence_ui.js` `openTakeMenu`, 1405) and the drawer's
+  `pointerdown` capture (578) sets `active = this.el.contains(target)` — a click in the menu is OUTSIDE the drawer, the drawer stands down,
+  and the composer's own SPACE handler (`composer.html` 2411) plays the score. One line: count `this._takeMenu` as inside. 1u.4.
+
+**The shape of the build:** a new file `score/public/vibes_pitch.js`, a mixin on `HarmonySel` (the house idiom: `texture_cols.js` on the
+drawer, `harmony_sel.js` itself on the composer), its pure part loadable in node for `tools/vibes_pitch_check.js`; the write through the
+strip's own `remember` · `writeNote` · `stamp`, so `back` and the card work unchanged; no engine file touched — THE SHIELD is the §317 ·
+§319 captures byte-identical and the batteries green. **Build on Opus after a checkpoint + clear, 1u.1 → 1u.5, one commit per step;
+1u.6 his — a reload only.**
