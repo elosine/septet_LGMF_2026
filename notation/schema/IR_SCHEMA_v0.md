@@ -268,6 +268,47 @@ are not foldable.
   (validator-enforced; "vocabulary is per-material" covers marks, not
   strategies).
 
+**Amendment 10 — the sequence device (LGMF PLAN 2d.1, 2026-09-25; RUNNING_LOG §382).** With
+`notate_section --sequence <grp-seq-…>`, the notes the sequence drawer wrote in that group (`srcKind:
+'sequence'`) are events of env `sequence` (the extractor's `options.sequences`, opt-in by group), and each
+part's notes are ONE LINE — one `sequence` overlay per part, built by `notation/lib/sequence_overlays.js`:
+
+```jsonc
+{
+  "id": "ov-seq-seq-smu90t537-p0", "kind": "sequence",
+  "target": { "part": 0, "span": [0, 40] },       // the entry … the last release (or the window's end)
+  "value": {
+    "group": "grp-seq-smu90t537", "name": "LGMF-R01c",
+    "scale": { "kind": "fixed", "steps": 8, "names": ["niente", "ppp", …, "fff"],
+               "ladder": [43, 51, 59, 68, 80, 94, 109, 127], "instKey": "english_horn" },
+    "entry": { "event": "ev-wc-3127", "t": 0, "release": 12.816, "technique": "senza_vel",
+               "techText": "senza vib.", "range": ["pp", "mp"], "rangeText": "pp → mp",
+               "midi": 80, "cents": 40.53, "centsText": "+41",
+               "partial": 26, "fundamental": "C1", "fundamentalMidi": 24, "partialText": "26°/C1", "box": 1, "take": "Just-C1-seed90" },
+    "level": { "sps": 100, "t0": 0, "t1": 40, "samples": [0, …] },   // the WRITTEN LEVEL on the fixed scale
+    "breaths": [ { "event": "ev-wc-3140", "onset": 13.712, "release": 27.968, "pitch": "same", "midi": 80 },
+                 { "event": "ev-wc-3156", "onset": 28.714, "release": 43.589, "pitch": "new", "midi": 79,
+                   "cents": 1.96, "centsText": "+2", "partial": 12, "fundamental": "C2", "partialText": "12°/C2", … } ],
+    "labels": [ { "t": 25.03, "mark": "mp", "kind": "crest", "level": 0.51 },
+                { "t": 30.91, "mark": "pp", "kind": "trough", "level": 0.25 } ]
+  },
+  "provenance": "authored"
+}
+```
+
+- **The fixed scale** (his decision, RUNNING_LOG §374 · §375): a sample is the written level — niente 0,
+  ppp 1/8 … mp 4/8 … fff 8/8, linear in CC7 between two names through the part's own ladder (`DynTable.cc7`),
+  under ppp linear to CC7 0. The CC7 is `composer.html heldCc7`'s rule (`cc7Abs` on the drawn height, `cc7Fade`
+  multiplied in), taken before the fader's rounding; through a breath gap a linear bridge.
+- **The breaths**: every note after the first; `same` = the same key and cents as the note before. The marks
+  (cents, partial, fundamental) come from the save — the partial from the recipe's box
+  (`databases.sequences[].recipe.containers[box − 1].chord[]` on the note's lane), the fundamental COMPUTED from
+  the pitch and the partial and spelled from the take's name when it agrees.
+- **The labels**: the level's turning points, each named by the nearest written name; one within 1 s of the
+  previous label with the same name is dropped.
+- Without `--sequence` nothing changes: the extraction is byte-identical (the save of 2026-09-25, all eight
+  parts, trills on — HEAD's `extract_core` against the amended one).
+
 ## 6b. Choices — the notation app's sidecar (amendment 7; septet PLAN 2d.2, 2026-09-11)
 
 The IR is derived and rebuilt at will (D9). A choice made ON THE PAGE — ink, not music: a beam, a forced clef, a break — must

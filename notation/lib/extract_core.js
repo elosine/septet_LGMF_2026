@@ -52,6 +52,10 @@
     trillRate: 0,
     // the curve windows a trill reads by name — composer.html CURVE_LAYERS / CURVE_NAMES
     CURVE_WINDOWS: { A: 8, B: 9, C: 10 },
+    // [LGMF PLAN 2d.1, 2026-09-25, RUNNING_LOG §382] with options.sequences (a list of `grp-seq-*` group ids): a note the
+    // sequence drawer wrote (srcKind 'sequence') in one of those groups is a BREATH of the sequence device — env 'sequence'
+    // (registry byEnv.sequence). Opt-in by group, so a page built without it (every page before 2d) extracts exactly as before.
+    sequences: null,
   };
 
   const PC = { 0: ['C', 0], 1: ['C', 1], 2: ['D', 0], 3: ['D', 1], 4: ['E', 0], 5: ['F', 0], 6: ['F', 1], 7: ['G', 0], 8: ['G', 1], 9: ['A', 0], 10: ['A', 1], 11: ['B', 0] };
@@ -454,6 +458,8 @@
       // gives every strike the section's strike look; a long `main` keeps its
       // family look. Tuba saves carry no srcKind: nothing changes there.
       else if (o.srcKind === 'strike') ev.env = 'strike';
+      // [LGMF 2d.1] a breath of a sequence named by options.sequences
+      else if (o.srcKind === 'sequence' && Array.isArray(opt.sequences) && opt.sequences.includes(o.groupId)) ev.env = 'sequence';
       if (o.sonifyMode === 'plain' || o.sonifyMode === 'ks') ev.mode = o.sonifyMode;
       // the captured velocity (day 23, amendment 5): plain-mode notes play at
       // recVel (sonify_core), so the one-shot dynamic derives from it

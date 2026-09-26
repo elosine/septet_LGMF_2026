@@ -259,7 +259,7 @@
     },
     "env": {
      "type": "string",
-     "description": "envelope species as drawn (surge, sine, expodec, ...) — day 22 amendment 3, optional; 'strike' = a note the strikes tool wrote (§400); 'trill' = a composer-score trill zone (PLAN 2f.3, 2026-09-13); a crescendo-tool swell carries its family name (properties.cresc.shape: 'surge' = the standard — PLAN 2i.8, 2026-09-15)"
+     "description": "envelope species as drawn (surge, sine, expodec, ...) — day 22 amendment 3, optional; 'strike' = a note the strikes tool wrote (§400); 'trill' = a composer-score trill zone (PLAN 2f.3, 2026-09-13); a crescendo-tool swell carries its family name (properties.cresc.shape: 'surge' = the standard — PLAN 2i.8, 2026-09-15); 'sequence' = a breath of a sequence named by notate_section --sequence (srcKind 'sequence', LGMF PLAN 2d.1, 2026-09-25) — its line is the part's 'sequence' overlay"
     },
     "secco": {
      "type": "boolean",
@@ -548,7 +548,8 @@
       "header",
       "gliss",
       "cresc",
-      "tempo"
+      "tempo",
+      "sequence"
      ]
     },
     "_kindNote": "day 23 amendment 6: 'engraving' — the V1 per-item override channel (value.device = a device-membership override; also stemDir, spelled, nudges). layout.js has consumed it since day 22, but the enum never listed it, so a VALIDATED IR could not carry one — the channel existed only in hand-built test objects. Found the moment the first real one was written (the composer's beamed cluster, notate_section --cluster).",
@@ -602,7 +603,8 @@
     }
    },
    "_kindNote2": "day 35: 'gliss', 'cresc' and 'header' - the morph-section channels. A gliss/cresc overlay carries {part, span} and a normalised 0..1 sample array: the drawn displacement curve for that part's half of the lane. A header overlay carries {part, t} and the section's written pitches plus its dynamic figure. Added the moment the first real one was folded into a VALIDATED page - exactly the failure the note above records for 'engraving', and it bit the same way: notate_morph.js writes its own files unvalidated, so three morph pages existed and passed nothing, while the first attempt to fold them into MAIN DRAFT was REJECTED and the page DELETED. The standalone writer should validate too; see NITS.",
-   "_kindNote3": "day 35: 'tempo' - the trance section's bar lines. A tempo overlay carries {t} and {bpm}: a bar line on every part at that moment, a medium space left of the bar's leftmost ink, with the tempo stated once at the top. Third time the enum has had to be widened for a channel layout.js already understood (see _kindNote and _kindNote2). The pattern is now clear enough to name: THIS SCHEMA IS A GATE ON THE FILE, NOT A DESCRIPTION OF THE RENDERER, so any new overlay kind must be added here in the same commit or the page is rejected and DELETED on write."
+   "_kindNote3": "day 35: 'tempo' - the trance section's bar lines. A tempo overlay carries {t} and {bpm}: a bar line on every part at that moment, a medium space left of the bar's leftmost ink, with the tempo stated once at the top. Third time the enum has had to be widened for a channel layout.js already understood (see _kindNote and _kindNote2). The pattern is now clear enough to name: THIS SCHEMA IS A GATE ON THE FILE, NOT A DESCRIPTION OF THE RENDERER, so any new overlay kind must be added here in the same commit or the page is rejected and DELETED on write.",
+   "_kindNote4": "LGMF PLAN 2d.1 (2026-09-25, RUNNING_LOG §382): 'sequence' - one part's line of a SEQUENCE (the sequence drawer's notes, one grp-seq-* group). target {part, span}; value {group, name, scale {kind 'fixed', steps 8, names, ladder (the part's CC7 for ppp … fff), instKey}, entry {event, t, release, technique, techText, range, rangeText, midi, cents, centsText, partial, fundamental, fundamentalMidi, partialText, box, take}, level {sps, t0, t1, samples: the WRITTEN LEVEL 0 … 1 on the fixed scale - niente 0, ppp 1/8 … fff 8/8}, breaths [{event, onset, release, pitch 'same' | 'new', midi, and for 'new' the entry's marks}], labels [{t, mark, kind 'crest' | 'trough', level}]}. Built by notation/lib/sequence_overlays.js from the save (D9); the breaths' events carry env 'sequence'. Added in the same commit as the first page that holds one - the rule of _kindNote3."
   }
  }
 }

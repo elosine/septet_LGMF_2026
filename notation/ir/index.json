@@ -11,6 +11,16 @@
    "profile": "trance"
   },
   {
+   "id": "lgmf-eh-proto",
+   "label": "lgmf-eh-proto · the EH's sequence, section 1 (0 … 40 s) — the notation prototype (2d)",
+   "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+   "window": [
+    0,
+    40
+   ],
+   "profile": "trance"
+  },
+  {
    "id": "lgmf-0i",
    "label": "lgmf-0i (trance)",
    "score": "0i-test",

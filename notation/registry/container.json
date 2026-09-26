@@ -178,7 +178,25 @@
       "dynMark": "band",
       "dynBesideStem": true
      },
-     "_strikeRingBarNote": "PLAN 2h.5 (2026-09-14): byTechnique.main now carries the ring bar for the piano's long ordinary notes in the morph section; a strike merges its env on top, so the env says ringBar false out loud — the piano's strikes keep their look."
+     "_strikeRingBarNote": "PLAN 2h.5 (2026-09-14): byTechnique.main now carries the ring bar for the piano's long ordinary notes in the morph section; a strike merges its env on top, so the env says ringBar false out loud — the piano's strikes keep their look.",
+     "sequence": {
+      "goLine": true,
+      "onsetHead": false,
+      "onsetAcc": null,
+      "gc": false,
+      "nhUnit": false,
+      "brick": false,
+      "ringBar": false,
+      "letRing": false,
+      "chordRules": false,
+      "curve": false,
+      "cut": false,
+      "dynPair": false,
+      "dynMark": false,
+      "techText": false,
+      "techTexts": { "senza_vel": "senza vib." }
+     },
+     "_sequenceNote": "LGMF PLAN 2d.1 (2026-09-25, RUNNING_LOG §382; LG-111 · LG-112): a note of a SEQUENCE (the score's srcKind 'sequence', one grp-seq-* group; extract_core env 'sequence', opt-in by notate_section --sequence <group>) is a BREATH of one line per part. Its own device is the go line alone — the morph's 'one go line per breath' — and every other mark of the line (the block at the entry, the level curve on the fixed scale, the breath heads, the pie, the (dyn) labels) comes from the part's `sequence` overlay (notation/lib/sequence_overlays.js), drawn once. techTexts: the technique's text written once in the block (senza_vel → 'senza vib.', Crimson Pro Light Italic, the pizz. recipe); a technique with none writes nothing. No IR before 2d holds env 'sequence', so no page before it moves."
     },
     "byTechnique": {
      "_pianoMorphNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §483–§491; the composer's reference CN-82 = piece #2 around 0:50; his spec: 'no gcs, open noteheads for both'): the piano's notes in the morph section carry no env, so `main` and `plucked` reach them and nothing else (every other `main` is a strike or a trill by env — and those envs cancel every field added here out loud: ringBar, letRing, chordRules). The first build (§484 — the tuba's ring bar on main; piece #2's ASR row on plucked: 'Ped.' text, the ✱ at the release, a two-hook bracket) was replaced device by device at his eye: see _mainNote, _chordRulesNote, _pluckedNote.",

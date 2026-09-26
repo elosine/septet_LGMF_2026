@@ -13664,3 +13664,71 @@ SESSION 15 · CHECKPOINT #6 is the cold-start block.
 **A correction, at the checkpoint:** the new pitch at 28.71 s is partial 12 of **C2** — the take's name writes the fundamental `c2`
 (`Just-c2-seed135`); §369 G · §376 · §380 and PLAN § `2d` wrote `12°/c2`. PLAN § `2d` and journal §2 now read `12°/C2`; the log's entries
 stand as written.
+
+## §382. `2d.1` THE DEVICE AND THE IR — built; the prototype page exists; every required number lands (2026-09-25, Opus, session 15)
+
+**His word, after the `/postclear`:** *"go, build through as much as possible independently"* — PLAN § `2d`, 2d.1 → 2d.6, one commit per
+step, STOP for his eye at 2d.7.
+
+**What was built, in order:**
+1. **The library** — `notation/lib/sequence_overlays.js` (new; the sibling of `morph_overlays.js`): one part of one `grp-seq-*` group →
+   ONE `sequence` overlay carrying the entry, the written level, the breaths and the labels, computed once from the save (D9).
+   - **The level**: 100/s from the entry to the last release (clipped to the window). The CC7 at an instant is `composer.html
+     heldCc7`'s rule — `cc7Abs {lo, hi}` on the drawn height (`sonify_core.evalWaveCurve`), `cc7Fade` multiplied in
+     (`Morph.fadeWeight`) — taken BEFORE the fader's rounding, so the line is smooth. CC7 → the fixed scale through the part's
+     ladder (`DynTable.cc7`: the EH `43/51/59/68/80/94/109/127`, as §368 read it): ppp at 1/8 … fff at 8/8, linear between two names,
+     under ppp linear to CC7 0. Through a breath gap a linear bridge [call, PLAN 2d].
+   - **The labels**: the sign changes of the level, flats carried; a crest or trough placed where its plateau BEGINS (the level
+     reached — wc-3140 reaches y 10 at 25.03 s and holds it to 27.36 s); named by the nearest written name; the 1 s dwell [call].
+   - **The marks**: the partial from the recipe's box (`performanceNotes` `box N` → `containers[N−1].chord[]` on the lane); **the
+     fundamental COMPUTED** from the pitch and the partial (midi + cents/100 − 12·log2 n → 24.000 = C1 · 36.000 = C2), spelled from the
+     take's name only when the name agrees — so `Just-c2-seed135` writes `C2`, `Just-Eb1-…` would write `E♭1`, a disagreeing name is
+     never trusted.
+2. **The registry** — `container.json` `devices.byEnv.sequence`: the go line alone (the morph's per-breath device, every other flag
+   off — `senza_vel` has no byTechnique entry and fell back to the family device `{nhUnit: true}`, which the env now turns off) +
+   `techTexts {senza_vel: 'senza vib.'}` (NOT the technique table's `notate`: that would write "senza vib." on every `senza_vel` note of
+   `piece-lgmf`).
+3. **The extractor** — `extract_core.js` `options.sequences`: env `sequence` for a `srcKind 'sequence'` note of a named group. OPT-IN BY
+   GROUP [the AI's call — the PLAN said "a note whose group is grp-seq-*"]: a generic rule would change `piece-lgmf` at its next rebuild
+   (the app's R key) and draw go lines on all 136 of its sequence notes with no line under them.
+4. **The schema** — overlay kind `sequence` (`_kindNote4`), the env's description; `IR_SCHEMA_v0.md` amendment 10.
+5. **The glyphs** — `tools/glyph_scripts.py` gains the six arrowed Emmentaler accidentals (`accidentals.{sharp,flat,natural}.arrow{up,down}`)
+   and `tools/bake_text.js` (new) bakes "senza vib." on piece #2's `text_baker.js` recipe. Both write INSERT-ONLY (the new entries as
+   text at the end of their group, the parse checked equal): `glyphs.json` holds hand-compacted lines (`text.pizz.`'s anchors) that the
+   old full re-serialisation would have expanded. `glyph_scripts.py` re-run: 11 unchanged, the file untouched.
+6. **The tool** — `notate_section.js` `--sequence <group>` (repeatable), `--scoreFile <path>` (read the save from a COPY; the IR still
+   names `--score`, which the validator reads for its against-source check; a missing copy falls back to the named save, said out
+   loud), `--after <id>` (a new page's place in the picker).
+
+**Found on the way — three, each fixed:**
+- **THE HOUSE ACCIDENTALS ARE EMMENTALER AT HALF SIZE.** Measured: sharp 1.5 / 3.0 ss tall, flat 1.254 / 2.512, natural 1.532 / 3.056,
+  quarterSharp 1.33 / 2.66 (piece #2's `accidental_paths.json`; the parens and the clefs this project baked itself are stock). The first
+  bake at stock size made the arrowed sharp 4.12 ss tall beside a 1.5 ss house sharp — twice the size. `grab()` now takes a scale; the six
+  are baked at **0.5** (`_provenance.scale`), the arrowed sharp 0.642 × 2.061 ss.
+- **An arrowed accidental is not symmetric about its note** (the arrow's stem runs past it), so each carries the house flats' `noteY`
+  anchor (the font origin's height, centred across) — the chooser's `center` alignment would have put every arrowed sign a third of a
+  space off its line.
+- **`2a.5`'s names broke every re-extract.** `notate_section`'s ensemble-drift check compared the registry's `short` with the save's
+  track label; §339 made the page's `Db` → `DB`, so ANY extraction of his saves exited 2 — including the app's R on `piece-lgmf`. The
+  check now compares the part's `id` (the identity); the short name is the page's display choice.
+
+**The page:** `node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile <scratchpad>/sec3start-copy.json --w0 0
+--w1 40 --parts 0 --bricks --sequence grp-seq-smu90t537 --id lgmf-eh-proto --label "…" --after piece-lgmf` → `notation/ir/lgmf-eh-proto.ir.json`,
+3 events (the EH's only notes in 0 … 40 s — all three the sequence's), 3 chunks unresolved, VALID `--against-source --complete`, in the
+picker after `piece-lgmf`. The copy is of his save as it stood at 22:12 (his file read once, never opened for writing).
+
+**THE REQUIRED CHECK — `node tools/sequence_notation_check.js` (new), 27 / 27:**
+- level at 0 s = **0** · at 6.0 s = **0.25** = pp's 2/8 exactly · the maximum in 0 … 36 s at **25.03 s = 0.5104** (mp's 4/8 + 1/96: the note's
+  `hi` 69 against the table's 68, §368) · at 30.9 s **0.2523** (pp + ≈ 0.2 CC7) · every sample in 0 … 1.
+- breaths: **13.71 `same`** · **28.71 `new`** G5, `+2` · `12°/C2`.
+- labels exactly **(mp) 25.03 · (pp) 30.91** (the crest at 39.09 s is not one: the window ends on its plateau).
+- entry **G♯5 `+41` · `26°/C1` · `pp → mp` · "senza vib."**; all three events env `sequence`.
+- the nine glyphs present with sane boxes (the six arrowed, the two parens, "senza vib." 3.7065 × 0.755 ss), the arrowed at the house size.
+
+**THE SHIELD (2d.1 touches no engine file — `layout.js` · `render.js` · `coords.js` · `splice.js` unchanged):** the eight engine batteries
+GREEN on the tuba goldens (staged from #4's HEAD, 26 files from a list written first, index.json and README.md excluded; unstaged after) ·
+**the extractor byte-identical**: HEAD's `extract_core.js` against the amended one on his save, all eight parts, 0 … 600 s, trills on —
+the documents equal; with the group named, 136 events gain env `sequence` and nothing else differs.
+
+**The AI's calls, his to reverse:** opt-in by group (above) · the level taken before the fader's rounding · a turning point placed at its
+plateau's start · the arrowed accidentals at the house set's size (0.5) · `techTexts` in the device registry.

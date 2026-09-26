@@ -191,7 +191,12 @@ if (!scoreName || (!ALL && (isNaN(w0) || isNaN(w1)))) {
     '       notate_section.js --prune <id>');
   process.exit(2);
 }
-const score = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', scoreName + '.json'), 'utf8'));
+// [LGMF PLAN 2d.1, 2026-09-25] --scoreFile <path>: read the save from a COPY (the composer's file never opened while his tab may
+// write it); the IR still names --score, which the validator reads for its against-source check. A copy that is gone (the
+// scratchpad did not survive) falls back to the named save, said out loud.
+const SCORE_FILE = arg('scoreFile', null);
+if (SCORE_FILE && !fs.existsSync(SCORE_FILE)) console.warn('--scoreFile ' + SCORE_FILE + ' not found — reading scores/' + scoreName + '.json');
+const score = JSON.parse(fs.readFileSync(SCORE_FILE && fs.existsSync(SCORE_FILE) ? SCORE_FILE : path.join(ROOT, 'scores', scoreName + '.json'), 'utf8'));
 if (ALL) {
   const ends = (score.objects || []).filter(o => o.type === 'waveCurve' && o.sonifyNote != null && o.endSeconds != null).map(o => o.endSeconds);
   w0 = 0; w1 = Math.ceil(ends.length ? Math.max(...ends) : 1);
@@ -234,7 +239,9 @@ const ENS_APPLIES = !!(ENS && TRACKS.length === (ENS.parts || []).length);
   if (ENS_APPLIES) {
     for (const p of ens.parts || []) {
       const tr = TRACKS[p.part];
-      if (!tr || tr.id !== p.id || tr.short !== p.short) {
+      // [LGMF 2d.1, RUNNING_LOG §382] the IDENTITY is checked, not the short name: 2a.5 (§339) gave the page its own names
+      // (no periods · DB), so the registry's `short` is a display choice and may differ from the save's track label
+      if (!tr || tr.id !== p.id) {
         console.error('ensemble drift: notation/registry/ensemble.json part ' + p.part + ' is ' + p.id + '/' + p.short +
           ' but ' + scoreName + ' tracks[' + p.part + '] is ' + (tr ? tr.id + '/' + tr.short : 'missing') + ' — fix the registry');
         process.exit(2);
@@ -251,9 +258,12 @@ const FIG_CL = FIG.cluster || {}, FIG_BM = FIG.beam || {};
 // [2f.7] --trillRate N: samples per second on a trill's drawn level (the two-piano piece's 100/s); absent = the fixed 101
 const TRILL_RATE = arg('trillRate', null);
 if (TRILL_RATE != null && !(parseFloat(TRILL_RATE) > 0)) { console.error('--trillRate needs a positive number of samples per second (e.g. --trillRate 100)'); process.exit(2); }
+// [LGMF PLAN 2d.1] --sequence <grp-seq-…> (repeatable): the group's notes are breaths of the sequence device (env 'sequence')
+const SEQ_GROUPS = [];
+process.argv.forEach((a, i) => { if (a === '--sequence' && process.argv[i + 1]) SEQ_GROUPS.push(process.argv[i + 1]); });
 const { doc, warnings } = Extract.extract(score, {
   // chords (2a.4): the ensemble's players may sound several notes at one onset
-  scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options: Object.assign(ENS_APPLIES ? { chords: true } : {}, flag('trills') ? { trills: true } : {}, TRILL_RATE != null ? { trillRate: parseFloat(TRILL_RATE) } : {}), metaLayer, techniques,
+  scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options: Object.assign(ENS_APPLIES ? { chords: true } : {}, flag('trills') ? { trills: true } : {}, TRILL_RATE != null ? { trillRate: parseFloat(TRILL_RATE) } : {}, SEQ_GROUPS.length ? { sequences: SEQ_GROUPS } : {}), metaLayer, techniques,
   date: new Date().toISOString().slice(0, 10),
   toolName: 'tools/notate_section.js (profile ' + profile + ')' + (flag('bricks') ? ' --bricks' : '') + (flag('trills') ? ' --trills' : '') + (TRILL_RATE != null ? ' --trillRate ' + parseFloat(TRILL_RATE) : ''),
 });
@@ -1451,6 +1461,39 @@ if (flag('bricks')) {
   if (groups.length) doc.animated = Object.assign({}, doc.animated, { curveFollower: false });
 }
 
+// THE SEQUENCES (LGMF PLAN 2d.1, 2026-09-25; RUNNING_LOG §382). `--sequence <grp-seq-…>` folds one sequence's notation in, per
+// part: ONE `sequence` overlay carrying the entry (the block), the written level on THE FIXED SCALE at 100/s, the breaths and the
+// labels (notation/lib/sequence_overlays.js — the library computes it once, the engine draws it). The breaths' own device is the
+// registry's byEnv.sequence (the go line), reached by the env the extractor gave them above.
+if (SEQ_GROUPS.length) {
+  const SeqOv = require(path.join(ROOT, 'notation', 'lib', 'sequence_overlays.js'));
+  const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
+  const CONT = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const seqDev = ((CONT.engraving.layout.devices || {}).byEnv || {}).sequence || {};
+  const recipes = ((score.databases || {}).sequences || []);
+  for (const gid of SEQ_GROUPS) {
+    const rec = recipes.find(q => q.group === gid);
+    if (!rec) console.warn('  --sequence ' + gid + ': no recipe in databases.sequences — no partials, no range written');
+    let n = 0;
+    for (const part of parts) {
+      const b = SeqOv.forPart(score.objects || [], gid, part, {
+        window: [w0, w1], bank, instKey: TRACKS && TRACKS[part] ? TRACKS[part].instKey : null,
+        recipe: rec ? rec.recipe : null, name: rec ? rec.name : null, techTexts: seqDev.techTexts || {},
+      });
+      if (!b) continue;
+      n++;
+      doc.overlays.push(b.overlay);
+      for (const w of b.warnings) console.warn('  ALERT --sequence ' + gid + ' ' + w);
+      const v = b.overlay.value;
+      console.log('  --sequence ' + gid + ' part ' + part + ' (' + (rec ? rec.name : '?') + '): entry ' + v.entry.t.toFixed(2) + ' s midi ' + v.entry.midi + ' ' + v.entry.centsText
+        + (v.entry.partialText ? ' ' + v.entry.partialText : '') + (v.entry.rangeText ? ' · ' + v.entry.rangeText : '') + (v.entry.techText ? ' · "' + v.entry.techText + '"' : '')
+        + ' · ' + v.breaths.length + ' breaths (' + v.breaths.filter(x => x.pitch === 'new').length + ' new) · ' + v.labels.length + ' labels ' + v.labels.map(l => '(' + l.mark + ') ' + l.t).join(' ')
+        + ' · ladder ' + v.scale.ladder.join('/'));
+    }
+    if (!n) console.log('  --sequence ' + gid + ': no notes in this score/window/parts — nothing folded');
+  }
+}
+
 // THE TRANCE SECTION (day 35; REWRITTEN day 36 to the composer's redirect).
 // `--trance <groupId>` folds the section's notation in: every in-tempo note a
 // black head + plain stem + staccato dot, the ten long-tone columns on ONE
@@ -1563,7 +1606,9 @@ const manifest = readManifest();
 // [§440] an existing page is replaced IN PLACE (the MAIN file stays first in the picker); a new one is appended
 const entryNew = { id, label, score: scoreName, window: [w0, w1], profile, exp: flag('exp') || undefined };
 const at = manifest.irs.findIndex(e => e.id === id);
-if (at >= 0) manifest.irs[at] = entryNew; else manifest.irs.push(entryNew);
+// [LGMF 2d.1] --after <id>: a NEW page goes straight after that one in the picker (the prototype after the MAIN file), else last
+const afterAt = arg('after') ? manifest.irs.findIndex(e => e.id === arg('after')) : -1;
+if (at >= 0) manifest.irs[at] = entryNew; else if (afterAt >= 0) manifest.irs.splice(afterAt + 1, 0, entryNew); else manifest.irs.push(entryNew);
 writeManifest(manifest);
 
 // ── THE GEOMETRY GUARD (day 31) ──────────────────────────────────────────────
