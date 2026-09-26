@@ -13652,3 +13652,15 @@ c2, |2| < 20: a plain head). No arrowed accidental appears in 0 … 36 s (the fi
 glyphs are baked in 2d.1 regardless, one of each thing on the page being his scope.
 
 **Put to him:** approve the amended top line → PLAN § `2d` written whole → checkpoint → clear → Opus builds.
+
+## §381. THE WORKING TITLE — *Recombination*; checkpoint #6 (2026-09-25, Opus, session 15)
+
+**His words, with the checkpoint:** *"working title Recombination; /checkpoint"* — the piece's working title is **_Recombination_**
+(COMPOSITION_NOTES LG-113 · journal §4 D32 · CLAUDE.md's header). No reason given; none inferred.
+
+**The checkpoint (#6):** PLAN § `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE is written and pushed (`c08cf37`), not built; the build is Opus's
+from the item, 2d.1 → 2d.6, one commit per step, THE SHIELD in each, STOP for his eye at 2d.7. `1t.5` his listen still open. Journal §2
+SESSION 15 · CHECKPOINT #6 is the cold-start block.
+**A correction, at the checkpoint:** the new pitch at 28.71 s is partial 12 of **C2** — the take's name writes the fundamental `c2`
+(`Just-c2-seed135`); §369 G · §376 · §380 and PLAN § `2d` wrote `12°/c2`. PLAN § `2d` and journal §2 now read `12°/C2`; the log's entries
+stand as written.

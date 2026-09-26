@@ -49,7 +49,7 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, THEN HIS PIVOT TO THE MORPH (`1t`). The cold-start block is **SESSION 15 · CHECKPOINT #5** under *Open at session end* below — READ IT FIRST (`1t` built end to end; `1t.5` his listen).
+### SESSION 15 · IN PROGRESS (2026-09-25) — THE NOTATION LAYER, HIS PIVOT TO THE MORPH (`1t`), THEN BACK TO THE NOTATION: THE EH'S SEQUENCE (`2d`). The cold-start block is **SESSION 15 · CHECKPOINT #6** under *Open at session end* below — READ IT FIRST (`2d` planned in full, Opus builds; `1t.5` his listen still open). **Working title: _Recombination_ (D32).**
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -121,8 +121,9 @@ whole in git, see the close block below.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►** | **BUILD `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE — PLAN § `2d`, 2d.1 → 2d.6 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2d.6 for his eye (2d.7).** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §368 … §380; LG-111 · LG-112; `c08cf37`): a page of its own `lgmf-eh-proto`, the EH's 0 … 36 s, ONE OF EACH THING — the block (G♯5 ¾♯ · `+41` over `26°/C1` · "senza vib." · `pp → mp`) · the level curve on the FIXED SCALE (niente … fff in eighths) + the follower · the pie counting each breath down · a same-pitch breath (13.7 s, parenthesised cue head) · a new-pitch breath (28.7 s, G5 `+2` · `12°/C2`) · `(mp)` 25.0 · `(pp)` 30.9. The pitch marks decided (`docs/research/just_partials_notation.md` §1a). **His pick on the notation is made: (b) the specific notation, begun on the EH** | Opus | yes — checkpoint #6 written |
 | **►►** | **`1t.5` HIS LISTEN — RESTART the server (`morph.js` changed) and reload the tab.** MORPH → `TAKES` → `from` a take · `to ▾` a take → `duration` 60 → Generate → the line → Play → the far voices' seams · the vibraphones at the default (1: the first 3 s before the arrival, the second ON it — never heard on its new bar unless `release` is set; the line says so) then at 0.5 → a `release` (8) — the fade on B → Insert after a sequence ending `one by one`. BUILT 2026-09-25 on Opus, 1t.1 … 1t.4 (RUNNING_LOG §364 … §367; `a7ae62c` · `dc7c76c` · `312d88f` · 1t.4). Found: the switch needed a CUT (§366); the release returned every player to A — `carrier.releaseHolds` on TAKES (§367); the red "hard" count is the re-key seams (§367, NITS). *(The build's row, done:)* **BUILD `1t` THE MORPH BETWEEN TAKES — PLAN § `1t`, 1t.1 → 1t.4, one commit per step, THE SHIELD in each; STOP before 1t.1 for his word.** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §350 … §363; LG-106 … LG-110): take A → take B by player, one duration, the scatter, the re-key, the vibraphones' switch dial, the joins by hand. He pivoted here from the notation at his word (*"I want to work on the morph drawer"*); the notation's pick (the row below) waits | Opus | yes — checkpoint first |
-| his | **HIS PICK on the notation, deferred while `1t` is built (his order, §330's scaffolding): (a) `2a.6` the clefs by register — the N-2a row, a build · (b) THE SPECIFIC NOTATION — the N-2b row (the note unit · the cents), a design talk under the planning method.** Ask in one line when `1t` closes | (a) Opus · (b) Fable | yes |
+| ✓ | **HIS PICK on the notation — MADE 2026-09-25: (b) THE SPECIFIC NOTATION, begun on the english horn's section-1 sequence (`2d`, the ►► row above).** *(Was: (a) `2a.6` the clefs · (b) the specific notation — the N-2a / N-2b rows; `2a.6` still waits.)* | — | — |
 | ✓ | **`2c` THE PAGE EDGES — BUILT END TO END** (2026-09-25, Opus; RUNNING_LOG §342 … §349; `67a38fd` · `7562f0e` · `d3e23d6` · `d7c9694` · `8985026` · `2205e46` + 2c.7): the margins 40 · 40 px / 12.7 mm · the screen tiles, the paper cut, the clamp (`check_screen_edges.js`) · the print cut placed by the objects (`printPlan: 'objects'`, `check_print_edges.js` re-pointed; `piece-lgmf` 55 pages, the widest blank 0.12 s) · the go-line switch `clampGoLine` 'flag' · THE SHIELD byte-identical at every step. **His eye DEFERRED at his word to the specific notation (§347):** the margins · the 2 ss stub · the switch · NOTATION_STANDARDS §5's calls — each one number or word in the registry | — | — |
 | ✓ | **`2a.5` the names** — no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`, `TemBwl` 4.6 px clear of the brace (§339, `1dd46bf`) | — | — |
 | his | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). **IN PROGRESS — the names decided and in (§339: no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`; `TemBwl` 4.6 px clear of the brace, the gutter 72 untouched; #5's three gutter fixes carried, the print-edge checker not yet run here — 2b); his a/b/c on the E.H. sharp over the clef at 300 s pending.** Revise on his word — a look question on Fable, a fault on Opus | his eye | — |
@@ -147,7 +148,57 @@ whole in git, see the close block below.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 15 · CHECKPOINT #5 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+**Open at session end — SESSION 15 · CHECKPOINT #6 (2026-09-25, Fable planned, Opus wraps) (mid-session checkpoint) — READ THIS ONE FIRST:**
+- **THE TASK:** THE NOTATION LAYER, the SPECIFIC NOTATION begun — **the english horn's line in section 1's SEQUENCE** (`LGMF-R01c`,
+  0 … 149 s), one thing at a time, his order (*"make notation for EH for sec 1 that is the sequence and morph; 1 by one"*). The morph
+  (`ACT-BLOOM-06`, the EH from 158.4 s) and the other six players come after, at his word. **Working title: _Recombination_ (D32).**
+- **THE STATE: PLANNED IN FULL, NOT BUILT** — PLAN § `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE (`c08cf37`). How it was reached, all
+  in the RUNNING_LOG: §368 the stats (the EH's 12 notes, pp … mp, niente in over 6 s, ppp out over 8 s; §369 corrects the count) ·
+  §369 · §370 his sketch and his decisions (LG-111 · LG-112: the tuba/#5 two-part form — a BLOCK at the entry and the LANE; no GC,
+  the head LEFT of the go line, Tufte's 2 + 2 = 3; the pie counts each breath DOWN; `(dyn)` labels at the turning points; the morph
+  its own block later) · §371 … §374 the audit → **ONE FIXED SCALE**, niente at the floor … fff at the top of the half-lane, the whole
+  piece, every realization (the presentation score's 14 … 16 px for pp → mp accepted; the per-block legend only the fallback for the
+  presentation realization; the parts pay for the resolution — 36 px on a 12.9" iPad at 4 systems) · §375 · §376 no opening/closing
+  signs (the curve draws both fades), no ticks, ONE OF EACH THING on the prototype · §377 … §380 THE PITCH MARKS DECIDED, written
+  into `docs/research/just_partials_notation.md` **§1a** (the bands |c| < 20 plain · 20 … 37 an arrow · ≥ 37 the quarter sign; six
+  arrowed Emmentaler accidentals NEW; numbers Crimson Pro Light upright 0.75 ss, the true minus, no ¢; `n°/F` always on a part's line;
+  the column cents-nearest, the partial above; "senza vib." baked on the `pizz.` recipe).
+- **THE NEXT STEP:** after `/postclear`, check in (his rule). On his go, **BUILD `2d` from PLAN § `2d`, 2d.1 → 2d.6 in order, one
+  commit per step, pushed, THE SHIELD in each, a RUNNING_LOG § per step (the next free is §382 — read the last heading first); STOP
+  after 2d.6** and give him 2d.7: *no restart — the notation app → the picker → `lgmf-eh-proto` → the video view → `0` in the time box;
+  `20` for the curve, the follower and the pie; `28.7` for the new pitch; `z` the zoom.* Revise on his word — a look question on Fable,
+  a fault on Opus.
+- **`Resume reads:`** PLAN § `2d` (all of it) · `docs/research/just_partials_notation.md` §1a (the marks). Then per step, ONLY the code the
+  item names: 2d.1 `notation/lib/extract_core.js` (where `surge` · `trill` · the morph are classified) · `tools/notate_section.js` (the
+  `--morph` path) · `notation/lib/glyphs.json` `accidental.leftParen._provenance` (the bake recipe) and `text._provenance` · 2d.2
+  `notation/lib/layout.js` ~792 … 835 (D45's header branch) · `notation/lib/morph_overlays.js` `header` · 2d.3 `morph_overlays.js`
+  `fit('level')` · `curvePathD42` · `notation/registry/page_rules.json` `edge` · 2d.4 the `onsetHead` flag (grep it) ·
+  `notation/lib/animobj.js` (`motivePie` · `crescMeter`) · `container.json` `animated.motivePie` · 2d.6 CHECKPOINT #3's *HOW 2c WAS
+  SHIELDED* (below) + STILL BINDING. Nothing else.
+- **Numbers the build can trust (read from the save, §368 · §369):** the EH's sequence notes `wc-3127 … wc-3255` in
+  `grp-seq-smu90t537`, identical in all three saves — extract from a COPY of `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` (his file
+  never opened for writing) · the EH's ladder ppp 43 · pp 51 · p 59 · mp 68 · mf 80 · f 94 · ff 109 · fff 127 (`DynTable.cc7`, the
+  measured curve) · the block G♯5 (midi 80) +40.53 c, partial 26 of C1 · the same-pitch breath 13.71 s · `(mp)` at 25.0 s (CC7 69) ·
+  the new pitch 28.71 s G5 (midi 79) +1.96 c, partial 12 of **C2** (the take's name writes it `c2`; the fundamental is C2 — the PLAN's
+  `12°/C2` was corrected to `12°/C2` at this checkpoint) · `(pp)` at 30.9 s · the fade `cc7Fade {start 0, end 6, from 0, to 1, linear}`
+  on `wc-3127`.
+- **Pending him:** `1t.5` his listen (CHECKPOINT #5 below — restart the server + reload; it does not block `2d`) and its pending lines ·
+  the AI's calls in PLAN § `2d` (the eighths · the breath-gap bridge · the 1 s label dwell · the cue scales 0.844 / 0.75 · the pie's
+  colour · `n°/F` always · the 0 … 40 s range) · the legend sentence and the performance notes (his, later) · the morph's block and the
+  join 149 → 158.4 s (his *"we'll see if we can restate a header there"*; the EH's gap is 9.4 s in every save — his "the morph note
+  starts immediately after" was not found in a save of the EH, told him) · everything pending at CHECKPOINT #3 and before.
+- **Learned this session:** **backticks inside a double-quoted `node -e` ran as a command substitution AGAIN** (at this checkpoint: D32's
+  `septet_LGMF_2026` and `LG` vanished — harmless, repaired). THE RULE HOLDS, NO EXCEPTIONS: any text with backticks goes to a FILE (the
+  Write tool) and a short splice script from a FILE · a Bash heredoc over ~8 KB still fails with a fake quote error — write to the
+  scratchpad and `cat >>` it.
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint — the same 12 as CHECKPOINT #5):
+  - `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence library (autosaved by his tab; committing races it)
+  - `reaper/LGMF_rack.rpp` — his rack
+  - `bank/patterns.json` · `bank/rhythm_takes.json` · `bank/rhythm_sequences.json` · `bank/passages/lgmf-sec2.json` — his stores
+  - `scores/piece-LGMF-Sec01-Sec02.json` · `-Sec02done.json` · `-Sec02-sec03a.json` · `-Sec02-Sec3start.json` · `scores/pointilistic01a.json` — HIS scores
+    (`-Sec3start` is the save `2d` extracts from, BY COPY)
+
+**Open at session end — SESSION 15 · CHECKPOINT #5 (2026-09-25, Opus built and wraps) (mid-session checkpoint) — superseded by CHECKPOINT #6 above; its `1t` lines, its SHIELD recipe and `1t.5` still hold:**
 - **THE TASK:** `1t` THE MORPH BETWEEN TAKES — take A → take B, each player from their own note to their own note (his pivot from the
   notation, CHECKPOINT #4 below). **BUILT END TO END** at his word *"a and build as much as possible independantly"*, four commits,
   pushed, THE SHIELD in each (RUNNING_LOG §364 … §367; PLAN § `1t` `built`; MORPH_NOTES §3 the same day):
@@ -826,6 +877,10 @@ this repo only when they bite.)*
   struck note for a bend or a seat pins `velAbs = recVel` · `cc7Abs {127,127}`. *Rejected:* a clone of the drawer's takes menu (its
   `opts` instead, §312) · a bent note simply DRAWN (§318 — the drawn scale's floor lifted his velocity 45 to ≈ 87; his ear: *"it seems
   louder"*). RUNNING_LOG §306 … §320.
+
+- **D32** *(2026-09-25, composer: "working title Recombination")* — **THE WORKING TITLE: _Recombination_.** Recorded at his word with
+  checkpoint #6 of session 15; no reason given, none inferred. The repo, the folders and the ports keep their names (`septet_LGMF_2026`,
+  the `LG` ports) — a title is not a rename. COMPOSITION_NOTES LG-113 · RUNNING_LOG §381.
 
 ## §5 Playbooks
 

@@ -2699,3 +2699,11 @@ until a point in the texture. The talk and the decisions: RUNNING_LOG §302; the
 *"no hairpin symbolic not timed, I'll explain in the perf notes; take note to sort out cents etc later once we have big picture; c full to empty, countdown, D. Tufte principle 2+2=3 so if showing onset with line, dont show again with notehead thus to the left like gc pitch, and thats all I meant with gc approach, no actual gc just note head and associated + go line;  E good; F? so is it that we end after sequence and restart all at morph? G et al, settle in its own conversation; H, then more evidence that morph should be its own notation block though I dragged the bricks so in fact the morph note starts immediately after the sequence note ends, but we'll see if we can restate a header there; new curve can start at morph but lets discuss the morph in earnest after the sequence EH, and we'll talk then about what carries to morph; reorg and layout again, but breifer pls + any addl questions"*
 
 *AI reading (mine, marked):* the opening niente + hairpin is a SIGN in the block, not a timed object (the performance notes will say what it means) · the pitch's marks (cents · partial · fundamental) are their own later conversation · the pie counts down · at a breath the go line IS the onset, so the head sits to its LEFT (the GC's pitch position) — no GC arc · the dynamics at the turning points · the morph is its own notation block with its own header and curve, discussed after the sequence.
+
+### LG-113
+*2026-09-25 (session 15) — THE WORKING TITLE, at the checkpoint after PLAN § `2d` was written:*
+
+*"working title Recombination"*
+
+*AI reading (mine, marked):* the piece has a working title, *Recombination* — recorded as D32 (journal §4) and in CLAUDE.md's header.
+Nothing else said about it; its reasons, if he gives them, go here.
