@@ -149,9 +149,15 @@
   // object is cut like paper at tω (2c.3) and a unit hanging over a page's start is clamped (2c.4). A chunk continuing over t0
   // re-shows its tempo label exactly as on a planned page; `interrupted` · `severed` · `offGrid` are recorded, never acted on.
   // Selected by page_rules.screenPlan: 'tile' — absent = planPages, the film's overlap.
-  function tilePages(ir, rules, S) {
+  // [LGMF 2e.2, §409] THE LEAD-IN: page_rules.leadInS (a realization's own leadInS wins) — the piece's 0 sits that far into page 1
+  function leadInOf(rules, rz) { return rz && rz.leadInS != null ? rz.leadInS : ((rules && rules.leadInS) || 0); }
+  // where the SCREEN's first page opens: the IR's start less the lead-in
+  function screenStartOf(ir, rules, rz) { return ir.source.window[0] - leadInOf(rules, rz); }
+  // startAt [2e.2]: the first page's t0 (the IR's start less the lead-in); absent = the IR's start, as before
+  function tilePages(ir, rules, S, startAt) {
     if (!(isFinite(S) && S > 0)) throw new Error('splice: pageSeconds must be a finite number > 0');
-    const [w0, w1] = ir.source.window;
+    const [w0x, w1] = ir.source.window;
+    const w0 = startAt != null ? startAt : w0x;
     const ext = materialExtents(ir);
     const allPairs = new Map(ir.chunks.map(c => [c.id, beamablePairs(ir, c)]));
     const wantReshow = !rules.reshowAtCut || rules.reshowAtCut.includes('tempoLabelContinuation');
@@ -238,7 +244,10 @@
   // LATEST at which every object it crosses can still be drawn whole on the page that owns its onset — this page's ink runs on to its
   // end inside the window, the next page's window opens at its ink start (D59, locally) — severing the fewest beams (a beam cannot be
   // kept whole that way); the page is recorded 'forced' with what it crosses.
-  function planObjectPages(ir, rules, S, intervals) {
+  // opts.firstByObjects [2e.2, §409 · his print rule of §340]: page 1 is placed by its objects too — its window opens where the first
+  // object's ink begins when that is before the IR's start (a block hung before its go line at 0 s), so nothing is drawn into the gutter;
+  // absent = page 1's window opens at the IR's start, as before
+  function planObjectPages(ir, rules, S, intervals, opts) {
     if (!(isFinite(S) && S > 0)) throw new Error('splice: pageSeconds must be a finite number > 0');
     const [w0, w1] = ir.source.window;
     const minPage = rules.minPageSeconds || 0;
@@ -266,6 +275,7 @@
     const desc = x => x.kind + ' part ' + x.part + ' @' + x.t.toFixed(3);
     const pages = [];
     let t = w0, w = w0, guard = 0;
+    if (opts && opts.firstByObjects && intervals.length) w = Math.min(w0, ...intervals.map(x => x.a));
     while (t < w1 - EPS) {
       if (++guard > 100000) throw new Error('splice: object page planning did not converge');
       const target = w + S;
@@ -310,5 +320,5 @@
     return pages;
   }
 
-  return { planPages, tilePages, planObjectPages, edgeIntervals, chooseCut, interruptedChunks, materialExtents, beamablePairs };
+  return { planPages, tilePages, planObjectPages, edgeIntervals, chooseCut, interruptedChunks, materialExtents, beamablePairs, leadInOf, screenStartOf };
 });

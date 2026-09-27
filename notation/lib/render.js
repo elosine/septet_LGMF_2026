@@ -4,11 +4,11 @@
 // fidelity is visible at a glance.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
-    module.exports = factory(require('./stamps.js'), require('./gc.js'));
+    module.exports = factory(require('./stamps.js'), require('./gc.js'), require('./edge_rules.js'));
   } else {
-    root.NotationRender = factory(root.NotationStamps, root.NotationGC);
+    root.NotationRender = factory(root.NotationStamps, root.NotationGC, root.NotationEdgeRules);
   }
-})(typeof self !== 'undefined' ? self : this, function (Stamps, GC) {
+})(typeof self !== 'undefined' ? self : this, function (Stamps, GC, EdgeRules) {
 
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -284,7 +284,7 @@
           L.set(k, Math.min(L.has(k) ? L.get(k) : Infinity, e[0]));
           R.set(k, Math.max(R.has(k) ? R.get(k) : -Infinity, e[1]));
         }
-        for (const [k, l] of L) if (l < X0 - 1e-6) shiftAt.set(k, X0 - l);
+        for (const [k, s] of EdgeRules.unitShifts(L, X0)) shiftAt.set(k, s);   // [2e.2] the ONE edge function — the animation layer pushes through it too
         const goAt = new Set(sysModel.items.filter(x => (x.k === 'goline' || x.k === 'attackline' || x.k === 'tick' || x.k === 'gc') && x.t !== undefined).map(x => tk(x.t)));
         // [2c.6 — his "2a", 2026-09-25] THE GO-LINE EXCEPTION as a switch (page_rules.clampGoLine): 'add' = a clamped unit with no go-time
         // indicator of its own takes a go line at x(t), so its time stays exact (PLAN 2c.4 (b), one per note); 'flag' (the default) =

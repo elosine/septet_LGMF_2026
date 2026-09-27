@@ -125,6 +125,31 @@ const probe = `
     return JSON.stringify(res);
   });
   document.body.setAttribute('data-e', encodeURIComponent('['+rows.join(',')+']'));
+  // [2e.2] THE FRAME PROBE: the overlay at each page's first and last moment — a clamp device never left of x(t0), a cut one clipped at it
+  const frs=[...document.querySelectorAll('.frame')].map(fr=>{
+    const svg=fr.querySelector('svg'), X0=+fr.getAttribute('data-x0'), T=0.5;
+    const R=svg.getBoundingClientRect(), k=svg.viewBox.baseVal.width/R.width;
+    const res={n:+fr.getAttribute('data-n'),t:+fr.getAttribute('data-t'),devices:0,pushed:0,left:[],clipBad:[]};
+    for(const g of svg.querySelectorAll('g[data-anim]')){
+      const edge=g.getAttribute('data-edge'), kind=g.getAttribute('data-anim');
+      if(edge==='atomic') continue;
+      res.devices++;
+      if(g.getAttribute('data-shift')) res.pushed++;
+      if(edge==='cut'){
+        const id=((g.getAttribute('clip-path')||'').match(/#([^)]+)/)||[])[1], cr=id&&svg.querySelector('#'+id+' rect');
+        if(!cr||Math.abs(+cr.getAttribute('x')-X0)>0.01) res.clipBad.push(kind);
+        continue;
+      }
+      for(const el of g.querySelectorAll('*')){
+        if(el.children.length) continue;
+        const b=el.getBoundingClientRect(); if(b.width<=0&&b.height<=0) continue;
+        const L=(b.left-R.left)*k;
+        if(L<X0-T) res.left.push(kind+' '+L.toFixed(1)+' < '+X0.toFixed(1));
+      }
+    }
+    return res;
+  });
+  document.body.setAttribute('data-f', encodeURIComponent(JSON.stringify(frs)));
 });</script>`;
 const inject = '<script>const PAGES=' + JSON.stringify(pages.map(p => ({ x0: p.x0, x1: p.x1, w0: p.w0, w1: p.w1, pps: p.pps, widthPx: p.widthPx, first: p.first, ownsEnd: p.ownsEnd }))) + ';</script>';
 fs.writeFileSync(html, fs.readFileSync(html, 'utf8').replace('</body>', inject + probe + '</body>'));
@@ -160,6 +185,23 @@ if (!failures) {
   console.log('   ok  nothing past the frame — the rightmost ink at x ' + maxRight.toFixed(1) + ' of ' + pages[0].widthPx + ' (the staff ends at ' + pages[0].x1 + ')');
   console.log('   ok  ' + go + ' go-time indicators, every one at x(t) to the pixel and on the page that owns it');
 }
+// [2e.2, §410 · §411] C. THE ANIMATED DEVICES — every page's first and last frame (export_video --screenHtml writes them when the edge
+// table names the animated kinds): a clamp device (the meters, the pies, the dots) never left of x(t0); a cut one (the GC ball) clipped at it
+if (P.frames) {
+  const mf = /data-f="([^"]*)"/.exec(c.stdout || '');
+  const frs = mf ? JSON.parse(decodeURIComponent(mf[1])) : [];
+  console.log('C. THE ANIMATED DEVICES — ' + frs.length + ' frames probed (each page at t0 + ε and tω − ε)');
+  if (frs.length !== P.frames.length) fail('measured ' + frs.length + ' frames, the plan wrote ' + P.frames.length);
+  let dev = 0, pushed = 0;
+  for (const f of frs) {
+    dev += f.devices; pushed += f.pushed;
+    const bad = [];
+    if (f.left.length) bad.push(f.left.length + ' device leaf/leaves left of x(t0): ' + f.left.slice(0, 4).join(' · '));
+    if (f.clipBad.length) bad.push(f.clipBad.length + ' cut device(s) not clipped at x(t0): ' + f.clipBad.join(' · '));
+    if (bad.length) fail('page ' + f.n + ' frame @' + f.t.toFixed(3) + ' s  ' + bad.join(' · '));
+  }
+  if (!failures) console.log('   ok  ' + dev + ' animated device(s) drawn at the page edges, ' + pushed + ' pushed right — none left of x(t0), every cut one clipped at it');
+} else console.log('C. THE ANIMATED DEVICES — not probed (the edge table names no animated kind)');
 try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { /* the temp dir is not the point */ }
 console.log(failures ? '\ncheck_screen_edges: ' + failures + ' FAILURE(S)' : '\ncheck_screen_edges: PASS');
 process.exit(failures ? 1 : 0);

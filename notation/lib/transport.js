@@ -26,26 +26,51 @@
     let playing = false;               // free-run state (audio keeps its own)
     let base = 0;                      // S1 seconds at last play/seek/pause
     let mark = 0;                      // timebase seconds at last play/seek
+    // [LGMF 2e.2, §409] THE PRE-ROLL: with the audio attached, a position BEFORE the audio's start (the lead-in, t < offset) runs on the
+    // free clock with the audio parked at 0 — and the audio starts when the clock crosses its start. { base, mark, playing } or null.
+    let pre = null;
+    const preT = () => pre.playing ? pre.base + (tb.now() - pre.mark) : pre.base;
 
     function now() {
-      if (audio) return audio.currentTime + offset;
+      if (audio) {
+        if (pre) {
+          const tt = preT();
+          if (tt < offset) return tt;
+          const was = pre.playing;
+          pre = null; audio.currentTime = tt - offset;   // the clock crossed the audio's start: the render takes over
+          if (was) audio.play();
+          return tt;
+        }
+        return audio.currentTime + offset;
+      }
       return playing ? base + (tb.now() - mark) : base;
     }
     function play() {
-      if (audio) { audio.play(); return; }
+      if (audio) {
+        if (pre) { if (!pre.playing) { pre.mark = tb.now(); pre.playing = true; } return; }
+        audio.play(); return;
+      }
       if (!playing) { mark = tb.now(); playing = true; }
     }
     function pause() {
-      if (audio) { audio.pause(); return; }
+      if (audio) {
+        if (pre) { if (pre.playing) { pre.base = preT(); pre.playing = false; } return; }
+        audio.pause(); return;
+      }
       if (playing) { base = base + (tb.now() - mark); playing = false; }
     }
     function seek(t) {
-      if (audio) { audio.currentTime = Math.max(0, t - offset); return; }
+      if (audio) {
+        const was = isPlaying();
+        if (t < offset) { audio.pause(); audio.currentTime = 0; pre = { base: t, mark: tb.now(), playing: was }; return; }
+        if (pre) { pre = null; audio.currentTime = t - offset; if (was) audio.play(); return; }
+        audio.currentTime = Math.max(0, t - offset); return;
+      }
       base = t; mark = tb.now();
     }
-    function attachAudio(el, off) { audio = el; if (off !== undefined) offset = off; }
-    function detachAudio() { const t = now(); audio = null; base = t; mark = tb.now(); playing = false; }
-    function isPlaying() { return audio ? !audio.paused : playing; }
+    function attachAudio(el, off) { audio = el; pre = null; if (off !== undefined) offset = off; }
+    function detachAudio() { const t = now(); audio = null; pre = null; base = t; mark = tb.now(); playing = false; }
+    function isPlaying() { return audio ? (pre ? pre.playing : !audio.paused) : playing; }
     function setOffset(v) { offset = v; }
 
     return { now, play, pause, seek, attachAudio, detachAudio, isPlaying, setOffset };

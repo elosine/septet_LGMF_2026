@@ -210,6 +210,15 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `brick` | cut | stub |
 | `staff` | furniture | furniture |
 | `clef` | furniture | furniture |
+| `anim:cursor` | atomic | none |
+| `anim:gc` | cut | none |
+| `anim:curveFollower` | clamp | none |
+| `anim:envFollower` | clamp | none |
+| `anim:curveMeter` | clamp | none |
+| `anim:glissMeter` | clamp | none |
+| `anim:crescMeter` | clamp | none |
+| `anim:lineWedge` | clamp | none |
+| `anim:motivePie` | clamp | none |
 
 ---
 

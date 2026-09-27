@@ -15724,3 +15724,68 @@ layout does not read must not pose as the drawing) · the lint's semantics (a ma
 fallbacks for a caller without the registry — `test_layout`'s fixtures) · gate (1)'s animated half waits for 2e.2, where the rows arrive.
 
 **Next: 2e.2 — the 4 s lead-in and the animated edges.**
+
+## §449. `2e.2` THE 4 s LEAD-IN AND THE ANIMATED EDGES — the page-start clash closed on both media; the animated devices under the one edge system; a `node_modules` lost and restored (2026-09-27, Opus, session 17)
+
+**The build (his decisions §409 · §410 · §411):**
+- **`page_rules.leadInS: 4`** (+ `_doc_leadInS`; a realization's own `leadInS` wins — `Splice.leadInOf` · `Splice.screenStartOf`).
+  **SCREEN:** `Splice.tilePages(ir, rules, S, startAt)` tiles from the IR's start − 4 s — every page still one span (−4 · 8 · 20 …);
+  the exporter's and the app's page windows, the `first` flag and the time box read that start. **THE CLOCK:** the app opens page 1 at
+  −4.0 – 8.0 s, the time box takes `-4` (a leading minus) and ⏮ goes there; `transport.js` gains a **PRE-ROLL** — with the ♪ render
+  attached, a position before the audio's start runs on the free clock with the audio parked at 0, and the audio starts when the clock
+  crosses 0 (seven new lines in `test_animobj`'s transport block). **THE VIDEO:** a full render starts at −4 s and its audio is DELAYED
+  by the same (`-itsoffset 4`; a partial render from t0 ≥ 0 still seeks with `-ss`). **PAPER:** `Splice.planObjectPages(…, { firstByObjects })`
+  — with a lead-in set, page 1 is placed by its objects too: its window opens where the first object's ink begins (his print rule of
+  §340, as a pushed GC places the next page). The WAV untouched.
+- **THE ONE EDGE FUNCTION — `notation/lib/edge_rules.js`** (`clampShift` · `unitShifts` · `screenClassOf`): render.js's 2c clamp now
+  pushes its units through it (byte-identical), and **the animation layer too**: every animated kind named in `page_rules.edge` as
+  `anim:<kind>` — the cursor `atomic` · the GC ball `cut` · the three meters, the two follower dots, the wedge and the pie `clamp` · all
+  print `none` (+ `_doc_animated`). `animobj.js` gains a BOX per kind (the state function's own numbers) and `frameSvg(…, { edge })`:
+  every device drawn, the clamp devices measured, **ONE PUSH PER LANE** (so the pie keeps its place beside its meter — his "meters
+  start moving with cursor" describes a group, not two stamps), the cut ones clipped at x(t0), each wrapped `<g data-anim data-edge
+  [data-shift]>`. Without an `anim:` row in the table the frame is drawn exactly as before.
+- **THE GATES:** `check_rules` (1) now demands an `anim:` row, print `none`, for every animated kind (+ the cursor) — **15 checks GREEN**.
+  `check_screen_edges` gains **C. THE ANIMATED DEVICES**: `export_video --screenHtml` writes every page's overlay at t0 + ε and tω − ε
+  (ε = 1/60 s), and Chrome measures them — a clamp device's every leaf right of x(t0), a cut one under a clip whose rect starts at x(t0).
+
+**THE SHIELD — by data absence (§344's rule):** the build's code with the registry of HEAD (`469a580`: no `leadInS`, no `anim:` rows),
+in a fresh worktree: **the 20 outputs byte-identical to `c499a0d`** (the screen dump adds `leadIn` and `frames` only when they exist, so
+not even the dump changed), **the 20 layouts byte-identical**, **the eight engine batteries GREEN**. On the NEW registry: the eight GREEN
+again; what moves is the lead-in's own work — every video frame of the three pages (the pages start 4 s earlier) and, on paper, page 1
+of `piece-lgmf` and the proto (t1 10.320 → 10.216 s and → 10.008 s — the window now opens at the ink). **db1's paper does not move even
+on the new registry** (its first unit has no ink before 0).
+
+**THE REQUIRED CHECKS:**
+- **The clock:** the app on the proto → video → `-4` ↵ → `page 1/4 · -4.0–8.0 s`, the readout **`t -4.00 s`**; the film's first frame is
+  t = −4 (the render's own log: 330 frames, −4.00 → 7.00 s). **The first sound:** an 11 s film of `piece-lgmf` with the WAV — the audio
+  stream opens at 3.978 s (the AAC encoder's standard 1024-sample priming ahead of 4.000); on one threshold (−60 dB) the WAV's first
+  sound is at **2.239 s** and the film's at **6.238 s: the offset is 4.000 s** (the plan's "4.00 + 1.70": 1.70 s is the EH's note-on;
+  its fade from niente crosses −60 dB at 2.24).
+- **`export_video --ir lgmf-eh-proto --probe -4,0,4,20`:** page 1 is [−4, 8], x(t0) 112, **x(0) = 701.3 = x(t0) + 589.3 px = 4 s of sweep**;
+  **the block at 0 s inks 653.9 → 718.3 px — 541.9 px of room right of x(t0)**; at 0 and 4 the meter and the pie ride the cursor
+  unpushed; **at 20 s (page 3 opens at 20) the meter and the pie are pushed right TOGETHER by 31.5 px, the leftmost box from 80.5 to
+  112.0 = x(t0)** (in the app at 20.02 s: meter · pie · follower +28.55 px, one lane). At no probed frame is a device left of x(t0).
+- **`check_print_edges --ir lgmf-eh-proto` PASSES** — page 1's window opens at −0.311 s (the block's ink start), no timed ink in the clef
+  gutter on all 4 pages: **the 2d page-start clash is closed on both media.**
+- **`check_screen_edges --ir piece-lgmf` PASS with the frame probe:** the pages tile −4 → 881 s · 7 610 leaves, nothing timed left of
+  x(t0) · 317 go-time indicators at x(t) to the pixel · **C: 148 frames, 1 535 devices at the page edges, 764 pushed right, none left
+  of x(t0), every cut one clipped at it.** `--ir lgmf-eh-proto`: 8 frames, 43 devices, 19 pushed. **What the moved seams change:** before
+  the lead-in 9 units were clamped (one of them the EH's block at 0 s, +15.9 px — gone now); after it 11 (the seams fall 4 s earlier, on
+  other units), 9 of them with no go-time indicator of their own (7 before) and **one flagged collision: page 30, part 0 @344.05 s,
+  the clamped unit (+13.45 px) touches its neighbour by 1.97 px** — a 2c flag, his case by case (§347), not resolved by a rule.
+- The tuba goldens: byte-identical by data absence (above).
+
+**THE ACCIDENT, and its repair (the AI's, his to know):** removing an old shield worktree with `git worktree remove --force`
+**followed its `node_modules` JUNCTION and emptied this repo's `node_modules`** (resvg + pngjs — gitignored, so `git status` never showed
+it). Restored by COPYING piece #5's identical install (resvg 2.6.2 · pngjs 7.0.0 — the lockfile's versions; nothing downloaded; #5
+only read), checked (`new Resvg(…).render()`), and every later check ran on it. The worktree script now unlinks a junction
+(`cmd //c rmdir`, proven on a throwaway first: the target's file survived) and refuses to remove a worktree whose junction is still
+there; a memory records it. His user-level rule — *look at what is actually there, gitignored files included, before deleting* — is the
+one this broke.
+
+**The AI's calls, his to reverse:** the lead-in on the SCREEN only when the plan is `tile` (the working views keep the IR's start) · one
+push per LANE for the animated devices (the pie and its meter as one unit) · ⏮ goes to the lead-in's first moment, not to 0 · the frame
+probe at t0 + 1/60 and tω − 1/60 s · paper's page 1 placed by its objects only when a lead-in is set (so a page without a lead-in keeps
+its old first page).
+
+**Next: 2e.3 — the prototype's nine fixes, as table edits, each a listed diff.**

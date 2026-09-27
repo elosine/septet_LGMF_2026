@@ -224,7 +224,7 @@ const pages = OBJ
       edge: pageRules.edge, inkSpanSs: it => Render.inkSpanSs(it, glyphs, ER), secPerSs: secOfSs(1),
       gcPrePost: it => Render.gcPrePost(it, ER), gcPadSec, stubSec: secOfSs(pageRules.durationStubSs != null ? pageRules.durationStubSs : 2),
       hideBricks: true,   // the print page draws no bricks (static_page, D4)
-    }))
+    }), { firstByObjects: Splice.leadInOf(pageRules, rz) > 0 })   // [2e.2, §409] with a lead-in, page 1 is placed by its objects too
   : Splice.planPages(ir, pageRules, advanceSeconds);
 let sel = pages.map((_, i) => i);
 if (atArg != null) {

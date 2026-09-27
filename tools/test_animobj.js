@@ -312,6 +312,24 @@ const audioStub = { currentTime: 7, paused: false, play() { this.paused = false;
 tp.attachAudio(audioStub, 100);
 eq(tp.now(), 107, 1e-12, 'audio-slaved: S1 t = currentTime + offset');
 tp.detachAudio(); eq(tp.now(), 107, 1e-12, 'detach keeps the position');
+// [LGMF 2e.2, §409] THE PRE-ROLL: the lead-in runs before the audio's start on the free clock; crossing it starts the audio there
+{
+  const au = { currentTime: 0, paused: true, play() { this.paused = false; }, pause() { this.paused = true; } };
+  const tq = Transport.makeTransport({ timebase: { now: () => fake } });
+  tq.attachAudio(au, 0);
+  tq.seek(-4);
+  eq(tq.now(), -4, 1e-12, 'pre-roll: a seek before the audio start parks the clock there (the lead-in)');
+  ok(au.currentTime === 0 && au.paused, 'pre-roll: the audio waits at 0, paused');
+  tq.play(); fake += 3;
+  eq(tq.now(), -1, 1e-12, 'pre-roll: the clock runs free before 0');
+  ok(au.paused && tq.isPlaying(), 'pre-roll: the audio still silent, the transport playing');
+  fake += 1.5;
+  eq(tq.now(), 0.5, 1e-12, 'pre-roll: crossing 0 hands the clock to the audio');
+  ok(!au.paused && Math.abs(au.currentTime - 0.5) < 1e-12, 'pre-roll: the audio starts at the crossing (currentTime 0.5)');
+  au.currentTime = 2; eq(tq.now(), 2, 1e-12, 'after the pre-roll the audio is the clock again');
+  tq.seek(-2); ok(au.paused && tq.isPlaying(), 'a seek back into the lead-in while playing: the audio stops, the clock keeps playing');
+  tq.pause(); fake += 1; eq(tq.now(), -2, 1e-12, 'pre-roll: pause holds');
+}
 
 // ---------- day 40: METER-vs-PAGE CONGRUENCE + THE TUBE ----------
 // The invariant (composer, day 40): the bar's top equals the drawn curve's

@@ -28,12 +28,15 @@
 // fed it. New device kinds: register(kind, stateFn) + a collect source +
 // styling in container.json `animated`. See the contract doc.
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('./gc.js'));
-  else root.NotationAnimObj = factory(root.NotationGC);
-})(typeof self !== 'undefined' ? self : this, function (GC) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./gc.js'), require('./edge_rules.js'));
+  else root.NotationAnimObj = factory(root.NotationGC, root.NotationEdgeRules);
+})(typeof self !== 'undefined' ? self : this, function (GC, EdgeRules) {
 
   const REG = {};
-  function register(kind, stateFn) { REG[kind] = stateFn; }
+  // [LGMF 2e.2, §411] a kind's INK BOX at t — [left, right] px — so the one edge function can push it at a page start (optional:
+  // a kind with no box is never pushed); the numbers are the state function's own
+  const BOX = {};
+  function register(kind, stateFn, boxFn) { REG[kind] = stateFn; if (boxFn) BOX[kind] = boxFn; }
   function kinds() { return Object.keys(REG); }
 
   // ---------- shared helpers (pure) ----------
@@ -112,6 +115,23 @@
     return ['<circle cx="' + view.xOfSeconds(t).toFixed(1) + '" cy="' + s.yOfSs(ySs).toFixed(1) +
       '" r="' + (st.radiusSs * s.ssPx).toFixed(1) + '" fill="' + st.color + '" opacity="' + st.opacity + '"/>'];
   });
+
+  // [2e.2] the boxes — the dots and the meters trail the cursor; the wedge and the group pie sit at their note's start
+  const meterBox = (inst, view, t, st) => { const w = st.wPx || 8, x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3), h = (st.outlineWPx || 1.5) / 2; return [x - h, x + w + h]; };
+  const dotBox = r => (inst, view, t, st) => { const x = view.xOfSeconds(t), rr = r(inst, view, st); return [x - rr, x + rr]; };
+  BOX.curveFollower = dotBox((inst, view, st) => st.radiusSs * view.system(inst.pos ? inst.pos.key : inst.part).ssPx);
+  BOX.envFollower = dotBox((inst, view, st) => st.radiusPx);
+  BOX.glissMeter = meterBox; BOX.crescMeter = meterBox; BOX.curveMeter = meterBox;
+  BOX.lineWedge = (inst, view, t, st) => { const cx = view.xOfSeconds(inst.t0), r = st.radiusSs * view.system(inst.part).ssPx; return [cx - r - 0.5, cx + r + 0.5]; };
+  BOX.motivePie = (inst, view, t, st) => {
+    if (inst.countdown && inst.part !== undefined) {
+      const r = st.radiusPx || 9, meter = (st.meterWPx != null ? st.meterWPx : 8) + (st.meterGapPx != null ? st.meterGapPx : 3);
+      const cx = view.xOfSeconds(t) - meter - (st.gapPx != null ? st.gapPx : 2) - r;
+      return [cx - r - 0.5, cx + r + 0.5];
+    }
+    const cx = view.xOfSeconds(inst.t0), r = st.radiusPx;
+    return [cx - r - 0.5, cx + r + 0.5];
+  };
 
   // glissMeter (day 35, composer: "give it its own curve follower, just the
   // top half bright orange and then everything else the same as the existing
@@ -419,15 +439,24 @@
   // opts.cursor === false suppresses the cursor line — the per-part solo
   // (day 24) draws the frame in two passes (soloed at full opacity, the
   // rest inside a dimming group) and only the first pass owns the cursor.
+  // [LGMF 2e.2 — RUNNING_LOG §409 … §411, §449] opts.edge = page_rules.edge on a tiled screen page: every animated kind obeys the ONE
+  // edge system — `anim:<kind>` names its class. `clamp` (the meters, the pies, the dots): a device whose ink reaches left of x(t0) is
+  // PUSHED RIGHT by the difference — one push per LANE, so a pie keeps its place beside its meter — and slides back as the cursor
+  // advances (his: "cursor moves across meters, when cursor reaches the x where everything is lined up as standard, meters start moving
+  // with cursor"); `cut` (the GC ball rides its arc): clipped at x(t0) like paper; `atomic` (the cursor): never moved. Without
+  // opts.edge the frame is drawn exactly as before.
   function frameSvg(instances, view, t, style, opts) {
     const [w0, w1] = view.window;
     const parts = [];
+    const EDGE = (opts && opts.edge) || null;
     if ((!opts || opts.cursor !== false) && t >= w0 && t <= w1) {
       const yTop = view.systems[0].yTopPx, yBot = view.systems[view.systems.length - 1].yBotPx;
       const x = view.xOfSeconds(t);
-      parts.push('<line x1="' + x.toFixed(1) + '" y1="' + yTop.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + yBot.toFixed(1) +
-        '" stroke="' + style.cursor.color + '" stroke-width="' + style.cursor.wPx + '" opacity="' + style.cursor.opacity + '"/>');
+      const cur = '<line x1="' + x.toFixed(1) + '" y1="' + yTop.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + yBot.toFixed(1) +
+        '" stroke="' + style.cursor.color + '" stroke-width="' + style.cursor.wPx + '" opacity="' + style.cursor.opacity + '"/>';
+      parts.push(EDGE ? '<g data-anim="cursor" data-edge="' + (EdgeRules.screenClassOf(EDGE, 'cursor', true) || 'none') + '">' + cur + '</g>' : cur);
     }
+    if (EDGE) return parts.concat(edgeFrame(instances, view, t, style, EDGE)).join('\n');
     for (const inst of instances) {
       const fn = REG[inst.kind];
       if (!fn) continue;
@@ -439,6 +468,41 @@
     }
     return parts.join('\n');
   }
+  // the frame under the edge rules: draw every device, measure the clamp devices, push each lane's once, clip the cut ones at x(t0)
+  function edgeFrame(instances, view, t, style, EDGE) {
+    const [w0] = view.window, X0 = view.xOfSeconds(w0);
+    const drawn = [];
+    instances.forEach((inst, i) => {
+      const fn = REG[inst.kind];
+      if (!fn) return;
+      const st = style[inst.kind] || {};
+      try {
+        if (inst.part !== undefined) view.system(inst.part); // part not in view → skip
+        const svg = fn(inst, view, t, st);
+        if (!svg.length) return;
+        const cls = EdgeRules.screenClassOf(EDGE, inst.kind, true);
+        const box = cls === 'clamp' && BOX[inst.kind] ? BOX[inst.kind](inst, view, t, st) : null;
+        drawn.push({ kind: inst.kind, unit: inst.part !== undefined ? 'p' + inst.part : 'i' + i, svg, cls, box });
+      } catch (e) { /* instance outside this view's parts */ }
+    });
+    const lefts = new Map();
+    for (const d of drawn) if (d.cls === 'clamp' && d.box) lefts.set(d.unit, Math.min(lefts.has(d.unit) ? lefts.get(d.unit) : Infinity, d.box[0]));
+    const shifts = EdgeRules.unitShifts(lefts, X0);
+    const out = [];
+    const clipId = 'anim-cut-' + Math.round(w0 * 1000);
+    if (drawn.some(d => d.cls === 'cut')) {
+      const x1 = view.musicX1Px != null ? view.musicX1Px : view.widthPx;
+      out.push('<defs><clipPath id="' + clipId + '"><rect x="' + X0.toFixed(2) + '" y="0" width="' + (x1 - X0).toFixed(2) + '" height="' + view.heightPx + '"/></clipPath></defs>');
+    }
+    for (const d of drawn) {
+      const s = d.cls === 'clamp' ? (shifts.get(d.unit) || 0) : 0;
+      out.push('<g data-anim="' + d.kind + '" data-edge="' + (d.cls || 'none') + '"' + (s ? ' data-shift="' + s.toFixed(2) + '" transform="translate(' + s.toFixed(2) + ',0)"' : '') +
+        (d.cls === 'cut' ? ' clip-path="url(#' + clipId + ')"' : '') + '>' + d.svg.join('\n') + '</g>');
+    }
+    return out;
+  }
+  // the ink box of one device at t (for the gate's frame probe and the tests) — null for a kind with none
+  function boxOf(inst, view, t, st) { return BOX[inst.kind] ? BOX[inst.kind](inst, view, t, st || {}) : null; }
 
-  return { register, kinds, collect, frameSvg, staffPosOfMidi, bendAt, lvlAt, arcPath, _registry: REG };
+  return { register, kinds, collect, frameSvg, boxOf, staffPosOfMidi, bendAt, lvlAt, arcPath, _registry: REG };
 });

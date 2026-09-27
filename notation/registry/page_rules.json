@@ -21,6 +21,8 @@
   "_doc_printPlan": "LGMF PLAN 2c.6 (2026-09-25, NOTATION_STANDARDS §5 — the composer: 'fit in as much as possible on the page before the page turn'): 'objects' = Splice.planObjectPages — the PRINT cut placed by the objects, as late as their rules (edge.<kind>.print) allow: an object that would be split is pushed whole and the cut moves back to its ink start, a pushed GC opening the next page at the top of its descent; the system ends AT the cut; D59's reserves (musicStartBufferSs, edgeReserveMarginSs) do not apply to print. A block of objects longer than a page is cut where it breaks the fewest, each broken object kept whole on the page owning its onset (the page recorded 'forced'). Absent = planPages with D59's reserves.",
   "durationStubSs": 2,
   "_doc_durationStubSs": "LGMF PLAN 2c.6: a duration line (edge print 'stub') may take the print cut only if its head and this much of its line fit before it; else it goes over whole. PROVISIONAL — his words, §340: 'I have to see it to make a decision precisely'; judged on the proof when the notation is in (§347).",
+  "leadInS": 4,
+  "_doc_leadInS": "LGMF PLAN 2e.2 (his word 2026-09-27, RUNNING_LOG §409: '4s for presentation score, but let's revisit for rehearsal and performance versions'): THE LEAD-IN — the piece's 0 sits leadInS seconds into the first page. SCREEN: the tiling opens at the IR's start − leadInS (every page still one span; Splice.screenStartOf), the app's clock runs from −leadInS and the ♪ render starts when it crosses 0; the VIDEO frames from −leadInS and its audio is delayed by the same (ffmpeg -itsoffset); PAPER: page 1 is placed by its objects — its window opens where the first unit's ink begins (Splice.planObjectPages firstByObjects), as a pushed GC places the next page. The WAV is untouched. A realization may override it (realizations.<name>.leadInS); absent = 0 = no lead-in, today's page exactly.",
   "clampGoLine": "flag",
   "_doc_clampGoLine": "LGMF PLAN 2c.6 (his '2a', 2026-09-25): a SCREEN unit clamped right of x(t0) with no go-time indicator of its own — 'flag' (the default) = reported by tools/check_screen_edges.js · 'add' = it takes a go line at x(t), its time exact (PLAN 2c.4 (b), one per note). His decision, deferred to the specific notation (RUNNING_LOG §347).",
   "edge": {
@@ -50,6 +52,16 @@
     "ringbar": { "screen": "cut", "print": "stub" },
     "brick": { "screen": "cut", "print": "stub" },
     "staff": { "screen": "furniture", "print": "furniture" },
-    "clef": { "screen": "furniture", "print": "furniture" }
+    "clef": { "screen": "furniture", "print": "furniture" },
+    "_doc_animated": "LGMF PLAN 2e.2 (RUNNING_LOG §409 … §411, his word 'one system, not a separate one'): THE ANIMATED KINDS (notation/lib/animobj.js, redrawn every frame at the now) as `anim:<kind>`, under the same classes, through the one edge function (notation/lib/edge_rules.js): the cursor 'atomic' (the now itself — never moved) · the meters, the pies, the follower dots 'clamp' — at a page start a device whose proper place is left of x(t0) is PUSHED RIGHT, one push per lane, and slides back as the cursor advances (his 'ok for this one pushed right', §411) · the GC ball 'cut' (it rides its arc, which is cut) · print 'none' for all: paper has no now (§410 (B), the AI's call). A new animated kind adds its line here or tools/check_rules.js fails; tools/check_screen_edges.js probes each page's first and last frame.",
+    "anim:cursor": { "screen": "atomic", "print": "none" },
+    "anim:gc": { "screen": "cut", "print": "none" },
+    "anim:curveFollower": { "screen": "clamp", "print": "none" },
+    "anim:envFollower": { "screen": "clamp", "print": "none" },
+    "anim:curveMeter": { "screen": "clamp", "print": "none" },
+    "anim:glissMeter": { "screen": "clamp", "print": "none" },
+    "anim:crescMeter": { "screen": "clamp", "print": "none" },
+    "anim:lineWedge": { "screen": "clamp", "print": "none" },
+    "anim:motivePie": { "screen": "clamp", "print": "none" }
   }
 }

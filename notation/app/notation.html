@@ -143,6 +143,7 @@
 <script src="/notation/lib/layout.js"></script>
 <script src="/notation/lib/beam_choice.js"></script>
 <script src="/notation/lib/gc.js"></script>
+<script src="/notation/lib/edge_rules.js"></script><!-- [LGMF 2e.2] the one edge function: the page's clamp and the animated devices' -->
 <script src="/notation/lib/render.js"></script>
 <script src="/notation/lib/splice.js"></script>
 <script src="/notation/lib/graphic.js"></script>
@@ -732,9 +733,16 @@
         : regSeconds;
       // [2c.2] THE SCREEN PLAN: page_rules.screenPlan 'tile' = the constant sweep (NotationSplice.tilePages); absent = planPages
       const TILE = !!(state.pageRules && state.pageRules.screenPlan === 'tile');
-      if (!state.vPages || state.vPagesW !== pageSeconds || state.vPagesTile !== TILE) {
-        state.vPages = (TILE ? NotationSplice.tilePages : NotationSplice.planPages)(state.ir, state.pageRules, pageSeconds);
+      // [LGMF 2e.2, §409] THE LEAD-IN (page_rules.leadInS): the tiled screen opens that far before the IR's start — the clock runs from
+      // there and the ♪ render starts when it crosses 0 (the transport's pre-roll); absent = the IR's start, as before
+      const SRC0 = TILE ? NotationSplice.screenStartOf(state.ir, state.pageRules, rz) : state.ir.source.window[0];
+      state.screenStart = SRC0;
+      // [2e.2, §411] the animated devices under the same edge rules, when the table names them (`anim:<kind>`)
+      state.animEdge = TILE && Object.keys(state.pageRules.edge || {}).some(k => k.startsWith('anim:')) ? state.pageRules.edge : null;
+      if (!state.vPages || state.vPagesW !== pageSeconds || state.vPagesTile !== TILE || state.vPagesS0 !== SRC0) {
+        state.vPages = TILE ? NotationSplice.tilePages(state.ir, state.pageRules, pageSeconds, SRC0) : NotationSplice.planPages(state.ir, state.pageRules, pageSeconds);
         state.vPagesTile = TILE;
+        state.vPagesS0 = SRC0;
         state.vPagesW = pageSeconds;
         state.pageIdx = Math.min(state.pageIdx, state.vPages.length - 1);
       }
@@ -789,7 +797,7 @@
       const EDGES = NotationCoords.edgesOf(C);
       const pxPerSec = NotationCoords.musicPx(W, EDGES) / pageSeconds;
       const bufSec = bufSs > 0 ? (bufSs * ssPerSystem > 0 ? bufSs * (lanePx / ssPerSystem) / pxPerSec : 0) : 0;
-      const pageT0 = Math.max(state.ir.source.window[0], p.t0 - bufSec);
+      const pageT0 = Math.max(SRC0, p.t0 - bufSec);
       const baseCfg = Object.assign({
         widthPx: W, heightPx: H, window: [pageT0, pageT0 + pageSeconds],
         systems, ssPerSystem,
@@ -807,7 +815,7 @@
         reshow: p.reshow, ownsEnd, engraving: (C.engraving && C.engraving.render) || {},
         hideBricks: !$('bricks').checked, ensemble: state.ensemble,
         // [2c.2] a tiled screen page renders by the edge registry (page_rules.edge); `first` = it opens at the IR's start
-        screenEdges: TILE ? { edge: state.pageRules.edge || {}, first: view.window[0] <= state.ir.source.window[0] + 1e-9, clampGoLine: state.pageRules.clampGoLine } : undefined,
+        screenEdges: TILE ? { edge: state.pageRules.edge || {}, first: view.window[0] <= SRC0 + 1e-9, clampGoLine: state.pageRules.clampGoLine } : undefined,
       });
       // system TERMINAL barline at the right edge — the visible statement
       // that the system ENDS here by design (composer, G1: staff lines
@@ -1157,9 +1165,10 @@
       // solo up: soloed objects at full ink (and they own the cursor), the
       // rest inside one dimming group - the page's 0.3 for its animation
       const on = state.animOn || state.animInstances || [];
-      let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle);
+      const AE = vv === 'video' || vv === 'zoom' ? state.animEdge : null;   // [2e.2] the edge rules, per frame
+      let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle, AE ? { edge: AE } : undefined);
       if (state.animOff && state.animOff.length)
-        svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false }) + '</g>';
+        svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false, edge: AE }) + '</g>';
       ov.innerHTML = svg;
     }
     return { turned: false, t, window: [w0, w1] };
@@ -1284,15 +1293,16 @@
   // [PLAN 2i.1] GO-TO-TIME — the page (video) or the zoom viewport to time t, the playhead on it, playing or paused (as a click
   // on the score seeks). Clamped to the material. Accepts seconds or m:ss.
   function parseTime(s) {
-    const m = String(s).trim().match(/^(?:(\d+):)?(\d+(?:\.\d*)?|\.\d+)$/);
+    // [2e.2] a leading minus reaches the lead-in (−4 = the first page's opening moment)
+    const m = String(s).trim().match(/^(-)?(?:(\d+):)?(\d+(?:\.\d*)?|\.\d+)$/);
     if (!m) return null;
-    const t = (m[1] ? +m[1] * 60 : 0) + +m[2];
-    return (m[1] && +m[2] >= 60) ? null : t;
+    const t = (m[2] ? +m[2] * 60 : 0) + +m[3];
+    return (m[2] && +m[3] >= 60) ? null : (m[1] ? -t : t);
   }
   function goToTime(tIn) {
     const vv = $('view').value;
     if ((vv !== 'video' && vv !== 'zoom') || !state.ir) return;
-    const [s0, s1] = state.ir.source.window;
+    const s1 = state.ir.source.window[1], s0 = state.screenStart != null ? state.screenStart : state.ir.source.window[0];   // [2e.2] from the lead-in
     const t = Math.min(Math.max(s0, tIn), s1);
     if (vv === 'video' && state.vPages && state.vPages.length) {
       const i = state.vPages.findIndex(pg => t >= pg.t0 - 1e-9 && t < pg.t1);
@@ -1312,11 +1322,11 @@
     goToTime(t);
     $('goto').blur();   // the keys are free again (SPACE plays from here)
   });
-  $('home').addEventListener('click', () => goToTime(0));
+  $('home').addEventListener('click', () => goToTime(state.screenStart != null ? state.screenStart : 0));   // [2e.2] the first page's opening moment (the lead-in)
   $('prev').addEventListener('click', () => {
     const vv = $('view').value;
     if (vv === 'video') state.pageIdx = Math.max(0, state.pageIdx - 1);
-    else if (vv === 'zoom') state.zoomT0 = Math.max(state.ir.source.window[0], (state.zoomT0 || 0) - (state.zoomSpan || 6));
+    else if (vv === 'zoom') state.zoomT0 = Math.max(state.screenStart != null ? state.screenStart : state.ir.source.window[0], (state.zoomT0 || 0) - (state.zoomSpan || 6));
     else if ($('mode').value === 'pages') { state.pageIdx = Math.max(0, state.pageIdx - 1); }
     else $('t0').value = Math.max(0, (parseFloat($('t0').value) || 0) - (parseFloat($('w').value) || 16));
     render();

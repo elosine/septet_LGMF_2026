@@ -112,10 +112,16 @@ const CUT_RZ = (C.realizations || {})['video-cut'] || null;
 const Z = zoomZ || (CUT_RZ && CUT_RZ.zoomZ) || ((C.realizations || {})['zoom-working'] || {}).zoomZ || 2;
 // [2c.2] THE SCREEN PLAN: page_rules.screenPlan 'tile' = the constant sweep (Splice.tilePages) — absent = planPages, the overlap
 const TILE = pageRules.screenPlan === 'tile';
-const pages = TILE ? Splice.tilePages(ir, pageRules, pageSeconds) : Splice.planPages(ir, pageRules, pageSeconds);
+// [LGMF 2e.2, §409] THE LEAD-IN (page_rules.leadInS — his 4 s for the presentation score): the tiled screen opens LEAD seconds before
+// the IR's start, every page still one span; the film starts there and its audio is delayed by the same. Absent = 0, as before.
+const LEAD = TILE ? Splice.leadInOf(pageRules, (C.realizations || {})['video-jury']) : 0;
+const SRC0 = ir.source.window[0] - LEAD;
+const pages = TILE ? Splice.tilePages(ir, pageRules, pageSeconds, SRC0) : Splice.planPages(ir, pageRules, pageSeconds);
 const srcEnd = ir.source.window[1];
-// the edge rules a tiled screen page renders by (render.js opts.screenEdges); `first` = the window opens at the IR's start
-const screenEdgesAt = t0 => TILE ? { edge: pageRules.edge || {}, first: t0 <= ir.source.window[0] + 1e-9, clampGoLine: pageRules.clampGoLine } : undefined;
+// the edge rules a tiled screen page renders by (render.js opts.screenEdges); `first` = the window opens at the screen's start
+const screenEdgesAt = t0 => TILE ? { edge: pageRules.edge || {}, first: t0 <= SRC0 + 1e-9, clampGoLine: pageRules.clampGoLine } : undefined;
+// [2e.2, §411] the animated devices under the same edge rules — only when the table names them (`anim:<kind>`); absent = the frame as before
+const ANIM_EDGE = TILE && Object.keys(pageRules.edge || {}).some(k => k.startsWith('anim:')) ? pageRules.edge : null;
 
 // [§404 on the page] THE BUFFER AFTER THE CLEF: each page's window opens page_rules.musicStartBufferSs staff spaces early (never before
 // the IR's start), so the page — and its turn, at window[1] — runs that much earlier, as renderContainerView draws it
@@ -130,7 +136,7 @@ if (overhangSs > 0 && EDGES.marginRightPx < overhangSs * (lanePx / ssPerSystem))
   console.error('right margin ' + EDGES.marginRightPx + ' px cannot hold the ' + overhangSs + ' ss overhang (' +
     (overhangSs * lanePx / ssPerSystem).toFixed(1) + ' px at this staff)'); process.exit(2);
 }
-const pageT0Of = i => Math.max(ir.source.window[0], pages[i].t0 - bufSec);
+const pageT0Of = i => Math.max(SRC0, pages[i].t0 - bufSec);
 function baseCfgFor(pageIdx) {
   const t0 = pageT0Of(pageIdx);
   return Object.assign({
@@ -168,7 +174,7 @@ const pageContaining = t => {
 // they come from the page CONTAINING each window's start.
 function buildSegments(mode) {
   const out = [];
-  let tCur = 0;
+  let tCur = LEAD ? SRC0 : 0;   // [2e.2] the film opens at the lead-in
   if (mode === 'zoom') {
     const probe = Coords.zoomCfg(baseCfgFor(0), Z, 0);
     const span = probe.window[1] - probe.window[0];
@@ -236,7 +242,7 @@ const animInstances = AnimObj.collect(ir, score, C.animated, {
   drawnOf: e => Layout.drawnLevelSamples(e, _dev(e) || {}),
 }).filter(i => i.part === undefined || FRAME_PARTS.includes(i.part));   // day 40: no instance may reference an undrawn lane
 function overlaySvg(view, t) {
-  const inner = AnimObj.frameSvg(animInstances, view, t, C.animated);
+  const inner = AnimObj.frameSvg(animInstances, view, t, C.animated, ANIM_EDGE ? { edge: ANIM_EDGE } : undefined);
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + view.widthPx + '" height="' + view.heightPx +
     '" viewBox="0 0 ' + view.widthPx + ' ' + view.heightPx + '">' + inner + '</svg>';
 }
@@ -345,7 +351,7 @@ if (screenJson) {
   const kindsInModel = [...new Set(model.systems.flatMap(s => (s.items || []).map(it => it.k)))].sort();
   const svgs = [];
   const out = {
-    ir: irId, view: viewMode, tile: TILE, pageSeconds, srcStart: ir.source.window[0], srcEnd,
+    ir: irId, view: viewMode, tile: TILE, pageSeconds, srcStart: SRC0, srcEnd,
     edges: EDGES, edge: pageRules.edge || null,
     kinds: { point: Render.POINT_KINDS, long: Render.LONG_KINDS, furniture: Render.FURNITURE_KINDS, other: ['tuplet'] }, kindsInModel,
     pages: segments.map((seg, i) => {
@@ -357,10 +363,18 @@ if (screenJson) {
         pps: v.pxPerSecond, widthPx: v.widthPx, heightPx: v.heightPx, first: !!(seg.screenEdges && seg.screenEdges.first), ownsEnd: seg.ownsEnd, clamps: rep };
     }),
   };
+  // [2e.2] THE FRAME PROBE (§410: the animated devices meet the edge on EVERY page, per frame): each page's overlay at its first and
+  // last moment, t0 + ε and tω − ε, for check_screen_edges to measure — only when the table names the animated kinds
+  const EPSF = 1 / 60;
+  const frames = !ANIM_EDGE ? [] : segments.flatMap((seg, i) => [seg.t0 + EPSF, seg.t1 - EPSF].filter(t => t > seg.t0 && t < seg.t1).map(t =>
+    ({ n: i + 1, t, x0: seg.view.musicX0Px, svg: overlaySvg(seg.view, t) })));
+  if (LEAD) out.leadIn = LEAD;   // [2e.2] the dump names the lead-in and the frame probe only when they exist (absent = the dump as before)
+  if (ANIM_EDGE) out.frames = frames.map(f => ({ n: f.n, t: f.t, x0: f.x0 }));
   fs.writeFileSync(screenJson, JSON.stringify(out, null, 1));
   if (htmlOut) fs.writeFileSync(htmlOut, '<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0}.page{display:block}' +
     '@font-face{font-family:"Crimson Pro Light";src:url("' + ('file:///' + FONTS[0].split(path.sep).join('/')) + '")}</style></head><body>\n' +
-    svgs.map((s, i) => '<div class="page" data-n="' + (i + 1) + '">' + s + '</div>').join('\n') + '\n</body></html>');
+    svgs.map((s, i) => '<div class="page" data-n="' + (i + 1) + '">' + s + '</div>').join('\n') +
+    frames.map(f => '\n<div class="frame" data-n="' + f.n + '" data-t="' + f.t + '" data-x0="' + f.x0 + '">' + f.svg + '</div>').join('') + '\n</body></html>');
   console.log('screen plan -> ' + screenJson + '  (' + out.pages.length + ' ' + viewMode + ' pages' + (TILE ? ', tiled' : ', planned') + ')' + (htmlOut ? '  + ' + htmlOut : ''));
   process.exit(0);
 }
@@ -423,7 +437,7 @@ if (cutPath) {
   }
 }
 
-const t0 = tStart != null ? tStart : 0;
+const t0 = tStart != null ? tStart : (LEAD ? SRC0 : 0);   // [2e.2] a full render opens at the lead-in
 const t1 = tEnd != null ? tEnd : pieceEnd;
 const nFrames = Math.round((t1 - t0) * fps);
 const outH = cutMap ? H : (viewMode === 'zoom' ? H * Z : H);
@@ -536,7 +550,8 @@ function cutFrame(k, t) {
 }
 const ff = ['-y',
   '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', W + 'x' + outH, '-r', String(fps), '-i', 'pipe:0'];
-if (audio) ff.push('-ss', String(t0), '-i', audio, '-c:a', 'aac', '-b:a', '256k', '-shortest');
+// [2e.2] a film that opens before the piece's 0 (the lead-in) DELAYS its audio by the difference; a partial render from t0 >= 0 seeks it
+if (audio) ff.push(...(t0 < 0 ? ['-itsoffset', String(-t0)] : ['-ss', String(t0)]), '-i', audio, '-c:a', 'aac', '-b:a', '256k', '-shortest');
 ff.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', outFile);
 
 console.log('export_video: ' + irId + ' · ' + (cutMap ? 'CUT (' + cutMap.length + ' segments, ' + segsOf('zoom').length + ' zoom segs, ' + (fadeFrames > 0 ? blends.length + ' x ' + fadeFrames + '-frame ' + fadeMode : 'hard cuts') + ')' : viewMode + (viewMode === 'zoom' ? ' x' + Z : '')) +
