@@ -67,3 +67,9 @@ Then: the notation page (CTRL+SHIFT+R) → the MAIN file → **♪ render** → 
   only): `demo-bloom-bclvc.wav` +13.3 dB · `demo-bloom-vn1va.wav` +13.4 · `demo-bloom-flvn2.wav` +16.2. Held dyads `demo-bloom-heldmax` (six takes a
   pair, 0 → 660 s, 69 s). **Found:** every Xsample note-on lands ±1–2 c from its bend (the SI2 flute is exact) — one strike is a draw; the takes
   are picked by `tools/pick_bloom_takes.js`. `piece-septet.wav` sha unchanged throughout.
+- **2026-09-26 — THIS PIECE'S FIRST RENDER: Draft 01** (RUNNING_LOG §405 · §406; `scores/piece-Recombination-Draft01-done.json` as saved
+  00:28 UTC, its notes = `e9f340a`). The tool re-pointed at this rack (`export_midi.js` `RACK_PORT`: 29 tracks → 11 `LG` ports) and the
+  capture's frame 0 stepped (a note at 0.000 s was one frame late). Capture: 1076/1076 notes, 436 bends in place, 0 hanging. Reaper: 29 items
+  by name, counts equal; 276 s. Render: 886.664 s · float true peak **−11.0 dBTP** · **−28.8 LUFS** · LRA 20.1 · gain **0 dB** · first sound
+  1.700 s (the EH opens from niente — CC7 0 rising; the sync is right). `notation/audio/piece-Recombination-Draft01-done.wav`. Not yet linked:
+  the MAIN IR's `source.score` is still `piece-LGMF-Sec01-Sec02-sec03a`. His ear: pending.

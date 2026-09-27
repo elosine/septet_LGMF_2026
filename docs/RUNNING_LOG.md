@@ -14422,3 +14422,57 @@ note's written dynamic down the ladder to ppp over the window, niente only in th
 ## §404. His word on §403 — *"leave"* (2026-09-26, Fable, session 16)
 
 The last chord's fade stays as it is: linear in the fader, 15 s to niente, the shapes undrawn. None of (a) · (b) · (c) built.
+
+## §405. THE AUDIO FOR THE PRESENTATION SCORE — opened under the planning method; phase 1 closed (2026-09-26, Opus, session 17)
+
+**What prompted it** — *"can we make the audio that will get attached to the presentation score"*; then, to the AI's read-back,
+*"yes that's right, draft 01 as saved"*.
+
+**What the record says (read, nothing run):** the route is piece #5's, carried at the port — `docs/RENDER.md` §1: `capture_composer_midi.js`
+(composer.html headless under a virtual clock, its MIDI sends recorded; already used here for 1b.5) → `export_midi.js` (checked against
+the score, laid out as the rack's tracks) → `render_reaper.js` (a COPY of the rack rendered through the bridge, 32-bit float, one plain gain
+to −1 dBTP, no limiter). `capture` and `render_reaper` already default to `piece-lgmf` · `:5400` · `lgmf_rack.rpp`. **The one gap:**
+`export_midi.js`'s `RACK_PORT` (track name → port) is still piece #5's (`Flute SI2` · `Bass Clarinet XS` …). **The link:** the notation
+page finds its WAV by the IR's `source.score` (RENDER §2 rule 11); `piece-lgmf.ir.json` was extracted from
+`piece-LGMF-Sec01-Sec02-sec03a`, not Draft 01. **A risk named:** §221's track 10 `Percussion` takes `LGPerc` on ALL channels — rule 4
+(each track gets what its live input gets) would sound it under every percussion note.
+
+**The understanding, agreed:** one WAV of `scores/piece-Recombination-Draft01-done.json` AS SAVED, through his rack, as ▶ plays it — the
+video score's soundtrack and the file sent with the print; rendered again whenever a new draft is saved. It belongs to PLAN `2b` (the
+presentation score), whose list names `render_reaper`.
+
+## §406. THE AUDIO OF DRAFT 01 — captured, checked, rendered (2026-09-26, Opus, session 17)
+
+**What prompted it** — to §405's top line (six steps), *"no need for steps you can go ahead with the recording"*.
+
+**What was done, in order:**
+1. **The export re-pointed at this rack** (`tools/export_midi.js`): `RACK_PORT` was piece #5's; now the rack's 29 MIDI tracks → the
+   ELEVEN ports (`LGVibes` is the eleventh — CLAUDE.md lists ten): EH · Bsn · Bsn b · Hn · Hn high · Hn b · Hn b high · Tpt · Tpt b ·
+   `Percussion` · `Template` · fifteen `… ARO` tracks (a rule, `/ ARO$/` → `LGPerc`, so a new percussion track needs no line) · Vc ·
+   Db · Vib. The default rack file `reaper/LGMF_rack.rpp`. Read from the rack: **`Percussion` and `Template` are MUTED** (he had already
+   silenced §221's triangle) — fed like their live input, silent in the render · `REC` takes 27 receives and has `MAINSEND 0` (no
+   doubling — piece #4's +6 dB trap is not here) · the rack holds **no items**, so `REF`'s noise and tone (600 s · 635 s, §77) are
+   gone and nothing plays under the piece.
+2. **The first capture — REFUSED on one note:** `wc-3127@0.000` missing · `LGEngHorn ch2 80@0.017` unexplained · the same note "on a
+   bent channel" (its own bend, missed by the 10 ms match). **Cause:** the capture stepped frames 1, 2, … — never frame 0 — so a note
+   written at exactly 0.000 s sounded one frame (16.7 ms) late. Draft 01's English horn opens there. **Fix:** `capture_composer_midi.js`
+   steps frame 0 too (`let f = -1`).
+3. **The second capture + export — PASSED:** 1076 / 1076 notes at their onsets (±3 ms) · 436 bent notes, every bend in place at the
+   note-on, none on a bent channel · 0 eaten · 0 hanging · read-back ok · 883.67 s · 4 m 08 s wall. Out: `midi/piece-Recombination-
+   Draft01-done.mid` (29 tracks + tempo) · the per-track files · `reaper/place_piece-Recombination-Draft01-done_midi.lua`.
+4. **The render** (`tools/render_reaper.js --score piece-Recombination-Draft01-done`, unchanged): the rack (saved 00:26 UTC, clean)
+   copied to `reaper/piece-Recombination-Draft01-done_render.rpp`, opened in a second tab (31 tracks), 29 items at 0:00 by name, 60 BPM,
+   WAV 32-bit float · 48 kHz · 0 → 886.664 s; **276 s** offline; the tab closed, the rack current again.
+5. **Measured off the file:** 886.664 s · **true peak −11.0 dBTP** · sample peak −11.0 dBFS · **−28.8 LUFS integrated · LRA 20.1 LU**
+   · first sound at 1.700 s. Gain **0 dB** (the tool never raises the piece's render) → `notation/audio/piece-Recombination-Draft01-done.wav`,
+   24-bit, 255 MB (gitignored; the float in `raw/`).
+
+**Read, not assumed:** the first sound at 1.70 s against the first onset at 0.000 is the MUSIC — the EH is struck at 0 with CC7 = 0 and
+rises 3 units every 0.3 s (the horn from 0.9 s, the vibraphone from 1.9 s, both from 0): under −80 dB until ≈ 1.7 s. The sync is right.
+**The score file as captured:** `git status` shows it modified since `e9f340a` — `metadata` and `viewport` only (his tab's save at 00:28
+UTC); 1086 objects, none changed. The capture read that file and no save came after.
+
+**Against the record:** #5's render was −22.7 LUFS / +2.0 dBTP float (gain −3.0); piece #4's LRA 19.8. Draft 01 is 6 dB quieter in
+loudness than #5 and 12 dB under the −1 dBTP ceiling — the rack is calibrated absolute (1b: tutti fff −19.1 LUFS), and this piece lives
+far below fff. **Put to him:** the level of the file sent with the presentation score — as rendered (the calibrated level) or ONE plain
+gain of +10 dB to −1 dBTP (the same range, louder; the tool's `--peak` rule forbids UP for the piece today).

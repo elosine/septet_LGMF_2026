@@ -100,7 +100,7 @@ const RUN = (score, fps, first) => `(async () => {
   window.__midi = [];                               // nothing before the run counts
   C.startPlay();                                    // regenerates trills and beatings; playStartTime = the virtual now
   const P0 = C.playStartTime, OFF = C.playStartOffset / pps, step = 1000 / ${fps};
-  let f = 0;
+  let f = -1;                                       // [2026-09-26, RUNNING_LOG §406] frame 0 is stepped too: a note written at 0.000 s sounds at 0, not one frame late
   while (true) {
     f++;
     window.__virt = P0 + f * step;

@@ -28,14 +28,21 @@ const { writeMidi, PPQ } = require('./midi_out.js');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const score = arg('score', 'piece-lgmf');
 const capFile = arg('capture', null);
-const rackFile = arg('rack', 'reaper/lgmf_rack.rpp');
+const rackFile = arg('rack', 'reaper/LGMF_rack.rpp');
 
 // the rack's track NAME → the loopMIDI port it plays (the names are his; a new or renamed track must be added here)
+// [2026-09-26, session 17, RUNNING_LOG §405 · §406] re-pointed at THIS rack (reaper/LGMF_rack.rpp) — piece #5's table replaced. The
+// two `high` horn tracks take their port whole and filter it themselves (a note-filter JS); `Percussion` · `Template` are his MUTED
+// all-channel ARO tracks (§221's triangle) — fed like their live input, silent in the render; every `… ARO` track is one LGPerc channel.
 const RACK_PORT = {
-  'Flute SI2': 'Flute', 'Fluteb SI2': 'Fluteb', 'Bass Clarinet XS': 'BassCl',
-  'Piano Kontakt': 'Piano', 'PianoPlucked Kontakt': 'Piano', 'PianoMute PP2': 'Piano', 'PianoHarm PP2': 'Piano',
-  'Vn1 XS': 'Vn1', 'Vn2 XS': 'Vn2', 'Va XS': 'Va', 'Vc XS': 'Vc',
+  'English Horn XS': 'LGEngHorn',
+  'Bassoon SI2': 'LGBassoon', 'Bassoon SI2 b': 'LGBassoonb',
+  'Horn SI2': 'LGHorn', 'Horn SI2 high': 'LGHorn', 'Horn SI2 b': 'LGHornb', 'Horn SI2 b high': 'LGHornb',
+  'Trumpet SI2': 'LGTrumpet', 'Trumpet SI2 b': 'LGTrumpetb',
+  'Percussion': 'LGPerc', 'Template': 'LGPerc',
+  'Cello XS': 'LGCello', 'Bass XS': 'LGBass', 'Vibraphone XS': 'LGVibes',
 };
+const portOf = name => RACK_PORT[name] || (/ ARO$/.test(name) ? 'LGPerc' : null);
 
 function readRack(file) {
   const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split(/\r?\n/);
@@ -164,19 +171,19 @@ function writeType0(abs, name, events) {
   const devPort = new Map();
   for (const t of layout) {
     if (!t.midi) continue;
-    const p = RACK_PORT[t.name];
+    const p = portOf(t.name);
     if (!p) { fails.push('rack track "' + t.name + '" has a MIDI input but no port in RACK_PORT'); continue; }
     if (devPort.has(t.midi.device) && devPort.get(t.midi.device) !== p) fails.push('rack: MIDI device ' + t.midi.device + ' feeds "' + t.name + '" (' + p + ') and a ' + devPort.get(t.midi.device) + ' track');
     devPort.set(t.midi.device, p);
   }
   const byPort = new Map();
   for (const e of events) { const k = lc(e[0]); (byPort.get(k) || byPort.set(k, []).get(k)).push(e); }
-  const fed = new Set(layout.filter(t => t.midi && RACK_PORT[t.name]).map(t => lc(RACK_PORT[t.name])));
+  const fed = new Set(layout.filter(t => t.midi && portOf(t.name)).map(t => lc(portOf(t.name))));
   for (const p of byPort.keys()) if (!fed.has(p)) fails.push('port ' + p + ' carries ' + byPort.get(p).length + ' messages but no rack track plays it');
 
   const kind = b => { const s = b[0] & 0xF0; return s === 0x80 || (s === 0x90 && b[2] === 0) ? 'off' : s === 0x90 ? 'on' : s === 0xE0 ? 'bend' : 'cc'; };
   const tracks = layout.map((t, i) => {
-    const port = t.midi ? RACK_PORT[t.name] : null;
+    const port = t.midi ? portOf(t.name) : null;
     let ev = port ? (byPort.get(lc(port)) || []) : [];
     if (port && t.midi.channel > 0) ev = ev.filter(e => (e[2][0] & 15) === t.midi.channel - 1);
     const out = ev.map(e => ({ t: e[1], kind: kind(e[2]), bytes: e[2] }));
