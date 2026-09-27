@@ -42,11 +42,12 @@
   function compile(container, rules) {
     if (!rules) return container;
     const missing = [];
-    const walk = (v, p) => {
+    // a row's value may itself point (a row's colour → the palette, 2e.3): followed up to four hops, a loop is a missing row
+    const walk = (v, p, hops) => {
       if (typeof v === 'string' && REF.test(v)) {
         const r = resolve(rules, v);
-        if (r === undefined) { missing.push(p.join('.') + ' → ' + v); return v; }
-        return clone(r);
+        if (r === undefined || (hops || 0) > 4) { missing.push(p.join('.') + ' → ' + v); return v; }
+        return walk(clone(r), p, (hops || 0) + 1);
       }
       if (Array.isArray(v)) return v.map((x, i) => walk(x, p.concat(i)));
       if (v && typeof v === 'object') { const o = {}; for (const k of Object.keys(v)) o[k] = walk(v[k], p.concat(k)); return o; }

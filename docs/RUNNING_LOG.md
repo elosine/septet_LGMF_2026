@@ -15789,3 +15789,80 @@ probe at t0 + 1/60 and tω − 1/60 s · paper's page 1 placed by its objects on
 its old first page).
 
 **Next: 2e.3 — the prototype's nine fixes, as table edits, each a listed diff.**
+
+## §450. `2e.3` THE PROTOTYPE'S NINE FIXES AS TABLE EDITS — each a listed diff; the block now reads as decided; two findings for the list (DN-4 · DN-5) (2026-09-27, Opus, session 17)
+
+**The edits, each a ROW (rules.json) that the layout reads — and what each one moved** (measured by a layout-diff of every page against
+HEAD `c499a0d`: 20 pages, 3 733 item changes, every one traced below; the tool matches an item by part · kind · glyph · time · role):
+
+1. **Anchor B = ONE number, 0.45, the column right-justified** (§417 F1 · §418 F2): `anchors.B.gapSs` 0.25 → **0.45** (the sequence
+   block's own 0.45 folded in — one number), `columnAlign` → `right`; the block's cents, partial, word and legend now END at the spacer.
+   **What it moves — every anchor-B unit, −0.2 ss:** on `piece-lgmf` every sustained head (senza_vel 398 · ord 317 · the vibraphones'
+   bowed 262 · the percussion's 98 through the family look) with its ledgers (603), accidentals (343), ottavas (123) and dynamics (117);
+   on the TUBA goldens the surges and the ord units (db1: ord 80 + surge 23 heads, their ppp → fff pairs and ottavas; trance-a4 54;
+   db1-all-x01 18; piece-open-01 · morph-window-01) — **a #4 pixel moved by a shared row, listed for his word** (the plan's rule). Not
+   moved, verified head by head: fortepiano · cuivré (their own `anchors.C.houseGapSs` 0.25 — DN-2 unchanged) · staccato · every strike.
+   The proto: the new-pitch head −0.2 ss, the column's two rows now end at x(go) − 0.45.
+2. **The pitch picture** (§432 · §433 · §435 · §436): `layout.js justAccOf` (the bands 20 / 37 c, the arrows) is replaced by
+   **`justPicture`**, reading `rules.json pitchPicture` (`edgeCents` 25, the four signs): the nearest quarter-tone; the spelling from the
+   tuner's origin (a sharp-side deviation on a natural or a sharp, a flat-side one on a natural or a flat — `respell` moves the letter,
+   and so the head's line, when the sign needs it). Checked on 11 cases (the partials of C1's series, D♯ ±41, E♭ ±41, the edge at 25 c).
+   **Moved nothing on these pages** (the proto's G♯ +41 was ¾♯ under both rules; no arrow was drawn anywhere).
+3. **The numbers black, 0.75, upright** (§427 A5 · §428): every row's colour is now a POINTER into the palette
+   (`"colour": "@colours.ink.value"`, compiled in two hops); `objects.number` ink · upright. The proto's `+41` · `26 (C1)` · `+2` ·
+   `12 (C2)`: grey → **#111**. **And A5 closed at its root:** every text the layout pushes names its colour from its row — the tempo
+   labels (the trance pages, ≈ 60) and the authored dynamic / instruction texts (trance-bar-01, morph-window-01) grey → black; the
+   renderer's fallback is ink, never the furniture grey; gate (3)'s A5 whitelist is gone. Kept grey BY DESIGN: #4's read-through tag on
+   an un-notated event (`readThrough`, render.js's own header: "mixed fidelity visible at a glance").
+4. **Every word on a note: `instruction` 0.75 italic, black** (§427 · §428): `techniqueText` (0.7, #000) retired — cuivré (db1 20,
+   trance-a4 6, db1-all-x01 3) 0.7 upright → 0.75 italic #111; jeté · (slap) · T. R. · "sempre secco" · the red range alert the same
+   size (none on these pages); **"senza vib." a LIVE text** (the 1.0998 bake no longer drawn — it stays in glyphs.json) and **"pizz."
+   the same** (a live text centred where the bake was; no page here draws it); the read-through tags 0.7 → 0.75, still grey.
+5. **The partial `26 (C1)`** (§438 · §440 · §441): `objects.number.partialForm` `{n} ({f})` — the layout formats it from the IR's own
+   `partial` · `fundamental` (so an IR extracted before still shows the new form), the extractor writes it the same; the fundamental is
+   the take's root at SOUNDING pitch in every realization — **gate (8)**: the cents and the partial read the same in C and in the
+   transposed parts (EH · Hn · DB) — 4 texts on the proto.
+6. **No reminder head** (§443): a same-pitch breath is its go line ALONE; `byEnv.sequence.reminder` and its paren rows retired. The
+   proto at 13.71 s: the head, its ¾♯ and the two parentheses gone (the DOM: a go line at 13.712 and no ink within 30 px left of it).
+7. **The accidental clears the ledger** (§419 F6): **verified first** — on the working page (the EH in F, D♯6 on two ledgers) the ¾♯'s
+   right edge overlapped its ledger's left end by **0.027 ss**. `accRightOf` (#2's H.4c.3, which the nh-unit has had since #4 day 22)
+   now serves the 0.25 sites too — the sequence block and the D45 header — and the placement is anchor-aware (a noteY-anchored ¾♭ was
+   placed as if centred): the ¾♯ now ends **exactly 0.25 ss** left of the ledger (the check). The accidental's two gaps renamed for what
+   they serve: `beside` 0.25 · `besideUnit` 0.10 (DN-1 re-worded). Moves nothing on the pages in C (no ledger under a block there).
+8. **The vibrato words** (§443 · §445, LG-115): `rules.json techniqueChange` — per part, in time order, a note whose technique differs
+   from the part's last `senza_vel` / `ord` carries its word; the part's first `senza_vel` carries "senza vib.". `notate_section` computes
+   them once: a word that opens a sequence block goes into the block's column, every other one becomes an `instruction` on the part at
+   its time. On Draft 01: "senza vib." at the EH 0.0 · the cello 4.7 · the bass 3.5 s; the SI2 players' `ord` (their library's plain
+   sustain, never after a senza note) writes nothing. **Lands on `piece-lgmf` at the re-extraction (2e.6).**
+9. **The column order, the ottava inside the text** (§420 · §421): `column.order` → articulation · dynamic · ottava · instruction
+   (LilyPond's order, in the layout's slot names). **No unit on these pages carries both an ottava and a word — no diff.**
+
+**THE REQUIRED CHECKS** (the app on the throwaway 5401, the proto's video view, page 1 at −4 … 8 s; ss = 7.9 px):
+- (1) the unit's right ink **0.449 ss** before x(go); the three texts' anchors at exactly x(go) − 0.45 (697.80 px, their last glyph's
+  advance ends there — `getEndPositionOfChar`); their bounding boxes end 0.38 · 0.40 · 0.40 ss before it — the box adds the digits'
+  own ink overhang (≈ 0.5 px on `+41`, Crimson Pro Light loaded — a font metric, not a placement).
+- (3) `+41` · `26 (C1)`: fill **#111**, font-size **7.7 = 0.75 × 1.3 × 7.9**, upright. (4) "senza vib.": a live `<text>`, **italic**, 7.7.
+- (6) at 13.712 s: a go line, no head. (7) in the layout model on the working page (the video view is in C, where G♯5 has no ledger).
+- `sequence_notation_check` rewritten to the rules — **62 / 62**. `check_rules` — **17 checks GREEN** (gate 8 added; gate 0 now names
+  the technique table's family devices too). `palette_check` **198 GREEN**.
+- The film probes for his eye (the exporter's own frames, cropped ×4): score 0 s (film 4 s) — the block: `senza vib.` · `26 (C1)` ·
+  `+41` · ¾♯ + head, all ending at the spacer, the `pp → mp` below; score 28.71 s (film 32.7 s) — G5, `+2` over `12 (C2)`, black.
+- **THE SHIELD:** the eight engine batteries GREEN on the new tables — `test_render`'s snapshot drift was read first and is exactly §427:
+  four texts of its fixture grey → black (one now italic), every census count unchanged → snapshot updated. The twelve wider batteries:
+  identical output but `sequence_notation_check` (58 → 62).
+
+**FOUND — two items for the decisions-needed list (in `rules.json`, on the generated page):**
+- **DN-4 — the clocks over the block at its go time:** in the frame at 0 s the cursor stands on the entry's go line, so the breath pie
+  (lane top) sits over "senza vib." and the level meter over the `mp` until the cursor carries them clear (≈ ½ s). Options: accept (a
+  moment) · the pie and the meter wait right of the cursor until the block is passed · the pie moved right of the cursor.
+- **DN-5 — the provisional family look breaks the anchor principle:** `techniques.json familyDevice` (oneshot · sustained — 2a's page for
+  every technique the registry does not name, the percussion among them) hangs the head at anchor B's spacer with NO go line. Named now
+  (`anchorRow: 'B'`, `provisional: true`); gate (6) reports them by name and requires them on the list. Each technique's device sheet
+  settles it.
+
+**The AI's calls, his to reverse:** B's 0.45 applied to EVERY anchor-B unit (the architecture's one number; the tuba's surges move with
+it) · fortepiano/cuivré held at 0.25 by a C field until DN-2 · the read-through tag kept grey (a working marker) · the pizz. bake
+retired with "senza vib." (no page here to see it) · the vibrato words as instructions on non-block notes · the layout formats the
+partial from the IR's fields.
+
+**Next: 2e.4 — ladder v2 in the layout, the fit test, the decisions-needed report.**

@@ -6,11 +6,18 @@
  "_usedInPieceLGMF": "2026-09-25, piece-LGMF-Sec01-Sec02-sec03a (PLAN 2a.1, RUNNING_LOG §331): senza_vel 226 · ord 230 · bowed_vel 143 · senza_mw 1 · the seven percussion voices 104. The percussion keys are STRUCK one-shots on an UNPITCHED staff: a note sits on the LINE of its instrument (ensemble.json part 4 staff.lines, matched by key prefix), never at its sonifyNote.",
  "familyDevice": {
   "_doc": "The provisional LOOK of a technique the engraving registry (container.json engraving.layout.devices.byTechnique) does not name — 2a's page, so that every note shows its written pitch in its clef: the notehead unit (head, accidental, ledgers, ottava) just before the attack, the parachute brick carrying the duration; a filled head for a one-shot, an open head for a sustained note; the notate text above the head. NO go line, no GC, no dynamics — those are his to assign, per technique. A byTechnique entry wins where one exists (the tuba vocabulary: ord, staccato, fortepiano, cuivre).",
+  "_doc_anchorRow": "LGMF PLAN 2e.3 (RUNNING_LOG §450): these family looks name their anchor row like every device (rules.json anchors). They are PROVISIONAL: the head sits before x(t) (anchor B's spacer) with NO go line — against the anchor principle (check_rules 6 reports them by name, DN-5); each technique's own device sheet replaces them.",
   "oneshot": {
+   "anchorRow": "B",
+   "memberRows": ["head", "ledger", "accidental", "ottava", "brick", "instruction"],
+   "provisional": true,
    "nhUnit": true,
    "nhHead": "filled"
   },
   "sustained": {
+   "anchorRow": "B",
+   "memberRows": ["head", "ledger", "accidental", "ottava", "brick", "instruction"],
+   "provisional": true,
    "nhUnit": true
   }
  },

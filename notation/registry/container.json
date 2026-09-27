@@ -106,8 +106,11 @@
  "engraving": {
   "_status": "CENSUS DONE 2026-08-20 (V0.10) — every look number that lived in layout.js/render.js code, consolidated here. Line/dot THICKNESSES stay in glyphs.json `standards` (glyph-family metrics, single source — edit there); this block is the single edit point for everything else. All values = the code's previous defaults, so adopting the registry changed no pixel.",
   "layout": {
-   "colours": {"techText":"@colours.techText.value","alert":"@colours.alert.value"},
-   "accGapColumn": "@objects.accidental.besideInColumn",
+   "colours": { "number": "@objects.number.colour", "instruction": "@objects.instruction.colour", "dynamicText": "@objects.dynamicText.colour", "tempoText": "@objects.tempoText.colour", "readThrough": "@objects.readThrough.colour", "alert": "@objects.alertText.colour" },
+   "italic": { "instruction": "@objects.instruction.italic", "number": "@objects.number.italic" },
+   "pitchPicture": { "edgeCents": "@pitchPicture.edgeCents", "signs": "@pitchPicture.signs" },
+   "accGapColumn": "@objects.accidental.besideUnit",
+   "partialForm": "@objects.number.partialForm",
    "stemLen": "@objects.stem.lengthSs",
    "accGap": "@objects.accidental.beside",
    "tagY": "@column.rows.tag",
@@ -190,7 +193,7 @@
      "_strikeRingBarNote": "PLAN 2h.5 (2026-09-14): byTechnique.main now carries the ring bar for the piano's long ordinary notes in the morph section; a strike merges its env on top, so the env says ringBar false out loud — the piano's strikes keep their look.",
      "sequence": {
       "anchorRow": "B",
-      "memberRows": ["head","ledger","accidental","number","instruction","textBaked","dynamic","dynArrow","dynamicLabel","paren","goLine","crescCurve","cueHead"],
+      "memberRows": ["head","ledger","accidental","number","instruction","dynamic","dynArrow","dynamicLabel","paren","goLine","crescCurve"],
       "goLine": true,
       "onsetHead": false,
       "onsetAcc": null,
@@ -205,9 +208,8 @@
       "dynPair": false,
       "dynMark": false,
       "techText": false,
-      "techTexts": { "senza_vel": "senza vib." },
-      "block": { "headGapSs": "@anchors.B.blockGapSs", "centsGapSs": "@objects.number.parent", "rowSs": "@objects.number.stack", "textGapSs": "@objects.instruction.stack", "numEmSs": "@objects.number.emSs", "slashTopEm": "@faces.text.slashTopEm" },
-      "reminder": { "scale": "@objects.cueHead.size", "parenScale": "@objects.paren.sizeReminder", "parenGapSs": "@objects.paren.besideReminder" },
+      "techTexts": "@techniqueChange.texts",
+      "block": { "headGapSs": "@anchors.B.gapSs", "columnAlign": "@anchors.B.columnAlign", "centsGapSs": "@objects.number.parent", "rowSs": "@objects.number.stack", "textGapSs": "@objects.instruction.stack", "numEmSs": "@objects.number.emSs", "slashTopEm": "@faces.text.slashTopEm" },
       "label": { "scale": "@objects.dynamicLabel.size", "parenScale": "@objects.paren.sizeLabel", "parenGapSs": "@objects.paren.besideLabel" },
       "_labelNote": "LGMF PLAN 2d.5 (RUNNING_LOG §386): a (dyn) label at a turning point of the level — the dynamic glyph at 0.75 (the PLAN's cue scale) between the parens at 0.43 (0.9 ss tall: the tallest cue dynamic, f at 0.73 ss, with room) [the AI's], 0.1 ss from the mark, on dynY, centred on x(t).",
       "_reminderNote": "LGMF PLAN 2d.4 (RUNNING_LOG §385): a breath on the SAME pitch — a cue-size open head (the house cue scale 0.844) in parentheses, its accidental inside them (a reminder, not a change), no column; the parens at 0.67 — the trill neighbour's 0.63 for its 0.794 head, in proportion [the AI's], 0.15 ss from what they hold.",
@@ -252,6 +254,7 @@
      "fortepiano": {
       "anchorRow": "C",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","goLine","gc","ringBar"],
+      "nhGapSs": "@anchors.C.houseGapSs",
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -260,7 +263,8 @@
      },
      "cuivre": {
       "anchorRow": "C",
-      "memberRows": ["head","ledger","accidental","ottava","dynamic","techniqueText","goLine","gc","ringBar"],
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","instruction","goLine","gc","ringBar"],
+      "nhGapSs": "@anchors.C.houseGapSs",
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -296,7 +300,7 @@
      "_septetStrikes": "RUNNING_LOG §399–400 (2026-09-11, the composer, strike 1): section 1's strikes are written the tuba staccato way — every note at its own onset with its own GC, the filled 16th-flag head, the dot nearest the head and the ACCENT outside it (nhArtic), fff at a part's first strike and then nothing until its dynamic changes (dynOnChange), the technique SYMBOL above the unit (techSymbol: snap pizz for bartók, + for the slap; #2's font-size −3 = 0.707), the instruction TEXT in the below-chain's instruction slot (the composer 2026-09-11: 'repeat all the instructions every note and the dynamic' — instrText on every note, instrFirst only for the flute's first 'tongue ram' before 'T. R.', fff on every strike; instrAlign start|middle|end on the head column — the composer 2026-09-11: tongue ram right-justified clear of the GC, (slap) and jeté centred). No duration brick on a strike (his: 'the short notes with gcs don't have duration lines'). Stems the CLASSIC way (above the middle line down, below it up) and the whole stack on the HEAD side, mirrored with the stem (chainSide headSide — the composer 2026-09-11: 'keep our stack but mirror depending on stem direction'). The piano's `main` gets it through byEnv.strike (the score's srcKind), never by technique — a long `main` keeps its family look.",
      "gettato_vel": {
       "anchorRow": "C",
-      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techniqueText"],
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","instruction"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -338,7 +342,7 @@
      },
      "slap": {
       "anchorRow": "C",
-      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techSymbol","techniqueText"],
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techSymbol","instruction"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -361,7 +365,7 @@
      },
      "pizzicato": {
       "anchorRow": "C",
-      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techniqueText"],
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","instruction"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -545,8 +549,7 @@
    "textSizes": {
     "dynamic": "@objects.dynamicText.size",
     "instruction": "@objects.instruction.size",
-    "tempo": "@objects.tempoText.size",
-    "technique": "@objects.techniqueText.size"
+    "tempo": "@objects.tempoText.size"
    }
   },
   "render": {

@@ -1461,6 +1461,30 @@ if (flag('bricks')) {
   if (groups.length) doc.animated = Object.assign({}, doc.animated, { curveFollower: false });
 }
 
+// [LGMF PLAN 2e.3 (8), 2026-09-27 — §443 · §445, LG-115; rules.json techniqueChange] THE CHANGE OF TECHNIQUE: per part, in time order,
+// over the notes whose technique the table names — a note whose technique differs from the part's last such one carries its word
+// ("senza vib." · "ord."), once per change per part; the part's first note of a `firstAlso` technique carries it too (the piece's
+// first "senza vib."). A word that opens a sequence block goes into the block's column (below); every other one is an `instruction`
+// on the note's part at its time. The rule fires only where the save has it.
+const TECH_CHANGE = new Map();   // event id -> the word
+{
+  const TC = (require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).techniqueChange) || null;
+  if (TC && TC.texts) {
+    const evOf = new Map(doc.events.map(e => [e.id, e])), byPart = new Map();
+    for (const c of doc.chunks) for (const id of c.events || []) { const e = evOf.get(id); if (e) { if (!byPart.has(c.part)) byPart.set(c.part, []); byPart.get(c.part).push(e); } }
+    for (const [part, list] of byPart) {
+      list.sort((a, b) => a.onset - b.onset);
+      let last = null;
+      for (const e of list) {
+        if (!(e.technique in TC.texts)) continue;
+        if (last === null ? (TC.firstAlso || []).includes(e.technique) : e.technique !== last) TECH_CHANGE.set(e.id, { part, t: e.onset, text: TC.texts[e.technique] });
+        last = e.technique;
+      }
+    }
+  }
+}
+const SEQ_ENTRY_EVENTS = new Set();   // the sequence blocks' first events — their word is drawn in the block's column
+
 // THE SEQUENCES (LGMF PLAN 2d.1, 2026-09-25; RUNNING_LOG §382). `--sequence <grp-seq-…>` folds one sequence's notation in, per
 // part: ONE `sequence` overlay carrying the entry (the block), the written level on THE FIXED SCALE at 100/s, the breaths and the
 // labels (notation/lib/sequence_overlays.js — the library computes it once, the engine draws it). The breaths' own device is the
@@ -1479,8 +1503,12 @@ if (SEQ_GROUPS.length) {
       const b = SeqOv.forPart(score.objects || [], gid, part, {
         window: [w0, w1], bank, instKey: TRACKS && TRACKS[part] ? TRACKS[part].instKey : null,
         recipe: rec ? rec.recipe : null, name: rec ? rec.name : null, techTexts: seqDev.techTexts || {},
+        // [2e.3 (8)] the block's word only where the change rule wrote one; [2e.3 (5)] the partial's form from the table
+        techTextOf: o => { const c = TECH_CHANGE.get('ev-' + o.id); return c ? c.text : null; },
+        partialForm: (CONT.engraving.layout || {}).partialForm,
       });
       if (!b) continue;
+      SEQ_ENTRY_EVENTS.add(b.overlay.value.entry.event);
       n++;
       doc.overlays.push(b.overlay);
       for (const w of b.warnings) console.warn('  ALERT --sequence ' + gid + ' ' + w);
@@ -1492,6 +1520,17 @@ if (SEQ_GROUPS.length) {
     }
     if (!n) console.log('  --sequence ' + gid + ': no notes in this score/window/parts — nothing folded');
   }
+}
+// [2e.3 (8)] the change words that open no sequence block: an `instruction` on the note's part at its time
+{
+  let nTc = 0;
+  for (const [id, c] of TECH_CHANGE) {
+    if (SEQ_ENTRY_EVENTS.has(id)) continue;
+    doc.overlays.push({ id: 'ov-techchg-' + id, kind: 'instruction', target: { part: c.part, span: [c.t, c.t] }, value: c.text, provenance: 'authored' });
+    nTc++;
+  }
+  if (TECH_CHANGE.size) console.log('  technique change: ' + TECH_CHANGE.size + ' word(s) — ' + (TECH_CHANGE.size - nTc) + ' in a sequence block, ' + nTc + ' as an instruction: ' +
+    [...TECH_CHANGE.values()].map(c => 'p' + c.part + ' ' + c.t.toFixed(2) + ' "' + c.text + '"').join(' · '));
 }
 
 // THE TRANCE SECTION (day 35; REWRITTEN day 36 to the composer's redirect).

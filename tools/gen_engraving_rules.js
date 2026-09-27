@@ -23,7 +23,7 @@ for (const { path: p, ref } of refs) {
   landsAt.get(k).push(p.replace(/^engraving\./, ''));
 }
 const usedRows = new Set([...landsAt.keys()].map(k => k.split('.').slice(0, 2).join('.')));
-const fmt = v => typeof v === 'string' ? v : JSON.stringify(v).replace(/"/g, '').replace(/,/g, ', ').replace(/:/g, ': ');
+const fmt = v => typeof v === 'string' ? (/^@colours\.\w+\.value$/.test(v) ? v.split('.')[1] + ' ' + ((R.colours[v.split('.')[1]] || {}).value || '?') : v) : JSON.stringify(v).replace(/"/g, '').replace(/,/g, ', ').replace(/:/g, ': ');
 const META = new Set(['basis', 'ref', 'draws', 'variantOf', 'in', 'note', 'seed', 'name', 'furniture', 'animated']);
 const lands = (table, row, field) => {
   const l = landsAt.get(table + '.' + row + '.' + field);
@@ -36,6 +36,8 @@ const eachDevice = [];
 for (const g of ['byEnv', 'byTechnique']) for (const [k, v] of Object.entries(D[g] || {})) if (!k.startsWith('_') && v && typeof v === 'object') eachDevice.push([g + '.' + k, v]);
 if (D.byPairBeam) eachDevice.push(['byPairBeam', D.byPairBeam]);
 for (const [k, v] of Object.entries(raw.engraving.layout.figures || {})) if (!k.startsWith('_')) eachDevice.push(['figures.' + k, v]);
+{ const TQ = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));   // [2e.3] the family looks
+  for (const [k, v] of Object.entries(TQ.familyDevice || {})) if (!k.startsWith('_') && v && typeof v === 'object') eachDevice.push(['familyDevice.' + k + (v.provisional ? ' (provisional — DN-5)' : ''), v]); }
 for (const [name, v] of eachDevice) if (v.anchorRow) (devOn[v.anchorRow] = devOn[v.anchorRow] || []).push(name);
 
 const L = [];

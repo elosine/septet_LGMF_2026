@@ -46,6 +46,9 @@ const devices = [];
 for (const g of ['byEnv', 'byTechnique']) for (const [k, v] of Object.entries(D[g] || {})) if (!k.startsWith('_') && v && typeof v === 'object') devices.push([g + '.' + k, v]);
 if (D.byPairBeam) devices.push(['byPairBeam', D.byPairBeam]);
 for (const [k, v] of Object.entries(raw.engraving.layout.figures || {})) if (!k.startsWith('_') && v && typeof v === 'object') devices.push(['figures.' + k, v]);
+// [2e.3] the technique table's family looks (techniques.json familyDevice) are devices too — the layout falls back to them
+const TQ = rd('notation/registry/techniques.json');
+for (const [k, v] of Object.entries(TQ.familyDevice || {})) if (!k.startsWith('_') && v && typeof v === 'object') devices.push(['familyDevice.' + k, v]);
 const noAnchor = devices.filter(([, v]) => !v.anchorRow || !R.anchors[v.anchorRow]).map(([n]) => n);
 ok(!noAnchor.length, 'every device (' + devices.length + ') names an anchor row' + (noAnchor.length ? ' — not: ' + noAnchor.join(' · ') : ''));
 const badMember = [];
@@ -107,14 +110,13 @@ ok(!noRow.length, 'every drawable object (' + universe.size + ' kinds and glyphs
 console.log('(3) THE LITERALS');
 const MIRROR = /RULES MIRROR/;
 const FURNITURE_MUTED = [/E\.partLabel/, /E\.reshow/, /mk\.label/, /pcfg \? esc\(pcfg\.short\)/];
-const A5_UNTIL_2E3 = /\(it\.color \|\| o\.muted\)/;   // the grey default of a text item (§427 A5) — ended at 2e.3 (3)
 for (const f of ['notation/lib/layout.js', 'notation/lib/render.js']) {
   const lines = fs.readFileSync(path.join(ROOT, f), 'utf8').split(/\r?\n/);
   const col = [], mut = [], size = [];
   lines.forEach((ln, i) => {
     const code = ln.replace(/\/\/.*$/, '');
     if (/#[0-9a-fA-F]{3,6}\b|rgba?\(\s*\d/.test(code) && !MIRROR.test(ln)) col.push(i + 1);
-    if (/\bo\.muted\b/.test(code) && !FURNITURE_MUTED.some(r => r.test(ln)) && !A5_UNTIL_2E3.test(ln) && !MIRROR.test(ln)) mut.push(i + 1);
+    if (/\bo\.muted\b/.test(code) && !FURNITURE_MUTED.some(r => r.test(ln)) && !MIRROR.test(ln)) mut.push(i + 1);
     if (f.endsWith('layout.js') && /[{,]\s*(size|scale)\s*:\s*[0-9.]+/.test(code) && !MIRROR.test(ln)) size.push(i + 1);   // a key, not a ternary's `: 1`
     if (f.endsWith('render.js') && /font-size="[0-9]/.test(code) && !/mk\.label/.test(ln)) size.push(i + 1);
   });
@@ -122,25 +124,51 @@ for (const f of ['notation/lib/layout.js', 'notation/lib/render.js']) {
   ok(!mut.length, f + ': `muted` only at the page-furniture sites' + (mut.length ? ' — lines ' + mut.join(', ') : ''));
   ok(!size.length, f + ': no numeric size literal on a music item outside a RULES MIRROR line' + (size.length ? ' — lines ' + size.join(', ') : ''));
 }
-{
-  const rn = fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'render.js'), 'utf8');
-  if (A5_UNTIL_2E3.test(rn)) console.log('  NOTE  render.js still colours an uncoloured text item `muted` (§427 A5) — ends at 2e.3 (3)');
-}
 
 // ---------------------------------------------------------------- (6) the anchor principle
 console.log('(6) THE ANCHOR PRINCIPLE');
 const CD = C ? C.engraving.layout.devices : D;
-const compiledOf = n => { const [g, k] = n.split('.'); return g === 'byPairBeam' ? CD.byPairBeam : g === 'figures' ? (C || raw).engraving.layout.figures[k] : CD[g][k]; };
-const bad6 = [];
+const compiledOf = n => { const [g, k] = n.split('.'); return g === 'byPairBeam' ? CD.byPairBeam : g === 'figures' ? (C || raw).engraving.layout.figures[k] : g === 'familyDevice' ? TQ.familyDevice[k] : CD[g][k]; };
+const bad6 = [], prov6 = [];
 for (const [n, v] of devices) {
   const d = compiledOf(n), a = v.anchorRow, row = R.anchors[a];
   if (!row || row.goLine === null) continue;
   const gl = d.goLine;
+  // a PROVISIONAL look (2a's family devices) is reported by name, and must stand on the decisions-needed list — not failed
+  if (v.provisional && !!gl !== row.goLine) { prov6.push(n); continue; }
   if (row.goLine === false && gl === 'gc' && v.anchorRowGc && R.anchors[v.anchorRowGc] && R.anchors[v.anchorRowGc].goLine === true) continue;   // a figure: the GC member alone takes C
   if (row.goLine === false && gl) bad6.push(n + ' is on ' + a + ' (the head on its time) but draws a go line');
   if (row.goLine === true && !gl) bad6.push(n + ' is on ' + a + ' (a go line) but draws none');
 }
 ok(!bad6.length, 'every device obeys its anchor: the head on its time ↔ no go line (' + devices.length + ' devices)' + (bad6.length ? ' — ' + bad6.join(' · ') : ''));
+if (prov6.length) {
+  const listed = (R.decisionsNeeded || []).some(d => d.status !== 'decided' && prov6.every(n => (d.what || '').includes(n.split('.')[1])));
+  ok(listed, prov6.length + ' PROVISIONAL device(s) break the principle and stand on the decisions-needed list: ' + prov6.join(' · '));
+}
+
+// ---------------------------------------------------------------- (8) the numbers at sounding pitch in every realization
+console.log('(8) SOUNDING PITCH');
+{
+  // [2e.3 (5), §440 · §441] a transposed part moves the HEADS and the accidental picture only: the cents and the partial's fundamental
+  // are the same text, at the same time, in the working realization (the EH and the horn in F, the trumpet in B♭) and in the one in C
+  const texts = E => {
+    const out = new Map();
+    for (const f of irFiles) {
+      const ir = rd(path.join('notation', 'ir', f));
+      if (!(ir.overlays || []).some(o => o.kind === 'sequence')) continue;
+      const m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: E.parts.map(p => p.part), ensemble: E, techniques: T },
+        ((C || raw).engraving || {}).layout || {}));
+      for (const s of m.systems) for (const it of s.items || []) if (it.k === 'text' && (it.seq === 'cents' || it.seq === 'partial'))
+        out.set(f + '|' + s.part + '|' + it.t.toFixed(4) + '|' + it.seq, it.text);
+    }
+    return out;
+  };
+  const inC = texts(ENS), working = texts(Layout.ensembleFor(ens, null));
+  const bad = [...inC].filter(([k, v]) => working.get(k) !== v).map(([k, v]) => k + ' ' + v + ' ≠ ' + working.get(k));
+  const tr = (ens.parts || []).filter(p => p.transpose).map(p => p.short || p.part);
+  ok(inC.size > 0 && inC.size === working.size && !bad.length, 'the cents and the partial read the same in C and in the transposed parts (' + tr.join(' · ') + '): ' + inC.size + ' texts' +
+    (bad.length ? ' — differ: ' + bad.slice(0, 4).join(' · ') : '') + (!inC.size ? ' — no sequence page to compare' : ''));
+}
 
 console.log('');
 console.log(failures ? 'RULES RED: ' + failures + ' of ' + checks + ' checks failed' : 'RULES GREEN: ' + checks + ' checks');

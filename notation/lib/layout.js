@@ -168,18 +168,46 @@
 
   const ACC_KIND = { '1': 'sharp', '-1': 'flat', '0': 'natural' };
 
-  // [LGMF PLAN 2d.2, 2026-09-25 — docs/research/just_partials_notation.md §1a] THE JUST MARK'S ACCIDENTAL, by the bands: |c| < 20
-  // the tempered spelling's own sign (none on a natural) · 20 … 37 an ARROW on it (alone on a natural) · ≥ 37 the quarter-tone sign
-  // — on a ♯ note +c = ¾♯, −c = ¼♯; on a ♭ note the mirror; on a natural ¼♯ / ¼♭. `alter` is the WRITTEN spelling's (the
-  // realization's transposition); the cents never change with it. Returns a glyphs.accidental key, or null.
-  function justAccOf(alter, cents) {
-    const c = +cents || 0, a = Math.abs(c), base = alter > 0 ? 'sharp' : alter < 0 ? 'flat' : 'natural';
-    if (a < 20) return alter ? base : null;
-    if (a < 37) return base + (c > 0 ? 'ArrowUp' : 'ArrowDown');
-    if (alter > 0) return c > 0 ? 'threeQuarterSharp' : 'quarterSharp';
-    if (alter < 0) return c < 0 ? 'threeQuarterFlat' : 'quarterFlat';
-    return c > 0 ? 'quarterSharp' : 'quarterFlat';
+  // [LGMF PLAN 2e.3 (2), 2026-09-27 — rules.json `pitchPicture`; just_partials_notation.md §1a REVISED; RUNNING_LOG §432 … §436 · §450]
+  // THE PITCH PICTURE OF A JUST NOTE — the NEAREST QUARTER-TONE, no arrows: |c| < edgeCents → the tempered spelling's own sign (none
+  // on a natural) · ≥ edgeCents → a quarter-tone sign pointing from the ORIGIN (the nearest tempered pitch) toward the truth, spelled
+  // so the sign exists — a sharp-side deviation on a natural or a sharp (¼♯ · ¾♯), a flat-side one on a natural or a flat (the
+  // reversed flat · ¾♭): D♯ +41 = D¾♯, D♯ −41 = E¾♭ (never E¼♭ / D¼♯). `sp` is the WRITTEN spelling (the realization's transposition);
+  // the cents never change with it. Returns { sp (respelled when the sign needs it), acc: a glyphs.accidental key or null }.
+  const LETTERS = 'CDEFGAB', LETTER_PC = [0, 2, 4, 5, 7, 9, 11];
+  function respell(sp, dir) {   // the same pitch on the next letter up (dir +1) or down (−1)
+    const i = LETTERS.indexOf(sp.step), j = (i + dir + 7) % 7;
+    const octave = sp.octave + (dir > 0 && sp.step === 'B' ? 1 : dir < 0 && sp.step === 'C' ? -1 : 0);
+    const gap = dir > 0 ? (LETTER_PC[j] - LETTER_PC[i] + 12) % 12 : (LETTER_PC[i] - LETTER_PC[j] + 12) % 12;
+    return { step: LETTERS[j], alter: sp.alter - dir * gap, octave };
   }
+  function justPicture(sp, cents, P) {
+    const c = +cents || 0, edge = (P && P.edgeCents != null) ? P.edgeCents : 25;   // RULES MIRROR (rules.json pitchPicture.edgeCents)
+    const S = Object.assign({ sharpUp: 'threeQuarterSharp', naturalUp: 'quarterSharp', naturalDown: 'quarterFlat', flatDown: 'threeQuarterFlat' }, (P && P.signs) || {});   // RULES MIRROR
+    if (Math.abs(c) < edge) return { sp, acc: sp.alter > 0 ? 'sharp' : sp.alter < 0 ? 'flat' : null };
+    let s = sp;
+    if (c > 0 && s.alter < 0) s = respell(s, -1);   // a sharp-side deviation is spelled on a natural or a sharp
+    if (c < 0 && s.alter > 0) s = respell(s, +1);   // a flat-side one on a natural or a flat
+    if (Math.abs(s.alter) > 1) s = sp;              // no single sign reaches it: keep the spelling (a warning is the caller's)
+    const acc = c > 0 ? (s.alter > 0 ? S.sharpUp : S.naturalUp) : (s.alter < 0 ? S.flatDown : S.naturalDown);
+    return { sp: s, acc };
+  }
+  // [2e.3 (7), §419 F6 — #2's H.4c.3] where a sign beside a head must END: the given gap left of whichever reaches further left — the
+  // head's left edge, or a ledger line inside the sign's own height. Relative to the head's centre; `k` the head's scale.
+  function accRightOf(acc, y, ledgers, hw, overhang, gap) {
+    const anchorY = acc.anchors && acc.anchors.noteY, top = anchorY ? anchorY.y : acc.hSs / 2, bot = acc.hSs - top;
+    let clear = -hw / 2;
+    for (const L of ledgers) if (L <= y + top + 1e-9 && L >= y - bot - 1e-9) { clear = -hw / 2 - overhang; break; }
+    return clear - gap;
+  }
+  // [2e.3 (5), §438] the partial's written form from the IR's own fields — rules.json objects.number.partialForm (`{n} ({f})` → 26 (C1));
+  // the fundamental is the take's series root at SOUNDING pitch (§440 · §441): no realization moves it. The IR's partialText is the fallback.
+  function partialLabel(m, form) {
+    if (!(m && m.partial > 0 && m.fundamental)) return m && m.partialText != null ? m.partialText : null;
+    return String(form || '{n} ({f})').replace('{n}', m.partial).replace('{f}', m.fundamental);   // RULES MIRROR (objects.number.partialForm)
+  }
+  // the dx that puts a sign's RIGHT edge at `right` (anchor-aware: a noteY-anchored glyph is not centred)
+  const accDxFor = (acc, right, k) => right - (acc.wSs - (acc.anchors && acc.anchors.noteY ? acc.anchors.noteY.x : acc.wSs / 2)) * (k || 1);
 
   // ONE copy of the membership rules (D50): byTechnique → byEnv → per-item
   // override. layoutSection uses it internally; deviceResolver exposes the
@@ -260,7 +288,10 @@
     const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});   // RULES MIRROR (rules.json objects.*.size)
     // [LGMF 2e.1, §448] the colours a layout item names come from rules.json `colours` (compiled into engraving.layout.colours) —
     // never a literal at the push; the defaults below mirror the table for a caller without the registry (gate 3, check_rules)
-    const COL = Object.assign({ techText: '#000', alert: '#c00' }, o.colours || {});   // RULES MIRROR (rules.json colours)
+    const COL = Object.assign({ number: '#111', instruction: '#111', dynamicText: '#111', tempoText: '#111', readThrough: '#8a8a8a', alert: '#c00' }, o.colours || {});   // RULES MIRROR (rules.json objects.*.colour — 2e.3, §427: every music mark ink; muted only for a read-through tag)
+    const ITAL = Object.assign({ instruction: true, number: false }, o.italic || {});   // RULES MIRROR (rules.json objects.*.italic — every word on a note italic, §427)
+    // [2e.3 (4), §427] every word on a note is ONE object: `instruction` — 0.75, italic, black; the technique size (0.7) is retired
+    const WORD = { size: TS.instruction, italic: !!ITAL.instruction, color: COL.instruction };
     const nh = glyphs.notehead.filled;
     const nhHalfW = nh.wSs / 2;
     const upAttach = { dx: nh.anchors.stemAttachUp.x - nh.anchors.center.x, dy: nh.anchors.stemAttachUp.y - nh.anchors.center.y };
@@ -835,13 +866,14 @@
             items.push({ k: 'glyph', g: 'notehead-open', t: h.t, dxSs: cx, ySs: y, align: 'center', scale: hs });
             for (const Lg of ledgersFor(y)) items.push({ k: 'ledger', t: h.t, dxSs: cx, ySs: Lg, wSs: hw });
             const ag = accOf(hd.acc);
-            if (ag) items.push({ k: 'glyph', g: 'accidental-' + hd.acc, t: h.t, dxSs: cx - hw / 2 - accGap - ag.wSs / 2, ySs: y,
+            // [2e.3 (7), §419 F6] the sign ends `beside` left of the note's leftmost ink — a ledger inside its height included
+            if (ag) items.push({ k: 'glyph', g: 'accidental-' + hd.acc, t: h.t, dxSs: accDxFor(ag, cx + accRightOf(ag, y, ledgersFor(y), hw, hw * ledgerFrac, accGap), 1), ySs: y,
               align: ag.anchors && ag.anchors.noteY ? 'noteY' : 'center' });
             return y;
           };
-          // the ink left of a head: its sign, or its ledger line's overhang
-          const leftInk = hd => { const ag = accOf(hd.acc); const y = posOf(hd.spelled);
-            return Math.max(ag ? accGap + ag.wSs : 0, ledgersFor(y).length ? hw * ledgerFrac : 0); };
+          // the ink left of a head: its sign (cleared of a ledger inside its height), or its ledger line's overhang
+          const leftInk = hd => { const ag = accOf(hd.acc); const y = posOf(hd.spelled), L = ledgersFor(y);
+            return Math.max(ag ? -accRightOf(ag, y, L, hw, hw * ledgerFrac, accGap) - hw / 2 + ag.wSs : 0, L.length ? hw * ledgerFrac : 0); };
           const rightInk = hd => (ledgersFor(posOf(hd.spelled)).length ? hw * ledgerFrac : 0);
           const hdS = h.heads[0], hdD = h.heads[1];
           let x = -A.gapSs;                                   // the figure ends a standard spacer before the go line
@@ -908,10 +940,11 @@
       // one just-intoned head, its right ink edge at `rightSs` from x(t): { cx, y, lowInk, topInk, leftInk } — the column when `column`
       const justHead = (t, m, rightSs, opt) => {
         const q = opt || {}, k = q.scale || 1, HEAD = glyphs.notehead.open, hw = HEAD.wSs * k;
-        const sp = spellMidi(m.midi + trSeq), y = posOf(sp);
+        const pic = justPicture(spellMidi(m.midi + trSeq), m.cents, o.pitchPicture);   // [2e.3 (2)] the nearest quarter-tone, the tuner's origin
+        const sp = pic.sp, y = posOf(sp);
         const LL = (glyphs.standards || {}).ledgerLine, lf = (LL && LL.lengthFraction) || 0.25;
         const ledg = ledgersFor(y), overhang = ledg.length ? hw * lf : 0;
-        const accK = q.noAcc ? null : justAccOf(sp.alter, m.cents), ag = accK ? glyphs.accidental[accK] : null;
+        const accK = q.noAcc ? null : pic.acc, ag = accK ? glyphs.accidental[accK] : null;
         const PL = q.paren ? glyphs.accidental.leftParen : null, PR = q.paren ? glyphs.accidental.rightParen : null;
         const pk = q.parenScale || k, pGap = q.parenGapSs != null ? q.parenGapSs : 0.1;
         let x = rightSs;
@@ -921,10 +954,11 @@
         for (const Lg of ledg) items.push({ k: 'ledger', t, dxSs: cx, ySs: Lg, wSs: hw, ev: q.ev });
         let left = cx - hw / 2 - overhang;
         if (ag) {
-          const accGap = (o.accGap || 0.25) * k;
-          items.push({ k: 'glyph', g: 'accidental-' + accK, t, dxSs: cx - hw / 2 - accGap - ag.wSs * k / 2, ySs: y,
+          // [2e.3 (7), §419 F6] the sign ends `beside` left of the LEFTMOST INK of the note — a ledger inside its height included
+          const accR = cx + accRightOf(ag, y, ledg, hw, overhang, (o.accGap || 0.25) * k);
+          items.push({ k: 'glyph', g: 'accidental-' + accK, t, dxSs: accDxFor(ag, accR, k), ySs: y,
             align: ag.anchors && ag.anchors.noteY ? 'noteY' : 'center', scale: k, ev: q.ev });
-          left = Math.min(left, cx - hw / 2 - accGap - ag.wSs * k);
+          left = Math.min(left, accR - ag.wSs * k);
         }
         if (PL) { items.push({ k: 'glyph', g: 'accidental-leftParen', t, dxSs: left - pGap - PL.wSs * pk / 2, ySs: y, align: 'center', scale: pk, ev: q.ev }); left -= pGap + PL.wSs * pk; }
         const headTop = y + (HEAD.hSs || 1) * k / 2;
@@ -934,14 +968,19 @@
           const yC = Math.max(headTop, 2) + SQB.centsGapSs;                    // D45's height: over the head's ink, never inside the staff
           const yP = yC + SQB.rowSs;
           const estW = s => String(s || '').length * 0.5 * SQB.numEmSs;         // render.js spanSsOf's estimate: half an em a character
-          const wide = Math.max(estW(m.centsText), estW(m.partialText)) > hw;
-          const ax = wide ? cx + hw / 2 : cx, anchor = wide ? 'end' : 'middle';
-          items.push({ k: 'text', t, dxSs: ax, anchor, text: String(m.centsText), size: TS.instruction, ySs: yC, seq: 'cents', ev: q.ev });
-          if (m.partialText) items.push({ k: 'text', t, dxSs: ax, anchor, text: String(m.partialText), size: TS.instruction, ySs: yP, seq: 'partial', ev: q.ev });
-          colTop = (m.partialText ? yP : yC) + SQB.slashTopEm * SQB.numEmSs;   // the row's ink top (Crimson Pro's '/' reaches 0.711 em)
+          const pText = partialLabel(m, o.partialForm);
+          const wide = Math.max(estW(m.centsText), estW(pText)) > hw;
+          // [2e.3 (1), §418 F2] the anchor's column rule: `right` — every member ends at the spacer, the unit's right edge (x); else centred,
+          // a column wider than the head right-aligned to the head
+          const RJ = SQB.columnAlign === 'right';
+          const ax = RJ ? x : wide ? cx + hw / 2 : cx, anchor = RJ || wide ? 'end' : 'middle';
+          const NUM = { size: TS.number != null ? TS.number : TS.instruction, color: COL.number, italic: !!ITAL.number };   // [2e.3 (3), §427] black, 0.75, upright
+          items.push(Object.assign({ k: 'text', t, dxSs: ax, anchor, text: String(m.centsText), ySs: yC, seq: 'cents', ev: q.ev }, NUM));
+          if (pText) items.push(Object.assign({ k: 'text', t, dxSs: ax, anchor, text: String(pText), ySs: yP, seq: 'partial', ev: q.ev }, NUM));
+          colTop = (pText ? yP : yC) + SQB.slashTopEm * SQB.numEmSs;   // the row's ink top (Crimson Pro's '/' reaches 0.711 em)
           topInk = Math.max(topInk, colTop);
         }
-        return { cx, y, hw, lowInk, topInk, colTop, left, headTop };
+        return { cx, y, hw, lowInk, topInk, colTop, left, headTop, right: x };
       };
       for (const sq of sequences) if (sq.part === part && first) {
         const en = sq.v.entry, t = en.t;
@@ -972,23 +1011,18 @@
             items.push({ k: 'glyph', g: 'accidental-rightParen', t: lb.t, dxSs: hw2 + LB.parenGapSs + PRg.wSs * LB.parenScale / 2, ySs: o.dynY, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
           }
         }
-        const RM = Object.assign({ scale: 0.844, parenScale: 0.67, parenGapSs: 0.15 }, ((DEV.byEnv || {}).sequence || {}).reminder || {});   // RULES MIRROR
-        let lastMarks = en;
-        for (const b of sq.v.breaths || []) {
-          if (b.pitch === 'new') {
-            justHead(b.onset, b, -o.nhGapSs, { column: true, ev: b.event });
-            lastMarks = b;
-          } else {
-            justHead(b.onset, { midi: b.midi, cents: lastMarks.cents }, -o.nhGapSs,
-              { scale: RM.scale, paren: true, parenScale: RM.parenScale, parenGapSs: RM.parenGapSs, ev: b.event });
-          }
-        }
+        // [2e.3 (6), §443 — his "iii, no head"] a breath that keeps the pitch carries its go line ALONE (the pie counts it down); a head
+        // only when the pitch changes, at anchor B's spacer like the block's
+        for (const b of sq.v.breaths || []) if (b.pitch === 'new') justHead(b.onset, b, -o.nhGapSs, { column: true, ev: b.event });
         const H = justHead(t, en, -SQB.headGapSs, { column: true, ev: en.event });
-        const TG = en.techText && glyphs.text && glyphs.text[en.techText];
-        if (en.techText && !TG) warnings.push('sequence ' + (sq.v.name || sq.v.group) + ': text glyph "' + en.techText + '" missing (glyphs.text) — not drawn (tools/bake_text.js)');
-        if (TG) {
+        // [2e.3 (4) · (8), §427 · §445] the technique's word — a LIVE `instruction` (0.75 italic, black), 0.45 above the column, ending at
+        // the spacer with the column (right-justified) — only where the change-of-technique rule wrote it (the extractor, rules.json
+        // techniqueChange); the 1.0998 bake is no longer drawn
+        if (en.techText) {
           const yBot = (H.colTop != null ? H.colTop : H.topInk) + SQB.textGapSs;
-          items.push({ k: 'glyph', g: 'text-' + en.techText, t, dxSs: H.cx - H.hw / 2 + TG.wSs / 2, ySs: yBot + TG.hSs / 2, align: 'center', seq: 'techText' });
+          const RJt = SQB.columnAlign === 'right';
+          items.push({ k: 'text', t, dxSs: RJt ? H.right : H.cx - H.hw / 2, anchor: RJt ? 'end' : 'start', text: en.techText, ySs: yBot,
+            size: TS.instruction, italic: !!ITAL.instruction, color: COL.instruction, seq: 'techText', ev: en.event });
         }
         // the written range on the dynamic row — the lower-ink rule (#5 §479): a standard spacer under the lowest head or ledger
         const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
@@ -996,7 +1030,7 @@
         if (rg.length) {
           const gHi = glyphs.dynamic[rg[rg.length - 1]], gLo = glyphs.dynamic[rg[0]];
           const yDyn = Math.min(o.dynY, H.lowInk - A.gapSs - (gHi.hSs || 1) / 2);
-          const hiC = -A.gapSs - gHi.wSs / 2;
+          const hiC = -SQB.headGapSs - gHi.wSs / 2;   // [2e.3 (1)] the legend ends at anchor B's spacer, with the column
           items.push({ k: 'glyph', g: 'dyn-' + rg[rg.length - 1], t, dxSs: hiC, ySs: yDyn, align: 'center', seq: 'rangeHi' });
           if (rg.length > 1) {
             const arrR = hiC - gHi.wSs / 2 - A.gapSs, arrL = arrR - A.lenSs;
@@ -1005,8 +1039,8 @@
           }
         }
       }
-      for (const d of dynTexts) if (d.part === part && first) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic });
-      for (const ins of instrTexts) if (ins.parts.includes(part) && first) items.push({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, size: TS.instruction });
+      for (const d of dynTexts) if (d.part === part && first) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic, color: COL.dynamicText, seq: 'dynamic' });
+      for (const ins of instrTexts) if (ins.parts.includes(part) && first) items.push(Object.assign({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, seq: 'instruction' }, WORD));
 
       const chunks = ir.chunks.filter(c => c.part === part).sort((a, b) => a.span[0] - b.span[0]);
       let prevTempoLabel = null;
@@ -1198,7 +1232,7 @@
             // laneHalfSs) the original tag-row placement stands ("copy tuba
             // eight"). Emitted inside the nh-unit, which knows the head's x;
             // a techText on a device with no nh-unit takes the tag row.
-            if (dev.techText && !dev.nhUnit) items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: COL.techText });
+            if (dev.techText && !dev.nhUnit) items.push(Object.assign({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, seq: 'techText' }, WORD));
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap
@@ -1440,15 +1474,15 @@
                 if (dev.techText && (!CG || CG.top)) {   // [2a.4] once per chord, over its top note
                   const gapM = o.gapMediumSs != null ? o.gapMediumSs : 0.3;   // day 39: MEDIUM, was tightGapSs 0.15 (NITS day 30/31 — the composer said go)
                   const laneHalf = (o.chainSide && o.chainSide.laneHalfSs) || 6.51;
-                  const em = TS.technique * (o.textEmScale != null ? o.textEmScale : 1.3);
+                  const em = TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3);
                   const base = yDraw + nhO.hSs / 2 + gapM;   // baseline a MEDIUM gap above the head
                   // fits only if the text also CLEARS THE LANE LINE by the same
                   // medium gap — at 0.01 ss of daylight (T8's G4) it reads as
                   // touching, which is the composer's "can't go above" case
                   if (base + em + gapM <= laneHalf + 1e-9)
-                    items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: base, text: dev.techText, size: TS.technique, color: COL.techText });
+                    items.push(Object.assign({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: base, text: dev.techText, seq: 'techText' }, WORD));
                   else
-                    items.push({ k: 'text', t: tU, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: COL.techText });
+                    items.push(Object.assign({ k: 'text', t: tU, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, seq: 'techText' }, WORD));
                 }
                 // THE RING BAR STARTS AFTER THE UNIT, NOT AT THE GO LINE (day 24,
                 // composer: "you have to shorten the duration bar from the left. It
@@ -1536,7 +1570,7 @@
                 if (dev.nhArtic && stemKind !== 'beam' && !articG) warnings.push('nh-unit ' + e.id + ': articulation glyph "' + dev.nhArtic + '" missing — not drawn');
                 const instrIsFirst = !!(dev.instrFirst && instrShown.has(e.id));
                 const instrTxt = instrIsFirst ? dev.instrFirst : (dev.instrText || null);
-                const instrEm = instrTxt ? TS.technique * (o.textEmScale != null ? o.textEmScale : 1.3) : 0;
+                const instrEm = instrTxt ? TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3) : 0;
                 // [§400] THE TECHNIQUE SYMBOL goes above the unit when the lane
                 // has room above the stem tip (a flagged stem-up unit already
                 // reaches the lane top: 2 + 0.38 + a 16th flag = 5.88 of 6.51);
@@ -1961,7 +1995,7 @@
                   const alRaw = (instrIsFirst && dev.instrFirstAlign) || dev.instrAlign;   // §401g: the first text may sit differently ('tongue ram' right, 'T. R.' centred)
                   const al = alRaw === 'end' || alRaw === 'middle' ? alRaw : 'start';   // §401b: the composer — tongue ram right-justified (clear of the GC), (slap) / jeté centred
                   const dxT = al === 'end' ? headDx + nhO.wSs / 2 : al === 'middle' ? headDx : headDx - nhO.wSs / 2;
-                  items.push({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, size: TS.technique, color: COL.techText, anchor: al });
+                  items.push(Object.assign({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, anchor: al, seq: 'techText' }, WORD));
                   recChrome(items[items.length - 1], chainAbove ? 'above' : 'below', instrEm * 0.8, -instrEm * 0.2);
                 }
                 // [PLAN 2i.8, RUNNING_LOG §530, D54 — the composer's (b)] "sempre secco" ONCE PER PART, on the part's FIRST
@@ -1974,7 +2008,7 @@
                 // registry seccoGapSs) right of the edge's stroke. Off the chain: nothing else stacks against it.
                 if (e.secco && seccoShown.has(e.id)) {
                   const secGap = o.seccoGapSs != null ? o.seccoGapSs : 0.15;
-                  items.push({ k: 'text', t: e.onset + e.duration, dxSs: secGap, yAt: 'top', text: 'sempre secco', size: TS.technique, color: COL.techText, anchor: 'start', ev: e.id });
+                  items.push(Object.assign({ k: 'text', t: e.onset + e.duration, dxSs: secGap, yAt: 'top', text: 'sempre secco', anchor: 'start', ev: e.id, seq: 'techText' }, WORD));
                 }
                 // [2h.5, §490–§491] "Ped." — piece #2's Emmentaler sustain-pedal
                 // glyph, once per chord (the chord's lowest note draws it, like
@@ -2019,27 +2053,26 @@
                     onTop ? {} : { sysB: pairC.topKey }));
                   pairC.tips.set(e.id, { t: tU, dxSs: headDx + att.dx });
                   if (onTop) inkTopY = Math.max(inkTopY, pairC.beamY);
-                  const TGp = dev.textAbove && glyphs.text && glyphs.text[dev.textAbove];
-                  if (TGp) items.push(Object.assign({ k: 'glyph', g: 'text-' + dev.textAbove, t: tU, dxSs: chromeDx(TGp), ySs: pairC.beamY + stackGap + TGp.hSs / 2, align: 'center' },
-                    onTop ? {} : { sys: pairC.topKey }));
+                  // [2e.3 (4), §427] "pizz." a LIVE instruction (the 1.0998 bake retired), centred where the bake was, its baseline a stack gap over the beam
+                  if (dev.textAbove) items.push(Object.assign({ k: 'text', t: tU, dxSs: chromeDx({ wSs: String(dev.textAbove).length * 0.5 * TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3) }),
+                    ySs: pairC.beamY + stackGap, text: dev.textAbove, anchor: 'middle', seq: 'techText' }, WORD, onTop ? {} : { sys: pairC.topKey }));
                 }
                 if (dev.textAbove && !pairC && (!chordC || e.id === chordC.top)) {
-                  const TG = glyphs.text && glyphs.text[dev.textAbove];
-                  if (!TG) warnings.push('nh-unit ' + e.id + ': text glyph "' + dev.textAbove + '" missing (glyphs.text) — not drawn');
-                  else {
+                  {   // [2e.3 (4), §427] "pizz." a LIVE instruction, its baseline a stack gap over the chain (the bake's bottom edge was there)
+                    const pzEm = TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3);
                     let yBot = Math.max(chainTopY, inkTopY) + stackGap;
                     if (lvTopY != null) yBot = Math.max(yBot, lvTopY + 2 * stackGap);
-                    items.push({ k: 'glyph', g: 'text-' + dev.textAbove, t: tU, dxSs: chromeDx(TG), ySs: yBot + TG.hSs / 2, align: 'center' });
-                    recChrome(items[items.length - 1], 'above', TG.hSs / 2, -TG.hSs / 2);
-                    chainTopY = yBot + TG.hSs;
+                    items.push(Object.assign({ k: 'text', t: tU, dxSs: chromeDx({ wSs: String(dev.textAbove).length * 0.5 * pzEm }), ySs: yBot, text: dev.textAbove, anchor: 'middle', seq: 'techText' }, WORD));
+                    recChrome(items[items.length - 1], 'above', pzEm * 0.8, 0);
+                    chainTopY = yBot + pzEm * 0.8;
                   }
                 }
                 // [§400] the range alert on the page: red, above everything
                 if (writtenOut) {
-                  const emA = TS.technique * (o.textEmScale != null ? o.textEmScale : 1.3);
+                  const emA = TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3);
                   const yB = Math.max(chainTopY, inkTopY) + stackGap;
                   chainTopY = yB + emA;
-                  items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: yB, text: writtenOut, size: TS.technique, color: COL.alert });
+                  items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: yB, text: writtenOut, size: TS.instruction, color: COL.alert, seq: 'alert' });
                   recChrome(items[items.length - 1], 'above', emA, 0);
                 }
 
@@ -2089,7 +2122,7 @@
 
         const m = c.tempo ? c.tempo.subdivision : 1;
         if (metric && c.tempo && c.tempo.label !== prevTempoLabel) {
-          items.push({ k: 'text', t: c.tempo.anchorSeconds, dxSs: 0, ySs: o.tempoY, text: c.tempo.label, size: TS.tempo });
+          items.push({ k: 'text', t: c.tempo.anchorSeconds, dxSs: 0, ySs: o.tempoY, text: c.tempo.label, size: TS.tempo, color: COL.tempoText, seq: 'tempo' });
         }
         prevTempoLabel = metric && c.tempo ? c.tempo.label : null;
         for (const d of c.devices || []) if (d.kind === 'gc') items.push({ k: 'tick', t: d.at, ySs: o.tickY });
@@ -2135,7 +2168,7 @@
             } else warnings.push(e.id + ': no accidental glyph for alter ' + sp.alter);
           }
           if (e.technique !== 'staccato') {
-            items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY, text: e.technique === 'fortepiano' ? 'fp' : e.technique, size: TS.technique });
+            items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY, text: e.technique === 'fortepiano' ? 'fp' : e.technique, size: TS.instruction, color: COL.readThrough, seq: 'readThrough' });   // #4 V0.10's read-through tag — muted by design
           }
         }
 
@@ -3086,5 +3119,5 @@
     return smp;
   }
 
-  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor, justAccOf };
+  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor, justPicture, partialLabel };
 });

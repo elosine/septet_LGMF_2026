@@ -453,7 +453,7 @@
           // is drawn to sys.yTopPx) — through the hanging baseline; "sempre secco" is the one user so far
           const yTxt = it.yAt === 'top' ? sys.yTopPx : Y(it.ySs);
           parts.push('<text x="' + X(it.t, it.dxSs).toFixed(1) + '" y="' + yTxt.toFixed(1) + '" font-size="' + ((it.size || 1) * ssPx * E.textScale).toFixed(1) +
-            '"' + fontAttr + (it.anchor && it.anchor !== 'start' ? ' text-anchor="' + it.anchor + '"' : '') + (it.italic ? ' font-style="italic"' : '') + (it.yAt === 'top' ? ' dominant-baseline="hanging"' : '') + ' xml:space="preserve" fill="' + (it.color || o.muted) + '">' + esc(it.text) + '</text>');
+            '"' + fontAttr + (it.anchor && it.anchor !== 'start' ? ' text-anchor="' + it.anchor + '"' : '') + (it.italic ? ' font-style="italic"' : '') + (it.yAt === 'top' ? ' dominant-baseline="hanging"' : '') + ' xml:space="preserve" fill="' + (it.color || o.ink) + '">' + esc(it.text) + '</text>');   // [2e.3, §427 A5] a text item names its colour from its row; the fallback is ink, never the furniture grey
         } else if (it.k === 'attackline') {
           if (!owns(it.t)) continue;
           // M4: a vertical stroke straddling the pitch position

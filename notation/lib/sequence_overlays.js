@@ -54,7 +54,7 @@
   // the partial and the fundamental from the sequence's recipe: the box named in the note's `performanceNotes` (`box N`), the
   // chord member on the note's lane with the note's key (else the lane's first); the fundamental is COMPUTED from the note's
   // pitch and partial and spelled from the take's name when the name agrees (`Just-Eb1-seed100` → E♭1), else by sharps
-  function marksOf(o, recipe, warnings) {
+  function marksOf(o, recipe, warnings, formOf) {
     const cents = bendOf(o);
     const out = { midi: o.sonifyNote, cents: +cents.toFixed(2), centsText: centsText(cents) };
     const m = /box (\d+)/.exec(o.performanceNotes || '');
@@ -75,12 +75,12 @@
       if (nm === fMidi) fName = L + (alt < 0 ? '♭' : alt > 0 ? '♯' : '') + tm[3];
     }
     return Object.assign(out, { partial: c.partial, fundamental: fName, fundamentalMidi: fMidi, box: +m[1], take: box.take || null,
-      partialText: c.partial + '°/' + fName });
+      partialText: String(formOf || '{n} ({f})').replace('{n}', c.partial).replace('{f}', fName) });   // [2e.3 (5), §438] 26 (C1) — rules.json objects.number.partialForm
   }
 
   // Build the overlay one part of one sequence group needs.
   //   objects : the score's objects (any superset)   groupId : 'grp-seq-…'   part : the lane
-  //   opts    : { window: [w0, w1], bank, instKey, recipe, name, techTexts, sps, dwellS }
+  //   opts    : { window: [w0, w1], bank, instKey, recipe, name, techTexts, techTextOf(note), partialForm, sps, dwellS }
   function forPart(objects, groupId, part, opts) {
     const O = Object.assign({}, DEFAULTS, opts || {});
     const [w0, w1] = O.window || [0, Infinity];
@@ -131,18 +131,19 @@
 
     // THE ENTRY and THE BREATHS
     const first = notes[0];
-    const box1 = O.recipe && O.recipe.containers ? O.recipe.containers[(marksOf(first, O.recipe, []).box || 1) - 1] : null;
+    const box1 = O.recipe && O.recipe.containers ? O.recipe.containers[(marksOf(first, O.recipe, [], O.partialForm).box || 1) - 1] : null;
     const W = O.recipe && O.recipe.waves;
     const range = box1 && box1.dyn === 'waves' && W ? [W.low, W.high] : (box1 && typeof box1.dyn === 'string' ? [box1.dyn] : null);
-    const techText = (O.techTexts || {})[first.technique] || null;
+    // [2e.3 (8)] the block's word: the caller's change-of-technique rule (techTextOf) when it passes one, else the technique's word
+    const techText = O.techTextOf ? O.techTextOf(first) : ((O.techTexts || {})[first.technique] || null);
     const entry = Object.assign({ event: 'ev-' + first.id, t: first.startSeconds, release: first.endSeconds, technique: first.technique,
-      techText, range, rangeText: range ? range.join(' → ') : null }, marksOf(first, O.recipe, warnings));
+      techText, range, rangeText: range ? range.join(' → ') : null }, marksOf(first, O.recipe, warnings, O.partialForm));
     const breaths = [];
     for (let i = 1; i < notes.length; i++) {
       const o = notes[i], p = notes[i - 1];
       const same = o.sonifyNote === p.sonifyNote && Math.abs(bendOf(o) - bendOf(p)) < 0.01;
       const b = { event: 'ev-' + o.id, onset: o.startSeconds, release: o.endSeconds, pitch: same ? 'same' : 'new' };
-      if (!same) Object.assign(b, marksOf(o, O.recipe, warnings));
+      if (!same) Object.assign(b, marksOf(o, O.recipe, warnings, O.partialForm));
       else b.midi = o.sonifyNote;
       breaths.push(b);
     }
