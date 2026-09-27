@@ -87,9 +87,9 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   the rest of `2b` (cover · performance instructions · cut list · batteries) is not laid out. If he reports a fault in the audio: §406 · §407.
 - **`Resume reads:`** nothing beyond §2.
 - **Pending him:** nothing new — the close block below still carries every earlier decision.
-- **DELIBERATELY UNCOMMITTED — all his** (`git status --short`, 30 paths): the 29 of the close block below, unchanged · **plus**
+- **DELIBERATELY UNCOMMITTED — all his** (`git status --short`, 29 paths): the close block's list below, unchanged — **except**
   `scores/piece-Recombination-Draft01-done.json` — his tab's save at 00:28 UTC changed `metadata` and `viewport` only (1086 objects,
-  none changed against `e9f340a`); the audio was captured from it.
+  none changed against `e9f340a`) — now MODIFIED, where the close block has it committed; the audio was captured from it.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
