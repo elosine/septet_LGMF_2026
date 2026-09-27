@@ -31,6 +31,32 @@ LAYER 1 — THE ANCHOR (§414 · §416 · §418): which point of a unit sits on 
 
 ---
 
+### The devices and their sheets
+
+Every device of the registry (container.json engraving.layout.devices · figures) and of the technique table (techniques.json familyDevice), its anchor row, its members, and the § that decided it (`sheet` — gate 7). A NEW device begins with a device sheet (`docs/PLANNING_METHOD.md`).
+
+- **byEnv.trill** — anchor **D** · members head · ledger · accidental · techSymbol · smallHead · paren · trillPitch · dynamic · ottava · goLine · envCurve · sheet: #5 §445 (the column right of its go line) · §438 (docs/TRILL_NOTATION_SPEC.md)
+- **byEnv.surge** — anchor **B** · members head · ledger · accidental · ottava · dynamic · dynArrow · goLine · envCurve · sheet: #4 day 22 (the device membership, the nh-unit)
+- **byEnv.strike** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · sheet: #5 §400 (a strike wears the strike unit)
+- **byEnv.sequence** — anchor **B** · members head · ledger · accidental · number · instruction · dynamic · dynArrow · dynamicLabel · paren · goLine · crescCurve · sheet: §447 (PLAN 2e — first §368 … §380, PLAN 2d)
+- **byTechnique.main** — anchor **A** · members head · ledger · accidental · ottava · dynamic · lvSlur · ringBar · sheet: #5 PLAN 2h.5 (the piano's long ordinary notes)
+- **byTechnique.plucked** — anchor **A** · members head · ledger · accidental · ottava · dynamic · textBaked · pedal · lvSlur · sheet: #5 PLAN 2h.5 (§486 · §490 — pizz., Ped.)
+- **byTechnique.fortepiano** — anchor **C** · members head · ledger · accidental · ottava · dynamic · goLine · gc · ringBar · sheet: #4 day 24
+- **byTechnique.cuivre** — anchor **C** · members head · ledger · accidental · ottava · dynamic · instruction · goLine · gc · ringBar · sheet: #4 day 24 · day 30 (cuivré)
+- **byTechnique.ord** — anchor **B** · members head · ledger · accidental · ottava · dynamic · goLine · sheet: #4 day 24 (plain sustained ord, provisional)
+- **byTechnique.staccato** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · sheet: #4 day 23 (wc-29 — the staccato unit)
+- **byTechnique.gettato_vel** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · instruction · sheet: #5 §400 · §401b (jeté)
+- **byTechnique.bartok_vel** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · techSymbol · sheet: #5 §400 (the snap-pizz. symbol)
+- **byTechnique.slap** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · techSymbol · instruction · sheet: #5 §400 · §401b ((slap))
+- **byTechnique.pizzicato** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · instruction · sheet: #5 §400 · §401g (T. R.)
+- **byPairBeam** — anchor **A** · members cueHead · ledger · accidental · stem · beam · dynamic · gc · goLine · sheet: #5 PLAN 2h.5 (§495 — the beamed pair)
+- **figures.cluster** — anchor **A** · members cueHead · ledger · accidental · stem · beam · staccatoDot · accent · dynamic · rest · tuplet · gc · sheet: #4 day 23 (the cluster standard)
+- **figures.beam** — anchor **A** (its GC member C) · members head · ledger · accidental · stem · beam · dynamic · gc · goLine · sheet: #4 day 23 (the beamed group)
+- **familyDevice.oneshot (provisional — DN-5)** — anchor **B** · members head · ledger · accidental · ottava · brick · instruction · sheet: #6 PLAN 2a (§330 … §338 — the bricks page) — provisional, DN-5
+- **familyDevice.sustained (provisional — DN-5)** — anchor **B** · members head · ledger · accidental · ottava · brick · instruction · sheet: #6 PLAN 2a (§330 … §338 — the bricks page) — provisional, DN-5
+
+---
+
 ## 2 · THE COLUMN
 
 LAYER 2 — THE COLUMN (§419 … §425): what stacks on a unit, in what order, on which side, how far apart. `order` is what draws today (compiled into engraving.layout.stackBelow); `orderDecided` is §420 · §421's order — LilyPond's outside-staff-priority with the ottava INSIDE the text, the one change from #5 — applied at 2e.3 (9). HUG keeps the strike chain's head-side departure (his §401f, kept §424). The floor tiers (§424 · §425): the staccato dot and the tenuto line may sit inside the staff, in a SPACE, never on a line; every other mark outside the staff by its own `staff` distance. `rows` are the fixed rows in ss from the middle line (+ up).

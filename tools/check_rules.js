@@ -55,6 +55,9 @@ const badMember = [];
 for (const [n, v] of devices) for (const m of v.memberRows || []) if (!R.objects[m]) badMember.push(n + ' → ' + m);
 ok(devices.every(([, v]) => Array.isArray(v.memberRows) && v.memberRows.length) && !badMember.length,
   'every device lists its member rows, each an objects row' + (badMember.length ? ' — unknown: ' + badMember.join(' · ') : ''));
+// (7) [2e.5] every device carries its SHEET — the § of the device sheet (or the decision that stands for one) that made it
+const noSheet = devices.filter(([, v]) => !(typeof v.sheet === 'string' && v.sheet.trim())).map(([n]) => n);
+ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it (' + devices.length + ')' + (noSheet.length ? ' — none on ' + noSheet.join(' · ') : ''));
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));
 

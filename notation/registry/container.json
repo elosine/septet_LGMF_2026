@@ -124,6 +124,7 @@
    "devices": {
     "byEnv": {
      "trill": {
+      "sheet": "#5 §445 (the column right of its go line) · §438 (docs/TRILL_NOTATION_SPEC.md)",
       "anchorRow": "D",
       "memberRows": ["head","ledger","accidental","techSymbol","smallHead","paren","trillPitch","dynamic","ottava","goLine","envCurve"],
       "afterGoGapSs": "@anchors.D.gapSs",
@@ -158,6 +159,7 @@
      "_trillNote": "PLAN 2f.4 (2026-09-13, RUNNING_LOG §438; docs/TRILL_NOTATION_SPEC.md): the TRILL is the tuba's surge with a trill on it — the open nh-unit (no stem, no brick, no ring bar), the parenthesised neighbour after it (trillPitch: LilyPond's pitched-trill group measured by tools/fixtures/lp_probes/trill.ly — group padding 0.30, parens at font-size −4 = 0.63, inner padding 0.42, the neighbour head and accidental at 0.794 of the house, accidental gap 0.20, no naturals), the whole column nhGapSs (0.25) before the go line; the go line at the onset with the strikes' length (goLineTopAsGc — §401h) and NO GC (the composer: 'no gc for trills, they are too close to the other gcs for percussive notes'); `tr` = the technique-symbol slot above (glyphs.articulation.trill at 0.70, GLYPH_SIZING Ornaments — the pedal's factor), the strikes' symbol-above rule; sfz on every attack by the tuba's below-chain and side-with-room rule (chainSide deliberately UNSET: a device chainSide would disable the room test); the level curve over the exact span in the envCurve colour, never peak-cut, over the part's whole lane (curveBand). The level is the composer score's own trill reference (IR amendment 8).",
      "_surgeTemplateNote": "PLAN 2i.8 (2026-09-15, RUNNING_LOG §530, D54): curveTemplate — the device draws the STANDARD shape of its family (cresc.js segmentFor: the ratio-5 exponential, slope 0.40 — the look of the tuba's db1 surges) in place of the event's own level samples, sampled through sonify_core.evalWaveCurve at CURVE_LOOK §2a's density (100/s, never fewer than 101), then the cut; no curveZero, no curveFloor. Why: the septet's crescendo run (78 swells, 526.8–559.4 s) SOUNDS through the sampler-bent surge (CN-49's listening tests: under 10 % for 60 % of the span), which drawn reads as silence then a spike; the IR keeps the bent samples as the truth of what sounds (D9), and the template is a drawing rule on the device — piece-wide, like dynPair, not a build flag. The meters ride it (drawnOf, D50).",
      "surge": {
+      "sheet": "#4 day 22 (the device membership, the nh-unit)",
       "anchorRow": "B",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","dynArrow","goLine","envCurve"],
       "curve": true,
@@ -170,6 +172,7 @@
      },
      "_strikeNote": "RUNNING_LOG §400 (2026-09-11): a note the strikes tool wrote (the score's srcKind 'strike' → IR env 'strike', extract_core) is a STRIKE whatever its technique, and wears the section's strike look — the tuba staccato unit with the accent, fff on change. The piano's `main` is a strike here and a long note elsewhere, which is why the look rides the env, not the technique; the one-shot techniques carry the same look in byTechnique plus their own symbol/text.",
      "strike": {
+      "sheet": "#5 §400 (a strike wears the strike unit)",
       "anchorRow": "C",
       "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc"],
       "goLine": true,
@@ -194,6 +197,7 @@
      },
      "_strikeRingBarNote": "PLAN 2h.5 (2026-09-14): byTechnique.main now carries the ring bar for the piano's long ordinary notes in the morph section; a strike merges its env on top, so the env says ringBar false out loud — the piano's strikes keep their look.",
      "sequence": {
+      "sheet": "§447 (PLAN 2e — first §368 … §380, PLAN 2d)",
       "anchorRow": "B",
       "memberRows": ["head","ledger","accidental","number","instruction","dynamic","dynArrow","dynamicLabel","paren","goLine","crescCurve"],
       "goLine": true,
@@ -222,6 +226,7 @@
     "byTechnique": {
      "_pianoMorphNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §483–§491; the composer's reference CN-82 = piece #2 around 0:50; his spec: 'no gcs, open noteheads for both'): the piano's notes in the morph section carry no env, so `main` and `plucked` reach them and nothing else (every other `main` is a strike or a trill by env — and those envs cancel every field added here out loud: ringBar, letRing, chordRules). The first build (§484 — the tuba's ring bar on main; piece #2's ASR row on plucked: 'Ped.' text, the ✱ at the release, a two-hook bracket) was replaced device by device at his eye: see _mainNote, _chordRulesNote, _pluckedNote.",
      "main": {
+      "sheet": "#5 PLAN 2h.5 (the piano's long ordinary notes)",
       "anchorRow": "A",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","lvSlur","ringBar"],
       "goLine": false,
@@ -237,6 +242,7 @@
      "_chordRulesNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §488–§489, the composer: 'there should just be one dynamic, that entity should be treated as a chord'; his choice A): chordRules on a device makes the part's notes within chordSimulSeconds (engraving.layout, default 0.05) of one onset ONE CHORD across both staves — (1) one band dynamic per chord, drawn by its LOWEST note, centred on that note's column, the band of the chord's loudest member (max vel) — piece #2's placeBelowChord; (2) the let-ring slurs by Gould's chord-tie rule: the top note's above, the bottom note's below, inner notes by the middle-line rule (§486). A single note is unchanged. The strike and trill envs say chordRules false — a strike carries its own dynamic on every note (§400).",
      "_mainNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §485–§486, the composer, on the D2 at 217.55 s): 'Open head, GoLine, and Dynamic. Those are fine. Please get rid of the duration line. And then I want a let ring slur' — the ring bar of the first build (§484) is gone; the let-ring slur is piece #2's l.v. crescent (glyphs.json letRing), placed by layout's letRing rule: 0.15 ss right of the unit's rightmost ink, stackGapSs outside the head's ink, above for a head on or above the middle line, below (mirrored) for one below it; on the chain's side it is the chain's first element. letRingGapSs (engraving.layout) overrides the 0.15.",
      "plucked": {
+      "sheet": "#5 PLAN 2h.5 (§486 · §490 — pizz., Ped.)",
       "anchorRow": "A",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","textBaked","pedal","lvSlur"],
       "goLine": false,
@@ -254,6 +260,7 @@
      },
      "_pluckedNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §490–§491, the composer: 'they will be same as the plain ones. Let ring, no duration line … chords, one dynamic … bring over the proper pizz. … the right font and text … and the proper pedal marking … same size everything … no rosette … no bracket'; his choice A on the release): plucked = main (go line · open head · one band dynamic per chord · the l.v. slurs by the chord rule) PLUS textAbove — piece #2's baked italic 'pizz.' (glyphs.text), once per onset, above the chord's top note, centred on its column, stackGapSs above the unit's ink or the staff, or 2 × stackGapSs above the top note's slur when that slur is above (piece #2's cluster rule) — and pedalMark — piece #2's Emmentaler 'Ped.' (glyphs.pedal), once per chord under its lowest note, the chain's slot after the dynamic, centred. No release sign: the release is the performance instructions' legend (NITS 2026-09-14). §492–§494: the 0.5 s 'damped' thresholds (letRingMinSeconds / pedalMinSeconds) were his to reject and he did — every plucked onset rings: Ped. once per chord, the slur on every note, the open head kept on a short single pluck; the three close pairs (327.27 · 345.48 · 384.92) are beamed 8ths instead (PLAN 2g.1, the cross-staff beam). columnInk: pizz. and Ped. count as the note column's ink — the column shifts left so the widest of them ends nhGapSs before the go line (his eye, §492); the l.v. slur is exempt.",
      "fortepiano": {
+      "sheet": "#4 day 24",
       "anchorRow": "C",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","goLine","gc","ringBar"],
       "nhGapSs": "@anchors.C.houseGapSs",
@@ -264,6 +271,7 @@
       "dynMark": "sfzp"
      },
      "cuivre": {
+      "sheet": "#4 day 24 · day 30 (cuivré)",
       "anchorRow": "C",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","instruction","goLine","gc","ringBar"],
       "nhGapSs": "@anchors.C.houseGapSs",
@@ -276,6 +284,7 @@
      },
      "_cuivreNote": "day 24: cuivre INHERITS THE FORTEPIANO DEVICE SET verbatim. Evidence, not preference: all three cuivre notes in density build 1 (T1 wc-1587 midi 62, T4 wc-1584 midi 63, T8 wc-1580 midi 67, all at 40.93 s) are members of grp-vert03-fp-01, whose seven other members are technique fortepiano at the same instant and the same velocity 112, and whose score performanceNotes on EVERY member reads VERT01-03 fortepiano. So the gesture is a fortepiano blast and cuivre is its timbre in three parts; drawing those three differently from their seven siblings would notate a timbre difference as a gesture difference. Sample-true ring bars exist (cuivre 62=1.14 63=1.25 67=0.99 s in bank/sample_lengths.json). OPEN, composer: whether a cuivre TEXT mark (cuivre) should additionally sit on those three notes — the technique is currently invisible on the page.",
      "ord": {
+      "sheet": "#4 day 24 (plain sustained ord, provisional)",
       "anchorRow": "B",
       "memberRows": ["head","ledger","accidental","ottava","dynamic","goLine"],
       "goLine": true,
@@ -284,6 +293,7 @@
      },
      "_ordNote": "day 24, PROVISIONAL: plain (non-surge) sustained ord had no entry, so the ten-part octaves-Bb blast at 48.05 (wc-1611..wc-1620, 4.41 s, vel 112, one per part) drew as ten bare parachute bricks. Minimum honest reading: go line + nh-unit + one band dynamic. NO gc (the surge precedent: a sustained entry is not a point-in-time impact, and byEnv.surge carries no gc) and NO ring bar (ord duration is the real drawn duration per D9, and the brick already shows it; the ring bar exists to show a FIXED one-shot ringing past its written value). Surges are unaffected: byEnv.surge now carries dynMark false, which cancels this band mark on top of the technique entry, so the settled surge look (curve + cut + go line + nh-unit + dynPair) is byte-identical to day 23.",
      "staccato": {
+      "sheet": "#4 day 23 (wc-29 — the staccato unit)",
       "anchorRow": "C",
       "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc"],
       "goLine": true,
@@ -301,6 +311,7 @@
      },
      "_septetStrikes": "RUNNING_LOG §399–400 (2026-09-11, the composer, strike 1): section 1's strikes are written the tuba staccato way — every note at its own onset with its own GC, the filled 16th-flag head, the dot nearest the head and the ACCENT outside it (nhArtic), fff at a part's first strike and then nothing until its dynamic changes (dynOnChange), the technique SYMBOL above the unit (techSymbol: snap pizz for bartók, + for the slap; #2's font-size −3 = 0.707), the instruction TEXT in the below-chain's instruction slot (the composer 2026-09-11: 'repeat all the instructions every note and the dynamic' — instrText on every note, instrFirst only for the flute's first 'tongue ram' before 'T. R.', fff on every strike; instrAlign start|middle|end on the head column — the composer 2026-09-11: tongue ram right-justified clear of the GC, (slap) and jeté centred). No duration brick on a strike (his: 'the short notes with gcs don't have duration lines'). Stems the CLASSIC way (above the middle line down, below it up) and the whole stack on the HEAD side, mirrored with the stem (chainSide headSide — the composer 2026-09-11: 'keep our stack but mirror depending on stem direction'). The piano's `main` gets it through byEnv.strike (the score's srcKind), never by technique — a long `main` keeps its family look.",
      "gettato_vel": {
+      "sheet": "#5 §400 · §401b (jeté)",
       "anchorRow": "C",
       "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","instruction"],
       "goLine": true,
@@ -322,6 +333,7 @@
       "instrAlign": "middle"
      },
      "bartok_vel": {
+      "sheet": "#5 §400 (the snap-pizz. symbol)",
       "anchorRow": "C",
       "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techSymbol"],
       "goLine": true,
@@ -343,6 +355,7 @@
       "techSymbolScale": "@objects.techSymbol.size"
      },
      "slap": {
+      "sheet": "#5 §400 · §401b ((slap))",
       "anchorRow": "C",
       "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techSymbol","instruction"],
       "goLine": true,
@@ -366,6 +379,7 @@
       "instrAlign": "middle"
      },
      "pizzicato": {
+      "sheet": "#5 §400 · §401g (T. R.)",
       "anchorRow": "C",
       "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","instruction"],
       "goLine": true,
@@ -389,6 +403,7 @@
      "_staccatoNote": "day 23, OPTION B of the layering discussion (Tufte: layering & separation, 1+1=3, position before colour): NO go line for a point-in-time gesture — the GC's impact marker IS the go mark, so a go line was a third encoding of one time; the unit sits BEFORE the go time like every other unit (reading rule: the ink just before the mark is what you play at the mark), with nhGapSs 0.6 so the head clears the marker's left edge (r 0.51 ss) with air; head, dot and ledgers sit under the arc (the ictus hang keeps the arc at 35 %+ height 0.05 s before impact); stem and flag may cross it (composer). Option A (centred on go, marker lightened) rejected: it lightens the datum. nhAnchor 'center' remains available as a device value."
     },
     "byPairBeam": {
+     "sheet": "#5 PLAN 2h.5 (§495 — the beamed pair)",
      "anchorRow": "A",
      "memberRows": ["cueHead","ledger","accidental","stem","beam","dynamic","gc","goLine"],
      "nhHead": "filled",
@@ -458,6 +473,7 @@
    "figures": {
     "_note": "day 24 — THE FIGURE STANDARDS AS DATA (composer: 'let's try to capture these as standards or something documented somehow because after the clear, we've lost... I've had to reestablish some of these rules'). tools/notate_section.js builds every --cluster and --beam overlay FROM these blocks, so a rule lives here once and docs/NOTATION_STANDARDS.md describes it in words. Edit here; the next extract carries it.",
     "cluster": {
+     "sheet": "#4 day 23 (the cluster standard)",
      "anchorRow": "A",
      "memberRows": ["cueHead","ledger","accidental","stem","beam","staccatoDot","accent","dynamic","rest","tuplet","gc"],
      "goLine": false,
@@ -486,6 +502,7 @@
      "_note": "A CLUSTER (D56): a composer-named span of partials on ONE analysed tempo. Go line and GC on the FIRST partial only ('the GC only on the first one, so it launches the whole cluster'); every partial's NOTEHEAD LEFT EDGE sits on its own go time ('because of the scrolling person'); filled head at the 0.844 cell scale, staccato dot at the 0.15 tight gap; every partial written as a 16th, gaps as 16th rests one per slot (day 35, --rests16 on every new build; --restFit N the correction; tuplet-internal slot rests keep the bracket's value), the second beam level SOLID through the group's rests (day 35, --beamsThrough; --beamlets N the per-group exception; before day 35: beamlets, beamStubSs — db1 reproduces that writing from its own command). Dynamics = the ambient+deviation model (DYNAMICS_FRAMEWORK): one ambient mark on a chosen member, ACCENTS on the members louder than it — 'loud, slightly softer, loud' is f with accents, not fff f fff. Per-partial marks remain available (--dyn n,n,n)."
     },
     "beam": {
+     "sheet": "#4 day 23 (the beamed group)",
      "anchorRow": "A",
      "memberRows": ["head","ledger","accidental","stem","beam","dynamic","gc","goLine"],
      "anchorRowGc": "C",

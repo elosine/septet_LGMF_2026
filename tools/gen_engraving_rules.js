@@ -69,6 +69,14 @@ for (const [k, a] of Object.entries(R.anchors)) {
 P('');
 P('---');
 P('');
+P('### The devices and their sheets');
+P('');
+P('Every device of the registry (container.json engraving.layout.devices · figures) and of the technique table (techniques.json familyDevice), its anchor row, its members, and the § that decided it (`sheet` — gate 7). A NEW device begins with a device sheet (`docs/PLANNING_METHOD.md`).');
+P('');
+for (const [name, v] of eachDevice) P('- **' + name + '** — anchor **' + (v.anchorRow || '?') + '**' + (v.anchorRowGc ? ' (its GC member ' + v.anchorRowGc + ')' : '') + ' · members ' + (v.memberRows || []).join(' · ') + ' · sheet: ' + (v.sheet || '—'));
+P('');
+P('---');
+P('');
 P('## 2 · THE COLUMN');
 P('');
 P(R.column._doc);

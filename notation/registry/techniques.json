@@ -11,6 +11,7 @@
    "anchorRow": "B",
    "memberRows": ["head", "ledger", "accidental", "ottava", "brick", "instruction"],
    "provisional": true,
+   "sheet": "#6 PLAN 2a (§330 … §338 — the bricks page) — provisional, DN-5",
    "nhUnit": true,
    "nhHead": "filled"
   },
@@ -18,6 +19,7 @@
    "anchorRow": "B",
    "memberRows": ["head", "ledger", "accidental", "ottava", "brick", "instruction"],
    "provisional": true,
+   "sheet": "#6 PLAN 2a (§330 … §338 — the bricks page) — provisional, DN-5",
    "nhUnit": true
   }
  },

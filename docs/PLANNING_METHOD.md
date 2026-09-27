@@ -64,6 +64,27 @@ composer (a rack window, a decision, a listening).
 
 **The whole plan:** every item in the second format, in order, nothing else.
 
+## THE DEVICE SHEET — a new notation begins here (LGMF PLAN 2e.5, 2026-09-27; RUNNING_LOG §428 · §447 · §452)
+
+**A NEW notation begins with a device sheet** — a device, a variant, any "let's notate X". Before a line of code the AI fills this
+card and SHOWS it; he answers only its open lines. The rules it reads are `notation/registry/rules.json`, through the generated
+`docs/ENGRAVING_RULES.md` — never `docs/NOTATION_STANDARDS.md` (the history) for a current value.
+
+> **DEVICE SHEET — <the device>**
+>
+> 1. **The device** — one sentence: what the performer must know, and when.
+> 2. **Anchor** — row A … F by the anchor test (the head on its time ↔ no go line), or NEW with the reason the six cannot serve.
+> 3. **Column** — each member → an existing object row, or NEW ROW.
+> 4. **Styles** — each member's face · size · colour from its row; a NEW row's values proposed with their `basis`.
+> 5. **Edge** — the screen and print class of any new drawn or animated kind (`page_rules.edge`).
+> 6. **Ladder** — any named conditional rule it needs (a rung it may not take, an override it expects).
+> 7. **Open decisions** — EXACTLY the new rows and any two-candidate conflict; nothing else is asked.
+
+**Then:** his answers are written into the rows; the sheet becomes the PLAN item's header and its RUNNING_LOG §; the build adds the
+rows to the tables (`rules.json`, `page_rules.json`) and the device's `sheet: '§N'`; `tools/check_rules.js` refuses a build whose kinds
+or types have no row, or a device with no sheet. Later surprises (a unit that will not fit, a device that needs a seventh anchor) arrive
+on the decisions-needed list (§426 — `tools/decisions_needed.js`, the generated page's last section), never decided ad hoc.
+
 ## What the AI does without being asked (its side of the method)
 
 - Gives the item a stable ID and a *why* in `PLAN.md` (the plan's header rules); mirrors the chat's wording there.

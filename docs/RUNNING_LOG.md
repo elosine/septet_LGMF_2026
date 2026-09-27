@@ -15923,3 +15923,26 @@ red `fit?` on the tag row away from the spill · the override's three properties
 unless it touches a line" (keeping #4's 0.15 and §425's "never on a line" both).
 
 **Next: 2e.5 — the device sheet and the standing rules.**
+
+## §452. `2e.5` THE DEVICE SHEET AND THE STANDING RULES — the card in the planning method, the line in CLAUDE.md, a sheet on every device, gate (7) (2026-09-27, Opus, session 17)
+
+- **`docs/PLANNING_METHOD.md` § THE DEVICE SHEET** (§428, his HELD-2): a NEW notation — a device, a variant, any "let's notate X" —
+  begins with the seven-line card, filled and SHOWN before a line of code: (1) the device in one sentence · (2) the anchor A … F by the
+  anchor test, or NEW and why · (3) the column members → object rows or NEW ROW · (4) the styles from the rows, a new row's values with
+  their basis · (5) the edge classes · (6) the ladder rules · (7) the open decisions — exactly the new rows and any two-candidate
+  conflict. His answers become the rows; the sheet the PLAN item's header and its log §; later surprises go to the decisions-needed list.
+- **CLAUDE.md, READ FIRST:** *a new notation begins with a device sheet; the rules are `rules.json`, read through the generated
+  `ENGRAVING_RULES.md`, never NOTATION_STANDARDS for a current value; change a row, never a code number* — and the orient line for the
+  engraving rules now names the built tables, the generator and the report. **The PLAN header's rule** (written with the item) says the
+  same; the three say it in one sentence each.
+- **`sheet` on every device** — the § that decided it (the device sheet, or the decision that stands for one): trill #5 §445 · §438 ·
+  surge #4 day 22 · strike #5 §400 · the sequence §447 (first §368 … §380) · main and plucked #5 2h.5 · fortepiano · cuivré · ord
+  #4 day 24 (· day 30) · staccato #4 day 23 · jeté · bartók · slap · T. R. #5 §400 · §401b / g · the beamed pair #5 2h.5 §495 · the
+  cluster and the beamed group #4 day 23 · the two family looks #6 2a — provisional, DN-5. **The morph has no device entry** (its
+  notation is overlay-driven: the header, the two curves) — its first device sheet comes when its notation is taken up (2e.7's next
+  sheets). The generated page gains *The devices and their sheets* (anchor · members · sheet, per device).
+- **Gate (7)** in `check_rules`: a device without a sheet fails — **23 checks GREEN**.
+- **THE SHIELD:** `sheet` is read by no drawing code — the 20 layouts and every LGMF frame and plan byte-identical to 2e.4's.
+
+**Next: 2e.6 — re-extract `piece-lgmf` and `lgmf-eh-proto` on the finished tables; the shield's final run; the list of every moved
+pixel on `piece-lgmf` since 2e.1.**

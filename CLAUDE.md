@@ -38,6 +38,10 @@ piece and flag the rest to `docs/NITS.md` · don't make the composer decide minu
 prefer one robust build over a fragile one · **a confidence claim must be verified in the
 running app** · no clear evidence means no diagnosis.
 
+**A NEW NOTATION BEGINS WITH A DEVICE SHEET** (PLAN 2e, 2026-09-27 — `docs/PLANNING_METHOD.md` § THE DEVICE SHEET): the rules
+are `notation/registry/rules.json`, read through the generated `docs/ENGRAVING_RULES.md` — never `docs/NOTATION_STANDARDS.md`
+(the history) for a current value; change a ROW, never a code number; `node tools/check_rules.js` holds them.
+
 The composer's own rule for a port (said of the last one, 2026-09-03; it holds here):
 *"I don't want to get too bogged down in technical details of porting and code and such,
 but I want to do a good, solid job and not leave out things now that might bite later ...
@@ -67,9 +71,10 @@ first. A one-line TL;DR leads any reply over two paragraphs. One step at a time.
 - **Notating a just-intoned note** (DECIDED 2026-09-19, **REVISED 2026-09-27** — the nearest quarter-tone, no arrows · the cents
   always, from the tempered note, as a tuner reads · `26 (C1)` at sounding pitch · no valve / string layer · his TUNING legend):
   `docs/research/just_partials_notation.md` **§1a · §1b** — **read it before notating**
-- **Engraving rules — placement, sizes, colours, the ladder** (PLAN § `2e`, planned 2026-09-27, being built): until
-  `notation/registry/rules.json` and the generated `docs/ENGRAVING_RULES.md` exist, PLAN § `2e`'s design line is the current rule
-  set; a NEW notation begins with a DEVICE SHEET (the PLAN header's standing rule)
+- **Engraving rules — placement, sizes, colours, the ladder** (PLAN § `2e`, built 2026-09-27): `notation/registry/rules.json` (the
+  tables — anchors · column · objects · colours · faces · the pitch picture · the technique words · the ladder), read through the
+  GENERATED `docs/ENGRAVING_RULES.md` (`node tools/gen_engraving_rules.js`; never hand-edit it); the decisions still open are its last
+  section (`node tools/decisions_needed.js`); a NEW notation begins with a DEVICE SHEET (`docs/PLANNING_METHOD.md`)
 - **The performance notes — what they must cover, collected as decided** (his to write, PLAN 2b): `docs/PERFORMANCE_NOTES.md` —
   append a row whenever a decision needs a line in the notes; never write the notes there
 - **Deferred, real but not now:** `docs/NITS.md`
