@@ -252,7 +252,7 @@ const ENS_APPLIES = !!(ENS && TRACKS.length === (ENS.parts || []).length);
 // THE FIGURE STANDARDS (day 24): every --cluster / --beam overlay is built
 // from registry data, so the rules survive a cleared chat. Edit the registry,
 // not this file, to change how a figure is drawn.
-const FIG = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8')).engraving.layout.figures) || {};
+const FIG = (require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving.layout.figures) || {};
 const FIG_CL = FIG.cluster || {}, FIG_BM = FIG.beam || {};
 
 // [2f.7] --trillRate N: samples per second on a trill's drawn level (the two-piano piece's 100/s); absent = the fixed 101
@@ -1209,7 +1209,7 @@ for (let i = 0; i < process.argv.length; i++) {
   if (!m) { console.error('--ensembleDyn needs t0-t1@part (e.g. --ensembleDyn 205-428@2)'); process.exit(2); }
   const EDyn = require(path.join(ROOT, 'notation', 'lib', 'ensemble_dyn.js'));
   const edPart = +m[3];
-  const bands = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8')).engraving.layout.dynamicBands);
+  const bands = (require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving.layout.dynamicBands);
   const others = (typeof metaLayer === 'number' ? [...Array(metaLayer).keys()] : [0, 1, 2, 3, 4, 5, 6]).filter(L => L !== edPart);
   const res = EDyn.marksFor(score.objects, { part: edPart, t0: +m[1], t1: +m[2], others, bands });
   let n = 0;
@@ -1468,7 +1468,7 @@ if (flag('bricks')) {
 if (SEQ_GROUPS.length) {
   const SeqOv = require(path.join(ROOT, 'notation', 'lib', 'sequence_overlays.js'));
   const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
-  const CONT = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const CONT = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const seqDev = ((CONT.engraving.layout.devices || {}).byEnv || {}).sequence || {};
   const recipes = ((score.databases || {}).sequences || []);
   for (const gid of SEQ_GROUPS) {
@@ -1621,7 +1621,7 @@ writeManifest(manifest);
 try {
   const LayoutG = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   const GG = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
-  const CG = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const CG = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const EL = (CG.engraving && CG.engraving.layout) || {};
   const TPg = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7, hGapSs: 0.35, numeralGapPerCharSs: 0.88 }, EL.tuplet || {});
   const ssPxZ = 7.9 * 2, pxSecZ = 2 * (1920 - 48) / 12;   // zoom-working scale

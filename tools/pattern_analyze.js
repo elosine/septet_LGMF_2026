@@ -38,7 +38,7 @@ const CF = require(path.join(ROOT, 'notation', 'lib', 'cluster_fit.js'));
 
 const arg = (n, d) => { const i = process.argv.indexOf('--' + n); return i >= 0 ? process.argv[i + 1] : d; };
 const flag = n => process.argv.includes('--' + n);
-const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const BREATH = C.engraving.layout.breathSeconds || 0.5;
 const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', arg('ir', 'db1-all-x01') + '.ir.json'), 'utf8'));
 const partOf = new Map(); for (const c of ir.chunks) for (const id of c.events) partOf.set(id, c.part);

@@ -252,12 +252,15 @@
     // engraving numbers: code defaults = the V0.10 registry values, so a
     // caller without opts renders identically; the shell passes
     // container.json `engraving.layout` and edits there re-render everywhere.
-    const o = Object.assign({ stemLen: 3.5, accGap: 0.25, tagY: 3.5, tempoY: 4.6, tickY: 3.0, dynY: -4.6, nhGapSs: 0.25 }, opts || {});
+    const o = Object.assign({ stemLen: 3.5, accGap: 0.25, tagY: 3.5, tempoY: 4.6, tickY: 3.0, dynY: -4.6, nhGapSs: 0.25 }, opts || {});   // RULES MIRROR
     // PER-IR LAYOUT POLICY (day 33): a file can opt into placement rules the
     // registry does not impose globally — approved files stay byte-identical.
     // notate_section --bracketsAbove writes { bracketSide: 'above' }.
     const POL = ir.layoutPolicy || {};
-    const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});
+    const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});   // RULES MIRROR (rules.json objects.*.size)
+    // [LGMF 2e.1, §448] the colours a layout item names come from rules.json `colours` (compiled into engraving.layout.colours) —
+    // never a literal at the push; the defaults below mirror the table for a caller without the registry (gate 3, check_rules)
+    const COL = Object.assign({ techText: '#000', alert: '#c00' }, o.colours || {});   // RULES MIRROR (rules.json colours)
     const nh = glyphs.notehead.filled;
     const nhHalfW = nh.wSs / 2;
     const upAttach = { dx: nh.anchors.stemAttachUp.x - nh.anchors.center.x, dy: nh.anchors.stemAttachUp.y - nh.anchors.center.y };
@@ -720,7 +723,8 @@
         const ledg = [];
         for (const x of m) for (const Ly of x.L) ledg.push({ ySs: Ly, xLeft: x.headDx - x.w / 2 - x.lext });
         const packed = ChordColumn.accidentalColumn(accs, heads, ledg, {
-          gapToNotehead: (stds.accidental && stds.accidental.gapToNotehead) || 0.1,
+          // [2e.1] rules.json objects.accidental.besideInColumn (compiled into accGapColumn); the glyph standard is its fallback
+          gapToNotehead: o.accGapColumn != null ? o.accGapColumn : ((stds.accidental && stds.accidental.gapToNotehead) || 0.1),
           minLateralGap: CC.minLateralGap, yTol: CC.verticalCollisionTolerance,
         });
         const accDx = new Map();
@@ -898,7 +902,7 @@
       // technique's text 0.45 above the column, from the head's left edge (the pizz. recipe) · the written range on the dynamic row,
       // right to left from the go line: spacer · high mark · spacer · arrow · spacer · low mark (the tuba header's chain, the two
       // names in place of circle and mark). No niente sign, no hairpin (§376 (a)). `justHead` is shared with the breaths (2d.4).
-      const SQB = Object.assign({ headGapSs: 0.45, centsGapSs: 0.6, rowSs: 1.0, textGapSs: 0.45, numEmSs: 0.975, slashTopEm: 0.711 },
+      const SQB = Object.assign({ headGapSs: 0.45, centsGapSs: 0.6, rowSs: 1.0, textGapSs: 0.45, numEmSs: 0.975, slashTopEm: 0.711 },   // RULES MIRROR
         ((DEV.byEnv || {}).sequence || {}).block || {});
       const pcSeq = partCfgOf(ENS, part), trSeq = (pcSeq && pcSeq.transpose) || 0;
       // one just-intoned head, its right ink edge at `rightSs` from x(t): { cx, y, lowInk, topInk, leftInk } — the column when `column`
@@ -956,7 +960,7 @@
         // [LGMF PLAN 2d.5 — RUNNING_LOG §386] THE LABELS: a `(dyn)` at each of the IR's turning points — the dynamic at a cue scale
         // between parentheses, on the dynamic row, centred on x(t). Glyph items (edge class `glyph`: clamp · whole — a stamp, never a
         // go-time indicator), so a label is one unit at its time like any mark; a name with no glyph (niente) is said, not drawn.
-        const LB = Object.assign({ scale: 0.75, parenScale: 0.43, parenGapSs: 0.1 }, ((DEV.byEnv || {}).sequence || {}).label || {});
+        const LB = Object.assign({ scale: 0.75, parenScale: 0.43, parenGapSs: 0.1 }, ((DEV.byEnv || {}).sequence || {}).label || {});   // RULES MIRROR
         const PLg = glyphs.accidental.leftParen, PRg = glyphs.accidental.rightParen;
         for (const lb of sq.v.labels || []) {
           const dg = (glyphs.dynamic || {})[lb.mark];
@@ -968,7 +972,7 @@
             items.push({ k: 'glyph', g: 'accidental-rightParen', t: lb.t, dxSs: hw2 + LB.parenGapSs + PRg.wSs * LB.parenScale / 2, ySs: o.dynY, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
           }
         }
-        const RM = Object.assign({ scale: 0.844, parenScale: 0.67, parenGapSs: 0.15 }, ((DEV.byEnv || {}).sequence || {}).reminder || {});
+        const RM = Object.assign({ scale: 0.844, parenScale: 0.67, parenGapSs: 0.15 }, ((DEV.byEnv || {}).sequence || {}).reminder || {});   // RULES MIRROR
         let lastMarks = en;
         for (const b of sq.v.breaths || []) {
           if (b.pitch === 'new') {
@@ -1194,7 +1198,7 @@
             // laneHalfSs) the original tag-row placement stands ("copy tuba
             // eight"). Emitted inside the nh-unit, which knows the head's x;
             // a techText on a device with no nh-unit takes the tag row.
-            if (dev.techText && !dev.nhUnit) items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: '#000' });
+            if (dev.techText && !dev.nhUnit) items.push({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: COL.techText });
             if (dev.nhUnit) {
               // THE NH-UNIT (device element 3, day 22): open head (stemless)
               // + accidental + ledgers + ottava, right-anchored a fixed gap
@@ -1295,7 +1299,7 @@
                 // the whole column sits left of the go line by nhGapSs. Offsets are from the main head's centre.
                 let TPG = null;
                 if (dev.trillPitch && e.trill && Number.isFinite(e.trill.interval)) {
-                  const P = Object.assign({ groupPadSs: 0.30, parenScale: 0.63, parenInnerSs: 0.42, headScale: 0.794, accScale: 0.794, accPadSs: 0.20, naturals: false }, dev.trillPitch);
+                  const P = Object.assign({ groupPadSs: 0.30, parenScale: 0.63, parenInnerSs: 0.42, headScale: 0.794, accScale: 0.794, accPadSs: 0.20, naturals: false }, dev.trillPitch);   // RULES MIRROR
                   const pG = glyphs.accidental && glyphs.accidental.leftParen, qG = glyphs.accidental && glyphs.accidental.rightParen;
                   if (!pG || !qG) warnings.push('trill ' + e.id + ': the parenthesis glyphs are missing — neighbour not drawn');
                   else {
@@ -1336,7 +1340,7 @@
                 const acc = accKind ? glyphs.accidental[accKind] : null;
                 let accRel = null;
                 if (acc) {
-                  const accGap = (stds.accidental && stds.accidental.gapToNotehead) || 0.1;
+                  const accGap = o.accGapColumn != null ? o.accGapColumn : ((stds.accidental && stds.accidental.gapToNotehead) || 0.1);   // [2e.1] objects.accidental.besideInColumn
                   const align = acc.anchors && acc.anchors.noteY ? 'noteY' : 'center';
                   const accTopExt = align === 'noteY' ? acc.anchors.noteY.y : acc.hSs / 2;
                   const accBotExt = acc.hSs - accTopExt;
@@ -1442,9 +1446,9 @@
                   // medium gap — at 0.01 ss of daylight (T8's G4) it reads as
                   // touching, which is the composer's "can't go above" case
                   if (base + em + gapM <= laneHalf + 1e-9)
-                    items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: base, text: dev.techText, size: TS.technique, color: '#000' });
+                    items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: base, text: dev.techText, size: TS.technique, color: COL.techText });
                   else
-                    items.push({ k: 'text', t: tU, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: '#000' });
+                    items.push({ k: 'text', t: tU, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, size: TS.technique, color: COL.techText });
                 }
                 // THE RING BAR STARTS AFTER THE UNIT, NOT AT THE GO LINE (day 24,
                 // composer: "you have to shorten the duration bar from the left. It
@@ -1957,7 +1961,7 @@
                   const alRaw = (instrIsFirst && dev.instrFirstAlign) || dev.instrAlign;   // §401g: the first text may sit differently ('tongue ram' right, 'T. R.' centred)
                   const al = alRaw === 'end' || alRaw === 'middle' ? alRaw : 'start';   // §401b: the composer — tongue ram right-justified (clear of the GC), (slap) / jeté centred
                   const dxT = al === 'end' ? headDx + nhO.wSs / 2 : al === 'middle' ? headDx : headDx - nhO.wSs / 2;
-                  items.push({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, size: TS.technique, color: '#000', anchor: al });
+                  items.push({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, size: TS.technique, color: COL.techText, anchor: al });
                   recChrome(items[items.length - 1], chainAbove ? 'above' : 'below', instrEm * 0.8, -instrEm * 0.2);
                 }
                 // [PLAN 2i.8, RUNNING_LOG §530, D54 — the composer's (b)] "sempre secco" ONCE PER PART, on the part's FIRST
@@ -1970,7 +1974,7 @@
                 // registry seccoGapSs) right of the edge's stroke. Off the chain: nothing else stacks against it.
                 if (e.secco && seccoShown.has(e.id)) {
                   const secGap = o.seccoGapSs != null ? o.seccoGapSs : 0.15;
-                  items.push({ k: 'text', t: e.onset + e.duration, dxSs: secGap, yAt: 'top', text: 'sempre secco', size: TS.technique, color: '#000', anchor: 'start', ev: e.id });
+                  items.push({ k: 'text', t: e.onset + e.duration, dxSs: secGap, yAt: 'top', text: 'sempre secco', size: TS.technique, color: COL.techText, anchor: 'start', ev: e.id });
                 }
                 // [2h.5, §490–§491] "Ped." — piece #2's Emmentaler sustain-pedal
                 // glyph, once per chord (the chord's lowest note draws it, like
@@ -2035,7 +2039,7 @@
                   const emA = TS.technique * (o.textEmScale != null ? o.textEmScale : 1.3);
                   const yB = Math.max(chainTopY, inkTopY) + stackGap;
                   chainTopY = yB + emA;
-                  items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: yB, text: writtenOut, size: TS.technique, color: '#c00' });
+                  items.push({ k: 'text', t: tU, dxSs: headDx - nhO.wSs / 2, ySs: yB, text: writtenOut, size: TS.technique, color: COL.alert });
                   recChrome(items[items.length - 1], 'above', emA, 0);
                 }
 

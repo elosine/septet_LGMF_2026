@@ -12,7 +12,7 @@ const Coords = require(path.join(ROOT, 'notation', 'lib', 'coords.js'));
 const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
 const Anim = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
 const Transport = require(path.join(ROOT, 'notation', 'lib', 'transport.js'));
-const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const ST = C.animated;
 
 let failures = 0;

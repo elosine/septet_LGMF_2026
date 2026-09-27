@@ -17,7 +17,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
 const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
-const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 
 const ids = process.argv.slice(2).filter(a => !a.startsWith('--'));
 const dry = process.argv.includes('--dry');

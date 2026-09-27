@@ -15621,3 +15621,106 @@ ledger's end · the vibrato change-of-technique texts · the ottava order) · 2e
 + two gates · 2e.5 the device sheet in PLANNING_METHOD, the CLAUDE.md line, `sheet: §` per device · 2e.6 the re-extract and the
 shield's final run · 2e.7 his eye · the AI's calls · the build order (Opus, one commit per step, STOP after 2e.6). The PLAN header
 gains its second standing rule: a new notation begins with a device sheet. Next: `/checkpoint` on Opus → `/clear` → Opus builds.
+
+## §448. `2e.1` THE TABLES, THE GENERATOR, THE GATES — THE MIGRATION, byte-identical: `rules.json` · `rules.js` · 128 pointers · `ENGRAVING_RULES.md` generated · `check_rules` GREEN (2026-09-27, Opus, session 17)
+
+**Prompted by** his `/postclear` word: *"go ahead and build the plan as much as possible independantly"* — PLAN § `2e`, 2e.1 → 2e.6, one
+commit per step, THE SHIELD in each; STOP at 2e.7 for his eye.
+
+**THE CENSUS (first, before any edit)** — every look number of the notation, where it lived on HEAD `c499a0d`:
+- `container.json engraving.layout` — 58 keys. **Moved to rows (30):** `stemLen` · `accGap` · `tagY` · `tempoY` · `tickY` · `dynY` · `nhGapSs` ·
+  `stackBelow` (the order) · `grandStaff.interStaffGapSs` · `ottavaLedgerThreshold` · `ottavaEndGapSs` · `stackGapSs` · `flagClearanceSs` ·
+  `chainAboveGapSs` · `beamStubSs` · `tuplet` (the look, whole) · `tightGapSs` · `gapMediumSs` · `dynStemGapSs` · `seccoGapSs` · `ringBarGapSs`
+  · `flagScaleY` · `dynArrow` ×4 · `textSizes` ×4. **Stayed, and why:** `breathSeconds` · `flagShortBarSeconds` (time, not look) ·
+  `dynamicBands` · `dynPair` (what a velocity is called, not how it looks) · `gcImpactRadiusSs` · `gcImpactInsetSs` (derived from the GC's
+  px look; `test_animobj` asserts the relation) · `chordColumn` (#2's D.8 packing — behaviour; its lateral gap is DN-1's family) ·
+  `chainSide.laneHalfSs` (geometry) · `bracketOverflowMaxSs` (a rung-0 spill allowance — the ladder's, 2e.4) · every device's FLAGS
+  (goLine · gc · nhHead · dynMark …: membership, not numbers).
+- **The devices' numbers (47 pointers):** `nhHeadScale` 0.844 ×9 → `objects.cueHead.size` · `nhDotGapSs` 0.15 ×7 → `objects.staccatoDot.parent` ·
+  `nhGapSs` 0.6 ×6 → `anchors.C.gapSs` · `techSymbolScale` 0.707 ×2 / 0.57 → `objects.techSymbol` · the trill's `trillPitch` ×6 →
+  `smallHead` · `paren` · `trillPitch` · the sequence's `block` ×6 · `reminder` ×3 · `label` ×3 → `anchors.B.blockGapSs` · `objects.number` ·
+  `instruction` · `paren` · `dynamicLabel` · `faces.text.slashTopEm`.
+- `container.json engraving.render` — **moved:** the four colours · `fontFamily` · `textScale` · `partLabel.sizeSs` · `reshow.sizeSs` ·
+  `attackLine` · `tick` · `brickOpacity` · the three curves' colour + D42's four numbers each · `goLine` ×4 · `ringBar` ×3 · `gc.color` ·
+  `sectionHead` ×6. **Stayed:** `systemStart` · `systemEndBar` · `clefInsetSs` · `clefGutterGapSs` · `staffFull` · the label's and the
+  reshow's positions · the GC's preset and px look (piece #1's object whole — one row names it).
+- `container.json animated` — **moved:** nine colours · the cursor's width · the pie's radius and top. **Stayed:** the meters' widths and
+  opacities, the followers' radii, the ball's px look (rows name them as `in`).
+- `glyphs.json standards` — **not moved:** it is the generated port of #2's `dimensions_table` (`port_glyphs.js` rewrites it); its numbers
+  are named in their rows by `in:` (ledger · stem thickness · dot diameter · beam · ottava bracket · staff lines). **A7's accidental gap**
+  (`standards.accidental.gapToNotehead` 0.1): read in `layout.js` in TWO places (the chord column · the trill's head), while the nh-unit,
+  the sequence block and the header read `accGap` 0.25 — **both draw**, so ONE row holds both (`objects.accidental.beside` 0.25 ·
+  `besideInColumn` 0.1, compiled into the new `accGapColumn`, the glyph standard kept as its fallback) and the choice is **DN-1**.
+- `layout.js` — `TS` (four sizes, now rows) · **seven colour literals** (`'#000'` ×6 → `COL.techText`, `'#c00'` → `COL.alert`, from the new
+  `engraving.layout.colours`) · the literal gaps (21× 0.45 · 18× 0.25 · 13× 0.15 · 8× 0.3 · 7× 0.6 …): **all but a handful are
+  `o.key != null ? o.key : literal` fallbacks of registry keys that are now pointers**, so the rows drive them; the rest are staff geometry
+  (`+ 0.5` a space, the dot's 1.0 / 1.5, em estimates), not look rules.
+- `render.js` — `engravingDefaults()` (the tuba's V0.10 looks, the code fallbacks) · four `stroke="#111"` (the dynamic arrow, the ottava's
+  dashes and hook, the l.v. slur) → `o.ink` · **the A5 grey:** a text item with no colour is drawn `o.muted` — the numbers' grey (§427).
+- **The object-type list the census gives: 50 rows** — head · cueHead · smallHead · accidental · paren · ledger · stem · flag · staccatoDot ·
+  accent · techSymbol · trillPitch · dynamic · dynamicLabel · dynamicText · dynArrow · niente · instruction · techniqueText · textBaked ·
+  number · tempoText · barLine · goLine · attackLine · tick · gc · ringBar · brick · beam · tuplet · ottava · rest · lvSlur · pedal ·
+  glissLine · curve · envCurve · crescCurve · glissCurve · (furniture) staff · clef · partLabel · reshow · (animated) cursor · gcBall · meter ·
+  pie · followerDot · lineWedge.
+
+**What was built:**
+- **`notation/registry/rules.json`** — the five tables: `anchors` A … F (the plan's six rows; B's `gapSs` 0.25 = today's nh-unit gap,
+  `blockGapSs` 0.45 = the sequence block's; C 0.6; D 0.25) · `column` (today's `order` compiled into `stackBelow`; §421's `orderDecided`
+  beside it for 2e.3 (9); the sides; the floor tiers; the stack gaps; the fixed rows) · `objects` (the 50 rows: face · size · colour ·
+  the four distances where they exist · `draws` · `basis` · `ref`, and `in:` where the drawing reads a value from somewhere the table does
+  not compile) · `colours` (14, each with its use) · `faces` · `ladder` (the nine rungs, `built: false` until 2e.4) · `decisionsNeeded`.
+  **Every value is what drew on HEAD** (basis `census` where no decision named it).
+- **`notation/lib/rules.js`** — `compile(container, rules)`: a string `"@table.row.field"` anywhere in the registry becomes the row's value;
+  a pointer that names no row THROWS (a rule cannot fall back silently) · `loadContainer(ROOT)` for Node · `refsOf` for the generator.
+- **`container.json`** — **128 pointers** (the numbers above), and every device names **`anchorRow`** and **`memberRows`** (17 devices:
+  byEnv trill D · surge B · strike C · sequence B; byTechnique main A · plucked A · fortepiano C · cuivre C · ord B · staccato · gettato ·
+  bartók · slap · pizzicato C; byPairBeam A; figures cluster A · beam A with `anchorRowGc: 'C'`). *The field is `anchorRow`, not `anchor`:
+  `figures.beam.anchor` already means `leftEdge` to `beam_choice.js`.* The trill gains `afterGoGapSs` → `anchors.D.gapSs` (it fell back to
+  `nhGapSs` — D and B now move apart when a row says so).
+- **Every reader goes through the loader:** 17 tools (the exporters · `notate_section` ×4 · `notate_block` · `protrusion_detect` ·
+  `prove_unmoved` · `pattern_analyze` · `capture_lane` · `trill_conflicts` · the batteries) by `loadContainer(ROOT)`; **the notation app**
+  fetches `rules.json` beside `container.json`, compiles, and its 1 s poll re-compiles when either file changes.
+- **`tools/gen_engraving_rules.js` → `docs/ENGRAVING_RULES.md`** (252 lines, GENERATED — the header says never edit): one section per
+  layer, one line per row with its value · `→` the registry keys it compiles into · basis · ref; the devices on each anchor; the edge table;
+  the ladder; the overrides in force (the IRs' `engraving` overlays — none on this piece's three pages); the decisions needed. `--check`.
+- **`tools/check_rules.js` — 14 checks GREEN:** (0) every pointer resolves · every row has basis + ref · every device names an anchor row
+  and member rows that exist · the page is what the tables generate · (1) every drawn kind (26) has its edge class — the animated half
+  arrives at 2e.2 · (2) every drawable object — **80** kinds and glyphs (32 drawn on the three pages; the rest every kind the renderer and
+  the animation layer know, every glyph of `glyphs.json`'s families) — matches a row's `draws` · (3) THE LINT: no colour literal in
+  `layout.js` / `render.js` outside a `RULES MIRROR` line (the code fallbacks, each marked), `muted` only at the furniture sites (the
+  labels, the reshow, the markers — and the A5 default, whitelisted by name until 2e.3 (3)), no numeric size on a pushed item outside a
+  mirror line · (6) THE ANCHOR PRINCIPLE over all 17 devices (A draws no go line; B · C · D draw one; the beam figure's GC member alone
+  takes C).
+- **The docs:** `NOTATION_STANDARDS.md` opens with *"CURRENT VALUES: docs/ENGRAVING_RULES.md … never read for a current value"* ·
+  `just_partials_notation.md` §1a says `rules.json` exists and its rows take §1a's decisions as 2e.3 builds them.
+
+**THE SHIELD — the required verification of 2e.1, run in two git worktrees in the scratchpad** (BEFORE = HEAD `c499a0d`; AFTER = HEAD +
+this step's files only — never his bank, rack or scores), each with the tuba goldens staged from #4's HEAD (17 IRs, `index.json` and the
+README excluded), #4's source scores (for `test_graphic` and the validator battery) and a read-only copy of the proto's source save:
+- **20 outputs BYTE-IDENTICAL** (sha1): `export_video --ir db1 --view video --probe 5,11.9,100,300` (4) · `--view zoom --probe 100` ·
+  `export_print --ir db1 --planJson` · `--htmlOnly --pages 1-3` · `export_video --ir piece-lgmf --probe 5,100,300,881` (4) · `--ir lgmf-eh-proto
+  --probe 0,20,28.7` (3) · `export_print --planJson` for both · `--screenJson` + `--screenHtml` for both (the html identical but for the
+  worktree's name in the font URL).
+- **20 LAYOUTS BYTE-IDENTICAL** — `layoutSection` over every IR in the worktree (the 17 goldens + the three LGMF pages), its items dumped
+  as JSON: the strongest probe, because it sees fields no picture shows.
+- **The registry itself:** `compile(new container.json)` with the pointer fields removed **deep-equals the old container.json**.
+- **The eight engine batteries GREEN before and after** (render · layout · animobj · splice · graphic · pattern_fit · stamps ·
+  ir_validate_battery — the last two needing #4's scores staged, as §387 did). The twelve registry-reading batteries give the SAME output
+  before and after (modulo the worktree path): `sequence_notation_check` 58 / 58; the other eleven red on HEAD as before (piece #5's cast —
+  NITS), none newly red.
+- `check_screen_edges` **PASS** on `piece-lgmf` (317 go-time indicators at x(t) to the pixel) and `lgmf-eh-proto`.
+- **The app** (the throwaway on 5401, no screenshot): `rules.js` and `rules.json` load, no error, the page draws, **no pointer string
+  anywhere in the page**; nothing was written into his bank (the files' times unchanged); the throwaway's two drawer keys cleared.
+
+**DECISIONS NEEDED, opened by the census (in `rules.json`, on the generated page):** **DN-1** the accidental's two gaps (0.25 on a unit ·
+0.10 in a chord column and on the trill's head — keep both · 0.25 · 0.10) · **DN-2** anchor C's gap (the strike family 0.6; fortepiano and
+cuivré take B's 0.25 + the conditional push of #4 day 24 — keep · 0.6 for every GC unit) · **DN-3** the app's WINDOW view (⚙) passes only
+the three curve looks to the renderer, so its other looks are the tuba's V0.10 code defaults (the ring bar at opacity 1 against the table's
+0.65 …); the video view and both exporters read the table — the window view reads the table too · leave it.
+
+**The AI's calls, his to reverse:** the pointer field names (`anchorRow` · `memberRows`) · what STAYED in place (listed above, each with
+its reason) · the accent's LilyPond padding held as a `seed`, not a rule (the chain places the accent by the column's stack; a seed the
+layout does not read must not pose as the drawing) · the lint's semantics (a marked mirror line is allowed; the mirrors are the tuba-era
+fallbacks for a caller without the registry — `test_layout`'s fixtures) · gate (1)'s animated half waits for 2e.2, where the rows arrive.
+
+**Next: 2e.2 — the 4 s lead-in and the animated edges.**

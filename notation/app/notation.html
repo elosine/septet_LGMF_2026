@@ -137,6 +137,7 @@
 <div id="tnow" title="playhead time"></div>
 
 <script src="/notation/lib/coords.js"></script>
+<script src="/notation/lib/rules.js"></script><!-- [LGMF 2e.1] the engraving rules: container.json's pointers compiled from rules.json -->
 <script src="/notation/lib/stamps.js"></script>
 <script src="/notation/lib/chord_column.js"></script>
 <script src="/notation/lib/layout.js"></script>
@@ -557,15 +558,18 @@
     return state.scores[name];
   }
   try {
-    const [glyphs, pageRules, container, ensemble, techniques] = await Promise.all([
+    const [glyphs, pageRules, container, ensemble, techniques, rules] = await Promise.all([
       fetch('/notation/lib/glyphs.json').then(r => { if (!r.ok) throw new Error('glyphs fetch ' + r.status); return r.json(); }),
       fetch('/notation/registry/page_rules.json').then(r => { if (!r.ok) throw new Error('page rules fetch ' + r.status); return r.json(); }),
       fetch('/notation/registry/container.json').then(r => { if (!r.ok) throw new Error('container fetch ' + r.status); return r.json(); }),
       // [2a] the piece's registries — optional: absent = the tuba page
       fetch('/notation/registry/ensemble.json').then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/notation/registry/techniques.json').then(r => r.ok ? r.json() : null).catch(() => null),
+      // [LGMF 2e.1, §448] THE ENGRAVING RULES: the registry's look numbers are pointers into rules.json, compiled here
+      fetch('/notation/registry/rules.json').then(r => { if (!r.ok) throw new Error('rules fetch ' + r.status); return r.json(); }),
     ]);
-    state.glyphs = glyphs; state.pageRules = pageRules; state.container = container;
+    state.glyphs = glyphs; state.pageRules = pageRules;
+    state.containerRaw = container; state.rules = rules; state.container = NotationRules.compile(container, rules);
     state.ensemble = ensemble; state.techniques = techniques;
     if (ensemble) FRAME_PARTS = ensemble.parts.map(p => p.part);
     // V3: extracted sections register themselves in the manifest
@@ -1344,6 +1348,7 @@
     const cur = $('ir').value;
     const urls = {
       container: '/notation/registry/container.json',
+      rules: '/notation/registry/rules.json',
       glyphs: '/notation/lib/glyphs.json',
       manifest: '/notation/ir/index.json',
       ir: '/notation/ir/' + cur + '.ir.json',
@@ -1358,7 +1363,11 @@
       watch.sig[k] = txt;
       if (k === 'manifest') { try { mergeManifest(JSON.parse(txt)); } catch (e) { } continue; }
       try {
-        if (k === 'container') state.container = JSON.parse(txt);
+        // [2e.1] either file re-compiles the registry; a pointer with no row throws — the page keeps the last good one
+        if (k === 'container' || k === 'rules') {
+          const raw = k === 'container' ? JSON.parse(txt) : state.containerRaw, rl = k === 'rules' ? JSON.parse(txt) : state.rules;
+          state.container = NotationRules.compile(raw, rl); state.containerRaw = raw; state.rules = rl;
+        }
         if (k === 'glyphs') state.glyphs = JSON.parse(txt);
       } catch (e) { continue; }   // half-written file mid-edit: next poll gets it
       dirty = true;

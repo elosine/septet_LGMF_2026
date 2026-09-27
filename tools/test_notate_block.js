@@ -35,7 +35,7 @@ const run = (args, opts) => {
 };
 
 const GLYPHS = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
-const CONTAINER = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+const CONTAINER = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const LAYOUT_OPTS = Object.assign(
   { m4AttackLines: false, frameParts: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
   (CONTAINER.engraving && CONTAINER.engraving.layout) || {});

@@ -38,16 +38,16 @@
       // "no outline to curve" -> fill-only, opacity raised to read alone;
       // "go line not visible" -> thicker/darker dashes, AI-intuited numbers).
       // Green = this piece's surge color (#2E7D32).
-      envCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.3, color: '#2E7D32' },
+      envCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.3, color: '#2E7D32' },   // RULES MIRROR (the tuba's V0.10 — the registry wins)
       // the morph glissando (day 35): brightOrange, TOP HALF of the lane, filled
       // to the half-lane baseline. Code default = the census value, so the live
       // view (which does not pass opts.engraving) and the export agree.
-      glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },
+      glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },   // RULES MIRROR
       // the trance bar line + tempo mark (day 35)
       barLine: { thickSs: 0.13, tempoYSs: 4.4, tempoSizeSs: 1.0, tempoHeadScale: 0.7, tempoStemSs: 2.1, tempoGapSs: 0.85 },
       // the crescendo: the glissando's twin in the bottom half, limeGreen
       // (#99FF00 — piece #1's crescendo colour, and p2's staff-1 green)
-      crescCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#99FF00' },
+      crescCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#99FF00' },   // RULES MIRROR
       // the morph SECTION HEADER (day 35). circleDiaSs = the measured height of
       // the `m` in mf (0.4695 ss — mp and mf agree); spacer = the 0.45 house
       // standard; medium = gapMediumSs. dynBelowSs mirrors dynY's 2.6 ss
@@ -57,9 +57,9 @@
       // go line: near-black (composer, day 22 second note: "always black
       // gray" — the surge green was never meant for it); width/opacity/dash
       // = the retuned numbers, untouched
-      goLine: { wPx: 1.5, opacity: 0.85, dash: '5,4', color: '#333' },
+      goLine: { wPx: 1.5, opacity: 0.85, dash: '5,4', color: '#333' },   // RULES MIRROR
       // the ring bar (wc-23 element 2): 2/3 of the brick height, always black
-      ringBar: { hSs: 0.667, color: '#111', opacity: 1 },
+      ringBar: { hSs: 0.667, color: '#111', opacity: 1 },   // RULES MIRROR
     };
   }
   function boxForOf(S) {
@@ -127,7 +127,7 @@
   }
 
   function renderSection(model, view, glyphs, opts) {
-    const o = Object.assign({ ink: '#111', brick: '#4E7A9B', muted: '#8a8a8a', paper: '#fff' }, opts || {});
+    const o = Object.assign({ ink: '#111', brick: '#4E7A9B', muted: '#8a8a8a', paper: '#fff' }, opts || {});   // RULES MIRROR (rules.json colours)
     // engraving registry (V0.10/V1): every look number in one mergeable
     // block; code defaults = the census values, so a caller without opts
     // renders identically. The shell passes container.json engraving.render.
@@ -641,7 +641,7 @@
           const yA = Y(it.ySs);
           const headL = (it.headSs || 0.45) * ssPx, thick = (it.thickSs || 0.13) * ssPx;
           parts.push('<line x1="' + x0.toFixed(2) + '" y1="' + yA.toFixed(2) + '" x2="' + (x1 - headL).toFixed(2) +
-            '" y2="' + yA.toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
+            '" y2="' + yA.toFixed(2) + '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '"/>');
           parts.push('<path d="M' + x1.toFixed(2) + ',' + yA.toFixed(2) +
             ' L' + (x1 - headL).toFixed(2) + ',' + (yA - headL * 0.45).toFixed(2) +
             ' L' + (x1 - headL).toFixed(2) + ',' + (yA + headL * 0.45).toFixed(2) + ' Z"/>');
@@ -705,13 +705,13 @@
           let xEnd = xHook;
           while (xEnd - dashLen >= xDashStart - 1e-6) {
             parts.push('<line x1="' + (xEnd - dashLen).toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + xEnd.toFixed(2) +
-              '" y2="' + yLine.toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
+              '" y2="' + yLine.toFixed(2) + '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '"/>');
             xEnd -= dashLen + dashGap;
           }
           // hook extends from the line BACK TOWARD the staff
           const hook = (O.hookLengthSs || 0.8) * ssPx * (it.dir === 'above' ? 1 : -1);
           parts.push('<line x1="' + xHook.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + xHook.toFixed(2) +
-            '" y2="' + (yLine + hook).toFixed(2) + '" stroke="#111" stroke-width="' + thick.toFixed(2) + '"/>');
+            '" y2="' + (yLine + hook).toFixed(2) + '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '"/>');
         } else if (it.k === 'lvslur') {
           // [2h.5] the let-ring slur (§486): piece #2's baked l.v. crescent —
           // a filled outline with LilyPond's 0.1 ss stroke. The attachment
@@ -722,7 +722,7 @@
           if (!LV) continue;
           const ax = X(it.t, it.dxSs), ay = Y(it.ySs), ky = it.dir === 'below' ? -1 : 1;
           parts.push('<g transform="translate(' + ax.toFixed(2) + ',' + (ay - ky * LV.anchors.leftAttach.y * ssPx).toFixed(2) +
-            ') scale(' + ssPx + ',' + (ky * ssPx) + ')"><path d="' + LV.path + '" fill="#111" stroke="#111" stroke-width="' + LV.strokeSs +
+            ') scale(' + ssPx + ',' + (ky * ssPx) + ')"><path d="' + LV.path + '" fill="' + o.ink + '" stroke="' + o.ink + '" stroke-width="' + LV.strokeSs +
             '" stroke-linejoin="round"/></g>');
         } else if (it.k === 'goline') {
           // dotted vertical at go time, full lane band (piece #1's go-time

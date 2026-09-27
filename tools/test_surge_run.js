@@ -18,7 +18,7 @@ const Cresc = require(path.join(ROOT, 'score', 'public', 'cresc.js'));
 let pass = 0, fail = 0;
 const ok = (c, msg) => { if (c) pass++; else { fail++; console.log('  FAIL ' + msg); } };
 
-const glyphs = rd('notation/lib/glyphs.json'), C = rd('notation/registry/container.json');
+const glyphs = rd('notation/lib/glyphs.json'), C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
 const ir = rd('notation/ir/piece-septet.ir.json');
 const OPTS = Object.assign({ m4AttackLines: false, frameParts: ens.parts.map(p => p.part), ensemble: ens, techniques: T }, C.engraving.layout);

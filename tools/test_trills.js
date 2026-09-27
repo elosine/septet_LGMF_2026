@@ -27,7 +27,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
     eq(tr.hSs, 2.204, 0.002, 'trill sign stored at STOCK height');
     // §439 (the composer: "halfway between what it currently is now and the sforzando size"): the tr's drawn height is
     // halfway between the first scale's (0.70) and the sfz's — the registry scale, read, not restated
-    const trK = J('notation/registry/container.json').engraving.layout.devices.byEnv.trill.techSymbolScale;
+    const trK = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving.layout.devices.byEnv.trill.techSymbolScale;
     eq(tr.hSs * trK, (tr.hSs * 0.70 + glyphs.dynamic.sfz.hSs) / 2, 0.005, 'trill sign at the registry scale ' + trK + ': height halfway between 0.70 and the sfz (§439)');
     ok(/scripts\.trill/.test(tr._provenance && tr._provenance.source), 'trill sign provenance names the Emmentaler glyph');
   }
@@ -177,7 +177,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
   const Render = require('../notation/lib/render.js');
   const Coords = require('../notation/lib/coords.js');
   const score = J('scores/piece-septet.json');
-  const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json'), C = J('notation/registry/container.json');
+  const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json'), C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const DEV = C.engraving.layout.devices.byEnv.trill;
   const L = C.engraving.layout;
   ok(DEV && DEV.goLine && DEV.goLineTopAsGc && !DEV.gc && DEV.nhUnit && DEV.brick === false && DEV.curve && DEV.cut === false && DEV.curveBand === 'lane'
@@ -270,7 +270,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
   const Extract = require('../notation/lib/extract_core.js');
   const Layout = require('../notation/lib/layout.js');
   const score = J('scores/piece-septet.json');
-  const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json'), C = J('notation/registry/container.json');
+  const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json'), C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const parts = ens.parts.map(p => p.part);
   const ends = score.objects.filter(o => o.type === 'waveCurve' && o.sonifyNote != null && o.endSeconds != null).map(o => o.endSeconds);
   const w1 = Math.ceil(Math.max(...ends));   // notate_section --all
@@ -299,7 +299,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
 // ---- §445 → §452 the column RIGHT of the go line, EVERY trill (registry devices.byEnv.trill.nhAnchor 'afterGo') ----
 {
   const Layout = require('../notation/lib/layout.js');
-  const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json'), C = J('notation/registry/container.json');
+  const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json'), C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const L = C.engraving.layout, O = glyphs.standards.ottava, LF = glyphs.standards.ledgerLine.lengthFraction;
   const parts = ens.parts.map(p => p.part);
   ok(L.devices.byEnv.trill.nhAnchor === 'afterGo', 'registry: byEnv.trill.nhAnchor afterGo — the rule for every trill, no build flag');
@@ -343,7 +343,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
 {
   const Render = require('../notation/lib/render.js');
   const Coords = require('../notation/lib/coords.js');
-  const C = J('notation/registry/container.json');
+  const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const R = C.engraving.render;
   const std = k => R[k] && R[k].fillOpacity === 0.3 && R[k].strokeWPx === 2 && R[k].strokeOpacity === 1 && R[k].pathOpacity === 0.3;
   ok(std('envCurve') && R.envCurve.color === '#99FF00', 'registry envCurve = D42: limeGreen #99FF00 · fill 0.3 · 2 px stroke · path opacity 0.3');
@@ -368,7 +368,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
 // ---- D42 the meters (§448): piece #2's curve follower — 8 px, right edge 3 px left of the cursor, fill 0.3 FIRST, outline 1.5 @ 0.8 over it ----
 {
   const A = require('../notation/lib/animobj.js');
-  const C = J('notation/registry/container.json');
+  const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const view = { widthPx: 1920, heightPx: 1080, window: [0, 10], xOfSeconds: t => 100 * t, systems: [{ yTopPx: 100, yBotPx: 300, ssPx: 7.9 }], system() { return this.systems[0]; } };
   for (const [kind, color] of [['curveMeter', '#99FF00'], ['crescMeter', '#99FF00'], ['glissMeter', '#F04B00']]) {
     const st = C.animated[kind];
@@ -391,7 +391,7 @@ const glyphs = J(arg('--glyphs') || 'notation/lib/glyphs.json');
   const Render = require('../notation/lib/render.js');
   const Coords = require('../notation/lib/coords.js');
   const A = require('../notation/lib/animobj.js');
-  const C = J('notation/registry/container.json');
+  const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const score = J('scores/piece-septet.json');
   const base = { scoreName: 'piece-septet', window: [0, 176], parts: [0, 1, 2, 3, 4, 5, 6], id: 'trill-rate', profile: 'trance', metaLayer: 7,
     registry: J('notation/registry/classes.json'), sampleLengths: J('bank/sample_lengths.json'), techniques: J('notation/registry/techniques.json').techniques };

@@ -1,0 +1,134 @@
+{
+ "_doc": "THE ENGRAVING RULES — LGMF PLAN 2e (planned 2026-09-27, RUNNING_LOG §408 … §447; built from §448). Every placement and style rule of the notation lives HERE, in five tables, each row with its `basis` (lilypond · gould · composer §N · AI §N · census) and its `ref` (the § or the day that decided it). The devices and the look blocks of container.json POINT at these rows (\"@objects.cueHead.size\"); notation/lib/rules.js compiles the pointers into the registry keys the layout and the renderer read, and throws on a pointer with no row. docs/ENGRAVING_RULES.md is GENERATED from this file (tools/gen_engraving_rules.js) — never hand-edit it. tools/check_rules.js holds the gates. THE FIVE LAYERS (§413, his 'yes'): (1) THE ANCHOR — which point of a unit sits on x(t) · (2) THE COLUMN — the order and the side of what stacks on a unit · (3) THE OBJECTS — one row per drawn object type, four distances in ss (`parent` to what it hangs on · `staff` the floor from the staff edge · `stack` to the next stacked mark · `beside` horizontal) + face · size · colour · (4) THE PAGE — page_rules.json `edge` (not here: one table per file) · (5) THE EXCEPTIONS — the ladder. A value marked `census` is what drew on 2026-09-27 when the tables were built (2e.1, a re-housing: every page byte-identical); a later decision changes the ROW, with its §, and the page follows.",
+ "version": 1,
+
+ "anchors": {
+  "_doc": "LAYER 1 — THE ANCHOR (§414 · §416 · §418): which point of a unit sits on x(t). The principle, gated (check_rules 6): the head ON its time ↔ no go line; a go line ↔ the head off its time. G metric (a passage not spaced by time) is a HELD candidate (§416), not a row. `gapSs` = the distance from x(t) to the unit's near ink edge; `justify` the side of x(t) the unit sits on; `regime` the column's regime (HUG — every member on the head side, mirrored with the stem · ROWS — the dynamic on the dynamic row, text above); `columnAlign` how the column rows align on the unit.",
+  "A": { "name": "on time", "atX": "the head's left edge", "justify": "right-of", "gapSs": 0, "goLine": false, "regime": "HUG", "columnAlign": "centre", "basis": "composer", "ref": "#4 day 22 (nhAnchor leftEdge) · §414" },
+  "B": { "name": "before the line", "atX": "the go line", "justify": "left-of", "gapSs": 0.25, "blockGapSs": 0.45, "goLine": true, "regime": "ROWS", "columnAlign": "centre", "basis": "composer", "ref": "#4 day 22 (nhGapSs, his '2 px' at staff 31.6) · the sequence block 0.45 §380 · §414 · §417 F1 (0.45 decided, 2e.3)" },
+  "C": { "name": "the strike", "atX": "the go line = the GC's impact", "justify": "left-of", "gapSs": 0.6, "goLine": true, "regime": "HUG", "columnAlign": "centre", "basis": "composer", "ref": "#4 day 23 option B (clears the impact marker, r 0.51) · #5 §400 · §414", "note": "fortepiano · cuivre carry no gap of their own: the house B gap (0.25) + the conditional push clear of the impact marker (#4 day 24) — see the decisions-needed list" },
+  "D": { "name": "after the line", "atX": "the go line", "justify": "right-of", "gapSs": 0.25, "goLine": true, "regime": "HUG", "columnAlign": "centre", "basis": "composer", "ref": "#5 §445 (the trill column right of its go line, nhAnchor afterGo) · §414" },
+  "E": { "name": "continuous", "atX": "the graphic is the time axis", "justify": "span", "gapSs": 0, "goLine": null, "regime": null, "columnAlign": null, "basis": "composer", "ref": "#4 day 22 (the surge curve) · D42 · §414" },
+  "F": { "name": "animated", "atX": "x(now)", "justify": "at", "gapSs": 0, "goLine": null, "regime": null, "columnAlign": null, "basis": "composer", "ref": "§409 · §411 (pushed right at a page start, nothing on paper — 2e.2)" }
+ },
+
+ "column": {
+  "_doc": "LAYER 2 — THE COLUMN (§419 … §425): what stacks on a unit, in what order, on which side, how far apart. `order` is what draws today (compiled into engraving.layout.stackBelow); `orderDecided` is §420 · §421's order — LilyPond's outside-staff-priority with the ottava INSIDE the text, the one change from #5 — applied at 2e.3 (9). HUG keeps the strike chain's head-side departure (his §401f, kept §424). The floor tiers (§424 · §425): the staccato dot and the tenuto line may sit inside the staff, in a SPACE, never on a line; every other mark outside the staff by its own `staff` distance. `rows` are the fixed rows in ss from the middle line (+ up).",
+  "order": ["articulation", "dynamic", "instruction", "ottava"],
+  "orderRef": "#4 day 22 (the vertical column standard — Gould and #2's chain agree) · census",
+  "orderDecided": ["accent", "techSymbol", "dynamic", "ottava", "text"],
+  "orderDecidedRef": "§420 · §421 (LilyPond outside-staff-priority, verified on his 2.24.4) — 2e.3 (9)",
+  "sides": { "HUG": "every member on the head side, mirrored with the stem", "ROWS": "the dynamic below on its row · text above · articulation on the head side", "pinned": "the piano's chain pinned below — an override on the part" },
+  "sidesRef": "§419 · §424 (his §401f kept)",
+  "floorTiers": { "inside": ["staccatoDot", "tenuto"], "insideRule": "in a space, never on a line", "outside": "every other mark, by its own `staff` distance" },
+  "floorTiersRef": "§424 · §425",
+  "stack": { "standard": 0.45, "medium": 0.3, "tight": 0.15, "underFlag": 0.3 },
+  "stackRef": "standard: #2 session 77 (the house 0.45) · medium: #4 day 31 (his 'a medium one too') · tight: #4 day 23 (the staccato-dot gap) · underFlag: #4 day 23 (the chain between staff and flag) · §422",
+  "rows": { "dynamic": -4.6, "tag": 3.5, "tempo": 4.6, "tick": 3 },
+  "rowsRef": "#4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421"
+ },
+
+ "objects": {
+  "_doc": "LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn object type. FOUR DISTANCES in ss — `parent` to what it hangs on · `staff` the floor from the staff edge · `stack` to the next stacked mark · `beside` horizontal. `face` · `size` (ss for text, a scale for a glyph) · `colour` (a key of `colours`). `draws` names the layout's item kinds this row covers (`kind` or `glyph:<name pattern>` or `anim:<kind>` or `kind[seq]`) — gate (2): a drawn kind with no row fails the build. `variantOf` marks a row that draws with another row's glyph at its own size. His approved numbers are kept; anything undecided is seeded from LilyPond 2.24.4's define-grobs.scm on his machine (§422) — a seed is marked basis lilypond. New sizes are chosen on LilyPond's step 2^(1/6) (§428). `in` names where a value that is not compiled still lives (glyphs.json standards, a code literal) — the census of §448.",
+  "head": { "face": "music", "glyph": "notehead.open · notehead.filled", "size": 1.0, "colour": "ink", "draws": ["glyph:notehead", "glyph:notehead-open"], "basis": "lilypond", "ref": "#2 (Emmentaler) · §428" },
+  "cueHead": { "variantOf": "head", "size": 0.844, "colour": "ink", "basis": "composer", "ref": "#2 notehead.cellMotive.scaleFactor · #4 day 23 ('there was already a formulation for a small note head')" },
+  "smallHead": { "variantOf": "head", "size": 0.794, "colour": "ink", "basis": "composer", "ref": "#5 §438 (the trill's pitch head) · census" },
+  "accidental": { "face": "music", "size": 1.0, "colour": "ink", "beside": 0.25, "besideInColumn": 0.1, "draws": ["glyph:accidental-(?!leftParen|rightParen).*"], "basis": "composer", "ref": "beside: #4 day 22 (the nh-unit, 0.25) · besideInColumn: #2 D.6 (LP 0.35 tightened to 0.10 by eye; glyphs.json standards.accidental.gapToNotehead — the chord column and the trill's head) · §419 A7 (two values, one row) · F6 (from the leftmost ink, the ledger's end — 2e.3 (7))" },
+  "paren": { "face": "music", "glyph": "accidental.leftParen · rightParen", "colour": "ink", "sizeReminder": 0.67, "besideReminder": 0.15, "sizeLabel": 0.43, "besideLabel": 0.1, "sizeTrill": 0.63, "draws": ["glyph:accidental-(leftParen|rightParen)"], "basis": "AI", "ref": "reminder §385 · label §386 · trill #5 §438 (the AI's calls, his to reverse) — the reminder retired at 2e.3 (6)" },
+  "ledger": { "face": "music", "colour": "ink", "lengthFraction": 0.25, "thicknessSs": 0.1, "in": "glyphs.json standards.ledgerLine", "draws": ["ledger"], "basis": "lilypond", "ref": "#2 dimensions_table (LilyPond length-fraction 0.25)" },
+  "stem": { "face": "music", "colour": "ink", "lengthSs": 3.5, "thicknessSs": 0.13, "in": "lengthSs compiled · thicknessSs glyphs.json standards.stem", "draws": ["stem"], "basis": "lilypond", "ref": "#2 dimensions_table (one-octave stem) · #4 V0.10" },
+  "flag": { "face": "music", "colour": "ink", "staff": 0.38, "scaleY": 1, "draws": ["glyph:flag-.*"], "basis": "composer", "ref": "#4 day 23 wc-29 ('clear the staff, just like three pixels') · flagScaleY #4 day 23" },
+  "staccatoDot": { "face": "music", "colour": "ink", "parent": 0.15, "diameterSs": 0.4, "floor": "inside", "in": "diameterSs glyphs.json standards.staccatoDot", "draws": ["dot"], "basis": "composer", "ref": "#4 day 23 ('reduce 50% the gap' — the tight gap) · §424 (in a space, never on a line)" },
+  "accent": { "face": "music", "glyph": "articulation.accent · marcato", "size": 1.0, "colour": "ink", "seed": { "parent": 0.2, "staff": 0.25, "note": "LilyPond Script padding · staff-padding (§422) — a SEED, not yet read by the layout (the chain places the accent by the column's stack)" }, "draws": ["glyph:artic-(accent|marcato)"], "basis": "composer", "ref": "#5 §400 (the strike's accent)" },
+  "techSymbol": { "face": "music", "glyph": "articulation.snappizz · plus · trill", "size": 0.707, "sizeTrill": 0.57, "colour": "ink", "draws": ["glyph:artic-(snappizz|plus|trill)"], "basis": "composer", "ref": "size: #5 (bartók · slap, 0.707 = 2^(-1/2)) · sizeTrill: #5 §438" },
+  "trillPitch": { "variantOf": "smallHead", "groupPadSs": 0.3, "parenInnerSs": 0.42, "accPadSs": 0.2, "basis": "composer", "ref": "#5 §438 (TRILL_NOTATION_SPEC)" },
+  "dynamic": { "face": "music", "glyph": "dynamic.*", "size": 1.0, "colour": "ink", "besideStem": 0.15, "row": "column.rows.dynamic", "draws": ["glyph:dyn-.*"], "basis": "composer", "ref": "#4 day 22 (the dynamic row) · besideStem #4 day 23 ('akin to the staccato gap') · LilyPond DynamicText padding 0.6 / 0.1 (the seed, §422 — not drawn)" },
+  "dynamicLabel": { "variantOf": "dynamic", "size": 0.75, "colour": "ink", "basis": "AI", "ref": "§386 (the (dyn) at a turning point — the AI's cue scale, his to reverse)" },
+  "dynamicText": { "face": "text", "size": 0.9, "colour": "muted", "draws": ["text[dynamic]"], "basis": "composer", "ref": "#4 V0.10 textSizes.dynamic (an authored `dynamic` overlay's text)" },
+  "dynArrow": { "colour": "ink", "lengthSs": 2, "headSs": 0.45, "beside": 0.45, "thickSs": 0.13, "draws": ["dynarrow"], "basis": "composer", "ref": "#4 day 22 ('this is new' — the hairpin replacement; gaps the 0.45 standard, thickness the stem's)" },
+  "niente": { "colour": "ink", "diameterSs": 0.4695, "thickSs": 0.13, "draws": ["niente"], "basis": "composer", "ref": "#4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip)" },
+  "instruction": { "face": "text", "size": 0.75, "colour": "muted", "stack": 0.45, "besideCut": 0.15, "draws": ["text"], "basis": "composer", "ref": "#4 V0.10 textSizes.instruction · stack: the sequence block's text 0.45 above the column §380 · besideCut: 'sempre secco' #5 §540 · §427 (every word on a note 0.75 italic — 2e.3 (4)) · LilyPond TextScript padding 0.3 / 0.5 (the seed)" },
+  "techniqueText": { "face": "text", "size": 0.7, "colour": "techText", "basis": "census", "ref": "#4 V0.10 textSizes.technique — RETIRED by §427 at 2e.3 (4): every word on a note is `instruction`" },
+  "textBaked": { "face": "text (baked outline)", "size": 1.0998, "colour": "ink", "draws": ["glyph:text-.*"], "basis": "composer", "ref": "#2's baked 'pizz.' (#5 2h.5) · 'senza vib.' §380 — the bake RETIRED by §427 at 2e.3 (4)" },
+  "number": { "face": "text", "size": 0.75, "colour": "muted", "parent": 0.6, "stack": 1.0, "emSs": 0.975, "draws": ["text[cents]", "text[partial]"], "basis": "composer", "ref": "parent: D45's height (#5) · stack: one row §380 · emSs = 0.75 × 1.3 · colour: grey by render.js's default (A5) — BLACK at 2e.3 (3), §427" },
+  "tempoText": { "face": "text", "size": 0.75, "colour": "ink", "draws": ["tempotext"], "basis": "composer", "ref": "#4 day 35 (the trance bar line + tempo mark) · textSizes.tempo" },
+  "barLine": { "colour": "ink", "thickSs": 0.13, "in": "render.js engravingDefaults().barLine", "draws": ["barline"], "basis": "composer", "ref": "#4 day 35" },
+  "goLine": { "colour": "goLine", "wPx": 1.5, "opacity": 0.85, "dash": "5,4", "draws": ["goline"], "basis": "composer", "ref": "#4 day 22 ('keep that go line always black gray') · #5 §401h (the trims)" },
+  "attackLine": { "colour": "ink", "look": { "wSs": 0.18, "hSs": 2.2, "offsetSs": 1.1 }, "draws": ["attackline"], "basis": "census", "ref": "#4 V0.10 (M4)" },
+  "tick": { "colour": "ink", "look": { "wSs": 0.12, "hSs": 0.8 }, "draws": ["tick"], "basis": "census", "ref": "#4 V0.10" },
+  "gc": { "colour": "gc", "draws": ["gc"], "in": "engraving.render.gc (the look in px at the 1080 frame — piece #1's object whole)", "basis": "composer", "ref": "#4 day 23 ('when I say GC, that is the whole thing')" },
+  "ringBar": { "colour": "ink", "hSs": 0.667, "opacity": 0.65, "beside": 0.25, "draws": ["ringbar"], "basis": "composer", "ref": "#4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar')" },
+  "brick": { "colour": "brick", "opacity": 0.45, "draws": ["brick"], "basis": "census", "ref": "#4 V0.10" },
+  "beam": { "face": "music", "colour": "ink", "thicknessSs": 0.4, "stubSs": 1, "in": "thicknessSs glyphs.json standards.beam", "draws": ["beam"], "basis": "composer", "ref": "#2 dimensions_table · stubSs #4 day 23 (the beamlet — Gould)" },
+  "tuplet": { "colour": "ink", "look": { "thicknessSs": 0.16, "hookLengthSs": 0.7, "paddingSs": 0.5, "numeralSizeSs": 1.2348, "numeralBaselineBelowSs": 0.41, "numeralInsetSs": 0.4, "numeralGapPerCharSs": 0.88, "numeralCapFactor": 0.7 }, "draws": ["tuplet"], "basis": "composer", "ref": "#4 day 23 (his own LilyPond standard, surveyed from #2's 809 .ly files)" },
+  "ottava": { "colour": "ink", "ledgerThreshold": 3, "endBeside": 0.3, "stack": 0.45, "in": "stack = glyphs.json standards.ottava.standardGapSs (and the bracket's numbers)", "draws": ["ottava"], "basis": "composer", "ref": "ledgerThreshold #5 §401j (Gould, #2's staff router) · endBeside #5 §401m · LilyPond OttavaBracket padding 0.5 / 2.0 (the seed, §422)" },
+  "rest": { "face": "music", "colour": "ink", "draws": ["rest"], "basis": "lilypond", "ref": "#4 day 23" },
+  "lvSlur": { "face": "music", "colour": "ink", "beside": 0.15, "in": "engraving.layout.letRingGapSs (code default 0.15)", "draws": ["lvslur"], "basis": "composer", "ref": "#5 2h.5 (l.v. — the tight gap)" },
+  "pedal": { "face": "music", "colour": "ink", "draws": ["glyph:pedal-.*"], "basis": "composer", "ref": "#5 2h.5 (#2's 'Ped.')" },
+  "glissLine": { "colour": "ink", "draws": ["glissline"], "basis": "census", "ref": "#4 day 35" },
+  "curve": { "strokeWPx": 2, "strokeOpacity": 1, "fillOpacity": 0.3, "pathOpacity": 0.3, "basis": "composer", "ref": "D42 (#2's curve look across the board: fill 0.3 · 2 px stroke · 0.3 on the path)" },
+  "envCurve": { "variantOf": "curve", "colour": "limeGreen", "draws": ["envcurve"], "basis": "composer", "ref": "D42 · #4 day 22" },
+  "crescCurve": { "variantOf": "curve", "colour": "limeGreen", "draws": ["cresccurve", "cresccurve[level]"], "basis": "composer", "ref": "D42 · #4 day 35 · LGMF 2d.3" },
+  "glissCurve": { "variantOf": "curve", "colour": "brightOrange", "draws": ["glisscurve"], "basis": "composer", "ref": "D42 · #4 day 35" },
+  "staff": { "colour": "ink", "furniture": true, "interStaffSs": 6, "lineThicknessSs": 0.1, "in": "lineThicknessSs glyphs.json standards.staff", "draws": ["staff"], "basis": "composer", "ref": "#5 2a.1 (the grand staff's gap) · #2 dimensions_table" },
+  "clef": { "face": "music", "colour": "ink", "furniture": true, "draws": ["clef"], "basis": "lilypond", "ref": "#4 V0.10 · #5 2a.1" },
+  "partLabel": { "face": "text", "size": 1.1, "colour": "muted", "furniture": true, "basis": "composer", "ref": "#5 2026-09-11 (centred on the middle line)" },
+  "reshow": { "face": "text", "size": 0.75, "colour": "muted", "furniture": true, "basis": "census", "ref": "#4 V0.10 (the continuation label at a page start)" },
+  "cursor": { "colour": "cursor", "wPx": 3, "draws": ["anim:cursor"], "animated": true, "basis": "composer", "ref": "#4 D48 (provisional, judged live)" },
+  "gcBall": { "colour": "gc", "draws": ["anim:gc"], "animated": true, "basis": "composer", "ref": "#4 day 23 (piece #1's ball, one copy with the arc)" },
+  "meter": { "colour": "limeGreen · brightOrange", "wPx": 8, "gapPx": 3, "draws": ["anim:curveMeter", "anim:crescMeter", "anim:glissMeter"], "animated": true, "basis": "composer", "ref": "#4 D48 · D42's colours" },
+  "pie": { "colour": "pie", "radiusPx": 9, "topPx": 14, "draws": ["anim:motivePie"], "animated": true, "basis": "AI", "ref": "CURVE_LOOK §7 · LGMF 2d.4 (the AI's colour, his to reverse)" },
+  "followerDot": { "colour": "brick · envFollower", "draws": ["anim:curveFollower", "anim:envFollower"], "animated": true, "basis": "composer", "ref": "#4 D48" },
+  "lineWedge": { "colour": "lineWedge", "draws": ["anim:lineWedge"], "animated": true, "basis": "census", "ref": "#4 D48 (disabled)" }
+ },
+
+ "colours": {
+  "_doc": "THE COLOURS (§427 · §428): ink #111 for every music mark; `muted` for PAGE FURNITURE only (labels, the reshow, the markers) — no colour may come from a code default (gate 3). `techText` and the grey of the numbers are what drew on 2026-09-27; §427 makes both ink at 2e.3 (3) · (4).",
+  "ink": { "value": "#111", "use": "every music mark", "basis": "composer", "ref": "#4 V0.10 · §427" },
+  "muted": { "value": "#8a8a8a", "use": "page furniture only (§427); today also the default of a text item with no colour (A5 — ended at 2e.3)", "basis": "composer", "ref": "#4 V0.10 · §427 A5" },
+  "paper": { "value": "#fff", "use": "the page", "basis": "census", "ref": "#4 V0.10" },
+  "brick": { "value": "#4E7A9B", "use": "the brick · the curve follower", "basis": "composer", "ref": "#4 V0.10" },
+  "techText": { "value": "#000", "use": "a technique's word (layout.js) — ink at 2e.3 (4)", "basis": "census", "ref": "#4 day 30 (cuivré) · §427" },
+  "alert": { "value": "#c00", "use": "the red 'out of range' idiom (#5) — a warning, never a music mark", "basis": "composer", "ref": "#5 (the written-out range)" },
+  "goLine": { "value": "#333", "use": "the go line", "basis": "composer", "ref": "#4 day 22 ('always black gray')" },
+  "gc": { "value": "rgb(255, 21, 160)", "use": "the GC's arc, impact and ball", "basis": "composer", "ref": "piece #1 ColorMap neonMagenta · #4 day 23" },
+  "cursor": { "value": "#FF15A0", "use": "the cursor", "basis": "composer", "ref": "#4 D48" },
+  "limeGreen": { "value": "#99FF00", "use": "the level: the env and cresc curves, their meters", "basis": "composer", "ref": "D42 (#2 ColorMap limeGreen)" },
+  "brightOrange": { "value": "#F04B00", "use": "the glissando curve and its meter", "basis": "composer", "ref": "D42 (#2 ColorMap brightOrange)" },
+  "envFollower": { "value": "#2E8B57", "use": "the env follower", "basis": "census", "ref": "#4 D48" },
+  "lineWedge": { "value": "#8a6d3b", "use": "the line wedge (disabled)", "basis": "census", "ref": "#4 D48" },
+  "pie": { "value": "#607D8B", "use": "the breath pie", "basis": "AI", "ref": "LGMF 2d.4 (the AI's call, his to reverse)" }
+ },
+
+ "faces": {
+  "_doc": "THE FACES (§428): Crimson Pro Light upright / Light Italic for words and numbers; Emmentaler (LilyPond 2.24.4) for music. `emPerSs` is the text's em in staff spaces (render's textScale): a text item's size × emPerSs = its em.",
+  "text": { "family": "'Crimson Pro Light', serif", "italic": "Crimson Pro Light Italic", "emPerSs": 1.3, "slashTopEm": 0.711, "basis": "composer", "ref": "#4 typography (LilyPond textFontName of #1 and #2) · slashTopEm: the '/' measured, §383" },
+  "music": { "family": "Emmentaler (LilyPond 2.24.4, baked into glyphs.json)", "basis": "lilypond", "ref": "#2 · #4 V0.10" }
+ },
+
+ "ladder": {
+  "_doc": "LAYER 5 — THE EXCEPTIONS: LADDER v2 (§422 · §423), run by the layout per unit; the rung reached is written on the item (`fit: { rung, by }`). Rung 8 is an override ON THE EVENT with five fields (the object · the property, one that exists in these tables · the value · the rung it failed at · his § and date) — never in code, never prose-only; the same override recurring is the promotion signal. BUILT at 2e.4 (until then: the table, not the behaviour).",
+  "built": false,
+  "sizeStep": 1.122462,
+  "sizeStepRef": "LilyPond's font-size step 2^(1/6) (§428)",
+  "compressStack": [0.45, 0.3, 0.2],
+  "rungs": [
+   { "n": 0, "name": "standard", "do": "the standard placement; a spill into the inter-lane gap accepted if nothing is touched" },
+   { "n": 1, "name": "compress", "do": "the stack 0.45 → 0.30 → 0.20", "floor": "never under the mark's own `parent`" },
+   { "n": 2, "name": "shrink", "do": "one size step (÷ 1.122): text · dynamic · a cue head" },
+   { "n": 3, "name": "flip", "do": "to the free side" },
+   { "n": 4, "name": "nudge", "do": "the horizontal micro-nudge" },
+   { "n": 5, "name": "rebalance", "do": "the per-page lane rebalance" },
+   { "n": 6, "name": "octave", "do": "the octave device for a ledger tower" },
+   { "n": 7, "name": "staffSize", "do": "per-page staff size · the global C-switch" },
+   { "n": 8, "name": "manual", "do": "an override on the event, five fields; the page marks it red until the override exists" }
+  ],
+  "ref": "§422 · §423 · §426 (the decisions-needed list)"
+ },
+
+ "decisionsNeeded": [
+  { "id": "DN-1 the accidental's two gaps", "what": "one object, two distances to its head: 0.25 on a single head's unit (the nh-unit, the sequence block, the header) and 0.10 in a chord column and on the trill's small head (#2's D.6, the glyph standard) — both draw today, so the row holds both (A7, §419); one value would move the ink of one family", "options": ["keep both (a column packs tighter by design)", "0.25 everywhere", "0.10 everywhere"], "ref": "§419 A7 · census §448", "status": "open" },
+  { "id": "DN-2 anchor C's gap", "what": "the strike family (strike · staccato · jeté · bartók · slap · T. R.) hangs its head 0.6 before the go line; fortepiano and cuivré — also GC units — carry no gap of their own and take B's 0.25 plus a push clear of the impact marker only when the head reaches it (#4 day 24)", "options": ["keep (the push is conditional on purpose)", "0.6 for every GC unit"], "ref": "#4 day 23 · day 24 · census §448", "status": "open" },
+  { "id": "DN-3 the window view's looks", "what": "the notation app's window view (⚙, not the video view) passes only the three curve looks to the renderer; every other look there is render.js's code default — the tuba's V0.10 numbers (the ring bar at opacity 1 against the table's 0.65, the env curve's default green against D42's where not passed …). The video view and both exporters read the table", "options": ["the window view reads the whole table too", "leave it (a working view)"], "ref": "notation.html (the window view, §447 D42's note) · census §448", "status": "open" }
+ ]
+}

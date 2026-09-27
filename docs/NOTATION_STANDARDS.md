@@ -1,3 +1,5 @@
+> **CURRENT VALUES: `docs/ENGRAVING_RULES.md`** — generated from `notation/registry/rules.json` (LGMF PLAN 2e, 2026-09-27; RUNNING_LOG §448). This file keeps its HISTORY — the decisions and their reasons, piece by piece — and is never read for a current value; a rule changes in its row.
+
 > **Provenance (septet LGMF 2026, 2026-09-17):** copied unchanged from piece #5 `septet_2026/docs/NOTATION_STANDARDS.md` with the port of the code it describes (PLAN 0b / 0g). **It describes the tool as it was built for the TEMPUS septet: its instrument names, its `§N` references into that piece's `RUNNING_LOG`, and its measurements are piece #5's.** The mechanism is what carries. Where this piece changes the tool, the change is recorded here and dated.
 
 # Notation standards — the septet (piece #5)

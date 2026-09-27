@@ -53,7 +53,7 @@ const out = arg('out', null);
 if (!out) { console.error('capture_lane: --out is required'); process.exit(1); }
 
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
-const C = rd('notation/registry/container.json');
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const glyphs = rd('notation/lib/glyphs.json');
 const ens = rd('notation/registry/ensemble.json');
 const T = rd('notation/registry/techniques.json');

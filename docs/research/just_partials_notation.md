@@ -47,6 +47,11 @@ A just note carries up to three LAYERS. Two are for everyone; the third only whe
 rows below; the reasoning is in RUNNING_LOG §430 … §441. When `notation/registry/rules.json` exists these rows live there and this
 section points at them.*
 
+> **2026-09-27 (PLAN 2e.1, RUNNING_LOG §448): `notation/registry/rules.json` EXISTS — the faces, sizes, colours and placement below are
+> ROWS there (`objects.number` · `objects.instruction` · `anchors.B` · `colours.ink` …); the CURRENT VALUES are read in the generated
+> `docs/ENGRAVING_RULES.md`, never here. The rows take this section's decisions as they are built (2e.3: the picture rule
+> `pitchPicture.edgeCents` · the numbers black · one size for every word · `26 (C1)` · no reminder head · the ledger's end).*
+
 **The picture: the nearest quarter-tone, nothing finer** (§432 · §435). Every accidental — ordinary or quarter-tone — shows the nearest
 point on the quarter-tone grid: **|c| < 25 → the plain accidental · |c| ≥ 25 → the quarter-tone sign** (the Stein–Zimmermann four:
 ½♯ · ¾♯ · the reversed flat · ¾♭). No arrows: the six arrowed Emmentaler glyphs stay baked in `glyphs.json`, unused (NITS). Over this

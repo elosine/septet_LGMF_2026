@@ -106,17 +106,22 @@
  "engraving": {
   "_status": "CENSUS DONE 2026-08-20 (V0.10) — every look number that lived in layout.js/render.js code, consolidated here. Line/dot THICKNESSES stay in glyphs.json `standards` (glyph-family metrics, single source — edit there); this block is the single edit point for everything else. All values = the code's previous defaults, so adopting the registry changed no pixel.",
   "layout": {
-   "stemLen": 3.5,
-   "accGap": 0.25,
-   "tagY": 3.5,
-   "tempoY": 4.6,
-   "tickY": 3,
-   "dynY": -4.6,
-   "nhGapSs": 0.25,
+   "colours": {"techText":"@colours.techText.value","alert":"@colours.alert.value"},
+   "accGapColumn": "@objects.accidental.besideInColumn",
+   "stemLen": "@objects.stem.lengthSs",
+   "accGap": "@objects.accidental.beside",
+   "tagY": "@column.rows.tag",
+   "tempoY": "@column.rows.tempo",
+   "tickY": "@column.rows.tick",
+   "dynY": "@column.rows.dynamic",
+   "nhGapSs": "@anchors.B.gapSs",
    "_nhGapNote": "day 22, nh-unit horizontal standard for the surge device: the unit's rightmost ink ends this far before the go line (composer asked for 2 px at staff 31.6; expressed in ss = 2/7.9 ≈ 0.25 so the PP-6 zoom invariant holds)",
    "devices": {
     "byEnv": {
      "trill": {
+      "anchorRow": "D",
+      "memberRows": ["head","ledger","accidental","techSymbol","smallHead","paren","trillPitch","dynamic","ottava","goLine","envCurve"],
+      "afterGoGapSs": "@anchors.D.gapSs",
       "goLine": true,
       "goLineTopAsGc": true,
       "gc": false,
@@ -134,20 +139,22 @@
       "dynPair": false,
       "dynMark": "sfz",
       "techSymbol": "trill",
-      "techSymbolScale": 0.57,
+      "techSymbolScale": "@objects.techSymbol.sizeTrill",
       "trillPitch": {
-       "groupPadSs": 0.3,
-       "parenScale": 0.63,
-       "parenInnerSs": 0.42,
-       "headScale": 0.794,
-       "accScale": 0.794,
-       "accPadSs": 0.2,
+       "groupPadSs": "@objects.trillPitch.groupPadSs",
+       "parenScale": "@objects.paren.sizeTrill",
+       "parenInnerSs": "@objects.trillPitch.parenInnerSs",
+       "headScale": "@objects.smallHead.size",
+       "accScale": "@objects.smallHead.size",
+       "accPadSs": "@objects.trillPitch.accPadSs",
        "naturals": false
       }
      },
      "_trillNote": "PLAN 2f.4 (2026-09-13, RUNNING_LOG §438; docs/TRILL_NOTATION_SPEC.md): the TRILL is the tuba's surge with a trill on it — the open nh-unit (no stem, no brick, no ring bar), the parenthesised neighbour after it (trillPitch: LilyPond's pitched-trill group measured by tools/fixtures/lp_probes/trill.ly — group padding 0.30, parens at font-size −4 = 0.63, inner padding 0.42, the neighbour head and accidental at 0.794 of the house, accidental gap 0.20, no naturals), the whole column nhGapSs (0.25) before the go line; the go line at the onset with the strikes' length (goLineTopAsGc — §401h) and NO GC (the composer: 'no gc for trills, they are too close to the other gcs for percussive notes'); `tr` = the technique-symbol slot above (glyphs.articulation.trill at 0.70, GLYPH_SIZING Ornaments — the pedal's factor), the strikes' symbol-above rule; sfz on every attack by the tuba's below-chain and side-with-room rule (chainSide deliberately UNSET: a device chainSide would disable the room test); the level curve over the exact span in the envCurve colour, never peak-cut, over the part's whole lane (curveBand). The level is the composer score's own trill reference (IR amendment 8).",
      "_surgeTemplateNote": "PLAN 2i.8 (2026-09-15, RUNNING_LOG §530, D54): curveTemplate — the device draws the STANDARD shape of its family (cresc.js segmentFor: the ratio-5 exponential, slope 0.40 — the look of the tuba's db1 surges) in place of the event's own level samples, sampled through sonify_core.evalWaveCurve at CURVE_LOOK §2a's density (100/s, never fewer than 101), then the cut; no curveZero, no curveFloor. Why: the septet's crescendo run (78 swells, 526.8–559.4 s) SOUNDS through the sampler-bent surge (CN-49's listening tests: under 10 % for 60 % of the span), which drawn reads as silence then a spike; the IR keeps the bent samples as the truth of what sounds (D9), and the template is a drawing rule on the device — piece-wide, like dynPair, not a build flag. The meters ride it (drawnOf, D50).",
      "surge": {
+      "anchorRow": "B",
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","dynArrow","goLine","envCurve"],
       "curve": true,
       "cut": true,
       "goLine": true,
@@ -158,6 +165,8 @@
      },
      "_strikeNote": "RUNNING_LOG §400 (2026-09-11): a note the strikes tool wrote (the score's srcKind 'strike' → IR env 'strike', extract_core) is a STRIKE whatever its technique, and wears the section's strike look — the tuba staccato unit with the accent, fff on change. The piano's `main` is a strike here and a long note elsewhere, which is why the look rides the env, not the technique; the one-shot techniques carry the same look in byTechnique plus their own symbol/text.",
      "strike": {
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc"],
       "goLine": true,
       "gc": true,
       "nhAnchor": null,
@@ -168,18 +177,20 @@
       "ringBar": false,
       "letRing": false,
       "chordRules": false,
-      "nhHeadScale": 0.844,
+      "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
       "nhDot": true,
-      "nhDotGapSs": 0.15,
-      "nhGapSs": 0.6,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
       "nhArtic": "accent",
       "dynMark": "band",
       "dynBesideStem": true
      },
      "_strikeRingBarNote": "PLAN 2h.5 (2026-09-14): byTechnique.main now carries the ring bar for the piano's long ordinary notes in the morph section; a strike merges its env on top, so the env says ringBar false out loud — the piano's strikes keep their look.",
      "sequence": {
+      "anchorRow": "B",
+      "memberRows": ["head","ledger","accidental","number","instruction","textBaked","dynamic","dynArrow","dynamicLabel","paren","goLine","crescCurve","cueHead"],
       "goLine": true,
       "onsetHead": false,
       "onsetAcc": null,
@@ -195,9 +206,9 @@
       "dynMark": false,
       "techText": false,
       "techTexts": { "senza_vel": "senza vib." },
-      "block": { "headGapSs": 0.45, "centsGapSs": 0.6, "rowSs": 1.0, "textGapSs": 0.45, "numEmSs": 0.975, "slashTopEm": 0.711 },
-      "reminder": { "scale": 0.844, "parenScale": 0.67, "parenGapSs": 0.15 },
-      "label": { "scale": 0.75, "parenScale": 0.43, "parenGapSs": 0.1 },
+      "block": { "headGapSs": "@anchors.B.blockGapSs", "centsGapSs": "@objects.number.parent", "rowSs": "@objects.number.stack", "textGapSs": "@objects.instruction.stack", "numEmSs": "@objects.number.emSs", "slashTopEm": "@faces.text.slashTopEm" },
+      "reminder": { "scale": "@objects.cueHead.size", "parenScale": "@objects.paren.sizeReminder", "parenGapSs": "@objects.paren.besideReminder" },
+      "label": { "scale": "@objects.dynamicLabel.size", "parenScale": "@objects.paren.sizeLabel", "parenGapSs": "@objects.paren.besideLabel" },
       "_labelNote": "LGMF PLAN 2d.5 (RUNNING_LOG §386): a (dyn) label at a turning point of the level — the dynamic glyph at 0.75 (the PLAN's cue scale) between the parens at 0.43 (0.9 ss tall: the tallest cue dynamic, f at 0.73 ss, with room) [the AI's], 0.1 ss from the mark, on dynY, centred on x(t).",
       "_reminderNote": "LGMF PLAN 2d.4 (RUNNING_LOG §385): a breath on the SAME pitch — a cue-size open head (the house cue scale 0.844) in parentheses, its accidental inside them (a reminder, not a change), no column; the parens at 0.67 — the trill neighbour's 0.63 for its 0.794 head, in proportion [the AI's], 0.15 ss from what they hold.",
       "_blockNote": "LGMF PLAN 2d.2 (2026-09-25, RUNNING_LOG §383; docs/research/just_partials_notation.md §1a): the block at the part's entry, in ss from its go line — headGapSs the head's right ink edge before the go line (the D45 header's spacer) · centsGapSs the cents' baseline over the head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text over the column's ink top · numEmSs the numbers' rendered em (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, change both) · slashTopEm Crimson Pro Light's '/' top in em, the partial row's ink top (measured, opentype.js). The range on the dynamic row takes the house dynArrow."
@@ -207,6 +218,8 @@
     "byTechnique": {
      "_pianoMorphNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §483–§491; the composer's reference CN-82 = piece #2 around 0:50; his spec: 'no gcs, open noteheads for both'): the piano's notes in the morph section carry no env, so `main` and `plucked` reach them and nothing else (every other `main` is a strike or a trill by env — and those envs cancel every field added here out loud: ringBar, letRing, chordRules). The first build (§484 — the tuba's ring bar on main; piece #2's ASR row on plucked: 'Ped.' text, the ✱ at the release, a two-hook bracket) was replaced device by device at his eye: see _mainNote, _chordRulesNote, _pluckedNote.",
      "main": {
+      "anchorRow": "A",
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","lvSlur","ringBar"],
       "goLine": false,
       "nhAnchor": "leftEdge",
       "nhUnit": true,
@@ -220,6 +233,8 @@
      "_chordRulesNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §488–§489, the composer: 'there should just be one dynamic, that entity should be treated as a chord'; his choice A): chordRules on a device makes the part's notes within chordSimulSeconds (engraving.layout, default 0.05) of one onset ONE CHORD across both staves — (1) one band dynamic per chord, drawn by its LOWEST note, centred on that note's column, the band of the chord's loudest member (max vel) — piece #2's placeBelowChord; (2) the let-ring slurs by Gould's chord-tie rule: the top note's above, the bottom note's below, inner notes by the middle-line rule (§486). A single note is unchanged. The strike and trill envs say chordRules false — a strike carries its own dynamic on every note (§400).",
      "_mainNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §485–§486, the composer, on the D2 at 217.55 s): 'Open head, GoLine, and Dynamic. Those are fine. Please get rid of the duration line. And then I want a let ring slur' — the ring bar of the first build (§484) is gone; the let-ring slur is piece #2's l.v. crescent (glyphs.json letRing), placed by layout's letRing rule: 0.15 ss right of the unit's rightmost ink, stackGapSs outside the head's ink, above for a head on or above the middle line, below (mirrored) for one below it; on the chain's side it is the chain's first element. letRingGapSs (engraving.layout) overrides the 0.15.",
      "plucked": {
+      "anchorRow": "A",
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","textBaked","pedal","lvSlur"],
       "goLine": false,
       "nhAnchor": "leftEdge",
       "nhUnit": true,
@@ -235,6 +250,8 @@
      },
      "_pluckedNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §490–§491, the composer: 'they will be same as the plain ones. Let ring, no duration line … chords, one dynamic … bring over the proper pizz. … the right font and text … and the proper pedal marking … same size everything … no rosette … no bracket'; his choice A on the release): plucked = main (go line · open head · one band dynamic per chord · the l.v. slurs by the chord rule) PLUS textAbove — piece #2's baked italic 'pizz.' (glyphs.text), once per onset, above the chord's top note, centred on its column, stackGapSs above the unit's ink or the staff, or 2 × stackGapSs above the top note's slur when that slur is above (piece #2's cluster rule) — and pedalMark — piece #2's Emmentaler 'Ped.' (glyphs.pedal), once per chord under its lowest note, the chain's slot after the dynamic, centred. No release sign: the release is the performance instructions' legend (NITS 2026-09-14). §492–§494: the 0.5 s 'damped' thresholds (letRingMinSeconds / pedalMinSeconds) were his to reject and he did — every plucked onset rings: Ped. once per chord, the slur on every note, the open head kept on a short single pluck; the three close pairs (327.27 · 345.48 · 384.92) are beamed 8ths instead (PLAN 2g.1, the cross-staff beam). columnInk: pizz. and Ped. count as the note column's ink — the column shifts left so the widest of them ends nhGapSs before the go line (his eye, §492); the l.v. slur is exempt.",
      "fortepiano": {
+      "anchorRow": "C",
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","goLine","gc","ringBar"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -242,6 +259,8 @@
       "dynMark": "sfzp"
      },
      "cuivre": {
+      "anchorRow": "C",
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","techniqueText","goLine","gc","ringBar"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -251,39 +270,45 @@
      },
      "_cuivreNote": "day 24: cuivre INHERITS THE FORTEPIANO DEVICE SET verbatim. Evidence, not preference: all three cuivre notes in density build 1 (T1 wc-1587 midi 62, T4 wc-1584 midi 63, T8 wc-1580 midi 67, all at 40.93 s) are members of grp-vert03-fp-01, whose seven other members are technique fortepiano at the same instant and the same velocity 112, and whose score performanceNotes on EVERY member reads VERT01-03 fortepiano. So the gesture is a fortepiano blast and cuivre is its timbre in three parts; drawing those three differently from their seven siblings would notate a timbre difference as a gesture difference. Sample-true ring bars exist (cuivre 62=1.14 63=1.25 67=0.99 s in bank/sample_lengths.json). OPEN, composer: whether a cuivre TEXT mark (cuivre) should additionally sit on those three notes — the technique is currently invisible on the page.",
      "ord": {
+      "anchorRow": "B",
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","goLine"],
       "goLine": true,
       "nhUnit": true,
       "dynMark": "band"
      },
      "_ordNote": "day 24, PROVISIONAL: plain (non-surge) sustained ord had no entry, so the ten-part octaves-Bb blast at 48.05 (wc-1611..wc-1620, 4.41 s, vel 112, one per part) drew as ten bare parachute bricks. Minimum honest reading: go line + nh-unit + one band dynamic. NO gc (the surge precedent: a sustained entry is not a point-in-time impact, and byEnv.surge carries no gc) and NO ring bar (ord duration is the real drawn duration per D9, and the brick already shows it; the ring bar exists to show a FIXED one-shot ringing past its written value). Surges are unaffected: byEnv.surge now carries dynMark false, which cancels this band mark on top of the technique entry, so the settled surge look (curve + cut + go line + nh-unit + dynPair) is byte-identical to day 23.",
      "staccato": {
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
       "nhHead": "filled",
-      "nhHeadScale": 0.844,
+      "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
       "nhDot": true,
-      "nhDotGapSs": 0.15,
-      "nhGapSs": 0.6,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
       "dynBesideStem": true
      },
      "_septetStrikes": "RUNNING_LOG §399–400 (2026-09-11, the composer, strike 1): section 1's strikes are written the tuba staccato way — every note at its own onset with its own GC, the filled 16th-flag head, the dot nearest the head and the ACCENT outside it (nhArtic), fff at a part's first strike and then nothing until its dynamic changes (dynOnChange), the technique SYMBOL above the unit (techSymbol: snap pizz for bartók, + for the slap; #2's font-size −3 = 0.707), the instruction TEXT in the below-chain's instruction slot (the composer 2026-09-11: 'repeat all the instructions every note and the dynamic' — instrText on every note, instrFirst only for the flute's first 'tongue ram' before 'T. R.', fff on every strike; instrAlign start|middle|end on the head column — the composer 2026-09-11: tongue ram right-justified clear of the GC, (slap) and jeté centred). No duration brick on a strike (his: 'the short notes with gcs don't have duration lines'). Stems the CLASSIC way (above the middle line down, below it up) and the whole stack on the HEAD side, mirrored with the stem (chainSide headSide — the composer 2026-09-11: 'keep our stack but mirror depending on stem direction'). The piano's `main` gets it through byEnv.strike (the score's srcKind), never by technique — a long `main` keeps its family look.",
      "gettato_vel": {
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techniqueText"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
       "nhHead": "filled",
       "chainSide": "headSide",
       "brick": false,
-      "nhHeadScale": 0.844,
+      "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
       "nhDot": true,
-      "nhDotGapSs": 0.15,
-      "nhGapSs": 0.6,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
       "nhArtic": "accent",
       "dynMark": "band",
       "dynBesideStem": true,
@@ -291,58 +316,64 @@
       "instrAlign": "middle"
      },
      "bartok_vel": {
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techSymbol"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
       "nhHead": "filled",
       "chainSide": "headSide",
       "brick": false,
-      "nhHeadScale": 0.844,
+      "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
       "nhDot": true,
-      "nhDotGapSs": 0.15,
-      "nhGapSs": 0.6,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
       "nhArtic": "accent",
       "dynMark": "band",
       "dynBesideStem": true,
       "techSymbol": "snappizz",
-      "techSymbolScale": 0.707
+      "techSymbolScale": "@objects.techSymbol.size"
      },
      "slap": {
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techSymbol","techniqueText"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
       "nhHead": "filled",
       "chainSide": "headSide",
       "brick": false,
-      "nhHeadScale": 0.844,
+      "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
       "nhDot": true,
-      "nhDotGapSs": 0.15,
-      "nhGapSs": 0.6,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
       "nhArtic": "accent",
       "dynMark": "band",
       "dynBesideStem": true,
       "techSymbol": "plus",
-      "techSymbolScale": 0.707,
+      "techSymbolScale": "@objects.techSymbol.size",
       "instrText": "(slap)",
       "instrAlign": "middle"
      },
      "pizzicato": {
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","techniqueText"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
       "nhHead": "filled",
       "chainSide": "headSide",
       "brick": false,
-      "nhHeadScale": 0.844,
+      "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
       "nhDot": true,
-      "nhDotGapSs": 0.15,
-      "nhGapSs": 0.6,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
       "nhArtic": "accent",
       "dynMark": "band",
       "dynBesideStem": true,
@@ -352,8 +383,10 @@
      "_staccatoNote": "day 23, OPTION B of the layering discussion (Tufte: layering & separation, 1+1=3, position before colour): NO go line for a point-in-time gesture — the GC's impact marker IS the go mark, so a go line was a third encoding of one time; the unit sits BEFORE the go time like every other unit (reading rule: the ink just before the mark is what you play at the mark), with nhGapSs 0.6 so the head clears the marker's left edge (r 0.51 ss) with air; head, dot and ledgers sit under the arc (the ictus hang keeps the arc at 35 %+ height 0.05 s before impact); stem and flag may cross it (composer). Option A (centred on go, marker lightened) rejected: it lightens the datum. nhAnchor 'center' remains available as a device value."
     },
     "byPairBeam": {
+     "anchorRow": "A",
+     "memberRows": ["cueHead","ledger","accidental","stem","beam","dynamic","gc","goLine"],
      "nhHead": "filled",
-     "nhHeadScale": 0.844,
+     "nhHeadScale": "@objects.cueHead.size",
      "nhStemDir": "up",
      "nhAnchor": "leftEdge",
      "goLine": false
@@ -361,21 +394,16 @@
     "_pairBeamNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §492–§495; PLAN 2g.1's cross-staff beam pulled forward for the morph section's plucked pairs; the composer: 'make those black note heads, 8th beams … stems up above treble, keep pizz and dynamics on both, ped on first … include let ring slurs on each'; 'two beamed 8ths, no rests'). A note named by notate_section --pairBeam carries device.pairBeam; this look merges over its technique device (layout makeDeviceOf) and the per-note override still wins. layout draws each member's stem UP to ONE 8th beam above the part's TOP staff (the flagged-stem height — the staff edge + flagClearanceSs + an 8th flag — raised for a top-staff member's minimum stem; a bass-staff member's stem is drawn to that height in the top staff's coordinates, render's sysB), the pizz. of every member on one row above the beam (NOTATION_STANDARDS §2: the group's marks on the beam side), the dynamic and Ped. in each member's own below-chain (Ped. on the first member only; a dynamic only where the band changes from the previous member — §499, the composer: 'only new dynamic if it changed'), the l.v. slur opposite the stem (below). NOTATION_STANDARDS §2's cross-staff design: 'one beam ABOVE the treble staff, the lower notes' stems reaching down into the bass'."
    },
    "_devicesNote": "day 22 (second note, wc-23): DEVICE MEMBERSHIP — which drawn elements an un-notated event carries: curve (needs level samples) · cut (90° back edge) · goLine (dotted go line) · nhUnit (open head + accidental + ledgers + ottava, right-anchored nhGapSs before go) · dynPair (true = the dynPair below; an array = that pair). dynMark (a single engraved mark on the dynamic slot — the glyph key; fp/sfp/sfzp captured day 22 by tools/glyph_probe_dyn_extra.js). Resolved byEnv first, then byTechnique, then a per-item engraving override `device:{...}` on top. The composer works note by note in order; a technique entry is how a settled note's device reaches its siblings. fortepiano = go line + nh-unit only so far (composer: 'Open Notehead unit with GoLine… Let's start with that'). nhHead ('open' | 'filled') and nhStem ('flag8' | 'plain' | absent) arrived day 23 with wc-29 — composer: 'black note head, stem, and I think one flag' — piece #2's GC one-shot convention (pluckedPianoChord: filled head, stem, 8th flag at the locked sizes); stem direction = house rule, per-item `stemDir` overrides.",
-   "stackBelow": [
-    "articulation",
-    "dynamic",
-    "instruction",
-    "ottava"
-   ],
+   "stackBelow": "@column.order",
    "grandStaff": {
-    "interStaffGapSs": 6,
+    "interStaffGapSs": "@objects.staff.interStaffSs",
     "_doc": "RUNNING_LOG §401k (2026-09-11, the composer: 'the space between the treble and base staffs are too big ... let's see if we can nail down a standard'): treble bottom line → bass top line. 6 ss = piece #2's locked value (dimensions_table grandStaff.interStaffGap, D.9.1, measured off its LilyPond reference); LilyPond 2.24 itself: PianoStaff staff-staff-spacing basic-distance 9 centre-to-centre = 5 ss gap (minimum 7 = 3), and 10.5 = 6.5 ss between different instruments. The septet had 12.46 — each staff centred in its own half-lane. The staves are now placed at this gap, centred in the piano lane; the lane's weight (ensemble.json) gives the outer air."
    },
-   "ottavaLedgerThreshold": 3,
-   "ottavaEndGapSs": 0.3,
+   "ottavaLedgerThreshold": "@objects.ottava.ledgerThreshold",
+   "ottavaEndGapSs": "@objects.ottava.endBeside",
    "_ottavaEndNote": "§401m (2026-09-11, the composer): the bracket's hook ends at the rightmost ink of the note (the head, or the ledger line's overhang) plus THE SMALLEST GAP — the staccato-dot gap (tightGapSs 0.15; medium 0.3; standard 0.45). LilyPond's OttavaBracket runs 0.6 ss past the last note; Gould: 'a little beyond'. The left end sits at the accidental's left edge already.",
    "_ottavaNote": "RUNNING_LOG §401j (2026-09-11, the composer, on the piano's A♯1 on its 4th ledger line: 'last pno strike missed ottava'): the smallest ottava that brings a written note within THIS many ledger lines — 3, piece #2's staff-router rule and Gould's; the shared glyph standard (glyphs.json standards.ottava.ledgerLineThreshold) says 4, the tuba's choice, and keeps it for the tuba pages. Every part, both piano staves.",
-   "stackGapSs": 0.45,
+   "stackGapSs": "@column.stack.standard",
    "dynamicBands": [
     {
      "max": 9,
@@ -411,8 +439,8 @@
     }
    ],
    "_dynamicBandsNote": "2026-09-14 (PLAN 2i.7, RUNNING_LOG §529 — the score's own EIGHT-step scale, Cresc.dynHeight × 127 / 10: ppp 0 · pp 18 · p 37 · mp 55 · mf 72 · f 90 · ff 109 · fff 127; each band's max = the midpoint to the next step, so a velocity names the step it was set to — section 3's stepped strikes read p · mp · mf · f · ff · fff, not §520's ppp · p · p · mf · f · fff). Measured on the whole MAIN file: only section 3's marks change; section 1 (fff, sfz), section 2 and the morph piano's 44 ensemble marks (D50) are identical. The five-band table it replaces: ≤45 ppp · ≤75 p · ≤100 mf · ≤118 f · ≤127 fff. EARLIER: day 23 (composer: yes to 'the ladder, the named dynamics, ppp to fff, and the velocity conversion'): THE ONE-SHOT DYNAMIC = one marking from five WIDE bands, middle collapsed (ppp · p · mf · f · fff), looked up from the event's captured velocity (IR `vel`, amendment 5). Thresholds PROVISIONAL — equal-ish widths over the used range — until the SI2 tuba velocity→dB ladder is measured (DYNAMICS_FRAMEWORK.md §7); section-1 census under these: staccato 4/66/277/221/131 of 699. Device dynMark 'band' resolves here; a literal mark (e.g. 'sfzp') bypasses the table.",
-   "flagClearanceSs": 0.38,
-   "chainAboveGapSs": 0.3,
+   "flagClearanceSs": "@objects.flag.staff",
+   "chainAboveGapSs": "@column.stack.underFlag",
    "_chainAboveGapNote": "day 23: when the chain sits ABOVE a flagged stem-up unit it goes BETWEEN the staff and the flag (composer: 'let's see if we can get the dynamic above the staff and below the bottom of the flag'); the flag-clear stem rule then clears the chain, and this tighter gap (vs the 0.45 house standard) is the air on each side of the mark in that slot.",
    "breathSeconds": 0.5,
    "_breathNote": "day 23 (composer, corrected the same hour): THE BAR ENDS A BREATH BEFORE THE NEXT GESTURE — 'working backwards... the next gesture minus breath'. The measured sample length only CAPS it, so a note with room keeps its full ring (nothing earlier in the piece is affected) and only a note crowded by the next attack is shortened. 0.5 s = a moderately quick tuba breath (snatch 0.25-0.35 s; full relaxed on a large horn 1-1.5 s). DRAWING ONLY — playback still follows the IR duration (D49), since the sample rings what it rings. flagShortBarSeconds warns when the next attack forces a bar under that length, for the composer to judge note by note; a gap shorter than the breath draws no bar at all and warns.",
@@ -424,13 +452,15 @@
    "figures": {
     "_note": "day 24 — THE FIGURE STANDARDS AS DATA (composer: 'let's try to capture these as standards or something documented somehow because after the clear, we've lost... I've had to reestablish some of these rules'). tools/notate_section.js builds every --cluster and --beam overlay FROM these blocks, so a rule lives here once and docs/NOTATION_STANDARDS.md describes it in words. Edit here; the next extract carries it.",
     "cluster": {
+     "anchorRow": "A",
+     "memberRows": ["cueHead","ledger","accidental","stem","beam","staccatoDot","accent","dynamic","rest","tuplet","gc"],
      "goLine": false,
      "gc": "first",
      "nhAnchor": "leftEdge",
      "nhHead": "filled",
-     "nhHeadScale": 0.844,
+     "nhHeadScale": "@objects.cueHead.size",
      "nhDot": true,
-     "nhDotGapSs": 0.15,
+     "nhDotGapSs": "@objects.staccatoDot.parent",
      "dynBesideStem": false,
      "dynamics": "ambient+accents",
      "restsSplitAtBeat": true,
@@ -450,6 +480,9 @@
      "_note": "A CLUSTER (D56): a composer-named span of partials on ONE analysed tempo. Go line and GC on the FIRST partial only ('the GC only on the first one, so it launches the whole cluster'); every partial's NOTEHEAD LEFT EDGE sits on its own go time ('because of the scrolling person'); filled head at the 0.844 cell scale, staccato dot at the 0.15 tight gap; every partial written as a 16th, gaps as 16th rests one per slot (day 35, --rests16 on every new build; --restFit N the correction; tuplet-internal slot rests keep the bracket's value), the second beam level SOLID through the group's rests (day 35, --beamsThrough; --beamlets N the per-group exception; before day 35: beamlets, beamStubSs — db1 reproduces that writing from its own command). Dynamics = the ambient+deviation model (DYNAMICS_FRAMEWORK): one ambient mark on a chosen member, ACCENTS on the members louder than it — 'loud, slightly softer, loud' is f with accents, not fff f fff. Per-partial marks remain available (--dyn n,n,n)."
     },
     "beam": {
+     "anchorRow": "A",
+     "memberRows": ["head","ledger","accidental","stem","beam","dynamic","gc","goLine"],
+     "anchorRowGc": "C",
      "goLine": "gc",
      "gc": "ring",
      "anchor": "leftEdge",
@@ -464,29 +497,20 @@
     },
     "_beamsAreFlat": "A beam is FLAT, always — layout levels every group to the tip furthest from the staff and moves the stems with it (the group's height, never a member's: a mixed fortepiano+staccato group once sloped by half a space because each note derived the beam from its own flag). Not a number — a law in notation/lib/layout.js, restated here so it is found."
    },
-   "ringBarGapSs": 0.25,
+   "ringBarGapSs": "@objects.ringBar.beside",
    "_ringBarGapNote": "day 24 (composer: 'have the notehead and ledger and a little bit of space and then a duration bar'): the ring bar starts this far after the nh-unit's RIGHT INK EDGE — head, ledgers, accidental, whatever the unit carries — instead of at the go line. The day-22 spec said flush with the go line, which was the same thing while every unit hung before its go time; a head centred ON the go time (beam figures, day 24) put the unit on top of the bar. Default = nhGapSs 0.25, the piece's existing small horizontal gap, which makes the rule a NO-OP for every default-anchored fortepiano (there headDx + rightExt = -nhGapSs exactly).",
-   "beamStubSs": 1,
+   "beamStubSs": "@objects.beam.stubSs",
    "_beamStubNote": "day 23 (composer's midway solution): every partial is written as a 16th and the gaps carry 16th rests, but the SECOND beam level is a STUB (a fractional beam / beamlet) on a note with no 16th neighbour, and a connecting segment only between adjacent 16ths — 'a short beam where the sixteenth note beam is, not something that connects', so the phrasing still reads. Standard practice (Gould: fractional beams); length in ss, tune by eye. Stubs point RIGHT, toward the gap the note opens.",
-   "tuplet": {
-    "thicknessSs": 0.16,
-    "hookLengthSs": 0.7,
-    "paddingSs": 0.5,
-    "numeralSizeSs": 1.2348,
-    "numeralBaselineBelowSs": 0.41,
-    "numeralInsetSs": 0.4,
-    "numeralGapPerCharSs": 0.88,
-    "numeralCapFactor": 0.7
-   },
+   "tuplet": "@objects.tuplet.look",
    "_tupletNote": "day 23: THE COMPOSER'S OWN LILYPOND STANDARD, surveyed from piece #2's lilypond_code (809 .ly files, 101 with tuplets; TupletBracket.direction #UP 29/29, bracket-visibility ##t, padding 0.5 ('bracket height'), TupletNumber.text = tuplet-number::calc-fraction-text 29/32 — the override that prints '3:2' rather than a bare '3' — font-size -5, and the composer's own flatten-tuplet-bracket which levels both ends = the straight bracket) and MEASURED by tools/glyph_probe_tuplet.js: thickness 0.16, hook 0.7 descending toward the notes, the horizontal drawn in two segments with a 2.6388 ss gap for a 3-character numeral (hence numeralGapPerCharSs 0.88) inset 0.4, numeral baseline 0.41 BELOW the line so the digits straddle it, size 1.2348 italic. No glyph tracing: LP draws the bracket as strokes and typesets the numeral as text, so this app does the same in its own notation font.",
-   "tightGapSs": 0.15,
-   "gapMediumSs": 0.3,
+   "tightGapSs": "@column.stack.tight",
+   "gapMediumSs": "@column.stack.medium",
    "bracketOverflowMaxSs": 1.3,
    "_bracketOverflowNote": "day 31 (composer, T7: 'brackets... are too far down. There's plenty of room above'): a repaired group's bracket goes on the HEAD side only when it fits INSIDE the lane there; otherwise it returns to the BEAM side (its engraving home) and may overflow the lane edge by up to this much — the inter-lane gap plus the neighbour's usually-empty margin. Past that (T9: 1.75 over) it stays head-side and anything colliding moves instead. The measured cases: T7 beam-side 1.25 over (goes up, per the composer) · T2 1.39 (stays head-side, approved look) · T9 1.75 (stays head-side).",
    "_gapMediumNote": "day 31, THE MEDIUM GAP (composer: 'there is also the smaller vertical gap which we use for the staccato dot. And there was meant to be a medium one too between the two. which we haven't come up with, but we can.'): the third tier of the vertical-gap system — 0.15 tight (dot, dyn-stem) · 0.30 MEDIUM · 0.45 standard (session-77 stack). 0.30 proposed as the midpoint, and it is the value the under-flag chain has used since day 23 as chainAboveGapSs — the medium tier existed un-named in one special case. Used by the day-31 wide-register repair pass for its row joints (approved pages never trigger it, so the classic 0.45 stacks are untouched). The parked cuivré lift (NITS day 30: 'a midway constant between tight 0.15 and the standard, then raise the marks') would take this same constant when the composer says.",
    "_tightGapNote": "day 23, THE TIGHT GAP STANDARD (composer): the staccato dot sits 0.15 ss (1.2 px at the jury frame) from the head's edge ('reduce 50% the gap'), and the same value is the air between a dynamic's right edge and the stem ('just a little tiny bit of gap... akin to the staccato gap'). nhDotGapSs and dynStemGapSs both carry it; one number to change if the eye wants more.",
-   "dynStemGapSs": 0.15,
-   "seccoGapSs": 0.15,
+   "dynStemGapSs": "@objects.dynamic.besideStem",
+   "seccoGapSs": "@objects.instruction.besideCut",
    "_seccoGapNote": "PLAN 2j.2 (the composer 2026-09-16, RUNNING_LOG §540): the gap between the surge's cut edge and the 's' of 'sempre secco' = the staccato-dot gap (nhDotGapSs / dynStemGapSs, 0.15). The word sits at the cut edge's top, top-justified on the curve's top (layout.js the secco block; render.js yAt 'top').",
    "chordColumn": {
     "displaceThresholdSteps": 1,
@@ -497,7 +521,7 @@
     "_provenance": "2026-09-11 (septet PLAN 2a.4): piece #2's LOCKED chord rules, carried with their numbers — composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/dimensions_table.json noteColumn (D.8.1, the LilyPond cluster matrix: a note within 1 staff position of the previous one flips to the other side of the column, displaced one notehead width) and accidentalColumn (D.8.2, the LilyPond accidental matrix: minLateralGap 0.10, collision tolerance 0.05; a colliding accidental takes the next full slot left). Its docs/CHORD_SPACING_RULES.md §0 names these canonical and its older constants superseded. The algorithms are notation/lib/chord_column.js, ported from its note_column.js / accidental_column.js. The gap to the notehead is glyphs.json standards.accidental.gapToNotehead (0.10, the same lock)."
    },
    "_dynStemGapNote": "day 23 (composer): above a stem-up flagged unit the dynamic sits BESIDE the stem — its right edge dynStemGapSs left of the stem — not centred on the head column; the flag, on the stem's other side, keeps its full height (flagScaleY back to 1.0; the compression stays available as a knob).",
-   "flagScaleY": 1,
+   "flagScaleY": "@objects.flag.scaleY",
    "_flagScaleYNote": "day 23: vertical-only scale on the 8th flag for the staccato unit (composer: 'if we can adjust it so it's not so tall'). At 1.0 the staff + mf + flag chain (2 + 0.3 + 0.97 + 0.3 + 3.008 = 6.58 ss) overflows the 6.51 ss half-lane by 0.07; at 0.65 the flag is 1.96 ss tall and the chain tops out at 5.53. Anisotropic — the Emmentaler curl is compressed, not redrawn; alternatives (a procedural straight flag as in LilyPond's modern-straight style, or a uniform scale) are listed in RUNNING_LOG day 23.",
    "_flagClearanceNote": "day 23 (composer, wc-29): 'have the bottom of the flag clear the staff, just like three pixels or so — maybe not the full typical gap.' 3 px at the jury frame (7.9 px/ss) = 0.38 ss. Piece #2's computeFlaggedStemLength law with this clearance (p2 used stem.flagClearance.clearanceSs = 1.0): the flag's near edge clears the outer staff line; applied by devices with nhStemRule 'flagClear'; the default stem length wins when already longer. Head scale 0.844 = piece #2 notehead.cellMotive.scaleFactor (the composer's remembered small-notehead formulation; uniform scale on the same outline, no new glyph). nhDot = the staccato dot on the notehead side (dotYFor).",
    "chainSide": {
@@ -512,35 +536,35 @@
    ],
    "_dynPairNote": "day 22, composer: NO derivation — the two marks state the bottom and top LEVELS, not the curve. This piece: every surge is full-curve ppp->fff (morph section + manual judgments via authored overrides). Another piece may change the pair here.",
    "dynArrow": {
-    "lenSs": 2,
-    "headSs": 0.45,
-    "gapSs": 0.45,
-    "thickSs": 0.13
+    "lenSs": "@objects.dynArrow.lengthSs",
+    "headSs": "@objects.dynArrow.headSs",
+    "gapSs": "@objects.dynArrow.beside",
+    "thickSs": "@objects.dynArrow.thickSs"
    },
    "_dynArrowNote": "day 22, the hairpin replacement (composer: 'this is new'): start mark centered on the note column · gapSs · arrow (lenSs total incl. headSs triangle) · gapSs · end mark. Gaps = the 0.45 house standard; thickness = stem thickness.",
    "textSizes": {
-    "dynamic": 0.9,
-    "instruction": 0.75,
-    "tempo": 0.75,
-    "technique": 0.7
+    "dynamic": "@objects.dynamicText.size",
+    "instruction": "@objects.instruction.size",
+    "tempo": "@objects.tempoText.size",
+    "technique": "@objects.techniqueText.size"
    }
   },
   "render": {
    "staffFull": true,
    "_staffFullNote": "2026-09-11 (RUNNING_LOG §401b, the composer: 'put the staff lines to the end of the page'): the staff is furniture in every view — drawn to the page edges, not cut at the material's end (the tuba's day-22 verdict cut them short). false = the tuba look.",
-   "ink": "#111",
-   "muted": "#8a8a8a",
-   "brick": "#4E7A9B",
-   "paper": "#fff",
-   "fontFamily": "'Crimson Pro Light', serif",
+   "ink": "@colours.ink.value",
+   "muted": "@colours.muted.value",
+   "brick": "@colours.brick.value",
+   "paper": "@colours.paper.value",
+   "fontFamily": "@faces.text.family",
    "partLabel": {
     "xPx": 4,
     "yOffsetSs": 0.9,
-    "sizeSs": 1.1,
+    "sizeSs": "@objects.partLabel.size",
     "baselineBelowEm": 0.32,
     "_septetNote": "2026-09-11 (composer: \"center them on the appropriate staff, so centered on the middle staff line\"): with the ensemble registry the label is centred on its staff's middle line (the grand staff: between its staves); the baseline sits baselineBelowEm × font size below the line, so the text's visual middle (Crimson's caps and figures, ~0.64 em tall) is on it. yOffsetSs is the tuba's top-of-lane placement, used without an ensemble."
    },
-   "textScale": 1.3,
+   "textScale": "@faces.text.emPerSs",
    "clefInsetSs": 0.6,
    "clefGutterGapSs": 0.75,
    "systemStart": {
@@ -549,47 +573,40 @@
     "braceGapSs": 0.3,
     "_note": "2026-09-11 (septet PLAN 2a.1, D10): the bracket over the winds and over the strings, the brace on the piano's grand staff — LilyPond's own glyphs (glyphs.json bracketTip, brace; tools/glyph_emmentaler.py). bracketThickSs = LilyPond's SystemStartBracket thickness; gapSs = air between the bracket's tips and the clef column; braceGapSs = air between the brace and the clef column. Provisional; drawn by render.js from notation/registry/ensemble.json groups."
    },
-   "attackLine": {
-    "wSs": 0.18,
-    "hSs": 2.2,
-    "offsetSs": 1.1
-   },
-   "tick": {
-    "wSs": 0.12,
-    "hSs": 0.8
-   },
-   "brickOpacity": 0.45,
+   "attackLine": "@objects.attackLine.look",
+   "tick": "@objects.tick.look",
+   "brickOpacity": "@objects.brick.opacity",
    "reshow": {
     "xSs": 4.2,
-    "sizeSs": 0.75
+    "sizeSs": "@objects.reshow.size"
    },
    "systemEndBar": {
     "wPx": 1.5,
     "opacity": 0.55
    },
    "envCurve": {
-    "strokeWPx": 2,
-    "strokeOpacity": 1,
-    "fillOpacity": 0.3,
-    "color": "#99FF00",
+    "strokeWPx": "@objects.curve.strokeWPx",
+    "strokeOpacity": "@objects.curve.strokeOpacity",
+    "fillOpacity": "@objects.curve.fillOpacity",
+    "color": "@colours.limeGreen.value",
     "_note": "day 22, retuned same day (composer: no outline; surge back edge = 90° cut, drawn by render when env=surge): fill-only at 0.3 so the shape reads alone. Piece #1 numbers (stroke 1.5 @ 0.8, fill 0.15) kept here for the record.",
-    "pathOpacity": 0.3,
+    "pathOpacity": "@objects.curve.pathOpacity",
     "_d42Note": "D42 (2026-09-13, RUNNING_LOG §447): the two-piano piece's curve look is the standard for these curves, across the board — limeGreen #99FF00 (#2 ColorMap rgb(153,255,0)), fill-opacity 0.3, a 2 px stroke of the same colour round the whole shape, opacity 0.3 on the path = interior 9 %, outline 30 %. Was the tuba's #2E7D32, fill 0.3, no stroke (day 22)."
    },
    "goLine": {
-    "wPx": 1.5,
-    "opacity": 0.85,
-    "dash": "5,4",
-    "color": "#333",
+    "wPx": "@objects.goLine.wPx",
+    "opacity": "@objects.goLine.opacity",
+    "dash": "@objects.goLine.dash",
+    "color": "@colours.goLine.value",
     "_note": "day 22 second note (wc-23), composer: 'keep that go line always black gray' — the surge green was never meant for it; width/opacity/dash unchanged. Earlier same day: retuned (composer: 'not visible... intuit a set of settings'): thicker, denser dashes. Piece #1 originals: 0.5 @ 0.4 dash 2,2.",
     "topAtGcArc": true,
     "multiStaffBottomMirrorsTop": true,
     "_trimNote": "RUNNING_LOG §401h (2026-09-11, the composer: 'trim the go lines, up to the top of the gc arcs and keep bottom; except pno can be about 4 dashes shorter on bottom'): a note with a GC starts its go line at the arc's top (frac 1 of the GC geometry) instead of the lane top; a multi-staff part's go line ends below its last staff's bottom line by the distance its top sits above the first staff's top line (multiStaffBottomMirrorsTop — the composer, §401i: 'the same amount below bottom staff as currently above top staff'; a 4-dash trim was the first cut). false / 0 = the tuba look."
    },
    "ringBar": {
-    "hSs": 0.667,
-    "color": "#111",
-    "opacity": 0.65,
+    "hSs": "@objects.ringBar.hSs",
+    "color": "@colours.ink.value",
+    "opacity": "@objects.ringBar.opacity",
     "_note": "day 22 second note (wc-23), composer spec: a black bar, left edge flush with the go line, right edge exactly at the note's sounding length (fixed one-shots = the measured sample length, 2n), centered on the written notehead's vertical center, thickness 2/3 of the brick height (brick = 1 ss). Always black unless otherwise specified."
    },
    "gc": {
@@ -600,7 +617,7 @@
      "descentRatio": 60,
      "duration": 0.6
     },
-    "color": "rgb(255, 21, 160)",
+    "color": "@colours.gc.value",
     "look": {
      "arcStrokePx": 1.5,
      "impactRadiusPx": 4,
@@ -612,30 +629,30 @@
    },
    "_gcNote": "day 23: THE GC OBJECT, ported WHOLE from piece #1 (composer: 'when I say GC, that is the whole thing ... the same colors, the same lines, and line thickness, and then those trajectory ... the ball should be the same color, the same size'). Static ink here (arc polyline + impact marker, render.js); the ball is animated.gc (same preset). Look = piece #1 renderGC/update verbatim: arc stroke 1.5 px in the GC color, no fill, x = time; impact marker r 4 px at laneBottom - 5; ball r 5 px; height = lane - 10. Color neonMagenta rgb(255,21,160) = piece #1 ColorMap. px are at the 1080 frame and scale with the view (PP-6). Piece #2 diffed the same day: drawn object byte-identical, only its preset differed (Medium 50/80/120/55/1.1).",
    "glissCurve": {
-    "color": "#F04B00",
-    "strokeWPx": 2,
-    "strokeOpacity": 1,
+    "color": "@colours.brightOrange.value",
+    "strokeWPx": "@objects.curve.strokeWPx",
+    "strokeOpacity": "@objects.curve.strokeOpacity",
     "_note": "day 35, the morph section (composer): the glissando is ONE smooth interpolated line per section, brightOrange (#F04B00 = piece #1's `brightOrange`, its glissando colour), taking PRECISELY the TOP HALF of the lane; the crescendo takes the bottom half. Interpolated on purpose - 'players aren't going to be able to make small adjustments in pitch', so the drawn line is a fitted slope, not the sounding bend's every wiggle. Filled to the half-lane baseline (composer, day 35), the same read as the envelope curve. NO BORDER AT TOP (composer, day 35): fill only, no outline - the same verdict the env curve got on day 22.",
-    "fillOpacity": 0.3,
-    "pathOpacity": 0.3,
+    "fillOpacity": "@objects.curve.fillOpacity",
+    "pathOpacity": "@objects.curve.pathOpacity",
     "_d42Note": "D42: the morph glissando takes the two-piano piece's brightOrange curve look — #F04B00 (#2 ColorMap rgba(240,75,0)), fill-opacity 0.3, 2 px stroke round the shape, opacity 0.3 on the path (all 81 of #2's orange curves, 369–566 s, identical). Was fill 0.22, no stroke (day 35)."
    },
    "sectionHead": {
-    "spacerSs": 0.45,
-    "mediumSs": 0.3,
-    "circleDiaSs": 0.4695,
-    "arrowLenSs": 2,
-    "headSs": 0.45,
-    "thickSs": 0.13,
+    "spacerSs": "@column.stack.standard",
+    "mediumSs": "@column.stack.medium",
+    "circleDiaSs": "@objects.niente.diameterSs",
+    "arrowLenSs": "@objects.dynArrow.lengthSs",
+    "headSs": "@objects.dynArrow.headSs",
+    "thickSs": "@objects.dynArrow.thickSs",
     "_note": "day 35, composer: the section figure is niente circle - arrow - fff, sitting UNDER the staff at the house `dynY` row 'just like all the other dynamics', ending one standard spacer before the go line. NO LilyPond niente glyph exists (checked ours and piece #1's) - in LilyPond the circled tip is DRAWN - so the circle is drawn: diameter = the measured height of the `m` in mf (0.4695 ss; mp and mf agree to the digit), stroked at the arrow's thickness, centred on the arrow's axis. The mark and arrow are ORDINARY items (glyph + dynarrow), so they are drawn by the identical code path as every other dynamic."
    },
    "crescCurve": {
-    "color": "#99FF00",
-    "strokeWPx": 2,
-    "strokeOpacity": 1,
-    "fillOpacity": 0.3,
+    "color": "@colours.limeGreen.value",
+    "strokeWPx": "@objects.curve.strokeWPx",
+    "strokeOpacity": "@objects.curve.strokeOpacity",
+    "fillOpacity": "@objects.curve.fillOpacity",
     "_note": "day 35, composer: the crescendo is the glissando's twin - ONE interpolated curve for the whole section, limeGreen (#99FF00 = piece #1's crescendo colour), taking the BOTTOM HALF of the lane. Filled, no border, same as its twin.",
-    "pathOpacity": 0.3,
+    "pathOpacity": "@objects.curve.pathOpacity",
     "_d42Note": "D42: the morph crescendo takes the same standard (limeGreen, 0.3 · 2 px · 0.3). Was fill 0.22, no stroke (day 35)."
    }
   }
@@ -658,15 +675,15 @@
  "animated": {
   "_status": "PROVISIONAL styling for the V2 ports (D48: judged live at G2, adjustable through POL). Consumed by notation.html's animation loop and, later, the V4 frame renderer — same numbers by construction.",
   "cursor": {
-   "color": "#FF15A0",
-   "wPx": 3,
+   "color": "@colours.cursor.value",
+   "wPx": "@objects.cursor.wPx",
    "opacity": 1,
    "_note": "day 22, composer: piece #2's neon magenta (rgb 255,21,160 = the staff-2 cursor), same 3 px thickness, whole track height (spans all lanes)"
   },
   "curveMeter": {
    "wPx": 8,
    "gapPx": 3,
-   "color": "#99FF00",
+   "color": "@colours.limeGreen.value",
    "fillOpacity": 0.3,
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,
@@ -682,7 +699,7 @@
     "descentRatio": 60,
     "duration": 0.6
    },
-   "color": "rgb(255, 21, 160)",
+   "color": "@colours.gc.value",
    "opacity": 0.85,
    "look": {
     "ballRadiusPx": 5,
@@ -694,12 +711,12 @@
   "_gcNote": "day 23: the BALL of the GC object — physics + look shared with engraving.render.gc via notation/lib/gc.js (one copy). Preset = piece #1 Short (the 6:10 section, 43/43 GCs); ball r 5 px at the 1080 frame, the GC color; travels in time along the drawn arc, impact on the go line at laneBottom - 5 (piece #1 calculateBallPositionForPage). Earlier day-23 stagings (staff-step landSs/dropSs, then span=lane with insetSs) are superseded — both were guesses at the look; this is the object itself.",
   "curveFollower": {
    "radiusSs": 0.5,
-   "color": "#4E7A9B",
+   "color": "@colours.brick.value",
    "opacity": 0.9
   },
   "envFollower": {
    "radiusPx": 6,
-   "color": "#2E8B57",
+   "color": "@colours.envFollower.value",
    "opacity": 0.9
   },
   "lineWedge": {
@@ -708,7 +725,7 @@
    "minHoldSeconds": 3,
    "ySs": 5.2,
    "radiusSs": 0.9,
-   "color": "#8a6d3b",
+   "color": "@colours.lineWedge.value",
    "opacity": 0.75
   },
   "motivePie": {
@@ -719,16 +736,16 @@
    "meterGapPx": 3,
    "laneTopPx": 1,
    "_breathsNote": "LGMF PLAN 2d.4 (2026-09-25, RUNNING_LOG §385): ON, RE-POINTED from a score group to a SEQUENCE's BREATHS (source 'breaths'; 'groups' — or no source — is the day-24 group pie, which stays off: no group pie is drawn with source 'breaths'). A clock per lane AT THE CURSOR counting each breath down (CURVE_LOOK §7, piece #2's _drawMotivePie): its centre radiusPx + laneTopPx under the lane's top, gapPx left of the crescendo's follower (meterWPx + meterGapPx = animated.crescMeter wPx + gapPx — a copy, change both); the remaining sector in color at opacity [the AI's: the registry's own colour], the hand black 1 px. Only a page with a sequence overlay has one.",
-   "topPx": 14,
-   "radiusPx": 9,
-   "color": "#607D8B",
+   "topPx": "@objects.pie.topPx",
+   "radiusPx": "@objects.pie.radiusPx",
+   "color": "@colours.pie.value",
    "opacity": 0.75,
    "_note": "day 24: OFF. The pie marks a score GROUP and draws only when the whole group is inside the save — so it never showed in the one-part working files and reappeared the moment the all-parts section file existed (composer: the pie has crept back in T1). The density build's groups (grp-g1-opening spans 2-34.6 s across all ten parts; the cloud02 groups likewise) are generator PROVENANCE, not motive instances — there is nothing for a pie to count down. It remains the trance section's device; flip enabled there if wanted."
   },
   "glissMeter": {
    "wPx": 8,
    "gapPx": 3,
-   "color": "#F04B00",
+   "color": "@colours.brightOrange.value",
    "fillOpacity": 0.3,
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,
@@ -738,7 +755,7 @@
   "crescMeter": {
    "wPx": 8,
    "gapPx": 3,
-   "color": "#99FF00",
+   "color": "@colours.limeGreen.value",
    "fillOpacity": 0.3,
    "outlineWPx": 1.5,
    "outlineOpacity": 0.8,

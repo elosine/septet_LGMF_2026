@@ -31,7 +31,7 @@ const sp = (step, alter, octave) => ({ step, alter, octave });
 
 const ens = J('notation/registry/ensemble.json');
 const tech = J('notation/registry/techniques.json');
-const C = J('notation/registry/container.json');
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const glyphs = J('notation/lib/glyphs.json');
 
 // ---- 2a.2 clefs: staff positions (ss from the middle line, up = +) ----
@@ -67,7 +67,7 @@ const pos = Layout.positionResolver(ens);
 // ---- [PLAN 2k, D55 / M5 — 2026-09-16] the pitch form per REALIZATION: the presentation (video-jury, and print through it) shows the bass ----
 // clarinet in C on a bass clef; the default (the page, sectionals, individual scores, parts) stays B♭ treble, a major ninth up
 {
-  const C0 = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const C0 = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const Tq = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));
   const rz = (C0.realizations || {})['video-jury'];
   const ensC = Layout.ensembleFor(ens, rz), posC = Layout.positionResolver(ensC);

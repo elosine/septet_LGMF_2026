@@ -23,7 +23,7 @@ const glyphs = J('notation/lib/glyphs.json');
 const IR_ID = process.argv.slice(2).find(a => !a.startsWith('--')) || 'piece-lgmf';
 const ir = JSON.parse(JSON.stringify(J('notation/ir/' + IR_ID + '.ir.json')));
 const ens = J('notation/registry/ensemble.json'), tech = J('notation/registry/techniques.json');
-const C = JSON.parse(JSON.stringify(J('notation/registry/container.json')));
+const C = JSON.parse(JSON.stringify(require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT)));
 const LEFT = process.argv.includes('--left'), LIST = process.argv.includes('--list');
 if (LEFT) delete C.engraving.layout.devices.byEnv.trill.nhAnchor;
 const parts = ens.parts.map(p => p.part);

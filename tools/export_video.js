@@ -62,7 +62,7 @@ if (!outFile && !probes.length && dumpPage == null && !screenJson) {
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const glyphs = rd('notation/lib/glyphs.json');
 const pageRules = rd('notation/registry/page_rules.json');
-const C = rd('notation/registry/container.json');
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 // [PLAN 2k, D55 / M5 — 2026-09-16] the ensemble, REALIZED: this export is the presentation score (a full score read together), so the
 // bass clarinet is in C on a bass clef (registry realizations.video-jury.ensemble); the working page keeps the default B♭ treble.
 const ens = rd('notation/registry/ensemble.json');

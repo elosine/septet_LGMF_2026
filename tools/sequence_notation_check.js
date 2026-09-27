@@ -81,7 +81,7 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   ok(J(1, -49) === 'quarterSharp' && J(1, 41) === 'threeQuarterSharp' && J(-1, 49) === 'quarterFlat' && J(-1, -41) === 'threeQuarterFlat', 'on a ♯ note −49 = ¼♯, +41 = ¾♯; on a ♭ the mirror');
 }
 {
-  const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'container.json'), 'utf8'));
+  const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const ens = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'ensemble.json'), 'utf8'));
   const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));
   const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);

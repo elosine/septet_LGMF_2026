@@ -24,7 +24,7 @@ const ok = (c, msg) => { if (c) pass++; else { fail++; console.log('  FAIL ' + m
 const sha1 = s => crypto.createHash('sha1').update(s).digest('hex');
 const glyphs = J('notation/lib/glyphs.json');
 const ens = J('notation/registry/ensemble.json');
-const C = J('notation/registry/container.json');
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
 const tech = J('notation/registry/techniques.json');
 const frozen = J('tools/fixtures/morph_notation_baseline.json');
 const score = J('scores/piece-septet.json');
