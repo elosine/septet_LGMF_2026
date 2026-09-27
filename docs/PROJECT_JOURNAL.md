@@ -64,12 +64,32 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   `score/public/vibes_pitch.js` (core `takeOf` · `matchScore` · `bestActual` · `draw`; strip `vibActuals` · `vibGo` · `vibTakeText`).
   STILL BINDING before any verification.
 
-### SESSION 17 — IN PROGRESS (2026-09-26, Opus)
+### SESSION 17 · CHECKPOINT #1 (mid-session checkpoint) — 2026-09-27, Opus — THE AUDIO OF DRAFT 01 IS MADE AND LINKED; nothing being built
 
-- **THE AUDIO OF DRAFT 01 IS MADE** (RUNNING_LOG §405 … §407; RENDER.md §4): `notation/audio/piece-Recombination-Draft01-done.wav`,
-  886.7 s, −1.0 dBTP (+10 dB plain gain at his word "b" — **a future render of the piece passes `--up`**). `export_midi.js` knows this
-  rack; the capture steps frame 0. **`piece-lgmf` (the MAIN notation file) is now extracted from Draft 01** (1076 events, VALID) —
-  the page's ♪ render finds the WAV. His ear on both: pending.
+- **The task:** the audio for the presentation score (PLAN `2b`, its `render_reaper` part) — his ask *"can we make the audio that will get
+  attached to the presentation score"*, agreed as ONE WAV of `scores/piece-Recombination-Draft01-done.json` AS SAVED, through his rack,
+  as ▶ plays it; re-rendered whenever a new draft is saved (RUNNING_LOG §405). **DONE, his ear pending.**
+- **The deliverables:**
+  - `notation/audio/piece-Recombination-Draft01-done.wav` (gitignored, 255 MB) — 886.664 s · 24-bit · 48 kHz · **−1.0 dBTP** (+10.0 dB
+    plain gain at his word "b", §407) · ≈ −18.8 LUFS · LRA 20.1 · the first sound at 1.70 s = the EH from niente (the sync is right, §406).
+    The float in `notation/audio/raw/`.
+  - `notation/ir/piece-lgmf.ir.json` — **the MAIN notation file, now extracted from Draft 01** (§338's recipe: `--all --bricks`; 1076
+    events · 893 chunks · VALID vs source · 0 … 881 s); its `source.score` matches the WAV, so the page's ♪ render finds it (§407).
+  - The render MIDI committed as #5 did: `midi/piece-Recombination-Draft01-done.mid` + `midi/piece-Recombination-Draft01-done/` +
+    `reaper/place_piece-Recombination-Draft01-done_midi.lua`.
+- **The tools, changed (§406 · §407):** `export_midi.js` `RACK_PORT` = THIS rack (29 tracks → 11 `LG` ports; `/ ARO$/` → `LGPerc`) ·
+  `capture_composer_midi.js` steps frame 0 (a note at 0.000 s had sounded one frame late) · `render_reaper.js --up` (the piece's gain may
+  go UP to `--peak`). **THE RE-RENDER, when he saves a new draft** (Reaper open, the bridge alive, the rack SAVED):
+  `node tools/export_midi.js --score <name>` → `node tools/render_reaper.js --score <name> --up` → re-extract `piece-lgmf` from it
+  (`node tools/notate_section.js --score <name> --all --bricks --id piece-lgmf --label "…"`). ≈ 4 min + 5 min.
+- **► THE NEXT STEP — HIS:** his ear on the WAV · then the notation tab reloaded → the picker `piece-lgmf · Draft 01` → `♪ render` (the page's
+  clock follows the WAV; the chip itself was not seen by the AI — its lookup was read from `/api/notation/renders`). Nothing else is queued;
+  the rest of `2b` (cover · performance instructions · cut list · batteries) is not laid out. If he reports a fault in the audio: §406 · §407.
+- **`Resume reads:`** nothing beyond §2.
+- **Pending him:** nothing new — the close block below still carries every earlier decision.
+- **DELIBERATELY UNCOMMITTED — all his** (`git status --short`, 30 paths): the 29 of the close block below, unchanged · **plus**
+  `scores/piece-Recombination-Draft01-done.json` — his tab's save at 00:28 UTC changed `metadata` and `viewport` only (1086 objects,
+  none changed against `e9f340a`); the audio was captured from it.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -137,6 +157,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►** | **THE AUDIO OF DRAFT 01 — HIS EAR** (session 17, RUNNING_LOG §405 … §407): the WAV `notation/audio/piece-Recombination-Draft01-done.wav` (−1 dBTP, +10 dB plain at his "b") · the notation tab reloaded → `piece-lgmf · Draft 01` → `♪ render`. Re-render recipe in the checkpoint block above | his ear · then Opus (a fault) | — |
 | **►►** | **`1u.6` HIS — IN USE** (not closed by his word). Built 2026-09-26 (1u.1 … 1u.5, §390 … §394); four fixes from his tests, each verified in the page on his own score (§395 … §401; `0d36216` · `240a0c0` · `268fe04` · `b3a23dd`; `vibes_pitch_check` 50 → **65**): the take of a morph the panel's Insert placed (on the marker; those placed before matched by the KEYS of the other players to a saved actual, the match written onto the marker) · the first breath of each seat draws · the row blurs its buttons · `neighbours` on a morph mostly empty (by the rule — `within a tone` · `any` there). **Offered, not taken up:** the strip's own buttons (`shuffle` · `back` · `take ▾` · `dyn ▾`) blurred the same way (a `shuffle` then SPACE re-shuffles) · a status that leads with WHY when nothing changed · `neighbours` in a morph read from the others' "to" notes (§396 (c), a design talk first). **The AI's calls, his to reverse:** a seat holds its note until a change · a breath of another take kept as dealt · the other seat clear over the whole breath · the match written onto his marker (§401) | his ear · then Fable (a reading) / Opus (a fault) | — |
 | **►►** | **`2d.7` HIS EYE — `2d` IS BUILT, 2d.1 … 2d.6** (2026-09-25, Opus, at his word *"go, build through as much as possible independently"*; RUNNING_LOG §382 … §387; `4c471c4` · `8db3a7e` · `4e784fc` · `ba587fc` · `c239311` · the 2d.6 commit; `node tools/sequence_notation_check.js` 58 / 58; the shield byte-identical against `6d6866c`). **FIRST HIS CALL — THE PAGE-START CLASH** (PLAN § `2d`, the FOUND line): the block at 0 s has no room left of x(0) — the screen clamps it right of its go line, paper draws it into the clef gutter (`check_print_edges --ir lgmf-eh-proto` fails page 1): (a) a lead-in [recommended] · (b) the clamp on both · (c) as they are. **Then his eye, no restart:** the notation app → the picker → `lgmf-eh-proto` → the video view (the working page, the EH written in F: D♯6) → `0` · `20` (the curve, the follower, the pie) · `28.7` (the new pitch) · `z`. The presentation score (in C) is the exporter's. *(The build's row, done:)* **BUILD `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE — PLAN § `2d`, 2d.1 → 2d.6 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2d.6 for his eye (2d.7).** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §368 … §380; LG-111 · LG-112; `c08cf37`): a page of its own `lgmf-eh-proto`, the EH's 0 … 36 s, ONE OF EACH THING — the block (G♯5 ¾♯ · `+41` over `26°/C1` · "senza vib." · `pp → mp`) · the level curve on the FIXED SCALE (niente … fff in eighths) + the follower · the pie counting each breath down · a same-pitch breath (13.7 s, parenthesised cue head) · a new-pitch breath (28.7 s, G5 `+2` · `12°/C2`) · `(mp)` 25.0 · `(pp)` 30.9. The pitch marks decided (`docs/research/just_partials_notation.md` §1a). **His pick on the notation is made: (b) the specific notation, begun on the EH** | his eye · then Fable (a look) / Opus (a fault) | — |
 | **►►** | **`1t.5` HIS LISTEN — RESTART the server (`morph.js` changed) and reload the tab.** MORPH → `TAKES` → `from` a take · `to ▾` a take → `duration` 60 → Generate → the line → Play → the far voices' seams · the vibraphones at the default (1: the first 3 s before the arrival, the second ON it — never heard on its new bar unless `release` is set; the line says so) then at 0.5 → a `release` (8) — the fade on B → Insert after a sequence ending `one by one`. BUILT 2026-09-25 on Opus, 1t.1 … 1t.4 (RUNNING_LOG §364 … §367; `a7ae62c` · `dc7c76c` · `312d88f` · 1t.4). Found: the switch needed a CUT (§366); the release returned every player to A — `carrier.releaseHolds` on TAKES (§367); the red "hard" count is the re-key seams (§367, NITS). *(The build's row, done:)* **BUILD `1t` THE MORPH BETWEEN TAKES — PLAN § `1t`, 1t.1 → 1t.4, one commit per step, THE SHIELD in each; STOP before 1t.1 for his word.** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §350 … §363; LG-106 … LG-110): take A → take B by player, one duration, the scatter, the re-key, the vibraphones' switch dial, the joins by hand. He pivoted here from the notation at his word (*"I want to work on the morph drawer"*); the notation's pick (the row below) waits | Opus | yes — checkpoint first |

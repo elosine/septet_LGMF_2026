@@ -2447,7 +2447,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
     sounding). Its own step, after 2a.5.
   - **THE BUILD ORDER:** 2a.1 → 2a.3 in ONE commit with 2a.4 — Fable, at his word *"a, write the plan item and build"*; 2a.5 his; 2a.6 next.
 
-- **2b — The presentation score (video + print)** — `todo` — *laid out when 2a is in his hands.* The cover · the performance
+- **2b — The presentation score (video + print)** — `doing` — **THE AUDIO DONE 2026-09-26/27 (session 17, RUNNING_LOG §405 … §407; RENDER.md §4): `notation/audio/piece-Recombination-Draft01-done.wav` (−1 dBTP, `--up`), `piece-lgmf` re-extracted from Draft 01 and linked; his ear pending.** The rest *laid out when 2a is in his hands.* The cover · the performance
   instructions (web + two print pages; the percussion legend, §334) · the cut list · `render_reaper` · the batteries re-pointed at
   this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
 
