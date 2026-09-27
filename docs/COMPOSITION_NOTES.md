@@ -2724,3 +2724,11 @@ Nothing else said about it; its reasons, if he gives them, go here.
 *"note in sequence drawer when I select a take for one of the containers the space bar then reverts to starting the main score play and I have to click back into the sequence box to play the sequence could you just fix this alongside the build when we get there"*
 
 *AI reading (mine, marked):* the two vibraphones in a placed sequence or morph keep their breaths and bows exactly and change PITCH at (some of) them · a way back to the pitches as they stand · the pool is the passage's own take's harmonic series, in the vibraphone's range and under its cents tolerance (it cannot bend) — narrowed, as one option, to the partials NEIGHBOURING those the other players hold at that moment, or opened to every available partial; the pool's rule a menu of a few choices · the SPACE fault: after a take is picked in a container the key falls back to the score's play until the drawer is clicked again — a focus fault, one fix inside the build.
+
+## LG-115 — 2026-09-27 (session 17, on the "senza vib." rule of the notation)
+
+> *"the middle section will be ord. so just take note to add this to notation then and say so in notes"*
+
+*AI's reading (marked as such):* the piece's sustained notes are senza vibrato in the outer sections and ORDINARIO (with vibrato) in the
+middle section; so the notation marks "ord." at each part's first note of the middle section and re-states "senza vib." at the first
+block after it; the performance notes say "senza vibrato throughout, except the middle section, marked ord." (RUNNING_LOG §445).

@@ -14495,3 +14495,1129 @@ length"* — every percussion note of the draft (the ARO voices have no sample-l
 nothing else. **The link:** the page's `detectRender` matches `/api/notation/renders` against `source.score` + `.`; the running server
 lists `piece-Recombination-Draft01-done.wav` and the IR's `source.score` is `piece-Recombination-Draft01-done` — the ♪ render chip's
 lookup finds it (read from the API the page calls; the chip itself not seen).
+
+## §408. `2d.7` HIS EYE ON THE PROTOTYPE — his brief, seven things and a meta-demand: an ENGRAVING-STANDARDS AUDIT and a pipeline that surfaces decided rules (2026-09-27, Fable, session 17)
+
+**What prompted it.** After the `/postclear` (he asked for the server and the link, started `:5400` himself and opened `lgmf-eh-proto`),
+three screenshots and one long spoken brief — image 1 this piece's block at 0 s (the pie and the green follower LEFT of the magenta go
+line, over the clef; the block right of it; `26°/C1` · `+41` in grey; "senza vib." off-centre) · image 2 piece #5's "T.R." and "(slap)"
+blocks (text over `fff` over the accent, a dashed go line through the head) · image 3 piece #5's chord blocks (heads right-justified
+to a dashed go line, `+25` · `−25` small grey above the heads, `○ → fff`). His words, whole:
+
+> *"Okay, a list of things to work through. First, let's start with the lead in. I already generated the audio to be attached. So, how
+> do we resolve all that? Or what's the best way? Secondly, I know we established the gutter rules, but they don't seem to be followed
+> here. The pie and the curve follower are showing in the gutter. Third, let's look at the text standard from the previous piece, the
+> Tempest Sextet. I believe we're calling that piece five. And make sure we're using the same text standards as the text instructions
+> there. Slap and TB, TR, sorry, tongue ram. And if we're not, or if we didn't for a sense of vibrato, then let's see if we can make sure
+> these standards get tracked and established. So already I can tell that it's not centered on the column. So that's already something
+> we need to get straight. But also, I don't know about size and font, etc. So two goals here with number three. One is to make sure we
+> get the prototype right and for the rest of the score, but also to get the rules and standards established so we don't have to
+> document it in the right place or put in the code in the right way so we don't have to catch this every time. I was under the
+> impression we had have these standards somewhere. So there's an issue in not being able to surface them when AI is building a new
+> notation or it's not in the right place or it just wasn't documented in the first place. Fourth, let's discuss some more the sense
+> notation. First of all, I would like it just in black rather than gray. And then let's discuss the font and size should be in line
+> with other things we've done. And then talk me through what the notation is supposed to say. And let's review it and discuss it. I
+> know we came up with a plan, but I want to understand in its actual, in an actual example. Fifth, let's talk about the go time. I
+> know we had some discussions about this, so remind me of any decisions we already made and what this should actually be. If we're
+> using the go line or not, or the left of the note head, either way it's not positioned correctly. Or did we have a different solution
+> for this? We're probably going to want to go with the version from the previous piece, the Tempest Septet. That's image three. And I
+> guess same for everything. We spent a fair bit of work deciding and coming up with standards and rules, but it seems like some of them
+> either weren't followed or just weren't surfaced properly when actually making the notation. So let's try to smooth out that pipeline
+> of information so I don't have to keep revising and making these decisions and trying to remember what they were. And for new
+> decisions, let's make sure it's clear that the decision we need to make and where it needs to go to be surfaced each time. And then
+> finally, let's make sure we're not trying to make new decisions about things we've already decided. So I guess I do want a review of
+> the information system here. and how the notation standards, engraving standards, are passed from piece to piece or situation to
+> situation. And let's revise it and make sure it's more robust so we're not continuously reviewing things that have been decided. And
+> then the fifth thing will be probably flows from the other things. And that is the column positioning, or I should say the horizontal
+> positioning for the items in the column. So it looks like we have a mixed bag here in the prototype. If we're using the Go line from
+> the Tempest septet for their morph type things, then I believe there's a set of rules. Again, the same thing about making sure we have
+> rules and then the situations that they apply to. So it looks like from that one, everything is right justified up to the go line. And
+> then there's probably a standard spacing before the go line for everything. So I guess in summary, we need to figure out, we need to
+> have decided what this is in terms of, I guess, notation column archetype. So for example, if it was the, probably that depends on the
+> uh, go time alignment. So if this was, uh, if the go time was lined up with the left of the note head, there's probably a certain set
+> of rules that goes with that scenario about how the horizontal um, alignment should be for everything in the note column. And then if
+> it's the other one, which I suspect it is, then it is the go line and everything is lined up to the left of the go line. And then
+> there's a horizontal justification set of rules for that scenario. Or maybe it's a third different scenario that I don't remember or a
+> new one. Either way, we should have the sort of scenario-based uh, sets of rules or standards. Again, so that we can easily replicate
+> these things without doing a lot of lookup or making a new set of decisions. And then the accidental is too close. The right side of
+> the, some of the accidental, I guess they're more like horizontal lines, overlap with the ledger line. So this is a same sort of
+> situation. We establish these placement rules. They're longstanding. So let's figure out what it's supposed to be, but also the meta
+> situation, why it didn't it pop up? Why wasn't this rule followed? Was it because it was hard to find? Not clear, or was it that AI
+> ignored it when implementing or didn't do a proper search, these sorts of things. So let's build some longevity into these decisions.
+> The goal being not to have to redecide a whole slate of decisions that have been decided, especially since I forget, I won't remember
+> them from piece to piece or even sometimes from section to section. So I guess we need a sort of engraving standards audit and to see
+> how maybe things like Lily Pond or Finale maintain their engraving standards so they are automatic rules. And then a protocol for how
+> to, when we're building something new or a scenario that's new, how to either adapt existing rules and then surfacing the new
+> decisions that need to be made. And then once they're all made, uh, having it built into the system of data."*
+
+**The AI's reading of the list (read back to him for confirmation):** (1) the lead-in, with the audio already made · (2) the gutter — the
+pie and the follower in it, the 2c rule not holding · (3) the text standard — piece #5's "(slap)" · "T.R." blocks against this piece's
+"senza vib.": centring on the column, font, size; the rule tracked, not re-caught · (4) the cents notation — black not grey; font and
+size in line; the marks explained on the real example · (5) the go time — the decisions already made, recalled; the dashed go line of
+piece #5 (image 3) the likely answer; nothing is positioned right either way · (6) the column — one horizontal-justification rule-set
+PER SCENARIO (go line · left of the head · a third) · (7) the accidental's lines against the ledger line · (8) THE META: an
+engraving-standards audit — for each of 2 … 7, was it decided, where does it live, did the build read it — how LilyPond / Finale hold
+their rules as automatic ones, a protocol for a new scenario (adapt what exists, name the new decisions and where each goes), and the
+decided ones never re-decided. The planning method: one topic at a time, his order — the lead-in first.
+
+**(1) THE LEAD-IN — the data.** §383 and §387 designed it and he now takes (a). The audio does NOT change: the WAV's 0 is the piece's 0
+and stays so; the lead-in is time BEFORE 0 in the notation's clock alone. On screen the first page's window starts at −N s and the
+♪ render starts when the clock crosses 0. In the video `export_video.js` frames from `--t0` and hands ffmpeg `-ss t0 -i audio`
+(line 539): a lead-in is frames from −N and the audio delayed by N (`-itsoffset`, or an `adelay` filter) — one flag, the WAV untouched.
+On paper page 1's t0 is placed by the objects (§387: the first unit's ink start — his print rule of §340), so paper needs no number.
+The composer score is not moved, nothing is re-rendered or re-extracted. **The one number is N.** The AI's pick: **4 s**, one page
+rule (`page_rules.json`), a piece may override it in its IR — the players see the first block travel to its line for a full breath;
+his to reverse. The build: one PLAN item (the lead-in in three media; THE SHIELD: with no lead-in set every page byte-identical), on
+Opus. Item (2) shares the cause — the pie and the follower sit left of x(0) at the first moment — and gets its room from the same
+lead-in; whether 2c's screen gate should have FAILED them is item (2)'s audit question, taken next.
+
+## §409. His word on the lead-in — *"4s for presentation score, but let's revisit for rehearsal and performance versions"* · item (2) THE GUTTER, audited: the gate passed because the pie and the follower are outside its scope (2026-09-27, Fable, session 17)
+
+**(1) DECIDED:** the lead-in is **4 s for the presentation score**; the rehearsal and performance versions decide their own when they are
+designed (his word). One page rule, overridable per realization. The build waits for the rest of the prototype's fixes (PLAN item to write).
+
+**(2) THE GUTTER — the audit's three questions.**
+- *Was it decided?* Yes — 2c, his two rule-sets (§340): on screen ink never in the gutter; every drawn kind names its edge class
+  (`cut` · `clamp` · `atomic` · `furniture`); a kind with no entry FAILS `tools/check_screen_edges.js`.
+- *Where does it live?* `notation/registry/page_rules.json` `edge` (+ its `_doc`) · NOTATION_STANDARDS §5 · the PLAN header's standing rule.
+- *Did the 2d build read it?* Yes — `check_screen_edges --ir lgmf-eh-proto` was run at 2d.3 · 2d.4 · 2d.5 · 2d.6 and PASSED each time
+  (§383 line "4 pages, 268 leaves, nothing timed left of x(t0)" · §385 · §386 · §387).
+- *Why it passed with the pie and the follower in the gutter:* the gate reads the STATIC page — `render.js`'s item kinds, the SVG
+  systems (`check_screen_edges.js` 66–69 · 95). The pie and the follower are ANIMATED devices (`notation/lib/animobj.js`, redrawn every
+  frame at the now) — not a `render.js` kind, so not in `page_rules.edge` (its `_doc` says "render.js item kinds"), and the gate never
+  sees them. Had they been kinds without a class the gate would have failed at line 69; it did not, because they are not kinds.
+  **Verdict: neither hard to find nor ignored — a hole in the rule's own scope.** The rule enumerated a set (the static kinds) and the
+  animation layer was never put in the set. **Audit finding A1 (for item 8):** a placement rule holds only over a set the gate
+  ENUMERATES; a new layer (here: animated devices) needs its own line in the set, or it is invisible to the rule.
+- *Not only t = 0:* on the tiled screen every page's first moment puts the follower and the pie left of x(t0) for their width — the
+  follower well under a second, the pie a second or two. The 4 s lead-in gives page 1 its room and no other page.
+- **The fix, in three parts (the AI's proposal):** (i) the animated devices join `page_rules.edge` — every `animobj.js` kind names its
+  screen class, the gate fails an unnamed one, and a frame probe at each page's t0 checks them (the print side has no animation);
+  (ii) the class — **pie: `clamp`** (a clock: its x is convenience, not a datum) · **follower: `clamp`** (its HEIGHT is the datum;
+  pinned at x(t0) for under a second) · the now-line and the go lines stay `atomic`; (iii) built with the lead-in, one PLAN item.
+  His to reverse — the one question that is his: whether a go-time device's trailing ink may ever enter the gutter (`atomic`) or is
+  pinned (`clamp`).
+
+## §410. THE ANIMATED DEVICES UNDER THE EDGE RULES — his word: one system, not a separate one; the analysis of what differs (2026-09-27, Fable, session 17)
+
+**His words on §409:** *"So we already made a bunch of detailed decisions regarding the edges and how they are to be handled. So this should
+apply to animated devices. In fact, all the animation should be considered as much as possible part of the static animation as well.
+And the code should be able to accommodate this as well. But help me think through this to see if there's some notable differences to
+the animated devices."* He recited the rules from memory (the absolute timeline, the same pixel on every screen · a thing on the seam
+seen first, then the flip · paper: whole on one page or the other, with clamping · GCs split) — *"I'm reciting these rules off memories.
+I'm just trying to give enough things to hold on to so you can find these decisions"* — and asked: *"all the animated objects should be
+in our system, should be able to be always included or remembered without having to think about those as separate … some analysis
+about whether there's things particular to animated devices that we either need to make new rules for or find a way to accommodate
+them in particular. And then let's settle those in harmony with the existing print item rules … in very simple and clear language."*
+
+**The rules as they stand** (`page_rules.json` `edge._doc`; §340): SCREEN — every page the same span, the now at the same pixel on every
+page; long graphics CUT at the edge like paper and picked up on the next page at the same height; a stamp (the note unit) owned by the
+page holding its time and PUSHED RIGHT if its ink hangs left of the start; a go-time indicator NEVER moved, never clipped; a thing
+exactly on the seam belongs to the page BEFORE (seen first, then the flip); ink may enter the right margin, never the gutter. PAPER —
+the cut placed by the objects: a GC WHOLE (his memory had it reversed: on screen the GC's ARC is cut and its impact is the go-time
+indicator; on paper the GC is never split) · a duration line takes the cut once its 2 ss stub fits · beams and tuplets never severed ·
+curves continue. **The animated inventory** (`animobj.js` header · CURVE_LOOK §6 · §7 · 2d.4): the cursor (the now-line) · the GC ball ·
+the curve follower and the env follower (dots) · the meters (the follower "tube" of image 1: 8 px wide, its right edge 3 px left of the
+cursor) · the line-wedge meter · the motive pie · 2d's breath pie (2 px left of the meter).
+
+**What is the SAME:** the three screen classes fit them without a new word — `atomic` the cursor and the GC's landing · `clamp` a
+stamp-like device (a meter, a pie) · `cut` anything long (the GC ball rides its ARC, which is already `cut`). The gutter stays forbidden,
+the right margin allowed, the seam rule untouched (a clock carries its count across the flip).
+
+**What is DIFFERENT — four things, none needing a new class:**
+1. *They meet the edge on EVERY page.* A stamp meets an edge once, at layout; a device rides the now, so it reaches the left edge at the
+   start of every page for as long as its width takes to pass. The rule is applied per FRAME and the gate must probe frames (each page's
+   first and last moment), not the layout.
+2. *They exist only on screen.* Paper has no now → a print class `none` (one new word in the PRINT table only); their information is on
+   paper already (the curve itself; the breath's head and go line).
+3. *Trailing ink meets the LEFT edge, leading ink the RIGHT.* Every device of ours trails (left of the cursor); the right margin is
+   allowed anyway; so the left edge at a page start is the one case.
+4. *A pushed device sits right of the now-line for a moment* (the meter + pie under `clamp`: under a second at a page start; under `cut`
+   they are hidden instead, the pie for 1 … 2 s). The one LOOK question.
+
+**The code follows his word "one system":** one shared edge function used by the static layout and by every per-frame draw; every
+animated kind its line in `page_rules.edge` (screen + print), an unnamed one fails the gate; the gate a frame probe added to
+`check_screen_edges`. **Pending him, in plain words:** (A) at a page start the meter + pie PUSHED RIGHT [the AI's pick — a hidden clock
+at a page turn is worse than one a few pixels late] or HIDDEN until they clear · (B) on paper NOTHING of them [the AI's pick].
+
+## §411. His word on §410 (A) — *"ok for this one pushed right"*: the animated devices at a page start WAIT AT THE EDGE (2026-09-27, Fable, session 17)
+
+**DECIDED (A):** at a page start an animated device whose proper place is left of x(t0) is PUSHED RIGHT — `clamp`, the stamp's rule — in
+his own description, confirmed: *"page flips, I see cursor at pageT=0 and still see the wedge/meter/whatever but now right of cursor,
+cursor moves across meters, when cursor reaches the x where everything is ligned up as standard, meters start moving with cursor."*
+He asked whether this was the same decision as "wait at the edge or come out from behind it" — it is (pushed right = wait at the edge;
+hidden = come out from behind). **(B) stands as the AI's call, his to reverse:** on paper nothing of the animated devices — print class
+`none`. **For the build (one PLAN item with the lead-in):** every `animobj.js` kind its line in `page_rules.edge` — cursor `atomic` ·
+the meters, the pies, the follower dots `clamp` · the GC ball follows its arc (`cut`) · all `print: none`; one shared edge function
+for the static layout and the per-frame draw; `check_screen_edges` probes each page's first and last frame; a kind unnamed fails.
+
+## §412. Item (3) HELD at his word — one rule PER SCENARIO; the rules architecture (item 8) comes first (2026-09-27, Fable, session 17)
+
+**His words on the "one text rule for all" proposal:** *"just an amendment, one rule per scenario, which I think we are addressing in a
+later discussion in this series of things. So the Pitts [pizz.] rule, which I don't recall, might have been part of a different
+scenario. So this is, this one comes before, and then we can resolve number three. In other words, we have to establish the data
+architecture, the decision system first. I suspect it's going to be scenario based. So if that's what we decide, then it should be one
+rule per scenario. But we should revisit this one after, or we should make the fixes to this one after we decide how the standards and
+rules architecture looks. So hold it and let's bring it back after those choices."*
+
+**The order, amended:** item 8 (the standards-and-rules architecture, scenario-based) is taken NOW, before items 3 … 7; each of 3 … 7
+is then resolved INSIDE that architecture (one rule per scenario), the prototype fixed after. Item 3's audit stands as data (§411's
+reply: #5's two text rules — the instruction text centred on the column · "pizz." left from the head — and the 2d planning's silent
+pick of the second; finding A2). Item 2's finding A1 (a rule holds only over the set its gate enumerates) stands.
+
+## §413. Item 8 — THE RULES ARCHITECTURE, step back: is "scenario-based" the right system? The evaluation against LilyPond and Finale; the layered shape proposed (2026-09-27, Fable, session 17)
+
+**His words:** *"It is essentially what I'm suggesting, but I'm also asking to take a step back and in light of your analysis, evaluate
+whether a scenario-based system is the best one. I would also, if yes, then I would also want to carefully evaluate the scenarios and
+what it means for positioning. So for example, the scenario, it's the scenario definition. Scenarios might not necessarily be each
+notation type, but it might be oriented around the go time or the way we're using go lines or not, or it might be oriented around
+something else. In other words, I want to do a careful audit slash evaluation of the types of scenarios that are specific to notation
+placement and design, etc. So for example, there might be scenarios or sub scenarios, I'm just brainstorming, but for example, where a
+large column of items is on a note that's several ledger lines down and needs maybe a smaller font or something like that. In any
+case, I guess there needs to be exceptions. And so two things. One is that we should think carefully about the scenarios and they
+should be for this particular design should be based around placement, not around notational function. So it could be that different
+functions adapt the same placement rules. And then two is that we should think through some of the exceptions and have uh, those
+built in as well. And then actually a third thing would be just to have, to take one step back as I initially suggested, and make sure
+that the overall architecture is the right one and robust. So that's why I recommended the, looking at the Lily Pond or the Finale.
+They have the type of architecture that's universal, that regardless of the situation, will apply the right placement rules and size
+rules, but also have the ability to override or account for exceptions in case of conflicts or unforeseen scenarios, etc."*
+
+**How the two references do it (from the AI's knowledge of them, not read this session).** LilyPond: every printed thing is an OBJECT
+TYPE (note head, accidental, dynamic text, text script …) with ONE table of default properties; placement is done by RELATIONS
+(self-alignment: which point of me sits on my anchor · side-position: put me beside that, with padding · outside-staff-priority: the
+stacking order) and a collision engine (skylines) that moves side-positioned things until they clear; a piece overrides by name at a
+SCOPE (score · staff · voice · once); the manual is generated from the tables. Finale: expression CATEGORIES (dynamics · technique
+text · expressive text), each a placement + font definition (align left / centre / right of the note, above / below), articulation
+definitions with their own placement, document options for the numbers, libraries carried between documents, a manual nudge per
+instance. Neither keys a rule to a musical SITUATION; both key rules to OBJECT TYPES and to RELATIONS, and a situation is what arises
+when several objects meet — which is why they never need a new rule set for a new combination.
+
+**The evaluation.** "One complete rule set per scenario" is RIGHT for one layer and WRONG as the whole: as the whole it multiplies
+(anchor × head × text × column × edge), duplicates the same number in a dozen places, and — his own worry — a new combination
+matches no scenario. What his instinct is pointing at ("oriented around the go time or the way we're using go lines") is the ANCHOR:
+which point of a unit sits on x(t). That is one layer, and it is small. **The shape proposed — five layers, each a table:**
+1. **THE ANCHOR** (his "scenario"; a handful): a head on its time (left edge at x(t), no go line — #4's D59 / #5's D49 principle) · a
+   go line at x(t), the unit right-justified to it with a house gap (#5's morph blocks, image 3; the strikes and trills) · a GC's
+   impact at x(t) · a continuous graphic (x IS time: curves, bars, beams) · an animated device (at x(now)). The anchor fixes the
+   HORIZONTAL justification of the whole column.
+2. **THE COLUMN** (one rule set, shared by every anchor): what stacks above / below, in what order (#5: dot · > · symbol · dynamic ·
+   text · ottava), the house gap (0.45 ss), which side (head side / stem side), the flip rules. Functions differ (a technique word, a
+   dynamic, the just-pitch cents · partial column); the placement rule is the same — his "different functions adapt the same
+   placement rules".
+3. **THE OBJECT STYLES** (per object TYPE, one table of defaults — LilyPond's, = `container.json` + `textSizes` + `glyphs` today): a
+   technique text's face and size · a cents figure's face, size, colour · an accidental's gap to the head and to a ledger line · a go
+   line's dash · the pie's radius.
+4. **THE PAGE** (per drawn kind, screen + print class — `page_rules.edge`, built in 2c; the animated kinds join it, §411).
+5. **THE EXCEPTIONS**, two kinds, both DATA: (a) named CONDITIONAL rules, few — "the column would leave the lane → the text one size
+   step down" · "a head below the staff → the column above" (his ledger-lines example lives here); (b) a per-instance override
+   written ON THE EVENT in the IR (his eye: "move the accent below" = #5's `--articSide`), never in code, never in prose.
+**The protocol for a new device:** name its anchor (1) · list its column members (2; the rule is fixed) · reuse object types or add a
+ROW per new type (3; each new row IS a decision, surfaced) · its edge classes (4) — the open decisions are exactly the new rows, and
+nothing else is decided. **Robustness:** the human table (NOTATION_STANDARDS) GENERATED from the data, never hand-written, so prose and
+data cannot drift (LilyPond's way; the reasoning stays in the RUNNING_LOG by § in each row's `_doc`) · every type and kind enumerated
+by a gate (A1) · a row carries its SCOPE (which anchors it serves) so two candidate rows are a visible conflict, not a silent pick
+(A2) · a placement number typed into `layout.js` outside the tables is a fault. **Put to him:** is this the shape? If yes, the next
+step is his second ask — the careful audit of layer 1 (the anchors) and what each means for positioning, then the exceptions.
+
+## §414. THE ANCHORS AUDIT (layer 1) — six ways a unit's time is shown, all already decided across #4 · #5 · #6; two gaps found (2026-09-27, Fable, session 17)
+
+His word on §413: *"yes, go on to the anchors audit"*. Read for it: #5 NOTATION_STANDARDS §0 (D49 / D53, the two principles and their
+scope) · #4 MORPH_NOTATION.md "The header" · "One go line at every breath onset" · this repo's §385 (2d.4) · `container.json goLine`.
+
+**The anchors as the record has them** (what sits at x(t) · how the unit is justified · the gap · where decided):
+- **A · ON TIME** — the head's LEFT EDGE at x(t); no go line (#4 D58 / D59 → #5 D49: "the notehead's left edge is the moment" · "the go
+  line marks displacement"). `nhAnchor: leftEdge`, `goLine: false`. Used: #5's morph-section piano, the members of a beamed group,
+  "whatever is designed next". The column: the head-side stack, centred on the head column.
+- **B · BEFORE THE LINE** — a go line at x(t); the unit RIGHT-JUSTIFIED to it, one spacer before. #4's morph chain (right-to-left
+  `mark · 0.45 · arrow · 0.45 · circle · … · GO LINE`; one go line at every breath, NO onset heads — the heads repeated the curve) ·
+  #4/#5's morph header (the legend's heads + gliss line hanging before the first go line; #5's image 3) · THIS PIECE's sequence block
+  (2d.4: the head LEFT of its go line, its right ink edge `nhGapSs` 0.25 before it, the column above the head — the head kept here
+  because it CARRIES the new pitch, which the morph's did not).
+- **C · THE STRIKE** — a go line AND the GC's impact at x(t); the head 0.6 ss BEFORE the line to clear the GC disc (the tuba regime; #5
+  D53 keeps it by the reading rule — *"if a performer is looking at the GC hit the go time, they don't need to also see the notation
+  at the same time"*). Consistent with the principle: the head is off its time, so it carries a go line.
+- **D · AFTER THE LINE** — a go line at x(t); the unit AFTER it (#5's trills, the after-go column, §445).
+- **E · CONTINUOUS** — the graphic IS the time axis: the level and gliss curves, the bars (`ringBar`: left edge flush with the go line,
+  right edge at the sounding length), beams, GC arcs.
+- **F · ANIMATED** — at x(now), trailing the cursor; pushed right at a page start (§411).
+The principle "head on its time ↔ no go line" holds over all six rows — A is the only line-less anchor; B · C · D each displace the head
+and carry a line. Under the architecture C and D are peers in the table, not "exceptions by reading".
+
+**Found:** (F1) anchor B carries TWO gaps before the line — 0.45 ss, his house spacer (#4 day 35, the morph chain) · 0.25 ss, the
+accidental gap `nhGapSs`, which the AI re-used for 2d's head (§385) — one row, one number: the AI's pick 0.45. (F2) anchor B's COLUMN
+(the cents · partial · text above the head) has no written justification rule — #4's block had no column; 2d centred it on the head by
+default (image 1: `+41` · `26°/C1` roughly over the head; #5's image 3 has `+25` toward the line): the AI's pick RIGHT-JUSTIFIED to the
+same spacer before the line, so the whole unit reads as one right-aligned block and nothing can cross the line; centred belongs to A.
+(F3) item 5's question is answered by the table: the sequence block is anchor B — the go line is the time; the block sat RIGHT of it in
+image 1 only through the page-start clamp (item 1). **Put to him:** the set A … F complete? · F1 0.45 · F2 right-justified.
+
+## §415. The anchors, vetted: was the survey comprehensive (#1 … #5)? — NO, said so; how a NEW scenario is identified; his candidates run through the test; the exceptions HELD (2026-09-27, Fable, session 17)
+
+**His words:** *"lets discuss/vet the scenarios, hold and be able to resurface the exceptions discussion and reevaluate if we revise the
+scenarios; just confirm, if you will, that you looked at all the pieces from the string quartet on for a comprehensive evaluation of
+the scenarios. Then secondly, let's discuss and establish ways of identifying and introducing new scenarios. So for example, in this
+piece, I will probably want to do some more extended, but still temporally spaced notation. But it'll, besides the rhythmic placement,
+it'll probably be more like traditional notation, like longer phrases with beams and whatnot. So when we get there, how will we
+identify this as a new scenario, if it is? And then how will we build the scenario into the placement slash data system?"* Then his
+candidates: the trills — *"when the trill notation was to the left of the go line, it was conflicting with previous notation … some
+GCs just before the trill … exceptionally, they were moved to the right of the go line. And then I decided to move them all for
+consistency"* · *"indicators along the way of a long gradient … a long, slow glissando, I might want to indicate along the curve somehow
+or on the meter somehow where a performer is"* · the morph rebreaths (*"just a standard placement"*) · the crescendo the same,
+*"either animated or static indicators"* · *"the beat grid in the tuba piece. So there's a tick for every beat at the top and a bouncing
+ball for every beat with no curve GC arc"* · *"its tempo indicator when the tempo changes."*
+
+**The honest answer on the survey: NOT comprehensive.** §414 read #4's MORPH_NOTATION, #5's NOTATION_STANDARDS §0 and this piece's 2d.
+Not read: #1's and #2's performance apps (the GC, the cursor, the pie, the meters and the line wedges CAME from #2; #1's scrolling
+score before it), #3 (whether it has a notation layer at all), #4's other notation docs (NOTATION_STANDARDS · NOTATION_POLISH ·
+NOTATION_EXPERIMENTS · notation_instructions — the beat grid and the tempo mark live there). Proposed: one bounded survey of those
+docs — every device, and for each "what sits on x(t)" — reported as candidate rows against A … F; on Sonnet (the CLAUDE.md exception
+to "never spawn on Fable"), or on Opus after the checkpoint.
+
+**HOW A NEW SCENARIO IS IDENTIFIED — the anchor test, the protocol for a new device:**
+1. One sentence: what the performer must know, and WHEN.
+2. THE ANCHOR TEST — which point of it is the time? An existing row answers → that row (most things). None does → a candidate row,
+   with the reason the existing rows cannot serve — a decision surfaced to him, never made silently.
+3. THE COLUMN — list its members; the column rule is fixed; a member whose object TYPE has no row → a new object row (face · size ·
+   gap — each a decision, surfaced).
+4. THE PAGE — an edge class, screen + print, for any new drawn kind (the gate forces it).
+5. EXCEPTIONS — a named conditional rule only if it needs one; else none.
+6. The gate, the generated table row, the § in the row's `_doc`.
+A new scenario is RARE by this test: it needs a new answer to "what is on x(t)".
+
+**His candidates through the test (the AI's reading, his to reverse):** beamed time-spaced phrases → A (each head's left edge on its
+time) + E (the beam continuous) — #5's beamed group already; new OBJECT rows likely (flags · rests · ties · slurs), no new anchor ·
+indicators along a long gradient → static marks = E's column (a label attached to the curve at a time — 2d's `(mp)` · `(pp)` are this);
+animated = F (the follower · the meter); the shape waits, the classification does not · the rebreaths → B (his "standard placement") ·
+the beat grid → the tick is a go-time indicator (`tick` `atomic` in `page_rules.edge` already) + the ball F (the GC ball with no arc) ·
+the tempo mark → A applied to a text (`tempotext`, its left edge on the time), an object row. **The trills (D):** born as a COLLISION
+exception (the unit left of the line overlapped the GCs before it) and then made consistent by his choice — under the architecture a
+ROW with its origin noted, not an exception; whether a collision rule should have handled it instead is an EXCEPTIONS question — HELD,
+with the whole exceptions discussion, to be resurfaced after the anchors are settled and again if the anchors are revised.
+
+## §416. THE ANCHORS SURVEY, #1 … #5 (his "survey c" — read here, on Fable): A … F stands; ONE candidate row held (METRIC, from #3, unbuilt); two precedents for the architecture (2026-09-27, Fable, session 17)
+
+**His words:** *"survey c ; anchor test for new scenario - good; but lets discuss at some point when we're finalizing the architecture,
+what it looks like when a new scenario is presented or surfaced. So if I go to work on some new notation that surfaces a new
+scenario, will AI be able to identify it and say, we need to ask some questions or run a protocol to establish it as a new scenario in
+the architecture or the system?"* → **HELD-2 (for the architecture's finalization):** what the AI does, visibly, when a new device
+fails the anchor test — the protocol's user-facing shape.
+
+**Read:** #1 `Performance_Instructions.md` (the GC system · fragments and GCs) · `CURVE_SYSTEM_ARCHITECTURE.md` (the scrolling cursor,
+`updateCurveFollower`) · #2 `COORDS.md` · `STANDARDS.md` §2 · §3 · `POSITION_SPEC_V2.md` headings · #3 `NOTATION_STRATEGY.md` whole ·
+#4 `NOTATION_STANDARDS.md` 71–212 (the two figure kinds · the go-line principle table · three marks say now · rests · the ball on the
+lane edge) · #4's registry (`tick` 0.12 × 0.8 ss · `tempo` text 0.75) · #4 RUNNING_LOG C5 (the multiple-tempo section: per-lane ♩=
+marks + beat ticks, the balls on the cursor at heights) · #4 D40.
+
+**Piece by piece — what marks the time:**
+- **#1 (quartet):** the GC is born here — an ictus with the FEEL of the curve; LilyPond fragments aligned to the GC by an INTERPRETIVE
+  menu (begin at the top of the curve · end on impact · begin on impact · just after …), not by an engraving rule; the scrolling cursor
+  and the curve follower (F's origin). No new anchor: "on impact" = C, before / after = B / D as a performer's choice.
+- **#2 (pianos + percussion):** ONE universal anchor — the FIRST notehead's LEFT EDGE on the go line / scoreTime
+  (`defaultAnchorTo.x.anchor = notehead.bass.0.left`), a go line drawn at each figure (the predecessor of #4's principle, which then
+  removed the line where the head is on its time) · the cursor, the motive pie, the line-wedge meter, the curve follower (F; the
+  numbers in CURVE_LOOK §6 · §7) · line wedges (E). **Two precedents for the architecture:** `dimensions_table.json` — every
+  measurement with `_provenance`, *"never hardcode a number in idiom or preview code"* (= layer 3) · `POSITION_SPEC_V2` — a cascade
+  of defaults with a per-entry `anchorTo` override and per-member composite overrides, "composer-facing fine adjustment" (= layer
+  5b, the override ON THE EVENT). And the same failure as A1 / A2, named in `COORDS.md`: *"the standards existed; the checklist below
+  would have caught it"* — their fix was a checklist before a new idiom.
+- **#3 (bass clarinet · harp · accordion):** NO engine — a strategy doc: the spectrum Ferneyhough ↔ scrolling cursor; the midpoints
+  PROPORTIONAL-TRADITIONAL (beams and stems spaced by time = A + E, his beamed phrases) · MIXED-MODE (a traditional passage during
+  which THE CURSOR STOPS and resumes after) · performer-optional scroll; a toggleable beat grid. **The one candidate row of the
+  survey: G · METRIC — a passage NOT spaced by time (the cursor pauses; x ≠ t inside it).** Unbuilt anywhere; his phrases as
+  described stay time-spaced (A + E) and do not need it. HELD as a candidate, not added.
+- **#4 (tubas):** the day-24 table IS A · B · C: one-shot (head 0.6 before, go line) · surge (unit before, go line) · cluster partial
+  (left edge ON, no line) — and a fourth row, beam member CENTRED on its go time (`anchor: headCenter`), retired the same day (a
+  cluster all along; #5 keeps left edge). Rests: LEFT EDGE on the moment the silence begins (A). "Three marks say now; only one is
+  the datum — the GC." The GC clearance push CONDITIONAL (only when the head reaches the disc). The pulse: beat TICKS (a go-time
+  indicator; `tick` is `atomic` in `page_rules.edge` already) · the pulse BALL on the cursor, its height the phase, no arc (F) ·
+  the `♩=` mark per lane at a tempo change (A applied to a text; an object row, size 0.75). No new anchor.
+- **#5:** A · B · C · D as §414 has them.
+
+**Conclusion:** A … F stands over all five pieces. Candidate G (metric) held. The architecture's layers 3 and 5b have working precedent
+in #2. §414's three calls remain his: the set complete (A … F, G held) · F1 one spacer before the line, 0.45 · F2 anchor B's column
+right-justified to the same spacer.
+
+## §417. His words on §416: the set A … F holds WITH THE CAVEAT of a method for new scenarios · F1 DECIDED 0.45 · F2 read back as scenario-dependent (2026-09-27, Fable, session 17)
+
+- *"1 good with the caveat that we will have a methodology for surfacing or identifying and creating new scenarios."* → the anchor set
+  A … F is ACCEPTED, conditional on HELD-2 (the visible protocol for a new scenario) being built into the architecture.
+- *"F1 0.45"* → **DECIDED: anchor B's gap before the go line is ONE number, the house spacer 0.45 ss** (2d's 0.25 is superseded; a
+  correction to the prototype when the fixes are built).
+- *"F2 is scenario dependant correct? so once we finalize the scenario, the cents et al notation will have a rule?"* → yes: the
+  horizontal alignment of a column is a property of the ANCHOR row, inherited by every member. A column member (the cents, the
+  partial, the technique word) carries no alignment of its own — only its order and gap (layer 2) and its face · size · colour
+  (layer 3). So B's row "right-justified to the spacer" gives the sequence block's cents column its rule with no further decision;
+  the same objects under anchor A would centre. Item 4 (the cents) is then object-level only: black · size · face · the marks' meaning.
+  F2 awaits his yes on "right-justified" for B.
+
+## §418. His word — *"yes, right-justified"*: F2 DECIDED; LAYER 1 (the anchors) CLOSED (2026-09-27, Fable, session 17)
+
+**DECIDED:** anchor B's column is RIGHT-JUSTIFIED to the spacer (0.45 ss before the go line) — every member (head, accidental, cents,
+partial, technique word, legend) ends at the same x; written once in B's row, inherited by the morph block, the legend and the
+sequence block. Anchor A's column stays centred on the head.
+
+**LAYER 1 AS IT CLOSES:** A on time (head's left edge at x(t), no line; column centred on the head) · B before the line (go line at
+x(t); the unit right-justified to it, 0.45 before; the column right-justified the same) · C the strike (go line + GC impact at x(t);
+the head 0.6 before) · D after the line (the trills) · E continuous · F animated (at x(now); pushed right at a page start; nothing on
+paper). G metric — a candidate from #3, held. The set accepted with his caveat: a visible method for surfacing and adding a new
+scenario (HELD-2). Open behind it: the exceptions (HELD, to resurface after layer 2 — the column — and again if the anchors change);
+layer 2 the column rule and layer 3 the object styles, each audited the same way; then HELD-2; then items 3 … 7 inside the
+architecture; then the build plan and the prototype's fixes.
+
+## §419. LAYER 2 — THE COLUMN, audited across #2 · #4 · #5 · #6: one order, three gaps, the head side, the floor — and TWO REGIMES nobody named (HUG · ROWS); §1a superseded by F2; the accidental-on-ledger cause (2026-09-27, Fable, session 17)
+
+**Read:** #4 NOTATION_STANDARDS "How a figure is built" · "The cluster standard" · "The beam standard" · "The one-shot vocabulary" ·
+"Per-note overrides" · #4's per-mark law (RUNNING_LOG day 31 · 33: each mark clears ITS OWN column's head + dot + accidental by the gap —
+"hugging") · #5 NOTATION_STANDARDS §1 whole (the strike unit's table) · §401f · #2 CHORD_SPACING_RULES §4.1 · 4.2 · this repo
+`container.json` (`stackBelow` · `accGap` 0.25 · `tagY` 3.5 · `tempoY` 4.6 · `dynY` −4.6 · `nhGapSs` 0.25 / 0.6 · `chainSide`) ·
+`docs/research/just_partials_notation.md` §1a.
+
+**What is decided (the column rule as it stands):**
+- **The order, outward from the head:** articulation (dot · >) · technique symbol · dynamic · instruction text · ottava (#4's `stackBelow`;
+  #5 §401f · §527 "the column standard's order on every side"). The just-pitch column (§1a): the accidental BESIDE the head; above it
+  the cents nearest the head (≥ 0.6 ss over the ink, never inside the staff), the partial one row up (1.0 ss), the instruction 0.45
+  above the column's top; the dynamic legend below on the dynamics row.
+- **Three gaps:** tight 0.15 (dot ↔ head) · medium 0.30 · standard 0.45 (between stacked marks) — "inherited" through every piece;
+  the accidental 0.25 from the head (`accGap`; #2 measured −0.97 / −0.80 / −0.74 ss per sign from the column origin).
+- **The side:** the HEAD side, mirrored with the stem — below a stem-up note, above a stem-down one (#5 §401f); the piano's chain pinned
+  below (2h.5). A beamed group: accents on one row above the beam; two consecutive dynamics together on one row above it (#4).
+- **The floor:** a mark never inside the staff — the per-mark law "floored at the staff edge" (#5 §527); a low head keeps its column
+  above the staff (§1a).
+- **Per-instance override exists already:** #4 — any device field per item in the version file's overlay (`stemDir` · `nhAnchor` ·
+  `dynMark` · `gc` · `goLine`); #5 `--articSide`. = layer 5b, with precedent in three pieces.
+
+**FOUND — F4, TWO REGIMES, unnamed:** (i) HUG — each mark placed against its own note (the strike's stack, #4's per-mark law, the beamed
+group); (ii) ROWS — fixed rows across the lane: the dynamics row `dynY` −4.6 ss ("just like all the other dynamics"), the tag row
+`tagY` 3.5 (cuivré), the tempo row 4.6 — the morph block's legend and sign, the surge's pair, the sequence block's legend. Nothing
+written says which applies when. The AI's reading: the regime is the ANCHOR'S property, like the alignment — HUG for A · C · D (a
+head with a stem, short, pitches moving) · ROWS for B (a sustained block; the rows make one horizontal reading line across the lane).
+**F5 — §1a IS SUPERSEDED BY F2:** two days ago §1a wrote the cents column "centred on the head … wider than the head, right-aligned to
+the head's right edge" and the text "from the head's left edge"; today's F2 (right-justified to the spacer, the whole column) replaces
+both — the doc must be amended, and it is the case for the table generated from data (a decision in prose survived a newer decision
+by 48 hours). **F6 — item 7's cause (a reading of the data and the image, NOT yet verified in the code):** `accGap` 0.25 is measured
+from the HEAD; a ledgered note's ledger line runs past the head on both sides, so the accidental (the arrowed ¾♯'s bars) lands on the
+ledger's left end. No piece has a ledger rule; the engraving standard (Gould; LilyPond by its skylines) clears the LEDGER'S END. → one
+value in the accidental's object row: the gap measured from the leftmost ink of the note (ledger included). The AI's pick.
+
+**Put to him:** F4 — HUG for A · C · D, ROWS for B, named in the anchor row? · F6 — the accidental clears the ledger line?
+
+## §420. Layer 2, item by item at his word — THE ORDER: is it grounded? Checked against LilyPond 2.24.4's own table on his machine; one divergence (the ottava); the `basis` field proposed (2026-09-27, Fable, session 17)
+
+**His words:** *"lets still go thru each of these starting with the order, is the current order decisions based in anything? And if not,
+should we try to ground it in engraving or orchestration standards?"*
+
+**The trace.** The order accent · technique symbol · dynamic · text · ottava is #4's registry `stackBelow` (articulation · dynamic ·
+instruction · ottava), carried to #5 (§400), with the technique symbol inserted after the accent at his word in #5 (§401 · §401f,
+the flute's + and the strings' snap-pizz ○). Whether #4's entry cites a source was not checked here (its `_doc`, if any, is in
+`for_seven_tubas/notation/registry/container.json`).
+
+**Against the standard — VERIFIED, not recalled:** LilyPond's default `outside-staff-priority` table, read from his install
+(`OneDrive/Documents/lilypond-2.24.4/share/lilypond/2.24.4/scm/lily/define-grobs.scm`; lower = nearer the staff): TrillSpanner 50 ·
+BarNumber 100 · **DynamicLineSpanner 250 · TextSpanner 350 · OttavaBracket 400 · TextScript 450** · pedal lines 1000 · TextMark 1250 ·
+MetronomeMark 1300 · RehearsalMark 1500; articulations (Script) carry NO priority — placed at the note, inside everything. So the
+standard order outward is: articulation → dynamic → (text spanner) → OTTAVA → TEXT → tempo → rehearsal marks. **Ours agrees on
+accent → symbol → dynamic → text and DIVERGES on one thing: we put the ottava OUTERMOST (past the text); LilyPond puts it INSIDE the
+text** (the bracket changes what the notes mean, so it stays near the staff; expressive text goes outside). #5's §527 ("make sure the
+ottava clears the beam, even if it protrudes into the lane above") is about the beam side and stands either way. **The just column**
+(cents nearest the head · partial · text) has no engraving standard; the practice (HEJI — Sabat / von Schweinitz; Johnston) writes the
+cents deviation as a small figure above the accidental / head — ours matches. **The AI's pick:** adopt LilyPond's order for the two
+outermost — ottava, THEN text; the rest as it stands; his to reverse.
+
+**Grounding as a RULE of the tables (the AI's proposal):** every row carries a `basis` — `lilypond` (the table above, by grob) ·
+`gould` (Behind Bars, page, when read) · `composer §N` (his decision, the log) · `AI §N` (the AI's, his to reverse) — and a departure
+from the standard names the reason in the row (e.g. the head-side stack: "the scrolling reader keeps the mark at the head").
+So a rule's authority is visible at a glance, and a challenged rule is answered by its row, not by a search.
+
+## §421. THE ORDER DECIDED (ottava inside the text; `basis` on every row) · THE GAPS — what LilyPond's table says, read from his install; the structure proposed: three distances per object + one beside, in ss (2026-09-27, Fable, session 17)
+
+**His words:** *"My pick: adopt LilyPond's order … — good; basis field good"* → **DECIDED:** the column order outward is accent · technique
+symbol · dynamic · OTTAVA · text (LilyPond's); every table row carries `basis` (`lilypond` · `gould` · `composer §` · `AI §`).
+Then: *"discuss and standardize, what should the gap range be, so What different gaps should we have? Are they expressed correctly or
+should we have some sort of percentage basis? And then what does Lily Pond tell us about gaps and how they decide what gaps are,
+should be? … Let's just figure out what the final structure should be with regard to gaps. Up to now, my decisions were mostly just
+ad hoc."*
+
+**What LilyPond does — VERIFIED in `define-grobs.scm` · `script.scm` (2.24.4, his machine):**
+- **Units:** every distance in STAFF SPACES; thicknesses in staff-line thicknesses; no percentages. A few glyph-relative: the ledger
+  line runs `length-fraction` 0.25 × the head's width past the head on each side.
+- **Not a menu of gap sizes — a few RELATIONS, each a number PER OBJECT TYPE:** `padding` = the gap to the thing it hangs on (its
+  parent): articulations 0.20 (staccato · tenuto · accent …; a few long ones 0.40 – 0.45) · dynamics from the note 0.6 · text 0.3 ·
+  fingering 0.5 · ottava 0.5 · tuplet bracket 1.1 · tempo mark 0.8 · `staff-padding` = never nearer the STAFF edge than: articulations
+  0.25 · dynamics 0.1 · text 0.5 · fingering 0.5 · text spanner 0.8 · trill 1.0 · ottava 2.0 · `outside-staff-padding` = between
+  STACKED outside-staff objects (the engine's default, ≈ 0.46 from memory — set in the table only for two special grobs; NOT verified
+  as a number here) · `outside-staff-horizontal-padding` 0.2 · horizontal: `AccidentalPlacement.right-padding` 0.15 (accidental →
+  head) · `Script.horizon-padding` 0.1 (a script never interleaves with an accidental) · `Rest.minimum-distance` 0.25 · `Beam.gap`
+  0.8 · `Hairpin.bound-padding` 1.0. The skyline engine applies them: a mark sits at its `padding` from its parent, is pushed out until
+  it clears everything already placed by the stack padding, and never inside `staff-padding`.
+
+**Ours against it:** dot ↔ head 0.15 (LilyPond 0.20) · stack 0.45 (≈ LilyPond's 0.46 — his "ad hoc" number IS the standard's) · the
+accidental 0.25 (LilyPond 0.15; #2 measured 0.74 – 0.97 from the column origin = glyph width + gap) · text 0.30 "medium" (LilyPond 0.3)
+· the floor "never inside the staff" (LilyPond's `staff-padding`, per object: 0.25 for articulations, 0.5 for text, 2.0 for an
+ottava) · the unit → go line 0.45 (F1; no LilyPond equivalent — ours). The fixed rows (`dynY` −4.6 · `tagY` 3.5 · `tempoY` 4.6) are
+POSITIONS, not gaps — the ROWS regime (F4).
+
+**THE STRUCTURE PROPOSED (the AI's):** every object type carries FOUR distances, in ss — (1) **parent** — to what it hangs on (a
+head, the previous mark, the go line) · (2) **staff** — the floor from the staff edge · (3) **stack** — to the next stacked mark (one
+house number, 0.45, unless a row says otherwise) · (4) **beside** — horizontal: accidental → head 0.25; the ledger overhang 0.25 ×
+head width and the accidental measured from the leftmost ink INCLUDING the ledger (F6) · glyph-relative only where the relation is to
+the glyph (the ledger overhang; #4's niente = the `m` height). The names tight · medium · standard RETIRE as names — the numbers stay
+where he approved them (0.15 dot, his day-23 wc-29; 0.25 accidental; 0.45 stack) with `basis composer`; anything undecided seeded
+from LilyPond's table with `basis lilypond`. Percentages: no — ss IS the proportional unit (it scales with the staff and the zoom).
+**Put to him:** (a) the four distances per object, in ss · (b) keep his approved numbers, seed the rest from LilyPond.
+
+## §422. THE GAPS DECIDED (four distances per object, in ss; his numbers kept, the rest seeded from LilyPond) · WHEN IT DOES NOT FIT — the fix ladder exists (#4's, 2026-08-20, `container.json verticalBudget._fixLadder`); a ladder v2 proposed as THE decision process (2026-09-27, Fable, session 17)
+
+**His words:** *"a and b good; How about when we need to make an adjustment or an exception? For example, if it's pushing against the
+lower edge of the lane, we could make a decision to shrink the vertical spaces between everything and then it will fit. Things like
+this. This may be just part of the exception part of the system, but we should have a way to figure out things like this. For
+example, like the scenario would be standard approach doesn't fit for some reason. These are the alternatives. And then a way to see
+if the alternative fits. And then if the alternative doesn't fit, then we'll have to make a manual exception. But this should all be
+part of the system as a clear decision-making process. So it's not invented ad hoc each time."*
+
+**DECIDED (gaps):** every object type carries `parent` · `staff` · `stack` · `beside`, in ss; his approved numbers stay (0.15 dot · 0.25
+accidental · 0.45 stack · 0.45 unit → go line), `basis composer`; anything undecided seeded from LilyPond's table, `basis lilypond`;
+`tight · medium · standard` retire as names.
+
+**FOUND — the process he describes EXISTS, in data, since piece #4 (2026-08-20, his option A: "accept, machinery handles actual
+collisions"):** `verticalBudget._fixLadder` — per collision, in preference order: (1) flip the furniture to the free side · (2) a
+horizontal micro-nudge, sub-perceptual · (3) a per-PAGE lane rebalance (weights per view) · (4) the octave device for ledger towers ·
+(5) per-page staff size · (6) the global C-switch (staff 31.6 → 28, tested: clears the worst case wholesale). The FIT TEST exists too:
+`tools/protrusion_detect.js` (its findings appended to NOTATION_POLISH.md) and the build's GEOMETRY report (touches in the 4 px bands).
+And the manual exception exists: the per-item engraving overlay (#4) · `--articSide` (#5). What is missing is what he names: it is
+not run as ONE PROCESS — the ladder is a note in a `_doc`, applied by hand when his eye complains ("the tuba's fix ladder applies per
+page"), and two of his rungs are not on it (compress the stack · shrink a size step). LilyPond, for contrast, never shrinks and never
+flips by itself: it PUSHES (skylines) and lets the system grow — a fixed lane cannot grow, so a ladder is the right shape here.
+
+**LADDER v2 — the AI's proposal, the exceptions layer's spine (run by the layout per unit, the rung reached WRITTEN on the event):**
+0. the standard placement (the four distances) — and a SPILL into the inter-lane gap is accepted if nothing is touched (#4's option A);
+1. COMPRESS the stack: 0.45 → 0.30 → 0.20, never under the articulation's own `parent` (his example; keeps every rule, bends a number
+   inside a floor);
+2. SHRINK one size step — text · dynamic · a cue head (his example);
+3. FLIP to the free side (#4's rung 1 — kept, but after 1 · 2 because it changes the reading side, which is a rule);
+4. the horizontal micro-nudge (#4's 2);
+5. the per-page lane rebalance (#4's 3);
+6. the octave device for a ledger tower (#4's 4; #5's threshold the 4th ledger line);
+7. per-page staff size · the global C-switch (#4's 5 · 6, last resorts — a zoom jump);
+8. MANUAL — an override on the event, with the rung it failed at and his §; never in code, never in prose.
+Each rung has a FIT TEST (the protrusion detector on the unit's box against the lane and its neighbours), and the build prints, per
+page, which units left rung 0 and where they landed — so an exception is SEEN, named by its rung, and logged, never invented. The
+HELD exceptions (§412 · §415: the ledger-tower font; the trill's collision origin) become rungs or named conditional rules on this
+ladder, not a separate list. **Put to him:** the rungs and their order — in particular COMPRESS · SHRINK before FLIP (his 2026-08-20
+ladder had flip first).
+
+## §423. LADDER v2 ACCEPTED (compress · shrink before flip — the merits weighed at his word) · THE SIDE, elaborated: what was decided, why, what LilyPond and Gould do (2026-09-27, Fable, session 17)
+
+**His words:** *"merits of either order? compress · shrink before flip"* → the merits given (a bent number is local and keeps every rule;
+a flip is what an engraver does first but breaks the head-side rule and can cause the collision it cures; LilyPond does neither — a
+rule is a rule, a number is negotiable) → *"ok, fine as is, ladder v2 good"* → **DECIDED: ladder v2 as §422 lists it.** Then:
+*"elaborate the side, clear and simple pls what decisions were made, why, what the lily pond does, etc."*
+
+**THE SIDE — the decisions on record:**
+1. **Articulation and technique symbol: the HEAD side, mirrored with the stem** — below a stem-up note, above a stem-down one; stems the
+   classic way (#5 §401f, his: *"keep our stack but mirror depending on stem direction, stem direction, classic way"*). `chainSide:
+   'headSide'`.
+2. **Dynamic and text on a STRIKE: in the SAME chain, on the head side** (#5 §401f · §400 — the whole stack dot · > · symbol · fff · text
+   mirrors together). A DEPARTURE from the standard (below): the reason is not spelled out in his words; the AI's reading — a strike is
+   an isolated event in a scrolling score, the eye is at the head, one chain keeps everything in one glance, and mirroring with the
+   stem keeps it clear of the stem and flag.
+3. **Dynamic on a SUSTAINED block (anchor B): the fixed dynamics row BELOW** (`dynY` −4.6, "just like all the other dynamics") · **text
+   ABOVE** (the morph's cuivré at `tagY`; 2d's "senza vib." above the column) — = the standard.
+4. **The piano: the chain pinned BELOW** (2h.5 — a Ped. belongs under the bass staff whatever the room) — = the standard for pedal marks.
+5. **A beamed group: accents on ONE ROW on the beam side**, the beam lowered to make room (#4 day 23); two consecutive dynamics
+   together on one row above the beam when they will not fit below (#4); then #5 §527 (his 2026-09-14): when an ottava needs the beam
+   side, the accents go to the HEAD side, each against its own note — the beam side is the ottava's.
+6. **The technique symbol ABOVE the unit when the lane has room over the stem tip, else in the chain after the accent** (#5 §401 ·
+   §401f) — a room rule.
+7. **"The side with room"** — the single-staff lane's general fallback, which the piano pin overrode. In ladder v2 this IS rung 3 (flip).
+
+**What the standard does (LilyPond's table, VERIFIED; Gould from memory):** articulations (`Script`) — `calc-direction`: the HEAD side,
+opposite the stem (a few always up: fermata, marcato) — = ours (1). Dynamics (`DynamicLineSpanner`) — `direction DOWN`: ALWAYS below
+the staff, whatever the stem (Gould: below for instruments, between the staves for keyboard, above for voices) — = ours for B (3) and
+the piano (4); ≠ ours for the strike chain (2). Text (`TextScript`) — default `DOWN` in the table; in practice technique words
+(pizz., arco, con sord.) go ABOVE the staff (Gould) and expressive text with the dynamics below — ours for B (3) matches; the strike
+chain (2) departs. Ottava — by its sign (8va above, 8vb below). Tempo, trill, text spanner — UP. **So the standard splits the column
+in two by function — articulation on the head side, dynamics below, technique text above — and ours does the same for the sustained
+blocks and the piano, but folds everything onto the head side for a STRIKE.** LilyPond never flips a side to avoid a collision; it
+pushes outward on the side the rule names.
+
+**In the architecture:** `side` is a value PER OBJECT TYPE per REGIME — HUG (anchors A · C · D): every member `headSide` (his §401f);
+ROWS (anchor B): dynamic `below` on the row, text `above`, articulation `headSide`; the piano's `below` an override on the part; the
+beam-side row for group accents a rule of the beamed-group object; the flip = rung 3, never a default. **The one call that is his:**
+the strike chain — KEEP the departure (everything on the head side; the AI's pick — the scrolling reader's one glance; recorded with
+`basis composer §401f` and the reason) or take the standard split (dynamic below, text above) for strikes too.
+
+## §424. THE SIDE DECIDED — *"keep the departure"* · THE FLOOR: two boundaries (the staff edge is a rule; the lane edge is the ladder), the standard's two tiers (2026-09-27, Fable, session 17)
+
+**DECIDED (the side):** the strike chain stays whole on the head side (his 2026-09-11 §401f, kept at his word today) — `basis composer
+§401f`, the departure named with its reason (the scrolling reader's one glance). ROWS for B: dynamic below on the row, text above.
+
+**Where we are (his ask for orientation):** the larger list — 1 lead-in ✓ · 2 gutter ✓ · 8 THE ARCHITECTURE ► (layer 1 anchors ✓ ·
+layer 2 the column ► — order ✓ · gaps ✓ · ladder v2 ✓ · side ✓ · FLOOR ► · the override = rung 8 ✓ · F4 hug/rows folded into the
+side ✓ · F6 folded into the gaps' `beside` ✓ · layer 3 object styles next · layer 4 the page ✓ (2c + the animated kinds) · layer 5 =
+the ladder ✓ + named rules as they come · HELD-2 the new-scenario method · the data shape, the generated table, the gates = the
+finalization) · then 3 text · 4 cents (inside layer 3) · 5 go time ✓ (anchor B) · 6 column ✓ (F2) · 7 accidental ✓ in principle (F6,
+verified in the build) · then the build plan on Opus.
+
+**THE FLOOR — what is decided:** "a mark never inside the staff": the per-mark law "floored at the staff edge" (#4 day 31 · 33; #5
+§527) for dynamics and accents; §1a: the cents ≥ 0.6 ss over the head's ink AND never inside the staff, a low head's column above the
+staff. But the staccato dot hugs the head at 0.15 (#5 §1) — so the dot IS allowed inside the staff. Two tiers in practice, unnamed.
+
+**What the standard does (LilyPond's table, verified; Gould from memory):** the floor is PER OBJECT, a distance from the outer staff
+line — `staff-padding`: articulations 0.25 · dynamics 0.1 · text 0.5 · fingering 0.5 · text spanner 0.8 · trill 1.0 · ottava 2.0 — and
+it binds only when the mark would otherwise be nearer (a mark on a head far outside the staff sits at its parent distance). TWO TIERS:
+(i) the staccato dot and the tenuto line MAY sit inside the staff — `quantize-position`: snapped into a SPACE, never on a line
+(Gould the same); (ii) accent, marcato, dynamics, text, brackets — outside the staff by their `staff-padding`. LilyPond also has the
+other boundary we have — the SYSTEM's edge — but it grows the system; our lane is fixed, so:
+
+**TWO BOUNDARIES, two mechanisms (the AI's framing):** the STAFF EDGE is a RULE — the object's `staff` distance (the third of the four),
+tier (i) 0 with "in a space, never on a line", tier (ii) LilyPond's numbers where ours are undecided (accent 0.25 · dynamic 0.1 · text
+0.5 · ottava 2.0; the cents' "never inside" seeded as text 0.5) · the LANE EDGE is the BUDGET — where ladder v2 starts (a spill into the
+inter-lane gap accepted if nothing is touched, then rung 1 …). Same number on the top edge (a ceiling) as on the bottom. **Put to
+him:** the two tiers as the standard has them — the dot and tenuto inside the staff, in a space, never on a line (a gate checks the
+line); everything else outside by its `staff` distance?
+
+## §425. THE FLOOR ADOPTED as the standard has it (two tiers) · THE OVERRIDE, explained — layer 2 closes (2026-09-27, Fable, session 17)
+
+**His words:** *"what is the engraving standard, in brief?"* → given (Gould / LilyPond: the staccato dot and the tenuto line inside the
+staff in a space, never on a line; accent · dynamics · text · ottava outside, each by its own clearance, ordered outward) →
+*"adopt as the standard has it; what is the override?"* → **DECIDED (the floor): two tiers — the dot and tenuto inside the staff, in a
+space, never on a line (a gate checks the line); every other mark outside the staff by its `staff` distance (LilyPond's numbers where
+ours are undecided: accent 0.25 · dynamic 0.1 · text 0.5 · ottava 2.0); the same at the top edge; the lane edge is the ladder's.**
+
+**THE OVERRIDE (layer 5b = ladder rung 8):** one instance, one property, one new value — written as DATA on the event, never in code,
+never prose-only. What exists: #4 — the version file's overlay `{ kind: "engraving", target: { event }, value: { device: { stemDir ·
+nhAnchor · dynMark · gc · goLine … } } }` and `--noGc <id>`; #5 — per-group build flags (`--articSide` · `--restFit N` · `--dyn
+n:mark`), the build command being the replayable record; #2 — the per-entry `anchorTo` and per-member overrides ("composer-facing fine
+adjustment"). LilyPond: `\once \override Grob.property = value` (one object, one property, at the spot) and `\tweak` on the object;
+scopes once · voice · staff · score. **In the architecture:** an override names the OBJECT (event id + member), the PROPERTY (one that
+exists in the tables — a gate refuses an invented knob), the VALUE, the RUNG it failed at, his § and the date; the build prints every
+override in force and the generated table lists them on a page of their own; a rule is for a TYPE everywhere, an override for ONE
+instance — and the same override recurring (three times, say) is the signal to promote it to a rule or a rung, by the new-scenario
+protocol. His eye says "move the accent below" → the AI writes the entry with his words' § → the build applies and reports it.
+**LAYER 2 CLOSES.** Next: layer 3, the object styles (face · size · colour per object type — where items 3 and 4 are resolved).
+
+## §426. His question — *"how does an override need surface?"*: two sources, one channel — the build's DECISIONS-NEEDED report (2026-09-27, Fable, session 17)
+
+**Two sources of the need:** (1) MECHANICAL — the layout runs ladder v2 on every unit; a unit that still fails the fit test after the
+last automatic rung (or whose only automatic remedy was a last-resort rung, 7) is REPORTED, not silently placed; (2) HIS EYE — a unit
+that fits by the numbers but reads wrong to him (a taste override, rung 8 at his word). **One channel for both — and for HELD-2's new
+scenario:** the build prints a DECISIONS-NEEDED list, per page: time · part · member · what failed (the lane bottom by 0.8 ss; a touch
+with the neighbour's accent row) · the rungs tried and each one's result · two or three concrete manual moves; the page marks the unit
+(a flag, #5's red "out of range" idiom); the generated table carries the same list until each row is answered. The AI brings the list
+to him as questions with the options; his pick is written as the override (§425's five fields) and the row leaves the list. Nothing
+is decided ad hoc, nothing is decided silently, and a recurring entry is the promotion signal.
+
+## §427. LAYER 3 — THE OBJECT STYLES, audited: the font, the size table, the colours, the glyph standards; THREE FINDINGS — the grey is a renderer default, three sizes for one kind of word, two accidental gaps in two files; LilyPond's size step verified (2026-09-27, Fable, session 17)
+
+**Read:** `container.json` `engraving.layout.textSizes` {dynamic 0.9 · instruction 0.75 · tempo 0.75 · technique 0.7} (identical in #5) ·
+`engraving.render` {ink #111 · muted #8a8a8a · brick #4E7A9B · paper #fff · fontFamily 'Crimson Pro Light' · textScale 1.3} ·
+`byEnv.sequence.block` {headGapSs 0.45 · centsGapSs 0.6 · rowSs 1 · textGapSs 0.45 · numEmSs 0.975 · slashTopEm 0.711} · `reminder`
+{scale 0.844 · parenScale 0.67} · `label` {scale 0.75 · parenScale 0.43} · `glyphs.json standards` {staff line 0.1 · ledger 0.1,
+lengthFraction 0.25 · stem 0.13 · beam 0.4 · staccato dot 0.4 · accidental gapToNotehead 0.1 · accidentalColumn · ottava …} ·
+CURVE_LOOK §3 (limeGreen #99FF00 dynamics · brightOrange #F04B00 glissando — named in #1) · `render.js` 3 · 130 · 456 · `layout.js`
+847 · 935 · 936 · 1005 · 1197 · 1445 · 1960 · 1973 · LilyPond `font.scm` 299 (`magstep s = 2^(s/6)`) · `music-functions.scm` 606 (cue
+notes = font-size −3).
+
+**What is decided (the rows as they stand):** the FONT — Crimson Pro Light (upright: numbers, names, tempo) and Light Italic
+(instructions, expressive text), the text font of every piece since #1; music signs Emmentaler (`glyphs.json`) · SIZES — heads 1.0 ·
+cue 0.844 · reminder parens 0.67 · technique symbols 0.707 ("#2's font-size −3") · text steps dynamic 0.9 · instruction 0.75 · tempo
+0.75 · technique 0.7, all × textScale 1.3 on the page · labels 0.75 with parens 0.43 · COLOURS — ink #111; curves by ROLE (limeGreen
+dynamics · brightOrange pitch); the go line #333 dash 5,4 1.5 px @ 0.85; the cursor #FF15A0 3 px; the meter #99FF00; the pie #607D8B
+@ 0.75; the brick #4E7A9B @ 0.45 · THICKNESSES in `glyphs.json standards` (LilyPond's: staff line 0.1 · stem 0.13 · beam 0.4 · ledger
+overhang 0.25 × head width).
+
+**FOUND:** **A5 — THE GREY WAS NEVER DECIDED.** `render.js` 456 fills any text item with no `color` in `o.muted` (#8a8a8a — meant, per
+its line-3 comment, for parachute bricks and read-through labels); `layout.js` 935 · 936 push the cents and the partial with NO colour
+— so they render grey by the renderer's default, while every technique word passes `color: '#000'` explicitly. Item 4's "black" is a
+one-line fix; the RULE it teaches: no music mark may take a colour from a code default — every object row names its colour, `muted`
+belongs to page furniture (part names, reshow labels, markers) alone. **A6 — THREE SIZES FOR ONE KIND OF WORD:** "(slap)" · "T. R." ·
+"jeté" · "sempre secco" are drawn at `TS.technique` 0.7 (`layout.js` 1445 · 1960 · 1973; #5's NOTATION_STANDARDS row 42 names them
+`instrText` without a size) · the cents, the partial and the tuba's instruction row at `TS.instruction` 0.75 · "senza vib." baked as a
+glyph at 1.0998 ss (the "pizz." recipe) — item 3's "size and font" question answered by the data: nobody chose three. **A7 — TWO
+ACCIDENTAL GAPS IN TWO FILES:** `glyphs.json standards.accidental.gapToNotehead` 0.1 (LilyPond's number) and `container.json
+engraving.layout.accGap` 0.25 (#4's) — which one the layout reads was not checked here; the single-table rule must dedupe.
+
+**LilyPond's size step, VERIFIED:** one font-size step = 2^(1/6) ≈ 1.122; cue notes = −3 steps = 0.707 — our technique symbol exactly;
+our cue head 0.844 = −1.5 steps; our text 0.9 → 0.75 ≈ −1.6 steps; 0.75 → 0.7 = −0.6 (off the ladder). Ladder v2's rung 2 "shrink one
+step" = ÷ 1.122, well-defined.
+
+**The AI's proposals for layer 3, put to him:** (a) ONE size for every word on a note — instruction · technique word · "senza vib." ·
+"pizz." — `instruction` 0.75 italic (× 1.3 = 0.975 ss em on the page); the numbers (cents · partial) 0.75 upright; `technique` 0.7 and
+the 1.0998 bake retired · (b) the colour rule of A5: music marks ink #111 (the cents black), `muted` furniture only, no default in code
+· (c) LilyPond's step 2^(1/6) as the unit of a size change; his approved sizes kept as they are (`basis composer`), new ones chosen on
+the step ladder · (d) A7 resolved to one row, the layout's actual value kept (his 0.25 if that is what draws).
+
+## §428. LAYER 3 DECIDED (a · b · c · d) — layer 3 closes; HELD-2 opened: the DEVICE SHEET, the visible protocol for a new notation (2026-09-27, Fable, session 17)
+
+**His words:** *"a,b, d good; clarify c pls"* → (c) clarified (the step 2^(1/6) as the unit of a size change and the ladder for any NEW
+size; nothing approved is snapped) → *"c good; TOC and next"*. **DECIDED, layer 3:** (a) one size for every word on a note —
+`instruction` 0.75 italic (the cents · partial 0.75 upright); `technique` 0.7 and the 1.0998 bake retired · (b) the colour rule: music
+marks ink #111 (the cents black), `muted` for page furniture only, no colour from a code default · (c) LilyPond's size step as the unit
+of a size change (rung 2 = ÷ 1.122; a new size on the ladder), his approved sizes untouched · (d) A7's two accidental gaps → one row,
+the value that draws today kept.
+
+**HELD-2 — the AI's proposal: THE DEVICE SHEET.** Before a line of code for any new notation (a device, a variant, a "let's notate X"),
+the AI fills a fixed card and shows it: (1) the device in one sentence — what the performer must know and when · (2) ANCHOR: row A … F
+by the anchor test, or NEW with the reason the six cannot serve · (3) COLUMN: each member → an existing object type, or NEW ROW · (4)
+STYLES: each member's face · size · colour from its row; a NEW row's values proposed with `basis` · (5) EDGE: the screen and print class
+of any new drawn or animated kind · (6) LADDER: any named conditional rule it needs · (7) OPEN DECISIONS: exactly the NEW rows and any
+two-candidate conflict — nothing else is asked. He answers the open lines; the sheet becomes the PLAN item's header and the log entry;
+the build writes the rows into the tables; the gate refuses a build whose kinds or types have no row. Later surprises (a fit failure, a
+device that turns out to need a seventh anchor) arrive on the decisions-needed list (§426). What he asked for in §416 — "will AI be
+able to identify it and say, we need to ask some questions" — is the sheet's line (2) and line (7): the anchor test is run every time,
+and only what is new is asked.
+
+## §429. THE FINALIZATION ACCEPTED (rules.json · the generated ENGRAVING_RULES.md · seven gates · the devices point, not carry) · ITEM 4's WALK-THROUGH of the block's marks, as given to him (2026-09-27, Fable, session 17)
+
+**His words:** *"good; next"* (the device sheet) → the finalization laid out → *"good; next the walk-through of the marks"*. **DECIDED:** the
+data shape — `notation/registry/rules.json` {anchors · column · objects · ladder}, `edge` staying in `page_rules.json`; the devices
+reference rows instead of carrying numbers (a listed migration, THE SHIELD byte-identical except the decided changes, also listed);
+overrides on the event; `tools/gen_engraving_rules.js` → `docs/ENGRAVING_RULES.md` from the data, never hand-edited, NOTATION_STANDARDS
+kept as history, §1a amended to point at the rows; the seven gates (every drawn + animated kind an edge row · every drawn object type a
+row · no colour / size literal for a music mark in layout.js / render.js · the fit test + the decisions-needed report · the dot never on
+a line · head on time ↔ no go line · every device its sheet §).
+
+**THE WALK-THROUGH (the EH's block at the opening, video view in C; the working page shows it in F, D♯6):** the reading order for a
+player — (1) WHEN: the go line (dashed grey) at the breath's time; the magenta line in his screenshot is the CURSOR at 0 s, over it ·
+(2) WHAT, to a quarter-tone: the open head G♯5 with ¾♯ — the band rule (§1a): |c| < 20 plain · 20 … 37 an arrow on the note's own
+accidental · ≥ 37 the quarter-tone sign; +41 on a ♯ note = ¾♯ · (3) EXACTLY: `+41` — cents above the TEMPERED G♯5 (the plain letter's
+pitch, not the ¾♯'s), signed with the true minus, no ¢ · (4) WHY, what to listen for: `26°/C1` — the 26th partial of C1 (= the 13th of
+C2; the 13th partial sits +40.5 ¢ over the tempered ♯ — the arithmetic agrees), the chord's fundamental named so the player hears the
+note as a harmonic of the bass, not as a tempered note bent · (5) HOW: "senza vib." once, holding through the sequence and the morph ·
+(6) HOW LOUD, and how it moves: `pp → mp` on the dynamics row (the arrow = a continuous change), the opening sign `○ ——<` under it
+(from niente) [planned in §380; its presence in the page not seen by the AI], and the level curve along the lane on ONE FIXED SCALE
+(niente at the lane floor … fff at its top, the same scale for the whole piece), the green tube (the meter) at the cursor showing the
+level now · (7) THE NEXT BREATH: the pie at the lane top, full at the onset, empty at the release · (8) LATER BREATHS: a parenthesised
+cue-size head with its accidental inside the parens = breathe again, the same note (no column); a full head with its column = a new
+note; `(mp)` · `(pp)` at the curve's turning points. **After today:** the block at 4 s not 0 (the lead-in); the pie and meter never in
+the gutter; the head, ¾♯, `+41`, `26°/C1` and "senza vib." right-justified to 0.45 before the go line (anchor B); `+41` and `26°/C1`
+BLACK, 0.75 upright; "senza vib." 0.75 italic; the ¾♯ clear of the ledger line's end.
+
+## §430. THE MARKS ONE AT A TIME — (1) THE ACCIDENTAL'S BANDS: the standards, the decision and its (unwritten) why, the alternatives, the performer's clarity (2026-09-27, Fable, session 17)
+
+**His words:** *"So let's take this one at a time. And please give me the same breakdown slash analysis for each one in terms of engraving
+slash orchestration standards, any decisions we already made and why. And alternatives, if there isn't a clear standard. So the, let's
+take one, the first issue being when to notate with an accidental and when not to, and if this is clear enough for the performer or
+they understand somehow via the notation this rule."*
+
+**The decision on record:** |c| < 20 → the plain accidental (none on a natural) · 20 … 37 → an arrow on the note's own accidental (alone
+on a natural) · ≥ 37 → the quarter-tone sign — the "under ~20 plain" from the research (2026-09-19, §108 · §113), the 37 edge the AI's
+table over this piece's partials (§377), his word *"Yes, good."* (§378). The cents ALWAYS written, from the plain tempered note (§1a; the
+research's rule "never from the microtonal accidental"). Over the piece's partials: 3 · 5 · 9 · 15 · 17 · 19 plain · 7 · 21 ↓ · 23 ↑ ·
+11 ¼♭ · 13 ¼♯. **The why, as the record has it:** the accidental is the READING layer — the eye finds the note at a glance; the number
+is the truth (research §2). **Not written anywhere: why 20 and why 37.** Supplied today (the AI's reading, for the row's `basis`): 37 is
+the midpoint of an eighth-tone (25) and a quarter-tone (50) — the sign that is nearer; 20 keeps the 5-LIMIT PLAIN — the just third and
+its octaves (5 −14 · 15 −12 · 17 +5 · 19 −2) wear no special sign, as they wear none in common-practice intonation, so the picture is
+never more than 20 ¢ from the truth and the arrow band (20 … 37) is the standard "less than a quarter-tone" sign.
+
+**The standards.** Engraving (Gould, Behind Bars, "Microtones" — from memory, to check if a page is wanted): two documented
+vocabularies — the quarter-tone accidental set (Stein–Zimmermann) and arrows on standard accidentals for "raised / lowered by less
+than a quarter-tone", the amount defined in the front matter — and one firm rule: explain the system in the performance notes, be
+consistent. Just-intonation practice (research §8): HEJI (Sabat · Schweinitz · Hayward) one sign per prime, exact, cents optional above
+· Tenney cents only over the head · the spectralists (Grisey · Murail · Saariaho) the nearest quarter-tone (sometimes eighth-), no cents,
+no partials · Haas sixth- and quarter-tones + "tune by ear". **So there is no single standard for the picture when the exact value is
+also written;** the two clear conventions are ROUND TO THE NEAREST QUARTER-TONE and AN EXACT ALPHABET. Ours is the first with one
+refinement (the arrow band), plus the exact number — a hybrid with precedent on both sides (HEJI also counts its cents from 12-ET).
+
+**The alternatives:** A · ours (three bands) — the picture within 20 ¢ (plain band) or 13 ¢ (the others); six arrowed glyphs (built);
+one front-matter sentence · B · the nearest quarter-tone only (spectral practice) — two pictures, a smaller alphabet, the picture up
+to 25 ¢ off (the 7th −31 and 23rd +28 both become quarter signs) · C · HEJI — exact, the number redundant, but seven prime signs for
+this piece's partials and a legend a festival ensemble on short rehearsal must learn · D · cents only on a 12-ET head (Tenney) — no
+quarter-tone at a glance. **The AI's pick: A as decided**, the why now written.
+
+**Clarity for the performer:** the player never needs the bands — they read the picture as in any microtonal score (a quarter sign =
+a quarter-tone; an arrow = a little sharp / flat) and then the exact number; the bands are OUR rule for drawing the picture. What the
+player DOES need is ONE SENTENCE in the front matter, the standard practice: *"Accidentals show the nearest quarter-tone; an arrow
+means raised or lowered by 20 – 37 cents; the cents figure is exact and counts from the plain (unarrowed) note."* — the one real
+ambiguity is a `+41` beside a ¾♯ read as "41 above the three-quarter sharp"; the sentence closes it. The sentence is his (§380:
+"the legend sentence and the performance notes are his, later"). **Put to him:** A kept, with the why and the sentence?
+
+## §431. HELD-3 at his word — reconcile the THREE SYSTEMS (the accidental · the arrow · the cents) into one the performer reads intuitively (2026-09-27, Fable, session 17)
+
+**His words (sent to be held — *"I am sending cause I cant see the chat"*):** *"I want to dig in a little bit deeper to uh, standard
+notation or approaches if no standard exists. I want to reconcile the use of the sense [cents] and the use of the accidental to make
+sure it's consistent. In other words, it should be very clear to the performer and intuitive. So I guess it feels like they're either
+adding sense or subtracting sense to the notated pitch, and then sometimes they're not. So is this a standard approach? So it's clear
+to performers when to read the sense from the notated pitch and when not to, or should we resolve it in the notation itself? And then
+also with the arrows, reconcile that. So it seems like we have at least three different systems, the accidental system, the arrow
+system, and the sense system. Let's try to walk through this and make it clear, intuitive, and conforming to any notation that
+contemporary performers are used to."* — on marks 2 and 3 of the walk-through (the ¾♯ picture · the `+41` counted from the plain
+letter, not from the ¾♯).
+
+**HELD-3:** the next thing under mark 1 when he is back — the question in one line: does the cents figure count from the NOTATED
+pitch (what the accidental shows) or from the PLAIN letter, and can the notation itself make that unambiguous rather than a
+front-matter sentence; the arrow's meaning reconciled with both. Mark 1's "keep A?" stays open until this is settled.
+
+## §432. HELD-3 taken up — THE THREE SYSTEMS RECONCILED: one origin (the tuner's), the accidental to the nearest quarter-tone, the arrow band dropped; the analysis and the recommendation (2026-09-27, Fable, session 17)
+
+**His words:** *"ok back, lets take up the three systems as way to add info to the above analysis/decision. bottom line here, what's the
+clearest, most logical way to communicate to the performer? So I would say, it sounds like there isn't already a standard, but where
+there is a standard, it's probably what they're used to. And so regardless of its logic, we go with that or as with that as part of
+it. But if there's no universal understanding of certain things, then let's design those three parts so that it's the most logical
+and intuitive to the performer. And let's take the practical into consideration. So I think previous discussions, we had also
+discussed how a performer is likely to achieve that pitch in rehearsal. So use a tuner or if it's, I think all of these are like just
+intonation partials. So maybe they're already familiar with the sound of a just intoned partial, et cetera, et cetera. Anyways, let's
+analyze and evaluate what's the best way moving forward. And can you give your recommendations in relatively simple and clear
+language, please?"*
+
+**What contemporary performers are used to (the AI's knowledge of the practice; the research §8 the record):** (1) QUARTER-TONE
+ACCIDENTALS — universal (the Stein–Zimmermann set; the spectralists, Haas, everyone): exactly ±50 / ±150 from the natural; every
+professional has fingerings for them. (2) CENTS NUMBERS — the widespread convention, and HEJI's own: the deviation FROM THE 12-ET PITCH
+of the letter with its ordinary accidental (♯ · ♭ · ♮), written above the note; a tuner shows exactly this ("G♯ +41"), never a quarter-
+tone sign. (3) ARROWS — NO universal meaning: Gould's "a little sharper / flatter, less than a quarter-tone, define it in the front
+matter"; HEJI's arrow = the syntonic comma exactly (21.5 ¢); Haas's sixth-tone (33); ours 20 … 37 — a JI player reads one thing, an
+orchestral player another. (4) PARTIAL NUMBERS — familiar to brass (the natural-horn tradition; Ligeti's Hamburg Concerto writes the
+numeral over the note), to strings through natural harmonics, to anyone who has played spectral or JI music; the SOUND of the 7th ·
+11th · 13th partials is known to such players. (5) HEJI — the JI scene's standard (Sabat · Schweinitz · Lamb · Hayward; Musikfabrik,
+JACK), exact signs per prime; NOT what a mixed festival ensemble is used to.
+
+**Where his unease comes from:** two of our marks each show a DEVIATION — the ¾♯ says "+50 from G♯", the number says "+41 from G♯" —
+so the reader cannot tell whether the number is on top of the sign or instead of it. In HEJI this cannot arise (the sign is exact,
+the cents are the sign's own value rounded); with a rounded picture it always can. **Can the notation itself resolve it?** No score
+makes "from 12-ET" self-evident; every score with cents carries the one legend line, and performers expect it. What makes it
+INTUITIVE is the tuner: the page's `G♯ +41` and the tuner's `G♯ +41` are the same words.
+
+**The options for the picture, weighed:** cents from the PICTURE (+41 with ¾♯ → −9): small numbers, but contradicts the tuner and
+HEJI's convention — rejected · HEJI proper: exact, never two truths, but seven prime signs and a legend to learn — not this ensemble ·
+ours with the arrow band: three systems, the arrow's meaning not universal · **the accidental to the NEAREST QUARTER-TONE, no arrows
+(the spectral convention) + the exact cents from 12-ET (the tuner's convention) + the partial (the ear's cue):** two systems with a
+standard behind each, plus the reason; the picture at most 25 ¢ from the truth (7th −31 · 21st −29 · 23rd +28 become quarter signs,
+19 – 22 off, the number refining in the SAME direction); the 5-limit stays plain (5 −14 · 15 −12); the legend two sentences.
+
+**THE RECOMMENDATION (the AI's; his to decide):** (1) ONE ORIGIN for every mark — the 12-ET pitch of the letter with its ordinary
+accidental, what a tuner shows; the cents always count from it (standard: HEJI, tuners) · (2) the ACCIDENTAL shows the nearest
+quarter-tone and nothing finer — the arrow band DROPPED (the six arrowed glyphs stay baked, unused); the 20 / 37 bands become one
+edge at 25 (standard: the spectral convention) · (3) the PARTIAL stays (the ear's cue, the practical route in rehearsal) — and, a
+small separate question, its form: `26°/C1` has no precedent; a plain numeral is the natural-horn / Ligeti form (`26/C1`, `26 · C1`
+or `26 (C1)`) — his pick · (4) the legend, two sentences: *"Accidentals show the nearest quarter-tone. The cents figure is exact
+and counts from the tempered pitch of the letter and its ordinary accidental (as a tuner reads it); the partial names the harmonic
+of the given fundamental."* · (5) the test of intuitiveness: page and tuner say the same thing; the ear has the partial; the eye has
+the quarter-tone. Supersedes §378's bands if he takes it; §1a and the row's `basis` amended.
+
+## §433. His clarifying questions on §432 — the spelling rule (D¾♯ or E¼♭?), the cents' range and sign, a threshold for small cents, the legend in plainer words; the partial's form HELD-4 (2026-09-27, Fable, session 17)
+
+**His words:** *"in our current example of the English horn, This is D three quarter sharp. We keep all of the quarter tone accidentals,
+correct? And then is there a rule here as to which direction it goes? or which ones we always use as opposed to others. Like, should
+that be E quarter flat? … Or is there a standard for which one to use and harmonically? Then we'll add the sense … If we're keeping the
+three quarter sharp, The sense will never be more than a quarter tone. So it will never be plus or minus 26, or actually even 25. It'll
+be 24 or lower. So two issues here. … Should there be a rule here or a direction like never minus or never plus? Or if it's sharp,
+always plus, that kind of thing. And then should we keep a threshold like there are a number of partials that are plus two cents or
+plus four cents. And is there a logic if there is meant to be a threshold …? explain 4 in simpler terms to me and lets refine the
+lenguage; [the partial's form] hold this for next discussion."*
+
+**(1) Yes — all four quarter-tone signs stay** (½♯ · ¾♯ · the reversed flat ¼♭ · ¾♭), the Stein–Zimmermann set every player reads.
+
+**(2) THE SPELLING — a rule falls out of the origin.** The quarter-tone signs are built on the NATURAL letter (½♯ = the natural +50;
+the reversed flat = the natural −50; ¾♯ = the sharp +50; ¾♭ = the flat −50). So D¾♯ has the origin D♯ and the truth +41 from it;
+E¼♭ (the reversed flat on E) has the origin E and the same pitch is −59 from it — beyond a quarter-tone, and NOT what a tuner shows (a
+chromatic tuner names the nearest tempered note: "D♯ +41", never "E −59"). **The rule: the origin is the NEAREST tempered pitch
+(|cents| ≤ 50); the quarter-tone sign, if any, points from the origin toward the truth; the cents carry the same sign.** Consequences:
+a sharp-side deviation is spelled with a natural or a sharp (½♯ or ¾♯), a flat-side one with a natural or a flat (¼♭ or ¾♭) — the
+sign's arrow and the number's sign ALWAYS agree, which answers "never minus / if sharp always plus": with a quarter-tone sign, yes,
+always the same way; with a plain accidental either way. Gould's preference for avoiding ¾ signs by respelling on the next letter is
+overruled here for one reason: the respelling breaks the tuner match. Which enharmonic name the ORIGIN gets when two are equal (D♯ /
+E♭ are one tempered pitch) is then decided by the rule itself: +41 must be spelled from D♯ (a ¾♯), because E♭ +41 has no sign of its
+own (E♭ raised a quarter IS the reversed flat on E, origin E, −59) — so the direction of the deviation picks the spelling.
+
+**(3) THE CENTS' RANGE — his "never more than 24" corrected:** the number counts from the TEMPERED origin, not from the quarter-tone
+picture, so with a quarter-tone sign it runs 25 … 50 (his own example, +41); with a plain accidental 0 … 24. Numbers ≤ 24 everywhere
+would mean cents counted from the picture — rejected in §432 (the tuner). **A THRESHOLD for small figures (+2 · +4 · +5 · −2 — the 3rd ·
+9th · 17th · 19th partials):** the logic available — the just-noticeable difference for sustained tones ≈ 3 – 5 ¢, a tuner's needle
+1 – 2 ¢, ensemble tolerance 5 – 10 ¢; so a "+2" asks for nothing a player can do deliberately, but it SAYS "this one is in tune, do
+not fuss", and a number on every note means an absence never has to be interpreted. The AI's pick: ALWAYS write it (no third rule to
+learn; the tuner shows it anyway); the alternative, a threshold at 5 with one legend line "a note without a figure is within 5 ¢".
+
+**(4) THE LEGEND, plainer — three short lines to refine with him:** *"Quarter-tone accidentals are approximate; the small number is
+exact."* · *"The number is cents from the plain tempered note — what a tuner shows."* · *"26/C1 means the 26th harmonic of C1."*
+(The partial's own form is HELD-4, the next discussion at his word.)
+
+## §434. His question from the performer's side — *"why we aren't using D sharp plus 41 instead of D three quarter sharp plus 41"*: the trade between the sign and one truth (2026-09-27, Fable, session 17)
+
+**His words:** *"So just help me understand or resolve from a performer's perspective why we aren't using D sharp plus 41 instead of D
+three quarter sharp plus 41. So will a performer read that as D three quarter sharp plus 41 more cents above it? I agree with the
+tuner presentation. So the tuner will say D sharp and then they'll tune up until the tuner says D sharp plus 41. I just want to
+understand why we're saying D three quarter sharp."*
+
+**The honest answer: it is a trade, and both sides are standard practice.** The quarter-tone sign says the same thing as the number,
+more coarsely, from the same origin — two resolutions of one deviation. What it buys: (a) the GLANCE — at an entrance the eye reads
+the accidental, not digits; D♯ +41 and D♯ +4 look identical until the number is read; (b) the FINGERING cue for the winds — the
+oboe / english horn and bassoon quarter-tone charts are indexed by the quarter-tone signs, so ¾♯ names the fingering and the number
+says how far to relax it; (c) the spectral convention players know. What it costs: exactly his worry — the first time, some players
+WILL read "+41 more above the ¾♯" (and would find it absurd on reflection: +91 from D♯ is nearly E), so it needs the legend line and
+the agreement rule (with a quarter sign the number is always 25 … 50, always the sign's own direction) — after two notes it is
+automatic; HEJI's players live with exactly this (its quarter-tone arrow carries "+51"). D♯ +41 alone (ordinary accidentals + the
+exact number + the partial — Tenney's way with the partial added): ONE truth, the tuner's words verbatim, nothing to misread, no
+legend line for the origin; the costs are the glance and the fingering cue, both smaller in slow, sustained music (this piece's), and
+the partial still gives the ear its cue.
+
+**The AI's recommendation, put to him:** in THIS piece — sustained tones, few notes, time to read — either serves; the deciding
+question is his priority. If one truth and the tuner's words outrank the glance: **B, D♯ +41**. If the entrance-glance and the wind
+fingerings outrank the one-time misreading: **A, D¾♯ +41** with the legend line. The AI leans A for the winds' sake but holds it lightly;
+the rejected middle (C, D¾♯ −9, cents from the picture) stays rejected — it breaks the tuner.
+
+## §435. DECIDED — A (D¾♯ +41, the quarter-tone sign kept, the legend to be very clear) · the cents ALWAYS shown · the legend drafted · the microtonal mini-TOC (2026-09-27, Fable, session 17)
+
+**His words:** *"I think this, but lets make sure the perf inst/legend are very clear; — the entrance-glance and the wind fingerings
+outrank a one-time misreading → A, D¾♯ +41, with the legend line. threshold, you're saying to always show the number of cents
+regardless of how small. Is that correct? If that's the case, then yes, I agree with this. then legend language draft pls and list
+mini TOC what is left to decide regarding microtonal notation, I believe the partial number, what else"*
+
+**DECIDED:** (1) the picture = the NEAREST QUARTER-TONE (the four Stein–Zimmermann signs; no arrows; the 20 / 37 bands of §378 replaced by
+one edge at 25) · (2) the spelling rule of §433 (the origin the nearest tempered pitch; the sign toward the truth; the number the
+sign's direction) · (3) the cents ALWAYS written, from the tempered note, however small · (4) the legend must make the origin
+unmistakable. §1a to be rewritten to this; the six arrowed glyphs stay baked, unused (NITS).
+
+**THE LEGEND — first draft, for his refining (the front matter's "Tuning" paragraph; a picture of one block beside it):**
+> TUNING. Every pitched note is a harmonic of a written fundamental, tuned pure.
+> THE ACCIDENTAL gets you within a quarter-tone. Ordinary sharps and flats; the quarter-tone signs [½♯ ¾♯ reversed-♭ ¾♭] mean a
+> quarter-tone (50 cents) up or down from them. It is approximate.
+> THE NUMBER above the note is exact: cents from the plain tempered note — the letter with its ordinary sharp or flat — the same reading
+> a chromatic tuner gives. The number is NOT added to the quarter-tone sign; sign and number both measure from the same tempered note,
+> and always in the same direction. Example: D¾♯ +41 = 41 cents above tempered D♯ (a little under a quarter-tone up); the tuner reads
+> D♯ +41.
+> THE PARTIAL, e.g. 26/C1, says which harmonic the note is — the 26th harmonic of C1. In rehearsal the tuner takes you to the number; in
+> performance the ear locks the partial to the fundamental and the lower harmonics sounding around you. Over a long chord the number may
+> drift with the instruments; the partial stays true — tune to it.
+> A small number (+2) means the note is all but tempered — play it in tune and do not correct.
+> [Brass: where a fingering or valve combination is given, it produces the partial; use it and do not correct the pitch.]
+> [Transposing parts: the cents are the same whether you read written or sounding pitch; the tuner will name the sounding note.]
+
+**THE MICROTONAL MINI-TOC — decided:** the accidental ✓ · the spelling ✓ · the cents ✓ · the size, face, colour ✓ (layer 3) · the
+placement ✓ (anchor B; cents nearest the head, the partial above — his §380). **Left:** (a) the legend's language ► (drafted above) ·
+(b) the PARTIAL's form (HELD-4: `26°/C1` · `26/C1` · `26 (C1)` · `C1:26`) · (c) the HOW layer — brass valve combinations (research
+§4, AI arithmetic, unchecked with a player) and the strings' natural harmonics (§5): their form and place; nothing built; not on the
+EH · (d) the FUNDAMENTAL's naming — the octave convention (scientific: C4 = middle C) and its spelling (sharps or flats) · (e)
+transposing parts in the legend (the tuner names the sounding note; the cents are the same number) · (f) the REMINDER head at a
+same-pitch breath — a parenthesised cue head with its accidental inside the parens (the AI's reading, §385; his eye) · (g) the drift
+sentence (in the draft) · (h) the worked picture in the front matter.
+
+## §436. His check — *"standard semitone accidentals are pitched as written … is that statement true?"*: NO — every accidental is the nearest grid point; only the number is exact (2026-09-27, Fable, session 17)
+
+**His words:** *"I want to say standard semitone accidentals are pitched as written. But is this actually the case? So for example, if
+it's C sharp plus three cents, are we writing that as C sharp and then adding the plus three cents? Or are we writing that as C three
+quarter sharp and plus three cents? In other words, is that statement above true? Are we just keeping standard semitone accidentals
+for their actual exact pitches? Or are we using those, turning those into estimates as well?"*
+
+**The answer:** the statement is NOT true and must not go in the legend. C♯ +3 is written C♯ with +3 (3 < 25 → the plain sign); C♯ +24
+is written C♯ +24 (still plain — nearly a quarter-tone up, and the ♯ is as much an estimate as a ¾♯ would be); C♯ +26 → C¾♯ +26;
+C♯ +41 → C¾♯ +41. So EVERY accidental, ordinary or quarter-tone, is the nearest point on the quarter-tone grid, and the note is exactly
+as written only when the number is 0 (which a just partial never is). The two grids, stated plainly: the PICTURE snaps to the nearest
+QUARTER-TONE; the NUMBER counts from the nearest tempered SEMITONE (the letter with its ordinary ♯ · ♭ · ♮). The legend's line becomes:
+*"Every accidental — ordinary or quarter-tone — shows the nearest quarter-tone and is approximate; the number is exact."*
+
+## §437. HIS LEGEND DRAFT — fact and definition check, the glaring edits; the partial's form C1:26 at his word (HELD-4 closed, one risk named) (2026-09-27, Fable, session 17)
+
+**His draft (verbatim):** *"TUNING. [sole heading] Every pitched note is a harmonic of a written fundamental, tuned pure (or should we
+refer to just-intonation here, either way, needs to harmonize with below). In this score, all accidentals will be approximate within
+1/4 tone of the actual pitch. The cents notation provides the precise tuning from a plain tempered note — the same reading a
+chromatic tuner gives. For example, the pitch D# +41c will be notated as D3/4# (the closest quarter-tone approximation) and the cents
+notation will be +41. The +41 would indicate 41 cents sharper than D#, as a tuner would show it. No cents notation means played as
+written. There will not be any quarter-tone accidentals without accompanying cents notation even if the tuning is that precise
+quarter-tone. [b. lets use C1:26 unless there is a more standard way of expressing] Since all microtonal pitches in this piece come
+from the just-intonation tuning of a harmonic series, the fundamental and partial number are provided as a courtesy notation. [lets
+use the D#+41 example here] C1:26 indicates the 26th partial of the fundamental C1."* — *"Could you fact slash definition check my
+legend for me? For example, am I using just intonation correctly, among other things? … if anything glaring, go ahead and fix up or
+recommend or suggest. And then let's do C through H discussion and then if any of the discussion results in amendments or changes to
+the legend, we'll come back to the legend."*
+
+**The checks:** (1) "just intonation" — correct: tuning by whole-number frequency ratios; the partials of a harmonic series are
+integer multiples of the fundamental, so every partial is in just intonation to it by definition (the precise term for primes above 5
+— our 7 · 11 · 13 — is Johnston's "extended just intonation"; "just intonation" is right and is the term players know). Use it once,
+drop "tuned pure" or keep it as the gloss. (2) "within 1/4 tone" — TRUE BUT LOOSE: the accidental is the NEAREST quarter-tone, so the
+error is at most HALF a quarter-tone — 25 cents (an eighth-tone). Say 25 cents. (3) "plain tempered note" needs its definition in the
+sentence: the letter with its ordinary sharp, flat or natural, ignoring any quarter-tone sign. (4) The example should show the SIGN
+(the three-quarter-sharp glyph), not "D3/4#", and the figure as it appears on the page — "+41", no "c" (the prose says "cents" once).
+(5) THE KEY NEGATIVE is missing and closes the one misreading: "— not 41 cents above the three-quarter-sharp". (6) "No cents notation
+means played as written" — TRUE and useful, but only tempered notes have none (the vibraphone's; every partial carries its figure,
+even +2), so say whose: "a note with no figure (the vibraphone's) is tempered — play it as written". (7) "courtesy notation" — in
+engraving a courtesy mark is a cautionary reminder (a courtesy accidental); the partial is not that — it is the performance layer,
+what to listen for (research §2). Say "for the ear" / "as an aid to tuning by ear". (8) "all microtonal pitches … come from" — ALL
+notated pitches are partials, the +2 ones too; and "every pitched note" should read "every NOTATED pitch" (a morph's glide passes
+through non-partials between its heads; the vibraphone is tempered). (9) The partial's form — no standard exists for a
+fundamental + partial pair on the page (the natural-horn / Ligeti standard is the bare numeral, the fundamental understood);
+**C1:26 at his word** — one risk named: a colon between a pitch and a number can read as a ratio (3:2) or a clock time; the
+alternative "26 (C1)". His to keep or change after the legend defines it once. (10) The example raises item (e) early: the EH's
+D♯ +41 is WRITTEN pitch (G♯5 +41 sounding); its fundamental C1 is a SOUNDING event in the room (the bass) — in a transposed part, is
+the fundamental named at sounding pitch (C1, what the player listens for) or written (G1, consistent with the line)? Open, for (e).
+
+**The edited legend (his structure and voice, the facts fixed) — to return to after (c) … (h):**
+> **TUNING.**
+> Every notated pitch (the vibraphone excepted) is a partial of a written fundamental, in just intonation — tuned to the exact
+> whole-number ratios of the harmonic series, not to equal temperament.
+> In this score every accidental is an approximation: it shows the nearest quarter-tone, so the written note is never more than 25
+> cents from the actual pitch. The cents figure above the note gives the precise tuning, measured from the plain tempered note — the
+> letter with its ordinary sharp, flat or natural, ignoring any quarter-tone sign — exactly as a chromatic tuner reads it. For
+> example, the pitch 41 cents above D♯ is notated D[¾♯] (the nearest quarter-tone) with +41 above it: 41 cents sharper than tempered
+> D♯, as the tuner shows it — not 41 cents above the three-quarter-sharp. A quarter-tone sign always comes with a cents figure. A
+> note with no cents figure is tempered: play it as written.
+> Because every pitch is a partial of a harmonic series, the fundamental and the partial number are given as well, for the ear:
+> C1:26 means the 26th partial of the fundamental C1 — the note above, D[¾♯] +41, is C1:26 [pending (e): the fundamental's frame in a
+> transposed part].
+
+## §438. His word — the partial's form is **26 (C1)** (HELD-4 closed); the legend shown to him sentence by sentence, his against the edit (2026-09-27, Fable, session 17)
+
+**His words:** *"26 (c1); please show my original side by side with your edits"* → **DECIDED: the partial is written `26 (C1)`** — the
+numeral first (the natural-horn form), the fundamental in parentheses; `26°/C1` and `C1:26` retired. §1a and the object row to say
+so. The (c) calls (c1 parts only · c2 the brass digits' row · c3 strings opt-in) not yet answered; the legend re-shown sentence by
+sentence with the reason for each change, then (c) again.
+
+## §439. THE LEGEND — his text settled (his words, three of the edits taken) · (c) THE HOW LAYER DROPPED at his word — *"I'll leave performers to sort out fingerings and adjustments on their own"* (2026-09-27, Fable, session 17)
+
+**His legend (verbatim, the settled text):**
+> TUNING.
+> Every pitched note is a harmonic of a written fundamental, tuned in just intonation.
+> In this score, every accidental is an approximation and will be approximate within a quarter-tone of the actual pitch. The cents
+> notation provides the precise tuning from a plain tempered note — the same reading a chromatic tuner gives. For example, the pitch
+> 41 cents above D♯ is notated D[¾♯] {the actual three-quarter-sharp glyph here} (the closest quarter-tone approximation) and the
+> cents notation will be +41. The +41 would indicate 41 cents sharper than D#, as a tuner would show it. No cents notation means
+> played as written. There will not be any quarter-tone accidentals without accompanying cents notation even if the tuning is that
+> precise quarter-tone.
+> Since all microtonal pitches in this piece come from the just-intonation tuning of a harmonic series, the fundamental and partial
+> number are provided as a courtesy notation. 26 (C1) indicates the 26th partial of the fundamental C1.
+Taken from the edit: "just intonation" · "41 cents above D♯" · the real glyph · `26 (C1)`. Left as his: "within a quarter-tone"
+(true, loose) · "courtesy notation" · no vibraphone exception · no "not 41 above the three-quarter-sharp" clause (the AI's one
+remaining recommendation, offered once more, his to decline). Copy-edit deferred to the performance notes.
+
+**(c) DROPPED — DECIDED:** no "how" layer — no valve combinations for the brass, no harmonic circle + string for the strings; the
+performers find their fingerings and adjustments themselves. This reverses the 2026-09-19 fourth layer (research §1 "the valve
+combination or the string where the instrument has one"; §4 · §5 stay as research, not as notation). §1a to say so.
+
+## §440. (d) THE FUNDAMENTAL'S NAMING and (e) TRANSPOSING PARTS — the data read from Draft 01; the proposals (2026-09-27, Fable, session 17)
+
+**Read:** `bank/reference_chords.json` — the six reference fundamentals are named B♭1 · A1 · C2 · G♯1 · B1 · F♯1 (scientific octaves, C4 =
+middle C = MIDI 60; sharps for G♯ · F♯, the flat for B♭) · `scores/piece-Recombination-Draft01-done.json` — 9 sequences; the first's box 1
+is the take **`Just-C1-seed90`**: the SERIES ROOT is C1 (MIDI 24) — bassoon partial 4 (C3) · double bass 10 (E4 −14) · horn 11 (F♯4 −49) ·
+cello 14 (B♭4 −31) · the english horn 26 (G♯5 +41); every note's `performanceNotes` carries `… Just-C1-seed90 · partial 26 · +41¢ just`.
+So the "C1" on the prototype's block is the TAKE's root, and no one plays C1 or C2 — the lowest sounding member is the bassoon's
+partial 4, two octaves up. (The bank's reference chord on C2 is a different object — the six reference chords; the takes are dealt
+from the strikes drawer's HARMONIC SERIES banner on a chosen root.)
+
+**(d) The proposal:** name the fundamental as the take's series root, exactly as the composer app dealt it — ONE source, the recipe —
+so `26 (C1)` stands; the partial counted from that root; the octave scientific (as everywhere in the app; one parenthetical in the
+legend, "(C4 = middle C)"); the spelling the take's / the bank's (B♭ · A · C · G♯ · B · F♯), never re-spelled by the notation. The
+alternative — re-count from the lowest SOUNDING member (13 (C2), or the bassoon's C3 → 6.5, impossible) — rejected: arbitrary, and it
+breaks the one source. The ear's cue survives: a C is a C in any octave; the partial number says which member.
+
+**(e) Transposing parts — the proposal:** the fundamental is a SOUNDING fact (the take's root; the bass and bassoon sound its
+partials), so it is ALWAYS named at sounding pitch, in every realization — the english horn's part reads D[¾♯] +41 · 26 (C1) with C1
+concert; the cents are the same number written or sounding (transposition by a tempered interval keeps the deviation); a tuner names
+the sounding note. Two lines for the legend when we come back to it: *"Fundamentals are given at sounding pitch (C4 = middle C)."* ·
+*"In a transposing part the cents figure is unchanged; a tuner will name the sounding note."*
+
+## §441. (d) CLOSED at his word — *"just keep 26 (c1) as is"*, a minor issue; (e) put to him in plain terms with its consequences (2026-09-27, Fable, session 17)
+
+**His words:** *"Just to clarify, issue D is just confirming the D sharp plus 41 and finding out which actual partial it is of which
+actual fundamental. And nothing else? Then this is just a minor issue. No need for further investigation. Let's just keep the example
+as is, regardless. just keep 26 (c1) as is; Can you explain E to me in more simpler terms? In particular, what are the consequences?"*
+→ **(d) CLOSED:** the fundamental as the take names it (`26 (C1)`), scientific octaves, the bank's spelling — nothing more.
+
+**(e) in plain terms:** three marks sit on a note; in a TRANSPOSED part (EH and horn in F; trumpet in B♭) — the HEAD and its accidental
+are written pitch, as always for that player (sounding G♯5 → written D♯6; the quarter-tone picture follows the written note, §378) ·
+the CENTS are the same number in both frames (a transposing interval is a whole number of tempered semitones, so the deviation is
+unchanged: +41 above G♯ = +41 above D♯) · the FUNDAMENTAL in `26 (C1)` is a note the ROOM plays — transposed to the part's frame it
+would read G1, and the player would listen for a G that nobody sounds. **Consequences:** (1) the fundamental is always at sounding
+pitch, so a transposing player's line shows two frames — a written head, a sounding fundamental — the one oddity, answered by one
+legend line; (2) the tuner names the sounding note (G♯) while the part says D♯ — the transposing player's daily life; the +41 matches,
+which is what matters; (3) the presentation score (in C) and the bass (an octave, the letter unchanged) have no issue; (4) the partial
+number is frame-free; (5) FOR THE BUILD: the part realization's `transpose` must move the heads and the accidental picture ONLY — never
+the fundamental's text or the cents — one rule, one gate. Alternative (the fundamental in the written frame, G1): consistent on the
+line, false to the ear — rejected.
+
+## §442. (e) DECIDED — *"e good"*; the transposing-instrument lines slotted into the pitch-notation doc; §1a REWRITTEN to today's decisions, §1b added with his legend (2026-09-27, Fable, session 17)
+
+**His words:** *"e good, just slot the performance note recommendations to transposing instruments into the appropriate document and
+we'll write the full performance instructions later, including my instructions regarding the pitch notation."*
+
+**Done:** `docs/research/just_partials_notation.md` — **§1a rewritten** (the 2026-09-25 text superseded: the nearest quarter-tone, no
+arrows · the spelling rule · the cents always, from the tempered note · `26 (C1)`, the take's root, sounding pitch in every
+realization, the part's transpose never touching it · no "how" layer · faces · sizes · black · anchor B's right-justified column · the
+accidental clear of the ledger) with the § trail, and a note that the rows move to `rules.json` when it exists · **§1b added** — his
+legend verbatim, the two transposing-instrument lines to slot into the performance notes, and the lines offered but not taken (the
+"not 41 above the ¾♯" clause · the vibraphone exception · the drift sentence · the worked picture), for when the full notes are
+written (PLAN 2b). This is F5's remedy applied by hand until the generated table exists.
+
+## §443. (f) DECIDED — *"iii, no head"*: a same-pitch breath carries the go line alone; the microtonal mini-TOC closes; mark 5 ("senza vib.") opened (2026-09-27, Fable, session 17)
+
+**DECIDED (f):** at a breath that keeps the pitch, NO head — the go line alone (breathe and re-attack), the pie counting it down; a head
+only when the pitch changes. #4's "one go line at every breath onset, no onset noteheads" restored for the sequence; 2d.4's
+parenthesised cue head (and its accidental inside the parens) retired. (g) the drift sentence and (h) the worked picture stay as
+offers in §1b for the full performance notes — closed here. The microtonal mini-TOC is complete: a · b · c · d · e · f decided, g · h
+deferred to the notes. The legend unchanged by the discussion.
+
+**Mark 5 — "senza vib." — the analysis:** decided already: the face and size (`instruction` 0.75 italic, layer 3), the place (anchor B's
+column, above the partial, right-justified to the spacer), the wording (his, §337: "senza vib." once, in the block, holding through
+the sequence AND the morph — `techTexts {senza_vel: 'senza vib.'}`). The standard (Gould; common practice): a technique instruction
+holds until cancelled ("vib." · "ord." · "norm."); it is RE-STATED, usually in parentheses, at a new entrance after a rest or at a
+new page/system, because a player entering late sees only the current page — and a scrolling score shows only the current page by
+construction. The one open decision: (1) once per piece (his §337) · (2) once, and re-stated in parentheses "(senza vib.)" at every
+entrance after a silence longer than N seconds and at each section start — the standard's shape, the AI's pick · (3) at every block.
+And its cancellation: nothing in the piece cancels it (every sustained note is senza) — so the performance notes can say "senza
+vibrato throughout unless marked", which makes (1) safe: the legend carries the rule, the page the reminder.
+
+## §444. Mark 5 DECIDED — *"1 with the sentence"* · marks 6 – 8 (the dynamics: the legend, the opening sign, the curve on the fixed scale, the meter, the turning-point labels; the pie) — the analysis (2026-09-27, Fable, session 17)
+
+**DECIDED (mark 5):** "senza vib." once per piece, in the block (his §337 stands), with the performance-notes sentence *"senza vibrato
+throughout unless marked"*; no re-statement on the page. (§1b to carry the sentence with the transposing lines.)
+
+**Marks 6 – 8 — what is decided and by whom:** the LEVEL CURVE as the dynamic's shape (the pieces' own vocabulary since #1 — CURVE_LOOK:
+one closed path, limeGreen for dynamics) on ONE FIXED SCALE for the whole piece, niente at the lane floor … fff at its top, the same in
+every lane and realization (his, §368 … §380, LG-111 · LG-112) · the METER (the green tube, #2's spec, CURVE_LOOK §6 — 8 px, 3 px left
+of the cursor) showing the level now · the LEGEND `pp → mp` on the house dynamics row `dynY` −4.6 — the form is #4's morph header
+(`○ · arrow · end mark`, his day 35) · the OPENING SIGN `○ ——<` (from niente) on the row UNDER the legend — the AI's proposal (§379;
+"the alternative is the swap") · the TURNING-POINT LABELS `(mp)` · `(pp)` — parenthesised dynamics at the curve's turning points, at
+0.75 with parens 0.43 (the AI's, §380) · the PIE (#2's spec, CURVE_LOOK §7; ON for the breaths, §385; `clamp` at a page start, §411).
+
+**The standards:** dynamics below the staff for instruments (Gould) — our row is below ✓ · a gradual change is a HAIRPIN with its start
+and end marks, or "cresc."; a small circle at the hairpin's tip = niente ("dal / al niente") ✓ our sign · an arrow between two dynamics
+(`pp → mp`) is NOT classical engraving but is common contemporary practice for "changing to" over a held sound (time-space and graphic
+scores; the septet's own morph blocks) — a legend line defines it · a dynamic IN PARENTHESES = a cautionary re-statement or an
+editorial suggestion (Gould) — our turning-point labels are exactly cautionary re-statements, and a smaller size for a reminder than
+for a statement is standard practice (0.75 under the 0.9 dynamic — one LilyPond step, near enough) · a fixed dynamic AXIS has no
+classical standard — it is a graphic-notation device (Xenakis, Stockhausen's graphic scores), and here the whole piece's language.
+The curve REPLACES the hairpin (a hairpin cannot draw the waves); the legend gives the players the written names they rehearse from;
+the labels re-state the level where the shape turns.
+
+**What is left to decide (small):** (6a) the opening sign under the legend, as built, or swapped above it — the AI's pick as built (the
+sign nearest the floor where the curve it describes begins) · (6b) the turning-point labels kept, at 0.75 — the AI's pick yes · (6c) a
+legend line for the performance notes: *"An arrow between two dynamics means a continuous change over the note; the curve in the lane
+shows its shape, on one scale for the whole piece: silence at the lane's floor, fff at its top."* · (7) the pie — nothing to decide
+(his eye at the prototype). Mark 8's labels are (6b).
+
+## §445. His note on mark 5 — *"the middle section will be ord."*: the vibrato rule has a cancellation; the notation and the notes amended (2026-09-27, Fable, session 17)
+
+**His words:** *"the middle section will be ord. so just take note to add this to notation then and say so in notes"* (COMPOSITION_NOTES
+LG-115). **The rule, amended:** "senza vib." at the first block of the piece; **"ord." at each part's first note of the middle section**
+(the standard: a technique instruction at every part's first note of the passage it governs); **"senza vib." re-stated at the first
+block after the ord. passage** (a cancellation must itself be cancelled); the performance notes: *"senza vibrato throughout, except the
+middle section, marked ord."* — mark 5's (1) with the sentence, now with its one exception. For the build: the sequence device's
+`techTexts` maps `senza_vel → "senza vib."`; the middle section's notes are `ord` technique in the save (the texture / counterpoint
+material) — the extractor must write "ord." at the first `ord` note per part after a senza passage and "senza vib." at the first
+`senza_vel` note per part after an ord passage (a change-of-technique rule, once per change per part — the same shape as #5's
+dynamics-on-change, D52). 6a · 6b · 6c still his.
+
+## §446. Marks 6 – 8 DECIDED (6a as built · 6b yes · 6c to the notes) · THE PERFORMANCE-NOTES TRACKER opened at his word — the walk-through is complete (2026-09-27, Fable, session 17)
+
+**His words:** *"6a as built; 6b yes; 6c but lets address all perf notes properly at the same time when I sit down to write them, you
+can just keep track of the things that need notes; this applies to 6a and the other perf notes taken during this conversation; note
+and address/decide later"*. → **DECIDED:** the opening sign under the legend as built · the turning-point labels kept at 0.75 · every
+performance-note line of this conversation (the legend, the transposing lines, the vibrato sentence, the dynamics arrow and the fixed
+scale, the opening sign, the devices' reader's guide, the percussion legend, the offers) goes to ONE TRACKER, `docs/PERFORMANCE_NOTES.md`
+(new — what each note must cover · the § · where a wording already exists; never the notes themselves), written when he sits down for
+PLAN 2b. **The walk-through (item 4) is complete: marks 1 … 8 decided.** Every item of his 2026-09-27 list is now decided or held by
+name: 1 · 2 · 3 (layer 3a) · 4 · 5 (anchor B) · 6 (F2) · 7 (F6) · 8 (the architecture). What remains is the BUILD PLAN — the top line
+of PLAN items for Opus, then a checkpoint, a clear, and the build.
+
+## §447. PLAN § `2e` WRITTEN — THE ENGRAVING RULES ARCHITECTURE, 2e.1 … 2e.7, at his word *"yes good to go, write the whole plan"*; the PLAN header's second standing rule (2026-09-27, Fable, session 17)
+
+**His words:** *"at the end of build, we have the system in place, does it include the eh prototype rebuild or is that a separate action"*
+→ inside the plan (2e.3 the fixes as table edits · 2e.6 the re-extract · 2e.7 his eye) → *"yes good to go, write the whole plan"*.
+
+**Written:** `docs/PLAN.md` § `2e` — the result when done · the design line (the five layers with every decided value and its §) ·
+2e.1 the tables + the generator + the gates, THE MIGRATION byte-identical · 2e.2 the lead-in (`page_rules.leadInS` 4, screen · video ·
+paper) and the animated edges (one shared edge function, the frame probe) · 2e.3 the prototype's fixes as table edits, nine of them,
+each a listed diff (B's 0.45 + right-justified · the nearest-quarter-tone picture and the spelling rule · the numbers black at 0.75 ·
+one size for every note word · `26 (C1)` at sounding pitch with the transpose gate · no reminder head · the accidental from the
+ledger's end · the vibrato change-of-technique texts · the ottava order) · 2e.4 ladder v2 + the fit test + the decisions-needed report
++ two gates · 2e.5 the device sheet in PLANNING_METHOD, the CLAUDE.md line, `sheet: §` per device · 2e.6 the re-extract and the
+shield's final run · 2e.7 his eye · the AI's calls · the build order (Opus, one commit per step, STOP after 2e.6). The PLAN header
+gains its second standing rule: a new notation begins with a device sheet. Next: `/checkpoint` on Opus → `/clear` → Opus builds.

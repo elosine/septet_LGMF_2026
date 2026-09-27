@@ -41,24 +41,74 @@ A just note carries up to three LAYERS. Two are for everyone; the third only whe
 7. **Double reeds — no HOW.** Small deviations are lipped — what they do on every major third. The near-quarter-tones (11th · 13th) want a
    special fingering, and it stays the player's. The charts are in §8.
 
-## 1a. The engraving — DECIDED 2026-09-25 (RUNNING_LOG §377 … §380; laid out on the english horn, section 1)
+## 1a. The engraving — DECIDED 2026-09-25 (RUNNING_LOG §377 … §380), REVISED 2026-09-27 (§432 … §441, the rules architecture)
 
-**The accidental's bands** (rule 3 made precise): **|c| < 20 → plain · 20 … 37 → an arrow on the note's own accidental (alone on a
-natural) · ≥ 37 → the quarter-tone sign.** Over this piece's partials: 3 · 5 · 9 · 15 · 17 · 19 plain · 7 · 21 ↓ · 23 ↑ · 11 ¼♭ · 13 ¼♯.
-On a ♯ note −49 = ¼♯, +41 = ¾♯; on a ♭ note the mirror; on a natural ¼♯ / ¼♭. The picture is computed from the tempered spelling
-**in the realization's written pitch** (the video in C, the part transposed); the cents and the partial never change with it.
+*The 2026-09-25 text (three accidental bands · the column centred on the head · `26°/C1` · the "pizz." text recipe) is superseded by the
+rows below; the reasoning is in RUNNING_LOG §430 … §441. When `notation/registry/rules.json` exists these rows live there and this
+section points at them.*
 
-**Glyphs and fonts.** Music signs: Emmentaler (`notation/lib/glyphs.json`) — the quarter and three-quarter signs and the parens exist;
-**six arrowed accidentals are NEW** (♯↑ ♯↓ ♭↑ ♭↓ ♮↑ ♮↓, baked from `emmentaler-20.otf` as the parens were). Numbers: **Crimson Pro Light
-upright, 0.75 ss** (the cents' own size, `TS.instruction`) — the cents always signed with the true minus, no `¢` (`+41` · `−49`); the
-partial `n°` with the fundamental after a slash, `26°/C1`, **always written on a part's line** (the player never sees the chord — this
-piece's call against rule 2's "once per chord", which still holds on a score page). Instructions ("senza vib.") in Crimson Pro Light
-Italic 1.0998 ss, baked on the `pizz.` recipe.
+**The picture: the nearest quarter-tone, nothing finer** (§432 · §435). Every accidental — ordinary or quarter-tone — shows the nearest
+point on the quarter-tone grid: **|c| < 25 → the plain accidental · |c| ≥ 25 → the quarter-tone sign** (the Stein–Zimmermann four:
+½♯ · ¾♯ · the reversed flat · ¾♭). No arrows: the six arrowed Emmentaler glyphs stay baked in `glyphs.json`, unused (NITS). Over this
+piece's partials: 3 · 5 · 9 · 15 · 17 · 19 plain · 7 · 11 · 21 quarter-flat side · 13 · 23 quarter-sharp side. The picture is computed
+from the tempered spelling **in the realization's written pitch**; the cents and the partial never change with it.
 
-**Placement.** Over a new-pitch head, a column of two rows centred on the head: **the cents nearest the head** at D45's height (≥ 0.6 ss
-over the head's ink, never inside the staff), **the partial one row above** (1.0 ss). A low head keeps its column above the staff. The
-column never crosses a go line — wider than the head, it is right-aligned to the head's right edge. A reminder head (the same pitch,
-parenthesised, cue size) carries no column. An instruction text sits 0.45 ss above the column's top, from the head's left edge.
+**The spelling rule** (§433): the origin is the **nearest tempered pitch** (|cents| ≤ 50); the quarter-tone sign, if any, points from
+the origin toward the truth; the cents carry the sign's own direction. Hence a sharp-side deviation is spelled with a natural or a
+sharp (½♯ · ¾♯), a flat-side one with a natural or a flat (reversed flat · ¾♭): D♯ +41 is D¾♯ +41, never E¼♭ (whose origin E is 59
+away — and a tuner says D♯ +41). Gould's preference for avoiding ¾ signs by respelling is overruled by the tuner match.
+
+**The cents** (§432 · §435): always written, on every partial note, however small (`+2`); from the tempered pitch of the letter with its
+ordinary accidental — what a chromatic tuner shows; signed with the true minus, no `¢` (`+41` · `−49`). A note with no figure is
+tempered (the vibraphone's).
+
+**The partial** (§438 · §441): `26 (C1)` — the numeral first, the fundamental in parentheses; the fundamental is the take's series root
+as the composer app dealt it (one source, the recipe), scientific octaves (C4 = middle C), the bank's spelling (B♭ · A · C · G♯ · B ·
+F♯); **always at sounding pitch, in every realization** — a transposed part shows a written head beside a sounding fundamental; the
+part's `transpose` moves the heads and the accidental picture only, never the fundamental's text or the cents. Always written on a
+part's line.
+
+**No "how" layer** (§439, his word): no valve combinations, no harmonic circle + string — the performers find their fingerings and
+adjustments themselves. §4 · §5 below remain research.
+
+**Faces, sizes, colours** (§427 · §428): numbers Crimson Pro Light upright, `instruction` 0.75 ss, **ink #111 — black, never the
+renderer's `muted`**; instruction words ("senza vib.") Crimson Pro Light Italic, the same `instruction` 0.75 (the 1.0998 "pizz." bake
+retired); music signs Emmentaler.
+
+**Placement** (anchor B — §414 · §418 · §419): the block sits before its go line, **right-justified to one spacer, 0.45 ss** before the
+line — head, accidental, cents, partial and text all end there; the column above the head in the order cents (nearest, ≥ 0.6 ss over
+the ink, never inside the staff) · partial (one row up, 1.0 ss) · instruction text (0.45 above the column's top); the dynamic legend on
+the dynamics row below. A low head keeps its column above the staff. A reminder head (the same pitch, parenthesised, cue size) carries
+no column [the AI's reading, §385; his eye owed]. The accidental clears the ledger line's end, not only the head (§419 F6).
+
+## 1b. The legend and the performance notes — HIS TEXT, settled 2026-09-27 (RUNNING_LOG §437 · §439 · §441); the full performance instructions are written later, with his pitch-notation instructions (PLAN 2b)
+
+**The tuning legend (his words; the three-quarter-sharp shown as its glyph on the page):**
+
+> **TUNING.**
+>
+> Every pitched note is a harmonic of a written fundamental, tuned in just intonation.
+>
+> In this score, every accidental is an approximation and will be approximate within a quarter-tone of the actual pitch. The cents
+> notation provides the precise tuning from a plain tempered note — the same reading a chromatic tuner gives. For example, the pitch
+> 41 cents above D♯ is notated D[¾♯] (the closest quarter-tone approximation) and the cents notation will be +41. The +41 would indicate
+> 41 cents sharper than D♯, as a tuner would show it. No cents notation means played as written. There will not be any quarter-tone
+> accidentals without accompanying cents notation even if the tuning is that precise quarter-tone.
+>
+> Since all microtonal pitches in this piece come from the just-intonation tuning of a harmonic series, the fundamental and partial
+> number are provided as a courtesy notation. 26 (C1) indicates the 26th partial of the fundamental C1.
+
+**To slot into the performance notes — transposing instruments (§440 · §441, his "e good"):**
+- *"Fundamentals are given at sounding pitch (C4 = middle C)."*
+- *"In a transposing part the cents figure is unchanged; a tuner will name the sounding note."*
+
+**To slot into the performance notes — vibrato (§443 · §445, his "1 with the sentence" · "the middle section will be ord."):**
+- *"Senza vibrato throughout, except the middle section, marked ord."* On the page: "senza vib." once at the first block; "ord." at each
+  part's first note of the middle section; "senza vib." again at the first block after it (LG-115).
+
+**Offered, not taken into the legend (his to add when the full notes are written):** *"— not 41 cents above the three-quarter-sharp"*
+after the example (§437) · the vibraphone named as the tempered exception · the drift sentence (§435: over a long chord the number may
+drift with the instruments; the partial stays true — tune to it) · a worked picture of one block beside the legend (§435 (h)).
 
 ## 2. What each mark is for — the why
 
