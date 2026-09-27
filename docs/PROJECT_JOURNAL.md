@@ -64,6 +64,13 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   `score/public/vibes_pitch.js` (core `takeOf` · `matchScore` · `bestActual` · `draw`; strip `vibActuals` · `vibGo` · `vibTakeText`).
   STILL BINDING before any verification.
 
+### SESSION 17 — IN PROGRESS (2026-09-26, Opus)
+
+- **THE AUDIO OF DRAFT 01 IS MADE** (RUNNING_LOG §405 … §407; RENDER.md §4): `notation/audio/piece-Recombination-Draft01-done.wav`,
+  886.7 s, −1.0 dBTP (+10 dB plain gain at his word "b" — **a future render of the piece passes `--up`**). `export_midi.js` knows this
+  rack; the capture steps frame 0. **`piece-lgmf` (the MAIN notation file) is now extracted from Draft 01** (1076 events, VALID) —
+  the page's ♪ render finds the WAV. His ear on both: pending.
+
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
 - **S1 · 2026-09-17 (Fable + Opus)** — **THE PORT.** Piece #5's whole stack carried across and re-paletted onto the seven

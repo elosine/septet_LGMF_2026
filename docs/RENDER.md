@@ -73,3 +73,6 @@ Then: the notation page (CTRL+SHIFT+R) → the MAIN file → **♪ render** → 
   by name, counts equal; 276 s. Render: 886.664 s · float true peak **−11.0 dBTP** · **−28.8 LUFS** · LRA 20.1 · gain **0 dB** · first sound
   1.700 s (the EH opens from niente — CC7 0 rising; the sync is right). `notation/audio/piece-Recombination-Draft01-done.wav`. Not yet linked:
   the MAIN IR's `source.score` is still `piece-LGMF-Sec01-Sec02-sec03a`. His ear: pending.
+- **2026-09-26 — Draft 01, the level at his word "b"** (RUNNING_LOG §407): `render_reaper.js --skip-render --up` — gain **+10.0 dB** (plain) →
+  **−1.0 dBTP**, ≈ −18.8 LUFS, LRA 20.1 untouched. `--up` is new: the piece's gain may go up to `--peak`; **a future render of the piece passes
+  it.** Linked: `piece-lgmf` re-extracted from Draft 01 (`source.score` = `piece-Recombination-Draft01-done`). His ear: pending.

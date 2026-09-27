@@ -2,11 +2,11 @@
  "irs": [
   {
    "id": "piece-lgmf",
-   "label": "piece-lgmf · the piece as it stands (Sec01 · Sec02 · Sec03a)",
-   "score": "piece-LGMF-Sec01-Sec02-sec03a",
+   "label": "piece-lgmf · Draft 01 (piece-Recombination-Draft01-done)",
+   "score": "piece-Recombination-Draft01-done",
    "window": [
     0,
-    565
+    881
    ],
    "profile": "trance"
   },

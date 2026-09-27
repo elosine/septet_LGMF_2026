@@ -14476,3 +14476,22 @@ UTC); 1086 objects, none changed. The capture read that file and no save came af
 loudness than #5 and 12 dB under the −1 dBTP ceiling — the rack is calibrated absolute (1b: tutti fff −19.1 LUFS), and this piece lives
 far below fff. **Put to him:** the level of the file sent with the presentation score — as rendered (the calibrated level) or ONE plain
 gain of +10 dB to −1 dBTP (the same range, louder; the tool's `--peak` rule forbids UP for the piece today).
+
+## §407. His word on §406 — *"b, and rebuild the notation from draft 01"*: the file at −1 dBTP · `piece-lgmf` re-extracted from Draft 01 (2026-09-26, Opus, session 17)
+
+**(b) the level.** `render_reaper.js` gained `--up`: the one plain gain may go UP to `--peak` for the piece too (without it, only down,
+as before; `up` recorded in `raw/<name>-render.json`). `--skip-render --up` on the kept float: gain **+10.0 dB**, no limiter →
+`notation/audio/piece-Recombination-Draft01-done.wav` true peak **−1.0 dBTP** · sample peak −1.0 dBFS; the integrated loudness moves by
+the same plain gain, −28.8 → ≈ −18.8 LUFS, the LRA (20.1 LU) untouched. **Why up and not the calibrated level:** the file goes to a jury
+with the presentation score; 12 dB under the ceiling is only quiet, and a plain gain changes nothing inside the piece. **A future render
+of the piece passes `--up` to match.**
+
+**The notation rebuilt.** The recipe of §338, the score changed: `node tools/notate_section.js --score piece-Recombination-Draft01-done
+--all --bricks --id piece-lgmf --label "piece-lgmf · Draft 01 (piece-Recombination-Draft01-done)"` → **1076 events · 893 chunks, all
+unresolved (bricks) · VALID vs source · GEOMETRY clean**; window 0 … 881 s (was 0 … 565, `piece-LGMF-Sec01-Sec02-sec03a`). The count
+closes: 1086 objects = 1076 sounding notes (the capture's 1076) + 7 META bars + 3 markers. The old file had `overlays: []` — nothing
+authored was lost; a copy of it in the scratchpad. **Warnings:** 98 × *"no <percussion voice> sample length for midi N; using drawn
+length"* — every percussion note of the draft (the ARO voices have no sample-length table for these keys; the drawn length stands in),
+nothing else. **The link:** the page's `detectRender` matches `/api/notation/renders` against `source.score` + `.`; the running server
+lists `piece-Recombination-Draft01-done.wav` and the IR's `source.score` is `piece-Recombination-Draft01-done` — the ♪ render chip's
+lookup finds it (read from the API the page calls; the chip itself not seen).
