@@ -13,10 +13,10 @@
  },
  "provenance": {
   "createdBy": "tools/notate_section.js (profile trance) --bricks",
-  "date": "2026-09-26",
+  "date": "2026-09-27",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/9ccbe593-f916-490a-820b-ce8e19bc43aa/scratchpad/sec3start-copy.json --w0 0 --w1 40 --parts 0 --bricks --sequence grp-seq-smu90t537 --id lgmf-eh-proto --label \"lgmf-eh-proto · the EH's sequence, section 1 (0 … 40 s) — the notation prototype (2d)\" --after piece-lgmf"
+  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/29d804d5-3041-41d0-bab6-8f0fe25243bd/scratchpad/sec3start-copy.json --w0 0 --w1 40 --parts 0 --bricks --sequence grp-seq-smu90t537 --id lgmf-eh-proto --label \"lgmf-eh-proto · the EH's sequence, section 1 (0 … 40 s) — the notation prototype (2d)\" --after piece-lgmf"
  },
  "events": [
   {
@@ -498,7 +498,7 @@
      "fundamentalMidi": 24,
      "box": 1,
      "take": "Just-C1-seed90",
-     "partialText": "26°/C1"
+     "partialText": "26 (C1)"
     },
     "level": {
      "sps": 100,
@@ -4529,7 +4529,7 @@
       "fundamentalMidi": 36,
       "box": 2,
       "take": "Just-c2-seed135",
-      "partialText": "12°/C2"
+      "partialText": "12 (C2)"
      }
     ],
     "labels": [

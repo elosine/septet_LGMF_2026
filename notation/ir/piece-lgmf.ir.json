@@ -23,7 +23,7 @@
   "date": "2026-09-27",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --all --bricks --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/29d804d5-3041-41d0-bab6-8f0fe25243bd/scratchpad/draft01-copy.json --all --bricks --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done)\""
  },
  "events": [
   {
@@ -106483,5 +106483,45 @@
    "provenance": "derived"
   }
  ],
- "overlays": []
+ "overlays": [
+  {
+   "id": "ov-techchg-ev-wc-3127",
+   "kind": "instruction",
+   "target": {
+    "part": 0,
+    "span": [
+     0,
+     12.816
+    ]
+   },
+   "value": "senza vib.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-3133",
+   "kind": "instruction",
+   "target": {
+    "part": 6,
+    "span": [
+     4.7,
+     15.359
+    ]
+   },
+   "value": "senza vib.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-3131",
+   "kind": "instruction",
+   "target": {
+    "part": 7,
+    "span": [
+     3.5,
+     11.161
+    ]
+   },
+   "value": "senza vib.",
+   "provenance": "authored"
+  }
+ ]
 }

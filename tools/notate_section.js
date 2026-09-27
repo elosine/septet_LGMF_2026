@@ -1477,7 +1477,7 @@ const TECH_CHANGE = new Map();   // event id -> the word
       let last = null;
       for (const e of list) {
         if (!(e.technique in TC.texts)) continue;
-        if (last === null ? (TC.firstAlso || []).includes(e.technique) : e.technique !== last) TECH_CHANGE.set(e.id, { part, t: e.onset, text: TC.texts[e.technique] });
+        if (last === null ? (TC.firstAlso || []).includes(e.technique) : e.technique !== last) TECH_CHANGE.set(e.id, { part, t: e.onset, d: e.duration, text: TC.texts[e.technique] });
         last = e.technique;
       }
     }
@@ -1526,7 +1526,7 @@ if (SEQ_GROUPS.length) {
   let nTc = 0;
   for (const [id, c] of TECH_CHANGE) {
     if (SEQ_ENTRY_EVENTS.has(id)) continue;
-    doc.overlays.push({ id: 'ov-techchg-' + id, kind: 'instruction', target: { part: c.part, span: [c.t, c.t] }, value: c.text, provenance: 'authored' });
+    doc.overlays.push({ id: 'ov-techchg-' + id, kind: 'instruction', target: { part: c.part, span: [c.t, +(c.t + Math.max(c.d || 0, 0.001)).toFixed(4)] }, value: c.text, provenance: 'authored' });   // the word governs its note on
     nTc++;
   }
   if (TECH_CHANGE.size) console.log('  technique change: ' + TECH_CHANGE.size + ' word(s) — ' + (TECH_CHANGE.size - nTc) + ' in a sequence block, ' + nTc + ' as an instruction: ' +

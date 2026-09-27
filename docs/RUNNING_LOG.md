@@ -15946,3 +15946,39 @@ unless it touches a line" (keeping #4's 0.15 and §425's "never on a line" both)
 
 **Next: 2e.6 — re-extract `piece-lgmf` and `lgmf-eh-proto` on the finished tables; the shield's final run; the list of every moved
 pixel on `piece-lgmf` since 2e.1.**
+
+## §453. `2e.6` RE-EXTRACT, THE SHIELD'S FINAL RUN — both pages rebuilt on the finished tables; every gate green; every move on `piece-lgmf` since 2e.1, traced (2026-09-27, Opus, session 17)
+
+**Re-extracted by their own recipes** (each from a read-only COPY of his save in the scratchpad; his files only read):
+- `piece-lgmf` — `notate_section --score piece-Recombination-Draft01-done --scoreFile <copy> --all --bricks …` → 1076 events · 893 chunks
+  · **VALID vs source** · *technique change: 3 words — "senza vib." at the EH 0.00 · the bass 3.50 · the cello 4.70 s, as instructions*
+  · *DECISIONS NEEDED: none — every unit placed at rung 0*. Found on the way: the validator refuses a zero-length span — the word's
+  instruction now spans its note (and the failed build had removed the IR; the previous one was safe in the scratchpad).
+- `lgmf-eh-proto` — the 2d.1 recipe (`--w0 0 --w1 40 --parts 0 --bricks --sequence grp-seq-smu90t537 … --after piece-lgmf`) → VALID; the
+  entry `+41 26 (C1)` · `pp → mp` · "senza vib." (now written by the change rule: the part's first `senza_vel`); the IR's own text
+  `26°/C1` → `26 (C1)`, `12°/C2` → `12 (C2)` (the layout had shown the new form from the fields since 2e.3 — the page did not move).
+
+**THE FINAL RUN:** the eight engine batteries **GREEN** · the tuba goldens **byte-identical to 2e.4 · 2e.5** (all seven db1 outputs —
+2e.6 touches no code; their moves across 2e are the listed ones of §450 · §451, under THIS repo's registry only) · `check_rules`
+**23 GREEN** · `check_screen_edges` **PASS** on both (the pages tile −4 → 881 s / −4 → 40 s; **C:** 148 / 8 frames, 1 535 / 43 devices,
+764 / 19 pushed right, none left of x(t0)) · `check_print_edges` **PASS** on both (86 / 4 pages, no timed ink in the clef gutter) ·
+`decisions_needed` — 0 units off rung 0 on the three pages (written) · `sequence_notation_check` **62 / 62** · `palette_check` **198** ·
+`docs/ENGRAVING_RULES.md` regenerated.
+
+**EVERY MOVE ON `piece-lgmf` SINCE 2e.1** (the layout of HEAD `c499a0d` against the final: 2 265 item changes, and the frame-level
+changes the layout does not see — each traced):
+1. **The lead-in** (§409, 2e.2): every page's window 4 s earlier — 74 pages from −4 s; every video frame moves with it; paper page 1
+   opens at the first unit's ink (t1 10.320 → 10.216 s, and every cut after it follows).
+2. **The animated devices at a page start** (§410 · §411, 2e.2): pushed right, one push per lane — 764 of the 1 535 drawn at the page
+   edges' frames.
+3. **Anchor B, one number 0.45** (§417 F1, 2e.3 (1)): every sustained head 0.2 ss further from its go line — 978 open heads · 98 filled
+   (the percussion's, through the family look) · 603 ledgers · 343 accidentals · 123 ottavas · 117 dynamics (they ride the head).
+4. **The vibrato words** (§443 · §445, LG-115; 2e.3 (8), landed now): 3 new instructions, "senza vib." 0.75 italic black on the
+   instruction row of the EH, the bass and the cello at their first notes.
+5. **Nothing else:** `piece-lgmf` had no text, no dot, no sequence block, no accidental near a ledger in a 0.25-gap block, and no unit
+   the ladder had to move. The page-start clamps follow the moved seams: 11 units clamped where 9 were (the EH's block at 0 s gone
+   from the list — it has its room), one flagged touch at 344.05 s (2 px, his case by case, §347).
+
+**PLAN § `2e` IS BUILT, 2e.1 … 2e.6** (`469a580` · `c910aa1` · `86c6635` · `d176977` · `6c1370d` · this). **What is left is 2e.7, his
+eye** — and the open list on the generated page: DN-1 the accidental's two gaps · DN-2 anchor C's gap · DN-3 the window view's looks ·
+DN-4 the clocks over the block at its go time · DN-5 the provisional family look.
