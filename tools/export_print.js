@@ -109,8 +109,10 @@ const ir = rd(path.join('notation', 'ir', irId + '.ir.json'));
 const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
 const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
 const FRAME_PARTS = ENS ? ENS.parts.map(p => p.part) : ir.source.parts.slice();
+// [2e.4] the ladder's fit: the frame's lane boxes in ss — the printed lane is the video lane scaled, so the same boxes
+const Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js'));
 const model = Layout.layoutSection(ir, glyphs, Object.assign(
-  { m4AttackLines: false, frameParts: FRAME_PARTS, ensemble: ENS, techniques: T },
+  { m4AttackLines: false, frameParts: FRAME_PARTS, ensemble: ENS, techniques: T, fitBoxes: Fit.boxesFor(C, ENS, FRAME_PARTS) },
   (C.engraving && C.engraving.layout) || {}));
 const srcEnd = ir.source.window[1];
 

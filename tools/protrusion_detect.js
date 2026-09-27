@@ -8,74 +8,46 @@
 //
 //   node tools/protrusion_detect.js <ir-id> [<ir-id>...] [--dry]
 //
-// Model-space pass (seconds + ss; the container's numbers map it): outward
-// ink extents per event cluster vs the lane's half-height + gap. Reports
-// worst offender per part per second-bucket so the ledger stays readable
-// (one line per real spot, not one per notehead).
+// [LGMF PLAN 2e.4, 2026-09-27 — RUNNING_LOG §451] THE GEOMETRY IS notation/lib/fit.js — the same function the layout's ladder runs:
+// the frame's own lane boxes (the ensemble's weighted lanes, the joined lane's split, the inter-lane gap) and every unit's ink,
+// where this tool once carried the tuba's ten equal lanes and its own extents. A unit is filed when it fails rung 0 AFTER the ladder
+// (past the gap, or touching the neighbour's ink) — the worst per part per second, one line per real spot.
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
+const Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js'));
 const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.json'), 'utf8'));
 const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
+const ens = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'ensemble.json'), 'utf8'));
+const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));
 
 const ids = process.argv.slice(2).filter(a => !a.startsWith('--'));
 const dry = process.argv.includes('--dry');
 if (!ids.length) { console.error('usage: protrusion_detect.js <ir-id> [...] [--dry]'); process.exit(2); }
 
-// container geometry -> the ss budget per lane (same arithmetic as the app)
-const H = C.frame.heightPx, lanes = C.realizations['video-jury'].lanes;
-const n = 10;
-const lanePx = ((H - lanes.padTopPx - lanes.padBotPx - lanes.gapPx * (n - 1)) / n);
+const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
+const parts = ENS.parts.map(p => p.part);
+const boxes = Fit.boxesFor(C, ENS, parts);
 const ssPx = C.staff.staffHeightPx / 4;
-const HALF = lanePx / 2 / ssPx;              // ss from staff middle to lane edge
-const GAP = lanes.gapPx / ssPx;              // inter-lane gap in ss
-
-// outward reach of each item kind beyond its anchor ySs (ss units)
-function extent(it) {
-  if (it.k === 'glyph' && it.g === 'notehead') return { y: it.ySs, r: 0.55 };
-  if (it.k === 'glyph' && String(it.g).startsWith('accidental')) return { y: it.ySs, r: 1.4 };
-  if (it.k === 'dot') return { y: it.ySs, r: 0.2 };
-  if (it.k === 'ledger') return { y: it.ySs, r: 0.1 };
-  if (it.k === 'stem') return { y: (Math.abs(it.yA) > Math.abs(it.yB) ? it.yA : it.yB), r: 0 };
-  if (it.k === 'text') return { y: it.ySs, r: 0.7 };
-  if (it.k === 'beam') return it.tips && it.tips.length ? { y: it.tips[0].ySs, r: 0.5 } : null;
-  // day 31: brackets and the dyn/accent glyph rows were invisible to this
-  // detector — the CLOUD02-D repair pass moves them to whichever side has
-  // room, so their lane-edge behaviour must be measured, not assumed.
-  if (it.k === 'tuplet') return { y: it.ySs, r: 0.9 };   // line + hook/numeral either way
-  if (it.k === 'glyph' && /^dyn-/.test(String(it.g))) { const gm = G.dynamic[String(it.g).slice(4)]; return { y: it.ySs, r: gm ? gm.hSs / 2 : 0.5 }; }
-  if (it.k === 'glyph' && /^artic-/.test(String(it.g))) { const gm = G.articulation[String(it.g).slice(6)]; return { y: it.ySs, r: gm ? gm.hSs / 2 : 0.42 }; }
-  return null;
-}
 
 let filed = 0;
 const lines = [];
 for (const id of ids) {
   const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', id + '.ir.json'), 'utf8'));
-  const model = Layout.layoutSection(ir, G, (C.engraving && C.engraving.layout) || {});
-  for (const sys of model.systems) {
-    // bucket by whole second; keep the worst overflow per bucket
-    const worst = new Map();
-    for (const it of sys.items) {
-      const e = extent(it);
-      if (!e) continue;
-      const top = e.y + e.r, bot = e.y - e.r;
-      const over = Math.max(top - HALF, -bot - HALF, 0);
-      if (over <= GAP) continue;             // inside lane or absorbed by the gap
-      // a beam item carries neither t nor t0 — its time is its first tip's
-      // (latent since V3; first hit day 31, when a beam first crossed the line)
-      const t = it.t !== undefined ? it.t : (it.t0 !== undefined ? it.t0 : (it.tips && it.tips.length ? it.tips[0].t : 0));
-      const key = Math.floor(t || 0);
-      const px = ((over - GAP) * ssPx);
-      const prev = worst.get(key);
-      if (!prev || px > prev.px) worst.set(key, { t, px, kind: it.k + (it.g ? ':' + it.g : ''), dir: top - HALF > -bot - HALF ? 'top' : 'bottom' });
-    }
-    for (const [, w] of [...worst.entries()].sort((a, b) => a[0] - b[0])) {
-      lines.push('- `' + id + '` · T' + (sys.part + 1) + ' @ ' + w.t.toFixed(2) + ' s — ' + w.kind +
-        ' crosses the ' + w.dir + ' lane edge into the neighbor by ~' + w.px.toFixed(1) + ' px');
-      filed++;
-    }
+  const model = Layout.layoutSection(ir, G, Object.assign({ m4AttackLines: false, frameParts: parts, ensemble: ENS, techniques: T, fitBoxes: boxes }, (C.engraving && C.engraving.layout) || {}));
+  const worst = new Map();   // part|second -> the worst failing unit
+  for (const u of Fit.measureModel(model, boxes, G, 1.3)) {
+    if (!u.reasons.length) continue;
+    const over = Math.max(u.over.top, u.over.bot), k = u.key + '|' + Math.floor(u.t);
+    const prev = worst.get(k);
+    if (!prev || over > prev.over) worst.set(k, { key: u.key, t: u.t, over, dir: u.over.top >= u.over.bot ? 'top' : 'bottom', why: u.reasons[0],
+      kind: [...new Set(u.items.filter(Fit.isMark).map(it => it.seq || it.g || it.k))].join(' ') || 'the note' });
+  }
+  for (const w of [...worst.values()].sort((a, b) => a.t - b.t)) {
+    const nm = (ENS.parts.find(p => String(p.part) === String(w.key).split(':')[0]) || {}).short || 'part ' + w.key;
+    lines.push('- `' + id + '` · ' + nm + ' @ ' + w.t.toFixed(2) + ' s — ' + w.kind + ' crosses the ' + w.dir + ' lane edge by ~' + (w.over * ssPx).toFixed(1) + ' px (' + w.why + ')');
+    filed++;
   }
 }
 

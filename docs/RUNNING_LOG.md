@@ -15866,3 +15866,60 @@ retired with "senza vib." (no page here to see it) · the vibrato words as instr
 partial from the IR's fields.
 
 **Next: 2e.4 — ladder v2 in the layout, the fit test, the decisions-needed report.**
+
+## §451. `2e.4` LADDER v2 IN THE LAYOUT, THE FIT TEST, THE DECISIONS-NEEDED REPORT — inert on the real pages, walked on forced ones; the floor tier; two gates (2026-09-27, Opus, session 17)
+
+**The build (§422 · §423 · §425 · §426):**
+- **`notation/lib/fit.js` — ONE geometry for the layout and the tools:** `boxesFor(C, ENS, parts)` reads the frame's own lanes in ss
+  (Coords.ensembleFrame — the septet's lanes are **8.12 ss** above and below each middle line, the tuba's detector had 6.51 and ten equal
+  lanes; the inter-lane gap **0.51 ss**; the joined percussion lane splits at the brace with no gap: the seven-line staff 12.12 / 9.00, the
+  vibraphone 5.00 / 8.12) · `inkOf` an item's ink in ss by the stamps' own convention (origin top-left, anchors from the top) · a UNIT =
+  every point item of one system at one time, its CORE (heads, accidentals, ledgers, stems, flags, the dot) and its MARKS (dynamics,
+  accents, symbols, words and numbers, the ottava, the arrow) · `fitContext` the RUNG-0 TEST: inside the lane box; or a spill that stays
+  in the inter-lane gap, touching no ink of the neighbour's at an overlapping x (the neighbour's ink brought into this lane's frame by
+  the distance between the middle lines) — at a joined lane's split only the neighbour's ink counts.
+- **`ladder(items, box, ok, …)`:** 1 COMPRESS the gaps between the marks' rows 0.45 → 0.30 → 0.20 (never the first row's own distance to
+  the core) · 2 SHRINK the spilling side's marks one size step (÷ 1.122) and close the air that leaves (never open a gap) · 3 FLIP them
+  to the free side, stacked outward from its outermost ink (the first row at no more than the standard 0.45 — a fixed dynamic row's far
+  distance is not carried over) · 4 … 7 page-level, reported "not automatic" · 8 the standard placement kept, the unit REPORTED. The
+  rung and the spill written on every moved mark (`fit: { rung, by }`).
+- **`layout.js` — the post-pass**, switched on by the table (`rules.json ladder.built` → `engraving.layout.ladder.on`) and the caller's
+  lane boxes (`o.fitBoxes` — export_video, export_print and the app pass `NotationFit.boxesFor`): every unit failing rung 0 walks the
+  ladder; a rung-8 unit is marked on the page in #5's red idiom (`fit?`, on the tag row away from the spill) **until an override stands on
+  its event** — an `engraving` overlay `{ rung: 8, object, property (dySs · dxSs · size), value, ref }`, applied to that object's items
+  of the unit (`Fit.applyOverride`); `model.fit` carries the report. A unit that fits is never touched.
+- **THE FLOOR TIER** (§424 · §425; `column.floorTiers`, compiled into `floorTier`): the strike's staccato dot keeps its tight gap
+  (#4 day 23 — 0.15 from the head) **unless its ink would touch a line** — the staff's or a ledger — then it takes the centre of the next
+  space out. Found by gate (5): on `lgmf-0i` (the port's 0i test page) a dot at y 1.223 grazed staff line 1 by 0.027 ss.
+- **`tools/decisions_needed.js`** — per page every unit that left rung 0: the screen page · the time · the part · the members · what
+  failed · each rung tried and its result · at rung 8 two or three concrete moves written as the overrides they would be; `--write` keeps
+  `notation/registry/decisions_needed.json`, which the generated page shows. **`notate_section` prints the same report** at the end of
+  every build. **`protrusion_detect` re-pointed to `fit.js`** (the tuba's ten lanes and its own extents retired).
+- **The gates** (`check_rules` — **22 checks GREEN**): (4) the fit test over every page — after the ladder, every unit still failing
+  rung 0 is on the report at rung 8 (nothing touches unreported); the ladder ON; **the forced walk**: the proto's block with its lane
+  shrunk 2 ss under it and no room above walks rungs 1 · 2 · 3 · 4-7 and is reported at 8, marked red; with room above the same unit is
+  placed by rung 3 (the flip) · (5) no staccato dot touches a line (7 dots on the three pages).
+
+**THE REQUIRED CHECKS:**
+- **The report on the real pages:** `piece-lgmf` · `lgmf-eh-proto` · `lgmf-0i` — **0 units left rung 0**. `piece-lgmf`'s 28 units that
+  leave their box are the vibraphone's, 0.25 … 0.44 ss past the joined lane's split, ≈ 3 ss from the percussion staff's lowest ink —
+  rung 0 accepts them (no gap to spill past, no ink touched).
+- **The forced cases** (the layout with a shrunk box, and `fit.ladder` on a fabricated stack): a head + mf + "jeté" 0.12 ss past its box →
+  **rung 1** (the stack at 0.30 fits; the word moved 0.183 ss) · the proto's block 0.07 past the top → **rung 2** (one size smaller fits)
+  · 2 ss past the bottom, room above → **rung 3** (the legend flipped over the column) · no room above → **rung 8**, walked 1 · 1 · 2 · 3 ·
+  4-7, the red mark on the page.
+- **THE SHIELD by data absence:** the 2e.4 code on HEAD's registry (`86c6635`: `ladder.built` false, no `floorTier` pointer) —
+  **20 outputs and 20 layouts byte-identical to 2e.3's**, the eight engine batteries GREEN. **On the new registry: `piece-lgmf` and
+  `lgmf-eh-proto` do not move at all** (their 14 outputs — frames, plans, screen dumps — byte-identical to 2e.3's; their layouts too);
+  `lgmf-0i` moves one dot; the wider batteries unchanged.
+- **Listed — the tuba goldens under THIS registry** (tuba music laid into septet lanes, not pages anyone reads; #4's own pages are #4's):
+  the floor tier moves their grazing dots (db1 333 · trance-a4 275 · db1-all-x01 20 · section1-e20 2); the ladder places what spills
+  into the septet lanes by rungs 2 (the sfzp one step smaller, its ottava) and 3 (the dynamics and ottavas flipped), and marks the rest
+  `fit?` (db1 38 · piece-open-01 113 · the trance and section pages ≈ 200 each — low bass-clef writing in a treble-width lane).
+
+**The AI's calls, his to reverse:** the rung-0 test (inside the box, or into the gap touching nothing; a joined lane's split by ink
+alone) · the unit = one system at one time · rungs 4 … 7 not automatic (page-level, his) · the flip's first distance capped at 0.45 · the
+red `fit?` on the tag row away from the spill · the override's three properties (dySs · dxSs · size) · the floor tier as "the tight gap
+unless it touches a line" (keeping #4's 0.15 and §425's "never on a line" both).
+
+**Next: 2e.5 — the device sheet and the standing rules.**

@@ -148,7 +148,7 @@ P('Every `engraving` overlay on an event (the per-event hands: `stemDir` · `dxS
 P('files the picker lists. A rung-8 override carries five fields (the object · the property · the value · the rung · his § and date).');
 P('');
 const idx = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'index.json'), 'utf8')); } catch (e) { return null; } })();
-const irIds = idx && Array.isArray(idx.entries) ? idx.entries.map(e => e.id) : fs.readdirSync(path.join(ROOT, 'notation', 'ir')).filter(f => f.endsWith('.ir.json')).map(f => f.replace('.ir.json', ''));
+const irIds = idx && Array.isArray(idx.irs) ? idx.irs.map(e => e.id) : fs.readdirSync(path.join(ROOT, 'notation', 'ir')).filter(f => f.endsWith('.ir.json')).map(f => f.replace('.ir.json', ''));
 let anyOv = false;
 for (const id of irIds) {
   const f = path.join(ROOT, 'notation', 'ir', id + '.ir.json');

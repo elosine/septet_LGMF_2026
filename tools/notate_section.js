@@ -1800,6 +1800,14 @@ try {
     console.log('GEOMETRY: clean (brackets, dynamics, accents, stem sides)');
   }
 } catch (e) { console.log('GEOMETRY: check skipped (' + (e && e.message) + ')'); }
+// [LGMF PLAN 2e.4, RUNNING_LOG §451] THE DECISIONS NEEDED of the page just built — the ladder's report (tools/decisions_needed.js):
+// every unit that left rung 0, its rungs, and the moves at rung 8 — so a build never ends with an unplaced unit unsaid
+try {
+  const DN = require(path.join(ROOT, 'tools', 'decisions_needed.js'));
+  const rows = DN.reportFor(doc);
+  console.log('DECISIONS NEEDED: ' + (rows.length ? rows.length + ' unit(s) left rung 0 — ' + ['1', '2', '3', '8'].map(r => rows.filter(x => String(x.rung) === r).length + ' at ' + r).join(' · ') : 'none — every unit placed at rung 0'));
+  DN.print(rows);
+} catch (e) { console.log('DECISIONS NEEDED: report skipped (' + (e && e.message) + ')'); }
 
 const byStrategy = {};
 for (const c of doc.chunks) byStrategy[c.strategy] = (byStrategy[c.strategy] || 0) + 1;

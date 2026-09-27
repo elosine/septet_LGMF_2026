@@ -146,6 +146,48 @@ if (prov6.length) {
   ok(listed, prov6.length + ' PROVISIONAL device(s) break the principle and stand on the decisions-needed list: ' + prov6.join(' · '));
 }
 
+// ---------------------------------------------------------------- (4) THE FIT TEST · (5) the staccato dot in a space
+console.log('(4) THE FIT · (5) THE DOT');
+{
+  const Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js'));
+  const LO = ((C || raw).engraving || {}).layout || {};
+  const boxes = Fit.boxesFor(C || raw, ENS, ENS.parts.map(p => p.part));
+  let pages = 0, left = 0, unreported = [], dots = 0, onLine = [];
+  const lined = new Set((ens.parts || []).filter(p => p.staff && Array.isArray(p.staff.lines)).map(p => p.part));   // a lined staff (the percussion's seven) has its own spaces
+  for (const f of irFiles) {
+    const ir = rd(path.join('notation', 'ir', f));
+    const m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: boxes }, LO));
+    pages++;
+    // (4) after the ladder, every unit still failing rung 0 is on the model's report at rung 8 — nothing touches unreported
+    const rest = Fit.measureModel(m, boxes, glyphs, 1.3).filter(x => x.reasons.length);
+    const rep = new Set((m.fit || []).filter(u => u.rung === 8).map(u => u.key + '|' + u.t.toFixed(6)));
+    left += (m.fit || []).length;
+    for (const x of rest) if (!rep.has(x.key + '|' + x.t.toFixed(6))) unreported.push(f.replace('.ir.json', '') + ' p' + x.key + '@' + x.t.toFixed(2));
+    // (5) a staccato dot sits in a SPACE of a five-line staff (a half-integer staff position), never on a line
+    for (const s of m.systems) if (!lined.has(s.part)) for (const it of s.items || []) if (it.k === 'dot') {
+      dots++;
+      const unitLines = [-2, -1, 0, 1, 2].concat((s.items || []).filter(x => x.k === 'ledger' && Math.abs(x.t - it.t) < 1e-9).map(x => x.ySs));   // the staff's lines and the unit's ledgers
+      if (unitLines.some(Lx => Math.abs(it.ySs - Lx) < 0.25 - 1e-9)) onLine.push(f.replace('.ir.json', '') + ' p' + s.part + '@' + it.t.toFixed(2) + ' y ' + it.ySs);
+    }
+  }
+  ok(LO.ladder && LO.ladder.on === true, 'the ladder is ON (rules.json ladder.built, compiled into engraving.layout.ladder)');
+  ok(!unreported.length, 'the fit test over ' + pages + ' page(s): every unit that fails rung 0 after the ladder is on the report at rung 8 (' + left + ' left rung 0)' + (unreported.length ? ' — unreported: ' + unreported.slice(0, 6).join(' · ') : ''));
+  ok(!onLine.length, 'no staccato dot touches a line — the staff’s or a ledger (' + dots + ' dots)' + (onLine.length ? ' — on a line: ' + onLine.slice(0, 6).join(' · ') : ''));
+  // the ladder's walk, forced: the proto's block with its lane shrunk 2 ss under it and no room above — rungs 1 · 2 · 3 tried, reported at 8, marked red
+  const proto = irFiles.includes('lgmf-eh-proto.ir.json') ? rd('notation/ir/lgmf-eh-proto.ir.json') : null;
+  if (proto) {
+    const B2 = Fit.boxesFor(C || raw, ENS, ENS.parts.map(p => p.part)); B2.byKey['0'] = Object.assign({}, B2.byKey['0'], { top: 7.0, bot: 2.94 });
+    const mf = Layout.layoutSection(JSON.parse(JSON.stringify(proto)), glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: B2 }, LO));
+    const u = (mf.fit || []).find(x => x.part === 0 && x.t === 0), red = mf.systems.find(s => s.part === 0).items.some(i => i.seq === 'alert' && i.t === 0);
+    const walked = u ? [...new Set(u.tried.map(x => String(x.rung)))].join(',') : '';
+    ok(u && u.rung === 8 && walked === '1,2,3,4-7' && red, 'a unit forced 2 ss past its lane walks rungs 1 → 2 → 3 and is reported at 8, marked red — walked ' + walked + ', rung ' + (u && u.rung));
+    B2.byKey['0'] = Object.assign({}, B2.byKey['0'], { top: 8.12 });
+    const mf3 = Layout.layoutSection(JSON.parse(JSON.stringify(proto)), glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: B2 }, LO));
+    const u3 = (mf3.fit || []).find(x => x.part === 0 && x.t === 0);
+    ok(u3 && u3.rung === 3, 'the same unit with room above is placed by rung 3 (the flip) — rung ' + (u3 && u3.rung));
+  }
+}
+
 // ---------------------------------------------------------------- (8) the numbers at sounding pitch in every realization
 console.log('(8) SOUNDING PITCH');
 {

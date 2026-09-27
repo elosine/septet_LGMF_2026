@@ -31,9 +31,10 @@
   // call time; node requires them here.
   // [2k] morph_overlays.js — the D45 header's spelling (spellHeads), called again when a realization writes a part at another
   // transposition; the page never needs it (it draws the default form), so the browser looks it up on root at call time too.
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('./chord_column.js'), require('../../score/public/sonify_core.js'), require('../../score/public/cresc.js'), null, require('./morph_overlays.js'));
-  else root.NotationLayout = factory(root.NotationChordColumn, null, null, root, null);
-})(typeof self !== 'undefined' ? self : this, function (ChordColumn, SonifyCoreIn, CrescIn, rootIn, MorphOverlaysIn) {
+  // [LGMF 2e.4] fit.js — the ladder's geometry; the page loads it before or after this file, so the browser looks it up on root at call time
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./chord_column.js'), require('../../score/public/sonify_core.js'), require('../../score/public/cresc.js'), null, require('./morph_overlays.js'), require('./fit.js'));
+  else root.NotationLayout = factory(root.NotationChordColumn, null, null, root, null, null);
+})(typeof self !== 'undefined' ? self : this, function (ChordColumn, SonifyCoreIn, CrescIn, rootIn, MorphOverlaysIn, FitIn) {
 
   const STEP_IDX = { C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6 };
   const MIDDLE_BASS = 3 * 7 + 1; // D3 — the bass staff's middle line
@@ -1629,6 +1630,13 @@
                 if (dev.nhDot) {
                   const gapDot = dev.nhDotGapSs != null ? dev.nhDotGapSs : (stds.staccatoDot && stds.staccatoDot.gapFromNotehead) || 0.5;
                   yDot = stemDir === 'up' ? yDraw - nhO.hSs / 2 - gapDot - rDot : yDraw + nhO.hSs / 2 + gapDot + rDot;
+                  // [LGMF 2e.4 — rules.json column.floorTiers, §424 · §425] THE FLOOR TIER: the dot keeps its tight gap (#4 day 23) unless its
+                  // ink would touch a line — the staff's or a ledger — then it takes the centre of the next SPACE out (never on a line)
+                  if (!lined && Array.isArray(o.floorTier) && o.floorTier.includes('staccatoDot')) {   // switched on by the table (column.floorTiers.inside)
+                    const halfLine = ((stds.staff && stds.staff.lineThickness) || 0.1) / 2, lines = [-2, -1, 0, 1, 2].concat(ledgers);
+                    if (lines.some(Lx => Math.abs(yDot - Lx) < rDot + halfLine - 1e-9))
+                      yDot = stemDir === 'up' ? Math.floor(yDot + 0.5) - 0.5 : Math.ceil(yDot - 0.5) + 0.5;
+                  }
                 }
                 const headTop = Math.max(inkTopY, yDot != null ? yDot + rDot : -Infinity, accRel ? yDraw + accRel.accTopExt : -Infinity, TPG ? TPG.top : -Infinity);
                 const headBot = Math.min(inkBotY, yDot != null ? yDot - rDot : Infinity, accRel ? yDraw - accRel.accBotExt : Infinity, TPG ? TPG.bot : Infinity);
@@ -3062,7 +3070,46 @@
     // rehearsal scaffolding, not music (composer: "get rid of all the text
     // there"), and the app draws markers from the SCORE, not from this IR — so
     // the page has to say so and the renderer has to honour it.
-    return { systems, window: [w0, w1], warnings, hideMarkers: !!ir.hideMarkers };
+    // [LGMF PLAN 2e.4 — rules.json `ladder`; RUNNING_LOG §422 · §423 · §426 · §451] LADDER v2: every unit against its lane box (the
+    // caller's o.fitBoxes — NotationFit.boxesFor, the frame's lanes in ss). A unit that fits — or spills into the gap touching nothing —
+    // is never touched, so such a page is byte-identical; one that does not walks compress · shrink · flip; past them it keeps its
+    // standard placement, is marked red on the page and REPORTED (model.fit) until an override stands on its event (an `engraving`
+    // overlay with rung 8: the object · the property · the value · the rung · his ref). Switched on by the table (ladder.built).
+    const FIT = [];
+    const FitM = FitIn || (rootIn && rootIn.NotationFit) || null;
+    const LAD = o.ladder || {};
+    if (FitM && LAD.on && o.fitBoxes) {
+      const ts = o.textEmScale != null ? o.textEmScale : 1.3;
+      const ctx = FitM.fitContext({ systems }, o.fitBoxes, glyphs, ts);
+      const evAt = new Map();   // part|onset → the unit's events (the override lives on one of them)
+      for (const c of ir.chunks) for (const id of c.events || []) {
+        const e = evById.get(id); if (!e) continue;
+        const k = c.part + '|' + Math.round(e.onset * 1e6);
+        if (!evAt.has(k)) evAt.set(k, []); evAt.get(k).push(e.id);
+      }
+      for (const s of systems) {
+        const key = String(s.staff > 0 ? s.part + ':' + s.staff : s.part), box = ctx.boxOf(key);
+        if (!box) continue;
+        for (const u of ctx.units.get(key) || []) {
+          const ink = FitM.unitInk(u.items, glyphs, ts);
+          if (!ink || ctx.ok(key, u, ink)) continue;
+          const failed = ctx.why(key, u, ink);
+          const res = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
+          const evs = evAt.get(s.part + '|' + Math.round(u.t * 1e6)) || [];
+          const ov = evs.map(id => engOf(id)).find(v => v && v.rung === 8) || null;
+          if (res.rung === 8 && ov) {
+            FitM.applyOverride(u.items, ov);
+            for (const it of u.items) if (FitM.isMark(it)) it.fit = { rung: 8, by: res.by, override: ov.ref || true };
+          } else if (res.rung === 8) {
+            // #5's red idiom: the unit is marked until his override exists — on the side away from the spill, on the tag row
+            s.items.push({ k: 'text', t: u.t, dxSs: 0, ySs: (res.side === 'bot' ? 1 : -1) * (o.tagY != null ? o.tagY : 3.5), text: 'fit?', size: TS.instruction, color: COL.alert, seq: 'alert', fit: { rung: 8 } });
+          }
+          FIT.push({ part: s.part, key, t: u.t, events: evs, members: [...new Set(u.items.filter(FitM.isMark).map(it => it.seq || it.g || it.k))],
+            failed, rung: res.rung, by: res.by, tried: res.tried, override: ov ? (ov.ref || true) : null });
+        }
+      }
+    }
+    return Object.assign({ systems, window: [w0, w1], warnings, hideMarkers: !!ir.hideMarkers }, LAD.on && o.fitBoxes ? { fit: FIT } : {});
   }
 
   // day 40 (PROOFREAD_LEDGER #4): THE ONE SOURCE OF THE DRAWN LEVEL. The page

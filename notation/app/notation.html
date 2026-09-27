@@ -137,7 +137,8 @@
 <div id="tnow" title="playhead time"></div>
 
 <script src="/notation/lib/coords.js"></script>
-<script src="/notation/lib/rules.js"></script><!-- [LGMF 2e.1] the engraving rules: container.json's pointers compiled from rules.json -->
+<script src="/notation/lib/rules.js"></script>
+<script src="/notation/lib/fit.js"></script><!-- [LGMF 2e.4] the ladder's fit: the frame's lane boxes --><!-- [LGMF 2e.1] the engraving rules: container.json's pointers compiled from rules.json -->
 <script src="/notation/lib/stamps.js"></script>
 <script src="/notation/lib/chord_column.js"></script>
 <script src="/notation/lib/layout.js"></script>
@@ -276,7 +277,8 @@
   // the layout of the IR the page holds — also re-run in place when a choice is discarded (2d.4.5), page and zoom kept
   function layoutIr() {
     state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
-      { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS, ensemble: state.ensemble, techniques: state.techniques },
+      { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS, ensemble: state.ensemble, techniques: state.techniques,
+        fitBoxes: window.NotationFit && state.container ? NotationFit.boxesFor(state.container, state.ensemble, FRAME_PARTS) : undefined },   // [2e.4] the ladder
       (state.container && state.container.engraving && state.container.engraving.layout) || {}));
   }
   // [PLAN 2d.2] THE CHOICES SIDECAR — notation/choices/<score>.choices.json (IR_SCHEMA_v0 §6b): the page's own ink choices,

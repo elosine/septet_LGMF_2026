@@ -123,8 +123,8 @@
  },
 
  "ladder": {
-  "_doc": "LAYER 5 — THE EXCEPTIONS: LADDER v2 (§422 · §423), run by the layout per unit; the rung reached is written on the item (`fit: { rung, by }`). Rung 8 is an override ON THE EVENT with five fields (the object · the property, one that exists in these tables · the value · the rung it failed at · his § and date) — never in code, never prose-only; the same override recurring is the promotion signal. BUILT at 2e.4 (until then: the table, not the behaviour).",
-  "built": false,
+  "_doc": "LAYER 5 — THE EXCEPTIONS: LADDER v2 (§422 · §423), BUILT at 2e.4 (RUNNING_LOG §451): notation/lib/fit.js runs it per unit in the layout (the frame's lane boxes in ss, from the caller), rungs 1 compress · 2 shrink · 3 flip automatic, 4 … 7 page-level (not automatic), 8 manual; the rung reached is written on the moved items (`fit: { rung, by }`) and on the model's report (`model.fit`); a unit that fits is never touched. Rung 8 is an override ON THE EVENT — an `engraving` overlay { rung: 8, object, property (dySs · dxSs · size), value, ref } — never in code, never prose-only; until it exists the unit is marked red on the page and listed by tools/decisions_needed.js (and notate_section's build output); the same override recurring is the promotion signal. `built` switches it (compiled into engraving.layout.ladder.on).",
+  "built": true,
   "sizeStep": 1.122462,
   "sizeStepRef": "LilyPond's font-size step 2^(1/6) (§428)",
   "compressStack": [0.45, 0.3, 0.2],

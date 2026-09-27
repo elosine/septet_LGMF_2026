@@ -111,6 +111,8 @@
    "pitchPicture": { "edgeCents": "@pitchPicture.edgeCents", "signs": "@pitchPicture.signs" },
    "accGapColumn": "@objects.accidental.besideUnit",
    "partialForm": "@objects.number.partialForm",
+   "floorTier": "@column.floorTiers.inside",
+   "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack" },
    "stemLen": "@objects.stem.lengthSs",
    "accGap": "@objects.accidental.beside",
    "tagY": "@column.rows.tag",

@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 137 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 141 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -38,7 +38,7 @@ LAYER 2 — THE COLUMN (§419 … §425): what stacks on a unit, in what order, 
 - **order** — **[articulation, dynamic, ottava, instruction]** → `layout.stackBelow` · §420 · §421 (LilyPond's outside-staff-priority, verified on his 2.24.4: the ottava INSIDE the text — the one change from #4 day 22's articulation · dynamic · instruction · ottava) — 2e.3 (9). In the layout's slot names: `articulation` = the accent and the technique symbol (LilyPond's Script), `instruction` = every word
 - **orderLilypond** — **[accent, techSymbol, dynamic, ottava, text]** · §420 · §421 — the same order in the objects' names
 - **sides** — HUG **every member on the head side, mirrored with the stem** · ROWS **the dynamic below on its row · text above · articulation on the head side** · pinned **the piano's chain pinned below — an override on the part** · §419 · §424 (his §401f kept)
-- **floorTiers** — inside **[staccatoDot, tenuto]** · insideRule **in a space, never on a line** · outside **every other mark, by its own `staff` distance** · §424 · §425
+- **floorTiers** — inside **[staccatoDot, tenuto]** → `layout.floorTier` · insideRule **in a space, never on a line** · outside **every other mark, by its own `staff` distance** · §424 · §425
 - **stack** — standard **0.45** → `layout.stackGapSs` · `render.sectionHead.spacerSs` · medium **0.3** → `layout.gapMediumSs` · `render.sectionHead.mediumSs` · tight **0.15** → `layout.tightGapSs` · underFlag **0.3** → `layout.chainAboveGapSs` · standard: #2 session 77 (the house 0.45) · medium: #4 day 31 (his 'a medium one too') · tight: #4 day 23 (the staccato-dot gap) · underFlag: #4 day 23 (the chain between staff and flag) · §422
 - **rows** — dynamic **-4.6** → `layout.dynY` · tag **3.5** → `layout.tagY` · tempo **4.6** → `layout.tempoY` · tick **3** → `layout.tickY` · #4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421
 
@@ -224,9 +224,9 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 
 ---
 
-## 6 · THE LADDER (the exceptions) — the table; the behaviour is built at 2e.4
+## 6 · THE LADDER (the exceptions)
 
-LAYER 5 — THE EXCEPTIONS: LADDER v2 (§422 · §423), run by the layout per unit; the rung reached is written on the item (`fit: { rung, by }`). Rung 8 is an override ON THE EVENT with five fields (the object · the property, one that exists in these tables · the value · the rung it failed at · his § and date) — never in code, never prose-only; the same override recurring is the promotion signal. BUILT at 2e.4 (until then: the table, not the behaviour).
+LAYER 5 — THE EXCEPTIONS: LADDER v2 (§422 · §423), BUILT at 2e.4 (RUNNING_LOG §451): notation/lib/fit.js runs it per unit in the layout (the frame's lane boxes in ss, from the caller), rungs 1 compress · 2 shrink · 3 flip automatic, 4 … 7 page-level (not automatic), 8 manual; the rung reached is written on the moved items (`fit: { rung, by }`) and on the model's report (`model.fit`); a unit that fits is never touched. Rung 8 is an override ON THE EVENT — an `engraving` overlay { rung: 8, object, property (dySs · dxSs · size), value, ref } — never in code, never prose-only; until it exists the unit is marked red on the page and listed by tools/decisions_needed.js (and notate_section's build output); the same override recurring is the promotion signal. `built` switches it (compiled into engraving.layout.ladder.on).
 
 - **0 standard** — the standard placement; a spill into the inter-lane gap accepted if nothing is touched
 - **1 compress** — the stack 0.45 → 0.30 → 0.20 · floor: never under the mark's own `parent`
@@ -262,4 +262,6 @@ override) and the entry leaves the list (§426).
 - **DN-3 the window view's looks** — the notation app's window view (⚙, not the video view) passes only the three curve looks to the renderer; every other look there is render.js's code default — the tuba's V0.10 numbers (the ring bar at opacity 1 against the table's 0.65, the env curve's default green against D42's where not passed …). The video view and both exporters read the table · options: the window view reads the whole table too · leave it (a working view) · notation.html (the window view, §447 D42's note) · census §448
 - **DN-4 the clocks over the block at its go time** — at a block's go time the cursor stands on the go line, so the devices that trail it — the breath pie (lane top) and the level meter — sit over the block's column and its legend (on the proto at 0 s: the pie over "senza vib.", the meter over the mp) until the cursor has carried them clear, about half a second; found at 2e.3 in the exporter's own frame (RUNNING_LOG §450) · options: accept (a moment; the cursor moves on) · the pie and the meter wait RIGHT of the cursor until the block is passed · the pie moves to the lane top right of the cursor · §411 (the devices trail the cursor) · §418 (the block before the line) · 2e.3
 - **DN-5 the provisional family look** — the technique table's two family devices (techniques.json familyDevice oneshot · sustained — 2a's page: every technique the registry does not name, the percussion's among them) put the head before x(t) at anchor B's spacer with NO go line: the head is off its time and nothing marks the time. check_rules (6) reports them by name. Each technique's own device sheet settles it (the percussion's note unit is next); until then the page is the bricks page · options: a go line on the family look (B whole) · the head on its time (anchor A, no line) · leave until each device sheet · §414 (the anchor principle) · 2a (the family look) · RUNNING_LOG §450
+
+**The ladder's report** (2026-09-27 (tools/decisions_needed.js)): 0 unit(s) left rung 0.
 
