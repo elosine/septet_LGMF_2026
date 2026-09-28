@@ -1417,8 +1417,9 @@ if (flag('bricks')) {
 // the two interpolated curves, a go line at every breath and nothing else per
 // breath. One shared library computes it so the standalone pages and this page
 // cannot drift apart. See docs/MORPH_NOTATION.md.
+const MORPH_SEQ = [];   // [LGMF PLAN 2k.2] the septet's morph parts, written as sequences after the change rule
 {
-  const MorphOv = require(path.join(ROOT, 'notation', 'lib', 'morph_overlays.js'));
+  const MorphOv =require(path.join(ROOT, 'notation', 'lib', 'morph_overlays.js'));
   const groups = [];
   process.argv.forEach((a, i) => { if (a === '--morph' && process.argv[i + 1]) groups.push(process.argv[i + 1]); });
   // [PLAN 2h.2] THE SEPTET'S MORPH RULES (NOTATION_STANDARDS §3) wherever the ensemble applies:
@@ -1431,12 +1432,22 @@ if (flag('bricks')) {
     centsMin: CENTS_MIN != null ? +CENTS_MIN : MorphOv.SEPTET.centsMin,
     transposeOf: p => ((ENS.parts || []).find(x => x.part === p) || {}).transpose || 0,
   } : undefined;
+  // [LGMF PLAN 2k.2 — §504 … §506, LG-117] THE SEPTET'S MORPH IS A SEQUENCE WHOSE PITCH MOVES (this repo's ensemble; the tuba fixtures
+  // keep D45's header): the group's events take env 'morph' (registry byEnv.morph — the go line alone; the change rule below reads the
+  // kind, so a morph writes no word — its word is the sequence's), the part keeps its `gliss` overlay (the orange curve, 0 … 1 of its
+  // own travel) and its go-line devices, and its `header` · `cresc` overlays are NOT written — the block, the level on the fixed scale,
+  // the breaths and the labels come from ONE `sequence` overlay per part, built after the change rule (MORPH_SEQ, below). The
+  // vibraphone keeps the old path until 2k.5.
+  const asSeq = !!morphOpts;
+  const isVibPart = p => !!(TRACKS && TRACKS[p] && TRACKS[p].instKey === 'bowed_vibraphone');
   for (const gid of groups) {
     const built = MorphOv.forGroup(score.objects || [], gid, parts, gid.replace('grp-act-', '').replace('-01-01', ''), morphOpts);
     if (!built.length) { console.log('  --morph ' + gid + ': no tones in this score/parts — nothing folded'); continue; }
-    for (const b of built) for (const a of b.alerts || []) console.warn('  ALERT --morph ' + gid + ' ' + a);
+    // [2k.2] D45's "no residual on the start" is moot where the block writes the start head's cents (§1a, always)
+    for (const b of built) for (const a of b.alerts || []) if (!(asSeq && !isVibPart(b.part) && /^D45: .* starts .* off the quarter-tone grid/.test(a))) console.warn('  ALERT --morph ' + gid + ' ' + a);
     let dev = 0, other = 0;
     for (const b of built) for (const ov of b.overlays) {
+      if (asSeq && !isVibPart(b.part) && (ov.kind === 'header' || ov.kind === 'cresc')) continue;   // [2k.2] the sequence overlay draws these
       if (ov.kind === 'engraving') {
         // an event may already carry a device overlay from an earlier flag; the
         // morph settings win for its own events
@@ -1444,6 +1455,14 @@ if (flag('bricks')) {
         if (ex) Object.assign(ex.value.device, ov.value.device); else { doc.overlays.push(ov); }
         dev++;
       } else { doc.overlays.push(ov); other++; }
+    }
+    if (asSeq) {
+      const evOfM = new Map(doc.events.map(e => [e.id, e]));
+      for (const b of built) {
+        if (isVibPart(b.part)) continue;
+        for (const o of b.tones) { const e = evOfM.get('ev-' + o.id); if (e) e.env = 'morph'; }
+        MORPH_SEQ.push({ gid, part: b.part, b });
+      }
     }
     const g0 = built[0];
     console.log('  --morph ' + gid + ': ' + built.length + ' parts, ' + dev + ' go-line events, ' + other
@@ -1551,6 +1570,70 @@ if (SEQ_GROUPS.length) {
         + ' · ladder ' + v.scale.ladder.join('/'));
     }
     if (!n) console.log('  --sequence ' + gid + ': no notes in this score/window/parts — nothing folded');
+  }
+}
+// [LGMF PLAN 2k.2 — §504 … §506, LG-117] THE MORPHS AS SEQUENCES WHOSE PITCH MOVES: per part, ONE `sequence` overlay over the morph
+// group's objects (sequence_overlays.forPart, the group alone — a morph's notes carry no srcKind): the block at the part's entry with
+// its column — the start head's partial read from the placed actual's take by lane:seat (1h; the marker names the actual, 1u §395),
+// else cents alone and an ALERT — the level on the fixed scale at 100/s (`writtenAt` on the morph's cc7Abs · nodes · cc7Fade, no
+// floor), every breath a GLIDE (its go line, no head), the labels; the entry carries `dest` (the farthest point reached — D45's second
+// head, drawn on §1a's picture) and `travelC`; the range the morph's own `low → high` (its cc7Abs lo · hi through the part's ladder,
+// the one table); the opening sign when the first sample lies under ppp; the closing sign by 2f's rule at the last breath.
+if (MORPH_SEQ.length) {
+  const SeqOv = require(path.join(ROOT, 'notation', 'lib', 'sequence_overlays.js'));
+  const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
+  const CONT = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
+  const actuals = new Map();   // gid -> { id, take, chord, label } | { why }
+  const actualOf = gid => {
+    if (actuals.has(gid)) return actuals.get(gid);
+    const mk = (score.objects || []).find(o => o.type === 'marker' && o.groupId === gid);
+    const src = mk && mk.properties && mk.properties.pitch ? mk.properties.pitch.src : null;
+    const id = (/^actual:(.+)$/.exec(src || '') || [])[1] || (/^(ACT-[A-Z]+-\d+)/.exec((mk && mk.label) || '') || [])[1] || null;
+    let r;
+    if (!id) r = { why: 'the morph ' + gid + ' names no actual on its marker' };
+    else {
+      const f = path.join(ROOT, 'bank', 'actuals', id + '.json');
+      const P = fs.existsSync(f) ? ((JSON.parse(fs.readFileSync(f, 'utf8')).provenance || {}).pitch || {}) : null;
+      r = !P ? { id, why: 'the actual ' + id + ' is not in bank/actuals' }
+        : Array.isArray(P.takeChord) ? { id, take: P.takeName || null, chord: P.takeChord } : { id, why: 'the actual ' + id + ' carries no take chord' };
+    }
+    r.label = mk ? mk.label : null;
+    actuals.set(gid, r);
+    return r;
+  };
+  for (const { gid, part, b } of MORPH_SEQ) {
+    const A = actualOf(gid);
+    const r = SeqOv.forPart(score.objects || [], gid, part, {
+      window: [w0, w1], bank, instKey: TRACKS && TRACKS[part] ? TRACKS[part].instKey : null, recipe: null, name: A.label || gid,
+      groupOnly: true, pitchMoves: true, fadeFromUnder: 1 / 8,
+      techTextOf: o => { const c = TECH_CHANGE.get('ev-' + o.id); return c ? c.text : null; },
+      partialForm: (CONT.engraving.layout || {}).partialForm,
+      memberOf: o => {
+        if (!A.chord) return { why: A.why };
+        const m = A.chord.find(c => c.lane === o.layer && (c.seat || 0) === (o.seat || 0));
+        return m ? { member: m, take: A.take } : { why: 'the take "' + A.take + '" (' + A.id + ') holds no note for lane ' + o.layer + ':' + (o.seat || 0) };
+      },
+    });
+    if (!r) continue;
+    const v = r.overlay.value, en = v.entry;
+    // the written range: the morph's own cc7Abs lo · hi through the part's ladder (one name when both round to it)
+    const los = r.notes.map(o => (o.cc7Abs || {}).lo).filter(x => x != null), his = r.notes.map(o => (o.cc7Abs || {}).hi).filter(x => x != null);
+    if (los.length && his.length) {
+      const nLo = SeqOv.nameOf(SeqOv.writtenOf(Math.min(...los), r.ladder)), nHi = SeqOv.nameOf(SeqOv.writtenOf(Math.max(...his), r.ladder));
+      en.range = nLo === nHi ? [nHi] : [nLo, nHi];
+      en.rangeText = en.range.join(' → ');
+    } else r.warnings.push('part ' + part + ': no cc7Abs on the morph\'s notes — no range written');
+    // the destination: the farthest point reached, midi + cents from the nearest tempered note (D44: none when the part barely moves)
+    if (b.destC != null) { const dm = Math.round(b.destC / 100), dc = b.destC - dm * 100; en.dest = { midi: dm, cents: +dc.toFixed(2), centsText: SeqOv.centsText(dc) }; }
+    else en.dest = null;
+    en.travelC = +b.extent.toFixed(1);
+    SEQ_ENTRY_EVENTS.add(en.event);
+    doc.overlays.push(r.overlay);
+    for (const w of r.warnings) console.warn('  ALERT --morph ' + gid + ' part ' + part + ': ' + w);
+    console.log('  --morph ' + gid + ' part ' + part + ' (as a sequence, ' + (A.id || '?') + '): entry ' + en.t.toFixed(2) + ' s midi ' + en.midi + ' ' + (en.centsText || '·')
+      + (en.partialText ? ' ' + en.partialText : '') + (en.dest ? ' → dest midi ' + en.dest.midi + ' ' + (en.dest.centsText || '·') : ' (one pitch)') + ' · travel ' + en.travelC + ' c'
+      + (en.rangeText ? ' · ' + en.rangeText : '') + (en.fadeFrom ? ' · from ' + en.fadeFrom : '') + (en.techText ? ' · "' + en.techText + '"' : '')
+      + ' · ' + v.breaths.length + ' glides · ' + v.labels.length + ' labels · exit ' + (v.exit.fades ? '> ' + v.exit.fadeTo : 'no fall') + ' · ladder ' + v.scale.ladder.map(x => Math.round(x)).join('/'));
   }
 }
 // [2e.3 (8)] the change words that open no sequence block: an `instruction` on the note's part at its time

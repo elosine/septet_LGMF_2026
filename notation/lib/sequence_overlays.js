@@ -63,38 +63,59 @@
   // the partial and the fundamental from the sequence's recipe: the box named in the note's `performanceNotes` (`box N`), the
   // chord member on the note's lane with the note's key (else the lane's first); the fundamental is COMPUTED from the note's
   // pitch and partial and spelled from the take's name when the name agrees (`Just-Eb1-seed100` → E♭1), else by sharps
-  function marksOf(o, recipe, warnings, formOf) {
-    const cents = bendOf(o);
-    const out = { midi: o.sonifyNote, cents: +cents.toFixed(2), centsText: centsText(cents) };
-    const m = /box (\d+)/.exec(o.performanceNotes || '');
-    const box = m && recipe && recipe.containers ? recipe.containers[+m[1] - 1] : null;
-    if (!box) { warnings.push(o.id + ': no box in the recipe for "' + (o.performanceNotes || '') + '" — no partial written'); return out; }
-    const lane = (box.chord || []).filter(c => c.lane === o.layer);
-    const c = lane.find(x => x.midi === o.sonifyNote) || lane[0];
-    if (!c || !(c.partial > 0)) { warnings.push(o.id + ': box ' + m[1] + ' holds no partial for lane ' + o.layer); return out; }
-    if (Math.abs((+c.cents || 0) - cents) > 0.05) warnings.push(o.id + ': the recipe says ' + c.cents + ' c, the note bends ' + cents + ' c — the note written');
-    const fMidiX = o.sonifyNote + cents / 100 - 12 * Math.log2(c.partial), fMidi = Math.round(fMidiX);
+  // [LGMF PLAN 2k.2] `memberOf(o)` in place of the recipe: a MORPH's start head reads its partial from the placed actual's take by
+  // `lane:seat` (1h; the marker's take, 1u §395) — `{ member: { midi, cents, partial }, take }`, or `{ why }` when it cannot be read;
+  // the fundamental is then computed from the TAKE's pitch (the note may already lean off it at its onset — said, the note written)
+  function marksOf(o, recipe, warnings, formOf, memberOf) {
+    let midi = o.sonifyNote, cents = bendOf(o);
+    // [2k.2] a morph's note may start re-keyed (the engine keeps the bend inside ±199 c by re-spelling — midi 38 −100 is D♭2): the
+    // start head is the pitch itself, the nearest tempered key and the cents from it
+    if (memberOf) { const x = midi * 100 + cents; midi = Math.round(x / 100); cents = x - midi * 100; }
+    const out = { midi, cents: +cents.toFixed(2), centsText: centsText(cents) };
+    let c, take, boxN, pitchX;
+    if (memberOf) {
+      const r = memberOf(o) || {};
+      if (!r.member || !(r.member.partial > 0)) { warnings.push(o.id + ': ' + (r.why || 'no take to read') + ' — no partial written'); return out; }
+      c = r.member; take = r.take || null; boxN = null;
+      // the note against its take, to the written resolution (half a cent): a morph may already lean off its take at its onset
+      if (c.midi !== midi || Math.abs((+c.cents || 0) - cents) >= 0.5) warnings.push(o.id + ': the take "' + (take || '?') + '" says midi ' + c.midi + ' ' + c.cents + ' c, the note starts midi ' + midi + ' ' + (+cents.toFixed(2)) + ' c — the note written, the take\'s partial');
+      pitchX = c.midi + (+c.cents || 0) / 100;
+    } else {
+      const m = /box (\d+)/.exec(o.performanceNotes || '');
+      const box = m && recipe && recipe.containers ? recipe.containers[+m[1] - 1] : null;
+      if (!box) { warnings.push(o.id + ': no box in the recipe for "' + (o.performanceNotes || '') + '" — no partial written'); return out; }
+      const lane = (box.chord || []).filter(x => x.lane === o.layer);
+      c = lane.find(x => x.midi === o.sonifyNote) || lane[0];
+      if (!c || !(c.partial > 0)) { warnings.push(o.id + ': box ' + m[1] + ' holds no partial for lane ' + o.layer); return out; }
+      if (Math.abs((+c.cents || 0) - cents) > 0.05) warnings.push(o.id + ': the recipe says ' + c.cents + ' c, the note bends ' + cents + ' c — the note written');
+      take = box.take || null; boxN = +m[1]; pitchX = o.sonifyNote + cents / 100;
+    }
+    const fMidiX = pitchX - 12 * Math.log2(c.partial), fMidi = Math.round(fMidiX);
     if (Math.abs(fMidiX - fMidi) > 0.05) warnings.push(o.id + ': partial ' + c.partial + ' puts the fundamental ' + ((fMidiX - fMidi) * 100).toFixed(1) + ' c off a key');
     let fName = STEP_NAMES[((fMidi % 12) + 12) % 12] + (Math.floor(fMidi / 12) - 1);
-    const tm = /-([A-Ga-g])(b|#|♭|♯)?(-?\d)-/.exec('-' + (box.take || '') + '-');
+    const tm = /-([A-Ga-g])(b|#|♭|♯)?(-?\d)-/.exec('-' + (take || '') + '-');
     if (tm) {
       const PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 }, L = tm[1].toUpperCase();
       const alt = tm[2] === 'b' || tm[2] === '♭' ? -1 : tm[2] === '#' || tm[2] === '♯' ? 1 : 0;
       const nm = PC[L] + alt + 12 * (+tm[3] + 1);
       if (nm === fMidi) fName = L + (alt < 0 ? '♭' : alt > 0 ? '♯' : '') + tm[3];
     }
-    return Object.assign(out, { partial: c.partial, fundamental: fName, fundamentalMidi: fMidi, box: +m[1], take: box.take || null,
+    return Object.assign(out, { partial: c.partial, fundamental: fName, fundamentalMidi: fMidi, box: boxN, take,
       partialText: String(formOf || '{n} ({f})').replace('{n}', c.partial).replace('{f}', fName) });   // [2e.3 (5), §438] 26 (C1) — rules.json objects.number.partialForm
   }
 
   // Build the overlay one part of one sequence group needs.
   //   objects : the score's objects (any superset)   groupId : 'grp-seq-…'   part : the lane
   //   opts    : { window: [w0, w1], bank, instKey, recipe, name, techTexts, techTextOf(note), partialForm, sps, dwellS }
+  //   [LGMF PLAN 2k.2 — a MORPH written as a sequence whose pitch moves, §506] + { groupOnly: the group alone makes the line (a
+  //   morph's notes carry no srcKind) · memberOf(note): the start head's take member (marksOf) · pitchMoves: every breath a GLIDE (no
+  //   head: in a morph no breath keeps or changes a pitch in the sequence's sense) · range: the written range in names (the morph's
+  //   own `low → high`) · fadeFromUnder: the opening sign when the first sample lies under this written level (ppp = 1/8) }
   function forPart(objects, groupId, part, opts) {
     const O = Object.assign({}, DEFAULTS, opts || {});
     const [w0, w1] = O.window || [0, Infinity];
     const warnings = [];
-    const notes = objects.filter(o => o.type === 'waveCurve' && o.groupId === groupId && o.layer === part && o.srcKind === 'sequence'
+    const notes = objects.filter(o => o.type === 'waveCurve' && o.groupId === groupId && o.layer === part && (O.groupOnly || o.srcKind === 'sequence')
       && o.startSeconds >= w0 && o.startSeconds < w1).sort((a, b) => a.startSeconds - b.startSeconds);
     if (!notes.length) return null;
     for (let i = 1; i < notes.length; i++) if (notes[i].startSeconds < notes[i - 1].endSeconds - 1e-6)
@@ -142,16 +163,19 @@
     const first = notes[0];
     const box1 = O.recipe && O.recipe.containers ? O.recipe.containers[(marksOf(first, O.recipe, [], O.partialForm).box || 1) - 1] : null;
     const W = O.recipe && O.recipe.waves;
-    const range = box1 && box1.dyn === 'waves' && W ? [W.low, W.high] : (box1 && typeof box1.dyn === 'string' ? [box1.dyn] : null);
+    const range = Array.isArray(O.range) ? O.range.slice()
+      : box1 && box1.dyn === 'waves' && W ? [W.low, W.high] : (box1 && typeof box1.dyn === 'string' ? [box1.dyn] : null);
     // [2e.3 (8)] the block's word: the caller's change-of-technique rule (techTextOf) when it passes one, else the technique's word
     const techText = O.techTextOf ? O.techTextOf(first) : ((O.techTexts || {})[first.technique] || null);
     // [2f, §457 · §459] the line enters from nothing: the first note's cc7Fade from 0 (1d.8's 'fade in … from niente') — the opening sign
-    const fadeFrom = (first.cc7Fade && first.cc7Fade.from === 0) ? 'niente' : null;
+    // [2k.2] or, for a morph, its first sample under ppp (the bloom's first breath rises from under the scale's first name)
+    const fadeFrom = ((first.cc7Fade && first.cc7Fade.from === 0) || (O.fadeFromUnder != null && samples[0] < O.fadeFromUnder - O.eps)) ? 'niente' : null;
     const entry = Object.assign({ event: 'ev-' + first.id, t: first.startSeconds, release: first.endSeconds, technique: first.technique,
-      techText, range, rangeText: range ? range.join(' → ') : null, fadeFrom }, marksOf(first, O.recipe, warnings, O.partialForm));
+      techText, range, rangeText: range ? range.join(' → ') : null, fadeFrom }, marksOf(first, O.recipe, warnings, O.partialForm, O.memberOf));
     const breaths = [];
     for (let i = 1; i < notes.length; i++) {
       const o = notes[i], p = notes[i - 1];
+      if (O.pitchMoves) { breaths.push({ event: 'ev-' + o.id, onset: o.startSeconds, release: o.endSeconds, pitch: 'glide' }); continue; }
       const same = o.sonifyNote === p.sonifyNote && Math.abs(bendOf(o) - bendOf(p)) < 0.01;
       const b = { event: 'ev-' + o.id, onset: o.startSeconds, release: o.endSeconds, pitch: same ? 'same' : 'new' };
       if (!same) Object.assign(b, marksOf(o, O.recipe, warnings, O.partialForm));
