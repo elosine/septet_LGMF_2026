@@ -150,6 +150,10 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
       worst = Math.min(worst, gap); if (gap < AF - 1e-4) through++;   // the layout rounds t1 to 1 µs = 2e-5 ss at 18.65 ss/s
     }
     const b684 = bars.find(i => i.t1Bow != null && Math.abs(i.t1Bow - 6.84) < 0.05);
+    // [§483] the 8va label is ink: the bar ending at 78.947 s stops `after` before the 79.00 s unit's label (which stands left of its head)
+    const ot79 = it5.find(i => i.k === 'ottava' && Math.abs(i.t - 78.997) < 0.02), b79 = bars.find(i => (i.t1Bow != null ? i.t1Bow : i.t1) > 78.9 && (i.t1Bow != null ? i.t1Bow : i.t1) < 78.96);
+    const lab79 = ot79 && b79 ? (ot79.t * sps + ot79.dx0Ss) - b79.t1 * sps : NaN;
+    ok(ot79 && ot79.dx0Ss < -1 && b79 && b79.t1Bow != null && Math.abs(lab79 - AF) < 1e-4, 'THE 8va LABEL IS INK (§483): the 79.00 s unit\'s bracket starts at ' + (ot79 ? ot79.dx0Ss.toFixed(3) : '?') + ' ss (its label left of the head); the bar before it cut to ' + (isFinite(lab79) ? lab79.toFixed(3) : '—') + ' ss short of the label');
     ok(AF === 0.25 && !through && !!b684 && cut.length > 0, 'THE CLEARANCE (2h.1): every bar ends ≥ after (' + AF + ' ss) before its successor\'s leftmost ink — ' + cut.length + ' of ' + bars.length + ' bars cut, the tightest gap ' + (isFinite(worst) ? worst.toFixed(3) : '—') + ' ss; the 6.84 s bar cut by ' + (b684 ? ((b684.t1Bow - b684.t1) * sps).toFixed(2) + ' ss' : 'NOT CUT'));
   }
   ok(!it5.some(i => i.k === 'goline' || i.k === 'stem' || /curve$/.test(i.k)), 'no go line, no stem, no level curve on the lane (anchor A; §464)');
@@ -204,6 +208,10 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
     const accAt = t => it5.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - t) < 0.02).map(i => i.g.replace('accidental-', '') + '@' + i.ySs).sort();
     const a56 = accAt(56.123), a141 = accAt(141.38);
     ok(C.engraving.layout.accNaturalInColumn === true && a56.join(' ') === 'natural@4 sharp@4', 'THE NATURAL IN THE COLUMN (2h.7): 56.123 s ♯ and ♮ on the one line — ' + a56.join(' · ') + ' · 141.38 s ' + (a141.join(' · ') || 'no sign'));
+    // [§482] the two signs keep objects.accidental.betweenSs between them (LilyPond's padding 0.2) — the port had them touching
+    const G2 = rd('notation/lib/glyphs.json'), BT = C.engraving.layout.chordColumn.minLateralGap;
+    const gapAt = t => { const s = it5.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - t) < 0.02).map(i => { const g = G2.accidental[i.g.replace('accidental-', '')], ax = i.align === 'noteY' && g.anchors && g.anchors.noteY ? g.anchors.noteY.x : g.wSs / 2; return { l: i.dxSs - ax, r: i.dxSs + g.wSs - ax }; }).sort((a, b) => a.l - b.l); return s.length === 2 ? s[1].l - s[0].r : NaN; };
+    ok(BT === 0.2 && Math.abs(gapAt(56.123) - BT) < 1e-6 && Math.abs(gapAt(141.38) - BT) < 1e-6, 'THE GAP BETWEEN THE SIGNS (§482): ' + BT + ' ss (accidental.betweenSs → chordColumn.minLateralGap) — 56.123 s ' + gapAt(56.123).toFixed(3) + ' · 141.38 s ' + gapAt(141.38).toFixed(3));
   }
   const dev = Layout.deviceResolver(ir, C.engraving.layout);
   const anim = AnimObj.collect(ir, null, C.animated, { parts, meta: false, deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}) })

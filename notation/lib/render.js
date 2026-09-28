@@ -812,6 +812,9 @@
           // head's far edge (+ above, − below); a side change along the bar (`segs`) steps to each segment's own offset; absent = the
           // bar centred on its head, exactly as before. 2g.3's half-height bars (`hFrac`) are retired.
           const h = RB.hSs * ssPx, yC = Y(it.ySs + (it.offSs || 0));
+          // [§484, his word 2026-09-28] the bowed vibraphone's SECOND seat (chain 1) in its own colour (rules.json objects.ringBar.colourSeat2,
+          // olive); the first seat and every other part's bar the ring bar's own colour; the marks ink for both
+          const fillRB = it.seat === 1 && RB.colorSeat2 ? RB.colorSeat2 : RB.color;
           if (it.segs) {   // the side changes along the bar (the voices cross through a unison): one rect a segment
             for (let i = 0; i < it.segs.length; i++) {
               const sa = i === 0 ? x0 : Math.max(x0, view.xOfSeconds(Math.max(it.segs[i].t, w0)));
@@ -819,11 +822,11 @@
               if (sb - sa < 0.5) continue;
               const yS = Y(it.ySs + (it.segs[i].offSs || 0));
               parts.push('<rect x="' + sa.toFixed(2) + '" y="' + (yS - h / 2).toFixed(2) + '" width="' + (sb - sa).toFixed(2) +
-                '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
+                '" height="' + h.toFixed(2) + '" fill="' + fillRB + '" opacity="' + RB.opacity + '"/>');
             }
           } else
           parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (yC - h / 2).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
-            '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
+            '" height="' + h.toFixed(2) + '" fill="' + fillRB + '" opacity="' + RB.opacity + '"/>');
         } else if (it.k === 'brick') {
           if (o.hideBricks) continue;   // day 22: the bricks toggle
           if (!crosses(it.t0, it.t1)) continue;

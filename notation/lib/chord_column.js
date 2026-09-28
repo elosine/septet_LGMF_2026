@@ -82,7 +82,11 @@
       }
       // a colliding accidental takes the next full slot left; a clear one
       // sits against its own head (the D.9.x rule, heads supplied)
-      let right = collidingLeft !== null ? collidingLeft : anchorOf(it) - gap;
+      // [LGMF 2h, §482] the slot to the left keeps `minLateralGap` from the accidental it collides with — the rule D.8.2 stated
+      // (0.10) and this port never applied: the ♮ and the ♯ of one line touched (his eye, 2026-09-28: "accidentals too close").
+      // rules.json objects.accidental.betweenSs (LilyPond's AccidentalPlacement padding, 0.2)
+      const lat = P.minLateralGap || 0;
+      let right = collidingLeft !== null ? collidingLeft - lat : anchorOf(it) - gap;
       const lx = ledgerLeftAt(it.anchorY);
       if (lx !== null && lx - gap < right) right = lx - gap;
       const p = Object.assign({}, it, { rightEdge: right, leftEdge: right - it.w, slotIndex: slot++ });

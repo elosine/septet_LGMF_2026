@@ -16992,3 +16992,79 @@ voice (§479) · (7) `afterAbutS` 0.1 s, the successor window (§474).
 
 **One commit per step, THE SHIELD in each — with one bend:** 2h.5 and 2h.6 share a commit (§478, the same fifteen lines). Built on
 Fable at his *"build here, go"*, not on Opus after a clear as the plan said.
+
+
+## §482. THE GAP BETWEEN TWO ACCIDENTALS — the ♮ and the ♯ of one line touched: a port fault and a rule (2026-09-28, Fable, session 17)
+
+**His words (at 56.123 s, after 2h.7):** *"accidentals too close; lets surface the proper rules and write into system"*.
+
+**What was found:** the `♮` [−1.297 … −0.927] and the `♯` [−0.927 … −0.377] — **gap 0.000 ss**. Piece #2's D.8.2 (the LilyPond accidental
+matrix, LOCKED) names `minLateralGap` 0.10, and `chord_column.js accidentalColumn` took the colliding accidental's LEFT EDGE as the next
+slot's RIGHT EDGE — the gap was in the rule's words and never in the code (`P.minLateralGap` was passed and unread). The sign → head
+gap at 56.123 was 0.377: `besideUnit` 0.10 plus the C6's ledger overhang (the sign clears the ledger, 2e.3 (7)) — right.
+
+**The proper rules, surfaced:** LilyPond 2.24.4 on his machine (`share/lilypond/2.24.4/scm/lily/define-grobs.scm`, verified 2026-09-28):
+`AccidentalPlacement` `right-padding` **0.15** — *"this is quite small, but it is very ugly to have accs closer to the previous note than to
+the next one"* — the gap to the note; the gap BETWEEN accidentals in a column is `padding`, not a property in that file (the C++
+default, accidental-placement.cc: **0.2** — from memory, not read on his machine; said so in the row). Gould: as close to the note as
+possible without touching; in a chord, side by side, each a clear space from the next.
+
+**Written into the system:** `objects.accidental.betweenSs` **0.2** (basis lilypond) → `engraving.layout.chordColumn.minLateralGap` a
+pointer (was a literal 0.1); the packer applies it (`right = collidingLeft − minLateralGap`). `besideUnit` 0.10 — his tightening of
+LilyPond's 0.15 in piece #2 — stands. Measured: 56.123 · 141.38 s **0.200** between the signs (`vib_marks_check` THE GAP BETWEEN THE
+SIGNS); the probe's G5 · G♯5 pair the same. The shield: `piece-lgmf`'s two columns move with it (the same two, §479); the tuba pages
+have no same-letter pair in one column.
+
+
+## §483. THE 8va LABEL IS INK — the ottava's start carries its label, so the clearance and the marks clear it (2026-09-28, Fable, session 17)
+
+**His words (at 78.8 s and at the 79.00 s head):** *"doesn't look like Otava is included in the horizontal clear clearing. So the MP with
+its the end of the hairpin should come up to whatever normal gap horizontally before the eight of the eight VA. Just like every other
+object, accidentals or ledger lines, etc."* — and *"Same with duration lines. The duration line clears the accidental below, but not the
+8VA above."*
+
+**What was found:** the ottava item's `dx0Ss` was the unit's leftmost ink (the head's left edge, 0 at 79.00 s — no accidental), and
+`fit.js inkOf` read it as the bracket's left. But `render.js` WIDENS a bracket narrower than `minBracketSpanSs` (1.3671) leftward, label
+first — so the `8va` text stood 1.48 ss LEFT of the head, where no reader looked: the bar before it (78.947 s) ended 0.93 ss short of the
+head and ran under the label; its closing `mp`, right-justified to that end, sat over the `8va`.
+
+**The fix, one place:** `layout.js` computes the widened start itself — `dx0Ss = min(leftEdgeDx, dx1Ss − minBracketSpanSs − (label
+width + textGapBeforeLineSs))` — so the item carries the label's true left edge and every reader sees it: the clearance (2h.1), the marks'
+push, the fit. The renderer's own widening becomes a no-op (the same numbers, `glyphs.json standards.ottava`). No rule number changed:
+the label was always ink; it was never counted.
+
+**Measured (`vib_marks_check` THE 8va LABEL IS INK):** the 79.00 s bracket starts at −1.479 ss; the bar before it is now cut to 0.250 ss
+short of the label (26 of 55 bars cut, was 22); its closing `mp`'s right edge 0.250 before the `8va`. All four ottavas of the proto are
+widened ones.
+
+**THE SHIELD — the tuba pages moved, and only there:** 11 of piece #4's 17 IRs and `piece-lgmf` (123 ottavas) changed — checked ITEM BY
+ITEM on five of them (a stash of the changed paths, the layouts dumped before and after): every difference is an `ottava` item's
+`dx0Ss` (e.g. −2.11 → −3.00), the item count unchanged, nothing else moved — the fit did not re-decide a unit. `lgmf-eh-proto` unmoved
+(no ottava). The shield's baseline is re-captured after this commit.
+
+
+## §484. THE SEATS BY COLOUR — the second seat's bars olive; the marks ink for both (2026-09-28, Fable, session 17)
+
+**His words:** *"sometimes its unclear what lines/dynamics go with which pitch maybe we distinguish by color, keep the blue grey, recommend
+some shades for the 2nd? keep same transparency"* — five shades were drawn beside the navy at 0.3 in the pane (sienna · vermillion · olive ·
+plum · ochre, `seat2-shades.html` in the scratchpad, the bars at 0.3 and the marks in the solid hue) — *"ollive but keep the dynamics/
+hairpins black for both"*.
+
+**Written into the system:** `colours.olive` **#6B8E23** (→ #D2DEBD at 0.3 on white) · `objects.ringBar.colourSeat2` → olive ·
+`container.json render.ringBar.colorSeat2`; the layout puts the bow's chain on its bar (`seat`), the renderer fills seat 1's bars with
+`colorSeat2`, seat 0's and every other part's with the bar's own navy; the marks unchanged, ink. On the proto 28 bars navy · 27 olive.
+**Pre-B:** the rows are still by register (2g) — he asked to see the colours on the page as it stands before deciding (B): *"put the
+colors in for the current setting … pre-B implementation, and I'll just imagine what B would be like in your walkthrough"*.
+
+**THE CROSS AT 22 s, walked through (the reader on Draft 01, R01c):** seat 1 (chain 0, navy) holds D♯6 16.39 … 20.88 and re-enters on
+C6 20.93 … 26.86 — a UNISON over seat 2 (chain 1, olive), which holds C6 16.99 … 22.64; at 20.93 the entering navy bar takes the top
+side, the sounding olive bar keeps the bottom. At **22.70** olive enters on **D6** — the higher note now — so by register its row is
+"upper" (it was lower), and 2h.8 restates its carried `pp` in the upper row; the navy unison bar, now under a higher note, STEPS to the
+bottom side at 22.695 (`segs`). At 26.91 navy re-enters on C6 under olive's D6 → "lower" → its `pp` restated below. Two stray `pp`s
+and a stepping bar, all from the rows following the pitch. **Under (B)** navy is the upper row and olive the lower for the whole
+sequence: no restatement at 22.70 or 26.91 (bare bows at the carried pp — the passage shows bars and heads only), the rows never move.
+The bars' sides still follow the pitch (the higher head's bar up) — the AI's rule 2 of the reply before, "the side follows the seat",
+is WITHDRAWN: at a second with the seats inverted it would run olive's bar through navy's head.
+
+**Verified in the running app:** the pane on his `:5400`, `lgmf-vib-proto` — the sheet's 0.3-opacity rects by fill: navy and olive both
+present (the counts in the reply). `check_rules` 25 · `vib_marks_check` 33 · `sequence_notation_check` 64.

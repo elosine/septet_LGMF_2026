@@ -1578,7 +1578,7 @@
                   ringBarItem.dx0Ss = Math.max(0, headDx + rightExt + rbGap);
                   // [LGMF 2g.4] the vibraphone's bow: its head's centre and time ride on its bar — the start mark centres on the head
                   // (anchor A's column), displaced by the chord column or not
-                  if (vibBowOf.has(e.id)) { ringBarItem.headDxSs = +headDx.toFixed(6); ringBarItem.headT = tU; }
+                  if (vibBowOf.has(e.id)) { ringBarItem.headDxSs = +headDx.toFixed(6); ringBarItem.headT = tU; ringBarItem.seat = vibBowOf.get(e.id).chain; }   // [§484] the seat colours the bar (render.js)
                 }
                 // unit ink extents (grow as elements land) — feed both the
                 // accidental clearance and the ottava geometry
@@ -2173,8 +2173,16 @@
                   const label = above ? (n === 1 ? 'va8' : 'ma15') : (n === 1 ? 'vb8' : 'mb15');
                   const ref = above ? chainTopY : chainBotY;
                   const lineY = above ? ref + std + hook : ref - std - hook;
+                  // [LGMF §483 — his eye 2026-09-28: "doesn't look like Otava is included in the horizontal clearing … the duration line
+                  // clears the accidental below, but not the 8VA above"] the label can stand LEFT of the unit's ink: the renderer widens
+                  // a bracket narrower than minBracketSpanSs leftward (its label first). The item carries that widened start now, so every
+                  // reader — the clearance (2h.1), the marks' push, the fit — sees the label's left edge as the unit's leftmost ink,
+                  // exactly as an accidental's or a ledger's (glyphs.json standards.ottava — the numbers are the renderer's own)
+                  const lgO = glyphs.ottavaText && glyphs.ottavaText[label], lgWO = lgO ? lgO.wSs + (O.textGapBeforeLineSs != null ? O.textGapBeforeLineSs : 0.1) : 0;
+                  const dx1O = headDx + (TPG ? TPG.right : nhO.wSs / 2 + (ledgers.length ? ledgerExt : 0)) + (o.ottavaEndGapSs != null ? o.ottavaEndGapSs : ((O.endPadSs != null) ? O.endPadSs : 0));
+                  const dx0O = Math.min(leftEdgeDx, dx1O - (O.minBracketSpanSs || 1.37) - lgWO);
                   items.push({
-                    k: 'ottava', t: tU, dx0Ss: leftEdgeDx,
+                    k: 'ottava', t: tU, dx0Ss: +dx0O.toFixed(6),
                     // §401l (the composer, option A): the hook clears the LEDGER LINE's overhang on the right,
                     // as the sign already clears the accidental on the left (Gould: sign at the first note's
                     // left edge, line to the last note's right edge, hook toward the staff)
