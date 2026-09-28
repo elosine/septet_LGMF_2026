@@ -16681,3 +16681,61 @@ at load.
 
 **The AI's call, his to reverse:** the opacity stays **0.65** (the ring bar's own, #4 day 22). Piece #2 draws its wedge at **0.3** — on white a
 paler steel blue than what the ring bar will show at 0.65. One number, `objects.ringBar.opacity`, if he wants the paler look.
+
+
+## §473. 2g.6 HIS EYE ON `lgmf-vib-proto` — ten findings, the ring bar's opacity, and PLAN § `2h` (2026-09-28, Fable, session 17)
+
+**His eye, his words whole** (two messages, with six and four screenshots of the proto — the sites 6.78 · 56 · 78.8 s, and piece #2's wedge):
+
+> *"There should be a gap between the end of a duration line and the beginning of the next notation's leftmost point. So in this case, I'm
+> looking at around 6.78 in the vibraphones, and the duration line is going into the accidental. So let's standardize that. Make sure
+> there's a standard gap between the end of the duration line and the beginning of the next notation object. There is this blue circle
+> object appearing. I'm not sure what that is. I think if I vaguely recall from a previous score, it's some sort of selection tool or
+> something, or highlight tool. Let's suppress that, please. Also, let's work on the left edge of the hairpin and make sure there's a gap
+> between the dynamic sign. In this case, al niente, but any dynamic sign and the beginning of the hairpin. It looks like the end of the
+> hairpin has a gap before the ending dynamic. So let's make it the same. And let's put all these things into this, our standard system.
+> Let's update the duration line spec when two notes are close to each other in range or vertically close to each other. In that case,
+> let's keep the full uh, height duration line, but let's make the bottom duration line top be flush with the bottom of the note head and
+> the top duration line's bottom be flush with the top of the note head, just in those cases. Everything else continue as normal. And
+> sorry, we may need to look at the range and pitch because with the full um, the duration line, well, have a look at the range and pitch.
+> So it might not just be a second. Let's see what it looks like if it's a third. And make sure the lines aren't too close together
+> vertically. Let's make right dynamics or dynamics that are at the end of a bow. Let's make them right justified with the right end of
+> the duration line. And the hairpin adjusted accordingly. Let's make the max height of the hairpin double what it is now. But let's move
+> everything from the side closest to the bowing or the duration line. What I mean to say is the bottom one on the bottom, we're going to
+> keep the top Y of the hairpin, the top line, and then open up the bottom line. but move it center so it's the same. It's just a open
+> wedge still. But the height increase will come from moving down in that case or moving up in the top line case. So I don't want the
+> line, the hairpin any closer to the duration line, but I do want it double in height. And then of course, adjust everything else. The
+> dynamic should line up to the center of the hairpin. hold on these. I will provide more perhaps, but um, just need more room."*
+
+> *"the duration line color still doesn't look right. Did you get its transparency as well? Is image three a unison? This is at 56 seconds,
+> about. If so, it's fine. If not, we have to make sure we include the courtesy natural. Image four at around 78.8. Let's make sure, just
+> like the other issue I brought up, let's make sure the previous notation, so in this case, the MP dynamic and the hairpin, clear
+> everything before the next one. So in this case, also the Otava symbol."*
+> — on the gap size (the AI's offer of the head-side 0.25 ss for both gaps): *"yes fine"*
+> — on the `mp mp` under one head (the AI's question): *"what did we decide for this case? So in this case, the one bow, the preceding bow,
+> ends in MP, and the next one starts in MP. Did we decide if we, if it stays the same dynamic, do we restate the dynamic if it's a new bow?
+> So we restate the dynamic for each new bow, or if it keeps the same dynamic, we just keep it, or just don't restate it."*
+> — *"Good. I'm done with my list for now. Good to move forward with fixes."*
+
+**The facts, read from the IR before answering** (`notation/ir/lgmf-vib-proto.ir.json`):
+- **56.123 s is a SECOND, not a unison:** `ev-wc-3179` C♯6 (85) · `ev-wc-3180` C6 (84), one time, env `vibBow`; the page drew one `♯` — so
+  the C6 needs its `♮` (his rule). → PLAN 2h.7.
+- **78.947 · 78.997 s:** bow 27 closes on a name `mp` at 78.947; bow 29 opens on `mp` with `start: true` at 78.997 — a restated name. THE
+  DECISION STANDS as made at §463 rule (a) and `vibMarks.repeatName false` — *the same level continuing into a new bow is NOT restated; a
+  name is written where the level changes, through a hairpin; a new bow at the same level carries it.* Whether bow 29 is a chain restart
+  (its own previous bow is bow 28, the other seat's) or a fault is 2h.8's question, not guessed here.
+- **The colour:** §472 set the ring bar navyBlue at the bar's own opacity 0.65; piece #2 draws its wedge at **0.3** (the two `insert_*_linewedges.js`
+  scripts: "navyBlue 0.3 opacity"). His *"did you get its transparency as well?"* — no; **now `objects.ringBar.opacity` 0.3**, the ref carries
+  the date (this §); the page regenerated, the gate green. He reloads the tab.
+
+**What was decided — PLAN § `2h`, nine steps, written from his words (the item is the record; each step carries its REQUIRED VERIFICATION):**
+2h.1 the clearance rule — a fifth distance `after` 0.25 ss on the trailing objects (the bar before the next head of its own voice; the
+closing name and hairpin before the next bow's `8va` · `○` · name) · 2h.2 the blue circle off by its row (expected: #4's curve follower
+under `byEnv.vibBow` — §454 turned it off for `sequence` only; verified in the DOM first) · 2h.3 the hairpin's start gap = its end gap
+(`beside` 0.45; `circleGapSs` retired; on the BASE row — the winds' `○—<` moves, his "any dynamic sign") · 2h.4 the close voices: full
+bars flushed away from their heads, the threshold MEASURED on a probe page at a second · third · fourth, his call · 2h.5 the closing name
+right-justified to the bar's end, the hairpin before it · 2h.6 the timed hairpin 1.333 ss, the near edge keeping its Y, the name on the
+axis (the winds' fade hairpin stays 0.667 — the AI's reading) · 2h.7 the `♮` in the chord column · 2h.8 the restated name explained or fixed
+· 2h.9 the protos re-extracted, his eye. Build on Opus after a checkpoint and a clear.
+
+**Not done here:** nothing drawn changed but the opacity; no IR moved.
