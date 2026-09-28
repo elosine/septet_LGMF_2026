@@ -17068,3 +17068,55 @@ is WITHDRAWN: at a second with the seats inverted it would run olive's bar throu
 
 **Verified in the running app:** the pane on his `:5400`, `lgmf-vib-proto` — the sheet's 0.3-opacity rects by fill: navy and olive both
 present (the counts in the reply). `check_rules` 25 · `vib_marks_check` 33 · `sequence_notation_check` 64.
+
+
+## §485. B DECIDED, WITH HIS MODIFICATION — the rows pinned to the lane's edges, the bars on tracks under them; the head's seat open (2026-09-28, Fable, session 17)
+
+**The talk before it (his words):** on the cross at 37–38 s — *"I'm assuming that the hairpin and the ending P is for the top line and the
+PP is the starting dynamic or the single dynamic for the bottom line. Or I, I guess it's the new top line. Right, so that's a cross"*; the
+AI's three options (A: register rows + the entering bow takes the other row · B: rows by seat · C: register rows, the colliding mark a
+tier out; 23 collisions and 22 shared changes in Draft 01 counted) and its recommendation B; his *"sometimes its unclear what
+lines/dynamics go with which pitch maybe we distinguish by color"* (§484); *"I still don't quite understand B. Can you walk me through
+very simply maybe the cross that happens at 22? … put the colors in for the current setting"* — done (§484), the walkthrough given
+with the colours on the page (22.70 · 26.91: the two restated `pp`s, the stepping unison bar; under B nothing written there); his
+unison point — two heads at anchor A cannot both sit on the time; the column puts the second a head-width right, 0.06 s late — and the
+AI's cue 2 ("the flush side follows the seat") WITHDRAWN: at a second with the seats inverted it runs a bar through a head; cue 3
+dropped.
+
+**His decision, verbatim:** *"Okay, B is good, but let's keep it with some modifications and then an additional recommendation that
+resolves, perhaps resolves a unison. So let's have B, which I understand to be top is always top and bottom is always bottom. Uh, blue on
+top, olive on bottom. But let's move the duration lines in one row. So let's have, I guess we'll have the dynamic and hairpins pinned to
+the top. So we'll have to adjust the rules so that it doesn't affect everything else. Some way to make this exception. But we'll have the
+top of the hairpin pinned to the top of the lane. And then everything else vertically follows. So the dynamics will always be at the
+midpoint of the hairpin Y. The hairpins will always be in the same vertical location. So same Y all the way through. And then same with
+the bottom. Let's pin the olive side bottom of the hairpin to the bottom of the lane. Dynamics the same, and then the duration lines will
+go respectively under and on top of the hairpin. So in the top case, the blue, the bottom of the hairpin, and then whatever gap we're
+using, vertical gap, and then the top of the duration line. And then that'll be consistent, always the same Y. Then the issue is what
+node head goes with which side, top or bottom, and which color, navy or olive. So let's discuss this. Do we color the note heads or,
+yeah, for example, like the unison, it's not clear which one goes with which. So give me both some recommendations for this, for the
+actual note head, indicate which note, which side the note head goes with, and then do an evaluation of my proposal to see if there's any
+holes or things I haven't thought of."*
+
+**The AI's evaluation — the numbers (the video frame, `Fit.boxesFor`):** the vibraphone rides the percussion's JOINED lane (ensemble.json:
+the brace [4, 5], weight 2.109, gapSs 6): its box is **5.0 ss above the staff's centre and 8.12 below** — the 5.0 is why today's upper
+row (axis 4.93, top 5.6) and the D♯6-with-sharp (ink to 5.25) already overflow. His stack per side: hairpin 1.333 + gap 0.45 + bar 0.667 +
+gap 0.45 + the heads' ink. ABOVE: the proto's highest ink 5.25 (E6 · D♯6 with their signs; F6 folds under 8va, its bracket and label
+reach ≈ 4.6) → the hairpin's top at **≈ 8.2** — short by ≈ 3.2 ss. BELOW: the piece's lowest bow F♯3 (54) at −5 with its sign −5.75 →
+the hairpin's bottom at **≈ 8.65** — short by ≈ 0.5. THE ONE REAL HOLE: the lane is too short for the stack. The remedies: (a) more
+height for the joined lane — data, not math: the brace's `gapSs` and the lane's `weight` in `ensemble.json` (every other lane gives up
+a little, video and paper both) — recommended · (b) the hairpin back to 0.667 (saves 0.67 a side) · (c) fold more heads under 8va on
+this lane (the threshold 3 → 1: saves ≈ 1 above) — (b) and (c) together do not close the top's 3.2.
+
+**Smaller points:** the flush close rule and the bars' clearance (2h.1 · 2h.4) become moot for the vibraphone — the tracks are off the
+staff; the closing mark's right-justification and the start-name rule stay (one seat's marks in one row) · the ottava bracket of a
+folded head (≈ 3.7 … 4.6) lands between the staff and the navy track · the rows' constant Y answers his earlier *"consistent vertical
+height"* by construction · the other parts untouched (a device flag on `byEnv.vibBow`) · the seat's IDENTITY across a shared change is
+still the reader's level guess (§468; 22 of 156 bows) — the honest fix is to write the seat onto the note at deal time (the sequence
+tool knows `lane:seat`), so the reader never guesses — recommended.
+
+**The head's seat — the recommendations:** (1) the HEAD in the seat's solid hue (navy · olive), accidentals and ledgers ink — colour is
+already the seat's sign, the unison reads at once; a black-and-white print loses it · (2) stems as voice flags (up = the top seat, down =
+the bottom — the two-voice convention; survives black-and-white; risks reading as a rhythmic value; 2g chose no stems) · (3) a thin
+leader from the head to its track — explicit, busy. The AI recommends (1), (2) held as the b/w fallback.
+
+**His answers pending:** the lane's height · the head · the seat at deal time. Then PLAN § `2i` (the vibraphone's page, second form).
