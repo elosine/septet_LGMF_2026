@@ -15982,3 +15982,42 @@ changes the layout does not see — each traced):
 **PLAN § `2e` IS BUILT, 2e.1 … 2e.6** (`469a580` · `c910aa1` · `86c6635` · `d176977` · `6c1370d` · this). **What is left is 2e.7, his
 eye** — and the open list on the generated page: DN-1 the accidental's two gaps · DN-2 anchor C's gap · DN-3 the window view's looks ·
 DN-4 the clocks over the block at its go time · DN-5 the provisional family look.
+
+## §454. THE CURVE FOLLOWER OFF — his eye at 2e.7: "the bouncing ball, the blue one" (2026-09-27, Fable, session 17)
+
+- **What prompted it — his words, at 2e.7 on `lgmf-eh-proto`:** *"the bouncing ball, the blue one, is showing up after the first breath. I think
+  this comes from the tuba piece. These are the multi-tempo bouncing balls that bounce along the scrolling bar. Can we suppress these,
+  please?"* — and on the AI's first reading (the GC ball): *"not GC. This was a different type of bouncing ball used in the tuba piece for
+  the multi-tempo. So marking every beat of the tempo without the GC curves."*
+- **What it is — neither, verified by a node probe of `AnimObj.collect` on both pages (the exporter's own call):** `curveFollower`, `_src
+  's1-morph'` — piece #4's MORPH-SECTION dot (D48): the `brick` colour #4E7A9B, radius 0.5 ss, at the sounding pitch riding the bend
+  (`animobj.js` `register('curveFollower')`). It fires on every S1 `waveCurve` on a player lane that carries a `morphBend` (collect's
+  `score.objects` walk) — and in this piece every just note carries its cents AS a bend: **23 dots on the proto** (the entry 0 … 12.816 s,
+  midi 80, bend +40.53 ¢; then each breath) · **436 on `piece-lgmf`**. Not the GC ball (magenta; both IRs hold **0** `gc` devices) and not
+  the tuba's multitempo ball (a chunk `gc` device with a preset, `trance_overlays.js` — none here). The entry's dot exists too (t0 = 0);
+  why his eye caught it first at the breath was not probed.
+- **What was done — a ROW, never a code number (2e):** `rules.json` objects `followerDot` gains `curveFollower: false` (its ref §454);
+  `container.json` `animated.curveFollower` gains `enabled: "@objects.followerDot.curveFollower"` + a note — the lineWedge precedent
+  (§401m: `kindOn` honours `enabled: false` for every kind); `docs/ENGRAVING_RULES.md` regenerated; `node tools/check_rules.js` **23 GREEN**.
+  The probe after: the proto `crescMeter 1 · motivePie 3`, `piece-lgmf` `curveMeter 691` — no follower on either. `envFollower` (the META
+  lane's dot, the same row) untouched. Page files only — **he reloads the tab**, no restart.
+- **The AI's call, his to reverse:** OFF piece-wide, the morph sections included (the refrain, LG-6). Whether a follower returns there,
+  and on what, is the morph notation's device sheet.
+
+## §455. THE BREATH PIE FROM GO LINE TO GO LINE (2026-09-27, Fable, session 17)
+
+- **His words, the same look:** *"and then the pi, let's not end those early. So they are ending before the go line of the next breath, as if
+  to anticipate when the player should take a breath. But I'll let them decide that. So the pi should last from go line to go line. The new
+  go line is the time the pi refills."*
+- **Before (2d.4, §385):** each pie ran its breath's onset → release; between a release and the next onset (the breath itself — on the proto
+  12.816 → 13.712 and 27.968 → 28.714) nothing: the pie had emptied before the next go line, which read as the clock telling the player
+  when to breathe.
+- **Now:** `rules.json` objects `pie` gains `until: "nextGo"` (composer, §455 — its ref carries both readings); `container.json`
+  `animated.motivePie` gains `until: "@objects.pie.until"`; `animobj.js` collect: the breath list (the entry + the breaths) sorted by onset,
+  each pie's t1 = the NEXT breath's onset, the last breath's = its release; `until: 'release'` or absent = 2d.4's reading, so no page
+  without the field moves (none exists — only the two LGMF pages hold a `sequence` overlay). **Verified by the probe on the proto:** the pies
+  0 → 13.712 · 13.712 → 28.714 · 28.714 → 43.589 (the release), against the breaths entry 0 / 12.816 · 13.712 / 27.968 · 28.714 / 43.589.
+  `tools/sequence_notation_check.js` re-pointed — the "three breath clocks" check reads go line to go line + the registry's `until` —
+  **62 / 62**; `check_rules` **23 GREEN**; `docs/ENGRAVING_RULES.md` regenerated (143 pointers). He reloads the tab.
+- **The AI's call, his to reverse:** the LAST breath's pie ends at its release — there is no next go line to refill at. The alternative is
+  the line's end (the sequence's exit), one field away.

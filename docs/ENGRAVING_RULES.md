@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 141 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 143 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -171,9 +171,9 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `anim:gc`
 - **meter** — colour **limeGreen · brightOrange** · wPx **8** · gapPx **3** · *composer* · #4 D48 · D42's colours
   - draws `anim:curveMeter` `anim:crescMeter` `anim:glissMeter`
-- **pie** — colour **pie #607D8B** · radiusPx **9** → `animated.motivePie.radiusPx` · topPx **14** → `animated.motivePie.topPx` · *AI* · CURVE_LOOK §7 · LGMF 2d.4 (the AI's colour, his to reverse)
+- **pie** — colour **pie #607D8B** · radiusPx **9** → `animated.motivePie.radiusPx` · topPx **14** → `animated.motivePie.topPx` · until **nextGo** → `animated.motivePie.until` · *AI* · CURVE_LOOK §7 · LGMF 2d.4 (the AI's colour, his to reverse) · until: composer §455 (his 'the pie should last from go line to go line. The new go line is the time the pie refills' — nextGo: a breath's pie ends at the NEXT breath's onset, the last at its release; release: 2d.4's onset → release, the old reading)
   - draws `anim:motivePie`
-- **followerDot** — colour **brick · envFollower** · *composer* · #4 D48
+- **followerDot** — colour **brick · envFollower** · curveFollower **false** → `animated.curveFollower.enabled` · *composer* · #4 D48 · curveFollower OFF for this piece: §454 (his 'can we suppress these' at 2e.7 — the tuba's morph-section dot rides the pitch bend of every S1 waveCurve with a morphBend, and here every just note carries its cents as one: 23 dots on the proto, 436 on piece-lgmf); envFollower (the META lane) untouched
   - draws `anim:curveFollower` `anim:envFollower`
 - **lineWedge** — colour **lineWedge #8a6d3b** · *census* · #4 D48 (disabled)
   - draws `anim:lineWedge`

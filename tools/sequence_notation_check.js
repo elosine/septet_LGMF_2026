@@ -133,9 +133,9 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   ok(c2.length === 2 && c2[0].text === '+2' && c2[1].text === '12 (C2)' && c2.every(x => x.anchor === 'end' && Math.abs(x.dxSs + GAP) < 1e-9 && x.color === '#111'), 'its column +2 · 12 (C2), black, right-justified to the spacer');
   // the pie — the breaths, re-pointed
   const pies = inst.filter(x => x.kind === 'motivePie');
-  ok(pies.length === 3 && pies.every(x => x.countdown && x.part === 0) && pies[1].t0 === v.breaths[0].onset && pies[1].t1 === v.breaths[0].release,
-    'three breath clocks (the entry and two breaths), each onset → release');
-  ok(C.animated.motivePie.enabled === true && C.animated.motivePie.source === 'breaths', 'the registry’s pie ON, re-pointed to the breaths');
+  ok(pies.length === 3 && pies.every(x => x.countdown && x.part === 0) && pies[0].t1 === v.breaths[0].onset && pies[1].t0 === v.breaths[0].onset && pies[1].t1 === v.breaths[1].onset && pies[2].t1 === v.breaths[1].release,
+    'three breath clocks (the entry and two breaths), each go line to go line, the last to its release (§455)');
+  ok(C.animated.motivePie.enabled === true && C.animated.motivePie.source === 'breaths' && C.animated.motivePie.until === 'nextGo', 'the registry’s pie ON, re-pointed to the breaths, until the next go line (the pie row)');
   // [2e.3 (7), §419 F6] THE WORKING PAGE (the EH in F: D♯6 on two ledgers): the ¾♯ clears the ledger's left end by the gap
   {
     const EW = Layout.ensembleFor(ens, null);

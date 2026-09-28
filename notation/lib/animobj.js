@@ -387,11 +387,17 @@
         out.push({ kind: 'crescMeter', part: tg.part, t0: LV.t0, t1: LV.t1, samples: LV.samples, _src: 'ir-sequence' });
       }
       // [LGMF PLAN 2d.4] THE BREATHS' CLOCK: with the registry's motivePie `source: 'breaths'` the pie counts each breath of a sequence
-      // down — the entry's, then every breath's, onset → release; between a release and the next onset nothing
+      // down — the entry's, then every breath's. [§455, the composer at 2e.7: "the pie should last from go line to go line. The new go
+      // line is the time the pie refills"] `until: 'nextGo'` (the pie row) ends each breath's pie at the NEXT breath's onset, the last
+      // at its release; `until: 'release'` (or absent) is 2d.4's onset → release, nothing between a release and the next onset.
       if (ov.kind === 'sequence' && tg.part !== undefined && has(tg.part) && style && style.motivePie && style.motivePie.source === 'breaths') {
-        const V = ov.value || {}, list = [].concat(V.entry ? [{ onset: V.entry.t, release: V.entry.release }] : [], V.breaths || []);
-        for (const b of list) if (b.release > b.onset)
-          out.push({ kind: 'motivePie', part: tg.part, t0: b.onset, t1: b.release, countdown: true, _src: 'ir-sequence-breath' });
+        const V = ov.value || {}, list = [].concat(V.entry ? [{ onset: V.entry.t, release: V.entry.release }] : [], V.breaths || [])
+          .slice().sort((a, b) => a.onset - b.onset);
+        const toNextGo = style.motivePie.until === 'nextGo';
+        list.forEach((b, i) => {
+          const t1 = toNextGo && list[i + 1] ? list[i + 1].onset : b.release;
+          if (t1 > b.onset) out.push({ kind: 'motivePie', part: tg.part, t0: b.onset, t1, countdown: true, _src: 'ir-sequence-breath' });
+        });
       }
     }
     // notes whose device already visualizes progress (a drawn level curve →

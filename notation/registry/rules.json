@@ -78,8 +78,8 @@
   "cursor": { "colour": "@colours.cursor.value", "wPx": 3, "draws": ["anim:cursor"], "animated": true, "basis": "composer", "ref": "#4 D48 (provisional, judged live)" },
   "gcBall": { "colour": "@colours.gc.value", "draws": ["anim:gc"], "animated": true, "basis": "composer", "ref": "#4 day 23 (piece #1's ball, one copy with the arc)" },
   "meter": { "colour": "limeGreen · brightOrange", "wPx": 8, "gapPx": 3, "draws": ["anim:curveMeter", "anim:crescMeter", "anim:glissMeter"], "animated": true, "basis": "composer", "ref": "#4 D48 · D42's colours" },
-  "pie": { "colour": "@colours.pie.value", "radiusPx": 9, "topPx": 14, "draws": ["anim:motivePie"], "animated": true, "basis": "AI", "ref": "CURVE_LOOK §7 · LGMF 2d.4 (the AI's colour, his to reverse)" },
-  "followerDot": { "colour": "brick · envFollower", "draws": ["anim:curveFollower", "anim:envFollower"], "animated": true, "basis": "composer", "ref": "#4 D48" },
+  "pie": { "colour": "@colours.pie.value", "radiusPx": 9, "topPx": 14, "until": "nextGo", "draws": ["anim:motivePie"], "animated": true, "basis": "AI", "ref": "CURVE_LOOK §7 · LGMF 2d.4 (the AI's colour, his to reverse) · until: composer §455 (his 'the pie should last from go line to go line. The new go line is the time the pie refills' — nextGo: a breath's pie ends at the NEXT breath's onset, the last at its release; release: 2d.4's onset → release, the old reading)" },
+  "followerDot": { "colour": "brick · envFollower", "curveFollower": false, "draws": ["anim:curveFollower", "anim:envFollower"], "animated": true, "basis": "composer", "ref": "#4 D48 · curveFollower OFF for this piece: §454 (his 'can we suppress these' at 2e.7 — the tuba's morph-section dot rides the pitch bend of every S1 waveCurve with a morphBend, and here every just note carries its cents as one: 23 dots on the proto, 436 on piece-lgmf); envFollower (the META lane) untouched" },
   "lineWedge": { "colour": "@colours.lineWedge.value", "draws": ["anim:lineWedge"], "animated": true, "basis": "census", "ref": "#4 D48 (disabled)" }
  },
 

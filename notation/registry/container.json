@@ -732,6 +732,8 @@
   },
   "_gcNote": "day 23: the BALL of the GC object — physics + look shared with engraving.render.gc via notation/lib/gc.js (one copy). Preset = piece #1 Short (the 6:10 section, 43/43 GCs); ball r 5 px at the 1080 frame, the GC color; travels in time along the drawn arc, impact on the go line at laneBottom - 5 (piece #1 calculateBallPositionForPage). Earlier day-23 stagings (staff-step landSs/dropSs, then span=lane with insetSs) are superseded — both were guesses at the look; this is the object itself.",
   "curveFollower": {
+   "enabled": "@objects.followerDot.curveFollower",
+   "_note": "RUNNING_LOG §454 (2026-09-27, the composer at 2e.7: 'the bouncing ball, the blue one, is showing up after the first breath … Can we suppress these, please?'): OFF for this piece — the tuba's morph-section dot (a dot at the sounding pitch riding the bend) fires on every S1 waveCurve with a morphBend, and every just note of this piece carries its cents as one. The switch is the followerDot row's; kindOn honours enabled:false.",
    "radiusSs": 0.5,
    "color": "@colours.brick.value",
    "opacity": 0.9
@@ -753,6 +755,7 @@
   "motivePie": {
    "enabled": true,
    "source": "breaths",
+   "until": "@objects.pie.until",
    "gapPx": 2,
    "meterWPx": 8,
    "meterGapPx": 3,
