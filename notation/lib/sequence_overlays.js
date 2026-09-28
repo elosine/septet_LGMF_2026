@@ -7,6 +7,8 @@
 //   level   the WRITTEN LEVEL at 100 samples/s on THE FIXED SCALE (his decision, §374 · §375): eight equal steps from niente (0)
 //           to fff (1) — ppp 1/8 … mp 4/8 … fff 8/8 — linear in CC7 between two names through the part's own ladder
 //           (`DynTable.cc7`), under ppp linear to CC7 0 = niente. One scale for the whole piece, every player, every realization.
+//           A FADE (`cc7Fade`, the multiplier on the fader) multiplies the WRITTEN height, not the CC7 (§462, his (a)): one straight
+//           line from nothing to the note's level — the body between names untouched.
 //   breaths every note after the first: `same` (the same key and cents as the note before) or `new`, with the new pitch's marks
 //   labels  the turning points of the level (a crest or a trough), each named by the nearest written name
 //
@@ -40,15 +42,20 @@
     NAMES.forEach((n, i) => { const e = Math.abs(w - (i + 1) / 8); if (e < d - 1e-12) { d = e; best = n; } });
     return best;
   }
-  // the CC7 a note sounds at score time t — heldCc7's rule, unrounded
-  function cc7At(o, t) {
+  // the CC7 a note's BODY sounds at score time t — heldCc7's rule before the fade, unrounded
+  function baseCc7At(o, t) {
     const dur = o.endSeconds - o.startSeconds;
     const h = Core.evalWaveCurve(o, dur > 0 ? (t - o.startSeconds) / dur : 0);
     const abs = o.cc7Abs || { lo: 0, hi: 127 };
     const lo = abs.lo != null ? abs.lo : 0, hi = abs.hi != null ? abs.hi : 127;
-    const base = Math.max(0, Math.min(127, lo + (hi - lo) * Math.max(0, Math.min(1, h))));
-    return base * (o.cc7Fade ? Morph.fadeWeight(o.cc7Fade, t) : 1);
+    return Math.max(0, Math.min(127, lo + (hi - lo) * Math.max(0, Math.min(1, h))));
   }
+  // the fade weight at t (cc7Fade, the multiplier on the fader — 1d.8's fade from / to nothing); 1 without one
+  const fadeAt = (o, t) => (o.cc7Fade ? Morph.fadeWeight(o.cc7Fade, t) : 1);
+  // [§462, his (a)] THE WRITTEN LEVEL at t: the body through the ladder (CC7-linear between two names — the drawer's own convention,
+  // DynTable.height), TIMES the fade weight — a fade is drawn as the multiplier on the WRITTEN height, one straight line from nothing
+  // to the note's level. Before §462 the weight multiplied the CC7 and the picture bent at ppp (43 CC7 per eighth under it, 8 above).
+  const writtenAt = (o, t, L) => writtenOf(baseCc7At(o, t), L) * fadeAt(o, t);
   const bendOf = o => (Array.isArray(o.morphBend) && o.morphBend.length ? +o.morphBend[0][1] : 0);
 
   // the partial and the fundamental from the sequence's recipe: the box named in the note's `performanceNotes` (`box N`), the
@@ -103,13 +110,13 @@
       const t = T0 + i * (T1 - T0) / n;
       while (k + 1 < notes.length && t >= notes[k + 1].startSeconds) k++;
       const o = notes[k];
-      let cc;
-      if (t <= o.endSeconds || k + 1 >= notes.length) cc = cc7At(o, Math.min(t, o.endSeconds));
-      else {
-        const nx = notes[k + 1], a = cc7At(o, o.endSeconds), b = cc7At(nx, nx.startSeconds);
-        cc = a + (b - a) * (t - o.endSeconds) / Math.max(1e-9, nx.startSeconds - o.endSeconds);
+      let w;
+      if (t <= o.endSeconds || k + 1 >= notes.length) w = writtenAt(o, Math.min(t, o.endSeconds), L);
+      else {   // the bridge through a breath gap: linear in the WRITTEN level from the release to the next onset
+        const nx = notes[k + 1], a = writtenAt(o, o.endSeconds, L), b = writtenAt(nx, nx.startSeconds, L);
+        w = a + (b - a) * (t - o.endSeconds) / Math.max(1e-9, nx.startSeconds - o.endSeconds);
       }
-      samples.push(+writtenOf(cc, L).toFixed(5));
+      samples.push(+w.toFixed(5));
     }
 
     // THE LABELS — the turning points: the direction's sign changes, flats carried; a crest or a trough is placed where its
@@ -174,5 +181,5 @@
     };
   }
 
-  return { forPart, writtenOf, nameOf, cc7At, centsText, marksOf, NAMES, DEFAULTS };
+  return { forPart, writtenOf, nameOf, baseCc7At, fadeAt, writtenAt, centsText, marksOf, NAMES, DEFAULTS };
 }));

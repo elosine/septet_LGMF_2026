@@ -28,6 +28,7 @@ console.log('ladder ' + L.join('/') + ' · ' + v.level.samples.length + ' sample
 // 2d.1 (b) THE LEVEL on the fixed scale
 ok(at(0) === 0, 'level at 0 s = 0 (niente) — got ' + at(0));
 ok(near(at(6), 2 / 8, stepAt(2 / 8)), 'level at 6.0 s = pp 2/8 ± 1 CC7 step — got ' + at(6));
+ok(near(at(3), 1 / 8, 0.003) && near(at(1.5), 1 / 16, 0.003) && near(at(4.5), 3 / 16, 0.003), 'the fade is ONE STRAIGHT LINE from nothing to pp — at 1.5 · 3.0 · 4.5 s a quarter, a half, three quarters of pp (§462, his (a)) — got ' + [at(1.5), at(3), at(4.5)].join(' · '));
 const w36 = v.level.samples.slice(0, Math.round((36 - v.level.t0) * v.level.sps) + 1);
 const mx = Math.max(...w36), mxT = v.level.t0 + w36.indexOf(mx) / v.level.sps;
 ok(near(mxT, 25.0, 0.1), 'the maximum in 0 … 36 s at 25.0 s — got ' + mxT.toFixed(2));

@@ -16220,3 +16220,27 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
   one straight line from nothing to pp, the knee gone; the same for a fade-out; the body between names unchanged [the AI's lean: the
   fade's own meaning; a change in the extractor's mapping only, every stored IR re-extracted] · (b) keep the mapping, accept the knee ·
   (c) the sub-ppp region on the fader's dB law with a chosen floor — a curve, the sound's shape, but a floor is a convention too.
+
+## §462. THE FADE AS A MULTIPLIER ON THE WRITTEN HEIGHT — his (a); why the body stays; built (2026-09-27, Fable, session 17)
+
+- **His words:** *"draw a fade as the multiplier on the written height — written(pp) × the fade weight: one straight line from nothing to pp;
+  the same for a fade-out; the body between names untouched … yes this, but first answer why the body between names untouched. Does this
+  mean that the curve between PP and MP is drawn correctly as you describe, and it's only the fade that needs fixing?"*
+- **The answer — yes, the body is right, and by the tool's own convention:** the sequence drawer writes a wave's HEIGHTS (0 … 1) and
+  `cc7Abs { lo, hi }` = the two names' CC7 (`DynTable.range`), and playback maps a height to CC7 LINEARLY between them (`heldCc7`); the
+  drawer converts a written level to a height the same way (`DynTable.height`: CC7-linear between the two names). The written scale draws
+  CC7 → height piecewise through the ladder, so a name lands on its eighth exactly (pp 2/8, p 3/8, mp 4/8) and between two names the line
+  follows the sound to the CC7 step. The ladder between pp and mp is 8 · 9 CC7 per eighth (51 · 59 · 68), so a pp … mp wave draws all but
+  straight — the bend at p is 12 %, invisible; louder, 12 · 14 · 15 · 18 per eighth, still slight and TRUE (the picture is where the sound
+  is, in written terms). The knee was the FADE alone: a multiplier on the fader sweeping the CC7 through the "under ppp" segment (43 CC7
+  per eighth) into the named ladder (8 per eighth) — a change of gear at ppp that no one wrote.
+- **Built:** `sequence_overlays.js` — `baseCc7At` (the body's CC7, heldCc7's rule before the fade) · `fadeAt` (the `cc7Fade` weight, 1
+  without) · `writtenAt = writtenOf(base) × fadeAt` — the written level at t; the bridge through a breath gap now linear in the WRITTEN
+  level; the header says so. `sequence_notation_check` gains the straight-line check (a quarter · a half · three quarters of pp at 1.5 ·
+  3.0 · 4.5 s) — **64 / 64**; `check_rules` **23 GREEN**. `lgmf-eh-proto` re-extracted: the level 0 → 0.0625 (1.5 s) → 0.125 (3 s) →
+  0.1875 (4.5 s) → 0.250 (6 s), the slope 0.0417 / s throughout — ONE LINE; the body untouched (the same 13 labels, the same maximum
+  0.510, the same exit to ppp). `piece-lgmf` needs no re-extraction — it carries no `sequence` overlay yet (its section 1 is still the
+  per-note bricks page; the sequence device reaches the main file when its extraction adds `--sequence` for every part — a step of its own).
+- **The same rule for a fade-OUT to nothing** (a `cc7Fade` to 0): drawn as the written level × the weight, a straight line to the floor.
+  The EH's own fade-out to ppp is not a `cc7Fade` — it is written in the heights (§459) and was right already.
+- **Page files + the IR — he reloads the tab.**
