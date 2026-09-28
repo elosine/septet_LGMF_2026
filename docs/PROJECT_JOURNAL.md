@@ -246,7 +246,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) ·
   `scores/piece-LGMF-*` (fourteen named saves; `-Sec01-Sec02-Sec3start` is the protos' source, read as a COPY) · `scores/pointilistic01a.json`.
 
-### SESSION 17 · 2g BUILT (2026-09-27, Opus) — THE VIBRAPHONE'S SEQUENCE NOTATION, 2g.1 … 2g.5; 2g.6 is his
+### SESSION 17 · CHECKPOINT #6 (mid-session checkpoint) — 2026-09-27, Opus — 2g BUILT: THE VIBRAPHONE'S SEQUENCE NOTATION, 2g.1 … 2g.5; 2g.6 is his
 
 - **The task:** BUILD PLAN § `2g` at his `/postclear` word *"go for whole plan independantly"* — **DONE**, one commit per step, pushed, THE
   SHIELD in each (RUNNING_LOG **§467 … §471**; `10fc04e` · `c02b2b8` · `843be11` · `1b4f0ce` · `347d327`).
@@ -269,8 +269,13 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   the plan's own: `dynamicUpper` +4.6 · the half-height bar · `minHairpinSs` 1 · the voice at a silent partner · the rest at 0.5 s.
 - **`Resume reads:`** nothing beyond §2 for his eye; for a fault in one step: that step's § (§467 … §471) and PLAN § `2g`.
 - **Found on the way, to NITS:** `tools/test_animobj.js` red on HEAD since §454 (the curve follower's case) — not this build's.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #5; the proto
-  was built from a COPY of `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` in the scratchpad).
+- **Model:** nothing runs until he has looked — his answers on a LOOK go to Fable, a FAULT to Opus (the ►►► row).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint, 29 paths — the same as
+  CHECKPOINT #5): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) ·
+  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport; `vib_marks_check`
+  READS it, never writes) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) ·
+  `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*`
+  (fourteen named saves; `-Sec01-Sec02-Sec3start` is both protos' source, read as a COPY in the scratchpad) · `scores/pointilistic01a.json`.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
