@@ -17416,3 +17416,23 @@ The vibraphone only; the winds have no closing names of this kind (§498).
 `check_rules` 25. Nothing on the page changes.
 
 **The running order:** step 6 ☑ · ► step 7, the general courtesy natural (§479).
+
+## §500. STEP 7 CLOSED, THE RUNNING ORDER COMPLETE — no general courtesy natural; the accidental policy across time written as a rule row (2026-09-28, Fable, session 17)
+
+**What prompted it:** the running order's step 7 (§479 held it for him): a `♮` on a later plain head of the same letter and octave after an
+altered one in the same voice — yes or no, and if yes, its window. Put to him in the terms of the page: every altered head carries its
+own sign, no bars cancel anything, a plain head reads as natural; the one built exception is the chord column (2h.7, §479 — two heads AT
+ONCE, same letter and octave, one altered, the plain one takes `♮`). The case: the vibraphone's C♯6, then later the same seat's plain C6.
+
+**His word: *"a, close step 7 and write it as a rule row"*** — NO general courtesy natural.
+
+**The row:** `objects.accidental.courtesyNatural` false + `courtesyNote` (the policy in words: no bars, no key signature, every altered
+head its sign, a plain head nothing, no `♮` across time whatever the distance, the column the one exception); the `naturalNote`'s tail
+now points at it. Nothing in the code changes — the engine has never drawn one — the row exists so the question is not decided twice
+(2e's meta-demand, §408). `docs/ENGRAVING_RULES.md` regenerated; `check_rules` 25.
+
+**THE RUNNING ORDER (journal §2, 2026-09-28) IS COMPLETE — 7 of 7:** 1 the head ↔ side (the lead + the swatch, §495) · 2 the bow lead
+(§495) · 3 the seat at deal time — moot, the cross at a rhythmic unison instead (§496) · 4 the `○` gap one rule for every sign (§497) ·
+5 the winds' hairpin 0.667 (§498) · 6 the closing name's snap conditional (§499) · 7 no general courtesy natural (§500). Steps 4 … 7 were
+each a confirmation of what 2h had built, now written as his word on the row. What follows, from the order's own foot: his eye on the
+whole page once more.
