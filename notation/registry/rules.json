@@ -24,8 +24,8 @@
   "floorTiersRef": "§424 · §425",
   "stack": { "standard": 0.45, "medium": 0.3, "tight": 0.15, "underFlag": 0.3 },
   "stackRef": "standard: #2 session 77 (the house 0.45) · medium: #4 day 31 (his 'a medium one too') · tight: #4 day 23 (the staccato-dot gap) · underFlag: #4 day 23 (the chain between staff and flag) · §422",
-  "rows": { "dynamic": -4.6, "tag": 3.5, "tempo": 4.6, "tick": 3, "sign": -5.95 },
-  "rowsRef": "#4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421 · sign: the fade signs' row UNDER the dynamic row — one dynamic height (0.9) + the standard stack (0.45) lower (§371 his (2) 'opening sign own row' · §457 his (a) · §459; the AI's number, his to reverse)"
+  "rows": { "dynamic": -4.6, "tag": 3.5, "tempo": 4.6, "tick": 3, "sign": -5.95, "dynamicUpper": 4.6 },
+  "rowsRef": "#4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421 · sign: the fade signs' row UNDER the dynamic row — one dynamic height (0.9) + the standard stack (0.45) lower (§371 his (2) 'opening sign own row' · §457 his (a) · §459; the AI's number, his to reverse) · dynamicUpper: the vibraphone's UPPER voice's dynamic row, ABOVE the staff — the mirror of `dynamic` −4.6 (PLAN 2g, §464 his (A) · §466; the AI's number, his to reverse at 2g.6; it shares the height of `tempo`, which no LGMF page draws)"
  },
 
  "objects": {
@@ -47,6 +47,7 @@
   "dynamicText": { "face": "text", "size": 0.9, "italic": false, "colour": "@colours.ink.value", "draws": ["text[dynamic]"], "basis": "composer", "ref": "#4 V0.10 textSizes.dynamic (an authored `dynamic` overlay's text) · §427 (black — it was grey by the renderer's default)" },
   "dynArrow": { "colour": "@colours.ink.value", "lengthSs": 2, "headSs": 0.45, "beside": 0.45, "thickSs": 0.13, "draws": ["dynarrow"], "basis": "composer", "ref": "#4 day 22 ('this is new' — the hairpin replacement; gaps the 0.45 standard, thickness the stem's)" },
   "hairpin": { "colour": "@colours.ink.value", "lengthSs": 2, "heightSs": 0.667, "thickSs": 0.13, "beside": 0.45, "circleGapSs": 0, "draws": ["hairpin"], "basis": "lilypond", "ref": "§460 (his 'lets make the fade in a hairpin … a decrescendo hairpin and then the dynamic'): the fade signs' hairpin — the length the house dynArrow's 2 ss, the opening LilyPond 2.24.4 Hairpin height 0.6667 ss, the thickness the stem's (LilyPond 1 line-thickness), beside the standard 0.45; circleGapSs 0: the niente circle touches the closed tip (LilyPond circled-tip; Gould)" },
+  "hairpinTimed": { "variantOf": "hairpin", "timed": true, "heightSs": "@objects.hairpin.heightSs", "thickSs": "@objects.hairpin.thickSs", "beside": "@objects.hairpin.beside", "circleGapSs": "@objects.hairpin.circleGapSs", "draws": ["hairpin-timed"], "basis": "gould", "ref": "§464 · §466 (PLAN 2g — the vibraphone's bows): a TIMED hairpin spans the time of the change, from where it begins to where the new level is reached, the closing name at the point reached (Gould, Behind Bars; in a time-proportional score the actual position IS the standard, a symbolic length would misstate the time); the opening, the thickness, the beside and the circle's gap inherited from `hairpin` (§460); a dense bow compresses it to vibMarks.minHairpinSs, then drops it (the names stand)" },
   "niente": { "colour": "@colours.ink.value", "diameterSs": 0.4695, "thickSs": 0.13, "draws": ["niente"], "basis": "composer", "ref": "#4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip) · the sequence's fade signs §457 · §459 (the opening sign's circle; a closing sign to nothing)" },
   "instruction": { "face": "text", "size": 0.75, "italic": true, "colour": "@colours.ink.value", "stack": 0.45, "besideCut": 0.15, "leaves": 1, "draws": ["text", "text[techText]", "text[instruction]"], "basis": "composer", "ref": "§427 · §428 (every word on a note: instruction 0.75 italic, black — the technique size 0.7 and the 1.0998 \"pizz.\" bake retired) · stack: the block's text 0.45 above the column §380 · besideCut: \"sempre secco\" #5 §540 · LilyPond TextScript padding 0.3 / 0.5 (the seed)" },
   "number": { "face": "text", "size": 0.75, "italic": false, "partialForm": "{n} ({f})", "colour": "@colours.ink.value", "parent": 0.6, "stack": 1, "emSs": 0.975, "leaves": 2, "draws": ["text[cents]", "text[partial]"], "basis": "composer", "ref": "§427 A5 (black — they were grey by render.js's default) · §428 (upright, instruction size) · parent: D45's height (#5) · stack: one row §380 · emSs = 0.75 × 1.3 · always written §435 · the partial `26 (C1)` §438" },
@@ -59,7 +60,7 @@
   "attackLine": { "colour": "@colours.ink.value", "look": { "wSs": 0.18, "hSs": 2.2, "offsetSs": 1.1 }, "draws": ["attackline"], "basis": "census", "ref": "#4 V0.10 (M4)" },
   "tick": { "colour": "@colours.ink.value", "look": { "wSs": 0.12, "hSs": 0.8 }, "draws": ["tick"], "basis": "census", "ref": "#4 V0.10" },
   "gc": { "colour": "@colours.gc.value", "draws": ["gc"], "in": "engraving.render.gc (the look in px at the 1080 frame — piece #1's object whole)", "basis": "composer", "ref": "#4 day 23 ('when I say GC, that is the whole thing')" },
-  "ringBar": { "colour": "@colours.ink.value", "hSs": 0.667, "opacity": 0.65, "beside": 0.25, "draws": ["ringbar"], "basis": "composer", "ref": "#4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar')" },
+  "ringBar": { "colour": "@colours.ink.value", "hSs": 0.667, "opacity": 0.65, "beside": 0.25, "closeRule": { "withinSs": 0.667, "height": 0.5, "unison": "stacked" }, "draws": ["ringbar"], "basis": "composer", "ref": "#4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar') · closeRule (PLAN 2g, §464 · §466 — the AI's rule, his to reverse at 2g.6): two bars of the vibraphone's two voices sounding together whose centres are closer than one bar height (withinSs — a second: 0.5 ss apart against a 0.667 bar) are each drawn at `height` of the bar, toward its own side (the upper voice's top half, the lower's bottom half); a unison is the two halves stacked" },
   "brick": { "colour": "@colours.brick.value", "opacity": 0.45, "draws": ["brick"], "basis": "census", "ref": "#4 V0.10" },
   "beam": { "face": "music", "colour": "@colours.ink.value", "thicknessSs": 0.4, "stubSs": 1, "in": "thicknessSs glyphs.json standards.beam", "draws": ["beam"], "basis": "composer", "ref": "#2 dimensions_table · stubSs #4 day 23 (the beamlet — Gould)" },
   "tuplet": { "colour": "@colours.ink.value", "look": { "thicknessSs": 0.16, "hookLengthSs": 0.7, "paddingSs": 0.5, "numeralSizeSs": 1.2348, "numeralBaselineBelowSs": 0.41, "numeralInsetSs": 0.4, "numeralGapPerCharSs": 0.88, "numeralCapFactor": 0.7 }, "draws": ["tuplet"], "basis": "composer", "ref": "#4 day 23 (his own LilyPond standard, surveyed from #2's 809 .ly files)" },
@@ -121,6 +122,21 @@
   "firstAlso": ["senza_vel"],
   "basis": "composer",
   "ref": "§337 (\"senza vib.\" once, in the block) · §443 · §445 (his \"the middle section will be ord.\") · LG-115"
+ },
+
+ "vibMarks": {
+  "_doc": "THE VIBRAPHONE'S MARKS IN A SEQUENCE (PLAN 2g — §463 · §465 · §466; LG-116, his: 'hairpins describe dynamic movement and direction. The dynamic markings describe a relative level'): notation/lib/vib_marks.js reads each bow's slice of its seat's level curve into names and TIMED hairpins, tied to the BOW. The level = sequence_overlays.js writtenAt (the body through the part's ladder × the fade weight, §462 · §465) in written steps (0 ppp … 7 fff, −1 niente). A LEG (a monotone run between the turning points, the flats ignored) of ≥ hairpinSteps draws a hairpin; of nameSteps … hairpinSteps only when its rounded end name differs from the current name; under flatSteps nothing. A name at a leg's end where the rounded level differs from the current name, at the time reached (a plateau's start). No name without a hairpin, no hairpin without motion. `carry`: a bow's start name is its chain's previous bow's END name, never re-rounded — re-read from the level only at the chain's first bow and after a rest of ≥ restS. A bow whose fade rises from 0 opens with the niente circle in place of its start name; the fade-out ends at the level reached (the circle at 0). `repeatName` false: a flat bow at the carried level draws nothing. `flip` false: a voice's row is meaning — the ladder never flips these marks. minHairpinSs: a hairpin shorter than this between its marks is dropped, the names stand. The voice of a bow: `voice`.",
+  "hairpinSteps": 0.5,
+  "nameSteps": 0.25,
+  "flatSteps": 0.25,
+  "carry": true,
+  "repeatName": false,
+  "flip": false,
+  "minHairpinSs": 1,
+  "restS": 0.5,
+  "voice": "by register: a bow is UPPER when its pitch is ≥ the other chain's sounding pitch at the bow's start; a silent partner → the nearer of its previous and next bow in the same sequence; a tie → chain 0 upper; no partner in the sequence → chain 0 upper",
+  "basis": "composer",
+  "ref": "§463 rules 1 … 7 (his '1 numbers good, 1-6 good': the thresholds 0.5 · 0.25 · 0.25 · the carry · his (a), the repeated name left off) · §465 (the fades timed; the level read WITH the fade) · §466 — the AI's, his to reverse at 2g.6: flip false · minHairpinSs 1 · restS 0.5 (#4's breathSeconds) · the voice rule; the plan's `hairpinStepSs` · `nameStepSs` · `flatStepSs` are named `…Steps` here — they are written steps, not staff spaces"
  },
 
  "ladder": {

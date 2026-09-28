@@ -223,7 +223,50 @@
       "_reminderNote": "LGMF PLAN 2d.4 (RUNNING_LOG §385): a breath on the SAME pitch — a cue-size open head (the house cue scale 0.844) in parentheses, its accidental inside them (a reminder, not a change), no column; the parens at 0.67 — the trill neighbour's 0.63 for its 0.794 head, in proportion [the AI's], 0.15 ss from what they hold.",
       "_blockNote": "LGMF PLAN 2d.2 (2026-09-25, RUNNING_LOG §383; docs/research/just_partials_notation.md §1a): the block at the part's entry, in ss from its go line — headGapSs the head's right ink edge before the go line (the D45 header's spacer) · centsGapSs the cents' baseline over the head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text over the column's ink top · numEmSs the numbers' rendered em (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, change both) · slashTopEm Crimson Pro Light's '/' top in em, the partial row's ink top (measured, opentype.js). The range on the dynamic row takes the house dynArrow."
      },
-     "_sequenceNote": "LGMF PLAN 2d.1 (2026-09-25, RUNNING_LOG §382; LG-111 · LG-112): a note of a SEQUENCE (the score's srcKind 'sequence', one grp-seq-* group; extract_core env 'sequence', opt-in by notate_section --sequence <group>) is a BREATH of one line per part. Its own device is the go line alone — the morph's 'one go line per breath' — and every other mark of the line (the block at the entry, the level curve on the fixed scale, the breath heads, the pie, the (dyn) labels) comes from the part's `sequence` overlay (notation/lib/sequence_overlays.js), drawn once. techTexts: the technique's text written once in the block (senza_vel → 'senza vib.', Crimson Pro Light Italic, the pizz. recipe); a technique with none writes nothing. No IR before 2d holds env 'sequence', so no page before it moves."
+     "_sequenceNote": "LGMF PLAN 2d.1 (2026-09-25, RUNNING_LOG §382; LG-111 · LG-112): a note of a SEQUENCE (the score's srcKind 'sequence', one grp-seq-* group; extract_core env 'sequence', opt-in by notate_section --sequence <group>) is a BREATH of one line per part. Its own device is the go line alone — the morph's 'one go line per breath' — and every other mark of the line (the block at the entry, the level curve on the fixed scale, the breath heads, the pie, the (dyn) labels) comes from the part's `sequence` overlay (notation/lib/sequence_overlays.js), drawn once. techTexts: the technique's text written once in the block (senza_vel → 'senza vib.', Crimson Pro Light Italic, the pizz. recipe); a technique with none writes nothing. No IR before 2d holds env 'sequence', so no page before it moves.",
+     "vibBow": {
+      "sheet": "§466 (PLAN 2g — the device sheet; §463 the measurement and his scheme · §464 the head and the two voices · §465 no header block, the fades timed)",
+      "anchorRow": "A",
+      "memberRows": [
+       "head",
+       "accidental",
+       "ledger",
+       "ringBar",
+       "dynamic",
+       "niente",
+       "hairpinTimed"
+      ],
+      "goLine": false,
+      "gc": false,
+      "brick": false,
+      "curve": false,
+      "cut": false,
+      "onsetHead": false,
+      "nhUnit": true,
+      "nhAnchor": "leftEdge",
+      "nhHead": "open",
+      "ringBar": true,
+      "ringBarFull": true,
+      "letRing": false,
+      "chordRules": false,
+      "dynMark": false,
+      "dynPair": false,
+      "techText": false,
+      "marks": {
+       "upperRow": "@column.rows.dynamicUpper",
+       "lowerRow": "@column.rows.dynamic",
+       "heightSs": "@objects.hairpinTimed.heightSs",
+       "thickSs": "@objects.hairpinTimed.thickSs",
+       "gapSs": "@objects.hairpinTimed.beside",
+       "circleGapSs": "@objects.hairpinTimed.circleGapSs",
+       "circleDiaSs": "@objects.niente.diameterSs",
+       "circleThickSs": "@objects.niente.thickSs",
+       "minHairpinSs": "@vibMarks.minHairpinSs",
+       "flip": "@vibMarks.flip"
+      },
+      "closeRule": "@objects.ringBar.closeRule"
+     },
+     "_vibBowNote": "LGMF PLAN 2g (2026-09-27; the device sheet RUNNING_LOG §466): a BOW of the bowed vibraphone in a sequence (lane 5's notes in a --sequence group; the extractor gives them env 'vibBow' in place of 'sequence'). ANCHOR A — the open head's left edge ON its time, no go line, no stem, no GC, no column (#4 day 24's principle: a go line marks displacement; the cluster heads; #5's byTechnique.main) — its tempered accidental and ledgers, and the grey RING BAR from the head's ink + 0.25 for the bow's FULL length (`ringBarFull`: no breath cut, the bows abut within 0.05 s — the two chains would otherwise cut each other's bars). Two voices on the one treble staff by REGISTER (the upper row = the higher-sounding bow, vibMarks.voice); `closeRule` two bars within a second at half height toward their own side, a unison stacked; two heads at one time a step or less apart take #2 D.6's chord displacement (the engine has it — layout.js chordGeometry → ChordColumn.noteColumn, anchor-A heads since #5 D49 — so no head.secondOffsetSs row; 2g.3 draws the vibraphone's shared attacks through it). The DYNAMICS per bow in two rows — `marks.upperRow` +4.6 the upper voice, `marks.lowerRow` −4.6 the lower: a name, the niente circle, a TIMED hairpin (objects.hairpinTimed), read by notation/lib/vib_marks.js from the save (the part's `vibBows` overlay). NO level curve, meter, follower, pie, legend, header block or 2f sign on the lane (§464 · §465). Motor off, the whole piece — a performance note (PERFORMANCE_NOTES #11). No IR before 2g holds env 'vibBow', so no page before it moves."
     },
     "byTechnique": {
      "_pianoMorphNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §483–§491; the composer's reference CN-82 = piece #2 around 0:50; his spec: 'no gcs, open noteheads for both'): the piano's notes in the morph section carry no env, so `main` and `plucked` reach them and nothing else (every other `main` is a strike or a trill by env — and those envs cancel every field added here out loud: ringBar, letRing, chordRules). The first build (§484 — the tuba's ring bar on main; piece #2's ASR row on plucked: 'Ped.' text, the ✱ at the release, a two-hook bracket) was replaced device by device at his eye: see _mainNote, _chordRulesNote, _pluckedNote.",

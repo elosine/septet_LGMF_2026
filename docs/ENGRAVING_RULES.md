@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 153 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 164 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -17,7 +17,7 @@ with no `→` is the rule's record but is not compiled — its `in` says where t
 LAYER 1 — THE ANCHOR (§414 · §416 · §418): which point of a unit sits on x(t). The principle, gated (check_rules 6): the head ON its time ↔ no go line; a go line ↔ the head off its time. G metric (a passage not spaced by time) is a HELD candidate (§416), not a row. `gapSs` = the distance from x(t) to the unit's near ink edge; `justify` the side of x(t) the unit sits on; `regime` the column's regime (HUG — every member on the head side, mirrored with the stem · ROWS — the dynamic on the dynamic row, text above); `columnAlign` how the column rows align on the unit.
 
 - **A — on time** — atX **the head's left edge** · justify **right-of** · gapSs **0** · goLine **false** · regime **HUG** · columnAlign **centre** · *composer* · #4 day 22 (nhAnchor leftEdge) · §414
-  - devices on it: byTechnique.main · byTechnique.plucked · byPairBeam · figures.cluster · figures.beam
+  - devices on it: byEnv.vibBow · byTechnique.main · byTechnique.plucked · byPairBeam · figures.cluster · figures.beam
 - **B — before the line** — atX **the go line** · justify **left-of** · gapSs **0.45** → `layout.nhGapSs` · `layout.devices.byEnv.sequence.block.headGapSs` · goLine **true** · regime **ROWS** · columnAlign **right** → `layout.devices.byEnv.sequence.block.columnAlign` · *composer* · §417 F1 (his 'F1 0.45': ONE number, the house spacer — was 0.25, #4 day 22's '2 px', for the nh-unit and 2d's breath heads; 0.45 for 2d's block) · §418 F2 (his 'yes, right-justified': every member of the column ends at the spacer) · §414
   - devices on it: byEnv.surge · byEnv.sequence · byTechnique.ord · familyDevice.oneshot (provisional — DN-5) · familyDevice.sustained (provisional — DN-5)
 - **C — the strike** — atX **the go line = the GC's impact** · justify **left-of** · gapSs **0.6** → `layout.devices.byEnv.strike.nhGapSs` · `layout.devices.byTechnique.staccato.nhGapSs` · `layout.devices.byTechnique.gettato_vel.nhGapSs` +3 · houseGapSs **0.25** → `layout.devices.byTechnique.fortepiano.nhGapSs` · `layout.devices.byTechnique.cuivre.nhGapSs` · goLine **true** · regime **HUG** · columnAlign **centre** · *composer* · #4 day 23 option B (clears the impact marker, r 0.51) · #5 §400 · §414 · houseGapSs: #4 day 22 · day 24 · NOTE: houseGapSs — fortepiano · cuivré: the old house gap 0.25 + the conditional push clear of the impact marker (#4 day 24), kept where it was when B's gap became 0.45 (2e.3 (1)); DN-2 asks whether every GC unit takes 0.6
@@ -39,6 +39,7 @@ Every device of the registry (container.json engraving.layout.devices · figures
 - **byEnv.surge** — anchor **B** · members head · ledger · accidental · ottava · dynamic · dynArrow · goLine · envCurve · sheet: #4 day 22 (the device membership, the nh-unit)
 - **byEnv.strike** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · sheet: #5 §400 (a strike wears the strike unit)
 - **byEnv.sequence** — anchor **B** · members head · ledger · accidental · number · instruction · dynamic · dynArrow · dynamicLabel · paren · niente · goLine · crescCurve · sheet: §447 (PLAN 2e — first §368 … §380, PLAN 2d) · the fade signs §459 (PLAN 2f — §457 his (a) · (i))
+- **byEnv.vibBow** — anchor **A** · members head · accidental · ledger · ringBar · dynamic · niente · hairpinTimed · sheet: §466 (PLAN 2g — the device sheet; §463 the measurement and his scheme · §464 the head and the two voices · §465 no header block, the fades timed)
 - **byTechnique.main** — anchor **A** · members head · ledger · accidental · ottava · dynamic · lvSlur · ringBar · sheet: #5 PLAN 2h.5 (the piano's long ordinary notes)
 - **byTechnique.plucked** — anchor **A** · members head · ledger · accidental · ottava · dynamic · textBaked · pedal · lvSlur · sheet: #5 PLAN 2h.5 (§486 · §490 — pizz., Ped.)
 - **byTechnique.fortepiano** — anchor **C** · members head · ledger · accidental · ottava · dynamic · goLine · gc · ringBar · sheet: #4 day 24
@@ -66,7 +67,7 @@ LAYER 2 — THE COLUMN (§419 … §425): what stacks on a unit, in what order, 
 - **sides** — HUG **every member on the head side, mirrored with the stem** · ROWS **the dynamic below on its row · text above · articulation on the head side** · pinned **the piano's chain pinned below — an override on the part** · §419 · §424 (his §401f kept)
 - **floorTiers** — inside **[staccatoDot, tenuto]** → `layout.floorTier` · insideRule **in a space, never on a line** · outside **every other mark, by its own `staff` distance** · §424 · §425
 - **stack** — standard **0.45** → `layout.stackGapSs` · `render.sectionHead.spacerSs` · medium **0.3** → `layout.gapMediumSs` · `render.sectionHead.mediumSs` · tight **0.15** → `layout.tightGapSs` · underFlag **0.3** → `layout.chainAboveGapSs` · standard: #2 session 77 (the house 0.45) · medium: #4 day 31 (his 'a medium one too') · tight: #4 day 23 (the staccato-dot gap) · underFlag: #4 day 23 (the chain between staff and flag) · §422
-- **rows** — dynamic **-4.6** → `layout.dynY` · tag **3.5** → `layout.tagY` · tempo **4.6** → `layout.tempoY` · tick **3** → `layout.tickY` · sign **-5.95** → `layout.devices.byEnv.sequence.signs.row` · #4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421 · sign: the fade signs' row UNDER the dynamic row — one dynamic height (0.9) + the standard stack (0.45) lower (§371 his (2) 'opening sign own row' · §457 his (a) · §459; the AI's number, his to reverse)
+- **rows** — dynamic **-4.6** → `layout.dynY` · `layout.devices.byEnv.vibBow.marks.lowerRow` · tag **3.5** → `layout.tagY` · tempo **4.6** → `layout.tempoY` · tick **3** → `layout.tickY` · sign **-5.95** → `layout.devices.byEnv.sequence.signs.row` · dynamicUpper **4.6** → `layout.devices.byEnv.vibBow.marks.upperRow` · #4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421 · sign: the fade signs' row UNDER the dynamic row — one dynamic height (0.9) + the standard stack (0.45) lower (§371 his (2) 'opening sign own row' · §457 his (a) · §459; the AI's number, his to reverse) · dynamicUpper: the vibraphone's UPPER voice's dynamic row, ABOVE the staff — the mirror of `dynamic` −4.6 (PLAN 2g, §464 his (A) · §466; the AI's number, his to reverse at 2g.6; it shares the height of `tempo`, which no LGMF page draws)
 
 ---
 
@@ -106,7 +107,9 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `dynarrow`
 - **hairpin** — colour **ink #111** · lengthSs **2** → `layout.devices.byEnv.sequence.signs.lengthSs` · heightSs **0.667** → `layout.devices.byEnv.sequence.signs.heightSs` · thickSs **0.13** → `layout.devices.byEnv.sequence.signs.thickSs` · beside **0.45** → `layout.devices.byEnv.sequence.signs.gapSs` · circleGapSs **0** → `layout.devices.byEnv.sequence.signs.circleGapSs` · *lilypond* · §460 (his 'lets make the fade in a hairpin … a decrescendo hairpin and then the dynamic'): the fade signs' hairpin — the length the house dynArrow's 2 ss, the opening LilyPond 2.24.4 Hairpin height 0.6667 ss, the thickness the stem's (LilyPond 1 line-thickness), beside the standard 0.45; circleGapSs 0: the niente circle touches the closed tip (LilyPond circled-tip; Gould)
   - draws `hairpin`
-- **niente** — colour **ink #111** · diameterSs **0.4695** → `layout.devices.byEnv.sequence.signs.circleDiaSs` · `render.sectionHead.circleDiaSs` · thickSs **0.13** · *composer* · #4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip) · the sequence's fade signs §457 · §459 (the opening sign's circle; a closing sign to nothing)
+- **hairpinTimed** *(a variant of hairpin)* — timed **true** · heightSs **0.667 (= hairpin.heightSs)** → `layout.devices.byEnv.vibBow.marks.heightSs` · thickSs **0.13 (= hairpin.thickSs)** → `layout.devices.byEnv.vibBow.marks.thickSs` · beside **0.45 (= hairpin.beside)** → `layout.devices.byEnv.vibBow.marks.gapSs` · circleGapSs **0 (= hairpin.circleGapSs)** → `layout.devices.byEnv.vibBow.marks.circleGapSs` · *gould* · §464 · §466 (PLAN 2g — the vibraphone's bows): a TIMED hairpin spans the time of the change, from where it begins to where the new level is reached, the closing name at the point reached (Gould, Behind Bars; in a time-proportional score the actual position IS the standard, a symbolic length would misstate the time); the opening, the thickness, the beside and the circle's gap inherited from `hairpin` (§460); a dense bow compresses it to vibMarks.minHairpinSs, then drops it (the names stand)
+  - draws `hairpin-timed`
+- **niente** — colour **ink #111** · diameterSs **0.4695** → `layout.devices.byEnv.sequence.signs.circleDiaSs` · `layout.devices.byEnv.vibBow.marks.circleDiaSs` · `render.sectionHead.circleDiaSs` · thickSs **0.13** → `layout.devices.byEnv.vibBow.marks.circleThickSs` · *composer* · #4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip) · the sequence's fade signs §457 · §459 (the opening sign's circle; a closing sign to nothing)
   - draws `niente`
 - **instruction** — face **text** · size **0.75** → `layout.textSizes.instruction` · italic **true** → `layout.italic.instruction` · colour **ink #111** → `layout.colours.instruction` · stack **0.45** → `layout.devices.byEnv.sequence.block.textGapSs` · besideCut **0.15** → `layout.seccoGapSs` · leaves **1** → `layout.ladder.leaves.instruction` · *composer* · §427 · §428 (every word on a note: instruction 0.75 italic, black — the technique size 0.7 and the 1.0998 "pizz." bake retired) · stack: the block's text 0.45 above the column §380 · besideCut: "sempre secco" #5 §540 · LilyPond TextScript padding 0.3 / 0.5 (the seed)
   - draws `text` `text[techText]` `text[instruction]`
@@ -130,7 +133,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `tick`
 - **gc** — colour **gc rgb(255, 21, 160)** · *composer* · #4 day 23 ('when I say GC, that is the whole thing')
   - draws `gc` · in: engraving.render.gc (the look in px at the 1080 frame — piece #1's object whole)
-- **ringBar** — colour **ink #111** · hSs **0.667** → `render.ringBar.hSs` · opacity **0.65** → `render.ringBar.opacity` · beside **0.25** → `layout.ringBarGapSs` · *composer* · #4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar')
+- **ringBar** — colour **ink #111** · hSs **0.667** → `render.ringBar.hSs` · opacity **0.65** → `render.ringBar.opacity` · beside **0.25** → `layout.ringBarGapSs` · closeRule **{withinSs: 0.667, height: 0.5, unison: stacked}** → `layout.devices.byEnv.vibBow.closeRule` · *composer* · #4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar') · closeRule (PLAN 2g, §464 · §466 — the AI's rule, his to reverse at 2g.6): two bars of the vibraphone's two voices sounding together whose centres are closer than one bar height (withinSs — a second: 0.5 ss apart against a 0.667 bar) are each drawn at `height` of the bar, toward its own side (the upper voice's top half, the lower's bottom half); a unison is the two halves stacked
   - draws `ringbar`
 - **brick** — colour **brick #4E7A9B** · opacity **0.45** → `render.brickOpacity` · *census* · #4 V0.10
   - draws `brick`
@@ -180,6 +183,12 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
 - **lineWedge** — colour **lineWedge #8a6d3b** · *census* · #4 D48 (disabled)
   - draws `anim:lineWedge`
 
+### The vibraphone's marks in a sequence (`vibMarks`)
+
+THE VIBRAPHONE'S MARKS IN A SEQUENCE (PLAN 2g — §463 · §465 · §466; LG-116, his: 'hairpins describe dynamic movement and direction. The dynamic markings describe a relative level'): notation/lib/vib_marks.js reads each bow's slice of its seat's level curve into names and TIMED hairpins, tied to the BOW. The level = sequence_overlays.js writtenAt (the body through the part's ladder × the fade weight, §462 · §465) in written steps (0 ppp … 7 fff, −1 niente). A LEG (a monotone run between the turning points, the flats ignored) of ≥ hairpinSteps draws a hairpin; of nameSteps … hairpinSteps only when its rounded end name differs from the current name; under flatSteps nothing. A name at a leg's end where the rounded level differs from the current name, at the time reached (a plateau's start). No name without a hairpin, no hairpin without motion. `carry`: a bow's start name is its chain's previous bow's END name, never re-rounded — re-read from the level only at the chain's first bow and after a rest of ≥ restS. A bow whose fade rises from 0 opens with the niente circle in place of its start name; the fade-out ends at the level reached (the circle at 0). `repeatName` false: a flat bow at the carried level draws nothing. `flip` false: a voice's row is meaning — the ladder never flips these marks. minHairpinSs: a hairpin shorter than this between its marks is dropped, the names stand. The voice of a bow: `voice`.
+
+- hairpinSteps **0.5** · nameSteps **0.25** · flatSteps **0.25** · carry **true** · repeatName **false** · flip **false** → `layout.devices.byEnv.vibBow.marks.flip` · minHairpinSs **1** → `layout.devices.byEnv.vibBow.marks.minHairpinSs` · restS **0.5** · voice **by register: a bow is UPPER when its pitch is ≥ the other chain's sounding pitch at the bow's start; a silent partner → the nearer of its previous and next bow in the same sequence; a tie → chain 0 upper; no partner in the sequence → chain 0 upper** · *composer* · §463 rules 1 … 7 (his '1 numbers good, 1-6 good': the thresholds 0.5 · 0.25 · 0.25 · the carry · his (a), the repeated name left off) · §465 (the fades timed; the level read WITH the fade) · §466 — the AI's, his to reverse at 2g.6: flip false · minHairpinSs 1 · restS 0.5 (#4's breathSeconds) · the voice rule; the plan's `hairpinStepSs` · `nameStepSs` · `flatStepSs` are named `…Steps` here — they are written steps, not staff spaces
+
 ---
 
 ## 4 · THE COLOURS AND THE FACES
@@ -226,6 +235,7 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `niente` | clamp | whole |
 | `dynarrow` | clamp | whole |
 | `hairpin` | clamp | whole |
+| `hairpin-timed` | cut | stub |
 | `ottava` | clamp | whole |
 | `lvslur` | clamp | whole |
 | `attackline` | atomic | whole |

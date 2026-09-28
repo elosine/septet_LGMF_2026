@@ -39,6 +39,7 @@
     "niente": { "screen": "clamp", "print": "whole" },
     "dynarrow": { "screen": "clamp", "print": "whole" },
     "hairpin": { "screen": "clamp", "print": "whole" },
+    "hairpin-timed": { "screen": "cut", "print": "stub", "_note": "LGMF PLAN 2g (§466): the vibraphone's TIMED hairpin spans the time of its movement — a spanning graphic like the ring bar it lies under, so it takes the ring bar's classes: cut like paper on screen, a stub at a print cut; the 2f `hairpin` (a fixed-length symbol) keeps clamp · whole" },
     "ottava": { "screen": "clamp", "print": "whole" },
     "lvslur": { "screen": "clamp", "print": "whole" },
     "attackline": { "screen": "atomic", "print": "whole" },

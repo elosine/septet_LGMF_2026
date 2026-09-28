@@ -12,7 +12,8 @@
 //     a RULES MIRROR line
 // (6) the anchor principle — the head ON its time ↔ no go line: an anchor-A device draws no go line, a B · C · D device draws one
 // [2e.3: (8) the fundamental and the cents at sounding pitch in a transposed realization · 2e.4: (4) the fit test · (5) the dot in a
-//  space · 2e.5: (7) every device carries `sheet: '§N'`]
+//  space · 2e.5: (7) every device carries `sheet: '§N'` · 2g.1: (1) every kind an objects row draws has its edge row · (7) the
+//  vibraphone's bow on its sheet]
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
@@ -58,6 +59,12 @@ ok(devices.every(([, v]) => Array.isArray(v.memberRows) && v.memberRows.length) 
 // (7) [2e.5] every device carries its SHEET — the § of the device sheet (or the decision that stands for one) that made it
 const noSheet = devices.filter(([, v]) => !(typeof v.sheet === 'string' && v.sheet.trim())).map(([n]) => n);
 ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it (' + devices.length + ')' + (noSheet.length ? ' — none on ' + noSheet.join(' · ') : ''));
+// [2g.1] the vibraphone's bow (PLAN 2g): its sheet is §466, it stands on anchor A, its members include the timed hairpin
+{
+  const vb = (D.byEnv || {}).vibBow;
+  ok(!!vb && /§466/.test(vb.sheet || '') && vb.anchorRow === 'A' && (vb.memberRows || []).includes('hairpinTimed') && !!R.vibMarks,
+    '(7) the vibraphone\'s bow `byEnv.vibBow` carries its sheet (§466), stands on anchor A with the timed hairpin among its members, and its reader\'s rules are a table (`vibMarks`)');
+}
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));
 
@@ -91,6 +98,14 @@ if (ANIMATED_EDGES) {
   const noAnim = AnimObj.kinds().concat(['cursor']).filter(k => !(pageRules.edge['anim:' + k] && CLASSES.has(pageRules.edge['anim:' + k].screen) && pageRules.edge['anim:' + k].print === 'none'));
   ok(!noAnim.length, 'every ANIMATED kind (' + (AnimObj.kinds().length + 1) + ') carries its edge class, print none' + (noAnim.length ? ' — not: ' + noAnim.join(' · ') : ''));
 } else console.log('   --  the animated kinds\' edge rows arrive at 2e.2');
+// [2g.1] every KIND an objects row draws carries its edge class — a kind no page draws yet included (the vibraphone's `hairpin-timed`)
+{
+  const rowKinds = [];
+  for (const [k, o] of Object.entries(R.objects)) if (!k.startsWith('_')) for (const d of o.draws || []) if (!/^(glyph|anim):/.test(d)) rowKinds.push([k, d.replace(/\[.*\]$/, '')]);
+  const noEdgeRow = rowKinds.filter(([, d]) => !(pageRules.edge[d] && CLASSES.has(pageRules.edge[d].screen)));
+  ok(!noEdgeRow.length, 'every kind an objects row draws (' + new Set(rowKinds.map(x => x[1])).size + ') carries its edge class — `hairpin-timed` ' +
+    (pageRules.edge['hairpin-timed'] ? pageRules.edge['hairpin-timed'].screen + ' · ' + pageRules.edge['hairpin-timed'].print : 'MISSING') + (noEdgeRow.length ? ' — not: ' + noEdgeRow.map(x => x[0] + ' → ' + x[1]).join(' · ') : ''));
+}
 
 // ---------------------------------------------------------------- (2) every drawn object has an objects row
 console.log('(2) THE OBJECTS');

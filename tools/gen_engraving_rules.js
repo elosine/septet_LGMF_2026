@@ -23,7 +23,9 @@ for (const { path: p, ref } of refs) {
   landsAt.get(k).push(p.replace(/^engraving\./, ''));
 }
 const usedRows = new Set([...landsAt.keys()].map(k => k.split('.').slice(0, 2).join('.')));
-const fmt = v => typeof v === 'string' ? (/^@colours\.\w+\.value$/.test(v) ? v.split('.')[1] + ' ' + ((R.colours[v.split('.')[1]] || {}).value || '?') : v) : JSON.stringify(v).replace(/"/g, '').replace(/,/g, ', ').replace(/:/g, ': ');
+const fmt = v => typeof v === 'string' ? (/^@colours\.\w+\.value$/.test(v) ? v.split('.')[1] + ' ' + ((R.colours[v.split('.')[1]] || {}).value || '?')
+  : Rules.REF.test(v) && Rules.resolve(R, v) !== undefined ? fmt(Rules.resolve(R, v)) + ' (= ' + v.slice(1).replace(/^objects\./, '') + ')' : v)   // [2g.1] a row that inherits: its value and whence
+  : JSON.stringify(v).replace(/"/g, '').replace(/,/g, ', ').replace(/:/g, ': ');
 const META = new Set(['basis', 'ref', 'draws', 'variantOf', 'in', 'note', 'seed', 'name', 'furniture', 'animated']);
 const lands = (table, row, field) => {
   const l = landsAt.get(table + '.' + row + '.' + field);
@@ -113,6 +115,15 @@ const group = (title, pred) => {
 group('Music marks', o => !o.furniture && !o.animated);
 group('Page furniture', o => o.furniture);
 group('Animated (anchor F)', o => o.animated);
+// [2g.1] the vibraphone's marks — the reader's rules as a table (rules.json vibMarks; notation/lib/vib_marks.js)
+if (R.vibMarks) {
+  P('### The vibraphone\'s marks in a sequence (`vibMarks`)');
+  P('');
+  P(R.vibMarks._doc);
+  P('');
+  P('- ' + Object.entries(R.vibMarks).filter(([n]) => !n.startsWith('_') && !META.has(n)).map(([n, v]) => n + ' **' + fmt(v) + '**' + (landsAt.get('vibMarks.' + n) ? ' → `' + landsAt.get('vibMarks.' + n).join('` · `') + '`' : '')).join(' · ') + ' · *' + R.vibMarks.basis + '* · ' + R.vibMarks.ref);
+  P('');
+}
 P('---');
 P('');
 P('## 4 · THE COLOURS AND THE FACES');

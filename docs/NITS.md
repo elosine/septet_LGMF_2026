@@ -88,6 +88,12 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
 
 ### Open work this port created or uncovered
 
+- **`tools/test_animobj.js` is red on HEAD since §454** (found 2026-09-27 at 2g.1's SHIELD, RUNNING_LOG §467): its "morph bend →
+  curveFollower" case builds a tuba morph page and asks for the curve follower's dot — §454 turned that dot OFF by its row
+  (`rules.json objects.followerDot.curveFollower false`), so `AnimObj.curveFollower` gets no instance and throws at `animobj.js:109`. The
+  other seven engine batteries are green (in a worktree with #4's IRs staged). The fix is the battery's: pass `curveFollower` on for that
+  case, or assert it absent under this piece's row. Not blocking — every page's animated devices are probed by `check_screen_edges`.
+
 - **83 recipe technique keys are not in `notation/registry/techniques.json`** (2026-09-25: was 18 at the port, then 91 once the percussion's and the vibraphone's voices joined; PLAN 2a.1 registered the EIGHT the piece uses — the seven percussion voices and `bowed_vel`; the rest are registered as material uses them) — the brass and
   bassoon extras (`cuivre`, `ord_to_cuivre`, `cuivre_to_ord`, `stopped`, `open_to_stopped`,
   `stopped_to_open`, `flz_stopped`, `slap_pitched`, `half_valve_gliss`, `gliss_embouchure`,

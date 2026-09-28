@@ -16444,3 +16444,48 @@ rest in a chain** — a gap ≥ 0.5 s (#4's `breathSeconds`), where the carry st
 
 **Model:** the build on Opus after a checkpoint and a clear — 2g.1 → 2g.5, one commit per step, THE SHIELD in each (the two IRs
 byte-identical; the tuba goldens where `layout.js` moves); STOP after 2g.5 for 2g.6. Nothing built today.
+
+## §467. 2g.1 THE ROWS AND THE SHEET — the vibraphone's bow in the tables (2026-09-27, Opus, session 17)
+
+**What prompted it — his word at the `/postclear`:** *"go for whole plan independantly"* — PLAN § `2g`, 2g.1 → 2g.5, one commit per
+step, THE SHIELD in each; STOP for 2g.6, his eye.
+
+**THE SHIELD's BEFORE, captured on HEAD (`8a9b7ee`) before the first edit** (the scratchpad's `shield.js` · `bat.sh`):
+- both IRs re-extracted by their own `provenance.build` — **byte-identical but for the `date` line** (the clock had passed midnight UTC; the
+  committed `lgmf-eh-proto` already carries `2026-09-28` from the last session). The shield compares with that line normalized and restores
+  an identical file from HEAD, so the tree stays clean.
+- the layout of EVERY IR — this repo's three + #4's seventeen tuba goldens (`git show HEAD`, staged read-only in the scratchpad) — in the
+  video realization and the working one: 40 dumps · the exporters' own plans for the two IRs (`export_print --planJson` · `export_video
+  --screenJson`).
+- the eight engine batteries, in a scratch worktree with #4's IRs and scores staged (`node_modules` a junction, UNLINKED before any removal —
+  §449): seven green; **`test_animobj` fails on HEAD itself** — its "morph bend → curveFollower" case expects the dot §454 turned off
+  (`animobj.js:109`, an `undefined` instance). Not this build's; carried to NITS.
+
+**What was built** (the device sheet of PLAN § `2g` (3) · (4) · (5), as data):
+- `rules.json` — `column.rows.dynamicUpper` **+4.6** (the upper voice's row above the staff, the mirror of −4.6; it shares the height of
+  `tempo`, which no LGMF page draws) · `objects.hairpinTimed` (a variant of `hairpin`, `timed`, draws `hairpin-timed`; its opening,
+  thickness, beside and circle gap are POINTERS to `hairpin`'s — inherited, not copied; basis `gould`) · `objects.ringBar.closeRule`
+  `{ withinSs 0.667, height 0.5, unison stacked }` · a new table **`vibMarks`** — the reader's rules: `hairpinSteps` 0.5 · `nameSteps` 0.25
+  · `flatSteps` 0.25 · `carry` · `repeatName` false · `flip` false · `minHairpinSs` 1 · `restS` 0.5 · `voice` (the register rule, in words).
+- `page_rules.json` `edge['hairpin-timed']` **cut · stub** (the ring bar's classes; the `2f` `hairpin` keeps clamp · whole).
+- `container.json` **`byEnv.vibBow`** — anchor A, members head · accidental · ledger · ringBar · dynamic · niente · hairpinTimed, `sheet`
+  §466; the look as flags (`nhUnit`, `nhAnchor: leftEdge`, open head, `goLine` · `gc` · `brick` · `curve` · `dynMark` false, `ringBar` with
+  `ringBarFull` — no breath cut) and `marks` · `closeRule` as pointers into the rows. `_vibBowNote` states the device.
+- `gen_engraving_rules.js` — the `vibMarks` table in §3; a row whose value POINTS prints its value and whence (`0.667 (= hairpin.heightSs)`).
+- `check_rules.js` 23 → **25**: (1) every kind an objects row draws carries its edge class — a kind no page draws yet included
+  (`hairpin-timed` cut · stub) · (7) `byEnv.vibBow` carries its sheet §466, stands on A with the timed hairpin, its rules a table.
+
+**Three calls of the AI's, his to reverse:**
+1. **`byEnv.vibBow`, a sibling of `byEnv.sequence`** — the plan says "`byEnv.sequence` gains the device"; a device NESTED inside another is
+   not a device to the gates (they enumerate `byEnv.<k>`), and the layout's `deviceOf` resolves by the event's env. The extractor gives the
+   vibraphone's bows env `vibBow` (2g.3).
+2. **`…Steps`, not the plan's `hairpinStepSs` · `nameStepSs` · `flatStepSs`** — they are written STEPS; `Ss` means staff spaces everywhere
+   in these tables.
+3. **No `head.secondOffsetSs` row.** The sheet made it conditional on the engine having no chord displacement. It has one: `layout.js`
+   `chordGeometry` → `ChordColumn.noteColumn` (#2 D.6 — a head a step or less from its neighbour steps aside by a head width), and it columns
+   ANCHOR-A heads since #5 D49 (`nhAnchor: leftEdge`). Whether the vibraphone's shared attacks reach it (it columns one chunk's notes within
+   `chordTolSeconds`) is 2g.3's check.
+
+**Verified:** `check_rules` **25 GREEN** · `sequence_notation_check` **64 / 64** · `docs/ENGRAVING_RULES.md` regenerated (164 pointers).
+**THE SHIELD:** both IRs re-extracted byte-identical (date normalized) · the 40 layouts identical · the two print plans identical · the two
+screen dumps identical once the edge table's new row is set aside (the dump echoes the table) — no page moved (no IR holds env `vibBow`).
