@@ -16739,3 +16739,37 @@ axis (the winds' fade hairpin stays 0.667 — the AI's reading) · 2h.7 the `♮
 · 2h.9 the protos re-extracted, his eye. Build on Opus after a checkpoint and a clear.
 
 **Not done here:** nothing drawn changed but the opacity; no IR moved.
+
+
+## §474. 2h.1 THE CLEARANCE — a bow's bar ends 0.25 ss before the next unit's leftmost ink (2026-09-28, Fable, session 17)
+
+**At his word** *"build here, go"* (on Fable, no checkpoint — his call). PLAN § `2h` 2h.1, from his 2g.6 eye (§473): *"There should be a gap
+between the end of a duration line and the beginning of the next notation's leftmost point … around 6.78 in the vibraphones, and the
+duration line is going into the accidental. So let's standardize that."* The gap: the head-side `beside` 0.25 ss, his *"yes fine"*.
+
+**The rule (rules.json, the OBJECTS table):** a FIFTH DISTANCE — `after`, the horizontal clearance a time-spanning object keeps between its
+END and the leftmost ink of the next unit (the `_doc`). On `objects.ringBar`: `after` 0.25 · `afterAbutS` 0.1 — the window in which a
+following unit is the bar's SUCCESSOR: the first head at or after the bar's end, or within 0.1 s before it (a bow's own next bow abuts
+within 0.05 s, §469). A unit that begins earlier is the other voice sounding ALONGSIDE and cuts nothing (the close rule's domain — the
+bar's end is its sounding length; a mid-bar cut would misstate it). `container.json` `byEnv.vibBow` points at both. Where the rule
+applies: the vibraphone's bows, whose bars run the bow's FULL length (`ringBarFull`, §469); every other ring bar ends a BREATH (0.5 s ≈
+9 ss at the video frame's 18.65 ss/s) before the next attack (#4 day 23) and never reaches a successor's ink — the row says so.
+
+**The code (`layout.js`, a pass before the close rule):** the leftmost ink per head time from the units' items (`fit.js inkOf` over the
+head, accidental, ledger and ottava items — the ottava sign begins at the unit's leftmost ink, §2160); per bar the successor by the window;
+`t1 = (x(successor) + leftmost − after) / ssPerSec` when shorter; `t1Bow` keeps the bow's end for every reader (the check, the print
+edges). Drawing only, as the breath rule is (D49).
+
+**The numbers (`vib_marks_check` 24, the new check THE CLEARANCE):** 22 of the proto's 55 bars cut; the tightest gap after the cut
+0.250 ss; the bar ending at 6.84 s (his image: its successor's `♯` at 6.89 s, 0.93 ss on, the sign 1.1 ss wide) cut by 0.24 ss. Every
+bow's bar still reaches x(t1) or is cut short of its successor — the old check widened, not weakened.
+
+**THE SHIELD — made a tool:** `tools/layout_shield.js` (NEW) lays out EVERY IR — this repo's four and piece #4's seventeen tuba IRs, read
+in place, never staged — under this registry and hashes each model (`--write`), then compares (`--diff --expect <ids>`). §449 · §469 did
+this by hand in a scratch worktree (the junction accident, §449); the tool needs no worktree. BEFORE captured on HEAD by a stash of the
+five changed paths: **20 of 21 layouts identical, `lgmf-vib-proto` alone moved.** `check_rules` 25 GREEN · `sequence_notation_check`
+64 / 64 (the EH's page unmoved) · `ENGRAVING_RULES.md` regenerated. The engine batteries `test_layout` · `test_render` and nine others
+throw on HEAD in this repo (they want #5's `trance-bar-01` fixtures, never carried) — not this build's; `test_stamps` green.
+
+**Not touched:** the marks (their trailing clearance is 2h.5 — the closing name right-justified to the cut bar's end, the hairpin before
+it) · the IRs (a colour and a cut are page-time) · `render.js`.

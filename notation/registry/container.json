@@ -247,6 +247,8 @@
       "nhHead": "open",
       "ringBar": true,
       "ringBarFull": true,
+      "after": "@objects.ringBar.after",
+      "afterAbutS": "@objects.ringBar.afterAbutS",
       "letRing": false,
       "chordRules": false,
       "dynMark": false,

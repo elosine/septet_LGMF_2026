@@ -3056,6 +3056,32 @@
         }
       }
 
+      // [LGMF PLAN 2h.1 — RUNNING_LOG §474] THE CLEARANCE (his 2g.6 eye: "a standard gap between the end of a duration line and the
+      // beginning of the next notation's leftmost point"): a bow's bar ends `after` (rules.json objects.ringBar.after — 0.25 ss, the
+      // head-side `beside`) before the LEFTMOST INK of the lane's next unit (its accidental, ledger, head or ottava sign) — the first
+      // head at or after the bar's end (a bow's own next bow abuts within 0.05 s, §469: `afterAbutS`). A unit that begins earlier is the
+      // OTHER voice sounding alongside and cuts nothing (the close rule's domain). Drawing only: `t1Bow` keeps the bow's end.
+      const FitV = FitIn || (rootIn && rootIn.NotationFit) || null, tsV = o.textEmScale != null ? o.textEmScale : 1.3, spsV = o.fitBoxes && o.fitBoxes.ssPerSec;
+      const INKYv = it => it.k === 'ledger' || it.k === 'ottava' || (it.k === 'glyph' && /^(notehead|accidental-)/.test(it.g || ''));
+      if (vibBowOf.size && FitV && spsV) {
+        const VB = (DEV.byEnv || {}).vibBow || {};
+        const AFTER = VB.after != null ? VB.after : 0.25, ABUT = VB.afterAbutS != null ? VB.afterAbutS : 0.1;   // RULES MIRROR (rules.json objects.ringBar.after · afterAbutS)
+        const leftAt = new Map();   // head time → the leftmost ink of the unit(s) there, in ss from x(t)
+        for (const it of items) {
+          if (it.t === undefined || !INKYv(it)) continue;
+          const e2 = FitV.inkOf(it, glyphs, tsV); if (!e2) continue;
+          const k = Math.round(it.t * 1e6); leftAt.set(k, Math.min(leftAt.has(k) ? leftAt.get(k) : Infinity, e2.l));
+        }
+        const heads = [...leftAt.entries()].map(([k, l]) => ({ t: k / 1e6, l })).sort((a, b) => a.t - b.t);
+        for (const bar of items) {
+          if (bar.k !== 'ringbar' || !vibBowOf.has(bar.ev)) continue;
+          const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= bar.t1 - ABUT);
+          if (!nx) continue;
+          const t1 = (nx.t * spsV + nx.l - AFTER) / spsV;
+          if (t1 < bar.t1 - 1e-9) { bar.t1Bow = bar.t1; bar.t1 = +t1.toFixed(6); }
+        }
+      }
+
       // [LGMF PLAN 2g.3 — RUNNING_LOG §469; the device sheet §466] THE VIBRAPHONE'S TWO BARS: two ring bars of the two voices sounding
       // together whose centres are closer than `closeRule.withinSs` (a second: 0.5 ss apart against a 0.667 bar) are each drawn at
       // `closeRule.height` of the bar, toward its own side — the higher bar keeps its top half, the lower its bottom half; a unison the

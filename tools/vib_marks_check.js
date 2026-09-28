@@ -122,8 +122,27 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   const it5 = m.systems.filter(s => s.part === LANE).flatMap(s => s.items);
   const ov = ir.overlays.find(o => o.kind === 'vibBows'), PB = ov ? ov.value.bows : [], ev = new Map(ir.events.map(e => [e.id, e]));
   const barOf = id => it5.filter(i => i.k === 'ringbar' && i.ev === id);
-  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event); return br.length === 1 && Math.abs(br[0].t1 - (e.onset + e.duration)) < 1e-9 &&
-    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar to x(t1) — ' + PB.length + ' bows (R01c)');
+  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event), end = e.onset + e.duration; return br.length === 1 && br[0].t1 <= end + 1e-9 && Math.abs((br[0].t1Bow != null ? br[0].t1Bow : br[0].t1) - end) < 1e-9 &&
+    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar to x(t1) — or cut short of its successor (2h.1) — ' + PB.length + ' bows (R01c)');
+  // [2h.1, §474] THE CLEARANCE: a bar ends `after` before the leftmost ink of the lane's next unit at or after its end (the successor:
+  // a head within afterAbutS before the bow's end, or later); the 6.84 s bar (his image, "6.78 … going into the accidental") is cut
+  {
+    const VB = C.engraving.layout.devices.byEnv.vibBow, AF = VB.after, AB = VB.afterAbutS, G = rd('notation/lib/glyphs.json'), tsX = C.engraving.layout.textEmScale != null ? C.engraving.layout.textEmScale : 1.3;
+    const INKY = i => i.k === 'ledger' || i.k === 'ottava' || (i.k === 'glyph' && /^(notehead|accidental-)/.test(i.g || ''));
+    const leftAt = new Map();
+    for (const i of it5) { if (i.t === undefined || !INKY(i)) continue; const e2 = Fit.inkOf(i, G, tsX); if (!e2) continue; const k = Math.round(i.t * 1e6); leftAt.set(k, Math.min(leftAt.has(k) ? leftAt.get(k) : Infinity, e2.l)); }
+    const heads = [...leftAt.entries()].map(([k, l]) => ({ t: k / 1e6, l })).sort((a, b) => a.t - b.t);
+    const bars = it5.filter(i => i.k === 'ringbar'), cut = bars.filter(i => i.t1Bow != null);
+    let worst = Infinity, through = 0;
+    for (const bar of bars) {
+      const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= (bar.t1Bow != null ? bar.t1Bow : bar.t1) - AB);
+      if (!nx) continue;
+      const gap = nx.t * sps + nx.l - bar.t1 * sps;
+      worst = Math.min(worst, gap); if (gap < AF - 1e-6) through++;
+    }
+    const b684 = bars.find(i => i.t1Bow != null && Math.abs(i.t1Bow - 6.84) < 0.05);
+    ok(AF === 0.25 && !through && !!b684 && cut.length > 0, 'THE CLEARANCE (2h.1): every bar ends ≥ after (' + AF + ' ss) before its successor\'s leftmost ink — ' + cut.length + ' of ' + bars.length + ' bars cut, the tightest gap ' + (isFinite(worst) ? worst.toFixed(3) : '—') + ' ss; the 6.84 s bar cut by ' + (b684 ? ((b684.t1Bow - b684.t1) * sps).toFixed(2) + ' ss' : 'NOT CUT'));
+  }
   ok(!it5.some(i => i.k === 'goline' || i.k === 'stem' || /curve$/.test(i.k)), 'no go line, no stem, no level curve on the lane (anchor A; §464)');
   const side = t => { const b = PB.find(q => Math.abs(q.t0 - t) < 0.02 && barOf(q.event)[0]); const x = barOf(b.event)[0]; return x.segs ? x.segs.map(s => s.side).join('→') : String(x.side || 0); };
   ok(side(16.99) === '-1' && side(20.93) === '1→-1' && side(22.70) === '1', 'the close rule: the unison 20.93 … 22.64 stacked (the sounding bar keeps its bottom half, the entering one the top), then the second 22.70 … 26.86 at half height (the 84 under the 86) — sides ' + [16.99, 20.93, 22.70].map(side).join(' | '));
