@@ -383,6 +383,50 @@ land only on user approval. A post-clear model reads this block and announces th
   `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · `scores/piece-LGMF-*` (fourteen; `-Sec01-Sec02-Sec3start` the protos' source, read as a COPY) ·
   `scores/pointilistic01a.json`.
 
+### SESSION 17 · CHECKPOINT #10 (mid-session checkpoint) — 2026-09-28, Fable built, Opus wraps — THE RUNNING ORDER COMPLETE (7 of 7) AND PLAN § `2j` BUILT; 2j.4 is his
+
+- **The task:** two things since CHECKPOINT #9, both done and pushed.
+  - **The running order's steps 4 … 7**, one at a time at his word, each a confirmation of what 2h had built, now written as his word on
+    its rule row (RUNNING_LOG **§497 … §500**; `97336c5` · `b397231` · `99e6a80` · `995f405`): 4 the `○` gap — ONE gap 0.45 between every
+    dynamic sign and its hairpin, the winds' circle too (his "why is that slipping" answered: nothing slipped — one row changed once at his
+    2g.6 word) · 5 the winds' hairpin 0.667 kept (their only hairpins are the two fade signs, *"just symbolic"*) · 6 the closing name snaps to
+    the bar's end only when it would hang past it · 7 NO general courtesy natural — a new row `objects.accidental.courtesyNatural` false with
+    the policy in words (no bars, every altered head its sign, a plain head natural, the chord column the one exception).
+  - **PLAN § `2j` THE MAIN FILE CARRIES EVERY ACCEPTED DEVICE**, from his question *"Should we have a main file that's kept up to date with all
+    the notation so far and then to help me manage the working files"* and his *"a, write the plan item and build"* (§501; `403f1a6`):
+    `piece-lgmf` re-extracted from a COPY of Draft 01 with `--all --bricks` + `--sequence` × 4 (the four PLACED groups — `grp-seq-smu90t537`
+    0 … 156 · `-smuiicl3e` 427 … 580 · `-smuilati2` 655 … 729 · `-smuin6jkq` 800 … 881; five more recipes in `databases.sequences` have no
+    notes) — the device on seven parts × four sequences, **156 bows**, 1076 events VALID, 0 ALERTs · the two protos re-pointed at Draft 01 ·
+    THE FILE DISCIPLINE a standing rule in PLAN § `2j` (one source — the named draft · the main file carries every accepted device by its
+    flag · a new device born on a proto page cut from a COPY, then folded in · no IR hand-edited · every extraction its command in
+    `provenance.build`).
+- **Verified (2j):** `check_rules` 25 · `sequence_notation_check` 64 / 64 · `vib_marks_check` 32 · `layout_shield --diff --expect` GREEN,
+  19 of 21 identical (`piece-lgmf` · `lgmf-vib-proto` moved; the EH proto's layout identical). Not run, by the plan: the Chrome edge gates
+  (no render / coords / frame change).
+- **Found by 2j, for his eye (§501):**
+  - **the vibraphone proto shows DRAFT 01's pitches now** — 17 of its 55 bows were re-pitched by his hand between `Sec3start` and Draft 01
+    (same ids and times); the row crossings (§496) fell elsewhere, 23 bows swap rows. The source moved, the goldens did not.
+  - **the ladder: 28 units off rung 0 on `piece-lgmf`** (`decisions_needed --ir piece-lgmf`) — 18 at rung 3, 10 at rung 8 (MANUAL); every one
+    the sequence block's `cents partial` column past the lane's TOP on the low parts: Vc 14 · Db 8 · Bsn 5 · Hn 1 (the rung-8 ten: Vc 40.26 ·
+    102.30 · 477.92 · 523.99 · 547.43 · 694.45 · Db 3.50 · 468.15 · 556.76 · Hn 711.84 at the bottom). The device stands on these parts for
+    the first time; it meets 2a.6 THE CLEFS BY REGISTER and rungs 5 · 6 (his, on the page).
+- **► THE NEXT STEP — HIS: 2j.4, his eye.** Reload the notation tab (IRs only; no restart) → `piece-lgmf` → the video view → `-4` … `4` (the
+  EH's block and the vibraphone's first bows on the MAIN page) · `427` · `655` · `800` (the later sequences' entries — the device on Bsn ·
+  Hn · Tpt · Vc · Db for the first time) · `40.26` (a rung-8 unit, the cello) · `z`; the protos in the picker, now from the draft. Then his
+  word on what he sees — a look on Fable, a fault on Opus; the 28 units most likely become the 2a.6 clefs item or a lane-rebalance call.
+- **`Resume reads:`** nothing beyond §2 for his eye. For the 28 units or a fault: RUNNING_LOG §501 and PLAN § `2j`; for a rung: `docs/ENGRAVING_RULES.md` § 8.
+- **Model:** resume on **Fable** — his answers on a look; Opus for a fault or a build of any size.
+- **Pending him:** 2j.4 · the AI's calls in PLAN § `2j` (the four groups by their notes · `--bricks` kept · the protos kept as fixtures · the
+  discipline written in the item) · the older ►► rows below unchanged (the EH proto's answers · the audio's ear · `1u.6` · `1t.5` · …).
+- **Learned:** `grep -c $'\r$'` MISREPORTS line endings here — the appended §497 … §501 went in as CRLF into the LF RUNNING_LOG; put back
+  the same day, nothing lost (git's `autocrlf` normalizes the blob); STILL BINDING corrected below; a memory written.
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #9): `bank/morph_models.json` ·
+  `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) ·
+  `scores/piece-Recombination-Draft01-done.json` (his tab's save; 2j extracted from a COPY in the scratchpad, never wrote it) ·
+  `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) · `bank/passages/lgmf-sec2.json` ·
+  `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves;
+  `-Sec01-Sec02-Sec3start` NO LONGER any IR's source) · `scores/pointilistic01a.json`.
+
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
 - **S1 · 2026-09-17 (Fable + Opus)** — **THE PORT.** Piece #5's whole stack carried across and re-paletted onto the seven
@@ -449,7 +493,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►** | **THE RUNNING ORDER at the top of §2 — COMPLETE, 7 of 7** (2026-09-28; §495 … §500: the bow lead in the seat's hue, the head swatch, the cross at a rhythmic unison, the `○` gap kept for every sign, the winds' hairpin kept 0.667, the closing name's snap kept conditional, no general courtesy natural — a rule row). then **PLAN § `2j` THE MAIN FILE CARRIES EVERY ACCEPTED DEVICE — BUILT 2026-09-28 (§501)**: `piece-lgmf` from Draft 01 with `--sequence` × 4 (7 parts × 4 sequences, 156 bows, 1076 events VALID), the protos from the same draft (17 of 55 section-1 bows re-pitched by his hand since `Sec3start` — the source moved, the goldens did not), the shield 19 of 21, the ladder 28 units off rung 0 (Bsn · Hn · Vc · Db — the block's cents column past the lane top; 2a.6's territory), THE FILE DISCIPLINE standing in PLAN § `2j`. ► 2j.4 HIS EYE (reload the notation tab → `piece-lgmf` → `-4` … `4` · `427` · `655` · `800` · `z`; the protos in the picker, from the draft) | Fable (the calls) · Opus (a fault) | — |
+| **►►►** | **2j.4 HIS EYE — `piece-lgmf` carries every placed sequence's device** (2026-09-28, CHECKPOINT #10; §501; PLAN § `2j` BUILT, THE FILE DISCIPLINE standing there): reload the notation tab → `piece-lgmf` → the video view → `-4` … `4` · `427` · `655` · `800` · `40.26` · `z`; the protos from Draft 01 (the vibraphone's 17 re-pitched bows his own). Then his word — the ladder's 28 units (the block's cents column past the lane top on Vc · Db · Bsn · Hn) most likely become 2a.6 THE CLEFS BY REGISTER or a lane rebalance. *(Before it, done the same day:)* THE RUNNING ORDER COMPLETE, 7 of 7 (§495 … §500) | his eye · then Fable (a look) / Opus (a fault) | — |
 | ✓ | **(2i.6 TAKEN 2026-09-28 — §489 … §496; the held items became the running order)** **2i.6 HIS EYE — `lgmf-vib-proto` and `piece-lgmf`, THEN THE HELD ITEMS** (PLAN § `2i` BUILT 2026-09-28 on Fable, RUNNING_LOG §487; the block above): reload the notation tab (page files + one IR; no restart) → `lgmf-vib-proto` → `0` (navy's hairpins and names on ONE axis above, olive's on one below; the bars on their two tracks) · `20.9` · `22.7` (no restated `pp`) · `38` (no `pp` in the hairpin) · `56.12` (`♯` · `♮` 0.2 apart) · `78.8` · `148` · `z` → `piece-lgmf` → `-4` (the 0.25 s snippet of the seven lines at the page's start, −4 … −3.75 — §489) · `284` (the lines fill the whole page — §488) · `300` · `416` (off again). **Then the held items (§486, his "hold these and resurface them"):** (i) the seat written on the note at deal time · (ii) the head's seat — colour the head (recommended) / stems / a leader · (iii) the winds' `○` start gap · the winds' hairpin height · a closing name only when it would run past · the general courtesy natural. Revise on his word — a look on Fable, a fault on Opus | his eye · then Fable (a look) / Opus (a fault) | — |
 | ✓ | **(done — 2h.9 TAKEN 2026-09-28, §482 … §486; the probe page removed at 2i)** **2h.9 HIS EYE — `lgmf-vib-proto` and `lgmf-vib-close-probe`** (PLAN § `2h` BUILT 2026-09-28 on Fable at his *"build here, go"*, 2h.1 … 2h.8, RUNNING_LOG §474 … §481; the block above): reload the notation tab (page files + two IRs; no restart) → the picker → `lgmf-vib-proto` → the video view → `0` (the `○` 0.45 before its `<`; the hairpins 1.333 opening away from the bar; the `pp` on the bar's end at 6.83) · `6.78` (the bar stops 0.25 ss before the next `♯`; no blue ring on a click — SHIFT+click selects) · `20.9` (the unison: whole bars either side of the shared head, stepping at 22.70) · `56.12` (`♯` · `♮`; the pair flushed) · `78.8` (one `mp` on the bar's end, clear of the `8va`; the next bow `> p`) · `148` (`> ppp` at its point, 0.76 s before the bow's end) · `lgmf-vib-close-probe` (one line · a second · a third flushed, a fourth centred) · `z`. **Then his seven calls (§481):** the close threshold `withinSs` 1.25 (0.75 a second only · 1.75 a fourth too) · the winds' `○` took the start gap (the base row) · the winds' hairpin stays 0.667 · a closing name snaps only when it would run past the bar's end (the last `> ppp` stays at its point) · the start name at a voice switch (44 bows) · the general courtesy natural · `afterAbutS` 0.1. Revise on his word — a look on Fable, a fault on Opus | his eye · then Fable (a look) / Opus (a fault) | — |
 | ✓ | **(done — 2g.6 TAKEN 2026-09-28, RUNNING_LOG §473: ten findings, every one a step of PLAN § `2h`, built the same day)** **2g.6 HIS EYE — `lgmf-vib-proto`** (2g BUILT 2026-09-27 on Opus, 2g.1 … 2g.5, RUNNING_LOG §467 … §471; the block above): reload the notation tab → `lgmf-vib-proto` → the video view → `0` · `20.9` · `33` … `95` · `42.65` · `56.12` · `148` · `z`; then the four findings and the AI's calls of the block above. Revise on his word — a look on Fable, a fault on Opus | his eye · then Fable (a look) / Opus (a fault) | — |
@@ -547,7 +591,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
   - **THE LINE ENDINGS ARE MIXED IN THIS REPO, and `docs/PLAN.md` is mixed WITHIN ITSELF** (797 CRLF, 59 lone LF). A splice script
     must **never normalize a whole file** — detect the file's DOMINANT ending and convert the search strings and the inserted text
     to it instead (`const crlf = nCRLF >= nLF, fix = t => crlf ? t.replace(/\r?\n/g, '\r\n') : t`). LF search strings match **zero**
-    times in a CRLF file and report "not found", which reads like a missing anchor and is not.
+    times in a CRLF file and report "not found", which reads like a missing anchor and is not. **CORRECTED 2026-09-28 (§501, measured at
+    BYTE level):** `core.autocrlf` is true, so every committed blob is LF; the working copies of PLAN · CLAUDE.md · this journal · the
+    RUNNING_LOG are ALL LF, `PLANNER.md` and `rules.json` ALL CRLF — the 797 / 59 above is stale, and **`grep -c $'\r$'` MISREPORTS here**
+    (it counted every line of an LF file as CRLF). Count with node over the bytes (`b[i] === 10 && b[i-1] === 13`); a splice converts its
+    text to the file's own ending and refuses a mixed file.
   - **The Write and Edit tools turn a typed `\uXXXX` into the literal character**, so `sequence_ui.js` holds `—` and `·`, not escapes.
   - **A PARALLEL SESSION of his may be appending to `RUNNING_LOG.md` and `COMPOSITION_NOTES.md`.** Append only; **read the last
     heading number immediately before writing** and take the next free one; explicit paths, never `git add -A`.
