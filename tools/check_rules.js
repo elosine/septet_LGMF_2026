@@ -65,6 +65,14 @@ ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it
   ok(!!vb && /§466/.test(vb.sheet || '') && vb.anchorRow === 'A' && (vb.memberRows || []).includes('hairpinTimed') && !!R.vibMarks,
     '(7) the vibraphone\'s bow `byEnv.vibBow` carries its sheet (§466), stands on anchor A with the timed hairpin among its members, and its reader\'s rules are a table (`vibMarks`)');
 }
+// [2k.1] the morph (PLAN 2k): its sheet is §506, it stands on anchor B with the gliss line and both curves among its members, the
+// gliss curve names its scale, and the vibrato word is by section kind (a morph's word the sequence's — LG-117)
+{
+  const mo = (D.byEnv || {}).morph, TC = R.techniqueChange || {};
+  ok(!!mo && /§506/.test(mo.sheet || '') && mo.anchorRow === 'B' && ['glissLine', 'glissCurve', 'crescCurve'].every(m => (mo.memberRows || []).includes(m))
+    && R.objects.glissCurve.scale === 'travel' && !!TC.byKind && TC.byKind.morph === TC.byKind.sequence && Array.isArray(TC.eligible) && !TC.byEnv && !TC.texts,
+    '(7) the morph `byEnv.morph` carries its sheet (§506), stands on anchor B with the gliss line and both curves; `glissCurve.scale` travel; the vibrato word by kind (`techniqueChange.byKind`, the morph\'s = the sequence\'s)');
+}
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));
 

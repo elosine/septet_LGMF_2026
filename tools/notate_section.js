@@ -1466,22 +1466,22 @@ if (flag('bricks')) {
 // "ord."), once per change per part; the part's first note carries its word when `firstAlso` lists the word (the piece's first
 // "senza vib."). [§503, his "bsn, horn and tpt did not get the senza vib, they are meant to have it too"] in a SEQUENCE the word
 // follows the DEVICE (`byEnv.sequence`): the SI2 three have no senza key, their `ord` in a sequence is senza vib. by instruction.
+// [LGMF PLAN 2k.1, §505 — his "ord." for all six at the middle section] THE WORD BY SECTION KIND: an eligible note (`eligible`, by its
+// technique) takes its kind's word (`byKind`) — env 'sequence' → sequence · env 'morph' (the --morph fold above) → morph · else
+// plain — whatever the sample; `byEnv` retired. A morph is no new section (LG-117): its word is the sequence's, nothing written there.
 // A word that opens a sequence block goes into the block's column (below); every other one is an `instruction` on the note's part
 // at its time.
 const TECH_CHANGE = new Map();   // event id -> the word
 {
   const TC = (require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).techniqueChange) || null;
-  if (TC && TC.texts) {
+  if (TC && TC.eligible && TC.byKind) {
     const evOf = new Map(doc.events.map(e => [e.id, e])), byPart = new Map();
     for (const c of doc.chunks) for (const id of c.events || []) { const e = evOf.get(id); if (e) { if (!byPart.has(c.part)) byPart.set(c.part, []); byPart.get(c.part).push(e); } }
+    const kindOf = e => (e.env === 'sequence' ? 'sequence' : e.env === 'morph' ? 'morph' : 'plain');
     for (const [part, list] of byPart) {
       list.sort((a, b) => a.onset - b.onset);
       let last = null;
-      const wordOf = e => {   // [§503] the device's word first (byEnv), then the sample's technique
-        const ov = TC.byEnv && e.env ? TC.byEnv[e.env] : null;
-        if (ov && (e.technique in ov)) return ov[e.technique];
-        return (e.technique in TC.texts) ? TC.texts[e.technique] : null;
-      };
+      const wordOf = e => (TC.eligible.includes(e.technique) ? (TC.byKind[kindOf(e)] || null) : null);   // [2k.1] the kind's word
       for (const e of list) {
         const w = wordOf(e);
         if (w == null) continue;
