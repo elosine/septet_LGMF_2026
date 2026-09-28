@@ -18,13 +18,16 @@
 //               chain's first bow in a sequence, or after a rest ≥ restS); a restart at silence opens with the niente circle. A bow
 //               with no hairpin draws nothing unless it restarts (`repeatName` false). A name against its hairpin's direction (the
 //               level drifted under the thresholds) is not written — the hairpin stands open.
+//               [2h.8, §480 — his 2g.6 word: "if it keeps the same dynamic … just don't restate it"] THE START NAME is written only at
+//               a RESTART, or where the chain's VOICE switches rows (`startOnVoiceSwitch` — the row's story begins again); a moving
+//               bow no longer restates the carried name before its hairpin (`startOnMove` false — 2g wrote it, 62 of Draft 01's 156).
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./sequence_overlays.js'), require('../../score/public/dyn_table.js'));
   else root.VibMarks = factory(root.SequenceOverlays, root.DynTable);
 }(typeof self !== 'undefined' ? self : this, function (SeqOv, DynTable) {
   const NAMES = SeqOv.NAMES;   // ppp … fff
   const DEFAULTS = {   // RULES MIRROR (rules.json vibMarks) — the caller passes the table
-    hairpinSteps: 0.5, nameSteps: 0.25, flatSteps: 0.25, carry: true, repeatName: false, restS: 0.5,
+    hairpinSteps: 0.5, nameSteps: 0.25, flatSteps: 0.25, carry: true, repeatName: false, restS: 0.5, startOnMove: false, startOnVoiceSwitch: true,
     sps: 100,          // samples per second over a bow (the sequence overlay's density)
     eps: 1e-6,         // a step between two samples smaller than this is flat
   };
@@ -110,7 +113,7 @@
 
     const out = [];
     for (let c = 0; c < 2; c++) {
-      let cur = null, prev = null;
+      let cur = null, prev = null, prevVoice = null;
       for (const o of chains[c]) {
         const t0 = o.startSeconds, t1 = o.endSeconds;
         const n = Math.max(2, Math.round((t1 - t0) * O.sps));
@@ -132,11 +135,15 @@
           marks.push({ kind: 'hairpin', t: r3(ts[g.a]), tEnd: r3(ts[g.b]), dir: g.dir > 0 ? 'cresc' : 'decresc', from: r3(v[g.a]), to: r3(v[g.b]) });
           if (end !== cur) { marks.push(end < 0 ? { kind: 'niente', t: r3(ts[g.b]) } : { kind: 'name', t: r3(ts[g.b]), name: nameOf(end) }); cur = end; }
         }
-        // the start mark: at a restart always; else only when the bow moves (repeatName false — a flat bow at the carried level is bare)
-        if (restart || marks.length || O.repeatName) marks.unshift(startName === 'niente' ? { kind: 'niente', t: r3(t0), start: true } : { kind: 'name', t: r3(t0), name: startName, start: true });
-        out.push({ id: o.id, event: 'ev-' + o.id, group: o.groupId, chain: c, voice: voiceOf(o, c), t0: r3(t0), t1: r3(t1), midi: o.sonifyNote,
-          restart, startName, startSteps: r3(v[0]), endSteps: r3(v[v.length - 1]), marks });
-        prev = o;
+        // [2h.8, §480] the start mark: at a RESTART always; where the chain's voice SWITCHES rows (the row's story begins again — the
+        // AI's addition, his to reverse); on a moving bow only under `startOnMove` (2g's way, off since 2h.8 — his "if it keeps the
+        // same dynamic … just don't restate it": the hairpin departs from the row's carried name); a flat bow at the carried level is bare
+        const voice = voiceOf(o, c), switched = !!prev && prevVoice !== voice;
+        if (restart || O.repeatName || (O.startOnVoiceSwitch && switched) || (O.startOnMove && marks.length))
+          marks.unshift(startName === 'niente' ? { kind: 'niente', t: r3(t0), start: true } : { kind: 'name', t: r3(t0), name: startName, start: true });
+        out.push({ id: o.id, event: 'ev-' + o.id, group: o.groupId, chain: c, voice, t0: r3(t0), t1: r3(t1), midi: o.sonifyNote,
+          restart, switched, startName, startSteps: r3(v[0]), endSteps: r3(v[v.length - 1]), marks });
+        prev = o; prevVoice = voice;
       }
     }
     out.sort((a, b) => a.t0 - b.t0 || a.chain - b.chain);

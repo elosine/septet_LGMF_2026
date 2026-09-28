@@ -57,20 +57,22 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   ok(j1 && T(j1) === 'mp > p' && j2 && j2.startName === 'p' && VM.stepsAt(S.objects.find(o => o.id === j2.id), j2.t0, L) < 1.5,
     'THE CARRY at the join 42.65 → 48.89 s: "' + (j1 && T(j1)) + ' | ' + (j2 && T(j2)) + '" — the second bow starts on the carried p although its level ' + (j2 ? j2.startSteps.toFixed(2) : '?') + ' rounds to pp (§463 wrinkle 2)');
   const b33 = at(R01, 33.16);
-  ok(b33 && T(b33) === 'pp < p', 'rule 1\'s second tier: the 33.16 s bow rises ' + (b33 ? (b33.endSteps - b33.startSteps).toFixed(2) : '?') + ' step onto a new name — "' + (b33 && T(b33)) + '"');
+  ok(b33 && T(b33) === '< p' && b33.startName === 'pp', 'rule 1\'s second tier: the 33.16 s bow rises ' + (b33 ? (b33.endSteps - b33.startSteps).toFixed(2) : '?') + ' step onto a new name — "' + (b33 && T(b33)) + '" from the carried ' + (b33 && b33.startName) + ' (2h.8: the start name not restated)');
   const b56 = at(R01, 56.12, 84);
   ok(b56 && T(b56) === 'p > pp < p', 'the turn inside a bow is named — 56.12 s "' + (b56 && T(b56)) + '"');
   const firsts = [0, 1].map(c => B.filter(b => b.group === R01 && b.chain === c)[0]);
   ok(firsts.every(b => b && T(b) === '○ < pp' && b.restart), 'the fade from niente, timed: both chains\' first bows open "○ < pp" — ' +
     firsts.map(b => b.t0.toFixed(2) + ' s "' + T(b) + '" pp at ' + b.marks.find(m => m.name === 'pp').t.toFixed(2) + ' s (the bow\'s end — the fade runs 2 … 8 s)').join(' · '));
   const lasts = [0, 1].map(c => B.filter(b => b.group === R01 && b.chain === c).slice(-1)[0]);
-  ok(lasts.every(b => b && / > ppp$/.test(T(b))), 'the fade-out to the level reached: R01c\'s last bows end "> ppp" (its save falls to ppp) — ' + lasts.map(b => b.t0.toFixed(2) + ' s "' + T(b) + '"').join(' · '));
+  ok(lasts.every(b => b && /(^| )> ppp$/.test(T(b))), 'the fade-out to the level reached: R01c\'s last bows end "> ppp" (its save falls to ppp) — ' + lasts.map(b => b.t0.toFixed(2) + ' s "' + T(b) + '"').join(' · '));
   // the R01c stretch of §463's rendering, seat 1 (the chain of the 33.16 s bow), 33 … 95 s — pinned under the rules. §463's reading was the
   // --his probe before rules 1 · 2 · 7 and in the probe's level mapping; where the rules change it: the carry (48.89 starts on p) · rule 1's
-  // second tier (48.89's first dip p > pp, 0.34 step) · writtenAt's mapping (48.89 and 79.00 end on p, the probe's on mp)
+  // second tier (48.89's first dip p > pp, 0.34 step) · writtenAt's mapping (48.89 and 79.00 end on p, the probe's on mp) · [2h.8, §480]
+  // the start name only at a restart or a voice switch: "pp < p" → "< p" (the pp carried), "p > pp < mp > p" → "> pp < mp > p", the bare
+  // last bow "pp" — its chain switched rows there (the row's story begins again); the "p < mp" · "mp > p" that keep a name are switches
   const seat = at(R01, 33.16).chain;
   const got = B.filter(b => b.group === R01 && b.chain === seat && b.t0 >= 33 && b.t0 <= 95).map(b => T(b) || '·').join(' | ');
-  const WANT = 'pp < p | p < mp | mp > p | p > pp < mp > p | p > pp < p | p < mp > p | p > pp | pp < mp | mp > p | p > pp | · | ·';
+  const WANT = '< p | p < mp | mp > p | > pp < mp > p | p > pp < p | p < mp > p | > pp | < mp | > p | > pp | · | pp';
   ok(got === WANT, 'the R01c stretch 33 … 95 s, seat ' + seat + ' (§463 rendered under the rules): ' + got + (got === WANT ? '' : '  — want ' + WANT));
 }
 
@@ -84,7 +86,14 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
     b.marks.forEach((m, i) => { if (m.kind !== 'hairpin' && !m.start) { const p = b.marks[i - 1]; if (!(p && p.kind === 'hairpin' && Math.abs(p.tEnd - m.t) < 1e-6)) order.push(b.id + '@' + m.t); } });
     // no mark strictly inside a hairpin's span (a monotone run names only its two ends)
     for (const m of pins) for (const x of b.marks) if (x !== m && x.kind !== 'hairpin' && x.t > m.t + 1e-6 && x.t < m.tEnd - 1e-6) inside.push(b.id + '@' + x.t);
-    if (!b.restart && !pins.length && b.marks.length) barePlusName.push(b.id);
+    if (!b.restart && !b.switched && !pins.length && b.marks.length) barePlusName.push(b.id);
+  }
+  // [2h.8, §480] no start name on a moving bow at the carried name — only at a restart or a voice switch; the 79.00 s bow reads "> p"
+  {
+    const restated = B.filter(b => b.marks[0] && b.marks[0].start && !b.restart && !b.switched), starts = B.filter(b => b.marks[0] && b.marks[0].start);
+    const b79 = at(R01, 79.00, 89), b72 = at(R01, 72.32, 75);
+    ok(!restated.length && b79 && T(b79) === '> p' && b72 && T(b72) === '< mp' && !R.vibMarks.startOnMove && R.vibMarks.startOnVoiceSwitch === true,
+      'THE START NAME (2h.8): only at a restart (' + B.filter(b => b.restart && b.marks[0] && b.marks[0].start).length + ') or a voice switch (' + B.filter(b => b.switched && !b.restart && b.marks[0] && b.marks[0].start).length + ') — ' + starts.length + ' of 156; the 72.32 → 79.00 s bows read "' + (b72 && T(b72)) + ' | ' + (b79 && T(b79)) + '" (his "mp mp" gone)' + (restated.length ? ' — restated: ' + restated.slice(0, 4).map(b => b.t0).join(' ') : ''));
   }
   ok(!bad.length, 'every hairpin runs forward and lies inside its bow (' + B.reduce((a, b) => a + b.marks.filter(m => m.kind === 'hairpin').length, 0) + ' hairpins)' + (bad.length ? ' — ' + bad.slice(0, 5).join(' ') : ''));
   ok(!order.length, 'no name without a hairpin: every name after a bow\'s start closes the hairpin before it' + (order.length ? ' — ' + order.slice(0, 5).join(' ') : ''));

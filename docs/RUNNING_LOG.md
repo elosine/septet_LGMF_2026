@@ -16923,3 +16923,31 @@ now ends exactly 0.250 − 2e-5 ss short — the rule holds, the test was too ti
 141.38 s — its vibraphone chords are columned even without the `vibBows` overlay), nothing else; the plan's line "`piece-lgmf` has no
 chord column" was wrong — the rule is general and the two columns are the vibraphone's. No other part of the piece has a same-letter
 altered pair in one column today. `layout_shield --expect` names the four moves.
+
+
+## §480. 2h.8 THE RESTATED NAME — a moving bow no longer writes its start name; the `mp mp` at 78.95 · 79.00 s explained and gone (2026-09-28, Fable, session 17)
+
+**His words (§473):** *"what did we decide for this case? So in this case, the one bow, the preceding bow, ends in MP, and the next one
+starts in MP. Did we decide if we, if it stays the same dynamic, do we restate the dynamic if it's a new bow? So we restate the dynamic
+for each new bow, or if it keeps the same dynamic, we just keep it, or just don't restate it."*
+
+**WHY the page showed two `mp` (the reader on Draft 01, `vib_marks_check --print`):** seat 1, the upper voice, 72.32 … 78.95 s `pp < mp`
+(the closing `mp` at 78.947) and then, the SAME seat, the SAME row, 0.05 s later, 79.00 … 83.69 s `mp > p` — its start name `mp`. Not a
+restart (no rest), not a seat switch: 2g.2's reader wrote a MOVING bow's start name so its hairpin had a departure (§468: *"the start
+mark: at a restart always; else only when the bow moves"*) — 62 of Draft 01's 156 bows. That was the second `mp`. The DECISION of
+§463 rule (a) — *the repeated name left off* — was meant for the flat bow at the carried level; his question today extends it to the
+moving bow: the hairpin departs from the row's carried name, written once where it was reached.
+
+**The rule (rules.json `vibMarks`):** `startOnMove` **false** · `startOnVoiceSwitch` **true** — the start name is written only at a
+RESTART (the chain's first bow in a sequence, or after `restS` — **8** bows) or where the chain's VOICE switches rows (the row's story
+begins again — **44** bows, bare ones too, so a row never begins on a bow with no level; the AI's addition, his to reverse). **52 start
+marks where 2g wrote 97** (and rule 7's "≈ 90"). `vib_marks.js` reads the two fields (`DEFAULTS` the mirror); the bow carries `switched`.
+
+**The goldens re-golded** (`vib_marks_check` **31** — THE START NAME new): 33.16 s `pp < p` → `< p` from the carried pp · the join
+42.65 → 48.89 s `mp > p | > pp < mp > p` (the carry unchanged: `startName` p) · the R01c stretch 33 … 95 s `< p | p < mp | mp > p |
+> pp < mp > p | p > pp < p | p < mp > p | > pp | < mp | > p | > pp | · | pp` — the names that stay are voice switches (seat 1 goes
+upper 33.16 → lower 38.68 → upper 42.65 → lower 56.12 as the pitches cross), the last bare bow `pp` a switch too · the last bows' `> ppp`
+(the regex took the leading space for granted) · his site: 72.32 → 79.00 s now `< mp | > p`.
+
+**Not yet on the page:** the proto's `vibBows` overlay holds the marks as extracted at 2g.5 — 2h.9 re-extracts it. `check_rules` 25 · the
+shield unmoved by this step (the reader is not the layout).
