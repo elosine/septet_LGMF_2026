@@ -16489,3 +16489,47 @@ step, THE SHIELD in each; STOP for 2g.6, his eye.
 **Verified:** `check_rules` **25 GREEN** · `sequence_notation_check` **64 / 64** · `docs/ENGRAVING_RULES.md` regenerated (164 pointers).
 **THE SHIELD:** both IRs re-extracted byte-identical (date normalized) · the 40 layouts identical · the two print plans identical · the two
 screen dumps identical once the edge table's new row is set aside (the dump echoes the table) — no page moved (no IR holds env `vibBow`).
+
+## §468. 2g.2 THE READER — `notation/lib/vib_marks.js` and its battery on Draft 01's 156 bows (2026-09-27, Opus, session 17)
+
+**What was built:** `notation/lib/vib_marks.js` — pure (UMD, like `sequence_overlays.js`), `read(objects, lane, { bank, instKey, groups,
+window, rules })` → per bow `{ id, event, group, chain, voice, t0, t1, midi, restart, startName, startSteps, endSteps, marks }`, the marks
+`[{ kind: name | niente | hairpin, t, tEnd, dir, name }]`; `text(bow)` the line (`○ < pp` · `p > pp < p`). The level is
+`sequence_overlays.js` `writtenAt` REUSED (it was already exported — nothing factored, nothing copied) × 8 − 1 in written steps; a bow
+sampled at 100/s; a LEG = a monotone run (a flat sample carries it), from the last sample before the motion (a plateau's end) to the first
+at the extreme (a plateau's start); rules.json `vibMarks` applied as THE READER'S RULES of PLAN § `2g` state them.
+`tools/vib_marks_check.js` — **16 checks, GREEN**, on `scores/piece-Recombination-Draft01-done.json` read-only (`--score` for another file;
+`--print <group> <t0> <t1>` the reading).
+
+**Found by the goldens, fixed in the reader — THE SEATS AT A SHARED CHANGE OF BOW.** The first run gave chains 80 · 76 (the record's
+79 · 77) and one warning: at 42.65 s both seats' bows end together (42.60) and the next two begin together, so the overlap-chain rule
+cannot tell them apart and the tie order SWAPPED the seats — the bow at 2.89 steps went on the chain that had ended at 1.11, and the
+carry wrote `pp >` under a bow that falls from mp. The save does not name the seat. The data does: each seat's curve is continuous (§463,
+≤ 0.24 at a join) while the two curves sit apart. **The rule added:** when BOTH chains are free and both last bows of this sequence ended
+within `restS`, the bow continues the chain whose last bow ENDED AT ITS LEVEL. After it: the worst step at a join inside a chain **0.160**
+(693.20 s), no warning. The chains read 80 · 76 — the record's 79 · 77 was the probe's tie order (the save's object order), not a seat;
+which chain is called 0 is arbitrary at a tie. The AI's rule, his to reverse.
+
+**The goldens (§463), as read:**
+- the carry at the join 42.65 → 48.89 s: `mp > p | p > pp < mp > p` — the second bow starts on the carried **p** though its level 1.45
+  rounds to pp ✓. **But it does not read `p < mp`:** the bow's own wave dips first — 1.45 → 1.11 over 0.9 s (both level mappings agree:
+  the probe's 1.50 → 1.13), a 0.34-step fall onto a new name, which rule 1's second tier (0.25 … 0.5 onto a new name) writes as `p > pp`;
+  then it rises to mp and falls 0.63 to p. The phantom step the carry removed at the JOIN comes back one second later through the second
+  tier when the carried name sits on a rounding line and the wave dips just past it. **A finding for his eye at 2g.6, not a change** — the
+  thresholds are his (§463 "1 numbers good").
+- 33.16 s `pp < p` (a 0.55 rise) ✓ · the turn 56.12 s `p > pp < p` ✓ · s03-seqb's sweeps (13 hairpins of ≥ 2 steps) named only at
+  their ends (`ppp < mp`, `mp > ppp`) ✓ · R01c's last bows `pp > ppp` · `p > ppp` ✓.
+- **the fades:** both first bows `○ < pp` ✓ — the pp at each bow's END, **6.84 s and 8.48 s**, not the plan's "6.0 s": the fade runs 2 … 8 s
+  and the marks are tied to the bow, so a bow's hairpin ends where the bow ends; the plan's "pp at 6.0 s" reads as §465's shorthand for the
+  6-second fade. The next bows rise another 0.39 · 0.04 under the thresholds and stay bare.
+- **the R01c stretch 33 … 95 s, seat 1**, pinned: `pp < p | p < mp | mp > p | p > pp < mp > p | p > pp < p | p < mp > p | p > pp | pp < mp
+  | mp > p | p > pp | · | ·`. Against §463's rendering (the `--his` probe BEFORE rules 1 · 2 · 7, in the probe's level mapping — the
+  inverse of `dyn_table`'s curve, where `writtenAt` is CC7-linear between the names): the carry (48.89 opens on p) · the second tier (its
+  first dip) · the mapping (48.89 and 79.00 end on p at 2.45, the probe's on mp) · 72.32 `pp < mp` the same · the three bare bows the same.
+- the rules over all 156: every hairpin forward and inside its bow (116) · no name without a hairpin · a still bow bare (59) · no mark
+  inside a hairpin's span · every restart (8) writes its start mark · the voice by register at every bow with a partner (152).
+- **the totals:** 96 bows move · 19 turn inside · 59 bare · **97 start names or circles** (§463 rule 7's "≈ 90 instead of 156") · 111 names
+  reached.
+
+**Verified:** `vib_marks_check` 16 GREEN · `check_rules` 25 GREEN · `sequence_notation_check` 64 / 64. Nothing drawn — no page changes
+(the reader is not required by any file yet).
