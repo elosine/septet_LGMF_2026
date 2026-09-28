@@ -16797,3 +16797,29 @@ first head's centre — `ev-wc-3129`, the 2 s bow — since the handler reads on
 click path is untouched): rings before 0 · after a plain click **0**, `notationSelection()` `[]` · after a SHIFT+click **1**, the
 selection `[ev-wc-3129]` · after ESC **0**. `check_rules` 25 (nothing of the exporter moved); the shield by data absence (no layout
 file touched).
+
+
+## §476. 2h.3 THE HAIRPIN'S TWO ENDS — the gap at the start = the gap at the end, 0.45 ss (2026-09-28, Fable, session 17)
+
+**His words (§473):** *"let's work on the left edge of the hairpin and make sure there's a gap between the dynamic sign. In this case, al
+niente, but any dynamic sign and the beginning of the hairpin. It looks like the end of the hairpin has a gap before the ending dynamic.
+So let's make it the same."*
+
+**What stood:** a NAME before a hairpin already had the standard `beside` 0.45 ss (the timed hairpin's `gapOf`, §470; the fade signs'
+`gapSs`); only the niente CIRCLE touched the tip — `objects.hairpin.circleGapSs` 0, LilyPond's circled-tip hairpin by way of Gould
+(§460). His images 2 and 6 (the `○ <` of the first bows) are that.
+
+**The change — one pointer on the BASE row:** `objects.hairpin.circleGapSs` → `@objects.hairpin.beside` (0.45); `hairpinTimed` inherits
+it through its own pointer, and `byEnv.sequence.signs` · `byEnv.vibBow.marks` read it as before. The two RULES MIRROR lines in `layout.js`
+say 0.45 now; the marks comment too. No code path changed: `gapOf` still asks "a circle at the tip?" and gets the same 0.45 either way.
+
+**On the base row, so the winds move too** — his "any dynamic sign": the EH's opening `○—<` before the legend takes the gap (the AI's
+reading of §460's circled tip as superseded; his to reverse — if the winds' circle should keep touching, the pointer goes on
+`hairpinTimed` alone and `hairpin.circleGapSs` back to 0).
+
+**The numbers:** `lgmf-eh-proto`, the opening sign at 0 s — the circle's centre −9.138 ss from x(0), the hairpin's tip −8.454, the gap
+circle → tip **0.450** (was 0) · `lgmf-vib-proto`, both first bows (2.00 · 2.60 s): the timed hairpin begins **0.450** after its circle
+(was 0). `sequence_notation_check` **64 / 64** (it reads the gap from the rules and re-derives the sign's chain) · `vib_marks_check` 24 ·
+`check_rules` 25 · THE SHIELD **19 of 21 identical — `lgmf-eh-proto` · `lgmf-vib-proto` moved, both expected** (`layout_shield --expect`).
+
+**Not touched:** the gap after a NAME (already 0.45) · the end gap · the IRs.

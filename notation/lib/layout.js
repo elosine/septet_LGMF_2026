@@ -1053,7 +1053,7 @@
         // else on the sign row under it; the closing sign —> <name> (a decrescendo hairpin, then the dynamic the line falls to) on the
         // LAST breath's unit, right-justified to its go line, on the dynamic row when the space allows, else the sign row. The space is
         // the distance back to the part's previous ink (fit.js inkOf, the frame's ss per second from the fit boxes).
-        const SG = Object.assign({ row: -5.95, circleDiaSs: 0.4695, lengthSs: 2, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0 }, ((DEV.byEnv || {}).sequence || {}).signs || {});   // RULES MIRROR
+        const SG = Object.assign({ row: -5.95, circleDiaSs: 0.4695, lengthSs: 2, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0.45 }, ((DEV.byEnv || {}).sequence || {}).signs || {});   // RULES MIRROR (circleGapSs = beside since 2h.3, §476)
         const ySign = yDyn - (o.dynY - SG.row);   // the sign row follows the dynamic row when low ink pushes it down
         const FitL = FitIn || (rootIn && rootIn.NotationFit) || null, tsL = o.textEmScale != null ? o.textEmScale : 1.3;
         const ssPerSec = o.fitBoxes && o.fitBoxes.ssPerSec;
@@ -3125,11 +3125,11 @@
       // sounding under it by the standard spacer (the mirror of the winds' lower-ink rule, #5 §479). The START mark (a name, or the
       // niente circle at a fade from silence) centred on its head (anchor A's column, the chord column's displacement followed); a
       // name reached centred on its time; a TIMED hairpin (`hairpin-timed`) from where the motion begins to where it ends — clamped by
-      // the renderer to begin `gapSs` after the mark before it (the circle's tip touching, circleGapSs) and to end `gapSs` before the
+      // the renderer to begin `gapSs` after the mark before it (a circle too, since 2h.3 — circleGapSs = beside, §476) and to end `gapSs` before the
       // name it reaches, and DROPPED when shorter than minHairpinSs between them (the names stand). `noFlip` (vibMarks.flip false — a
       // voice's row is meaning): the ladder may compress and shrink these marks, never flip them.
       if (vibBowOf.size) {
-        const MK = Object.assign({ upperRow: 4.6, lowerRow: -4.6, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0, circleDiaSs: 0.4695,   // RULES MIRROR
+        const MK = Object.assign({ upperRow: 4.6, lowerRow: -4.6, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0.45, circleDiaSs: 0.4695,   // RULES MIRROR (circleGapSs = beside since 2h.3, §476)
           circleThickSs: 0.13, minHairpinSs: 1, flip: false }, (((DEV.byEnv || {}).vibBow || {}).marks) || {});
         const FitK = FitIn || (rootIn && rootIn.NotationFit) || null, tsK = o.textEmScale != null ? o.textEmScale : 1.3;
         const bars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev) && it.headT != null);
