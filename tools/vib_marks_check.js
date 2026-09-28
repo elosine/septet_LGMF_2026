@@ -145,7 +145,14 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   }
   ok(!it5.some(i => i.k === 'goline' || i.k === 'stem' || /curve$/.test(i.k)), 'no go line, no stem, no level curve on the lane (anchor A; §464)');
   const side = t => { const b = PB.find(q => Math.abs(q.t0 - t) < 0.02 && barOf(q.event)[0]); const x = barOf(b.event)[0]; return x.segs ? x.segs.map(s => s.side).join('→') : String(x.side || 0); };
-  ok(side(16.99) === '-1' && side(20.93) === '1→-1' && side(22.70) === '1', 'the close rule: the unison 20.93 … 22.64 stacked (the sounding bar keeps its bottom half, the entering one the top), then the second 22.70 … 26.86 at half height (the 84 under the 86) — sides ' + [16.99, 20.93, 22.70].map(side).join(' | '));
+  ok(side(16.99) === '-1' && side(20.93) === '1→-1' && side(22.70) === '1', 'the close rule\'s SIDES: the unison 20.93 … 22.64 (the sounding bar keeps its side, the entering one takes the other), then the second 22.70 … 26.86 (the 84 under the 86) — sides ' + [16.99, 20.93, 22.70].map(side).join(' | '));
+  // [2h.4, §477] FLUSH: a close bar keeps its full height (no hFrac) and sits off its head by ±(head/2 + bar/2); a segment steps
+  {
+    const G = rd('notation/lib/glyphs.json'), OFF = G.notehead.open.hSs / 2 + C.engraving.render.ringBar.hSs / 2;
+    const close = it5.filter(i => i.k === 'ringbar' && i.side), off = t => { const b = PB.find(q => Math.abs(q.t0 - t) < 0.02); const x = barOf(b.event)[0]; return x.segs ? x.segs.map(s => s.offSs).join('→') : String(x.offSs); };
+    ok(close.length > 0 && close.every(i => i.hFrac == null && Math.abs(Math.abs(i.offSs) - OFF) < 1e-3 && (!i.segs || i.segs.every(s => Math.abs(Math.abs(s.offSs) - OFF) < 1e-3 && Math.sign(s.offSs) === s.side))),
+      'FLUSH (2h.4): every close bar whole, off its head by ±' + OFF.toFixed(3) + ' ss (head ' + G.notehead.open.hSs + ' / 2 + bar ' + C.engraving.render.ringBar.hSs + ' / 2) — ' + close.length + ' close bars; 16.99 ' + off(16.99) + ' · 20.93 ' + off(20.93) + ' · 22.70 ' + off(22.70));
+  }
   const heads = t => it5.filter(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - t) < 0.02).map(i => +i.dxSs.toFixed(3));
   ok([56.12, 141.38].every(t => { const h = heads(t); return h.length === 2 && Math.abs(Math.abs(h[1] - h[0]) - 1.107) < 0.01; }), 'the shared attacks a second apart are displaced by the chord column (#2 D.6) — 56.12 s ' + heads(56.12).join(' · ') + ' · 141.38 s ' + heads(141.38).join(' · '));
   // the drawn marks read off the page in x order = the reader's, bow by bow
@@ -164,6 +171,22 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   const anim = AnimObj.collect(ir, null, C.animated, { parts, meta: false, deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}) })
     .filter(i => i.part === LANE && (i.t0 != null ? i.t0 : i.at || 0) < ov.target.span[1] && (i.t1 != null ? i.t1 : Infinity) > ov.target.span[0]);
   ok(!anim.length, 'no meter, follower or pie on the lane over the bows (the marks are the level, §464) — ' + anim.length + ' animated device(s)');
+  // [2h.4, §477] THE PROBE PAGE lgmf-vib-close-probe (tools/vib_close_probe.js): four pairs sounding together — the same line · a second ·
+  // a third · a fourth — under closeRule.withinSs; the pairs within it flush, the rest centred; every pair columned (no two heads at one x)
+  const PROBE = path.join(ROOT, 'notation', 'ir', 'lgmf-vib-close-probe.ir.json');
+  if (fs.existsSync(PROBE)) {
+    const pr = rd('notation/ir/lgmf-vib-close-probe.ir.json');
+    const mp = Layout.layoutSection(pr, rd('notation/lib/glyphs.json'), Object.assign({ m4AttackLines: false, frameParts: parts, ensemble: ENS, techniques: rd('notation/registry/techniques.json'), fitBoxes: boxes }, C.engraving.layout));
+    const ip = mp.systems.filter(s => s.part === LANE).flatMap(s => s.items), W = C.engraving.layout.devices.byEnv.vibBow.closeRule.withinSs;
+    const pairs = pr.overlays[0].value.bows.reduce((a, b) => { (a[b.t0] = a[b.t0] || []).push(b); return a; }, {});
+    const rows = Object.values(pairs).map(([a, b]) => {
+      const ba = ip.find(i => i.k === 'ringbar' && i.ev === a.event), bb = ip.find(i => i.k === 'ringbar' && i.ev === b.event);
+      const hs = ip.filter(i => i.k === 'glyph' && /^notehead/.test(i.g) && Math.abs(i.t - a.t0) < 0.02);
+      const d = Math.abs(bb.ySs - ba.ySs), flush = d < W - 1e-9;
+      return { what: b.what, d, flush, okFlush: flush ? (ba.offSs < 0 && bb.offSs > 0 && ba.hFrac == null) : (ba.offSs == null && bb.offSs == null), columned: hs.length === 2 && (d > 0.5 + 1e-9 || Math.abs(hs[0].dxSs - hs[1].dxSs) > 0.5) };
+    });
+    ok(rows.length === 4 && rows.every(r => r.okFlush && r.columned) && !mp.warnings.length, 'THE PROBE PAGE: ' + rows.map(r => r.what.replace(/ \(.*$/, '') + ' Δ' + r.d.toFixed(2) + ' ' + (r.flush ? 'flush' : 'centred')).join(' · ') + ' (withinSs ' + W + '); the same-line and second pairs columned, no warnings' + (mp.warnings.length ? ' — ' + mp.warnings.slice(0, 2).join(' · ') : ''));
+  }
 }
 
 // the totals, for the record

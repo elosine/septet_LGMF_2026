@@ -31,6 +31,16 @@
    "profile": "trance"
   },
   {
+   "id": "lgmf-vib-close-probe",
+   "label": "lgmf-vib-close-probe · the two bars at the same line · a second · a third · a fourth — the close rule for his eye (2h.4)",
+   "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+   "window": [
+    0,
+    26
+   ],
+   "profile": "trance"
+  },
+  {
    "id": "lgmf-0i",
    "label": "lgmf-0i (trance)",
    "score": "0i-test",

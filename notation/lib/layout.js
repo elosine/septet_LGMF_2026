@@ -3063,6 +3063,11 @@
       // OTHER voice sounding alongside and cuts nothing (the close rule's domain). Drawing only: `t1Bow` keeps the bow's end.
       const FitV = FitIn || (rootIn && rootIn.NotationFit) || null, tsV = o.textEmScale != null ? o.textEmScale : 1.3, spsV = o.fitBoxes && o.fitBoxes.ssPerSec;
       const INKYv = it => it.k === 'ledger' || it.k === 'ottava' || (it.k === 'glyph' && /^(notehead|accidental-)/.test(it.g || ''));
+      // [2h.4, §477] the bow's head height and the bar's, for the FLUSH offset (the close rule) and the marks' push (the bars moved off
+      // their heads are ink under the marks' row too)
+      const VBc = (DEV.byEnv || {}).vibBow || {};
+      const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
+      const OFF = HEADH / 2 + RBH / 2;
       if (vibBowOf.size && FitV && spsV) {
         const VB = (DEV.byEnv || {}).vibBow || {};
         const AFTER = VB.after != null ? VB.after : 0.25, ABUT = VB.afterAbutS != null ? VB.afterAbutS : 0.1;   // RULES MIRROR (rules.json objects.ringBar.after · afterAbutS)
@@ -3091,7 +3096,13 @@
       // CHANGES (the voices cross through a unison: 84 → 86 against 86 → 84) carries `segs` [{t, side}] — the time each half begins —
       // and stays ONE item for every other reader (the print edges, the fit). render.js draws them.
       if (vibBowOf.size) {
-        const CR = Object.assign({ withinSs: 0.667, height: 0.5 }, (((DEV.byEnv || {}).vibBow || {}).closeRule) || {});   // RULES MIRROR (rules.json objects.ringBar.closeRule)
+        // [LGMF PLAN 2h.4 — RUNNING_LOG §477] FLUSH, his 2g.6 eye: "keep the full height duration line, but let's make the bottom duration
+        // line top be flush with the bottom of the note head and the top duration line's bottom be flush with the top of the note head,
+        // just in those cases. Everything else continue as normal." A CLOSE pair (the heads' centres within `closeRule.withinSs`) keeps
+        // both bars whole and moves each off its head's centre to the head's FAR edge: side +1 → the bar's bottom on the head's top,
+        // −1 → its top on the head's bottom (`offSs` = ±(head/2 + bar/2)); a side change along the bar (`segs`) steps. 2g.3's half-height
+        // bars (`hFrac`) are retired. The threshold is the AI's until his word at 2h.9 — the probe page lgmf-vib-close-probe.
+        const CR = Object.assign({ withinSs: 1.25, mode: 'flush' }, (((DEV.byEnv || {}).vibBow || {}).closeRule) || {});   // RULES MIRROR (rules.json objects.ringBar.closeRule)
         const bars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev));
         const close = [];
         for (let i = 0; i < bars.length; i++) for (let j = i + 1; j < bars.length; j++) {
@@ -3113,9 +3124,9 @@
         for (const [it, list] of cons) {
           if (!list.length) continue;
           list.sort((p, q) => p.a - q.a);
-          it.hFrac = CR.height; it.side = list[0].side;
-          const segs = [{ t: it.t0, side: list[0].side }];
-          for (const q of list.slice(1)) if (q.side !== segs[segs.length - 1].side) segs.push({ t: +q.a.toFixed(6), side: q.side });
+          it.side = list[0].side; it.offSs = +(it.side * OFF).toFixed(4);
+          const segs = [{ t: it.t0, side: list[0].side, offSs: it.offSs }];
+          for (const q of list.slice(1)) if (q.side !== segs[segs.length - 1].side) segs.push({ t: +q.a.toFixed(6), side: q.side, offSs: +(q.side * OFF).toFixed(4) });
           if (segs.length > 1) it.segs = segs;
         }
       }
@@ -3150,7 +3161,11 @@
           const up = b.voice === 'upper';
           // the ink under the bow: every bow sounding in [t0, t1] — its head's unit
           let lo = Infinity, hi = -Infinity;
-          for (const x of bars) if (x.t0 < bar.t1 - 1e-6 && x.t1 > bar.t0 + 1e-6) { const v = inkAt.get(Math.round(x.headT * 1e6)); if (v) { lo = Math.min(lo, v.lo); hi = Math.max(hi, v.hi); } }
+          for (const x of bars) if (x.t0 < bar.t1 - 1e-6 && x.t1 > bar.t0 + 1e-6) {
+            const v = inkAt.get(Math.round(x.headT * 1e6)); if (v) { lo = Math.min(lo, v.lo); hi = Math.max(hi, v.hi); }
+            // [2h.4] a bar moved off its head (the flush close rule, or a segment of it) is ink beyond the head — the row clears it too
+            for (const s of (x.segs || (x.offSs ? [{ offSs: x.offSs }] : []))) { lo = Math.min(lo, x.ySs + s.offSs - RBH / 2); hi = Math.max(hi, x.ySs + s.offSs + RBH / 2); }
+          }
           const half = Math.max(MK.heightSs / 2, ...b.marks.filter(m => m.kind === 'name').map(m => ((dynG(m.name) || { hSs: 0.9 }).hSs) / 2), b.marks.some(m => m.kind === 'niente') ? MK.circleDiaSs / 2 : 0);
           const y = up ? Math.max(MK.upperRow, isFinite(hi) ? hi + MK.gapSs + half : -Infinity) : Math.min(MK.lowerRow, isFinite(lo) ? lo - MK.gapSs - half : Infinity);
           const at = (m, t, dx) => {

@@ -16823,3 +16823,39 @@ circle → tip **0.450** (was 0) · `lgmf-vib-proto`, both first bows (2.00 · 2
 `check_rules` 25 · THE SHIELD **19 of 21 identical — `lgmf-eh-proto` · `lgmf-vib-proto` moved, both expected** (`layout_shield --expect`).
 
 **Not touched:** the gap after a NAME (already 0.45) · the end gap · the IRs.
+
+
+## §477. 2h.4 THE CLOSE VOICES — full bars flushed off their heads; the threshold measured on a probe page (2026-09-28, Fable, session 17)
+
+**His words (§473):** *"Let's update the duration line spec when two notes are close to each other in range or vertically close to each
+other. In that case, let's keep the full uh, height duration line, but let's make the bottom duration line top be flush with the bottom of
+the note head and the top duration line's bottom be flush with the top of the note head, just in those cases. Everything else continue
+as normal. And sorry, we may need to look at the range and pitch … it might not just be a second. Let's see what it looks like if it's a
+third. And make sure the lines aren't too close together vertically."*
+
+**The rule (rules.json `objects.ringBar.closeRule`):** `{ withinSs 1.25 · mode flush · unison flush }` — 2g.3's half-height bars
+(`height 0.5`, §464 · §466, the AI's) retired. A CLOSE pair — two voices sounding together, their heads' centres within `withinSs` — keeps
+both bars WHOLE and moves each off its head's centre to the head's far edge: the upper voice's bar its bottom on the head's top, the
+lower's its top on the head's bottom — `offSs` = ±(head 0.8832 / 2 + bar 0.667 / 2) = **±0.775 ss**. A unison (one staff line) the same,
+either side of the shared head. WHICH side is which is 2g.3's rule unchanged (§469): a pitch decides; at a unison the bow already
+sounding keeps its side; a bar whose side changes along its length (`segs`) STEPS to the other offset. The marks' row clears the moved
+bars too (a bar off its head is ink beyond the head — the push reads it). `container.json` `byEnv.vibBow.ringBarHSs` points at the bar's
+height for the layout. `render.js` draws `ySs + offSs` at full height (`hFrac` gone).
+
+**THE THRESHOLD, measured (`tools/vib_close_probe.js` → `notation/ir/lgmf-vib-close-probe.ir.json`, in the picker):** four pairs of bows
+sounding together, 4 s each, on G5 (high enough for the bowed line, low enough that no head folds under an 8va — a first draft on C6
+put F6 under `8va`, and each event in its own chunk left the heads uncolumned: the chord column runs over ONE chunk's notes) — G5 · G♯5
+(one line; the chord column displaces the heads 1.107 ss as at 56.123 s) · G5 · A5 (a second) · G5 · B5 (a third) · G5 · C6 (a fourth).
+Under the rule (the probe page, `vib_marks_check` THE PROBE PAGE):
+- one line, Δ 0.00: flush — the bars 0.883 ss apart, each edge ON the shared head's edge
+- a second, Δ 0.50: flush — the bars 1.383 apart; each bar 0.500 clear of the OTHER head
+- a third, Δ 1.00: flush — the bars 1.883 apart; 1.000 clear of the other head
+- a fourth, Δ 1.50: CENTRED — the bars 0.833 apart; 0.725 clear of the other head
+- and what a third would be CENTRED (the alternative, computed): the bars 0.333 apart, a bar 0.225 from the other head — half a bar's
+  height between the two lines, which is what his *"make sure the lines aren't too close together vertically"* names.
+**The AI's threshold: 1.25 ss** — a third goes flush, a fourth stays centred; `basis` the composer's rule, the number his to set at 2h.9
+(a second only: `withinSs` 0.75; a fourth too: 1.75). On the proto: **27 of 55 bars are close** (the unison 20.93 … 22.64 stepping
++0.775 → −0.775 at 22.695; 16.99 s −0.775; 22.70 s +0.775; the 56.12 s pair ±0.775).
+
+**Verified:** `vib_marks_check` **26** (FLUSH · THE PROBE PAGE new) · `check_rules` 25 · `sequence_notation_check` 64 · THE SHIELD 19 of 22
+identical — `lgmf-vib-proto` · `lgmf-vib-close-probe` (new) · `lgmf-eh-proto` (2h.3's) the expected moves.

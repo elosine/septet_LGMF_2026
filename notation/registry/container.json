@@ -249,6 +249,7 @@
       "ringBarFull": true,
       "after": "@objects.ringBar.after",
       "afterAbutS": "@objects.ringBar.afterAbutS",
+      "ringBarHSs": "@objects.ringBar.hSs",
       "letRing": false,
       "chordRules": false,
       "dynMark": false,
