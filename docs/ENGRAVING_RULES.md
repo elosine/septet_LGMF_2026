@@ -12,6 +12,14 @@ with no `→` is the rule's record but is not compiled — its `in` says where t
 
 ---
 
+## 0 · THE PRINCIPLES
+
+THE PRINCIPLES (PLAN 2l, 2026-09-28 — RUNNING_LOG §513 … §522): what a class of marks is FOR, before its numbers. A row's numbers serve its principle; a principle changes only at his word, with its §.
+
+- **curves** — THE PERFORMER PRINCIPLE (A): a performer reads a curve in real time at the page's px/s, against the cursor and the tube; the curve is the shape with the best chance of the sound he composed, not a true picture of the mathematics. THE SCALE (C): eight names, ppp … fff, the performer's discrete resolution; continuous change is a curve between two of them; the height between two names must be visible. THE INTENTION IN SHAPES (F): a volume change is compositional intention in a few shapes — the swell, the rise and its mirror, the brief smooth dip, the brief smooth peak; read the data into the shape, draw the shape. THE DISCRIMINATOR: SHAPE-FIRST (hand-drawn — the sound followed the shape: #5's trills, #2's tremolos) is kept as drawn; FADER-FIRST (a generator's ride — the sequence's, the morph's, the texture's) is redrawn from its recipe. AT THE CURSOR MOTION AND NAMES, AHEAD THE SHAPE: a device at the cursor gives a motion cue or a reading in the performer's units; a device ahead gives a shape; a height without a scale gives neither. · *composer* · §513 · §514 · §515 · §519 his words · §521 the AI's analysis (the cursor and the tube) · §516 · §517 · §518 · §522 his decisions
+
+---
+
 ## 1 · THE ANCHOR
 
 LAYER 1 — THE ANCHOR (§414 · §416 · §418): which point of a unit sits on x(t). The principle, gated (check_rules 6): the head ON its time ↔ no go line; a go line ↔ the head off its time. G metric (a passage not spaced by time) is a HELD candidate (§416), not a row. `gapSs` = the distance from x(t) to the unit's near ink edge; `justify` the side of x(t) the unit sits on; `regime` the column's regime (HUG — every member on the head side, mirrored with the stem · ROWS — the dynamic on the dynamic row, text above); `columnAlign` how the column rows align on the unit.
@@ -101,7 +109,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
 - **trillPitch** *(a variant of smallHead)* — groupPadSs **0.3** → `layout.devices.byEnv.trill.trillPitch.groupPadSs` · parenInnerSs **0.42** → `layout.devices.byEnv.trill.trillPitch.parenInnerSs` · accPadSs **0.2** → `layout.devices.byEnv.trill.trillPitch.accPadSs` · *composer* · #5 §438 (TRILL_NOTATION_SPEC)
 - **dynamic** — face **music** · glyph **dynamic.*** · size **1** · colour **ink #111** · besideStem **0.15** → `layout.dynStemGapSs` · row **column.rows.dynamic** · *composer* · #4 day 22 (the dynamic row) · besideStem #4 day 23 ('akin to the staccato gap') · LilyPond DynamicText padding 0.6 / 0.1 (the seed, §422 — not drawn)
   - draws `glyph:dyn-.*`
-- **dynamicLabel** *(a variant of dynamic)* — size **0.75** → `layout.devices.byEnv.sequence.label.scale` · `layout.devices.byEnv.morph.label.scale` · colour **ink #111** · *AI* · §386 (the (dyn) at a turning point — the AI's cue scale, his to reverse)
+- **dynamicLabel** *(a variant of dynamic)* — size **0.75** → `layout.devices.byEnv.sequence.label.scale` · `layout.devices.byEnv.morph.label.scale` · colour **ink #111** · at **reached** · minGapS **3** · turnWins **true** · noRepeat **true** · *composer* · §386 (the cue scale, the AI's) · 2l §522 (his "ok this is good"): a name in brackets wherever the line REACHES a dynamic — passing through on a slope or stopping at a top or a bottom; `minGapS` apart, a turn's name winning over a crossing's inside it; never the same name twice running; "you are here" — the block's range and the fade signs are the instructions (3 s the AI's seed, his eye at 2l.6)
+  - in: notation/lib/sequence_overlays.js — the extractor passes the row
 - **dynamicText** — face **text** · size **0.9** → `layout.textSizes.dynamic` · italic **false** · colour **ink #111** → `layout.colours.dynamicText` · *composer* · #4 V0.10 textSizes.dynamic (an authored `dynamic` overlay's text) · §427 (black — it was grey by the renderer's default)
   - draws `text[dynamic]`
 - **dynArrow** — colour **ink #111** · lengthSs **2** → `layout.dynArrow.lenSs` · `render.sectionHead.arrowLenSs` · headSs **0.45** → `layout.dynArrow.headSs` · `render.sectionHead.headSs` · beside **0.45** → `layout.dynArrow.gapSs` · thickSs **0.13** → `layout.dynArrow.thickSs` · `render.sectionHead.thickSs` · *composer* · #4 day 22 ('this is new' — the hairpin replacement; gaps the 0.45 standard, thickness the stem's)
@@ -159,8 +168,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
 - **curve** — strokeWPx **2** → `render.envCurve.strokeWPx` · `render.glissCurve.strokeWPx` · `render.crescCurve.strokeWPx` · strokeOpacity **1** → `render.envCurve.strokeOpacity` · `render.glissCurve.strokeOpacity` · `render.crescCurve.strokeOpacity` · fillOpacity **0.3** → `render.envCurve.fillOpacity` · `render.glissCurve.fillOpacity` · `render.crescCurve.fillOpacity` · pathOpacity **0.3** → `render.envCurve.pathOpacity` · `render.glissCurve.pathOpacity` · `render.crescCurve.pathOpacity` · *composer* · D42 (#2's curve look across the board: fill 0.3 · 2 px stroke · 0.3 on the path)
 - **envCurve** *(a variant of curve)* — colour **limeGreen #99FF00** · *composer* · D42 · #4 day 22
   - draws `envcurve`
-- **crescCurve** *(a variant of curve)* — colour **limeGreen #99FF00** · *composer* · D42 · #4 day 35 · LGMF 2d.3
-  - draws `cresccurve` `cresccurve[level]`
+- **crescCurve** *(a variant of curve)* — colour **limeGreen #99FF00** · law **written** · easeS **0.5** · easeCap **0.333** · arc **{anchors: breathPeak, limit: fritschCarlson, entryDropS: 0.25}** · *composer* · D42 · #4 day 35 · LGMF 2d.3 · 2l: `law written` — a FADER-FIRST line in written height, each note's two fader ends READ through the part's ladder and the line straight between them, a fade a straight line to or from 0, the ladder drawing nothing (§517, his "yes"; the ends read, not named — 2l.2) · `easeS` a gentle ease at every corner, `easeCap` of the shorter neighbour (§519, his "b"; 0.5 s and ⅓ the AI's seeds, his eye at 2l.6) · `arc` the morph's ONE ARC per part through the breath peaks, #5's D47 builder, the anchors read through the ladder, the join to a sequence a gap (§516 · §518, his "a" · "a")
+  - draws `cresccurve` `cresccurve[level]` · in: notation/lib/sequence_overlays.js — the extractor passes the row (tools/notate_section.js); the device's `level` names the producer (container.json byEnv.sequence "recipe" · byEnv.morph "arc")
 - **glissCurve** *(a variant of curve)* — colour **brightOrange #F04B00** · scale **travel** → `render.glissCurve.scale` · *composer* · D42 · #4 day 35 · §505 (scale travel — his B: the top half of the lane spans each part's OWN travel, the figure's heads say the extremes; #4's and #5's form)
   - draws `glisscurve`
 
@@ -179,7 +188,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `anim:cursor`
 - **gcBall** — colour **gc rgb(255, 21, 160)** · *composer* · #4 day 23 (piece #1's ball, one copy with the arc)
   - draws `anim:gc`
-- **meter** — colour **limeGreen · brightOrange** · wPx **8** · gapPx **3** · *composer* · #4 D48 · D42's colours
+- **meter** — colour **limeGreen · brightOrange** · wPx **8** · gapPx **3** · *composer* · #4 D48 · D42's colours · the level tube is MOTION, not a measure — no ticks, refused at §376 and again at §521 (his "a": the tube as built)
   - draws `anim:curveMeter` `anim:crescMeter` `anim:glissMeter`
 - **pie** — colour **pie #607D8B** · radiusPx **9** → `animated.motivePie.radiusPx` · topPx **14** → `animated.motivePie.topPx` · until **nextGo** → `animated.motivePie.until` · *AI* · CURVE_LOOK §7 · LGMF 2d.4 (the AI's colour, his to reverse) · until: composer §455 (his 'the pie should last from go line to go line. The new go line is the time the pie refills' — nextGo: a breath's pie ends at the NEXT breath's onset, the last at its release; release: 2d.4's onset → release, the old reading)
   - draws `anim:motivePie`

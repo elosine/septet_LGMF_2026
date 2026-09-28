@@ -37,7 +37,7 @@ let C = null;
 try { C = Rules.compile(raw, R); ok(true, 'every registry pointer names a row (' + Rules.refsOf(raw).length + ' pointers compiled)'); }
 catch (e) { ok(false, e.message); }
 const noBasis = [];
-for (const t of ['anchors', 'objects', 'colours', 'faces']) for (const [k, v] of Object.entries(R[t] || {})) {
+for (const t of ['principles', 'anchors', 'objects', 'colours', 'faces']) for (const [k, v] of Object.entries(R[t] || {})) {
   if (k.startsWith('_')) continue;
   if (!v.basis || !v.ref) noBasis.push(t + '.' + k);
 }

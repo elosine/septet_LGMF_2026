@@ -58,6 +58,17 @@ P('with no `→` is the rule\'s record but is not compiled — its `in` says whe
 P('');
 P('---');
 P('');
+// [LGMF PLAN 2l.1 — §513 … §522] THE PRINCIPLES: what a class of marks is FOR, before its numbers
+if (R.principles) {
+  P('## 0 · THE PRINCIPLES');
+  P('');
+  P(R.principles._doc);
+  P('');
+  for (const [k, o] of Object.entries(R.principles)) if (!k.startsWith('_')) P('- **' + k + '** — ' + o.rule + ' · *' + o.basis + '* · ' + o.ref);
+  P('');
+  P('---');
+  P('');
+}
 P('## 1 · THE ANCHOR');
 P('');
 P(R.anchors._doc);
