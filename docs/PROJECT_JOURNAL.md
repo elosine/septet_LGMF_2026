@@ -55,12 +55,12 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 every wrap the AI states: what finished · what's next · where we are in the order. The AI proposes reorganizations when useful; changes
 land only on user approval. A post-clear model reads this block and announces the position before doing anything.
 
-1. ► **The head ↔ side** — which head belongs to which seat (navy above · olive below). His data points: 120.71 s (a D♯6 and a D♯5 entering
+1. ☑ **The head ↔ side** — DONE 2026-09-28 (§495): the bow lead in the seat's hue + the swatch behind the head; the coloured outline dropped. *(As it stood:)* **The head ↔ side** — which head belongs to which seat (navy above · olive below). His data points: 120.71 s (a D♯6 and a D♯5 entering
    together, §492) · 141.33 s (a side-by-side unison, `♮` · `♯`, §493). Options: colour the head in the seat's hue (recommended) · stems as
    voice flags · the bow lead of step 2 in the seat's hue. Done when: his choice is a rule row and on the page.
-2. **2i.7 THE BOW LEAD** — a dotted line from the head's left edge, from its centre through its seat's bar to the far edge (§491). His call
+2. ☑ **2i.7 THE BOW LEAD** — BUILT 2026-09-28 (§495), in the seat's hue at his word. *(As it stood:)* **2i.7 THE BOW LEAD** — a dotted line from the head's left edge, from its centre through its seat's bar to the far edge (§491). His call
    first: the colour. Done when: built — the objects row, the edge row, the layout item, the renderer, `vib_marks_check`.
-3. **The seat written at deal time** — the sequence tool writes `seat` on the note it deals (it knows `lane:seat`), so the reader never
+3. ► **The seat written at deal time** — the sequence tool writes `seat` on the note it deals (it knows `lane:seat`), so the reader never
    guesses at a shared change (22 of 156 bows). Done when: the generator writes it, the reader prefers it, a check reads Draft 01.
 4. **The winds' `○` start gap** — 2h.3 put the 0.45 on the base hairpin row, so the EH's `○—<` took it too (§476). Keep, or the vibraphone
    only. One pointer.

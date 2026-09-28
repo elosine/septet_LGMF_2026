@@ -52,6 +52,8 @@
     "cresccurve": { "screen": "cut", "print": "continue" },
     "glisscurve": { "screen": "cut", "print": "continue" },
     "ringbar": { "screen": "cut", "print": "stub" },
+    "bowlead": { "screen": "clamp", "print": "whole", "_note": "§495 (2i.7): the bow lead — a point item at its head's time, a clamped stamp on screen, whole on paper, like the head it hangs from" },
+    "headswatch": { "screen": "clamp", "print": "whole", "_note": "§495: the head swatch — a point item behind its head, the head's classes" },
     "brick": { "screen": "cut", "print": "stub" },
     "staff": { "screen": "furniture", "print": "furniture" },
     "clef": { "screen": "furniture", "print": "furniture" },

@@ -1559,7 +1559,9 @@
                 // on the head. (§494's column-ink shift, written to clear a go line the
                 // unit no longer carries, is gone with it.)
                 const chromeDx = g => dev.nhAnchor === 'leftEdge' ? headDx - nhO.wSs / 2 + g.wSs / 2 : headDx;
-                items.push(Object.assign({ k: 'glyph', g: headGlyph, t: tU, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}));
+                // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head carries its SEAT; render.js fills it in
+                // the seat's hue when rules.json vibMarks.headColour is 'seat' (ink otherwise)
+                items.push(Object.assign({ k: 'glyph', g: headGlyph, t: tU, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}, vibBowOf.has(e.id) ? { seat: vibBowOf.get(e.id).chain } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: tU, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 if (TPG) {   // [2f.4] the neighbour group, drawn with the unit
                   const P = TPG.P;
@@ -3221,13 +3223,24 @@
           const lift = up && MK.liftWhen === 'laneAboveStaffOff' && aboveOff(bar.t0, bar.t1) ? (MK.liftSs || 0) : 0;
           return +(up ? BOX.top + lift - MK.heightSs / 2 : -BOX.bot + MK.heightSs / 2).toFixed(4);
         };
-        if (MK.barTrack && BOX) for (const bar of items) {
-          if (bar.k !== 'ringbar' || !vibBowOf.has(bar.ev)) continue;
+        const leadItems = [], swatchItems = [];   // collected, then added after the loop — never while iterating `items`
+        if (MK.barTrack && BOX) for (const bar of items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev))) {
           const up = vibBowOf.get(bar.ev).voice === 'upper', ax = axisOf(bar, up);
           if (ax == null) continue;
+          if (bar.headYSs == null) bar.headYSs = bar.ySs;   // the head's centre, kept before the bar leaves it for the track
           bar.ySs = +(up ? ax - MK.heightSs / 2 - MK.trackGapSs - RBH / 2 : ax + MK.heightSs / 2 + MK.trackGapSs + RBH / 2).toFixed(4);
           bar.dx0Ss = 0; delete bar.offSs; delete bar.side; delete bar.segs; bar.track = up ? 'top' : 'bottom';
+          // [§495 — the running order's steps 1 · 2, built for his eye] THE BOW LEAD (2i.7, his §491): a dotted vertical line at the head's
+          // LEFT EDGE from the head's centre through its seat's bar to the far edge (up to the navy bar's top, down to the olive bar's
+          // bottom); THE HEAD SWATCH: a pale patch behind the head in its seat's bar colour. Both by rule (vibMarks.headLead · headSwatch)
+          const seat = vibBowOf.get(bar.ev).chain, hw = (glyphs.notehead.open.wSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), hh = HEADH;
+          if (MK.headLead && bar.headT != null && bar.headDxSs != null)
+            leadItems.push({ k: 'bowlead', t: bar.headT, dxSs: +(bar.headDxSs - hw / 2).toFixed(4), y0Ss: bar.headYSs, y1Ss: +(up ? bar.ySs + RBH / 2 : bar.ySs - RBH / 2).toFixed(4), seat, ev: bar.ev, pinned: true });
+          if (MK.headSwatch && bar.headT != null && bar.headDxSs != null)
+            swatchItems.push({ k: 'headswatch', t: bar.headT, dxSs: bar.headDxSs, ySs: bar.headYSs, wSs: +(hw + 2 * (MK.swatchPadSs || 0.12)).toFixed(4), hSs: +(hh + 2 * (MK.swatchPadSs || 0.12)).toFixed(4), seat, ev: bar.ev, pinned: true });   // RULES MIRROR (swatchPadSs)
         }
+        items.push(...leadItems);
+        items.unshift(...swatchItems);   // drawn first — behind the staff lines and the head
         for (const bar of bars) {
           const b = vibBowOf.get(bar.ev);
           if (!b.marks || !b.marks.length) continue;

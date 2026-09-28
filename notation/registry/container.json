@@ -236,7 +236,9 @@
        "ringBar",
        "dynamic",
        "niente",
-       "hairpinTimed"
+       "hairpinTimed",
+       "bowLead",
+       "headSwatch"
       ],
       "goLine": false,
       "gc": false,
@@ -259,6 +261,10 @@
       "techText": false,
       "marks": {
        "rows": "@vibMarks.rows",
+       "headLead": "@vibMarks.headLead",
+       "headSwatch": "@vibMarks.headSwatch",
+       "leadThickSs": "@objects.bowLead.thickSs",
+       "swatchPadSs": "@objects.headSwatch.padSs",
        "pin": "@vibMarks.rowPin",
        "liftSs": "@vibMarks.liftSs",
        "liftWhen": "@vibMarks.liftWhen",
@@ -680,7 +686,10 @@
     "multiStaffBottomMirrorsTop": true,
     "_trimNote": "RUNNING_LOG §401h (2026-09-11, the composer: 'trim the go lines, up to the top of the gc arcs and keep bottom; except pno can be about 4 dashes shorter on bottom'): a note with a GC starts its go line at the arc's top (frac 1 of the GC geometry) instead of the lane top; a multi-staff part's go line ends below its last staff's bottom line by the distance its top sits above the first staff's top line (multiStaffBottomMirrorsTop — the composer, §401i: 'the same amount below bottom staff as currently above top staff'; a 4-dash trim was the first cut). false / 0 = the tuba look."
    },
+   "bowLead": { "thickSs": "@objects.bowLead.thickSs", "dashSs": "@objects.bowLead.dashSs", "gapSs": "@objects.bowLead.gapSs", "colour": "@objects.bowLead.colour" },
+   "headSwatch": { "opacity": "@objects.headSwatch.opacity", "colour": "@objects.headSwatch.colour" },
    "ringBar": {
+    "headColour": "@vibMarks.headColour",
     "hSs": "@objects.ringBar.hSs",
     "color": "@objects.ringBar.colour",
     "colorSeat2": "@objects.ringBar.colourSeat2",

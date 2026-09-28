@@ -17292,3 +17292,25 @@ written at deal time.
 line — the one-line pair the chord column displaces (♮ and ♯ side by side, §479 · §482): the two heads sit next to each other, the navy
 bar and the olive bar begin at the same x, and the page does not say which head is which seat. With 120.71 s (§492) the second example
 for 2i.6 (ii) and (i).
+
+
+## §495. STEPS 1 · 2 SETTLED — the bow lead in the seat's hue and the swatch behind the head; the coloured outline dropped (2026-09-28, Fable, session 17)
+
+**The demonstrations, at his ask** (*"Can you demonstrate the color head at 56 2 sbs; and then the two heads at 60.96 and 61.6?"* — then
+*"that's not clear enough. What are the other recommendations?"* — then *"1 and 2 could you build for examples and let me see?"*): the
+head's outline in the seat's hue (`vibMarks.headColour` seat — a rule row, §494) rendered by `export_video --probe` and cropped; judged
+not clear enough. Then two devices built by rule and rendered in three variants (lead · swatch · both) at 56.12 and 60.96 · 61.6 s:
+- **THE BOW LEAD** (2i.7, his §491): `objects.bowLead` — a dotted vertical line (thickness 0.08, dash 0.18 / 0.18) at the head's LEFT edge
+  from the head's centre through its seat's bar to the far edge; `colour` seat (navy · olive); a point item with the head's edge classes
+  (`page_rules.edge bowlead`: clamp · whole); `vibMarks.headLead` seat.
+- **THE HEAD SWATCH** (the AI's second recommendation): `objects.headSwatch` — a pale rounded patch behind the head (pad 0.12 ss) in the
+  seat's bar colour at the bar's opacity; drawn first, under the staff lines and the head; `vibMarks.headSwatch` true.
+- The head itself back to ink (`headColour` ink). The layout keeps the head's centre (`bar.headYSs`) before the bar leaves for its track;
+  the items are collected and added after the loop — an `unshift` inside the loop over `items` had hung the layout (found by the gate's
+  silence, fixed). `check_rules` 25 · `vib_marks_check` 32.
+
+**His decision, verbatim:** *"I'm not sure what lead is, but if lead is the dotted line that's now colored, then that's good. So I'd like to
+keep the colored dotted line and the highlighting of each note head in their respective colors. Then that's settled."* — the running
+order's steps 1 (the head ↔ side) and 2 (2i.7 the bow lead, its colour) DONE: both devices on, the head's seat read from the lead's
+direction and colour and from the swatch. His two data points rendered with them: 120.71 s (a D♯6 navy, a D♯5 olive, entering together)
+and 141.38 s (the side-by-side unison: the left head navy, the right olive) — sent as crops.

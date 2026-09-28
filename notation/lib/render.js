@@ -398,7 +398,11 @@
           }
         } else if (it.k === 'glyph') {
           if (!owns(it.t)) continue;
-          parts.push(Stamps.toSvg((it.scale || it.scaleY) ? Stamps.scaled(boxFor(it.g), it.scale || 1, it.scaleY != null ? it.scaleY : (it.scale || 1)) : boxFor(it.g), { xPx: X(it.t, it.dxSs), yPx: (it.sys ? sysYOf(it.sys) : Y)(it.ySs), ssPx, align: it.align }));
+          // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head in its SEAT's hue when rules.json
+          // vibMarks.headColour is 'seat' — the bar's own colours (render.ringBar.color · colorSeat2); every other glyph the group's ink
+          const seatFill = it.seat != null && E.ringBar && E.ringBar.headColour === 'seat' ? (it.seat === 1 && E.ringBar.colorSeat2 ? E.ringBar.colorSeat2 : E.ringBar.color) : null;
+          const stamp = Stamps.toSvg((it.scale || it.scaleY) ? Stamps.scaled(boxFor(it.g), it.scale || 1, it.scaleY != null ? it.scaleY : (it.scale || 1)) : boxFor(it.g), { xPx: X(it.t, it.dxSs), yPx: (it.sys ? sysYOf(it.sys) : Y)(it.ySs), ssPx, align: it.align });
+          parts.push(seatFill ? '<g fill="' + seatFill + '">' + stamp + '</g>' : stamp);
         } else if (it.k === 'rest') {
           // day 23: a rest at LP's own vertical placement — the glyph's topSs
           // is where its bbox top sits above the staff middle line, so the
@@ -802,6 +806,22 @@
           parts.push(cutKind('gc') ? clipOpen + arc + '</g>' : arc);   // [2c.3] the arc cut like paper; the impact below is a point
           if (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t))) parts.push('<circle class="gc-impact"' + GO(it.t) + ' cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
             '" r="' + (G.look.impactRadiusPx * G.k).toFixed(2) + '" fill="' + color + '"/>');
+        } else if (it.k === 'bowlead') {
+          // [§495, 2i.7] THE BOW LEAD: a dotted vertical line at the head's left edge from the head's centre to the far edge of its seat's
+          // bar (rules.json objects.bowLead — the thickness, the dash; `colour` seat = the bar's hue, else a colour key of the registry)
+          if (!owns(it.t)) continue;
+          const BL = E.bowLead || {}, RBc = E.ringBar || {};
+          const col = BL.colour === 'seat' ? (it.seat === 1 && RBc.colorSeat2 ? RBc.colorSeat2 : RBc.color) : (BL.colour || o.ink);
+          const x = X(it.t, it.dxSs), d = (BL.dashSs || 0.18) * ssPx, g = (BL.gapSs || 0.18) * ssPx;   // RULES MIRROR
+          parts.push('<line x1="' + x.toFixed(2) + '" y1="' + Y(it.y0Ss).toFixed(2) + '" x2="' + x.toFixed(2) + '" y2="' + Y(it.y1Ss).toFixed(2) +
+            '" stroke="' + col + '" stroke-width="' + ((BL.thickSs || 0.08) * ssPx).toFixed(2) + '" stroke-dasharray="' + d.toFixed(2) + ' ' + g.toFixed(2) + '" stroke-linecap="round"/>');
+        } else if (it.k === 'headswatch') {
+          // [§495] THE HEAD SWATCH: a pale rounded patch behind the head in its seat's bar colour at the bar's opacity (objects.headSwatch)
+          if (!owns(it.t)) continue;
+          const HS = E.headSwatch || {}, RBc = E.ringBar || {};
+          const col = HS.colour === 'seat' ? (it.seat === 1 && RBc.colorSeat2 ? RBc.colorSeat2 : RBc.color) : (HS.colour || o.ink);
+          const w = it.wSs * ssPx, h = it.hSs * ssPx, cx = X(it.t, it.dxSs), cy = Y(it.ySs);
+          parts.push('<rect x="' + (cx - w / 2).toFixed(2) + '" y="' + (cy - h / 2).toFixed(2) + '" width="' + w.toFixed(2) + '" height="' + h.toFixed(2) + '" rx="' + (h / 4).toFixed(2) + '" fill="' + col + '" opacity="' + (HS.opacity != null ? HS.opacity : 0.3) + '"/>');   // RULES MIRROR
         } else if (it.k === 'ringbar') {
           // the sounding-length bar: left edge flush with the go line,
           // right edge at onset + sounding length, centered on the written
