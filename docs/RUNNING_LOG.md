@@ -16394,3 +16394,21 @@ name centred on its head, as anchor A's column does.
 **MOTOR OFF for the whole piece** — his word: *"motor off for whole piece"*. PERFORMANCE_NOTES #11.
 
 **Next:** the plan item — the device sheet and the top line (PLANNING_METHOD § THE DEVICE SHEET).
+
+## §465. NO HEADER BLOCK ON THE VIBRAPHONE; THE FADES AS TIMED HAIRPINS FROM NIENTE — his clarification (2026-09-27, Fable, session 17)
+
+**His words, on the AI’s line “the arrow = the range of a line; the hairpin = movement”:** *“no initial dynamic with arrow at the beginning. In fact, no
+separate initiating block unless there’s a need for it. So I would imagine the first note of the sequence will be just like any other note. In the
+sequence, note head, duration line, dynamic and hairpins, etc. Unless there’s some information there that needs to be included in a header block. I
+suppose the the fade in and fade out should just be like a normal dynamic. So the first block would be the Diente symbol, a hairpin, crescendo, and
+then either an ending dynamic or nothing, meaning it continues, the crescendo.”*
+
+- **No header block on the vibraphone.** Nothing the winds’ block carries applies: no cents, no partial (the bar is fixed, §463), no legend (the
+  marks are the level, §464), no “senza vib.” (the motor is a performance note, #11). The first bow is a bow like any other.
+- **The fades are movement, so they take the per-bow language, TIMED:** the first bow `○ <` — the niente circle at the head, the hairpin over the
+  fade’s actual span, then the name reached (pp at 6 s in R01c) or nothing if the rise continues; the last bow `> ○` (or `> ppp` where the save
+  falls to ppp). **This replaces the AI’s call of §464** (`○—<` before each voice’s first name, `—> ppp` on its last bow — the `2f` symbolic
+  signs): on the vibraphone the `2f` signs do not appear. **And it amends rule 5 of §463 for the vibraphone:** the marks read the level WITH the
+  fade applied (`sequence_overlays.js` `writtenAt` = the written level × the fade weight, §462 — the same quantity the EH’s curve draws), so
+  the first bow reads `○ < pp`, not a flat `pp`. The winds keep the `2f` signs, symbolic (PERFORMANCE_NOTES #5 · #12 unchanged).
+- The niente circle is the existing `niente` object (0.4695 ss, §4 day 35); the hairpin the timed variant of §464.
