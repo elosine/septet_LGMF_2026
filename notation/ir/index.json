@@ -22,21 +22,11 @@
   },
   {
    "id": "lgmf-vib-proto",
-   "label": "lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h)",
+   "label": "lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i)",
    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
    "window": [
     0,
     156
-   ],
-   "profile": "trance"
-  },
-  {
-   "id": "lgmf-vib-close-probe",
-   "label": "lgmf-vib-close-probe · the two bars at the same line · a second · a third · a fourth — the close rule for his eye (2h.4)",
-   "score": "piece-LGMF-Sec01-Sec02-Sec3start",
-   "window": [
-    0,
-    26
    ],
    "profile": "trance"
   },

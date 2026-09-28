@@ -92,6 +92,7 @@
     const u = new Map();
     for (const it of items) {
       if (it.t === undefined || it.k === 'goline' || it.k === 'attackline' || it.k === 'tick' || it.k === 'gc' || it.k === 'clef' || it.k === 'rest' || it.k === 'beam' || it.k === 'tuplet') continue;
+      if (it.pinned) continue;   // [2i.3, §487] a mark pinned to the lane's edge by rule (the vibraphone's rows, vibMarks.rowPin) is no unit of the fit: it may stand past the box on purpose (the lift)
       const k = Math.round(it.t * 1e6);
       if (!u.has(k)) u.set(k, []);
       u.get(k).push(it);

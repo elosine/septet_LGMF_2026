@@ -27,7 +27,7 @@
 }(typeof self !== 'undefined' ? self : this, function (SeqOv, DynTable) {
   const NAMES = SeqOv.NAMES;   // ppp … fff
   const DEFAULTS = {   // RULES MIRROR (rules.json vibMarks) — the caller passes the table
-    hairpinSteps: 0.5, nameSteps: 0.25, flatSteps: 0.25, carry: true, repeatName: false, restS: 0.5, startOnMove: false, startOnVoiceSwitch: true,
+    hairpinSteps: 0.5, nameSteps: 0.25, flatSteps: 0.25, carry: true, repeatName: false, restS: 0.5, startOnMove: false, startOnVoiceSwitch: true, rows: 'seat',
     sps: 100,          // samples per second over a bow (the sequence overlay's density)
     eps: 1e-6,         // a step between two samples smaller than this is flat
   };
@@ -98,8 +98,19 @@
     const chains = [[], []];
     for (const o of notes) { const c = chainOf.get(o.id); if (c >= 0) chains[c].push(o); }
 
+    // [2i.2, §487 — his B] rows by SEAT: a chain keeps one row through the sequence — chain 0 the top when its first bow of the group
+    // sounds at or above chain 1's first, else the bottom (a tie → chain 0 top); 2g's rows by register (`rows` 'register') kept below
+    const topChainOf = new Map();   // group → the chain that takes the top row
+    const seatRow = (o, c) => {
+      if (!topChainOf.has(o.groupId)) {
+        const f0 = chains[0].find(x => x.groupId === o.groupId), f1 = chains[1].find(x => x.groupId === o.groupId);
+        topChainOf.set(o.groupId, !f0 ? 1 : !f1 ? 0 : f0.sonifyNote >= f1.sonifyNote ? 0 : 1);
+      }
+      return c === topChainOf.get(o.groupId) ? 'upper' : 'lower';
+    };
     // the voice: the other chain's sounding bow at t0 — else the nearer of its previous and next bow in the same sequence
     const voiceOf = (o, c) => {
+      if (O.rows === 'seat') return seatRow(o, c);
       const other = chains[1 - c].filter(x => x.groupId === o.groupId);
       if (!other.length) return c === 0 ? 'upper' : 'lower';
       let p = other.find(x => x.startSeconds <= o.startSeconds + 1e-6 && x.endSeconds > o.startSeconds + 1e-6);
@@ -138,7 +149,7 @@
         // [2h.8, §480] the start mark: at a RESTART always; where the chain's voice SWITCHES rows (the row's story begins again — the
         // AI's addition, his to reverse); on a moving bow only under `startOnMove` (2g's way, off since 2h.8 — his "if it keeps the
         // same dynamic … just don't restate it": the hairpin departs from the row's carried name); a flat bow at the carried level is bare
-        const voice = voiceOf(o, c), switched = !!prev && prevVoice !== voice;
+        const voice = voiceOf(o, c), switched = !!prev && prev.groupId === o.groupId && prevVoice !== voice;   // a new sequence is a restart, not a switch
         if (restart || O.repeatName || (O.startOnVoiceSwitch && switched) || (O.startOnMove && marks.length))
           marks.unshift(startName === 'niente' ? { kind: 'niente', t: r3(t0), start: true } : { kind: 'name', t: r3(t0), name: startName, start: true });
         out.push({ id: o.id, event: 'ev-' + o.id, group: o.groupId, chain: c, voice, t0: r3(t0), t1: r3(t1), midi: o.sonifyNote,

@@ -17156,3 +17156,67 @@ stems the black-and-white fallback). Both are 2i.6's list, with 2h.9's four open
 **PLAN § `2i` written** (the item is the record): the rules and the sheet · the reader's rows by seat · the layout (the percussion staff's
 spans, the pins with the lift, the bar tracks) · the checks (the flush and probe checks retired, the probe page removed) · the proto ·
 his eye and the held items.
+
+
+## §487. 2i BUILT — the rows by seat pinned to the lane's edges, the bars on two tracks, the percussion staff only where it plays, the navy row lifted (2026-09-28, Fable, session 17)
+
+**At his word** (§485 · §486: *"Okay, let's try this"*), PLAN § `2i` 2i.1 … 2i.5 in ONE commit — the rules, the reader, the layout, the fit,
+the checks and the proto move together (a half-built state of these files has no meaning); the shield and the numbers below.
+
+**2i.1 — the rules.** `vibMarks`: `rows` **seat** (2g's `register`, §464 his (A), superseded) · `rowPin` **lane** · `liftSs` **3.5** ·
+`liftWhen` **laneAboveStaffOff** · `barTrack` **true** · `trackGapSs` → `hairpin.beside` (0.45); `column.rows.vibEdgeUpper · vibEdgeLower`
+retired (a note in `rows`); a new table **`staffLines`**: `percussion { part 4 · openingS 0.25 · sectionFromS 288.91 · sectionTo lastNote ·
+wholePages · pageS 12 }` → `engraving.layout.staffShown`; `byEnv.vibBow.marks` points at the six new fields. `ENGRAVING_RULES.md` prints
+the table (a section of its own). `check_rules` 25 GREEN.
+
+**2i.2 — the reader.** `vib_marks.js`: under `rows` seat a chain keeps ONE row through its sequence — chain 0 the top when its first bow
+of the group sounds at or above chain 1's first, else the bottom (a tie → chain 0 top); `switched` only within a sequence (a new sequence
+is a restart). On Draft 01: **8 start marks of 156** (the restarts alone; 2g wrote 97, 2h.8 52); no voice switch across the four sequences.
+The §463 goldens re-golded once more: the join `> p | > pp < mp > p`, the turn `> pp < p`, the stretch `< p | < mp | > p | > pp < mp > p |
+> pp < p | < mp > p | > pp | < mp | > p | > pp | · | ·` — every name one reached, every hairpin from its row's carried name.
+
+**2i.3 — the layout.** (a) `staffShownOf(part)`: the rule's spans — the snippet [0, 0.25] and [floor(288.91 / 12) · 12, ceil(lastNote / 12) ·
+12] = **[288, 408]** from the part's last note in the IR (406.86 s) — turned into `staff` items (the complement is OFF; an authored
+`staff: off` overlay still adds); the gutter names come from the model's line labels, drawn on every page regardless (render.js, 2a);
+the brace untouched · (b) THE PINS: the row's axis from the lane box (`fit.js boxesFor`): top = laneTop (+ lift where the lane above's
+staff is off over the bow) − h/2, bottom = −laneBot + h/2; every name and `○` on the axis; the 2h.6 push and floors stand in only
+without a lane box · (c) THE TRACKS: a `barTrack` bar's Y = the axis ∓ (h/2 + 0.45 + bar/2), `dx0Ss` 0 (from the bow's time), `t1` the
+bow's end; `offSs` · `side` · `segs` gone; the clearance cut (2h.1) and the close rule (2g.3 · 2h.4) skip tracked bars · (d) the marks and
+hairpins carry `pinned`, and `fit.js unitsOf` skips them — a pinned mark may stand past the lane box on purpose (the lift).
+
+**The numbers (the video frame; `vib_marks_check` 31 GREEN — THE PINS · THE TRACKS · NO HEAD UNDER … · THE PERCUSSION STAFF new; FLUSH,
+THE PROBE PAGE, THE CLEARANCE, THE 8va LABEL bar cut and the sides retired; THE ROWS BY SEAT replaces the register check):** the lane box
+5.000 above / 8.119 below · the top axis **7.8335** — the hairpin's top edge **8.500** = 5.0 + the lift 3.5 (the percussion staff off over
+the proto: its part 4 has no notes, so only the snippet) · the bottom axis **−7.4528**, its bottom edge −8.119 · the navy track **6.3835**
+(6.050 … 6.717 — 0.6 above the highest head ink 5.44), the olive track **−6.0028** · 32 hairpins 1.333, 42 names and circles, all
+pinned; 29 bars on the top track, 26 on the bottom; **0 heads under a hairpin's band, 0 under the other seat's bar** (24 · 29 before, §486)
+· the closing marks 15 of 25 snapped as before · the natural and the signs' gap as before · `decisions_needed` 0 on every page · piece-lgmf:
+part 4's staff **[[0, 0.25], [288, 408]]**, its one warning the old DB clamp (N-2a).
+
+**2i.4 — the checks and the probe:** `lgmf-vib-close-probe.ir.json`, `tools/vib_close_probe.js` and the picker entry removed (§477 keeps
+the numbers; the flush rule is moot on tracks).
+
+**2i.5 — the proto re-extracted** (rows by seat in the overlay: chain 0 upper, chain 1 lower; 2 start marks = the two `○`); the label says
+"2g · 2h · 2i". `sequence_notation_check` 64.
+
+**THE SHIELD (`layout_shield --diff` against the post-§484 baseline):** 2 of 21 identical — and every other move is ONE item: the part-4
+`staff` span (the whole window → 0 … 0.25) — checked item by item on three tuba pages and `lgmf-eh-proto` (the model carries a system
+for every frame part, notes or none; a tuba IR's "part 4" is this registry's percussion). `lgmf-vib-proto` and `piece-lgmf` the intended
+moves. Nothing else on any page.
+
+**► 2i.6 — his eye, and the held items:** the reply carries the list (the seat at deal time · the head's seat · the winds' `○` gap and
+hairpin height · a closing name only when it would run past · the general courtesy natural).
+
+
+## §488. A CORRECTION TO §487: the section's pages begin at 284, not 288 — the screen's pages start at the lead-in (2026-09-28, Fable, session 17)
+
+**His eye, at 284 s, on the reloaded page:** *"The non-pitched percussion lines should begin on the page, same as all the other staff lines.
+This is about 284 seconds. So the full staff line should fill that full page."* The lines began mid-page, at 288.
+
+**Why:** §487 took the pages as multiples of 12 s from 0. The screen's tiled pages begin at **−4 s** — the lead-in of 2e.2
+(`page_rules.leadInS`) — and run 12 s each: 284 … 296 is the page holding 288.91, not 288 … 300. **The rule now carries `pageLeadInS` 4**
+(`staffLines.percussion`; a page starts at k · pageS − pageLeadInS) and the layout's `pageStart` · `pageEnd` use it: the lines are on over
+**[0, 0.25] and [284, 416]** (the last note 406.86 → the page 404 … 416). `vib_marks_check` asserts the spans and that `pageLeadInS`
+equals `page_rules.leadInS`. 31 GREEN. No vibraphone note on 284 … 416 either (the vibraphone re-enters at 7:09 = 429 s).
+
+*(§487's "288 … 408" reads "284 … 416" from here; the § is not edited.)*

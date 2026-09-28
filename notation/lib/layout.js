@@ -791,6 +791,31 @@
       const offs = staffOff.filter(s => s.part === part)
         .map(s => [Math.max(w0, s.span[0]), Math.min(w1, s.span[1])])
         .filter(s => s[1] > s[0]).sort((a, b) => a[0] - b[0]);
+      // [LGMF 2i.3 — RUNNING_LOG §487; rules.json staffLines → engraving.layout.staffShown] A LINED STAFF SHOWN ONLY WHERE IT PLAYS (his
+      // word §486): the unpitched percussion's lines over an opening snippet and the whole pages of its section — from the page holding
+      // sectionFromS to the page holding the end of the part's last note (pageS the profile's page); everywhere else OFF, and the
+      // vibraphone's top row rises into the space (the marks pass, `liftWhen`). The rule's spans are absolute seconds; an authored
+      // `staff: off` overlay still adds to them. Returns null for a part the rule does not name.
+      const staffShownOf = p => {
+        const SH = o.staffShown; if (!SH || SH.part !== p) return null;
+        const ids = new Set((ir.chunks || []).filter(c => c.part === p).flatMap(c => c.events || []));
+        const evs = (ir.events || []).filter(e => ids.has(e.id));
+        const last = evs.length ? Math.max(...evs.map(e => e.onset + (e.duration || 0))) : null;
+        // [§488, his eye at 284 s] the screen's pages begin at −pageLeadInS (page_rules.leadInS, 2e.2) and run pageS each: a page starts
+        // at k · pageS − pageLeadInS — the lines fill the WHOLE page that holds the section's start, as every other staff does
+        const P = SH.pageS || 12, LD = SH.pageLeadInS || 0, pageStart = t => Math.floor((t + LD) / P) * P - LD, pageEnd = t => Math.ceil((t + LD) / P) * P - LD;
+        const from = SH.wholePages ? pageStart(SH.sectionFromS) : SH.sectionFromS;
+        const toRaw = SH.sectionTo === 'lastNote' ? last : +SH.sectionTo, to = toRaw == null ? null : (SH.wholePages ? pageEnd(toRaw) : toRaw);
+        const spans = [[0, SH.openingS || 0]]; if (to != null && to > from) spans.push([from, to]);
+        return spans.filter(s => s[1] > s[0]);
+      };
+      const shownHere = staffShownOf(part);
+      if (shownHere) {
+        let c0 = w0;
+        for (const [a, b] of shownHere.slice().sort((p, q) => p[0] - q[0])) { if (a > c0) offs.push([c0, Math.min(a, w1)]); c0 = Math.max(c0, b); }
+        if (c0 < w1) offs.push([c0, w1]);
+        offs.sort((p, q) => p[0] - q[0]);
+      }
       let cur = w0;
       for (const [a, b] of offs) {
         if (a > cur) items.push({ k: 'staff', t0: cur, t1: a });
@@ -3084,7 +3109,10 @@
       const VBc = (DEV.byEnv || {}).vibBow || {};
       const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
       const OFF = HEADH / 2 + RBH / 2;
-      if (vibBowOf.size && FitV && spsV) {
+      // [2i.3, §487] the bars on TRACKS (vibMarks.barTrack): a tracked bar is its bow's whole time on its seat's track — the clearance
+      // cut (2h.1) and the close rule (2g.3 · 2h.4) below do not apply to it; the marks pass places it
+      const VBTRACK = !!((VBc.marks || {}).barTrack);
+      if (vibBowOf.size && FitV && spsV && !VBTRACK) {
         const VB = (DEV.byEnv || {}).vibBow || {};
         const AFTER = VB.after != null ? VB.after : 0.25, ABUT = VB.afterAbutS != null ? VB.afterAbutS : 0.1;   // RULES MIRROR (rules.json objects.ringBar.after · afterAbutS)
         const leftAt = new Map();   // head time → the leftmost ink of the unit(s) there, in ss from x(t)
@@ -3111,7 +3139,7 @@
       // no side yet the upper VOICE on top, chain 0 at a tie. A bar whose sides agree is drawn at `hFrac` on `side`; a bar whose side
       // CHANGES (the voices cross through a unison: 84 → 86 against 86 → 84) carries `segs` [{t, side}] — the time each half begins —
       // and stays ONE item for every other reader (the print edges, the fit). render.js draws them.
-      if (vibBowOf.size) {
+      if (vibBowOf.size && !VBTRACK) {
         // [LGMF PLAN 2h.4 — RUNNING_LOG §477] FLUSH, his 2g.6 eye: "keep the full height duration line, but let's make the bottom duration
         // line top be flush with the bottom of the note head and the top duration line's bottom be flush with the top of the note head,
         // just in those cases. Everything else continue as normal." A CLOSE pair (the heads' centres within `closeRule.withinSs`) keeps
@@ -3159,8 +3187,8 @@
         // [2h.5 · 2h.6, §478] `upperEdge` · `lowerEdge` are the row's NEAR EDGE floors (4.267 = 2g's axis 4.6 − 0.333: the doubled
         // hairpin grows OUTWARD, never nearer the staff — his "I don't want the hairpin any closer to the duration line"); the axis =
         // the near edge ± heightSs / 2, every name and circle on the axis. `closeAlign` right: the bow's closing mark on the bar's end.
-        const MK = Object.assign({ upperEdge: 4.267, lowerEdge: -4.267, heightSs: 1.333, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0.45, circleDiaSs: 0.4695,   // RULES MIRROR (circleGapSs = beside since 2h.3, §476; the edges and 1.333 since 2h.6, §478)
-          circleThickSs: 0.13, minHairpinSs: 1, flip: false, closeAlign: 'right' }, (((DEV.byEnv || {}).vibBow || {}).marks) || {});
+        const MK = Object.assign({ upperEdge: 4.267, lowerEdge: -4.267, heightSs: 1.333, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0.45, circleDiaSs: 0.4695,   // RULES MIRROR (circleGapSs = beside since 2h.3, §476; 1.333 since 2h.6, §478; the pins, the lift and the tracks since 2i.3, §487 — the edge floors are the fallback when no lane box is known)
+          circleThickSs: 0.13, minHairpinSs: 1, flip: false, closeAlign: 'right', rows: 'seat', pin: 'lane', liftSs: 3.5, liftWhen: 'laneAboveStaffOff', barTrack: true, trackGapSs: 0.45 }, (((DEV.byEnv || {}).vibBow || {}).marks) || {});
         const FitK = FitIn || (rootIn && rootIn.NotationFit) || null, tsK = o.textEmScale != null ? o.textEmScale : 1.3;
         const bars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev) && it.headT != null);
         const inkAt = new Map();   // head time → the vertical ink of the heads' units there { lo, hi }
@@ -3174,6 +3202,25 @@
         const dynG = n => (glyphs.dynamic || {})[n] || null;
         const halfW = m => m.kind === 'niente' ? MK.circleDiaSs / 2 : ((dynG(m.name) || { wSs: 1 }).wSs) / 2;
         const noFlip = MK.flip === false;
+        // [LGMF 2i.3 — RUNNING_LOG §487; his §485] THE PINS AND THE TRACKS: the row's axis comes from the LANE'S EDGE (fit.js boxesFor —
+        // the top row's hairpin top on the lane's top, the bottom row's bottom on the lane's bottom; the names on the axis), lifted by
+        // `liftSs` where the lane above's staff is OFF over the bow (staffShownOf — the unpitched percussion's lines, §486); every bar
+        // rides its seat's TRACK `trackGapSs` beyond the hairpin's inner edge, whole, from x(t) to its bow's end. Without a lane box
+        // (no fitBoxes) the 2h.6 floors and push stand in.
+        const BOX = o.fitBoxes && o.fitBoxes.byKey && o.fitBoxes.byKey[String(part)];
+        const aboveOff = (t0, t1) => { if (!BOX || BOX.above == null) return false; const sp = staffShownOf(+BOX.above); return !!sp && !sp.some(([a, c]) => a < t1 && c > t0); };
+        const axisOf = (bar, up) => {
+          if (MK.pin !== 'lane' || !BOX) return null;
+          const lift = up && MK.liftWhen === 'laneAboveStaffOff' && aboveOff(bar.t0, bar.t1) ? (MK.liftSs || 0) : 0;
+          return +(up ? BOX.top + lift - MK.heightSs / 2 : -BOX.bot + MK.heightSs / 2).toFixed(4);
+        };
+        if (MK.barTrack && BOX) for (const bar of items) {
+          if (bar.k !== 'ringbar' || !vibBowOf.has(bar.ev)) continue;
+          const up = vibBowOf.get(bar.ev).voice === 'upper', ax = axisOf(bar, up);
+          if (ax == null) continue;
+          bar.ySs = +(up ? ax - MK.heightSs / 2 - MK.trackGapSs - RBH / 2 : ax + MK.heightSs / 2 + MK.trackGapSs + RBH / 2).toFixed(4);
+          bar.dx0Ss = 0; delete bar.offSs; delete bar.side; delete bar.segs; bar.track = up ? 'top' : 'bottom';
+        }
         for (const bar of bars) {
           const b = vibBowOf.get(bar.ev);
           if (!b.marks || !b.marks.length) continue;
@@ -3187,10 +3234,11 @@
           }
           // [2h.6, §478] the row's NEAR EDGE: the floor, or the standard gap outside the ink under the bow; the axis half a hairpin beyond
           const near = up ? Math.max(MK.upperEdge, isFinite(hi) ? hi + MK.gapSs : -Infinity) : Math.min(MK.lowerEdge, isFinite(lo) ? lo - MK.gapSs : Infinity);
-          const y = up ? near + MK.heightSs / 2 : near - MK.heightSs / 2;
+          const ax = axisOf(bar, up), PIN = ax != null;   // [2i.3] pinned to the lane's edge (+ the lift), else 2h.6's near-edge rule
+          const y = PIN ? ax : up ? near + MK.heightSs / 2 : near - MK.heightSs / 2;
           const at = (m, t, dx) => {
-            if (m.kind === 'niente') items.push({ k: 'niente', t, dxSs: dx, ySs: +y.toFixed(4), diaSs: MK.circleDiaSs, thickSs: MK.circleThickSs, seq: 'vibMark', ev: bar.ev, noFlip });
-            else if (dynG(m.name)) items.push({ k: 'glyph', g: 'dyn-' + m.name, t, dxSs: dx, ySs: +y.toFixed(4), align: 'center', seq: 'vibMark', ev: bar.ev, noFlip });
+            if (m.kind === 'niente') items.push({ k: 'niente', t, dxSs: dx, ySs: +y.toFixed(4), diaSs: MK.circleDiaSs, thickSs: MK.circleThickSs, seq: 'vibMark', ev: bar.ev, noFlip, pinned: PIN });
+            else if (dynG(m.name)) items.push({ k: 'glyph', g: 'dyn-' + m.name, t, dxSs: dx, ySs: +y.toFixed(4), align: 'center', seq: 'vibMark', ev: bar.ev, noFlip, pinned: PIN });
             else warnings.push('vibraphone ' + bar.ev + ': a mark "' + m.name + '" has no dynamic glyph — not drawn');
           };
           // [2h.5, §478] THE CLOSING MARK (his: "dynamics that are at the end of a bow … right justified with the right end of the
@@ -3214,7 +3262,7 @@
             const toSnap = snap && nm === lastM;
             const t1 = toSnap ? bar.t1 : Math.min(m.tEnd, bar.t1);   // an open hairpin never runs past the cut bar
             items.push(Object.assign({ k: 'hairpin-timed', t0: m.t, t1, dx0Ss: 0, dx1Ss: nm ? -((toSnap ? 2 : 1) * halfW(nm) + gapOf(nm, m.dir === 'decresc')) : 0,
-              ySs: +y.toFixed(4), dir: m.dir, hSs: MK.heightSs, thickSs: MK.thickSs, minSs: MK.minHairpinSs, seq: 'vibHairpin', ev: bar.ev },
+              ySs: +y.toFixed(4), dir: m.dir, hSs: MK.heightSs, thickSs: MK.thickSs, minSs: MK.minHairpinSs, seq: 'vibHairpin', ev: bar.ev, pinned: PIN },
               prev ? { after: { t: prev.t, dxSs: +(prev.dx + prev.hw + gapOf(prev, m.dir === 'cresc')).toFixed(6) } } : {}));
           }
         }

@@ -124,6 +124,16 @@ if (R.vibMarks) {
   P('- ' + Object.entries(R.vibMarks).filter(([n]) => !n.startsWith('_') && !META.has(n)).map(([n, v]) => n + ' **' + fmt(v) + '**' + (landsAt.get('vibMarks.' + n) ? ' → `' + landsAt.get('vibMarks.' + n).join('` · `') + '`' : '')).join(' · ') + ' · *' + R.vibMarks.basis + '* · ' + R.vibMarks.ref);
   P('');
 }
+// [2i.1] a lined staff's visibility (rules.json staffLines)
+if (R.staffLines) {
+  P('### A lined staff\'s visibility (`staffLines`)');
+  P('');
+  P(R.staffLines._doc);
+  P('');
+  for (const [k, v] of Object.entries(R.staffLines)) if (!k.startsWith('_'))
+    P('- **' + k + '** — ' + Object.entries(v).filter(([n]) => !META.has(n)).map(([n, x]) => n + ' **' + fmt(x) + '**').join(' · ') + ' · *' + v.basis + '* · ' + v.ref);
+  P('');
+}
 P('---');
 P('');
 P('## 4 · THE COLOURS AND THE FACES');

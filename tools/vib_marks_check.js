@@ -54,12 +54,12 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
 // (2) the goldens of §463
 {
   const j1 = at(R01, 42.65, 67), j2 = j1 && nextIn(j1);
-  ok(j1 && T(j1) === 'mp > p' && j2 && j2.startName === 'p' && VM.stepsAt(S.objects.find(o => o.id === j2.id), j2.t0, L) < 1.5,
+  ok(j1 && T(j1) === '> p' && j1.startName === 'mp' && j2 && j2.startName === 'p' && VM.stepsAt(S.objects.find(o => o.id === j2.id), j2.t0, L) < 1.5,
     'THE CARRY at the join 42.65 → 48.89 s: "' + (j1 && T(j1)) + ' | ' + (j2 && T(j2)) + '" — the second bow starts on the carried p although its level ' + (j2 ? j2.startSteps.toFixed(2) : '?') + ' rounds to pp (§463 wrinkle 2)');
   const b33 = at(R01, 33.16);
   ok(b33 && T(b33) === '< p' && b33.startName === 'pp', 'rule 1\'s second tier: the 33.16 s bow rises ' + (b33 ? (b33.endSteps - b33.startSteps).toFixed(2) : '?') + ' step onto a new name — "' + (b33 && T(b33)) + '" from the carried ' + (b33 && b33.startName) + ' (2h.8: the start name not restated)');
   const b56 = at(R01, 56.12, 84);
-  ok(b56 && T(b56) === 'p > pp < p', 'the turn inside a bow is named — 56.12 s "' + (b56 && T(b56)) + '"');
+  ok(b56 && T(b56) === '> pp < p' && b56.startName === 'p', 'the turn inside a bow is named — 56.12 s "' + (b56 && T(b56)) + '" from the carried ' + (b56 && b56.startName));
   const firsts = [0, 1].map(c => B.filter(b => b.group === R01 && b.chain === c)[0]);
   ok(firsts.every(b => b && T(b) === '○ < pp' && b.restart), 'the fade from niente, timed: both chains\' first bows open "○ < pp" — ' +
     firsts.map(b => b.t0.toFixed(2) + ' s "' + T(b) + '" pp at ' + b.marks.find(m => m.name === 'pp').t.toFixed(2) + ' s (the bow\'s end — the fade runs 2 … 8 s)').join(' · '));
@@ -68,11 +68,11 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   // the R01c stretch of §463's rendering, seat 1 (the chain of the 33.16 s bow), 33 … 95 s — pinned under the rules. §463's reading was the
   // --his probe before rules 1 · 2 · 7 and in the probe's level mapping; where the rules change it: the carry (48.89 starts on p) · rule 1's
   // second tier (48.89's first dip p > pp, 0.34 step) · writtenAt's mapping (48.89 and 79.00 end on p, the probe's on mp) · [2h.8, §480]
-  // the start name only at a restart or a voice switch: "pp < p" → "< p" (the pp carried), "p > pp < mp > p" → "> pp < mp > p", the bare
-  // last bow "pp" — its chain switched rows there (the row's story begins again); the "p < mp" · "mp > p" that keep a name are switches
+  // the start name only at a restart (2h.8) — and under 2i.2's rows by SEAT no voice switch ever: every name here is one reached, every
+  // hairpin departs from its row's carried name ("pp < p" → "< p", "p > pp < mp > p" → "> pp < mp > p", the bare bows bare)
   const seat = at(R01, 33.16).chain;
   const got = B.filter(b => b.group === R01 && b.chain === seat && b.t0 >= 33 && b.t0 <= 95).map(b => T(b) || '·').join(' | ');
-  const WANT = '< p | p < mp | mp > p | > pp < mp > p | p > pp < p | p < mp > p | > pp | < mp | > p | > pp | · | pp';
+  const WANT = '< p | < mp | > p | > pp < mp > p | > pp < p | < mp > p | > pp | < mp | > p | > pp | · | ·';
   ok(got === WANT, 'the R01c stretch 33 … 95 s, seat ' + seat + ' (§463 rendered under the rules): ' + got + (got === WANT ? '' : '  — want ' + WANT));
 }
 
@@ -105,19 +105,19 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   ok(restarts.every(b => b.marks.length && b.marks[0].start), 'every restart writes its start mark (a name, or ○ at silence) — ' + restarts.length + ' restarts');
 }
 
-// (4) the voices
+// (4) the rows — by SEAT (2i.2, §487; his B): a chain keeps one row through its sequence; chain 0 the top when its first bow of the
+// sequence sounds at or above chain 1's first (a tie → chain 0 top); no voice switch ever
 {
-  let both = 0, wrong = 0;
-  for (const b of B) {
-    const p = B.find(x => x.chain !== b.chain && x.group === b.group && x.t0 <= b.t0 + 1e-6 && x.t1 > b.t0 + 1e-6);
-    if (!p) continue;
-    both++;
-    if ((b.voice === 'upper') !== (b.midi > p.midi || (b.midi === p.midi && b.chain === 0))) wrong++;
+  const groups = [...new Set(B.map(b => b.group))]; let wrong = 0, switches = 0;
+  for (const g of groups) {
+    const f0 = B.find(b => b.group === g && b.chain === 0), f1 = B.find(b => b.group === g && b.chain === 1);
+    const top = !f0 ? 1 : !f1 ? 0 : f0.midi >= f1.midi ? 0 : 1;
+    for (const b of B.filter(b => b.group === g)) { if ((b.voice === 'upper') !== (b.chain === top)) wrong++; if (b.switched) switches++; }
   }
-  ok(!wrong, 'the voice by register at each bow\'s start against the partner then sounding (' + both + ' bows with a partner)' + (wrong ? ' — ' + wrong + ' wrong' : ''));
+  ok(!wrong && !switches && R.vibMarks.rows === 'seat', 'THE ROWS BY SEAT (2i.2): every bow in its chain\'s row across ' + groups.length + ' sequences, no voice switch (' + switches + ') — 2g\'s register rule superseded' + (wrong ? ' — ' + wrong + ' wrong' : ''));
 }
 
-// (5) THE PAGE — the proto `lgmf-vib-proto` (PLAN 2g.5) as export_video lays it out: 2g.3's bows and 2g.4's marks, re-runnable
+// (5) THE PAGE — the proto `lgmf-vib-proto` (PLAN 2g.5 → 2h → 2i) as export_video lays it out, re-runnable
 const PROTO = path.join(ROOT, 'notation', 'ir', 'lgmf-vib-proto.ir.json');
 if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   console.log('THE PAGE — lgmf-vib-proto (the video realization)');
@@ -125,49 +125,44 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js')), Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js')), AnimObj = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
   const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const ENS = Layout.ensembleFor(rd('notation/registry/ensemble.json'), C.realizations['video-jury']), parts = ENS.parts.map(p => p.part);
-  const boxes = Fit.boxesFor(C, ENS, parts), sps = boxes.ssPerSec;
-  const ir = rd('notation/ir/lgmf-vib-proto.ir.json');
-  const m = Layout.layoutSection(ir, rd('notation/lib/glyphs.json'), Object.assign({ m4AttackLines: false, frameParts: parts, ensemble: ENS, techniques: rd('notation/registry/techniques.json'), fitBoxes: boxes }, C.engraving.layout));
+  const boxes = Fit.boxesFor(C, ENS, parts), sps = boxes.ssPerSec, BOX = boxes.byKey[String(LANE)];
+  const G = rd('notation/lib/glyphs.json'), TQ = rd('notation/registry/techniques.json');
+  const lay = ir => Layout.layoutSection(ir, G, Object.assign({ m4AttackLines: false, frameParts: parts, ensemble: ENS, techniques: TQ, fitBoxes: boxes }, C.engraving.layout));
+  const ir = rd('notation/ir/lgmf-vib-proto.ir.json'), m = lay(ir);
   const it5 = m.systems.filter(s => s.part === LANE).flatMap(s => s.items);
   const ov = ir.overlays.find(o => o.kind === 'vibBows'), PB = ov ? ov.value.bows : [], ev = new Map(ir.events.map(e => [e.id, e]));
   const barOf = id => it5.filter(i => i.k === 'ringbar' && i.ev === id);
-  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event), end = e.onset + e.duration; return br.length === 1 && br[0].t1 <= end + 1e-9 && Math.abs((br[0].t1Bow != null ? br[0].t1Bow : br[0].t1) - end) < 1e-9 &&
-    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar to x(t1) — or cut short of its successor (2h.1) — ' + PB.length + ' bows (R01c)');
-  // [2h.1, §474] THE CLEARANCE: a bar ends `after` before the leftmost ink of the lane's next unit at or after its end (the successor:
-  // a head within afterAbutS before the bow's end, or later); the 6.84 s bar (his image, "6.78 … going into the accidental") is cut
-  {
-    const VB = C.engraving.layout.devices.byEnv.vibBow, AF = VB.after, AB = VB.afterAbutS, G = rd('notation/lib/glyphs.json'), tsX = C.engraving.layout.textEmScale != null ? C.engraving.layout.textEmScale : 1.3;
-    const INKY = i => i.k === 'ledger' || i.k === 'ottava' || (i.k === 'glyph' && /^(notehead|accidental-)/.test(i.g || ''));
-    const leftAt = new Map();
-    for (const i of it5) { if (i.t === undefined || !INKY(i)) continue; const e2 = Fit.inkOf(i, G, tsX); if (!e2) continue; const k = Math.round(i.t * 1e6); leftAt.set(k, Math.min(leftAt.has(k) ? leftAt.get(k) : Infinity, e2.l)); }
-    const heads = [...leftAt.entries()].map(([k, l]) => ({ t: k / 1e6, l })).sort((a, b) => a.t - b.t);
-    const bars = it5.filter(i => i.k === 'ringbar'), cut = bars.filter(i => i.t1Bow != null);
-    let worst = Infinity, through = 0;
-    for (const bar of bars) {
-      const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= (bar.t1Bow != null ? bar.t1Bow : bar.t1) - AB);
-      if (!nx) continue;
-      const gap = nx.t * sps + nx.l - bar.t1 * sps;
-      worst = Math.min(worst, gap); if (gap < AF - 1e-4) through++;   // the layout rounds t1 to 1 µs = 2e-5 ss at 18.65 ss/s
-    }
-    const b684 = bars.find(i => i.t1Bow != null && Math.abs(i.t1Bow - 6.84) < 0.05);
-    // [§483] the 8va label is ink: the bar ending at 78.947 s stops `after` before the 79.00 s unit's label (which stands left of its head)
-    const ot79 = it5.find(i => i.k === 'ottava' && Math.abs(i.t - 78.997) < 0.02), b79 = bars.find(i => (i.t1Bow != null ? i.t1Bow : i.t1) > 78.9 && (i.t1Bow != null ? i.t1Bow : i.t1) < 78.96);
-    const lab79 = ot79 && b79 ? (ot79.t * sps + ot79.dx0Ss) - b79.t1 * sps : NaN;
-    ok(ot79 && ot79.dx0Ss < -1 && b79 && b79.t1Bow != null && Math.abs(lab79 - AF) < 1e-4, 'THE 8va LABEL IS INK (§483): the 79.00 s unit\'s bracket starts at ' + (ot79 ? ot79.dx0Ss.toFixed(3) : '?') + ' ss (its label left of the head); the bar before it cut to ' + (isFinite(lab79) ? lab79.toFixed(3) : '—') + ' ss short of the label');
-    ok(AF === 0.25 && !through && !!b684 && cut.length > 0, 'THE CLEARANCE (2h.1): every bar ends ≥ after (' + AF + ' ss) before its successor\'s leftmost ink — ' + cut.length + ' of ' + bars.length + ' bars cut, the tightest gap ' + (isFinite(worst) ? worst.toFixed(3) : '—') + ' ss; the 6.84 s bar cut by ' + (b684 ? ((b684.t1Bow - b684.t1) * sps).toFixed(2) + ' ss' : 'NOT CUT'));
-  }
+  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event); return br.length === 1 && Math.abs(br[0].t1 - (e.onset + e.duration)) < 1e-9 && br[0].dx0Ss === 0 &&
+    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar from x(t) to x(t1) on its track (2i: no cut, no offset) — ' + PB.length + ' bows (R01c)');
   ok(!it5.some(i => i.k === 'goline' || i.k === 'stem' || /curve$/.test(i.k)), 'no go line, no stem, no level curve on the lane (anchor A; §464)');
-  const side = t => { const b = PB.find(q => Math.abs(q.t0 - t) < 0.02 && barOf(q.event)[0]); const x = barOf(b.event)[0]; return x.segs ? x.segs.map(s => s.side).join('→') : String(x.side || 0); };
-  ok(side(16.99) === '-1' && side(20.93) === '1→-1' && side(22.70) === '1', 'the close rule\'s SIDES: the unison 20.93 … 22.64 (the sounding bar keeps its side, the entering one takes the other), then the second 22.70 … 26.86 (the 84 under the 86) — sides ' + [16.99, 20.93, 22.70].map(side).join(' | '));
-  // [2h.4, §477] FLUSH: a close bar keeps its full height (no hFrac) and sits off its head by ±(head/2 + bar/2); a segment steps
+  ok(!m.warnings.length, 'no layout warnings' + (m.warnings.length ? ' — ' + m.warnings.slice(0, 2).join(' · ') : ''));
+  // [2i.3, §487] THE PINS: every top mark and hairpin on ONE axis — the hairpin's top on the lane's top edge + the lift (the percussion
+  // staff off over the proto); every bottom one on ONE axis — its bottom on the lane's bottom edge; the names on the axis; exempt from the fit
+  const MKc = C.engraving.layout.devices.byEnv.vibBow.marks, H = MKc.heightSs;
+  const hps = it5.filter(i => i.k === 'hairpin-timed'), names = it5.filter(i => i.seq === 'vibMark'), bars = it5.filter(i => i.k === 'ringbar');
+  const topAxis = +(BOX.top + MKc.liftSs - H / 2).toFixed(4), botAxis = +(-BOX.bot + H / 2).toFixed(4);
+  const axes = a => [...new Set(a.map(x => x.ySs))].join();
+  ok(MKc.pin === 'lane' && MKc.rows === 'seat' && axes(hps.concat(names).filter(x => x.ySs > 0)) === String(topAxis) && axes(hps.concat(names).filter(x => x.ySs < 0)) === String(botAxis) && hps.every(h => h.hSs === H) && hps.concat(names).every(x => x.pinned),
+    'THE PINS (2i.3): every top mark and hairpin on ONE axis ' + topAxis + ' (the hairpin\'s top on the lane\'s top ' + BOX.top.toFixed(3) + ' + the lift ' + MKc.liftSs + ' — the percussion staff off here), every bottom one on ' + botAxis + ' (its bottom on the lane\'s bottom −' + BOX.bot.toFixed(3) + '); ' + hps.length + ' hairpins ' + H + ' tall, ' + names.length + ' names and circles, all exempt from the fit');
+  // [2i.3] THE TRACKS: every bar whole on its seat's track, trackGapSs beyond the hairpin's inner edge; no flush, no side
+  const RBH = C.engraving.render.ringBar.hSs, topTrack = +(topAxis - H / 2 - MKc.trackGapSs - RBH / 2).toFixed(4), botTrack = +(botAxis + H / 2 + MKc.trackGapSs + RBH / 2).toFixed(4);
+  const voiceOf = id => (PB.find(q => q.event === id) || {}).voice;
+  ok(MKc.barTrack === true && bars.length === PB.length && bars.every(b => (b.track === 'top' && b.ySs === topTrack && voiceOf(b.ev) === 'upper') || (b.track === 'bottom' && b.ySs === botTrack && voiceOf(b.ev) === 'lower')) && bars.every(b => b.offSs == null && !b.segs && b.seat === (voiceOf(b.ev) === 'upper' ? 0 : 1)),
+    'THE TRACKS (2i.3): every bar on its seat\'s track — navy (the top row, seat 0) at ' + topTrack + ', olive (the bottom, seat 1) at ' + botTrack + ' (' + MKc.trackGapSs + ' beyond the hairpin); ' + bars.filter(b => b.track === 'top').length + ' · ' + bars.filter(b => b.track === 'bottom').length + '; no flush, no side');
+  // [2i, §486] NO HEAD under a hairpin's band or the other seat's bar — 24 · 29 of 156 without the lift, in today's lane
   {
-    const G = rd('notation/lib/glyphs.json'), OFF = G.notehead.open.hSs / 2 + C.engraving.render.ringBar.hSs / 2;
-    const close = it5.filter(i => i.k === 'ringbar' && i.side), off = t => { const b = PB.find(q => Math.abs(q.t0 - t) < 0.02); const x = barOf(b.event)[0]; return x.segs ? x.segs.map(s => s.offSs).join('→') : String(x.offSs); };
-    ok(close.length > 0 && close.every(i => i.hFrac == null && Math.abs(Math.abs(i.offSs) - OFF) < 1e-3 && (!i.segs || i.segs.every(s => Math.abs(Math.abs(s.offSs) - OFF) < 1e-3 && Math.sign(s.offSs) === s.side))),
-      'FLUSH (2h.4): every close bar whole, off its head by ±' + OFF.toFixed(3) + ' ss (head ' + G.notehead.open.hSs + ' / 2 + bar ' + C.engraving.render.ringBar.hSs + ' / 2) — ' + close.length + ' close bars; 16.99 ' + off(16.99) + ' · 20.93 ' + off(20.93) + ' · 22.70 ' + off(22.70));
+    let hit = 0, barHit = 0;
+    for (const b of PB) {
+      const u = it5.filter(i => i.t !== undefined && Math.abs(i.t - b.t0) < 0.02 && (i.k === 'ledger' || (i.k === 'glyph' && /^(notehead|accidental-)/.test(i.g || '')))).map(i => Fit.inkOf(i, G, 1.3)).filter(Boolean);
+      if (!u.length) continue;
+      const hi = Math.max(...u.map(e => e.hi)), lo = Math.min(...u.map(e => e.lo)), xl = b.t0 * sps + Math.min(...u.map(e => e.l)), xr = b.t0 * sps + Math.max(...u.map(e => e.r));
+      for (const h of hps) { const xa = h.t0 * sps + (h.dx0Ss || 0), xb = h.t1 * sps + (h.dx1Ss || 0); if (xb < xl || xa > xr) continue; if (hi > h.ySs - h.hSs / 2 && lo < h.ySs + h.hSs / 2) hit++; }
+      for (const bar of bars) { if (bar.ev === b.event) continue; if (bar.t0 < b.t0 - 1e-6 && bar.t1 > b.t0 + 1e-6 && hi > bar.ySs - RBH / 2 && lo < bar.ySs + RBH / 2) barHit++; }
+    }
+    ok(!hit && !barHit, 'NO HEAD UNDER A HAIRPIN OR THE OTHER SEAT\'S BAR (2i, §486): ' + hit + ' · ' + barHit + ' of ' + PB.length + ' bows (24 · 29 in today\'s lane without the lift)');
   }
   const heads = t => it5.filter(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - t) < 0.02).map(i => +i.dxSs.toFixed(3));
-  ok([56.12, 141.38].every(t => { const h = heads(t); return h.length === 2 && Math.abs(Math.abs(h[1] - h[0]) - 1.107) < 0.01; }), 'the shared attacks a second apart are displaced by the chord column (#2 D.6) — 56.12 s ' + heads(56.12).join(' · ') + ' · 141.38 s ' + heads(141.38).join(' · '));
+  ok([56.12, 141.38].every(t => { const h = heads(t); return h.length === 2 && Math.abs(Math.abs(h[1] - h[0]) - 1.107) < 0.01; }), 'the shared attacks on one line are displaced by the chord column (#2 D.6) — 56.12 s ' + heads(56.12).join(' · ') + ' · 141.38 s ' + heads(141.38).join(' · '));
   // the drawn marks read off the page in x order = the reader's, bow by bow
   const xOf = (t, dx) => t * sps + (dx || 0);
   let same = 0, wrongSide = 0; const bad = [];
@@ -179,11 +174,9 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
     wrongSide += mine.filter(i => (b.voice === 'upper') !== (i.ySs > 0)).length;
   }
   ok(same === PB.length, 'the drawn marks are the reader\'s, bow by bow (' + same + ' / ' + PB.length + ')' + (bad.length ? ' — ' + bad.slice(0, 3).join(' · ') : ''));
-  ok(!wrongSide, 'every mark on its voice\'s side — the upper voice above the staff, the lower below');
-  // [2h.5 · 2h.6, §478] THE CLOSING MARK right-justified to the bar's end when it would run past it; THE HAIRPIN 1.333 tall, its near edge
-  // never nearer the staff than the row's edge floor, every name on its bow's axis
+  ok(!wrongSide, 'every mark in its seat\'s row — seat 0 above the staff, seat 1 below');
+  // [2h.5, §478] THE CLOSING MARK right-justified to the bar's end when it would run past it
   {
-    const MKc = C.engraving.layout.devices.byEnv.vibBow.marks, G = rd('notation/lib/glyphs.json');
     const hw = i => i.k === 'niente' ? i.diaSs / 2 : G.dynamic[i.g.replace('dyn-', '')].wSs / 2;
     let past = 0, snapped = 0, closes = 0; const missing = [];
     for (const b of PB) {
@@ -197,43 +190,26 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
       if (Math.abs(it.t - bar.t1) < 1e-9 && Math.abs(right) < 1e-6) snapped++;
     }
     ok(!past && !missing.length && snapped > 0, 'THE CLOSING MARK (2h.5): no closing name past its bar\'s end; ' + snapped + ' of ' + closes + ' right-justified to it, the rest at their point' + (missing.length ? ' — not found at ' + missing.join(' ') : ''));
-    const hps = it5.filter(i => i.k === 'hairpin-timed'), names = it5.filter(i => i.seq === 'vibMark');
-    const edgeOk = hps.every(h => h.hSs === MKc.heightSs && (h.ySs > 0 ? h.ySs - h.hSs / 2 >= MKc.upperEdge - 1e-6 : h.ySs + h.hSs / 2 <= MKc.lowerEdge + 1e-6));
-    const onAxis = names.every(n => { const h = hps.find(x => x.ev === n.ev); return !h || Math.abs(h.ySs - n.ySs) < 1e-6; });
-    ok(MKc.heightSs === 1.333 && MKc.upperEdge === 4.267 && MKc.lowerEdge === -4.267 && hps.length > 0 && edgeOk && onAxis,
-      'THE HAIRPIN DOUBLED (2h.6): ' + hps.length + ' timed hairpins ' + MKc.heightSs + ' ss tall, the near edge never nearer the staff than ±' + MKc.upperEdge + ' (2g\'s axis 4.6 − 0.333), every name on its bow\'s axis');
   }
-  // [2h.7, §479] THE NATURAL IN THE COLUMN: 56.123 s — ♯ on the C♯6 (ev-wc-3179) and ♮ on the C6 (ev-wc-3180), the one staff line
+  // [2h.7, §479 · §482] THE NATURAL IN THE COLUMN and the gap between the two signs
   {
     const accAt = t => it5.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - t) < 0.02).map(i => i.g.replace('accidental-', '') + '@' + i.ySs).sort();
     const a56 = accAt(56.123), a141 = accAt(141.38);
     ok(C.engraving.layout.accNaturalInColumn === true && a56.join(' ') === 'natural@4 sharp@4', 'THE NATURAL IN THE COLUMN (2h.7): 56.123 s ♯ and ♮ on the one line — ' + a56.join(' · ') + ' · 141.38 s ' + (a141.join(' · ') || 'no sign'));
-    // [§482] the two signs keep objects.accidental.betweenSs between them (LilyPond's padding 0.2) — the port had them touching
-    const G2 = rd('notation/lib/glyphs.json'), BT = C.engraving.layout.chordColumn.minLateralGap;
-    const gapAt = t => { const s = it5.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - t) < 0.02).map(i => { const g = G2.accidental[i.g.replace('accidental-', '')], ax = i.align === 'noteY' && g.anchors && g.anchors.noteY ? g.anchors.noteY.x : g.wSs / 2; return { l: i.dxSs - ax, r: i.dxSs + g.wSs - ax }; }).sort((a, b) => a.l - b.l); return s.length === 2 ? s[1].l - s[0].r : NaN; };
+    const BT = C.engraving.layout.chordColumn.minLateralGap;
+    const gapAt = t => { const s = it5.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - t) < 0.02).map(i => { const g = G.accidental[i.g.replace('accidental-', '')], ax = i.align === 'noteY' && g.anchors && g.anchors.noteY ? g.anchors.noteY.x : g.wSs / 2; return { l: i.dxSs - ax, r: i.dxSs + g.wSs - ax }; }).sort((a, b) => a.l - b.l); return s.length === 2 ? s[1].l - s[0].r : NaN; };
     ok(BT === 0.2 && Math.abs(gapAt(56.123) - BT) < 1e-6 && Math.abs(gapAt(141.38) - BT) < 1e-6, 'THE GAP BETWEEN THE SIGNS (§482): ' + BT + ' ss (accidental.betweenSs → chordColumn.minLateralGap) — 56.123 s ' + gapAt(56.123).toFixed(3) + ' · 141.38 s ' + gapAt(141.38).toFixed(3));
   }
   const dev = Layout.deviceResolver(ir, C.engraving.layout);
   const anim = AnimObj.collect(ir, null, C.animated, { parts, meta: false, deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}) })
     .filter(i => i.part === LANE && (i.t0 != null ? i.t0 : i.at || 0) < ov.target.span[1] && (i.t1 != null ? i.t1 : Infinity) > ov.target.span[0]);
   ok(!anim.length, 'no meter, follower or pie on the lane over the bows (the marks are the level, §464) — ' + anim.length + ' animated device(s)');
-  // [2h.4, §477] THE PROBE PAGE lgmf-vib-close-probe (tools/vib_close_probe.js): four pairs sounding together — the same line · a second ·
-  // a third · a fourth — under closeRule.withinSs; the pairs within it flush, the rest centred; every pair columned (no two heads at one x)
-  const PROBE = path.join(ROOT, 'notation', 'ir', 'lgmf-vib-close-probe.ir.json');
-  if (fs.existsSync(PROBE)) {
-    const pr = rd('notation/ir/lgmf-vib-close-probe.ir.json');
-    const mp = Layout.layoutSection(pr, rd('notation/lib/glyphs.json'), Object.assign({ m4AttackLines: false, frameParts: parts, ensemble: ENS, techniques: rd('notation/registry/techniques.json'), fitBoxes: boxes }, C.engraving.layout));
-    const ip = mp.systems.filter(s => s.part === LANE).flatMap(s => s.items), W = C.engraving.layout.devices.byEnv.vibBow.closeRule.withinSs;
-    const pairs = pr.overlays[0].value.bows.reduce((a, b) => { (a[b.t0] = a[b.t0] || []).push(b); return a; }, {});
-    const rows = Object.values(pairs).map(([a, b]) => {
-      const ba = ip.find(i => i.k === 'ringbar' && i.ev === a.event), bb = ip.find(i => i.k === 'ringbar' && i.ev === b.event);
-      const hs = ip.filter(i => i.k === 'glyph' && /^notehead/.test(i.g) && Math.abs(i.t - a.t0) < 0.02);
-      const d = Math.abs(bb.ySs - ba.ySs), flush = d < W - 1e-9;
-      return { what: b.what, d, flush, okFlush: flush ? (ba.offSs < 0 && bb.offSs > 0 && ba.hFrac == null) : (ba.offSs == null && bb.offSs == null), columned: hs.length === 2 && (d > 0.5 + 1e-9 || Math.abs(hs[0].dxSs - hs[1].dxSs) > 0.5) };
-    });
-    ok(rows.length === 4 && rows.every(r => r.okFlush && r.columned) && !mp.warnings.length, 'THE PROBE PAGE: ' + rows.map(r => r.what.replace(/ \(.*$/, '') + ' Δ' + r.d.toFixed(2) + ' ' + (r.flush ? 'flush' : 'centred')).join(' · ') + ' (withinSs ' + W + '); the same-line and second pairs columned, no warnings' + (mp.warnings.length ? ' — ' + mp.warnings.slice(0, 2).join(' · ') : ''));
-    const pa = ip.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - 2) < 0.02).map(i => i.g.replace('accidental-', '')).sort().join(' ');
-    ok(pa === 'natural sharp', 'THE PROBE PAGE (2h.7): the one-line pair G5 · G♯5 carries ♮ and ♯ — ' + (pa || 'no sign'));
+  // [2i.3, §486 · §487] THE PERCUSSION STAFF on the main file: its lines only over the opening snippet and the pages of its section
+  {
+    const P = rd('notation/ir/piece-lgmf.ir.json'), mp = lay(P);
+    const st = mp.systems.filter(s => s.part === 4).flatMap(s => s.items.filter(i => i.k === 'staff')).map(s => [s.t0, s.t1]);
+    const SH = C.engraving.layout.staffShown, PR = rd('notation/registry/page_rules.json');
+    ok(SH && SH.part === 4 && SH.pageLeadInS === PR.leadInS && JSON.stringify(st) === JSON.stringify([[0, 0.25], [284, 416]]), 'THE PERCUSSION STAFF (2i.3, §486 · §488): on piece-lgmf its seven lines are drawn over ' + JSON.stringify(st) + ' — the 0.25 s snippet and the whole pages 284 … 416 (the screen\'s pages start at −' + PR.leadInS + ' + k · 12; the section from 288.91, its last note 406.86); the vibraphone silent on them');
   }
 }
 

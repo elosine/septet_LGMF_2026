@@ -16,7 +16,7 @@
   "date": "2026-09-28",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/cd222adc-5f07-44e0-8ccc-fe471422862b/scratchpad/sec3start-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h)\" --after lgmf-eh-proto"
+  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/cd222adc-5f07-44e0-8ccc-fe471422862b/scratchpad/sec3start-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i)\" --after lgmf-eh-proto"
  },
  "events": [
   {
@@ -7840,43 +7840,29 @@
      {
       "event": "ev-wc-3149",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 22.695,
       "t1": 27.464,
       "midi": 86,
       "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 22.695,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3152",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 26.914,
       "t1": 32.514,
       "midi": 84,
       "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 26.914,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3154",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 27.514,
       "t1": 33.114,
       "midi": 86,
@@ -7887,7 +7873,7 @@
      {
       "event": "ev-wc-3157",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 32.564,
       "t1": 38.034,
       "midi": 84,
@@ -7898,7 +7884,7 @@
      {
       "event": "ev-wc-3158",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 33.164,
       "t1": 38.634,
       "midi": 86,
@@ -7929,14 +7915,7 @@
       "midi": 87,
       "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 38.084,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3164",
@@ -7948,12 +7927,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 38.684,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 38.684,
@@ -8237,37 +8210,24 @@
      {
       "event": "ev-wc-3189",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 66.663,
       "t1": 72.273,
       "midi": 63,
       "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 66.663,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3191",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 68.803,
       "t1": 72.273,
       "midi": 75,
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 68.803,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 68.803,
@@ -8286,7 +8246,7 @@
      {
       "event": "ev-wc-3194",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 72.323,
       "t1": 76.981,
       "midi": 63,
@@ -8297,7 +8257,7 @@
      {
       "event": "ev-wc-3195",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 72.323,
       "t1": 78.947,
       "midi": 75,
@@ -8322,7 +8282,7 @@
      {
       "event": "ev-wc-3199",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 77.031,
       "t1": 82.623,
       "midi": 63,
@@ -8333,7 +8293,7 @@
      {
       "event": "ev-wc-3200",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 78.997,
       "t1": 83.69,
       "midi": 89,
@@ -8358,7 +8318,7 @@
      {
       "event": "ev-wc-3203",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 82.673,
       "t1": 89.401,
       "midi": 58,
@@ -8369,7 +8329,7 @@
      {
       "event": "ev-wc-3204",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 83.74,
       "t1": 88.391,
       "midi": 89,
@@ -8394,7 +8354,7 @@
      {
       "event": "ev-wc-3207",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 88.441,
       "t1": 94.886,
       "midi": 89,
@@ -8405,7 +8365,7 @@
      {
       "event": "ev-wc-3209",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 89.451,
       "t1": 94.226,
       "midi": 58,
@@ -8416,7 +8376,7 @@
      {
       "event": "ev-wc-3213",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 94.276,
       "t1": 102.853,
       "midi": 58,
@@ -8427,7 +8387,7 @@
      {
       "event": "ev-wc-3214",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 94.936,
       "t1": 101.152,
       "midi": 89,
@@ -8438,7 +8398,7 @@
      {
       "event": "ev-wc-3218",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 101.202,
       "t1": 105.602,
       "midi": 87,
@@ -8463,7 +8423,7 @@
      {
       "event": "ev-wc-3221",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 102.903,
       "t1": 107.388,
       "midi": 70,
@@ -8474,7 +8434,7 @@
      {
       "event": "ev-wc-3223",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 105.652,
       "t1": 112.39,
       "midi": 87,
@@ -8512,7 +8472,7 @@
      {
       "event": "ev-wc-3224",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 107.438,
       "t1": 114.364,
       "midi": 70,
@@ -8523,7 +8483,7 @@
      {
       "event": "ev-wc-3226",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 112.44,
       "t1": 114.964,
       "midi": 87,
@@ -8548,7 +8508,7 @@
      {
       "event": "ev-wc-3230",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 114.414,
       "t1": 120.686,
       "midi": 70,
@@ -8559,7 +8519,7 @@
      {
       "event": "ev-wc-3231",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 115.014,
       "t1": 120.686,
       "midi": 87,
@@ -8570,7 +8530,7 @@
      {
       "event": "ev-wc-3236",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 120.736,
       "t1": 125.362,
       "midi": 70,
@@ -8581,7 +8541,7 @@
      {
       "event": "ev-wc-3237",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 120.736,
       "t1": 127.646,
       "midi": 87,
@@ -8606,7 +8566,7 @@
      {
       "event": "ev-wc-3238",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 125.412,
       "t1": 130.551,
       "midi": 82,
@@ -8624,12 +8584,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 127.696,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 127.696,
@@ -8654,14 +8608,7 @@
       "midi": 82,
       "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 130.601,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3247",
