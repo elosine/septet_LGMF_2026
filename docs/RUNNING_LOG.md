@@ -17638,3 +17638,18 @@ flag; a new device is born on a proto page cut from a COPY of the draft, then fo
 **FOUND, for his eye:** the plan read the bloom's vibraphone as flat (`cc7Abs {55, 55}` → one name). Only its first bows are: it follows the bloom's swell (`{46, 69}` · `{46, 76}` · `{54, 100}` …, 1i's "following the bloom's one shape"), so its bows carry names and hairpins like a sequence's (`pp` · `< mp` · `< mf` · `< f` · `< ff` · `< ff > f` …). The reader's drift warning fires three times: 222.56 s ("the rise ends on f, the current name is ff — the hairpin left open") · 226.39 s (mf vs f) · morph 1 645.51 s (mp vs mf) — the reader's rule, ALERTED, not changed.
 
 **Verified:** `vib_marks_check` **33** (32 + the bloom's 44) · THE SHIELD 21 of 21 layouts identical · `check_rules` 29 · the five IRs byte-identical.
+
+## §512. 2k.6 THE PROTO `lgmf-hn-morph-proto` — the horn, 140 … 282 s (2026-09-28, Opus, session 17)
+
+**What was done:** `notation/ir/lgmf-hn-morph-proto.ir.json` — the EH proto's recipe on part 2: `--w0 140 --w1 282 --parts 2 --bricks --sequence grp-seq-smu90t537 --morph grp-act-bloom-06-01 --after lgmf-vib-proto`, from this session's scratchpad COPY of `scores/piece-Recombination-Draft01-done.json` (his file untouched; the command in `provenance.build`); the picker: `piece-lgmf · lgmf-eh-proto · lgmf-vib-proto · lgmf-hn-morph-proto · lgmf-0i`. 11 events, VALID vs source, GEOMETRY clean, the ladder at rung 0.
+- **AN AI'S CALL, his to reverse (a change to 2k.2's "the fold's per-event engraving overlays kept"):** the septet's morph parts no longer carry the per-breath `engraving` overlays. The generated rules page listed them as MANUAL overrides ("`lgmf-hn-morph-proto` — 10 override(s): device ×10"; 169 on the main file at the fold) while `byEnv.morph` (2k.1) reaches the same device — resolved identical breath by breath (10 of 10), and the page's layout identical with and without them (the shield on the page itself, 22 of 22).
+
+**What the page draws** (the video realization, in C):
+- **140.76** — the sequence's last breath, as a BLOCK: the window opens on it (the EH proto opens at 0 the same way): A2 under `8vb` with two ledgers · `2 (A1)` · "senza vib." (the window's first note — `firstAlso`) · `pp → mp` · its level to 151.00. **No `—> ppp`** — the plan's 2k.7 expected one. On the main file too, the horn's sequence-1 exit reads `fades: false`: its level falls pp → ppp by 0.1244 of the scale, and 2f's rule wants one step (0.125). A hair under — 2f's rule, the AI's (§459), his to look at.
+- **152.10** — the morph's block (§509): A4 · the gliss line · A4 `−25` · `8 (A1)` · `ppp → ff` · no word · no `○—<` (§508).
+- **152.10 … 269.90** — the orange curve over the travel (24.8 c, `scale travel`), the green level (the fixed scale), 10 go lines, 11 pies, the gliss meter and the level meter; 19 labels `(f) (mp) (ff) (pp) …` at the turning points.
+- **258.90** — the last breath's `—> ppp` (the morph's exit falls: 0.159 at its end).
+
+**Verified (2k.6's REQUIRED VERIFICATION):** `check_screen_edges --ir lgmf-hn-morph-proto` PASS (13 pages tiled 136 → 282 s · 844 leaves · 11 go-time indicators at x(t) · 64 animated devices at the edges, 32 pushed right) · `check_print_edges --ir lgmf-hn-morph-proto` PASS (14 pages · 3 long items — the two green curves and the orange cut and continued, 26 curve paths none from a neighbour · no timed ink in the gutter) · `decisions_needed` 0 units off rung 0 · `check_rules` 29 · THE SHIELD 21 of 22 identical, the one move the new page · the extractor: no "ord." on the window, 0 ALERTs on the horn · `sequence_notation_check` 64 / 64 · `vib_marks_check` 33.
+
+**STOP — 2k.7 is his eye.**

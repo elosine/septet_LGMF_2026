@@ -1475,6 +1475,9 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
     for (const b of built) for (const ov of b.overlays) {
       if (asSeq && isVibPart(b.part)) continue;
       if (asSeq && !isVibPart(b.part) && (ov.kind === 'header' || ov.kind === 'cresc')) continue;   // [2k.2] the sequence overlay draws these
+      // [2k.6] nor the per-breath `engraving` overlays: env 'morph' reaches the same device through the registry (byEnv.morph, 2k.1 —
+      // resolved identical, breath by breath), and an overlay on the event is a MANUAL override on the rules page's list
+      if (asSeq && !isVibPart(b.part) && ov.kind === 'engraving') { dev++; continue; }
       // [2k.4, his B §505] the orange curve's vertical scale is the RULE's (rules.json objects.glissCurve.scale), stamped on the overlay
       // and read by the renderer: `travel` — the top half spans the part's own travel (morph_overlays' 0 … 1 of its extremes)
       if (asSeq && !isVibPart(b.part) && ov.kind === 'gliss') {

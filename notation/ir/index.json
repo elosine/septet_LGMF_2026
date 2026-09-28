@@ -31,6 +31,16 @@
    "profile": "trance"
   },
   {
+   "id": "lgmf-hn-morph-proto",
+   "label": "lgmf-hn-morph-proto · the horn, 140 … 282 s — the morph's notation prototype (2k): the sequence's last breath, the seam, ACT-BLOOM-06 — from Draft 01",
+   "score": "piece-Recombination-Draft01-done",
+   "window": [
+    140,
+    282
+   ],
+   "profile": "trance"
+  },
+  {
    "id": "lgmf-0i",
    "label": "lgmf-0i (trance)",
    "score": "0i-test",
