@@ -16896,3 +16896,30 @@ to an axis of 6.725 by its ledgered C6 head and the sign under it); the first bo
 8.476 s. `check_rules` 25 · `sequence_notation_check` 64 (the winds unmoved) · THE SHIELD 19 of 22, the three expected moves.
 
 **Not touched:** the reader (`vib_marks.js`) · the IRs · the winds' rows.
+
+
+## §479. 2h.7 THE NATURAL IN THE CHORD COLUMN — C♯6 over C6 at 56.123 s carries ♯ and ♮ (2026-09-28, Fable, session 17)
+
+**His words (§473):** *"Is image three a unison? This is at 56 seconds, about. If so, it's fine. If not, we have to make sure we include
+the courtesy natural."* It is not a unison: `ev-wc-3179` C♯6 (85) over `ev-wc-3180` C6 (84), one staff line, the chord column displacing
+the heads 1.107 ss — and one `♯` drawn (§473, the facts).
+
+**The rule (rules.json `objects.accidental.naturalInColumn` true; `engraving.layout.accNaturalInColumn` points at it):** in a chord column,
+a head with NO alteration draws `♮` when another head of the SAME LETTER AND OCTAVE in that column carries a sign — Gould: two heads a
+chromatic step apart in one chord each carry their sign. The `♮` takes its packed slot in the accidental column like any other (piece
+#2's `accidentalColumn`), and the nh-unit reads the column's `accKey` for the unaltered head. The GENERAL courtesy policy — a `♮` after
+a sharpened same-letter head EARLIER in the voice — is NOT this row: his call, at 2h.9.
+
+**The code:** `layout.js` `chordGeometry` — `accKeyOf` (the alteration's sign, or `natural` by the rule), `withAcc` and `accs` on it, the
+column's result carries `accKey`; the nh-unit's `accKind` falls back to the column's `natural`. Nothing outside a chord column changes.
+
+**The numbers (`vib_marks_check` 30 — THE NATURAL IN THE COLUMN · THE PROBE PAGE (2h.7) new):** 56.123 s — `♯` at dx −0.652 on the
+C♯6 (head dx 0.554), `♮` at −1.112 on the C6 (head 1.661), both on the line y 4 · 141.38 s — the other one-line pair (the ♯ on the
+displaced head this time): `♮` −0.562 · `♯` −1.022, y 3 · the probe's G5 · G♯5 pair: `♮` and `♯`. THE CLEARANCE check's tolerance widened
+to 1e-4 ss (the layout rounds a cut bar's end to 1 µs = 2e-5 ss; the `♮` at 56.123 moved that column's leftmost ink and the bar before it
+now ends exactly 0.250 − 2e-5 ss short — the rule holds, the test was too tight). `check_rules` 25 · `sequence_notation_check` 64.
+
+**THE SHIELD — `piece-lgmf` MOVED, and rightly:** 18 of 22 identical; the main file gained exactly the same two naturals (part 5, 56.12 ·
+141.38 s — its vibraphone chords are columned even without the `vibBows` overlay), nothing else; the plan's line "`piece-lgmf` has no
+chord column" was wrong — the rule is general and the two columns are the vibraphone's. No other part of the piece has a same-letter
+altered pair in one column today. `layout_shield --expect` names the four moves.

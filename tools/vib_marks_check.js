@@ -138,7 +138,7 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
       const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= (bar.t1Bow != null ? bar.t1Bow : bar.t1) - AB);
       if (!nx) continue;
       const gap = nx.t * sps + nx.l - bar.t1 * sps;
-      worst = Math.min(worst, gap); if (gap < AF - 1e-6) through++;
+      worst = Math.min(worst, gap); if (gap < AF - 1e-4) through++;   // the layout rounds t1 to 1 µs = 2e-5 ss at 18.65 ss/s
     }
     const b684 = bars.find(i => i.t1Bow != null && Math.abs(i.t1Bow - 6.84) < 0.05);
     ok(AF === 0.25 && !through && !!b684 && cut.length > 0, 'THE CLEARANCE (2h.1): every bar ends ≥ after (' + AF + ' ss) before its successor\'s leftmost ink — ' + cut.length + ' of ' + bars.length + ' bars cut, the tightest gap ' + (isFinite(worst) ? worst.toFixed(3) : '—') + ' ss; the 6.84 s bar cut by ' + (b684 ? ((b684.t1Bow - b684.t1) * sps).toFixed(2) + ' ss' : 'NOT CUT'));
@@ -190,6 +190,12 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
     ok(MKc.heightSs === 1.333 && MKc.upperEdge === 4.267 && MKc.lowerEdge === -4.267 && hps.length > 0 && edgeOk && onAxis,
       'THE HAIRPIN DOUBLED (2h.6): ' + hps.length + ' timed hairpins ' + MKc.heightSs + ' ss tall, the near edge never nearer the staff than ±' + MKc.upperEdge + ' (2g\'s axis 4.6 − 0.333), every name on its bow\'s axis');
   }
+  // [2h.7, §479] THE NATURAL IN THE COLUMN: 56.123 s — ♯ on the C♯6 (ev-wc-3179) and ♮ on the C6 (ev-wc-3180), the one staff line
+  {
+    const accAt = t => it5.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - t) < 0.02).map(i => i.g.replace('accidental-', '') + '@' + i.ySs).sort();
+    const a56 = accAt(56.123), a141 = accAt(141.38);
+    ok(C.engraving.layout.accNaturalInColumn === true && a56.join(' ') === 'natural@4 sharp@4', 'THE NATURAL IN THE COLUMN (2h.7): 56.123 s ♯ and ♮ on the one line — ' + a56.join(' · ') + ' · 141.38 s ' + (a141.join(' · ') || 'no sign'));
+  }
   const dev = Layout.deviceResolver(ir, C.engraving.layout);
   const anim = AnimObj.collect(ir, null, C.animated, { parts, meta: false, deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}) })
     .filter(i => i.part === LANE && (i.t0 != null ? i.t0 : i.at || 0) < ov.target.span[1] && (i.t1 != null ? i.t1 : Infinity) > ov.target.span[0]);
@@ -209,6 +215,8 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
       return { what: b.what, d, flush, okFlush: flush ? (ba.offSs < 0 && bb.offSs > 0 && ba.hFrac == null) : (ba.offSs == null && bb.offSs == null), columned: hs.length === 2 && (d > 0.5 + 1e-9 || Math.abs(hs[0].dxSs - hs[1].dxSs) > 0.5) };
     });
     ok(rows.length === 4 && rows.every(r => r.okFlush && r.columned) && !mp.warnings.length, 'THE PROBE PAGE: ' + rows.map(r => r.what.replace(/ \(.*$/, '') + ' Δ' + r.d.toFixed(2) + ' ' + (r.flush ? 'flush' : 'centred')).join(' · ') + ' (withinSs ' + W + '); the same-line and second pairs columned, no warnings' + (mp.warnings.length ? ' — ' + mp.warnings.slice(0, 2).join(' · ') : ''));
+    const pa = ip.filter(i => i.k === 'glyph' && /^accidental-/.test(i.g) && Math.abs(i.t - 2) < 0.02).map(i => i.g.replace('accidental-', '')).sort().join(' ');
+    ok(pa === 'natural sharp', 'THE PROBE PAGE (2h.7): the one-line pair G5 · G♯5 carries ♮ and ♯ — ' + (pa || 'no sign'));
   }
 }
 

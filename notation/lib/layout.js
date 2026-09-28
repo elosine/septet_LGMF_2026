@@ -749,9 +749,15 @@
           ? W / 2 - Math.min(...col.map(c => c.xOffsetSs))   // [D49] the column's leftmost head edge on the moment
           : -(gapSs + Math.max(...m.map((x, i) => col[i].xOffsetSs + x.w / 2 + x.lext)));
         m.forEach((x, i) => { x.headDx = base + col[i].xOffsetSs; });
-        const withAcc = m.filter(x => x.sp.alter && glyphs.accidental[ACC_OF[String(x.sp.alter)]]);
+        // [LGMF PLAN 2h.7 — RUNNING_LOG §479] THE NATURAL IN THE COLUMN (his 2g.6 eye at 56.123 s, C♯6 over C6 with one ♯: "we have to
+        // make sure we include the courtesy natural"): a head with NO alteration draws ♮ when another head of the SAME LETTER AND OCTAVE
+        // in this column carries a sign (Gould: two heads a chromatic step apart in one chord each carry their sign); it takes its packed
+        // slot like any other. rules.json objects.accidental.naturalInColumn (engraving.layout.accNaturalInColumn).
+        const NAT = o.accNaturalInColumn !== false;   // RULES MIRROR
+        const accKeyOf = x => x.sp.alter ? ACC_OF[String(x.sp.alter)] : (NAT && m.some(y => y !== x && y.sp.step === x.sp.step && y.sp.octave === x.sp.octave && y.sp.alter) ? 'natural' : null);
+        const withAcc = m.filter(x => accKeyOf(x) && glyphs.accidental[accKeyOf(x)]);
         const accs = withAcc.map(x => {
-          const a = glyphs.accidental[ACC_OF[String(x.sp.alter)]];
+          const a = glyphs.accidental[accKeyOf(x)];
           const noteY = a.anchors && a.anchors.noteY;
           const top = noteY ? noteY.y : a.hSs / 2;
           return { w: a.wSs, topExt: top, botExt: a.hSs - top, ySs: x.y, ax: noteY ? noteY.x : a.wSs / 2 };
@@ -769,7 +775,7 @@
         // relative to the note's own head centre (the unit's accRel.dx frame)
         withAcc.forEach((x, i) => accDx.set(x.e.id, packed[i].rightEdge - (accs[i].w - accs[i].ax) - x.headDx));
         const top = m.reduce((a, b) => (b.y > a.y ? b : a));
-        for (const x of m) out.set(x.e.id, { t: tChord, headDx: x.headDx, accDxRel: accDx.has(x.e.id) ? accDx.get(x.e.id) : null, top: x === top });
+        for (const x of m) out.set(x.e.id, { t: tChord, headDx: x.headDx, accDxRel: accDx.has(x.e.id) ? accDx.get(x.e.id) : null, accKey: accKeyOf(x), top: x === top });
         return out;
       };
       const items = [];
@@ -1432,9 +1438,11 @@
                 // every offset below is relative to the head's center, so
                 // the unit's horizontal ink is known before it is placed —
                 // which is what centering on the go line requires.
+                // [2h.7, §479] an unaltered head in a chord column takes the column's ♮ (chordGeometry accKey) — the same letter and
+                // octave altered beside it
                 const accKind = spN.alter ? ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
                   '0.5': 'quarterSharp', '-0.5': 'quarterFlat',
-                  '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' })[String(spN.alter)] : null;
+                  '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' })[String(spN.alter)] : (CG && CG.accKey === 'natural' ? 'natural' : null);
                 const acc = accKind ? glyphs.accidental[accKind] : null;
                 let accRel = null;
                 if (acc) {

@@ -110,6 +110,7 @@
    "italic": { "instruction": "@objects.instruction.italic", "number": "@objects.number.italic" },
    "pitchPicture": { "edgeCents": "@pitchPicture.edgeCents", "signs": "@pitchPicture.signs" },
    "accGapColumn": "@objects.accidental.besideUnit",
+   "accNaturalInColumn": "@objects.accidental.naturalInColumn",
    "partialForm": "@objects.number.partialForm",
    "floorTier": "@column.floorTiers.inside",
    "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
