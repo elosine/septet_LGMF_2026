@@ -162,8 +162,14 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **An accident, repaired (§449):** removing a scratch worktree followed its `node_modules` junction and emptied this repo's
   `node_modules` (gitignored) — restored from piece #5's identical install (resvg 2.6.2 · pngjs 7.0.0); the worktree recipe now unlinks
   the junction first; a memory records it.
-- **`Resume reads:`** nothing beyond §2 for his eye; for a fault: the step's § (§448 … §453) and `docs/ENGRAVING_RULES.md`.
-- **DELIBERATELY UNCOMMITTED — all his** (`git status --short`, 29 paths): unchanged from CHECKPOINT #2's list below.
+- **`Resume reads:`** nothing beyond §2 for his eye; for a fault in one step: that step's § (§448 … §453) and `docs/ENGRAVING_RULES.md`.
+- **Model:** nothing runs until he has looked — his answers on a LOOK go to Fable, a FAULT to Opus (the ►►► row).
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint, 29 paths — the same as
+  CHECKPOINT #2): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) ·
+  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport only; the
+  re-extraction read a COPY of it) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his
+  word) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) ·
+  `scores/piece-LGMF-*` (fourteen named saves; `-Sec01-Sec02-Sec3start` is the proto's source, read as a COPY) · `scores/pointilistic01a.json`.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
