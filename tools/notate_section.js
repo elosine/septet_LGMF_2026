@@ -1462,10 +1462,12 @@ if (flag('bricks')) {
 }
 
 // [LGMF PLAN 2e.3 (8), 2026-09-27 — §443 · §445, LG-115; rules.json techniqueChange] THE CHANGE OF TECHNIQUE: per part, in time order,
-// over the notes whose technique the table names — a note whose technique differs from the part's last such one carries its word
-// ("senza vib." · "ord."), once per change per part; the part's first note of a `firstAlso` technique carries it too (the piece's
-// first "senza vib."). A word that opens a sequence block goes into the block's column (below); every other one is an `instruction`
-// on the note's part at its time. The rule fires only where the save has it.
+// over the notes whose technique the table names — a note whose WORD differs from the part's last word carries it ("senza vib." ·
+// "ord."), once per change per part; the part's first note carries its word when `firstAlso` lists the word (the piece's first
+// "senza vib."). [§503, his "bsn, horn and tpt did not get the senza vib, they are meant to have it too"] in a SEQUENCE the word
+// follows the DEVICE (`byEnv.sequence`): the SI2 three have no senza key, their `ord` in a sequence is senza vib. by instruction.
+// A word that opens a sequence block goes into the block's column (below); every other one is an `instruction` on the note's part
+// at its time.
 const TECH_CHANGE = new Map();   // event id -> the word
 {
   const TC = (require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).techniqueChange) || null;
@@ -1475,10 +1477,16 @@ const TECH_CHANGE = new Map();   // event id -> the word
     for (const [part, list] of byPart) {
       list.sort((a, b) => a.onset - b.onset);
       let last = null;
+      const wordOf = e => {   // [§503] the device's word first (byEnv), then the sample's technique
+        const ov = TC.byEnv && e.env ? TC.byEnv[e.env] : null;
+        if (ov && (e.technique in ov)) return ov[e.technique];
+        return (e.technique in TC.texts) ? TC.texts[e.technique] : null;
+      };
       for (const e of list) {
-        if (!(e.technique in TC.texts)) continue;
-        if (last === null ? (TC.firstAlso || []).includes(e.technique) : e.technique !== last) TECH_CHANGE.set(e.id, { part, t: e.onset, d: e.duration, text: TC.texts[e.technique] });
-        last = e.technique;
+        const w = wordOf(e);
+        if (w == null) continue;
+        if (last === null ? (TC.firstAlso || []).includes(w) : w !== last) TECH_CHANGE.set(e.id, { part, t: e.onset, d: e.duration, text: w });
+        last = w;
       }
     }
   }

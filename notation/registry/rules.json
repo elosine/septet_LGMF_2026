@@ -121,11 +121,12 @@
  },
 
  "techniqueChange": {
-  "_doc": "THE VIBRATO WORDS (§443 · §445, LG-115; the shape of #5 D52's dynamics-on-change): per part, in time order, over the notes whose technique is one of `texts` — at a note whose technique differs from the part's last such technique, its word is written (once per change per part); the part's FIRST `senza_vel` note carries \"senza vib.\" (the piece's first), an `ord` note carries \"ord.\" only after a senza passage (`firstAlso` lists the techniques written at a part's first note). The word goes into the sequence block's column when the note opens a block, else an instruction on the note's part at its time. The rule fires only where the save has it: the SI2 players' `ord` (their library's plain sustain, never after a senza note) writes nothing.",
+  "_doc": "THE VIBRATO WORDS (§443 · §445, LG-115; the shape of #5 D52's dynamics-on-change): per part, in time order, over the notes whose technique is one of `texts` — at a note whose WORD differs from the part's last word, the word is written (once per change per part); a part's FIRST note carries its word when `firstAlso` lists that word (the piece's first \"senza vib.\"). IN A SEQUENCE THE WORD FOLLOWS THE DEVICE, NOT THE SAMPLE (§503): `byEnv.sequence` overrides `texts` for a note of env 'sequence' — the SI2 three (Bsn · Hn · Tpt) have no senza key, their `ord` is their library's only sustain, and in a sequence they play without vibrato by instruction. Before §503 this doc read 'the SI2 players' ord writes nothing' — the AI's reading at 2e.3 (8), reversed at his word ('bsn, horn and tpt did not get the senza vib, they are meant to have it too'). The word goes into the sequence block's column when the note opens a block, else an instruction on the note's part at its time — so a brass `ord` after a sequence reads \"ord.\" (LG-115's middle section) and the next sequence's block \"senza vib.\" again; the Xsample three, senza_vel throughout the save, keep their one word at the piece's start.",
   "texts": { "senza_vel": "senza vib.", "ord": "ord." },
-  "firstAlso": ["senza_vel"],
+  "byEnv": { "sequence": { "ord": "senza vib." } },
+  "firstAlso": ["senza vib."],
   "basis": "composer",
-  "ref": "§337 (\"senza vib.\" once, in the block) · §443 · §445 (his \"the middle section will be ord.\") · LG-115"
+  "ref": "§337 (\"senza vib.\" once, in the block) · §443 · §445 (his \"the middle section will be ord.\") · LG-115 · §503 (the SI2 three in a sequence: the word by the device)"
  },
 
  "staffLines": {

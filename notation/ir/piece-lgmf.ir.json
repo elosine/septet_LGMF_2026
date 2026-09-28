@@ -23,7 +23,7 @@
   "date": "2026-09-28",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/f31b7251-f3ed-4a03-b762-c3316b2a06d2/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/05af94fa-c918-40fb-a74d-4c586f5666b0/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j)\""
  },
  "events": [
   {
@@ -122129,7 +122129,7 @@
      "t": 5.3,
      "release": 20.111,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "pp",
       "mp"
@@ -122138,7 +122138,7 @@
      "fadeFrom": "niente",
      "midi": 48,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 4,
      "fundamental": "C1",
      "fundamentalMidi": 24,
@@ -136661,7 +136661,7 @@
       "pitch": "new",
       "midi": 51,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "E♭1",
       "fundamentalMidi": 27,
@@ -136676,7 +136676,7 @@
       "pitch": "new",
       "midi": 63,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "E♭1",
       "fundamentalMidi": 27,
@@ -136691,7 +136691,7 @@
       "pitch": "new",
       "midi": 51,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "E♭1",
       "fundamentalMidi": 27,
@@ -136713,7 +136713,7 @@
       "pitch": "new",
       "midi": 57,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "A1",
       "fundamentalMidi": 33,
@@ -136863,7 +136863,7 @@
      "t": 1,
      "release": 11.166,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "pp",
       "mp"
@@ -151925,7 +151925,7 @@
       "pitch": "new",
       "midi": 48,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "C1",
       "fundamentalMidi": 24,
@@ -151962,7 +151962,7 @@
       "pitch": "new",
       "midi": 75,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 16,
       "fundamental": "E♭1",
       "fundamentalMidi": 27,
@@ -151999,7 +151999,7 @@
       "pitch": "new",
       "midi": 45,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "A1",
       "fundamentalMidi": 33,
@@ -152137,7 +152137,7 @@
      "t": 4.1,
      "release": 14.391,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "pp",
       "mp"
@@ -167099,7 +167099,7 @@
       "pitch": "new",
       "midi": 69,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "A1",
       "fundamentalMidi": 33,
@@ -183429,7 +183429,7 @@
       "pitch": "new",
       "midi": 72,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "C2",
       "fundamentalMidi": 36,
@@ -183496,7 +183496,7 @@
       "pitch": "new",
       "midi": 39,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "E♭1",
       "fundamentalMidi": 27,
@@ -199001,7 +199001,7 @@
       "pitch": "new",
       "midi": 36,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "C2",
       "fundamentalMidi": 36,
@@ -199023,7 +199023,7 @@
       "pitch": "new",
       "midi": 60,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "C1",
       "fundamentalMidi": 24,
@@ -199038,7 +199038,7 @@
       "pitch": "new",
       "midi": 36,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "C1",
       "fundamentalMidi": 24,
@@ -199060,7 +199060,7 @@
       "pitch": "new",
       "midi": 39,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "E♭1",
       "fundamentalMidi": 27,
@@ -199148,7 +199148,7 @@
       "pitch": "new",
       "midi": 33,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "A1",
       "fundamentalMidi": 33,
@@ -214612,7 +214612,7 @@
       "pitch": "new",
       "midi": 64,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -214649,7 +214649,7 @@
       "pitch": "new",
       "midi": 69,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "A1",
       "fundamentalMidi": 33,
@@ -214792,7 +214792,7 @@
      "t": 432.3,
      "release": 444.102,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "pp",
       "mp"
@@ -214801,7 +214801,7 @@
      "fadeFrom": "niente",
      "midi": 35,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 1,
      "fundamental": "B1",
      "fundamentalMidi": 35,
@@ -229550,7 +229550,7 @@
       "pitch": "new",
       "midi": 71,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "B1",
       "fundamentalMidi": 35,
@@ -229565,7 +229565,7 @@
       "pitch": "new",
       "midi": 35,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "B1",
       "fundamentalMidi": 35,
@@ -229639,7 +229639,7 @@
       "pitch": "new",
       "midi": 45,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "A1",
       "fundamentalMidi": 33,
@@ -229788,7 +229788,7 @@
      "t": 428,
      "release": 440.776,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "pp",
       "mp"
@@ -244877,7 +244877,7 @@
       "pitch": "new",
       "midi": 47,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "B1",
       "fundamentalMidi": 35,
@@ -244892,7 +244892,7 @@
       "pitch": "new",
       "midi": 76,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 16,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -244914,7 +244914,7 @@
       "pitch": "new",
       "midi": 52,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -245133,7 +245133,7 @@
      "t": 431.1,
      "release": 438.875,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "pp",
       "mp"
@@ -259839,7 +259839,7 @@
       "pitch": "new",
       "midi": 71,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "B1",
       "fundamentalMidi": 35,
@@ -275793,7 +275793,7 @@
       "pitch": "new",
       "midi": 47,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "B1",
       "fundamentalMidi": 35,
@@ -276059,7 +276059,7 @@
      "fadeFrom": "niente",
      "midi": 59,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 4,
      "fundamental": "B1",
      "fundamentalMidi": 35,
@@ -290683,7 +290683,7 @@
       "pitch": "new",
       "midi": 35,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "B1",
       "fundamentalMidi": 35,
@@ -290763,7 +290763,7 @@
       "pitch": "new",
       "midi": 28,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -298441,7 +298441,7 @@
      "t": 655.796,
      "release": 668.474,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "ppp",
       "mp"
@@ -298450,7 +298450,7 @@
      "fadeFrom": null,
      "midi": 45,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 2,
      "fundamental": "A1",
      "fundamentalMidi": 33,
@@ -305574,7 +305574,7 @@
       "pitch": "new",
       "midi": 49,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -305712,7 +305712,7 @@
      "t": 659.352,
      "release": 672.134,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "ppp",
       "mp"
@@ -312398,7 +312398,7 @@
       "pitch": "new",
       "midi": 61,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -312435,7 +312435,7 @@
       "pitch": "new",
       "midi": 37,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -312536,7 +312536,7 @@
      "t": 656.529,
      "release": 665.154,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "ppp",
       "mp"
@@ -312545,7 +312545,7 @@
      "fadeFrom": null,
      "midi": 81,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 16,
      "fundamental": "A1",
      "fundamentalMidi": 33,
@@ -319732,7 +319732,7 @@
       "pitch": "new",
       "midi": 73,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -327383,7 +327383,7 @@
       "pitch": "new",
       "midi": 73,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -327525,7 +327525,7 @@
      "fadeFrom": null,
      "midi": 45,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 2,
      "fundamental": "A1",
      "fundamentalMidi": 33,
@@ -334093,7 +334093,7 @@
       "pitch": "new",
       "midi": 37,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -334122,7 +334122,7 @@
       "pitch": "new",
       "midi": 49,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "D♭2",
       "fundamentalMidi": 37,
@@ -334248,7 +334248,7 @@
      "fadeFrom": null,
      "midi": 76,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 16,
      "fundamental": "E1",
      "fundamentalMidi": 28,
@@ -342487,7 +342487,7 @@
      "t": 804.964,
      "release": 820.045,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "ppp",
       "p"
@@ -350090,7 +350090,7 @@
       "pitch": "new",
       "midi": 52,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 4,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -350237,7 +350237,7 @@
      "t": 800.664,
      "release": 813.004,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "ppp",
       "p"
@@ -358398,7 +358398,7 @@
      "t": 803.764,
      "release": 812.426,
      "technique": "ord",
-     "techText": null,
+     "techText": "senza vib.",
      "range": [
       "ppp",
       "p"
@@ -366121,7 +366121,7 @@
       "pitch": "new",
       "midi": 64,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 8,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -374576,7 +374576,7 @@
       "pitch": "new",
       "midi": 40,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 2,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -374719,7 +374719,7 @@
      "fadeFrom": null,
      "midi": 52,
      "cents": 0,
-     "centsText": "0",
+     "centsText": "",
      "partial": 4,
      "fundamental": "E1",
      "fundamentalMidi": 28,
@@ -382535,7 +382535,7 @@
       "pitch": "new",
       "midi": 28,
       "cents": 0,
-      "centsText": "0",
+      "centsText": "",
       "partial": 1,
       "fundamental": "E1",
       "fundamentalMidi": 28,
@@ -382598,6 +382598,123 @@
      }
     ]
    },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-3270",
+   "kind": "instruction",
+   "target": {
+    "part": 1,
+    "span": [
+     151.35,
+     172.166
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-4629",
+   "kind": "instruction",
+   "target": {
+    "part": 1,
+    "span": [
+     580.31,
+     594.533
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-4779",
+   "kind": "instruction",
+   "target": {
+    "part": 1,
+    "span": [
+     727.4,
+     738.641
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-3268",
+   "kind": "instruction",
+   "target": {
+    "part": 2,
+    "span": [
+     152.1,
+     168.959
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-4627",
+   "kind": "instruction",
+   "target": {
+    "part": 2,
+    "span": [
+     578.81,
+     591.184
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-4777",
+   "kind": "instruction",
+   "target": {
+    "part": 2,
+    "span": [
+     726.28,
+     737.58
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-3267",
+   "kind": "instruction",
+   "target": {
+    "part": 3,
+    "span": [
+     152.78,
+     167.18
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-4626",
+   "kind": "instruction",
+   "target": {
+    "part": 3,
+    "span": [
+     578.06,
+     587.593
+    ]
+   },
+   "value": "ord.",
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-techchg-ev-wc-4776",
+   "kind": "instruction",
+   "target": {
+    "part": 3,
+    "span": [
+     728.26,
+     733.353
+    ]
+   },
+   "value": "ord.",
    "provenance": "authored"
   }
  ]

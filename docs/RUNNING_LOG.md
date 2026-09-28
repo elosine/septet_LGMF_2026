@@ -17519,3 +17519,20 @@ flag; a new device is born on a proto page cut from a COPY of the draft, then fo
 **The AI's calls, his to reverse:** the sign never flips, both paths · a flipped row clears the staff for EVERY mark · the column stacks outside the sign, not between the head and it · the sign clears the accidental's height · the half-space tolerance in check (9).
 
 **Not done, by the rules:** no re-extraction (a layout change; the next extraction writes `''` for a 0) · the Chrome edge gates not run (no render · coords · frame change; the new items are the existing drawn kind `ottava`, with its edge row) · the page itself — his eye continues, a reload of the tab (page files only).
+
+## §503. HIS EYE, THE FOURTH FINDING — the brass blocks had no "senza vib."; in a sequence the word follows the device, not the sample (2026-09-28, Fable, session 17)
+
+**What prompted it** — after §502's reload: *"bsn, horn and tpt did not get the senza vib, they are meant to have it too"*.
+
+**The cause, in the data:** the change-of-technique rule (`techniqueChange`, 2e.3 (8), §445) keyed the word on the SAMPLE's technique — `senza_vel` → "senza vib.", `ord` → "ord.". The Xsample three (EH · Vc · Db) play `senza_vel` for every note of the save (159 + 34 · 48 + 39 · 61 + 57), so their first note carries the word; the SI2 three (Bsn · Hn · Tpt) play `ord` for every note (71 + 31 · 62 + 36 · 71 + 46) — their library has no senza key, `ord` is its only sustain — and the rule's own doc said so as a decision: *"the SI2 players' `ord` … writes nothing"*. That was the AI's reading at 2e.3 (8); he reverses it: the word is about the PLAYER, and in a sequence every player is without vibrato.
+
+**Built, at his word:**
+- `rules.json techniqueChange.byEnv: { sequence: { ord: "senza vib." } }` — in a note of env `sequence` the device's word overrides the sample's; the change test is by WORD now (`firstAlso` lists words: `["senza vib."]`); the doc rewritten, the old reading kept in it as reversed.
+- `tools/notate_section.js` — `wordOf(e)`: `byEnv[e.env]` first, then `texts`; a word is written at a part's first note when `firstAlso` lists it, else where the word differs from the part's last.
+- `piece-lgmf` RE-EXTRACTED from a COPY of Draft 01 (the same command as §501, the copy in this session's scratchpad): **24 words — 15 in a block** (the brass at every one of their twelve entries: Bsn 5.30 · 432.30 · 655.80 · 804.96, Hn 1.00 · 428.00 · 659.35 · 800.66, Tpt 4.10 · 431.10 · 656.53 · 803.76; the Xsample three at the piece's start as before) **· 9 as an instruction**: "ord." on each brass part's first plain note after each of the first three sequences (Bsn 151.35 · 580.31 · 727.40 · Hn 152.10 · 578.81 · 726.28 · Tpt 152.78 · 578.06 · 728.26 — LG-115's "the middle section will be ord."; none after the last sequence, the piece ends in it). 1076 events VALID.
+
+**Gates:** `check_rules` **28** GREEN (the page regenerated) · `sequence_notation_check` 64 · `vib_marks_check` 32 · THE SHIELD 20 of 21 identical, `piece-lgmf` alone moved (its IR changed; no layout code touched) · `decisions_needed --ir piece-lgmf` **7** at rung 3, 0 at 8 (6 before — one more brass block's column, with its word, flips its annotation).
+
+**Observed, not decided — his:** the Xsample three never read "ord." — the save plays them `senza_vel` through the middle section too, so the rule (which fires where the save has it) writes nothing there. If the middle section is meant to be ord. for them as well, that is the save's technique on those notes (his), not a rule. And the later blocks are asymmetric by the rule's own logic: the brass's say "senza vib." (a change back from "ord."), the Xsample three's say nothing (no change since the start).
+
+**Not done:** the protos not re-extracted (the draft did not change; the EH proto's words are the same under the new logic — `senza_vel` only) · no Chrome gate (no render change) · his eye — a reload of the tab.
