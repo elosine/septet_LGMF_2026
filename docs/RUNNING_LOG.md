@@ -16244,3 +16244,91 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
 - **The same rule for a fade-OUT to nothing** (a `cc7Fade` to 0): drawn as the written level × the weight, a straight line to the floor.
   The EH's own fade-out to ppp is not a `cc7Fade` — it is written in the heights (§459) and was right already.
 - **Page files + the IR — he reloads the tab.**
+
+## §463. THE VIBRAPHONE'S DYNAMICS IN THE SEQUENCE NOTATION — measured, then his per-bow scheme decided (2026-09-27, Fable, session 17)
+
+**What prompted it — his words, at the `/postclear`:** *"Let's discuss the vibraphone notation for the sequence. A couple of issues. There's
+two bow notes, not together, so it can't be notated as a curve, as a chord. Let's talk about whether there's much volume range in a single
+bow, or is it more that with each new bow, there's a new dynamic? Let's just start with those two things first. Well, so then I guess the
+choice is to decide whether there's a two separate curves, one for each part, or if I use duration lines and single dynamics under each
+one. or potentially something else. And then if it's curves, how to show that. I guess we can use the top half and bottom half since the
+vibrapone will never do glissando. So actually that's maybe the best solution, but let's discuss."* Worked under the planning method, one
+topic at a time; nothing built.
+
+**Topic 1 — the range inside one bow. The facts first** (`SEQUENCE_TOOL.md` §13; `sequence.js` 591 · 609): every held note in a sequence
+is SHAPED (DYNAMICS_LAW Rule 3); the waves stream is built PER PLAYER and **each vibraphone seat is a player of its own** (`lane:seat`) —
+so the two vibraphones carry **two independent curves**; a stream is a chain of slots from the recipe (`shortest` … `longest`, 8 … 20 s;
+11 … 20 in two sequences), each a swell `low → high → low` with `hold` 0.2 or flat at `low`; a bow takes the slice under it. His
+restatement — *"there is one dynamic curve and the different pitches just take a different slice, but not a different curve"* — right
+within a seat, corrected across the seats: two curves.
+
+**The measurement — his (a), "measure first."** `vib_bow_range.js` (the scratchpad; read-only over `scores/piece-Recombination-Draft01-done.json`):
+the level at a node = `lo + (hi − lo) · y/10` (composer.html `heldCc7` · `evalWaveCurve`) → the written level by inverting
+`dyn_table.cc7(bank, 'bowed_vibraphone', level)` (bisection; the table ppp 44 · pp 51 · p 60 · mp 69 · mf 81 · f 94 · ff 109 · fff 127);
+the seats by the record's overlap-chain rule (every bow placed, 79 · 77). **156 bows in four sequences** — `LGMF-R01c` 55 (pp…mp, 2 … 154 s)
+· `S02T2-SeqA_1` 52 (pp…mp, 429 … 580 s) · `lgmf-s03-seqb` 22 (ppp…mp, 657 … 724 s) · `lgmf-lastChord` 27 (ppp…p, 802 … 881 s).
+- bow length 2.27 … 10.31 s, median 5.61
+- **inside a bow, in written steps:** < 0.25: **67** · 0.25–0.5: 9 · 0.5–1: 24 · 1–2: **43** · ≥ 2: **13**; median 0.61, mean 0.77, max 2.87
+- **between two bows of one seat:** median **0.00**, max 0.24 — the next bow begins where the last ended; never a new level at a bow
+- per sequence, the median range inside a bow: R01c 0.00 (flat the first 36 s, then 14 bows ≥ 1 step, up to the whole pp → mp in one bow) ·
+  SeqA_1 0.74 (18 of 52 ≥ 1) · s03-seqb **2.26** (15 of 22 sweep most of ppp…mp) · lastChord 0.37 (9 of 27 ≥ 1)
+- **Topic 1 landed:** the vibraphone's dynamic in this piece is the CONTOUR, continuous across the bows; "a new dynamic with each bow" is
+  nowhere in the piece. A one-name-per-bow notation would misstate a third of the bows and nearly all of section 3's.
+
+**Topic 2 — the picture.** His scenario: *"duration lines for each of the vibraphone parts. I guess each bow, bow one and bow two. And
+just have pitch pitches there and the dynamic. When it changes."* — then, sharper: *"each bow for bow one and bow two have a pitch, have
+a note head, just like traditional notation, even if it's the same note. And each pitch or each bow has a dynamic. If the dynamic changes.
+And each bow has a duration line."* The AI first read "the dynamic when it changes" as the CONTOUR's marks — a name at each turning point,
+hairpins spanning across heads — and offered two pictures: (A) the EH's device twice, a level curve per seat in the halves of the band
+(his own first idea); (B) two voices, duration lines, names + hairpins. His ramp example showed a third: **the marks tied to the BOW** —
+*"the first bow might say, PP crescendo hairpin P. And then the second Bow might say P and then crescendo hairpin. And then the third bow
+might say P crescendo hairpin MP and then the fourth bow might say just MP … the sixth bow might be MP decrescendo hairpin P And the seventh
+bow P decrescendo hairpin and then the eighth bow P decrescendo hairpin PP."* Rendered on the real notes (`--his`, R01c seat 1, 33 … 95 s):
+`pp p · p < mp · mp > p · pp < mp · p > pp < p · p < mp > p · p > pp · pp < mp · mp · p > pp · pp · pp` — his ramp exactly, the wave
+honoured. Over all 156: **80** bows carry a hairpin · **11** have a turn inside · **9** join two identical names (`p <`) · 117 start on a
+name, 23 in between (worst rounding 0.49 step).
+
+**Why his over the AI's:** with two independent voices in one staff, the contour scheme's long hairpins (a swell is 8 … 20 s, a bow
+5 … 6 — most swells run across two or three bows) interleave; his keeps every mark under its own head, and a percussionist bowing two
+bars reads strokes. **Rejected:** (A) the two curves in the halves — two ribbons at half height, a curve where the player expects voices;
+the AI's contour marks — for the interleaving. Both faithful to the data; neither wrong, his clearer.
+
+**His conception, verbatim (COMPOSITION_NOTES LG-116):** *"hairpins describe dynamic movement and direction. The dynamic markings describe
+a relative level."* The six cases — `pp < p` · `p <` (movement short of the next name: the origin and the direction, no target) · the next
+bow starts at the carried `p` · a plateau = the single name · a turn inside a bow names the turn, `p < mp > p` — all confirmed against
+the data; one sharpening: a MONOTONE run through several levels names only its two ends (`ppp < mp`, 13 bows).
+
+**The three wrinkles the rendering found, and the rule that closes each (his: "I think I agree then with the three additional rules"):**
+1. a name change with no hairpin (33.16 s: a rise of 0.49 crossed the rounding line) → **a hairpin whenever the end name differs**
+2. **a disagreement at a join** — at 42.65 → 48.89 s the level is continuous (1.62 → 1.49, half a dB) but the rounding line sits at 1.5
+   between them: rounded independently the page reads `mp > p | pp < mp`, a phantom step to pp → **THE CARRY RULE: a bow's start name is
+   the previous bow's end name, never re-rounded**; re-read from the level only where there is nothing to inherit (a sequence's first bow,
+   a bow after a rest in that voice). His check of the case: *"if a bow goes from P and then the next bow doesn't quite reach PP, and still
+   starts what would be described as P, the first bow would have P and a decrescendo, and then the second bow would have a P decrescendo
+   and a PP"* — yes, exactly the scheme.
+3. a turn inside a bow → **the turn gets its name**
+
+**The rules he approved ("1 numbers good, 1-6 good"):**
+1. **what counts as movement** (the AI's numbers): a leg of **≥ 0.5 step (2 dB)** draws a hairpin; **0.25 … 0.5** draws one only if it
+   lands on a new name; **< 0.25** is flat. (Half a step alone left the 33.16 bow bare and the chain 3 dB off for one bow.)
+2. **the principle:** *a name changes only through a hairpin, and a hairpin appears only where there is motion* — it also closes the
+   carry rule's own wrinkle: a flat bow sitting on a rounding line gets nothing, not a phantom `p > pp`; the carried name stands until
+   real motion re-rounds it at a bow's end.
+3. the chain restarts at a sequence's first bow and after a rest in that voice.
+4. the open hairpin after a turn: `p < mp >` — the fall reaches its name in the next bow.
+5. the edges: the marks read the WRITTEN wave; the `2f` fade signs (`○—<` · `—> ppp`) stand apart, as for the EH (§462).
+6. scope: the vibraphone in a SEQUENCE; its bows in a morph carry a level too — a later look.
+7. **the repeated name — his (a): LEFT OFF.** A name appears only where it changes (through a hairpin, or at a restart); a flat stretch
+   is `pp` once, then bare heads and lines — R01c's opening: `pp` at 2.0 s, thirteen bare bows to 42.65 s; ≈ 90 names across the piece
+   instead of 156. Rejected (b), the name under every bow ("mp again") — the purest per-stroke form, twice the marks.
+
+**Also decided on the way:** a head per bow EVEN ON THE SAME PITCH (his: *"just like traditional notation, even if it's the same note"*) —
+a departure from the EH's "no head at a same-pitch breath" on a principled ground: a wind re-enters a line, a bow re-articulates. **No
+cents column on the vibraphone's head** — the bar is fixed; the pool deals a partial only within `mayTake`'s ±5 ¢ of a bar (the draft's
+lane-5 sequence notes checked below). A tracker row: PERFORMANCE_NOTES #10.
+
+**Not decided — the device sheet's questions (PLANNING_METHOD § THE DEVICE SHEET; the standing rule: a new notation begins with one):**
+the two voices' marks above / below the staff · stems up / down · the duration line's look against the winds' · whether the pie counts the
+vibraphone's bows · the anchors and objects rows · the morph's vibraphones. **Next:** the device sheet, on his word.
+
+**Checked after the entry:** all 156 lane-5 sequence notes of Draft 01 carry a bend of 0.00 ¢ — the vibraphone's sequence pitches are the bars themselves; the head alone is the whole pitch.

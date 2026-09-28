@@ -2732,3 +2732,31 @@ Nothing else said about it; its reasons, if he gives them, go here.
 *AI's reading (marked as such):* the piece's sustained notes are senza vibrato in the outer sections and ORDINARIO (with vibrato) in the
 middle section; so the notation marks "ord." at each part's first note of the middle section and re-states "senza vib." at the first
 block after it; the performance notes say "senza vibrato throughout, except the middle section, marked ord." (RUNNING_LOG §445).
+
+## LG-116 — 2026-09-27 (session 17, the vibraphone's dynamics in the sequence notation)
+
+*His conception of how the two bowed vibraphones are notated in a sequence — verbatim, the same day, after the measurement of RUNNING_LOG
+§463 (156 bows: the level a continuous contour per seat, never a new level at a bow, a step or more inside a third of the bows).*
+
+> So my thoughts were that each bow for bow one and bow two have a pitch, have a note head, just like traditional notation, even if it's
+> the same note. And each pitch or each bow has a dynamic. If the dynamic changes. And each bow has a duration line.
+
+> Let's say it's the ramp up from PP to MP. So the first bow might say, PP crescendo hairpin P. And then the second Bow might say P and
+> then crescendo hairpin. And then the third bow might say P crescendo hairpin MP and then the fourth bow might say just MP and then the
+> fifth bow might be MP again and then the sixth bow might be MP decrescendo hairpin P And the seventh bow P decrescendo hairpin and then
+> the eighth bow P decrescendo hairpin PP.
+
+> So in my conception, hairpins describe dynamic movement and direction. The dynamic markings describe a relative level. So in a situation
+> where one bow genuinely goes from one dynamic to another, let's say from PP to P, then at the note head, you'll see PP, hairpin crescendo,
+> and P. If a note is has some movement, either crescendo or decrescendo, but that doesn't quite reach the next dynamic mark, then you'll
+> just show its origin, let's say P, and just a hairpin crescendo, but not MP. And then the next bow will still start at P, and maybe that
+> one does go from P crescendo to MP. If a bow does not move, it's plateaus, then it's just the single dynamic mark. So this means there's
+> no dynamic movement. It's sitting at MP, for example. If the, the opposite happens and it moves through more than one dynamic level, then
+> we indicate all three dynamic levels with the appropriate hairpins. So if it goes from P to MP and then back to P again in one bow, then
+> it will be P crescendo hairpin, MP decrescendo hairpin, P.
+
+*AI's reading, marked as such:* the marks belong to the BOW, not to the contour — every stroke self-contained: its start name (carried
+from the bow before, never re-rounded), a hairpin for its motion, a name where it lands or turns. He approved the seven rules that make it
+exact (RUNNING_LOG §463: the thresholds ½ · ¼ step · a name changes only through a hairpin · the restarts · the open hairpin · the edges
+apart · the sequence as scope · the repeated name LEFT OFF, his "a"). His first idea — two curves in the halves of the band, *"since the
+vibrapone will never do glissando"* — was set aside by his own analysis.
