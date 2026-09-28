@@ -183,11 +183,16 @@ console.log('(4) THE FIT · (5) THE DOT');
     const mf = Layout.layoutSection(JSON.parse(JSON.stringify(proto)), glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: B2 }, LO));
     const u = (mf.fit || []).find(x => x.part === 0 && x.t === 0), red = mf.systems.find(s => s.part === 0).items.some(i => i.seq === 'alert' && i.t === 0);
     const walked = u ? [...new Set(u.tried.map(x => String(x.rung)))].join(',') : '';
-    ok(u && u.rung === 8 && walked === '1,2,3,4-7' && red, 'a unit forced 2 ss past its lane walks rungs 1 → 2 → 3 and is reported at 8, marked red — walked ' + walked + ', rung ' + (u && u.rung));
-    B2.byKey['0'] = Object.assign({}, B2.byKey['0'], { top: 8.12 });
-    const mf3 = Layout.layoutSection(JSON.parse(JSON.stringify(proto)), glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: B2 }, LO));
+    ok(u && u.rung === 8 && walked === '1,3,2,4-7' && red, 'a unit forced 2 ss past its lane walks rungs 1 → 3 (the annotation) → 2 → 3 (the pitch data) and is reported at 8, marked red — walked ' + walked + ', rung ' + (u && u.rung));
+    // the WORKING page (no realization — the EH in F, D♯6 on two ledgers), its own lane boxes: the block's column tops the lane by 0.30 ss
+    const ENSW = Layout.ensembleFor(ens, null), BW = Fit.boxesFor(C || raw, ENSW, ENSW.parts.map(p => p.part));
+    const mf3 = Layout.layoutSection(JSON.parse(JSON.stringify(proto)), glyphs, Object.assign({ m4AttackLines: false, frameParts: ENSW.parts.map(p => p.part), ensemble: ENSW, techniques: T, fitBoxes: BW }, LO));
     const u3 = (mf3.fit || []).find(x => x.part === 0 && x.t === 0);
-    ok(u3 && u3.rung === 3, 'the same unit with room above is placed by rung 3 (the flip) — rung ' + (u3 && u3.rung));
+    // [§458, his (a)] the flip by class: the word goes under the dynamic row, the cents and the partial stay over the head
+    const it3 = mf3.systems.find(s => s.part === 0).items.filter(i => i.t === 0 && i.k === 'text');
+    const numsUp = it3.filter(i => i.seq === 'cents' || i.seq === 'partial'), wordDown = it3.filter(i => i.seq === 'techText');
+    ok(u3 && u3.rung === 3 && numsUp.length === 2 && numsUp.every(i => i.ySs > 2.5) && wordDown.length === 1 && wordDown[0].ySs < -4.6,
+      'the block on the WORKING page (0.30 ss past the lane top) is placed by rung 3, THE FLIP BY CLASS (§458): the word under the dynamic row, the cents and the partial kept over the head — rung ' + (u3 && u3.rung) + ', numbers y ' + numsUp.map(i => i.ySs.toFixed(2)).join(' · ') + ', word y ' + wordDown.map(i => i.ySs.toFixed(2)).join(''));
   }
 }
 

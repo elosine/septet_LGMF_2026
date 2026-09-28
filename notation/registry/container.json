@@ -112,7 +112,7 @@
    "accGapColumn": "@objects.accidental.besideUnit",
    "partialForm": "@objects.number.partialForm",
    "floorTier": "@column.floorTiers.inside",
-   "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack" },
+   "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
    "stemLen": "@objects.stem.lengthSs",
    "accGap": "@objects.accidental.beside",
    "tagY": "@column.rows.tag",

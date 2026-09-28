@@ -16102,3 +16102,38 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
   `piece-lgmf`.
 - **Pending him from the same look:** the ladder's order under his pitch-data rule (§456's discussion — a) compress · flip the annotation ·
   shrink · flip the pitch data, or b) the flip alone made two-stage); the plan items to follow his word.
+
+## §458. THE FLIP BY CLASS — his rule on the pitch column under pressure, built: the annotation leaves first, the pitch data stays with the head (2026-09-27, Fable, session 17)
+
+- **His words, on the 28.7 s breath (its two-row column above the head) against the block (flipped below):** *"This note also has two
+  ledger lines, and yet the pitch notation is above the note head. Is it because of the senza vibrato notation in the initial block? If
+  that's the case, then can we categorize these notations and adapt the rule? So in other words, the senza of vibrato or other things
+  like pizzicato or whatever can go below if it is pushing up against the top of the lane. But the sense, a pitch notation should try to
+  stay with the note head unless those two alone, when they're alone, do push up against the top and then they can move below. Let's
+  discuss this possibility and what would need to change in our rule structure."* — and on the order of the rungs: *"The pitch column
+  under pressure - a, and if this is a small enough build go ahead and build unless the plan is necessary for documentation"*.
+- **The cause, confirmed:** the block's column has three rows (the word on top) and tops the working page's lane by 0.30 ss (the gap
+  0.00); the 28.7 s column has two and fits. Rung 3 flipped ALL the marks on the spilling side as one set (the fit report: compress →
+  0.30 · 0.30, shrink → 0.12, flip → fits), so the numbers went below with the word.
+- **The rule, his:** two classes of mark on a unit — PITCH DATA (the cents and the partial: bonded to the head) and ANNOTATION (the words
+  and the symbols: senza vib., pizz., ord. …). Under pressure the annotation flips; the pitch data flips only if, alone, it still spills.
+  **His (a) on the order:** compress · flip the annotation · shrink · flip the pitch data — a word below is a normal place; a smaller
+  number is a smaller number.
+- **Built (small — the rows and this § are the documentation; no PLAN item):**
+  - `rules.json` objects: `leaves` on the mark rows — `instruction` 1 · `techSymbol` 1 · `number` 2; a row without the field is
+    annotation (1); the objects `_doc` says so. `ladder`: the walk in the `rungs` array's ORDER — 1 compress · 3 flip the annotation
+    (stage 1) · 2 shrink · 3 flip the pitch data (stage 2) · 4 … 7 · 8 — the numbers name the KIND of move (rung 8, the override, keeps
+    its meaning everywhere), the array is the order. DN-6 marked decided and built.
+  - `container.json` `engraving.layout.ladder.leaves` points at the three rows (compiled: 146 pointers).
+  - `fit.js` `ladder()`: `rankOf(item)` through the existing `OBJECT_OF` map (the override's item → row resolver, one copy); `flipMarks(set)`
+    lifted from rung 3; the walk: compress → restore, flip the marks of rank < 2, measure → shrink the marks still on the spilling side →
+    restore, flip the whole side → page-level → 8. The rung written on the items = the last rung applied; `tried` carries the path.
+  - `check_rules.js` (5): the forced walk now reads `1,3,2,4-7`; the working-page case asserts the class: the word under the dynamic row,
+    the cents and the partial over the head.
+- **Verified on the proto's WORKING page (the app's frame, in F — the page he was looking at):** the fit report — compress 0.30 · 0.30,
+  then *"the annotation (1) flipped to the bottom, the pitch data kept → fits"* at rung 3; the model: `+41` 5.54 · `26 (C1)` 6.54 over the
+  head (4.50, D♯6 on two ledgers), "senza vib." −6.12 under the dynamic row (−4.60). The video view (in C) untouched — nothing spills
+  there. `check_rules` 23 GREEN (the flip-by-class check in it) · `sequence_notation_check` 62 / 62 · `decisions_needed`: 0 units left
+  rung 0 on every page (the tool runs the video frame) · `ENGRAVING_RULES.md` regenerated. Page files only — he reloads the tab.
+- **The AI's calls, his to reverse:** a mark row without `leaves` is annotation (the dynamic and the arrow flip with the words; the ottava
+  too) · the rung written on a unit is the LAST applied · the stage-2 flip starts from the standard placement, not from the shrunk one.

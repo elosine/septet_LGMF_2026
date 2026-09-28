@@ -10,7 +10,9 @@
 // THE LADDER (rules.json `ladder`), run per unit, only where the standard placement does not fit — a unit that fits is never touched,
 // so a page where everything fits is byte-identical: 0 the standard placement, a spill into the inter-lane gap accepted if it touches
 // nothing of the neighbour's · 1 COMPRESS the gaps between the stacked marks 0.45 → 0.30 → 0.20 (never the first mark's own distance
-// to the core) · 2 SHRINK the marks on the spilling side one size step (÷ 1.122) · 3 FLIP them to the free side · 4 … 7 (the nudge,
+// to the core) · then THE WALK OF §458 (his (a)): 3 FLIP THE ANNOTATION — the marks whose row says 'leaves' 1 (the words, the symbols)
+// — to the free side · 2 SHRINK the marks still on the spilling side one size step (÷ 1.122) · 3 FLIP THE PITCH DATA too ('leaves' 2:
+// the cents and the partial stay with the head until nothing else helps) · 4 … 7 (the nudge,
 // the lane rebalance, the octave device, the staff size) are PAGE-LEVEL — not automatic here, reported as not tried · 8 MANUAL: the
 // unit keeps its standard placement, is marked red on the page, and goes on the decisions-needed list until an override exists (an
 // `engraving` overlay on the event: the object · the property · the value · the rung · his § and date — five fields, §425).
@@ -147,7 +149,37 @@
       tried.push({ rung: 1, result: 'the stack at ' + g + ' ss → ' + (ok(ink) ? 'fits' : 'spills ' + fmtOver(overOf(ink, box))) });
       if (ok(ink)) return done(1, ink, items, tried, side, o0, box);
     }
-    // 2 SHRINK the marks on the spilling side one step, then re-stack them from the first row's inner edge at the compressed gap
+    // THE WALK OF §458 (his (a), 2026-09-27): the ANNOTATION leaves the head side before anything shrinks; the PITCH DATA (the cents and
+    // the partial — the rows whose 'leaves' is 2) stays with the head until nothing else helps. L.leaves = { row: rank }, compiled from
+    // the objects table (engraving.layout.ladder.leaves); a mark whose row carries no rank is annotation (1).
+    const LV = L.leaves || {};
+    const rankOf = it => { for (const k of Object.keys(OBJECT_OF)) if (OBJECT_OF[k](it)) return LV[k] != null ? LV[k] : 1; return 1; };
+    const other = side === 'top' ? 'bottom' : 'top';
+    // FLIP a set of the spilling side's marks to the other side, in the same order outward, from the other side's outermost ink
+    const flipMarks = ms => {
+      const rows = rowsOf(ms);
+      const rest = items.filter(it => !ms.includes(it)), inkRest = unitInk(rest, glyphs, ts);
+      if (!rows.length || !inkRest) return;
+      // the gaps as they stand, measured before anything moves: the first row's own distance to the core, then row to row
+      // (the first row's distance on the free side: its own, or the standard stack if its own was a fixed row far off — the dynamic row)
+      const gs = rows.map((r, i) => i === 0 ? Math.min(sgn > 0 ? r.lo - ink0.core.hi : ink0.core.lo - r.hi, gaps[0]) : (sgn > 0 ? r.lo - rows[i - 1].hi : rows[i - 1].lo - r.hi));
+      let edge = sgn > 0 ? inkRest.lo : inkRest.hi;   // the other side's outermost ink
+      for (let i = 0; i < rows.length; i++) {
+        const r = rows[i];
+        if (sgn > 0) { shiftRow(r, (edge - gs[i]) - r.hi); edge = r.lo; }   // a spill up flips DOWN, stacked outward from below
+        else { shiftRow(r, (edge + gs[i]) - r.lo); edge = r.hi; }            // a spill down flips UP
+      }
+    };
+    // 3 (stage 1) FLIP THE ANNOTATION — from the standard placement, standard sizes; the pitch data kept over the head
+    restore();
+    {
+      const ms = marks().filter(it => rankOf(it) < 2);
+      flipMarks(ms);
+      const ink = measure();
+      tried.push({ rung: 3, result: 'the annotation (' + ms.length + ') flipped to the ' + other + ', the pitch data kept → ' + (ok(ink) ? 'fits' : 'spills ' + fmtOver(overOf(ink, box))) });
+      if (ok(ink)) return done(3, ink, items, tried, side, o0, box);
+    }
+    // 2 SHRINK the marks still on the spilling side one step, then re-stack them from the first row's inner edge at the compressed gap
     {
       const ms = marks();
       for (const it of ms) { if (it.k === 'text') it.size = +((it.size || 1) / step).toFixed(4); else if (it.k === 'glyph') it.scale = +(((it.scale || 1)) / step).toFixed(4); }
@@ -159,27 +191,15 @@
         if (gap > g + EPS) { const d = -sgn * (gap - g); for (let j = i; j < rows.length; j++) shiftRow(rows[j], d); }
       }
       const ink = measure();
-      tried.push({ rung: 2, result: 'the marks one size smaller → ' + (ok(ink) ? 'fits' : 'spills ' + fmtOver(overOf(ink, box))) });
+      tried.push({ rung: 2, result: 'the marks still on the ' + side + ' one size smaller → ' + (ok(ink) ? 'fits' : 'spills ' + fmtOver(overOf(ink, box))) });
       if (ok(ink)) return done(2, ink, items, tried, side, o0, box);
     }
-    // 3 FLIP the spilling side's marks to the other side, in the same order outward, from the other side's outermost ink (standard sizes)
+    // 3 (stage 2) FLIP THE PITCH DATA TOO — the whole spilling side, from the standard placement, standard sizes
     restore();
     {
-      const ms = marks(), rows = rowsOf(ms);
-      const rest = items.filter(it => !ms.includes(it)), inkRest = unitInk(rest, glyphs, ts);
-      if (rows.length && inkRest) {
-        // the gaps as they stand, measured before anything moves: the first row's own distance to the core, then row to row
-        // (the first row's distance on the free side: its own, or the standard stack if its own was a fixed row far off — the dynamic row)
-        const gs = rows.map((r, i) => i === 0 ? Math.min(sgn > 0 ? r.lo - ink0.core.hi : ink0.core.lo - r.hi, gaps[0]) : (sgn > 0 ? r.lo - rows[i - 1].hi : rows[i - 1].lo - r.hi));
-        let edge = sgn > 0 ? inkRest.lo : inkRest.hi;   // the other side's outermost ink
-        for (let i = 0; i < rows.length; i++) {
-          const r = rows[i];
-          if (sgn > 0) { shiftRow(r, (edge - gs[i]) - r.hi); edge = r.lo; }   // a spill up flips DOWN, stacked outward from below
-          else { shiftRow(r, (edge + gs[i]) - r.lo); edge = r.hi; }            // a spill down flips UP
-        }
-      }
+      flipMarks(marks());
       const ink = measure();
-      tried.push({ rung: 3, result: 'the marks flipped to the ' + (side === 'top' ? 'bottom' : 'top') + ' → ' + (ok(ink) ? 'fits' : 'spills ' + fmtOver(overOf(ink, box))) });
+      tried.push({ rung: 3, result: 'the whole side flipped to the ' + other + ', the pitch data too → ' + (ok(ink) ? 'fits' : 'spills ' + fmtOver(overOf(ink, box))) });
       if (ok(ink)) return done(3, ink, items, tried, side, o0, box);
     }
     restore();

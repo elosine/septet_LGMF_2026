@@ -3072,7 +3072,8 @@
     // the page has to say so and the renderer has to honour it.
     // [LGMF PLAN 2e.4 — rules.json `ladder`; RUNNING_LOG §422 · §423 · §426 · §451] LADDER v2: every unit against its lane box (the
     // caller's o.fitBoxes — NotationFit.boxesFor, the frame's lanes in ss). A unit that fits — or spills into the gap touching nothing —
-    // is never touched, so such a page is byte-identical; one that does not walks compress · shrink · flip; past them it keeps its
+    // is never touched, so such a page is byte-identical; one that does not walks compress · flip the annotation · shrink · flip the
+    // pitch data (§458, his (a) — the cents and the partial stay with the head until nothing else helps); past them it keeps its
     // standard placement, is marked red on the page and REPORTED (model.fit) until an override stands on its event (an `engraving`
     // overlay with rung 8: the object · the property · the value · the rung · his ref). Switched on by the table (ladder.built).
     const FIT = [];
