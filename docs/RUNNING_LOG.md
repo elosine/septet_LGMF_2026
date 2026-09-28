@@ -16575,3 +16575,44 @@ DOM: 82 ring-bar rects at 5.27 px (whole) and 2.63 px (half) · `export_print --
 **THE SHIELD:** `piece-lgmf` · `lgmf-eh-proto` re-extracted byte-identical (date normalized) · the 40 layouts of every IR before this step —
 #4's seventeen tuba goldens with them — identical · the print plans identical · the screen dumps identical but for the edge table's new row ·
 the engine batteries as on HEAD (seven green, `test_animobj` red since §454).
+
+## §470. 2g.4 THE MARKS DRAWN — names, the niente circle and the TIMED hairpins in the two rows (2026-09-27, Opus, session 17)
+
+**What was built:**
+- **the layout** (`layout.js`, a pass after the close rule): per bow, from its `vibBows` marks — the upper voice's on `marks.upperRow`
+  (+4.6), the lower's on `marks.lowerRow` (−4.6); **one row a bow**, pushed OUTWARD to clear the heads, ledgers, accidentals and ottavas of
+  every bow sounding under it by the standard spacer 0.45 (the mirror of the winds' lower-ink rule, #5 §479 — found needed before
+  building: the upper voice lives at C6 … F6, y 4 … 5.5 with two and three ledgers, so +4.6 sat ON its heads; on the proto the upper row
+  lands at 4.6 … 6.04, the lower at −4.6 · −5.73). The START mark centred on its head (anchor A's `columnAlign` centre — the head's
+  centre and time ride on its bar, `headDxSs` · `headT`, so a head the chord column displaced carries its name with it); a name reached
+  centred on its time; the niente circle in place of the start name at a fade from silence.
+- **the timed hairpin, a new drawn kind `hairpin-timed`** (render.js, a LONG kind): from x(the motion's start) to x(its end) — its END
+  pulled back before the name it reaches (the name's half width + 0.45; the circle's tip touching, `circleGapSs` 0), its START clamped IN
+  THE RENDERER to begin after the mark before it (`after: {t, dxSs}` — the name's right edge + 0.45, the circle's edge + 0): the two anchors
+  live at two times, so the "later of the two" is a question of the frame, and only the renderer knows its pixels per second — every view
+  (the video, the zoom, the paper) gets the gap right. **`minHairpinSs`** is applied there too: a hairpin shorter than 1 ss between its two
+  marks is not drawn and the names stand. The wedge is cut at the page's edges by interpolation, so a page draws exactly its share of the
+  opening (edge `cut` · `stub`).
+- **the ladder** (`fit.js`): a mark carrying `noFlip` never flips (rules.json `vibMarks.flip` false — a voice's row is meaning); compress
+  and shrink still apply. On the proto no unit leaves rung 0.
+
+**Verified on the proto (the model as export_video lays it out; the screen DOM of `export_video --screenHtml`):**
+- the drawn marks = the reader's, **bow by bow: 55 / 55** (the marks read off the page in x order, the hairpins at their clamped start)
+- every mark on its voice's side: 89 / 89 — no mark of the lower voice above the staff, none of the upper below
+- the fades: `○` at 2.0 s (upper) and 2.6 s (lower), each centred on its head, the cresc hairpin's tip touching it, to `pp` at the bow's
+  end (6.84 · 8.48 s — §468)
+- the hairpin at 38.68 s from after the `p` (its centre 722.00 ss, the hairpin from 722.82) to before the `mp` at 42.60 s (793.31 → the mp
+  centred at 794.44) — in the video frame's ss
+- the opening 2.7 … 42.6 s: 14 bows, **12 bare** (the plan's "13" was §463's count on Draft 01 before the rules; the marked two are 33.16
+  `pp < p` and 38.68 `p < mp`) · the last bows `p > ppp` (148.24) · `pp > ppp` (148.84)
+- 0 hairpins dropped under 1 ss at the video frame (18.65 ss/s) · the DOM: 41 timed-hairpin paths (those crossing a page cut drawn on
+  both), 2 niente circles
+- `check_rules` 25 GREEN · `sequence_notation_check` 64 / 64 · `vib_marks_check` 16 GREEN · `decisions_needed`: 0 units off rung 0 on all
+  four pages
+
+**THE SHIELD:** both IRs re-extracted byte-identical (date normalized) · the 40 layouts of every earlier IR (#4's goldens with them)
+identical · **the drawn screen pages of `piece-lgmf` and `lgmf-eh-proto` byte-identical** (the `--screenHtml` of every page) · the print
+plans and screen dumps identical once the new kind is set aside (they echo the renderer's kind lists) · the batteries as on HEAD.
+
+**Not checked (his rule — offered, not done):** whether a bow's end name and the next bow's start name in the SAME row come close on
+paper, where the page holds fewer ss a second than the video frame (at 18.65 ss/s a join 0.05 s wide leaves ≈ 0.7 ss between two `p`s).

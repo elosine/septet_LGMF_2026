@@ -654,6 +654,22 @@
           const tip = it.dir === 'decresc' ? x1 : x0, open = it.dir === 'decresc' ? x0 : x1;
           parts.push('<path d="M' + open.toFixed(2) + ',' + (yA - hh).toFixed(2) + ' L' + tip.toFixed(2) + ',' + yA.toFixed(2) +
             ' L' + open.toFixed(2) + ',' + (yA + hh).toFixed(2) + '" fill="none" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linejoin="miter"/>');
+        } else if (it.k === 'hairpin-timed') {
+          // [LGMF 2g.4, §464 · §466] THE VIBRAPHONE'S TIMED HAIRPIN: its length the time of the movement — from x(t0) (never before
+          // `after`, the mark before it + its gap) to x(t1) + dx1Ss (before the name it reaches); dropped when shorter than `minSs` (the
+          // names stand). A spanning graphic (edge cut · stub): drawn on every page it crosses, the wedge cut at the page's edges by
+          // interpolation, so a page draws exactly its share of the opening
+          if (!crosses(it.t0, it.t1)) continue;
+          let xa = X(it.t0, it.dx0Ss), xb = X(it.t1, it.dx1Ss);
+          if (it.after) xa = Math.max(xa, X(it.after.t, it.after.dxSs));
+          if (xb - xa < (it.minSs || 0) * ssPx) continue;
+          const hh = (it.hSs || 0.667) * ssPx / 2, thick = (it.thickSs || 0.13) * ssPx, yA = Y(it.ySs);   // RULES MIRROR
+          const open = x => hh * (it.dir === 'decresc' ? (xb - x) : (x - xa)) / (xb - xa);   // the half-opening at x: 0 at the tip
+          const ca = Math.max(xa, view.xOfSeconds(w0)), cb = Math.min(xb, view.xOfSeconds(wInk));
+          if (cb - ca < 0.5) continue;
+          parts.push('<path d="M' + ca.toFixed(2) + ',' + (yA - open(ca)).toFixed(2) + ' L' + cb.toFixed(2) + ',' + (yA - open(cb)).toFixed(2) +
+            ' M' + ca.toFixed(2) + ',' + (yA + open(ca)).toFixed(2) + ' L' + cb.toFixed(2) + ',' + (yA + open(cb)).toFixed(2) +
+            '" fill="none" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round"/>');
         } else if (it.k === 'tuplet') {
           // THE TUPLET BRACKET (day 23) — the composer's LilyPond standard,
           // measured: a FLAT bracket (their own flatten-tuplet-bracket), hooks
@@ -892,7 +908,7 @@
   // keeping a second list that could quietly disagree with the loop above.
   const POINT_KINDS = ['glyph', 'rest', 'stem', 'dot', 'ledger', 'beam', 'text', 'attackline', 'tick',
     'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc'];
-  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick'];
+  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed'];   // [2g.4] the timed hairpin spans time
   const FURNITURE_KINDS = ['staff', 'clef'];
   // 'tuplet' is neither: it has no window gate at all, because a tuplet bracket
   // belongs to a beam group and the splicer is stamp-atomic — no cut severs a

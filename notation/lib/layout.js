@@ -1568,6 +1568,9 @@
                   // NOT caught by the layout/render snapshots, whose fixture has no
                   // GC-bearing ring bar.
                   ringBarItem.dx0Ss = Math.max(0, headDx + rightExt + rbGap);
+                  // [LGMF 2g.4] the vibraphone's bow: its head's centre and time ride on its bar — the start mark centres on the head
+                  // (anchor A's column), displaced by the chord column or not
+                  if (vibBowOf.has(e.id)) { ringBarItem.headDxSs = +headDx.toFixed(6); ringBarItem.headT = tU; }
                 }
                 // unit ink extents (grow as elements land) — feed both the
                 // accidental clearance and the ottava geometry
@@ -3088,6 +3091,62 @@
           const segs = [{ t: it.t0, side: list[0].side }];
           for (const q of list.slice(1)) if (q.side !== segs[segs.length - 1].side) segs.push({ t: +q.a.toFixed(6), side: q.side });
           if (segs.length > 1) it.segs = segs;
+        }
+      }
+      // [LGMF PLAN 2g.4 — RUNNING_LOG §470; the device sheet §466; rules.json vibMarks] THE VIBRAPHONE'S MARKS, per bow, from the
+      // `vibBows` overlay (the reader's marks): the upper voice's on `marks.upperRow` (+4.6) above the staff, the lower's on
+      // `marks.lowerRow` (−4.6) below — one row a bow, pushed outward to clear the heads, ledgers, accidentals and ottavas of every bow
+      // sounding under it by the standard spacer (the mirror of the winds' lower-ink rule, #5 §479). The START mark (a name, or the
+      // niente circle at a fade from silence) centred on its head (anchor A's column, the chord column's displacement followed); a
+      // name reached centred on its time; a TIMED hairpin (`hairpin-timed`) from where the motion begins to where it ends — clamped by
+      // the renderer to begin `gapSs` after the mark before it (the circle's tip touching, circleGapSs) and to end `gapSs` before the
+      // name it reaches, and DROPPED when shorter than minHairpinSs between them (the names stand). `noFlip` (vibMarks.flip false — a
+      // voice's row is meaning): the ladder may compress and shrink these marks, never flip them.
+      if (vibBowOf.size) {
+        const MK = Object.assign({ upperRow: 4.6, lowerRow: -4.6, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0, circleDiaSs: 0.4695,   // RULES MIRROR
+          circleThickSs: 0.13, minHairpinSs: 1, flip: false }, (((DEV.byEnv || {}).vibBow || {}).marks) || {});
+        const FitK = FitIn || (rootIn && rootIn.NotationFit) || null, tsK = o.textEmScale != null ? o.textEmScale : 1.3;
+        const bars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev) && it.headT != null);
+        const inkAt = new Map();   // head time → the vertical ink of the heads' units there { lo, hi }
+        const INKY = it => it.k === 'ledger' || it.k === 'ottava' || (it.k === 'glyph' && /^(notehead|accidental-)/.test(it.g || ''));
+        for (const it of items) {
+          if (it.t === undefined || !INKY(it) || !FitK) continue;
+          const e2 = FitK.inkOf(it, glyphs, tsK); if (!e2) continue;
+          const k = Math.round(it.t * 1e6), v = inkAt.get(k) || { lo: Infinity, hi: -Infinity };
+          v.lo = Math.min(v.lo, e2.lo); v.hi = Math.max(v.hi, e2.hi); inkAt.set(k, v);
+        }
+        const dynG = n => (glyphs.dynamic || {})[n] || null;
+        const halfW = m => m.kind === 'niente' ? MK.circleDiaSs / 2 : ((dynG(m.name) || { wSs: 1 }).wSs) / 2;
+        const noFlip = MK.flip === false;
+        for (const bar of bars) {
+          const b = vibBowOf.get(bar.ev);
+          if (!b.marks || !b.marks.length) continue;
+          const up = b.voice === 'upper';
+          // the ink under the bow: every bow sounding in [t0, t1] — its head's unit
+          let lo = Infinity, hi = -Infinity;
+          for (const x of bars) if (x.t0 < bar.t1 - 1e-6 && x.t1 > bar.t0 + 1e-6) { const v = inkAt.get(Math.round(x.headT * 1e6)); if (v) { lo = Math.min(lo, v.lo); hi = Math.max(hi, v.hi); } }
+          const half = Math.max(MK.heightSs / 2, ...b.marks.filter(m => m.kind === 'name').map(m => ((dynG(m.name) || { hSs: 0.9 }).hSs) / 2), b.marks.some(m => m.kind === 'niente') ? MK.circleDiaSs / 2 : 0);
+          const y = up ? Math.max(MK.upperRow, isFinite(hi) ? hi + MK.gapSs + half : -Infinity) : Math.min(MK.lowerRow, isFinite(lo) ? lo - MK.gapSs - half : Infinity);
+          const at = (m, t, dx) => {
+            if (m.kind === 'niente') items.push({ k: 'niente', t, dxSs: dx, ySs: +y.toFixed(4), diaSs: MK.circleDiaSs, thickSs: MK.circleThickSs, seq: 'vibMark', ev: bar.ev, noFlip });
+            else if (dynG(m.name)) items.push({ k: 'glyph', g: 'dyn-' + m.name, t, dxSs: dx, ySs: +y.toFixed(4), align: 'center', seq: 'vibMark', ev: bar.ev, noFlip });
+            else warnings.push('vibraphone ' + bar.ev + ': a mark "' + m.name + '" has no dynamic glyph — not drawn');
+          };
+          let prev = null;
+          for (let i = 0; i < b.marks.length; i++) {
+            const m = b.marks[i];
+            if (m.kind !== 'hairpin') {
+              const t = m.start ? bar.headT : m.t, dx = m.start ? bar.headDxSs : 0;
+              at(m, t, dx);
+              prev = { t, dx, hw: halfW(m), kind: m.kind };
+              continue;
+            }
+            const nm = b.marks[i + 1] && b.marks[i + 1].kind !== 'hairpin' && Math.abs(b.marks[i + 1].t - m.tEnd) < 1e-6 ? b.marks[i + 1] : null;
+            const gapOf = (mk, tipSide) => mk.kind === 'niente' && tipSide ? MK.circleGapSs : MK.gapSs;   // the tip touches a circle
+            items.push(Object.assign({ k: 'hairpin-timed', t0: m.t, t1: m.tEnd, dx0Ss: 0, dx1Ss: nm ? -(halfW(nm) + gapOf(nm, m.dir === 'decresc')) : 0,
+              ySs: +y.toFixed(4), dir: m.dir, hSs: MK.heightSs, thickSs: MK.thickSs, minSs: MK.minHairpinSs, seq: 'vibHairpin', ev: bar.ev },
+              prev ? { after: { t: prev.t, dxSs: +(prev.dx + prev.hw + gapOf(prev, m.dir === 'cresc')).toFixed(6) } } : {}));
+          }
         }
       }
 

@@ -157,7 +157,8 @@
     const rankOf = it => { for (const k of Object.keys(OBJECT_OF)) if (OBJECT_OF[k](it)) return LV[k] != null ? LV[k] : 1; return 1; };
     const other = side === 'top' ? 'bottom' : 'top';
     // FLIP a set of the spilling side's marks to the other side, in the same order outward, from the other side's outermost ink
-    const flipMarks = ms => {
+    const flipMarks = ms0 => {
+      const ms = ms0.filter(it => !it.noFlip);   // [LGMF 2g.4] a mark whose side is meaning (the vibraphone's voices, rules.json vibMarks.flip false) never flips
       const rows = rowsOf(ms);
       const rest = items.filter(it => !ms.includes(it)), inkRest = unitInk(rest, glyphs, ts);
       if (!rows.length || !inkRest) return;
