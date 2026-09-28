@@ -16332,3 +16332,65 @@ the two voices' marks above / below the staff · stems up / down · the duration
 vibraphone's bows · the anchors and objects rows · the morph's vibraphones. **Next:** the device sheet, on his word.
 
 **Checked after the entry:** all 156 lane-5 sequence notes of Draft 01 carry a bend of 0.00 ¢ — the vibraphone's sequence pitches are the bars themselves; the head alone is the whole pitch.
+
+## §464. THE VIBRAPHONE'S BOWS ON THE PAGE — the head at anchor A, one staff with two rows, the specifics against the rules (2026-09-27, Fable, session 17)
+
+**The two consequences of §463, his yes first:** *"1 yes drop curve; 2 drop pie"* — the vibraphone lane carries NO level curve, meter,
+follower or `pp → mp` legend (the marks are the level); the `2f` fade signs stay; NO pie (every bow has a head).
+
+**The head — his question:** *"the head at anchor B like every sustained head … Do we have anything about this? Any decisions made
+previously? Wasn't the long tones in the tuba piece just the left side of the note head lined up with go time and no go line? And then
+the duration line behind it. Just tell me what the precedence is."* **The record** (`ENGRAVING_RULES.md` §1; #4 `NOTATION_STANDARDS.md`
+day 24): the governing principle — *a go line marks displacement*; a head ON its go time gets none. Cluster heads: left edge ON the go
+time, no go line, the ring bar after the head's ink + 0.25 ss (anchor A). #5's piano long notes (`byTechnique.main`, PLAN 2h.5): anchor A,
+head + ring bar. Anchor B (0.45 before the line, a go line) is #4's one-shot · surge · ord and this piece's sequence BLOCK — the whole
+right-justified column is what is displaced; `familyDevice.sustained` at B is PROVISIONAL (DN-5). **Decided: the vibraphone's bow at
+ANCHOR A** — a bare head, no GC, no column, nothing displaced: his memory's rule and the principle's own answer. The AI's *"like every
+sustained head"* withdrawn — 2e's provisional default, not a decision. The EH's block stays at B for its column.
+
+**The two voices — his worry:** *"In my mind, I was picturing them being on the same staff. But for example, when they're minor seconds
+apart, the duration lines will overlap. I suppose we can have a safeguard where they push to a different Y location when they're touching
+… Are you suggesting that there's two different staffs then? And let's evaluate what the best solution would be."* **The data**
+(`vib_bow_range.js --pairs` · `--cross`, Draft 01): 437.94 s with both bows sounding — **a second or closer 84 s (19 %:** 1 st 42.57 · 2 st
+38.62) · a third 35.7 · a 4th/5th 67.8 · an octave 94.2 · **unison 2.26 s** (two stretches) · **the ring bar is 0.667 ss tall against 0.5 ss
+between adjacent positions — at a second the bars DO overlap** · **the chains cross 30 times** (chain 0 the higher bar 251.5 s, the lower
+184.2 s — rows by chain would put the upper row's marks on the lower bar 42 % of the time) · 11 shared attacks (both bows within 0.3 s,
+the `attack` box lines). **The options:** (A) one staff, two rows by REGISTER — the upper row = the higher-sounding bow, a bow keeps its
+row for its length; bars within a second at half height toward their own side, a unison stacked; heads at one time by the chord
+displacement · (B) one staff, voices by STEM · (C) two staves, one per bow — every collision and ambiguity gone, the brace ≈ 45 % taller.
+**His: (A), as he pictured it** — *"I was wanting a open note head, the half note one, no stem. And then the rest of the markings are
+standard. And then the duration line as used in previous pieces … for ones that are two bows that are relatively close in time or are
+unisons, and don't fit in the same note column, we already have the chord displacement rules. So if that's ever the case, we'll use those
+same chord displacement, the horizontal displacement."* (C) stays the fallback if the proto reads badly. Rejected (B): a stem where nothing
+in the piece stems a sustained head. The residue accepted: a crossing mid-bow (~1 per 15 s of overlap) leaves a bow's marks in the row it
+began in — the ambiguity every two-voice staff has.
+
+**The specifics against the rules (`ENGRAVING_RULES.md` §3):**
+- the head: `notehead.open`, size 1, ink, no stem — established ✓
+- **the duration line = the RING BAR:** ink at 65 % opacity (grey), 0.667 ss, 0.25 ss after the head's ink (#4 day 22 · 24) — established.
+  **His "blue-gray line" is the BRICK** (`#4E7A9B` at 45 % — the bricks page's placeholder for an un-notated event, not a music mark);
+  §427's colour gate allows only ink for a music mark, so the vibraphone's bar is the grey one
+- the dynamics: the Emmentaler glyphs, size 1, ink, on `column.rows.dynamic` — established; **NEW: a row ABOVE the staff** for the upper voice
+- **the hairpin:** the `2f` kind is a FIXED 2 ss (symbolic); the vibraphone's are **TIMED** — the length is the movement's span — a
+  variant row; opening 0.667 ss and thickness 0.13 inherited. **The language:** this piece's arrow `pp → mp` already means "a continuous
+  change" on the winds (PERFORMANCE_NOTES #4); the hairpin means movement in time. The notes will say: *arrow = the range of a line
+  (symbolic); hairpin = movement, its length the time* (the `2f` fade hairpins the exception — symbolic, §459). PERFORMANCE_NOTES #12
+- the chord displacement: the record names a CHORD COLUMN (#2's D.6 — the accidental's 0.10 gap inside it); whether the head offset for a
+  second is in THIS engine is UNVERIFIED — the device sheet checks; if absent, one rule
+
+**The hairpin's standard practice — his question:** *"if you have, for example, a double whole node, there'll be an initial dynamic, say P …
+the hairpin will span the entire duration of the double whole node. And you'll get a dynamic, say, MP at the end … Or is it standard to state
+the whole movement at the beginning? … if it's the double movement, then dynamic at node head, hairpin, dynamic at the plateau, the actual
+plateau, or symbolic halfway through?"* **The former** (Gould, *Behind Bars*; and the proportional score makes it literal): the hairpin
+spans the TIME of the change — from where it begins to where the new level is reached — and the closing dynamic sits at the point reached;
+in a time-proportional score the actual position IS the standard, a symbolic midpoint would misstate the time. A turn: the name at the
+ACTUAL peak (the wave's plateau START), the second hairpin from the plateau's END. A hairpin never touches a dynamic (the house 0.45 on
+both sides); a hairpin may end without a name (movement short of the next level — Gould allows it for a slight change).
+
+**The AI's calls he took (*"left to nail down — good"*):** tempered accidentals only, never the quarter-tone set · the bar runs the bow's
+full length, no breath cut (the bows abut within 0.05 s) · `○—<` before each voice's first name, `—> ppp` on each voice's last bow · the
+name centred on its head, as anchor A's column does.
+
+**MOTOR OFF for the whole piece** — his word: *"motor off for whole piece"*. PERFORMANCE_NOTES #11.
+
+**Next:** the plan item — the device sheet and the top line (PLANNING_METHOD § THE DEVICE SHEET).
