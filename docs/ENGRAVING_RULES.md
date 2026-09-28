@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 187 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 189 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -117,7 +117,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `niente`
 - **instruction** — face **text** · size **0.75** → `layout.textSizes.instruction` · italic **true** → `layout.italic.instruction` · colour **ink #111** → `layout.colours.instruction` · stack **0.45** → `layout.devices.byEnv.sequence.block.textGapSs` · besideCut **0.15** → `layout.seccoGapSs` · leaves **1** → `layout.ladder.leaves.instruction` · *composer* · §427 · §428 (every word on a note: instruction 0.75 italic, black — the technique size 0.7 and the 1.0998 "pizz." bake retired) · stack: the block's text 0.45 above the column §380 · besideCut: "sempre secco" #5 §540 · LilyPond TextScript padding 0.3 / 0.5 (the seed)
   - draws `text` `text[techText]` `text[instruction]`
-- **number** — face **text** · size **0.75** · italic **false** → `layout.italic.number` · partialForm **{n} ({f})** → `layout.partialForm` · colour **ink #111** → `layout.colours.number` · parent **0.6** → `layout.devices.byEnv.sequence.block.centsGapSs` · stack **1** → `layout.devices.byEnv.sequence.block.rowSs` · emSs **0.975** → `layout.devices.byEnv.sequence.block.numEmSs` · leaves **2** → `layout.ladder.leaves.number` · *composer* · §427 A5 (black — they were grey by render.js's default) · §428 (upright, instruction size) · parent: D45's height (#5) · stack: one row §380 · emSs = 0.75 × 1.3 · always written §435 · the partial `26 (C1)` §438
+- **number** — face **text** · size **0.75** · italic **false** → `layout.italic.number` · partialForm **{n} ({f})** → `layout.partialForm` · centsZero **omit** → `layout.centsZero` · colour **ink #111** → `layout.colours.number` · parent **0.6** → `layout.devices.byEnv.sequence.block.centsGapSs` · stack **1** → `layout.devices.byEnv.sequence.block.rowSs` · emSs **0.975** → `layout.devices.byEnv.sequence.block.numEmSs` · leaves **2** → `layout.ladder.leaves.number` · *composer* · §427 A5 (black — they were grey by render.js's default) · §428 (upright, instruction size) · parent: D45's height (#5) · stack: one row §380 · emSs = 0.75 × 1.3 · always written §435, a rounded 0 omitted §502 (his 'if there are no actual cents deviation no need for the 0' — the partial takes the first row) · the partial `26 (C1)` §438 · never inside the staff on EITHER side §502 (ladder.flipClearsStaff)
   - draws `text[cents]` `text[partial]`
 - **tempoText** — face **text** · size **0.75** → `layout.textSizes.tempo` · italic **false** · colour **ink #111** → `layout.colours.tempoText` · *composer* · #4 day 35 (the trance bar line + tempo mark) · textSizes.tempo · §427 (the label black)
   - draws `tempotext` `text[tempo]`
@@ -145,7 +145,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `beam` · in: thicknessSs glyphs.json standards.beam
 - **tuplet** — colour **ink #111** · look **{thicknessSs: 0.16, hookLengthSs: 0.7, paddingSs: 0.5, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralInsetSs: 0.4, numeralGapPerCharSs: 0.88, numeralCapFactor: 0.7}** → `layout.tuplet` · *composer* · #4 day 23 (his own LilyPond standard, surveyed from #2's 809 .ly files)
   - draws `tuplet`
-- **ottava** — colour **ink #111** · ledgerThreshold **3** → `layout.ottavaLedgerThreshold` · endBeside **0.3** → `layout.ottavaEndGapSs` · stack **0.45** · *composer* · ledgerThreshold #5 §401j (Gould, #2's staff router) · endBeside #5 §401m · LilyPond OttavaBracket padding 0.5 / 2.0 (the seed, §422)
+- **ottava** — colour **ink #111** · ledgerThreshold **3** → `layout.ottavaLedgerThreshold` · endBeside **0.3** → `layout.ottavaEndGapSs` · stack **0.45** · heads **EVERY head folds under the threshold and takes the sign — the nh-unit, the chord column, the pair beam, the sequence block and its breaths (§502: the block's own head never folded — the bass's E5 on six ledgers, the cello's B♭4 on four, the ladder at 8; check_rules (9) holds it over every page)** · *composer* · ledgerThreshold #5 §401j (Gould, #2's staff router) · endBeside #5 §401m · LilyPond OttavaBracket padding 0.5 / 2.0 (the seed, §422)
   - draws `ottava` · in: stack = glyphs.json standards.ottava.standardGapSs (and the bracket's numbers)
 - **rest** — face **music** · colour **ink #111** · *lilypond* · #4 day 23
   - draws `rest`

@@ -235,6 +235,40 @@ console.log('(8) SOUNDING PITCH');
     (bad.length ? ' — differ: ' + bad.slice(0, 4).join(' · ') : '') + (!inC.size ? ' — no sequence page to compare' : ''));
 }
 
+// ---------------------------------------------------------------- (9) [§502] THE OTTAVA ON EVERY HEAD · THE PITCH DATA OUTSIDE THE STAFF · NO 0
+console.log('(9) THE OTTAVA ON EVERY HEAD · THE COLUMN OUTSIDE THE STAFF · NO 0');
+{
+  // his eye 2026-09-28 (RUNNING_LOG §502): the sequence block's head stood on six ledger lines with no sign (its own head placement never
+  // folded), a column flipped by the ladder sat between the staff lines, and a 0 was written for no deviation. Over EVERY page here:
+  const Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js'));
+  const LO = ((C || raw).engraving || {}).layout || {};
+  const boxes = Fit.boxesFor(C || raw, ENS, ENS.parts.map(p => p.part));
+  const th = 2 + (LO.ottavaLedgerThreshold != null ? LO.ottavaLedgerThreshold : 3);
+  const lined = new Set((ens.parts || []).filter(p => p.staff && Array.isArray(p.staff.lines)).map(p => p.part));
+  let heads = 0, far = [], cols = 0, inStaff = [], zeros = [], signs = 0;
+  for (const f of irFiles) {
+    const ir = rd(path.join('notation', 'ir', f));
+    const m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: boxes }, LO));
+    const name = f.replace('.ir.json', '');
+    for (const s of m.systems) {
+      if (lined.has(s.part)) continue;
+      for (const it of s.items || []) {
+        if (it.k === 'glyph' && /^notehead/.test(it.g || '')) { heads++; if (Math.abs(it.ySs) > th + 0.5 + 1e-9) far.push(name + ' p' + s.part + '@' + it.t.toFixed(2) + ' y ' + it.ySs.toFixed(1)); }
+        if (it.k === 'ottava') signs++;
+        if (it.k === 'text' && (it.seq === 'cents' || it.seq === 'partial')) {
+          cols++;
+          const e = Fit.inkOf(it, glyphs, 1.3);
+          if (e && e.hi > -2 + 1e-9 && e.lo < 2 - 1e-9) inStaff.push(name + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + it.seq + ' y ' + it.ySs.toFixed(2));
+          if (it.seq === 'cents' && String(it.text) === '0') zeros.push(name + ' p' + s.part + '@' + it.t.toFixed(2));
+        }
+      }
+    }
+  }
+  ok(!far.length, '(9) every head on a five-line staff lies within the ottava threshold — ' + LO.ottavaLedgerThreshold + ' ledger lines, a second\'s tolerance for a trill\'s neighbour (' + heads + ' heads, ' + signs + ' signs)' + (far.length ? ' — beyond it: ' + far.slice(0, 6).join(' · ') : ''));
+  ok(!inStaff.length, '(9) no cents or partial stands inside the staff after the ladder (' + cols + ' numbers)' + (inStaff.length ? ' — inside: ' + inStaff.slice(0, 6).join(' · ') : ''));
+  ok(!zeros.length, '(9) a rounded 0 cents is not written (number.centsZero ' + LO.centsZero + ')' + (zeros.length ? ' — written: ' + zeros.slice(0, 6).join(' · ') : ''));
+}
+
 console.log('');
 console.log(failures ? 'RULES RED: ' + failures + ' of ' + checks + ' checks failed' : 'RULES GREEN: ' + checks + ' checks');
 process.exit(failures ? 1 : 0);

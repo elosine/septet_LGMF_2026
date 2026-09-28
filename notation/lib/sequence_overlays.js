@@ -27,7 +27,9 @@
   };
   const STEP_NAMES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
   // the cents as written (just_partials_notation §1a): signed, the TRUE minus, no ¢
-  const centsText = c => { const r = Math.round(c); return r === 0 ? '0' : (r > 0 ? '+' : '−') + Math.abs(r); };
+  // [§502, his "if there are no actual cents deviation no need for the 0"] a rounded 0 is nothing written (rules.json number.centsZero);
+  // the layout treats '' and an older IR's '0' alike
+  const centsText = c => { const r = Math.round(c); return r === 0 ? '' : (r > 0 ? '+' : '−') + Math.abs(r); };
 
   // CC7 → the written level on the fixed scale, through the part's ladder L (eight CC7 values, ppp … fff)
   function writtenOf(cc, L) {

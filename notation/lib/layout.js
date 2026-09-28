@@ -982,8 +982,18 @@
       const justHead = (t, m, rightSs, opt) => {
         const q = opt || {}, k = q.scale || 1, HEAD = glyphs.notehead.open, hw = HEAD.wSs * k;
         const pic = justPicture(spellMidi(m.midi + trSeq), m.cents, o.pitchPicture);   // [2e.3 (2)] the nearest quarter-tone, the tuner's origin
-        const sp = pic.sp, y = posOf(sp);
-        const LL = (glyphs.standards || {}).ledgerLine, lf = (LL && LL.lengthFraction) || 0.25;
+        const sp = pic.sp;
+        let y = posOf(sp);
+        // [§502 — his eye 2026-09-28 on the main page: "need to use Otava for all parts and please investigate why it isn't being applied"]
+        // THE OTTAVA FOLD, the nh-unit's own (rules.json objects.ottava.ledgerThreshold — the smallest shift bringing the written note
+        // within that many ledger lines, every part, #5 §401j): this head was placed at its raw written position, however many ledger
+        // lines, and no sign drawn — the bass's E5 on six ledgers, the cello's B♭4 on four (piece-lgmf 3.50 · 4.70 s), the ladder at 8
+        const stdsJ = glyphs.standards || {};
+        const thJ = 2 + (oSys.ottavaLedgerThreshold != null ? oSys.ottavaLedgerThreshold : ((stdsJ.ottava && stdsJ.ottava.ledgerLineThreshold) || 3));
+        let octShift = 0;
+        while (y > thJ) { y -= 3.5; octShift++; }
+        while (y < -thJ) { y += 3.5; octShift--; }
+        const LL = stdsJ.ledgerLine, lf = (LL && LL.lengthFraction) || 0.25;
         const ledg = ledgersFor(y), overhang = ledg.length ? hw * lf : 0;
         const accK = q.noAcc ? null : pic.acc, ag = accK ? glyphs.accidental[accK] : null;
         const PL = q.paren ? glyphs.accidental.leftParen : null, PR = q.paren ? glyphs.accidental.rightParen : null;
@@ -1004,24 +1014,49 @@
         if (PL) { items.push({ k: 'glyph', g: 'accidental-leftParen', t, dxSs: left - pGap - PL.wSs * pk / 2, ySs: y, align: 'center', scale: pk, ev: q.ev }); left -= pGap + PL.wSs * pk; }
         const headTop = y + (HEAD.hSs || 1) * k / 2;
         let topInk = Math.max(headTop, ...ledg), lowInk = Math.min(y - (HEAD.hSs || 1) * k / 2, ...ledg);
+        if (octShift !== 0) {
+          // [§502] THE SIGN as the nh-unit draws it: the bracket over the head only, the hook at the rightmost ink + endBeside, the label's
+          // widened start carried on the item (§483). Its ink joins the pitch ink, so the column and the word stack outside it (LilyPond's
+          // order, rules.json column.order: the ottava INSIDE the text, §420 · §421). It clears the accidental too (a sharp stands taller
+          // than the head) and never flips — its side is meaning.
+          const O = stdsJ.ottava || {}, std = O.standardGapSs || 0.45, hook = O.hookLengthSs || 0.8;
+          const above = octShift > 0, n = Math.min(2, Math.abs(octShift));
+          if (Math.abs(octShift) > 2) warnings.push('sequence head ' + (q.ev || t) + ': ' + Math.abs(octShift) + ' octaves exceeds 15ma — clamped');
+          const label = above ? (n === 1 ? 'va8' : 'ma15') : (n === 1 ? 'vb8' : 'mb15');
+          const lgO = glyphs.ottavaText && glyphs.ottavaText[label], lgWO = lgO ? lgO.wSs + (O.textGapBeforeLineSs != null ? O.textGapBeforeLineSs : 0.1) : 0;
+          const endGap = o.ottavaEndGapSs != null ? o.ottavaEndGapSs : (O.endPadSs != null ? O.endPadSs : 0);
+          const dx1O = cx + hw / 2 + overhang + endGap;
+          const dx0O = Math.min(left, dx1O - (O.minBracketSpanSs || 1.37) - lgWO);
+          const aTop = ag ? y + ((ag.anchors && ag.anchors.noteY) ? ((ag.hSs || 1) - ag.anchors.noteY.y) : (ag.hSs || 1) / 2) * k : -Infinity;
+          const aBot = ag ? y - ((ag.anchors && ag.anchors.noteY) ? ag.anchors.noteY.y : (ag.hSs || 1) / 2) * k : Infinity;
+          const ref = above ? Math.max(topInk, aTop) : Math.min(lowInk, aBot);
+          const lineY = above ? ref + std + hook : ref - std - hook;
+          items.push({ k: 'ottava', t, dx0Ss: +dx0O.toFixed(6), dx1Ss: +dx1O.toFixed(6), ySs: lineY, dir: above ? 'above' : 'below', label, ev: q.ev, seq: 'ottava', noFlip: true });
+          const attach = O.lineAttachAboveBaselineSs != null ? O.lineAttachAboveBaselineSs : 0.32;
+          if (above) topInk = Math.max(topInk, lineY + (lgO ? lgO.hSs : 0) - attach); else lowInk = Math.min(lowInk, lineY - attach);
+        }
         let colTop = null;
-        if (q.column && m.centsText != null) {
-          const yC = Math.max(headTop, 2) + SQB.centsGapSs;                    // D45's height: over the head's ink, never inside the staff
-          const yP = yC + SQB.rowSs;
+        // [§502, his "if there are no actual cents deviation no need for the 0"] a rounded 0 is not written (rules.json number.centsZero);
+        // the partial takes the first row. A '0' in an IR extracted before §502 is the same case.
+        const cZero = Math.round(+m.cents || 0) === 0 || m.centsText === '0' || m.centsText === '';
+        const cText = q.column && m.centsText != null && m.centsText !== '' && !(o.centsZero === 'omit' && cZero) ? String(m.centsText) : null;
+        const pText = q.column ? partialLabel(m, o.partialForm) : null;
+        if (cText != null || pText) {
+          const yC = Math.max(topInk, 2) + SQB.centsGapSs;                     // D45's height: over the pitch ink, never inside the staff
+          const yP = cText != null ? yC + SQB.rowSs : yC;
           const estW = s => String(s || '').length * 0.5 * SQB.numEmSs;         // render.js spanSsOf's estimate: half an em a character
-          const pText = partialLabel(m, o.partialForm);
-          const wide = Math.max(estW(m.centsText), estW(pText)) > hw;
+          const wide = Math.max(estW(cText), estW(pText)) > hw;
           // [2e.3 (1), §418 F2] the anchor's column rule: `right` — every member ends at the spacer, the unit's right edge (x); else centred,
           // a column wider than the head right-aligned to the head
           const RJ = SQB.columnAlign === 'right';
           const ax = RJ ? x : wide ? cx + hw / 2 : cx, anchor = RJ || wide ? 'end' : 'middle';
           const NUM = { size: TS.number != null ? TS.number : TS.instruction, color: COL.number, italic: !!ITAL.number };   // [2e.3 (3), §427] black, 0.75, upright
-          items.push(Object.assign({ k: 'text', t, dxSs: ax, anchor, text: String(m.centsText), ySs: yC, seq: 'cents', ev: q.ev }, NUM));
+          if (cText != null) items.push(Object.assign({ k: 'text', t, dxSs: ax, anchor, text: cText, ySs: yC, seq: 'cents', ev: q.ev }, NUM));
           if (pText) items.push(Object.assign({ k: 'text', t, dxSs: ax, anchor, text: String(pText), ySs: yP, seq: 'partial', ev: q.ev }, NUM));
           colTop = (pText ? yP : yC) + SQB.slashTopEm * SQB.numEmSs;   // the row's ink top (Crimson Pro's '/' reaches 0.711 em)
           topInk = Math.max(topInk, colTop);
         }
-        return { cx, y, hw, lowInk, topInk, colTop, left, headTop, right: x };
+        return { cx, y, hw, lowInk, topInk, colTop, left, headTop, right: x, octShift };
       };
       for (const sq of sequences) if (sq.part === part && first) {
         const en = sq.v.entry, t = en.t;
@@ -2221,7 +2256,7 @@
                     // plus the smallest gap — registry ottavaEndGapSs (the staccato-dot gap, 0.15); LilyPond's own
                     // OttavaBracket runs 0.6 ss past the last note (shorten-pair (-0.8 . -0.6))
                     dx1Ss: headDx + (TPG ? TPG.right : nhO.wSs / 2 + (ledgers.length ? ledgerExt : 0)) + (o.ottavaEndGapSs != null ? o.ottavaEndGapSs : ((O.endPadSs != null) ? O.endPadSs : 0)),   // [§445] a trill: the bracket runs over the neighbour group too (the ottava transposes it)
-                    ySs: lineY, dir: above ? 'above' : 'below', label, ev: e.id,
+                    ySs: lineY, dir: above ? 'above' : 'below', label, ev: e.id, noFlip: true,   // [§502] the sign's side is meaning — the ladder never flips it (the tuba goldens had 8vb flipped above the note, inside the staff)
                   });
                   // [2i E1, §527] the bracket's ink about its line: the hook (toward the staff) and the label, whose baseline
                   // sits lineAttachAboveBaselineSs under the line (render.js)
@@ -3387,8 +3422,11 @@
         if (!evAt.has(k)) evAt.set(k, []); evAt.get(k).push(e.id);
       }
       for (const s of systems) {
-        const key = String(s.staff > 0 ? s.part + ':' + s.staff : s.part), box = ctx.boxOf(key);
-        if (!box) continue;
+        const key = String(s.staff > 0 ? s.part + ':' + s.staff : s.part), box0 = ctx.boxOf(key);
+        if (!box0) continue;
+        // [§502] the staff's outer line rides on the box, for the flip that lands outside the staff (fit.js flipMarks, ladder.flipClearsStaff)
+        const SIl = staffInfoOf(partCfgOf(ENS, s.part));
+        const box = Object.assign({}, box0, { staffHalf: SIl && SIl.lined ? (SIl.n - 1) * SIl.gapSs / 2 : 2 });
         for (const u of ctx.units.get(key) || []) {
           const ink = FitM.unitInk(u.items, glyphs, ts);
           if (!ink || ctx.ok(key, u, ink)) continue;

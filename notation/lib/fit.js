@@ -167,6 +167,11 @@
       // (the first row's distance on the free side: its own, or the standard stack if its own was a fixed row far off — the dynamic row)
       const gs = rows.map((r, i) => i === 0 ? Math.min(sgn > 0 ? r.lo - ink0.core.hi : ink0.core.lo - r.hi, gaps[0]) : (sgn > 0 ? r.lo - rows[i - 1].hi : rows[i - 1].lo - r.hi));
       let edge = sgn > 0 ? inkRest.lo : inkRest.hi;   // the other side's outermost ink
+      // [§502 — his eye 2026-09-28: "Why are the cents notation in the staff?"] a flipped row lands OUTSIDE THE STAFF: the number row's
+      // own rule ("over the head's ink, never inside the staff", D45) held on the head side only — the flip stacked from the unit's
+      // lowest ink (a ledger line), so a column flipped under a high head sat between the staff lines. rules.json ladder.flipClearsStaff:
+      // the other side's edge is the staff's outer line at least (box.staffHalf — 2 on five lines; a lined staff its own)
+      if (L.flipClearsStaff && box && box.staffHalf != null) edge = sgn > 0 ? Math.min(edge, -box.staffHalf) : Math.max(edge, box.staffHalf);
       for (let i = 0; i < rows.length; i++) {
         const r = rows[i];
         if (sgn > 0) { shiftRow(r, (edge - gs[i]) - r.hi); edge = r.lo; }   // a spill up flips DOWN, stacked outward from below
