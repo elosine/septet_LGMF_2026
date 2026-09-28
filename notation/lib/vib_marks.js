@@ -36,9 +36,10 @@
   const r3 = x => +(+x).toFixed(3);
 
   // the lane's sequence bows (the sequence drawer's notes), optionally one or more groups, inside a window, in time order
+  // [LGMF PLAN 2k.5] `groupOnly`: a MORPH's bows (its notes carry no srcKind) — the named groups alone make the lane
   function notesOf(objects, lane, opts) {
     const O = opts || {}, [w0, w1] = O.window || [-Infinity, Infinity], groups = O.groups || null;
-    return (objects || []).filter(o => o.type === 'waveCurve' && o.layer === lane && o.srcKind === 'sequence'
+    return (objects || []).filter(o => o.type === 'waveCurve' && o.layer === lane && ((O.groupOnly && groups) || o.srcKind === 'sequence')
       && (!groups || groups.includes(o.groupId)) && o.startSeconds >= w0 && o.startSeconds < w1)
       .sort((a, b) => a.startSeconds - b.startSeconds || a.endSeconds - b.endSeconds);
   }

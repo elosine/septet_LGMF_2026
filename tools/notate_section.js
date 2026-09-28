@@ -1418,6 +1418,30 @@ if (flag('bricks')) {
 // breath. One shared library computes it so the standalone pages and this page
 // cannot drift apart. See docs/MORPH_NOTATION.md.
 const MORPH_SEQ = [];   // [LGMF PLAN 2k.2] the septet's morph parts, written as sequences after the change rule
+// [LGMF PLAN 2g.3 · 2k.5 — RUNNING_LOG §469 · the device sheets §466 · §506] THE VIBRAPHONE'S BOWS, one `vibBows` overlay per part and
+// group, shared by --sequence and --morph: the bows' events take env 'vibBow' (registry byEnv.vibBow — the head at anchor A, the ring
+// bar, no go line) and the overlay carries every bow's seat, voice and marks, read once from the save by notation/lib/vib_marks.js
+// (rules.json vibMarks). A morph's bows are read with the group alone (`groupOnly` — its notes carry no srcKind); the rules unchanged.
+function foldVibBows(flagName, gid, part, name, groupOnly) {
+  const VibMarks = require(path.join(ROOT, 'notation', 'lib', 'vib_marks.js'));
+  const VM_RULES = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).vibMarks;
+  const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
+  const vr = VibMarks.read(score.objects || [], part, Object.assign({ bank, instKey: TRACKS[part].instKey, groups: [gid], window: [w0, w1], rules: VM_RULES }, groupOnly ? { groupOnly: true } : {}));
+  if (!vr.bows.length) return 0;
+  const evOf = new Map(doc.events.map(e => [e.id, e]));
+  let tagged = 0;
+  for (const b of vr.bows) { const e = evOf.get(b.event); if (e) { e.env = 'vibBow'; tagged++; } else console.warn('  ALERT ' + flagName + ' ' + gid + ' part ' + part + ': bow ' + b.event + ' is not an event of this window'); }
+  for (const w of vr.warnings) console.warn('  ALERT ' + flagName + ' ' + gid + ' part ' + part + ' (vibraphone): ' + w);
+  const T0 = Math.min(...vr.bows.map(b => b.t0)), T1 = Math.max(...vr.bows.map(b => b.t1));
+  doc.overlays.push({ id: 'ov-vib-' + String(gid).replace(/^grp-/, '') + '-p' + part, kind: 'vibBows', target: { part, span: [+T0.toFixed(4), +T1.toFixed(4)] },
+    value: { group: gid, name: name || null, ladder: vr.ladder,
+      bows: vr.bows.map(b => ({ event: b.event, chain: b.chain, voice: b.voice, t0: b.t0, t1: b.t1, midi: b.midi, restart: b.restart, startName: b.startName, marks: b.marks })) },
+    provenance: 'authored' });
+  console.log('  ' + flagName + ' ' + gid + ' part ' + part + ' (' + (name || '?') + ', the vibraphone): ' + vr.bows.length + ' bows (' + tagged + ' tagged vibBow) · chains ' +
+    vr.bows.filter(b => b.chain === 0).length + ' · ' + vr.bows.filter(b => b.chain === 1).length + ' · ' + vr.bows.filter(b => b.marks.length).length + ' marked · ' +
+    T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s');
+  return vr.bows.length;
+}
 {
   const MorphOv =require(path.join(ROOT, 'notation', 'lib', 'morph_overlays.js'));
   const groups = [];
@@ -1445,9 +1469,11 @@ const MORPH_SEQ = [];   // [LGMF PLAN 2k.2] the septet's morph parts, written as
     const built = MorphOv.forGroup(score.objects || [], gid, parts, gid.replace('grp-act-', '').replace('-01-01', ''), morphOpts);
     if (!built.length) { console.log('  --morph ' + gid + ': no tones in this score/parts — nothing folded'); continue; }
     // [2k.2] D45's "no residual on the start" is moot where the block writes the start head's cents (§1a, always)
-    for (const b of built) for (const a of b.alerts || []) if (!(asSeq && !isVibPart(b.part) && /^D45: .* starts .* off the quarter-tone grid/.test(a))) console.warn('  ALERT --morph ' + gid + ' ' + a);
+    // [2k.5] the vibraphone in a morph is its BOWS (below): the curve device skips it whole — no gliss, no header, no go lines, no ALERT
+    for (const b of built) for (const a of b.alerts || []) if (!(asSeq && (isVibPart(b.part) || /^D45: .* starts .* off the quarter-tone grid/.test(a)))) console.warn('  ALERT --morph ' + gid + ' ' + a);
     let dev = 0, other = 0;
     for (const b of built) for (const ov of b.overlays) {
+      if (asSeq && isVibPart(b.part)) continue;
       if (asSeq && !isVibPart(b.part) && (ov.kind === 'header' || ov.kind === 'cresc')) continue;   // [2k.2] the sequence overlay draws these
       // [2k.4, his B §505] the orange curve's vertical scale is the RULE's (rules.json objects.glissCurve.scale), stamped on the overlay
       // and read by the renderer: `travel` — the top half spans the part's own travel (morph_overlays' 0 … 1 of its extremes)
@@ -1466,7 +1492,11 @@ const MORPH_SEQ = [];   // [LGMF PLAN 2k.2] the septet's morph parts, written as
     if (asSeq) {
       const evOfM = new Map(doc.events.map(e => [e.id, e]));
       for (const b of built) {
-        if (isVibPart(b.part)) continue;
+        if (isVibPart(b.part)) {   // [2k.5] the vibraphone in a morph = its bows, the sequence's reader with the group alone
+          const mk = (score.objects || []).find(o => o.type === 'marker' && o.groupId === gid);
+          foldVibBows('--morph', gid, b.part, mk ? mk.label : null, true);
+          continue;
+        }
         for (const o of b.tones) { const e = evOfM.get('ev-' + o.id); if (e) e.env = 'morph'; }
         MORPH_SEQ.push({ gid, part: b.part, b });
       }
@@ -1539,23 +1569,7 @@ if (SEQ_GROUPS.length) {
       // 'vibBow' (the registry's byEnv.vibBow: the head at anchor A, the ring bar, no go line) and the part carries ONE `vibBows`
       // overlay: every bow's seat, voice and marks, read once from the save by notation/lib/vib_marks.js (rules.json vibMarks).
       if (TRACKS && TRACKS[part] && TRACKS[part].instKey === 'bowed_vibraphone') {
-        const VibMarks = require(path.join(ROOT, 'notation', 'lib', 'vib_marks.js'));
-        const VM_RULES = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).vibMarks;
-        const vr = VibMarks.read(score.objects || [], part, { bank, instKey: TRACKS[part].instKey, groups: [gid], window: [w0, w1], rules: VM_RULES });
-        if (!vr.bows.length) continue;
-        const evOf = new Map(doc.events.map(e => [e.id, e]));
-        let tagged = 0;
-        for (const b of vr.bows) { const e = evOf.get(b.event); if (e) { e.env = 'vibBow'; tagged++; } else console.warn('  ALERT --sequence ' + gid + ' part ' + part + ': bow ' + b.event + ' is not an event of this window'); }
-        for (const w of vr.warnings) console.warn('  ALERT --sequence ' + gid + ' part ' + part + ' (vibraphone): ' + w);
-        const T0 = Math.min(...vr.bows.map(b => b.t0)), T1 = Math.max(...vr.bows.map(b => b.t1));
-        doc.overlays.push({ id: 'ov-vib-' + String(gid).replace(/^grp-/, '') + '-p' + part, kind: 'vibBows', target: { part, span: [+T0.toFixed(4), +T1.toFixed(4)] },
-          value: { group: gid, name: rec ? rec.name : null, ladder: vr.ladder,
-            bows: vr.bows.map(b => ({ event: b.event, chain: b.chain, voice: b.voice, t0: b.t0, t1: b.t1, midi: b.midi, restart: b.restart, startName: b.startName, marks: b.marks })) },
-          provenance: 'authored' });
-        n++;
-        console.log('  --sequence ' + gid + ' part ' + part + ' (' + (rec ? rec.name : '?') + ', the vibraphone): ' + vr.bows.length + ' bows (' + tagged + ' tagged vibBow) · chains ' +
-          vr.bows.filter(b => b.chain === 0).length + ' · ' + vr.bows.filter(b => b.chain === 1).length + ' · ' + vr.bows.filter(b => b.marks.length).length + ' marked · ' +
-          T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s');
+        if (foldVibBows('--sequence', gid, part, rec ? rec.name : null, false)) n++;
         continue;
       }
       const b = SeqOv.forPart(score.objects || [], gid, part, {

@@ -242,8 +242,18 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   }
 }
 
+// [2k.5] A MORPH'S BOWS (PLAN 2k.5, §506): the bloom `ACT-BLOOM-06` read with its group alone (a morph's notes carry no srcKind) — its
+// 44 bows, every one on a seat and a voice; without `groupOnly` the sequence's reader sees none of them
+{
+  const g = 'grp-act-bloom-06-01', o = { bank, instKey: 'bowed_vibraphone', rules: R.vibMarks, groups: [g] };
+  const rb = VM.read(S.objects, LANE, Object.assign({ groupOnly: true }, o)), r0 = VM.read(S.objects, LANE, o);
+  ok(rb.bows.length === 44 && !rb.unplaced.length && rb.bows.every(b => b.chain >= 0 && (b.voice === 'upper' || b.voice === 'lower')) && !r0.bows.length,
+    'A MORPH\'S BOWS (2k.5): the bloom ' + g + ' read with the group alone — ' + rb.bows.length + ' bows, chains ' + rb.bows.filter(b => b.chain === 0).length + ' · ' +
+    rb.bows.filter(b => b.chain === 1).length + ', ' + rb.unplaced.length + ' unplaced; the sequence\'s filter alone reads ' + r0.bows.length);
+}
+
 // the totals, for the record
-const starts = B.filter(b => b.marks.some(m => m.start)).length, ends = B.reduce((a, b) => a + b.marks.filter(m => m.kind !== 'hairpin' && !m.start).length, 0);
+const starts =B.filter(b => b.marks.some(m => m.start)).length, ends = B.reduce((a, b) => a + b.marks.filter(m => m.kind !== 'hairpin' && !m.start).length, 0);
 console.log('   --  ' + B.filter(b => b.marks.some(m => m.kind === 'hairpin')).length + ' bows move · ' + B.filter(b => b.marks.filter(m => m.kind === 'hairpin').length > 1).length +
   ' turn inside · ' + B.filter(b => !b.marks.length).length + ' bare · ' + starts + ' start names or circles (§463 rule 7: ≈ 90 where one a bow would be 156) · ' + ends + ' names reached');
 console.log('');
