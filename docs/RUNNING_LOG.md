@@ -17395,3 +17395,24 @@ introduce what the fade in and fade out would be like."*
 regenerated; `check_rules` 25. Nothing on the page changes.
 
 **The running order:** step 5 ☑ · ► step 6, the closing name's snap (`vibMarks.closeAlign`, §478).
+
+## §499. STEP 6 CLOSED — the closing name snaps to the bar's end only when it would hang past it; a name reached mid-bow keeps its time (2026-09-28, Fable, session 17)
+
+**What prompted it:** the running order's step 6 — `vibMarks.closeAlign` (2h.5, §478): keep the snap conditional, or put every bow's last
+name on the bar's end. His words first: *"more clearly, please, and more specifically. So what is the name? And what is the moment? And then
+describe the options in more specific terms. What am I snapping, etc."* — then *"a, close step 6 and move to 7"*.
+
+**The terms, as put to him:** the NAME = the dynamic word at the end of a hairpin (the `p` of `mp > p`), the level the bow arrives at ·
+the MOMENT = the time the bow reaches that level; position is time, so the name normally sits centred under its moment · the BAR = the
+bow's duration line, ending where the bow ends. The case: a level reached near the bow's end puts the name's right half past the bar's
+end, into the next bow's space.
+
+**(a), as built (2h.5):** only a name that would hang past the bar's end slides LEFT until its right edge sits on the end, the hairpin
+shortening to meet it; every other last name stays under its moment (15 of 25 snapped on the proto). **(b), rejected:** every bow's last
+name with its right edge on the bar's end, the hairpin stretched to it — cleaner, but a `p` reached mid-bow would no longer say when.
+The vibraphone only; the winds have no closing names of this kind (§498).
+
+**His word: (a).** Written onto `vibMarks.closeAlignNote` (the "his to reverse" retired); `docs/ENGRAVING_RULES.md` regenerated;
+`check_rules` 25. Nothing on the page changes.
+
+**The running order:** step 6 ☑ · ► step 7, the general courtesy natural (§479).
