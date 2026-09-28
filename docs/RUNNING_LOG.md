@@ -17120,3 +17120,39 @@ the bottom — the two-voice convention; survives black-and-white; risks reading
 leader from the head to its track — explicit, busy. The AI recommends (1), (2) held as the b/w fallback.
 
 **His answers pending:** the lane's height · the head · the seat at deal time. Then PLAN § `2i` (the vibraphone's page, second form).
+
+
+## §486. THE DATA ON HIS PINS, AND HIS ANSWER: the percussion staff shown only where it plays, the navy row lifted into its space — PLAN § `2i` (2026-09-28, Fable, session 17)
+
+**His ask, after §485:** *"Can you give me an assessment of, or break apart the duration line and the, I guess, hairpin? So I think it's less
+impactful if the duration line overlaps some of the note heads. But tell me if the hairpin ever intersects the … note head. And that's
+actual intersection … And even that might be okay, but just give me the data first."*
+
+**The data (the video frame's lane box for part 5: 5.0 ss above the staff's centre, 8.12 below; the pins as he described; the heads' ink
+from `piece-lgmf`'s layout, the hairpins from the reader on Draft 01, rows by seat):** BOTTOM row (olive) — 0 heads touch the hairpin,
+0 touch the olive track. TOP row (navy) — **24** of 156 bows' heads would have a hairpin LINE through them (2.6 · 6.9 · 56.1 · 61.6 s …);
+**29** heads would sit under the navy bar track while the other seat sounds; by bands, 111 heads reach into the hairpin's band and 141
+into the track's — the bowed line lives ABOVE the staff (C6 … F6 is the air above the top line), where the lane has three spaces. To
+zero above: the lane's top ≈ 3.5 ss higher (the highest ink 5.44 + 0.45 + 0.667 + 0.45 + 1.333 = 8.3); folding under 8va does not
+save it (the bracket and its label take the same air).
+
+**His decision, verbatim:** *"Okay, let's try this. I don't want to grow the lanes or change the height of the other instruments. But let's
+try suppressing the staff lines for the non-pitched percussion. So what I'd like to do is at the beginning of the piece, just have a short
+introduction of the staff lines, just so it's clear that it's a staff. So just the top non-pitched staff lines, a short little snippet,
+short lines at the beginning, at the header. And then suppress them for all of the um, morphs and sequences and just show them back again
+for the middle section that involves uh, non-pitch percussion. And then go ahead and push the top, the blue, the navy up the 3.5 staff
+spaces into what it would have been the staff for the non-pitch percussion, but now the staff lines are not showing there."* — and to the
+read-back: *"no just a small snippet, .25 s worth"* · *"the middle section begins in the EH at 288.91, non-pitched lines should be on for
+the whole page. As the presentation score is laid out currently, that should work. If ever the layout gets pushed so that there are some
+vibraphone notes on that page, then we'll revisit."* · *"keep the short names always lines or no lines."*
+
+**Read from the score:** the unpitched percussion plays 297.41 … 406.86 s, the vibraphone 0:02 … 4:32 and 7:09 … 14:41 — never
+together; the trance profile's page is 12 s, so the lines are on over 288 … 408 s (ten pages), and no vibraphone note falls on them.
+
+**His hold, verbatim:** *"Hold these and resurface them after this is resolved, or I'll forget to address and reassure that all the other
+issues I brought up are resolved or slotted?"* — the seat written at deal time, and the head's seat marking (colour the head recommended;
+stems the black-and-white fallback). Both are 2i.6's list, with 2h.9's four open calls.
+
+**PLAN § `2i` written** (the item is the record): the rules and the sheet · the reader's rows by seat · the layout (the percussion staff's
+spans, the pins with the lift, the bar tracks) · the checks (the flush and probe checks retired, the probe page removed) · the proto ·
+his eye and the held items.
