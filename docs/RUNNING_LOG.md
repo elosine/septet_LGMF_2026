@@ -16412,3 +16412,35 @@ then either an ending dynamic or nothing, meaning it continues, the crescendo.�
   fade applied (`sequence_overlays.js` `writtenAt` = the written level × the fade weight, §462 — the same quantity the EH’s curve draws), so
   the first bow reads `○ < pp`, not a flat `pp`. The winds keep the `2f` signs, symbolic (PERFORMANCE_NOTES #5 · #12 unchanged).
 - The niente circle is the existing `niente` object (0.4695 ss, §4 day 35); the hairpin the timed variant of §464.
+
+## §466. PLAN § `2g` THE VIBRAPHONE'S SEQUENCE NOTATION — written whole at his word; the device sheet (2026-09-27, Fable, session 17)
+
+**His word, after the top line of six steps:** *"No need for the steps unless additional clarification is required. If not, then go ahead
+and write the whole plan."* No clarification was needed — §463 … §465 had settled every line the sheet asks. The item is `docs/PLAN.md`
+§ `2g`, 2g.1 … 2g.6, planned in full, NOT BUILT; the § 2 header names it. Its top line, as he saw it: (1) the device sheet and the rows ·
+(2) the reader — the per-bow marks as a pure module with its own battery on the draft's 156 bows · (3) the bows drawn — heads at A and
+ring bars in two voices by register, the bar rule, the chord displacement checked · (4) the marks drawn — the names and the TIMED hairpins
+in two rows, `○` at the edges · (5) the proto `lgmf-vib-proto`, the vibraphone's whole first sequence (R01c, 2 … 154 s) · (6) his eye.
+
+**THE DEVICE SHEET (§428's seven lines), as written into the item:** (1) a bow of the bowed vibraphone in a sequence — which bar, when,
+how long, at what level and moving where, for two bows at once · (2) **anchor A** — the head's left edge on its time, no go line (#4 day
+24's principle; the cluster heads; #5's `byTechnique.main`); nothing displaces it · (3) members `head` · `accidental` (tempered) · `ledger` ·
+`ringBar` · `dynamic` · `niente` · `hairpin` with a NEW VARIANT `hairpin.timed`; NEW ROWS `column.rows.dynamicUpper` · `vibMarks` (the
+reader's seven rules as data) · `ringBar.closeRule` · `head.secondOffsetSs` (only if the engine has no chord displacement — #2 D.6's chord
+column is named in the accidental row; verify in `layout.js` first) · (4) the AI's numbers, each with its basis: `rows.dynamicUpper` +4.6
+(the mirror of −4.6) · the thresholds 0.5 · 0.25 · 0.25 (his) · `carry` true · `repeatName` false (his (a)) · `flip` false (a voice's row is
+meaning) · `minHairpinSs` 1 · the close rule { within one bar height, half height toward its own side, a unison stacked } · the second's
+offset one head width · (5) edge `hairpin-timed` cut · stub (the ring bar's classes; the `2f` hairpin keeps clamp · whole) · (6) ladder —
+the marks compress → shrink, never flip; the head and the bar never move; a dense bow compresses its hairpins to `minHairpinSs`, then drops
+them · (7) open — the new rows only, his to reverse at 2g.6.
+
+**The reader's rules are written into the item as one block** (§463's six cases and seven rules, §465's fades and the level WITH the fade
+via `writtenAt`), with two definitions the talk had not needed and the build does: **the voice of a bow** — upper when its pitch is ≥ the
+other chain's sounding pitch at the bow's start; a silent partner → the nearer of its previous and next bow; a tie → chain 0 upper; **a
+rest in a chain** — a gap ≥ 0.5 s (#4's `breathSeconds`), where the carry stops and the level is read again. Both the AI's, his to reverse.
+
+**The goldens of the battery `tools/vib_marks_check.js` are §463's numbers** — 156 bows · 79 · 77 · the join `mp > p | p < mp` · the 33.16 s bow
+`pp < p` under rule 1's second tier · the turn `p > pp < p` at 56.12 s · `○ < pp` at 6.0 s on both chains · `> ppp` at the end.
+
+**Model:** the build on Opus after a checkpoint and a clear — 2g.1 → 2g.5, one commit per step, THE SHIELD in each (the two IRs
+byte-identical; the tuba goldens where `layout.js` moves); STOP after 2g.5 for 2g.6. Nothing built today.
