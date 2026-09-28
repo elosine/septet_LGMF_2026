@@ -2760,3 +2760,9 @@ from the bow before, never re-rounded), a hairpin for its motion, a name where i
 exact (RUNNING_LOG §463: the thresholds ½ · ¼ step · a name changes only through a hairpin · the restarts · the open hairpin · the edges
 apart · the sequence as scope · the repeated name LEFT OFF, his "a"). His first idea — two curves in the halves of the band, *"since the
 vibrapone will never do glissando"* — was set aside by his own analysis.
+
+## LG-117 — 2026-09-28 — the morph is not a new section; the sequence moves into it; "ord." is the middle section's
+
+> *"no, this continues to be senza vibrato, or it will be used for the middle section. This is the one after the morph. But let's go ahead. Let's just skip it. This is not a new section. It just seamlessly, or the sequence seamlessly moves into this. The main difference here is that there'll be glissandos. So I guess we need to grab the glissando notation the same way we did in piece number five for their morphs."* (the composer, 2026-09-28, on the morph after section 1's sequence — RUNNING_LOG §504)
+
+*The AI's reading (marked as such):* the form's first arc is ONE gesture — the sequence (still pitches, senza vib.) moving without a seam into the bloom (the pitches glide a quarter tone out and back, still senza vib.) — and the MIDDLE section, after the morph, is where "ord." (vibrato as normal) begins. On the page: no new word at the morph's entry; the only new thing the morph brings is the glissando.
