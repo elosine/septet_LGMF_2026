@@ -16859,3 +16859,40 @@ Under the rule (the probe page, `vib_marks_check` THE PROBE PAGE):
 
 **Verified:** `vib_marks_check` **26** (FLUSH · THE PROBE PAGE new) · `check_rules` 25 · `sequence_notation_check` 64 · THE SHIELD 19 of 22
 identical — `lgmf-vib-proto` · `lgmf-vib-close-probe` (new) · `lgmf-eh-proto` (2h.3's) the expected moves.
+
+
+## §478. 2h.5 THE CLOSING MARK RIGHT-JUSTIFIED · 2h.6 THE HAIRPIN DOUBLED, AWAY FROM THE BAR — one commit for the two (2026-09-28, Fable, session 17)
+
+*(One commit, not two: the two steps rewrite the same fifteen lines of the marks pass — the plan's "one commit per step" bent here,
+said out loud.)*
+
+**His words (§473):** *"Let's make right dynamics or dynamics that are at the end of a bow. Let's make them right justified with the
+right end of the duration line. And the hairpin adjusted accordingly. Let's make the max height of the hairpin double what it is now.
+But let's move everything from the side closest to the bowing or the duration line … the bottom one on the bottom, we're going to keep
+the top Y of the hairpin, the top line, and then open up the bottom line. but move it center so it's the same. It's just a open wedge
+still. But the height increase will come from moving down in that case or moving up in the top line case. So I don't want the line,
+the hairpin any closer to the duration line, but I do want it double in height. And then of course, adjust everything else. The dynamic
+should line up to the center of the hairpin."*
+
+**2h.5 — the rule (`vibMarks.closeAlign` right):** the bow's LAST mark — a name or `○` reached — is right-justified to the bar's end
+(2h.1's cut end) when, centred on its time, it would run past it; its hairpin's end follows (the name's left edge less the 0.45 gap);
+an open hairpin never runs past the cut bar. **A name reached earlier in the bow stays at its point** — the AI's reading of "at the end
+of a bow" (Gould: the position is the time), HIS TO REVERSE: on the proto **15 of the 25 closing names snap**, the other ten sit inside
+their bars — the two last bows' `> ppp` (148.24 · 148.84 s) among them, reached 0.76 · 0.16 s before the bow's end, i.e. 13.3 and 2.1
+ss inside the bar's end. If he wants EVERY closing name on the bar's end, `closeAlign` gains a second value (`always`) — one line.
+
+**2h.6 — the rule:** `objects.hairpinTimed.heightSs` **1.333** (its own value; the winds' fade `hairpin` stays 0.667 — the AI's
+reading, his to reverse). The two mark rows are now given by their NEAR EDGE, not an axis: `column.rows.vibEdgeUpper` 4.267 ·
+`vibEdgeLower` −4.267 (= 2g's axis 4.6 minus half of 2g's 0.667 hairpin; `dynamicUpper` retired — nothing else pointed at it). The
+row's near edge = the floor, or the standard 0.45 outside the ink under the bow (heads · ledgers · accidentals · ottavas · and since
+2h.4 the flushed bars); the axis = the near edge ± 0.667; every name and circle on the axis. So the opening grows OUTWARD and the near
+edge never comes nearer — his condition. (2g's `half` term — the taller of the hairpin's half and a name's — is gone: a name, 0.9 ss,
+sits inside the 1.333 band.)
+
+**The numbers (`vib_marks_check` 28 — THE CLOSING MARK · THE HAIRPIN DOUBLED new):** 32 timed hairpins 1.333 tall; the upper rows'
+near edge never under 4.267, the lower rows' never above −4.267 (the floors hold where no ink pushes; the first bow's row is pushed
+to an axis of 6.725 by its ledgered C6 head and the sign under it); the first bows: `○` at 2.0 s (dx 0.554 on the head) · `<` 2.0 →
+6.829 s (the bar's cut end) ending 1.727 ss before it · `pp` snapped, its right edge on the bar's end (dx −0.638); the same at 2.6 →
+8.476 s. `check_rules` 25 · `sequence_notation_check` 64 (the winds unmoved) · THE SHIELD 19 of 22, the three expected moves.
+
+**Not touched:** the reader (`vib_marks.js`) · the IRs · the winds' rows.

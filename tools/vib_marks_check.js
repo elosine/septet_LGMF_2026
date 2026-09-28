@@ -167,6 +167,29 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   }
   ok(same === PB.length, 'the drawn marks are the reader\'s, bow by bow (' + same + ' / ' + PB.length + ')' + (bad.length ? ' — ' + bad.slice(0, 3).join(' · ') : ''));
   ok(!wrongSide, 'every mark on its voice\'s side — the upper voice above the staff, the lower below');
+  // [2h.5 · 2h.6, §478] THE CLOSING MARK right-justified to the bar's end when it would run past it; THE HAIRPIN 1.333 tall, its near edge
+  // never nearer the staff than the row's edge floor, every name on its bow's axis
+  {
+    const MKc = C.engraving.layout.devices.byEnv.vibBow.marks, G = rd('notation/lib/glyphs.json');
+    const hw = i => i.k === 'niente' ? i.diaSs / 2 : G.dynamic[i.g.replace('dyn-', '')].wSs / 2;
+    let past = 0, snapped = 0, closes = 0; const missing = [];
+    for (const b of PB) {
+      const last = b.marks[b.marks.length - 1]; if (!last || last.kind === 'hairpin' || last.start) continue;
+      closes++;
+      const bar = barOf(b.event)[0];
+      const it = it5.find(i => i.ev === b.event && i.seq === 'vibMark' && (Math.abs(i.t - last.t) < 1e-6 || Math.abs(i.t - bar.t1) < 1e-6) && (last.kind === 'niente' ? i.k === 'niente' : i.g === 'dyn-' + last.name));
+      if (!it) { missing.push(b.t0.toFixed(2)); continue; }
+      const right = (it.t - bar.t1) * sps + it.dxSs + hw(it);
+      if (right > 1e-6) past++;
+      if (Math.abs(it.t - bar.t1) < 1e-9 && Math.abs(right) < 1e-6) snapped++;
+    }
+    ok(!past && !missing.length && snapped > 0, 'THE CLOSING MARK (2h.5): no closing name past its bar\'s end; ' + snapped + ' of ' + closes + ' right-justified to it, the rest at their point' + (missing.length ? ' — not found at ' + missing.join(' ') : ''));
+    const hps = it5.filter(i => i.k === 'hairpin-timed'), names = it5.filter(i => i.seq === 'vibMark');
+    const edgeOk = hps.every(h => h.hSs === MKc.heightSs && (h.ySs > 0 ? h.ySs - h.hSs / 2 >= MKc.upperEdge - 1e-6 : h.ySs + h.hSs / 2 <= MKc.lowerEdge + 1e-6));
+    const onAxis = names.every(n => { const h = hps.find(x => x.ev === n.ev); return !h || Math.abs(h.ySs - n.ySs) < 1e-6; });
+    ok(MKc.heightSs === 1.333 && MKc.upperEdge === 4.267 && MKc.lowerEdge === -4.267 && hps.length > 0 && edgeOk && onAxis,
+      'THE HAIRPIN DOUBLED (2h.6): ' + hps.length + ' timed hairpins ' + MKc.heightSs + ' ss tall, the near edge never nearer the staff than ±' + MKc.upperEdge + ' (2g\'s axis 4.6 − 0.333), every name on its bow\'s axis');
+  }
   const dev = Layout.deviceResolver(ir, C.engraving.layout);
   const anim = AnimObj.collect(ir, null, C.animated, { parts, meta: false, deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}) })
     .filter(i => i.part === LANE && (i.t0 != null ? i.t0 : i.at || 0) < ov.target.span[1] && (i.t1 != null ? i.t1 : Infinity) > ov.target.span[0]);

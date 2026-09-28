@@ -3140,8 +3140,11 @@
       // name it reaches, and DROPPED when shorter than minHairpinSs between them (the names stand). `noFlip` (vibMarks.flip false — a
       // voice's row is meaning): the ladder may compress and shrink these marks, never flip them.
       if (vibBowOf.size) {
-        const MK = Object.assign({ upperRow: 4.6, lowerRow: -4.6, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0.45, circleDiaSs: 0.4695,   // RULES MIRROR (circleGapSs = beside since 2h.3, §476)
-          circleThickSs: 0.13, minHairpinSs: 1, flip: false }, (((DEV.byEnv || {}).vibBow || {}).marks) || {});
+        // [2h.5 · 2h.6, §478] `upperEdge` · `lowerEdge` are the row's NEAR EDGE floors (4.267 = 2g's axis 4.6 − 0.333: the doubled
+        // hairpin grows OUTWARD, never nearer the staff — his "I don't want the hairpin any closer to the duration line"); the axis =
+        // the near edge ± heightSs / 2, every name and circle on the axis. `closeAlign` right: the bow's closing mark on the bar's end.
+        const MK = Object.assign({ upperEdge: 4.267, lowerEdge: -4.267, heightSs: 1.333, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0.45, circleDiaSs: 0.4695,   // RULES MIRROR (circleGapSs = beside since 2h.3, §476; the edges and 1.333 since 2h.6, §478)
+          circleThickSs: 0.13, minHairpinSs: 1, flip: false, closeAlign: 'right' }, (((DEV.byEnv || {}).vibBow || {}).marks) || {});
         const FitK = FitIn || (rootIn && rootIn.NotationFit) || null, tsK = o.textEmScale != null ? o.textEmScale : 1.3;
         const bars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev) && it.headT != null);
         const inkAt = new Map();   // head time → the vertical ink of the heads' units there { lo, hi }
@@ -3166,25 +3169,35 @@
             // [2h.4] a bar moved off its head (the flush close rule, or a segment of it) is ink beyond the head — the row clears it too
             for (const s of (x.segs || (x.offSs ? [{ offSs: x.offSs }] : []))) { lo = Math.min(lo, x.ySs + s.offSs - RBH / 2); hi = Math.max(hi, x.ySs + s.offSs + RBH / 2); }
           }
-          const half = Math.max(MK.heightSs / 2, ...b.marks.filter(m => m.kind === 'name').map(m => ((dynG(m.name) || { hSs: 0.9 }).hSs) / 2), b.marks.some(m => m.kind === 'niente') ? MK.circleDiaSs / 2 : 0);
-          const y = up ? Math.max(MK.upperRow, isFinite(hi) ? hi + MK.gapSs + half : -Infinity) : Math.min(MK.lowerRow, isFinite(lo) ? lo - MK.gapSs - half : Infinity);
+          // [2h.6, §478] the row's NEAR EDGE: the floor, or the standard gap outside the ink under the bow; the axis half a hairpin beyond
+          const near = up ? Math.max(MK.upperEdge, isFinite(hi) ? hi + MK.gapSs : -Infinity) : Math.min(MK.lowerEdge, isFinite(lo) ? lo - MK.gapSs : Infinity);
+          const y = up ? near + MK.heightSs / 2 : near - MK.heightSs / 2;
           const at = (m, t, dx) => {
             if (m.kind === 'niente') items.push({ k: 'niente', t, dxSs: dx, ySs: +y.toFixed(4), diaSs: MK.circleDiaSs, thickSs: MK.circleThickSs, seq: 'vibMark', ev: bar.ev, noFlip });
             else if (dynG(m.name)) items.push({ k: 'glyph', g: 'dyn-' + m.name, t, dxSs: dx, ySs: +y.toFixed(4), align: 'center', seq: 'vibMark', ev: bar.ev, noFlip });
             else warnings.push('vibraphone ' + bar.ev + ': a mark "' + m.name + '" has no dynamic glyph — not drawn');
           };
+          // [2h.5, §478] THE CLOSING MARK (his: "dynamics that are at the end of a bow … right justified with the right end of the
+          // duration line. And the hairpin adjusted accordingly"): the bow's LAST mark — a name or ○ reached — is right-justified to
+          // the bar's end (2h.1's cut end) when, centred on its time, it would run past it; its hairpin's end follows (the name's left
+          // edge less the gap). A name reached earlier stays at its point (Gould — the AI's reading, his to reverse).
+          const lastM = b.marks[b.marks.length - 1];
+          const snap = MK.closeAlign === 'right' && lastM && lastM.kind !== 'hairpin' && !lastM.start && !!spsV && (lastM.t * spsV + halfW(lastM) > bar.t1 * spsV + 1e-9);
           let prev = null;
           for (let i = 0; i < b.marks.length; i++) {
             const m = b.marks[i];
             if (m.kind !== 'hairpin') {
-              const t = m.start ? bar.headT : m.t, dx = m.start ? bar.headDxSs : 0;
+              const snapped = snap && m === lastM;
+              const t = snapped ? bar.t1 : m.start ? bar.headT : m.t, dx = snapped ? -halfW(m) : m.start ? bar.headDxSs : 0;
               at(m, t, dx);
               prev = { t, dx, hw: halfW(m), kind: m.kind };
               continue;
             }
             const nm = b.marks[i + 1] && b.marks[i + 1].kind !== 'hairpin' && Math.abs(b.marks[i + 1].t - m.tEnd) < 1e-6 ? b.marks[i + 1] : null;
-            const gapOf = (mk, tipSide) => mk.kind === 'niente' && tipSide ? MK.circleGapSs : MK.gapSs;   // the tip touches a circle
-            items.push(Object.assign({ k: 'hairpin-timed', t0: m.t, t1: m.tEnd, dx0Ss: 0, dx1Ss: nm ? -(halfW(nm) + gapOf(nm, m.dir === 'decresc')) : 0,
+            const gapOf = (mk, tipSide) => mk.kind === 'niente' && tipSide ? MK.circleGapSs : MK.gapSs;   // a circle at the tip: circleGapSs (= beside since 2h.3)
+            const toSnap = snap && nm === lastM;
+            const t1 = toSnap ? bar.t1 : Math.min(m.tEnd, bar.t1);   // an open hairpin never runs past the cut bar
+            items.push(Object.assign({ k: 'hairpin-timed', t0: m.t, t1, dx0Ss: 0, dx1Ss: nm ? -((toSnap ? 2 : 1) * halfW(nm) + gapOf(nm, m.dir === 'decresc')) : 0,
               ySs: +y.toFixed(4), dir: m.dir, hSs: MK.heightSs, thickSs: MK.thickSs, minSs: MK.minHairpinSs, seq: 'vibHairpin', ev: bar.ev },
               prev ? { after: { t: prev.t, dxSs: +(prev.dx + prev.hw + gapOf(prev, m.dir === 'cresc')).toFixed(6) } } : {}));
           }

@@ -256,8 +256,9 @@
       "dynPair": false,
       "techText": false,
       "marks": {
-       "upperRow": "@column.rows.dynamicUpper",
-       "lowerRow": "@column.rows.dynamic",
+       "upperEdge": "@column.rows.vibEdgeUpper",
+       "lowerEdge": "@column.rows.vibEdgeLower",
+       "closeAlign": "@vibMarks.closeAlign",
        "heightSs": "@objects.hairpinTimed.heightSs",
        "thickSs": "@objects.hairpinTimed.thickSs",
        "gapSs": "@objects.hairpinTimed.beside",
