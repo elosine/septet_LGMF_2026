@@ -343,10 +343,15 @@
     const tempos = [];           // {t, bpm} — a bar line + a tempo mark
     const headers = [];          // {part, t, endMark} — the section header block
     const sequences = [];        // [LGMF 2d.2] {part, span, v} — one part's line of a sequence (the `sequence` overlay, IR amendment 10)
+    const vibBowOf = new Map();  // [LGMF 2g.3] event id → its bow of a `vibBows` overlay {chain, voice, t0, t1, midi, marks, …, part}
     for (const ov of ir.overlays || []) {
       const tgt = ov.target || {};
       if (ov.kind === 'sequence' && tgt.part !== undefined && ov.value && ov.value.entry) {
         sequences.push({ part: tgt.part, span: tgt.span, v: ov.value }); continue;
+      }
+      if (ov.kind === 'vibBows' && tgt.part !== undefined && ov.value && Array.isArray(ov.value.bows)) {
+        for (const b of ov.value.bows) vibBowOf.set(b.event, Object.assign({ part: tgt.part }, b));
+        continue;
       }
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
       if (ov.kind === 'engraving' && tgt.event) { engrave.set(tgt.event, ov.value || {}); continue; }
@@ -1264,7 +1269,9 @@
               // uniform-chord case ("make sure they're all the same length;
               // take the length from the brick"). Drawing only, like the rest
               // of this block; sound stays the IR duration (D49/D51).
-              const barLen = dev.ringSeconds != null ? dev.ringSeconds : Math.min(e.duration, room);
+              // [LGMF 2g.3, §464] `ringBarFull` (the vibraphone's bow): the bar runs the bow's FULL length — the next attack in the part is
+              // the OTHER voice's, and a bow's own next bow abuts it (within 0.05 s); no breath cut
+              const barLen = dev.ringSeconds != null ? dev.ringSeconds : dev.ringBarFull ? e.duration : Math.min(e.duration, room);
               const flagUnder = o.flagShortBarSeconds != null ? o.flagShortBarSeconds : 1.0;
               if (barLen <= 0) {
                 warnings.push('ring bar ' + e.id + ': no room before the next attack (' + (nxt - e.onset).toFixed(2) + ' s gap, ' + breath + ' s breath) — bar not drawn');
@@ -3043,6 +3050,44 @@
               ? bandHi + gapMp + gm.hSs / 2
               : bandLo - gapMp - gm.hSs / 2;
           }
+        }
+      }
+
+      // [LGMF PLAN 2g.3 — RUNNING_LOG §469; the device sheet §466] THE VIBRAPHONE'S TWO BARS: two ring bars of the two voices sounding
+      // together whose centres are closer than `closeRule.withinSs` (a second: 0.5 ss apart against a 0.667 bar) are each drawn at
+      // `closeRule.height` of the bar, toward its own side — the higher bar keeps its top half, the lower its bottom half; a unison the
+      // two halves stacked. Each close pair gives both bars a SIDE over the time they overlap: the pairs a PITCH decides first; then a
+      // unison — the bow already sounding keeps the side it has (its latest before the unison), the entering bow takes the other; with
+      // no side yet the upper VOICE on top, chain 0 at a tie. A bar whose sides agree is drawn at `hFrac` on `side`; a bar whose side
+      // CHANGES (the voices cross through a unison: 84 → 86 against 86 → 84) carries `segs` [{t, side}] — the time each half begins —
+      // and stays ONE item for every other reader (the print edges, the fit). render.js draws them.
+      if (vibBowOf.size) {
+        const CR = Object.assign({ withinSs: 0.667, height: 0.5 }, (((DEV.byEnv || {}).vibBow || {}).closeRule) || {});   // RULES MIRROR (rules.json objects.ringBar.closeRule)
+        const bars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev));
+        const close = [];
+        for (let i = 0; i < bars.length; i++) for (let j = i + 1; j < bars.length; j++) {
+          const a = bars[i], b = bars[j], lo = Math.max(a.t0, b.t0), hi = Math.min(a.t1, b.t1);
+          if (vibBowOf.get(a.ev).chain === vibBowOf.get(b.ev).chain || hi - lo <= 1e-6 || Math.abs(a.ySs - b.ySs) >= CR.withinSs - 1e-9) continue;
+          close.push({ a, b, lo, hi });
+        }
+        const cons = new Map(bars.map(it => [it, []]));   // bar → [{ a, b, side }]
+        for (const c of close) if (c.a.ySs !== c.b.ySs) { const up = c.a.ySs > c.b.ySs; cons.get(c.a).push({ a: c.lo, b: c.hi, side: up ? 1 : -1 }); cons.get(c.b).push({ a: c.lo, b: c.hi, side: up ? -1 : 1 }); }
+        const had = (it, t) => { const before = cons.get(it).filter(q => q.a <= t + 1e-6).sort((p, q) => q.a - p.a); return before.length ? before[0].side : 0; };
+        const later = it => { const after = cons.get(it).slice().sort((p, q) => p.a - q.a); return after.length ? after[0].side : 0; };
+        for (const c of close.filter(c => c.a.ySs === c.b.ySs).sort((p, q) => p.lo - q.lo)) {
+          const [P, Q] = c.a.t0 <= c.b.t0 ? [c.a, c.b] : [c.b, c.a];   // P sounded first
+          const A = vibBowOf.get(P.ev), Bw = vibBowOf.get(Q.ev);
+          let pSide = had(P, c.lo) || (had(Q, c.lo) ? -had(Q, c.lo) : 0) || (later(Q) ? -later(Q) : 0) || later(P);
+          if (!pSide) pSide = (A.voice !== Bw.voice ? A.voice === 'upper' : A.chain === 0) ? 1 : -1;
+          cons.get(P).push({ a: c.lo, b: c.hi, side: pSide }); cons.get(Q).push({ a: c.lo, b: c.hi, side: -pSide });
+        }
+        for (const [it, list] of cons) {
+          if (!list.length) continue;
+          list.sort((p, q) => p.a - q.a);
+          it.hFrac = CR.height; it.side = list[0].side;
+          const segs = [{ t: it.t0, side: list[0].side }];
+          for (const q of list.slice(1)) if (q.side !== segs[segs.length - 1].side) segs.push({ t: +q.a.toFixed(6), side: q.side });
+          if (segs.length > 1) it.segs = segs;
         }
       }
 

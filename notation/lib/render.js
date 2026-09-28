@@ -792,8 +792,20 @@
           // dx0Ss (day 24): the bar begins after the nh-unit's ink, not at the
           // go line — layout computes it from the unit's own right edge.
           const x0 = X(Math.max(it.t0, w0), it.t0 >= w0 ? it.dx0Ss : 0) + (it.t0 >= w0 ? shiftOf(it.t0) : 0), x1 = view.xOfSeconds(Math.min(it.t1, wInk));   // [2c.4] after its unit's ink
-          const h = RB.hSs * ssPx;
-          parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (Y(it.ySs) - h / 2).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
+          // [LGMF 2g.3] `hFrac` · `side` (the vibraphone's close rule, layout.js): the bar at hFrac of its height, kept on its own side
+          // (+1 the top half, −1 the bottom); absent = the whole bar, exactly as before
+          const h0 = RB.hSs * ssPx, h = it.hFrac ? h0 * it.hFrac : h0, yC = Y(it.ySs) - (it.side ? it.side * (h0 - h) / 2 : 0);
+          if (it.segs) {   // the side changes along the bar (the voices cross through a unison): one rect a half
+            for (let i = 0; i < it.segs.length; i++) {
+              const sa = i === 0 ? x0 : Math.max(x0, view.xOfSeconds(Math.max(it.segs[i].t, w0)));
+              const sb = i + 1 < it.segs.length ? Math.min(x1, view.xOfSeconds(Math.min(it.segs[i + 1].t, wInk))) : x1;
+              if (sb - sa < 0.5) continue;
+              const yS = Y(it.ySs) - it.segs[i].side * (h0 - h) / 2;
+              parts.push('<rect x="' + sa.toFixed(2) + '" y="' + (yS - h / 2).toFixed(2) + '" width="' + (sb - sa).toFixed(2) +
+                '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
+            }
+          } else
+          parts.push('<rect x="' + x0.toFixed(2) + '" y="' + (yC - h / 2).toFixed(2) + '" width="' + Math.max(1, x1 - x0).toFixed(2) +
             '" height="' + h.toFixed(2) + '" fill="' + RB.color + '" opacity="' + RB.opacity + '"/>');
         } else if (it.k === 'brick') {
           if (o.hideBricks) continue;   // day 22: the bricks toggle

@@ -16533,3 +16533,45 @@ which chain is called 0 is arbitrary at a tie. The AI's rule, his to reverse.
 
 **Verified:** `vib_marks_check` 16 GREEN · `check_rules` 25 GREEN · `sequence_notation_check` 64 / 64. Nothing drawn — no page changes
 (the reader is not required by any file yet).
+
+## §469. 2g.3 THE BOWS DRAWN — every bow a head at anchor A and its ring bar; the two bars' close rule; the chord column at a shared second (2026-09-27, Opus, session 17)
+
+**What was built:**
+- **the extractor** (`tools/notate_section.js`, the `--sequence` block): on the part whose track is the bowed vibraphone, in place of the
+  winds' `sequence` overlay (no block, no level curve, no pie — §464 · §465), the reader (`vib_marks.js`, rules.json `vibMarks`) over the
+  group's bows in the window; each bow's event takes env **`vibBow`**; the part carries ONE **`vibBows`** overlay (every bow's seat, voice
+  and marks). The IR schema's overlay enum gains `vibBows` (`_kindNote5`), the env note `vibBow` — the rule of `_kindNote3`: in the commit
+  that first draws one.
+- **the layout** (`notation/lib/layout.js`): the `vibBows` overlay read (an event → its bow); the device `byEnv.vibBow` needed NO new
+  drawing code for the head — it is the nh-unit at `nhAnchor: leftEdge` (#5 D49's piano long notes): the open head's left edge on its time,
+  its accidental before it, its ledgers, the ottava past three ledgers, no go line, no stem, no brick. **`ringBarFull`** — the bar the bow's
+  whole length: the breath rule ("the next gesture minus a breath", day 23) cut every bar at the OTHER voice's attack (a 0.10 s bar, 11
+  warnings on the probe). **THE CLOSE RULE** (`closeRule`, a pass once the part's items exist): two bars of the two chains overlapping in
+  time with centres closer than `withinSs` 0.667 — each at `height` 0.5 toward its own side; the pairs a pitch decides first, then a unison
+  — the bow already sounding keeps the side it has, the entering bow takes the other. **Found on the probe and settled by it:** the voices
+  CROSS THROUGH A UNISON (20.93 … 27.46 s: chain 1 84 → 86 against chain 0 86 → 84 — the bar at 20.93 is a unison over its partner from
+  20.93 to 22.64, then a second UNDER the next bow from 22.70): one bar must change sides. First as a whole-bar flag it was asked for both
+  halves (a warning); now the bar carries **`segs`** `[{t, side}]` — the time each half begins — and stays ONE item for every other reader
+  (the print edges, the fit). A pitch a semitone apart on ONE staff position (C6 · C♯6) is a unison on the page and is stacked.
+- **the renderer** (`render.js`): a ring bar with `hFrac` · `side` draws that fraction on its side; with `segs` one rect a half; absent —
+  the same bytes as before.
+- **the chord column: NO new rule.** The two bows of a SHARED attack (exactly one onset) are one simultaneity chunk (`extract_core`
+  `opt.chords`, `CHORD_TOL` 0.04), and `chordGeometry` columns anchor-A nh-units (#2 D.6 through `ChordColumn.noteColumn`): at 56.12 s
+  (85 / 84 — C♯6 · C6, one staff position) and 141.38 s (82 / 81) the second head steps right by a head width (dx 0.554 → 1.661), its bar
+  after its own ink (dx0 2.741). The sheet's `head.secondOffsetSs` stays unwritten.
+
+**The proto IR as the probe** (`lgmf-vib-proto`, built from a copy of `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` in the scratchpad —
+his file untouched, sha1 the same as the last session's copy; committed at 2g.5): 55 bows, chains 28 · 27, 56 events (the 56th is the NEXT
+passage's first bow at 155.11 s — not in R01c, drawn as the bricks page's brick; the window is the plan's `--w1 156`), VALID vs source.
+**Note on the plan's goldens:** they name the shared second at "42.65 s (85 / 84)" — in this save 42.65 s is 87 / 55; the seconds are at
+56.12 and 141.38 s (the Draft 01 numbers and this save's differ). And "the 11 shared attacks" — this save has 5 exact ones (42.65 ·
+56.12 · 72.32 · 120.74 · 141.38), each two heads.
+
+**Verified (the model as export_video lays it out, the screen DOM of `export_video --screenHtml`, never a screenshot):** every bow a head
+and ONE bar from its onset to x(t1): **55 / 55** · lane 5 draws staff · clef · ring bar · head · ledger · accidental · ottava — **0 go
+lines, 0 stems, 0 curves** · the unison 20.93 … 22.64 (84 / 84): the partner's bottom half, this bar's top half · the second 22.70 … 26.86
+(84 / 86): this bar's bottom half from 22.70, the 86's top half · the five shared attacks two heads each, the two seconds displaced · the
+DOM: 82 ring-bar rects at 5.27 px (whole) and 2.63 px (half) · `export_print --planJson` 15 pages.
+**THE SHIELD:** `piece-lgmf` · `lgmf-eh-proto` re-extracted byte-identical (date normalized) · the 40 layouts of every IR before this step —
+#4's seventeen tuba goldens with them — identical · the print plans identical · the screen dumps identical but for the edge table's new row ·
+the engine batteries as on HEAD (seven green, `test_animobj` red since §454).

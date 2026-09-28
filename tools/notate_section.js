@@ -1500,6 +1500,30 @@ if (SEQ_GROUPS.length) {
     if (!rec) console.warn('  --sequence ' + gid + ': no recipe in databases.sequences — no partials, no range written');
     let n = 0;
     for (const part of parts) {
+      // [LGMF PLAN 2g.3, 2026-09-27 — RUNNING_LOG §469; the device sheet §466] THE VIBRAPHONE'S BOWS: the bowed vibraphone's two seats
+      // are two voices of strokes, not a line with breaths — no block, no level curve, no pie (§464 · §465). Its notes take env
+      // 'vibBow' (the registry's byEnv.vibBow: the head at anchor A, the ring bar, no go line) and the part carries ONE `vibBows`
+      // overlay: every bow's seat, voice and marks, read once from the save by notation/lib/vib_marks.js (rules.json vibMarks).
+      if (TRACKS && TRACKS[part] && TRACKS[part].instKey === 'bowed_vibraphone') {
+        const VibMarks = require(path.join(ROOT, 'notation', 'lib', 'vib_marks.js'));
+        const VM_RULES = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).vibMarks;
+        const vr = VibMarks.read(score.objects || [], part, { bank, instKey: TRACKS[part].instKey, groups: [gid], window: [w0, w1], rules: VM_RULES });
+        if (!vr.bows.length) continue;
+        const evOf = new Map(doc.events.map(e => [e.id, e]));
+        let tagged = 0;
+        for (const b of vr.bows) { const e = evOf.get(b.event); if (e) { e.env = 'vibBow'; tagged++; } else console.warn('  ALERT --sequence ' + gid + ' part ' + part + ': bow ' + b.event + ' is not an event of this window'); }
+        for (const w of vr.warnings) console.warn('  ALERT --sequence ' + gid + ' part ' + part + ' (vibraphone): ' + w);
+        const T0 = Math.min(...vr.bows.map(b => b.t0)), T1 = Math.max(...vr.bows.map(b => b.t1));
+        doc.overlays.push({ id: 'ov-vib-' + String(gid).replace(/^grp-/, '') + '-p' + part, kind: 'vibBows', target: { part, span: [+T0.toFixed(4), +T1.toFixed(4)] },
+          value: { group: gid, name: rec ? rec.name : null, ladder: vr.ladder,
+            bows: vr.bows.map(b => ({ event: b.event, chain: b.chain, voice: b.voice, t0: b.t0, t1: b.t1, midi: b.midi, restart: b.restart, startName: b.startName, marks: b.marks })) },
+          provenance: 'authored' });
+        n++;
+        console.log('  --sequence ' + gid + ' part ' + part + ' (' + (rec ? rec.name : '?') + ', the vibraphone): ' + vr.bows.length + ' bows (' + tagged + ' tagged vibBow) · chains ' +
+          vr.bows.filter(b => b.chain === 0).length + ' · ' + vr.bows.filter(b => b.chain === 1).length + ' · ' + vr.bows.filter(b => b.marks.length).length + ' marked · ' +
+          T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s');
+        continue;
+      }
       const b = SeqOv.forPart(score.objects || [], gid, part, {
         window: [w0, w1], bank, instKey: TRACKS && TRACKS[part] ? TRACKS[part].instKey : null,
         recipe: rec ? rec.recipe : null, name: rec ? rec.name : null, techTexts: seqDev.techTexts || {},
