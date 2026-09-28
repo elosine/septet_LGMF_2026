@@ -16773,3 +16773,27 @@ throw on HEAD in this repo (they want #5's `trance-bar-01` fixtures, never carri
 
 **Not touched:** the marks (their trailing clearance is 2h.5 — the closing name right-justified to the cut bar's end, the hairpin before
 it) · the IRs (a colour and a cut are page-time) · `render.js`.
+
+
+## §475. 2h.2 THE BLUE RING OFF — it was the app's own selection, drawn by every seek-click (2026-09-28, Fable, session 17)
+
+**His words (§473):** *"There is this blue circle object appearing. I'm not sure what that is. I think if I vaguely recall from a previous
+score, it's some sort of selection tool or something, or highlight tool. Let's suppress that, please."* His memory was right.
+
+**What draws it — found in the code before anything was touched (PLAN 2h.2's first line):** not the exporter, not a device. The
+curve follower is OFF globally (`followerDot.curveFollower false` since §454, read by `container.json` `curveFollower.enabled`) and the
+vibraphone's device `byEnv.vibBow` carries no follower row. The ring is `notation/app/notation.html` `ringNotes` — *"rings over IR
+events on the page as drawn — DOM only, never exported"* — called by `drawSelection` in the colour `#1e88e5`: PLAN 2d.6's SELECTION + G
+(2026-09-25), where *a click on a note selects it (and still seeks, as every click on the page always has)*. Every time he clicked a head
+to seek there, the note went into the selection and got its ring. His image 1 (the first bow, its `♯` and head ringed) is exactly that.
+
+**The change (the app alone, one function):** `selectAt` — a plain click now ONLY seeks, and selects nothing; **SHIFT+click** selects
+(adds to the selection, or takes the note out of it); ESC clears; G beams the selection as before (2d.6.2). The two comments at the
+call site and at the section's head say so. No rule row: the ring is page furniture of the app (never exported), and its switch is the
+gesture. The AI's reading, his to reverse: the selection was kept on SHIFT rather than removed, so G still has something to beam.
+
+**Verified in the running app** (the pane on his `:5400`, `lgmf-vib-proto`, the first page; the clicks DISPATCHED BY SCRIPT at the
+first head's centre — `ev-wc-3129`, the 2 s bow — since the handler reads only `clientX` · `clientY` · `shiftKey`; the browser's own
+click path is untouched): rings before 0 · after a plain click **0**, `notationSelection()` `[]` · after a SHIFT+click **1**, the
+selection `[ev-wc-3129]` · after ESC **0**. `check_rules` 25 (nothing of the exporter moved); the shield by data absence (no layout
+file touched).

@@ -435,8 +435,9 @@
     return n;
   }
 
-  // [PLAN 2d.6] SELECTION + G — the first choice he makes on the page. A click on a note selects it (and still seeks, as every click
-  // on the page always has); SHIFT+click adds or takes away; ESC clears. G beams the selection — one key, no panel, the app's habit
+  // [PLAN 2d.6] SELECTION + G — the first choice he makes on the page. SHIFT+click on a note selects it (adds or takes away — since
+  // 2h.2, §475: a plain click only seeks, as every click on the page always has; the blue ring on every seek-click was his "blue circle
+  // object … suppress that"); ESC clears. G beams the selection — one key, no panel, the app's habit
   // (Z · B · T · R · O). G on notes that already ARE a beam removes it. The selection is a set of IR event ids; it survives a render
   // and a refresh (ids are stable, docs/NOTATION_IDENTITY.md) and is drawn as blue rings, never in an export.
   const sel = new Set();
@@ -474,10 +475,13 @@
     return best;
   }
   function selectAt(ev) {
+    // [LGMF PLAN 2h.2 — RUNNING_LOG §475] his 2g.6 eye: "There is this blue circle object appearing … Let's suppress that, please."
+    // The ring was THIS selection — every plain click seeks AND selected the note under it (2d.6), so his seek-clicks ringed the head.
+    // A plain click now only seeks; SHIFT+click selects (adds, or takes away); ESC clears; G beams the selection as before.
+    if (!ev.shiftKey) return false;
     const id = hitNote(ev.clientX, ev.clientY);
     if (!id) return false;
-    if (ev.shiftKey) { if (sel.has(id)) sel.delete(id); else sel.add(id); }
-    else { sel.clear(); sel.add(id); }
+    if (sel.has(id)) sel.delete(id); else sel.add(id);
     drawSelection();
     return true;
   }
@@ -1260,7 +1264,7 @@
     const rect = svg.getBoundingClientRect();
     const t = view.secondsOfX((ev.clientX - rect.left) * (view.widthPx / rect.width));
     const [w0, w1] = view.window;
-    selectAt(ev);   // [2d.6] a click on a note also selects it (SHIFT adds); the seek below is unchanged
+    selectAt(ev);   // [2d.6 · 2h.2] SHIFT+click on a note selects it (adds or takes away); a plain click only seeks — the seek below is unchanged
     if (t >= w0 && t <= w1) { state.transport.seek(t); ensureLoop(); }
   });
   // audio attach: the clock slaves to the Reaper render (sync by construction)
