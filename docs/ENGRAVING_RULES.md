@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 148 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 153 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -104,6 +104,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `text[dynamic]`
 - **dynArrow** — colour **ink #111** · lengthSs **2** → `layout.dynArrow.lenSs` · `render.sectionHead.arrowLenSs` · headSs **0.45** → `layout.dynArrow.headSs` · `render.sectionHead.headSs` · beside **0.45** → `layout.dynArrow.gapSs` · thickSs **0.13** → `layout.dynArrow.thickSs` · `render.sectionHead.thickSs` · *composer* · #4 day 22 ('this is new' — the hairpin replacement; gaps the 0.45 standard, thickness the stem's)
   - draws `dynarrow`
+- **hairpin** — colour **ink #111** · lengthSs **2** → `layout.devices.byEnv.sequence.signs.lengthSs` · heightSs **0.667** → `layout.devices.byEnv.sequence.signs.heightSs` · thickSs **0.13** → `layout.devices.byEnv.sequence.signs.thickSs` · beside **0.45** → `layout.devices.byEnv.sequence.signs.gapSs` · circleGapSs **0** → `layout.devices.byEnv.sequence.signs.circleGapSs` · *lilypond* · §460 (his 'lets make the fade in a hairpin … a decrescendo hairpin and then the dynamic'): the fade signs' hairpin — the length the house dynArrow's 2 ss, the opening LilyPond 2.24.4 Hairpin height 0.6667 ss, the thickness the stem's (LilyPond 1 line-thickness), beside the standard 0.45; circleGapSs 0: the niente circle touches the closed tip (LilyPond circled-tip; Gould)
+  - draws `hairpin`
 - **niente** — colour **ink #111** · diameterSs **0.4695** → `layout.devices.byEnv.sequence.signs.circleDiaSs` · `render.sectionHead.circleDiaSs` · thickSs **0.13** · *composer* · #4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip) · the sequence's fade signs §457 · §459 (the opening sign's circle; a closing sign to nothing)
   - draws `niente`
 - **instruction** — face **text** · size **0.75** → `layout.textSizes.instruction` · italic **true** → `layout.italic.instruction` · colour **ink #111** → `layout.colours.instruction` · stack **0.45** → `layout.devices.byEnv.sequence.block.textGapSs` · besideCut **0.15** → `layout.seccoGapSs` · leaves **1** → `layout.ladder.leaves.instruction` · *composer* · §427 · §428 (every word on a note: instruction 0.75 italic, black — the technique size 0.7 and the 1.0998 "pizz." bake retired) · stack: the block's text 0.45 above the column §380 · besideCut: "sempre secco" #5 §540 · LilyPond TextScript padding 0.3 / 0.5 (the seed)
@@ -223,6 +225,7 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `glissline` | clamp | whole |
 | `niente` | clamp | whole |
 | `dynarrow` | clamp | whole |
+| `hairpin` | clamp | whole |
 | `ottava` | clamp | whole |
 | `lvslur` | clamp | whole |
 | `attackline` | atomic | whole |

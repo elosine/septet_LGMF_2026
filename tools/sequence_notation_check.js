@@ -113,13 +113,17 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
     'pp → mp on dynY, right to left mp · spacer · arrow · spacer · pp, ending at the spacer');
   // [2f, §457 his (a) · (i), §459] THE FADE SIGNS: the opening sign under the legend, right-justified to the spacer; the closing sign on the last breath's unit
   const SGN = C.engraving.layout.devices.byEnv.sequence.signs;
-  const oN = at0.find(x => x.k === 'niente' && x.seq === 'openNiente'), oA = at0.find(x => x.k === 'dynarrow' && x.seq === 'openArrow');
-  ok(v.entry.fadeFrom === 'niente' && oN && oA && Math.abs(oA.dx1Ss + GAP) < 1e-9 && Math.abs(oA.ySs - SGN.row) < 1e-9 && oN.ySs === oA.ySs && oN.dxSs < oA.dx0Ss && oN.diaSs === SGN.circleDiaSs,
-    'the opening sign ○ ——< on the sign row (' + SGN.row + ') under the legend, the arrow ending at the spacer (§457 · §459) — got ' + JSON.stringify([v.entry.fadeFrom, oA && oA.dx1Ss, oA && oA.ySs]));
+  // [§460 his hairpins] the opening ○—< BEFORE the legend on the DYNAMIC ROW (the space allows at 0 s): niente · hairpin · pp → mp, the circle at the tip
+  const oN = at0.find(x => x.k === 'niente' && x.seq === 'openNiente'), oH = at0.find(x => x.k === 'hairpin' && x.seq === 'openHairpin');
+  const ppLeft = lo.dxSs - G.dynamic.pp.wSs / 2;
+  ok(v.entry.fadeFrom === 'niente' && oN && oH && oH.dir === 'cresc' && oH.ySs === C.engraving.layout.dynY && oN.ySs === oH.ySs && Math.abs(oH.dx1Ss - (ppLeft - SGN.gapSs)) < 1e-9
+    && Math.abs(oH.dx1Ss - oH.dx0Ss - SGN.lengthSs) < 1e-9 && Math.abs(oN.dxSs + oN.diaSs / 2 + SGN.circleGapSs - oH.dx0Ss) < 1e-9 && oH.hSs === SGN.heightSs,
+    'the opening sign ○—< on the DYNAMIC ROW before the legend (niente · hairpin · pp → mp), the hairpin ' + SGN.lengthSs + ' ss ending ' + SGN.gapSs + ' before pp, the circle at its tip (§460) — got ' + JSON.stringify([v.entry.fadeFrom, oH && [oH.dx0Ss, oH.dx1Ss, oH.ySs, oH.dir], oN && oN.dxSs, ppLeft]));
   const lastB = v.breaths[v.breaths.length - 1], atL = sys.items.filter(x => Math.abs(x.t - lastB.onset) < 1e-9);
-  const cM = atL.find(x => x.seq === 'closeMark'), cA = atL.find(x => x.seq === 'closeArrow');
-  ok(v.exit && v.exit.fades && v.exit.fadeTo === 'ppp' && near(v.exit.t, 149.0, 0.01) && cM && cM.g === 'dyn-ppp' && cA && cA.ySs === SGN.row && Math.abs(cM.dxSs + G.dynamic.ppp.wSs / 2 + C.engraving.layout.nhGapSs) < 1e-9 && cA.dx1Ss < cM.dxSs,
-    'the closing sign ——> ppp on the LAST breath’s unit (' + (lastB && lastB.onset) + ' s), right-justified to its go line; the line ends at 149.0 s falling to ppp (his (i), §459) — got ' + JSON.stringify(v.exit) + ' ' + JSON.stringify(cM && [cM.g, cM.dxSs, cM.ySs]));
+  const cM = atL.find(x => x.seq === 'closeMark'), cH = atL.find(x => x.seq === 'closeHairpin');
+  ok(v.exit && v.exit.fades && v.exit.fadeTo === 'ppp' && near(v.exit.t, 149.0, 0.01) && cM && cM.g === 'dyn-ppp' && cM.ySs === C.engraving.layout.dynY && Math.abs(cM.dxSs + G.dynamic.ppp.wSs / 2 + C.engraving.layout.nhGapSs) < 1e-9
+    && cH && cH.dir === 'decresc' && cH.ySs === cM.ySs && Math.abs(cH.dx1Ss - (cM.dxSs - G.dynamic.ppp.wSs / 2 - SGN.gapSs)) < 1e-9 && Math.abs(cH.dx1Ss - cH.dx0Ss - SGN.lengthSs) < 1e-9,
+    'the closing sign —> ppp (a decrescendo hairpin, then the dynamic) on the LAST breath’s unit (' + (lastB && lastB.onset) + ' s), on the dynamic row, right-justified to its go line; the line ends at 149.0 s falling to ppp (his (i), §459 · §460) — got ' + JSON.stringify(v.exit) + ' ' + JSON.stringify(cM && [cM.g, cM.dxSs, cM.ySs]) + ' ' + JSON.stringify(cH && [cH.dx0Ss, cH.dx1Ss, cH.dir]));
   ok(!model.warnings.length, 'no layout warnings — got ' + JSON.stringify(model.warnings));
   // 2d.3 THE CURVE AND THE FOLLOWER — the morph's crescendo kind, ABSOLUTE: the IR's samples are the height (no normalisation, no floor)
   const cc = sys.items.filter(x => x.k === 'cresccurve');
@@ -163,7 +167,7 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
       '(' + mk + ') at ' + tt + ' s: the dynamic at ' + LB.scale + ' centred on x(t) between its parentheses, on dynY');
   }
   const row = sys.items.filter(x => x.ySs === dynY && x.t <= 36);
-  ok(row.every(x => (x.t === 0 && /rangeHi|rangeLo|rangeArrow/.test(x.seq || '')) || /label/.test(x.seq || '')), 'nothing else on the dynamic row in 0 … 36 s but the block’s chain — got ' + row.map(x => x.t + ':' + (x.g || x.k)).join(' '));
+  ok(row.every(x => (x.t === 0 && /rangeHi|rangeLo|rangeArrow|openNiente|openHairpin/.test(x.seq || '')) || /label/.test(x.seq || '')), 'nothing else on the dynamic row in 0 … 36 s but the block’s chain and its opening sign — got ' + row.map(x => x.t + ':' + (x.g || x.k)).join(' '));
 }
 
 console.log((fail ? 'FAILED ' : 'ALL PASS ') + pass + ' / ' + (pass + fail));

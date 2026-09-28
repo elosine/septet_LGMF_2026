@@ -81,10 +81,11 @@
       case 'ottava': return { lo: it.ySs - 0.9, hi: it.ySs + 0.9, l: it.dx0Ss || 0, r: it.dx1Ss || 0 };
       case 'dynarrow': { const h = (it.headSs || 0.45) * 0.45; return { lo: it.ySs - h, hi: it.ySs + h, l: Math.min(it.dx0Ss, it.dx1Ss), r: Math.max(it.dx0Ss, it.dx1Ss) }; }
       case 'niente': { const r = (it.diaSs || 0.47) / 2; return { lo: it.ySs - r, hi: it.ySs + r, l: dx - r, r: dx + r }; }
+      case 'hairpin': { const h = (it.hSs || 0.667) / 2; return { lo: it.ySs - h, hi: it.ySs + h, l: Math.min(it.dx0Ss, it.dx1Ss), r: Math.max(it.dx0Ss, it.dx1Ss) }; }
       default: return null;
     }
   }
-  const isMark = it => it.k === 'text' || it.k === 'ottava' || it.k === 'dynarrow' || it.k === 'niente' || (it.k === 'glyph' && MARK_GLYPH.test(it.g || ''));
+  const isMark = it => it.k === 'text' || it.k === 'ottava' || it.k === 'dynarrow' || it.k === 'hairpin' || it.k === 'niente' || (it.k === 'glyph' && MARK_GLYPH.test(it.g || ''));
 
   // the units of one system's items: Map(t key → [items]) — point items only
   function unitsOf(items) {
@@ -275,6 +276,7 @@
     instruction: it => it.k === 'text' && (it.seq === 'techText' || it.seq === 'instruction' || !it.seq),
     ottava: it => it.k === 'ottava',
     dynArrow: it => it.k === 'dynarrow',
+    hairpin: it => it.k === 'hairpin',
     niente: it => it.k === 'niente',
   };
   function applyOverride(items, ov) {

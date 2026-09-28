@@ -1028,41 +1028,72 @@
         // the written range on the dynamic row — the lower-ink rule (#5 §479): a standard spacer under the lowest head or ledger
         const A = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});
         const rg = Array.isArray(en.range) ? en.range.filter(n => (glyphs.dynamic || {})[n]) : [];
+        const gTop = rg.length ? glyphs.dynamic[rg[rg.length - 1]] : null;
+        const yDyn = gTop ? Math.min(o.dynY, H.lowInk - A.gapSs - (gTop.hSs || 1) / 2) : o.dynY;
+        let legendLeft = -SQB.headGapSs;   // the legend chain's leftmost ink (the spacer itself when there is no legend)
         if (rg.length) {
-          const gHi = glyphs.dynamic[rg[rg.length - 1]], gLo = glyphs.dynamic[rg[0]];
-          const yDyn = Math.min(o.dynY, H.lowInk - A.gapSs - (gHi.hSs || 1) / 2);
+          const gHi = gTop, gLo = glyphs.dynamic[rg[0]];
           const hiC = -SQB.headGapSs - gHi.wSs / 2;   // [2e.3 (1)] the legend ends at anchor B's spacer, with the column
           items.push({ k: 'glyph', g: 'dyn-' + rg[rg.length - 1], t, dxSs: hiC, ySs: yDyn, align: 'center', seq: 'rangeHi' });
+          legendLeft = hiC - gHi.wSs / 2;
           if (rg.length > 1) {
-            const arrR = hiC - gHi.wSs / 2 - A.gapSs, arrL = arrR - A.lenSs;
+            const arrR = hiC - gHi.wSs / 2 - A.gapSs, arrL = arrR - A.lenSs, loC = arrL - A.gapSs - gLo.wSs / 2;
             items.push({ k: 'dynarrow', t, dx0Ss: arrL, dx1Ss: arrR, ySs: yDyn, headSs: A.headSs, thickSs: A.thickSs, seq: 'rangeArrow' });
-            items.push({ k: 'glyph', g: 'dyn-' + rg[0], t, dxSs: arrL - A.gapSs - gLo.wSs / 2, ySs: yDyn, align: 'center', seq: 'rangeLo' });
+            items.push({ k: 'glyph', g: 'dyn-' + rg[0], t, dxSs: loC, ySs: yDyn, align: 'center', seq: 'rangeLo' });
+            legendLeft = loC - gLo.wSs / 2;
           }
         }
-        // [LGMF PLAN 2f — RUNNING_LOG §457 his (a) · (i), §459] THE FADE SIGNS, symbolic, not timed (§370 B): the opening sign ○ ——< on the
-        // sign row under the legend when the line enters from nothing (the overlay's entry.fadeFrom); the closing sign ——> <name> on the
-        // LAST breath's unit when the line falls to a name at its end (the overlay's exit) — both right-justified to anchor B's spacer.
-        const SG = Object.assign({ row: -5.95, circleDiaSs: 0.4695 }, ((DEV.byEnv || {}).sequence || {}).signs || {});   // RULES MIRROR
-        const yD = rg.length ? Math.min(o.dynY, H.lowInk - A.gapSs - ((glyphs.dynamic[rg[rg.length - 1]] || {}).hSs || 1) / 2) : o.dynY;
-        const ySign = yD - (o.dynY - SG.row);   // the sign row follows the dynamic row when low ink pushes it down
-        let openLeft = null;
+        // [LGMF PLAN 2f — RUNNING_LOG §457 his (a) · (i), §459, §460 HAIRPINS] THE FADE SIGNS, symbolic, not timed (§370 B): the opening
+        // sign ○—< BEFORE the legend on the dynamic row when the horizontal space allows (his order: niente · hairpin · pp · arrow · mp),
+        // else on the sign row under it; the closing sign —> <name> (a decrescendo hairpin, then the dynamic the line falls to) on the
+        // LAST breath's unit, right-justified to its go line, on the dynamic row when the space allows, else the sign row. The space is
+        // the distance back to the part's previous ink (fit.js inkOf, the frame's ss per second from the fit boxes).
+        const SG = Object.assign({ row: -5.95, circleDiaSs: 0.4695, lengthSs: 2, heightSs: 0.667, thickSs: 0.13, gapSs: 0.45, circleGapSs: 0 }, ((DEV.byEnv || {}).sequence || {}).signs || {});   // RULES MIRROR
+        const ySign = yDyn - (o.dynY - SG.row);   // the sign row follows the dynamic row when low ink pushes it down
+        const FitL = FitIn || (rootIn && rootIn.NotationFit) || null, tsL = o.textEmScale != null ? o.textEmScale : 1.3;
+        const ssPerSec = o.fitBoxes && o.fitBoxes.ssPerSec;
+        // the room before a time on this part: from that time back to the part's latest earlier ink, in ss (Infinity: nothing before)
+        const roomBefore = tU => {
+          if (!ssPerSec || !FitL) return Infinity;
+          let tp = -Infinity, right = 0;
+          for (const it of items) {
+            if (it.t0 != null || !(it.t < tU - 1e-6)) continue;
+            const e = FitL.inkOf(it, glyphs, tsL);
+            if (!e) continue;
+            if (it.t > tp + 1e-6) { tp = it.t; right = e.r; } else if (Math.abs(it.t - tp) <= 1e-6) right = Math.max(right, e.r);
+          }
+          return tp === -Infinity ? Infinity : (tU - tp) * ssPerSec - right;
+        };
+        // one sign chain, right-justified at `right` on row y — ○—< (cresc) or —> mark (decresc); returns its leftmost ink
+        const signChain = (tS, evS, y, right, form) => {
+          let x = right;
+          if (form.dir === 'decresc') {
+            if (form.mark === 'niente') { items.push({ k: 'niente', t: tS, dxSs: x - SG.circleDiaSs / 2, ySs: y, diaSs: SG.circleDiaSs, thickSs: SG.thickSs, seq: 'closeMark', ev: evS }); x -= SG.circleDiaSs + SG.circleGapSs; }
+            else { const g = glyphs.dynamic[form.mark]; items.push({ k: 'glyph', g: 'dyn-' + form.mark, t: tS, dxSs: x - g.wSs / 2, ySs: y, align: 'center', seq: 'closeMark', ev: evS }); x -= g.wSs + SG.gapSs; }
+            items.push({ k: 'hairpin', t: tS, dx0Ss: x - SG.lengthSs, dx1Ss: x, ySs: y, dir: 'decresc', hSs: SG.heightSs, thickSs: SG.thickSs, seq: 'closeHairpin', ev: evS });
+            return x - SG.lengthSs;
+          }
+          items.push({ k: 'hairpin', t: tS, dx0Ss: x - SG.lengthSs, dx1Ss: x, ySs: y, dir: 'cresc', hSs: SG.heightSs, thickSs: SG.thickSs, seq: 'openHairpin', ev: evS });
+          x -= SG.lengthSs + SG.circleGapSs;
+          items.push({ k: 'niente', t: tS, dxSs: x - SG.circleDiaSs / 2, ySs: y, diaSs: SG.circleDiaSs, thickSs: SG.thickSs, seq: 'openNiente', ev: evS });
+          return x - SG.circleDiaSs;
+        };
+        const openW = SG.lengthSs + SG.circleGapSs + SG.circleDiaSs;
         if (en.fadeFrom === 'niente') {
-          const arrR = -SQB.headGapSs, arrL = arrR - A.lenSs, cirC = arrL - A.gapSs - SG.circleDiaSs / 2;
-          items.push({ k: 'dynarrow', t, dx0Ss: arrL, dx1Ss: arrR, ySs: ySign, headSs: A.headSs, thickSs: A.thickSs, seq: 'openArrow', ev: en.event });
-          items.push({ k: 'niente', t, dxSs: cirC, ySs: ySign, diaSs: SG.circleDiaSs, thickSs: A.thickSs, seq: 'openNiente', ev: en.event });
-          openLeft = cirC - SG.circleDiaSs / 2;
+          const onRow = roomBefore(t) >= -legendLeft + SG.gapSs + openW + SG.gapSs;
+          signChain(t, en.event, onRow ? yDyn : ySign, onRow ? legendLeft - SG.gapSs : -SQB.headGapSs, { dir: 'cresc' });
         }
         const EX = sq.v.exit;
         if (EX && EX.fades && (EX.fadeTo === 'niente' || (glyphs.dynamic || {})[EX.fadeTo])) {
           const lastB = (sq.v.breaths || []).slice(-1)[0];
-          const tC = lastB ? lastB.onset : t, evC = lastB ? lastB.event : en.event, yC = lastB ? SG.row : ySign;
-          // on the entry itself (a line of one note) the closing sign sits LEFT of the opening sign
-          const right = lastB ? -o.nhGapSs : (openLeft != null ? openLeft - A.gapSs : -SQB.headGapSs);
-          const wM = EX.fadeTo === 'niente' ? SG.circleDiaSs : glyphs.dynamic[EX.fadeTo].wSs;
-          const mC = right - wM / 2, arrR = mC - wM / 2 - A.gapSs, arrL = arrR - A.lenSs;
-          if (EX.fadeTo === 'niente') items.push({ k: 'niente', t: tC, dxSs: mC, ySs: yC, diaSs: SG.circleDiaSs, thickSs: A.thickSs, seq: 'closeMark', ev: evC });
-          else items.push({ k: 'glyph', g: 'dyn-' + EX.fadeTo, t: tC, dxSs: mC, ySs: yC, align: 'center', seq: 'closeMark', ev: evC });
-          items.push({ k: 'dynarrow', t: tC, dx0Ss: arrL, dx1Ss: arrR, ySs: yC, headSs: A.headSs, thickSs: A.thickSs, seq: 'closeArrow', ev: evC });
+          const closeW = SG.lengthSs + (EX.fadeTo === 'niente' ? SG.circleDiaSs + SG.circleGapSs : glyphs.dynamic[EX.fadeTo].wSs + SG.gapSs);
+          if (lastB) {
+            const onRow = roomBefore(lastB.onset) >= o.nhGapSs + closeW + SG.gapSs;
+            signChain(lastB.onset, lastB.event, onRow ? o.dynY : SG.row, -o.nhGapSs, { dir: 'decresc', mark: EX.fadeTo });
+          } else {
+            // a line of ONE note: the closing sign on the sign row, left of where the opening sign would stand
+            signChain(t, en.event, ySign, -SQB.headGapSs - openW - SG.gapSs, { dir: 'decresc', mark: EX.fadeTo });
+          }
         }
       }
       for (const d of dynTexts) if (d.part === part && first) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic, color: COL.dynamicText, seq: 'dynamic' });
@@ -3051,7 +3082,7 @@
               return it.dxSs - w / 2;
             }
             if (it.k === 'dot' || it.k === 'goline') return it.dxSs != null ? it.dxSs : 0;
-            if (it.k === 'dynarrow') return it.dx0Ss;
+            if (it.k === 'dynarrow' || it.k === 'hairpin') return it.dx0Ss;
             return null;
           };
           // the bar's dxSs is its CENTRE (render.js draws it at dx − thick/2),

@@ -16172,3 +16172,51 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
   recipe (the same fact; the note is what sounds).
 - **His eye — reload the tab:** `lgmf-eh-proto` (13 pages now) → `0` (the sign under `pp → mp`) · `141.98` (the last breath: G5 −31 ·
   `14 (A1)`, `——> ppp` under its go line) · the curve's fall to 149.
+
+## §460. `2f.6` THE FADE SIGNS AS HAIRPINS, before the legend when the space allows — his form, built (2026-09-27, Fable, session 17)
+
+- **His words:** *"lets make the fade in a hairpin; And when the horizontal space allows, let's make it precede the dynamic markings. So the
+  order when space allows is niente, hairpin, crescendo, PP, arrow, MP. And then if there's not enough space, below is fine as is. The
+  ending mark for fade out should also be a decrescendo hairpin and then the dynamic at the end. So in this case, niente."*
+- **Built (the rows and this §; PLAN 2f amended with 2f.6):**
+  - A NEW DRAWN KIND, `hairpin` — its objects row (`lengthSs` 2, the house dynArrow's · `heightSs` 0.667, LilyPond 2.24.4's Hairpin height ·
+    `thickSs` 0.13, the stem's · `beside` 0.45 · `circleGapSs` 0: the niente circle touches the closed tip, LilyPond's circled-tip / Gould;
+    basis lilypond) · its edge row (`clamp` · `whole`, as the dynArrow) · `render.js` draws it (two lines from the closed tip; `dir` cresc =
+    the tip left, decresc = the tip right; in `POINT_KINDS` and `inkSpanSs`) · `fit.js` measures it (`inkOf`, `isMark`, `OBJECT_OF`) ·
+    `layout.js`'s left-edge rule knows it. 153 pointers compile.
+  - `byEnv.sequence.signs` points at the hairpin row (length · height · thickness · gap · the circle's gap) beside the sign row and the circle.
+  - THE CHAINS (`layout.js`, one `signChain`): the opening `○—<` — the hairpin opening toward the legend, the circle at its closed tip —
+    right-justified 0.45 before the legend's `pp` ON THE DYNAMIC ROW when the room allows (his order niente · hairpin · pp · arrow · mp), else
+    on the sign row right-justified to the spacer (his "below is fine as is"); the closing `—> <name>` — a decrescendo hairpin, then the
+    dynamic the line falls to (a circle for nothing) — on the LAST breath's unit, right-justified to its go line, on the dynamic row when the
+    room allows, else the sign row. THE ROOM = the distance back to the part's latest earlier ink (`fit.js inkOf`, the frame's ss per second
+    from the fit boxes; nothing before = unlimited). On the proto both signs land on the dynamic row.
+- **Verified:** `check_rules` **23 GREEN** (the new kind has its row and its edge row; the RULES MIRROR line in render.js) ·
+  `sequence_notation_check` **63 / 63** — the opening sign now asserted on the dynamic row before `pp` (the hairpin 2 ss ending 0.45 before
+  pp's left ink, the circle at its tip), the closing `—> ppp` on the dynamic row of the last breath · `decisions_needed` 0 · the rules page
+  regenerated. No re-extraction (the overlay is unchanged). Page files only — he reloads the tab.
+- **His "in this case, niente" — put back to him:** the save says the EH's line falls to **ppp** (the recipe's `fadeOutTo: "ppp"`, 1d.8; the
+  last note `cc7Abs {43, 65}` with the heights falling to 0.1; the level's last sample 0.127 = ppp), so the closing sign reads `—> ppp`. A
+  sign to nothing (`—> ○`) is what the code draws when a line's last sample IS nothing — which needs the sequence re-inserted with `fade
+  out … to niente` (the composing), not the notation. The notation follows the save (D9).
+- **The AI's calls, his to reverse:** the hairpin's opening 0.667 (LilyPond) · the circle touching the tip · the room rule (the previous
+  ink on the part, a 0.45 gap either side) · the closing sign on the dynamic row when the room allows (his words named the opening; the
+  mirror applied).
+
+## §461. THE KNEE IN THE FADE — his question, the analysis; nothing decided (2026-09-27, Fable, session 17)
+
+- **His words:** *"Can you help me understand why there's a ramping of the curve here? So if I understand it correctly, there should be a
+  smooth curve from Niente to PP. And then it should continue there from PP to MP. Just help me understand first before we try to fix
+  anything. it looks like the extra steep ramp starts about 5.09 seconds."*
+- **Measured:** the level 0.0247 / s from 0 to 5.0 s, then **0.1328 / s** from 5.1 to 6.0 s — **5.37× steeper**; the knee at **5.059 s**,
+  exactly where the fader's CC7 crosses **43 = ppp** (the fade is linear in CC7, 0 → 51 over 6 s: 6 × 43 / 51).
+- **Why:** the written scale (§374 · §375, `sequence_overlays.js writtenOf`) maps CC7 to height PIECEWISE through the EH's ladder — under
+  ppp, **43 CC7 steps** span one eighth of the height ("linear to CC7 0 = niente"); from ppp to pp, **8 CC7 steps** span the next eighth.
+  The same CC7 rate therefore draws 43 / 8 = 5.4× steeper above ppp. The knee is the mapping's, not the music's.
+- **What the SOUND does:** the fader's law is logarithmic (UVI 40·log10, Kontakt 60·log10 — D13), so a CC7-linear fade rises fast in dB
+  early and eases into pp — the opposite of the picture. Neither "linear in CC7" nor the picture is the musical idea; the fade's meaning
+  is "from nothing to pp over 6 s".
+- **The fix candidates (his call):** (a) draw a FADE as the multiplier on the WRITTEN height — written(the note's level) × the fade weight:
+  one straight line from nothing to pp, the knee gone; the same for a fade-out; the body between names unchanged [the AI's lean: the
+  fade's own meaning; a change in the extractor's mapping only, every stored IR re-extracted] · (b) keep the mapping, accept the knee ·
+  (c) the sub-ppp region on the fader's dB law with a chosen floor — a curve, the sound's shape, but a floor is a convention too.

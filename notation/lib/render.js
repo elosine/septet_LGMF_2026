@@ -95,7 +95,7 @@
       }
       case 'barline': { const h = E.barLine.thickSs / 2; return [dx - h, dx + h]; }
       case 'tempotext': { const hw = glyphs.notehead.filled.wSs * E.barLine.tempoHeadScale / 2; return [dx - hw, dx + E.barLine.tempoGapSs + 3]; }
-      case 'glissline': case 'dynarrow': { const a = it.dx0Ss || 0, b = it.dx1Ss || 0; return [Math.min(a, b), Math.max(a, b)]; }
+      case 'glissline': case 'dynarrow': case 'hairpin': { const a = it.dx0Ss || 0, b = it.dx1Ss || 0; return [Math.min(a, b), Math.max(a, b)]; }
       case 'niente': { const r = (it.diaSs || 0.47) / 2; return [dx - r, dx + r]; }
       case 'ottava': {
         const O = stds.ottava || {}, lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
@@ -645,6 +645,15 @@
           parts.push('<path d="M' + x1.toFixed(2) + ',' + yA.toFixed(2) +
             ' L' + (x1 - headL).toFixed(2) + ',' + (yA - headL * 0.45).toFixed(2) +
             ' L' + (x1 - headL).toFixed(2) + ',' + (yA + headL * 0.45).toFixed(2) + ' Z"/>');
+        } else if (it.k === 'hairpin') {
+          // [LGMF 2f.6, §460] THE FADE SIGNS' HAIRPIN: two lines from the closed tip, opening to hSs (rules.json objects.hairpin —
+          // LilyPond's Hairpin height), stem-thickness; dir 'cresc' = the tip at the left (○—<), 'decresc' = the tip at the right (—>)
+          if (!owns(it.t)) continue;
+          const x0 = X(it.t, it.dx0Ss), x1 = X(it.t, it.dx1Ss), yA = Y(it.ySs);
+          const hh = (it.hSs || 0.667) * ssPx / 2, thick = (it.thickSs || 0.13) * ssPx;   // RULES MIRROR
+          const tip = it.dir === 'decresc' ? x1 : x0, open = it.dir === 'decresc' ? x0 : x1;
+          parts.push('<path d="M' + open.toFixed(2) + ',' + (yA - hh).toFixed(2) + ' L' + tip.toFixed(2) + ',' + yA.toFixed(2) +
+            ' L' + open.toFixed(2) + ',' + (yA + hh).toFixed(2) + '" fill="none" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linejoin="miter"/>');
         } else if (it.k === 'tuplet') {
           // THE TUPLET BRACKET (day 23) — the composer's LilyPond standard,
           // measured: a FLAT bracket (their own flatten-tuplet-bracket), hooks
@@ -870,7 +879,7 @@
   // the page, not to the music). check_print_edges reads these rather than
   // keeping a second list that could quietly disagree with the loop above.
   const POINT_KINDS = ['glyph', 'rest', 'stem', 'dot', 'ledger', 'beam', 'text', 'attackline', 'tick',
-    'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'ottava', 'lvslur', 'goline', 'gc'];
+    'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc'];
   const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick'];
   const FURNITURE_KINDS = ['staff', 'clef'];
   // 'tuplet' is neither: it has no window gate at all, because a tuplet bracket

@@ -38,6 +38,7 @@
     "glissline": { "screen": "clamp", "print": "whole" },
     "niente": { "screen": "clamp", "print": "whole" },
     "dynarrow": { "screen": "clamp", "print": "whole" },
+    "hairpin": { "screen": "clamp", "print": "whole" },
     "ottava": { "screen": "clamp", "print": "whole" },
     "lvslur": { "screen": "clamp", "print": "whole" },
     "attackline": { "screen": "atomic", "print": "whole" },
