@@ -1561,7 +1561,7 @@
                 const chromeDx = g => dev.nhAnchor === 'leftEdge' ? headDx - nhO.wSs / 2 + g.wSs / 2 : headDx;
                 // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head carries its SEAT; render.js fills it in
                 // the seat's hue when rules.json vibMarks.headColour is 'seat' (ink otherwise)
-                items.push(Object.assign({ k: 'glyph', g: headGlyph, t: tU, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}, vibBowOf.has(e.id) ? { seat: vibBowOf.get(e.id).chain } : {}));
+                items.push(Object.assign({ k: 'glyph', g: headGlyph, t: tU, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}, vibBowOf.has(e.id) ? { seat: vibBowOf.get(e.id).voice === 'upper' ? 0 : 1 } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: tU, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 if (TPG) {   // [2f.4] the neighbour group, drawn with the unit
                   const P = TPG.P;
@@ -1609,7 +1609,7 @@
                   ringBarItem.dx0Ss = Math.max(0, headDx + rightExt + rbGap);
                   // [LGMF 2g.4] the vibraphone's bow: its head's centre and time ride on its bar — the start mark centres on the head
                   // (anchor A's column), displaced by the chord column or not
-                  if (vibBowOf.has(e.id)) { ringBarItem.headDxSs = +headDx.toFixed(6); ringBarItem.headT = tU; ringBarItem.seat = vibBowOf.get(e.id).chain; }   // [§484] the seat colours the bar (render.js)
+                  if (vibBowOf.has(e.id)) { ringBarItem.headDxSs = +headDx.toFixed(6); ringBarItem.headT = tU; ringBarItem.seat = vibBowOf.get(e.id).voice === 'upper' ? 0 : 1; }   // [§484 · §496] the ROW colours the bar (render.js): seat 0 = the top row, navy; 1 = the bottom, olive
                 }
                 // unit ink extents (grow as elements land) — feed both the
                 // accidental clearance and the ottava geometry
@@ -3233,7 +3233,7 @@
           // [§495 — the running order's steps 1 · 2, built for his eye] THE BOW LEAD (2i.7, his §491): a dotted vertical line at the head's
           // LEFT EDGE from the head's centre through its seat's bar to the far edge (up to the navy bar's top, down to the olive bar's
           // bottom); THE HEAD SWATCH: a pale patch behind the head in its seat's bar colour. Both by rule (vibMarks.headLead · headSwatch)
-          const seat = vibBowOf.get(bar.ev).chain, hw = (glyphs.notehead.open.wSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), hh = HEADH;
+          const seat = up ? 0 : 1, hw = (glyphs.notehead.open.wSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), hh = HEADH;   // [§496] the colour follows the ROW
           if (MK.headLead && bar.headT != null && bar.headDxSs != null)
             leadItems.push({ k: 'bowlead', t: bar.headT, dxSs: +(bar.headDxSs - hw / 2).toFixed(4), y0Ss: bar.headYSs, y1Ss: +(up ? bar.ySs + RBH / 2 : bar.ySs - RBH / 2).toFixed(4), seat, ev: bar.ev, pinned: true });
           if (MK.headSwatch && bar.headT != null && bar.headDxSs != null)

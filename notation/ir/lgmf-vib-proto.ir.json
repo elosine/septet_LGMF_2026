@@ -7949,9 +7949,15 @@
       "t0": 42.648,
       "t1": 49.441,
       "midi": 87,
-      "restart": false,
+      "restart": true,
       "startName": "pp",
       "marks": [
+       {
+        "kind": "name",
+        "t": 42.648,
+        "name": "pp",
+        "start": true
+       },
        {
         "kind": "hairpin",
         "t": 44.279,
@@ -7974,9 +7980,15 @@
       "t0": 42.648,
       "t1": 48.841,
       "midi": 55,
-      "restart": false,
+      "restart": true,
       "startName": "mp",
       "marks": [
+       {
+        "kind": "name",
+        "t": 42.648,
+        "name": "mp",
+        "start": true
+       },
        {
         "kind": "hairpin",
         "t": 45.81,
@@ -8246,24 +8258,37 @@
      {
       "event": "ev-wc-3194",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 72.323,
       "t1": 76.981,
       "midi": 63,
-      "restart": false,
+      "restart": true,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 72.323,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3195",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 72.323,
       "t1": 78.947,
       "midi": 75,
-      "restart": false,
+      "restart": true,
       "startName": "pp",
       "marks": [
+       {
+        "kind": "name",
+        "t": 72.323,
+        "name": "pp",
+        "start": true
+       },
        {
         "kind": "hairpin",
         "t": 72.323,
@@ -8282,7 +8307,7 @@
      {
       "event": "ev-wc-3199",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 77.031,
       "t1": 82.623,
       "midi": 63,
@@ -8293,7 +8318,7 @@
      {
       "event": "ev-wc-3200",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 78.997,
       "t1": 83.69,
       "midi": 89,
@@ -8318,7 +8343,7 @@
      {
       "event": "ev-wc-3203",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 82.673,
       "t1": 89.401,
       "midi": 58,
@@ -8329,7 +8354,7 @@
      {
       "event": "ev-wc-3204",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 83.74,
       "t1": 88.391,
       "midi": 89,
@@ -8354,7 +8379,7 @@
      {
       "event": "ev-wc-3207",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 88.441,
       "t1": 94.886,
       "midi": 89,
@@ -8365,7 +8390,7 @@
      {
       "event": "ev-wc-3209",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 89.451,
       "t1": 94.226,
       "midi": 58,
@@ -8376,7 +8401,7 @@
      {
       "event": "ev-wc-3213",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 94.276,
       "t1": 102.853,
       "midi": 58,
@@ -8387,7 +8412,7 @@
      {
       "event": "ev-wc-3214",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 94.936,
       "t1": 101.152,
       "midi": 89,
@@ -8398,7 +8423,7 @@
      {
       "event": "ev-wc-3218",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 101.202,
       "t1": 105.602,
       "midi": 87,
@@ -8423,7 +8448,7 @@
      {
       "event": "ev-wc-3221",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 102.903,
       "t1": 107.388,
       "midi": 70,
@@ -8434,7 +8459,7 @@
      {
       "event": "ev-wc-3223",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 105.652,
       "t1": 112.39,
       "midi": 87,
@@ -8472,7 +8497,7 @@
      {
       "event": "ev-wc-3224",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 107.438,
       "t1": 114.364,
       "midi": 70,
@@ -8483,7 +8508,7 @@
      {
       "event": "ev-wc-3226",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 112.44,
       "t1": 114.964,
       "midi": 87,
@@ -8508,7 +8533,7 @@
      {
       "event": "ev-wc-3230",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 114.414,
       "t1": 120.686,
       "midi": 70,
@@ -8519,7 +8544,7 @@
      {
       "event": "ev-wc-3231",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 115.014,
       "t1": 120.686,
       "midi": 87,
@@ -8530,24 +8555,37 @@
      {
       "event": "ev-wc-3236",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 120.736,
       "t1": 125.362,
       "midi": 70,
-      "restart": false,
+      "restart": true,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 120.736,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3237",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 120.736,
       "t1": 127.646,
       "midi": 87,
-      "restart": false,
+      "restart": true,
       "startName": "pp",
       "marks": [
+       {
+        "kind": "name",
+        "t": 120.736,
+        "name": "pp",
+        "start": true
+       },
        {
         "kind": "hairpin",
         "t": 122.116,
@@ -8566,7 +8604,7 @@
      {
       "event": "ev-wc-3238",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 125.412,
       "t1": 130.551,
       "midi": 82,
@@ -8577,7 +8615,7 @@
      {
       "event": "ev-wc-3241",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 127.696,
       "t1": 133.118,
       "midi": 76,
@@ -8602,7 +8640,7 @@
      {
       "event": "ev-wc-3245",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 130.601,
       "t1": 136.874,
       "midi": 82,
@@ -8613,7 +8651,7 @@
      {
       "event": "ev-wc-3247",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 133.168,
       "t1": 141.327,
       "midi": 76,
@@ -8638,7 +8676,7 @@
      {
       "event": "ev-wc-3248",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 136.924,
       "t1": 141.327,
       "midi": 82,
@@ -8649,7 +8687,7 @@
      {
       "event": "ev-wc-3253",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 141.377,
       "t1": 146.384,
       "midi": 82,
@@ -8660,7 +8698,7 @@
      {
       "event": "ev-wc-3252",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 141.377,
       "t1": 148.188,
       "midi": 81,
@@ -8698,7 +8736,7 @@
      {
       "event": "ev-wc-3257",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 146.434,
       "t1": 148.788,
       "midi": 82,
@@ -8709,7 +8747,7 @@
      {
       "event": "ev-wc-3259",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 148.238,
       "t1": 153,
       "midi": 81,
@@ -8734,7 +8772,7 @@
      {
       "event": "ev-wc-3260",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 148.838,
       "t1": 154,
       "midi": 82,

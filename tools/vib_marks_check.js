@@ -54,7 +54,7 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
 // (2) the goldens of §463
 {
   const j1 = at(R01, 42.65, 67), j2 = j1 && nextIn(j1);
-  ok(j1 && T(j1) === '> p' && j1.startName === 'mp' && j2 && j2.startName === 'p' && VM.stepsAt(S.objects.find(o => o.id === j2.id), j2.t0, L) < 1.5,
+  ok(j1 && T(j1) === 'mp > p' && j1.cross && j1.restart && j2 && j2.startName === 'p' && VM.stepsAt(S.objects.find(o => o.id === j2.id), j2.t0, L) < 1.5,
     'THE CARRY at the join 42.65 → 48.89 s: "' + (j1 && T(j1)) + ' | ' + (j2 && T(j2)) + '" — the second bow starts on the carried p although its level ' + (j2 ? j2.startSteps.toFixed(2) : '?') + ' rounds to pp (§463 wrinkle 2)');
   const b33 = at(R01, 33.16);
   ok(b33 && T(b33) === '< p' && b33.startName === 'pp', 'rule 1\'s second tier: the 33.16 s bow rises ' + (b33 ? (b33.endSteps - b33.startSteps).toFixed(2) : '?') + ' step onto a new name — "' + (b33 && T(b33)) + '" from the carried ' + (b33 && b33.startName) + ' (2h.8: the start name not restated)');
@@ -72,7 +72,8 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   // hairpin departs from its row's carried name ("pp < p" → "< p", "p > pp < mp > p" → "> pp < mp > p", the bare bows bare)
   const seat = at(R01, 33.16).chain;
   const got = B.filter(b => b.group === R01 && b.chain === seat && b.t0 >= 33 && b.t0 <= 95).map(b => T(b) || '·').join(' | ');
-  const WANT = '< p | < mp | > p | > pp < mp > p | > pp < p | < mp > p | > pp | < mp | > p | > pp | · | ·';
+  // [§496] the crosses at 42.65 and 72.32 s restart both rows: "mp > p" and "pp < mp" carry their start names again
+  const WANT = '< p | < mp | mp > p | > pp < mp > p | > pp < p | < mp > p | > pp | pp < mp | > p | > pp | · | ·';
   ok(got === WANT, 'the R01c stretch 33 … 95 s, seat ' + seat + ' (§463 rendered under the rules): ' + got + (got === WANT ? '' : '  — want ' + WANT));
 }
 
@@ -92,8 +93,8 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   {
     const restated = B.filter(b => b.marks[0] && b.marks[0].start && !b.restart && !b.switched), starts = B.filter(b => b.marks[0] && b.marks[0].start);
     const b79 = at(R01, 79.00, 89), b72 = at(R01, 72.32, 75);
-    ok(!restated.length && b79 && T(b79) === '> p' && b72 && T(b72) === '< mp' && !R.vibMarks.startOnMove && R.vibMarks.startOnVoiceSwitch === true,
-      'THE START NAME (2h.8): only at a restart (' + B.filter(b => b.restart && b.marks[0] && b.marks[0].start).length + ') or a voice switch (' + B.filter(b => b.switched && !b.restart && b.marks[0] && b.marks[0].start).length + ') — ' + starts.length + ' of 156; the 72.32 → 79.00 s bows read "' + (b72 && T(b72)) + ' | ' + (b79 && T(b79)) + '" (his "mp mp" gone)' + (restated.length ? ' — restated: ' + restated.slice(0, 4).map(b => b.t0).join(' ') : ''));
+    ok(!restated.length && b79 && T(b79) === '> p' && b72 && T(b72) === 'pp < mp' && b72.cross && !R.vibMarks.startOnMove && R.vibMarks.startOnVoiceSwitch === true,
+      'THE START NAME (2h.8 · §496): only at a restart (' + B.filter(b => b.restart && b.marks[0] && b.marks[0].start).length + ' — ' + B.filter(b => b.restart && !b.cross && b.marks[0] && b.marks[0].start).length + ' first bows or rests, ' + B.filter(b => b.cross && b.marks[0] && b.marks[0].start).length + ' at the crosses) or a voice switch (' + B.filter(b => b.switched && !b.restart && b.marks[0] && b.marks[0].start).length + ') — ' + starts.length + ' of 156; 72.32 s is a cross ("' + (b72 && T(b72)) + '", the row begins again) and 79.00 s reads "' + (b79 && T(b79)) + '" (his "mp mp" gone)' + (restated.length ? ' — restated: ' + restated.slice(0, 4).map(b => b.t0).join(' ') : ''));
   }
   ok(!bad.length, 'every hairpin runs forward and lies inside its bow (' + B.reduce((a, b) => a + b.marks.filter(m => m.kind === 'hairpin').length, 0) + ' hairpins)' + (bad.length ? ' — ' + bad.slice(0, 5).join(' ') : ''));
   ok(!order.length, 'no name without a hairpin: every name after a bow\'s start closes the hairpin before it' + (order.length ? ' — ' + order.slice(0, 5).join(' ') : ''));
@@ -105,16 +106,23 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   ok(restarts.every(b => b.marks.length && b.marks[0].start), 'every restart writes its start mark (a name, or ○ at silence) — ' + restarts.length + ' restarts');
 }
 
-// (4) the rows — by SEAT (2i.2, §487; his B): a chain keeps one row through its sequence; chain 0 the top when its first bow of the
-// sequence sounds at or above chain 1's first (a tie → chain 0 top); no voice switch ever
+// (4) the rows — by SEAT (2i.2, §487; his B): a chain keeps one row through its sequence — chain 0 the top when its first bow of the
+// sequence sounds at or above chain 1's first (a tie → chain 0 top) — EXCEPT at a CROSS (§496, one player two bows): at a rhythmic
+// unison with a clear top and bottom the higher note takes the top row from there, both bows restart; no voice switch otherwise
 {
-  const groups = [...new Set(B.map(b => b.group))]; let wrong = 0, switches = 0;
+  const groups = [...new Set(B.map(b => b.group))]; let wrong = 0, switches = 0, crosses = 0; const sites = [];
+  const staffStep = m => { const s = [0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6][m % 12]; return (Math.floor(m / 12) - 1) * 7 + s; };
   for (const g of groups) {
-    const f0 = B.find(b => b.group === g && b.chain === 0), f1 = B.find(b => b.group === g && b.chain === 1);
-    const top = !f0 ? 1 : !f1 ? 0 : f0.midi >= f1.midi ? 0 : 1;
-    for (const b of B.filter(b => b.group === g)) { if ((b.voice === 'upper') !== (b.chain === top)) wrong++; if (b.switched) switches++; }
+    const bows = B.filter(b => b.group === g).sort((a, b) => a.t0 - b.t0);
+    const f0 = bows.find(b => b.chain === 0), f1 = bows.find(b => b.chain === 1);
+    let top = !f0 ? 1 : !f1 ? 0 : f0.midi >= f1.midi ? 0 : 1;
+    for (const b of bows) {
+      const mate = bows.find(x => x.chain !== b.chain && Math.abs(x.t0 - b.t0) <= R.vibMarks.crossS + 1e-9);
+      if (mate && b.chain === 0 && Math.abs(staffStep(b.midi) - staffStep(mate.midi)) >= R.vibMarks.crossSteps) { top = b.midi >= mate.midi ? 0 : 1; crosses++; sites.push(b.t0.toFixed(2)); if (!b.cross || !mate.cross || !b.restart || !mate.restart) wrong++; }
+      if ((b.voice === 'upper') !== (b.chain === top)) wrong++; if (b.switched) switches++;
+    }
   }
-  ok(!wrong && !switches && R.vibMarks.rows === 'seat', 'THE ROWS BY SEAT (2i.2): every bow in its chain\'s row across ' + groups.length + ' sequences, no voice switch (' + switches + ') — 2g\'s register rule superseded' + (wrong ? ' — ' + wrong + ' wrong' : ''));
+  ok(!wrong && !switches && R.vibMarks.rows === 'seat' && R.vibMarks.crossAtUnison === true && crosses === 9, 'THE ROWS BY SEAT, CROSSING AT A RHYTHMIC UNISON (2i.2 · §496): every bow in its chain\'s row as of the last cross; ' + crosses + ' rhythmic unisons with a clear top and bottom across ' + groups.length + ' sequences, each a restart of both rows (' + sites.slice(0, 9).join(' · ') + '); no voice switch (' + switches + ')' + (wrong ? ' — ' + wrong + ' wrong' : ''));
 }
 
 // (5) THE PAGE — the proto `lgmf-vib-proto` (PLAN 2g.5 → 2h → 2i) as export_video lays it out, re-runnable

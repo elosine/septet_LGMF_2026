@@ -60,9 +60,9 @@ land only on user approval. A post-clear model reads this block and announces th
    voice flags · the bow lead of step 2 in the seat's hue. Done when: his choice is a rule row and on the page.
 2. ☑ **2i.7 THE BOW LEAD** — BUILT 2026-09-28 (§495), in the seat's hue at his word. *(As it stood:)* **2i.7 THE BOW LEAD** — a dotted line from the head's left edge, from its centre through its seat's bar to the far edge (§491). His call
    first: the colour. Done when: built — the objects row, the edge row, the layout item, the renderer, `vib_marks_check`.
-3. ► **The seat written at deal time** — the sequence tool writes `seat` on the note it deals (it knows `lane:seat`), so the reader never
+3. ☑ **The seat written at deal time** — MOOT 2026-09-28 (§496): one player, two bows — the rows are the notation's to assign; instead THE CROSS at a rhythmic unison with a clear top and bottom, built (9 in Draft 01). *(As it stood:)* **The seat written at deal time** — the sequence tool writes `seat` on the note it deals (it knows `lane:seat`), so the reader never
    guesses at a shared change (22 of 156 bows). Done when: the generator writes it, the reader prefers it, a check reads Draft 01.
-4. **The winds' `○` start gap** — 2h.3 put the 0.45 on the base hairpin row, so the EH's `○—<` took it too (§476). Keep, or the vibraphone
+4. ► **The winds' `○` start gap** — 2h.3 put the 0.45 on the base hairpin row, so the EH's `○—<` took it too (§476). Keep, or the vibraphone
    only. One pointer.
 5. **The winds' hairpin height** — 0.667 kept while the vibraphone's is 1.333 (§478). Keep, or double. One number.
 6. **The closing name's snap** — only when it would run past the bar's end; a name reached earlier stays at its point (the last `> ppp`,

@@ -17314,3 +17314,35 @@ keep the colored dotted line and the highlighting of each note head in their res
 order's steps 1 (the head ↔ side) and 2 (2i.7 the bow lead, its colour) DONE: both devices on, the head's seat read from the lead's
 direction and colour and from the swatch. His two data points rendered with them: 120.71 s (a D♯6 navy, a D♯5 olive, entering together)
 and 141.38 s (the side-by-side unison: the left head navy, the right olive) — sent as crops.
+
+
+## §496. ONE PLAYER, TWO BOWS — the rows cross at a rhythmic unison with a clear top and bottom; the seat at deal time moot (2026-09-28, Fable, session 17)
+
+**His ask, verbatim:** *"So help me organize slash clarify the issue that I'm presenting here. So in these cases, when there's a unison,
+rhythmic unison, and there's clearly a top and bottom. So let's say where they the note heads fit on the same column. So whatever that is,
+I guess a third. Then let's allow a cross there. So the top note goes with the top, the blue, and the bottom not, note goes with the green.
+Because here they cross, they're in unison, but the bottom note is going down to the green or up to the blue and the top note is green
+going down to the green. So we'll cross at this point, but only in these cases. So again, help me figure out the scope of this issue. Is
+there many crossings like this? And then are there near, near cases? where they're almost rhythmic unison, and then let me see those and
+see if we should cross there too, and anything else you can think of."*
+
+**The scope (Draft 01, 156 bows, the reader):** 11 rhythmic unisons (both chains within 0.06 s) — 9 with a clear top and bottom (the
+heads a third or more apart on the staff, undisplaced), of which 2 already had the higher note navy and **7 would have crossed leads**
+(0:42.65 · 1:12.32 · 2:00.74 · 13:38.95 · 13:44.41 · 14:16.17 · 14:22.37); 2 side by side (56.12 · 141.38), both navy on the left. NEAR
+cases: none within 0.3 s; the next 32 entries are **0.6 s apart — the sequence's own stagger** (the `apart` dial), the normal alternation,
+where the leads never meet.
+
+**The catch the AI raised — what a colour means:** a colour was a SEAT, a person reading one colour all piece; a cross would swap the
+people. **His answer: *"it is one player 2 bows"*** — the two rows are one player's two bows, not two people, so the notation may assign
+the rows for legibility, and the seat has no meaning to record: **step 3 of the running order (the seat written at deal time) is moot.**
+
+**The rule (`vibMarks.crossAtUnison` true · `crossS` 0.06 · `crossSteps` 2):** at a rhythmic unison whose heads stand `crossSteps` staff
+steps apart or more (the chord column displaces a second), the rows CROSS — the higher note takes the top row (navy) from there, the
+lower the bottom (olive) — and both rows begin their story again (a restart: the start name written). A side-by-side pair keeps the rows.
+The bar's, the lead's and the swatch's colour follow the ROW (`seat` = the row, not the chain) — `layout.js` in three places. The reader:
+`crosses` per group in time order, `seatRow` the top chain as of the last cross, `restart` at a cross, `switched` never at one.
+
+**The numbers:** 9 crosses (42.65 · 72.32 · 120.74 · 561.47 · 818.95 · 824.41 · 841.54 · 856.17 · 862.37 s) — 26 start marks of 156 (8
+first bows or rests + 18 at the nine crosses); the R01c stretch re-golded (`mp > p` at 42.65 and `pp < mp` at 72.32 carry their start
+names again); the proto re-extracted — chain 0 upper on 13 bows, lower on 15 (three crosses inside R01c). `vib_marks_check` 32 ·
+`check_rules` 25 · `sequence_notation_check` 64. Crops at 42.65 and 120.74 sent.
