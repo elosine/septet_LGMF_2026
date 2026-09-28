@@ -1440,6 +1440,7 @@ const MORPH_SEQ = [];   // [LGMF PLAN 2k.2] the septet's morph parts, written as
   // vibraphone keeps the old path until 2k.5.
   const asSeq = !!morphOpts;
   const isVibPart = p => !!(TRACKS && TRACKS[p] && TRACKS[p].instKey === 'bowed_vibraphone');
+  const GLISS_SCALE = asSeq ? ((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).objects || {}).glissCurve || {}).scale || 'travel' : null;
   for (const gid of groups) {
     const built = MorphOv.forGroup(score.objects || [], gid, parts, gid.replace('grp-act-', '').replace('-01-01', ''), morphOpts);
     if (!built.length) { console.log('  --morph ' + gid + ': no tones in this score/parts — nothing folded'); continue; }
@@ -1448,6 +1449,12 @@ const MORPH_SEQ = [];   // [LGMF PLAN 2k.2] the septet's morph parts, written as
     let dev = 0, other = 0;
     for (const b of built) for (const ov of b.overlays) {
       if (asSeq && !isVibPart(b.part) && (ov.kind === 'header' || ov.kind === 'cresc')) continue;   // [2k.2] the sequence overlay draws these
+      // [2k.4, his B §505] the orange curve's vertical scale is the RULE's (rules.json objects.glissCurve.scale), stamped on the overlay
+      // and read by the renderer: `travel` — the top half spans the part's own travel (morph_overlays' 0 … 1 of its extremes)
+      if (asSeq && !isVibPart(b.part) && ov.kind === 'gliss') {
+        if (GLISS_SCALE !== 'travel') console.warn('  ALERT --morph ' + gid + ' part ' + b.part + ': the gliss curve\'s scale "' + GLISS_SCALE + '" is not built — the samples are the travel\'s');
+        ov.value = Object.assign({}, ov.value, { scale: 'travel', travelC: +b.extent.toFixed(1) });
+      }
       if (ov.kind === 'engraving') {
         // an event may already carry a device overlay from an earlier flag; the
         // morph settings win for its own events

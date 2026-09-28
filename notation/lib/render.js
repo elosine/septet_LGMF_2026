@@ -611,6 +611,10 @@
           // HALF of the lane. The bottom half belongs to the crescendo.
           if (!crosses(it.t0, it.t1)) continue;
           const GC2 = E.glissCurve;
+          // [LGMF 2k.4, his B §505] the vertical scale is the rule's (`scale`, rules.json objects.glissCurve): `travel` = the samples are
+          // 0 … 1 of the part's own travel, the half-lane its extremes. A curve extracted on another scale than the rule's is not drawn —
+          // it would say a range it was not measured on (an item with no `scale` is the tuba's, travel by construction)
+          if (it.scale && it.scale !== (GC2.scale || 'travel')) continue;
           const yT = sys.yTopPx, yMid = (sys.yTopPx + sys.yBotPx) / 2;
           const n = it.samples.length, gp = [];
           const whole = cutKind('glisscurve');   // [2c.3]
