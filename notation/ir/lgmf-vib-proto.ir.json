@@ -16,7 +16,7 @@
   "date": "2026-09-28",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/9b9dd78b-0312-4127-8dd9-26fb0fea2de2/scratchpad/sec3start-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g)\" --after lgmf-eh-proto"
+  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/cd222adc-5f07-44e0-8ccc-fe471422862b/scratchpad/sec3start-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h)\" --after lgmf-eh-proto"
  },
  "events": [
   {
@@ -7846,7 +7846,14 @@
       "midi": 86,
       "restart": false,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 22.695,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3152",
@@ -7857,7 +7864,14 @@
       "midi": 84,
       "restart": false,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 26.914,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3154",
@@ -7892,12 +7906,6 @@
       "startName": "pp",
       "marks": [
        {
-        "kind": "name",
-        "t": 33.164,
-        "name": "pp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 36.704,
         "tEnd": 38.634,
@@ -7921,7 +7929,14 @@
       "midi": 87,
       "restart": false,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 38.084,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3164",
@@ -7965,12 +7980,6 @@
       "startName": "pp",
       "marks": [
        {
-        "kind": "name",
-        "t": 42.648,
-        "name": "pp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 44.279,
         "tEnd": 48.331,
@@ -7996,12 +8005,6 @@
       "startName": "mp",
       "marks": [
        {
-        "kind": "name",
-        "t": 42.648,
-        "name": "mp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 45.81,
         "tEnd": 48.841,
@@ -8026,12 +8029,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 48.891,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 48.891,
@@ -8084,12 +8081,6 @@
       "startName": "mp",
       "marks": [
        {
-        "kind": "name",
-        "t": 49.491,
-        "name": "mp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 49.961,
         "tEnd": 52.472,
@@ -8128,12 +8119,6 @@
       "startName": "p",
       "marks": [
        {
-        "kind": "name",
-        "t": 56.123,
-        "name": "p",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 56.123,
         "tEnd": 58.401,
@@ -8158,12 +8143,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 56.123,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 56.123,
@@ -8203,12 +8182,6 @@
       "startName": "mp",
       "marks": [
        {
-        "kind": "name",
-        "t": 60.999,
-        "name": "mp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 60.999,
         "tEnd": 64.461,
@@ -8233,12 +8206,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 61.599,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 61.599,
@@ -8276,7 +8243,14 @@
       "midi": 63,
       "restart": false,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 66.663,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3191",
@@ -8331,12 +8305,6 @@
       "startName": "pp",
       "marks": [
        {
-        "kind": "name",
-        "t": 72.323,
-        "name": "pp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 72.323,
         "tEnd": 78.947,
@@ -8373,12 +8341,6 @@
       "startName": "mp",
       "marks": [
        {
-        "kind": "name",
-        "t": 78.997,
-        "name": "mp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 82.519,
         "tEnd": 83.69,
@@ -8414,12 +8376,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 83.74,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 83.74,
@@ -8490,12 +8446,6 @@
       "startName": "pp",
       "marks": [
        {
-        "kind": "name",
-        "t": 101.202,
-        "name": "pp",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 103.552,
         "tEnd": 105.602,
@@ -8531,12 +8481,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 105.652,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 105.652,
@@ -8586,12 +8530,6 @@
       "restart": false,
       "startName": "p",
       "marks": [
-       {
-        "kind": "name",
-        "t": 112.44,
-        "name": "p",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 112.44,
@@ -8650,12 +8588,6 @@
       "restart": false,
       "startName": "pp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 120.736,
-        "name": "pp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 122.116,
@@ -8722,7 +8654,14 @@
       "midi": 82,
       "restart": false,
       "startName": "pp",
-      "marks": []
+      "marks": [
+       {
+        "kind": "name",
+        "t": 130.601,
+        "name": "pp",
+        "start": true
+       }
+      ]
      },
      {
       "event": "ev-wc-3247",
@@ -8734,12 +8673,6 @@
       "restart": false,
       "startName": "mp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 133.168,
-        "name": "mp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 134.918,
@@ -8787,12 +8720,6 @@
       "restart": false,
       "startName": "pp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 141.377,
-        "name": "pp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 141.377,
@@ -8843,12 +8770,6 @@
       "startName": "p",
       "marks": [
        {
-        "kind": "name",
-        "t": 148.238,
-        "name": "p",
-        "start": true
-       },
-       {
         "kind": "hairpin",
         "t": 148.238,
         "tEnd": 152.24,
@@ -8873,12 +8794,6 @@
       "restart": false,
       "startName": "pp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 148.838,
-        "name": "pp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 149.328,

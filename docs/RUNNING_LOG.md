@@ -16951,3 +16951,44 @@ upper 33.16 → lower 38.68 → upper 42.65 → lower 56.12 as the pitches cross
 
 **Not yet on the page:** the proto's `vibBows` overlay holds the marks as extracted at 2g.5 — 2h.9 re-extracts it. `check_rules` 25 · the
 shield unmoved by this step (the reader is not the layout).
+
+
+## §481. 2h.9 THE PROTOS RE-EXTRACTED — `lgmf-vib-proto` carries 2h.8's marks; the EH proto identical; HIS EYE (2026-09-28, Fable, session 17)
+
+**Re-extracted** from a fresh copy of `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` in this session's scratchpad (the recipes of
+§461 · §471, the labels kept — the vib proto's now says "2g · 2h"):
+- **`lgmf-vib-proto`** — 56 events (identical to before), 46 chunks, VALID; the `vibBows` overlay: 55 bows, **10 start marks where the
+  2g.5 extraction had 25** (2h.8), 74 marks where 89, 32 hairpins as before, 25 bare bows where 30 (five bare bows at a voice switch now
+  open with their carried name). `vib_marks_check` **31 GREEN** on it — the drawn marks are the reader's bow by bow (55 / 55), 22 bars
+  cut (2h.1), 15 of 25 closing names on their bar's end (2h.5), 27 close bars flushed (2h.4), 32 hairpins 1.333 tall (2h.6), `♯` · `♮`
+  at 56.123 s (2h.7).
+- **`lgmf-eh-proto`** — byte-identical to HEAD but for `provenance.date` and the copy's path in `provenance.build`; **not committed** (the
+  file restored from HEAD): 2h.3's start gap is page-time, the IR does not carry it — the plan's "expected move" of the EH IR was the
+  layout's, and the shield tool saw it (§476).
+- **`piece-lgmf`** — untouched by data absence: no extractor code changed and it carries no `vibBows`; its layout moved at 2h.7 by the two
+  vibraphone naturals alone (§479).
+
+**THE SHIELD at the end of the build** (`layout_shield --diff` against HEAD before 2h.1): 18 of 22 layouts identical — the four moves
+named and expected: `lgmf-vib-proto` (every step) · `lgmf-eh-proto` (2h.3's gap) · `lgmf-vib-close-probe` (new) · `piece-lgmf` (2h.7's two
+naturals). Piece #4's seventeen tuba IRs identical throughout. `check_rules` 25 · `sequence_notation_check` 64 · `vib_marks_check` 23 → 31.
+
+**► HIS EYE — reload the notation tab** (page files and two IRs; no server restart) → the picker → `lgmf-vib-proto` → the video view:
+- `0` — the `○` stands 0.45 ss before its `<` (2h.3); the hairpins twice as tall, opening away from the bar (2h.6); the `pp` reached at
+  6.83 s sits with its right edge on the bar's end (2h.5)
+- `6.78` — the first bar stops 0.25 ss before the next bow's `♯` (2h.1); no blue ring on a click (2h.2 — SHIFT+click selects now)
+- `20.9` — the unison: both bars whole, either side of the shared head, the upper one stepping to the lower side at 22.70 (2h.4)
+- `56.12` — the one-line pair: `♯` on the C♯6, `♮` on the C6 (2h.7); both bars flushed
+- `78.8` — one `mp`, on the bar's end, clear of the next bow's `8va`; the next bow reads `> p` from it (2h.8 · 2h.1 · 2h.5)
+- `148` — `> ppp`, the name at the point reached (0.76 s before the bow's end — his call, below)
+- `lgmf-vib-close-probe` — the four pairs: one line · a second · a third flushed, a fourth centred (the threshold 1.25)
+- `z` for the zoom.
+
+**His calls, each written at its row (`docs/ENGRAVING_RULES.md` shows every one):** (1) the close threshold `withinSs` 1.25 — a
+third flush; 0.75 for a second only, 1.75 for a fourth too (§477) · (2) the winds' `○—<` took the 0.45 start gap with the vibraphone
+(the base row, §476) · (3) the winds' fade hairpin stays 0.667 while the vibraphone's is 1.333 (§478) · (4) a closing name snaps to the
+bar's end only when it would run past it; a name reached earlier stays at its point — the two last `> ppp` (§478) · (5) the start name
+at a voice switch, 44 bows (§480) · (6) the general courtesy-natural policy — a `♮` after a sharpened same-letter head earlier in the
+voice (§479) · (7) `afterAbutS` 0.1 s, the successor window (§474).
+
+**One commit per step, THE SHIELD in each — with one bend:** 2h.5 and 2h.6 share a commit (§478, the same fifteen lines). Built on
+Fable at his *"build here, go"*, not on Opus after a clear as the plan said.
