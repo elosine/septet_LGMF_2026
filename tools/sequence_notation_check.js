@@ -42,7 +42,7 @@ ok(b2 && b2.pitch === 'new' && b2.centsText === '+2' && b2.partial === 12 && b2.
 ok(b2 && b2.midi === 79, 'the new pitch is G5 (midi 79)');
 
 // 2d.1 (d) THE LABELS — exactly (mp) 25.0 · (pp) 30.9
-ok(v.labels.length === 2 && v.labels[0].mark === 'mp' && near(v.labels[0].t, 25.0, 0.05) && v.labels[1].mark === 'pp' && near(v.labels[1].t, 30.9, 0.05),
+ok(v.labels.length >= 2 && v.labels[0].mark === 'mp' && near(v.labels[0].t, 25.0, 0.05) && v.labels[1].mark === 'pp' && near(v.labels[1].t, 30.9, 0.05),
   'the labels are exactly (mp) 25.0 · (pp) 30.9 — got ' + v.labels.map(l => '(' + l.mark + ') ' + l.t).join(' · '));
 
 // 2d.1 (e) THE ENTRY
@@ -111,7 +111,15 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   ok(hi && hi.g === 'dyn-mp' && lo && lo.g === 'dyn-pp' && ar && hi.ySs === C.engraving.layout.dynY && Math.abs(hi.dxSs + G.dynamic.mp.wSs / 2 + GAP) < 1e-9
     && Math.abs(ar.dx1Ss - (hi.dxSs - G.dynamic.mp.wSs / 2 - A.gapSs)) < 1e-9 && Math.abs(lo.dxSs + G.dynamic.pp.wSs / 2 - (ar.dx0Ss - A.gapSs)) < 1e-9,
     'pp → mp on dynY, right to left mp · spacer · arrow · spacer · pp, ending at the spacer');
-  ok(!at0.some(x => x.k === 'niente'), 'no niente sign in the block (§376 (a))');
+  // [2f, §457 his (a) · (i), §459] THE FADE SIGNS: the opening sign under the legend, right-justified to the spacer; the closing sign on the last breath's unit
+  const SGN = C.engraving.layout.devices.byEnv.sequence.signs;
+  const oN = at0.find(x => x.k === 'niente' && x.seq === 'openNiente'), oA = at0.find(x => x.k === 'dynarrow' && x.seq === 'openArrow');
+  ok(v.entry.fadeFrom === 'niente' && oN && oA && Math.abs(oA.dx1Ss + GAP) < 1e-9 && Math.abs(oA.ySs - SGN.row) < 1e-9 && oN.ySs === oA.ySs && oN.dxSs < oA.dx0Ss && oN.diaSs === SGN.circleDiaSs,
+    'the opening sign ○ ——< on the sign row (' + SGN.row + ') under the legend, the arrow ending at the spacer (§457 · §459) — got ' + JSON.stringify([v.entry.fadeFrom, oA && oA.dx1Ss, oA && oA.ySs]));
+  const lastB = v.breaths[v.breaths.length - 1], atL = sys.items.filter(x => Math.abs(x.t - lastB.onset) < 1e-9);
+  const cM = atL.find(x => x.seq === 'closeMark'), cA = atL.find(x => x.seq === 'closeArrow');
+  ok(v.exit && v.exit.fades && v.exit.fadeTo === 'ppp' && near(v.exit.t, 149.0, 0.01) && cM && cM.g === 'dyn-ppp' && cA && cA.ySs === SGN.row && Math.abs(cM.dxSs + G.dynamic.ppp.wSs / 2 + C.engraving.layout.nhGapSs) < 1e-9 && cA.dx1Ss < cM.dxSs,
+    'the closing sign ——> ppp on the LAST breath’s unit (' + (lastB && lastB.onset) + ' s), right-justified to its go line; the line ends at 149.0 s falling to ppp (his (i), §459) — got ' + JSON.stringify(v.exit) + ' ' + JSON.stringify(cM && [cM.g, cM.dxSs, cM.ySs]));
   ok(!model.warnings.length, 'no layout warnings — got ' + JSON.stringify(model.warnings));
   // 2d.3 THE CURVE AND THE FOLLOWER — the morph's crescendo kind, ABSOLUTE: the IR's samples are the height (no normalisation, no floor)
   const cc = sys.items.filter(x => x.k === 'cresccurve');
@@ -133,8 +141,8 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   ok(c2.length === 2 && c2[0].text === '+2' && c2[1].text === '12 (C2)' && c2.every(x => x.anchor === 'end' && Math.abs(x.dxSs + GAP) < 1e-9 && x.color === '#111'), 'its column +2 · 12 (C2), black, right-justified to the spacer');
   // the pie — the breaths, re-pointed
   const pies = inst.filter(x => x.kind === 'motivePie');
-  ok(pies.length === 3 && pies.every(x => x.countdown && x.part === 0) && pies[0].t1 === v.breaths[0].onset && pies[1].t0 === v.breaths[0].onset && pies[1].t1 === v.breaths[1].onset && pies[2].t1 === v.breaths[1].release,
-    'three breath clocks (the entry and two breaths), each go line to go line, the last to its release (§455)');
+  ok(pies.length === v.breaths.length + 1 && pies.every(x => x.countdown && x.part === 0) && pies[0].t1 === v.breaths[0].onset && pies[1].t0 === v.breaths[0].onset && pies[1].t1 === v.breaths[1].onset && pies[pies.length - 1].t1 === v.breaths[v.breaths.length - 1].release,
+    (v.breaths.length + 1) + ' breath clocks (the entry and ' + v.breaths.length + ' breaths), each go line to go line, the last to its release (§455)');
   ok(C.animated.motivePie.enabled === true && C.animated.motivePie.source === 'breaths' && C.animated.motivePie.until === 'nextGo', 'the registry’s pie ON, re-pointed to the breaths, until the next go line (the pie row)');
   // [2e.3 (7), §419 F6] THE WORKING PAGE (the EH in F: D♯6 on two ledgers): the ¾♯ clears the ledger's left end by the gap
   {

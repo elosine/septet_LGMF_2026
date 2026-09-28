@@ -16137,3 +16137,38 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
   rung 0 on every page (the tool runs the video frame) · `ENGRAVING_RULES.md` regenerated. Page files only — he reloads the tab.
 - **The AI's calls, his to reverse:** a mark row without `leaves` is annotation (the dynamic and the arrow flip with the words; the ottava
   too) · the rung written on a unit is the LAST applied · the stage-2 flip starts from the standard placement, not from the shrunk one.
+
+## §459. `2f` THE FADE SIGNS — built at his word *"i, and build in rules"*; the prototype extended to the EH's whole first line (2026-09-27, Fable, session 17)
+
+- **His words:** *"i, and build in rules but in the notation could you build the full 1st sequence for the eh"* — (i) the closing sign on the
+  LAST breath's unit; the build through the rules tables; the prototype page to carry the EH's whole first sequence, not 0 … 40 s.
+- **The device sheet (shown before a line of code, the reply before this):** the device — the fade signs of a sequence line, symbolic, not
+  timed (§370 B) · anchor B for both (the opening with the block; the closing on the last breath's go line, his (i) — the mirror of the
+  opening, no new anchor rule) · members `niente` · `dynArrow` · `dynamic`, existing rows, no new row · styles from the rows, ONE new value:
+  the sign row · edges the existing `niente` · `dynarrow` classes · ladder: below-side marks, annotation rank · open: the row's height.
+- **Built:**
+  - `rules.json` `column.rows.sign` **−5.95** (one dynamic height 0.9 + the standard stack 0.45 under the dynamic row — §371 his (2) "opening
+    sign own row"; the AI's number) · the `niente` row's ref.
+  - `container.json` `byEnv.sequence`: `niente` a member row · `signs { row: @column.rows.sign, circleDiaSs: @objects.niente.diameterSs }` ·
+    the sheet line · `_signsNote` (148 pointers compile).
+  - `sequence_overlays.js`: `entry.fadeFrom` = 'niente' when the first note's `cc7Fade` is from 0 (1d.8's "fade in … from niente", §126) ·
+    `exit { event, t, level, fadeTo, fades }` — the last sample's name, and `fades` = a fall of at least one written step (1/8) over the
+    recipe's fade-out span (`edges.fadeOut`, 8 s here; 8 when the recipe names none) [the AI's rule, his to reverse].
+  - `layout.js`: the opening sign `○ ——<` on the sign row under the legend (the row follows the dynamic row when low ink pushes it down),
+    the arrow ending at anchor B's spacer, the circle 0.45 left of it; the closing sign `——> <name>` on the LAST breath's unit, the mark
+    right-justified to that go line's spacer, the arrow 0.45 left of it; a fade to nothing draws a circle as the mark; on a line of ONE
+    note the closing sign sits left of the opening. Items `openNiente` · `openArrow` · `closeMark` · `closeArrow`, each with its event.
+- **The proto re-extracted over the whole line** (`--w1 156` → 0 … 149 s; 12 events, 11 breaths — 8 new — 13 labels mp · pp alternating
+  to (mp) 139.98; `VALID vs source`; 13 pages at 12 s). The EH's last note `wc-3255` 141.98 → 149.00 s: `cc7Abs {43, 65}`, the heights
+  falling 10 → 0.1 — **the fade-out to ppp written in the heights** (§127's second mechanism: a fade to a DYNAMIC is shaped, not a
+  `cc7Fade`); the exit: level 0.127 → `ppp`, fades TRUE. The last breath: **G5 −31 · partial 14 of A1**.
+- **Verified:** `check_rules` **23 GREEN** (the new member row has its objects row and its edge row) · `sequence_notation_check` **63 / 63** —
+  the "no niente sign (§376 (a))" check REPLACED by the two signs' checks (the opening sign at x(go) − 0.45 on −5.95, the circle left of
+  the arrow, `entry.fadeFrom` niente; the closing `dyn-ppp` right-justified to the go line at 141.977 s on the sign row, `exit.t` 149.0,
+  `fadeTo` ppp) and the pie count generalised (12 clocks) · `decisions_needed` 0 on every page · the rules page regenerated. Not run:
+  the Chrome edge gates (no new drawn kind — `niente` and `dynarrow` carry their edge rows since #4 day 35).
+- **The AI's calls, his to reverse:** the sign row −5.95 · the fall criterion (one written step over the fade-out span) · a fade to nothing
+  drawn as a circle mark · the closing sign left of the opening on a one-note line · `fadeFrom` read from the note's `cc7Fade`, not the
+  recipe (the same fact; the note is what sounds).
+- **His eye — reload the tab:** `lgmf-eh-proto` (13 pages now) → `0` (the sign under `pp → mp`) · `141.98` (the last breath: G5 −31 ·
+  `14 (A1)`, `——> ppp` under its go line) · the curve's fall to 149.

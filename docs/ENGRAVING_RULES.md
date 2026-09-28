@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 146 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 148 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -38,7 +38,7 @@ Every device of the registry (container.json engraving.layout.devices · figures
 - **byEnv.trill** — anchor **D** · members head · ledger · accidental · techSymbol · smallHead · paren · trillPitch · dynamic · ottava · goLine · envCurve · sheet: #5 §445 (the column right of its go line) · §438 (docs/TRILL_NOTATION_SPEC.md)
 - **byEnv.surge** — anchor **B** · members head · ledger · accidental · ottava · dynamic · dynArrow · goLine · envCurve · sheet: #4 day 22 (the device membership, the nh-unit)
 - **byEnv.strike** — anchor **C** · members cueHead · ledger · accidental · stem · flag · staccatoDot · accent · dynamic · ottava · goLine · gc · sheet: #5 §400 (a strike wears the strike unit)
-- **byEnv.sequence** — anchor **B** · members head · ledger · accidental · number · instruction · dynamic · dynArrow · dynamicLabel · paren · goLine · crescCurve · sheet: §447 (PLAN 2e — first §368 … §380, PLAN 2d)
+- **byEnv.sequence** — anchor **B** · members head · ledger · accidental · number · instruction · dynamic · dynArrow · dynamicLabel · paren · niente · goLine · crescCurve · sheet: §447 (PLAN 2e — first §368 … §380, PLAN 2d) · the fade signs §459 (PLAN 2f — §457 his (a) · (i))
 - **byTechnique.main** — anchor **A** · members head · ledger · accidental · ottava · dynamic · lvSlur · ringBar · sheet: #5 PLAN 2h.5 (the piano's long ordinary notes)
 - **byTechnique.plucked** — anchor **A** · members head · ledger · accidental · ottava · dynamic · textBaked · pedal · lvSlur · sheet: #5 PLAN 2h.5 (§486 · §490 — pizz., Ped.)
 - **byTechnique.fortepiano** — anchor **C** · members head · ledger · accidental · ottava · dynamic · goLine · gc · ringBar · sheet: #4 day 24
@@ -66,7 +66,7 @@ LAYER 2 — THE COLUMN (§419 … §425): what stacks on a unit, in what order, 
 - **sides** — HUG **every member on the head side, mirrored with the stem** · ROWS **the dynamic below on its row · text above · articulation on the head side** · pinned **the piano's chain pinned below — an override on the part** · §419 · §424 (his §401f kept)
 - **floorTiers** — inside **[staccatoDot, tenuto]** → `layout.floorTier` · insideRule **in a space, never on a line** · outside **every other mark, by its own `staff` distance** · §424 · §425
 - **stack** — standard **0.45** → `layout.stackGapSs` · `render.sectionHead.spacerSs` · medium **0.3** → `layout.gapMediumSs` · `render.sectionHead.mediumSs` · tight **0.15** → `layout.tightGapSs` · underFlag **0.3** → `layout.chainAboveGapSs` · standard: #2 session 77 (the house 0.45) · medium: #4 day 31 (his 'a medium one too') · tight: #4 day 23 (the staccato-dot gap) · underFlag: #4 day 23 (the chain between staff and flag) · §422
-- **rows** — dynamic **-4.6** → `layout.dynY` · tag **3.5** → `layout.tagY` · tempo **4.6** → `layout.tempoY` · tick **3** → `layout.tickY` · #4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421
+- **rows** — dynamic **-4.6** → `layout.dynY` · tag **3.5** → `layout.tagY` · tempo **4.6** → `layout.tempoY` · tick **3** → `layout.tickY` · sign **-5.95** → `layout.devices.byEnv.sequence.signs.row` · #4 day 22 (dynY · tagY · tempoY · tickY — his approved rows) · §421 · sign: the fade signs' row UNDER the dynamic row — one dynamic height (0.9) + the standard stack (0.45) lower (§371 his (2) 'opening sign own row' · §457 his (a) · §459; the AI's number, his to reverse)
 
 ---
 
@@ -104,7 +104,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `text[dynamic]`
 - **dynArrow** — colour **ink #111** · lengthSs **2** → `layout.dynArrow.lenSs` · `render.sectionHead.arrowLenSs` · headSs **0.45** → `layout.dynArrow.headSs` · `render.sectionHead.headSs` · beside **0.45** → `layout.dynArrow.gapSs` · thickSs **0.13** → `layout.dynArrow.thickSs` · `render.sectionHead.thickSs` · *composer* · #4 day 22 ('this is new' — the hairpin replacement; gaps the 0.45 standard, thickness the stem's)
   - draws `dynarrow`
-- **niente** — colour **ink #111** · diameterSs **0.4695** → `render.sectionHead.circleDiaSs` · thickSs **0.13** · *composer* · #4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip)
+- **niente** — colour **ink #111** · diameterSs **0.4695** → `layout.devices.byEnv.sequence.signs.circleDiaSs` · `render.sectionHead.circleDiaSs` · thickSs **0.13** · *composer* · #4 day 35 (the measured height of the m in mf — LilyPond draws its circled tip) · the sequence's fade signs §457 · §459 (the opening sign's circle; a closing sign to nothing)
   - draws `niente`
 - **instruction** — face **text** · size **0.75** → `layout.textSizes.instruction` · italic **true** → `layout.italic.instruction` · colour **ink #111** → `layout.colours.instruction` · stack **0.45** → `layout.devices.byEnv.sequence.block.textGapSs` · besideCut **0.15** → `layout.seccoGapSs` · leaves **1** → `layout.ladder.leaves.instruction` · *composer* · §427 · §428 (every word on a note: instruction 0.75 italic, black — the technique size 0.7 and the 1.0998 "pizz." bake retired) · stack: the block's text 0.45 above the column §380 · besideCut: "sempre secco" #5 §540 · LilyPond TextScript padding 0.3 / 0.5 (the seed)
   - draws `text` `text[techText]` `text[instruction]`

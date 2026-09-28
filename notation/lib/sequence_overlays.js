@@ -136,8 +136,10 @@
     const range = box1 && box1.dyn === 'waves' && W ? [W.low, W.high] : (box1 && typeof box1.dyn === 'string' ? [box1.dyn] : null);
     // [2e.3 (8)] the block's word: the caller's change-of-technique rule (techTextOf) when it passes one, else the technique's word
     const techText = O.techTextOf ? O.techTextOf(first) : ((O.techTexts || {})[first.technique] || null);
+    // [2f, §457 · §459] the line enters from nothing: the first note's cc7Fade from 0 (1d.8's 'fade in … from niente') — the opening sign
+    const fadeFrom = (first.cc7Fade && first.cc7Fade.from === 0) ? 'niente' : null;
     const entry = Object.assign({ event: 'ev-' + first.id, t: first.startSeconds, release: first.endSeconds, technique: first.technique,
-      techText, range, rangeText: range ? range.join(' → ') : null }, marksOf(first, O.recipe, warnings, O.partialForm));
+      techText, range, rangeText: range ? range.join(' → ') : null, fadeFrom }, marksOf(first, O.recipe, warnings, O.partialForm));
     const breaths = [];
     for (let i = 1; i < notes.length; i++) {
       const o = notes[i], p = notes[i - 1];
@@ -147,6 +149,13 @@
       else b.midi = o.sonifyNote;
       breaths.push(b);
     }
+    // [2f, §457 · §459] THE EXIT — where the line ends and whether it falls: the last sample's name, and the fall over the recipe's
+    // fade-out span (8 s when the recipe names none) of at least one written step [the AI's rule, his to reverse]
+    const last = notes[notes.length - 1];
+    const spanOut = (O.recipe && O.recipe.edges && +O.recipe.edges.fadeOut) || 8;
+    const iEnd = samples.length - 1, iOut = Math.max(0, iEnd - Math.round(spanOut * O.sps));
+    const peakOut = Math.max(...samples.slice(iOut, iEnd + 1)), lastLv = samples[iEnd];
+    const exit = { event: 'ev-' + last.id, t: +T1.toFixed(4), level: lastLv, fadeTo: nameOf(lastLv), fades: peakOut - lastLv >= 1 / 8 - 1e-6 };
 
     return {
       part, T0, T1, notes, warnings, ladder: L,
@@ -158,7 +167,7 @@
           scale: { kind: 'fixed', steps: 8, names: ['niente'].concat(NAMES), ladder: L, instKey: O.instKey },
           entry,
           level: { sps: O.sps, t0: +T0.toFixed(4), t1: +T1.toFixed(4), samples },
-          breaths, labels,
+          breaths, exit, labels,
         },
         provenance: 'authored',
       },

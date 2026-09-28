@@ -197,9 +197,9 @@
      },
      "_strikeRingBarNote": "PLAN 2h.5 (2026-09-14): byTechnique.main now carries the ring bar for the piano's long ordinary notes in the morph section; a strike merges its env on top, so the env says ringBar false out loud — the piano's strikes keep their look.",
      "sequence": {
-      "sheet": "§447 (PLAN 2e — first §368 … §380, PLAN 2d)",
+      "sheet": "§447 (PLAN 2e — first §368 … §380, PLAN 2d) · the fade signs §459 (PLAN 2f — §457 his (a) · (i))",
       "anchorRow": "B",
-      "memberRows": ["head","ledger","accidental","number","instruction","dynamic","dynArrow","dynamicLabel","paren","goLine","crescCurve"],
+      "memberRows": ["head","ledger","accidental","number","instruction","dynamic","dynArrow","dynamicLabel","paren","niente","goLine","crescCurve"],
       "goLine": true,
       "onsetHead": false,
       "onsetAcc": null,
@@ -217,6 +217,8 @@
       "techTexts": "@techniqueChange.texts",
       "block": { "headGapSs": "@anchors.B.gapSs", "columnAlign": "@anchors.B.columnAlign", "centsGapSs": "@objects.number.parent", "rowSs": "@objects.number.stack", "textGapSs": "@objects.instruction.stack", "numEmSs": "@objects.number.emSs", "slashTopEm": "@faces.text.slashTopEm" },
       "label": { "scale": "@objects.dynamicLabel.size", "parenScale": "@objects.paren.sizeLabel", "parenGapSs": "@objects.paren.besideLabel" },
+      "signs": { "row": "@column.rows.sign", "circleDiaSs": "@objects.niente.diameterSs" },
+      "_signsNote": "LGMF PLAN 2f (RUNNING_LOG §457 his (a) · (i); §459): THE FADE SIGNS, symbolic, not timed (§370 B: 'no hairpin symbolic not timed, I'll explain in the perf notes') — the opening sign ○ ——< on the sign row under the legend when the line enters from nothing (the overlay's entry.fadeFrom, the first note's cc7Fade from 0), right-justified to anchor B's spacer with the column; the closing sign ——> <name> on the LAST breath's unit (his (i): anchor B, right-justified to that go line's spacer — the mirror of the opening), when the overlay's exit says the line falls to a name at its end (a fall of one written step over the recipe's fade-out span). The house dynArrow (2 ss · 0.45 gaps) and the niente circle (#4's section figure). The curve carries the timing; the written range is the body's; the justification is his, in the performance notes (PERFORMANCE_NOTES row 5).",
       "_labelNote": "LGMF PLAN 2d.5 (RUNNING_LOG §386): a (dyn) label at a turning point of the level — the dynamic glyph at 0.75 (the PLAN's cue scale) between the parens at 0.43 (0.9 ss tall: the tallest cue dynamic, f at 0.73 ss, with room) [the AI's], 0.1 ss from the mark, on dynY, centred on x(t).",
       "_reminderNote": "LGMF PLAN 2d.4 (RUNNING_LOG §385): a breath on the SAME pitch — a cue-size open head (the house cue scale 0.844) in parentheses, its accidental inside them (a reminder, not a change), no column; the parens at 0.67 — the trill neighbour's 0.63 for its 0.794 head, in proportion [the AI's], 0.15 ss from what they hold.",
       "_blockNote": "LGMF PLAN 2d.2 (2026-09-25, RUNNING_LOG §383; docs/research/just_partials_notation.md §1a): the block at the part's entry, in ss from its go line — headGapSs the head's right ink edge before the go line (the D45 header's spacer) · centsGapSs the cents' baseline over the head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text over the column's ink top · numEmSs the numbers' rendered em (TS.instruction 0.75 × render textScale 1.3 — a copy of that product, change both) · slashTopEm Crimson Pro Light's '/' top in em, the partial row's ink top (measured, opentype.js). The range on the dynamic row takes the house dynArrow."

@@ -12,11 +12,11 @@
   },
   {
    "id": "lgmf-eh-proto",
-   "label": "lgmf-eh-proto · the EH's sequence, section 1 (0 … 40 s) — the notation prototype (2d)",
+   "label": "lgmf-eh-proto · the EH's sequence, section 1, the whole line (0 … 149 s) — the notation prototype (2d · 2f)",
    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
    "window": [
     0,
-    40
+    156
    ],
    "profile": "trance"
   },

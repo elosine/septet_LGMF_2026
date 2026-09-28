@@ -1039,6 +1039,31 @@
             items.push({ k: 'glyph', g: 'dyn-' + rg[0], t, dxSs: arrL - A.gapSs - gLo.wSs / 2, ySs: yDyn, align: 'center', seq: 'rangeLo' });
           }
         }
+        // [LGMF PLAN 2f — RUNNING_LOG §457 his (a) · (i), §459] THE FADE SIGNS, symbolic, not timed (§370 B): the opening sign ○ ——< on the
+        // sign row under the legend when the line enters from nothing (the overlay's entry.fadeFrom); the closing sign ——> <name> on the
+        // LAST breath's unit when the line falls to a name at its end (the overlay's exit) — both right-justified to anchor B's spacer.
+        const SG = Object.assign({ row: -5.95, circleDiaSs: 0.4695 }, ((DEV.byEnv || {}).sequence || {}).signs || {});   // RULES MIRROR
+        const yD = rg.length ? Math.min(o.dynY, H.lowInk - A.gapSs - ((glyphs.dynamic[rg[rg.length - 1]] || {}).hSs || 1) / 2) : o.dynY;
+        const ySign = yD - (o.dynY - SG.row);   // the sign row follows the dynamic row when low ink pushes it down
+        let openLeft = null;
+        if (en.fadeFrom === 'niente') {
+          const arrR = -SQB.headGapSs, arrL = arrR - A.lenSs, cirC = arrL - A.gapSs - SG.circleDiaSs / 2;
+          items.push({ k: 'dynarrow', t, dx0Ss: arrL, dx1Ss: arrR, ySs: ySign, headSs: A.headSs, thickSs: A.thickSs, seq: 'openArrow', ev: en.event });
+          items.push({ k: 'niente', t, dxSs: cirC, ySs: ySign, diaSs: SG.circleDiaSs, thickSs: A.thickSs, seq: 'openNiente', ev: en.event });
+          openLeft = cirC - SG.circleDiaSs / 2;
+        }
+        const EX = sq.v.exit;
+        if (EX && EX.fades && (EX.fadeTo === 'niente' || (glyphs.dynamic || {})[EX.fadeTo])) {
+          const lastB = (sq.v.breaths || []).slice(-1)[0];
+          const tC = lastB ? lastB.onset : t, evC = lastB ? lastB.event : en.event, yC = lastB ? SG.row : ySign;
+          // on the entry itself (a line of one note) the closing sign sits LEFT of the opening sign
+          const right = lastB ? -o.nhGapSs : (openLeft != null ? openLeft - A.gapSs : -SQB.headGapSs);
+          const wM = EX.fadeTo === 'niente' ? SG.circleDiaSs : glyphs.dynamic[EX.fadeTo].wSs;
+          const mC = right - wM / 2, arrR = mC - wM / 2 - A.gapSs, arrL = arrR - A.lenSs;
+          if (EX.fadeTo === 'niente') items.push({ k: 'niente', t: tC, dxSs: mC, ySs: yC, diaSs: SG.circleDiaSs, thickSs: A.thickSs, seq: 'closeMark', ev: evC });
+          else items.push({ k: 'glyph', g: 'dyn-' + EX.fadeTo, t: tC, dxSs: mC, ySs: yC, align: 'center', seq: 'closeMark', ev: evC });
+          items.push({ k: 'dynarrow', t: tC, dx0Ss: arrL, dx1Ss: arrR, ySs: yC, headSs: A.headSs, thickSs: A.thickSs, seq: 'closeArrow', ev: evC });
+        }
       }
       for (const d of dynTexts) if (d.part === part && first) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic, color: COL.dynamicText, seq: 'dynamic' });
       for (const ins of instrTexts) if (ins.parts.includes(part) && first) items.push(Object.assign({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, seq: 'instruction' }, WORD));
