@@ -60,7 +60,7 @@
   "attackLine": { "colour": "@colours.ink.value", "look": { "wSs": 0.18, "hSs": 2.2, "offsetSs": 1.1 }, "draws": ["attackline"], "basis": "census", "ref": "#4 V0.10 (M4)" },
   "tick": { "colour": "@colours.ink.value", "look": { "wSs": 0.12, "hSs": 0.8 }, "draws": ["tick"], "basis": "census", "ref": "#4 V0.10" },
   "gc": { "colour": "@colours.gc.value", "draws": ["gc"], "in": "engraving.render.gc (the look in px at the 1080 frame — piece #1's object whole)", "basis": "composer", "ref": "#4 day 23 ('when I say GC, that is the whole thing')" },
-  "ringBar": { "colour": "@colours.ink.value", "hSs": 0.667, "opacity": 0.65, "beside": 0.25, "closeRule": { "withinSs": 0.667, "height": 0.5, "unison": "stacked" }, "draws": ["ringbar"], "basis": "composer", "ref": "#4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar') · closeRule (PLAN 2g, §464 · §466 — the AI's rule, his to reverse at 2g.6): two bars of the vibraphone's two voices sounding together whose centres are closer than one bar height (withinSs — a second: 0.5 ss apart against a 0.667 bar) are each drawn at `height` of the bar, toward its own side (the upper voice's top half, the lower's bottom half); a unison is the two halves stacked" },
+  "ringBar": { "colour": "@colours.navyBlue.value", "hSs": 0.667, "opacity": 0.65, "beside": 0.25, "closeRule": { "withinSs": 0.667, "height": 0.5, "unison": "stacked" }, "draws": ["ringbar"], "basis": "composer", "ref": "#4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar') · closeRule (PLAN 2g, §464 · §466 — the AI's rule, his to reverse at 2g.6): two bars of the vibraphone's two voices sounding together whose centres are closer than one bar height (withinSs — a second: 0.5 ss apart against a 0.667 bar) are each drawn at `height` of the bar, toward its own side (the upper voice's top half, the lower's bottom half); a unison is the two halves stacked · colour navyBlue (2026-09-28, §472 — his word: piece #2's line wedge at 3:22, THE DEFAULT for every duration line from here on; opacity 0.65 kept, his to revisit)" },
   "brick": { "colour": "@colours.brick.value", "opacity": 0.45, "draws": ["brick"], "basis": "census", "ref": "#4 V0.10" },
   "beam": { "face": "music", "colour": "@colours.ink.value", "thicknessSs": 0.4, "stubSs": 1, "in": "thicknessSs glyphs.json standards.beam", "draws": ["beam"], "basis": "composer", "ref": "#2 dimensions_table · stubSs #4 day 23 (the beamlet — Gould)" },
   "tuplet": { "colour": "@colours.ink.value", "look": { "thicknessSs": 0.16, "hookLengthSs": 0.7, "paddingSs": 0.5, "numeralSizeSs": 1.2348, "numeralBaselineBelowSs": 0.41, "numeralInsetSs": 0.4, "numeralGapPerCharSs": 0.88, "numeralCapFactor": 0.7 }, "draws": ["tuplet"], "basis": "composer", "ref": "#4 day 23 (his own LilyPond standard, surveyed from #2's 809 .ly files)" },
@@ -86,7 +86,7 @@
  },
 
  "colours": {
-  "_doc": "THE COLOURS (§427 · §428): ink #111 for every music mark; `muted` for PAGE FURNITURE only (labels, the reshow, the markers) — no colour may come from a code default (gate 3). `techText` and the grey of the numbers are what drew on 2026-09-27; §427 makes both ink at 2e.3 (3) · (4).",
+  "_doc": "THE COLOURS (§427 · §428): ink #111 for every music mark — EXCEPT the duration line (the ring bar), navyBlue since 2026-09-28 (§472, his word); `muted` for PAGE FURNITURE only (labels, the reshow, the markers) — no colour may come from a code default (gate 3). `techText` and the grey of the numbers are what drew on 2026-09-27; §427 makes both ink at 2e.3 (3) · (4).",
   "ink": { "value": "#111", "use": "every music mark", "basis": "composer", "ref": "#4 V0.10 · §427" },
   "muted": { "value": "#8a8a8a", "use": "page furniture only (§427); today also the default of a text item with no colour (A5 — ended at 2e.3)", "basis": "composer", "ref": "#4 V0.10 · §427 A5" },
   "paper": { "value": "#fff", "use": "the page", "basis": "census", "ref": "#4 V0.10" },
@@ -99,6 +99,7 @@
   "brightOrange": { "value": "#F04B00", "use": "the glissando curve and its meter", "basis": "composer", "ref": "D42 (#2 ColorMap brightOrange)" },
   "envFollower": { "value": "#2E8B57", "use": "the env follower", "basis": "census", "ref": "#4 D48" },
   "lineWedge": { "value": "#8a6d3b", "use": "the line wedge (disabled)", "basis": "census", "ref": "#4 D48" },
+  "navyBlue": { "value": "#1C4879", "use": "the duration line (the ring bar), every part — THE DEFAULT for duration lines from 2026-09-28", "basis": "composer", "ref": "§472 (his word 2026-09-28: piece #2's line wedge at 3:22 — the SQ1 ColorMap navyBlue, #2 composer.html; #2 draws its wedge at opacity 0.3, the ring bar keeps 0.65)" },
   "pie": { "value": "#607D8B", "use": "the breath pie", "basis": "AI", "ref": "LGMF 2d.4 (the AI's call, his to reverse)" }
  },
 

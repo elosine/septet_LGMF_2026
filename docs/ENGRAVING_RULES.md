@@ -133,7 +133,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `tick`
 - **gc** — colour **gc rgb(255, 21, 160)** · *composer* · #4 day 23 ('when I say GC, that is the whole thing')
   - draws `gc` · in: engraving.render.gc (the look in px at the 1080 frame — piece #1's object whole)
-- **ringBar** — colour **ink #111** · hSs **0.667** → `render.ringBar.hSs` · opacity **0.65** → `render.ringBar.opacity` · beside **0.25** → `layout.ringBarGapSs` · closeRule **{withinSs: 0.667, height: 0.5, unison: stacked}** → `layout.devices.byEnv.vibBow.closeRule` · *composer* · #4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar') · closeRule (PLAN 2g, §464 · §466 — the AI's rule, his to reverse at 2g.6): two bars of the vibraphone's two voices sounding together whose centres are closer than one bar height (withinSs — a second: 0.5 ss apart against a 0.667 bar) are each drawn at `height` of the bar, toward its own side (the upper voice's top half, the lower's bottom half); a unison is the two halves stacked
+- **ringBar** — colour **navyBlue #1C4879** → `render.ringBar.color` · hSs **0.667** → `render.ringBar.hSs` · opacity **0.65** → `render.ringBar.opacity` · beside **0.25** → `layout.ringBarGapSs` · closeRule **{withinSs: 0.667, height: 0.5, unison: stacked}** → `layout.devices.byEnv.vibBow.closeRule` · *composer* · #4 day 22 wc-23 (2/3 of the brick) · beside #4 day 24 ('a little bit of space and then a duration bar') · closeRule (PLAN 2g, §464 · §466 — the AI's rule, his to reverse at 2g.6): two bars of the vibraphone's two voices sounding together whose centres are closer than one bar height (withinSs — a second: 0.5 ss apart against a 0.667 bar) are each drawn at `height` of the bar, toward its own side (the upper voice's top half, the lower's bottom half); a unison is the two halves stacked · colour navyBlue (2026-09-28, §472 — his word: piece #2's line wedge at 3:22, THE DEFAULT for every duration line from here on; opacity 0.65 kept, his to revisit)
   - draws `ringbar`
 - **brick** — colour **brick #4E7A9B** · opacity **0.45** → `render.brickOpacity` · *census* · #4 V0.10
   - draws `brick`
@@ -193,9 +193,9 @@ THE VIBRAPHONE'S MARKS IN A SEQUENCE (PLAN 2g — §463 · §465 · §466; LG-11
 
 ## 4 · THE COLOURS AND THE FACES
 
-THE COLOURS (§427 · §428): ink #111 for every music mark; `muted` for PAGE FURNITURE only (labels, the reshow, the markers) — no colour may come from a code default (gate 3). `techText` and the grey of the numbers are what drew on 2026-09-27; §427 makes both ink at 2e.3 (3) · (4).
+THE COLOURS (§427 · §428): ink #111 for every music mark — EXCEPT the duration line (the ring bar), navyBlue since 2026-09-28 (§472, his word); `muted` for PAGE FURNITURE only (labels, the reshow, the markers) — no colour may come from a code default (gate 3). `techText` and the grey of the numbers are what drew on 2026-09-27; §427 makes both ink at 2e.3 (3) · (4).
 
-- **ink** `#111` → `render.ink` · `render.ringBar.color` — every music mark · *composer* · #4 V0.10 · §427
+- **ink** `#111` → `render.ink` — every music mark · *composer* · #4 V0.10 · §427
 - **muted** `#8a8a8a` → `render.muted` — page furniture only (§427); today also the default of a text item with no colour (A5 — ended at 2e.3) · *composer* · #4 V0.10 · §427 A5
 - **paper** `#fff` → `render.paper` — the page · *census* · #4 V0.10
 - **brick** `#4E7A9B` → `render.brick` · `animated.curveFollower.color` — the brick · the curve follower · *composer* · #4 V0.10
@@ -207,6 +207,7 @@ THE COLOURS (§427 · §428): ink #111 for every music mark; `muted` for PAGE FU
 - **brightOrange** `#F04B00` → `render.glissCurve.color` · `animated.glissMeter.color` — the glissando curve and its meter · *composer* · D42 (#2 ColorMap brightOrange)
 - **envFollower** `#2E8B57` → `animated.envFollower.color` — the env follower · *census* · #4 D48
 - **lineWedge** `#8a6d3b` → `animated.lineWedge.color` — the line wedge (disabled) · *census* · #4 D48
+- **navyBlue** `#1C4879` — the duration line (the ring bar), every part — THE DEFAULT for duration lines from 2026-09-28 · *composer* · §472 (his word 2026-09-28: piece #2's line wedge at 3:22 — the SQ1 ColorMap navyBlue, #2 composer.html; #2 draws its wedge at opacity 0.3, the ring bar keeps 0.65)
 - **pie** `#607D8B` → `animated.motivePie.color` — the breath pie · *AI* · LGMF 2d.4 (the AI's call, his to reverse)
 
 THE FACES (§428): Crimson Pro Light upright / Light Italic for words and numbers; Emmentaler (LilyPond 2.24.4) for music. `emPerSs` is the text's em in staff spaces (render's textScale): a text item's size × emPerSs = its em.

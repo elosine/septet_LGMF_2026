@@ -16655,3 +16655,29 @@ animated device over the bows.
 view → `0` (the two `○ <` from the first heads, no block) · `20.9` (the unison, the bars stacked, the upper one stepping down at 22.70) ·
 `33` … `95` (the marks under the heads) · `42.65` (the join) · `56.12` (the shared second, the displaced head) · `148` (the fade-out, `> ppp`)
 · `z`. Then the AI's calls, his to reverse (PLAN § `2g` · §467 … §470).
+
+
+## §472. THE DURATION LINE IN NAVY — piece #2's line wedge colour for every ring bar, the default from here (2026-09-28, Fable, session 17)
+
+**What prompted it — his words:** *"in the 2 pno 2 percussion the line wedge object around three minutes and 22 seconds. Can we use that
+color, please, for the duration lines in this piece? And can you write it in as the default color for duration lines moving forward?"*
+
+**What was found.** Piece #2's line wedges (`scripts/insert_flock_linewedges.js` · `insert_zn236_linewedges.js`) are the colour `navyBlue`
+"per the SQ1 line-wedge convention", drawn at opacity 0.3; `navyBlue` = **`#1C4879`** (piece #2 `public/composer.html` ColorMap; the
+performance app's `rgba(28,72,121)`). This piece's duration line is the RING BAR: `rules.json` `objects.ringBar.colour` pointed at
+`@colours.ink.value`, and `container.json` `engraving.render.ringBar.color` pointed at the ink colour DIRECTLY — not through the object row,
+so the object row was a record and not the source. The IRs carry no colour (0 hits for `#111` in the three IRs): the page reads the registry
+at load.
+
+**What was done** (`rules.json` · `container.json` · the generated page):
+- a colour row **`navyBlue #1C4879`** (basis composer; the ref names piece #2's wedge and its opacity)
+- `objects.ringBar.colour` → `@colours.navyBlue.value`; the row's ref carries the date and his word
+- the container's `render.ringBar.color` re-pointed at the OBJECT ROW (`@objects.ringBar.colour`) — the compiler follows a chained pointer
+  (four hops, 2e.3), so the decision now lives in ONE place; the colours `_doc` names the exception: ink for every music mark EXCEPT the
+  duration line
+- `node tools/check_rules.js` **25 GREEN** (the first run was red on the one check that asks for the regenerated page — expected, then
+  `node tools/gen_engraving_rules.js`); the compiled registry reads `render.ringBar.color #1C4879`, opacity 0.65
+- nothing in `layout.js` · `render.js` · the IRs moved — a colour only; **he reloads the notation tab** (no restart)
+
+**The AI's call, his to reverse:** the opacity stays **0.65** (the ring bar's own, #4 day 22). Piece #2 draws its wedge at **0.3** — on white a
+paler steel blue than what the ring bar will show at 0.65. One number, `objects.ringBar.opacity`, if he wants the paler look.

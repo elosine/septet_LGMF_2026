@@ -672,9 +672,9 @@
    },
    "ringBar": {
     "hSs": "@objects.ringBar.hSs",
-    "color": "@colours.ink.value",
+    "color": "@objects.ringBar.colour",
     "opacity": "@objects.ringBar.opacity",
-    "_note": "day 22 second note (wc-23), composer spec: a black bar, left edge flush with the go line, right edge exactly at the note's sounding length (fixed one-shots = the measured sample length, 2n), centered on the written notehead's vertical center, thickness 2/3 of the brick height (brick = 1 ss). Always black unless otherwise specified."
+    "_note": "day 22 second note (wc-23), composer spec: a black bar, left edge flush with the go line, right edge exactly at the note's sounding length (fixed one-shots = the measured sample length, 2n), centered on the written notehead's vertical center, thickness 2/3 of the brick height (brick = 1 ss). Always black unless otherwise specified. LGMF 2026-09-28 (§472): the colour is the OBJECT ROW's (rules.json objects.ringBar.colour → colours.navyBlue) — his word, piece #2's line wedge colour for every duration line."
    },
    "gc": {
     "preset": {
