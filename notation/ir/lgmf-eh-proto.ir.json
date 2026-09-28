@@ -2,7 +2,7 @@
  "irVersion": "0.1",
  "id": "lgmf-eh-proto",
  "source": {
-  "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+  "score": "piece-Recombination-Draft01-done",
   "window": [
    0,
    156
@@ -16,13 +16,13 @@
   "date": "2026-09-28",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/bf0a8c52-8bc1-4633-865f-0fa8fb4f0228/scratchpad/sec3start-copy.json --w0 0 --w1 156 --parts 0 --bricks --sequence grp-seq-smu90t537 --id lgmf-eh-proto --label \"lgmf-eh-proto · the EH's sequence, section 1, the whole line (0 … 149 s) — the notation prototype (2d · 2f)\" --after piece-lgmf"
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/f31b7251-f3ed-4a03-b762-c3316b2a06d2/scratchpad/draft01-copy.json --w0 0 --w1 156 --parts 0 --bricks --sequence grp-seq-smu90t537 --id lgmf-eh-proto --label \"lgmf-eh-proto · the EH's sequence, section 1, the whole line (0 … 149 s) — the notation prototype (2d · 2f), from Draft 01 (2j)\""
  },
  "events": [
   {
    "id": "ev-wc-3127",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3127"
    },
    "onset": 0,
@@ -147,7 +147,7 @@
   {
    "id": "ev-wc-3140",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3140"
    },
    "onset": 13.712,
@@ -272,7 +272,7 @@
   {
    "id": "ev-wc-3156",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3156"
    },
    "onset": 28.714,
@@ -397,7 +397,7 @@
   {
    "id": "ev-wc-3169",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3169"
    },
    "onset": 44.256,
@@ -522,7 +522,7 @@
   {
    "id": "ev-wc-3175",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3175"
    },
    "onset": 50.679,
@@ -647,7 +647,7 @@
   {
    "id": "ev-wc-3182",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3182"
    },
    "onset": 57.323,
@@ -772,7 +772,7 @@
   {
    "id": "ev-wc-3196",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3196"
    },
    "onset": 72.923,
@@ -897,7 +897,7 @@
   {
    "id": "ev-wc-3206",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3206"
    },
    "onset": 87.289,
@@ -1022,7 +1022,7 @@
   {
    "id": "ev-wc-3216",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3216"
    },
    "onset": 100.002,
@@ -1147,7 +1147,7 @@
   {
    "id": "ev-wc-3228",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3228"
    },
    "onset": 113.814,
@@ -1272,7 +1272,7 @@
   {
    "id": "ev-wc-3240",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3240"
    },
    "onset": 127.096,
@@ -1397,7 +1397,7 @@
   {
    "id": "ev-wc-3255",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3255"
    },
    "onset": 141.977,

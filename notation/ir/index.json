@@ -2,7 +2,7 @@
  "irs": [
   {
    "id": "piece-lgmf",
-   "label": "piece-lgmf · Draft 01 (piece-Recombination-Draft01-done)",
+   "label": "piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j)",
    "score": "piece-Recombination-Draft01-done",
    "window": [
     0,
@@ -12,8 +12,8 @@
   },
   {
    "id": "lgmf-eh-proto",
-   "label": "lgmf-eh-proto · the EH's sequence, section 1, the whole line (0 … 149 s) — the notation prototype (2d · 2f)",
-   "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+   "label": "lgmf-eh-proto · the EH's sequence, section 1, the whole line (0 … 149 s) — the notation prototype (2d · 2f), from Draft 01 (2j)",
+   "score": "piece-Recombination-Draft01-done",
    "window": [
     0,
     156
@@ -22,8 +22,8 @@
   },
   {
    "id": "lgmf-vib-proto",
-   "label": "lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i)",
-   "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+   "label": "lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i), from Draft 01 (2j)",
+   "score": "piece-Recombination-Draft01-done",
    "window": [
     0,
     156

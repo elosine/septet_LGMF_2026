@@ -2,7 +2,7 @@
  "irVersion": "0.1",
  "id": "lgmf-vib-proto",
  "source": {
-  "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+  "score": "piece-Recombination-Draft01-done",
   "window": [
    0,
    156
@@ -16,13 +16,13 @@
   "date": "2026-09-28",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-LGMF-Sec01-Sec02-Sec3start --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/cd222adc-5f07-44e0-8ccc-fe471422862b/scratchpad/sec3start-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i)\" --after lgmf-eh-proto"
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/f31b7251-f3ed-4a03-b762-c3316b2a06d2/scratchpad/draft01-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i), from Draft 01 (2j)\""
  },
  "events": [
   {
    "id": "ev-wc-3129",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3129"
    },
    "onset": 2,
@@ -147,7 +147,7 @@
   {
    "id": "ev-wc-3130",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3130"
    },
    "onset": 2.6,
@@ -272,7 +272,7 @@
   {
    "id": "ev-wc-3135",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3135"
    },
    "onset": 6.892,
@@ -397,7 +397,7 @@
   {
    "id": "ev-wc-3136",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3136"
    },
    "onset": 8.526,
@@ -522,7 +522,7 @@
   {
    "id": "ev-wc-3139",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3139"
    },
    "onset": 11.811,
@@ -647,7 +647,7 @@
   {
    "id": "ev-wc-3141",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3141"
    },
    "onset": 14.312,
@@ -772,7 +772,7 @@
   {
    "id": "ev-wc-3144",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3144"
    },
    "onset": 16.39,
@@ -897,7 +897,7 @@
   {
    "id": "ev-wc-3145",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3145"
    },
    "onset": 16.99,
@@ -1022,7 +1022,7 @@
   {
    "id": "ev-wc-3148",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3148"
    },
    "onset": 20.934,
@@ -1147,7 +1147,7 @@
   {
    "id": "ev-wc-3149",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3149"
    },
    "onset": 22.695,
@@ -1272,7 +1272,7 @@
   {
    "id": "ev-wc-3152",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3152"
    },
    "onset": 26.914,
@@ -1397,7 +1397,7 @@
   {
    "id": "ev-wc-3154",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3154"
    },
    "onset": 27.514,
@@ -1522,7 +1522,7 @@
   {
    "id": "ev-wc-3157",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3157"
    },
    "onset": 32.564,
@@ -1647,7 +1647,7 @@
   {
    "id": "ev-wc-3158",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3158"
    },
    "onset": 33.164,
@@ -1772,7 +1772,7 @@
   {
    "id": "ev-wc-3163",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3163"
    },
    "onset": 38.084,
@@ -1897,7 +1897,7 @@
   {
    "id": "ev-wc-3164",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3164"
    },
    "onset": 38.684,
@@ -2022,17 +2022,17 @@
   {
    "id": "ev-wc-3166",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3166"
    },
    "onset": 42.648,
    "duration": 6.792999999999999,
    "pitch": {
-    "midi": 87,
+    "midi": 55,
     "spelled": {
-     "step": "D",
-     "alter": 1,
-     "octave": 6
+     "step": "G",
+     "alter": 0,
+     "octave": 3
     }
    },
    "technique": "bowed_vel",
@@ -2147,17 +2147,17 @@
   {
    "id": "ev-wc-3167",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3167"
    },
    "onset": 42.648,
    "duration": 6.192999999999998,
    "pitch": {
-    "midi": 55,
+    "midi": 67,
     "spelled": {
      "step": "G",
      "alter": 0,
-     "octave": 3
+     "octave": 4
     }
    },
    "technique": "bowed_vel",
@@ -2272,7 +2272,7 @@
   {
    "id": "ev-wc-3172",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3172"
    },
    "onset": 48.891,
@@ -2397,7 +2397,7 @@
   {
    "id": "ev-wc-3173",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3173"
    },
    "onset": 49.491,
@@ -2522,7 +2522,7 @@
   {
    "id": "ev-wc-3179",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3179"
    },
    "onset": 56.123,
@@ -2647,7 +2647,7 @@
   {
    "id": "ev-wc-3180",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3180"
    },
    "onset": 56.123,
@@ -2772,16 +2772,16 @@
   {
    "id": "ev-wc-3184",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3184"
    },
    "onset": 60.999,
    "duration": 5.613999999999997,
    "pitch": {
-    "midi": 85,
+    "midi": 86,
     "spelled": {
-     "step": "C",
-     "alter": 1,
+     "step": "D",
+     "alter": 0,
      "octave": 6
     }
    },
@@ -2897,16 +2897,16 @@
   {
    "id": "ev-wc-3186",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3186"
    },
    "onset": 61.599,
    "duration": 7.1540000000000035,
    "pitch": {
-    "midi": 84,
+    "midi": 87,
     "spelled": {
-     "step": "C",
-     "alter": 0,
+     "step": "D",
+     "alter": 1,
      "octave": 6
     }
    },
@@ -3022,7 +3022,7 @@
   {
    "id": "ev-wc-3189",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3189"
    },
    "onset": 66.663,
@@ -3147,7 +3147,7 @@
   {
    "id": "ev-wc-3191",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3191"
    },
    "onset": 68.803,
@@ -3272,7 +3272,7 @@
   {
    "id": "ev-wc-3194",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3194"
    },
    "onset": 72.323,
@@ -3397,7 +3397,7 @@
   {
    "id": "ev-wc-3195",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3195"
    },
    "onset": 72.323,
@@ -3522,16 +3522,16 @@
   {
    "id": "ev-wc-3199",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3199"
    },
    "onset": 77.031,
    "duration": 5.591999999999999,
    "pitch": {
-    "midi": 63,
+    "midi": 65,
     "spelled": {
-     "step": "D",
-     "alter": 1,
+     "step": "F",
+     "alter": 0,
      "octave": 4
     }
    },
@@ -3647,7 +3647,7 @@
   {
    "id": "ev-wc-3200",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3200"
    },
    "onset": 78.997,
@@ -3772,7 +3772,7 @@
   {
    "id": "ev-wc-3203",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3203"
    },
    "onset": 82.673,
@@ -3897,17 +3897,17 @@
   {
    "id": "ev-wc-3204",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3204"
    },
    "onset": 83.74,
    "duration": 4.6510000000000105,
    "pitch": {
-    "midi": 89,
+    "midi": 70,
     "spelled": {
-     "step": "F",
-     "alter": 0,
-     "octave": 6
+     "step": "A",
+     "alter": 1,
+     "octave": 4
     }
    },
    "technique": "bowed_vel",
@@ -4022,7 +4022,7 @@
   {
    "id": "ev-wc-3207",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3207"
    },
    "onset": 88.441,
@@ -4147,7 +4147,7 @@
   {
    "id": "ev-wc-3209",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3209"
    },
    "onset": 89.451,
@@ -4272,11 +4272,386 @@
   {
    "id": "ev-wc-3213",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3213"
    },
    "onset": 94.276,
    "duration": 8.576999999999998,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "bowed_vel",
+   "provenance": "derived",
+   "env": "vibBow",
+   "level": {
+    "samples": [
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-3214",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3214"
+   },
+   "onset": 94.936,
+   "duration": 6.215999999999994,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "bowed_vel",
+   "provenance": "derived",
+   "env": "vibBow",
+   "level": {
+    "samples": [
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15,
+     0.15
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-3218",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3218"
+   },
+   "onset": 101.202,
+   "duration": 4.400000000000006,
+   "pitch": {
+    "midi": 88,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "bowed_vel",
+   "provenance": "derived",
+   "env": "vibBow",
+   "level": {
+    "samples": [
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.005,
+     0.0147,
+     0.0362,
+     0.0576,
+     0.079,
+     0.1004,
+     0.1218,
+     0.1432,
+     0.1647,
+     0.1861,
+     0.2075,
+     0.2289,
+     0.2503,
+     0.2718,
+     0.2932,
+     0.3146,
+     0.336,
+     0.3574,
+     0.3789,
+     0.4003,
+     0.4217,
+     0.4431,
+     0.4645,
+     0.4859,
+     0.5074,
+     0.5288,
+     0.5502,
+     0.5716,
+     0.593,
+     0.6145,
+     0.6359,
+     0.6573,
+     0.6787,
+     0.7001,
+     0.7216,
+     0.743,
+     0.7644,
+     0.7858,
+     0.8072,
+     0.8286,
+     0.8501,
+     0.8715,
+     0.8929,
+     0.9143,
+     0.9357,
+     0.9572,
+     0.9786,
+     1
+    ]
+   }
+  },
+  {
+   "id": "ev-wc-3221",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3221"
+   },
+   "onset": 102.903,
+   "duration": 4.484999999999999,
    "pitch": {
     "midi": 58,
     "spelled": {
@@ -4395,384 +4770,9 @@
    }
   },
   {
-   "id": "ev-wc-3214",
-   "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
-    "objectId": "wc-3214"
-   },
-   "onset": 94.936,
-   "duration": 6.215999999999994,
-   "pitch": {
-    "midi": 89,
-    "spelled": {
-     "step": "F",
-     "alter": 0,
-     "octave": 6
-    }
-   },
-   "technique": "bowed_vel",
-   "provenance": "derived",
-   "env": "vibBow",
-   "level": {
-    "samples": [
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15
-    ]
-   }
-  },
-  {
-   "id": "ev-wc-3218",
-   "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
-    "objectId": "wc-3218"
-   },
-   "onset": 101.202,
-   "duration": 4.400000000000006,
-   "pitch": {
-    "midi": 87,
-    "spelled": {
-     "step": "D",
-     "alter": 1,
-     "octave": 6
-    }
-   },
-   "technique": "bowed_vel",
-   "provenance": "derived",
-   "env": "vibBow",
-   "level": {
-    "samples": [
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.005,
-     0.0147,
-     0.0362,
-     0.0576,
-     0.079,
-     0.1004,
-     0.1218,
-     0.1432,
-     0.1647,
-     0.1861,
-     0.2075,
-     0.2289,
-     0.2503,
-     0.2718,
-     0.2932,
-     0.3146,
-     0.336,
-     0.3574,
-     0.3789,
-     0.4003,
-     0.4217,
-     0.4431,
-     0.4645,
-     0.4859,
-     0.5074,
-     0.5288,
-     0.5502,
-     0.5716,
-     0.593,
-     0.6145,
-     0.6359,
-     0.6573,
-     0.6787,
-     0.7001,
-     0.7216,
-     0.743,
-     0.7644,
-     0.7858,
-     0.8072,
-     0.8286,
-     0.8501,
-     0.8715,
-     0.8929,
-     0.9143,
-     0.9357,
-     0.9572,
-     0.9786,
-     1
-    ]
-   }
-  },
-  {
-   "id": "ev-wc-3221",
-   "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
-    "objectId": "wc-3221"
-   },
-   "onset": 102.903,
-   "duration": 4.484999999999999,
-   "pitch": {
-    "midi": 70,
-    "spelled": {
-     "step": "A",
-     "alter": 1,
-     "octave": 4
-    }
-   },
-   "technique": "bowed_vel",
-   "provenance": "derived",
-   "env": "vibBow",
-   "level": {
-    "samples": [
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15,
-     0.15
-    ]
-   }
-  },
-  {
    "id": "ev-wc-3223",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3223"
    },
    "onset": 105.652,
@@ -4897,7 +4897,7 @@
   {
    "id": "ev-wc-3224",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3224"
    },
    "onset": 107.438,
@@ -5022,17 +5022,17 @@
   {
    "id": "ev-wc-3226",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3226"
    },
    "onset": 112.44,
    "duration": 2.524000000000001,
    "pitch": {
-    "midi": 87,
+    "midi": 75,
     "spelled": {
      "step": "D",
      "alter": 1,
-     "octave": 6
+     "octave": 5
     }
    },
    "technique": "bowed_vel",
@@ -5147,15 +5147,15 @@
   {
    "id": "ev-wc-3230",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3230"
    },
    "onset": 114.414,
    "duration": 6.272000000000006,
    "pitch": {
-    "midi": 70,
+    "midi": 63,
     "spelled": {
-     "step": "A",
+     "step": "D",
      "alter": 1,
      "octave": 4
     }
@@ -5272,17 +5272,17 @@
   {
    "id": "ev-wc-3231",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3231"
    },
    "onset": 115.014,
    "duration": 5.672000000000011,
    "pitch": {
-    "midi": 87,
+    "midi": 76,
     "spelled": {
-     "step": "D",
-     "alter": 1,
-     "octave": 6
+     "step": "E",
+     "alter": 0,
+     "octave": 5
     }
    },
    "technique": "bowed_vel",
@@ -5397,7 +5397,7 @@
   {
    "id": "ev-wc-3236",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3236"
    },
    "onset": 120.736,
@@ -5522,7 +5522,7 @@
   {
    "id": "ev-wc-3237",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3237"
    },
    "onset": 120.736,
@@ -5647,7 +5647,7 @@
   {
    "id": "ev-wc-3238",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3238"
    },
    "onset": 125.412,
@@ -5772,7 +5772,7 @@
   {
    "id": "ev-wc-3241",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3241"
    },
    "onset": 127.696,
@@ -5897,7 +5897,7 @@
   {
    "id": "ev-wc-3245",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3245"
    },
    "onset": 130.601,
@@ -6022,15 +6022,15 @@
   {
    "id": "ev-wc-3247",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3247"
    },
    "onset": 133.168,
    "duration": 8.158999999999992,
    "pitch": {
-    "midi": 76,
+    "midi": 81,
     "spelled": {
-     "step": "E",
+     "step": "A",
      "alter": 0,
      "octave": 5
     }
@@ -6147,16 +6147,16 @@
   {
    "id": "ev-wc-3248",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3248"
    },
    "onset": 136.924,
    "duration": 4.402999999999992,
    "pitch": {
-    "midi": 82,
+    "midi": 83,
     "spelled": {
-     "step": "A",
-     "alter": 1,
+     "step": "B",
+     "alter": 0,
      "octave": 5
     }
    },
@@ -6272,7 +6272,7 @@
   {
    "id": "ev-wc-3252",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3252"
    },
    "onset": 141.377,
@@ -6397,7 +6397,7 @@
   {
    "id": "ev-wc-3253",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3253"
    },
    "onset": 141.377,
@@ -6522,17 +6522,17 @@
   {
    "id": "ev-wc-3257",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3257"
    },
    "onset": 146.434,
    "duration": 2.3540000000000134,
    "pitch": {
-    "midi": 82,
+    "midi": 88,
     "spelled": {
-     "step": "A",
-     "alter": 1,
-     "octave": 5
+     "step": "E",
+     "alter": 0,
+     "octave": 6
     }
    },
    "technique": "bowed_vel",
@@ -6647,17 +6647,17 @@
   {
    "id": "ev-wc-3259",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3259"
    },
    "onset": 148.238,
    "duration": 4.7620000000000005,
    "pitch": {
-    "midi": 81,
+    "midi": 69,
     "spelled": {
      "step": "A",
      "alter": 0,
-     "octave": 5
+     "octave": 4
     }
    },
    "technique": "bowed_vel",
@@ -6772,7 +6772,7 @@
   {
    "id": "ev-wc-3260",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3260"
    },
    "onset": 148.838,
@@ -6897,7 +6897,7 @@
   {
    "id": "ev-wc-3271",
    "source": {
-    "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+    "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3271"
    },
    "onset": 155.11,
@@ -7945,10 +7945,10 @@
      {
       "event": "ev-wc-3166",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 42.648,
       "t1": 49.441,
-      "midi": 87,
+      "midi": 55,
       "restart": true,
       "startName": "pp",
       "marks": [
@@ -7976,10 +7976,10 @@
      {
       "event": "ev-wc-3167",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 42.648,
       "t1": 48.841,
-      "midi": 55,
+      "midi": 67,
       "restart": true,
       "startName": "mp",
       "marks": [
@@ -8007,7 +8007,7 @@
      {
       "event": "ev-wc-3172",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 48.891,
       "t1": 56.073,
       "midi": 84,
@@ -8058,7 +8058,7 @@
      {
       "event": "ev-wc-3173",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 49.491,
       "t1": 56.073,
       "midi": 85,
@@ -8096,7 +8096,7 @@
      {
       "event": "ev-wc-3179",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 56.123,
       "t1": 60.949,
       "midi": 85,
@@ -8121,7 +8121,7 @@
      {
       "event": "ev-wc-3180",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 56.123,
       "t1": 61.549,
       "midi": 84,
@@ -8159,10 +8159,10 @@
      {
       "event": "ev-wc-3184",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 60.999,
       "t1": 66.613,
-      "midi": 85,
+      "midi": 86,
       "restart": false,
       "startName": "mp",
       "marks": [
@@ -8184,10 +8184,10 @@
      {
       "event": "ev-wc-3186",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 61.599,
       "t1": 68.753,
-      "midi": 84,
+      "midi": 87,
       "restart": false,
       "startName": "p",
       "marks": [
@@ -8222,7 +8222,7 @@
      {
       "event": "ev-wc-3189",
       "chain": 0,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 66.663,
       "t1": 72.273,
       "midi": 63,
@@ -8233,7 +8233,7 @@
      {
       "event": "ev-wc-3191",
       "chain": 1,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 68.803,
       "t1": 72.273,
       "midi": 75,
@@ -8310,7 +8310,7 @@
       "voice": "lower",
       "t0": 77.031,
       "t1": 82.623,
-      "midi": 63,
+      "midi": 65,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8357,7 +8357,7 @@
       "voice": "upper",
       "t0": 83.74,
       "t1": 88.391,
-      "midi": 89,
+      "midi": 70,
       "restart": false,
       "startName": "p",
       "marks": [
@@ -8404,7 +8404,7 @@
       "voice": "lower",
       "t0": 94.276,
       "t1": 102.853,
-      "midi": 58,
+      "midi": 82,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8415,7 +8415,7 @@
       "voice": "upper",
       "t0": 94.936,
       "t1": 101.152,
-      "midi": 89,
+      "midi": 78,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8426,7 +8426,7 @@
       "voice": "upper",
       "t0": 101.202,
       "t1": 105.602,
-      "midi": 87,
+      "midi": 88,
       "restart": false,
       "startName": "pp",
       "marks": [
@@ -8451,7 +8451,7 @@
       "voice": "lower",
       "t0": 102.903,
       "t1": 107.388,
-      "midi": 70,
+      "midi": 58,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8511,7 +8511,7 @@
       "voice": "upper",
       "t0": 112.44,
       "t1": 114.964,
-      "midi": 87,
+      "midi": 75,
       "restart": false,
       "startName": "p",
       "marks": [
@@ -8536,7 +8536,7 @@
       "voice": "lower",
       "t0": 114.414,
       "t1": 120.686,
-      "midi": 70,
+      "midi": 63,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8547,7 +8547,7 @@
       "voice": "upper",
       "t0": 115.014,
       "t1": 120.686,
-      "midi": 87,
+      "midi": 76,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8654,7 +8654,7 @@
       "voice": "upper",
       "t0": 133.168,
       "t1": 141.327,
-      "midi": 76,
+      "midi": 81,
       "restart": false,
       "startName": "mp",
       "marks": [
@@ -8679,7 +8679,7 @@
       "voice": "lower",
       "t0": 136.924,
       "t1": 141.327,
-      "midi": 82,
+      "midi": 83,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8739,7 +8739,7 @@
       "voice": "lower",
       "t0": 146.434,
       "t1": 148.788,
-      "midi": 82,
+      "midi": 88,
       "restart": false,
       "startName": "pp",
       "marks": []
@@ -8750,7 +8750,7 @@
       "voice": "upper",
       "t0": 148.238,
       "t1": 153,
-      "midi": 81,
+      "midi": 69,
       "restart": false,
       "startName": "p",
       "marks": [

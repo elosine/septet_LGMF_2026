@@ -17436,3 +17436,54 @@ now points at it. Nothing in the code changes — the engine has never drawn one
 5 the winds' hairpin 0.667 (§498) · 6 the closing name's snap conditional (§499) · 7 no general courtesy natural (§500). Steps 4 … 7 were
 each a confirmation of what 2h had built, now written as his word on the row. What follows, from the order's own foot: his eye on the
 whole page once more.
+
+## §501. PLAN 2j BUILT — the main file carries every placed sequence's device; the protos re-pointed at Draft 01; the file discipline (2026-09-28, Fable, session 17)
+
+**What prompted it:** after the running order closed, his question — *"what's completed so far and help me with the file management. Should we
+have a main file that's kept up to date with all the notation so far and then to help me manage the working files. How should we move
+forward if we're developing notation?"* — and his word on the answer, *"a, write the plan item and build"*. PLAN § `2j` written first
+(the result, THE FILE DISCIPLINE as a standing rule, 2j.1 … 2j.4, the shield's BEFORE captured on HEAD before the first extraction).
+
+**2j.1 THE MAIN FILE:** `piece-lgmf` re-extracted from a COPY of `scores/piece-Recombination-Draft01-done.json` with §338's recipe
+(`--all --bricks`) + `--sequence` once per placed group — Draft 01 holds NINE recipes in `databases.sequences` and FOUR placed groups
+(`grp-seq-smu90t537` LGMF-R01c 0 … 156 s · `grp-seq-smuiicl3e` S02T2-SeqA_1 427 … 580 · `grp-seq-smuilati2` lgmf-s03-seqb 655 … 729 ·
+`grp-seq-smuin6jkq` lgmf-lastChord 800 … 881; recipes 1 … 5 have no notes in the score). The extractor folded 7 parts × 4 groups: the
+sequence device on parts 0 · 1 · 2 · 3 · 6 · 7 (each group's entry, breaths, labels, the ladder per part), the vibraphone's bows on part 5
+(55 + 52 + 22 + 27 = **156 bows**, every one tagged `vibBow`, four `vibBows` overlays — Draft 01's 156 of §463); "senza vib." three times
+in section 1 (EH · Vc · Db), all in a block; **0 ALERTs**; the percussion sample-length warnings as before (§338). READY: **1076 events ·
+893 chunks · VALID vs source**; the label `piece-lgmf · Draft 01 (…) — every placed sequence's device (2j)`.
+
+**2j.2 THE PROTOS:** `lgmf-eh-proto` (12 events) and `lgmf-vib-proto` (56 events, 55 bows) re-extracted from the same copy with their own
+flags (`--w0 0 --w1 156 --parts 0` / `5`, `--bricks --sequence grp-seq-smu90t537`) — they had come from `piece-LGMF-Sec01-Sec02-Sec3start`,
+three saves ago. **The goldens did not move** (`sequence_notation_check` 64 / 64 · `vib_marks_check` 32) — and THE SHIELD said
+`lgmf-eh-proto` SAME, `lgmf-vib-proto` MOVED. Read to the bottom: the EH's twelve events differ only in their `source` (the score's name);
+the vibraphone's 56 events differ in `source` AND `pitch`, the two scores' 56 objects on lane 5 in 0 … 156 s have IDENTICAL ids, starts and
+ends, and **17 of the 55 bows carry a different pitch in Draft 01** (from 42.648 s on — e.g. the pair at 42.648: 55 · 87 → 67 · 55;
+94.936: 89 → 78; 148.238: 81 → 69) — his own re-pitching of the vibraphone's breaths between the two saves (`1u`, LG-114; the save
+`piece-LGMF-draft01-VibesFix` names it). The reader followed: the rows CROSS by pitch at a rhythmic unison (§496), and with the pitches
+changed the crossings fell elsewhere (23 of 55 bows swap rows). **THE SOURCE MOVED, not the notation**; nothing to re-gold — the checks
+read Draft 01 already (2i.2). One line for his eye: the proto he looked at in 2h.9 and 2i.6 showed `Sec3start`'s pitches; it now shows the
+draft's.
+
+**2j.3 THE SHIELD, THE PICKER, THE DOCS:** `layout_shield --diff --expect piece-lgmf,lgmf-eh-proto,lgmf-vib-proto` → **GREEN, 19 of 21
+identical, 2 moved** (`piece-lgmf` · `lgmf-vib-proto`; the EH proto identical in layout; the tuba pages untouched — no code changed in
+this item). `check_rules` 25. The picker's three labels name Draft 01. **The ladder's report on the main file (`decisions_needed --ir
+piece-lgmf`): 28 units off rung 0 — 18 at rung 3 (the flip), 10 at rung 8 (MANUAL)** — every one the sequence block's `cents partial`
+column past the LANE'S TOP on the low parts: part 6 (Vc) 14 · part 7 (Db) 8 · part 1 (Bsn) 5 · part 2 (Hn) 1; the ten rung-8 units
+2.6 … 4.2 ss past the edge (Vc 40.26 · 102.30 · 477.92 · 523.99 · 547.43 · 694.45 s; Db 3.50 · 468.15 · 556.76; Hn 711.84 at the BOTTOM).
+This is the first time the device stands on Bsn · Hn · Vc · Db at all — a tenor/bass-register part's block stacked over a high head
+runs out of lane where the EH's never did; it meets 2a.6 THE CLEFS BY REGISTER (a head on a ledger line is what lifts the column) and
+rungs 5 · 6 (a lane rebalance · the octave device), both his, on the page. Nothing here is a fault of 2j: the report is information for
+2j.4.
+
+**Not done, by the plan:** the Chrome edge gates (no change to `render.js` · `coords.js` · `splice.js` · `page_rules.json` · the frame);
+`check_print_edges` (the paper's lead-in is parked, §489). The percussion's opening snippet and section pages are the registry's and hold
+on the new file (`vib_marks_check` THE PERCUSSION STAFF: −4 … −3.75 · 284 … 416).
+
+**THE FILE DISCIPLINE (PLAN § 2j, standing):** one source — the named draft; the main file carries every accepted device by its extractor
+flag; a new device is born on a proto page cut from a COPY of the draft, then folded in; no IR hand-edited; every extraction its command in
+`provenance.build`. When he saves Draft 02: the re-render recipe (journal §2 checkpoint #1) + this extraction (`provenance.build` of
+`piece-lgmf`) + the two protos'.
+
+**► 2j.4 HIS EYE:** reload the notation tab → `piece-lgmf` → `-4` … `4` (the EH's block and the first bows on the MAIN page) · `427` · `655` ·
+`800` (the later sequences' entries — the device on Bsn · Hn · Tpt · Vc · Db for the first time) · `z`; the protos in the picker, from the draft.
