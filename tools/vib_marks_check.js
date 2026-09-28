@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // tools/vib_marks_check.js — THE VIBRAPHONE'S MARKS, READ (LGMF PLAN 2g.2; RUNNING_LOG §463 the goldens · §468 the build). Exit 1 on a failure.
-//   node tools/vib_marks_check.js [--score <file>] [--print <group> <t0> <t1>]
+//   node tools/vib_marks_check.js [--score <file>] [--print <group> <t0> <t1>]   (THE PAGE: the proto lgmf-vib-proto, when it exists, PLAN 2g.5)
 // notation/lib/vib_marks.js on the vibraphone's 156 sequence bows of Draft 01 (scores/piece-Recombination-Draft01-done.json, read-only),
 // under rules.json vibMarks: the seats · the carry · rule 1's two tiers · the turn · the fades · the bare flat bows · no name without a
 // hairpin · every hairpin inside its bow · a monotone run named at its ends · the R01c stretch §463 rendered, pinned.
@@ -106,6 +106,45 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
     if ((b.voice === 'upper') !== (b.midi > p.midi || (b.midi === p.midi && b.chain === 0))) wrong++;
   }
   ok(!wrong, 'the voice by register at each bow\'s start against the partner then sounding (' + both + ' bows with a partner)' + (wrong ? ' — ' + wrong + ' wrong' : ''));
+}
+
+// (5) THE PAGE — the proto `lgmf-vib-proto` (PLAN 2g.5) as export_video lays it out: 2g.3's bows and 2g.4's marks, re-runnable
+const PROTO = path.join(ROOT, 'notation', 'ir', 'lgmf-vib-proto.ir.json');
+if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
+  console.log('THE PAGE — lgmf-vib-proto (the video realization)');
+  const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+  const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js')), Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js')), AnimObj = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
+  const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
+  const ENS = Layout.ensembleFor(rd('notation/registry/ensemble.json'), C.realizations['video-jury']), parts = ENS.parts.map(p => p.part);
+  const boxes = Fit.boxesFor(C, ENS, parts), sps = boxes.ssPerSec;
+  const ir = rd('notation/ir/lgmf-vib-proto.ir.json');
+  const m = Layout.layoutSection(ir, rd('notation/lib/glyphs.json'), Object.assign({ m4AttackLines: false, frameParts: parts, ensemble: ENS, techniques: rd('notation/registry/techniques.json'), fitBoxes: boxes }, C.engraving.layout));
+  const it5 = m.systems.filter(s => s.part === LANE).flatMap(s => s.items);
+  const ov = ir.overlays.find(o => o.kind === 'vibBows'), PB = ov ? ov.value.bows : [], ev = new Map(ir.events.map(e => [e.id, e]));
+  const barOf = id => it5.filter(i => i.k === 'ringbar' && i.ev === id);
+  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event); return br.length === 1 && Math.abs(br[0].t1 - (e.onset + e.duration)) < 1e-9 &&
+    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar to x(t1) — ' + PB.length + ' bows (R01c)');
+  ok(!it5.some(i => i.k === 'goline' || i.k === 'stem' || /curve$/.test(i.k)), 'no go line, no stem, no level curve on the lane (anchor A; §464)');
+  const side = t => { const b = PB.find(q => Math.abs(q.t0 - t) < 0.02 && barOf(q.event)[0]); const x = barOf(b.event)[0]; return x.segs ? x.segs.map(s => s.side).join('→') : String(x.side || 0); };
+  ok(side(16.99) === '-1' && side(20.93) === '1→-1' && side(22.70) === '1', 'the close rule: the unison 20.93 … 22.64 stacked (the sounding bar keeps its bottom half, the entering one the top), then the second 22.70 … 26.86 at half height (the 84 under the 86) — sides ' + [16.99, 20.93, 22.70].map(side).join(' | '));
+  const heads = t => it5.filter(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - t) < 0.02).map(i => +i.dxSs.toFixed(3));
+  ok([56.12, 141.38].every(t => { const h = heads(t); return h.length === 2 && Math.abs(Math.abs(h[1] - h[0]) - 1.107) < 0.01; }), 'the shared attacks a second apart are displaced by the chord column (#2 D.6) — 56.12 s ' + heads(56.12).join(' · ') + ' · 141.38 s ' + heads(141.38).join(' · '));
+  // the drawn marks read off the page in x order = the reader's, bow by bow
+  const xOf = (t, dx) => t * sps + (dx || 0);
+  let same = 0, wrongSide = 0; const bad = [];
+  for (const b of PB) {
+    const mine = it5.filter(i => i.ev === b.event && (i.seq === 'vibMark' || i.seq === 'vibHairpin'));
+    const txt = mine.map(i => ({ i, x: i.k === 'hairpin-timed' ? Math.max(xOf(i.t0, i.dx0Ss), i.after ? xOf(i.after.t, i.after.dxSs) : -Infinity) : xOf(i.t, i.dxSs) }))
+      .sort((a, c) => a.x - c.x).map(q => q.i.k === 'hairpin-timed' ? (q.i.dir === 'cresc' ? '<' : '>') : q.i.k === 'niente' ? '○' : q.i.g.replace('dyn-', '')).join(' ');
+    if (txt === VM.text(b)) same++; else bad.push(b.t0.toFixed(2) + ' "' + txt + '" ≠ "' + VM.text(b) + '"');
+    wrongSide += mine.filter(i => (b.voice === 'upper') !== (i.ySs > 0)).length;
+  }
+  ok(same === PB.length, 'the drawn marks are the reader\'s, bow by bow (' + same + ' / ' + PB.length + ')' + (bad.length ? ' — ' + bad.slice(0, 3).join(' · ') : ''));
+  ok(!wrongSide, 'every mark on its voice\'s side — the upper voice above the staff, the lower below');
+  const dev = Layout.deviceResolver(ir, C.engraving.layout);
+  const anim = AnimObj.collect(ir, null, C.animated, { parts, meta: false, deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}) })
+    .filter(i => i.part === LANE && (i.t0 != null ? i.t0 : i.at || 0) < ov.target.span[1] && (i.t1 != null ? i.t1 : Infinity) > ov.target.span[0]);
+  ok(!anim.length, 'no meter, follower or pie on the lane over the bows (the marks are the level, §464) — ' + anim.length + ' animated device(s)');
 }
 
 // the totals, for the record

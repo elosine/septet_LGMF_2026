@@ -21,6 +21,16 @@
    "profile": "trance"
   },
   {
+   "id": "lgmf-vib-proto",
+   "label": "lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g)",
+   "score": "piece-LGMF-Sec01-Sec02-Sec3start",
+   "window": [
+    0,
+    156
+   ],
+   "profile": "trance"
+  },
+  {
    "id": "lgmf-0i",
    "label": "lgmf-0i (trance)",
    "score": "0i-test",

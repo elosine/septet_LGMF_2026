@@ -16616,3 +16616,42 @@ plans and screen dumps identical once the new kind is set aside (they echo the r
 
 **Not checked (his rule — offered, not done):** whether a bow's end name and the next bow's start name in the SAME row come close on
 paper, where the page holds fewer ss a second than the video frame (at 18.65 ss/s a join 0.05 s wide leaves ≈ 0.7 ss between two `p`s).
+
+## §471. 2g.5 THE PROTO `lgmf-vib-proto` — the vibraphone's whole first sequence on the page; the lane's meters stand down (2026-09-27, Opus, session 17)
+
+**What was built:** `notation/ir/lgmf-vib-proto.ir.json` — the EH proto's recipe on the vibraphone lane: `--w0 0 --w1 156 --parts 5
+--bricks --sequence grp-seq-smu90t537` from a COPY of `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` in this session's scratchpad (his file
+untouched; the copy's sha1 = the file's = the last session's copy), listed in the picker after `lgmf-eh-proto` (`--after`): 55 bows of
+R01c, 2 … 154 s, both voices · 56 events (the 56th: the next passage's first bow at 155.11 s, outside the sequence — drawn as the bricks
+page's brick, with its own meter) · 46 chunks · VALID vs source · every unit at rung 0. Re-extracted on the final code: the same bytes as the
+2g.3 probe.
+
+**Found by the screen gate's animated probe, fixed:** 53 animated devices at the page edges — the tuba's per-event `curveMeter` riding every
+bow's level (56 on the lane). §464 (his "1 yes drop curve; 2 drop pie"): no meter, follower or pie on this lane — the marks are the level.
+`animobj.js`: a `vibBows` overlay OWNS its lane span as a `sequence` does (the per-event meters stand down) — and it brings no follower of
+its own. After: 0 animated devices over the bows (the stray bow at 155.11 keeps its meter). `piece-lgmf` 691 meters, `lgmf-eh-proto` its
+cresc meter and 12 pies — unchanged.
+
+**`tools/vib_marks_check.js` 16 → 23:** (5) THE PAGE, run when the proto exists — 2g.3's and 2g.4's verifications made re-runnable: every
+bow a head and one bar to x(t1) (55) · no go line, stem or curve · the close rule at 20.93 · 22.70 (sides −1 | 1→−1 | 1) · the two shared
+seconds displaced (56.12 · 141.38 s, dx 0.554 · 1.661) · the drawn marks = the reader's (55 / 55) · every mark on its voice's side · no
+animated device over the bows.
+
+**REQUIRED VERIFICATION (PLAN 2g.5):**
+- `node tools/check_screen_edges.js --ir lgmf-vib-proto` — **PASS**: 14 pages tiled −4 → 156 s · 28 drawn kinds with their edge class ·
+  1239 leaves, nothing timed left of x(t0), nothing past the frame · 0 go-time indicators (anchor A draws none) · the animated probe: 1
+  device (the stray bow's meter), none left of x(t0)
+- `node tools/check_print_edges.js --ir lgmf-vib-proto` — **PASS**: 15 pages · 222 point items owned once · 88 long items (ringbar 55 ·
+  brick 1 · **hairpin-timed 32**), none inking in a reserve · the objects plan: 13 full · 1 pushed (2 objects whole to the next page) ·
+  0 forced · no timed ink in the clef gutter or past the system end
+- `node tools/decisions_needed.js` — 0 units off rung 0 on all four pages
+- `vib_marks_check` **23 GREEN** · `check_rules` **25 GREEN** · `sequence_notation_check` **64 / 64**
+- **every other IR untouched (THE SHIELD, final):** `piece-lgmf` · `lgmf-eh-proto` re-extracted byte-identical (date normalized) · the 40
+  layouts of every earlier IR (#4's tuba goldens with them) identical · **their drawn screen pages byte-identical** (`--screenHtml`, every
+  page and its edge frames) · the print plans and screen dumps identical once the new kind `hairpin-timed` is set aside · the engine
+  batteries as on HEAD (seven green; `test_animobj` red since §454 — NITS).
+
+**► STOP — 2g.6 HIS EYE.** Reload the notation tab (page files and a new IR; no server restart) → the picker → `lgmf-vib-proto` → the video
+view → `0` (the two `○ <` from the first heads, no block) · `20.9` (the unison, the bars stacked, the upper one stepping down at 22.70) ·
+`33` … `95` (the marks under the heads) · `42.65` (the join) · `56.12` (the shared second, the displaced head) · `148` (the fade-out, `> ppp`)
+· `z`. Then the AI's calls, his to reverse (PLAN § `2g` · §467 … §470).

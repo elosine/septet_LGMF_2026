@@ -329,7 +329,8 @@
       const tg = ov.target || {};
       if (tg.part === undefined || !tg.span) continue;
       // [LGMF 2d.3] a sequence's line owns its lane the same way: its follower is the section follower
-      if (ov.kind === 'gliss' || ov.kind === 'cresc' || ov.kind === 'sequence') {
+      // [LGMF 2g.5, §464] the vibraphone's bows own theirs with NO follower: the marks are the level — no meter, no pie on the lane
+      if (ov.kind === 'gliss' || ov.kind === 'cresc' || ov.kind === 'sequence' || ov.kind === 'vibBows') {
         if (!owned.has(tg.part)) owned.set(tg.part, []);
         owned.get(tg.part).push(tg.span);
       }
