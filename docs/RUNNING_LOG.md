@@ -16021,3 +16021,50 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
   **62 / 62**; `check_rules` **23 GREEN**; `docs/ENGRAVING_RULES.md` regenerated (143 pointers). He reloads the tab.
 - **The AI's call, his to reverse:** the LAST breath's pie ends at its release — there is no next go line to refill at. The alternative is
   the line's end (the sequence's exit), one field away.
+
+## §456. HIS EYE AT 2e.7, CONTINUED — the level's calibration checked through to the page; the pitch column's place (the record, the flip, the precedents) (2026-09-27, Fable, session 17)
+
+- **His words, three at once:** *"the crescendo curve thickness at the beginning there. Did we calibrate it? Because this one looks thinner
+  than PP should be … looking at the full curve height, which is half the lane height, this looks less than whatever it is, one eighth
+  height, or actually two eighths maybe. PP should be."* — *"with all the levels, dynamic levels, let's just make sure we calculated
+  everything right and consistently. So the curve height at every dynamic level, the curve follower height, which looks like it's fine or
+  it's strictly following the curve height. But let's just do a double check to make sure that's all been properly calculated and it's
+  being drawn correctly."* — *"explain to me how the pitch information ended up below rather than near the note head. How was that decision
+  taken? I'm not sure I remember if we talked about that for the plan. And then is this the right location for it or should it be near the
+  note head? And let's see if there's any standards or precedents of people using this sense notation and where they place it."*
+- **THE LEVEL — calculated (the IR) and drawn (the exporter's own page SVG), both probed:**
+  - The scale (`sequence_overlays.js writtenOf`, §374 · §375): eight equal steps, niente 0 → fff 1, pp = **2/8**, mp = 4/8; linear in
+    CC7 between two names through the part's ladder — the EH's today (`DynTable.cc7` on `bank/velocity_remap.json`): ppp 43 · pp 51 ·
+    p 59 · mp 68 · mf 80 · f 94 · ff 109 · fff 127.
+  - The proto's samples (100/s): **0 at 0 s, rising linearly to 0.250 at 6.00 s** — the fade-in from niente the sequence wrote (the entry
+    note `wc-3127`: `cc7Abs {51, 51}` = pp flat, with a `cc7Fade` — 1d.8's `enter: fade`); **then 0.250 exactly from 6 s to 20 s**; the
+    rise to 0.470 at 24 s, **0.510 max**. What he saw at the cursor ≈ 1 s in is the level at 1 s = 0.025 — a fortieth of the height —
+    the fade, not a mis-calibration: pp is reached at 6.00 s and held at two eighths to the digit.
+  - The drawing (`render.js cresccurve`: y = laneBottom − sample × halfLane; `--dumpPage 0 · 1` of the video view): the EH lane 8.00 …
+    136.25 px (16.23 ss), the half-lane ceiling 72.13; the curve's first point **136.3** (the lane bottom = niente), the plateau
+    **120.2 × 753 points** on page 0 and × 629 on page 1 against the expected **120.22** (2/8 of the half-lane = 2.03 ss), the loudest
+    point 103.5 against mp's 104.19 (the 0.51). The meter (`animobj.js crescMeter`): the same samples, the same half-lane, the fill
+    interpolated at t, the outline the full scale — congruent by construction (read, not measured: the frame overlay was not rendered).
+  - **FOUND, one CC7 step:** the second and third breaths carry `cc7Abs {51, 69}` where today's table says pp → mp = **{51, 68}**
+    (`DynTable.range`); the level's top is therefore 0.510, not 0.500 — 1 % of the height, ≈ 0.35 dB, the label still reads `mp`
+    (the nearest name). The bank last changed 2026-09-20 15:40, the sequence was inserted 21:23 the same day, so it is the drawer's
+    top for that box, not a stale table. Not chased; the notation shows the save faithfully (D9). His call whether the box's top should
+    be the name's CC7 exactly.
+- **THE PITCH COLUMN — the record:** the column ABOVE the head was decided at **2d.2 (§383)** — *"centsGapSs the cents' baseline over the
+  head's ink or the staff's top, whichever is higher (D45's height) · rowSs the partial one row above · textGapSs the technique's text
+  over the column's ink top"* — D45 being piece #5's morph header, which put the cents over the head; 2e.3 (1) right-justified the column
+  to anchor B's spacer (§418 F2) and left it above. **The layout model of the video view (in C, G♯5 on the top line's space) has it
+  above today:** "senza vib." 5.68 · `26 (C1)` 4.54 · `+41` 3.54 · the head 2.50 · `pp → mp` on the dynamic row −4.60 — no ladder move.
+  **What he saw is the WORKING page (in F: D♯6 on two ledgers — the black stub at the top of his crop is its ledger):** the column over
+  the head reaches **0.30 ss past the lane top, the gap is 0.00**, and LADDER v2 (2e.4, §451: rungs 1 · 2 · 3 automatic) reached **rung 3,
+  the flip** — the fit report on the model names it (`members: cents · partial · techText · rangeHi · rangeArrow · rangeLo`, `by: 0.30 ss
+  past the top`): `+41` −5.75 · `26 (C1)` −6.75 · "senza vib." −7.89, under the dynamic row. So: the decision was above; the working
+  page's flip is the ladder's, automatic since 2e.4, and the presentation score does not flip.
+- **The precedents (the AI's knowledge, not looked up online this session):** the cents number goes ABOVE the note, close to the head or
+  its accidental — the Extended Helmholtz-Ellis legend (Sabat · von Schweinitz: the accidental carries the comma, the cents a small
+  number above), Haas (`−31` · `+14` above the note), Ligeti's Hamburg Concerto (the natural horns' cents above), Tenney (cents above),
+  Gould's *Behind Bars* (microtones: the deviation in cents above the notehead). A partial number, where it appears at all (natural-brass
+  and harmonic-series writing), sits above with the cents. Below the staff is the dynamic's row in every one of them. The decision of
+  2d.2 stands with the precedents; the open question is the working page's flip.
+- **DN-6 added to the decisions-needed list** (rules.json, the generated page): the working page's flip of the block's column — accept (a
+  working page) · exempt the pitch numbers from the flip (the word alone moves) · a lane-top allowance on the working page.
