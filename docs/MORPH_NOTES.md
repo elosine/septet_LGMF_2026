@@ -1062,6 +1062,20 @@ the morph, morph.js untouched. One thing the morph already does right and the ne
 constant velocity, so a breath that re-enters mid-wave does not lurch.
 
 
+### 2026-09-28 — LGMF: the morph's level curve on the page is "noise to a performer" — the breath's 13 dots (PLAN 2l)
+
+> *"in the current curve for this morph, there's a lot of sort of little tiny hooks and little ripples in the curve, which are just noise
+> to a performer. So th we should get rid of those."* (composer, 2026-09-28, at 2k.7 on `lgmf-hn-morph-proto` — RUNNING_LOG §513)
+
+*AI reading (not the composer's words):* the ripples are the tool's STORAGE, not its model. `toScoreObjects` writes a breath's level as
+`STEPS + 1` dots, `STEPS = max(12, min(96, ceil(excursion / 25)))` — the count set by the breath's CENTS excursion, not its duration, so an
+8.65 s breath gliding 25 c gets 13 dots, a corner every 0.72 s; the level rounded to 0.1 of the 0 … 10 height (whole CC7 steps under
+`cc7Abs {35, 64}`); straight lines between; the peak one extra dot, a needle. The engine's own level (`stateAt(vi, t).level`) is smooth.
+For this piece the notation stops drawing the breaths: the morph is ONE ARC through the breath peaks (#5's D47, §516), PLAN 2l. For the
+all-purpose revision: store a note's level at a density set by its DURATION, or as the model's own function with its parameters on the
+marker, so every reader (playback, the notation, a re-run) gets the shape the model meant; the pitch and the level should not share one
+step count.
+
 ## 4 · For the eventual revision (the digest — rewritten freely)
 
 - *(seed)* A morph event as ONE object: pairs · a glissando / beating curve per pair · a re-articulation pattern · a dynamic curve ·
