@@ -17284,3 +17284,11 @@ staff enter at one x; both tracks' bars end and begin at the same place. Nothing
 which the olive (bottom): the seats are told apart only by the reader's level rule (§468) at a shared change, and the heads carry no seat.
 The example for 2i.6 (ii) — the head's seat (colour the head · stems · the bow lead of 2i.7 in the seat's hue) — and for (i), the seat
 written at deal time.
+
+
+## §493. HELD: 141.33 s — a side-by-side unison, his data point for the head ↔ side talk (2026-09-28, Fable, session 17)
+
+**His word:** *"141.33 a side by side unison, hold as data point"*. On `lgmf-vib-proto` at 141.38 s both seats enter together on ONE staff
+line — the one-line pair the chord column displaces (♮ and ♯ side by side, §479 · §482): the two heads sit next to each other, the navy
+bar and the olive bar begin at the same x, and the page does not say which head is which seat. With 120.71 s (§492) the second example
+for 2i.6 (ii) and (i).
