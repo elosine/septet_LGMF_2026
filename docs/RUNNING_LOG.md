@@ -17256,3 +17256,31 @@ before the next unit's ink · PLAN § `2i` 2i.3 (c) corrected · `vib_marks_chec
 11.76 s cut; the bar before the 79.00 s `8va` label cut 0.25 short of the label). 26 of 55 bars cut on the proto, the tightest gap 0.250.
 
 *(With it, §489's snippet fix — the same commit.)*
+
+
+## §491. TO THE LIST: a dotted go line from each bow's head to its bar — his words; PLAN § `2i` 2i.7 written, not built (2026-09-28, Fable, session 17)
+
+**His words (at a page with a D♯6 on the top track's side and a D♯5 on the bottom's):** *"Let's add to the list of things to work on or add
+a go line for each note head. But this will be yet another model. So the go line will go from the left edge of the note head up to or
+down to the duration line. Just, just to intersect the, the duration line itself. So in the image, the D sharp will have a dotted line
+that starts, that is lined up, its X is lined up with the left of the note head. It starts the note head's midpoint Y and then goes up
+and touches the, or goes up to the top of the duration line Y. And then the other D sharp, D sharp five, same thing, but the opposite. So
+the dotted line, duration line, goes from the left edge of that note head, Y midpoint of the note head, down to the bottom Y of the
+duration line."*
+
+**Read back into a device (2i.7, PLAN § `2i`):** a new drawn kind — the BOW LEAD — a DOTTED vertical line per bow at x = the head's LEFT
+EDGE (the bow's time, anchor A), from the head's centre Y to the FAR edge of its seat's bar (the top edge of the navy bar above, the
+bottom edge of the olive bar below) — it crosses the bar. A new objects row (`bowLead`: dash · thickness · colour), an edge row in
+`page_rules.edge` (a new drawn kind must add its line or the screen gate fails, 2c), the item in the layout beside the head, the renderer.
+**Open, his:** the colour — the seat's hue (navy · olive, solid), which would also settle the head's seat (the "leader" of §485's option
+3, now chosen in effect), or ink like every go line (#333). **Not built** — added to the list at his word; 2i.6's held items stand.
+
+
+## §492. HELD: 120.71 s — an example for the head ↔ side talk (2026-09-28, Fable, session 17)
+
+**His word:** *"120.71 just hold this image and that time code for the note head to side slash duration line conversation. This may be an
+example."* The page at 120.71 s on `lgmf-vib-proto`: both seats change bow together — a D♯6 above the staff (two ledgers) and a D♯5 on the
+staff enter at one x; both tracks' bars end and begin at the same place. Nothing on the page says which head is the navy (top) seat and
+which the olive (bottom): the seats are told apart only by the reader's level rule (§468) at a shared change, and the heads carry no seat.
+The example for 2i.6 (ii) — the head's seat (colour the head · stems · the bow lead of 2i.7 in the seat's hue) — and for (i), the seat
+written at deal time.
