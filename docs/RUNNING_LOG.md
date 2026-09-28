@@ -17377,3 +17377,21 @@ pointer; `check_rules` (no literal outside a RULES MIRROR line) and the shield c
 someone editing that row — and its ref now says his word.
 
 **The running order:** step 4 ☑ · ► step 5, the winds' hairpin height (0.667 kept while the vibraphone's timed hairpin is 1.333, §478).
+
+## §498. STEP 5 CLOSED — the winds' hairpin height stays 0.667; the winds' only hairpins are the two fade signs (2026-09-28, Fable, session 17)
+
+**What prompted it:** the running order's step 5 — keep the winds' fade hairpin at 0.667 (LilyPond's opening, §460) or double it to the
+vibraphone's 1.333 (§478). His question first: *"Are any hairpins being used at all in the winds? We were using the crescendo curves there,
+the graphic curves. And if they are being used, then give me an assessment of the impact on vertical placement … I think the answer to the
+initial question is I don't think we're using them at all."*
+
+**The facts:** the winds carry exactly two hairpins per sequence line, both FADE SIGNS of `2f` (§459 · §460): the opening `○—<` before the
+legend and the closing `—> ppp` on the last breath's unit — `layout.js` builds them from the sequence overlay (`openHairpin` ·
+`closeHairpin`, `SG.heightSs`); the level curve is the dynamic's shape everywhere else. No timed hairpin on a wind. Their height was not
+measured for a doubling — his word came before the assessment: *"then no doubling, just leave them as is. Those are just symbolic to
+introduce what the fade in and fade out would be like."*
+
+**His word: keep 0.667.** Written onto the `hairpinTimed` row's heightNote (the "his to reverse" retired); `docs/ENGRAVING_RULES.md`
+regenerated; `check_rules` 25. Nothing on the page changes.
+
+**The running order:** step 5 ☑ · ► step 6, the closing name's snap (`vibMarks.closeAlign`, §478).
