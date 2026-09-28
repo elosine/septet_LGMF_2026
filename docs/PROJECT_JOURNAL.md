@@ -49,6 +49,28 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### RUNNING ORDER (2026-09-28) — the vibraphone's page: the open calls after PLAN § `2i`, one at a time
+
+**HOW THIS LIST WORKS:** one step at a time — ► marks the active step, ☑ marks done; update the marks the moment a step wraps, not later. At
+every wrap the AI states: what finished · what's next · where we are in the order. The AI proposes reorganizations when useful; changes
+land only on user approval. A post-clear model reads this block and announces the position before doing anything.
+
+1. ► **The head ↔ side** — which head belongs to which seat (navy above · olive below). His data points: 120.71 s (a D♯6 and a D♯5 entering
+   together, §492) · 141.33 s (a side-by-side unison, `♮` · `♯`, §493). Options: colour the head in the seat's hue (recommended) · stems as
+   voice flags · the bow lead of step 2 in the seat's hue. Done when: his choice is a rule row and on the page.
+2. **2i.7 THE BOW LEAD** — a dotted line from the head's left edge, from its centre through its seat's bar to the far edge (§491). His call
+   first: the colour. Done when: built — the objects row, the edge row, the layout item, the renderer, `vib_marks_check`.
+3. **The seat written at deal time** — the sequence tool writes `seat` on the note it deals (it knows `lane:seat`), so the reader never
+   guesses at a shared change (22 of 156 bows). Done when: the generator writes it, the reader prefers it, a check reads Draft 01.
+4. **The winds' `○` start gap** — 2h.3 put the 0.45 on the base hairpin row, so the EH's `○—<` took it too (§476). Keep, or the vibraphone
+   only. One pointer.
+5. **The winds' hairpin height** — 0.667 kept while the vibraphone's is 1.333 (§478). Keep, or double. One number.
+6. **The closing name's snap** — only when it would run past the bar's end; a name reached earlier stays at its point (the last `> ppp`,
+   §478). Keep, or always. One value (`vibMarks.closeAlign`).
+7. **The general courtesy natural** — a `♮` after a sharpened same-letter head earlier in the voice, beyond the chord column (§479). Yes or
+   no; if yes, its window is a rule.
+— parked: the paper score has no lead-in (2e's call), so no percussion snippet there — when the paper is laid out (§489).
+
 ### SESSION 17 OPENS ON THIS — `/session-start`; nothing is being built (session 16 closed 2026-09-26, Opus)
 
 - **The piece:** _Recombination_ (D32). He composes section 3 and has named `scores/piece-Recombination-Draft01-done.json` (new at this
