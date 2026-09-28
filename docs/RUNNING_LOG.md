@@ -17575,3 +17575,9 @@ flag; a new device is born on a proto page cut from a COPY of the draft, then fo
 - **C, restated for him** (pending his yes): a bloom leaves the pitch and comes back. The figure has two heads — the start and the farthest point — and does NOT show the return; the curve shows it. The two heads are the range of the glide, exactly as `low → high` is the range of the dynamic.
 
 **Not done:** nothing built. The build list stands as §504 wrote it, plus the rule rewrite above.
+
+## §506. C ANSWERED — the figure is the range; PLAN § 2k written (2026-09-28, Fable, session 17)
+
+**His word:** *"a and ready for checkpoint? so plan is written?"* — C = (a): the two heads of the morph's pitch figure are the RANGE of the glide (the start and the farthest point), the curve the path; no third head for the return. The plan was NOT yet written at his question — it is now: **PLAN § `2k` THE MORPH'S NOTATION: the glissando on the sequence's rules — the horn first**, with its device sheet (no open decision left — A · B · C and the middle section closed at §505 · §506), THE FORM THE RULE READS (three morphs, one plain passage), 2k.1 … 2k.7 each with its REQUIRED VERIFICATION, the build order (Opus, after a checkpoint and a clear) and the AI's calls. The design's centre, the AI's reading: **a morph is written as a sequence whose pitch moves** — one `sequence` overlay per part (the block, the level on the fixed scale, the breaths, the labels — `sequence_overlays.forPart` over the morph's objects) plus the `gliss` overlay; the header = the block + the destination head + the gliss line, ONE code path with the sequence; the tuba's `header` · `cresc` overlays kept for its fixtures. The protos' recipe: `--w0 140 --w1 282 --parts 2 --sequence grp-seq-smu90t537 --morph grp-act-bloom-06-01` on a copy of Draft 01.
+
+**Next:** the checkpoint on Opus (`/checkpoint`), a clear, then the build of 2k.1 → 2k.6 on Opus; 2k.7 his eye.
