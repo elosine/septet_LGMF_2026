@@ -17613,3 +17613,12 @@ flag; a new device is born on a proto page cut from a COPY of the draft, then fo
 - True ALERTs left: three notes start off their take (bloom's Bsn 2.7 c vs 3.91 · morph 1's EH +8.9 vs 0 · its horn −9.5 vs −13.69 — the note written, the take's partial) · morph 1's Db re-key overlap · morph 1's Bsn D44 (0 c, one pitch) · the vibraphone's gliss misfit (2k.5).
 
 **Verified:** `sequence_notation_check` 64 / 64 · `vib_marks_check` 32 · the five IRs byte-identical (`index.json` restored by `--prune`).
+
+## §509. 2k.3 THE HEADER — the block with a destination head and the gliss line, on the sequence's one path (2026-09-28, Opus, session 17)
+
+**What was done** (`notation/lib/layout.js`, the sequence block): an entry with a `dest` draws the block of 2d.2 plus the destination — right to left from the go line: spacer 0.45 · the DEST head (its right ink on the spacer) · 0.45 · the gliss line (two open heads wide, the tuba's; slanted head to head when the lines differ) · 0.45 · the START head with its column. Both heads through `justHead` (§1a's picture, the cents from the tempered note, `centsZero`, the ottava fold of §502). The destination's cents alone (a detuning, not a partial) on the column's FIRST ROW — `justHead` takes `colY` (a floor for the row) and returns it, so both heads' numbers stand on one row over the higher of the two — right-justified to its own head. The word, the legend and the fade signs read ONE unit `H` (the lowest ink of both heads, the column's top, the right edge = the dest head's): nothing copied. The tuba's D45 header code untouched (its fixtures).
+- **AN AI'S CALL, his to reverse:** the gliss line is not in `fit.js inkOf` (it never was — the tuba's headers draw it too); adding it would move the tuba goldens. It lies between the two heads at their height, inside the unit.
+
+**Seen on a scratch page** (the horn, 140 … 282 s, pruned after): at 152.10 — A4 · the line · A4 with `−25` over it, `8 (A1)` over the start (its 0 cents omitted), both at the row 2.6 · `ppp → ff` on the dynamic row · the go line; no warnings; the ladder at rung 0.
+
+**Verified:** THE SHIELD 21 of 21 layouts identical (no IR carries `dest`) · `check_rules` 29 · `sequence_notation_check` 64 / 64.

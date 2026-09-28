@@ -1035,14 +1035,16 @@
           const attach = O.lineAttachAboveBaselineSs != null ? O.lineAttachAboveBaselineSs : 0.32;
           if (above) topInk = Math.max(topInk, lineY + (lgO ? lgO.hSs : 0) - attach); else lowInk = Math.min(lowInk, lineY - attach);
         }
-        let colTop = null;
+        let colTop = null, yCol = null;
         // [§502, his "if there are no actual cents deviation no need for the 0"] a rounded 0 is not written (rules.json number.centsZero);
         // the partial takes the first row. A '0' in an IR extracted before §502 is the same case.
         const cZero = Math.round(+m.cents || 0) === 0 || m.centsText === '0' || m.centsText === '';
         const cText = q.column && m.centsText != null && m.centsText !== '' && !(o.centsZero === 'omit' && cZero) ? String(m.centsText) : null;
         const pText = q.column ? partialLabel(m, o.partialForm) : null;
         if (cText != null || pText) {
-          const yC = Math.max(topInk, 2) + SQB.centsGapSs;                     // D45's height: over the pitch ink, never inside the staff
+          // D45's height: over the pitch ink, never inside the staff — [2k.3] and never under `colY` (a morph's two heads, one number row)
+          const yC = Math.max(Math.max(topInk, 2) + SQB.centsGapSs, q.colY != null ? q.colY : -Infinity);
+          yCol = yC;
           const yP = cText != null ? yC + SQB.rowSs : yC;
           const estW = s => String(s || '').length * 0.5 * SQB.numEmSs;         // render.js spanSsOf's estimate: half an em a character
           const wide = Math.max(estW(cText), estW(pText)) > hw;
@@ -1056,7 +1058,7 @@
           colTop = (pText ? yP : yC) + SQB.slashTopEm * SQB.numEmSs;   // the row's ink top (Crimson Pro's '/' reaches 0.711 em)
           topInk = Math.max(topInk, colTop);
         }
-        return { cx, y, hw, lowInk, topInk, colTop, left, headTop, right: x, octShift };
+        return { cx, y, hw, lowInk, topInk, colTop, yC: yCol, left, headTop, right: x, octShift };
       };
       for (const sq of sequences) if (sq.part === part && first) {
         const en = sq.v.entry, t = en.t;
@@ -1090,7 +1092,31 @@
         // [2e.3 (6), §443 — his "iii, no head"] a breath that keeps the pitch carries its go line ALONE (the pie counts it down); a head
         // only when the pitch changes, at anchor B's spacer like the block's
         for (const b of sq.v.breaths || []) if (b.pitch === 'new') justHead(b.onset, b, -o.nhGapSs, { column: true, ev: b.event });
-        const H = justHead(t, en, -SQB.headGapSs, { column: true, ev: en.event });
+        // [LGMF PLAN 2k.3 — §506, the device sheet; §1a · D45's figure] A MORPH'S BLOCK: an entry with a `dest` (the farthest point the
+        // part reaches — the range of the glide, his C (a)) is the sequence's block plus the DESTINATION head at the spacer and the gliss
+        // line to it — right to left from the go line: spacer · dest head · spacer · the line (two open heads wide, the tuba's) · spacer
+        // · the start head with its column. Both heads through `justHead` (§1a's picture, the cents from the tempered note, `centsZero`,
+        // the ottava fold); the destination's cents alone — a detuning, not a partial — on the column's first row, right-justified to its
+        // own head as the block's column is. Everything after (the word, the legend, the fade signs) reads the one unit H: ONE path with
+        // the sequence's block, nothing copied. (A `glide` breath draws its go line alone — no head.)
+        let H;
+        if (en.dest && en.dest.midi != null) {
+          const GL = Object.assign({ gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR (the tuba header's chain, D45: the spacer · the stem's thickness)
+          const HD = justHead(t, en.dest, -SQB.headGapSs, { ev: en.event });
+          const glR = HD.left - GL.gapSs, glL = glR - glyphs.notehead.open.wSs * 2;   // "two regular half note white notes" (#4 day 35)
+          const HS = justHead(t, en, glL - GL.gapSs, { column: true, ev: en.event, colY: Math.max(HD.topInk, 2) + SQB.centsGapSs });
+          items.push({ k: 'glissline', t, dx0Ss: glL, dx1Ss: glR, ySs: HS.y, y1Ss: HD.y, thickSs: GL.thickSs, seq: 'glissLine', ev: en.event });
+          let colTop = HS.colTop, topInk = Math.max(HS.topInk, HD.topInk);
+          const dZero = Math.round(+en.dest.cents || 0) === 0 || en.dest.centsText === '';
+          if (en.dest.centsText != null && en.dest.centsText !== '' && !(o.centsZero === 'omit' && dZero)) {
+            const yD = HS.yC != null ? HS.yC : Math.max(HD.topInk, 2) + SQB.centsGapSs;
+            items.push({ k: 'text', t, dxSs: HD.right, anchor: 'end', text: String(en.dest.centsText), ySs: yD, seq: 'cents', ev: en.event,
+              size: TS.number != null ? TS.number : TS.instruction, color: COL.number, italic: !!ITAL.number });
+            const top = yD + SQB.slashTopEm * SQB.numEmSs;
+            colTop = Math.max(colTop != null ? colTop : -Infinity, top); topInk = Math.max(topInk, top);
+          }
+          H = { cx: HS.cx, y: HS.y, hw: HS.hw, lowInk: Math.min(HS.lowInk, HD.lowInk), topInk, colTop, yC: HS.yC, left: HS.left, headTop: HS.headTop, right: HD.right, octShift: HS.octShift };
+        } else H = justHead(t, en, -SQB.headGapSs, { column: true, ev: en.event });
         // [2e.3 (4) · (8), §427 · §445] the technique's word — a LIVE `instruction` (0.75 italic, black), 0.45 above the column, ending at
         // the spacer with the column (right-justified) — only where the change-of-technique rule wrote it (the extractor, rules.json
         // techniqueChange); the 1.0998 bake is no longer drawn
