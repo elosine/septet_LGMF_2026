@@ -1561,6 +1561,12 @@ if (SEQ_GROUPS.length) {
   const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
   const CONT = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const seqDev = ((CONT.engraving.layout.devices || {}).byEnv || {}).sequence || {};
+  // [LGMF PLAN 2l.2 · 2l.4 — §517 · §519 · §522] THE VOLUME CURVE PROTOCOL: the device's `level` names the producer (byEnv.sequence
+  // "recipe"); the drawing law, the ease and the labels are the rows' (rules.json objects.crescCurve · dynamicLabel). No `level` on
+  // the device → the trace, as before.
+  const RL = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT), CCR = RL.objects.crescCurve || {}, DLR = RL.objects.dynamicLabel || {};
+  const curveOpts = dev => !dev.level ? {} : { law: CCR.law, easeS: +CCR.easeS || 0, easeCap: +CCR.easeCap || 0, level: dev.level,
+    labels: DLR.at === 'reached' ? { minGapS: +DLR.minGapS || 0, turnWins: !!DLR.turnWins, noRepeat: !!DLR.noRepeat } : null };
   const recipes = ((score.databases || {}).sequences || []);
   for (const gid of SEQ_GROUPS) {
     const rec = recipes.find(q => q.group === gid);
@@ -1575,13 +1581,13 @@ if (SEQ_GROUPS.length) {
         if (foldVibBows('--sequence', gid, part, rec ? rec.name : null, false)) n++;
         continue;
       }
-      const b = SeqOv.forPart(score.objects || [], gid, part, {
+      const b = SeqOv.forPart(score.objects || [], gid, part, Object.assign({
         window: [w0, w1], bank, instKey: TRACKS && TRACKS[part] ? TRACKS[part].instKey : null,
         recipe: rec ? rec.recipe : null, name: rec ? rec.name : null, techTexts: seqDev.techTexts || {},
         // [2e.3 (8)] the block's word only where the change rule wrote one; [2e.3 (5)] the partial's form from the table
         techTextOf: o => { const c = TECH_CHANGE.get('ev-' + o.id); return c ? c.text : null; },
         partialForm: (CONT.engraving.layout || {}).partialForm,
-      });
+      }, curveOpts(seqDev)));
       if (!b) continue;
       SEQ_ENTRY_EVENTS.add(b.overlay.value.entry.event);
       n++;

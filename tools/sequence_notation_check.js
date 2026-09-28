@@ -16,6 +16,8 @@ const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'lib', 'glyphs.
 let pass = 0, fail = 0;
 const ok = (c, msg) => { if (c) pass++; else { fail++; console.log('FAIL ' + msg); } };
 const near = (a, b, tol) => Math.abs(a - b) <= tol;
+const RulesRaw = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT);   // [2l.4] the label rule
+const SeqOv = require(path.join(ROOT, 'notation', 'lib', 'sequence_overlays.js'));
 
 const ov = ir.overlays.filter(o => o.kind === 'sequence');
 ok(ov.length === 1, 'one sequence overlay (got ' + ov.length + ')');
@@ -42,9 +44,25 @@ ok(b1 && b1.pitch === 'same', 'the breath at 13.71 s is `same`');
 ok(b2 && b2.pitch === 'new' && b2.centsText === '+2' && b2.partial === 12 && b2.fundamental === 'C2', 'the breath at 28.71 s is `new` with +2 · partial 12 of C2 — got ' + JSON.stringify(b2 && [b2.pitch, b2.centsText, b2.partial, b2.fundamental]));
 ok(b2 && b2.midi === 79, 'the new pitch is G5 (midi 79)');
 
-// 2d.1 (d) THE LABELS — exactly (mp) 25.0 · (pp) 30.9
-ok(v.labels.length >= 2 && v.labels[0].mark === 'mp' && near(v.labels[0].t, 25.0, 0.05) && v.labels[1].mark === 'pp' && near(v.labels[1].t, 30.9, 0.05),
-  'the labels are exactly (mp) 25.0 · (pp) 30.9 — got ' + v.labels.map(l => '(' + l.mark + ') ' + l.t).join(' · '));
+// 2d.1 (d) THE LABELS — [2l.4, §522] a name wherever the line REACHES a dynamic. From the recipe (R01c: `fadeIn 6` from niente, the
+// waves pp … mp): the fade passes ppp at 3.0 s (half of its 6 s to pp, one straight line) and arrives at pp at 6.0; in 0 … 36 s the
+// dealt wave's (p) · (mp) 25.0 its crest · (pp) 30.9 its trough · (p). Over the whole line: never two names closer than minGapS,
+// never the same name twice running, never niente, a crossing AT its name's height, a turn named by its nearest name.
+const DLR = RulesRaw.objects.dynamicLabel, lb36 = v.labels.filter(l => l.t <= 36);
+ok(lb36.map(l => l.mark).join(' ') === 'ppp pp p mp pp p' && near(lb36[0].t, 3.0, 0.02) && near(lb36[1].t, 6.0, 0.02) && near(lb36[3].t, 25.0, 0.05) && near(lb36[4].t, 30.9, 0.05)
+  && lb36[0].kind === 'cross' && lb36[1].kind === 'cross' && lb36[3].kind === 'crest' && lb36[4].kind === 'trough',
+  'the labels in 0 … 36 s are (ppp) 3.0 · (pp) 6.0 · (p) · (mp) 25.0 the crest · (pp) 30.9 the trough · (p) — got ' + lb36.map(l => '(' + l.mark + ') ' + l.t + ' ' + l.kind).join(' · '));
+ok(v.labels.every((l, i) => i === 0 || l.t - v.labels[i - 1].t >= DLR.minGapS - 1e-6), 'never two names closer than ' + DLR.minGapS + ' s (' + v.labels.length + ' labels)');
+ok(v.labels.every((l, i) => i === 0 || l.mark !== v.labels[i - 1].mark), 'never the same name twice running');
+ok(v.labels.every(l => l.mark !== 'niente' && SeqOv.NAMES.includes(l.mark)), 'never niente — every label a written name');
+ok(v.labels.every(l => l.kind === 'cross' ? near(l.level, (SeqOv.NAMES.indexOf(l.mark) + 1) / 8, 1e-6) : SeqOv.nameOf(l.level) === l.mark),
+  'a crossing sits AT its name\'s height, a turn is named by its nearest name');
+// [2l.2 — §519] NO CORNER: the eased line's largest second difference under 5e-4 of the scale per sample² (HEAD's trace: 1.34e-3 at
+// 104.69 s — the check fails on it); the ease keeps the level reached: pp EXACTLY at the fade's end (6.0 s)
+{ const S = v.level.samples; let mx = 0, i2 = 0;
+  for (let i = 1; i + 1 < S.length; i++) { const d2 = Math.abs(S[i + 1] - 2 * S[i] + S[i - 1]); if (d2 > mx) { mx = d2; i2 = i; } }
+  ok(mx < 5e-4, 'no corner: the largest second difference ' + mx.toExponential(2) + ' at ' + (v.level.t0 + i2 / v.level.sps).toFixed(2) + ' s (< 5e-4)'); }
+ok(at(6) === 0.25 && at(5.4) === +(5.4 / 6 * 0.25).toFixed(5), 'the ease keeps the level reached (pp exactly at 6.0 s) and leaves the fade straight until 0.5 s before it — got ' + at(5.4) + ' · ' + at(6));
 
 // 2d.1 (e) THE ENTRY
 const e = v.entry;
@@ -159,9 +177,10 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
     const accR = aw ? aw.dxSs + (ag.wSs - ax) : NaN, ledL = lw.length ? Math.min(...lw.map(l => l.dxSs - l.wSs * (1 + 2 * lf) / 2)) : NaN;
     ok(aw && lw.length === 2 && Math.abs(ledL - accR - C.engraving.layout.accGap) < 1e-9, 'the working page: the ¾♯ (on D♯6, two ledgers) ends ' + C.engraving.layout.accGap + ' ss left of the ledger\'s left end — got ' + (ledL - accR).toFixed(3));
   }
-  // 2d.5 THE LABELS — (mp) 25.0 · (pp) 30.9 on dynY, centred on x(t); nothing else on the row in 0 … 36 s but the block's chain
+  // 2d.5 THE LABELS — [2l.4] the crest (mp) 25.0 · the trough (pp) 30.9 on dynY, centred on x(t); nothing else on the row in 0 … 36 s
+  // but the block's chain
   const LB = C.engraving.layout.devices.byEnv.sequence.label, dynY = C.engraving.layout.dynY;
-  for (const [tt, mk] of [[v.labels[0].t, 'mp'], [v.labels[1].t, 'pp']]) {
+  for (const [tt, mk] of [[lb36[3].t, 'mp'], [lb36[4].t, 'pp']]) {
     const g3 = sys.items.filter(x => x.t === tt && (x.seq === 'label' || x.seq === 'labelParen'));
     const d = g3.find(x => x.seq === 'label'), L = g3.find(x => x.g === 'accidental-leftParen'), R = g3.find(x => x.g === 'accidental-rightParen');
     ok(d && d.g === 'dyn-' + mk && d.dxSs === 0 && d.ySs === dynY && d.scale === LB.scale && L && R && Math.abs(L.dxSs + R.dxSs) < 1e-9 && L.ySs === dynY,

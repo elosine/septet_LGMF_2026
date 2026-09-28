@@ -104,6 +104,115 @@
       partialText: String(formOf || '{n} ({f})').replace('{n}', c.partial).replace('{f}', fName) });   // [2e.3 (5), §438] 26 (C1) — rules.json objects.number.partialForm
   }
 
+  // ─── LGMF PLAN 2l — THE VOLUME CURVE PROTOCOL (§513 … §522): the performance curve drawn from the intention, not the fader. ───
+  // OPT-IN: a caller that passes no `law` / `labels` gets the trace above, to the byte (the vibraphone's reader, vib_marks.js, reads
+  // `writtenAt` — the trace — and is untouched).
+  //
+  // [2l.2 — §517, his "yes"] THE LINE IN WRITTEN HEIGHT (rules.json objects.crescCurve.law "written"): a FADER-FIRST line redrawn
+  // from what the generator wrote — each note's two fader ends (`cc7Abs lo · hi`) READ through the part's ladder (the ladder reads,
+  // it draws nothing; the ends are not always names — 39 of 894 in Draft 01 sit more than 2 CC7 off one, so none is imposed), the
+  // note's own shape mapped LINEARLY between the two, a fade (`cc7Fade`) a STRAIGHT line from its start to its end — from 0 or to 0,
+  // the body inside it not drawn — and the bridge across a breath gap straight. The result is a polyline, its vertices in time;
+  // two vertices at one time are a jump (a note cut by the next note's onset).
+  function writtenVertices(notes, T0, T1, L) {
+    const V = [];
+    const push = (t, h) => { const p = V[V.length - 1]; if (p && Math.abs(p[0] - t) < 1e-6 && Math.abs(p[1] - h) < 1e-9) return; V.push([t, h]); };
+    notes.forEach((o, k) => {
+      const nx = notes[k + 1], ts = o.startSeconds, dur = o.endSeconds - o.startSeconds;
+      let te = Math.min(o.endSeconds, T1);
+      if (nx && nx.startSeconds < te) te = nx.startSeconds;
+      if (!(te > ts)) return;
+      const abs = o.cc7Abs || { lo: 0, hi: 127 };
+      const wLo = writtenOf(abs.lo != null ? abs.lo : 0, L), wHi = writtenOf(abs.hi != null ? abs.hi : 127, L);
+      const hb = t => wLo + (wHi - wLo) * Math.max(0, Math.min(1, Core.evalWaveCurve(o, dur > 0 ? (t - ts) / dur : 0)));
+      const F = o.cc7Fade && o.cc7Fade.end > o.cc7Fade.start ? o.cc7Fade : null;
+      const fFrom = F ? (F.from != null ? F.from : 0) : 1, fTo = F ? (F.to != null ? F.to : 1) : 1;
+      const A = F ? [F.start, fFrom * hb(F.start)] : null, B = F ? [F.end, fTo * hb(F.end)] : null;
+      const h = t => !F ? hb(t) : t <= F.start ? fFrom * hb(t) : t >= F.end ? fTo * hb(t) : A[1] + (B[1] - A[1]) * (t - A[0]) / (B[0] - A[0]);
+      const at = [ts, te];
+      const inFade = t => F && t > F.start && t < F.end;
+      (o.nodes || []).forEach((nd, i) => {
+        const t = ts + nd.pos * dur;
+        if (t > ts && t < te && !inFade(t)) at.push(t);
+        // a segment that is not a straight line (every sequence segment is power/0 today): its shape kept at 10 points a second
+        const sg = (o.segments || [])[i], nx2 = (o.nodes || [])[i + 1];
+        if (sg && nx2 && !((sg.model === 'power' || sg.model === 'bezier' || !sg.model) && !(+sg.slope))) {
+          const t2 = ts + nx2.pos * dur;
+          for (let u = t + 0.1; u < t2; u += 0.1) if (u > ts && u < te && !inFade(u)) at.push(u);
+        }
+      });
+      if (F) { if (F.start > ts && F.start < te) at.push(F.start); if (F.end > ts && F.end < te) at.push(F.end); }
+      at.sort((a, b) => a - b).forEach(t => push(t, h(t)));
+    });
+    return V;
+  }
+  // [2l.2 — §519, his "b"] THE EASE (rules.json objects.crescCurve.easeS · easeCap): at every corner of the polyline (the slope
+  // changes) a cubic Hermite on each side over w = min(easeS, easeCap × each neighbouring segment) — the corner's own height KEPT (the
+  // level reached, D46), its tangent 0 where the line TURNS and the harmonic mean of the two slopes where it bends the same way
+  // (Fritsch–Butland: never an overshoot), C¹ where the ease meets the straight line. A jump and the line's two ends are not eased.
+  function sampleLine(V, T0, T1, n, O) {
+    const E = V.map(() => null);
+    for (let j = 1; j < V.length - 1; j++) {
+      const dl = V[j][0] - V[j - 1][0], dr = V[j + 1][0] - V[j][0];
+      if (dl < 1e-6 || dr < 1e-6) continue;
+      const mL = (V[j][1] - V[j - 1][1]) / dl, mR = (V[j + 1][1] - V[j][1]) / dr;
+      if (Math.abs(mR - mL) < 1e-9) continue;
+      const w = Math.min(O.easeS, O.easeCap * dl, O.easeCap * dr);
+      if (w > 1e-4) E[j] = { w, mL, mR, m: mL * mR <= 0 ? 0 : 2 * mL * mR / (mL + mR) };
+    }
+    const herm = (u, p0, m0, p1, m1, w) => { const u2 = u * u, u3 = u2 * u; return (2 * u3 - 3 * u2 + 1) * p0 + (u3 - 2 * u2 + u) * w * m0 + (-2 * u3 + 3 * u2) * p1 + (u3 - u2) * w * m1; };
+    const out = [];
+    let j = 0;
+    for (let i = 0; i <= n; i++) {
+      const t = T0 + i * (T1 - T0) / n;
+      while (j + 1 < V.length - 1 && V[j + 1][0] <= t) j++;
+      const a = V[j], b = V[Math.min(j + 1, V.length - 1)], d = b[0] - a[0];
+      let h = d > 1e-9 ? a[1] + (b[1] - a[1]) * Math.max(0, Math.min(1, (t - a[0]) / d)) : b[1];
+      const ea = E[j], eb = E[j + 1];
+      if (ea && t >= a[0] && t - a[0] < ea.w) h = herm((t - a[0]) / ea.w, a[1], ea.m, a[1] + ea.mR * ea.w, ea.mR, ea.w);
+      else if (eb && t <= b[0] && b[0] - t < eb.w) h = herm((t - (b[0] - eb.w)) / eb.w, b[1] - eb.mL * eb.w, eb.mL, b[1], eb.m, eb.w);
+      out.push(+Math.max(0, Math.min(1, h)).toFixed(5));
+    }
+    return out;
+  }
+  // [2l.4 — §522, his "ok this is good"] THE LABELS WHERE THE LINE REACHES A NAME (rules.json objects.dynamicLabel): the candidates —
+  // every CROSSING of a name's height, up or down, at its interpolated time, and every TURN (a crest or a trough — the level reached,
+  // placed where its plateau begins, named by the nearest name) — in time order; a candidate within `minGapS` of the last kept is
+  // dropped, unless it is a turn and the last kept a crossing (`turnWins`: the turn replaces it); a candidate with the last kept's
+  // name is dropped (`noRepeat`); niente is never a label (the fade signs say it). "You are here": the brackets are a reading.
+  function labelsReached(samples, T0, T1, n, LB, eps) {
+    const dt = (T1 - T0) / n, C = [];
+    for (let i = 1; i < samples.length; i++) {
+      const a = samples[i - 1], b = samples[i];
+      if (a === b) continue;
+      for (let k = 1; k <= 8; k++) {
+        const y = k / 8;
+        if ((a < y && y <= b) || (a > y && y >= b)) C.push({ t: T0 + (i - 1 + (y - a) / (b - a)) * dt, mark: NAMES[k - 1], kind: 'cross', level: y });
+      }
+    }
+    let dir = 0, ext = 0;
+    for (let i = 1; i < samples.length; i++) {
+      const d = samples[i] - samples[i - 1], s = Math.abs(d) < eps ? 0 : Math.sign(d);
+      if (s === 0) continue;
+      if (dir !== 0 && s !== dir) { const mark = nameOf(samples[ext]); if (mark !== 'niente') C.push({ t: T0 + ext * dt, mark, kind: dir > 0 ? 'crest' : 'trough', level: samples[ext] }); }
+      dir = s; ext = i;
+    }
+    C.sort((x, y) => x.t - y.t || (x.kind === 'cross' ? 0 : 1) - (y.kind === 'cross' ? 0 : 1));
+    const K = [];
+    for (const c of C) {
+      const save = K.slice();
+      let drop = false;
+      while (K.length && c.t - K[K.length - 1].t < LB.minGapS) {
+        if (LB.turnWins && c.kind !== 'cross' && K[K.length - 1].kind === 'cross') { K.pop(); continue; }
+        drop = true; break;
+      }
+      if (!drop && LB.noRepeat && K.length && K[K.length - 1].mark === c.mark) drop = true;
+      if (drop) { K.length = 0; K.push(...save); continue; }
+      K.push(c);
+    }
+    return K.map(x => ({ t: +x.t.toFixed(3), mark: x.mark, kind: x.kind, level: +x.level.toFixed(5) }));
+  }
+
   // Build the overlay one part of one sequence group needs.
   //   objects : the score's objects (any superset)   groupId : 'grp-seq-…'   part : the lane
   //   opts    : { window: [w0, w1], bank, instKey, recipe, name, techTexts, techTextOf(note), partialForm, sps, dwellS }
@@ -127,9 +236,11 @@
     // THE LEVEL — 100/s from the entry to the last release (or the window's end); through a breath gap a LINEAR BRIDGE from the
     // last note's release to the next note's onset [call, PLAN 2d]
     const n = Math.max(1, Math.round((T1 - T0) * O.sps));
-    const samples = [];
+    // [2l.2] the line in written height, eased — or the trace (no `law`: the caller's line as it always was)
+    const written = O.law === 'written' && O.level !== 'arc';
+    const samples = written ? sampleLine(writtenVertices(notes, T0, T1, L), T0, T1, n, O) : [];
     let k = 0;
-    for (let i = 0; i <= n; i++) {
+    for (let i = 0; !written && i <= n; i++) {
       const t = T0 + i * (T1 - T0) / n;
       while (k + 1 < notes.length && t >= notes[k + 1].startSeconds) k++;
       const o = notes[k];
@@ -145,9 +256,10 @@
     // THE LABELS — the turning points: the direction's sign changes, flats carried; a crest or a trough is placed where its
     // plateau BEGINS (the level reached); named by the nearest name; one within dwellS of the previous label with the same name
     // is dropped [call]
-    const labels = [];
+    // [2l.4] where the line reaches a name, when the caller passes the rule (rules.json objects.dynamicLabel); else the turns
+    const labels = O.labels ? labelsReached(samples, T0, T1, n, O.labels, O.eps) : [];
     let dir = 0, extremeAt = 0;
-    for (let i = 1; i < samples.length; i++) {
+    for (let i = 1; !O.labels && i < samples.length; i++) {
       const d = samples[i] - samples[i - 1];
       const s = Math.abs(d) < O.eps ? 0 : Math.sign(d);
       if (s === 0) continue;
@@ -188,7 +300,16 @@
     const spanOut = (O.recipe && O.recipe.edges && +O.recipe.edges.fadeOut) || 8;
     const iEnd = samples.length - 1, iOut = Math.max(0, iEnd - Math.round(spanOut * O.sps));
     const peakOut = Math.max(...samples.slice(iOut, iEnd + 1)), lastLv = samples[iEnd];
-    const exit = { event: 'ev-' + last.id, t: +T1.toFixed(4), level: lastLv, fadeTo: nameOf(lastLv), fades: peakOut - lastLv >= 1 / 8 - 1e-6 };
+    let exit = { event: 'ev-' + last.id, t: +T1.toFixed(4), level: lastLv, fadeTo: nameOf(lastLv), fades: peakOut - lastLv >= 1 / 8 - 1e-6 };
+    // [2l.2 — §517] under the written law the closing sign follows the RECIPE, not a measured drop: the recipe fades out (`edges.fadeOut`
+    // > 0) and this part is one that leaves on it — its last note carries the fade to nothing (`cc7Fade` to 0) or ends ON the recipe's
+    // written dynamic (1d.8's ramp in the note's own level) — and the line's end is inside the window
+    if (O.law === 'written' && O.recipe) {
+      const E = O.recipe.edges || {}, to = E.fadeOutTo || 'niente', F = last.cc7Fade;
+      const leaves = +E.fadeOut > 0 && last.endSeconds <= T1 + 1e-6
+        && (to === 'niente' ? !!(F && F.end > F.start && F.to === 0 && (F.from == null || F.from > 0)) : nameOf(writtenAt(last, last.endSeconds, L)) === to);
+      exit = { event: 'ev-' + last.id, t: +T1.toFixed(4), level: lastLv, fadeTo: to, fades: leaves, by: 'recipe' };
+    }
 
     return {
       part, T0, T1, notes, warnings, ladder: L,
