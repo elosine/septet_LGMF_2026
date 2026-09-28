@@ -16,9 +16,9 @@
 // (`sonify_core.evalWaveCurve`, the nodes' y / 10), `cc7Fade` multiplied in (`Morph.fadeWeight`) — taken before the fader's
 // rounding to an integer, so the line is smooth; the same numbers to within half a CC7 step.
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('../../score/public/sonify_core.js'), require('../../score/public/morph.js'), require('../../score/public/dyn_table.js'));
-  else root.SequenceOverlays = factory(root.SonifyCore, root.Morph, root.DynTable);
-}(typeof self !== 'undefined' ? self : this, function (Core, Morph, DynTable) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('../../score/public/sonify_core.js'), require('../../score/public/morph.js'), require('../../score/public/dyn_table.js'), require('./morph_overlays.js'));
+  else root.SequenceOverlays = factory(root.SonifyCore, root.Morph, root.DynTable, root.MorphOverlays);
+}(typeof self !== 'undefined' ? self : this, function (Core, Morph, DynTable, MorphOv) {
   const NAMES = ['ppp', 'pp', 'p', 'mp', 'mf', 'f', 'ff', 'fff'];
   const DEFAULTS = {
     sps: 100,            // samples per second (D47 / 2f.7 — the morph's and the trills' density)
@@ -238,9 +238,14 @@
     const n = Math.max(1, Math.round((T1 - T0) * O.sps));
     // [2l.2] the line in written height, eased — or the trace (no `law`: the caller's line as it always was)
     const written = O.law === 'written' && O.level !== 'arc';
-    const samples = written ? sampleLine(writtenVertices(notes, T0, T1, L), T0, T1, n, O) : [];
+    // [2l.3 — §516 · §518, his "a" · "a"] a MORPH's line is ONE ARC through its breath peaks — #5's D47 builder (morph_overlays.js
+    // breathPeakAnchors · arcThrough, the code shared), each anchor's height the breath's level READ through the part's ladder (the
+    // trace's `writtenAt`, the fade weight in: since `1s` every breath carries its own cc7Abs, so #5's "0 … 1 is the level" no longer
+    // holds); the ladder reads the anchors and draws nothing; no bridge — the arc is continuous
+    const arc = O.level === 'arc' && MorphOv ? MorphOv.breathPeakAnchors(notes, T0, T1, (o, t) => writtenAt(o, t, L), O.arc && O.arc.entryDropS) : null;
+    const samples = written ? sampleLine(writtenVertices(notes, T0, T1, L), T0, T1, n, O) : arc ? MorphOv.arcThrough(arc, T0, T1, n) : [];
     let k = 0;
-    for (let i = 0; !written && i <= n; i++) {
+    for (let i = 0; !written && !arc && i <= n; i++) {
       const t = T0 + i * (T1 - T0) / n;
       while (k + 1 < notes.length && t >= notes[k + 1].startSeconds) k++;
       const o = notes[k];
@@ -310,6 +315,12 @@
         && (to === 'niente' ? !!(F && F.end > F.start && F.to === 0 && (F.from == null || F.from > 0)) : nameOf(writtenAt(last, last.endSeconds, L)) === to);
       exit = { event: 'ev-' + last.id, t: +T1.toFixed(4), level: lastLv, fadeTo: to, fades: leaves, by: 'recipe' };
     }
+    // [2l.3] on the ARC: the end at least one written step (⅛) under the last breath's peak → the closing sign to the end's name
+    // [the AI's call — a morph has no recipe fade; 2f's rule on the arc]
+    if (arc) {
+      const lastPeak = arc.length > 1 && Math.abs(arc[arc.length - 1][0] - T1) < 1e-6 ? arc[arc.length - 2] : arc[arc.length - 1];
+      exit = { event: 'ev-' + last.id, t: +T1.toFixed(4), level: lastLv, fadeTo: nameOf(lastLv), fades: lastPeak[1] - lastLv >= 1 / 8 - 1e-6, by: 'arc' };
+    }
 
     return {
       part, T0, T1, notes, warnings, ladder: L,
@@ -320,7 +331,7 @@
           group: groupId, name: O.name || null,
           scale: { kind: 'fixed', steps: 8, names: ['niente'].concat(NAMES), ladder: L, instKey: O.instKey },
           entry,
-          level: { sps: O.sps, t0: +T0.toFixed(4), t1: +T1.toFixed(4), samples },
+          level: Object.assign({ sps: O.sps, t0: +T0.toFixed(4), t1: +T1.toFixed(4), samples }, arc ? { anchors: arc.map(p => [+p[0].toFixed(3), +p[1].toFixed(5)]) } : {}),
           breaths, exit, labels,
         },
         provenance: 'authored',

@@ -269,3 +269,11 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   rack change, no probe. The cost is routing: every plain note of every tool moves from MAIN ch 1 to the curve channels (three per player,
   the SI2 `b` ports), and every tool's Hear must route the same way. His words: *"note this solution to consider if I ever want to tackle
   the global volume normalization for the entire composer."* **Not a plan. Nothing to do until he calls it.**
+
+### `tools/test_morph_notation.js` does not run in this repo (found 2026-09-28, PLAN 2l.3, RUNNING_LOG §525)
+
+- Inherited from piece #5 (PLAN 2h.2 there). It reads `scores/piece-septet.json` — piece #5's score, not in this repo — so it stops at
+  its first line. Read in place from `../septet_2026` (read-only), `morph_overlays.forGroup` THROWS on it (`morphBendAt` on a note with
+  no bend — piece #5's score under this repo's registry), the same before and after 2l.3. 2l.3 held the builder by a FINGERPRINT instead
+  (this repo's three morphs with and without the septet's options, the tuba's three: identical). **Not blocking.** Fix when the morph
+  builder is touched again: point the test at this repo's Draft 01 morphs and its own frozen hashes, or drop the piece-#5 block.

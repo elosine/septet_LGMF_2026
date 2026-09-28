@@ -129,6 +129,35 @@
     return (2 * u3 - 3 * u2 + 1) * p1 + (u3 - 2 * u2 + u) * h * m[i] + (-2 * u3 + 3 * u2) * p2 + (u3 - u2) * h * m[i + 1];
   }
 
+  // [LGMF PLAN 2l.3 — §516 · §518] THE D47 ARC as two functions, so the septet's sequence device (sequence_overlays.js, level "arc")
+  // draws the same arc through the same anchors — the code MOVED, not changed (fingerprinted before and after on this repo's three
+  // morphs, with and without the septet's options, and the tuba's three): ONE ANCHOR PER BREATH at its loudest point (a held peak at
+  // its middle), the ends where the sound starts and stops, an end anchor within `dropS` of its neighbour dropped (a breath peaking
+  // at its entry); `lvl(o, t)` is the caller's reading of a note's level.
+  function breathPeakAnchors(tones, T0, T1, lvl, dropS) {
+    const D = dropS != null ? dropS : 0.25;
+    const A = [[T0, lvl(tones[0], T0)]];
+    for (const o of tones) {
+      const n = Math.max(20, Math.ceil((o.endSeconds - o.startSeconds) * 100)), vs = [];
+      for (let k = 0; k <= n; k++) { const t = o.startSeconds + (k / n) * (o.endSeconds - o.startSeconds); vs.push([t, lvl(o, t)]); }
+      let top = 0, at = 0;
+      vs.forEach((v, k) => { if (v[1] > top) { top = v[1]; at = k; } });
+      // a held peak (a plateau) anchors at its middle, not its first sample
+      let end = at; while (end + 1 < vs.length && vs[end + 1][1] >= top - 0.005) end++;
+      A.push([(vs[at][0] + vs[end][0]) / 2, top]);
+    }
+    A.push([T1, lvl(tones[tones.length - 1], T1)]);
+    if (A[1][0] - A[0][0] < D) A.shift();                                      // a breath peaking at its entry
+    if (A.length > 1 && A[A.length - 1][0] - A[A.length - 2][0] < D) A.pop();
+    return A;
+  }
+  // the arc through the anchors at their own times, n + 1 samples over T0 … T1, clamped 0 … 1 (the LIMITED cubic above)
+  function arcThrough(A, T0, T1, n) {
+    const out = [], MT = tangentsTimed(A);
+    for (let i = 0; i <= n; i++) out.push(+Math.max(0, Math.min(1, cromTimed(A, T0 + (i / n) * (T1 - T0), MT))).toFixed(5));
+    return out;
+  }
+
   // Build every overlay one part of one morph group needs.
   //   objects : the score's waveCurve objects (any superset)
   //   groupId : e.g. 'grp-act-bloom-01-01'
@@ -237,21 +266,8 @@
     // starts and stops; no floor, no normalisation
     const lvl = (o, t) => Core.evalWaveCurve(o, Math.max(0, Math.min(1, (t - o.startSeconds) / (o.endSeconds - o.startSeconds))))
       * Morph.fadeWeight(o.cc7Fade, t);
-    const A = [[T0, lvl(tones[0], T0)]];
-    for (const o of tones) {
-      const n = Math.max(20, Math.ceil((o.endSeconds - o.startSeconds) * 100)), vs = [];
-      for (let k = 0; k <= n; k++) { const t = o.startSeconds + (k / n) * (o.endSeconds - o.startSeconds); vs.push([t, lvl(o, t)]); }
-      let top = 0, at = 0;
-      vs.forEach((v, k) => { if (v[1] > top) { top = v[1]; at = k; } });
-      // a held peak (a plateau) anchors at its middle, not its first sample
-      let end = at; while (end + 1 < vs.length && vs[end + 1][1] >= top - 0.005) end++;
-      A.push([(vs[at][0] + vs[end][0]) / 2, top]);
-    }
-    A.push([T1, lvl(tones[tones.length - 1], T1)]);
-    if (A[1][0] - A[0][0] < 0.25) A.shift();                                   // a breath peaking at its entry
-    if (A.length > 1 && A[A.length - 1][0] - A[A.length - 2][0] < 0.25) A.pop();
-    const cresc = [], MT = tangentsTimed(A);
-    for (let i = 0; i <= ns; i++) cresc.push(+Math.max(0, Math.min(1, cromTimed(A, T0 + (i / ns) * (T1 - T0), MT))).toFixed(5));
+    const A = breathPeakAnchors(tones, T0, T1, lvl);                          // [2l.3] the code moved, not changed
+    const cresc = arcThrough(A, T0, T1, ns);
 
     const pfx = idBase + '-p' + part;
     const overlays = [
@@ -289,5 +305,5 @@
     return want.map(p => forPart(objects, groupId, p, idBase || groupId, opts)).filter(Boolean);
   }
 
-  return { forPart, forGroup, crom, cromTimed, tangentsTimed, spellQ, spellHeads, nearestGrid, SEPTET, LADDER };
+  return { forPart, forGroup, crom, cromTimed, tangentsTimed, breathPeakAnchors, arcThrough, spellQ, spellHeads, nearestGrid, SEPTET, LADDER };
 }));

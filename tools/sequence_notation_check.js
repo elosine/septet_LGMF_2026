@@ -190,5 +190,34 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
   ok(row.every(x => (x.t === 0 && /rangeHi|rangeLo|rangeArrow|openNiente|openHairpin/.test(x.seq || '')) || /label/.test(x.seq || '')), 'nothing else on the dynamic row in 0 … 36 s but the block’s chain and its opening sign — got ' + row.map(x => x.t + ':' + (x.g || x.k)).join(' '));
 }
 
+// [LGMF PLAN 2l.3 — §516 · §518] THE MORPH'S ARC on `lgmf-hn-morph-proto` (the horn, 140 … 282 s): ONE ARC per part through the
+// breath peaks (#5's D47 builder, the anchors read through the ladder), never above or below its two neighbouring anchors, smooth,
+// its range what it draws, its closing sign by 2f's rule on the arc; the sequence's last breath before it closes on the RECIPE.
+{
+  const hn = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 'lgmf-hn-morph-proto.ir.json'), 'utf8'));
+  const sq = hn.overlays.filter(o => o.kind === 'sequence').map(o => o.value);
+  const M = sq.find(x => x.level.anchors), Q = sq.find(x => !x.level.anchors);
+  ok(M && Q, 'the horn page carries the sequence\'s last breath and the morph as two lines (got ' + sq.length + ')');
+  if (M && Q) {
+    const A = M.level.anchors, S = M.level.samples, nb = M.breaths.length + 1;
+    ok(A.length === nb + 2 && near(A[0][0], M.level.t0, 1e-3) && near(A[A.length - 1][0], M.level.t1, 1e-3),
+      'the arc has one anchor per breath (' + nb + ') + its two ends — got ' + A.length);
+    let out = 0, worst = 0;
+    S.forEach((y, i) => { const t = M.level.t0 + i / M.level.sps; let k = 0; while (k + 2 < A.length && A[k + 1][0] <= t) k++;
+      const lo = Math.min(A[k][1], A[k + 1][1]), hi = Math.max(A[k][1], A[k + 1][1]), e = Math.max(lo - y, y - hi, 0); if (e > 1e-4) out++; worst = Math.max(worst, e); });
+    ok(!out, 'the arc never above or below its two neighbouring anchors (D47) — ' + out + ' samples outside, the worst by ' + worst.toExponential(1));
+    let mx = 0; for (let i = 1; i + 1 < S.length; i++) mx = Math.max(mx, Math.abs(S[i + 1] - 2 * S[i] + S[i - 1]));
+    ok(mx < 5e-4, 'the arc is smooth: the largest second difference ' + mx.toExponential(2) + ' (< 5e-4)');
+    const nm = A.map(p => SeqOv.nameOf(p[1])).filter(x => x !== 'niente'), ix = nm.map(x => SeqOv.NAMES.indexOf(x));
+    ok(M.entry.rangeText === SeqOv.NAMES[Math.min(...ix)] + ' → ' + SeqOv.NAMES[Math.max(...ix)] && M.entry.rangeText === 'ppp → ff', 'the range is what the arc draws, its lowest and highest anchors — got ' + M.entry.rangeText);
+    const lastPeak = A[A.length - 2][1], end = S[S.length - 1];
+    ok(M.exit.by === 'arc' && M.exit.fades === (lastPeak - end >= 1 / 8 - 1e-6) && M.exit.fades && M.exit.fadeTo === SeqOv.nameOf(end) && M.exit.fadeTo === 'ppp',
+      'the closing sign on the arc: the end ' + end + ' at least ⅛ under the last peak ' + lastPeak + ' → —> ' + M.exit.fadeTo);
+    ok(M.labels.slice(0, 5).map(l => l.mark).join(' ') === 'p mp mf f ff' && M.labels[4].kind === 'crest', 'the arc\'s rise is signposted (p) (mp) (mf) (f) to its first crest (ff) — got ' + M.labels.map(l => '(' + l.mark + ') ' + l.t + ' ' + l.kind).join(' · '));
+    ok(M.labels.every((l, i) => i === 0 || (l.t - M.labels[i - 1].t >= DLR.minGapS - 1e-6 && l.mark !== M.labels[i - 1].mark)), 'the arc\'s labels keep the spacing and never repeat a name');
+    ok(Q.exit.by === 'recipe' && Q.exit.fades && Q.exit.fadeTo === 'ppp', 'the sequence\'s last breath closes on the RECIPE (fadeOut 8 → ppp): —> ppp — got ' + JSON.stringify(Q.exit) + ' (2k.7\'s finding 3: the ⅛ rule missed it at 0.1244)');
+  }
+}
+
 console.log((fail ? 'FAILED ' : 'ALL PASS ') + pass + ' / ' + (pass + fail));
 process.exit(fail ? 1 : 0);

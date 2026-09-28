@@ -1556,17 +1556,20 @@ const SEQ_ENTRY_EVENTS = new Set();   // the sequence blocks' first events — t
 // part: ONE `sequence` overlay carrying the entry (the block), the written level on THE FIXED SCALE at 100/s, the breaths and the
 // labels (notation/lib/sequence_overlays.js — the library computes it once, the engine draws it). The breaths' own device is the
 // registry's byEnv.sequence (the go line), reached by the env the extractor gave them above.
+// [LGMF PLAN 2l — §516 … §522] THE VOLUME CURVE PROTOCOL, shared by the sequences and the morphs: the device's `level` names the
+// producer (byEnv.sequence "recipe" · byEnv.morph "arc"); the drawing law, the ease, the arc and the labels are the rows' (rules.json
+// objects.crescCurve · dynamicLabel). No `level` on the device → the trace, as before.
+const CURVE_RULES = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT).objects;
+const curveOpts = dev => {
+  const CCR = CURVE_RULES.crescCurve || {}, DLR = CURVE_RULES.dynamicLabel || {};
+  return !dev.level ? {} : { law: CCR.law, easeS: +CCR.easeS || 0, easeCap: +CCR.easeCap || 0, arc: CCR.arc || null, level: dev.level,
+    labels: DLR.at === 'reached' ? { minGapS: +DLR.minGapS || 0, turnWins: !!DLR.turnWins, noRepeat: !!DLR.noRepeat } : null };
+};
 if (SEQ_GROUPS.length) {
   const SeqOv = require(path.join(ROOT, 'notation', 'lib', 'sequence_overlays.js'));
   const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
   const CONT = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
   const seqDev = ((CONT.engraving.layout.devices || {}).byEnv || {}).sequence || {};
-  // [LGMF PLAN 2l.2 · 2l.4 — §517 · §519 · §522] THE VOLUME CURVE PROTOCOL: the device's `level` names the producer (byEnv.sequence
-  // "recipe"); the drawing law, the ease and the labels are the rows' (rules.json objects.crescCurve · dynamicLabel). No `level` on
-  // the device → the trace, as before.
-  const RL = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadRules(ROOT), CCR = RL.objects.crescCurve || {}, DLR = RL.objects.dynamicLabel || {};
-  const curveOpts = dev => !dev.level ? {} : { law: CCR.law, easeS: +CCR.easeS || 0, easeCap: +CCR.easeCap || 0, level: dev.level,
-    labels: DLR.at === 'reached' ? { minGapS: +DLR.minGapS || 0, turnWins: !!DLR.turnWins, noRepeat: !!DLR.noRepeat } : null };
   const recipes = ((score.databases || {}).sequences || []);
   for (const gid of SEQ_GROUPS) {
     const rec = recipes.find(q => q.group === gid);
@@ -1613,6 +1616,7 @@ if (MORPH_SEQ.length) {
   const SeqOv = require(path.join(ROOT, 'notation', 'lib', 'sequence_overlays.js'));
   const bank = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
   const CONT = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
+  const morphDev = ((CONT.engraving.layout.devices || {}).byEnv || {}).morph || {};   // [2l.3] level "arc"
   const actuals = new Map();   // gid -> { id, take, chord, label } | { why }
   const actualOf = gid => {
     if (actuals.has(gid)) return actuals.get(gid);
@@ -1633,7 +1637,7 @@ if (MORPH_SEQ.length) {
   };
   for (const { gid, part, b } of MORPH_SEQ) {
     const A = actualOf(gid);
-    const r = SeqOv.forPart(score.objects || [], gid, part, {
+    const r = SeqOv.forPart(score.objects || [], gid, part, Object.assign({
       window: [w0, w1], bank, instKey: TRACKS && TRACKS[part] ? TRACKS[part].instKey : null, recipe: null, name: A.label || gid,
       groupOnly: true, pitchMoves: true, fadeFromUnder: 1 / 8,
       techTextOf: o => { const c = TECH_CHANGE.get('ev-' + o.id); return c ? c.text : null; },
@@ -1643,12 +1647,18 @@ if (MORPH_SEQ.length) {
         const m = A.chord.find(c => c.lane === o.layer && (c.seat || 0) === (o.seat || 0));
         return m ? { member: m, take: A.take } : { why: 'the take "' + A.take + '" (' + A.id + ') holds no note for lane ' + o.layer + ':' + (o.seat || 0) };
       },
-    });
+    }, curveOpts(morphDev)));
     if (!r) continue;
     const v = r.overlay.value, en = v.entry;
     // the written range: the morph's own cc7Abs lo · hi through the part's ladder (one name when both round to it)
+    // [2l.3] on the ARC the range is what the arc draws: the names of its lowest and highest anchors (niente left to the fade signs)
+    const anc = (v.level.anchors || []).map(p => SeqOv.nameOf(p[1])).filter(nm => nm !== 'niente');
     const los = r.notes.map(o => (o.cc7Abs || {}).lo).filter(x => x != null), his = r.notes.map(o => (o.cc7Abs || {}).hi).filter(x => x != null);
-    if (los.length && his.length) {
+    if (anc.length) {
+      const ix = anc.map(nm => SeqOv.NAMES.indexOf(nm)), nLo = SeqOv.NAMES[Math.min(...ix)], nHi = SeqOv.NAMES[Math.max(...ix)];
+      en.range = nLo === nHi ? [nHi] : [nLo, nHi];
+      en.rangeText = en.range.join(' → ');
+    } else if (los.length && his.length) {
       const nLo = SeqOv.nameOf(SeqOv.writtenOf(Math.min(...los), r.ladder)), nHi = SeqOv.nameOf(SeqOv.writtenOf(Math.max(...his), r.ladder));
       en.range = nLo === nHi ? [nHi] : [nLo, nHi];
       en.rangeText = en.range.join(' → ');
