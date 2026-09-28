@@ -132,8 +132,29 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
   const it5 = m.systems.filter(s => s.part === LANE).flatMap(s => s.items);
   const ov = ir.overlays.find(o => o.kind === 'vibBows'), PB = ov ? ov.value.bows : [], ev = new Map(ir.events.map(e => [e.id, e]));
   const barOf = id => it5.filter(i => i.k === 'ringbar' && i.ev === id);
-  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event); return br.length === 1 && Math.abs(br[0].t1 - (e.onset + e.duration)) < 1e-9 && br[0].dx0Ss === 0 &&
-    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar from x(t) to x(t1) on its track (2i: no cut, no offset) — ' + PB.length + ' bows (R01c)');
+  ok(PB.length === 55 && PB.every(b => { const e = ev.get(b.event), br = barOf(b.event), end = e.onset + e.duration; return br.length === 1 && br[0].t1 <= end + 1e-9 && Math.abs((br[0].t1Bow != null ? br[0].t1Bow : br[0].t1) - end) < 1e-9 && br[0].dx0Ss === 0 &&
+    it5.some(i => i.k === 'glyph' && i.g === 'notehead-open' && Math.abs(i.t - e.onset) < 0.041); }), 'every bow a head at its time and ONE bar from x(t) to x(t1) on its track — or cut short of its successor (2h.1, kept on the tracks at §490) — ' + PB.length + ' bows (R01c)');
+  // [2h.1 · §490] THE CLEARANCE on the tracked bars: a bar ends `after` before the leftmost ink of the lane's next unit at or after its end
+  // — the accidental, the ledger, the head or the 8va label — whatever the bar's height; his eye at 11.76 s: "the duration line should end.
+  // There should be whatever gap was meant to be and then the accidental"
+  {
+    const VB = C.engraving.layout.devices.byEnv.vibBow, AF = VB.after, AB = VB.afterAbutS, tsX = C.engraving.layout.textEmScale != null ? C.engraving.layout.textEmScale : 1.3;
+    const INKY = i => i.k === 'ledger' || i.k === 'ottava' || (i.k === 'glyph' && /^(notehead|accidental-)/.test(i.g || ''));
+    const leftAt = new Map();
+    for (const i of it5) { if (i.t === undefined || !INKY(i)) continue; const e2 = Fit.inkOf(i, G, tsX); if (!e2) continue; const k = Math.round(i.t * 1e6); leftAt.set(k, Math.min(leftAt.has(k) ? leftAt.get(k) : Infinity, e2.l)); }
+    const heads = [...leftAt.entries()].map(([k, l]) => ({ t: k / 1e6, l })).sort((a, b) => a.t - b.t);
+    const bars0 = it5.filter(i => i.k === 'ringbar'), cut = bars0.filter(i => i.t1Bow != null);
+    let worst = Infinity, through = 0;
+    for (const bar of bars0) {
+      const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= (bar.t1Bow != null ? bar.t1Bow : bar.t1) - AB);
+      if (!nx) continue;
+      const gap = nx.t * sps + nx.l - bar.t1 * sps;
+      worst = Math.min(worst, gap); if (gap < AF - 1e-4) through++;
+    }
+    const b1176 = bars0.find(i => i.t1Bow != null && Math.abs(i.t1Bow - 11.76) < 0.1), ot79 = it5.find(i => i.k === 'ottava' && Math.abs(i.t - 78.997) < 0.02), b79 = bars0.find(i => (i.t1Bow != null ? i.t1Bow : i.t1) > 78.9 && (i.t1Bow != null ? i.t1Bow : i.t1) < 78.96);
+    ok(AF === 0.25 && !through && cut.length > 0 && !!b1176 && b79 && b79.t1Bow != null && ot79 && Math.abs((ot79.t * sps + ot79.dx0Ss) - b79.t1 * sps - AF) < 1e-4,
+      'THE CLEARANCE (2h.1 · §490, on the tracks): every bar ends ≥ ' + AF + ' ss before its successor\'s leftmost ink — ' + cut.length + ' of ' + bars0.length + ' bars cut, the tightest gap ' + (isFinite(worst) ? worst.toFixed(3) : '—') + '; the bar before 11.76 s cut ' + (b1176 ? ((b1176.t1Bow - b1176.t1) * sps).toFixed(2) + ' ss' : 'NOT') + '; the bar before the 79.00 s 8va label cut 0.25 short of the label');
+  }
   ok(!it5.some(i => i.k === 'goline' || i.k === 'stem' || /curve$/.test(i.k)), 'no go line, no stem, no level curve on the lane (anchor A; §464)');
   ok(!m.warnings.length, 'no layout warnings' + (m.warnings.length ? ' — ' + m.warnings.slice(0, 2).join(' · ') : ''));
   // [2i.3, §487] THE PINS: every top mark and hairpin on ONE axis — the hairpin's top on the lane's top edge + the lift (the percussion
@@ -209,7 +230,7 @@ if (fs.existsSync(PROTO) && !process.argv.includes('--score')) {
     const P = rd('notation/ir/piece-lgmf.ir.json'), mp = lay(P);
     const st = mp.systems.filter(s => s.part === 4).flatMap(s => s.items.filter(i => i.k === 'staff')).map(s => [s.t0, s.t1]);
     const SH = C.engraving.layout.staffShown, PR = rd('notation/registry/page_rules.json');
-    ok(SH && SH.part === 4 && SH.pageLeadInS === PR.leadInS && JSON.stringify(st) === JSON.stringify([[0, 0.25], [284, 416]]), 'THE PERCUSSION STAFF (2i.3, §486 · §488): on piece-lgmf its seven lines are drawn over ' + JSON.stringify(st) + ' — the 0.25 s snippet and the whole pages 284 … 416 (the screen\'s pages start at −' + PR.leadInS + ' + k · 12; the section from 288.91, its last note 406.86); the vibraphone silent on them');
+    ok(SH && SH.part === 4 && SH.pageLeadInS === PR.leadInS && JSON.stringify(st.slice().sort((a, b) => a[0] - b[0])) === JSON.stringify([[-4, -3.75], [284, 416]]), 'THE PERCUSSION STAFF (2i.3, §486 · §488 · §489): on piece-lgmf its seven lines are drawn over ' + JSON.stringify(st) + ' — the 0.25 s snippet at the first page\'s start (−' + PR.leadInS + ' … −3.75) and the whole pages 284 … 416 (the pages start at −' + PR.leadInS + ' + k · 12; the section from 288.91, its last note 406.86); the vibraphone silent on them');
   }
 }
 

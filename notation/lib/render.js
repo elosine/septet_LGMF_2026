@@ -364,7 +364,10 @@
           // §401b (the composer: 'put the staff lines to the end of the page'): registry
           // engraving.render.staffFull makes every view draw the staff to the page edges
           const full = (opts && opts.staffFull) || !!E.staffFull;
-          const t0 = (full && it.t0 <= mw[0] + 1e-9) ? w0 : Math.max(it.t0, w0);
+          // [§489] a staff segment wholly off this page (the percussion's opening snippet in the lead-in, [−4, −3.75], on every later
+          // page) draws nothing — and a segment that ends before the window is never stretched to the page's edge
+          if (it.t1 <= w0 + 1e-9 || it.t0 >= wInk - 1e-9) continue;
+          const t0 = (full && it.t0 <= mw[0] + 1e-9 && it.t1 >= mw[0] - 1e-9) ? w0 : Math.max(it.t0, w0);
           const t1 = (full && it.t1 >= mw[1] - 1e-9) ? wInk : Math.min(it.t1, wInk);
           const x0 = view.xOfSeconds(t0), x1 = view.xOfSeconds(t1);
           for (const line of linesOf(sysModel)) {

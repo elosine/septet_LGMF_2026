@@ -17220,3 +17220,39 @@ This is about 284 seconds. So the full staff line should fill that full page."* 
 equals `page_rules.leadInS`. 31 GREEN. No vibraphone note on 284 … 416 either (the vibraphone re-enters at 7:09 = 429 s).
 
 *(§487's "288 … 408" reads "284 … 416" from here; the § is not edited.)*
+
+
+## §489. THE SNIPPET AT THE PAGE'S START — the percussion's opening lines run −4 … −3.75 s, not 0 … 0.25 (2026-09-28, Fable, session 17)
+
+**His eye on the reloaded first page:** *"just 0.25 seconds worth of introductory staff lines for the non-pitch percussion, please. or they
+should end at, or they should be from the beginning, which I guess is negative four, and they should end at time equals negative 3.75."*
+The lines ran from the page's left edge to 0.25 s — 4.25 s of them.
+
+**Why:** the rule's snippet was [0, 0.25]; the renderer's full-staff furniture (§401b, `render.staffFull`) stretches a segment that begins at
+the model's window start back to the page's edge — so the 0.25 s became the whole lead-in plus 0.25.
+
+**The rule now:** `staffLines.percussion.openingFrom` **pageStart** — the snippet runs from the first page's start (−`pageLeadInS`) for
+`openingS`: **[−4, −3.75]**. The layout emits it as its own `staff` item (a shown span before the window is no gap between off spans);
+the renderer skips a segment wholly off the page (every later page) and never stretches a segment that ends before the window. On
+`piece-lgmf` part 4's lines are **[−4, −3.75] and [284, 416]**; `vib_marks_check` 31. The shield: part 4's items move on every page
+(one item each), as at §487. Paper has no lead-in (2e's call: the lead-in on the tiled screen only) — no snippet there; his to decide when
+the paper score is laid out.
+
+
+## §490. THE CLEARANCE STAYS ON THE TRACKS — the bar ends 0.25 ss before the next accidental whatever its height (2026-09-28, Fable, session 17)
+
+**His eye at 11.76 s, after 2i:** *"The horizontal spacing here has slipped on the top line. So the duration line should end. There should be
+whatever gap was meant to be and then the accidental. I thought we fixed that in the last go. Let's make sure that's written somewhere in
+the register or whatever so it doesn't revert."*
+
+**What slipped and why:** 2h.1 (§474) cut a bow's bar `after` 0.25 ss before its successor's leftmost ink. At 2i the AI RETIRED that cut
+for the tracked bars — the bar and the next head's accidental no longer share a height, so "nothing to clear" — and listed it among its
+calls (PLAN § `2i`'s foot: "the bars' clearance cut retired with the tracks"). His eye reads the page as ONE horizontal order: a bar ends,
+the gap, the sign — height or no height. Reversed.
+
+**Written so it cannot revert:** the layout's clearance pass runs for every vibraphone bar again (the `!VBTRACK` gate removed, the comment
+says why) · `objects.ringBar.after`'s ref carries his words and the reversal · `vibMarks.pinNote` says the tracked bar STILL ends `after`
+before the next unit's ink · PLAN § `2i` 2i.3 (c) corrected · `vib_marks_check` THE CLEARANCE restored on the tracks (the bar before
+11.76 s cut; the bar before the 79.00 s `8va` label cut 0.25 short of the label). 26 of 55 bars cut on the proto, the tightest gap 0.250.
+
+*(With it, §489's snippet fix — the same commit.)*

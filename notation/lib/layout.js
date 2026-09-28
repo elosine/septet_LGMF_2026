@@ -806,7 +806,9 @@
         const P = SH.pageS || 12, LD = SH.pageLeadInS || 0, pageStart = t => Math.floor((t + LD) / P) * P - LD, pageEnd = t => Math.ceil((t + LD) / P) * P - LD;
         const from = SH.wholePages ? pageStart(SH.sectionFromS) : SH.sectionFromS;
         const toRaw = SH.sectionTo === 'lastNote' ? last : +SH.sectionTo, to = toRaw == null ? null : (SH.wholePages ? pageEnd(toRaw) : toRaw);
-        const spans = [[0, SH.openingS || 0]]; if (to != null && to > from) spans.push([from, to]);
+        // [§489, his eye] the opening snippet runs from the FIRST PAGE'S START (−pageLeadInS, the lead-in) for openingS: [−4, −3.75]
+        const s0 = SH.openingFrom === 'pageStart' ? -LD : 0;
+        const spans = [[s0, s0 + (SH.openingS || 0)]]; if (to != null && to > from) spans.push([from, to]);
         return spans.filter(s => s[1] > s[0]);
       };
       const shownHere = staffShownOf(part);
@@ -815,6 +817,8 @@
         for (const [a, b] of shownHere.slice().sort((p, q) => p[0] - q[0])) { if (a > c0) offs.push([c0, Math.min(a, w1)]); c0 = Math.max(c0, b); }
         if (c0 < w1) offs.push([c0, w1]);
         offs.sort((p, q) => p[0] - q[0]);
+        // a shown span BEFORE the window (the snippet in the lead-in) is no gap between off spans — it is its own staff item
+        for (const [a, b] of shownHere) if (b <= w0 + 1e-9) items.push({ k: 'staff', t0: a, t1: b });
       }
       let cur = w0;
       for (const [a, b] of offs) {
@@ -3109,10 +3113,13 @@
       const VBc = (DEV.byEnv || {}).vibBow || {};
       const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
       const OFF = HEADH / 2 + RBH / 2;
-      // [2i.3, §487] the bars on TRACKS (vibMarks.barTrack): a tracked bar is its bow's whole time on its seat's track — the clearance
-      // cut (2h.1) and the close rule (2g.3 · 2h.4) below do not apply to it; the marks pass places it
+      // [2i.3, §487] the bars on TRACKS (vibMarks.barTrack): a tracked bar rides its seat's track — the close rule (2g.3 · 2h.4) below does
+      // not apply to it; the marks pass places it. THE CLEARANCE CUT (2h.1) APPLIES TO A TRACKED BAR TOO — §490, his eye at 11.76 s
+      // ("the duration line should end. There should be whatever gap was meant to be and then the accidental … make sure that's written
+      // somewhere … so it doesn't revert"): the AI had retired it with the tracks; the bar ends `after` before the next unit's leftmost
+      // ink whatever its height (rules.json objects.ringBar.after)
       const VBTRACK = !!((VBc.marks || {}).barTrack);
-      if (vibBowOf.size && FitV && spsV && !VBTRACK) {
+      if (vibBowOf.size && FitV && spsV) {
         const VB = (DEV.byEnv || {}).vibBow || {};
         const AFTER = VB.after != null ? VB.after : 0.25, ABUT = VB.afterAbutS != null ? VB.afterAbutS : 0.1;   // RULES MIRROR (rules.json objects.ringBar.after · afterAbutS)
         const leftAt = new Map();   // head time → the leftmost ink of the unit(s) there, in ss from x(t)
