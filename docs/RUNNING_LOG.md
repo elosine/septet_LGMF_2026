@@ -17346,3 +17346,34 @@ The bar's, the lead's and the swatch's colour follow the ROW (`seat` = the row, 
 first bows or rests + 18 at the nine crosses); the R01c stretch re-golded (`mp > p` at 42.65 and `pp < mp` at 72.32 carry their start
 names again); the proto re-extracted — chain 0 upper on 13 bows, lower on 15 (three crosses inside R01c). `vib_marks_check` 32 ·
 `check_rules` 25 · `sequence_notation_check` 64. Crops at 42.65 and 120.74 sent.
+
+## §497. STEP 4 CLOSED — the `○` gap is one rule for every sign, the winds too; his "why is that slipping" answered (2026-09-28, Fable, session 17)
+
+**What prompted it:** the running order's step 4 (journal §2), put to him after the `/postclear`. His first answer asked for the facts:
+*"We established the distance between the circle and the hairpin with the English horn part. And as I understand it, this was the standard
+distance in the system, in the rules, for all … dynamics, etc. So, are you telling me that in preparing the vibraphones, that gap moved? And
+which direction? … In my mind, with the English horn, we established what the gap should be between any dynamic, including this small
+circle, and the left edge of the hairpin. And that's just what we should be using consistently throughout. So I guess the bigger question is
+why is that slipping and how can we keep it from slipping?"* Then: *"a, close step 4 and move to 5"*.
+
+**The facts, as read from §460 · §476 and `rules.json` (not from memory):**
+- a dynamic NAME before a hairpin: `objects.hairpin.beside` 0.45 ss — from the fade signs (§460) on; never moved.
+- the niente CIRCLE was the one EXCEPTION on the English horn proto: `circleGapSs` 0, the circle touching the tip — LilyPond's circled-tip
+  hairpin by way of Gould (§460).
+- his 2g.6 eye on the vibraphone (§473): *"any dynamic sign … the end of the hairpin has a gap before the ending dynamic. So let's make it the
+  same"* → 2h.3 (§476) pointed `circleGapSs` at `beside`: 0 → 0.45, the gap OPENED. The pointer sits on the BASE row, so the winds' `○—<`
+  opened with it — the English horn's opening sign at 0 s: circle → tip 0.450 where it was 0. Only the circle moved; names, the end gap,
+  the hairpin's length and height unchanged; every part with a `○` before a hairpin alike.
+
+**Nothing slipped.** One rule row, changed once at his word, applied everywhere; THE SHIELD named both protos as moved and expected. What
+the AI held open — whether "any dynamic sign" meant the winds' circle too — was the whole of step 4.
+
+**His word: (a).** One gap, 0.45, between every dynamic sign and its hairpin, the circle included, the winds included. Written onto the
+`objects.hairpin` row's ref (the "his to reverse" retired); `docs/ENGRAVING_RULES.md` regenerated; `check_rules` 25. Nothing on the page
+changes — the value has been there since 2h.3.
+
+**How it stays put:** the gap is ONE pointer on ONE row (`circleGapSs → @objects.hairpin.beside`), inherited by `hairpinTimed` through its own
+pointer; `check_rules` (no literal outside a RULES MIRROR line) and the shield catch a stray value. A "touching circle" can only return by
+someone editing that row — and its ref now says his word.
+
+**The running order:** step 4 ☑ · ► step 5, the winds' hairpin height (0.667 kept while the vibraphone's timed hairpin is 1.333, §478).
