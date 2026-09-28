@@ -16068,3 +16068,37 @@ DN-4 the clocks over the block at its go time · DN-5 the provisional family loo
   2d.2 stands with the precedents; the open question is the working page's flip.
 - **DN-6 added to the decisions-needed list** (rules.json, the generated page): the working page's flip of the block's column — accept (a
   working page) · exempt the pitch numbers from the flip (the word alone moves) · a lane-top allowance on the working page.
+
+## §457. THE FADE SIGNS RESTORED — his (a): the opening sign back, a closing sign at the curve's end (its place open), the justification to the performance notes; and a finding: §446 decided a sign that was never on the page (2026-09-27, Fable, session 17)
+
+- **His question:** *"Can you remind me what the decision was about the fade in? So the dynamics and the arrow indicate that for this curve,
+  they are to go from PP to MP. However, they are starting at Niente. … What was the decision we made to treat the individual part
+  differently? And let's discuss this again. That might have been the wrong decision."*
+- **The record, read back to him:** the MUSIC starts from nothing by his own recipe — box 1 `fade in 6 s from niente` (1d.8, LG-40, §126);
+  the waves then run pp … mp. The NOTATION: §370 (LG-112) the block carried `○ ——<` beside `pp → mp` — *"no hairpin symbolic not timed,
+  I'll explain in the perf notes"* · §371 his (2) the sign on its own row, (3) *"yes sign says leave curve"* · §374 (2) the fixed scale's
+  argument — *"the edges become true … no symbolic hairpin needed for the drawing — the signs can stay as his performance-note device or
+  go"* · §375 (a) keep or drop, put to him · §376 *"A yourlene"* = the AI's lean = **dropped** ("if his performance-note meaning needs a sign
+  it is one item back"). The words were re-read as the written range of the line's BODY; the edges left to the curve alone. Restated to
+  him: the row says `pp → mp`, the curve starts at zero, and nothing on the page reconciles the two at the first go line.
+- **His decision:** *"for the dynamic fade in, fade out, yes, let's take A and restore the sign have the fade out notation at the end of the
+  curve and we'll have to decide where its location should be. and then make a note to um, justify this in the performance notes."*
+  → **(a) RESTORE the opening sign** `○ ——<` on the row under the legend (§371 (2) · §446 (6a)) at the entry block · **a CLOSING sign**
+  (`——> ppp`, the mirror — the fade-out falls to ppp, §374) at the END of the curve, its place his, not yet decided · the justification a
+  line in the performance notes — `docs/PERFORMANCE_NOTES.md` row 5 amended (the signs symbolic, not timed; the curve carries the timing;
+  the written range is the body's).
+- **FOUND — a decision made on a misdescribed page:** §444 (this morning's audit, marks 6 – 8) described *"the OPENING SIGN `○ ——<` (from
+  niente) on the row UNDER the legend"* as part of the built prototype, and §446 decided **6a "as built"** — but the sign had been dropped
+  at §376 and never drawn (`layout.js`, the block: *"No niente sign, no hairpin (§376 (a))"*; `byEnv.sequence.memberRows` holds no
+  `niente`). So §446's decision was made on a description, not the page — the class of error 2e exists to prevent (a rule in prose, not
+  in a row). Today's (a) is what §446 meant; now it goes into the tables through a device sheet, and the tracker's row 5 no longer says
+  "as built".
+- **The closing sign's place — the options for him** (the opening sign hangs on the block, anchor B; a release has no go line):
+  (i) on the LAST breath's unit — the sign right-justified to that go line's spacer on the sign's row, the mirror of the opening (§370 (1)'s
+  proposal): anchor B, no new rule · (ii) at the curve's END, his words — the sign ending at x(the last release) on the sign's row: anchor E's
+  end point, one new rule ("a closing sign ends where its curve ends") · (iii) at the start of the fall (the last crest): the hairpin's
+  conventional place, but the sign is not timed. The AI's lean: (i) for the rules, (ii) if the sign is to mark the ending itself.
+- **Not seen on the proto:** the EH's line ends at 149.0 s (§370); the proto's window is 0 … 40 s — the closing sign will be seen on
+  `piece-lgmf`.
+- **Pending him from the same look:** the ladder's order under his pitch-data rule (§456's discussion — a) compress · flip the annotation ·
+  shrink · flip the pitch data, or b) the flip alone made two-stage); the plan items to follow his word.
