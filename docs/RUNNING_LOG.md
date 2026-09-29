@@ -17816,3 +17816,23 @@ The other producers in the code: #5's D47 arc (the `cresc` overlay, `layout.js` 
 **The fix:** `notation/lib/animobj.js` `remainPath` — the remaining sector as `n = ceil((1 − frac) · 4)` arcs, each ≤ 90°, the last ending at 12 o'clock; the comment carries this §. The tuba's group pie (`arcPath`) untouched — a filling pie never has its two ends close together at a large arc.
 
 **Verified:** `check_screen_edges` PASS on `piece-lgmf` (1682 animated devices at the page edges, 841 pushed, none left of x(t0)) and on `lgmf-eh-proto` · `lgmf-hn-morph-proto` · `lgmf-vib-proto` · `check_rules` 30 · `sequence_notation_check` 79 · `vib_marks_check` 33. `test_animobj` · `test_trills` crash on HEAD as with the fix — piece #5's fixtures absent here (`db1.ir.json` · `scores/piece-septet.json`; NITS already has them).
+
+## §530. 2l.7 THE FOLD — the main page carries the curve protocol and the three morphs (2026-09-28, Opus, session 17)
+
+**His word:** *"go for fold as much as possible independently"* (the RUNNING ORDER's step 2, after the ottava fix §528; the model switched to Opus, no clear).
+
+**The source:** a COPY of `scores/piece-Recombination-Draft01-done.json` in this session's scratchpad — sha1 `834deb4a…`, the SAME bytes as the three copies the 2j main file and the protos read (his file untouched, unchanged since his save of 2026-09-26 20:28).
+
+**The command** (now the IR's `provenance.build`): `node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile <copy> --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --id piece-lgmf --label "… every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l)"`. `layout_shield --write` on HEAD first.
+
+**What the page is now:** VALID against its source and complete — 1076 events · 893 chunks · **72 overlays** (before: sequence 24 · vibBows 4 · instruction 9; now: sequence 42 · gliss 17 · vibBows 7 · instruction 6). 151 … 280 s: **115 plain notes → 71 morph notes + 44 vibraphone bows**.
+- **The four sequences, six parts each** — the line from the RECIPE (2l.2), the ease, the labels where the line reaches a name (7 … 26 a part), the exit by the recipe: sequence 1 `> ppp` on all six · sequences 2 · 3 no fall · the last chord to niente.
+- **The three morphs, six parts each** — the block with the destination head and the gliss line on 17 of 18 (grp-morph-01's bassoon one pitch, 0 c — D44's alert, written crescendo-only), the ARC through the breath peaks (2l.3), the range from the arc's anchors; the vibraphone's bows 44 · 30 · 32.
+- **THE FIRST MORPH (his range, 0 → 279 s):** the entries Bsn 151.35 · Hn 152.10 · Tpt 152.78 · Vc 156.40 · Db 156.90 · EH 158.40 — each 24.7 … 25 c of travel, `ppp → ff`; the closing sign `> ppp` on the horn and the trumpet only — EH · Bsn · Vc · Db "no fall" (their arcs do not fall at the end, §517's rule); the vibraphone 155.11 … 272.31 s, two hairpins left open (222.555 · 226.388 — §511's drift warnings); the bassoon's take says 3.91 c, its note starts at 2.7 c (wc-3270, the note written).
+- **"ord."** at the middle section on six parts — EH 289.00 · Bsn 295.97 · Hn 296.32 · Tpt 295.48 · Vc 300.34 · Db 295.77 (2k.1's rule); 18 technique words in all.
+
+**Verified (2l.7's list):** THE SHIELD 21 of 22 identical, exactly `piece-lgmf` moved · `check_rules` **30** (809 heads, 74 ottava signs, 43 hooks on their spacer, 274 numbers outside the staff) · `sequence_notation_check` 79 · `vib_marks_check` 33 · `check_print_edges --ir piece-lgmf` PASS (630 curve paths, none from a neighbouring page) · `check_screen_edges --ir piece-lgmf` PASS after §529 · GEOMETRY clean · `decisions_needed --ir piece-lgmf`: **7 units at rung 3, 0 at 8 — the same count as before the fold**, one swapped: the bassoon's last-chord entry 804.96 left the list, the cello's sequence-2 entry 431.70 (its `○—<`) joined it; inside 0 → 279 only the Db block at 3.50 and the Vc breath at 102.30 (both on the list before the fold too).
+
+**Outside his range, noted for later:** grp-morph-01 — the double bass's wc-4649 overlaps wc-4639 (the line reads the later note from its onset) · the EH's and the horn's take/note cents differ at 579.56 · 578.81 · the vibraphone's hairpin left open at 645.51.
+
+**► The RUNNING ORDER's step 3 — his eye on the main page, 0 → 279.** He reloads the notation tab (the IR changed; no restart).

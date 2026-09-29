@@ -65,10 +65,10 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
    move left, I believe this happens several times, make sure in the rules"* — a rules row on `objects.ottava`, the block's head and its column moved left so the
    hook ends at anchor B's spacer, `check_rules` holding it over every page, the two protos redrawn. Done when: the row is in, the protos redrawn, the checks
    green, pushed.
-2. ► **The fold** — PLAN 2l.7 (Opus; a model switch — checkpoint, clear, `/postclear` on Opus, then build): `piece-lgmf` redrawn from a COPY of Draft 01 with `--sequence` × 4 + `--morph` × 3 (2j's discipline) — the new curves, the
+2. ☑ **The fold** — DONE 2026-09-28 (Opus, §530; `piece-lgmf` from Draft 01 with `--sequence` × 4 + `--morph` × 3: 72 overlays, 151 … 280 s now 71 morph notes + 44 bows; every check green; §529 the breath pie's arc fixed on the way — the screen gate's one failure, on HEAD too). *(As it stood:)* **The fold** — PLAN 2l.7 (Opus; a model switch — checkpoint, clear, `/postclear` on Opus, then build): `piece-lgmf` redrawn from a COPY of Draft 01 with `--sequence` × 4 + `--morph` × 3 (2j's discipline) — the new curves, the
    morph device on every part, "ord." at 289 s; the shield naming `piece-lgmf` alone; `check_rules` · `decisions_needed --ir piece-lgmf` · the edges. Done
    when: pushed, his tab reloaded.
-3. **His eye on the main page, 0 → 279** — the six sequence lines · the five other parts' morph pages (EH · Bsn · Tpt · Vc · Db: the block, the gliss line, the
+3. ► **His eye on the main page, 0 → 279** (Fable) — reload the notation tab → `piece-lgmf` → the video view. THE STOPS: `-4` … `6` the six sequence entries (the fade from nothing, eased) · `40.26` (2j.4's) · `102.3` (the Vc breath the ladder flips) · `140` … `156` the sequence's closes `> ppp` · `151.35` · `152.1` · `152.78` · `156.4` · `156.9` · `158.4` the six morph blocks · `200` the arcs' peaks · `222.6` · `226.4` the vibraphone's two open hairpins · `265` … `279` the ends (`> ppp` on Hn · Tpt only; EH · Bsn · Vc · Db no fall, §530) · `z`. What he sees: the six sequence lines · the five other parts' morph pages (EH · Bsn · Tpt · Vc · Db: the block, the gliss line, the
    arc) · the vibraphone's bows in the morph (the first order's 5) · 2j.4's `40.26`. Collect in the RUNNING_LOG, then fix at once (a look → Fable; a fault →
    Opus). Done when: his word.
 4. **His call, inside the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners (the same ease as the green line, held at §513 D) ·
