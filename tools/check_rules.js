@@ -253,7 +253,7 @@ console.log('(9) THE OTTAVA ON EVERY HEAD · THE COLUMN OUTSIDE THE STAFF · NO 
   const boxes = Fit.boxesFor(C || raw, ENS, ENS.parts.map(p => p.part));
   const th = 2 + (LO.ottavaLedgerThreshold != null ? LO.ottavaLedgerThreshold : 3);
   const lined = new Set((ens.parts || []).filter(p => p.staff && Array.isArray(p.staff.lines)).map(p => p.part));
-  let heads = 0, far = [], cols = 0, inStaff = [], zeros = [], signs = 0;
+  let heads = 0, far = [], cols = 0, inStaff = [], zeros = [], signs = 0, folded = 0, hooks = [];
   for (const f of irFiles) {
     const ir = rd(path.join('notation', 'ir', f));
     const m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS.parts.map(p => p.part), ensemble: ENS, techniques: T, fitBoxes: boxes }, LO));
@@ -263,6 +263,9 @@ console.log('(9) THE OTTAVA ON EVERY HEAD · THE COLUMN OUTSIDE THE STAFF · NO 
       for (const it of s.items || []) {
         if (it.k === 'glyph' && /^notehead/.test(it.g || '')) { heads++; if (Math.abs(it.ySs) > th + 0.5 + 1e-9) far.push(name + ' p' + s.part + '@' + it.t.toFixed(2) + ' y ' + it.ySs.toFixed(1)); }
         if (it.k === 'ottava') signs++;
+        // [§528] THE HOOK IS INK: a folded sequence head's hook (justHead's items, seq 'ottava') ends ON its spacer — anchor B's 0.45
+        // before the go line (the block, the breaths, a morph's two heads) — never past it (on HEAD before §528: 0.3 past, 0.15 from the line)
+        if (it.k === 'ottava' && it.seq === 'ottava') { folded++; if (it.dx1Ss > -R.anchors.B.gapSs + 1e-6) hooks.push(name + ' p' + s.part + '@' + it.t.toFixed(2) + ' hook ' + it.dx1Ss.toFixed(2)); }
         if (it.k === 'text' && (it.seq === 'cents' || it.seq === 'partial')) {
           cols++;
           const e = Fit.inkOf(it, glyphs, 1.3);
@@ -275,6 +278,7 @@ console.log('(9) THE OTTAVA ON EVERY HEAD · THE COLUMN OUTSIDE THE STAFF · NO 
   ok(!far.length, '(9) every head on a five-line staff lies within the ottava threshold — ' + LO.ottavaLedgerThreshold + ' ledger lines, a second\'s tolerance for a trill\'s neighbour (' + heads + ' heads, ' + signs + ' signs)' + (far.length ? ' — beyond it: ' + far.slice(0, 6).join(' · ') : ''));
   ok(!inStaff.length, '(9) no cents or partial stands inside the staff after the ladder (' + cols + ' numbers)' + (inStaff.length ? ' — inside: ' + inStaff.slice(0, 6).join(' · ') : ''));
   ok(!zeros.length, '(9) a rounded 0 cents is not written (number.centsZero ' + LO.centsZero + ')' + (zeros.length ? ' — written: ' + zeros.slice(0, 6).join(' · ') : ''));
+  ok(!hooks.length, '(9) a folded sequence head\x27s hook ends on its spacer, never past it — objects.ottava.hookIsInk (' + folded + ' hooks, the spacer ' + R.anchors.B.gapSs + ' before the go line)' + (hooks.length ? ' — past it: ' + hooks.slice(0, 6).join(' · ') : ''));
 }
 
 console.log('');

@@ -1000,6 +1000,12 @@
         const PL = q.paren ? glyphs.accidental.leftParen : null, PR = q.paren ? glyphs.accidental.rightParen : null;
         const pk = q.parenScale || k, pGap = q.parenGapSs != null ? q.parenGapSs : 0.1;
         let x = rightSs;
+        // [§528 — his eye at 2l.6, 2026-09-28: "the ottava bracket should have a gap before the go line, and looks like the whole column
+        // needs to move left"] THE HOOK IS INK (rules.json objects.ottava.hookIsInk): a folded head's unit ends at its hook, so the head,
+        // its column and its word move left by endBeside and the hook lands ON `rightSs` — anchor B's spacer, a breath's nhGapSs —
+        // never past it (before: the hook ran endBeside past the spacer, 0.15 ss from the go line at the horn's 140.76)
+        const endGapJ = o.ottavaEndGapSs != null ? o.ottavaEndGapSs : ((stdsJ.ottava || {}).endPadSs != null ? stdsJ.ottava.endPadSs : 0);
+        if (octShift !== 0 && o.ottavaHookIsInk !== false) x -= endGapJ;
         if (PR) { items.push({ k: 'glyph', g: 'accidental-rightParen', t, dxSs: x - PR.wSs * pk / 2, ySs: y, align: 'center', scale: pk, ev: q.ev }); x -= PR.wSs * pk + pGap; }
         const cx = x - overhang - hw / 2;
         items.push({ k: 'glyph', g: 'notehead-open', t, dxSs: cx, ySs: y, align: 'center', scale: k, ev: q.ev });

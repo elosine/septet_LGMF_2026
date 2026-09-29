@@ -508,6 +508,7 @@
    },
    "ottavaLedgerThreshold": "@objects.ottava.ledgerThreshold",
    "ottavaEndGapSs": "@objects.ottava.endBeside",
+   "ottavaHookIsInk": "@objects.ottava.hookIsInk",
    "_ottavaEndNote": "§401m (2026-09-11, the composer): the bracket's hook ends at the rightmost ink of the note (the head, or the ledger line's overhang) plus THE SMALLEST GAP — the staccato-dot gap (tightGapSs 0.15; medium 0.3; standard 0.45). LilyPond's OttavaBracket runs 0.6 ss past the last note; Gould: 'a little beyond'. The left end sits at the accidental's left edge already.",
    "_ottavaNote": "RUNNING_LOG §401j (2026-09-11, the composer, on the piano's A♯1 on its 4th ledger line: 'last pno strike missed ottava'): the smallest ottava that brings a written note within THIS many ledger lines — 3, piece #2's staff-router rule and Gould's; the shared glyph standard (glyphs.json standards.ottava.ledgerLineThreshold) says 4, the tuba's choice, and keeps it for the tuba pages. Every part, both piano staves.",
    "stackGapSs": "@column.stack.standard",

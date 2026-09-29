@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 206 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 207 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -155,7 +155,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `beam` · in: thicknessSs glyphs.json standards.beam
 - **tuplet** — colour **ink #111** · look **{thicknessSs: 0.16, hookLengthSs: 0.7, paddingSs: 0.5, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralInsetSs: 0.4, numeralGapPerCharSs: 0.88, numeralCapFactor: 0.7}** → `layout.tuplet` · *composer* · #4 day 23 (his own LilyPond standard, surveyed from #2's 809 .ly files)
   - draws `tuplet`
-- **ottava** — colour **ink #111** · ledgerThreshold **3** → `layout.ottavaLedgerThreshold` · endBeside **0.3** → `layout.ottavaEndGapSs` · stack **0.45** · heads **EVERY head folds under the threshold and takes the sign — the nh-unit, the chord column, the pair beam, the sequence block and its breaths (§502: the block's own head never folded — the bass's E5 on six ledgers, the cello's B♭4 on four, the ladder at 8; check_rules (9) holds it over every page)** · *composer* · ledgerThreshold #5 §401j (Gould, #2's staff router) · endBeside #5 §401m · LilyPond OttavaBracket padding 0.5 / 2.0 (the seed, §422)
+- **ottava** — colour **ink #111** · ledgerThreshold **3** → `layout.ottavaLedgerThreshold` · endBeside **0.3** → `layout.ottavaEndGapSs` · hookIsInk **true** → `layout.ottavaHookIsInk` · hook **THE HOOK IS INK (§528, his eye at 2l.6, 2026-09-28: 'the ottava bracket should have a gap before the go line, and looks like the whole column needs to move left, I believe this happens several times, make sure in the rules'): a folded head's unit ends at its hook — under anchor B (column right) the head, its numbers and its word move LEFT by endBeside so the hook lands ON the spacer (0.45 before the go line; a breath head's nhGapSs), never past it; the legend on the dynamic row ends at the spacer as before. Before §528 the hook ran endBeside PAST the spacer, 0.15 from the go line. check_rules (9) holds it over every page** · stack **0.45** · heads **EVERY head folds under the threshold and takes the sign — the nh-unit, the chord column, the pair beam, the sequence block and its breaths (§502: the block's own head never folded — the bass's E5 on six ledgers, the cello's B♭4 on four, the ladder at 8; check_rules (9) holds it over every page)** · *composer* · ledgerThreshold #5 §401j (Gould, #2's staff router) · endBeside #5 §401m · LilyPond OttavaBracket padding 0.5 / 2.0 (the seed, §422)
   - draws `ottava` · in: stack = glyphs.json standards.ottava.standardGapSs (and the bracket's numbers)
 - **rest** — face **music** · colour **ink #111** · *lilypond* · #4 day 23
   - draws `rest`

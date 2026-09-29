@@ -49,7 +49,33 @@
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### RUNNING ORDER (2026-09-28) — the morph's issues at 2k.7, the curve first (his ask: *"lets get a toc/running order of morph issues with the main discussion being the curve"*)
+### RUNNING ORDER (2026-09-28, the second) — NOTATED THROUGH THE FIRST MORPH, 0 → 279 s (his ask at 2l.6, RUNNING_LOG §527 · §528: *"the goal being completely notated until the end of the first morph"*)
+
+**HOW THIS LIST WORKS:** one step at a time — ► marks the active step, ☑ marks done; update the marks the moment a step wraps, not later. At
+every wrap the AI states: what finished · what's next · where we are in the order. The AI proposes reorganizations when useful; changes
+land only on user approval. A post-clear model reads this block and announces the position before doing anything.
+
+**What the fold is (his question, §528):** a PROTO is a one-part test page cut from the draft (`lgmf-eh-proto` the sequence's curve, `lgmf-hn-morph-proto` the morph);
+the MAIN PAGE `piece-lgmf` is the whole piece. 2l changed the code and redrew the two protos only; the main page was last drawn at 2j — its sequence curves are the old trace,
+its morph 151 … 279 s is 115 plain notes. THE FOLD = the extractor rerun on Draft 01 with every accepted device: the new curves on the six parts of the four
+sequences AND the morph device (block · gliss line · arc · the vibraphone's bows) on every part of the three morphs — ONE step. The first morph ends at 279.4 s
+(the horn's own part at 269.9).
+
+1. ☑ **The ottava fix** — DONE 2026-09-28 (§528: `objects.ottava.hookIsInk`, the head and its column moved left by `endBeside`, the hook on the spacer; `check_rules` 30, the bite proven; the shield the two pages; no re-extraction, he reloads). *(As it stood:)* **The ottava fix** (Fable) — his finding (§527, verbatim): *"the ottava bracket should have a gap before the go line, and looks like the whole column needs to
+   move left, I believe this happens several times, make sure in the rules"* — a rules row on `objects.ottava`, the block's head and its column moved left so the
+   hook ends at anchor B's spacer, `check_rules` holding it over every page, the two protos redrawn. Done when: the row is in, the protos redrawn, the checks
+   green, pushed.
+2. ► **The fold** — PLAN 2l.7 (Opus; a model switch — checkpoint, clear, `/postclear` on Opus, then build): `piece-lgmf` redrawn from a COPY of Draft 01 with `--sequence` × 4 + `--morph` × 3 (2j's discipline) — the new curves, the
+   morph device on every part, "ord." at 289 s; the shield naming `piece-lgmf` alone; `check_rules` · `decisions_needed --ir piece-lgmf` · the edges. Done
+   when: pushed, his tab reloaded.
+3. **His eye on the main page, 0 → 279** — the six sequence lines · the five other parts' morph pages (EH · Bsn · Tpt · Vc · Db: the block, the gliss line, the
+   arc) · the vibraphone's bows in the morph (the first order's 5) · 2j.4's `40.26`. Collect in the RUNNING_LOG, then fix at once (a look → Fable; a fault →
+   Opus). Done when: his word.
+4. **His call, inside the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners (the same ease as the green line, held at §513 D) ·
+   2k's AI's calls (the first order's 7). Done when: each named yes or no.
+— beyond 279, not in this order: the middle section (the percussion staff, the patterns, the "ord." entries — the first order's 6 — come with the fold, proofed later).
+
+### RUNNING ORDER (2026-09-28) — the morph's issues at 2k.7, the curve first (his ask: *"lets get a toc/running order of morph issues with the main discussion being the curve"*) — **SUPERSEDED 2026-09-28 by the order above** (§528): 1 taken at his eye (§527: the arc accepted) · 2 · 3 closed by his *"otherwise, everything looks good"* · 4 done · 5 · 7 → the new order's 3 · 4 · 6 beyond the range · 8 = the new order's 2.
 
 **HOW THIS LIST WORKS:** one step at a time — ► marks the active step, ☑ marks done; update the marks the moment a step wraps, not later. At
 every wrap the AI states: what finished · what's next · where we are in the order. The AI proposes reorganizations when useful; changes

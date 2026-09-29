@@ -17769,3 +17769,38 @@ The other producers in the code: #5's D47 arc (the `cresc` overlay, `layout.js` 
 **The build in one line:** the green line is now the INTENTION, not the fader — a sequence's line straight between its notes' ends in written height, its fades straight, its corners eased; a morph's one arc through its breath peaks; a name wherever the line reaches a dynamic; the closing sign from the recipe (a sequence) or the arc (a morph). `piece-lgmf` is NOT re-extracted — that is 2l.7, the fold, after his eye.
 
 **STOP — 2l.6 is his eye.**
+
+## §527. 2l.6 HIS EYE OPENS — THE ISSUES COLLECTED, NOT FIXED; WHAT IS AT 140.78 vs 152.09 (2026-09-28, Fable, session 17)
+
+**His frame, verbatim:** *"This is the general morph proof of the prototype before we move on to the other parts. Just collect the issues and then we'll fix them at once."* So this entry is a COLLECTION — findings appended as he names them; the fixes come as one build after.
+
+**Finding 1 (the `/postclear` argument, verbatim, with a picture of the horn at 140.78 s):** *"the ottava bracket should have a gap before the go line, and looks like the whole column needs to move left, I believe this happens several times, make sure in the rules"* — the `8vb` bracket's hook lands ON the go line; the whole column (`senza vib.` · `2 (A1)` · `8vb` · `pp → mp`) sits flush against it. Rules territory: anchor B (0.45, right-justified) and the ottava's clearance. NOT fixed yet.
+
+**His question, verbatim:** *"help me understand what is at 140.78 vs 152.09 when does the morph actually begin ? so is there just a pitch for a few seconds and then the gliss starts?"*
+
+**The answer, read from `notation/ir/lgmf-hn-morph-proto.ir.json` (11 events, window 140 … 282, part 2):**
+- **140.764 → 151 is NOT the morph.** It is the horn's LAST NOTE of section 1's placed SEQUENCE `LGMF-R01c` (`grp-seq-smu90t537`, box 9, take `Just-A1-seed131`): A2 = partial 2 of A1, `pp → mp`, "senza vib.", held 10.24 s, its level flat at 0.25 (pp) then closing `—> ppp` at 151 by the recipe. It is on the proto's page because the window opens at 140 and the extractor wrote every horn event in it, with its own `sequence` overlay (`ov-seq-seq-smu90t537-p2`).
+- **151 → 152.1:** 1.1 s of nothing — the horn's breath between the two devices.
+- **152.1 is where the MORPH begins** — `ACT-BLOOM-06` (`grp-act-bloom-06-01`, take `Blm01c-wVibes-Just-A1-seed131mod`): the first breath A4 = partial 8 of A1, 152.1 → 168.96; the block `ppp → ff`; the `gliss` overlay (`ov-gliss-bloom-06-01-p2`, `scale travel`, `travelC 24.8`, `dest` A4 −25 ¢) spans 152.1 → 269.897, the whole morph, 12 breaths.
+- **The gliss moves from its first sample** — 11781 samples at 100 sps, 1 → 0.99989 → 0.99978 …, no flat stretch; ≈ 0.19 of the travel by the end of the first breath ≈ 5 ¢ in 16.9 s. To the ear the first breath is a held A4 that begins to lean; there is no "pitch for a few seconds, then the gliss".
+- So the picture at 140.78 (the E4 head on the bottom line under `8vb` = written E3 = sounding A2 for the horn in F) is the sequence's last block; the morph's block is at 152.1.
+
+*(AI's note, one line: a `—> ppp` sign sits LEFT of the 140.78 go line in his picture — the proto's first event is 140.764 and nothing precedes it, so on the proto its source is not placed from the IR; on the main page it would be box 8's close. Left for him.)*
+
+**His verdict on the arc (2026-09-28, verbatim):** *"morph volume curve looks good, what is the plan to apply to the sequence parts?"* — the morph's arc (2l.3, §525) ACCEPTED at his eye; the seeds (`easeS` 0.5 · `minGapS` 3) and the four ff breaths stand as built. The plan for the sequences is the one already written: the sequence's line by the recipe (2l.2 + 2l.4, §524) is built and on `lgmf-eh-proto`; **2l.7 THE FOLD** re-extracts `piece-lgmf` from a copy of Draft 01 with `--sequence` × 4 + `--morph` × 3 — every part of every placed sequence takes the line from the recipe, every part of the three morphs the arc — on Opus, after the collected issues are fixed.
+
+## §528. THE OTTAVA'S HOOK ON THE SPACER — his first finding at 2l.6, fixed as a rule (2026-09-28, Fable, session 17)
+
+**His words (§527):** *"the ottava bracket should have a gap before the go line, and looks like the whole column needs to move left, I believe this happens several times, make sure in the rules"* — and the frame: collect, then fix at once. At his *"yes, write it and go with the ottava fix"* THE RUNNING ORDER (the second — notated through the first morph, 0 → 279 s) was written into journal §2 and this went first.
+
+**What was wrong:** `justHead` (2d.2; §502's fold) put the head's right ink edge at the spacer (anchor B, 0.45 before the go line) and drew the sign's hook `endBeside` (0.3) BEYOND it — the hook 0.15 ss from the go line, the numbers and the word at the spacer. On the video page (in C) at the horn's 140.76: the head's right edge −0.727 (the ledger overhang inside it) · the numbers and the word −0.450 · the hook −0.150. §418 F2 says every member of the column ends at the spacer; the hook is ink and crossed it.
+
+**The rule (his "make sure in the rules"):** `rules.json` `objects.ottava.hookIsInk true` + its `hook` text (his words, the before and after) · the pointer `engraving.layout.ottavaHookIsInk` in `container.json` · `docs/ENGRAVING_RULES.md` regenerated.
+
+**The layout:** `justHead` — when the head folds, `x` moves left by `endBeside` BEFORE the head is placed, so the head, its column and its word follow and the hook lands ON `rightSs` (the block's spacer; a breath head's nhGapSs; a morph's destination head the same). After, at 140.76: the head's right edge −1.027 · the numbers and the word −0.750 · the hook −0.450 = the spacer. `piece-lgmf`'s bass block at 3.50 the same (the hook −0.150 → −0.450; `10 (C1)` · `−14` · "senza vib." −0.450 → −0.750). **The AI's reading of "the whole column":** the column OVER the head (the numbers, the word) moves with it; the legend on the dynamic row (`pp → mp`, `mp` centred at −1.138) already ends at the spacer and stays — his to widen.
+
+**The check:** `check_rules` (9) gains its fourth line — over every page, every folded sequence head's hook (`seq 'ottava'`) ends ≤ −`anchors.B.gapSs` — 36 hooks. THE BITE PROVEN: with the row switched off it is RED, naming `lgmf-hn-morph-proto p2@140.76 hook -0.15 · piece-lgmf …` (HEAD's state); on, GREEN — **30 checks**. THE SHIELD against HEAD: 20 of 22 identical, exactly `piece-lgmf` and `lgmf-hn-morph-proto` moved. `sequence_notation_check` 79 · `vib_marks_check` 33 · `check_print_edges --ir lgmf-hn-morph-proto` PASS. No re-extraction — a layout change, the IRs untouched; he reloads the tab.
+
+**Found on the way — the `—> ppp` LEFT of the 140.76 go line in his picture, explained:** 2f's rule puts a sequence's closing sign on the LAST breath's unit, right-justified to its go line (§459 · §460). The horn's tail of sequence 1 inside the proto's window is ONE note, so its last breath IS the entry and the sign sits beside the block on the sign row (y −8.15). By the rule, not a fault; his eye if he wants it otherwise.
+
+**His verdict on the rest of the proto (verbatim):** *"Then the only issue I have from the morph prototype is the Otava bracket. Otherwise, everything looks good."* — the first running order's 2 (the range) and 3 (no `○—<`) closed by it.
