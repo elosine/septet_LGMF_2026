@@ -17927,3 +17927,26 @@ still stands as the next step. Then `/checkpoint`, at his word.
 - **Literature.** Stone, *Music Notation in the Twentieth Century* (1980) · Read, *Modern Rhythmic Notation* (1978) · Karkoschka, *Das Schriftbild der Neuen Musik* (1966; Eng. *Notation in New Music*, 1972) · Cardew, "Notation — Interpretation, etc.", *Tempo* 58 (1961) · Vickery, "The Evolution of Notational Innovations from the Mobile Score to the Screen Score", *Organised Sound* 17/2 (2012) · Hope, "Electronic Scores for Music: The Possibilities of Animated Notation", *Computer Music Journal* 41/3 (2017).
 
 **The AI's reading, marked as such:** this piece is already proportional — the scrolling page is x = time. The Berio case (freedom given up for metric precision) bears on items 5 and 7. Nothing decided; nothing built.
+
+## §537. "Temporal notation" as a name — who uses it, and the terms weighed (2026-09-29, Opus, session 18)
+
+**Prompted by:** *"anybody use temporal notation; definitionally pros and cons vs the others?"*
+
+**Who uses it (the AI's memory, not searched):** no established use known to the AI as the name for space = time notation; the phrase turns
+up in a general sense (the notation of time, time representation in computer music). A search offered, his call.
+
+**The terms weighed, definitionally (the AI's reading):**
+
+- **Temporal notation** — + names what it serves (time), and fits paper, screen and seconds alike · − too broad: every notation is
+  temporal, metric included; says nothing of HOW; not a recognized term, so it must be defined wherever it is used.
+- **Proportional notation** — + the established term; says the key (length ∝ distance) · − "proportional" collides: tempo proportions
+  (3:2, Nancarrow), the medieval proportions, and engraving's "proportional spacing" of metric notes (LilyPond's
+  `proportionalNotationDuration` — this stack's own lineage).
+- **Time-space / spatial** — + states the mechanism exactly · − "spatial" also means sound in space; a paper image (on a scroll the space moves).
+- **Time notation (Brown)** — + the originator's word · − reads as generic today, tied to Brown.
+- **Clock-time** — + exact for timings in seconds · − narrower: only when times are written as numbers.
+- **Animated notation / screen score** — + names this piece's medium and today's research community · − names the medium, not the
+  principle (an animated score may be non-proportional); leaves out the paper presentation score.
+
+**The AI's recommendation:** "temporal notation" works as his own term if the performance notes define it ONCE as proportional
+(horizontal distance = time); cite "proportional / time-space" for the literature. Nothing decided.
