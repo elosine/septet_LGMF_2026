@@ -98,6 +98,10 @@ Each item goes through the planning method (`/plan-item`) when he picks it up; n
 §539): the term kept ("temporal notation", defined once as horizontal distance = time) · the reference scores (his R1 … R4, the AI's
 S1 … S10 to confirm) · the concepts about short notes C1 … C9 · six questions · §5 the EH's decisions, empty. ► THE TALK, one concept
 at a time (phase 1), then the practical decisions for the EH's section 2. 2m.4 his eye still stands.
+**§6 THE DISSECTION (§540 · §541):** the frame (placement · span · shape · flow + moments; where the clock lives; Karkoschka's kinds) ·
+the precedents dissected (preliminary research, kept) · his models M1 … M3 · **THE PHRASE IN LAYERS — anchor · shape · flow · moments —
+HIS WORD: the starting conceptual framework**, §6c-plain the plain-words version. **HELD at his word: the first design choice** (both
+carriers vs the anchor alone) — he addresses it after the plain version is digested.
 
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 

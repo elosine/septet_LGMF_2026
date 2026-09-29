@@ -132,7 +132,11 @@ changes in bow pressure, or lots of subtle timbre changes using embouchure etc."
 ## §6 The dissection — the precedents, his models, and a conceptual model proposed (2026-09-29, Fable; RUNNING_LOG §540)
 
 *The AI's work, marked as such throughout. Every precedent's notation is from memory — to be CONFIRMED against the score before it is
-cited. The model in §6c is PROPOSED, not decided.*
+cited.*
+
+**STATUS — his word, 2026-09-29 (RUNNING_LOG §541):** *"this analysis good … good starting conceptual framework"* — §6a the frame and
+§6c the layered model are THE STARTING CONCEPTUAL FRAMEWORK, to be adjusted as we go; §6b the precedents are kept as work done,
+PRELIMINARY RESEARCH. The plain-words version he asked for is §6c-plain. The design choice at the foot of §6c is HELD at his word.
 
 ### §6a The frame — what a phrase notation carries, and how to compare two notations
 
@@ -170,7 +174,37 @@ cited. The model in §6c is PROPOSED, not decided.*
 | **M2 — his clusters (piece #4)** | the GC; every head SPATIALLY TRUE | beams for grouping, tuplets for pace, one grid with the bracket as the message | standard | the page AND the gesture — the two must AGREE (the dissonance rule) | precise, doubled | **two carriers at once**: the cursor confirms each note, the beams give the pattern; the cost is the fit — the writing must match the spacing to a notehead width |
 | **M3 — grace bursts (his idea)** | an anchor | approximate visual | — | the cursor + rehearsal | frame | the grace group on the scroll |
 
-### §6c The conceptual model PROPOSED — the phrase in layers (the AI's, marked; not decided)
+### §6c-plain The model in plain words (written at his ask, 2026-09-29 — *"can I get this much clearly/simply pls"*)
+
+**One line:** the page tells you WHEN · the notes tell you WHAT SHAPE · a line tells you HOW IT MOVES.
+
+**Four layers. Each answers one question for the player:**
+
+1. **ANCHOR — "When do I start?"**
+   The cursor reaches the GC, or the first note. That is the ONLY moment you take from the clock.
+
+2. **SHAPE — "What is the rhythm?"**
+   Ordinary notes, beams, tuplets. You learn it at home, like a lick.
+   On the night you play it from memory, as one gesture. You never count it while playing.
+
+3. **FLOW — "How does it move?"**
+   A line under the notes: louder or softer · toward the bridge · more pressure · a change of colour.
+   You glance at it the way a pilot glances at a dial.
+
+4. **MOMENTS — "Anything special on THIS note?"**
+   An accent, a dot, "sul pont here". It sits on the note, so it comes along with the shape.
+
+**Why layers:** each layer has ONE job and ONE carrier. Nothing has to do two jobs.
+(Counting was hard because the count carried everything at once — when, shape, and detail.)
+
+**The rule underneath:** the clock touches a phrase ONCE, at the anchor. Everything inside the phrase is measured from the phrase,
+not from the clock.
+
+**An analogy:** a phrase is a word.
+The cursor tells you when to say it. The spelling is the word. Your tone of voice is the line. Stress on one syllable is a moment.
+You do not spell the word letter by letter while you speak it.
+
+### §6c The conceptual model PROPOSED — the phrase in layers (the AI's, marked; THE STARTING FRAMEWORK at his word, §541)
 
 **Principle 0 — the cursor's grain is the PHRASE, not the note.** Absolute time binds the phrase's anchor (and, if drawn, its span).
 Everything inside the phrase is relative to the phrase.
@@ -189,7 +223,8 @@ Everything inside the phrase is relative to the phrase.
   the shape written. (A hypothesis; the measurement of Q1 still owed.)
 - **The reading protocol, written for the performance notes:** learn the shape (count if you must); in performance, play it as a gesture
   from the anchor, while the console gives the flow. Counting is never in the foreground.
-- **THE FIRST DESIGN CHOICE — named, not made:** inside a phrase, BOTH carriers (every head spatially true AND the shape written — M2's
+- **THE FIRST DESIGN CHOICE — named, not made; HELD at his word (2026-09-29: *"hold this … I'll address after simplified version
+  digested"*):** inside a phrase, BOTH carriers (every head spatially true AND the shape written — M2's
   way; the cost: the fit and the dissonance rule) or THE ANCHOR ALONE spatially true, the shape carrying the interior (Lutosławski's way;
   the heads inside the phrase placed by the engraving, not the clock). It decides what the extractor does with a fast EH figure.
 

@@ -18022,3 +18022,21 @@ AND the shape written, M2's way — the cost: the fit and the dissonance rule) o
 the interior (Lutosławski's way).
 
 **Nothing decided.** Every precedent's notation is from the AI's memory, to be confirmed against the score before it is cited.
+
+## §541. THE STARTING CONCEPTUAL FRAMEWORK — his word on §540; the plain-words model; the design choice HELD (2026-09-29, Fable, session 18)
+
+**His words:** *"this analysis good, please document, we may adjust alter it as we go through but good starting conceptual framework:
+The frame — how to compare two phrase notations · The precedents, dissected - good to keep as work done, preliminary research · The
+conceptual model proposed — the phrase in layers can I get this much clearly/simply pls · document your full analysis, including the
+simplified explaination of the conceptual model · then hold this, The first design choice this raises, and I'll address after
+simplified version digested"*.
+
+**Done:** `docs/research/temporal_notation.md` §6 — a STATUS line at its head (§6a + §6c the starting framework, adjustable; §6b
+preliminary research, kept) · **§6c-plain** the model in plain words: one line (the page tells you WHEN · the notes WHAT SHAPE · a
+line HOW IT MOVES) · four layers as four questions the player asks (when do I start · what is the rhythm · how does it move · anything
+special on THIS note) · why layers (one job, one carrier each — the count was hard because it carried all three) · the rule (the
+clock touches a phrase once, at the anchor) · an analogy (a phrase is a word: the cursor says when, the spelling is the word, the tone
+is the line, a stressed syllable is a moment) · the first design choice marked HELD. Journal §2's block updated.
+
+**Held, at his word:** the first design choice — both carriers (M2) or the anchor alone (Lutosławski) inside a phrase. Nothing else
+decided.
