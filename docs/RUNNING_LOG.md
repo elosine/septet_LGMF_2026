@@ -18040,3 +18040,27 @@ is the line, a stressed syllable is a moment) · the first design choice marked 
 
 **Held, at his word:** the first design choice — both carriers (M2) or the anchor alone (Lutosławski) inside a phrase. Nothing else
 decided.
+
+## §542. FLOW expanded — the count as an address space; learning vs cueing; the rehearsal model; animation in two modes (2026-09-29, Fable, session 18)
+
+**Prompted by:** his ask on layer 3, whole in COMPOSITION_NOTES **LG-122** — *"conceptually this is probably where the main tension
+lies"*: Ferneyhough's count learns a phrase that actually flows, and the count's digital nature places detail over small spans; is
+there a role for a REHEARSAL animation of continuous flow; the multitasking; *"I don't want to micromanage the learning/rehearsal
+process"*; *"how to 'notate' in the full sense"*; his precedent: a long acceleration in the last piece notated by GCs, *"accurate and
+intuitive"* where a count would be *"very difficult and counterintuitive"*.
+
+**Written:** `docs/research/temporal_notation.md` **§7** — (a) the count is an ADDRESS SPACE, the flow the result of learning, the
+price the map in the head · (b) the page is an address space too, but neither can be READ at fine resolution at speed → the real
+questions are how fine flow is LEARNED and how it is CUED, two answers · (c) Peirce's symbol · icon · index: TN's values symbols, the
+page an icon, the GC an index; a count of an accel is a symbol whose unit moves under the player, the GC chain icon + index, the body
+entrains (Hove et al. 2013 on moving visual cues, from memory) · (d) THE REHEARSAL MODEL — sound + slowed, looped motion, this system
+already renders it; the model provided, its use theirs; ANIMATION IN TWO MODES — performance (glanceable state: the GC, the tube, the
+pie) and rehearsal (full detail, slowable; a practice mode of the notation app, a plan item later) · (e) multitasking re-read: a
+gesture fuses parameters into one act; coupled parameters one carrier, independent ones their own line at a real cost — the
+vibraphone's bows either paid for or coupled compositionally · (f) the word analogy: fine detail = pronunciation, learned by ear;
+IPA = Ferneyhough; the glyph vocabulary = the words for gestures · (g) LAYER 3 RESTATED: three carriers by use — THE LINE on the
+page (what to intend) · THE MOTION in the console (what is happening now) · THE MODEL in rehearsal (what to learn into the hands).
+
+**His to answer, not urgent:** whether the model (audio + a practice animation) is part of what the score delivers. **The first design
+choice stays HELD (§541).** The "long piano accel" of the last piece: not found in #5's or #4's docs by a grep for accel + GC — cited
+from his words only.

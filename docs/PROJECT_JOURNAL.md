@@ -101,7 +101,10 @@ at a time (phase 1), then the practical decisions for the EH's section 2. 2m.4 h
 **§6 THE DISSECTION (§540 · §541):** the frame (placement · span · shape · flow + moments; where the clock lives; Karkoschka's kinds) ·
 the precedents dissected (preliminary research, kept) · his models M1 … M3 · **THE PHRASE IN LAYERS — anchor · shape · flow · moments —
 HIS WORD: the starting conceptual framework**, §6c-plain the plain-words version. **HELD at his word: the first design choice** (both
-carriers vs the anchor alone) — he addresses it after the plain version is digested.
+carriers vs the anchor alone) — he addresses it after the plain version is digested. **§7 FLOW EXPANDED (§542, LG-122):** the count an
+address space · learning vs cueing · Peirce's symbol / icon / index (the GC accel) · THE REHEARSAL MODEL and animation in two modes ·
+multitasking = independent streams, a gesture fuses them · layer 3 = the line · the motion · the model. His to answer, not urgent:
+is the model part of what the score delivers.
 
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 

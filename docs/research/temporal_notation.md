@@ -233,3 +233,91 @@ Everything inside the phrase is relative to the phrase.
 Karkoschka, *Das Schriftbild der Neuen Musik* (1966) — the four kinds · Seeger, "Prescriptive and Descriptive Music-Writing", *Musical
 Quarterly* 44/2 (1958) · Ferneyhough, *Collected Writings* (1995) · Stucky, *Lutosławski and his Music* (1981) — the ad libitum
 technique · Berio's preface to the 1992 *Sequenza I* · Lachenmann, *Musik als existentielle Erfahrung* (1996).
+
+---
+
+## §7 FLOW expanded — where the tension lies (2026-09-29, Fable; his ask LG-122; RUNNING_LOG §542)
+
+*The AI's analysis, marked as such; a proposal for the framework, adjustable at his word. The research cited is from memory.*
+
+### §7a What the count really gives Ferneyhough
+
+- **An ADDRESS SPACE.** Every moment has a name — bar 3, beat 2, the 4th of a 7:5. A change can be placed at an address, at any
+  resolution the notation will hold. That is the *"digital nature"*: discrete, nameable, arbitrarily fine.
+- **The flow is the RESULT of learning, not what the count carries.** The count is the coordinate system the detail is placed in;
+  the phrase that *"in actuality flows"* is what remains once the addresses are internalized.
+- **The price:** the address space lives in the player's head (his *"sophisticated internal time map"*), expensive to build; reading it
+  is three steps under time pressure — symbol → address → motor act; and several parameters mean several address streams at once —
+  Hübler's multitasking.
+
+### §7b What temporal notation gives instead — and the limit both share
+
+- **The page IS the address space.** x is the address. There is no map to build: the cursor shows where you are.
+- **But its resolution is the eye's at the scroll speed** — coarse against a nested tuplet's; and the body has its own bandwidth: a
+  few CONTROLLED changes a second, whatever the notation says.
+- **So fine detail over a small span cannot be READ at speed in EITHER system.** In the count it is learned into the hands through the
+  addresses; on the page it must be learned another way.
+- **Therefore layer 3's real question is not "how to show fine flow" but two questions:** how is fine flow LEARNED, and how is it
+  CUED in performance. They have different answers (§7d).
+
+### §7c Three kinds of sign — why the GC accel was intuitive
+
+Peirce's three (from memory): a **SYMBOL** stands by convention (a note value · a count · `mf`) — arbitrary, precise, decoded;
+an **ICON** resembles its object (the level curve looks like the swell · the spacing looks like the timing · a feathered beam);
+an **INDEX** points at the thing as it happens (the cursor · the GC's arrival · the tube's motion) — entrained, not decoded.
+
+- TN's rhythm is SYMBOLS. The proportional page is an ICON of time. The GC is an INDEX.
+- **Flow wants icons and indices.** Abrupt events want a symbol at a note (layer 4). Fine flow wants a MODEL (§7d).
+- **His accel (LG-122):** a count of an accelerando is a symbol whose UNIT is changing under the player — the count fights itself. A
+  chain of GCs is an icon (the gaps visibly shrink) AND an index (each arrival) — the body entrains. Hence *"accurate and intuitive"*.
+  The research agrees (from memory): a moving visual cue — a bouncing ball — supports synchronization far better than flashes
+  (Hove, Iversen, Zhang & Repp, 2013); the bouncing ball's lineage is Fleischer's *Follow the Bouncing Ball* (1924).
+
+### §7d The model — how fine flow is learned without the count; animation in two modes
+
+- **The most representative carrier of flow is flow itself: SOUND and MOTION.** Oral traditions learn phrasing by imitation; jazz
+  players learn from records; a composer's mockup is standard practice already.
+- **This system renders a sample-accurate model of every phrase** (the render; `docs/RENDER.md`; the draft's WAV). So: **THE
+  REHEARSAL MODEL** — the phrase as sound + as motion (the curve filling, the GC arcs, the heads lighting), SLOWED and LOOPED, then
+  brought to tempo. The way dancers and athletes learn: slow, then full speed. Ferneyhough's count replaced by slow-motion imitation.
+- **His rule honoured** (*"I don't want to micromanage the learning/rehearsal process"*): the model is PROVIDED; how it is used is
+  theirs. The page stays the reminder of the learned shape.
+- **A role for animation, then, in TWO MODES:**
+  - **PERFORMANCE animation** — only what must be REACTED to, glanceable, low-bandwidth: the anchor (GC), the tube (the flow's motion),
+    the pie (the countdown). The pilot console.
+  - **REHEARSAL animation** — the flow at FULL detail, slowable, loopable, with the sound. A practice mode of the notation app —
+    a plan item, later, not now.
+- Precedents for "the model is part of the score" (from memory): practice / click tracks (film; Reich), composers' MIDI mockups,
+  Decibel ScorePlayer's audio-synchronized scores (Hope).
+
+### §7e Multitasking, re-read
+
+- Multitasking arises when parameters have INDEPENDENT address streams. A **GESTURE is the fusion of several parameters into one
+  motor act** — one line, one glyph, one thing to learn.
+- So the question per phrase: which parameters are COUPLED (they ride one gesture → one carrier) and which are truly INDEPENDENT
+  (their own line → multitasking, a real cost to be spent deliberately).
+- The EH's phrase: dynamic · timbre · articulation mostly ONE gesture. The vibraphone's two bows: two independent streams — accept
+  the cost, or couple them compositionally (synchronize the swells, or one bow follows the other).
+
+### §7f The word analogy, extended
+
+- The fine detail of a phrase is its PRONUNCIATION. Pronunciation is learned by hearing, not from a transcription — though the
+  transcription exists: IPA is Ferneyhough — exact, learnable, and not what anyone speaks from.
+- The glyph vocabulary (his item 8) = the WORDS for gestures (a swell, a flicker, a bite). The line = the sentence's contour. The
+  model = the pronunciation.
+
+### §7g Layer 3 restated (proposed)
+
+**FLOW has THREE carriers, by use:**
+
+| Where | Carrier | What it gives |
+|---|---|---|
+| on the page | **THE LINE** — the shape of the intention, low resolution | what to INTEND |
+| in the console | **THE MOTION** — the tube's motion, the GC's arrival (index) | what is happening NOW |
+| in rehearsal | **THE MODEL** — sound + slowed motion, fine detail included | what to learn into the HANDS |
+
+**The principle:** fine detail is learned by imitation of the model, not read from a symbol; the page carries the reminder of the
+learned shape; an abrupt change is a symbol on a note (layer 4).
+
+**His to answer (not held, not urgent):** whether the MODEL — the audio and a practice animation — is part of what "the score" delivers,
+which is what *"notate in the full sense"* would mean here.
