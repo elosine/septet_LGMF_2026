@@ -17992,3 +17992,33 @@ shape. The cursor already places the phrase in time; the open question is the rh
 (Lutosławski's cell — values and beams inside a temporal frame), not a decision.
 
 **Nothing decided.** The talk begins one concept at a time (the planning method, phase 1); his order.
+
+## §540. THE PHRASE — the precedents dissected, his three models, and a conceptual model proposed (2026-09-29, Fable, session 18)
+
+**Prompted by:** his second brief, whole in COMPOSITION_NOTES **LG-121**: a high-level conceptual discussion; the models dissected
+conceptually; his own three on the table — (M1) piece #1's notational fragments, (M2) piece #4's rhythmic clusters, (M3) grace-note
+bursts (an idea) — and the tension named: *"notation as precise description of each moment, or notation adequately describing the flow
+of the phrase, I lean toward the latter"*, with fine continuous details (sul pont, bow pressure, embouchure) wanted as well. This piece
+*"will use little of"* Ferneyhough; the aim is a conceptual model *"useful for future pieces"*.
+
+**Read for it (targeted, two files):** `for_seven_tubas/docs/NOTATION_STANDARDS.md` FIRST PRINCIPLES OF THE CLUSTER NOTATION (noteheads
+spatially true · beams a grouping device · tuplets where they show the pattern · dissonance = written-equal over visibly-unequal, the
+threshold one notehead width · one grid, the bracket is the message) and `string_quartet_no1-composer/docs/NOTATION_FRAGMENT_WORKFLOW.md`
+(the fragment learned; the orange GC = the performer chooses the alignment on the GC's curve; the curve's kinetic information informs
+the feel).
+
+**Written:** `docs/research/temporal_notation.md` — §3b his three models · §6 THE DISSECTION (a frame: four things a phrase notation
+carries — placement · span · shape · flow + moments — and two axes: where the clock lives; the resolution of the prescription, after
+Karkoschka's four kinds and Seeger's prescriptive / descriptive) applied to Lutosławski · Penderecki · Berio 1958 → 1992 · Ferneyhough ·
+Hübler · Lachenmann · Sciarrino · Cage / Feldman · the grace group · M1 · M2 · M3 — and §6c THE PROPOSED MODEL, marked the AI's:
+**the phrase in layers** — 0 the cursor's grain is the phrase, not the note · 1 THE ANCHOR (absolute, the GC / the head on its time) ·
+2 THE SHAPE (relative, learned: values · beams · tuplets · feathered beams · grace groups — internalized, not counted in performance;
+Lutosławski's cell, M2's principle 2) · 3 THE FLOW (continuous lines: the level curve as built; position, pressure, timbre the same
+way — Lachenmann's lines) · 4 THE MOMENTS (discrete marks attached to the shape's notes, never to the clock; sparing) — his tension
+resolved as a default (1 … 3) with 4 available per note; Hübler's decoupling reserved for a parameter with a rhythm of its own (the
+vibraphone's bows). The Berio case as the precedent for Q1: proportional space alone did not hold fast detail (re-notated metrically
+1992 — from memory, to verify). **The first design choice named, not made:** inside a phrase, BOTH carriers (the heads spatially true
+AND the shape written, M2's way — the cost: the fit and the dissonance rule) or the ANCHOR ALONE spatially true with the shape carrying
+the interior (Lutosławski's way).
+
+**Nothing decided.** Every precedent's notation is from the AI's memory, to be confirmed against the score before it is cited.

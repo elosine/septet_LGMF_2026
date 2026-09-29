@@ -93,6 +93,18 @@ phrase's place in time (the pilot console's job), so the open question is only t
 carries it at the scroll's resolution, or whether the phrase is written with values and beams (the ratios as a shape, (L)'s cell)
 inside the temporal frame. A hypothesis for the talk, not a decision.
 
+### §3b His three models, tried or thought (LG-121, 2026-09-29)
+
+| # | Model | Where | What it does |
+|---|---|---|---|
+| M1 | **Notational fragments** (piece #1, the string quartet) | `string_quartet_no1-composer/docs/NOTATION_FRAGMENT_WORKFLOW.md` | a fragment written *"in more or less tn"*, LEARNED, produced relative to an orange GC — the performer chooses the alignment on the GC's curve (top · descent · on impact · after …); the curve's kinetic information informs the feel. *"Produce on a rhythmic cue like lutoslawski."* |
+| M2 | **Rhythmic clusters** (piece #4, the tubas) | `for_seven_tubas/docs/NOTATION_STANDARDS.md` § FIRST PRINCIPLES OF THE CLUSTER NOTATION | noteheads SPATIALLY TRUE (the cursor hits each) · beams and flags a GROUPING device — a pattern played as one unit from one GC · tuplets where they make the visible pattern legible · one grid, the bracket is the message · DISSONANCE = written-equal values over visibly-unequal spacing (threshold one notehead width) |
+| M3 | **Grace-note bursts** (an idea) | — | *"a rapid burst of notes or a relative of the cluster notation, it gives an approximate visual of the phrase"*; read and reproduced *"with cursor and rehearsal/working out"* |
+
+**His lean (LG-121):** *"tension here between notation as precise description of each moment, or notation adequately describing the
+flow of the phrase, I lean toward the latter, but also may want to include the fine details like subtle moves to sul pont or fine
+changes in bow pressure, or lots of subtle timbre changes using embouchure etc."*
+
 ---
 
 ## §4 The questions to answer
@@ -114,3 +126,75 @@ inside the temporal frame. A hypothesis for the talk, not a decision.
 | # | Decision | Why | Where |
 |---|---|---|---|
 | — | — | — | — |
+
+---
+
+## §6 The dissection — the precedents, his models, and a conceptual model proposed (2026-09-29, Fable; RUNNING_LOG §540)
+
+*The AI's work, marked as such throughout. Every precedent's notation is from memory — to be CONFIRMED against the score before it is
+cited. The model in §6c is PROPOSED, not decided.*
+
+### §6a The frame — what a phrase notation carries, and how to compare two notations
+
+**Four things every phrase notation has to carry, each of which can live in a different place:**
+
+| | What | Kind of time |
+|---|---|---|
+| 1 | **PLACEMENT** — when the phrase starts | absolute |
+| 2 | **SPAN** — how long it lasts, when it ends | absolute (or free) |
+| 3 | **SHAPE** — the rhythm inside: grouping, ratios, acceleration, the accent pattern | relative |
+| 4 | **FLOW + MOMENTS** — the continuous parameters over the phrase (dynamic, timbre, pressure) and the discrete marks at a note | continuous · per note |
+
+**Two axes to compare them on:**
+
+- **Where the clock lives:** in the PAGE (a cursor, a seconds scale) · in the PLAYER (a count, an internal map) · in a CONDUCTOR
+  (a cue) · in the ENSEMBLE (the ear). A notation can put the placement in one and the shape in another.
+- **The resolution of the prescription** — Karkoschka's four kinds (1966): PRECISE · FRAME (*Rahmennotation*: the frame exact and the
+  content approximate, or the reverse) · INDICATIVE · GRAPHIC; and Seeger's PRESCRIPTIVE vs DESCRIPTIVE writing (1958); and, for the
+  detail, RESULT notation (the sound) vs ACTION notation (what the hand does — Lachenmann · Hübler).
+
+### §6b The models dissected
+
+| Model | Placement · span | Shape (the rhythm inside) | Flow · moments | Clock | Kind | What it teaches |
+|---|---|---|---|---|---|---|
+| **Lutosławski — the ad libitum cell** | the conductor's cue; the span until the next cue | METRIC, exact in itself — values and beams; the tempo each player's own; repeated ad lib | standard marks on the notes | conductor (placement) + the player's gesture (shape) | precise content in a free frame | **the rhythm is PORTABLE**: exact inside, free in absolute time; learned as a gesture, not counted in performance; the ensemble result a texture by design |
+| **Penderecki — the quartets, *Threnody*** | a seconds scale; the span a drawn line | bursts "as fast as possible"; bundled stems; a glyph vocabulary for actions | the glyphs ARE the detail | the page (a stopwatch / conductor) | frame: the frame timed, the content approximate | **the phrase as a gesture-glyph**: its internal rhythm is not the point; right for textures and effects, wrong for a phrase with a specific rhythm |
+| **Berio — *Sequenza I*, 1958 → 1992** | 1958: proportional inside measured units; 1992: metric | 1958: read from the SPACING; 1992: values | standard | 1958 the page; 1992 the player | 1958 precise-by-space; 1992 precise-by-value | **the datum for Q1**: at fast detail the proportional version did not hold the precision (performers "took too much liberty" — Berio's own reason for re-notating, from memory); the eye reads POSITION well and RATIOS poorly |
+| **Ferneyhough** | metric, all of it | nested tuplets, high resolution; parameters sometimes with rhythms of their own | every parameter prescribed | the player's internal map | precise, maximal | **the count is a scaffold** — worked out layer by layer, internalized, performed as a stream; the exact realization is not expected, the effort is part of the expression; for this piece: little, the concept only |
+| **Hübler — *Cercar*** | metric | each parameter (bow, fingers, dynamic) on its own staff with its own rhythm — action notation | decoupled | the player, multitasking | precise, decoupled | **a parameter with a rhythm of its own needs a line of its own** — and costs multitasking; justified only where the parameters really are independent (the vibraphone's two bows) |
+| **Lachenmann — *Pression*, *Gran Torso*** | metric or spatial by stretch | standard where there are notes; actions where there are not | position, pressure, contact drawn as CONTINUOUS LINES and arrows between states | the player | action notation | **the fine timbre details are LINES, not per-note marks**: a move to sul pont is a line from a state to a state — his level curve's protocol, for other parameters |
+| **Sciarrino** | metric, extreme tempi, long rests | FEATHERED BEAMS (accelerando · ritardando), "as fast as possible", the gesture drawn in the beam's shape | on the notes | the player, by gesture | precise by value, flow by shape | **the feathered beam = flow inside metric notation**: a shape of acceleration without a count |
+| **Cage — time brackets · Feldman — *Durations*** | a window (Cage); free, by ear (Feldman) | none, or free | minimal | the clock (Cage) · the ensemble (Feldman) | frame / indicative | **the far pole**: no counting and no shape precision either — useful only to mark the limit |
+| **The grace group** (Chopin's fioriture · Boulez · Sciarrino) | on an ANCHOR note | order fixed, speed "as fits", the visual shape read at once | a slur, a direction | the player | frame | **an anchored unmeasured cell**: right for a burst whose internal rhythm is not the point (his M3) |
+| **M1 — his fragments (piece #1)** | an orange GC; the alignment the performer's choice on its curve | TN, learned | standard | the GC (placement) + the gesture | precise content, free alignment | Lutosławski's cell with the GC as the cue — and the cue's CURVE giving the feel (a pilot-console device that informs the shape) |
+| **M2 — his clusters (piece #4)** | the GC; every head SPATIALLY TRUE | beams for grouping, tuplets for pace, one grid with the bracket as the message | standard | the page AND the gesture — the two must AGREE (the dissonance rule) | precise, doubled | **two carriers at once**: the cursor confirms each note, the beams give the pattern; the cost is the fit — the writing must match the spacing to a notehead width |
+| **M3 — grace bursts (his idea)** | an anchor | approximate visual | — | the cursor + rehearsal | frame | the grace group on the scroll |
+
+### §6c The conceptual model PROPOSED — the phrase in layers (the AI's, marked; not decided)
+
+**Principle 0 — the cursor's grain is the PHRASE, not the note.** Absolute time binds the phrase's anchor (and, if drawn, its span).
+Everything inside the phrase is relative to the phrase.
+
+| Layer | What | Time | Carrier | Read how |
+|---|---|---|---|---|
+| **1 THE ANCHOR** | where the phrase starts (its end if it matters) | absolute | the GC · the first head on its time · a span line | the pilot console: the cursor arrives |
+| **2 THE SHAPE** | the rhythm inside — grouping, ratios, pace changes, bursts | relative | TN's shape devices: values · beams · tuplet brackets · feathered beams · grace groups | LEARNED as a gesture (Lutosławski · M2's principle 2); the count a practice-room scaffold only (Ferneyhough); never counted in performance |
+| **3 THE FLOW** | the parameters that move continuously across the phrase — dynamic; position (sul pont …), pressure, embouchure timbre | continuous | LINES between states — the level curve as built (PLAN 2l), the same protocol for the others (Lachenmann) | the console: the tube shows the motion; the line shows the intention |
+| **4 THE MOMENTS** | a discrete change AT a note — an accent, an articulation, a state reached | per note | a mark attached to a note of layer 2 — never to the clock | rides on the shape |
+
+- **His tension resolved by the layers:** "describe the flow" is the DEFAULT — layers 1 … 3; "describe each moment" is layer 4, available
+  per note, used sparingly. A parameter with a rhythm of its OWN (Hübler) gets its own line only where it really is independent — the
+  vibraphone's two bows, not the EH's phrase.
+- **What Q1 becomes:** the cursor is enough for layer 1 and layer 3, and NOT for layer 2 at speed — Berio is the precedent. Layer 2 needs
+  the shape written. (A hypothesis; the measurement of Q1 still owed.)
+- **The reading protocol, written for the performance notes:** learn the shape (count if you must); in performance, play it as a gesture
+  from the anchor, while the console gives the flow. Counting is never in the foreground.
+- **THE FIRST DESIGN CHOICE — named, not made:** inside a phrase, BOTH carriers (every head spatially true AND the shape written — M2's
+  way; the cost: the fit and the dissonance rule) or THE ANCHOR ALONE spatially true, the shape carrying the interior (Lutosławski's way;
+  the heads inside the phrase placed by the engraving, not the clock). It decides what the extractor does with a fast EH figure.
+
+### §6d Literature to add (from memory; to verify)
+
+Karkoschka, *Das Schriftbild der Neuen Musik* (1966) — the four kinds · Seeger, "Prescriptive and Descriptive Music-Writing", *Musical
+Quarterly* 44/2 (1958) · Ferneyhough, *Collected Writings* (1995) · Stucky, *Lutosławski and his Music* (1981) — the ad libitum
+technique · Berio's preface to the 1992 *Sequenza I* · Lachenmann, *Musik als existentielle Erfahrung* (1996).
