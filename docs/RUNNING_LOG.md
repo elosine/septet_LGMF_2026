@@ -17914,3 +17914,16 @@ The other producers in the code: #5's D47 arc (the `cresc` overlay, `layout.js` 
 
 **No analysis, at his word.** Carried to journal §2 as SECTION 2 — HIS TODO; nothing planned or built. 2m.4 (his eye on the long tones)
 still stands as the next step. Then `/checkpoint`, at his word.
+
+## §536. TODO item 6 — what the literature calls "temporal notation" (2026-09-29, Opus, session 18, after the `/postclear`)
+
+**Prompted by:** his item 6, then his question — *"actual name for temporal notation and research/references what does the literature call it and give a basic definition as currently understood with reference examples"*. Before it he asked for item 5's sub-list, split as: short notes · longer notes · tuplets or not · their purpose.
+
+**The answer given (from the AI's memory — titles, dates and issues NOT checked against the sources; verification offered, his call):**
+
+- **The names.** "Temporal notation" is not a standard term. The literature's main one is **proportional notation** (Stone; Read); also **time-space / space-time / spatial notation**; **time notation** is Earle Brown's own word (early 1950s); **clock-time notation** for timings in seconds, Cage's late **time brackets** one form of it; on a screen **animated notation · screen score · scrolling score** (Hope; Vickery).
+- **The definition.** Time is shown by horizontal DISTANCE at a fixed scale, not by the note's shape: the head's position is the attack, a line from it the length; no meter, no beat — read against a clock, a conductor or a moving cursor. Its opposite is metric notation, where the symbol (value · beam · tuplet) carries the duration and the spacing is approximate.
+- **Scores.** Brown *Music for Cello and Piano* (1955) · Berio *Sequenza I* (1958; re-notated metrically by Berio, 1992) · Cage *Concert for Piano and Orchestra* (1957–58, the conductor's arms as clock hands) · Penderecki *Threnody* (1960, sections in seconds) · Cage's number pieces, e.g. *Two* (1987, time brackets).
+- **Literature.** Stone, *Music Notation in the Twentieth Century* (1980) · Read, *Modern Rhythmic Notation* (1978) · Karkoschka, *Das Schriftbild der Neuen Musik* (1966; Eng. *Notation in New Music*, 1972) · Cardew, "Notation — Interpretation, etc.", *Tempo* 58 (1961) · Vickery, "The Evolution of Notational Innovations from the Mobile Score to the Screen Score", *Organised Sound* 17/2 (2012) · Hope, "Electronic Scores for Music: The Possibilities of Animated Notation", *Computer Music Journal* 41/3 (2017).
+
+**The AI's reading, marked as such:** this piece is already proportional — the scrolling page is x = time. The Berio case (freedom given up for metric precision) bears on items 5 and 7. Nothing decided; nothing built.
