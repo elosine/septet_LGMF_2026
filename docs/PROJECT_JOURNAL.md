@@ -75,466 +75,26 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
    2k's AI's calls (the first order's 7). Done when: each named yes or no.
 — beyond 279, not in this order: the middle section (the percussion staff, the patterns, the "ord." entries — the first order's 6 — come with the fold, proofed later).
 
-### RUNNING ORDER (2026-09-28) — the morph's issues at 2k.7, the curve first (his ask: *"lets get a toc/running order of morph issues with the main discussion being the curve"*) — **SUPERSEDED 2026-09-28 by the order above** (§528): 1 taken at his eye (§527: the arc accepted) · 2 · 3 closed by his *"otherwise, everything looks good"* · 4 done · 5 · 7 → the new order's 3 · 4 · 6 beyond the range · 8 = the new order's 2.
+### SESSION 18 OPENS ON THIS — `/session-start`; nothing is being built (session 17 closed 2026-09-28, Opus)
 
-**HOW THIS LIST WORKS:** one step at a time — ► marks the active step, ☑ marks done; update the marks the moment a step wraps, not later. At
-every wrap the AI states: what finished · what's next · where we are in the order. The AI proposes reorganizations when useful; changes
-land only on user approval. A post-clear model reads this block and announces the position before doing anything.
-
-1. ► **THE CURVE** — PLAN § `2l` THE VOLUME CURVE PROTOCOL, planned (§513 … §522, every value his word) and BUILT 2l.1 … 2l.5 on Opus
-   (§523 … §526). Now: 2l.6 his eye (the ►►► row). Done when: 2l.6 taken.
-2. **The block's range reads `ppp → ff`, not `ppp → mp`** (2k.7 finding 1, §508) — re-read from the arc's anchors at 2l.3: `ppp → ff` again, now what the arc
-   draws (four breaths reach ff, §525); his eye at 2l.6.
-3. **No `○—<` at the morph's start** (finding 2, §508) — stands by §517's law (the horn enters at pp, no fade in the data); his to confirm at 2l.6.
-4. ☑ **No `—> ppp` at 140** (finding 3, §512) — DISSOLVED by §517: a fade sign follows the recipe, not a measured drop; the horn's last
-   breath now closes `—> ppp` by the recipe (§525).
-5. **The vibraphone's swell in a morph** (finding 4, §511) — its names and hairpins follow the bloom's swell; three drift warnings. Open.
-6. **The middle section's entries** (finding 5, §508) — "ord." at each part's first note of the middle section: EH 289.00, the others
-   295.5 … 300.3 s. Open.
-7. **2k's AI's calls** — `eligible` in place of `texts` (§507) · the gliss line not in `fit.js inkOf` (§509) · the per-breath engraving
-   overlays dropped (§512). The fourth, the level as the sequence's, REVERSED by §516. Open.
-8. **The fold** of the three morphs into `piece-lgmf` — PLAN 2l.7, after 2l.6.
-
-### RUNNING ORDER (2026-09-28) — the vibraphone's page: the open calls after PLAN § `2i`, one at a time — COMPLETE 2026-09-28, 7 of 7 (§495 … §500); then PLAN § `2j` BUILT the same day (§501) — ► 2j.4 his eye on the MAIN page
-
-**HOW THIS LIST WORKS:** one step at a time — ► marks the active step, ☑ marks done; update the marks the moment a step wraps, not later. At
-every wrap the AI states: what finished · what's next · where we are in the order. The AI proposes reorganizations when useful; changes
-land only on user approval. A post-clear model reads this block and announces the position before doing anything.
-
-1. ☑ **The head ↔ side** — DONE 2026-09-28 (§495): the bow lead in the seat's hue + the swatch behind the head; the coloured outline dropped. *(As it stood:)* **The head ↔ side** — which head belongs to which seat (navy above · olive below). His data points: 120.71 s (a D♯6 and a D♯5 entering
-   together, §492) · 141.33 s (a side-by-side unison, `♮` · `♯`, §493). Options: colour the head in the seat's hue (recommended) · stems as
-   voice flags · the bow lead of step 2 in the seat's hue. Done when: his choice is a rule row and on the page.
-2. ☑ **2i.7 THE BOW LEAD** — BUILT 2026-09-28 (§495), in the seat's hue at his word. *(As it stood:)* **2i.7 THE BOW LEAD** — a dotted line from the head's left edge, from its centre through its seat's bar to the far edge (§491). His call
-   first: the colour. Done when: built — the objects row, the edge row, the layout item, the renderer, `vib_marks_check`.
-3. ☑ **The seat written at deal time** — MOOT 2026-09-28 (§496): one player, two bows — the rows are the notation's to assign; instead THE CROSS at a rhythmic unison with a clear top and bottom, built (9 in Draft 01). *(As it stood:)* **The seat written at deal time** — the sequence tool writes `seat` on the note it deals (it knows `lane:seat`), so the reader never
-   guesses at a shared change (22 of 156 bows). Done when: the generator writes it, the reader prefers it, a check reads Draft 01.
-4. ☑ **The winds' `○` start gap** — KEPT 2026-09-28 (§497): one gap, 0.45, between every sign and its hairpin, the winds' circle too; his "why is that slipping" answered — nothing slipped, one row changed once at his 2g.6 word. *(As it stood:)* **The winds' `○` start gap** — 2h.3 put the 0.45 on the base hairpin row, so the EH's `○—<` took it too (§476). Keep, or the vibraphone
-   only. One pointer.
-5. ☑ **The winds' hairpin height** — KEPT 0.667 2026-09-28 (§498): the winds' only hairpins are the two fade signs, symbolic; *"no doubling, just leave them as is"*. *(As it stood:)* 0.667 kept while the vibraphone's is 1.333 (§478). Keep, or double. One number.
-6. ☑ **The closing name's snap** — KEPT 2026-09-28 (§499): a name reached mid-bow keeps its time; only one that would hang past the bar's end slides back to it. *(As it stood:)* only when it would run past the bar's end; a name reached earlier stays at its point (the last `> ppp`,
-   §478). Keep, or always. One value (`vibMarks.closeAlign`).
-7. ☑ **The general courtesy natural** — NO, 2026-09-28 (§500): every altered head its sign, a plain head natural, no `♮` across time; written as the rule row `objects.accidental.courtesyNatural` false. *(As it stood:)* a `♮` after a sharpened same-letter head earlier in the voice, beyond the chord column (§479). Yes or
-   no; if yes, its window is a rule.
-— parked: the paper score has no lead-in (2e's call), so no percussion snippet there — when the paper is laid out (§489).
-
-### SESSION 17 OPENS ON THIS — `/session-start`; nothing is being built (session 16 closed 2026-09-26, Opus)
-
-- **The piece:** _Recombination_ (D32). He composes section 3 and has named `scores/piece-Recombination-Draft01-done.json` (new at this
-  close; its working copy held edits the file did not at 22:15 — **his to Save**). Every score is his, untracked.
-- **Session 16** (Fable planned + fixed from his tests, Opus built + wrapped) — `1u` THE VIBRAPHONES' PITCHES ON THE STRIP (D38, LG-114):
-  planned (§388 · §389), built 1u.1 … 1u.5 (§390 … §394), then **his `1u.6` in use, and four fixes from it** (§395 … §401): a morph the
-  panel's own Insert placed named no take (the take now on the marker; those placed before matched to their saved actual by the KEYS of
-  the other players, the match written onto the marker) · the first breath of each seat now draws · the row lets go of the keyboard
-  focus (SPACE after `go` re-clicked it) · `neighbours` on a morph is mostly empty by the rule (the others mid-glide) — `within a tone` ·
-  `any` there. His ear on the last chord (§403): a linear fader fade is gone ≈ 3 s before the shapes end — **his word: "leave"** (§404).
-- **Nothing is queued.** His moves: `1u.6` (in use, not closed by his word) · the page-start call + `2d.7` · `1t.5` · the older `his` rows.
-- **`Resume reads:`** nothing beyond §2 for the `/session-start`. On `1u` feedback: RUNNING_LOG §395 … §401, then
-  `score/public/vibes_pitch.js` (core `takeOf` · `matchScore` · `bestActual` · `draw`; strip `vibActuals` · `vibGo` · `vibTakeText`).
-  STILL BINDING before any verification.
-
-### SESSION 17 · CHECKPOINT #1 (mid-session checkpoint) — 2026-09-27, Opus — THE AUDIO OF DRAFT 01 IS MADE AND LINKED; nothing being built
-
-- **The task:** the audio for the presentation score (PLAN `2b`, its `render_reaper` part) — his ask *"can we make the audio that will get
-  attached to the presentation score"*, agreed as ONE WAV of `scores/piece-Recombination-Draft01-done.json` AS SAVED, through his rack,
-  as ▶ plays it; re-rendered whenever a new draft is saved (RUNNING_LOG §405). **DONE, his ear pending.**
-- **The deliverables:**
-  - `notation/audio/piece-Recombination-Draft01-done.wav` (gitignored, 255 MB) — 886.664 s · 24-bit · 48 kHz · **−1.0 dBTP** (+10.0 dB
-    plain gain at his word "b", §407) · ≈ −18.8 LUFS · LRA 20.1 · the first sound at 1.70 s = the EH from niente (the sync is right, §406).
-    The float in `notation/audio/raw/`.
-  - `notation/ir/piece-lgmf.ir.json` — **the MAIN notation file, now extracted from Draft 01** (§338's recipe: `--all --bricks`; 1076
-    events · 893 chunks · VALID vs source · 0 … 881 s); its `source.score` matches the WAV, so the page's ♪ render finds it (§407).
-  - The render MIDI committed as #5 did: `midi/piece-Recombination-Draft01-done.mid` + `midi/piece-Recombination-Draft01-done/` +
-    `reaper/place_piece-Recombination-Draft01-done_midi.lua`.
-- **The tools, changed (§406 · §407):** `export_midi.js` `RACK_PORT` = THIS rack (29 tracks → 11 `LG` ports; `/ ARO$/` → `LGPerc`) ·
-  `capture_composer_midi.js` steps frame 0 (a note at 0.000 s had sounded one frame late) · `render_reaper.js --up` (the piece's gain may
-  go UP to `--peak`). **THE RE-RENDER, when he saves a new draft** (Reaper open, the bridge alive, the rack SAVED):
-  `node tools/export_midi.js --score <name>` → `node tools/render_reaper.js --score <name> --up` → re-extract `piece-lgmf` from it
-  (`node tools/notate_section.js --score <name> --all --bricks --id piece-lgmf --label "…"`). ≈ 4 min + 5 min.
-- **► THE NEXT STEP — HIS:** his ear on the WAV · then the notation tab reloaded → the picker `piece-lgmf · Draft 01` → `♪ render` (the page's
-  clock follows the WAV; the chip itself was not seen by the AI — its lookup was read from `/api/notation/renders`). Nothing else is queued;
-  the rest of `2b` (cover · performance instructions · cut list · batteries) is not laid out. If he reports a fault in the audio: §406 · §407.
-- **`Resume reads:`** nothing beyond §2.
-- **Pending him:** nothing new — the close block below still carries every earlier decision.
-- **DELIBERATELY UNCOMMITTED — all his** (`git status --short`, 29 paths): the close block's list below, unchanged — **except**
-  `scores/piece-Recombination-Draft01-done.json` — his tab's save at 00:28 UTC changed `metadata` and `viewport` only (1086 objects,
-  none changed against `e9f340a`) — now MODIFIED, where the close block has it committed; the audio was captured from it.
-
-### SESSION 17 · CHECKPOINT #2 (mid-session checkpoint) — 2026-09-27, Fable planned, Opus wraps — PLAN § `2e` THE ENGRAVING RULES ARCHITECTURE PLANNED IN FULL, NOT BUILT
-
-- **The task:** his audit of the english horn prototype (`lgmf-eh-proto`, at 2d.7): eight items and one meta-demand — *rules decided
-  across four pieces were re-caught by eye; build the system so nothing decided is decided twice* (RUNNING_LOG §408, his words whole).
-  Worked under the planning method, one topic at a time, on Fable; **every item decided or held by name** (§409 … §447) and made ONE
-  plan item. **Nothing built.**
-- **What was decided** (each value with its § is in PLAN § `2e`'s design line — the build needs nothing else):
-  - **1 the lead-in:** 4 s for the presentation score; rehearsal and performance versions decide theirs later (§409). The WAV untouched.
-  - **2 the gutter:** the animated devices (pie · meter · follower · cursor · GC ball) are part of the ONE edge system — pushed right
-    at a page start, nothing on paper; the gate probes frames (§409 … §411). Finding A1: a rule holds only over the set its gate lists.
-  - **8 THE ARCHITECTURE** (§413 … §429): five tables — (1) ANCHORS A on time · B before the line · C the strike · D after the line ·
-    E continuous · F animated (G metric HELD as a candidate, §416) · (2) THE COLUMN — order accent · symbol · dynamic · OTTAVA · text
-    (LilyPond's, verified on his 2.24.4) · HUG for A/C/D (the strike chain's head-side departure KEPT, his §401f) · ROWS for B · two
-    floor tiers (dot and tenuto inside the staff in a space) · (3) THE OBJECTS — four distances in ss (`parent` · `staff` · `stack` ·
-    `beside`), face · size · colour, `basis` + § per row; his numbers kept, the rest seeded from LilyPond; sizes on the 2^(1/6) step ·
-    (4) THE PAGE — `page_rules.edge` + the animated kinds · (5) LADDER v2 — compress · shrink · flip · nudge · rebalance · 8va ·
-    staff size · MANUAL (an override on the event, five fields) + the DECISIONS-NEEDED list (§426); `ENGRAVING_RULES.md` generated;
-    seven gates; the DEVICE SHEET for any new notation (§428).
-  - **3 · 4 the text and the marks** (§427 · §430 … §446): one size for every word on a note (0.75 italic); the numbers BLACK (they
-    were grey by `render.js`'s default — A5); the accidental = the NEAREST QUARTER-TONE, no arrows; the spelling rule (the nearest
-    tempered pitch is the origin); the cents ALWAYS, from the tempered note, as a tuner reads; `26 (C1)`, the take's root, at SOUNDING
-    pitch in every part; NO valve / string layer (his word); no head at a same-pitch breath; "senza vib." once + "ord." in the middle
-    section (LG-115); 6a · 6b as built; every performance-note line to the tracker.
-  - **5 · 6 · 7:** the sequence block is anchor B — right-justified, ONE spacer 0.45 before its go line, the whole column with it;
-    the accidental clears the ledger line's END (F6, to verify in the DOM first).
-- **The deliverables (`8f80921`):** `docs/PLAN.md` § `2e` (2e.1 … 2e.7; the header's second standing rule — a new notation begins
-  with a device sheet) · `docs/research/just_partials_notation.md` §1a REWRITTEN, §1b HIS TUNING LEGEND (settled, his words) ·
-  `docs/PERFORMANCE_NOTES.md` (new — the tracker, nine rows; his to write at PLAN 2b) · COMPOSITION_NOTES LG-115 · RUNNING_LOG
-  §408 … §447. At this checkpoint: CLAUDE.md (the state line; the pitch-notation line revised; two new orient lines — the rules and
-  the tracker) · PLANNER NOW · PLAN § 2's header and 2d's status (2d.7 superseded) · this block and the ►►► row.
-- **► THE NEXT STEP (Opus; after the `/postclear` play-back, STOP and wait for his go):** BUILD PLAN § `2e`, **2e.1 → 2e.6 in order**,
-  one commit per step, pushed, THE SHIELD in each, a RUNNING_LOG § per step (read the last heading first — §448 is next free).
-  **Begin 2e.1 with the CENSUS:** every look number in `notation/registry/container.json` `engraving.layout` (+ `textSizes`,
-  `devices.byEnv` · `byTechnique`) and `engraving.render`, `notation/lib/glyphs.json` `standards`, `notation/lib/layout.js` `TS` and its
-  literal gaps, `render.js`'s colour defaults → the object-type list for `rules.json`; capture THE SHIELD's BEFORE on HEAD (2e.1's
-  required verification: the eight engine batteries · the tuba goldens · the `piece-lgmf` and `lgmf-eh-proto` video probes ·
-  `export_print --planJson` · `check_screen_edges`) BEFORE the first edit. STOP after 2e.6 for 2e.7, his eye.
-- **`Resume reads:`** PLAN § `2e` (whole — every value and its §) · journal §2 STILL BINDING (the throwaway-server recipe, below).
-  Nothing else; RUNNING_LOG §408 … §447 only if a question sends someone there.
-- **Pending him:** nothing blocks the build. His to reverse: the AI's calls at PLAN § `2e`'s foot. Held by name: anchor G (metric)
-  · the performance notes (the tracker; PLAN 2b). The earlier ►► rows unchanged (the audio's ear · `1u.6` · `1t.5` · …).
-- **DELIBERATELY UNCOMMITTED — all his** (`git status --short`, 29 paths, the same as CHECKPOINT #1): `bank/morph_models.json` ·
-  `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) ·
-  `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport only) · `bank/actuals/ACT-BLOOM-07` · `-08` ·
-  `ACT-TAKES-01` · `-02` · `-03` (his actuals) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` ·
-  `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen) · `scores/pointilistic01a.json` (his named saves).
-
-### SESSION 17 · CHECKPOINT #3 (mid-session checkpoint) — 2026-09-27, Opus — PLAN § `2e` THE ENGRAVING RULES ARCHITECTURE IS BUILT; 2e.7 is his
-
-- **The task:** BUILD PLAN § `2e`, 2e.1 → 2e.6, at his `/postclear` word *"go ahead and build the plan as much as possible independantly"*.
-  **DONE** — one commit per step, pushed, THE SHIELD in each (RUNNING_LOG §448 … §453; `469a580` · `c910aa1` · `86c6635` · `d176977` · `6c1370d` · the 2e.6 commit).
-- **What exists now:** `notation/registry/rules.json` (the tables; every look number of the registry a pointer "@table.row.field",
-  compiled by `notation/lib/rules.js` — the exporters, the tools and the app all load through it) · `docs/ENGRAVING_RULES.md` GENERATED
-  (`node tools/gen_engraving_rules.js`) · `tools/check_rules.js` (23 checks) · `notation/lib/edge_rules.js` (the one edge function) ·
-  `notation/lib/fit.js` + `tools/decisions_needed.js` (ladder v2 and its report) · `page_rules.leadInS` 4 + the `anim:*` edge rows ·
-  the device sheet in `docs/PLANNING_METHOD.md` · `piece-lgmf` and `lgmf-eh-proto` re-extracted on the tables.
-- **► THE NEXT STEP — HIS: 2e.7, his eye.** The notation app (**reload the tab** — page files and the IRs changed; no server restart) →
-  `lgmf-eh-proto` → the video view → `-4` (the time box takes a minus now) … `4` (the block arriving at its line, 4 s of sweep) · `20`
-  (a page start: the meter, the follower and the pie pushed right together) · `28.7` (the new pitch, `+2` over `12 (C2)`, black) · `z`;
-  and `piece-lgmf` anywhere (every sustained head now 0.45 before its line; "senza vib." at the EH 0.0 · bass 3.5 · cello 4.7 s).
-- **Then his answers — the decisions-needed list** (the generated page's last section): **DN-1** the accidental's two gaps (0.25 · 0.10)
-  · **DN-2** anchor C's gap (fortepiano · cuivré at 0.25 + the conditional push) · **DN-3** the app's window view (⚙) draws its looks
-  from the tuba-era code defaults · **DN-4** the clocks over the block at its go time (the pie over "senza vib.", the meter over the mp,
-  ≈ ½ s) · **DN-5** the provisional family look (heads before x(t), no go line — the bricks page, the percussion).
-- **The AI's calls, his to reverse** (each § lists them): anchor B's 0.45 on EVERY B unit (the tuba's surges move with it under this
-  repo's registry) · fortepiano/cuivré held at 0.25 · the pizz. bake retired with "senza vib." · the vibrato words as instructions on
-  non-block notes · the rung-0 test and the unit · rungs 4 … 7 not automatic · the floor tier as "the tight gap unless it touches a
-  line" · the lead-in on the tiled screen only; ⏮ to −4 · one push per lane for the animated devices.
-- **An accident, repaired (§449):** removing a scratch worktree followed its `node_modules` junction and emptied this repo's
-  `node_modules` (gitignored) — restored from piece #5's identical install (resvg 2.6.2 · pngjs 7.0.0); the worktree recipe now unlinks
-  the junction first; a memory records it.
-- **`Resume reads:`** nothing beyond §2 for his eye; for a fault in one step: that step's § (§448 … §453) and `docs/ENGRAVING_RULES.md`.
-- **Model:** nothing runs until he has looked — his answers on a LOOK go to Fable, a FAULT to Opus (the ►►► row).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint, 29 paths — the same as
-  CHECKPOINT #2): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) ·
-  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport only; the
-  re-extraction read a COPY of it) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his
-  word) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) ·
-  `scores/piece-LGMF-*` (fourteen named saves; `-Sec01-Sec02-Sec3start` is the proto's source, read as a COPY) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #4 (mid-session checkpoint) — 2026-09-27, Fable at 2e.7, Opus wraps — HIS EYE ON THE PROTO: SIX FIXES AND `2f` THE FADE SIGNS BUILT; the proto is the EH's whole first line
-
-- **The task:** 2e.7 — his eye on `lgmf-eh-proto` after the 2e build. Every remark became a fix or a decision, built and pushed the same
-  turn at his word (RUNNING_LOG **§454 … §462**; `dfd63e3` · `d49857a` · `ce0c889` · `08217e1` · `b046590` · `41cad7c` · `6dfb038`).
-- **What changed on the page:**
-  - the blue "bouncing ball" = piece #4's morph-section `curveFollower`, riding every just note's cents bend — OFF by its row (§454)
-  - the breath pie from go line to go line, refilled at the next (§455)
-  - THE FLIP BY CLASS: `leaves` on the mark rows (words · symbols 1, the cents · partial 2); the ladder walks compress · flip the
-    annotation · shrink · flip the pitch data (§458 — his (a); DN-6 closed)
-  - `2f` THE FADE SIGNS (PLAN § `2f`, its device sheet in it): `○—<` BEFORE the legend on the dynamic row when the room allows (his order
-    niente · hairpin · pp · arrow · mp), else on the sign row `column.rows.sign` −5.95; `—> ppp` (a decrescendo hairpin, then the
-    dynamic) on the LAST breath's unit (his (i)); a NEW drawn kind `hairpin` with its objects row and edge row (§457 · §459 · §460)
-  - the fade drawn as a multiplier on the WRITTEN height (`sequence_overlays.js writtenAt`) — one straight line from nothing to pp;
-    the body between names untouched, it was right (§461 · §462)
-  - `lgmf-eh-proto` RE-EXTRACTED over the EH's whole first line, 0 … 149 s (13 pages, 11 breaths, 13 labels) — from a COPY of
-    `scores/piece-LGMF-Sec01-Sec02-Sec3start.json` in the scratchpad (the recipe is in the IR's `provenance.build`, `--w1 156`)
-- **Verified:** `check_rules` **23 GREEN** · `sequence_notation_check` **64 / 64** · `decisions_needed` 0 on every page. The level measured
-  on the exporter's own page (§456: the pp plateau at 120.2 px vs 120.22). Not run: the Chrome edge gates (the one new kind, `hairpin`,
-  has its edge row; `check_rules` (1) holds it). `piece-lgmf` NOT re-extracted — it carries no `sequence` overlay yet.
-- **► THE NEXT STEP — HIS:** his eye on the reloaded proto, then his answers — the ►►► row above names both, in order.
-- **`Resume reads:`** nothing beyond §2. For a fault in one fix: that fix's § (§454 … §462) and `docs/ENGRAVING_RULES.md`.
-- **Pending him:** the closing sign's mark (the save says ppp, his words said niente — §460) · CC7 69 vs 68 (§456) · DN-1 … DN-5 · the
-  AI's calls of §458 · §459 · §460. **Offered, not started:** the sequence device into `piece-lgmf` (`--sequence` for every part —
-  a step of its own).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #3):
-  `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) ·
-  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport) ·
-  `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) · `bank/passages/lgmf-sec2.json` ·
-  `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves;
-  `-Sec01-Sec02-Sec3start` is the proto's source, read as a COPY) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #5 (mid-session checkpoint) — 2026-09-27, Fable planned, Opus wraps — PLAN § `2g` THE VIBRAPHONE'S SEQUENCE NOTATION PLANNED IN FULL, NOT BUILT
-
-- **The task:** his new subject at CHECKPOINT #4's `/postclear` — *"the vibraphone notation for the sequence … two bow notes, not together,
-  so it can't be notated as a curve, as a chord"*. Worked under the planning method on Fable, one topic at a time (RUNNING_LOG §463 … §466;
-  COMPOSITION_NOTES LG-116; PERFORMANCE_NOTES #10 … #12) and made ONE plan item: PLAN § `2g`. **Nothing built.** His eye on the EH proto
-  (CHECKPOINT #4's step) was not taken up — still his (the ►► row).
-- **What was decided** (every value and its § is in PLAN § `2g` — the build needs nothing else):
-  - **measured** (§463, 156 bows of Draft 01): each vibraphone seat is its OWN continuous level curve (the waves stream is per `lane:seat`);
-    the next bow begins where the last ended (max 0.24 step); a step or more INSIDE a third of the bows, most of the range in section 3's
-  - **his scheme** (LG-116, *"hairpins describe dynamic movement and direction. The dynamic markings describe a relative level"*): a head +
-    a duration line per bow, a head even on a repeated pitch; the marks tied to the BOW — the start name (carried from the bow before,
-    never re-rounded), a TIMED hairpin for movement (its length the time, the closing name at the point reached), a name at a turn; seven
-    rules — the thresholds ½ · ¼ step (his "numbers good") · a name changes only through a hairpin · restarts · the open hairpin · the
-    edges · the repeated name LEFT OFF (his (a))
-  - **the page** (§464): the head at ANCHOR A — left edge on its time, no go line, no stem (#4 day 24's principle; his memory of the tuba's
-    long tones); the duration line = the grey RING BAR (the blue-grey bar he remembered is the BRICK, not a music mark); ONE staff, two rows
-    by REGISTER (the upper row = the higher-sounding bow; his (A)); bars within a second at half height, a unison stacked, two heads at one
-    time → the chord displacement (his: *"we already have the chord displacement rules"*); NO curve, meter, follower or pie on the lane;
-    **motor OFF, the whole piece**
-  - **no header block** (§465): the first bow is a bow like any other; the fades are timed hairpins from `○`, the marks reading the level
-    WITH the fade (`writtenAt`); the `2f` signs not on this lane
-- **The deliverables (all pushed — `8ccbcb2` · `47049c8` · `eba5f05` · `2d25aa2`):** `docs/PLAN.md` § `2g` (the result, the DEVICE SHEET, THE
-  READER'S RULES block, 2g.1 … 2g.6 each with its REQUIRED VERIFICATION, the build order, the AI's calls) · RUNNING_LOG §463 … §466 ·
-  COMPOSITION_NOTES LG-116 · PERFORMANCE_NOTES #10 (the bows) · #11 (motor off) · #12 (arrow vs hairpin). The measuring probe is NOT in the
-  repo — `C:\Users\jwloy\AppData\Local\Temp\claude\C--Users-jwloy-GitHub-septet-LGMF-2026\fcc57a92-18fd-435f-b76a-d071346b40b6\scratchpad\vib_bow_range.js`
-  (`--bows` · `--his` · `--pairs` · `--cross`), read-only, may be gone; PLAN § `2g`'s rules and §463's numbers are self-sufficient.
-- **► THE NEXT STEP (Opus; after the `/postclear` play-back, STOP and wait for his go):** BUILD PLAN § `2g`, **2g.1 → 2g.5 in order**, one
-  commit per step, pushed, THE SHIELD in each (`lgmf-eh-proto` and `piece-lgmf` re-extracted BYTE-IDENTICAL; the tuba goldens wherever
-  `notation/lib/layout.js` moves; `node tools/check_rules.js` after every step), a RUNNING_LOG § per step (**§467 is next free — read the
-  last heading first**). Begin 2g.1 by capturing THE SHIELD's BEFORE on HEAD (the two IRs' bytes). In 2g.3, VERIFY whether #2 D.6's chord
-  column displaces a second's heads in this engine BEFORE adding `head.secondOffsetSs`. STOP after 2g.5 for **2g.6, his eye**.
-- **`Resume reads:`** PLAN § `2g` (whole) · journal §2 STILL BINDING (the throwaway-server recipe) · `docs/ENGRAVING_RULES.md` §1 · §2 ·
-  §3 (the anchor, column and object rows the sheet points at). RUNNING_LOG §463 … §466 only if a question sends someone there.
-- **Pending him:** his eye on the EH proto + its answers (CHECKPOINT #4: the closing mark ppp vs niente · CC7 69 vs 68 · DN-1 … DN-5) ·
-  2g's calls, at 2g.6 (`rows.dynamicUpper` +4.6 · the half-height bar · the second's offset · `minHairpinSs` 1 · the voice at a silent
-  partner · a chain's rest at 0.5 s) · **the AI read §465 ("no separate initiating block") as the VIBRAPHONE ONLY** — the winds keep their
-  block and the `2f` signs; his to reverse.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #4):
-  `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) ·
-  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport; §463 read it,
-  never wrote) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) ·
-  `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) ·
-  `scores/piece-LGMF-*` (fourteen named saves; `-Sec01-Sec02-Sec3start` is the protos' source, read as a COPY) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #6 (mid-session checkpoint) — 2026-09-27, Opus — 2g BUILT: THE VIBRAPHONE'S SEQUENCE NOTATION, 2g.1 … 2g.5; 2g.6 is his
-
-- **The task:** BUILD PLAN § `2g` at his `/postclear` word *"go for whole plan independantly"* — **DONE**, one commit per step, pushed, THE
-  SHIELD in each (RUNNING_LOG **§467 … §471**; `10fc04e` · `c02b2b8` · `843be11` · `1b4f0ce` · `347d327`).
-- **What exists now:** `rules.json` `vibMarks` · `hairpinTimed` · `ringBar.closeRule` · `rows.dynamicUpper` and the device
-  `byEnv.vibBow` (§467) · `notation/lib/vib_marks.js` the reader + `tools/vib_marks_check.js` (**23**: the reader on Draft 01's 156 bows +
-  THE PAGE on the proto) (§468) · the extractor's env `vibBow` + the `vibBows` overlay; the head at anchor A, the full ring bar, the close
-  rule with `segs` (§469) · the marks: one row a bow, pushed clear of the heads; the new drawn kind `hairpin-timed` (§470) ·
-  `notation/ir/lgmf-vib-proto.ir.json` (R01c, 55 bows, 2 … 154 s); the lane's meters stand down (§471).
-- **► THE NEXT STEP — HIS: 2g.6, his eye.** Reload the notation tab (page files + a new IR; no restart) → `lgmf-vib-proto` → the video view →
-  `0` (the two `○ <` from the first heads) · `20.9` (the unison stacked; the upper bar steps down at 22.70) · `33` … `95` · `42.65` (the
-  join) · `56.12` (the shared second, the displaced head) · `148` (`> ppp`) · `z`.
-- **For his eye — found by the build, his to decide:** (1) **rule 1's second tier re-makes a name change at a join** when the carried name
-  sits on a rounding line and the wave dips just past it (Draft 01, 48.89 s: `mp > p | p > pp < mp > p` — the plan's golden read `p < mp`;
-  §468) · (2) **the fade's `pp` sits at each first bow's END** (6.84 · 8.48 s), not "6.0 s" — the marks are tied to the bow (§468) · (3) **the
-  seats at a shared change of bow** told apart by the level (the save does not name the seat; §468) · (4) the plan's shared second "42.65 s
-  (85 / 84)" is 56.12 · 141.38 s in this save (§469).
-- **The AI's calls, his to reverse** (each § lists its own): `byEnv.vibBow` a sibling of `byEnv.sequence` · the thresholds named `…Steps` ·
-  no `head.secondOffsetSs` (the engine's chord column) (§467) · the seat rule at a shared change (§468) · the unison's side (the bow already
-  sounding keeps it) and `segs` (§469) · one row a bow, pushed outward; the hairpin clamped and `minHairpinSs` in the renderer (§470) ·
-  the plan's own: `dynamicUpper` +4.6 · the half-height bar · `minHairpinSs` 1 · the voice at a silent partner · the rest at 0.5 s.
-- **`Resume reads:`** nothing beyond §2 for his eye; for a fault in one step: that step's § (§467 … §471) and PLAN § `2g`.
-- **Found on the way, to NITS:** `tools/test_animobj.js` red on HEAD since §454 (the curve follower's case) — not this build's.
-- **Model:** nothing runs until he has looked — his answers on a LOOK go to Fable, a FAULT to Opus (the ►►► row).
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this checkpoint, 29 paths — the same as
-  CHECKPOINT #5): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) ·
-  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save — metadata · viewport; `vib_marks_check`
-  READS it, never writes) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) ·
-  `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*`
-  (fourteen named saves; `-Sec01-Sec02-Sec3start` is both protos' source, read as a COPY in the scratchpad) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #7 (mid-session checkpoint) — 2026-09-28, Fable — PLAN § `2h` THE VIBRAPHONE'S PAGE AT HIS EYE BUILT, 2h.1 … 2h.8; 2h.9 is his
-
-- **The task:** his 2g.6 eye on `lgmf-vib-proto` (RUNNING_LOG §473, his words whole) became PLAN § `2h` (nine steps) and, at his word *"build
-  here, go"*, was BUILT ON FABLE without a clear — 2h.1 … 2h.8, one commit per step but one (2h.5 + 2h.6 share §478), THE SHIELD in each
-  (RUNNING_LOG **§474 … §481**; `c1ae4c3` · `752bf09` · `bf71554` · `ab922e3` · `af84787` · `022124c` · `d201f66` · the 2h.9 commit).
-  Before it, at his word: the duration line navy `#1C4879` at opacity 0.3 — piece #2's line wedge — the default for every ring bar
-  (§472 · §473; `be13ca6` · `413f1ec`).
-- **What exists now:** the clearance `objects.ringBar.after` 0.25 ss (a bow's bar ends before its successor's leftmost ink; 22 of 55 bars
-  cut) · the app's selection ring only on SHIFT+click · the hairpin's start gap = its end gap 0.45 (`hairpin.circleGapSs` → `beside`, the
-  winds too) · the close rule FLUSH (`closeRule { withinSs 1.25 · mode flush }` — whole bars off their heads by ±0.775 ss, the probe page
-  `lgmf-vib-close-probe` in the picker: one line · a second · a third flushed, a fourth centred) · the closing name right-justified to the
-  bar's end when it would run past it (`vibMarks.closeAlign`; 15 of 25) · the timed hairpin 1.333 ss on the rows' NEAR EDGE ±4.267
-  (`column.rows.vibEdgeUpper · vibEdgeLower`; `dynamicUpper` retired), names on the axis · the `♮` in a chord column
-  (`accidental.naturalInColumn`; 56.12 · 141.38 s) · the start name only at a restart or a voice switch (`vibMarks.startOnMove false ·
-  startOnVoiceSwitch true`; 52 of 156 where 2g wrote 97) · `tools/layout_shield.js` (THE SHIELD as a tool: every IR here and #4's
-  seventeen laid out and hashed, `--write` / `--diff --expect`) · `tools/vib_close_probe.js` · `lgmf-vib-proto` re-extracted.
-  `vib_marks_check` **31** · `check_rules` **25** · `sequence_notation_check` 64 · the shield 18 of 22, the four moves named.
-- **► THE NEXT STEP — HIS: 2h.9, his eye.** Reload the notation tab → `lgmf-vib-proto` → the video view → `0` · `6.78` · `20.9` · `56.12` ·
-  `78.8` · `148` · then `lgmf-vib-close-probe` · `z` (§481 says what to see at each). Then his seven calls (§481): the close threshold
-  1.25 · the winds' `○` gap · the winds' hairpin height · the closing name only when it would run past · the start name at a voice switch ·
-  the general courtesy natural · `afterAbutS` 0.1.
-- **`Resume reads:`** nothing beyond §2 for his eye; for a fault in one step: that step's § (§474 … §480), PLAN § `2h`, `docs/ENGRAVING_RULES.md`.
-- **Model:** nothing runs until he has looked — his answers on a LOOK go to Fable, a FAULT to Opus.
-- **Found on the way:** the engine batteries `test_layout` · `test_render` and nine others throw on HEAD in this repo (they want #5's
-  `trance-bar-01` fixtures, never carried; §474) — NITS; `layout_shield.js` is the shield now.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #6): `bank/morph_models.json` ·
-  `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json`
-  (his tab's save; `vib_marks_check` READS it, never writes) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` ·
-  `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · `scores/piece-LGMF-*` (fourteen;
-  `-Sec01-Sec02-Sec3start` is both protos' source, read as a COPY in the scratchpad) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #8 (mid-session checkpoint) — 2026-09-28, Fable — HIS EYE'S SECOND ROUND AND PLAN § `2i` BUILT; 2i.6 is his, with the held items
-
-- **The task:** his eye on 2h's page (RUNNING_LOG §482 … §486, his words whole) — the accidentals' gap · the `8va` label as ink · the seats by
-  colour (olive) · the cross at 22 / 38 → B, rows by seat · his modification: the rows PINNED to the lane's edges, the bars on two TRACKS
-  · the data on his pins (24 heads under a hairpin, 29 under the navy track, in today's lane) · his answer: the percussion staff shown only
-  where it plays (a 0.25 s snippet; the whole pages 284 … 416 of its section — §488: the screen's pages start at the 4 s lead-in), the navy
-  row LIFTED 3.5 ss into the space. PLAN § `2i` planned and BUILT the same day on Fable (§487 · §488; `53494c4` · `7deab19` · `083eeaf` · `5fa4d9a`).
-- **What exists now:** `vibMarks.rows seat · rowPin lane · liftSs 3.5 · liftWhen laneAboveStaffOff · barTrack · trackGapSs` · the table
-  `staffLines.percussion` → `engraving.layout.staffShown` · `accidental.betweenSs` 0.2 (LilyPond's padding; the port never applied D.8.2's
-  gap) · the ottava item carries its widened label start (`8va` is ink for the clearance, the marks, the fit) · `colours.olive` on seat 1's
-  bars, the marks ink · the reader's rows by seat (8 start marks of 156) · the layout: the percussion staff's spans, the pins from the lane
-  box, the tracks, `pinned` marks exempt from the fit · the close probe removed · `lgmf-vib-proto` re-extracted. `vib_marks_check` **31** ·
-  `check_rules` 25 · `sequence_notation_check` 64 · `decisions_needed` 0 · the shield's foreign moves one part-4 staff span each.
-- **► THE NEXT STEP — HIS: 2i.6, his eye.** Reload the notation tab → `lgmf-vib-proto` → `0` (navy above on one axis, olive below on one
-  axis; the bars on their tracks; the `○` gaps) · `20.9` · `22.7` · `38` (no `pp` in the hairpin) · `56.12` (`♯` `♮` 0.2 apart) · `78.8` ·
-  `148` · `z`; then `piece-lgmf` → `-4` (the 0.25 s snippet at the page's start, §489) · `284` (the lines fill the page) · `300` · `416` (off). **THEN THE
-  HELD ITEMS, at his word (§486):** (i) the seat written on the note at deal time (the sequence tool knows `lane:seat`) · (ii) the head's
-  seat — colour the head (recommended) / stems as voice flags / a leader · (iii) from 2h.9: the winds' `○` start gap · the winds' hairpin
-  height (0.667) · a closing name only when it would run past · the general courtesy natural.
-- **`Resume reads:`** nothing beyond §2 for his eye; for a fault: §487, PLAN § `2i`, `docs/ENGRAVING_RULES.md`.
-- **Model:** nothing runs until he has looked — his answers on a LOOK go to Fable, a FAULT to Opus.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #7): `bank/morph_models.json` ·
-  `bank/panel_snapshots.json` · `bank/sequences.json` · `reaper/LGMF_rack.rpp` · `scores/piece-Recombination-Draft01-done.json` (READ by the checks, never
-  written) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` ·
-  `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · `scores/piece-LGMF-*` (fourteen; `-Sec01-Sec02-Sec3start` the protos' source, read as a COPY) ·
-  `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #9 (mid-session checkpoint) — 2026-09-28, Fable — THE RUNNING ORDER: steps 1 … 3 done (the lead, the swatch, the cross); ► step 4
-
-- **The task:** the open calls after PLAN § `2i`, as a RUNNING ORDER (the block at the top of §2). Since CHECKPOINT #8 (RUNNING_LOG
-  **§489 … §496**; `99447a7` · `93e6065` · `946abaf` · `e2da01d` · `296d51f` · `ae07dfe`): the percussion's opening snippet at the page's
-  start (−4 … −3.75, §489) · the clearance cut kept on the tracked bars at his eye (§490 — the rule row says so) · 2i.7 THE BOW LEAD to the
-  list (§491) and BUILT (§495) · his two data points 120.71 · 141.33 (§492 · §493) · the coloured outline demonstrated and dropped (§494) ·
-  THE HEAD SWATCH built (§495) — his word: *"keep the colored dotted line and the highlighting of each note head in their respective colors"*
-  · **one player, two bows** (§496): the rows CROSS at a rhythmic unison with a clear top and bottom (9 in Draft 01), the colours follow the
-  row, the seat at deal time moot.
-- **What exists now (the delta):** `objects.bowLead` · `objects.headSwatch` (their edge rows in `page_rules`) · `vibMarks.headLead` seat ·
-  `headSwatch` true · `headColour` ink · `crossAtUnison` true · `crossS` 0.06 · `crossSteps` 2 · `staffLines.percussion.openingFrom` pageStart ·
-  `pageLeadInS` 4 · `objects.ringBar.after` on the tracks too; `vib_marks.js` the crosses and the restart at one; `layout.js` the lead and
-  the swatch items, the seat = the row; `render.js` `bowlead` · `headswatch`; the proto re-extracted. `vib_marks_check` **32** · `check_rules`
-  25 · `sequence_notation_check` 64.
-- **► THE NEXT STEP — the running order, step 4 of 7 (Fable, one value each; his word, then the row and the page):** 4 the winds' `○`
-  start gap (keep 0.45 on the base row, or the vibraphone only) · 5 the winds' hairpin height (0.667 kept, or 1.333) · 6 the closing name's
-  snap (only when it would run past, or always) · 7 the general courtesy natural (yes / no). Then his eye on the whole page once more.
-- **`Resume reads:`** nothing beyond §2 — the RUNNING ORDER block at its top is the position. For a fault: §487 … §496, PLAN § `2i`,
-  `docs/ENGRAVING_RULES.md`.
-- **Model:** Fable for the calls (a look); Opus for a fault or a build of any size.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #8): `bank/morph_models.json` ·
-  `bank/panel_snapshots.json` · `bank/sequences.json` · `reaper/LGMF_rack.rpp` · `scores/piece-Recombination-Draft01-done.json` (READ by the checks, never
-  written) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` ·
-  `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · `scores/piece-LGMF-*` (fourteen; `-Sec01-Sec02-Sec3start` the protos' source, read as a COPY) ·
-  `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #10 (mid-session checkpoint) — 2026-09-28, Fable built, Opus wraps — THE RUNNING ORDER COMPLETE (7 of 7) AND PLAN § `2j` BUILT; 2j.4 is his
-
-- **The task:** two things since CHECKPOINT #9, both done and pushed.
-  - **The running order's steps 4 … 7**, one at a time at his word, each a confirmation of what 2h had built, now written as his word on
-    its rule row (RUNNING_LOG **§497 … §500**; `97336c5` · `b397231` · `99e6a80` · `995f405`): 4 the `○` gap — ONE gap 0.45 between every
-    dynamic sign and its hairpin, the winds' circle too (his "why is that slipping" answered: nothing slipped — one row changed once at his
-    2g.6 word) · 5 the winds' hairpin 0.667 kept (their only hairpins are the two fade signs, *"just symbolic"*) · 6 the closing name snaps to
-    the bar's end only when it would hang past it · 7 NO general courtesy natural — a new row `objects.accidental.courtesyNatural` false with
-    the policy in words (no bars, every altered head its sign, a plain head natural, the chord column the one exception).
-  - **PLAN § `2j` THE MAIN FILE CARRIES EVERY ACCEPTED DEVICE**, from his question *"Should we have a main file that's kept up to date with all
-    the notation so far and then to help me manage the working files"* and his *"a, write the plan item and build"* (§501; `403f1a6`):
-    `piece-lgmf` re-extracted from a COPY of Draft 01 with `--all --bricks` + `--sequence` × 4 (the four PLACED groups — `grp-seq-smu90t537`
-    0 … 156 · `-smuiicl3e` 427 … 580 · `-smuilati2` 655 … 729 · `-smuin6jkq` 800 … 881; five more recipes in `databases.sequences` have no
-    notes) — the device on seven parts × four sequences, **156 bows**, 1076 events VALID, 0 ALERTs · the two protos re-pointed at Draft 01 ·
-    THE FILE DISCIPLINE a standing rule in PLAN § `2j` (one source — the named draft · the main file carries every accepted device by its
-    flag · a new device born on a proto page cut from a COPY, then folded in · no IR hand-edited · every extraction its command in
-    `provenance.build`).
-- **Verified (2j):** `check_rules` 25 · `sequence_notation_check` 64 / 64 · `vib_marks_check` 32 · `layout_shield --diff --expect` GREEN,
-  19 of 21 identical (`piece-lgmf` · `lgmf-vib-proto` moved; the EH proto's layout identical). Not run, by the plan: the Chrome edge gates
-  (no render / coords / frame change).
-- **Found by 2j, for his eye (§501):**
-  - **the vibraphone proto shows DRAFT 01's pitches now** — 17 of its 55 bows were re-pitched by his hand between `Sec3start` and Draft 01
-    (same ids and times); the row crossings (§496) fell elsewhere, 23 bows swap rows. The source moved, the goldens did not.
-  - **the ladder: 28 units off rung 0 on `piece-lgmf`** (`decisions_needed --ir piece-lgmf`) — 18 at rung 3, 10 at rung 8 (MANUAL); every one
-    the sequence block's `cents partial` column past the lane's TOP on the low parts: Vc 14 · Db 8 · Bsn 5 · Hn 1 (the rung-8 ten: Vc 40.26 ·
-    102.30 · 477.92 · 523.99 · 547.43 · 694.45 · Db 3.50 · 468.15 · 556.76 · Hn 711.84 at the bottom). The device stands on these parts for
-    the first time; it meets 2a.6 THE CLEFS BY REGISTER and rungs 5 · 6 (his, on the page).
-- **► THE NEXT STEP — HIS: 2j.4, his eye.** Reload the notation tab (IRs only; no restart) → `piece-lgmf` → the video view → `-4` … `4` (the
-  EH's block and the vibraphone's first bows on the MAIN page) · `427` · `655` · `800` (the later sequences' entries — the device on Bsn ·
-  Hn · Tpt · Vc · Db for the first time) · `40.26` (a rung-8 unit, the cello) · `z`; the protos in the picker, now from the draft. Then his
-  word on what he sees — a look on Fable, a fault on Opus; the 28 units most likely become the 2a.6 clefs item or a lane-rebalance call.
-- **`Resume reads:`** nothing beyond §2 for his eye. For the 28 units or a fault: RUNNING_LOG §501 and PLAN § `2j`; for a rung: `docs/ENGRAVING_RULES.md` § 8.
-- **Model:** resume on **Fable** — his answers on a look; Opus for a fault or a build of any size.
-- **Pending him:** 2j.4 · the AI's calls in PLAN § `2j` (the four groups by their notes · `--bricks` kept · the protos kept as fixtures · the
-  discipline written in the item) · the older ►► rows below unchanged (the EH proto's answers · the audio's ear · `1u.6` · `1t.5` · …).
-- **Learned:** `grep -c $'\r$'` MISREPORTS line endings here — the appended §497 … §501 went in as CRLF into the LF RUNNING_LOG; put back
-  the same day, nothing lost (git's `autocrlf` normalizes the blob); STILL BINDING corrected below; a memory written.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #9): `bank/morph_models.json` ·
-  `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) ·
-  `scores/piece-Recombination-Draft01-done.json` (his tab's save; 2j extracted from a COPY in the scratchpad, never wrote it) ·
-  `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) · `bank/passages/lgmf-sec2.json` ·
-  `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves;
-  `-Sec01-Sec02-Sec3start` NO LONGER any IR's source) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #11 (mid-session checkpoint) — 2026-09-28, Fable planned + fixed, Opus wraps — 2j.4 HIS FOUR FINDINGS FIXED; PLAN § `2k` THE MORPH'S NOTATION PLANNED IN FULL, NOT BUILT
-
-- **The task:** two things since CHECKPOINT #10.
-  - **2j.4 his eye on `piece-lgmf`** — four findings, each fixed and pushed the same turn (RUNNING_LOG **§502 · §503**; `5d4f2d6` · `7097c12`): (1) *"need to use Otava for all parts"* — the sequence block's head (`layout.js` `justHead`) never folded under the ottava; now every head folds and draws the sign as the nh-unit's, the column outside it · (2) *"no need for the 0"* — `objects.number.centsZero omit` · (3) *"Why are the [cents] in the staff?"* — the ladder's flip stacked from a ledger line; now `ladder.flipClearsStaff` · the sign never flips (`noFlip`, both paths — the tuba goldens had 21 `8vb` flipped into the staff; they now report at rung 8) · `check_rules` (9) over every page — 25 → **28** · `piece-lgmf` 28 → 6 units off rung 0, none at 8 (the 28 were this, not 2a.6's) · (4) *"bsn, horn and tpt did not get the senza vib"* — the word keyed on the sample; `techniqueChange.byEnv.sequence` (§503), `piece-lgmf` re-extracted from a copy of Draft 01 (24 words). His eye on the REST of the page (`427` · `655` · `800` · `40.26`) was not taken — he pivoted to the morph.
-  - **THE MORPH SECTION'S NOTATION** — his subject: *"Let's work on the morph section. Let's do just one part first. Let's do the horn."* Reviewed (§504; the orange VERIFIED — `glissCurve` `#F04B00`, D42's closed path, fill 0.3 · stroke 2 px · path 0.3), an AI error corrected (the horn's 24.8 c IS §1a's `A4 −25`, not A¼♭), then redone at his demand — *"what actually is different in this morph section from … all the decisions we've already decided in the sequence"*: ONE new thing, the pitch MOVES. His answers (§505 · §506, LG-117): the heads and the dynamic figure the sequence's (§1a; `○—<` then `low → high`) · NO word at the morph's entry — *"This is not a new section … the sequence seamlessly moves into this"* · the gliss notation from #5's middle morphs (D45) · A the figure → PERFORMANCE_NOTES #13 · B the orange curve to EACH PART'S travel, the green level the sequence's fixed scale · C (a) the two heads are the RANGE (start → farthest), the curve the path · "ord." for ALL SIX at the middle section (289 s) — the word by SECTION KIND (sequence · morph → senza vib., plain → ord.). **PLAN § `2k` WRITTEN** (§506; `fd50b43`) — the device sheet with no open line, THE FORM THE RULE READS (three morphs, one plain passage), 2k.1 … 2k.7. **Nothing of 2k built.**
-- **The deliverables:** PLAN § `2k` · RUNNING_LOG §502 … §506 · COMPOSITION_NOTES LG-117 · PERFORMANCE_NOTES #13 · `piece-lgmf` (§503's extraction) · `rules.json` `centsZero` · `flipClearsStaff` · `ottava.heads` · `techniqueChange.byEnv` · `check_rules` (9).
-- **► THE NEXT STEP (Opus; after the `/postclear` play-back, STOP and wait for his go):** BUILD PLAN § `2k`, **2k.1 → 2k.6 in order**, one commit per step, pushed, THE SHIELD in each, a RUNNING_LOG § per step (**§507 is next free — read the last heading first**). Begin by capturing THE SHIELD's BEFORE on HEAD: `node tools/layout_shield.js --write <scratchpad>/shield_before.json`. Copy `scores/piece-Recombination-Draft01-done.json` into THIS session's scratchpad for every extraction (his file is read, never written). STOP after 2k.6 for **2k.7, his eye**.
-- **Found while planning, for the builder:** `sequence_overlays.forPart` filters `o.srcKind === 'sequence'` — the morph's objects (`grp-act-bloom-06-01`, waveCurves) carry NO `srcKind`, so 2k.2 must widen the filter by an option (the group alone), not by giving the morph a sequence's kind · with `recipe` null, `marksOf` warns "no box … no partial" — 2k.2's start-head partial comes from the placed actual's voices by `lane:seat` (ALERT when unreadable) · the `--morph` fold (≈ `notate_section.js` 1415) already runs BEFORE the change rule (≈ 1469) — the env `morph` set in the fold is seen by it · the tuba's D45 header code (`layout.js`, the `headers` loop) stays for the tuba fixtures; the new header is the sequence block + a `dest` head, ONE path.
-- **`Resume reads:`** PLAN § `2k` (whole). Nothing else — §504 … §506 only if a question sends someone there; journal §2 STILL BINDING for the splice rules (8 KB Bash, the line endings — PLAN · journal · RUNNING_LOG · CLAUDE.md LF; `PLANNER.md` · `rules.json` · `container.json` · `layout.js` · `fit.js` CRLF; count at byte level).
-- **Model:** resume on **Opus** — 2k.1 … 2k.6 is a written plan. 2k.7 his eye; a look on Fable, a fault on Opus.
-- **Pending him:** 2k.7 (after the build) with the one AI reading to confirm there — the level drawn as the sequence's exact level, #5's D47 arc NOT taken · 2j.4 the rest of the main page (`427` · `655` · `800` · `40.26`) · the AI's calls of §502 (the sign never flips · every flipped mark clears the staff · the tuba's signed spills at rung 8) · 2k's calls (PLAN § `2k`'s foot) · the older ►► rows unchanged.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #10): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save; every extraction read a COPY) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #12 (mid-session checkpoint) — 2026-09-28, Opus — PLAN § `2k` THE MORPH'S NOTATION BUILT, 2k.1 … 2k.6; 2k.7 is his
-
-- **The task:** BUILD PLAN § `2k` at his `/postclear` word *"go, build the whole plan independantly"* — **DONE**, one commit per step, pushed, THE SHIELD in each (RUNNING_LOG **§507 … §512**; `8dc3150` · `b158de1` · `df79187` · `5cb3680` · `f7998ae` · `caf7bbd`; the handoff `8922225`).
-- **What exists now:**
-  - `rules.json` `techniqueChange` BY SECTION KIND — `eligible ["senza_vel","ord"]` · `byKind { sequence, morph: "senza vib.", plain: "ord." }` (`texts` · `byEnv` retired) · `objects.glissCurve.scale "travel"` · `container.json` `devices.byEnv.morph` (§506) (§507).
-  - `tools/notate_section.js --morph` (the septet only; the tuba untouched): env `morph`; ONE `sequence` overlay per part after the change rule (`sequence_overlays.forPart` + `groupOnly` · `memberOf` · `pitchMoves` · `fadeFromUnder`) — the start head's partial from the placed actual's `provenance.pitch.takeChord` (the marker names the actual), the start normalized off a re-key, every breath a `glide`, `dest` · `travelC`, the range = the lowest `cc7Abs` lo · highest hi on the part's ladder; the `gliss` overlay stamped `scale travel`; NO `header` · `cresc` · per-breath `engraving` overlays (§508 · §510 · §512).
-  - `notation/lib/layout.js`: the block with a `dest` — the dest head at the spacer · the gliss line · the start head with its column, the dest's cents on the column's first row (`justHead` `colY`), one path (§509) · the renderer draws a `glisscurve` only on the rule's scale (§510).
-  - the vibraphone in a morph = its bows: `vib_marks.js` `groupOnly`, one `foldVibBows` helper for `--sequence` and `--morph` (§511).
-  - `notation/ir/lgmf-hn-morph-proto.ir.json` — the horn, 140 … 282 s, from a scratchpad COPY of Draft 01; the picker after `lgmf-vib-proto` (§512).
-- **Verified:** `check_rules` **29** · `vib_marks_check` **33** · `sequence_notation_check` 64 / 64 · THE SHIELD 21 of 22 identical (the one move the new page) · `check_screen_edges` + `check_print_edges --ir lgmf-hn-morph-proto` PASS · `decisions_needed` 0 · the four sequences' overlays in a full scratch extraction BYTE-IDENTICAL to `piece-lgmf` but their words.
-- **► THE NEXT STEP — HIS: 2k.7, his eye.** Reload the notation tab (page files + a new IR; no restart) → `lgmf-hn-morph-proto` → the video view → `140` · `152.1` · `200` · `258.9` · `269` · `z` (the ►►► row says what each shows). Then his word on the five findings (the ►►► row: the range `ppp → ff` · no `○—<` · no `—> ppp` at 140, 0.1244 vs ⅛ · the vibraphone's swell · the middle section's entries 289 … 300 s) and the AI's calls. **Then the fold** (Opus): `piece-lgmf` re-extracted from a COPY of the draft with `--sequence` × 4 + `--morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02` (the recipe in its `provenance.build` + the three flags), `layout_shield --diff … --expect piece-lgmf`, `check_rules`, `decisions_needed --ir piece-lgmf` read, `gen_engraving_rules` if the page list moves.
-- **`Resume reads:`** nothing beyond §2 for his eye. For a fault in one step: that step's § (§507 … §512) and PLAN § `2k`; for the fold: PLAN § `2j` THE FILE DISCIPLINE.
-- **Model:** his answers on a LOOK → **Fable**; a fault or the fold → **Opus**.
-- **Pending him:** 2k.7 + the five findings + the AI's calls (§507 `eligible` · §509 the gliss line not in `inkOf` · §512 the per-breath overlays dropped · the level as the sequence's, no D47 arc) · 2j.4's rest of the main page (`427` · `655` · `800` · `40.26`) · the older ►► rows unchanged.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #11): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save; every extraction read a COPY) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word — the extractor now READS `ACT-TAKES-02` · `-03` for the morphs' start partials) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #13 (mid-session checkpoint) — 2026-09-28, Fable planned, Opus wraps — HIS EYE AT 2k.7 BECAME PLAN § `2l` THE VOLUME CURVE PROTOCOL, PLANNED IN FULL, NOT BUILT
-
-- **The task:** 2k.7, his eye on `lgmf-hn-morph-proto`. His first question answered (140.27, *"is this the start of the morph?"* — no: the sequence's last breath, opened as a block by the window; the morph's block at 152.10). His three data points on the green line (140.27 · 194.32 · 236.79) → *"let's discuss the curve curvature and its relationship to the dynamic markings"* → a curve drawing protocol for every crescendo curve, under the planning method, on Fable (RUNNING_LOG **§513 … §522**). He asked for a running order of the morph's issues, the curve first — it is at §2's top. **Nothing built.**
-- **What was decided** (each at his word; every value with its § in PLAN § `2l`'s design line):
-  - **the principle** — the performer principle (A) · the eight names (C) · the intention in shapes (F) · SHAPE-FIRST kept as drawn, FADER-FIRST redrawn from its recipe (§513 … §515)
-  - **the morph's curve = ONE ARC per part through the breath peaks** — #5's D47; 2k.4's "the level as the sequence's" REVERSED (§516, his "a")
-  - **the sequence's line and the fades: one law** — written height, name to name, from the recipe; a fade a straight rise from 0 / fall to 0; the fade signs follow the recipe; §461 · §462's second picture retired (§517, his "yes")
-  - **the arc = D47's builder**, the anchors read through the ladder (the AI's adaptation); the join sequence → morph LEFT AS A GAP (§518, his "a")
-  - **an ease at every corner**, one number (§519, his "b"); the hand-drawn style parked
-  - **the level tube as built, no ticks** — refused a second time; the reasoned analysis at §521 ("at the cursor motion and names; ahead the shape")
-  - **the labels** — a name in brackets wherever the line reaches a dynamic, a minimum spacing, never the same name twice running (§522, his "ok this is good")
-- **The deliverables:** `docs/PLAN.md` § `2l` (2l.1 … 2l.7; `263e75c`) · RUNNING_LOG §513 … §522 · at this checkpoint: COMPOSITION_NOTES LG-118 · MORPH_NOTES §3 (the breath's 13 dots) · PERFORMANCE_NOTES #14 · #15 · the RUNNING ORDER at §2's top · 2k's status and 2l.6's scope in the PLAN · PLANNER NOW · CLAUDE.md's state line · the ►►► row.
-- **► THE NEXT STEP (Opus; after the `/postclear` play-back, STOP and wait for his go):** BUILD PLAN § `2l`, **2l.1 → 2l.5 in order**, one commit per step, pushed, THE SHIELD in each (`node tools/layout_shield.js --write <scratchpad file>` on HEAD BEFORE the first edit), `check_rules` after every step, a RUNNING_LOG § per step (read the last heading first — §523 is next free). STOP after 2l.5 for 2l.6 his eye.
-- **`Resume reads:`** PLAN § `2l` (whole — every value, every §, the code entry points are named in its steps) · journal §2 STILL BINDING (the splice rules: 8 KB Bash, the line endings). Nothing else — §513 … §522 only if a question sends someone there.
-- **Model:** the build → **Opus**. His eye at 2l.6: a look → **Fable**, a fault → **Opus**.
-- **Pending him:** the seeds at 2l.6 (the ease 0.5 s either side of a corner · the labels 3 s apart) · the AI's calls at PLAN § `2l`'s foot · the running order's 2 · 3 · 5 · 6 · 7 · 2j.4's rest of the main page (`427` · `655` · `800` · `40.26`) · the older ►► rows unchanged. Held by name: the hand-drawn style · the live name at the tube · the micro-motion flag · the pitch-travel curve.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #12): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save; every extraction reads a COPY) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word — the extractor READS `ACT-TAKES-02` · `-03`) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves) · `scores/pointilistic01a.json`.
-
-### SESSION 17 · CHECKPOINT #14 (mid-session checkpoint) — 2026-09-28, Opus — PLAN § `2l` THE VOLUME CURVE PROTOCOL BUILT, 2l.1 … 2l.5; 2l.6 is his
-
-- **The task:** BUILD PLAN § `2l` at his word *"go and build here through as much as possible independently"* (after checkpoint #13, no clear) — **DONE**, one commit per step, pushed, THE SHIELD in each (RUNNING_LOG **§523 … §526**; `0fbcb09` 2l.1 · `79897d2` 2l.2 + 2l.4 · `b0e985f` 2l.3 · `c2bb6a3` 2l.5 · the handoff `c0cfb48`).
-- **What exists now:**
-  - `rules.json` — a first table `principles` (`curves`: A · C · F · the discriminator · "at the cursor motion and names, ahead the shape"), printed as section 0 of `docs/ENGRAVING_RULES.md` · `objects.crescCurve` `law "written"` · `easeS 0.5` · `easeCap 0.333` · `arc {breathPeak, fritschCarlson, entryDropS 0.25}` · `objects.dynamicLabel` `at "reached"` · `minGapS 3` · `turnWins` · `noRepeat` · the meter's no-ticks ref · `container.json` `byEnv.sequence.level "recipe"` · `byEnv.morph.level "arc"`.
-  - `notation/lib/sequence_overlays.js` — `writtenVertices` (each note's two fader ends READ through the ladder, straight between; a fade straight; the bridge straight) · `sampleLine` (THE EASE: Hermite halves at every corner, the corner's height kept) · `labelsReached` (crossings + turns, the spacing, no repeat) · the exit by the RECIPE (a sequence) or on the ARC (a morph) — all OPT-IN; `vib_marks.js` untouched.
-  - `notation/lib/morph_overlays.js` — D47's `breathPeakAnchors` · `arcThrough` exported, the code moved not changed (fingerprinted 13 / 13).
-  - `tools/notate_section.js` — one `curveOpts(device)` for the sequences and the morphs; the morph's range from the arc's anchors.
-  - `lgmf-eh-proto` and `lgmf-hn-morph-proto` re-extracted from a scratchpad COPY of Draft 01. **`piece-lgmf` NOT re-extracted — that is 2l.7.**
-- **Verified:** `check_rules` **29** · `sequence_notation_check` **79 / 79** · `vib_marks_check` **33** · `check_screen_edges` + `check_print_edges` PASS on both protos · `decisions_needed` 0 on both · THE SHIELD 20 of 22 identical, exactly the two protos moved · the morph builder's fingerprint 13 / 13 (`tools/test_morph_notation.js` cannot run here — NITS).
-- **► THE NEXT STEP — HIS: 2l.6, his eye** (on **Fable**; after the `/postclear` play-back, STOP and wait). He reloads the notation tab (the IRs changed; no restart) and looks at the stops in the ►►► row: `lgmf-eh-proto` `0` · `22` … `36` · `140` … `149`; `lgmf-hn-morph-proto` `140` · `152.1` · `155` … `174` · `194.5` · `236.8` · `256` … `270` · `z`. His word on: the seeds (the ease 0.5 s · the labels 3 s) · the `(ppp)` at 3.0 s inside the fade from nothing · the arc's four ff breaths (not one crest) · the AI's calls (PLAN § `2l`'s foot; §524's three readings). A LOOK → change the ROW on Fable (`rules.json`, regenerate the page, re-extract the two protos, the checks); a FAULT → Opus. **Then the rest of 2k.7** — the RUNNING ORDER at §2's top, steps 2 · 3 · 5 · 6 · 7. **Then 2l.7 THE FOLD** (Opus): `piece-lgmf` re-extracted from a scratchpad COPY of `scores/piece-Recombination-Draft01-done.json` — its `provenance.build` (`--all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --id piece-lgmf`, the label kept) + `--morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02` · `layout_shield --write` on HEAD first, then `--diff … --expect piece-lgmf` · `check_rules` · `decisions_needed --ir piece-lgmf` read · `check_screen_edges` · `check_print_edges --ir piece-lgmf` · "ord." at 289 … 300 s on six parts.
-- **`Resume reads:`** nothing beyond §2 for his eye. If he changes a value: PLAN § `2l` (its design line). For the fold: PLAN § `2j` THE FILE DISCIPLINE. §523 … §526 only if a question sends someone there; journal §2 STILL BINDING for the splice rules.
-- **Model:** his eye → **Fable**; a fault or the fold → **Opus**.
-- **Pending him:** 2l.6 + its four points above · the running order's 2 · 3 · 5 · 6 · 7 · 2j.4's rest of the main page (`427` · `655` · `800` · `40.26`) · the older ►► rows unchanged. Held by name: the hand-drawn style · the live name at the tube · the micro-motion flag · the pitch-travel curve.
-- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short`, 29 paths — the same as CHECKPOINT #13): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his tab's save; every extraction read a COPY) · `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals, commit only at his word — the extractor READS `ACT-TAKES-02` · `-03`) · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his) · `scores/piece-LGMF-*` (fourteen named saves) · `scores/pointilistic01a.json`.
+- **The piece:** _Recombination_ (D32). The named draft `scores/piece-Recombination-Draft01-done.json` is the ONE source of notation
+  (D43); its audio `notation/audio/piece-Recombination-Draft01-done.wav` (D39, his ear owed). The work now is the notation, not composing.
+- **Session 17** (2026-09-27/28 — Fable planned and looked, Opus built and wrapped; RUNNING_LOG §405 … §530; D39 … D46) took the
+  presentation score's notation from one prototype to the whole first morph:
+  - the audio of Draft 01 (2b) · the engraving rules as DATA (2e) · the fade signs (2f)
+  - the vibraphone's sequence notation (2g · 2h · 2i and the running order after them)
+  - the main file carries every accepted device (2j) · the ottava on every head (§502) and its hook on the spacer (§528)
+  - the morph as a sequence whose pitch moves (2k) · the volume curve protocol, the intention not the fader (2l)
+  - THE FOLD (2l.7, §530): `piece-lgmf` carries all of it, 0 … 881 s · the breath pie's arc fixed on the way (§529)
+- **► THE NEXT STEP — HIS: the RUNNING ORDER's step 3 (above) — his eye on `piece-lgmf`, 0 → 279, on Fable.** Reload the notation tab
+  (no restart); the stops are in step 3. His frame (§527): during an eye pass collect the findings in the RUNNING_LOG, then fix them
+  at once — a look → a rule row on Fable, a fault → Opus. Then step 4, his calls.
+- **The re-render, when he names a new draft** (D43 (1); Reaper open, the bridge alive, the rack SAVED): `node tools/export_midi.js
+  --score <name>` → `node tools/render_reaper.js --score <name> --up` (RENDER.md §1 · §4) → re-extract `piece-lgmf` from a scratchpad
+  COPY with the command in its `provenance.build`, the four `--sequence` and three `--morph` group ids re-read from the new draft →
+  the protos the same way → the checks. ≈ 4 min + 5 min + the checks.
+- **`Resume reads:`** nothing beyond §2 for his eye. A rule change: `docs/ENGRAVING_RULES.md` (generated from `rules.json`) and the PLAN
+  item that owns the device (2g … 2l). STILL BINDING (below) before any verification or splice.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -597,24 +157,22 @@ land only on user approval. A post-clear model reads this block and announces th
 - **S16 · 2026-09-26 (Fable plans + fixes, Opus builds + wraps)** — **`1u` THE VIBRAPHONES' PITCHES ON THE STRIP**, built and in his
   hands; four fixes from his own tests; the last chord's fade read and left. D38. RUNNING_LOG §388 … §404.
 
-**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. The ✓ rows of sessions 13 … 16 were cut at
-the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
+- **S17 · 2026-09-27/28 (Fable plans + looks, Opus builds + wraps)** — **THE NOTATION, FROM ONE PROTOTYPE TO THE FIRST MORPH.** The
+  audio of Draft 01 (2b) · the engraving rules as data (2e) · the fade signs (2f) · the vibraphone's sequence notation (2g … 2i) · the
+  main file and its discipline (2j) · the morph's notation (2k) · the volume curve protocol (2l) · the fold (2l.7): `piece-lgmf`
+  carries every accepted device. D39 … D46. RUNNING_LOG §405 … §530.
+
+**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. The ✓ rows of sessions 13 … 17 were cut at
+the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16) · `git show 26c8c10:docs/PROJECT_JOURNAL.md` (17).)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►** | **2l.6 HIS EYE — the two protos on the volume curve protocol** (PLAN § `2l` BUILT 2026-09-28 on Opus, 2l.1 … 2l.5, one commit each, THE SHIELD in each — RUNNING_LOG §523 … §526): reload the notation tab (the IRs changed; no restart) → `lgmf-eh-proto` → the video view → `0` (the fade from nothing: one straight line, eased into pp at 6.0 s; `(ppp)` 3.0 · `(pp)` 6.0) · `22` … `36` (the wave: `(p)` · `(mp)` 25.0 the crest · `(pp)` 30.9 the trough · `(p)`) · `140` … `149` (`—> ppp`) → `lgmf-hn-morph-proto` → `140` (the sequence's last breath now closes `—> ppp`, by the recipe) · `152.1` (the arc begins at 0.30; the range `ppp → ff`) · `155` … `174` (the rise signposted `(p) (mp) (mf) (f)` to `(ff)` 173.6) · `194.5` (the dip to `(mf)`) · `236.8` (the second dip) · `256` … `270` (the fall `(f) (mp) (p) (pp)`, `—> ppp`) · `z`. **For his word:** the seeds — the ease 0.5 s either side of a corner, the labels 3 s apart · the `(ppp)` at 3.0 s inside the fade from nothing (the rule gives it) · the arc holds ff over FOUR breaths with two dips to mf, not one crest (§525) · the AI's calls (PLAN § `2l`'s foot + §524's three readings: the ends read, not named · the ease keeps the corner's height · the closing sign's test). **Then the rest of 2k.7** (the running order, §2's top) **and 2l.7 the fold** (Opus). `check_rules` 29 · `sequence_notation_check` 79 · `vib_marks_check` 33 · NITS: `test_morph_notation` cannot run here (§525) | his eye · then Fable (a look) / Opus (a fault or the fold) | — |
-| ✓ | **(done — BUILT 2026-09-28, §523 … §526)** **BUILD PLAN § `2l` THE VOLUME CURVE PROTOCOL — 2l.1 → 2l.5 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2l.5 for 2l.6 HIS EYE** (planned in full 2026-09-28, session 17, Fable, from his eye at 2k.7 — RUNNING_LOG §513 … §522; CHECKPOINT #13 above). The green line drawn from the INTENTION, not the fader: the sequence's line in written height from the recipe, the fades the same law, an ease at every corner · the morph's ONE ARC per part through the breath peaks (#5's D47, the anchors read through the ladder, the join a gap; 2k.4's call reversed) · a name wherever the line reaches a dynamic · the tube as built, no ticks. 2l.1 the rows + the principle · 2l.2 the sequence's line · 2l.3 the arc · 2l.4 the labels · 2l.5 the checks and the pages · 2l.6 his eye (+ the running order's rest) · 2l.7 the fold | Opus | yes — checkpoint #13 done |
-| **►►** | **(OPENED 2026-09-28 — the curve became PLAN § `2l`, §513 … §522; its rest is the RUNNING ORDER at §2's top, taken at 2l.6; the fold is 2l.7)** **2k.7 HIS EYE — `lgmf-hn-morph-proto`** (PLAN § `2k` BUILT 2026-09-28 on Opus, 2k.1 … 2k.6, one commit each, THE SHIELD in each — RUNNING_LOG §507 … §512): reload the notation tab (page files + a new IR; no restart) → `lgmf-hn-morph-proto` → the video view → `140` (the sequence's last breath, opened as a block by the window) · `152.1` (the morph's block: A4 · the gliss line · A4 `−25` · `8 (A1)` · `ppp → ff`, no word) · `200` (the orange at the lane's top, the green's swell) · `258.9` (`—> ppp`) · `269` (the end) · `z`. **Found by the build, for his eye:** (1) the horn's range reads `ppp → ff`, not the plan's `ppp → mp` — each breath of `ACT-BLOOM-06` carries its own `cc7Abs`; the lowest and the highest on the horn's own ladder (§508) · (2) no `○—<` — the horn enters the morph at pp, not from nothing (§508) · (3) no `—> ppp` at 140 — the horn's sequence-1 fall is 0.1244 of the scale, 2f's rule wants 0.125 (§512) · (4) the vibraphone in a morph follows the bloom's swell — names and hairpins, three drift warnings (§511) · (5) "ord." at each part's first note of the middle section: EH 289.00, the others 295.5 … 300.3 s (§508). **The AI's calls, his to reverse:** `eligible` in place of the plan's `texts` · the morph's per-breath engraving overlays dropped (`byEnv.morph` resolves the same device) · the gliss line not in `fit.js inkOf` · the one reading: the level as the sequence's, #5's D47 arc not taken. **Then the fold** (2k.7's second half, 2j's discipline): `piece-lgmf` re-extracted from a copy of the draft with `--morph` × 3 beside `--sequence` × 4 — the "ord." at the middle section on six parts, the shield naming `piece-lgmf` alone. `check_rules` 29 · `vib_marks_check` 33 · `sequence_notation_check` 64 | his eye · then Fable (a look) / Opus (a fault or the fold) | — |
-| ✓ | **(done — BUILT 2026-09-28, §507 … §512)** **BUILD PLAN § `2k` THE MORPH'S NOTATION — 2k.1 → 2k.6 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2k.6 for 2k.7 HIS EYE** (planned in full 2026-09-28, session 17, Fable; RUNNING_LOG §504 … §506; LG-117; PERFORMANCE_NOTES #13; CHECKPOINT #11 above). A morph written as a SEQUENCE WHOSE PITCH MOVES: the block + a destination head + the gliss line (§1a, D45's figure) · `○—<` then the morph's `low → high` · no word (senza vib. carries) · the orange curve to each part's travel over the sequence's green level · one go line per breath, the pie, the labels · the vibraphone its bows · the word by section kind ("ord." at 289 s on all six). 2k.1 the rows · 2k.2 the extractor · 2k.3 the header · 2k.4 the curves · 2k.5 the vibraphone · 2k.6 `lgmf-hn-morph-proto` (the horn, 140 … 282 s) · 2k.7 his eye, then the fold of the three morphs into `piece-lgmf` | Opus | yes — checkpoint #11 done |
-| **►►** | **(paused at his pivot to the morph, 2026-09-28 — the rest of the page still his: `427` · `655` · `800` · `40.26`)** **2j.4 HIS EYE IN PROGRESS — his first three findings FIXED 2026-09-28 (Fable, RUNNING_LOG §502): the OTTAVA never reached the sequence block's head (every head folds now, the sign as the nh-unit's, `check_rules` (9) over every page) · a rounded 0 cents not written (`number.centsZero`) · a flipped column landed inside the staff — a flipped row clears the staff now (`ladder.flipClearsStaff`) · the sign never flips. `piece-lgmf` 28 → 6 units off rung 0, none at 8 — the 28 were §502's, not 2a.6's. **THEN THE FOURTH (§503): the brass blocks' "senza vib." — the word keyed on the sample's technique, the SI2 three have none; now in a sequence the word follows the device (`techniqueChange.byEnv`), `piece-lgmf` re-extracted (24 words: 15 blocks, 9 "ord." instructions on the brass after each sequence).** ► He RELOADS the tab (the IR changed — page files only, no restart) and looks again at the same times.** *(The row as it stood:)* **2j.4 HIS EYE — `piece-lgmf` carries every placed sequence's device** (2026-09-28, CHECKPOINT #10; §501; PLAN § `2j` BUILT, THE FILE DISCIPLINE standing there): reload the notation tab → `piece-lgmf` → the video view → `-4` … `4` · `427` · `655` · `800` · `40.26` · `z`; the protos from Draft 01 (the vibraphone's 17 re-pitched bows his own). Then his word — the ladder's 28 units (the block's cents column past the lane top on Vc · Db · Bsn · Hn) most likely become 2a.6 THE CLEFS BY REGISTER or a lane rebalance. *(Before it, done the same day:)* THE RUNNING ORDER COMPLETE, 7 of 7 (§495 … §500) | his eye · then Fable (a look) / Opus (a fault) | — |
-| ✓ | **(2i.6 TAKEN 2026-09-28 — §489 … §496; the held items became the running order)** **2i.6 HIS EYE — `lgmf-vib-proto` and `piece-lgmf`, THEN THE HELD ITEMS** (PLAN § `2i` BUILT 2026-09-28 on Fable, RUNNING_LOG §487; the block above): reload the notation tab (page files + one IR; no restart) → `lgmf-vib-proto` → `0` (navy's hairpins and names on ONE axis above, olive's on one below; the bars on their two tracks) · `20.9` · `22.7` (no restated `pp`) · `38` (no `pp` in the hairpin) · `56.12` (`♯` · `♮` 0.2 apart) · `78.8` · `148` · `z` → `piece-lgmf` → `-4` (the 0.25 s snippet of the seven lines at the page's start, −4 … −3.75 — §489) · `284` (the lines fill the whole page — §488) · `300` · `416` (off again). **Then the held items (§486, his "hold these and resurface them"):** (i) the seat written on the note at deal time · (ii) the head's seat — colour the head (recommended) / stems / a leader · (iii) the winds' `○` start gap · the winds' hairpin height · a closing name only when it would run past · the general courtesy natural. Revise on his word — a look on Fable, a fault on Opus | his eye · then Fable (a look) / Opus (a fault) | — |
-| ✓ | **(done — 2h.9 TAKEN 2026-09-28, §482 … §486; the probe page removed at 2i)** **2h.9 HIS EYE — `lgmf-vib-proto` and `lgmf-vib-close-probe`** (PLAN § `2h` BUILT 2026-09-28 on Fable at his *"build here, go"*, 2h.1 … 2h.8, RUNNING_LOG §474 … §481; the block above): reload the notation tab (page files + two IRs; no restart) → the picker → `lgmf-vib-proto` → the video view → `0` (the `○` 0.45 before its `<`; the hairpins 1.333 opening away from the bar; the `pp` on the bar's end at 6.83) · `6.78` (the bar stops 0.25 ss before the next `♯`; no blue ring on a click — SHIFT+click selects) · `20.9` (the unison: whole bars either side of the shared head, stepping at 22.70) · `56.12` (`♯` · `♮`; the pair flushed) · `78.8` (one `mp` on the bar's end, clear of the `8va`; the next bow `> p`) · `148` (`> ppp` at its point, 0.76 s before the bow's end) · `lgmf-vib-close-probe` (one line · a second · a third flushed, a fourth centred) · `z`. **Then his seven calls (§481):** the close threshold `withinSs` 1.25 (0.75 a second only · 1.75 a fourth too) · the winds' `○` took the start gap (the base row) · the winds' hairpin stays 0.667 · a closing name snaps only when it would run past the bar's end (the last `> ppp` stays at its point) · the start name at a voice switch (44 bows) · the general courtesy natural · `afterAbutS` 0.1. Revise on his word — a look on Fable, a fault on Opus | his eye · then Fable (a look) / Opus (a fault) | — |
-| ✓ | **(done — 2g.6 TAKEN 2026-09-28, RUNNING_LOG §473: ten findings, every one a step of PLAN § `2h`, built the same day)** **2g.6 HIS EYE — `lgmf-vib-proto`** (2g BUILT 2026-09-27 on Opus, 2g.1 … 2g.5, RUNNING_LOG §467 … §471; the block above): reload the notation tab → `lgmf-vib-proto` → the video view → `0` · `20.9` · `33` … `95` · `42.65` · `56.12` · `148` · `z`; then the four findings and the AI's calls of the block above. Revise on his word — a look on Fable, a fault on Opus | his eye · then Fable (a look) / Opus (a fault) | — |
-| ✓ | **(done — the row as it stood)** **BUILD PLAN § `2g` THE VIBRAPHONE'S SEQUENCE NOTATION — 2g.1 → 2g.5 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2g.5 for 2g.6 HIS EYE** (planned in full 2026-09-27, session 17, Fable; RUNNING_LOG §463 … §466; LG-116; PERFORMANCE_NOTES #10 … #12). Two bows on one staff: every bow an open head at ANCHOR A + the grey ring bar, two voices by REGISTER (the upper row the higher-sounding bow), the marks tied to the BOW — a name where the level changes (only through a hairpin), TIMED hairpins, a name at a turn, `○` at the fades, the repeated name left off; no curve / meter / follower / pie / header block on the lane; bars within a second at half height, a unison stacked, the chord displacement. 2g.1 the rows + the sheet · 2g.2 the reader `notation/lib/vib_marks.js` + `tools/vib_marks_check.js` (§463's numbers the goldens) · 2g.3 the bows drawn · 2g.4 the marks drawn · 2g.5 the proto `lgmf-vib-proto` (R01c, 2 … 154 s) · 2g.6 his eye. THE SHIELD: `lgmf-eh-proto` + `piece-lgmf` byte-identical, the tuba goldens where `layout.js` moves | Opus | yes — checkpoint #5 done |
+| **►►►** | **THE RUNNING ORDER's step 3 — HIS EYE on `piece-lgmf`, 0 → 279** (journal §2 top: the stops; PLAN 2l.7 BUILT 2026-09-28, §530). Reload the notation tab, no restart. His frame (§527): collect the findings in the RUNNING_LOG, then fix them at once | Fable (a look → a rule row) · Opus (a fault) | yes — `/session-start` |
+| **►►** | **The RUNNING ORDER's step 4 — his calls in the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners · 2k's AI's calls (§507 `eligible` · §509 the gliss line not in `inkOf` · §512 the per-breath overlays dropped) | his · Fable | — |
+| **►►** | **2j.4 HIS EYE — the rest of the main page BEYOND 279: `427` · `655` · `800`** (paused 2026-09-28 at his pivot to the morph; his first findings fixed, §502 · §503; `40.26` is in the running order's step 3) | his eye | — |
 | **►►** | **(still his — not taken up at checkpoint #5)** **HIS EYE ON THE PROTO — `lgmf-eh-proto` IS NOW THE EH'S WHOLE FIRST LINE, 0 … 149 s** (session 17, 2026-09-27, Fable at 2e.7; RUNNING_LOG §454 … §462; `dfd63e3` … `6dfb038`, all pushed). **Reload the notation tab** (page files + the IR; no restart) → `lgmf-eh-proto` → the video view → `0` (the opening `○—<` before `pp → mp` on the dynamic row; the fade ONE straight line to pp at 6 s) · `141.98` (the last breath: G5 −31 · `14 (A1)`, `—> ppp` before its go line) · the working page (⚙ off the video view, the EH in F): `+41` · `26 (C1)` over the head, "senza vib." under the dynamic row. **Then his open answers:** (1) the closing sign's mark — the save falls to **ppp** (`fadeOutTo: ppp`), his words said "niente": keep `—> ppp` (the notation follows the save) or re-insert the sequence with `fade out … to niente` (§460) · (2) the breaths' top **CC7 69 vs the table's mp 68** (§456) · (3) **DN-1 … DN-5** on the generated page (`docs/ENGRAVING_RULES.md` § 8) · (4) the AI's calls of §458 · §459 · §460 (the sign row −5.95 · the fall test · the room rule · the hairpin 0.667). Revise on his word — a look question on Fable, a fault on Opus. *(What 2e.7 built, each in its §:)* the curve follower OFF (§454) · the pie go line to go line (§455) · the level verified to the page (§456) · THE FLIP BY CLASS — `leaves` on the mark rows, the annotation flips before the pitch data (§458, DN-6 closed) · `2f` THE FADE SIGNS — restored (§457), built (§459), hairpins before the legend (§460, a new drawn kind `hairpin`), the fade drawn as a multiplier on the WRITTEN height (§461 · §462). `check_rules` 23 · `sequence_notation_check` 64 | his eye · then Fable (a look) / Opus (a fault) | — |
 | **►►** | **THE AUDIO OF DRAFT 01 — HIS EAR** (session 17, RUNNING_LOG §405 … §407): the WAV `notation/audio/piece-Recombination-Draft01-done.wav` (−1 dBTP, +10 dB plain at his "b") · the notation tab reloaded → `piece-lgmf · Draft 01` → `♪ render`. Re-render recipe in the checkpoint block above | his ear · then Opus (a fault) | — |
 | **►►** | **`1u.6` HIS — IN USE** (not closed by his word). Built 2026-09-26 (1u.1 … 1u.5, §390 … §394); four fixes from his tests, each verified in the page on his own score (§395 … §401; `0d36216` · `240a0c0` · `268fe04` · `b3a23dd`; `vibes_pitch_check` 50 → **65**): the take of a morph the panel's Insert placed (on the marker; those placed before matched by the KEYS of the other players to a saved actual, the match written onto the marker) · the first breath of each seat draws · the row blurs its buttons · `neighbours` on a morph mostly empty (by the rule — `within a tone` · `any` there). **Offered, not taken up:** the strip's own buttons (`shuffle` · `back` · `take ▾` · `dyn ▾`) blurred the same way (a `shuffle` then SPACE re-shuffles) · a status that leads with WHY when nothing changed · `neighbours` in a morph read from the others' "to" notes (§396 (c), a design talk first). **The AI's calls, his to reverse:** a seat holds its note until a change · a breath of another take kept as dealt · the other seat clear over the whole breath · the match written onto his marker (§401) | his ear · then Fable (a reading) / Opus (a fault) | — |
-| ✓ | **`2d.7` SUPERSEDED 2026-09-27 by `2e.7`** — his audit of the prototype (RUNNING_LOG §408 … §447); the page-start clash DECIDED: (a) a 4 s lead-in (§409). *(The row as it stood:)* **`2d.7` HIS EYE — `2d` IS BUILT, 2d.1 … 2d.6** (2026-09-25, Opus, at his word *"go, build through as much as possible independently"*; RUNNING_LOG §382 … §387; `4c471c4` · `8db3a7e` · `4e784fc` · `ba587fc` · `c239311` · the 2d.6 commit; `node tools/sequence_notation_check.js` 58 / 58; the shield byte-identical against `6d6866c`). **FIRST HIS CALL — THE PAGE-START CLASH** (PLAN § `2d`, the FOUND line): the block at 0 s has no room left of x(0) — the screen clamps it right of its go line, paper draws it into the clef gutter (`check_print_edges --ir lgmf-eh-proto` fails page 1): (a) a lead-in [recommended] · (b) the clamp on both · (c) as they are. **Then his eye, no restart:** the notation app → the picker → `lgmf-eh-proto` → the video view (the working page, the EH written in F: D♯6) → `0` · `20` (the curve, the follower, the pie) · `28.7` (the new pitch) · `z`. The presentation score (in C) is the exporter's. *(The build's row, done:)* **BUILD `2d` THE EH'S SEQUENCE NOTATION PROTOTYPE — PLAN § `2d`, 2d.1 → 2d.6 in order, one commit per step, pushed, THE SHIELD in each; STOP after 2d.6 for his eye (2d.7).** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §368 … §380; LG-111 · LG-112; `c08cf37`): a page of its own `lgmf-eh-proto`, the EH's 0 … 36 s, ONE OF EACH THING — the block (G♯5 ¾♯ · `+41` over `26°/C1` · "senza vib." · `pp → mp`) · the level curve on the FIXED SCALE (niente … fff in eighths) + the follower · the pie counting each breath down · a same-pitch breath (13.7 s, parenthesised cue head) · a new-pitch breath (28.7 s, G5 `+2` · `12°/C2`) · `(mp)` 25.0 · `(pp)` 30.9. The pitch marks decided (`docs/research/just_partials_notation.md` §1a). **His pick on the notation is made: (b) the specific notation, begun on the EH** | his eye · then Fable (a look) / Opus (a fault) | — |
 | **►►** | **`1t.5` HIS LISTEN — RESTART the server (`morph.js` changed) and reload the tab.** MORPH → `TAKES` → `from` a take · `to ▾` a take → `duration` 60 → Generate → the line → Play → the far voices' seams · the vibraphones at the default (1: the first 3 s before the arrival, the second ON it — never heard on its new bar unless `release` is set; the line says so) then at 0.5 → a `release` (8) — the fade on B → Insert after a sequence ending `one by one`. BUILT 2026-09-25 on Opus, 1t.1 … 1t.4 (RUNNING_LOG §364 … §367; `a7ae62c` · `dc7c76c` · `312d88f` · 1t.4). Found: the switch needed a CUT (§366); the release returned every player to A — `carrier.releaseHolds` on TAKES (§367); the red "hard" count is the re-key seams (§367, NITS). *(The build's row, done:)* **BUILD `1t` THE MORPH BETWEEN TAKES — PLAN § `1t`, 1t.1 → 1t.4, one commit per step, THE SHIELD in each; STOP before 1t.1 for his word.** PLANNED IN FULL 2026-09-25 (Fable, session 15; RUNNING_LOG §350 … §363; LG-106 … LG-110): take A → take B by player, one duration, the scatter, the re-key, the vibraphones' switch dial, the joins by hand. He pivoted here from the notation at his word (*"I want to work on the morph drawer"*); the notation's pick (the row below) waits | Opus | yes — checkpoint first |
 | his | **`2a.5` HIS EYE — no restart.** The notation app → `piece-lgmf` → the video view → 300 s → the brace, the seven lines, the names, the heads on their lines; `z` the zoom. BUILT AND VERIFIED 2026-09-25 (RUNNING_LOG §338). **IN PROGRESS — the names decided and in (§339: no periods · `DB` · `SlBl · Cast · Tamb · TemBwl · WB · BrDr · BD`; `TemBwl` 4.6 px clear of the brace, the gutter 72 untouched; #5's three gutter fixes carried, the print-edge checker not yet run here — 2b); his a/b/c on the E.H. sharp over the clef at 300 s pending.** Revise on his word — a look question on Fable, a fault on Opus | his eye | — |
 | N-2a | **`2a.6` the clefs by register** — a TENOR clef in the engine (the C clef on line 4; the engine draws treble · alto · bass) and an automatic clef per stretch: Bsn bass · tenor, Vc and Db bass · tenor · treble (§335's numbers; `ev-wc-3489`, the bass's A5, clamps at 15ma today). One line in PLAN § `2a` — lay out its sub-steps (thresholds · where a change may fall · the clef glyph at a change) and THE SHIELD before building. Re-extract `piece-lgmf` after | Opus (the thresholds the AI's, his to reverse) | yes |
@@ -638,10 +196,15 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 16 CLOSED (2026-09-26, Opus) — the pending list of sessions 14 … 16 in one place:**
-- **THE STATE:** nothing is being built; everything committed and pushed. Every tool is in his tab as page files — no restart owed but
-  `1t.5`'s.
+**Open at session end — SESSION 17 CLOSED (2026-09-28, Opus) — the pending list of sessions 14 … 17 in one place:**
+- **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a RELOAD (`piece-lgmf` changed);
+  no restart owed but `1t.5`'s.
 - **Pending him — the decisions** (each written out in the § cited):
+  - **Session 17** (D39 … D46): the running order's steps 3 · 4 · 2j.4 beyond 279 · his ear on the WAV (D39) · the EH proto's answers
+    since checkpoint #4 — the closing mark ppp vs niente (§460) · CC7 69 vs 68 (§456) · DN-1 … DN-5 · the AI's calls at the foot of
+    PLAN § 2e … § 2l. Held by name: anchor G metric (§416) · the hand-drawn style · the live name at the tube · the micro-motion flag ·
+    the pitch line's corners. Parked: the paper score's lead-in and the percussion snippet on paper (§489). Beyond 279, for later:
+    the middle section's page, morphs 2 · 3's alerts (§530).
   - **DECIDED 2026-09-27 — (a) a 4 s lead-in for the presentation score (§409; PLAN 2e.2); `2d.7` superseded by `2e.7`.** *(As it stood:)* **`2d` THE PAGE-START CLASH** (§383 · §387): the EH's block at 0 s has no room left of x(0) — the screen clamps it right of its go
     line; paper draws it into the clef gutter and `check_print_edges --ir lgmf-eh-proto` FAILS page 1. (a) a LEAD-IN [recommended] ·
     (b) the clamp on both · (c) as they are. If (a): one PLAN item first (the lead-in's length; both media; THE SHIELD by data absence).
@@ -661,6 +224,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
 - **Where the earlier record lives:** session 13's tool table (`1m.4` · `1o` · `1n` · `1p` · `1q` · the volume fix · the percussion menu)
   and every checkpoint block of sessions 14 … 16 — with their SHIELD recipes (`1t` §365 · `2c` §344 · `2d` §387 · `1u` §394) — are
   whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.
+- **Session 17's checkpoints #1 … #14** and its two closed running orders are whole in git: `git show 26c8c10:docs/PROJECT_JOURNAL.md`.
+- **Learned in session 17:** in an eye pass he COLLECTS, then everything is fixed at once (§527) · a gate that fails after a step is
+  run on HEAD's file first — the pie's failure was older than the fold (§529) · an SVG arc takes its circle from its END POINTS: a
+  near-full or near-half arc with rounded ends drifts by pixels, draw it in pieces ≤ 90° (§529) · a long Bash command dies near 8 KB
+  with a false quote error — splice from scratch files.
 - **Learned in session 16:** a report of "nothing happens" after a build is first a question of the TAB — ask for a reload before
   reading the code (§398 · §402) · a content match on a placed object must survive the edits the strip itself makes (§401: `go` ate a
   time match) · a clicked `<button>` keeps the focus and takes SPACE as its own click — a row with buttons blurs them (§400).
@@ -669,11 +237,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md`.)*
   - `bank/panel_snapshots.json` · `bank/sequences.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json`
     — his libraries, autosaved by his tab · `bank/passages/lgmf-sec2.json` — his passage · `reaper/LGMF_rack.rpp` — his rack
   - `scores/` — `piece-LGMF-Sec01-Sec02*` (five) · `piece-LGMF-Sec03-Try01` · `-Try02` · `-Try02p1a` … `-Try02p4a` · `-Try02p5` ·
-    `piece-LGMF-draft01-preVibesFix` · **`piece-LGMF-draft01-VibesFix` (new)** · **`piece-Recombination-Draft01-done` (new — COMMITTED at his word)** ·
+    `piece-LGMF-draft01-preVibesFix` · `piece-LGMF-draft01-VibesFix` · **`piece-Recombination-Draft01-done`** (committed at his word in session 16; MODIFIED since by his tab's save of 2026-09-26
+    20:28 — `metadata` · `viewport` only, no object changed; every extraction read a COPY) ·
     `pointilistic01a` — his named saves
-- **Unsaved working copies** (`node tools/unsaved_check.js`, at this close): `piece-Recombination-Draft01-done` SAVED by him and
-  COMMITTED at his word (*"saved comitt pls"*) · the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
-  `longToneTest`), none the piece.
+- **Unsaved working copies** (`node tools/unsaved_check.js`, at the session-17 close): the four old ones since session 11 (`cresTest` ·
+  `lgmf-all` · `lgmf-bloom` · `longToneTest`), none the piece.
 
 ### STILL BINDING — carried whole from session 11's checkpoint #4
 
@@ -1053,6 +621,42 @@ this repo only when they bite.)*
   reproducible, surviving a re-insert; the caveat of the notes accepted: a re-insert regenerates and the change is gone) · the first
   breath of each seat kept as dealt (the plan's call, reversed at his word *"the first pair selected does not change"*, §397) · a content
   match by time (eaten by `go` and by his hand, §401). RUNNING_LOG §388 … §401.
+- **D39** *(2026-09-27, PLAN 2b; composer §405 · his "b" §407)* — **THE AUDIO OF THE PRESENTATION SCORE.** ONE WAV of the NAMED
+  draft as saved, through his rack, as ▶ plays it (his own playback captured, 1076 / 1076 notes), raised by plain gain to −1 dBTP
+  (+10 dB for Draft 01, `render_reaper.js --up`); re-rendered whenever a new draft is named, and the main notation file with it.
+  *Rejected:* rendering from a working save · §407's other level options. RUNNING_LOG §405 … §407 · RENDER.md §4.
+- **D40** *(2026-09-27, PLAN 2e; composer §408 — "nothing decided is decided twice")* — **THE ENGRAVING RULES ARE DATA.** Every
+  placement, size, colour, face and the ladder is a ROW of `notation/registry/rules.json` with a `basis` and a §; the devices point at
+  rows; `docs/ENGRAVING_RULES.md` is GENERATED; `tools/check_rules.js` holds them; a new notation begins with a DEVICE SHEET; a
+  presentation score opens on a 4 s lead-in. *Rejected:* a value in code (change a ROW, never a code number) · re-deciding by eye what
+  an earlier piece decided · the page-start clamp in place of the lead-in (§409). RUNNING_LOG §408 … §453.
+- **D41** *(2026-09-27, PLAN 2f; composer §457 · §459 · §460)* — **THE FADE SIGNS.** `○—<` before the legend when a part enters from
+  nothing · `—> ppp` on the last breath when it leaves · a new drawn kind `hairpin`. The line of the fade itself became D45's law.
+  RUNNING_LOG §457 … §462.
+- **D42** *(2026-09-27/28, PLAN 2g · 2h · 2i and the running order; composer §463 … §500)* — **THE VIBRAPHONE IN A SEQUENCE.** Every
+  bow an open head at anchor A with its ring bar, two voices on one staff; the marks tied to the BOW (a name = the level, a timed
+  hairpin = movement, `○` at the fades); two rows by SEAT, navy top · olive bottom, pinned to the lane's edges; the bars on two tracks;
+  a dotted bow lead in the seat's hue and a swatch behind the head; the rows CROSS at a rhythmic unison; the percussion staff drawn only
+  where it plays; no general courtesy natural. *Rejected:* a level curve, meter, follower, pie or header on the lane · a coloured head
+  outline (§495) · the seat written at deal time (moot, §496) · a `♮` across time (§500). RUNNING_LOG §463 … §500.
+- **D43** *(2026-09-28, PLAN 2j; composer's question §501)* — **THE FILE DISCIPLINE.** (1) one source, the named draft · (2) the main
+  file `piece-lgmf` carries every device the moment his eye accepts it · (3) a new device is born on a PROTO page cut from a copy of
+  the draft, then folded in by its flag · (4) no IR is ever hand-edited · (5) every extraction's command in its `provenance.build`.
+  *Rejected:* a second page for a finished thing · his working saves feeding notation. RUNNING_LOG §501 · PLAN § 2j.
+- **D44** *(2026-09-28, PLAN 2k; composer §504 … §506)* — **THE MORPH IS A SEQUENCE WHOSE PITCH MOVES.** The sequence's block plus a
+  destination head and the gliss line, the orange curve to each part's travel; the vibrato word by SECTION KIND — "senza vib." carries
+  through the sequences and the morphs, "ord." at the middle section's first note on every eligible part. *Rejected:* the tuba's
+  separate header · the word keyed on the sample's technique (§503) or on the device alone. RUNNING_LOG §504 … §512.
+- **D45** *(2026-09-28, PLAN 2l; composer §513 … §522, the arc accepted at his eye §527)* — **THE CURVE DRAWS THE INTENTION, NOT THE
+  FADER.** A performer reads a shape in real time and makes eight dynamics and continuous change between two of them. A sequence's
+  line comes from its RECIPE in written height, straight name to name, the fades by the same law, an ease at every corner; a morph's
+  line is ONE ARC per part through its breath peaks (piece #5's D47); a name in brackets wherever the line reaches a dynamic; the
+  closing sign by the recipe or the arc. *Rejected:* the fader trace (its 12-dot grid, the ladder's bends, a second law for the fades)
+  · 2k.4's "no arc" (reversed, §516) · ticks on the level tube (twice, §521). Held: the hand-drawn style · the pitch line's corners.
+  RUNNING_LOG §513 … §530.
+- **D46** *(2026-09-28; composer §502 · §528)* — **THE OTTAVA.** Every head folds under the threshold (3 ledger lines) and takes the
+  sign, the sequence block and its breaths included; the sign never flips; its hook is INK and ends on anchor B's spacer, the head and
+  its column moved left to make room (`objects.ottava.hookIsInk`). RUNNING_LOG §502 · §528.
 
 ## §5 Playbooks
 
@@ -1085,6 +689,8 @@ across when its system lands here and is first used.)*
 - 2026-09-26 — **`1u` THE VIBRAPHONES' PITCHES ON THE STRIP built, and in use in section 3** (RUNNING_LOG §388 … §401).
 
 ---
+- 2026-09-28 — **THE MAIN NOTATION PAGE CARRIES EVERY ACCEPTED DEVICE** — `piece-lgmf` from Draft 01: the sequences, the vibraphone's
+  bows, the three morphs, the curve protocol (2d … 2l, folded at 2l.7; RUNNING_LOG §530). His eye on 0 → 279 owed.
 
 ## §7 Human Notes
 
