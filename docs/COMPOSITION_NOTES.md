@@ -2913,3 +2913,7 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 ## LG-140 — 2026-09-29 — the stroke slid along its perpendicular, into the beams and the stub
 
 *"the slash is almost there can we move it in over the beam some more? In other words, move it along its perpendicular axis towards the staff. So as if we drew a parallel line, but slightly more in the beams and stem."* (the composer, 2026-09-29, Fable, with the page pasted — RUNNING_LOG §562)
+
+## LG-141 — 2026-09-29 — a compatible tempo for the next six notes: methods wanted, a few candidates to see as overlaid lines
+
+*"the next 6 starting at 295.45, can you measure and see if you can give me a close-ish tempo. that those notes might fall around. Let's discuss a little bit. What are some methods of coming up with a overlay tempo? Give me some possibilities. And then if I could see them maybe just as lines, you can tell me, or maybe different colors, you can tell me what they are, how you derive them, and let me see them overlaid. Just a few candidates is good. And it's just from the 295 to 297.3."* (the composer, 2026-09-29, Fable — N-4 THE SHOWN BEAT's first question, on the second figure; RUNNING_LOG §563)

@@ -184,7 +184,9 @@ on Opus or here at his word.
   tuplets; the beat shown, the system counts, the rhythm felt by space. TO WORK OUT: **a method for a compatible tempo / time signature**
   (*"how?"* — the AI's seed: the grid unit whose multiples land on the figure's onsets within a tolerance, searched over a range, as the tuba
   pages' `--cluster` fitter did per cluster; the signature from the figure's length in units) · where it applies ("certain parts") · the
-  viability test V1 … V8 on the ball · a device sheet (line 1a: A7). He wants it BUILT as an option to see.
+  viability test V1 … V8 on the ball · a device sheet (line 1a: A7). He wants it BUILT as an option to see. **§563 (LG-141): the tempo
+  method begun on the second figure (295.45 … 297.3) — `tools/tempo_fit.js`, three methods (phase coherence · the grid fit · the IOI); the
+  finding one family, a beat of ≈ 0.32 s (185 … 190 bpm), the first note an upbeat; three grids shown him as a picture, his pick owed.**
 - **N-5 · THE MICRO COUNTERPOINT — the notation evaluation for the texture** (LG-130: the figures after the first; onsets a small interval
   apart across instruments): the survey on the texture; the candidates he named — more GCs · the ball on the cursor · highlight the notes as
   the cursor passes · different beaming · count-accurate TN with tuplets · shadows of other performers' notes · lines. Rhythmic accuracy the

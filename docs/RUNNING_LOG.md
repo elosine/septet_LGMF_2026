@@ -18603,3 +18603,28 @@ the shield holds. p1: the stem tip 4.14 → the word at 4.59 (was 6.0).
 stub (§561), is slid 0.6 ss along its own perpendicular toward the heads: for a falling stroke under a beam that is up and to the right
 (0.42 · 0.42), the mirror above a beam; it now crosses the stub higher and the beam farther in. The AI's 0.6, his to tune. `check_rules`
 32 · the shield `piece-lgmf` alone · `eh_figure_check` 27 GREEN. **► His eye:** reload → `piece-lgmf` → `292.8`.
+
+## §563. A COMPATIBLE TEMPO FOR A FIGURE — three methods, the second figure measured, three grids to see (2026-09-29, Fable, session 18; N-4's first question)
+
+**Prompted by:** LG-141.
+
+**The figure:** the EH's six notes 295.456 A4 · 295.665 A♯3 · 295.974 A5 · 296.315 G3 · 296.632 G♯4 · 297.306 F♯4 — the gaps 0.209 · 0.309 · 0.341
+· 0.317 · 0.674 s (mean 0.370, median 0.317).
+
+**The tool: `tools/tempo_fit.js --ir piece-lgmf --part 0 --from 295 --to 297.31`** — three methods, each a candidate grid:
+- **(A) PHASE COHERENCE** — the comb of beat tracking: for each period T the onsets as unit vectors e^{2πi t/T}; the length of their sum (0 … 1)
+  says how tightly they sit on ONE beat of that period, the sum's angle gives the phase for free. Best: **T 0.319 s = 188 bpm**, coherence
+  0.73 — the first note 88 ms early (an upbeat), the other five within ±32 ms; then 259 bpm (0.59) and 221 (0.42).
+- **(B) THE GRID FIT** — the tuba pages' cluster idea: the subdivision unit u whose multiples from the first onset land nearest every onset
+  (the rms of the misses). Best: **u 0.108 s, rms 12 ms — slots 0 2 5 8 11 17**: as a 16th that is ♩ = 139, and the durations read
+  2 · 3 · 3 · 3 · 6 sixteenths — an eighth, three dotted eighths, a dotted quarter; the dotted eighth (0.324 s) IS (A)'s beat. Coarser:
+  u 0.169 (rms 18) — an eighth at ♩ 89, slots 0 1 3 5 7 11 (1 · 2 · 2 · 2 · 4 eighths), the same shape.
+- **(C) THE IOI AS A PULSE** — the mean 0.370 s (162 bpm) or the median 0.317 (189): crude; the mean misses by up to 161 ms.
+
+**The picture given him** (`tempo_candidates.html`, the scratchpad — the six heads on a time axis at 480 px/s, three colour grids in their own
+bands with the beats heavy and the subdivisions light, a table of each note's miss in ms): red (A) 188 bpm · blue (B) the 16th at 139
+with the dotted-eighth beat · green (B′) the eighth at 178. The reading: **one family — a beat of about 0.32 s (≈ 185 … 190), the first note
+an upbeat two thirds of a beat early, the last held two beats.** Nothing on the notation page yet — the shown beat's drawing is N-4's build.
+
+**Methods not tried here (for the plan):** a joint tempo-and-subdivision search scored by simplicity (fewer tuplets wins) · a fit over a
+whole passage rather than one figure · the performer's tapping as the ground truth (his LG-130: "so the system counts for you").
