@@ -5,7 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-09-29 — **► SESSION 18 · 2m THE LONG TONE BUILT (Opus, 2m.1 … 2m.3, RUNNING_LOG §532 … §534): `piece-lgmf` carries section 2's 120 long tones in 36 groups — anchor A, no go line, the navy bar the full length, one name per note on the dynamic row, tempered; every gate green, the shield exactly `piece-lgmf`. ► 2m.4 HIS EYE (reload the notation tab; the stops in journal §2's running order, step 3).**
+**NOW ►** 2026-09-29 — **► SESSION 18 · CHECKPOINT #2 — 2m THE LONG TONE BUILT (Opus, 2m.1 … 2m.3, RUNNING_LOG §532 … §534; journal §2 SESSION 18 · CHECKPOINT #2 is the cold-start block): `piece-lgmf` carries section 2's 120 long tones in 36 groups — anchor A, no go line, the navy bar the full length, one name per note on the dynamic row, tempered; every gate green, the shield exactly `piece-lgmf`. ► 2m.4 HIS EYE (reload the notation tab; the stops in journal §2's running order, step 3).**
 
 *Before it —* 2026-09-29 — **► SESSION 18 · CHECKPOINT #1 (Fable planned, Opus builds) — SECTION 2, ONE NOTATION TYPE AT A TIME, his pivot (§531). PLAN § `2m` THE LONG TONE planned (LG-119): anchor A, no go line · tempered as written · one dynamic name per note on the dynamic row (normalized per chord later, his) · the navy bar at 0.3 · THE CUT HIS — a held note that starts together with another player's (36 groups · 120 notes; 18 singles wait). ► BUILD 2m.1 → 2m.3 on Opus, no clear (his word); STOP for 2m.4 his eye. Journal §2 SESSION 18 · CHECKPOINT #1 is the cold-start block.**
 

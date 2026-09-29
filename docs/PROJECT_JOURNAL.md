@@ -78,6 +78,33 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
    2k's AI's calls (the first order's 7). Done when: each named yes or no.
 — beyond 279, not in this order: the middle section (the percussion staff, the patterns, the "ord." entries — the first order's 6 — come with the fold, proofed later).
 
+### SESSION 18 · CHECKPOINT #2 (mid-session checkpoint, 2026-09-29, Opus) — 2m THE LONG TONE BUILT; ► 2m.4 HIS EYE
+
+- **The task:** SECTION 2 (289 … 427 s), one notation type at a time (his pivot, §531). The first type, THE LONG TONE, is **BUILT and
+  pushed** — 2m.1 … 2m.3, one commit each, THE SHIELD in each (RUNNING_LOG §532 · §533 · §534; `b3d33c9` · `20e3e46` · `69bde9c`).
+- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — 120 long tones in 36 groups (`env 'longTone'`, the registry's `byEnv.longTone`):
+  the open head's left edge on its time, no go line · tempered, no column · the navy ring bar at 0.3 the note's full length, the
+  clearance before the next unit · one band name per note ON the dynamic row (`dynOnRow`). Built by `--longTones 289:427` added to
+  the fold's command (the IR's `provenance.build`). `check_rules` 31 · both edges PASS · the ladder 7 at rung 3, as the fold.
+- **► The next concrete step — HIS: 2m.4, his eye** (the running order's step 3 above holds the stops). He reloads the notation tab
+  (no restart) → `piece-lgmf` → the video view → the stops. The AI COLLECTS his findings in the RUNNING_LOG (§535 next free), then
+  fixes them together on his go (§527's frame): a look → a rule row on Fable; a fault → Opus.
+- **`Resume reads:`** nothing beyond §2 for his eye. For a fix: PLAN § `2m` · `docs/ENGRAVING_RULES.md` § 1's `byEnv.longTone` row.
+  A re-extraction: the command in `piece-lgmf`'s `provenance.build` on a scratchpad COPY of Draft 01 (2j's discipline); the shield
+  (`layout_shield --write` on HEAD first, `--diff --expect piece-lgmf` after). STILL BINDING (below).
+- **Pending him (each in PLAN § `2m`'s last lines or §532 · §534):** his eye · the EH's low F3 at 331.38 · 333.36 — the name above the
+  staff (no room below; the chain's `sideWithRoom`) · the 18 singles as they draw (the three brass singles keep the tuba `ord`'s go
+  line) and `--longToneAlso` for any he names · the AI's calls: routed by env not technique · the name from the eight-step
+  `dynamicBands` · the 0.1 s window · the 0.2 s floor · `--longToneAlso` an extractor flag · then his per-chord dynamics pass in the
+  composer (`dyn ▾`), re-extract after · his eye on 0 → 279 (held, the running order's step 4).
+- **Deliberately uncommitted — the same 29 paths as the session-17 close, all his, untouched** (`git status --short` at this
+  checkpoint): his actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his
+  libraries autosaved by his tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` ·
+  `rhythm_takes.json`) · his passage `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/`
+  (the five `piece-LGMF-Sec01-Sec02*`, the seven `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`,
+  `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json` (his tab's save of 2026-09-26 — `metadata` · `viewport`; every
+  extraction reads a COPY).
+
 ### SESSION 18 · CHECKPOINT #1 (mid-session checkpoint, 2026-09-29, Fable planned, Opus builds) — 2m THE LONG TONE
 
 - **The task:** SECTION 2 (289 … 427 s), one notation type at a time — his pivot at the `/postclear` (§531). The first type: THE LONG TONE.
