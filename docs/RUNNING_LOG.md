@@ -18570,3 +18570,29 @@ for every notation file, so a plain reload should fetch the new `layout.js`; his
 (CTRL+SHIFT+R) once. If it persists after that, it is a fault to find, not a decision lost.
 
 **► His eye after a hard reload:** `piece-lgmf` → `291.4` (the accent under the slur) · `292.8` (the stroke falling).
+
+## §561. THE MAX MEASURED ON THE HEAD · THE STROKE CENTRED ON THE STACK · THE SECTION'S WORD ABOVE ITS NOTE (2026-09-29, Fable, session 18)
+
+**Prompted by:** LG-139, whole (two images).
+
+**(1) p3's flag — not a reversion: the max at work.** §554's max capped the flag-clear law by STEM LENGTH (7 ss); p3, one ledger below the
+staff with its stem up, needs 9.25 to lift its flag over the top line, so under the cap it fell back to the standard 4.5 and the flag sat
+inside — which he saw. The AI first re-measured the max on the HEAD's distance from the staff (his words *"many ledger lines down"*;
+`clearWithinSs` 2.5) — then his word came: *"lets increase max for flag clearance to this height, so when this flag clears the staff it
+will be just under max"* — so the max stays a STEM-LENGTH cap, raised to **9.5** (`objects.flag.clearMaxSs`), p3's 9.25 just under it; the
+head-distance version dropped. p3 clears again: 9.25, the flag 0.38 over the top line; the lock asserts it.
+
+**(2) The stroke balanced.** Centred on the beam STACK (between its two faces), not on the near edge: it now juts 0.9 ss beyond each face
+instead of 1.5 above and 0.3 below. `objects.groupStub`'s reach unchanged.
+
+**(3) The section's word above its note — a standard.** The "ord." at 289 was an instruction OVERLAY (the change rule, §505) placed as the
+tuba pages place their section headers: on the tempo row + 1.4 = 6.0 ss, at the lane top. No reason for a note's technique word. The
+standard (`objects.instruction.aboveNoteSs` 0.45 · `staffClearSs` 1): the word sits the house spacer above the note's TOP INK — its stem
+tip, head, accidental, flag or mark, whichever is highest — and never under 1 ss above the top line. This piece's extractor marks its
+change-rule words `place: 'aboveNote'` (the overlay's value now { text, place }); the tuba pages' string values keep the header place —
+the shield holds. p1: the stem tip 4.14 → the word at 4.59 (was 6.0).
+
+`check_rules` 32 · the shield `piece-lgmf` alone · `eh_figure_check` 27 GREEN (the three decisions asserted) · the screen gate not run
+(no new kind). Standards S3 and S11 in `temporal_notation.md` §12 updated.
+
+**► His eye:** a hard reload if the last one was not → `piece-lgmf` → `289` (the word) · `291.4` (p3's flag) · `292.8` (the stroke).

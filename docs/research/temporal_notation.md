@@ -524,7 +524,7 @@ no rule about WHEN).*
 |---|---|---|---|
 | S1 | **The plain note:** a filled head with its left edge ON its time, a plain stem, no go line, no GC, no bar; the dynamic name on the row when it is written | `byEnv.plainNote` · `--plainNotes` | §547 |
 | S2 | **The plain stem a tenth, 4.5 ss** (the octave is LilyPond's minimum); the tip on a line or a space; the flag-clear law, the middle-line rule and the chain lengthen from there | `objects.stem.lengthLongSs` → `plainNote.stemLenSs` | §553 · §556 |
-| S3 | **Flags and beams clear the staff:** the flag's near edge 0.38 ss beyond the outer line, both directions; a beam at the flagged height; **the max 7 ss** — past it the stem keeps its standard length and the flag sits inside; a grace exempt | `plainNote.nhStemRule` · `objects.flag.staff · clearMaxSs` | §553 · §554 |
+| S3 | **Flags and beams clear the staff:** the flag's near edge 0.38 ss beyond the outer line, both directions; a beam at the flagged height; **the max 9.5 ss** (his: p3's 9.25 just under it) — past it the stem keeps its standard length and the flag sits inside; a grace exempt | `plainNote.nhStemRule` · `objects.flag.staff · clearMaxSs` | §553 · §554 · §561 |
 | S4 | **Values as pace, never duration** (T8): flags and beams by the spacing class, read as relative — no bar, no meter, no count; the same value is a different length at each place | the hands `nhStem flag8` · `--beam` | §548 · §549 |
 | S5 | **A rest where a sound ends and silence follows,** its value approximate, its place by hand (his: somewhere in the gap) | `--rest part:t:dur` | §549 · §559 |
 | S6 | **The grace note:** a head at 0.707 (LilyPond −3), a slashed eighth flag, its own short stem, its accidental scaled; a slur into its main note | `objects.graceHead · graceSlash`; the hand `grace · slurTo` | §550 |
@@ -532,7 +532,7 @@ no rule about WHEN).*
 | S8 | **The uneven group** (his sign): the heads stemless where played; the beam floating on the stem side at the flagged height, the group's width (first head's left edge → last head's right edge), stubs 2 ss beyond the stack; a hand-drawn stroke falling across the corner = *"play the displayed notes in that much time as indicated by the beams, but slightly irregularly"*; the beam count the speed class | `objects.groupStub`; the hand `beamStub` on a `--beam` group | §557 … §559 |
 | S9 | **Dynamics thinned to the phrase:** a name at the start and at a change, not one per note; a hairpin from the name for a swell (its far end at a time); a beam member's marks on the head side | the hands `dynMark` · `hairpinTo` | §559 |
 | S10 | **Accents on the head side;** in a floating-beam group sent there by hand | the hands `nhArtic` · `articSide` | §559 |
-| S11 | **The section's entry word** ("ord.") by the change rule on the first note | `techniqueChange.byKind` | §505 |
+| S11 | **The section's entry word** ("ord.") by the change rule on the first note, **0.45 ss above the note's top ink** and never under 1 ss above the top line | `techniqueChange.byKind` · `objects.instruction.aboveNoteSs · staffClearSs` | §505 · §561 |
 | S12 | **The mechanism:** a figure is HANDS on its notes (`--hand id:{json}`), the looks live in rows; a new look = a row + its edge row + the lock's assertion | `--hand` · `tools/eh_figure_check.js` | §550 · §560 |
 
 *Open, not yet standards: the grace's f (a dynamic on a grace note — his to keep or drop) · the slur's slope, accidental and dynamic

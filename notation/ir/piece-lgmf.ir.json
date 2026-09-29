@@ -712064,7 +712064,10 @@
      289.574
     ]
    },
-   "value": "ord.",
+   "value": {
+    "text": "ord.",
+    "place": "aboveNote"
+   },
    "provenance": "authored"
   },
   {
@@ -712077,7 +712080,10 @@
      296.07
     ]
    },
-   "value": "ord.",
+   "value": {
+    "text": "ord.",
+    "place": "aboveNote"
+   },
    "provenance": "authored"
   },
   {
@@ -712090,7 +712096,10 @@
      296.42
     ]
    },
-   "value": "ord.",
+   "value": {
+    "text": "ord.",
+    "place": "aboveNote"
+   },
    "provenance": "authored"
   },
   {
@@ -712103,7 +712112,10 @@
      295.619
     ]
    },
-   "value": "ord.",
+   "value": {
+    "text": "ord.",
+    "place": "aboveNote"
+   },
    "provenance": "authored"
   },
   {
@@ -712116,7 +712128,10 @@
      300.448
     ]
    },
-   "value": "ord.",
+   "value": {
+    "text": "ord.",
+    "place": "aboveNote"
+   },
    "provenance": "authored"
   },
   {
@@ -712129,7 +712144,10 @@
      295.921
     ]
    },
-   "value": "ord.",
+   "value": {
+    "text": "ord.",
+    "place": "aboveNote"
+   },
    "provenance": "authored"
   },
   {

@@ -1687,7 +1687,7 @@ if (MORPH_SEQ.length) {
   let nTc = 0;
   for (const [id, c] of TECH_CHANGE) {
     if (SEQ_ENTRY_EVENTS.has(id)) continue;
-    doc.overlays.push({ id: 'ov-techchg-' + id, kind: 'instruction', target: { part: c.part, span: [c.t, +(c.t + Math.max(c.d || 0, 0.001)).toFixed(4)] }, value: c.text, provenance: 'authored' });   // the word governs its note on
+    doc.overlays.push({ id: 'ov-techchg-' + id, kind: 'instruction', target: { part: c.part, span: [c.t, +(c.t + Math.max(c.d || 0, 0.001)).toFixed(4)] }, value: { text: c.text, place: 'aboveNote' }, provenance: 'authored' });   // the word governs its note on
     nTc++;
   }
   if (TECH_CHANGE.size) console.log('  technique change: ' + TECH_CHANGE.size + ' word(s) — ' + (TECH_CHANGE.size - nTc) + ' in a sequence block, ' + nTc + ' as an instruction: ' +

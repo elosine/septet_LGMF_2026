@@ -414,7 +414,9 @@
       if (ov.kind === 'instruction') {
         const t = tgt.span ? tgt.span[0] : (tgt.chunk && chById.has(tgt.chunk) ? chById.get(tgt.chunk).span[0] : null);
         const parts = tgt.parts || (tgt.part !== undefined ? [tgt.part] : (tgt.chunk && chById.has(tgt.chunk) ? [chById.get(tgt.chunk).part] : null));
-        if (t !== null && parts) { instrTexts.push({ parts, t, text: String(ov.value) }); continue; }
+        // [§561] the value may be { text, place } — place 'aboveNote' sits the word above its note (this piece's change-rule words)
+        const v = ov.value, isObj = v && typeof v === 'object';
+        if (t !== null && parts) { instrTexts.push({ parts, t, text: String(isObj ? v.text : v), place: isObj ? v.place : null }); continue; }
       }
       warnings.push('overlay ' + ov.id + ' (' + ov.kind + ') has no layout consumer yet — authored content NOT rendered');
     }
@@ -1208,7 +1210,7 @@
         }
       }
       for (const d of dynTexts) if (d.part === part && first) items.push({ k: 'text', t: d.t, dxSs: 0, ySs: o.dynY, text: d.text, size: TS.dynamic, color: COL.dynamicText, seq: 'dynamic' });
-      for (const ins of instrTexts) if (ins.parts.includes(part) && first) items.push(Object.assign({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, seq: 'instruction' }, WORD));
+      for (const ins of instrTexts) if (ins.parts.includes(part) && first) items.push(Object.assign({ k: 'text', t: ins.t, dxSs: 0, ySs: o.tempoY + 1.4, text: ins.text, seq: 'instruction' }, ins.place ? { place: ins.place } : {}, WORD));
 
       const chunks = ir.chunks.filter(c => c.part === part).sort((a, b) => a.span[0] - b.span[0]);
       let prevTempoLabel = null;
@@ -1900,8 +1902,8 @@
                     const need = stemDir === 'up'
                       ? (clearTop + clr + flagH) - yStart      // flag hangs down from the tip
                       : yStart - (-STAFF_EDGE - clr - flagH);  // flag rises from the tip
-                    // [§554] THE MAX (rules.json objects.flag.clearMaxSs, through the device): a stem the law would stretch past it keeps its
-                    // standard length and the flag sits inside the staff — his 'many ledger lines down it might look funny'
+                    // [§554 · §561] THE MAX (rules.json objects.flag.clearMaxSs, through the device): a stem the law would stretch past it keeps its
+                    // standard length and the flag sits inside the staff — his 'many ledger lines down it might look funny'; 9.5 at his word (§561)
                     if (!(dev.flagClearMaxSs > 0) || need <= dev.flagClearMaxSs) L = Math.max(L, need);
                   }
                   let yEnd = stemDir === 'up' ? yStart + L : yStart - L;
@@ -3236,15 +3238,44 @@
             const tipsAt = items.filter(it => it.k === 'beam' && it.tips && it.tips.some(near)).map(it => it.tips.find(near));
             const ys = tipsAt.map(p => p.ySs).concat([st.yB]);
             const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BT / 2;   // the beam stack's edge toward the heads
+            const outer = (up ? Math.max(...ys) : Math.min(...ys)) - sgn * BT / 2;   // its far edge; [§561] the stroke is centred between them
             st.yA = inner + sgn * GS.protrudeSs;                                     // the stub shows protrudeSs beyond the stack
             if (i === 0) st.dxSs = x.u.dx - x.u.w / 2; else if (i === g.length - 1) st.dxSs = x.u.dx + x.u.w / 2;
             for (const p of tipsAt) p.dxSs = st.dxSs;                               // the beam's ends follow
             if (i === 0) {
               const r = GS.squiggleReachSs;
               const fl = GS.squiggleFalls ? -1 : 1;   // [§559] turned 90°: the stroke falls to the right
-              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: st.dxSs - r, y0Ss: inner - fl * r, dx1Ss: st.dxSs + r, y1Ss: inner + fl * r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
+              const cy = (inner + outer) / 2;   // [§561] his "an equal amount juts out from either side": centred on the stack, not its near edge
+              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: st.dxSs - r, y0Ss: cy - fl * r, dx1Ss: st.dxSs + r, y1Ss: cy + fl * r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
             }
           });
+        }
+      }
+      // [§561, his "is there a reason ord is so far from note head? if not bring it closer"] THE SECTION'S TECHNIQUE WORD ABOVE ITS NOTE:
+      // an instruction overlay placed 'aboveNote' (the change rule's words, §505 — this piece's extractor) sits aboveNoteSs above the note's
+      // top ink and never under staffClearSs above the top line (rules.json objects.instruction); the tuba pages' headers keep the tempo row
+      {
+        const IA = Object.assign({ gapSs: 0.45, staffClearSs: 1 }, o.instructionAbove || {});   // RULES MIRROR (rules.json objects.instruction.aboveNoteSs · staffClearSs)
+        const STAFF_TOP = 2;   // the outer staff line of five (±2)
+        const topOf = it => {
+          if (it.k === 'stem') return Math.max(it.yA, it.yB);
+          if (it.k === 'ledger') return it.ySs;
+          if (it.k === 'squiggle') return Math.max(it.y0Ss, it.y1Ss);
+          if (it.k !== 'glyph') return null;
+          const g = it.g || '', sc = it.scale || 1;
+          if (/^notehead/.test(g)) return it.ySs + (glyphs.notehead.filled.hSs * sc) / 2;
+          if (/^accidental-/.test(g)) { const A = (glyphs.accidental || {})[g.replace('accidental-', '')]; return it.ySs + (((A && A.hSs) || 2) * sc) / 2; }
+          if (/^flag-down/.test(g)) { const F = (glyphs.flag || {})[g.replace('flag-', '')]; return it.ySs + ((F && F.hSs) || 3) * sc; }
+          if (/^flag-up/.test(g)) return it.ySs;
+          if (/^dyn-/.test(g)) { const D = (glyphs.dynamic || {})[g.replace('dyn-', '')]; return it.ySs + ((D && D.hSs) || 1) / 2; }
+          if (/^artic-/.test(g)) { const R = (glyphs.articulation || {})[g.replace('artic-', '')]; return it.ySs + ((R && R.hSs) || 0.8) / 2; }
+          return null;
+        };
+        for (const tx of items) {
+          if (tx.k !== 'text' || tx.seq !== 'instruction' || tx.place !== 'aboveNote') continue;
+          let top = -Infinity;
+          for (const it of items) { if (it === tx || typeof it.t !== 'number' || Math.abs(it.t - tx.t) > 1e-6) continue; const h = topOf(it); if (h != null && h > top) top = h; }
+          tx.ySs = +Math.max(STAFF_TOP + IA.staffClearSs, (isFinite(top) ? top : STAFF_TOP) + IA.gapSs).toFixed(4);
         }
       }
       // [§559] A HAIRPIN FROM A NOTE'S NAME — a hand hairpinTo: <seconds> (hairpinDir 'cresc' | 'decresc', cresc by default): the timed
