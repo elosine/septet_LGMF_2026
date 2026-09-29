@@ -439,3 +439,13 @@ impact parts."*
 - The layers (§6c) stand · layer 3 as three carriers (§7g) stands as analysis, its conclusion for the performers · **W1 the working model**
   · the viability test for local animation · the alternatives as a menu per phrase type · the window as a concept.
 - **HELD:** the design choice (values written or not, §8b) · **His to answer:** the window's scope · the model as a deliverable (§7g).
+
+---
+
+## §9 HELD NOTES — his, verbatim, not analysed until he picks them up
+
+- **H1 · 2026-09-29 — the intensity curve: simple shapes for complex hybrid movement** (LG-124, RUNNING_LOG §544): *"the multitasking,
+  is there way to use simple shapes to describe the complex, hybrid movement; so I touch on this in the ostinato/trill curves, I simply
+  state the curves represent intensity, so that might include volume and speed, but there is an intuitive way to interpret the curve
+  that incorporates speed and volume but much else naturally, like bow pressure and accents etc"*. *(The AI, one line: his own
+  precedent for §7e — one curve, one fused gesture; bears on §8c's "one shape for all".)*

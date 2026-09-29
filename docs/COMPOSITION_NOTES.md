@@ -2810,3 +2810,11 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 *The AI's reading (marked as such):* §7's conclusion (the rehearsal model as part of the score) is a HYPOTHESIS AWAITING PERFORMERS — *"a performer might balk"*; to be worked out at the next collaborative realization. A principle is stated over it: **the score is a picture of the sound.** THE WORKING MODEL, now: proportional notation (every head on its time) with TN's details (the per-note symbols, the beams, the lines) — *"Ferneyhough without the count"*. Three asks: (1) LOCAL animation for parameters that meet the glanceable threshold (a long sul pont arc; the graphic shapes composers use for such flows) and a TEST for what is viable; (2) the alternatives to the working model, he is not settled; (3) the cursor SUPPRESSED for a phrase — the GC shows the start, then the player phrases free of the line for an estimated span (Lutosławski's conductor, who cues and stops beating); possibly the EH here; *"probably should only impact parts"* — read as per part, per phrase, opt-in (his to confirm). It became `temporal_notation.md` §8 (RUNNING_LOG §543).
 
 ---
+
+## LG-124 — 2026-09-29 — HELD: simple shapes for complex hybrid movement — the intensity curve
+
+> *"hold this as a note for now: and then the multitasking, is there way to use simple shapes to describe the complex, hybrid movement; so I touch on this in the ostinato/trill curves, I simply state the curves represent intensity, so that might include volume and speed, but there is an intutive way to interpret the curve that incorporates speed and volume but much else naturally, like bow pressure and accents etc"* (the composer, 2026-09-29, Fable — held, no analysis at his word)
+
+*The AI's reading (marked as such, one line):* his own precedent for §7e's coupling — ONE curve named INTENSITY, read as a fused gesture (volume · speed · pressure · accent, the rest following naturally) — a simple shape for a hybrid movement. Held in `docs/research/temporal_notation.md` §9 (RUNNING_LOG §544).
+
+---

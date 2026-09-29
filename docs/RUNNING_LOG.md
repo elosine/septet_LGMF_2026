@@ -18087,3 +18087,10 @@ lane; a tension: it removes W1's answer to Berio, so it suits a LEARNED phrase �
 
 **His to answer:** the window's scope (*"only impact parts"* — per part / per phrase, or the players' parts vs the presentation
 score) · the model as a deliverable. **HELD:** values written or not (§541, narrowed). Nothing built.
+
+## §544. HELD — the intensity curve: simple shapes for complex hybrid movement (2026-09-29, Fable, session 18)
+
+**His words, held at his word, no analysis:** COMPOSITION_NOTES **LG-124** — the multitasking answered by SIMPLE SHAPES: the
+ostinato / trill curves already say "intensity", which the player reads as volume + speed and, naturally, bow pressure, accents and
+the rest. Filed as `docs/research/temporal_notation.md` §9 H1. The AI's one line: his own precedent for §7e's coupling (one curve,
+one fused gesture), bearing on §8c's one-shape proposal. Nothing decided.
