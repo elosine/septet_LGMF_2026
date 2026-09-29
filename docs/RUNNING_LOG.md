@@ -18628,3 +18628,26 @@ an upbeat two thirds of a beat early, the last held two beats.** Nothing on the 
 
 **Methods not tried here (for the plan):** a joint tempo-and-subdivision search scored by simplicity (fewer tuplets wins) · a fit over a
 whole passage rather than one figure · the performer's tapping as the ground truth (his LG-130: "so the system counts for you").
+
+## §564. THE TEMPO PROCESS DECIDED, HIS PICK FOR THE SECOND FIGURE, THE BEAT GRID ON THE PAGE (2026-09-29, Fable, session 18; N-4)
+
+**Prompted by:** LG-142, whole.
+
+**THE PROCESS (his, confirmed):** for a figure, the tool offers several candidates (`tools/tempo_fit.js`: phase coherence · the grid fit ·
+the IOI), he looks at them drawn over the notes, he picks one — and its phase (*"shift the blue so the 1 falls on more of the partials"*:
+the beat one 16th before the first note put notes 2 … 6 on beats). The pick is RECORDED AS A HAND on the page (`--beatGrid` in the
+build), bespoke per figure, as the figure's other hands. *(The AI's suggestions for the tool, not built: a fourth candidate that
+pre-shifts the phase to catch the most notes; a fit over a passage; his tapping as ground truth.)*
+
+**HIS PICK — the second figure (295.45 … 297.3): B in its shifted phase** — a 16th of 0.108 s (♩ 139), the beat every three units (a
+dotted eighth, 0.324 s ≈ 185 bpm), the beat phase 295.348 (one 16th before the first note): A4 a 16th after a beat, A♯3 · A5 · G3 · G♯4 each
+on a beat, F♯4 two beats on. Recorded.
+
+**THE TICKS, from the tuba's look:** the tuba pages' tick is the GC's impact mark — a black 0.12 × 0.8 ss rect on the TICK ROW (`rows.tick`,
+3 ss above the middle line, its foot 0.2 above the top staff line; `objects.tick`, edge atomic). Built: a `beatGrid` overlay (part · span
+· unit · beatEvery · phase; the schema's kind; `--beatGrid p:t0:t1:u:n:phase` in the extractor) → a tick at every grid point on the tick row,
+the BEATS at the tuba tick's full look, the SUBDIVISIONS at `objects.tick.subHSs` 0.4 (the AI's addition — a starting template, his to
+shape). On `piece-lgmf`: `--beatGrid 0:295.348:297.4:0.108:3:295.348` — 20 ticks, 7 beats. The lock asserts it (29 decisions).
+
+**► His eye:** reload → `piece-lgmf` → `295.5`. Then the template talk: the colour (black now) · the row (above the staff, the tuba's) ·
+the beat vs the subdivision (height now) · a number on the beat · whether the ball (the animated beat, A7) rides them.

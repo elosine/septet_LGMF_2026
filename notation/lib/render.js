@@ -469,8 +469,9 @@
             '" width="' + (E.attackLine.wSs * ssPx).toFixed(2) + '" height="' + (E.attackLine.hSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'tick') {
           if (!owns(it.t)) continue;
-          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - E.tick.hSs * ssPx).toFixed(2) +
-            '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (E.tick.hSs * ssPx).toFixed(2) + '"/>');
+          const tH = it.hSs != null ? it.hSs : E.tick.hSs;   // [§564] a beat grid's subdivision tick is shorter (rules.json objects.tick.subHSs)
+          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - tH * ssPx).toFixed(2) +
+            '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (tH * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'envcurve') {
           // the drawn level curve over the FULL lane band (piece #1: value
           // 0..1 maps bottom -> top of the track), clipped to the window

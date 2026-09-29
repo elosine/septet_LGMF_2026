@@ -343,6 +343,7 @@
     const tempos = [];           // {t, bpm} — a bar line + a tempo mark
     const headers = [];          // {part, t, endMark} — the section header block
     const freeRests = [];        // [§550] {part, t, dur} — a free-standing rest (the `rest` overlay), drawn at x(t) on its part
+    const beatGrids = [];        // [§564] {part, span, unit, beatEvery, phase} — the shown beat's grid (the `beatGrid` overlay), ticks on the tick row
     const sequences = [];        // [LGMF 2d.2] {part, span, v} — one part's line of a sequence (the `sequence` overlay, IR amendment 10)
     const vibBowOf = new Map();  // [LGMF 2g.3] event id → its bow of a `vibBows` overlay {chain, voice, t0, t1, midi, marks, …, part}
     for (const ov of ir.overlays || []) {
@@ -357,6 +358,7 @@
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
       if (ov.kind === 'engraving' && tgt.event) { engrave.set(tgt.event, ov.value || {}); continue; }
       if (ov.kind === 'rest' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.dur) { freeRests.push({ part: tgt.part, t: tgt.t, dur: ov.value.dur }); continue; }
+      if (ov.kind === 'beatGrid' && tgt.part !== undefined && tgt.span && ov.value && ov.value.unit > 0) { beatGrids.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value)); continue; }
       if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
         staffOff.push({ part: tgt.part, span: tgt.span }); continue;
       }
@@ -3204,6 +3206,17 @@
       // their heads are ink under the marks' row too)
       // [§550, LG-129] THE FREE RESTS (the `rest` overlay) — bespoke, no device
       for (const r of freeRests) if (r.part === spec.part) items.push({ k: 'rest', dur: r.dur, t: r.t, dxSs: 0, units: 1 });
+      // [§564, LG-142] THE BEAT GRID — his pick for a figure, drawn as the tuba pages' ticks on the tick row: a tick at every grid point of
+      // the unit from the phase, the BEATS (every beatEvery-th) at the tick's full look, the subdivisions at subHSs (rules.json objects.tick)
+      {
+        const BG = Object.assign({ subHSs: 0.4 }, o.beatGrid || {});   // RULES MIRROR (rules.json objects.tick.subHSs)
+        for (const g of beatGrids) {
+          if (g.part !== spec.part) continue;
+          const n = g.beatEvery >= 1 ? Math.round(g.beatEvery) : 1;
+          const k0 = Math.ceil((g.span[0] - g.phase) / g.unit - 1e-9), k1 = Math.floor((g.span[1] - g.phase) / g.unit + 1e-9);
+          for (let k = k0; k <= k1; k++) { const t = +(g.phase + k * g.unit).toFixed(6); const beat = ((k % n) + n) % n === 0; items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub' }, beat ? {} : { hSs: BG.subHSs })); }
+        }
+      }
       const VBc = (DEV.byEnv || {}).vibBow || {};
       const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
       const OFF = HEADH / 2 + RBH / 2;

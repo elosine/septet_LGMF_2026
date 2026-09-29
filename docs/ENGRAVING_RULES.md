@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 235 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 236 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -146,7 +146,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `goline`
 - **attackLine** — colour **ink #111** · look **{wSs: 0.18, hSs: 2.2, offsetSs: 1.1}** → `render.attackLine` · *census* · #4 V0.10 (M4)
   - draws `attackline`
-- **tick** — colour **ink #111** · look **{wSs: 0.12, hSs: 0.8}** → `render.tick` · *census* · #4 V0.10
+- **tick** — colour **ink #111** · look **{wSs: 0.12, hSs: 0.8}** → `render.tick` · subHSs **0.4** → `layout.beatGrid.subHSs` · beatGridNote **§564 (2026-09-29, his 'go ahead and put those ticks in. Let’s use the version from the Tuba score just as a starting point'): THE BEAT GRID — a beatGrid overlay (part · span · unit · beatEvery · phase, from notate_section --beatGrid) draws a tick on the tick row (rows.tick, 3 ss above the middle line) at every grid point: the BEATS at the tuba tick's full look (0.12 × 0.8), the SUBDIVISIONS at subHSs (0.4, the AI's addition — a starting template, his to shape). The figure at 295.35 … 297.4: a 16th of 0.108 s, the beat every 3, the phase one 16th before the first note (his pick B, §564)** · *census* · #4 V0.10
   - draws `tick`
 - **gc** — colour **gc rgb(255, 21, 160)** · *composer* · #4 day 23 ('when I say GC, that is the whole thing')
   - draws `gc` · in: engraving.render.gc (the look in px at the 1080 frame — piece #1's object whole)

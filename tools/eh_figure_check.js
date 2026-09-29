@@ -49,5 +49,9 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   const a6 = glyphAt(P.p6, /^artic-accent$/), h6 = glyphAt(P.p6, /^notehead$/); ok(a6 && h6 && a6.ySs > h6.ySs, '(§559) p6\'s accent on the head side, above');
   const tx = items.find(it => it.k === 'text' && it.seq === 'instruction' && Math.abs(it.t - P.p1) < 1e-6), st1 = at('stem', P.p1); ok(tx && st1 && near(tx.ySs, Math.max(3, st1.yB + C.engraving.layout.instructionAbove.gapSs), 0.02), '(§561) the section\'s "ord." ' + C.engraving.layout.instructionAbove.gapSs + ' ss above p1\'s top ink');
   const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - P.p1) < 1e-6); ok(hp && near(hp.t1, 289.25, 1e-6) && hp.dir === 'cresc' && near(hp.ySs, -4.6, 0.01), '(§559) p1\'s crescendo hairpin on the dynamic row to 289.25'); }
+// §564 — the beat grid he picked for the second figure: a 16th of 0.108 from 295.348, the beat every 3, over 295.348 … 297.4
+{ const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 295.3 && it.t <= 297.45); const beats = ticks.filter(it => it.grid === 'beat');
+  ok(ticks.length === 20 && beats.length === 7 && near(beats[0].t, 295.348, 1e-6) && near(beats[1].t - beats[0].t, 0.324, 1e-6), '(§564) the second figure\'s beat grid: 20 ticks of 0.108 s from 295.348, 7 beats every 0.324 (his pick B, shifted a 16th)');
+  const onBeat = [295.665, 295.974, 296.315, 296.632, 297.306].filter(t => beats.some(b => Math.abs(b.t - t) <= 0.035)).length; ok(onBeat === 5, '(§564) notes 2 … 6 within 35 ms of a beat (' + onBeat + ' of 5)'); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

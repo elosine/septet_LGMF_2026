@@ -24,6 +24,7 @@
 //   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
+//   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
 //   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
 //   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
 //   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
@@ -1890,6 +1891,14 @@ if (MORPH_SEQ.length) {
     else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
     console.log('  --hand ' + id + ' (' + e.onset.toFixed(3) + '): ' + Object.keys(dev).map(k => k + '=' + JSON.stringify(dev[k])).join(' '));
   }
+  // [§564] --beatGrid p:t0:t1:u:n:phase — the tempo he picked for a figure (tools/tempo_fit.js's candidates, his choice), drawn as ticks
+  const grids = []; process.argv.forEach((a, i) => { if (a === '--beatGrid' && process.argv[i + 1]) grids.push(process.argv[i + 1]); });
+  grids.forEach((spec, n) => {
+    const m = /^(\d+):(-?[\d.]+):(-?[\d.]+):([\d.]+):(\d+):(-?[\d.]+)$/.exec(spec);
+    if (!m || !(+m[3] > +m[2]) || !(+m[4] > 0) || !(+m[5] >= 1)) { console.error('--beatGrid needs p:t0:t1:unit:beatEvery:phase (e.g. --beatGrid 0:295.348:297.4:0.108:3:295.348)'); process.exit(2); }
+    doc.overlays.push({ id: 'ov-beatgrid-' + (n + 1), kind: 'beatGrid', target: { part: +m[1], span: [+m[2], +m[3]] }, value: { unit: +m[4], beatEvery: +m[5], phase: +m[6] }, provenance: 'authored' });
+    console.log('  --beatGrid ' + spec + ': a tick every ' + m[4] + ' s on part ' + m[1] + ', the beat every ' + m[5] + ', from ' + m[6]);
+  });
   rests.forEach((spec, n) => {
     const m = /^(\d+):(-?\d+(?:\.\d+)?):(4|8|16|32)$/.exec(spec);
     if (!m) { console.error('--rest needs part:t:dur with dur 4 · 8 · 16 · 32 (e.g. --rest 0:290.5:8)'); process.exit(2); }
