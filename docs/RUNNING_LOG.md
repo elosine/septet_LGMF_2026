@@ -17950,3 +17950,23 @@ up in a general sense (the notation of time, time representation in computer mus
 
 **The AI's recommendation:** "temporal notation" works as his own term if the performance notes define it ONCE as proportional
 (horizontal distance = time); cite "proportional / time-space" for the literature. Nothing decided.
+
+## §538. Which term pairs best against "metric notation" (2026-09-29, Opus, session 18)
+
+**Prompted by:** *"in particular what works good in contrast to 'metric notation'"*
+
+**The AI's reading (from memory, not searched):** a good pair names the SAME kind of thing on both sides — what the duration is
+reckoned by.
+
+- **metric ↔ proportional** — the best pair: beats and barlines against distance on the page; the pairing players meet in scores that
+  switch between the two. Its one collision (tempo ratios) rarely matters in a performance note.
+- **metric ↔ chronometric / clock-time** — parallel on what is counted: beats against seconds; fits a page read against a clock or a
+  cursor; less common.
+- **metric ↔ unmetered / senza misura** — every player understands it; but defined by what it lacks — unmetered can be free, graphic,
+  anything — and says nothing of distance = time.
+- **metric ↔ temporal** — the weakest pair: it implies metric notation is not about time.
+- **The idea underneath** (time, not notation): Boulez's **striated** (pulsed, measured) against **smooth** time, *Penser la musique
+  aujourd'hui* (1963).
+
+**The recommendation:** metric ↔ proportional in the performance notes, "proportional" defined once as horizontal distance = time.
+Nothing decided.
