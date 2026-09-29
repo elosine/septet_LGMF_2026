@@ -23,7 +23,7 @@ const svg=document.getElementById('g'); const el=(n,a)=>{const e=document.create
 function phaseFor(T){let re=0,im=0;for(const t of on){re+=Math.cos(2*Math.PI*t/T);im+=Math.sin(2*Math.PI*t/T);}let phi=Math.atan2(im,re)/(2*Math.PI)*T;return ((phi%T)+T)%T;}
 const cands=[
  {name:'A · phase coherence: the beat the onsets cluster on — 0.319 s = 188 bpm (phase free)',color:getComputedStyle(document.documentElement).getPropertyValue('--red').trim(),beat:0.319,sub:null,phase:phaseFor(0.319)},
- {name:'B · grid fit: a 16th of 0.108 s = ♩ 139 (the beat every 3 units = a dotted eighth, 0.324 s ≈ 185 bpm); slots 0 2 5 8 11 17',color:getComputedStyle(document.documentElement).getPropertyValue('--blue').trim(),beat:0.108*3,sub:0.108,phase:on[0]},
+ {name:'B · grid fit: a 16th of 0.108 s = ♩ 139 (the beat every 3 units = a dotted eighth, 0.324 s ≈ 185 bpm); slots 0 2 5 8 11 17 — the beat set one 16th BEFORE the first note (his shift), so notes 2 … 6 sit ON beats and the first is a 16th after one',color:getComputedStyle(document.documentElement).getPropertyValue('--blue').trim(),beat:0.108*3,sub:0.108,phase:on[0]-0.108},
  {name:'B′ · grid fit, coarser: an eighth of 0.169 s = ♩ 89 (the beat every 2 units, 0.338 s ≈ 178 bpm); slots 0 1 3 5 7 11',color:getComputedStyle(document.documentElement).getPropertyValue('--green').trim(),beat:0.169*2,sub:0.169,phase:on[0]}
 ];
 // lanes: each candidate's lines in its own band so they can be told apart, plus faint full-height beats
