@@ -78,6 +78,36 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
    2k's AI's calls (the first order's 7). Done when: each named yes or no.
 — beyond 279, not in this order: the middle section (the percussion staff, the patterns, the "ord." entries — the first order's 6 — come with the fold, proofed later).
 
+### SECTION 2 — HIS TODO (verbatim, 2026-09-29, RUNNING_LOG §535) — NOT PLANNED, NO ANALYSIS at his word
+
+*"please take some verbatim notes/todo for sec 2, no need for analysis at this time"* — his list, in his order:
+
+1. *"normalize long tone chords"*
+2. *"temporal phrases/fast notation in eh"*
+3. *"fast clusters in rest"*
+4. *"percussion notation"*
+5. *"temporal notation: how to show duration for short notes, for longer notes, use/not use tuplets, define their purpose in temporal notation"*
+6. *"actual name for temporal notation and research/references"*
+7. *"how much of ferneyhough like detail"*
+8. *"decide on glyph vocabulary and make them"*
+9. *"purpose/ use of gc"*
+
+Each item goes through the planning method (`/plan-item`) when he picks it up; none is ordered or scoped yet.
+
+### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
+
+- **The task:** unchanged from checkpoint #2 (below) — SECTION 2 (289 … 427 s), one notation type at a time; THE LONG TONE is built and
+  pushed (2m.1 … 2m.3). At the `/postclear` he gave his TODO for section 2, verbatim (the block above; RUNNING_LOG §535). Nothing built.
+- **The deliverable:** unchanged — `notation/ir/piece-lgmf.ir.json` (120 long tones in 36 groups). New this checkpoint: the TODO block
+  above · RUNNING_LOG §535.
+- **► The next concrete step — HIS: 2m.4, his eye** (the running order's step 3 holds the stops). Ask whether he wants to take 2m.4 now or
+  pick an item of the TODO first; start only on his word. For the eye: he reloads the notation tab (no restart) → `piece-lgmf` → the video
+  view → the stops; the AI COLLECTS his findings in the RUNNING_LOG (§536 next free), then fixes them together on his go.
+- **`Resume reads:`** nothing beyond §2 for his eye. For a TODO item he picks: `docs/PLANNING_METHOD.md` (the method) — nothing else until
+  the item names it.
+- **Pending him:** 2m.4 his eye · the TODO's nine items (his order to name) · everything on checkpoint #2's pending line.
+- **Deliberately uncommitted — the same 29 paths as checkpoint #2, all his, untouched** (`git status --short` at this checkpoint).
+
 ### SESSION 18 · CHECKPOINT #2 (mid-session checkpoint, 2026-09-29, Opus) — 2m THE LONG TONE BUILT; ► 2m.4 HIS EYE
 
 - **The task:** SECTION 2 (289 … 427 s), one notation type at a time (his pivot, §531). The first type, THE LONG TONE, is **BUILT and
@@ -222,6 +252,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | **►►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
+| **►►** | **SECTION 2 — HIS TODO, nine items, verbatim** (journal §2 block · RUNNING_LOG §535): normalize the long-tone chords · the EH's temporal phrases · the fast clusters · the percussion · temporal notation (short · long · tuplets · purpose) · its name + references · how much Ferneyhough-like detail · the glyph vocabulary · the GC. Not planned; each through `/plan-item` when he picks it | Fable (planning) | yes |
 | **►►** | **THE RUNNING ORDER's step 4 (held at his pivot) — HIS EYE on `piece-lgmf`, 0 → 279** (journal §2 top: the stops; PLAN 2l.7 BUILT 2026-09-28, §530). Reload the notation tab, no restart. His frame (§527): collect the findings in the RUNNING_LOG, then fix them at once | Fable (a look → a rule row) · Opus (a fault) | yes — `/session-start` |
 | **►►** | **The RUNNING ORDER's step 4 — his calls in the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners · 2k's AI's calls (§507 `eligible` · §509 the gliss line not in `inkOf` · §512 the per-breath overlays dropped) | his · Fable | — |
 | **►►** | **2j.4 HIS EYE — the rest of the main page BEYOND 279: `427` · `655` · `800`** (paused 2026-09-28 at his pivot to the morph; his first findings fixed, §502 · §503; `40.26` is in the running order's step 3) | his eye | — |

@@ -17895,3 +17895,22 @@ The other producers in the code: #5's D47 arc (the `cresc` overlay, `layout.js` 
 **Correction to §533:** its remark that "§531's by-part line differs from this one only in how the IR chunks were read" is wrong — §531's by-part numbers (EH 44 · Bsn 27 · Hn 19 · Tpt 19 · Vc 15 · Db 14) count ALL 138 held notes; §533's (EH 33 · Bsn 25 · Hn 19 · Tpt 18 · Vc 13 · DB 12) count the 120 grouped. Different things; both right.
 
 **► 2m.4 HIS EYE.** He reloads the notation tab (the IR changed; no restart) → `piece-lgmf` → the video view → `303.5` (the first chord, four players) · `312.98` (the EH's v16 — `pp`) · `328.24` (six players) · `331.38` · `333.36` (the EH's low F3 on three ledgers — the name ABOVE the staff, the chain's side-with-room rule) · `361.04` · `370.34` (six) · `367.98` (the trumpet's single — still the old look, the tuba `ord`'s go line) · `383.35` (the EH's single — still the family look) · `407.05` (13 s, three players, into the sequence-2 entries at 427) · `z`. Collect, then fix at once (§527's frame).
+
+## §535. SECTION 2 — HIS TODO, verbatim (2026-09-29, Opus, session 18, at the `/postclear` before 2m.4)
+
+**Prompted by:** his words at the `/postclear` — *"please take some verbatim notes/todo for sec 2, no need for analysis at this time"*.
+
+**His list, verbatim, in his order:**
+
+1. *"normalize long tone chords"*
+2. *"temporal phrases/fast notation in eh"*
+3. *"fast clusters in rest"*
+4. *"percussion notation"*
+5. *"temporal notation: how to show duration for short notes, for longer notes, use/not use tuplets, define their purpose in temporal notation"*
+6. *"actual name for temporal notation and research/references"*
+7. *"how much of ferneyhough like detail"*
+8. *"decide on glyph vocabulary and make them"*
+9. *"purpose/ use of gc"*
+
+**No analysis, at his word.** Carried to journal §2 as SECTION 2 — HIS TODO; nothing planned or built. 2m.4 (his eye on the long tones)
+still stands as the next step. Then `/checkpoint`, at his word.
