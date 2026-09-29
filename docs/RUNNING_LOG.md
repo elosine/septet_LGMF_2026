@@ -17836,3 +17836,31 @@ The other producers in the code: #5's D47 arc (the `cresc` overlay, `layout.js` 
 **Outside his range, noted for later:** grp-morph-01 — the double bass's wc-4649 overlaps wc-4639 (the line reads the later note from its onset) · the EH's and the horn's take/note cents differ at 579.56 · 578.81 · the vibraphone's hairpin left open at 645.51.
 
 **► The RUNNING ORDER's step 3 — his eye on the main page, 0 → 279.** He reloads the notation tab (the IR changed; no restart).
+
+## §531. SECTION 2 — THE LONG TONE: the device sheet and his three answers (2026-09-29, Fable, session 18)
+
+**What prompted it** — his words at the `/postclear` (2026-09-29): *"could we notate the 3 Rd section this is the sequences and morphs at the end of the piece"* — answered from §530: section 3's sequences and morphs are already drawn by the fold, unproofed (§530's three alerts stand). Then his turn: *"Okay, let's address section two, one notation type at a time. There are a number of long tones. No go lines alignment with left of notehead. They should have the proper just in donation pitch notation and the standard duration lines in the right color and transparency anything else to resolve here before we write in all the long tones of that section?"*
+
+**The data (read before answering — the IR `piece-lgmf` and Draft 01 by object id):** section 2 = 289 … 427 s (the first morph ends 279.4; the sequence-2 entries begin 427). Plain notes ≥ 0.2 s with no device: **138 pitched** — EH 44 · Bsn 27 · Hn 19 · Tpt 19 · Vc 15 · Db 14 — 0.2 … 13.1 s; + 21 percussion (brake drum rolls, wood blocks, temple bowls, bass drum — the percussion's own sheet, not this one). **0 of 138 carry a take's pitch**: no `morphBend`, no `hq`, `properties` empty, `performanceNotes` the bare word "TAKE", `sonifyMode plain`, `sonifyNote` an integer — and the IR has no `pitch.cents` on any of them. (`texture_insert.js` writes `· partial N · +c¢ just` and a `morphBend` when the dealt note has cents; these notes have neither — the Insert that placed them had no pitch data; nothing was dropped later.) The technique table: `ord` (the SI2 three) and `senza_vel` (the Xsample three) are both `family: sustained`, `notate: null` → today they draw with the provisional family look (DN-5): the head at anchor B's spacer, NO go line, a brick `#4E7A9B` at 0.45, no dynamic.
+
+**His line read back:** *"No go lines alignment with left of notehead"* = no go line, the head's left edge ON its time — **anchor A** (#5's `byTechnique.main`, the piano's long ordinary notes; the anchor principle §414). He did not correct it.
+
+**THE DEVICE SHEET — the long tone** (PLANNING_METHOD's card, shown to him):
+1. The device — a held note: its pitch, its length as a bar, its level at the head.
+2. Anchor — A: the head's left edge on x(t), no go line. Closes DN-5 for the sustained family.
+3. Column — head (open) · ledger · accidental · ottava · ringBar · dynamic · number (cents + partial, when the note has them) · the word ("ord." at each part's first note — already drawn, §505 · 2k.1).
+4. Styles — every member an existing row: the bar navyBlue `#1C4879` at 0.3, hSs 0.667, beside 0.25, after 0.25 (§472 · §473 — *"the default for every duration line from here on"*); the accidental the nearest quarter-tone (§1a); numbers black 0.75 upright.
+5. Edge — nothing new (head · ringbar · dynamic have their rows).
+6. Ladder — the standard walk; the numbers leave last.
+7. Open — **(a) the pitch:** a1 tempered by intention, as written, no column · a2 meant to be just → a composing step first (`take ▾` on the selection writes the cents, the partial and the bend; the notation follows the save, D9). **(b) the dynamic:** a STRUCK note, the velocity IS the dynamic (`recVel` 16 … 112 → its written name through the 1b remap), written once at the head — b1 on the dynamic row (−4.6, with the blocks' legends and the vibraphone's names) [recommended] · b2 anchor A's HUG regime, against the head. **(c) the cut:** every note that is not a texture short (< 0.2 s → the strike unit, a separate type) — the AI's cut, his to move.
+
+**His answers (verbatim):** *"A1, B1 dynamic on every note for now but I'll normalize per chord when I can look at the score , for now for this section long tones are played in groups 2 or more players I may add other notes as long tones later when I look"*
+
+**Decided:**
+- **(a) a1 — TEMPERED, as written.** No cents, no partial, ordinary accidentals; the legend's sentence covers it (*"No cents notation means played as written"*). The just column stays the rule for a note that carries a take's pitch.
+- **(b) b1 — the dynamic on the dynamic row, one name per note**, from `recVel` through the 1b remap. FOR NOW: he will normalize the names PER CHORD when he can look at the score — a composing pass on Draft 01 (the strip's `dyn ▾`, 1q.9), the page re-extracted after; the notation writes what the save says (D9).
+- **(c) THE CUT IS HIS, NOT THE AI'S: a long tone = a held note (≥ 0.2 s) that starts TOGETHER with at least one other player's held note** (his words: *"played in groups 2 or more players"*). Measured (onsets within 0.1 s): **36 groups covering 120 of the 138** — two to six players, 0.3 … 13.1 s (six players at 328.24 · 361.04 · 370.34; the last, 407.05, three players for 13.1 s into the sequence-2 entries). **18 singles stay as they draw today** — 10 of them ≥ 0.5 s (EH 289.00 · 320.37 · 383.35 · 391.02 · 392.98 · 395.29 · Tpt 367.98 · Bsn 393.28 · 398.44 · Db 394.93), 8 under — *"I may add other notes as long tones later when I look"*: the rule takes a per-event hand (an `engraving` overlay `{ device: 'longTone' }`, the form §7 lists) so a single he names joins without a code change — the AI's mechanism, his to reverse.
+
+**Rejected / not reopened:** the just column on these notes (no data — a2 would have been a composing step, not the notation's) · b2 HUG · a duration-only cut (the AI's, replaced by his) · the "ord." words at 289 s (§505, they stand) · the percussion's 21 held notes (their own sheet, DN-5's next line).
+
+**Becomes:** PLAN § `2m` THE LONG TONE — section 2's note unit; COMPOSITION_NOTES LG-119 (his words). The build on Opus after a checkpoint and a clear. The running order re-ordered at his direction: section 2's long tones before his eye on 0 → 279 (which stays his).
