@@ -52,7 +52,7 @@ restate until the understanding is shared · the top line · one step at a time:
 - **Discuss chunks, not individual files.** Once a chunk is approved, execute without re-asking per file; narrate briefly so the user can interrupt.
 - **Wrap each chunk before moving on:** update docs (plan statuses, journal), commit if a natural checkpoint, report what actually happened vs proposed, propose the next chunk.
 - **Piecemeal by design.** One thing at a time; don't chase the perfect architecture. Shore up as we go.
-- **A page to look at gets a CLICKABLE link that opens in Chrome** (2026-09-29, RUNNING_LOG §563 — his *"clickable, this is my preferred method"*): commit the page (docs/research/ for a figure), then a markdown link to its `file:///C:/…` URL, the published artifact link beside it when there is one; opening it in his Chrome (`cmd.exe /c start chrome "<url>"`) is welcome. Never a bare path to paste.
+- **A page to look at gets a CLICKABLE `http://localhost:5400/…` link** (2026-09-29, RUNNING_LOG §563 — his *"AI was always able to serve me a clickable link in the chat that I could click and would open up in Chrome"*): put the page where his running score server serves it — `notation/research/<page>.html` now, `docs/research/<page>.html` once the `/docs/` route is live (added 2026-09-29, at his next restart) — and give that link in chat. A `file:///` link and a `claude.ai/artifact` link both open INSIDE the desktop app, not in Chrome (tried, refused). Never a bare path to paste.
 
 **Reading & analysis (this piece's addition)**
 - **Orient from docs, never by scanning the codebase.** Name the specific question first, then read only what answers it.

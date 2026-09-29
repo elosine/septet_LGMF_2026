@@ -1161,6 +1161,9 @@ const server = http.createServer((req, res) => {
         // notation stratum (read-only GET): app page, lib modules, IR docs,
         // registry, schema — Phase B5 (plan DB-1)
         if (url.startsWith('/notation/')) { base = path.join(__dirname, '..', 'notation'); rel = url.slice('/notation'.length); }
+        // [2026-09-29, his clickable link] the docs stratum, read-only GET — a research page (docs/research/*.html) linked in chat as
+        // http://localhost:5400/docs/… opens in his Chrome; a file:// or a claude.ai artifact link opens inside the desktop app instead
+        if (url.startsWith('/docs/')) { base = path.join(__dirname, '..', 'docs'); rel = url.slice('/docs'.length); }
         const filepath = path.normalize(path.join(base, rel));
         // trailing-separator guard: without it a sibling dir whose name
         // extends the base (e.g. notation_backup/) would pass startsWith
