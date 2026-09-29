@@ -18494,3 +18494,28 @@ stopping 2.9 … 6.9 ss short of their heads (C♯5 · G♯5 · F4 · A♯4 stem
 even though no flag is there · the sign only on `--beam` groups (a hand per member).
 
 **► His eye:** reload the tab → `piece-lgmf` → `292.8`.
+
+## §558. THE UNEVEN-GROUP SIGN AT HIS EYE — the stubs 1.5 ss beyond the stack, the beam the group's width, the stroke across the corner and hand-drawn; the rest to 290.2 (2026-09-29, Fable, session 18)
+
+**Prompted by:** his eye on §557's page, whole in **LG-136** (three images: the sign as drawn — the 1 ss stubs hidden inside the two-beam
+stack; a classical slashed grace note; a Ferneyhough-like beamed grace group, its slash across the beam's corner).
+
+**His three rules, applied (`rules.json objects.groupStub`):** (1) the stubs PROTRUDE `protrudeSs` 1.5 beyond the beam stack's edge toward
+the heads, *"regardless of how many"* beams — the stack's edge read from the beam items' levels + the beam's thickness (glyphs standards.beam
+0.4, stackStep 0.81) · (2) the beam spans the GROUP: the first stub at the first head's LEFT edge, the last at the last head's RIGHT edge,
+the middle stubs at their stems' places; the beam's tips follow · (3) the stroke LONGER (`squiggleReachSs` 1.2 each side at 45°), across
+the CORNER where the first stub meets the stack, and HAND-DRAWN (`squiggleHand`: two incommensurable waves, 1.4 and 2.3 × 1.4 per
+length, 0.12 and 0.06 high, offset — irregular and the same every time). And the eighth rest moved to **290.2** (`--rest 0:290.2:8`).
+
+**Measured:** the stack's inner edge −4.38; the four stubs from the outer beam (−5.39) up to **−2.88** — 1.50 ss showing beyond the stack,
+1.4 … 5.4 ss short of their heads · the first stub at x 0.00 (C♯5's left edge), the last at 1.04 (A♯4's right edge), the two beams' ends
+with them · the squiggle from (−1.20, −5.58) to (+1.20, −3.18) through the corner at (0, −4.38) · the rest at 290.200. `check_rules` 32 ·
+the shield `piece-lgmf` alone · `check_screen_edges` PASS.
+
+**And the performed dynamics back on the eight** (*"then can I see the performed dynamics also for those 1st 8 partials again"*): the
+`dynMark false` hands removed — each note's band name from its velocity: p1 mp on the row (−4.6) · the grace f on the row · p3 ff and p4 f
+below their ink (−5.7 · −6.1) · the beamed four mf · f · mf · mf ABOVE the heads (+2.8 · +3.7) — the house rule puts a beam member's mark
+on the head side, and the stub beam holds the row's place below; `dynAboveBeam false` changes nothing there (tried, dropped). The figure
+below, the names above — his to keep or move.
+
+**► His eye:** reload the tab → `piece-lgmf` → `290.2` · `292.8`.

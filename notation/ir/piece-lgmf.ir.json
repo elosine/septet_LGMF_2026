@@ -23,7 +23,7 @@
   "date": "2026-09-29",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/88cf6f13-5329-45b1-9d51-06b20f493bd1/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --plainNotes 0:288:303 --beam 292.79-293.815@0 --hand \"wc-3383:{\\\"dynMark\\\":false}\" --hand \"wc-3384:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3385\\\",\\\"dynMark\\\":false}\" --hand \"wc-3385:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3386:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3387:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"beamStub\\\":true}\" --hand \"wc-3388:{\\\"dynMark\\\":false,\\\"beamStub\\\":true}\" --hand \"wc-3389:{\\\"dynMark\\\":false,\\\"beamStub\\\":true}\" --hand \"wc-3390:{\\\"dynMark\\\":false,\\\"beamStub\\\":true}\" --rest 0:290.5:8 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547), the opening figure by hand (§550 · §557)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/88cf6f13-5329-45b1-9d51-06b20f493bd1/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --plainNotes 0:288:303 --beam 292.79-293.815@0 --hand \"wc-3384:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3385\\\"}\" --hand \"wc-3385:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3386:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3387:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"beamStub\\\":true}\" --hand \"wc-3388:{\\\"beamStub\\\":true}\" --hand \"wc-3389:{\\\"beamStub\\\":true}\" --hand \"wc-3390:{\\\"beamStub\\\":true}\" --rest 0:290.2:8 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547), the opening figure by hand (§550 · §557)\""
  },
  "events": [
   {
@@ -107319,7 +107319,6 @@
      "goLine": false,
      "gc": false,
      "dynAboveBeam": true,
-     "dynMark": false,
      "beamStub": true
     }
    },
@@ -107342,7 +107341,6 @@
      "gc": false,
      "dynAboveBeam": true,
      "nhAnchor": "leftEdge",
-     "dynMark": false,
      "beamStub": true
     }
    },
@@ -107365,7 +107363,6 @@
      "gc": false,
      "dynAboveBeam": true,
      "nhAnchor": "leftEdge",
-     "dynMark": false,
      "beamStub": true
     }
    },
@@ -107388,7 +107385,6 @@
      "gc": false,
      "dynAboveBeam": true,
      "nhAnchor": "leftEdge",
-     "dynMark": false,
      "beamStub": true
     }
    },
@@ -712131,19 +712127,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3383",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3383"
-   },
-   "value": {
-    "device": {
-     "dynMark": false
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3384",
    "kind": "engraving",
    "target": {
@@ -712153,8 +712136,7 @@
     "device": {
      "grace": true,
      "nhStem": "flag8",
-     "slurTo": "ev-wc-3385",
-     "dynMark": false
+     "slurTo": "ev-wc-3385"
     }
    },
    "provenance": "authored"
@@ -712167,8 +712149,7 @@
    },
    "value": {
     "device": {
-     "nhStem": "flag8",
-     "dynMark": false
+     "nhStem": "flag8"
     }
    },
    "provenance": "authored"
@@ -712181,8 +712162,7 @@
    },
    "value": {
     "device": {
-     "nhStem": "flag8",
-     "dynMark": false
+     "nhStem": "flag8"
     }
    },
    "provenance": "authored"
@@ -712192,7 +712172,7 @@
    "kind": "rest",
    "target": {
     "part": 0,
-    "t": 290.5
+    "t": 290.2
    },
    "value": {
     "dur": 8

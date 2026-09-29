@@ -119,7 +119,7 @@
    "stemLen": "@objects.stem.lengthSs",
    "grace": { "headScale": "@objects.graceHead.size", "slashReachSs": "@objects.graceSlash.reachSs", "slashAt": "@objects.graceSlash.at", "slashThickSs": "@objects.graceSlash.thickSs", "_note": "§550 — the grace note's look; a hand (engraving { grace: true }) on the note, never a device row" },
    "slur": { "heightRatio": "@objects.slur.heightRatio", "heightMaxSs": "@objects.slur.heightMaxSs", "thickSs": "@objects.slur.thickSs", "endThickSs": "@objects.slur.endThickSs", "freeHeadSs": "@objects.slur.freeHeadSs", "freeSlurSs": "@objects.slur.freeSlurSs", "maxSlope": "@objects.slur.maxSlope", "_note": "§555 — the slur standard (LilyPond's Slur + Gould's ends); a hand (engraving { slurTo: event }) on the first note names the last" },
-   "groupStub": { "stubSs": "@objects.groupStub.stubSs", "squiggleReachSs": "@objects.groupStub.squiggleReachSs", "squiggleAmpSs": "@objects.groupStub.squiggleAmpSs", "squiggleWaves": "@objects.groupStub.squiggleWaves", "thickSs": "@objects.groupStub.thickSs", "_note": "§557 — his uneven-group sign; a hand (engraving { beamStub: true }) on each member of a --beam group" },
+   "groupStub": { "protrudeSs": "@objects.groupStub.protrudeSs", "squiggleHand": "@objects.groupStub.squiggleHand", "squiggleReachSs": "@objects.groupStub.squiggleReachSs", "squiggleAmpSs": "@objects.groupStub.squiggleAmpSs", "squiggleWaves": "@objects.groupStub.squiggleWaves", "thickSs": "@objects.groupStub.thickSs", "_note": "§557 — his uneven-group sign; a hand (engraving { beamStub: true }) on each member of a --beam group" },
    "accGap": "@objects.accidental.beside",
    "tagY": "@column.rows.tag",
    "tempoY": "@column.rows.tempo",

@@ -168,7 +168,9 @@ on Opus or here at his word.
   the shown beat (A7). **TALKED AND BUILT 2026-09-29 (§557; LG-134 · LG-135):** the proposals (a feathered beam the AI's lean) met HIS SIGN —
   the heads stemless where played, a beam floating on the stem side on 1 ss stubs, a squiggle through the first = "about a 16th, unevenly"
   (PERFORMANCE_NOTES #18); built as a hand `beamStub` on a `--beam` group's members, the squiggle a new drawn kind; the screen gate PASS.
-  ► His eye: reload → `piece-lgmf` → `292.8`.
+  **§558 at his eye (LG-136):** the stubs 1.5 ss beyond the beam stack whatever the beam count · the beam the group's width (the first stub
+  at the first head's left edge, the last at the last head's right edge) · the stroke longer, across the corner, hand-drawn · the rest to 290.2.
+  ► His eye: reload → `piece-lgmf` → `290.2` · `292.8`.
 - **N-4 · THE SHOWN BEAT (A7) — "the good one in certain parts here … I'd like to develop it"** (LG-130 · LG-131): the tuba piece's bouncing
   ball marking a steady tempo on the pole / the cursor; the onsets as go lines (one version) or as heads with count-accurate values and
   tuplets; the beat shown, the system counts, the rhythm felt by space. TO WORK OUT: **a method for a compatible tempo / time signature**

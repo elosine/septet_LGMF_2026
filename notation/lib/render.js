@@ -679,8 +679,10 @@
           const ax = X(it.t, it.dx0Ss), ay = Y(it.y0Ss), bx = X(it.t, it.dx1Ss), by = Y(it.y1Ss);
           const ddx = bx - ax, ddy = by - ay, L = Math.hypot(ddx, ddy) || 1, nx = -ddy / L, ny = ddx / L;
           const amp = (it.ampSs || 0.15) * ssPx, waves = it.waves || 2.5, thick = (it.thickSs || 0.13) * ssPx;   // RULES MIRROR
-          const N = 32, pts = [];
-          for (let i = 0; i <= N; i++) { const s = i / N, w = amp * Math.sin(2 * Math.PI * waves * s); pts.push((ax + ddx * s + nx * w).toFixed(2) + ',' + (ay + ddy * s + ny * w).toFixed(2)); }
+          const N = 48, pts = [];
+          // [§558] hand-drawn: two incommensurable waves (the second at 2.3× the first, half the height, offset) — irregular, and the same every time
+          const wave = s => it.hand ? amp * (Math.sin(2 * Math.PI * waves * s + 0.6) + 0.5 * Math.sin(2 * Math.PI * waves * 2.3 * s + 2.0)) : amp * Math.sin(2 * Math.PI * waves * s);
+          for (let i = 0; i <= N; i++) { const s = i / N, w = wave(s); pts.push((ax + ddx * s + nx * w).toFixed(2) + ',' + (ay + ddy * s + ny * w).toFixed(2)); }
           parts.push('<path d="M' + pts.join(' L') + '" fill="none" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round" stroke-linejoin="round"/>');
         } else if (it.k === 'slur') {
           // [§555] THE SLUR (rules.json objects.slur — LilyPond's): a filled shape between two cubics — the outer peaks at heightSs, the

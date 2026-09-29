@@ -3216,21 +3216,34 @@
       const LTc = (DEV.byEnv || {}).longTone || {};
       const isLT = id => { const x = evById.get(id); return !!(x && x.env === 'longTone'); };
       const anyLT = items.some(it => it.k === 'ringbar' && isLT(it.ev));
-      // [§557, LG-135] THE UNEVEN GROUP — his sign: the heads stay where they were played, stemless; the group's beam floats on the stem
-      // side at the flagged height with short STUBS (rules.json objects.groupStub) marking each onset, never reaching the heads; through the
-      // first stub and the beam a SQUIGGLE (the acciaccatura's stroke made uneven) = "about this speed, unevenly" (PERFORMANCE_NOTES #18).
-      // A hand beamStub on each member of a --beam group; the beam count is the speed class (two = about a 16th).
+      // [§557 · §558, LG-135] THE UNEVEN GROUP — his sign: the heads stay where they were played, stemless; the group's beam floats on the
+      // stem side at the flagged height and spans the GROUP (the first stub at the first head's left edge, the last at the last head's right
+      // edge, the middle stubs at their stems' places); the STUBS protrude protrudeSs beyond the beam stack toward the heads, whatever the
+      // beam count, never reaching them; across the corner where the first stub meets the stack a hand-drawn SQUIGGLE (the grace figure's
+      // slash made uneven) = "about this speed, unevenly" (PERFORMANCE_NOTES #18). A hand beamStub on each member of a --beam group; the
+      // beam count is the speed class (two = about a 16th).
       {
-        const GS = Object.assign({ stubSs: 1, squiggleReachSs: 0.6, squiggleAmpSs: 0.15, squiggleWaves: 2.5, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
-        for (const [id, u] of nhAt) {
-          const dev = ((engOf(id) || {}).device) || {};
-          if (!dev.beamStub || !u.stemItem) continue;
-          const st = u.stemItem, up = st.attach === 'up';
-          st.yA = up ? st.yB - GS.stubSs : st.yB + GS.stubSs;   // the stub hangs from the beam toward the head, and stops
-          if (dev.beamPos === 0) {
-            const r = GS.squiggleReachSs;
-            items.push({ k: 'squiggle', t: u.t, dx0Ss: st.dxSs - r, y0Ss: st.yB - r, dx1Ss: st.dxSs + r, y1Ss: st.yB + r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, thickSs: GS.thickSs, ev: id });
-          }
+        const GS = Object.assign({ protrudeSs: 1.5, squiggleReachSs: 1.2, squiggleAmpSs: 0.12, squiggleWaves: 1.4, squiggleHand: true, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
+        const BT = (glyphs.standards && glyphs.standards.beam && glyphs.standards.beam.thickness) || 0.4;   // RULES MIRROR (glyphs.json standards.beam = rules.json objects.beam.thicknessSs)
+        const stubs = [...nhAt.entries()].map(([id, u]) => ({ id, u, dev: ((engOf(id) || {}).device) || {} })).filter(x => x.dev.beamStub && x.u.stemItem && x.dev.beamGroup);
+        const byGroup = new Map();
+        for (const x of stubs) { if (!byGroup.has(x.dev.beamGroup)) byGroup.set(x.dev.beamGroup, []); byGroup.get(x.dev.beamGroup).push(x); }
+        for (const g of byGroup.values()) {
+          g.sort((p, q) => p.u.t - q.u.t);
+          g.forEach((x, i) => {
+            const st = x.u.stemItem, up = st.attach === 'up', sgn = up ? -1 : 1;   // sgn: toward the heads (+y when the beam lies below them)
+            const near = p => Math.abs(p.t - x.u.t) < 1e-9;
+            const tipsAt = items.filter(it => it.k === 'beam' && it.tips && it.tips.some(near)).map(it => it.tips.find(near));
+            const ys = tipsAt.map(p => p.ySs).concat([st.yB]);
+            const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BT / 2;   // the beam stack's edge toward the heads
+            st.yA = inner + sgn * GS.protrudeSs;                                     // the stub shows protrudeSs beyond the stack
+            if (i === 0) st.dxSs = x.u.dx - x.u.w / 2; else if (i === g.length - 1) st.dxSs = x.u.dx + x.u.w / 2;
+            for (const p of tipsAt) p.dxSs = st.dxSs;                               // the beam's ends follow
+            if (i === 0) {
+              const r = GS.squiggleReachSs;
+              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: st.dxSs - r, y0Ss: inner - r, dx1Ss: st.dxSs + r, y1Ss: inner + r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
+            }
+          });
         }
       }
       // [§555, LG-133] THE SLUR — the standard: LilyPond 2.24.4's Slur (his install — ratio 0.25, height-limit 2, thickness 1.2 → 0.8 at
