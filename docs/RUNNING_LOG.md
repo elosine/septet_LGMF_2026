@@ -17970,3 +17970,25 @@ reckoned by.
 
 **The recommendation:** metric ↔ proportional in the performance notes, "proportional" defined once as horizontal distance = time.
 Nothing decided.
+
+## §539. TEMPORAL NOTATION — the research project opened; the phrase problem for the EH (2026-09-29, Fable, session 18)
+
+**Prompted by:** his brief after the name talk (§536 … §538), whole in COMPOSITION_NOTES **LG-120** — the term kept (*"lets stick
+with temporal notation for now"*), a research project asked for (concepts, philosophy, theory; reference scores — Penderecki's
+quartet, Lutosławski's limited aleatorism, Sciarrino, Lachenmann, *"you could suggest others"*; not the Brown / graphic genre —
+*"how standard notation is used in a temporal context/mapping"*), then a list of concepts about SHORT NOTES, and his order:
+*"transcribe first, organize and lets talk through some concepts but then move to making practical decisions for eh sec 2"*.
+
+**Made:** `docs/research/temporal_notation.md` — §1 the name (from §536 … §538) · §2 the reference scores, his four (R1 … R4) and ten
+of the AI's (S1 … S10, marked, from memory, each to be confirmed against the score) · §3 his concepts organized as C1 … C9, his
+phrases kept · §4 six questions distilled · §5 the practical decisions for the EH, empty. Item 5 of his TODO (§535) is C1 … C9; item
+6 is §1.
+
+**The AI's reading, marked (in the doc's §3):** his system carries two digital facts about a note (the GC = the onset, the duration
+line = the span) and one analog flow (the curves); what it does not yet carry is the RHYTHM of a group — the ratios between onsets,
+which metric notation encodes as beams and values and the scroll encodes only as distance. His two learning models (F) Ferneyhough
+and (L) Lutosławski both END without counting; they differ in how the rhythm reaches the player — through the count, or through the
+shape. The cursor already places the phrase in time; the open question is the rhythm INSIDE the phrase. A hypothesis for the talk
+(Lutosławski's cell — values and beams inside a temporal frame), not a decision.
+
+**Nothing decided.** The talk begins one concept at a time (the planning method, phase 1); his order.

@@ -94,6 +94,11 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
 
 Each item goes through the planning method (`/plan-item`) when he picks it up; none is ordered or scoped yet.
 
+**Items 5 · 6 OPENED 2026-09-29 (Fable) as a RESEARCH PROJECT — `docs/research/temporal_notation.md`** (LG-120 · RUNNING_LOG §536 …
+§539): the term kept ("temporal notation", defined once as horizontal distance = time) · the reference scores (his R1 … R4, the AI's
+S1 … S10 to confirm) · the concepts about short notes C1 … C9 · six questions · §5 the EH's decisions, empty. ► THE TALK, one concept
+at a time (phase 1), then the practical decisions for the EH's section 2. 2m.4 his eye still stands.
+
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 
 - **The task:** unchanged from checkpoint #2 (below) — SECTION 2 (289 … 427 s), one notation type at a time; THE LONG TONE is built and
