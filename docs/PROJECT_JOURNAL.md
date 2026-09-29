@@ -108,7 +108,13 @@ is the model part of what the score delivers. **§8 THE WORKING MODEL (§543, LG
 A PICTURE OF THE SOUND · **W1 = proportional + TN details, "Ferneyhough without the count"** (top of mind, not settled) · the
 viability test V1 … V8 for a local performance animation (the sul pont arc) · the alternatives A1 … A6 per phrase type · THE CURSOR
 WINDOW (the GC cues, the line suppressed for the phrase's span — Lutosławski's conductor). His to answer: the window's scope. HELD:
-values written or not.
+values written or not. **§10 FRAMEWORK DECISIONS T1 … T7 (§545, LG-125):** A1 THE DEFAULT, the menu on the device sheet (PLANNING_METHOD
+line 1a) · the viability test standing · tuplets a NOTCH OF SPEED · THE INTENTION — energy and flow with detail, the failure casualness
+not imprecision (PERFORMANCE_NOTES #16 · #17). §9 H1 the intensity curve held. **LEFT IN THE CONCEPTUAL TALK:** values written or not
+(leans written-as-pace) · the GC's purpose (TODO 9) + the window's scope · a short note's duration (TODO 5) · the burst (TODO 3, A4 / A5) ·
+the glyph vocabulary (TODO 8) + H1 · how much detail (TODO 7 — mostly answered by W1 + T7) · the model as a deliverable (the performers).
+**THEN THE PRACTICAL for the EH's section 2:** Q1's measurement · the device sheet for "the phrase" · the fit (values + brackets from the
+draft's timing) · the per-note detail · the window if wanted.
 
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 

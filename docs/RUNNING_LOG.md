@@ -18094,3 +18094,30 @@ score) · the model as a deliverable. **HELD:** values written or not (§541, na
 ostinato / trill curves already say "intensity", which the player reads as volume + speed and, naturally, bow pressure, accents and
 the rest. Filed as `docs/research/temporal_notation.md` §9 H1. The AI's one line: his own precedent for §7e's coupling (one curve,
 one fused gesture), bearing on §8c's one-shape proposal. Nothing decided.
+
+## §545. Tuplets a notch of speed · the test and the menu adopted, A1 the default · THE INTENTION — the Berio tension as his (2026-09-29, Fable, session 18)
+
+**Prompted by:** his four-part reply on §8, whole in COMPOSITION_NOTES **LG-125** (sent twice; the first cut off by his interruption).
+
+**Decided at his word — `docs/research/temporal_notation.md` §10 T4 … T7:**
+- **T6 tuplets kept as a TOOL, their purpose defined:** a NOTCH OF SPEED — a local tempo change inside a phrase, a pace message read as
+  a shape, as Sciarrino's brackets in proportional notation and as M2's principle 6 (the bracket is the message); never arithmetic
+  for a count. His example: a cluster of 16ths spaced one way, then a cluster with more space — playable from the cursor alone, but a
+  7:2 on the second *"would inform more precisely the flow"*. (The AI, marked: his example WRITES 16ths, so the held choice — values
+  written or not — leans to values written as pace, not duration; still his to close.)
+- **T5 the viability test V1 … V8** is the standing test for any proposed animation (*"keep as test to evaluate new proposals"*).
+- **T4 A1 (W1) THE DEFAULT**, the details to be worked out; A2 … A6 kept and SURFACED — at his *"find a way to surface when developing
+  new notation"*, the DEVICE SHEET (`docs/PLANNING_METHOD.md`) gains line **1a THE MODEL**: which of A1 … A6 the device uses and whether
+  another would suit it better; any animation in it against V1 … V8.
+- **T7 THE INTENTION (§8g):** not a precise sound-image (*"rarely this for me"*) but *"a certain energy and flow, with attention to
+  detail"*, the spirit with some variation; the Berio risk re-read as CASUALNESS or MISREADING — *"performers not manifesting the level
+  of detail and subtlety … less rigor than I would expect"* — not millisecond / dB precision. Ferneyhough's "portal into the energy"
+  named as kin. The AI's consequences (marked): layer 4's density is itself the message · the cursor guards placement, the model guards
+  subtlety, the performance notes state the ethos · the window is where casualness enters · a page test: could a casual reading still
+  produce the energy and the detail?
+
+**Also written:** PERFORMANCE_NOTES **#16** (the ethos — energy and flow with detail; the rigor expected) · **#17** (a tuplet bracket =
+a notch of speed, not a count). Journal §2 updated.
+
+**Then his ask for orientation** — done · left in the conceptual discussion · then the practical — answered in the chat and mirrored in
+journal §2's block.

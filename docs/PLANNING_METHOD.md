@@ -73,6 +73,9 @@ card and SHOWS it; he answers only its open lines. The rules it reads are `notat
 > **DEVICE SHEET — <the device>**
 >
 > 1. **The device** — one sentence: what the performer must know, and when.
+> 1a. **The model** — which phrase model it uses, A1 … A6 (`docs/research/temporal_notation.md` §8d; A1 the default, LG-125), and
+>     whether another would suit it better; any animation in it against the viability test V1 … V8 (§8c). *(Added 2026-09-29 at his
+>     word — the alternatives kept as an evaluation tool for every new notation; RUNNING_LOG §545.)*
 > 2. **Anchor** — row A … F by the anchor test (the head on its time ↔ no go line), or NEW with the reason the six cannot serve.
 > 3. **Column** — each member → an existing object row, or NEW ROW.
 > 4. **Styles** — each member's face · size · colour from its row; a NEW row's values proposed with their `basis`.

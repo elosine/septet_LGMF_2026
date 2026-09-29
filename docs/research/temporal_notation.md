@@ -363,6 +363,13 @@ the animation.
 whether VALUES and tuplets are written as well (M2's doubled carrier, the fit and the dissonance rule) or beams alone group the heads
 with no values (the stems as grouping only).
 
+**DECIDED (LG-125, §545, T6) — TUPLETS KEPT AS A TOOL; their purpose in this context: a NOTCH OF SPEED.** *"Like Sciarrino uses tuplet
+brackets in proportionate notation, maybe like I used for the tuba piece, used to describe a notch of speed almost like a local tempo
+change."* His example: a cluster of 16ths spaced one way, then a cluster with more space — *"could be performed from cursor but if the
+2nd cluster had a 7:2 bracket that would inform more precisely the flow."* The bracket is a PACE MESSAGE read as a shape (M2's principle
+6), never arithmetic for a count. *(The AI, marked: the example writes 16ths — the held choice leans to VALUES WRITTEN AS PACE, not
+duration; his to close.)*
+
 ### §8c Local animation — the glanceable threshold, and a viability test
 
 **His ask:** *"any opportunity for additional local animation for certain things that meet the glanceable threshold, so the sul pont
@@ -372,7 +379,7 @@ example if arc is long enough … and a way to evaluate the things that would be
 · the ring / duration bar · the curve follower (off, §454). Each is an INDEX: it shows the now.
 
 **THE VIABILITY TEST — a parameter earns a PERFORMANCE animation only if it passes all of these** (the AI's proposal; the numbers
-are starting values for the performers to correct):
+are starting values for the performers to correct). **ADOPTED as the standing test for every new proposal — his word, LG-125 (T5).**
 
 | # | Criterion | The test |
 |---|---|---|
@@ -417,6 +424,10 @@ parameter. A device sheet when it is built.*
 *The AI's lean: A1 as the default, A4 / A5 as its BURST case, A2 or A6 only where ratios must be exact between players — decided per
 phrase type, not once. Item 3 of his TODO (the fast clusters) is A4's home.*
 
+**DECIDED (LG-125, §545, T4): A1 IS THE DEFAULT** — *"we'll continue to work out the details"*; A2 … A6 KEPT as alternatives and
+SURFACED: the DEVICE SHEET (`docs/PLANNING_METHOD.md`, line 1a) asks of every new notation which model it uses and whether another
+would suit it better — *"an evaluation tool to see if another methodology would suit better a new notation"*.
+
 ### §8e The cursor suppressed — the ad libitum window
 
 **His idea:** *"some phrases the gc/cursor shows when to start then gets suppressed for an estimated duration so they don't feel
@@ -440,6 +451,31 @@ impact parts."*
   · the viability test for local animation · the alternatives as a menu per phrase type · the window as a concept.
 - **HELD:** the design choice (values written or not, §8b) · **His to answer:** the window's scope · the model as a deliverable (§7g).
 
+### §8g THE INTENTION — what the notation is for (his, LG-125, 2026-09-29)
+
+**His words:** *"what is my intention? do I want a phrase to be played as a precise sound-image? (rarely this for me, at least in my
+current compositional ethos) or do I want a certain energy and flow, with attention to detail, but am happy with the spirit with some
+variation … for me the Berio tension would be more that players treat a phrase too casually or misread the intention entirely, rather
+than millisecond/dB precision; so my version would be the performers not manifesting the level of detail and subtlety in a performance,
+treating the notation with less rigor than I would expect."* Ferneyhough's *"the notation is a portal into the energy"* named as kin.
+
+**The principle (his):** the target is ENERGY AND FLOW WITH ATTENTION TO DETAIL — the spirit, with some variation. A precise sound-image
+is rarely the aim. **The failure mode is CASUALNESS or MISREADING, not imprecision.** What the page must guarantee is RIGOR: that the
+level of detail and subtlety is manifested.
+
+*The AI's consequences, marked:*
+- **Layer 4's density is itself a message.** The detail on the page signals the rigor expected — the portal. Thinning it to "what can
+  be read at speed" would misstate the intention.
+- **W1's answer to Berio is re-aimed:** the cursor guards the PLACEMENT; the MODEL (§7d) guards the SUBTLETY; the PERFORMANCE NOTES
+  state the ETHOS (a row added, PERFORMANCE_NOTES #16).
+- **The window (§8e) is where casualness can enter** — its use tied to phrases that are LEARNED, and its reading written as "as you
+  have it", not "as you like".
+- **A test for any page:** could a casual reading of this page still produce the energy and the detail? If the intention can be
+  misread from the page, the page has failed — whatever its precision.
+
+---
+
+
 ---
 
 ## §9 HELD NOTES — his, verbatim, not analysed until he picks them up
@@ -449,3 +485,18 @@ impact parts."*
   state the curves represent intensity, so that might include volume and speed, but there is an intuitive way to interpret the curve
   that incorporates speed and volume but much else naturally, like bow pressure and accents etc"*. *(The AI, one line: his own
   precedent for §7e — one curve, one fused gesture; bears on §8c's "one shape for all".)*
+
+## §10 FRAMEWORK DECISIONS — the log (his, with the §)
+
+| # | Date | Decision | Where |
+|---|---|---|---|
+| T1 | 2026-09-29 | The term is **"temporal notation"**, his own, defined once as horizontal distance = time; "proportional / time-space" cited for the literature | §536 … §538 |
+| T2 | 2026-09-29 | **The phrase in layers** (anchor · shape · flow · moments) is the STARTING CONCEPTUAL FRAMEWORK, adjustable; the precedents dissected are preliminary research, kept | §541 |
+| T3 | 2026-09-29 | **THE SCORE IS A PICTURE OF THE SOUND** | §543 |
+| T4 | 2026-09-29 | **W1 — proportional notation with TN details, "Ferneyhough without the count" — is A1, THE DEFAULT**; A2 … A6 kept as alternatives and SURFACED on the device sheet (`docs/PLANNING_METHOD.md`, line 1a) for every new notation | §543 · §545 |
+| T5 | 2026-09-29 | **The viability test V1 … V8** is the standing test for any proposed performance animation | §545 |
+| T6 | 2026-09-29 | **Tuplets kept as a tool: a NOTCH OF SPEED** — a local tempo change inside a phrase, a pace message read as a shape (Sciarrino; M2's principle 6); never arithmetic for a count. His example: two clusters of 16ths, the second wider-spaced under a 7:2 — playable from the cursor, the bracket informs the flow more precisely | §545 |
+| T7 | 2026-09-29 | **THE INTENTION: energy and flow with attention to detail**; the failure mode is casualness / misreading, not imprecision; the page must guarantee rigor | §545 |
+
+**HELD (his to close):** values written or not inside a phrase (§8b — after T6 it leans to VALUES WRITTEN AS PACE) · the cursor window's
+scope (§8e — *"only impact parts"*) · the model as a deliverable (§7g — for the performers) · H1 the intensity curve (§9).
