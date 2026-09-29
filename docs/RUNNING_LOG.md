@@ -18596,3 +18596,10 @@ the shield holds. p1: the stem tip 4.14 → the word at 4.59 (was 6.0).
 (no new kind). Standards S3 and S11 in `temporal_notation.md` §12 updated.
 
 **► His eye:** a hard reload if the last one was not → `piece-lgmf` → `289` (the word) · `291.4` (p3's flag) · `292.8` (the stroke).
+
+## §562. THE STROKE SLID ALONG ITS PERPENDICULAR — into the beams and the stub (2026-09-29, Fable, session 18)
+
+**Prompted by:** LG-140. **Applied:** `objects.groupStub.squiggleInsetSs` 0.6 — the stroke, still centred on the beam stack at the first
+stub (§561), is slid 0.6 ss along its own perpendicular toward the heads: for a falling stroke under a beam that is up and to the right
+(0.42 · 0.42), the mirror above a beam; it now crosses the stub higher and the beam farther in. The AI's 0.6, his to tune. `check_rules`
+32 · the shield `piece-lgmf` alone · `eh_figure_check` 27 GREEN. **► His eye:** reload → `piece-lgmf` → `292.8`.

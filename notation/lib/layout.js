@@ -3225,7 +3225,7 @@
       // slash made uneven) = "about this speed, unevenly" (PERFORMANCE_NOTES #18). A hand beamStub on each member of a --beam group; the
       // beam count is the speed class (two = about a 16th).
       {
-        const GS = Object.assign({ protrudeSs: 2, squiggleReachSs: 1.5, squiggleAmpSs: 0.12, squiggleWaves: 1.75, squiggleHand: true, squiggleFalls: true, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
+        const GS = Object.assign({ protrudeSs: 2, squiggleReachSs: 1.5, squiggleAmpSs: 0.12, squiggleWaves: 1.75, squiggleHand: true, squiggleFalls: true, squiggleInsetSs: 0.6, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
         const BT = (glyphs.standards && glyphs.standards.beam && glyphs.standards.beam.thickness) || 0.4;   // RULES MIRROR (glyphs.json standards.beam = rules.json objects.beam.thicknessSs)
         const stubs = [...nhAt.entries()].map(([id, u]) => ({ id, u, dev: ((engOf(id) || {}).device) || {} })).filter(x => x.dev.beamStub && x.u.stemItem && x.dev.beamGroup);
         const byGroup = new Map();
@@ -3245,8 +3245,11 @@
             if (i === 0) {
               const r = GS.squiggleReachSs;
               const fl = GS.squiggleFalls ? -1 : 1;   // [§559] turned 90°: the stroke falls to the right
-              const cy = (inner + outer) / 2;   // [§561] his "an equal amount juts out from either side": centred on the stack, not its near edge
-              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: st.dxSs - r, y0Ss: cy - fl * r, dx1Ss: st.dxSs + r, y1Ss: cy + fl * r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
+              // [§561] his "an equal amount juts out from either side": centred on the stack, not its near edge; [§562] then slid squiggleInsetSs
+              // along its own perpendicular toward the heads ("slightly more in the beams and stem") — for a falling stroke that is up and to
+              // the right when the beam lies below the heads, the mirror above them
+              const k = (GS.squiggleInsetSs || 0) / Math.SQRT2, cx = st.dxSs + sgn * k, cy = (inner + outer) / 2 + sgn * k;
+              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: cx - r, y0Ss: cy - fl * r, dx1Ss: cx + r, y1Ss: cy + fl * r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
             }
           });
         }

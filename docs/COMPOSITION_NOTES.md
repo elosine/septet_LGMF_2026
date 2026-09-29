@@ -2909,3 +2909,7 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 ## LG-139 — 2026-09-29 — p3's flag inside the staff again; the stroke to jut equally; the "ord." far from its note — a standard wanted
 
 *"flag not clearing the staff as we discussed earlier and as was the case earlier, but this one somehow reverted. slash good angle, is there a way to make it so that an equal amount juts out from either side approximately, but more balanced than now. is there a reason ord is so far from note head? if not bring it closer to notehead, should be a standard in place if not lets figure out what that should be"* (the composer, 2026-09-29, Fable, with two images: p3's flag inside the staff, the "ord." at the lane top — RUNNING_LOG §561)
+
+## LG-140 — 2026-09-29 — the stroke slid along its perpendicular, into the beams and the stub
+
+*"the slash is almost there can we move it in over the beam some more? In other words, move it along its perpendicular axis towards the staff. So as if we drew a parallel line, but slightly more in the beams and stem."* (the composer, 2026-09-29, Fable, with the page pasted — RUNNING_LOG §562)
