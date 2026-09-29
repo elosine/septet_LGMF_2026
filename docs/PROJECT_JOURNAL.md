@@ -172,7 +172,10 @@ on Opus or here at his word.
   at the first head's left edge, the last at the last head's right edge) · the stroke longer, across the corner, hand-drawn · the rest to 290.2.
   **§559 (LG-137):** the stubs 2 ss · the stroke turned (falling) and 25% longer · a QUARTER rest · THE SECOND LAYER BEGUN by hand: p1 pp + a
   cresc hairpin to 289.25 (a new hand `hairpinTo`) · p3 and p6 accents (p6's on the head side by `articSide`) · p5 mp · the other names off.
-  ► His eye: reload → `piece-lgmf` → `289` · `290.2` · `292.8`.
+  ► His eye: reload → `piece-lgmf` → `289` · `290.2` · `292.8`. **§560 (LG-138):** the sign KEPT as a device (his wording in PN #18) ·
+  the slur in the vertical clearance (the marks under a slur 0.8 clear) · THE STANDARDS S1 … S12 in `temporal_notation.md` §12, surfaced at
+  the next similar notation (CLAUDE.md READ FIRST) · THE LOCK `tools/eh_figure_check.js` GREEN. His page showed a stale `layout.js` — a HARD
+  reload; if the stroke still rises or p4 is short after it, a fault to find.
 - **N-4 · THE SHOWN BEAT (A7) — "the good one in certain parts here … I'd like to develop it"** (LG-130 · LG-131): the tuba piece's bouncing
   ball marking a steady tempo on the pole / the cursor; the onsets as go lines (one version) or as heads with count-accurate values and
   tuplets; the beat shown, the system counts, the rhythm felt by space. TO WORK OUT: **a method for a compatible tempo / time signature**

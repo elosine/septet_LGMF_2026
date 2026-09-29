@@ -3265,7 +3265,7 @@
       // the STEM TIPS on the stem side; the side WITH the stems (below when they go up, above when down, mixed → above). A hand slurTo on
       // the first note names the last; every unit between is inside the arc and lifts it clear. A LONG kind (t0 · t1).
       {
-        const SL = Object.assign({ heightRatio: 0.25, heightMaxSs: 2, thickSs: 0.12, endThickSs: 0.08, freeHeadSs: 0.3 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
+        const SL = Object.assign({ heightRatio: 0.25, heightMaxSs: 2, thickSs: 0.12, endThickSs: 0.08, freeHeadSs: 0.3, freeSlurSs: 0.8 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
         const sps = spsV || 0;
         const units = [...nhAt.entries()].map(([id, u]) => Object.assign({ id }, u)).sort((p, q) => p.t - q.t);
         const tipOf = u => u.stemItem ? u.stemItem.yB : null;
@@ -3294,6 +3294,19 @@
           }
           items.push({ k: 'slur', t0: a.t, t1: b.t, dx0Ss: +x0.toFixed(4), y0Ss: +E0.y.toFixed(4), dx1Ss: +E1.x.toFixed(4), y1Ss: +E1.y.toFixed(4),
             dir: below ? 'below' : 'above', heightSs: +h.toFixed(4), thickSs: SL.thickSs, endThickSs: SL.endThickSs, ev: a.id });
+          // [§560, his "make sure we're taking the slur into account in the vertical column"] THE SLUR IN THE VERTICAL CLEARANCE: every
+          // mark (a dynamic, an articulation) of a note in the span, on the slur's side, clears the arc at its x by free-slur-distance
+          // (LilyPond's 0.8, rules.json objects.slur.freeSlurSs); a note's marks move together, so their stacking is kept
+          const arcAt = x => { const s = Math.min(1, Math.max(0, (x - x0) / len)); return chordY(x) + sg * 4 * h * s * (1 - s); };
+          const markH = it => { const key = (it.g || '').replace(/^dyn-/, '').replace(/^artic-/, ''); const G = /^dyn-/.test(it.g || '') ? (glyphs.dynamic || {})[key] : (glyphs.articulation || {})[key]; return (G && G.hSs) || 0.8; };
+          for (const u of inside) {
+            const marks = items.filter(it => it.k === 'glyph' && /^(dyn|artic)-/.test(it.g || '') && Math.abs(it.t - u.t) < 1e-9 && (below ? it.ySs < u.y : it.ySs > u.y));
+            if (!marks.length) continue;
+            const x = at(u) + u.dx, lim = arcAt(x) + sg * SL.freeSlurSs;   // the marks' near edge must lie beyond this
+            const near = below ? Math.max(...marks.map(it => it.ySs + markH(it) / 2)) : Math.min(...marks.map(it => it.ySs - markH(it) / 2));
+            const delta = below ? Math.min(0, lim - near) : Math.max(0, lim - near);
+            if (delta) for (const it of marks) it.ySs = +(it.ySs + delta).toFixed(4);
+          }
         }
       }
       if ((vibBowOf.size || anyLT) && FitV && spsV) {

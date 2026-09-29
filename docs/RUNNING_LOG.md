@@ -18543,3 +18543,30 @@ sends a group's accents to the head side. `check_rules` 32 · the shield `piece-
 **The AI's calls, his to reverse:** the hairpin's direction · the grace's f kept · the accents on the head side.
 
 **► His eye:** reload the tab → `piece-lgmf` → `289` · `290.2` · `292.8`.
+
+## §560. THE SLUR IN THE VERTICAL CLEARANCE · THE STANDARDS OF THE SNIPPET RECORDED · THE LOCK — and two things his page showed that the layout does not (2026-09-29, Fable, session 18)
+
+**Prompted by:** LG-138, whole (two images: the sign close up; the figure whole).
+
+**His decisions:** the sign KEPT as a device — *"play the displayed notes in that much time as indicated by the beams, but slightly
+irregularly"* (PERFORMANCE_NOTES #18, his wording added) · the slur's standards KEPT *"for now"* (*"that slur looks fine"*) · the slurs in the
+VERTICAL CLEARANCE · the standards of the snippet recorded and kept SURFACEABLE · a LOCK on the decisions.
+
+**Built:** (1) THE SLUR IN THE VERTICAL CLEARANCE — in the slur pass, every mark (a dynamic, an articulation) of a note in the slur's span, on
+the slur's side, clears the arc at its x by LilyPond's free-slur-distance 0.8 (`objects.slur.freeSlurSs`); a note's marks move together.
+p3's accent: was 0.46 clear of the slur's end (−5.62, top −5.20 against −4.74); now −5.96, top −5.54 — 0.80. The grace's f (on the row,
+1.07 clear) unmoved. (2) THE STANDARDS — `docs/research/temporal_notation.md` §12 "THE EH'S SECTION-2 STANDARDS (tentative)", S1 … S12,
+each with its § and the row that holds it; CLAUDE.md's READ FIRST points at it — the AI surfaces them whenever similar notation comes up
+(his standing ask). (3) THE LOCK — `tools/eh_figure_check.js`: every decision of §547 … §560 on the eight notes asserted from the layout
+(the same call the app and the shield make) — the plain stem 4.5 · p4's flag clearance and 6.54 · p3 at the max · the grace at 0.707 with
+its slash and scaled sharp · the slur below, 0.48 high, tapered · the accent's 0.8 from the slur · the four stubs 2 ss beyond the stack,
+the beam the group's width, the stroke falling and centred on the corner · the quarter rest at 290.2 · the names pp · f · mp only · the two
+accents · p1's hairpin — **GREEN**, added to CLAUDE.md's checks: run after any change to the look.
+
+**Two things his page showed that the layout does not — his browser, not the code:** (a) *"the slash is still at the wrong angle"* — the
+layout draws it FALLING to the right since §559 (left end −2.71, right end −5.71; the lock asserts it); (b) *"the flag stem length on partial
+four has reverted"* — p4's stem is 6.54 with the flag 0.38 clear of the bottom line (asserted). The server sends `Cache-Control: no-store`
+for every notation file, so a plain reload should fetch the new `layout.js`; his page evidently still ran an older one — a HARD reload
+(CTRL+SHIFT+R) once. If it persists after that, it is a fault to find, not a decision lost.
+
+**► His eye after a hard reload:** `piece-lgmf` → `291.4` (the accent under the slur) · `292.8` (the stroke falling).
