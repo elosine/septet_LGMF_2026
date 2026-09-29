@@ -117,6 +117,8 @@
    "floorTier": "@column.floorTiers.inside",
    "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "flipClearsStaff": "@ladder.flipClearsStaff", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
    "stemLen": "@objects.stem.lengthSs",
+   "grace": { "headScale": "@objects.graceHead.size", "slashReachSs": "@objects.graceSlash.reachSs", "slashAt": "@objects.graceSlash.at", "slashThickSs": "@objects.graceSlash.thickSs", "_note": "§550 — the grace note's look; a hand (engraving { grace: true }) on the note, never a device row" },
+   "slur": { "heightSs": "@objects.slur.heightSs", "thickSs": "@objects.slur.thickSs", "beside": "@objects.slur.beside", "_note": "§550 — a slur between two heads; a hand (engraving { slurTo: event }) on the first" },
    "accGap": "@objects.accidental.beside",
    "tagY": "@column.rows.tag",
    "tempoY": "@column.rows.tempo",

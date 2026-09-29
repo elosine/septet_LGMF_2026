@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 209 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 216 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -92,6 +92,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `glyph:notehead` `glyph:notehead-open`
 - **cueHead** *(a variant of head)* — size **0.844** → `layout.devices.byEnv.strike.nhHeadScale` · `layout.devices.byTechnique.staccato.nhHeadScale` · `layout.devices.byTechnique.gettato_vel.nhHeadScale` +5 · colour **ink #111** · *composer* · #2 notehead.cellMotive.scaleFactor · #4 day 23 ('there was already a formulation for a small note head') — the sequence's reminder head retired, §443
 - **smallHead** *(a variant of head)* — size **0.794** → `layout.devices.byEnv.trill.trillPitch.headScale` · `layout.devices.byEnv.trill.trillPitch.accScale` · colour **ink #111** · *composer* · #5 §438 (the trill's pitch head) · census
+- **graceHead** *(a variant of head)* — size **0.707** → `layout.grace.headScale` · colour **ink #111** · *lilypond* · §550 (the grace note — his LG-129 'small note, slash slur to 8th with flag'): LilyPond's grace at font-size −3 = 2^(−3/6) = 0.707 (from memory, to confirm) beside the house cueHead −1.5 (0.844) and smallHead −2 (0.794); the stem's length and the flag scale with the head. A HAND, never a device: engraving { grace: true } on the note
 - **accidental** — face **music** · size **1** · colour **ink #111** · beside **0.25** → `layout.accGap` · besideUnit **0.1** → `layout.accGapColumn` · betweenSs **0.2** → `layout.chordColumn.minLateralGap` · betweenNote **§482 (2026-09-28, his eye at 56.123 s — 'accidentals too close; lets surface the proper rules and write into system'): the gap between two accidentals side by side in ONE chord column (the ♮ and the ♯ of a one-line pair) — LilyPond's AccidentalPlacement `padding` default 0.2 (accidental-placement.cc; not a property in define-grobs.scm — his 2.24.4 file lists only right-padding 0.15, the gap to the note, verified 2026-09-28). Piece #2's D.8.2 locked 0.10 as minLateralGap, and the port never applied it (chord_column.js took the colliding accidental's left edge as the next slot's right edge — the two touched); besideUnit 0.10, his tightening of LilyPond's 0.15 in #2, stands. Compiled into engraving.layout.chordColumn.minLateralGap** · naturalInColumn **true** → `layout.accNaturalInColumn` · naturalNote **2h.7, §479 — his 2g.6 eye at 56.123 s (C♯6 over C6, one ♯ drawn): 'we have to make sure we include the courtesy natural' — in a chord column a head with no alteration draws ♮ when another head of the same letter and octave carries a sign (Gould: two heads a chromatic step apart in one chord each carry their sign); the GENERAL courtesy policy (a ♮ after a sharpened same-letter head earlier in the voice) is NOT this row — `courtesyNatural`, his call at the running order's step 7 (§500): NO** · courtesyNatural **false** · courtesyNote **§500 (2026-09-28, his word at the running order's step 7 — 'a'): THE ACCIDENTAL POLICY ACROSS TIME. There are no bars and no key signature, so nothing is cancelled by a barline: EVERY sharpened or flattened head carries its own sign (the nearest quarter-tone, just_partials_notation §1a), and a PLAIN head carries nothing — a performer reads a bare head as natural. NO courtesy natural on a later plain head of the same letter and octave in the same voice, whatever the distance in time. The ONE exception is `naturalInColumn` — two heads sounding AT ONCE in one chord column, same letter and octave, one altered (2h.7, §479). Written as a row so the question is not decided twice** · clears **the leftmost ink of the note — the head, or a ledger line inside the sign's own height (#2 H.4c.3; §419 F6)** · *composer* · beside: #4 day 22 (0.25 — the morph header, the sequence block, the onset head) · besideUnit: #2 D.6 (LP 0.35 tightened to 0.10 by eye — the nh-unit and the chord column; glyphs.json standards.accidental.gapToNotehead) · clears: #2 H.4c.3 on the nh-unit since #4 day 22, extended to the 0.25 sites at 2e.3 (7), §419 F6 (verified: the proto's ¾♯ on D♯6 overlapped its ledger by 0.027 ss)
   - draws `glyph:accidental-(?!leftParen|rightParen).*`
 - **paren** — face **music** · glyph **accidental.leftParen · rightParen** · colour **ink #111** · sizeLabel **0.43** → `layout.devices.byEnv.sequence.label.parenScale` · `layout.devices.byEnv.morph.label.parenScale` · besideLabel **0.1** → `layout.devices.byEnv.sequence.label.parenGapSs` · `layout.devices.byEnv.morph.label.parenGapSs` · sizeTrill **0.63** → `layout.devices.byEnv.trill.trillPitch.parenScale` · *AI* · label §386 · trill #5 §438 (the AI's calls, his to reverse) · the reminder's parentheses retired with the reminder head, §443 (2e.3 (6))
@@ -163,6 +164,10 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `rest`
 - **lvSlur** — face **music** · colour **ink #111** · beside **0.15** · *composer* · #5 2h.5 (l.v. — the tight gap)
   - draws `lvslur` · in: engraving.layout.letRingGapSs (code default 0.15)
+- **graceSlash** — face **music** · colour **ink #111** · thickSs **0.13** → `layout.grace.slashThickSs` · reachSs **0.6** → `layout.grace.slashReachSs` · at **0.6** → `layout.grace.slashAt` · *composer* · §550 — the acciaccatura's stroke through the grace's stem and flag: one line rising to the right at 45°, reachSs each side of the stem, crossing it at 'at' of the stem's length from the head, the stem's thickness (his pasted example; the geometry the AI's after LilyPond's stroke-style grace, his to correct)
+  - draws `slash` · in: engraving.layout.grace.slashReachSs · slashAt · slashThickSs
+- **slur** — face **music** · colour **ink #111** · thickSs **0.13** → `layout.slur.thickSs` · heightSs **1** → `layout.slur.heightSs` · beside **0.15** → `layout.slur.beside` · *composer* · §550 — a slur between two heads (the grace's into its main note, LG-129): a cubic arc from the first head's centre to the second's, on the side opposite the main note's stem, heightSs its bulge, 'beside' the gap above or below each head (the l.v. slur's 0.15), the stem's thickness; v1 a stroked arc — LilyPond's tapered slur when he asks. A HAND: engraving { slurTo: <event> } on the first note
+  - draws `slur` · in: engraving.layout.slur
 - **pedal** — face **music** · colour **ink #111** · *composer* · #5 2h.5 (#2's 'Ped.')
   - draws `glyph:pedal-.*`
 - **glissLine** — colour **ink #111** · *census* · #4 day 35
@@ -262,6 +267,8 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `hairpin-timed` | cut | stub |
 | `ottava` | clamp | whole |
 | `lvslur` | clamp | whole |
+| `slash` | clamp | whole |
+| `slur` | clamp | whole |
 | `attackline` | atomic | whole |
 | `tick` | atomic | whole |
 | `goline` | atomic | whole |
@@ -313,7 +320,7 @@ The size step: ×1.122462 (LilyPond's font-size step 2^(1/6) (§428)) · the com
 Every `engraving` overlay on an event (the per-event hands: `stemDir` · `dxSs` · `dySs` · `beamBreak` · `device` …) in the notation
 files the picker lists. A rung-8 override carries five fields (the object · the property · the value · the rung · his § and date).
 
-- none
+- `piece-lgmf` — 8 override(s): device ×8
 
 ---
 

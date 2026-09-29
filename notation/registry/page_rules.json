@@ -42,6 +42,8 @@
     "hairpin-timed": { "screen": "cut", "print": "stub", "_note": "LGMF PLAN 2g (§466): the vibraphone's TIMED hairpin spans the time of its movement — a spanning graphic like the ring bar it lies under, so it takes the ring bar's classes: cut like paper on screen, a stub at a print cut; the 2f `hairpin` (a fixed-length symbol) keeps clamp · whole" },
     "ottava": { "screen": "clamp", "print": "whole" },
     "lvslur": { "screen": "clamp", "print": "whole" },
+  "slash": { "screen": "clamp", "print": "whole", "_note": "§550: the grace note's stroke — a point kind on the grace's stem" },
+  "slur": { "screen": "clamp", "print": "whole", "_note": "§550: the grace's slur into its main note — a point kind at the grace's time whose far end sits at the main note's own time (94 ms here); clamp · whole as the 2f hairpin" },
     "attackline": { "screen": "atomic", "print": "whole" },
     "tick": { "screen": "atomic", "print": "whole" },
     "goline": { "screen": "atomic", "print": "whole" },

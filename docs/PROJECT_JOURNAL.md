@@ -123,6 +123,14 @@ NOTE — `byEnv.plainNote`, a filled head with a plain stem ON its time, no go l
 extractor's `--plainNotes 0:288:303` in `piece-lgmf`'s build; `check_rules` 32; the shield `piece-lgmf` alone; the ladder the fold's 7.
 ► HIS EYE: reload the notation tab (no restart) → `piece-lgmf` → the video view → `289` · `291.4` · `295.5` · `301.5`. The AI's
 calls, his to reverse (§547): a name on EVERY note (vs only where the band changes) · the stem by the house rule · anchor A.
+**THE FIRST NOTE THROUGH THE SURVEY → HIS DECISION T8 → THE OPENING FIGURE DRAWN BY HAND (§548 … §550, 2026-09-29, Fable):** the survey's
+second run (§548 — the end of a single held note the one missing thing; the lean the bar) met his decision (LG-128, T8: VALUES WRITTEN,
+the TN way — flags and beams, relative, no bar or meter; the duration line "incongruous" here); the figure decided note by note (LG-129,
+§549: p1 a quarter · an eighth rest midway · the grace the classical way · p3 · p4 flagged eighths · p5 … p8 beamed 16ths — BESPOKE,
+hands not rules); BUILT here at his word (§550): the grace note (`graceHead` · `graceSlash` · `slur` — two new drawn kinds), the free
+rest, `--hand` · `--rest` in the extractor; `piece-lgmf` re-extracted; `check_rules` 32 · the shield `piece-lgmf` alone · the screen
+gate PASS. ► HIS EYE: reload the tab → `piece-lgmf` → `289` · `290.5` · `291.4` · `292.8`. THEN THE SECOND LAYER at his word —
+dynamics · hairpins · slurs · accents, as hands on the same notes. Held: the survey's new item (the neighbours' system), his refine.
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 

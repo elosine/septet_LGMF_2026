@@ -82,6 +82,7 @@
       case 'dynarrow': { const h = (it.headSs || 0.45) * 0.45; return { lo: it.ySs - h, hi: it.ySs + h, l: Math.min(it.dx0Ss, it.dx1Ss), r: Math.max(it.dx0Ss, it.dx1Ss) }; }
       case 'niente': { const r = (it.diaSs || 0.47) / 2; return { lo: it.ySs - r, hi: it.ySs + r, l: dx - r, r: dx + r }; }
       case 'hairpin': { const h = (it.hSs || 0.667) / 2; return { lo: it.ySs - h, hi: it.ySs + h, l: Math.min(it.dx0Ss, it.dx1Ss), r: Math.max(it.dx0Ss, it.dx1Ss) }; }
+      case 'slash': return { lo: Math.min(it.y0Ss, it.y1Ss), hi: Math.max(it.y0Ss, it.y1Ss), l: Math.min(it.dx0Ss, it.dx1Ss), r: Math.max(it.dx0Ss, it.dx1Ss) };   // [§550] the grace's stroke
       default: return null;
     }
   }

@@ -22,6 +22,8 @@
 //                            take the long tone (env 'longTone', registry byEnv.longTone); a single stays as it drew
 //   --longToneAlso id,…      [2m.2] with --longTones: a single he names joins them (an object id wc-… or an event id)
 //   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
+//   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
+//   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
 //   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
 //   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
@@ -1861,6 +1863,39 @@ if (MORPH_SEQ.length) {
     }
     console.log('  --plainNotes ' + spec + ': ' + n + ' notes of ' + name + ' env plainNote' + (other.length ? ' · ' + other.length + ' left on their own device (' + other.join(' · ') + ')' : ''));
   }
+}
+
+// [LGMF — RUNNING_LOG §550; his LG-129: "no intention of creating rules here just bespoke notation for this phrase/figure"] --hand id:{json}
+// (repeatable) — a per-note HAND: the JSON merged onto the note's engraving overlay device (the tuba pages' own mechanism — an
+// engraving overlay's device wins over the technique and env devices, layout.js makeDeviceOf), as --noGc does for one field. A hand's
+// slurTo may name an object id; it is resolved to the event id here. --rest part:t:dur (repeatable) — a FREE-STANDING REST: a `rest`
+// overlay the layout draws at x(t) on the part, at LilyPond's own height for the value.
+{
+  const hands = [], rests = [];
+  process.argv.forEach((a, i) => {
+    if (a === '--hand' && process.argv[i + 1]) hands.push(process.argv[i + 1]);
+    if (a === '--rest' && process.argv[i + 1]) rests.push(process.argv[i + 1]);
+  });
+  const findEv = id => doc.events.find(x => x.id === id || (x.source && x.source.objectId === id));
+  for (const spec of hands) {
+    const c = spec.indexOf(':');
+    const id = c > 0 ? spec.slice(0, c) : '', js = c > 0 ? spec.slice(c + 1) : '';
+    let dev = null; try { dev = JSON.parse(js); } catch (err) { dev = null; }
+    if (!id || !dev || typeof dev !== 'object' || Array.isArray(dev)) { console.error('--hand needs id:{json} (e.g. --hand wc-3385:{"nhStem":"flag8"})'); process.exit(2); }
+    const e = findEv(id);
+    if (!e) { console.error('--hand ' + id + ': no such event in this window'); process.exit(2); }
+    if (dev.slurTo) { const t = findEv(dev.slurTo); if (!t) { console.error('--hand ' + id + ': slurTo ' + dev.slurTo + ' is not an event in this window'); process.exit(2); } dev.slurTo = t.id; }
+    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    if (existing) existing.value.device = Object.assign({}, existing.value.device, dev);
+    else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
+    console.log('  --hand ' + id + ' (' + e.onset.toFixed(3) + '): ' + Object.keys(dev).map(k => k + '=' + JSON.stringify(dev[k])).join(' '));
+  }
+  rests.forEach((spec, n) => {
+    const m = /^(\d+):(-?\d+(?:\.\d+)?):(4|8|16|32)$/.exec(spec);
+    if (!m) { console.error('--rest needs part:t:dur with dur 4 · 8 · 16 · 32 (e.g. --rest 0:290.5:8)'); process.exit(2); }
+    doc.overlays.push({ id: 'ov-rest-' + (n + 1), kind: 'rest', target: { part: +m[1], t: +m[2] }, value: { dur: +m[3] }, provenance: 'authored' });
+    console.log('  --rest ' + spec + ': a rest' + m[3] + ' on part ' + m[1] + ' at ' + (+m[2]).toFixed(3));
+  });
 }
 
 doc.provenance.build = 'node tools/notate_section.js ' + process.argv.slice(2).map(a => (/[\s"]/.test(a) ? JSON.stringify(a) : a)).join(' ');

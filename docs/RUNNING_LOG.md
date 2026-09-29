@@ -18187,3 +18187,125 @@ the vibraphone's `repeatName false` (a name only where the band changes) · the 
 (the IR's `mode: 'plain'` is another thing — the dynamics law's struck note).
 
 **► His eye:** reload the notation tab (no restart) → `piece-lgmf` → the video view → `289` · `291.4` · `295.5` · `301.5` · `z`.
+
+## §548. THE FIRST NOTE THROUGH THE SURVEY — and his decision: VALUES, THE TN WAY (2026-09-29, Fable, session 18)
+
+**Prompted by:** *"lets talk about the first note , a longer held note, can you run it against our sound to notes eval tool, you can just
+walk it and give the highlights; the options in my head now are 1. duration line, 2. regular notation, so we estimate if it is a 1/8 not
+or 1/2 note etc, and put a rest where that note would end approximately, others?"* — then his description of the phrase (LG-127) and his
+decision (LG-128, whole).
+
+**The note:** the EH's A♯4 at 289.0, 0.574 s, vel 60 (mp), "ord." — section 2's first sound after 9.6 s of silence (the morph ended
+279.4), alone until 295.5, 1.81 s of silence after it, then the bursts. ≈ 8 ss long at the page's average sweep (55 pages / 881 s).
+
+**The survey's second run — the highlights** (the AI's pass; the survey `docs/research/sound_to_notation_survey.md`): A one event ·
+edges sharp · alone · 0.57 s. B the energy; an announcement (the AI's reading); B3 his. C the start on the cursor; no interior; **C3 the
+LENGTH cannot be read from a bare head at speed**; **C6 the pivot — instruction, outcome or free**; C7 nothing. D nothing moves (a
+struck sample). E density 1. F the start → index + icon; **the length → ICON over SYMBOL, its index value nil (V2: under 2 s is felt,
+not followed)**. G the bare head 2 — **G3 FAILS: a casual reading gives a short note**; the bar 5. H A1; **H2 the one new thing — the END
+of a single held note** (the long tone carries it for a group only). The lean: option 1, the bar — the note a long tone single
+(`--longToneAlso wc-3383`, nothing to build); option 2 (a value + a rest) is the phrase's held question, not the note's; others surfaced:
+the open head alone (free) · nothing (fails G3) · a tenuto mark · both carriers.
+
+**HIS DECISION (LG-128) — T8, the held question of §8b CLOSED:** *"I'll keep noteheads and their flags/beams … short quick notes vs
+longer ones … seen still as relative if no bar/meter is given and beaming helps with phrasing; dur line makes sense but maybe
+incongruous, not part of the beamed tn paradigm; lets see how it looks tn way."* The survey's lean not taken — his reason is the
+PARADIGM: one system on the phrase (beams and values), the bar foreign to it. Recorded in `temporal_notation.md` §10 as T8.
+
+**The figure, measured** (Draft 01, the EH's first eight notes; his p1 … p8 — *"something like 8 partials"*, LG-127):
+
+| p | onset | sounds | to the next | pitch · vel |
+|---|---|---|---|---|
+| 1 | 289.000 | 0.574 | 2.385 (silence 1.811 after the sound) | A♯4 · 60 |
+| 2 | 291.385 | 0.074 | 0.094 | D♯4 · 87 — the grace |
+| 3 | 291.479 | 0.079 | 0.712 | A♯3 · 104 |
+| 4 | 292.191 | 0.075 | 0.599 | E5 · 94 |
+| 5 | 292.790 | 0.189 | 0.445 | C♯5 · 76 |
+| 6 | 293.235 | 0.139 | 0.345 | G♯5 · 85 |
+| 7 | 293.580 | 0.177 | 0.235 | F4 · 69 |
+| 8 | 293.815 | 0.105 | 1.641 (the figure ends; the next figure 295.456) | A♯4 · 78 |
+
+**The reading of his rule (the AI's, marked):** inside the figure a note's VALUE is its SPACING class — the time to the next note — since
+every sound but p1 is the sample's staccato (75 … 190 ms); where silence follows (p1) the value is the SOUNDING length and a rest stands
+where the sound ends (*"approximate rest at the end of what would have been dur line, so where midi dur ends"*); p4 *"no rest after"* —
+its value fills its spacing.
+
+**The reference — the last four as 16ths "for now":** their spacings 0.445 · 0.345 · 0.235 s — an accelerando, 1.9 : 1 — so the 16th is
+taken as their MEAN, 0.34 s (8th 0.68 · dotted 8th 1.02 · quarter 1.37). With the first (0.445) or the last (0.235) as the 16th, p1 moves
+between 1.3 and 2.4 sixteenths — the mean is the AI's call.
+
+**The two longer notes:** **p1 0.574 s = 1.7 sixteenths → AN EIGHTH** (0.68); the rest after it 1.81 s = 5.3 sixteenths → **a quarter rest**
+(1.37; the nearest single glyph — a dotted quarter, 2.05, is the nearest value; the space is the truth). **p4 0.599 s to p5 = 1.75 → AN
+EIGHTH** — *"similar to p1"*: yes, the same class. And p3 → p4 0.712 s = 2.1 → an eighth too. So the figure reads **8th · quarter rest ·
+(grace) 8th · 8th · 16th 16th 16th 16th** — eighths then sixteenths, a NOTCH OF SPEED (T6) written over a continuous accelerando
+0.71 · 0.60 · 0.45 · 0.35 · 0.24 that the SPACE carries.
+
+**Dissonance, named (G4):** a written eighth is 0.57 s at p1, 0.71 at p3, 0.60 at p4; a 16th 0.45 … 0.24 — the values are CLASSES of pace,
+never durations, which is T6's reading; the eye takes the true rhythm from the spacing.
+
+**His order from here:** the grace-note engraving discussion → other issues → draw. Nothing drawn yet; `piece-lgmf` stands at §547.
+
+## §549. THE OPENING FIGURE DECIDED, BESPOKE — p1 a quarter, an eighth rest midway, the grace the classical way, two flagged eighths, four beamed 16ths (2026-09-29, Fable, session 18)
+
+**Prompted by:** his decisions on §548's analysis, whole in **LG-129** — the values taken from the analysis with one change (p1 a QUARTER, not the
+eighth the mean gave — his ear on the class), the rest an EIGHTH *"somewhere in the middle of the gap between p1&p3 ignore grace"*, p4 an
+eighth with a flag and *"no other rests"*, the last four beamed 16ths, the grace *"a but not beamed"* — a small note with a slash and a slur
+into p3's flagged eighth, *"a little like image"* (an engraved example pasted). **And the principle: *"no intention of creating rules here
+just bespoke notation for this phrase/figure using our survey to tease out the sonic intentions and the best notation representation."***
+
+**What the engine has for it (read, not built):** per-note HANDS are the tuba pages' own mechanism — an `engraving` overlay's `device`
+wins over the technique and env devices (`makeDeviceOf`), and the tuba clusters are nothing but such hands (`nhStem 'beam'` · `beamGroup`
+· `beamLevels` · `noteBeams` …); `--beam t0-t1@part` beams a span at two levels (a 16th) through `beam_choice.js` (the GC and go line by
+its rules — off by a hand); `nhStem 'flag8'` draws a flagged eighth in the unit builder; the rest glyphs rest4 · rest8 · rest16 · rest32 and
+the `rest` item kind exist, but a rest is drawn only inside a cluster's grid (`tailPos`, `--restAfter`) — a FREE rest at a time is new;
+the l.v. slur is an arc from one head to the right (`lvslur`), a slur BETWEEN two heads is new; no grace note, no slash anywhere
+(`layout.js` has no "grace"). The small heads: cueHead 0.844 (LilyPond −1.5) · smallHead 0.794 (−2); a grace at LilyPond's −3 would be
+0.707 (from memory, to confirm).
+
+**So the build is two things:** (1) the HANDS — a generic `--hand <objectId>:<json>` in the extractor (merged into the event's engraving
+overlay, as `--noGc` does), `--beam 292.79-293.815@0` for p5 … p8, a free rest (`--rest part:t:dur` → an overlay the layout draws at x(t));
+(2) the CAPABILITY — the grace note: a `graceHead` row (0.707), the slash (a new drawn kind, a line through the flag at the stem), the
+slur (a new drawn kind, an arc between two heads), each with its edge row (PLAN 2c's rule: a new drawn kind adds its line or the screen
+gate fails) and its `check_rules` row; a device sheet for the grace (line 1a: A5 the grace burst). Bespoke means the hands; the rows say
+how a grace is drawn, never when.
+
+**Other issues put to him (§549, the reply):** the dynamic names — one on every note as `plainNote` draws them (mp · f · ff · f · mf · f · mf
+· f), or the figure's own by hand · the swell on p1 (LG-127, *"probably hairpin"*) — now or later · the stems and the beam's side by the house
+rule. Then: build here (Fable) or the plan item to Opus after a checkpoint.
+
+## §550. THE OPENING FIGURE DRAWN BY HAND — the grace note, the slur, the free rest, the flags and the beam, built here (2026-09-29, Fable, session 18)
+
+**Prompted by:** *"lets build here now and I'll need to see to add second layer, dynamics, hairpins, slurs accents etc"* — so the FIRST
+LAYER only: the pitches and the values of §549 · LG-129, no dynamic name on the figure (the second layer after his eye).
+
+**Built, one commit — the capability (drawn once, used by hand):**
+- `rules.json` three objects rows — `graceHead` (a variant of head at 0.707, LilyPond's font-size −3 from memory, beside the house
+  cueHead −1.5 · smallHead −2) · `graceSlash` (the acciaccatura's stroke: the stem's thickness, 0.6 ss each side of the stem, crossing it
+  at 0.6 of its length, rising to the right) · `slur` (a cubic arc between two heads, 1 ss bulge, the stem's thickness, 0.15 from each
+  head); `container.json` `engraving.layout.grace` · `slur` point at them; `page_rules.edge` two new drawn kinds `slash` · `slur`
+  (clamp · whole, as the 2f hairpin); the schema's `rest` overlay kind.
+- `layout.js` — a hand `grace: true` scales the head, the stem's length, the flag and the accidental (shrunk toward its anchor, the gap
+  kept) and draws the slash through the stem; a hand `slurTo: <event>` draws the slur from the first head's centre to the second's, on
+  the side opposite the main note's stem (the heads recorded in `nhAt` as they are drawn); a `rest` overlay draws at x(t) on its part
+  at LilyPond's own height. `render.js` draws the two kinds; `fit.js` gives the slash its ink box.
+- `notate_section.js` — `--hand id:{json}` (repeatable): the JSON merged onto the note's engraving overlay device — the tuba pages' own
+  mechanism, a hand wins over every device (`makeDeviceOf`); `slurTo` may name an object id · `--rest part:t:dur` (repeatable).
+
+**The figure's hands** (`piece-lgmf`'s build, after `--plainNotes 0:288:303`): `--beam 292.79-293.815@0` (p5 … p8, two levels — 16ths) ·
+p1 `{dynMark:false}` (a quarter: the plain note as it was) · p2 `{grace, nhStem flag8, slurTo wc-3385, dynMark false}` · p3 · p4
+`{nhStem flag8}` · p5 `{gc false, goLine false}` — the beam rule had put a GO LINE on its first note (`figures.beam.goLine 'first'`, the
+tuba's), off by the hand · p6 … p8 `{dynMark false}` · `--rest 0:290.5:8`.
+
+**Verified (the layout, the gates):** the probe on part 0, 288.9 … 294 s — 8 heads · 8 stems · 6 sharps · flag-up8 ×2 (p2 at 0.707, p3) ·
+flag-down8 (p4, E5) · the slash (0.08 → 1.28 ss, rising) · the beam ×2 levels, stems down, tips on the four times · rest8 at 290.50 ·
+the slur below from the grace (291.385, y −2.96) to p3 (291.479, y −4.59) · "ord." on p1 · no dynamic, no go line, no bar; 0 warnings.
+The grace's sharp at 0.707, centred −0.29. `check_rules` **32** green (the two kinds through (1) and (2)) · THE SHIELD 21 of 22 identical,
+`piece-lgmf` the one mover · **`check_screen_edges --ir piece-lgmf` PASS** (148 frames — the rule for a new drawn kind, 2c) · the ladder
+the fold's 7. Not run: the print gate.
+
+**The AI's calls, his to reverse:** the grace at 0.707 · the slash's geometry · the slur v1 a stroked arc, centre to centre (LilyPond's
+tapered slur later) · the rest at LilyPond's height for its value · the beam's side by the house majority (down) · the "ord." word kept
+on p1 · the 16th reference the mean (§548).
+
+**► His eye:** reload the notation tab (no restart) → `piece-lgmf` → the video view → `289` · `290.5` · `291.4` · `292.8` · `z`.
+Then the SECOND LAYER at his word — dynamics · hairpins · slurs · accents — as hands on the same eight notes.

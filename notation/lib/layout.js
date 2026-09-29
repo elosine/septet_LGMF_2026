@@ -342,6 +342,7 @@
     const crescCurves = [];      // {part, span:[a,b], samples:[0..1]} — bottom half of the lane
     const tempos = [];           // {t, bpm} — a bar line + a tempo mark
     const headers = [];          // {part, t, endMark} — the section header block
+    const freeRests = [];        // [§550] {part, t, dur} — a free-standing rest (the `rest` overlay), drawn at x(t) on its part
     const sequences = [];        // [LGMF 2d.2] {part, span, v} — one part's line of a sequence (the `sequence` overlay, IR amendment 10)
     const vibBowOf = new Map();  // [LGMF 2g.3] event id → its bow of a `vibBows` overlay {chain, voice, t0, t1, midi, marks, …, part}
     for (const ov of ir.overlays || []) {
@@ -355,6 +356,7 @@
       }
       if (ov.kind === 'spelling' && tgt.event) { respell.set(tgt.event, ov.value); continue; }
       if (ov.kind === 'engraving' && tgt.event) { engrave.set(tgt.event, ov.value || {}); continue; }
+      if (ov.kind === 'rest' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.dur) { freeRests.push({ part: tgt.part, t: tgt.t, dur: ov.value.dur }); continue; }
       if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
         staffOff.push({ part: tgt.part, span: tgt.span }); continue;
       }
@@ -780,6 +782,7 @@
         return out;
       };
       const items = [];
+      const nhAt = new Map();   // [§550] event id → its drawn head {t, dx, y, w, h, stemDir}, for a slur between two units (a hand: slurTo)
       // BEAMED CLUSTER (day 23, composer): notes carrying the same
       // device.beamGroup are drawn as small heads + stems reaching ONE beam
       // held at the flagged-stem height. Tips accumulate here and flush to a
@@ -1418,7 +1421,10 @@
                 // scale on the same outline (no new glyph); metrics + anchors
                 // scale with it, so ledgers, stem attach and the column
                 // anchor all follow. Device data (nhHeadScale), default 1.
-                const headK = dev.nhHeadScale > 0 ? dev.nhHeadScale : 1;
+                // [§550, LG-129] THE GRACE NOTE — a hand (engraving { grace: true }): the head, the stem's length and the flag at the
+                // grace scale (rules.json objects.graceHead), the acciaccatura's stroke through the stem (objects.graceSlash)
+                const GR = Object.assign({ headScale: 0.707, slashReachSs: 0.6, slashAt: 0.6, slashThickSs: 0.13 }, o.grace || {});   // RULES MIRROR (rules.json objects.graceHead · graceSlash)
+                const headK = dev.grace ? GR.headScale : (dev.nhHeadScale > 0 ? dev.nhHeadScale : 1);
                 const nhO = (g => headK === 1 ? g : {
                   wSs: g.wSs * headK, hSs: g.hSs * headK,
                   anchors: Object.fromEntries(Object.keys(g.anchors).map(n => [n, { x: g.anchors[n].x * headK, y: g.anchors[n].y * headK }])),
@@ -1566,7 +1572,7 @@
                   // its right edge sits (wSs - anchorX) past the anchor,
                   // not wSs/2 — center alignment is the degenerate case
                   const anchorX = align === 'noteY' ? acc.anchors.noteY.x : acc.wSs / 2;
-                  accRel = { dx: clearRel - accGap - (acc.wSs - anchorX), align, anchorX, accTopExt, accBotExt, kind: accKind };
+                  accRel = { dx: clearRel - accGap - (acc.wSs - anchorX), align, anchorX, accTopExt, accBotExt, kind: accKind, wRight: acc.wSs - anchorX };
                 } else if (spN.alter) {
                   warnings.push('nh-unit ' + e.id + ': no accidental glyph for alter ' + spN.alter);
                 }
@@ -1629,6 +1635,7 @@
                 const chromeDx = g => dev.nhAnchor === 'leftEdge' ? headDx - nhO.wSs / 2 + g.wSs / 2 : headDx;
                 // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head carries its SEAT; render.js fills it in
                 // the seat's hue when rules.json vibMarks.headColour is 'seat' (ink otherwise)
+                nhAt.set(e.id, { t: tU, dx: headDx, y: yDraw, w: nhO.wSs, h: nhO.hSs });   // [§550] for a slur
                 items.push(Object.assign({ k: 'glyph', g: headGlyph, t: tU, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}, vibBowOf.has(e.id) ? { seat: vibBowOf.get(e.id).voice === 'upper' ? 0 : 1 } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: tU, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 if (TPG) {   // [2f.4] the neighbour group, drawn with the unit
@@ -1871,7 +1878,7 @@
                   // set when this note joins a beam group, so the group can
                   // LEVEL the beam afterwards and move this note's stem with it
                   let beamTip = null;
-                  let L = stemLenFor(yDraw, o.stemLen);
+                  let L = stemLenFor(yDraw, o.stemLen) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
                   // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
                   // of the flag clear the staff, just like three pixels or so
                   // — maybe not the full typical gap"): piece #2's
@@ -2010,9 +2017,14 @@
                     }
                   }
                   items.push({ k: 'stem', t: tU, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
+                  if (nhAt.has(e.id)) nhAt.get(e.id).stemDir = stemDir;   // [§550] the slur takes the side opposite the main note's stem
                   if (beamTip) beamTip.stem = items[items.length - 1];
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
-                    flagKy !== 1 ? { scaleY: flagKy } : {}));
+                    flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
+                  if (dev.grace) {   // [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
+                    const sx = headDx + att.dx, yc = yStart + (yEnd - yStart) * GR.slashAt, r = GR.slashReachSs;
+                    items.push({ k: 'slash', t: tU, dx0Ss: sx - r, y0Ss: yc - r, dx1Ss: sx + r, y1Ss: yc + r, thickSs: GR.slashThickSs, ev: e.id });
+                  }
                   // the stem tip is the unit's outer ink on its side (a flag
                   // hangs back toward the head, never past the tip)
                   if (stemDir === 'up') inkTopY = Math.max(inkTopY, yEnd); else inkBotY = Math.min(inkBotY, yEnd);
@@ -2040,7 +2052,9 @@
                   }
                 }
                 if (accRel) {
-                  items.push({ k: 'glyph', g: 'accidental-' + accRel.kind, t: tU, dxSs: headDx + accRel.dx, ySs: yDraw, align: accRel.align });
+                  // [§550] a grace's accidental at the grace scale, shrunk toward its anchor — the shift keeps its gap to the head
+                  items.push(Object.assign({ k: 'glyph', g: 'accidental-' + accRel.kind, t: tU, dxSs: headDx + accRel.dx + (dev.grace ? (1 - GR.headScale) * (accRel.wRight || 0) : 0), ySs: yDraw, align: accRel.align },
+                    dev.grace ? { scale: GR.headScale } : {}));
                   leftEdgeDx = Math.min(leftEdgeDx, headDx + accRel.dx - accRel.anchorX);
                   inkTopY = Math.max(inkTopY, yDraw + accRel.accTopExt);
                   inkBotY = Math.min(inkBotY, yDraw - accRel.accBotExt);
@@ -3183,6 +3197,18 @@
       const INKYv = it => it.k === 'ledger' || it.k === 'ottava' || (it.k === 'glyph' && /^(notehead|accidental-)/.test(it.g || ''));
       // [2h.4, §477] the bow's head height and the bar's, for the FLUSH offset (the close rule) and the marks' push (the bars moved off
       // their heads are ink under the marks' row too)
+      // [§550, LG-129] THE FREE RESTS (the `rest` overlay) and THE SLURS (a hand: slurTo) — bespoke, no device
+      for (const r of freeRests) if (r.part === spec.part) items.push({ k: 'rest', dur: r.dur, t: r.t, dxSs: 0, units: 1 });
+      {
+        const SL = Object.assign({ heightSs: 1, thickSs: 0.13, beside: 0.15 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
+        for (const [id, a] of nhAt) {
+          const hand = ((engOf(id) || {}).device) || {};
+          if (!hand.slurTo || !nhAt.has(hand.slurTo)) continue;
+          const b = nhAt.get(hand.slurTo), below = b.stemDir === 'up', sg = below ? -1 : 1;
+          items.push({ k: 'slur', t: a.t, dx0Ss: a.dx, y0Ss: a.y + sg * (a.h / 2 + SL.beside), t1: b.t, dx1Ss: b.dx, y1Ss: b.y + sg * (b.h / 2 + SL.beside),
+            dir: below ? 'below' : 'above', heightSs: SL.heightSs, thickSs: SL.thickSs, ev: id });
+        }
+      }
       const VBc = (DEV.byEnv || {}).vibBow || {};
       const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
       const OFF = HEADH / 2 + RBH / 2;

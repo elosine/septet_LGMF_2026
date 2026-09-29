@@ -152,3 +152,7 @@ to build unless the colour must move on its OWN shape (then D2 rises and a secon
 ## §R Revision log
 
 - **v0 — 2026-09-29 (Fable):** eight scales A … H, 44 items, the profile table, one worked example. Rough; his to refine.
+- **the second run — 2026-09-29 (Fable), RUNNING_LOG §548:** the EH's first note of section 2 (a held 0.57 s, alone, silence after). The
+  profile named the END of a single held note as the one thing missing (H2), C6 as the pivot, the bar as the lean (icon over symbol). His
+  decision went the other way for a reason the survey does not weigh: THE PARADIGM — one system on the phrase (values and beams), a bar
+  foreign to it (T8). → an item to add when he refines: *"what system do the neighbours use — does this unit's carrier match theirs?"*

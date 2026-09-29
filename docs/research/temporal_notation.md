@@ -497,8 +497,9 @@ level of detail and subtlety is manifested.
 | T5 | 2026-09-29 | **The viability test V1 … V8** is the standing test for any proposed performance animation | §545 |
 | T6 | 2026-09-29 | **Tuplets kept as a tool: a NOTCH OF SPEED** — a local tempo change inside a phrase, a pace message read as a shape (Sciarrino; M2's principle 6); never arithmetic for a count. His example: two clusters of 16ths, the second wider-spaced under a 7:2 — playable from the cursor, the bracket informs the flow more precisely | §545 |
 | T7 | 2026-09-29 | **THE INTENTION: energy and flow with attention to detail**; the failure mode is casualness / misreading, not imprecision; the page must guarantee rigor | §545 |
+| T8 | 2026-09-29 | **VALUES WRITTEN — the TN way:** noteheads with their flags and beams, *"short quick notes vs longer ones"*, *"seen still as relative if no bar/meter is given"*; beaming for phrasing; the duration line *"makes sense but maybe incongruous, not part of the beamed tn paradigm"* — the EH's section-2 phrases go this way, to be seen. A value is a class of PACE (T6), never a duration; where silence follows a note, a rest where its sound ends | §548 · LG-128 |
 
-**HELD (his to close):** values written or not inside a phrase (§8b — after T6 it leans to VALUES WRITTEN AS PACE) · the cursor window's
+**HELD (his to close):** *(values written or not inside a phrase — CLOSED 2026-09-29, T8: written, the TN way, §548)* · the cursor window's
 scope (§8e — *"only impact parts"*) · the model as a deliverable (§7g — for the performers) · H1 the intensity curve (§9).
 
 ---
