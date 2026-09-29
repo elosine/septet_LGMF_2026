@@ -18145,3 +18145,45 @@ colour needs its own shape" · **§R** a revision log.
 
 **Where it sits:** BEFORE the device sheet (the survey asks what the thing is; the sheet how to draw it). `temporal_notation.md`
 §11 points to it. Journal §2 updated. Rough at his word; his to refine.
+
+## §547. THE PLAIN NOTE — the EH's first notes of section 2 as black noteheads with stems, the dynamic name on (2026-09-29, Fable, session 18)
+
+**Prompted by:** after the `/postclear` on checkpoint #4 (his pick offered: refine the survey · 2m.4 his eye · the practical for the
+EH's section 2), his word: *"288 - 303 the first few notes of the eh only; can I see these in the main score as black noteheads with
+stems first"* — and, to the AI's read of the unit (the pitch alone: head · stem · accidental · ledger · ottava; no dynamic, no go line)
+and its offer (b) the dynamic name on too: *"b"*.
+
+**What Draft 01 holds there** (`piece-lgmf`, part 0): 25 notes before the first long tone — A♯4 0.57 s at 289.0, then 24 of 50 … 190 ms
+at 291.4 … 302.1 in bursts of 2 … 4 (the chunks class them trance-stream pairs); then the long tone C♯5 at 303.5 (the chord, four
+players). Their velocities 49 … 104. They drew as the family look (the provisional `ord` unit — anchor B: an open head left of a go
+line, no stem; DN-5).
+
+**Read as:** the start of the practical for the EH's section 2 — THE BASE PICTURE (`temporal_notation.md` §8 W1: proportional first, the
+details on top; A1 the default, §545 T4) put on the page before any temporal device, so he sees the raw material as ordinary notes at
+their times. Not a plan item: one device row, one flag, one re-extraction, at his ask.
+
+**Built (one commit):**
+- `notation/registry/container.json` — `byEnv.plainNote` (the device sheet in `_plainNoteNote`): ANCHOR A, the FILLED head's left edge
+  on its time, no go line · GC · brick · bar; a PLAIN stem (`nhStem 'plain'` — the unit builder's day-23 option, no flag; the direction
+  the house rule); accidental · ledger · ottava; tempered; ONE NAME PER NOTE on the dynamic row as the long tone's (`dynMark band` from
+  the IR `vel` on the eight-step `dynamicBands`, `dynOnRow`); `instruction` among the members so the middle section's "ord." (the change
+  rule, §505) stays on the first note. No duration is shown — the note's length is the temporal notation's question (his TODO 5).
+- `tools/notate_section.js` — `--plainNotes P:T0:T1` (repeatable): the part's env-less pitched notes in the window take env `plainNote`;
+  it runs after `--longTones`, so a long tone in the window keeps its device.
+- `tools/check_rules.js` — the gate (7) for `byEnv.plainNote`: 31 → **32** green. `docs/ENGRAVING_RULES.md` regenerated. The schema's
+  env note.
+- `piece-lgmf` re-extracted from a scratchpad COPY of Draft 01 with its whole `provenance.build` + `--plainNotes 0:288:303` (2j's
+  discipline): 25 notes env `plainNote`, 1076 events VALID.
+
+**Verified (the layout, not the tab):** THE SHIELD 21 of 22 identical, `piece-lgmf` the one mover (expected). A probe through
+`layoutSection` on the 25: 25 filled heads (`notehead`) centred +0.52 ss — the left edge on x(t); 25 stems; 11 sharps at −0.38 and 11
+ledgers; 25 band names on the dynamic row (−4.60): mp 3 · mf 13 · f 7 · ff 2; "ord." on the first (289.0); no go line, no bar; 0
+warnings. The ladder: 7 units off rung 0 — the fold's same 7 (parts 6 · 7, the cents columns), none of the 25. NOT run: the two Chrome
+edge gates (no drawn kind is new — the stem has its edge row; offered, not run).
+
+**The AI's calls, his to reverse:** the name on EVERY note (the long tone's b1) — at 50 ms apart they will crowd; the alternative is
+the vibraphone's `repeatName false` (a name only where the band changes) · the stem's direction by the house rule · the head at anchor A
+(no go line), because the base picture is proportional — a go line would be A1's detail, not its base · the env's name `plainNote`
+(the IR's `mode: 'plain'` is another thing — the dynamics law's struck note).
+
+**► His eye:** reload the notation tab (no restart) → `piece-lgmf` → the video view → `289` · `291.4` · `295.5` · `301.5` · `z`.

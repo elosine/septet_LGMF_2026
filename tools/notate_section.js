@@ -21,6 +21,7 @@
 //   --longTones T0:T1        [LGMF PLAN 2m.2] the held notes in [T0, T1) that start together (groups of 2+ pitched parts)
 //                            take the long tone (env 'longTone', registry byEnv.longTone); a single stays as it drew
 //   --longToneAlso id,…      [2m.2] with --longTones: a single he names joins them (an object id wc-… or an event id)
+//   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
 //   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
 //   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
 //   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
@@ -1833,6 +1834,32 @@ if (MORPH_SEQ.length) {
     console.log('  --longTones ' + T0 + ':' + T1 + ': ' + nG + ' groups · ' + nN + ' notes' + (named.length ? ' + ' + named.length + ' named (' + named.join(' ') + ')' : '') +
       ' — by part ' + [...byPart.entries()].sort((a, b2) => a[0] - b2[0]).map(([p, n]) => nameOf(p) + ' ' + n).join(' · ') +
       ' · ' + left.length + ' singles left as they drew' + (left.length ? ' (' + left.map(e => nameOf(partOfE.get(e.id)) + ' ' + e.onset.toFixed(2)).join(' · ') + ')' : ''));
+  }
+}
+
+// [LGMF — RUNNING_LOG §547; his ask 2026-09-29 at the start of the practical for the EH's section 2: "288 - 303 the first few notes of the
+// eh only; can I see these in the main score as black noteheads with stems first" · his (b), the dynamic name on] --plainNotes P:T0:T1
+// (repeatable) — THE PLAIN NOTE, the base picture before any temporal device: every pitched note of part P (ensemble.json's part index,
+// 0 = the EH) with NO env, onset in [T0, T1), takes env 'plainNote' (registry byEnv.plainNote: anchor A, a filled head on its time with a
+// plain stem, no go line, no GC, one band name on the dynamic row). Runs AFTER --longTones, so a long tone in the window keeps its device.
+{
+  const PN = [];
+  process.argv.forEach((a, i) => { if (a === '--plainNotes' && process.argv[i + 1]) PN.push(process.argv[i + 1]); });
+  for (const spec of PN) {
+    const m = /^(\d+):(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?)$/.exec(spec);
+    if (!m || !(+m[3] > +m[2])) { console.error('--plainNotes needs P:T0:T1 — the part index and seconds, T1 > T0 (e.g. --plainNotes 0:288:303)'); process.exit(2); }
+    const P = +m[1], T0 = +m[2], T1 = +m[3];
+    const partOfE = new Map();
+    for (const ch of doc.chunks) for (const id of ch.events || []) partOfE.set(id, ch.part);
+    const pc = ENS && ENS.parts ? ENS.parts.find(x => x.part === P) : null;
+    const name = pc ? (pc.short || pc.id || String(P)) : String(P);
+    let n = 0; const other = [];
+    for (const e of doc.events) {
+      if (partOfE.get(e.id) !== P || !e.pitch || !(e.onset >= T0 && e.onset < T1)) continue;
+      if (e.env) { other.push(e.env + ' ' + e.onset.toFixed(2)); continue; }
+      e.env = 'plainNote'; n++;
+    }
+    console.log('  --plainNotes ' + spec + ': ' + n + ' notes of ' + name + ' env plainNote' + (other.length ? ' · ' + other.length + ' left on their own device (' + other.join(' · ') + ')' : ''));
   }
 }
 

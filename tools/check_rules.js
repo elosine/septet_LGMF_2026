@@ -81,6 +81,14 @@ ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it
     && lt.ringBar === true && lt.ringBarFull === true && lt.dynMark === 'band' && lt.dynOnRow === true,
     '(7) the long tone `byEnv.longTone` carries its sheet (§531), stands on anchor A with no go line, the ring bar its full length, one band name per note on the dynamic row');
 }
+// [§547] the plain note (his ask 2026-09-29 — the EH's first notes of section 2 as black noteheads with stems): its sheet is §547, it
+// stands on anchor A with no go line and no GC, a FILLED head with a PLAIN stem among its members, no bar, the band name on the dynamic row
+{
+  const pn = (D.byEnv || {}).plainNote;
+  ok(!!pn && /§547/.test(pn.sheet || '') && pn.anchorRow === 'A' && pn.goLine === false && pn.gc === false && ['head', 'stem', 'dynamic'].every(m => (pn.memberRows || []).includes(m))
+    && pn.nhHead === 'filled' && pn.nhStem === 'plain' && pn.ringBar === false && pn.dynMark === 'band' && pn.dynOnRow === true,
+    '(7) the plain note `byEnv.plainNote` carries its sheet (§547), stands on anchor A with no go line, a filled head with a plain stem, one band name per note on the dynamic row');
+}
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));
 

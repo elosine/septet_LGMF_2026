@@ -118,6 +118,11 @@ draft's timing) · the per-note detail · the window if wanted.
 **THE SURVEY (§546, LG-126):** the framework re-organized as an INSTRUMENT, not rules — `docs/research/sound_to_notation_survey.md` v0: eight
 scales A … H (the unit · the intention · time · motion · moments · sign and carrier · the picture · the model), a profile of leanings, his
 single-note case worked. Before the device sheet. ► HIS TO REFINE in future sessions; the "left" list above is now the survey's items.
+**THE PRACTICAL BEGUN — §547 (2026-09-29, Fable), at his word:** the EH's first 25 notes of section 2 (289 … 302 s) drawn as THE PLAIN
+NOTE — `byEnv.plainNote`, a filled head with a plain stem ON its time, no go line, the band name on the dynamic row (his (b)); the
+extractor's `--plainNotes 0:288:303` in `piece-lgmf`'s build; `check_rules` 32; the shield `piece-lgmf` alone; the ladder the fold's 7.
+► HIS EYE: reload the notation tab (no restart) → `piece-lgmf` → the video view → `289` · `291.4` · `295.5` · `301.5`. The AI's
+calls, his to reverse (§547): a name on EVERY note (vs only where the band changes) · the stem by the house rule · anchor A.
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 

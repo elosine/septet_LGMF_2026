@@ -23,7 +23,7 @@
   "date": "2026-09-29",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/8b6a47ae-ea3d-47fc-b169-26f2c95c38f1/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/88cf6f13-5329-45b1-9d51-06b20f493bd1/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --plainNotes 0:288:303 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547)\""
  },
  "events": [
   {
@@ -31420,7 +31420,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 60
+   "vel": 60,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3384",
@@ -31441,7 +31442,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 87
+   "vel": 87,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3385",
@@ -31462,7 +31464,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 104
+   "vel": 104,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3386",
@@ -31483,7 +31486,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 94
+   "vel": 94,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3387",
@@ -31504,7 +31508,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 76
+   "vel": 76,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3388",
@@ -31525,7 +31530,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 85
+   "vel": 85,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3389",
@@ -31546,7 +31552,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 69
+   "vel": 69,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3390",
@@ -31567,7 +31574,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 78
+   "vel": 78,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3391",
@@ -31588,7 +31596,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3392",
@@ -31733,7 +31742,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 93
+   "vel": 93,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3394",
@@ -32002,7 +32012,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 81
+   "vel": 81,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3398",
@@ -32023,7 +32034,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3397",
@@ -32168,7 +32180,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 81
+   "vel": 81,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3400",
@@ -32189,7 +32202,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 89
+   "vel": 89,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3725",
@@ -32315,7 +32329,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 96
+   "vel": 96,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3687",
@@ -32357,7 +32372,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 78
+   "vel": 78,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3403",
@@ -32378,7 +32394,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 67
+   "vel": 67,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3404",
@@ -32399,7 +32416,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 72
+   "vel": 72,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3405",
@@ -32441,7 +32459,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 49
+   "vel": 49,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3775",
@@ -32607,7 +32626,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 76
+   "vel": 76,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3409",
@@ -32876,7 +32896,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3741",
@@ -32918,7 +32939,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 102
+   "vel": 102,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3413",
@@ -32960,7 +32982,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 93
+   "vel": 93,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3415",
@@ -33002,7 +33025,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68
+   "vel": 68,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3417",
@@ -33065,7 +33089,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 57
+   "vel": 57,
+   "env": "plainNote"
   },
   {
    "id": "ev-wc-3420",

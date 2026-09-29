@@ -340,7 +340,38 @@
       "dynPair": false,
       "techText": false
      },
-     "_longToneNote": "LGMF PLAN 2m (2026-09-29; the device sheet RUNNING_LOG §531; LG-119): THE LONG TONE — section 2's held notes played in groups (his cut: a plain held note ≥ 0.2 s that starts TOGETHER, within 0.1 s, with another pitched part's; the extractor's --longTones T0:T1 gives them env 'longTone', --longToneAlso admits a single he names). ANCHOR A — the open head's left edge ON its time, no go line (his 'No go lines alignment with left of notehead'), no GC, no brick; its ordinary accidental and ledgers, the ottava by the threshold. TEMPERED as written (his a1: Draft 01 carries no cents on any of them — no column; a note dealt from a take keeps the just column of its own device). THE RING BAR the note's FULL length (`ringBarFull` — the written length, no breath cut) at the ringBar row's look (navyBlue at 0.3, §472 · §473), ending `after` before the next unit's leftmost ink (layout.js's clearance pass, as the vibraphone's bars). ONE NAME PER NOTE (his b1, 'for now' — he normalizes per chord in the composer, then re-extract): `dynMark` band — the velocity (IR `vel` = the save's recVel) on the score's eight-step table (`dynamicBands`, the steps `dyn ▾` writes), every note (no `dynOnChange`); `dynOnRow` — ON the house dynamic row (`dynY` −4.6), lower only where the unit's own ink reaches below it (the sequence legend's rule). The 'ord.' word of the middle section is the change rule's (techniqueChange, §505) — a long tone reads as a plain note there. It merges over the brass `byTechnique.ord` (the tuba's — anchor B, a go line) and the Xsample three's family look, so every field that differs is stated here. No IR before 2m holds env 'longTone', so no page before it moves."
+     "_longToneNote": "LGMF PLAN 2m (2026-09-29; the device sheet RUNNING_LOG §531; LG-119): THE LONG TONE — section 2's held notes played in groups (his cut: a plain held note ≥ 0.2 s that starts TOGETHER, within 0.1 s, with another pitched part's; the extractor's --longTones T0:T1 gives them env 'longTone', --longToneAlso admits a single he names). ANCHOR A — the open head's left edge ON its time, no go line (his 'No go lines alignment with left of notehead'), no GC, no brick; its ordinary accidental and ledgers, the ottava by the threshold. TEMPERED as written (his a1: Draft 01 carries no cents on any of them — no column; a note dealt from a take keeps the just column of its own device). THE RING BAR the note's FULL length (`ringBarFull` — the written length, no breath cut) at the ringBar row's look (navyBlue at 0.3, §472 · §473), ending `after` before the next unit's leftmost ink (layout.js's clearance pass, as the vibraphone's bars). ONE NAME PER NOTE (his b1, 'for now' — he normalizes per chord in the composer, then re-extract): `dynMark` band — the velocity (IR `vel` = the save's recVel) on the score's eight-step table (`dynamicBands`, the steps `dyn ▾` writes), every note (no `dynOnChange`); `dynOnRow` — ON the house dynamic row (`dynY` −4.6), lower only where the unit's own ink reaches below it (the sequence legend's rule). The 'ord.' word of the middle section is the change rule's (techniqueChange, §505) — a long tone reads as a plain note there. It merges over the brass `byTechnique.ord` (the tuba's — anchor B, a go line) and the Xsample three's family look, so every field that differs is stated here. No IR before 2m holds env 'longTone', so no page before it moves.",
+     "plainNote": {
+      "sheet": "§547 (his ask 2026-09-29 — the EH's first notes of section 2 as black noteheads with stems, the dynamic name on; the base picture before the temporal notation)",
+      "anchorRow": "A",
+      "memberRows": [
+       "head",
+       "ledger",
+       "accidental",
+       "ottava",
+       "stem",
+       "dynamic",
+       "instruction"
+      ],
+      "goLine": false,
+      "gc": false,
+      "brick": false,
+      "curve": false,
+      "cut": false,
+      "onsetHead": false,
+      "nhUnit": true,
+      "nhAnchor": "leftEdge",
+      "nhHead": "filled",
+      "nhStem": "plain",
+      "ringBar": false,
+      "letRing": false,
+      "chordRules": false,
+      "dynMark": "band",
+      "dynOnRow": true,
+      "dynPair": false,
+      "techText": false
+     },
+     "_plainNoteNote": "RUNNING_LOG §547 (2026-09-29, Fable; his ask at the start of the practical for the EH's section 2 — '288 - 303 the first few notes of the eh only; can I see these in the main score as black noteheads with stems first', then his (b): the dynamic name on): THE PLAIN NOTE — the base picture of a note before any temporal device (temporal_notation.md §8 W1: proportional first, the details on top). The extractor's --plainNotes P:T0:T1 gives the part's env-less pitched notes in the window env 'plainNote' (a long tone or any other device in the window keeps its own; the flag runs after --longTones). ANCHOR A — the FILLED head's left edge ON its time, no go line, no GC, no brick, no bar; a PLAIN stem (nhStem 'plain' — the unit builder's day-23 option, no flag; the direction the house rule, below the middle line → up); its ordinary accidental and ledgers, the ottava by the threshold; TEMPERED as written (Draft 01 carries no cents here). ONE NAME PER NOTE as the long tone's (his b1): dynMark band from the IR vel on the eight-step dynamicBands, dynOnRow — ON the house dynamic row. The 'ord.' word of the middle section stays the change rule's (instruction among the members). No duration is shown — the note's length is not in this picture; what carries it is the temporal notation's question (his TODO 5). No IR before §547 holds env 'plainNote', so no page before it moves."
     },
     "byTechnique": {
      "_pianoMorphNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §483–§491; the composer's reference CN-82 = piece #2 around 0:50; his spec: 'no gcs, open noteheads for both'): the piano's notes in the morph section carry no env, so `main` and `plucked` reach them and nothing else (every other `main` is a strike or a trill by env — and those envs cancel every field added here out loud: ringBar, letRing, chordRules). The first build (§484 — the tuba's ring bar on main; piece #2's ASR row on plucked: 'Ped.' text, the ✱ at the release, a two-hook bracket) was replaced device by device at his eye: see _mainNote, _chordRulesNote, _pluckedNote.",
