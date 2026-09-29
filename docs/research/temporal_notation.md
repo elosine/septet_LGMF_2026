@@ -321,3 +321,121 @@ learned shape; an abrupt change is a symbol on a note (layer 4).
 
 **His to answer (not held, not urgent):** whether the MODEL — the audio and a practice animation — is part of what "the score" delivers,
 which is what *"notate in the full sense"* would mean here.
+
+---
+
+## §8 THE WORKING MODEL — "Ferneyhough without the count" (2026-09-29, Fable; his brief LG-123; RUNNING_LOG §543)
+
+*His decisions in bold; the AI's analysis marked. §7's conclusions stand as HYPOTHESES AWAITING PERFORMERS.*
+
+### §8a His verdict on §7, and a principle
+
+- **The jury is out on §7's conclusion** (the model as part of the score). *"I should talk to performers … a performer might balk … next
+  opportunity I get to realize a score collaborating with performers we can work out these issues."* → §7 is kept whole as analysis;
+  its conclusion is a question for the performers of the next collaborative realization.
+- **He agrees with the parsing** (the layers; learning vs cueing; the carriers).
+- **A principle over all of it: THE SCORE IS A PICTURE OF THE SOUND.** *(The AI's reading: this puts the page at Seeger's DESCRIPTIVE
+  pole and at RESULT notation — what is heard, not what the hand does — iconic in time, symbolic in detail. It is the principle every
+  alternative below is measured against.)*
+
+### §8b The working model, W1 — proportional notation with TN details
+
+**His words:** *"I imagine proportional notation but with tn details, so basically ferneyhough without the count."* Top of mind, not settled.
+
+**What it is, in the layers:**
+
+| Layer | In W1 |
+|---|---|
+| 1 ANCHOR | the GC at the phrase's start; **every head on its time** (the picture of the sound — x is when) |
+| 2 SHAPE | carried by SPACE (the icon) + BEAMS as grouping (M2's principle 2); slurs for the phrasing |
+| 3 FLOW | LINES — the level curve as built; position, pressure, timbre the same way |
+| 4 MOMENTS | TN's per-note symbols, as dense as the music needs: accents, articulations, dynamics, ornaments, technique words — Ferneyhough's DETAIL, placed by space, not by a counted address |
+
+**What "without the count" removes:** meter · bar lines · note VALUES as durations · the tuplet as arithmetic · a tempo mark.
+**What it keeps:** the per-note symbols · beams as grouping · slurs · hairpins and lines · (a bracket only as a pace message, M2's
+principle 6, if values are written at all).
+
+**What then carries the RHYTHM:** space, read by eye — Berio's warning (§6b) applies in full. **W1's answer to Berio, which his page
+had not:** the cursor (the index) confirms each head as it comes, and the rehearsal model (§7d) teaches the fine timing. W1 stands on
+the animation.
+
+**The held design choice, narrowed (still HELD, §541):** W1 takes every head spatially true as given. What is left open is only
+whether VALUES and tuplets are written as well (M2's doubled carrier, the fit and the dissonance rule) or beams alone group the heads
+with no values (the stems as grouping only).
+
+### §8c Local animation — the glanceable threshold, and a viability test
+
+**His ask:** *"any opportunity for additional local animation for certain things that meet the glanceable threshold, so the sul pont
+example if arc is long enough … and a way to evaluate the things that would be viable for this."*
+
+**The animated devices now:** the GC (the onset and its approach) · the cursor · the pie (a countdown) · the tube (the level's motion)
+· the ring / duration bar · the curve follower (off, §454). Each is an INDEX: it shows the now.
+
+**THE VIABILITY TEST — a parameter earns a PERFORMANCE animation only if it passes all of these** (the AI's proposal; the numbers
+are starting values for the performers to correct):
+
+| # | Criterion | The test |
+|---|---|---|
+| V1 | **Glanceable** | read in ONE glance (≈ 0.2 s): one variable, one moving thing, no text or number to read at the scroll speed |
+| V2 | **Slow enough** | the change spans ≥ ~2 s (his *"if arc is long enough"*); anything faster is a GESTURE to learn (§7d), not a dial to follow |
+| V3 | **Continuous** | the parameter is a continuum (position · pressure · speed · level), not a switch — a switch is a symbol at a note (layer 4) |
+| V4 | **Actable blind** | the player can move it in real time without looking at the instrument (bow position yes; a fingering no) |
+| V5 | **Adds the NOW** | it gives state the static line cannot — where we are on the arc; otherwise the line alone suffices |
+| V6 | **One dial** | at most ONE moving dial per player besides the cursor at any moment (the multitasking budget, §7e); a second becomes a rehearsal-model item |
+| V7 | **Paper stands alone** | the static line carries the instruction on the print score by itself; the animation is a plus, never the only carrier (the picture of the sound) |
+| V8 | **Buildable** | a new animated kind adds its edge row and passes the screen gate (`page_rules.edge`; PLAN 2c · 2e) — the repo's rule |
+
+**Candidates against the test** (the AI's first pass; his to correct):
+
+| Parameter | Static carrier (the picture) | Animation | Verdict |
+|---|---|---|---|
+| bow position ord ↔ sul pont ↔ sul tasto (Vc · Db) | a graded line between the words — the shapes composers use (Lachenmann's arrows; Saariaho's gradient lines; from memory) | a marker sliding along the line, or the line FILLING as the tube does | VIABLE when the arc ≥ ~2 s; a short move is a word at a note |
+| bow pressure (Vc · Db) | a thickness / density line | the same fill | VIABLE, long arcs |
+| vibrato width · speed | a wave line | a fill | VIABLE if long; else a word |
+| EH · Bsn · brass timbre — air, embouchure, mute, flutter speed | a line between named states (`ord` … `airy`) | a fill | VIABLE where continuous and long; a switch (mute in) is a symbol |
+| tremolo / flutter speed | a density line | a fill | VIABLE |
+| an accelerando | the GC chain | proven (LG-122) | VIABLE — done |
+| dynamic | the level curve | the tube | VIABLE — done |
+| micro-dynamics inside a note (a swell in 0.5 s) | a hairpin on the note | — | NOT: too fast (V2) — learn it |
+| a sequence of articulations | the symbols on the notes | — | NOT: discrete (V3) — layer 4 |
+
+*One shape for all the viable ones (a proposal): the LINE between two named states, drawn by the level curve's protocol (PLAN 2l — the
+intention, eased), and the FILL as its animation (the tube's idea) — one drawn kind, one animated kind, for every continuous
+parameter. A device sheet when it is built.*
+
+### §8d The alternatives to W1 — a menu (the AI's; he is not settled)
+
+| # | Model | Rhythm carried by | Where it fits | Against "the picture of the sound" |
+|---|---|---|---|---|
+| A1 | **W1 — proportional + TN details** (Ferneyhough without the count) | space + beams; the cursor confirms; the model teaches | the default for a detailed phrase | exact: x is when |
+| A2 | **the Lutosławski cell on the scroll** — a metric cell at the anchor, its interior NOT spatially true (M1's idiom) | values and beams (the shape); the cursor idles through | a phrase whose RATIOS must be exact; a learned lick | breaks it inside the cell: the heads are not where the sounds are — a PART's device more than the score's |
+| A3 | **M2's doubled carrier** — spatially true AND values / tuplets fitted (the tubas) | both, agreeing (the dissonance rule) | where precision and legibility both matter and the fit can be paid for | exact, with the most engineering |
+| A4 | **the gesture-glyph** (Penderecki) — a shape for a burst, no internal rhythm | none; the shape's envelope | material where the rhythm is not the point — his item 3, *"fast clusters in rest"* | exact in envelope, silent on the interior |
+| A5 | **the grace burst** (M3) — an anchored unmeasured cell with pitches | order + speed "as fits" | a run, a flourish | the anchor exact, the interior approximate |
+| A6 | **a metric island** — a real bar with a tempo inside the temporal frame (Crumb · Lutosławski) | the count, locally; the cursor suppressed inside | a phrase that must be counted (a polyrhythm between players) | breaks it inside the island |
+
+*The AI's lean: A1 as the default, A4 / A5 as its BURST case, A2 or A6 only where ratios must be exact between players — decided per
+phrase type, not once. Item 3 of his TODO (the fast clusters) is A4's home.*
+
+### §8e The cursor suppressed — the ad libitum window
+
+**His idea:** *"some phrases the gc/cursor shows when to start then gets suppressed for an estimated duration so they don't feel
+compelled to follow the cursor but can phrase as they interpreted it; this may come into use here for eh but probably should only
+impact parts."*
+
+- **The precedent is exact:** Lutosławski's conductor gives the cue and STOPS BEATING until the next cue; Cage's time bracket is the
+  same window with a clock. **Principle 0 made literal:** the cursor's grain is the phrase.
+- **What it is on the page (a concept, not a build):** the GC at the anchor; over the phrase's ESTIMATED span a translucent WINDOW on
+  that part's lane — inside it the lane's own moving devices (the tube, the follower, the pie) are hidden and the cursor's line is
+  faded across that lane only; the page's cursor still sweeps (it is shared). The window's end = where the next anchor is expected.
+- **The reading:** "start here; then play the phrase as you have it; the line is not yours until the window ends."
+- **Where:** per PART, per PHRASE, opt-in — the AI's reading of *"should only impact parts"* (his to confirm: per-part / per-phrase,
+  or the players' parts as against the presentation score). The EH's section-2 phrases a candidate.
+- **A tension to watch:** the window contradicts W1's answer to Berio (the cursor confirming each head). Inside a window the rhythm
+  rests on the shape and the model alone — so a window suits a phrase that is LEARNED (A2's kind) more than one that is READ (A1's).
+
+### §8f The state of the framework after §8
+
+- The layers (§6c) stand · layer 3 as three carriers (§7g) stands as analysis, its conclusion for the performers · **W1 the working model**
+  · the viability test for local animation · the alternatives as a menu per phrase type · the window as a concept.
+- **HELD:** the design choice (values written or not, §8b) · **His to answer:** the window's scope · the model as a deliverable (§7g).

@@ -104,7 +104,11 @@ HIS WORD: the starting conceptual framework**, §6c-plain the plain-words versio
 carriers vs the anchor alone) — he addresses it after the plain version is digested. **§7 FLOW EXPANDED (§542, LG-122):** the count an
 address space · learning vs cueing · Peirce's symbol / icon / index (the GC accel) · THE REHEARSAL MODEL and animation in two modes ·
 multitasking = independent streams, a gesture fuses them · layer 3 = the line · the motion · the model. His to answer, not urgent:
-is the model part of what the score delivers.
+is the model part of what the score delivers. **§8 THE WORKING MODEL (§543, LG-123):** §7's conclusion for the performers · THE SCORE IS
+A PICTURE OF THE SOUND · **W1 = proportional + TN details, "Ferneyhough without the count"** (top of mind, not settled) · the
+viability test V1 … V8 for a local performance animation (the sul pont arc) · the alternatives A1 … A6 per phrase type · THE CURSOR
+WINDOW (the GC cues, the line suppressed for the phrase's span — Lutosławski's conductor). His to answer: the window's scope. HELD:
+values written or not.
 
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 

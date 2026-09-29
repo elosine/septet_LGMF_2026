@@ -18064,3 +18064,26 @@ page (what to intend) · THE MOTION in the console (what is happening now) · TH
 **His to answer, not urgent:** whether the model (audio + a practice animation) is part of what the score delivers. **The first design
 choice stays HELD (§541).** The "long piano accel" of the last piece: not found in #5's or #4's docs by a grep for accel + GC — cited
 from his words only.
+
+## §543. THE WORKING MODEL — proportional + TN details; the viability test for local animation; the alternatives; the cursor window (2026-09-29, Fable, session 18)
+
+**Prompted by:** his brief on §7, whole in COMPOSITION_NOTES **LG-123**: §7 documented in full (it was — §7a … §7g) and its conclusion
+left to the performers (*"a performer might balk"*; the next collaborative realization); *"the score needs to be a picture of the
+sound"*; a WORKING MODEL now — *"proportional notation but with tn details, so basically ferneyhough without the count"*, not settled;
+local animation at the glanceable threshold (the sul pont arc; the graphic shapes composers use) and a way to evaluate viability; the
+alternatives; the cursor suppressed for a phrase's estimated span, *"probably should only impact parts"*.
+
+**Written:** `docs/research/temporal_notation.md` **§8** — (a) his verdict and the principle THE SCORE IS A PICTURE OF THE SOUND
+(Seeger's descriptive pole; result notation) · (b) **W1** in the layers: every head on its time · space + beams the shape · lines the
+flow · TN's per-note symbols the moments; what "without the count" removes and keeps; W1's answer to Berio = the cursor + the model;
+the held choice NARROWED to values-written-or-not · (c) THE VIABILITY TEST V1 … V8 for a performance animation (glanceable · ≥ ~2 s ·
+continuous · actable blind · adds the now · one dial · paper stands alone · buildable) and a candidates table (bow position, pressure,
+vibrato, wind timbre, tremolo speed VIABLE on long arcs; micro-dynamics and articulation sequences NOT); one shape proposed for all —
+a line between named states by the curve protocol, a FILL as its animation · (d) the alternatives A1 … A6 as a menu per phrase type
+(A1 W1 default · A2 the Lutosławski cell · A3 M2's doubled carrier · A4 the gesture-glyph, home of TODO item 3 · A5 the grace burst ·
+A6 a metric island); the AI's lean A1 default, A4 / A5 the burst case · (e) THE CURSOR WINDOW — Lutosławski's conductor who cues and
+stops beating; a translucent window per part per phrase hiding the lane's own moving devices, the page's cursor faded across that
+lane; a tension: it removes W1's answer to Berio, so it suits a LEARNED phrase · (f) the state of the framework.
+
+**His to answer:** the window's scope (*"only impact parts"* — per part / per phrase, or the players' parts vs the presentation
+score) · the model as a deliverable. **HELD:** values written or not (§541, narrowed). Nothing built.
