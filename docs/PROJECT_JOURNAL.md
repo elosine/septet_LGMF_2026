@@ -149,7 +149,13 @@ on Opus or here at his word.
   §550 flags without it; LilyPond — quarter · 8th · 16th all 3.5, 32nd 4.25, beamed 3.26 · 3.5 · 3.6 with minimum free 1.83 · 1.5 · 1.25,
   forced-direction shortening 1.0 · 0.5 · 0.25, beam thickness 0.48 (ours 0.4). **HIS ANSWERS OWED:** which drawn stems looked wrong (p3's
   flag inside the staff · p4's long stem to the middle line · p1's quarter) · the flag-clear law as the house rule for every flagged note,
-  its exceptions named, over LilyPond's plain 3.5?
+  its exceptions named, over LilyPond's plain 3.5? **HIS ANSWERS (LG-132, §553, 2026-09-29):** longer stems in general; the flag's near edge
+  clears the outer line by some space, both directions, flags and beams, for this snippet and the section — APPLIED: `byEnv.plainNote
+  nhStemRule 'flagClear'`, the grace exempt (p3 now 9.25 ss, p4 6.54); not everything ironed out now — TO GENERALIZE at the item's top line:
+  the fallback when additional notation at the stem's end does not fit (the chain lifts, exists) · a MAX so a far note is not stretched (p3
+  the case; the AI's 7 ss proposed) · the quarter's standard "a little longer" with a logic — the AI's proposal a NINTH, 4.0 ss, the tip on
+  a line or space (LilyPond's own lengthening to 4.25 · 5.0 the precedent); his pick 4.0 · 4.25 · 4.5 owed · the beam's clearance the same
+  law · the forced-direction shortening · the minimum free length under a beam · the ladder's lane test.
 - **N-3 · THE LAST FOUR 16THS — "they belong to the same phrase, relatively fast but slightly uneven"** (LG-131): the survey run on p5 … p8
   (spaced 0.445 · 0.345 · 0.235 s — an accelerando the equal beam does not show, the space does); the candidates to weigh: the beam as
   drawn (space carries the unevenness) · a bracket as a notch of speed (T6) · a feathered beam (an accel written) · the gesture-glyph (A4) ·

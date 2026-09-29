@@ -18365,3 +18365,42 @@ owed. Nothing built; the working tree's docs committed with this entry.
 equal values does not show and the space does; a "compatible tempo" for a figure = the grid unit whose multiples land on its onsets within
 a tolerance, searched over a range (the tuba pages' `--cluster` fitter did this per cluster — `beamUnit` 0.172 s there); the time
 signature from the figure's length in units; the tuba piece's bouncing ball is the animated model — its viability test V1 … V8 applies.
+
+## §553. STEMS — his decision at N-2's phase 1: longer stems, the flag-clear law on the section's plain notes; the quarter's stem proposed (2026-09-29, Fable, session 18)
+
+**Prompted by:** his two messages, whole in **LG-132** — not every rule now, but *"in general I prefer the longer stems"*; for this snippet the
+flag's near edge clears the outer staff line by *"some space"* (*"this I think we had established maybe in piece2"* — yes: piece #2's
+`computeFlaggedStemLength`, this piece's 0.38 ss, day 23), *"reverse for top"*; *"for this snippet and as much as possible for this section
+flag/beams clear staff"*; the rules to GENERALIZE: the fallback when additional notation at the stem's end does not fit under the
+clearance · a MAX length so a far note is not stretched to clear · others the AI can think of. And: *"quarter note stem is a little short
+… a standard stem length that is a little longer than that and a logic/justification so we can follow in the future"*.
+
+**Applied (one commit, no re-extraction — the registry is read at layout time):** `byEnv.plainNote.nhStemRule 'flagClear'` — every flagged
+plain note in section 2 takes the day-23 law (the flag's near edge 0.38 beyond the outer line, both directions; a chain above lifts it
+further — the existing fallback); the beam branch already sets a beam at the flagged-stem height. **A grace note is EXEMPT** (`&& !dev.grace`
+in `layout.js` — a tiny note with a staff-clearing stem; the AI's call, his to reverse). `check_rules` 32 · the shield `piece-lgmf` alone ·
+the ladder the same 7.
+
+**Measured on the snippet (the probe):** flag8 3.01 ss tall (up) · 2.80 (down); the clearance 0.38.
+
+| | head | stem | length | the flag's near edge |
+|---|---|---|---|---|
+| p1 quarter | −0.50 | up | 3.50 | — |
+| p2 grace | −2.50 | up | 2.47 (0.707 × 3.5) | inside the staff — exempt |
+| p3 8th | −4.00 | up | **9.25** (was 3.5 … 4.0) | +2.38: clear by 0.38 |
+| p4 8th | +1.50 | down | **6.54** (was 3.5) | −2.38: clear by 0.38 |
+
+**p3 is his MAX question made visible:** a head a ledger below the staff needs a 9.25 ss stem for its flag to clear the top line (LilyPond
+would give 4.0, to the middle line). Kept as he asked for the snippet; the max is N-2's first open number — the AI's proposal: above a
+MAX (7 ss, LilyPond's longest table entry) the law yields to the standard length and the flag sits inside the staff.
+
+**THE QUARTER'S STEM — a proposal, not applied (its row `objects.stem.lengthSs` is shared with the tuba pages; the shield would move
+seventeen goldens, so this piece's value goes on its own device row, one line of code):** the octave, 3.5, is LilyPond's and Gould's
+MINIMUM — beside this section's flagged and beamed stems (5 … 9 ss by the clearance law) it reads short. The logic offered: **a stem's tip
+lands on a line or a space (a whole number of half-spaces), the default a NINTH — 4.0 ss**; LilyPond itself lengthens to 4.25 for a 32nd
+and 5.0 for a 64th, so "longer when the page is busy" is its own logic too; the flag-clear law, the middle-line rule and the chain lengthen
+from there; the max caps. His pick among 4.0 (a ninth) · 4.25 (LilyPond's 32nd) · 4.5 (a tenth).
+
+**N-2 stands** with his answers in (journal §2): the generalization list — the fallback for additional notation · the max · the standard
+length · the beam's clearance the same law · the forced-direction shortening (LilyPond's 1.0 · 0.5 · 0.25) · the minimum free length
+under a beam (1.83 · 1.5 · 1.25) · the grace exempt · the ladder's lane test on a long stem — for the item's top line next session.

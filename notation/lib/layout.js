@@ -1889,7 +1889,7 @@
                   // CHAIN stacked above the staff, when the chain is up there
                   // and not beside the stem. The default length wins when it
                   // is already longer.
-                  if (flagG && dev.nhStemRule === 'flagClear') {
+                  if (flagG && dev.nhStemRule === 'flagClear' && !dev.grace) {   // [§553] a grace note keeps its short stem — the AI's call
                     const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
                     // [§400] the stem clears the COLUMN part of an above-chain
                     // (the beside-stem mark needs no clearing) — one mark beside
