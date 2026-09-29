@@ -253,10 +253,15 @@
   function remainPath(cx, cy, r, frac) { // the sector from the progress angle round to 12 o'clock, clockwise
     if (frac >= 1) return '';
     if (frac <= 0) return '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '"/>';
-    const a = -Math.PI / 2 + frac * 2 * Math.PI;
-    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
-    return '<path d="M ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' L ' + x.toFixed(1) + ' ' + y.toFixed(1) +
-      ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 ' + ((1 - frac) > 0.5 ? 1 : 0) + ' 1 ' + cx.toFixed(1) + ' ' + (cy - r).toFixed(1) + ' Z"/>';
+    // [§529] ARCS OF AT MOST 90°, never one: an SVG arc takes its circle from its two END POINTS and the radius, not from (cx, cy). At a
+    // breath's first instant the remaining sector is almost the whole circle, its two ends a fraction of a pixel apart, and their rounding to
+    // 0.1 px moved that circle by pixels (piece-lgmf p7 @476.017: the pie's ink at 108.6, its lane pushed to 112 — check_screen_edges page
+    // 41); a half is no cure, a near-semicircle is as ill-conditioned. Each piece ≤ 90°: the rounding moves the ink < 0.1 px.
+    const a = -Math.PI / 2 + frac * 2 * Math.PI, n = Math.max(1, Math.ceil((1 - frac) * 4)), step = (1 - frac) * 2 * Math.PI / n;
+    const P = ang => (cx + r * Math.cos(ang)).toFixed(1) + ' ' + (cy + r * Math.sin(ang)).toFixed(1), R = ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ';
+    let d = 'M ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' L ' + P(a);
+    for (let k = 1; k <= n; k++) d += R + (k === n ? cx.toFixed(1) + ' ' + (cy - r).toFixed(1) : P(a + k * step));
+    return '<path d="' + d + ' Z"/>';
   }
   register('motivePie', (inst, view, t, st) => {
     if (t < inst.t0 || t > inst.t1) return [];
