@@ -2153,7 +2153,10 @@
                 // the note column like the pair's start mark. dynMark is the
                 // glyph key (registry device / per-item override).
                 if (markG && !markToGroup) {
-                  const yDyn = placeChain(markG.hSs);
+                  // [LGMF PLAN 2m.1, §531 — his b1] `dynOnRow`: the mark sits ON the house dynamic row (`dynY`), or lower only where the
+                  // unit's own ink reaches below it (the sequence legend's rule — a low head keeps its chain); nothing without the field moves
+                  let yDyn = placeChain(markG.hSs);
+                  if (dev.dynOnRow && !chainAbove && yDyn > o.dynY) { yDyn = o.dynY; chainBotY = yDyn - markG.hSs / 2; }
                   // BESIDE THE STEM (day 23, composer): when the chain is above a
                   // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
                   // the stem's left edge (registry 0.15 = the staccato-dot gap),
@@ -3189,7 +3192,12 @@
       // somewhere … so it doesn't revert"): the AI had retired it with the tracks; the bar ends `after` before the next unit's leftmost
       // ink whatever its height (rules.json objects.ringBar.after)
       const VBTRACK = !!((VBc.marks || {}).barTrack);
-      if (vibBowOf.size && FitV && spsV) {
+      // [LGMF PLAN 2m.1, §531] THE LONG TONE's bar takes the same clearance (rules.json objects.ringBar.after — "the default for every
+      // duration line from here on", §472): its own device's `after` · `afterAbutS`; a page with no env 'longTone' is untouched
+      const LTc = (DEV.byEnv || {}).longTone || {};
+      const isLT = id => { const x = evById.get(id); return !!(x && x.env === 'longTone'); };
+      const anyLT = items.some(it => it.k === 'ringbar' && isLT(it.ev));
+      if ((vibBowOf.size || anyLT) && FitV && spsV) {
         const VB = (DEV.byEnv || {}).vibBow || {};
         const AFTER = VB.after != null ? VB.after : 0.25, ABUT = VB.afterAbutS != null ? VB.afterAbutS : 0.1;   // RULES MIRROR (rules.json objects.ringBar.after · afterAbutS)
         const leftAt = new Map();   // head time → the leftmost ink of the unit(s) there, in ss from x(t)
@@ -3200,10 +3208,12 @@
         }
         const heads = [...leftAt.entries()].map(([k, l]) => ({ t: k / 1e6, l })).sort((a, b) => a.t - b.t);
         for (const bar of items) {
-          if (bar.k !== 'ringbar' || !vibBowOf.has(bar.ev)) continue;
-          const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= bar.t1 - ABUT);
+          if (bar.k !== 'ringbar' || !(vibBowOf.has(bar.ev) || isLT(bar.ev))) continue;
+          const lt = !vibBowOf.has(bar.ev);
+          const AF = lt && LTc.after != null ? LTc.after : AFTER, AB = lt && LTc.afterAbutS != null ? LTc.afterAbutS : ABUT;   // RULES MIRROR (objects.ringBar.after · afterAbutS)
+          const nx = heads.find(h => h.t > bar.t0 + 1e-6 && h.t >= bar.t1 - AB);
           if (!nx) continue;
-          const t1 = (nx.t * spsV + nx.l - AFTER) / spsV;
+          const t1 = (nx.t * spsV + nx.l - AF) / spsV;
           if (t1 < bar.t1 - 1e-9) { bar.t1Bow = bar.t1; bar.t1 = +t1.toFixed(6); }
         }
       }

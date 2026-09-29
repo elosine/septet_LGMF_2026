@@ -259,7 +259,7 @@
     },
     "env": {
      "type": "string",
-     "description": "envelope species as drawn (surge, sine, expodec, ...) — day 22 amendment 3, optional; 'strike' = a note the strikes tool wrote (§400); 'trill' = a composer-score trill zone (PLAN 2f.3, 2026-09-13); a crescendo-tool swell carries its family name (properties.cresc.shape: 'surge' = the standard — PLAN 2i.8, 2026-09-15); 'sequence' = a breath of a sequence named by notate_section --sequence (srcKind 'sequence', LGMF PLAN 2d.1, 2026-09-25) — its line is the part's 'sequence' overlay; 'vibBow' = a BOW of the bowed vibraphone in such a sequence (LGMF PLAN 2g.3, 2026-09-27) — the byEnv.vibBow device, its marks in the part's 'vibBows' overlay"
+     "description": "envelope species as drawn (surge, sine, expodec, ...) — day 22 amendment 3, optional; 'strike' = a note the strikes tool wrote (§400); 'trill' = a composer-score trill zone (PLAN 2f.3, 2026-09-13); a crescendo-tool swell carries its family name (properties.cresc.shape: 'surge' = the standard — PLAN 2i.8, 2026-09-15); 'sequence' = a breath of a sequence named by notate_section --sequence (srcKind 'sequence', LGMF PLAN 2d.1, 2026-09-25) — its line is the part's 'sequence' overlay; 'vibBow' = a BOW of the bowed vibraphone in such a sequence (LGMF PLAN 2g.3, 2026-09-27) — the byEnv.vibBow device, its marks in the part's 'vibBows' overlay; 'longTone' = a held note of a group, named by notate_section --longTones (LGMF PLAN 2m.2, 2026-09-29) — the byEnv.longTone device"
     },
     "secco": {
      "type": "boolean",

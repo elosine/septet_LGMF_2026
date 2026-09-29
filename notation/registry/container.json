@@ -307,7 +307,40 @@
       },
       "closeRule": "@objects.ringBar.closeRule"
      },
-     "_vibBowNote": "LGMF PLAN 2g (2026-09-27; the device sheet RUNNING_LOG §466): a BOW of the bowed vibraphone in a sequence (lane 5's notes in a --sequence group; the extractor gives them env 'vibBow' in place of 'sequence'). ANCHOR A — the open head's left edge ON its time, no go line, no stem, no GC, no column (#4 day 24's principle: a go line marks displacement; the cluster heads; #5's byTechnique.main) — its tempered accidental and ledgers, and the grey RING BAR from the head's ink + 0.25 for the bow's FULL length (`ringBarFull`: no breath cut, the bows abut within 0.05 s — the two chains would otherwise cut each other's bars). Two voices on the one treble staff by REGISTER (the upper row = the higher-sounding bow, vibMarks.voice); `closeRule` two bars within a second at half height toward their own side, a unison stacked; two heads at one time a step or less apart take #2 D.6's chord displacement (the engine has it — layout.js chordGeometry → ChordColumn.noteColumn, anchor-A heads since #5 D49 — so no head.secondOffsetSs row; 2g.3 draws the vibraphone's shared attacks through it). The DYNAMICS per bow in two rows — `marks.upperRow` +4.6 the upper voice, `marks.lowerRow` −4.6 the lower: a name, the niente circle, a TIMED hairpin (objects.hairpinTimed), read by notation/lib/vib_marks.js from the save (the part's `vibBows` overlay). NO level curve, meter, follower, pie, legend, header block or 2f sign on the lane (§464 · §465). Motor off, the whole piece — a performance note (PERFORMANCE_NOTES #11). No IR before 2g holds env 'vibBow', so no page before it moves."
+     "_vibBowNote": "LGMF PLAN 2g (2026-09-27; the device sheet RUNNING_LOG §466): a BOW of the bowed vibraphone in a sequence (lane 5's notes in a --sequence group; the extractor gives them env 'vibBow' in place of 'sequence'). ANCHOR A — the open head's left edge ON its time, no go line, no stem, no GC, no column (#4 day 24's principle: a go line marks displacement; the cluster heads; #5's byTechnique.main) — its tempered accidental and ledgers, and the grey RING BAR from the head's ink + 0.25 for the bow's FULL length (`ringBarFull`: no breath cut, the bows abut within 0.05 s — the two chains would otherwise cut each other's bars). Two voices on the one treble staff by REGISTER (the upper row = the higher-sounding bow, vibMarks.voice); `closeRule` two bars within a second at half height toward their own side, a unison stacked; two heads at one time a step or less apart take #2 D.6's chord displacement (the engine has it — layout.js chordGeometry → ChordColumn.noteColumn, anchor-A heads since #5 D49 — so no head.secondOffsetSs row; 2g.3 draws the vibraphone's shared attacks through it). The DYNAMICS per bow in two rows — `marks.upperRow` +4.6 the upper voice, `marks.lowerRow` −4.6 the lower: a name, the niente circle, a TIMED hairpin (objects.hairpinTimed), read by notation/lib/vib_marks.js from the save (the part's `vibBows` overlay). NO level curve, meter, follower, pie, legend, header block or 2f sign on the lane (§464 · §465). Motor off, the whole piece — a performance note (PERFORMANCE_NOTES #11). No IR before 2g holds env 'vibBow', so no page before it moves.",
+     "longTone": {
+      "sheet": "§531 (PLAN 2m — the device sheet; his a1 · b1 and the cut, 2026-09-29; LG-119)",
+      "anchorRow": "A",
+      "memberRows": [
+       "head",
+       "ledger",
+       "accidental",
+       "ottava",
+       "ringBar",
+       "dynamic",
+       "instruction"
+      ],
+      "goLine": false,
+      "gc": false,
+      "brick": false,
+      "curve": false,
+      "cut": false,
+      "onsetHead": false,
+      "nhUnit": true,
+      "nhAnchor": "leftEdge",
+      "nhHead": "open",
+      "ringBar": true,
+      "ringBarFull": true,
+      "after": "@objects.ringBar.after",
+      "afterAbutS": "@objects.ringBar.afterAbutS",
+      "letRing": false,
+      "chordRules": false,
+      "dynMark": "band",
+      "dynOnRow": true,
+      "dynPair": false,
+      "techText": false
+     },
+     "_longToneNote": "LGMF PLAN 2m (2026-09-29; the device sheet RUNNING_LOG §531; LG-119): THE LONG TONE — section 2's held notes played in groups (his cut: a plain held note ≥ 0.2 s that starts TOGETHER, within 0.1 s, with another pitched part's; the extractor's --longTones T0:T1 gives them env 'longTone', --longToneAlso admits a single he names). ANCHOR A — the open head's left edge ON its time, no go line (his 'No go lines alignment with left of notehead'), no GC, no brick; its ordinary accidental and ledgers, the ottava by the threshold. TEMPERED as written (his a1: Draft 01 carries no cents on any of them — no column; a note dealt from a take keeps the just column of its own device). THE RING BAR the note's FULL length (`ringBarFull` — the written length, no breath cut) at the ringBar row's look (navyBlue at 0.3, §472 · §473), ending `after` before the next unit's leftmost ink (layout.js's clearance pass, as the vibraphone's bars). ONE NAME PER NOTE (his b1, 'for now' — he normalizes per chord in the composer, then re-extract): `dynMark` band — the velocity (IR `vel` = the save's recVel) on the score's eight-step table (`dynamicBands`, the steps `dyn ▾` writes), every note (no `dynOnChange`); `dynOnRow` — ON the house dynamic row (`dynY` −4.6), lower only where the unit's own ink reaches below it (the sequence legend's rule). The 'ord.' word of the middle section is the change rule's (techniqueChange, §505) — a long tone reads as a plain note there. It merges over the brass `byTechnique.ord` (the tuba's — anchor B, a go line) and the Xsample three's family look, so every field that differs is stated here. No IR before 2m holds env 'longTone', so no page before it moves."
     },
     "byTechnique": {
      "_pianoMorphNote": "PLAN 2h.5 (2026-09-14, RUNNING_LOG §483–§491; the composer's reference CN-82 = piece #2 around 0:50; his spec: 'no gcs, open noteheads for both'): the piano's notes in the morph section carry no env, so `main` and `plucked` reach them and nothing else (every other `main` is a strike or a trill by env — and those envs cancel every field added here out loud: ringBar, letRing, chordRules). The first build (§484 — the tuba's ring bar on main; piece #2's ASR row on plucked: 'Ped.' text, the ✱ at the release, a two-hook bracket) was replaced device by device at his eye: see _mainNote, _chordRulesNote, _pluckedNote.",

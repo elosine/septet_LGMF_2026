@@ -73,6 +73,14 @@ ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it
     && R.objects.glissCurve.scale === 'travel' && !!TC.byKind && TC.byKind.morph === TC.byKind.sequence && Array.isArray(TC.eligible) && !TC.byEnv && !TC.texts,
     '(7) the morph `byEnv.morph` carries its sheet (§506), stands on anchor B with the gliss line and both curves; `glissCurve.scale` travel; the vibrato word by kind (`techniqueChange.byKind`, the morph\'s = the sequence\'s)');
 }
+// [2m.1] the long tone (PLAN 2m): its sheet is §531, it stands on anchor A with no go line, the ring bar its full length and the
+// dynamic among its members, the name on the dynamic row
+{
+  const lt = (D.byEnv || {}).longTone;
+  ok(!!lt && /§531/.test(lt.sheet || '') && lt.anchorRow === 'A' && lt.goLine === false && ['ringBar', 'dynamic'].every(m => (lt.memberRows || []).includes(m))
+    && lt.ringBar === true && lt.ringBarFull === true && lt.dynMark === 'band' && lt.dynOnRow === true,
+    '(7) the long tone `byEnv.longTone` carries its sheet (§531), stands on anchor A with no go line, the ring bar its full length, one band name per note on the dynamic row');
+}
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));
 
