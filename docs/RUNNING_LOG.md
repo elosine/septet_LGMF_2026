@@ -18420,3 +18420,30 @@ the same 7.
 flag would have needed 9.25, past the max, so the stem is the standard and the flag sits inside the staff (its near edge −2.37, below the
 bottom line) · the grace 3.18 (0.707 × the new base — a grace stem grows with the standard; LilyPond keeps grace stems shorter, a thing for
 N-2's list). **His decision on the length still owed** after he looks: 4.0 · 4.25 · 4.5 — the row `lengthLongSs` is the one number.
+
+## §555. THE SLUR STANDARD BUILT — LilyPond's slur with Gould's ends, a long kind (2026-09-29, Fable, session 18)
+
+**Prompted by:** his N-1 answers, whole in **LG-133**: *"Let's try these slur standards"* — LilyPond's slur as measured (§551) with Gould's
+ends, yes; the slurs: *"Grace notes, phrase maybe others ties unlikely"*.
+
+**The standard (`rules.json objects.slur`, basis lilypond — his install's define-grobs.scm and layout-slur.scm):** the height 0.25 × the slur's
+length, capped at 2 ss · thickness 1.2 × the line (0.12 ss) at the middle tapering to line-thickness 0.8 (0.08) at the ends — a filled
+shape between two cubics, the outline stroked at the end thickness · free-head-distance 0.3 beyond a head's edge (the ends, and every head
+inside the arc lifts it clear) · free-slur-distance 0.8 · gap-to-staffline 0.2 / 0.1 · max-slope 1.1 · minimum-length 1.5 (the last four
+recorded, not yet enforced). THE SIDE with the stems — below when every stem in the span goes up, above when they go down or are mixed
+(ly:slur::calc-direction). THE ENDS Gould's — at the HEAD on the head side (its centre, freeHead beyond its edge), at the STEM TIP on the
+stem side (a stem pointing into the slur's side, a mixed group; the tip read from the stem item after the beams level). A hand `slurTo` on
+the first note names the last; every unit between is inside. The slur is now a LONG kind (t0 · t1): cut on screen, never severed on paper
+(`page_rules.edge`; the splicer reads t0 · t1 as it does a beam's tips).
+
+**Measured on the grace's slur:** from the grace (291.385, +0.37, y −3.11) to p3 (291.479, +0.52, y −4.74), below (both stems up), length
+1.9 ss at the video view's 18.65 ss/s, **height 0.48 ss** (0.25 × 1.9) — where v1 had 1.0 on the same chord; the taper 0.12 → 0.08.
+`check_rules` 32 · the shield `piece-lgmf` alone · **`check_screen_edges` PASS** (the slur a new long kind). No re-extraction: the hand was
+already on the IR.
+
+**The AI's calls, his to reverse:** the ends at the head's CENTRE horizontally (Gould; LilyPond's are a little inward) · the lift over inner
+objects a simple clear-by-freeHead, not LilyPond's scoring · the slope, the accidental collision, the dynamic collision and the staff-line
+gaps recorded, not enforced · a grace's own stem does not decide the side (all stems in the span do). The video view's sweep measured on the
+way: 18.65 ss/s ≈ 147 px/s (§548's 110 was an average over the cut pages).
+
+**► His eye:** reload the tab → `piece-lgmf` → `291.4`. N-1 stands built; N-6 (the second layer's phrase slurs) can use it.

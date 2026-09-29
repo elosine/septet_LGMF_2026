@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 218 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 222 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -166,7 +166,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `lvslur` · in: engraving.layout.letRingGapSs (code default 0.15)
 - **graceSlash** — face **music** · colour **ink #111** · thickSs **0.13** → `layout.grace.slashThickSs` · reachSs **0.6** → `layout.grace.slashReachSs` · at **0.6** → `layout.grace.slashAt` · *composer* · §550 — the acciaccatura's stroke through the grace's stem and flag: one line rising to the right at 45°, reachSs each side of the stem, crossing it at 'at' of the stem's length from the head, the stem's thickness (his pasted example; the geometry the AI's after LilyPond's stroke-style grace, his to correct)
   - draws `slash` · in: engraving.layout.grace.slashReachSs · slashAt · slashThickSs
-- **slur** — face **music** · colour **ink #111** · thickSs **0.13** → `layout.slur.thickSs` · heightSs **1** → `layout.slur.heightSs` · beside **0.15** → `layout.slur.beside` · *composer* · §550 — a slur between two heads (the grace's into its main note, LG-129): a cubic arc from the first head's centre to the second's, on the side opposite the main note's stem, heightSs its bulge, 'beside' the gap above or below each head (the l.v. slur's 0.15), the stem's thickness; v1 a stroked arc — LilyPond's tapered slur when he asks. A HAND: engraving { slurTo: <event> } on the first note
+- **slur** — face **music** · colour **ink #111** · thickSs **0.12** → `layout.slur.thickSs` · endThickSs **0.08** → `layout.slur.endThickSs` · heightRatio **0.25** → `layout.slur.heightRatio` · heightMaxSs **2** → `layout.slur.heightMaxSs` · minLengthSs **1.5** · freeHeadSs **0.3** → `layout.slur.freeHeadSs` · freeSlurSs **0.8** → `layout.slur.freeSlurSs` · maxSlope **1.1** → `layout.slur.maxSlope` · gapToStaffInSs **0.2** · gapToStaffOutSs **0.1** · *lilypond* · §555 (2026-09-29, his 'Let's try these slur standards' — N-1): LilyPond 2.24.4's Slur, read from his install (define-grobs.scm · layout-slur.scm default-slur-details): the arc's height = ratio 0.25 × its length, capped at height-limit 2 ss; thickness 1.2 × the line (0.12 ss) at the middle, line-thickness 0.8 (0.08) at the ends — a TAPERED slur, a filled shape; free-head-distance 0.3 beyond a head's edge (the ends, and every head inside the arc lifts it); free-slur-distance 0.8; gap-to-staffline inside 0.2 · outside 0.1; max-slope 1.1; minimum-length 1.5. THE SIDE with the stems (below when the stems go up, above when down, mixed → above — ly:slur::calc-direction). THE ENDS Gould's: at the HEADS on the head side (the head's centre, freeHead beyond its edge), at the STEM TIPS on the stem side (a mixed group). Which slurs: the grace's · the phrase slurs · maybe others; ties unlikely (his word). A HAND: engraving { slurTo: <event> } on the first note names the last; every unit between is inside. A LONG kind (t0 · t1): cut on screen, never severed on paper. Not yet: the slope limit, the collision with accidentals and dynamics, the staff-line gaps
   - draws `slur` · in: engraving.layout.slur
 - **pedal** — face **music** · colour **ink #111** · *composer* · #5 2h.5 (#2's 'Ped.')
   - draws `glyph:pedal-.*`
@@ -268,7 +268,7 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `ottava` | clamp | whole |
 | `lvslur` | clamp | whole |
 | `slash` | clamp | whole |
-| `slur` | clamp | whole |
+| `slur` | cut | never-sever |
 | `attackline` | atomic | whole |
 | `tick` | atomic | whole |
 | `goline` | atomic | whole |

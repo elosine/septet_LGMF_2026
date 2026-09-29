@@ -673,14 +673,18 @@
           parts.push('<line x1="' + X(it.t, it.dx0Ss).toFixed(2) + '" y1="' + Y(it.y0Ss).toFixed(2) + '" x2="' + X(it.t, it.dx1Ss).toFixed(2) + '" y2="' + Y(it.y1Ss).toFixed(2) +
             '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round"/>');
         } else if (it.k === 'slur') {
-          // [§550] a slur between two heads (the grace's into its main note, rules.json objects.slur): a cubic arc from the first head to
-          // the second, whose far end sits at the second head's own time; the bulge on the side opposite the main note's stem
-          if (!owns(it.t)) continue;
-          const x0 = X(it.t, it.dx0Ss), x1 = X(it.t1 != null ? it.t1 : it.t, it.dx1Ss), ya = Y(it.y0Ss), yb = Y(it.y1Ss);
-          const bulge = (it.heightSs || 1) * ssPx * (it.dir === 'below' ? 1 : -1), thick = (it.thickSs || 0.13) * ssPx;   // RULES MIRROR
-          const cx0 = x0 + (x1 - x0) / 3, cx1 = x0 + 2 * (x1 - x0) / 3;
-          parts.push('<path d="M' + x0.toFixed(2) + ',' + ya.toFixed(2) + ' C' + cx0.toFixed(2) + ',' + (ya + bulge).toFixed(2) + ' ' + cx1.toFixed(2) + ',' + (yb + bulge).toFixed(2) +
-            ' ' + x1.toFixed(2) + ',' + yb.toFixed(2) + '" fill="none" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round"/>');
+          // [§555] THE SLUR (rules.json objects.slur — LilyPond's): a filled shape between two cubics — the outer peaks at heightSs, the
+          // inner thickSs less, so the middle is thickSs thick; the outline stroked endThickSs so the ends have LilyPond's line-thickness.
+          // Its ends sit at their own times (t0 · t1); drawn on every page it crosses, clipped like paper
+          if (!crosses(it.t0, it.t1)) continue;
+          const x0 = X(it.t0, it.dx0Ss), x1 = X(it.t1, it.dx1Ss), ya = Y(it.y0Ss), yb = Y(it.y1Ss);
+          const sgn = it.dir === 'below' ? 1 : -1, thick = (it.thickSs || 0.12) * ssPx, endThick = (it.endThickSs || 0.08) * ssPx;   // RULES MIRROR
+          const kOut = sgn * ((it.heightSs || 0) * ssPx) / 0.75, kIn = sgn * Math.max(0, (it.heightSs || 0) * ssPx - thick) / 0.75;
+          const cx0 = x0 + (x1 - x0) / 3, cx1 = x0 + 2 * (x1 - x0) / 3, cy0 = ya + (yb - ya) / 3, cy1 = ya + 2 * (yb - ya) / 3;
+          const f = v => v.toFixed(2);
+          parts.push('<path d="M' + f(x0) + ',' + f(ya) + ' C' + f(cx0) + ',' + f(cy0 + kOut) + ' ' + f(cx1) + ',' + f(cy1 + kOut) + ' ' + f(x1) + ',' + f(yb) +
+            ' C' + f(cx1) + ',' + f(cy1 + kIn) + ' ' + f(cx0) + ',' + f(cy0 + kIn) + ' ' + f(x0) + ',' + f(ya) + ' Z" fill="' + o.ink + '" stroke="' + o.ink +
+            '" stroke-width="' + f(endThick) + '" stroke-linejoin="round"/>');
         } else if (it.k === 'hairpin-timed') {
           // [LGMF 2g.4, §464 · §466] THE VIBRAPHONE'S TIMED HAIRPIN: its length the time of the movement — from x(t0) (never before
           // `after`, the mark before it + its gap) to x(t1) + dx1Ss (before the name it reaches); dropped when shorter than `minSs` (the
@@ -954,8 +958,8 @@
   // the page, not to the music). check_print_edges reads these rather than
   // keeping a second list that could quietly disagree with the loop above.
   const POINT_KINDS = ['glyph', 'rest', 'stem', 'dot', 'ledger', 'beam', 'text', 'attackline', 'tick',
-    'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc', 'slash', 'slur'];   // [§550] the grace's stroke and slur
-  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed'];   // [2g.4] the timed hairpin spans time
+    'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc', 'slash'];   // [§550] the grace's stroke
+  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed', 'slur'];   // [2g.4] the timed hairpin spans time · [§555] the slur spans its notes
   const FURNITURE_KINDS = ['staff', 'clef'];
   // 'tuplet' is neither: it has no window gate at all, because a tuplet bracket
   // belongs to a beam group and the splicer is stamp-atomic — no cut severs a

@@ -2020,7 +2020,7 @@
                     }
                   }
                   items.push({ k: 'stem', t: tU, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
-                  if (nhAt.has(e.id)) nhAt.get(e.id).stemDir = stemDir;   // [§550] the slur takes the side opposite the main note's stem
+                  if (nhAt.has(e.id)) Object.assign(nhAt.get(e.id), { stemDir, stemX: headDx + att.dx, stemItem: items[items.length - 1] });   // [§550 · §555] for the slur: the side, the tip read from the item after the beams level
                   if (beamTip) beamTip.stem = items[items.length - 1];
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
@@ -3200,18 +3200,8 @@
       const INKYv = it => it.k === 'ledger' || it.k === 'ottava' || (it.k === 'glyph' && /^(notehead|accidental-)/.test(it.g || ''));
       // [2h.4, §477] the bow's head height and the bar's, for the FLUSH offset (the close rule) and the marks' push (the bars moved off
       // their heads are ink under the marks' row too)
-      // [§550, LG-129] THE FREE RESTS (the `rest` overlay) and THE SLURS (a hand: slurTo) — bespoke, no device
+      // [§550, LG-129] THE FREE RESTS (the `rest` overlay) — bespoke, no device
       for (const r of freeRests) if (r.part === spec.part) items.push({ k: 'rest', dur: r.dur, t: r.t, dxSs: 0, units: 1 });
-      {
-        const SL = Object.assign({ heightSs: 1, thickSs: 0.13, beside: 0.15 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
-        for (const [id, a] of nhAt) {
-          const hand = ((engOf(id) || {}).device) || {};
-          if (!hand.slurTo || !nhAt.has(hand.slurTo)) continue;
-          const b = nhAt.get(hand.slurTo), below = b.stemDir === 'up', sg = below ? -1 : 1;
-          items.push({ k: 'slur', t: a.t, dx0Ss: a.dx, y0Ss: a.y + sg * (a.h / 2 + SL.beside), t1: b.t, dx1Ss: b.dx, y1Ss: b.y + sg * (b.h / 2 + SL.beside),
-            dir: below ? 'below' : 'above', heightSs: SL.heightSs, thickSs: SL.thickSs, ev: id });
-        }
-      }
       const VBc = (DEV.byEnv || {}).vibBow || {};
       const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
       const OFF = HEADH / 2 + RBH / 2;
@@ -3226,6 +3216,42 @@
       const LTc = (DEV.byEnv || {}).longTone || {};
       const isLT = id => { const x = evById.get(id); return !!(x && x.env === 'longTone'); };
       const anyLT = items.some(it => it.k === 'ringbar' && isLT(it.ev));
+      // [§555, LG-133] THE SLUR — the standard: LilyPond 2.24.4's Slur (his install — ratio 0.25, height-limit 2, thickness 1.2 → 0.8 at
+      // the ends, free-head-distance 0.3) with Gould's ends: at the HEADS on the head side (the head's centre, freeHead beyond its edge), at
+      // the STEM TIPS on the stem side; the side WITH the stems (below when they go up, above when down, mixed → above). A hand slurTo on
+      // the first note names the last; every unit between is inside the arc and lifts it clear. A LONG kind (t0 · t1).
+      {
+        const SL = Object.assign({ heightRatio: 0.25, heightMaxSs: 2, thickSs: 0.12, endThickSs: 0.08, freeHeadSs: 0.3 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
+        const sps = spsV || 0;
+        const units = [...nhAt.entries()].map(([id, u]) => Object.assign({ id }, u)).sort((p, q) => p.t - q.t);
+        const tipOf = u => u.stemItem ? u.stemItem.yB : null;
+        for (const a of units) {
+          const hand = ((engOf(a.id) || {}).device) || {};
+          if (!hand.slurTo || !nhAt.has(hand.slurTo)) continue;
+          const b = Object.assign({ id: hand.slurTo }, nhAt.get(hand.slurTo));
+          const inside = units.filter(u => u.t >= a.t - 1e-9 && u.t <= b.t + 1e-9);
+          const dirs = inside.map(u => u.stemDir).filter(Boolean);
+          const below = dirs.length > 0 && dirs.every(d => d === 'up');   // with the stems: below when they all go up; above when down or mixed
+          const sg = below ? -1 : 1;
+          const stemInto = u => (u.stemDir === 'up' && !below) || (u.stemDir === 'down' && below);
+          const endOf = u => stemInto(u) && tipOf(u) != null ? { x: u.stemX, y: tipOf(u) + sg * SL.freeHeadSs } : { x: u.dx, y: u.y + sg * (u.h / 2 + SL.freeHeadSs) };
+          const E0 = endOf(a), E1 = endOf(b);
+          const at = u => (u.t - a.t) * sps;   // a unit's time as ss from the slur's start
+          const x0 = E0.x, x1 = at(b) + E1.x, len = Math.max(0.1, x1 - x0);
+          let h = Math.min(SL.heightRatio * len, SL.heightMaxSs);
+          const chordY = x => E0.y + (E1.y - E0.y) * (x - x0) / len;
+          // a cubic whose control points sit h / 0.75 off the chord at 1/3 and 2/3 peaks at h: its offset at s is 4 h s (1 − s)
+          for (const u of inside) {
+            if (u.id === a.id || u.id === b.id) continue;
+            const objY = stemInto(u) && tipOf(u) != null ? tipOf(u) : u.y + sg * u.h / 2;
+            const xs = [at(u) + u.dx]; if (stemInto(u)) xs.push(at(u) + u.stemX);
+            for (const x of xs) { const s = (x - x0) / len; if (s <= 0.02 || s >= 0.98) continue;
+              const need = (sg * (objY - chordY(x)) + SL.freeHeadSs) / (4 * s * (1 - s)); if (need > h) h = need; }
+          }
+          items.push({ k: 'slur', t0: a.t, t1: b.t, dx0Ss: +x0.toFixed(4), y0Ss: +E0.y.toFixed(4), dx1Ss: +E1.x.toFixed(4), y1Ss: +E1.y.toFixed(4),
+            dir: below ? 'below' : 'above', heightSs: +h.toFixed(4), thickSs: SL.thickSs, endThickSs: SL.endThickSs, ev: a.id });
+        }
+      }
       if ((vibBowOf.size || anyLT) && FitV && spsV) {
         const VB = (DEV.byEnv || {}).vibBow || {};
         const AFTER = VB.after != null ? VB.after : 0.25, ABUT = VB.afterAbutS != null ? VB.afterAbutS : 0.1;   // RULES MIRROR (rules.json objects.ringBar.after · afterAbutS)

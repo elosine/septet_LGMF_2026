@@ -143,7 +143,10 @@ on Opus or here at his word.
   (to read at the build); v1 (§550) is centre-to-centre with a fixed 1 ss bulge — why the grace's looks odd. **HIS ANSWERS OWED:** LilyPond's
   slur + Gould's ends (at the heads on the head side, at the stem tips on the stem side) as the standard? · which slurs the piece draws
   (the grace's · the phrase slurs of the second layer · ties?). Then the requirements: side · ends · height by length · taper · clearance
-  (accidentals, ledgers, flags, beams) · the edge class of a long slur (a LONG kind) · the ladder.
+  (accidentals, ledgers, flags, beams) · the edge class of a long slur (a LONG kind) · the ladder. **HIS ANSWERS (LG-133) AND BUILT (§555):**
+  LilyPond's slur (his install's numbers) with Gould's ends, the side with the stems; the grace's and the phrase slurs, maybe others, no
+  ties. A long kind, cut · never-sever; the screen gate PASS; the grace's slur 0.48 ss high. Not enforced yet: the slope limit, the
+  accidental and dynamic collisions, the staff-line gaps — the rest of N-1 when a phrase slur asks for it.
 - **N-2 · STEM LENGTHS — "surface and revise all stem length rules, w/beams w/flags"** (LG-130). The data (§551): the code — 3.5 everywhere,
   to the middle line from outside the staff, the flag-clear law (0.38 ss) only where a device asks (the tuba's staccato · strike), the
   §550 flags without it; LilyPond — quarter · 8th · 16th all 3.5, 32nd 4.25, beamed 3.26 · 3.5 · 3.6 with minimum free 1.83 · 1.5 · 1.25,
