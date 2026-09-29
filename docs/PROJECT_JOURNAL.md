@@ -119,6 +119,34 @@ draft's timing) · the per-note detail · the window if wanted.
 scales A … H (the unit · the intention · time · motion · moments · sign and carrier · the picture · the model), a profile of leanings, his
 single-note case worked. Before the device sheet. ► HIS TO REFINE in future sessions; the "left" list above is now the survey's items.
 
+### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
+
+- **The task:** SECTION 2's TODO items 5 · 6 (temporal notation; its name) opened as a RESEARCH PROJECT at his word — conceptual, nothing
+  built (LG-120 … LG-126; RUNNING_LOG §536 … §546). Settled today, each at his word: the term kept as his ("temporal notation", defined
+  once as horizontal distance = time) · the reference scores (his R1 … R4, the AI's S1 … S10 to confirm) · THE PHRASE IN LAYERS (anchor ·
+  shape · flow · moments) the starting framework, adjustable · FLOW expanded (learning vs cueing; the rehearsal model; animation in two
+  modes) · W1 THE WORKING MODEL — proportional + TN details, "Ferneyhough without the count" — A1 THE DEFAULT · the viability test
+  V1 … V8 standing · the alternatives A1 … A6 surfaced on the device sheet (`docs/PLANNING_METHOD.md` line 1a) · the cursor window
+  (a concept) · tuplets a NOTCH OF SPEED · THE INTENTION (energy and flow with detail; the failure casualness / misreading, not
+  imprecision) · THE SCORE IS A PICTURE OF THE SOUND · seven framework decisions T1 … T7 (`temporal_notation.md` §10) · and, at his
+  last word, THE FRAMEWORK AS AN INSTRUMENT, not rules — THE SURVEY v0.
+- **The deliverables:** `docs/research/temporal_notation.md` (§1 … §11) · `docs/research/sound_to_notation_survey.md` (v0 — eight
+  scales A … H, 44 items, the profile of leanings, his single-note case worked, §R the revision log) · PLANNING_METHOD's device
+  sheet line 1a · PERFORMANCE_NOTES #16 · #17. All committed and pushed (`d5c2b96` … `6790f92`).
+- **► The next concrete step — HIS PICK, ask first, start only on his word:**
+  - **(a) refine the survey** (Fable): he reads `docs/research/sound_to_notation_survey.md` and names changes — items · poles · profile
+    rows; the AI records each in its §R and a RUNNING_LOG § (§547 next free), commits, pushes.
+  - **(b) 2m.4 his eye** on the long tones (the running order's step 3 above holds the stops; reload the notation tab, no restart).
+  - **(c) the practical for the EH's section 2** — begins with the survey RUN on one EH fast phrase (the survey's §X, a second worked
+    example — Fable), then a device sheet (line 1a names the model), then the build on Opus.
+- **`Resume reads:`** for (a) `docs/research/sound_to_notation_survey.md` whole — it IS the tool · for (b) nothing beyond §2 · for (c)
+  the survey + `docs/research/temporal_notation.md` §8 (the working model) and §10 (the decisions). Nothing else until the step names it.
+- **Pending him — HELD at his word:** values written or not inside a phrase (leans written-as-pace after T6) · the cursor window's scope
+  (*"only impact parts"*) · the model as a deliverable (for the performers) · H1 the intensity curve (`temporal_notation.md` §9).
+  **The AI's unverified:** every precedent's notation and every citation in the two research docs is from memory — a verification pass
+  offered, not run.
+- **Deliberately uncommitted — the same 29 paths as checkpoint #3, all his, untouched** (`git status --short` at this checkpoint).
+
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 
 - **The task:** unchanged from checkpoint #2 (below) — SECTION 2 (289 … 427 s), one notation type at a time; THE LONG TONE is built and
@@ -276,7 +304,8 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
+| **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
+| **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
 | **►►** | **SECTION 2 — HIS TODO, nine items, verbatim** (journal §2 block · RUNNING_LOG §535): normalize the long-tone chords · the EH's temporal phrases · the fast clusters · the percussion · temporal notation (short · long · tuplets · purpose) · its name + references · how much Ferneyhough-like detail · the glyph vocabulary · the GC. Not planned; each through `/plan-item` when he picks it | Fable (planning) | yes |
 | **►►** | **THE RUNNING ORDER's step 4 (held at his pivot) — HIS EYE on `piece-lgmf`, 0 → 279** (journal §2 top: the stops; PLAN 2l.7 BUILT 2026-09-28, §530). Reload the notation tab, no restart. His frame (§527): collect the findings in the RUNNING_LOG, then fix them at once | Fable (a look → a rule row) · Opus (a fault) | yes — `/session-start` |
 | **►►** | **The RUNNING ORDER's step 4 — his calls in the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners · 2k's AI's calls (§507 `eligible` · §509 the gliss line not in `inkOf` · §512 the per-breath overlays dropped) | his · Fable | — |
