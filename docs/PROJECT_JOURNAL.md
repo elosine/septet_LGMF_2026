@@ -68,12 +68,38 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
 2. ☑ **The fold** — DONE 2026-09-28 (Opus, §530; `piece-lgmf` from Draft 01 with `--sequence` × 4 + `--morph` × 3: 72 overlays, 151 … 280 s now 71 morph notes + 44 bows; every check green; §529 the breath pie's arc fixed on the way — the screen gate's one failure, on HEAD too). *(As it stood:)* **The fold** — PLAN 2l.7 (Opus; a model switch — checkpoint, clear, `/postclear` on Opus, then build): `piece-lgmf` redrawn from a COPY of Draft 01 with `--sequence` × 4 + `--morph` × 3 (2j's discipline) — the new curves, the
    morph device on every part, "ord." at 289 s; the shield naming `piece-lgmf` alone; `check_rules` · `decisions_needed --ir piece-lgmf` · the edges. Done
    when: pushed, his tab reloaded.
-3. ► **His eye on the main page, 0 → 279** (Fable) — reload the notation tab → `piece-lgmf` → the video view. THE STOPS: `-4` … `6` the six sequence entries (the fade from nothing, eased) · `40.26` (2j.4's) · `102.3` (the Vc breath the ladder flips) · `140` … `156` the sequence's closes `> ppp` · `151.35` · `152.1` · `152.78` · `156.4` · `156.9` · `158.4` the six morph blocks · `200` the arcs' peaks · `222.6` · `226.4` the vibraphone's two open hairpins · `265` … `279` the ends (`> ppp` on Hn · Tpt only; EH · Bsn · Vc · Db no fall, §530) · `z`. What he sees: the six sequence lines · the five other parts' morph pages (EH · Bsn · Tpt · Vc · Db: the block, the gliss line, the
+3. ► **2m THE LONG TONE — SECTION 2's note unit** (his pivot 2026-09-29, §531: *"let's address section two, one notation type at a time"*; PLAN § `2m`) — Opus
+   builds 2m.1 → 2m.3 (the rule rows · `--longTones` · `piece-lgmf` re-extracted), one commit each, THE SHIELD in each; STOP for 2m.4 his eye (`303.5` · `312.98` ·
+   `370.34` · `407.05`). Done when: 2m.3 pushed and his word at 2m.4.
+4. **His eye on the main page, 0 → 279** (Fable; HELD at his pivot, still his) — reload the notation tab → `piece-lgmf` → the video view. THE STOPS: `-4` … `6` the six sequence entries (the fade from nothing, eased) · `40.26` (2j.4's) · `102.3` (the Vc breath the ladder flips) · `140` … `156` the sequence's closes `> ppp` · `151.35` · `152.1` · `152.78` · `156.4` · `156.9` · `158.4` the six morph blocks · `200` the arcs' peaks · `222.6` · `226.4` the vibraphone's two open hairpins · `265` … `279` the ends (`> ppp` on Hn · Tpt only; EH · Bsn · Vc · Db no fall, §530) · `z`. What he sees: the six sequence lines · the five other parts' morph pages (EH · Bsn · Tpt · Vc · Db: the block, the gliss line, the
    arc) · the vibraphone's bows in the morph (the first order's 5) · 2j.4's `40.26`. Collect in the RUNNING_LOG, then fix at once (a look → Fable; a fault →
    Opus). Done when: his word.
-4. **His call, inside the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners (the same ease as the green line, held at §513 D) ·
+5. **His call, inside the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners (the same ease as the green line, held at §513 D) ·
    2k's AI's calls (the first order's 7). Done when: each named yes or no.
 — beyond 279, not in this order: the middle section (the percussion staff, the patterns, the "ord." entries — the first order's 6 — come with the fold, proofed later).
+
+### SESSION 18 · CHECKPOINT #1 (mid-session checkpoint, 2026-09-29, Fable planned, Opus builds) — 2m THE LONG TONE
+
+- **The task:** SECTION 2 (289 … 427 s), one notation type at a time — his pivot at the `/postclear` (§531). The first type: THE LONG TONE.
+  PLANNED IN FULL on Fable (PLAN § `2m` · RUNNING_LOG §531 · LG-119; `ef03f7d`): the device sheet answered —
+  - **anchor A** — no go line, the head's left edge on its time (his *"No go lines alignment with left of notehead"*)
+  - **(a) a1 tempered as written** — Draft 01 carries no cents / partial / `morphBend` / `hq` on any of the 138 held notes; no column
+  - **(b) b1 one dynamic name per note on the dynamic row** (−4.6), from `recVel` (a STRUCK note — DYNAMICS_LAW); *"for now"* — he
+    normalizes per chord later in the composer, then re-extract
+  - **(c) THE CUT IS HIS:** a long tone = a held note ≥ 0.2 s that starts TOGETHER (onsets within 0.1 s) with another pitched part's
+    held note — 36 groups · 120 notes; 18 singles draw as today until he names them (a per-event `engraving { device: 'longTone' }` hand)
+  - the bar: `ringBar` navy `#1C4879` at 0.3, 0.667 ss, beside 0.25, after 0.25 (§472 · §473)
+- **State:** NOT BUILT. At his word *"then build as much as possible independently no clear"* the build runs in this session on Opus.
+- **► The next concrete step:** PLAN § `2m` → 2m.1 the rule rows (`rules.json` a device row, anchor A, `sheet: '§531'`; the ensemble's
+  `ord` · `senza_vel` routed to it for the six pitched parts; `byTechnique.ord` is the TUBA pages' — leave it) → 2m.2 `--longTones` in
+  `tools/notate_section.js` → 2m.3 re-extract `piece-lgmf` from a scratchpad COPY of Draft 01 with its whole `provenance.build` + `--longTones`.
+  `layout_shield --write` on HEAD FIRST; `--diff --expect piece-lgmf` after each step; `check_rules` after each; a RUNNING_LOG § per
+  step (§532 next free); one commit per step, pushed. STOP at 2m.4 (his eye).
+- **`Resume reads:`** PLAN § `2m` · `docs/ENGRAVING_RULES.md` § 1 (anchor A, the devices list) · the `ringBar` · `dynamic` · `number`
+  rows of § 3 · DN-5 in § 8. STILL BINDING (below).
+- **Pending him:** 2m.4 his eye · the AI's calls at the foot of PLAN § `2m` (the 0.1 s window · the 0.2 s floor · a single untouched) ·
+  the per-chord dynamics (his composing pass) · his eye on 0 → 279 (held).
+- **Deliberately uncommitted** — the same 29 paths as the session-17 close (below), all his; nothing new.
 
 ### SESSION 18 OPENS ON THIS — `/session-start`; nothing is being built (session 17 closed 2026-09-28, Opus)
 
@@ -167,7 +193,8 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►** | **THE RUNNING ORDER's step 3 — HIS EYE on `piece-lgmf`, 0 → 279** (journal §2 top: the stops; PLAN 2l.7 BUILT 2026-09-28, §530). Reload the notation tab, no restart. His frame (§527): collect the findings in the RUNNING_LOG, then fix them at once | Fable (a look → a rule row) · Opus (a fault) | yes — `/session-start` |
+| **►►►** | **THE RUNNING ORDER's step 3 — BUILD 2m THE LONG TONE** (PLAN § `2m`, §531 · LG-119): 2m.1 the rule rows → 2m.2 `--longTones` → 2m.3 `piece-lgmf` re-extracted; one commit per step, THE SHIELD in each; STOP for 2m.4 his eye | Opus | no — his word "no clear" |
+| **►►** | **THE RUNNING ORDER's step 4 (held at his pivot) — HIS EYE on `piece-lgmf`, 0 → 279** (journal §2 top: the stops; PLAN 2l.7 BUILT 2026-09-28, §530). Reload the notation tab, no restart. His frame (§527): collect the findings in the RUNNING_LOG, then fix them at once | Fable (a look → a rule row) · Opus (a fault) | yes — `/session-start` |
 | **►►** | **The RUNNING ORDER's step 4 — his calls in the range:** 2a.6 the clefs by register (Bsn · Vc · Db) · the orange pitch line's corners · 2k's AI's calls (§507 `eligible` · §509 the gliss line not in `inkOf` · §512 the per-breath overlays dropped) | his · Fable | — |
 | **►►** | **2j.4 HIS EYE — the rest of the main page BEYOND 279: `427` · `655` · `800`** (paused 2026-09-28 at his pivot to the morph; his first findings fixed, §502 · §503; `40.26` is in the running order's step 3) | his eye | — |
 | **►►** | **(still his — not taken up at checkpoint #5)** **HIS EYE ON THE PROTO — `lgmf-eh-proto` IS NOW THE EH'S WHOLE FIRST LINE, 0 … 149 s** (session 17, 2026-09-27, Fable at 2e.7; RUNNING_LOG §454 … §462; `dfd63e3` … `6dfb038`, all pushed). **Reload the notation tab** (page files + the IR; no restart) → `lgmf-eh-proto` → the video view → `0` (the opening `○—<` before `pp → mp` on the dynamic row; the fade ONE straight line to pp at 6 s) · `141.98` (the last breath: G5 −31 · `14 (A1)`, `—> ppp` before its go line) · the working page (⚙ off the video view, the EH in F): `+41` · `26 (C1)` over the head, "senza vib." under the dynamic row. **Then his open answers:** (1) the closing sign's mark — the save falls to **ppp** (`fadeOutTo: ppp`), his words said "niente": keep `—> ppp` (the notation follows the save) or re-insert the sequence with `fade out … to niente` (§460) · (2) the breaths' top **CC7 69 vs the table's mp 68** (§456) · (3) **DN-1 … DN-5** on the generated page (`docs/ENGRAVING_RULES.md` § 8) · (4) the AI's calls of §458 · §459 · §460 (the sign row −5.95 · the fall test · the room rule · the hairpin 0.667). Revise on his word — a look question on Fable, a fault on Opus. *(What 2e.7 built, each in its §:)* the curve follower OFF (§454) · the pie go line to go line (§455) · the level verified to the page (§456) · THE FLIP BY CLASS — `leaves` on the mark rows, the annotation flips before the pitch data (§458, DN-6 closed) · `2f` THE FADE SIGNS — restored (§457), built (§459), hairpins before the legend (§460, a new drawn kind `hairpin`), the fade drawn as a multiplier on the WRITTEN height (§461 · §462). `check_rules` 23 · `sequence_notation_check` 64 | his eye · then Fable (a look) / Opus (a fault) | — |
