@@ -105,7 +105,7 @@
         return [xl, xh];
       }
       case 'lvslur': return [dx, dx + ((glyphs.letRing && glyphs.letRing.wSs) || 1.6)];
-      case 'slash': case 'slur': { const a = it.dx0Ss || 0, b = it.dx1Ss || 0; return [Math.min(a, b), Math.max(a, b)]; }   // [§550] the slur's far end is at its own time; its dx here is the near end's
+      case 'slash': case 'squiggle': { const a = it.dx0Ss || 0, b = it.dx1Ss || 0; return [Math.min(a, b), Math.max(a, b)]; }   // [§550 · §557] the grace's stroke, the uneven group's
       // the go-time indicators sit at x(t) — in a unit's span, never the reason it is wide
       case 'goline': return [0, 0];
       case 'attackline': return [-E.attackLine.wSs / 2, E.attackLine.wSs / 2];
@@ -672,6 +672,16 @@
           const thick = (it.thickSs || 0.13) * ssPx;   // RULES MIRROR
           parts.push('<line x1="' + X(it.t, it.dx0Ss).toFixed(2) + '" y1="' + Y(it.y0Ss).toFixed(2) + '" x2="' + X(it.t, it.dx1Ss).toFixed(2) + '" y2="' + Y(it.y1Ss).toFixed(2) +
             '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round"/>');
+        } else if (it.k === 'squiggle') {
+          // [§557] the uneven-group sign's stroke — the acciaccatura's slash made a wave (rules.json objects.groupStub): a line from
+          // (dx0, y0) to (dx1, y1) with a sine across it, ampSs high, waves along
+          if (!owns(it.t)) continue;
+          const ax = X(it.t, it.dx0Ss), ay = Y(it.y0Ss), bx = X(it.t, it.dx1Ss), by = Y(it.y1Ss);
+          const ddx = bx - ax, ddy = by - ay, L = Math.hypot(ddx, ddy) || 1, nx = -ddy / L, ny = ddx / L;
+          const amp = (it.ampSs || 0.15) * ssPx, waves = it.waves || 2.5, thick = (it.thickSs || 0.13) * ssPx;   // RULES MIRROR
+          const N = 32, pts = [];
+          for (let i = 0; i <= N; i++) { const s = i / N, w = amp * Math.sin(2 * Math.PI * waves * s); pts.push((ax + ddx * s + nx * w).toFixed(2) + ',' + (ay + ddy * s + ny * w).toFixed(2)); }
+          parts.push('<path d="M' + pts.join(' L') + '" fill="none" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round" stroke-linejoin="round"/>');
         } else if (it.k === 'slur') {
           // [§555] THE SLUR (rules.json objects.slur — LilyPond's): a filled shape between two cubics — the outer peaks at heightSs, the
           // inner thickSs less, so the middle is thickSs thick; the outline stroked endThickSs so the ends have LilyPond's line-thickness.
@@ -958,7 +968,7 @@
   // the page, not to the music). check_print_edges reads these rather than
   // keeping a second list that could quietly disagree with the loop above.
   const POINT_KINDS = ['glyph', 'rest', 'stem', 'dot', 'ledger', 'beam', 'text', 'attackline', 'tick',
-    'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc', 'slash'];   // [§550] the grace's stroke
+    'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc', 'slash', 'squiggle'];   // [§550] the grace's stroke · [§557] the uneven group's
   const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed', 'slur'];   // [2g.4] the timed hairpin spans time · [§555] the slur spans its notes
   const FURNITURE_KINDS = ['staff', 'clef'];
   // 'tuplet' is neither: it has no window gate at all, because a tuplet bracket

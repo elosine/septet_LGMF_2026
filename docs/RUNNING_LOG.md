@@ -18454,3 +18454,43 @@ way: 18.65 ss/s ≈ 147 px/s (§548's 110 was an average over the cut pages).
 this piece's plain notes (`byEnv.plainNote.stemLenSs`); the tuba pages keep the octave. The logic of record (§553): the tip on a line or a
 space, the default a ninth or more; LilyPond's own lengthening for busy values the precedent; the flag-clear law, the middle-line rule and
 the chain lengthen from there; the max (7) caps. N-2's remaining list (§555's reply, journal §2) waits on a page that shows the problem.
+
+## §557. THE UNEVEN GROUP — N-3 talked and built: the proposals, HIS SIGN (the stemless heads, the floating stub-beam, the squiggle), the build (2026-09-29, Fable, session 18)
+
+**Prompted by:** *"The 416th issue. The gaps are a little uneven. So the musical intention is a group of quick notes, but with slightly
+uneven gaps … I'm not sure my current temporal notation version communicates that most effectively … can I just hear some proposals here?"*
+(LG-134, dictated).
+
+**The finding put to him:** the four are spaced 0.445 · 0.345 · 0.235 s — each about three-quarters of the one before, twice as fast by the
+end; the space shows it (8.3 · 6.4 · 4.4 ss at 18.65 ss/s) but four EQUAL 16ths under a straight beam say "even" — a DISSONANCE between the
+written values and the space (M2's rule, the survey's G4). The fix is a sign that agrees with the space.
+
+**The proposals (the AI's):** (a) a FEATHERED beam, two to three — "twice as fast by the end", the measured 1.9 : 1, no count (Ferneyhough ·
+Boulez · Carter; Gould) · (b) VALUES AS PACE — an 8th, a dotted 16th, a 16th (T8; invites counting, makes "slightly uneven" a rhythm) ·
+(c) Ferneyhough's nested tuplets — exact, with the count W1 removes · (d) a WORD ("accel." · "unevenly") — cheap, casual · (e) NOTHING —
+the cursor and the rehearsal model carry it (he had said the eye needs more). The lean: (a).
+
+**HIS PROPOSAL (LG-135, dictated) — taken instead, and better:** *"the note heads stay where they are, precisely as I played them. And then
+above a beam … like the beam and stems from a grace note figure. But the stems are short stubs … they don't reach down to the note heads. And
+then … a squiggle … an uneven line instead of a straight line through. And then I can explain in the performance notes that this means about
+16th note speed, but unevenly."* His answers to the AI's three: full size · the squiggle in the typical slash position (*"I believe this is
+used. Maybe Ferneyhough or Penderecki"* — to confirm) · the beam count the speed class, yes; the AI's two rules confirmed (the side by the
+stem rule the group would have had; the beam at the flagged height). *(The AI's reading:)* the heads are the ICON — x is when — and the
+figure a SYMBOL for "rapid, uneven"; no written values, so no dissonance and no count (W1 kept); a vocabulary pair for the page — attached
+stems and beam = as spaced, even; the floating stub-beam with the squiggle = as spaced, uneven (his TODO 8, a glyph).
+
+**Built (one commit):** `rules.json objects.groupStub` (stubSs 1 · the squiggle 0.6 each side of the stub at 45°, 0.15 amplitude, 2.5 waves,
+the stem's thickness; `draws ['squiggle']`) · `container.json engraving.layout.groupStub` · `page_rules.edge` `squiggle` clamp · whole ·
+`layout.js` — a hand `beamStub` on each member of a `--beam` group: after the beams level, each member's stem is cut to a STUB hanging
+from the beam toward the head; the member at beamPos 0 carries the squiggle through its stub and the beam · `render.js` the squiggle (a
+sine across the stroke's line) · `fit.js` its box. `piece-lgmf` re-extracted with `beamStub` on p5 … p8.
+
+**Measured:** the beam (two levels, 16th speed) below at −5.39 · −4.58, as before; the four stubs 1.00 ss long from the beam (−5.39 → −4.39),
+stopping 2.9 … 6.9 ss short of their heads (C♯5 · G♯5 · F4 · A♯4 stemless, where played); the squiggle from (−0.54, −5.99) to (+0.67,
+−4.79) through the first stub and the beam. `check_rules` 32 · the shield `piece-lgmf` alone · `check_screen_edges` PASS. PERFORMANCE_NOTES
+#18 added (his words for the note).
+
+**The AI's calls, his to reverse:** the stub 1 ss · the squiggle's reach, wave and count · the stubs at the beam's flagged height (his rule 2)
+even though no flag is there · the sign only on `--beam` groups (a hand per member).
+
+**► His eye:** reload the tab → `piece-lgmf` → `292.8`.

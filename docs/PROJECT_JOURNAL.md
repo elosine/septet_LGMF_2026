@@ -165,7 +165,10 @@ on Opus or here at his word.
 - **N-3 · THE LAST FOUR 16THS — "they belong to the same phrase, relatively fast but slightly uneven"** (LG-131): the survey run on p5 … p8
   (spaced 0.445 · 0.345 · 0.235 s — an accelerando the equal beam does not show, the space does); the candidates to weigh: the beam as
   drawn (space carries the unevenness) · a bracket as a notch of speed (T6) · a feathered beam (an accel written) · the gesture-glyph (A4) ·
-  the shown beat (A7). A DISCUSSION first, at his word.
+  the shown beat (A7). **TALKED AND BUILT 2026-09-29 (§557; LG-134 · LG-135):** the proposals (a feathered beam the AI's lean) met HIS SIGN —
+  the heads stemless where played, a beam floating on the stem side on 1 ss stubs, a squiggle through the first = "about a 16th, unevenly"
+  (PERFORMANCE_NOTES #18); built as a hand `beamStub` on a `--beam` group's members, the squiggle a new drawn kind; the screen gate PASS.
+  ► His eye: reload → `piece-lgmf` → `292.8`.
 - **N-4 · THE SHOWN BEAT (A7) — "the good one in certain parts here … I'd like to develop it"** (LG-130 · LG-131): the tuba piece's bouncing
   ball marking a steady tempo on the pole / the cursor; the onsets as go lines (one version) or as heads with count-accurate values and
   tuplets; the beat shown, the system counts, the rhythm felt by space. TO WORK OUT: **a method for a compatible tempo / time signature**

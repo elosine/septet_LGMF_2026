@@ -43,6 +43,7 @@
     "ottava": { "screen": "clamp", "print": "whole" },
     "lvslur": { "screen": "clamp", "print": "whole" },
   "slash": { "screen": "clamp", "print": "whole", "_note": "§550: the grace note's stroke — a point kind on the grace's stem" },
+  "squiggle": { "screen": "clamp", "print": "whole", "_note": "§557: the uneven-group sign's wavy stroke — a point kind at the group's first stub" },
   "slur": { "screen": "cut", "print": "never-sever", "_note": "§555: a slur spans its notes (t0 · t1) — cut like paper on screen; on paper the cut is placed so a slur is never severed (the beam's class; splice.js reads t0 · t1)" },
     "attackline": { "screen": "atomic", "print": "whole" },
     "tick": { "screen": "atomic", "print": "whole" },

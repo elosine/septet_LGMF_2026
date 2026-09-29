@@ -3216,6 +3216,23 @@
       const LTc = (DEV.byEnv || {}).longTone || {};
       const isLT = id => { const x = evById.get(id); return !!(x && x.env === 'longTone'); };
       const anyLT = items.some(it => it.k === 'ringbar' && isLT(it.ev));
+      // [§557, LG-135] THE UNEVEN GROUP — his sign: the heads stay where they were played, stemless; the group's beam floats on the stem
+      // side at the flagged height with short STUBS (rules.json objects.groupStub) marking each onset, never reaching the heads; through the
+      // first stub and the beam a SQUIGGLE (the acciaccatura's stroke made uneven) = "about this speed, unevenly" (PERFORMANCE_NOTES #18).
+      // A hand beamStub on each member of a --beam group; the beam count is the speed class (two = about a 16th).
+      {
+        const GS = Object.assign({ stubSs: 1, squiggleReachSs: 0.6, squiggleAmpSs: 0.15, squiggleWaves: 2.5, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
+        for (const [id, u] of nhAt) {
+          const dev = ((engOf(id) || {}).device) || {};
+          if (!dev.beamStub || !u.stemItem) continue;
+          const st = u.stemItem, up = st.attach === 'up';
+          st.yA = up ? st.yB - GS.stubSs : st.yB + GS.stubSs;   // the stub hangs from the beam toward the head, and stops
+          if (dev.beamPos === 0) {
+            const r = GS.squiggleReachSs;
+            items.push({ k: 'squiggle', t: u.t, dx0Ss: st.dxSs - r, y0Ss: st.yB - r, dx1Ss: st.dxSs + r, y1Ss: st.yB + r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, thickSs: GS.thickSs, ev: id });
+          }
+        }
+      }
       // [§555, LG-133] THE SLUR — the standard: LilyPond 2.24.4's Slur (his install — ratio 0.25, height-limit 2, thickness 1.2 → 0.8 at
       // the ends, free-head-distance 0.3) with Gould's ends: at the HEADS on the head side (the head's centre, freeHead beyond its edge), at
       // the STEM TIPS on the stem side; the side WITH the stems (below when they go up, above when down, mixed → above). A hand slurTo on

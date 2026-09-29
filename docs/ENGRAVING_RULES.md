@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 222 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 227 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -168,6 +168,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `slash` · in: engraving.layout.grace.slashReachSs · slashAt · slashThickSs
 - **slur** — face **music** · colour **ink #111** · thickSs **0.12** → `layout.slur.thickSs` · endThickSs **0.08** → `layout.slur.endThickSs` · heightRatio **0.25** → `layout.slur.heightRatio` · heightMaxSs **2** → `layout.slur.heightMaxSs` · minLengthSs **1.5** · freeHeadSs **0.3** → `layout.slur.freeHeadSs` · freeSlurSs **0.8** → `layout.slur.freeSlurSs` · maxSlope **1.1** → `layout.slur.maxSlope` · gapToStaffInSs **0.2** · gapToStaffOutSs **0.1** · *lilypond* · §555 (2026-09-29, his 'Let's try these slur standards' — N-1): LilyPond 2.24.4's Slur, read from his install (define-grobs.scm · layout-slur.scm default-slur-details): the arc's height = ratio 0.25 × its length, capped at height-limit 2 ss; thickness 1.2 × the line (0.12 ss) at the middle, line-thickness 0.8 (0.08) at the ends — a TAPERED slur, a filled shape; free-head-distance 0.3 beyond a head's edge (the ends, and every head inside the arc lifts it); free-slur-distance 0.8; gap-to-staffline inside 0.2 · outside 0.1; max-slope 1.1; minimum-length 1.5. THE SIDE with the stems (below when the stems go up, above when down, mixed → above — ly:slur::calc-direction). THE ENDS Gould's: at the HEADS on the head side (the head's centre, freeHead beyond its edge), at the STEM TIPS on the stem side (a mixed group). Which slurs: the grace's · the phrase slurs · maybe others; ties unlikely (his word). A HAND: engraving { slurTo: <event> } on the first note names the last; every unit between is inside. A LONG kind (t0 · t1): cut on screen, never severed on paper. Not yet: the slope limit, the collision with accidentals and dynamics, the staff-line gaps
   - draws `slur` · in: engraving.layout.slur
+- **groupStub** — face **music** · colour **ink #111** · stubSs **1** → `layout.groupStub.stubSs` · squiggleReachSs **0.6** → `layout.groupStub.squiggleReachSs` · squiggleAmpSs **0.15** → `layout.groupStub.squiggleAmpSs` · squiggleWaves **2.5** → `layout.groupStub.squiggleWaves` · thickSs **0.13** → `layout.groupStub.thickSs` · *composer* · §557 (2026-09-29, his proposal LG-135 for a group of quick notes with slightly uneven gaps): the HEADS stay where they were played, stemless; the group's BEAM floats on the stem side at the flagged height (the beam's own law) with short STUBS, stubSs long, one per onset, never reaching the heads; through the first stub and the beam a SQUIGGLE — the acciaccatura's stroke made uneven (squiggleReachSs each side, squiggleAmpSs the wave, squiggleWaves waves; he believes Ferneyhough or Penderecki use such a stroke — to confirm) — meaning 'about this speed, but unevenly' (PERFORMANCE_NOTES #18); the beam count is the speed class (two = about a 16th). Full size (his (a)); the side and the height his two rules confirmed. A HAND: engraving { beamStub: true } on each member of a --beam group
+  - draws `squiggle` · in: engraving.layout.groupStub
 - **pedal** — face **music** · colour **ink #111** · *composer* · #5 2h.5 (#2's 'Ped.')
   - draws `glyph:pedal-.*`
 - **glissLine** — colour **ink #111** · *census* · #4 day 35
@@ -268,6 +270,7 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `ottava` | clamp | whole |
 | `lvslur` | clamp | whole |
 | `slash` | clamp | whole |
+| `squiggle` | clamp | whole |
 | `slur` | cut | never-sever |
 | `attackline` | atomic | whole |
 | `tick` | atomic | whole |
