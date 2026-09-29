@@ -23,7 +23,7 @@
   "date": "2026-09-29",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/bc0cb4b3-a869-4b1e-a2b1-f5c9bf97e9fa/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/8b6a47ae-ea3d-47fc-b169-26f2c95c38f1/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m)\""
  },
  "events": [
   {
@@ -33170,7 +33170,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3424",
@@ -33191,7 +33192,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 51
+   "vel": 51,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3425",
@@ -33212,7 +33214,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 45
+   "vel": 45,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3422",
@@ -33233,7 +33236,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 50
+   "vel": 50,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3776",
@@ -33338,7 +33342,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 72
+   "vel": 72,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3428",
@@ -33359,7 +33364,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3429",
@@ -33380,7 +33386,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 44
+   "vel": 44,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3427",
@@ -33401,7 +33408,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3688",
@@ -33443,7 +33451,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 50
+   "vel": 50,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3431",
@@ -33464,7 +33473,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 61
+   "vel": 61,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3430",
@@ -33485,7 +33495,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 53
+   "vel": 53,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3434",
@@ -33506,7 +33517,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 43
+   "vel": 43,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3433",
@@ -33527,7 +33539,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 44
+   "vel": 44,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3742",
@@ -33611,7 +33624,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 71
+   "vel": 71,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3435",
@@ -33632,7 +33646,8 @@
    "technique": "senza_mw",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 75
+   "vel": 75,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3438",
@@ -33653,7 +33668,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3436",
@@ -33674,7 +33690,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3689",
@@ -33737,7 +33754,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 84
+   "vel": 84,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3440",
@@ -33758,7 +33776,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 60
+   "vel": 60,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3715",
@@ -33800,7 +33819,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 16
+   "vel": 16,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3443",
@@ -33821,7 +33841,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 39
+   "vel": 39,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3442",
@@ -33842,7 +33863,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 71
+   "vel": 71,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3761",
@@ -35922,7 +35944,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 70
+   "vel": 70,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3482",
@@ -35943,7 +35966,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 65
+   "vel": 65,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3480",
@@ -35964,7 +35988,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 43
+   "vel": 43,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3479",
@@ -35985,7 +36010,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 41
+   "vel": 41,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3488",
@@ -36006,7 +36032,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 61
+   "vel": 61,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3486",
@@ -36027,7 +36054,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 59
+   "vel": 59,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3487",
@@ -36048,7 +36076,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 62
+   "vel": 62,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3485",
@@ -36069,7 +36098,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 91
+   "vel": 91,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3483",
@@ -36090,7 +36120,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3484",
@@ -36111,7 +36142,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 73
+   "vel": 73,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3745",
@@ -36153,7 +36185,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 83,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3490",
@@ -36174,7 +36207,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 79
+   "vel": 79,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3489",
@@ -36195,7 +36229,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 105
+   "vel": 105,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3779",
@@ -36237,7 +36272,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 93
+   "vel": 93,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3493",
@@ -36258,7 +36294,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 94
+   "vel": 94,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3492",
@@ -36279,7 +36316,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68
+   "vel": 68,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3495",
@@ -36300,7 +36338,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 65
+   "vel": 65,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3496",
@@ -36321,7 +36360,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 71
+   "vel": 71,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3730",
@@ -36363,7 +36403,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 62
+   "vel": 62,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3500",
@@ -36384,7 +36425,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 96
+   "vel": 96,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3499",
@@ -36405,7 +36447,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68
+   "vel": 68,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3498",
@@ -36426,7 +36469,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 94
+   "vel": 94,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3718",
@@ -36489,7 +36533,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 97
+   "vel": 97,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3503",
@@ -36510,7 +36555,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 88
+   "vel": 88,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3502",
@@ -36531,7 +36577,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 95
+   "vel": 95,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3504",
@@ -36552,7 +36599,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 103
+   "vel": 103,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3505",
@@ -36573,7 +36621,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 101
+   "vel": 101,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3692",
@@ -36615,7 +36664,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 87
+   "vel": 87,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3508",
@@ -36636,7 +36686,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 79
+   "vel": 79,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3506",
@@ -36657,7 +36708,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 77
+   "vel": 77,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3509",
@@ -36678,7 +36730,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 91
+   "vel": 91,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3510",
@@ -36699,7 +36752,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 78
+   "vel": 78,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3780",
@@ -37938,7 +37992,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 62
+   "vel": 62,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3559",
@@ -37959,7 +38014,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 52
+   "vel": 52,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3561",
@@ -37980,7 +38036,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 53
+   "vel": 53,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3560",
@@ -38001,7 +38058,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68
+   "vel": 68,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3562",
@@ -38022,7 +38080,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 57
+   "vel": 57,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3563",
@@ -38043,7 +38102,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 47
+   "vel": 47,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3732",
@@ -38106,7 +38166,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 63
+   "vel": 63,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3566",
@@ -38127,7 +38188,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 75
+   "vel": 75,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3564",
@@ -38148,7 +38210,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 65
+   "vel": 65,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3565",
@@ -38169,7 +38232,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 57
+   "vel": 57,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3733",
@@ -38253,7 +38317,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3568",
@@ -38274,7 +38339,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 76
+   "vel": 76,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3570",
@@ -38295,7 +38361,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68
+   "vel": 68,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3721",
@@ -38337,7 +38404,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 78
+   "vel": 78,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3574",
@@ -38358,7 +38426,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3572",
@@ -38379,7 +38448,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 56
+   "vel": 56,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3571",
@@ -38400,7 +38470,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 66
+   "vel": 66,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3734",
@@ -38442,7 +38513,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 82
+   "vel": 82,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3577",
@@ -38463,7 +38535,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 79
+   "vel": 79,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3578",
@@ -38484,7 +38557,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 65
+   "vel": 65,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3576",
@@ -38505,7 +38579,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 69
+   "vel": 69,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3735",
@@ -38568,7 +38643,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 76
+   "vel": 76,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3582",
@@ -38589,7 +38665,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 59
+   "vel": 59,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3581",
@@ -38610,7 +38687,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 84
+   "vel": 84,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3580",
@@ -38631,7 +38709,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 37
+   "vel": 37,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3784",
@@ -38694,7 +38773,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 66
+   "vel": 66,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3584",
@@ -38715,7 +38795,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 72
+   "vel": 72,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3586",
@@ -38736,7 +38817,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68
+   "vel": 68,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3588",
@@ -38757,7 +38839,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 60
+   "vel": 60,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3587",
@@ -38778,7 +38861,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 62
+   "vel": 62,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3583",
@@ -38799,7 +38883,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 65
+   "vel": 65,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3785",
@@ -38904,7 +38989,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 37
+   "vel": 37,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3590",
@@ -38925,7 +39011,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3589",
@@ -38946,7 +39033,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 79
+   "vel": 79,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3592",
@@ -38967,7 +39055,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 64
+   "vel": 64,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3786",
@@ -39030,7 +39119,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 77
+   "vel": 77,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3594",
@@ -39051,7 +39141,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 76
+   "vel": 76,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3595",
@@ -39072,7 +39163,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 87
+   "vel": 87,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3596",
@@ -39093,7 +39185,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 78
+   "vel": 78,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3736",
@@ -39135,7 +39228,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 81
+   "vel": 81,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3598",
@@ -39156,7 +39250,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 74
+   "vel": 74,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3600",
@@ -39177,7 +39272,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 85
+   "vel": 85,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3601",
@@ -39198,7 +39294,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 37
+   "vel": 37,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3599",
@@ -39261,7 +39358,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 35
+   "vel": 35,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3604",
@@ -39282,7 +39380,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 94
+   "vel": 94,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3606",
@@ -39303,7 +39402,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 72
+   "vel": 72,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3605",
@@ -39324,7 +39424,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 37
+   "vel": 37,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3603",
@@ -39345,7 +39446,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 43
+   "vel": 43,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3751",
@@ -39387,7 +39489,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 97
+   "vel": 97,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3610",
@@ -39408,7 +39511,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3612",
@@ -39429,7 +39533,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 90
+   "vel": 90,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3608",
@@ -39450,7 +39555,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 69
+   "vel": 69,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3609",
@@ -39471,7 +39577,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3611",
@@ -39492,7 +39599,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 98
+   "vel": 98,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3696",
@@ -41298,7 +41406,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 88
+   "vel": 88,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3676",
@@ -41319,7 +41428,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 84
+   "vel": 84,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3700",
@@ -41361,7 +41471,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 71
+   "vel": 71,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3677",
@@ -41382,7 +41493,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 69
+   "vel": 69,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3678",
@@ -41403,7 +41515,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 56
+   "vel": 56,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3680",
@@ -41424,7 +41537,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 46
+   "vel": 46,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3682",
@@ -41445,7 +41559,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 65
+   "vel": 65,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3683",
@@ -41466,7 +41581,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 55
+   "vel": 55,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3681",
@@ -41487,7 +41603,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 56
+   "vel": 56,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3755",
@@ -41550,7 +41667,8 @@
    "technique": "ord",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 62
+   "vel": 62,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3684",
@@ -41571,7 +41689,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 45
+   "vel": 45,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-3685",
@@ -41592,7 +41711,8 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 51
+   "vel": 51,
+   "env": "longTone"
   },
   {
    "id": "ev-wc-4489",
