@@ -18519,3 +18519,27 @@ on the head side, and the stub beam holds the row's place below; `dynAboveBeam f
 below, the names above — his to keep or move.
 
 **► His eye:** reload the tab → `piece-lgmf` → `290.2` · `292.8`.
+
+## §559. HIS SECOND EYE ON THE SIGN, AND THE FIGURE'S SECOND LAYER BY HAND — stubs 2 ss, the stroke turned, a quarter rest, the dynamics thinned, two accents, p1's hairpin (2026-09-29, Fable, session 18)
+
+**Prompted by:** LG-137, whole, with the page pasted.
+
+**The sign (`objects.groupStub`):** `protrudeSs` 2 — *"two staff spaces long from … the top of the last beam"* (the stub's visible part beyond
+the stack) · the stroke TURNED 90°, `squiggleFalls` — it falls to the right now · 25% longer, `squiggleReachSs` 1.5 each side, the wave
+CONTINUED (1.75 waves over the longer stroke = the same wavelength).
+
+**The second layer, as hands (no rule):** the rest a QUARTER (`--rest 0:290.2:4`) · p1 `dynMark 'pp'` + `hairpinTo 289.25` (a new hand:
+the timed hairpin's kind on the dynamic row from the name's right edge + the house gap 0.45 to x(t1); the 2f hairpin's height 0.667 and
+thickness 0.13 — `engraving.layout.hairpinHand` points at `objects.hairpin`; the direction cresc, the AI's reading of *"a hairpin"*) · p3
+`nhArtic 'accent'`, no name · p4 no name · p5 `dynMark 'mp'` · p6 `nhArtic 'accent'` + `articSide 'above'` · p7 · p8 no name. The grace's
+f left (not named).
+
+**Measured:** the stubs from the outer beam −5.22 to −2.21 — 2.0 ss beyond the stack's edge −4.21 · the stroke from (−1.5, −2.71) to
+(+1.5, −5.71) through the corner · the quarter rest at 290.200 · pp under p1 on the row (−4.6), the hairpin from +1.61 after it to
+x(289.25), cresc · p3's accent below its head (−5.62, the head side — the stem up) · p5's mp above the head (+2.64) · **p6's accent above
+its head (+3.97) by `articSide 'above'`** — the group rule had put it beyond the beam (−6.09), the wrong side for a floating beam; the hand
+sends a group's accents to the head side. `check_rules` 32 · the shield `piece-lgmf` alone · `check_screen_edges` PASS.
+
+**The AI's calls, his to reverse:** the hairpin's direction · the grace's f kept · the accents on the head side.
+
+**► His eye:** reload the tab → `piece-lgmf` → `289` · `290.2` · `292.8`.

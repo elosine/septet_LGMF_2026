@@ -3223,7 +3223,7 @@
       // slash made uneven) = "about this speed, unevenly" (PERFORMANCE_NOTES #18). A hand beamStub on each member of a --beam group; the
       // beam count is the speed class (two = about a 16th).
       {
-        const GS = Object.assign({ protrudeSs: 1.5, squiggleReachSs: 1.2, squiggleAmpSs: 0.12, squiggleWaves: 1.4, squiggleHand: true, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
+        const GS = Object.assign({ protrudeSs: 2, squiggleReachSs: 1.5, squiggleAmpSs: 0.12, squiggleWaves: 1.75, squiggleHand: true, squiggleFalls: true, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
         const BT = (glyphs.standards && glyphs.standards.beam && glyphs.standards.beam.thickness) || 0.4;   // RULES MIRROR (glyphs.json standards.beam = rules.json objects.beam.thicknessSs)
         const stubs = [...nhAt.entries()].map(([id, u]) => ({ id, u, dev: ((engOf(id) || {}).device) || {} })).filter(x => x.dev.beamStub && x.u.stemItem && x.dev.beamGroup);
         const byGroup = new Map();
@@ -3241,9 +3241,23 @@
             for (const p of tipsAt) p.dxSs = st.dxSs;                               // the beam's ends follow
             if (i === 0) {
               const r = GS.squiggleReachSs;
-              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: st.dxSs - r, y0Ss: inner - r, dx1Ss: st.dxSs + r, y1Ss: inner + r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
+              const fl = GS.squiggleFalls ? -1 : 1;   // [§559] turned 90°: the stroke falls to the right
+              items.push({ k: 'squiggle', t: x.u.t, dx0Ss: st.dxSs - r, y0Ss: inner - fl * r, dx1Ss: st.dxSs + r, y1Ss: inner + fl * r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
             }
           });
+        }
+      }
+      // [§559] A HAIRPIN FROM A NOTE'S NAME — a hand hairpinTo: <seconds> (hairpinDir 'cresc' | 'decresc', cresc by default): the timed
+      // hairpin's kind on the dynamic row, from the name's right edge + the house gap to x(t1); his p1 "pp and a hairpin to about 289.25"
+      {
+        const HP = Object.assign({ heightSs: 0.667, thickSs: 0.13, beside: 0.45 }, o.hairpinHand || {});   // RULES MIRROR (rules.json objects.hairpin)
+        for (const [id, u] of nhAt) {
+          const dev = ((engOf(id) || {}).device) || {};
+          if (!(dev.hairpinTo > u.t)) continue;
+          const mk = items.find(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && Math.abs(it.t - u.t) < 1e-9);
+          const g = mk && glyphs.dynamic ? glyphs.dynamic[mk.g.replace(/^dyn-/, '')] : null;
+          const x0 = mk ? mk.dxSs + (g ? g.wSs / 2 : 0) + HP.beside : u.dx + HP.beside, y = mk ? mk.ySs : (o.dynY != null ? o.dynY : -4.6);
+          items.push({ k: 'hairpin-timed', t0: u.t, t1: dev.hairpinTo, dx0Ss: +x0.toFixed(4), dx1Ss: 0, ySs: y, dir: dev.hairpinDir === 'decresc' ? 'decresc' : 'cresc', hSs: HP.heightSs, thickSs: HP.thickSs, ev: id });
         }
       }
       // [§555, LG-133] THE SLUR — the standard: LilyPond 2.24.4's Slur (his install — ratio 0.25, height-limit 2, thickness 1.2 → 0.8 at
