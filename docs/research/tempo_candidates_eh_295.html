@@ -1,13 +1,17 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>Tempo candidates — EH 295.45 … 297.3</title>
+<html><head><meta charset="utf-8"><title>Tempo Candidates</title>
 <style>
- body{font:14px/1.4 system-ui,sans-serif;margin:16px;color:#111;background:#fff}
+ :root{--bg:#fff;--ink:#111;--muted:#555;--rule:#ddd;--axis:#888;--red:#c8102e;--blue:#1c4879;--green:#2e7d32}
+ @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#eee;--muted:#aaa;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a}}
+ :root[data-theme="dark"]{--bg:#141414;--ink:#eee;--muted:#aaa;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a}
+ body{font:14px/1.4 system-ui,sans-serif;margin:0;padding:16px;color:var(--ink);background:var(--bg);overflow-x:hidden}
  h1{font-size:16px;margin:0 0 6px} .k{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
- table{border-collapse:collapse;margin-top:10px} td,th{padding:2px 10px;text-align:right;font-variant-numeric:tabular-nums} th{text-align:left}
- .note{color:#555;font-size:13px;margin-top:8px}
+ svg{width:100%;height:auto;display:block}
+ table{border-collapse:collapse;margin-top:10px;max-width:100%} td,th{padding:2px 10px;text-align:right;font-variant-numeric:tabular-nums} th{text-align:left}
+ .note{color:var(--muted);font-size:13px;margin-top:8px}
 </style></head><body>
 <h1>The six notes, 295.456 … 297.306 s — three grids over them</h1>
-<svg id="g" width="1200" height="330" viewBox="0 0 1200 330" xmlns="http://www.w3.org/2000/svg"></svg>
+<svg id="g" viewBox="0 0 1200 330" xmlns="http://www.w3.org/2000/svg"></svg>
 <div id="legend"></div>
 <table id="tbl"></table>
 <div class="note">x = time, 480 px per second. Dots = the heads at their onsets (height by pitch). Each candidate is a family of vertical lines; the heavier line is its beat, the light ones its subdivision. The table gives each note's distance from the nearest line of each grid, in ms (+ late, − early).</div>
@@ -18,9 +22,9 @@ const svg=document.getElementById('g'); const el=(n,a)=>{const e=document.create
 // (A) phase coherence: T 0.319, the phase from the sum vector
 function phaseFor(T){let re=0,im=0;for(const t of on){re+=Math.cos(2*Math.PI*t/T);im+=Math.sin(2*Math.PI*t/T);}let phi=Math.atan2(im,re)/(2*Math.PI)*T;return ((phi%T)+T)%T;}
 const cands=[
- {name:'A · phase coherence: the beat the onsets cluster on — 0.319 s = 188 bpm (phase free)',color:'#c8102e',beat:0.319,sub:null,phase:phaseFor(0.319)},
- {name:'B · grid fit: a 16th of 0.108 s = ♩ 139 (the beat every 3 units = a dotted eighth, 0.324 s ≈ 185 bpm); slots 0 2 5 8 11 17',color:'#1c4879',beat:0.108*3,sub:0.108,phase:on[0]},
- {name:'B′ · grid fit, coarser: an eighth of 0.169 s = ♩ 89 (the beat every 2 units, 0.338 s ≈ 178 bpm); slots 0 1 3 5 7 11',color:'#2e7d32',beat:0.169*2,sub:0.169,phase:on[0]}
+ {name:'A · phase coherence: the beat the onsets cluster on — 0.319 s = 188 bpm (phase free)',color:getComputedStyle(document.documentElement).getPropertyValue('--red').trim(),beat:0.319,sub:null,phase:phaseFor(0.319)},
+ {name:'B · grid fit: a 16th of 0.108 s = ♩ 139 (the beat every 3 units = a dotted eighth, 0.324 s ≈ 185 bpm); slots 0 2 5 8 11 17',color:getComputedStyle(document.documentElement).getPropertyValue('--blue').trim(),beat:0.108*3,sub:0.108,phase:on[0]},
+ {name:'B′ · grid fit, coarser: an eighth of 0.169 s = ♩ 89 (the beat every 2 units, 0.338 s ≈ 178 bpm); slots 0 1 3 5 7 11',color:getComputedStyle(document.documentElement).getPropertyValue('--green').trim(),beat:0.169*2,sub:0.169,phase:on[0]}
 ];
 // lanes: each candidate's lines in its own band so they can be told apart, plus faint full-height beats
 const bands=[[30,80],[90,140],[150,200]];
@@ -31,9 +35,9 @@ cands.forEach((c,i)=>{const [ya,yb]=bands[i];
  const tx=el('text',{x:24,y:ya+12,fill:c.color,'font-size':'12'});tx.textContent=c.name.split(':')[0];
 });
 // the staff band and the heads
-for(let m=55;m<=81;m+=6)el('line',{x1:20,y1:Y(m),x2:W-20,y2:Y(m),stroke:'#ddd'});
-on.forEach((t,i)=>{el('circle',{cx:X(t),cy:Y(midi[i]),r:6,fill:'#111'});const tx=el('text',{x:X(t)+9,y:Y(midi[i])+4,'font-size':'12'});tx.textContent=names[i]+' '+t.toFixed(3);});
-const ax=el('line',{x1:20,y1:300,x2:W-20,y2:300,stroke:'#888'});for(let t=T0;t<=T1+1e-9;t+=0.5){el('line',{x1:X(t),y1:296,x2:X(t),y2:304,stroke:'#888'});const tx=el('text',{x:X(t)-14,y:318,'font-size':'11',fill:'#555'});tx.textContent=t.toFixed(1);}
+for(let m=55;m<=81;m+=6)el('line',{x1:20,y1:Y(m),x2:W-20,y2:Y(m),stroke:'var(--rule)'});
+on.forEach((t,i)=>{el('circle',{cx:X(t),cy:Y(midi[i]),r:6,fill:'var(--ink)'});const tx=el('text',{x:X(t)+9,y:Y(midi[i])+4,'font-size':'12',fill:'var(--ink)'});tx.textContent=names[i]+' '+t.toFixed(3);});
+const ax=el('line',{x1:20,y1:300,x2:W-20,y2:300,stroke:'var(--axis)'});for(let t=T0;t<=T1+1e-9;t+=0.5){el('line',{x1:X(t),y1:296,x2:X(t),y2:304,stroke:'var(--axis)'});const tx=el('text',{x:X(t)-14,y:318,'font-size':'11',fill:'var(--muted)'});tx.textContent=t.toFixed(1);}
 // legend + table of deviations
 document.getElementById('legend').innerHTML=cands.map(c=>'<div><span class="k" style="background:'+c.color+'"></span>'+c.name+'</div>').join('');
 const dev=(c,t)=>{const u=c.sub||c.beat;const k=Math.round((t-c.phase)/u);return Math.round((t-(c.phase+k*u))*1000);};
