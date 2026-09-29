@@ -1878,7 +1878,8 @@
                   // set when this note joins a beam group, so the group can
                   // LEVEL the beam afterwards and move this note's stem with it
                   let beamTip = null;
-                  let L = stemLenFor(yDraw, o.stemLen) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
+                  // [§554] a device may carry its own base length (byEnv.plainNote.stemLenSs — rules.json objects.stem.lengthLongSs, his tenth)
+                  let L = stemLenFor(yDraw, dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
                   // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
                   // of the flag clear the staff, just like three pixels or so
                   // — maybe not the full typical gap"): piece #2's
@@ -1899,7 +1900,9 @@
                     const need = stemDir === 'up'
                       ? (clearTop + clr + flagH) - yStart      // flag hangs down from the tip
                       : yStart - (-STAFF_EDGE - clr - flagH);  // flag rises from the tip
-                    L = Math.max(L, need);
+                    // [§554] THE MAX (rules.json objects.flag.clearMaxSs, through the device): a stem the law would stretch past it keeps its
+                    // standard length and the flag sits inside the staff — his 'many ledger lines down it might look funny'
+                    if (!(dev.flagClearMaxSs > 0) || need <= dev.flagClearMaxSs) L = Math.max(L, need);
                   }
                   let yEnd = stemDir === 'up' ? yStart + L : yStart - L;
                   // A BEAM MEMBER'S STEM REACHES THE BEAM (day 23, composer:

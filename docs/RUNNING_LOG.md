@@ -18404,3 +18404,19 @@ from there; the max caps. His pick among 4.0 (a ninth) · 4.25 (LilyPond's 32nd)
 **N-2 stands** with his answers in (journal §2): the generalization list — the fallback for additional notation · the max · the standard
 length · the beam's clearance the same law · the forced-direction shortening (LilyPond's 1.0 · 0.5 · 0.25) · the minimum free length
 under a beam (1.83 · 1.5 · 1.25) · the grace exempt · the ladder's lane test on a long stem — for the item's top line next session.
+
+## §554. THE QUARTER'S STEM AT A TENTH, TO SEE — and the flag-clear law's MAX at his word (2026-09-29, Fable, session 18)
+
+**Prompted by:** *"Let me see c and I'll decide . Your flag proposal good"* — (c) of §553: 4.5 ss, a tenth; and the max: above 7 ss the law
+yields.
+
+**Applied (one commit, no re-extraction):** `rules.json` — `objects.stem.lengthLongSs 4.5` beside `lengthSs 3.5` (the octave stays the tuba
+pages') · `objects.flag.clearMaxSs 7` with its note; `container.json` — `byEnv.plainNote.stemLenSs` and `flagClearMaxSs` point at them, so only
+this piece's plain notes see either; `layout.js` — a device's own base length in `stemLenFor`; the flag-clear law applies its lengthening
+only when `need ≤ flagClearMaxSs`. `check_rules` 32 · the shield `piece-lgmf` alone (the seventeen tuba pages byte-identical) · the ladder
+the same 7.
+
+**Measured on the snippet:** p1 the quarter **4.50** (was 3.5) · p4 (down, E5) **6.54** — the law, under the max · **p3 falls back: 4.50** — its
+flag would have needed 9.25, past the max, so the stem is the standard and the flag sits inside the staff (its near edge −2.37, below the
+bottom line) · the grace 3.18 (0.707 × the new base — a grace stem grows with the standard; LilyPond keeps grace stems shorter, a thing for
+N-2's list). **His decision on the length still owed** after he looks: 4.0 · 4.25 · 4.5 — the row `lengthLongSs` is the one number.

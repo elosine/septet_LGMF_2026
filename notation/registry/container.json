@@ -366,6 +366,8 @@
       "nhHead": "filled",
       "nhStem": "plain",
       "nhStemRule": "flagClear",
+      "stemLenSs": "@objects.stem.lengthLongSs",
+      "flagClearMaxSs": "@objects.flag.clearMaxSs",
       "ringBar": false,
       "letRing": false,
       "chordRules": false,

@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 216 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 218 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -99,9 +99,9 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `glyph:accidental-(leftParen|rightParen)`
 - **ledger** — face **music** · colour **ink #111** · lengthFraction **0.25** · thicknessSs **0.1** · *lilypond* · #2 dimensions_table (LilyPond length-fraction 0.25)
   - draws `ledger` · in: glyphs.json standards.ledgerLine
-- **stem** — face **music** · colour **ink #111** · lengthSs **3.5** → `layout.stemLen` · thicknessSs **0.13** · *lilypond* · #2 dimensions_table (one-octave stem) · #4 V0.10
-  - draws `stem` · in: lengthSs compiled · thicknessSs glyphs.json standards.stem
-- **flag** — face **music** · colour **ink #111** · staff **0.38** → `layout.flagClearanceSs` · scaleY **1** → `layout.flagScaleY` · *composer* · #4 day 23 wc-29 ('clear the staff, just like three pixels') · flagScaleY #4 day 23
+- **stem** — face **music** · colour **ink #111** · lengthSs **3.5** → `layout.stemLen` · lengthLongSs **4.5** → `layout.devices.byEnv.plainNote.stemLenSs` · thicknessSs **0.13** · *lilypond* · #2 dimensions_table (one-octave stem) · #4 V0.10 · lengthLongSs §554 (2026-09-29, his 'quarter note stem is a little short … a standard stem length that is a little longer … and a logic'): the octave 3.5 is LilyPond's and Gould's minimum; this piece's plain stem a TENTH, 4.5 — his pick to see (the AI's logic: the tip on a line or a space, a whole number of half-spaces; LilyPond's own lengthening to 4.25 for a 32nd and 5.0 for a 64th the precedent; the flag-clear law, the middle-line rule and the chain lengthen from there, the max caps). The tuba pages keep lengthSs
+  - draws `stem` · in: lengthSs compiled · lengthLongSs → byEnv.plainNote.stemLenSs (this piece's plain notes) · thicknessSs glyphs.json standards.stem
+- **flag** — face **music** · colour **ink #111** · staff **0.38** → `layout.flagClearanceSs` · clearMaxSs **7** → `layout.devices.byEnv.plainNote.flagClearMaxSs` · scaleY **1** → `layout.flagScaleY` · clearMaxNote **§554 (2026-09-29, his 'there should probably be a max length to clear staff … many ledger lines down it might look funny' — 'your flag proposal good'): where the flag-clear law would need a stem longer than clearMaxSs, the law yields — the stem takes its standard length and the flag sits inside the staff; 7 ss = LilyPond's longest table entry (a 128th). Read through byEnv.plainNote.flagClearMaxSs, so only this piece's plain notes see it; the tuba pages are untouched** · *composer* · #4 day 23 wc-29 ('clear the staff, just like three pixels') · flagScaleY #4 day 23
   - draws `glyph:flag-.*`
 - **staccatoDot** — face **music** · colour **ink #111** · parent **0.15** → `layout.devices.byEnv.strike.nhDotGapSs` · `layout.devices.byTechnique.staccato.nhDotGapSs` · `layout.devices.byTechnique.gettato_vel.nhDotGapSs` +4 · diameterSs **0.4** · floor **inside** · *composer* · #4 day 23 ('reduce 50% the gap' — the tight gap) · §424 (in a space, never on a line)
   - draws `dot` · in: diameterSs glyphs.json standards.staccatoDot
