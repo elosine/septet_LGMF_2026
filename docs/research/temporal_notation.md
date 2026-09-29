@@ -500,3 +500,12 @@ level of detail and subtlety is manifested.
 
 **HELD (his to close):** values written or not inside a phrase (§8b — after T6 it leans to VALUES WRITTEN AS PACE) · the cursor window's
 scope (§8e — *"only impact parts"*) · the model as a deliverable (§7g — for the performers) · H1 the intensity curve (§9).
+
+---
+
+## §11 THE SURVEY — the framework as an instrument (2026-09-29, LG-126, RUNNING_LOG §546)
+
+At his word the framework is a set of EVALUATIVE CONCEPTS, not rules (*"I would like to avoid a set of rules, like use gc for this but not
+for this"*). Its working form is **`docs/research/sound_to_notation_survey.md`** — a survey of questions and frames of flexible scope (one
+note that swells and changes colour, or a whole phrase), eight scales A … H, a profile of leanings, a worked example. It precedes the device
+sheet (the survey asks what the thing is; the sheet how to draw it). Rough, v0; his to refine in future sessions; a tool in the app later.

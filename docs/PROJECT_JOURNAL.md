@@ -115,6 +115,9 @@ not imprecision (PERFORMANCE_NOTES #16 · #17). §9 H1 the intensity curve held.
 the glyph vocabulary (TODO 8) + H1 · how much detail (TODO 7 — mostly answered by W1 + T7) · the model as a deliverable (the performers).
 **THEN THE PRACTICAL for the EH's section 2:** Q1's measurement · the device sheet for "the phrase" · the fit (values + brackets from the
 draft's timing) · the per-note detail · the window if wanted.
+**THE SURVEY (§546, LG-126):** the framework re-organized as an INSTRUMENT, not rules — `docs/research/sound_to_notation_survey.md` v0: eight
+scales A … H (the unit · the intention · time · motion · moments · sign and carrier · the picture · the model), a profile of leanings, his
+single-note case worked. Before the device sheet. ► HIS TO REFINE in future sessions; the "left" list above is now the survey's items.
 
 ### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
 

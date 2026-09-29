@@ -18121,3 +18121,27 @@ a notch of speed, not a count). Journal §2 updated.
 
 **Then his ask for orientation** — done · left in the conceptual discussion · then the practical — answered in the chat and mirrored in
 journal §2's block.
+
+## §546. THE SOUND-TO-NOTATION SURVEY v0 — the framework re-organized as an instrument (2026-09-29, Fable, session 18)
+
+**Prompted by:** his word on the "left in the conceptual discussion" list (§545), whole in COMPOSITION_NOTES **LG-126** — the
+framework should be *"a framework of evaluative concepts"*, not rules (*"like use gc for this but not for this"*); organized *"as a
+sort of survey, like personality survey/test the kind used in social science"*; *"sound to notation questions/framing that has a very
+flexible scope"* — one note that crescendos and changes timbre, or an entire phrase; a rough version now, refined by him in future
+sessions; *"then we can build develop this tool"*.
+
+**Made:** `docs/research/sound_to_notation_survey.md` **v0** — HOW TO USE (any unit of sound; answer what you can; read the profile as
+lenses; a device sheet only when the profile names something nothing carries yet) · EIGHT SCALES, 44 items, each with its answer
+form (a 1 … 5 range between two named poles, a pick, a checklist, a free line): **A THE UNIT** (grain · edges · learnability · company
+· length) · **B THE INTENTION** (sound-image or energy · welcome variation · what would ruin it · the rigor cue · portal) · **C TIME**
+(the start · the interior · readable at speed · pace · the line · the length · synchrony) · **D MOTION** (what moves · coupling · speed
+of change · the shape · dial or lick · paper alone) · **E MOMENTS** (switches · density · attachment · vocabulary · ornament or event)
+· **F SIGN AND CARRIER** (symbol / icon / index per thing · the model · the now · count) · **G THE PICTURE** (picture of the sound ·
+action or result · the misreading test · dissonance · agreement) · **H THE MODEL** (A1 … A6 · the one new thing · the performer
+question) · **§P THE PROFILE** — sixteen "if … leans to" rows mapping answer patterns to a layer, a carrier, a model or a test (each
+pointing to its § in `temporal_notation.md`) · **§X a worked example**, his single swelling, colour-changing note: the profile "one
+note, one curve — the intensity curve with the colour words at its ends, the tube its animation, nothing new to build unless the
+colour needs its own shape" · **§R** a revision log.
+
+**Where it sits:** BEFORE the device sheet (the survey asks what the thing is; the sheet how to draw it). `temporal_notation.md`
+§11 points to it. Journal §2 updated. Rough at his word; his to refine.
