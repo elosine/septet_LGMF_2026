@@ -160,8 +160,8 @@ on Opus or here at his word.
   a line or space (LilyPond's own lengthening to 4.25 · 5.0 the precedent); his pick 4.0 · 4.25 · 4.5 owed · the beam's clearance the same
   law · the forced-direction shortening · the minimum free length under a beam · the ladder's lane test. **§554 (his "Let me see c … your
   flag proposal good"):** 4.5 APPLIED to see (`objects.stem.lengthLongSs` → `byEnv.plainNote.stemLenSs`; the tuba pages keep 3.5) and THE MAX 7
-  APPLIED (`objects.flag.clearMaxSs` → `flagClearMaxSs`): p1 4.5 · p4 6.54 · p3 falls back to 4.5, its flag inside the staff. HIS DECISION on
-  the length owed after his eye; the grace's stem grows with the base (3.18) — for the list.
+  APPLIED (`objects.flag.clearMaxSs` → `flagClearMaxSs`): p1 4.5 · p4 6.54 · p3 falls back to 4.5, its flag inside the staff. CONFIRMED 4.5
+  at his word (§556, "4.5 to see and confirm"); the grace's stem grows with the base (3.18) — for the list.
 - **N-3 · THE LAST FOUR 16THS — "they belong to the same phrase, relatively fast but slightly uneven"** (LG-131): the survey run on p5 … p8
   (spaced 0.445 · 0.345 · 0.235 s — an accelerando the equal beam does not show, the space does); the candidates to weigh: the beam as
   drawn (space carries the unevenness) · a bracket as a notch of speed (T6) · a feathered beam (an accel written) · the gesture-glyph (A4) ·

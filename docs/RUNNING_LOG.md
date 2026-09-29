@@ -18447,3 +18447,10 @@ gaps recorded, not enforced · a grace's own stem does not decide the side (all 
 way: 18.65 ss/s ≈ 147 px/s (§548's 110 was an average over the cut pages).
 
 **► His eye:** reload the tab → `piece-lgmf` → `291.4`. N-1 stands built; N-6 (the second layer's phrase slurs) can use it.
+
+## §556. THE PLAIN STEM CONFIRMED AT A TENTH — 4.5 ss (2026-09-29, Fable, session 18)
+
+**His word:** *"4.5 to see and confirm"* — on §554's (c), seen on the page. The row `objects.stem.lengthLongSs` 4.5 stands as the decision for
+this piece's plain notes (`byEnv.plainNote.stemLenSs`); the tuba pages keep the octave. The logic of record (§553): the tip on a line or a
+space, the default a ninth or more; LilyPond's own lengthening for busy values the precedent; the flag-clear law, the middle-line rule and
+the chain lengthen from there; the max (7) caps. N-2's remaining list (§555's reply, journal §2) waits on a page that shows the problem.
