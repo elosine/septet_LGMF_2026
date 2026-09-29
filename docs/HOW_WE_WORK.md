@@ -52,6 +52,7 @@ restate until the understanding is shared · the top line · one step at a time:
 - **Discuss chunks, not individual files.** Once a chunk is approved, execute without re-asking per file; narrate briefly so the user can interrupt.
 - **Wrap each chunk before moving on:** update docs (plan statuses, journal), commit if a natural checkpoint, report what actually happened vs proposed, propose the next chunk.
 - **Piecemeal by design.** One thing at a time; don't chase the perfect architecture. Shore up as we go.
+- **A page to look at gets a CLICKABLE link that opens in Chrome** (2026-09-29, RUNNING_LOG §563 — his *"clickable, this is my preferred method"*): commit the page (docs/research/ for a figure), then a markdown link to its `file:///C:/…` URL, the published artifact link beside it when there is one; opening it in his Chrome (`cmd.exe /c start chrome "<url>"`) is welcome. Never a bare path to paste.
 
 **Reading & analysis (this piece's addition)**
 - **Orient from docs, never by scanning the codebase.** Name the specific question first, then read only what answers it.
