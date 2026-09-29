@@ -18,6 +18,9 @@
 //                            the app hot-reloads it within ~1 s.
 //   --exp                    group the entry under "experiments" in the picker
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
+//   --longTones T0:T1        [LGMF PLAN 2m.2] the held notes in [T0, T1) that start together (groups of 2+ pitched parts)
+//                            take the long tone (env 'longTone', registry byEnv.longTone); a single stays as it drew
+//   --longToneAlso id,…      [2m.2] with --longTones: a single he names joins them (an object id wc-… or an event id)
 //   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
 //   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
 //   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
@@ -1779,6 +1782,57 @@ if (MORPH_SEQ.length) {
     // the notes it lands on, so it goes with them; the trance page's own
     // progress reading is the ball. Same opt-out the morph pages use.
     doc.animated = Object.assign({}, doc.animated, { motivePie: false, lineWedge: false });
+  }
+}
+
+// [LGMF PLAN 2m.2 — RUNNING_LOG §531 · §533; the device sheet §531, LG-119] --longTones T0:T1 — THE LONG TONE, his cut (2026-09-29:
+// "for this section long tones are played in groups 2 or more players"): a PLAIN held note (no env — not a sequence's breath, a morph's
+// note, a bow, a strike or a trill) of a PITCHED part (the percussion's line staff excluded), onset in [T0, T1), at least LT_MIN s long,
+// that starts TOGETHER — within LT_TOL s — with another pitched part's such note, takes env 'longTone' (registry byEnv.longTone: anchor A,
+// the ring bar, one band name on the dynamic row). The groups are formed in onset order, one note per part in a group (the §531 count:
+// 289:427 → 36 groups · 120 notes · 18 singles). A single stays as it drew. --longToneAlso <id,…> (repeatable; an object id wc-… or an
+// event id ev-wc-…) admits a single he names ("I may add other notes as long tones later when I look"). The 0.1 s and 0.2 s are the
+// AI's calls, his to reverse (§531).
+{
+  const LT_SPAN = arg('longTones', null);
+  const LT_ALSO = new Set();
+  process.argv.forEach((a, i) => { if (a === '--longToneAlso' && process.argv[i + 1]) process.argv[i + 1].split(',').forEach(x => { if (x.trim()) LT_ALSO.add(x.trim()); }); });
+  if (LT_ALSO.size && LT_SPAN == null) { console.error('--longToneAlso needs --longTones T0:T1'); process.exit(2); }
+  if (LT_SPAN != null) {
+    const m = /^(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?)$/.exec(LT_SPAN);
+    if (!m || !(+m[2] > +m[1])) { console.error('--longTones needs T0:T1 in seconds, T1 > T0 (e.g. --longTones 289:427)'); process.exit(2); }
+    const T0 = +m[1], T1 = +m[2], LT_MIN = 0.2, LT_TOL = 0.1;   // the AI's calls, his to reverse (§531)
+    const partOfE = new Map();
+    for (const ch of doc.chunks) for (const id of ch.events || []) partOfE.set(id, ch.part);
+    const pcOf = p => (ENS && ENS.parts ? ENS.parts.find(x => x.part === p) : null);
+    const pitched = p => { const pc = pcOf(p); return !(pc && pc.staff && Array.isArray(pc.staff.lines)); };   // the percussion's line staff (ensemble.json staff.lines) is unpitched
+    const nameOf = p => { const pc = pcOf(p); return pc ? (pc.short || pc.id || String(p)) : String(p); };
+    const cand = doc.events.filter(e => !e.env && e.pitch && e.duration >= LT_MIN && e.onset >= T0 && e.onset < T1 && partOfE.has(e.id) && pitched(partOfE.get(e.id)))
+      .sort((a, b2) => a.onset - b2.onset);
+    const groups = [];
+    for (const e of cand) {
+      const p = partOfE.get(e.id);
+      const g = groups.find(q => Math.abs(q.t - e.onset) <= LT_TOL && !q.parts.has(p));
+      if (g) { g.ev.push(e); g.parts.add(p); } else groups.push({ t: e.onset, ev: [e], parts: new Set([p]) });
+    }
+    const byPart = new Map(), singles = [];
+    let nG = 0, nN = 0;
+    for (const g of groups) {
+      if (g.ev.length < 2) { singles.push(g.ev[0]); continue; }
+      nG++;
+      for (const e of g.ev) { e.env = 'longTone'; nN++; const p = partOfE.get(e.id); byPart.set(p, (byPart.get(p) || 0) + 1); }
+    }
+    const named = [];
+    for (const id of LT_ALSO) {
+      const e = doc.events.find(x => x.id === id || (x.source && x.source.objectId === id));
+      if (!e) { console.warn('  ALERT --longToneAlso ' + id + ': no such event in this window'); continue; }
+      if (e.env && e.env !== 'longTone') { console.warn('  ALERT --longToneAlso ' + id + ': already a ' + e.env + ' — left as it is'); continue; }
+      if (!e.env) { e.env = 'longTone'; named.push(id); const p = partOfE.get(e.id); byPart.set(p, (byPart.get(p) || 0) + 1); }
+    }
+    const left = singles.filter(e => e.env !== 'longTone');
+    console.log('  --longTones ' + T0 + ':' + T1 + ': ' + nG + ' groups · ' + nN + ' notes' + (named.length ? ' + ' + named.length + ' named (' + named.join(' ') + ')' : '') +
+      ' — by part ' + [...byPart.entries()].sort((a, b2) => a[0] - b2[0]).map(([p, n]) => nameOf(p) + ' ' + n).join(' · ') +
+      ' · ' + left.length + ' singles left as they drew' + (left.length ? ' (' + left.map(e => nameOf(partOfE.get(e.id)) + ' ' + e.onset.toFixed(2)).join(' · ') + ')' : ''));
   }
 }
 
