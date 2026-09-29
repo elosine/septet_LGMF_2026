@@ -132,6 +132,44 @@ rest, `--hand` · `--rest` in the extractor; `piece-lgmf` re-extracted; `check_r
 gate PASS. ► HIS EYE: reload the tab → `piece-lgmf` → `289` · `290.5` · `291.4` · `292.8`. THEN THE SECOND LAYER at his word —
 dynamics · hairpins · slurs · accents, as hands on the same notes. Held: the survey's new item (the neighbours' system), his refine.
 
+### SECTION 2 — THE NOTATION PLANNINGS (his todos for session 19, organized 2026-09-29 — RUNNING_LOG §551 · §552; LG-130 · LG-131)
+
+**HOW:** each through the planning method (`docs/PLANNING_METHOD.md`), ONE AT A TIME at his order — phase 1 (state and restate; the data first) →
+the top line → the steps → into PLAN. N-1 and N-2 stand at phase 1 with his answers owed. Nothing is built. Fable for the talk; a build
+on Opus or here at his word.
+
+- **N-1 · SLURS — a standard, "so most slurs look good everywhere"** (LG-130). The data (§551): his LilyPond 2.24.4 — height 0.25 × length
+  capped at 2 ss · minimum length 1.5 · tapered 1.2 → 0.8 · the side with the stems · the ends and collisions from `default-slur-details`
+  (to read at the build); v1 (§550) is centre-to-centre with a fixed 1 ss bulge — why the grace's looks odd. **HIS ANSWERS OWED:** LilyPond's
+  slur + Gould's ends (at the heads on the head side, at the stem tips on the stem side) as the standard? · which slurs the piece draws
+  (the grace's · the phrase slurs of the second layer · ties?). Then the requirements: side · ends · height by length · taper · clearance
+  (accidentals, ledgers, flags, beams) · the edge class of a long slur (a LONG kind) · the ladder.
+- **N-2 · STEM LENGTHS — "surface and revise all stem length rules, w/beams w/flags"** (LG-130). The data (§551): the code — 3.5 everywhere,
+  to the middle line from outside the staff, the flag-clear law (0.38 ss) only where a device asks (the tuba's staccato · strike), the
+  §550 flags without it; LilyPond — quarter · 8th · 16th all 3.5, 32nd 4.25, beamed 3.26 · 3.5 · 3.6 with minimum free 1.83 · 1.5 · 1.25,
+  forced-direction shortening 1.0 · 0.5 · 0.25, beam thickness 0.48 (ours 0.4). **HIS ANSWERS OWED:** which drawn stems looked wrong (p3's
+  flag inside the staff · p4's long stem to the middle line · p1's quarter) · the flag-clear law as the house rule for every flagged note,
+  its exceptions named, over LilyPond's plain 3.5?
+- **N-3 · THE LAST FOUR 16THS — "they belong to the same phrase, relatively fast but slightly uneven"** (LG-131): the survey run on p5 … p8
+  (spaced 0.445 · 0.345 · 0.235 s — an accelerando the equal beam does not show, the space does); the candidates to weigh: the beam as
+  drawn (space carries the unevenness) · a bracket as a notch of speed (T6) · a feathered beam (an accel written) · the gesture-glyph (A4) ·
+  the shown beat (A7). A DISCUSSION first, at his word.
+- **N-4 · THE SHOWN BEAT (A7) — "the good one in certain parts here … I'd like to develop it"** (LG-130 · LG-131): the tuba piece's bouncing
+  ball marking a steady tempo on the pole / the cursor; the onsets as go lines (one version) or as heads with count-accurate values and
+  tuplets; the beat shown, the system counts, the rhythm felt by space. TO WORK OUT: **a method for a compatible tempo / time signature**
+  (*"how?"* — the AI's seed: the grid unit whose multiples land on the figure's onsets within a tolerance, searched over a range, as the tuba
+  pages' `--cluster` fitter did per cluster; the signature from the figure's length in units) · where it applies ("certain parts") · the
+  viability test V1 … V8 on the ball · a device sheet (line 1a: A7). He wants it BUILT as an option to see.
+- **N-5 · THE MICRO COUNTERPOINT — the notation evaluation for the texture** (LG-130: the figures after the first; onsets a small interval
+  apart across instruments): the survey on the texture; the candidates he named — more GCs · the ball on the cursor · highlight the notes as
+  the cursor passes · different beaming · count-accurate TN with tuplets · shadows of other performers' notes · lines. Rhythmic accuracy the
+  aim. Held for later, in his words.
+- **N-6 · THE SECOND LAYER on the opening figure** — dynamics · hairpins · slurs · accents as hands on the eight notes (§550); after N-1 (the
+  slur standard) so the phrase slurs draw right. His eye on the first layer still owed: reload the tab → `piece-lgmf` → `289` … `292.8`.
+
+**Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
+item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
+
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
 - **The task:** SECTION 2's TODO items 5 · 6 (temporal notation; its name) opened as a RESEARCH PROJECT at his word — conceptual, nothing
@@ -317,6 +355,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
 | **►►** | **SECTION 2 — HIS TODO, nine items, verbatim** (journal §2 block · RUNNING_LOG §535): normalize the long-tone chords · the EH's temporal phrases · the fast clusters · the percussion · temporal notation (short · long · tuplets · purpose) · its name + references · how much Ferneyhough-like detail · the glyph vocabulary · the GC. Not planned; each through `/plan-item` when he picks it | Fable (planning) | yes |

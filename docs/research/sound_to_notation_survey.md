@@ -99,7 +99,7 @@ He refines it in future sessions. The AI's wording throughout; the poles and lea
 
 | # | Item | Answer |
 |---|---|---|
-| H1 | **Which phrase model does the profile lean to?** | A1 default · A2 the learned cell · A3 the doubled carrier · A4 the gesture-glyph · A5 the grace burst · A6 a metric island |
+| H1 | **Which phrase model does the profile lean to?** | A1 default · A2 the learned cell · A3 the doubled carrier · A4 the gesture-glyph · A5 the grace burst · A6 a metric island · A7 the shown beat (LG-130) |
 | H2 | **The one new thing.** What must the page carry that nothing carries yet? | free → a device sheet |
 | H3 | **The performer question.** What would I ask a player about this before deciding? | free (→ the consultation, §8a) |
 

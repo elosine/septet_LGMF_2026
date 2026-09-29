@@ -18309,3 +18309,59 @@ on p1 · the 16th reference the mean (§548).
 
 **► His eye:** reload the notation tab (no restart) → `piece-lgmf` → the video view → `289` · `290.5` · `291.4` · `292.8` · `z`.
 Then the SECOND LAYER at his word — dynamics · hairpins · slurs · accents — as hands on the same eight notes.
+
+## §551. HIS EYE ON THE DRAWN FIGURE — three plannings opened: SLURS · STEM LENGTHS (phase 1, the data) · THE SHOWN BEAT for the micro counterpoint (2026-09-29, Fable, session 18)
+
+**Prompted by:** his eye on §550's figure, whole in **LG-130** — (1) *"slurs, lets figure out the proper engraving principles so most slurs
+look good everywhere; this one looks odd"* · (2) *"surface and revise all stem length rules, w/beams w/flags etc 16ths look good others not
+right … something to do with flag clearing staff but with some exceptions"* — *"proper plans for both at least the 1st part of clarifiying
+intentions and requirements and data retrevial"* · (3) for later: rhythmic accuracy in section 2's MICRO COUNTERPOINT (the figures after
+the first — onsets a small interval apart across instruments): an evaluation of notation practices for that texture, and a device he
+had left out of the scheme — THE SHOWN BEAT (a bouncing ball marking a steady tempo, the onsets as go lines or as count-accurate heads;
+*"the beat is shown and the performer can still feel the right rhythm around the beat by space without counting"*) — *"lets make a plan for
+this too, I'd like to build it and at least have the option of seeing it as a possibility"*. → **A7 THE SHOWN BEAT** added to
+`temporal_notation.md` §8d and the survey's H1 (his words); the plan's phase 1 after (1) and (2).
+
+**THE DATA RETRIEVED — his LilyPond 2.24.4 (`OneDrive/Documents/lilypond-2.24.4/share/lilypond/2.24.4/scm/lily/define-grobs.scm`):**
+- **Slur:** `height-limit 2.0` · `ratio 0.25` (the arc's height = 0.25 × its length, capped at 2 ss) · `minimum-length 1.5` · `thickness 1.2`
+  (× the line thickness, at the middle) · `line-thickness 0.8` (the outline / the ends — a TAPERED slur) · `direction` computed (with the
+  stems: below when the stems go up; above when mixed) · `avoid-slur inside` · the endpoints and the collisions from `default-slur-details`
+  (a scoring table: the attachment at the head, the offsets, penalties for a stem, a head, an accidental inside the arc — to read when the
+  item is built).
+- **Stem:** `lengths (3.5 3.5 3.5 4.25 5.0 6.0 7.0 8.0 9.0)` indexed from the quarter — a QUARTER, an 8TH and a 16TH all 3.5, a 32nd 4.25, a
+  64th 5.0 · `beamed-lengths (3.26 3.5 3.6)` by beam count · `beamed-minimum-free-lengths (1.83 1.5 1.25)` · `beamed-extreme-minimum-free-lengths (2.0 1.25)`
+  · `stem-shorten (1.0 0.5 0.25)` — a stem in the forced (unnatural) direction shortened by 1 ss, a flagged one by half, two flags a quarter
+  · `thickness 1.3` (× the line = 0.13 ss, ours) · a note beyond the staff: the stem extends to the middle line (`no-stem-extend` false).
+- **Beam:** `beam-thickness 0.48` ss (ours 0.4, piece #2's table) · `auto-knee-gap 5.5` · `damping 1`.
+
+**THE CODE AS IT STANDS (the data for (2)):** `objects.stem.lengthSs` 3.5 (the one-octave default) · `stemLenFor(y, base) = max(base, |y|)`
+— a stem reaches the middle line from outside the staff · THE FLAG-CLEAR LAW (day 23, piece #2's `computeFlaggedStemLength` with this
+piece's 0.38 ss = 3 px at 7.9 px/ss; #2 used 1.0): the flag's near edge clears the outer staff line — or the chain stacked above — applied
+ONLY where a device says `nhStemRule 'flagClear'` (the tuba's staccato and strike units); the §550 hands (p3 · p4, `nhStem flag8`) carry no
+rule, so their flags do not clear · a beam's tips at the members' longest stem (3.5, or to the middle line from below), the side by the
+majority; the beam thickness 0.4, the stub 1 · the grace's stem 0.707 × (§550, the AI's). **The slur v1 (§550):** centre to centre, a FIXED
+1 ss bulge, uniform 0.13, 0.15 beyond each head on the side opposite the main note's stem — on the grace a 1.45 ss chord dropping 1.6 ss,
+so a near-circular hump against both heads: why it looks odd.
+
+**Put to him (phase 1 — the questions only he can answer):** SLURS — the standard LilyPond's slur as measured from his install (height by
+length, the cap, the taper, the side with the stems; Gould's ends: at the heads on the head side, at the stem tips on the stem side), and
+which slurs the piece will draw (the grace's · the phrase slurs of the second layer · ties?). STEMS — which of the drawn stems looked
+wrong to his eye (p3's flag inside the staff · p4's long stem to the middle line · p1's quarter), and whether the flag-clear law becomes
+the house rule for EVERY flagged note (its exceptions named) over LilyPond's plain 3.5.
+
+## §552. THE PLANNINGS ORGANIZED AS TODOS FOR SESSION 19 — the four 16ths and the shown beat added (2026-09-29, Fable, session 18)
+
+**Prompted by:** his closing word, whole in **LG-131**: the last four 16ths to evaluate (*"they belong to the same phrase, relatively fast but
+slightly uneven"*) · the shown beat *"the good one in certain parts here"* to develop, with *"a method of finding a compatable tempo/time
+signature? how?"* · *"lets work out all of the plans next session could you organize them and hold on to them as todos next"*.
+
+**Organized — journal §2, "SECTION 2 — THE NOTATION PLANNINGS", N-1 … N-6**, each with the intention in his words, the data retrieved,
+the question open: N-1 slurs (§551) · N-2 stem lengths (§551) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature
+method · N-5 the micro counterpoint's notation evaluation (LG-130) · N-6 the second layer on the figure (dynamics · hairpins · slurs ·
+accents — after N-1). Each through the planning method, one at a time, at his order; the first two already at phase 1 with his answers
+owed. Nothing built; the working tree's docs committed with this entry.
+
+**Data noted for N-4 (the AI's, marked):** the draft's four 16ths run 0.445 · 0.345 · 0.235 s — an accelerando of 1.9 : 1 that the beam of
+equal values does not show and the space does; a "compatible tempo" for a figure = the grid unit whose multiples land on its onsets within
+a tolerance, searched over a range (the tuba pages' `--cluster` fitter did this per cluster — `beamUnit` 0.172 s there); the time
+signature from the figure's length in units; the tuba piece's bouncing ball is the animated model — its viability test V1 … V8 applies.
