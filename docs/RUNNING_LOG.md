@@ -19980,3 +19980,49 @@ its full length, the band name on the row. **The AI's calls, his to reverse:** t
 the 0.2 s floor and the 0.1 s group window unchanged · the percussion still outside. `check_rules` 33 · the lock 106 · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `337.3` · `343.2` · `368` · `395`.
+
+## §623. The horn begun — ten one-offs and three burst pairs at his dictation, the current dynamics in (2026-09-30, Fable, session 18; LG-197)
+
+**What prompted it** (after checkpoint #9's `/postclear`; his words whole in LG-197): *"Let's start the horn. The one at 296.32 will be a GC.
+… the two of them at 301.88, these will be 2/16ths beamed in a GC, but without the … Goline, that version. Two more at 323.07. And then two at
+336.8, all of these GCs. The one around 341, a GC. The one two at 344.12, GC without the goal line. These two sixteenth notes beamed. Similarly,
+at 375.88, two sixteenths beamed, one GC, no go line. The GC's at 377.67 and 380.19. Two GCs at 386.18 and then the one following. Put the
+current dynamics in, but I'll look at them when they're in."*
+
+**The horn's section 2** (part 2; 36 events 289 … 427 read from the IR's chunks `ch-2-*`): 19 long tones already (2m · §622) and **17 short
+notes**. His times against the IR's onsets — the nearest note each time, his 0.00 … 0.17 s early (one 0.01 late):
+
+| his | the IR | id | pitch | vel → name | the device |
+|---|---|---|---|---|---|
+| 296.32 | 296.319 | wc-3397 | F♯4 | 74 → mf | one-off |
+| 301.88 (two) | 301.962 · 302.162 | wc-3417 · 3421 | C5 · C3 | 103 → ff · 119 → fff | THE BURST PAIR |
+| 323.07 (two) | 323.175 · 325.013 | wc-3460 · 3470 | A♯4 · B3 | 101 → ff · 88 → f | one-offs |
+| 336.8 (two) | 336.966 · 337.352 | wc-3512 · 3517 | G♯4 · A4 | 90 → f · 58 → mp | one-offs |
+| ≈ 341 | 341.364 | wc-3526 | D5 | 67 → mf | one-off |
+| 344.12 (two) | 344.189 · 344.393 | wc-3540 · 3545 | F5 · D5 | 84 → f · 73 → mf | THE BURST PAIR |
+| 375.88 (two) | 375.998 · 376.161 | wc-3615 · 3618 | F5 · A4 | 74 → mf · 77 → mf | THE BURST PAIR |
+| 377.67 | 377.742 | wc-3628 | D5 | 107 → ff | one-off |
+| 380.19 | 380.207 | wc-3634 | G4 | 93 → f | one-off |
+| 386.18 + the one following | 386.168 · 387.562 | wc-3652 · 3659 | F♯4 · G♯4 | 89 → f · 97 → f | one-offs |
+
+**Built** (one `node tools/reextract.js` run, the args appended to the IR's `provenance.build`):
+- **ten one-offs** (S24, `byEnv.oneOff` — the GC unit, the lane GC, the go line at the impact, the dot, the band name on the head side):
+  `--oneOffs 2:296.2:296.5` · `2:323.1:325.1` · `2:336.9:337.4` · `2:341.3:341.5` · `2:377.7:380.3` · `2:386.1:387.6`. Two were take-notes
+  with a level and no velocity — struck from `recVel`, the level dropped (S21): wc-3397 vel 74 · wc-3460 vel 101.
+- **three burst pairs** (S14 as the bassoon's 345.47, §618 — "that version"): `--plainNotes 2:301.9:302.3` · `2:344.1:344.5` · `2:375.9:376.3`
+  + `--beam 301.96-302.17@2` · `344.18-344.40@2` · `375.99-376.17@2` + the hands — the first note `noteBeams 2 · gc · gcStyle 1 · gcGeom lane ·
+  goLine false · nhAnchor leftEdge · dynAboveBeam false`, the second `noteBeams 2 · dynAboveBeam false`: 16ths beamed, ONE GC whose impact is
+  the first head's left edge, no go line.
+- **the current dynamics:** no `dynMark` hand anywhere — every note shows its own band name from its velocity (the table above), BOTH notes
+  of a pair too, for his eye.
+
+**The AI's readings and calls, his to reverse:** "two more at 323.07" = the next two shorts (323.175 · 325.013, 1.84 s apart), each a one-off ·
+"two GCs at 386.18 and then the one following" = 386.168 · 387.562 · **345.486 (wc-3553, G♯4, vel 97, 0.083 s) NOT NAMED — left as it draws**
+(the old look, a go line), his to name · the pairs' GC the lane GC (style 1), as the bassoon's pair — still the AI's call · the 301.96 pair is
+C5 → C3, two octaves under one beam (§573's open item, the wide pair) — his eye · no frame, no accent, no slur — none named.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock `eh_figure_check` **106** (nothing of the horn asserted) · the shield
+`piece-lgmf` alone (21 of 22 identical).
+
+**For his eye:** reload → `piece-lgmf` → `296.3` · `302` · `323.2` · `325` · `337` · `341.4` · `344.2` · `376` · `377.7` · `380.2` · `386.2` ·
+`387.6` (play from `295.5`).

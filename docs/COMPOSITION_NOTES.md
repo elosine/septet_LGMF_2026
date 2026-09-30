@@ -3359,3 +3359,11 @@ long tones (2m's device — the open head, the navy bar) with one f each by hand
 *The AI's reading (marked as such):* 2m's cut widened — a held note need not start with another part's to be a long tone; the five singles still
 outside the device take it (Db 337.18 · Vc 337.55 · 343.13 · Tpt 367.98 · Db 394.93); a held note inside one of his hand figures stays the figure's;
 the naming flag stays for exceptions. RUNNING_LOG §622.
+
+## LG-197 — 2026-09-30 — the horn begun: GCs, and pairs of beamed 16ths in one GC without the go line; the current dynamics in
+
+*His words (session 18, Fable, after checkpoint #9's postclear):* "Let's start the horn. The one at 296.32 will be a GC. The one, the two of them at 301.88, these will be 2/16ths beamed in a GC, but without the um, Goline, that version. Two more at 323.07. And then two at 336.8, all of these GCs. The one around 341, a GC. The one two at 344.12, GC without the goal line. These two sixteenth notes beamed. Similarly, at 375.88, two sixteenths beamed, one GC, no go line. The GC's at 377.67 and 380.19. Two GCs at 386.18 and then the one following. Put the current dynamics in, but I'll look at them when they're in."
+
+*The AI's reading (marked as such):* "a GC" = the one-off (S24, the GC unit of #4 / #5) — ten of them; "2/16ths beamed in a GC without the go
+line, that version" = the burst pair (S14 as the bassoon's 345.47) — three of them, at 301.96 · 344.19 · 376.00; "the current dynamics" = each
+note's band name from its velocity, shown on every note for his eye. The short note at 345.486 was not named and is left. RUNNING_LOG §623.
