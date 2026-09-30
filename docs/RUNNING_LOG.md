@@ -18662,3 +18662,10 @@ On the page: 7 ticks at 295.348 + k × 0.324. `check_rules` 32 · the shield `pi
 
 **► His eye:** reload → `piece-lgmf` → `295.5`. Open on the template: a number or dot on the beat · the ball (A7's animated half) riding
 the ticks · the grid's span (the figure only, or the passage).
+
+## §566. THE BEAT GRID AS LINES THROUGH THE STAFF (2026-09-29, Fable, session 18; N-4)
+
+**His word (LG-144), applied:** `objects.tick.gridAt` 'staff' · `gridOverhangSs` 0.4 (= the tick's height, his *"that much"*): each beat a LINE
+through the staff from 0.4 ss below the bottom line to 0.4 above the top (4.8 ss tall), the width, colour and opacity as §565 (the
+duration line's), the beats only. 'laneTop' remains the other value of the row. The lock re-asserted (29). `check_rules` 32 · the shield
+`piece-lgmf` alone · the screen gate PASS. **► His eye:** reload → `piece-lgmf` → `295.5`.

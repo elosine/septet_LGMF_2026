@@ -3209,7 +3209,8 @@
       // [§564, LG-142] THE BEAT GRID — his pick for a figure, drawn as the tuba pages' ticks on the tick row: a tick at every grid point of
       // the unit from the phase, the BEATS (every beatEvery-th) at the tick's full look, the subdivisions at subHSs (rules.json objects.tick)
       {
-        const BG = Object.assign({ subHSs: 0.4, at: 'laneTop', beatsOnly: true }, o.beatGrid || {});   // RULES MIRROR (rules.json objects.tick.subHSs · gridAt · gridBeatsOnly)
+        const BG = Object.assign({ subHSs: 0.4, at: 'staff', overhangSs: 0.4, beatsOnly: true }, o.beatGrid || {});   // RULES MIRROR (rules.json objects.tick.subHSs · gridAt · gridOverhangSs · gridBeatsOnly)
+        const STAFF_HALF = 2;   // five lines, ±2
         for (const g of beatGrids) {
           if (g.part !== spec.part) continue;
           const n = g.beatEvery >= 1 ? Math.round(g.beatEvery) : 1;
@@ -3218,7 +3219,9 @@
             const t = +(g.phase + k * g.unit).toFixed(6), beat = ((k % n) + n) % n === 0;
             if (BG.beatsOnly && !beat) continue;   // [§565] his template: the main beats only
             // [§565] the shorter size, hung from the lane's top edge (yAt 'top' — the render's lane top), in the duration line's colour and opacity
-            items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}));
+            // [§566] gridAt 'staff': a line through the staff, overhangSs beyond each outer line (the tick's foot is its ySs, it rises hSs)
+            if (BG.at === 'staff') items.push({ k: 'tick', t, ySs: -STAFF_HALF - BG.overhangSs, hSs: 2 * STAFF_HALF + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' });
+            else items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}));
           }
         }
       }

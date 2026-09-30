@@ -2925,3 +2925,7 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 ## LG-143 — 2026-09-29 — the beat grid's template: the duration line's blue-grey and transparency, at the top of the lane, the main beats only, the shorter tick
 
 *"lets do the blue grey from the duration lines; same transparancy too; at the top of the lane just the main beat ticks not the ones inbetween, but use the shorter size"* (the composer, 2026-09-29, Fable — RUNNING_LOG §565)
+
+## LG-144 — 2026-09-29 — the beat grid as lines through the staff, 0.4 ss beyond each outer line
+
+*"Let's try a grid. So color transparency, good. Width, good. Let's have it a longer line over the staff lines. And the current height, let's have that much above the top and below the bottom staff line. Let's see how that looks."* (the composer, 2026-09-29, Fable — RUNNING_LOG §566)

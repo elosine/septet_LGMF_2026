@@ -535,7 +535,7 @@ no rule about WHEN).*
 | S11 | **The section's entry word** ("ord.") by the change rule on the first note, **0.45 ss above the note's top ink** and never under 1 ss above the top line | `techniqueChange.byKind` · `objects.instruction.aboveNoteSs · staffClearSs` | §505 · §561 |
 | S12 | **The mechanism:** a figure is HANDS on its notes (`--hand id:{json}`), the looks live in rows; a new look = a row + its edge row + the lock's assertion | `--hand` · `tools/eh_figure_check.js` | §550 · §560 |
 
-| S13 | **A figure's tempo, when a beat is shown:** the tool's candidates (`tools/tempo_fit.js`), drawn over the notes, his pick and phase; recorded as a `--beatGrid` hand; **the ticks his template (§565): the duration line's blue-grey at its transparency, hung from the lane's top edge, the main beats only, 0.4 ss tall** | `objects.tick · subHSs · gridAt · gridBeatsOnly · gridColour · gridOpacity` · `--beatGrid` | §563 · §564 · §565 |
+| S13 | **A figure's tempo, when a beat is shown:** the tool's candidates (`tools/tempo_fit.js`), drawn over the notes, his pick and phase; recorded as a `--beatGrid` hand; **the grid his template (§565 · §566): the duration line's blue-grey at its transparency, the main beats only, each a LINE through the staff overhanging 0.4 ss beyond the outer lines** | `objects.tick · subHSs · gridAt · gridBeatsOnly · gridColour · gridOpacity` · `--beatGrid` | §563 · §564 · §565 |
 
 *Open, not yet standards: the grace's f (a dynamic on a grace note — his to keep or drop) · the slur's slope, accidental and dynamic
 collisions, staff-line gaps (recorded in the row, not enforced) · the grace's stem length against the base · the beamed group's max.*
