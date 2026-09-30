@@ -3430,3 +3430,10 @@ made long tones "unless I say otherwise" — said otherwise here: a quarter-seco
 *The AI's reading (marked as such):* five one-offs on the double bass (295.772 · 299.686 · 300.421 · 302.147 · 322.873 — the last read from an
 unfinished sentence). His composer change: the double bass's A5 at 329.26 down an octave to A4 (the 15ma gone). The R fault: RUNNING_LOG §632.
 RUNNING_LOG §633.
+
+## LG-207 — 2026-09-30 — the double bass's 337.2 is a GC
+
+*His words (session 18, Fable):* "337.2 is a gc"
+
+*The AI's reading (marked as such):* the double bass's held single at 337.181 (0.24 s), a long tone by LG-196 until he said otherwise. The
+pattern with the cello's two: a held note of about a quarter second reads to him as a struck cue, not a held tone. RUNNING_LOG §634.

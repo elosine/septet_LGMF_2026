@@ -20297,3 +20297,16 @@ If he meant something else there, `@drop:7:322.8:323.0` takes it back.
 
 **Where section 2 stands:** the EH to 398.4 · the bassoon to 399 · the horn, the trumpet, the cello and the double bass — every short note on a
 device by his dictation; the percussion (his TODO 4) and the vibraphone not begun.
+
+## §634. The double bass's 337.18 a one-off — a third held single taken back from the long tone (2026-09-30, Fable, session 18; LG-207)
+
+**What prompted it:** *"337.2 is a gc"* — on the double bass (the part in hand; its only note there).
+
+**Built:** `--oneOffs 7:337.1:337.3` — `wc-3515` (337.181, G2, 0.240 s, vel 75 → **mf**, the current name), a long tone by §622's `:all` until
+now. With the cello's 337.55 · 343.13 (§631) that is three of the five `:all` singles said otherwise; the two left as long tones: Tpt 367.98 ·
+DB 394.93 (129 long tones). The double bass: **six one-offs** · 13 long tones. At 337 every part now strikes a cue or a figure within
+0.6 s — EH the 337.0 figure · Bsn 336.93 · 337.39 · Hn 336.97 · 337.35 · DB 337.18 · Vc 337.55 — a tutti burst of GCs.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `337.2`.
