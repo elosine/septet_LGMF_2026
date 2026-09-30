@@ -3275,8 +3275,9 @@
             const near = p => Math.abs(p.t - x.u.t) < 1e-9;
             const tipsAt = items.filter(it => it.k === 'beam' && it.tips && it.tips.some(near)).map(it => it.tips.find(near));
             const ys = tipsAt.map(p => p.ySs).concat([st.yB]);
-            const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BT / 2;   // the beam stack's edge toward the heads
-            const outer = (up ? Math.max(...ys) : Math.min(...ys)) - sgn * BT / 2;   // its far edge; [§561] the stroke is centred between them
+            const BTs = BT * (((items.find(it => it.k === 'beam' && it.tips && it.tips.some(near))) || {}).scale || 1);   // [§596] a grace group's beam is thinner (S22): the stack's edges by ITS thickness
+            const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BTs / 2;   // the beam stack's edge toward the heads
+            const outer = (up ? Math.max(...ys) : Math.min(...ys)) - sgn * BTs / 2;   // its far edge; [§561] the stroke is centred between them
             if (i === 0) { const d0 = x.dev; stubLen = d0.beamStubShortSs != null ? Math.max(0.5, Math.abs(st.yA - inner) - d0.beamStubShortSs) : (d0.beamStubLenSs != null ? d0.beamStubLenSs : GS.protrudeSs); }   // [§593]
             st.yA = inner + sgn * stubLen;                                            // the stub shows stubLen beyond the stack (protrudeSs unless a hand says)
             if (i === 0) st.dxSs = x.u.dx - x.u.w / 2; else if (i === g.length - 1) st.dxSs = x.u.dx + x.u.w / 2;
@@ -3436,7 +3437,7 @@
           const E0 = endOf(a), E1 = endOf(b);
           const at = u => (u.t - a.t) * sps;   // a unit's time as ss from the slur's start
           const x0 = E0.x, x1 = at(b) + E1.x, len = Math.max(0.1, x1 - x0);
-          let h = Math.min(SL.heightRatio * len, SL.heightMaxSs);
+          let h = hand.slurHeightSs != null ? hand.slurHeightSs : Math.min(SL.heightRatio * len, SL.heightMaxSs);   // [§596] a hand slurHeightSs on the first note names the height — his "more arc to slur at 337"
           const chordY = x => E0.y + (E1.y - E0.y) * (x - x0) / len;
           // a cubic whose control points sit h / 0.75 off the chord at 1/3 and 2/3 peaks at h: its offset at s is 4 h s (1 − s)
           for (const u of inside) {

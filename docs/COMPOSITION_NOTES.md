@@ -3140,3 +3140,12 @@ edge of bottom beam? then 336.87 3 partials 1 grace note slur to 2 8th alone, 3 
 
 *The AI's reading (marked as such):* 292.75's stubs show 2.00 ss beyond the beam, 324.6's 1.58 (two laws: a fixed protrusion vs the first
 stem − 1); the 337 figure built as said, the names f · f · ff for his eye. RUNNING_LOG §595.
+
+## LG-171 — 2026-09-30 — the lead beat at 316.4; the stubs 2 ss the standard; the 337 slur and names; the figure at 340.1
+
+*His words (session 18, Fable):* "at 316.9 add one more beat before, ok if in dur line / lets increase 324.6 to 2ss and make that the
+standard; / more arc to slur at 337, f at grace no f at 2, keep ff on 3 / 340.1 grace1-2, grace 3-4, grace 5-6 2 & 4 16ths,6 16th beamed to
+7 8th" — then: "340.1 all 1 grace slured to norm note 1-2, 3-4, 5-6"
+
+*The AI's reading (marked as such):* the ragged sign's stubs one law (2 ss) for every group; the 337 slur by a hand height (1.4, his to
+adjust); at 340.1 three grace-and-note pairs, the last pair's note a 16th beamed to an eighth. RUNNING_LOG §596.

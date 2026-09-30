@@ -19330,3 +19330,29 @@ the names left on ("let me see dyn"): **f · f · ff** (the bands of 93 · 84 ·
 sharp, the slur to 2 below; 2's stem 8.75 up, the flag above the staff (under the max 10.5); 3's stem 7.75 DOWN (G♯5 above the middle line),
 the 16th flag below the staff, the dot, the ff under the flag at −6.32; 2's f pushed to −5.53 under the slur (S7). `check_rules` 32 · the lock
 105 · the shield `piece-lgmf` alone. ► He reloads → `337`; his dynamics, then the lock's block.
+
+## §596. The 317 frame's lead beat back · the grace stubs 2 ss THE STANDARD · the 337 slur's arc and names · THE FIGURE AT 340.1 (2026-09-30, Fable, session 18; LG-171)
+
+**What prompted it** — *"at 316.9 add one more beat before, ok if in dur line · lets increase 324.6 to 2ss and make that the standard · more arc
+to slur at 337, f at grace no f at 2, keep ff on 3 · 340.1 grace1-2, grace 3-4, grace 5-6 2 & 4 16ths, 6 16th beamed to 7 8th"* — then
+*"340.1 all 1 grace slured to norm note 1-2, 3-4, 5-6"* (LG-171).
+
+**316.9:** the 317 frame's lead beat (316.387) had been dropped by the clamp — it sits inside the held note ending 316.455 (its duration bar);
+his "ok if in dur line" → the hand `:keepLead` on the frame (the runner's `@replace:old=>new` swaps an arg inside `provenance.build`): twelve
+lines 316.387 … 323.663. The lock re-pointed.
+
+**The stubs — the standard (S8a amended):** 324.6's `beamStubShortSs 1` (1.58 visible) withdrawn (`null` on the hand — a merge that unsets);
+the graces' stubs show `protrudeSs` **2 ss** beyond the beam stack, as the 292.75 figure's: ONE law for the ragged sign whatever the group.
+`beamStubShortSs` · `beamStubLenSs` stay as hands for a bespoke case. The lock asserts the 2 from the stack's edge.
+
+**337:** the slur's arc — S7's height (a quarter of the length, 0.77 here) too flat for his eye → a hand `slurHeightSs` on the first note
+(`layout.js`, the slur block) — 1.4 here, his to adjust; the names f on the grace · none on 2 · ff on 3 (explicit hands).
+
+**340.1** — the EH's seven: 340.352 A♯4 (vel 111) · 340.422 A3 (121) · 341.093 D5 (99) · 341.192 A♯4 (100) · 341.457 F5 (98) · 341.576 A5 (84) ·
+341.757 E4 (71). Built: `--plainNotes 0:340.1:341.9` · the graces 1 · 3 · 5 `{grace, flag8, slurTo the next}` — each slurred to its own note
+(his second message) · 2 · 4 `{nhStem flag16}` · `--beam 341.576-341.757@0` with 6 `{noteBeams 2}` and 7 `{noteBeams 1}` — the primary beam
+over 6+7, the 16th's second level a beamlet on 6 pointing at 7 (the day-23 rule); names shown: ff · fff · f · ff · f · f · mf. The layout:
+3 and 5 are graces above the middle line → their stems and slashed flags DOWN (the house rule); 2's 16th flag above the staff (stem 9.75,
+under the max); 6+7's beam BELOW the staff (A5 · E4, the stems down) so their names flipped ABOVE the beam-side row — 6's f at 5.03, 7's mf
+at 2.79, just clear of the top line (the flipped row clears the staff, §502) — for his eye. `check_rules` 32 · the shield `piece-lgmf` alone.
+► He reloads → `316.5` · `324.5` · `337` · `340`.
