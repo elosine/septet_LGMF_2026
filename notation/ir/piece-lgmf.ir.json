@@ -37199,7 +37199,7 @@
     "objectId": "wc-3532"
    },
    "onset": 343.117,
-   "duration": 0.049999999999954525,
+   "duration": 0.10000000000002274,
    "pitch": {
     "midi": 75,
     "spelled": {
@@ -37211,7 +37211,7 @@
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 61,
+   "vel": 90,
    "env": "plainNote"
   },
   {

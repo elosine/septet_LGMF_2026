@@ -19403,3 +19403,15 @@ direction forces the run (§400's hand). The layout: five heads at 0.707 (A5 · 
 beam, the side-with-room rule (§502) sends the names over the top line, just clear of it. 6 (344.046) stays a 16th alone, stem down. The
 §597 assertion holds on the eight remaining slurred graces; the lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone.
 ► He reloads → `344`. His eye: the names above the staff; the group's slur (none; his to add).
+
+## §599. His change at 343.12 carried into the notation (2026-09-30, Fable, session 18)
+
+**What prompted it** — *"note changed and saved, In the composer score, anything that needs to be done in the notation score."* — after §597's
+reading of the silent D♯5.
+
+**What changed in the draft** (`wc-3532`, 343.117): the length 0.050 → **0.100 s**, the velocity 61 → **90**. Nothing else on the EH differs
+between his save (16:03:45 Z) and the IR. **What the notation needs:** a re-extraction — the IR is derived from a COPY of the draft, and the
+runner copies the file afresh each run (2j's discipline; the IR contract: the composer save is the ground truth). Done: the event carries
+0.100 · 90; its band name on the page mp → **f** (the plain note's rule); the figure's other marks unmoved. `check_rules` 32 · the lock 106 · the
+shield `piece-lgmf` alone. Not done, not asked: the audio render (the WAV is Draft 01's) — the re-render recipe stands in journal §2.
+► He reloads → `343`.

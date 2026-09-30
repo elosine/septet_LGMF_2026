@@ -319,6 +319,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   down` on all five): the scaled beam below the staff at −5.39 / −4.82, the stubs 2, the squiggle falling; the names flipped above the staff (the
   side-with-room rule). The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `344`; HIS EYE — the names above, a slur
   over the group (his to add); then his dynamics at 340.1 · 342.65, the lock's blocks, the next figure.**
+- **§599 (2026-09-30, Fable) — DONE:** his change at 343.12 (0.05 → 0.10 s, vel 61 → 90) carried into the IR by a re-extraction (the runner copies his save afresh); the name mp → f; every check green. The audio render untouched (not asked).
 
 ### SESSION 18 · CHECKPOINT #5 (mid-session checkpoint, 2026-09-29, Fable built, Opus wraps) — THE EH'S FIRST TWO FIGURES OF SECTION 2 NOTATED BY HAND; THE SHOWN BEAT BUILT; ► HIS EYE ON THE BETWEEN-BEATS PHASE
 
