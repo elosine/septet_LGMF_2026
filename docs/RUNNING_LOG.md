@@ -20026,3 +20026,34 @@ C5 → C3, two octaves under one beam (§573's open item, the wide pair) — his
 
 **For his eye:** reload → `piece-lgmf` → `296.3` · `302` · `323.2` · `325` · `337` · `341.4` · `344.2` · `376` · `377.7` · `380.2` · `386.2` ·
 `387.6` (play from `295.5`).
+
+## §624. The horn's dynamics at his eye — the pairs one name each, 345.49 a one-off at mp; the bassoon's 301.88 f (2026-09-30, Fable, session 18; LG-198)
+
+**What prompted it** (his eye on §623's page; his words whole in LG-198): *"at 301.8. Let's make the bassoon F and the horn, the first partial
+gets an F and you can take the dynamic off the second one. at 323.18, just one F, at 325 MF, At 344.16, just take the MF off the second partial.
+Three four five point five should be a GC, and let's make it MP. Three seven five point nine eight. First partial F, second partial nothing.
+Three seven seven point six. Make that MF. Three eight six point one six MF."*
+
+**Built** (one `node tools/reextract.js` run; hands merged onto the build):
+
+| his | the note | was | now |
+|---|---|---|---|
+| 301.8, the bassoon | Bsn 301.878 `wc-3415` (a one-off) | mf | **f** |
+| 301.8, the horn | Hn 301.962 `wc-3417` · 302.162 `wc-3421` (the pair) | ff · fff | **f** · no name |
+| 323.18 | Hn 323.175 `wc-3460` | ff | **f** |
+| 325 | Hn 325.013 `wc-3470` | f | **mf** |
+| 344.16 | Hn 344.393 `wc-3545` (the pair's second) | mf | no name (the first keeps its f) |
+| 345.5 | Hn 345.486 `wc-3553` | the old look, unnamed device | **a one-off** (`--oneOffs 2:345.4:345.6`), **mp** (its band f) |
+| 375.98 | Hn 375.998 `wc-3615` · 376.161 `wc-3618` (the pair) | mf · mf | **f** · no name |
+| 377.6 | Hn 377.742 `wc-3628` | ff | **mf** |
+| 386.16 | Hn 386.168 `wc-3652` | f | **mf** |
+
+All as `dynMark` hands (a name, or `false`). Untouched, the current names standing: Hn 296.319 mf · 336.966 f · 337.352 mp · 341.364 mf ·
+344.189 f · 380.207 f · 387.562 f. The horn has **eleven one-offs** and three burst pairs now; every short note of its section 2 is on a device.
+
+**The AI's readings, his to reverse:** "partial" = the note of the pair (first · second) · "just one F" at 323.18 = a single f in place of the
+ff · "377.6 make that MF" = the HORN's 377.742 (his §623 time for it was 377.67; the bassoon's 377.672 is already mf by his hand, §619).
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `302` · `323.2` · `325` · `344.2` · `345.5` · `376` · `377.7` · `386.2`.

@@ -3367,3 +3367,11 @@ the naming flag stays for exceptions. RUNNING_LOG §622.
 *The AI's reading (marked as such):* "a GC" = the one-off (S24, the GC unit of #4 / #5) — ten of them; "2/16ths beamed in a GC without the go
 line, that version" = the burst pair (S14 as the bassoon's 345.47) — three of them, at 301.96 · 344.19 · 376.00; "the current dynamics" = each
 note's band name from its velocity, shown on every note for his eye. The short note at 345.486 was not named and is left. RUNNING_LOG §623.
+
+## LG-198 — 2026-09-30 — the horn's dynamics at his eye: a pair carries one name, on its first note; 345.5 a GC at mp
+
+*His words (session 18, Fable):* "at 301.8. Let's make the bassoon F and the horn, the first partial gets an F and you can take the dynamic off the second one. at 323.18, just one F, at 325 MF, At 344.16, just take the MF off the second partial. Three four five point five should be a GC, and let's make it MP. Three seven five point nine eight. First partial F, second partial nothing. Three seven seven point six. Make that MF. Three eight six point one six MF."
+
+*The AI's reading (marked as such):* "partial" here = a note of the beamed pair, not a harmonic partial. The pattern across the three pairs — a
+name on the first note, none on the second — matches S9 (dynamics thinned to the phrase) and the bassoon's pair (§618); three of three so far,
+not yet called a rule. RUNNING_LOG §624.
