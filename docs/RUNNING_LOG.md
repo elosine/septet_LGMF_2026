@@ -19032,3 +19032,15 @@ A viewing aid at his word; whether the tail line stays is his — a frame's line
 
 **The lock** — the third figure's window widened to 302 s and the span assertion reads the kept tail (`fit.keepTail` on the IR's overlay):
 **75 GREEN**. `check_rules` 32 (the rules page regenerated). The shield: `piece-lgmf` alone. ► His eye: reload → `301`.
+
+## §583. THE BURST'S GC REMOVED (2026-09-29, Fable, session 18; LG-161)
+
+**What prompted it** — *"ok remove gc pls and then /checkpoint"* (LG-161), after seeing the band beside the GC's ink (§582).
+
+**Built:** the hand on `wc-3412` loses `gc true` and `nhAnchor "leftEdge"` — `gc false · goLine false · dynMark "ff" · dynAboveBeam false ·
+hairpinTo 302.17 · hairpinDir "decresc" · nhDot`; the IR re-extracted. No `gc` item on the four; the first head's left edge on its time by
+the plain note's anchor (dx 0.52 = half a head, both pages) — no hand anchor needed. Everything else of §574 stands (the 16th beam, the ff and
+its hairpin on the row / lifted by the span rule, the dots). S14 amended: the burst without a cue.
+
+**The lock** — the §574 GC assertion inverted ("no GC on the four"), the anchor assertion re-worded: **75 GREEN**. `check_rules` 32 (the rules
+page regenerated). The shield: `piece-lgmf` alone. ► His eye: reload → `301.5`. Then the checkpoint.

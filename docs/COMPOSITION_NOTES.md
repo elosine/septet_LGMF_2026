@@ -3045,3 +3045,10 @@ RUNNING_LOG §581.
 *The AI's reading (marked as such):* figure 3's frame's tail beat (301.742) — dropped by the clamp (it sits on the burst's second note, inside
 the 0.1 s the clamp keeps clear of the notation after) — kept by hand (`keepTail`), the same frame and colour, so the band can be judged
 against the GC's ink at 301.556. A viewing aid; whether it stays is his. The build: RUNNING_LOG §582.
+
+## LG-161 — 2026-09-29 — the burst's GC removed
+
+*His words (session 18, Fable):* "ok remove gc pls and then /checkpoint"
+
+*The AI's reading (marked as such):* the GC on the burst's first note (§574, S14) goes; the head's left edge stays on its time by the plain
+note's own anchor (S1). S14 is the burst WITHOUT a cue now. The build: RUNNING_LOG §583.

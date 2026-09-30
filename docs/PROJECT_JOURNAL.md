@@ -325,6 +325,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   kept by hand (`--beatGridFit …:keepTail`, a new optional field; `keepLead` · `keepBoth` too) — it sits ON the burst's second note, inside the
   clamp's 0.1 s; six lines 298.247 … 301.742, six balls, olive. The lock GREEN (the window widened) · `check_rules` 32 · the shield `piece-lgmf`
   alone. **► HIS EYE (reload → `301`): the band beside the GC's ink; the tail line his to keep or drop; then THE NEXT FIGURE from 302.1.**
+- **§583 (2026-09-29, Fable; LG-161) — DONE:** *"ok remove gc pls"* → the burst's first note loses its GC and its hand anchor; the head's left
+  edge stays on its time by S1; S14 amended (the burst without a cue). The lock 75 GREEN · `check_rules` 32 · the shield `piece-lgmf` alone.
+  **► The checkpoint at his word; then THE NEXT FIGURE from 302.1.**
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 

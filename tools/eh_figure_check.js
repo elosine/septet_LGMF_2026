@@ -81,7 +81,7 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   const ff = glyphAt(F4[0], /^dyn-ff$/); ok(ff && near(ff.ySs, -4.6, 0.01), '(§574) the ff on the dynamic row');
   const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - F4[0]) < 1e-6); ok(hp && hp.dir === 'decresc' && near(hp.t1, 302.17, 1e-6) && near(hp.ySs, -4.6, 0.01), '(§574) a decrescendo hairpin on the row from the ff over the rest, to 302.17');
   ok(F4.every(t => !glyphAt(t, /^artic-/)), '(§574) no accents on the four');
-  ok(items.some(it => it.k === 'gc' && Math.abs(it.t - F4[0]) < 1e-6) && F4.slice(1).every(t => !items.some(it => it.k === 'gc' && Math.abs(it.t - t) < 1e-6)), '(§574) a GC on the first note only');
+  ok(!items.some(it => it.k === 'gc' && F4.some(t => Math.abs(it.t - t) < 1e-6)), '(§583) no GC on the four — removed at his word (the first note carried one, §574)');
   ok(!items.some(it => it.k === 'goline' && F4.some(t => Math.abs((it.t != null ? it.t : it.t0) - t) < 1e-6)), '(§574) no go line on the four');
   const h1 = glyphAt(F4[0], /^notehead$/); ok(h1 && near(h1.dxSs - hw, 0, 0.03), '(§574) the first head\'s LEFT EDGE on its time — the GC\'s impact point (nhAnchor leftEdge)'); }
 // §564 · §565 · §566 — the beat grid he picked for the second figure: a 16th of 0.108 from 295.348, the beat every 3, over 295.348 … 297.4;
