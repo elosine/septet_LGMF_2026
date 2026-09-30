@@ -19581,3 +19581,44 @@ the lone 5th's flag above and dot below · the two hairpins' height over the bea
 
 **► He reloads → `376` · `380` (play from `375`); HIS EYE, then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the 340 and
 376 frames) and the next figure after 380.8.**
+
+## §607. Three figures after 380.8 at his dictation — 384.3 · 387.23 · 389.7 — 383.25 a long tone by name · no GC at 380.39 (2026-09-30, Fable, session 18; LG-181)
+
+**What prompted it** — *"384.3 8th alone two sixteenths beamed, eighth alone, two sixteenths beamed, eighth alone, and then two eighths beamed. 387.23 Four sixteenths slurred and beamed. The last one in that group, the fifth one, alone, sixteenth staccato. 389.7 Grace. Then 16th, 16th , 8th these 3 beamed. 383.25 is a long with duration line etc;"* and, mid-turn, *"no gc at 380.39"* (LG-181).
+
+**The parts first:** the IR's events carry no part — the CHUNKS do (`ch-<part>-<id>`); read from them before a hand went anywhere. The
+EH's notes interleave with others' a few ms apart (N-5's micro counterpoint): at 387.494 the EH's G5 (`wc-3656`) and the CELLO's E4
+(`wc-3658`, part 6) share an onset — his "five" said which; the `ord` notes beside the 384.3 figure are the trumpet's (`wc-3642`, part 3)
+and the bassoon's (`wc-3657`, part 1). The beam spans take part 0 alone (`@0`), so none of them could join a group.
+
+**384.3 — nine notes** (384.455 D5 · 384.713 D5 · 384.847 G♯5 · 385.062 C4 · 385.295 C5 · 385.429 A4 · 385.677 F♯5 · 385.954 A3 · 386.195 G♯4):
+`--plainNotes 0:384.3:390.7` (the range stops short of the 0.63 s note at 391.019, unnamed) · 1 · 4 · 7 lone eighths (`flag8`) · 2+3 · 5+6 16th
+pairs (`--beam`, `noteBeams 2`) · 8+9 an eighth pair (`noteBeams 1`); each group's first note with the beam device's cue off (`gc false ·
+goLine false`, the §604 pattern).
+
+**387.23 — five** (387.320 A4 · 387.494 G5 · 387.687 F5 · 387.840 G4 · 388.031 F♯4): 1 … 4 beamed 16ths under ONE SLUR (`slurTo` 1 → 4, the
+first phrase slur of the section over a beamed group — S7 puts it on the side with the stems); 5 a lone 16th with its dot (`flag16 · nhDot`).
+
+**389.7 — a grace and three** (389.799 D5 — his save's D6 → D5, §604 · 389.900 F5 · 390.108 D4 · 390.402 A♯4): the grace slashed and slurred
+into 2 (S6) · 2 · 3 · 4 beamed, 2 · 3 `noteBeams 2` and 4 `noteBeams 1` — the beamlet on the 16ths, as the 341.576 pair (§596).
+
+**383.25 — A LONG TONE by name:** `wc-3640` (383.347 G3, 1.05 s) is one of 2m's 18 SINGLES — a held note starting alone, which drew in the
+tuba `ord` family's look (§532: "a single stays as it drew until he names it"). Named: `--longToneAlso wc-3640`, the flag's FIRST USE
+(§533) — its env `longTone` now: the open head on its time, no go line, the navy bar its full length, the band name on the row.
+
+**No GC at 380.39** (his word on the page after §606): the 3+4 pair's first note (`wc-3636`) had taken the beam device's cue — the old
+five-beam's first (`wc-3631`) had it off by hand (§604) and the split moved the group's head to a note without the hand. `gc false ·
+goLine false` on it.
+
+**The names:** shown on every note of the three figures (the band's), S9's thinning his — he gave none.
+
+**The gates:** the shield's baseline re-written on HEAD (`d2fb767`) · the runner (446 args · 171 hands · the frames × 5) · `gen_engraving_rules`
+· `check_rules` 32 GREEN · the lock `eh_figure_check` 106 GREEN · the shield: `piece-lgmf` alone moved, the other 21 identical. Read back:
+the long tone's env, the plain notes' env, the five beam spans in the build, 391.019 untouched.
+
+**Not verified in the layout — his eye:** the slur over the four beamed 16ths (its side, its ends at the beam) · the grace's stem with its
+parent (the lock's §597 list names the earlier nine, not this one yet) · the long tone's bar against the 384.455 eighth 57 ms after it ends.
+
+**► He reloads → `383` · `384.5` · `387.3` · `389.8` (play from `382.5`); HIS EYE, his dynamics on the three figures, then the lock's blocks
+(337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 · 389.7 · the 340 and 376 frames) and the next figure after 390.5. The frame
+candidates for 384.3 … 390.5 (`tempo_fit --html`) offered, not drawn.**

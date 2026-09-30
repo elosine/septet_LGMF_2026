@@ -3230,3 +3230,12 @@ later and backed 1.5 ms, the shortfall between p4 and p8 shared (11 · 10 ms); e
 *The AI's reading (marked as such):* the five rebeamed 1+2 · 3+4 with 5 a lone 16th, dots on all five, f on 1, an accent on 4 on the head
 side; the eight: f on 1 with a decrescendo through 2 · 3, mf on 4 with a decrescendo to 8's end, every other name off; "the last partial
 there at 377.74" read as the hairpin reaching that note's end. RUNNING_LOG §606.
+
+## LG-181 — 2026-09-30 — three figures after 380.8: 384.3 · 387.23 · 389.7; 383.25 a long tone; no GC at 380.39
+
+*His words (session 18, Fable):* "384.3 8th alone two sixteenths beamed, eighth alone, two sixteenths beamed, eighth alone, and then two eighths beamed. 387.23 Four sixteenths slurred and beamed. The last one in that group, the fifth one, alone, sixteenth staccato. 389.7 Grace. Then 16th, 16th , 8th these 3 beamed. 383.25 is a long with duration line etc;" — and mid-turn: "no gc at 380.39"
+
+*The AI's reading (marked as such):* the nine at 384.3 as said (three lone eighths, two 16th pairs, an eighth pair); the five at 387.23 —
+four beamed 16ths under one slur, the fifth a lone staccato 16th (the cello's E4 at the same onset left out by the part); the grace at
+389.8 into a 16th · 16th · 8th beamed with the beamlet; the held G3 at 383.35 named a long tone (2m's single, `--longToneAlso`); the
+380.39 GC the beam device's cue on the split pair's first note, off. The names shown, his to thin. RUNNING_LOG §607.
