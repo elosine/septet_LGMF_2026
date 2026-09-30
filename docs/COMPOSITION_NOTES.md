@@ -3132,3 +3132,11 @@ register as an alternative to the one we have already been using gc style 2 or w
 
 *The AI's reading (marked as such):* the stroke by the beam's side (below → falls, above → rises — a rule, the 292.75 figure untouched); the
 GC's two geometries named styles 1 · 2 with a hand `gcStyle`; the schema is §12 (S6 · S8 · S8a · S22). RUNNING_LOG §594.
+
+## LG-170 — 2026-09-30 — the two ragged stubs compared; the figure at 337
+
+*His words (session 18, Fable):* "how do the 2 ragged stem lengths compare, distance from the bottom/top (depending on stems up or down)
+edge of bottom beam? then 336.87 3 partials 1 grace note slur to 2 8th alone, 3 16th staccato, let me see dyn pls"
+
+*The AI's reading (marked as such):* 292.75's stubs show 2.00 ss beyond the beam, 324.6's 1.58 (two laws: a fixed protrusion vs the first
+stem − 1); the 337 figure built as said, the names f · f · ff for his eye. RUNNING_LOG §595.

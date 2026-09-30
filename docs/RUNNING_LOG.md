@@ -19307,3 +19307,26 @@ RAGGED STEMMING (§593: the stubs' length from the first member; the hands `beam
 (§592: at the heads' scale) — each row names the rules row that holds it and the § where it was decided; the hands themselves are listed in
 `tools/notate_section.js`'s header and in the IR's `provenance.build`. PERFORMANCE_NOTES #18 is the sign's meaning for the player. The
 rules page (`docs/ENGRAVING_RULES.md`, generated) carries the rows' values. Told him so. `check_rules` 32. ► He reloads → `324.5`.
+
+## §595. THE TWO RAGGED STUBS COMPARED · THE FIGURE AT 337 by hand (2026-09-30, Fable, session 18; LG-170)
+
+**What prompted it** — *"how do the 2 ragged stem lengths compare, distance from the bottom/top (depending on stems up or down) edge of bottom
+beam? then 336.87 3 partials 1 grace note slur to 2 8th alone, 3 16th staccato, let me see dyn pls"* (LG-170).
+
+**The stubs, measured from the beam stack's edge toward the heads (the layout, the video page):**
+
+| figure | stems | the beam levels | thickness | the stack's edge toward the heads | the stub ends at | VISIBLE beyond the beam | head → stub |
+|---|---|---|---|---|---|---|---|
+| 292.75 (p5 … p8, S8) | down | −5.22 / −4.41 | 0.40 | −4.21 | −2.21 | **2.00 ss** (`protrudeSs`) | 2.71 |
+| 324.6 (the graces, S8a) | up | 5.39 / 4.82 | 0.28 (scaled) | 4.67 | 3.10 | **1.58 ss** (the first stem 2.58 − 1) | 1.10 |
+
+The two are not the same law: 292.75's stubs are a fixed 2 beyond the stack; 324.6's are the first member's reach − 1 (§593, his word), which
+here is 1.58. Reported, not changed — his call whether one law should serve both (e.g. `beamStubShortSs` on 292.75 too, or `protrudeSs` 1.58
+on the graces).
+
+**The figure at 337** — the EH's three: 337.006 A♯4 (vel 93) · 337.164 B3 (84) · 337.792 G♯5 (100); the next cluster at 340.35. Built:
+`--plainNotes 0:336.8:338.5` · `wc-3511 {grace, nhStem flag8, slurTo wc-3514}` · `wc-3514 {nhStem flag8}` · `wc-3519 {nhStem flag16, nhDot}`;
+the names left on ("let me see dyn"): **f · f · ff** (the bands of 93 · 84 · 100). The layout: the grace at 0.707 with its slashed flag and
+sharp, the slur to 2 below; 2's stem 8.75 up, the flag above the staff (under the max 10.5); 3's stem 7.75 DOWN (G♯5 above the middle line),
+the 16th flag below the staff, the dot, the ff under the flag at −6.32; 2's f pushed to −5.53 under the slur (S7). `check_rules` 32 · the lock
+105 · the shield `piece-lgmf` alone. ► He reloads → `337`; his dynamics, then the lock's block.
