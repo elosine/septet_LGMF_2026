@@ -275,10 +275,13 @@
     buildSoloButtons();
   }
   // the layout of the IR the page holds — also re-run in place when a choice is discarded (2d.4.5), page and zoom kept
+  // [§587] the ensemble a view lays out on: video · zoom (the presentation score) the realized one, in C; notation · graphic the registry's
+  const ensForView = () => { const v = $('view').value; return (v === 'video' || v === 'zoom') ? (state.ensembleRz || state.ensemble) : state.ensemble; };
   function layoutIr() {
+    const ens = ensForView(); state.modelEns = ens;   // [§587] remembered — render() lays out again when the view crosses the line
     state.model = NotationLayout.layoutSection(state.ir, state.glyphs, Object.assign(
-      { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS, ensemble: state.ensemble, techniques: state.techniques,
-        fitBoxes: window.NotationFit && state.container ? NotationFit.boxesFor(state.container, state.ensemble, FRAME_PARTS) : undefined },   // [2e.4] the ladder
+      { m4AttackLines: $('m4').checked, frameParts: FRAME_PARTS, ensemble: ens, techniques: state.techniques,
+        fitBoxes: window.NotationFit && state.container ? NotationFit.boxesFor(state.container, ens, FRAME_PARTS) : undefined },   // [2e.4] the ladder
       (state.container && state.container.engraving && state.container.engraving.layout) || {}));
   }
   // [PLAN 2d.2] THE CHOICES SIDECAR — notation/choices/<score>.choices.json (IR_SCHEMA_v0 §6b): the page's own ink choices,
@@ -578,6 +581,11 @@
     state.glyphs = glyphs; state.pageRules = pageRules;
     state.containerRaw = container; state.rules = rules; state.container = NotationRules.compile(container, rules);
     state.ensemble = ensemble; state.techniques = techniques;
+    // [§587, 2026-09-30 — his eye at 317: the app's video page drew the EH in F] THE PRESENTATION VIEWS IN C: the video and zoom pages lay
+    // out on the REALIZED ensemble (container.realizations['video-jury'].ensemble — the EH and the horn at sounding pitch, §336; the same copy
+    // export_video · export_print and the checks use); the ⚙ views (notation · graphic) keep the registry's written form. ensForView() picks.
+    state.ensembleRz = (ensemble && state.container && state.container.realizations && state.container.realizations['video-jury'] && NotationLayout.ensembleFor)
+      ? NotationLayout.ensembleFor(ensemble, state.container.realizations['video-jury']) : ensemble;
     if (ensemble) FRAME_PARTS = ensemble.parts.map(p => p.part);
     // V3: extracted sections register themselves in the manifest
     // (tools/notate_section.js) — merge into the picker, no duplicates.
@@ -634,6 +642,7 @@
     try {
       saveUi();   // every render = a position/control state worth restoring
       const vv = $('view').value;
+      if (state.ir && state.model && state.modelEns !== ensForView()) layoutIr();   // [§587] the view crossed the in-C / in-F line
       const graphic = vv === 'graphic';
       // THE COLLAPSE (day 22): the presentation score is the app; the
       // proofing machinery (views, window/parts overrides) lives behind ⚙.
@@ -853,7 +862,7 @@
           // [2a] the score's META layer, and the followers placed in their
           // part's clef and staff (layout's rules, not a second copy)
           metaLayer: state.ensemble ? state.ensemble.metaLayer : undefined,
-          posOfMidi: state.ensemble ? NotationLayout.positionResolver(state.ensemble) : null,
+          posOfMidi: state.ensemble ? NotationLayout.positionResolver(state.modelEns || state.ensemble) : null,   // [§587] the view's ensemble
           // per-note GCs come from the SAME device rules the engraving uses
           // (D50) — one resolver, built by layout, handed to animobj
           deviceOf: _dev,

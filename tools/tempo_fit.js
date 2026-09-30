@@ -84,21 +84,24 @@ if (html) {
   const PAD = 0.4, T0v = +(on[0] - PAD).toFixed(3), T1v = +(on[N - 1] + PAD).toFixed(3);
   const mids = ev.map(e => e.pitch.midi), names = ev.map(e => nm(e.pitch));
   const cands = D.slice(0, COL.length).map((d, i) => ({ name: Math.round(60 / d.beat) + ' bpm — the beat ' + f3(d.beat) + ' s = ' + d.g + ' × ' + f3(d.u) + ', phase ' + f3(d.phase) + ', the nearest note ' + ms(d.dmin) + ' ms', colour: COL[i], beat: d.beat, unit: d.u, g: d.g, phase: d.phase }));
+  // [§586] THE CANVAS FOLLOWS THE FIGURE: 480 px a second from one beat before --from to one beat after --to (the slowest candidate's), the
+  // page scrolling sideways past the window — a 6 s figure was cut at 2.5 s by the fixed 1200-unit canvas (his eye, 2026-09-30)
+  const PICPAD = cands.length ? Math.max(...cands.map(c => c.beat)) : 0.75, PW = Math.round(40 + (T1v - T0v + 2 * PICPAD) * 480);
   const page = '<!doctype html>\n<html><head><meta charset="utf-8"><title>Tempo Candidates</title>\n<style>\n'
     + ' :root{--bg:#fff;--ink:#111;--muted:#777;--rule:#ddd;--axis:#888;--red:#c8102e;--blue:#1c4879;--green:#2e7d32;--orange:#d9700a;--purple:#7b3fa0}\n'
     + ' @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff}}\n'
     + ' :root[data-theme="dark"]{--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff}\n'
-    + ' body{font:14px/1.4 system-ui,sans-serif;margin:0;padding:16px;color:var(--ink);background:var(--bg);overflow-x:hidden}\n'
+    + ' body{font:14px/1.4 system-ui,sans-serif;margin:0;padding:16px;color:var(--ink);background:var(--bg);overflow-x:auto}\n'
     + ' h1{font-size:16px;margin:0 0 6px} .k{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}\n'
-    + ' svg{width:100%;height:auto;display:block} table{border-collapse:collapse;margin-top:10px;max-width:100%} td,th{padding:2px 10px;text-align:right;font-variant-numeric:tabular-nums} th{text-align:left}\n'
+    + ' svg{height:auto;display:block} table{border-collapse:collapse;margin-top:10px;max-width:100%} td,th{padding:2px 10px;text-align:right;font-variant-numeric:tabular-nums} th{text-align:left}\n'
     + ' .note{color:var(--muted);font-size:13px;margin-top:8px}\n</style></head><body>\n'
     + '<h1>The ' + N + ' notes, ' + f3(on[0]) + ' … ' + f3(on[N - 1]) + ' s — ' + cands.length + ' shown beats, each at its between phase (T10' + (FREE.size ? '; notes ' + [...FREE].join(', ') + ' free) — grey heads are the free ones' : ')') + '</h1>\n'
-    + '<svg id="g" viewBox="0 0 1200 ' + (60 + cands.length * 44 + 230) + '" xmlns="http://www.w3.org/2000/svg"></svg>\n<div id="legend"></div>\n<table id="tbl"></table>\n'
-    + '<div class="note">x = time, 480 px per second. Dots = the heads at their onsets (height by pitch). Each candidate is one shown beat: the heavy lines are its beats (one line per beat — the beat frame), the light ones its unit; the beats run down through the heads faintly. Every candidate stands at the phase that keeps the (non-free) notes farthest from its beats. The table: each note\'s distance from the nearest beat, and where it sits in the beat (0 % = on the line, 50 % = midway).</div>\n'
+    + '<svg id="g" width="' + PW + '" viewBox="0 0 ' + PW + ' ' + (60 + cands.length * 44 + 230) + '" xmlns="http://www.w3.org/2000/svg"></svg>\n<div id="legend"></div>\n<table id="tbl"></table>\n'
+    + '<div class="note">x = time, 480 px per second, the window one beat beyond the range each side (scroll sideways for a long figure). Dots = the heads at their onsets (height by pitch). Each candidate is one shown beat: the heavy lines are its beats (one line per beat — the beat frame), the light ones its unit; the beats run down through the heads faintly. Every candidate stands at the phase that keeps the (non-free) notes farthest from its beats. The table: each note\'s distance from the nearest beat, and where it sits in the beat (0 % = on the line, 50 % = midway).</div>\n'
     + '<script>\n'
     + 'const on=' + JSON.stringify(on) + ',midi=' + JSON.stringify(mids) + ',names=' + JSON.stringify(names) + ',free=' + JSON.stringify([...FREE]) + ';\n'
     + 'const cands=' + JSON.stringify(cands) + ';\n'
-    + 'const T0=' + T0v + ',T1=' + T1v + ',W=1200,PPS=480,LO=' + Math.min(...mids) + ',HI=' + Math.max(...mids) + ',NB=cands.length,YS=60+NB*44,YAX=YS+200;\n'
+    + 'const T0=' + (T0v - PICPAD) + ',T1=' + (T1v + PICPAD) + ',W=' + PW + ',PPS=480,LO=' + Math.min(...mids) + ',HI=' + Math.max(...mids) + ',NB=cands.length,YS=60+NB*44,YAX=YS+200;\n'
     + 'const svg=document.getElementById("g");const el=(n,a)=>{const e=document.createElementNS("http://www.w3.org/2000/svg",n);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};\n'
     + 'const X=t=>20+(t-T0)*PPS,Y=m=>YAX-20-(m-LO)*(150/Math.max(1,HI-LO)),css=v=>getComputedStyle(document.documentElement).getPropertyValue("--"+v).trim();\n'
     + 'cands.forEach((c,i)=>{const ya=20+i*44,yb=ya+36,col=css(c.colour);const k0=Math.ceil((T0-c.phase)/c.unit-1e-9),k1=Math.floor((T1-c.phase)/c.unit+1e-9);\n'

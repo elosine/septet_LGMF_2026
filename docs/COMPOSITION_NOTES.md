@@ -3052,3 +3052,21 @@ against the GC's ink at 301.556. A viewing aid; whether it stays is his. The bui
 
 *The AI's reading (marked as such):* the GC on the burst's first note (§574, S14) goes; the head's left edge stays on its time by the plain
 note's own anchor (S1). S14 is the burst WITHOUT a cue now. The build: RUNNING_LOG §583.
+
+## LG-162 — 2026-09-30 — the figure at 317: "the first 2 notated notes have discrepency with composer score"
+
+*His words (session 18, Fable, after the checkpoint-#6 `/postclear`):* "lets do the figure from 316.8 - 323.14 eh only; the first 2 notated
+notes have discrepency with composer score could you look into? the comp score starts with a D# at 317.05 no A sharp or E there. then can I
+see the beat frame proposals once the discrepency is squared"
+
+*The AI's reading (marked as such):* no discrepancy in the data — the page he reads is the working page, in F (the EH written a fifth above
+sounding): the composer's D♯4 · A3 are the page's A♯4 · E4. The video page (in C) shows D♯ · A. The figure's candidates and the picture:
+RUNNING_LOG §584. He passed over the six EH notes between 302.1 and 316.8.
+
+## LG-163 — 2026-09-30 — "presentation score meant to be in C anyways"
+
+*His words (session 18, Fable), with three screenshots of the composer at 317.04 (D♯4 · A3 · A♯3 on the EH):* "discrepancy no. and presentation
+score meant to be in C anyways. Please look into this properly."
+
+*The AI's reading (marked as such):* he was right — the app's video view has drawn the EH and the horn in F since the staves were built; the
+in-C decision (§336) reached the exports and the checks, never the page he reads. Verified in the running app: RUNNING_LOG §585.

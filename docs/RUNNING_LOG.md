@@ -19044,3 +19044,92 @@ its hairpin on the row / lifted by the span rule, the dots). S14 amended: the bu
 
 **The lock** — the §574 GC assertion inverted ("no GC on the four"), the anchor assertion re-worded: **75 GREEN**. `check_rules` 32 (the rules
 page regenerated). The shield: `piece-lgmf` alone. ► His eye: reload → `301.5`. Then the checkpoint.
+
+## §584. THE FIGURE AT 317 — the "discrepancy" is the transposition; the tool's candidates and the picture (2026-09-30, Fable, session 18; LG-162)
+
+**What prompted it** — after the checkpoint-#6 `/postclear`: *"lets do the figure from 316.8 - 323.14 eh only; the first 2 notated notes have
+discrepency with composer score could you look into? the comp score starts with a D# at 317.05 no A sharp or E there. then can I see the beat
+frame proposals once the discrepency is squared"* (LG-162). He passed over 302.1 … 316.8 (six EH notes: the short D4 at 302.106 and five held
+notes 303.5 … 316.5, long tones or singles as they draw) — the figure is his choice.
+
+**The discrepancy — squared, nothing wrong:** the draft's EH (layer 0) starts `wc-3444` D♯4 at 317.052 (sounding, midi 63), then `wc-3445`
+A3 at 317.164 (57), `wc-3446` A♯3 at 317.339 (58) — exactly the composer score. The IR keeps sounding pitch (#5's D9). **The page he reads is
+the WORKING page, in F** (`ensemble.json` part 0 `transpose 7`: written = sounding + 7, applied at layout): D♯4 → A♯4 written, A3 → E4,
+A♯3 → F4 — the "A♯" and "E" he saw are the same two notes written for the instrument. The video page (in C) shows D♯ · A · A♯. No change made.
+
+**The figure:** his range 316.8 … 323.14 — 316.78 is the bass drum, 323.17 the tutti chord (Tpt · Hn · Vc); the EH's twelve onsets
+317.052 D♯4 · 317.164 A3 · 317.339 A♯3 · 317.535 D4 (0.50 s) · 318.367 C♯4 · 318.569 B3 · 319.032 G4 (0.37) · 319.503 D4 (0.27) · 320.372 C♯5
+(0.62) · 321.031 G3 · 322.090 G♯4 · 323.002 G♯4. IOIs 0.112 · 0.175 · 0.196 · 0.832 · 0.202 · 0.463 · 0.471 · 0.869 · 0.659 · 1.059 · 0.912 —
+mean 0.541, median 0.471, min 0.112, max 1.059. Three times the earlier figures' span (6 s, 12 notes; figures 2 · 3 were ≈ 2 s, 6 · 7 notes).
+
+**The tool** (`node tools/tempo_fit.js --part 0 --from 316.8 --to 323.14 --html notation/research/tempo_candidates_eh_317.html`, no `--free`):
+- (A) phase coherence: 274 bpm R 0.64 (rms 34 ms) · 120 R 0.48 · 242 R 0.47 · 63 R 0.42 — the coherent pulse is the fast 16th, as before.
+- (B) the grid fit: units 0.095 (rms 12 ms) · 0.090 (19) · 0.093 (20) · 0.101 (21) · 0.102 (21) · 0.099 (21) — one family, a 16th ≈ 150 … 165 bpm;
+  under the cap (`gridMaxBpm` 100) the shown beat is every 7 units (87 … 95 bpm) or every 6 (98 · 99).
+- (D) THE BETWEEN PHASE (T10), the hands ready: **91 bpm** (7 × 0.0945) phase 316.958, nearest 85 ms of 331 · **95** (7 × 0.090) 316.807, 98 of 315 ·
+  **92** (7 × 0.093) 316.785, 97 of 326 · **99** (6 × 0.101) 316.859, 70 of 303 · **98** (6 × 0.1025) 316.789, 63 of 308 · **87** (7 × 0.099) 316.415,
+  56 of 347. The picture: `http://localhost:5400/notation/research/tempo_candidates_eh_317.html` (S16).
+
+**The AI's notes, his to weigh:** (1) the opening trio (112 · 175 ms apart) pins the phase — every candidate's nearest note is one of 1 · 2 · 3;
+by S15 a `--free` run (1,2 or 2,3 — they time each other) would let the rest breathe; offered, not run. (2) The span: one frame over 6 s with
+IOIs from 0.11 to 1.06 s, or a frame over the fast cluster only (317.05 … 319.5, the first eight) with the long notes after it outside — his call;
+the tool takes any `--from --to`. (3) By S19 this frame is NAVY (figure 3's is olive; nothing framed between). **► His pick: the extent · the
+grouping · the phase (the tool's or a hand); then the values note by note, S1 … S19 surfaced.**
+
+## §585. THE APP'S VIDEO VIEW WAS NEVER IN C — his eye at 317 (2026-09-30, Fable, session 18; LG-163) — a CORRECTION to §584's reading
+
+**What prompted it** — three screenshots of his composer at 317.04 (D♯4 vel 75 · A3 vel 90 · A♯3 vel 91, EH, ch 1) and: *"discrepancy no. and
+presentation score meant to be in C anyways. Please look into this properly."* (LG-163). §584 read his "A♯ · E" as the working page in F and
+stopped there. Wrong stop.
+
+**Looked into properly:**
+- The layout in node, the same call the lock and the exporters make (`Layout.ensembleFor(ensemble, realizations['video-jury'])`): part 0
+  `transpose 0` — at 317.052 an open head at ySs −2.5 + a sharp (D♯4), at 317.164 ySs −4 with two ledgers (A3), at 317.339 ySs −4 + a sharp
+  (A♯3). IN C, exactly the composer. Without the realization (transpose 7): −0.5 + sharp (A♯4) · −2 (E4) · −1.5 (F4) — his "A♯ · E".
+- **THE APP:** `notation/app/notation.html` never calls `ensembleFor`. `state.ensemble` is the registry's ensemble raw (EH +7 · Hn +7), and
+  `layoutIr()` (line ~278) lays every view out with it — the video view included. Only `tools/export_video.js` (line 78), `export_print.js`
+  (109) and the checks (`eh_figure_check` · the shield · `check_rules`) apply the realization. So the decided presentation score (in C, his
+  word §336 / PLAN 2a.2) is what the EXPORTS draw; the app's VIDEO VIEW — the page he reads — has been in F for the EH and the horn since 2a.
+- **Verified in the running app** (the browser pane on his :5400 → `piece-lgmf` → view `video`, ⚙ off → `317`): page 27/74, 308.0–320.0 s; in the
+  EH's system the staff lines at y 55.9 … 87.5 px and the only ledgers on the page are TWO ABOVE the staff at x 157.8 (≈ 308.3 s: the sounding
+  G5 written D6 — in F); NO ledger below the staff anywhere on the page — in C, A3 · A♯3 (317.2 · 317.3) and C♯4 · B3 (318.4 · 318.6) each
+  need one or two. The page is in F.
+- Every earlier "the video page (in C)" in this log (§418 … §583) was the exporter's page or the node layout, never the app's DOM. His
+  eye on figures 1 … 3 was in F throughout; the lock's assertions on "the video page" are the exporter's truth, still right.
+
+**The fix (proposed, not built — his word):** the app lays the presentation views (video · zoom) out with
+`NotationLayout.ensembleFor(state.ensemble, container.realizations['video-jury'])` and the ⚙ engineering views with the registry's
+ensemble (the working page keeps its written form, as decided); `layoutIr()` re-run at a view / ⚙ change; the ladder's boxes and the
+`posOfMidi` resolver on the same ensemble as the layout. App only: no IR, no layout code, no rule — the exports, the lock and the shield
+already do this. Then he reloads. The frame proposals of §584 stand (the tool reads sounding onsets; the frame is time only).
+
+## §586. THE PICTURE'S CANVAS FOLLOWS THE FIGURE (2026-09-30, Fable, session 18; his eye on the 317 picture)
+
+**What prompted it** — with a screenshot of the notation at 316.89 (the EH in F, every head a fifth up — §585 confirmed by his page): *"and then
+the beat frame I either need to scroll or the map needs to be expanded to the right so I can see the full grid from before 316.8 to after
+321.19"*.
+
+**What was wrong:** `tempo_fit --html` drew on a fixed 1200-unit canvas at 480 px a second (S16, §574) — 2.5 s of picture; figures 2 · 3 were
+≈ 2 s and fitted, the 317 figure is 6.3 s and everything past ≈ 319.3 was clipped by the viewBox.
+
+**Built:** the canvas is as wide as the figure — `PW = 40 + (span + 2 × PICPAD) × 480`, `PICPAD` one beat of the slowest candidate each side
+(here 0.69 s), the SVG at its own width (no `width:100%`), the page scrolling sideways (`overflow-x:auto`); the scale stays 480 px a second,
+the same on every figure. The 317 picture: 315.99 … 324.06 s, 3915 units wide; the 295 figure regenerated to a scratch file as a control,
+1967 wide, its content unchanged. `notation/research/tempo_candidates_eh_317.html` regenerated — he reloads the link.
+
+## §587. THE ⚙-OFF VIDEO PAGE IN C — built at his word (2026-09-30, Fable, session 18; LG-163)
+
+**What prompted it** — §585's fault, explained twice more simply at his ask (what the ⚙ is: the tuba app's proofing bench — the notation
+window and graphic views behind a switch, off = the presentation score alone, his own rule); his word: *"go, the ⚙-off video page in C"*.
+
+**Built — `notation/app/notation.html` alone:** `state.ensembleRz = NotationLayout.ensembleFor(ensemble, container.realizations['video-jury'])`
+beside the registry's `state.ensemble` · `ensForView()`: video · zoom → the realized ensemble (in C), notation · graphic → the registry's
+(in F) · `layoutIr()` lays out on `ensForView()` and remembers it (`state.modelEns`) · `render()` lays out again when a view change crosses
+the line · the animated followers' `posOfMidi` on the same ensemble as the layout · the ladder's boxes the same. No IR, rule, layout or
+export touched; `check_rules` 32 GREEN.
+
+**Verified in the running app** (the pane on his :5400, the file served from disk after the splice): the ⚙-off video page 27 (308–320 s),
+the EH's staff at y 55.9 … 87.5 — SIX ledgers below it: two at x 1445 (A3 317.164), two at 1471 (A♯3 317.339), one at 1623 (C♯4 318.367),
+one at 1652 (B3 318.569); none above (§585's two at 308.3 — the D6-in-F — gone, G5 in C needs none). Then ⚙ on, the notation view
+312–324: no ledger on the EH at all — F4 · E4 · G♯4 … the written form kept. The lock's "video page (in C)" and his page are one page now.
+► He reloads the notation tab (page files only) → `piece-lgmf` → `317`.

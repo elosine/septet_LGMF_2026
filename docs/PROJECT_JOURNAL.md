@@ -258,6 +258,13 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   passage `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
   `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
   (his tab's save — every extraction reads a COPY). Resume on Fable.
+- **§584 … §587 (2026-09-30, Fable; LG-162 · LG-163) — DONE:** his choice of figure, 316.8 … 323.14 (twelve EH notes; the six between 302.1
+  and 316.8 passed over): the tool's candidates 87 … 99 bpm (7 or 6 units of ≈ 0.09 … 0.10 s), the picture regenerated with a canvas as wide
+  as the figure (§586: 480 px/s kept, one beat of room each side, sideways scroll) · HIS EYE FOUND THE APP'S VIDEO PAGE IN F (§585: the
+  in-C decision reached only the exports and the checks; the record's "video page (in C)" was always the node layout) · FIXED (§587,
+  `notation.html` alone: `ensForView()` — video · zoom in C, the ⚙ views in F; verified in the running app both ways). The "which page
+  rules" pending item is CLOSED: his page and the lock are the same page. **► He reloads → `317`; HIS PICK for the frame (the extent — all
+  6 s or the fast cluster 317.05 … 319.5 · the grouping · the phase; a `--free 1,2` run offered by S15); this frame NAVY by S19.**
 
 ### SESSION 18 · CHECKPOINT #5 (mid-session checkpoint, 2026-09-29, Fable built, Opus wraps) — THE EH'S FIRST TWO FIGURES OF SECTION 2 NOTATED BY HAND; THE SHOWN BEAT BUILT; ► HIS EYE ON THE BETWEEN-BEATS PHASE
 
@@ -556,7 +563,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **SESSION 18 · CHECKPOINT #6 — figures 2 · 3 · 4 in, T10 + the picture, the span rule · the column pass · the frames as bands in two colours (§573 … §583; the block above): ► HIS EYE (reload → `piece-lgmf` → `301.5` · `298.5`); then THE NEXT FIGURE from 302.1 (after the burst) — his decisions note by note, the standards S1 … S19 (`temporal_notation.md` §12) surfaced; the tool's candidates + the picture for its frame (`tempo_fit --free --html`)** | Fable | no — the same task |
+| **►►►►** | **SESSION 18 · CHECKPOINT #6 — figures 2 · 3 · 4 in, T10 + the picture, the span rule · the column pass · the frames as bands in two colours (§573 … §583; the block above): ► HIS EYE (reload → `piece-lgmf` → `301.5` · `298.5`); then THE NEXT FIGURE — HIS CHOICE 316.8 … 323.14 (§584: the candidates + the picture drawn, HIS PICK owed; §585 · §587 the app's video page now in C, he reloads → `317`) — his decisions note by note, the standards S1 … S19 (`temporal_notation.md` §12) surfaced** | Fable | no — the same task |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
