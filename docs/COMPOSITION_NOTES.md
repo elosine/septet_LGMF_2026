@@ -3222,3 +3222,11 @@ beat as possible"
 
 *The AI's reading (marked as such):* one frame over both figures (375.77 and 379.88) — the green 91 bpm (7 × 0.0945) with its phase one unit
 later and backed 1.5 ms, the shortfall between p4 and p8 shared (11 · 10 ms); eleven navy lines 375.107 … 381.722. RUNNING_LOG §605.
+
+## LG-180 — 2026-09-30 — the second layer on 375.77 and 379.88: the beaming, the staccatos, the accent, the two decrescendos
+
+*His words (session 18, Fable):* "at 379.9 beam one and two, then three and four, and let five stand alone. Remove the tenudos from the last two and let them all be staccato. Let's have the dynamic be F at the first partial and number four have an accent. And then I don't need any of those other dynamic marks. At 375.8, let's have the first partial, just keep the F, a hairpin through the other two, a decrescendo. Get rid of those dynamic markings. MF on the fourth partial in the second group. then a decrescendo through to the last partial there at 377.74. And you can get rid of all the other dynamics."
+
+*The AI's reading (marked as such):* the five rebeamed 1+2 · 3+4 with 5 a lone 16th, dots on all five, f on 1, an accent on 4 on the head
+side; the eight: f on 1 with a decrescendo through 2 · 3, mf on 4 with a decrescendo to 8's end, every other name off; "the last partial
+there at 377.74" read as the hairpin reaching that note's end. RUNNING_LOG §606.

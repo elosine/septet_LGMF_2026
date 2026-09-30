@@ -19556,3 +19556,28 @@ other 21 layouts identical.
 
 **► He reloads → `376` (play from `375`); HIS EYE on the frame, his dynamics on 375.77 · 379.88 (the names shown, §604), then the lock's
 blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the 340 and 376 frames) and the next figure after 380.8.**
+
+## §606. The two figures' second layer at his dictation — 379.88 rebeamed 1+2 · 3+4 · 5 alone, all staccato, f + an accent on 4 · 375.77 f > through 2 · 3, mf > to 8 (2026-09-30, Fable, session 18; LG-180)
+
+**What prompted it** — *"at 379.9 beam one and two, then three and four, and let five stand alone. Remove the tenudos from the last two and let them all be staccato. Let's have the dynamic be F at the first partial and number four have an accent. And then I don't need any of those other dynamic marks. At 375.8, let's have the first partial, just keep the F, a hairpin through the other two, a decrescendo. Get rid of those dynamic markings. MF on the fourth partial in the second group. then a decrescendo through to the last partial there at 377.74. And you can get rid of all the other dynamics."* (LG-180), on the two figures §604 drew with every band name shown.
+
+**The five at 379.88** (380.012 C♯5 · 380.223 A♯4 · 380.391 D5 · 380.555 F3 · 380.797 C♯4): the one beam over the five replaced by two pairs —
+the runner's `@replace:380.012-380.797@0=>380.012-380.223@0` and `--beam 380.391-380.555@0`; **5 a lone 16th** (`nhStem flag16`; its `noteBeams` ·
+`dynAboveBeam` UNSET by `null` — the runner's unset used for the first time); the tenutos gone (5: `nhArtic null`; 4: replaced by the ACCENT,
+`articSide below` — the head side, S10: the pair D5 · F3 stems UP on the F3, so the head side is below); **dots on all five** (4 · 5 added, the
+gap 0.15); the names: **f on 1 by hand** (the band said ff), 2 … 5 off. The tenuto glyph (§604) stays in the row, unused here.
+
+**The eight at 375.77** (375.859 … 377.742): 1 keeps its **f** (by hand now) with a DECRESCENDO hairpin through 2 · 3 to 3's end (`hairpinTo`
+376.29 — the burst's convention, §574: to the last spanned note's end); 2 · 3 off; **4 mf** with a decrescendo through 5 · 6 · 7 to 8's end
+(377.81); 5 … 8 off. Both groups beam below the staff (§604), so the names ride ABOVE by the side-with-room rule and S17 lifts each hairpin
+clear of the ink it spans.
+
+**The gates:** the shield's baseline re-written on HEAD (`9243bf3`) · the runner on a fresh copy of his save · `gen_engraving_rules` ·
+`check_rules` 32 GREEN · the lock `eh_figure_check` 106 GREEN · the shield: `piece-lgmf` alone moved, the other 21 identical. The beams read
+back from the build: 375.859-376.138 · 377.102-377.51 · 380.012-380.223 · 380.391-380.555.
+
+**Not verified in the layout — his eye:** the accent and the dot stacked under 4 (both on the head side; wc-3453 at 317 carries both, §590) ·
+the lone 5th's flag above and dot below · the two hairpins' height over the beamed groups.
+
+**► He reloads → `376` · `380` (play from `375`); HIS EYE, then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the 340 and
+376 frames) and the next figure after 380.8.**
