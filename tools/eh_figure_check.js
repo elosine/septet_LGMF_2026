@@ -86,14 +86,25 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   const h1 = glyphAt(F4[0], /^notehead$/); ok(h1 && near(h1.dxSs - hw, 0, 0.03), '(§574) the first head\'s LEFT EDGE on its time — the GC\'s impact point (nhAnchor leftEdge)'); }
 // §564 · §565 · §566 — the beat grid he picked for the second figure: a 16th of 0.108 from 295.348, the beat every 3, over 295.348 … 297.4;
 // his template: the beats only, each a line through the staff overhanging 0.4 ss, the duration line's colour and opacity (the render's)
-{ const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 293 && it.t <= 299); const beats = ticks.filter(it => it.grid === 'beat');
+{ const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 293 && it.t <= 298); const beats = ticks.filter(it => it.grid === 'beat');   // [§575] the window ends before the third figure's frame (298.133 …)
   const OV = C.engraving.layout.beatGrid.overhangSs;
   ok(ticks.length === 6 && beats.length === 6 && near(beats[0].t, 294.538, 1e-6) && near(beats[5].t, 297.778, 1e-6) && near(beats[1].t - beats[0].t, 0.648, 1e-6) && beats.every(b => near(b.ySs, -2 - OV, 1e-6) && near(b.hSs, 4 + 2 * OV, 1e-6)),
     '(§564 … §569) the second figure\'s beat grid: ONE LINE PER BEAT at 93 bpm (6 units = 0.648 s), 6 lines 294.538 … 297.778 — the phase a quarter beat EARLIER than the on-beat one (§571: every note between beats), one line before the figure, one after, each a line through the staff overhanging ' + OV + ' ss');
   const AnimObj = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
-  let balls = null; try { balls = AnimObj.collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall'); } catch (e) { balls = null; }
+  let balls = null; try { balls = AnimObj.collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall' && a.at >= 293 && a.at <= 298); } catch (e) { balls = null; }
   ok(balls && balls.length === 6 && balls.every(b => b.preset && near(b.preset.duration, 0.648, 1e-6)) && beats.every(b => balls.some(x => near(x.at, b.t, 1e-6))), '(§567 · §569) the beat ball: one ball per grid beat (6), each a beat long (0.648), on only over the grid' + (balls ? '' : ' — collect threw'));
   const gapMin = Math.min(...[295.456, 295.665, 295.974, 296.315, 296.632, 297.306].map(t => Math.min(...beats.map(b => Math.abs(b.t - t))))); ok(gapMin >= 0.13, '(§571) every note at least 0.13 s from any beat — between the beats, none just before or after (nearest ' + Math.round(gapMin * 1000) + ' ms)'); }
+// §575 — THE THIRD FIGURE'S BEAT FRAME (his pick, LG-153: "lets try the purple 86, tools phase is fine"): the tool's (D) candidate at 86 bpm —
+// 6 × 0.1165 = 0.699 s on the phase 298.133 (notes 1 · 2 free of the objective, S15), fitted to the seven notes 298.815 … 300.695 by the
+// frame's clamps; the template figure 2's (S13)
+{ const beat = 6 * 0.1165, ph = 298.133, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 301.5);
+  const ref = items.find(it => it.k === 'tick' && it.grid === 'beat' && it.t > 294 && it.t < 298);
+  ok(g.length >= 4 && g.every(b => near((b.t - ph) / beat - Math.round((b.t - ph) / beat), 0, 1e-3)), '(§575) the third figure\'s grid: one line per beat at 86 bpm (0.699 s) on the phase 298.133 — ' + g.length + ' lines' + (g.length ? ' ' + g[0].t.toFixed(3) + ' … ' + g[g.length - 1].t.toFixed(3) : ''));
+  ok(ref && g.every(b => near(b.ySs, ref.ySs, 1e-6) && near(b.hSs, ref.hSs, 1e-6)), '(§575) each line the beat frame\'s (figure 2\'s geometry through the staff)');
+  ok(g.length && g[0].t < 298.815 && g[g.length - 1].t > 300.695 && g[0].t > 297.375 + 0.1 - 1e-6 && g[g.length - 1].t < 301.556 - 0.1 + 1e-6, '(§575) the frame spans the seven notes, 0.1 s clear of the notation before (ends 297.375) and after (301.556)');
+  let balls = null; try { balls = require(path.join(ROOT, 'notation', 'lib', 'animobj.js')).collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall' && a.at >= 298 && a.at <= 301.5); } catch (e) { balls = null; }
+  ok(balls && balls.length === g.length && g.every(b => balls.some(x => near(x.at, b.t, 1e-6))) && balls.every(b => b.preset && near(b.preset.duration, beat, 1e-6)), '(§575) one ball per line, each a beat long (0.699)' + (balls ? '' : ' — collect threw'));
+  const far = [299.139, 299.418, 300.050, 300.343, 300.695].map(t => Math.min(...g.map(b => Math.abs(b.t - t)))); ok(g.length && Math.min(...far) >= 0.11, '(§575) the last five notes each ≥ 0.11 s from any line, the first two free (nearest ' + (g.length ? Math.round(Math.min(...far) * 1000) : '-') + ' ms)'); }
 // §572 — THE BEAT FRAME, named and locked at his word (LG-150): the template every figure takes, asserted from the compiled tables
 { const RR = require(path.join(ROOT, "notation", "lib", "rules.js")).loadRules(ROOT).objects, T = RR.tick, BB = C.animated.beatBall || {}, BG = C.engraving.layout.beatGrid || {};
   ok(T.gridMaxBpm === 100 && T.gridLeadBeats === 1 && T.gridTailBeats === 1 && T.gridClampGapS === 0.1, "(§572) the beat frame: the max 100 bpm, one line before the figure, one after, 0.1 s clear of the neighbours");

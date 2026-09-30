@@ -285,6 +285,11 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   the picture; HIS PICK for the first seven: the grouping (97 … 100 at the cap 100, 90, 86 — or a line every two beats) · the phase (the
   tool's `--beatGridFit` line in §574, or a hand); then the seven's values by hand, S1 … S16 surfaced.** On the working page (in F) the ff and
   the dots go ABOVE (the chain on the head side with the stems down) — the video page is right; noted.
+- **§575 (2026-09-29, Fable; LG-153) — DONE:** his pick *"the purple 86, tools phase is fine"* → `--beatGridFit 0:0.1165:6:298.133:298.815:300.695`
+  in the build: **five lines 298.133 … 300.929, five balls** (the lead and tail beats dropped by the 0.1 s clamps — figure 2's last note ends
+  297.375, the burst starts 301.556). The lock 62 GREEN (figure 2's grid assertions windowed to 293 … 298; a §575 block) · `check_rules` 32 ·
+  the shield `piece-lgmf` alone. **► HIS EYE (reload → `piece-lgmf` → `298.5`); then THE SEVEN'S VALUES by hand — S1 … S16 surfaced at that
+  step** (the burst's S14 is the last four's, already in).
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
@@ -471,7 +476,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **§574 — THE FOUR AT 301.556 IN; THE FIRST SEVEN's CANDIDATES ON THE PICTURE (2026-09-29, Fable; the bullets under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `301.5` · `295`) · THE PICTURE `http://localhost:5400/notation/research/tempo_candidates_eh_298.html` · HIS PICK for the first seven** — the grouping (97 · 97 · 100 · 90 · 86 bpm, or a line every two beats) · the phase (the tool's `--beatGridFit` line in §574, or a hand) → a `--beatGridFit` hand; then the seven's values by hand (the standards S1 … S16, `temporal_notation.md` §12 — surface them) | Fable | no — the same task |
+| **►►►►** | **§575 — THE THIRD FIGURE'S BEAT FRAME IN at his pick, the purple 86 at the tool's phase (2026-09-29, Fable; the bullets under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `298.5` · `301.5`); then THE SEVEN'S VALUES by hand** (298.815 … 300.695: B5 · D5 · G♯5 · E5 · G3 · G4 · B3 — his decisions note by note, as figures 1 · 2 · 4; the standards S1 … S16, `temporal_notation.md` §12 — surface them) | Fable | no — the same task |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |

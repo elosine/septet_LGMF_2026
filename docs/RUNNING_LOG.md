@@ -18876,3 +18876,21 @@ his score server (`http://localhost:5400/…`): the heads on a time axis at 480 
 the beats run faintly through the heads), the free heads grey, a table of ms-from-the-nearest-beat and %-of-beat per note per candidate. Opened in
 the pane: no console errors, the table reads. **His pick owed:** the grouping (the 97 family — three near-identical grids · 90 · 86 · or a line every
 two beats of any) · the phase (the tool's, or a hand) → a `--beatGridFit` hand → the seven's values by hand, S1 … S16 surfaced.
+
+## §575. THE THIRD FIGURE'S BEAT FRAME — his pick, the purple 86 at the tool's phase (2026-09-29, Fable, session 18; LG-153)
+
+**What prompted it** — his pick from §574's picture: *"lets try the purple 86, tools phase is fine"* (LG-153). The candidate: 86 bpm, the beat
+0.699 s = 6 × 0.1165, the between phase 298.133 with notes 1 · 2 free (S15) — the slowest of the five, the one whose free notes sit near a
+line (98 · 16 %) and whose last five are the best spaced of the slow pair (the nearest 113 ms).
+
+**Built:** the hand `--beatGridFit 0:0.1165:6:298.133:298.815:300.695` added to `piece-lgmf`'s build (the IR from a scratchpad COPY of Draft 01).
+The frame's clamps: the lead beat (297.434) falls within 0.1 s of the notation before (figure 2's last note ends 297.375) → dropped; the tail
+beat (301.628) within 0.1 s of the burst at 301.556 → dropped. **Five lines 298.133 · 298.832 · 299.531 · 300.230 · 300.929, five balls** — the
+first line 0.68 s before the first note, the last 0.23 s after the seventh; the two frames (figure 2's ends 297.778) 0.36 s apart, never
+overlapping. The template figure 2's (S13) unchanged.
+
+**The lock** `eh_figure_check.js`: figure 2's grid assertions windowed to 293 … 298 (they counted every tick of the part; the new frame would
+have doubled them) and a §575 block — one line per beat on the phase · the geometry figure 2's · the span over the seven, 0.1 s clear of the
+notation either side · one ball per line, a beat long · the last five ≥ 0.11 s from any line (nearest 113 ms) — **62 GREEN** (57 before).
+`check_rules` 32 GREEN (the rules page regenerated). The shield: `piece-lgmf` alone. ► His eye (reload → `298.5`); then the seven's values by
+hand — S1 … S16 surfaced at that step.

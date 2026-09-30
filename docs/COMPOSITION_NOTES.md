@@ -2982,3 +2982,10 @@ between the, the last five. And then if the beat falls on either of the first tw
 *The AI's reading (marked as such):* a second GC-bearing figure type — the burst with a cue: the GC gives the impact, the head's left edge IS
 the moment (anchor A with a GC), no go line; the beat frame's objective may exempt notes that time each other (`--free`). The build: RUNNING_LOG
 §574.
+
+## LG-153 — 2026-09-29 — the third figure's beat frame: his pick from the picture
+
+*His words (session 18, Fable):* "lets try the purple 86, tools phase is fine"
+
+*The AI's reading (marked as such):* the purple candidate of `tempo_candidates_eh_298.html` — 86 bpm, the beat 0.699 s = 6 × 0.1165, at
+the tool's between phase 298.133 (notes 1 · 2 free). The build: RUNNING_LOG §575.

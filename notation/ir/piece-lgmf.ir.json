@@ -23,7 +23,7 @@
   "date": "2026-09-30",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/9e529af1-fc0c-4f38-95d3-4003da01f151/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --plainNotes 0:288:303 --beam 292.79-293.815@0 --hand \"wc-3383:{\\\"dynMark\\\":\\\"pp\\\",\\\"hairpinTo\\\":289.25,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3384:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3385\\\",\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3385:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3386:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3387:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"beamStub\\\":true,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3388:{\\\"beamStub\\\":true,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"above\\\"}\" --hand \"wc-3389:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --hand \"wc-3390:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --rest 0:290.2:4 --beam 295.456-295.665@0 --beam 295.974-296.315@0 --hand \"wc-3391:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"mf\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3393:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3395:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3398:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false}\" --hand \"wc-3399:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3400:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --beam 301.556-302.106@0 --hand \"wc-3412:{\\\"gc\\\":true,\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynMark\\\":\\\"ff\\\",\\\"dynAboveBeam\\\":false,\\\"hairpinTo\\\":302.17,\\\"hairpinDir\\\":\\\"decresc\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3414:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3416:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3419:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --beatGridFit 0:0.108:6:295.186:295.456:297.306 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547), the opening figure by hand (§550 · §557 · §559), the second figure's beat grid (§564 … §571) and its values (§573)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/9e529af1-fc0c-4f38-95d3-4003da01f151/scratchpad/draft01-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427 --plainNotes 0:288:303 --beam 292.79-293.815@0 --hand \"wc-3383:{\\\"dynMark\\\":\\\"pp\\\",\\\"hairpinTo\\\":289.25,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3384:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3385\\\",\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3385:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3386:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3387:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"beamStub\\\":true,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3388:{\\\"beamStub\\\":true,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"above\\\"}\" --hand \"wc-3389:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --hand \"wc-3390:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --rest 0:290.2:4 --beam 295.456-295.665@0 --beam 295.974-296.315@0 --hand \"wc-3391:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"mf\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3393:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3395:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3398:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false}\" --hand \"wc-3399:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3400:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --beam 301.556-302.106@0 --hand \"wc-3412:{\\\"gc\\\":true,\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynMark\\\":\\\"ff\\\",\\\"dynAboveBeam\\\":false,\\\"hairpinTo\\\":302.17,\\\"hairpinDir\\\":\\\"decresc\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3414:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3416:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3419:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --beatGridFit 0:0.108:6:295.186:295.456:297.306 --beatGridFit 0:0.1165:6:298.133:298.815:300.695 --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547), the opening figure by hand (§550 · §557 · §559), the second figure's beat grid (§564 … §571) and its values (§573)\""
  },
  "events": [
   {
@@ -712449,6 +712449,34 @@
      "nextOnset": 298.815,
      "beatsBefore": 1,
      "beatsAfter": 1
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-beatgridfit-0-298815",
+   "kind": "beatGrid",
+   "target": {
+    "part": 0,
+    "span": [
+     298.133,
+     300.93
+    ]
+   },
+   "value": {
+    "unit": 0.1165,
+    "beatEvery": 6,
+    "phase": 298.133,
+    "fit": {
+     "first": 298.815,
+     "last": 300.695,
+     "lead": 1,
+     "tail": 1,
+     "gapS": 0.1,
+     "prevEnd": 297.375,
+     "nextOnset": 301.556,
+     "beatsBefore": 0,
+     "beatsAfter": 0
     }
    },
    "provenance": "authored"
