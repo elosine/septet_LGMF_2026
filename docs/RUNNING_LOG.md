@@ -19533,3 +19533,26 @@ The names: ff · ff · mf · f · f.
 375.515) · 95 (5 × 0.126, 375.688) · 91 (7 × 0.0945, 375.675) · 87 (7 × 0.0985, 375.793) · 93 (7 × 0.0925, 375.745, nearest 54 ms) · 95
 (7 × 0.0905, 375.670); the picture `http://localhost:5400/notation/research/tempo_candidates_eh_376.html`. His pick owed. `check_rules` 32 ·
 the lock 106 · the shield `piece-lgmf` alone. ► He reloads → `345.5` · `375.8` · `380` · `389.8`; the picture.
+
+## §605. The 376 frame — the green 91 one tick forward, backed 1.5 ms so p4 and p8 sit on their beats together (2026-09-30, Fable, session 18; LG-179)
+
+**What prompted it** — *"The 13 notes, 375.859 … 380.797 - green plus one tick phase minus a little so p4 and p8 are as close to beat as
+possible"* (LG-179), on the picture `notation/research/tempo_candidates_eh_376.html` (§604), after the `/postclear` of checkpoint #7.
+
+**The green:** 91 bpm — the beat 0.6615 s = 7 × 0.0945, the tool's between phase 375.675 (the nearest note 82 ms from a line). **Plus one
+tick** = one unit later, 375.7695: p4 (377.102) lands 9 ms AFTER a line, p8 (377.742) 12 ms BEFORE the next. The two are 0.640 s apart
+against a beat of 0.6615 — 21.5 ms short of a beat — so no phase puts both ON a line; the best shares the shortfall between them:
+**375.768** — p4 11 ms after its line, p8 10 ms before its, 1.5 ms back from the tick (his "minus a little"). The hand:
+`--beatGridFit 0:0.0945:7:375.768:375.859:380.797` — the picture's own extent, both figures (375.77 and 379.88) under one frame.
+
+**The frame as placed** (`ov-beatgridfit-0-375859`): one lead beat, one tail — the clamps found nothing to cut (the previous notation ends
+374.242, the next EH onset 383.347) — **eleven lines 375.107 … 381.722**, eleven balls; the fifth frame of the part in time order, so
+**navy** by S19 (295 navy · 298 olive · 317 navy · 340 olive · 376 navy). Every note's signed distance from its nearest line (ms):
+91 · 227 · −291 · **11** · 159 · 269 · −242 · **−10** · 275 · −175 · −7 · 157 · −263 — the 380.391 D5 falls 7 ms before a line too, unasked.
+
+**The gates:** `tools/reextract.js` on a fresh copy of his save · `gen_engraving_rules` · `check_rules` 32 GREEN · the lock `eh_figure_check`
+106 GREEN · THE SHIELD — the baseline written on HEAD into this session's scratchpad first, then `--diff`: `piece-lgmf` alone moved, the
+other 21 layouts identical.
+
+**► He reloads → `376` (play from `375`); HIS EYE on the frame, his dynamics on 375.77 · 379.88 (the names shown, §604), then the lock's
+blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the 340 and 376 frames) and the next figure after 380.8.**

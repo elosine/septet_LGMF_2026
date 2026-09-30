@@ -3214,3 +3214,11 @@ also made a change to composer save so whatever needs to be done ; lets see the 
 
 *The AI's reading (marked as such):* the stroke's far half lengthened by twice the inset — balanced; the tenuto a new glyph in the
 articulation row; the two figures as said, the names shown; the candidates drawn. RUNNING_LOG §604.
+
+## LG-179 — 2026-09-30 — the 376 frame: the green 91, one tick forward, p4 and p8 on the beat
+
+*His words (session 18, Fable):* "The 13 notes, 375.859 … 380.797 - green plus one tick phase minus a little so p4 and p8 are as close to
+beat as possible"
+
+*The AI's reading (marked as such):* one frame over both figures (375.77 and 379.88) — the green 91 bpm (7 × 0.0945) with its phase one unit
+later and backed 1.5 ms, the shortfall between p4 and p8 shared (11 · 10 ms); eleven navy lines 375.107 … 381.722. RUNNING_LOG §605.
