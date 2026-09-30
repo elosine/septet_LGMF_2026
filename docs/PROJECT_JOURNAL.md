@@ -298,6 +298,16 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   frame** (S13a, `notate_section.js`). The lock 62 GREEN · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE (reload → `298.5` ·
   `301.5`); then THE SEVEN'S VALUES by hand, S1 … S17.** Note: his page is the WORKING page (in F, stems by the written pitch) — the lock
   asserts the video page (in C); where a mark's side depends on the stem the two differ (§573 · §574 noted note 6's accent and the burst's marks).
+- **§577 · §578 (2026-09-29, Fable; LG-155 · LG-156) — DONE:** THE THIRD FIGURE'S VALUES by hand (1+2 beamed 16ths by S4 + a slur · 3 · 4
+  flagged eighths with staccato dots · 5+6 an eighth pair by S4 · 7 a flagged eighth · mf + an accent on 1, no other name to the burst's ff;
+  the AI's values his to reverse) and **THE COLUMN PASS** (S18 — his *"the spacing system picked up all those exceptions … rather than just
+  manually fixing it each time"*): a dynamic and an articulation in one column stack in the column's order by the standard stack, the ottava
+  and the word riding, the slur lifting the whole column (its riders too). On his page note 1's mf had sat ON the accent; now head → accent
+  3.96 → mf 5.17 → the 8va line 6.85, the slur under them. A first try (the accent into the unit's chain) reverted — it dropped the accent to
+  the chain's side and moved a tuba page. **THE FRAMES ALTERNATE** navy · olive (S19, `objects.tick.gridColours` · `objects.beatBall.colours`;
+  layout stamps each line's frame, animobj each ball's, render draws it). The lock GREEN (a §577 block, the column on both pages) ·
+  `check_rules` 32 · the shield `piece-lgmf` alone (the tuba goldens identical). **► HIS EYE (reload → `piece-lgmf` → `298.8`: the column,
+  the olive frame · `295`); then the next figure, from 302.1, by the same method — S1 … S19 surfaced.**
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
@@ -484,7 +494,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **§576 — THE SPAN RULE in (the burst's hairpin clear of its dots) · the third figure's frame the ORANGE 90 at the tool's phase · the clamp reads the previous frame (2026-09-29, Fable; the bullets under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `298.5` · `301.5`); then THE SEVEN'S VALUES by hand** (298.815 … 300.695: B5 · D5 · G♯5 · E5 · G3 · G4 · B3 — his decisions note by note, as figures 1 · 2 · 4; the standards S1 … S16, `temporal_notation.md` §12 — surface them) | Fable | no — the same task |
+| **►►►►** | **§577 · §578 — THE THIRD FIGURE'S VALUES IN, THE COLUMN PASS (S18), THE FRAMES ALTERNATE (S19) (2026-09-29, Fable; the bullets under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `298.8` · `295`); then THE NEXT FIGURE from 302.1 (after the burst) — his decisions note by note, the standards S1 … S19 (`temporal_notation.md` §12) surfaced; the tool's candidates + the picture for its frame (`tempo_fit --free --html`)** | Fable | no — the same task |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |

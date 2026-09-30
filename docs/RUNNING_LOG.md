@@ -18920,3 +18920,55 @@ frames' spans. The result: **five lines 298.216 · 298.882 · 299.548 · 300.214
 
 **The lock** `eh_figure_check.js` — the §575 block re-pointed at the 90's numbers: **62 GREEN**. `check_rules` 32 GREEN. THE SHIELD: `piece-lgmf`
 alone (the span rule moved no other page — no hand hairpin exists outside it). ► His eye: reload → `298.5` · `301.5`.
+
+## §577. THE THIRD FIGURE'S VALUES BY HAND · THE COLUMN PASS — "the spacing system picked up all those exceptions" (2026-09-29, Fable, session 18; LG-155)
+
+**What prompted it** — his decisions for the seven (LG-155, whole): *"1st 2 beamed, three and four single 8th with flagws, five and six beamed,
+seven stands alone. Slur on one and two, three and four get staccato. MF on first partial with an accent on that one. And that's the only
+dynamic until the two Fs at the end … make sure to try to manage that the vertical column on the first one. You have a slur, you have the
+Ottava, you have the dynamic and the accent … I would prefer if the spacing system picked up all those exceptions. So make sure we shore that
+up if it's not, rather than just manually fixing it each time."*
+
+**The figure** (298.815 … 300.695): 1 B5 · 2 D5 · 3 G♯5 · 4 E5 · 5 G3 · 6 G4 · 7 B3 (`wc-3401 · 3402 · 3403 · 3404 · 3406 · 3408 · 3411`).
+**The values he did not name, by S4 (the spacing class; his to reverse):** 1 + 2 at 132 ms apart — faster than the burst's 16ths (≈ 180 ms) —
+**16ths** (`noteBeams 2`); 5 + 6 at 293 ms — figure 2's eighth pairs were 209 · 341 — **eighths** (`noteBeams 1`); 7 "stands alone" — a
+**flagged eighth** (figure 2's singles). The hands: `--beam 298.815-298.947@0` · `--beam 300.05-300.343@0`; on 1 `dynMark "mf" · dynAboveBeam
+false · nhArtic "accent" · articSide "above" · slurTo wc-3402 · gc false · goLine false`; on 3 and 4 `nhStem "flag8" · nhDot`; on 7 `nhStem
+"flag8"`; `dynMark false` on 2 … 7. (`articSide "above"` is the head side on both pages — B5 and F♯6 written both take the stem down.)
+
+**THE COLUMN ON NOTE 1 — the fault he foresaw, found by the query:** on his page (in F: F♯6 written → F♯5 + 8va) the accent at 4.27 and the mf
+at 4.03 — **the mf ON the accent**; on the video page (B5, one ledger) 5.46 against 5.53 — the same. The cause: a beam member's accent sent to
+the HEAD side by `articSide` is placed by the group's per-mark row (layout ~2705), whose own comment says *"a dyn mark sharing the exact column
+is not yet consulted — no dictated cluster has that; NITS if ever"*; the unit's dynamic was placed by its chain as if no accent existed. The
+slur pass then lifted both together, keeping the overlap.
+**A first fix, reverted:** the accent kept in the unit's chain (a lone unit's articulation slot) when `articSide` names the head side — the
+slot follows the CHAIN's side, not the head side: note 1's accent dropped under the beam (−6.26), figure 1's p6 broke (the lock red), a tuba
+page moved (`tuba:db1`). Reverted whole.
+**THE COLUMN PASS, built** (layout, before the slur pass): for every unit, on each side, a dynamic that shares the column with an articulation
+stacks BEYOND it by the standard stack (0.45 — the column's order articulation · dynamic · ottava · instruction), and what rides on the chain's
+outer edge on that side — the ottava sign, the section's word — moves with it; a column already in order is untouched. **And the slur pass's
+riders:** the ottava sign and the word at a unit move with the marks the slur lifts (the ottava was placed from the chain's top BEFORE the
+slur pass — its hook would have landed in the lifted dynamic). **The numbers:** the video page — head 3.5 → the accent 5.46 → the mf 6.82, the
+gap 0.450, the accent 0.800 above the slur; his page — head 2.0 (F♯5, the top line) → the accent 3.96 → the mf 5.17 → the 8va line 6.85, the
+slur 2.74 → 3.74 under the accent by 0.8 — **the gaps 0.30 / 0.40 there, by THE LADDER:** at rung 0 the column (8va · accent · mf) ran 0.01 ss
+past the lane's top, so the ladder took rung 1, the stack 0.3 (`ladder.compressStack`) — the fit record says so; the page is right, and the
+lock's first test (a flat 0.45) was wrong until it read the rung. Figure 1's marks unchanged; the tuba goldens identical. S18 in
+`temporal_notation.md` §12.
+
+**The lock** `eh_figure_check.js` — a §577 block: the two beams and their levels · 3 · 4 · 7 flagged · the slur 1 → 2 above · mf alone · the
+accent on 1 alone · dots on 3 · 4 · THE COLUMN on the video page (the mf beyond the accent by the stack; the marks 0.8 above the slur) · THE
+COLUMN on the working page (head → accent → mf → the 8va sign, each the rung's stack beyond the last, the slur under them) — **73 GREEN**.
+`check_rules` 32 GREEN (the rules page regenerated). THE SHIELD: `piece-lgmf` alone.
+
+## §578. THE FRAMES ALTERNATE IN COLOUR — navy · olive (2026-09-29, Fable, session 18; LG-156)
+
+**What prompted it** — *"Let's alternate colors for the ball and the lines for each new rhythm group. And we'll use the olive from the
+vibraphones so that there's some visual that it's a new or potentially a new tempo."* (LG-156)
+
+**Built:** `rules.json objects.tick.gridColours` = [the duration line's navy `@objects.ringBar.colour`, `@colours.olive.value` #6B8E23 — the
+second seat's, §484] and `objects.beatBall.colours` the same pair (`colour` the single-colour fallback); `container.json` carries both into
+`engraving.layout.beatGrid.colours` and `animated.beatBall.colours` (the resolver walks arrays). Layout sorts a part's frames by their span's
+start and stamps every grid line with its frame's index and colour (`frame` · `colour`); render draws a line in `it.colour` (the ringBar's
+when none); animobj's collect gives every ball its frame's index and the draw picks `st.colours[frame % 2]`. The opacity unchanged (0.3).
+**On the page:** figure 2's frame (6 lines, 6 balls) navy · figure 3's (5 · 5) olive; the next frame navy again. S19. The lock unchanged in
+count; `check_rules` 32; the shield `piece-lgmf` alone.

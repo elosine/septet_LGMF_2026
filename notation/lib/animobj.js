@@ -120,8 +120,11 @@
     const rise = st.riseSs != null ? st.riseSs : 2;   // [§571] his "leave from slightly higher … about two staff spaces above" — RULES MIRROR (engraving.animated.beatBall.riseSs)
     const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (2 * STAFF_HALF + 2 * over + rise) * s.ssPx : G.h;
     const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
+    // [§578] the ball in its FRAME's colour — the frames on a part alternate through st.colours (rules.json objects.beatBall.colours:
+    // the navy, then the vibraphone's olive) by inst.frame, the frame's index on the part; one colour (st.color) when no list
+    const frameColor = st.colours && st.colours.length && inst.frame != null ? st.colours[inst.frame % st.colours.length] : null;
     return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
-      '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
+      '" fill="' + (inst.color || frameColor || st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
   });
 
   // curveFollower: inst {part, t0, t1, midi, morphBend}; dot at the
@@ -366,12 +369,19 @@
     // [§567, LG-145] THE BEAT BALL — one instance per BEAT of a beatGrid overlay (the IR's, notate_section --beatGrid), with
     // preset.duration = the beat, so consecutive balls abut and the lane has one ball in flight for exactly as long as the grid's
     // lines show, and nowhere else (the trance section's trick of day 36)
-    if (kindOn('beatBall')) for (const ov of ((ir && ir.overlays) || [])) {
-      const tg = ov.target || {}, v = ov.value || {};
-      if (ov.kind !== 'beatGrid' || tg.part === undefined || !tg.span || !(v.unit > 0) || !has(tg.part)) continue;
-      const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n;
-      const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
-      for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, _src: 'ir-beatGrid' });
+    if (kindOn('beatBall')) {
+      // [§578] each frame's index on its part (in time order) — the ball's colour alternates by it, as the frame's lines do (layout.js)
+      const grids = ((ir && ir.overlays) || []).filter(ov => ov.kind === 'beatGrid' && ov.target && ov.target.part !== undefined && ov.target.span && ov.value && ov.value.unit > 0);
+      const frameOf = new Map(); const byPart = new Map();
+      for (const ov of grids) { if (!byPart.has(ov.target.part)) byPart.set(ov.target.part, []); byPart.get(ov.target.part).push(ov); }
+      for (const list of byPart.values()) list.sort((a, b) => a.target.span[0] - b.target.span[0]).forEach((ov, i) => frameOf.set(ov, i));
+      for (const ov of grids) {
+        const tg = ov.target, v = ov.value;
+        if (!has(tg.part)) continue;
+        const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = frameOf.get(ov);
+        const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
+        for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, frame, _src: 'ir-beatGrid' });
+      }
     }
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {

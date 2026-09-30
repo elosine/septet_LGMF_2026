@@ -2730,6 +2730,8 @@
                     }
                     st.articPerMark.set(a.t, y);
                     outer = Math.max(outer, Math.abs(y) + aH / 2);
+                    // [§577] the NITS case above ("a dyn mark sharing the exact column is not yet consulted") is met by THE COLUMN PASS before
+                    // the slur pass — the dyn glyph does not exist yet here
                   }
                   used[g.articSide] = Math.max(used[g.articSide], outer);
                 } else {
@@ -3211,19 +3213,25 @@
       {
         const BG = Object.assign({ subHSs: 0.4, at: 'staff', overhangSs: 0.4, beatsOnly: true }, o.beatGrid || {});   // RULES MIRROR (rules.json objects.tick.subHSs · gridAt · gridOverhangSs · gridBeatsOnly)
         const STAFF_HALF = 2;   // five lines, ±2
-        for (const g of beatGrids) {
-          if (g.part !== spec.part) continue;
+        // [§578, his "alternate colors for the ball and the lines for each new rhythm group … the olive from the vibraphones so that there's
+        // some visual that it's a new or potentially a new tempo"] THE FRAMES ALTERNATE: the part's frames in time order take the colours of
+        // rules.json objects.tick.gridColours in turn (the navy, then the olive); each line carries its frame's colour, the ball the same
+        const framesHere = beatGrids.filter(g => g.part === spec.part).sort((a, b) => a.span[0] - b.span[0]);
+        const COLS = Array.isArray(BG.colours) && BG.colours.length ? BG.colours : null;
+        framesHere.forEach((g, frame) => {
           const n = g.beatEvery >= 1 ? Math.round(g.beatEvery) : 1;
+          const colour = COLS ? COLS[frame % COLS.length] : undefined;
           const k0 = Math.ceil((g.span[0] - g.phase) / g.unit - 1e-9), k1 = Math.floor((g.span[1] - g.phase) / g.unit + 1e-9);
           for (let k = k0; k <= k1; k++) {
             const t = +(g.phase + k * g.unit).toFixed(6), beat = ((k % n) + n) % n === 0;
             if (BG.beatsOnly && !beat) continue;   // [§565] his template: the main beats only
             // [§565] the shorter size, hung from the lane's top edge (yAt 'top' — the render's lane top), in the duration line's colour and opacity
             // [§566] gridAt 'staff': a line through the staff, overhangSs beyond each outer line (the tick's foot is its ySs, it rises hSs)
-            if (BG.at === 'staff') items.push({ k: 'tick', t, ySs: -STAFF_HALF - BG.overhangSs, hSs: 2 * STAFF_HALF + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' });
-            else items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}));
+            const stamp = colour ? { frame, colour } : { frame };
+            if (BG.at === 'staff') items.push(Object.assign({ k: 'tick', t, ySs: -STAFF_HALF - BG.overhangSs, hSs: 2 * STAFF_HALF + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' }, stamp));
+            else items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}, stamp));
           }
-        }
+        });
       }
       const VBc = (DEV.byEnv || {}).vibBow || {};
       const HEADH = (glyphs.notehead.open.hSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), RBH = VBc.ringBarHSs != null ? VBc.ringBarHSs : 0.667;   // RULES MIRROR (objects.ringBar.hSs)
@@ -3355,6 +3363,36 @@
           items.push({ k: 'hairpin-timed', t0: u.t, t1: dev.hairpinTo, dx0Ss: +x0.toFixed(4), dx1Ss: 0, ySs: y, dir: dev.hairpinDir === 'decresc' ? 'decresc' : 'cresc', hSs: HP.heightSs, thickSs: HP.thickSs, ev: id });
         }
       }
+      // [§577, his "I would prefer if the spacing system picked up all those exceptions … rather than just manually fixing it each time"]
+      // THE COLUMN PASS — A DYNAMIC AND AN ARTICULATION IN ONE COLUMN, ONE SIDE: the dynamic stacks BEYOND the articulation by the standard
+      // stack (the column's order: articulation · dynamic · ottava · instruction), and what rides on the chain's outer edge on that side —
+      // the ottava sign, the section's word — moves with it. The beam group's per-mark accent row (its own NITS note: "a dyn mark sharing
+      // the exact column is not yet consulted") and a lone unit's chain both pass through here; a column already in order is left alone.
+      // Met at figure 3's note 1 (mf + an accent on the head side): the mf sat ON the accent (4.03 against 4.27 on the working page, 5.53
+      // against 5.46 on the video page). Before the slur pass, which lifts a column's marks together.
+      {
+        const STK = 0.45;   // RULES MIRROR (rules.json column.stack.standard)
+        const hOf = it => { const key = (it.g || '').replace(/^dyn-/, '').replace(/^artic-/, ''); const G = /^dyn-/.test(it.g || '') ? (glyphs.dynamic || {})[key] : (glyphs.articulation || {})[key]; return (G && G.hSs) || 0.8; };
+        for (const [id, u] of nhAt) {
+          for (const above of [true, false]) {
+            const side = it => above ? it.ySs > u.y : it.ySs < u.y;
+            const ac = items.filter(it => it.k === 'glyph' && /^artic-/.test(it.g || '') && Math.abs(it.t - u.t) < 1e-9 && side(it));
+            const dy = items.filter(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && Math.abs(it.t - u.t) < 1e-9 && side(it));
+            if (!ac.length || !dy.length) continue;
+            const edge = above ? Math.max(...ac.map(it => it.ySs + hOf(it) / 2)) : Math.min(...ac.map(it => it.ySs - hOf(it) / 2));
+            for (const dm of dy) {
+              const want = above ? edge + STK + hOf(dm) / 2 : edge - STK - hOf(dm) / 2;
+              const delta = above ? Math.max(0, want - dm.ySs) : Math.min(0, want - dm.ySs);
+              if (!delta) continue;
+              dm.ySs = +(dm.ySs + delta).toFixed(4);
+              for (const it of items) {
+                if (typeof it.t !== 'number' || Math.abs(it.t - u.t) >= 1e-9) continue;
+                if ((it.k === 'ottava' && it.dir === (above ? 'above' : 'below')) || (it.k === 'text' && it.seq === 'instruction' && side(it))) it.ySs = +(it.ySs + delta).toFixed(4);
+              }
+            }
+          }
+        }
+      }
       // [§555, LG-133] THE SLUR — the standard: LilyPond 2.24.4's Slur (his install — ratio 0.25, height-limit 2, thickness 1.2 → 0.8 at
       // the ends, free-head-distance 0.3) with Gould's ends: at the HEADS on the head side (the head's centre, freeHead beyond its edge), at
       // the STEM TIPS on the stem side; the side WITH the stems (below when they go up, above when down, mixed → above). A hand slurTo on
@@ -3401,6 +3439,12 @@
             const near = below ? Math.max(...marks.map(it => it.ySs + markH(it) / 2)) : Math.min(...marks.map(it => it.ySs - markH(it) / 2));
             const delta = below ? Math.min(0, lim - near) : Math.max(0, lim - near);
             if (delta) for (const it of marks) it.ySs = +(it.ySs + delta).toFixed(4);
+            // [§577] what stacks BEYOND the marks on that side rides with them — the ottava sign (placed from the chain's top before this
+            // pass; its hook would otherwise land in a lifted dynamic) and the section's word above the note
+            if (delta) for (const it of items) {
+              if (typeof it.t !== 'number' || Math.abs(it.t - u.t) >= 1e-9) continue;
+              if ((it.k === 'ottava' && it.dir === (below ? 'below' : 'above')) || (it.k === 'text' && it.seq === 'instruction' && (below ? it.ySs < u.y : it.ySs > u.y))) it.ySs = +(it.ySs + delta).toFixed(4);
+            }
           }
         }
       }

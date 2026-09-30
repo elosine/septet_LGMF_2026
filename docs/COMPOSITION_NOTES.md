@@ -3000,3 +3000,22 @@ dots:* "move hairpin either higher or below, probably higher is best, was there 
 *The AI's reading (marked as such):* no rule governed it — a hand hairpin took its name's height and never looked at the notes it spans; the
 fix is a rule, THE SPAN RULE (§576, S17), on his "higher". The orange candidate: 90 bpm, 6 × 0.111 = 0.666 s, the tool's between phase
 298.216 (notes 1 · 2 free). The build: RUNNING_LOG §576.
+
+## LG-155 — 2026-09-29 — the third figure's values (the seven from 298.815), and the column on its first note: the spacing system must pick up the exceptions
+
+*His words (session 18, Fable):* "1st 2 beamed, three and four single 8th with flagws, five and six beamed, seven stands alone. Slur on one and
+two, three and four get staccato. MF on first partial with an accent on that one. And that's the only dynamic until the two Fs at the end. And
+then just, I don't quite know exactly what to say here, but let's just make sure to try to manage that the vertical column on the first one. You
+have a slur, you have the Ottava, you have the dynamic and the accent. However, I want, I would prefer if the spacing system picked up all those
+exceptions. So make sure we shore that up if it's not, rather than just manually fixing it each time."
+
+*The AI's reading (marked as such):* the values he did not name, by the spacing standard S4 — 1+2 at 132 ms apart 16ths, 5+6 at 293 ms
+eighths, 7 a flagged eighth; his to reverse. The column on note 1 is a RULE case, not a hand: the build in RUNNING_LOG §577.
+
+## LG-156 — 2026-09-29 — the beat frames alternate in colour, the vibraphone's olive
+
+*His words (session 18, Fable):* "Let's alternate colors for the ball and the lines for each new rhythm group. And we'll use the olive from the
+vibraphones so that there's some visual that it's a new or potentially a new tempo."
+
+*The AI's reading (marked as such):* a part's frames in time order alternate navy · olive · navy …, the lines and the ball of a frame the same
+colour, the opacity unchanged; the build in RUNNING_LOG §578.

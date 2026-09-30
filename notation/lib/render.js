@@ -473,7 +473,9 @@
           // [§565] a beat grid's tick hangs from the LANE'S TOP EDGE (yAt 'top') in the DURATION LINE's colour and opacity (E.ringBar — rules.json
           // objects.ringBar through objects.tick.gridColour · gridOpacity); the GC's tick keeps the tick row and the ink
           const tY = it.yAt === 'top' ? sys.yTopPx : Y(it.ySs) - tH * ssPx;
-          const tFill = it.grid ? ' fill="' + E.ringBar.color + '"' + (E.ringBar.opacity != null && E.ringBar.opacity !== 1 ? ' fill-opacity="' + E.ringBar.opacity + '"' : '') : '';
+          // [§578, his "alternate colors for the ball and the lines for each new rhythm group … the olive from the vibraphones"] a grid line
+          // carries its FRAME's colour (layout stamps it from rules.json objects.tick.gridColours by the frame's index on the part)
+          const tFill = it.grid ? ' fill="' + (it.colour || E.ringBar.color) + '"' + (E.ringBar.opacity != null && E.ringBar.opacity !== 1 ? ' fill-opacity="' + E.ringBar.opacity + '"' : '') : '';
           parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + tY.toFixed(2) +
             '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (tH * ssPx).toFixed(2) + '"' + tFill + '/>');
         } else if (it.k === 'envcurve') {

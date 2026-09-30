@@ -125,5 +125,38 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
     why = hp ? ' (the hairpin at ' + hp.ySs.toFixed(2) + ', the highest dot ' + Math.max(...dots.map(d => d.ySs)).toFixed(2) + ')' : ' (no hairpin found)';
   } catch (e) { good = false; why = ' — the working layout threw: ' + e.message; }
   ok(good, '(§576) THE SPAN RULE on the working page (in F): the burst\'s ff and hairpin, above, clear all four staccato dots by the standard stack, the name at the hairpin\'s height' + why); }
+// §577 — THE THIRD FIGURE'S VALUES (his LG-155): 1 + 2 beamed (16ths, S4) with a slur · 3 and 4 single flagged eighths with staccato dots ·
+// 5 + 6 beamed (eighths, S4) · 7 a flagged eighth · mf and an accent on 1, no other name until the burst's ff — and THE COLUMN on note 1
+// (accent · dynamic · ottava · the slur under them) stacked by THE COLUMN PASS, the system's, never a hand
+{ const F3 = { n1: 298.815, n2: 298.947, n3: 299.139, n4: 299.418, n5: 300.050, n6: 300.343, n7: 300.695 };
+  const bmAt = t => items.filter(it => it.k === 'beam' && it.tips && it.tips.some(p => Math.abs(p.t - t) < 1e-6));
+  const hOf = it => { const key = (it.g || '').replace(/^dyn-/, '').replace(/^artic-/, ''); const G = /^dyn-/.test(it.g || '') ? (glyphs.dynamic || {})[key] : (glyphs.articulation || {})[key]; return (G && G.hSs) || 0.8; };
+  ok(bmAt(F3.n1).length === 2 && bmAt(F3.n1).every(b => b.tips.length === 2 && Math.abs(b.tips[1].t - F3.n2) < 1e-6), '(§577) notes 1 + 2 one beam, two levels — 16ths (132 ms apart, S4)');
+  ok(bmAt(F3.n5).length === 1 && bmAt(F3.n5)[0].tips.length === 2 && Math.abs(bmAt(F3.n5)[0].tips[1].t - F3.n6) < 1e-6, '(§577) notes 5 + 6 one beam, one level — an eighth pair (293 ms, S4)');
+  ok([F3.n3, F3.n4, F3.n7].every(t => at('stem', t) && glyphAt(t, /^flag-(up|down)8$/) && !bmAt(t).length), '(§577) notes 3, 4 and 7 single flagged eighths');
+  const sl = items.find(it => it.k === 'slur' && Math.abs(it.t0 - F3.n1) < 1e-6); ok(sl && Math.abs(sl.t1 - F3.n2) < 1e-6 && sl.dir === 'above', '(§577) the slur 1 → 2, above (both stems down)');
+  const names = Object.values(F3).map(t => { const g = glyphAt(t, /^dyn-/); return g ? g.g.replace('dyn-', '') : '-'; }).join(' ');
+  ok(names === 'mf - - - - - -', '(§577) mf on note 1 alone, nothing else until the burst\'s ff — got: ' + names);
+  ok(glyphAt(F3.n1, /^artic-accent$/) && Object.values(F3).slice(1).every(t => !glyphAt(t, /^artic-/)), '(§577) the accent on note 1 only');
+  ok(at('dot', F3.n3) && at('dot', F3.n4) && [F3.n1, F3.n2, F3.n5, F3.n6, F3.n7].every(t => !at('dot', t)), '(§577) staccato dots on 3 and 4 only');
+  const h1 = glyphAt(F3.n1, /^notehead$/), a1 = glyphAt(F3.n1, /^artic-accent$/), m1 = glyphAt(F3.n1, /^dyn-mf$/);
+  ok(h1 && a1 && m1 && a1.ySs > h1.ySs && m1.ySs - hOf(m1) / 2 >= a1.ySs + hOf(a1) / 2 + 0.45 - 0.01, '(§577) THE COLUMN on note 1 (this page): the accent on the head side above, the mf BEYOND it by the standard stack — got accent ' + (a1 ? a1.ySs.toFixed(2) : '-') + ' · mf ' + (m1 ? m1.ySs.toFixed(2) : '-'));
+  ok(sl && a1 && a1.ySs - hOf(a1) / 2 >= sl.y0Ss + 0.8 - 0.02, '(§577) the column\'s marks clear the slur by free-slur-distance 0.8');
+  // the WORKING page (in F — his page): the same column with the OTTAVA (F♯6 written folds to F♯5 + 8va): accent · mf · the sign's hook, in order
+  let w = null, why = '';
+  try {
+    const ENSW = Layout.ensembleFor(rd(path.join(ROOT, 'notation', 'registry', 'ensemble.json')), null), pw = ENSW.parts.map(p => p.part);
+    const mw = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: pw, ensemble: ENSW, techniques, fitBoxes: Fit.boxesFor(C, ENSW, pw) }, C.engraving.layout));
+    const iw = mw.systems.find(s => s.part === 0).items, gw = (t, re) => iw.find(it => it.k === 'glyph' && re.test(it.g || '') && Math.abs(it.t - t) < 1e-6);
+    const hw = gw(F3.n1, /^notehead$/), aw = gw(F3.n1, /^artic-accent$/), mwf = gw(F3.n1, /^dyn-mf$/), ow = iw.find(it => it.k === 'ottava' && Math.abs(it.t - F3.n1) < 1e-6), sw = iw.find(it => it.k === 'slur' && Math.abs(it.t0 - F3.n1) < 1e-6);
+    const hook = 0.8;   // RULES MIRROR (glyphs.json standards.ottava.hookLengthSs)
+    // the stack at the unit's LADDER rung: on this page the column (8va · accent · mf) runs 0.01 ss past the lane's top at rung 0, so the
+    // ladder takes rung 1 and the stack tightens to 0.3 (ladder.compressStack) — the page is right; the test reads the rung
+    const fr = (mw.fit || []).find(u => String(u.key) === '0' && Math.abs(u.t - F3.n1) < 1e-3), rung = fr ? fr.rung : 0;
+    const stk = rung ? (((C.engraving.layout.ladder || {}).compressStack) || [0.45, 0.3, 0.2])[rung] : 0.45;
+    w = !!(hw && aw && mwf && ow && sw && ow.dir === 'above' && aw.ySs > hw.ySs && mwf.ySs - hOf(mwf) / 2 >= aw.ySs + hOf(aw) / 2 + stk - 0.01 && ow.ySs - hook >= mwf.ySs + hOf(mwf) / 2 + stk - 0.06 && aw.ySs - hOf(aw) / 2 >= sw.y0Ss + 0.8 - 0.02);
+    why = ' (rung ' + rung + ', the stack ' + stk + '; accent ' + (aw ? aw.ySs.toFixed(2) : '-') + ' · mf ' + (mwf ? mwf.ySs.toFixed(2) : '-') + ' · the 8va line ' + (ow ? ow.ySs.toFixed(2) : '-') + ')';
+  } catch (e) { w = false; why = ' — the working layout threw: ' + e.message; }
+  ok(w, '(§577) THE COLUMN on the working page (in F): head → accent → mf → the 8va sign, each the standard stack beyond the last, the slur under them' + why); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);
