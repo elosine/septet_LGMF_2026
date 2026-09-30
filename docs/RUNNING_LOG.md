@@ -19673,3 +19673,27 @@ The tail kept: 390.844 is 175 ms before the 391.019 long tone.
 **► He reloads → `384` · `387.3` · `390` (play from `383.5`); HIS EYE on the frame (the lead beat — keep it out, or `keepLead` into the long
 tone's bar), then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 · 389.7 · the 340 · 376 · 384 frames)
 and the next figure after 398.4.**
+
+## §610. The 384 frame cut at 388.268 — the four lines after it gone; `noTail` · `noLead` built into the fit (2026-09-30, Fable, session 18; LG-184)
+
+**What prompted it** — *"last tempo line at 388.26 remove the last 4 pls"* (LG-184), on the frame of §609 (eleven lines 384.404 … 390.844).
+
+**Why a build:** the fit's last line is the beat NEAREST the cluster's last onset plus `gridTailBeats` (1) — the tail is always there unless
+the 0.1 s clamp against the next notation drops it, and here the next note (the 389.799 grace) is 887 ms past 388.912. The plain
+`--beatGrid p:t0:t1:…` hand takes an explicit end, but it would make this frame a different kind of record from the other five (no `fit`,
+another id). So the fit grew a flag: **the 7th field is a comma list** — `keepTail` · `keepLead` · `keepBoth` as before, **`noTail` · `noLead`**
+drop the frame's extra beat on that side altogether (`keepLead,noTail` is legal); an unknown flag refuses with its name; the overlay's
+`fit.lead` · `fit.tail` record the EFFECTIVE count (0 when dropped). `tools/notate_section.js` (the parse, the k0 · k1 line, the record, the
+header) · `temporal_notation.md` §12 S13 notes it.
+
+**The frame now:** the cluster's `last` moved to 388.031 (the 387.23 figure's fifth note — its nearest beat is 388.268) with `noTail`:
+`@replace:0:0.092:7:383.760:384.455:390.402=>0:0.092:7:383.760:384.455:388.031:noTail` — **seven olive lines 384.404 … 388.268**, seven balls;
+the 389.7 figure (the grace + three) stands OUTSIDE any frame, his choice. The lead beat is still the clamp's (inside the long tone's bar,
+§609 — `keepLead` his if wanted, beside `noTail` in the list). The other five frames carry no flag and are untouched — the shield says so.
+
+**The gates:** the shield's baseline re-written on HEAD (`dc3339c`) · the runner · `gen_engraving_rules` · `check_rules` 32 GREEN · the lock
+`eh_figure_check` 106 GREEN · the shield: `piece-lgmf` alone moved, the other 21 identical. Read back: the overlay's span 384.404 … 388.269,
+`fit.tail` 0, `beatsAfter` 0.
+
+**► He reloads → `384` · `387.3` · `390` (play from `383.5`); HIS EYE, then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 ·
+384.3 · 387.23 · 389.7 · the 340 · 376 · 384 frames) and the next figure after 398.4.**

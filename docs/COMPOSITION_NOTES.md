@@ -3256,3 +3256,10 @@ tones. RUNNING_LOG §608.
 *The AI's reading (marked as such):* the red 93 bpm (7 × 0.092) with its phase 1.44 ticks earlier — the shortfall between p4 and p7 shared
 (14 · 15 ms); eleven olive lines 384.404 … 390.844 over the three figures; the lead beat inside the long tone's bar dropped by the clamp,
 his to keep. RUNNING_LOG §609.
+
+## LG-184 — 2026-09-30 — the 384 frame ends at 388.26
+
+*His words (session 18, Fable):* "last tempo line at 388.26 remove the last 4 pls"
+
+*The AI's reading (marked as such):* the frame stops on the beat nearest the 387.23 figure's last note — seven olive lines 384.404 … 388.268 —
+and the 389.7 figure stands outside it; the fit learned `noTail` (and `noLead`) to do it. RUNNING_LOG §610.

@@ -25,6 +25,7 @@
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
+//   --beatGridFit p:u:n:phase:first:last[:flags]   the 7th field a comma list — keepTail · keepLead · keepBoth (§582 · §596) · noTail · noLead (§610: the extra beat on that side dropped)
 //   --beatGridFit p:u:n:phase:first:last   [§569] the same grid FITTED to a cluster (its first and last onsets): 3 beats before, 2 after, clamped clear of the notation before and after (the numbers rules.json objects.tick.grid*)
 //   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
 //   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
@@ -1905,10 +1906,14 @@ if (MORPH_SEQ.length) {
     if (a !== '--beatGridFit' || !process.argv[i + 1]) return;
     // [§582] an optional 7th field: `keepTail` — the tail beat(s) kept whatever the clamp (his "draw one more olive line near where the gc
     // is so I can see it": figure 3's tail beat 301.742 sits on the burst's second note, inside the 0.1 s the clamp keeps clear)
-    const m = /^(\d+):([\d.]+):(\d+):(-?[\d.]+):(-?[\d.]+):(-?[\d.]+)(?::(keepTail|keepLead|keepBoth))?$/.exec(process.argv[i + 1]);
-    if (!m) { console.error('--beatGridFit needs p:unit:beatEvery:phase:firstOnset:lastOnset[:keepTail|keepLead|keepBoth]'); process.exit(2); }
+    // [§610] the 7th field is a comma list of flags: keepTail · keepLead · keepBoth · noTail · noLead — a `no*` drops the frame's extra beat
+    // on that side altogether (his "last tempo line at 388.26 remove the last 4": the 384 frame ends on the beat nearest its last onset)
+    const m = /^(\d+):([\d.]+):(\d+):(-?[\d.]+):(-?[\d.]+):(-?[\d.]+)(?::([A-Za-z,]+))?$/.exec(process.argv[i + 1]);
+    const FLAGS = m ? (m[7] || '').split(',').filter(Boolean) : [], badFlag = FLAGS.find(f => !['keepTail', 'keepLead', 'keepBoth', 'noTail', 'noLead'].includes(f));
+    if (!m || badFlag) { console.error('--beatGridFit needs p:unit:beatEvery:phase:firstOnset:lastOnset[:keepTail|keepLead|keepBoth|noTail|noLead, comma-listed]' + (badFlag ? ' — unknown flag ' + badFlag : '')); process.exit(2); }
     const P = +m[1], u = +m[2], n = +m[3], ph = +m[4], first = +m[5], last = +m[6], beat = u * n;
-    const keepTail = m[7] === 'keepTail' || m[7] === 'keepBoth', keepLead = m[7] === 'keepLead' || m[7] === 'keepBoth';
+    const has = f => FLAGS.includes(f);
+    const keepTail = has('keepTail') || has('keepBoth'), keepLead = has('keepLead') || has('keepBoth'), noTail = has('noTail'), noLead = has('noLead');
     const T = (CURVE_RULES && CURVE_RULES.tick) || {};   // the rules' objects table, loaded above for the curves
     const LEAD = T.gridLeadBeats != null ? T.gridLeadBeats : 3, TAIL = T.gridTailBeats != null ? T.gridTailBeats : 2, GAP = T.gridClampGapS != null ? T.gridClampGapS : 0.1;
     const partOfE2 = new Map(); for (const ch of doc.chunks) for (const id of ch.events || []) partOfE2.set(id, ch.part);
@@ -1919,11 +1924,11 @@ if (MORPH_SEQ.length) {
     const prevEnd = Math.max(-Infinity, ...mine.filter(e => e.onset < first - 1e-6).map(e => e.onset + e.duration), ...gridsHere.filter(o => o.target.span[1] <= first).map(o => o.target.span[1]));
     const nextOn = Math.min(Infinity, ...mine.filter(e => e.onset > last + 1e-6).map(e => e.onset), ...gridsHere.filter(o => o.target.span[0] >= last).map(o => o.target.span[0]));
     const kFirst = Math.floor((first - ph) / beat + 1e-9), kLast = Math.round((last - ph) / beat);   // the beat at or before the first onset; the nearest to the last
-    let k0 = kFirst - LEAD, k1 = kLast + TAIL;
+    let k0 = kFirst - (noLead ? 0 : LEAD), k1 = kLast + (noTail ? 0 : TAIL);   // [§610] a no* flag drops the extra beat on that side
     while (!keepLead && k0 < kFirst && ph + k0 * beat <= prevEnd + GAP) k0++;
     while (!keepTail && k1 > kLast && ph + k1 * beat >= nextOn - GAP) k1--;
     const t0 = +(ph + k0 * beat).toFixed(4), t1 = +(ph + k1 * beat + 1e-3).toFixed(4);
-    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: LEAD, tail: TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast, keepTail, keepLead } }, provenance: 'authored' });
+    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: noLead ? 0 : LEAD, tail: noTail ? 0 : TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast, keepTail, keepLead } }, provenance: 'authored' });
     console.log('  --beatGridFit part ' + P + ': the beat ' + beat.toFixed(3) + ' s (' + Math.round(60 / beat) + ' bpm) from ' + ph + ' — the cluster ' + first + ' … ' + last + ', ' + (kFirst - k0) + ' beat(s) before (of ' + LEAD + '; the notation before ends ' + (isFinite(prevEnd) ? prevEnd.toFixed(3) : '—') + ') · ' + (k1 - kLast) + ' after (of ' + TAIL + '; the next note ' + (isFinite(nextOn) ? nextOn.toFixed(3) : '—') + ') → lines ' + t0 + ' … ' + (ph + k1 * beat).toFixed(3) + ' (' + (k1 - k0 + 1) + ')');
   });
   grids.forEach((spec, n) => {
