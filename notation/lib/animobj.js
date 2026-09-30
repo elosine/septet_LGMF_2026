@@ -117,7 +117,8 @@
     const STAFF_HALF = 2, over = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
     const land = st.land || 'lineBottom';
     const impactY = land === 'lineTop' ? s.yOfSs(STAFF_HALF + over) : land === 'lineBottom' ? s.yOfSs(-STAFF_HALF - over) : G.impactY;
-    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (2 * STAFF_HALF + 2 * over) * s.ssPx : G.h;
+    const rise = st.riseSs != null ? st.riseSs : 2;   // [§571] his "leave from slightly higher … about two staff spaces above" — RULES MIRROR (engraving.animated.beatBall.riseSs)
+    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (2 * STAFF_HALF + 2 * over + rise) * s.ssPx : G.h;
     const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
     return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
       '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];

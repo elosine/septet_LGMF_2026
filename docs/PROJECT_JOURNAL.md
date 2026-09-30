@@ -201,7 +201,9 @@ on Opus or here at his word.
   grouping); the grid FITTED to its cluster with the clamps (`--beatGridFit`: 3 before · 2 after · 0.1 s clear of the neighbours — here 2
   before, the third would cross the first figure): 8 lines 294.052 … 298.588, 8 balls. ► His eye (play from 293.5).** **§570 (LG-148): the
   max 100; the ball from the line's top to its bottom (the tuba's spans the lane — told him); PERFORMANCE_NOTES #19 — the shown beat an
-  aid to onset accuracy, the head's left edge the time, just left of a line = just before the beat.**
+  aid to onset accuracy, the head's left edge the time, just left of a line = just before the beat.** **§571 (LG-149): one line before; the
+  ball from 2 ss higher; HIS CONCEPT — the beats BETWEEN the notes (the beat orients, is not played on) — the phase a quarter beat earlier
+  (295.186): every note 22 … 74 % of a beat from the lines; the AI's feedback in the entry (agrees; the "between" phase a tool candidate).**
   ► His eye (`295.5`); open: a number on the beat · the ball · the grid's span.**
 - **N-5 · THE MICRO COUNTERPOINT — the notation evaluation for the texture** (LG-130: the figures after the first; onsets a small interval
   apart across instruments): the survey on the texture; the candidates he named — more GCs · the ball on the cursor · highlight the notes as

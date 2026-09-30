@@ -18750,3 +18750,30 @@ than the current three, and just one line after rather than the two"*) — the g
 in his words' sense: the shown beat an aid to ONSET accuracy in the micro counterpoint, not a tempo; the head's left edge is its time; just
 left of a line = just before the beat, just right = just after, on = on. `check_rules` 32 · the lock 30 (unchanged numbers). **► His eye:**
 reload → play from `293.5`.
+
+## §571. ONE LINE BEFORE; THE BALL FROM HIGHER; THE BEATS BETWEEN THE NOTES — his concept, the feedback, a quarter-beat shift earlier (2026-09-29, Fable, session 18; N-4)
+
+**Prompted by:** LG-149.
+
+**Applied:** `gridLeadBeats` **1** (two lines, then the head) · the ball launches 2 ss above the line's top (`beatBall.riseSs` 2 — the drop
+6.8 ss to the line's foot) · **the phase a quarter beat EARLIER** — 295.348 − 0.162 = **295.186**: shifting later would have put A4 54 ms
+before a beat, the case he wants to avoid; earlier puts every note between beats — A4 at 42 % of a beat, A♯3 at 74 %, A5 22 %, G3 74 %,
+G♯4 23 %, F♯4 27 % — the nearest any note comes to a beat 140 ms. The fit: 6 lines 294.538 … 297.778, 6 balls. The lock asserts every note
+≥ 0.13 s from a beat.
+
+**HIS CONCEPT (LG-149):** in the multitempo you play ON the beat; here the beat only orients — so a note just before or just after a beat is
+the hard case, a note well between beats the easy one; the cursor and the beats together as a visual frame.
+
+**The AI's feedback (marked):** (1) it agrees with what is known of timing near a landmark — an onset close to a salient beat is pulled
+toward it (the attraction of the beat in entrainment and in categorical rhythm perception; from memory, to confirm), so "just before" is
+the hardest instruction to obey, while a position at a quarter or a third of the way between two landmarks is judged by PROPORTION,
+which the eye and the hand do well. (2) The cursor already gives the exact moment; the grid's job is then the FRAME, not the target — so a
+phase that keeps the notes off the beats serves the purpose better than one that lands them on it; §564's on-beat shift was the
+multitempo instinct, this is the orientation one. (3) The ball's landing is the strongest visual event of the device — with nothing
+sounding on a landing the ball is pure frame, which is what he wants; if a note DID fall on a landing the eye would read it as "on the
+beat" and the player would treat it as a target — fine when true, misleading when 50 ms off. (4) A consequence for the tool: the phase is
+a free parameter — the "between" criterion (maximize the notes' distance from the beats) is a candidate beside the "on" one (§564);
+worth a fourth option in `tempo_fit.js` when N-4 is built out. (5) The limit of the idea: a figure whose notes fall on a real pulse
+(the first figure's eighths) is better served on-beat; the choice per figure, as he said of the tempo.
+
+`check_rules` 32 · the shield `piece-lgmf` alone · the lock 30. **► His eye:** reload → play from `294`.
