@@ -24,6 +24,7 @@
 //   --longToneAlso id,…      [2m.2] with --longTones: a single he names joins them (an object id wc-… or an event id)
 //   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
 //   --oneOffs P:T0:T1        [§611] the env-less pitched notes of part P in [T0, T1): env 'oneOff' — THE ONE-OFF, the GC unit of #4's staccato / #5's strike (repeatable)
+//   --chordDyn T0:T1:mark    [§637] ONE NAME PER CHORD: every long tone whose onset falls in [T0, T1) takes the dynamic name `mark` (ppp … fff), whatever its velocity — a later --hand on a note still wins (repeatable)
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
@@ -1931,6 +1932,24 @@ if (MORPH_SEQ.length) {
     if (a === '--rest' && process.argv[i + 1]) rests.push(process.argv[i + 1]);
   });
   const findEv = id => doc.events.find(x => x.id === id || (x.source && x.source.objectId === id));
+  // [RUNNING_LOG §637; his LG-209: "I'm going to harmonize the dynamics for the long tones … make sure the dynamic is the same for all the
+  // parts holding that long tone"] --chordDyn T0:T1:mark (repeatable) — ONE NAME PER CHORD: every long tone whose onset falls in [T0, T1)
+  // takes `mark` as its dynMark (the field a hand writes; the long tone's own is the band of its velocity). The window is his chord, the
+  // name his; the velocities are not touched — the page says the chord's dynamic, the save still holds what was played. Runs BEFORE the
+  // hands, so a --hand dynMark on one note still wins.
+  process.argv.forEach((a, i) => {
+    if (a !== '--chordDyn' || !process.argv[i + 1]) return;
+    const m = /^(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?):(ppp|pp|p|mp|mf|f|ff|fff)$/.exec(process.argv[i + 1]);
+    if (!m || !(+m[2] > +m[1])) { console.error('--chordDyn needs T0:T1:mark — seconds, T1 > T0, and a name ppp … fff (e.g. --chordDyn 303.5:303.6:mp)'); process.exit(2); }
+    const mem = doc.events.filter(e => e.env === 'longTone' && e.onset >= +m[1] && e.onset < +m[2]);
+    if (!mem.length) { console.error('--chordDyn ' + process.argv[i + 1] + ': no long tone starts in the window'); process.exit(2); }
+    for (const e of mem) {
+      const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+      if (existing) existing.value.device = Object.assign({}, existing.value.device, { dynMark: m[3] });
+      else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { dynMark: m[3] } }, provenance: 'authored' });
+    }
+    console.log('  --chordDyn ' + process.argv[i + 1] + ': ' + mem.length + ' long tone(s) named ' + m[3] + ' (' + mem.map(e => e.source.objectId).join(' ') + ')');
+  });
   for (const spec of hands) {
     const c = spec.indexOf(':');
     const id = c > 0 ? spec.slice(0, c) : '', js = c > 0 ? spec.slice(c + 1) : '';

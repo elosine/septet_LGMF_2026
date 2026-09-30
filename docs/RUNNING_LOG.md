@@ -20356,3 +20356,98 @@ note by note).
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `310`. The audio render of Draft 01 still holds both old octaves.
+
+## §637. The long tones' dynamics harmonized — ONE NAME PER CHORD at his dictation, 38 chords · 127 notes; `--chordDyn` (2026-09-30, Fable, session 18; LG-209)
+
+**What prompted it** (his words whole in LG-209): *"I'm going to harmonize the dynamics for the long tones. Three or three point five MP. And
+so you'll make sure the dynamic is the same for all the parts holding that long tone. …"* — 2m's "for now" closed (LG-119's b1: one name per
+note from its velocity, "he normalizes per chord later").
+
+**The chords** (a scratch read of the IR: the 129 long tones 289 … 427 clustered by onsets chained within 0.1 s → 45 clusters, 36 of them
+chords of 2 … 6 parts). His list against them — every time found its chord; his series "starting at 327 … in order" is TEN names (the
+dictation's "M. F. M. F." = mf · mf) and the clusters 327.04 … 335.71 are ten:
+
+| chord (first onset) | parts | the names before | his name |
+|---|---|---|---|
+| 303.544 | 4 | mp mp p mp | **mp** |
+| 306.313 | 4 | mf mp p mf | **mf** |
+| 308.290 | 5 | mp mp mp p p | **p** |
+| 309.947 | 4 | mf mf mp mf | **mf** |
+| 312.023 | 2 | f mp | **mp** |
+| 312.981 | 3 | pp p mf | **p** |
+| 327.041 | 4 | mf mf p p | **p** |
+| 328.238 | 6 | mp mp mp f mf mf | **mp** |
+| 329.257 | 3 | f mf ff | **f** |
+| 329.649 | 3 | f f mf | **mf** |
+| 330.482 | 3 | mf mf mp | **mf** |
+| 331.354 | 3 | f mf f | **f** |
+| 332.397 | 3 | f f f | **f** |
+| 333.360 | 2 | ff ff | **ff** |
+| 334.012 | 3 | f mf mf | **mf** |
+| 335.706 | 2 | f mf | **mf** |
+| 347.083 | 2 | mp mp | **mp** |
+| 348.308 | 2 | mp mf | **mp** |
+| 349.262 | 2 | mp mp | **mp** |
+| 352.092 | 4 | mp mf mf mp | **mf** |
+| 355.214 | 3 | mf mf mf | **mf** |
+| 356.353 | 4 | mf mp mp mf | **mp** |
+| 357.667 | 4 | f mf mf mf | **f** |
+| 358.942 | 4 | mf mp f p | **p** |
+| 361.035 | 6 | mf mf mf mp mp mf | **mf** |
+| 364.194 | 4 | p mf mf mf | **mf** |
+| 365.858 | 2 | mf mf | **mf** |
+| 366.555 | 2 | f mf | **f** |
+| 367.102 | 2 | mf mf | **mf** |
+| 367.804 (+ Tpt 367.975) | 2 + 1 | f p · p | **p** |
+| 369.206 | 5 | p f mf p p | **mf** (his "369 F. No … make that one MF") |
+| 370.341 | 6 | f mp f mf mp f | **f** |
+| 392.980 · 393.277 (EH · Bsn, adjacent) | 1 + 1 | f · f | **f** |
+| 394.931 · 395.285 (DB · EH, adjacent) | 1 + 1 | f · ff | **f** |
+| 398.123 · 398.443 · 399.111 (EH · Bsn · EH + Hn) | 4 | f f f f | **f** ("already all F" — pinned) |
+| 401.756 | 3 | mf mf mp | **mf** |
+| 403.425 | 4 | p mf mp mp | **mp** |
+| 407.051 | 3 | mp p mp | **mp** |
+
+**Built — `--chordDyn T0:T1:mark`** (`tools/notate_section.js`, repeatable; in the hands block, BEFORE the hands so a `--hand` on one note
+still wins): every long tone whose onset falls in the window takes the one name as its `dynMark`. 38 windows in the build (each the chord's
+first onset − 0.01 … its last + 0.01), **127 of the 129 long tones named**; the two untouched are EH singles he did not name (383.347 mf ·
+391.019 mp). Why a flag and not 127 hands: the build's command is 19.2 KB of Windows' 32.7 KB command-line limit — 127 hands would have
+added 5 KB, the 38 windows add 1 KB; and a window names the CHORD, as he speaks it.
+
+**What it is and is not:** the PAGE says the chord's dynamic; the SAVE still holds each note's played velocity (the sound is unchanged — the
+spread inside a chord was up to four names, e.g. 358.94 mf · mp · f · p). His 2m plan was to normalize in the composer (`dyn ▾`) and re-extract;
+he dictated the names instead. If he later normalizes the velocities too, the windows simply agree with them.
+
+**The AI's readings, his to reverse:** the Tpt's 367.975 (a single, 0.17 s after the 367.80 chord) named with that chord (it was p already) ·
+"four starting at 398" = EH 398.123 · Bsn 398.443 · EH 399.111 · Hn 399.130.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `303.5` … `313` · `327` … `336` · `347` … `371` · `393` … `407`.
+
+## §638. His ask to line up each chord's onsets — MEASURED AND HELD: two chords are more than a tiny bit off, and the validator pins an onset to the save (2026-09-30, Fable, session 18; LG-209)
+
+**What prompted it:** *"except for the ones toward the end, which are purposefully not in unison, could you line up all the rhythms per chord
+into unison? Just take the earliest one. They should be just very slightly off. If they're more than just a tiny bit off, then hold and let
+me know before you change."*
+
+**The measure** (the same clusters; the spread = the last member's onset − the first's): 36 chords. **34 lie within 2 … 36 ms**
+(≤ 15 ms: 19 · 16 … 36 ms: 15). **Two are wider:**
+- **327.041 — 65 ms:** Tpt +0 · EH +12 · Vc +58 · Bsn +65 (two pairs, 58 ms apart).
+- **370.341 — 48 ms:** Tpt +0 · DB +5 · Vc +12 · EH +21 · Bsn +45 · Hn +48.
+The staggered entries he names as purposeful are singles, not chords: 392.98 → 393.28 (0.30 s) · 394.93 → 395.29 (0.35 s) · 398.12 → 398.44
+(0.32 s). The four chords after them (399.11 · 401.76 · 403.43 · 407.05: 19 … 33 ms) read as unisons.
+
+**Why nothing was changed — two reasons, both for him:**
+1. His own condition: two chords are "more than a tiny bit off" (48 · 65 ms) — hold.
+2. WHERE the unison is written. The IR's contract: an event's onset IS the save's `startSeconds` (`ir_validate.js`, to 1e-9), and the head's
+   left edge is drawn on it. So:
+   - **(a) in the score** — each member's `startSeconds` moved to the chord's earliest in his save (a note object is `startSeconds ·
+     endSeconds · nodes` at relative positions — one number per note; the ends left where they are, the notes ≤ 65 ms longer). The sound and
+     the page agree; the contract whole. The cost: his open composer tab holds the old times — he Saves, the AI edits the file, he RELOADS the
+     composer before touching it (or his next Save writes the old times back). The AI's recommendation, since he says they are "meant to be
+     in unison".
+   - **(b) on the page only** — a new "shown time" in the notation (every consumer of an onset: the unit, the ring bar, the clearance, the
+     edges, the cursor); the audio and the page then differ by up to 65 ms. A build, and a standing exception to the contract.
+
+**Held:** his word on the two wide chords and on (a) · (b).

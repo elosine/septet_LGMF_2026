@@ -3445,3 +3445,12 @@ pattern with the cello's two: a held note of about a quarter second reads to him
 *The AI's reading (marked as such):* Tpt 295.477 mf · DB 300.421 mf · Vc 301.722 and DB 302.147 f · Vc 322.191 stays mp · DB 322.873 and Vc
 323.172 f · DB 337.181 f · Vc 343.125 mf · Vc 377.406 mf · Vc 387.494 f. He reads across the two string parts as one line here ("VC and DB, the
 two starting at…", "the two following, DB and VC"). RUNNING_LOG §635.
+
+## LG-209 — 2026-09-30 — the long tones: one dynamic per chord, dictated; and line the chords' onsets up to the earliest
+
+*His words (session 18, Fable):* "Okay, I'm going to harmonize the dynamics for the long tones. Three or three point five MP. And so you'll make sure the dynamic is the same for all the parts holding that long tone. Three oh six point two MF. Three oh eight point four P three ten MF three twelve MP three thirteen P. There's a series of them starting at 327. I'll just call them out in order. P.  MP.  F.  MF. MF. F.  F.  FF.  M. F. M. F. 347 MP, 348 MP, 349 MP, 352 MF, 355 MF, 356 MP, 357 F, 359 P, 361 MF, 364 MF, 365.9 MF, 366.5 F, 367.1 MF, 367.8 P, 369F. No, oh, sorry, make that one MF. And then 370F. Then the ones, there's some that aren't coordinated, starting at 393, but they're adjacent. So 393, those two are F. 394 in double bass and then English horn, those are F. There's four starting at 398. Those already are all F. 401.7 MF. 403.5 MP. Four O six point eight MP And then, except for the ones toward the end, which are purposefully not in unison, could you line up all the rhythms per chord into unison? Just take the earliest one. They should be just very slightly off. If they're more than just a tiny bit off, then hold and let me know. before you change. But I think they're all meant to be in unison up until the end there."
+
+*The AI's reading (marked as such):* the long tones are CHORDS to him — one dynamic, one attack; the per-note velocities and the few-millisecond
+offsets are residue of how they were played in, not intent. The staggered entries at 393 … 398 are the exception he names: adjacent, not
+together, on purpose. The series at 327 is ten names (the last "M. F. M. F." = mf · mf) on ten chords. RUNNING_LOG §637 (the names) · §638
+(the onsets, measured and held).
