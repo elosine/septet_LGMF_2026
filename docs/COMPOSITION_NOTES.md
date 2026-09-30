@@ -3186,3 +3186,11 @@ slur the 2 grace 345.59; 339.9 345.9 can I see the tempo candidates in the page"
 
 *The AI's reading (marked as such):* the stroke on a beamed grace group at the beam's corner (a rule, the flagged grace untouched); the pair
 slurred; the candidates drawn, his pick owed. RUNNING_LOG §601.
+
+## LG-176 — 2026-09-30 — the purple frame at 340; the corner showing; does the grace stroke turn with the stem?
+
+*His words (session 18, Fable, with a screenshot of the 345.6 pair):* "lets try purple pls; 345.6 If that's going to be the standard, let's
+have more of the corner showing, please. And are the grace note slashes meant to change direction with the stems? Can you look that up?"
+
+*The AI's reading (marked as such):* the purple 93 at the tool's phase; the beamed stroke slid a space toward the heads; the stroke DOES mirror
+with the stem — read from his LilyPond's font and a render, then built. RUNNING_LOG §602.

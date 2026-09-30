@@ -2043,8 +2043,11 @@
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
                   if (dev.grace && dev.slash !== false) {   // [§591] a hand `slash: false` — a beamed grace group carries the stroke on its FIRST stem only · [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
-                    const sx = headDx + att.dx, yc = yStart + (yEnd - yStart) * GR.slashAt, r = GR.slashReachSs;
-                    items.push({ k: 'slash', t: tU, dx0Ss: sx - r, y0Ss: yc - r, dx1Ss: sx + r, y1Ss: yc + r, thickSs: GR.slashThickSs, ev: e.id });
+                    // [§602, his 'are the grace note slashes meant to change direction with the stems?' — looked up in his LilyPond 2.24.4: the Emmentaler
+                    // font has flags.ugrace (rising to the right) and flags.dgrace (falling), and a render used dgrace for a stem-down acciaccatura]
+                    // THE STROKE MIRRORS WITH THE STEM: rising to the right on an up stem, falling on a down stem
+                    const sx = headDx + att.dx, yc = yStart + (yEnd - yStart) * GR.slashAt, r = GR.slashReachSs, flS = stemDir === 'down' ? -1 : 1;
+                    items.push({ k: 'slash', t: tU, dx0Ss: sx - r, y0Ss: yc - flS * r, dx1Ss: sx + r, y1Ss: yc + flS * r, thickSs: GR.slashThickSs, ev: e.id });
                   }
                   // the stem tip is the unit's outer ink on its side (a flag
                   // hangs back toward the head, never past the tip)
@@ -3336,8 +3339,10 @@
           if (!bm.length) continue;
           const sc = (bm[0].scale || 1), ys = bm.map(it => it.tips.find(near).ySs).concat([st.yB]);
           const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BTs0 * sc / 2, outer = (up ? Math.max(...ys) : Math.min(...ys)) - sgn * BTs0 * sc / 2;
-          const cx = st.dxSs, cy = (inner + outer) / 2, r = (sl.dx1Ss - sl.dx0Ss) / 2;
-          sl.dx0Ss = +(cx - r).toFixed(4); sl.dx1Ss = +(cx + r).toFixed(4); sl.y0Ss = +(cy - r).toFixed(4); sl.y1Ss = +(cy + r).toFixed(4); sl.atBeam = true;
+          const GRi = (o.grace && o.grace.slashBeamInsetSs != null) ? o.grace.slashBeamInsetSs : 1;   // RULES MIRROR (rules.json objects.graceSlash.beamInsetSs)
+          const cx = st.dxSs, cy = (inner + outer) / 2 + sgn * GRi, r = (sl.dx1Ss - sl.dx0Ss) / 2;   // [§602] slid toward the heads — more of the corner showing
+          const flS = up ? 1 : -1;   // [§602] the stroke mirrors with the stem: rising on an up stem, falling on a down stem (LilyPond's ugrace · dgrace)
+          sl.dx0Ss = +(cx - r).toFixed(4); sl.dx1Ss = +(cx + r).toFixed(4); sl.y0Ss = +(cy - flS * r).toFixed(4); sl.y1Ss = +(cy + flS * r).toFixed(4); sl.atBeam = true;
         }
       }
       // [§561, his "is there a reason ord is so far from note head? if not bring it closer"] THE SECTION'S TECHNIQUE WORD ABOVE ITS NOTE:

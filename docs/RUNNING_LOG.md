@@ -19461,3 +19461,25 @@ beam above that is the upper-left corner, below the lower-left. A flagged grace 
 (6 × 0.107, 340.061, 67) · 99 (6 × 0.1015, 340.023, 49); the picture at `http://localhost:5400/notation/research/tempo_candidates_eh_340.html`.
 His pick owed — the extent (one frame over the six seconds, or per cluster), the grouping, the phase; S15's free notes (the graces?) his
 call. `check_rules` 32 · the lock 106 · the shield `piece-lgmf` alone. ► He reloads → `345.5`; the picture.
+
+## §602. The 340 frame — the purple 93 · the beamed slash slid to show the corner · THE STROKE MIRRORS WITH THE STEM (looked up in his LilyPond) (2026-09-30, Fable, session 18; LG-176)
+
+**What prompted it** — *"lets try purple pls; 345.6 If that's going to be the standard, let's have more of the corner showing, please. And are
+the grace note slashes meant to change direction with the stems? Can you look that up?"* (LG-176), with his screenshot of the 345.6 pair.
+
+**The frame at 340 (his pick, the purple):** 93 bpm, the beat 0.642 s = 6 × 0.107, the tool's between phase 340.061 —
+`--beatGridFit 0:0.107:6:340.061:340.352:345.709`: twelve lines 339.419 … 346.481, frame 3, OLIVE (S19; the lead beat inside the held note
+before it, kept by the clamp's reading of 337.865 as the notation's end). 21 onsets under it, the graces among them.
+
+**More of the corner showing (the standard, S22 amended):** `objects.graceSlash.beamInsetSs` 1 — on a beamed grace group the stroke is slid
+that far from the stack's centre toward the heads along the stem (the container's `grace.slashBeamInsetSs` points at it), so the corner
+where the first stem meets the beam stays in view above the stroke. At 345.595 the centre 5.10 → 4.10 (the stem's tip 5.39).
+
+**THE STROKE'S DIRECTION — looked up, not remembered.** His install `C:\Users\jwloy\OneDrive\Documents\lilypond-2.24.4`: the Emmentaler font
+(`share/lilypond/2.24.4/fonts/svg/emmentaler-20.svg`) carries TWO grace-flag glyphs — `flags.ugrace`, its outline from (−164, −521) rising by
+(356, 290): the stroke RISES to the right; `flags.dgrace`, from (−204, 492) by (459, −265): it FALLS. A render of `\acciaccatura { c'8 } c'4
+\acciaccatura { a''8 } a''4` (the EPS backend, the glyph names in the output) used `flags.ugrace` on the stem-up grace and `flags.dgrace` on
+the stem-down one. So YES: the acciaccatura's stroke mirrors with the stem — rising on an up stem, falling on a down stem. Ours always rose.
+**Built:** the unit's slash and the beamed-group pass both flip with the stem direction (S6 amended). On the page: 341.457 and 343.359 (stems
+down, with their parents §597) now FALL; the rest rise; the beamed 345.595 rises (stems up). `check_rules` 32 · the lock 106 · the shield
+`piece-lgmf` alone. ► He reloads → `340` (the olive frame) · `341.4` · `343.3` · `345.5`.
