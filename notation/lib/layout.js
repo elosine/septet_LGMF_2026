@@ -3305,13 +3305,53 @@
       // [§559] A HAIRPIN FROM A NOTE'S NAME — a hand hairpinTo: <seconds> (hairpinDir 'cresc' | 'decresc', cresc by default): the timed
       // hairpin's kind on the dynamic row, from the name's right edge + the house gap to x(t1); his p1 "pp and a hairpin to about 289.25"
       {
-        const HP = Object.assign({ heightSs: 0.667, thickSs: 0.13, beside: 0.45 }, o.hairpinHand || {});   // RULES MIRROR (rules.json objects.hairpin)
+        const HP = Object.assign({ heightSs: 0.667, thickSs: 0.13, beside: 0.45, spanClearSs: 0.45 }, o.hairpinHand || {});   // RULES MIRROR (rules.json objects.hairpin · spanClearSs §576)
+        // [§576, his eye on the burst at 301.556: the hairpin ran through notes 2 and 3's staccato dots — "was there a non collision rule
+        // that might have governed this?" — there was none: the hairpin took the NAME's height and never looked at what it spans] THE SPAN
+        // RULE: a hand hairpin and its name keep spanClearSs (the standard stack) clear of every unit's ink they span, on their side —
+        // lifted above the highest ink when they sit above, lowered under the lowest when below; the name moves with the hairpin
+        const inkTop = it => {
+          if (it.k === 'stem') return Math.max(it.yA, it.yB);
+          if (it.k === 'ledger') return it.ySs + 0.05;
+          if (it.k === 'dot') return it.ySs + 0.2;
+          if (it.k === 'beam' && it.tips) return Math.max(...it.tips.map(p => p.ySs)) + (glyphs.standards.beam.thickness || 0.4) / 2;
+          if (it.k !== 'glyph') return null;
+          const g = it.g || '', sc = it.scale || 1;
+          if (/^notehead/.test(g)) return it.ySs + (glyphs.notehead.filled.hSs * sc) / 2;
+          if (/^accidental-/.test(g)) { const A = (glyphs.accidental || {})[g.replace('accidental-', '')]; return it.ySs + (((A && A.hSs) || 2) * sc) / 2; }
+          if (/^flag-down/.test(g)) { const F = (glyphs.flag || {})[g.replace('flag-', '')]; return it.ySs + ((F && F.hSs) || 3) * sc; }
+          if (/^flag-up/.test(g)) return it.ySs;
+          if (/^artic-/.test(g)) { const R = (glyphs.articulation || {})[g.replace('artic-', '')]; return it.ySs + ((R && R.hSs) || 0.8) / 2; }
+          return null;
+        };
+        const inkBottom = it => {
+          if (it.k === 'stem') return Math.min(it.yA, it.yB);
+          if (it.k === 'ledger') return it.ySs - 0.05;
+          if (it.k === 'dot') return it.ySs - 0.2;
+          if (it.k === 'beam' && it.tips) return Math.min(...it.tips.map(p => p.ySs)) - (glyphs.standards.beam.thickness || 0.4) / 2;
+          if (it.k !== 'glyph') return null;
+          const g = it.g || '', sc = it.scale || 1;
+          if (/^notehead/.test(g)) return it.ySs - (glyphs.notehead.filled.hSs * sc) / 2;
+          if (/^accidental-/.test(g)) { const A = (glyphs.accidental || {})[g.replace('accidental-', '')]; return it.ySs - (((A && A.hSs) || 2) * sc) / 2; }
+          if (/^flag-up/.test(g)) { const F = (glyphs.flag || {})[g.replace('flag-', '')]; return it.ySs - ((F && F.hSs) || 3) * sc; }
+          if (/^flag-down/.test(g)) return it.ySs;
+          if (/^artic-/.test(g)) { const R = (glyphs.articulation || {})[g.replace('artic-', '')]; return it.ySs - ((R && R.hSs) || 0.8) / 2; }
+          return null;
+        };
         for (const [id, u] of nhAt) {
           const dev = ((engOf(id) || {}).device) || {};
           if (!(dev.hairpinTo > u.t)) continue;
           const mk = items.find(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && Math.abs(it.t - u.t) < 1e-9);
           const g = mk && glyphs.dynamic ? glyphs.dynamic[mk.g.replace(/^dyn-/, '')] : null;
-          const x0 = mk ? mk.dxSs + (g ? g.wSs / 2 : 0) + HP.beside : u.dx + HP.beside, y = mk ? mk.ySs : (o.dynY != null ? o.dynY : -4.6);
+          const x0 = mk ? mk.dxSs + (g ? g.wSs / 2 : 0) + HP.beside : u.dx + HP.beside;
+          let y = mk ? mk.ySs : (o.dynY != null ? o.dynY : -4.6);
+          const above = y > 0, half = HP.heightSs / 2;
+          const inSpan = it => it !== mk && ((typeof it.t === 'number' && it.t >= u.t - 1e-9 && it.t <= dev.hairpinTo + 1e-9) || (it.k === 'beam' && it.tips && it.tips.some(p => p.t >= u.t - 1e-9 && p.t <= dev.hairpinTo + 1e-9)));
+          let edge = above ? -Infinity : Infinity;
+          for (const it of items) { if (!inSpan(it)) continue; const e = above ? inkTop(it) : inkBottom(it); if (e == null) continue; edge = above ? Math.max(edge, e) : Math.min(edge, e); }
+          if (isFinite(edge)) y = above ? Math.max(y, edge + HP.spanClearSs + half) : Math.min(y, edge - HP.spanClearSs - half);
+          y = +y.toFixed(4);
+          if (mk) mk.ySs = y;
           items.push({ k: 'hairpin-timed', t0: u.t, t1: dev.hairpinTo, dx0Ss: +x0.toFixed(4), dx1Ss: 0, ySs: y, dir: dev.hairpinDir === 'decresc' ? 'decresc' : 'cresc', hSs: HP.heightSs, thickSs: HP.thickSs, ev: id });
         }
       }

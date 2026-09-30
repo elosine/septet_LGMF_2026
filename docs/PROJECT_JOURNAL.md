@@ -290,6 +290,14 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   297.375, the burst starts 301.556). The lock 62 GREEN (figure 2's grid assertions windowed to 293 … 298; a §575 block) · `check_rules` 32 ·
   the shield `piece-lgmf` alone. **► HIS EYE (reload → `piece-lgmf` → `298.5`); then THE SEVEN'S VALUES by hand — S1 … S16 surfaced at that
   step** (the burst's S14 is the last four's, already in).
+- **§576 (2026-09-29, Fable; LG-154) — DONE:** his eye on the burst (a screenshot: the hairpin through two staccato dots on his page, the EH in F)
+  → **THE SPAN RULE** (S17; `objects.hairpin.spanClearSs` 0.45): a hand hairpin and its name clear every unit they span on their side — on his
+  page the ff + hairpin 2.79 → 3.78; the video page and figure 1's hairpin unchanged. There was no rule before (the hairpin took the name's
+  height). **The frame moved to the orange 90** (*"lets try 90 orange machine phase"*): `--beatGridFit 0:0.111:6:298.216:298.815:300.695` —
+  five lines 298.216 … 300.880; the first build interleaved with figure 2's frame (a lead beat at 297.550) → **the clamp reads the previous
+  frame** (S13a, `notate_section.js`). The lock 62 GREEN · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE (reload → `298.5` ·
+  `301.5`); then THE SEVEN'S VALUES by hand, S1 … S17.** Note: his page is the WORKING page (in F, stems by the written pitch) — the lock
+  asserts the video page (in C); where a mark's side depends on the stem the two differ (§573 · §574 noted note 6's accent and the burst's marks).
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
@@ -476,7 +484,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **§575 — THE THIRD FIGURE'S BEAT FRAME IN at his pick, the purple 86 at the tool's phase (2026-09-29, Fable; the bullets under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `298.5` · `301.5`); then THE SEVEN'S VALUES by hand** (298.815 … 300.695: B5 · D5 · G♯5 · E5 · G3 · G4 · B3 — his decisions note by note, as figures 1 · 2 · 4; the standards S1 … S16, `temporal_notation.md` §12 — surface them) | Fable | no — the same task |
+| **►►►►** | **§576 — THE SPAN RULE in (the burst's hairpin clear of its dots) · the third figure's frame the ORANGE 90 at the tool's phase · the clamp reads the previous frame (2026-09-29, Fable; the bullets under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `298.5` · `301.5`); then THE SEVEN'S VALUES by hand** (298.815 … 300.695: B5 · D5 · G♯5 · E5 · G3 · G4 · B3 — his decisions note by note, as figures 1 · 2 · 4; the standards S1 … S16, `temporal_notation.md` §12 — surface them) | Fable | no — the same task |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |

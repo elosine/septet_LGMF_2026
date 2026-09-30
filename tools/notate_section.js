@@ -1906,8 +1906,11 @@ if (MORPH_SEQ.length) {
     const LEAD = T.gridLeadBeats != null ? T.gridLeadBeats : 3, TAIL = T.gridTailBeats != null ? T.gridTailBeats : 2, GAP = T.gridClampGapS != null ? T.gridClampGapS : 0.1;
     const partOfE2 = new Map(); for (const ch of doc.chunks) for (const id of ch.events || []) partOfE2.set(id, ch.part);
     const mine = doc.events.filter(e => partOfE2.get(e.id) === P && e.pitch);
-    const prevEnd = Math.max(-Infinity, ...mine.filter(e => e.onset < first - 1e-6).map(e => e.onset + e.duration));
-    const nextOn = Math.min(Infinity, ...mine.filter(e => e.onset > last + 1e-6).map(e => e.onset));
+    // [§576] the notation before and after INCLUDES a beat frame already placed on this part (its lines are notation too): the 90-bpm
+    // frame's lead beat (297.550) fell between the second figure's last two lines (297.130 · 297.778) — two frames interleaved
+    const gridsHere = doc.overlays.filter(o => o.kind === 'beatGrid' && o.target && o.target.part === P && Array.isArray(o.target.span));
+    const prevEnd = Math.max(-Infinity, ...mine.filter(e => e.onset < first - 1e-6).map(e => e.onset + e.duration), ...gridsHere.filter(o => o.target.span[1] <= first).map(o => o.target.span[1]));
+    const nextOn = Math.min(Infinity, ...mine.filter(e => e.onset > last + 1e-6).map(e => e.onset), ...gridsHere.filter(o => o.target.span[0] >= last).map(o => o.target.span[0]));
     const kFirst = Math.floor((first - ph) / beat + 1e-9), kLast = Math.round((last - ph) / beat);   // the beat at or before the first onset; the nearest to the last
     let k0 = kFirst - LEAD, k1 = kLast + TAIL;
     while (k0 < kFirst && ph + k0 * beat <= prevEnd + GAP) k0++;

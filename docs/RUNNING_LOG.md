@@ -18894,3 +18894,29 @@ have doubled them) and a §575 block — one line per beat on the phase · the g
 notation either side · one ball per line, a beat long · the last five ≥ 0.11 s from any line (nearest 113 ms) — **62 GREEN** (57 before).
 `check_rules` 32 GREEN (the rules page regenerated). The shield: `piece-lgmf` alone. ► His eye (reload → `298.5`); then the seven's values by
 hand — S1 … S16 surfaced at that step.
+
+## §576. THE SPAN RULE — a hand hairpin clears what it spans (his eye on the burst) · THE THIRD FIGURE'S FRAME MOVED TO THE ORANGE 90 · THE FRAME CLAMP READS THE PREVIOUS FRAME (2026-09-29, Fable, session 18; LG-154)
+
+**What prompted it** — his screenshot of the burst at 301.556 on his page (the EH in F: stems down, the marks on the head side above) with the
+hairpin running THROUGH notes 2 and 3's staccato dots: *"move hairpin either higher or below, probably higher is best, was there a non collision
+rule that might have governed this?"* — and then *"lets try 90 orange machine phase"* (LG-154).
+
+**The answer: no rule governed it.** The hand hairpin (§559) took its height from the NAME's glyph (`y = mk.ySs`) and never looked at the units it
+spans; on the video page (in C, stems up) the name sits on the dynamic row −4.6, already under every dot, so nothing showed; on his page the chain
+put the ff on the head side at 2.79 (above note 1's dot at 1.29) and the hairpin ran level through the later, higher dots (2.5 · 2.79).
+**THE SPAN RULE, built** (`rules.json objects.hairpin.spanClearSs` 0.45 — the standard stack; layout's hand-hairpin block, a RULES MIRROR line): a
+hand hairpin and the name it starts from keep the standard stack clear of EVERY unit's ink they span on their side — lifted above the highest ink
+when above the staff, lowered under the lowest when below; the ink read per item (heads · dots · accidentals · ledgers · stems · flags · beams ·
+articulations; `inkTop` · `inkBottom`); the name moves with the hairpin. **The numbers:** his page — the ff and the hairpin 2.79 → **3.78** (note 3's
+dot 2.79 + 0.2, + 0.45 + the half height 0.333); the video page — unchanged at −4.6 (the row already clears the lowest dot −3.49 by 0.78); figure
+1's hairpin unchanged (−4.6). Recorded as S17 in `temporal_notation.md` §12; the rules page regenerated.
+
+**The orange 90:** `--beatGridFit 0:0.111:6:298.216:298.815:300.695` in place of §575's 86. **The first build interleaved two frames:** the 90's lead
+beat (297.550) fell between figure 2's last two lines (297.130 · 297.778) — the clamp read only the part's NOTES (the notation before ends 297.375).
+Fixed in `notate_section.js --beatGridFit`: a beat frame already placed on the part is notation too — `prevEnd` and `nextOn` include the earlier
+frames' spans. The result: **five lines 298.216 · 298.882 · 299.548 · 300.214 · 300.880, five balls** — 0 before (the lead within 0.1 s of figure
+2's frame end 297.779), 0 after (the tail 301.546 within 0.1 s of the burst); the last five notes ≥ 129 ms from any line, the free notes at 90 ·
+10 %. S13 amended (the clamp reads the previous frame).
+
+**The lock** `eh_figure_check.js` — the §575 block re-pointed at the 90's numbers: **62 GREEN**. `check_rules` 32 GREEN. THE SHIELD: `piece-lgmf`
+alone (the span rule moved no other page — no hand hairpin exists outside it). ► His eye: reload → `298.5` · `301.5`.

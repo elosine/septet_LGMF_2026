@@ -97,18 +97,33 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
 // §575 — THE THIRD FIGURE'S BEAT FRAME (his pick, LG-153: "lets try the purple 86, tools phase is fine"): the tool's (D) candidate at 86 bpm —
 // 6 × 0.1165 = 0.699 s on the phase 298.133 (notes 1 · 2 free of the objective, S15), fitted to the seven notes 298.815 … 300.695 by the
 // frame's clamps; the template figure 2's (S13)
-{ const beat = 6 * 0.1165, ph = 298.133, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 301.5);
+// §576 — his second pick, "lets try 90 orange machine phase": the orange candidate, 6 × 0.111 = 0.666 s on the tool's phase 298.216
+{ const beat = 6 * 0.111, ph = 298.216, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 301.5);
   const ref = items.find(it => it.k === 'tick' && it.grid === 'beat' && it.t > 294 && it.t < 298);
-  ok(g.length >= 4 && g.every(b => near((b.t - ph) / beat - Math.round((b.t - ph) / beat), 0, 1e-3)), '(§575) the third figure\'s grid: one line per beat at 86 bpm (0.699 s) on the phase 298.133 — ' + g.length + ' lines' + (g.length ? ' ' + g[0].t.toFixed(3) + ' … ' + g[g.length - 1].t.toFixed(3) : ''));
+  ok(g.length >= 4 && g.every(b => near((b.t - ph) / beat - Math.round((b.t - ph) / beat), 0, 1e-3)), '(§576) the third figure\'s grid: one line per beat at 90 bpm (0.666 s) on the phase 298.216 — ' + g.length + ' lines' + (g.length ? ' ' + g[0].t.toFixed(3) + ' … ' + g[g.length - 1].t.toFixed(3) : ''));
   ok(ref && g.every(b => near(b.ySs, ref.ySs, 1e-6) && near(b.hSs, ref.hSs, 1e-6)), '(§575) each line the beat frame\'s (figure 2\'s geometry through the staff)');
   ok(g.length && g[0].t < 298.815 && g[g.length - 1].t > 300.695 && g[0].t > 297.375 + 0.1 - 1e-6 && g[g.length - 1].t < 301.556 - 0.1 + 1e-6, '(§575) the frame spans the seven notes, 0.1 s clear of the notation before (ends 297.375) and after (301.556)');
   let balls = null; try { balls = require(path.join(ROOT, 'notation', 'lib', 'animobj.js')).collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall' && a.at >= 298 && a.at <= 301.5); } catch (e) { balls = null; }
-  ok(balls && balls.length === g.length && g.every(b => balls.some(x => near(x.at, b.t, 1e-6))) && balls.every(b => b.preset && near(b.preset.duration, beat, 1e-6)), '(§575) one ball per line, each a beat long (0.699)' + (balls ? '' : ' — collect threw'));
+  ok(balls && balls.length === g.length && g.every(b => balls.some(x => near(x.at, b.t, 1e-6))) && balls.every(b => b.preset && near(b.preset.duration, beat, 1e-6)), '(§576) one ball per line, each a beat long (0.666)' + (balls ? '' : ' — collect threw'));
   const far = [299.139, 299.418, 300.050, 300.343, 300.695].map(t => Math.min(...g.map(b => Math.abs(b.t - t)))); ok(g.length && Math.min(...far) >= 0.11, '(§575) the last five notes each ≥ 0.11 s from any line, the first two free (nearest ' + (g.length ? Math.round(Math.min(...far) * 1000) : '-') + ' ms)'); }
 // §572 — THE BEAT FRAME, named and locked at his word (LG-150): the template every figure takes, asserted from the compiled tables
 { const RR = require(path.join(ROOT, "notation", "lib", "rules.js")).loadRules(ROOT).objects, T = RR.tick, BB = C.animated.beatBall || {}, BG = C.engraving.layout.beatGrid || {};
   ok(T.gridMaxBpm === 100 && T.gridLeadBeats === 1 && T.gridTailBeats === 1 && T.gridClampGapS === 0.1, "(§572) the beat frame: the max 100 bpm, one line before the figure, one after, 0.1 s clear of the neighbours");
   ok(BG.at === "staff" && BG.overhangSs === 0.4 && BG.beatsOnly === true, "(§572) the beat frame: one line per beat, through the staff, 0.4 ss beyond each outer line");
   ok(BB.enabled !== false && BB.land === "lineBottom" && BB.riseSs === 2 && BB.opacity === RR.ringBar.opacity && BB.look && BB.look.ballRadiusPx === 5 && JSON.stringify(BB.preset) === JSON.stringify(C.animated.gc.preset), "(§572) the beat frame ball: the tuba GC ball (its preset, 5 px), the duration line opacity, from 2 ss above the line top to its foot"); }
+// §576 — THE SPAN RULE, asserted where it bites: on the WORKING page (the EH in F — his page; stems down at the burst, the marks above) the
+// burst's ff and its hairpin sit the standard stack clear above every staccato dot they span; on the video page the row already clears them
+{ let good = null, why = '';
+  try {
+    const ENSW = Layout.ensembleFor(rd(path.join(ROOT, 'notation', 'registry', 'ensemble.json')), null), pw = ENSW.parts.map(p => p.part);
+    const mw = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: pw, ensemble: ENSW, techniques, fitBoxes: Fit.boxesFor(C, ENSW, pw) }, C.engraving.layout));
+    const iw = mw.systems.find(s => s.part === 0).items;
+    const hp = iw.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - 301.556) < 1e-6), ff = iw.find(it => it.k === 'glyph' && it.g === 'dyn-ff' && Math.abs(it.t - 301.556) < 1e-6);
+    const dots = iw.filter(it => it.k === 'dot' && it.t >= 301.556 - 1e-6 && it.t <= 302.17 + 1e-6);
+    const HH = C.engraving.layout.hairpinHand || {}, clear = HH.spanClearSs != null ? HH.spanClearSs : 0.45;
+    good = !!(hp && ff && dots.length === 4 && hp.ySs > 0 && dots.every(d => hp.ySs - hp.hSs / 2 >= d.ySs + 0.2 + clear - 0.01) && near(ff.ySs, hp.ySs, 0.01));
+    why = hp ? ' (the hairpin at ' + hp.ySs.toFixed(2) + ', the highest dot ' + Math.max(...dots.map(d => d.ySs)).toFixed(2) + ')' : ' (no hairpin found)';
+  } catch (e) { good = false; why = ' — the working layout threw: ' + e.message; }
+  ok(good, '(§576) THE SPAN RULE on the working page (in F): the burst\'s ff and hairpin, above, clear all four staccato dots by the standard stack, the name at the hairpin\'s height' + why); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

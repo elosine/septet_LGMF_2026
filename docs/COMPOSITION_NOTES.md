@@ -2989,3 +2989,14 @@ the moment (anchor A with a GC), no go line; the beat frame's objective may exem
 
 *The AI's reading (marked as such):* the purple candidate of `tempo_candidates_eh_298.html` — 86 bpm, the beat 0.699 s = 6 × 0.1165, at
 the tool's between phase 298.133 (notes 1 · 2 free). The build: RUNNING_LOG §575.
+
+## LG-154 — 2026-09-29 — his eye on the burst's hairpin (a collision), and the third figure's frame moved to the orange 90
+
+*His words (session 18, Fable), with a screenshot of the burst at 301.556 on his page — the hairpin running through notes 2 and 3's staccato
+dots:* "move hairpin either higher or below, probably higher is best, was there a non collision rule that might have governed this?"
+
+*Then, on the third figure's frame:* "lets try 90 orange machine phase"
+
+*The AI's reading (marked as such):* no rule governed it — a hand hairpin took its name's height and never looked at the notes it spans; the
+fix is a rule, THE SPAN RULE (§576, S17), on his "higher". The orange candidate: 90 bpm, 6 × 0.111 = 0.666 s, the tool's between phase
+298.216 (notes 1 · 2 free). The build: RUNNING_LOG §576.
