@@ -19863,3 +19863,30 @@ NAVY** (`#1C4879`, the bassoon's first frame — S19). The seventh frame of the 
 
 **For his eye:** reload → `piece-lgmf` → `323` (play from `321`). His to keep or drop: the lead line at 321.72 (`:noLead`), the tail at 326.26
 (`:noTail`); the names on the five (S9), a slur on the grace.
+
+## §617. The bassoon at his eye — the grace unbeamed · the 322.7 pair as plain dotted 16ths, their names kept · an accent on the eighth at 324.96 · mf on the grace, the rest off (2026-09-30, Fable, session 18; LG-191)
+
+**His words, on the page of §612 … §616:** *"no beam at 324.78. take away the GCs, the two of them near 322.7, and then just make those standard
+notation but similar. Standalone sixteenths with staccato dots and keep their dynamic markings. the five notes later, uh, accent to number two at
+324.96. MF on number one and then take away the rest of the dynamics."*
+
+**Done, each as he said, on the one build record** (`provenance.build` — the runner's `@drop:` took the two args out, the rest are hands that
+MERGE onto the earlier ones, `null` unsetting a key):
+- **no beam at 324.78:** `@drop:324.796-324.955@1` — the grace and the eighth are FLAGGED now (the EH's flagged-grace shape, §596): 1 `nhStem
+  flag8` (its `grace` stays; `noteBeams` · `dynAboveBeam` unset) · 2 `nhStem flag8`. The three-group 3 · 4 · 5 with its beamlet stands (now `bm-24`).
+- **the two near 322.7 → "standard notation but similar":** `@drop:1:322.5:323.5` takes the `--oneOffs` window out; `--plainNotes 1:322.5:323.5`
+  gives them the PLAIN NOTE (S1: the head on its time, no go line, no GC); the hands `nhStem flag16` · `nhDot true` · `nhDotGapSs 0.15` (the burst's
+  and the 317.16 pair's dot hand, §574 · §603); their names f · mf are the §613 hands, still on.
+- **the five:** 2 (`wc-3468`, 324.955) `nhArtic accent` · 1 (the grace, `wc-3465`) `dynMark "mf"` · 2 · 3 · 4 · 5 `dynMark false`.
+
+**On the page** (the video system, part 1): 322.836 · 323.328 — D5, the stem down to −5.388 with the 16th flag under the staff, **the dot 4.292 on
+the head side (above)**, **f · mf on the dynamic row (−6.323)** — the plain note's row (S1 · `dynOnRow`), no longer the one-off's head-side column —
+the ottava riding above at 5.742 · 324.796 — the grace at 0.707 with its own flag (down, 3.18 ss) and slash, **mf** on the row (−4.6) · 324.955 —
+a flagged eighth (down, −5.176), **the accent ABOVE at 5.12** (S10: a lone stem-down note's accent on the head side), no name · 325.25 … 325.618 —
+the beam of three with the beamlet, no names. The frame of §616 unchanged (the fit reads the same onsets). The lock 106 · `check_rules` 33 ·
+the shield `piece-lgmf` alone; no layout warning.
+
+**Noted for him (not chased):** the pair's names sit on the ROW below while their dots sit ABOVE the heads — the plain note's two homes (S1 · S14),
+where the one-off had put both on the head side; the grace's stem is down by the house rule on its own position (no parent — no slur, S6).
+
+**For his eye:** reload → `piece-lgmf` → `323` · `325` (play from `321`).

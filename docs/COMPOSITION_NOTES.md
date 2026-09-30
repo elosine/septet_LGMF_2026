@@ -3314,3 +3314,11 @@ notes); the bassoon's first frame navy by S19. RUNNING_LOG §615.
 *The AI's reading (marked as such):* the green 93 bpm (4 × 0.162), its phase one unit earlier and then the small correction that lets the eighth after
 the grace and the last eighth share the 15 ms by which they exceed a beat — 7.5 ms either side; one frame over the pair and the figure, eight navy
 lines 321.72 … 326.26. RUNNING_LOG §616.
+
+## LG-191 — 2026-09-30 — the bassoon at his eye: no beam on the grace; the 322.7 pair standard, dotted, with their names; the accent and the mf
+
+*His words (session 18, Fable, on the bassoon's page 295 … 326):* "no beam at 324.78. take away the GCs, the two of them near 322.7, and then just make those standard notation but similar. Standalone sixteenths with staccato dots and keep their dynamic markings. the five notes later, uh, accent to number two at 324.96. MF on number one and then take away the rest of the dynamics."
+
+*The AI's reading (marked as such):* the grace and the eighth at 324.8 · 324.96 each flagged, not beamed; the D5 pair at 322.84 · 323.33 no longer
+one-offs but plain flagged 16ths with staccato dots, f and mf kept; in the five, an accent on the eighth after the grace, mf on the grace alone.
+RUNNING_LOG §617.
