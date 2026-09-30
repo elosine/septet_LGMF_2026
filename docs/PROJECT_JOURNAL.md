@@ -286,7 +286,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **§592 (2026-09-30, Fable; LG-167) — DONE:** THE GRACE GROUP'S BEAM at the heads' scale (S22: the thickness and the step × 0.707 — layout + render)
   · THE GC AT THE BEAT BALL'S HEIGHT (S23: `objects.gc.geom` 'lane' | 'beatBall'; the plain note's GC takes the beat ball's flight — gc.js one
   copy, the item and the instance carry `geom`) · the 324.6 figure: the slur 1 → 6 · 1 mp + a hairpin to 6 · the f on 7 alone (2 … 6 · 8 off) · the
-  lock's block for 324.6 (105 GREEN). The shield caught a `grace: false` key on every tip (a tuba hash moved) — made conditional; `piece-lgmf`
+  lock's block for 324.6 (102 GREEN). The shield caught a `grace: false` key on every tip (a tuba hash moved) — made conditional; `piece-lgmf`
   alone. **► He reloads → `324.5` (play from `325`); HIS EYE — then the next figure.**
 
 ### SESSION 18 · CHECKPOINT #5 (mid-session checkpoint, 2026-09-29, Fable built, Opus wraps) — THE EH'S FIRST TWO FIGURES OF SECTION 2 NOTATED BY HAND; THE SHOWN BEAT BUILT; ► HIS EYE ON THE BETWEEN-BEATS PHASE
