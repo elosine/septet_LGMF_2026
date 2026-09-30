@@ -19257,3 +19257,29 @@ and the ball read it. The GC on 7 (325.597): its ball and arc now bounce like th
 to 5.22 — the flagged height (S3: a beam where a flag's tip would clear the top line, as the grace beam's 5.39); the earlier 3.80 had the
 slur's end on 7 in the way. `check_rules` 32 · the lock 92 · the shield `piece-lgmf` alone (after the tip fix). ► He reloads → `324.5`
 (play from `325` for the GC's ball).
+
+## §593. THE GC'S APERTURE 70 % · RAGGED STEMMING on the grace group (2026-09-30, Fable, session 18; LG-168)
+
+**What prompted it** — *"And can we narrow the aperture of the GC, the angle of spread of its arcs? So if that was 100 spread, then let's narrow
+the angle to about 70%. Then let's use what I'll call ragged stemming from the figure at 292.75. for the grace note figure. this would be keep
+everything more or less as is, but you'll replace the slash with the, the squiggly slash. You're already working on making the beams
+smaller. And then let's have the stems all come down. So the first stem that comes down to the F, let's have that stem be about one staff
+space shorter. So it reaches down and doesn't quite touch the note head by about one staff space. And then make the rest of the stems that
+same length."* (LG-168).
+
+**THE APERTURE:** the GC's arc is its ball's flight in TIME — the fall before the impact and the rise after, `duration` 0.6 s at the page's
+speed; the angle of the two branches is the height over that width. Narrowed by the duration: `objects.gc.beatBall.spread` 0.7 — on the
+beat-ball geometry the preset's duration × 0.7 = 0.42 s, the same height in 70 % of the time (`gc.js presetFor`, one copy: the static arc,
+the ball, and the page-edge reach in `render.js gcPrePost` all read it); the lane geometry keeps its preset whole. On the page at 325.6 the
+arc 62 px wide (was 88), its top at the beat ball's apex.
+
+**RAGGED STEMMING (his name — the 292.75 figure's sign, S8, on a grace group):** the six graces keep their heads (0.707), their scaled beam
+(S22) and the slur; the hand `beamStub` on each turns the stems into stubs hanging from the beam and the acciaccatura slash into THE
+SQUIGGLE at the first stub (`slash false` on the first). New: `beamStubShortSs` on the group's first member — the stubs' length = the first
+member's full stem (its head's attach to the stack's inner edge) − that much, every member the same (`beamStubLenSs` names a length
+outright; neither = `protrudeSs`, the 292.75 figure's 2). Here the first stem 3.29 → the stubs 2.29, the first ending 1.1 ss above the F5's
+head, the other five the same length over their lower heads — the ragged look. The stubs at the stem's thickness, the squiggle full size.
+
+**The lock:** the 324.6 block re-pointed — the squiggle and no slash, the six stubs one length, the first about a space short of its head:
+**104 GREEN**. `check_rules` 32 · the shield `piece-lgmf` alone. ► He reloads → `324.5` (play from `325`). PERFORMANCE_NOTES #18's sign now
+has a second use: a grace group played "about this fast, unevenly".

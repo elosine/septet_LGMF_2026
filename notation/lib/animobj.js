@@ -92,10 +92,11 @@
   // frame, scaled by the view's magnification (PP-6).
   register('gc', (inst, view, t, st) => {
     const s = GC.systemOf(view, inst.part);   // §401e: the first staff of a multi-staff part (one copy with render.js)
-    const P = GC.params(Object.assign({}, st.preset || {}, (inst && inst.preset) || {}));
+    const lookM = Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {});   // [§592] the GC's geometry from its device ('beatBall')
+    const P = GC.params(GC.presetFor(st.preset || {}, (inst && inst.preset) || {}, lookM));   // [§593] the aperture by the geometry
     const frac = GC.heightFrac(P, t - inst.at);
     if (frac === null) return [];
-    const G = GC.laneGeom(s, view, Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {}));   // [§592] the GC's geometry from its device ('beatBall')
+    const G = GC.laneGeom(s, view, lookM);
     const x = view.xOfSeconds(t);
     const y = G.impactY - frac * G.h;
     const r = G.look.ballRadiusPx * G.k;

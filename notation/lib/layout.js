@@ -3265,6 +3265,11 @@
         for (const x of stubs) { if (!byGroup.has(x.dev.beamGroup)) byGroup.set(x.dev.beamGroup, []); byGroup.get(x.dev.beamGroup).push(x); }
         for (const g of byGroup.values()) {
           g.sort((p, q) => p.u.t - q.u.t);
+          // [§593, his 'ragged stemming' for the grace group at 324.6: 'the first stem that comes down to the F, let's have that stem be about one
+          // staff space shorter … and then make the rest of the stems that same length'] a hand beamStubShortSs on the group's first member: the
+          // stubs' length = the FIRST member's full stem (its head's attach to the stack's inner edge) − that much, every member the same;
+          // beamStubLenSs names the length outright; neither = protrudeSs (the 292.75 figure's 2)
+          let stubLen = null;
           g.forEach((x, i) => {
             const st = x.u.stemItem, up = st.attach === 'up', sgn = up ? -1 : 1;   // sgn: toward the heads (+y when the beam lies below them)
             const near = p => Math.abs(p.t - x.u.t) < 1e-9;
@@ -3272,7 +3277,8 @@
             const ys = tipsAt.map(p => p.ySs).concat([st.yB]);
             const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BT / 2;   // the beam stack's edge toward the heads
             const outer = (up ? Math.max(...ys) : Math.min(...ys)) - sgn * BT / 2;   // its far edge; [§561] the stroke is centred between them
-            st.yA = inner + sgn * GS.protrudeSs;                                     // the stub shows protrudeSs beyond the stack
+            if (i === 0) { const d0 = x.dev; stubLen = d0.beamStubShortSs != null ? Math.max(0.5, Math.abs(st.yA - inner) - d0.beamStubShortSs) : (d0.beamStubLenSs != null ? d0.beamStubLenSs : GS.protrudeSs); }   // [§593]
+            st.yA = inner + sgn * stubLen;                                            // the stub shows stubLen beyond the stack (protrudeSs unless a hand says)
             if (i === 0) st.dxSs = x.u.dx - x.u.w / 2; else if (i === g.length - 1) st.dxSs = x.u.dx + x.u.w / 2;
             for (const p of tipsAt) p.dxSs = st.dxSs;                               // the beam's ends follow
             if (i === 0) {

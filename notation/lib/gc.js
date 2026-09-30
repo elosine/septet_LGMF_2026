@@ -89,6 +89,15 @@
 
   // lane geometry for a system, in px: the frame-scale factor, impact y,
   // and the drop height — piece #1's renderGC numbers
+  // [§593, his 'narrow the aperture of the GC, the angle of spread of its arcs … to about 70%'] the preset a GC plays: the registry's, the
+  // note's own on top, and — on the beat-ball geometry — the duration × spread (rules.json objects.gc.beatBall.spread): the same height in
+  // a narrower time, the fall and the rise steeper. One copy for the static arc (render.js) and the ball (animobj.js)
+  function presetFor(base, item, look) {
+    const P = Object.assign({}, base || {}, item || {});
+    const bb = look && look.geom === 'beatBall' && look.beatBall;
+    if (bb && bb.spread) P.duration = (P.duration != null ? P.duration : DEFAULT_PRESET.duration) * bb.spread;
+    return P;
+  }
   function laneGeom(sys, view, look) {
     const L = Object.assign({}, LOOK, look || {});
     const k = view.heightPx / L.frameHeightPx;
@@ -114,5 +123,5 @@
   function systemOf(view, part) {
     try { return view.system(part + ':0'); } catch (e) { return view.system(part); }
   }
-  return { DEFAULT_PRESET, LOOK, params, heightFrac, trajectory, laneGeom, systemOf };
+  return { DEFAULT_PRESET, LOOK, params, presetFor, heightFrac, trajectory, laneGeom, systemOf };
 });

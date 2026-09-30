@@ -123,7 +123,7 @@
   // a GC item's reach in SECONDS — [pre, post] — by the params render draws it with (the registry preset under the item's own)
   function gcPrePost(it, engraving) {
     const E = engraving || {};
-    const P = GC.params(Object.assign({}, (E.gc && E.gc.preset) || {}, it.preset || {}));
+    const P = GC.params(GC.presetFor((E.gc && E.gc.preset) || {}, it.preset || {}, Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {})));   // [§593] the reach by the geometry's aperture
     return [P.pre, P.post];
   }
 
@@ -832,7 +832,8 @@
           // 1.5 px, no fill; the impact marker r 4 px on the go line, 5 px
           // above the lane bottom. Sizes at the 1080 frame × magnification.
           // Clipped to the page like the ring bar (an arc may cross a cut).
-          const P = GC.params(Object.assign({}, (E.gc && E.gc.preset) || {}, it.preset || {}));
+          const lookM = Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {});   // [§592] the item's geometry ('beatBall')
+          const P = GC.params(GC.presetFor((E.gc && E.gc.preset) || {}, it.preset || {}, lookM));   // [§593] the aperture by the geometry
           // [2b.7.1] the arc follows ITS STRIKE: owned = drawn whole, unowned =
           // not drawn at all. That is what kills the ghost arc over the clef —
           // the note gated on inWin and the arc on range intersection, so a
@@ -842,7 +843,7 @@
           else if (it.t + P.post < w0 || it.t - P.pre > w1) continue;
           // §401e: the GC's own system (the first staff of a multi-staff part) — a single lane's height, the
           // impact between the piano's staves; the go line above keeps the whole lane
-          const G = GC.laneGeom(GC.systemOf(view, sysModel.part), view, Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}));   // [§592] the item's geometry ('beatBall')
+          const G = GC.laneGeom(GC.systemOf(view, sysModel.part), view, lookM);
           const color = (E.gc && E.gc.color) || G.look.color;
           const d = GC.trajectory(P).map((p, i) =>
             (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');

@@ -3111,3 +3111,15 @@ the rest of those dynamics can go away, the individual no ones."
 
 *The AI's reading (marked as such):* two rules — the grace group's beam at the heads' scale (S22) and a GC geometry that is the beat ball's
 flight (S23, a rules row: the plain note's GC bounces like the frame's balls) — and the figure's hands. RUNNING_LOG §592.
+
+## LG-168 — 2026-09-30 — the GC's aperture at 70 %; "ragged stemming" on the grace group
+
+*His words (session 18, Fable):* "And can we narrow the aperture of the GC, the angle of spread of its arcs? So if that was 100 spread, then
+let's narrow the angle to about 70%. Then let's use what I'll call ragged stemming from the figure at 292.75. for the grace note figure. this
+would be keep everything more or less as is, but you'll replace the slash with the, the squiggly slash. You're already working on making the
+beams smaller. And then let's have the stems all come down. So the first stem that comes down to the F, let's have that stem be about one
+staff space shorter. So it reaches down and doesn't quite touch the note head by about one staff space. And then make the rest of the stems
+that same length."
+
+*The AI's reading (marked as such):* "ragged stemming" = his uneven-group sign (S8: the stubs, the squiggle) with the stubs' length set from
+the first note; the aperture = the GC's duration on the beat-ball geometry. RUNNING_LOG §593.
