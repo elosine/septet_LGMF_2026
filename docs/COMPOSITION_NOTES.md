@@ -3331,3 +3331,16 @@ RUNNING_LOG §617.
 recorded names, three at his mf · mf · f; and the 345.5 pair as the EH's burst shape — plain 16ths beamed, the GC's impact at the first head's left
 edge with no go line (the tuba pages' cluster-start, S14), mp on the first alone. The GC drawn at lane height like the page's other GCs — the AI's
 call. RUNNING_LOG §618.
+
+## LG-193 — 2026-09-30 — the bassoon's three at 376: GCs, f · mf · mf
+
+*His words (session 18, Fable):* "the three uh, three seventy six all GCs. Keep the first dynamic F. The last two change to MF."
+
+*The AI's reading (marked as such):* three one-offs at 376.136 · 377.255 · 377.672; the first's recorded velocity reads f and stands, the other two
+named mf by hand over their recorded f. RUNNING_LOG §619.
+
+## LG-194 — 2026-09-30 — the bassoon's pair at 380.25: GCs, both f
+
+*His words (session 18, Fable):* "380.25, both GCs. Make the dynamic for both F, please."
+
+*The AI's reading (marked as such):* two one-offs at 380.404 · 380.828, f by hand over their recorded mp · mf. RUNNING_LOG §620.

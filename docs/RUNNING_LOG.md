@@ -19917,3 +19917,25 @@ line, the head's left edge ON its time (dx 0.52 = half a head), the two-level be
 The lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone; no layout warning.
 
 **For his eye:** reload → `piece-lgmf` → `337` · `341.3` · `343.5` · `345.5` (play from `336`).
+
+## §619. The bassoon's three at 376 — one-offs; the first keeps its f, the other two mf (2026-09-30, Fable, session 18; LG-193)
+
+**His words:** *"the three uh, three seventy six all GCs. Keep the first dynamic F. The last two change to MF."*
+
+**The notes** (part 1): 376.136 A♯4 (recorded velocity 89 → **f**) · 377.255 A4 (84 → f) · 377.672 B4 (84 → f); the next bassoon note 380.404.
+
+**Built:** `--oneOffs 1:376:377.8` — three one-offs; the first's name is its own band (f — his "keep", no hand); `wc-3622` · `wc-3627` `dynMark
+"mf"` by hand. **On the page:** each — the go line · the GC · the cue head before the line · the 16th flag · the dot · **f · mf · mf** on the head
+side (the ottava riding above on the A♯4 · A4 · B4). The lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone; no layout warning.
+
+**For his eye:** reload → `piece-lgmf` → `376.5` (play from `375.5`).
+
+## §620. The bassoon's pair at 380.25 — one-offs, both f (2026-09-30, Fable, session 18; LG-194)
+
+**His words:** *"380.25, both GCs. Make the dynamic for both F, please."*
+
+**The notes** (part 1): 380.404 C♯5 (recorded velocity 53 → mp) · 380.828 C4 (76 → mf). **Built:** `--oneOffs 1:380.3:380.9` · `wc-3635` · `wc-3638`
+`dynMark "f"` by hand. On the page: each the go line · the GC · the cue head · the 16th flag · the dot · **f**. The lock 106 · `check_rules` 33 ·
+the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `380.5` (play from `375.5` through the three of §619).
