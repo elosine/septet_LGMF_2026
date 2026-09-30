@@ -469,9 +469,13 @@
             '" width="' + (E.attackLine.wSs * ssPx).toFixed(2) + '" height="' + (E.attackLine.hSs * ssPx).toFixed(2) + '"/>');
         } else if (it.k === 'tick') {
           if (!owns(it.t)) continue;
-          const tH = it.hSs != null ? it.hSs : E.tick.hSs;   // [§564] a beat grid's subdivision tick is shorter (rules.json objects.tick.subHSs)
-          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + (Y(it.ySs) - tH * ssPx).toFixed(2) +
-            '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (tH * ssPx).toFixed(2) + '"/>');
+          const tH = it.hSs != null ? it.hSs : E.tick.hSs;   // [§564] a beat grid's tick is shorter (rules.json objects.tick.subHSs)
+          // [§565] a beat grid's tick hangs from the LANE'S TOP EDGE (yAt 'top') in the DURATION LINE's colour and opacity (E.ringBar — rules.json
+          // objects.ringBar through objects.tick.gridColour · gridOpacity); the GC's tick keeps the tick row and the ink
+          const tY = it.yAt === 'top' ? sys.yTopPx : Y(it.ySs) - tH * ssPx;
+          const tFill = it.grid ? ' fill="' + E.ringBar.color + '"' + (E.ringBar.opacity != null && E.ringBar.opacity !== 1 ? ' fill-opacity="' + E.ringBar.opacity + '"' : '') : '';
+          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + tY.toFixed(2) +
+            '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (tH * ssPx).toFixed(2) + '"' + tFill + '/>');
         } else if (it.k === 'envcurve') {
           // the drawn level curve over the FULL lane band (piece #1: value
           // 0..1 maps bottom -> top of the track), clipped to the window

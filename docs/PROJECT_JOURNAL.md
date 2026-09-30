@@ -189,8 +189,8 @@ on Opus or here at his word.
   finding one family, a beat of ≈ 0.32 s (185 … 190 bpm), the first note an upbeat; three grids shown him as a picture, his pick owed.**
   **§564 (LG-142): THE PROCESS decided — candidates, his eye, his pick and phase, recorded as a `--beatGrid` hand; HIS PICK for the second
   figure B shifted a 16th (a 16th of 0.108, the beat every 3 from 295.348); THE TICKS on the page from the tuba's look (`beatGrid` overlay,
-  the tick row, beats full · subdivisions 0.4); the lock 29. ► His eye (`295.5`), then the template talk (colour · row · beat vs sub · a
-  number · the ball).**
+  the tick row, beats full · subdivisions 0.4); the lock 29. **§565 HIS TEMPLATE (LG-143): the duration line's blue-grey at 0.3, hung from
+  the lane's top edge, the main beats only, 0.4 ss — applied. ► His eye (`295.5`); open: a number on the beat · the ball · the grid's span.**
 - **N-5 · THE MICRO COUNTERPOINT — the notation evaluation for the texture** (LG-130: the figures after the first; onsets a small interval
   apart across instruments): the survey on the texture; the candidates he named — more GCs · the ball on the cursor · highlight the notes as
   the cursor passes · different beaming · count-accurate TN with tuplets · shadows of other performers' notes · lines. Rhythmic accuracy the

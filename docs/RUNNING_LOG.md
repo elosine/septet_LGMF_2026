@@ -18651,3 +18651,14 @@ shape). On `piece-lgmf`: `--beatGrid 0:295.348:297.4:0.108:3:295.348` — 20 tic
 
 **► His eye:** reload → `piece-lgmf` → `295.5`. Then the template talk: the colour (black now) · the row (above the staff, the tuba's) ·
 the beat vs the subdivision (height now) · a number on the beat · whether the ball (the animated beat, A7) rides them.
+
+## §565. THE BEAT GRID'S TEMPLATE, HIS (2026-09-29, Fable, session 18; N-4)
+
+**His word (LG-143), applied as rows on `objects.tick`:** `gridColour` and `gridOpacity` point at the DURATION LINE's (`objects.ringBar` —
+navyBlue #1C4879 at 0.3; the render reads them through E.ringBar) · `gridAt` laneTop — the ticks hang from the LANE'S TOP EDGE (the
+render's `yAt 'top'`, as the "sempre secco" text does), not the tick row · `gridBeatsOnly` — the main beats only, the 16ths between
+dropped · the height `subHSs` 0.4, the shorter size. The GC's black tick on the tick row is untouched (the tuba pages byte-identical).
+On the page: 7 ticks at 295.348 + k × 0.324. `check_rules` 32 · the shield `piece-lgmf` alone · the lock 29 · the screen gate PASS.
+
+**► His eye:** reload → `piece-lgmf` → `295.5`. Open on the template: a number or dot on the beat · the ball (A7's animated half) riding
+the ticks · the grid's span (the figure only, or the passage).
