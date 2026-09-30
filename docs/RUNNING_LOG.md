@@ -19133,3 +19133,18 @@ the EH's staff at y 55.9 … 87.5 — SIX ledgers below it: two at x 1445 (A3 31
 one at 1652 (B3 318.569); none above (§585's two at 308.3 — the D6-in-F — gone, G5 in C needs none). Then ⚙ on, the notation view
 312–324: no ledger on the EH at all — F4 · E4 · G♯4 … the written form kept. The lock's "video page (in C)" and his page are one page now.
 ► He reloads the notation tab (page files only) → `piece-lgmf` → `317`.
+
+## §588. "3 notes before the longer one, not 4" — his ear, not the data; the picture shows each note's length (2026-09-30, Fable, session 18)
+
+**What prompted it** — with a screenshot of the composer at 317.05 (two shorts selected, a third, then the long D4): *"another discrepancy is
+there are 3 notes before the longer one not 4, can you fix in beat frame page too"* — then, before the reply: *"my mistake just did not hear
+the 1st not too rapid"*.
+
+**Checked anyway, all four sources the same:** the composer's EH 316.8 … 318.1 = 317.052 (0.079 s) · 317.164 (0.069) · 317.339 (0.074) · 317.535
+(0.497) — three shorts and the long one; the IR the same four events; the app's video page 27 four bricks at x 1446 · 1462 · 1488 (12 · 10 ·
+11 px wide) and 1517 (73 px); the picture four heads. Nothing to fix. The first note is 112 ms before the second — heard as one.
+
+**Kept from it:** the picture draws each note's LENGTH as a faint bar from its head (`dur` beside `on`; `tempo_fit.js`) — dots alone did not
+say which note was the long one; the 295 control regenerates unchanged in content. (On the way the tool was broken by a splice that put a real
+newline inside a string — a `node -e` with four-fold backslashes; rebuilt from parts, `new Function` as the parse gate. The rule stands: a
+script with escapes goes to a FILE, never into `node -e`.)
