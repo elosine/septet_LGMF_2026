@@ -3344,3 +3344,10 @@ named mf by hand over their recorded f. RUNNING_LOG §619.
 *His words (session 18, Fable):* "380.25, both GCs. Make the dynamic for both F, please."
 
 *The AI's reading (marked as such):* two one-offs at 380.404 · 380.828, f by hand over their recorded mp · mf. RUNNING_LOG §620.
+
+## LG-195 — 2026-09-30 — the bassoon 387.4 · 393.18 · 398.42: a GC at f, two long tones at a single f
+
+*His words (session 18, Fable):* "the one at 387.4, GC as well, the dynamic 1F. The one at 393.18 is a long tone. And let's make that dynamic single F. the one at 398.42 is the same. Long tone, single F."
+
+*The AI's reading (marked as such):* the one-off at 387.493 at f by hand (its recorded velocity reads ff); the held notes at 393.277 and 398.443 named
+long tones (2m's device — the open head, the navy bar) with one f each by hand over their recorded ff. RUNNING_LOG §621.

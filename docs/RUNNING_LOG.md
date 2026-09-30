@@ -19939,3 +19939,19 @@ side (the ottava riding above on the A♯4 · A4 · B4). The lock 106 · `check_
 the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `380.5` (play from `375.5` through the three of §619).
+
+## §621. The bassoon 387.5 … 398.4 — a one-off at f; two singles named long tones at a single f (2026-09-30, Fable, session 18; LG-195)
+
+**His words:** *"the one at 387.4, GC as well, the dynamic 1F. The one at 393.18 is a long tone. And let's make that dynamic single F. the one at
+398.42 is the same. Long tone, single F."*
+
+**The notes** (part 1): 387.493 D5, 0.069 s (recorded velocity 114 → ff) · 393.277 A3, **1.015 s** (110 → ff) · 398.443 F♯4, **0.677 s** (109 → ff) —
+the two held notes are 2m's SINGLES (held, but starting with no other part), which draw the old way until he names them (§534).
+
+**Built:** `--oneOffs 1:387.4:387.6` + `wc-3657 dynMark "f"` · **`--longToneAlso wc-3670,wc-3674`** (the flag's third use; repeatable — seven of the
+18 singles named now) + `wc-3670` · `wc-3674` `dynMark "f"` (a hand's name over the long tone's band name, the first time on a long tone — the
+device's `dynMark band` yields to the hand as on every device). On the page: 387.493 — the go line · GC · cue head · flag · dot · **f**; 393.277 ·
+398.443 — the long tone (2m: the open head on its time, no go line, the navy bar its full length), **f** on the dynamic row. The lock 106 ·
+`check_rules` 33 · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `387.5` · `393.3` · `398.5`.
