@@ -3401,3 +3401,10 @@ just before the five — the GC at 343.13 informed the fit and stands before the
 *His words (session 18, Fable):* "at 344.18, that partial should be F, and then no other dynamics there. And then at 345.4 MP, and then the second one doesn't have a dynamic."
 
 *The AI's reading (marked as such):* one name per beam group, on its first note — the same as every pair so far. RUNNING_LOG §628.
+
+## LG-203 — 2026-09-30 — the trumpet's five: no GC at 344.2 and 345.4
+
+*His words (session 18, Fable):* "And then you can get rid of the GC at three, four, four, point two, and three, four, five, point four."
+
+*The AI's reading (marked as such):* the beam device's automatic cue on each group's first note — not asked for; off by hand. A figure inside a
+beat frame has carried no GC on its beamed groups anywhere so far (the EH's figures, the bassoon's 324.8). RUNNING_LOG §629.

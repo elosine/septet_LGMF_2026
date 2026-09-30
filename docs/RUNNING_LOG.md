@@ -20164,3 +20164,22 @@ now on a group of three too; five of five groups, S9's thinning by his hand each
 **A slip of the AI's, corrected here:** §627's journal bullet was spliced in BEFORE §626's; put back in order by this entry's splice.
 
 **For his eye:** reload → `piece-lgmf` → `344.2` · `345.5` (play from `342.5`).
+
+## §629. The trumpet's five — the two GCs off: the beam device's own cue on each group's first note (2026-09-30, Fable, session 18; LG-203)
+
+**What prompted it** (sent while §628 was building): *"And then you can get rid of the GC at three, four, four, point two, and three, four,
+five, point four."*
+
+**What he saw:** the AI had put no GC on the five. The `--beam` device gives the FIRST note of every group a GC and a go line by itself (the
+tuba figures' rule — the overlays `ov-bm-29-ev-wc-3541` · `ov-bm-30-ev-wc-3552` read `gc true · goLine true`). The same default surfaced at the
+EH's 380.39 (§607: "no GC at 380.39 … off by hand") — the second time it has come in unasked.
+
+**Built:** `--hand 'wc-3541:{"gc":false,"goLine":false}'` · the same on `wc-3552` — the two groups plain beamed 16ths inside the frame, the
+head's left edge on its time (S1).
+
+**Offered, not built — a rule in place of the hand:** in a `--plainNotes` window a beam group's first note takes NO cue unless a hand asks
+(`gc true`); every GC pair so far asks by hand already, so nothing on the page would move. His word.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `344.2` · `345.5` (play from `342.5`).
