@@ -209,5 +209,9 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   { const b78 = items.filter(it => it.k === 'beam' && it.tips && Math.abs(it.tips[0].t - F5.n7) < 1e-6 && Math.abs(it.tips[it.tips.length - 1].t - F5.n8) < 1e-6); ok(b78.length === 1 && !b78[0].scale, '(§591) 7+8 beamed eighths, one beam at full size'); }
   { const gc = items.find(it => it.k === 'gc' && Math.abs(it.t - F5.n7) < 1e-6); ok(gc && gc.geom === 'beatBall' && glyphAt(F5.n7, /^artic-accent$/), '(§592 · S23) the GC on 7 with the beat ball\'s geometry, the accent on 7'); }
   ok(!items.find(it => it.k === 'gc' && Math.abs(it.t - F5.n8) < 1e-6) && !items.find(it => it.k === 'gc' && gr.some(t => Math.abs(it.t - t) < 1e-6)), '(§591) no GC on the graces or on 8'); }
+// ---- §597 A GRACE'S STEM FOLLOWS ITS PARENT (his 'keep grace note stems in the same direction as their parent'): every slurred grace on the EH page
+{ const graces = items.filter(it => it.k === 'slur' && (() => { const h = glyphAt(it.t0, /^notehead$/); return h && (h.scale || 1) < 1; })());
+  const pairs = graces.map(sl => { const a = at('stem', sl.t0), b = at('stem', sl.t1); return { t: sl.t0, a: a && a.attach, b: b && b.attach }; });
+  ok(pairs.length >= 8 && pairs.every(p => p.a && p.b && p.a === p.b), '(§597) every slurred grace stems the way its parent does — ' + pairs.map(p => p.t.toFixed(2) + ':' + (p.a || '-') + '/' + (p.b || '-')).join(' ')); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

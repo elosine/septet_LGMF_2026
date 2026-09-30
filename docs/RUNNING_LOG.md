@@ -19356,3 +19356,35 @@ over 6+7, the 16th's second level a beamlet on 6 pointing at 7 (the day-23 rule)
 under the max); 6+7's beam BELOW the staff (A5 · E4, the stems down) so their names flipped ABOVE the beam-side row — 6's f at 5.03, 7's mf
 at 2.79, just clear of the top line (the flipped row clears the staff, §502) — for his eye. `check_rules` 32 · the shield `piece-lgmf` alone.
 ► He reloads → `316.5` · `324.5` · `337` · `340`.
+
+## §597. A GRACE'S STEM FOLLOWS ITS PARENT · the slur over a wide interval · the silent note at 343.12 · THE FIGURE AT 342.65 (2026-09-30, Fable, session 18; LG-172)
+
+**What prompted it** — three screenshots (the 340.1 pairs 3–4 and 1–2 on his page; the composer's note card at 343.12) and: *"Keep grace note
+stems in the same direction as their parent, please. And then write that in somewhere. And then can we discuss what to do with slurs when
+the distance is further? Can you see how Lily Pond handles it? The first one doesn't look good. img 3 is not sounding, is it out of range?
+starting at 342.65 continue the same grace to 16th, 1 and 2, 4 and 5. make three a 16th note for now while we find out what's going on. Note
+at 343.94, a sixteenth, and then the rest, sixteenth note, grace note, beamed grace note figure with ragged stems."* (LG-172).
+
+**THE RULE (S6 amended):** a grace's stem direction = its PARENT's — the note its slur reaches (`slurTo`) — found the four ways the parent
+finds its own: the parent's hand `stemDir` · its beam group's direction (the pre-pass `groupDir`) · its device's `nhStemDir` · the house rule
+on its written position folded by the ottava threshold (`layout.js`, before the unit's own rule). His "first one" (340.1's pair 3–4: the
+grace D5 hung its stem DOWN by the house rule while A♯4 stood UP — mixed, so the slur went ABOVE from the grace's stem tip to the parent's:
+the ugly diagonal) is the case: now both up, the slur below, head to head. Every slurred grace on the page checked against its parent — nine
+pairs, three flipped (341.093 → up, 343.359 → down, 344.346 → up); the lock asserts all of them (106 GREEN).
+
+**The slur over a wide interval — the discussion for him (the reply):** what S7 mirrors of LilyPond already: the side opposite the stems
+(the head side), the ends at the heads (Gould's), the height a quarter of the length capped at 2, the slope capped (`maxSlope` 1.1 = LilyPond's
+`max-slope`), the ends' heights following the two heads so a wide interval draws a tilted arc. The failure he saw was the MIXED-stem case,
+gone with the rule; what remains for a wide interval is the tilt. Options put to him: (a) S7 as it stands; (b) a rule for short slurs' minimum
+height (the 337 grace slur wanted 1.4 by hand — a minimum ≈ 1 for a slur under two spaces long); (c) the hand `slurHeightSs` case by case.
+
+**343.12 — the silent note (`wc-3532`, D♯5, vel 61, 0.050 s, mp):** in range (E3–A5), `sonifyMode plain`, no stack, no pin, no bend — the data
+is clean, and the IR holds it. The likely cause is the sound, not the score: 50 ms at velocity 61 on the EH's senza-vibrato patch — the
+sample's attack alone is of that order, and the other 50 ms notes of this stretch hit at 80 … 114. His to try: 0.09 s or a higher velocity in
+the composer. Reported, nothing changed.
+
+**THE FIGURE AT 342.65** — the EH's eleven: 342.796 F♯4 · 342.907 D♯4 · 343.117 D♯5 · 343.359 F4 · 343.457 B4 · 344.046 A♯5 · 344.213 A5 ·
+344.346 D♯5 · 344.407 C5 · 344.487 E4 · 344.622 G♯4 (then 345.45 … the next cluster; his "343.94" read as 344.046, the nearest note). Built:
+`--plainNotes 0:342.6:344.8` · 1 → 2 and 4 → 5 grace-to-16th pairs · 3 a 16th alone (for now) · 6 · 7 16ths alone · 8 a grace slurred into 9
+· 9 … 11 a ragged grace group (`--beam` + `beamStub`, the stubs 2, no slash, the squiggle; no slur over the group — his to add). The names
+shown: f · ff · mp · mf · ff · ff · ff · f · f · f · mp. `check_rules` 32 · the shield `piece-lgmf` alone. ► He reloads → `340` · `342.7`.

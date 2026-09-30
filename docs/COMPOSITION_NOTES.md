@@ -3149,3 +3149,14 @@ standard; / more arc to slur at 337, f at grace no f at 2, keep ff on 3 / 340.1 
 
 *The AI's reading (marked as such):* the ragged sign's stubs one law (2 ss) for every group; the 337 slur by a hand height (1.4, his to
 adjust); at 340.1 three grace-and-note pairs, the last pair's note a 16th beamed to an eighth. RUNNING_LOG §596.
+
+## LG-172 — 2026-09-30 — grace stems with their parent; slurs over a distance; the silent note at 343.12; the figure at 342.65
+
+*His words (session 18, Fable, with three screenshots):* "Keep grace note stems in the same direction as their parent, please. And then write
+that in somewhere. And then can we discuss what to do with slurs when the distance is further? Can you see how Lily Pond handles it? The
+first one doesn't look good. img 3 is not sounding, is it out of range? starting at 342.65 continue the same grace to 16th, 1 and 2, 4 and 5.
+make three a 16th note for now while we find out what's going on. Note at 343.94, a sixteenth, and then the rest, sixteenth note, grace
+note, beamed grace note figure with ragged stems."
+
+*The AI's reading (marked as such):* the grace's stem by its parent, a rule (S6); the ugly slur was the mixed-stem case; 343.12 is in range
+and clean in the data — the 50 ms at velocity 61 the likely reason it does not speak; the 342.65 figure as said. RUNNING_LOG §597.

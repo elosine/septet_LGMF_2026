@@ -1488,7 +1488,21 @@
                 // house side": GC and chain under the staff, the flag above),
                 // so a high note on a treble staff does not hang its chain
                 // below its own flag. An engraving override still wins.
+                // [§597, his 'keep grace note stems in the same direction as their parent'] A GRACE'S STEM FOLLOWS ITS PARENT — the note its
+                // slur reaches (slurTo): the parent's own hand, its beam group's direction (the pre-pass), its device's nhStemDir, or the house
+                // rule on the parent's written position folded by the ottava threshold — the same four steps this note would take for itself
+                const parentDir = (dev.grace && dev.slurTo && evById.get(dev.slurTo)) ? (() => {
+                  try {
+                    const pe = evById.get(dev.slurTo), pEng = engOf(pe.id) || {}, pDev = deviceOf(pe) || {};
+                    if (pEng.stemDir === 'up' || pEng.stemDir === 'down') return pEng.stemDir;
+                    if (pDev.beamGroup && groupDir.has(pDev.beamGroup)) return groupDir.get(pDev.beamGroup);
+                    if (pDev.nhStemDir === 'up' || pDev.nhStemDir === 'down') return pDev.nhStemDir;
+                    let y = posOf(spelledOf(pe)); while (y > th) y -= 3.5; while (y < -th) y += 3.5;
+                    return y >= 0 ? 'down' : 'up';
+                  } catch (err) { return null; }
+                })() : null;
                 const stemDir = engS.stemDir === 'up' || engS.stemDir === 'down' ? engS.stemDir
+                  : parentDir ? parentDir
                   : (dev.beamGroup && groupDir.has(dev.beamGroup)) ? groupDir.get(dev.beamGroup)
                   : (dev.nhStemDir === 'up' || dev.nhStemDir === 'down') ? dev.nhStemDir
                   : (yDraw >= 0 ? 'down' : 'up');
