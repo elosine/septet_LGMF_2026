@@ -3395,3 +3395,9 @@ the frame's onsets, so the frame's lines begin before a cue, not only before pla
 
 *The AI's reading (marked as such):* the green candidate (98 bpm, 4 × 0.1525 s) at the tool's phase; the frame's first line the one at 344.108,
 just before the five — the GC at 343.13 informed the fit and stands before the frame, not under its lines. RUNNING_LOG §627.
+
+## LG-202 — 2026-09-30 — the trumpet's five: f on the first of the three, mp on the first of the two, nothing else
+
+*His words (session 18, Fable):* "at 344.18, that partial should be F, and then no other dynamics there. And then at 345.4 MP, and then the second one doesn't have a dynamic."
+
+*The AI's reading (marked as such):* one name per beam group, on its first note — the same as every pair so far. RUNNING_LOG §628.

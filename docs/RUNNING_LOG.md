@@ -20149,3 +20149,18 @@ GC 39 % after its line). The tail line 346.548 (0.84 s after the last note) his 
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `302.1` · `322.4` · `325.3` · `341.4` · `343.1` · `344.2` (play from `342.5`).
+
+## §628. The trumpet's five at 344.19 — one name per beam group: f on the first, mp on the fourth (2026-09-30, Fable, session 18; LG-202)
+
+**What prompted it** (sent while §627 was building; his words whole in LG-202): *"at 344.18, that partial should be F, and then no other
+dynamics there. And then at 345.4 MP, and then the second one doesn't have a dynamic."*
+
+**Built** (`dynMark` hands, trumpet): 344.189 `wc-3541` p → **f** · 344.370 `wc-3543` · 344.636 `wc-3549` no name (were mp · ff) · 345.438
+`wc-3552` mf → **mp** · 345.710 `wc-3557` no name (was p). Each beam group carries ONE name, on its first note — the pairs' pattern (LG-198),
+now on a group of three too; five of five groups, S9's thinning by his hand each time.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**A slip of the AI's, corrected here:** §627's journal bullet was spliced in BEFORE §626's; put back in order by this entry's splice.
+
+**For his eye:** reload → `piece-lgmf` → `344.2` · `345.5` (play from `342.5`).
