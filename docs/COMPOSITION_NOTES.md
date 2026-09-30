@@ -3422,3 +3422,11 @@ its first note · 387.741 f. RUNNING_LOG §630.
 
 *The AI's reading (marked as such):* eight one-offs. "Make the one at 337.5 a GC. As well as the one at 343.1" = the two held singles that LG-196
 made long tones "unless I say otherwise" — said otherwise here: a quarter-second note reads as a struck cue, not a held tone. RUNNING_LOG §631.
+
+## LG-206 — 2026-09-30 — the double bass begun: GCs; and his R after a composer change failed
+
+*His words (session 18, Fable):* "double base, GC at 295.6, the three starting at 299.5. At three to two point seven, mm. I made a change in the composer score and then I hit R and got this message. Can you fix, please?"
+
+*The AI's reading (marked as such):* five one-offs on the double bass (295.772 · 299.686 · 300.421 · 302.147 · 322.873 — the last read from an
+unfinished sentence). His composer change: the double bass's A5 at 329.26 down an octave to A4 (the 15ma gone). The R fault: RUNNING_LOG §632.
+RUNNING_LOG §633.

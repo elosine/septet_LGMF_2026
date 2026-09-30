@@ -1132,11 +1132,26 @@ const server = http.createServer((req, res) => {
             if (si < 0 || out[si + 1] !== ir.source.score)
                 return R.status(400).json({ success: false, error: 'the recorded build of ' + irId + ' does not name its score (' + ir.source.score + ')' });
             out.push('--id', irId, '--all');
+            // [RUNNING_LOG §632, 2026-09-30 — his R after a composer change: "midi 81 != source sonifyNote 69", the IR removed] a build
+            // recorded by tools/reextract.js reads a COPY of the save (--scoreFile, 2j's discipline) — the copy of the LAST extraction,
+            // so the refresh re-read the old score, failed validation against the new Save, and the failed run removed the IR. Re-point
+            // --scoreFile at a FRESH copy of the last Save, as the runner does; and keep the IR's bytes, so "the page is unchanged"
+            // holds on disk too when the tool fails.
+            const fi = out.indexOf('--scoreFile');
+            if (fi >= 0) {
+                const copy = path.join(fs.mkdtempSync(path.join(require('os').tmpdir(), 'lgmf-refresh-')), ir.source.score + '-copy.json');
+                fs.copyFileSync(path.join(SCORES_DIR, ir.source.score + '.json'), copy);
+                out[fi + 1] = copy;
+            }
+            const irBefore = fs.readFileSync(irPath);
             const t0 = Date.now();
             const r = spawnSync(process.execPath, [path.join(__dirname, '..', 'tools', 'notate_section.js'), ...out],
                 { cwd: path.join(__dirname, '..'), encoding: 'utf8', timeout: 120000 });
             const text = String(r.stdout || '') + String(r.stderr || '');
-            if (r.status !== 0) return R.status(500).json({ success: false, error: text.trim().split('\n').slice(-12).join('\n') || ('exit ' + r.status) });
+            if (r.status !== 0) {
+                fs.writeFileSync(irPath, irBefore);   // the failed run removes or half-writes the IR — put the last good one back
+                return R.status(500).json({ success: false, error: text.trim().split('\n').slice(-12).join('\n') || ('exit ' + r.status) });
+            }
             console.log(`Refreshed ${irId} from ${ir.source.score} in ${Date.now() - t0} ms`);
             return R.json({ success: true, ms: Date.now() - t0, ready: (text.match(/READY:.*$/m) || [''])[0] });
         } catch (e) { return R.status(500).json({ success: false, error: e.message }); }

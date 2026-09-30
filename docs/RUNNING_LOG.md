@@ -20239,3 +20239,61 @@ lengths are his save's · his times ran 0.04 … 0.19 s early, the nearest note 
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `300.4` · `301.7` · `322.2` · `323.2` · `337.6` · `343.2` · `377.4` · `387.5`.
+
+## §632. His R after a composer change failed and REMOVED the IR — the refresh re-read a stale copy of the score; the IR restored, his change carried, the route fixed (2026-09-30, Fable, session 18; LG-206)
+
+**What prompted it** (his words, with a screenshot of the notation page's message): *"I made a change in the composer score and then I hit R
+and got this message. Can you fix, please?"* — the message: `⚠ refresh failed — the page is unchanged: … VALIDATION FAILED — IR removed:
+INVALID — 1 finding(s) in notation/ir/piece-lgmf.ir.json: · ev-wc-3489: midi 81 != source sonifyNote 69`.
+
+**What had happened, read from the files (not guessed):**
+- His change: `wc-3489` — the double bass's A5 at 329.264 (the note that drew under a 15ma) — `sonifyNote` 81 → **69** (A4) in his save
+  `scores/piece-Recombination-Draft01-done.json` (18:19).
+- The app's R calls `POST /api/notation/refresh/<id>` (`score/server.js`), which re-runs the IR's recorded `provenance.build` as it stands.
+  Since §589 … §604 every build has been made by `tools/reextract.js`, which records `--scoreFile <a scratch COPY of the save>` (2j's
+  discipline) — the copy of the LAST extraction (`…\\Temp\\lgmf-reextract-XamvGU\\…-copy.json`, still on disk, still saying 81).
+- So the refresh extracted the OLD score (81), the validator compared it with the NEW save (69), and `notate_section.js` removed the IR on the
+  failed validation. `git status` showed `D notation/ir/piece-lgmf.ir.json`. The page's "unchanged" was true of the screen only — a reload
+  would have found no `piece-lgmf`.
+- R had not been pressed after a composer change since the runner existed (§599's change was carried by a re-extraction), so the fault was
+  latent for a day.
+
+**Fixed, in order:**
+1. The IR restored from the last commit (`git checkout -- notation/ir/piece-lgmf.ir.json`, `0b4cf36`).
+2. His change carried: `node tools/reextract.js` (a fresh copy of his save) — `ev-wc-3489` now A4, a long tone; **VALID vs source**.
+3. **The route** (`score/server.js`, the refresh block): `--scoreFile` in a recorded build is re-pointed at a FRESH copy of the last Save
+   (`os.tmpdir()/lgmf-refresh-*/`), as the runner does; and the IR's bytes are kept and written back when the tool fails, so "the page is
+   unchanged" holds on disk. `node --check score/server.js` passes. **NOT EXERCISED** — a server route keeps the code it started with (§181):
+   it takes effect at his next RESTART of `node score/server.js`, and his first R after it is the test. Until the restart, an R after
+   another composer change fails the same way.
+
+**Not done, offered:** a run of the fixed route on the throwaway server (`score-5401`) before his restart — it needs the composer page opened
+in the pane first, the standing risk to his bank files; one word and it is run.
+
+**For later (not chased):** the audio render of Draft 01 still holds the A5 (the render was already owed).
+
+## §633. The double bass begun — five one-offs at his dictation, the current dynamics in (2026-09-30, Fable, session 18; LG-206)
+
+**What prompted it** (the same message, before the refresh fault): *"double base, GC at 295.6, the three starting at 299.5. At three to two
+point seven, mm."* — the sentence broke off there (he had gone to the composer to change the A5).
+
+**The double bass's section 2** (part 7; 19 events 289 … 427 from the IR's chunks `ch-7-*`): five short notes and fourteen long tones.
+
+| his | the IR | id | pitch | length | vel → name |
+|---|---|---|---|---|---|
+| 295.6 | 295.772 | wc-3394 | F♯3 | 0.149 | 69 → mf (from `recVel`) |
+| 299.5 (three) | 299.686 · 300.421 · 302.147 | wc-3405 · 3409 · 3420 | F2 · F♯1 · C♯2 | 0.131 · 0.052 · 0.050 | 66 → mf · 103 → ff (from `recVel`) · 118 → ff |
+| 322.7 | 322.873 | wc-3458 | D2 | 0.172 | 65 → mf (from `recVel`) |
+
+**Built** (the same `reextract` run as §632's): `--oneOffs 7:295.7:295.9` · `7:299.6:302.2` · `7:322.8:323.0` — **five one-offs** (S24), the
+current band names, no hand. Every double-bass note of section 2 is on a device: 5 one-offs · 14 long tones.
+
+**The AI's reading, his to reverse:** "At 322.7, mm" — unfinished; read as the next GC in his list (the only short note left on the part).
+If he meant something else there, `@drop:7:322.8:323.0` takes it back.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `295.8` · `299.7` · `300.4` · `302.2` · `322.9` · `329.3` (his A4, the 15ma gone).
+
+**Where section 2 stands:** the EH to 398.4 · the bassoon to 399 · the horn, the trumpet, the cello and the double bass — every short note on a
+device by his dictation; the percussion (his TODO 4) and the vibraphone not begun.
