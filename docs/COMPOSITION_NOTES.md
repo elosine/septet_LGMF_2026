@@ -3382,3 +3382,9 @@ not yet called a rule. RUNNING_LOG §624.
 
 *The AI's reading (marked as such):* a first — a ONE-OFF (a GC unit with its go line) standing INSIDE a beat frame: the 343.1 GC is a member of
 the frame's onsets, so the frame's lines begin before a cue, not only before plain notes. "Partials" again = notes. RUNNING_LOG §625.
+
+## LG-200 — 2026-09-30 — the trumpet's 295.48 a GC too
+
+*His words (session 18, Fable):* "At 295.48, let's make that a GC too."
+
+*The AI's reading (marked as such):* the one-off on `wc-3392` (295.477), its current band name f. RUNNING_LOG §626.

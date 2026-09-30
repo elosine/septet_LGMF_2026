@@ -20112,3 +20112,15 @@ it draws** · the five carry no dots and no GC (none named).
 
 **For his eye:** reload → `piece-lgmf` → `302.1` · `322.4` · `323.2` · `325.3` · `341.4` · `343.1` · `344.2` · `345.5` · `376` · `377.5` · `380.2` ·
 `384.7` · `385.3` · `386` · `387.7`; the picture http://localhost:5400/notation/research/tempo_candidates_tpt_343.html
+
+## §626. The trumpet's 295.48 a one-off too (2026-09-30, Fable, session 18; LG-200)
+
+**What prompted it:** §625 left the trumpet's first short note unnamed and said so; his word: *"At 295.48, let's make that a GC too."*
+
+**Built:** `--oneOffs 3:295.4:295.6` — `wc-3392` (295.477, A♯5, 0.142 s), a take-note struck from `recVel` (vel 88, the level dropped, S21); its
+band name **f**, the current one. The trumpet has **fourteen one-offs** now; every short note of its section 2 is on a device (14 one-offs ·
+the five at 344.19 · the pair at 385.95).
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `295.5`. Still owed: his pick for the trumpet's frame (§625's picture).
