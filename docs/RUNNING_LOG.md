@@ -20124,3 +20124,28 @@ the five at 344.19 · the pair at 385.95).
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `295.5`. Still owed: his pick for the trumpet's frame (§625's picture).
+
+## §627. The trumpet's dynamics at his eye and ITS FIRST FRAME — the green 98 at the tool's phase, from the line at 344.108; the 343.13 GC outside it (2026-09-30, Fable, session 18; LG-201)
+
+**What prompted it** (his eye on §625 · §626's page and the picture; his words whole in LG-201): *"302 is F. 322.3 is MP. Three two five point
+two is MF. Three four one point three MF. Three four three point one MF. Let's leave that one a GC. And then we'll do green starting … as
+suggested there, starting 344, around 344.1."*
+
+**The dynamics** (`dynMark` hands, trumpet): 302.090 `wc-3418` mf → **f** · 322.363 `wc-3456` f → **mp** · 325.269 `wc-3473` ff → **mf** ·
+341.370 `wc-3525` mp → **mf** · 343.128 `wc-3533` mp → **mf** (it stays a one-off — "leave that one a GC").
+
+**The frame** — the picture's GREEN: 98 bpm, the beat 0.610 s = 4 × 0.1525, the tool's between phase 342.888 (T10). Its lines fall 342.888 ·
+343.498 · **344.108** · 344.718 · 345.328 · 345.938 · 346.548; his "starting around 344.1" = the line at 344.108. Built as
+`--beatGridFit 3:0.1525:4:342.888:344.189:345.71:noLead` — the cluster the five (344.189 … 345.710), the lead beat 343.498 dropped by hand, one
+tail beat: **five lines 344.108 … 346.548**, the trumpet's first frame, NAVY by S19. The five sit 13 · 43 · 87 · 18 · 63 % of a beat after their
+lines (81 ms the nearest — 344.189 after its line, 344.636 82 ms before the next). The 343.13 GC stands 0.98 s before the first line, OUTSIDE
+the frame.
+
+**The AI's reading, his to reverse:** his §625 word was "in the tempo frame, include the one for 343.1" — the candidates were computed WITH it
+(six onsets), and the green's phase is the six-onset one; his word today starts the drawn frame at 344.1, so the GC is in the fit and not
+under the lines. If he wants lines before the GC too: drop `noLead` and widen the cluster to 343.128 (two more lines, 342.888 · 343.498; the
+GC 39 % after its line). The tail line 346.548 (0.84 s after the last note) his — `noTail` cuts it.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `302.1` · `322.4` · `325.3` · `341.4` · `343.1` · `344.2` (play from `342.5`).

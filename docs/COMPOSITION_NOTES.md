@@ -3388,3 +3388,10 @@ the frame's onsets, so the frame's lines begin before a cue, not only before pla
 *His words (session 18, Fable):* "At 295.48, let's make that a GC too."
 
 *The AI's reading (marked as such):* the one-off on `wc-3392` (295.477), its current band name f. RUNNING_LOG §626.
+
+## LG-201 — 2026-09-30 — the trumpet's dynamics; its frame the green, starting around 344.1; the 343.1 note stays a GC
+
+*His words (session 18, Fable):* "302 is F. 322.3 is MP. Three two five point two is MF. Three four one point three MF. Three four three point one MF. Let's leave that one a GC. And then we'll do green starting uh, as suggested there, starting 344, around 344.1."
+
+*The AI's reading (marked as such):* the green candidate (98 bpm, 4 × 0.1525 s) at the tool's phase; the frame's first line the one at 344.108,
+just before the five — the GC at 343.13 informed the fit and stands before the frame, not under its lines. RUNNING_LOG §627.
