@@ -19955,3 +19955,28 @@ device's `dynMark band` yields to the hand as on every device). On the page: 387
 `check_rules` 33 · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `387.5` · `393.3` · `398.5`.
+
+## §622. Every held tone in section 2 a long tone, all instruments — the cut widened at his word: `--longTones 289:427:all` (2026-09-30, Fable, session 18; LG-196)
+
+**His words:** *"Okay, all of the held tones in this section for all the instruments should be the long tone format. Unless I say otherwise when we get
+there. They all currently look like long tone format now, so I didn't single them out specifically. But all the ones, for example, in the English horn
+that I didn't name should be considered the long tone format."*
+
+**What stood (2m, §531 · §534):** the cut was HIS — a held note ≥ 0.2 s that starts TOGETHER with another part's (36 groups · 120 notes); 18 SINGLES
+drew as they had (the tuba's provisional `ord`: an open head before a go line, no bar, no name) until he named them by `--longToneAlso` — seven were
+named by §621. *(His "they all currently look like long tone format now": the singles' open heads read as the format to him; the go line and the
+missing bar did not register — the decision closes the difference either way.)*
+
+**The singles today** (held ≥ 0.2 s, pitched, no device): **five** outside every hand window — Db 337.181 (0.240 s) · Vc 337.550 (0.219) · Vc 343.125
+(0.236) · Tpt 367.975 (1.035) · Db 394.931 (1.660). And six EH held notes INSIDE his hand figures' windows (289.000 the opening quarter, 0.574 s ·
+317.535 · 319.032 · 319.503 · 320.372 the 317 figure's quarters · 390.402) — figure notes he dictated (§549 · §590 · §607), not "held tones"; the
+percussion's held strikes are unpitched (the line staff) and outside the device by 2m.
+
+**Built:** `--longTones T0:T1:all` in `tools/notate_section.js` — with `:all` every held single takes the device too, **except one inside a
+`--plainNotes` / `--oneOffs` window** (those passes run after; the long-tone pass reads their specs from argv) — so the figures stand and the
+lock stays 106. `--longToneAlso` remains for a note he names. The build: `@replace:289:427=>289:427:all`. The registry's `byEnv.longTone` sheet
+and note carry §622; PLAN § 2m's held line DECIDED. On the page: the five as the long tone — the open head on its time, no go line, the navy bar
+its full length, the band name on the row. **The AI's calls, his to reverse:** the hand-window exception (the EH's 289 quarter stays a quarter) ·
+the 0.2 s floor and the 0.1 s group window unchanged · the percussion still outside. `check_rules` 33 · the lock 106 · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `337.3` · `343.2` · `368` · `395`.

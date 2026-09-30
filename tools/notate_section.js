@@ -18,8 +18,9 @@
 //                            the app hot-reloads it within ~1 s.
 //   --exp                    group the entry under "experiments" in the picker
 //   --bricks                 every chunk unresolved: bricks everywhere + per-note devices (working files)
-//   --longTones T0:T1        [LGMF PLAN 2m.2] the held notes in [T0, T1) that start together (groups of 2+ pitched parts)
-//                            take the long tone (env 'longTone', registry byEnv.longTone); a single stays as it drew
+//   --longTones T0:T1[:all]  [LGMF PLAN 2m.2] the held notes in [T0, T1) that start together (groups of 2+ pitched parts)
+//                            take the long tone (env 'longTone', registry byEnv.longTone); a single stays as it drew —
+//                            with :all (§622, his word) EVERY held single too, except one inside a --plainNotes / --oneOffs window
 //   --longToneAlso id,…      [2m.2] with --longTones: a single he names joins them (an object id wc-… or an event id)
 //   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
 //   --oneOffs P:T0:T1        [§611] the env-less pitched notes of part P in [T0, T1): env 'oneOff' — THE ONE-OFF, the GC unit of #4's staccato / #5's strike (repeatable)
@@ -1799,15 +1800,20 @@ if (MORPH_SEQ.length) {
 // the ring bar, one band name on the dynamic row). The groups are formed in onset order, one note per part in a group (the §531 count:
 // 289:427 → 36 groups · 120 notes · 18 singles). A single stays as it drew. --longToneAlso <id,…> (repeatable; an object id wc-… or an
 // event id ev-wc-…) admits a single he names ("I may add other notes as long tones later when I look"). The 0.1 s and 0.2 s are the
-// AI's calls, his to reverse (§531).
+// AI's calls, his to reverse (§531). [§622, his "all of the held tones in this section for all the instruments should be the long tone
+// format. Unless I say otherwise … all the ones, for example, in the English horn that I didn't name should be considered the long tone
+// format"] --longTones T0:T1:all — every held SINGLE takes the device too, EXCEPT one inside a --plainNotes / --oneOffs window (a held
+// quarter inside a hand figure is the figure's, not a "held tone" — the EH's p1 at 289, its 317 figure's quarters); --longToneAlso stays for
+// a note he names by hand.
 {
   const LT_SPAN = arg('longTones', null);
   const LT_ALSO = new Set();
   process.argv.forEach((a, i) => { if (a === '--longToneAlso' && process.argv[i + 1]) process.argv[i + 1].split(',').forEach(x => { if (x.trim()) LT_ALSO.add(x.trim()); }); });
   if (LT_ALSO.size && LT_SPAN == null) { console.error('--longToneAlso needs --longTones T0:T1'); process.exit(2); }
   if (LT_SPAN != null) {
-    const m = /^(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?)$/.exec(LT_SPAN);
-    if (!m || !(+m[2] > +m[1])) { console.error('--longTones needs T0:T1 in seconds, T1 > T0 (e.g. --longTones 289:427)'); process.exit(2); }
+    const m = /^(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?)(?::(all))?$/.exec(LT_SPAN);
+    if (!m || !(+m[2] > +m[1])) { console.error('--longTones needs T0:T1[:all] in seconds, T1 > T0 (e.g. --longTones 289:427 or 289:427:all)'); process.exit(2); }
+    const LT_ALL = m[3] === 'all';   // [§622] every held single too
     const T0 = +m[1], T1 = +m[2], LT_MIN = 0.2, LT_TOL = 0.1;   // the AI's calls, his to reverse (§531)
     const partOfE = new Map();
     for (const ch of doc.chunks) for (const id of ch.events || []) partOfE.set(id, ch.part);
@@ -1836,8 +1842,20 @@ if (MORPH_SEQ.length) {
       if (e.env && e.env !== 'longTone') { console.warn('  ALERT --longToneAlso ' + id + ': already a ' + e.env + ' — left as it is'); continue; }
       if (!e.env) { e.env = 'longTone'; named.push(id); const p = partOfE.get(e.id); byPart.set(p, (byPart.get(p) || 0) + 1); }
     }
+    // [§622] :all — the singles too, except inside a hand figure's window (--plainNotes / --oneOffs P:T0:T1, run after this pass)
+    const allTaken = [];
+    if (LT_ALL) {
+      const W = [];
+      process.argv.forEach((a, i) => { if ((a === '--plainNotes' || a === '--oneOffs') && process.argv[i + 1]) { const w = /^(\d+):(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?)$/.exec(process.argv[i + 1]); if (w) W.push({ p: +w[1], t0: +w[2], t1: +w[3] }); } });
+      for (const e of singles) {
+        if (e.env) continue;
+        const p = partOfE.get(e.id);
+        if (W.some(w => w.p === p && e.onset >= w.t0 && e.onset < w.t1)) continue;
+        e.env = 'longTone'; allTaken.push(nameOf(p) + ' ' + e.onset.toFixed(2)); byPart.set(p, (byPart.get(p) || 0) + 1);
+      }
+    }
     const left = singles.filter(e => e.env !== 'longTone');
-    console.log('  --longTones ' + T0 + ':' + T1 + ': ' + nG + ' groups · ' + nN + ' notes' + (named.length ? ' + ' + named.length + ' named (' + named.join(' ') + ')' : '') +
+    console.log('  --longTones ' + T0 + ':' + T1 + (LT_ALL ? ':all' : '') + ': ' + nG + ' groups · ' + nN + ' notes' + (named.length ? ' + ' + named.length + ' named (' + named.join(' ') + ')' : '') + (allTaken.length ? ' + ' + allTaken.length + ' singles by :all (' + allTaken.join(' · ') + ')' : '') +
       ' — by part ' + [...byPart.entries()].sort((a, b2) => a[0] - b2[0]).map(([p, n]) => nameOf(p) + ' ' + n).join(' · ') +
       ' · ' + left.length + ' singles left as they drew' + (left.length ? ' (' + left.map(e => nameOf(partOfE.get(e.id)) + ' ' + e.onset.toFixed(2)).join(' · ') + ')' : ''));
   }

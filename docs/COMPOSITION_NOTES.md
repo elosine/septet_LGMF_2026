@@ -3351,3 +3351,11 @@ named mf by hand over their recorded f. RUNNING_LOG §619.
 
 *The AI's reading (marked as such):* the one-off at 387.493 at f by hand (its recorded velocity reads ff); the held notes at 393.277 and 398.443 named
 long tones (2m's device — the open head, the navy bar) with one f each by hand over their recorded ff. RUNNING_LOG §621.
+
+## LG-196 — 2026-09-30 — every held tone in section 2 is the long tone format, all instruments, unless he says otherwise
+
+*His words (session 18, Fable):* "Okay, all of the held tones in this section for all the instruments should be the long tone format. Unless I say otherwise when we get there. They all currently look like long tone format now, so I didn't single them out specifically. But all the ones, for example, in the English horn that I didn't name should be considered the long tone format."
+
+*The AI's reading (marked as such):* 2m's cut widened — a held note need not start with another part's to be a long tone; the five singles still
+outside the device take it (Db 337.18 · Vc 337.55 · 343.13 · Tpt 367.98 · Db 394.93); a held note inside one of his hand figures stays the figure's;
+the naming flag stays for exceptions. RUNNING_LOG §622.
