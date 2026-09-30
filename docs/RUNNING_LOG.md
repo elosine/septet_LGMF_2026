@@ -19649,3 +19649,27 @@ singles are named. Each draws as the long tone now: the open head on its time, n
 **► He reloads → `384` · `387.3` · `390` · `393` · `398`; the picture; HIS PICK for the 384 frame, HIS EYE (the crescendo over the beamed
 four with the slur below, the f beside its tip), then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 ·
 389.7 · the 340 and 376 frames) and the next figure after 398.4.**
+
+## §609. The 384 frame — the red 93 backed 1.44 ticks so p4 and p7 sit on their beats together; the lead beat clamped by the long tone (2026-09-30, Fable, session 18; LG-183)
+
+**What prompted it** — *"Candidates 384.3 … 390.6 drawn : red minus a little less than 2 ticks phase so beat lines up with p4 and p7;"* (LG-183), on the picture of §608.
+
+**The red:** 93 bpm — the beat 0.644 s = 7 × 0.092, the tool's between phase 383.892 (p4 118 ms before a line, p7 147 ms before). p4 (385.062)
+and p7 (385.677) are 0.615 s apart against a beat of 0.644 — 29 ms short of a beat — so no phase puts both ON a line; the best shares the
+shortfall: **383.760**, 1.44 ticks back (his "a little less than 2"), p4 **14 ms after** its line, p7 **15 ms before** its. The hand:
+`--beatGridFit 0:0.092:7:383.760:384.455:390.402` — the picture's extent, the three figures of §607 under one frame. The other notes' signed
+distances (ms): 51 · 309 · −201 · **14** · 247 · −263 · **−15** · 262 · −141 · −304 · −130 · 63 · 216 · −237 · 243 · −300 · −92 · 202 — note 1
+51 ms after the first line, the 387.687 F5 63 ms after one, nothing else under 90.
+
+**The frame as placed** (`ov-beatgridfit-0-384455`): **eleven lines 384.404 … 390.844**, eleven balls, **olive** by S19 (the sixth frame of the
+part). THE LEAD BEAT DROPPED by the clamp: the line before the first (383.760) falls inside the 383.35 long tone's bar (its end 384.398 —
+`prevEnd`), so the frame opens on the line 51 ms before note 1 (384.404, 6 ms after the bar's end — kept, outside the 0.1 s gap by the
+onset test). At 317 the same case was his *"ok if in dur line"* → `:keepLead` (§596); here it is his call — the `@replace` is one arg.
+The tail kept: 390.844 is 175 ms before the 391.019 long tone.
+
+**The gates:** the shield's baseline re-written on HEAD (`4c88371`) · the runner (486 args · 189 hands · the frames × 6) · `gen_engraving_rules`
+· `check_rules` 32 GREEN · the lock `eh_figure_check` 106 GREEN · the shield: `piece-lgmf` alone moved, the other 21 identical.
+
+**► He reloads → `384` · `387.3` · `390` (play from `383.5`); HIS EYE on the frame (the lead beat — keep it out, or `keepLead` into the long
+tone's bar), then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 · 389.7 · the 340 · 376 · 384 frames)
+and the next figure after 398.4.**

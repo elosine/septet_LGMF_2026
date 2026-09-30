@@ -3248,3 +3248,11 @@ four beamed 16ths under one slur, the fifth a lone staccato 16th (the cello's E4
 mf on the first of 384.3; a crescendo from the first of 387.23 through the four beamed 16ths into f on the fourth, the lone fifth unnamed;
 the p on 390.4's eighth kept; every other name in the three figures off; the four held notes 391.0 · 393.0 · 395.3 · 398.1 named long
 tones. RUNNING_LOG §608.
+
+## LG-183 — 2026-09-30 — the 384 frame: the red 93, a little less than two ticks back, p4 and p7 on the beat
+
+*His words (session 18, Fable):* "Candidates 384.3 … 390.6 drawn : red minus a little less than 2 ticks phase so beat lines up with p4 and p7;"
+
+*The AI's reading (marked as such):* the red 93 bpm (7 × 0.092) with its phase 1.44 ticks earlier — the shortfall between p4 and p7 shared
+(14 · 15 ms); eleven olive lines 384.404 … 390.844 over the three figures; the lead beat inside the long tone's bar dropped by the clamp,
+his to keep. RUNNING_LOG §609.
