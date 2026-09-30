@@ -3239,3 +3239,12 @@ there at 377.74" read as the hairpin reaching that note's end. RUNNING_LOG §606
 four beamed 16ths under one slur, the fifth a lone staccato 16th (the cello's E4 at the same onset left out by the part); the grace at
 389.8 into a 16th · 16th · 8th beamed with the beamlet; the held G3 at 383.35 named a long tone (2m's single, `--longToneAlso`); the
 380.39 GC the beam device's cue on the split pair's first note, off. The names shown, his to thin. RUNNING_LOG §607.
+
+## LG-182 — 2026-09-30 — the candidates 384.3 … 390.6; the dynamics on the three figures; four long tones 390.7 … 398.4
+
+*His words (session 18, Fable):* "tempo frame candidates from three eight four point three 390.6. mf at 384.4 at 387.3 cres through the 4 16ths beamed last one f no other dynamics in that chunk. keep p at 390.43 get rid of the other dynamics in the other 3. 390.7 - 398.4 those 4 notes are long tones"
+
+*The AI's reading (marked as such):* the picture drawn over all three figures as one span (six shown beats, 87 … 97 bpm), his pick owed;
+mf on the first of 384.3; a crescendo from the first of 387.23 through the four beamed 16ths into f on the fourth, the lone fifth unnamed;
+the p on 390.4's eighth kept; every other name in the three figures off; the four held notes 391.0 · 393.0 · 395.3 · 398.1 named long
+tones. RUNNING_LOG §608.

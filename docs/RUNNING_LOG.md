@@ -19622,3 +19622,30 @@ parent (the lock's §597 list names the earlier nine, not this one yet) · the l
 **► He reloads → `383` · `384.5` · `387.3` · `389.8` (play from `382.5`); HIS EYE, his dynamics on the three figures, then the lock's blocks
 (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 · 389.7 · the 340 and 376 frames) and the next figure after 390.5. The frame
 candidates for 384.3 … 390.5 (`tempo_fit --html`) offered, not drawn.**
+
+## §608. The candidates 384.3 … 390.6 drawn · the three figures' dynamics at his dictation · four long tones 390.7 … 398.4 by name (2026-09-30, Fable, session 18; LG-182)
+
+**What prompted it** — *"tempo frame candidates from three eight four point three 390.6. mf at 384.4 at 387.3 cres through the 4 16ths beamed last one f no other dynamics in that chunk. keep p at 390.43 get rid of the other dynamics in the other 3. 390.7 - 398.4 those 4 notes are long tones"* (LG-182).
+
+**THE CANDIDATES 384.3 … 390.6** (`tools/tempo_fit.js --part 0 --from 384.3 --to 390.6 --html`): 18 onsets 384.455 … 390.402 — the three
+figures of §607 as one span, the grace among them; the IOI mean 0.350 s, median 0.215, the widest gap 1.768 s (388.031 → 389.799). The grid
+fit finds the unit at 0.092 … 0.099 s (7 units a beat) or 0.1235 (5): SIX shown beats — 93 bpm (7 × 0.092, the between phase 383.892, the
+nearest note 69 ms) · 90 (7 × 0.0955, 384.265, 75) · 87 (7 × 0.099, 383.964, 55) · 97 (5 × 0.1235, 383.885, 47) · 91 (7 × 0.0945, 384.283,
+71) · 88 (7 × 0.0975, 383.840, 67). The picture `notation/research/tempo_candidates_eh_384.html`; his pick owed (the extent · the grouping ·
+the phase). By S19 this frame is OLIVE (the sixth of the part: 295 navy · 298 olive · 317 navy · 340 olive · 376 navy · 384 olive).
+
+**The dynamics, at his word:** 384.3 — **mf on 1** (`wc-3641`), 2 … 9 off · 387.23 — **a crescendo from 1 through the four beamed 16ths into
+f on 4** (`wc-3655` no name + `hairpinTo` 387.84 cresc — the tip stops beside the f by S20, as the 317 figure's 7 → 8; `wc-3662` f), 2 · 3
+and the fifth alone off — his "last one f" read as the last of the four beamed, the lone 16th unnamed · 389.7 — **the p on 4 kept**
+(`wc-3667`, by hand now), the grace · 2 · 3 off.
+
+**FOUR LONG TONES 390.7 … 398.4 by name:** `wc-3668` (391.019 D4, 0.63 s) · `wc-3669` (392.980 F♯4, 1.24) · `wc-3672` (395.285 E5, 1.36) ·
+`wc-3673` (398.123 G♯5, 0.38) — four more of 2m's 18 singles (§533), `--longToneAlso wc-3668,wc-3669,wc-3672,wc-3673`; with §607's G3 five
+singles are named. Each draws as the long tone now: the open head on its time, no go line, the navy bar its length, the name on the row.
+
+**The gates:** the shield's baseline re-written on HEAD (`4eb3d04`) · the runner · `gen_engraving_rules` · `check_rules` 32 GREEN · the lock
+`eh_figure_check` 106 GREEN · the shield: `piece-lgmf` alone moved, the other 21 identical. Read back: the four notes' env `longTone`.
+
+**► He reloads → `384` · `387.3` · `390` · `393` · `398`; the picture; HIS PICK for the 384 frame, HIS EYE (the crescendo over the beamed
+four with the slur below, the f beside its tip), then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 ·
+389.7 · the 340 and 376 frames) and the next figure after 398.4.**
