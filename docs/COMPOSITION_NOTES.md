@@ -2929,3 +2929,7 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 ## LG-144 — 2026-09-29 — the beat grid as lines through the staff, 0.4 ss beyond each outer line
 
 *"Let's try a grid. So color transparency, good. Width, good. Let's have it a longer line over the staff lines. And the current height, let's have that much above the top and below the bottom staff line. Let's see how that looks."* (the composer, 2026-09-29, Fable — RUNNING_LOG §566)
+
+## LG-145 — 2026-09-29 — the grid's span (two beats after, about two seconds before, rounded out) and THE BOUNCING BALL from the tuba on the grid
+
+*"Okay, for now, let's do two beats after the notation ends, and then about two seconds before, however many beats that is, and we'll round out. So if a beat lies just outside two seconds, it can be shown as well. And what I mean for now is that we'll have to see if they collide with previous notation, etc. And then could you put in the bouncing ball from the tuba, that size and that Uh, same bounce, but use the gray blue of the, of the lines and the same transparency. And then it will only be on for the lines that are showing."* (the composer, 2026-09-29, Fable, dictated — RUNNING_LOG §567)

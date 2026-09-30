@@ -18669,3 +18669,26 @@ the ticks · the grid's span (the figure only, or the passage).
 through the staff from 0.4 ss below the bottom line to 0.4 above the top (4.8 ss tall), the width, colour and opacity as §565 (the
 duration line's), the beats only. 'laneTop' remains the other value of the row. The lock re-asserted (29). `check_rules` 32 · the shield
 `piece-lgmf` alone · the screen gate PASS. **► His eye:** reload → `piece-lgmf` → `295.5`.
+
+## §567. THE GRID'S SPAN, AND THE BOUNCING BALL ON IT — the shown beat's animated half built (2026-09-29, Fable, session 18; N-4)
+
+**Prompted by:** LG-145.
+
+**The span:** two beats past the last note's beat (297.292 → 297.616 · 297.940) and about two seconds before the first, rounded out to
+the beat just outside (295.348 − 2 = 293.348; the beats 293.404 inside, 293.080 just outside — shown, at his word): `--beatGrid
+0:293.08:297.95:0.108:3:295.348` — **16 lines**, 293.08 … 297.94. The seven before the figure cross the first figure's last notes and
+its stub-beam (292.79 … 293.8) — his *"we'll have to see if they collide"*: they do, by design, for his eye.
+
+**THE BEAT BALL (a new animated kind, `beatBall`):** the tuba's GC ball — piece #1's physics (`GC.params · heightFrac`: stiffness 62,
+damping 100, ictus 90, descent 60 %) and its 5 px ball — in the DURATION LINE's navyBlue at its 0.3 (`engraving.animated.beatBall`; the
+objects row `beatBall` draws `anim:beatBall`; the edge row cut, like the GC's). Its instances come from the `beatGrid` overlays: ONE BALL
+PER BEAT with `preset.duration` = the beat (0.324 s), so consecutive balls abut and the lane has exactly one ball in flight for as long as
+the grid's lines show and nowhere else — the trance section's trick (day 36) — *"only on for the lines that are showing"*. It rides the
+cursor (x = the cursor's), landing on the TOP of each grid line (the staff's edge + the overhang) and bouncing the room from there to the
+lane top (the AI's landing — the GC lands at the lane's bottom; his to reverse). 16 balls on the page.
+
+`check_rules` 32 (the animated kind's rows) · the shield `piece-lgmf` alone · the lock **30** (the 16 lines, the 16 balls) ·
+**`check_screen_edges` PASS — 1684 animated devices probed at the page edges (1682 before: the balls at the cuts, clipped like the GC's)**.
+
+**► His eye:** reload → `piece-lgmf` → play from `292.5`: the lines from 293.08, the ball from the first line, the collisions with the
+first figure's tail.

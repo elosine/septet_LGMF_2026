@@ -103,6 +103,22 @@
       '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
   });
 
+  // [§567, LG-145] beatBall: THE SHOWN BEAT's ball — the GC's physics and size (GC.params · heightFrac, the 5 px ball), the duration
+  // line's colour and opacity (the style's); it lands on the TOP of its beat's grid line (the staff's edge + rules.json
+  // objects.tick.gridOverhangSs) and bounces the room from there to the lane top. inst {part, at, preset: {duration = the beat}}.
+  register('beatBall', (inst, view, t, st) => {
+    const s = GC.systemOf(view, inst.part);
+    const P = GC.params(Object.assign({}, st.preset || {}, (inst && inst.preset) || {}));
+    const frac = GC.heightFrac(P, t - inst.at);
+    if (frac === null) return [];
+    const G = GC.laneGeom(s, view, st.look);
+    const STAFF_HALF = 2, over = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
+    const impactY = s.yOfSs(STAFF_HALF + over), h = Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k));
+    const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
+    return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
+      '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
+  });
+
   // curveFollower: inst {part, t0, t1, midi, morphBend}; dot at the
   // SOUNDING pitch height while the morph plays (0.25 ss/semitone approx).
   register('curveFollower', (inst, view, t, st) => {
@@ -342,6 +358,16 @@
     }
     const laneOwned = (part, a, b) =>
       (owned.get(part) || []).some(s2 => a < s2[1] && b > s2[0]);
+    // [§567, LG-145] THE BEAT BALL — one instance per BEAT of a beatGrid overlay (the IR's, notate_section --beatGrid), with
+    // preset.duration = the beat, so consecutive balls abut and the lane has one ball in flight for exactly as long as the grid's
+    // lines show, and nowhere else (the trance section's trick of day 36)
+    if (kindOn('beatBall')) for (const ov of ((ir && ir.overlays) || [])) {
+      const tg = ov.target || {}, v = ov.value || {};
+      if (ov.kind !== 'beatGrid' || tg.part === undefined || !tg.span || !(v.unit > 0) || !has(tg.part)) continue;
+      const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n;
+      const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
+      for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, _src: 'ir-beatGrid' });
+    }
     for (const c of (ir && ir.chunks) || []) {
       for (const d of c.devices || []) {
         // day 36: a chunk gc device may carry its own PRESET — the trance

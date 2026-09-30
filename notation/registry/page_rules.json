@@ -63,6 +63,7 @@
     "_doc_animated": "LGMF PLAN 2e.2 (RUNNING_LOG §409 … §411, his word 'one system, not a separate one'): THE ANIMATED KINDS (notation/lib/animobj.js, redrawn every frame at the now) as `anim:<kind>`, under the same classes, through the one edge function (notation/lib/edge_rules.js): the cursor 'atomic' (the now itself — never moved) · the meters, the pies, the follower dots 'clamp' — at a page start a device whose proper place is left of x(t0) is PUSHED RIGHT, one push per lane, and slides back as the cursor advances (his 'ok for this one pushed right', §411) · the GC ball 'cut' (it rides its arc, which is cut) · print 'none' for all: paper has no now (§410 (B), the AI's call). A new animated kind adds its line here or tools/check_rules.js fails; tools/check_screen_edges.js probes each page's first and last frame.",
     "anim:cursor": { "screen": "atomic", "print": "none" },
     "anim:gc": { "screen": "cut", "print": "none" },
+  "anim:beatBall": { "screen": "cut", "print": "none", "_note": "§567: the shown beat's ball rides the cursor over its grid — cut like the GC's ball" },
     "anim:curveFollower": { "screen": "clamp", "print": "none" },
     "anim:envFollower": { "screen": "clamp", "print": "none" },
     "anim:curveMeter": { "screen": "clamp", "print": "none" },
