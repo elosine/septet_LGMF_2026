@@ -19168,3 +19168,37 @@ its beats (one unit). One unit forward = 317.0525 (offsets 0 · −8 · −5 ms)
 the band names on the row by the device's default (mf · f · f · p · mf · f · mf · ff · mp · ff · mf · f — S9's thinning his, later). No bricks
 left in the range. The shield: `piece-lgmf` alone moved (baseline on HEAD first) · the lock 75 GREEN · `check_rules` 32 · the rules page
 regenerated. ► He reloads the notation tab (page files + the IR) → `piece-lgmf` → `317`. Then his stems and beams, S1 … S19 surfaced.
+
+## §590. THE FIGURE AT 317 — THE VALUES BY HAND at his word; THE HAIRPIN INTO A NAME (S20); a plain note is a STRUCK note (the meter) (2026-09-30, Fable, session 18; LG-165)
+
+**What prompted it** — his dictation, note by note (LG-165, verbatim there): 1 a grace, no slur, mf under it · 2+3 beamed 16ths · 4 a quarter, p ·
+5+6 beamed 16ths · 7+8 beamed eighths, a crescendo hairpin 7 → 8, 8 marked f · 9 a flagged eighth, the mp kept · 10 a flagged 16th, mf, an
+accent, a staccato dot · 11 · 12 flagged 16ths with dots, mp · f. Then, from his page: *"The curve meter is just briefly sneaking in there for
+some reason. On partial 11 and then on partial 12, there may be other places too."*
+
+**Built — the hands** (three `--beam` spans + twelve `--hand`, appended to the IR's build by the runner): `wc-3444 {grace, nhStem flag8, dynMark
+mf}` · 3445 · 3446 `{noteBeams 2}` (the first `gc false · goLine false`) · 3447 `{dynMark p}` (the plain stem = the quarter) · 3448 · 3449
+`{noteBeams 2}` · 3450 `{noteBeams 1, hairpinTo 319.503, hairpinDir cresc, dynMark false}` · 3451 `{noteBeams 1, dynMark f, dynAboveBeam
+false}` · 3452 `{nhStem flag8, dynMark mp}` · 3453 `{nhStem flag16, dynMark mf, nhArtic accent, nhDot}` · 3454 `{flag16, mp, nhDot}` · 3459
+`{flag16, f, nhDot}`; every other name off. The layout as he said it: the grace at 0.707 with the slash and no slur; 2 · 3 stems 9.25 to a beam
+clear of the staff (S3); 4 the quarter 4.5; 9 stem down, the flag below; 10's column dot → accent → mf (S18, −7.72).
+
+**S20 — THE HAIRPIN INTO A NAME:** the hand hairpin ended at x(t1), dx 0, and the f at 8 is centred on its head (dx 0.52, 0.81 wide) — the tip
+touched the f's ink. Now, in the hand-hairpin block (`layout.js`): a name standing where the hairpin ends stops the tip `beside` (0.45) before
+the name's ink, as the start leaves `beside` after its own name; that name keeps the hairpin's row. Here dx1 −0.334, the gap 0.450. No new
+rules value (`objects.hairpin.beside` reused); the render already took `dx1Ss`. A rule, not a hand — his §577 word.
+
+**THE METER — a plain note is a STRUCK note (S21):** notes 11 · 12 (`wc-3454` · `wc-3459`) came into the IR with a LEVEL curve (101 samples,
+flat 0.52 · 0.74) and no velocity — `extract_core` 467 · 478: a note whose `sonifyMode` is not plain gets the drawn curve as its level; these
+two were re-pitched by a take (`Just-e1-seed183`, partial 10, −14 ¢: "TAKE" in their performance notes) so they went down the curve path. The
+animated `curveMeter` follows any event with `level.samples` (animobj 416) — his green tube. Now the `--plainNotes` pass makes such a note
+struck: the velocity from the composer's `recVel` (66 · 94), the level dropped — no meter, the band name from the velocity (DYNAMICS_LAW:
+a struck note's velocity IS the dynamic). "Other places": 15 more events in section 2 carry a level and no env (other parts, still bricks) —
+the same rule when their devices come. **For him, the sound side:** these two objects carry no `velAbs` · `cc7Abs` — Rule 5's pin (§319) is
+not on them, so in the composer they play as shaped notes at the drawn height, not struck at 66 · 94; his to re-pin or leave.
+
+**The lock** — a §589 · §590 block: the frame (eleven lines, the beat, navy, 1 · 5 · 7 · 12 on their lines) · the grace · the beams by
+level · the names · the quarter · the hairpin and S20's gap · 9 … 12 · the twelve struck: **92 GREEN**. `check_rules` 32 (the rules page
+regenerated FIRST — the freshness check went red once when it ran before the regeneration) · the shield `piece-lgmf` alone. On the way:
+a `node -e` with escapes mangled two scripts — every splice went to a FILE after that (the standing rule, twice proven today).
+► He reloads the notation tab → `piece-lgmf` → `317` (play from `316.5` for the meter).

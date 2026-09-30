@@ -167,5 +167,29 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
     why = ' (rung ' + rung + ', the stack ' + stk + '; accent ' + (aw ? aw.ySs.toFixed(2) : '-') + ' · mf ' + (mwf ? mwf.ySs.toFixed(2) : '-') + ' · the 8va line ' + (ow ? ow.ySs.toFixed(2) : '-') + ')';
   } catch (e) { w = false; why = ' — the working layout threw: ' + e.message; }
   ok(w, '(§577) THE COLUMN on the working page (in F): head → accent → mf → the 8va sign, each the standard stack beyond the last, the slur under them' + why); }
+// ---- §589 · §590 THE FIGURE AT 317 (his LG-164 · LG-165): the frame at his pick, the values by hand, the hairpin into a name, the plain notes struck
+{ const F4 = { n1: 317.052, n2: 317.164, n3: 317.339, n4: 317.535, n5: 318.367, n6: 318.569, n7: 319.032, n8: 319.503, n9: 320.372, n10: 321.031, n11: 322.090, n12: 323.002 };
+  const HPB = 0.45;   // RULES MIRROR (rules.json objects.hairpin.beside)
+  const tk = items.filter(it => it.k === 'tick' && it.t >= 316.3 && it.t <= 324);
+  ok(tk.length === 11 && near(tk[0].t, 317.048, 1e-3) && near(tk[10].t, 323.663, 1e-3) && tk.every((x, i) => i === 0 || near(x.t - tk[i - 1].t, 0.6615, 0.002)), '(§589) THE FRAME AT 317: eleven lines 317.048 … 323.663, the beat 0.6615 (the red 91 bpm one unit forward) — got ' + tk.length);
+  const navy = (items.find(it => it.k === 'tick' && it.t > 294 && it.t < 296) || {}).colour;
+  ok(navy && tk.every(x => x.frame === 2 && x.colour === navy && near(x.wSs, 0.3)), '(§589 · S19) the third frame NAVY like the first, the bands 0.3');
+  [[F4.n1, 1], [F4.n5, 5], [F4.n7, 7], [F4.n12, 12]].forEach(([t, k]) => ok(tk.some(x => Math.abs(x.t - t) <= 0.0045), '(§589) note ' + k + ' on a line within 4 ms — his pick'));
+  { const hd = glyphAt(F4.n1, /^notehead$/), fl = glyphAt(F4.n1, /^flag-up8$/), sl = at('slash', F4.n1), slur = items.find(it => it.k === 'slur' && Math.abs(it.t0 - F4.n1) < 1e-6), mf = glyphAt(F4.n1, /^dyn-mf$/);
+    ok(hd && near(hd.scale || 1, C.engraving.layout.grace.headScale, 0.001) && fl && sl && !slur && mf, '(§590) note 1 a GRACE — the head at the grace scale, the slashed flag, NO slur, mf under it'); }
+  const beamsBetween = (a, b) => items.filter(it => it.k === 'beam' && it.tips && it.tips.length && Math.abs(it.tips[0].t - a) < 1e-6 && Math.abs(it.tips[it.tips.length - 1].t - b) < 1e-6).length;
+  ok(beamsBetween(F4.n2, F4.n3) === 2 && beamsBetween(F4.n5, F4.n6) === 2, '(§590) 2+3 and 5+6 beamed 16ths — two beams each');
+  ok(beamsBetween(F4.n7, F4.n8) === 1, '(§590) 7+8 beamed eighths — one beam');
+  ok([F4.n2, F4.n3, F4.n5, F4.n6, F4.n7].every(t => !glyphAt(t, /^dyn-/)), '(§590 · S9) no name on 2 · 3 · 5 · 6 · 7');
+  { const st = at('stem', F4.n4); ok(st && near(Math.abs(st.yB - st.yA), 4.5) && !glyphAt(F4.n4, /^flag-/) && glyphAt(F4.n4, /^dyn-p$/), '(§590) note 4 a QUARTER — the plain stem 4.5, no flag — p under it'); }
+  { const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - F4.n7) < 1e-6), f8 = glyphAt(F4.n8, /^dyn-f$/), g = glyphs.dynamic && glyphs.dynamic.f;
+    ok(hp && hp.dir === 'cresc' && near(hp.t1, F4.n8, 1e-6) && !glyphAt(F4.n7, /^dyn-/), '(§590) a crescendo hairpin from 7 (no name) to 8');
+    ok(hp && f8 && g && near(hp.dx1Ss, f8.dxSs - g.wSs / 2 - HPB, 0.01) && near(hp.ySs, f8.ySs, 0.01), '(§590 · S20) THE HAIRPIN INTO A NAME: the tip stops ' + HPB + ' before the f\'s ink, on the f\'s row — got dx1 ' + (hp ? hp.dx1Ss : '-')); }
+  ok(glyphAt(F4.n9, /^flag-down8$/) && glyphAt(F4.n9, /^dyn-mp$/), '(§590) note 9 a flagged eighth alone, mp');
+  ok(glyphAt(F4.n10, /^flag-up16$/) && at('dot', F4.n10) && glyphAt(F4.n10, /^artic-accent$/) && glyphAt(F4.n10, /^dyn-mf$/), '(§590) note 10 a flagged 16th alone — a dot, an accent, mf');
+  ok(glyphAt(F4.n11, /^flag-up16$/) && at('dot', F4.n11) && glyphAt(F4.n11, /^dyn-mp$/) && glyphAt(F4.n12, /^flag-up16$/) && at('dot', F4.n12) && glyphAt(F4.n12, /^dyn-f$/), '(§590) notes 11 · 12 flagged 16ths alone with dots — mp · f');
+  { const ids = ['ev-wc-3444', 'ev-wc-3445', 'ev-wc-3446', 'ev-wc-3447', 'ev-wc-3448', 'ev-wc-3449', 'ev-wc-3450', 'ev-wc-3451', 'ev-wc-3452', 'ev-wc-3453', 'ev-wc-3454', 'ev-wc-3459'];
+    const evs = ids.map(id => ir.events.find(e => e.id === id));
+    ok(evs.every(e => e && e.env === 'plainNote' && Number.isFinite(e.vel) && !e.level), '(§590) the twelve are plain notes STRUCK — a velocity each, no level curve (nothing for a meter to follow)'); } }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

@@ -1857,13 +1857,17 @@ if (MORPH_SEQ.length) {
     for (const ch of doc.chunks) for (const id of ch.events || []) partOfE.set(id, ch.part);
     const pc = ENS && ENS.parts ? ENS.parts.find(x => x.part === P) : null;
     const name = pc ? (pc.short || pc.id || String(P)) : String(P);
-    let n = 0; const other = [];
+    let n = 0; const other = [], struck = [];
     for (const e of doc.events) {
       if (partOfE.get(e.id) !== P || !e.pitch || !(e.onset >= T0 && e.onset < T1)) continue;
       if (e.env) { other.push(e.env + ' ' + e.onset.toFixed(2)); continue; }
       e.env = 'plainNote'; n++;
+      // [§590 — his eye at 322 · 323: 'the curve meter is just briefly sneaking in there'] A PLAIN NOTE IS A STRUCK NOTE (DYNAMICS_LAW): a note
+      // the extractor gave a LEVEL curve instead of a velocity (a take re-pitched it with cents — sonifyMode not plain, extract_core 467 · 478)
+      // takes its velocity from the composer's recVel and loses the curve — no meter follows it, its band name reads from the velocity
+      if (e.level && !Number.isFinite(e.vel)) { const o = (score.objects || []).find(x => x.id === (e.source && e.source.objectId)); if (o && Number.isFinite(o.recVel)) { e.vel = Math.max(1, Math.min(127, Math.round(o.recVel))); delete e.level; struck.push(e.id + ' vel ' + e.vel); } }
     }
-    console.log('  --plainNotes ' + spec + ': ' + n + ' notes of ' + name + ' env plainNote' + (other.length ? ' · ' + other.length + ' left on their own device (' + other.join(' · ') + ')' : ''));
+    console.log('  --plainNotes ' + spec + ': ' + n + ' notes of ' + name + ' env plainNote' + (other.length ? ' · ' + other.length + ' left on their own device (' + other.join(' · ') + ')' : '') + (struck.length ? ' · ' + struck.length + ' struck from recVel, the level dropped (' + struck.join(' · ') + ')' : ''));
   }
 }
 

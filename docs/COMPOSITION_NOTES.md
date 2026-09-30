@@ -3079,3 +3079,15 @@ beams later"
 
 *The AI's reading (marked as such):* the frame's phase chosen for the notes it lands ON, not between (the §579 precedent) — the 91 bpm at
 317.048, notes 1 · 5 · 7 within 4 ms of a line, 12 on one; the values come after the frame, as with figures 2 · 3. The build: RUNNING_LOG §589.
+
+## LG-165 — 2026-09-30 — the figure at 317, the values note by note; the curve meter on 11 · 12
+
+*His words (session 18, Fable):* "Partial one, a grace note, no slur. Partial two and three, beamed sixteenths. Partial four, quarter note. MF at
+the beginning under the grace note, and then P under the quarter note. five and six beamed eighth, uh, sixteenth notes. Seven and eight beamed
+eighth notes. Nine uh, eighth note alone. And ten a sixteenth note alone. a hairpin from seven to eight crescendo and then eight marked with a
+one F. Nine, uh, keep the MP. Ten, mark MF, accent, and staccato dot. 11 and 12, 16th notes, staccato dot. Eleven marked. MP. Twelve marked. F.
+And these are 16th notes alone with a flag." — then: "The curve meter is just briefly sneaking in there for some reason. On partial 11 and
+then on partial 12, there may be other places too."
+
+*The AI's reading (marked as such):* "partial" = note. Built as hands; two rules fell out of it — the hairpin into a name (S20) and the plain
+note as a struck note (S21, the meter's source removed). RUNNING_LOG §590.

@@ -3361,7 +3361,14 @@
           if (isFinite(edge)) y = above ? Math.max(y, edge + HP.spanClearSs + half) : Math.min(y, edge - HP.spanClearSs - half);
           y = +y.toFixed(4);
           if (mk) mk.ySs = y;
-          items.push({ k: 'hairpin-timed', t0: u.t, t1: dev.hairpinTo, dx0Ss: +x0.toFixed(4), dx1Ss: 0, ySs: y, dir: dev.hairpinDir === 'decresc' ? 'decresc' : 'cresc', hSs: HP.heightSs, thickSs: HP.thickSs, ev: id });
+          // [§590, his figure at 317: "a hairpin from seven to eight crescendo and then eight marked with f" — the tip touched the f] THE HAIRPIN
+          // INTO A NAME (S20): when a name stands where the hairpin ends, the tip stops `beside` before the name's ink, as the start leaves
+          // `beside` after its own name; that name keeps the hairpin's row
+          const mk1 = items.find(it => it !== mk && it.k === 'glyph' && /^dyn-/.test(it.g || '') && Math.abs(it.t - dev.hairpinTo) < 1e-9);
+          const g1 = mk1 && glyphs.dynamic ? glyphs.dynamic[mk1.g.replace(/^dyn-/, '')] : null;
+          const dx1 = mk1 ? mk1.dxSs - (g1 ? g1.wSs / 2 : 0) - HP.beside : 0;
+          if (mk1) mk1.ySs = y;
+          items.push({ k: 'hairpin-timed', t0: u.t, t1: dev.hairpinTo, dx0Ss: +x0.toFixed(4), dx1Ss: +dx1.toFixed(4), ySs: y, dir: dev.hairpinDir === 'decresc' ? 'decresc' : 'cresc', hSs: HP.heightSs, thickSs: HP.thickSs, ev: id });
         }
       }
       // [§577, his "I would prefer if the spacing system picked up all those exceptions … rather than just manually fixing it each time"]
