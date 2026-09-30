@@ -20341,3 +20341,18 @@ than the played velocities.
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `295.5` · `300.4` · `301.7` · `302.2` · `322.9` · `323.2` · `337.2` · `343.2` · `377.4` · `387.5`.
+
+## §636. His save carried into the notation — the double bass's C♯5 at 309.96 down an octave (2026-09-30, Fable, session 18)
+
+**What prompted it:** *"i updated composer save can you refresh notation"* — he asked the AI for the refresh rather than pressing R (§632: the
+route's fix waits on his server restart).
+
+**Done:** `node tools/reextract.js ""` (a fresh copy of his save of 18:29) — **VALID vs source**. The events of the new IR against HEAD's
+(a scratch diff over onset · length · pitch · velocity · device): **one change** — `ev-wc-3435`, the double bass's long tone at 309.960
+(1.755 s, `senza_mw`), **C♯5 → C♯4** (midi 73 → 61). With §632's A5 → A4 at 329.26 that is the double bass's second high note brought down
+an octave today — both were the notes that drew under an ottava sign (2a.6's territory, the clefs by register: his hand is removing the need
+note by note).
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `310`. The audio render of Draft 01 still holds both old octaves.
