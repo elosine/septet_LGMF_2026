@@ -8,6 +8,8 @@
 //                                             a key set to null unsets it)
 //     --beam 317.164-317.339@0               a beam span · --plainNotes 0:316.8:323.14 · --beatGridFit 0:0.0945:7:317.048:317.052:323.002[:keepLead]
 //     @replace:OLD=>NEW                      swap ONE existing arg of the build (e.g. a frame's hand for one with :keepLead, or a beam span)
+//   @drop:ARG                              drop ONE existing arg of the build, and the --flag before it if there is one (§611: the hand
+//                                           and the --plainNotes window on the bassoon's one-off came out when byEnv.oneOff replaced them)
 // It reads notation/ir/piece-lgmf.ir.json, tokenizes provenance.build (double quotes with \" escapes), re-points --scoreFile at a FRESH
 // copy of scores/piece-Recombination-Draft01-done.json in the scratchpad (so his latest save is what is read), applies the replacements,
 // appends the rest, and spawns tools/notate_section.js. After it: node tools/gen_engraving_rules.js → check_rules → eh_figure_check →
@@ -30,6 +32,7 @@ const scratch = process.env.SCRATCH || fs.mkdtempSync(path.join(os.tmpdir(), 'lg
 const copy = path.join(scratch, SCORE + '-copy.json'); fs.copyFileSync(path.join(ROOT, 'scores', SCORE + '.json'), copy); a[k + 1] = copy;
 const EXTRA = process.argv.slice(3);
 for (let i = EXTRA.length - 1; i >= 0; i--) if (EXTRA[i].startsWith('@replace:')) { const [o, nw] = EXTRA[i].slice(9).split('=>'); const j = a.indexOf(o); if (j < 0) throw new Error('replace: not in the build: ' + o); a[j] = nw; EXTRA.splice(i, 1); }
+for (let i = EXTRA.length - 1; i >= 0; i--) if (EXTRA[i].startsWith('@drop:')) { const o = EXTRA[i].slice(6); const j = a.indexOf(o); if (j < 0) throw new Error('drop: not in the build: ' + o); const two = j > 0 && a[j - 1].startsWith('--') ? 2 : 1; a.splice(j - two + 1, two); EXTRA.splice(i, 1); }
 a.push(...EXTRA);
 const n = a.indexOf('--notes'); if (n >= 0 && process.argv[2]) a[n + 1] = a[n + 1] + process.argv[2];
 const hands = a.filter(x => x.startsWith('wc-') && x.includes(':{'));

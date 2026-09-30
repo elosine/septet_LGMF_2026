@@ -22,6 +22,7 @@
 //                            take the long tone (env 'longTone', registry byEnv.longTone); a single stays as it drew
 //   --longToneAlso id,…      [2m.2] with --longTones: a single he names joins them (an object id wc-… or an event id)
 //   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
+//   --oneOffs P:T0:T1        [§611] the env-less pitched notes of part P in [T0, T1): env 'oneOff' — THE ONE-OFF, the GC unit of #4's staccato / #5's strike (repeatable)
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
@@ -1869,6 +1870,34 @@ if (MORPH_SEQ.length) {
       if (e.level && !Number.isFinite(e.vel)) { const o = (score.objects || []).find(x => x.id === (e.source && e.source.objectId)); if (o && Number.isFinite(o.recVel)) { e.vel = Math.max(1, Math.min(127, Math.round(o.recVel))); delete e.level; struck.push(e.id + ' vel ' + e.vel); } }
     }
     console.log('  --plainNotes ' + spec + ': ' + n + ' notes of ' + name + ' env plainNote' + (other.length ? ' · ' + other.length + ' left on their own device (' + other.join(' · ') + ')' : '') + (struck.length ? ' · ' + struck.length + ' struck from recVel, the level dropped (' + struck.join(' · ') + ')' : ''));
+  }
+}
+
+// [LGMF — RUNNING_LOG §611; his ask 2026-09-30 at the start of the bassoon's section 2: "Most of these one-offs will be a GC as we have done it
+// typically in previous pieces … show me the dynamic as well" · "see piece five or piece four for the spec. Let's do it precisely that way for
+// the GC … make sure we have this as a model in our registry"] --oneOffs P:T0:T1 (repeatable) — THE ONE-OFF: every pitched note of part P with
+// NO env, onset in [T0, T1), takes env 'oneOff' (registry byEnv.oneOff — the GC unit of #4's staccato and #5's strike: anchor C, the go line at
+// the GC's impact, the cue head left of it, a flagged stem, the band name beside the stem). Runs AFTER --longTones and --plainNotes, so those
+// keep their device. A take-note's level is dropped and its velocity read from recVel, as --plainNotes does (§590, S21: a struck note).
+{
+  const OO = [];
+  process.argv.forEach((a, i) => { if (a === '--oneOffs' && process.argv[i + 1]) OO.push(process.argv[i + 1]); });
+  for (const spec of OO) {
+    const m = /^(\d+):(-?\d+(?:\.\d+)?):(-?\d+(?:\.\d+)?)$/.exec(spec);
+    if (!m || !(+m[3] > +m[2])) { console.error('--oneOffs needs P:T0:T1 — the part index and seconds, T1 > T0 (e.g. --oneOffs 1:295.9:296.1)'); process.exit(2); }
+    const P = +m[1], T0 = +m[2], T1 = +m[3];
+    const partOfE = new Map();
+    for (const ch of doc.chunks) for (const id of ch.events || []) partOfE.set(id, ch.part);
+    const pc = ENS && ENS.parts ? ENS.parts.find(x => x.part === P) : null;
+    const name = pc ? (pc.short || pc.id || String(P)) : String(P);
+    let n = 0; const other = [], struck = [];
+    for (const e of doc.events) {
+      if (partOfE.get(e.id) !== P || !e.pitch || !(e.onset >= T0 && e.onset < T1)) continue;
+      if (e.env) { other.push(e.env + ' ' + e.onset.toFixed(2)); continue; }
+      e.env = 'oneOff'; n++;
+      if (e.level && !Number.isFinite(e.vel)) { const o = (score.objects || []).find(x => x.id === (e.source && e.source.objectId)); if (o && Number.isFinite(o.recVel)) { e.vel = Math.max(1, Math.min(127, Math.round(o.recVel))); delete e.level; struck.push(e.id + ' vel ' + e.vel); } }
+    }
+    console.log('  --oneOffs ' + spec + ': ' + n + ' notes of ' + name + ' env oneOff' + (other.length ? ' · ' + other.length + ' left on their own device (' + other.join(' · ') + ')' : '') + (struck.length ? ' · ' + struck.length + ' struck from recVel, the level dropped (' + struck.join(' · ') + ')' : ''));
   }
 }
 

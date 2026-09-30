@@ -3263,3 +3263,14 @@ his to keep. RUNNING_LOG §609.
 
 *The AI's reading (marked as such):* the frame stops on the beat nearest the 387.23 figure's last note — seven olive lines 384.404 … 388.268 —
 and the 389.7 figure stands outside it; the fit learned `noTail` (and `noLead`) to do it. RUNNING_LOG §610.
+
+## LG-185 — 2026-09-30 — the bassoon begun: the one-offs as the GC of the previous pieces, the spec precise, a model in the registry
+
+*His words (session 18, Fable, after the checkpoint-#8 `/postclear`):* "Let's start working on the bassoon part. Starting at 295.82. Most of these one-offs will be a GC as we have done it typically in previous pieces. This could be the full lane height one. So put a GC in there for that one and then could you show me the dynamic as well?"
+
+*And, on the first build:* "Please see piece five or piece four for the spec. Let's do it precisely that way for the GC. And then let's make sure we have this as a model in our registry."
+
+*The AI's reading (marked as such):* the bassoon's short notes standing alone in section 2 take the GC unit the tuba pages and the Tempus septet drew
+for a struck note — the go line at the GC's impact, the cue head before it, a flagged stem, the band name — the lane-height GC (style 1), not the
+plain note's beat-ball GC; a hand on one note was the wrong mechanism, a device row (`byEnv.oneOff`) with an extractor window (`--oneOffs`) the
+right one; the note is `wc-3396` at 295.971, mf from its recorded velocity. RUNNING_LOG §611.

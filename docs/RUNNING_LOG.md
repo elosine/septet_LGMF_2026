@@ -19697,3 +19697,56 @@ the 389.7 figure (the grace + three) stands OUTSIDE any frame, his choice. The l
 
 **► He reloads → `384` · `387.3` · `390` (play from `383.5`); HIS EYE, then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 ·
 384.3 · 387.23 · 389.7 · the 340 · 376 · 384 frames) and the next figure after 398.4.**
+
+## §611. The bassoon begun — the one-off at 295.97 as THE GC UNIT of pieces #4 and #5, registered as a model: `byEnv.oneOff` · `--oneOffs` · `@drop:` (2026-09-30, Fable, session 18; LG-185)
+
+**What prompted it (his words, after the checkpoint-#8 `/postclear`):** *"Let's start working on the bassoon part. Starting at 295.82. Most of
+these one-offs will be a GC as we have done it typically in previous pieces. This could be the full lane height one. So put a GC in there for
+that one and then could you show me the dynamic as well?"* — and, while the first build's record was being written: *"Please see piece five or
+piece four for the spec. Let's do it precisely that way for the GC. And then let's make sure we have this as a model in our registry."*
+
+**The note.** The bassoon (part 1) has one onset near 295.82: `ev-wc-3396` at **295.971**, B1 (midi 35), 0.099 s, technique `ord` — a
+take-note (a LEVEL curve and no velocity; a take re-pitched it), the composer's `recVel` **73**. Its neighbours: the double bass's F♯3 at
+295.772 (`wc-3394`, part 7), the EH's A3 · A5 at 295.665 · 295.974 (the 295 figure). It drew with `byTechnique.ord` — the tuba's provisional
+sustained ord: an open head before a go line, no GC, no name. (The parts live in the IR's chunks, §607 — read there.)
+
+**The first build — a HAND, withdrawn at his word.** `--plainNotes 1:295.9:296.1` + `--hand wc-3396:{gc:true, gcStyle:1, gcGeom:"lane"}`: the
+plain note (S1) with a lane GC on it, the level dropped and vel 73 read (S21); every gate green. His correction arrived before the record was
+written — the GC *precisely* as #4 / #5 specify it, and as a MODEL in the registry, not a hand per note. So: withdrawn. Both args came out of
+`provenance.build` (the runner learned `@drop:`, below); nothing of the try remains in the IR. *(Why it was wrong: a hand is LG-129's
+mechanism for a BESPOKE figure; a look he wants on "most of these one-offs" is a device — S12.)*
+
+**The spec, read from the three registries** (`container.json` `engraving.layout.devices`, this piece's, #5's, #4's): the GC unit of the tuba
+pages is `byTechnique.staccato` — *"#4 day 23 (wc-29 — the staccato unit)"* — and the Tempus septet's `byEnv.strike` (*"#5 §400 (a strike wears
+the strike unit)"*) is the same unit with the accent added and the chain on the head side. The unit: **anchor C** (the go line = the GC's impact;
+the unit left of it by `anchors.C.gapSs` 0.6 — *"#4 day 23 option B (clears the impact marker, r 0.51)"*) · `nhUnit` · a FILLED head at the
+cue-head scale 0.844 · `nhStem flag16` under `flagClear` (no max) · `goLine` · `gc` on the lane geometry (`objects.gc.styles` 1: the impact
+at the lane's bottom, the apex at its top — "the full lane height one") · `dynMark band` (the name from the velocity's band) · `dynBesideStem` ·
+`chainSide headSide` · no brick, no bar, no chord rules. The staccato unit carries `nhDot` (its technique's dot); the strike carries
+`nhArtic accent` (a strike is accented). The bassoon's one-off is an `ord` note — neither mark belongs to it.
+
+**Built:**
+- **`byEnv.oneOff`** in `notation/registry/container.json` — the strike's field set, field for field, WITHOUT `nhDot` · `nhDotGapSs` · `nhArtic`
+  (a hand adds either); `sheet` §611; anchor C; members cueHead · ledger · accidental · stem · flag · dynamic · ottava · goLine · gc. The
+  generated anchors table lists it on C (`docs/ENGRAVING_RULES.md` 348 lines, 251 pointers).
+- **`--oneOffs P:T0:T1`** in `tools/notate_section.js` (repeatable) — `--plainNotes`'s twin: the env-less pitched notes of the part in the window
+  take env `oneOff`, after `--longTones` and `--plainNotes` so those keep their device; a take-note's level dropped, the velocity from `recVel` (S21).
+- **`@drop:ARG`** in `tools/reextract.js` — drops one arg of the build and the `--flag` before it; the sibling of `@replace`.
+- **`check_rules` (7) for the one-off** — its sheet, anchor C, the go line and the GC among its members, and EQUAL to `byEnv.strike` on every field
+  the strike has except the dot and the accent: his "precisely" is a gate. **33 GREEN.**
+- `piece-lgmf` re-extracted from a fresh copy of his save: `--oneOffs 1:295.9:296.1` → 1 note of Bsn, vel 73, the level dropped.
+
+**On the page** (the video system, part 1, laid out by the lock's own call): the go line at 295.971 · the GC (lane) · the cue head at 0.844, its
+column 1.806 ss left of the go line, B1 on two ledgers (−3 · −4) · the stem up from −4.385 to 5.888 (10.27 ss) with the 16th flag clearing the
+top line · **mf** (the eight-step band for 73: 64 … 81) on the head side under the head (−5.808) · the section's "ord." riding above the flag at
+6.338 (S11). The lock 106 · the shield `piece-lgmf` alone (`layout_shield --write` on HEAD first — the device is new; no tuba page uses it).
+
+**The device sheet, answered by the spec** (PLANNING_METHOD line 1a): the anchor **C** · the pitch picture tempered as written (no cents on these
+notes) · the dynamic the band name beside the stem · the animated device the lane GC (its edge rows exist: `gc` · `goline`) · **the cut is his** —
+a one-off is whatever he puts in a `--oneOffs` window; nothing decides it by duration.
+
+**The AI's calls, his to reverse:** the flag a 16th (the spec's `flag16`, not the plain note's value-by-pace) · no flag-clear max (the spec's; here
+10.27 ss, just under the plain note's 10.5) · the name on the head side under the head (the strike's `chainSide headSide`) · the dot and the
+accent left off · the window 295.9 … 296.1 (one note; he widens it or names the next). **S24** in `temporal_notation.md` §12.
+
+**For his eye:** reload the notation tab (no restart) → `piece-lgmf` → `296` (play from `295`).

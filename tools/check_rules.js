@@ -89,6 +89,16 @@ ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it
     && pn.nhHead === 'filled' && pn.nhStem === 'plain' && pn.ringBar === false && pn.dynMark === 'band' && pn.dynOnRow === true,
     '(7) the plain note `byEnv.plainNote` carries its sheet (§547), stands on anchor A with no go line, a filled head with a plain stem, one band name per note on the dynamic row');
 }
+// [§611] the one-off (his ask 2026-09-30 — the bassoon's one-offs as the GC unit of #4's staccato / #5's strike, "precisely that way", a
+// model in the registry): its sheet is §611, it stands on anchor C with the go line at the GC's impact and the GC among its members, and it
+// equals byEnv.strike on EVERY field the strike has except the staccato dot and the accent (nhDot · nhDotGapSs · nhArtic), which it leaves off
+{
+  const oo = (D.byEnv || {}).oneOff, st = (D.byEnv || {}).strike;
+  const same = !!st && !!oo && Object.keys(st).filter(k => !['sheet', 'memberRows', 'nhDot', 'nhDotGapSs', 'nhArtic'].includes(k)).every(k => JSON.stringify(st[k]) === JSON.stringify(oo[k]));
+  ok(!!oo && /§611/.test(oo.sheet || '') && oo.anchorRow === 'C' && oo.goLine === true && oo.gc === true && ['cueHead', 'stem', 'flag', 'dynamic', 'goLine', 'gc'].every(m => (oo.memberRows || []).includes(m))
+    && same && oo.nhDot === undefined && oo.nhArtic === undefined && oo.dynMark === 'band' && oo.dynBesideStem === true,
+    '(7) the one-off `byEnv.oneOff` carries its sheet (§611), stands on anchor C with the go line at the GC\'s impact, and is `byEnv.strike` field for field without the dot and the accent');
+}
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));
 
