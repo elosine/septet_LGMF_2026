@@ -316,6 +316,15 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **§580 (2026-09-29, Fable; LG-158) — DONE:** *"so lets move those 61 ms over to be on beat"* → the phase **298.247**: notes 2 and 6 each 1 ms
   from a line (two beats apart to within 2 ms, one phase serves both); five lines 298.247 … 301.043, olive. The lock 74 GREEN · `check_rules`
   32 · the shield `piece-lgmf` alone. **► HIS EYE (reload → `298.5`); then THE NEXT FIGURE from 302.1.**
+- **§581 (2026-09-29, Fable; LG-159) — DONE:** his eye on figure 3 — *"green line is hidden by stem"*: an on-beat note with its stem DOWN hangs
+  the stem from the head's left edge, the line's x; the hairline vanished. Discussed at his ask (five options); his (a): **the frame's lines are
+  BANDS 0.3 ss wide, still under the ink** (`objects.tick.gridWSs`; layout stamps, render draws) — a stem hides only the middle. The lock 75
+  GREEN · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE (reload, page files → `298.5`); 0.25 the fallback if heavy; then THE
+  NEXT FIGURE from 302.1.**
+- **§582 (2026-09-29, Fable; LG-160) — DONE:** *"draw one more olive line near where the gc is so I can see it"* → the frame's tail beat 301.742
+  kept by hand (`--beatGridFit …:keepTail`, a new optional field; `keepLead` · `keepBoth` too) — it sits ON the burst's second note, inside the
+  clamp's 0.1 s; six lines 298.247 … 301.742, six balls, olive. The lock GREEN (the window widened) · `check_rules` 32 · the shield `piece-lgmf`
+  alone. **► HIS EYE (reload → `301`): the band beside the GC's ink; the tail line his to keep or drop; then THE NEXT FIGURE from 302.1.**
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 

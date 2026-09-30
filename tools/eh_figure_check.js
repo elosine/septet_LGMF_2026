@@ -101,12 +101,15 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
 // §579 — his third, "lets try c 86 purple and move 1/4 beat to the right so that p2 is ~onbeat and p6 ~onbeat": 6 × 0.1165 = 0.699 s on
 // 298.133 + a quarter beat = 298.308 — notes 2 and 6 each ≈ 60 ms before a line, the others between
 // §580 — his "so lets move those 61 ms over to be on beat": the phase 298.247 — notes 2 and 6 ON their lines (1 ms), the rest between
-{ const beat = 6 * 0.1165, ph = 298.247, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 301.5);
+{ const beat = 6 * 0.1165, ph = 298.247, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 302);   // [§582] the window takes the kept tail (301.742)
   const ref = items.find(it => it.k === 'tick' && it.grid === 'beat' && it.t > 294 && it.t < 298);
   ok(g.length >= 4 && g.every(b => near((b.t - ph) / beat - Math.round((b.t - ph) / beat), 0, 1e-3)), '(§580) the third figure\'s grid: one line per beat at 86 bpm (0.699 s) on the phase 298.247 (notes 2 and 6 on their lines) — ' + g.length + ' lines' + (g.length ? ' ' + g[0].t.toFixed(3) + ' … ' + g[g.length - 1].t.toFixed(3) : ''));
   ok(ref && g.every(b => near(b.ySs, ref.ySs, 1e-6) && near(b.hSs, ref.hSs, 1e-6)), '(§575) each line the beat frame\'s (figure 2\'s geometry through the staff)');
-  ok(g.length && g[0].t < 298.815 && g[g.length - 1].t > 300.695 && g[0].t > 297.375 + 0.1 - 1e-6 && g[g.length - 1].t < 301.556 - 0.1 + 1e-6, '(§575) the frame spans the seven notes, 0.1 s clear of the notation before (ends 297.375) and after (301.556)');
-  let balls = null; try { balls = require(path.join(ROOT, 'notation', 'lib', 'animobj.js')).collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall' && a.at >= 298 && a.at <= 301.5); } catch (e) { balls = null; }
+  const GW = C.engraving.layout.beatGrid.wSs; ok(GW === 0.3 && g.every(b => near(b.wSs, GW, 1e-6)) && ref && near(ref.wSs, GW, 1e-6), '(§581) every frame line a band ' + GW + ' ss wide (a stem hides only its middle) — figure 2\'s and 3\'s alike');
+  // [§582] the tail beat KEPT by hand (keepTail — his "one more olive line near where the gc is") sits on the burst's second note, inside the clamp's 0.1 s
+  const ovF = (ir.overlays || []).find(o => o.kind === 'beatGrid' && o.value && Math.abs(o.value.phase - ph) < 1e-6), keepT = !!(ovF && ovF.value.fit && ovF.value.fit.keepTail);
+  ok(g.length && g[0].t < 298.815 && g[g.length - 1].t > 300.695 && g[0].t > 297.375 + 0.1 - 1e-6 && (keepT ? near(g[g.length - 1].t, 301.742, 1e-3) : g[g.length - 1].t < 301.556 - 0.1 + 1e-6), '(§575 · §582) the frame spans the seven notes, 0.1 s clear of the notation before (ends 297.375)' + (keepT ? '; the tail beat KEPT by hand at 301.742, on the burst\'s second note' : ' and after (301.556)'));
+  let balls = null; try { balls = require(path.join(ROOT, 'notation', 'lib', 'animobj.js')).collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall' && a.at >= 298 && a.at <= 302); } catch (e) { balls = null; }
   ok(balls && balls.length === g.length && g.every(b => balls.some(x => near(x.at, b.t, 1e-6))) && balls.every(b => b.preset && near(b.preset.duration, beat, 1e-6)), '(§579) one ball per line, each a beat long (0.699)' + (balls ? '' : ' — collect threw'));
   const near1 = t => g.length ? Math.min(...g.map(b => Math.abs(b.t - t))) : Infinity;
   const on = [298.947, 300.343].map(near1), between = [299.139, 299.418, 300.050, 300.695].map(near1);

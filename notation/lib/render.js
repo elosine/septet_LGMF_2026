@@ -476,8 +476,9 @@
           // [§578, his "alternate colors for the ball and the lines for each new rhythm group … the olive from the vibraphones"] a grid line
           // carries its FRAME's colour (layout stamps it from rules.json objects.tick.gridColours by the frame's index on the part)
           const tFill = it.grid ? ' fill="' + (it.colour || E.ringBar.color) + '"' + (E.ringBar.opacity != null && E.ringBar.opacity !== 1 ? ' fill-opacity="' + E.ringBar.opacity + '"' : '') : '';
-          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - E.tick.wSs / 2 * ssPx).toFixed(2) + '" y="' + tY.toFixed(2) +
-            '" width="' + (E.tick.wSs * ssPx).toFixed(2) + '" height="' + (tH * ssPx).toFixed(2) + '"' + tFill + '/>');
+          const tW = it.wSs > 0 ? it.wSs : E.tick.wSs;   // [§581] a beat frame's line carries its own width (a band; layout stamps objects.tick.gridWSs)
+          parts.push('<rect' + GO(it.t) + ' x="' + (X(it.t, 0) - tW / 2 * ssPx).toFixed(2) + '" y="' + tY.toFixed(2) +
+            '" width="' + (tW * ssPx).toFixed(2) + '" height="' + (tH * ssPx).toFixed(2) + '"' + tFill + '/>');
         } else if (it.k === 'envcurve') {
           // the drawn level curve over the FULL lane band (piece #1: value
           // 0..1 maps bottom -> top of the track), clipped to the window

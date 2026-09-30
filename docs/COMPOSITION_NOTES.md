@@ -3027,3 +3027,21 @@ colour, the opacity unchanged; the build in RUNNING_LOG §578.
 *The AI's reading (marked as such):* the purple candidate (86 bpm, the beat 0.699 s = 6 × 0.1165) at the tool's between phase 298.133 shifted
 a quarter beat LATER: 298.308 — note 2 (298.947) and note 6 (300.343) each land ≈ 60 ms before a line, the others between. A frame chosen
 for two notes ON the beat, the rest between: the beat-frame principle bent by hand, his call (T9's "orientation aid"). The build: RUNNING_LOG §579.
+
+## LG-159 — 2026-09-29 — the beat line hidden by a stem: the frame's lines become bands
+
+*His words (session 18, Fable), with a screenshot of figure 3's first three notes on his page — note 2 on its olive line, the line under the
+stem:* "green line is hidden by stem, what do you recommend, discuss first pls" — and, on the options (a wider line under the ink · over the
+ink · longer tails · a shifted line · leave it to the ball): "a, lets see it"
+
+*The AI's reading (marked as such):* an on-beat note with its stem DOWN hangs the stem from the head's left edge — the line's own x; a 0.12 ss
+line under a 0.13 ss stem vanishes. The frame's lines become a BAND 0.3 ss wide, still under the ink: a stem hides only its middle. The build:
+RUNNING_LOG §581.
+
+## LG-160 — 2026-09-29 — one more olive line by the GC, to see the band beside it
+
+*His words (session 18, Fable):* "and can you draw one more olive line near where the gc is so I can see it"
+
+*The AI's reading (marked as such):* figure 3's frame's tail beat (301.742) — dropped by the clamp (it sits on the burst's second note, inside
+the 0.1 s the clamp keeps clear of the notation after) — kept by hand (`keepTail`), the same frame and colour, so the band can be judged
+against the GC's ink at 301.556. A viewing aid; whether it stays is his. The build: RUNNING_LOG §582.

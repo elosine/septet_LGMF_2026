@@ -19001,3 +19001,34 @@ are two beats of 0.699 apart to within 2 ms, so one phase puts both on a line: 1
 
 **The lock** re-pointed (the phase; notes 2 and 6 within 5 ms of a line): **74 GREEN**. `check_rules` 32 (the rules page regenerated). The
 shield: `piece-lgmf` alone. ► His eye: reload → `298.5`. Then the next figure, from 302.1.
+
+## §581. THE FRAME'S LINES ARE BANDS — a beat line hidden by a stem (2026-09-29, Fable, session 18; LG-159)
+
+**What prompted it** — his screenshot of figure 3's opening on his page: note 2 exactly on its olive line (§580) and the line invisible: *"green
+line is hidden by stem, what do you recommend, discuss first pls"*. The cause: an on-beat note whose stem goes DOWN hangs the stem from the
+head's LEFT edge — the note's time, the line's x — and a 0.12 ss line (the tick's look) under a 0.13 ss black stem is gone; only the 0.4 ss
+tail above the staff shows. Stems up never hide it (the stem is on the head's right). Figure 3's note 6 is the same case.
+**Discussed (his ask), five options:** (a) a wider line, still under the ink — the colour shows either side of a stem and past a beam; the
+template's own family (the duration line is a 0.667 ss band at 0.3) · (b) over the ink — olive at 0.3 over black is black, useless alone · (c)
+longer tails at on-beat lines only — the column above is tall, the beam below; every on-beat line different · (d) the line moved off the stem —
+no, a go-time indicator never moves (2c) · (e) leave it, the ball is the beat there. The AI's pick (a) at ~0.3 ss; **his: "a, lets see it".**
+
+**Built:** `rules.json objects.tick.gridWSs` 0.3 (`container.json engraving.layout.beatGrid.wSs`); layout stamps every frame line with `wSs`;
+render draws a tick at its own width when it carries one (the GC's tick keeps `look.wSs` 0.12). Every frame's line, both colours, 0.3 ss wide
+at the same opacity; the ball's landing unchanged. The lock: a §581 line (every frame line 0.3 ss, figures 2 and 3 alike) — **75 GREEN**.
+`check_rules` 32 (the rules page regenerated). The shield: `piece-lgmf` alone (no other page carries a frame). S13 amended.
+► His eye: reload (page files) → `298.5` — note 2's line either side of its stem; if the band reads heavy, 0.25 is the fallback.
+
+## §582. ONE MORE OLIVE LINE BY THE GC — the frame's tail beat kept by hand (2026-09-29, Fable, session 18; LG-160)
+
+**What prompted it** — after §581's bands: *"and can you draw one more olive line near where the gc is so I can see it"* (LG-160) — the band
+judged beside the GC's ink at 301.556 (the burst's first note).
+
+**Built:** figure 3's frame's tail beat is 301.742 — dropped by the clamp because it lies inside the 0.1 s kept clear of the notation after
+(the burst starts 301.556); it sits, to the ms, ON the burst's second note. `--beatGridFit` takes an optional 7th field now — `keepTail` ·
+`keepLead` · `keepBoth` — the named end(s) kept whatever the clamp; the overlay's `fit` records the flags. The hand:
+`0:0.1165:6:298.247:298.815:300.695:keepTail` → **six lines 298.247 … 301.742, six balls, olive**; the frames and everything else unchanged.
+A viewing aid at his word; whether the tail line stays is his — a frame's line on another figure's note is not the frame's principle.
+
+**The lock** — the third figure's window widened to 302 s and the span assertion reads the kept tail (`fit.keepTail` on the IR's overlay):
+**75 GREEN**. `check_rules` 32 (the rules page regenerated). The shield: `piece-lgmf` alone. ► His eye: reload → `301`.

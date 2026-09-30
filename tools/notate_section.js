@@ -1899,9 +1899,12 @@ if (MORPH_SEQ.length) {
   // after it is dropped — his "isolated to whatever cluster the tempo's trying to overlay"; the rule's numbers from rules.json objects.tick
   process.argv.forEach((a, i) => {
     if (a !== '--beatGridFit' || !process.argv[i + 1]) return;
-    const m = /^(\d+):([\d.]+):(\d+):(-?[\d.]+):(-?[\d.]+):(-?[\d.]+)$/.exec(process.argv[i + 1]);
-    if (!m) { console.error('--beatGridFit needs p:unit:beatEvery:phase:firstOnset:lastOnset'); process.exit(2); }
+    // [§582] an optional 7th field: `keepTail` — the tail beat(s) kept whatever the clamp (his "draw one more olive line near where the gc
+    // is so I can see it": figure 3's tail beat 301.742 sits on the burst's second note, inside the 0.1 s the clamp keeps clear)
+    const m = /^(\d+):([\d.]+):(\d+):(-?[\d.]+):(-?[\d.]+):(-?[\d.]+)(?::(keepTail|keepLead|keepBoth))?$/.exec(process.argv[i + 1]);
+    if (!m) { console.error('--beatGridFit needs p:unit:beatEvery:phase:firstOnset:lastOnset[:keepTail|keepLead|keepBoth]'); process.exit(2); }
     const P = +m[1], u = +m[2], n = +m[3], ph = +m[4], first = +m[5], last = +m[6], beat = u * n;
+    const keepTail = m[7] === 'keepTail' || m[7] === 'keepBoth', keepLead = m[7] === 'keepLead' || m[7] === 'keepBoth';
     const T = (CURVE_RULES && CURVE_RULES.tick) || {};   // the rules' objects table, loaded above for the curves
     const LEAD = T.gridLeadBeats != null ? T.gridLeadBeats : 3, TAIL = T.gridTailBeats != null ? T.gridTailBeats : 2, GAP = T.gridClampGapS != null ? T.gridClampGapS : 0.1;
     const partOfE2 = new Map(); for (const ch of doc.chunks) for (const id of ch.events || []) partOfE2.set(id, ch.part);
@@ -1913,10 +1916,10 @@ if (MORPH_SEQ.length) {
     const nextOn = Math.min(Infinity, ...mine.filter(e => e.onset > last + 1e-6).map(e => e.onset), ...gridsHere.filter(o => o.target.span[0] >= last).map(o => o.target.span[0]));
     const kFirst = Math.floor((first - ph) / beat + 1e-9), kLast = Math.round((last - ph) / beat);   // the beat at or before the first onset; the nearest to the last
     let k0 = kFirst - LEAD, k1 = kLast + TAIL;
-    while (k0 < kFirst && ph + k0 * beat <= prevEnd + GAP) k0++;
-    while (k1 > kLast && ph + k1 * beat >= nextOn - GAP) k1--;
+    while (!keepLead && k0 < kFirst && ph + k0 * beat <= prevEnd + GAP) k0++;
+    while (!keepTail && k1 > kLast && ph + k1 * beat >= nextOn - GAP) k1--;
     const t0 = +(ph + k0 * beat).toFixed(4), t1 = +(ph + k1 * beat + 1e-3).toFixed(4);
-    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: LEAD, tail: TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast } }, provenance: 'authored' });
+    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: LEAD, tail: TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast, keepTail, keepLead } }, provenance: 'authored' });
     console.log('  --beatGridFit part ' + P + ': the beat ' + beat.toFixed(3) + ' s (' + Math.round(60 / beat) + ' bpm) from ' + ph + ' — the cluster ' + first + ' … ' + last + ', ' + (kFirst - k0) + ' beat(s) before (of ' + LEAD + '; the notation before ends ' + (isFinite(prevEnd) ? prevEnd.toFixed(3) : '—') + ') · ' + (k1 - kLast) + ' after (of ' + TAIL + '; the next note ' + (isFinite(nextOn) ? nextOn.toFixed(3) : '—') + ') → lines ' + t0 + ' … ' + (ph + k1 * beat).toFixed(3) + ' (' + (k1 - k0 + 1) + ')');
   });
   grids.forEach((spec, n) => {

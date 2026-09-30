@@ -3227,7 +3227,8 @@
             if (BG.beatsOnly && !beat) continue;   // [§565] his template: the main beats only
             // [§565] the shorter size, hung from the lane's top edge (yAt 'top' — the render's lane top), in the duration line's colour and opacity
             // [§566] gridAt 'staff': a line through the staff, overhangSs beyond each outer line (the tick's foot is its ySs, it rises hSs)
-            const stamp = colour ? { frame, colour } : { frame };
+            // [§581] the line a band gridWSs wide (rules.json objects.tick.gridWSs) — under a stem-down on-beat note the hairline vanished
+            const stamp = Object.assign({ frame }, colour ? { colour } : {}, BG.wSs > 0 ? { wSs: BG.wSs } : {});
             if (BG.at === 'staff') items.push(Object.assign({ k: 'tick', t, ySs: -STAFF_HALF - BG.overhangSs, hSs: 2 * STAFF_HALF + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' }, stamp));
             else items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}, stamp));
           }
