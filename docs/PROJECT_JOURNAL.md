@@ -306,7 +306,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   the runner's `@replace`) · the ragged stubs **2 ss the standard** for every group (S8a amended; 324.6's hand withdrawn) · the 337 slur by a hand
   `slurHeightSs` 1.4 (S7 notes it), the names f · — · ff · THE FIGURE AT 340.1 (seven notes 340.352 … 341.757: graces 1 · 3 · 5 each slurred to
   its note, 2 · 4 flagged 16ths, 6+7 a 16th beamed to an eighth with the beamlet; the names shown — 6 · 7's flipped above the beam-side row).
-  The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `316.5` · `324.5` · `337` · `340`; HIS EYE, his dynamics at
+  The lock 105 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `316.5` · `324.5` · `337` · `340`; HIS EYE, his dynamics at
   340.1, then the lock's blocks (337 · 340.1) and the next figure.**
 
 ### SESSION 18 · CHECKPOINT #5 (mid-session checkpoint, 2026-09-29, Fable built, Opus wraps) — THE EH'S FIRST TWO FIGURES OF SECTION 2 NOTATED BY HAND; THE SHOWN BEAT BUILT; ► HIS EYE ON THE BETWEEN-BEATS PHASE
