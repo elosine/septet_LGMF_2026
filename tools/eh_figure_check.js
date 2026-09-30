@@ -191,5 +191,19 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   { const ids = ['ev-wc-3444', 'ev-wc-3445', 'ev-wc-3446', 'ev-wc-3447', 'ev-wc-3448', 'ev-wc-3449', 'ev-wc-3450', 'ev-wc-3451', 'ev-wc-3452', 'ev-wc-3453', 'ev-wc-3454', 'ev-wc-3459'];
     const evs = ids.map(id => ir.events.find(e => e.id === id));
     ok(evs.every(e => e && e.env === 'plainNote' && Number.isFinite(e.vel) && !e.level), '(§590) the twelve are plain notes STRUCK — a velocity each, no level curve (nothing for a meter to follow)'); } }
+// ---- §591 · §592 THE FIGURE AT 324.6 (his LG-166 · LG-167): six beamed grace 16ths at the heads' scale under one slur, the mp hairpin to 6, 7+8 eighths with a GC at the beat ball's height
+{ const F5 = { n1: 324.677, n2: 324.799, n3: 324.942, n4: 325.015, n5: 325.167, n6: 325.383, n7: 325.597, n8: 325.956 };
+  const gr = [F5.n1, F5.n2, F5.n3, F5.n4, F5.n5, F5.n6];
+  ok(gr.every(t => { const h = glyphAt(t, /^notehead$/); return h && near(h.scale || 1, C.engraving.layout.grace.headScale, 0.001); }), '(§591) 1 … 6 grace heads at the grace scale');
+  ok(at('slash', F5.n1) && gr.slice(1).every(t => !at('slash', t)), '(§591) the acciaccatura stroke on the FIRST grace stem only (the hand slash false)');
+  const gb = items.filter(it => it.k === 'beam' && it.tips && it.tips.length > 2 && Math.abs(it.tips[0].t - F5.n1) < 1e-6 && Math.abs(it.tips[it.tips.length - 1].t - F5.n6) < 1e-6);
+  ok(gb.length === 2 && gb.every(b => near(b.scale || 1, C.engraving.layout.grace.headScale, 0.001)), '(§592 · S22) the grace group beamed as 16ths — two beams, each at the heads\' scale — got ' + gb.length + ' at ' + gb.map(b => b.scale).join(','));
+  { const ys = gb.map(b => b.tips[0].ySs).sort((p, q) => q - p); const step = (glyphs.standards.beam.stackStep || 0.81) * C.engraving.layout.grace.headScale; ok(ys.length === 2 && near(ys[0] - ys[1], step, 0.01), '(§592 · S22) the level step at the grace scale ' + step.toFixed(3)); }
+  { const sl = items.find(it => it.k === 'slur' && Math.abs(it.t0 - F5.n1) < 1e-6); ok(sl && near(sl.t1, F5.n6, 1e-6), '(§592) the slur from 1 to 6 (his \'slur from partial one to partial six\')'); }
+  { const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - F5.n1) < 1e-6); ok(hp && hp.dir === 'cresc' && near(hp.t1, F5.n6, 1e-6) && glyphAt(F5.n1, /^dyn-mp$/), '(§592) 1 mp with a crescendo hairpin to 6'); }
+  ok([F5.n2, F5.n3, F5.n4, F5.n5, F5.n6, F5.n8].every(t => !glyphAt(t, /^dyn-/)) && glyphAt(F5.n7, /^dyn-f$/), '(§592) no name on 2 … 6 and 8; the f on 7');
+  { const b78 = items.filter(it => it.k === 'beam' && it.tips && Math.abs(it.tips[0].t - F5.n7) < 1e-6 && Math.abs(it.tips[it.tips.length - 1].t - F5.n8) < 1e-6); ok(b78.length === 1 && !b78[0].scale, '(§591) 7+8 beamed eighths, one beam at full size'); }
+  { const gc = items.find(it => it.k === 'gc' && Math.abs(it.t - F5.n7) < 1e-6); ok(gc && gc.geom === 'beatBall' && glyphAt(F5.n7, /^artic-accent$/), '(§592 · S23) the GC on 7 with the beat ball\'s geometry, the accent on 7'); }
+  ok(!items.find(it => it.k === 'gc' && Math.abs(it.t - F5.n8) < 1e-6) && !items.find(it => it.k === 'gc' && gr.some(t => Math.abs(it.t - t) < 1e-6)), '(§591) no GC on the graces or on 8'); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

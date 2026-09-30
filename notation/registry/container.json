@@ -372,6 +372,7 @@
       "nhStemRule": "flagClear",
       "stemLenSs": "@objects.stem.lengthLongSs",
       "flagClearMaxSs": "@objects.flag.clearMaxSs",
+      "gcGeom": "beatBall",
       "ringBar": false,
       "letRing": false,
       "chordRules": false,
@@ -810,7 +811,8 @@
      "ballRadiusPx": 5,
      "impactInsetPx": 0,
      "heightInsetPx": 10,
-     "frameHeightPx": 1080
+     "frameHeightPx": 1080,
+     "beatBall": "@objects.gc.beatBall"
     }
    },
    "_gcNote": "day 23: THE GC OBJECT, ported WHOLE from piece #1 (composer: 'when I say GC, that is the whole thing ... the same colors, the same lines, and line thickness, and then those trajectory ... the ball should be the same color, the same size'). Static ink here (arc polyline + impact marker, render.js); the ball is animated.gc (same preset). Look = piece #1 renderGC/update verbatim: arc stroke 1.5 px in the GC color, no fill, x = time; impact marker r 4 px at laneBottom - 5; ball r 5 px; height = lane - 10. Color neonMagenta rgb(255,21,160) = piece #1 ColorMap. px are at the 1080 frame and scale with the view (PP-6). Piece #2 diffed the same day: drawn object byte-identical, only its preset differed (Medium 50/80/120/55/1.1).",
@@ -892,7 +894,8 @@
     "ballRadiusPx": 5,
     "impactInsetPx": 0,
     "heightInsetPx": 10,
-    "frameHeightPx": 1080
+    "frameHeightPx": 1080,
+    "beatBall": "@objects.gc.beatBall"
    }
   },
   "_gcNote": "day 23: the BALL of the GC object — physics + look shared with engraving.render.gc via notation/lib/gc.js (one copy). Preset = piece #1 Short (the 6:10 section, 43/43 GCs); ball r 5 px at the 1080 frame, the GC color; travels in time along the drawn arc, impact on the go line at laneBottom - 5 (piece #1 calculateBallPositionForPage). Earlier day-23 stagings (staff-step landSs/dropSs, then span=lane with insetSs) are superseded — both were guesses at the look; this is the object itself.",

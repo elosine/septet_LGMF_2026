@@ -95,7 +95,7 @@
     const P = GC.params(Object.assign({}, st.preset || {}, (inst && inst.preset) || {}));
     const frac = GC.heightFrac(P, t - inst.at);
     if (frac === null) return [];
-    const G = GC.laneGeom(s, view, st.look);
+    const G = GC.laneGeom(s, view, Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {}));   // [§592] the GC's geometry from its device ('beatBall')
     const x = view.xOfSeconds(t);
     const y = G.impactY - frac * G.h;
     const r = G.look.ballRadiusPx * G.k;
@@ -398,7 +398,7 @@
         const e = evById.get(id);
         if (!e) continue;
         const dv = devOf(e) || {};
-        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' },
+        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, dv.gcGeom ? { geom: dv.gcGeom } : {},   // [§592]
           typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
       }
       // curveMeter rides every event that carries its drawn level (stratum

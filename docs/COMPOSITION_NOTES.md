@@ -3101,3 +3101,13 @@ notes beamed gc on 7 accent on 7 and let me see all the dynamics pls"
 
 *The AI's reading (marked as such):* p10 exceeded the max (10.39 needed, 9.5 the cap) — the max 10.5 at his word. The 324.6 figure: a beamed
 grace GROUP is new (the stroke on the first stem only; the beam at full size, a grace-scaled beam offered). RUNNING_LOG §591.
+
+## LG-167 — 2026-09-30 — the grace beam to the heads; a GC at the bouncing ball's height; the 324.6 figure's slur and names
+
+*His words (session 18, Fable):* "scale the grace beam to the heads pls slur from partial one to partial six. And can we create a modified
+GC that follows the same height as the bouncing ball and then adjust the arcs accordingly? Then for the new set, partial one MP hairpin to
+the last partial of the grace note. And then you can get rid of the F on the last partial. but keep the F on the second to last partial. And
+the rest of those dynamics can go away, the individual no ones."
+
+*The AI's reading (marked as such):* two rules — the grace group's beam at the heads' scale (S22) and a GC geometry that is the beat ball's
+flight (S23, a rules row: the plain note's GC bounces like the frame's balls) — and the figure's hands. RUNNING_LOG §592.

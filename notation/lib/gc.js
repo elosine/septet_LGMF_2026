@@ -92,6 +92,14 @@
   function laneGeom(sys, view, look) {
     const L = Object.assign({}, LOOK, look || {});
     const k = view.heightPx / L.frameHeightPx;
+    // [§592, his 'a modified GC that follows the same height as the bouncing ball … adjust the arcs accordingly'] geom 'beatBall': the GC's
+    // arc and ball take THE BEAT BALL's flight (animobj beatBall, §570 · §571) — the impact at the grid line's foot (the bottom staff line
+    // plus the overhang), the height the line's own plus the rise above its top; the arcs scale with it. L.beatBall = { overhangSs, riseSs }
+    // from the registry (rules.json objects.gc.beatBall). Any other geom: piece #1's lane geometry below, untouched
+    if (L.geom === 'beatBall' && L.beatBall && typeof sys.yOfSs === 'function' && sys.ssPx) {
+      const STAFF_HALF = 2, over = L.beatBall.overhangSs != null ? L.beatBall.overhangSs : 0.4, rise = L.beatBall.riseSs != null ? L.beatBall.riseSs : 2;   // RULES MIRROR (rules.json objects.gc.beatBall · objects.tick.gridOverhangSs)
+      return { k, impactY: sys.yOfSs(-STAFF_HALF - over), h: (2 * STAFF_HALF + 2 * over + rise) * sys.ssPx, look: L };
+    }
     const impactY = sys.yBotPx - L.impactInsetPx * k;
     const h = sys.heightPx - L.heightInsetPx * k;
     return { k, impactY, h, look: L };

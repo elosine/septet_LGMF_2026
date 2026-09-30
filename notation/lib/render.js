@@ -450,7 +450,7 @@
           // beam thickness extends TOWARD the noteheads: down the page for
           // up-stems, up the page for down-stems (review finding: down-stem
           // beams hung beyond the tips)
-          const t = stds.beam.thickness * ssPx * (it.dir === 'down' ? -1 : 1);
+          const t = stds.beam.thickness * (it.scale || 1) * ssPx * (it.dir === 'down' ? -1 : 1);   // [§592] a grace group's beam at the heads' scale
           // [2c.4] each tip follows its own unit's clamp (shiftOf is 0 off a tiled screen page)
           const fwd = tips.map(p => (X(p.t, p.dxSs) + shiftOf(p.t)).toFixed(2) + ',' + Y(p.ySs).toFixed(2));
           const back = tips.slice().reverse().map(p => (X(p.t, p.dxSs) + shiftOf(p.t)).toFixed(2) + ',' + (Y(p.ySs) + t).toFixed(2));
@@ -842,7 +842,7 @@
           else if (it.t + P.post < w0 || it.t - P.pre > w1) continue;
           // §401e: the GC's own system (the first staff of a multi-staff part) — a single lane's height, the
           // impact between the piano's staves; the go line above keeps the whole lane
-          const G = GC.laneGeom(GC.systemOf(view, sysModel.part), view, E.gc && E.gc.look);
+          const G = GC.laneGeom(GC.systemOf(view, sysModel.part), view, Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}));   // [§592] the item's geometry ('beatBall')
           const color = (E.gc && E.gc.color) || G.look.color;
           const d = GC.trajectory(P).map((p, i) =>
             (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');

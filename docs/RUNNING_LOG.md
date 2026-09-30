@@ -19230,3 +19230,30 @@ staff at 6.02 — the head sits on the dynamic row (G♯3 at −4.5): the side-w
 grace beam with the heads (≈ 0.7); a grace-scaled beam is a build (the beam pass knowing its members are graces) · the accent under the head
 against the slur's end (above the beam is the alternative) · the slur to 7 ("over all" read as into the main note). No frame asked for this
 figure. The lock: a block after his dynamics. `check_rules` 32 · the lock 92 · the shield `piece-lgmf` alone. ► He reloads → `324.5`.
+
+## §592. THE GRACE BEAM AT THE HEADS' SCALE · THE GC AT THE BEAT BALL'S HEIGHT · the 324.6 figure's slur and names (2026-09-30, Fable, session 18; LG-167)
+
+**What prompted it** — *"scale the grace beam to the heads pls slur from partial one to partial six. And can we create a modified GC that follows
+the same height as the bouncing ball and then adjust the arcs accordingly? Then for the new set, partial one MP hairpin to the last partial of
+the grace note. And then you can get rid of the F on the last partial. but keep the F on the second to last partial. And the rest of those
+dynamics can go away, the individual no ones."* (LG-167).
+
+**THE GRACE GROUP'S BEAM (S22):** a beam group whose every member is a grace takes its beam at the grace scale — the thickness × 0.707 and the
+level step × 0.707 (LilyPond scales a grace's beams with its heads); the stems keep their thickness; the clearance under the beam scales too.
+`layout.js`: the tip records a grace (`grace: true`, only when true — a `false` on every tip moved a tuba page's hash, the shield's catch),
+the group gets `g.scale` (RULES MIRROR objects.graceHead.size), the five beam pushes carry `scale` when set, `stemPref` · `step0` · `step`
+× the scale; `render.js` draws the thickness × `it.scale`. Here: two levels at 5.39 · 4.82 (the step 0.57), the thickness 0.28.
+
+**THE GC AT THE BEAT BALL'S HEIGHT (S23 — a rules row):** `objects.gc.geom` — `'lane'` = piece #1's GC (the impact at the lane's bottom, the
+apex at the lane's top); `'beatBall'` = THE BEAT BALL's flight (§570 · §571): the impact at the grid line's foot (the bottom staff line + the
+0.4 overhang), the height the line's own + the rise (2) = 6.8 ss — the arc and the ball scale with it (`objects.gc.beatBall { overhangSs →
+objects.tick.gridOverhangSs, riseSs 2 }`, pointed to from the container's two gc looks). The plain note takes `'beatBall'`
+(`byEnv.plainNote.gcGeom`); every other device and the tuba pages keep `'lane'`. One copy of the geometry — `gc.js laneGeom` honours
+`look.geom`; the gc item and the animated instance carry `geom` from the device (`layout.js` · `animobj.js`); the static arc (`render.js`)
+and the ball read it. The GC on 7 (325.597): its ball and arc now bounce like the frame's balls, into the head's left edge.
+
+**The figure's hands merged:** 1 `slurTo wc-3474` (the slur over the six graces, 1 → 6, below, height 4.53) · `dynMark mp · hairpinTo
+325.383 · cresc` (the tip at 6's time, no name there) · 2 … 6 and 8 `dynMark false` · 7 keeps its f. On the way: the 7+8 beam rose from 3.80
+to 5.22 — the flagged height (S3: a beam where a flag's tip would clear the top line, as the grace beam's 5.39); the earlier 3.80 had the
+slur's end on 7 in the way. `check_rules` 32 · the lock 92 · the shield `piece-lgmf` alone (after the tip fix). ► He reloads → `324.5`
+(play from `325` for the GC's ball).

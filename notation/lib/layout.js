@@ -1327,7 +1327,7 @@
             // (render.js draws them from notation/lib/gc.js; the ball is
             // animobj's). Impact = the go time. `gc: true` = the registry
             // preset; `gc: {...}` = a per-note preset.
-            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id },
+            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, dev.gcGeom ? { geom: dev.gcGeom } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note)
               typeof dev.gc === 'object' ? { preset: dev.gc } : {}));
             // the WRITTEN position (shared by the nh-unit and the ring bar):
             // ottava = smallest shift bringing the written note within 3
@@ -1954,7 +1954,7 @@
                     const key = dev.beamGroup || 'beam';
                     if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough, over: !!dev.beamOverRest, overLeft: !!dev.beamOverLeft });
                     const grp = beamGroups.get(key);
-                    grp.tips.push({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd });
+                    grp.tips.push(Object.assign({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd }, dev.grace ? { grace: true } : {}));   // [§592] a grace member — a group of graces takes its beam at the heads' scale
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
                     if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
@@ -2466,6 +2466,9 @@
         if (above ? d > 1e-9 : d < -1e-9) for (const c of mine) c.it.ySs += d;
       };
       for (const [key, g] of beamGroups) {
+        // [§592, his 'scale the grace beam to the heads pls'] A GRACE GROUP: every member a grace → the beam's thickness and its level step at
+        // the grace scale (LilyPond scales the grace's beams with its heads); the stems keep their thickness, the clearance under them scales
+        g.scale = g.tips.length && g.tips.every(tp => tp.grace) ? ((o.grace && o.grace.headScale) || 0.707) : undefined;   // RULES MIRROR (rules.json objects.graceHead.size)
         // A LONE NOTE IN A BEAM GROUP OF ITS OWN (day 29, composer, on T2's
         // seventh partial — the one note after two groups of three): "let's
         // just have two beamlets on the right for that single sixteenth". Not
@@ -2587,7 +2590,7 @@
             // The pass runs ONLY when the classic result leaves a stem under
             // beamStemSs — approved pages never trigger and are untouched.
             {
-              const stemPref = o.beamStemSs != null ? o.beamStemSs : 2.5;
+              const stemPref = (o.beamStemSs != null ? o.beamStemSs : 2.5) * (g.scale || 1);   // [§592] a grace group's clearance at its scale
               // row joints in the repair stack use THE MEDIUM GAP (day 31,
               // composer named the three-tier system: 0.15 tight · 0.30
               // medium · 0.45 standard; registry gapMediumSs) — the repair is
@@ -2875,20 +2878,20 @@
           // the lone note as "a group of two": every level runs from the
           // phantom over the preceding rest to the stem (day 29)
           const t = g.tips[0];
-          const step0 = (glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81;
+          const step0 = ((glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81) * (g.scale || 1);   // [§592]
           for (let b = 1; b <= (t.beams || 1); b++) {
             const off = (b - 1) * step0 * (g.dir === 'up' ? -1 : 1);
-            items.push({ k: 'beam', dir: g.dir, group: key + (b > 1 ? '-b' + b : ''), overLeft: true,
+            items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), group: key + (b > 1 ? '-b' + b : ''), overLeft: true,
               tips: [{ t: overLTip.t, dxSs: overLTip.dxSs, ySs: t.ySs + off }, { t: t.t, dxSs: t.dxSs, ySs: t.ySs + off }] });
           }
         } else if (g.lone) {
           // the primary level as a right-pointing stub of the beamlet length
           const t = g.tips[0];
-          items.push({ k: 'beam', dir: g.dir, group: key + '-stub', stub: true,
+          items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), group: key + '-stub', stub: true,
             tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs }, { t: t.t, dxSs: t.dxSs + stubLen, ySs: t.ySs }] });
         } else {
           const tipsP = (overLTip ? [overLTip] : []).concat(g.tips).concat(overTip ? [overTip] : []);
-          items.push({ k: 'beam', dir: g.dir, tips: tipsP, group: key, over: overTip ? true : undefined, overLeft: overLTip ? true : undefined });
+          items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), tips: tipsP, group: key, over: overTip ? true : undefined, overLeft: overLTip ? true : undefined });
         }
         // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
         // notes ARE — at a 16th grid every note is a 16th, so a second beam
@@ -2900,7 +2903,7 @@
         // 8th 8th 16th 16th 8th 8th 16th 16th — the second beam appears
         // only over the 16th pairs, so the beam pattern itself shows the
         // rhythm instead of implying eight even notes.
-        const step = (glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81;
+        const step = ((glyphs.standards.beam && glyphs.standards.beam.stackStep) || 0.81) * (g.scale || 1);   // [§592] the level step at the group's scale
         const maxLvl = Math.max(...g.tips.map(t => t.beams || 1));
         for (let b = 2; b <= maxLvl; b++) {
           const off = (b - 1) * step * (g.dir === 'up' ? -1 : 1);
@@ -2912,7 +2915,7 @@
               // a run that reaches the group's last note carries on over the rest too
               const tail = (overTip && run[run.length - 1] === g.tips[g.tips.length - 1]) ? [overTip] : [];
               const head = (overLTip && run[0] === g.tips[0]) ? [overLTip] : [];
-              items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b,
+              items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), group: key + '-b' + b,
                 tips: head.concat(run).concat(tail).map(t => ({ t: t.t, dxSs: t.dxSs, ySs: t.ySs + off })) });
             } else if (run.length === 1) {
               // A BEAMLET (day 23, composer): a note with no 16th neighbour
@@ -2930,7 +2933,7 @@
               const lastOfGroup = !g.lone && t === g.tips[g.tips.length - 1];   // a lone note closes nothing (day 29)
               const dxA = lastOfGroup ? t.dxSs - stub : t.dxSs;
               const dxB = lastOfGroup ? t.dxSs : t.dxSs + stub;
-              items.push({ k: 'beam', dir: g.dir, group: key + '-b' + b + '-stub', stub: true, inward: lastOfGroup || undefined,
+              items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), group: key + '-b' + b + '-stub', stub: true, inward: lastOfGroup || undefined,
                 tips: [{ t: t.t, dxSs: dxA, ySs: t.ySs + off }, { t: t.t, dxSs: dxB, ySs: t.ySs + off }] });
             }
             run = [];
