@@ -4,7 +4,8 @@
 // Three methods over one part's onsets in a window, each a candidate grid: (A) PHASE COHERENCE — the period whose beat the onsets cluster on
 // (the comb of beat tracking; the phase free); (B) THE GRID FIT — the tuba pages' cluster idea: the subdivision unit whose multiples land
 // nearest the onsets (a 16th of some tempo); (C) THE IOI — the mean and the median inter-onset interval as a pulse.
-//   node tools/tempo_fit.js --ir piece-lgmf --part 0 --from 295 --to 297.31 [--json out.json]
+// (D) THE BETWEEN PHASE (T10, §572): for each shown beat the phase that keeps every note farthest from a beat — the hand to paste.
+//   node tools/tempo_fit.js --ir piece-lgmf --part 0 --from 295 --to 297.31 [--unit 0.108 --every 6] [--json out.json]
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const arg = (n, d) => { const i = process.argv.indexOf('--' + n); return i >= 0 ? process.argv[i + 1] : d; };
@@ -46,5 +47,29 @@ for (const b of bTop) { const slots = on.map(t => Math.round((t - on[0]) / b.u))
 const mean = ioi.reduce((a, b) => a + b) / ioi.length, median = [...ioi].sort((a, b) => a - b)[Math.floor(ioi.length / 2)];
 console.log('\n(C) THE IOI AS A PULSE: mean ' + f3(mean) + ' s = ' + Math.round(60 / mean) + ' bpm (offsets ' + devs(mean, on[0]).map(ms).join(' ') + ') · median ' + f3(median) + ' s = ' + Math.round(60 / median) + ' bpm (offsets ' + devs(median, on[0]).map(ms).join(' ') + ')');
 
+// (D) THE BETWEEN PHASE — T10 (RUNNING_LOG §571 · §572; his LG-149 · LG-150: the beats BETWEEN the notes — the beat orients, it is not
+// played on): for a shown beat, the phase that MAXIMIZES the smallest distance of any onset from a beat, searched continuously over one
+// beat (1 ms steps). Printed as --beatGridFit takes it — an absolute beat time at or before the first onset — with the nearest note's
+// distance (the cap is half a beat) and each note's place as a % of the beat after the line before it. --unit u --every n names a
+// grouping of your own; otherwise every (B) candidate's shown beat. Figure 2's check: u 0.108 · every 6 → a phase near 295.186 (§571).
+const between = beat => {
+  let best = { phi: 0, dmin: -1 };
+  const steps = Math.max(200, Math.round(beat / 0.001));
+  for (let i = 0; i < steps; i++) {
+    const phi = i * beat / steps; let dmin = Infinity;
+    for (const t of on) { const r = (((t - phi) % beat) + beat) % beat; dmin = Math.min(dmin, r, beat - r); }
+    if (dmin > best.dmin) best = { phi, dmin };
+  }
+  const phAbs = on[0] - ((((on[0] - best.phi) % beat) + beat) % beat);     // the beat at or before the first onset
+  const pos = on.map(t => ((((t - phAbs) % beat) + beat) % beat) / beat * 100);
+  return { beat, phase: +phAbs.toFixed(3), dmin: best.dmin, cap: beat / 2, pos };
+};
+const groupings = [];
+if (arg('unit', null) && arg('every', null)) groupings.push({ u: +arg('unit'), g: +arg('every'), from: 'named' });
+else for (const b of bTop) { let g = 1; while (60 / (g * b.u) > MAXBPM) g++; groupings.push({ u: b.u, g, from: 'B' }); }
+const D = groupings.map(gr => Object.assign({ u: gr.u, g: gr.g }, between(gr.u * gr.g)));
+console.log('\n(D) THE BETWEEN PHASE (T10) — for each shown beat, the phase that keeps every note farthest from a beat (the nearest note\'s distance; the cap half a beat; each note\'s place as a % of the beat after its line; the hand as --beatGridFit takes it):');
+for (const d of D) console.log('  beat ' + f3(d.beat) + ' s = ' + Math.round(60 / d.beat) + ' bpm (' + d.g + ' × ' + f3(d.u) + ') · phase ' + f3(d.phase) + ' · nearest ' + ms(d.dmin) + ' ms of ' + ms(d.cap) + ' · at ' + d.pos.map(p => Math.round(p)).join(' ') + ' % · --beatGridFit ' + PART + ':' + d.u + ':' + d.g + ':' + d.phase + ':' + on[0] + ':' + on[N - 1]);
+
 const out = arg('json', null);
-if (out) fs.writeFileSync(out, JSON.stringify({ part: PART, from: T0, to: T1, onsets: ev.map(e => ({ t: e.onset, pitch: nm(e.pitch), midi: e.pitch.midi })), ioi, A: aPeaks.map(p => ({ T: p.T, bpm: 60 / p.T, R: p.R, phase: p.phase, dev: p.dev })), B: bTop.map(b => ({ u: b.u, rms: b.rms, slots: on.map(t => Math.round((t - on[0]) / b.u)), dev: b.d })), C: { mean, median } }, null, 1));
+if (out) fs.writeFileSync(out, JSON.stringify({ part: PART, from: T0, to: T1, onsets: ev.map(e => ({ t: e.onset, pitch: nm(e.pitch), midi: e.pitch.midi })), ioi, A: aPeaks.map(p => ({ T: p.T, bpm: 60 / p.T, R: p.R, phase: p.phase, dev: p.dev })), B: bTop.map(b => ({ u: b.u, rms: b.rms, slots: on.map(t => Math.round((t - on[0]) / b.u)), dev: b.d })), C: { mean, median }, D }, null, 1));

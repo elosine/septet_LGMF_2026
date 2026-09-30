@@ -539,5 +539,10 @@ no rule about WHEN).*
 
 | S13 | **THE BEAT FRAME** (a figure's shown beat, named and locked §572) — not a tempo but an orientation aid beside the cursor (LG-147); **its phase maximizes the notes' distance from the beats** (T10): the tool's candidates (`tools/tempo_fit.js`), drawn over the notes, his pick and phase; ONE LINE PER BEAT, the shown beat the smallest grouping of the fitted unit under `gridMaxBpm` 110 (a soft ceiling, per figure); the grid FITTED to its cluster — 3 beats before, 2 after, never within 0.1 s of the notation before or after (`--beatGridFit`); **the grid his template (§565 · §566): the duration line's blue-grey at its transparency, the main beats only, each a LINE through the staff overhanging 0.4 ss beyond the outer lines; its span two beats past the notes and about two seconds before, rounded to the beat outside (§567); THE BALL — the tuba's GC ball in the same colour, one per beat, in flight only over the grid (§567)** | `objects.tick · subHSs · gridAt · gridBeatsOnly · gridColour · gridOpacity` · `--beatGrid` | §563 · §564 · §565 |
 
-*Open, not yet standards: the grace's f (a dynamic on a grace note — his to keep or drop) · the slur's slope, accidental and dynamic
-collisions, staff-line gaps (recorded in the row, not enforced) · the grace's stem length against the base · the beamed group's max.*
+*Open, not yet standards: the slur's slope, accidental and dynamic collisions, staff-line gaps (recorded in the row, not enforced) · the
+grace's stem length against the base · the beamed group's max · a beamed pair across a wide interval (§573: G3 → A5 sounding, the low
+note's stem 10 ss to reach the high note's beam — his eye) · a lone flagged unit's accent goes BELOW whatever the stem's direction (the
+working page in F, §573: note 6's stem down, its accent under the flag — not the head side; not chased). Closed §573, his: the grace's
+dynamic — mf. In a normal beam (§573): a member's NAME stays on the dynamic row (`dynAboveBeam false` — the beam device's default lifts
+the group's names above the beam, the tuba figures' rule) and its ACCENT is sent to the head side by `articSide` (a beam member hands its
+accent to the group's beam-side row); `noteBeams 1` makes the eighth pair (the device derives 2 levels from a non-ringing technique).*

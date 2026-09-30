@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // THE LOCK ON THE EH'S OPENING FIGURE (RUNNING_LOG §560 — his "let's make sure there's some clamp on that or lock on that so we don't
-// lose our decisions here"): every decision of §547 … §560 on the eight notes at 289 … 294 s of piece-lgmf, asserted from the LAYOUT
+// lose our decisions here"): every decision of §547 … §573 on the first two figures at 289 … 298 s of piece-lgmf (§573: the second figure's values), asserted from the LAYOUT
 // (the same call the app and the shield make). Run after ANY change to the notation's look; a red line names the decision that moved.
 //   node tools/eh_figure_check.js
 const fs = require('fs'), path = require('path');
@@ -44,11 +44,29 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
 // §559 — the second layer's hands
 { const r = items.find(it => it.k === 'rest'); ok(r && r.dur === 4 && near(r.t, 290.2, 1e-6), '(§559) a quarter rest at 290.2');
   const names = [P.p1, P.p2, P.p3, P.p4, P.p5, P.p6, P.p7, P.p8].map(t => { const g = glyphAt(t, /^dyn-/); return g ? g.g.replace('dyn-', '') : '-'; }).join(' ');
-  ok(names === 'pp f - - mp - - -', '(§559) the names: pp · f (the grace) · mp on p5, nothing else — got: ' + names);
+  ok(names === 'pp mf - - mp - - -', '(§559 · §573) the names: pp · mf on the grace (his §573, f before) · mp on p5, nothing else — got: ' + names);
   ok(glyphAt(P.p3, /^artic-accent$/) && glyphAt(P.p6, /^artic-accent$/) && !glyphAt(P.p4, /^artic-/), '(§559) accents on p3 and p6 only');
   const a6 = glyphAt(P.p6, /^artic-accent$/), h6 = glyphAt(P.p6, /^notehead$/); ok(a6 && h6 && a6.ySs > h6.ySs, '(§559) p6\'s accent on the head side, above');
   const tx = items.find(it => it.k === 'text' && it.seq === 'instruction' && Math.abs(it.t - P.p1) < 1e-6), st1 = at('stem', P.p1); ok(tx && st1 && near(tx.ySs, Math.max(3, st1.yB + C.engraving.layout.instructionAbove.gapSs), 0.02), '(§561) the section\'s "ord." ' + C.engraving.layout.instructionAbove.gapSs + ' ss above p1\'s top ink');
   const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - P.p1) < 1e-6); ok(hp && near(hp.t1, 289.25, 1e-6) && hp.dir === 'cresc' && near(hp.ySs, -4.6, 0.01), '(§559) p1\'s crescendo hairpin on the dynamic row to 289.25'); }
+// §573 — the second figure's VALUES (his LG-151): 1 + 2 an eighth pair beamed · 3 + 4 an eighth pair beamed · 5 and 6 single flagged
+// eighths · mf on 1, on the dynamic row (dynAboveBeam false — the section's names stay on the row) · accents on 2 and 6 on the head side
+// (2 sent there by articSide: a beam member hands its accent to the group's beam-side row) · note 3 (A5 sounding, E6 written in F) UNDER
+// the ottava threshold on this page — no sign, the auto rule kept
+{ const F2 = { n1: 295.456, n2: 295.665, n3: 295.974, n4: 296.315, n5: 296.632, n6: 297.306 }, tOf = it => (it.t != null ? it.t : it.t0);
+  const bmAt = t => items.filter(it => it.k === 'beam' && it.tips && it.tips.some(p => Math.abs(p.t - t) < 1e-6));
+  const b12 = bmAt(F2.n1), b34 = bmAt(F2.n3);
+  ok(b12.length === 1 && b12[0].tips.length === 2 && Math.abs(b12[0].tips[1].t - F2.n2) < 1e-6, '(§573) notes 1 + 2 one beam, one level — an eighth pair');
+  ok(b34.length === 1 && b34[0].tips.length === 2 && Math.abs(b34[0].tips[1].t - F2.n4) < 1e-6, '(§573) notes 3 + 4 one beam, one level — an eighth pair');
+  const s = [F2.n1, F2.n2, F2.n3, F2.n4].map(t => at('stem', t));
+  ok(s.every(Boolean) && near(s[0].yB, s[1].yB, 1e-6) && near(s[2].yB, s[3].yB, 1e-6), '(§573) each pair\'s stems reach one beam');
+  [F2.n5, F2.n6].forEach((t, i) => { const st = at('stem', t), fl = glyphAt(t, /^flag-(up|down)8$/); ok(st && fl && !bmAt(t).length, '(§573) note ' + (i + 5) + ' a single flagged eighth'); });
+  const names = Object.values(F2).map(t => { const g = glyphAt(t, /^dyn-/); return g ? g.g.replace('dyn-', '') : '-'; }).join(' ');
+  ok(names === 'mf - - - - -', '(§573) mf on note 1 alone — got: ' + names);
+  const mf = glyphAt(F2.n1, /^dyn-mf$/); ok(mf && near(mf.ySs, -4.6, 0.01), '(§573) the mf on the dynamic row (−4.6), not above the beam');
+  ok(glyphAt(F2.n2, /^artic-accent$/) && glyphAt(F2.n6, /^artic-accent$/) && [F2.n1, F2.n3, F2.n4, F2.n5].every(t => !glyphAt(t, /^artic-/)), '(§573) accents on notes 2 and 6 only');
+  [[F2.n2, 2], [F2.n6, 6]].forEach(([t, k]) => { const a = glyphAt(t, /^artic-accent$/), h = glyphAt(t, /^notehead$/), st = at('stem', t), up = st && st.yB > st.yA; ok(a && h && st && (up ? a.ySs < h.ySs : a.ySs > h.ySs), '(§573) note ' + k + '\'s accent on the head side (stem ' + (up ? 'up → below' : 'down → above') + ')'); });
+  ok(!items.some(it => it.k === 'ottava' && tOf(it) >= 289 && tOf(it) <= 303), '(§573) no ottava on the EH 289 … 303 on this page — note 3 (A5 sounding) under the threshold, the auto rule kept'); }
 // §564 · §565 · §566 — the beat grid he picked for the second figure: a 16th of 0.108 from 295.348, the beat every 3, over 295.348 … 297.4;
 // his template: the beats only, each a line through the staff overhanging 0.4 ss, the duration line's colour and opacity (the render's)
 { const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 293 && it.t <= 299); const beats = ticks.filter(it => it.grid === 'beat');

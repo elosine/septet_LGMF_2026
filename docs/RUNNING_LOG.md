@@ -18788,3 +18788,58 @@ above the line's top to its foot — 33 decisions GREEN. (2) **THE PHASE CRITERI
 the frame orients rather than being played on, the phase MAXIMIZES THE NOTES' DISTANCE FROM THE BEATS. Recorded (T10 in §10); NOT BUILT —
 `tools/tempo_fit.js` proposes the grouping under the max but not yet this phase; it is the next build step on N-4 (the checkpoint's
 appendix phrases it). On figure 2 the locked phase 295.186 keeps every note ≥ 140 ms from a line.
+
+## §573. FIGURE 2'S VALUES BY HAND · THE GRACE'S mf · THE OTTAVA RULE CHECKED · T10 BUILT AND CHECKED · THE NEXT CLUSTER'S CANDIDATES (2026-09-29, Fable, session 18, after the checkpoint-#5 `/postclear`; LG-151)
+
+**What prompted it** — his words whole in LG-151: *"can we change the F on the grace note to MF? … beam the first two as eighth notes and then
+beam the second pair, the third and fourth partials as eighth notes as well … check … that that E partial three isn't meant to have a Ottava.
+That we're maintaining the Ottava auto rules. It's possible that it clears … the fifth and sixth … eighth note flags, just singles. keep the
+dynamic MF on the first one … an accent on the second partial and the sixth one … then go ahead with T10. in preparation for the next
+cluster beginning on two ninety eight point eight."* ("Partials" = the figure's notes in order.)
+
+**The figure** (part 0, sounding): 1 A4 295.456 · 2 A♯3 295.665 · 3 A5 295.974 · 4 G3 296.315 · 5 G♯4 296.632 · 6 F♯4 297.306
+(`wc-3391 · 3393 · 3395 · 3398 · 3399 · 3400`).
+
+**Built — hands on `piece-lgmf`'s build (S12), re-extracted from a scratchpad COPY of Draft 01 (2j's discipline):**
+- the grace `wc-3384`: `dynMark "mf"` (the band's f before).
+- `--beam 295.456-295.665@0` · `--beam 295.974-296.315@0` (`bm-2` · `bm-3`); on each member **`noteBeams 1`** — the beam device derives TWO levels
+  from a technique that does not ring (`beam_choice.js`; `senza_vel` is no ring), one level is the eighth pair; the first member of each `gc false ·
+  goLine false` (S1); `dynMark false` on 2 · 3 · 4 · 5 · 6; 5 and 6 `nhStem "flag8"`; 2 and 6 `nhArtic "accent"`.
+- **The first build put the mf ABOVE the beam** (y 6.02 in C) **and note 2's accent above too** (4.67): a beam member hands its marks to the group's
+  beam-side row (`dynAboveBeam` — the tuba figures' rule, *"dynamics together above the beam"*; `markToGroup` in layout). The AI's calls: the
+  section's names stay on the row (S1 · S9) → **`dynAboveBeam false`** on note 1; the accent to the head side (S10) → **`articSide "below"`** on note 2
+  (1 + 2's stems go up on both pages). The second build: the mf at −4.6 (the row); note 2's accent 1.47 below its head (−5.47); note 6's below (−3.12).
+- **Note 3's ottava, his question:** the fold is `y > 2 + ledgerThreshold 3 = 5` (layout, the nh-unit's own, §502). In C A5 sits on the first ledger
+  (y 3); in F (the working page) E6 written is **y 5.0 exactly — on the threshold, not over it** → no sign on either page; the rule stands as built. The
+  same rule WILL fold the next cluster's first note on the working page (B5 sounding = F♯6 written, 298.815); in C it stays.
+- **The wide pair 3 + 4** (A5 → G3, a 16th and a step): the beam at the high note's flagged height, so the low note's stem is **10.0 ss** in C (in F, stems
+  down, the high note's 10.25). No slanted beam is built. His eye; the alternative two single flags.
+- On the working page (F) note 6's stem is down and its accent went BELOW the flag (−6.05) — a lone flagged unit's chain goes below whatever the stem
+  (the §400 chain); the video page is right. Noted in `temporal_notation.md` §12's open list; not chased.
+
+**The lock** `tools/eh_figure_check.js`: the names line takes the grace's mf; a §573 block — the two beams one level each, each pair's stems to one
+beam, 5 and 6 single flags, mf on 1 alone and on the row, accents on 2 and 6 only and on the head side, no ottava on the EH 289 … 303 on the
+video page — **44 GREEN** (33 before). `check_rules` **32 GREEN** — its one red on HEAD was `docs/ENGRAVING_RULES.md` stale against `rules.json`
+(§572's rows, never regenerated) → `gen_engraving_rules.js` run, the page in this commit. THE SHIELD: `piece-lgmf` alone (21 of 22 identical). The
+screen gate not run — nothing new is drawn (beams · flags · accents · names are existing kinds).
+
+**T10 BUILT — `tools/tempo_fit.js` (D) THE BETWEEN PHASE** (§572): for a shown beat (each (B) candidate's grouping, or `--unit u --every n`) the
+phase, searched over one beat in 1 ms steps, that MAXIMIZES the smallest distance of any onset from a beat; printed as `--beatGridFit` takes it
+(an absolute beat time at or before the first onset) with the nearest note's distance (the cap half a beat) and each note's place as a % of the
+beat after its line — the hand ready to paste.
+- **Checked on figure 2** (`--unit 0.108 --every 6`): the tool's phase **295.172**, the nearest note 153 ms of 324; the notes at 44 · 76 · 24 · 76 ·
+  25 · 29 %. His hand (§571) is 295.186 — **14 ms later**, its nearest 140 ms. The tool agrees with his eye; the IR keeps his 295.186 (no
+  re-extraction without his word).
+
+**The next cluster from 298.815** — run on two windows, the extent his call: the gap after note 4 (299.418 → 300.050) is 0.63 s, inside figure 2's own
+0.67 s gap.
+- **4 notes** (B5 · D5 · G♯5 · E5, 298.815 … 299.418; IOIs 0.132 · 0.192 · 0.279): (B) **u 0.152 rms 14 ms, slots 0 1 2 4 → the shown beat 4 units =
+  0.608 s = 99 bpm** · u 0.117 rms 18 → 6 units = 85 · u 0.102 rms 18 → 6 units = 98 · u 0.185 rms 43 → 4 units = 81. (D): 99 → phase 298.671,
+  nearest 139 ms of 304, at 24 45 77 23 % (`--beatGridFit 0:0.152:4:298.671:298.815:299.418`) · 85 → 298.574, 139 of 353, at 34 53 80 20 % ·
+  98 → 298.664, 139 of 308.
+- **7 notes** (+ G3 300.050 · G4 300.343 · B3 300.695): (B) **u 0.154 rms 17, slots 0 1 2 4 8 10 12 → 4 units = 0.618 s = 97 bpm** · u 0.103 rms 18 →
+  6 units = 97 · u 0.111 rms 23 → 6 units = 90 · u 0.125 rms 24 → 5 units = 96. (D): 97 → 298.661, nearest 139 ms of 309, at 25 46 77 22 25 72 29 %
+  (`--beatGridFit 0:0.1545:4:298.661:298.815:300.695`) · 90 → 298.585, 112 of 333, at 35 54 83 25 20 64 17 %.
+- The AI's reading: both windows agree on the unit (≈ 0.152 s — an 8th at ≈ 197 bpm; the 4-slot beat ≈ 0.61 s), the same family whichever extent he
+  picks; the shown beat lands at 97 … 99 bpm, just under the max 100 (§570) — if that reads fast, 8 units of the same grid = 49 bpm (a line every
+  two). **His pick owed:** the extent (4 or 7) · the grouping · the phase (the tool's, or a hand) — then figure 3's values by hand, S1 … S13 surfaced.

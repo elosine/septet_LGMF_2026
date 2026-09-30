@@ -2953,3 +2953,17 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 ## LG-150 — 2026-09-29 — THE BEAT FRAME: named and locked; the tool's phase maximizes the notes' distance from the beats
 
 *"Okay, so what we have now is good. So let's lock that in and let's call this the beat frame. And I agree with your last statement in the feedback. Uh, for the tool, the phase is to maximize the note's distance from the beats. So add that. as an appendix to the checkpoint. Uh, I'll clear next."* (the composer, 2026-09-29, Opus, after checkpoint #5 — RUNNING_LOG §572)
+
+## LG-151 — 2026-09-29 — the grace's dynamic mf; the second figure's VALUES (eighth pairs beamed, singles flagged, mf, two accents); the ottava rule checked; then T10 for the cluster at 298.8
+
+*His words, after the `/postclear` (session 18, Fable):* "Let's finish up this passage and a few things for the previous one, and then we'll go
+ahead with T10. in the first phrase, can we change the F on the grace note to MF? in the second cluster, starting around 295, let's beam the
+first two as eighth notes and then beam the second pair, the third and fourth partials as eighth notes as well. Let me just check in and see
+that that E partial three isn't meant to have a Ottava. That we're maintaining the Ottava auto rules. It's possible that it clears. And then
+the fifth and sixth partials there. Let's have them be eighth note flags, just singles. keep the dynamic MF on the first one and then let's
+get an accent on the second partial and the sixth one. So please make those changes and then go ahead with T10. in preparation for the next
+cluster beginning on two ninety eight point eight."
+
+*The AI's reading (marked as such):* "partials" here are the figure's notes in order (1 … 6), not harmonic partials. The values are
+values-as-pace (T8): two eighth pairs, two single eighths — the beam count a speed class, no count. The build and its numbers: RUNNING_LOG
+§573.

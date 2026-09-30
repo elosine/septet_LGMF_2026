@@ -266,6 +266,15 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   that maximizes the smallest distance of any onset from a beat, print it beside the grid candidates (with each note's position as a % of
   a beat), and check it on figure 2 (expect a phase near 295.186; report, never re-extract without his word) — then the next figure by the
   same process (candidates → his eye → his pick → a `--beatGridFit` hand), the standards S1 … S13 surfaced. Resume on Fable.
+- **§573 (2026-09-29, Fable, after the `/postclear`; LG-151) — DONE:** figure 2's VALUES by hand (1+2 · 3+4 eighth pairs beamed with `noteBeams 1`,
+  5 · 6 single flagged eighths, mf on 1 on the row — `dynAboveBeam false`, accents on 2 and 6 on the head side — `articSide "below"` on 2) · the
+  grace's f → mf · note 3's ottava checked (A5 sounding / E6 written ON the threshold — clears; the auto rule kept, it folds the next cluster's
+  B5 on the working page) · **T10 BUILT** — `tools/tempo_fit.js` (D) THE BETWEEN PHASE (`--unit u --every n`, or every (B) candidate; the hand
+  printed ready to paste); on figure 2 the tool says 295.172, his hand 295.186 (14 ms; the IR keeps his) · run on the cluster at 298.815 — the
+  candidates in §573 (4 notes to 299.418 or 7 to 300.695; the unit ≈ 0.152 s either way; the shown beat 97 … 99 bpm at the cap 100, or 8 units
+  ≈ 49). The lock 44 GREEN · `check_rules` 32 (ENGRAVING_RULES.md regenerated — stale on HEAD) · the shield `piece-lgmf` alone. **► HIS EYE**
+  (reload → `piece-lgmf` → `295` · `291.4`) **and HIS PICK for the next cluster: the extent · the grouping · the phase** (the tool's or a hand);
+  then figure 3's values by hand, S1 … S13 surfaced. His eye: the wide pair 3 + 4 (the low stem 10 ss to the high note's beam — or two flags).
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
@@ -452,7 +461,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **SESSION 18 · CHECKPOINT #5 + APPENDIX — THE BEAT FRAME taken and locked (§572); BUILD T10 in `tools/tempo_fit.js`** (the phase that maximizes the notes' distance from the beats, printed beside the candidates, checked on figure 2 near 295.186); then the next figure by the same process (the standards S1 … S13, `temporal_notation.md` §12 — surface them) | Fable | yes — `/postclear` on Fable |
+| **►►►►** | **§573 — FIGURE 2's VALUES IN, T10 BUILT (2026-09-29, Fable; the bullet under checkpoint #5's appendix): ► HIS EYE (reload → `piece-lgmf` → `295` · `291.4`) and HIS PICK for the cluster at 298.815** — the extent (4 notes to 299.418 or 7 to 300.695) · the grouping (≈ 97 … 99 bpm at the cap, or 8 units ≈ 49) · the phase (the tool's `--beatGridFit` line in §573, or a hand); then figure 3's values by hand (the standards S1 … S13, `temporal_notation.md` §12 — surface them) | Fable | no — the same task |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
