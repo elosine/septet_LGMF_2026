@@ -903,8 +903,8 @@
    "opacity": "@objects.ringBar.opacity",
    "look": { "ballRadiusPx": 5, "impactInsetPx": 0, "heightInsetPx": 10, "frameHeightPx": 1080 },
    "overhangSs": "@objects.tick.gridOverhangSs",
-   "land": "laneBottom",
-   "_landNote": "§568 (2026-09-29, his 'ball should land at the bottom'): laneBottom — the tuba's own geometry, the lane's bottom edge and the whole lane's height; 'lineTop' the other value (§567's landing on the grid line's top)",
+   "land": "lineBottom",
+   "_landNote": "§570 (2026-09-29, his 'not the bottom of the lane, but the bottom of the line … the ball should bounce from the top of the line to the bottom of the line'): lineBottom — the impact at the grid line's foot, the drop the line's height (4.8 ss); 'laneBottom' the tuba's own geometry (the lane's bottom edge, the whole lane's height — what piece #4's GC ball does, its multitempo ball included); 'lineTop' §567's",
    "_note": "§567 (2026-09-29, his 'put in the bouncing ball from the tuba, that size and that same bounce, but use the gray blue of the lines and the same transparency … only on for the lines that are showing'): the GC's preset and look (the same physics, the same 5 px ball), the duration line's colour at its opacity; one instance per beat of a beatGrid overlay with duration = the beat, so the ball is always in flight over the grid and nowhere else; it lands on the TOP of each grid line and bounces the room from there to the lane top (the AI's landing — the GC lands at the lane's bottom — his to reverse)"
   },
   "curveFollower": {

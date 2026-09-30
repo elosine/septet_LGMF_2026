@@ -18735,3 +18735,18 @@ A5 ON · G3 on the half · G♯4 ON · F♯4 ON. The ball: 8, each 0.648 long.
 
 `check_rules` 32 · the shield `piece-lgmf` alone · the lock 30 (the fitted grid, the balls, the notes on beats and half-beats) · the screen
 gate PASS. **► His eye:** reload → play from `293.5`.
+
+## §570. THE MAX 100; THE BALL FROM THE LINE'S TOP TO ITS BOTTOM; THE PERFORMANCE NOTE ON ONSET ACCURACY (2026-09-29, Fable, session 18; N-4)
+
+**Prompted by:** LG-148.
+
+**What the tuba piece does (read in `notation/lib/gc.js` — piece #1's GC whole, piece #4's multitempo balls included, its log 13652 "single
+bouncing ball at beats"):** the ball falls the WHOLE LANE — the impact at the lane's bottom edge, the drop the lane's height less 10 px. Not
+the line: piece #4's pages had no grid line under the ball, only the GC's impact disc. His memory was of the bounce, not the span.
+
+**Applied:** `gridMaxBpm` **100** (93 stands here) · the lead **2** beats and the tail **1** (his second message: *"just two lines before rather
+than the current three, and just one line after rather than the two"*) — the grid now 7 lines, 294.052 … 297.940 · the ball lands at the grid LINE's foot and drops the line's height, 4.8 ss
+(`engraving.animated.beatBall.land` 'lineBottom'; 'laneBottom' the tuba's, 'lineTop' §567's, both kept as values) · **PERFORMANCE_NOTES #19**
+in his words' sense: the shown beat an aid to ONSET accuracy in the micro counterpoint, not a tempo; the head's left edge is its time; just
+left of a line = just before the beat, just right = just after, on = on. `check_rules` 32 · the lock 30 (unchanged numbers). **► His eye:**
+reload → play from `293.5`.

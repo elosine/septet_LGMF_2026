@@ -112,10 +112,12 @@
     const frac = GC.heightFrac(P, t - inst.at);
     if (frac === null) return [];
     const G = GC.laneGeom(s, view, st.look);
-    // [§568] the landing: 'laneBottom' (his word — the tuba's own geometry: the lane's bottom, the whole lane's height) or 'lineTop'
+    // [§568 · §570] the landing: 'lineBottom' (his word, §570 — the ball bounces from the grid line's TOP to its BOTTOM: the impact at the
+    // line's foot, the drop the line's height) · 'laneBottom' (the tuba's own geometry: the lane's bottom, the whole lane's height) · 'lineTop'
     const STAFF_HALF = 2, over = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
-    const lineTop = st.land === 'lineTop';
-    const impactY = lineTop ? s.yOfSs(STAFF_HALF + over) : G.impactY, h = lineTop ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : G.h;
+    const land = st.land || 'lineBottom';
+    const impactY = land === 'lineTop' ? s.yOfSs(STAFF_HALF + over) : land === 'lineBottom' ? s.yOfSs(-STAFF_HALF - over) : G.impactY;
+    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (2 * STAFF_HALF + 2 * over) * s.ssPx : G.h;
     const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
     return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
       '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
