@@ -3375,3 +3375,10 @@ note's band name from its velocity, shown on every note for his eye. The short n
 *The AI's reading (marked as such):* "partial" here = a note of the beamed pair, not a harmonic partial. The pattern across the three pairs — a
 name on the first note, none on the second — matches S9 (dynamics thinned to the phrase) and the bassoon's pair (§618); three of three so far,
 not yet called a rule. RUNNING_LOG §624.
+
+## LG-199 — 2026-09-30 — the trumpet begun: GCs, the five at 344.1 beamed 3 + 2 with a tempo frame over them and the GC at 343.1, a beamed pair with a GC at 385.95
+
+*His words (session 18, Fable):* "Then trumpet, GC at 302.09. Both the partials at 322.34 and then the next one after those two at 325.26. Two at 341.38. the five at 344.1, the first three sixteenths beamed, the sec, the last two sixteenths beamed. And then can you give me some tempo frame? Uh, possibilities there. Actually include, still make it a GC, but in the tempo frame, include the one for 343.1. Then at 375.9, those three all GCs, as well as the one at 380.2. GCs for the two starting at 384.64, at 385.9, those two should be beamed sixteenths, and a GC on the first one at 385.95. 387.7 is a GC."
+
+*The AI's reading (marked as such):* a first — a ONE-OFF (a GC unit with its go line) standing INSIDE a beat frame: the 343.1 GC is a member of
+the frame's onsets, so the frame's lines begin before a cue, not only before plain notes. "Partials" again = notes. RUNNING_LOG §625.
