@@ -3019,3 +3019,11 @@ vibraphones so that there's some visual that it's a new or potentially a new tem
 
 *The AI's reading (marked as such):* a part's frames in time order alternate navy · olive · navy …, the lines and the ball of a frame the same
 colour, the opacity unchanged; the build in RUNNING_LOG §578.
+
+## LG-157 — 2026-09-29 — the third figure's frame, his third pick: the purple 86, a quarter beat to the right, notes 2 and 6 on the beat
+
+*His words (session 18, Fable):* "lets try c 86 purple and move 1/4 beat to the right so that p2 is ~onbeat and p6 ~onbeat"
+
+*The AI's reading (marked as such):* the purple candidate (86 bpm, the beat 0.699 s = 6 × 0.1165) at the tool's between phase 298.133 shifted
+a quarter beat LATER: 298.308 — note 2 (298.947) and note 6 (300.343) each land ≈ 60 ms before a line, the others between. A frame chosen
+for two notes ON the beat, the rest between: the beat-frame principle bent by hand, his call (T9's "orientation aid"). The build: RUNNING_LOG §579.

@@ -98,14 +98,20 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
 // 6 × 0.1165 = 0.699 s on the phase 298.133 (notes 1 · 2 free of the objective, S15), fitted to the seven notes 298.815 … 300.695 by the
 // frame's clamps; the template figure 2's (S13)
 // §576 — his second pick, "lets try 90 orange machine phase": the orange candidate, 6 × 0.111 = 0.666 s on the tool's phase 298.216
-{ const beat = 6 * 0.111, ph = 298.216, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 301.5);
+// §579 — his third, "lets try c 86 purple and move 1/4 beat to the right so that p2 is ~onbeat and p6 ~onbeat": 6 × 0.1165 = 0.699 s on
+// 298.133 + a quarter beat = 298.308 — notes 2 and 6 each ≈ 60 ms before a line, the others between
+// §580 — his "so lets move those 61 ms over to be on beat": the phase 298.247 — notes 2 and 6 ON their lines (1 ms), the rest between
+{ const beat = 6 * 0.1165, ph = 298.247, g = items.filter(it => it.k === 'tick' && it.grid === 'beat' && it.t >= 298 && it.t <= 301.5);
   const ref = items.find(it => it.k === 'tick' && it.grid === 'beat' && it.t > 294 && it.t < 298);
-  ok(g.length >= 4 && g.every(b => near((b.t - ph) / beat - Math.round((b.t - ph) / beat), 0, 1e-3)), '(§576) the third figure\'s grid: one line per beat at 90 bpm (0.666 s) on the phase 298.216 — ' + g.length + ' lines' + (g.length ? ' ' + g[0].t.toFixed(3) + ' … ' + g[g.length - 1].t.toFixed(3) : ''));
+  ok(g.length >= 4 && g.every(b => near((b.t - ph) / beat - Math.round((b.t - ph) / beat), 0, 1e-3)), '(§580) the third figure\'s grid: one line per beat at 86 bpm (0.699 s) on the phase 298.247 (notes 2 and 6 on their lines) — ' + g.length + ' lines' + (g.length ? ' ' + g[0].t.toFixed(3) + ' … ' + g[g.length - 1].t.toFixed(3) : ''));
   ok(ref && g.every(b => near(b.ySs, ref.ySs, 1e-6) && near(b.hSs, ref.hSs, 1e-6)), '(§575) each line the beat frame\'s (figure 2\'s geometry through the staff)');
   ok(g.length && g[0].t < 298.815 && g[g.length - 1].t > 300.695 && g[0].t > 297.375 + 0.1 - 1e-6 && g[g.length - 1].t < 301.556 - 0.1 + 1e-6, '(§575) the frame spans the seven notes, 0.1 s clear of the notation before (ends 297.375) and after (301.556)');
   let balls = null; try { balls = require(path.join(ROOT, 'notation', 'lib', 'animobj.js')).collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall' && a.at >= 298 && a.at <= 301.5); } catch (e) { balls = null; }
-  ok(balls && balls.length === g.length && g.every(b => balls.some(x => near(x.at, b.t, 1e-6))) && balls.every(b => b.preset && near(b.preset.duration, beat, 1e-6)), '(§576) one ball per line, each a beat long (0.666)' + (balls ? '' : ' — collect threw'));
-  const far = [299.139, 299.418, 300.050, 300.343, 300.695].map(t => Math.min(...g.map(b => Math.abs(b.t - t)))); ok(g.length && Math.min(...far) >= 0.11, '(§575) the last five notes each ≥ 0.11 s from any line, the first two free (nearest ' + (g.length ? Math.round(Math.min(...far) * 1000) : '-') + ' ms)'); }
+  ok(balls && balls.length === g.length && g.every(b => balls.some(x => near(x.at, b.t, 1e-6))) && balls.every(b => b.preset && near(b.preset.duration, beat, 1e-6)), '(§579) one ball per line, each a beat long (0.699)' + (balls ? '' : ' — collect threw'));
+  const near1 = t => g.length ? Math.min(...g.map(b => Math.abs(b.t - t))) : Infinity;
+  const on = [298.947, 300.343].map(near1), between = [299.139, 299.418, 300.050, 300.695].map(near1);
+  ok(g.length && Math.max(...on) <= 0.005, '(§580) notes 2 and 6 ON their lines, his word (' + on.map(x => Math.round(x * 1000)).join(' · ') + ' ms off)');
+  ok(g.length && Math.min(...between) >= 0.11, '(§579) notes 3 · 4 · 5 · 7 between the lines, ≥ 0.11 s from any (nearest ' + (g.length ? Math.round(Math.min(...between) * 1000) : '-') + ' ms)'); }
 // §572 — THE BEAT FRAME, named and locked at his word (LG-150): the template every figure takes, asserted from the compiled tables
 { const RR = require(path.join(ROOT, "notation", "lib", "rules.js")).loadRules(ROOT).objects, T = RR.tick, BB = C.animated.beatBall || {}, BG = C.engraving.layout.beatGrid || {};
   ok(T.gridMaxBpm === 100 && T.gridLeadBeats === 1 && T.gridTailBeats === 1 && T.gridClampGapS === 0.1, "(§572) the beat frame: the max 100 bpm, one line before the figure, one after, 0.1 s clear of the neighbours");

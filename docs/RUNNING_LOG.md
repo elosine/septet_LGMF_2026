@@ -18972,3 +18972,32 @@ start and stamps every grid line with its frame's index and colour (`frame` · `
 when none); animobj's collect gives every ball its frame's index and the draw picks `st.colours[frame % 2]`. The opacity unchanged (0.3).
 **On the page:** figure 2's frame (6 lines, 6 balls) navy · figure 3's (5 · 5) olive; the next frame navy again. S19. The lock unchanged in
 count; `check_rules` 32; the shield `piece-lgmf` alone.
+
+## §579. THE THIRD FIGURE'S FRAME, HIS THIRD PICK — the purple 86, a quarter beat to the right: notes 2 and 6 on the beat (2026-09-29, Fable, session 18; LG-157)
+
+**What prompted it** — *"lets try c 86 purple and move 1/4 beat to the right so that p2 is ~onbeat and p6 ~onbeat"* (LG-157), after the orange 90
+(§576) on his page.
+
+**The hand:** the purple candidate — the beat 0.699 s = 6 × 0.1165 — at the tool's between phase 298.133 shifted a quarter beat LATER: 298.133 +
+0.175 = **298.308**; `--beatGridFit 0:0.1165:6:298.308:298.815:300.695`. The clamps: the lead beat (297.609) within 0.1 s of figure 2's frame end
+(297.779) → dropped; the tail beat (301.104) 0.45 s before the burst → kept. **Five lines 298.308 · 299.007 · 299.706 · 300.405 · 301.104, five
+balls, olive** (the second frame, S19). **The notes:** 2 (298.947) 60 ms before a line, 6 (300.343) 62 ms before — his "~onbeat", a hair early
+on both; 3 · 4 · 5 · 7 between the lines (the nearest 132 ms); 1 free. An exact on-beat for both would be the phase 298.248 (2 ms apart) —
+offered, not taken.
+
+**The principle bent by hand, his call:** the beat frame's T10 phase keeps every note OFF the beats (§571 · §572); here two notes are put ON
+them and the rest between — the frame as an orientation aid, with two anchors. The lock's §575 block re-pointed: notes 2 and 6 within 0.1 s
+of a line, 3 · 4 · 5 · 7 ≥ 0.11 s from any — **74 GREEN**. `check_rules` 32 (the rules page regenerated). The shield: `piece-lgmf` alone.
+► His eye: reload → `298.5`. Then the next figure, from 302.1.
+
+## §580. THE THIRD FIGURE'S FRAME — notes 2 and 6 exactly on the beat (2026-09-29, Fable, session 18; LG-158)
+
+**What prompted it** — on §579's 60 · 62 ms: *"so lets move those 61 ms over to be on beat"* (LG-158).
+
+**The hand:** the phase 298.308 − 0.061 = **298.247** (`--beatGridFit 0:0.1165:6:298.247:298.815:300.695`). Note 2 (298.947) and note 6 (300.343)
+are two beats of 0.699 apart to within 2 ms, so one phase puts both on a line: 1 ms each. **Five lines 298.247 · 298.946 · 299.645 · 300.344 ·
+301.043, five balls, olive**; the lead beat dropped by figure 2's frame end (297.779 + 0.1), the tail beat (301.742) by the burst. Notes 3 · 4 ·
+5 · 7 between the lines (the nearest 132 ms), note 1 free.
+
+**The lock** re-pointed (the phase; notes 2 and 6 within 5 ms of a line): **74 GREEN**. `check_rules` 32 (the rules page regenerated). The
+shield: `piece-lgmf` alone. ► His eye: reload → `298.5`. Then the next figure, from 302.1.
