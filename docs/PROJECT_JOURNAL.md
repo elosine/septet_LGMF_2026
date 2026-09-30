@@ -217,6 +217,50 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
+### SESSION 18 · CHECKPOINT #7 (mid-session checkpoint, 2026-09-30, Fable) — THE EH'S SECTION 2 FROM 317 TO 380 BY HAND; THE APP'S VIDEO PAGE IN C; THE GRACE FAMILY'S RULES; ► HIS PICK FOR THE 376 FRAME, HIS DYNAMICS, THE LOCK'S BLOCKS
+
+- **The task:** the practical for the EH's section 2, figure by figure — hands on the notes (LG-129), the rules his eye finds missing built as
+  RULES (his §577 word). Built and pushed §584 … §604 (RUNNING_LOG; LG-162 … LG-178), one commit each:
+  - **THE APP'S VIDEO PAGE IN C** (§585 · §587): his eye found the page in F — the in-C decision (§336) had reached only the exports and the
+    checks; now the video · zoom views lay out on the realized ensemble, the ⚙ views keep the registry's F.
+  - **the figures:** 317 (twelve notes; the frame the red 91 one unit forward at 317.048, the lead beat kept; the values §590; dots on 2+3
+    §603) · 324.6 (six beamed graces under a slur, RAGGED STEMMING, the GC style 2 on 7, mp with a hairpin to 6, dots on 7+8) · 337 (a grace
+    slurred to 2, the slur 1.4 by hand; f · — · ff) · 340.1 (three grace-and-note pairs; 6+7 a 16th to an eighth; the frame the purple 93 at
+    340.061, olive) · 342.65 (grace → 16th pairs; the 344.2 ragged group of FIVE, stems down) · 345.3 (a 16th, two beamed graces slurred) · the
+    names thinned over 340 … 346 (f · mf · f · mp; the accent at 343.12) · **375.77** (1-3 · 4-7 beamed 16ths, 8 alone — names SHOWN) · **379.88**
+    (five beamed 16ths, dots on 1-3, tenutos on 4-5 — names SHOWN). His save at 389.8 (D6 → D5) carried.
+  - **the rules, in `temporal_notation.md` §12:** S20 the hairpin into a name · S21 a plain note is a struck note (no meter) · S22 the grace
+    group's beam at the heads' scale, the stroke at the beam's corner slid 0.5 and balanced · S23 the GC style 2 (the beat ball's flight, the
+    aperture 0.7; `objects.gc.styles`) · S8a ragged stemming, the stubs 2 ss the standard, the stroke by the beam's side · S6 a grace's stem
+    follows its parent, the stroke mirrors with the stem (read from his LilyPond) · S7 a slur never under 1 · S10 a stem-down lone note's
+    accent above; the tenuto glyph · the flag-clear max 10.5.
+  - **the tools:** `tempo_fit --html` (the canvas as wide as the figure, the lengths as bars) · **`tools/reextract.js`** — the runner (its
+    header is the manual: re-runs `provenance.build` on a fresh copy of his save, appends args, `@replace:old=>new` swaps one).
+- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build in `provenance.build` (the hands of every figure; the frames
+  `--beatGridFit` × 4: 295 · 298 · 317 keepLead · 340). `check_rules` 32 (regenerate `ENGRAVING_RULES.md` FIRST) · the lock
+  `tools/eh_figure_check.js` **106** (figures 1 … 4, the 317 frame, the 324.6 figure, every slurred grace vs its parent) · the shield
+  `piece-lgmf` alone (`layout_shield --write` on HEAD FIRST — the baseline dies with the scratchpad). The pictures
+  `notation/research/tempo_candidates_eh_{317,340,376}.html`.
+- **► The next concrete step — HIS PICK, ask first:** he opens `http://localhost:5400/notation/research/tempo_candidates_eh_376.html` and
+  names the 376 frame (the extent · the grouping · the phase) → `node tools/reextract.js "" --beatGridFit 0:<unit>:<every>:<phase>:375.859:380.797`
+  (the picture's own line) → `node tools/gen_engraving_rules.js` → `check_rules` → `eh_figure_check` → the shield → commit (a §605, LG-179).
+  Then HIS DYNAMICS on 375.77 · 379.88 (hands `dynMark` / `false`), then THE LOCK'S BLOCKS for 337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 and
+  the 340 frame (the §589 · §590 block's pattern in `tools/eh_figure_check.js`), then the next figure after 380.8
+  (`node tools/tempo_fit.js --part 0 --from … --to … --html notation/research/tempo_candidates_eh_<t>.html` → the link → his pick → the values by hand).
+- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S23 — surface them at each figure) · `tools/reextract.js`'s header.
+  Nothing else beyond §2. A rules change: the row in `notation/registry/rules.json` via `docs/ENGRAVING_RULES.md` (a NEW field needs its
+  pointer in `container.json`'s layout block, §600).
+- **Pending him:** the 376 frame · his dynamics at 375.77 · 379.88 · the names flipped ABOVE the beam-below groups (344.2 · 375.77 · 380.555)
+  by the side-with-room rule — reads? · a slur over the 344.2 group · the sound side: take-notes without Rule 5's pin (`wc-3454` · `3459` +
+  15 more in section 2) · the audio render (Draft 01's) · the AI's calls: the 8 graces' slurs into their notes at 340.1 · 342.65 (classical),
+  the 344.2 group without a slur, the tenuto's width the head's.
+- **Deliberately uncommitted — the same 29 paths as checkpoint #6, all his, untouched** (`git status --short`: 5 modified + 24 untracked): his
+  actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries autosaved by his
+  tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his passage
+  `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
+  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
+  (his tab's save — every extraction reads a COPY). Resume on Fable.
+
 ### SESSION 18 · CHECKPOINT #6 (mid-session checkpoint, 2026-09-29, Fable) — FIGURES 2 · 3 · 4 OF THE EH'S SECTION 2 IN; T10 AND THE PICTURE; THE COLUMN PASS, THE SPAN RULE, THE FRAMES AS BANDS IN TWO COLOURS; ► HIS EYE, THEN THE NEXT FIGURE FROM 302.1
 
 - **The task:** the practical for the EH's section 2, figure by figure, bespoke — hands on the notes, not rules (LG-129) — with the RULES his
@@ -643,7 +687,8 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **SESSION 18 · CHECKPOINT #6 — figures 2 · 3 · 4 in, T10 + the picture, the span rule · the column pass · the frames as bands in two colours (§573 … §583; the block above): ► HIS EYE (reload → `piece-lgmf` → `301.5` · `298.5`); then THE NEXT FIGURE — HIS CHOICE 316.8 … 323.14 (§584 the candidates + the picture; §585 · §587 the app's video page now in C; §589 THE FRAME IN at his pick; §590 THE VALUES at his dictation + S20 · S21; §591 p10's max 10.5 + THE FIGURE AT 324.6; §592 the grace beam scaled (S22) · the GC at the beat ball's height (S23) · the figure's slur and names; §593 the GC's aperture 70 % · ragged stemming on the graces (S8a); §594 the stroke's orientation by the beam side · GC style 2 registered; §595 the stubs compared · THE FIGURE AT 337; §596 the lead beat back · the stubs 2 ss the standard · the 337 slur 1.4 + names · THE FIGURE AT 340.1; §597 a grace's stem with its parent · the slur talk · 343.12 read · THE FIGURE AT 342.65; §598 the 344.2 group of five; §599 his 343.12 change carried; §600 the slur minimum · the names thinned · the accent on the head side · THE FIGURE AT 345.3; §601 the slash at the beam's corner · the 345.6 pair slurred · THE CANDIDATES 339.9 … 345.9; §602 THE FRAME AT 340 (the purple 93) · the stroke slid · the stroke mirrors with the stem (LilyPond); §603 the dots · the stroke halfway; §604 the stroke balanced · his save carried · THE FIGURE AT 375.77 · THE FIVE AT 379.88 (tenutos) · THE CANDIDATES 375.7 … 380.8 — he reloads → `345.5` · `375.8` · `380`; HIS PICK for the 376 frame, his dynamics) — his decisions note by note, the standards S1 … S19 (`temporal_notation.md` §12) surfaced** | Fable | no — the same task |
+| **►►►►** | **SESSION 18 · CHECKPOINT #7 — the EH's section 2 from 317 to 380 by hand, the app's video page in C, the grace family's rules (§584 … §604; the block above): ► HIS PICK for the 376 frame (the picture `tempo_candidates_eh_376.html` → `node tools/reextract.js "" --beatGridFit …`), his dynamics on 375.77 · 379.88, the lock's blocks, then the next figure after 380.8** | Fable | no — the same task |
+| **►►►** | **SESSION 18 · CHECKPOINT #6 — figures 2 · 3 · 4 in, T10 + the picture, the span rule · the column pass · the frames as bands in two colours (§573 … §583; the block above): ► HIS EYE (reload → `piece-lgmf` → `301.5` · `298.5`); then THE NEXT FIGURE — HIS CHOICE 316.8 … 323.14 (§584 the candidates + the picture; §585 · §587 the app's video page now in C; §589 THE FRAME IN at his pick; §590 THE VALUES at his dictation + S20 · S21; §591 p10's max 10.5 + THE FIGURE AT 324.6; §592 the grace beam scaled (S22) · the GC at the beat ball's height (S23) · the figure's slur and names; §593 the GC's aperture 70 % · ragged stemming on the graces (S8a); §594 the stroke's orientation by the beam side · GC style 2 registered; §595 the stubs compared · THE FIGURE AT 337; §596 the lead beat back · the stubs 2 ss the standard · the 337 slur 1.4 + names · THE FIGURE AT 340.1; §597 a grace's stem with its parent · the slur talk · 343.12 read · THE FIGURE AT 342.65; §598 the 344.2 group of five; §599 his 343.12 change carried; §600 the slur minimum · the names thinned · the accent on the head side · THE FIGURE AT 345.3; §601 the slash at the beam's corner · the 345.6 pair slurred · THE CANDIDATES 339.9 … 345.9; §602 THE FRAME AT 340 (the purple 93) · the stroke slid · the stroke mirrors with the stem (LilyPond); §603 the dots · the stroke halfway; §604 the stroke balanced · his save carried · THE FIGURE AT 375.77 · THE FIVE AT 379.88 (tenutos) · THE CANDIDATES 375.7 … 380.8 — he reloads → `345.5` · `375.8` · `380`; HIS PICK for the 376 frame, his dynamics) — his decisions note by note, the standards S1 … S19 (`temporal_notation.md` §12) surfaced** | Fable | no — the same task |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
