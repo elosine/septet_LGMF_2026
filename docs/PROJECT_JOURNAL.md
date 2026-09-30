@@ -259,6 +259,13 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
   `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
   (his tab's save — every extraction reads a COPY). `notation/ir/index.json` (the picker label, the extractor's) committed with this checkpoint.
+- **APPENDIX — his word after the checkpoint (LG-150, §572):** *"what we have now is good … lock that in … call this the beat frame"* —
+  figure 2's shown beat is **THE BEAT FRAME** (T9), locked: `tools/eh_figure_check.js` asserts its template too (33 GREEN). **The tool's
+  phase MAXIMIZES THE NOTES' DISTANCE FROM THE BEATS** (T10, his agreement with §571). So **his eye on figure 2 is TAKEN** — the next
+  concrete step becomes: **build T10 into `tools/tempo_fit.js`** — for the chosen grouping, search the phase (continuous, over one beat)
+  that maximizes the smallest distance of any onset from a beat, print it beside the grid candidates (with each note's position as a % of
+  a beat), and check it on figure 2 (expect a phase near 295.186; report, never re-extract without his word) — then the next figure by the
+  same process (candidates → his eye → his pick → a `--beatGridFit` hand), the standards S1 … S13 surfaced. Resume on Fable.
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
@@ -445,7 +452,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **SESSION 18 · CHECKPOINT #5 — HIS EYE on figure 2's shown beat** (reload → `piece-lgmf` → play from `294`: the between-beats phase, the ball from higher, one line before); then the next figure by the same process (the standards S1 … S13, `temporal_notation.md` §12 — surface them) | Fable | yes — `/postclear` on Fable |
+| **►►►►** | **SESSION 18 · CHECKPOINT #5 + APPENDIX — THE BEAT FRAME taken and locked (§572); BUILD T10 in `tools/tempo_fit.js`** (the phase that maximizes the notes' distance from the beats, printed beside the candidates, checked on figure 2 near 295.186); then the next figure by the same process (the standards S1 … S13, `temporal_notation.md` §12 — surface them) | Fable | yes — `/postclear` on Fable |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |

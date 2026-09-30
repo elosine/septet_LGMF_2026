@@ -59,5 +59,10 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   let balls = null; try { balls = AnimObj.collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall'); } catch (e) { balls = null; }
   ok(balls && balls.length === 6 && balls.every(b => b.preset && near(b.preset.duration, 0.648, 1e-6)) && beats.every(b => balls.some(x => near(x.at, b.t, 1e-6))), '(§567 · §569) the beat ball: one ball per grid beat (6), each a beat long (0.648), on only over the grid' + (balls ? '' : ' — collect threw'));
   const gapMin = Math.min(...[295.456, 295.665, 295.974, 296.315, 296.632, 297.306].map(t => Math.min(...beats.map(b => Math.abs(b.t - t))))); ok(gapMin >= 0.13, '(§571) every note at least 0.13 s from any beat — between the beats, none just before or after (nearest ' + Math.round(gapMin * 1000) + ' ms)'); }
+// §572 — THE BEAT FRAME, named and locked at his word (LG-150): the template every figure takes, asserted from the compiled tables
+{ const RR = require(path.join(ROOT, "notation", "lib", "rules.js")).loadRules(ROOT).objects, T = RR.tick, BB = C.animated.beatBall || {}, BG = C.engraving.layout.beatGrid || {};
+  ok(T.gridMaxBpm === 100 && T.gridLeadBeats === 1 && T.gridTailBeats === 1 && T.gridClampGapS === 0.1, "(§572) the beat frame: the max 100 bpm, one line before the figure, one after, 0.1 s clear of the neighbours");
+  ok(BG.at === "staff" && BG.overhangSs === 0.4 && BG.beatsOnly === true, "(§572) the beat frame: one line per beat, through the staff, 0.4 ss beyond each outer line");
+  ok(BB.enabled !== false && BB.land === "lineBottom" && BB.riseSs === 2 && BB.opacity === RR.ringBar.opacity && BB.look && BB.look.ballRadiusPx === 5 && JSON.stringify(BB.preset) === JSON.stringify(C.animated.gc.preset), "(§572) the beat frame ball: the tuba GC ball (its preset, 5 px), the duration line opacity, from 2 ss above the line top to its foot"); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

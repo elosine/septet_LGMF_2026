@@ -18777,3 +18777,14 @@ worth a fourth option in `tempo_fit.js` when N-4 is built out. (5) The limit of 
 (the first figure's eighths) is better served on-beat; the choice per figure, as he said of the tempo.
 
 `check_rules` 32 · the shield `piece-lgmf` alone · the lock 30. **► His eye:** reload → play from `294`.
+
+## §572. THE BEAT FRAME — named and locked; the phase criterion for the tool (2026-09-29, Opus, session 18, after checkpoint #5)
+
+**Prompted by:** LG-150. **Decided (his):** (1) the shown beat as it now stands on figure 2 is **THE BEAT FRAME** — the device's name from
+here on (A7 in `temporal_notation.md` §8d; S13; PERFORMANCE_NOTES #19); LOCKED: `tools/eh_figure_check.js` now asserts the frame's
+TEMPLATE from the compiled tables as well as figure 2's lines — the max 100 · one line before, one after · 0.1 s clear · one line per beat
+through the staff, 0.4 beyond each outer line · the ball the tuba's GC ball (its preset, 5 px) at the duration line's opacity, from 2 ss
+above the line's top to its foot — 33 decisions GREEN. (2) **THE PHASE CRITERION for the tool** — he agrees with §571's last point: when
+the frame orients rather than being played on, the phase MAXIMIZES THE NOTES' DISTANCE FROM THE BEATS. Recorded (T10 in §10); NOT BUILT —
+`tools/tempo_fit.js` proposes the grouping under the max but not yet this phase; it is the next build step on N-4 (the checkpoint's
+appendix phrases it). On figure 2 the locked phase 295.186 keeps every note ≥ 140 ms from a line.
