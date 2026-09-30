@@ -19148,3 +19148,23 @@ the 1st not too rapid"*.
 say which note was the long one; the 295 control regenerates unchanged in content. (On the way the tool was broken by a splice that put a real
 newline inside a string — a `node -e` with four-fold backslashes; rebuilt from parts, `new Function` as the parse gate. The rule stands: a
 script with escapes goes to a FILE, never into `node -e`.)
+
+## §589. THE FIGURE AT 317 — THE BEAT FRAME his pick, the red 91 one unit forward; the twelve as plain notes (2026-09-30, Fable, session 18; LG-164)
+
+**What prompted it** — *"Can we use the red grid but about one tick forward in phase so that partials one, five, and seven line up with the beat
+as much as possible. And then show me in the score, please."* — then *"and the black noteheads to start pls, will decide stems and beams later"*
+(LG-164; "partials" = the notes 1 · 5 · 7).
+
+**The phase:** the red candidate = 91 bpm, the beat 0.6615 s (7 × 0.0945), the tool's between phase 316.958 — notes 1 · 5 · 7 all ≈ 13 % after
+its beats (one unit). One unit forward = 317.0525 (offsets 0 · −8 · −5 ms); the least-squares phase for the three on beats 0 · 2 · 3 =
+**317.048** (+4 · −4 · 0 ms) — taken, his "as much as possible". Every note's place after its line at 317.048: 1 · 18 · 44 · 74 · 99 · 30 ·
+100 · 71 · 2 · 2 · 62 · 0 % — notes 1 · 5 · 7 · 12 on the lines, 9 · 10 within 16 ms, the rest between. The principle bent by hand again (§579
+· §580 the precedent): the frame orients, and here the on-beat notes are the anchors he wants.
+
+**Built:** `--beatGridFit 0:0.0945:7:317.048:317.052:323.002` appended to the IR's build (a scratchpad runner reads `provenance.build`, re-points
+`--scoreFile` at a fresh COPY of Draft 01, appends the args — the 8 KB rule): ELEVEN lines 317.048 … 323.663, frame 2, NAVY (S19); the lead beat
+316.387 dropped by the clamp (inside the held note ending 316.455), one tail beat kept (323.663; the EH's next note 324.677). Then
+`--plainNotes 0:316.8:323.14` (the flag is repeatable): the twelve `env plainNote` — filled heads on their time, the plain stem 4.5 (S1 · S2),
+the band names on the row by the device's default (mf · f · f · p · mf · f · mf · ff · mp · ff · mf · f — S9's thinning his, later). No bricks
+left in the range. The shield: `piece-lgmf` alone moved (baseline on HEAD first) · the lock 75 GREEN · `check_rules` 32 · the rules page
+regenerated. ► He reloads the notation tab (page files + the IR) → `piece-lgmf` → `317`. Then his stems and beams, S1 … S19 surfaced.

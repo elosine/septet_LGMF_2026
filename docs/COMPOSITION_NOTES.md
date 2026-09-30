@@ -3070,3 +3070,12 @@ score meant to be in C anyways. Please look into this properly."
 
 *The AI's reading (marked as such):* he was right — the app's video view has drawn the EH and the horn in F since the staves were built; the
 in-C decision (§336) reached the exports and the checks, never the page he reads. Verified in the running app: RUNNING_LOG §585.
+
+## LG-164 — 2026-09-30 — the figure at 317: the red grid one tick forward, notes 1 · 5 · 7 on the beat; black noteheads to start
+
+*His words (session 18, Fable):* "Can we use the red grid but about one tick forward in phase so that partials one, five, and seven line up
+with the beat as much as possible. And then show me in the score, please." — "and the black noteheads to start pls, will decide stems and
+beams later"
+
+*The AI's reading (marked as such):* the frame's phase chosen for the notes it lands ON, not between (the §579 precedent) — the 91 bpm at
+317.048, notes 1 · 5 · 7 within 4 ms of a line, 12 on one; the values come after the frame, as with figures 2 · 3. The build: RUNNING_LOG §589.
