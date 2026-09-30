@@ -2967,3 +2967,18 @@ cluster beginning on two ninety eight point eight."
 *The AI's reading (marked as such):* "partials" here are the figure's notes in order (1 … 6), not harmonic partials. The values are
 values-as-pace (T8): two eighth pairs, two single eighths — the beam count a speed class, no count. The build and its numbers: RUNNING_LOG
 §573.
+
+## LG-152 — 2026-09-29 — the batch at 298.8 is eleven notes; the last four (301.556) a 16th group with ff → a decrescendo, staccato dots, a GC at the head's left edge, no go line; the first seven reassessed — the candidates as a picture, the beat frame with the last five spaced, the first two free
+
+*His words (session 18, Fable):* "there would be 11 notes in this batch, but they'll be, or some of them will be treated differently. So working
+backwards, the four beginning at 301.5. Let's beam those all together as 16th notes. We're going to have the first with the two Fs and just a
+decrescendo hairpin over the remaining notes in the figure. all will have staccato dots. And let's have a GC for the first node head impact. So
+like we handled the clusters in the tuba, or I can just tell you here, you don't have to look it up, but the GC impact point will be the same as
+the left of the node head or the go time, but no go line. then you may need to reassess for the first seven. And can I see the candidates in
+that separate HTML page in the different colors, but also use the beat frame principle where we're trying to avoid or have as much space as
+possible between note heads and beats. The first two are close together. So I don't know if this impacts, but I would lean towards spacing
+between the, the last five. And then if the beat falls on either of the first two, that's okay because they can still time the other one."
+
+*The AI's reading (marked as such):* a second GC-bearing figure type — the burst with a cue: the GC gives the impact, the head's left edge IS
+the moment (anchor A with a GC), no go line; the beat frame's objective may exempt notes that time each other (`--free`). The build: RUNNING_LOG
+§574.

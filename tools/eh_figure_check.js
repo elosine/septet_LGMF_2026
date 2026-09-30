@@ -67,6 +67,23 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   ok(glyphAt(F2.n2, /^artic-accent$/) && glyphAt(F2.n6, /^artic-accent$/) && [F2.n1, F2.n3, F2.n4, F2.n5].every(t => !glyphAt(t, /^artic-/)), '(§573) accents on notes 2 and 6 only');
   [[F2.n2, 2], [F2.n6, 6]].forEach(([t, k]) => { const a = glyphAt(t, /^artic-accent$/), h = glyphAt(t, /^notehead$/), st = at('stem', t), up = st && st.yB > st.yA; ok(a && h && st && (up ? a.ySs < h.ySs : a.ySs > h.ySs), '(§573) note ' + k + '\'s accent on the head side (stem ' + (up ? 'up → below' : 'down → above') + ')'); });
   ok(!items.some(it => it.k === 'ottava' && tOf(it) >= 289 && tOf(it) <= 303), '(§573) no ottava on the EH 289 … 303 on this page — note 3 (A5 sounding) under the threshold, the auto rule kept'); }
+// §574 — the four at 301.556 (his LG-152): beamed together as 16ths · ff on the first with a decrescendo hairpin over the rest · staccato
+// dots on all four · a GC on the first whose impact is the head's LEFT EDGE (the go time — nhAnchor leftEdge), no go line
+{ const F4 = [301.556, 301.742, 301.917, 302.106], hw = glyphs.notehead.filled.wSs / 2;
+  const bm = items.filter(it => it.k === 'beam' && it.tips && it.tips.some(p => Math.abs(p.t - F4[0]) < 1e-6));
+  ok(bm.length === 2 && bm.every(b => b.tips.length === 4), '(§574) the four beamed together, two levels — 16ths');
+  const st = F4.map(t => at('stem', t)); ok(st.every(Boolean) && st.every(s => near(s.yB, st[0].yB, 1e-6)), '(§574) the four stems reach one beam');
+  F4.forEach((t, i) => { const d = at('dot', t), h = glyphAt(t, /^notehead$/), s = st[i], up = s && s.yB > s.yA;
+    const lines = [-2, -1, 0, 1, 2].concat(items.filter(x => x.k === 'ledger' && Math.abs(x.t - t) < 1e-9).map(x => x.ySs));   // check_rules (5)'s criterion
+    ok(d && h && (up ? d.ySs < h.ySs - 0.4 : d.ySs > h.ySs + 0.4) && !lines.some(L => Math.abs(d.ySs - L) < 0.25 - 1e-9), '(§574) note ' + (i + 1) + '\'s staccato dot on the head side, clear of every line (y ' + (d ? d.ySs.toFixed(2) : '-') + ')'); });
+  const names = F4.map(t => { const g = glyphAt(t, /^dyn-/); return g ? g.g.replace('dyn-', '') : '-'; }).join(' ');
+  ok(names === 'ff - - -', '(§574) ff on the first alone — got: ' + names);
+  const ff = glyphAt(F4[0], /^dyn-ff$/); ok(ff && near(ff.ySs, -4.6, 0.01), '(§574) the ff on the dynamic row');
+  const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - F4[0]) < 1e-6); ok(hp && hp.dir === 'decresc' && near(hp.t1, 302.17, 1e-6) && near(hp.ySs, -4.6, 0.01), '(§574) a decrescendo hairpin on the row from the ff over the rest, to 302.17');
+  ok(F4.every(t => !glyphAt(t, /^artic-/)), '(§574) no accents on the four');
+  ok(items.some(it => it.k === 'gc' && Math.abs(it.t - F4[0]) < 1e-6) && F4.slice(1).every(t => !items.some(it => it.k === 'gc' && Math.abs(it.t - t) < 1e-6)), '(§574) a GC on the first note only');
+  ok(!items.some(it => it.k === 'goline' && F4.some(t => Math.abs((it.t != null ? it.t : it.t0) - t) < 1e-6)), '(§574) no go line on the four');
+  const h1 = glyphAt(F4[0], /^notehead$/); ok(h1 && near(h1.dxSs - hw, 0, 0.03), '(§574) the first head\'s LEFT EDGE on its time — the GC\'s impact point (nhAnchor leftEdge)'); }
 // §564 · §565 · §566 — the beat grid he picked for the second figure: a 16th of 0.108 from 295.348, the beat every 3, over 295.348 … 297.4;
 // his template: the beats only, each a line through the staff overhanging 0.4 ss, the duration line's colour and opacity (the render's)
 { const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 293 && it.t <= 299); const beats = ticks.filter(it => it.grid === 'beat');

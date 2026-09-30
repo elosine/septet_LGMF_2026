@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tempo Candidates</title>
+<style>
+ :root{--bg:#fff;--ink:#111;--muted:#777;--rule:#ddd;--axis:#888;--red:#c8102e;--blue:#1c4879;--green:#2e7d32;--orange:#d9700a;--purple:#7b3fa0}
+ @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff}}
+ :root[data-theme="dark"]{--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff}
+ body{font:14px/1.4 system-ui,sans-serif;margin:0;padding:16px;color:var(--ink);background:var(--bg);overflow-x:hidden}
+ h1{font-size:16px;margin:0 0 6px} .k{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
+ svg{width:100%;height:auto;display:block} table{border-collapse:collapse;margin-top:10px;max-width:100%} td,th{padding:2px 10px;text-align:right;font-variant-numeric:tabular-nums} th{text-align:left}
+ .note{color:var(--muted);font-size:13px;margin-top:8px}
+</style></head><body>
+<h1>The 7 notes, 298.815 … 300.695 s — 5 shown beats, each at its between phase (T10; notes 1, 2 free) — grey heads are the free ones</h1>
+<svg id="g" viewBox="0 0 1200 510" xmlns="http://www.w3.org/2000/svg"></svg>
+<div id="legend"></div>
+<table id="tbl"></table>
+<div class="note">x = time, 480 px per second. Dots = the heads at their onsets (height by pitch). Each candidate is one shown beat: the heavy lines are its beats (one line per beat — the beat frame), the light ones its unit; the beats run down through the heads faintly. Every candidate stands at the phase that keeps the (non-free) notes farthest from its beats. The table: each note's distance from the nearest beat, and where it sits in the beat (0 % = on the line, 50 % = midway).</div>
+<script>
+const on=[298.815,298.947,299.139,299.418,300.05,300.343,300.695],midi=[83,74,80,76,55,67,59],names=["B5","D5","G#5","E5","G3","G4","B3"],free=[1,2];
+const cands=[{"name":"97 bpm — the beat 0.618 s = 4 × 0.154, phase 298.661, the nearest note 139 ms","colour":"red","beat":0.618,"unit":0.1545,"g":4,"phase":298.661},{"name":"97 bpm — the beat 0.621 s = 6 × 0.103, phase 298.658, the nearest note 139 ms","colour":"blue","beat":0.621,"unit":0.1035,"g":6,"phase":298.658},{"name":"100 bpm — the beat 0.603 s = 6 × 0.101, phase 298.676, the nearest note 139 ms","colour":"green","beat":0.603,"unit":0.1005,"g":6,"phase":298.676},{"name":"90 bpm — the beat 0.666 s = 6 × 0.111, phase 298.216, the nearest note 129 ms","colour":"orange","beat":0.666,"unit":0.111,"g":6,"phase":298.216},{"name":"86 bpm — the beat 0.699 s = 6 × 0.117, phase 298.133, the nearest note 113 ms","colour":"purple","beat":0.6990000000000001,"unit":0.1165,"g":6,"phase":298.133}];
+const T0=298.415,T1=301.095,W=1200,PPS=480,LO=55,HI=83,NB=cands.length,YS=60+NB*44,YAX=YS+200;
+const svg=document.getElementById("g");const el=(n,a)=>{const e=document.createElementNS("http://www.w3.org/2000/svg",n);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
+const X=t=>20+(t-T0)*PPS,Y=m=>YAX-20-(m-LO)*(150/Math.max(1,HI-LO)),css=v=>getComputedStyle(document.documentElement).getPropertyValue("--"+v).trim();
+cands.forEach((c,i)=>{const ya=20+i*44,yb=ya+36,col=css(c.colour);const k0=Math.ceil((T0-c.phase)/c.unit-1e-9),k1=Math.floor((T1-c.phase)/c.unit+1e-9);
+ for(let k=k0;k<=k1;k++){const t=c.phase+k*c.unit,beat=((k%c.g)+c.g)%c.g===0;if(beat){el("line",{x1:X(t),y1:ya,x2:X(t),y2:yb,stroke:col,"stroke-width":2.5});el("line",{x1:X(t),y1:yb,x2:X(t),y2:YAX,stroke:col,"stroke-width":1.5,opacity:0.3});}else el("line",{x1:X(t),y1:ya+16,x2:X(t),y2:yb,stroke:col,"stroke-width":1,opacity:0.45});}
+ const tx=el("text",{x:24,y:ya+12,fill:col,"font-size":"12"});tx.textContent=c.name;});
+for(let m=LO;m<=HI;m+=4)el("line",{x1:20,y1:Y(m),x2:W-20,y2:Y(m),stroke:"var(--rule)"});
+on.forEach((t,i)=>{const fr=free.includes(i+1);el("circle",{cx:X(t),cy:Y(midi[i]),r:6,fill:fr?"var(--muted)":"var(--ink)"});const tx=el("text",{x:X(t)+9,y:Y(midi[i])+4,"font-size":"12",fill:fr?"var(--muted)":"var(--ink)"});tx.textContent=names[i]+" "+t.toFixed(3)+(fr?" (free)":"");});
+el("line",{x1:20,y1:YAX,x2:W-20,y2:YAX,stroke:"var(--axis)"});for(let t=Math.ceil(T0*2)/2;t<=T1+1e-9;t+=0.5){el("line",{x1:X(t),y1:YAX-4,x2:X(t),y2:YAX+4,stroke:"var(--axis)"});const tx=el("text",{x:X(t)-14,y:YAX+18,"font-size":"11",fill:"var(--muted)"});tx.textContent=t.toFixed(1);}
+document.getElementById("legend").innerHTML=cands.map(c=>"<div><span class=\"k\" style=\"background:"+css(c.colour)+"\"></span>"+c.name+"</div>").join("");
+const near=(c,t)=>{const r=(((t-c.phase)%c.beat)+c.beat)%c.beat;return [Math.round(Math.min(r,c.beat-r)*1000),Math.round(r/c.beat*100)];};
+document.getElementById("tbl").innerHTML="<tr><th>note</th>"+cands.map(c=>"<th style=\"color:"+css(c.colour)+"\">"+c.name.split(" ")[0]+" bpm: ms · % of beat</th>").join("")+"</tr>"+on.map((t,i)=>"<tr><th>"+names[i]+" "+t.toFixed(3)+(free.includes(i+1)?" (free)":"")+"</th>"+cands.map(c=>{const [m,p]=near(c,t);return "<td>"+m+" · "+p+" %</td>";}).join("")+"</tr>").join("");
+</script>
+</body></html>
