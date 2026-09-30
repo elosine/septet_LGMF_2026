@@ -3194,3 +3194,12 @@ have more of the corner showing, please. And are the grace note slashes meant to
 
 *The AI's reading (marked as such):* the purple 93 at the tool's phase; the beamed stroke slid a space toward the heads; the stroke DOES mirror
 with the stem — read from his LilyPond's font and a render, then built. RUNNING_LOG §602.
+
+## LG-177 — 2026-09-30 — dots on the 317.16 pair and the 325.6 eighths; the stroke halfway; equal above and below
+
+*His words (session 18, Fable, with a screenshot of the 345.6 pair):* "the two 16 set three 17.18 staccato please. Also the two eighths at
+325.6. a little less corner on the grace, maybe about halfway between what it was before and what it is now. And is there a way to make sure
+there's more or less an equal amount sticking out below and above?"
+
+*The AI's reading (marked as such):* the dots as hands; the stroke's slide 0.5; equal protrusion needs the stroke centred on the beam stack —
+the slide and the equality pull against each other, put to him. RUNNING_LOG §603.

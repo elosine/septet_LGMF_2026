@@ -19483,3 +19483,22 @@ the stem-down one. So YES: the acciaccatura's stroke mirrors with the stem — r
 **Built:** the unit's slash and the beamed-group pass both flip with the stem direction (S6 amended). On the page: 341.457 and 343.359 (stems
 down, with their parents §597) now FALL; the rest rise; the beamed 345.595 rises (stems up). `check_rules` 32 · the lock 106 · the shield
 `piece-lgmf` alone. ► He reloads → `340` (the olive frame) · `341.4` · `343.3` · `345.5`.
+
+## §603. Dots on the 317.16 pair and the 325.6 eighths · the beamed stroke halfway · equal protrusion above and below — the geometry (2026-09-30, Fable, session 18; LG-177)
+
+**What prompted it** — *"the two 16 set three 17.18 staccato please. Also the two eighths at 325.6. a little less corner on the grace, maybe
+about halfway between what it was before and what it is now. And is there a way to make sure there's more or less an equal amount sticking
+out below and above?"* (LG-177), with his screenshot of the 345.6 pair.
+
+**The dots:** `nhDot` on `wc-3445 · 3446` (the 317 figure's beamed 16ths 2 · 3) and `wc-3476 · 3478` (the 324.6 figure's beamed eighths 7 · 8) —
+on the head side below (the stems up): at −4.79 · −4.79 (the heads −4.00) and −0.29 · −5.29 (the heads 0.50 · −4.50).
+
+**The stroke halfway:** `objects.graceSlash.beamInsetSs` 1 → **0.5** (the row's note carries both). At 345.595 the centre 5.10 → 4.60.
+
+**Equal protrusion above and below — measured, and the geometry:** the stack at 345.6 runs 4.67 … 5.53 (two scaled levels); the stroke at
+the halfway inset runs 4.00 … 5.20 — it stops 0.33 SHORT of the top edge and sticks out 0.67 below. A straight stroke reaching r each way from
+its centre sticks out equally above and below the stack only when its centre is the stack's centre (inset 0); every slide toward the heads
+trades protrusion above for protrusion below, one for one. So the two asks pull against each other. Told him; his call: (a) centred (inset 0),
+0.17 out each way with the reach 0.6 — the corner covered as at §601; (b) the halfway as now; (c) centred AND a longer reach (say 0.9) — 0.47
+out each way, the stroke crossing the corner itself. Horizontally the stroke already reaches 0.6 each side of the stem. `check_rules` 32 ·
+the lock 106 · the shield `piece-lgmf` alone. ► He reloads → `317.2` · `325.6` · `345.5`.
