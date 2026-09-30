@@ -19890,3 +19890,30 @@ the shield `piece-lgmf` alone; no layout warning.
 where the one-off had put both on the head side; the grace's stem is down by the house rule on its own position (no parent — no slur, S6).
 
 **For his eye:** reload → `piece-lgmf` → `323` · `325` (play from `321`).
+
+## §618. The bassoon 336.9 … 345.6 at his dictation — five one-offs (two with their own names, three at mf · mf · f) and the beamed 16th pair with the burst's GC at the head's left edge, no go line, mp (2026-09-30, Fable, session 18; LG-192)
+
+**His words:** *"a two at 336.87. Make these the standard GCs and keep their dynamics. The three starting at 341.2. Same thing, standard GCs. The
+first dynamic MF. The second dynamic MF. The third one F. The two at three forty five point three four. These should be two sixteenths beamed. A GC
+on the first sixteenth at go time, but no go line. So this is non-standard, but we've done things like this before in the tuba piece. But
+essentially a GC at go time, but line up the left of the note head, the first note head to go time. And then Make the dynamic MP on the first
+note and then take the second dynamic away."*
+
+**The notes** (part 1, with the eight-step band of each recorded velocity): 336.926 A4 f · 337.388 D4 mp — *the two at 336.87* · 341.217 B2 fff ·
+343.500 F3 f · 344.516 D4 mf — *the three starting at 341.2* · 345.468 D4 f · 345.601 G♯3 f — *the two at 345.34*.
+
+**Built:**
+- **the five one-offs** (`byEnv.oneOff`, S24): `--oneOffs 1:336.8:337.5` (their own names, f · mp — "keep their dynamics") · `--oneOffs 1:341.1:344.6`
+  with his names as hands — `wc-3524 dynMark "mf"` (over fff) · `wc-3537 "mf"` (over f) · `wc-3547 "f"` (over mf).
+- **the pair, THE BURST'S GC** (S14 as it stood at §574 — the EH's 325.6 pair, §591: *"a GC on 7 (the head's left edge on its time)"*, the same hand
+  shape): `--plainNotes 1:345.4:345.7` · `--beam 345.468-345.601@1` · 1 `noteBeams 2 · gc true · goLine false · nhAnchor "leftEdge" · dynAboveBeam
+  false · dynMark "mp"` · 2 `noteBeams 2 · dynAboveBeam false · dynMark false`. **The GC on the LANE geometry** (`gcStyle 1 · gcGeom "lane"` — the
+  plain note's own default is the beat ball's flight, S23, and `gcGeom` wins over `gcStyle` in the layout, so both are said): his "we've done
+  things like this before in the tuba piece" and the page's other GCs are the lane kind; **the AI's call, his to reverse** to style 2.
+
+**On the page** (the video system, part 1): the five one-offs each — go line · GC · the cue head 0.844 before the line · the 16th flag (down on
+A4 · D4 · F3, up on B2) · the dot · **f · mp · mf · mf · f** on the head side (the ottava riding on the A4) · **345.468** — the GC (lane) and NO go
+line, the head's left edge ON its time (dx 0.52 = half a head), the two-level beam to 345.601, **mp** on the row · 345.601 — its sharp, no name.
+The lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone; no layout warning.
+
+**For his eye:** reload → `piece-lgmf` → `337` · `341.3` · `343.5` · `345.5` (play from `336`).

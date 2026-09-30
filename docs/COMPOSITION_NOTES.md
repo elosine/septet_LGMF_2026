@@ -3322,3 +3322,12 @@ lines 321.72 … 326.26. RUNNING_LOG §616.
 *The AI's reading (marked as such):* the grace and the eighth at 324.8 · 324.96 each flagged, not beamed; the D5 pair at 322.84 · 323.33 no longer
 one-offs but plain flagged 16ths with staccato dots, f and mf kept; in the five, an accent on the eighth after the grace, mf on the grace alone.
 RUNNING_LOG §617.
+
+## LG-192 — 2026-09-30 — the bassoon 336.9 … 345.6: standard GCs, and a beamed pair with a GC at go time but no go line
+
+*His words (session 18, Fable):* "a two at 336.87. Make these the standard GCs and keep their dynamics. The three starting at 341.2. Same thing, standard GCs. The first dynamic MF. The second dynamic MF. The third one F. The two at three forty five point three four. These should be two sixteenths beamed. A GC on the first sixteenth at go time, but no go line. So this is non-standard, but we've done things like this before in the tuba piece. But essentially a GC at go time, but line up the left of the note head, the first note head to go time. And then Make the dynamic MP on the first note and then take the second dynamic away."
+
+*The AI's reading (marked as such):* five more one-offs (the one-off device: the go line at the GC's impact, the dot, the name) — two with their
+recorded names, three at his mf · mf · f; and the 345.5 pair as the EH's burst shape — plain 16ths beamed, the GC's impact at the first head's left
+edge with no go line (the tuba pages' cluster-start, S14), mp on the first alone. The GC drawn at lane height like the page's other GCs — the AI's
+call. RUNNING_LOG §618.
