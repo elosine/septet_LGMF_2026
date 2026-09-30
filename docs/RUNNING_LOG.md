@@ -19388,3 +19388,18 @@ the composer. Reported, nothing changed.
 `--plainNotes 0:342.6:344.8` · 1 → 2 and 4 → 5 grace-to-16th pairs · 3 a 16th alone (for now) · 6 · 7 16ths alone · 8 a grace slurred into 9
 · 9 … 11 a ragged grace group (`--beam` + `beamStub`, the stubs 2, no slash, the squiggle; no slur over the group — his to add). The names
 shown: f · ff · mp · mf · ff · ff · ff · f · f · f · mp. `check_rules` 32 · the shield `piece-lgmf` alone. ► He reloads → `340` · `342.7`.
+
+## §598. The 344.2 ragged group of FIVE, stems down (2026-09-30, Fable, session 18; LG-173)
+
+**What prompted it** — his screenshot of 344.0 … 344.7 (the two 16ths, the grace with its slashed flag, the three-grace group beamed above)
+and: *"gn include all five, starting at 344.19, stems down, so beams below"* (LG-173).
+
+**Built:** the beam span `344.407-344.622@0` REPLACED by `344.213-344.622@0` (the runner's `@replace`); 7 (`wc-3539`, A5 — a 16th alone) and
+8 (`wc-3542`, D♯5 — the grace slurred into 9) folded into the group: `grace · nhStem beam · noteBeams 2 · beamStub · slash false ·
+dynAboveBeam false`, 7 the first (`gc false · goLine false`), 8's `slurTo` unset (`null`); `stemDir "down"` on all five — the authored
+direction forces the run (§400's hand). The layout: five heads at 0.707 (A5 · D♯5 · C5 · E4 · G♯4), the stems DOWN to a scaled beam at
+−5.39 / −4.82 below the staff, the stubs from −2.67 (2 ss beyond the stack, S8a), the squiggle at the first stub FALLING (the beam below —
+§594's orientation); the names FLIPPED ABOVE (ff at 4.10, f · f · f at 2.79, mp at 2.64) — the dynamic row lies between the staff and the
+beam, the side-with-room rule (§502) sends the names over the top line, just clear of it. 6 (344.046) stays a 16th alone, stem down. The
+§597 assertion holds on the eight remaining slurred graces; the lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone.
+► He reloads → `344`. His eye: the names above the staff; the group's slur (none; his to add).

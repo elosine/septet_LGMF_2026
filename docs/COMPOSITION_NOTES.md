@@ -3160,3 +3160,10 @@ note, beamed grace note figure with ragged stems."
 
 *The AI's reading (marked as such):* the grace's stem by its parent, a rule (S6); the ugly slur was the mixed-stem case; 343.12 is in range
 and clean in the data — the 50 ms at velocity 61 the likely reason it does not speak; the 342.65 figure as said. RUNNING_LOG §597.
+
+## LG-173 — 2026-09-30 — the 344.2 grace group of five, stems down
+
+*His words (session 18, Fable, with a screenshot of 344.0 … 344.7):* "gn include all five, starting at 344.19, stems down, so beams below"
+
+*The AI's reading (marked as such):* the two notes before the three-grace group join it — five graces, one ragged beam below the staff, the
+direction forced by hand. RUNNING_LOG §598.
