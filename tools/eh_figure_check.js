@@ -51,13 +51,13 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   const hp = items.find(it => it.k === 'hairpin-timed' && Math.abs(it.t0 - P.p1) < 1e-6); ok(hp && near(hp.t1, 289.25, 1e-6) && hp.dir === 'cresc' && near(hp.ySs, -4.6, 0.01), '(§559) p1\'s crescendo hairpin on the dynamic row to 289.25'); }
 // §564 · §565 · §566 — the beat grid he picked for the second figure: a 16th of 0.108 from 295.348, the beat every 3, over 295.348 … 297.4;
 // his template: the beats only, each a line through the staff overhanging 0.4 ss, the duration line's colour and opacity (the render's)
-{ const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 293 && it.t <= 298); const beats = ticks.filter(it => it.grid === 'beat');
+{ const ticks = items.filter(it => it.k === 'tick' && it.grid && it.t >= 293 && it.t <= 299); const beats = ticks.filter(it => it.grid === 'beat');
   const OV = C.engraving.layout.beatGrid.overhangSs;
-  ok(ticks.length === 16 && beats.length === 16 && near(beats[0].t, 293.08, 1e-6) && near(beats[15].t, 297.94, 1e-6) && near(beats[1].t - beats[0].t, 0.324, 1e-6) && beats.every(b => near(b.ySs, -2 - OV, 1e-6) && near(b.hSs, 4 + 2 * OV, 1e-6)),
-    '(§564 … §567) the second figure\'s beat grid: 16 beats every 0.324 from 293.08 to 297.94 — two beats past the notes, seven before (his span), each a line through the staff overhanging ' + OV + ' ss');
+  ok(ticks.length === 8 && beats.length === 8 && near(beats[0].t, 294.052, 1e-6) && near(beats[7].t, 298.588, 1e-6) && near(beats[1].t - beats[0].t, 0.648, 1e-6) && beats.every(b => near(b.ySs, -2 - OV, 1e-6) && near(b.hSs, 4 + 2 * OV, 1e-6)),
+    '(§564 … §569) the second figure\'s beat grid: ONE LINE PER BEAT at 93 bpm (6 units = 0.648 s), 8 lines 294.052 … 298.588 — two before the figure (the third would cross the first figure\'s tail), two after, each a line through the staff overhanging ' + OV + ' ss');
   const AnimObj = require(path.join(ROOT, 'notation', 'lib', 'animobj.js'));
   let balls = null; try { balls = AnimObj.collect(ir, { objects: [] }, C.animated, { parts: [0], meta: false }).filter(a => a.kind === 'beatBall'); } catch (e) { balls = null; }
-  ok(balls && balls.length === 16 && balls.every(b => b.preset && near(b.preset.duration, 0.324, 1e-6)) && beats.every(b => balls.some(x => near(x.at, b.t, 1e-6))), '(§567) the beat ball: one ball per grid beat (16), each a beat long, on only over the grid' + (balls ? '' : ' — collect threw'));
-  const onBeat = [295.665, 295.974, 296.315, 296.632, 297.306].filter(t => beats.some(b => Math.abs(b.t - t) <= 0.035)).length; ok(onBeat === 5, '(§564) notes 2 … 6 within 35 ms of a beat (' + onBeat + ' of 5)'); }
+  ok(balls && balls.length === 8 && balls.every(b => b.preset && near(b.preset.duration, 0.648, 1e-6)) && beats.every(b => balls.some(x => near(x.at, b.t, 1e-6))), '(§567 · §569) the beat ball: one ball per grid beat (8), each a beat long (0.648), on only over the grid' + (balls ? '' : ' — collect threw'));
+  const onBeat = [295.974, 296.632, 297.306].filter(t => beats.some(b => Math.abs(b.t - t) <= 0.035)).length, onHalf = [295.665, 296.315].filter(t => beats.some(b => Math.abs(b.t + 0.324 - t) <= 0.035)).length; ok(onBeat === 3 && onHalf === 2, '(§569) at 93: A5 · G♯4 · F♯4 on beats, A♯3 · G3 on the half-beats (' + onBeat + ' + ' + onHalf + ')'); }
 console.log(bad ? ('\nEH FIGURE: ' + bad + ' of ' + n + ' decisions MOVED') : ('\nEH FIGURE GREEN: ' + n + ' decisions hold'));
 process.exit(bad ? 1 : 0);

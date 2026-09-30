@@ -18717,3 +18717,21 @@ number first, so each trial tests a hypothesis.
 
 **Put to him:** the grouping at 6 for both the lines and the ball (one system), or the lines at 3 and the ball at 6 (the ball landing on
 every other line). Then the clamp (three beats before, two after, never past a neighbour's note).
+
+## §569. ONE LINE PER BEAT AT 93; THE MAX A SOFT CEILING PER FIGURE; THE GRID FITTED TO ITS CLUSTER WITH THE CLAMPS (2026-09-29, Fable, session 18; N-4)
+
+**Prompted by:** LG-147 — the device's PURPOSE in his words: not a tempo but an orientation, *"an additional aid in conjunction with the
+scrolling cursor … so they can kind of feel the areas around the beats without having to actually count themselves"*. One line per beat, the
+ball on every line. 93 here. The max *"around 100 or 110 … decide per tempo"*.
+
+**Applied:** `objects.tick.gridMaxBpm` **110** — a soft ceiling: the shown beat is the smallest grouping of the fitted unit whose tempo lies
+under it, decided per figure; `tools/tempo_fit.js` now prints that grouping beside each grid candidate ("shown beat every 6 units = 0.648 s
+= 93 bpm"). **The grid fitted to its cluster** (his clamp, taken up): `--beatGridFit p:unit:beatEvery:phase:firstOnset:lastOnset` — the
+beats from the figure's first to its last, `gridLeadBeats` 3 before and `gridTailBeats` 2 after, a beat within `gridClampGapS` 0.1 of the
+part's notation before or after DROPPED. On the second figure: the beat 0.648 (93) from 295.348 — the notation before ends 293.920, so the
+third lead beat (293.404) is dropped: **2 before, 2 after — 8 lines, 294.052 … 298.588**; the next note (298.815) clear of the last line by
+0.23. The overlay records the fit (first · last · lead · tail · the neighbours). The notes: A4 a 16th after a beat · A♯3 on the half ·
+A5 ON · G3 on the half · G♯4 ON · F♯4 ON. The ball: 8, each 0.648 long.
+
+`check_rules` 32 · the shield `piece-lgmf` alone · the lock 30 (the fitted grid, the balls, the notes on beats and half-beats) · the screen
+gate PASS. **► His eye:** reload → play from `293.5`.

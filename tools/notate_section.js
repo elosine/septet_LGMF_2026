@@ -25,6 +25,7 @@
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
+//   --beatGridFit p:u:n:phase:first:last   [§569] the same grid FITTED to a cluster (its first and last onsets): 3 beats before, 2 after, clamped clear of the notation before and after (the numbers rules.json objects.tick.grid*)
 //   --trills                 [PLAN 2f.3] the composer score's trill zones as env trill events; the notes they ate left out
 //   --trillRate N            [2f.7, §451] a trill's drawn level sampled at N per second (never fewer than 101) — the MAIN file uses 100
 //   --cluster t0-t1[@part]   mark a span as one beamed cluster (repeatable; authored
@@ -1893,6 +1894,28 @@ if (MORPH_SEQ.length) {
   }
   // [§564] --beatGrid p:t0:t1:u:n:phase — the tempo he picked for a figure (tools/tempo_fit.js's candidates, his choice), drawn as ticks
   const grids = []; process.argv.forEach((a, i) => { if (a === '--beatGrid' && process.argv[i + 1]) grids.push(process.argv[i + 1]); });
+  // [§569] --beatGridFit p:u:n:phase:first:last — the grid's span from the CLUSTER: its beats are those from the first onset's beat to the
+  // last onset's; gridLeadBeats before and gridTailBeats after; a beat within gridClampGapS of the part's notation before the cluster or
+  // after it is dropped — his "isolated to whatever cluster the tempo's trying to overlay"; the rule's numbers from rules.json objects.tick
+  process.argv.forEach((a, i) => {
+    if (a !== '--beatGridFit' || !process.argv[i + 1]) return;
+    const m = /^(\d+):([\d.]+):(\d+):(-?[\d.]+):(-?[\d.]+):(-?[\d.]+)$/.exec(process.argv[i + 1]);
+    if (!m) { console.error('--beatGridFit needs p:unit:beatEvery:phase:firstOnset:lastOnset'); process.exit(2); }
+    const P = +m[1], u = +m[2], n = +m[3], ph = +m[4], first = +m[5], last = +m[6], beat = u * n;
+    const T = (CURVE_RULES && CURVE_RULES.tick) || {};   // the rules' objects table, loaded above for the curves
+    const LEAD = T.gridLeadBeats != null ? T.gridLeadBeats : 3, TAIL = T.gridTailBeats != null ? T.gridTailBeats : 2, GAP = T.gridClampGapS != null ? T.gridClampGapS : 0.1;
+    const partOfE2 = new Map(); for (const ch of doc.chunks) for (const id of ch.events || []) partOfE2.set(id, ch.part);
+    const mine = doc.events.filter(e => partOfE2.get(e.id) === P && e.pitch);
+    const prevEnd = Math.max(-Infinity, ...mine.filter(e => e.onset < first - 1e-6).map(e => e.onset + e.duration));
+    const nextOn = Math.min(Infinity, ...mine.filter(e => e.onset > last + 1e-6).map(e => e.onset));
+    const kFirst = Math.floor((first - ph) / beat + 1e-9), kLast = Math.round((last - ph) / beat);   // the beat at or before the first onset; the nearest to the last
+    let k0 = kFirst - LEAD, k1 = kLast + TAIL;
+    while (k0 < kFirst && ph + k0 * beat <= prevEnd + GAP) k0++;
+    while (k1 > kLast && ph + k1 * beat >= nextOn - GAP) k1--;
+    const t0 = +(ph + k0 * beat).toFixed(4), t1 = +(ph + k1 * beat + 1e-3).toFixed(4);
+    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: LEAD, tail: TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast } }, provenance: 'authored' });
+    console.log('  --beatGridFit part ' + P + ': the beat ' + beat.toFixed(3) + ' s (' + Math.round(60 / beat) + ' bpm) from ' + ph + ' — the cluster ' + first + ' … ' + last + ', ' + (kFirst - k0) + ' beat(s) before (of ' + LEAD + '; the notation before ends ' + (isFinite(prevEnd) ? prevEnd.toFixed(3) : '—') + ') · ' + (k1 - kLast) + ' after (of ' + TAIL + '; the next note ' + (isFinite(nextOn) ? nextOn.toFixed(3) : '—') + ') → lines ' + t0 + ' … ' + (ph + k1 * beat).toFixed(3) + ' (' + (k1 - k0 + 1) + ')');
+  });
   grids.forEach((spec, n) => {
     const m = /^(\d+):(-?[\d.]+):(-?[\d.]+):([\d.]+):(\d+):(-?[\d.]+)$/.exec(spec);
     if (!m || !(+m[3] > +m[2]) || !(+m[4] > 0) || !(+m[5] >= 1)) { console.error('--beatGrid needs p:t0:t1:unit:beatEvery:phase (e.g. --beatGrid 0:295.348:297.4:0.108:3:295.348)'); process.exit(2); }

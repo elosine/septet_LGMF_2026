@@ -38,8 +38,9 @@ const B = [];
 for (let u = 0.06; u <= 0.45; u += 0.0005) { const d = on.map(t => { const k = Math.round((t - on[0]) / u); return t - (on[0] + k * u); }); B.push({ u: +u.toFixed(4), rms: rms(d), d }); }
 const bMins = []; for (let i = 1; i < B.length - 1; i++) if (B[i].rms < B[i - 1].rms && B[i].rms <= B[i + 1].rms) bMins.push(B[i]);
 const bTop = bMins.filter(b => b.u >= 0.09).sort((p, q) => p.rms - q.rms).slice(0, 6);
-console.log('\n(B) THE GRID FIT — the subdivision unit whose multiples land nearest the onsets, from the first (unit · rms ms · the slots each onset takes · as a 16th → bpm · as an 8th → bpm):');
-for (const b of bTop) { const slots = on.map(t => Math.round((t - on[0]) / b.u)); console.log('  u ' + f3(b.u) + ' s · rms ' + ms(b.rms) + ' ms · slots ' + slots.join(' ') + ' · 16th → ' + Math.round(60 / (4 * b.u)) + ' bpm · 8th → ' + Math.round(60 / (2 * b.u)) + ' bpm'); }
+const MAXBPM = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.tick.gridMaxBpm || 110; } catch (e) { return 110; } })();
+console.log('\n(B) THE GRID FIT — the subdivision unit whose multiples land nearest the onsets, from the first (unit · rms ms · the slots each onset takes · as a 16th → bpm · as an 8th → bpm · THE SHOWN BEAT: the smallest grouping of the unit under ' + MAXBPM + ' bpm, §569):');
+for (const b of bTop) { const slots = on.map(t => Math.round((t - on[0]) / b.u)); let g = 1; while (60 / (g * b.u) > MAXBPM) g++; console.log('  u ' + f3(b.u) + ' s · rms ' + ms(b.rms) + ' ms · slots ' + slots.join(' ') + ' · 16th → ' + Math.round(60 / (4 * b.u)) + ' bpm · 8th → ' + Math.round(60 / (2 * b.u)) + ' bpm · shown beat every ' + g + ' units = ' + f3(g * b.u) + ' s = ' + Math.round(60 / (g * b.u)) + ' bpm'); }
 
 // (C) THE IOI as a pulse
 const mean = ioi.reduce((a, b) => a + b) / ioi.length, median = [...ioi].sort((a, b) => a - b)[Math.floor(ioi.length / 2)];
