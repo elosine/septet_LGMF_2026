@@ -19439,3 +19439,25 @@ outright; stems up as before. Scoped to the plain note (`byEnv.plainNote.articHe
 (`flag16`, stem down, the flag below, mp) · 2+3 two 16th graces beamed (`--beam`, `grace`, `noteBeams 2`, the slash on 2, S22's scaled beam
 above at 5.39 / 4.82, the stems up — no parent to follow, the house rule). `check_rules` 32 · the lock 106 · the shield `piece-lgmf` alone.
 ► He reloads → `340` … `346`. Open: a slur over the 344.2 group; the 345.6 pair's slur (none asked).
+
+## §601. THE SLASH PINNED TO THE BEAM'S CORNER · the 345.6 pair slurred · the tempo candidates 339.9 … 345.9 (2026-09-30, Fable, session 18; LG-175)
+
+**What prompted it** — his screenshot of the 345.6 beamed grace pair (the slash mid-stem, well under the beam) and: *"Can we pin the slash
+notation relative to, I guess, the beams and stems, the top of the beams and stems? So it should go through the upper left corner, or if
+it's downward, the lower left corner. and then slur the 2 grace 345.59; 339.9 345.9 can I see the tempo candidates in the page"* (LG-175).
+
+**THE SLASH ON A BEAMED GRACE GROUP (S6 · S22 amended):** the acciaccatura's stroke was placed at `slashAt` (0.6) of the grace's own stem at
+the unit build — under a beam the stem is longer and the beam moves in the group pass, so the stroke sat mid-stem. Now a post-pass after
+the beams are final (beside the ragged sign's, §557): for a grace whose stem is a beam member, the stroke is centred on the corner where
+the FIRST stem meets the beam stack — the stem's x, the stack's centre (the squiggle's place, §561) — rising to the right as ever; with the
+beam above that is the upper-left corner, below the lower-left. A flagged grace keeps its stroke on its stem (291.4 · 317.1 · 337 · 340.1 ·
+342.65 unchanged). At 345.595: the centre (0.68, 5.10), the stem's tip 5.39 — on the corner.
+
+**The 345.6 pair slurred:** `wc-3554 {slurTo wc-3556}` — below (both up), the height the minimum 1 (§600).
+
+**THE TEMPO CANDIDATES 339.9 … 345.9** — `tempo_fit --part 0 --from 339.9 --to 345.9 --html notation/research/tempo_candidates_eh_340.html`:
+21 onsets (the graces count as onsets), 340.352 … 345.709; one family again, a unit ≈ 0.09 … 0.107 s; the shown beats under the cap: 91
+(7 × 0.0945, phase 339.930, nearest 61 ms) · 93 (7 × 0.092, 340.047, 67) · 95 (7 × 0.0905, 340.120, 67) · 98 (6 × 0.1025, 340.002, 39) · 93
+(6 × 0.107, 340.061, 67) · 99 (6 × 0.1015, 340.023, 49); the picture at `http://localhost:5400/notation/research/tempo_candidates_eh_340.html`.
+His pick owed — the extent (one frame over the six seconds, or per cluster), the grouping, the phase; S15's free notes (the graces?) his
+call. `check_rules` 32 · the lock 106 · the shield `piece-lgmf` alone. ► He reloads → `345.5`; the picture.

@@ -3322,6 +3322,24 @@
           });
         }
       }
+      // [§601, his 'pin the slash notation relative to the beams and stems … through the upper left corner, or if it's downward, the lower left
+      // corner'] THE SLASH ON A BEAMED GRACE GROUP: the acciaccatura's stroke is centred on the corner where the first stem meets the beam
+      // stack — the stem's x, the stack's centre (the squiggle's place, §561) — rising to the right as ever, whichever side the beam lies; a
+      // flagged grace keeps its stroke at slashAt of its own stem. Placed here, after the beams are final, because the group pass moves them
+      {
+        const BTs0 = (glyphs.standards && glyphs.standards.beam && glyphs.standards.beam.thickness) || 0.4;   // RULES MIRROR (rules.json objects.beam.thicknessSs)
+        for (const sl of items.filter(it => it.k === 'slash' && it.ev)) {
+          const u = nhAt.get(sl.ev), dev = ((engOf(sl.ev) || {}).device) || {};
+          if (!u || !u.stemItem || dev.nhStem !== 'beam') continue;
+          const st = u.stemItem, up = st.attach === 'up', sgn = up ? -1 : 1, near = p => Math.abs(p.t - u.t) < 1e-9;
+          const bm = items.filter(it => it.k === 'beam' && it.tips && it.tips.some(near));
+          if (!bm.length) continue;
+          const sc = (bm[0].scale || 1), ys = bm.map(it => it.tips.find(near).ySs).concat([st.yB]);
+          const inner = (up ? Math.min(...ys) : Math.max(...ys)) + sgn * BTs0 * sc / 2, outer = (up ? Math.max(...ys) : Math.min(...ys)) - sgn * BTs0 * sc / 2;
+          const cx = st.dxSs, cy = (inner + outer) / 2, r = (sl.dx1Ss - sl.dx0Ss) / 2;
+          sl.dx0Ss = +(cx - r).toFixed(4); sl.dx1Ss = +(cx + r).toFixed(4); sl.y0Ss = +(cy - r).toFixed(4); sl.y1Ss = +(cy + r).toFixed(4); sl.atBeam = true;
+        }
+      }
       // [§561, his "is there a reason ord is so far from note head? if not bring it closer"] THE SECTION'S TECHNIQUE WORD ABOVE ITS NOTE:
       // an instruction overlay placed 'aboveNote' (the change rule's words, §505 — this piece's extractor) sits aboveNoteSs above the note's
       // top ink and never under staffClearSs above the top line (rules.json objects.instruction); the tuba pages' headers keep the tempo row

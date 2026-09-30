@@ -3177,3 +3177,12 @@ one wanted 1.4 by hand) / 1f at 340.3 keep mf 341.77, accent 343.1, f at 344.02,
 *The AI's reading (marked as such):* the slur's minimum a rule (S7); the names thinned to five marks over 340 … 346; the accent at 343.1
 forced the open S10 case to be built (a lone note's accent on the head side); the 345.3 figure a 16th and a beamed grace pair. RUNNING_LOG
 §600.
+
+## LG-175 — 2026-09-30 — the slash at the beam's corner; the 345.6 pair slurred; the candidates for 339.9 … 345.9
+
+*His words (session 18, Fable, with a screenshot of the 345.6 pair):* "Can we pin the slash notation relative to, I guess, the beams and
+stems, the top of the beams and stems? So it should go through the upper left corner, or if it's downward, the lower left corner. and then
+slur the 2 grace 345.59; 339.9 345.9 can I see the tempo candidates in the page"
+
+*The AI's reading (marked as such):* the stroke on a beamed grace group at the beam's corner (a rule, the flagged grace untouched); the pair
+slurred; the candidates drawn, his pick owed. RUNNING_LOG §601.
