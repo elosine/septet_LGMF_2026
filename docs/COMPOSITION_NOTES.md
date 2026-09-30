@@ -3167,3 +3167,13 @@ and clean in the data — the 50 ms at velocity 61 the likely reason it does not
 
 *The AI's reading (marked as such):* the two notes before the three-grace group join it — five graces, one ragged beam below the staff, the
 direction forced by hand. RUNNING_LOG §598.
+
+## LG-174 — 2026-09-30 — the slur minimum (b); the section's dynamics; the figure at 345.3
+
+*His words (session 18, Fable):* "slur at 340.35 b a minimum height for short slurs, about 1 ss, so a grace slur never goes flat (the 337
+one wanted 1.4 by hand) / 1f at 340.3 keep mf 341.77, accent 343.1, f at 344.02, mp at 345.3 remove other dynamics in this section / 345.3
+1-16th 2-3 16th grace notes beamed"
+
+*The AI's reading (marked as such):* the slur's minimum a rule (S7); the names thinned to five marks over 340 … 346; the accent at 343.1
+forced the open S10 case to be built (a lone note's accent on the head side); the 345.3 figure a 16th and a beamed grace pair. RUNNING_LOG
+§600.

@@ -19415,3 +19415,27 @@ runner copies the file afresh each run (2j's discipline; the IR contract: the co
 0.100 · 90; its band name on the page mp → **f** (the plain note's rule); the figure's other marks unmoved. `check_rules` 32 · the lock 106 · the
 shield `piece-lgmf` alone. Not done, not asked: the audio render (the WAV is Draft 01's) — the re-render recipe stands in journal §2.
 ► He reloads → `343`.
+
+## §600. A MINIMUM HEIGHT FOR SLURS (his (b)) · the section's names thinned · the accent at 343.12 on the head side (S10 built) · THE FIGURE AT 345.3 (2026-09-30, Fable, session 18; LG-174)
+
+**What prompted it** — *"slur at 340.35 b a minimum height for short slurs, about 1 ss, so a grace slur never goes flat (the 337 one wanted
+1.4 by hand) · 1f at 340.3 keep mf 341.77, accent 343.1, f at 344.02, mp at 345.3 remove other dynamics in this section · 345.3 1-16th 2-3
+16th grace notes beamed"* (LG-174).
+
+**THE SLUR'S MINIMUM (S7 amended):** `objects.slur.minHeightSs` 1 (the row; the container's layout block points at it — a new field in the
+rules row needs its pointer, or the layout's own default draws while the lock reads nothing: found by the §555 line going red): the height =
+max(the minimum, min(a quarter of the length, 2)); a hand `slurHeightSs` still overrides. On the page every short slur went to 1.00 — the
+291.4 grace slur (0.48), 298.8's, the 340.1 · 342.65 pairs; 337 keeps its hand 1.4; 324.6 stays 4.53. The lock's §555 line reads the rule.
+
+**THE NAMES:** f on 340.352 (the grace) · mf on 341.757 kept · f on 344.046 · mp on 345.451; every other name in 340 … 346 off (nineteen
+hands `dynMark false`). **THE ACCENT at 343.117** (the 16th D♯5, stem down): by hand `nhArtic accent` — and it went UNDER THE FLAG (−6.26),
+the open S10 case (§573: "a lone flagged unit's accent goes BELOW whatever the stem's direction — not chased"); `articSide "above"` did
+nothing on a lone unit. **BUILT AS THE RULE (S10):** a lone unit's accent on the HEAD SIDE — with the stem down it stacks over the unit's
+top ink, never inside the staff (the group rule's convention), the chain below keeping the dynamic on its row; `articSide` decides
+outright; stems up as before. Scoped to the plain note (`byEnv.plainNote.articHeadSide`), so the tuba pages are untouched (the shield). Here
+2.87; 321.031 (stem up) unchanged at −6.36.
+
+**THE FIGURE AT 345.3** — 345.451 F5 · 345.595 F4 · 345.709 G4 (then the held D♯5 at 347.08): `--plainNotes 0:345.3:346` · 1 a 16th alone
+(`flag16`, stem down, the flag below, mp) · 2+3 two 16th graces beamed (`--beam`, `grace`, `noteBeams 2`, the slash on 2, S22's scaled beam
+above at 5.39 / 4.82, the stems up — no parent to follow, the house rule). `check_rules` 32 · the lock 106 · the shield `piece-lgmf` alone.
+► He reloads → `340` … `346`. Open: a slur over the 344.2 group; the 345.6 pair's slur (none asked).

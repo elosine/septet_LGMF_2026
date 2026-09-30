@@ -2151,9 +2151,19 @@
                 };
 
                 // [§400] the accent, first in the chain (the dot is already on the head)
+                // [§600, S10 — his 'accent at 343.1' on a stem-down 16th: the accent went under the flag, the chain's side] A LONE UNIT'S ACCENT ON THE
+                // HEAD SIDE (the plain note's device says articHeadSide): with the stem DOWN the head side is above — the accent stacks over the
+                // unit's top ink, never inside the staff (the group rule's convention), and the chain below keeps the dynamic on its row; a hand
+                // articSide 'above' | 'below' decides outright. Stems up: the chain below, as before. Devices without the flag: as before
                 if (articG) {
-                  const yA = placeChain(articG.hSs);
-                  items.push({ k: 'glyph', g: 'artic-' + dev.nhArtic, t: tU, dxSs: headDx, ySs: yA, align: 'center' });
+                  const sideA = dev.articSide === 'above' || dev.articSide === 'below' ? dev.articSide : (dev.articHeadSide && stemDir === 'down' ? 'above' : 'chain');
+                  if (sideA === 'above' && !chainAbove) {
+                    const yA = chainTopY + gapAbove + articG.hSs / 2; chainTopY = yA + articG.hSs / 2;
+                    items.push({ k: 'glyph', g: 'artic-' + dev.nhArtic, t: tU, dxSs: headDx, ySs: yA, align: 'center' });
+                  } else {
+                    const yA = placeChain(articG.hSs);
+                    items.push({ k: 'glyph', g: 'artic-' + dev.nhArtic, t: tU, dxSs: headDx, ySs: yA, align: 'center' });
+                  }
                 }
                 // [§400] the technique symbol on the head side when above has no room
                 if (symInChain) {
@@ -3434,7 +3444,7 @@
       // the STEM TIPS on the stem side; the side WITH the stems (below when they go up, above when down, mixed → above). A hand slurTo on
       // the first note names the last; every unit between is inside the arc and lifts it clear. A LONG kind (t0 · t1).
       {
-        const SL = Object.assign({ heightRatio: 0.25, heightMaxSs: 2, thickSs: 0.12, endThickSs: 0.08, freeHeadSs: 0.3, freeSlurSs: 0.8 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
+        const SL = Object.assign({ heightRatio: 0.25, heightMaxSs: 2, minHeightSs: 1, thickSs: 0.12, endThickSs: 0.08, freeHeadSs: 0.3, freeSlurSs: 0.8 }, o.slur || {});   // RULES MIRROR (rules.json objects.slur)
         const sps = spsV || 0;
         const units = [...nhAt.entries()].map(([id, u]) => Object.assign({ id }, u)).sort((p, q) => p.t - q.t);
         const tipOf = u => u.stemItem ? u.stemItem.yB : null;
@@ -3451,7 +3461,8 @@
           const E0 = endOf(a), E1 = endOf(b);
           const at = u => (u.t - a.t) * sps;   // a unit's time as ss from the slur's start
           const x0 = E0.x, x1 = at(b) + E1.x, len = Math.max(0.1, x1 - x0);
-          let h = hand.slurHeightSs != null ? hand.slurHeightSs : Math.min(SL.heightRatio * len, SL.heightMaxSs);   // [§596] a hand slurHeightSs on the first note names the height — his "more arc to slur at 337"
+          // [§600, his (b) — 'a minimum height for short slurs, about 1 ss, so a grace slur never goes flat'] the height never under minHeightSs
+          let h = hand.slurHeightSs != null ? hand.slurHeightSs : Math.max(SL.minHeightSs || 0, Math.min(SL.heightRatio * len, SL.heightMaxSs));   // [§596] a hand slurHeightSs on the first note names the height — his "more arc to slur at 337"
           const chordY = x => E0.y + (E1.y - E0.y) * (x - x0) / len;
           // a cubic whose control points sit h / 0.75 off the chord at 1/3 and 2/3 peaks at h: its offset at s is 4 h s (1 − s)
           for (const u of inside) {
