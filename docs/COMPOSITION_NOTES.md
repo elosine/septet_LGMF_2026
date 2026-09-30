@@ -3306,3 +3306,11 @@ grace beamed to 2 (an eighth) · 3 a 16th beamed with 4 · 5 (eighths), the beam
 *The AI's reading (marked as such):* the candidates over the pair and the figure together (seven onsets), drawn as the picture
 `tempo_candidates_bsn_322.html` — six shown beats 86 … 98 bpm at their between phases; his pick owed (the extent, the grouping, the phase, the free
 notes); the bassoon's first frame navy by S19. RUNNING_LOG §615.
+
+## LG-190 — 2026-09-30 — the bassoon's first frame: the green, a tick back, the beats near p4 and p7
+
+*His words (session 18, Fable, on the picture `tempo_candidates_bsn_322.html`):* "lets try green minus 1 tick minus addl to get beats close to p4 and p7"
+
+*The AI's reading (marked as such):* the green 93 bpm (4 × 0.162), its phase one unit earlier and then the small correction that lets the eighth after
+the grace and the last eighth share the 15 ms by which they exceed a beat — 7.5 ms either side; one frame over the pair and the figure, eight navy
+lines 321.72 … 326.26. RUNNING_LOG §616.

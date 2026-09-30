@@ -19844,3 +19844,22 @@ with their between phases (D, T10):
 by S19. **His pick owed:** the extent (the pair and the figure in one frame, or per cluster — the 1.47 s gap between 323.33 and 324.80 is the
 question) · the grouping · the phase (the tool's between phase or a hand) · the free notes (the grace? S15). Then `--beatGridFit 1:…` by his word
 (`:keepLead` · `:noTail` as he says).
+
+## §616. The bassoon's first frame — the green 93 (4 × 0.162) one tick back and 14.5 ms forward, p4 and p7 sharing the shortfall (2026-09-30, Fable, session 18; LG-190)
+
+**His words, on the picture of §615:** *"lets try green minus 1 tick minus addl to get beats close to p4 and p7"*.
+
+**The green** is the third candidate (`tempo_fit`'s colour order red · blue · green · orange · purple over the (B) list): **93 bpm, the beat 0.648 s =
+4 × 0.162**, the tool's between phase 322.518. p4 = 324.955 (the eighth after the grace), p7 = 325.618 (the last eighth) — 0.663 s apart, 15 ms
+more than a beat, so no phase puts both ON a line; the shortfall is SHARED, as at 376 (§605) and 384 (§609).
+
+**The arithmetic:** one tick back → the phase 322.356: p4 7 ms after its line, p7 22 ms after. Sharing → 14.5 ms forward → **the phase 322.3705**:
+p4 **7.5 ms before** its line (324.962), p7 **7.5 ms after** its (325.611). *(His "minus addl" read as the small correction that gets the beats close to
+both — the direction is forward here, as it was backward at §605 · §609; the record says so, his to reverse.)*
+
+**Built:** `--beatGridFit 1:0.162:4:322.3705:322.836:325.618` — the pair and the figure in ONE frame (his p-numbers run over all seven). The clamp
+(one beat before, one after; the previous notation 312.818, the next 327.106 — nothing clamped): **eight lines 321.723 … 326.259, eight balls,
+NAVY** (`#1C4879`, the bassoon's first frame — S19). The seventh frame of the piece. The lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `323` (play from `321`). His to keep or drop: the lead line at 321.72 (`:noLead`), the tail at 326.26
+(`:noTail`); the names on the five (S9), a slur on the grace.
