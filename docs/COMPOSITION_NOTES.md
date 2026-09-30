@@ -3437,3 +3437,11 @@ RUNNING_LOG §633.
 
 *The AI's reading (marked as such):* the double bass's held single at 337.181 (0.24 s), a long tone by LG-196 until he said otherwise. The
 pattern with the cello's two: a held note of about a quarter second reads to him as a struck cue, not a held tone. RUNNING_LOG §634.
+
+## LG-208 — 2026-09-30 — the cello's and the double bass's dynamics; the trumpet's 295.5 mf
+
+*His words (session 18, Fable):* "Trumpet at 295.51 should be MF. Double bass at 300.4 mf. VC and DB, the two starting at 301.72 f. at 322.18 VC, keep that MP. The two following, DB and VC, make those F. The DB at 337.17, make that one F. VC at 343.1, MF. VC at 377.4 MF. VC at 387.47 F."
+
+*The AI's reading (marked as such):* Tpt 295.477 mf · DB 300.421 mf · Vc 301.722 and DB 302.147 f · Vc 322.191 stays mp · DB 322.873 and Vc
+323.172 f · DB 337.181 f · Vc 343.125 mf · Vc 377.406 mf · Vc 387.494 f. He reads across the two string parts as one line here ("VC and DB, the
+two starting at…", "the two following, DB and VC"). RUNNING_LOG §635.

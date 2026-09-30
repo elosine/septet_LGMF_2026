@@ -20310,3 +20310,34 @@ DB 394.93 (129 long tones). The double bass: **six one-offs** · 13 long tones. 
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `337.2`.
+
+## §635. The dynamics of the cello and the double bass at his eye, and the trumpet's 295.48 (2026-09-30, Fable, session 18; LG-208)
+
+**What prompted it** (his eye on §631 … §634's page; his words whole in LG-208): *"Trumpet at 295.51 should be MF. Double bass at 300.4 mf. VC
+and DB, the two starting at 301.72 f. at 322.18 VC, keep that MP. The two following, DB and VC, make those F. The DB at 337.17, make that one
+F. VC at 343.1, MF. VC at 377.4 MF. VC at 387.47 F."*
+
+**Built** (`dynMark` hands, one `reextract` run):
+
+| his | the note | was | now |
+|---|---|---|---|
+| Tpt 295.51 | 295.477 `wc-3392` | f | **mf** |
+| DB 300.4 | 300.421 `wc-3409` | ff | **mf** |
+| Vc and DB, the two from 301.72 | Vc 301.722 `wc-3413` · DB 302.147 `wc-3420` | mp · ff | **f · f** |
+| Vc 322.18 | 322.191 `wc-3455` | mp | mp — kept, no hand |
+| the two following, DB and Vc | DB 322.873 `wc-3458` · Vc 323.172 `wc-3461` | mf · mp | **f · f** |
+| DB 337.17 | 337.181 `wc-3515` | mf | **f** |
+| Vc 343.1 | 343.125 `wc-3534` | p | **mf** |
+| Vc 377.4 | 377.406 `wc-3625` | ff | **mf** |
+| Vc 387.47 | 387.494 `wc-3658` | ff | **f** |
+
+Untouched, the current names standing: Vc 300.342 mf · 337.550 mp; DB 295.772 mf · 299.686 mf.
+
+**A pattern in his hand** (the AI's observation, not a rule): across the four parts done today his names settle in mp · mf · f — every ff and
+fff the velocities gave has been brought down (the horn's 301.96 · 323.18 · 377.74, the trumpet's 325.27, the cello's 377.41 · 387.49, the
+double bass's 300.42 · 302.15), and the p's raised (the trumpet's 387.74, the cello's 343.13). The written range of the one-offs is narrower
+than the played velocities.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `295.5` · `300.4` · `301.7` · `302.2` · `322.9` · `323.2` · `337.2` · `343.2` · `377.4` · `387.5`.
