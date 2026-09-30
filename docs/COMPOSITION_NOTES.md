@@ -3415,3 +3415,10 @@ beat frame has carried no GC on its beamed groups anywhere so far (the EH's figu
 
 *The AI's reading (marked as such):* 375.949 f · 377.416 and 377.859 mf · 384.687 mf (385.298 already mf) · the pair at 385.95 mf, one name on
 its first note · 387.741 f. RUNNING_LOG §630.
+
+## LG-205 — 2026-09-30 — the cello begun: GCs, including the held notes at 337.5 and 343.1
+
+*His words (session 18, Fable):* "Cello, GCs at 300.3 and 301.6. The two starting at 322. Make the one at 337.5 a GC. As well as the one at 343.1. At 377.29. Three eight seven point three."
+
+*The AI's reading (marked as such):* eight one-offs. "Make the one at 337.5 a GC. As well as the one at 343.1" = the two held singles that LG-196
+made long tones "unless I say otherwise" — said otherwise here: a quarter-second note reads as a struck cue, not a held tone. RUNNING_LOG §631.

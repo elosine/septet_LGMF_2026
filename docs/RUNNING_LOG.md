@@ -20207,3 +20207,35 @@ group so far (LG-198 · LG-202); if he meant an mf on each of the two heads, one
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `376` · `377.5` · `384.7` · `385.3` · `386` · `387.7`.
+
+## §631. The cello begun — eight one-offs, two of them held singles taken back from the long tone at his word (2026-09-30, Fable, session 18; LG-205)
+
+**What prompted it** (his words whole in LG-205): *"Cello, GCs at 300.3 and 301.6. The two starting at 322. Make the one at 337.5 a GC. As
+well as the one at 343.1. At 377.29. Three eight seven point three."*
+
+**The cello's section 2** (part 6 — the ensemble's order EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7; 21 events 289 … 427 from the
+IR's chunks `ch-6-*`): six short notes and fifteen long tones, two of which he names as GCs.
+
+| his | the IR | id | pitch | length | vel → name | before |
+|---|---|---|---|---|---|---|
+| 300.3 | 300.342 | wc-3407 | A♯2 | 0.106 | 68 → mf (from `recVel`) | the old look |
+| 301.6 | 301.722 | wc-3413 | F3 | 0.050 | 60 → mp | the old look |
+| 322 (two) | 322.191 · 323.172 | wc-3455 · 3461 | F♯3 · F4 | 0.074 · 0.050 | 55 → mp · 55 → mp (both from `recVel`) | the old look |
+| 337.5 | 337.550 | wc-3518 | C♯2 | 0.219 | 55 → mp | A LONG TONE (§622's `:all`) |
+| 343.1 | 343.125 | wc-3534 | F2 | 0.236 | 37 → p | A LONG TONE (§622's `:all`) |
+| 377.29 | 377.406 | wc-3625 | C4 | 0.124 | 101 → ff | the old look |
+| 387.3 | 387.494 | wc-3658 | E4 | 0.104 | 110 → ff | the old look |
+
+**Built** (one `node tools/reextract.js` run): `--oneOffs 6:300.3:301.8` · `6:322.1:323.3` · `6:337.5:337.6` · `6:343.1:343.2` · `6:377.3:377.5` ·
+`6:387.4:387.6` — **eight one-offs** (S24), the current band names, no hand. The two held singles: §622 made every held tone a long tone
+"unless I say otherwise" — this is the otherwise; a `--oneOffs` window takes a held note out of `:all` by the exception §622 built (the
+long-tone pass now reports **3 singles by `:all`** — DB 337.18 · Tpt 367.98 · DB 394.93 — was 5; 130 long tones). Every cello note of
+section 2 is on a device: 8 one-offs · 13 long tones.
+
+**The AI's readings, his to reverse:** "the two starting at 322" = 322.191 · 323.172, each its own one-off (0.98 s apart; not a beamed pair —
+none asked) · the 337.55 and 343.13 notes are 0.22 · 0.24 s long and now read as SHORT (the 16th flag, the staccato dot) — his word; the
+lengths are his save's · his times ran 0.04 … 0.19 s early, the nearest note each time.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `300.4` · `301.7` · `322.2` · `323.2` · `337.6` · `343.2` · `377.4` · `387.5`.
