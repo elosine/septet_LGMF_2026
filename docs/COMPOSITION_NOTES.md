@@ -3408,3 +3408,10 @@ just before the five — the GC at 343.13 informed the fit and stands before the
 
 *The AI's reading (marked as such):* the beam device's automatic cue on each group's first note — not asked for; off by hand. A figure inside a
 beat frame has carried no GC on its beamed groups anywhere so far (the EH's figures, the bassoon's 324.8). RUNNING_LOG §629.
+
+## LG-204 — 2026-09-30 — the trumpet's dynamics 375.9 … 387.7
+
+*His words (session 18, Fable):* "375.9F. Both at 377.4MF. The ones at 384.6MF. One's already MF, and then the third one, the two notes are MF. 387.7F."
+
+*The AI's reading (marked as such):* 375.949 f · 377.416 and 377.859 mf · 384.687 mf (385.298 already mf) · the pair at 385.95 mf, one name on
+its first note · 387.741 f. RUNNING_LOG §630.

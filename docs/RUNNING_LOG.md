@@ -20183,3 +20183,27 @@ head's left edge on its time (S1).
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `344.2` · `345.5` (play from `342.5`).
+
+## §630. The trumpet's dynamics 375.9 … 387.7 at his eye (2026-09-30, Fable, session 18; LG-204)
+
+**What prompted it** (sent while §629 was building): *"375.9F. Both at 377.4MF. The ones at 384.6MF. One's already MF, and then the third
+one, the two notes are MF. 387.7F."*
+
+**Built** (`dynMark` hands, trumpet):
+
+| his | the note | was | now |
+|---|---|---|---|
+| 375.9 | 375.949 `wc-3614` | mf | **f** |
+| both at 377.4 | 377.416 `wc-3624` · 377.859 `wc-3630` | f · mp | **mf · mf** |
+| the ones at 384.6 | 384.687 `wc-3642` · 385.298 `wc-3646` | mp · mf | **mf** · mf (already) |
+| the third one, the two notes | the pair 385.953 `wc-3651` (+ 386.188 `wc-3654`) | f · — | **mf** on the first, the second unnamed |
+| 387.7 | 387.741 `wc-3661` | p | **f** |
+
+Untouched: 380.208 f · 295.477 f.
+
+**The AI's reading, his to reverse:** "the third one, the two notes are MF" = the beamed pair is mf — ONE name, on its first note, as on every
+group so far (LG-198 · LG-202); if he meant an mf on each of the two heads, one hand adds the second.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `376` · `377.5` · `384.7` · `385.3` · `386` · `387.7`.
