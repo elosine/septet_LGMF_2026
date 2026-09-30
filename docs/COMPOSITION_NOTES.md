@@ -3274,3 +3274,35 @@ and the 389.7 figure stands outside it; the fit learned `noTail` (and `noLead`) 
 for a struck note — the go line at the GC's impact, the cue head before it, a flagged stem, the band name — the lane-height GC (style 1), not the
 plain note's beat-ball GC; a hand on one note was the wrong mechanism, a device row (`byEnv.oneOff`) with an extractor window (`--oneOffs`) the
 right one; the note is `wc-3396` at 295.971, mf from its recorded velocity. RUNNING_LOG §611.
+
+## LG-186 — 2026-09-30 — the one-off: the dot back, the word in the head's column, every GC its own dynamic
+
+*His words (session 18, Fable, on the §611 page):* "Let's add back the dot staccato, but not the accent. And can you move the ord into the notehead column, please? And use the standard alignment that should be in our system. And then the same notation, please, for the subsequent notes at 300.4 and 301.7."
+
+*And:* "Let's have all the GCs carry their own dynamic, unless I say otherwise. So you can add the MF dynamic to the one at three hundred, if that is in fact its dynamic. Or just make it MF regardless."
+
+*The AI's reading (marked as such):* the one-off device takes the strike's staccato dot but not its accent; the section's technique word leaves its
+place above the note and joins the head's column after the dynamic, centred on the head (anchor C's column alignment — "the standard"); every one-off
+shows its own band name unless he names another — the 300.497 note's recorded velocity reads ff, his mf by hand. RUNNING_LOG §612.
+
+## LG-187 — 2026-09-30 — the two one-offs at 322.7: f, then mf
+
+*His words (session 18, Fable):* "Same for the ones at 322.7, the two of them there. The dynamic for the first one will be F, and then the second one will be MF."
+
+*The AI's reading (marked as such):* the bassoon's D5 pair at 322.836 · 323.328 as one-offs, the names his (f over the band's f, mf over the band's mp). RUNNING_LOG §613.
+
+## LG-188 — 2026-09-30 — the figure at 324.6: a grace beamed to an eighth; a 16th and two eighths beamed
+
+*His words (session 18, Fable):* "the five notes beginning at 324.6. First one, grace note. Second one, eighth note. Those should be beamed. Third one, sixteenth. And then eighth and eighth, and those three beamed."
+
+*The AI's reading (marked as such):* the bassoon's five at 324.796 … 325.618 as a figure in the EH's manner — plain notes with values by hand: 1 a
+grace beamed to 2 (an eighth) · 3 a 16th beamed with 4 · 5 (eighths), the beamlet on the 16th; no slur said; the names shown from the velocities
+(mp · mf · f · f · mp), his to thin. RUNNING_LOG §614.
+
+## LG-189 — 2026-09-30 — tempo-frame propositions for the bassoon, 322 to 326
+
+*His words (session 18, Fable):* "And then let me see some tempo frame propositions for the period 322 to 326 in its page."
+
+*The AI's reading (marked as such):* the candidates over the pair and the figure together (seven onsets), drawn as the picture
+`tempo_candidates_bsn_322.html` — six shown beats 86 … 98 bpm at their between phases; his pick owed (the extent, the grouping, the phase, the free
+notes); the bassoon's first frame navy by S19. RUNNING_LOG §615.

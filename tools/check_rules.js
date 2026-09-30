@@ -91,13 +91,15 @@ ok(!noSheet.length, '(7) every device carries `sheet` — the § that decided it
 }
 // [§611] the one-off (his ask 2026-09-30 — the bassoon's one-offs as the GC unit of #4's staccato / #5's strike, "precisely that way", a
 // model in the registry): its sheet is §611, it stands on anchor C with the go line at the GC's impact and the GC among its members, and it
-// equals byEnv.strike on EVERY field the strike has except the staccato dot and the accent (nhDot · nhDotGapSs · nhArtic), which it leaves off
+// equals byEnv.strike on EVERY field the strike has except the accent (nhArtic), which it leaves off — the dot back at §612 — and at §612 takes the
+// section's word into its column (instrPlace 'column', instrAlign 'middle' — anchor C's columnAlign centre) with every one-off its band name
 {
   const oo = (D.byEnv || {}).oneOff, st = (D.byEnv || {}).strike;
-  const same = !!st && !!oo && Object.keys(st).filter(k => !['sheet', 'memberRows', 'nhDot', 'nhDotGapSs', 'nhArtic'].includes(k)).every(k => JSON.stringify(st[k]) === JSON.stringify(oo[k]));
+  const same = !!st && !!oo && Object.keys(st).filter(k => !['sheet', 'memberRows', 'nhArtic'].includes(k)).every(k => JSON.stringify(st[k]) === JSON.stringify(oo[k]));
   ok(!!oo && /§611/.test(oo.sheet || '') && oo.anchorRow === 'C' && oo.goLine === true && oo.gc === true && ['cueHead', 'stem', 'flag', 'dynamic', 'goLine', 'gc'].every(m => (oo.memberRows || []).includes(m))
-    && same && oo.nhDot === undefined && oo.nhArtic === undefined && oo.dynMark === 'band' && oo.dynBesideStem === true,
-    '(7) the one-off `byEnv.oneOff` carries its sheet (§611), stands on anchor C with the go line at the GC\'s impact, and is `byEnv.strike` field for field without the dot and the accent');
+    && same && oo.nhDot === true && oo.nhArtic === undefined && oo.dynMark === 'band' && oo.dynBesideStem === true
+    && oo.instrPlace === 'column' && oo.instrAlign === 'middle' && (oo.memberRows || []).includes('staccatoDot') && (oo.memberRows || []).includes('instruction'),
+    '(7) the one-off `byEnv.oneOff` carries its sheet (§611), stands on anchor C with the go line at the GC\'s impact, is `byEnv.strike` field for field without the accent (the dot back, §612), and takes the section\'s word into its column, centred (§612)');
 }
 const gen = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'gen_engraving_rules.js'), '--check'], { encoding: 'utf8' });
 ok(gen.status === 0, 'docs/ENGRAVING_RULES.md is what the tables generate' + (gen.status ? ' — run node tools/gen_engraving_rules.js' : ''));

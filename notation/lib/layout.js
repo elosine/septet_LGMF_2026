@@ -1768,7 +1768,14 @@
                 const articG = dev.nhArtic && stemKind !== 'beam' ? (glyphs.articulation && glyphs.articulation[dev.nhArtic]) || null : null;
                 if (dev.nhArtic && stemKind !== 'beam' && !articG) warnings.push('nh-unit ' + e.id + ': articulation glyph "' + dev.nhArtic + '" missing — not drawn');
                 const instrIsFirst = !!(dev.instrFirst && instrShown.has(e.id));
-                const instrTxt = instrIsFirst ? dev.instrFirst : (dev.instrText || null);
+                // [§612, his "move the ord into the notehead column … use the standard alignment that should be in our system"] a device
+                // with instrPlace 'column' (byEnv.oneOff) takes the section's technique word — the change rule's instruction overlay on
+                // this note (§505 · §561), pushed on the row above — OFF the row and into its head-side chain's instruction slot, after
+                // the dynamic, at the device's instrAlign (middle = centred on the head, anchor C's columnAlign). The above-note pass
+                // never sees it; no other device changes.
+                const colWordIdx = dev.instrPlace === 'column' ? items.findIndex(it => it.k === 'text' && it.seq === 'instruction' && typeof it.t === 'number' && Math.abs(it.t - e.onset) < 1e-6) : -1;
+                const colWord = colWordIdx >= 0 ? items.splice(colWordIdx, 1)[0].text : null;
+                const instrTxt = instrIsFirst ? dev.instrFirst : (colWord || dev.instrText || null);
                 const instrEm = instrTxt ? TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3) : 0;
                 // [§400] THE TECHNIQUE SYMBOL goes above the unit when the lane
                 // has room above the stem tip (a flagged stem-up unit already

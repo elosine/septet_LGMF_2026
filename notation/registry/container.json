@@ -348,7 +348,7 @@
      },
      "_longToneNote": "LGMF PLAN 2m (2026-09-29; the device sheet RUNNING_LOG §531; LG-119): THE LONG TONE — section 2's held notes played in groups (his cut: a plain held note ≥ 0.2 s that starts TOGETHER, within 0.1 s, with another pitched part's; the extractor's --longTones T0:T1 gives them env 'longTone', --longToneAlso admits a single he names). ANCHOR A — the open head's left edge ON its time, no go line (his 'No go lines alignment with left of notehead'), no GC, no brick; its ordinary accidental and ledgers, the ottava by the threshold. TEMPERED as written (his a1: Draft 01 carries no cents on any of them — no column; a note dealt from a take keeps the just column of its own device). THE RING BAR the note's FULL length (`ringBarFull` — the written length, no breath cut) at the ringBar row's look (navyBlue at 0.3, §472 · §473), ending `after` before the next unit's leftmost ink (layout.js's clearance pass, as the vibraphone's bars). ONE NAME PER NOTE (his b1, 'for now' — he normalizes per chord in the composer, then re-extract): `dynMark` band — the velocity (IR `vel` = the save's recVel) on the score's eight-step table (`dynamicBands`, the steps `dyn ▾` writes), every note (no `dynOnChange`); `dynOnRow` — ON the house dynamic row (`dynY` −4.6), lower only where the unit's own ink reaches below it (the sequence legend's rule). The 'ord.' word of the middle section is the change rule's (techniqueChange, §505) — a long tone reads as a plain note there. It merges over the brass `byTechnique.ord` (the tuba's — anchor B, a go line) and the Xsample three's family look, so every field that differs is stated here. No IR before 2m holds env 'longTone', so no page before it moves.",
      "oneOff": {
-      "sheet": "§611 (his ask 2026-09-30, the bassoon's section 2 — 'a GC as we have done it typically in previous pieces … the full lane height one … show me the dynamic as well' · 'see piece five or piece four for the spec. Let's do it precisely that way for the GC … a model in our registry': the GC unit of #4 day 23 (wc-29, byTechnique.staccato) and #5 §400 (byEnv.strike), field for field — anchor C, the go line at the GC's impact, the cue head 0.6 ss left of it, a flagged stem clearing the staff, the band name beside the stem; the staccato dot and the accent those two techniques carry left off — a hand nhDot · nhArtic adds either)",
+      "sheet": "§611 (his ask 2026-09-30, the bassoon's section 2 — 'a GC as we have done it typically in previous pieces … the full lane height one … show me the dynamic as well' · 'see piece five or piece four for the spec. Let's do it precisely that way for the GC … a model in our registry': the GC unit of #4 day 23 (wc-29, byTechnique.staccato) and #5 §400 (byEnv.strike), field for field — anchor C, the go line at the GC's impact, the cue head 0.6 ss left of it, a flagged stem clearing the staff, the band name beside the stem; the staccato dot and the accent those two techniques carry left off — a hand nhDot · nhArtic adds either) · §612 (his eye: 'add back the dot staccato, but not the accent … move the ord into the notehead column … the standard alignment that should be in our system … all the GCs carry their own dynamic, unless I say otherwise': the dot back as the strike has it; the section's word joins the head-side column after the dynamic, centred on the head — anchor C's columnAlign; every one-off its band name, a hand dynMark overrides)",
       "anchorRow": "C",
       "memberRows": [
        "cueHead",
@@ -356,7 +356,9 @@
        "accidental",
        "stem",
        "flag",
+       "staccatoDot",
        "dynamic",
+       "instruction",
        "ottava",
        "goLine",
        "gc"
@@ -374,11 +376,15 @@
       "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
+      "nhDot": true,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
       "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
-      "dynBesideStem": true
+      "dynBesideStem": true,
+      "instrPlace": "column",
+      "instrAlign": "middle"
      },
-     "_oneOffNote": "RUNNING_LOG §611 (2026-09-30, Fable; his ask at the start of the bassoon's section 2): THE ONE-OFF — a short struck note standing alone, drawn as the GC unit of the tuba pages (#4 day 23, byTechnique.staccato) and the Tempus septet's strike (#5 §400, byEnv.strike), the same fields, without the staccato dot and the accent those two techniques carry (a hand nhDot · nhArtic adds either). The extractor's --oneOffs P:T0:T1 gives the part's env-less pitched notes in the window this env, after --longTones and --plainNotes (a take-note's level dropped, its velocity from recVel — §590, S21). The GC on the lane geometry (objects.gc.styles 1: the impact at the lane's bottom, the apex at its top); the band name from the velocity beside the stem. check_rules (7) holds it to byEnv.strike field for field.",
+     "_oneOffNote": "RUNNING_LOG §611 (2026-09-30, Fable; his ask at the start of the bassoon's section 2): THE ONE-OFF — a short struck note standing alone, drawn as the GC unit of the tuba pages (#4 day 23, byTechnique.staccato) and the Tempus septet's strike (#5 §400, byEnv.strike), the same fields, without the accent the strike carries (a hand nhArtic adds it); the staccato dot back at his word (§612). §612: instrPlace 'column' — the section's technique word (the change rule's instruction overlay on the note, §505) is taken INTO the unit's head-side column, the instruction slot after the dynamic (layout.js, the nh-unit block), centred on the head (instrAlign middle = anchor C's columnAlign centre) instead of riding above the note; every one-off carries its band name (dynMark band), a hand dynMark on a note overrides it (his 300.497: mf over the velocity's ff). The extractor's --oneOffs P:T0:T1 gives the part's env-less pitched notes in the window this env, after --longTones and --plainNotes (a take-note's level dropped, its velocity from recVel — §590, S21). The GC on the lane geometry (objects.gc.styles 1: the impact at the lane's bottom, the apex at its top); the band name from the velocity beside the stem. check_rules (7) holds it to byEnv.strike field for field.",
      "plainNote": {
       "sheet": "§547 (his ask 2026-09-29 — the EH's first notes of section 2 as black noteheads with stems, the dynamic name on; the base picture before the temporal notation)",
       "anchorRow": "A",

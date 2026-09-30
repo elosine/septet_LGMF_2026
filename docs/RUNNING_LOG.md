@@ -19750,3 +19750,97 @@ a one-off is whatever he puts in a `--oneOffs` window; nothing decides it by dur
 accent left off · the window 295.9 … 296.1 (one note; he widens it or names the next). **S24** in `temporal_notation.md` §12.
 
 **For his eye:** reload the notation tab (no restart) → `piece-lgmf` → `296` (play from `295`).
+
+## §612. The one-off at his eye — the staccato dot back, not the accent · the section's word INTO the head's column, centred · every GC its own name · the one-offs at 300.5 · 301.9 (2026-09-30, Fable, session 18; LG-186)
+
+**His words, on the §611 page:** *"Let's add back the dot staccato, but not the accent. And can you move the ord into the notehead column, please?
+And use the standard alignment that should be in our system. And then the same notation, please, for the subsequent notes at 300.4 and 301.7."*
+— and, a moment later: *"Let's have all the GCs carry their own dynamic, unless I say otherwise. So you can add the MF dynamic to the one at three
+hundred, if that is in fact its dynamic. Or just make it MF regardless."*
+
+**Built, in the device (`byEnv.oneOff`, `container.json`), not by hand:**
+- **the dot:** `nhDot true` · `nhDotGapSs @objects.staccatoDot.parent` — the strike's own fields; `staccatoDot` among the members. The accent stays off.
+- **the word into the column:** a new device field **`instrPlace 'column'`** (+ `instrAlign 'middle'`) and one block in `layout.js`'s nh-unit: a device
+  that says so takes the section's technique word — the change rule's instruction overlay on that note (§505 · §561), which the row-level pass had
+  already pushed with `place 'aboveNote'` — OFF the row (`items.splice`) and into its head-side chain's INSTRUCTION SLOT after the dynamic (the
+  tuba's slot for "jeté" · "(slap)" · "T. R.", §400 · §401b), at `instrAlign` **middle = centred on the head = anchor C's `columnAlign centre`** —
+  his "standard alignment that should be in our system". The above-note pass never sees it; no other device changes (THE SHIELD: 21 of 22
+  identical, `piece-lgmf` alone). `instruction` among the members.
+- **every GC its own name:** the device's `dynMark 'band'` already gives every one-off the band name of its velocity — the plain note's
+  thinning-by-hand (S9) does NOT apply to one-offs; a hand `dynMark` on a note overrides (his "unless I say otherwise").
+- **the gate (7)** amended: equal to `byEnv.strike` on every field the strike has except `nhArtic`, plus `nhDot true` · `instrPlace 'column'` ·
+  `instrAlign 'middle'` · the two members. **`check_rules` 33 GREEN.**
+
+**The window widened** (`@replace:1:295.9:296.1=>1:295.9:302`): three one-offs — 295.971 · **300.497** (`wc-3410`, A2, a take-note, `recVel` **102**
+→ **ff** by the eight-step bands 100 … 118) · **301.878** (`wc-3415`, F2, vel 70 → mf). His mf on 300.497 "regardless": a hand `dynMark "mf"`.
+
+**On the page** (the video system, part 1): 295.971 — head −4.5 · dot −5.223 · **mf** −6.358 · **"ord." −8.073, centred** (the column head → dot →
+name → word at the standard stack; the flag still 5.888) · 300.497 — head −1.5 · dot −2.5 · mf −3.635 · 301.878 — head −2.5 · dot −3.223 · mf −4.358;
+no instruction word left on the row in 295 … 324. The lock 106.
+
+**For his eye:** reload → `piece-lgmf` → `296` · `300.5` · `302`. **The AI's calls, his to reverse:** the word after the name (the tuba's
+slot order — S18's column order articulation · dynamic · ottava · instruction) · centred (his "standard": anchor C's) · the accent off.
+
+## §613. The pair at 322.7 — two one-offs, f · mf at his dictation (2026-09-30, Fable, session 18; LG-187)
+
+**His words:** *"Same for the ones at 322.7, the two of them there. The dynamic for the first one will be F, and then the second one will be MF."*
+
+**The notes** (the bassoon, part 1): `wc-3457` at **322.836**, D5, 0.078 s, a take-note (`recVel` 85 → f by the bands) · `wc-3463` at **323.328**, D5,
+0.082 s, a take-note (`recVel` 47 → mp). *(His times read ≈ 0.15 … 0.2 s earlier than the IR's onsets on every note today — 295.82 · 300.4 ·
+301.7 · 322.7 · 324.6 against 295.971 · 300.497 · 301.878 · 322.836 · 324.796; the one nearest is always the one.)*
+
+**Built:** a second window `--oneOffs 1:322.5:323.5` (2 notes, both struck from `recVel`, the level dropped) · his names as hands — `wc-3457
+dynMark "f"` (the band's own, written anyway: his word is the record) · `wc-3463 dynMark "mf"` (over the band's mp).
+
+**On the page:** both D5 — the stem DOWN (3.385 → −5.388, the 16th flag under the staff), so the column goes ABOVE the head: dot 4.223 · **f** / **mf**
+5.358 · the ottava riding at 7.093 (S18's riders). The lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. *(The 8va on a bassoon D5 is
+the bass clef's doing — 2a.6, the clefs by register, still his.)*
+
+**For his eye:** reload → `323`.
+
+## §614. The figure at 324.6 at his dictation — a grace beamed to an eighth; a 16th with its beamlet beamed to two eighths (2026-09-30, Fable, session 18; LG-188)
+
+**His words:** *"the five notes beginning at 324.6. First one, grace note. Second one, eighth note. Those should be beamed. Third one, sixteenth. And
+then eighth and eighth, and those three beamed."*
+
+**The notes** (part 1): `wc-3465` 324.796 A3 vel 63 · `wc-3468` 324.955 D♯4 70 · `wc-3471` 325.250 C♯4 89 · `wc-3475` 325.397 A♯2 97 · `wc-3477`
+325.618 B2 55 (the next bassoon note 327.106 is a long tone). A FIGURE, not one-offs — the EH's mechanism (S12): `--plainNotes 1:324.7:325.7`
+(S1: filled heads on their time, no go line, the band name on each) · `--beam 324.796-324.955@1` · `--beam 325.25-325.618@1` · the hands in the
+EH's shapes (§596 · §607): 1 `grace · noteBeams 1 · gc false · goLine false · dynAboveBeam false` · 2 `noteBeams 1 · dynAboveBeam false` · 3
+`noteBeams 2 · gc false · goLine false · dynAboveBeam false` · 4 · 5 `noteBeams 1 · dynAboveBeam false`. *(The extractor's beam report says
+"1 (primary only, it rings)" for every `ord` member — the derivation; the hands' `noteBeams` win in the layout, as they did on the EH.)*
+
+**On the page:** the stems DOWN (D♯4 · C♯4 high on the bass staff; the grace follows its group) to one beam at −5.388 · **the grace** at 0.707 (head
+at 2, dx 0.368) beamed to the eighth, **its slash pinned at the beam's corner** (`atBeam` — S22's pin fires on the MIXED group too: the corner
+−4.288 → −6.488, hand-drawn, falling) · **bm-25:** the primary beam over 3 · 4 · 5 and the second-level STUB on the 16th (`bm-25-b2-stub`, the
+beamlet the 389.7 figure had) · the names **mp · mf · f · f · mp** on the head side ABOVE (the beam below; the side-with-room rule, §598) · no slur
+on the grace (his word was "beamed"; S6's slur into the eighth a hand `slurTo` if he wants it). The lock 106 · `check_rules` 33 · the shield
+`piece-lgmf` alone; no layout warning.
+
+**Surfaced at this figure (CLAUDE.md READ FIRST):** S1 the plain note · S4 values as pace · S6 the grace (its stem with its parent's group) · S9
+the names thinned by hand — **his to thin** · S22 the slash at the corner · S13 the beat frame — his pick (§615).
+
+**For his eye:** reload → `325` (play from `324.5`). **The AI's calls, his to reverse:** the beam count per member as dictated (the grace 1) ·
+the names all shown · no slur.
+
+## §615. The tempo candidates for the bassoon's 322 … 326 — the picture (2026-09-30, Fable, session 18; LG-189)
+
+**His words:** *"And then let me see some tempo frame propositions for the period 322 to 326 in its page."*
+
+**Run:** `node tools/tempo_fit.js --part 1 --from 322 --to 326 --html notation/research/tempo_candidates_bsn_322.html` — **seven onsets** 322.836 ·
+323.328 · 324.796 · 324.955 · 325.250 · 325.397 · 325.618 (IOI 0.147 … 1.468 s; the pair, then the five). The shown beats (B, under the cap 100)
+with their between phases (D, T10):
+
+| shown beat | unit × n | phase | nearest note from a line |
+|---|---|---|---|
+| 93 bpm | 7 × 0.0925 | 322.520 | 139 ms |
+| 86 | 6 × 0.116 | 322.318 | 147 |
+| 93 | 4 × 0.162 | 322.518 | 140 |
+| 89 | 7 × 0.096 | 322.414 | 147 |
+| 86 | 7 × 0.100 | 322.317 | 147 |
+| 98 | 5 × 0.122 | 322.435 | 79 |
+
+**The picture:** `http://localhost:5400/notation/research/tempo_candidates_bsn_322.html` (S16). This would be the bassoon's FIRST frame — **navy**
+by S19. **His pick owed:** the extent (the pair and the figure in one frame, or per cluster — the 1.47 s gap between 323.33 and 324.80 is the
+question) · the grouping · the phase (the tool's between phase or a hand) · the free notes (the grace? S15). Then `--beatGridFit 1:…` by his word
+(`:keepLead` · `:noTail` as he says).
