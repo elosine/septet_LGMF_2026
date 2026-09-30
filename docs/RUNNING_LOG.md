@@ -18692,3 +18692,28 @@ lane top (the AI's landing — the GC lands at the lane's bottom; his to reverse
 
 **► His eye:** reload → `piece-lgmf` → play from `292.5`: the lines from 293.08, the ball from the first line, the collisions with the
 first figure's tail.
+
+## §568. THE BALL AT THE BOTTOM; THE GRID'S CLAMPS HELD; A MAX TEMPO — the question put back with numbers (2026-09-29, Fable, session 18; N-4)
+
+**Prompted by:** LG-146.
+
+**Applied:** the ball lands at the LANE'S BOTTOM — the tuba's own geometry whole (`engraving.animated.beatBall.land` 'laneBottom'; 'lineTop'
+the other value). **Held at his word:** the grid's span — two seconds before is too long; a CLAMP is wanted so a grid never runs into the
+notation before or after it, isolated to the cluster it overlays; his first number three beats before (*"hold on that"*).
+
+**The current tempo:** the shown beat is 0.324 s — **185 bpm** (the dotted eighth of ♩ 139; the 16th unit 0.108 s = 555 a minute). Far too
+fast to follow as a bounce.
+
+**How to find a max (the AI's recommendation):** (1) a PROVISIONAL max from what the body does — tapping and conducting research puts the
+comfortable synchronization range at about 60 … 120 bpm, the preferred pulse near 100 (500 … 700 ms), the upper limit of following a
+beat one-to-one around 150 … 180 before it becomes a subdivision (London, *Hearing in Time*; Repp's tapping reviews — from memory,
+to confirm); conductors rarely beat above ~140 and subdivide otherwise. So **120 bpm provisional**. (2) THE GROUPING RULE, so the max
+costs nothing: the grid's UNIT stays the fitted one; the SHOWN BEAT is the smallest multiple of the unit whose tempo is ≤ the max —
+here 3 units = 185 (too fast) → **6 units = 0.648 s = 93 bpm** (a dotted quarter of ♩ 139): the notes then fall on the beat and the
+half-beat (A4 a 16th after the beat; A♯3 on the half; A5 on the beat; G3 on the half; G♯4 on the beat; F♯4 on the beat). (3) His EYE
+confirms or moves the number: try 93 here, then a figure that lands near 120 and one near 140; the max becomes a rules row
+(`objects.tick.gridMaxBpm`) the tool respects when it proposes a grouping. Not "keep building until comfortable" alone — a provisional
+number first, so each trial tests a hypothesis.
+
+**Put to him:** the grouping at 6 for both the lines and the ball (one system), or the lines at 3 and the ball at 6 (the ball landing on
+every other line). Then the clamp (three beats before, two after, never past a neighbour's note).

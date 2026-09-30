@@ -193,7 +193,10 @@ on Opus or here at his word.
   the lane's top edge, the main beats only, 0.4 ss — applied; **§566 (LG-144): then as LINES through the staff, 0.4 beyond each outer line.**
   **§567 (LG-145): the span two beats after · about two seconds before, rounded out (16 lines 293.08 … 297.94); THE BOUNCING BALL — the
   tuba's GC ball in the lines' colour at 0.3, one per beat, in flight only over the grid (`beatBall`, a new animated kind); the lock 30;
-  the screen gate PASS with the balls.**
+  the screen gate PASS with the balls.** **§568 (LG-146): the ball lands at the LANE'S BOTTOM (the tuba's); HELD: the grid's clamp to its
+  cluster (three beats before, two after, never past a neighbour's note); A MAX TEMPO — 185 bpm here is far too fast; the AI's proposal a
+  provisional 120 and THE GROUPING RULE (the shown beat = the smallest multiple of the unit ≤ the max → 6 units = 93 bpm here); his pick
+  owed: the grouping on the lines and the ball together, or the ball alone.**
   ► His eye (`295.5`); open: a number on the beat · the ball · the grid's span.**
 - **N-5 · THE MICRO COUNTERPOINT — the notation evaluation for the texture** (LG-130: the figures after the first; onsets a small interval
   apart across instruments): the survey on the texture; the candidates he named — more GCs · the ball on the cursor · highlight the notes as

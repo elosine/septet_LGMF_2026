@@ -2933,3 +2933,7 @@ vibrapone will never do glissando"* — was set aside by his own analysis.
 ## LG-145 — 2026-09-29 — the grid's span (two beats after, about two seconds before, rounded out) and THE BOUNCING BALL from the tuba on the grid
 
 *"Okay, for now, let's do two beats after the notation ends, and then about two seconds before, however many beats that is, and we'll round out. So if a beat lies just outside two seconds, it can be shown as well. And what I mean for now is that we'll have to see if they collide with previous notation, etc. And then could you put in the bouncing ball from the tuba, that size and that Uh, same bounce, but use the gray blue of the, of the lines and the same transparency. And then it will only be on for the lines that are showing."* (the composer, 2026-09-29, Fable, dictated — RUNNING_LOG §567)
+
+## LG-146 — 2026-09-29 — the ball lands at the bottom; two seconds too long, the grid to be clamped to its cluster; a MAX TEMPO needed — "this is far too fast"
+
+*"Okay, ball should land at the bottom. Or let's try it first. Uh, two seconds is too long, and we should have some clamps so it doesn't run into previous notation or notation afterwards, that it's isolated to whatever cluster the tempo's trying to overlay. So in this case, let's just do three beats. Well, hold on that. We need to come up with a max tempo. This is far too fast. What's the current tempo here? And how do you recommend finding a max? Or should we just keep building until we find a comfortable max?"* (the composer, 2026-09-29, Fable, dictated — RUNNING_LOG §568)
