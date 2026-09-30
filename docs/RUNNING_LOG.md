@@ -19202,3 +19202,31 @@ level · the names · the quarter · the hairpin and S20's gap · 9 … 12 · th
 regenerated FIRST — the freshness check went red once when it ran before the regeneration) · the shield `piece-lgmf` alone. On the way:
 a `node -e` with escapes mangled two scripts — every splice went to a FILE after that (the standing rule, twice proven today).
 ► He reloads the notation tab → `piece-lgmf` → `317` (play from `316.5` for the meter).
+
+## §591. p10's FLAG CLEARS — the max 10.5; THE FIGURE AT 324.6 by hand — six beamed grace 16ths under a slur, 7+8 eighths with a GC (2026-09-30, Fable, session 18; LG-166)
+
+**What prompted it** — *"p10 flag above the staff, please? And can you see if something needs to be fixed in the rules? Or did it just get
+missed because it's a 16th flag? Or did it exceed the max? If it exceeds the max, then let's up the max."* and *"324.6 the First six partials,
+all in a beamed 16th note grace note figure. slur over all; p7 & p8 8th notes beamed gc on 7 accent on 7 and let me see all the dynamics pls"*.
+
+**p10 (321.031, G3 two ledgers below, a 16th flag):** the law was applied, not missed — a 16th flag (3.508 high) clearing the top line by 0.38
+from a head at −4.5 needs a stem of **10.39**; the max was 9.5 (§561), so the law yielded and the stem took its plain 4.5 with the flag inside.
+At his word `objects.flag.clearMaxSs` **9.5 → 10.5** (the row's note carries the history; read through `byEnv.plainNote.flagClearMaxSs`, the
+tuba pages untouched): p10's stem 10.25 (from the head's edge), the flag above the staff. The EH's lowest note E3 with a 16th flag would need
+11.4 — his to raise again when it comes. `check_rules` 32 · the lock 92 · the shield `piece-lgmf` alone.
+
+**The figure at 324.6** — the EH's eight: 324.677 F5 · 324.799 B4 · 324.942 F♯4 · 325.015 C4 · 325.167 A4 · 325.383 D♯5 · **325.597 C5** ·
+325.956 G♯3 (then a held B3 at 327.05). Built: `--plainNotes 0:324.5:326.1` · `--beam` over the six and over 7+8 · the six `{grace, noteBeams 2,
+dynAboveBeam false}` (the first `gc false · goLine false · slurTo wc-3476`; 2 … 6 `slash false`) · 7 `{noteBeams 1, gc true, goLine false,
+nhAnchor leftEdge, nhArtic accent, articSide below, dynAboveBeam false}` · 8 `{noteBeams 1, dynAboveBeam false}`; no name turned off — his
+"let me see all the dynamics": 1 mp · 2 ff · 3 mf · 4 f · 5 mf · 6 mf · 7 f · 8 f (the bands of his velocities 52 · 105 · 68 · 87 · 78 · 73 ·
+98 · 83). **New on the way:** a hand `slash: false` (layout, one condition) — a beamed grace group carries the acciaccatura's stroke on its
+FIRST stem only (the block drew one per grace). The layout: the six heads at 0.707, the stems to a beam at 5.29 (two levels), the stroke on
+1; the slur 324.677 → 325.597 BELOW (S7: the stems up), height 4.76 — the C4 grace inside lifts it; 4 · 5's names pushed to −4.9 · −5.5 under
+it (S7's 0.8); 7's GC with the head's left edge on its time, the accent on the head side (S10, −2.72, under the slur's end); 8's f ABOVE the
+staff at 6.02 — the head sits on the dynamic row (G♯3 at −4.5): the side-with-room rule flips it.
+
+**The AI's calls, his to reverse:** the beam over the graces at FULL size (thickness · the level gap · the stems' reach) — LilyPond scales a
+grace beam with the heads (≈ 0.7); a grace-scaled beam is a build (the beam pass knowing its members are graces) · the accent under the head
+against the slur's end (above the beam is the alternative) · the slur to 7 ("over all" read as into the main note). No frame asked for this
+figure. The lock: a block after his dynamics. `check_rules` 32 · the lock 92 · the shield `piece-lgmf` alone. ► He reloads → `324.5`.

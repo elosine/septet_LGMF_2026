@@ -3091,3 +3091,13 @@ then on partial 12, there may be other places too."
 
 *The AI's reading (marked as such):* "partial" = note. Built as hands; two rules fell out of it — the hairpin into a name (S20) and the plain
 note as a struck note (S21, the meter's source removed). RUNNING_LOG §590.
+
+## LG-166 — 2026-09-30 — p10's flag; the figure at 324.6: six beamed grace 16ths, a slur over all, 7+8 with a GC
+
+*His words (session 18, Fable):* "p10 flag above the staff, please? And can you see if something needs to be fixed in the rules? Or did it
+just get missed because it's a 16th flag? Or did it exceed the max? If it exceeds the max, then let's up the max. So this flag would clear
+and be notated above the staff." — "324.6 the First six partials, all in a beamed 16th note grace note figure. slur over all; p7 & p8 8th
+notes beamed gc on 7 accent on 7 and let me see all the dynamics pls"
+
+*The AI's reading (marked as such):* p10 exceeded the max (10.39 needed, 9.5 the cap) — the max 10.5 at his word. The 324.6 figure: a beamed
+grace GROUP is new (the stroke on the first stem only; the beam at full size, a grace-scaled beam offered). RUNNING_LOG §591.

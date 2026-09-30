@@ -2028,7 +2028,7 @@
                   if (beamTip) beamTip.stem = items[items.length - 1];
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
-                  if (dev.grace) {   // [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
+                  if (dev.grace && dev.slash !== false) {   // [§591] a hand `slash: false` — a beamed grace group carries the stroke on its FIRST stem only · [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
                     const sx = headDx + att.dx, yc = yStart + (yEnd - yStart) * GR.slashAt, r = GR.slashReachSs;
                     items.push({ k: 'slash', t: tU, dx0Ss: sx - r, y0Ss: yc - r, dx1Ss: sx + r, y1Ss: yc + r, thickSs: GR.slashThickSs, ev: e.id });
                   }
