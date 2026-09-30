@@ -3342,7 +3342,11 @@
           const GRi = (o.grace && o.grace.slashBeamInsetSs != null) ? o.grace.slashBeamInsetSs : 1;   // RULES MIRROR (rules.json objects.graceSlash.beamInsetSs)
           const cx = st.dxSs, cy = (inner + outer) / 2 + sgn * GRi, r = (sl.dx1Ss - sl.dx0Ss) / 2;   // [§602] slid toward the heads — more of the corner showing
           const flS = up ? 1 : -1;   // [§602] the stroke mirrors with the stem: rising on an up stem, falling on a down stem (LilyPond's ugrace · dgrace)
-          sl.dx0Ss = +(cx - r).toFixed(4); sl.dx1Ss = +(cx + r).toFixed(4); sl.y0Ss = +(cy - flS * r).toFixed(4); sl.y1Ss = +(cy + flS * r).toFixed(4); sl.atBeam = true;
+          // [§604, his 'it just needs to be longer at the right top so that the protruding distance below is the same as above'] the near half
+          // (toward the heads) keeps the reach r; the far half reaches r + 2 × the inset, so the stroke sticks out beyond the stack's far edge
+          // exactly as far as it sticks out beyond the near edge — the corner stays in view, the two ends balanced
+          const rFar = r + 2 * GRi;
+          sl.dx0Ss = +(cx - r).toFixed(4); sl.dx1Ss = +(cx + rFar).toFixed(4); sl.y0Ss = +(cy - flS * r).toFixed(4); sl.y1Ss = +(cy + flS * rFar).toFixed(4); sl.atBeam = true;
         }
       }
       // [§561, his "is there a reason ord is so far from note head? if not bring it closer"] THE SECTION'S TECHNIQUE WORD ABOVE ITS NOTE:

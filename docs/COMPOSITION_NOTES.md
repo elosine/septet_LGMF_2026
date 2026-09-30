@@ -3203,3 +3203,14 @@ there's more or less an equal amount sticking out below and above?"
 
 *The AI's reading (marked as such):* the dots as hands; the stroke's slide 0.5; equal protrusion needs the stroke centred on the beam stack —
 the slide and the equality pull against each other, put to him. RUNNING_LOG §603.
+
+## LG-178 — 2026-09-30 — the stroke balanced; the figure at 375.77; the five at 379.88 with tenutos; the candidates 375.7 … 380.8
+
+*His words (session 18, Fable):* "The corner distance is good. It just needs to be longer at the right top so that the protruding distance
+below is the same as above. at 375.77. Those eight partials, can I see the beat frame? And I would like the first three being the 16th
+notes. the next four being the 16th notes and the last one uh, standing alone as a 16th. And then I'll see the dynamics as well, please. I
+also made a change to composer save so whatever needs to be done ; lets see the beat frame candidates from 375.7 - 380.8 / 379.88 5 notes
+16ths beamed together. firs 3 staccato, last 2 tenuto"
+
+*The AI's reading (marked as such):* the stroke's far half lengthened by twice the inset — balanced; the tenuto a new glyph in the
+articulation row; the two figures as said, the names shown; the candidates drawn. RUNNING_LOG §604.

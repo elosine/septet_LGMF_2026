@@ -105,8 +105,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `glyph:flag-.*`
 - **staccatoDot** — face **music** · colour **ink #111** · parent **0.15** → `layout.devices.byEnv.strike.nhDotGapSs` · `layout.devices.byTechnique.staccato.nhDotGapSs` · `layout.devices.byTechnique.gettato_vel.nhDotGapSs` +4 · diameterSs **0.4** · floor **inside** · *composer* · #4 day 23 ('reduce 50% the gap' — the tight gap) · §424 (in a space, never on a line)
   - draws `dot` · in: diameterSs glyphs.json standards.staccatoDot
-- **accent** — face **music** · glyph **articulation.accent · marcato** · size **1** · colour **ink #111** · *composer* · #5 §400 (the strike's accent)
-  - draws `glyph:artic-(accent|marcato)` · seed: {parent: 0.2, staff: 0.25, note: LilyPond Script padding · staff-padding (§422) — a SEED,  not yet read by the layout (the chain places the accent by the column's stack)}
+- **accent** — face **music** · glyph **articulation.accent · marcato** · size **1** · colour **ink #111** · tenutoNote **§604 (2026-09-30, his tenutos on the 379.88 five): the tenuto joins the articulation row — a bar the head’s width at the stem’s thickness (glyphs.json articulation.tenuto), placed as the accent is** · *composer* · #5 §400 (the strike's accent)
+  - draws `glyph:artic-(accent|marcato|tenuto)` · seed: {parent: 0.2, staff: 0.25, note: LilyPond Script padding · staff-padding (§422) — a SEED,  not yet read by the layout (the chain places the accent by the column's stack)}
 - **techSymbol** — face **music** · glyph **articulation.snappizz · plus · trill** · size **0.707** → `layout.devices.byTechnique.bartok_vel.techSymbolScale` · `layout.devices.byTechnique.slap.techSymbolScale` · sizeTrill **0.57** → `layout.devices.byEnv.trill.techSymbolScale` · colour **ink #111** · leaves **1** → `layout.ladder.leaves.techSymbol` · *composer* · size: #5 (bartók · slap, 0.707 = 2^(-1/2)) · sizeTrill: #5 §438
   - draws `glyph:artic-(snappizz|plus|trill)`
 - **trillPitch** *(a variant of smallHead)* — groupPadSs **0.3** → `layout.devices.byEnv.trill.trillPitch.groupPadSs` · parenInnerSs **0.42** → `layout.devices.byEnv.trill.trillPitch.parenInnerSs` · accPadSs **0.2** → `layout.devices.byEnv.trill.trillPitch.accPadSs` · *composer* · #5 §438 (TRILL_NOTATION_SPEC)
@@ -326,7 +326,7 @@ The size step: ×1.122462 (LilyPond's font-size step 2^(1/6) (§428)) · the com
 Every `engraving` overlay on an event (the per-event hands: `stemDir` · `dxSs` · `dySs` · `beamBreak` · `device` …) in the notation
 files the picker lists. A rung-8 override carries five fields (the object · the property · the value · the rung · his § and date).
 
-- `piece-lgmf` — 69 override(s): device ×69
+- `piece-lgmf` — 82 override(s): device ×82
 
 ---
 

@@ -186,6 +186,7 @@
   }
  },
  "articulation": {
+  "tenuto": { "path": "M 0 0 h 1.04 v 0.14 h -1.04 z", "wSs": 1.04, "hSs": 0.14, "anchors": { "center": { "x": 0.52, "y": 0.07 } }, "_provenance": { "source": "§604 (2026-09-30, his tenutos on the 379.88 five): a bar the filled head's width (glyphs.notehead.filled.wSs 1.04 — Gould, the length of a notehead) at the stem's thickness plus a hair (0.14); drawn as a rectangle, not ported — Emmentaler's scripts.tenuto is the same bar", "added": "2026-09-30" } },
   "accent": {
    "path": "M 0.06 0.148 c -0.032 -0.008 -0.06 -0.036 -0.06 -0.072 c 0 -0.04 0.036 -0.076 0.076 -0.076 c 0.008 0 0.012 0.004 0.02 0.004 l 1.348 0.344 c 0.032 0.008 0.06 0.036 0.06 0.072 s -0.028 0.064 -0.06 0.072 l -1.348 0.344 c -0.008 0 -0.012 0.004 -0.02 0.004 c -0.04 0 -0.076 -0.036 -0.076 -0.076 c 0 -0.036 0.028 -0.064 0.06 -0.072 l 0.824 -0.212 l 0.436 -0.06 l -0.436 -0.06 z",
    "wSs": 1.504,

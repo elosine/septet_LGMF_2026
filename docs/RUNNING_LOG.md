@@ -19502,3 +19502,34 @@ trades protrusion above for protrusion below, one for one. So the two asks pull 
 0.17 out each way with the reach 0.6 — the corner covered as at §601; (b) the halfway as now; (c) centred AND a longer reach (say 0.9) — 0.47
 out each way, the stroke crossing the corner itself. Horizontally the stroke already reaches 0.6 each side of the stem. `check_rules` 32 ·
 the lock 106 · the shield `piece-lgmf` alone. ► He reloads → `317.2` · `325.6` · `345.5`.
+
+## §604. The beamed stroke balanced · his save carried · THE FIGURE AT 375.77 · THE FIVE AT 379.88 with tenutos (a new glyph) · the candidates 375.7 … 380.8 (2026-09-30, Fable, session 18; LG-178)
+
+**What prompted it** — *"The corner distance is good. It just needs to be longer at the right top so that the protruding distance below is the
+same as above. at 375.77. Those eight partials, can I see the beat frame? And I would like the first three being the 16th notes. the next
+four being the 16th notes and the last one standing alone as a 16th. And then I'll see the dynamics as well, please. I also made a change
+to composer save so whatever needs to be done; lets see the beat frame candidates from 375.7 - 380.8 · 379.88 5 notes 16ths beamed
+together. first 3 staccato, last 2 tenuto"* (LG-178).
+
+**The stroke balanced (S22 amended):** the near half (toward the heads) keeps the reach 0.6; the far half reaches 0.6 + 2 × the inset (0.5)
+= 1.6, so the stroke sticks out beyond the stack's far edge exactly as far as beyond its near edge. At 345.6: the stroke 4.00 … 6.20 against
+the stack 4.67 … 5.53 — **0.67 above, 0.67 below** — the corner still in view (the crossing 0.5 below the stack's centre).
+
+**His save:** one change on the EH — `wc-3664` at 389.799, D6 → D5 (midi 86 → 74); carried by the re-extraction (the runner's fresh copy).
+
+**THE FIGURE AT 375.77** — 375.859 C6 · 375.995 F♯5 · 376.138 F5 · 377.102 C6 · 377.250 A♯4 · 377.360 G4 · 377.510 G5 · 377.742 E5:
+`--plainNotes 0:375.7:381.2` · `--beam` over 1–3 and 4–7 (`noteBeams 2`) · 8 `flag16`; the names shown: f · ff · ff · mf · f · p · mf · ff. The
+layout: both groups stem DOWN (the high heads decide), the beams below the staff, the names flipped ABOVE (the side-with-room rule, as at
+344.2) — 1 at 5.23, 2 · 3 at 3.23, 4 at 5.23, 5 · 6 · 7 at 2.79 · 2.63 · 3.73; 8 stem down, the flag below, its ff under it.
+
+**THE FIVE AT 379.88** — 380.012 C♯5 · 380.223 A♯4 · 380.391 D5 · 380.555 F3 · 380.797 C♯4: `--beam` over the five (up — the low F3 decides),
+dots on 1 … 3 (the head side below), **tenutos on 4 · 5** — A NEW GLYPH: `glyphs.json articulation.tenuto`, a bar the filled head's width
+(1.04, Gould's "the length of a notehead") at 0.14 thick, drawn as a rectangle (Emmentaler's `scripts.tenuto` is the same bar; not ported);
+the articulation row's `draws` widened to it (`check_rules` (2) had caught the glyph without a row — RED once, then green); placed on the
+head side by hand (`articSide below`, S10): 4's under its F3 at −5.81, 5's at −4.12 with its f pushed to −5.13; 4's f flipped above (6.02).
+The names: ff · ff · mf · f · f.
+
+**THE CANDIDATES 375.7 … 380.8** — 13 onsets (the eight + the five); the units 0.090 … 0.138; the shown beats: 87 (5 × 0.1375, phase
+375.515) · 95 (5 × 0.126, 375.688) · 91 (7 × 0.0945, 375.675) · 87 (7 × 0.0985, 375.793) · 93 (7 × 0.0925, 375.745, nearest 54 ms) · 95
+(7 × 0.0905, 375.670); the picture `http://localhost:5400/notation/research/tempo_candidates_eh_376.html`. His pick owed. `check_rules` 32 ·
+the lock 106 · the shield `piece-lgmf` alone. ► He reloads → `345.5` · `375.8` · `380` · `389.8`; the picture.
