@@ -135,8 +135,10 @@ dynamics · hairpins · slurs · accents, as hands on the same notes. Held: the 
 ### SECTION 2 — THE NOTATION PLANNINGS (his todos for session 19, organized 2026-09-29 — RUNNING_LOG §551 · §552; LG-130 · LG-131)
 
 **HOW:** each through the planning method (`docs/PLANNING_METHOD.md`), ONE AT A TIME at his order — phase 1 (state and restate; the data first) →
-the top line → the steps → into PLAN. N-1 and N-2 stand at phase 1 with his answers owed. Nothing is built. Fable for the talk; a build
-on Opus or here at his word.
+the top line → the steps → into PLAN. Fable for the talk; a build on Opus or here at his word. **STATE AT CHECKPOINT #5 (2026-09-29):** N-1
+slurs BUILT (§555 · §560) · N-2 stems DECIDED for the section's plain notes (§553 … §561; the generalization list open) · N-3 the uneven
+group BUILT, his sign (§557 … §562) · N-4 the shown beat BUILT on figure 2 (§563 … §571; the phase his eye owed) · N-5 held · N-6 begun
+on figure 1 (§559).
 
 - **N-1 · SLURS — a standard, "so most slurs look good everywhere"** (LG-130). The data (§551): his LilyPond 2.24.4 — height 0.25 × length
   capped at 2 ss · minimum length 1.5 · tapered 1.2 → 0.8 · the side with the stems · the ends and collisions from `default-slur-details`
@@ -204,7 +206,7 @@ on Opus or here at his word.
   aid to onset accuracy, the head's left edge the time, just left of a line = just before the beat.** **§571 (LG-149): one line before; the
   ball from 2 ss higher; HIS CONCEPT — the beats BETWEEN the notes (the beat orients, is not played on) — the phase a quarter beat earlier
   (295.186): every note 22 … 74 % of a beat from the lines; the AI's feedback in the entry (agrees; the "between" phase a tool candidate).**
-  ► His eye (`295.5`); open: a number on the beat · the ball · the grid's span.**
+  ► His eye (play from `294`); open: the fourth candidate "between" in the tool · a number or dot on a beat · the device sheet.
 - **N-5 · THE MICRO COUNTERPOINT — the notation evaluation for the texture** (LG-130: the figures after the first; onsets a small interval
   apart across instruments): the survey on the texture; the candidates he named — more GCs · the ball on the cursor · highlight the notes as
   the cursor passes · different beaming · count-accurate TN with tuplets · shadows of other performers' notes · lines. Rhythmic accuracy the
@@ -214,6 +216,49 @@ on Opus or here at his word.
 
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
+
+### SESSION 18 · CHECKPOINT #5 (mid-session checkpoint, 2026-09-29, Fable built, Opus wraps) — THE EH'S FIRST TWO FIGURES OF SECTION 2 NOTATED BY HAND; THE SHOWN BEAT BUILT; ► HIS EYE ON THE BETWEEN-BEATS PHASE
+
+- **The task:** the practical for the EH's section 2 (his pick at the `/postclear`), figure by figure, bespoke — hands, not rules (LG-129). Built
+  and pushed at his word, §547 … §571 (RUNNING_LOG; LG-127 … LG-149):
+  - **the plain note** (§547 · `byEnv.plainNote`, `--plainNotes`) · **T8 VALUES WRITTEN, the TN way** (§548: flags and beams, relative, no
+    bar; the duration line "incongruous" here) · the stems (§553 · §554 · §556 · §561: the plain stem a tenth 4.5, flags clear the staff by 0.38,
+    the max 9.5) · **the slur standard** (§555: LilyPond's from his install + Gould's ends; §560 the slur in the vertical clearance)
+  - **figure 1 (289 … 293.9):** p1 a quarter pp + a cresc hairpin to 289.25 · a quarter rest at 290.2 · the grace (0.707, a slash, slurred)
+    into p3 (an accent) · p4 a flagged eighth · p5 … p8 **HIS UNEVEN-GROUP SIGN** (§557 … §562: the heads stemless where played; a beam
+    floating below on 2 ss stubs spanning the group; a hand-drawn stroke across the corner = "play the displayed notes in that much time as
+    indicated by the beams, but slightly irregularly", PERFORMANCE_NOTES #18) · mp on p5, an accent on p6 · the section's "ord." 0.45 above
+    p1's top ink (§561, a standard)
+  - **figure 2 (295.456 … 297.306, six notes): THE SHOWN BEAT** (N-4, A7) — `tools/tempo_fit.js` (three candidate methods, §563); THE
+    PROCESS his (§564: candidates → his eye → his pick and phase → a hand); the grid lines through the staff in the duration line's
+    blue-grey at 0.3, one line per beat (§565 · §566 · §569); **the beat ball** (`beatBall`, a new animated kind — the tuba's GC ball,
+    one per beat, in flight only over the grid, bouncing from 2 ss above the line's top to its foot, §567 … §571); the max 100 per figure
+    (`gridMaxBpm`); the grid FITTED to its cluster (`--beatGridFit`: 1 line before, 1 after, never within 0.1 s of a neighbour); here
+    **93 bpm (6 units of 0.108), the phase 295.186 — the beats BETWEEN the notes** (his concept, §571: the beat orients, it is not played
+    on; every note 22 … 74 % of a beat from a line); PERFORMANCE_NOTES #19 (an aid to ONSET accuracy; the head's left edge the time)
+  - the standards **S1 … S13** in `docs/research/temporal_notation.md` §12 (tentative; SURFACE them at the next similar notation — CLAUDE.md
+    READ FIRST) · **THE LOCK** `tools/eh_figure_check.js` (30 decisions, GREEN — run after any change to the look) · clickable links are
+    `http://localhost:5400/…` (HOW_WE_WORK; memory) — a `/docs/` route in `score/server.js`, live at his next server restart
+- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build command is its `provenance.build` (the fold's + `--longTones` +
+  `--plainNotes` + `--beam` + eight `--hand` + `--rest` + `--beatGridFit 0:0.108:6:295.186:295.456:297.306`); re-extract from a
+  scratchpad COPY of Draft 01 (2j's discipline). `check_rules` 32 · the shield `piece-lgmf` alone · `check_screen_edges` PASS.
+- **► The next concrete step — HIS EYE, ask first:** he reloads the notation tab (no restart) → `piece-lgmf` → the video view → plays from
+  `294` (the between-beats phase, the ball from higher, one line before). Then his word on the phase — keep, or try the other candidates
+  the tool can now name. A look → a rules row or a hand (Fable, here); run `node tools/eh_figure_check.js` and the shield
+  (`layout_shield --write` on HEAD FIRST — the baseline in the dead session's temp dir is gone) after any change.
+- **`Resume reads:`** nothing beyond §2 for his eye. For the next figure or any similar notation: `docs/research/temporal_notation.md` §12
+  (S1 … S13 — surface them). For a rules change: the row in `notation/registry/rules.json` via `docs/ENGRAVING_RULES.md`.
+- **Pending him:** his eye on figure 2 (the phase) · the grace's f (a dynamic on a grace note — keep or drop) · N-4's rest: the fourth tempo
+  candidate "between" in `tempo_fit.js` (the AI's suggestion, §571), a number or dot on a beat, the device sheet (line 1a: A7) · N-5 the
+  micro counterpoint · N-6 the second layer continues on the next figures · the NOTATION PLANNINGS block above holds each item's state.
+  **The AI's calls, his to reverse:** the grace 0.707 · the slur's ends at the head's centre · the stroke's geometry · the hairpin cresc ·
+  the accent on the head side · the ball's rise 2 ss · the clamp gap 0.1 s.
+- **Deliberately uncommitted — the same 29 paths as checkpoint #4, all his, untouched** (`git status --short` at this checkpoint): his actuals
+  `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries autosaved by his tab
+  (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his passage
+  `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
+  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
+  (his tab's save — every extraction reads a COPY). `notation/ir/index.json` (the picker label, the extractor's) committed with this checkpoint.
 
 ### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
 
@@ -400,6 +445,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►►►** | **SESSION 18 · CHECKPOINT #5 — HIS EYE on figure 2's shown beat** (reload → `piece-lgmf` → play from `294`: the between-beats phase, the ball from higher, one line before); then the next figure by the same process (the standards S1 … S13, `temporal_notation.md` §12 — surface them) | Fable | yes — `/postclear` on Fable |
 | **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
