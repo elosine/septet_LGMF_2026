@@ -1327,7 +1327,7 @@
             // (render.js draws them from notation/lib/gc.js; the ball is
             // animobj's). Impact = the go time. `gc: true` = the registry
             // preset; `gc: {...}` = a per-note preset.
-            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, dev.gcGeom ? { geom: dev.gcGeom } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note)
+            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, (dev.gcGeom || dev.gcStyle) ? { geom: dev.gcGeom || (dev.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note) · [§594] the hand gcStyle 1 | 2 (his 'GC style 2')
               typeof dev.gc === 'object' ? { preset: dev.gc } : {}));
             // the WRITTEN position (shared by the nh-unit and the ring bar):
             // ottava = smallest shift bringing the written note within 3
@@ -3283,11 +3283,15 @@
             for (const p of tipsAt) p.dxSs = st.dxSs;                               // the beam's ends follow
             if (i === 0) {
               const r = GS.squiggleReachSs;
-              const fl = GS.squiggleFalls ? -1 : 1;   // [§559] turned 90°: the stroke falls to the right
+              // [§594, his eye on the 324.6 grace group — the beam ABOVE the heads: 'gn slash rotate 90deg, register its proper orientation
+              // somewhere depending on down or up stemming'] THE STROKE'S ORIENTATION FOLLOWS THE BEAM'S SIDE: with the beam below the heads
+              // (the 292.75 figure, stems down) it falls to the right (§559); with the beam above them it rises — the mirror through the
+              // horizontal, so the stroke always crosses the corner from the outside in. sgn = toward the heads
+              const fl = (GS.squiggleFalls ? -1 : 1) * sgn;   // [§559] turned 90°: the stroke falls to the right when the beam lies below the heads; [§594] rises when above
               // [§561] his "an equal amount juts out from either side": centred on the stack, not its near edge; [§562] then slid squiggleInsetSs
               // along its own perpendicular toward the heads ("slightly more in the beams and stem") — for a falling stroke that is up and to
               // the right when the beam lies below the heads, the mirror above them
-              const k = (GS.squiggleInsetSs || 0) / Math.SQRT2, cx = st.dxSs + sgn * k, cy = (inner + outer) / 2 + sgn * k;
+              const k = (GS.squiggleInsetSs || 0) / Math.SQRT2, cx = st.dxSs + (sgn > 0 ? -fl : fl) * k, cy = (inner + outer) / 2 + sgn * k;   // [§594] the slide along the stroke's perpendicular toward the heads, whichever way the stroke runs
               items.push({ k: 'squiggle', t: x.u.t, dx0Ss: cx - r, y0Ss: cy - fl * r, dx1Ss: cx + r, y1Ss: cy + fl * r, ampSs: GS.squiggleAmpSs, waves: GS.squiggleWaves, hand: !!GS.squiggleHand, thickSs: GS.thickSs, ev: x.id });
             }
           });

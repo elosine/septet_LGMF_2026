@@ -196,6 +196,7 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   const gr = [F5.n1, F5.n2, F5.n3, F5.n4, F5.n5, F5.n6];
   ok(gr.every(t => { const h = glyphAt(t, /^notehead$/); return h && near(h.scale || 1, C.engraving.layout.grace.headScale, 0.001); }), '(§591) 1 … 6 grace heads at the grace scale');
   ok(at('squiggle', F5.n1) && gr.every(t => !at('slash', t)), '(§593) the ragged sign: the squiggle at the first stub, no acciaccatura slash on any grace');
+  { const sq = at('squiggle', F5.n1), sq1 = at('squiggle', P.p5); ok(sq && sq.y1Ss > sq.y0Ss && sq1 && sq1.y1Ss < sq1.y0Ss, '(§594) the stroke RISES to the right here (the beam above the heads) and FALLS at 292.75 (the beam below) — the orientation by the beam side'); }
   { const sts = gr.map(t => at('stem', t)); const lens = sts.map(st => st ? +Math.abs(st.yB - st.yA).toFixed(3) : null);
     ok(sts.every(Boolean) && lens.every(l => near(l, lens[0], 0.01)), '(§593) the six stubs one length — ' + lens.join(' '));
     const h1 = glyphAt(F5.n1, /^notehead$/); ok(h1 && sts[0] && near(Math.abs(sts[0].yA - h1.ySs), 1, 0.2), '(§593) the first stub stops about one space short of its head (beamStubShortSs 1, from the attach) — got ' + (h1 && sts[0] ? Math.abs(sts[0].yA - h1.ySs).toFixed(2) : '-')); }

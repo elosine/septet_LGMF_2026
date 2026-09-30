@@ -3123,3 +3123,12 @@ that same length."
 
 *The AI's reading (marked as such):* "ragged stemming" = his uneven-group sign (S8: the stubs, the squiggle) with the stubs' length set from
 the first note; the aperture = the GC's duration on the beat-ball geometry. RUNNING_LOG §593.
+
+## LG-169 — 2026-09-30 — the grace stroke's orientation; the schema; GC style 2
+
+*His words (session 18, Fable, with a screenshot of the 324.6 grace group):* "gn slash rotate 90deg register its proper orientation somewere
+depending on down or up stemming, do we have some sort of schema for the grace note and then the ragged stemming somewhere? gc good,
+register as an alternative to the one we have already been using gc style 2 or whatever"
+
+*The AI's reading (marked as such):* the stroke by the beam's side (below → falls, above → rises — a rule, the 292.75 figure untouched); the
+GC's two geometries named styles 1 · 2 with a hand `gcStyle`; the schema is §12 (S6 · S8 · S8a · S22). RUNNING_LOG §594.

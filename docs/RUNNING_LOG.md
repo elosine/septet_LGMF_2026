@@ -19283,3 +19283,27 @@ head, the other five the same length over their lower heads — the ragged look.
 **The lock:** the 324.6 block re-pointed — the squiggle and no slash, the six stubs one length, the first about a space short of its head:
 **104 GREEN**. `check_rules` 32 · the shield `piece-lgmf` alone. ► He reloads → `324.5` (play from `325`). PERFORMANCE_NOTES #18's sign now
 has a second use: a grace group played "about this fast, unevenly".
+
+## §594. THE STROKE'S ORIENTATION BY THE BEAM'S SIDE · THE GC REGISTERED AS STYLE 2 · the schema question (2026-09-30, Fable, session 18; LG-169)
+
+**What prompted it** — his screenshot of the 324.6 grace group (the beam above, the stubs hanging, the squiggle at the first stub running
+top-left to bottom-right through the corner) and: *"gn slash rotate 90deg register its proper orientation somewere depending on down or up
+stemming, do we have some sort of schema for the grace note and then the ragged stemming somewhere? gc good, register as an alternative to
+the one we have already been using gc style 2 or whatever"* (LG-169).
+
+**The stroke:** §559 fixed it FALLING to the right for the 292.75 figure, whose beam lies BELOW the heads (stems down) — and the code drew the
+same fall whichever side the beam was on. Now the orientation follows the beam's side: the beam below the heads → the stroke falls (as
+§559); the beam above → it RISES, the mirror through the horizontal, so it always crosses the corner from the outside in; the inset slide
+follows the stroke's own perpendicular toward the heads (`fl = … * sgn`; `cx` by `fl`). At 292.79 unchanged — (−1.08, −2.89) → (1.92, −5.89),
+falls; at 324.677 (−1.08, 3.18) → (1.92, 6.18), rises. The lock asserts both (105 GREEN); the shield `piece-lgmf` alone.
+
+**GC STYLE 2:** `objects.gc.styles` — **1** = lane (piece #1's GC, the tuba pages', every device but the plain note) · **2** = beatBall (the beat
+ball's flight, the aperture 0.7 — §592 · §593); a hand `gcStyle: 2` (or `gcGeom: beatBall`) asks for it on any note, `gcStyle: 1` the lane GC
+(`layout.js` · `animobj.js` read the alias). The plain note's default stays style 2 (`byEnv.plainNote.gcGeom`).
+
+**The schema — his question:** it exists, in `docs/research/temporal_notation.md` §12 — S6 THE GRACE NOTE (the head 0.707, the slashed flag,
+its own short stem, the slur; `objects.graceHead · graceSlash`) · S8 THE UNEVEN GROUP (the stubs, the squiggle; `objects.groupStub`) · S8a
+RAGGED STEMMING (§593: the stubs' length from the first member; the hands `beamStub · beamStubShortSs`) · S22 THE GRACE GROUP'S BEAM
+(§592: at the heads' scale) — each row names the rules row that holds it and the § where it was decided; the hands themselves are listed in
+`tools/notate_section.js`'s header and in the IR's `provenance.build`. PERFORMANCE_NOTES #18 is the sign's meaning for the player. The
+rules page (`docs/ENGRAVING_RULES.md`, generated) carries the rows' values. Told him so. `check_rules` 32. ► He reloads → `324.5`.

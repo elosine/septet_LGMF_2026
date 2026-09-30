@@ -399,7 +399,7 @@
         const e = evById.get(id);
         if (!e) continue;
         const dv = devOf(e) || {};
-        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, dv.gcGeom ? { geom: dv.gcGeom } : {},   // [§592]
+        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, (dv.gcGeom || dv.gcStyle) ? { geom: dv.gcGeom || (dv.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] · [§594] gcStyle 1 | 2
           typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
       }
       // curveMeter rides every event that carries its drawn level (stratum
