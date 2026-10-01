@@ -1143,9 +1143,11 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
     // group may skip what lies between its members in time (the castanets' grace pair under the bass drum → castanet beam)
     const mi = String(process.argv[i + 1] || '').match(/^ids:([\w,-]+)$/);
     if (mi) { spans.push({ ids: mi[1].split(',').filter(Boolean) }); continue; }
-    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
-    if (!m) { console.error('--beam needs t0-t1 or t0-t1@part (e.g. --beam 31.17-31.40@1), or ids:wc-a,wc-b'); process.exit(2); }
-    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
+    // [§662] t0-t1@part[:8|:16][:up|:down] — the group's VALUE (eighths = one beam, 16ths = two) and its stems' DIRECTION, said on the span
+    // (his "eighth note beam stems down"), in place of a hand per member
+    const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?(?::(8|16))?(?::(up|down))?$/);
+    if (!m) { console.error('--beam needs t0-t1 or t0-t1@part[:8|:16][:up|:down] (e.g. --beam 31.17-31.40@1 · 316.77-317.13@4:8:up), or ids:wc-a,wc-b'); process.exit(2); }
+    spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10), m[4] ? +m[4] : null, m[5] || null]);
   }
   const partOfEvent = new Map();
   for (const c of doc.chunks) for (const evId of c.events) partOfEvent.set(evId, c.part);
@@ -1173,8 +1175,16 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
     const B = BeamChoice.beamDevices(members, FIG_BM, key);
     if (B.gcRule === 'ring' && B.ringIdx < 0) console.log('    note: no ringing member — GC falls back to the first note');
     console.log('    GC on ' + (B.gcIdx >= 0 ? members[B.gcIdx].source.objectId + ' (' + B.gcRule + ')' : 'none'));
-    for (const d of B.devices)
-      doc.overlays.push({ id: 'ov-' + key + '-' + d.event, kind: 'engraving', target: { event: d.event }, value: { device: d.device }, provenance: 'authored' });
+    // [§662] the span's value and direction; and on a LINED part (the percussion's line staff) a beam group carries NO cue and keeps its
+    // names off the beam's row — the tuba figures' GC on a group's first note is not this staff's (his "get rid of the GC" at 344.2 · 345.4, §629)
+    const pcB = ENS && ENS.parts ? ENS.parts.find(x => x.part === partOfEvent.get(members[0].id)) : null, linedB = !!(pcB && pcB.staff && Array.isArray(pcB.staff.lines));
+    const valB = byIds ? null : sp[3], dirB = byIds ? null : sp[4];
+    for (const d of B.devices) {
+      if (valB) d.device.noteBeams = valB === 8 ? 1 : 2;
+      if (linedB) Object.assign(d.device, { gc: false, goLine: false, dynAboveBeam: false });
+      if (dirB) d.device.stemDir = dirB;
+      doc.overlays.push({ id: 'ov-' + key + '-' + d.event, kind: 'engraving', target: { event: d.event }, value: Object.assign({ device: d.device }, dirB ? { stemDir: dirB } : {}), provenance: 'authored' });
+    }
   });
 }
 // --noGc wc-98 (day 24): a per-note device override that removes the GC —
@@ -1891,6 +1901,13 @@ if (MORPH_SEQ.length) {
       if (partOfE.get(e.id) !== P || !e.pitch || !(e.onset >= T0 && e.onset < T1)) continue;
       if (e.env) { other.push(e.env + ' ' + e.onset.toFixed(2)); continue; }
       e.env = 'plainNote'; n++;
+      // [§662, his "you can get rid of the rest of the dynamics" (§657)] on a LINED part a plain note shows NO name unless a hand gives it one —
+      // the percussion's dynamics are his, by hand, on the staff's row; the band name of each strike is not written
+      if (pc && pc.staff && Array.isArray(pc.staff.lines)) {
+        const exo = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+        if (exo) { if (exo.value.device && exo.value.device.dynMark === undefined) exo.value.device.dynMark = false; }
+        else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { dynMark: false } }, provenance: 'authored' });
+      }
       // [§590 — his eye at 322 · 323: 'the curve meter is just briefly sneaking in there'] A PLAIN NOTE IS A STRUCK NOTE (DYNAMICS_LAW): a note
       // the extractor gave a LEVEL curve instead of a velocity (a take re-pitched it with cents — sonifyMode not plain, extract_core 467 · 478)
       // takes its velocity from the composer's recVel and loses the curve — no meter follows it, its band name reads from the velocity

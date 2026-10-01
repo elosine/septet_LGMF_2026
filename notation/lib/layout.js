@@ -1959,7 +1959,8 @@
                       : yStart - (FE_BOT - clr - flagH);  // flag rises from the tip
                     // [§554 · §561] THE MAX (rules.json objects.flag.clearMaxSs, through the device): a stem the law would stretch past it keeps its
                     // standard length and the flag sits inside the staff — his 'many ledger lines down it might look funny'; 9.5 at his word (§561)
-                    if (!(dev.flagClearMaxSs > 0) || need <= dev.flagClearMaxSs) L = Math.max(L, need);
+                    // [§662] on a LINED staff every line is INSIDE the staff — the max (written for a note far out on ledgers) does not apply: the flag always clears
+                    if (LINED || !(dev.flagClearMaxSs > 0) || need <= dev.flagClearMaxSs) L = Math.max(L, need);
                   }
                   let yEnd = stemDir === 'up' ? yStart + L : yStart - L;
                   // A BEAM MEMBER'S STEM REACHES THE BEAM (day 23, composer:
@@ -2006,6 +2007,18 @@
                       beamY = Math.min(beamY, CSb.laneHalfSs - (TP.paddingSs + TP.hookLengthSs + capAbove));
                     }
                     yEnd = stemDir === 'up' ? beamY : -beamY;
+                    // [RUNNING_LOG §662 — his "the stem … should be the standard height … the second partial just grow its stem to meet it" (§661),
+                    // "for the other ones, let's still try to reach outside the staff" (§656)] THE LINED STAFF'S BEAM: each member asks for one
+                    // standard stem from its own head (L), and never less than the height at which a flag would clear the staff's OWN outer line
+                    // — the group's levelling below then takes the tip FURTHEST out, so the beam sits a standard stem beyond the head nearest it
+                    // (or just outside the staff, whichever is further) and the other members grow to meet it. A grace group keeps its own
+                    // short stems; a hand's beamYSs still decides outright.
+                    if (LINED && dev.beamYSs == null) {
+                      const offs = Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length ? spec.staffInfo.offsets : [2, -2];
+                      const fgD = glyphs.flag.down8 || fgB;
+                      yEnd = dev.grace ? (stemDir === 'up' ? yStart + L : yStart - L)
+                        : stemDir === 'up' ? Math.max(yStart + L, Math.max(...offs) + clr + fgB.hSs) : Math.min(yStart - L, Math.min(...offs) - clr - fgD.hSs);
+                    }
                     if (XO) yEnd -= XO.yOff;   // [2i.4] the beam line is the top staff's; this stem is measured from its own staff
                     const key = dev.beamGroup || 'beam';
                     if (!beamGroups.has(key)) beamGroups.set(key, { dir: stemDir, tips: [], through: !!dev.beamThrough, over: !!dev.beamOverRest, overLeft: !!dev.beamOverLeft });

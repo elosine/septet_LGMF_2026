@@ -21110,3 +21110,66 @@ the lane's edge.
 **The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `305.3`.
+
+## §662. The percussion 306 … 406 at his dictation — eleven beamed pairs and five grace-to-16th figures; the lined staff's beam and flag rules built (2026-09-30, Fable, session 18; LG-230)
+
+**What prompted it** (his words whole in LG-230): *"306, add the slur. 316.7, beam those two notes, stems up, eighth note, beam. At 320.25, those
+two eighth note stems up, the next two eighth note stems down, beams. But two separate pairs of beams. 326.35 Grace note to 16th … the distance
+is too far, we'll forget about the slur. 336.6, the castanets [grace note] to 16th, stems up, and we can slur that one. 342.4, eighth note,
+beamed, stems up. 346.54, grace note to 16th, no slur. 358.4, eighth note, beams, stems up, those two. [361.45] eighth note beam stems down.
+[364.84] eighth note beam stems down. [370.23] grace note to sixteenth note, no slur. 378.39 2 pairs. Eighth note beams stems down. 382.4, the
+grace note figure there, stems up, no slur. Grace note to 16th. [398.3] eighth note beams stems up. Same for [405.2]."*
+
+**The percussion's section 2** (part 4; 85 events 306 … 406 from `ch-4-*`, one stream, a new instrument on almost every hit). His times
+against the onsets — the nearest note each time, his 0.07 … 0.11 s early:
+
+| his | the notes (staff line) | the figure |
+|---|---|---|
+| 306 | wood block 306.240 → brake drum 306.344 | the grace of §659 — a SLUR added |
+| 316.7 | bass drum 316.780 (−6) · wood block 317.118 (−2) | beamed eighths, up |
+| 320.25 | temple bowl 320.339 (0) · bass drum 320.681 (−6) | beamed eighths, up |
+| the next two | castanets 321.178 (+4) · sleigh bells 321.535 (+6) | beamed eighths, DOWN — a separate pair |
+| 326.35 | castanets 326.440 (+4) → brake drum 326.566 (−4) | grace → flagged 16th, no slur |
+| 336.6 | castanets 336.684 → castanets 336.788 (+4) | grace → flagged 16th, SLURRED |
+| 342.4 | bass drum 342.510 (−6) · temple bowl 342.869 (0) | beamed eighths, up |
+| 346.54 | castanets 346.627 (+4) → brake drum 346.838 (−4) | grace → flagged 16th, no slur |
+| 358.4 | bass drum 358.499 (−6) · brake drum 358.854 (−4) | beamed eighths, up |
+| 361.45 | sleigh bells 361.557 (+6) · wood block 361.959 (−2) | beamed eighths, DOWN |
+| 364.84 | sleigh bells 364.906 (+6) · tambourine 365.341 (+2) | beamed eighths, DOWN |
+| 370.23 | tambourine 370.330 (+2) → brake drum 370.576 (−4) | grace → flagged 16th, no slur |
+| 378.39, two pairs | temple bowl 378.472 · wood block 378.951 ‖ castanets 380.386 · tambourine 380.848 | two beamed-eighth pairs, DOWN |
+| 382.4 | sleigh bells 382.529 (+6) → brake drum 382.783 (−4) | grace → flagged 16th, up, no slur |
+| 398.3 | castanets 398.395 (+4) · wood block 398.842 (−2) | beamed eighths, up |
+| 405.2 | tambourine 405.297 (+2) · bass drum 405.742 (−6) | beamed eighths, up |
+
+Thirty-two notes on figures; the other percussion notes of the stretch are not named and draw as before.
+
+**THE RULES BUILT, so the eleven pairs need no hand each (step 2 of §646 — the stems — closing):**
+- **THE LINED STAFF'S BEAM** (`layout.js`): each member asks for ONE STANDARD STEM from its own head (5.85, §656) and never less than the
+  height at which a flag would clear the staff's own outer line; the group's levelling takes the tip furthest out — so the beam sits a
+  standard stem beyond the head NEAREST it, or just outside the staff, whichever is further, and the other members grow to meet it (his §661
+  word, twice by hand before). On the page: every up-beam at **+9.39** (the top line + 0.38 + an eighth flag's height) — or +9.99 where a
+  castanet is the nearest head (398.4), +11.99 from the sleigh bells (305.25); every down-beam at **−9.18**. A grace group keeps its short
+  stems; a hand's `beamYSs` still decides (the bass-drum → castanet beam at +11.7, §657).
+- **the flag ALWAYS clears on a lined staff** — the max (10.5, written for a note far out on ledgers) does not apply where every line is
+  inside the staff: the brake drum's 16ths (the line −4, stem up) take 13.75 ss, the flag's foot at +6.38.
+- **`--beam t0-t1@part:8|16:up|down`** (`notate_section.js`): a group's value and direction said on the span — his "eighth note beam stems
+  down" as one argument — and **on a lined part a beam group carries NO cue** (`gc · goLine` off; §629's offer, built here for this staff)
+  and **a plain note shows NO name unless a hand gives one** (his "get rid of the rest of the dynamics", §657).
+
+**The grace-to-16th figures** (hands): the grace a slashed eighth at the standard grace stem (3.18, §660), up; the 16th flagged, up, its flag
+clear of the staff. Slurs at 306.24 → 306.34 and 336.68 → 336.79 (`slurTo`; below the heads, the stems being up).
+
+**The AI's readings and calls, his to reverse:** the three grace figures with no direction named (326 · 346 · 370) stems UP, as 305's and
+382's · the 302.55 pair moved onto the rule (its beam +9.99 → +9.39) · no names on any of the thirty-two (the percussion's dynamics are his)
+· **the down-beams at −9.18 sit 0.18 ss below the percussion lane's bottom (−9)**, 2.8 above the vibraphone's top line — and on the dynamics
+row's own height (−8.59): a name under a stem-down pair will meet its beam; told him · the stems are long by construction (an up-beam from
+the bass drum is 15.3 ss, a down-beam from the sleigh bells 15.0).
+
+**The build** is 25.6 KB of Windows' 32.7 KB command line — the span flags kept this run to 1.5 KB where hands would have cost 4.
+
+**THE SHIELD:** `piece-lgmf` + two tuba pages' part 4 (`db1 · db1-all-x01`, the stand-in lined staff's beams; the per-part hash: `4:0`
+alone). **The gates:** `check_rules` **33** · the lock **106**.
+
+**For his eye:** reload → `piece-lgmf` → `306.2` · `316.8` · `320.4` · `321.3` · `326.5` · `336.7` · `342.6` · `346.7` · `358.6` · `361.7` · `365` ·
+`370.4` · `378.6` · `380.5` · `382.6` · `398.5` · `405.4`.

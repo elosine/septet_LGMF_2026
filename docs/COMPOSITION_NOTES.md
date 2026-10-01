@@ -3607,3 +3607,12 @@ longer percussion stem is for full-size notes only. RUNNING_LOG §660.
 
 *The AI's reading (marked as such):* the beam's height comes from the note nearest it — a standard stem from that head — and the other note
 stretches; not the minimum he asked for a moment before. RUNNING_LOG §661.
+
+## LG-230 — 2026-09-30 — the percussion 306 … 406: beamed eighth pairs up and down, grace notes into 16ths, two slurs
+
+*His words (session 18, Fable):* "306, add the slur. 316.7, beam those two notes, stems up, eighth note, beam. At 320.25, those two eighth note stems up, the next two eighth note stems down, beams. But two separate pairs of beams. 326.35 Grace note to 16th But we'll, it's, the distance is too far, we'll forget about the slur. 336.6, the castanets grease node to 16th, stems up, and we can slur that one. 342.4, eighth note, beamed, stems up. 346.54, grace note to 16th, no slur. 358.4, eighth note, beams, stems up, those two. Three six one point four five eighth note beam stems down. Three six four point eight four eighth note beam stems down. Three seventy point two three grace note to sixteenth note, no slur. 378.392 pairs. Eighth note beams stems down. 382.4, the grace note figure there, stems up, no slur. Grace note to 16th. Three ninety eight point three eighth note beams stems up. Same for four oh five point two."
+
+*The AI's reading (marked as such):* two figure types for the whole section's percussion — THE PAIR (two strikes a third to half a second
+apart, beamed as eighths; the stems' side chosen by where the two instruments lie — low pairs up, high pairs down) and THE GRACE INTO A 16TH
+(two strikes a tenth to a quarter of a second apart); a slur only where the two heads are near enough to carry one. Everything else a lone
+strike. "378.392 pairs" = 378.39, two pairs; "grease node" = grace note. RUNNING_LOG §662.
