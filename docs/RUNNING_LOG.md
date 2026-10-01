@@ -21785,3 +21785,65 @@ IR). The IR's diff: those ten names and the build line.
 sound is unchanged; the next audio render will not differ at these chords. A change of the sound would be the velocities in his save.
 
 **Checked:** `check_rules` 34 · `eh_figure_check` 106 · THE SHIELD `piece-lgmf` alone. Not looked at in the app.
+
+## §683. The English horn's mf at 291.4 lowered by hand — a new hand, dynDySs (2026-10-01, Fable, session 18; LG-249)
+
+**What prompted it:** his picture of the opening figure's grace (the `mf` under it lying across the slur and the main note's sharp) and:
+*"This is English horn around 291.5. Could you lower that MF so it doesn't collide with the slur and the accidental?"*
+
+**Measured:** the `mf` belongs to the grace (`wc-3384`, 291.385) on the dynamic row, ink −5.09 … −4.11, reaching 1.05 ss right of the
+grace's time; the slur falls from the grace's head (−3.11) to under the main note (−4.74) across that width; the main note's sharp
+(−4.75 … −3.25) begins 1 ss right of the grace. §560's pass (a mark clears the slur by 0.8) tests the arc at the HEAD's x only — where
+the arc is highest — so a name wider than its head can lie under a falling slur. Said to him; no rule built.
+
+**Done:** a new hand in `layout.js` — `dynDySs` on a note's device moves its one name by that many staff spaces (the row stays the
+rule); `--hand 'wc-3384:{"dynDySs":-1.35}'` → the `mf` at −5.95 (ink −6.44 … −5.46), level with the main note's accent (−5.96) and 0.6 ss
+left of it. Seen in the running app (:5401, magnified): the name clear under the slur, beside the accent.
+
+
+## §684. The English horn's grace at 317.05 slurred to the A; its mf lowered; a slur's end clears a staccato dot (2026-10-01, Fable, session 18; LG-250)
+
+**What prompted it:** his picture of the figure at 317 (the grace, the beamed pair with dots under the heads) and: *"317.15 Slur the grace
+note down to the A, please. And you'll probably have to move that MF down as well."*
+
+**Done:** `--hand 'wc-3444:{"slurTo":"wc-3445","dynDySs":-1.35}'` — the grace's slur to the first of the pair (A3, `wc-3445`), the `mf`
+at −5.95 as at 291.4. §590's decision "no slur" on this grace is REVERSED at his word; the lock's line re-pinned (the slur, its end under
+the dot, the `mf` at −5.95) — 106.
+
+**Found on the way, fixed as a rule:** the slur's end landed ON the A's staccato dot (end −4.74, the dot −4.99 … −4.59, the same x) — the
+end is placed from the head's edge and did not know the dot. `rules.json` `objects.slur.dotInside` true: a staccato dot between a head
+and the slur stays INSIDE the slur — the end leaves from the dot's far edge + `freeHeadSs` (LilyPond's `avoid-slur` inside for a
+staccato; Gould). Here: the end at −5.29, 0.30 under the dot. Every slur on the page compared before and after (20): this one alone moved.
+
+**Seen** in the running app (:5401, magnified): the slur from the grace's head under the A and its dot; the `mf` under it, clear by the
+numbers 0.84 ss at its right edge.
+
+
+## §685. The bassoon's grace at 324.8 slurred to its note (2026-10-01, Fable, session 18; LG-251)
+
+**What prompted it:** his picture (the grace, stem down, and the accented note above the staff) and: *"324.91 bassoon. Could you slur the
+grace to the main note?"*
+
+**Done:** `--hand 'wc-3465:{"slurTo":"wc-3468"}'` — both stems down, so the slur lies ABOVE (the heads' side): from over the grace's head
+(2.61) to over the main note's (4.24), 1 ss high. The accent stays 0.8 clear of the arc by §560's pass (its ink from 5.04). The `mf`
+under the staff untouched. Seen in the app: the slur passes close over the main note's sharp — the accidental collision is the part of
+N-1 not built ("not enforced yet"); told him.
+
+
+## §686. The English horn's (pp) at 482.8 lowered by hand (2026-10-01, Fable, session 18; LG-252)
+
+**What prompted it:** his picture (a breath's new head on its third ledger line under the staff, the curve's `(pp)` across it) and:
+*"482.8 move the accidental, please. You may need to move this one a little bit more to clear the notepad."*
+
+**The AI's reading:** "the accidental" = the dynamic `(pp)` (the sharp stands clear to the left; the thing on the head is the label) ·
+"the notepad" = the notehead.
+
+**Measured:** the head at y −5 (ink −5.44 … −4.56) — half a space lower than the horn's at 23.3 (§681); the label's parentheses
+−5.05 … −4.15.
+
+**Done:** `--labelDy 0:482.81:-1.65` → the label's ink −6.70 … −5.80, **0.36 ss under the head**; the lane's bottom at −8.1. Five labels
+carry a hand now (the horn 23.3 · the cello 102.25 · 477.87 · 694.451 · the EH 482.81) — three on a flipped column, two on a low head.
+The rule that would end these (a curve label clears the ink standing at its x) was offered at §674 and again here; not built.
+
+**Checked (the four, one page):** `check_rules` 34 · `eh_figure_check` 106 (one line re-pinned, §684) · `sequence_notation_check` 79 ·
+THE SHIELD `piece-lgmf` alone · `check_screen_edges` PASS. 482.8 by the layout's numbers, not looked at.

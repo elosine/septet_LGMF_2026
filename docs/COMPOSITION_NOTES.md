@@ -3744,3 +3744,27 @@ he is right on both counts: two take → take morphs, and his picture is D♭2 �
 
 *The AI's reading (marked as such):* the two long-tone chords' written names (the `--chordDyn` device) — the page, not the velocities.
 RUNNING_LOG §682.
+
+## LG-249 — 2026-10-01 — the EH's mf around 291.5 lower, off the slur and the accidental
+
+*His words (session 18, Fable, with a picture):* "This is English horn around 291.5. Could you lower that MF so it doesn't collide with the slur and the accidental?"
+
+*The AI's reading (marked as such):* the grace's `mf` (291.385) — one name moved by hand, 1.35 ss. RUNNING_LOG §683.
+
+## LG-250 — 2026-10-01 — 317.15: slur the grace down to the A; the mf down as well
+
+*His words (session 18, Fable, with a picture):* "317.15 Slur the grace note down to the A, please. And you'll probably have to move that MF down as well."
+
+*The AI's reading (marked as such):* §590's "no slur" on this grace reversed; the same 1.35 ss for the name. RUNNING_LOG §684.
+
+## LG-251 — 2026-10-01 — the bassoon at 324.91: slur the grace to the main note
+
+*His words (session 18, Fable, with a picture):* "324.91 bassoon. Could you slur the grace to the main note?"
+
+*The AI's reading (marked as such):* the grace at 324.796 to the accented note at 324.955. RUNNING_LOG §685.
+
+## LG-252 — 2026-10-01 — 482.8: move the dynamic, a little more, to clear the notehead
+
+*His words (session 18, Fable, with a picture):* "482.8 move the accidental, please. You may need to move this one a little bit more to clear the notepad."
+
+*The AI's reading (marked as such):* the dictation's "accidental" = the `(pp)` label, "notepad" = the notehead; the EH's breath at 482.82. RUNNING_LOG §686.

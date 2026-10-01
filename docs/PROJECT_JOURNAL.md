@@ -254,6 +254,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   stay cents only. To build at his word: the destination's `n (F)` over its cents (the extractor reads `toChord`, the layout a second row).
 - **§682 · LG-248 (2026-10-01, Fable):** two chords renamed on the page — 361.04 `f` (six parts; the percussion's `mf` kept) · 364.19 `p` (four);
   the names only, the save's velocities untouched (§637). He reloads (`361` · `364.2`).
+- **§683 … §686 · LG-249 … LG-252 (2026-10-01, Fable):** the EH's `mf` at 291.4 down 1.35 (the new hand `dynDySs`) · the EH's grace at 317.05
+  slurred to the A, its `mf` down the same, the rule `objects.slur.dotInside` (a slur's end clears a staccato dot) · the bassoon's grace at
+  324.8 slurred · the EH's `(pp)` at 482.8 down 1.65. He reloads (`291.4` · `317.1` · `324.9` · `482.8`).
 - **State:** nothing being built. The ♪ link unchanged — the IR's `source.score` is the WAV's name; no re-extraction.
 - **► THE NEXT STEP — HIS, ask first:**
   1. HIS EAR: reload the notation tab → `piece-lgmf` → ♪ render. A LEVEL change → re-gain the kept float with no Reaper render, §407's
@@ -303,8 +306,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
     `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§683 next free**) · an LG
-    (**LG-249 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§687 next free**) · an LG
+    (**LG-253 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·
@@ -312,7 +315,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     `--longToneAlso id` · `--rest P:t:dur` · `--labelDy P:T:DY` (§673: ONE curve label `(dyn)` off the dynamic row, ss, negative = down). **The hands** (`--hand 'wc-N:{…}'`, merged, `null` unsets): `dynMark` (a name · `false` ·
     `"band"`) · `nhStem` (`flag8` · `flag16` · `beam` · `false`) · `stemDir` · `grace` · `slurTo` · `nhArtic` + `articSide` · `hairpinTo`
     (+ `hairpinDir`) · `gc` + `gcGeom` (`lane` · `beatBall` · `staffTop`) · `gcImpact` (`lineBelow` · `spaceBelow`) · `gcSpread` ·
-    `noteBeams` · `beamYSs` · `dynSide` (`above`, the lined row's exception) · `slurHeightSs`.
+    `noteBeams` · `beamYSs` · `dynSide` (`above`, the lined row's exception) · `slurHeightSs` · `dynDySs` (§683: ONE name off its place, ss, negative = down).
   - **limits:** the build is ≈ 26 KB of Windows' 32.7 KB command line — say a figure on its SPAN, not per note; a Bash command over 8 KB
     dies with a false quote error — write scripts with the Write tool.
 - **`Resume reads:`** for the render `docs/RENDER.md` §4 · for a notation revision `docs/research/temporal_notation.md` §12 (S1 … S33 — SURFACE them at each figure; S33: the normal staff's standards

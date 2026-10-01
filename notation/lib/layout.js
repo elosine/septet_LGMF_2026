@@ -2297,6 +2297,9 @@
                   // [§657] the lined staff's one row · [RUNNING_LOG §667, his "move the MF to above the [note] head for that one exceptionally"] a
                   // hand's dynSide 'above' lifts ONE name off the row to just over its own head (the stack gap above it) — the exception he names
                   if (linedRowY != null) yDyn = dev.dynSide === 'above' ? yDraw + nhO.hSs / 2 + stackGap + markG.hSs / 2 : linedRowY;
+                  // [RUNNING_LOG §683 — his "lower that MF so it doesn't collide with the slur and the accidental"] a hand's dynDySs moves ONE
+                  // name off its place by that many staff spaces (negative = down) — the row stays the rule
+                  if (Number.isFinite(+dev.dynDySs)) yDyn += +dev.dynDySs;
                   // BESIDE THE STEM (day 23, composer): when the chain is above a
                   // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
                   // the stem's left edge (registry 0.15 = the staccato-dot gap),
@@ -3610,7 +3613,13 @@
           const below = dirs.length > 0 && dirs.every(d => d === 'up');   // with the stems: below when they all go up; above when down or mixed
           const sg = below ? -1 : 1;
           const stemInto = u => (u.stemDir === 'up' && !below) || (u.stemDir === 'down' && below);
-          const endOf = u => stemInto(u) && tipOf(u) != null ? { x: u.stemX, y: tipOf(u) + sg * SL.freeHeadSs } : { x: u.dx, y: u.y + sg * (u.h / 2 + SL.freeHeadSs) };
+          // [RUNNING_LOG §683] THE SLUR'S END CLEARS A STACCATO DOT (rules.json objects.slur.dotInside): a dot standing between the head and
+          // the slur — centred on the head, on the slur's side — stays INSIDE the slur (LilyPond's avoid-slur 'inside for a staccato; Gould):
+          // the end leaves from the dot's far edge + freeHead, not from the head's edge, where it landed ON the dot (the EH's A at 317.16)
+          const dotOf = u => SL.dotInside === false ? null : items.find(it => it.k === 'dot' && Math.abs(it.t - u.t) < 1e-9 && Math.abs(it.dxSs - u.dx) < u.w / 4 && (below ? it.ySs < u.y - u.h / 2 + 1e-6 : it.ySs > u.y + u.h / 2 - 1e-6)) || null;
+          const dotR = it => (it.rSs != null ? it.rSs : it.dSs != null ? it.dSs / 2 : 0.2);   // RULES MIRROR (the dot's radius — glyphs' staccato dot 0.4 across)
+          const endOf = u => { if (stemInto(u) && tipOf(u) != null) return { x: u.stemX, y: tipOf(u) + sg * SL.freeHeadSs };
+            const d = dotOf(u); return { x: u.dx, y: d ? d.ySs + sg * (dotR(d) + SL.freeHeadSs) : u.y + sg * (u.h / 2 + SL.freeHeadSs) }; };
           let E0 = endOf(a), E1 = endOf(b);
           const at = u => (u.t - a.t) * sps;   // a unit's time as ss from the slur's start
           // [RUNNING_LOG §663, his "see what you can do to make it so it doesn't look too straight, but also doesn't look too strange, like

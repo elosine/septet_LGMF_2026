@@ -176,7 +176,10 @@ console.log('THE EH\'S OPENING FIGURE — the decisions of §547 … §560 (part
   ok(navy && tk.every(x => x.frame === 2 && x.colour === navy && near(x.wSs, 0.3)), '(§589 · S19) the third frame NAVY like the first, the bands 0.3');
   [[F4.n1, 1], [F4.n5, 5], [F4.n7, 7], [F4.n12, 12]].forEach(([t, k]) => ok(tk.some(x => Math.abs(x.t - t) <= 0.0045), '(§589) note ' + k + ' on a line within 4 ms — his pick'));
   { const hd = glyphAt(F4.n1, /^notehead$/), fl = glyphAt(F4.n1, /^flag-up8$/), sl = at('slash', F4.n1), slur = items.find(it => it.k === 'slur' && Math.abs(it.t0 - F4.n1) < 1e-6), mf = glyphAt(F4.n1, /^dyn-mf$/);
-    ok(hd && near(hd.scale || 1, C.engraving.layout.grace.headScale, 0.001) && fl && sl && !slur && mf, '(§590) note 1 a GRACE — the head at the grace scale, the slashed flag, NO slur, mf under it'); }
+    // [§684 — his "317.15 Slur the grace note down to the A … move that MF down as well"] the grace SLURRED to note 2 (§590's "no slur" reversed at his word), the slur's end under the A's staccato dot (objects.slur.dotInside), the mf lowered by hand (dynDySs −1.35)
+    const dot2 = items.find(it => it.k === 'dot' && Math.abs(it.t - F4.n2) < 1e-6);
+    ok(hd && near(hd.scale || 1, C.engraving.layout.grace.headScale, 0.001) && fl && sl && slur && near(slur.t1, F4.n2, 1e-6) && slur.dir === 'below' && dot2 && slur.y1Ss < dot2.ySs - 0.2 && mf && near(mf.ySs, -5.95, 0.01),
+      '(§590 · §684) note 1 a GRACE — the head at the grace scale, the slashed flag, SLURRED to note 2 with the end under its staccato dot, mf under it at −5.95'); }
   const beamsBetween = (a, b) => items.filter(it => it.k === 'beam' && it.tips && it.tips.length && Math.abs(it.tips[0].t - a) < 1e-6 && Math.abs(it.tips[it.tips.length - 1].t - b) < 1e-6).length;
   ok(beamsBetween(F4.n2, F4.n3) === 2 && beamsBetween(F4.n5, F4.n6) === 2, '(§590) 2+3 and 5+6 beamed 16ths — two beams each');
   ok(beamsBetween(F4.n7, F4.n8) === 1, '(§590) 7+8 beamed eighths — one beam');
