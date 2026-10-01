@@ -2646,6 +2646,26 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   - **Build order:** Opus, after a checkpoint and a clear; 2m.1 → 2m.3 in order, one commit per step, pushed, THE SHIELD in each, `check_rules` after every step, a RUNNING_LOG § per step (read the last heading first — §532 is next free after §531); STOP for 2m.4.
   - **Held, his:** the dynamics normalized PER CHORD — a composing pass on Draft 01 when he can look at the score (the strip's `dyn ▾`, 1q.9), then re-extract · the singles he may name as long tones — **DECIDED 2026-09-30 (§622): every held single IS a long tone (`--longTones 289:427:all`), a hand figure's window excepted; `--longToneAlso` stays for a note he names** · the next type of section 2 (the short notes — the texture's 120 ms strikes and the held notes outside the groups) · the percussion's note unit (DN-5's next line).
   - **The AI's calls, his to reverse:** the 0.1 s window for "together" · the 0.2 s floor · a single untouched rather than drawn as a strike · the `engraving { device }` hand for a named single · the reader of the velocity's name.
+- **2n — SECTION 2 BY HAND: the practical of the temporal notation** — `doing` (session 18, 2026-09-29 … 10-01; RUNNING_LOG §547 … §637;
+  D48 · D49 · D50). *Why:* section 2 is a texture of short figures and held chords that no device of section 1 describes; he dictates it
+  note by note and the looks his eye finds missing become rules. *Done:* the EH's figures to 398.4 (six beat frames) · the bassoon to 399 ·
+  the horn · the trumpet (one frame) · the cello · the double bass — every short note on a device · the chords' dynamics one name each.
+  *Left:* HIS EYE on each part · the EH after 398.4 and every part after 399 (the long tones are in; the last short notes of the section
+  not yet checked against his word) · the lock's blocks beyond the EH's first figures · the chords' unison (§638, held) · N-5 the micro
+  counterpoint (held). The standards: `docs/research/temporal_notation.md` §12 (S1 … S33). The method: journal §2.
+- **2o — THE PERCUSSION STAFF: a rule set for the seven-line staff** — `doing` (2026-09-30 … 10-01; RUNNING_LOG §639 … §667; D51;
+  S25 … S33). *Why:* every vertical rule assumed five lines whose positions are pitches; on the percussion staff they landed stems,
+  dynamics and marks inside the staff (§646). The six steps of §646 and where each stands:
+  1. the staff's own edges — `built` (the frame's lines and ball §645 · §651, the flag law §656, the beam §662 · §665)
+  2. stems — `built`, his eye owed: a bare head for a lone strike, the direction by his hand, 5.85 ss whatever the line, a grace 3.18,
+     beams and flags clear by the standard amount (§650 … §666); *open:* the clearance against "the shorter stem the standard" (§665)
+  3. dynamics — `built`: one row under the staff, a conflict reported, `dynSide above` the exception (§657 · §664 · §667)
+  4. the marks — `doing`: accents by the head (§657), the steep slur (§663); *not yet:* staccato dots, hairpins against stems-down beams
+  5. ringing notes — `todo`: a let-ring mark (the brake drum, the temple bowl, the bass drum's long ones)
+  6. the lock — `todo`: a percussion block in `tools/eh_figure_check.js`, after his eye
+  *Also left:* the lone strikes he has not named (they draw as the fold left them) · the dynamics after 375 · `sub.` beside a dynamic ·
+  the ball's higher arc (§654) · a device sheet was never written for this staff — the rules grew turn by turn at his eye; S25 … S33
+  and the `cueNote` · `lengthLinedNote` · `_dynamicLinedNote` rows of `rules.json` are the record.
 
 ## 3. Performance score — `todo`
 

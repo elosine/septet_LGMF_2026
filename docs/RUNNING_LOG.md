@@ -21324,3 +21324,21 @@ from the head's left edge downward, so nothing crosses the name; the `dynamics r
 **The gates:** `check_rules` · the lock · the shield — in the commit.
 
 **For his eye:** reload → `piece-lgmf` → `361.6`.
+
+## §668. Session 18 closed (2026-10-01, Fable)
+
+**What the session was** (2026-09-29 … 10-01; §531 … §667; LG-119 … LG-235): the notation of SECTION 2 — the long tone as a device, a day of
+theory on temporal notation that ended in a survey and one decision (T8: values written), then two days of dictation: he at the page, a
+figure at a time, the AI turning each sentence into hands on notes and each surprise of his eye into a rule. Seven parts carry it now.
+
+**How the work actually went, for the paper:** the unit of work was a sentence of his ("the two at 301.88, two 16ths beamed in a GC,
+without the go line") and its turn-around — list the part's notes, map his times (always a little early) to them, append hands to the IR's
+own build, lay out, read the layout's numbers back, log, commit; 135 log entries in three days. Rules came from his eye on what the page
+got wrong, and several were reversed within a turn or two (the percussion's beam height three times; the frame as the percussion's cue
+tried and dropped; GC style 3 built and left unused) — the log keeps each state. The percussion staff was the stress test: built for
+piece #6 as seven lines, it broke every five-line assumption at once, and his own correction of the AI's inventions was the principle the
+session ends on — the same notation on a different staff, the existing standards first.
+
+**The close:** journal §2 rewritten for a cold start (the nine checkpoint blocks to git, `bd438e4`); D47 … D53 promoted; PLAN 2n · 2o
+added; the state lines current. Nothing is being built. The AI has not LOOKED at any page of this session — every claim about the page is a
+number read from the layout, and every page is owed his eye.

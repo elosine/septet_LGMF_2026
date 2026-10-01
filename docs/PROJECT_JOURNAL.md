@@ -68,7 +68,7 @@ sequences AND the morph device (block · gliss line · arc · the vibraphone's b
 2. ☑ **The fold** — DONE 2026-09-28 (Opus, §530; `piece-lgmf` from Draft 01 with `--sequence` × 4 + `--morph` × 3: 72 overlays, 151 … 280 s now 71 morph notes + 44 bows; every check green; §529 the breath pie's arc fixed on the way — the screen gate's one failure, on HEAD too). *(As it stood:)* **The fold** — PLAN 2l.7 (Opus; a model switch — checkpoint, clear, `/postclear` on Opus, then build): `piece-lgmf` redrawn from a COPY of Draft 01 with `--sequence` × 4 + `--morph` × 3 (2j's discipline) — the new curves, the
    morph device on every part, "ord." at 289 s; the shield naming `piece-lgmf` alone; `check_rules` · `decisions_needed --ir piece-lgmf` · the edges. Done
    when: pushed, his tab reloaded.
-3. ► **2m THE LONG TONE — SECTION 2's note unit** — **2m.1 … 2m.3 BUILT 2026-09-29 (Opus, §532 … §534; `piece-lgmf` carries 120 long tones in 36 groups, every gate green). ► 2m.4 HIS EYE:** reload the notation tab (no restart) → `piece-lgmf` → the video view → `303.5` (the first chord, four players) · `312.98` (the EH's v16 — `pp`) · `328.24` (six players) · `331.38` · `333.36` (the EH's low F3 on three ledgers — the name ABOVE the staff, the chain's side-with-room rule) · `361.04` · `370.34` (six) · `367.98` (the trumpet's single — still the old look, the tuba `ord`'s go line) · `383.35` (the EH's single — still the family look) · `407.05` (13 s, three players, into the sequence-2 entries at 427) · `z`. *(As it stood:)* (his pivot 2026-09-29, §531: *"let's address section two, one notation type at a time"*; PLAN § `2m`) — Opus
+3. ► **SECTION 2, ALL OF IT, BY HAND — session 18 went on from the long tone to every part (the block SESSION 19 OPENS ON THIS); ► HIS EYE on section 2, part by part.** *(As it stood, the long tone alone:)* **2m THE LONG TONE — SECTION 2's note unit** — **2m.1 … 2m.3 BUILT 2026-09-29 (Opus, §532 … §534; `piece-lgmf` carries 120 long tones in 36 groups, every gate green). ► 2m.4 HIS EYE:** reload the notation tab (no restart) → `piece-lgmf` → the video view → `303.5` (the first chord, four players) · `312.98` (the EH's v16 — `pp`) · `328.24` (six players) · `331.38` · `333.36` (the EH's low F3 on three ledgers — the name ABOVE the staff, the chain's side-with-room rule) · `361.04` · `370.34` (six) · `367.98` (the trumpet's single — still the old look, the tuba `ord`'s go line) · `383.35` (the EH's single — still the family look) · `407.05` (13 s, three players, into the sequence-2 entries at 427) · `z`. *(As it stood:)* (his pivot 2026-09-29, §531: *"let's address section two, one notation type at a time"*; PLAN § `2m`) — Opus
    builds 2m.1 → 2m.3 (the rule rows · `--longTones` · `piece-lgmf` re-extracted), one commit each, THE SHIELD in each; STOP for 2m.4 his eye (`303.5` · `312.98` ·
    `370.34` · `407.05`). Done when: 2m.3 pushed and his word at 2m.4.
 4. **His eye on the main page, 0 → 279** (Fable; HELD at his pivot, still his) — reload the notation tab → `piece-lgmf` → the video view. THE STOPS: `-4` … `6` the six sequence entries (the fade from nothing, eased) · `40.26` (2j.4's) · `102.3` (the Vc breath the ladder flips) · `140` … `156` the sequence's closes `> ppp` · `151.35` · `152.1` · `152.78` · `156.4` · `156.9` · `158.4` the six morph blocks · `200` the arcs' peaks · `222.6` · `226.4` the vibraphone's two open hairpins · `265` … `279` the ends (`> ppp` on Hn · Tpt only; EH · Bsn · Vc · Db no fall, §530) · `z`. What he sees: the six sequence lines · the five other parts' morph pages (EH · Bsn · Tpt · Vc · Db: the block, the gliss line, the
@@ -217,608 +217,48 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### SESSION 18 · CHECKPOINT #9 (mid-session checkpoint, 2026-09-30, Fable) — THE BASSOON'S SECTION 2 FROM 295 TO 399 BY HAND; THE ONE-OFF A REGISTERED MODEL; EVERY HELD TONE A LONG TONE; ► HIS EYE ON THE BASSOON, THEN THE BASSOON AFTER 399
+### SESSION 19 OPENS ON THIS — `/session-start`; nothing is being built (session 18 closed 2026-10-01, Fable)
 
-- **The task:** the practical for section 2, part by part — the EH done to 398.4 (checkpoints #5 … #8); THE BASSOON begun at his word after
-  checkpoint #8's `/postclear` and notated 295 … 399 at his dictation (RUNNING_LOG §611 … §622; LG-185 … LG-196), one commit each:
-  - **THE ONE-OFF, a model** (§611 · §612; S24): `byEnv.oneOff` in `notation/registry/container.json` — piece #5's strike / #4's staccato unit
-    field for field: anchor C (the go line at the GC's impact, the cue head 0.6 ss left of it), a 16th-flagged stem clearing the staff, the
-    lane GC, the staccato dot, the band name on the head side; no accent · the section's word INTO the head's column after the name, centred
-    (`instrPlace column` · `instrAlign middle` — the layout's nh-unit takes the change-rule word off the row) · every one-off its own name, a hand
-    `dynMark` overrides · `--oneOffs P:T0:T1` in the extractor (the window his) · `check_rules` (7) holds the device equal to the strike — **33**.
-  - **fourteen one-offs:** 295.971 mf (its "ord." in the column) · 300.497 mf · 301.878 mf · 336.926 f · 337.388 mp · 341.217 mf · 343.5 mf ·
-    344.516 f · 376.136 f · 377.255 mf · 377.672 mf · 380.404 f · 380.828 f · 387.493 f (§612 · §618 … §621).
-  - **the figures by hand** (§614 · §617 · §618): 322.836 · 323.328 plain dotted 16ths, f · mf on the row · 324.796 a flagged grace (mf) → 324.955 a
-    flagged eighth with an accent → 325.25 a 16th with its beamlet beamed to 325.397 · 325.618, no names · 345.468 + 345.601 beamed 16ths with
-    THE BURST'S GC at the first head's left edge, no go line (S14), mp — the lane GC, the AI's call.
-  - **THE BASSOON'S FIRST FRAME** (§615 · §616): the green 93 (4 × 0.162) one tick back + 14.5 ms so p4 · p7 share 7.5 ms — the phase 322.3705,
-    eight NAVY lines 321.723 … 326.259 over the pair and the figure (`tempo_candidates_bsn_322.html`).
-  - **the long tones:** 393.277 · 398.443 by name at f (§621) — then **EVERY HELD TONE A LONG TONE** at his word (§622): `--longTones 289:427:all`
-    (the five singles left took it; a held note inside a `--plainNotes` / `--oneOffs` window stays its hand figure's — the EH's quarters stand);
-    **132** long tones; PLAN § 2m's held line DECIDED.
-  - **the tools:** `--oneOffs` · `@drop:ARG` in `tools/reextract.js` (a hand or a window out of the build) · `--longTones T0:T1:all` ·
-    `instrPlace` in `layout.js`. *(His times read ≈ 0.05 … 0.2 s earlier than the IR's onsets; the nearest note was always the one.)*
-- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build in `provenance.build` (the frames `--beatGridFit` × 7: the EH's six + the
-  bassoon's 322). `check_rules` 33 (regenerate `ENGRAVING_RULES.md` FIRST) · the lock `tools/eh_figure_check.js` **106** (the EH's figures 1 … 4,
-  the 317 frame, the 324.6 figure — NOTHING of the bassoon asserted yet) · the shield `piece-lgmf` alone (`layout_shield --write` on HEAD FIRST —
-  the baseline dies with the scratchpad).
-- **► The next concrete step — HIS EYE first, ask:** he reloads the notation tab (no restart) → `piece-lgmf` → the bassoon's stops `296` · `300.5`
-  · `302` · `323` · `325` · `337` · `341.3` · `345.5` · `376.5` · `380.5` · `387.5` · `393.3` · `398.5` (play from `295`), and the five new
-  long tones `337.3` · `343.2` · `368` · `395`. Collect; fix at his word — a hand via `node tools/reextract.js "" --hand 'wc-NNNN:{…}'`, a look via a
-  rules row. THEN THE BASSOON AFTER 399: list its events (a node one-liner over the IR's chunks `ch-1-*` — the parts live in the chunks, the events
-  carry none); he names each — a one-off: `--oneOffs 1:T0:T1` + `dynMark` hands · a figure: `--plainNotes 1:T0:T1` + `--beam t0-t1@1` + the hands
-  in the EH's shapes (§596 · §607 · §614) · a frame: `node tools/tempo_fit.js --part 1 --from … --to … --html notation/research/tempo_candidates_bsn_<t>.html`
-  → the link → his pick → `--beatGridFit 1:…`. After each change: `gen_engraving_rules` → `check_rules` → the lock → the shield → a RUNNING_LOG §
-  (§623 next free) · an LG (LG-197) · the journal bullet · the state lines → commit + push.
-- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S24 — surface them at each figure) · `tools/reextract.js`'s header
-  (`@replace` · `@drop`). Nothing else beyond §2.
-- **Pending him:** his eye on the bassoon 295 … 399 · the EH's eye at 376 … 398 (checkpoint #8) · the AI's calls: the 345.47 pair's GC at lane height
-  (style 2 the alternative) · the one-off's 16th flag with no flag-clear max (the spec's) · the word after the name in the column · the 322.7 pair's
-  names on the row with their dots above (§617) · the frame's lead and tail lines (`:noLead` · `:noTail`) · the hand-window exception in `:all` ·
-  the 8va on the bassoon's D5s (2a.6 the clefs by register) · the sound side: take-notes without Rule 5's pin · the audio render (Draft 01's).
-- **Deliberately uncommitted — the same 29 paths as checkpoint #8, all his, untouched** (`git status --short`: 5 modified + 24 untracked): his
-  actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries autosaved by his
-  tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his passage
-  `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
-  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
-  (his tab's save — every extraction reads a COPY). Resume on Fable.
-
-### SESSION 18 · CHECKPOINT #8 (mid-session checkpoint, 2026-09-30, Fable) — THE EH'S SECTION 2 FROM 376 TO 398 BY HAND; THE FRAMES AT 376 · 384; FIVE SINGLES NAMED LONG TONES; `noTail` IN THE FIT; ► HIS EYE, THEN THE LOCK'S BLOCKS, THEN THE NEXT FIGURE AFTER 398.4
-
-- **The task:** the practical for the EH's section 2, figure by figure — hands on the notes (LG-129), the looks his eye finds missing built as
-  RULES (his §577 word). Built and pushed §605 … §610 (RUNNING_LOG; LG-179 … LG-184), one commit each, after checkpoint #7's `/postclear`:
-  - **the frames:** 376 — the green 91 (7 × 0.0945) one tick forward, backed 1.5 ms so p4 · p8 share the shortfall (phase 375.768; eleven
-    NAVY lines 375.107 … 381.722, §605) · 384 — the red 93 (7 × 0.092) 1.44 ticks back so p4 · p7 share (phase 383.760, §609), CUT at his word
-    to **seven OLIVE lines 384.404 … 388.268** (§610); its lead beat dropped by the clamp inside the 383.35 long tone's bar — `keepLead` his
-  - **the second layer at his dictation:** 379.88 rebeamed 1+2 · 3+4 · 5 a lone 16th, all staccato, f on 1, an accent on 4 on the head side,
-    no GC on 3 (§606 · §607) · 375.77 f on 1 with a decrescendo through 2 · 3, mf on 4 with a decrescendo to 8's end, every other name off (§606)
-  - **the new figures:** 384.3 (1 · 4 · 7 lone eighths, 2+3 · 5+6 16th pairs, 8+9 an eighth pair; mf on 1) · 387.23 (four beamed 16ths under
-    one slur, a crescendo into f on 4, the fifth a lone staccato 16th) · 389.7 (a grace slurred into 2; 2 · 3 · 4 beamed with the beamlet; the
-    p on 4 kept); every other name off (§607 · §608). The 389.7 figure stands OUTSIDE any frame (his cut, §610)
-  - **five of 2m's 18 singles named long tones** — 383.35 G3 · 391.0 D4 · 393.0 F♯4 · 395.3 E5 · 398.1 G♯5 (`--longToneAlso`, the flag's first
-    use, §607 · §608); 13 singles still draw the old way until he names them
-  - **the tools:** the fit's 7th field a COMMA LIST — `keepTail` · `keepLead` · `keepBoth` · `noTail` · `noLead` (`tools/notate_section.js`,
-    §610; S13 notes it; `fit.lead` · `fit.tail` record the effective count) · the runner's `null` unset used (§606) · THE PARTS LIVE IN THE
-    IR's CHUNKS (`ch-<part>-<id>`), the events carry none — read them before a hand goes on a note (§607: the cello's E4 shares an onset
-    with the EH's G5 at 387.494)
-  - the pictures `notation/research/tempo_candidates_eh_{376,384}.html`
-- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build in `provenance.build` (the hands of every figure; the frames
-  `--beatGridFit` × 6: 295 · 298 · 317 keepLead · 340 · 376 · 384 noTail). `check_rules` 32 (regenerate `ENGRAVING_RULES.md` FIRST) · the lock
-  `tools/eh_figure_check.js` **106** (figures 1 … 4, the 317 frame, the 324.6 figure, every slurred grace vs its parent — NOTHING from 337 on
-  is asserted yet) · the shield `piece-lgmf` alone (`layout_shield --write` on HEAD FIRST — the baseline dies with the scratchpad).
-- **► The next concrete step — HIS EYE first, ask:** he reloads the notation tab (no restart) → `piece-lgmf` → `376` · `380` · `384` · `387.3`
-  · `390` · `393` · `398` (play from `375`, then from `383.5`). Collect his findings; fix at his word — a hand via `node tools/reextract.js ""
-  --hand 'wc-NNNN:{…}'`, a look via a rules row. THEN THE LOCK'S BLOCKS for 337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · 384.3 · 387.23 ·
-  389.7 and the 340 · 376 · 384 frames (the §589 · §590 block's pattern in `tools/eh_figure_check.js`), then THE NEXT FIGURE after 398.4
-  (`node tools/tempo_fit.js --part 0 --from … --to … --html notation/research/tempo_candidates_eh_<t>.html` → the link → his pick → a
-  `--beatGridFit` → the values by hand). After each change: `gen_engraving_rules` → `check_rules` → the lock → the shield → a RUNNING_LOG §
-  (§611 next free) · an LG (LG-185) · the journal bullet · the state lines → commit + push.
-- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S23 — surface them at each figure) · `tools/reextract.js`'s header.
-  Nothing else beyond §2. A rules change: the row in `notation/registry/rules.json` via `docs/ENGRAVING_RULES.md` (a NEW field needs its
-  pointer in `container.json`'s layout block, §600).
-- **Pending him:** his eye on 376 … 398 · the 384 frame's lead beat (`keepLead,noTail`) · the 389.7 figure without a frame · the AI's readings:
-  "last one f" at 387.23 = the fourth, not the lone fifth · the two decrescendos at 375.77 reach the last spanned note's END · the accent and
-  the dot stacked under 380.555 · the names flipped ABOVE the beam-below groups (344.2 · 375.77) · the sound side: take-notes without Rule 5's
-  pin (`wc-3454` · `3459` + 15 more in section 2) · the audio render (Draft 01's) · 13 singles of 2m unnamed.
-- **Deliberately uncommitted — the same 29 paths as checkpoint #7, all his, untouched** (`git status --short`: 5 modified + 24 untracked): his
-  actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries autosaved by his
-  tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his passage
-  `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
-  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
-  (his tab's save — every extraction reads a COPY). Resume on Fable.
-
-### SESSION 18 · CHECKPOINT #7 (mid-session checkpoint, 2026-09-30, Fable) — THE EH'S SECTION 2 FROM 317 TO 380 BY HAND; THE APP'S VIDEO PAGE IN C; THE GRACE FAMILY'S RULES; ► HIS PICK FOR THE 376 FRAME, HIS DYNAMICS, THE LOCK'S BLOCKS
-
-- **The task:** the practical for the EH's section 2, figure by figure — hands on the notes (LG-129), the rules his eye finds missing built as
-  RULES (his §577 word). Built and pushed §584 … §604 (RUNNING_LOG; LG-162 … LG-178), one commit each:
-  - **THE APP'S VIDEO PAGE IN C** (§585 · §587): his eye found the page in F — the in-C decision (§336) had reached only the exports and the
-    checks; now the video · zoom views lay out on the realized ensemble, the ⚙ views keep the registry's F.
-  - **the figures:** 317 (twelve notes; the frame the red 91 one unit forward at 317.048, the lead beat kept; the values §590; dots on 2+3
-    §603) · 324.6 (six beamed graces under a slur, RAGGED STEMMING, the GC style 2 on 7, mp with a hairpin to 6, dots on 7+8) · 337 (a grace
-    slurred to 2, the slur 1.4 by hand; f · — · ff) · 340.1 (three grace-and-note pairs; 6+7 a 16th to an eighth; the frame the purple 93 at
-    340.061, olive) · 342.65 (grace → 16th pairs; the 344.2 ragged group of FIVE, stems down) · 345.3 (a 16th, two beamed graces slurred) · the
-    names thinned over 340 … 346 (f · mf · f · mp; the accent at 343.12) · **375.77** (1-3 · 4-7 beamed 16ths, 8 alone — names SHOWN) · **379.88**
-    (five beamed 16ths, dots on 1-3, tenutos on 4-5 — names SHOWN). His save at 389.8 (D6 → D5) carried.
-  - **the rules, in `temporal_notation.md` §12:** S20 the hairpin into a name · S21 a plain note is a struck note (no meter) · S22 the grace
-    group's beam at the heads' scale, the stroke at the beam's corner slid 0.5 and balanced · S23 the GC style 2 (the beat ball's flight, the
-    aperture 0.7; `objects.gc.styles`) · S8a ragged stemming, the stubs 2 ss the standard, the stroke by the beam's side · S6 a grace's stem
-    follows its parent, the stroke mirrors with the stem (read from his LilyPond) · S7 a slur never under 1 · S10 a stem-down lone note's
-    accent above; the tenuto glyph · the flag-clear max 10.5.
-  - **the tools:** `tempo_fit --html` (the canvas as wide as the figure, the lengths as bars) · **`tools/reextract.js`** — the runner (its
-    header is the manual: re-runs `provenance.build` on a fresh copy of his save, appends args, `@replace:old=>new` swaps one).
-- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build in `provenance.build` (the hands of every figure; the frames
-  `--beatGridFit` × 4: 295 · 298 · 317 keepLead · 340). `check_rules` 32 (regenerate `ENGRAVING_RULES.md` FIRST) · the lock
-  `tools/eh_figure_check.js` **106** (figures 1 … 4, the 317 frame, the 324.6 figure, every slurred grace vs its parent) · the shield
-  `piece-lgmf` alone (`layout_shield --write` on HEAD FIRST — the baseline dies with the scratchpad). The pictures
-  `notation/research/tempo_candidates_eh_{317,340,376}.html`.
-- **► The next concrete step — HIS PICK, ask first:** he opens `http://localhost:5400/notation/research/tempo_candidates_eh_376.html` and
-  names the 376 frame (the extent · the grouping · the phase) → `node tools/reextract.js "" --beatGridFit 0:<unit>:<every>:<phase>:375.859:380.797`
-  (the picture's own line) → `node tools/gen_engraving_rules.js` → `check_rules` → `eh_figure_check` → the shield → commit (a §605, LG-179).
-  Then HIS DYNAMICS on 375.77 · 379.88 (hands `dynMark` / `false`), then THE LOCK'S BLOCKS for 337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 and
-  the 340 frame (the §589 · §590 block's pattern in `tools/eh_figure_check.js`), then the next figure after 380.8
-  (`node tools/tempo_fit.js --part 0 --from … --to … --html notation/research/tempo_candidates_eh_<t>.html` → the link → his pick → the values by hand).
-- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S23 — surface them at each figure) · `tools/reextract.js`'s header.
-  Nothing else beyond §2. A rules change: the row in `notation/registry/rules.json` via `docs/ENGRAVING_RULES.md` (a NEW field needs its
-  pointer in `container.json`'s layout block, §600).
-- **Pending him:** the 376 frame · his dynamics at 375.77 · 379.88 · the names flipped ABOVE the beam-below groups (344.2 · 375.77 · 380.555)
-  by the side-with-room rule — reads? · a slur over the 344.2 group · the sound side: take-notes without Rule 5's pin (`wc-3454` · `3459` +
-  15 more in section 2) · the audio render (Draft 01's) · the AI's calls: the 8 graces' slurs into their notes at 340.1 · 342.65 (classical),
-  the 344.2 group without a slur, the tenuto's width the head's.
-- **Deliberately uncommitted — the same 29 paths as checkpoint #6, all his, untouched** (`git status --short`: 5 modified + 24 untracked): his
-  actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries autosaved by his
-  tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his passage
-  `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
-  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
-  (his tab's save — every extraction reads a COPY). Resume on Fable.
-
-### SESSION 18 · CHECKPOINT #6 (mid-session checkpoint, 2026-09-29, Fable) — FIGURES 2 · 3 · 4 OF THE EH'S SECTION 2 IN; T10 AND THE PICTURE; THE COLUMN PASS, THE SPAN RULE, THE FRAMES AS BANDS IN TWO COLOURS; ► HIS EYE, THEN THE NEXT FIGURE FROM 302.1
-
-- **The task:** the practical for the EH's section 2, figure by figure, bespoke — hands on the notes, not rules (LG-129) — with the RULES his
-  eye found missing built as rules, never as hands (his §577 word). Built and pushed at his word, §573 … §583 (RUNNING_LOG; LG-151 … LG-161):
-  - **figure 2** (295.456 … 297.306): the values — 1+2 · 3+4 eighth pairs, 5 · 6 flagged eighths, mf on 1, accents on 2 · 6 (§573); the grace's
-    f → mf; THE BEAT FRAME 93 bpm at 295.186, navy (§564 … §572)
-  - **figure 3** (298.815 … 300.695): the values — 1+2 beamed 16ths + a slur, 3 · 4 flagged eighths with staccato dots, 5+6 an eighth pair, 7 a
-    flagged eighth, mf + an accent on 1 (§577; 1+2 · 5+6 · 7 the AI's by S4); the frame the purple 86 (0.699 s) at **298.247** — notes 2 and 6
-    ON their lines, the rest between, the tail beat 301.742 kept by hand (§579 … §582) — six lines, olive
-  - **figure 4, THE BURST** (301.556 … 302.106): beamed 16ths · ff + a decrescendo hairpin to 302.17 · staccato dots · no go line · the GC
-    REMOVED at his word (§574 · §583)
-  - **T10** in `tools/tempo_fit.js` — (D) THE BETWEEN PHASE (`--unit --every`, `--free 1,2` the notes that time each other, `--html` the picture:
-    `notation/research/tempo_candidates_eh_298.html`, served by his score server) (§573 · §574)
-  - **the rules:** THE SPAN RULE — a hand hairpin and its name clear what they span (`objects.hairpin.spanClearSs`, §576) · THE COLUMN PASS — a
-    dynamic beyond an articulation in its column, the ottava and the word riding, the slur lifting the column whole (layout, §577) · THE FRAMES
-    ALTERNATE navy · olive, lines and ball (`objects.tick.gridColours` · `objects.beatBall.colours`, §578) · THE BANDS 0.3 ss wide (`objects.tick.gridWSs`,
-    §581) · the frame clamp reads a frame already placed (§576) · `--beatGridFit …:keepTail|keepLead|keepBoth` (§582)
-  - the standards **S13a · S14 … S19** in `docs/research/temporal_notation.md` §12 · **THE LOCK** `tools/eh_figure_check.js` **75 GREEN** — figures
-    1 … 4 on the video page; the span rule and figure 3's column asserted on the WORKING page (in F, his page) too, the ladder's rung read
-- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build command is its `provenance.build` (the fold's + `--longTones` +
-  `--plainNotes` + `--beam` × 6 + the hands + `--rest` + `--beatGridFit` × 2); re-extract from a scratchpad COPY of Draft 01 (2j's discipline).
-  `check_rules` 32 (regenerate `docs/ENGRAVING_RULES.md` after EVERY IR change — it carries the ladder's per-page report) · the shield
-  `piece-lgmf` alone · the screen gate NOT run since §550 (no new drawn kind — the bands and the colours are fields on existing kinds; offer it).
-- **► The next concrete step — HIS EYE first, ask:** he reloads the notation tab (no restart) → `piece-lgmf` → `301.5` (the burst without its GC)
-  · `298.5` (figure 3's column, the olive bands, notes 2 · 6 on their lines). **Then THE NEXT FIGURE after the burst, from 302.1**, by the same
-  method: `node tools/tempo_fit.js --part 0 --from 302.1 --to <the figure's end> [--free …] --html notation/research/tempo_candidates_eh_302.html`
-  → the link → his pick → a `--beatGridFit` hand; then the values note by note at his word, as hands appended to the IR's build command (a
-  scratchpad runner script with an args array — never a long Bash line). **SURFACE S1 … S19 at the first of these.** After each change: the
-  lock · `check_rules` + `gen_engraving_rules` · the shield (`layout_shield --write` on HEAD FIRST — this session's baseline dies with its scratchpad).
-- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S19) for the next figure; nothing else beyond §2. For a rules change: the
-  row in `notation/registry/rules.json` via `docs/ENGRAVING_RULES.md`.
-- **Pending him:** his eye at `301.5` · `298.5` · the tail line at 301.742 (keep or drop) · the band's width (0.3; 0.25 the fallback) · figure 3's
-  AI-chosen values (1+2 16ths · 5+6 eighths · 7 a flagged eighth) · figure 2's wide pair 3+4 (the low stem 10 ss to the high note's beam — or two
-  flags) · the burst's hairpin end 302.17 · **which page rules:** his eye is on the WORKING page (in F); the lock asserts the video page (in C) —
-  where a mark's side depends on the stem the two differ (§573 note 6's accent · §574 the burst's marks above on F) · the screen gate offered.
-- **Deliberately uncommitted — the same 29 paths as checkpoint #5, all his, untouched** (`git status --short` at this checkpoint: 5 modified +
-  24 untracked): his actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries
-  autosaved by his tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his
-  passage `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
-  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
-  (his tab's save — every extraction reads a COPY). Resume on Fable.
-- **§584 … §587 (2026-09-30, Fable; LG-162 · LG-163) — DONE:** his choice of figure, 316.8 … 323.14 (twelve EH notes; the six between 302.1
-  and 316.8 passed over): the tool's candidates 87 … 99 bpm (7 or 6 units of ≈ 0.09 … 0.10 s), the picture regenerated with a canvas as wide
-  as the figure (§586: 480 px/s kept, one beat of room each side, sideways scroll) · HIS EYE FOUND THE APP'S VIDEO PAGE IN F (§585: the
-  in-C decision reached only the exports and the checks; the record's "video page (in C)" was always the node layout) · FIXED (§587,
-  `notation.html` alone: `ensForView()` — video · zoom in C, the ⚙ views in F; verified in the running app both ways). The "which page
-  rules" pending item is CLOSED: his page and the lock are the same page. **► He reloads → `317`; HIS PICK for the frame (the extent — all
-  6 s or the fast cluster 317.05 … 319.5 · the grouping · the phase; a `--free 1,2` run offered by S15); this frame NAVY by S19.**
-- **§589 (2026-09-30, Fable; LG-164) — DONE:** HIS PICK — the red 91 bpm one unit forward, the phase 317.048 (notes 1 · 5 · 7 within 4 ms of a
-  line, 12 on one): `--beatGridFit 0:0.0945:7:317.048:317.052:323.002`, eleven navy lines 317.048 … 323.663 · the twelve as PLAIN NOTES
-  (`--plainNotes 0:316.8:323.14`: black heads on their time, the plain stem, a band name per note — S9's thinning his). The shield `piece-lgmf`
-  alone · the lock 75 · `check_rules` 32 · the rules page regenerated. **► He reloads → `317`; then HIS STEMS AND BEAMS on the twelve — the
-  values note by note as hands (S1 … S19 surfaced), the names thinned.**
-- **§590 (2026-09-30, Fable; LG-165) — DONE:** the values at his dictation — 1 a grace (no slur, mf) · 2+3 · 5+6 beamed 16ths · 4 a quarter, p ·
-  7+8 beamed eighths, a crescendo into 8's f · 9 a flagged eighth, mp · 10 a flagged 16th, mf + accent + dot · 11 · 12 flagged 16ths, dots, mp · f;
-  the other names off. TWO RULES fell out: **S20 THE HAIRPIN INTO A NAME** (the tip stops `beside` before the name it reaches — layout) · **S21 A
-  PLAIN NOTE IS A STRUCK NOTE** (his "the curve meter is just briefly sneaking in" on 11 · 12: take-re-pitched notes carried a level curve; the
-  `--plainNotes` pass now takes recVel and drops the curve — extractor). The lock a §589 · §590 block, **92 GREEN** · `check_rules` 32 · the shield
-  `piece-lgmf` alone. **► He reloads → `317` (play from `316.5`); HIS EYE — then the next figure.** For him: `wc-3454` · `wc-3459` carry no Rule-5
-  pin (no `velAbs` · `cc7Abs`) — they SOUND as shaped notes at the drawn height in the composer; 15 more take-notes in section 2 the same.
-- **§591 (2026-09-30, Fable; LG-166) — DONE:** p10's 16th flag was the max at work (10.39 needed) — the max **10.5** at his word, the flag above
-  the staff · THE FIGURE AT 324.6 (eight notes, 324.677 … 325.956): six beamed grace 16ths (`grace` + `--beam`; the stroke on the first stem only
-  by a new hand `slash false`) under one slur into 7 · 7+8 beamed eighths, a GC on 7 (the head's left edge on its time), the accent on the head
-  side · every band name shown (1 mp · 2 ff · 3 mf · 4 f · 5 mf · 6 mf · 7 f · 8 f — his to decide). The lock 92 · `check_rules` 32 · the shield
-  `piece-lgmf` alone. **► He reloads → `324.5` · `321`; HIS DYNAMICS for the eight + his eye on the grace beam (full size; a grace-scaled beam is a
-  build, offered) · 8's f above the staff (the side-with-room rule) · the accent under the head against the slur's end; then the lock's block.**
-- **§592 (2026-09-30, Fable; LG-167) — DONE:** THE GRACE GROUP'S BEAM at the heads' scale (S22: the thickness and the step × 0.707 — layout + render)
-  · THE GC AT THE BEAT BALL'S HEIGHT (S23: `objects.gc.geom` 'lane' | 'beatBall'; the plain note's GC takes the beat ball's flight — gc.js one
-  copy, the item and the instance carry `geom`) · the 324.6 figure: the slur 1 → 6 · 1 mp + a hairpin to 6 · the f on 7 alone (2 … 6 · 8 off) · the
-  lock's block for 324.6 (102 GREEN). The shield caught a `grace: false` key on every tip (a tuba hash moved) — made conditional; `piece-lgmf`
-  alone. **► He reloads → `324.5` (play from `325`); HIS EYE — then the next figure.**
-- **§593 (2026-09-30, Fable; LG-168) — DONE:** THE GC'S APERTURE 70 % (`objects.gc.beatBall.spread` 0.7: the duration 0.6 → 0.42 on the beat-ball
-  geometry — `gc.js presetFor`, one copy for the arc, the ball and the page-edge reach; on the page the arc 62 px wide, was 88) · RAGGED
-  STEMMING on the 324.6 grace group (his name; S8a: `beamStub` on the six + `beamStubShortSs 1` on the first — the stubs 2.29 ss, one length,
-  the first stopping a space above the F5; the squiggle for the slash) · the lock re-pointed, 104 GREEN · `check_rules` 32 · the shield
-  `piece-lgmf` alone. **► He reloads → `324.5` (play from `325`); HIS EYE — then the next figure.**
-- **§594 (2026-09-30, Fable; LG-169) — DONE:** the grace stroke's ORIENTATION BY THE BEAM'S SIDE (his "rotate 90deg … depending on down or up
-  stemming": below → falls as at 292.75, above → rises; the inset slide follows) · THE GC REGISTERED AS STYLE 2 (`objects.gc.styles`: 1 lane · 2
-  beatBall; the hand `gcStyle 1 | 2`, the plain note's default 2) · his schema question: it is §12 (S6 the grace · S8 the uneven group · S8a ragged
-  stemming · S22 the grace beam), told him. The lock 105 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `324.5`; HIS EYE —
-  then the next figure.**
-- **§595 (2026-09-30, Fable; LG-170) — DONE:** the two ragged stubs measured from the beam stack's edge toward the heads — 292.75 **2.00** ss
-  (`protrudeSs`), 324.6 **1.58** (the first stem 2.58 − 1): two laws, reported, his call · THE FIGURE AT 337 (337.006 A♯4 · 337.164 B3 · 337.792 G♯5):
-  a grace slurred to 2, 2 a flagged eighth (stem 8.75 up), 3 a flagged 16th stem down with its dot; the names f · f · ff shown. The lock 105 ·
-  `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `337`; HIS DYNAMICS for the three, then the lock's block and the next figure.**
-- **§596 (2026-09-30, Fable; LG-171) — DONE:** the 317 frame's lead beat kept (`:keepLead` — inside the held note's bar, his "ok if in dur line";
-  the runner's `@replace`) · the ragged stubs **2 ss the standard** for every group (S8a amended; 324.6's hand withdrawn) · the 337 slur by a hand
-  `slurHeightSs` 1.4 (S7 notes it), the names f · — · ff · THE FIGURE AT 340.1 (seven notes 340.352 … 341.757: graces 1 · 3 · 5 each slurred to
-  its note, 2 · 4 flagged 16ths, 6+7 a 16th beamed to an eighth with the beamlet; the names shown — 6 · 7's flipped above the beam-side row).
-  The lock 105 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `316.5` · `324.5` · `337` · `340`; HIS EYE, his dynamics at
-  340.1, then the lock's blocks (337 · 340.1) and the next figure.**
-- **§597 (2026-09-30, Fable; LG-172) — DONE:** A GRACE'S STEM FOLLOWS ITS PARENT (S6 amended; `layout.js` before the unit's own rule; nine slurred
-  graces on the page, three flipped — his "first one" at 340.1 was the mixed case; the lock asserts every pair) · the slur over a wide interval
-  put to him (S7 already mirrors LilyPond: the head side, the ends at the heads, the height a quarter of the length to 2, the slope 1.1; options
-  (a) as is · (b) a minimum height for short slurs · (c) the hand) · 343.12 (`wc-3532`) in range, clean, 50 ms at vel 61 — his to lengthen or
-  raise · THE FIGURE AT 342.65 (eleven notes: pairs 1-2 · 4-5, 3 · 6 · 7 16ths alone, 8 a grace into the ragged group 9 … 11; names shown).
-  The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `340` · `342.7`; HIS EYE, his slur call, his dynamics at
-  340.1 · 342.65, then the lock's blocks and the next figure.**
-- **§598 (2026-09-30, Fable; LG-173) — DONE:** the 344.2 ragged group of FIVE (the beam span replaced, 7 and 8 folded in, 8's slur unset, `stemDir
-  down` on all five): the scaled beam below the staff at −5.39 / −4.82, the stubs 2, the squiggle falling; the names flipped above the staff (the
-  side-with-room rule). The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `344`; HIS EYE — the names above, a slur
-  over the group (his to add); then his dynamics at 340.1 · 342.65, the lock's blocks, the next figure.**
-- **§599 (2026-09-30, Fable) — DONE:** his change at 343.12 (0.05 → 0.10 s, vel 61 → 90) carried into the IR by a re-extraction (the runner copies his save afresh); the name mp → f; every check green. The audio render untouched (not asked).
-- **§600 (2026-09-30, Fable; LG-174) — DONE:** A SLUR NEVER UNDER 1 ss (his (b); `objects.slur.minHeightSs` + its container pointer — a new rules field
-  needs one, found by the lock) · the section's names thinned to four marks (f · mf · f · mp), the rest off · THE ACCENT at 343.12 on the head side
-  (S10 built for a stem-down lone note, scoped to the plain note) · THE FIGURE AT 345.3 (a 16th + two beamed grace 16ths). The lock 106 ·
-  `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `340` … `346`; HIS EYE (a slur over the 344.2 group and the 345.6 pair, his
-  to add), then the lock's blocks (337 · 340.1 · 342.65 · 345.3) and the next figure.**
-- **§601 (2026-09-30, Fable; LG-175) — DONE:** THE SLASH on a beamed grace group pinned to the beam's corner (a post-pass after the beams are
-  final; the flagged grace untouched) · the 345.6 pair slurred (below, 1.00) · THE TEMPO CANDIDATES 339.9 … 345.9 (21 onsets, the graces among
-  them; 91 · 93 · 95 · 98 · 93 · 99 bpm; the picture `tempo_candidates_eh_340.html`). The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone.
-  **► He reloads → `345.5`, opens the picture; HIS PICK for the frame — the extent (six seconds in one, or per cluster), the grouping, the phase,
-  the free notes (the graces?) — then the frame by hand, the lock's blocks (337 · 340.1 · 342.65 · 345.3), the next figure.**
-- **§602 (2026-09-30, Fable; LG-176) — DONE:** THE FRAME AT 340 his pick — the purple 93 (6 × 0.107 at the tool's phase 340.061; twelve olive
-  lines) · the beamed grace's stroke slid 1 ss toward the heads (a rules field, the corner showing) · THE STROKE MIRRORS WITH THE STEM — looked up
-  in his LilyPond install (the font's `flags.ugrace` rises, `flags.dgrace` falls; a render used each for its stem) and built (S6). The lock 106 ·
-  `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `340` · `341.4` · `343.3` · `345.5`; HIS EYE, then the lock's blocks
-  (337 · 340.1 · 342.65 · 345.3 · the 340 frame) and the next figure.**
-- **§603 (2026-09-30, Fable; LG-177) — DONE:** dots on the 317.16 pair and the 325.6 eighths · the beamed stroke halfway (0.5) · equal protrusion
-  above and below the beam = the stroke centred on the stack; the slide trades one for the other — put to him: (a) centred · (b) halfway as now
-  · (c) centred + a longer reach. The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `317.2` · `325.6` · `345.5`;
-  HIS CALL on the stroke; then the lock's blocks (337 … 345.3, the 340 frame) and the next figure.**
-- **§604 (2026-09-30, Fable; LG-178) — DONE:** the stroke balanced (the far half + 2 × the inset — 0.67 above and below) · his save carried
-  (`wc-3664` D6 → D5) · THE FIGURE AT 375.77 (1-3 · 4-7 beamed 16ths stem down, 8 a 16th alone; the names shown, flipped above the beams) ·
-  THE FIVE AT 379.88 (beamed up; dots on 1-3; TENUTOS on 4-5 — `glyphs.json articulation.tenuto`, the articulation row's draws widened;
-  head side by hand) · THE CANDIDATES 375.7 … 380.8 (13 onsets; 87 … 95 bpm; `tempo_candidates_eh_376.html`). The lock 106 · `check_rules` 32
-  · the shield `piece-lgmf` alone. **► He reloads → `345.5` · `375.8` · `380`; HIS PICK for the 376 frame (the extent · the grouping · the phase),
-  his dynamics on both figures, then the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the frames) and the next figure.**
-- **§605 (2026-09-30, Fable; LG-179) — DONE:** THE 376 FRAME his pick — the green 91 (7 × 0.0945) one tick forward, backed 1.5 ms so p4 and
-  p8 share the shortfall (the two are 21.5 ms short of a beat apart): the phase **375.768**, p4 11 ms after its line, p8 10 ms before;
-  `--beatGridFit 0:0.0945:7:375.768:375.859:380.797` — eleven navy lines 375.107 … 381.722 over both figures, nothing clamped. The lock 106 ·
-  `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `376` (play from `375`); HIS EYE, his dynamics on 375.77 · 379.88, then
-  the lock's blocks (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the 340 and 376 frames) and the next figure after 380.8.**
-- **§606 (2026-09-30, Fable; LG-180) — DONE:** THE TWO FIGURES' SECOND LAYER at his dictation — 379.88 rebeamed 1+2 · 3+4, 5 a lone 16th (its
-  `noteBeams` unset by `null`), the tenutos gone, dots on all five, f on 1, an accent on 4 (`articSide below`, the head side) · 375.77 the f on 1
-  with a decrescendo through 2 · 3 (to 376.29), mf on 4 with a decrescendo to 8's end (377.81), every other name off. The lock 106 ·
-  `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `376` · `380` (play from `375`); HIS EYE, then the lock's blocks
-  (337 · 340.1 · 342.65 · 345.3 · 375.77 · 379.88 · the 340 and 376 frames) and the next figure after 380.8.**
-- **§607 (2026-09-30, Fable; LG-181) — DONE:** THREE FIGURES AFTER 380.8 at his dictation — 384.3 (1 · 4 · 7 lone eighths, 2+3 · 5+6 16th
-  pairs, 8+9 an eighth pair) · 387.23 (1 … 4 beamed 16ths under one slur, 5 a lone 16th with a dot) · 389.7 (a grace slurred into 2, 2 · 3 · 4
-  beamed with the beamlet) · 383.25 A LONG TONE by name (`--longToneAlso wc-3640`, the flag's first use — 2m's single) · no GC at 380.39 (the
-  split pair's first note took the beam device's cue; off by hand). The parts read from the IR's CHUNKS (the events carry none) — the cello's
-  E4 at 387.494 left out. The names shown, his to thin. The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads →
-  `383` · `384.5` · `387.3` · `389.8` (play from `382.5`); HIS EYE, his dynamics on the three figures, then the lock's blocks and the next
-  figure after 390.5; the frame candidates for 384.3 … 390.5 offered.**
-- **§608 (2026-09-30, Fable; LG-182) — DONE:** THE CANDIDATES 384.3 … 390.6 drawn (18 onsets; six shown beats 87 … 97 bpm; the picture
-  `tempo_candidates_eh_384.html`; olive by S19) — his pick owed · the three figures' DYNAMICS at his dictation (384.3 mf on 1 · 387.23 a
-  crescendo through the beamed four into f on 4, S20 · 389.7 the p on 4 kept; every other name off) · FOUR LONG TONES 390.7 … 398.4 by name
-  (`--longToneAlso`; five singles named of 18). The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `384` ·
-  `387.3` · `390` · `393` · `398`; the picture; HIS PICK for the 384 frame, HIS EYE, then the lock's blocks and the next figure after 398.4.**
-- **§609 (2026-09-30, Fable; LG-183) — DONE:** THE 384 FRAME his pick — the red 93 (7 × 0.092) backed 1.44 ticks so p4 and p7 share the
-  shortfall (29 ms short of a beat apart): the phase **383.760**, p4 14 ms after its line, p7 15 ms before; `--beatGridFit
-  0:0.092:7:383.760:384.455:390.402` — eleven olive lines 384.404 … 390.844 over the three figures; THE LEAD BEAT DROPPED by the clamp (inside
-  the 383.35 long tone's bar — `keepLead` his, as at 317). The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads →
-  `384` · `387.3` · `390` (play from `383.5`); HIS EYE, then the lock's blocks and the next figure after 398.4.**
-- **§610 (2026-09-30, Fable; LG-184) — DONE:** THE 384 FRAME CUT at his word — the last line 388.268, the four after it gone: the cluster's
-  `last` 388.031 + a new `noTail` flag (the fit's 7th field a comma list now — `keepTail` · `keepLead` · `keepBoth` · `noTail` · `noLead`; the
-  effective lead/tail recorded; S13 notes it) — seven olive lines 384.404 … 388.268, the 389.7 figure outside any frame; the lead beat still
-  the clamp's. The lock 106 · `check_rules` 32 · the shield `piece-lgmf` alone. **► He reloads → `384` · `387.3` · `390` (play from `383.5`);
-  HIS EYE, then the lock's blocks and the next figure after 398.4.**
-- **§611 (2026-09-30, Fable; LG-185) — DONE:** THE BASSOON BEGUN — his one-off at 295.97 (`wc-3396`, B1, vel 73 → mf) as THE GC UNIT of pieces #4
-  and #5 at his word (*"precisely that way … a model in our registry"*): **`byEnv.oneOff`** in the registry — #5's strike field for field without
-  the dot and the accent (anchor C, the go line at the GC's impact, the cue head 0.6 left, a 16th-flagged stem, the lane GC, the band name on the
-  head side) · `--oneOffs P:T0:T1` (the extractor; the window his) · `@drop:` in the runner (the first try — a hand on a plain note — withdrawn) ·
-  `check_rules` (7) holds it equal to the strike, **33 GREEN** · the lock 106 · the shield `piece-lgmf` alone · S24. **► He reloads → `296` (play
-  from `295`); HIS EYE — the flag16 · no clear max · the name under the head · the dot and the accent off, his to reverse; then the next one-off
-  (a wider window, or the next note he names); the EH's eye at 376 … 398 still his.**
-- **§612 (2026-09-30, Fable; LG-186) — DONE:** the one-off at his eye — THE DOT BACK (the strike's `nhDot`, not the accent) · THE SECTION'S WORD
-  INTO THE HEAD'S COLUMN after the name, centred (`instrPlace column` · `instrAlign middle` = anchor C's columnAlign; the layout's nh-unit takes
-  the change-rule word off the row) · EVERY GC ITS OWN NAME (`dynMark band`; a hand overrides — 300.497 mf over its ff) · the window to 302
-  (300.497 · 301.878) · the gate (7) amended, `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads → `296` · `300.5` · `302`.**
-- **§613 (2026-09-30, Fable; LG-187) — DONE:** THE PAIR AT 322.7 as one-offs (`--oneOffs 1:322.5:323.5`): 322.836 **f** · 323.328 **mf** by hand;
-  D5, stems down, the column above with the ottava riding. **► He reloads → `323`.**
-- **§614 (2026-09-30, Fable; LG-188) — DONE:** THE FIGURE AT 324.6 at his dictation — plain notes (`--plainNotes 1:324.7:325.7`), 1 a GRACE BEAMED
-  to 2 (an eighth; the slash pinned at the beam's corner — S22 on a mixed group), 3 a 16th with ITS BEAMLET beamed to 4 · 5 (eighths); the names
-  mp · mf · f · f · mp shown above (the beam below), his to thin; no slur (his word "beamed"). The lock 106 · `check_rules` 33 · the shield
-  `piece-lgmf` alone. **► He reloads → `325` (play from `324.5`); HIS NAMES on the five, a slur his.**
-- **§615 (2026-09-30, Fable; LG-189) — DONE:** THE CANDIDATES for the bassoon's 322 … 326 (seven onsets; 93 · 86 · 93 · 89 · 86 · 98 bpm at their
-  between phases; `tempo_candidates_bsn_322.html`). **► HIS PICK — the extent (one frame or per cluster across the 1.47 s gap) · the grouping ·
-  the phase · the free notes — then `--beatGridFit 1:…`, navy (the part's first, S19).**
-- **§616 (2026-09-30, Fable; LG-190) — DONE:** THE BASSOON'S FIRST FRAME his pick — the green 93 (4 × 0.162) one tick back, then 14.5 ms forward so
-  p4 · p7 share the 15 ms shortfall (the phase 322.3705: p4 7.5 ms before its line, p7 7.5 ms after); `--beatGridFit 1:0.162:4:322.3705:322.836:325.618`
-  — one frame over the pair and the figure, eight NAVY lines 321.723 … 326.259, nothing clamped. The lock 106 · `check_rules` 33 · the shield
-  `piece-lgmf` alone. **► He reloads → `323` (play from `321`); HIS EYE — the lead and tail lines his (`:noLead` · `:noTail`), his names on the
-  five, then the next one-off or figure after 326.**
-- **§617 (2026-09-30, Fable; LG-191) — DONE:** the bassoon at his eye — the grace UNBEAMED (1 · 2 flagged, `@drop` of the beam span) · the 322.7
-  pair "standard but similar": PLAIN dotted 16ths (`--plainNotes 1:322.5:323.5` in place of the `--oneOffs` window; `nhStem flag16 · nhDot`), f · mf
-  kept on the row · an ACCENT on the eighth at 324.955 (above, S10) · mf on the grace, the other four names off. The frame of §616 unchanged. The lock
-  106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads → `323` · `325` (play from `321`); HIS EYE, then the next one-off or
-  figure after 326.**
-- **§618 (2026-09-30, Fable; LG-192) — DONE:** the bassoon 336.9 … 345.6 at his dictation — FIVE ONE-OFFS (`--oneOffs` × 2: 336.926 f · 337.388 mp
-  their own; 341.217 · 343.5 · 344.516 at his mf · mf · f) · THE PAIR AT 345.47 as the burst shape (S14: plain 16ths beamed, the GC's impact at the
-  first head's left edge, NO go line — `nhAnchor leftEdge`; the lane GC, the AI's call; mp on the first, the second unnamed). The lock 106 ·
-  `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads → `337` · `341.3` · `343.5` · `345.5` (play from `336`); HIS EYE, then the
-  next after 345.7.**
-- **§619 (2026-09-30, Fable; LG-193) — DONE:** the bassoon's THREE AT 376 as one-offs (`--oneOffs 1:376:377.8`): 376.136 f (its own) · 377.255 ·
-  377.672 mf by hand. The lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads → `376.5` (play from `375.5`); HIS EYE,
-  then the next after 378.**
-- **§620 (2026-09-30, Fable; LG-194) — DONE:** the bassoon's PAIR AT 380.25 as one-offs (`--oneOffs 1:380.3:380.9`), both **f** by hand. The lock
-  106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads → `380.5` (play from `375.5`); HIS EYE, then the next after 381.**
-- **§621 (2026-09-30, Fable; LG-195) — DONE:** the bassoon 387.5 … 398.4 — the ONE-OFF at 387.493 at f · the singles 393.277 · 398.443 NAMED LONG
-  TONES (`--longToneAlso wc-3670,wc-3674`; seven of 18 named) at a single f each by hand. The lock 106 · `check_rules` 33 · the shield
-  `piece-lgmf` alone. **► He reloads → `387.5` · `393.3` · `398.5`; HIS EYE, then the next after 399.**
-- **§622 (2026-09-30, Fable; LG-196) — DONE:** EVERY HELD TONE IN SECTION 2 A LONG TONE, all instruments, at his word — the cut widened:
-  `--longTones 289:427:all` (the five singles left — Db 337.18 · Vc 337.55 · 343.13 · Tpt 367.98 · Db 394.93 — take the device; a held note
-  inside a `--plainNotes` / `--oneOffs` window stays its figure's, so the EH's quarters stand and the lock stays 106); the registry's sheet and
-  PLAN § 2m's held line carry it. `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads → `337.3` · `343.2` · `368` · `395`; HIS
-  EYE, then the bassoon after 399.**
-- **§623 (2026-09-30, Fable, after checkpoint #9's `/postclear`; LG-197) — DONE:** THE HORN BEGUN at his dictation — TEN ONE-OFFS (`--oneOffs 2:…` × 6: 296.319 mf · 323.175 ff · 325.013 f · 336.966 f · 337.352 mp · 341.364 mf · 377.742 ff · 380.207 f · 386.168 f · 387.562 f) · THREE BURST PAIRS (S14 as the bassoon's 345.47: 16ths beamed, one lane GC at the first head's left edge, no go line — 301.962 ff + 302.162 fff · 344.189 f + 344.393 mf · 375.998 mf + 376.161 mf) · the CURRENT dynamics on every note (the band names, his to look at) · 345.486 not named, left as it draws; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`296.3` · `302` · `323.2` · `325` · `337` · `341.4` · `344.2` · `376` · `377.7` · `380.2` · `386.2` · `387.6`, play from `295.5`); HIS EYE and his dynamics, then the horn after 399 or the next part; the bassoon's eye (295 … 399) and the EH's (376 … 398) still his.** The AI's calls: the pairs' lane GC · both notes of a pair named · the 301.96 pair two octaves under one beam (C5 → C3, his eye).
-- **§624 (2026-09-30, Fable; LG-198) — DONE:** THE HORN'S DYNAMICS AT HIS EYE — the three pairs ONE name each, on the first note (301.962 f · 344.189 f · 375.998 f; the seconds unnamed) · 323.175 f · 325.013 mf · 377.742 mf · 386.168 mf by hand · 345.486 A ONE-OFF at mp (`--oneOffs 2:345.4:345.6`; eleven horn one-offs, every short note of its section 2 on a device) · the bassoon's 301.878 f; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`302` · `323.2` · `325` · `344.2` · `345.5` · `376` · `377.7` · `386.2`); HIS EYE, then the horn after 399 or the next part; the bassoon's eye (295 … 399) and the EH's (376 … 398) still his.** The AI's reading: "377.6 MF" = the horn's 377.742 (the bassoon's 377.672 already mf).
-- **§625 (2026-09-30, Fable; LG-199) — DONE:** THE TRUMPET BEGUN at his dictation — THIRTEEN ONE-OFFS (`--oneOffs 3:…` × 6: 302.090 mf · 322.363 f · 323.170 f · 325.269 ff · 341.370 mp · 343.128 mp · 375.949 mf · 377.416 f · 377.859 mp · 380.208 f · 384.687 mp · 385.298 mf · 387.741 p — the current names) · THE FIVE AT 344.19 plain 16ths beamed 3 + 2 (names shown, his to thin) · THE BURST PAIR at 385.95 (a GC on the first, no go line, the second unnamed) · THE FRAME CANDIDATES 343.1 … 345.7 drawn, the 343.13 GC included (`tempo_candidates_tpt_343.html`: six onsets, 86 … 98 bpm) · 295.477 not named, left; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`302.1` … `387.7`) and opens the picture; HIS PICK for the trumpet's first frame (navy by S19), his dynamics, then the trumpet after 399 or the next part; the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.** The AI's calls: the 385.95 pair in the no-go-line version, its second note unnamed · a one-off inside a frame (343.13), a first.
-- **§626 (2026-09-30, Fable; LG-200) — DONE:** THE TRUMPET'S 295.48 A ONE-OFF TOO at his word (`--oneOffs 3:295.4:295.6`; `wc-3392` struck from recVel, f — fourteen trumpet one-offs, every short note of its section 2 on a device); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`295.5`); HIS PICK for the trumpet's first frame (`tempo_candidates_tpt_343.html`, navy by S19), his dynamics, then the trumpet after 399 or the next part; the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§627 (2026-09-30, Fable; LG-201) — DONE:** THE TRUMPET'S DYNAMICS at his eye (302.090 f · 322.363 mp · 325.269 mf · 341.370 mf · 343.128 mf, that one still a GC) · THE TRUMPET'S FIRST FRAME his pick — the green 98 (4 × 0.1525) at the tool's phase 342.888, from the line at 344.108 (`--beatGridFit 3:0.1525:4:342.888:344.189:345.71:noLead`): five NAVY lines 344.108 … 346.548 over the five, the 343.13 GC outside it; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`302.1` · `322.4` · `325.3` · `341.4` · `343.1` · `344.2`, play from `342.5`); HIS EYE — the tail line 346.548 his (`noTail`), his names on the five — then the trumpet after 399 or the next part; the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.** The AI's reading: the GC at 343.13 in the fit (six onsets), not under the lines.
-- **§628 (2026-09-30, Fable; LG-202) — DONE (superseded at its ► by §629 below):** THE TRUMPET'S FIVE AT 344.19 — ONE NAME PER BEAM GROUP at his word: f on 344.189, mp on 345.438, the other three unnamed; the frame of §627 unchanged (five navy lines 344.108 … 346.548); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`344.2` · `345.5`, play from `342.5`); HIS EYE — the tail line 346.548 his (`noTail`) — then the trumpet after 399 or the next part; the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§629 (2026-09-30, Fable; LG-203) — DONE:** THE TRUMPET'S FIVE — THE TWO GCs OFF at his word (344.189 · 345.438: the beam device's own cue on each group's first note, unasked — `gc false · goLine false` by hand; a rule in its place offered, §629); the names f · mp (§628) and the frame (§627) unchanged; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`344.2` · `345.5`, play from `342.5`); HIS EYE — the tail line 346.548 his (`noTail`) — then the trumpet after 399 or the next part; the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§630 (2026-09-30, Fable; LG-204) — DONE:** THE TRUMPET'S DYNAMICS 375.9 … 387.7 at his eye (375.949 f · 377.416 · 377.859 mf · 384.687 · 385.298 mf · the pair at 385.95 mf on its first note · 387.741 f; 380.208 f untouched); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`376` · `377.5` · `384.7` · `385.3` · `386` · `387.7`); HIS EYE — the frame's tail line 346.548 his (`noTail`), the no-cue rule offered (§629) — then the trumpet after 399 or the next part; the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§631 (2026-09-30, Fable; LG-205) — DONE:** THE CELLO BEGUN at his dictation — EIGHT ONE-OFFS (`--oneOffs 6:…` × 6: 300.342 mf · 301.722 mp · 322.191 mp · 323.172 mp · 377.406 ff · 387.494 ff, and the held singles 337.550 mp · 343.125 p TAKEN BACK FROM THE LONG TONE at his word — LG-196's "unless I say otherwise"; 130 long tones now) · the current names, no hand; every cello note of section 2 on a device; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`300.4` · `301.7` · `322.2` · `323.2` · `337.6` · `343.2` · `377.4` · `387.5`); HIS EYE and his dynamics, then the double bass or the next part; the trumpet's eye, the horn's, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§632 · §633 (2026-09-30, Fable; LG-206) — DONE:** HIS R AFTER A COMPOSER CHANGE FAILED AND REMOVED THE IR (the refresh re-read the runner's stale score copy: `ev-wc-3489` 81 vs his new 69) — the IR RESTORED, his change carried (the DB's A5 at 329.26 → A4), THE ROUTE FIXED in `score/server.js` (a fresh copy of the last Save; the IR put back on a failure) — **takes effect at his RESTART of the server, not exercised** (§632) · THE DOUBLE BASS BEGUN — FIVE ONE-OFFS (`--oneOffs 7:…` × 3: 295.772 mf · 299.686 mf · 300.421 ff · 302.147 ff · 322.873 mf, the last read from an unfinished sentence; §633); every short note of Hn · Tpt · Vc · DB on a device; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He RESTARTS `node score/server.js`, reloads (`295.8` · `299.7` · `300.4` · `302.2` · `322.9` · `329.3`); HIS EYE and his dynamics on the double bass and the cello; the trumpet's eye, the horn's, the bassoon's (295 … 399) and the EH's (376 … 398) still his.** Learned: the app's R re-runs the recorded build AS IT STANDS — a `--scoreFile` copy recorded by the runner was the old score; a failed refresh removed the IR from disk.
-- **§634 (2026-09-30, Fable; LG-207) — DONE:** THE DOUBLE BASS'S 337.18 A ONE-OFF at his word (`--oneOffs 7:337.1:337.3`; `wc-3515`, mf — a third held single taken back from the long tone; 129 long tones, six DB one-offs); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`337.2`); HIS EYE and his dynamics on the double bass and the cello; THE SERVER'S RESTART still owed for R (§632); the trumpet's eye, the horn's, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§635 (2026-09-30, Fable; LG-208) — DONE:** THE DYNAMICS OF THE CELLO AND THE DOUBLE BASS at his eye (Vc 301.722 f · 322.191 mp kept · 323.172 f · 343.125 mf · 377.406 mf · 387.494 f; DB 300.421 mf · 302.147 f · 322.873 f · 337.181 f) and the trumpet's 295.477 mf — `dynMark` hands; his names settle in mp · mf · f, every ff brought down; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`295.5` · `300.4` · `301.7` · `302.2` · `322.9` · `323.2` · `337.2` · `343.2` · `377.4` · `387.5`); HIS EYE; THE SERVER'S RESTART still owed for R (§632); the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his.**
-- **§636 (2026-09-30, Fable) — DONE:** HIS SAVE CARRIED INTO THE NOTATION at his ask — one change: the double bass's long tone at 309.96 C♯5 → C♯4 (after §632's A5 → A4 at 329.26: his second octave-down on a DB note under an ottava sign); VALID vs source; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`310`); HIS EYE on the four parts begun today; THE SERVER'S RESTART still owed for R (§632); the horn's eye, the bassoon's (295 … 399) and the EH's (376 … 398) still his; the audio render holds the old octaves.**
-- **§637 · §638 (2026-09-30, Fable; LG-209) — §637 DONE, §638 HELD:** THE LONG TONES' DYNAMICS HARMONIZED at his dictation — ONE NAME PER CHORD (`--chordDyn T0:T1:mark`, new in `notate_section.js`: 38 windows, 127 of the 129 long tones; the page says the chord's name, the save keeps the played velocities) · HIS ASK TO LINE UP EACH CHORD'S ONSETS — MEASURED AND HELD (§638): 34 of 36 chords within 2 … 36 ms, TWO wider (327.04 — 65 ms · 370.34 — 48 ms); an onset is the save's `startSeconds` (the validator), so the unison is (a) written into his save [recommended; he Saves, the AI edits, he RELOADS the composer] or (b) a page-only "shown time" (a build); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`303.5` … `407`); HIS WORD on the two wide chords and on (a) · (b); THE SERVER'S RESTART still owed for R (§632); the eyes on the six parts still his.** For later: the build's command is 19 KB of Windows' 32.7 KB limit — flags that name a window (`--chordDyn`, `--oneOffs`) over per-note hands where a choice exists.
-- **§639 · §640 (2026-09-30, Fable; LG-210 · LG-211) — the candidates DONE, his pick owed:** THE PERCUSSION OPENED — its first six notes (297.407 … 298.854: bass drum · three castanet hits · temple bowl · brake drum) THE FRAME CANDIDATES DRAWN (`tempo_candidates_perc_297.html`: 92 · 88 · 90 · 98 · 98 bpm at their between phases; an on-the-beat reading at 92 offered — lines 297.564 · 298.216 · 298.868, notes 2 · 5 · 6 on them); the castanet rattle's notation talked (§639: written out vs a roll); nothing on the page. **► HIS PICK for the percussion's first frame; STILL HELD: the long-tone chords' unison (§638 — the two wide chords, (a) the save or (b) the page); THE SERVER'S RESTART owed for R (§632); the eyes on the six parts still his.**
-- **§641 (2026-09-30, Fable; LG-212) — DONE, his pick owed:** A BEAT HE NAMES BY TWO NOTES — `tempo_fit --pin i,j` (the beat = their distance, the lines ON them; teal on the picture) · the percussion's 5 → 6 beat drawn: 0.665 s = 90 bpm, lines 297.524 · 298.189 · 298.854 — notes 2 · 5 · 6 on them, the bass drum an upbeat (`--beatGridFit 4:0.665:1:296.859:297.407:298.854` ready); nothing on the page. **► HIS PICK for the percussion's first frame (`tempo_candidates_perc_297.html`); STILL HELD: the long-tone chords' unison (§638 — the two wide chords, (a) the save or (b) the page); THE SERVER'S RESTART owed for R (§632); the eyes on the six parts still his.**
-- **§642 … §644 (2026-09-30, Fable; LG-213 · LG-214) — §643 DONE, §644 his pick owed:** THE PERCUSSION'S FIRST SIX ON THE PAGE at his word — plain notes on the seven-line staff (`--plainNotes 4:297.3:298.9`): the bass drum a 16th upbeat STEM DOWN · the three castanet hits beamed 16ths · the temple bowl and the brake drum quarters, STEMS UP · THE PINNED FRAME, 90 bpm, five navy lines 296.859 … 299.519 (notes 2 · 5 · 6 on them) · FOUND AND FIXED: a hand's `stemDir` was never read (layout takes it from the overlay's value, `--hand` wrote the device — lifted in `notate_section.js`) · NOT RIGHT YET, the percussion's note unit undesigned (his TODO 4): THE NAMES FALL INSIDE THE SEVEN-LINE STAFF (the five-line dynamic row), the BD's 6 ss stem, no let-ring mark · THE NEXT FOUR's candidates drawn (`tempo_candidates_perc_300.html`: 95 · 88 · 98 · 89 · 86; the first frame's beat carried on offered); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`297.5`, play from `296.5`); HIS EYE and HIS PICK for the next four; then the percussion's dynamic row (a rules row); STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).** Learned: a hand's `stemDir` belongs to the overlay's value, not its device (§643) · the percussion staff's rows are the five-line staff's — a plain note there needs its own dynamic row.
-- **§645 · §646 (2026-09-30, Fable; LG-215) — §645 DONE, §646 the planning opened:** THE CASTANETS TWO GRACES INTO A QUARTER at his word · THE BEAT FRAME OVER A STAFF'S OWN OUTER LINES — the percussion's lines −6.4 … +6.4 and the ball the same drop (`Layout.staffExtentResolver`, one copy for the tick and the ball; the app, `export_video`, `capture_lane` pass it; every other part unchanged) (§645) · THE PERCUSSION STAFF — the planning method entered (§646): the data (every vertical rule assumes five lines ±2 and pitch positions: the stem's middle-line rule made the BD's 6 ss, the dynamic row falls inside the staff), the castanets' place (the line is on the first hit, the loud third a 16th after; (A) as drawn · (B) the frame a 16th later · (C) his hand in the composer), THE TOP LINE proposed — 1 the staff's edges · 2 stems · 3 dynamics · 4 the marks · 5 ringing · 6 the lock; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He HARD-reloads (`297.5`, play from `296.5`); HIS WORD on the castanets' beat (A · B · C) and on the one stem length (3.5 · 2.5 · 4.5); then the plan item step by step; the next four's frame pick; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).** Learned: a hand's `dynMark: null` draws no name — `"band"` restores the device's.
-- **§647 … §649 (2026-09-30, Fable; LG-216 … LG-218) — §649 DONE; §647 · §648 his questions answered:** THE PERCUSSION'S FRAME RE-FOUND at his word — the beat ON the castanet quarter and equally close to the next two: 0.555 s = 108 bpm (3T = 1.665; the bowl 55 ms before its line, the brake drum 55 ms after), drawn past the sleigh bells — seven navy lines 297.134 … 300.464 (`--beatGridFit 4:0.555:1:297.689:297.407:300.116:noLead`); over the soft ceiling of 100, his ask; the sleigh bells not on a line; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`297.5`, play from `296.5`); HIS EYE; then the percussion staff's step 2 — the stems: (a) all up · (b) BD down · (c) bare heads, stems only on figures (§647 · §648) — and its length; the next notes' frame; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§650 (2026-09-30, Fable; LG-219) — DONE:** THE PERCUSSION'S STRIKES AS BARE HEADS UNDER GCs at his word — the frame GONE (lines and balls) · the stems GONE on the lone strikes (the graces keep theirs — a figure) · GC STYLE 3 `staffTop` registered: the apex at the lane's top, the impact just above the staff's own top line (`objects.gc.staffTop.gapSs` 0.4), the narrow aperture 0.7 — a 5 ss drop between the trumpet's staff and the percussion's · the three GCs on the castanet quarter · the temple bowl · the brake drum, no go line; the AI read "those" as the stems; the names still inside the staff (step 3); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone · the screen gate PASS. **► He HARD-reloads (`297.5`, play from `296.5`); HIS EYE; then the percussion's dynamic row and the next notes; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§651 (2026-09-30, Fable; LG-220) — DONE:** THE CUE LINE at his word — the beat frame's line and ball at a note's OWN time in place of the GC (`--cueLines P:t1,t2,…`; one-line `beatGrid` overlays, `value.cue`, outside the frames' colours — always the blue-grey; the ball 0.42 s) · HIS COLOUR SENSE: the blue-grey marks an event, the olive an actual tempo · THE LINED STAFF'S INSET (`objects.tick.gridInsetLines` 1): the percussion's lines −4 … +4, line to line · the GCs off (style 3 stays registered, S25) · six cue lines 297.689 · 298.189 · 298.854 · 300.116 · 301.486 · 302.554 · the next four on the page: sleigh bells · tambourine bare heads, the wood block + bass drum beamed eighths, stems down; the names still inside the staff; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone · the screen gate PASS. **► He HARD-reloads (`297.5`, play from `296.5`); HIS EYE; then the percussion's dynamic row and the notes after 303; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).** Open, his: do the winds' frames turn all-olive ("olive for an actual tempo") or keep S19's alternation.
-- **§652 (2026-09-30, Fable; LG-221) — the candidates DONE, his pick owed:** THE PERCUSSION'S TEN NOTES THROUGH 303 — THE TEMPO CANDIDATES DRAWN (`tempo_candidates_perc_297_303.html`: red 88 · blue 93 · green 91 · orange 95 · purple 89 at their between phases, and TEAL the pinned 5 → 6 beat, 90 bpm, ON the bowl and the brake drum with the sleigh bells · the tambourine · the last bass drum 68 · 28 · 83 ms from its lines); the six cue lines of §651 stand, nothing new on the page. **► HIS PICK (a frame here = the olive); his eye on §651's page (`297.5`); then the percussion's dynamic row and the notes after 303; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§653 (2026-09-30, Fable; LG-222) — DONE:** THE PERCUSSION'S TEMPO FRAME his pick — the orange 95 (7 × 0.0905) at the tool's phase 297.317, in OLIVE (a frame may name its colour: the fit's `olive` · `navy`): twelve lines 296.683 … 303.652; the cue lines of §651 dropped (the AI's reading) · THE BALL'S DROP IS THE FIVE-LINE STAFF'S ON EVERY STAFF — on the percussion's longer lines it falls the English horn's 6.8 ss onto the line's foot (it had been scaled to the line: two to four times the speed) · A STANDARD GC ON THE CASTANET QUARTER, its impact on the staff's NEXT LINE BELOW (`gcImpact "lineBelow"`: −8; the apex the lane's top); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone · the screen gate PASS. **► He HARD-reloads (`297.5`, play from `296.5`); HIS EYE; then the percussion's dynamic row and the notes after 303; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§654 · §655 (2026-09-30, Fable; LG-223 · LG-224) — §655 DONE; §654 his question answered, a · b · c open:** THE PERCUSSION'S OPENING BACK TO STEMS at his word — the tempo frame and the GC OUT (no frame, no cue line, no GC on the part now) · the bass drum a 16th, STEM DOWN · the castanets' third a 16th, STEM UP · the two graces' stems at the quarter's height (a hand `beamYSs 8.636`: the three tips level, 2.6 ss above the staff) · TWO RULES: on a lined staff a stem is its base length whatever the line (the bass drum 4.5, was the middle-line rule's 6) · a hand may name a beam's height; the bowl · brake drum · sleigh bells · tambourine bare heads still, the wood block + bass drum pair as §651; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He HARD-reloads (`297.5`, play from `296.5`); HIS EYE; the ball's higher arc (§654, a · b · c) open; then the percussion's dynamic row and the notes after 303; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§656 (2026-09-30, Fable; LG-225) — DONE:** THE PERCUSSION STAFF'S STEM a standard at his word — 5.85 ss (4.5 + 30 %; `objects.stem.lengthLinedSs`), whatever the line; a flagged stem still reaches outside the staff's OWN outer lines (the flag-clear law on ±6) · the flags SINGLE (the bass drum and the castanets' third eighths) · the three castanet tips at +9.99, the bass drum's stem to −11.99 — **touching the vibraphone's top line (−12), told him** · THE GC on the castanets' third again: the standard lane GC, its impact ONE SPACE below the bottom line (`gcImpact "spaceBelow"`, −7), the aperture 0.7 (`gcSpread`); the shield: `piece-lgmf` + seven tuba pages' part 4 (laid out under this registry's lined staff — explained, §656); the lock 106 · `check_rules` 33 · the screen gate PASS. **► He HARD-reloads (`297.5`, play from `296.5`); HIS EYE — the bass drum's stem against the vibraphone; then the dynamic row and the notes after 303; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).** Learned: THE SHIELD lays the tuba IRs out under THIS ensemble — their part 4 is the seven-line staff, so a lined-staff rule moves seven tuba pages' part 4 (name them in `--expect`; a per-part hash proves nothing else moved).
-- **§657 · §658 (2026-09-30, Fable; LG-226) — §657 DONE; §658 his question answered:** THE PERCUSSION'S OPENING FIGURE at his dictation — the bass drum and the castanets' third BEAMED, stems up, the beam above the staff over the graces (`--beam ids:…`, a beam over named notes; +11.7) · the GC's original aperture, its landing kept (−7) · ACCENTS on the castanets' third and the wood block — on a lined staff an accent sits by its OWN head · THE LINED STAFF'S DYNAMIC ROW under the staff (`column.rows.dynamicLinedBelowSs` 2.1: the top of the tallest name under the GC's ball; centred on the head) · mp under the first bass drum, p under the second, every other name off · the 302.55 pair stems up (the beam at +9.99) · HIS QUESTION — subito (§658: the word beside the dynamic; a courtesy; the next note stays p until re-marked); the shield: `piece-lgmf` + four tuba pages' part 4 (explained); the lock 106 · `check_rules` 33. **► He HARD-reloads (`297.5` · `302.7`, play from `296.5`); HIS EYE — the long stems, the arc through the figure; `sub. p` at his word; then the notes after 303; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).** Learned: a beam group's accent row and lane clamp (`laneHalfSs` 6.51) are five-line machinery — on the lined staff a member draws its own accent, and a named beam height then holds.
-- **§659 (2026-09-30, Fable; LG-227) — DONE:** THE PERCUSSION'S FIVE AT 305.25 by hand — sleigh bells + castanets beamed 16ths, stems up, THE MINIMUM STEM (2.5 on the shorter; the beam at +8.64) · the temple bowl a bare head · the wood block a GRACE (slashed eighth, stem up) into the brake drum, a flagged 16th whose flag CLEARS THE STAFF (the max raised by hand, the stem to +9.89) · mp under the first with a crescendo hairpin to the last, on the staff's dynamic row · 302.927 pp; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`302.9` · `305.3`, play from `304.5`); HIS EYE; then the notes after 306.4; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§660 (2026-09-30, Fable; LG-228) — DONE:** A GRACE'S STEM THE SAME ON EVERY STAFF at his word — the castanets' graces at 297.5 down to the English horn's standard (3.18 ss; their beam at +7.28, well under the big beam); a rule: a grace keeps the plain note's base at the grace scale, the lined staff's 5.85 is for full-size notes (the wood block's grace at 306.24 follows) · and §659 THE FIVE AT 305.25 (a beamed 16th pair at the minimum stem · a bare head · a grace into a flagged 16th clearing the staff; mp + a crescendo; 302.93 pp); the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`297.5` · `302.9` · `305.3`, play from `296.5`); HIS EYE; then the notes after 306.4; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§661 (2026-09-30, Fable; LG-229) — DONE:** THE PAIR AT 305.25 at his eye — the sleigh bells' stem the staff's STANDARD (5.85), the castanets' grown to the beam (+11.99; the minimum stem of §659 withdrawn); the beam's top 0.13 under the lane's top · §660 a grace's stem the same on every staff (the castanets' graces at the EH's 3.18) · §659 the five at 305.25, 302.93 pp; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`297.5` · `302.9` · `305.3`, play from `296.5`); HIS EYE; then the notes after 306.4; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§662 (2026-09-30, Fable; LG-230) — DONE:** THE PERCUSSION 306 … 406 at his dictation — ELEVEN BEAMED EIGHTH PAIRS (316.8 · 320.3 up · 321.2 down · 342.5 · 358.5 up · 361.6 · 364.9 · 378.5 · 380.4 down · 398.4 · 405.3 up) and FIVE GRACE-TO-16TH FIGURES (326.4 · 336.7 slurred · 346.6 · 370.3 · 382.5), the 306.24 grace slurred · THE RULES BUILT: the lined staff's beam (one standard stem beyond the nearest head, or just outside the staff — up-beams +9.39, down-beams −9.18; the others grow to it) · the flag always clears on a lined staff · `--beam span@part:8|16:up|down` · on a lined part a beam carries no cue and a plain note no name unless a hand says; the shield: `piece-lgmf` + two tuba pages' part 4 (explained); the lock 106 · `check_rules` 33. **► He reloads (`306.2` … `405.4`); HIS EYE — the down-beams 0.18 under the lane's bottom and on the dynamics row's height; then the lone strikes and the dynamics; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).** Learned: a long dictation goes through a runner script with an args LIST (`scratch run662.js`) — no shell quoting, no 8 KB line; the build is 25.6 KB of 32.7 — say a figure on its span, not per note.
-- **§663 (2026-09-30, Fable; LG-231) — DONE:** THE PERCUSSION'S BEAMS AND FLAGS at his eye — the rule in its final order: the shorter stem THE STANDARD (5.85), the longer reaches, and the beam JUST CLEARS the staff when a standard stem would end inside it (up +6.78 · down −6.78; 361.6 · 378.5 at −7.99, 405.3 at +7.99, 398.4 at +9.99) · every flag clears, a GRACE's too (the graces' stems 4.4 … 10.4) · THE STEEP SLUR on the lined staff (the first head's facing side → the second head's left, the bow perpendicular to the chord) — the four unslurred grace figures now slurred · 336.788 told him: it IS the standard 5.85, the 16th flag covers 3.5 of it; the lock caught the slur on the EH — scoped to the lined staff; the lock 106 · `check_rules` 33 · the shield explained · the screen gate PASS. **► He HARD-reloads (`306.2` · `326.5` · `336.7` · `378.6` · `398.5` · `405.4`); HIS EYE — the slurs' shape; then the lone strikes and the dynamics; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§664 · §665 (2026-10-01, Fable; LG-232 · LG-233) — DONE:** THE PERCUSSION'S DYNAMICS 308 … 375 at his dictation (mp 308.33 · pp 315.12 · mp 316.78 · crescendos 328.71 → 329.35 and 330.49 → 331.39 · f 336.79 · mp 337.94 · p 358.50 · mf 361.56 · mp 374.89) — ALWAYS ON THE STAFF'S DYNAMIC ROW, a hairpin too; a conflict REPORTED, not solved (a layout warning `dynamics row: …`) — ONE: the mf at 361.56 under a stems-down pair, the stem through the name · a lone strike a bare head by default · THE BEAMS AT THE STANDARD CLEARANCE, the English horn's (the flagged height, 3.39 ss beyond the outer line) on BOTH sides — up +9.39, down −9.39 (§663's just-clear withdrawn; a longer standard stem still wins); the lock 106 · `check_rules` 33 · the shield explained. **► He reloads (`308.3` … `374.9`); HIS CALL on the 361.56 mf; then the remaining lone strikes; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§666 (2026-10-01, Fable; LG-234) — DONE:** THE GRACE'S STROKE PLACED FROM THE TIP at his eye — through the flag on a lengthened stem, where a standard grace's is (the EH's unmoved) · HIS STANDING WORD: on the percussion staff the normal staff's standards come FIRST, a bespoke rule only where one cannot apply (S33) · the dynamic row for everything, hairpins included — as §664 built · before it §664 · §665: the dynamics 308 … 375 on the row (ONE conflict reported: the mf at 361.56 under a stems-down pair), the beams at the standard clearance ±9.39; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He HARD-reloads (`306.2` · `326.5` · `308.3` … `374.9`); HIS CALL on the 361.56 mf; then the remaining lone strikes; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-- **§667 (2026-10-01, Fable; LG-235) — DONE:** THE ROW'S FIRST EXCEPTION at his word — the mf at 361.56 ABOVE its notehead (a hand `dynSide "above"`; the row stays the rule; the reported conflict gone) · before it §666 the grace's stroke from the tip · §664 · §665 the dynamics 308 … 375 on the row, the beams at the standard clearance ±9.39; the lock 106 · `check_rules` 33 · the shield `piece-lgmf` alone. **► He reloads (`361.6`); HIS EYE; then the remaining lone strikes; STILL HELD: the chords' unison (§638); THE SERVER'S RESTART owed for R (§632).**
-
-### SESSION 18 · CHECKPOINT #5 (mid-session checkpoint, 2026-09-29, Fable built, Opus wraps) — THE EH'S FIRST TWO FIGURES OF SECTION 2 NOTATED BY HAND; THE SHOWN BEAT BUILT; ► HIS EYE ON THE BETWEEN-BEATS PHASE
-
-- **The task:** the practical for the EH's section 2 (his pick at the `/postclear`), figure by figure, bespoke — hands, not rules (LG-129). Built
-  and pushed at his word, §547 … §571 (RUNNING_LOG; LG-127 … LG-149):
-  - **the plain note** (§547 · `byEnv.plainNote`, `--plainNotes`) · **T8 VALUES WRITTEN, the TN way** (§548: flags and beams, relative, no
-    bar; the duration line "incongruous" here) · the stems (§553 · §554 · §556 · §561: the plain stem a tenth 4.5, flags clear the staff by 0.38,
-    the max 9.5) · **the slur standard** (§555: LilyPond's from his install + Gould's ends; §560 the slur in the vertical clearance)
-  - **figure 1 (289 … 293.9):** p1 a quarter pp + a cresc hairpin to 289.25 · a quarter rest at 290.2 · the grace (0.707, a slash, slurred)
-    into p3 (an accent) · p4 a flagged eighth · p5 … p8 **HIS UNEVEN-GROUP SIGN** (§557 … §562: the heads stemless where played; a beam
-    floating below on 2 ss stubs spanning the group; a hand-drawn stroke across the corner = "play the displayed notes in that much time as
-    indicated by the beams, but slightly irregularly", PERFORMANCE_NOTES #18) · mp on p5, an accent on p6 · the section's "ord." 0.45 above
-    p1's top ink (§561, a standard)
-  - **figure 2 (295.456 … 297.306, six notes): THE SHOWN BEAT** (N-4, A7) — `tools/tempo_fit.js` (three candidate methods, §563); THE
-    PROCESS his (§564: candidates → his eye → his pick and phase → a hand); the grid lines through the staff in the duration line's
-    blue-grey at 0.3, one line per beat (§565 · §566 · §569); **the beat ball** (`beatBall`, a new animated kind — the tuba's GC ball,
-    one per beat, in flight only over the grid, bouncing from 2 ss above the line's top to its foot, §567 … §571); the max 100 per figure
-    (`gridMaxBpm`); the grid FITTED to its cluster (`--beatGridFit`: 1 line before, 1 after, never within 0.1 s of a neighbour); here
-    **93 bpm (6 units of 0.108), the phase 295.186 — the beats BETWEEN the notes** (his concept, §571: the beat orients, it is not played
-    on; every note 22 … 74 % of a beat from a line); PERFORMANCE_NOTES #19 (an aid to ONSET accuracy; the head's left edge the time)
-  - the standards **S1 … S13** in `docs/research/temporal_notation.md` §12 (tentative; SURFACE them at the next similar notation — CLAUDE.md
-    READ FIRST) · **THE LOCK** `tools/eh_figure_check.js` (30 decisions, GREEN — run after any change to the look) · clickable links are
-    `http://localhost:5400/…` (HOW_WE_WORK; memory) — a `/docs/` route in `score/server.js`, live at his next server restart
-- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — its whole build command is its `provenance.build` (the fold's + `--longTones` +
-  `--plainNotes` + `--beam` + eight `--hand` + `--rest` + `--beatGridFit 0:0.108:6:295.186:295.456:297.306`); re-extract from a
-  scratchpad COPY of Draft 01 (2j's discipline). `check_rules` 32 · the shield `piece-lgmf` alone · `check_screen_edges` PASS.
-- **► The next concrete step — HIS EYE, ask first:** he reloads the notation tab (no restart) → `piece-lgmf` → the video view → plays from
-  `294` (the between-beats phase, the ball from higher, one line before). Then his word on the phase — keep, or try the other candidates
-  the tool can now name. A look → a rules row or a hand (Fable, here); run `node tools/eh_figure_check.js` and the shield
-  (`layout_shield --write` on HEAD FIRST — the baseline in the dead session's temp dir is gone) after any change.
-- **`Resume reads:`** nothing beyond §2 for his eye. For the next figure or any similar notation: `docs/research/temporal_notation.md` §12
-  (S1 … S13 — surface them). For a rules change: the row in `notation/registry/rules.json` via `docs/ENGRAVING_RULES.md`.
-- **Pending him:** his eye on figure 2 (the phase) · the grace's f (a dynamic on a grace note — keep or drop) · N-4's rest: the fourth tempo
-  candidate "between" in `tempo_fit.js` (the AI's suggestion, §571), a number or dot on a beat, the device sheet (line 1a: A7) · N-5 the
-  micro counterpoint · N-6 the second layer continues on the next figures · the NOTATION PLANNINGS block above holds each item's state.
-  **The AI's calls, his to reverse:** the grace 0.707 · the slur's ends at the head's centre · the stroke's geometry · the hairpin cresc ·
-  the accent on the head side · the ball's rise 2 ss · the clamp gap 0.1 s.
-- **Deliberately uncommitted — the same 29 paths as checkpoint #4, all his, untouched** (`git status --short` at this checkpoint): his actuals
-  `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his libraries autosaved by his tab
-  (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` · `rhythm_takes.json`) · his passage
-  `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/` (five `piece-LGMF-Sec01-Sec02*`, seven
-  `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`, `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json`
-  (his tab's save — every extraction reads a COPY). `notation/ir/index.json` (the picker label, the extractor's) committed with this checkpoint.
-- **APPENDIX — his word after the checkpoint (LG-150, §572):** *"what we have now is good … lock that in … call this the beat frame"* —
-  figure 2's shown beat is **THE BEAT FRAME** (T9), locked: `tools/eh_figure_check.js` asserts its template too (33 GREEN). **The tool's
-  phase MAXIMIZES THE NOTES' DISTANCE FROM THE BEATS** (T10, his agreement with §571). So **his eye on figure 2 is TAKEN** — the next
-  concrete step becomes: **build T10 into `tools/tempo_fit.js`** — for the chosen grouping, search the phase (continuous, over one beat)
-  that maximizes the smallest distance of any onset from a beat, print it beside the grid candidates (with each note's position as a % of
-  a beat), and check it on figure 2 (expect a phase near 295.186; report, never re-extract without his word) — then the next figure by the
-  same process (candidates → his eye → his pick → a `--beatGridFit` hand), the standards S1 … S13 surfaced. Resume on Fable.
-- **§573 (2026-09-29, Fable, after the `/postclear`; LG-151) — DONE:** figure 2's VALUES by hand (1+2 · 3+4 eighth pairs beamed with `noteBeams 1`,
-  5 · 6 single flagged eighths, mf on 1 on the row — `dynAboveBeam false`, accents on 2 and 6 on the head side — `articSide "below"` on 2) · the
-  grace's f → mf · note 3's ottava checked (A5 sounding / E6 written ON the threshold — clears; the auto rule kept, it folds the next cluster's
-  B5 on the working page) · **T10 BUILT** — `tools/tempo_fit.js` (D) THE BETWEEN PHASE (`--unit u --every n`, or every (B) candidate; the hand
-  printed ready to paste); on figure 2 the tool says 295.172, his hand 295.186 (14 ms; the IR keeps his) · run on the cluster at 298.815 — the
-  candidates in §573 (4 notes to 299.418 or 7 to 300.695; the unit ≈ 0.152 s either way; the shown beat 97 … 99 bpm at the cap 100, or 8 units
-  ≈ 49). The lock 44 GREEN · `check_rules` 32 (ENGRAVING_RULES.md regenerated — stale on HEAD) · the shield `piece-lgmf` alone. **► HIS EYE**
-  (reload → `piece-lgmf` → `295` · `291.4`) **and HIS PICK for the next cluster: the extent · the grouping · the phase** (the tool's or a hand);
-  then figure 3's values by hand, S1 … S13 surfaced. His eye: the wide pair 3 + 4 (the low stem 10 ss to the high note's beam — or two flags).
-- **§574 (2026-09-29, Fable; LG-152) — DONE:** the batch at 298.8 is ELEVEN notes; **the last four (301.556 … 302.106) by hand** — beamed as
-  16ths · ff on 1 on the row + a decrescendo hairpin over the rest to 302.17 · staccato dots on all four (in a space, head side) · a GC on 1
-  whose impact IS the head's left edge (`nhAnchor "leftEdge"`), no go line — S14 tentative · **the first seven REASSESSED** with notes 1 · 2
-  FREE (`tempo_fit --free 1,2`, S15 — his: they time each other) · **THE PICTURE generated by the tool** (`--html`, S16):
-  `http://localhost:5400/notation/research/tempo_candidates_eh_298.html` — five shown beats in colour at their between phases: 97 bpm
-  (4 × 0.154, phase 298.661) · 97 (6 × 0.103) · 100 · 90 (298.216) · 86 (298.133); the 97 family keeps every non-free note ≥ 139 ms from a
-  beat. The lock GREEN (§574's ten) · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE** (reload → `piece-lgmf` → `301.5`) **and
-  the picture; HIS PICK for the first seven: the grouping (97 … 100 at the cap 100, 90, 86 — or a line every two beats) · the phase (the
-  tool's `--beatGridFit` line in §574, or a hand); then the seven's values by hand, S1 … S16 surfaced.** On the working page (in F) the ff and
-  the dots go ABOVE (the chain on the head side with the stems down) — the video page is right; noted.
-- **§575 (2026-09-29, Fable; LG-153) — DONE:** his pick *"the purple 86, tools phase is fine"* → `--beatGridFit 0:0.1165:6:298.133:298.815:300.695`
-  in the build: **five lines 298.133 … 300.929, five balls** (the lead and tail beats dropped by the 0.1 s clamps — figure 2's last note ends
-  297.375, the burst starts 301.556). The lock 62 GREEN (figure 2's grid assertions windowed to 293 … 298; a §575 block) · `check_rules` 32 ·
-  the shield `piece-lgmf` alone. **► HIS EYE (reload → `piece-lgmf` → `298.5`); then THE SEVEN'S VALUES by hand — S1 … S16 surfaced at that
-  step** (the burst's S14 is the last four's, already in).
-- **§576 (2026-09-29, Fable; LG-154) — DONE:** his eye on the burst (a screenshot: the hairpin through two staccato dots on his page, the EH in F)
-  → **THE SPAN RULE** (S17; `objects.hairpin.spanClearSs` 0.45): a hand hairpin and its name clear every unit they span on their side — on his
-  page the ff + hairpin 2.79 → 3.78; the video page and figure 1's hairpin unchanged. There was no rule before (the hairpin took the name's
-  height). **The frame moved to the orange 90** (*"lets try 90 orange machine phase"*): `--beatGridFit 0:0.111:6:298.216:298.815:300.695` —
-  five lines 298.216 … 300.880; the first build interleaved with figure 2's frame (a lead beat at 297.550) → **the clamp reads the previous
-  frame** (S13a, `notate_section.js`). The lock 62 GREEN · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE (reload → `298.5` ·
-  `301.5`); then THE SEVEN'S VALUES by hand, S1 … S17.** Note: his page is the WORKING page (in F, stems by the written pitch) — the lock
-  asserts the video page (in C); where a mark's side depends on the stem the two differ (§573 · §574 noted note 6's accent and the burst's marks).
-- **§577 · §578 (2026-09-29, Fable; LG-155 · LG-156) — DONE:** THE THIRD FIGURE'S VALUES by hand (1+2 beamed 16ths by S4 + a slur · 3 · 4
-  flagged eighths with staccato dots · 5+6 an eighth pair by S4 · 7 a flagged eighth · mf + an accent on 1, no other name to the burst's ff;
-  the AI's values his to reverse) and **THE COLUMN PASS** (S18 — his *"the spacing system picked up all those exceptions … rather than just
-  manually fixing it each time"*): a dynamic and an articulation in one column stack in the column's order by the standard stack, the ottava
-  and the word riding, the slur lifting the whole column (its riders too). On his page note 1's mf had sat ON the accent; now head → accent
-  3.96 → mf 5.17 → the 8va line 6.85, the slur under them. A first try (the accent into the unit's chain) reverted — it dropped the accent to
-  the chain's side and moved a tuba page. **THE FRAMES ALTERNATE** navy · olive (S19, `objects.tick.gridColours` · `objects.beatBall.colours`;
-  layout stamps each line's frame, animobj each ball's, render draws it). The lock GREEN (a §577 block, the column on both pages) ·
-  `check_rules` 32 · the shield `piece-lgmf` alone (the tuba goldens identical). **► HIS EYE (reload → `piece-lgmf` → `298.8`: the column,
-  the olive frame · `295`); then the next figure, from 302.1, by the same method — S1 … S19 surfaced.**
-- **§579 (2026-09-29, Fable; LG-157) — DONE:** his third pick for the third figure's frame, *"c 86 purple and move 1/4 beat to the right so that
-  p2 is ~onbeat and p6 ~onbeat"* → `--beatGridFit 0:0.1165:6:298.308:298.815:300.695` (the tool's 298.133 + 0.175): five lines 298.308 …
-  301.104, olive; notes 2 and 6 60 · 62 ms before a line, 3 · 4 · 5 · 7 between (nearest 132 ms). The principle bent by hand, his call. The
-  lock 74 GREEN (the frame block re-pointed) · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE (reload → `298.5`); then THE NEXT
-  FIGURE from 302.1** (after the burst; the tool's candidates + the picture, then the values by hand — S1 … S19 surfaced).
-- **§580 (2026-09-29, Fable; LG-158) — DONE:** *"so lets move those 61 ms over to be on beat"* → the phase **298.247**: notes 2 and 6 each 1 ms
-  from a line (two beats apart to within 2 ms, one phase serves both); five lines 298.247 … 301.043, olive. The lock 74 GREEN · `check_rules`
-  32 · the shield `piece-lgmf` alone. **► HIS EYE (reload → `298.5`); then THE NEXT FIGURE from 302.1.**
-- **§581 (2026-09-29, Fable; LG-159) — DONE:** his eye on figure 3 — *"green line is hidden by stem"*: an on-beat note with its stem DOWN hangs
-  the stem from the head's left edge, the line's x; the hairline vanished. Discussed at his ask (five options); his (a): **the frame's lines are
-  BANDS 0.3 ss wide, still under the ink** (`objects.tick.gridWSs`; layout stamps, render draws) — a stem hides only the middle. The lock 75
-  GREEN · `check_rules` 32 · the shield `piece-lgmf` alone. **► HIS EYE (reload, page files → `298.5`); 0.25 the fallback if heavy; then THE
-  NEXT FIGURE from 302.1.**
-- **§582 (2026-09-29, Fable; LG-160) — DONE:** *"draw one more olive line near where the gc is so I can see it"* → the frame's tail beat 301.742
-  kept by hand (`--beatGridFit …:keepTail`, a new optional field; `keepLead` · `keepBoth` too) — it sits ON the burst's second note, inside the
-  clamp's 0.1 s; six lines 298.247 … 301.742, six balls, olive. The lock GREEN (the window widened) · `check_rules` 32 · the shield `piece-lgmf`
-  alone. **► HIS EYE (reload → `301`): the band beside the GC's ink; the tail line his to keep or drop; then THE NEXT FIGURE from 302.1.**
-- **§583 (2026-09-29, Fable; LG-161) — DONE:** *"ok remove gc pls"* → the burst's first note loses its GC and its hand anchor; the head's left
-  edge stays on its time by S1; S14 amended (the burst without a cue). The lock 75 GREEN · `check_rules` 32 · the shield `piece-lgmf` alone.
-  **► The checkpoint at his word; then THE NEXT FIGURE from 302.1.**
-
-### SESSION 18 · CHECKPOINT #4 (mid-session checkpoint, 2026-09-29, Fable) — TEMPORAL NOTATION: THE RESEARCH PROJECT AND THE SURVEY v0; ► HIS TO REFINE · 2m.4 HIS EYE STILL STANDS
-
-- **The task:** SECTION 2's TODO items 5 · 6 (temporal notation; its name) opened as a RESEARCH PROJECT at his word — conceptual, nothing
-  built (LG-120 … LG-126; RUNNING_LOG §536 … §546). Settled today, each at his word: the term kept as his ("temporal notation", defined
-  once as horizontal distance = time) · the reference scores (his R1 … R4, the AI's S1 … S10 to confirm) · THE PHRASE IN LAYERS (anchor ·
-  shape · flow · moments) the starting framework, adjustable · FLOW expanded (learning vs cueing; the rehearsal model; animation in two
-  modes) · W1 THE WORKING MODEL — proportional + TN details, "Ferneyhough without the count" — A1 THE DEFAULT · the viability test
-  V1 … V8 standing · the alternatives A1 … A6 surfaced on the device sheet (`docs/PLANNING_METHOD.md` line 1a) · the cursor window
-  (a concept) · tuplets a NOTCH OF SPEED · THE INTENTION (energy and flow with detail; the failure casualness / misreading, not
-  imprecision) · THE SCORE IS A PICTURE OF THE SOUND · seven framework decisions T1 … T7 (`temporal_notation.md` §10) · and, at his
-  last word, THE FRAMEWORK AS AN INSTRUMENT, not rules — THE SURVEY v0.
-- **The deliverables:** `docs/research/temporal_notation.md` (§1 … §11) · `docs/research/sound_to_notation_survey.md` (v0 — eight
-  scales A … H, 44 items, the profile of leanings, his single-note case worked, §R the revision log) · PLANNING_METHOD's device
-  sheet line 1a · PERFORMANCE_NOTES #16 · #17. All committed and pushed (`d5c2b96` … `6790f92`).
-- **► The next concrete step — HIS PICK, ask first, start only on his word:**
-  - **(a) refine the survey** (Fable): he reads `docs/research/sound_to_notation_survey.md` and names changes — items · poles · profile
-    rows; the AI records each in its §R and a RUNNING_LOG § (§547 next free), commits, pushes.
-  - **(b) 2m.4 his eye** on the long tones (the running order's step 3 above holds the stops; reload the notation tab, no restart).
-  - **(c) the practical for the EH's section 2** — begins with the survey RUN on one EH fast phrase (the survey's §X, a second worked
-    example — Fable), then a device sheet (line 1a names the model), then the build on Opus.
-- **`Resume reads:`** for (a) `docs/research/sound_to_notation_survey.md` whole — it IS the tool · for (b) nothing beyond §2 · for (c)
-  the survey + `docs/research/temporal_notation.md` §8 (the working model) and §10 (the decisions). Nothing else until the step names it.
-- **Pending him — HELD at his word:** values written or not inside a phrase (leans written-as-pace after T6) · the cursor window's scope
-  (*"only impact parts"*) · the model as a deliverable (for the performers) · H1 the intensity curve (`temporal_notation.md` §9).
-  **The AI's unverified:** every precedent's notation and every citation in the two research docs is from memory — a verification pass
-  offered, not run.
-- **Deliberately uncommitted — the same 29 paths as checkpoint #3, all his, untouched** (`git status --short` at this checkpoint).
-
-### SESSION 18 · CHECKPOINT #3 (mid-session checkpoint, 2026-09-29, Opus) — SECTION 2's TODO TAKEN DOWN; ► 2m.4 HIS EYE, unchanged
-
-- **The task:** unchanged from checkpoint #2 (below) — SECTION 2 (289 … 427 s), one notation type at a time; THE LONG TONE is built and
-  pushed (2m.1 … 2m.3). At the `/postclear` he gave his TODO for section 2, verbatim (the block above; RUNNING_LOG §535). Nothing built.
-- **The deliverable:** unchanged — `notation/ir/piece-lgmf.ir.json` (120 long tones in 36 groups). New this checkpoint: the TODO block
-  above · RUNNING_LOG §535.
-- **► The next concrete step — HIS: 2m.4, his eye** (the running order's step 3 holds the stops). Ask whether he wants to take 2m.4 now or
-  pick an item of the TODO first; start only on his word. For the eye: he reloads the notation tab (no restart) → `piece-lgmf` → the video
-  view → the stops; the AI COLLECTS his findings in the RUNNING_LOG (§536 next free), then fixes them together on his go.
-- **`Resume reads:`** nothing beyond §2 for his eye. For a TODO item he picks: `docs/PLANNING_METHOD.md` (the method) — nothing else until
-  the item names it.
-- **Pending him:** 2m.4 his eye · the TODO's nine items (his order to name) · everything on checkpoint #2's pending line.
-- **Deliberately uncommitted — the same 29 paths as checkpoint #2, all his, untouched** (`git status --short` at this checkpoint).
-
-### SESSION 18 · CHECKPOINT #2 (mid-session checkpoint, 2026-09-29, Opus) — 2m THE LONG TONE BUILT; ► 2m.4 HIS EYE
-
-- **The task:** SECTION 2 (289 … 427 s), one notation type at a time (his pivot, §531). The first type, THE LONG TONE, is **BUILT and
-  pushed** — 2m.1 … 2m.3, one commit each, THE SHIELD in each (RUNNING_LOG §532 · §533 · §534; `b3d33c9` · `20e3e46` · `69bde9c`).
-- **The deliverable:** `notation/ir/piece-lgmf.ir.json` — 120 long tones in 36 groups (`env 'longTone'`, the registry's `byEnv.longTone`):
-  the open head's left edge on its time, no go line · tempered, no column · the navy ring bar at 0.3 the note's full length, the
-  clearance before the next unit · one band name per note ON the dynamic row (`dynOnRow`). Built by `--longTones 289:427` added to
-  the fold's command (the IR's `provenance.build`). `check_rules` 31 · both edges PASS · the ladder 7 at rung 3, as the fold.
-- **► The next concrete step — HIS: 2m.4, his eye** (the running order's step 3 above holds the stops). He reloads the notation tab
-  (no restart) → `piece-lgmf` → the video view → the stops. The AI COLLECTS his findings in the RUNNING_LOG (§535 next free), then
-  fixes them together on his go (§527's frame): a look → a rule row on Fable; a fault → Opus.
-- **`Resume reads:`** nothing beyond §2 for his eye. For a fix: PLAN § `2m` · `docs/ENGRAVING_RULES.md` § 1's `byEnv.longTone` row.
-  A re-extraction: the command in `piece-lgmf`'s `provenance.build` on a scratchpad COPY of Draft 01 (2j's discipline); the shield
-  (`layout_shield --write` on HEAD first, `--diff --expect piece-lgmf` after). STILL BINDING (below).
-- **Pending him (each in PLAN § `2m`'s last lines or §532 · §534):** his eye · the EH's low F3 at 331.38 · 333.36 — the name above the
-  staff (no room below; the chain's `sideWithRoom`) · the 18 singles as they draw (the three brass singles keep the tuba `ord`'s go
-  line) and `--longToneAlso` for any he names · the AI's calls: routed by env not technique · the name from the eight-step
-  `dynamicBands` · the 0.1 s window · the 0.2 s floor · `--longToneAlso` an extractor flag · then his per-chord dynamics pass in the
-  composer (`dyn ▾`), re-extract after · his eye on 0 → 279 (held, the running order's step 4).
-- **Deliberately uncommitted — the same 29 paths as the session-17 close, all his, untouched** (`git status --short` at this
-  checkpoint): his actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index `bank/morph_models.json` · his
-  libraries autosaved by his tab (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` ·
-  `rhythm_takes.json`) · his passage `bank/passages/lgmf-sec2.json` · his rack `reaper/LGMF_rack.rpp` · his named saves in `scores/`
-  (the five `piece-LGMF-Sec01-Sec02*`, the seven `piece-LGMF-Sec03-Try*`, `piece-LGMF-draft01-preVibesFix` · `-VibesFix`,
-  `pointilistic01a`) · `scores/piece-Recombination-Draft01-done.json` (his tab's save of 2026-09-26 — `metadata` · `viewport`; every
-  extraction reads a COPY).
-
-### SESSION 18 · CHECKPOINT #1 (mid-session checkpoint, 2026-09-29, Fable planned, Opus builds) — 2m THE LONG TONE
-
-- **The task:** SECTION 2 (289 … 427 s), one notation type at a time — his pivot at the `/postclear` (§531). The first type: THE LONG TONE.
-  PLANNED IN FULL on Fable (PLAN § `2m` · RUNNING_LOG §531 · LG-119; `ef03f7d`): the device sheet answered —
-  - **anchor A** — no go line, the head's left edge on its time (his *"No go lines alignment with left of notehead"*)
-  - **(a) a1 tempered as written** — Draft 01 carries no cents / partial / `morphBend` / `hq` on any of the 138 held notes; no column
-  - **(b) b1 one dynamic name per note on the dynamic row** (−4.6), from `recVel` (a STRUCK note — DYNAMICS_LAW); *"for now"* — he
-    normalizes per chord later in the composer, then re-extract
-  - **(c) THE CUT IS HIS:** a long tone = a held note ≥ 0.2 s that starts TOGETHER (onsets within 0.1 s) with another pitched part's
-    held note — 36 groups · 120 notes; 18 singles draw as today until he names them (a per-event `engraving { device: 'longTone' }` hand)
-  - the bar: `ringBar` navy `#1C4879` at 0.3, 0.667 ss, beside 0.25, after 0.25 (§472 · §473)
-- **State:** NOT BUILT. At his word *"then build as much as possible independently no clear"* the build runs in this session on Opus.
-- **UPDATE (same session, Opus): 2m.1 … 2m.3 BUILT and pushed** (§532 the rule rows — `byEnv.longTone` + `dynOnRow`, routed by env · §533 `--longTones` — 36 groups · 120 notes · 18 singles · §534 the page — the shield exactly `piece-lgmf`, `check_rules` 31, both edges PASS, the ladder 7 at rung 3 as before). ► 2m.4 his eye (the running order's step 3).
-- **► The next concrete step:** PLAN § `2m` → 2m.1 the rule rows (`rules.json` a device row, anchor A, `sheet: '§531'`; the ensemble's
-  `ord` · `senza_vel` routed to it for the six pitched parts; `byTechnique.ord` is the TUBA pages' — leave it) → 2m.2 `--longTones` in
-  `tools/notate_section.js` → 2m.3 re-extract `piece-lgmf` from a scratchpad COPY of Draft 01 with its whole `provenance.build` + `--longTones`.
-  `layout_shield --write` on HEAD FIRST; `--diff --expect piece-lgmf` after each step; `check_rules` after each; a RUNNING_LOG § per
-  step (§532 next free); one commit per step, pushed. STOP at 2m.4 (his eye).
-- **`Resume reads:`** PLAN § `2m` · `docs/ENGRAVING_RULES.md` § 1 (anchor A, the devices list) · the `ringBar` · `dynamic` · `number`
-  rows of § 3 · DN-5 in § 8. STILL BINDING (below).
-- **Pending him:** 2m.4 his eye · the AI's calls at the foot of PLAN § `2m` (the 0.1 s window · the 0.2 s floor · a single untouched) ·
-  the per-chord dynamics (his composing pass) · his eye on 0 → 279 (held).
-- **Deliberately uncommitted** — the same 29 paths as the session-17 close (below), all his; nothing new.
-
-### SESSION 18 OPENS ON THIS — `/session-start`; nothing is being built (session 17 closed 2026-09-28, Opus)
-
-- **The piece:** _Recombination_ (D32). The named draft `scores/piece-Recombination-Draft01-done.json` is the ONE source of notation
-  (D43); its audio `notation/audio/piece-Recombination-Draft01-done.wav` (D39, his ear owed). The work now is the notation, not composing.
-- **Session 17** (2026-09-27/28 — Fable planned and looked, Opus built and wrapped; RUNNING_LOG §405 … §530; D39 … D46) took the
-  presentation score's notation from one prototype to the whole first morph:
-  - the audio of Draft 01 (2b) · the engraving rules as DATA (2e) · the fade signs (2f)
-  - the vibraphone's sequence notation (2g · 2h · 2i and the running order after them)
-  - the main file carries every accepted device (2j) · the ottava on every head (§502) and its hook on the spacer (§528)
-  - the morph as a sequence whose pitch moves (2k) · the volume curve protocol, the intention not the fader (2l)
-  - THE FOLD (2l.7, §530): `piece-lgmf` carries all of it, 0 … 881 s · the breath pie's arc fixed on the way (§529)
-- **► THE NEXT STEP — HIS: the RUNNING ORDER's step 3 (above) — his eye on `piece-lgmf`, 0 → 279, on Fable.** Reload the notation tab
-  (no restart); the stops are in step 3. His frame (§527): during an eye pass collect the findings in the RUNNING_LOG, then fix them
-  at once — a look → a rule row on Fable, a fault → Opus. Then step 4, his calls.
-- **The re-render, when he names a new draft** (D43 (1); Reaper open, the bridge alive, the rack SAVED): `node tools/export_midi.js
-  --score <name>` → `node tools/render_reaper.js --score <name> --up` (RENDER.md §1 · §4) → re-extract `piece-lgmf` from a scratchpad
-  COPY with the command in its `provenance.build`, the four `--sequence` and three `--morph` group ids re-read from the new draft →
-  the protos the same way → the checks. ≈ 4 min + 5 min + the checks.
-- **`Resume reads:`** nothing beyond §2 for his eye. A rule change: `docs/ENGRAVING_RULES.md` (generated from `rules.json`) and the PLAN
-  item that owns the device (2g … 2l). STILL BINDING (below) before any verification or splice.
+- **The piece:** _Recombination_ (D32). `scores/piece-Recombination-Draft01-done.json` is the ONE source of notation (D43). **His save moved
+  in session 18** (the EH's 343.12 lengthened · 389.8 D6 → D5; the DB's A5 at 329.26 → A4 · C♯5 at 309.96 → C♯4) — the page carries them,
+  the audio render (`notation/audio/…Draft01-done.wav`) predates them.
+- **Session 18** (2026-09-29 … 10-01 — Fable; Opus wrapped checkpoints #1 … #3 · #5; RUNNING_LOG §531 … §668; LG-119 … LG-235; D47 … D53):
+  **SECTION 2 (289 … 427 s) NOTATED BY HAND, PART BY PART, AT HIS DICTATION** — the work now is the notation's detail, his eye on every note:
+  - **the long tone** (PLAN 2m): every held tone a navy bar, tempered — 129 of them (`--longTones 289:427:all`); the chords' dynamics ONE
+    name each on the page (`--chordDyn` × 38; the save keeps the played velocities)
+  - **temporal notation:** the research (`docs/research/temporal_notation.md`, the survey v0) → T8 VALUES WRITTEN, the TN way → the EH's
+    figures by hand to 398.4 (the beat frame · the uneven group · the grace family) → **the standards S1 … S33** (its §12)
+  - **the one-off** (the GC unit of #4 / #5, `byEnv.oneOff`) → the bassoon to 399 · the horn · the trumpet (its frame at 344) · the cello ·
+    the double bass: every short note of the six pitched parts on a device
+  - **THE PERCUSSION STAFF's own rule set** (D51, PLAN 2o): a lone strike a bare head · the pair (beamed eighths) · the grace into a 16th ·
+    the stem 5.85 · beams at the standard clearance ±9.39 · the dynamic row under the staff · accents by the head · the steep slur; figures
+    and dynamics from 297.4 to 406
+  - **tools:** `tools/reextract.js` (the runner) · `tools/tempo_fit.js` (`--free` · `--pin` · `--html`) · `tools/eh_figure_check.js` (THE
+    LOCK, 106) · the app's video page in C (§587) · the app's R route repaired (§632 — **live only after he RESTARTS the score server**)
+- **► THE NEXT STEP — HIS, ask first:** his eye on section 2 (a HARD reload of the notation tab → `piece-lgmf`): the EH `289` … `398` ·
+  the bassoon `296` … `398.5` · the horn `296.3` … `387.6` · the trumpet `295.5` … `387.7` · the cello and the double bass `295.8` … `387.5`
+  · the long-tone chords `303.5` … `407` · the percussion `297.5` … `405.4`. Then, in HIS order: the percussion's remaining lone strikes
+  (still the fold's look) and its dynamics after 375 · the held items below.
+- **HOW A CHANGE IS MADE (the method of session 18 — everything a cold model needs):**
+  - `node tools/reextract.js "" <args>` — re-runs the IR's whole `provenance.build` on a fresh copy of his save and APPENDS the args
+    (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
+    `node tools/gen_engraving_rules.js` → `check_rules` (**33**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
+    FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§669 next free**) · an LG
+    (**LG-236**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+  - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
+    **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
+  - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·
+    `--beatGridFit P:unit:every:phase:first:last[:keepLead,noTail,olive…]` · `--cueLines P:t1,t2` · `--chordDyn T0:T1:mark` ·
+    `--longToneAlso id` · `--rest P:t:dur`. **The hands** (`--hand 'wc-N:{…}'`, merged, `null` unsets): `dynMark` (a name · `false` ·
+    `"band"`) · `nhStem` (`flag8` · `flag16` · `beam` · `false`) · `stemDir` · `grace` · `slurTo` · `nhArtic` + `articSide` · `hairpinTo`
+    (+ `hairpinDir`) · `gc` + `gcGeom` (`lane` · `beatBall` · `staffTop`) · `gcImpact` (`lineBelow` · `spaceBelow`) · `gcSpread` ·
+    `noteBeams` · `beamYSs` · `dynSide` (`above`, the lined row's exception) · `slurHeightSs`.
+  - **limits:** the build is ≈ 26 KB of Windows' 32.7 KB command line — say a figure on its SPAN, not per note; a Bash command over 8 KB
+    dies with a false quote error — write scripts with the Write tool.
+- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S33 — SURFACE them at each figure; S33: the normal staff's standards
+  first) · `tools/reextract.js`'s header. Nothing else beyond §2. Session 18's nine checkpoint blocks and its bullets §573 … §667 are whole
+  in git: `git show bd438e4:docs/PROJECT_JOURNAL.md`.
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
@@ -886,16 +326,22 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   main file and its discipline (2j) · the morph's notation (2k) · the volume curve protocol (2l) · the fold (2l.7): `piece-lgmf`
   carries every accepted device. D39 … D46. RUNNING_LOG §405 … §530.
 
+- **S18 · 2026-09-29 … 10-01 (Fable; Opus wrapped four checkpoints)** — **SECTION 2 NOTATED BY HAND, PART BY PART.** The long tone (2m) ·
+  the temporal-notation research and T8 values written · the EH's figures (the beat frame, the uneven group, the grace family; S1 … S33) ·
+  the one-off, then the bassoon, horn, trumpet, cello, double bass · the chords' dynamics one name each · the percussion staff's rule set
+  and its figures to 406 · the runner, the lock, the R route. D47 … D53. RUNNING_LOG §531 … §668.
+
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. The ✓ rows of sessions 13 … 17 were cut at
 the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16) · `git show 26c8c10:docs/PROJECT_JOURNAL.md` (17).)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►** | **SESSION 18 · CHECKPOINT #9 — THE BASSOON'S SECTION 2 from 295 to 399 by hand (§611 … §622; the block above): THE ONE-OFF a registered model (`byEnv.oneOff` — the strike field for field, the dot, no accent; the section's word in the head's column; every GC its name; `--oneOffs`) · fourteen one-offs · the figures at 322.8 · 324.8 · 345.5 · the bassoon's first frame (navy, 321.72 … 326.26) · EVERY HELD TONE A LONG TONE (`--longTones 289:427:all`, 132) · the tools `@drop:` · `instrPlace`: ► HIS EYE (reload → the bassoon's stops `296` … `398.5`, the long tones `337.3` · `368` · `395`), then THE BASSOON AFTER 399 · **§623 THE HORN BEGUN — ten one-offs + three burst pairs (301.96 · 344.19 · 376.00), the current dynamics on every note; 345.486 not named → ► he reloads → `296.3` … `387.6`; HIS EYE and his dynamics** · **§624 the horn's dynamics at his eye — the pairs one name each (f on the first), 323.18 f · 325 mf · 377.74 mf · 386.17 mf, 345.49 a one-off at mp, the bassoon's 301.88 f → ► he reloads → `302` … `386.2`; then the horn after 399 or the next part** · **§625 THE TRUMPET BEGUN — thirteen one-offs, the five at 344.19 beamed 3 + 2, the burst pair at 385.95, THE FRAME CANDIDATES 343.1 … 345.7 (`tempo_candidates_tpt_343.html`, the 343.13 GC included); 295.477 not named → ► he reloads → `302.1` … `387.7`; HIS PICK for the trumpet's first frame, his dynamics** · **§626 the trumpet's 295.48 a one-off too (f) → ► he reloads → `295.5`; the frame pick still his** · **§627 the trumpet's dynamics (f · mp · mf · mf · mf) + ITS FIRST FRAME — the green 98 at the tool's phase, five navy lines 344.108 … 346.548, the 343.13 GC outside → ► he reloads → `302.1` … `344.2`; HIS EYE, his names on the five** · **§628 the five's names — f on 344.19, mp on 345.44, the rest unnamed → ► he reloads → `344.2` · `345.5`** · **§629 the five's two GCs off (the beam device's own cue; a rule offered) → ► he reloads → `344.2` · `345.5`; HIS EYE, then the trumpet after 399 or the next part** · **§630 the trumpet's dynamics 375.9 … 387.7 (f · mf · mf · mf · mf · the pair mf · f) → ► he reloads → `376` … `387.7`** · **§631 THE CELLO BEGUN — eight one-offs, the held 337.55 · 343.13 taken back from the long tone (130 long tones) → ► he reloads → `300.4` … `387.5`; HIS EYE and his dynamics, then the double bass** · **§632 his R failed and removed the IR (the stale score copy) — restored, his A5 → A4 carried, the route fixed: RESTART the server · §633 THE DOUBLE BASS BEGUN — five one-offs → ► he restarts, reloads → `295.8` … `329.3`; HIS EYE and his dynamics** · **§634 the DB's 337.18 a one-off (mf) → ► he reloads → `337.2`** · **§635 the cello's and the double bass's dynamics + the trumpet's 295.48 mf → ► he reloads → `295.5` … `387.5`; HIS EYE** · **§636 his save carried — the DB's C♯5 at 309.96 → C♯4 → ► he reloads → `310`** · **§637 THE LONG TONES ONE NAME PER CHORD (`--chordDyn`, 38 chords · 127 notes) · §638 the chords' onsets to unison — MEASURED AND HELD: two wide (327.04 65 ms · 370.34 48 ms); (a) in his save [recommended] or (b) on the page → ► HIS WORD** · **§639 the castanet rattle's notation talked · §640 THE PERCUSSION OPENED — the first six notes' frame candidates drawn (`tempo_candidates_perc_297.html`) → ► HIS PICK** · **§641 `tempo_fit --pin i,j` — the 5 → 6 beat (90 bpm, notes 2 · 5 · 6 on its lines) on the picture in teal → ► HIS PICK** · **§643 THE PERCUSSION'S FIRST SIX ON THE PAGE (BD a 16th stem down · castanets three beamed 16ths · bowl · brake drum quarters, stems up; the pinned frame, five navy lines; a hand's `stemDir` fixed; the names inside the seven-line staff — a row owed) · §644 the next four's candidates (`tempo_candidates_perc_300.html`) → ► he reloads → `297.5`; HIS EYE, HIS PICK** · **§645 the castanets two graces into a quarter · the frame's lines and ball over the staff's own outer lines (±6.4 on the percussion) · §646 THE PERCUSSION STAFF — the planning opened: the data, the castanets' place (A · B · C), the top line (edges · stems · dynamics · marks · ringing · the lock) → ► HIS WORD on the castanets' beat and the stem length** · **§647 what a stem direction tells a percussionist (voices · limbs · hands) · §648 the precedent for bare heads, stems only on figures — option (c) · §649 THE FRAME RE-FOUND: the beat on the castanet quarter, equally close to the next two — 0.555 s (108 bpm), seven navy lines 297.134 … 300.464 → ► he reloads → `297.5`; HIS EYE, then step 2 the stems (a · b · c)** · **§650 THE STRIKES AS BARE HEADS UNDER GCs — the frame and the stems gone, GC STYLE 3 `staffTop` (lane top → just above the staff, the narrow aperture) on the castanet quarter · the bowl · the brake drum → ► he hard-reloads → `297.5`; HIS EYE, then the dynamic row** · **§651 THE CUE LINE — the frame's line and ball at a note's own time in place of the GC (`--cueLines`), blue-grey = an event · olive = a tempo, the percussion's lines −4 … +4; six cue lines 297.689 … 302.554; the wood block + bass drum beamed eighths → ► he hard-reloads → `297.5`; HIS EYE** · **§652 the ten notes through 303 — the tempo candidates drawn (`tempo_candidates_perc_297_303.html`, the pinned 5 → 6 beat in teal) → ► HIS PICK** · **§653 THE FRAME IN — the orange 95 in OLIVE, twelve lines 296.683 … 303.652 (the cue lines dropped) · the ball's drop the five-line staff's on every staff · a standard GC on the castanet quarter landing on the staff's next line below (−8) → ► he hard-reloads → `297.5`; HIS EYE** · **§654 the ball's higher arc — possible with the curve softened (a · b · c, open) · §655 THE OPENING BACK TO STEMS — the frame and the GC out; the bass drum a 16th stem down, the graces at the quarter's stem height into a 16th stem up; a lined staff's stem its base length → ► he hard-reloads → `297.5`; HIS EYE** · **§656 the lined staff's stem 5.85 a standard (flags still reach outside ±6), the flags single, the GC back on the castanets' third (a space below the staff, the aperture 0.7); the bass drum's stem touches the vibraphone's top line → ► he hard-reloads → `297.5`; HIS EYE** · **§657 the bass drum beamed to the castanets' third over the graces (stems up, the beam at +11.7), accents by their heads, THE DYNAMICS ROW under the staff, mp · p, the 302.55 pair stems up · §658 subito explained → ► he hard-reloads → `297.5` · `302.7`; HIS EYE** · **§659 the five at 305.25 (a beamed 16th pair at the minimum stem · a bare head · a grace into a flagged 16th clearing the staff; mp + a crescendo), 302.93 pp → ► he reloads → `302.9` · `305.3`; HIS EYE** · **§660 a grace's stem the same on every staff — the castanets' graces at the EH's 3.18 → ► he reloads → `297.5`** · **§661 the 305.25 pair — the sleigh bells' stem the standard 5.85, the castanets' grown to the beam (+11.99) → ► he reloads → `305.3`; HIS EYE** · **§662 THE PERCUSSION 306 … 406 — eleven beamed eighth pairs, five grace-to-16th figures, two slurs; the lined staff's beam and flag rules, `--beam …:8:up` → ► he reloads → `306.2` … `405.4`; HIS EYE** · **§663 the beam rule corrected (the shorter stem the standard, the beam just clear of the staff), every flag clears — a grace's too, THE STEEP SLUR on the four grace figures → ► he hard-reloads → `306.2` … `405.4`; HIS EYE on the slurs** · **§664 the dynamics 308 … 375 on THE row (a conflict reported: the mf at 361.56) · §665 the beams at the standard clearance, ±9.39 → ► he reloads → `308.3` … `374.9`; HIS CALL on 361.56** · **§666 the grace's stroke from the tip (through the flag); his standing word — the normal staff's standards first → ► he hard-reloads → `306.2` · `326.5`** · **§667 the mf at 361.56 above its notehead, the row's one exception (`dynSide above`) → ► he reloads → `361.6`**** | Fable | no — the same task |
-| **►►►** | **SESSION 18 · CHECKPOINT #8 — the EH's section 2 from 376 to 398 by hand: the frames at 376 (navy) · 384 (olive, cut to seven lines at 388.268), the second layer on 375.77 · 379.88, the figures at 384.3 · 387.23 · 389.7 with their dynamics, five singles named long tones, `noTail` · `noLead` in the fit (§605 … §610; the block above): ► HIS EYE (reload → `376` … `398`), then THE LOCK'S BLOCKS (337 … 389.7, the 340 · 376 · 384 frames), then the next figure after 398.4 · **§611 THE BASSOON BEGUN — the one-off at 295.97 as THE GC UNIT of #4 / #5, a model: `byEnv.oneOff` · `--oneOffs` · `@drop:`; `check_rules` 33 → ► he reloads → `296`; HIS EYE, then the next one-off** · **§612 … §615 — the dot back, the word into the column centred, every GC its name (300.5 mf by hand), the 322.7 pair f · mf, THE FIGURE AT 324.6 (a grace beamed to an eighth; a 16th with its beamlet + two eighths), THE CANDIDATES 322 … 326 drawn → ► he reloads → `296` · `300.5` · `302` · `323` · `325`; HIS PICK for the bassoon's first frame, his names on the five** · **§616 THE BASSOON'S FIRST FRAME IN — the green 93 (4 × 0.162), a tick back + 14.5 ms, p4 · p7 sharing 7.5 ms; eight navy lines 321.72 … 326.26 → ► he reloads → `323`; HIS EYE, his names on the five, then after 326** · **§617 at his eye — the grace unbeamed, the 322.7 pair plain dotted 16ths (f · mf kept), the accent on 324.96, mf on the grace alone → ► he reloads → `323` · `325`; then after 326** · **§618 the bassoon 336.9 … 345.6 — five one-offs (f · mp own; mf · mf · f his), the 345.47 pair beamed with the burst's GC (no go line, mp) → ► he reloads → `337` … `345.5`; then after 345.7** · **§619 the three at 376 — one-offs, f · mf · mf → ► he reloads → `376.5`; then after 378** · **§620 the pair at 380.25 — one-offs, both f → ► he reloads → `380.5`; then after 381** · **§621 387.5 a one-off at f; 393.28 · 398.44 long tones by name at f → ► he reloads → `387.5` · `393.3` · `398.5`; then after 399** · **§622 EVERY HELD TONE A LONG TONE (`--longTones 289:427:all`; the five singles left take it, the hand figures' windows excepted) → ► he reloads → `337.3` · `368` · `395`; then the bassoon after 399**** | Fable | no — the same task |
-| **►►►** | **SESSION 18 · CHECKPOINT #7 — the EH's section 2 from 317 to 380 by hand, the app's video page in C, the grace family's rules (§584 … §610; the block above): §605 THE 376 FRAME IN · §606 THE TWO FIGURES' SECOND LAYER · §607 THREE FIGURES AFTER 380.8 + 383.25 A LONG TONE + no GC at 380.39 · §608 THE CANDIDATES 384.3 … 390.6 + the three figures' dynamics + FOUR LONG TONES 390.7 … 398.4 by name · §609 THE 384 FRAME IN at his pick (the red 93, 1.44 ticks back, p4 · p7 on the beat; the lead beat clamped by the long tone, `keepLead` his) · §610 the frame CUT to 388.268 at his word (seven olive lines; `noTail` · `noLead` built into the fit) → ► he reloads → `384` … `398`; HIS EYE, the lock's blocks, then the next figure after 398.4** | Fable | no — the same task |
-| **►►►** | **SESSION 18 · CHECKPOINT #6 — figures 2 · 3 · 4 in, T10 + the picture, the span rule · the column pass · the frames as bands in two colours (§573 … §583; the block above): ► HIS EYE (reload → `piece-lgmf` → `301.5` · `298.5`); then THE NEXT FIGURE — HIS CHOICE 316.8 … 323.14 (§584 the candidates + the picture; §585 · §587 the app's video page now in C; §589 THE FRAME IN at his pick; §590 THE VALUES at his dictation + S20 · S21; §591 p10's max 10.5 + THE FIGURE AT 324.6; §592 the grace beam scaled (S22) · the GC at the beat ball's height (S23) · the figure's slur and names; §593 the GC's aperture 70 % · ragged stemming on the graces (S8a); §594 the stroke's orientation by the beam side · GC style 2 registered; §595 the stubs compared · THE FIGURE AT 337; §596 the lead beat back · the stubs 2 ss the standard · the 337 slur 1.4 + names · THE FIGURE AT 340.1; §597 a grace's stem with its parent · the slur talk · 343.12 read · THE FIGURE AT 342.65; §598 the 344.2 group of five; §599 his 343.12 change carried; §600 the slur minimum · the names thinned · the accent on the head side · THE FIGURE AT 345.3; §601 the slash at the beam's corner · the 345.6 pair slurred · THE CANDIDATES 339.9 … 345.9; §602 THE FRAME AT 340 (the purple 93) · the stroke slid · the stroke mirrors with the stem (LilyPond); §603 the dots · the stroke halfway; §604 the stroke balanced · his save carried · THE FIGURE AT 375.77 · THE FIVE AT 379.88 (tenutos) · THE CANDIDATES 375.7 … 380.8 — he reloads → `345.5` · `375.8` · `380`; HIS PICK for the 376 frame, his dynamics) — his decisions note by note, the standards S1 … S19 (`temporal_notation.md` §12) surfaced** | Fable | no — the same task |
-| **►►►** | **SECTION 2 — THE NOTATION PLANNINGS N-1 … N-6** (journal §2 block above; RUNNING_LOG §551 · §552; LG-130 · LG-131): N-1 slurs and N-2 stem lengths at phase 1, HIS ANSWERS OWED (the questions in the block) · N-3 the four 16ths · N-4 the shown beat + the tempo / time-signature method · N-5 the micro counterpoint · N-6 the second layer on the figure. One at a time, at his order; the planning method. His eye on the drawn figure (§550: reload → `piece-lgmf` → `289` … `292.8`) | Fable (the talk) · Opus or here (a build) | yes — `/session-start` |
+| **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
+| **►►►** | **THE PERCUSSION, the rest** (PLAN 2o) — the lone strikes not yet named (they still draw as the fold left them; one `--plainNotes 4:…` window each makes a bare head) · its dynamics after 375 · the ball's higher arc (§654, a · b · c) · a let-ring mark (the brake drum's rings) · `sub.` beside a dynamic (§658) · the beam-vs-standard-stem question at 378.5 · 405.3 (§665) | Fable | — |
+| **►►►** | **HELD — THE LONG-TONE CHORDS' ONSETS TO UNISON** (§638): 34 of 36 chords within 36 ms, two wider (327.04 — 65 ms · 370.34 — 48 ms); an onset is the save's `startSeconds` — (a) written into his save [recommended; he Saves, the AI edits the file, he RELOADS the composer] or (b) a page-only shown time (a build). His word on the two wide chords and on (a) · (b) | his · then Opus | — |
+| **►►►** | **THE LOCK'S BLOCKS** — `tools/eh_figure_check.js` asserts the EH's figures 1 … 4, the 317 frame and the 324.6 figure only: NOTHING of the EH from 337, the bassoon, the horn, the trumpet, the strings, the chords' names or the percussion is locked yet (the §589 · §590 block is the pattern) — after his eye, so what is locked is what he approved | Opus | yes |
+| **►►►** | **HIS: RESTART `node score/server.js`** — the app's R (refresh from the last Save) re-read a stale copy and removed the IR (§632); the fix is in `score/server.js`, live at his restart, never exercised — his first R after it is the test (a failed refresh now puts the IR back) | his | — |
+| **►►** | **SECTION 2 — THE NOTATION PLANNINGS, as they stand** (the journal block above): N-1 slurs BUILT (+ the steep slur on the lined staff, §663) · N-2 stems DECIDED for section 2 (the generalization list open) · N-3 the uneven group BUILT · N-4 the beat frame BUILT and in use on four parts · N-5 the micro counterpoint HELD · N-6 the second layer done figure by figure | Fable | — |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
 | **►►** | **SECTION 2 — HIS TODO, nine items, verbatim** (journal §2 block · RUNNING_LOG §535): normalize the long-tone chords · the EH's temporal phrases · the fast clusters · the percussion · temporal notation (short · long · tuplets · purpose) · its name + references · how much Ferneyhough-like detail · the glyph vocabulary · the GC. Not planned; each through `/plan-item` when he picks it | Fable (planning) | yes |
@@ -927,6 +373,41 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open at session end — SESSION 18 CLOSED (2026-10-01, Fable):**
+- **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a HARD reload (`layout.js` · `render.js` ·
+  `animobj.js` · `gc.js` · `notation.html` changed); the score server needs a RESTART for the R fix (§632).
+- **Pending him — session 18** (each written out in the § cited):
+  - his eye on every part of section 2 (none of the hand notation has had a full pass) · the EH's AI-called values (§577 figure 3 · the
+    slurs into the graces at 340.1 · 342.65) · the frames' lead and tail lines (`noLead` · `noTail`)
+  - the chords' unison (§638: the two wide chords; (a) his save or (b) the page) · the chords' names are on the page only — the velocities
+    in the save still differ (his 2m plan: `dyn ▾` in the composer, then re-extract)
+  - the percussion: the beam's clearance against "the shorter stem the standard" at 378.5 · 405.3 (§665) · the down-beams 0.39 under the
+    lane's bottom · the 16th at 336.79 (the standard 5.85, he read it as short, §663) · the wood block grace's 10.4 ss stem (§663) · the
+    ball's higher arc (§654) · the GC's impact a space below the staff (§656) · the frame was tried three ways on the opening and set aside
+    (§643 … §655) — the opening figure now carries one GC, no frame · "olive = an actual tempo" (§651): do the winds' frames turn all-olive
+  - the one-off's and the pairs' calls on the winds (§611 … §635: the lane GC on the burst pairs · the hand-window exception in `:all`) ·
+    the horn's 301.96 pair two octaves under one beam · the trumpet frame's tail line 346.548
+  - the audio render of Draft 01 predates four of his pitch / length changes · the research docs' citations are from memory (§546) and so
+    are the percussion-notation answers of §639 · §642 · §647 · §648 · §658 — a verification pass offered, not run
+- **Learned in session 18:** HIS TIMES READ EARLY (0.05 … 0.2 s) — list the part's events and take the nearest · a hand's `stemDir` belongs
+  to the overlay's VALUE, not its device (§643) · a hand's `dynMark: null` draws no name — `"band"` restores the device's (§645) · the app's
+  R re-runs the recorded build AS IT STANDS — a `--scoreFile` copy recorded by the runner was the OLD score, and a failed refresh removed
+  the IR (§632) · every vertical rule in `layout.js` assumes a five-line staff ±2 whose positions are pitches — a lined staff needs each
+  rule read against its OWN outer lines (§646: stems, the flag law, the dynamic row, the frame, the group's accent row and lane clamp) ·
+  THE SHIELD lays the tuba IRs out under THIS ensemble — their part 4 is the seven-line staff (§656) · THE LOCK earns its keep: it caught
+  a slur rule leaking onto the English horn (§663) · on a new staff the existing standards come FIRST (his word, §666) — three of the
+  percussion's invented rules were taken back to the standard by his eye within a day · the beam device gives a group's first note a GC
+  unasked — twice (§607 · §629); on a lined part it is now off · a rule he states may be superseded two turns later (the beam's floor:
+  §662 → §663 → §665) — log each, build the last.
+- **DELIBERATELY UNCOMMITTED — all his, the AI touches none of it** (`git status --short` at this close — the same 29 paths as every
+  checkpoint of session 18: 5 modified + 24 untracked): his actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index
+  `bank/morph_models.json` · his libraries (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` ·
+  `rhythm_takes.json`) · `bank/passages/lgmf-sec2.json` · `reaper/LGMF_rack.rpp` · his named saves in `scores/` · and
+  **`scores/piece-Recombination-Draft01-done.json`** (his tab's saves of session 18 — pitches and lengths changed; every extraction reads a COPY).
+- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
+  `longToneTest`), none the piece.
+
 
 **Open at session end — SESSION 17 CLOSED (2026-09-28, Opus) — the pending list of sessions 14 … 17 in one place:**
 - **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a RELOAD (`piece-lgmf` changed);
@@ -1032,7 +513,7 @@ moves BOTH · never bind **5300** or **4800**, they are piece #5's · the loopMI
 never saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI · **the composer's lanes are laid out by CSS `nth-child` rules in `composer.html`, the curve windows A · B · C over the last three — a lane added to `TRACKS` needs its rule, and `palette_check` does not look** (RUNNING_LOG §183) · **a server route that `require`s engine code keeps the copy it started with** — after a build that changes `morph.js` or `model_bank.js`, say "restart the server" as well as "reload the tab" (§181).
 
 **Checks this piece owns:** `node tools/sequence_check.js` (**180**) · `node tools/dyn_table_check.js` (**51**) · `node tools/test_snapshots.js` (**30**) · `node tools/palette_check.js` (**198**) · `node tools/roster_check.js` (**3** over **339** voices, **26** pending — 1m.4.1) ·
-`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) · `node tools/sequence_notation_check.js` (**64**, 2d · 2e.3 · 2f · §462) · `node tools/check_rules.js` (**29**, 2e · 2k.1 · §502's (9)) · `node tools/decisions_needed.js` (2e.4) · `node tools/vibes_pitch_check.js` (**65**, 1u) · `node tools/vib_marks_check.js` (**33**, 2g · 2h · 2i · 2k.5) · `node tools/layout_shield.js --write` on HEAD / `--diff --expect` after (THE SHIELD for any layout change, 2h.1) ·
+`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) · `node tools/sequence_notation_check.js` (**64**, 2d · 2e.3 · 2f · §462) · `node tools/check_rules.js` (**33**, 2e · 2k.1 · §502's (9)) · `node tools/decisions_needed.js` (2e.4) · `node tools/vibes_pitch_check.js` (**65**, 1u) · `node tools/vib_marks_check.js` (**33**, 2g · 2h · 2i · 2k.5) · `node tools/eh_figure_check.js` (THE LOCK, **106**, §560) · `node tools/layout_shield.js --write` on HEAD / `--diff --expect` after (THE SHIELD for any layout change, 2h.1) ·
 `node tools/check_screen_edges.js --ir piece-lgmf` · `node tools/check_print_edges.js --ir piece-lgmf` (2c, Chrome, ~1 min each) ·
 `node tools/check_ceilings.js --all` · `node tools/model_bank.js --validate`. Run the palette ones after any change to `TRACKS`,
 `sandbox/instruments.js` or `notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
@@ -1389,6 +870,38 @@ this repo only when they bite.)*
 - **D46** *(2026-09-28; composer §502 · §528)* — **THE OTTAVA.** Every head folds under the threshold (3 ledger lines) and takes the
   sign, the sequence block and its breaths included; the sign never flips; its hook is INK and ends on anchor B's spacer, the head and
   its column moved left to make room (`objects.ottava.hookIsInk`). RUNNING_LOG §502 · §528.
+- **D47** *(2026-09-29, PLAN 2m; composer §531 · §622 · §637)* — **THE LONG TONE.** A held note of section 2 is an open head on its time,
+  no go line, a navy bar its full length, tempered. EVERY held tone takes it "unless I say otherwise" (three quarter-second singles were
+  said otherwise — one-offs). A chord carries ONE dynamic name on every part (`--chordDyn`): the page says the chord's dynamic, the save
+  keeps the played velocities. *Rejected:* one name per note from its velocity (his "for now", closed §637). *Held:* the chords' onsets
+  to unison (§638).
+- **D48** *(2026-09-29, composer LG-128 · LG-129; §548 · §549)* — **T8: VALUES WRITTEN, THE TN WAY, BY HAND.** In section 2 a short note
+  carries a flag or a beam as PACE — relative, no bar, no meter, no count; the duration line is "incongruous" there. Every figure is
+  dictated note by note — hands on the notes, never a rule about WHEN; a look his eye finds missing is built as a RULE, never as a hand
+  (§577). The standards live in `docs/research/temporal_notation.md` §12 (S1 … S33) and are surfaced at each similar notation.
+  *Rejected:* a duration line on short notes · a fitted meter and tuplets (kept as a "notch of speed" only) · automatic figure-building.
+- **D49** *(2026-09-29, composer LG-147 · LG-149 · LG-150; §563 … §572)* — **THE BEAT FRAME.** A figure may carry a shown beat — one band
+  per beat through the staff and a ball that drops on each — as an orientation aid beside the cursor, NOT a tempo to play in: its phase
+  keeps the notes BETWEEN the beats (T10) unless he places notes on them; candidates from `tools/tempo_fit.js` drawn as a picture, his
+  pick; a part's frames alternate navy · olive. *Rejected:* subdivisions on the page · a tempo above 100 a figure (soft; 108 taken once
+  at his word) · the frame as the percussion's cue (tried three ways, set aside, §643 … §655).
+- **D50** *(2026-09-30, composer LG-185 · LG-186; §611 · §612)* — **THE ONE-OFF.** A short struck note standing alone is the GC unit of
+  pieces #4 and #5, field for field, a registered model (`byEnv.oneOff`): the go line at the GC's impact, the cue head, a flagged stem,
+  the staccato dot, its own dynamic name, the section's word in the head's column. The cut is his (`--oneOffs`). Two quick notes are a
+  beamed pair under ONE GC with no go line, the name on the first. *Rejected:* a hand-built GC on a plain note (the first try, withdrawn).
+- **D51** *(2026-09-30 … 10-01, composer LG-215 … LG-235; §646 … §667)* — **THE PERCUSSION STAFF HAS ITS OWN RULE SET, THE NORMAL STAFF'S
+  STANDARDS FIRST.** The seven-line staff's positions are instruments and its inside is not free: a lone strike is a BARE HEAD, unnamed;
+  a stem only binds a figure (the pair — beamed eighths; the grace into a 16th); the stem 5.85 ss whatever the line; beams and flags
+  clear the staff by the standard amount (the English horn's, ±9.39); ONE dynamic row under the staff, nothing dodges, a conflict is
+  reported; an accent by its own head; the frame's lines between the second and second-to-last line; a GC may land a space below the
+  staff. Where a standard of the five-line staff applies it is used before anything is invented (§666). *Rejected along the way:* the
+  frame as the cue · the cue line · GC style 3 from the lane's top (registered, unused) · "just clear" beams · full-height grace stems.
+- **D52** *(2026-09-30, composer §585 · §587)* — **THE APP'S VIDEO PAGE IS IN C.** The in-C decision (§336) had reached only the exports
+  and the checks; the app's video and zoom views now lay out on the realized ensemble, the ⚙ working views keep the written pitch.
+  His page and the lock are the same page.
+- **D53** *(2026-09-30, composer §632)* — **A REFRESH READS THE LAST SAVE AND NEVER LOSES THE PAGE.** The app's R re-points a recorded
+  `--scoreFile` at a fresh copy of the save and puts the IR back if the run fails. Until his server restart, a composer change is carried
+  by the AI (`tools/reextract.js`).
 
 ## §5 Playbooks
 
@@ -1423,6 +936,9 @@ across when its system lands here and is first used.)*
 ---
 - 2026-09-28 — **THE MAIN NOTATION PAGE CARRIES EVERY ACCEPTED DEVICE** — `piece-lgmf` from Draft 01: the sequences, the vibraphone's
   bows, the three morphs, the curve protocol (2d … 2l, folded at 2l.7; RUNNING_LOG §530). His eye on 0 → 279 owed.
+- 2026-10-01 — **SECTION 2 NOTATED BY HAND** — the long tones and their chords, the English horn's figures to 398.4, every short note of
+  the bassoon · horn · trumpet · cello · double bass, the percussion staff's rule set and its figures to 406 (`piece-lgmf`; session 18,
+  RUNNING_LOG §531 … §667). His eye on each part owed; the percussion's lone strikes not yet named.
 
 ## §7 Human Notes
 
