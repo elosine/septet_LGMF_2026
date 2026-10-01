@@ -2470,7 +2470,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - render through a COPY of his rack, the boost at most +6 dB (`render_reaper.js --score … --up --maxUp 6`)
   > - measured off the file; the ♪ link unchanged (the WAV's name = the IR's `source.score`)
   >
-  > **3. A test film** (one short stretch, his eye on the look) — MADE 2026-10-01 (§689: `notation/video/test/Recombination-test-284-316.mp4`); ► his eye
+  > **3. A test film** (one short stretch, his eye on the look) — ☑ DONE 2026-10-01 (§689 the film · §690 the right edge read: the 2c standard, kept at his "a" · §691 his "test is good")
   >
   > Result when done: he has watched one stretch of the film with its sound and said what to change in its look.
   >

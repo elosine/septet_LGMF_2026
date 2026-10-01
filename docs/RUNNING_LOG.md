@@ -21953,3 +21953,21 @@ bassoon's one-off at 295.971 beside it: its go line at 1875.7, its GC's arc cut 
 frame, so a late head still stands on staff (the time axis unchanged) · (c) a unit in the last few px moved LEFT to end at the staff's
 end — the mirror of the left clamp; the head leaves its time by up to ≈ 7 px (≈ 45 ms). The AI's lean: (a), or (b) if the bare head
 past the lines is what bothers.
+
+## §691. The test film accepted; step 4 opened — what opens and closes the film (2026-10-01, Fable, session 18; LG-257)
+
+**His word on §690 and on the test film:** *"a, keep it and test is good"* — (a): the overhang into the right margin stays, the 2c
+standard unchanged; the test film's look and sound accepted. PLAN § 2b-F step 3 done.
+
+**Step 4, the data read before the question:**
+- THE OPENING as the exporter makes it now: the film starts at the lead-in, 4 s before the first onset (`page_rules.leadInS`; the first
+  page standing, the audio delayed by the same 4 s) — no title card, no black.
+- THE ENDING: the last note ends at 880.66 s; the material ends at 881; the WAV runs to 886.664 (the tail). With `--t1 886.7` the
+  picture HOLDS on the last page (the cursor at the end) while the tail rings — the exporter's own rule (`[2i.10.5]`).
+- PIECE #5's SUBMISSION FILM (its archive README, `notation/video/approved/2026-09-16-submission`): no title card; "the picture holds
+  from 625 s while the WAV's tail rings to 630.1"; a WIDE SHOT WITH CLOSE-UPS — 8 close-ups, 30 % of the film, a seeded cut list
+  (`--cut`), crossfades (`--fade 5 --fadeMode cross`), the groups at 1.85×; h264 crf 16 + AAC 256 k; ~15 min to render.
+- here: no cut list, no close-up realization for this ensemble (`realizations.video-cut` is #5's groups).
+
+**Put to him:** A the opening — (a) as it is, (b) a title card first · B the ending — (a) the last page held under the tail,
+(b) a fade over the tail. **Held for step 5, named to him:** close-ups as in piece #5, or the wide shot alone.

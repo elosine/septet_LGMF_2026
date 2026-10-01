@@ -3796,3 +3796,10 @@ copy editing is a possible later ask. The film's plan proceeds. RUNNING_LOG §68
 
 *The AI's reading (marked as such):* a check of the film against PLAN 2c, and the reason for one overhanging head — not a request to
 change anything yet. RUNNING_LOG §690.
+
+## LG-257 — 2026-10-01 — keep the edge as it is; the test film is good
+
+*His words (session 18, Fable, on §690's options and the test film):* "a, keep it and test is good"
+
+*The AI's reading (marked as such):* the right-margin overhang stays (the standard); the film's look, sync and level accepted on the
+284 … 316 s stretch. RUNNING_LOG §691.
