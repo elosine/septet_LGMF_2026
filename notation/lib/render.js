@@ -196,6 +196,12 @@
     // it crosses — WHOLE, not sampled to the window — inside a clip to [x(t0), x(tω)], so the shape keeps its identity and the
     // remainder starts on the next page at x(t0) at the same height by construction. Point items are never clipped (2c.4).
     const cutKind = k => !!(EDGE && EDGE[k] && EDGE[k].screen === 'cut');
+    // [RUNNING_LOG §695 — his watch-through: "at around 30 seconds, the curves stopped rendering"] A CUT CURVE IS DRAWN OVER ITS PAGE, NOT WHOLE:
+    // 2c.3 emitted every sample of a curve on every page it crosses and let the clip trim it — a sequence's level line is ONE path of ~15 000
+    // points over 22 000 px, and the film's rasterizer (resvg) stops drawing such a path once the page lies far along it (the app's Chrome
+    // draws it — so the page looked right and the film did not). The samples kept are the page's own window and CUT_PAD_S beyond each
+    // end: the same points at the same heights, so the cut at x(t0) · x(tω) is unchanged; the path's closing edges fall outside the clip.
+    const CUT_PAD_S = 0.5;
     const CLIP_ID = SCR ? ('twclip-' + Math.round(w0 * 1000)) : null;
     const clipOpen = CLIP_ID ? '<g class="tw-cut" clip-path="url(#' + CLIP_ID + ')">' : '';
     // [2c.4] on a tiled screen page only (so every other page stays byte-identical): a go-time indicator carries its time, the
@@ -502,7 +508,7 @@
           const whole = cutKind('envcurve');   // [2c.3] cut like paper: every sample, the clip trims it at the page's edges
           for (let i = 0; i < n; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
-            if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
+            if (whole ? (t < w0 - CUT_PAD_S || t > w1 + CUT_PAD_S) : (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;   // [§695] a cut curve: the page's own stretch + the pad, not the whole path
             pts.push([view.xOfSeconds(t), yB - samples[i] * (yB - yT)]);
           }
           if (PRE && OWN) pts.splice(0, pts.length, ...edgeCurvePts(it, v => yB - v * (yB - yT)));   // [2c.6]
@@ -596,7 +602,7 @@
           const whole = cutKind('cresccurve');   // [2c.3]
           for (let i = 0; i < n2; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n2 - 1));
-            if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
+            if (whole ? (t < w0 - CUT_PAD_S || t > w1 + CUT_PAD_S) : (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;   // [§695] a cut curve: the page's own stretch + the pad, not the whole path
             cp.push([view.xOfSeconds(t), yB - it.samples[i] * (yB - yCeil)]);
           }
           if (PRE && OWN) cp.splice(0, cp.length, ...edgeCurvePts(it, v => yB - v * (yB - yCeil)));   // [2c.6]
@@ -629,7 +635,7 @@
           const whole = cutKind('glisscurve');   // [2c.3]
           for (let i = 0; i < n; i++) {
             const t = it.t0 + (it.t1 - it.t0) * (i / (n - 1));
-            if (!whole && (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;
+            if (whole ? (t < w0 - CUT_PAD_S || t > w1 + CUT_PAD_S) : (t < w0 - 1e-9 || t > wInk + 1e-9)) continue;   // [§695] a cut curve: the page's own stretch + the pad, not the whole path
             gp.push([view.xOfSeconds(t), yMid - it.samples[i] * (yMid - yT)]);
           }
           if (PRE && OWN) gp.splice(0, gp.length, ...edgeCurvePts(it, v => yMid - v * (yMid - yT)));   // [2c.6]

@@ -22039,3 +22039,38 @@ ear and eye is his watch-through's; the test film's was accepted on the same exp
 
 **Next:** step 6, his watch-through. A different cut = another seed and the same nine-minute render. On his "good", the archive as
 piece #5's (`notation/video/approved/<date>/` — the README and the cut list in git, the file on the machine).
+
+## §695. The film had no curves after 30 s — the rasterizer dropped the long paths; a cut curve is now drawn over its page (2026-10-01, Fable, session 18; LG-261)
+
+**What prompted it:** his watch-through of §694's film: *"At around 30 seconds, the curves stopped rendering. There are no curves. There
+are no colored curves."* — and, with a frame of the winds' close-up: *"This is about two minutes and 51 seconds. And the curves there just
+stopped showing up."* (in that frame the green and orange curves break off partway across the page).
+
+**Confirmed first:** a frame pulled from the film at 38 s — the labels, the meters at the cursor, no green curves; the opening frame
+(2 s) had them.
+
+**The cause, measured:**
+- the page SVGs carried the curves (six `#99FF00` paths on page 2 and on page 4 alike) — so not the layout, not the page plan.
+- each was ONE path for the whole sequence: ~15 000 points, x from −6 371 to +15 582 on page 4 (22 000 px), with the element's 0.3
+  opacity. PLAN 2c.3's cut ("drawn on every page it crosses — WHOLE, not sampled to the window — inside a clip") emits every sample on
+  every page and lets the clip trim it.
+- the film's rasterizer (resvg) does not draw such a path once the page lies far along it; Chrome does — so the notation app and the
+  screen gate (Chrome) were right and the film was not. Rasterized as the film does: page 2 (20 … 32 s) **208 133** green pixels,
+  page 4 (44 … 56 s) **1 760**.
+- the two test films (284 … 316 s) could not show it: section 2 has no curves. **A test stretch must contain every kind the film draws.**
+
+**The fix (`notation/lib/render.js`, the three curve kinds — envcurve · cresccurve · glisscurve):** a cut curve is drawn over ITS PAGE —
+the samples of the page's window and `CUT_PAD_S` 0.5 s beyond each end — not whole. The same points at the same heights, so the cut
+at x(t0) and x(tω) is unchanged and the next page picks the line up at the same height; the path's closing edges fall outside the clip.
+- after: page 2 **271 392** green pixels (it too had been short), page 4 **261 967**; a page's SVG 1.38 MB → 0.18 MB (the 74 pages
+  88 MB → 14.5 MB in the gate).
+- `check_screen_edges --ir piece-lgmf` PASS (Chrome: 11 834 leaves, the same counts as before) · `check_rules` 34.
+
+**The film re-rendered** — the same cut list (seed 7), the same command: 26 721 frames, 9.1 min → 890.663 s, 65 219 955 bytes, sha256
+`36e6f49081cbf1b4a4a99aee333646340771bb8e6a611a63e74c616252550f1a` (it replaced §694's file).
+- CHECKED OFF THE FILE: a frame every 25 s, its curve-coloured pixels counted — green in every sequence (0:00 … 2:34 · 7:09 … 9:40 ·
+  10:57 … 12:04 · 13:21 … 14:40), green and orange in every morph (2:31 … 4:32 · 9:36 … 10:57 · 12:04 … 13:21), none in section 2
+  (4:49 … 7:07), as the score has them. The frame at 2:51 looked at: the four winds' curves whole across the page.
+
+**Not built, offered:** a gate that rasterizes pages the film's way and compares them with Chrome's — the screen gate measures Chrome
+only, which is how this passed every check.

@@ -3823,3 +3823,12 @@ seen and agreed. RUNNING_LOG §693.
 
 *The AI's reading (marked as such):* the 1.85× close-ups of the two groups accepted; the cut list random, seeded, about 30 % in
 close-up — the seed the AI's to pick, his to re-roll. RUNNING_LOG §694.
+
+## LG-261 — 2026-10-01 — the film: the curves stop rendering at about 30 seconds; at 2:51 they just stop showing
+
+*His words (session 18, Fable, watching §694's film):* "At around 30 seconds, the curves stopped rendering. There are no curves. There are no colored curves."
+
+*And, with a frame of the winds' close-up:* "This is about two minutes and 51 seconds. And the curves there just stopped showing up."
+
+*The AI's reading (marked as such):* a fault of the film, not of the notation — the level and pitch curves missing or broken off from the
+third page on. RUNNING_LOG §695.
