@@ -21396,3 +21396,38 @@ only; its first use is the render. If the new float measures as the last did (�
 the LRA untouched (a plain gain changes nothing inside the piece).
 
 **The command for the render, now:** `node tools/render_reaper.js --score piece-Recombination-Draft01-done --up --maxUp 6`.
+
+## §671. Draft 01 re-rendered — session 18's changes in the audio, the boost at his cap (2026-10-01, Opus, session 18, after checkpoint #10)
+
+**What prompted it:** his ask at §669 (LG-236), *"will want do a new audio render after clear"*, and at the `/postclear`: *"go ahead and run
+the new audio render independently to the end ty"*.
+
+**Why a new render:** the WAV of §406 · §407 (2026-09-26) predates session 18's changes to his save — §669's chord unison (82 onsets,
+1 … 65 ms), the EH's 343.12 lengthened · 389.8 D6 → D5, the DB's 329.26 A5 → A4 · 309.96 C♯5 → C♯4. The page already carried them.
+
+**Before starting** (checkpoint #10's step 1, read rather than asked — his word was "independently"): the score server answered on :5400 ·
+Reaper running on `LGMF_rack` with no "modified" in its title (the rack saved) · the save last written 12:46 UTC, after §669's edit. The
+capture reads the FILE, so his composer tab could not feed it the old onsets.
+
+**The route, RENDER.md §1, in order:**
+1. `capture_composer_midi.js --score piece-Recombination-Draft01-done` — 24 800 messages · 53 020 frames in 254.7 s · 0 writes refused.
+2. `export_midi.js … --capture …` — notes **1076/1076** · 436 bent notes, every bend in place at its note-on, none on a bent channel ·
+   0 hanging · read-back ok; 29 tracks + tempo, 883.67 s, 60 BPM / 960 PPQ. **What moved:** 11 per-track files (EH · Bsn SI2 · the four
+   horn tracks · the two trumpets · Vc · DB) and the whole-piece file; the Bassoon SI2 b, every percussion track and the vibraphone came
+   out identical to the committed ones (git shows them unchanged) — the change is where session 18's edits are, and nowhere else.
+3. `render_reaper.js … --up --maxUp 6` — the rack (saved 12:08 UTC) copied to `reaper/piece-Recombination-Draft01-done_render.rpp`, a
+   new tab, 29 items at 0:00 by name, offline in 273 s, the tab closed, the rack current again.
+
+**Measured off the file:**
+- the float: 886.664 s · true peak **−10.9 dBTP** · sample peak −11 dBFS · **−28.8 LUFS** · LRA 20.1 LU · first sound 1.700 s (the EH from
+  niente, as §406)
+- the gain to −1 dBTP would be **+9.9 dB**; **capped at +6.0 dB** — §670's first use; "if still necessary": it was, and the cap bit
+- the WAV: 24-bit, +6 dB plain, no limiter → true peak **−4.9 dBTP** · sample peak −5 dBFS · **−22.8 LUFS** · LRA 20.1 (untouched)
+- against §406 · §407: the float within 0.1 dB of the old one (−11.0 → −10.9 dBTP; the loudness and the LRA the same) — session 18's
+  edits did not move the level; the new WAV sits 4 dB under the old one, at his word.
+
+**The link:** no re-extraction — `/api/notation/renders` lists `piece-Recombination-Draft01-done.wav` and the IR's `source.score` is the
+same; the ♪ render on `piece-lgmf` finds the new file after a reload of the notation tab (the chip itself not seen).
+
+**Committed:** the MIDI files and the placing script (tracked). The WAV, the float and the capture are gitignored; the old WAV is replaced,
+not kept (§670's note — his to ask; he did not).

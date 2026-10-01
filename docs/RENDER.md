@@ -76,3 +76,9 @@ Then: the notation page (CTRL+SHIFT+R) → the MAIN file → **♪ render** → 
 - **2026-09-26 — Draft 01, the level at his word "b"** (RUNNING_LOG §407): `render_reaper.js --skip-render --up` — gain **+10.0 dB** (plain) →
   **−1.0 dBTP**, ≈ −18.8 LUFS, LRA 20.1 untouched. `--up` is new: the piece's gain may go up to `--peak`; **a future render of the piece passes
   it.** Linked: `piece-lgmf` re-extracted from Draft 01 (`source.score` = `piece-Recombination-Draft01-done`). His ear: pending.
+- **2026-10-01 — Draft 01 re-rendered after session 18's changes** (RUNNING_LOG §671; `scores/piece-Recombination-Draft01-done.json`
+  as saved 12:46 UTC — §669's chord unison (82 onsets), the EH's 343.12 lengthened · 389.8 D6 → D5, the DB's 329.26 A5 → A4 · 309.96 C♯5 → C♯4).
+  Capture: 24 800 messages · 53 020 frames · 0 writes. Checks: notes 1076/1076, 436 bends in place, 0 hanging, read-back ok. Reaper: 29 items
+  by name; 273 s. Render: 886.664 s · float true peak **−10.9 dBTP** · −28.8 LUFS · LRA 20.1 · `--up --maxUp 6` (§670, its first use): the
+  gain to −1 dBTP would be +9.9 dB, **capped at +6.0 dB** → **−4.9 dBTP · −22.8 LUFS**, the LRA untouched · first sound 1.700 s (as before).
+  Linked: `source.score` unchanged, the server lists the WAV — no re-extraction. His ear: pending.

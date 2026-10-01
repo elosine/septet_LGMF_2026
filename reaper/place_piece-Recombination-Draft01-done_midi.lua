@@ -1,4 +1,4 @@
--- place_piece-Recombination-Draft01-done_midi.lua — written by tools/export_midi.js (2026-09-27T00:40; RUNNING_LOG §453).
+-- place_piece-Recombination-Draft01-done_midi.lua — written by tools/export_midi.js (2026-10-01T12:56; RUNNING_LOG §453).
 -- Run INSIDE the render project (a copy of the rack): Actions → Show action list → New action → Load ReaScript → this file → Run.
 -- Sets the tempo to 60 BPM (the files are 60 BPM / 960 PPQ), then builds each part's MIDI item on the track of the SAME NAME at 0:00 —
 -- by name, never by position (piece #4's trap: a duplicated track shifts a positional drop) — directly, with no MIDI import and so
