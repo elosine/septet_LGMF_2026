@@ -1114,10 +1114,11 @@
           const dg = (glyphs.dynamic || {})[lb.mark];
           if (!dg) { warnings.push('sequence ' + (sq.v.name || sq.v.group) + ': a label "' + lb.mark + '" at ' + lb.t + ' s has no dynamic glyph — not drawn'); continue; }
           const hw2 = dg.wSs * LB.scale / 2;
-          items.push({ k: 'glyph', g: 'dyn-' + lb.mark, t: lb.t, dxSs: 0, ySs: o.dynY, align: 'center', scale: LB.scale, seq: 'label' });
+          const yLb = o.dynY + (+lb.dySs || 0);   // [§673] a hand on ONE label (the extractor's --labelDy): dySs off the dynamic row — his 'just for this one exceptionally'; the row stays the rule
+          items.push({ k: 'glyph', g: 'dyn-' + lb.mark, t: lb.t, dxSs: 0, ySs: yLb, align: 'center', scale: LB.scale, seq: 'label' });
           if (PLg && PRg) {
-            items.push({ k: 'glyph', g: 'accidental-leftParen', t: lb.t, dxSs: -(hw2 + LB.parenGapSs + PLg.wSs * LB.parenScale / 2), ySs: o.dynY, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
-            items.push({ k: 'glyph', g: 'accidental-rightParen', t: lb.t, dxSs: hw2 + LB.parenGapSs + PRg.wSs * LB.parenScale / 2, ySs: o.dynY, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
+            items.push({ k: 'glyph', g: 'accidental-leftParen', t: lb.t, dxSs: -(hw2 + LB.parenGapSs + PLg.wSs * LB.parenScale / 2), ySs: yLb, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
+            items.push({ k: 'glyph', g: 'accidental-rightParen', t: lb.t, dxSs: hw2 + LB.parenGapSs + PRg.wSs * LB.parenScale / 2, ySs: yLb, align: 'center', scale: LB.parenScale, seq: 'labelParen' });
           }
         }
         // [2e.3 (6), §443 — his "iii, no head"] a breath that keeps the pitch carries its go line ALONE (the pie counts it down); a head

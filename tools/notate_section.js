@@ -27,6 +27,7 @@
 //   --chordDyn T0:T1:mark    [§637] ONE NAME PER CHORD: every long tone whose onset falls in [T0, T1) takes the dynamic name `mark` (ppp … fff), whatever its velocity — a later --hand on a note still wins (repeatable)
 //   --cueLines P:t1,t2,…     [§651] CUE LINES on part P: one beat-frame line (and its ball) at each time — a mark at a note's own time, not a tempo; the blue-grey, outside the frames' colours (repeatable)
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
+//   --labelDy P:T:DY         [§673] a HAND on one curve label: the (dyn) of part P's sequence · morph nearest T s moved DY staff spaces off the dynamic row (negative = down; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
 //   --beatGridFit p:u:n:phase:first:last[:flags]   the 7th field a comma list — keepTail · keepLead · keepBoth (§582 · §596) · noTail · noLead (§610: the extra beat on that side dropped)
@@ -1995,6 +1996,19 @@ if (MORPH_SEQ.length) {
     if (liftDir === 'up' || liftDir === 'down') existing.value.stemDir = liftDir; else if (liftDir === null) delete existing.value.stemDir;
     console.log('  --hand ' + id + ' (' + e.onset.toFixed(3) + '): ' + Object.keys(dev).map(k => k + '=' + JSON.stringify(dev[k])).join(' '));
   }
+  // [RUNNING_LOG §673 — his "hand move the PP down a bit so it's not colliding with the pitch notation … just for this one exceptionally"]
+  // --labelDy P:T:DY (repeatable) — A HAND ON ONE CURVE LABEL: the `(dyn)` of part P's sequence · morph overlay nearest T (within 0.5 s)
+  // carries dySs = DY, staff spaces off the dynamic row (negative = down); the layout draws it there. The row stays the rule.
+  process.argv.forEach((a, i) => {
+    if (a !== '--labelDy' || !process.argv[i + 1]) return;
+    const m = /^(\d+):(-?[\d.]+):(-?[\d.]+)$/.exec(process.argv[i + 1]);
+    if (!m) { console.error('--labelDy needs P:T:DY — the part, the label\'s time, staff spaces (negative = down), e.g. --labelDy 6:102.25:-0.6'); process.exit(2); }
+    let best = null;
+    for (const ov of doc.overlays) if (ov.kind === 'sequence' && ov.target && ov.target.part === +m[1]) for (const lb of (ov.value && ov.value.labels) || []) { const d = Math.abs(lb.t - +m[2]); if (d <= 0.5 && (!best || d < best.d)) best = { lb, d }; }
+    if (!best) { console.error('--labelDy ' + process.argv[i + 1] + ': no curve label of part ' + m[1] + ' within 0.5 s of ' + m[2]); process.exit(2); }
+    best.lb.dySs = +m[3];
+    console.log('  --labelDy ' + process.argv[i + 1] + ': the (' + best.lb.mark + ') at ' + best.lb.t + ' moved ' + m[3] + ' ss off the row');
+  });
   // [§564] --beatGrid p:t0:t1:u:n:phase — the tempo he picked for a figure (tools/tempo_fit.js's candidates, his choice), drawn as ticks
   const grids = []; process.argv.forEach((a, i) => { if (a === '--beatGrid' && process.argv[i + 1]) grids.push(process.argv[i + 1]); });
   // [§569] --beatGridFit p:u:n:phase:first:last — the grid's span from the CLUSTER: its beats are those from the first onset's beat to the

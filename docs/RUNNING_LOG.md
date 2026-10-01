@@ -21472,3 +21472,30 @@ it down and up could you find it assess it and incorporate into our current syst
 `piece-lgmf` alone moved (21 of 22 identical — no tuba page, no proto) · `check_screen_edges --ir piece-lgmf` PASS · seen in the
 running app on a throwaway server (:5401, the zoom view at 155.5 s): the EH's line at 158.40 drawn just above the middle line. The double
 bass's 156.90 is the same path, not looked at separately. No re-extraction — a layout rule; he RELOADS the notation tab (HARD).
+
+## §673. Two of the cello's curve labels moved down by hand — a label off its row, exceptionally (2026-10-01, Fable, session 18; LG-238 · LG-239)
+
+**What prompted it:** his picture of the cello at 102.29 s — the breath's column flipped under the staff by the ladder (`−2` over
+`19 (E♭1)`; the head is on two ledgers under an 8va, no room above), and the curve's `(pp)` printed on top of the partial — and his
+word: *"Can you just hand move the PP down a bit so it's not colliding with the pitch notation? Just for this one exceptionally."* Then,
+while it was being done, a second picture (`+2` · `12 (B1)` · `(mp)`): *"same for 477.91"*.
+
+**Measured before:** each `(dyn)` is the sequence's curve label on the dynamic row, y −4.6 — a trough at 102.25 (level 0.305), a crest
+at 477.87 (0.5); the parentheses' ink −5.05 … −4.15. The partial's text box −4.40 … −3.45 in both. 0.25 ss of overlap, and the same x
+(the label 0.05 s before its breath's go line, the column ending 0.75 ss before that line). Both are the cello (part 6), a NEW-pitch
+breath under an 8va — the same case twice.
+
+**Done — a hand, not a rule (his "exceptionally"):**
+- a new flag in `tools/notate_section.js`: `--labelDy P:T:DY` — the curve label of part P's sequence · morph overlay nearest T
+  (within 0.5 s) carries `dySs`; `layout.js` draws that label and its parentheses at the row + `dySs`. No label without the field moves.
+- `node tools/reextract.js "" --labelDy 6:102.25:-0.6`, then `--labelDy 6:477.87:-0.6` — the IR's diff is those two fields (and the
+  scratch path in the build); 1076 events, VALID; his save had not moved since §669.
+- after, both: the label's ink −5.65 … −4.75 — **0.35 ss clear** of the partial. 0.6 is the AI's "a bit"; his to change (the number in
+  the build).
+
+**Not done:** no rule for a label meeting a flipped column. Two cases of one kind now (the ladder flips a column onto the dynamic row
+where a label stands, 0.05 s before a new-pitch breath) — a rule is the natural next step if a third turns up; not looked for elsewhere.
+
+**Checked:** `check_rules` 34 · `eh_figure_check` 106 · `sequence_notation_check` 79 · THE SHIELD `piece-lgmf` alone · the first
+seen in the running app on a throwaway server (:5401, the zoom view at 100.2 s): `−2` · `19 (E♭1)` · `(pp)` on three separate rows;
+the second by the layout's numbers, not looked at.

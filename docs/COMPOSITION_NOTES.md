@@ -3670,3 +3670,16 @@ the dictation closed, pending his proof. RUNNING_LOG §669.
 *The AI's reading (marked as such):* piece #1's same-staff-line rule (its LilyPond registry: the glissando's `extra-offset` Y 0.3, up;
 −0.3 once by his hand) — a level gliss line on one of the staff's five lines is drawn 0.3 ss off it. Carried as a rule row, up by default.
 RUNNING_LOG §672.
+
+## LG-238 — 2026-10-01 — the cello's pp at 102.29 moved down by hand, exceptionally
+
+*His words (session 18, Fable, with a picture):* "This is at 102.29 in the VC. Can you just hand move the PP down a bit so it's not colliding with the pitch notation? Just for this one exceptionally."
+
+*The AI's reading (marked as such):* the curve's `(pp)` label against the breath's flipped column ("the pitch notation" = the cents and
+the partial); one hand, 0.6 ss down; the dynamic row remains the rule. RUNNING_LOG §673.
+
+## LG-239 — 2026-10-01 — the same at 477.91
+
+*His words (session 18, Fable, with a picture, while the first was being made):* "same for 477.91"
+
+*The AI's reading (marked as such):* the cello's `(mp)` at 477.87 on `12 (B1)` — the same hand, the same 0.6 ss. RUNNING_LOG §673.
