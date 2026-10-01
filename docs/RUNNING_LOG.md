@@ -20451,3 +20451,27 @@ The staggered entries he names as purposeful are singles, not chords: 392.98 →
      edges, the cursor); the audio and the page then differ by up to 65 ms. A build, and a standing exception to the contract.
 
 **Held:** his word on the two wide chords and on (a) · (b).
+
+## §639. The percussion's notation opened by a question — a castanet rattle of two or three impulses: written out, or a roll? (2026-09-30, Fable, session 18; LG-210)
+
+**What prompted it** (his TODO 4, "percussion notation", touched for the first time): *"a rattle or a roll on the castanets. So it's like three
+hits or three impulses. How would you normally notate that? Or even two? Do you notate out the partials or is there a roll? Anyways, give me
+some of the basics of castanet notation, rhythmic notation."*
+
+**The answer given — conventional practice, FROM MEMORY (Gould · the orchestration manuals; not checked against a source this session):**
+- **The line:** one line (or one line of a percussion staff), ordinary noteheads with stems; the instrument named. Three instruments under one
+  name — hand castanets (the Spanish pair) · paddle / handle castanets (shaken) · machine or table castanets (mounted, played with the fingers
+  or sticks, the most exact) — and the type decides what a roll is: a shake on paddles, alternating fingers on a machine.
+- **The dividing rule:** when the NUMBER of impulses is the point, write the impulses; when it is a texture of no particular count, write a roll.
+- **Two or three impulses, written out** — the snare-drum rudiments carried over: one grace + the main note (a flam) · two graces + the main
+  note (a drag, the three-stroke ruff) · three graces + the main note (the four-stroke ruff) — the weight on the last; or, when the strokes are
+  equal, plain short values beamed (two or three 16ths / 32nds, a triplet).
+- **The roll:** three tremolo slashes through the stem of a note as long as the roll (unmeasured); tied into a final note when a closing click
+  is wanted; `tr~~~` is the older sign for the same. One or two slashes read as MEASURED repetitions.
+- **The Spanish idiom:** the carretilla (four fingers of one hand, then the other hand — five strokes) is itself written either way: as a
+  grace group into a note or as a short roll.
+
+**Mapped onto this score's own devices (the AI's, for when the percussion is taken up — nothing built):** the two readings already exist here —
+graces slurred into a main note (S6 · S22, a ruff: the arrival on the last hit) · the burst (S14, equal quick strokes beamed with dots) · the
+ragged group (S8 · S8a, "about this fast, unevenly") — and a roll would be a new mark (the tremolo slashes on a stem or on the duration line).
+His choice between them is the device sheet's first line when TODO 4 opens.

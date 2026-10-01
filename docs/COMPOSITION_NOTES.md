@@ -3454,3 +3454,10 @@ two starting at…", "the two following, DB and VC"). RUNNING_LOG §635.
 offsets are residue of how they were played in, not intent. The staggered entries at 393 … 398 are the exception he names: adjacent, not
 together, on purpose. The series at 327 is ten names (the last "M. F. M. F." = mf · mf) on ten chords. RUNNING_LOG §637 (the names) · §638
 (the onsets, measured and held).
+
+## LG-210 — 2026-09-30 — the castanets: a rattle of two or three impulses — written out, or a roll?
+
+*His words (session 18, Fable):* "a rattle or a roll on the castanets. So it's like three hits or three impulses. How would you normally notate that? Or even two? Do you notate out the partials or is there a roll? Anyways, give me some of the basics of castanet notation, rhythmic notation."
+
+*The AI's reading (marked as such):* the percussion's notation (his TODO 4) opening from one sound — a short castanet rattle whose impulse count
+is small and audible. "Partials" = the individual hits. The conventional answer and its mapping onto this score's devices: RUNNING_LOG §639.
