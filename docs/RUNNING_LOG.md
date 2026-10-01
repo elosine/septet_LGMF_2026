@@ -21628,3 +21628,41 @@ end of the last. The bows between stay bare.
 both hairpins run past the new heads above the navy bar and under the olive one, and close on their circles at the bars' ends.
 
 **Not touched:** the sound; the winds' closing marks (`—> ppp` · `> ○` on the last breath's unit, 2f); the row crossings (§676, his call).
+
+## §678. The vibraphone's rows are the two voices again — the cross withdrawn, the crossed unison's leads on opposite edges (2026-10-01, Fable, session 18; LG-244)
+
+**What prompted it:** his answer to §676's count: *"Okay, good. Yes, let's switch them back. So each side represents one voice. And let's
+use B. We can make the top, the left side, the go line on the left side, and bottom go line on the right side."*
+
+**Decided (his):** the two rows are the two VOICES — each side one dynamic flow, whatever the pitches do. §496's cross ("one player, two
+bows": the higher note takes the top row at a rhythmic unison) is WITHDRAWN: it made the unisons clean and broke the thing he reads the
+rows for. The crossed unisons take (b): one column, the two dotted leads on opposite edges — the top row's on the LEFT, the bottom row's
+on the RIGHT.
+
+**The AI's reading of (b)'s reach, his to reverse:** the opposite edges apply AT A CROSSED UNISON only (the case (b) was put for);
+everywhere else both leads stay on the head's left edge as before. "Always" (every bottom-row lead on the right) would be the row's other
+value — not built.
+
+**Built:**
+- `rules.json` `vibMarks.crossAtUnison` false · `crossedLead` "opposite" + `crossBackNote` (the `crossNote` of §496 kept as the record).
+- `container.json` `byEnv.vibBow.marks`: `crossedLead` · `crossS` · `crossSteps` pointed at the rows.
+- `layout.js`: `crossedWith(bar)` — a bottom-row bar whose head begins within `crossS` of a top-row bar's and stands `crossSteps` staff
+  steps or more ABOVE it takes its lead on the head's right edge (`headDx + hw/2`); the top row's lead unchanged.
+- `vib_marks.js`: untouched — the reader already kept the rows by seat without the cross.
+- `vib_marks_check`: the goldens re-pinned — 42.65 reads "> p" (no restart), the R01c stretch `… | < mp | > p | … | > pp | < mp | …`
+  (§463's own reading, the start names of §496 gone), 72.32 "< mp"; check (4) rewritten: every bow in its chain's row for its whole
+  sequence, no cross, 11 rhythmic unisons, **7 crossed** (42.65 · 72.32 · 120.74 · 818.95 · 824.41 · 856.17 · 862.37) — 34.
+- `piece-lgmf` and `lgmf-vib-proto` re-extracted (the marks live in the IR's `vibBows` overlays).
+
+**The numbers after:** the start names 8 of the 156 sequence bows (26 before — the 18 at the nine crosses gone); 261 leads, 7 on the
+right edge by the rule (and the two side-by-side pairs, 56.12 · 141.38, displaced as before — their second head's left edge).
+At 42.65: the navy lead from the lower head (G3, y −4.5) up the left edge past the upper head to the top track; the olive lead from the
+upper head (G4, y −1) down the right edge past the lower head to the bottom track.
+
+**Checked:** `vib_marks_check` 34 · `check_rules` 34 · `eh_figure_check` 106 · `sequence_notation_check` 79 · THE SHIELD the two
+pages (`piece-lgmf` · `lgmf-vib-proto`), 20 of 22 identical · `check_screen_edges` PASS · seen in the running app on a throwaway server
+(:5401, 42.65 s, the page magnified): the two heads in one column, the blue lead on the left of both, the green on the right of both,
+no overlap; the swatches blue below, green above. The other six by the layout's numbers.
+
+**PERFORMANCE_NOTES #20** — the two rows are the two voices; a head belongs to the row of its colour whatever its height; the leads at a
+crossed unison.

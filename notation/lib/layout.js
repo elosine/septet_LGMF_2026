@@ -3760,7 +3760,15 @@
           return +(up ? BOX.top + lift - MK.heightSs / 2 : -BOX.bot + MK.heightSs / 2).toFixed(4);
         };
         const leadItems = [], swatchItems = [];   // collected, then added after the loop — never while iterating `items`
-        if (MK.barTrack && BOX) for (const bar of items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev))) {
+        // [RUNNING_LOG §678 — his "let's use B … the top, the go line on the left side, and bottom go line on the right side"] THE CROSSED
+        // UNISON (vibMarks.crossedLead 'opposite'; the rows are the voices again, crossAtUnison false): where the two rows' bows begin
+        // together and the TOP row's head stands under the bottom row's, the bottom row's lead falls on its head's RIGHT edge — the top
+        // row's rises on the left as everywhere — so the two dotted lines never lie on each other.
+        const vibBars = items.filter(it => it.k === 'ringbar' && vibBowOf.has(it.ev));
+        const headYOf = new Map(vibBars.map(x => [x, x.headYSs != null ? x.headYSs : x.ySs]));
+        const crossedWith = bar => MK.crossedLead !== 'opposite' || bar.headT == null ? null : vibBars.find(x => x !== bar && x.headT != null && vibBowOf.get(x.ev).voice === 'upper'
+          && Math.abs(x.headT - bar.headT) <= (MK.crossS != null ? MK.crossS : 0.06) + 1e-9 && headYOf.get(bar) - headYOf.get(x) >= (MK.crossSteps != null ? MK.crossSteps : 2) / 2 - 1e-6) || null;   // RULES MIRROR
+        if (MK.barTrack && BOX) for (const bar of vibBars) {
           const up = vibBowOf.get(bar.ev).voice === 'upper', ax = axisOf(bar, up);
           if (ax == null) continue;
           if (bar.headYSs == null) bar.headYSs = bar.ySs;   // the head's centre, kept before the bar leaves it for the track
@@ -3771,7 +3779,7 @@
           // bottom); THE HEAD SWATCH: a pale patch behind the head in its seat's bar colour. Both by rule (vibMarks.headLead · headSwatch)
           const seat = up ? 0 : 1, hw = (glyphs.notehead.open.wSs || 1) * (VBc.nhHeadScale > 0 ? VBc.nhHeadScale : 1), hh = HEADH;   // [§496] the colour follows the ROW
           if (MK.headLead && bar.headT != null && bar.headDxSs != null)
-            leadItems.push({ k: 'bowlead', t: bar.headT, dxSs: +(bar.headDxSs - hw / 2).toFixed(4), y0Ss: bar.headYSs, y1Ss: +(up ? bar.ySs + RBH / 2 : bar.ySs - RBH / 2).toFixed(4), seat, ev: bar.ev, pinned: true });
+            leadItems.push({ k: 'bowlead', t: bar.headT, dxSs: +(bar.headDxSs + (!up && crossedWith(bar) ? hw / 2 : -hw / 2)).toFixed(4), y0Ss: bar.headYSs, y1Ss: +(up ? bar.ySs + RBH / 2 : bar.ySs - RBH / 2).toFixed(4), seat, ev: bar.ev, pinned: true });
           if (MK.headSwatch && bar.headT != null && bar.headDxSs != null)
             swatchItems.push({ k: 'headswatch', t: bar.headT, dxSs: bar.headDxSs, ySs: bar.headYSs, wSs: +(hw + 2 * (MK.swatchPadSs || 0.12)).toFixed(4), hSs: +(hh + 2 * (MK.swatchPadSs || 0.12)).toFixed(4), seat, ev: bar.ev, pinned: true });   // RULES MIRROR (swatchPadSs)
         }

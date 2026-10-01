@@ -13,10 +13,10 @@
  },
  "provenance": {
   "createdBy": "tools/notate_section.js (profile trance) --bricks",
-  "date": "2026-09-28",
+  "date": "2026-10-01",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:/Users/jwloy/AppData/Local/Temp/claude/C--Users-jwloy-GitHub-septet-LGMF-2026/f31b7251-f3ed-4a03-b762-c3316b2a06d2/scratchpad/draft01-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i), from Draft 01 (2j)\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:\\Users\\jwloy\\AppData\\Local\\Temp\\lgmf-reextract-osNSIa\\piece-Recombination-Draft01-done-copy.json --w0 0 --w1 156 --parts 5 --bricks --sequence grp-seq-smu90t537 --id lgmf-vib-proto --label \"lgmf-vib-proto · the vibraphone's sequence, section 1 (2 … 154 s) — the two bows' notation prototype (2g · 2h · 2i), from Draft 01 (2j)\""
  },
  "events": [
   {
@@ -7945,19 +7945,13 @@
      {
       "event": "ev-wc-3166",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 42.648,
       "t1": 49.441,
       "midi": 55,
-      "restart": true,
+      "restart": false,
       "startName": "pp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 42.648,
-        "name": "pp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 44.279,
@@ -7976,19 +7970,13 @@
      {
       "event": "ev-wc-3167",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 42.648,
       "t1": 48.841,
       "midi": 67,
-      "restart": true,
+      "restart": false,
       "startName": "mp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 42.648,
-        "name": "mp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 45.81,
@@ -8007,7 +7995,7 @@
      {
       "event": "ev-wc-3172",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 48.891,
       "t1": 56.073,
       "midi": 84,
@@ -8058,7 +8046,7 @@
      {
       "event": "ev-wc-3173",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 49.491,
       "t1": 56.073,
       "midi": 85,
@@ -8096,7 +8084,7 @@
      {
       "event": "ev-wc-3179",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 56.123,
       "t1": 60.949,
       "midi": 85,
@@ -8121,7 +8109,7 @@
      {
       "event": "ev-wc-3180",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 56.123,
       "t1": 61.549,
       "midi": 84,
@@ -8159,7 +8147,7 @@
      {
       "event": "ev-wc-3184",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 60.999,
       "t1": 66.613,
       "midi": 86,
@@ -8184,7 +8172,7 @@
      {
       "event": "ev-wc-3186",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 61.599,
       "t1": 68.753,
       "midi": 87,
@@ -8222,7 +8210,7 @@
      {
       "event": "ev-wc-3189",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 66.663,
       "t1": 72.273,
       "midi": 63,
@@ -8233,7 +8221,7 @@
      {
       "event": "ev-wc-3191",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 68.803,
       "t1": 72.273,
       "midi": 75,
@@ -8258,37 +8246,24 @@
      {
       "event": "ev-wc-3194",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 72.323,
       "t1": 76.981,
       "midi": 63,
-      "restart": true,
+      "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 72.323,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3195",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 72.323,
       "t1": 78.947,
       "midi": 75,
-      "restart": true,
+      "restart": false,
       "startName": "pp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 72.323,
-        "name": "pp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 72.323,
@@ -8307,7 +8282,7 @@
      {
       "event": "ev-wc-3199",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 77.031,
       "t1": 82.623,
       "midi": 65,
@@ -8318,7 +8293,7 @@
      {
       "event": "ev-wc-3200",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 78.997,
       "t1": 83.69,
       "midi": 89,
@@ -8343,7 +8318,7 @@
      {
       "event": "ev-wc-3203",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 82.673,
       "t1": 89.401,
       "midi": 58,
@@ -8354,7 +8329,7 @@
      {
       "event": "ev-wc-3204",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 83.74,
       "t1": 88.391,
       "midi": 70,
@@ -8379,7 +8354,7 @@
      {
       "event": "ev-wc-3207",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 88.441,
       "t1": 94.886,
       "midi": 89,
@@ -8390,7 +8365,7 @@
      {
       "event": "ev-wc-3209",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 89.451,
       "t1": 94.226,
       "midi": 58,
@@ -8401,7 +8376,7 @@
      {
       "event": "ev-wc-3213",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 94.276,
       "t1": 102.853,
       "midi": 82,
@@ -8412,7 +8387,7 @@
      {
       "event": "ev-wc-3214",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 94.936,
       "t1": 101.152,
       "midi": 78,
@@ -8423,7 +8398,7 @@
      {
       "event": "ev-wc-3218",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 101.202,
       "t1": 105.602,
       "midi": 88,
@@ -8448,7 +8423,7 @@
      {
       "event": "ev-wc-3221",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 102.903,
       "t1": 107.388,
       "midi": 58,
@@ -8459,7 +8434,7 @@
      {
       "event": "ev-wc-3223",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 105.652,
       "t1": 112.39,
       "midi": 87,
@@ -8497,7 +8472,7 @@
      {
       "event": "ev-wc-3224",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 107.438,
       "t1": 114.364,
       "midi": 70,
@@ -8508,7 +8483,7 @@
      {
       "event": "ev-wc-3226",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 112.44,
       "t1": 114.964,
       "midi": 75,
@@ -8533,7 +8508,7 @@
      {
       "event": "ev-wc-3230",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 114.414,
       "t1": 120.686,
       "midi": 63,
@@ -8544,7 +8519,7 @@
      {
       "event": "ev-wc-3231",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 115.014,
       "t1": 120.686,
       "midi": 76,
@@ -8555,37 +8530,24 @@
      {
       "event": "ev-wc-3236",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 120.736,
       "t1": 125.362,
       "midi": 70,
-      "restart": true,
+      "restart": false,
       "startName": "pp",
-      "marks": [
-       {
-        "kind": "name",
-        "t": 120.736,
-        "name": "pp",
-        "start": true
-       }
-      ]
+      "marks": []
      },
      {
       "event": "ev-wc-3237",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 120.736,
       "t1": 127.646,
       "midi": 87,
-      "restart": true,
+      "restart": false,
       "startName": "pp",
       "marks": [
-       {
-        "kind": "name",
-        "t": 120.736,
-        "name": "pp",
-        "start": true
-       },
        {
         "kind": "hairpin",
         "t": 122.116,
@@ -8604,7 +8566,7 @@
      {
       "event": "ev-wc-3238",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 125.412,
       "t1": 130.551,
       "midi": 82,
@@ -8615,7 +8577,7 @@
      {
       "event": "ev-wc-3241",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 127.696,
       "t1": 133.118,
       "midi": 76,
@@ -8640,7 +8602,7 @@
      {
       "event": "ev-wc-3245",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 130.601,
       "t1": 136.874,
       "midi": 82,
@@ -8651,7 +8613,7 @@
      {
       "event": "ev-wc-3247",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 133.168,
       "t1": 141.327,
       "midi": 81,
@@ -8676,7 +8638,7 @@
      {
       "event": "ev-wc-3248",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 136.924,
       "t1": 141.327,
       "midi": 83,
@@ -8687,7 +8649,7 @@
      {
       "event": "ev-wc-3253",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 141.377,
       "t1": 146.384,
       "midi": 82,
@@ -8698,7 +8660,7 @@
      {
       "event": "ev-wc-3252",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 141.377,
       "t1": 148.188,
       "midi": 81,
@@ -8736,7 +8698,7 @@
      {
       "event": "ev-wc-3257",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 146.434,
       "t1": 148.788,
       "midi": 88,
@@ -8747,7 +8709,7 @@
      {
       "event": "ev-wc-3259",
       "chain": 1,
-      "voice": "upper",
+      "voice": "lower",
       "t0": 148.238,
       "t1": 153,
       "midi": 69,
@@ -8772,7 +8734,7 @@
      {
       "event": "ev-wc-3260",
       "chain": 0,
-      "voice": "lower",
+      "voice": "upper",
       "t0": 148.838,
       "t1": 154,
       "midi": 82,

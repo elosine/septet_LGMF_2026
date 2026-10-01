@@ -237,7 +237,11 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **§675 · LG-241 (2026-10-01, Fable):** HIS SAVE MOVED — the vibraphone's `wc-4819` at 765.0 deleted, `wc-4820` moved 765.4 → 765.0; HIS R carried
   it (§632's route, first use, worked — 1075 events, the hands kept). **THE LOOP: Save → R → the AI commits. THE WAV IS STALE AT 765** — one
   new render when his proof is done (Opus; checkpoint #10's steps, `git show d1a79ea:docs/PROJECT_JOURNAL.md`).
-- **§676 · LG-242 (2026-10-01, Fable) — OPEN, HIS CALL:** the vibraphone's row crossings measured (4 hand-changes, 9 crossing unisons, two groups;
+- **§678 · LG-244 (2026-10-01, Fable) — §676 DECIDED AND BUILT:** the vibraphone's rows are the two VOICES again (`vibMarks.crossAtUnison` false —
+  each colour one dynamic flow per sequence; 56 bows changed row, 18 restated names gone) and his (b): at the 7 crossed unisons the top row's
+  lead on the head's LEFT edge, the bottom row's on the RIGHT (`crossedLead opposite`); both pages re-extracted; PN #20. He reloads (`42.6` …
+  `862.4`).
+- **§676 · LG-242 (2026-10-01, Fable) — CLOSED by §678:** the vibraphone's row crossings measured (4 hand-changes, 9 crossing unisons, two groups;
   switched back = `vibMarks.crossAtUnison` false: 56 bows change row, 18 start names go, 7 unisons with crossed leads). His: switch back or
   not, and the crossed unison's look (a) heads side by side · (b) leads on opposite edges · (c) as they fall. Nothing built.
 - **§677 · LG-243 (2026-10-01, Fable):** the vibraphone's ○ at the END of the fall — `vibMarks.nienteAtEnd` (one hairpin through the row's
@@ -291,8 +295,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
     `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§678 next free**) · an LG
-    (**LG-244 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§679 next free**) · an LG
+    (**LG-245 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·

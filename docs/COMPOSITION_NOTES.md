@@ -3711,3 +3711,10 @@ than the clean unison; he wants the cost in numbers before deciding. RUNNING_LOG
 
 *The AI's reading (marked as such):* the page said nothing was left where the sound still fades — the ○ belongs where the fall arrives,
 at the last bow's end, one hairpin through the re-bowed notes. A rule, not a hand. RUNNING_LOG §677.
+
+## LG-244 — 2026-10-01 — the vibraphone: switch the rows back, each side one voice; B, the top's line on the left, the bottom's on the right
+
+*His words (session 18, Fable, after §676's count):* "Okay, good. Yes, let's switch them back. So each side represents one voice. And let's use B. We can make the top, the left side, the go line on the left side, and bottom go line on the right side."
+
+*The AI's reading (marked as such):* the dynamic flow per row outweighs the clean unison — §496's cross withdrawn; "go line" = the dotted
+bow lead; the opposite edges at the crossed unisons (the case B was put for), not everywhere. RUNNING_LOG §678.

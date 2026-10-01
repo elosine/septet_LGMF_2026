@@ -293,6 +293,9 @@
       "marks": {
        "rows": "@vibMarks.rows",
        "headLead": "@vibMarks.headLead",
+       "crossedLead": "@vibMarks.crossedLead",
+       "crossS": "@vibMarks.crossS",
+       "crossSteps": "@vibMarks.crossSteps",
        "headSwatch": "@vibMarks.headSwatch",
        "leadThickSs": "@objects.bowLead.thickSs",
        "swatchPadSs": "@objects.headSwatch.padSs",
