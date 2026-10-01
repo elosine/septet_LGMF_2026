@@ -3718,3 +3718,10 @@ at the last bow's end, one hairpin through the re-bowed notes. A rule, not a han
 
 *The AI's reading (marked as such):* the dynamic flow per row outweighs the clean unison — §496's cross withdrawn; "go line" = the dotted
 bow lead; the opposite edges at the crossed unisons (the case B was put for), not everywhere. RUNNING_LOG §678.
+
+## LG-245 — 2026-10-01 — the take → take morphs: restore the second note's partial and fundamental; an analysis first
+
+*His words (session 18, Fable, with a picture of the horn's morph block at 726.28):* "There were some morphs that either left or moved towards a harmonic series, like moved away from it and moved back. So a decision for those was to not mark the second one because it wasn't actually a partial number. But some do move between actual partials of two different harmonic series, all the ones called takes or using the model called takes. So can we restore to those the second note, the actual partial number and fundamental as well? Can we include that in the second note pitch notation? In other words, in that picture, I believe, especially since there's sense deviation, that this is moving from the D flat to harmonic series to another harmonic series. And I think there probably is two morphs. There could be more, but I think there's two morphs that go from take to take. So can we re-include for the second note, the actual fundamental and partial number? But do an analysis for me first."
+
+*The AI's reading (marked as such):* "sense deviation" = the cents deviation (the `+2` on the second head — a just third partial's 2 cents);
+he is right on both counts: two take → take morphs, and his picture is D♭2 → E1. RUNNING_LOG §679.

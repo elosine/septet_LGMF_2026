@@ -246,6 +246,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   not, and the crossed unison's look (a) heads side by side · (b) leads on opposite edges · (c) as they fall. Nothing built.
 - **§677 · LG-243 (2026-10-01, Fable):** the vibraphone's ○ at the END of the fall — `vibMarks.nienteAtEnd` (one hairpin through the row's
   bare falling bows, the circle at the last one's end; the last chord 866.80 · 869.33 → 880.66); `vib_marks_check` **34**. He reloads (`872` … `880.7`).
+- **§679 · LG-245 (2026-10-01, Fable) — OPEN, HIS GO:** the morph's second head — the analysis: two take → take morphs (`ACT-TAKES-02` 576.6 s,
+  A1 → A1 · `ACT-TAKES-03` 725 s, D♭2 → E1), 11 second heads, each the arrival take's partial to 0.0 c (the actual's `toChord`); the bloom's
+  stay cents only. To build at his word: the destination's `n (F)` over its cents (the extractor reads `toChord`, the layout a second row).
 - **State:** nothing being built. The ♪ link unchanged — the IR's `source.score` is the WAV's name; no re-extraction.
 - **► THE NEXT STEP — HIS, ask first:**
   1. HIS EAR: reload the notation tab → `piece-lgmf` → ♪ render. A LEVEL change → re-gain the kept float with no Reaper render, §407's
@@ -295,8 +298,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
     `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§679 next free**) · an LG
-    (**LG-245 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§680 next free**) · an LG
+    (**LG-246 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·

@@ -21666,3 +21666,54 @@ no overlap; the swatches blue below, green above. The other six by the layout's 
 
 **PERFORMANCE_NOTES #20** — the two rows are the two voices; a head belongs to the row of its colour whatever its height; the leads at a
 crossed unison.
+
+## §679. The morph's second head — which arrivals are partials: the analysis before the build (2026-10-01, Fable, session 18; LG-245)
+
+**What prompted it:** his picture of the horn's morph block at 726.28 (`1 (D♭2)` over the start head, `+2` alone over the second) and his
+words (LG-245, whole there): some morphs leave a harmonic series and come back — for those the second head was left without a partial,
+*"because it wasn't actually a partial number"*; *"but some do move between actual partials of two different harmonic series, all the ones
+called takes or using the model called takes. So can we restore to those the second note, the actual partial number and fundamental as
+well? … I think there's two morphs that go from take to take … But do an analysis for me first."*
+
+**What stands (2k.3, §506 — the device sheet):** a morph's block = the start head with its column (cents · `n (F)`), the gliss line, the
+destination head with its CENTS ALONE — "a detuning, not a partial" — written for the bloom, the only model placed when 2k was planned
+(`1t`, the take → take morph, came after in the plan and before in the save).
+
+**Read** (the page's three morph groups, their markers, `bank/actuals/`):
+- `ACT-BLOOM-06` (BLOOM; 151 … 272 s): one take (`Blm01c-wVibes-Just-A1-seed131mod`, A1), no arrival take. The six second heads are
+  ±25 c (EH B4 +4 → +29 · Bsn +3 → −21 · Hn A4 → −25 · Tpt → +25 · Vc → +25 · DB → −25): detunings, as written. **Unchanged.**
+- `ACT-TAKES-02` (TAKES; 576.6 … 656.7 s): `Just-a1-seed174mod` → `Just-a1-seed174Converge` — **A1 → A1**, the same series, other partials.
+- `ACT-TAKES-03` (TAKES; 725 … 801 s): `Just-db2-seed171` → `Just-e1-seed191mod` — **D♭2 → E1**.
+- Both actuals carry `provenance.pitch.toChord` — the arrival take whole: per player `lane · seat · midi · cents · partial`; the
+  fundamental computed from each member agrees across the eight (A1 within 2 c · E1 within 5 c), and with the takes' names.
+- **Every drawn destination equals its player's arrival note to 0.0 c** (the page's `dest` is the farthest point of the glide, read from
+  the save; the arrival take is where the engine sent it):
+
+| | start | → second head | = |
+|---|---|---|---|
+| **TAKES-02** EH 579.56 | `8 (A1)` A4 +9 | B4 +4 | **9 (A1)** |
+| Bsn 580.31 | `2 (A1)` A2 | does not move — one head | (2 (A1)) |
+| Hn 578.81 | `5 (A1)` D♭4 −9 | E4 +2 | **6 (A1)** |
+| Tpt 578.06 | `14 (A1)` G5 −31 | A5 | **16 (A1)** |
+| Vc 576.56 | `10 (A1)` D♭5 −14 | B4 +4 | **9 (A1)** |
+| DB 577.31 | `3 (A1)` E3 +2 | A2 | **2 (A1)** |
+| **TAKES-03** EH 729.36 | `10 (D♭2)` F5 −14 | E5 | **16 (E1)** |
+| Bsn 727.40 | `7 (D♭2)` B4 −31 | A♭4 −14 | **10 (E1)** |
+| Hn 726.28 (his picture) | `1 (D♭2)` D♭2 | B2 +2 | **3 (E1)** |
+| Tpt 728.26 | `8 (D♭2)` D♭5 | D5 −31 | **14 (E1)** |
+| Vc 729.65 | `5 (D♭2)` F4 −14 | F♯4 +4 | **9 (E1)** |
+| DB 725.00 | `2 (D♭2)` D♭3 | E3 | **4 (E1)** |
+
+  11 second heads to restore (5 + 6). The vibraphone's bows are tempered and carry no column (the standing exception).
+
+**What the build would be (not built — his go):**
+- the extractor (`notate_section.js` `actualOf` · the MORPH_SEQ loop): where the actual names an arrival take, the destination reads its
+  member by `lane:seat`, is checked against the drawn pitch (half a cent, as the start is), and carries `partial` · `fundamental` ·
+  `partialText` — the start head's own naming (`sequence_overlays.js` `marksOf`), one copy.
+- the layout (the 2k.3 block): the destination's `n (F)` one row above its cents, right-justified to its own head as its cents are;
+  alone on the cents' row where the cents round to 0 and are not written (EH · DB of TAKES-03, Tpt · DB of TAKES-02) — the start column's rule.
+- the rule: the device sheet's line "the destination's cents alone" becomes "… and its partial where the morph ARRIVES ON A TAKE"; a
+  morph with no arrival take (the bloom) keeps the cents alone. `check_rules` (8) (the partial at sounding pitch) reads the new texts.
+- the fit, ESTIMATED not measured: the two heads' right edges stand ≈ 4.2 ss apart (head 1.1 · spacer 0.45 · line 2.2 · spacer 0.45, more
+  with a sign); the longest new text (`16 (A1)`, seven characters) ≈ 2.7 ss drawn — clear of the start head's column by about 1 ss. The
+  column grows one row on five heads; the ladder's lane test decides at the build.
