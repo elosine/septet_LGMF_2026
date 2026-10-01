@@ -144,6 +144,14 @@
   // For consumers that place a pitch without the layout (animobj's
   // followers): (part, sounding midi) -> { key, ySs } — the system key the
   // pitch lands in and its staff position there. One copy of the rules.
+  // [RUNNING_LOG §645 — his "can we have … the tempo lines be the full staff length from the top of the staff, the top line to the bottom line,
+  // and the ball bounce the full distance"] A STAFF'S OWN OUTER LINES, per part: the percussion's seven-line staff is ±6, not the five-line
+  // staff's ±2. ONE copy for the beat frame's lines (layoutSection) and its ball (animobj, handed in as opts.staffExtentOf).
+  function staffExtentResolver(ens) {
+    const by = new Map();
+    for (const pc of (ens && ens.parts) || []) { const si = staffInfoOf(pc); if (si && si.offsets && si.offsets.length) by.set(pc.part, { top: Math.max(...si.offsets), bot: Math.min(...si.offsets) }); }
+    return part => by.get(part) || { top: 2, bot: -2 };
+  }
   function positionResolver(ens) {
     return (part, midi, technique) => {
       const pc = partCfgOf(ens, part);
@@ -3249,7 +3257,9 @@
       // the unit from the phase, the BEATS (every beatEvery-th) at the tick's full look, the subdivisions at subHSs (rules.json objects.tick)
       {
         const BG = Object.assign({ subHSs: 0.4, at: 'staff', overhangSs: 0.4, beatsOnly: true }, o.beatGrid || {});   // RULES MIRROR (rules.json objects.tick.subHSs · gridAt · gridOverhangSs · gridBeatsOnly)
-        const STAFF_HALF = 2;   // five lines, ±2
+        // [§645] the staff's OWN outer lines — a lined staff's offsets (the percussion's seven lines, ±6), else five lines, ±2
+        const SIo = spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length ? spec.staffInfo.offsets : null;
+        const STAFF_TOP = SIo ? Math.max(...SIo) : 2, STAFF_BOT = SIo ? Math.min(...SIo) : -2;
         // [§578, his "alternate colors for the ball and the lines for each new rhythm group … the olive from the vibraphones so that there's
         // some visual that it's a new or potentially a new tempo"] THE FRAMES ALTERNATE: the part's frames in time order take the colours of
         // rules.json objects.tick.gridColours in turn (the navy, then the olive); each line carries its frame's colour, the ball the same
@@ -3266,7 +3276,7 @@
             // [§566] gridAt 'staff': a line through the staff, overhangSs beyond each outer line (the tick's foot is its ySs, it rises hSs)
             // [§581] the line a band gridWSs wide (rules.json objects.tick.gridWSs) — under a stem-down on-beat note the hairline vanished
             const stamp = Object.assign({ frame }, colour ? { colour } : {}, BG.wSs > 0 ? { wSs: BG.wSs } : {});
-            if (BG.at === 'staff') items.push(Object.assign({ k: 'tick', t, ySs: -STAFF_HALF - BG.overhangSs, hSs: 2 * STAFF_HALF + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' }, stamp));
+            if (BG.at === 'staff') items.push(Object.assign({ k: 'tick', t, ySs: STAFF_BOT - BG.overhangSs, hSs: (STAFF_TOP - STAFF_BOT) + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' }, stamp));
             else items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}, stamp));
           }
         });
@@ -3878,5 +3888,5 @@
     return smp;
   }
 
-  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor, justPicture, partialLabel };
+  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, staffExtentResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor, justPicture, partialLabel };
 });

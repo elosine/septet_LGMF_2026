@@ -3490,3 +3490,12 @@ third way to place a frame beside the fitted "between" phase (T10) and a hand-sh
 *The AI's reading (marked as such):* the values of §642 (a 16th upbeat · three beamed 16ths · two quarters) under the pinned 90 bpm frame; the
 stem direction by INSTRUMENT, not by position — the bass drum, the lowest line, hangs down and everything else stands up (the drum-kit
 convention: the low drum's voice below). Candidates for notes 7 … 10. RUNNING_LOG §643 · §644.
+
+## LG-215 — 2026-09-30 — the castanets as two graces into a quarter; stems on the percussion staff; the frame the whole staff; "help me shore this up"
+
+*His words (session 18, Fable):* "And actually, the castanets, the first two are grace notes. And let's make the second one, a uh, third one, a uh, quarter note. And let's use the minimum stem height if there is one. Or help me understand what we need to do for stems that go up that are at, towards the top of the staff. Do we have any rules for that or do we need to make some? And make sure the quarter stems are the same height, the proper height. And are you sure the castanets are in the right rhythmic location? From the sound, it sounds like the third one lands on the beat. And then can we have the lines, the tempo lines be the full staff length from the top of the staff, the top line to the bottom line, and the ball bounce the full distance. Anyway, there are a lot of issues here. Let's figure out how to handle the percussion staff since there might be things inside staff and uh, stems with different directions. Help me shore this up for this context."
+
+*The AI's reading (marked as such):* the castanet rattle is a RUFF — two graces into the hit that counts (§639's (a)); his ear puts the beat on
+that hit. The larger ask: the seven-line staff needs its own rule set — its positions are instruments, its stems go by instrument, its
+spaces are not free for marks — rather than a fix per figure (his §577 word again: rules, not hands). RUNNING_LOG §645 (built) · §646 (the
+data, the castanets' place, the top line).

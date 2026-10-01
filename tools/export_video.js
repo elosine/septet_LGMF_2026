@@ -239,6 +239,7 @@ const _dev = Layout.deviceResolver(ir, (C.engraving || {}).layout || {});
 const animInstances = AnimObj.collect(ir, score, C.animated, {
   parts: FRAME_PARTS, meta: false,         // D4: META off; day 40: scoped to the rendered lanes
   deviceOf: _dev,
+  staffExtentOf: Layout.staffExtentResolver(ENS),   // [§645] the beat ball over a staff's own outer lines
   // day 40: the meters ride the DRAWN curve (layout.drawnLevelSamples is the
   // one source) — the video stays pixel-congruent with the app by sharing it
   drawnOf: e => Layout.drawnLevelSamples(e, _dev(e) || {}),

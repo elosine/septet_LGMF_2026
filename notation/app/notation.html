@@ -863,6 +863,7 @@
           // part's clef and staff (layout's rules, not a second copy)
           metaLayer: state.ensemble ? state.ensemble.metaLayer : undefined,
           posOfMidi: state.ensemble ? NotationLayout.positionResolver(state.modelEns || state.ensemble) : null,   // [§587] the view's ensemble
+          staffExtentOf: state.ensemble ? NotationLayout.staffExtentResolver(state.modelEns || state.ensemble) : null,   // [§645] the beat ball over a staff's own outer lines
           // per-note GCs come from the SAME device rules the engraving uses
           // (D50) — one resolver, built by layout, handed to animobj
           deviceOf: _dev,

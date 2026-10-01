@@ -117,9 +117,11 @@
     // line's foot, the drop the line's height) · 'laneBottom' (the tuba's own geometry: the lane's bottom, the whole lane's height) · 'lineTop'
     const STAFF_HALF = 2, over = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
     const land = st.land || 'lineBottom';
-    const impactY = land === 'lineTop' ? s.yOfSs(STAFF_HALF + over) : land === 'lineBottom' ? s.yOfSs(-STAFF_HALF - over) : G.impactY;
+    // [§645] the staff's OWN outer lines (the percussion's seven-line staff ±6) — on the instance from opts.staffExtentOf, else five lines
+    const TOP = inst.staffTop != null ? inst.staffTop : STAFF_HALF, BOT = inst.staffBot != null ? inst.staffBot : -STAFF_HALF;
+    const impactY = land === 'lineTop' ? s.yOfSs(TOP + over) : land === 'lineBottom' ? s.yOfSs(BOT - over) : G.impactY;
     const rise = st.riseSs != null ? st.riseSs : 2;   // [§571] his "leave from slightly higher … about two staff spaces above" — RULES MIRROR (engraving.animated.beatBall.riseSs)
-    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (2 * STAFF_HALF + 2 * over + rise) * s.ssPx : G.h;
+    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? ((TOP - BOT) + 2 * over + rise) * s.ssPx : G.h;
     const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
     // [§578] the ball in its FRAME's colour — the frames on a part alternate through st.colours (rules.json objects.beatBall.colours:
     // the navy, then the vibraphone's olive) by inst.frame, the frame's index on the part; one colour (st.color) when no list
@@ -381,7 +383,9 @@
         if (!has(tg.part)) continue;
         const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = frameOf.get(ov);
         const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
-        for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, frame, _src: 'ir-beatGrid' });
+        // [§645] a staff that is not the five-line ±2 hands the ball its outer lines (opts.staffExtentOf = layout's staffExtentResolver)
+        const ext = O.staffExtentOf ? O.staffExtentOf(tg.part) : null, extra = ext && (ext.top !== 2 || ext.bot !== -2) ? { staffTop: ext.top, staffBot: ext.bot } : {};
+        for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push(Object.assign({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, frame, _src: 'ir-beatGrid' }, extra));
       }
     }
     for (const c of (ir && ir.chunks) || []) {

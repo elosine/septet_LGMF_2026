@@ -20602,3 +20602,68 @@ sleigh bells 68 ms before one, the tambourine 28 ms before the next, the bass dr
 over all ten (297.4 … 302.9) at 90 bpm is a candidate the picture does not show.
 
 **Nothing on the page for the four** — his pick owed.
+
+## §645. The castanets two graces into a quarter; the beat frame's lines and ball over the staff's OWN outer lines (2026-09-30, Fable, session 18; LG-215)
+
+**What prompted it** (his eye on §643's page; his words whole in LG-215): *"the castanets, the first two are grace notes. And let's make …
+the third one, a … quarter note. … can we have the lines, the tempo lines be the full staff length from the top of the staff, the top line to
+the bottom line, and the ball bounce the full distance."*
+
+**The castanets** (hands; one `reextract` run): the three-note beam dropped (`@drop:297.53-297.70@4`); `wc-3756` · `wc-3757` GRACES, beamed as
+a pair (`--beam 297.53-297.65@4`; the heads 0.707, the scaled beam, the stroke on the first stem at the beam's corner — S6 · S22), no names;
+`wc-3758` a plain QUARTER, stem up 4.5, its own name (ff, vel 105). No slur (none asked; S6's classical slur into the main note is one hand).
+A hand's `dynMark: null` does NOT fall back to the device's `band` — it draws no name; `"dynMark":"band"` restores it.
+
+**The frame over this staff** (a rule, not a hand): the grid's lines and the ball were written for five lines — `STAFF_HALF = 2` in
+`layout.js` (the tick) and in `animobj.js` (the ball). Now both read the part's own outer lines: `Layout.staffExtentResolver(ens)` (one copy,
+from `staffInfoOf` — the percussion's seven lines at 2 ss are ±6); the tick takes them in `layoutSection`; the ball gets them on its instance
+(`staffTop · staffBot`, only when not ±2) from `opts.staffExtentOf`, passed by the app (`notation.html`), `export_video.js` and
+`capture_lane.js`. On the page: the five lines −6.4 … +6.4 (the outer lines + the 0.4 overhang every frame has), the ball dropping the same
+12.8 ss + its 2 ss rise. Every other part's frame and ball unchanged (an EH ball carries no extent; the shield names `piece-lgmf` alone).
+**The AI's reading:** "from the top line to the bottom line" drawn WITH the standing 0.4 overhang (his template, §566) — `gridOverhangSs`
+is one row; a percussion-only 0 would be a second.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone. The screen gate not run (no
+new kind; the tick's extent changed on one part) — offered.
+
+**For his eye:** a HARD reload (page files changed) → `piece-lgmf` → `297.5`, play from `296.5`.
+
+## §646. The percussion staff — his questions answered with the data, and the top line of a rule set for it (2026-09-30, Fable, session 18; LG-215)
+
+**What prompted it:** *"let's use the minimum stem height if there is one. Or help me understand what we need to do for stems that go up that
+are at, towards the top of the staff. Do we have any rules for that or do we need to make some? And make sure the quarter stems are the same
+height, the proper height. And are you sure the castanets are in the right rhythmic location? From the sound, it sounds like the third one
+lands on the beat. … there are a lot of issues here. Let's figure out how to handle the percussion staff since there might be things inside
+staff and … stems with different directions. Help me shore this up for this context."* — the planning method entered (phase 1 → the top line).
+
+**THE DATA — what the engine assumes, read in the code:** every vertical rule is written for a five-line staff whose outer lines are ±2 ss
+and whose positions are PITCHES. The percussion staff is seven lines 2 ss apart (±6) whose positions are INSTRUMENTS. So:
+- **stems** — `stemLenFor(y, base) = max(base, |y|)`, "lengthen to the middle line", whatever the direction: the bass drum (−6, stem DOWN)
+  got 6 ss. The flag-clear law and the chain's side-with-room rule use `STAFF_EDGE = 2`. The quarters ARE one height today (4.5, the plain
+  note's): the castanet's tip 2.6 above the top line, the bowl's and the brake drum's inside the staff.
+- **what conventional engraving has for an up-stem near the top** (from memory — Gould · LilyPond's `stem-shorten`, the numbers read from his
+  install in §551: 1.0 · 0.5 · 0.25): a stem pointing AWAY from the staff's middle is SHORTENED, never under about 2.5 ss (a sixth). It was
+  never built here (N-2's "forced-direction shortening", still on its list) — and it is a pitch-staff rule: it presumes the direction was
+  forced against the position.
+- **the dynamics** — one row at −4.6 (2.6 under a five-line staff): inside this staff; a flipped name lands at +2.9, inside too.
+- **the frame** — fixed today (§645).
+
+**THE CASTANETS' PLACE — the data:** the heads are on the score's own onsets (the validator holds an event's onset to the save's
+`startSeconds`): 297.540 · 297.641 · 297.689. The teal frame was pinned to notes 5 · 6, so its line stands at 297.524 — on the FIRST hit
+(16 ms before it); the loud third comes 165 ms after the line = one 16th of this beat (0.665 / 4 = 0.166). The ear takes the loud hit (vel
+105 after 69 · 60) as the arrival — and now that the first two are graces, the convention agrees: the main note carries the beat. But no
+steady beat puts 4 · 5 · 6 all on lines: 4 → 5 is 0.500 s, 5 → 6 is 0.665 s. So: **(A)** as drawn — lines on the bowl and the brake drum, the
+castanet quarter a 16th after its line · **(B)** the frame a 16th later (phase +0.166: lines 297.690 · 298.355 · 299.020) — the line ON the
+castanet quarter, the bowl and the brake drum each a 16th BEFORE the next line · **(C)** his hand in the composer — the three castanet hits
+165 ms earlier (the third on 297.524), then all three on lines; it changes the sound. His word.
+
+**THE TOP LINE — a rule set for the percussion staff (proposed; PLAN item to be written at his go, step by step):**
+1. The staff's own edges — every rule that assumes five lines reads this staff's top and bottom line (the frame: done, §645).
+2. Stems — the direction by instrument (the bass drum down, the rest up — his), ONE length whatever the line.
+3. Dynamics — one row OUTSIDE the staff.
+4. The marks on a note (dots · accents · the grace's stroke · slurs · hairpins) — where, on a staff whose spaces are not free.
+5. Ringing notes — a let-ring mark.
+6. The lock — a percussion block in the check.
+
+**Put to him for step 2:** the one length — 3.5 (the classical octave; the AI's lean) · 2.5 (the conventional minimum — his "minimum") · 4.5
+(the winds' plain stem here, as drawn).

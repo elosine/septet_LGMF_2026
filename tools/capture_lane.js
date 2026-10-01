@@ -139,6 +139,7 @@ let svg = StaticPage.staticPageSvg({
 const dev = Layout.deviceResolver(ir, (C.engraving || {}).layout || {});
 const inst = AnimObj.collect(ir, score, C.animated, {
   parts: FRAME_PARTS, meta: false,
+  staffExtentOf: Layout.staffExtentResolver(ENS),   // [§645]
   deviceOf: dev, drawnOf: e => Layout.drawnLevelSamples(e, dev(e) || {}),
 }).filter(i => i.part === undefined || FRAME_PARTS.includes(i.part));
 const overlay = AnimObj.frameSvg(ONLY ? inst.filter(i => i.part === undefined || KEEP.has(i.part)) : inst, view, t, C.animated);
