@@ -217,6 +217,37 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
+### SESSION 18 · CHECKPOINT #10 (2026-10-01, Opus) — ► THE NEXT STEP: A NEW AUDIO RENDER OF DRAFT 01 (mid-session checkpoint)
+
+- **The task:** his ask (LG-236): *"will want do a new audio render after clear"*. The save
+  `scores/piece-Recombination-Draft01-done.json` changed since the last render (2026-09-26): §669's chord unison (82 onsets, written
+  by the AI at his word), the EH's 343.12 lengthened · 389.8 D6 → D5, the DB's 329.26 A5 → A4 · 309.96 C♯5 → C♯4. The page
+  (`piece-lgmf`, `9ad80aa`) already carries them; the WAV does not.
+- **State:** nothing being built. His proof of the notation: no revisions came before this checkpoint. The server was restarted by him.
+- **► THE NEXT STEP, as an instruction** (Opus; the route is RENDER.md §1, the Draft 01 run is its §4 register and RUNNING_LOG §406 · §407):
+  1. ASK HIM, inline: Reaper open with the bridge alive · the rack SAVED · his composer tab RELOADED or closed (it holds the pre-§669
+     onsets; the capture reads the FILE, but a Save from that tab before the capture would write the old onsets back).
+  2. `node tools/capture_composer_midi.js --score piece-Recombination-Draft01-done` (≈ 4 min; needs the score server on :5400) — the
+     last run: 1076 / 1076 notes, 436 bends in place, 0 hanging. The event count is unchanged (1076).
+  3. `node tools/export_midi.js --score piece-Recombination-Draft01-done --capture midi/piece-Recombination-Draft01-done.capture.json`
+     — the checks must pass before a file is written; it warns if the save is newer than the capture.
+  4. `node tools/render_reaper.js --score piece-Recombination-Draft01-done --up` (≈ 5 min) — **`--up` is required** (§407: the piece's
+     file goes to −1 dBTP by one plain gain; the last run +10.0 dB). It REPLACES `notation/audio/piece-Recombination-Draft01-done.wav`
+     (gitignored — the old one is not kept unless copied first; ask him only if he wants the old one).
+  5. Measured off the file (the tool prints it) → append the RENDER.md §4 register line · a RUNNING_LOG § (**§670 next**) · the journal ·
+     the state lines → commit the tracked outputs (`midi/piece-Recombination-Draft01-done.mid`, its 29 per-track files,
+     `reaper/place_piece-Recombination-Draft01-done_midi.lua`) + the docs, explicit paths, push. No re-extraction: the WAV's name is the
+     IR's `source.score`, the ♪ link finds it.
+  6. His ear (the ♪ render on `piece-lgmf`).
+- **`Resume reads:`** `docs/RENDER.md` §1 · §4 (the last two register lines). Nothing else.
+- **Pending him:** the four chords after the staggered entries (399.11 · 401.76 · 403.43 · 407.05) were lined up too — his to undo · the
+  rest as in the block below.
+- **Deliberately uncommitted** (`git status --short` at this checkpoint — the same 29 paths as every checkpoint of session 18, all his):
+  5 modified — `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries and his actuals' index) ·
+  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his save — and §669's 82 onsets, the AI's one edit at
+  his word); 24 untracked — `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` · `bank/passages/lgmf-sec2.json` ·
+  `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · his fifteen named saves in `scores/`. Never stage them.
+
 ### SESSION 19 OPENS ON THIS — `/session-start`; nothing is being built (session 18 closed 2026-10-01, Fable)
 
 - **The piece:** _Recombination_ (D32). `scores/piece-Recombination-Draft01-done.json` is the ONE source of notation (D43). **His save moved
@@ -379,6 +410,9 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #10 (2026-10-01, Opus):** the chords in unison (§669) · the server
+restarted · his proof gave no revisions · ► THE NEW AUDIO RENDER OF DRAFT 01 — the steps in the block CHECKPOINT #10 at the top of §2.
 
 **Open at session end — SESSION 18 CLOSED (2026-10-01, Fable):**
 - **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a HARD reload (`layout.js` · `render.js` ·
