@@ -20667,3 +20667,29 @@ castanet quarter, the bowl and the brake drum each a 16th BEFORE the next line �
 
 **Put to him for step 2:** the one length — 3.5 (the classical octave; the AI's lean) · 2.5 (the conventional minimum — his "minimum") · 4.5
 (the winds' plain stem here, as drawn).
+
+## §647. His question — what stem direction tells a percussionist; Ferneyhough's layers (2026-09-30, Fable, session 18; LG-216)
+
+**What prompted it** (step 2 of §646's top line, the stems — his question before answering it): *"is ther any logic for the performer as to
+stem direction for percussionists. like Fernie Ho has top and bottom stems and sometimes another group in the middle. Is that just rhythmic
+groupings or instrument groupings or anything to do with uh, alternating hands?"*
+
+**The answer given — conventional practice and the Ferneyhough case, FROM MEMORY (Gould's percussion chapter; Steven Schick's account of
+learning Bone Alphabet, Perspectives of New Music 1994; not checked this session):** three logics exist, in this order of commonness —
+1. **VOICES — rhythmic layers.** The standard meaning in multi-percussion: one stem direction = one stream of rhythm, read and counted as a
+   line, with its own beams, rests, tuplets and often its own dynamics. A single stream is written with ONE direction (usually up) across all
+   the instruments it touches; a second direction appears only when a second independent stream runs at the same time. This is Ferneyhough's
+   use in Bone Alphabet: the up-stems, the down-stems and the occasional middle group are independent rhythmic strata (each with its own
+   irrational brackets), each free to move across the seven instruments — not instrument families, not hands; the player derives the
+   sticking from the composite.
+2. **LIMBS or INSTRUMENT GROUPS.** The drum-kit convention: hands up (cymbals · snare · toms), feet down (bass drum · hi-hat pedal); carried
+   into some set-ups as "this group up, that group down" (skins / metals, or one low drum below). It reads as a fixed voice per instrument.
+3. **HANDS.** Rare for stems. Sticking is normally shown by R · L letters (or left to the player); stems-as-hands appears in mallet and
+   hand-drum writing on the piano's model, seldom in multi-percussion.
+
+**What a direction says to the player, then:** "these notes belong to one line" — a grouping to count and shape — not which hand.
+
+**Bearing on this part (the AI's, for step 2):** the percussion here is one player on sparse strikes, mostly ONE stream — by logic 1 every
+stem would go one way (up), a second direction reserved for a truly simultaneous second stream. His call of §643 (the bass drum down, the
+rest up) is logic 2, the kit's: legible and familiar, but it tells the player the bass drum is its own voice throughout. Both are defensible;
+which one is his — it is the first half of step 2.

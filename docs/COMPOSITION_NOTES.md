@@ -3499,3 +3499,11 @@ convention: the low drum's voice below). Candidates for notes 7 … 10. RUNNING_
 that hit. The larger ask: the seven-line staff needs its own rule set — its positions are instruments, its stems go by instrument, its
 spaces are not free for marks — rather than a fix per figure (his §577 word again: rules, not hands). RUNNING_LOG §645 (built) · §646 (the
 data, the castanets' place, the top line).
+
+## LG-216 — 2026-09-30 — what does stem direction tell a percussionist — rhythm groups, instrument groups, or hands?
+
+*His words (session 18, Fable):* "is ther any logic for the performer as to stem direction for percussionists. like Fernie Ho has top and bottom stems and sometimes another group in the middle. Is that just rhythmic groupings or instrument groupings or anything to do with uh, alternating hands?"
+
+*The AI's reading (marked as such):* "Fernie Ho" = Ferneyhough (Bone Alphabet, the model for this piece's seven-line staff, §332 … §337). He is
+asking what the direction MEANS before fixing a rule for it — whether the bass-drum-down choice says something to the player he does or does
+not intend. RUNNING_LOG §647.
