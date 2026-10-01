@@ -2485,7 +2485,14 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the opening as the exporter makes it: the 4 s lead-in on the first page, then the music — no title card
   > - the ending: the last page held while the tail rings — `--t1 886.7` (the WAV's length)
   >
-  > **5. The whole film, with the audio** — *to be laid out when we discuss it.*
+  > **5. The whole film, with the audio** (the wide shot with close-ups — his "b", §693)
+  >
+  > Result when done: one finished file of the whole piece, picture and sound, about 14:51 long, ready for his watch-through.
+  >
+  > - ☑ the two close-up groups pointed at this ensemble (`realizations.video-cut.halves`: the four winds · the percussion, vibraphone and strings; 1.85×)
+  > - a close-up test for his eye — MADE (`notation/video/test/Recombination-closeup-test-284-316.mp4`); ► his eye
+  > - the cut list (`tools/make_cut.js --dur 886.7 --seed N …` → `notation/video/cut-list.json`) — the recipe his
+  > - the whole film: `export_video.js --ir piece-lgmf --view video --fps 30 --cut notation/video/cut-list.json --fade 5 --fadeMode cross --t1 886.7 --audio … --out …`
   >
   > **6. His watch-through** — *to be laid out when we discuss it.*
   >

@@ -21989,3 +21989,26 @@ B (a): the last page held while the sound rings out (`--t1 886.7`, the WAV's len
   to read at that size; a close-up shows them near twice as large.
 
 **Put to him:** C — (a) the wide shot alone · (b) the wide shot with close-ups, a close-up test for his eye before the cut list.
+
+## §693. The film with close-ups — the groups pointed at this ensemble; a close-up test (2026-10-01, Fable, session 18; LG-259)
+
+**His word on §692's question C:** *"b"* — the wide shot with close-ups, as piece #5's film.
+
+**Done:**
+- `container.json` `realizations.video-cut.halves`: `V-TOP [0,1,2,3]` (EH · Bsn · Hn · Tpt) · `V-BOT [4,5,6,7]` (Perc · Vib · Vc · DB) —
+  they were piece #5's seven parts. The zoom kept at its 1.85×.
+- one probe of each close-up at 300 s (`export_video.js --probe 300 --half V-TOP | V-BOT`), LOOKED AT: both groups fill the 1080 frame
+  with room at 1.85 — the winds' four staves top to bottom, the percussion's seven-line staff with its names · the vibraphone · the
+  two strings. In a close-up a staff space is ≈ 12 px (≈ 6 in the wide shot); the sweep is 12 / 1.85 = 6.5 s per window.
+- THE CLOSE-UP TEST: a hand cut list for the test stretch (wide to 290 · V-TOP 290 … 300 · wide · V-BOT 304 … 314 · wide),
+  `--fade 5 --fadeMode cross`, the new audio → `notation/video/test/Recombination-closeup-test-284-316.mp4` — 32.000 s, 1920 × 1080,
+  960 frames, 8 page rasters, 21 s to render. One frame of each close-up pulled from the file and looked at: the close-ups are drawn.
+- the cut list's times are PIECE seconds × fps (the exporter's frame index is absolute; the lead-in is before frame 0 and takes the
+  first entry) — so `make_cut.js --dur 886.7`, not the film's 890.7.
+
+**Seen in the probes, told him, not changed:** a GC's impact ball on the LAST staff of the upper group (the trumpet) sits on the
+boundary between the groups — its lower half is cut in the winds' close-up and shows as a half dot at the top edge of the lower
+group's. Inherited (the groups' rows are cut on the lane edge).
+
+**Owed by him:** his eye on the close-up test · the cut list's recipe — piece #5's (`--frac 0.29 --min 20 --max 30 --lead 40 --tail 45
+--gap 25`, seeded: for 886.7 s about ten close-ups) or his own.

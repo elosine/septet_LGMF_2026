@@ -3809,3 +3809,10 @@ change anything yet. RUNNING_LOG §690.
 *His words (session 18, Fable, on §691's two questions):* "Aa, Ba"
 
 *The AI's reading (marked as such):* no title card; the 4 s lead-in; the last page held under the tail. RUNNING_LOG §692.
+
+## LG-259 — 2026-10-01 — the film: close-ups too
+
+*His words (session 18, Fable, on §692's question C):* "b"
+
+*The AI's reading (marked as such):* the wide shot with close-ups cut in, piece #5's way; the groups, the zoom and the cut list to be
+seen and agreed. RUNNING_LOG §693.
