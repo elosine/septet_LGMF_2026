@@ -3586,3 +3586,10 @@ the arrival, landing a space under the staff rather than on an imagined line. RU
 castanets' arrival, the ruff tucked under the beam, a GC on the arrival, one dynamic for the whole gesture under its first note. The
 dynamics row is set by what it must clear (the GC's ball), not by a number. The second figure: an accented wood block, then the bass drum
 suddenly soft. RUNNING_LOG §657 (built) · §658 (subito).
+
+## LG-227 — 2026-09-30 — the percussion at 305.1: five notes — a beamed 16th pair, a bare head, a grace, a flagged 16th clearing the staff; mp and a crescendo; 302.9 pp
+
+*His words (session 18, Fable):* "302.9 pp. 305.1 five partials, five partials. Sixteenth beams, the first two stems up, the minimum stem, no stem middle, the fourth partial grace note, stem up, and the fifth partial stem up, sixteenth flag, clear the staff. MP on 305.1 and a crescendo hairpin through to the last partial in that set."
+
+*The AI's reading (marked as such):* the mixed practice of §648 in one figure — stems only where they bind or say something (a beamed pair, a
+grace into its note), a bare head for the lone strike between; one dynamic at the head of the set and a hairpin through it. RUNNING_LOG §659.

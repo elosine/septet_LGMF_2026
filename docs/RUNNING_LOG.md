@@ -21041,3 +21041,33 @@ suddenly quieter."*
   page now has; `sub. p` if he wants it said aloud. The next percussion entry (305.25) then reads as p unless it carries its own name.
 
 **Not built:** a "sub." text beside a dynamic does not exist as a mark here yet — one word and it is a hand (the italic word row, 0.75).
+
+## §659. The percussion's five at 305.25 by hand — a beamed 16th pair, a bare head, a grace into a flagged 16th; mp and a crescendo under them; 302.93 pp (2026-09-30, Fable, session 18; LG-227)
+
+**What prompted it** (his words whole in LG-227): *"302.9 pp. 305.1 five partials, five partials. Sixteenth beams, the first two stems up, the
+minimum stem, no stem middle, the fourth partial grace note, stem up, and the fifth partial stem up, sixteenth flag, clear the staff. MP on
+305.1 and a crescendo hairpin through to the last partial in that set."*
+
+**The five** (`ch-4-*`; his 305.1 = 305.254): the sleigh bells 305.254 (the top line, +6) · the castanets 305.458 (+4) · the temple bowl
+305.831 (0) · the wood block 306.240 (−2) · the brake drum 306.344 (−4, 0.90 s). The gaps 0.204 · 0.373 · 0.409 · 0.104 s.
+
+**Built** (`--plainNotes 4:305.2:306.4` + hands):
+- **1 + 2 beamed 16ths, stems up, THE MINIMUM STEM** — `--beam 305.25-305.46@4`, `noteBeams 2`, the beam at +8.64 (a hand `beamYSs`): the
+  sleigh bells' stem **2.5 ss** (the minimum — the engine's own `beamStemSs` floor, the conventional sixth), the castanets' 4.5; the beam
+  device's cue off.
+- **3 no stem** — the temple bowl a bare head (`nhStem false`).
+- **4 a grace, stem up** — the wood block: the small head, a slashed eighth flag (`grace · nhStem flag8`), its stem 4.1 (the standard at the
+  grace's scale) to +2.2, inside the staff.
+- **5 a flagged 16th, stem up, the flag CLEARING THE STAFF** — the brake drum at −4: the flag-clear law on the staff's own top line asks 13.75
+  ss, over the max 10.5 — raised for this note by hand (`flagClearMaxSs 16`): the stem to +9.89, the flag's foot at +6.38.
+- **mp** under the sleigh bells and **a crescendo hairpin** from it to the brake drum's onset (`hairpinTo 306.344`), on the staff's dynamic
+  row (−8.59); no closing name; the other four unnamed.
+- **302.927** (the bass drum of the pair): p → **pp**.
+
+**The AI's readings, his to reverse:** "the minimum stem" = 2.5 ss on the shorter of the pair (the sleigh bells, on the top line), the beam
+flat, so the castanets' is 4.5 · the grace an acciaccatura (slashed, flagged), unslurred · the hairpin ends at the last note's onset · the
+fifth is the brake drum (its 0.9 s ring unmarked — no let-ring mark exists yet).
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `302.9` · `305.3` … `306.4`, play from `304.5`.
