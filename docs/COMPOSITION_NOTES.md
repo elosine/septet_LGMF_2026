@@ -3803,3 +3803,9 @@ change anything yet. RUNNING_LOG §690.
 
 *The AI's reading (marked as such):* the right-margin overhang stays (the standard); the film's look, sync and level accepted on the
 284 … 316 s stretch. RUNNING_LOG §691.
+
+## LG-258 — 2026-10-01 — the film opens as it is and ends on the held page
+
+*His words (session 18, Fable, on §691's two questions):* "Aa, Ba"
+
+*The AI's reading (marked as such):* no title card; the 4 s lead-in; the last page held under the tail. RUNNING_LOG §692.

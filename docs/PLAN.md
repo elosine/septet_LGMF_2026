@@ -2478,7 +2478,12 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   >   the first long-tone chord) with the new audio
   > - he watches; his findings collected, then fixed together
   >
-  > **4. What opens and closes the film** — *to be laid out when we discuss it.*
+  > **4. What opens and closes the film** — ☑ DECIDED 2026-10-01 (§691 · §692, his "Aa, Ba")
+  >
+  > Result when done: we know what the first and last seconds of the film show, so the whole film is rendered once.
+  >
+  > - the opening as the exporter makes it: the 4 s lead-in on the first page, then the music — no title card
+  > - the ending: the last page held while the tail rings — `--t1 886.7` (the WAV's length)
   >
   > **5. The whole film, with the audio** — *to be laid out when we discuss it.*
   >

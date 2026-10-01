@@ -21971,3 +21971,21 @@ standard unchanged; the test film's look and sound accepted. PLAN § 2b-F step 3
 
 **Put to him:** A the opening — (a) as it is, (b) a title card first · B the ending — (a) the last page held under the tail,
 (b) a fade over the tail. **Held for step 5, named to him:** close-ups as in piece #5, or the wide shot alone.
+
+## §692. The film's opening and ending decided; step 5 opened — the wide shot alone, or with close-ups (2026-10-01, Fable, session 18; LG-258)
+
+**His word on §691's two questions:** *"Aa, Ba"* — A (a): the opening as it is, the 4 s lead-in on the first page, no title card ·
+B (a): the last page held while the sound rings out (`--t1 886.7`, the WAV's length). PLAN § 2b-F step 4 done, written in.
+
+**Step 5, the data read before the question:**
+- the wide shot of the whole piece is one command — the test film's, without `--t0`, with `--t1 886.7`; of the order of ten minutes.
+- piece #5's film cut CLOSE-UPS into the wide shot: `tools/make_cut.js` (a seeded cut list — its parameters there: 29 % of the film,
+  segments 20 … 30 s, 40 s of wide shot first, 45 s last, 25 s between) · `realizations.video-cut` (zoom 1.85×, two "halves" of the
+  frame) · `export_video.js --cut … --fade 5 --fadeMode cross`. All three are in this repo, inherited.
+- what is NOT set for this piece: the halves — `video-cut.halves` is still `V-TOP [0,1,2] · V-BOT [3,4,5,6]`, piece #5's seven parts;
+  here eight (EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7) — the natural split the four winds · the percussion,
+  vibraphone and the two strings; the zoom to be seen; no cut list made.
+- why it matters here: in the 1920 × 1080 wide shot a staff space is about 6 px with eight lanes — section 2's small figures are hard
+  to read at that size; a close-up shows them near twice as large.
+
+**Put to him:** C — (a) the wide shot alone · (b) the wide shot with close-ups, a close-up test for his eye before the cut list.
