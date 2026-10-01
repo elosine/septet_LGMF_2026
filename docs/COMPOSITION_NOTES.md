@@ -3561,3 +3561,11 @@ did. RUNNING_LOG §653.
 
 *The AI's reading (marked as such):* the shortened flight of §653 moves well but sits low on the tall staff; he wants the height back without
 the harshness. Possible within limits — the curve softened as the arc grows. RUNNING_LOG §654.
+
+## LG-224 — 2026-09-30 — the percussion's opening: tempo lines and GC out; the bass drum a 16th stem down; the castanets' graces with full-height stems into a 16th stem up
+
+*His words (session 18, Fable):* "Okay, let's take out the tempo lines and the GC. Let's bring back the flag on the bass drum, downward stem, whatever it was before. I think it was eighth, it may have been sixteenth. Downward stem on the third castanet and make those grace note stems longer, same height as the quarter note stem would have been, upwards. Actually, the third castanet, let's make an upward stem too. Let's give it a sixteenth flag. Let's give the bass drum a sixteenth flag."
+
+*The AI's reading (marked as such):* after the frame (three ways), the GC (two ways) and the cue line, the opening figure goes back to WRITTEN
+VALUES alone — the T8 way of the winds: a 16th pickup on the bass drum (down — its own voice), a ruff of two graces into a 16th on the
+castanets (up), the graces drawn at full stem height so the three tips make one line. No cue at all for now. RUNNING_LOG §655.

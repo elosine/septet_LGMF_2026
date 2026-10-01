@@ -20915,3 +20915,35 @@ longer reads as an event; about 1.5 × the present height is comfortable, the fu
 
 **Offered, not built:** (a) as it is · (b) the arc the line's own height + the rise (10 ss) with the curve softened to the English horn's
 landing speed — a rule: the ball's powers scale with its drop · (c) a height he names.
+
+## §655. The percussion's opening back to stems — the frame and the GC out; the bass drum a 16th stem down, the castanets' graces at the quarter's stem height into a 16th stem up (2026-09-30, Fable, session 18; LG-224)
+
+**What prompted it** (his eye on §653's page; the ball question of §654 left where it is): *"Okay, let's take out the tempo lines and the GC.
+Let's bring back the flag on the bass drum, downward stem, whatever it was before. I think it was eighth, it may have been sixteenth. Downward
+stem on the third castanet and make those grace note stems longer, same height as the quarter note stem would have been, upwards. Actually,
+the third castanet, let's make an upward stem too. Let's give it a sixteenth flag. Let's give the bass drum a sixteenth flag."*
+
+**Built** (hands; one `reextract` run):
+- the frame out (`@drop` of §653's `--beatGridFit …:olive`) and the GC off the castanet quarter (`gc false`) — the percussion carries no
+  frame, no cue line, no GC now.
+- **the bass drum** (`wc-3725`, 297.407): `nhStem flag16 · stemDir down` — what it was in §643 (a 16th).
+- **the castanets' third** (`wc-3758`, 297.689): `nhStem flag16 · stemDir up` — a 16th, no longer the bare head / the quarter.
+- **the two graces** (`wc-3756 · 3757`): their beam at the quarter's stem tip — a hand `beamYSs 8.636` (the head's attach 4.136 + 4.5).
+
+**Two rules fell out (layout.js), both the percussion staff's step 2 (§646):**
+- **ON A LINED STAFF A STEM IS ITS BASE LENGTH WHATEVER THE LINE** — the "lengthen to the middle line" rule (`stemLenFor`) reads a position
+  as a pitch on five lines; it had given the bass drum (the bottom line, stem down, AWAY from the middle) 6 ss in §643. Now 4.5: −6.14 →
+  −10.64, the 16th flag at the tip. "Whatever it was before" kept as the VALUE (a 16th, down), not the 6 ss — a misfire then (§646), told him.
+- **a hand may NAME a beam's height** (`beamYSs` on the members): a beam member's stem ran to the five-line staff's flagged height (+5.86),
+  which on this staff left the graces 1.8 ss stems from their line at +4.
+
+**On the page:** the graces' stems 4.54 ss to a beam at +8.64 · the 16th's stem 4.5 to the same height, its flag there — the three tips level,
+2.6 ss above the top line · the bowl · the brake drum · the sleigh bells · the tambourine bare heads still · the wood block + bass drum pair
+as §651 (its beam at −8.64, untouched).
+
+**Not decided, noted for step 2:** the general beam height on this staff (one stem length beyond the group's outermost head would put the
+wood-block pair's beam at −10.6, under the lane's bottom at −9) · the bass drum's flag at −10.6 sits 1.4 ss above the vibraphone's top line.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5`.

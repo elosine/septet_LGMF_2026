@@ -1915,7 +1915,11 @@
                   // LEVEL the beam afterwards and move this note's stem with it
                   let beamTip = null;
                   // [§554] a device may carry its own base length (byEnv.plainNote.stemLenSs — rules.json objects.stem.lengthLongSs, his tenth)
-                  let L = stemLenFor(yDraw, dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
+                  // [RUNNING_LOG §655 — the percussion staff's stems, step 2 of §646] ON A LINED STAFF A STEM IS ITS BASE LENGTH WHATEVER THE LINE: the
+                  // "lengthen to the middle line" rule (stemLenFor) reads a position as a pitch on five lines — on the seven-line staff it gave
+                  // the bass drum (−6, stem down, AWAY from the middle) 6 ss. His "make sure the quarter stems are the same height".
+                  const baseL = dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen;
+                  let L = ((spec.staffInfo && spec.staffInfo.lined) ? baseL : stemLenFor(yDraw, baseL)) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
                   // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
                   // of the flag clear the staff, just like three pixels or so
                   // — maybe not the full typical gap"): piece #2's
@@ -1957,7 +1961,10 @@
                     const techStem = ((DEV.byTechnique || {})[e.technique] || {}).nhStem;
                     const fdur = /^flag(\d+)$/.test(techStem || '') ? +RegExp.$1 : 8;
                     const fgB = glyphs.flag['up' + fdur] || glyphs.flag.up8;
-                    let beamY = o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + fgB.hSs);
+                    // [§655, his "make those grace note stems longer, same height as the quarter note stem would have been"] a hand may NAME the
+                    // beam's height for its group (beamYSs on the members, in ss from the staff's middle on the stem's side) — the default is
+                    // the five-line staff's flagged height, which on the percussion staff left the castanets' graces 1.8 ss stems
+                    let beamY = dev.beamYSs != null ? dev.beamYSs : o.beamYSs != null ? o.beamYSs : (STAFF_EDGE + clr + fgB.hSs);
                     // ...BUT the group's ARTICULATIONS need room above it (day
                     // 23): in this frame the lane holds 6.51 ss and the lowest
                     // cluster notes already reach the bottom edge, so an accent
