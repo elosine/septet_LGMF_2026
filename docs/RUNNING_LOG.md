@@ -20693,3 +20693,29 @@ learning Bone Alphabet, Perspectives of New Music 1994; not checked this session
 stem would go one way (up), a second direction reserved for a truly simultaneous second stream. His call of §643 (the bass drum down, the
 rest up) is logic 2, the kit's: legible and familiar, but it tells the player the bass drum is its own voice throughout. Both are defensible;
 which one is his — it is the first half of step 2.
+
+## §648. His question — the precedent for no stems, or stems only on a figure (2026-09-30, Fable, session 18; LG-217)
+
+**What prompted it** (still step 2 of §646, the stems): *"What's the precedent for no stems or just stem some of the time when you have a
+particular grouping or rhythmic figure, but everything else just the note head?"*
+
+**The answer given — FROM MEMORY (Kurt Stone, Music Notation in the Twentieth Century, 1980, on spatial notation; Gould's chapter on
+time-space notation; the scores named are recalled, not opened this session — the details of any one are to verify before citing):**
+- **Stemless heads are the home convention of time-space notation.** Once the page's distance IS the time, a stem has nothing to say for a
+  lone event: Earle Brown's "time notation", Feldman's free-duration pieces, Cage, Christian Wolff, Kurtág; and in solo percussion the fully
+  stemless scores — Xenakis's Psappha (points on a grid), Stockhausen's Zyklus, Feldman's The King of Denmark.
+- **The mixed practice he describes is the textbook one for it:** a lone event a bare head (with a line when it sustains); a stem and a beam
+  appear only where notes must be BOUND — a fast figure, a grace group ("as fast as possible", often with the slash), a feathered beam for an
+  accelerando, a beam as a duration or phrase device. The stem is there to carry the beam, not to give a value. Stone codified it as the
+  recommended standard; Berio's Sequenzas in their proportional versions and Lutosławski's ad libitum passages are the usual examples of
+  beams as grouping in spatial writing.
+- **The opposite pole** is Ferneyhough: every note stemmed, because there the rhythm is counted and the stems carry it.
+
+**This score already does both** (told him): the long tone and the vibraphone's bow are open stemless heads with a bar; the uneven group (S8)
+is stemless heads under a floating beam; the plain note, the one-off and the figures are stemmed because T8 writes values as pace.
+
+**Bearing on the percussion staff (the AI's, a third option for step 2):** (c) a strike = a bare head on its instrument's line, a stem only
+where a flag or a beam is needed (the castanets' graces, a burst). It removes the three problems of §646 at once for lone strikes — no
+direction to mean something unintended, no length rule, nothing standing out of or hanging below a seven-line staff — and the beat frame
+already says where the strike falls. What it gives up: the value as pace (T8) on a lone strike — which for a strike says little (his own
+"they are all just strikes"). The AI's lean for this staff; his word.

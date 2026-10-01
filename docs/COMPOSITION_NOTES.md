@@ -3507,3 +3507,10 @@ data, the castanets' place, the top line).
 *The AI's reading (marked as such):* "Fernie Ho" = Ferneyhough (Bone Alphabet, the model for this piece's seven-line staff, §332 … §337). He is
 asking what the direction MEANS before fixing a rule for it — whether the bass-drum-down choice says something to the player he does or does
 not intend. RUNNING_LOG §647.
+
+## LG-217 — 2026-09-30 — the precedent for stemless heads, with stems only on a figure
+
+*His words (session 18, Fable):* "What's the precedent for no stems or just stem some of the time when you have a particular grouping or rhythmic figure, but everything else just the note head?"
+
+*The AI's reading (marked as such):* he is weighing the percussion's strikes as bare heads on their lines, stems kept for figures that need
+binding — the time-space convention, and what his own long tones and uneven groups already do. RUNNING_LOG §648.
