@@ -22223,3 +22223,15 @@ piece or postmortem"*.
 enough to act on cold — the film-against-Chrome gate (with the two lessons of the day: a test stretch holds every drawn kind · every
 render its own file) · a bundled font for ♭ ♯ ♮ · the rule for a curve label on occupied ground (and its sibling, the slur pass across a
 mark's width) · the housekeeping on disk. Journal §2's line re-worded: held, not to be raised again in this piece.
+
+## §702. Checkpoint #12 — Draft 01: the notation locked, the film approved; the performance notes next (2026-10-01, Fable, session 18)
+
+**His word:** `/checkpoint`, after *"let's move to a checkpoint. And then after the clear, I want to work on the performance notes."*
+
+**The sweep:** journal §2 — checkpoint #12's block in place of #11's (whole in git at `e5a3604`), the table's top rows, the open-items
+line · the tracker's row 13 amended for §680 (the second head's partial on a take → take morph; it said "cents only") · the state lines.
+Nothing decided today lived only in the chat — §672 … §701 were written as they happened.
+
+**Left for the next session, said in the block:** the tracker was mostly written before section 2 was notated — the long tone, the
+chord's one name, the one-off and the GC's purpose, the grace family, the percussion staff's conventions and the vibraphone's ○ at the
+end of a fall have no row; naming that gap is the notes session's first act, not this checkpoint's.

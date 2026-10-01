@@ -217,116 +217,59 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### SESSION 18 · CHECKPOINT #11 (2026-10-01, Opus) — THE NEW RENDER MADE · ► HIS EAR, THEN HIS EYE ON SECTION 2 (mid-session checkpoint)
+### SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable) — DRAFT 01: THE NOTATION LOCKED · THE FILM APPROVED AND ARCHIVED · ► THE PERFORMANCE NOTES (mid-session checkpoint)
 
-- **The task:** the audio of Draft 01 after session 18's changes — DONE at his word *"run the new audio render independently to the end"*
-  (RUNNING_LOG §671; `d1a79ea`). Checkpoint #10's block (the render's steps, written cold) is whole in git:
-  `git show d1a79ea:docs/PROJECT_JOURNAL.md`; the route is `docs/RENDER.md` §1, the run its §4 register.
-- **The deliverable:** `notation/audio/piece-Recombination-Draft01-done.wav` (gitignored; it REPLACED the 2026-09-26 file, which was not
-  kept) — 886.664 s · **−4.9 dBTP · −22.8 LUFS** · LRA 20.1 · +6 dB plain at his cap (§670; +9.9 was the way to −1 dBTP). Rendered from
-  `midi/piece-Recombination-Draft01-done.mid` + its 29 per-track files (committed; 11 moved, the percussion · vibraphone · Bsn b identical).
-  The float is kept: `notation/audio/raw/piece-Recombination-Draft01-done-float.wav` (−10.9 dBTP · −28.8 LUFS).
-- **AFTER THE CHECKPOINT (2026-10-01, Fable, RUNNING_LOG §672 · LG-237):** THE GLISS LINE ON A STAFF LINE — piece #1's same-staff-line rule
-  carried as a row (`objects.glissLine.onStaffLine { offsetSs 0.3, side up }`): a level gliss line on one of the five lines is drawn 0.3 ss
-  above it — the EH's at 158.40, the DB's at 156.90; `check_rules` **34**; no re-extraction, he HARD-reloads the tab. His to reverse: the side.
-- **§673 · LG-238 · LG-239 (2026-10-01, Fable):** two of the cello's curve labels moved 0.6 ss down by hand — the `(pp)` at 102.25 and the
-  `(mp)` at 477.87 (`--labelDy 6:102.25:-0.6` · `6:477.87:-0.6`; each sat on its flipped column's partial); `piece-lgmf` re-extracted, the IR
-  moved by those two fields. He reloads (`102.3` · `477.9`).
-- **§674 · LG-240 (2026-10-01, Fable):** the cello's `(ppp)` at 694.45 the same (`--labelDy 6:694.451:-0.6`) — the third of the kind; a rule
-  (a label under a flipped column goes below it) offered him, not built. He reloads (`694.5`).
-- **§675 · LG-241 (2026-10-01, Fable):** HIS SAVE MOVED — the vibraphone's `wc-4819` at 765.0 deleted, `wc-4820` moved 765.4 → 765.0; HIS R carried
-  it (§632's route, first use, worked — 1075 events, the hands kept). **THE LOOP: Save → R → the AI commits. THE WAV IS STALE AT 765** — one
-  new render when his proof is done (Opus; checkpoint #10's steps, `git show d1a79ea:docs/PROJECT_JOURNAL.md`).
-- **§678 · LG-244 (2026-10-01, Fable) — §676 DECIDED AND BUILT:** the vibraphone's rows are the two VOICES again (`vibMarks.crossAtUnison` false —
-  each colour one dynamic flow per sequence; 56 bows changed row, 18 restated names gone) and his (b): at the 7 crossed unisons the top row's
-  lead on the head's LEFT edge, the bottom row's on the RIGHT (`crossedLead opposite`); both pages re-extracted; PN #20. He reloads (`42.6` …
-  `862.4`).
-- **§676 · LG-242 (2026-10-01, Fable) — CLOSED by §678:** the vibraphone's row crossings measured (4 hand-changes, 9 crossing unisons, two groups;
-  switched back = `vibMarks.crossAtUnison` false: 56 bows change row, 18 start names go, 7 unisons with crossed leads). His: switch back or
-  not, and the crossed unison's look (a) heads side by side · (b) leads on opposite edges · (c) as they fall. Nothing built.
-- **§677 · LG-243 (2026-10-01, Fable):** the vibraphone's ○ at the END of the fall — `vibMarks.nienteAtEnd` (one hairpin through the row's
-  bare falling bows, the circle at the last one's end; the last chord 866.80 · 869.33 → 880.66); `vib_marks_check` **34**. He reloads (`872` … `880.7`).
-- **§680 · §681 (2026-10-01, Fable) — §679 BUILT at his go:** the destination's `n (F)` on the 11 second heads of the two take → take morphs
-  (`objects.number.destPartial arrivalTake`; the bloom unchanged) · the horn's `(pp)` at 23.3 down 1.15 ss by hand (`--labelDy 2:23.3:-1.15`).
-  He reloads (`578` … `580` · `725` … `730` · `23.3`).
-- **§679 · LG-245 (2026-10-01, Fable) — CLOSED by §680:** the morph's second head — the analysis: two take → take morphs (`ACT-TAKES-02` 576.6 s,
-  A1 → A1 · `ACT-TAKES-03` 725 s, D♭2 → E1), 11 second heads, each the arrival take's partial to 0.0 c (the actual's `toChord`); the bloom's
-  stay cents only. To build at his word: the destination's `n (F)` over its cents (the extractor reads `toChord`, the layout a second row).
-- **§682 · LG-248 (2026-10-01, Fable):** two chords renamed on the page — 361.04 `f` (six parts; the percussion's `mf` kept) · 364.19 `p` (four);
-  the names only, the save's velocities untouched (§637). He reloads (`361` · `364.2`).
-- **§683 … §686 · LG-249 … LG-252 (2026-10-01, Fable):** the EH's `mf` at 291.4 down 1.35 (the new hand `dynDySs`) · the EH's grace at 317.05
-  slurred to the A, its `mf` down the same, the rule `objects.slur.dotInside` (a slur's end clears a staccato dot) · the bassoon's grace at
-  324.8 slurred · the EH's `(pp)` at 482.8 down 1.65. He reloads (`291.4` · `317.1` · `324.9` · `482.8`).
-- **§687 · LG-253 (2026-10-01, Fable) — THE NOTATION LOCKED; THE VIDEO PLAN OPENED (the planning method, the top line put to him):** his
-  asks — re-render the audio · plan and build the video of the presentation score · what finalizes the completion · a tag at this
-  checkpoint. His answers owed: the tag's name · the call now or later (Q2). Nothing built.
-- **§688 · LG-254 (2026-10-01, Fable):** THE TAG `Recombination-notationLock_1.0` made and pushed at his "Aa" (the video plan's step 1). Question B
-  (the call: now or after the film) still his — he asked what the call is; told him.
-- **§689 · LG-255 (2026-10-01, Fable) — THE FILM, PLAN § `2b-F`:** the call is HIS · step 2 ☑ the audio re-rendered from the locked save
-  (−5.0 dBTP · −22.8 LUFS, +6 dB) · step 3 the test film made (`notation/video/test/Recombination-test-284-316.mp4`, gitignored) —
-  ► HIS EYE AND EAR on it; then step 4 (what opens and closes the film), laid out with him.
-- **§690 · LG-256 (2026-10-01, Fable):** the test film's first finding — a head past the staff's end at 296 s: the 2c standard at work (a note
-  26 ms before the turn hangs ≈ 6 px into the 40 px right margin; the film's widest 6.4 px). His call: keep, or change the rule. Nothing changed.
-- **§691 · LG-257 (2026-10-01, Fable):** the test film ACCEPTED, the edge overhang kept (2b-F step 3 ☑). ► STEP 4 put to him: A the opening
-  (as is, the 4 s lead-in · a title card) · B the ending (the last page held under the tail to 886.7 · a fade). Held for step 5: close-ups
-  (piece #5's film had 8, a cut list) or the wide shot alone.
-- **§692 · LG-258 (2026-10-01, Fable):** the film opens as it is (the 4 s lead-in, no card) and ends on the held last page under the tail
-  (`--t1 886.7`) — 2b-F step 4 ☑. ► STEP 5 put to him: C the wide shot alone, or with close-ups as piece #5 (the halves re-pointed, a test first).
-- **§693 · LG-259 (2026-10-01, Fable):** CLOSE-UPS at his "b" — the halves re-pointed (the four winds · the percussion, vibraphone, strings;
-  1.85×) and a close-up test made (`notation/video/test/Recombination-closeup-test-284-316.mp4`). ► HIS EYE on it, his word on the cut
-  list's recipe; then `make_cut.js --dur 886.7 …` and the whole film (`--cut … --fade 5 --fadeMode cross --t1 886.7`).
-- **§694 · LG-260 (2026-10-01, Fable) — THE WHOLE FILM RENDERED (2b-F step 5 ☑):** `notation/video/renders/Recombination-Draft01-V-CUT-seed7.mp4`
-  (890.66 s · 1080p · the cut `notation/video/cut-list.json` seed 7: 11 close-ups, 30.4 %; gitignored, on this machine). ► STEP 6 HIS
-  WATCH-THROUGH; a re-roll of the cut = `make_cut.js --seed N …` + the same render (9 min). On his "video good": archive it as piece #5
-  did (`notation/video/approved/<date>/` — the README and the cut list in git, the file not). Then step 7.
-- **§695 · LG-261 (2026-10-01, Fable):** the watch-through's first finding — NO CURVES in the film after ≈ 30 s — FIXED (`render.js`: a cut
-  curve drawn over its page's window + 0.5 s, not whole; resvg dropped the 22 000-px paths) and the film RE-RENDERED, the same cut
-  (sha256 `36e6f490…`). ► His watch-through again. **For a future test film: pick a stretch WITH curves** — the two tests (284 … 316) had none.
-- **§696 · LG-262 (2026-10-01, Fable):** "sound is not synced" — the lead-in's delay was `-itsoffset` (the audio stream starting at 4 s; a
-  player ignoring it runs the sound 4 s early); now real silence (`adelay`), both streams from 0; the audio re-laid under the same picture,
-  the first sound exactly 4.000 s after the WAV's. ► His watch-through again (the player he uses not known — if still off: how much, which way).
-- **§697 · LG-263 (2026-10-01, Fable) — THE SAVE MOVED AGAIN (the AI's edit at his word):** the trumpet `wc-3599` 367.975 → 367.804, in unison
-  with the EH and the horn; the page re-extracted. **HE MUST RELOAD THE COMPOSER TAB before any edit there. THE WAV AND THE FILM ARE STALE:**
-  ► on his go — `capture_composer_midi.js` → `export_midi.js` → `render_reaper.js --up --maxUp 6` (RENDER.md §1; Reaper on the saved rack),
-  then the film, the same command as §694 (the cut list unchanged, the exporter's `adelay` now in) → his watch-through → the archive
-  (`notation/video/approved/<date>/`) and a new tag (the lock's tag predates this fix).
-- **§698 · LG-264 (2026-10-01, Fable) — THE AUDIO AND THE FILM RE-MADE from the save with §697's trumpet:** the WAV −5.0 dBTP · −22.8 LUFS;
-  the film `notation/video/renders/Recombination-Draft01-V-CUT-seed7.mp4` (890.66 s, both streams from 0, sha256 `725f1bab…`). ► HIS
-  WATCH-THROUGH; on his "good" the archive (`notation/video/approved/<date>/` — README + cut list in git) and a new tag.
-- **§699 · LG-265 (2026-10-01, Fable):** the film drew a box for ♭ (Crimson Pro has no ♭ ♯ ♮; system fonts are off in the film) — in EVERY
-  render today, 40 labels; FIXED (`export_video.js`: `seguisym.ttf` by file, a fallback) and re-rendered as
-  **`notation/video/renders/Recombination-Draft01-V-CUT-seed7-r4.mp4`** — THE CURRENT FILM. **Every render keeps its own file name from
-  here** (`-r5` next); `…-seed7.mp4` is r3 (the box). ► His watch-through of r4. Offered twice, not built: a gate that draws pages the
-  film's way and compares them with Chrome (the curves and the font both passed every check because the checks use Chrome).
-- **§700 · LG-266 (2026-10-01, Fable) — THE FILM APPROVED ("that video is good"), ARCHIVED AND TAGGED:**
-  `notation/video/approved/2026-10-01-draft01/` (V-CUT.mp4 = `-r4`; README + cut list in git) · the tag `Recombination-Draft01-film_1.0`.
-  **► HIS ORDER FROM HERE: a checkpoint → a clear → THE PERFORMANCE NOTES** (his to write, the AI helps; Fable). What the next session
-  needs: `docs/PERFORMANCE_NOTES.md` (the tracker, 20 lines — what the notes must cover) · `docs/research/just_partials_notation.md`
-  §1b (his TUNING legend, settled; the transposing lines drafted) · PLAN § 2b (the instructions: web + two print pages; the percussion
-  legend, §334). STILL OPEN AFTER THE NOTES (2b-F step 7): the print score (A3 — `export_print.js`, `print/score/build.sh`'s gates
-  never run on this piece) · the cover · the call and the package are HIS. HELD AT HIS WORD FOR THE NEXT PIECE OR THE POSTMORTEM (§701 — `docs/NITS.md`, its last section; do not raise them again here): a gate drawing
-  pages the film's way against Chrome's (§695 · §699) · a bundled open font for ♭ ♯ ♮ (the film borrows Windows' `seguisym.ttf`) · a
-  rule for a curve label on occupied ground (five hands, §686) · deleting `renders/…-seed7.mp4` (the boxes) and the two test clips.
-  IF THE SCORE MOVES AGAIN: Save → R (or `reextract`) → the audio (RENDER.md §1, `--up --maxUp 6`) → the film (§694's command, a NEW
-  file name `-r5`) — ≈ 20 min, then a new archive folder and tag.
-- **State:** nothing being built. The ♪ link unchanged — the IR's `source.score` is the WAV's name; no re-extraction.
-- **► THE NEXT STEP — HIS, ask first:**
-  1. HIS EAR: reload the notation tab → `piece-lgmf` → ♪ render. A LEVEL change → re-gain the kept float with no Reaper render, §407's
-     way: `node tools/render_reaper.js --score piece-Recombination-Draft01-done --skip-render --up --maxUp N` (N his). A SOUND fault →
-     `docs/RENDER.md` §2 first, then `docs/DYNAMICS_LAW.md`.
-  2. Then HIS EYE ON SECTION 2 — the block SESSION 19 OPENS ON THIS below (the stops part by part · HOW A CHANGE IS MADE).
-- **`Resume reads:`** nothing beyond §2 for his ear. For a notation revision: `docs/research/temporal_notation.md` §12 (S1 … S33 —
-  surface them) · `tools/reextract.js`'s header.
-- **Pending him:** his ear on the new WAV · the four chords after the staggered entries (399.11 · 401.76 · 403.43 · 407.05) were lined up
-  too at §669 — his to undo · the rest as in the block SESSION 19 OPENS ON THIS.
-- **Deliberately uncommitted** (`git status --short` at this checkpoint — the same 29 paths as every checkpoint of session 18, all his):
-  5 modified — `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries and his actuals' index) ·
-  `reaper/LGMF_rack.rpp` (his rack; the render read a COPY) · `scores/piece-Recombination-Draft01-done.json` (his save — and §669's 82
-  onsets, the AI's one edit at his word); 24 untracked — `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` ·
-  `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · his fifteen named
-  saves in `scores/`. Never stage them.
+- **The task:** Draft 01's presentation score. Since checkpoint #11, in one sitting (RUNNING_LOG §672 … §701; LG-237 … LG-267):
+  his proof of the notation (§672 … §686) → **THE NOTATION LOCKED** and tagged (§687 · §688) → **THE FILM** planned in seven steps
+  (PLAN § `2b-F`) and built (§689 … §694) → his watch-through, four faults fixed (§695 the curves · §696 the sync · §697 · §698 a late
+  trumpet, the audio and the film re-made · §699 the ♭) → **his "that video is good"**, the archive and the tag (§700) → four small
+  offers HELD for the next piece or the postmortem (§701, `docs/NITS.md`'s last section — **do not raise them in this piece**).
+- **The deliverables, all agreeing:**
+  - the page: `notation/ir/piece-lgmf.ir.json` — 1075 events, from `scores/piece-Recombination-Draft01-done.json` as saved 21:33 UTC
+  - the audio: `notation/audio/piece-Recombination-Draft01-done.wav` — 886.664 s · −5.0 dBTP · −22.8 LUFS (+6 dB, his cap; RENDER.md §4)
+  - the film: `notation/video/approved/2026-10-01-draft01/V-CUT.mp4` (= `renders/…-seed7-r4.mp4`; 890.66 s, the cut seed 7; its README
+    says what made it) — on this machine, not in git
+  - the tags: `Recombination-notationLock_1.0` (before §697's trumpet) · `Recombination-Draft01-film_1.0` (page · audio · film agree)
+- **State:** nothing being built. PLAN § `2b-F` steps 1 … 6 ☑; step 7 (the completion) = the performance notes · the print score · the
+  cover; **the call and the submission package are HIS — no AI work on them, not to be raised** (LG-255).
+- **► THE NEXT STEP — after `/clear`, on FABLE, `/postclear`: check in, then on his word THE PERFORMANCE NOTES** (his words: *"after the
+  clear, I want to work on the performance notes"*). They are HIS to write (PLAN § 2b: the performance instructions — web + two print
+  pages); the AI's part is whatever he asks. To be ready, with no edits before his word:
+  1. read `docs/PERFORMANCE_NOTES.md` (the tracker: 20 rows — what the notes must cover, the decision behind each, where wording exists);
+  2. play it back to him as the notes' contents, grouped (tuning · the scrolling score's devices · dynamics and curves · the morph ·
+     the vibraphone · section 2's temporal notation · the percussion), and NAME WHAT THE TRACKER LACKS against the locked page — section 2
+     was notated after most rows were written: the long tone and its navy bar (2m) · one name per chord · the one-off / the GC's purpose
+     (S24, his TODO 9) · the grace family · the percussion staff's conventions (S25 … S33: a lone strike a bare head, the pairs, the
+     dynamic row) · the vibraphone's ○ at the end of a fall (§677);
+  3. ASK how he wants to work (he drafts and the AI edits · the AI drafts from the tracker for him to rewrite · section by section) —
+     the planning method if it becomes a plan item. One topic at a time.
+- **`Resume reads:`** `docs/PERFORMANCE_NOTES.md` (whole — it is one table) · `docs/research/just_partials_notation.md` §1b (his TUNING
+  legend, settled; the transposing lines). Nothing else beyond §2. *(For a section-2 wording: `docs/research/temporal_notation.md` §12
+  — only when a row sends you there.)*
+- **Pending him:** the print score (A3 — `export_print.js` and `print/score/build.sh`'s gates have never been run on this piece's pages)
+  · the cover · the tag's name `Recombination-Draft01-film_1.0` is the AI's (his to rename) · his older `his` rows in the table below.
+- **IF THE SCORE MOVES AGAIN** (the whole loop, ≈ 20 min, proven twice today): he Saves in the composer → R in the notation tab (or
+  `node tools/reextract.js ""`) → the gates (`check_rules` **34** · `eh_figure_check` **106** · `vib_marks_check` **34** ·
+  `sequence_notation_check` **79** · the shield `--expect piece-lgmf`) → the audio (`capture_composer_midi.js --score
+  piece-Recombination-Draft01-done` → `export_midi.js --score … --capture midi/….capture.json` → `render_reaper.js --score … --up
+  --maxUp 6`; Reaper open on the SAVED rack) → the film (the README's command, **a NEW file name `-r5`** — every render keeps its own
+  file) → his watch-through → a new archive folder and tag. An AI edit of his save: §697's guards (the file's hash, no `-work` copy,
+  one field), then HE presses the composer's **Reload** button.
+- **What this session added to the method** (beside the block below, HOW A CHANGE IS MADE): the hands `--labelDy P:T:DY` (one curve
+  label off its row) · `dynDySs` (one name off its place) · the rules `objects.glissLine.onStaffLine` · `vibMarks.nienteAtEnd` ·
+  `vibMarks.crossAtUnison` FALSE + `crossedLead` (the rows are the two voices) · `objects.number.destPartial` · `objects.slur.dotInside`
+  · `render.js`: a cut curve drawn over its page · `export_video.js`: `adelay` for the lead-in, the symbol font by file.
+  **A film fault can pass every gate: the gates use Chrome, the film uses resvg** (NITS, held).
+- **Deliberately uncommitted** (`git status --short` at this checkpoint — all his, never stage them): 5 modified —
+  `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries and his actuals' index) ·
+  `reaper/LGMF_rack.rpp` (his rack; the renders read a COPY) · `scores/piece-Recombination-Draft01-done.json` (his save — with the AI's
+  edits at his word: §669's 82 onsets, §697's trumpet); 25 untracked — `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` ·
+  `-03` · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · his fifteen
+  named saves in `scores/` · `notation/video/renders/` (the films `…-seed7.mp4` · `-r4.mp4` are gitignored; its two render LOGS are
+  the untracked files — scratch, safe to delete).
+- **Checkpoint #11's block and this session's thirty bullets** are whole in git: `git show e5a3604:docs/PROJECT_JOURNAL.md`.
 
-### SESSION 19 OPENS ON THIS — `/session-start`; nothing is being built (session 18 closed 2026-10-01, Fable)
+### SESSION 19 OPENS ON THIS — *(its NEXT STEP is SUPERSEDED by checkpoint #12 above: the notation is LOCKED, his eye on section 2 is done; kept for HOW A CHANGE IS MADE)* — session 18 closed 2026-10-01, Fable
 
 - **The piece:** _Recombination_ (D32). `scores/piece-Recombination-Draft01-done.json` is the ONE source of notation (D43). **His save moved
   in session 18** (the EH's 343.12 lengthened · 389.8 D6 → D5; the DB's A5 at 329.26 → A4 · C♯5 at 309.96 → C♯4) — the page carries them,
@@ -450,6 +393,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►►►►** | **THE PERFORMANCE NOTES — HIS NEXT** (checkpoint #12, 2026-10-01; LG-266): after the clear, `/postclear`, check in; then the tracker `docs/PERFORMANCE_NOTES.md` played back as the notes' contents, what it lacks against the locked page named, and HIS way of working asked. The notes are his to write (PLAN § 2b) | **Fable** | **yes — `/checkpoint` done, `/clear`, `/postclear`** |
+| ►► | **THE PRINT SCORE (A3)** — `export_print.js` · `print/score/build.sh`'s gates, never run on this piece's pages; after the notes (they print with it), laid out with him (PLAN § 2b-F step 7) | Fable to lay out · Opus to build | yes |
+| ►► | **THE COVER** — PLAN § 2b-F step 7; `print/cover/` holds piece #5's two scripts | Fable · Opus | — |
+| ☑ | **THE FILM OF DRAFT 01** (PLAN § 2b-F steps 1 … 6, §687 … §700): approved, archived `notation/video/approved/2026-10-01-draft01/`, tagged `Recombination-Draft01-film_1.0` | — | — |
+| ☑ | **THE NOTATION OF DRAFT 01 LOCKED** (§687, his word 2026-10-01) — **the rows below about his eye on section 2, the percussion's rest and the lock's blocks are CLOSED by it unless he reopens the notation** | — | — |
 | **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
 | **►►►** | **THE PERCUSSION, the rest** (PLAN 2o) — the lone strikes not yet named (they still draw as the fold left them; one `--plainNotes 4:…` window each makes a bare head) · its dynamics after 375 · the ball's higher arc (§654, a · b · c) · a let-ring mark (the brake drum's rings) · `sub.` beside a dynamic (§658) · the beam-vs-standard-stem question at 378.5 · 405.3 (§665) | Fable | — |
 | ☑ | **A NEW AUDIO RENDER OF DRAFT 01 — MADE 2026-10-01 (§671):** +6 dB (the cap; +9.9 to −1) → −4.9 dBTP · −22.8 LUFS; ► his ear on the ♪ render. *(As it stood:)* his ask (2026-10-01, LG-236), AFTER his proof, a `/checkpoint` and a clear: `docs/RENDER.md` §4 (his ▶ playback captured from HIS tab, rendered through a copy of his rack, `render_reaper.js --up --maxUp 6` — the boost at most +6 dB, his word §670), then the ♪ link on `piece-lgmf`. The save now carries the chords' unison (§669), the EH's and the DB's changed pitches, the EH's lengthened 343.12 — **he RELOADS the composer tab first** | Opus | yes — after the checkpoint |
@@ -489,7 +437,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #11 (2026-10-01, Opus):** the new audio render of Draft 01
+**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable):** the notation LOCKED, the film
+APPROVED and archived, two tags · ► THE PERFORMANCE NOTES after the clear (Fable) — the block CHECKPOINT #12 at the top of §2; the print
+score and the cover after them; the call is his.
+
+**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #11 (2026-10-01, Opus) — SUPERSEDED by #12:** the new audio render of Draft 01
 MADE (§671: +6 dB at his cap → −4.9 dBTP · −22.8 LUFS) · ► his ear on the ♪ render, then his eye on section 2 — the block CHECKPOINT #11 at
 the top of §2.
 
