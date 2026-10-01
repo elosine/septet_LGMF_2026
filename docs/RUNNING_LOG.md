@@ -21595,3 +21595,36 @@ The AI's lean: (a).
 
 **The build, if he says so:** one row (`vibMarks.crossAtUnison` false) + the look (a small layout rule) · `vib_marks_check`'s golden
 (it asserts 9 crosses) · `piece-lgmf` and `lgmf-vib-proto` re-extracted.
+
+## §677. The vibraphone's ○ at the end of the fall — one hairpin through the last bows (2026-10-01, Fable, session 18; LG-243)
+
+**What prompted it:** his picture of the last chord's close (the navy row's hairpin closing on a ○ at 873.4, a new bow's head right after
+it with nothing on it; the olive row the same a little later) and his word: *"And then at 873.27, and then a little bit later for the
+bottom of the vibraphone, the dynamics go to niente too early. So can we make niente be the very end? And then extend the hairpins."*
+
+**Read from the save** (`lgmf-lastChord`, edges: fadeOut 15 s to niente, exit together; the levels in written steps, ppp = 0, nothing = −1):
+- the top row: 866.80 … 873.39 falls −0.08 → −0.52 · 873.44 … 878.19 −0.52 → −0.84 · 878.24 … 880.66 −0.84 → **−1.00**
+- the bottom row: 862.37 … 869.28 `p > ppp` · 869.33 … 876.31 −0.24 → −0.71 · 876.36 … 880.66 −0.71 → **−1.00**
+- so the SOUND reaches nothing at 880.66, as he wants; the page was early. The reader names a level by rounding: −0.52 and −0.71 round to
+  nothing, so it wrote `> ○` at the end of the FIRST bow under half a step and left the bows after it bare (no motion of a half step, no
+  new name). A reading fault of the rule, not of the piece.
+
+**The rule (`rules.json` `vibMarks.nienteAtEnd` true):** THE ○ STANDS WHERE THE FALL ENDS — a bow that closes `> ○` while its row's next
+bows (the same sequence, abutting, BARE, not rising) carry the fall on: one hairpin runs THROUGH those bows and the circle stands at the
+end of the last. The bows between stay bare.
+- `vib_marks.js`: a pass after the chains are read — the hairpin's `tEnd` and the circle's `t` move to the last bow's end; the marks carry
+  `through` · `endEvent`.
+- `layout.js`: a through hairpin and its circle end on the LAST bow's bar (`endT1`) — the clamp to the bow's own bar and the closing
+  mark's right-justification read that bar.
+- `vib_marks_check`: "every hairpin inside its bow" reads a through hairpin against its last bow; a new check — no bare falling bow
+  after a closing ○, the last chord's two rows closing at 880.66 — **34**.
+
+**The result:** two hairpins — the top row 866.80 → 880.66, the bottom 869.33 → 880.66 — each over two re-bowed heads (873.44 · 878.24;
+876.36), both circles at 880.66, right-justified to the bars' ends. Nowhere else in the piece (the other sequences close on `ppp` or rise).
+`piece-lgmf` re-extracted: +13 −7 lines, the two hairpins and their circles; 1075 events, VALID.
+
+**Checked:** `vib_marks_check` 34 · `check_rules` 34 · `eh_figure_check` 106 · `sequence_notation_check` 79 · THE SHIELD
+`piece-lgmf` alone · `check_screen_edges` PASS · seen in the running app on a throwaway server (:5401, the zoom view at 876 and 879.5):
+both hairpins run past the new heads above the navy bar and under the olive one, and close on their circles at the bars' ends.
+
+**Not touched:** the sound; the winds' closing marks (`—> ppp` · `> ○` on the last breath's unit, 2f); the row crossings (§676, his call).

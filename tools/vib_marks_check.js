@@ -82,7 +82,7 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
   const bad = [], inside = [], order = [], barePlusName = [];
   for (const b of B) {
     const pins = b.marks.filter(m => m.kind === 'hairpin');
-    for (const m of pins) if (!(m.t < m.tEnd && m.t >= b.t0 - 1e-6 && m.tEnd <= b.t1 + 1e-6)) bad.push(b.id + '@' + m.t);
+    for (const m of pins) { const z = m.through ? B.find(x => x.event === m.endEvent) : b; if (!(z && m.t < m.tEnd && m.t >= b.t0 - 1e-6 && m.tEnd <= z.t1 + 1e-6)) bad.push(b.id + '@' + m.t); }   // [§677] a through hairpin ends inside the row's last falling bow
     // a name (not the start's) only at the end of the hairpin just before it
     b.marks.forEach((m, i) => { if (m.kind !== 'hairpin' && !m.start) { const p = b.marks[i - 1]; if (!(p && p.kind === 'hairpin' && Math.abs(p.tEnd - m.t) < 1e-6)) order.push(b.id + '@' + m.t); } });
     // no mark strictly inside a hairpin's span (a monotone run names only its two ends)
@@ -97,6 +97,16 @@ ok(!r.warnings.length, 'no name against its hairpin\'s direction (the drift warn
       'THE START NAME (2h.8 · §496): only at a restart (' + B.filter(b => b.restart && b.marks[0] && b.marks[0].start).length + ' — ' + B.filter(b => b.restart && !b.cross && b.marks[0] && b.marks[0].start).length + ' first bows or rests, ' + B.filter(b => b.cross && b.marks[0] && b.marks[0].start).length + ' at the crosses) or a voice switch (' + B.filter(b => b.switched && !b.restart && b.marks[0] && b.marks[0].start).length + ') — ' + starts.length + ' of 156; 72.32 s is a cross ("' + (b72 && T(b72)) + '", the row begins again) and 79.00 s reads "' + (b79 && T(b79)) + '" (his "mp mp" gone)' + (restated.length ? ' — restated: ' + restated.slice(0, 4).map(b => b.t0).join(' ') : ''));
   }
   ok(!bad.length, 'every hairpin runs forward and lies inside its bow (' + B.reduce((a, b) => a + b.marks.filter(m => m.kind === 'hairpin').length, 0) + ' hairpins)' + (bad.length ? ' — ' + bad.slice(0, 5).join(' ') : ''));
+  {
+    // [§677 — vibMarks.nienteAtEnd] THE ○ STANDS WHERE THE FALL ENDS: no bare, falling bow follows a closing ○ in its row; the last chord's two rows close at 880.66
+    const early = [], thr = B.flatMap(b => b.marks.filter(m => m.through).map(m => ({ b, m })));
+    for (const c of [0, 1]) { const ch = B.filter(b => b.chain === c).sort((x, y) => x.t0 - y.t0);
+      for (let i = 0; i + 1 < ch.length; i++) { const b = ch[i], n = ch[i + 1], last = b.marks[b.marks.length - 1];
+        if (last && last.kind === 'niente' && !last.start && Math.abs(last.t - b.t1) < 0.05 && n.group === b.group && n.t0 - b.t1 < R.vibMarks.restS && !n.marks.length && n.endSteps <= n.startSteps + 1e-6) early.push(b.t1.toFixed(2)); } }
+    const LC = seqOf('lgmf-lastChord').group, ends = thr.filter(x => x.b.group === LC).map(x => x.m.tEnd.toFixed(2));
+    ok(R.vibMarks.nienteAtEnd === true && !early.length && thr.length >= 2 && ends.length === 2 && ends.every(e => e === '880.66') && thr.every(x => { const k = x.b.marks.indexOf(x.m), nx = x.b.marks[k + 1]; return nx && nx.kind === 'niente' && Math.abs(nx.t - x.m.tEnd) < 1e-6; }),
+      'THE ○ AT THE END OF THE FALL (§677, vibMarks.nienteAtEnd): ' + thr.length + ' hairpin(s) run through the next bows of their row to the circle (' + thr.map(x => x.m.t.toFixed(2) + ' → ' + x.m.tEnd.toFixed(2)).join(' · ') + '); no bare falling bow after a closing ○' + (early.length ? ' — early: ' + early.join(' ') : ''));
+  }
   ok(!order.length, 'no name without a hairpin: every name after a bow\'s start closes the hairpin before it' + (order.length ? ' — ' + order.slice(0, 5).join(' ') : ''));
   ok(!barePlusName.length, 'a bow that does not move and does not restart draws nothing (repeatName false) — ' + B.filter(b => !b.marks.length).length + ' bare bows' + (barePlusName.length ? ' — named: ' + barePlusName.slice(0, 5).join(' ') : ''));
   ok(!inside.length, 'a monotone run names only its two ends — no mark inside a hairpin\'s span' + (inside.length ? ' — ' + inside.slice(0, 5).join(' ') : ''));

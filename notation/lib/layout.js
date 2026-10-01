@@ -3802,13 +3802,15 @@
           // the bar's end (2h.1's cut end) when, centred on its time, it would run past it; its hairpin's end follows (the name's left
           // edge less the gap). A name reached earlier stays at its point (Gould — the AI's reading, his to reverse).
           const lastM = b.marks[b.marks.length - 1];
-          const snap = MK.closeAlign === 'right' && lastM && lastM.kind !== 'hairpin' && !lastM.start && !!spsV && (lastM.t * spsV + halfW(lastM) > bar.t1 * spsV + 1e-9);
+          // [§677 — vibMarks.nienteAtEnd] a hairpin THROUGH the row's next bows and the ○ it closes on end on the LAST bow's bar (endEvent)
+          const endT1 = m => { const z = m && m.endEvent ? bars.find(x => x.ev === m.endEvent) : null; return z ? z.t1 : bar.t1; };
+          const snap = MK.closeAlign === 'right' && lastM && lastM.kind !== 'hairpin' && !lastM.start && !!spsV && (lastM.t * spsV + halfW(lastM) > endT1(lastM) * spsV + 1e-9);
           let prev = null;
           for (let i = 0; i < b.marks.length; i++) {
             const m = b.marks[i];
             if (m.kind !== 'hairpin') {
               const snapped = snap && m === lastM;
-              const t = snapped ? bar.t1 : m.start ? bar.headT : m.t, dx = snapped ? -halfW(m) : m.start ? bar.headDxSs : 0;
+              const t = snapped ? endT1(m) : m.start ? bar.headT : m.t, dx = snapped ? -halfW(m) : m.start ? bar.headDxSs : 0;
               at(m, t, dx);
               prev = { t, dx, hw: halfW(m), kind: m.kind };
               continue;
@@ -3816,7 +3818,7 @@
             const nm = b.marks[i + 1] && b.marks[i + 1].kind !== 'hairpin' && Math.abs(b.marks[i + 1].t - m.tEnd) < 1e-6 ? b.marks[i + 1] : null;
             const gapOf = (mk, tipSide) => mk.kind === 'niente' && tipSide ? MK.circleGapSs : MK.gapSs;   // a circle at the tip: circleGapSs (= beside since 2h.3)
             const toSnap = snap && nm === lastM;
-            const t1 = toSnap ? bar.t1 : Math.min(m.tEnd, bar.t1);   // an open hairpin never runs past the cut bar
+            const t1 = toSnap ? endT1(m) : Math.min(m.tEnd, endT1(m));   // an open hairpin never runs past the cut bar (a through hairpin: the last bow's)
             items.push(Object.assign({ k: 'hairpin-timed', t0: m.t, t1, dx0Ss: 0, dx1Ss: nm ? -((toSnap ? 2 : 1) * halfW(nm) + gapOf(nm, m.dir === 'decresc')) : 0,
               ySs: +y.toFixed(4), dir: m.dir, hSs: MK.heightSs, thickSs: MK.thickSs, minSs: MK.minHairpinSs, seq: 'vibHairpin', ev: bar.ev, pinned: PIN },
               prev ? { after: { t: prev.t, dxSs: +(prev.dx + prev.hw + gapOf(prev, m.dir === 'cresc')).toFixed(6) } } : {}));

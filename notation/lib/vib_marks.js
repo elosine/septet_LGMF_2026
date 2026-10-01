@@ -27,7 +27,7 @@
 }(typeof self !== 'undefined' ? self : this, function (SeqOv, DynTable) {
   const NAMES = SeqOv.NAMES;   // ppp … fff
   const DEFAULTS = {   // RULES MIRROR (rules.json vibMarks) — the caller passes the table
-    hairpinSteps: 0.5, nameSteps: 0.25, flatSteps: 0.25, carry: true, repeatName: false, restS: 0.5, startOnMove: false, startOnVoiceSwitch: true, rows: 'seat', crossAtUnison: true, crossS: 0.06, crossSteps: 2,
+    hairpinSteps: 0.5, nameSteps: 0.25, flatSteps: 0.25, carry: true, repeatName: false, restS: 0.5, startOnMove: false, startOnVoiceSwitch: true, rows: 'seat', nienteAtEnd: true, crossAtUnison: true, crossS: 0.06, crossSteps: 2,
     sps: 100,          // samples per second over a bow (the sequence overlay's density)
     eps: 1e-6,         // a step between two samples smaller than this is flat
   };
@@ -171,6 +171,24 @@
         out.push({ id: o.id, event: 'ev-' + o.id, group: o.groupId, chain: c, voice, t0: r3(t0), t1: r3(t1), midi: o.sonifyNote,
           restart, switched, cross: crossAt.has(o.id), startName, startSteps: r3(v[0]), endSteps: r3(v[v.length - 1]), marks });
         prev = o; prevVoice = voice;
+      }
+    }
+    // [RUNNING_LOG §677 — his "the dynamics go to niente too early. So can we make niente be the very end? And then extend the hairpins"]
+    // THE ○ STANDS WHERE THE FALL ENDS (rules.json vibMarks.nienteAtEnd): a bow that closes "> ○" (its level rounds to nothing) while the
+    // chain's next bows — the same sequence, abutting, BARE and not rising — carry the fall on: the hairpin runs THROUGH them (`through`,
+    // `endEvent` the last bow) and the circle moves to that bow's end. The bows between stay bare; the row's name stays niente.
+    if (O.nienteAtEnd) for (let c = 0; c < 2; c++) {
+      const list = out.filter(b => b.chain === c).sort((a, b) => a.t0 - b.t0);
+      for (let i = 0; i < list.length; i++) {
+        const b = list[i], n = b.marks.length, last = b.marks[n - 1], pin = b.marks[n - 2];
+        if (!last || last.kind !== 'niente' || last.start || !pin || pin.kind !== 'hairpin' || pin.dir !== 'decresc' || Math.abs(pin.tEnd - last.t) > 1e-6) continue;
+        let j = i;
+        while (list[j + 1] && list[j + 1].group === b.group && list[j + 1].t0 - list[j].t1 < O.restS - 1e-9 && !list[j + 1].marks.length && list[j + 1].endSteps <= list[j + 1].startSteps + 1e-6) j++;
+        if (j === i) continue;
+        const z = list[j];
+        pin.tEnd = z.t1; pin.to = z.endSteps; pin.through = true; pin.endEvent = z.event;
+        last.t = z.t1; last.endEvent = z.event;
+        i = j;
       }
     }
     out.sort((a, b) => a.t0 - b.t0 || a.chain - b.chain);

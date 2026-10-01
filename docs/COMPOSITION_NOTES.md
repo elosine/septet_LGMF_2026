@@ -3704,3 +3704,10 @@ end. RUNNING_LOG §675.
 
 *The AI's reading (marked as such):* a second thought on §496's cross ("one player, two bows") — the dynamic FLOW per row now weighs more
 than the clean unison; he wants the cost in numbers before deciding. RUNNING_LOG §676.
+
+## LG-243 — 2026-10-01 — the vibraphone's niente too early at the end: the circle at the very end, the hairpins extended
+
+*His words (session 18, Fable, with a picture of the last chord's close):* "And then at 873.27, and then a little bit later for the bottom of the vibraphone, the dynamics go to niente too early. So can we make niente be the very end? And then extend the hairpins."
+
+*The AI's reading (marked as such):* the page said nothing was left where the sound still fades — the ○ belongs where the fall arrives,
+at the last bow's end, one hairpin through the re-bowed notes. A rule, not a hand. RUNNING_LOG §677.

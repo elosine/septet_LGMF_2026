@@ -160,6 +160,8 @@
   "headLeadNote": "§495 (2026-09-28): the bow lead (objects.bowLead) — 'seat' draws it in the seat's hue, 'ink' in ink, false not at all; headSwatch true draws objects.headSwatch behind the head. Both built for his eye at his 'could you build for examples and let me see?' (the running order's steps 1 · 2); the coloured outline (headColour 'seat', §494) judged 'not clear enough' — back to ink",
   "headColourNote": "§494 (2026-09-28, the running order's step 1 — his 'Can you demonstrate the color head at 56 2 sbs; and then the two heads at 60.96 and 61.6?'): a bow's HEAD in its seat's hue — navy (seat 0, the top row) · olive (seat 1, the bottom) — the accidentals and ledgers ink; 'ink' returns every head to ink. A DEMONSTRATION at his ask; his to keep or reverse (the options of §485: colour the head · stems · the bow lead in the seat's hue, 2i.7)",
   "rows": "seat",
+  "nienteAtEnd": true,
+  "nienteAtEndNote": "§677 (2026-10-01, his eye at 873.27 on the last chord: 'the dynamics go to niente too early. So can we make niente be the very end? And then extend the hairpins'): THE ○ STANDS WHERE THE FALL ENDS — a bow whose fall closes on the niente circle (the level under ppp rounds to nothing) while the row's next bows, abutting and bare, keep falling: ONE hairpin runs THROUGH those bows and the ○ stands at the end of the last. The reader wrote the circle at the first bow that rounded to nothing (the last chord's rows at 873.39 · 876.31, the level −0.5 of a step, the true nothing at 880.66) and left the bows after it bare. The marks carry through · endEvent; the layout ends them on the LAST bow's bar",
   "crossAtUnison": true,
   "crossS": 0.06,
   "crossSteps": 2,
