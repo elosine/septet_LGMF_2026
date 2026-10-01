@@ -127,7 +127,7 @@
    "tagY": "@column.rows.tag",
    "tempoY": "@column.rows.tempo",
    "tickY": "@column.rows.tick",
-   "dynY": "@column.rows.dynamic",
+   "dynY": "@column.rows.dynamic", "dynRowLinedBelowSs": "@column.rows.dynamicLinedBelowSs",
    "nhGapSs": "@anchors.B.gapSs",
    "_nhGapNote": "day 22, nh-unit horizontal standard for the surge device: the unit's rightmost ink ends this far before the go line (composer asked for 2 px at staff 31.6; expressed in ss = 2/7.9 ≈ 0.25 so the PP-6 zoom invariant holds)",
    "devices": {

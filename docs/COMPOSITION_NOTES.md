@@ -3577,3 +3577,12 @@ castanets (up), the graces drawn at full stem height so the three tips make one 
 *The AI's reading (marked as such):* the answer to step 2's length question, in his own terms — one standard stem for this staff (the present
 4.5 + 30 %), with flags still reaching past the staff's edge when a note sits inside it. Eighths, not 16ths. And the cue returns as ONE GC on
 the arrival, landing a space under the staff rather than on an imagined line. RUNNING_LOG §656.
+
+## LG-226 — 2026-09-30 — the percussion's opening: the bass drum beamed to the third castanet over the graces; an accent; a dynamics row under the GC's ball; mp, and p on the second of the 302.5 pair; subito?
+
+*His words (session 18, Fable):* "Okay, then stem together or beam together the base and the third castanet, you know, flip the stem for the bass drum and have the beam be above, we'll clear both the grace note and the GC arc. we can go back to the original GC arc. But the landing point is good. Let's put an accent on the third castanet. Let's create a dynamics row. This should be Well, let's try just so it would clear the GC ball below it. So the top of the tallest dynamic, there would be a gap between that and the bottom of the GC ball. And let's put MP centered on the bass drum note head column. And then you can get rid of the rest of the dynamics. 302.5. Let's make those stems up. Accent on the first partial. P will be the dynamic for the second one. Is there, let's discuss this, is there a subito dynamic mark or you just write the word subito? And what would that mean? Subito piano. And tell me what it would mean if I use it Would the next note be presumed mezzo piano, or do I have to remark it? Anyways, just explain that situation. If I wanted that second partial to be suddenly quieter."
+
+*The AI's reading (marked as such):* the opening percussion gesture as ONE beamed figure — the bass drum's pickup tied by a beam to the
+castanets' arrival, the ruff tucked under the beam, a GC on the arrival, one dynamic for the whole gesture under its first note. The
+dynamics row is set by what it must clear (the GC's ball), not by a number. The second figure: an accented wood block, then the bass drum
+suddenly soft. RUNNING_LOG §657 (built) · §658 (subito).

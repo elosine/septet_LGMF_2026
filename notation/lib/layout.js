@@ -1778,7 +1778,8 @@
                 // instruction · ottava). Then the INSTRUCTION SLOT: text after
                 // the dynamic, at the technique size, left-justified with the
                 // head like the cuivré mark.
-                const articG = dev.nhArtic && stemKind !== 'beam' ? (glyphs.articulation && glyphs.articulation[dev.nhArtic]) || null : null;
+                // [§657] on a LINED staff a beam member's accent is its OWN (drawn by its head, below) — the group's accent row is the five-line staff's
+                const articG = dev.nhArtic && (stemKind !== 'beam' || (spec.staffInfo && spec.staffInfo.lined)) ? (glyphs.articulation && glyphs.articulation[dev.nhArtic]) || null : null;
                 if (dev.nhArtic && stemKind !== 'beam' && !articG) warnings.push('nh-unit ' + e.id + ': articulation glyph "' + dev.nhArtic + '" missing — not drawn');
                 const instrIsFirst = !!(dev.instrFirst && instrShown.has(e.id));
                 // [§612, his "move the ord into the notehead column … use the standard alignment that should be in our system"] a device
@@ -1908,7 +1909,14 @@
                 // all f/mf boxes crossing the tuplet line at -6.06). One placer per
                 // side, both sides: a beamed note whose chain would land on the
                 // beam side hands its mark to the group row, whichever side that is.
-                const markToGroup = markAboveBeam || !!(markG && dev.nhStem === 'beam'
+                // [RUNNING_LOG §657, his "Let's create a dynamics row … so it would clear the GC ball below it. So the top of the tallest dynamic, there
+                // would be a gap between that and the bottom of the GC ball"] THE LINED STAFF'S DYNAMIC ROW: on a lined staff (the percussion's)
+                // every single dynamic sits on ONE row under the staff — the top of the tallest dynamic glyph o.dynRowLinedBelowSs below the
+                // staff's bottom line (rules.json column.rows.dynamicLinedBelowSs) — centred on its head's column; never inside the staff, never
+                // handed to a beam group's row, never flipped
+                const linedRowY = (spec.staffInfo && spec.staffInfo.lined && o.dynRowLinedBelowSs > 0 && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length)
+                  ? Math.min(...spec.staffInfo.offsets) - o.dynRowLinedBelowSs - Math.max(...Object.keys(glyphs.dynamic || {}).map(k => (glyphs.dynamic[k] && glyphs.dynamic[k].hSs) || 0)) / 2 : null;
+                const markToGroup = linedRowY != null ? false : markAboveBeam || !!(markG && dev.nhStem === 'beam'
                   && (stemDir === 'up' ? chainAbove : !chainAbove));
 
                 if (stemKind) {
@@ -2005,7 +2013,7 @@
                     grp.tips.push(Object.assign({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd }, dev.grace ? { grace: true } : {}));   // [§592] a grace member — a group of graces takes its beam at the heads' scale
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
-                    if (dev.nhArtic) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });
+                    if (dev.nhArtic && !(spec.staffInfo && spec.staffInfo.lined)) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });   // [§657] not on a lined staff — the note draws its own
                     if (markToGroup) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
                     if (dev.tupletGroup) grp.hasTuplet = true;
                     if (dev.bracketSide) grp.bracketSide = dev.bracketSide;   // day 31, dictated
@@ -2192,7 +2200,14 @@
                 // HEAD SIDE (the plain note's device says articHeadSide): with the stem DOWN the head side is above — the accent stacks over the
                 // unit's top ink, never inside the staff (the group rule's convention), and the chain below keeps the dynamic on its row; a hand
                 // articSide 'above' | 'below' decides outright. Stems up: the chain below, as before. Devices without the flag: as before
-                if (articG) {
+                // [RUNNING_LOG §657, his "Let's put an accent on the third castanet"] ON A LINED STAFF THE ACCENT SITS BY ITS OWN HEAD — on the head
+                // side (below a stem-up head, above a stem-down one; a hand articSide decides), the stack gap from the head, in the staff's
+                // 2 ss space: the chain's "never inside the staff" belongs to five lines, where it sent a castanet's accent 7 ss from its note
+                if (articG && spec.staffInfo && spec.staffInfo.lined) {
+                  const below = dev.articSide === 'below' ? true : dev.articSide === 'above' ? false : stemDir === 'up';
+                  const yA = below ? yDraw - nhO.hSs / 2 - stackGap - articG.hSs / 2 : yDraw + nhO.hSs / 2 + stackGap + articG.hSs / 2;
+                  items.push({ k: 'glyph', g: 'artic-' + dev.nhArtic, t: tU, dxSs: headDx, ySs: yA, align: 'center' });
+                } else if (articG) {
                   const sideA = dev.articSide === 'above' || dev.articSide === 'below' ? dev.articSide : (dev.articHeadSide && stemDir === 'down' ? 'above' : 'chain');
                   if (sideA === 'above' && !chainAbove) {
                     const yA = chainTopY + gapAbove + articG.hSs / 2; chainTopY = yA + articG.hSs / 2;
@@ -2239,13 +2254,14 @@
                   // unit's own ink reaches below it (the sequence legend's rule — a low head keeps its chain); nothing without the field moves
                   let yDyn = placeChain(markG.hSs);
                   if (dev.dynOnRow && !chainAbove && yDyn > o.dynY) { yDyn = o.dynY; chainBotY = yDyn - markG.hSs / 2; }
+                  if (linedRowY != null) yDyn = linedRowY;   // [§657] the lined staff's one row
                   // BESIDE THE STEM (day 23, composer): when the chain is above a
                   // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
                   // the stem's left edge (registry 0.15 = the staccato-dot gap),
                   // instead of centred on the head column; the flag, on the stem's
                   // other side, is then free to keep its full height
                   let dxMark = headDx;
-                  if (dev.dynBesideStem && chainAbove && stemKind && stemDir === 'up') {
+                  if (linedRowY == null && dev.dynBesideStem && chainAbove && stemKind && stemDir === 'up') {
                     const gapStem = o.dynStemGapSs != null ? o.dynStemGapSs : 0.15;
                     const stemLeft = headDx + att.dx - ((stds.stem && stds.stem.thickness) || 0.13) / 2;
                     dxMark = stemLeft - gapStem - markG.wSs / 2;

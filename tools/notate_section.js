@@ -1139,8 +1139,12 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
   const spans = [];
   for (let i = 0; i < process.argv.length; i++) {
     if (process.argv[i] !== '--beam') continue;
+    // [RUNNING_LOG §657, his "beam together the bass and the third castanet"] --beam ids:wc-a,wc-b[,…] — a beam over NAMED notes, so a
+    // group may skip what lies between its members in time (the castanets' grace pair under the bass drum → castanet beam)
+    const mi = String(process.argv[i + 1] || '').match(/^ids:([\w,-]+)$/);
+    if (mi) { spans.push({ ids: mi[1].split(',').filter(Boolean) }); continue; }
     const m = String(process.argv[i + 1] || '').match(/^([\d.]+)-([\d.]+)(?:@(\d+))?$/);
-    if (!m) { console.error('--beam needs t0-t1 or t0-t1@part (e.g. --beam 31.17-31.40@1)'); process.exit(2); }
+    if (!m) { console.error('--beam needs t0-t1 or t0-t1@part (e.g. --beam 31.17-31.40@1), or ids:wc-a,wc-b'); process.exit(2); }
     spans.push([parseFloat(m[1]), parseFloat(m[2]), m[3] === undefined ? null : parseInt(m[3], 10)]);
   }
   const partOfEvent = new Map();
@@ -1150,11 +1154,14 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
   const RINGS = new Set(FIG_BM.ringTechniques || BeamChoice.RINGS_DEFAULT);   // long notes: primary beam only (for the log below)
   spans.forEach((sp, k) => {
     const key = 'bm-' + (k + 1);
-    const label = sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
-    const members = doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
+    const byIds = !Array.isArray(sp);
+    const label = byIds ? 'ids:' + sp.ids.join(',') : sp[0] + '-' + sp[1] + (sp[2] === null ? '' : '@' + sp[2]);
+    const members = byIds
+      ? sp.ids.map(id => { const e = doc.events.find(x => x.id === id || (x.source && x.source.objectId === id)); if (!e) { console.error('--beam ' + label + ': no event ' + id); process.exit(2); } return e; }).sort((a, b) => a.onset - b.onset)
+      : doc.events.filter(e => e.onset >= sp[0] - 1e-9 && e.onset <= sp[1] + 1e-9 &&
       (sp[2] === null || partOfEvent.get(e.id) === sp[2])).sort((a, b) => a.onset - b.onset);
     if (members.length < 2) { console.error('--beam ' + label + ': ' + members.length + ' event(s) in the span — a beam needs at least 2'); process.exit(2); }
-    if (sp[2] === null && parts.length > 1) {
+    if (!byIds && sp[2] === null && parts.length > 1) {
       console.error('--beam ' + label + ': this IR carries ' + parts.length + ' parts — name the part: --beam ' + sp[0] + '-' + sp[1] + '@<part>');
       process.exit(2);
     }

@@ -20984,3 +20984,60 @@ tuba:db1,tuba:piece-open-01,tuba:section1-e20,tuba:section1-e30,tuba:trance-a4,t
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield as above · the screen gate PASS.
 
 **For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5`.
+
+## §657. The percussion's opening figure beamed over its graces; accents by their heads; THE DYNAMICS ROW under the staff (2026-09-30, Fable, session 18; LG-226)
+
+**What prompted it** (his eye on §656's page; his words whole in LG-226): *"stem together or beam together the base and the third castanet,
+… flip the stem for the bass drum and have the beam be above, we'll clear both the grace note and the GC arc. we can go back to the original
+GC arc. But the landing point is good. Let's put an accent on the third castanet. Let's create a dynamics row. … so it would clear the GC
+ball below it. So the top of the tallest dynamic, there would be a gap between that and the bottom of the GC ball. And let's put MP centered
+on the bass drum note head column. And then you can get rid of the rest of the dynamics. 302.5. Let's make those stems up. Accent on the
+first partial. P will be the dynamic for the second one."*
+
+**Built:**
+- **the bass drum and the castanets' third BEAMED** (eighths, one beam), both stems UP, the beam above the staff: a new form
+  `--beam ids:wc-3725,wc-3758` (a beam over NAMED notes — the two graces lie between its members in time and keep their own small beam
+  under it). The beam at **+11.7** (a hand `beamYSs`): above the graces' beam (their stems back at the standard 5.85, tips +9.99 — 1.3 ss
+  under the big beam's lower edge) and above the GC's arc where the beam runs (the arc is at +11.1 at the bass drum's time and falls from
+  there). The bass drum's stem is 17.6 ss, through the whole staff; the castanets' 7.6.
+- **the GC:** the original aperture again (`gcSpread` off — 0.6 s), the landing kept (a space below the bottom line, −7).
+- **accents** on the castanets' third and on the wood block (302.554) — and a rule for where: **ON A LINED STAFF AN ACCENT SITS BY ITS OWN
+  HEAD**, on the head side (under a stem-up head), the stack gap away, inside the staff's 2 ss space: +2.69 under the castanet (between the
+  castanet and tambourine lines, 0.3 clear of each), −3.31 under the wood block. A beam member's too — the group's accent row and its
+  lane clamp are five-line machinery (the first try: the accents at −2.7 · −3.2 "below the staff" of a five-line staff, and the beam clamped
+  to +6.6 · +5.2 by the tuba's lane half 6.51 — read from the layout, corrected before he saw it).
+- **THE LINED STAFF'S DYNAMIC ROW** (`column.rows.dynamicLinedBelowSs` 2.1): every dynamic on a lined staff on ONE row under the staff — the
+  top of the tallest dynamic glyph 2.1 ss below the bottom line = under the GC's ball at its landing (the impact a space below the line + the
+  ball's radius ≈ 0.63 ss + the stack gap 0.45), centred on its head's column; never inside the staff, never handed to a beam's row. The row's
+  centre −8.59; the lane's bottom is −9.
+- **the names:** **mp** under the first bass drum (297.407), **p** under the second (302.927); every other name on the percussion to 303 off
+  (the castanets' ff · the bowl · the brake drum · the sleigh bells · the tambourine · the wood block).
+- **the pair at 302.55:** stems UP, the beam at +9.99 (the castanets' standard tip height; a hand) — the wood block's stem 11.9 ss, the bass
+  drum's 15.9.
+
+**For him, told:** the GC's arc cannot be cleared by everything — it falls through the figure: it crosses the bass drum's long stem near its
+top and passes the graces' stems on its way to −7 · the two up-beams give stems of 12 … 18 ss · the dynamics row's glyphs reach −9.07, the
+lane's bottom.
+
+**THE SHIELD:** `piece-lgmf` + four tuba pages' part 4 (`db1-all-x01 · db1 · piece-open-01 · trance-a4` — the lined staff's row and accent
+rules on the stand-in staff; the per-part hash: `4:0` alone). **The gates:** `check_rules` **33** · the lock **106**.
+
+**For his eye:** a HARD reload → `piece-lgmf` → `297.5` · `302.7`, play from `296.5`.
+
+## §658. His question — subito: the sign, what it means, and what the next note is (2026-09-30, Fable, session 18; LG-226)
+
+**What prompted it:** *"is there a subito dynamic mark or you just write the word subito? And what would that mean? Subito piano. And tell me
+what it would mean if I use it Would the next note be presumed mezzo piano, or do I have to remark it? … If I wanted that second partial to be
+suddenly quieter."*
+
+**The answer given — conventional practice, FROM MEMORY (Gould on dynamics; not checked this session):**
+- **No special glyph.** It is the word, abbreviated, beside the dynamic: `sub. p` (or `p sub.`), the "sub." in the text italic, the p the
+  dynamic glyph. (The one-glyph relatives — `fp` · `sfz` · `sfp` — are for ONE note: a loud attack that drops at once, on that note.)
+- **What it means:** "suddenly — no tapering into it". Strictly it is a courtesy: a new dynamic with no hairpin before it is ALREADY sudden.
+  `sub.` is written where a player would otherwise smooth the change (after a crescendo, or between two close notes).
+- **What follows:** a dynamic holds until the next dynamic. After `sub. p` everything is p — the next note is NOT presumed back at mp; to
+  return, mark mp again. An ACCENT is the opposite kind: it colours its one note and the prevailing dynamic continues under it.
+- **His case** (the wood block accented, the bass drum suddenly quieter): the accent on the first note, `p` on the second — which is what the
+  page now has; `sub. p` if he wants it said aloud. The next percussion entry (305.25) then reads as p unless it carries its own name.
+
+**Not built:** a "sub." text beside a dynamic does not exist as a mark here yet — one word and it is a hand (the italic word row, 0.75).
