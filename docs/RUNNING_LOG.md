@@ -20475,3 +20475,34 @@ some of the basics of castanet notation, rhythmic notation."*
 graces slurred into a main note (S6 · S22, a ruff: the arrival on the last hit) · the burst (S14, equal quick strokes beamed with dots) · the
 ragged group (S8 · S8a, "about this fast, unevenly") — and a roll would be a new mark (the tremolo slashes on a stem or on the duration line).
 His choice between them is the device sheet's first line when TODO 4 opens.
+
+## §640. The percussion's first six notes — the frame candidates drawn (2026-09-30, Fable, session 18; LG-211)
+
+**What prompted it:** *"the 1st 6 partials of the percussion cann you tempo frame them"* — the percussion (part 4) opened in section 2; the six
+include the castanet rattle of §639.
+
+**The six** (the IR's chunks `ch-4-*`; 37 percussion events 284 … 330, the first at 297.407):
+
+| # | onset | to the next | instrument (technique) | vel |
+|---|---|---|---|---|
+| 1 | 297.407 | 0.133 | bass drum (`bass_drum_alt_medium_felt`) | 68 |
+| 2 | 297.540 | 0.101 | castanets, machine | 69 |
+| 3 | 297.641 | 0.048 | castanets, machine | 60 |
+| 4 | 297.689 | 0.500 | castanets, machine | 105 |
+| 5 | 298.189 | 0.665 | temple bowl (brush) | 56 |
+| 6 | 298.854 | — | brake drum (poly beater), 1.64 s | 71 |
+
+The castanets' three impulses are 101 and 48 ms apart — uneven, accelerating into the loud third (vel 105): a ruff's shape (§639's (a)).
+
+**The candidates** (`node tools/tempo_fit.js --part 4 --from 297.3 --to 298.9 --html notation/research/tempo_candidates_perc_297.html`; the
+picture's colours in order): red **92** (5 × 0.131, rms 14 ms; phase 297.221, the nearest note 186 ms from a beat) · blue **88** (7 × 0.097;
+297.208, 198 ms) · green **90** (6 × 0.111; 297.215, 192 ms) · orange **98** (6 × 0.102; 297.242, 165 ms) · purple **98** (5 × 0.123; 297.240,
+166 ms) · a sixth not drawn, **84** (6 × 0.119; 297.191, 216 ms). At their between phases (T10) every candidate puts all six notes 27 … 73 %
+of the way through a beat — nothing on a line.
+
+**The other reading, from the tool's (A):** a beat of 0.652 s (92 bpm) whose lines fall 297.564 · 298.216 · 298.868 — notes 2 · 5 · 6 within
+24 · 27 · 14 ms BEFORE a line (on the beat, to the eye), the bass drum an upbeat, the castanets' second and third just after the first line.
+His earlier picks have gone both ways (between: figure 2; on the beat: figure 3's notes 2 · 6, the 376 and 384 frames).
+
+**Nothing on the page** — his pick owed (the grouping · the phase · the lead and tail lines); the percussion's first frame, navy by S19. Not
+yet decided either: the six notes' own devices on the seven-line staff (they draw today as the fold left them).

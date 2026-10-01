@@ -3461,3 +3461,10 @@ together, on purpose. The series at 327 is ten names (the last "M. F. M. F." = m
 
 *The AI's reading (marked as such):* the percussion's notation (his TODO 4) opening from one sound — a short castanet rattle whose impulse count
 is small and audible. "Partials" = the individual hits. The conventional answer and its mapping onto this score's devices: RUNNING_LOG §639.
+
+## LG-211 — 2026-09-30 — the percussion's first six notes under a tempo frame
+
+*His words (session 18, Fable):* "the 1st 6 partials of the percussion cann you tempo frame them"
+
+*The AI's reading (marked as such):* the six percussion notes from 297.407 to 298.854 (bass drum · three castanet hits · temple bowl · brake
+drum) — candidates drawn for his pick, by the process of §564. RUNNING_LOG §640.
