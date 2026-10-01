@@ -3625,3 +3625,18 @@ strike. "378.392 pairs" = 378.39, two pairs; "grease node" = grace note. RUNNING
 stem; (2) if that leaves a beam or a flag inside the staff, it lengthens until it is just outside; (3) the other notes of a beam reach.
 The slur: a real request for a shape, left to the AI's judgment — built as a leaning "(" from the grace to the left of its note.
 RUNNING_LOG §663.
+
+## LG-232 — 2026-10-01 — the percussion's dynamics 308 … 375; always the standard dynamic row unless a conflict — then tell him
+
+*His words (session 18, Fable):* "308.2 MP and just always use the standard dynamic row that we establish unless I say otherwise, unless there's a conflict. And then let me know. 315.06pp, and then back to MP for the next one. Hairpin crescendo at 328.66 to the next partial, and then another one at 330.44 again to the next partial. 336.8F, and then back to MP 337.87. 358.5p 361.5 mf 374.8 MP."
+
+*The AI's reading (marked as such):* a standing rule — one row, no automatic dodging; the machine's job at a collision is to REPORT, the
+decision his. The dynamics themselves: a quiet percussion line around mp with single departures (pp · f · p · mf), each cancelled by the next
+name. RUNNING_LOG §664.
+
+## LG-233 — 2026-10-01 — the percussion's beams must clear the staff by the standard amount, as the English horn's at 300.09 and 301.57, on both sides
+
+*His words (session 18, Fable):* "The beams aren't clearing by enough. Let's use our standard clearing rule. Like, for example, in the English horn at 300.09 and again at 301.57. We should clear the staff by that much on both sides."
+
+*The AI's reading (marked as such):* ONE clearance for the whole score — the flagged height of S3 (3.39 ss beyond the outer line) — applied to
+the seven-line staff above and below alike; it overrides the "just clear" of the turn before. RUNNING_LOG §665.

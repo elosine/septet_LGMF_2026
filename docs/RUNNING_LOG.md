@@ -21219,3 +21219,67 @@ gate PASS (`render.js` changed).
 
 **For his eye:** a HARD reload (page files changed) → `piece-lgmf` → `306.2` · `326.5` · `336.7` · `346.7` · `370.4` · `378.6` · `382.6` ·
 `398.5` · `405.4`.
+
+## §664. The percussion's dynamics 308 … 375 — on THE row, always; a conflict reported, not solved (2026-10-01, Fable, session 18; LG-232)
+
+**What prompted it** (his words whole in LG-232): *"308.2 MP and just always use the standard dynamic row that we establish unless I say
+otherwise, unless there's a conflict. And then let me know. 315.06pp, and then back to MP for the next one. Hairpin crescendo at 328.66 to the
+next partial, and then another one at 330.44 again to the next partial. 336.8F, and then back to MP 337.87. 358.5p 361.5 mf 374.8 MP."*
+
+**Built:**
+
+| his | the note | the mark |
+|---|---|---|
+| 308.2 | tambourine 308.334 `wc-3742` | **mp** |
+| 315.06 | tambourine 315.116 `wc-3743` | **pp** |
+| the next one | bass drum 316.780 `wc-3728` (the pair's first) | **mp** |
+| 328.66 → the next | tambourine 328.711 `wc-3745` → sleigh bells 329.348 | a crescendo hairpin, no name |
+| 330.44 → the next | bass drum 330.492 `wc-3730` → temple bowl 331.394 | a crescendo hairpin, no name |
+| 336.8 | castanets 336.788 `wc-3765` (the 16th) | **f** |
+| 337.87 | tambourine 337.935 `wc-3746` | **mp** |
+| 358.5 | bass drum 358.499 `wc-3735` (the pair's first) | **p** |
+| 361.5 | sleigh bells 361.557 `wc-3785` (the pair's first) | **mf** |
+| 374.8 | castanets 374.891 `wc-3770` | **mp** |
+
+Six of these were lone strikes still on the fold's look — taken as plain notes (`--plainNotes 4:…` × 6) so their marks have a unit to hang on;
+a lone strike is a BARE HEAD on its line (a new default, `notate_section.js`: on a lined part a plain note has no stem unless a beam or a hand
+gives one — his §650 choice as the rule).
+
+**THE ROW IS THE ROW** (his standing word, built): on a lined staff every name AND every hand hairpin sits on the staff's dynamic row (−8.59,
+§657) — a hairpin with no name of its own too (it used to fall to the five-line row, −4.6); and nothing moves a mark off the row — the span
+rule (S17) does not shift it there. **A conflict is REPORTED**: a layout warning `dynamics row: …` when a name's own unit (a stem down, its
+flag, its beam) comes within the standard stack of the name, or a hairpin meets ink.
+
+**THE ONE CONFLICT, told him:** the **mf at 361.557** — the sleigh bells of a stems-DOWN pair: its stem and the pair's beam come down through
+the row (§664's page: the beam 0.11 ss above the name's top; after §665's clearance the stem passes THROUGH the name, 1.29 ss). His to settle
+(the name above the staff · the pair's stems up · the name beside the beam).
+
+**The gates:** in §665.
+
+## §665. The percussion's beams at the STANDARD clearance — the English horn's, the same on both sides (2026-10-01, Fable, session 18; LG-233)
+
+**What prompted it** (sent while §664 was building — his eye on §663's "just clear"): *"The beams aren't clearing by enough. Let's use our
+standard clearing rule. Like, for example, in the English horn at 300.09 and again at 301.57. We should clear the staff by that much on both
+sides."*
+
+**The standard, measured on the two figures he names:** the English horn's beams at 300.05 … 300.34 and 301.56 … 302.11 have their stems' tips
+at **+5.388** = the top line (2) + the flag clearance 0.38 + an eighth flag's height 3.008 — S3's "a beam at the flagged height": **3.39 ss
+beyond the outer line.**
+
+**Built** (`layout.js`, the lined staff's beam): the floor is that clearance on BOTH sides — up **+9.39** (6 + 3.388), down **−9.39** (the
+same distance; §662 had used the down flag's height, −9.18); §663's "just clear" (±6.78) withdrawn. A standard stem that reaches further still
+wins (398.4 +9.99 · 305.25 +11.99). So: 302.55 · 316.78 · 320.34 · 342.51 · 358.50 · 405.30 at +9.39; 321.18 · 361.56 · 364.91 · 378.47 ·
+380.39 at −9.39.
+
+**What it costs, told him:** §663's "the shorter one should be the standard stem height" (378.5 · 405.3) no longer holds there — clearing by
+3.39 asks more than a standard stem from a mid-staff head (378.5's shorter stem 7.25, 405.3's 7.25); the two rules meet only where the nearest
+head is within 2.5 ss of the staff's edge. The down-beams sit 0.39 ss below the percussion lane's bottom (−9), 2.6 above the vibraphone's top
+line.
+
+**The record of this rule in three days' turns, for whoever reads later:** §662 flagged height (+9.39 · −9.18) → §663 just clear (±6.78), the
+shorter stem standard → §665 the flagged height both sides (±9.39). The last is his, from the English horn's own figures.
+
+**The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` + three tuba pages (`db1 · db1-all-x01` part 4 and their
+warnings, `piece-open-01` its warnings alone — the new `dynamics row` warning on the stand-in lined staff).
+
+**For his eye:** reload → `piece-lgmf` → `308.3` · `315.1` · `316.8` · `328.7` · `330.5` · `336.8` · `337.9` · `358.5` · `361.6` · `374.9`.

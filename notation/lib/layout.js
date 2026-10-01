@@ -2020,8 +2020,13 @@
                       // beams should clear the staff"] the floor is JUST CLEAR OF THE STAFF — the beam stack's near edge the flag clearance beyond
                       // the outer line — not a flag's height beyond it (§662's, which stretched the 378.5 pair's shorter stem to 7 ss)
                       const lvB = dev.noteBeams >= 1 ? Math.round(dev.noteBeams) : 2, stackB = stds.beam.thickness + (lvB - 1) * stds.beam.stackStep;
-                      yEnd = dev.grace ? (stemDir === 'up' ? yStart + L : yStart - L)
-                        : stemDir === 'up' ? Math.max(yStart + L, Math.max(...offs) + clr + stackB) : Math.min(yStart - L, Math.min(...offs) - clr - stackB);
+                      yEnd = stemDir === 'up' ? yStart + L : yStart - L;   // a grace group: its own short stems
+                      // [§665, his "The beams aren't clearing by enough. Let's use our standard clearing rule … the English horn at 300.09 and again at
+                      // 301.57. We should clear the staff by that much on both sides"] THE STANDARD CLEARANCE: the beam at the FLAGGED HEIGHT (S3) — its
+                      // far edge the flag clearance + an eighth flag's height beyond the outer line (the English horn's 3.39 ss), the SAME distance
+                      // above and below; §663's just-clear floor (stackB) withdrawn. A standard stem that reaches further still wins.
+                      const clearB = clr + fgB.hSs;
+                        yEnd = dev.grace ? yEnd : stemDir === 'up' ? Math.max(yStart + L, Math.max(...offs) + clearB) : Math.min(yStart - L, Math.min(...offs) - clearB);
                     }
                     if (XO) yEnd -= XO.yOff;   // [2i.4] the beam line is the top staff's; this stem is measured from its own staff
                     const key = dev.beamGroup || 'beam';
@@ -3497,12 +3502,19 @@
           const mk = items.find(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && Math.abs(it.t - u.t) < 1e-9);
           const g = mk && glyphs.dynamic ? glyphs.dynamic[mk.g.replace(/^dyn-/, '')] : null;
           const x0 = mk ? mk.dxSs + (g ? g.wSs / 2 : 0) + HP.beside : u.dx + HP.beside;
-          let y = mk ? mk.ySs : (o.dynY != null ? o.dynY : -4.6);
+          // [RUNNING_LOG §664, his "just always use the standard dynamic row that we establish unless I say otherwise, unless there's a conflict.
+          // And then let me know"] ON A LINED STAFF THE ROW IS THE ROW: a hairpin with no name of its own sits on it too, and neither it nor a
+          // name is moved off it by what it spans — a conflict is REPORTED (a layout warning 'dynamics row: …'), his to settle
+          const linedRow = (spec.staffInfo && spec.staffInfo.lined && o.dynRowLinedBelowSs > 0 && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length)
+            ? Math.min(...spec.staffInfo.offsets) - o.dynRowLinedBelowSs - Math.max(...Object.keys(glyphs.dynamic || {}).map(k => (glyphs.dynamic[k] && glyphs.dynamic[k].hSs) || 0)) / 2 : null;
+          let y = mk ? mk.ySs : linedRow != null ? linedRow : (o.dynY != null ? o.dynY : -4.6);
           const above = y > 0, half = HP.heightSs / 2;
           const inSpan = it => it !== mk && ((typeof it.t === 'number' && it.t >= u.t - 1e-9 && it.t <= dev.hairpinTo + 1e-9) || (it.k === 'beam' && it.tips && it.tips.some(p => p.t >= u.t - 1e-9 && p.t <= dev.hairpinTo + 1e-9)));
           let edge = above ? -Infinity : Infinity;
           for (const it of items) { if (!inSpan(it)) continue; const e = above ? inkTop(it) : inkBottom(it); if (e == null) continue; edge = above ? Math.max(edge, e) : Math.min(edge, e); }
-          if (isFinite(edge)) y = above ? Math.max(y, edge + HP.spanClearSs + half) : Math.min(y, edge - HP.spanClearSs - half);
+          if (linedRow != null) {
+            if (isFinite(edge) && edge - HP.spanClearSs - half < y - 1e-6) warnings.push('dynamics row: the hairpin from ' + u.t.toFixed(3) + ' to ' + (+dev.hairpinTo).toFixed(3) + ' on part ' + spec.part + ' meets ink reaching ' + edge.toFixed(2) + ' ss (the row ' + y.toFixed(2) + ')');
+          } else if (isFinite(edge)) y = above ? Math.max(y, edge + HP.spanClearSs + half) : Math.min(y, edge - HP.spanClearSs - half);
           y = +y.toFixed(4);
           if (mk) mk.ySs = y;
           // [§590, his figure at 317: "a hairpin from seven to eight crescendo and then eight marked with f" — the tip touched the f] THE HAIRPIN
@@ -3513,6 +3525,21 @@
           const dx1 = mk1 ? mk1.dxSs - (g1 ? g1.wSs / 2 : 0) - HP.beside : 0;
           if (mk1) mk1.ySs = y;
           items.push({ k: 'hairpin-timed', t0: u.t, t1: dev.hairpinTo, dx0Ss: +x0.toFixed(4), dx1Ss: +dx1.toFixed(4), ySs: y, dir: dev.hairpinDir === 'decresc' ? 'decresc' : 'cresc', hSs: HP.heightSs, thickSs: HP.thickSs, ev: id });
+        }
+      }
+      // [§664] THE LINED ROW'S CONFLICTS, reported: a name on the lined staff's dynamic row whose OWN unit's ink (a stem down, its flag, its
+      // beam) comes within the standard stack of the name's top
+      if (spec.staffInfo && spec.staffInfo.lined && o.dynRowLinedBelowSs > 0) {
+        const STKr = o.stackGapSs != null ? o.stackGapSs : 0.45;
+        for (const mkr of items) {
+          if (mkr.k !== 'glyph' || !/^dyn-/.test(mkr.g || '') || !(mkr.ySs < 0)) continue;
+          const gr = (glyphs.dynamic || {})[mkr.g.replace(/^dyn-/, '')], top = mkr.ySs + ((gr && gr.hSs) || 1) / 2;
+          let low = Infinity;
+          for (const it of items) {
+            if (it.k === 'stem' && Math.abs(it.t - mkr.t) < 1e-9) low = Math.min(low, it.yA, it.yB);
+            else if (it.k === 'glyph' && /^flag-down/.test(it.g || '') && Math.abs(it.t - mkr.t) < 1e-9) low = Math.min(low, it.ySs);
+          }
+          if (isFinite(low) && low - top < STKr - 1e-6) warnings.push('dynamics row: the ' + mkr.g.replace(/^dyn-/, '') + ' at ' + mkr.t.toFixed(3) + ' on part ' + spec.part + ' is ' + (low - top).toFixed(2) + ' ss under its own stem / beam (' + low.toFixed(2) + ')');
         }
       }
       // [§577, his "I would prefer if the spacing system picked up all those exceptions … rather than just manually fixing it each time"]

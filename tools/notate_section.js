@@ -1904,9 +1904,10 @@ if (MORPH_SEQ.length) {
       // [§662, his "you can get rid of the rest of the dynamics" (§657)] on a LINED part a plain note shows NO name unless a hand gives it one —
       // the percussion's dynamics are his, by hand, on the staff's row; the band name of each strike is not written
       if (pc && pc.staff && Array.isArray(pc.staff.lines)) {
+        // [§664] …and NO STEM unless a beam or a hand gives one — a lone strike is a bare head on its instrument's line (his §650 · §648 (c))
         const exo = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
-        if (exo) { if (exo.value.device && exo.value.device.dynMark === undefined) exo.value.device.dynMark = false; }
-        else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { dynMark: false } }, provenance: 'authored' });
+        if (exo) { exo.value.device = exo.value.device || {}; if (exo.value.device.dynMark === undefined) exo.value.device.dynMark = false; if (exo.value.device.nhStem === undefined) exo.value.device.nhStem = false; }
+        else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: { dynMark: false, nhStem: false } }, provenance: 'authored' });
       }
       // [§590 — his eye at 322 · 323: 'the curve meter is just briefly sneaking in there'] A PLAIN NOTE IS A STRUCK NOTE (DYNAMICS_LAW): a note
       // the extractor gave a LEVEL curve instead of a velocity (a take re-pitched it with cents — sonifyMode not plain, extract_core 467 · 478)
