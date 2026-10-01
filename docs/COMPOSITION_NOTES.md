@@ -3845,3 +3845,10 @@ third page on. RUNNING_LOG §695.
 
 *The AI's reading (marked as such):* one more chord of §669's kind — the trumpet's onset moved onto the other two in his save;
 "run through the whole thing" = the audio and the film made again from the corrected save. RUNNING_LOG §697.
+
+## LG-264 — 2026-10-01 — the composer reloaded; go
+
+*His words (session 18, Fable, on §697's steps):* "1 reload ctrl r or reload reload button" — "reloaded, any saving or r in the notation score?" — "go"
+
+*The AI's reading (marked as such):* which reload (the app's button); whether anything else was his to do (no); then the audio and the
+film re-made. RUNNING_LOG §698.

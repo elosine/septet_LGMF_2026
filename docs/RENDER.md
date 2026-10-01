@@ -87,3 +87,8 @@ Then: the notation page (CTRL+SHIFT+R) → the MAIN file → **♪ render** → 
   read-back ok; moved against the committed MIDI: the vibraphone, the whole-piece file, and 7 bytes of `28 Bass XS` (same length — not
   traced). Reaper: the rack as saved 18:48 UTC, 29 items by name; 288 s. Render: 886.664 s · float true peak **−11.0 dBTP** · −28.8 LUFS ·
   LRA 20 · `--up --maxUp 6`: +10 to −1 dBTP, **capped at +6.0 dB** → **−5.0 dBTP · −22.8 LUFS** · first sound 1.686 s. Linked: unchanged.
+- **2026-10-01 — Draft 01 re-rendered with the trumpet at 367.80 in unison** (RUNNING_LOG §697 · §698; the save as edited at his word —
+  `wc-3599` 367.975 → 367.804). Capture: 24 788 messages · 53 020 frames in 305 s · 0 writes. Checks: notes 1075/1075, 435 bends in place,
+  0 hanging, read-back ok; moved against the committed MIDI: `08 Trumpet SI2` and the whole-piece file only (the trumpet's note-on at
+  367.804 read off the track). Reaper: 29 items by name; 285 s. Render: 886.664 s · float **−11.0 dBTP** · −28.8 LUFS · LRA 20 ·
+  `--up --maxUp 6`: **capped at +6.0 dB** → **−5.0 dBTP · −22.8 LUFS** · first sound 1.686 s. Linked: unchanged. The film re-made from it.

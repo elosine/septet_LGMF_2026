@@ -22124,3 +22124,30 @@ edit there, or his next Save writes it back.**
 **The steps laid out for him (not run — his go):** 1 he reloads the composer tab · 2 the audio: capture → export → Reaper render
 (≈ 10 min; Reaper open on the saved rack) · 3 the film: the same command, the same cut (≈ 9 min) · 4 his watch-through · 5 on his
 "good": the archive and a new tag.
+
+## §698. The whole thing run again — the audio and the film from the save with the trumpet in unison (2026-10-01, Fable, session 18; LG-264)
+
+**His words on §697's steps:** *"1 reload ctrl r or reload reload button"* — told: the composer's own Reload button (it drops the tab's
+state and reads the file; CTRL+R not checked for what the tab writes on its way out) · *"reloaded, any saving or r in the notation
+score?"* — told: neither (read off the disk: the file's trumpet 367.804, no working copy; the page already re-extracted — a browser
+reload of the notation tab shows it; R would redo the same extraction) · then *"go"*.
+
+**Before starting, read:** Reaper on `LGMF_rack`, no "modified" in its title; the score server answering on :5400.
+
+**The audio (RENDER.md §1; §4 has the entry):**
+1. the capture — 24 788 messages · 53 020 frames in 305.5 s · 0 writes refused.
+2. the export — notes **1075/1075** · 435 bends in place · 0 hanging · read-back ok. Against the committed MIDI: `08 Trumpet SI2` and
+   the whole-piece file moved, nothing else (the bass track identical this time — §689's 7 bytes did not recur). Read off the trumpet's
+   track: its note-on at **367.804 s** (key 80, velocity 29).
+3. the render — 29 items by name, 285 s; the float 886.664 s · **−11.0 dBTP** · −28.8 LUFS · LRA 20; capped at +6.0 dB → the WAV
+   **−5.0 dBTP · −22.8 LUFS**. sha256 `d4906fef…`.
+
+**The film:** §694's command unchanged (the cut list seed 7; the exporter now with §695's windowed curves and §696's `adelay`) —
+26 721 frames, 8.8 min, ffmpeg exit 0.
+- off the file: 890.664 s · video and audio both from **0.000** · 65 235 115 bytes · sha256
+  `725f1babe2a8583207a97072414591a7134ee3d7107623f2a8811ccc257d519c`.
+- the sync: the opening silence ends at 2.4975 s in the WAV and **6.4975 s** in the film — the 4.000 s lead-in.
+- the curves: a frame each minute — green in every sequence, green and orange in every morph, none in section 2.
+- NOT watched by the AI; the trumpet's unison is proven on the MIDI and the page, not by ear.
+
+**Next:** his watch-through (PLAN § 2b-F step 6). On his "good": the archive and a new tag (the lock's tag predates §697).
