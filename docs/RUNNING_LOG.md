@@ -21499,3 +21499,22 @@ where a label stands, 0.05 s before a new-pitch breath) — a rule is the natura
 **Checked:** `check_rules` 34 · `eh_figure_check` 106 · `sequence_notation_check` 79 · THE SHIELD `piece-lgmf` alone · the first
 seen in the running app on a throwaway server (:5401, the zoom view at 100.2 s): `−2` · `19 (E♭1)` · `(pp)` on three separate rows;
 the second by the layout's numbers, not looked at.
+
+## §674. The cello's (ppp) at 694.45 — the same hand, the third of the kind (2026-10-01, Fable, session 18; LG-240)
+
+**What prompted it:** his word after §673: *"694.46 same"*.
+
+**Found:** the cello (part 6) again — the curve label `(ppp)` (a trough at 694.451, level 0.125) and a NEW-pitch breath at 694.453
+under an 8va, its column flipped under the staff: `+2` over `12 (D♭2)`. The same numbers as §673's two: the label's ink
+−5.05 … −4.15 on the partial's −4.40 … −3.45.
+
+**Done:** `node tools/reextract.js "" --labelDy 6:694.451:-0.6` — the IR's diff is that one field; 1076 events, VALID. After: the
+label's ink −5.65 … −4.75, **0.35 ss clear**. Three labels carry a hand now (102.25 · 477.87 · 694.451), all the cello's.
+
+**The pattern, said to him, not built:** three cases of one kind — the ladder flips a breath's column under the staff (the head high
+under an 8va, no room above), and a curve label stands on the dynamic row within a few hundredths of a second of that breath. A rule
+(a label under a flipped column goes below it) would catch the rest without a hand; whether more exist on the page was NOT looked for —
+his "exceptionally" stands until he says otherwise.
+
+**Checked:** `check_rules` 34 · `eh_figure_check` 106 · `sequence_notation_check` 79 · THE SHIELD `piece-lgmf` alone. By the
+layout's numbers; not looked at in the app.

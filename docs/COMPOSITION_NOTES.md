@@ -3683,3 +3683,10 @@ the partial); one hand, 0.6 ss down; the dynamic row remains the rule. RUNNING_L
 *His words (session 18, Fable, with a picture, while the first was being made):* "same for 477.91"
 
 *The AI's reading (marked as such):* the cello's `(mp)` at 477.87 on `12 (B1)` — the same hand, the same 0.6 ss. RUNNING_LOG §673.
+
+## LG-240 — 2026-10-01 — the same at 694.46
+
+*His words (session 18, Fable):* "694.46 same"
+
+*The AI's reading (marked as such):* the cello's `(ppp)` at 694.45 on `12 (D♭2)` — the same hand, 0.6 ss down. The third of the kind.
+RUNNING_LOG §674.
