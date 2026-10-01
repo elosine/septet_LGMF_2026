@@ -393,6 +393,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►►►►►** | **THE PERFORMANCE NOTES — BEGUN (§703, 2026-10-01; LG-268):** piece #5's page carried as the starting point — `docs/notation_instructions/index.html`, served at `http://localhost:5400/docs/notation_instructions/`; the title changed, nothing else (the prose is his; every example and image still piece #5's). The tracker's list given him grouped, the six section-2 gaps named, HELD — not merged, not added to the tracker. ► HIS READ of the page, then he updates it to this piece section by section: the AI inserts his dictation verbatim, swaps the images (`tools/capture_lane.js`), flags moved facts in chat | **Fable** | — |
 | **►►►►►** | **THE PERFORMANCE NOTES — HIS NEXT** (checkpoint #12, 2026-10-01; LG-266): after the clear, `/postclear`, check in; then the tracker `docs/PERFORMANCE_NOTES.md` played back as the notes' contents, what it lacks against the locked page named, and HIS way of working asked. The notes are his to write (PLAN § 2b) | **Fable** | **yes — `/checkpoint` done, `/clear`, `/postclear`** |
 | ►► | **THE PRINT SCORE (A3)** — `export_print.js` · `print/score/build.sh`'s gates, never run on this piece's pages; after the notes (they print with it), laid out with him (PLAN § 2b-F step 7) | Fable to lay out · Opus to build | yes |
 | ►► | **THE COVER** — PLAN § 2b-F step 7; `print/cover/` holds piece #5's two scripts | Fable · Opus | — |

@@ -3873,3 +3873,11 @@ clear is the performance notes (his to write). RUNNING_LOG §700.
 
 *The AI's reading (marked as such):* none of the four is built now or asked about again in this piece; they are kept where the
 copy-forward and the postmortem will find them. RUNNING_LOG §701.
+
+## LG-268 — 2026-10-01 — the performance notes: start from the last piece's page, hold the list
+
+*His words (session 18, Fable, after the clear):* "can you get the performance notes from the last piece, and we'll use that as a starting point. And then, yes, go ahead and do the list there of all the notes I've been taking for this piece. Hold on those. Let me see the previous piece notes in its own page, and we'll update that to this piece. You can start by changing any references to the old title."
+
+*The AI's reading (marked as such):* piece #5's performance instructions become this piece's page, as a copy of its own — the title
+changed and nothing else, he revises it section by section; the tracker's list is given and kept aside, not merged, until he has read
+the page. RUNNING_LOG §703.

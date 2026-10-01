@@ -22235,3 +22235,25 @@ Nothing decided today lived only in the chat — §672 … §701 were written as
 **Left for the next session, said in the block:** the tracker was mostly written before section 2 was notated — the long tone, the
 chord's one name, the one-off and the GC's purpose, the grace family, the percussion staff's conventions and the vibraphone's ○ at the
 end of a fall have no row; naming that gap is the notes session's first act, not this checkpoint's.
+
+## §703. The performance notes begun — piece #5's page carried as the starting point, the title changed (2026-10-01, Fable, session 18; LG-268)
+
+**His word**, at the check-in after the clear: *"can you get the performance notes from the last piece, and we'll use that as a starting
+point. And then, yes, go ahead and do the list there of all the notes I've been taking for this piece. Hold on those. Let me see the
+previous piece notes in its own page, and we'll update that to this piece. You can start by changing any references to the old title."*
+
+**Done:** piece #5's `docs/notation_instructions/` (`index.html` · `styles.css` · its nine images) copied here whole, read-only from
+its repo; the title changed in the three places it stood — the tab title, the subtitle, the opening sentence (*Scattered Substance* →
+*Recombination*) — and the file's header comment rewritten for this piece. NOTHING ELSE TOUCHED: the prose is his (piece #5's rule, its
+§569, carried). Served by his running server at `http://localhost:5400/docs/notation_instructions/` (the route answered 200).
+
+**Still piece #5's on the page, flagged to him in chat, not changed:** the subtitle's instrumentation ("for flute, bass clarinet, piano
+and string quartet") · the demo video link · the Instrumentation section · every example and image (the Bartók pizzicato, the trill,
+the viola's crescendo, the Bloom / Spectral text, the morph chart, the three practice videos, the pedal and let-ring legend).
+
+**The list, given him grouped and HELD at his word** (the tracker `docs/PERFORMANCE_NOTES.md`, 20 rows): tuning 1 · 2 · 9 · 8 —
+vibrato 3 · 11 — the scrolling score's devices 6 — dynamics and curves 4 · 5 · 12 · 14 · 15 — the morph 13 — the vibraphone 10 · 20 —
+section 2's temporal notation 16 · 17 · 18 · 19 — the percussion 7. **No row yet, against the locked page (section 2 was notated after
+most rows were written):** the long tone and its navy bar (2m) · one name per chord (§637) · the one-off and the GC's purpose (S24, his
+TODO 9) · the grace family · the percussion staff's conventions (S25 … S33) · the vibraphone's ○ at the end of a fall (§677). Not
+merged into the page and not added to the tracker — held until he has read the page.

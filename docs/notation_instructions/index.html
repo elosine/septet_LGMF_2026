@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Instructions — Recombination</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>body { font-family: 'Lato', sans-serif; }</style>
+</head>
+<body>
+
+<!-- ═══ RECOMBINATION DRAFT — begun 2026-10-01 (session 18) ═══════════════════
+     Begun as a copy of piece #5's docs/notation_instructions/index.html (the septet
+     of 2026's performance instructions), the title changed and nothing else
+     (RUNNING_LOG §703); the composer revises it section by section. THE PROSE IS HIS:
+     the AI inserts his dictation verbatim, swaps images, and flags moved facts in chat only.
+     IMAGES — STILL PIECE #5'S, all nine; each is replaced as its section is revised.
+     What the notes must cover for this piece: docs/PERFORMANCE_NOTES.md (the tracker).
+     Served at http://localhost:5400/docs/notation_instructions/ -->
+
+<h1>Performance Instructions</h1>
+<p class="subtitle">Recombination, for flute, bass clarinet, piano and string quartet — Justin Yang</p>
+
+<p>The score for <em>Recombination</em> is a computer-animated score, served from the cloud and played in a web browser, like an online video game.</p>
+
+<!-- ═══ Demo Video (RUNNING_LOG §589; placed after the intro paragraph, his word §604) ═══ -->
+<h3>Demo Recording with Score-Following Video</h3>
+<p class="demo-link"><a href="https://youtu.be/x8EZ3B1EvbE">https://youtu.be/x8EZ3B1EvbE</a></p>
+
+<!-- ═══ Instrumentation — AI drafts at his request, his to revise (RUNNING_LOG §589; NITS "FOR THE PERFORMANCE INSTRUCTIONS") ═══ -->
+<h3>Instrumentation</h3>
+
+<div class="notation-section">
+    <div class="description">
+        <p>Flute, bass clarinet, piano, violin 1, violin 2, viola, cello.</p>
+        <p>Bass clarinet to low C.</p>
+        <p>The full score is in C. Parts will be transposed.</p>
+    </div>
+</div>
+
+<!-- ═══ Animated Conduction Tools ══════════════════════════════════════════
+     E1: Violin 1, Bartók pizzicato fff at 20.52 s (the opening's scattered
+         strikes), captured at t=20.34 — cursor approaching the go line, ball
+         descending.
+     E2: Violin 1, the trill at 140.00 s (1.80 s, sfz, the level curve flat),
+         captured at t=140.81 — cursor and curve follower mid-trill; the trill and
+         its curve ONLY (--onlyOnsets, §592: the next strike's GC and notation removed).
+     Regenerate:
+     node tools/capture_lane.js --part vn1 --t 20.34 --span 19.98-20.98 --padBot 14 --out docs/notation_instructions/images/conduction_e1_strike_vn1_20.svg
+     node tools/capture_lane.js --part vn1 --t 140.81 --span 139.65-142.05 --padBot 14 --onlyOnsets 139.9-140.1 --out docs/notation_instructions/images/conduction_e2_trill_vn1.svg  -->
+
+<h3>Animated Conduction Tools</h3>
+
+<div class="notation-section">
+    <div class="description">
+        <p>There are a number of animated conduction tools that are intuitive to follow and aid performers in realizing the score.</p>
+        <p>A <strong>scrolling cursor</strong> runs throughout the piece at a consistent speed and indicates when things are to be played. Notation is spaced proportionally in time — distance on the page equals duration. <strong>Bouncing-ball conductors</strong> aid with rhythmic precision. The <strong>dotted vertical line</strong> — the <strong>go-line</strong> — marks the <strong>go-time</strong> for events.</p>
+        <p>In the first example, you would play the Bartók pizzicato when the scrolling cursor reaches the go-line and the ball bounces. In the second example, you would begin the trill at the go-line and continue it for the length of the green curve &#8212; the trill ends where the curve ends.</p>
+    </div>
+    <div class="pair">
+        <figure style="flex: 308 1 0">
+            <img src="images/conduction_e1_strike_vn1_20.svg" alt="Example 1 — a Bartók pizzicato at the go line, ball descending, cursor approaching">
+        </figure>
+        <figure style="flex: 739 1 0">
+            <img src="images/conduction_e2_trill_vn1.svg" alt="Example 2 — a trill: go line, open head, sfz, the green level curve with the curve follower mid-trill">
+        </figure>
+    </div>
+</div>
+
+<!-- ═══ Curve-Based Crescendo ══════════════════════════════════════════════
+     Image: Viola, the crescendo run's first swell at 526.79 s (1.21 s, ppp → fff,
+     "sempre secco" at its first swell), captured at t=527.6 — cursor and curve
+     follower two-thirds up the curve. Regenerate:
+     node tools/capture_lane.js --part va --t 527.6 --span 526.4-528.75 --padBot 8 --out docs/notation_instructions/images/curve_cresc_527_va.svg  -->
+
+<h3>Gradient Curves</h3>
+
+<div class="notation-section">
+    <div class="description">
+        <p>This score uses graphic curves to describe continuous change. An animated <strong>curve follower</strong> appears alongside the cursor and gives the real-time position in the gradient.</p>
+    </div>
+
+    <h4>Crescendos</h4>
+    <img src="images/curve_cresc_527_va.svg" alt="A gradient curve describing a crescendo, ppp to fff, with the curve follower — viola at 527 s">
+    <div class="description">
+        <p>Gradient curves are used to describe crescendos. Play the crescendo from dynamic 1 to dynamic 2. The bottom of the curve corresponds to the starting dynamic, the top to the ending dynamic. The contour of the curve determines how the crescendo grows over time.</p>
+    </div>
+
+    <!-- Trills image: a trill whose level curve moves, captured mid-flight with the tr header in the frame;
+         node tools/capture_lane.js --part bcl --t 129.95 --span 128.82-131.0 --padBot 14 --out docs/notation_instructions/images/gradient_trill.svg
+         (the bass clarinet trill at 129.17 s, 5.5 s; RUNNING_LOG §575). Text to follow (the composer's). -->
+    <h4>Trills</h4>
+    <img src="images/gradient_trill.svg" alt="A trill mid-flight: the tr header at the go line, the green gradient curve with the curve follower part-way along it">
+    <div class="description">
+        <p>The curves describe the trill intensity, both volume and speed.</p>
+    </div>
+</div>
+
+<!-- ═══ Acoustic Beating ═══════════════════════════════════════════════════
+     The chart below is THIS PIECE'S (tools/gen_morph_chart.js, RUNNING_LOG §576-§580).
+     Practice videos (PLAN 2h.7, D48 — BLOOM only; no SPECTRAL demos, his word 2026-09-17, §584): the three Bloom pairs, built
+     2026-09-17 (RUNNING_LOG §599–§602; notation/video/approved/2026-09-17-bloom-practice/), uploaded by him, each URL checked
+     against its own YouTube title before wiring (the tuba's rule). Listed in the chart's row order, top to bottom.  -->
+
+<h3>Acoustic Beating</h3>
+
+<div class="notation-section">
+    <div class="description">
+        <p>The middle movement of this piece uses acoustic beating as its central musical material. Performers use micro-glissandos over long durations to generate acoustic beating. Acoustic beating is commonly used to tune stringed instruments &#8212; play two strings and adjust the tuning of one until the beating disappears. In a similar way, this movement is less about trying to play a particular pitch than about using small deviations of pitch to modulate the speed and timbre of the acoustic beating.</p>
+        <p>There are two sections in this movement &#8212; Bloom and Spectral. In the Bloom section, pairs of performers glissando away from each other &#8212; one goes up in pitch while the other goes down &#8212; and then back together. The chart below gives the approximate beating rate at its maximum.</p>
+        <p>The strategy for the Spectral section is different. Performers begin on a pitch and then glissando towards and away from a target harmonic partial.</p>
+    </div>
+    <!-- The morph sequence chart, THIS PIECE'S, measured from the save's morph curves (RUNNING_LOG §576):
+         node tools/gen_morph_chart.js
+         BLOOM: the three pairs' beating in Hz over the morph, the peak marked · SPECTRAL: each part's pitch over the
+         morph in cents from its start (flat where it holds), the dot where it reaches its partial, the B♭ HARMONICS
+         column from the score's D45 headers. (The one-way arrows figure, tools/gen_m2_chart.js, is kept but not shown.) -->
+    <img src="images/morph_sequence_chart.svg" alt="The morph sequence: BLOOM, the three pairs' beating over time with the peak rate; SPECTRAL, each part's pitch travel toward its B-flat partial and back, with the partial named">
+    <div class="description">
+        <p>I have prepared demo recordings for the Bloom section at the links below. The demos isolate the pairs and demonstrate how the maximum beating levels sound and then provide a two-part demo of the Bloom section.</p>
+        <ul>
+            <li>Flute + Violin 2 &#8212; <a href="https://youtu.be/3GiK0cx5d74">https://youtu.be/3GiK0cx5d74</a></li>
+            <li>Violin 1 + Viola &#8212; <a href="https://youtu.be/fOV4lDN3kKA">https://youtu.be/fOV4lDN3kKA</a></li>
+            <li>Bass Clarinet + Cello &#8212; <a href="https://youtu.be/W1uv11zZC8U">https://youtu.be/W1uv11zZC8U</a></li>
+        </ul>
+        <p><strong>Notation</strong></p>
+    </div>
+    <!-- The morph notation, THIS PIECE'S: the viola in BLOOM (RUNNING_LOG §588).
+         (1) the entry — the header (start and destination heads, −25 c, niente → fff), the go line, both curves at their starting edges:
+         node tools/capture_lane.js --part va --t 186.0 --span 182.3-189.4 --padBot 14 --out docs/notation_instructions/images/beating_notation_entry_va.svg
+         (2) fifteen seconds in — the orange curve falling, the green rising, a go line (rearticulation), both curve followers:
+         node tools/capture_lane.js --part va --t 199.6 --span 195.9-202.7 --padBot 14 --out docs/notation_instructions/images/beating_notation_mid_va.svg -->
+    <img src="images/beating_notation_entry_va.svg" alt="The viola entering the Bloom section: the header with the pitch range and niente to fff, the go line, the orange curve at the top and the green at the bottom">
+    <img src="images/beating_notation_mid_va.svg" alt="The viola fifteen seconds into Bloom: the orange glissando curve falling, the green dynamic curve rising, a go line, both curve followers at the cursor">
+    <div class="description">
+        <p>The notation for the acoustic beating movement employs two curves for each performer: a green one at the bottom of the staff and an orange one at the top. The green curve indicates dynamic level, and the orange curve indicates beating/glissando level. The dotted vertical go-lines are rearticulation points &#8212; the rearticulation should happen at the go-line: breathe or retake the bow before, and rearticulate at the line. The pitch range notated at the beginning of each section is approximate; you will calibrate the glissando pitch using beating speed and timbre. The animated curves can assist.</p>
+    </div>
+</div>
+
+<!-- ═══ Notation Legend — AI drafts at his request, his to revise (RUNNING_LOG §589; NITS "FOR THE PERFORMANCE INSTRUCTIONS") ═══ -->
+<h3>Notation Legend</h3>
+
+<div class="notation-section">
+    <div class="description">
+        <p><svg class="glyph" viewBox="0 0 2.433 1.4" width="2em" height="1.15em" style="vertical-align:-0.2em" role="img" aria-label="Ped."><path d="M0.1232 0.4508c0 0.0532 0.0364 0.1344 0.1092 0.1344c0.0616 0 0.1204 -0.0784 0.1204 -0.1652c0 -0.0224 0.0504 -0.0224 0.0504 0c0 0.1764 -0.1148 0.35 -0.2324 0.35c-0.1148 0 -0.1708 -0.1232 -0.1708 -0.2184c0 -0.2296 0.252 -0.5516 0.7028 -0.5516c0.3024 0 0.4648 0.2296 0.4648 0.4032c0 0.084 -0.0476 0.1876 -0.1456 0.1876s-0.1904 -0.1372 -0.2436 -0.252c-0.0084 -0.0196 0.0364 -0.0392 0.0448 -0.0196c0.0224 0.0504 0.0784 0.0896 0.1288 0.0896c0.0588 0 0.0896 -0.0504 0.0896 -0.1008c0 -0.1092 -0.1232 -0.2576 -0.3388 -0.2576h-0.0196c-0.028 0.056 -0.1092 0.2548 -0.1092 0.3024c0 0.1288 0.28 0.3192 0.28 0.4592c0 0.0672 -0.0784 0.1456 -0.1624 0.252c0.0812 0.0084 0.2324 0.0784 0.2856 0.1232c0.0364 0.0308 0.1344 -0.0672 0.1596 -0.0868c-0.0112 -0.0532 -0.0168 -0.0812 -0.0168 -0.1344c0 -0.168 0.0896 -0.3696 0.2688 -0.3696c0.07 0 0.1372 0.0476 0.1372 0.126c0 0.1036 -0.1204 0.224 -0.2212 0.308l-0.0308 0.0252c0.0364 0.0672 0.0924 0.1596 0.1316 0.1932c0.0112 0.0112 0.0364 0.0084 0.0504 0c0.0252 -0.014 0.1316 -0.0924 0.1764 -0.1316c-0.0112 -0.0392 -0.0168 -0.0784 -0.0168 -0.1176c0 -0.154 0.126 -0.3136 0.2716 -0.3836c-0.1428 -0.1988 -0.3612 -0.3528 -0.5824 -0.392c-0.0224 -0.0028 -0.014 -0.0532 0.0084 -0.0504c0.3976 0.07 0.854 0.3752 0.9212 0.7616c0.0028 0.0224 0.0084 0.0448 0.0084 0.0672c0 0.196 -0.14 0.3976 -0.3164 0.3976c-0.1204 0 -0.2268 -0.1036 -0.2772 -0.2296c-0.0672 0.0616 -0.2044 0.1792 -0.238 0.2016c-0.0224 0.0168 -0.0532 0.0252 -0.084 0.0252c-0.1092 0 -0.1428 -0.1288 -0.1736 -0.238c-0.0756 0.056 -0.252 0.2044 -0.2968 0.2296c-0.0168 0.0084 -0.0336 0.0112 -0.0476 0c-0.0532 -0.0448 -0.0784 -0.2492 -0.1596 -0.2744c-0.07 0.084 -0.1316 0.1596 -0.1568 0.1848c-0.0308 0.0308 -0.1792 0.1008 -0.182 0.1008h0.0028c-0.0196 0 -0.0392 -0.014 -0.0392 -0.0336c0 -0.0364 0.0588 -0.1064 0.084 -0.1316c0.0504 -0.0532 0.1876 -0.1596 0.266 -0.1708c0.0504 -0.0588 0.084 -0.0812 0.084 -0.1372c0 -0.1316 -0.2464 -0.3108 -0.2464 -0.42c0 -0.0672 0.1204 -0.3752 0.168 -0.4536c-0.3164 0.028 -0.5068 0.2464 -0.5068 0.3976zM1.3328 0.6888c-0.084 0 -0.1204 0.0756 -0.1204 0.154c0 0.056 0.0168 0.1176 0.0392 0.168c0.0728 -0.0616 0.1764 -0.1512 0.1764 -0.2324c0 -0.0532 -0.0448 -0.0896 -0.0952 -0.0896zM1.9152 0.658c-0.1036 0.0588 -0.154 0.2156 -0.154 0.3416c0 0.1344 0.0504 0.3024 0.1652 0.3024c0.0896 0 0.126 -0.1092 0.126 -0.2268c0 -0.1708 -0.056 -0.294 -0.1372 -0.4172zM2.2372 1.302c0 -0.0532 0.0448 -0.098 0.098 -0.098s0.098 0.0448 0.098 0.098s-0.0448 0.098 -0.098 0.098s-0.098 -0.0448 -0.098 -0.098z" fill="currentColor"/></svg> (with no release sign) &#8212; hold the pedal until the sound has died away or until the next note.</p>
+    </div>
+
+    <!-- Let-ring slurs, THIS PIECE'S (RUNNING_LOG §591): the piano in BLOOM — a plucked note (pizz., Ped., ff) and an ordinary note (f).
+         node tools/capture_lane.js --part pno --t 211.5 --span 212.55-213.9 --padBot 14 --out docs/notation_instructions/images/let_ring_plucked_pno.svg
+         node tools/capture_lane.js --part pno --t 216.5 --span 217.3-218.65 --padBot 14 --out docs/notation_instructions/images/let_ring_ordinary_pno.svg -->
+    <div class="pair">
+        <figure style="flex: 1 1 0">
+            <img src="images/let_ring_plucked_pno.svg" alt="A plucked piano note with pizz., the Ped. mark, ff and a let-ring slur">
+        </figure>
+        <figure style="flex: 1 1 0">
+            <img src="images/let_ring_ordinary_pno.svg" alt="An ordinary piano note with f and a let-ring slur">
+        </figure>
+    </div>
+    <div class="description">
+        <p><strong>Let-ring slurs</strong> &#8212; let the note ring. Ordinary notes: hold the key. Plucked notes: hold the pedal.</p>
+        <p><strong>sempre secco</strong> &#8212; continue secco for the crescendo gestures.</p>
+        <p><strong>Dynamics</strong> &#8212; in the first movement, every strike carries its own marking. In the third movement, a dynamic holds until the next marking.</p>
+    </div>
+</div>
+
+</body>
+</html>
