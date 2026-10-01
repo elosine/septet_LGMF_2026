@@ -3852,3 +3852,10 @@ third page on. RUNNING_LOG §695.
 
 *The AI's reading (marked as such):* which reload (the app's button); whether anything else was his to do (no); then the audio and the
 film re-made. RUNNING_LOG §698.
+
+## LG-265 — 2026-10-01 — the film: a font dropped (E▯1); why is this video different from the last one?
+
+*His words (session 18, Fable, with a crop of the film):* "some kind of font got dropped. Can we also check and see why this video was different? I don't believe that was in the last one. So the last one I watched through and it was good, and then I fixed that trumpet part. I just presumed that we'd be able to generate the exact same video with just the trumpet fix. So let's try to understand why, why there's errors here that weren't in the last video."
+
+*The AI's reading (marked as such):* two questions — the missing sign, and whether the re-render was the same film; his expectation
+(the same film plus the one fix) is the right one and is what happened, the box being older than he saw. RUNNING_LOG §699.

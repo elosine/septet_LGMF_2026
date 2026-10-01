@@ -22151,3 +22151,40 @@ reload of the notation tab shows it; R would redo the same extraction) · then *
 - NOT watched by the AI; the trumpet's unison is proven on the MIDI and the page, not by ear.
 
 **Next:** his watch-through (PLAN § 2b-F step 6). On his "good": the archive and a new tag (the lock's tag predates §697).
+
+## §699. The film drew a box for ♭ — the rasterizer had no font with the sign; and was this render different? (2026-10-01, Fable, session 18; LG-265)
+
+**What prompted it:** his crop of the film — `13 (E▯1)` over `+41` — and: *"some kind of font got dropped. Can we also check and see
+why this video was different? I don't believe that was in the last one. So the last one I watched through and it was good, and then I
+fixed that trumpet part. I just presumed that we'd be able to generate the exact same video with just the trumpet fix. So let's try to
+understand why, why there's errors here that weren't in the last video."*
+
+**The box, measured:** `export_video.js` rasterizes with `loadSystemFonts: false` and two font files, `CrimsonPro-Light.ttf` ·
+`CrimsonPro-LightItalic.ttf` (the rule at its head: never let the rasterizer resolve by family). A test — one character drawn with
+exactly those fonts, its ink counted: **♭ (U+266D) · ♯ (U+266F) · ♮ (U+266E) each draw the same shape as a character no font has** (420
+dark pixels, one hash) — the missing-glyph box. Crimson Pro has none of the three. The notation app runs in Chrome, which falls back
+to a system symbol font — so the page has always looked right and the film has not. On the page: 158 partial labels, **40 with a sign**
+(the fundamentals E♭1 · D♭2); no other text carries one.
+
+**Was it in the last film? — yes, by everything that can be read; it cannot be SHOWN on the old files:**
+- the font list in `export_video.js` is the port's, untouched since 2026-09-17 (`92d6093`); the ♭ in a partial's text since 2026-09-25
+  (`4c471c4`); neither changed today. Rasterizing is deterministic — the same page, the same two fonts, the same box, in §694's film,
+  §695's and §698's.
+- the earlier film files no longer exist: each render was written over the last under one name (the AI's practice). So his memory of
+  a clean label cannot be checked against a file. **From here every render keeps its own name.**
+- what CAN be shown — the film is otherwise the same: a frame at 2:51 kept from §695's film (before the trumpet fix) against the same
+  frame of §698's (after): **0 of 518 400 pixels differ.** What changed between the film he accepted and §698's is the trumpet's onset
+  at 367.8 and the audio — nothing else was touched (§697 · §698).
+
+**The fix:** `export_video.js` — the symbol font Chrome falls back to on this machine, `C:/Windows/Fonts/seguisym.ttf`, loaded BY FILE
+as a fallback (the family asked for stays Crimson Pro Light; a warning if the file is missing). The same test with it: ♭ · ♯ · ♮ three
+distinct shapes. A probe frame at 73.4 s, the horn's label enlarged and looked at: `13 (E♭1)`. Machine-dependent (a Windows font, not
+in the repo) — the AI's call for now; a bundled open font is the durable form.
+
+**The film re-rendered under a new name:** `notation/video/renders/Recombination-Draft01-V-CUT-seed7-r4.mp4` — 26 721 frames, 9.3 min;
+890.664 s · both streams from 0.000 · the first sound at 6.4975 s (the WAV's 2.4975 + 4.000) · 65 233 541 bytes · sha256
+`ee501e8643c1bef28c9d11cd53caf08fe4828cd53c31c46ae4a01970cd675c84`. Against §698's file (kept, `…-seed7.mp4`) at 16 moments across
+the film, full frames: **identical at 14; 771 and 706 pixels differ at the two that carry labels with a flat** (film 1:17 · 11:20).
+
+**The pattern, second time today:** the curves (§695) and this — both drawn by Chrome, both not by the film's rasterizer, both green on
+every gate because the gates measure Chrome. A gate that draws pages the film's way and compares was offered at §695; offered again.

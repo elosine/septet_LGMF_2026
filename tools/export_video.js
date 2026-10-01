@@ -226,6 +226,13 @@ function staticSvg(i, list) {
 // ---------------------------------------------------------------- rasterizer
 const FONTS = ['CrimsonPro-Light.ttf', 'CrimsonPro-LightItalic.ttf']
   .map(f => path.join(ROOT, 'notation', 'app', 'fonts', f));
+// [RUNNING_LOG §699 — his eye on the film: "13 (E▯1)" — "some kind of font got dropped"] THE SIGNS IN A TEXT: Crimson Pro has no ♭ ♯ ♮
+// (U+266D · 266F · 266E), and with loadSystemFonts off the rasterizer had nothing to fall back to — every partial on an E♭ or a D♭
+// fundamental drew the missing-glyph box in the film (the app's Chrome falls back to a system symbol font, so the page looked right).
+// The symbol font Chrome uses on this machine is loaded BY FILE, as a fallback only (the family asked for stays Crimson Pro Light).
+const SYMBOL_FONTS = ['C:/Windows/Fonts/seguisym.ttf'].filter(p => fs.existsSync(p));
+if (!SYMBOL_FONTS.length) console.warn('  !! no symbol font found (C:/Windows/Fonts/seguisym.ttf) — a ♭ ♯ ♮ in a text will draw as a box');
+FONTS.push(...SYMBOL_FONTS);
 const fontOpt = { loadSystemFonts: false, fontFiles: FONTS, defaultFontFamily: 'Crimson Pro Light' };
 function raster(svg, background) {
   const opts = { fitTo: { mode: 'original' }, font: fontOpt };
