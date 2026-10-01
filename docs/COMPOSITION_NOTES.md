@@ -3737,3 +3737,10 @@ he is right on both counts: two take → take morphs, and his picture is D♭2 �
 *His words (session 18, Fable, with a picture, during the build):* "23.31 in horn move the dynnamic down please"
 
 *The AI's reading (marked as such):* the curve's `(pp)` across the low head — the label hand of §673, 1.15 ss. RUNNING_LOG §681.
+
+## LG-248 — 2026-10-01 — the chord at 361.09 f (not the percussion), the chord at 364.19 p
+
+*His words (session 18, Fable, during the proof):* "the chord at 361.09. Can you make that one F instead of MF for all the parts except for the percussion? And then can you make the chord at 364.19 P?"
+
+*The AI's reading (marked as such):* the two long-tone chords' written names (the `--chordDyn` device) — the page, not the velocities.
+RUNNING_LOG §682.

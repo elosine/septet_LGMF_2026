@@ -21767,3 +21767,21 @@ the lane's bottom at −8.1. Four labels carry a hand now (the horn's 23.3 · th
 low head (one). A rule (the label clears the ink at its x) was offered at §674; not built, not asked for.
 
 **Checked:** with §680's gates (one re-extraction for both); seen in the running app (:5401, magnified, 23.3 s): the `(pp)` under the head.
+
+## §682. Two long-tone chords renamed — 361.04 f, 364.19 p (2026-10-01, Fable, session 18; LG-248)
+
+**What prompted it:** his proof: *"the chord at 361.09. Can you make that one F instead of MF for all the parts except for the percussion?
+And then can you make the chord at 364.19 P?"*
+
+**Found:** the chord at 361.035 — six long tones (EH · Bsn · Hn · Tpt · Vc · DB), named `mf` by `--chordDyn 361.02:361.07:mf` (§637); the
+percussion's own `mf` is the note at 361.557 (`wc-3785`, the one drawn above its head, §667) — not in the chord's window. The chord at
+364.194 — four long tones (EH · Bsn · Hn · Tpt), `mf` by `--chordDyn 364.18:364.22:mf`.
+
+**Done:** `node tools/reextract.js "" "@replace:361.02:361.07:mf=>361.02:361.07:f" "@replace:364.18:364.22:mf=>364.18:364.22:p"` — the two
+arguments replaced in the build, not stacked; 6 long tones named `f`, 4 named `p`; the percussion's `mf` as it was (read back from the
+IR). The IR's diff: those ten names and the build line.
+
+**What it is and is not:** the PAGE's names (§637's device — "the page says the chord's name, the save keeps the played velocities"). The
+sound is unchanged; the next audio render will not differ at these chords. A change of the sound would be the velocities in his save.
+
+**Checked:** `check_rules` 34 · `eh_figure_check` 106 · THE SHIELD `piece-lgmf` alone. Not looked at in the app.
