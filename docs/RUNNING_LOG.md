@@ -21283,3 +21283,30 @@ shorter stem standard → §665 the flagged height both sides (±9.39). The last
 warnings, `piece-open-01` its warnings alone — the new `dynamics row` warning on the stand-in lined staff).
 
 **For his eye:** reload → `piece-lgmf` → `308.3` · `315.1` · `316.8` · `328.7` · `330.5` · `336.8` · `337.9` · `358.5` · `361.6` · `374.9`.
+
+## §666. The grace's stroke placed from the stem's TIP — through the flag on a lengthened stem; his standing word: the normal staff's standards first (2026-10-01, Fable, session 18; LG-234)
+
+**What prompted it** (sent while §664 · §665 were building — his eye on §663's lengthened grace stems): *"the grace notes slash should still go
+through the flag. Just it should be in the same place as a standard one, even though we made the stem longer. Even though we're making some
+bespoke adjustments here, let's see if we can't still try to use the standards we already came up with for the normal staff. When applicable.
+Let's use the dynamic row for everything, hairpins included."*
+
+**The fault, read from the layout:** the acciaccatura's stroke was placed at `slashAt` (0.6) of the stem's LENGTH (§550). On a standard grace
+stem (the English horn's at 317.05: 3.18 ss) that is 1.27 ss under the tip — across the flag. On §663's lengthened stems it slid down with the
+proportion: at 306.24 (a 10.4 ss stem) the stroke sat 4.2 ss under the tip, nowhere near the flag.
+
+**Built** (`layout.js`): THE STROKE IS PLACED FROM THE TIP — the standard grace stem's own distance, (1 − `slashAt`) × the standard length
+(1.27 ss), whatever the stem's actual length. A standard stem draws exactly as before (the English horn's stroke unmoved: −1.095 … 0.105; the
+lock 106); the percussion's long grace stems carry the stroke through the flag (the tip +8.51 → the stroke +6.63 … +7.83).
+
+**"The dynamic row for everything, hairpins included":** as built in §664 (the two crescendos at 328.71 · 330.49 and 305.25's sit on the row,
+−8.59); confirmed, nothing to change.
+
+**HIS STANDING WORD, recorded as a working rule (S33):** on the percussion staff, the standards already made for the normal staff come FIRST —
+a bespoke rule only where a standard cannot apply. Applied here in hindsight: the beam's clearance (§665 — the English horn's), the grace's
+stem (§660 — the English horn's 3.18), the stroke's place (this §). Where §656 … §663 invented (the "just clear" floor, the grace stem at full
+height), his eye took each back to the standard.
+
+**The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** a HARD reload → `piece-lgmf` → `306.2` · `326.5` · `336.7` · `346.7` · `370.4`.

@@ -3640,3 +3640,10 @@ name. RUNNING_LOG §664.
 
 *The AI's reading (marked as such):* ONE clearance for the whole score — the flagged height of S3 (3.39 ss beyond the outer line) — applied to
 the seven-line staff above and below alike; it overrides the "just clear" of the turn before. RUNNING_LOG §665.
+
+## LG-234 — 2026-10-01 — the grace's slash through the flag as on a standard grace; use the normal staff's standards where they apply; the dynamic row for everything, hairpins too
+
+*His words (session 18, Fable):* "the grace notes slash should still go through the flag. Just it should be in the same place as a standard one, even though we made the stem longer. Even though we're making some bespoke adjustments here, let's see if we can't still try to use the standards we already came up with for the normal staff. When applicable. Let's use the dynamic row for everything, hairpins included."
+
+*The AI's reading (marked as such):* a principle for the percussion staff — it is the same notation on a different staff, not a new one; reach
+for the existing standard first and bend it only where the seven lines force it. RUNNING_LOG §666.
