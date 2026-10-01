@@ -21920,3 +21920,36 @@ main page: 960 frames, 3 page rasters, 18 s to render, ffmpeg exit 0. The file: 
 staff, the first long-tone chord. NOT watched by the AI — the format is read off the file (ffprobe); his eye and ear are the test.
 
 **At that rate** the whole film (886.7 s + the 4 s lead-in) is of the order of ten minutes to render — an estimate from one stretch.
+
+## §690. The test film's right edge — the bleed at 296 s is the 2c standard at work (2026-10-01, Fable, session 18; LG-256)
+
+**What prompted it:** his crop of the test film at the page turn at 296 s (a note's head and stem past the staff's end on the English
+horn; the bassoon's GC at the edge) and: *"There's a little bit of bleed here after the edge of the page … we spent quite a bit of time
+characterizing the edges and gutters for the different formats. So I just want to confirm that we're using these standards. And see if
+we understand why there's a bleed there or if that's meant to be. And just make sure we're using the appropriate page clipping devices
+for the video."*
+
+**Confirmed, read off the exporter (`export_video.js --screenJson`) and the gate, not assumed:**
+- the film runs on PLAN 2c's screen plan: `page_rules.screenPlan` "tile" — 74 pages of 12 s, −4 → 881 s, every seam abutting; the music
+  from x 112 (the 40 px left margin + the 72 px gutter) to x 1880 of 1920 (the 40 px right margin); t0 and tω at the same x on every page.
+- every drawn kind carries its screen class (`page_rules.edge`): a NOTE UNIT (head · stem · dot · ledger · text · ottava …) is `clamp` —
+  drawn whole on the page that owns its time, never clipped · a LONG graphic (duration bar · curve · beam · slur · timed hairpin · the
+  GC's arc) is `cut` — clipped at [x(t0), x(tω)] like paper · a GO-TIME INDICATOR (go line · tick · the GC's impact · the cursor) is
+  `atomic` — at x(t) to the pixel.
+- `check_screen_edges --ir piece-lgmf` PASS: 11 834 leaves measured in Chrome — nothing timed left of x(t0); **nothing past the frame,
+  the rightmost ink at x 1886.4 of 1920 (the staff ends at 1880)**; 592 go-time indicators at x(t); the animated devices clipped.
+
+**Why there is ink past the staff's end at 296:** the English horn's note `wc-3395` sounds at 295.974 s — 26 ms before the page's end.
+Its head stands ON its time (anchor A: the left edge at x(t) = 1876.2), and a head is ≈ 7 px wide at this frame's scale, so about 6 px
+of it, and its stem, stand right of x(tω) = 1880. That is the rule as written (NOTATION_STANDARDS §5: *"the right margin holds a last
+object's overhang"*; his §340: ink in the right margin, never the gutter): a unit is never clipped and never moved off its time, so the
+last 40 ms of any page can put a head in the margin. The film's widest case is 6.4 px — 33.6 px short of the frame's edge. The
+bassoon's one-off at 295.971 beside it: its go line at 1875.7, its GC's arc cut at the staff's end, the ball 5 px in radius at the impact.
+
+**So: meant to be, by 2c's design.** What he sees as the "edge of the page" is the staff's end (x 1880); the page's edge is the frame
+(1920), and the 40 px between them is the margin kept for this.
+
+**The options put to him (nothing changed):** (a) keep — the standard · (b) the staff lines drawn through the right margin to the
+frame, so a late head still stands on staff (the time axis unchanged) · (c) a unit in the last few px moved LEFT to end at the staff's
+end — the mirror of the left clamp; the head leaves its time by up to ≈ 7 px (≈ 45 ms). The AI's lean: (a), or (b) if the bare head
+past the lines is what bothers.

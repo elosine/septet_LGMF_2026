@@ -3789,3 +3789,10 @@ term had not been in front of him since 2026-09-17. RUNNING_LOG §688.
 
 *The AI's reading (marked as such):* the call (deadline, limits, format, the package) is his alone — not raised again unless he asks;
 copy editing is a possible later ask. The film's plan proceeds. RUNNING_LOG §689.
+
+## LG-256 — 2026-10-01 — the test film: a little bleed after the page's edge; confirm the edge standards and the clipping
+
+*His words (session 18, Fable, with a crop of the film at 296 s):* "There's a little bit of bleed here after the edge of the page. I just want to confirm we are using, so we spent quite a bit of time characterizing the edges and gutters for the different formats. So I just want to confirm that we're using these standards. And see if we understand why, why there's a bleed there or if that's meant to be. And just make sure we're using the appropriate page clipping devices for the video."
+
+*The AI's reading (marked as such):* a check of the film against PLAN 2c, and the reason for one overhanging head — not a request to
+change anything yet. RUNNING_LOG §690.
