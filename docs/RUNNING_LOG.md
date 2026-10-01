@@ -21877,3 +21877,17 @@ the take → take morphs' second partial · two chords renamed · two graces slu
 stretch, his eye on the look · 4 the film's furniture (what opens and closes it) · 5 the whole film with the audio · 6 his watch-through ·
 7 the completion (the call read, the instructions, the print, the package). **His answers owed:** the tag's name · whether the call is
 read now (it may set the film's format) or after the film.
+
+## §688. The lock tagged — Recombination-notationLock_1.0 (2026-10-01, Fable, session 18; LG-254)
+
+**His word on §687's two questions:** *"Aa, what is B the call?"* — A (a): the tag's name as proposed; B not answered — he asked what
+"the call" is.
+
+**Done:** the annotated tag `Recombination-notationLock_1.0` on the commit that carries this entry, pushed — the repo's first tag
+(piece #5's was `Scattered_Substance-finalDraft_1.0`, its D40). It marks: the notation of Draft 01 locked (`piece-lgmf`, 1075 events,
+§687), the audio NOT yet re-rendered (stale at 765), no film yet.
+
+**Told him (B):** "the call" = the Lake George Music Festival 2026 call for scores — what the piece is written for (CLAUDE.md's first
+paragraph; journal Q2). It has not been read, at his word of 2026-09-17 (*"don't need to look it up now, lets focus on getting
+started"*); its deadline, duration limit and required score format are unknown here. The question stands: read it before the film's
+look is settled (it may set a format or a length) or after.

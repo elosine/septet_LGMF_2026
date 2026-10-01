@@ -3775,3 +3775,10 @@ RUNNING_LOG §682.
 
 *The AI's reading (marked as such):* the proof of Draft 01's notation is closed; "a tag two" = a tag too — a git tag marking the lock; the
 plan through the planning method. RUNNING_LOG §687.
+
+## LG-254 — 2026-10-01 — the tag's name: (a); what is "the call"?
+
+*His words (session 18, Fable, on §687's two questions):* "Aa, what is B the call?"
+
+*The AI's reading (marked as such):* A = (a), `Recombination-notationLock_1.0`; on B he asks what the call is before choosing — the
+term had not been in front of him since 2026-09-17. RUNNING_LOG §688.
