@@ -5,7 +5,7 @@
 // (the comb of beat tracking; the phase free); (B) THE GRID FIT — the tuba pages' cluster idea: the subdivision unit whose multiples land
 // nearest the onsets (a 16th of some tempo); (C) THE IOI — the mean and the median inter-onset interval as a pulse.
 // (D) THE BETWEEN PHASE (T10, §572): for each shown beat the phase that keeps every note farthest from a beat — the hand to paste.
-//   node tools/tempo_fit.js --ir piece-lgmf --part 0 --from 295 --to 297.31 [--unit 0.108 --every 6] [--free 1,2] [--html notation/research/x.html] [--json out.json]
+//   node tools/tempo_fit.js --ir piece-lgmf --part 0 --from 295 --to 297.31 [--unit 0.108 --every 6] [--free 1,2] [--pin 5,6] [--html notation/research/x.html] [--json out.json]
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const arg = (n, d) => { const i = process.argv.indexOf('--' + n); return i >= 0 ? process.argv[i + 1] : d; };
@@ -75,6 +75,22 @@ const D = groupings.map(gr => Object.assign({ u: gr.u, g: gr.g }, between(gr.u *
 console.log('\n(D) THE BETWEEN PHASE (T10) — for each shown beat, the phase that keeps every note farthest from a beat' + (FREE.size ? ' (notes ' + [...FREE].join(', ') + ' FREE — not in the objective)' : '') + ' (the nearest note\'s distance; the cap half a beat; each note\'s place as a % of the beat after its line; the hand as --beatGridFit takes it):');
 for (const d of D) console.log('  beat ' + f3(d.beat) + ' s = ' + Math.round(60 / d.beat) + ' bpm (' + d.g + ' × ' + f3(d.u) + ') · phase ' + f3(d.phase) + ' · nearest ' + ms(d.dmin) + ' ms of ' + ms(d.cap) + ' · at ' + d.pos.map((p, k) => Math.round(p) + (FREE.has(k + 1) ? '*' : '')).join(' ') + ' % · --beatGridFit ' + PART + ':' + d.u + ':' + d.g + ':' + d.phase + ':' + on[0] + ':' + on[N - 1]);
 
+// [§641, his "make the tempo that is five and six distance, if it's not already there, and then show it to me on the tempo candidates"]
+// --pin i,j — a shown beat HE names by two notes: the beat = the time between onsets i and j (1-based), its lines ON both. Printed with its
+// hand and added to the picture (teal, the last row) beside the fitted candidates, which keep their colours.
+let pinned = null;
+{
+  const PIN = String(arg('pin', '')).split(',').map(x => parseInt(x, 10)).filter(k => k >= 1 && k <= N);
+  if (PIN.length === 2 && PIN[0] !== PIN[1]) {
+    const a = Math.min(...PIN), b = Math.max(...PIN), beat = +(on[b - 1] - on[a - 1]).toFixed(4);
+    const phAbs = on[a - 1] - Math.ceil((on[a - 1] - on[0]) / beat - 1e-9) * beat;   // the line at or before the first onset
+    const rOf = t => (((t - phAbs) % beat) + beat) % beat;
+    pinned = { u: beat, g: 1, beat, phase: +phAbs.toFixed(3), a, b, dist: on.map(t => Math.min(rOf(t), beat - rOf(t))), pos: on.map(t => rOf(t) / beat * 100) };
+    console.log('\n(E) THE PINNED BEAT (--pin ' + a + ',' + b + ') — the beat = the distance of notes ' + a + ' → ' + b + ', the lines ON them:');
+    console.log('  beat ' + f3(beat) + ' s = ' + Math.round(60 / beat) + ' bpm · phase ' + f3(pinned.phase) + ' · each note from its nearest line (ms) ' + pinned.dist.map(ms).join(' ') + ' · at ' + pinned.pos.map(p => Math.round(p) % 100).join(' ') + ' % · --beatGridFit ' + PART + ':' + beat + ':1:' + pinned.phase + ':' + on[0] + ':' + on[N - 1]);
+  } else if (arg('pin', null)) { console.error('--pin needs two different note numbers i,j (1 … ' + N + ')'); process.exit(2); }
+}
+
 // [§574] --html <path> — THE PICTURE, generated (the §563 page was drawn by hand for one figure): the heads on a time axis, each shown beat's
 // lines in its own colour (heavy = a beat, light = its unit) at its between phase, a table of every note's distance from the nearest beat
 // and its place in the beat. Served by his score server from notation/research/.
@@ -84,18 +100,19 @@ if (html) {
   const PAD = 0.4, T0v = +(on[0] - PAD).toFixed(3), T1v = +(on[N - 1] + PAD).toFixed(3);
   const mids = ev.map(e => e.pitch.midi), names = ev.map(e => nm(e.pitch));
   const cands = D.slice(0, COL.length).map((d, i) => ({ name: Math.round(60 / d.beat) + ' bpm — the beat ' + f3(d.beat) + ' s = ' + d.g + ' × ' + f3(d.u) + ', phase ' + f3(d.phase) + ', the nearest note ' + ms(d.dmin) + ' ms', colour: COL[i], beat: d.beat, unit: d.u, g: d.g, phase: d.phase }));
+  if (pinned) cands.push({ name: Math.round(60 / pinned.beat) + ' bpm — PINNED: the beat ' + f3(pinned.beat) + ' s = the distance of notes ' + pinned.a + ' → ' + pinned.b + ', the lines ON them (phase ' + f3(pinned.phase) + ')', colour: 'teal', beat: pinned.beat, unit: pinned.u, g: 1, phase: pinned.phase });
   // [§586] THE CANVAS FOLLOWS THE FIGURE: 480 px a second from one beat before --from to one beat after --to (the slowest candidate's), the
   // page scrolling sideways past the window — a 6 s figure was cut at 2.5 s by the fixed 1200-unit canvas (his eye, 2026-09-30)
   const PICPAD = cands.length ? Math.max(...cands.map(c => c.beat)) : 0.75, PW = Math.round(40 + (T1v - T0v + 2 * PICPAD) * 480);
   const page = '<!doctype html>\n<html><head><meta charset="utf-8"><title>Tempo Candidates</title>\n<style>\n'
-    + ' :root{--bg:#fff;--ink:#111;--muted:#777;--rule:#ddd;--axis:#888;--red:#c8102e;--blue:#1c4879;--green:#2e7d32;--orange:#d9700a;--purple:#7b3fa0}\n'
-    + ' @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff}}\n'
-    + ' :root[data-theme="dark"]{--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff}\n'
+    + ' :root{--bg:#fff;--ink:#111;--muted:#777;--rule:#ddd;--axis:#888;--red:#c8102e;--blue:#1c4879;--green:#2e7d32;--orange:#d9700a;--purple:#7b3fa0;--teal:#00838f}\n'
+    + ' @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff;--teal:#4dd0e1}}\n'
+    + ' :root[data-theme="dark"]{--bg:#141414;--ink:#eee;--muted:#999;--rule:#333;--axis:#777;--red:#ff5c6e;--blue:#7aa6e0;--green:#6fcf7a;--orange:#ffb060;--purple:#c79bff;--teal:#4dd0e1}\n'
     + ' body{font:14px/1.4 system-ui,sans-serif;margin:0;padding:16px;color:var(--ink);background:var(--bg);overflow-x:auto}\n'
     + ' h1{font-size:16px;margin:0 0 6px} .k{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}\n'
     + ' svg{height:auto;display:block} table{border-collapse:collapse;margin-top:10px;max-width:100%} td,th{padding:2px 10px;text-align:right;font-variant-numeric:tabular-nums} th{text-align:left}\n'
     + ' .note{color:var(--muted);font-size:13px;margin-top:8px}\n</style></head><body>\n'
-    + '<h1>The ' + N + ' notes, ' + f3(on[0]) + ' … ' + f3(on[N - 1]) + ' s — ' + cands.length + ' shown beats, each at its between phase (T10' + (FREE.size ? '; notes ' + [...FREE].join(', ') + ' free) — grey heads are the free ones' : ')') + '</h1>\n'
+    + '<h1>The ' + N + ' notes, ' + f3(on[0]) + ' … ' + f3(on[N - 1]) + ' s — ' + cands.length + ' shown beats, ' + (pinned ? 'the fitted ones each' : 'each') + ' at its between phase (T10' + (FREE.size ? '; notes ' + [...FREE].join(', ') + ' free) — grey heads are the free ones' : ')') + '</h1>\n'
     + '<svg id="g" width="' + PW + '" viewBox="0 0 ' + PW + ' ' + (60 + cands.length * 44 + 230) + '" xmlns="http://www.w3.org/2000/svg"></svg>\n<div id="legend"></div>\n<table id="tbl"></table>\n'
     + '<div class="note">x = time, 480 px per second, the window one beat beyond the range each side (scroll sideways for a long figure). Dots = the heads at their onsets (height by pitch), the faint bar from each its length. Each candidate is one shown beat: the heavy lines are its beats (one line per beat — the beat frame), the light ones its unit; the beats run down through the heads faintly. Every candidate stands at the phase that keeps the (non-free) notes farthest from its beats. The table: each note\'s distance from the nearest beat, and where it sits in the beat (0 % = on the line, 50 % = midway).</div>\n'
     + '<script>\n'
@@ -112,7 +129,7 @@ if (html) {
     + 'on.forEach((t,i)=>{const fr=free.includes(i+1);el("circle",{cx:X(t),cy:Y(midi[i]),r:6,fill:fr?"var(--muted)":"var(--ink)"});const tx=el("text",{x:X(t)+9,y:Y(midi[i])+4,"font-size":"12",fill:fr?"var(--muted)":"var(--ink)"});tx.textContent=names[i]+" "+t.toFixed(3)+(fr?" (free)":"");});\n'
     + 'el("line",{x1:20,y1:YAX,x2:W-20,y2:YAX,stroke:"var(--axis)"});for(let t=Math.ceil(T0*2)/2;t<=T1+1e-9;t+=0.5){el("line",{x1:X(t),y1:YAX-4,x2:X(t),y2:YAX+4,stroke:"var(--axis)"});const tx=el("text",{x:X(t)-14,y:YAX+18,"font-size":"11",fill:"var(--muted)"});tx.textContent=t.toFixed(1);}\n'
     + 'document.getElementById("legend").innerHTML=cands.map(c=>"<div><span class=\\"k\\" style=\\"background:"+css(c.colour)+"\\"></span>"+c.name+"</div>").join("");\n'
-    + 'const near=(c,t)=>{const r=(((t-c.phase)%c.beat)+c.beat)%c.beat;return [Math.round(Math.min(r,c.beat-r)*1000),Math.round(r/c.beat*100)];};\n'
+    + 'const near=(c,t)=>{const r=(((t-c.phase)%c.beat)+c.beat)%c.beat;return [Math.round(Math.min(r,c.beat-r)*1000),Math.round(r/c.beat*100)%100];};\n'
     + 'document.getElementById("tbl").innerHTML="<tr><th>note</th>"+cands.map(c=>"<th style=\\"color:"+css(c.colour)+"\\">"+c.name.split(" ")[0]+" bpm: ms · % of beat</th>").join("")+"</tr>"+on.map((t,i)=>"<tr><th>"+names[i]+" "+t.toFixed(3)+(free.includes(i+1)?" (free)":"")+"</th>"+cands.map(c=>{const [m,p]=near(c,t);return "<td>"+m+" · "+p+" %</td>";}).join("")+"</tr>").join("");\n'
     + '</script>\n</body></html>\n';
   fs.writeFileSync(html, page);

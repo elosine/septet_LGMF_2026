@@ -20506,3 +20506,27 @@ His earlier picks have gone both ways (between: figure 2; on the beat: figure 3'
 
 **Nothing on the page** — his pick owed (the grouping · the phase · the lead and tail lines); the percussion's first frame, navy by S19. Not
 yet decided either: the six notes' own devices on the seven-line staff (they draw today as the fold left them).
+
+## §641. A beat he names by two notes — `tempo_fit --pin i,j`; the percussion's 5 → 6 beat on the picture (2026-09-30, Fable, session 18; LG-212)
+
+**What prompted it:** *"Can you make the tempo that is five and six distance, if it's not already there, and then show it to me on the tempo
+candidates?"*
+
+**Was it there:** the TEMPO, yes — notes 5 → 6 are 0.665 s apart (90 bpm) and the picture's green is 0.666 s (6 × 0.111, 90 bpm). The
+PLACEMENT, no — every fitted candidate stands at its between phase (T10), so green's lines fall 297.215 · 297.881 · 298.547 · 299.213, none on
+a note.
+
+**Built — `--pin i,j` in `tools/tempo_fit.js`:** a shown beat he names by two notes — the beat = the time between onsets i and j, its lines ON
+both; printed as (E) with its `--beatGridFit` hand and added to the picture as a sixth row in TEAL, the five fitted candidates keeping their
+colours. (The page's "% of beat" folds 100 to 0 — a note on a line read "100 %".)
+
+**The pinned beat for the six** (`--pin 5,6`): 0.665 s = 90 bpm, the lines 296.859 · 297.524 · **298.189** · **298.854** · 299.519.
+- note 5 (temple bowl) and note 6 (brake drum) ON their lines;
+- note 2 (the first castanet hit, 297.540) 16 ms after the line at 297.524 — on it, to the eye;
+- note 1 (the bass drum, 297.407) 117 ms BEFORE that line — an upbeat;
+- notes 3 · 4 (the castanets' second and third) 117 · 165 ms after it.
+So the frame reads: the bass drum picks up, the castanet rattle starts ON a beat, the bowl and the brake drum each land on the next two beats.
+The hand: `--beatGridFit 4:0.665:1:296.859:297.407:298.854`. Close to §640's "other reading" (0.652 s), which was the tool's coherence peak;
+his is exact on 5 and 6.
+
+**Nothing on the page** — his pick owed.

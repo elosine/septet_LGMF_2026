@@ -3468,3 +3468,10 @@ is small and audible. "Partials" = the individual hits. The conventional answer 
 
 *The AI's reading (marked as such):* the six percussion notes from 297.407 to 298.854 (bass drum · three castanet hits · temple bowl · brake
 drum) — candidates drawn for his pick, by the process of §564. RUNNING_LOG §640.
+
+## LG-212 — 2026-09-30 — a tempo from the distance between two notes (the percussion's 5 and 6)
+
+*His words (session 18, Fable):* "Can you make the tempo that is five and six distance, if it's not already there, and then show it to me on the tempo candidates?"
+
+*The AI's reading (marked as such):* a beat frame derived from two anchor notes — the beat IS their distance and the lines sit ON them — a
+third way to place a frame beside the fitted "between" phase (T10) and a hand-shifted phase. The tool's `--pin i,j`. RUNNING_LOG §641.
