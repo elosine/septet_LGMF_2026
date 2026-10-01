@@ -21342,3 +21342,41 @@ session ends on — the same notation on a different staff, the existing standar
 **The close:** journal §2 rewritten for a cold start (the nine checkpoint blocks to git, `bd438e4`); D47 … D53 promoted; PLAN 2n · 2o
 added; the state lines current. Nothing is being built. The AI has not LOOKED at any page of this session — every claim about the page is a
 number read from the layout, and every page is owed his eye.
+
+## §669. The long-tone chords in unison — written into his save, at his word, after the close (2026-10-01, Fable, session 18; LG-236)
+
+**What prompted it** (his answer to §638's hold, after the session's close): *"327.04 and 370.34 please line up; server has been restarted;
+notation locked, will proof now and may have revisions; then /checkpoint before clear, will want do a new audio render after clear"*
+
+**The reading:** the two wide chords are unisons too — so all 36 chords line up, each on its EARLIEST member (his rule of §638). He did not
+choose between (a) the save and (b) the page; (a) was the AI's stated recommendation, and the audio render he asks for next can only carry
+the unison if the save does — so (a). The four chords after the staggered entries (399.11 · 401.76 · 403.43 · 407.05, 19 … 33 ms) are taken
+as unisons, as §638 read them; the staggered singles 392.98 … 398.44 are untouched.
+
+**Before the edit — what was there:** the save `scores/piece-Recombination-Draft01-done.json` — 900 427 bytes, compact `JSON.stringify`,
+no working copy on disk (nothing unsaved in his tab), and the net's newest snapshot (`scores/versions/…_v2026-10-01T12-36-30-269Z.json`,
+taken by his own last Save) identical in content: **that snapshot is the way back.**
+
+**The edit** (a scratch script; guards: the file's hash as inspected, no working copy, a round-trip check): 36 chords · 120 member notes ·
+**82 notes' `startSeconds` moved** to their chord's earliest, by 1 … 65 ms; the `endSeconds` kept (each moved note that much longer); the
+nodes are relative positions, untouched. Verified on the bytes: 82 objects changed, nothing but `startSeconds` in any of them, the rest of
+the file identical. The two he named: **327.041** (Tpt · EH +12 · Vc +58 · Bsn +65 → all 327.041) · **370.341** (Tpt · DB +5 · Vc +12 ·
+EH +21 · Bsn +45 · Hn +48 → all 370.341).
+
+**The page:** `tools/reextract.js` with no new argument (the recorded build on a fresh copy of the save). The IR against HEAD: 1076 events,
+82 onsets moved and every one onto its chord's earliest, no chord end moved, no other field of any event changed; the widest spread of the
+36 chords now 0. Side effects, read from the IR: the bricks re-cut where a 7 … 36 ms gap had separated two notes (84 chunks' spans; the
+EH's 306.31 and 308.29 tones now one brick, one new horn brick; 893 as before — the grouping is derived, every event on its part) · two
+frames' recorded `nextOnset` (the bassoon's 321.72 frame, the trumpet's 344.11), their lines unmoved. The 38 `--chordDyn` windows still
+name every chord (each window already held its chord's earliest member).
+
+**The gates:** VALID vs source · `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**What is NOT verified:** the page was not looked at by the AI; the composer was not opened. **His composer tab still holds the old times
+— he RELOADS it before any edit there, or his next Save writes the old onsets back** (the page would then disagree with the save at the
+next extraction; the validator would say so).
+
+**His other words:** the server restarted — §632's R route is live, his first R its test. "Notation locked" read as: his dictation is
+done for now, the proof next (the AI's reading; `eh_figure_check`'s blocks are NOT extended — after his proof). The order he gives: his
+proof and any revisions → `/checkpoint` → clear → **a new audio render of Draft 01** (`docs/RENDER.md` §4) — the render now due carries
+the unison, the EH's and the DB's changed pitches and the EH's lengthened 343.12.

@@ -2651,7 +2651,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   note by note and the looks his eye finds missing become rules. *Done:* the EH's figures to 398.4 (six beat frames) · the bassoon to 399 ·
   the horn · the trumpet (one frame) · the cello · the double bass — every short note on a device · the chords' dynamics one name each.
   *Left:* HIS EYE on each part · the EH after 398.4 and every part after 399 (the long tones are in; the last short notes of the section
-  not yet checked against his word) · the lock's blocks beyond the EH's first figures · the chords' unison (§638, held) · N-5 the micro
+  not yet checked against his word) · the lock's blocks beyond the EH's first figures · the chords' unison DONE (§669, in the save) · N-5 the micro
   counterpoint (held). The standards: `docs/research/temporal_notation.md` §12 (S1 … S33). The method: journal §2.
 - **2o — THE PERCUSSION STAFF: a rule set for the seven-line staff** — `doing` (2026-09-30 … 10-01; RUNNING_LOG §639 … §667; D51;
   S25 … S33). *Why:* every vertical rule assumed five lines whose positions are pitches; on the percussion staff they landed stems,

@@ -235,6 +235,11 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     and dynamics from 297.4 to 406
   - **tools:** `tools/reextract.js` (the runner) · `tools/tempo_fit.js` (`--free` · `--pin` · `--html`) · `tools/eh_figure_check.js` (THE
     LOCK, 106) · the app's video page in C (§587) · the app's R route repaired (§632 — **live only after he RESTARTS the score server**)
+- **AFTER THE CLOSE (2026-10-01, RUNNING_LOG §669; LG-236) — HIS ORDER FROM HERE:** the 36 long-tone chords are IN UNISON, written into
+  his save at his word (82 notes' `startSeconds`, 1 … 65 ms, the ends kept; the way back is his own snapshot
+  `scores/versions/…_v2026-10-01T12-36-30-269Z.json`; **his composer tab must be RELOADED before any edit there**) · the server RESTARTED
+  (§632's R live) · **he is PROOFING the notation — revisions may come** → `/checkpoint` → clear → **A NEW AUDIO RENDER of Draft 01**
+  (`docs/RENDER.md` §4 — his own ▶ playback captured, rendered through a copy of his rack, `render_reaper.js --up`).
 - **► THE NEXT STEP — HIS, ask first:** his eye on section 2 (a HARD reload of the notation tab → `piece-lgmf`): the EH `289` … `398` ·
   the bassoon `296` … `398.5` · the horn `296.3` … `387.6` · the trumpet `295.5` … `387.7` · the cello and the double bass `295.8` … `387.5`
   · the long-tone chords `303.5` … `407` · the percussion `297.5` … `405.4`. Then, in HIS order: the percussion's remaining lone strikes
@@ -256,7 +261,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     `noteBeams` · `beamYSs` · `dynSide` (`above`, the lined row's exception) · `slurHeightSs`.
   - **limits:** the build is ≈ 26 KB of Windows' 32.7 KB command line — say a figure on its SPAN, not per note; a Bash command over 8 KB
     dies with a false quote error — write scripts with the Write tool.
-- **`Resume reads:`** `docs/research/temporal_notation.md` §12 (S1 … S33 — SURFACE them at each figure; S33: the normal staff's standards
+- **`Resume reads:`** for the render `docs/RENDER.md` §4 · for a notation revision `docs/research/temporal_notation.md` §12 (S1 … S33 — SURFACE them at each figure; S33: the normal staff's standards
   first) · `tools/reextract.js`'s header. Nothing else beyond §2. Session 18's nine checkpoint blocks and its bullets §573 … §667 are whole
   in git: `git show bd438e4:docs/PROJECT_JOURNAL.md`.
 
@@ -338,9 +343,10 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 |---|---|---|---|
 | **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
 | **►►►** | **THE PERCUSSION, the rest** (PLAN 2o) — the lone strikes not yet named (they still draw as the fold left them; one `--plainNotes 4:…` window each makes a bare head) · its dynamics after 375 · the ball's higher arc (§654, a · b · c) · a let-ring mark (the brake drum's rings) · `sub.` beside a dynamic (§658) · the beam-vs-standard-stem question at 378.5 · 405.3 (§665) | Fable | — |
-| **►►►** | **HELD — THE LONG-TONE CHORDS' ONSETS TO UNISON** (§638): 34 of 36 chords within 36 ms, two wider (327.04 — 65 ms · 370.34 — 48 ms); an onset is the save's `startSeconds` — (a) written into his save [recommended; he Saves, the AI edits the file, he RELOADS the composer] or (b) a page-only shown time (a build). His word on the two wide chords and on (a) · (b) | his · then Opus | — |
+| **►►►►** | **A NEW AUDIO RENDER OF DRAFT 01** — his ask (2026-10-01, LG-236), AFTER his proof, a `/checkpoint` and a clear: `docs/RENDER.md` §4 (his ▶ playback captured from HIS tab, rendered through a copy of his rack, `render_reaper.js --up` at +10 dB to −1 dBTP), then the ♪ link on `piece-lgmf`. The save now carries the chords' unison (§669), the EH's and the DB's changed pitches, the EH's lengthened 343.12 — **he RELOADS the composer tab first** | Opus | yes — after the checkpoint |
+| ☑ | **THE LONG-TONE CHORDS' ONSETS IN UNISON** (§638 held → §669 done, 2026-10-01): all 36 chords on their earliest member, in his save (82 notes, ≤ 65 ms); the page re-extracted, the gates green | — | — |
 | **►►►** | **THE LOCK'S BLOCKS** — `tools/eh_figure_check.js` asserts the EH's figures 1 … 4, the 317 frame and the 324.6 figure only: NOTHING of the EH from 337, the bassoon, the horn, the trumpet, the strings, the chords' names or the percussion is locked yet (the §589 · §590 block is the pattern) — after his eye, so what is locked is what he approved | Opus | yes |
-| **►►►** | **HIS: RESTART `node score/server.js`** — the app's R (refresh from the last Save) re-read a stale copy and removed the IR (§632); the fix is in `score/server.js`, live at his restart, never exercised — his first R after it is the test (a failed refresh now puts the IR back) | his | — |
+| ☑ | **THE SERVER RESTARTED by him** (2026-10-01) — §632's R route is live; never exercised by the AI: his first R after a composer Save is its test (a failed refresh now puts the IR back) | his | — |
 | **►►** | **SECTION 2 — THE NOTATION PLANNINGS, as they stand** (the journal block above): N-1 slurs BUILT (+ the steep slur on the lined staff, §663) · N-2 stems DECIDED for section 2 (the generalization list open) · N-3 the uneven group BUILT · N-4 the beat frame BUILT and in use on four parts · N-5 the micro counterpoint HELD · N-6 the second layer done figure by figure | Fable | — |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
@@ -376,11 +382,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 **Open at session end — SESSION 18 CLOSED (2026-10-01, Fable):**
 - **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a HARD reload (`layout.js` · `render.js` ·
-  `animobj.js` · `gc.js` · `notation.html` changed); the score server needs a RESTART for the R fix (§632).
+  `animobj.js` · `gc.js` · `notation.html` changed); the score server was RESTARTED by him on 2026-10-01 (§632's R live, his first R its test). **After §669 his composer tab holds the OLD onsets — a RELOAD there before any edit.**
 - **Pending him — session 18** (each written out in the § cited):
   - his eye on every part of section 2 (none of the hand notation has had a full pass) · the EH's AI-called values (§577 figure 3 · the
     slurs into the graces at 340.1 · 342.65) · the frames' lead and tail lines (`noLead` · `noTail`)
-  - the chords' unison (§638: the two wide chords; (a) his save or (b) the page) · the chords' names are on the page only — the velocities
+  - the chords' unison DONE (§669, in his save) · the chords' names are on the page only — the velocities
     in the save still differ (his 2m plan: `dyn ▾` in the composer, then re-extract)
   - the percussion: the beam's clearance against "the shorter stem the standard" at 378.5 · 405.3 (§665) · the down-beams 0.39 under the
     lane's bottom · the 16th at 336.79 (the standard 5.85, he read it as short, §663) · the wood block grace's 10.4 ss stem (§663) · the
@@ -388,7 +394,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
     (§643 … §655) — the opening figure now carries one GC, no frame · "olive = an actual tempo" (§651): do the winds' frames turn all-olive
   - the one-off's and the pairs' calls on the winds (§611 … §635: the lane GC on the burst pairs · the hand-window exception in `:all`) ·
     the horn's 301.96 pair two octaves under one beam · the trumpet frame's tail line 346.548
-  - the audio render of Draft 01 predates four of his pitch / length changes · the research docs' citations are from memory (§546) and so
+  - the audio render of Draft 01 predates four of his pitch / length changes and §669's unison — A NEW RENDER is his next ask, after the clear · the research docs' citations are from memory (§546) and so
     are the percussion-notation answers of §639 · §642 · §647 · §648 · §658 — a verification pass offered, not run
 - **Learned in session 18:** HIS TIMES READ EARLY (0.05 … 0.2 s) — list the part's events and take the nearest · a hand's `stemDir` belongs
   to the overlay's VALUE, not its device (§643) · a hand's `dynMark: null` draws no name — `"band"` restores the device's (§645) · the app's
@@ -404,7 +410,8 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
   checkpoint of session 18: 5 modified + 24 untracked): his actuals `ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` and their index
   `bank/morph_models.json` · his libraries (`bank/panel_snapshots.json` · `sequences.json` · `patterns.json` · `rhythm_sequences.json` ·
   `rhythm_takes.json`) · `bank/passages/lgmf-sec2.json` · `reaper/LGMF_rack.rpp` · his named saves in `scores/` · and
-  **`scores/piece-Recombination-Draft01-done.json`** (his tab's saves of session 18 — pitches and lengths changed; every extraction reads a COPY).
+  **`scores/piece-Recombination-Draft01-done.json`** (his tab's saves of session 18 — pitches and lengths changed; every extraction reads a COPY;
+  ONE edit by the AI at his word, §669: the chords' 82 `startSeconds`).
 - **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
   `longToneTest`), none the piece.
 
@@ -873,8 +880,8 @@ this repo only when they bite.)*
 - **D47** *(2026-09-29, PLAN 2m; composer §531 · §622 · §637)* — **THE LONG TONE.** A held note of section 2 is an open head on its time,
   no go line, a navy bar its full length, tempered. EVERY held tone takes it "unless I say otherwise" (three quarter-second singles were
   said otherwise — one-offs). A chord carries ONE dynamic name on every part (`--chordDyn`): the page says the chord's dynamic, the save
-  keeps the played velocities. *Rejected:* one name per note from its velocity (his "for now", closed §637). *Held:* the chords' onsets
-  to unison (§638).
+  keeps the played velocities. *Rejected:* one name per note from its velocity (his "for now", closed §637). The chords' onsets are unisons too — each on its
+  earliest member, written into the save (§638 held · §669 done).
 - **D48** *(2026-09-29, composer LG-128 · LG-129; §548 · §549)* — **T8: VALUES WRITTEN, THE TN WAY, BY HAND.** In section 2 a short note
   carries a flag or a beam as PACE — relative, no bar, no meter, no count; the duration line is "incongruous" there. Every figure is
   dictated note by note — hands on the notes, never a rule about WHEN; a look his eye finds missing is built as a RULE, never as a hand

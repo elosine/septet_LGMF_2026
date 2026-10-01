@@ -23,7 +23,7 @@
   "date": "2026-10-01",
   "tool": "tools/notate_section.js (profile trance) --bricks",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only. BRICKS MODE: all chunks forced unresolved (working file).",
-  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:\\Users\\jwloy\\AppData\\Local\\Temp\\lgmf-reextract-TCuVJd\\piece-Recombination-Draft01-done-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427:all --plainNotes 0:288:303 --beam 292.79-293.815@0 --hand \"wc-3383:{\\\"dynMark\\\":\\\"pp\\\",\\\"hairpinTo\\\":289.25,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3384:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3385\\\",\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3385:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3386:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3387:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"beamStub\\\":true,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3388:{\\\"beamStub\\\":true,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"above\\\"}\" --hand \"wc-3389:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --hand \"wc-3390:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --rest 0:290.2:4 --beam 295.456-295.665@0 --beam 295.974-296.315@0 --hand \"wc-3391:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"mf\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3393:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3395:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3398:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false}\" --hand \"wc-3399:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3400:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --beam 301.556-302.106@0 --hand \"wc-3412:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"ff\\\",\\\"dynAboveBeam\\\":false,\\\"hairpinTo\\\":302.17,\\\"hairpinDir\\\":\\\"decresc\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3414:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3416:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3419:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --beam 298.815-298.947@0 --beam 300.05-300.343@0 --hand \"wc-3401:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"mf\\\",\\\"dynAboveBeam\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"above\\\",\\\"slurTo\\\":\\\"wc-3402\\\"}\" --hand \"wc-3402:{\\\"noteBeams\\\":2,\\\"dynMark\\\":false}\" --hand \"wc-3403:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3404:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3406:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3408:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false}\" --hand \"wc-3411:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --beatGridFit 0:0.108:6:295.186:295.456:297.306 --beatGridFit 0:0.1165:6:298.247:298.815:300.695:keepTail --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547), the opening figure by hand (§550 · §557 · §559), the second figure's beat grid (§564 … §571) and its values (§573)\" --beatGridFit 0:0.0945:7:317.048:317.052:323.002:keepLead --plainNotes 0:316.8:323.14 --beam 317.164-317.339@0 --beam 318.367-318.569@0 --beam 319.032-319.503@0 --hand \"wc-3444:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3445:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3446:{\\\"noteBeams\\\":2,\\\"dynMark\\\":false}\" --hand \"wc-3447:{\\\"dynMark\\\":\\\"p\\\"}\" --hand \"wc-3448:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3449:{\\\"noteBeams\\\":2,\\\"dynMark\\\":false}\" --hand \"wc-3450:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"hairpinTo\\\":319.503,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3451:{\\\"noteBeams\\\":1,\\\"dynMark\\\":\\\"f\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3452:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3453:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"mf\\\",\\\"nhArtic\\\":\\\"accent\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3454:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"mp\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3459:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"f\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --plainNotes 0:324.5:326.1 --beam 324.677-325.383@0 --beam 325.597-325.956@0 --hand \"wc-3464:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"slurTo\\\":\\\"wc-3476\\\"}\" --hand \"wc-3466:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3467:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3469:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3472:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3474:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3476:{\\\"noteBeams\\\":1,\\\"gc\\\":true,\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3478:{\\\"noteBeams\\\":1}\" --hand \"wc-3464:{\\\"dynAboveBeam\\\":false}\" --hand \"wc-3466:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3467:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3469:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3472:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3474:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3476:{\\\"dynAboveBeam\\\":false,\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3478:{\\\"dynAboveBeam\\\":false}\" --hand \"wc-3464:{\\\"slurTo\\\":\\\"wc-3474\\\",\\\"dynMark\\\":\\\"mp\\\",\\\"hairpinTo\\\":325.383,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3466:{\\\"dynMark\\\":false}\" --hand \"wc-3467:{\\\"dynMark\\\":false}\" --hand \"wc-3469:{\\\"dynMark\\\":false}\" --hand \"wc-3472:{\\\"dynMark\\\":false}\" --hand \"wc-3474:{\\\"dynMark\\\":false}\" --hand \"wc-3478:{\\\"dynMark\\\":false}\" --hand \"wc-3464:{\\\"slash\\\":false,\\\"beamStub\\\":true,\\\"beamStubShortSs\\\":1}\" --hand \"wc-3466:{\\\"beamStub\\\":true}\" --hand \"wc-3467:{\\\"beamStub\\\":true}\" --hand \"wc-3469:{\\\"beamStub\\\":true}\" --hand \"wc-3472:{\\\"beamStub\\\":true}\" --hand \"wc-3474:{\\\"beamStub\\\":true}\" --plainNotes 0:336.8:338.5 --hand \"wc-3511:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3514\\\"}\" --hand \"wc-3514:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3519:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3464:{\\\"beamStubShortSs\\\":null}\" --hand \"wc-3511:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3514:{\\\"dynMark\\\":false}\" --hand \"wc-3519:{\\\"dynMark\\\":\\\"ff\\\"}\" --plainNotes 0:340.1:341.9 --beam 341.576-341.757@0 --hand \"wc-3520:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3521\\\"}\" --hand \"wc-3521:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3522:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3523\\\"}\" --hand \"wc-3523:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3527:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3528\\\"}\" --hand \"wc-3528:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3529:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3511:{\\\"slurHeightSs\\\":1.4}\" --plainNotes 0:342.6:344.8 --beam 344.213-344.622@0 --hand \"wc-3530:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3531\\\"}\" --hand \"wc-3531:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3532:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3535:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3536\\\"}\" --hand \"wc-3536:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3538:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3539:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3542:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3544\\\"}\" --hand \"wc-3544:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3546:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3548:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3539:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3542:{\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\",\\\"slurTo\\\":null}\" --hand \"wc-3544:{\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3546:{\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3548:{\\\"stemDir\\\":\\\"down\\\"}\" --plainNotes 0:345.3:346 --beam 345.595-345.709@0 --hand \"wc-3520:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3521:{\\\"dynMark\\\":false}\" --hand \"wc-3522:{\\\"dynMark\\\":false}\" --hand \"wc-3523:{\\\"dynMark\\\":false}\" --hand \"wc-3527:{\\\"dynMark\\\":false}\" --hand \"wc-3528:{\\\"dynMark\\\":false}\" --hand \"wc-3529:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3530:{\\\"dynMark\\\":false}\" --hand \"wc-3531:{\\\"dynMark\\\":false}\" --hand \"wc-3532:{\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3535:{\\\"dynMark\\\":false}\" --hand \"wc-3536:{\\\"dynMark\\\":false}\" --hand \"wc-3538:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3539:{\\\"dynMark\\\":false}\" --hand \"wc-3542:{\\\"dynMark\\\":false}\" --hand \"wc-3544:{\\\"dynMark\\\":false}\" --hand \"wc-3546:{\\\"dynMark\\\":false}\" --hand \"wc-3548:{\\\"dynMark\\\":false}\" --hand \"wc-3550:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3554:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3556:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3532:{\\\"articSide\\\":\\\"above\\\"}\" --hand \"wc-3554:{\\\"slurTo\\\":\\\"wc-3556\\\"}\" --beatGridFit 0:0.107:6:340.061:340.352:345.709 --hand \"wc-3445:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3446:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3476:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3478:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --plainNotes 0:375.7:381.2 --beam 375.859-376.138@0 --beam 377.102-377.51@0 --beam 380.012-380.223@0 --hand \"wc-3613:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3616:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3617:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3620:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3621:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3623:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3626:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3629:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3631:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3632:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3636:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3637:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhArtic\\\":\\\"tenuto\\\"}\" --hand \"wc-3639:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhArtic\\\":\\\"tenuto\\\"}\" --hand \"wc-3637:{\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3639:{\\\"articSide\\\":\\\"below\\\"}\" --beatGridFit 0:0.0945:7:375.768:375.859:380.797 --beam 380.391-380.555@0 --hand \"wc-3613:{\\\"dynMark\\\":\\\"f\\\",\\\"hairpinTo\\\":376.29,\\\"hairpinDir\\\":\\\"decresc\\\"}\" --hand \"wc-3616:{\\\"dynMark\\\":false}\" --hand \"wc-3617:{\\\"dynMark\\\":false}\" --hand \"wc-3620:{\\\"dynMark\\\":\\\"mf\\\",\\\"hairpinTo\\\":377.81,\\\"hairpinDir\\\":\\\"decresc\\\"}\" --hand \"wc-3621:{\\\"dynMark\\\":false}\" --hand \"wc-3623:{\\\"dynMark\\\":false}\" --hand \"wc-3626:{\\\"dynMark\\\":false}\" --hand \"wc-3629:{\\\"dynMark\\\":false}\" --hand \"wc-3631:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3632:{\\\"dynMark\\\":false}\" --hand \"wc-3636:{\\\"dynMark\\\":false}\" --hand \"wc-3637:{\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3639:{\\\"dynMark\\\":false,\\\"nhArtic\\\":null,\\\"noteBeams\\\":null,\\\"dynAboveBeam\\\":null,\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3636:{\\\"gc\\\":false,\\\"goLine\\\":false}\" --longToneAlso wc-3640 --plainNotes 0:384.3:390.7 --hand \"wc-3641:{\\\"nhStem\\\":\\\"flag8\\\"}\" --beam 384.713-384.847@0 --hand \"wc-3643:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3644:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3645:{\\\"nhStem\\\":\\\"flag8\\\"}\" --beam 385.295-385.429@0 --hand \"wc-3647:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3648:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3649:{\\\"nhStem\\\":\\\"flag8\\\"}\" --beam 385.954-386.195@0 --hand \"wc-3650:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3653:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --beam 387.32-387.84@0 --hand \"wc-3655:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"slurTo\\\":\\\"wc-3662\\\"}\" --hand \"wc-3656:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3660:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3662:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3663:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3664:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3665\\\"}\" --beam 389.9-390.402@0 --hand \"wc-3665:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3666:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3667:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --longToneAlso wc-3668,wc-3669,wc-3672,wc-3673 --hand \"wc-3641:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3643:{\\\"dynMark\\\":false}\" --hand \"wc-3644:{\\\"dynMark\\\":false}\" --hand \"wc-3645:{\\\"dynMark\\\":false}\" --hand \"wc-3647:{\\\"dynMark\\\":false}\" --hand \"wc-3648:{\\\"dynMark\\\":false}\" --hand \"wc-3649:{\\\"dynMark\\\":false}\" --hand \"wc-3650:{\\\"dynMark\\\":false}\" --hand \"wc-3653:{\\\"dynMark\\\":false}\" --hand \"wc-3655:{\\\"dynMark\\\":false,\\\"hairpinTo\\\":387.84,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3656:{\\\"dynMark\\\":false}\" --hand \"wc-3660:{\\\"dynMark\\\":false}\" --hand \"wc-3662:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3663:{\\\"dynMark\\\":false}\" --hand \"wc-3664:{\\\"dynMark\\\":false}\" --hand \"wc-3665:{\\\"dynMark\\\":false}\" --hand \"wc-3666:{\\\"dynMark\\\":false}\" --hand \"wc-3667:{\\\"dynMark\\\":\\\"p\\\"}\" --beatGridFit 0:0.092:7:383.760:384.455:388.031:noTail --oneOffs 1:295.9:302 --hand \"wc-3410:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3457:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3463:{\\\"dynMark\\\":\\\"mf\\\"}\" --plainNotes 1:324.7:325.7 --beam 325.25-325.618@1 --hand \"wc-3465:{\\\"grace\\\":true,\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3468:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3471:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3475:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3477:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --beatGridFit 1:0.162:4:322.3705:322.836:325.618 --plainNotes 1:322.5:323.5 --hand \"wc-3457:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3463:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3465:{\\\"nhStem\\\":\\\"flag8\\\",\\\"noteBeams\\\":null,\\\"dynAboveBeam\\\":null,\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3468:{\\\"nhStem\\\":\\\"flag8\\\",\\\"noteBeams\\\":null,\\\"dynAboveBeam\\\":null,\\\"nhArtic\\\":\\\"accent\\\",\\\"dynMark\\\":false}\" --hand \"wc-3471:{\\\"dynMark\\\":false}\" --hand \"wc-3475:{\\\"dynMark\\\":false}\" --hand \"wc-3477:{\\\"dynMark\\\":false}\" --oneOffs 1:336.8:337.5 --oneOffs 1:341.1:344.6 --hand \"wc-3524:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3537:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3547:{\\\"dynMark\\\":\\\"f\\\"}\" --plainNotes 1:345.4:345.7 --beam 345.468-345.601@1 --hand \"wc-3551:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3555:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --oneOffs 1:376:377.8 --hand \"wc-3622:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3627:{\\\"dynMark\\\":\\\"mf\\\"}\" --oneOffs 1:380.3:380.9 --hand \"wc-3635:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3638:{\\\"dynMark\\\":\\\"f\\\"}\" --oneOffs 1:387.4:387.6 --hand \"wc-3657:{\\\"dynMark\\\":\\\"f\\\"}\" --longToneAlso wc-3670,wc-3674 --hand \"wc-3670:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3674:{\\\"dynMark\\\":\\\"f\\\"}\" --oneOffs 2:296.2:296.5 --oneOffs 2:323.1:325.1 --oneOffs 2:336.9:337.4 --oneOffs 2:341.3:341.5 --oneOffs 2:377.7:380.3 --oneOffs 2:386.1:387.6 --plainNotes 2:301.9:302.3 --beam 301.96-302.17@2 --hand \"wc-3417:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3421:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --plainNotes 2:344.1:344.5 --beam 344.18-344.40@2 --hand \"wc-3540:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3545:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --plainNotes 2:375.9:376.3 --beam 375.99-376.17@2 --hand \"wc-3615:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3618:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3415:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3417:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3421:{\\\"dynMark\\\":false}\" --hand \"wc-3460:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3470:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3545:{\\\"dynMark\\\":false}\" --oneOffs 2:345.4:345.6 --hand \"wc-3553:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3615:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3618:{\\\"dynMark\\\":false}\" --hand \"wc-3628:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3652:{\\\"dynMark\\\":\\\"mf\\\"}\" --oneOffs 3:302.0:302.2 --oneOffs 3:322.3:325.4 --oneOffs 3:341.3:343.2 --oneOffs 3:375.9:380.3 --oneOffs 3:384.6:385.4 --oneOffs 3:387.7:387.8 --plainNotes 3:344.1:345.8 --beam 344.18-344.64@3 --beam 345.43-345.72@3 --hand \"wc-3541:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3543:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3549:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3552:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3557:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --plainNotes 3:385.9:386.3 --beam 385.95-386.19@3 --hand \"wc-3651:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3654:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --oneOffs 3:295.4:295.6 --hand \"wc-3418:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3456:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3473:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3525:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3533:{\\\"dynMark\\\":\\\"mf\\\"}\" --beatGridFit 3:0.1525:4:342.888:344.189:345.71:noLead --hand \"wc-3541:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3543:{\\\"dynMark\\\":false}\" --hand \"wc-3549:{\\\"dynMark\\\":false}\" --hand \"wc-3552:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3557:{\\\"dynMark\\\":false}\" --hand \"wc-3541:{\\\"gc\\\":false,\\\"goLine\\\":false}\" --hand \"wc-3552:{\\\"gc\\\":false,\\\"goLine\\\":false}\" --hand \"wc-3614:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3624:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3630:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3642:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3651:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3661:{\\\"dynMark\\\":\\\"f\\\"}\" --oneOffs 6:300.3:301.8 --oneOffs 6:322.1:323.3 --oneOffs 6:337.5:337.6 --oneOffs 6:343.1:343.2 --oneOffs 6:377.3:377.5 --oneOffs 6:387.4:387.6 --oneOffs 7:295.7:295.9 --oneOffs 7:299.6:302.2 --oneOffs 7:322.8:323.0 --oneOffs 7:337.1:337.3 --hand \"wc-3392:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3409:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3413:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3420:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3458:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3461:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3515:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3534:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3625:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3658:{\\\"dynMark\\\":\\\"f\\\"}\" --chordDyn 303.53:303.59:mp --chordDyn 306.30:306.33:mf --chordDyn 308.28:308.34:p --chordDyn 309.93:309.99:mf --chordDyn 312.01:312.05:mp --chordDyn 312.97:313.03:p --chordDyn 327.03:327.12:p --chordDyn 328.22:328.27:mp --chordDyn 329.24:329.28:f --chordDyn 329.63:329.68:mf --chordDyn 330.47:330.50:mf --chordDyn 331.34:331.39:f --chordDyn 332.38:332.42:f --chordDyn 333.35:333.38:ff --chordDyn 334.00:334.03:mf --chordDyn 335.69:335.72:mf --chordDyn 347.07:347.10:mp --chordDyn 348.29:348.33:mp --chordDyn 349.25:349.28:mp --chordDyn 352.08:352.13:mf --chordDyn 355.20:355.25:mf --chordDyn 356.34:356.40:mp --chordDyn 357.65:357.69:f --chordDyn 358.93:358.98:p --chordDyn 361.02:361.07:mf --chordDyn 364.18:364.22:mf --chordDyn 365.84:365.88:mf --chordDyn 366.54:366.58:f --chordDyn 367.09:367.13:mf --chordDyn 367.79:367.99:p --chordDyn 369.19:369.23:mf --chordDyn 370.33:370.40:f --chordDyn 392.97:393.29:f --chordDyn 394.92:395.30:f --chordDyn 398.11:399.14:f --chordDyn 401.74:401.79:mf --chordDyn 403.41:403.47:mp --chordDyn 407.04:407.08:mp --plainNotes 4:297.3:298.9 --hand \"wc-3725:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3756:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3757:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3758:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3713:{\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3687:{\\\"stemDir\\\":\\\"up\\\"}\" --beam 297.53-297.65@4 --hand \"wc-3756:{\\\"grace\\\":true,\\\"dynMark\\\":false}\" --hand \"wc-3757:{\\\"grace\\\":true,\\\"slash\\\":false}\" --hand \"wc-3758:{\\\"noteBeams\\\":null,\\\"dynMark\\\":null,\\\"dynAboveBeam\\\":null}\" --hand \"wc-3758:{\\\"dynMark\\\":\\\"band\\\"}\" --hand \"wc-3725:{\\\"nhStem\\\":false}\" --hand \"wc-3758:{\\\"nhStem\\\":false,\\\"gc\\\":true,\\\"gcGeom\\\":\\\"staffTop\\\",\\\"goLine\\\":false}\" --hand \"wc-3713:{\\\"nhStem\\\":false,\\\"gc\\\":true,\\\"gcGeom\\\":\\\"staffTop\\\",\\\"goLine\\\":false}\" --hand \"wc-3687:{\\\"nhStem\\\":false,\\\"gc\\\":true,\\\"gcGeom\\\":\\\"staffTop\\\",\\\"goLine\\\":false}\" --hand \"wc-3758:{\\\"gc\\\":false,\\\"gcGeom\\\":null}\" --hand \"wc-3713:{\\\"gc\\\":false,\\\"gcGeom\\\":null}\" --hand \"wc-3687:{\\\"gc\\\":false,\\\"gcGeom\\\":null}\" --plainNotes 4:300.0:303.0 --hand \"wc-3775:{\\\"nhStem\\\":false}\" --hand \"wc-3741:{\\\"nhStem\\\":false}\" --beam 302.55-302.93@4 --hand \"wc-3701:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3726:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\",\\\"dynMark\\\":false}\" --hand \"wc-3758:{\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"gcImpact\\\":\\\"lineBelow\\\",\\\"goLine\\\":false}\" --hand \"wc-3725:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3758:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\",\\\"gc\\\":false,\\\"gcGeom\\\":null,\\\"gcImpact\\\":null}\" --hand \"wc-3756:{\\\"beamYSs\\\":8.636}\" --hand \"wc-3757:{\\\"beamYSs\\\":8.636}\" --hand \"wc-3725:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3758:{\\\"nhStem\\\":\\\"flag8\\\",\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"gcImpact\\\":\\\"spaceBelow\\\",\\\"gcSpread\\\":0.7,\\\"goLine\\\":false}\" --hand \"wc-3756:{\\\"beamYSs\\\":9.986}\" --hand \"wc-3757:{\\\"beamYSs\\\":9.986}\" --beam ids:wc-3725,wc-3758 --hand \"wc-3725:{\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":1,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":11.7,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3758:{\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":1,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":11.7,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"gcImpact\\\":\\\"spaceBelow\\\",\\\"gcSpread\\\":null,\\\"goLine\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3756:{\\\"beamYSs\\\":8.23}\" --hand \"wc-3757:{\\\"beamYSs\\\":8.23}\" --hand \"wc-3713:{\\\"dynMark\\\":false}\" --hand \"wc-3687:{\\\"dynMark\\\":false}\" --hand \"wc-3775:{\\\"dynMark\\\":false}\" --hand \"wc-3741:{\\\"dynMark\\\":false}\" --hand \"wc-3701:{\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":9.986,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3726:{\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":9.986,\\\"dynMark\\\":\\\"p\\\"}\" --hand \"wc-3756:{\\\"beamYSs\\\":9.986}\" --hand \"wc-3757:{\\\"beamYSs\\\":9.986}\" --hand \"wc-3726:{\\\"dynMark\\\":\\\"pp\\\"}\" --plainNotes 4:305.2:306.4 --beam 305.25-305.46@4 --hand \"wc-3776:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":8.636,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":\\\"mp\\\",\\\"hairpinTo\\\":306.344}\" --hand \"wc-3759:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":8.636,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3714:{\\\"nhStem\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3702:{\\\"grace\\\":true,\\\"stemDir\\\":\\\"up\\\",\\\"dynMark\\\":false}\" --hand \"wc-3688:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\",\\\"flagClearMaxSs\\\":16,\\\"dynMark\\\":false}\" --hand \"wc-3702:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3756:{\\\"beamYSs\\\":7.278}\" --hand \"wc-3757:{\\\"beamYSs\\\":7.278}\" --hand \"wc-3776:{\\\"beamYSs\\\":11.986}\" --hand \"wc-3759:{\\\"beamYSs\\\":11.986}\" --hand \"wc-3702:{\\\"slurTo\\\":\\\"wc-3688\\\"}\" --hand \"wc-3701:{\\\"beamYSs\\\":null}\" --hand \"wc-3726:{\\\"beamYSs\\\":null}\" --plainNotes 4:316.7:317.2 --beam 316.77-317.13@4:8:up --plainNotes 4:320.3:321.6 --beam 320.33-320.69@4:8:up --beam 321.17-321.54@4:8:down --plainNotes 4:326.4:326.6 --hand \"wc-3763:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3691:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:336.6:336.8 --hand \"wc-3764:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\",\\\"slurTo\\\":\\\"wc-3765\\\"}\" --hand \"wc-3765:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:342.5:342.9 --beam 342.50-342.88@4:8:up --plainNotes 4:346.6:346.9 --hand \"wc-3766:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3694:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:358.4:358.9 --beam 358.49-358.86@4:8:up --plainNotes 4:361.5:362.0 --beam 361.55-361.97@4:8:down --plainNotes 4:364.9:365.4 --beam 364.90-365.35@4:8:down --plainNotes 4:370.3:370.6 --hand \"wc-3751:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3696:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:378.4:379.0 --beam 378.47-378.96@4:8:down --plainNotes 4:380.3:380.9 --beam 380.38-380.85@4:8:down --plainNotes 4:382.5:382.8 --hand \"wc-3788:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3698:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:398.3:398.9 --beam 398.39-398.85@4:8:up --plainNotes 4:405.2:405.8 --beam 405.29-405.75@4:8:up --hand \"wc-3763:{\\\"slurTo\\\":\\\"wc-3691\\\"}\" --hand \"wc-3766:{\\\"slurTo\\\":\\\"wc-3694\\\"}\" --hand \"wc-3751:{\\\"slurTo\\\":\\\"wc-3696\\\"}\" --hand \"wc-3788:{\\\"slurTo\\\":\\\"wc-3698\\\"}\" --plainNotes 4:308.3:308.4 --hand \"wc-3742:{\\\"dynMark\\\":\\\"mp\\\"}\" --plainNotes 4:315.1:315.2 --hand \"wc-3743:{\\\"dynMark\\\":\\\"pp\\\"}\" --hand \"wc-3728:{\\\"dynMark\\\":\\\"mp\\\"}\" --plainNotes 4:328.7:328.8 --hand \"wc-3745:{\\\"hairpinTo\\\":329.348}\" --plainNotes 4:330.4:330.6 --hand \"wc-3730:{\\\"hairpinTo\\\":331.394}\" --hand \"wc-3765:{\\\"dynMark\\\":\\\"f\\\"}\" --plainNotes 4:337.9:338.0 --hand \"wc-3746:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3735:{\\\"dynMark\\\":\\\"p\\\"}\" --hand \"wc-3785:{\\\"dynMark\\\":\\\"mf\\\"}\" --plainNotes 4:374.8:374.95 --hand \"wc-3770:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3785:{\\\"dynSide\\\":\\\"above\\\"}\""
+  "build": "node tools/notate_section.js --score piece-Recombination-Draft01-done --scoreFile C:\\Users\\jwloy\\AppData\\Local\\Temp\\lgmf-reextract-O178sl\\piece-Recombination-Draft01-done-copy.json --all --bricks --sequence grp-seq-smu90t537 --sequence grp-seq-smuiicl3e --sequence grp-seq-smuilati2 --sequence grp-seq-smuin6jkq --morph grp-act-bloom-06-01 --morph grp-morph-01 --morph grp-morph-02 --longTones 289:427:all --plainNotes 0:288:303 --beam 292.79-293.815@0 --hand \"wc-3383:{\\\"dynMark\\\":\\\"pp\\\",\\\"hairpinTo\\\":289.25,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3384:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3385\\\",\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3385:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3386:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3387:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"beamStub\\\":true,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3388:{\\\"beamStub\\\":true,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"above\\\"}\" --hand \"wc-3389:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --hand \"wc-3390:{\\\"beamStub\\\":true,\\\"dynMark\\\":false}\" --rest 0:290.2:4 --beam 295.456-295.665@0 --beam 295.974-296.315@0 --hand \"wc-3391:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"mf\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3393:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3395:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3398:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false}\" --hand \"wc-3399:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --hand \"wc-3400:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --beam 301.556-302.106@0 --hand \"wc-3412:{\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"ff\\\",\\\"dynAboveBeam\\\":false,\\\"hairpinTo\\\":302.17,\\\"hairpinDir\\\":\\\"decresc\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3414:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3416:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3419:{\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --beam 298.815-298.947@0 --beam 300.05-300.343@0 --hand \"wc-3401:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":\\\"mf\\\",\\\"dynAboveBeam\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"above\\\",\\\"slurTo\\\":\\\"wc-3402\\\"}\" --hand \"wc-3402:{\\\"noteBeams\\\":2,\\\"dynMark\\\":false}\" --hand \"wc-3403:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3404:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3406:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3408:{\\\"noteBeams\\\":1,\\\"dynMark\\\":false}\" --hand \"wc-3411:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":false}\" --beatGridFit 0:0.108:6:295.186:295.456:297.306 --beatGridFit 0:0.1165:6:298.247:298.815:300.695:keepTail --id piece-lgmf --label \"piece-lgmf · Draft 01 (piece-Recombination-Draft01-done) — every placed sequence's device (2j) + the three morphs' (2k), the curves by the protocol (2l), section 2's long tones (2m), the EH's plain notes 288 … 303 (§547), the opening figure by hand (§550 · §557 · §559), the second figure's beat grid (§564 … §571) and its values (§573)\" --beatGridFit 0:0.0945:7:317.048:317.052:323.002:keepLead --plainNotes 0:316.8:323.14 --beam 317.164-317.339@0 --beam 318.367-318.569@0 --beam 319.032-319.503@0 --hand \"wc-3444:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3445:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3446:{\\\"noteBeams\\\":2,\\\"dynMark\\\":false}\" --hand \"wc-3447:{\\\"dynMark\\\":\\\"p\\\"}\" --hand \"wc-3448:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3449:{\\\"noteBeams\\\":2,\\\"dynMark\\\":false}\" --hand \"wc-3450:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"hairpinTo\\\":319.503,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3451:{\\\"noteBeams\\\":1,\\\"dynMark\\\":\\\"f\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3452:{\\\"nhStem\\\":\\\"flag8\\\",\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3453:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"mf\\\",\\\"nhArtic\\\":\\\"accent\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3454:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"mp\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3459:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"f\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --plainNotes 0:324.5:326.1 --beam 324.677-325.383@0 --beam 325.597-325.956@0 --hand \"wc-3464:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"slurTo\\\":\\\"wc-3476\\\"}\" --hand \"wc-3466:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3467:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3469:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3472:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3474:{\\\"grace\\\":true,\\\"noteBeams\\\":2}\" --hand \"wc-3476:{\\\"noteBeams\\\":1,\\\"gc\\\":true,\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3478:{\\\"noteBeams\\\":1}\" --hand \"wc-3464:{\\\"dynAboveBeam\\\":false}\" --hand \"wc-3466:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3467:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3469:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3472:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3474:{\\\"dynAboveBeam\\\":false,\\\"slash\\\":false}\" --hand \"wc-3476:{\\\"dynAboveBeam\\\":false,\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3478:{\\\"dynAboveBeam\\\":false}\" --hand \"wc-3464:{\\\"slurTo\\\":\\\"wc-3474\\\",\\\"dynMark\\\":\\\"mp\\\",\\\"hairpinTo\\\":325.383,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3466:{\\\"dynMark\\\":false}\" --hand \"wc-3467:{\\\"dynMark\\\":false}\" --hand \"wc-3469:{\\\"dynMark\\\":false}\" --hand \"wc-3472:{\\\"dynMark\\\":false}\" --hand \"wc-3474:{\\\"dynMark\\\":false}\" --hand \"wc-3478:{\\\"dynMark\\\":false}\" --hand \"wc-3464:{\\\"slash\\\":false,\\\"beamStub\\\":true,\\\"beamStubShortSs\\\":1}\" --hand \"wc-3466:{\\\"beamStub\\\":true}\" --hand \"wc-3467:{\\\"beamStub\\\":true}\" --hand \"wc-3469:{\\\"beamStub\\\":true}\" --hand \"wc-3472:{\\\"beamStub\\\":true}\" --hand \"wc-3474:{\\\"beamStub\\\":true}\" --plainNotes 0:336.8:338.5 --hand \"wc-3511:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3514\\\"}\" --hand \"wc-3514:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3519:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3464:{\\\"beamStubShortSs\\\":null}\" --hand \"wc-3511:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3514:{\\\"dynMark\\\":false}\" --hand \"wc-3519:{\\\"dynMark\\\":\\\"ff\\\"}\" --plainNotes 0:340.1:341.9 --beam 341.576-341.757@0 --hand \"wc-3520:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3521\\\"}\" --hand \"wc-3521:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3522:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3523\\\"}\" --hand \"wc-3523:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3527:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3528\\\"}\" --hand \"wc-3528:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3529:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3511:{\\\"slurHeightSs\\\":1.4}\" --plainNotes 0:342.6:344.8 --beam 344.213-344.622@0 --hand \"wc-3530:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3531\\\"}\" --hand \"wc-3531:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3532:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3535:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3536\\\"}\" --hand \"wc-3536:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3538:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3539:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3542:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3544\\\"}\" --hand \"wc-3544:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3546:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3548:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3539:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3542:{\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":2,\\\"beamStub\\\":true,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\",\\\"slurTo\\\":null}\" --hand \"wc-3544:{\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3546:{\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3548:{\\\"stemDir\\\":\\\"down\\\"}\" --plainNotes 0:345.3:346 --beam 345.595-345.709@0 --hand \"wc-3520:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3521:{\\\"dynMark\\\":false}\" --hand \"wc-3522:{\\\"dynMark\\\":false}\" --hand \"wc-3523:{\\\"dynMark\\\":false}\" --hand \"wc-3527:{\\\"dynMark\\\":false}\" --hand \"wc-3528:{\\\"dynMark\\\":false}\" --hand \"wc-3529:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3530:{\\\"dynMark\\\":false}\" --hand \"wc-3531:{\\\"dynMark\\\":false}\" --hand \"wc-3532:{\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\"}\" --hand \"wc-3535:{\\\"dynMark\\\":false}\" --hand \"wc-3536:{\\\"dynMark\\\":false}\" --hand \"wc-3538:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3539:{\\\"dynMark\\\":false}\" --hand \"wc-3542:{\\\"dynMark\\\":false}\" --hand \"wc-3544:{\\\"dynMark\\\":false}\" --hand \"wc-3546:{\\\"dynMark\\\":false}\" --hand \"wc-3548:{\\\"dynMark\\\":false}\" --hand \"wc-3550:{\\\"nhStem\\\":\\\"flag16\\\",\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3554:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3556:{\\\"grace\\\":true,\\\"noteBeams\\\":2,\\\"slash\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3532:{\\\"articSide\\\":\\\"above\\\"}\" --hand \"wc-3554:{\\\"slurTo\\\":\\\"wc-3556\\\"}\" --beatGridFit 0:0.107:6:340.061:340.352:345.709 --hand \"wc-3445:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3446:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3476:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3478:{\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --plainNotes 0:375.7:381.2 --beam 375.859-376.138@0 --beam 377.102-377.51@0 --beam 380.012-380.223@0 --hand \"wc-3613:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3616:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3617:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3620:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3621:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3623:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3626:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3629:{\\\"nhStem\\\":\\\"flag16\\\"}\" --hand \"wc-3631:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3632:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3636:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3637:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhArtic\\\":\\\"tenuto\\\"}\" --hand \"wc-3639:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"nhArtic\\\":\\\"tenuto\\\"}\" --hand \"wc-3637:{\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3639:{\\\"articSide\\\":\\\"below\\\"}\" --beatGridFit 0:0.0945:7:375.768:375.859:380.797 --beam 380.391-380.555@0 --hand \"wc-3613:{\\\"dynMark\\\":\\\"f\\\",\\\"hairpinTo\\\":376.29,\\\"hairpinDir\\\":\\\"decresc\\\"}\" --hand \"wc-3616:{\\\"dynMark\\\":false}\" --hand \"wc-3617:{\\\"dynMark\\\":false}\" --hand \"wc-3620:{\\\"dynMark\\\":\\\"mf\\\",\\\"hairpinTo\\\":377.81,\\\"hairpinDir\\\":\\\"decresc\\\"}\" --hand \"wc-3621:{\\\"dynMark\\\":false}\" --hand \"wc-3623:{\\\"dynMark\\\":false}\" --hand \"wc-3626:{\\\"dynMark\\\":false}\" --hand \"wc-3629:{\\\"dynMark\\\":false}\" --hand \"wc-3631:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3632:{\\\"dynMark\\\":false}\" --hand \"wc-3636:{\\\"dynMark\\\":false}\" --hand \"wc-3637:{\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3639:{\\\"dynMark\\\":false,\\\"nhArtic\\\":null,\\\"noteBeams\\\":null,\\\"dynAboveBeam\\\":null,\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3636:{\\\"gc\\\":false,\\\"goLine\\\":false}\" --longToneAlso wc-3640 --plainNotes 0:384.3:390.7 --hand \"wc-3641:{\\\"nhStem\\\":\\\"flag8\\\"}\" --beam 384.713-384.847@0 --hand \"wc-3643:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3644:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3645:{\\\"nhStem\\\":\\\"flag8\\\"}\" --beam 385.295-385.429@0 --hand \"wc-3647:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3648:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3649:{\\\"nhStem\\\":\\\"flag8\\\"}\" --beam 385.954-386.195@0 --hand \"wc-3650:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3653:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --beam 387.32-387.84@0 --hand \"wc-3655:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"slurTo\\\":\\\"wc-3662\\\"}\" --hand \"wc-3656:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3660:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3662:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3663:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3664:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"slurTo\\\":\\\"wc-3665\\\"}\" --beam 389.9-390.402@0 --hand \"wc-3665:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3666:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3667:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --longToneAlso wc-3668,wc-3669,wc-3672,wc-3673 --hand \"wc-3641:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3643:{\\\"dynMark\\\":false}\" --hand \"wc-3644:{\\\"dynMark\\\":false}\" --hand \"wc-3645:{\\\"dynMark\\\":false}\" --hand \"wc-3647:{\\\"dynMark\\\":false}\" --hand \"wc-3648:{\\\"dynMark\\\":false}\" --hand \"wc-3649:{\\\"dynMark\\\":false}\" --hand \"wc-3650:{\\\"dynMark\\\":false}\" --hand \"wc-3653:{\\\"dynMark\\\":false}\" --hand \"wc-3655:{\\\"dynMark\\\":false,\\\"hairpinTo\\\":387.84,\\\"hairpinDir\\\":\\\"cresc\\\"}\" --hand \"wc-3656:{\\\"dynMark\\\":false}\" --hand \"wc-3660:{\\\"dynMark\\\":false}\" --hand \"wc-3662:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3663:{\\\"dynMark\\\":false}\" --hand \"wc-3664:{\\\"dynMark\\\":false}\" --hand \"wc-3665:{\\\"dynMark\\\":false}\" --hand \"wc-3666:{\\\"dynMark\\\":false}\" --hand \"wc-3667:{\\\"dynMark\\\":\\\"p\\\"}\" --beatGridFit 0:0.092:7:383.760:384.455:388.031:noTail --oneOffs 1:295.9:302 --hand \"wc-3410:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3457:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3463:{\\\"dynMark\\\":\\\"mf\\\"}\" --plainNotes 1:324.7:325.7 --beam 325.25-325.618@1 --hand \"wc-3465:{\\\"grace\\\":true,\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3468:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3471:{\\\"noteBeams\\\":2,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3475:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3477:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false}\" --beatGridFit 1:0.162:4:322.3705:322.836:325.618 --plainNotes 1:322.5:323.5 --hand \"wc-3457:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3463:{\\\"nhStem\\\":\\\"flag16\\\",\\\"nhDot\\\":true,\\\"nhDotGapSs\\\":0.15}\" --hand \"wc-3465:{\\\"nhStem\\\":\\\"flag8\\\",\\\"noteBeams\\\":null,\\\"dynAboveBeam\\\":null,\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3468:{\\\"nhStem\\\":\\\"flag8\\\",\\\"noteBeams\\\":null,\\\"dynAboveBeam\\\":null,\\\"nhArtic\\\":\\\"accent\\\",\\\"dynMark\\\":false}\" --hand \"wc-3471:{\\\"dynMark\\\":false}\" --hand \"wc-3475:{\\\"dynMark\\\":false}\" --hand \"wc-3477:{\\\"dynMark\\\":false}\" --oneOffs 1:336.8:337.5 --oneOffs 1:341.1:344.6 --hand \"wc-3524:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3537:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3547:{\\\"dynMark\\\":\\\"f\\\"}\" --plainNotes 1:345.4:345.7 --beam 345.468-345.601@1 --hand \"wc-3551:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3555:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --oneOffs 1:376:377.8 --hand \"wc-3622:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3627:{\\\"dynMark\\\":\\\"mf\\\"}\" --oneOffs 1:380.3:380.9 --hand \"wc-3635:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3638:{\\\"dynMark\\\":\\\"f\\\"}\" --oneOffs 1:387.4:387.6 --hand \"wc-3657:{\\\"dynMark\\\":\\\"f\\\"}\" --longToneAlso wc-3670,wc-3674 --hand \"wc-3670:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3674:{\\\"dynMark\\\":\\\"f\\\"}\" --oneOffs 2:296.2:296.5 --oneOffs 2:323.1:325.1 --oneOffs 2:336.9:337.4 --oneOffs 2:341.3:341.5 --oneOffs 2:377.7:380.3 --oneOffs 2:386.1:387.6 --plainNotes 2:301.9:302.3 --beam 301.96-302.17@2 --hand \"wc-3417:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3421:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --plainNotes 2:344.1:344.5 --beam 344.18-344.40@2 --hand \"wc-3540:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3545:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --plainNotes 2:375.9:376.3 --beam 375.99-376.17@2 --hand \"wc-3615:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3618:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3415:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3417:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3421:{\\\"dynMark\\\":false}\" --hand \"wc-3460:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3470:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3545:{\\\"dynMark\\\":false}\" --oneOffs 2:345.4:345.6 --hand \"wc-3553:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3615:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3618:{\\\"dynMark\\\":false}\" --hand \"wc-3628:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3652:{\\\"dynMark\\\":\\\"mf\\\"}\" --oneOffs 3:302.0:302.2 --oneOffs 3:322.3:325.4 --oneOffs 3:341.3:343.2 --oneOffs 3:375.9:380.3 --oneOffs 3:384.6:385.4 --oneOffs 3:387.7:387.8 --plainNotes 3:344.1:345.8 --beam 344.18-344.64@3 --beam 345.43-345.72@3 --hand \"wc-3541:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3543:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3549:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3552:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3557:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false}\" --plainNotes 3:385.9:386.3 --beam 385.95-386.19@3 --hand \"wc-3651:{\\\"noteBeams\\\":2,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"goLine\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"dynAboveBeam\\\":false}\" --hand \"wc-3654:{\\\"noteBeams\\\":2,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --oneOffs 3:295.4:295.6 --hand \"wc-3418:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3456:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3473:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3525:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3533:{\\\"dynMark\\\":\\\"mf\\\"}\" --beatGridFit 3:0.1525:4:342.888:344.189:345.71:noLead --hand \"wc-3541:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3543:{\\\"dynMark\\\":false}\" --hand \"wc-3549:{\\\"dynMark\\\":false}\" --hand \"wc-3552:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3557:{\\\"dynMark\\\":false}\" --hand \"wc-3541:{\\\"gc\\\":false,\\\"goLine\\\":false}\" --hand \"wc-3552:{\\\"gc\\\":false,\\\"goLine\\\":false}\" --hand \"wc-3614:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3624:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3630:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3642:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3651:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3661:{\\\"dynMark\\\":\\\"f\\\"}\" --oneOffs 6:300.3:301.8 --oneOffs 6:322.1:323.3 --oneOffs 6:337.5:337.6 --oneOffs 6:343.1:343.2 --oneOffs 6:377.3:377.5 --oneOffs 6:387.4:387.6 --oneOffs 7:295.7:295.9 --oneOffs 7:299.6:302.2 --oneOffs 7:322.8:323.0 --oneOffs 7:337.1:337.3 --hand \"wc-3392:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3409:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3413:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3420:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3458:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3461:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3515:{\\\"dynMark\\\":\\\"f\\\"}\" --hand \"wc-3534:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3625:{\\\"dynMark\\\":\\\"mf\\\"}\" --hand \"wc-3658:{\\\"dynMark\\\":\\\"f\\\"}\" --chordDyn 303.53:303.59:mp --chordDyn 306.30:306.33:mf --chordDyn 308.28:308.34:p --chordDyn 309.93:309.99:mf --chordDyn 312.01:312.05:mp --chordDyn 312.97:313.03:p --chordDyn 327.03:327.12:p --chordDyn 328.22:328.27:mp --chordDyn 329.24:329.28:f --chordDyn 329.63:329.68:mf --chordDyn 330.47:330.50:mf --chordDyn 331.34:331.39:f --chordDyn 332.38:332.42:f --chordDyn 333.35:333.38:ff --chordDyn 334.00:334.03:mf --chordDyn 335.69:335.72:mf --chordDyn 347.07:347.10:mp --chordDyn 348.29:348.33:mp --chordDyn 349.25:349.28:mp --chordDyn 352.08:352.13:mf --chordDyn 355.20:355.25:mf --chordDyn 356.34:356.40:mp --chordDyn 357.65:357.69:f --chordDyn 358.93:358.98:p --chordDyn 361.02:361.07:mf --chordDyn 364.18:364.22:mf --chordDyn 365.84:365.88:mf --chordDyn 366.54:366.58:f --chordDyn 367.09:367.13:mf --chordDyn 367.79:367.99:p --chordDyn 369.19:369.23:mf --chordDyn 370.33:370.40:f --chordDyn 392.97:393.29:f --chordDyn 394.92:395.30:f --chordDyn 398.11:399.14:f --chordDyn 401.74:401.79:mf --chordDyn 403.41:403.47:mp --chordDyn 407.04:407.08:mp --plainNotes 4:297.3:298.9 --hand \"wc-3725:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3756:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false}\" --hand \"wc-3757:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3758:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3713:{\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3687:{\\\"stemDir\\\":\\\"up\\\"}\" --beam 297.53-297.65@4 --hand \"wc-3756:{\\\"grace\\\":true,\\\"dynMark\\\":false}\" --hand \"wc-3757:{\\\"grace\\\":true,\\\"slash\\\":false}\" --hand \"wc-3758:{\\\"noteBeams\\\":null,\\\"dynMark\\\":null,\\\"dynAboveBeam\\\":null}\" --hand \"wc-3758:{\\\"dynMark\\\":\\\"band\\\"}\" --hand \"wc-3725:{\\\"nhStem\\\":false}\" --hand \"wc-3758:{\\\"nhStem\\\":false,\\\"gc\\\":true,\\\"gcGeom\\\":\\\"staffTop\\\",\\\"goLine\\\":false}\" --hand \"wc-3713:{\\\"nhStem\\\":false,\\\"gc\\\":true,\\\"gcGeom\\\":\\\"staffTop\\\",\\\"goLine\\\":false}\" --hand \"wc-3687:{\\\"nhStem\\\":false,\\\"gc\\\":true,\\\"gcGeom\\\":\\\"staffTop\\\",\\\"goLine\\\":false}\" --hand \"wc-3758:{\\\"gc\\\":false,\\\"gcGeom\\\":null}\" --hand \"wc-3713:{\\\"gc\\\":false,\\\"gcGeom\\\":null}\" --hand \"wc-3687:{\\\"gc\\\":false,\\\"gcGeom\\\":null}\" --plainNotes 4:300.0:303.0 --hand \"wc-3775:{\\\"nhStem\\\":false}\" --hand \"wc-3741:{\\\"nhStem\\\":false}\" --beam 302.55-302.93@4 --hand \"wc-3701:{\\\"noteBeams\\\":1,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3726:{\\\"noteBeams\\\":1,\\\"dynAboveBeam\\\":false,\\\"stemDir\\\":\\\"down\\\",\\\"dynMark\\\":false}\" --hand \"wc-3758:{\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"gcImpact\\\":\\\"lineBelow\\\",\\\"goLine\\\":false}\" --hand \"wc-3725:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"down\\\"}\" --hand \"wc-3758:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\",\\\"gc\\\":false,\\\"gcGeom\\\":null,\\\"gcImpact\\\":null}\" --hand \"wc-3756:{\\\"beamYSs\\\":8.636}\" --hand \"wc-3757:{\\\"beamYSs\\\":8.636}\" --hand \"wc-3725:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3758:{\\\"nhStem\\\":\\\"flag8\\\",\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"gcImpact\\\":\\\"spaceBelow\\\",\\\"gcSpread\\\":0.7,\\\"goLine\\\":false}\" --hand \"wc-3756:{\\\"beamYSs\\\":9.986}\" --hand \"wc-3757:{\\\"beamYSs\\\":9.986}\" --beam ids:wc-3725,wc-3758 --hand \"wc-3725:{\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":1,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":11.7,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3758:{\\\"nhStem\\\":\\\"beam\\\",\\\"noteBeams\\\":1,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":11.7,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false,\\\"gc\\\":true,\\\"gcStyle\\\":1,\\\"gcGeom\\\":\\\"lane\\\",\\\"gcImpact\\\":\\\"spaceBelow\\\",\\\"gcSpread\\\":null,\\\"goLine\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3756:{\\\"beamYSs\\\":8.23}\" --hand \"wc-3757:{\\\"beamYSs\\\":8.23}\" --hand \"wc-3713:{\\\"dynMark\\\":false}\" --hand \"wc-3687:{\\\"dynMark\\\":false}\" --hand \"wc-3775:{\\\"dynMark\\\":false}\" --hand \"wc-3741:{\\\"dynMark\\\":false}\" --hand \"wc-3701:{\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":9.986,\\\"dynMark\\\":false,\\\"nhArtic\\\":\\\"accent\\\",\\\"articSide\\\":\\\"below\\\"}\" --hand \"wc-3726:{\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":9.986,\\\"dynMark\\\":\\\"p\\\"}\" --hand \"wc-3756:{\\\"beamYSs\\\":9.986}\" --hand \"wc-3757:{\\\"beamYSs\\\":9.986}\" --hand \"wc-3726:{\\\"dynMark\\\":\\\"pp\\\"}\" --plainNotes 4:305.2:306.4 --beam 305.25-305.46@4 --hand \"wc-3776:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":8.636,\\\"gc\\\":false,\\\"goLine\\\":false,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":\\\"mp\\\",\\\"hairpinTo\\\":306.344}\" --hand \"wc-3759:{\\\"noteBeams\\\":2,\\\"stemDir\\\":\\\"up\\\",\\\"beamYSs\\\":8.636,\\\"dynAboveBeam\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3714:{\\\"nhStem\\\":false,\\\"dynMark\\\":false}\" --hand \"wc-3702:{\\\"grace\\\":true,\\\"stemDir\\\":\\\"up\\\",\\\"dynMark\\\":false}\" --hand \"wc-3688:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\",\\\"flagClearMaxSs\\\":16,\\\"dynMark\\\":false}\" --hand \"wc-3702:{\\\"nhStem\\\":\\\"flag8\\\"}\" --hand \"wc-3756:{\\\"beamYSs\\\":7.278}\" --hand \"wc-3757:{\\\"beamYSs\\\":7.278}\" --hand \"wc-3776:{\\\"beamYSs\\\":11.986}\" --hand \"wc-3759:{\\\"beamYSs\\\":11.986}\" --hand \"wc-3702:{\\\"slurTo\\\":\\\"wc-3688\\\"}\" --hand \"wc-3701:{\\\"beamYSs\\\":null}\" --hand \"wc-3726:{\\\"beamYSs\\\":null}\" --plainNotes 4:316.7:317.2 --beam 316.77-317.13@4:8:up --plainNotes 4:320.3:321.6 --beam 320.33-320.69@4:8:up --beam 321.17-321.54@4:8:down --plainNotes 4:326.4:326.6 --hand \"wc-3763:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3691:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:336.6:336.8 --hand \"wc-3764:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\",\\\"slurTo\\\":\\\"wc-3765\\\"}\" --hand \"wc-3765:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:342.5:342.9 --beam 342.50-342.88@4:8:up --plainNotes 4:346.6:346.9 --hand \"wc-3766:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3694:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:358.4:358.9 --beam 358.49-358.86@4:8:up --plainNotes 4:361.5:362.0 --beam 361.55-361.97@4:8:down --plainNotes 4:364.9:365.4 --beam 364.90-365.35@4:8:down --plainNotes 4:370.3:370.6 --hand \"wc-3751:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3696:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:378.4:379.0 --beam 378.47-378.96@4:8:down --plainNotes 4:380.3:380.9 --beam 380.38-380.85@4:8:down --plainNotes 4:382.5:382.8 --hand \"wc-3788:{\\\"grace\\\":true,\\\"nhStem\\\":\\\"flag8\\\",\\\"stemDir\\\":\\\"up\\\"}\" --hand \"wc-3698:{\\\"nhStem\\\":\\\"flag16\\\",\\\"stemDir\\\":\\\"up\\\"}\" --plainNotes 4:398.3:398.9 --beam 398.39-398.85@4:8:up --plainNotes 4:405.2:405.8 --beam 405.29-405.75@4:8:up --hand \"wc-3763:{\\\"slurTo\\\":\\\"wc-3691\\\"}\" --hand \"wc-3766:{\\\"slurTo\\\":\\\"wc-3694\\\"}\" --hand \"wc-3751:{\\\"slurTo\\\":\\\"wc-3696\\\"}\" --hand \"wc-3788:{\\\"slurTo\\\":\\\"wc-3698\\\"}\" --plainNotes 4:308.3:308.4 --hand \"wc-3742:{\\\"dynMark\\\":\\\"mp\\\"}\" --plainNotes 4:315.1:315.2 --hand \"wc-3743:{\\\"dynMark\\\":\\\"pp\\\"}\" --hand \"wc-3728:{\\\"dynMark\\\":\\\"mp\\\"}\" --plainNotes 4:328.7:328.8 --hand \"wc-3745:{\\\"hairpinTo\\\":329.348}\" --plainNotes 4:330.4:330.6 --hand \"wc-3730:{\\\"hairpinTo\\\":331.394}\" --hand \"wc-3765:{\\\"dynMark\\\":\\\"f\\\"}\" --plainNotes 4:337.9:338.0 --hand \"wc-3746:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3735:{\\\"dynMark\\\":\\\"p\\\"}\" --hand \"wc-3785:{\\\"dynMark\\\":\\\"mf\\\"}\" --plainNotes 4:374.8:374.95 --hand \"wc-3770:{\\\"dynMark\\\":\\\"mp\\\"}\" --hand \"wc-3785:{\\\"dynSide\\\":\\\"above\\\"}\""
  },
  "events": [
   {
@@ -32495,35 +32495,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3424",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3424"
-   },
-   "onset": 303.552,
-   "duration": 1.954999999999984,
-   "pitch": {
-    "midi": 72,
-    "spelled": {
-     "step": "C",
-     "alter": 0,
-     "octave": 5
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 51,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3425",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3425"
    },
-   "onset": 303.562,
-   "duration": 1.9470000000000027,
+   "onset": 303.544,
+   "duration": 1.9650000000000318,
    "pitch": {
     "midi": 69,
     "spelled": {
@@ -32539,13 +32517,35 @@
    "env": "longTone"
   },
   {
+   "id": "ev-wc-3424",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3424"
+   },
+   "onset": 303.544,
+   "duration": 1.9630000000000223,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 51,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3422",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3422"
    },
-   "onset": 303.575,
-   "duration": 1.9300000000000068,
+   "onset": 303.544,
+   "duration": 1.9610000000000127,
    "pitch": {
     "midi": 70,
     "spelled": {
@@ -32649,6 +32649,50 @@
    "env": "plainNote"
   },
   {
+   "id": "ev-wc-3427",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3427"
+   },
+   "onset": 306.313,
+   "duration": 0.9809999999999945,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 74,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3428",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3428"
+   },
+   "onset": 306.313,
+   "duration": 0.9970000000000141,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 55,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3426",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -32671,35 +32715,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3428",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3428"
-   },
-   "onset": 306.316,
-   "duration": 0.9940000000000282,
-   "pitch": {
-    "midi": 38,
-    "spelled": {
-     "step": "D",
-     "alter": 0,
-     "octave": 2
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 55,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3429",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3429"
    },
-   "onset": 306.318,
-   "duration": 0.992999999999995,
+   "onset": 306.313,
+   "duration": 0.9979999999999905,
    "pitch": {
     "midi": 31,
     "spelled": {
@@ -32712,28 +32734,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 44,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3427",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3427"
-   },
-   "onset": 306.32,
-   "duration": 0.9739999999999895,
-   "pitch": {
-    "midi": 78,
-    "spelled": {
-     "step": "F",
-     "alter": 1,
-     "octave": 5
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 74,
    "env": "longTone"
   },
   {
@@ -32759,6 +32759,50 @@
    "env": "plainNote"
   },
   {
+   "id": "ev-wc-3433",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3433"
+   },
+   "onset": 308.29,
+   "duration": 1.5219999999999914,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 44,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3430",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3430"
+   },
+   "onset": 308.29,
+   "duration": 1.4989999999999668,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 53,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3432",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -32781,57 +32825,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3431",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3431"
-   },
-   "onset": 308.297,
-   "duration": 1.4949999999999477,
-   "pitch": {
-    "midi": 71,
-    "spelled": {
-     "step": "B",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 61,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3430",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3430"
-   },
-   "onset": 308.301,
-   "duration": 1.4879999999999995,
-   "pitch": {
-    "midi": 64,
-    "spelled": {
-     "step": "E",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 53,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3434",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3434"
    },
-   "onset": 308.305,
-   "duration": 1.51400000000001,
+   "onset": 308.29,
+   "duration": 1.5289999999999964,
    "pitch": {
     "midi": 58,
     "spelled": {
@@ -32847,25 +32847,25 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3433",
+   "id": "ev-wc-3431",
    "source": {
     "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3433"
+    "objectId": "wc-3431"
    },
-   "onset": 308.326,
-   "duration": 1.48599999999999,
+   "onset": 308.29,
+   "duration": 1.5019999999999527,
    "pitch": {
-    "midi": 79,
+    "midi": 71,
     "spelled": {
-     "step": "G",
+     "step": "B",
      "alter": 0,
-     "octave": 5
+     "octave": 4
     }
    },
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 44,
+   "vel": 61,
    "env": "longTone"
   },
   {
@@ -32955,35 +32955,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3435",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3435"
-   },
-   "onset": 309.96,
-   "duration": 1.7549999999999955,
-   "pitch": {
-    "midi": 61,
-    "spelled": {
-     "step": "C",
-     "alter": 1,
-     "octave": 4
-    }
-   },
-   "technique": "senza_mw",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 75,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3438",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3438"
    },
-   "onset": 309.968,
-   "duration": 1.9110000000000014,
+   "onset": 309.947,
+   "duration": 1.9320000000000164,
    "pitch": {
     "midi": 65,
     "spelled": {
@@ -33004,8 +32982,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3436"
    },
-   "onset": 309.977,
-   "duration": 1.8210000000000264,
+   "onset": 309.947,
+   "duration": 1.850999999999999,
    "pitch": {
     "midi": 72,
     "spelled": {
@@ -33018,6 +32996,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 74,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3435",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3435"
+   },
+   "onset": 309.947,
+   "duration": 1.7679999999999723,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "senza_mw",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 75,
    "env": "longTone"
   },
   {
@@ -33090,8 +33090,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3440"
    },
-   "onset": 312.038,
-   "duration": 0.7799999999999727,
+   "onset": 312.023,
+   "duration": 0.7949999999999591,
    "pitch": {
     "midi": 45,
     "spelled": {
@@ -33150,35 +33150,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3443",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3443"
-   },
-   "onset": 312.995,
-   "duration": 3.4739999999999895,
-   "pitch": {
-    "midi": 69,
-    "spelled": {
-     "step": "A",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 39,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3442",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3442"
    },
-   "onset": 313.012,
-   "duration": 3.4540000000000077,
+   "onset": 312.981,
+   "duration": 3.4850000000000136,
    "pitch": {
     "midi": 62,
     "spelled": {
@@ -33191,6 +33169,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 71,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3443",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3443"
+   },
+   "onset": 312.981,
+   "duration": 3.4879999999999995,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 39,
    "env": "longTone"
   },
   {
@@ -34257,6 +34257,50 @@
    "env": "plainNote"
   },
   {
+   "id": "ev-wc-3482",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3482"
+   },
+   "onset": 327.041,
+   "duration": 0.8600000000000136,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 65,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3479",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3479"
+   },
+   "onset": 327.041,
+   "duration": 0.8550000000000182,
+   "pitch": {
+    "midi": 56,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 41,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3481",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -34279,35 +34323,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3482",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3482"
-   },
-   "onset": 327.053,
-   "duration": 0.8480000000000132,
-   "pitch": {
-    "midi": 59,
-    "spelled": {
-     "step": "B",
-     "alter": 0,
-     "octave": 3
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 65,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3480",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3480"
    },
-   "onset": 327.099,
-   "duration": 0.7090000000000032,
+   "onset": 327.041,
+   "duration": 0.7669999999999959,
    "pitch": {
     "midi": 55,
     "spelled": {
@@ -34320,28 +34342,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 43,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3479",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3479"
-   },
-   "onset": 327.106,
-   "duration": 0.7900000000000205,
-   "pitch": {
-    "midi": 56,
-    "spelled": {
-     "step": "G",
-     "alter": 1,
-     "octave": 3
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 41,
    "env": "longTone"
   },
   {
@@ -34364,6 +34364,50 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 61,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3485",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3485"
+   },
+   "onset": 328.238,
+   "duration": 0.8330000000000268,
+   "pitch": {
+    "midi": 52,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3483",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3483"
+   },
+   "onset": 328.238,
+   "duration": 0.8159999999999741,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 74,
    "env": "longTone"
   },
   {
@@ -34394,8 +34438,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3487"
    },
-   "onset": 328.24,
-   "duration": 0.9019999999999868,
+   "onset": 328.238,
+   "duration": 0.9039999999999964,
    "pitch": {
     "midi": 62,
     "spelled": {
@@ -34411,57 +34455,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3485",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3485"
-   },
-   "onset": 328.258,
-   "duration": 0.813000000000045,
-   "pitch": {
-    "midi": 52,
-    "spelled": {
-     "step": "E",
-     "alter": 0,
-     "octave": 3
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 91,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3483",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3483"
-   },
-   "onset": 328.258,
-   "duration": 0.7959999999999923,
-   "pitch": {
-    "midi": 67,
-    "spelled": {
-     "step": "G",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 74,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3484",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3484"
    },
-   "onset": 328.259,
-   "duration": 0.7959999999999923,
+   "onset": 328.238,
+   "duration": 0.8170000000000073,
    "pitch": {
     "midi": 45,
     "spelled": {
@@ -34548,8 +34548,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3489"
    },
-   "onset": 329.264,
-   "duration": 0.33299999999997,
+   "onset": 329.257,
+   "duration": 0.339999999999975,
    "pitch": {
     "midi": 69,
     "spelled": {
@@ -34586,6 +34586,28 @@
    "vel": 74
   },
   {
+   "id": "ev-wc-3492",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3492"
+   },
+   "onset": 329.649,
+   "duration": 0.6970000000000027,
+   "pitch": {
+    "midi": 66,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 68,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3494",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -34613,8 +34635,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3493"
    },
-   "onset": 329.66,
-   "duration": 0.6759999999999877,
+   "onset": 329.649,
+   "duration": 0.6870000000000118,
    "pitch": {
     "midi": 58,
     "spelled": {
@@ -34630,25 +34652,25 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3492",
+   "id": "ev-wc-3497",
    "source": {
     "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3492"
+    "objectId": "wc-3497"
    },
-   "onset": 329.671,
-   "duration": 0.6750000000000114,
+   "onset": 330.482,
+   "duration": 0.6759999999999877,
    "pitch": {
-    "midi": 66,
+    "midi": 69,
     "spelled": {
-     "step": "F",
-     "alter": 1,
+     "step": "A",
+     "alter": 0,
      "octave": 4
     }
    },
-   "technique": "ord",
+   "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 68,
+   "vel": 62,
    "env": "longTone"
   },
   {
@@ -34679,8 +34701,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3496"
    },
-   "onset": 330.488,
-   "duration": 0.646000000000015,
+   "onset": 330.482,
+   "duration": 0.6519999999999868,
    "pitch": {
     "midi": 70,
     "spelled": {
@@ -34718,28 +34740,6 @@
    "env": "plainNote"
   },
   {
-   "id": "ev-wc-3497",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3497"
-   },
-   "onset": 330.493,
-   "duration": 0.6650000000000205,
-   "pitch": {
-    "midi": 69,
-    "spelled": {
-     "step": "A",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 62,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3500",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -34762,35 +34762,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3499",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3499"
-   },
-   "onset": 331.376,
-   "duration": 0.9820000000000277,
-   "pitch": {
-    "midi": 53,
-    "spelled": {
-     "step": "F",
-     "alter": 0,
-     "octave": 3
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 68,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3498",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3498"
    },
-   "onset": 331.382,
-   "duration": 0.9739999999999895,
+   "onset": 331.354,
+   "duration": 1.0020000000000095,
    "pitch": {
     "midi": 54,
     "spelled": {
@@ -34803,6 +34781,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 94,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3499",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3499"
+   },
+   "onset": 331.354,
+   "duration": 1.004000000000019,
+   "pitch": {
+    "midi": 53,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 68,
    "env": "longTone"
   },
   {
@@ -34848,35 +34848,13 @@
    "vel": 81
   },
   {
-   "id": "ev-wc-3501",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3501"
-   },
-   "onset": 332.397,
-   "duration": 0.8389999999999986,
-   "pitch": {
-    "midi": 61,
-    "spelled": {
-     "step": "C",
-     "alter": 1,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 97,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3503",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3503"
    },
-   "onset": 332.403,
-   "duration": 0.8709999999999809,
+   "onset": 332.397,
+   "duration": 0.8770000000000095,
    "pitch": {
     "midi": 64,
     "spelled": {
@@ -34897,8 +34875,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3502"
    },
-   "onset": 332.405,
-   "duration": 0.8390000000000555,
+   "onset": 332.397,
+   "duration": 0.8470000000000368,
    "pitch": {
     "midi": 39,
     "spelled": {
@@ -34911,6 +34889,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 95,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3501",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3501"
+   },
+   "onset": 332.397,
+   "duration": 0.8389999999999986,
+   "pitch": {
+    "midi": 61,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 97,
    "env": "longTone"
   },
   {
@@ -34941,8 +34941,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3505"
    },
-   "onset": 333.365,
-   "duration": 0.5199999999999818,
+   "onset": 333.36,
+   "duration": 0.5249999999999773,
    "pitch": {
     "midi": 43,
     "spelled": {
@@ -35001,13 +35001,35 @@
    "env": "longTone"
   },
   {
+   "id": "ev-wc-3506",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3506"
+   },
+   "onset": 334.012,
+   "duration": 1.5480000000000018,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 77,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3508",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3508"
    },
-   "onset": 334.014,
-   "duration": 1.5720000000000027,
+   "onset": 334.012,
+   "duration": 1.5740000000000123,
    "pitch": {
     "midi": 71,
     "spelled": {
@@ -35023,25 +35045,25 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3506",
+   "id": "ev-wc-3510",
    "source": {
     "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3506"
+    "objectId": "wc-3510"
    },
-   "onset": 334.018,
-   "duration": 1.54200000000003,
+   "onset": 335.706,
+   "duration": 1.1639999999999873,
    "pitch": {
-    "midi": 72,
+    "midi": 64,
     "spelled": {
-     "step": "C",
+     "step": "E",
      "alter": 0,
-     "octave": 5
+     "octave": 4
     }
    },
-   "technique": "ord",
+   "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 77,
+   "vel": 78,
    "env": "longTone"
   },
   {
@@ -35064,28 +35086,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 91,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3510",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3510"
-   },
-   "onset": 335.708,
-   "duration": 1.1619999999999777,
-   "pitch": {
-    "midi": 64,
-    "spelled": {
-     "step": "E",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 78,
    "env": "longTone"
   },
   {
@@ -36388,8 +36388,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3559"
    },
-   "onset": 347.089,
-   "duration": 1.1100000000000136,
+   "onset": 347.083,
+   "duration": 1.1159999999999854,
    "pitch": {
     "midi": 74,
     "spelled": {
@@ -36432,8 +36432,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3560"
    },
-   "onset": 348.32,
-   "duration": 0.8430000000000177,
+   "onset": 348.308,
+   "duration": 0.8550000000000182,
    "pitch": {
     "midi": 51,
     "spelled": {
@@ -36476,8 +36476,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3563"
    },
-   "onset": 349.266,
-   "duration": 2.3349999999999795,
+   "onset": 349.262,
+   "duration": 2.3389999999999986,
    "pitch": {
     "midi": 59,
     "spelled": {
@@ -36535,6 +36535,72 @@
    "vel": 87
   },
   {
+   "id": "ev-wc-3564",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3564"
+   },
+   "onset": 352.092,
+   "duration": 2.90300000000002,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 65,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3566",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3566"
+   },
+   "onset": 352.092,
+   "duration": 2.9710000000000036,
+   "pitch": {
+    "midi": 54,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 75,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3565",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3565"
+   },
+   "onset": 352.092,
+   "duration": 2.966000000000008,
+   "pitch": {
+    "midi": 62,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 57,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3567",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -36554,72 +36620,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 63,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3566",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3566"
-   },
-   "onset": 352.102,
-   "duration": 2.9610000000000127,
-   "pitch": {
-    "midi": 54,
-    "spelled": {
-     "step": "F",
-     "alter": 1,
-     "octave": 3
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 75,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3564",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3564"
-   },
-   "onset": 352.106,
-   "duration": 2.88900000000001,
-   "pitch": {
-    "midi": 63,
-    "spelled": {
-     "step": "D",
-     "alter": 1,
-     "octave": 4
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 65,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3565",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3565"
-   },
-   "onset": 352.119,
-   "duration": 2.9389999999999645,
-   "pitch": {
-    "midi": 62,
-    "spelled": {
-     "step": "D",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 57,
    "env": "longTone"
   },
   {
@@ -36713,8 +36713,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3568"
    },
-   "onset": 355.224,
-   "duration": 0.7900000000000205,
+   "onset": 355.214,
+   "duration": 0.8000000000000114,
    "pitch": {
     "midi": 61,
     "spelled": {
@@ -36735,8 +36735,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3570"
    },
-   "onset": 355.241,
-   "duration": 0.8780000000000427,
+   "onset": 355.214,
+   "duration": 0.9050000000000296,
    "pitch": {
     "midi": 50,
     "spelled": {
@@ -36795,35 +36795,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3574",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3574"
-   },
-   "onset": 356.369,
-   "duration": 0.9209999999999923,
-   "pitch": {
-    "midi": 59,
-    "spelled": {
-     "step": "B",
-     "alter": 0,
-     "octave": 3
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 55,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3572",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3572"
    },
-   "onset": 356.37,
-   "duration": 0.896000000000015,
+   "onset": 356.353,
+   "duration": 0.9130000000000109,
    "pitch": {
     "midi": 54,
     "spelled": {
@@ -36839,13 +36817,35 @@
    "env": "longTone"
   },
   {
+   "id": "ev-wc-3574",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3574"
+   },
+   "onset": 356.353,
+   "duration": 0.9370000000000118,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 55,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3571",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3571"
    },
-   "onset": 356.385,
-   "duration": 0.9000000000000341,
+   "onset": 356.353,
+   "duration": 0.9320000000000164,
    "pitch": {
     "midi": 64,
     "spelled": {
@@ -36904,35 +36904,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3577",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3577"
-   },
-   "onset": 357.671,
-   "duration": 0.9440000000000168,
-   "pitch": {
-    "midi": 34,
-    "spelled": {
-     "step": "A",
-     "alter": 1,
-     "octave": 1
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 79,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3578",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3578"
    },
-   "onset": 357.678,
-   "duration": 0.9549999999999841,
+   "onset": 357.667,
+   "duration": 0.9660000000000082,
    "pitch": {
     "midi": 60,
     "spelled": {
@@ -36953,8 +36931,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3576"
    },
-   "onset": 357.678,
-   "duration": 0.9230000000000018,
+   "onset": 357.667,
+   "duration": 0.9340000000000259,
    "pitch": {
     "midi": 47,
     "spelled": {
@@ -36967,6 +36945,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 69,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3577",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3577"
+   },
+   "onset": 357.667,
+   "duration": 0.9480000000000359,
+   "pitch": {
+    "midi": 34,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 1
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 79,
    "env": "longTone"
   },
   {
@@ -37036,13 +37036,35 @@
    "env": "longTone"
   },
   {
+   "id": "ev-wc-3580",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3580"
+   },
+   "onset": 358.942,
+   "duration": 1.9399999999999977,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 37,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3582",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3582"
    },
-   "onset": 358.956,
-   "duration": 2.027999999999963,
+   "onset": 358.942,
+   "duration": 2.041999999999973,
    "pitch": {
     "midi": 38,
     "spelled": {
@@ -37063,8 +37085,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3581"
    },
-   "onset": 358.957,
-   "duration": 2.0219999999999914,
+   "onset": 358.942,
+   "duration": 2.0369999999999777,
    "pitch": {
     "midi": 37,
     "spelled": {
@@ -37077,28 +37099,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 84,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3580",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3580"
-   },
-   "onset": 358.965,
-   "duration": 1.91700000000003,
-   "pitch": {
-    "midi": 67,
-    "spelled": {
-     "step": "G",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 37,
    "env": "longTone"
   },
   {
@@ -37144,6 +37144,50 @@
    "vel": 55
   },
   {
+   "id": "ev-wc-3588",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3588"
+   },
+   "onset": 361.035,
+   "duration": 2.9909999999999854,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 60,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3583",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3583"
+   },
+   "onset": 361.035,
+   "duration": 2.923000000000002,
+   "pitch": {
+    "midi": 48,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 65,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3585",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -37171,8 +37215,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3584"
    },
-   "onset": 361.036,
-   "duration": 2.9390000000000214,
+   "onset": 361.035,
+   "duration": 2.9399999999999977,
    "pitch": {
     "midi": 68,
     "spelled": {
@@ -37193,8 +37237,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3586"
    },
-   "onset": 361.036,
-   "duration": 2.9490000000000123,
+   "onset": 361.035,
+   "duration": 2.9499999999999886,
    "pitch": {
     "midi": 49,
     "spelled": {
@@ -37210,35 +37254,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3588",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3588"
-   },
-   "onset": 361.042,
-   "duration": 2.9840000000000373,
-   "pitch": {
-    "midi": 81,
-    "spelled": {
-     "step": "A",
-     "alter": 0,
-     "octave": 5
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 60,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3587",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3587"
    },
-   "onset": 361.042,
-   "duration": 2.955000000000041,
+   "onset": 361.035,
+   "duration": 2.961999999999989,
    "pitch": {
     "midi": 48,
     "spelled": {
@@ -37251,28 +37273,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 62,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3583",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3583"
-   },
-   "onset": 361.06,
-   "duration": 2.8980000000000246,
-   "pitch": {
-    "midi": 48,
-    "spelled": {
-     "step": "C",
-     "alter": 0,
-     "octave": 3
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 65,
    "env": "longTone"
   },
   {
@@ -37362,57 +37362,13 @@
    "vel": 88
   },
   {
-   "id": "ev-wc-3591",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3591"
-   },
-   "onset": 364.194,
-   "duration": 1.433999999999969,
-   "pitch": {
-    "midi": 67,
-    "spelled": {
-     "step": "G",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 37,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3590",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3590"
-   },
-   "onset": 364.204,
-   "duration": 1.34699999999998,
-   "pitch": {
-    "midi": 74,
-    "spelled": {
-     "step": "D",
-     "alter": 0,
-     "octave": 5
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 74,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3589",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3589"
    },
-   "onset": 364.206,
-   "duration": 1.2819999999999823,
+   "onset": 364.194,
+   "duration": 1.2939999999999827,
    "pitch": {
     "midi": 80,
     "spelled": {
@@ -37433,8 +37389,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3592"
    },
-   "onset": 364.206,
-   "duration": 1.4329999999999927,
+   "onset": 364.194,
+   "duration": 1.4449999999999932,
    "pitch": {
     "midi": 62,
     "spelled": {
@@ -37447,6 +37403,50 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 64,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3590",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3590"
+   },
+   "onset": 364.194,
+   "duration": 1.356999999999971,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 74,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3591",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3591"
+   },
+   "onset": 364.194,
+   "duration": 1.433999999999969,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 37,
    "env": "longTone"
   },
   {
@@ -37521,8 +37521,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3594"
    },
-   "onset": 365.866,
-   "duration": 0.5219999999999914,
+   "onset": 365.858,
+   "duration": 0.5299999999999727,
    "pitch": {
     "midi": 71,
     "spelled": {
@@ -37535,6 +37535,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 76,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3596",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3596"
+   },
+   "onset": 366.555,
+   "duration": 0.52800000000002,
+   "pitch": {
+    "midi": 59,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 78,
    "env": "longTone"
   },
   {
@@ -37557,28 +37579,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 87,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3596",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3596"
-   },
-   "onset": 366.568,
-   "duration": 0.5150000000000432,
-   "pitch": {
-    "midi": 59,
-    "spelled": {
-     "step": "B",
-     "alter": 0,
-     "octave": 3
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 78,
    "env": "longTone"
   },
   {
@@ -37630,8 +37630,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3598"
    },
-   "onset": 367.113,
-   "duration": 0.5169999999999959,
+   "onset": 367.102,
+   "duration": 0.52800000000002,
    "pitch": {
     "midi": 67,
     "spelled": {
@@ -37674,8 +37674,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3601"
    },
-   "onset": 367.806,
-   "duration": 1.2230000000000132,
+   "onset": 367.804,
+   "duration": 1.2250000000000227,
    "pitch": {
     "midi": 79,
     "spelled": {
@@ -37761,8 +37761,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3604"
    },
-   "onset": 369.216,
-   "duration": 0.8700000000000045,
+   "onset": 369.206,
+   "duration": 0.8799999999999955,
    "pitch": {
     "midi": 58,
     "spelled": {
@@ -37783,8 +37783,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3606"
    },
-   "onset": 369.216,
-   "duration": 0.8700000000000045,
+   "onset": 369.206,
+   "duration": 0.8799999999999955,
    "pitch": {
     "midi": 64,
     "spelled": {
@@ -37800,35 +37800,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3605",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3605"
-   },
-   "onset": 369.216,
-   "duration": 0.8700000000000045,
-   "pitch": {
-    "midi": 38,
-    "spelled": {
-     "step": "D",
-     "alter": 0,
-     "octave": 2
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 37,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3603",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3603"
    },
-   "onset": 369.219,
-   "duration": 0.8740000000000236,
+   "onset": 369.206,
+   "duration": 0.8870000000000005,
    "pitch": {
     "midi": 65,
     "spelled": {
@@ -37841,6 +37819,28 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 43,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3605",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3605"
+   },
+   "onset": 369.206,
+   "duration": 0.8799999999999955,
+   "pitch": {
+    "midi": 38,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 37,
    "env": "longTone"
   },
   {
@@ -37866,6 +37866,72 @@
    "env": "plainNote"
   },
   {
+   "id": "ev-wc-3608",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3608"
+   },
+   "onset": 370.341,
+   "duration": 3.9010000000000105,
+   "pitch": {
+    "midi": 75,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 69,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3609",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3609"
+   },
+   "onset": 370.341,
+   "duration": 3.9250000000000114,
+   "pitch": {
+    "midi": 40,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 2
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 55,
+   "env": "longTone"
+  },
+  {
+   "id": "ev-wc-3611",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3611"
+   },
+   "onset": 370.341,
+   "duration": 3.926999999999964,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "ord",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3607",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -37888,35 +37954,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3610",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3610"
-   },
-   "onset": 370.346,
-   "duration": 3.8799999999999955,
-   "pitch": {
-    "midi": 38,
-    "spelled": {
-     "step": "D",
-     "alter": 0,
-     "octave": 2
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 55,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3612",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3612"
    },
-   "onset": 370.353,
-   "duration": 3.923000000000002,
+   "onset": 370.341,
+   "duration": 3.9350000000000023,
    "pitch": {
     "midi": 72,
     "spelled": {
@@ -37932,69 +37976,25 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3608",
+   "id": "ev-wc-3610",
    "source": {
     "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3608"
+    "objectId": "wc-3610"
    },
-   "onset": 370.362,
-   "duration": 3.8799999999999955,
+   "onset": 370.341,
+   "duration": 3.884999999999991,
    "pitch": {
-    "midi": 75,
+    "midi": 38,
     "spelled": {
      "step": "D",
-     "alter": 1,
-     "octave": 5
+     "alter": 0,
+     "octave": 2
     }
    },
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 69,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3609",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3609"
-   },
-   "onset": 370.386,
-   "duration": 3.8799999999999955,
-   "pitch": {
-    "midi": 40,
-    "spelled": {
-     "step": "E",
-     "alter": 0,
-     "octave": 2
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
    "vel": 55,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3611",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3611"
-   },
-   "onset": 370.389,
-   "duration": 3.8789999999999623,
-   "pitch": {
-    "midi": 67,
-    "spelled": {
-     "step": "G",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 98,
    "env": "longTone"
   },
   {
@@ -39882,8 +39882,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3676"
    },
-   "onset": 399.13,
-   "duration": 1.9879999999999995,
+   "onset": 399.111,
+   "duration": 2.007000000000005,
    "pitch": {
     "midi": 65,
     "spelled": {
@@ -39920,6 +39920,28 @@
    "vel": 99
   },
   {
+   "id": "ev-wc-3678",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3678"
+   },
+   "onset": 401.756,
+   "duration": 1.3740000000000236,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 56,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3679",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -39947,8 +39969,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3677"
    },
-   "onset": 401.764,
-   "duration": 1.363999999999976,
+   "onset": 401.756,
+   "duration": 1.372000000000014,
    "pitch": {
     "midi": 35,
     "spelled": {
@@ -39964,18 +39986,18 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3678",
+   "id": "ev-wc-3681",
    "source": {
     "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3678"
+    "objectId": "wc-3681"
    },
-   "onset": 401.775,
-   "duration": 1.3550000000000182,
+   "onset": 403.425,
+   "duration": 2.849999999999966,
    "pitch": {
-    "midi": 74,
+    "midi": 73,
     "spelled": {
-     "step": "D",
-     "alter": 0,
+     "step": "C",
+     "alter": 1,
      "octave": 5
     }
    },
@@ -40008,35 +40030,13 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3682",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3682"
-   },
-   "onset": 403.438,
-   "duration": 2.841000000000008,
-   "pitch": {
-    "midi": 67,
-    "spelled": {
-     "step": "G",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 65,
-   "env": "longTone"
-  },
-  {
    "id": "ev-wc-3683",
    "source": {
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3683"
    },
-   "onset": 403.448,
-   "duration": 2.861000000000047,
+   "onset": 403.425,
+   "duration": 2.8840000000000146,
    "pitch": {
     "midi": 72,
     "spelled": {
@@ -40052,25 +40052,25 @@
    "env": "longTone"
   },
   {
-   "id": "ev-wc-3681",
+   "id": "ev-wc-3682",
    "source": {
     "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3681"
+    "objectId": "wc-3682"
    },
-   "onset": 403.458,
-   "duration": 2.8169999999999504,
+   "onset": 403.425,
+   "duration": 2.853999999999985,
    "pitch": {
-    "midi": 73,
+    "midi": 67,
     "spelled": {
-     "step": "C",
-     "alter": 1,
-     "octave": 5
+     "step": "G",
+     "alter": 0,
+     "octave": 4
     }
    },
    "technique": "senza_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 56,
+   "vel": 65,
    "env": "longTone"
   },
   {
@@ -40118,6 +40118,28 @@
    "env": "plainNote"
   },
   {
+   "id": "ev-wc-3685",
+   "source": {
+    "score": "piece-Recombination-Draft01-done",
+    "objectId": "wc-3685"
+   },
+   "onset": 407.051,
+   "duration": 13.105000000000018,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "senza_vel",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 51,
+   "env": "longTone"
+  },
+  {
    "id": "ev-wc-3686",
    "source": {
     "score": "piece-Recombination-Draft01-done",
@@ -40145,8 +40167,8 @@
     "score": "piece-Recombination-Draft01-done",
     "objectId": "wc-3684"
    },
-   "onset": 407.059,
-   "duration": 13.09699999999998,
+   "onset": 407.051,
+   "duration": 13.105000000000018,
    "pitch": {
     "midi": 34,
     "spelled": {
@@ -40159,28 +40181,6 @@
    "provenance": "derived",
    "mode": "plain",
    "vel": 45,
-   "env": "longTone"
-  },
-  {
-   "id": "ev-wc-3685",
-   "source": {
-    "score": "piece-Recombination-Draft01-done",
-    "objectId": "wc-3685"
-   },
-   "onset": 407.072,
-   "duration": 13.084000000000003,
-   "pitch": {
-    "midi": 72,
-    "spelled": {
-     "step": "C",
-     "alter": 0,
-     "octave": 5
-    }
-   },
-   "technique": "senza_vel",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 51,
    "env": "longTone"
   },
   {
@@ -93540,7 +93540,7 @@
    "part": 0,
    "span": [
     303.544,
-    306.32
+    306.313
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -93553,26 +93553,13 @@
    "id": "ch-0-wc-3427",
    "part": 0,
    "span": [
-    306.32,
-    308.326
-   ],
-   "class": "ord-sustained",
-   "strategy": "unresolved",
-   "events": [
-    "ev-wc-3427"
-   ],
-   "provenance": "derived"
-  },
-  {
-   "id": "ch-0-wc-3433",
-   "part": 0,
-   "span": [
-    308.326,
+    306.313,
     312.023
    ],
-   "class": "ord-sustained",
+   "class": "trance-stream",
    "strategy": "unresolved",
    "events": [
+    "ev-wc-3427",
     "ev-wc-3433"
    ],
    "provenance": "derived"
@@ -93715,7 +93702,7 @@
    "part": 0,
    "span": [
     324.942,
-    327.053
+    327.041
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -93733,8 +93720,8 @@
    "id": "ch-0-wc-3482",
    "part": 0,
    "span": [
-    327.053,
-    330.493
+    327.041,
+    330.482
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -93748,8 +93735,8 @@
    "id": "ch-0-wc-3497",
    "part": 0,
    "span": [
-    330.493,
-    332.403
+    330.482,
+    332.397
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -93763,7 +93750,7 @@
    "id": "ch-0-wc-3503",
    "part": 0,
    "span": [
-    332.403,
+    332.397,
     334.012
    ],
    "class": "trance-stream",
@@ -93962,7 +93949,7 @@
    "part": 0,
    "span": [
     348.308,
-    352.106
+    352.092
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -93976,7 +93963,7 @@
    "id": "ch-0-wc-3564",
    "part": 0,
    "span": [
-    352.106,
+    352.092,
     355.214
    ],
    "class": "ord-sustained",
@@ -94006,7 +93993,7 @@
    "part": 0,
    "span": [
     357.667,
-    361.042
+    361.035
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -94020,8 +94007,8 @@
    "id": "ch-0-wc-3588",
    "part": 0,
    "span": [
-    361.042,
-    364.206
+    361.035,
+    364.194
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -94034,8 +94021,8 @@
    "id": "ch-0-wc-3589",
    "part": 0,
    "span": [
-    364.206,
-    366.568
+    364.194,
+    366.555
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -94049,7 +94036,7 @@
    "id": "ch-0-wc-3596",
    "part": 0,
    "span": [
-    366.568,
+    366.555,
     367.804
    ],
    "class": "trance-stream",
@@ -94065,7 +94052,7 @@
    "part": 0,
    "span": [
     367.804,
-    370.362
+    370.341
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -94079,7 +94066,7 @@
    "id": "ch-0-wc-3608",
    "part": 0,
    "span": [
-    370.362,
+    370.341,
     375.859
    ],
    "class": "ord-sustained",
@@ -94363,7 +94350,7 @@
    "part": 0,
    "span": [
     398.123,
-    401.775
+    401.756
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -94377,8 +94364,8 @@
    "id": "ch-0-wc-3678",
    "part": 0,
    "span": [
-    401.775,
-    407.072
+    401.756,
+    407.051
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -94392,7 +94379,7 @@
    "id": "ch-0-wc-3685",
    "part": 0,
    "span": [
-    407.072,
+    407.051,
     427
    ],
    "class": "ord-sustained",
@@ -95177,7 +95164,7 @@
    "part": 1,
    "span": [
     301.878,
-    306.316
+    306.313
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -95190,8 +95177,8 @@
    "id": "ch-1-wc-3428",
    "part": 1,
    "span": [
-    306.316,
-    312.038
+    306.313,
+    312.023
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95205,7 +95192,7 @@
    "id": "ch-1-wc-3440",
    "part": 1,
    "span": [
-    312.038,
+    312.023,
     322.836
    ],
    "class": "ord-sustained",
@@ -95278,7 +95265,7 @@
    "part": 1,
    "span": [
     325.618,
-    328.258
+    328.238
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95292,8 +95279,8 @@
    "id": "ch-1-wc-3485",
    "part": 1,
    "span": [
-    328.258,
-    329.671
+    328.238,
+    329.649
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95307,8 +95294,8 @@
    "id": "ch-1-wc-3492",
    "part": 1,
    "span": [
-    329.671,
-    331.382
+    329.649,
+    331.354
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95322,8 +95309,8 @@
    "id": "ch-1-wc-3498",
    "part": 1,
    "span": [
-    331.382,
-    334.018
+    331.354,
+    334.012
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95337,7 +95324,7 @@
    "id": "ch-1-wc-3506",
    "part": 1,
    "span": [
-    334.018,
+    334.012,
     336.926
    ],
    "class": "ord-sustained",
@@ -95396,7 +95383,7 @@
    "part": 1,
    "span": [
     345.468,
-    347.089
+    347.083
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95410,8 +95397,8 @@
    "id": "ch-1-wc-3559",
    "part": 1,
    "span": [
-    347.089,
-    352.102
+    347.083,
+    352.092
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -95424,8 +95411,8 @@
    "id": "ch-1-wc-3566",
    "part": 1,
    "span": [
-    352.102,
-    355.224
+    352.092,
+    355.214
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -95438,8 +95425,8 @@
    "id": "ch-1-wc-3568",
    "part": 1,
    "span": [
-    355.224,
-    357.678
+    355.214,
+    357.667
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95453,8 +95440,8 @@
    "id": "ch-1-wc-3578",
    "part": 1,
    "span": [
-    357.678,
-    361.06
+    357.667,
+    361.035
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -95467,8 +95454,8 @@
    "id": "ch-1-wc-3583",
    "part": 1,
    "span": [
-    361.06,
-    364.206
+    361.035,
+    364.194
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -95481,7 +95468,7 @@
    "id": "ch-1-wc-3592",
    "part": 1,
    "span": [
-    364.206,
+    364.194,
     366.555
    ],
    "class": "ord-sustained",
@@ -95496,7 +95483,7 @@
    "part": 1,
    "span": [
     366.555,
-    369.216
+    369.206
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -95510,7 +95497,7 @@
    "id": "ch-1-wc-3604",
    "part": 1,
    "span": [
-    369.216,
+    369.206,
     376.136
    ],
    "class": "trance-stream",
@@ -96425,13 +96412,26 @@
    "part": 2,
    "span": [
     301.962,
-    306.313
+    303.544
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
    "events": [
     "ev-wc-3417",
-    "ev-wc-3421",
+    "ev-wc-3421"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-2-wc-3425",
+   "part": 2,
+   "span": [
+    303.544,
+    306.313
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
     "ev-wc-3425"
    ],
    "provenance": "derived"
@@ -96456,7 +96456,7 @@
    "part": 2,
    "span": [
     309.947,
-    313.012
+    312.981
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96469,7 +96469,7 @@
    "id": "ch-2-wc-3442",
    "part": 2,
    "span": [
-    313.012,
+    312.981,
     323.175
    ],
    "class": "ord-sustained",
@@ -96498,7 +96498,7 @@
    "part": 2,
    "span": [
     325.013,
-    328.258
+    328.238
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96511,7 +96511,7 @@
    "id": "ch-2-wc-3483",
    "part": 2,
    "span": [
-    328.258,
+    328.238,
     329.649
    ],
    "class": "trance-stream",
@@ -96586,7 +96586,7 @@
    "part": 2,
    "span": [
     345.486,
-    348.32
+    348.308
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96599,8 +96599,8 @@
    "id": "ch-2-wc-3560",
    "part": 2,
    "span": [
-    348.32,
-    355.241
+    348.308,
+    355.214
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96613,7 +96613,7 @@
    "id": "ch-2-wc-3570",
    "part": 2,
    "span": [
-    355.241,
+    355.214,
     361.035
    ],
    "class": "trance-stream",
@@ -96629,7 +96629,7 @@
    "part": 2,
    "span": [
     361.035,
-    364.204
+    364.194
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96642,8 +96642,8 @@
    "id": "ch-2-wc-3590",
    "part": 2,
    "span": [
-    364.204,
-    367.806
+    364.194,
+    367.804
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96656,8 +96656,8 @@
    "id": "ch-2-wc-3601",
    "part": 2,
    "span": [
-    367.806,
-    370.389
+    367.804,
+    370.341
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -96671,7 +96671,7 @@
    "id": "ch-2-wc-3611",
    "part": 2,
    "span": [
-    370.389,
+    370.341,
     375.998
    ],
    "class": "ord-sustained",
@@ -96729,7 +96729,7 @@
    "part": 2,
    "span": [
     386.168,
-    399.13
+    399.111
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -96743,8 +96743,8 @@
    "id": "ch-2-wc-3676",
    "part": 2,
    "span": [
-    399.13,
-    403.448
+    399.111,
+    403.425
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -96757,7 +96757,7 @@
    "id": "ch-2-wc-3683",
    "part": 2,
    "span": [
-    403.448,
+    403.425,
     428
    ],
    "class": "ord-sustained",
@@ -97752,7 +97752,7 @@
    "part": 3,
    "span": [
     302.09,
-    308.305
+    308.29
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -97766,8 +97766,8 @@
    "id": "ch-3-wc-3434",
    "part": 3,
    "span": [
-    308.305,
-    312.995
+    308.29,
+    312.981
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -97781,7 +97781,7 @@
    "id": "ch-3-wc-3443",
    "part": 3,
    "span": [
-    312.995,
+    312.981,
     322.363
    ],
    "class": "ord-sustained",
@@ -97914,7 +97914,7 @@
    "part": 3,
    "span": [
     345.71,
-    349.266
+    349.262
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -97927,8 +97927,8 @@
    "id": "ch-3-wc-3563",
    "part": 3,
    "span": [
-    349.266,
-    352.119
+    349.262,
+    352.092
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -97941,8 +97941,8 @@
    "id": "ch-3-wc-3565",
    "part": 3,
    "span": [
-    352.119,
-    356.385
+    352.092,
+    356.353
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -97955,8 +97955,8 @@
    "id": "ch-3-wc-3571",
    "part": 3,
    "span": [
-    356.385,
-    358.965
+    356.353,
+    358.942
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -97969,8 +97969,8 @@
    "id": "ch-3-wc-3580",
    "part": 3,
    "span": [
-    358.965,
-    361.036
+    358.942,
+    361.035
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -97983,7 +97983,7 @@
    "id": "ch-3-wc-3584",
    "part": 3,
    "span": [
-    361.036,
+    361.035,
     364.194
    ],
    "class": "ord-sustained",
@@ -103333,7 +103333,7 @@
    "part": 6,
    "span": [
     301.722,
-    308.297
+    308.29
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -103347,7 +103347,7 @@
    "id": "ch-6-wc-3431",
    "part": 6,
    "span": [
-    308.297,
+    308.29,
     322.191
    ],
    "class": "trance-stream",
@@ -103377,7 +103377,7 @@
    "part": 6,
    "span": [
     323.172,
-    327.099
+    327.041
    ],
    "class": "morph-note",
    "strategy": "unresolved",
@@ -103390,8 +103390,8 @@
    "id": "ch-6-wc-3480",
    "part": 6,
    "span": [
-    327.099,
-    330.488
+    327.041,
+    330.482
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -103405,7 +103405,7 @@
    "id": "ch-6-wc-3496",
    "part": 6,
    "span": [
-    330.488,
+    330.482,
     335.706
    ],
    "class": "ord-sustained",
@@ -103449,7 +103449,7 @@
    "part": 6,
    "span": [
     352.092,
-    357.678
+    357.667
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -103462,8 +103462,8 @@
    "id": "ch-6-wc-3576",
    "part": 6,
    "span": [
-    357.678,
-    361.036
+    357.667,
+    361.035
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -103477,8 +103477,8 @@
    "id": "ch-6-wc-3586",
    "part": 6,
    "span": [
-    361.036,
-    370.353
+    361.035,
+    370.341
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -103491,7 +103491,7 @@
    "id": "ch-6-wc-3612",
    "part": 6,
    "span": [
-    370.353,
+    370.341,
     377.406
    ],
    "class": "ord-sustained",
@@ -103520,7 +103520,7 @@
    "part": 6,
    "span": [
     387.494,
-    403.438
+    403.425
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -103533,7 +103533,7 @@
    "id": "ch-6-wc-3682",
    "part": 6,
    "span": [
-    403.438,
+    403.425,
     431.7
    ],
    "class": "ord-sustained",
@@ -104696,7 +104696,7 @@
    "part": 7,
    "span": [
     302.147,
-    306.318
+    306.313
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -104709,8 +104709,8 @@
    "id": "ch-7-wc-3429",
    "part": 7,
    "span": [
-    306.318,
-    309.96
+    306.313,
+    309.947
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -104723,7 +104723,7 @@
    "id": "ch-7-wc-3435",
    "part": 7,
    "span": [
-    309.96,
+    309.947,
     322.873
    ],
    "class": "ord-sustained",
@@ -104738,7 +104738,7 @@
    "part": 7,
    "span": [
     322.873,
-    328.259
+    328.238
    ],
    "class": "morph-note",
    "strategy": "unresolved",
@@ -104751,8 +104751,8 @@
    "id": "ch-7-wc-3484",
    "part": 7,
    "span": [
-    328.259,
-    333.365
+    328.238,
+    333.36
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -104766,7 +104766,7 @@
    "id": "ch-7-wc-3505",
    "part": 7,
    "span": [
-    333.365,
+    333.36,
     337.181
    ],
    "class": "ord-sustained",
@@ -104781,7 +104781,7 @@
    "part": 7,
    "span": [
     337.181,
-    357.671
+    357.667
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -104794,8 +104794,8 @@
    "id": "ch-7-wc-3577",
    "part": 7,
    "span": [
-    357.671,
-    361.042
+    357.667,
+    361.035
    ],
    "class": "trance-stream",
    "strategy": "unresolved",
@@ -104809,8 +104809,8 @@
    "id": "ch-7-wc-3587",
    "part": 7,
    "span": [
-    361.042,
-    369.216
+    361.035,
+    369.206
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -104823,7 +104823,7 @@
    "id": "ch-7-wc-3605",
    "part": 7,
    "span": [
-    369.216,
+    369.206,
     394.931
    ],
    "class": "trance-stream",
@@ -104839,7 +104839,7 @@
    "part": 7,
    "span": [
     394.931,
-    401.764
+    401.756
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -104852,8 +104852,8 @@
    "id": "ch-7-wc-3677",
    "part": 7,
    "span": [
-    401.764,
-    407.059
+    401.756,
+    407.051
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -104866,7 +104866,7 @@
    "id": "ch-7-wc-3684",
    "part": 7,
    "span": [
-    407.059,
+    407.051,
     430.5
    ],
    "class": "ord-sustained",
@@ -713479,10 +713479,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3424",
+   "id": "ov-hand-ev-wc-3425",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3424"
+    "event": "ev-wc-3425"
    },
    "value": {
     "device": {
@@ -713492,10 +713492,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3425",
+   "id": "ov-hand-ev-wc-3424",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3425"
+    "event": "ev-wc-3424"
    },
    "value": {
     "device": {
@@ -713518,10 +713518,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3426",
+   "id": "ov-hand-ev-wc-3427",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3426"
+    "event": "ev-wc-3427"
    },
    "value": {
     "device": {
@@ -713544,6 +713544,19 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3426",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3426"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3429",
    "kind": "engraving",
    "target": {
@@ -713557,36 +713570,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3427",
+   "id": "ov-hand-ev-wc-3433",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3427"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3432",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3432"
-   },
-   "value": {
-    "device": {
-     "dynMark": "p"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3431",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3431"
+    "event": "ev-wc-3433"
    },
    "value": {
     "device": {
@@ -713609,6 +713596,19 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3432",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3432"
+   },
+   "value": {
+    "device": {
+     "dynMark": "p"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3434",
    "kind": "engraving",
    "target": {
@@ -713622,10 +713622,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3433",
+   "id": "ov-hand-ev-wc-3431",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3433"
+    "event": "ev-wc-3431"
    },
    "value": {
     "device": {
@@ -713639,19 +713639,6 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3437"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3435",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3435"
    },
    "value": {
     "device": {
@@ -713678,6 +713665,19 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3436"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3435",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3435"
    },
    "value": {
     "device": {
@@ -713726,19 +713726,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3443",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3443"
-   },
-   "value": {
-    "device": {
-     "dynMark": "p"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3442",
    "kind": "engraving",
    "target": {
@@ -713752,10 +713739,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3481",
+   "id": "ov-hand-ev-wc-3443",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3481"
+    "event": "ev-wc-3443"
    },
    "value": {
     "device": {
@@ -713778,19 +713765,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3480",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3480"
-   },
-   "value": {
-    "device": {
-     "dynMark": "p"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3479",
    "kind": "engraving",
    "target": {
@@ -713804,36 +713778,36 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3481",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3481"
+   },
+   "value": {
+    "device": {
+     "dynMark": "p"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3480",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3480"
+   },
+   "value": {
+    "device": {
+     "dynMark": "p"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3488",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3488"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mp"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3486",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3486"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mp"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3487",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3487"
    },
    "value": {
     "device": {
@@ -713860,6 +713834,32 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3483"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mp"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3486",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3486"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mp"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3487",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3487"
    },
    "value": {
     "device": {
@@ -713921,6 +713921,19 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3492",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3492"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3494",
    "kind": "engraving",
    "target": {
@@ -713947,10 +713960,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3492",
+   "id": "ov-hand-ev-wc-3497",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3492"
+    "event": "ev-wc-3497"
    },
    "value": {
     "device": {
@@ -713986,36 +713999,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3497",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3497"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3500",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3500"
-   },
-   "value": {
-    "device": {
-     "dynMark": "f"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3499",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3499"
    },
    "value": {
     "device": {
@@ -714038,10 +714025,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3501",
+   "id": "ov-hand-ev-wc-3499",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3501"
+    "event": "ev-wc-3499"
    },
    "value": {
     "device": {
@@ -714068,6 +714055,19 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3502"
+   },
+   "value": {
+    "device": {
+     "dynMark": "f"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3501",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3501"
    },
    "value": {
     "device": {
@@ -714116,19 +714116,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3508",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3508"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3506",
    "kind": "engraving",
    "target": {
@@ -714142,10 +714129,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3509",
+   "id": "ov-hand-ev-wc-3508",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3509"
+    "event": "ev-wc-3508"
    },
    "value": {
     "device": {
@@ -714159,6 +714146,19 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3510"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3509",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3509"
    },
    "value": {
     "device": {
@@ -714246,10 +714246,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3567",
+   "id": "ov-hand-ev-wc-3564",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3567"
+    "event": "ev-wc-3564"
    },
    "value": {
     "device": {
@@ -714272,10 +714272,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3564",
+   "id": "ov-hand-ev-wc-3565",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3564"
+    "event": "ev-wc-3565"
    },
    "value": {
     "device": {
@@ -714285,10 +714285,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3565",
+   "id": "ov-hand-ev-wc-3567",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3565"
+    "event": "ev-wc-3567"
    },
    "value": {
     "device": {
@@ -714350,10 +714350,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3574",
+   "id": "ov-hand-ev-wc-3572",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3574"
+    "event": "ev-wc-3572"
    },
    "value": {
     "device": {
@@ -714363,10 +714363,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3572",
+   "id": "ov-hand-ev-wc-3574",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3572"
+    "event": "ev-wc-3574"
    },
    "value": {
     "device": {
@@ -714402,19 +714402,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3577",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3577"
-   },
-   "value": {
-    "device": {
-     "dynMark": "f"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3578",
    "kind": "engraving",
    "target": {
@@ -714441,10 +714428,36 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3577",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3577"
+   },
+   "value": {
+    "device": {
+     "dynMark": "f"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3579",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3579"
+   },
+   "value": {
+    "device": {
+     "dynMark": "p"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3580",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3580"
    },
    "value": {
     "device": {
@@ -714480,14 +714493,27 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3580",
+   "id": "ov-hand-ev-wc-3588",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3580"
+    "event": "ev-wc-3588"
    },
    "value": {
     "device": {
-     "dynMark": "p"
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3583",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3583"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
     }
    },
    "provenance": "authored"
@@ -714532,62 +714558,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3588",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3588"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3587",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3587"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3583",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3583"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3591",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3591"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3590",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3590"
    },
    "value": {
     "device": {
@@ -714623,6 +714597,32 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3590",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3590"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3591",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3591"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3593",
    "kind": "engraving",
    "target": {
@@ -714649,10 +714649,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3595",
+   "id": "ov-hand-ev-wc-3596",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3595"
+    "event": "ev-wc-3596"
    },
    "value": {
     "device": {
@@ -714662,10 +714662,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3596",
+   "id": "ov-hand-ev-wc-3595",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3596"
+    "event": "ev-wc-3595"
    },
    "value": {
     "device": {
@@ -714779,19 +714779,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3605",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3605"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-hand-ev-wc-3603",
    "kind": "engraving",
    "target": {
@@ -714805,40 +714792,14 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3607",
+   "id": "ov-hand-ev-wc-3605",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3607"
+    "event": "ev-wc-3605"
    },
    "value": {
     "device": {
-     "dynMark": "f"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3610",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3610"
-   },
-   "value": {
-    "device": {
-     "dynMark": "f"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3612",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3612"
-   },
-   "value": {
-    "device": {
-     "dynMark": "f"
+     "dynMark": "mf"
     }
    },
    "provenance": "authored"
@@ -714874,6 +714835,45 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3611"
+   },
+   "value": {
+    "device": {
+     "dynMark": "f"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3607",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3607"
+   },
+   "value": {
+    "device": {
+     "dynMark": "f"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3612",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3612"
+   },
+   "value": {
+    "device": {
+     "dynMark": "f"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3610",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3610"
    },
    "value": {
     "device": {
@@ -714987,6 +714987,19 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-hand-ev-wc-3678",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3678"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mf"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
    "id": "ov-hand-ev-wc-3679",
    "kind": "engraving",
    "target": {
@@ -715013,23 +715026,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3678",
+   "id": "ov-hand-ev-wc-3681",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3678"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mf"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3680",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3680"
+    "event": "ev-wc-3681"
    },
    "value": {
     "device": {
@@ -715039,10 +715039,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3682",
+   "id": "ov-hand-ev-wc-3680",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3682"
+    "event": "ev-wc-3680"
    },
    "value": {
     "device": {
@@ -715065,10 +715065,23 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-hand-ev-wc-3681",
+   "id": "ov-hand-ev-wc-3682",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-3681"
+    "event": "ev-wc-3682"
+   },
+   "value": {
+    "device": {
+     "dynMark": "mp"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-3685",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-3685"
    },
    "value": {
     "device": {
@@ -715095,19 +715108,6 @@
    "kind": "engraving",
    "target": {
     "event": "ev-wc-3684"
-   },
-   "value": {
-    "device": {
-     "dynMark": "mp"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-hand-ev-wc-3685",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-3685"
    },
    "value": {
     "device": {
@@ -716401,7 +716401,7 @@
      "tail": 1,
      "gapS": 0.1,
      "prevEnd": 312.818,
-     "nextOnset": 327.106,
+     "nextOnset": 327.041,
      "beatsBefore": 1,
      "beatsAfter": 1,
      "keepTail": false,
@@ -716431,7 +716431,7 @@
      "tail": 1,
      "gapS": 0.1,
      "prevEnd": 343.178,
-     "nextOnset": 349.266,
+     "nextOnset": 349.262,
      "beatsBefore": 0,
      "beatsAfter": 1,
      "keepTail": false,

@@ -3654,3 +3654,11 @@ for the existing standard first and bend it only where the seven lines force it.
 
 *The AI's reading (marked as such):* the conflict reported in §664 settled by hand, once — the row remains the rule ("node head" = notehead).
 RUNNING_LOG §667.
+
+## LG-236 — 2026-10-01 — the two wide chords line up too; the notation locked, the proof next; a new audio render after the clear
+
+*His words (session 18, Fable, after the session's close):* "327.04 and 370.34 please line up; server has been restarted; notation locked, will proof now and may have revisions; then /checkpoint before clear, will want do a new audio render after clear"
+
+*The AI's reading (marked as such):* every chord of section 2 is a true unison in his intention — the 48 and 65 ms spreads were his hands,
+not a stagger; the only purposeful staggers are the singles at 393 … 398. Written into the save so the sound and the page agree. "Locked" =
+the dictation closed, pending his proof. RUNNING_LOG §669.
