@@ -3859,3 +3859,10 @@ film re-made. RUNNING_LOG §698.
 
 *The AI's reading (marked as such):* two questions — the missing sign, and whether the re-render was the same film; his expectation
 (the same film plus the one fix) is the right one and is what happened, the box being older than he saw. RUNNING_LOG §699.
+
+## LG-266 — 2026-10-01 — the video is good; finish what remains, a checkpoint, then the performance notes
+
+*His words (session 18, Fable, on the render -r4):* "Okay, that video is good. Let's finish up anything that remains. Is there anything left to be done here? And then let's move to a checkpoint. And then after the clear, I want to work on the performance notes."
+
+*The AI's reading (marked as such):* the film of Draft 01 accepted — archive it, tag it, say what is left; his next subject after the
+clear is the performance notes (his to write). RUNNING_LOG §700.

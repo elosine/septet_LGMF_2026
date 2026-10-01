@@ -298,6 +298,17 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   **`notation/video/renders/Recombination-Draft01-V-CUT-seed7-r4.mp4`** — THE CURRENT FILM. **Every render keeps its own file name from
   here** (`-r5` next); `…-seed7.mp4` is r3 (the box). ► His watch-through of r4. Offered twice, not built: a gate that draws pages the
   film's way and compares them with Chrome (the curves and the font both passed every check because the checks use Chrome).
+- **§700 · LG-266 (2026-10-01, Fable) — THE FILM APPROVED ("that video is good"), ARCHIVED AND TAGGED:**
+  `notation/video/approved/2026-10-01-draft01/` (V-CUT.mp4 = `-r4`; README + cut list in git) · the tag `Recombination-Draft01-film_1.0`.
+  **► HIS ORDER FROM HERE: a checkpoint → a clear → THE PERFORMANCE NOTES** (his to write, the AI helps; Fable). What the next session
+  needs: `docs/PERFORMANCE_NOTES.md` (the tracker, 20 lines — what the notes must cover) · `docs/research/just_partials_notation.md`
+  §1b (his TUNING legend, settled; the transposing lines drafted) · PLAN § 2b (the instructions: web + two print pages; the percussion
+  legend, §334). STILL OPEN AFTER THE NOTES (2b-F step 7): the print score (A3 — `export_print.js`, `print/score/build.sh`'s gates
+  never run on this piece) · the cover · the call and the package are HIS. OFFERED, NOT BUILT, his to pick or drop: a gate drawing
+  pages the film's way against Chrome's (§695 · §699) · a bundled open font for ♭ ♯ ♮ (the film borrows Windows' `seguisym.ttf`) · a
+  rule for a curve label on occupied ground (five hands, §686) · deleting `renders/…-seed7.mp4` (the boxes) and the two test clips.
+  IF THE SCORE MOVES AGAIN: Save → R (or `reextract`) → the audio (RENDER.md §1, `--up --maxUp 6`) → the film (§694's command, a NEW
+  file name `-r5`) — ≈ 20 min, then a new archive folder and tag.
 - **State:** nothing being built. The ♪ link unchanged — the IR's `source.score` is the WAV's name; no re-extraction.
 - **► THE NEXT STEP — HIS, ask first:**
   1. HIS EAR: reload the notation tab → `piece-lgmf` → ♪ render. A LEVEL change → re-gain the kept float with no Reaper render, §407's
@@ -347,8 +358,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
     `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§700 next free**) · an LG
-    (**LG-266 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§701 next free**) · an LG
+    (**LG-267 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·

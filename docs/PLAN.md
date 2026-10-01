@@ -2494,9 +2494,13 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - ☑ the cut list — his "Ea", piece #5's recipe: `make_cut.js --seed 7 --frac 0.29 --min 20 --max 30 --dur 886.7 --lead 40 --tail 45 --gap 25 --fps 30` → `notation/video/cut-list.json` (11 close-ups, 30.4 %)
   > - ☑ the whole film → `notation/video/renders/Recombination-Draft01-V-CUT-seed7.mp4`: `export_video.js --ir piece-lgmf --view video --fps 30 --cut notation/video/cut-list.json --fade 5 --fadeMode cross --t1 886.7 --audio … --out …`
   >
-  > **6. His watch-through** — ► HIS (the file above; findings collected, then fixed together; a re-roll of the cut is one seed and a 9-minute render; on his "good" the film is archived as piece #5's was — `notation/video/approved/<date>/` with its README and cut list)
+  > **6. His watch-through** — ☑ DONE 2026-10-01 (§695 … §700: four findings fixed — the curves, the sync, a late trumpet, the ♭; his "that video is good" on `-r4`; archived `notation/video/approved/2026-10-01-draft01/`, tagged `Recombination-Draft01-film_1.0`) — *(as laid out:* (the file above; findings collected, then fixed together; a re-roll of the cut is one seed and a 9-minute render; on his "good" the film is archived as piece #5's was — `notation/video/approved/<date>/` with its README and cut list)
   >
-  > **7. The completion** (the instructions · the print · what else finishes Draft 01; the call is his) — *to be laid out when we discuss it.*
+  > **7. The completion** (what else finishes Draft 01; the call and the package are his)
+  >
+  > - ► the performance notes — HIS NEXT, after a checkpoint and a clear (the tracker `docs/PERFORMANCE_NOTES.md`; his to write, the AI helps)
+  > - the print score (A3 landscape; `export_print.js` and `print/score/build.sh`'s gates on this piece's pages) — *to be laid out when we discuss it*
+  > - the cover — *to be laid out when we discuss it*
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`built` 2026-09-25 (2c.1 … 2c.7, RUNNING_LOG §342 … §349; his eye DEFERRED at his word to the specific notation, §347 — every value provisional data)** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:

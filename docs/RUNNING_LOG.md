@@ -22188,3 +22188,28 @@ the film, full frames: **identical at 14; 771 and 706 pixels differ at the two t
 
 **The pattern, second time today:** the curves (§695) and this — both drawn by Chrome, both not by the film's rasterizer, both green on
 every gate because the gates measure Chrome. A gate that draws pages the film's way and compares was offered at §695; offered again.
+
+## §700. The film approved, archived and tagged; what remains of Draft 01 (2026-10-01, Fable, session 18; LG-266)
+
+**His word on the render `-r4`:** *"Okay, that video is good. Let's finish up anything that remains. Is there anything left to be done
+here? And then let's move to a checkpoint. And then after the clear, I want to work on the performance notes."*
+
+**Finished:**
+- THE ARCHIVE, piece #5's way: `notation/video/approved/2026-10-01-draft01/` — `V-CUT.mp4` (a copy of
+  `renders/Recombination-Draft01-V-CUT-seed7-r4.mp4`, `cmp`-identical, sha256 `ee501e86…`; not in git), `cut-list-seed7.json` and a
+  README (what made it: the save of 21:33 UTC, the IR at `2d9a5fc`, the WAV `d4906fef…`, the frame, the opening and ending, the close-ups,
+  the cut, the fonts, the command; what was measured; the watch-through's four findings).
+- THE TAG: `Recombination-Draft01-film_1.0`, annotated, on the commit that carries this entry, pushed. (The lock's tag,
+  `Recombination-notationLock_1.0`, predates §697's trumpet; this one marks the page, the audio and the film that agree.) The name is
+  the AI's, after the pattern of the one he chose — his to rename.
+- PLAN § 2b-F: step 6 done; step 7 laid out.
+
+**Told him — what remains of Draft 01:** the performance notes (his next) · the print score, A3 (the exporter and its gates have not been
+run on this piece's pages) · the cover · the call and the submission package (his). Offered and not built: the film-against-Chrome gate
+(§695 · §699) · a bundled open font for ♭ ♯ ♮ · a rule for a curve label on occupied ground (five hands today) · clearing the superseded
+render and the two test clips. Nothing else is owed on the film.
+
+**The day's arc, for the paper:** the notation's proof closed (§672 … §686) → the lock and its tag (§687 · §688) → the film planned in
+seven steps and built in one sitting (§689 … §694) → his watch-through, which found four faults no gate had (§695 the curves · §696 the
+sync · §697 a late trumpet · §699 the ♭) — two of them the same kind: drawn by Chrome, not by the film's rasterizer, and every gate
+measures Chrome. The film he accepted is the fifth render.
