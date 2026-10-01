@@ -21071,3 +21071,21 @@ fifth is the brake drum (its 0.9 s ring unmarked — no let-ring mark exists yet
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `302.9` · `305.3` … `306.4`, play from `304.5`.
+
+## §660. A grace's stem the same on every staff — the castanets' graces at the English horn's height (2026-09-30, Fable, session 18; LG-228)
+
+**What prompted it** (sent while §659 was building): *"the first two castanets, the grace note, at two ninety-seven point five, we can bring
+their stems down a little bit. Like, let's make them whatever we're using before, above as the standard uh, grace note stem height. For
+example, the English horn, in three seventeen."*
+
+**The standard he names** (read from the layout): the English horn's grace at 317.052 has a stem of **3.18 ss** — the plain note's 4.5 at the
+grace scale 0.707 (S6 · §556). The castanets' pair had been raised by hand to the full stem (§655: 4.54, then §656: 5.89 with the 30 %).
+
+**Built:** the pair's beam at +7.28 (a hand `beamYSs 7.278` = the head's attach 4.096 + 3.182) — 4.4 ss under the big beam at +11.7. And
+the rule behind it, so the next grace needs no hand: **a grace keeps the plain note's base at the grace scale on EVERY staff** — the lined
+staff's longer stem (5.85, §656) is for full-size notes (`layout.js`: `!dev.grace` on the lined length). The wood block's grace at 306.24
+(§659) follows: 4.14 → 3.18. The English horn's own graces unmoved (the lock 106).
+
+**The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `297.5` · `306.2`.

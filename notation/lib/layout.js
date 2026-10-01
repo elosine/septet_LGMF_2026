@@ -1931,7 +1931,7 @@
                   // [§656, his "make the stems about 30% taller … we'll use that as the standard size"] the lined staff's OWN stem length
                   // (o.stemLenLinedSs ← rules.json objects.stem.lengthLinedSs)
                   const LINED = !!(spec.staffInfo && spec.staffInfo.lined);
-                  const baseL = (LINED && o.stemLenLinedSs > 0) ? o.stemLenLinedSs : dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen;
+                  const baseL = (LINED && o.stemLenLinedSs > 0 && !dev.grace) ? o.stemLenLinedSs : dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen;   // [§660, his 'the standard grace note stem height … the English horn in 317'] a GRACE keeps the plain note's base at the grace scale on every staff (3.18), not the lined staff's longer stem
                   let L = ((spec.staffInfo && spec.staffInfo.lined) ? baseL : stemLenFor(yDraw, baseL)) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
                   // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
                   // of the flag clear the staff, just like three pixels or so

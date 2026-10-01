@@ -3593,3 +3593,10 @@ suddenly soft. RUNNING_LOG §657 (built) · §658 (subito).
 
 *The AI's reading (marked as such):* the mixed practice of §648 in one figure — stems only where they bind or say something (a beamed pair, a
 grace into its note), a bare head for the lone strike between; one dynamic at the head of the set and a hairpin through it. RUNNING_LOG §659.
+
+## LG-228 — 2026-09-30 — the castanets' grace stems down to the standard grace height, as the English horn's at 317
+
+*His words (session 18, Fable):* "the first two castanets, the grace note, at two ninety-seven point five, we can bring their stems down a little bit. Like, let's make them whatever we're using before, above as the standard uh, grace note stem height. For example, the English horn, in three seventeen."
+
+*The AI's reading (marked as such):* one grace stem for the whole score — the English horn's (3.18 ss) — on the percussion staff too; the
+longer percussion stem is for full-size notes only. RUNNING_LOG §660.
