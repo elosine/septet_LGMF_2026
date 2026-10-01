@@ -21518,3 +21518,27 @@ his "exceptionally" stands until he says otherwise.
 
 **Checked:** `check_rules` 34 · `eh_figure_check` 106 · `sequence_notation_check` 79 · THE SHIELD `piece-lgmf` alone. By the
 layout's numbers; not looked at in the app.
+
+## §675. His save moved at 765 and his own R carried it — the repaired route's first use (2026-10-01, Fable, session 18; LG-241)
+
+**What prompted it:** during his proof: *"I had to delete a note at 765 in the vibraphone. So can you list what needs to happen now? I've
+saved it in the composer score. And then do I go to the notation score and hit R? And then I guess we need to do a re-render. Not now, but
+when the proof is done. And how about the new notation? Because I moved a note too. I deleted one and I moved one over. How does that get
+re-rendered? With the R? Or do you have to do it manually? And then anything else?"* — then *"R done, please commit"*.
+
+**Read from the save against the page (before R):** one object gone — `wc-4819`, the vibraphone (part 5) at 764.998, F6, 0.35 s; one
+moved — `wc-4820`, the next bow, 765.398 → 765.000. Nothing else differed; no hand in the build names either id.
+
+**The answer given him:** Save → R in the notation tab (it re-runs the page's whole recorded build on a fresh copy of the last Save — the
+hands are the build's own arguments, so they come with it; nothing manual) → the AI commits the page → the audio once, when the proof is
+done (the ♪ render plays the old 765 until then).
+
+**His R — §632's repaired route, not exercised until now:** it worked. The IR: 1076 → **1075** events, 893 → 892 chunks; `wc-4820` at
+765.0 (5.518 s, a `vibBow`); every overlay kind's count unchanged (337 engraving · 17 gliss · 7 vibBows · 42 sequence · 6 instruction ·
+8 beatGrid · 1 rest); the build still carries its 349 hands, the three `--labelDy`, `--sequence` × 4, `--morph` × 3; the diff is the
+deleted event, its chunk and the moved onset — +8 −167 lines.
+
+**Not run:** the gates (rules · lock · shield) — offered, he asked for the commit; the route's own validation (VALID vs source) is what
+stands behind the page.
+
+**Owed:** a new audio render when his proof is done — the WAV of §671 holds the deleted note.

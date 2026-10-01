@@ -3690,3 +3690,10 @@ the partial); one hand, 0.6 ss down; the dynamic row remains the rule. RUNNING_L
 
 *The AI's reading (marked as such):* the cello's `(ppp)` at 694.45 on `12 (D♭2)` — the same hand, 0.6 ss down. The third of the kind.
 RUNNING_LOG §674.
+
+## LG-241 — 2026-10-01 — a vibraphone note deleted at 765, one moved; what happens next
+
+*His words (session 18, Fable):* "I had to delete a note at 765 in the vibraphone. So can you list what needs to happen now? I've saved it in the composer score. And then do I go to the notation score and hit R? And then I guess we need to do a re-render. Not now, but when the proof is done. And how about the new notation? Because I moved a note too. I deleted one and I moved one over. How does that get re-rendered? With the R? Or do you have to do it manually? And then anything else?" — and after it: "R done, please commit"
+
+*The AI's reading (marked as such):* the proof now reaches back into the composer — the loop is Save → R → commit, the audio once at the
+end. RUNNING_LOG §675.
