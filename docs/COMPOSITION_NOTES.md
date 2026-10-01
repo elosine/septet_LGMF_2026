@@ -3569,3 +3569,11 @@ the harshness. Possible within limits — the curve softened as the arc grows. R
 *The AI's reading (marked as such):* after the frame (three ways), the GC (two ways) and the cue line, the opening figure goes back to WRITTEN
 VALUES alone — the T8 way of the winds: a 16th pickup on the bass drum (down — its own voice), a ruff of two graces into a 16th on the
 castanets (up), the graces drawn at full stem height so the three tips make one line. No cue at all for now. RUNNING_LOG §655.
+
+## LG-225 — 2026-09-30 — the percussion's stems 30 % taller, a standard; single flags; the GC on the third castanet one space below the staff, the aperture narrowed 30 %
+
+*His words (session 18, Fable):* "Okay, let's make the stems about 30% taller. Let's make those 16th flags single flags. So eighth no flags. And we'll use that as the standard size for if it's not trying to reach outside the staff. But for the other ones, let's still try to reach outside the staff. So in this case, it's at the top. Let's just make those the standard height and the one at the bottom too. Just 30% longer than we have now. Let me see the GC again on the third castanet. Let's do it one staff space below the bass drum line. And let's narrow the aperture. About 30%. Let's see what that looks like."
+
+*The AI's reading (marked as such):* the answer to step 2's length question, in his own terms — one standard stem for this staff (the present
+4.5 + 30 %), with flags still reaching past the staff's edge when a note sits inside it. Eighths, not 16ths. And the cue returns as ONE GC on
+the arrival, landing a space under the staff rather than on an imagined line. RUNNING_LOG §656.

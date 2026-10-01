@@ -123,7 +123,7 @@
   // a GC item's reach in SECONDS — [pre, post] — by the params render draws it with (the registry preset under the item's own)
   function gcPrePost(it, engraving) {
     const E = engraving || {};
-    const P = GC.params(GC.presetFor((E.gc && E.gc.preset) || {}, it.preset || {}, Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {})));   // [§593] the reach by the geometry's aperture
+    const P = GC.params(GC.presetFor((E.gc && E.gc.preset) || {}, it.preset || {}, Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}, it.spread > 0 ? { spread: it.spread } : {})));   // [§593] the reach by the geometry's aperture · [§656] a hand's
     return [P.pre, P.post];
   }
 
@@ -832,7 +832,7 @@
           // 1.5 px, no fill; the impact marker r 4 px on the go line, 5 px
           // above the lane bottom. Sizes at the 1080 frame × magnification.
           // Clipped to the page like the ring bar (an arc may cross a cut).
-          const lookM = Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}, it.staffTop != null ? { staffTopSs: it.staffTop } : {}, it.impactSs != null ? { impactSs: it.impactSs } : {});   // [§592] the item's geometry ('beatBall') · [§650] 'staffTop' with the staff's top line · [§653] a named impact
+          const lookM = Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}, it.staffTop != null ? { staffTopSs: it.staffTop } : {}, it.impactSs != null ? { impactSs: it.impactSs } : {}, it.spread > 0 ? { spread: it.spread } : {});   // [§592] the item's geometry ('beatBall') · [§650] 'staffTop' with the staff's top line · [§653] a named impact · [§656] a hand's aperture
           const P = GC.params(GC.presetFor((E.gc && E.gc.preset) || {}, it.preset || {}, lookM));   // [§593] the aperture by the geometry
           // [2b.7.1] the arc follows ITS STRIKE: owned = drawn whole, unowned =
           // not drawn at all. That is what kills the ghost arc over the clef —

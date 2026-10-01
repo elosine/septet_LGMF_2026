@@ -97,6 +97,8 @@
     // [§650] the 'staffTop' geometry (style 3) carries its own spread — the same narrow aperture, by its rules row
     const bb = look && ((look.geom === 'beatBall' && look.beatBall) || (look.geom === 'staffTop' && look.staffTop));
     if (bb && bb.spread) P.duration = (P.duration != null ? P.duration : DEFAULT_PRESET.duration) * bb.spread;
+    // [§656, his 'the standard one … let's narrow the aperture. About 30%'] a hand's own aperture (gcSpread → look.spread) on any geometry
+    if (look && look.spread > 0) P.duration = (P.duration != null ? P.duration : DEFAULT_PRESET.duration) * look.spread;
     return P;
   }
   function laneGeom(sys, view, look) {

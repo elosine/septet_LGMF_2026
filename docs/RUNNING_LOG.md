@@ -20947,3 +20947,40 @@ wood-block pair's beam at −10.6, under the lane's bottom at −9) · the bass 
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5`.
+
+## §656. The percussion staff's stem — 30 % taller, a standard; the flags single; the GC back on the castanet, a space below the staff, the aperture 70 % (2026-09-30, Fable, session 18; LG-225)
+
+**What prompted it** (his eye on §655's page): *"Okay, let's make the stems about 30% taller. Let's make those 16th flags single flags. So
+eighth no flags. And we'll use that as the standard size for if it's not trying to reach outside the staff. But for the other ones, let's still
+try to reach outside the staff. So in this case, it's at the top. Let's just make those the standard height and the one at the bottom too.
+Just 30% longer than we have now. Let me see the GC again on the third castanet. Let's do it one staff space below the bass drum line. And
+let's narrow the aperture. About 30%. Let's see what that looks like."*
+
+**Built:**
+- **THE LINED STAFF'S STEM — 5.85 ss** (4.5 × 1.3): `objects.stem.lengthLinedSs` → `engraving.layout.stemLenLinedSs`; `layout.js` takes it for
+  every stem on a lined staff (§655: whatever the line). His two-part rule as built: that length is THE STANDARD; **a flagged stem still tries
+  to reach outside** — the flag-clear law now clears the lined staff's OWN outer lines (±6, was the five-line ±2), so a flagged note on an
+  inner line lengthens until its flag is out (under the max 10.5), while a note near an edge just takes the standard — "in this case, it's at
+  the top … and the one at the bottom too".
+- **the flags single:** the bass drum (`wc-3725`) and the castanets' third (`wc-3758`) `nhStem flag8` — eighths. The graces' beam left at
+  two levels (he named the flags).
+- **on the page:** the bass drum's stem −6.14 → **−11.99** (down, its flag there) · the castanets' graces and the eighth to **+9.99** (the
+  graces' beam hand re-pointed: `beamYSs 9.986`) — the three tips level, 4 ss above the top line.
+- **THE GC on the castanets' third again:** the standard lane GC (style 1) with `gcImpact "spaceBelow"` — **one staff space below the bottom
+  line (−7)** — and a hand's aperture `gcSpread 0.7` (his "narrow … about 30 %": the duration 0.6 → 0.42); `gc.js presetFor` takes a hand's
+  spread on any geometry; the item and the instance carry `impactSs` · `spread`. No go line.
+
+**TOLD HIM — a collision the numbers show:** the bass drum's stem now ends at −11.99; the vibraphone's top staff line is at −12 in the same
+measure (the lanes' boundary is at −9). The stem and its flag hang through the gap and touch the vibraphone's staff. At 4.5 it stopped 1.4 ss
+short. His eye; the cures are his (the bass drum's stem up · a shorter stem for a stem that points OUT of the staff · more room between the
+two staves).
+
+**THE SHIELD — eight layouts moved, explained:** `piece-lgmf`, and seven of piece #4's tuba IRs — because the shield lays the tuba IRs out
+under THIS registry's ensemble, where part 4 is the seven-line staff: their part 4 (and in `db1` · `db1-all-x01` its lane-mate, part 5) take
+the lined staff's new stem. A per-part hash before and after (`scratch partdiff`) shows ONLY `4:0` (and `5:0` in the two) moved; every other
+part of every tuba page is identical. The tuba piece's own repo and registry are untouched. Run as `--expect piece-lgmf,tuba:db1-all-x01,
+tuba:db1,tuba:piece-open-01,tuba:section1-e20,tuba:section1-e30,tuba:trance-a4,tuba:trance-section-01` — GREEN.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield as above · the screen gate PASS.
+
+**For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5`.

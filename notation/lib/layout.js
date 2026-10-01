@@ -1339,6 +1339,8 @@
             if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, (dev.gcGeom || dev.gcStyle) ? { geom: dev.gcGeom || (dev.gcStyle === 3 ? 'staffTop' : dev.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note) · [§594] the hand gcStyle 1 | 2 (his 'GC style 2') · [§650] 3 = 'staffTop'
               (dev.gcGeom === 'staffTop' || (!dev.gcGeom && dev.gcStyle === 3)) ? { staffTop: (spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length) ? Math.max(...spec.staffInfo.offsets) : 2 } : {},   // [§650] the staff's own top line, for the impact
               (dev.gcImpact === 'lineBelow' && spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length > 1) ? { impactSs: Math.min(...spec.staffInfo.offsets) - (spec.staffInfo.gapSs || 1) } : {},   // [§653] the staff's next line below its bottom line
+              (dev.gcImpact === 'spaceBelow') ? { impactSs: ((spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length) ? Math.min(...spec.staffInfo.offsets) : -2) - 1 } : {},   // [§656] one staff space below the bottom line
+              dev.gcSpread > 0 ? { spread: dev.gcSpread } : {},   // [§656] a hand's aperture
               typeof dev.gc === 'object' ? { preset: dev.gc } : {}));
             // the WRITTEN position (shared by the nh-unit and the ring bar):
             // ottava = smallest shift bringing the written note within 3
@@ -1918,7 +1920,10 @@
                   // [RUNNING_LOG §655 — the percussion staff's stems, step 2 of §646] ON A LINED STAFF A STEM IS ITS BASE LENGTH WHATEVER THE LINE: the
                   // "lengthen to the middle line" rule (stemLenFor) reads a position as a pitch on five lines — on the seven-line staff it gave
                   // the bass drum (−6, stem down, AWAY from the middle) 6 ss. His "make sure the quarter stems are the same height".
-                  const baseL = dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen;
+                  // [§656, his "make the stems about 30% taller … we'll use that as the standard size"] the lined staff's OWN stem length
+                  // (o.stemLenLinedSs ← rules.json objects.stem.lengthLinedSs)
+                  const LINED = !!(spec.staffInfo && spec.staffInfo.lined);
+                  const baseL = (LINED && o.stemLenLinedSs > 0) ? o.stemLenLinedSs : dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen;
                   let L = ((spec.staffInfo && spec.staffInfo.lined) ? baseL : stemLenFor(yDraw, baseL)) * (dev.grace ? GR.headScale : 1);   // [§550] a grace's stem at the grace scale
                   // FLAG-CLEAR STEM RULE (day 23, composer: "have the bottom
                   // of the flag clear the staff, just like three pixels or so
@@ -1936,10 +1941,14 @@
                     // (the beside-stem mark needs no clearing) — one mark beside
                     // the stem = 0, the tuba's number; an accent or a text in
                     // the column lifts the flag over it
-                    const clearTop = STAFF_EDGE + (chainAbove && underFlag ? Math.max(0, needAboveCol) : 0);
+                    // [§656, his "for the other ones, let's still try to reach outside the staff"] on a LINED staff the law clears the staff's
+                    // OWN outer lines (the percussion's ±6), not the five-line ±2
+                    const FEo = LINED && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length ? spec.staffInfo.offsets : null;
+                    const FE_TOP = FEo ? Math.max(...FEo) : STAFF_EDGE, FE_BOT = FEo ? Math.min(...FEo) : -STAFF_EDGE;
+                    const clearTop = FE_TOP + (chainAbove && underFlag ? Math.max(0, needAboveCol) : 0);
                     const need = stemDir === 'up'
                       ? (clearTop + clr + flagH) - yStart      // flag hangs down from the tip
-                      : yStart - (-STAFF_EDGE - clr - flagH);  // flag rises from the tip
+                      : yStart - (FE_BOT - clr - flagH);  // flag rises from the tip
                     // [§554 · §561] THE MAX (rules.json objects.flag.clearMaxSs, through the device): a stem the law would stretch past it keeps its
                     // standard length and the flag sits inside the staff — his 'many ledger lines down it might look funny'; 9.5 at his word (§561)
                     if (!(dev.flagClearMaxSs > 0) || need <= dev.flagClearMaxSs) L = Math.max(L, need);
