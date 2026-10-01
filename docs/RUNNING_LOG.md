@@ -21847,3 +21847,33 @@ The rule that would end these (a curve label clears the ink standing at its x) w
 
 **Checked (the four, one page):** `check_rules` 34 · `eh_figure_check` 106 (one line re-pinned, §684) · `sequence_notation_check` 79 ·
 THE SHIELD `piece-lgmf` alone · `check_screen_edges` PASS. 482.8 by the layout's numbers, not looked at.
+
+## §687. The notation locked; the plan for the video opened (2026-10-01, Fable, session 18; LG-253)
+
+**His word, after the proof's last fixes (§683 … §686):** *"Okay, that's a lock on the notation. Let's make a plan to build the video. So
+we need to re-render the audio and then make a plan to build the video for of the presentation score. And then also just whatever we need
+to do now to finalize the completion. And then we'll do a tag two at this checkpoint."* ("a tag two" read as "a tag too".)
+
+**The lock:** `piece-lgmf` as committed at `2c3549a` — 1075 events, extracted from `piece-Recombination-Draft01-done` (his save, last
+moved at §675: the vibraphone at 765). The proof since checkpoint #11: §672 … §686 — the gliss line on a staff line · five curve labels
+and two names moved by hand · his save's edit carried by R · the vibraphone's rows the two voices again, the ○ at the end of the fall ·
+the take → take morphs' second partial · two chords renamed · two graces slurred, a slur's end clear of a staccato dot.
+
+**The planning method entered (phase 1 — the data first, read, not assumed):**
+- THE AUDIO: `notation/audio/piece-Recombination-Draft01-done.wav` (§671) predates §675 — it holds the deleted vibraphone note at 765
+  and the old onset of the next bow. The route is `docs/RENDER.md` §1 (capture → export → `render_reaper.js --up --maxUp 6`); it needs
+  his Reaper and the bridge running and the rack saved.
+- THE FILM: `tools/export_video.js` is the inherited exporter (the page rasterized once per page, the moving layer composited, piped to
+  ffmpeg; `--audio`, `--cut`, `--fade`, `--probe`) — proven at the port, never run on this piece's whole page. ffmpeg is installed.
+  The film opens at the 4 s lead-in (`page_rules.leadInS`). The piece runs 886.7 s (14:47).
+- NOT HERE YET: a cut list (`notation/video/` does not exist in this repo) · a cover / title card (`print/cover/` holds #5's two scripts)
+  · the performance instructions (his to write; the tracker `docs/PERFORMANCE_NOTES.md` holds 20 lines) · the print score's gates on this
+  piece's pages (`print/score/build.sh`).
+- UNKNOWN: the call — deadline, duration limit, score format (journal Q2, unread at his word since 2026-09-17). PLAN § 4 "Submission
+  package" waits on it.
+- TAGS: none in this repo; piece #5's first full draft was `Scattered_Substance-finalDraft_1.0`, named by him (its D40).
+
+**The top line put to him** (phase 2, his to confirm or reorder): 1 the tag · 2 the audio re-rendered · 3 a test film of one short
+stretch, his eye on the look · 4 the film's furniture (what opens and closes it) · 5 the whole film with the audio · 6 his watch-through ·
+7 the completion (the call read, the instructions, the print, the package). **His answers owed:** the tag's name · whether the call is
+read now (it may set the film's format) or after the film.

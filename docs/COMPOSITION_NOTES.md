@@ -3768,3 +3768,10 @@ RUNNING_LOG §682.
 *His words (session 18, Fable, with a picture):* "482.8 move the accidental, please. You may need to move this one a little bit more to clear the notepad."
 
 *The AI's reading (marked as such):* the dictation's "accidental" = the `(pp)` label, "notepad" = the notehead; the EH's breath at 482.82. RUNNING_LOG §686.
+
+## LG-253 — 2026-10-01 — a lock on the notation; a plan for the video, the audio re-render, the completion, a tag
+
+*His words (session 18, Fable, after the proof):* "Okay, that's a lock on the notation. Let's make a plan to build the video. So we need to re-render the audio and then make a plan to build the video for of the presentation score. And then also just whatever we need to do now to finalize the completion. And then we'll do a tag two at this checkpoint."
+
+*The AI's reading (marked as such):* the proof of Draft 01's notation is closed; "a tag two" = a tag too — a git tag marking the lock; the
+plan through the planning method. RUNNING_LOG §687.
