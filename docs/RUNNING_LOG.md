@@ -20824,3 +20824,33 @@ frames still alternate navy · olive by S19; whether they turn all-olive is his 
 EH's six frames, the bassoon's and the trumpet's keep their indices and colours (checked on the instances).
 
 **For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5` through `303.5`.
+
+## §652. The percussion's ten notes through 303 — the tempo candidates drawn, the pinned 5 → 6 beat beside them (2026-09-30, Fable, session 18; LG-221)
+
+**What prompted it** (after §651's cue lines): *"Okay, can you run the tempo candidates for the, all the notes through 303?"*
+
+**The ten** (297.407 … 302.927): the bass drum · the castanets' two graces and quarter · the temple bowl · the brake drum · the sleigh bells ·
+the tambourine · the wood block · the bass drum. The gaps: 0.133 · 0.101 · 0.048 · 0.500 · 0.665 · 1.262 · 1.370 · 1.068 · 0.373.
+
+**The candidates** (`node tools/tempo_fit.js --part 4 --from 297.3 --to 303.0 --pin 5,6 --html
+notation/research/tempo_candidates_perc_297_303.html`), each fitted one at its between phase (T10):
+
+| colour | shown beat | the unit | phase | the nearest note to a beat |
+|---|---|---|---|---|
+| red | 88 bpm (0.679 s) | 7 × 0.097 | 297.261 | 139 ms |
+| blue | 93 bpm (0.643 s) | 5 × 0.129 | 297.276 | 131 ms |
+| green | 91 bpm (0.657 s) | 5 × 0.132 | 297.163 | 131 ms |
+| orange | 95 bpm (0.633 s) | 7 × 0.090 | 297.317 | 90 ms |
+| purple | 89 bpm (0.675 s) | 5 × 0.135 | 297.280 | 126 ms |
+| **teal** | **90 bpm (0.665 s) — PINNED, notes 5 → 6** | — | 296.859 | ON the bowl and the brake drum |
+
+(A sixth fitted one, 98 bpm, is not drawn. With the two graces FREE — `--free 2,3` — the same six phases come out: the graces do not decide any.)
+
+**What the numbers say:** one family again, 88 … 95 bpm. The tool's coherence method finds its strongest pulse at 0.657 s = 91 bpm with the
+bowl, the brake drum and the tambourine within 18 ms of a beat and the sleigh bells 62 ms before one — i.e. an ON-THE-BEAT reading holds over
+the longer span, not only for 5 and 6. The teal row (his §641 pin, 0.665 s) shows it: the bowl and the brake drum on their lines, the first
+castanet grace 16 ms after one, **the sleigh bells 68 ms before a line, the tambourine 28 ms before the next, the bass drum 83 ms after a
+third**; only the bass drum's first hit, the castanet quarter (165 ms after a line — the 16th of §646) and the wood block (mid-beat) stand off.
+The fitted rows are that same beat turned so that NOTHING is on a line.
+
+**Nothing on the page** — the six cue lines of §651 stand; a frame here would be the olive (his colour sense, §651). His pick owed.

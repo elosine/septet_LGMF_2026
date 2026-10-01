@@ -3538,3 +3538,10 @@ landing on top of the staff, over the head. The third GC style. RUNNING_LOG §65
 *The AI's reading (marked as such):* a new device out of two old ones — the frame's line and ball doing the GC's work, one line per arrival
 ("the cue line"); and a two-colour grammar: blue-grey = here is an event, olive = here is a pulse. Lines at the castanet quarter, the bowl,
 the brake drum, the sleigh bells, the tambourine and the wood block; the wood block and the bass drum beamed as eighths. RUNNING_LOG §651.
+
+## LG-221 — 2026-09-30 — the tempo candidates for all the percussion notes through 303
+
+*His words (session 18, Fable):* "Okay, can you run the tempo candidates for the, all the notes through 303?"
+
+*The AI's reading (marked as such):* after marking the arrivals with cue lines, a look at whether ONE tempo carries the whole opening stretch of
+the percussion (ten notes, 297.4 … 302.9) — an "actual tempo", which by his colour sense would be drawn in olive. RUNNING_LOG §652.
