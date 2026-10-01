@@ -21717,3 +21717,53 @@ destination head with its CENTS ALONE — "a detuning, not a partial" — writte
 - the fit, ESTIMATED not measured: the two heads' right edges stand ≈ 4.2 ss apart (head 1.1 · spacer 0.45 · line 2.2 · spacer 0.45, more
   with a sign); the longest new text (`16 (A1)`, seven characters) ≈ 2.7 ss drawn — clear of the start head's column by about 1 ss. The
   column grows one row on five heads; the ladder's lane test decides at the build.
+
+## §680. The morph's second head carries its partial where the morph arrives on a take — built (2026-10-01, Fable, session 18; LG-246)
+
+**What prompted it:** his word on §679's analysis: *"yes go t"*.
+
+**The rule (`rules.json` `objects.number.destPartial` "arrivalTake"; its pointer `container.json` `engraving.layout.destPartial`):** a
+morph's destination head carries its `n (F)` when the morph ARRIVES ON A TAKE — the placed actual names an arrival take and the glide's
+end is that take's note for the player. A morph with no arrival take (the bloom) keeps the cents alone. 2k.3's "the destination's cents
+alone — a detuning, not a partial" (§506) now holds for the bloom only.
+
+**Built:**
+- `sequence_overlays.js`: the partial's naming lifted out of `marksOf` into ONE helper `partialMarks(partial, pitch, take, form, warn)`
+  — the fundamental computed from the pitch and the partial, spelled from the take's name when it agrees; `marksOf` calls it (the start
+  heads' objects keep their fields and their order).
+- `notate_section.js`: `actualOf` returns the actual's `toChord` · `toName`; in the morph loop a destination reads its member by
+  `lane:seat`, is checked against the glide's end (half a cent — a miss is an ALERT and the cents stand alone) and takes `partial` ·
+  `fundamental` · `fundamentalMidi` · `take` · `partialText`.
+- `layout.js` (the 2k.3 block): the destination's column — its cents on the start column's cents row, its `n (F)` one row above,
+  both right-justified to the destination head; alone on the cents' row where the cents are not written (the start column's own rule).
+
+**The result — 11 second heads** (`piece-lgmf` re-extracted; the extractor's own lines):
+- ACT-TAKES-02: EH `+4` · `9 (A1)` · Hn `+2` · `6 (A1)` · Tpt `16 (A1)` · Vc `+4` · `9 (A1)` · DB `2 (A1)` (the bassoon one head, `2 (A1)`)
+- ACT-TAKES-03: EH `16 (E1)` · Bsn `−14` · `10 (E1)` · Hn `+2` · `3 (E1)` · Tpt `−31` · `14 (E1)` · Vc `+4` · `9 (E1)` · DB `4 (E1)`
+- no ALERT from the new check — every glide ends on its arrival note.
+- THE FIT, measured (§679's estimate was 1 ss): every one of the eleven blocks at rung 0; the white between the start column and the
+  destination's, by the layout's text estimate, 0.81 ss at the tightest (the EH at 729.36: `10 (D♭2)` | `16 (E1)`), 1.3 … 2.65 elsewhere;
+  the page's units off rung 0 still 7 (the same seven).
+
+**Checked:** `check_rules` 34 — (8) the texts the same in C and transposed, (9) no number inside the staff, 285 numbers (274 + 11) ·
+`eh_figure_check` 106 · `sequence_notation_check` 79 · `vib_marks_check` 34 · THE SHIELD `piece-lgmf` alone (the horn's bloom proto
+identical — no arrival take) · seen in the running app on a throwaway server (:5401, magnified, the horn at 726.28): `1 (D♭2)` over the
+start head, `+2` with `3 (E1)` above it over the second. The other ten by the layout's numbers.
+
+
+## §681. The horn's (pp) at 23.3 moved down by hand — the label sat on a low head (2026-10-01, Fable, session 18; LG-247)
+
+**What prompted it:** during §680's build, his picture of the horn at 23.31 (a breath's new head under two ledger lines, the curve's
+`(pp)` printed across it) and: *"23.31 in horn move the dynnamic down please"*.
+
+**Measured:** the head at y −4.5 (ink −4.94 … −4.06) stands ON the dynamic row (−4.6); the label's parentheses −5.05 … −4.15, its x across
+the head's right half. A different case from §673 · §674's three (those were a flipped column; this is the head itself, low enough to
+reach the row).
+
+**Done:** `node tools/reextract.js "" --labelDy 2:23.3:-1.15` (§673's hand) — the label's ink −6.20 … −5.30, **0.36 ss under the head**;
+the lane's bottom at −8.1. Four labels carry a hand now (the horn's 23.3 · the cello's 102.25 · 477.87 · 694.451).
+
+**The pattern, for the record:** a curve label on the dynamic row does not look at what stands there — a flipped column (three) or a
+low head (one). A rule (the label clears the ink at its x) was offered at §674; not built, not asked for.
+
+**Checked:** with §680's gates (one re-extraction for both); seen in the running app (:5401, magnified, 23.3 s): the `(pp)` under the head.

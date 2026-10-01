@@ -1660,7 +1660,7 @@ if (MORPH_SEQ.length) {
       const f = path.join(ROOT, 'bank', 'actuals', id + '.json');
       const P = fs.existsSync(f) ? ((JSON.parse(fs.readFileSync(f, 'utf8')).provenance || {}).pitch || {}) : null;
       r = !P ? { id, why: 'the actual ' + id + ' is not in bank/actuals' }
-        : Array.isArray(P.takeChord) ? { id, take: P.takeName || null, chord: P.takeChord } : { id, why: 'the actual ' + id + ' carries no take chord' };
+        : Array.isArray(P.takeChord) ? Object.assign({ id, take: P.takeName || null, chord: P.takeChord }, Array.isArray(P.toChord) ? { to: P.toChord, toName: P.toName || null } : {}) : { id, why: 'the actual ' + id + ' carries no take chord' };
     }
     r.label = mk ? mk.label : null;
     actuals.set(gid, r);
@@ -1697,12 +1697,25 @@ if (MORPH_SEQ.length) {
     // the destination: the farthest point reached, midi + cents from the nearest tempered note (D44: none when the part barely moves)
     if (b.destC != null) { const dm = Math.round(b.destC / 100), dc = b.destC - dm * 100; en.dest = { midi: dm, cents: +dc.toFixed(2), centsText: SeqOv.centsText(dc) }; }
     else en.dest = null;
+    // [RUNNING_LOG §680 — his "restore to those the second note, the actual partial number and fundamental"; rules.json objects.number
+    // .destPartial 'arrivalTake'] A MORPH THAT ARRIVES ON A TAKE (the model TAKES: the actual names its arrival take, toChord): the
+    // destination is that take's note for the player (lane:seat) — its partial and fundamental go on the second head. Checked against
+    // the glide's end to the written resolution (half a cent); a miss is said and the cents stand alone, as for a bloom.
+    if (en.dest && A.to && (CONT.engraving.layout || {}).destPartial === 'arrivalTake') {
+      const n0 = r.notes[0], mB = n0 ? A.to.find(c => c.lane === n0.layer && (c.seat || 0) === (n0.seat || 0)) : null;
+      if (!mB || !(mB.partial > 0)) r.warnings.push('the arrival take "' + A.toName + '" (' + A.id + ') holds no partial for this player — the cents alone on the destination');
+      else if (Math.abs(mB.midi * 100 + (+mB.cents || 0) - b.destC) >= 0.5) r.warnings.push('the arrival take "' + A.toName + '" says midi ' + mB.midi + ' ' + mB.cents + ' c, the glide ends ' + (b.destC / 100).toFixed(3) + ' — the cents alone on the destination');
+      else {
+        const pm = SeqOv.partialMarks(mB.partial, mB.midi + (+mB.cents || 0) / 100, A.toName, (CONT.engraving.layout || {}).partialForm, w => r.warnings.push('the destination: ' + w));
+        Object.assign(en.dest, { partial: pm.partial, fundamental: pm.fundamental, fundamentalMidi: pm.fundamentalMidi, take: A.toName, partialText: pm.partialText });
+      }
+    }
     en.travelC = +b.extent.toFixed(1);
     SEQ_ENTRY_EVENTS.add(en.event);
     doc.overlays.push(r.overlay);
     for (const w of r.warnings) console.warn('  ALERT --morph ' + gid + ' part ' + part + ': ' + w);
     console.log('  --morph ' + gid + ' part ' + part + ' (as a sequence, ' + (A.id || '?') + '): entry ' + en.t.toFixed(2) + ' s midi ' + en.midi + ' ' + (en.centsText || '·')
-      + (en.partialText ? ' ' + en.partialText : '') + (en.dest ? ' → dest midi ' + en.dest.midi + ' ' + (en.dest.centsText || '·') : ' (one pitch)') + ' · travel ' + en.travelC + ' c'
+      + (en.partialText ? ' ' + en.partialText : '') + (en.dest ? ' → dest midi ' + en.dest.midi + ' ' + (en.dest.centsText || '·') + (en.dest.partialText ? ' ' + en.dest.partialText : '') : ' (one pitch)') + ' · travel ' + en.travelC + ' c'
       + (en.rangeText ? ' · ' + en.rangeText : '') + (en.fadeFrom ? ' · from ' + en.fadeFrom : '') + (en.techText ? ' · "' + en.techText + '"' : '')
       + ' · ' + v.breaths.length + ' glides · ' + v.labels.length + ' labels · exit ' + (v.exit.fades ? '> ' + v.exit.fadeTo : 'no fall') + ' · ladder ' + v.scale.ladder.map(x => Math.round(x)).join('/'));
   }

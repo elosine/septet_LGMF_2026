@@ -113,6 +113,7 @@
    "accNaturalInColumn": "@objects.accidental.naturalInColumn",
    "staffShown": "@staffLines.percussion",
    "partialForm": "@objects.number.partialForm",
+   "destPartial": "@objects.number.destPartial",
    "centsZero": "@objects.number.centsZero",
    "floorTier": "@column.floorTiers.inside",
    "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "flipClearsStaff": "@ladder.flipClearsStaff", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },

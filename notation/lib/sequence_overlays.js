@@ -90,8 +90,16 @@
       if (Math.abs((+c.cents || 0) - cents) > 0.05) warnings.push(o.id + ': the recipe says ' + c.cents + ' c, the note bends ' + cents + ' c — the note written');
       take = box.take || null; boxN = +m[1]; pitchX = o.sonifyNote + cents / 100;
     }
-    const fMidiX = pitchX - 12 * Math.log2(c.partial), fMidi = Math.round(fMidiX);
-    if (Math.abs(fMidiX - fMidi) > 0.05) warnings.push(o.id + ': partial ' + c.partial + ' puts the fundamental ' + ((fMidiX - fMidi) * 100).toFixed(1) + ' c off a key');
+    const pm = partialMarks(c.partial, pitchX, take, formOf, w => warnings.push(o.id + ': ' + w));
+    return Object.assign(out, { partial: pm.partial, fundamental: pm.fundamental, fundamentalMidi: pm.fundamentalMidi, box: boxN, take, partialText: pm.partialText });
+  }
+
+  // [RUNNING_LOG §680] THE PARTIAL'S NAME, one copy — the start head's (marksOf) and a morph's destination on its arrival take (the
+  // extractor): the fundamental COMPUTED from the pitch (in keys, fractional) and the partial, spelled from the take's name when the name
+  // agrees (`Just-Eb1-seed100` → E♭1), else by sharps; the text by the rule's form.
+  function partialMarks(partial, pitchX, take, formOf, warn) {
+    const fMidiX = pitchX - 12 * Math.log2(partial), fMidi = Math.round(fMidiX);
+    if (Math.abs(fMidiX - fMidi) > 0.05 && warn) warn('partial ' + partial + ' puts the fundamental ' + ((fMidiX - fMidi) * 100).toFixed(1) + ' c off a key');
     let fName = STEP_NAMES[((fMidi % 12) + 12) % 12] + (Math.floor(fMidi / 12) - 1);
     const tm = /-([A-Ga-g])(b|#|♭|♯)?(-?\d)-/.exec('-' + (take || '') + '-');
     if (tm) {
@@ -100,8 +108,8 @@
       const nm = PC[L] + alt + 12 * (+tm[3] + 1);
       if (nm === fMidi) fName = L + (alt < 0 ? '♭' : alt > 0 ? '♯' : '') + tm[3];
     }
-    return Object.assign(out, { partial: c.partial, fundamental: fName, fundamentalMidi: fMidi, box: boxN, take,
-      partialText: String(formOf || '{n} ({f})').replace('{n}', c.partial).replace('{f}', fName) });   // [2e.3 (5), §438] 26 (C1) — rules.json objects.number.partialForm
+    return { partial, fundamental: fName, fundamentalMidi: fMidi,
+      partialText: String(formOf || '{n} ({f})').replace('{n}', partial).replace('{f}', fName) };   // [2e.3 (5), §438] 26 (C1) — rules.json objects.number.partialForm
   }
 
   // ─── LGMF PLAN 2l — THE VOLUME CURVE PROTOCOL (§513 … §522): the performance curve drawn from the intention, not the fader. ───
@@ -339,5 +347,5 @@
     };
   }
 
-  return { forPart, writtenOf, nameOf, baseCc7At, fadeAt, writtenAt, centsText, marksOf, NAMES, DEFAULTS };
+  return { forPart, writtenOf, nameOf, baseCc7At, fadeAt, writtenAt, centsText, marksOf, partialMarks, NAMES, DEFAULTS };
 }));

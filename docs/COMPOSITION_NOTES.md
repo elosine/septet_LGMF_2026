@@ -3725,3 +3725,15 @@ bow lead; the opposite edges at the crossed unisons (the case B was put for), no
 
 *The AI's reading (marked as such):* "sense deviation" = the cents deviation (the `+2` on the second head — a just third partial's 2 cents);
 he is right on both counts: two take → take morphs, and his picture is D♭2 → E1. RUNNING_LOG §679.
+
+## LG-246 — 2026-10-01 — go: the second head's partial on the take → take morphs
+
+*His words (session 18, Fable, on §679's analysis):* "yes go t"
+
+*The AI's reading (marked as such):* the build as laid out — the 11 second heads, the bloom untouched. RUNNING_LOG §680.
+
+## LG-247 — 2026-10-01 — the horn's dynamic at 23.31 down
+
+*His words (session 18, Fable, with a picture, during the build):* "23.31 in horn move the dynnamic down please"
+
+*The AI's reading (marked as such):* the curve's `(pp)` across the low head — the label hand of §673, 1.15 ss. RUNNING_LOG §681.

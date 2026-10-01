@@ -1140,11 +1140,16 @@
           items.push(Object.assign({ k: 'glissline', t, dx0Ss: glL, dx1Ss: glR, ySs: HS.y, y1Ss: HD.y, thickSs: GL.thickSs, seq: 'glissLine', ev: en.event }, glissLift(HS.y, HD.y)));
           let colTop = HS.colTop, topInk = Math.max(HS.topInk, HD.topInk);
           const dZero = Math.round(+en.dest.cents || 0) === 0 || en.dest.centsText === '';
-          if (en.dest.centsText != null && en.dest.centsText !== '' && !(o.centsZero === 'omit' && dZero)) {
-            const yD = HS.yC != null ? HS.yC : Math.max(HD.topInk, 2) + SQB.centsGapSs;
-            items.push({ k: 'text', t, dxSs: HD.right, anchor: 'end', text: String(en.dest.centsText), ySs: yD, seq: 'cents', ev: en.event,
-              size: TS.number != null ? TS.number : TS.instruction, color: COL.number, italic: !!ITAL.number });
-            const top = yD + SQB.slashTopEm * SQB.numEmSs;
+          // [§680 — rules.json objects.number.destPartial] a morph that ARRIVES ON A TAKE: the destination's `n (F)` one row above its
+          // cents, right-justified to its own head as its cents are; alone on the cents' row where the cents are not written
+          const dCents = en.dest.centsText != null && en.dest.centsText !== '' && !(o.centsZero === 'omit' && dZero) ? String(en.dest.centsText) : null;
+          const dPart = partialLabel(en.dest, o.partialForm);
+          if (dCents != null || dPart) {
+            const yD = HS.yC != null ? HS.yC : Math.max(HD.topInk, 2) + SQB.centsGapSs, yDP = dCents != null ? yD + SQB.rowSs : yD;
+            const NUMD = { size: TS.number != null ? TS.number : TS.instruction, color: COL.number, italic: !!ITAL.number };
+            if (dCents != null) items.push(Object.assign({ k: 'text', t, dxSs: HD.right, anchor: 'end', text: dCents, ySs: yD, seq: 'cents', ev: en.event }, NUMD));
+            if (dPart) items.push(Object.assign({ k: 'text', t, dxSs: HD.right, anchor: 'end', text: String(dPart), ySs: yDP, seq: 'partial', ev: en.event }, NUMD));
+            const top = (dPart ? yDP : yD) + SQB.slashTopEm * SQB.numEmSs;
             colTop = Math.max(colTop != null ? colTop : -Infinity, top); topInk = Math.max(topInk, top);
           }
           H = { cx: HS.cx, y: HS.y, hw: HS.hw, lowInk: Math.min(HS.lowInk, HD.lowInk), topInk, colTop, yC: HS.yC, left: HS.left, headTop: HS.headTop, right: HD.right, octShift: HS.octShift };
