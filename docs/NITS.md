@@ -277,3 +277,42 @@ none is a defect in this repo's code. They are rewritten against this piece's ma
   no bend — piece #5's score under this repo's registry), the same before and after 2l.3. 2l.3 held the builder by a FINGERPRINT instead
   (this repo's three morphs with and without the septet's options, the tuba's three: identical). **Not blocking.** Fix when the morph
   builder is touched again: point the test at this repo's Draft 01 morphs and its own frozen hashes, or drop the piece-#5 block.
+
+## HELD FOR THE NEXT PIECE OR THE POSTMORTEM (composer, 2026-10-01, RUNNING_LOG §701; LG-267)
+
+*His word on four small offers made while the film of Draft 01 was built: "hold on to these for the next piece or postmortem." Not to be
+raised again in this piece; they travel with the copy-forward, or are read at the postmortem.*
+
+### A gate that draws pages the film's way and compares them with the app's (RUNNING_LOG §695 · §699)
+
+- The film is rasterized by resvg (`tools/export_video.js`); the notation app and every gate (`check_screen_edges`, the eye) use Chrome.
+  Twice on 2026-10-01 a page drawn right by Chrome was drawn wrong in the film and every check was green: the long curve paths dropped
+  from the third page on (§695), and ♭ drawn as a missing-glyph box in 40 labels (§699). Both were found by the composer watching.
+- The gate: rasterize a sample of static pages both ways (or all 74 — a page is 0.18 MB since §695) and compare coloured-pixel counts
+  per kind, or a tolerance diff; fail on a kind present in one and absent in the other. `scratchpad`-grade versions were used on the
+  day (a per-frame curve-colour count; a two-film frame diff) — the method is in §695 · §699.
+- Standing lesson with it: **a test stretch of a film must contain every kind the film draws** (the two test clips were cut from
+  section 2, which has no curves), and **every render keeps its own file name** (four were written over one name; the comparison he
+  asked for could not be shown).
+
+### A bundled font for ♭ ♯ ♮ in text (RUNNING_LOG §699)
+
+- Crimson Pro (the repo's text font) has no U+266D · 266F · 266E. The film now loads `C:/Windows/Fonts/seguisym.ttf` by file as a
+  fallback — the font Chrome falls back to on this machine. It is not in the repo: another machine, or a Windows without it, draws the
+  box again (the exporter warns). The durable form: an open-licence font with the three signs in `notation/app/fonts/`, named in the
+  page's font stack so the app, the film and the print all draw the SAME sign — or the signs drawn from the music font's own glyphs.
+
+### A rule for a curve label on occupied ground (RUNNING_LOG §673 · §674 · §681 · §686)
+
+- A sequence's `(dyn)` label is drawn on the dynamic row at its time and does not look at what stands there. Five were moved by hand
+  on 2026-10-01 (`--labelDy`): three under a column the ladder had flipped below the staff (the cello, a new-pitch breath under an
+  8va: 102.25 · 477.87 · 694.451) and two on a low head reaching the row (the horn 23.3 · the English horn 482.81).
+- The rule: the label clears the ink at its x (the unit's own low ink, a flipped column) by the standard gap — the hands then go.
+- Its sibling (§683 · §684): §560's pass tests a mark against a slur at the HEAD's x only; a name wider than its head can lie under a
+  falling slur (two `dynDySs` hands, the EH's 291.4 · 317.05). The pass should test the arc across the mark's width.
+
+### Housekeeping left on disk (RUNNING_LOG §699 · §700)
+
+- `notation/video/renders/Recombination-Draft01-V-CUT-seed7.mp4` (the render before the ♭ fix — superseded by `-r4`, archived as
+  `approved/2026-10-01-draft01/V-CUT.mp4`) · the two render logs · `notation/video/test/` (two 32 s clips, four trial cut lists). All
+  gitignored or untracked; safe to delete; left in place.

@@ -22213,3 +22213,13 @@ render and the two test clips. Nothing else is owed on the film.
 seven steps and built in one sitting (§689 … §694) → his watch-through, which found four faults no gate had (§695 the curves · §696 the
 sync · §697 a late trumpet · §699 the ♭) — two of them the same kind: drawn by Chrome, not by the film's rasterizer, and every gate
 measures Chrome. The film he accepted is the fifth render.
+
+## §701. The four small offers held for the next piece or the postmortem (2026-10-01, Fable, session 18; LG-267)
+
+**His word**, quoting the list from §700's reply ("Small things I offered, yours to pick or drop"): *"hold on to these for the next
+piece or postmortem"*.
+
+**Done:** the four written into `docs/NITS.md` under a section of their own, **HELD FOR THE NEXT PIECE OR THE POSTMORTEM**, each with
+enough to act on cold — the film-against-Chrome gate (with the two lessons of the day: a test stretch holds every drawn kind · every
+render its own file) · a bundled font for ♭ ♯ ♮ · the rule for a curve label on occupied ground (and its sibling, the slur pass across a
+mark's width) · the housekeeping on disk. Journal §2's line re-worded: held, not to be raised again in this piece.

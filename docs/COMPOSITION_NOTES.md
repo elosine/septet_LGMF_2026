@@ -3866,3 +3866,10 @@ film re-made. RUNNING_LOG §698.
 
 *The AI's reading (marked as such):* the film of Draft 01 accepted — archive it, tag it, say what is left; his next subject after the
 clear is the performance notes (his to write). RUNNING_LOG §700.
+
+## LG-267 — 2026-10-01 — the small offers: hold them for the next piece or the postmortem
+
+*His words (session 18, Fable, quoting the list of offers):* "hold on to these for the next piece or postmortem"
+
+*The AI's reading (marked as such):* none of the four is built now or asked about again in this piece; they are kept where the
+copy-forward and the postmortem will find them. RUNNING_LOG §701.

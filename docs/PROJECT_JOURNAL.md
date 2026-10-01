@@ -304,7 +304,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   needs: `docs/PERFORMANCE_NOTES.md` (the tracker, 20 lines — what the notes must cover) · `docs/research/just_partials_notation.md`
   §1b (his TUNING legend, settled; the transposing lines drafted) · PLAN § 2b (the instructions: web + two print pages; the percussion
   legend, §334). STILL OPEN AFTER THE NOTES (2b-F step 7): the print score (A3 — `export_print.js`, `print/score/build.sh`'s gates
-  never run on this piece) · the cover · the call and the package are HIS. OFFERED, NOT BUILT, his to pick or drop: a gate drawing
+  never run on this piece) · the cover · the call and the package are HIS. HELD AT HIS WORD FOR THE NEXT PIECE OR THE POSTMORTEM (§701 — `docs/NITS.md`, its last section; do not raise them again here): a gate drawing
   pages the film's way against Chrome's (§695 · §699) · a bundled open font for ♭ ♯ ♮ (the film borrows Windows' `seguisym.ttf`) · a
   rule for a curve label on occupied ground (five hands, §686) · deleting `renders/…-seed7.mp4` (the boxes) and the two test clips.
   IF THE SCORE MOVES AGAIN: Save → R (or `reextract`) → the audio (RENDER.md §1, `--up --maxUp 6`) → the film (§694's command, a NEW
@@ -358,8 +358,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
     `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§701 next free**) · an LG
-    (**LG-267 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§702 next free**) · an LG
+    (**LG-268 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·
