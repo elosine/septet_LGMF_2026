@@ -2280,7 +2280,9 @@
                   // unit's own ink reaches below it (the sequence legend's rule — a low head keeps its chain); nothing without the field moves
                   let yDyn = placeChain(markG.hSs);
                   if (dev.dynOnRow && !chainAbove && yDyn > o.dynY) { yDyn = o.dynY; chainBotY = yDyn - markG.hSs / 2; }
-                  if (linedRowY != null) yDyn = linedRowY;   // [§657] the lined staff's one row
+                  // [§657] the lined staff's one row · [RUNNING_LOG §667, his "move the MF to above the [note] head for that one exceptionally"] a
+                  // hand's dynSide 'above' lifts ONE name off the row to just over its own head (the stack gap above it) — the exception he names
+                  if (linedRowY != null) yDyn = dev.dynSide === 'above' ? yDraw + nhO.hSs / 2 + stackGap + markG.hSs / 2 : linedRowY;
                   // BESIDE THE STEM (day 23, composer): when the chain is above a
                   // stem-up unit, the mark's RIGHT edge sits dynStemGapSs left of
                   // the stem's left edge (registry 0.15 = the staccato-dot gap),

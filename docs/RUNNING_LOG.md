@@ -21310,3 +21310,17 @@ height), his eye took each back to the standard.
 **The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** a HARD reload → `piece-lgmf` → `306.2` · `326.5` · `336.7` · `346.7` · `370.4`.
+
+## §667. The row's first exception — the mf at 361.56 above its notehead (2026-10-01, Fable, session 18; LG-235)
+
+**What prompted it** (his answer to §664's reported conflict — none of the three options as worded, his own): *"361.5, move the MF to above the
+[note] head for that one exceptionally."*
+
+**Built:** a hand `dynSide "above"` on `wc-3785` (the sleigh bells, the top line, the first of a stems-down pair) — `layout.js`: on a lined
+staff the hand lifts ONE name off the dynamic row to just over its own head, the stack gap above it (the head's top +6.5 → the mf centred at
+**+7.44**, its foot 0.45 over the head). The row stays the rule (§664); this is the mechanism for "unless I say otherwise". The stem hangs
+from the head's left edge downward, so nothing crosses the name; the `dynamics row` warning is gone (the layout's warnings for part 4: none).
+
+**The gates:** `check_rules` · the lock · the shield — in the commit.
+
+**For his eye:** reload → `piece-lgmf` → `361.6`.

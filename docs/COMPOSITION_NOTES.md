@@ -3647,3 +3647,10 @@ the seven-line staff above and below alike; it overrides the "just clear" of the
 
 *The AI's reading (marked as such):* a principle for the percussion staff — it is the same notation on a different staff, not a new one; reach
 for the existing standard first and bend it only where the seven lines force it. RUNNING_LOG §666.
+
+## LG-235 — 2026-10-01 — the mf at 361.5 above its notehead, exceptionally
+
+*His words (session 18, Fable):* "361.5, move the MF to above the node head for that one exceptionally."
+
+*The AI's reading (marked as such):* the conflict reported in §664 settled by hand, once — the row remains the rule ("node head" = notehead).
+RUNNING_LOG §667.
