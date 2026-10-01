@@ -3782,3 +3782,10 @@ plan through the planning method. RUNNING_LOG §687.
 
 *The AI's reading (marked as such):* A = (a), `Recombination-notationLock_1.0`; on B he asks what the call is before choosing — the
 term had not been in front of him since 2026-09-17. RUNNING_LOG §688.
+
+## LG-255 — 2026-10-01 — the call is his to manage; go ahead with the video
+
+*His words (session 18, Fable, on question B):* "ok I'll manage the call and its parameters, etc. No need to, for AI to do that. I might get some help with things like copy editing or whatever later. So no need to fuss with the call and we can just go ahead with the video."
+
+*The AI's reading (marked as such):* the call (deadline, limits, format, the package) is his alone — not raised again unless he asks;
+copy editing is a possible later ask. The film's plan proceeds. RUNNING_LOG §689.

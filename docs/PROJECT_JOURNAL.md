@@ -262,6 +262,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   checkpoint. His answers owed: the tag's name · the call now or later (Q2). Nothing built.
 - **§688 · LG-254 (2026-10-01, Fable):** THE TAG `Recombination-notationLock_1.0` made and pushed at his "Aa" (the video plan's step 1). Question B
   (the call: now or after the film) still his — he asked what the call is; told him.
+- **§689 · LG-255 (2026-10-01, Fable) — THE FILM, PLAN § `2b-F`:** the call is HIS · step 2 ☑ the audio re-rendered from the locked save
+  (−5.0 dBTP · −22.8 LUFS, +6 dB) · step 3 the test film made (`notation/video/test/Recombination-test-284-316.mp4`, gitignored) —
+  ► HIS EYE AND EAR on it; then step 4 (what opens and closes the film), laid out with him.
 - **State:** nothing being built. The ♪ link unchanged — the IR's `source.score` is the WAV's name; no re-extraction.
 - **► THE NEXT STEP — HIS, ask first:**
   1. HIS EAR: reload the notation tab → `piece-lgmf` → ♪ render. A LEVEL change → re-gain the kept float with no Reaper render, §407's
@@ -311,8 +314,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
     `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§689 next free**) · an LG
-    (**LG-255 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§690 next free**) · an LG
+    (**LG-256 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·

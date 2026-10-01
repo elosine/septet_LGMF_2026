@@ -2454,6 +2454,38 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   transposing-instrument lines are drafted — `docs/research/just_partials_notation.md` §1b, 2026-09-27, RUNNING_LOG §437 … §442**) · the cut list · `render_reaper` · the batteries re-pointed at
   this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
 
+  **2b-F — THE FILM of the presentation score** — `doing` (planned 2026-10-01, Fable, session 18, the planning method — RUNNING_LOG §687 …
+  §689; LG-253 … LG-255; the notation of Draft 01 LOCKED and tagged; the top line his at *"we can just go ahead with the video"*.
+  **The call and its parameters are HIS** — no AI work on it, LG-255: *"I'll manage the call and its parameters … no need to fuss with the
+  call"*; copy editing later, at his ask.)
+
+  > **1. The tag** — ☑ `Recombination-notationLock_1.0` (§688).
+  >
+  > **2. The audio, re-rendered** (the WAV carries his save as locked) — ☑ DONE 2026-10-01 (§689: −5.0 dBTP · −22.8 LUFS, +6 dB)
+  >
+  > Result when done: the ♪ render on `piece-lgmf` plays the locked score — no vibraphone note at 765, the next bow on 765.0.
+  >
+  > - capture his own playback of Draft 01 (`capture_composer_midi.js --score piece-Recombination-Draft01-done`)
+  > - export the MIDI, checked against the score (`export_midi.js --score … --capture …`)
+  > - render through a COPY of his rack, the boost at most +6 dB (`render_reaper.js --score … --up --maxUp 6`)
+  > - measured off the file; the ♪ link unchanged (the WAV's name = the IR's `source.score`)
+  >
+  > **3. A test film** (one short stretch, his eye on the look) — MADE 2026-10-01 (§689: `notation/video/test/Recombination-test-284-316.mp4`); ► his eye
+  >
+  > Result when done: he has watched one stretch of the film with its sound and said what to change in its look.
+  >
+  > - `export_video.js --ir piece-lgmf` on 284 … 316 s (the morph's end · "ord." · section 2's first figures · the percussion staff ·
+  >   the first long-tone chord) with the new audio
+  > - he watches; his findings collected, then fixed together
+  >
+  > **4. What opens and closes the film** — *to be laid out when we discuss it.*
+  >
+  > **5. The whole film, with the audio** — *to be laid out when we discuss it.*
+  >
+  > **6. His watch-through** — *to be laid out when we discuss it.*
+  >
+  > **7. The completion** (the instructions · the print · what else finishes Draft 01; the call is his) — *to be laid out when we discuss it.*
+
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`built` 2026-09-25 (2c.1 … 2c.7, RUNNING_LOG §342 … §349; his eye DEFERRED at his word to the specific notation, §347 — every value provisional data)** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
   2c.1 built — RUNNING_LOG §342 · 2c.2 built — §343 · 2c.3 built — §344 · 2c.4 built — §345 · 2c.5 WRITTEN — §346, NOTATION_STANDARDS §5 · his word §347: the specific resolutions deferred to the notation, the machinery built — 2c.6 built — §348)** — `planned` 2026-09-25 (Fable,

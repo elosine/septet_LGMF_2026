@@ -21891,3 +21891,32 @@ read now (it may set the film's format) or after the film.
 paragraph; journal Q2). It has not been read, at his word of 2026-09-17 (*"don't need to look it up now, lets focus on getting
 started"*); its deadline, duration limit and required score format are unknown here. The question stands: read it before the film's
 look is settled (it may set a format or a length) or after.
+
+## §689. The film: the call is his; the plan written; the audio re-rendered from the locked save; a test film (2026-10-01, Fable, session 18; LG-255)
+
+**His word on question B (§688):** *"ok I'll manage the call and its parameters, etc. No need to, for AI to do that. I might get some help
+with things like copy editing or whatever later. So no need to fuss with the call and we can just go ahead with the video."* — the call
+is HIS, whole; journal Q2 is no longer the AI's to raise. The top line stands, its step 7 without the call.
+
+**The plan written — PLAN § `2b-F` THE FILM of the presentation score:** 1 the tag ☑ · 2 the audio re-rendered · 3 a test film · 4 what
+opens and closes the film · 5 the whole film · 6 his watch-through · 7 the completion; steps 2 · 3 laid out (the goal, the to-dos),
+4 … 7 "to be laid out when we discuss it".
+
+**Step 2 — the audio (RENDER.md §1; its §4 register has the entry):** read before starting, not asked — the score server on :5400
+answering, Reaper on `LGMF_rack` with no "modified" in its title.
+1. the capture: 24 788 messages · 53 020 frames in 280.1 s · 0 writes refused (24 800 at §671 — the deleted note's twelve).
+2. the export: notes **1075/1075** · 435 bent notes in place · 0 hanging · read-back ok; 29 tracks, 883.67 s. Against the committed
+   files: the vibraphone and the whole-piece file moved (the edit), and `28 Bass XS` by 7 bytes at the same length — NOT traced (his
+   save differs from §671's only at the vibraphone by onset and presence; a level or a length was not compared).
+3. the render: the rack as saved 18:48 UTC copied, 29 items by name, offline in 288 s, the tab closed, the rack current again.
+- **Measured off the file:** the float 886.664 s · **−11.0 dBTP** · −28.8 LUFS · LRA 20 · the gain to −1 would be +10 dB, **capped at
+  +6.0** → the WAV **−5.0 dBTP · −22.8 LUFS**, 24-bit, no limiter. Within 0.1 dB of §671's — the edit did not move the level.
+- the ♪ link unchanged (the WAV's name = the IR's `source.score`). The old WAV replaced, not kept. The MIDI committed.
+
+**Step 3 — the test film:** `node tools/export_video.js --ir piece-lgmf --view video --fps 30 --audio notation/audio/piece-Recombination-
+Draft01-done.wav --out notation/video/test/Recombination-test-284-316.mp4 --t0 284 --t1 316` — the exporter's first run on this piece's
+main page: 960 frames, 3 page rasters, 18 s to render, ffmpeg exit 0. The file: 32.000 s · h264 1920 × 1080 · 30 fps · AAC 48 kHz stereo ·
+1.7 MB (gitignored — `notation/video/test/`). The stretch: the end of the first morph, "ord.", section 2's first figures, the percussion
+staff, the first long-tone chord. NOT watched by the AI — the format is read off the file (ffprobe); his eye and ear are the test.
+
+**At that rate** the whole film (886.7 s + the 4 s lead-in) is of the order of ten minutes to render — an estimate from one stretch.

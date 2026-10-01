@@ -1,4 +1,4 @@
--- place_piece-Recombination-Draft01-done_midi.lua — written by tools/export_midi.js (2026-10-01T12:56; RUNNING_LOG §453).
+-- place_piece-Recombination-Draft01-done_midi.lua — written by tools/export_midi.js (2026-10-01T20:00; RUNNING_LOG §453).
 -- Run INSIDE the render project (a copy of the rack): Actions → Show action list → New action → Load ReaScript → this file → Run.
 -- Sets the tempo to 60 BPM (the files are 60 BPM / 960 PPQ), then builds each part's MIDI item on the track of the SAME NAME at 0:00 —
 -- by name, never by position (piece #4's trap: a duplicated track shifts a positional drop) — directly, with no MIDI import and so
@@ -55,7 +55,7 @@ local files = {
   { [[Tam Tams ARO]], [[C:\Users\jwloy\GitHub\septet_LGMF_2026\midi\piece-Recombination-Draft01-done\26 Tam Tams ARO.evt]], 0 },
   { [[Cello XS]], [[C:\Users\jwloy\GitHub\septet_LGMF_2026\midi\piece-Recombination-Draft01-done\27 Cello XS.evt]], 87 },
   { [[Bass XS]], [[C:\Users\jwloy\GitHub\septet_LGMF_2026\midi\piece-Recombination-Draft01-done\28 Bass XS.evt]], 119 },
-  { [[Vibraphone XS]], [[C:\Users\jwloy\GitHub\septet_LGMF_2026\midi\piece-Recombination-Draft01-done\29 Vibraphone XS.evt]], 262 },
+  { [[Vibraphone XS]], [[C:\Users\jwloy\GitHub\septet_LGMF_2026\midi\piece-Recombination-Draft01-done\29 Vibraphone XS.evt]], 261 },
 }
 reaper.Undo_BeginBlock()
 reaper.PreventUIRefresh(1)

@@ -82,3 +82,8 @@ Then: the notation page (CTRL+SHIFT+R) → the MAIN file → **♪ render** → 
   by name; 273 s. Render: 886.664 s · float true peak **−10.9 dBTP** · −28.8 LUFS · LRA 20.1 · `--up --maxUp 6` (§670, its first use): the
   gain to −1 dBTP would be +9.9 dB, **capped at +6.0 dB** → **−4.9 dBTP · −22.8 LUFS**, the LRA untouched · first sound 1.700 s (as before).
   Linked: `source.score` unchanged, the server lists the WAV — no re-extraction. His ear: pending.
+- **2026-10-01 — Draft 01 re-rendered at the notation's lock** (RUNNING_LOG §689; the save as of §675 — the vibraphone's `wc-4819` deleted,
+  `wc-4820` on 765.0). Capture: 24 788 messages · 53 020 frames in 280 s · 0 writes. Checks: notes 1075/1075, 435 bends in place, 0 hanging,
+  read-back ok; moved against the committed MIDI: the vibraphone, the whole-piece file, and 7 bytes of `28 Bass XS` (same length — not
+  traced). Reaper: the rack as saved 18:48 UTC, 29 items by name; 288 s. Render: 886.664 s · float true peak **−11.0 dBTP** · −28.8 LUFS ·
+  LRA 20 · `--up --maxUp 6`: +10 to −1 dBTP, **capped at +6.0 dB** → **−5.0 dBTP · −22.8 LUFS** · first sound 1.686 s. Linked: unchanged.
