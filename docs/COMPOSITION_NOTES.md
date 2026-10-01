@@ -3600,3 +3600,10 @@ grace into its note), a bare head for the lone strike between; one dynamic at th
 
 *The AI's reading (marked as such):* one grace stem for the whole score — the English horn's (3.18 ss) — on the percussion staff too; the
 longer percussion stem is for full-size notes only. RUNNING_LOG §660.
+
+## LG-229 — 2026-09-30 — the 305.28 stem the percussion staff's standard height; the second grows its stem to meet it
+
+*His words (session 18, Fable):* "the stem at 305.28 should be the standard height. The, the new standard, or not the new one, but the standard height we decided for the percussion staff stems. It was like 30% bigger than the previous one. And then the second partial just grow its stem to meet it."
+
+*The AI's reading (marked as such):* the beam's height comes from the note nearest it — a standard stem from that head — and the other note
+stretches; not the minimum he asked for a moment before. RUNNING_LOG §661.

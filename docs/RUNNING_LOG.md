@@ -21089,3 +21089,24 @@ staff's longer stem (5.85, §656) is for full-size notes (`layout.js`: `!dev.gra
 **The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `297.5` · `306.2`.
+
+## §661. The pair at 305.25 — the sleigh bells' stem the staff's standard, the castanets' grown to the beam (2026-09-30, Fable, session 18; LG-229)
+
+**What prompted it** (his eye on §659's pair, sent while §660 was building): *"the stem at 305.28 should be the standard height. The, the new
+standard, or not the new one, but the standard height we decided for the percussion staff stems. It was like 30% bigger than the previous
+one. And then the second partial just grow its stem to meet it."*
+
+**Built:** the pair's beam at **+11.99** (a hand `beamYSs 11.986` = the sleigh bells' attach 6.136 + the staff's standard 5.85, §656): the
+sleigh bells' stem **5.85**, the castanets' **7.85** (4.136 → 11.986, grown to the beam). §659's "minimum stem" (2.5) withdrawn — his word
+then, corrected by his eye.
+
+**A rule seen twice now (for step 2 of §646 — not yet built as a rule):** a beam on this staff sits one STANDARD stem beyond the head nearest
+it on the stem's side; the other members grow to meet it (here; and §657's bass drum → castanet beam, set by what it had to clear). Built as
+hands both times.
+
+**Told him:** the beam's top is 0.13 ss under the lane's top (12.12) — the sleigh bells are the top line, so a standard stem from them reaches
+the lane's edge.
+
+**The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `305.3`.
