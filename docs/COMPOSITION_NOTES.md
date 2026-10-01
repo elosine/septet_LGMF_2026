@@ -3697,3 +3697,10 @@ RUNNING_LOG §674.
 
 *The AI's reading (marked as such):* the proof now reaches back into the composer — the loop is Save → R → commit, the audio once at the
 end. RUNNING_LOG §675.
+
+## LG-242 — 2026-10-01 — the vibraphone's two dynamic flows and the crossings at a unison: what would switching back cost
+
+*His words (session 18, Fable, during the proof):* "Can you do some analysis for me in the vibraphone part? The way I wrote it is like two independent parts, more or less. And my assumption, I think this is true, but each part follows a dynamic trajectory. So it has crescendos and decrescendos, uh, its own set for each part. And then for the visual, for the notation, for visual uh, use or to help the vibraphonist be able to play the two parts. For example, when there's a unison or, right, a rhythmic unison, I make the lower note go down and the upper note go up. So I guess there's some crossings. So can you, Identify how many times this happens and when. And then help me, or just tell me how it would look if I switched it back. So I guess what I'm trying to understand is the consequences of switching it back so that the top Blue line is always representing one dynamic flow, and the bottom is always representing the other dynamic flow. And then how many would we have to change back? And the, those unison crossings, how would they look? Would there be a way to, even though the top one's going down, the bottom ones going up to make them look okay. So I guess just assess the impact on the notation, on our current notation."
+
+*The AI's reading (marked as such):* a second thought on §496's cross ("one player, two bows") — the dynamic FLOW per row now weighs more
+than the clean unison; he wants the cost in numbers before deciding. RUNNING_LOG §676.

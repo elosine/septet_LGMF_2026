@@ -21542,3 +21542,56 @@ deleted event, its chunk and the moved onset — +8 −167 lines.
 stands behind the page.
 
 **Owed:** a new audio render when his proof is done — the WAV of §671 holds the deleted note.
+
+## §676. The vibraphone's two rows — the crossings counted, and what switching back would cost (2026-10-01, Fable, session 18; LG-242)
+
+**What prompted it:** during his proof (LG-242, whole there): the vibraphone is written as two more-or-less independent parts, each with
+its own dynamic trajectory; at a rhythmic unison the notation sends the lower note down and the upper note up — *"So I guess there's some
+crossings. So can you identify how many times this happens and when … tell me how it would look if I switched it back … so that the top
+blue line is always representing one dynamic flow, and the bottom is always representing the other … how many would we have to change
+back? And those unison crossings, how would they look? Would there be a way … to make them look okay. So I guess just assess the impact on
+the notation, on our current notation."* The planning method, phase 1: the data first. Nothing built.
+
+**What stands (§487 · §496):** the two "parts" are the reader's two overlap CHAINS (`vib_marks.js`; each chain's level is continuous —
+his assumption holds, the check's worst join 0.24 step). Rows by seat: a chain keeps one row (navy, top · olive, bottom) through a
+sequence — EXCEPT `vibMarks.crossAtUnison`: at a rhythmic unison (both chains within 0.06 s) whose heads are 2+ staff steps apart, the
+higher note takes the top row from there, both rows restart (their start names written). The bars sit on tracks at the lane's edges; a
+head is tied to its row by its swatch and its dotted lead (§495).
+
+**Measured** (the save after §675; `VibMarks.read` per group, `crossAtUnison` true vs false):
+- **261 bows** in seven groups — four sequences (`LGMF-R01c` 55 · `S02T2-SeqA_1` 52 · `lgmf-s03-seqb` 22 · `lgmf-lastChord` 27) and three
+  morphs (44 · 30 · 31).
+- **11 rhythmic unisons.** 2 side by side (56.12 · 141.38 — no cross under either rule). **9 with a clear top and bottom:**
+  - `LGMF-R01c`: 42.65 (G3 · G4, 7 steps) · 72.32 (D♯4 · D♯5, 7) · 120.74 (A♯4 · D♯6, 10)
+  - `S02T2-SeqA_1`: 561.47 (E6 · A♯5, 4)
+  - `lgmf-lastChord`: 818.95 (F♯5 · F♯4, 7) · 824.41 (B5 · E5, 4) · 841.54 (E5 · B5, 4) · 856.17 (B4 · B3, 7) · 862.37 (B4 · B3, 7)
+- **The rows actually CHANGE HANDS at 4 of them:** 42.65 (R01c — the top row is chain 0 for 0:02 … 0:42, chain 1 for the remaining
+  1:51) · 818.95 · 841.54 · 856.17 (lastChord — three hand-changes in 80 s). The other five confirm the row already held.
+- **Five of the seven groups have no cross at all** (the three morphs, s03-seqb; SeqA's one unison already has the top row's note on top).
+
+**Switched back** (`crossAtUnison` false — each chain one row for its whole sequence):
+- **56 bows change row** — 39 of R01c's 55 (everything from 42.65 on), 17 of lastChord's 27. Nothing else moves.
+- the start names: **32 → 14** — the 18 names restated at the nine crosses go; the marks 467 → 449; 18 bows' mark text changes (the
+  hairpin departs from the row's carried name again: e.g. 42.65 top `mp > p` · bottom `pp < mp` → top `< mp` · bottom `> p`).
+- **7 unisons with CROSSED LEADS** — the top row's head is the LOWER one: 42.65 · 72.32 · 120.74 · 818.95 · 824.41 · 856.17 · 862.37
+  (§496's seven, unchanged by his edits since). At each: two heads in one column 4 … 10 staff steps apart; the navy lead rises from the
+  lower head past the upper head to the top track, the olive lead falls from the upper head past the lower one — both on the heads' left
+  edge, so the two dotted lines lie on top of each other between the heads; the swatches say navy below, olive above.
+- **the context:** a bow entering on the "wrong" side of the other chain's SOUNDING bow for its row (top row under · bottom row over)
+  is already common — **77 of 261 now, 99 switched back**. The sequence's stagger (entries 0.6 s apart) keeps those leads from meeting;
+  only the unisons show it. The rows have never meant "higher · lower" in general.
+
+**What it means (the AI's reading):** the cross buys seven clean unisons and costs the thing he names — a colour is no longer one dynamic
+flow (4 hand-changes), paid for with 18 restated names. Switched back, colour = flow everywhere, and the cost is concentrated in seven
+moments that need a look of their own.
+
+**The crossed unison's look — options put to him:**
+- (a) the two heads SIDE BY SIDE at a crossed unison (the top row's head left, the bottom row's right) — how crossed voices are engraved;
+  the chord column already does it for a second (56.12 · 141.38); each lead runs clear. One head sits a head-width off its time.
+- (b) the heads stay in one column, the two leads on OPPOSITE EDGES (the rising one left, the falling one right) — no overlap; each lead
+  still brushes the other head.
+- (c) as they fall — overlapping leads, the swatches alone tell.
+The AI's lean: (a).
+
+**The build, if he says so:** one row (`vibMarks.crossAtUnison` false) + the look (a small layout rule) · `vib_marks_check`'s golden
+(it asserts 9 crosses) · `piece-lgmf` and `lgmf-vib-proto` re-extracted.
