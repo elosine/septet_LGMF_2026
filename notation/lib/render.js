@@ -702,8 +702,13 @@
           const kOut = sgn * ((it.heightSs || 0) * ssPx) / 0.75, kIn = sgn * Math.max(0, (it.heightSs || 0) * ssPx - thick) / 0.75;
           const cx0 = x0 + (x1 - x0) / 3, cx1 = x0 + 2 * (x1 - x0) / 3, cy0 = ya + (yb - ya) / 3, cy1 = ya + 2 * (yb - ya) / 3;
           const f = v => v.toFixed(2);
-          parts.push('<path d="M' + f(x0) + ',' + f(ya) + ' C' + f(cx0) + ',' + f(cy0 + kOut) + ' ' + f(cx1) + ',' + f(cy1 + kOut) + ' ' + f(x1) + ',' + f(yb) +
-            ' C' + f(cx1) + ',' + f(cy1 + kIn) + ' ' + f(cx0) + ',' + f(cy0 + kIn) + ' ' + f(x0) + ',' + f(ya) + ' Z" fill="' + o.ink + '" stroke="' + o.ink +
+          // [§663] THE STEEP SLUR (it.perp): the bow is measured PERPENDICULAR to the chord, on the side the item names (below = the normal
+          // that points down the page) — a vertical offset on a near-vertical chord gave a straight line with a hook
+          let ux = 0, uy = 1;
+          if (it.perp) { const cl = Math.hypot(x1 - x0, yb - ya) || 1; ux = -(yb - ya) / cl; uy = (x1 - x0) / cl; if (uy * sgn < 0 || (uy === 0 && ux > 0)) { ux = -ux; uy = -uy; } ux *= sgn; uy *= sgn; }
+          const P = (cx, cy, k) => f(cx + (it.perp ? ux : 0) * k) + ',' + f(cy + (it.perp ? uy : 1) * k);
+          parts.push('<path d="M' + f(x0) + ',' + f(ya) + ' C' + P(cx0, cy0, kOut) + ' ' + P(cx1, cy1, kOut) + ' ' + f(x1) + ',' + f(yb) +
+            ' C' + P(cx1, cy1, kIn) + ' ' + P(cx0, cy0, kIn) + ' ' + f(x0) + ',' + f(ya) + ' Z" fill="' + o.ink + '" stroke="' + o.ink +
             '" stroke-width="' + f(endThick) + '" stroke-linejoin="round"/>');
         } else if (it.k === 'hairpin-timed') {
           // [LGMF 2g.4, §464 · §466] THE VIBRAPHONE'S TIMED HAIRPIN: its length the time of the movement — from x(t0) (never before

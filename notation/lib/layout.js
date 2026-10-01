@@ -1943,7 +1943,7 @@
                   // CHAIN stacked above the staff, when the chain is up there
                   // and not beside the stem. The default length wins when it
                   // is already longer.
-                  if (flagG && dev.nhStemRule === 'flagClear' && !dev.grace) {   // [§553] a grace note keeps its short stem — the AI's call
+                  if (flagG && dev.nhStemRule === 'flagClear' && (!dev.grace || LINED)   /* [§663, his "All the beams should clear the staff. And the flags too"] on a lined staff a GRACE's flag clears as well */) {   // [§553] a grace note keeps its short stem — the AI's call
                     const clr = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38;
                     // [§400] the stem clears the COLUMN part of an above-chain
                     // (the beside-stem mark needs no clearing) — one mark beside
@@ -1954,9 +1954,10 @@
                     const FEo = LINED && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length ? spec.staffInfo.offsets : null;
                     const FE_TOP = FEo ? Math.max(...FEo) : STAFF_EDGE, FE_BOT = FEo ? Math.min(...FEo) : -STAFF_EDGE;
                     const clearTop = FE_TOP + (chainAbove && underFlag ? Math.max(0, needAboveCol) : 0);
+                    const fH = flagH * (dev.grace ? GR.headScale : 1);   // [§663] a grace's flag is drawn at the grace scale — its own height clears
                     const need = stemDir === 'up'
-                      ? (clearTop + clr + flagH) - yStart      // flag hangs down from the tip
-                      : yStart - (FE_BOT - clr - flagH);  // flag rises from the tip
+                      ? (clearTop + clr + fH) - yStart      // flag hangs down from the tip
+                      : yStart - (FE_BOT - clr - fH);  // flag rises from the tip
                     // [§554 · §561] THE MAX (rules.json objects.flag.clearMaxSs, through the device): a stem the law would stretch past it keeps its
                     // standard length and the flag sits inside the staff — his 'many ledger lines down it might look funny'; 9.5 at his word (§561)
                     // [§662] on a LINED staff every line is INSIDE the staff — the max (written for a note far out on ledgers) does not apply: the flag always clears
@@ -2015,9 +2016,12 @@
                     // short stems; a hand's beamYSs still decides outright.
                     if (LINED && dev.beamYSs == null) {
                       const offs = Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length ? spec.staffInfo.offsets : [2, -2];
-                      const fgD = glyphs.flag.down8 || fgB;
+                      // [§663, his "The shorter one should be the standard stem height. And then, of course, the longer one will reach" · "All the
+                      // beams should clear the staff"] the floor is JUST CLEAR OF THE STAFF — the beam stack's near edge the flag clearance beyond
+                      // the outer line — not a flag's height beyond it (§662's, which stretched the 378.5 pair's shorter stem to 7 ss)
+                      const lvB = dev.noteBeams >= 1 ? Math.round(dev.noteBeams) : 2, stackB = stds.beam.thickness + (lvB - 1) * stds.beam.stackStep;
                       yEnd = dev.grace ? (stemDir === 'up' ? yStart + L : yStart - L)
-                        : stemDir === 'up' ? Math.max(yStart + L, Math.max(...offs) + clr + fgB.hSs) : Math.min(yStart - L, Math.min(...offs) - clr - fgD.hSs);
+                        : stemDir === 'up' ? Math.max(yStart + L, Math.max(...offs) + clr + stackB) : Math.min(yStart - L, Math.min(...offs) - clr - stackB);
                     }
                     if (XO) yEnd -= XO.yOff;   // [2i.4] the beam line is the top staff's; this stem is measured from its own staff
                     const key = dev.beamGroup || 'beam';
@@ -3560,9 +3564,20 @@
           const sg = below ? -1 : 1;
           const stemInto = u => (u.stemDir === 'up' && !below) || (u.stemDir === 'down' && below);
           const endOf = u => stemInto(u) && tipOf(u) != null ? { x: u.stemX, y: tipOf(u) + sg * SL.freeHeadSs } : { x: u.dx, y: u.y + sg * (u.h / 2 + SL.freeHeadSs) };
-          const E0 = endOf(a), E1 = endOf(b);
+          let E0 = endOf(a), E1 = endOf(b);
           const at = u => (u.t - a.t) * sps;   // a unit's time as ss from the slur's start
-          const x0 = E0.x, x1 = at(b) + E1.x, len = Math.max(0.1, x1 - x0);
+          // [RUNNING_LOG §663, his "see what you can do to make it so it doesn't look too straight, but also doesn't look too strange, like
+          // too awkward a curve"] THE STEEP SLUR: when the two heads lie further apart in HEIGHT than in time (a grace on one line of the
+          // percussion staff into a note on another) the slur leaves the first head on the side FACING the second and arrives at the second
+          // head's LEFT, at the quarter of the head nearest the first — never under a head it has to climb back to; its bow is measured
+          // PERPENDICULAR to its chord (the render's `perp`), on the outer, left side; the height the standard law on the chord's own length
+          const steep = !!(spec.staffInfo && spec.staffInfo.lined) && inside.length === 2 && Math.abs(b.y - a.y) > Math.max(0.1, at(b) + b.dx - a.dx);   // on a LINED staff only — the five-line staves keep LilyPond's slur (the lock: the EH's §577 slur)
+          const down = b.y < a.y;
+          if (steep) {
+            E0 = { x: a.dx, y: a.y + (down ? -1 : 1) * (a.h / 2 + SL.freeHeadSs) };
+            E1 = { x: b.dx - b.w / 2 - SL.freeHeadSs, y: b.y + (down ? 1 : -1) * b.h / 4 };
+          }
+          const x0 = E0.x, x1 = at(b) + E1.x, len = steep ? Math.max(0.1, Math.hypot(x1 - x0, E1.y - E0.y)) : Math.max(0.1, x1 - x0);
           // [§600, his (b) — 'a minimum height for short slurs, about 1 ss, so a grace slur never goes flat'] the height never under minHeightSs
           let h = hand.slurHeightSs != null ? hand.slurHeightSs : Math.max(SL.minHeightSs || 0, Math.min(SL.heightRatio * len, SL.heightMaxSs));   // [§596] a hand slurHeightSs on the first note names the height — his "more arc to slur at 337"
           const chordY = x => E0.y + (E1.y - E0.y) * (x - x0) / len;
@@ -3574,8 +3589,9 @@
             for (const x of xs) { const s = (x - x0) / len; if (s <= 0.02 || s >= 0.98) continue;
               const need = (sg * (objY - chordY(x)) + SL.freeHeadSs) / (4 * s * (1 - s)); if (need > h) h = need; }
           }
-          items.push({ k: 'slur', t0: a.t, t1: b.t, dx0Ss: +x0.toFixed(4), y0Ss: +E0.y.toFixed(4), dx1Ss: +E1.x.toFixed(4), y1Ss: +E1.y.toFixed(4),
-            dir: below ? 'below' : 'above', heightSs: +h.toFixed(4), thickSs: SL.thickSs, endThickSs: SL.endThickSs, ev: a.id });
+          items.push(Object.assign({ k: 'slur', t0: a.t, t1: b.t, dx0Ss: +x0.toFixed(4), y0Ss: +E0.y.toFixed(4), dx1Ss: +E1.x.toFixed(4), y1Ss: +E1.y.toFixed(4),
+            dir: steep ? (down ? 'below' : 'above') : below ? 'below' : 'above', heightSs: +h.toFixed(4), thickSs: SL.thickSs, endThickSs: SL.endThickSs, ev: a.id }, steep ? { perp: true } : {}));
+          if (steep) continue;   // [§663] no unit lies inside a two-note steep slur; its marks keep their places
           // [§560, his "make sure we're taking the slur into account in the vertical column"] THE SLUR IN THE VERTICAL CLEARANCE: every
           // mark (a dynamic, an articulation) of a note in the span, on the slur's side, clears the arc at its x by free-slur-distance
           // (LilyPond's 0.8, rules.json objects.slur.freeSlurSs); a note's marks move together, so their stacking is kept

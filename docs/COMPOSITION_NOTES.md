@@ -3616,3 +3616,12 @@ stretches; not the minimum he asked for a moment before. RUNNING_LOG §661.
 apart, beamed as eighths; the stems' side chosen by where the two instruments lie — low pairs up, high pairs down) and THE GRACE INTO A 16TH
 (two strikes a tenth to a quarter of a second apart); a slur only where the two heads are near enough to carry one. Everything else a lone
 strike. "378.392 pairs" = 378.39, two pairs; "grease node" = grace note. RUNNING_LOG §662.
+
+## LG-231 — 2026-09-30 — the percussion: beams and flags clear the staff; the standard stem on the shorter note; slurs on the grace figures that do not look straight or awkward
+
+*His words (session 18, Fable):* "All the beams should clear the staff. And the flags too. And then the grace notes without slurs. Let's try a slur and see what you can do to make it so it doesn't look too straight, but also doesn't look too strange, like too awkward a, a curve. And then the one at 336.8. I can't remember, but I thought we established a standard stem height. So I don't want it just to clear the staff when it's up high like that. I want it to be at least a minimum stem height. If you have that figure, let's use it there. I think it was like 30% bigger than what previously thought to be a standard stem for a quarter note. Same with the figure at 378.4. The shorter one should be the standard stem height. And then, of course, the longer one will reach 398.4 also. also four or five point three."
+
+*The AI's reading (marked as such):* the stem rule in its final order — (1) the note nearest the beam or carrying the flag gets the standard
+stem; (2) if that leaves a beam or a flag inside the staff, it lengthens until it is just outside; (3) the other notes of a beam reach.
+The slur: a real request for a shape, left to the AI's judgment — built as a leaning "(" from the grace to the left of its note.
+RUNNING_LOG §663.

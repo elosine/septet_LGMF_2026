@@ -21173,3 +21173,49 @@ alone). **The gates:** `check_rules` **33** · the lock **106**.
 
 **For his eye:** reload → `piece-lgmf` → `306.2` · `316.8` · `320.4` · `321.3` · `326.5` · `336.7` · `342.6` · `346.7` · `358.6` · `361.7` · `365` ·
 `370.4` · `378.6` · `380.5` · `382.6` · `398.5` · `405.4`.
+
+## §663. The percussion's beams and flags — the standard stem first, clear of the staff always; the steep slur (2026-09-30, Fable, session 18; LG-231)
+
+**What prompted it** (his eye on §662's page; his words whole in LG-231): *"All the beams should clear the staff. And the flags too. And then the
+grace notes without slurs. Let's try a slur and see what you can do to make it so it doesn't look too straight, but also doesn't look too
+strange, like too awkward a … curve. And then the one at 336.8. … I thought we established a standard stem height. So I don't want it just to
+clear the staff when it's up high like that. I want it to be at least a minimum stem height. … 30% bigger than what previously thought to be a
+standard stem for a quarter note. Same with the figure at 378.4. The shorter one should be the standard stem height. And then, of course, the
+longer one will reach 398.4 also. also [405.3]."*
+
+**THE BEAM RULE CORRECTED** — §662's floor was "a flag's height beyond the staff" (+9.39 · −9.18), which stretched the shorter stem of a pair
+past the standard (378.5: the wood block's 7.0 ss). His rule, as now built: **the shorter stem is THE STANDARD (5.85); the longer reaches; and
+the beam clears the staff** — so the floor is JUST CLEAR: the beam stack's near edge the flag clearance (0.38) beyond the outer line.
+
+| the pair | the nearest head | the beam | the shorter stem |
+|---|---|---|---|
+| 361.56 sleigh bells · wood block, down | wood block (−2) | −7.99 | **5.85** |
+| 378.47 temple bowl · wood block, down | wood block (−2) | −7.99 (was −9.18) | **5.85** (was 7.04) |
+| 398.40 castanets · wood block, up | castanets (+4) | +9.99 | **5.85** |
+| 405.30 tambourine · bass drum, up | tambourine (+2) | +7.99 (was +9.39) | **5.85** (was 7.25) |
+| 305.25 sleigh bells · castanets, up | sleigh bells (+6) | +11.99 | **5.85** |
+| 302.55 · 316.78 · 320.34 · 342.51 · 358.50, up | wood block · bowl · brake drum (≤ 0) | **+6.78** — a standard stem would end INSIDE the staff, so the beam just clears it | 6.6 … 10.6 |
+| 321.18 · 364.91 · 380.39, down | castanets · tambourine (≥ +2) | **−6.78** — the same, below | 8.6 … 10.6 |
+
+**THE FLAGS** — every flag clears on this staff, a grace's too now (§553's exemption for graces is the five-line staves'): the graces' stems
+lengthen until their small flag's foot is 0.38 above the top line — 326.44 · 336.68 · 346.63 (castanets, +4) **4.41**, 370.33 (tambourine, +2)
+**6.41**, 306.24 (wood block, −2) **10.41**; the sleigh bells' grace (382.53) keeps the standard 3.18, already clear. (The law used the full
+flag's height for a grace at first — 0.9 too long; scaled.)
+
+**"THE ONE AT 336.8" — told him what the numbers say:** the castanets' 16th at 336.788 IS at the standard — its stem 4.136 → 9.986 = **5.85** — and
+has been since §662. What reads as "just clearing the staff" is the 16th FLAG: 3.5 ss of the stem's 5.85 are under the flag, whose foot is 0.48
+above the top line. Not changed; a longer stem for a double-flagged note is his word.
+
+**THE STEEP SLUR** (the four grace figures he had left unslurred, now slurred: 326.44 · 346.63 · 370.33 · 382.53 → the brake drum): the grace
+sits 6 … 10 ss ABOVE its note and barely a head's width before it, so the standard slur (ends under both heads, the bow measured vertically)
+drew a near-straight line with a hook under the lower head. Built for the lined staff: when the two heads lie further apart in height than in
+time, the slur **leaves the first head on the side facing the second** and **arrives at the second head's LEFT**, at the quarter of the head
+nearest the first; its bow is **perpendicular to its chord**, on the outer (left) side, the height the standard law on the chord's own length
+(1.6 … 2.0 ss on chords of 5.5 … 9.5). A "(" leaning with the figure. The five-line staves keep LilyPond's slur — the first build applied it
+everywhere and THE LOCK caught the English horn's §577 slur changing side; scoped to the lined staff.
+
+**The gates:** `check_rules` **33** · the lock **106** · the shield `piece-lgmf` + two tuba pages' part 4 (the stand-in staff) · the screen
+gate PASS (`render.js` changed).
+
+**For his eye:** a HARD reload (page files changed) → `piece-lgmf` → `306.2` · `326.5` · `336.7` · `346.7` · `370.4` · `378.6` · `382.6` ·
+`398.5` · `405.4`.
