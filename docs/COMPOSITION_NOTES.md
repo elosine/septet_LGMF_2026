@@ -3475,3 +3475,10 @@ drum) — candidates drawn for his pick, by the process of §564. RUNNING_LOG §
 
 *The AI's reading (marked as such):* a beat frame derived from two anchor notes — the beat IS their distance and the lines sit ON them — a
 third way to place a frame beside the fitted "between" phase (T10) and a hand-shifted phase. The tool's `--pin i,j`. RUNNING_LOG §641.
+
+## LG-213 — 2026-09-30 — which note values for percussion that is all strikes
+
+*His words (session 18, Fable):* "what note values are generally used in this context, they are all just strikes for perc"
+
+*The AI's reading (marked as such):* a strike has no duration to write, so the value is free to mean something else — in his system, pace
+(T8). The percussion may want its own answer: one uniform strike value, the space carrying the time. RUNNING_LOG §642.

@@ -20530,3 +20530,24 @@ The hand: `--beatGridFit 4:0.665:1:296.859:297.407:298.854`. Close to §640's "o
 his is exact on 5 and 6.
 
 **Nothing on the page** — his pick owed.
+
+## §642. His question — which note values for percussion strikes; the convention and a reading of the six (2026-09-30, Fable, session 18; LG-213)
+
+**What prompted it:** *"what note values are generally used in this context, they are all just strikes for perc"*
+
+**The answer given — conventional practice, FROM MEMORY (Gould's percussion chapter · the orchestration manuals; not checked this session):**
+- A strike has no length to write, so the value shows the RHYTHM, not a duration: the simplest value that makes the place in the beat plain.
+- In metered music: on a beat, a quarter (or an eighth + rest in a busy texture); off the beat or quick, eighths and 16ths beamed to show the
+  beat; never a long value, a dot-and-tie chain or a tie — nothing sustains. Short-value-plus-rest and one-plain-value are both in use; the
+  rule is the easier read.
+- Two kinds of strike, though: DRY (castanets, wood block, tambourine hit) — the value is rhythm only; RINGING (bass drum, temple bowl, brake
+  drum, a cymbal) — the value, or an l.v. tie, or a damp sign, says how long it is left to sound.
+- In proportional / time-space scores, where the space is the time: commonly ONE head for every strike — stemless, or one uniform short value —
+  with flags or beams used only to bind a quick group; an l.v. tie on what rings.
+
+**Mapped onto this score (the AI's proposal, nothing built):** T8 / S4 already say a value is PACE, not length, and the beat frame gives the
+place. Under the teal frame (0.665 s a beat): the bass drum an upbeat 16th (117 ms before its line) · the three castanet hits one beamed quick
+group (16ths, or the ragged group — 101 then 48 ms, uneven) with the name on the loud third or a hairpin into it · the temple bowl and the
+brake drum each a plain note on its line (a quarter — one beat to the next), the brake drum's 1.6 s ring as an l.v. tie or the long tone's bar.
+The open question for him: one uniform strike value for the whole percussion part (the proportional convention), or values as pace per
+figure as on the winds.
