@@ -22096,3 +22096,31 @@ frames of §695 untouched (the stream copied). sha256 `feaf7a084a87fbe81a3939277
 
 **Not known:** the player he watched in — so the cause is the likeliest one, proven on the file, not on his screen. If it is still off
 after this: by how much and which way is the next datum.
+
+## §697. A late trumpet at 367.8 — found in the film, fixed in the save and on the page (2026-10-01, Fable, session 18; LG-263)
+
+**What prompted it:** his watch-through: *"the horn and trumpet at 367.81. And I guess English horn is there too. So the trumpet didn't
+get synced there. Can we push the trumpet over so it is in unison with the English horn and the horn there? And then we have to run
+through the whole thing. make the fix and then lay out the steps for me here, please."*
+
+**Read:** the English horn `wc-3600` and the horn `wc-3601` start at **367.804**; the trumpet `wc-3599` at **367.975** — 171 ms after
+them; all three end within 19 ms (369.010 … 369.029). §669's unison lined up the chords it found by onset (members within tens of ms);
+at 171 ms the trumpet read as a single of its own (2m's "Tpt 367.98"), so it was never part of that chord. The `--chordDyn` window
+`367.79:367.99:p` already named all three — he had dictated it as one chord at §637.
+
+**The edit — his save, at his word (§669's way and its guards):** `scores/piece-Recombination-Draft01-done.json` as inspected (sha
+`86e92557…`, compact JSON, NO working copy on disk — nothing unsaved in his tab), the newest snapshot his own last Save
+(`scores/versions/…_v2026-10-01T18-13-21-883Z.json` — **the way back**). One object, one field: `wc-3599.startSeconds` 367.975 →
+**367.804**; `endSeconds` 369.01 kept (the note 1.035 → 1.206 s). Verified on the bytes: one object changed, nothing but
+`startSeconds`, the file the same length. The save stays his, uncommitted.
+
+**The page:** `tools/reextract.js` with no new argument — 1075 events, VALID vs source; the three on 367.804; the chord's one `p` on
+all three; the IR's diff 5 lines. `check_rules` 34 · `eh_figure_check` 106 · THE SHIELD `piece-lgmf` alone. Not looked at in the app.
+
+**What is now stale:** the WAV of §689 and the film of §695 · §696 — both play the trumpet 171 ms late; the tag
+`Recombination-notationLock_1.0` marks the page before this fix. **His composer tab still holds 367.975 — he reloads it before any
+edit there, or his next Save writes it back.**
+
+**The steps laid out for him (not run — his go):** 1 he reloads the composer tab · 2 the audio: capture → export → Reaper render
+(≈ 10 min; Reaper open on the saved rack) · 3 the film: the same command, the same cut (≈ 9 min) · 4 his watch-through · 5 on his
+"good": the archive and a new tag.

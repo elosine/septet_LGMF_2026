@@ -3838,3 +3838,10 @@ third page on. RUNNING_LOG §695.
 *His words (session 18, Fable, on the re-rendered film):* "sound is not synced"
 
 *The AI's reading (marked as such):* the whole film (not the test clips, which he accepted) — the sound against the cursor. RUNNING_LOG §696.
+
+## LG-263 — 2026-10-01 — the trumpet at 367.81 not synced with the English horn and the horn: push it over; then run the whole thing
+
+*His words (session 18, Fable, watching the film):* "the horn and trumpet at 367.81. And I guess English horn is there too. So the trumpet didn't get synced there. Can we push the trumpet over so it is in unison with the English horn and the horn there? And then we have to run through the whole thing. make the fix and then lay out the steps for me here, please."
+
+*The AI's reading (marked as such):* one more chord of §669's kind — the trumpet's onset moved onto the other two in his save;
+"run through the whole thing" = the audio and the film made again from the corrected save. RUNNING_LOG §697.
