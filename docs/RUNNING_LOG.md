@@ -20551,3 +20551,54 @@ group (16ths, or the ragged group — 101 then 48 ms, uneven) with the name on t
 brake drum each a plain note on its line (a quarter — one beat to the next), the brake drum's 1.6 s ring as an l.v. tie or the long tone's bar.
 The open question for him: one uniform strike value for the whole percussion part (the proportional convention), or values as pace per
 figure as on the winds.
+
+## §643. The percussion's first six on the page — values as suggested, the pinned frame, the bass drum's stem down and the rest up; a hand's `stemDir` was never read (2026-09-30, Fable, session 18; LG-214)
+
+**What prompted it:** *"ok as you suggest with the teal tempo bass drum downward stem. And the rest up stems. show tempo frame for next 4"*
+
+**Built** (`node tools/reextract.js`; the first plain notes on the seven-line staff):
+- `--plainNotes 4:297.3:298.9` — the six as plain notes, each head ON its instrument's line (BD −6 · castanets +4 · temple bowl 0 · brake drum −4,
+  in ss from the staff's middle; the lines at ±6 · ±4 · ±2 · 0).
+- the values of §642: the bass drum (`wc-3725`) a flagged 16th, `stemDir down` · the three castanet hits (`wc-3756 · 3757 · 3758`) beamed 16ths
+  (`--beam 297.53-297.70@4`, `noteBeams 2`, the beam device's cue off — `gc false · goLine false`, §629's lesson), `stemDir up`, ONE name on
+  the first (mf, its own; the others off by his pattern — the third is vel 105, his to mark) · the temple bowl (`wc-3713`) and the brake drum
+  (`wc-3687`) plain quarters, `stemDir up`, their own names mp · mf.
+- THE FRAME, his teal: `--beatGridFit 4:0.665:1:296.859:297.407:298.854:noLead` — five NAVY lines 296.859 · 297.524 · 298.189 · 298.854 ·
+  299.519 (the part's first frame, S19): the bass drum inside the first beat as an upbeat, the castanets from the second line, the bowl and
+  the brake drum on the third and fourth, one tail line.
+
+**Found on the first draw — the stems came out by the house rule, not as asked** (read from the layout, the lock's own call): the bass drum UP,
+the castanets and the bowl DOWN. Cause: layout reads a note's direction override from the engraving overlay's OWN field (`engOf` →
+`engS.stemDir`, "the per-note override that wins over the beam group and the house rule"), and `--hand` writes everything into
+`value.device` — so a hand's `stemDir` has never been read. (The EH's 344.2 group of §598 carries `stemDir down` on five hands; its stems are
+down because the group rule already said so.) **Fixed in `tools/notate_section.js`:** the hand's `stemDir` is lifted to the overlay's value
+(null unsets). After it: BD down (−6.14 → −12.14, the 16th flag at the tip) · castanets up to a beam at +6.64 · bowl up 4.5 · brake drum up 4.5.
+The lock stays **106** and the shield names `piece-lgmf` alone — the EH's five hands changed nothing.
+
+**What the numbers say is NOT right yet — the percussion's note unit has never been designed (N-2b, his TODO 4), told him:**
+- THE NAMES FALL INSIDE THE STAFF. The dynamic row is the five-line staff's (−4.6): on the seven-line staff (±6) that is between the brake-drum
+  and bass-drum lines; the bass drum's name, flipped to "the side with room", sits at +2.9, between the tambourine and castanet lines. A row
+  for this staff (below −6, or above +6) is a rules row — the device sheet's first line.
+- the bass drum's down stem is 6 ss (the middle-line rule measuring from a head at −6), its flag at −12.
+- the castanets' beamed stems are 2.5 ss (the beam just above the top line).
+- no let-ring mark exists for the brake drum's 1.6 s — it draws as a plain quarter.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `297.5` (play from `296.5`).
+
+## §644. The percussion's next four — the frame candidates drawn (2026-09-30, Fable, session 18; LG-214)
+
+**The four** (notes 7 … 10): 300.116 sleigh bells · 301.486 tambourine · 302.554 wood block (0.27 s) · 302.927 bass drum — 1.370 · 1.068 · 0.373 s
+apart; the next percussion note is 305.254.
+
+**The candidates** (`node tools/tempo_fit.js --part 4 --from 300.0 --to 303.0 --html notation/research/tempo_candidates_perc_300.html`; the
+picture's colours): red **95** (7 × 0.090; phase 299.890, the nearest note 130 ms from a beat) · blue **88** (7 × 0.098; 299.669, 155 ms) ·
+green **98** (5 × 0.122; 299.984, 120 ms) · orange **89** (5 × 0.135; 299.703, 151 ms) · purple **86** (4 × 0.174; 299.926, 164 ms). Four
+sparse onsets fit almost any beat — the tool's coherence method (A) found no peak.
+
+**The AI's observation, offered:** the FIRST frame's beat carried on (0.665 s from 296.859) has lines at 300.184 · 301.514 · 302.844 — the
+sleigh bells 68 ms before one, the tambourine 28 ms before the next, the bass drum 83 ms after a third; the wood block mid-beat. One frame
+over all ten (297.4 … 302.9) at 90 bpm is a candidate the picture does not show.
+
+**Nothing on the page for the four** — his pick owed.

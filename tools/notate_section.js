@@ -1958,9 +1958,15 @@ if (MORPH_SEQ.length) {
     const e = findEv(id);
     if (!e) { console.error('--hand ' + id + ': no such event in this window'); process.exit(2); }
     if (dev.slurTo) { const t = findEv(dev.slurTo); if (!t) { console.error('--hand ' + id + ': slurTo ' + dev.slurTo + ' is not an event in this window'); process.exit(2); } dev.slurTo = t.id; }
-    const existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
+    // [RUNNING_LOG §643 — his "bass drum downward stem. And the rest up stems": the six drew by the house rule] A HAND'S stemDir IS THE
+    // OVERLAY'S OWN FIELD: layout reads a note's direction override from the engraving overlay's value (engOf → engS.stemDir, the per-note
+    // override that wins over the beam group and the house rule), never from the device — so a stemDir written into the device was not
+    // read. It is lifted to the value here (null unsets it), and kept in the device too so the record of the hand stays whole.
+    const liftDir = Object.prototype.hasOwnProperty.call(dev, 'stemDir') ? dev.stemDir : undefined;
+    let existing = doc.overlays.find(o => o.kind === 'engraving' && o.target.event === e.id);
     if (existing) existing.value.device = Object.assign({}, existing.value.device, dev);
-    else doc.overlays.push({ id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' });
+    else { existing = { id: 'ov-hand-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' }; doc.overlays.push(existing); }
+    if (liftDir === 'up' || liftDir === 'down') existing.value.stemDir = liftDir; else if (liftDir === null) delete existing.value.stemDir;
     console.log('  --hand ' + id + ' (' + e.onset.toFixed(3) + '): ' + Object.keys(dev).map(k => k + '=' + JSON.stringify(dev[k])).join(' '));
   }
   // [§564] --beatGrid p:t0:t1:u:n:phase — the tempo he picked for a figure (tools/tempo_fit.js's candidates, his choice), drawn as ticks

@@ -3482,3 +3482,11 @@ third way to place a frame beside the fitted "between" phase (T10) and a hand-sh
 
 *The AI's reading (marked as such):* a strike has no duration to write, so the value is free to mean something else — in his system, pace
 (T8). The percussion may want its own answer: one uniform strike value, the space carrying the time. RUNNING_LOG §642.
+
+## LG-214 — 2026-09-30 — the percussion's first six: as suggested, the teal tempo, the bass drum's stem down and the rest up; the next four framed
+
+*His words (session 18, Fable):* "ok as you suggest with the teal tempo bass drum downward stem. And the rest up stems. show tempo frame for next 4"
+
+*The AI's reading (marked as such):* the values of §642 (a 16th upbeat · three beamed 16ths · two quarters) under the pinned 90 bpm frame; the
+stem direction by INSTRUMENT, not by position — the bass drum, the lowest line, hangs down and everything else stands up (the drum-kit
+convention: the low drum's voice below). Candidates for notes 7 … 10. RUNNING_LOG §643 · §644.
