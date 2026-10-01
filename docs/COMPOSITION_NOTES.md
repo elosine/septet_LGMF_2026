@@ -3816,3 +3816,10 @@ change anything yet. RUNNING_LOG §690.
 
 *The AI's reading (marked as such):* the wide shot with close-ups cut in, piece #5's way; the groups, the zoom and the cut list to be
 seen and agreed. RUNNING_LOG §693.
+
+## LG-260 — 2026-10-01 — the close-up look is good; the cut by piece #5's recipe
+
+*His words (session 18, Fable, on §693's two questions):* "D good, Ea"
+
+*The AI's reading (marked as such):* the 1.85× close-ups of the two groups accepted; the cut list random, seeded, about 30 % in
+close-up — the seed the AI's to pick, his to re-roll. RUNNING_LOG §694.

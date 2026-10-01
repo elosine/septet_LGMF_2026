@@ -2485,16 +2485,16 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the opening as the exporter makes it: the 4 s lead-in on the first page, then the music — no title card
   > - the ending: the last page held while the tail rings — `--t1 886.7` (the WAV's length)
   >
-  > **5. The whole film, with the audio** (the wide shot with close-ups — his "b", §693)
+  > **5. The whole film, with the audio** (the wide shot with close-ups — his "b", §693) — ☑ RENDERED 2026-10-01 (§694: seed 7, 890.66 s)
   >
   > Result when done: one finished file of the whole piece, picture and sound, about 14:51 long, ready for his watch-through.
   >
   > - ☑ the two close-up groups pointed at this ensemble (`realizations.video-cut.halves`: the four winds · the percussion, vibraphone and strings; 1.85×)
-  > - a close-up test for his eye — MADE (`notation/video/test/Recombination-closeup-test-284-316.mp4`); ► his eye
-  > - the cut list (`tools/make_cut.js --dur 886.7 --seed N …` → `notation/video/cut-list.json`) — the recipe his
-  > - the whole film: `export_video.js --ir piece-lgmf --view video --fps 30 --cut notation/video/cut-list.json --fade 5 --fadeMode cross --t1 886.7 --audio … --out …`
+  > - ☑ a close-up test for his eye — his "D good" (§694)
+  > - ☑ the cut list — his "Ea", piece #5's recipe: `make_cut.js --seed 7 --frac 0.29 --min 20 --max 30 --dur 886.7 --lead 40 --tail 45 --gap 25 --fps 30` → `notation/video/cut-list.json` (11 close-ups, 30.4 %)
+  > - ☑ the whole film → `notation/video/renders/Recombination-Draft01-V-CUT-seed7.mp4`: `export_video.js --ir piece-lgmf --view video --fps 30 --cut notation/video/cut-list.json --fade 5 --fadeMode cross --t1 886.7 --audio … --out …`
   >
-  > **6. His watch-through** — *to be laid out when we discuss it.*
+  > **6. His watch-through** — ► HIS (the file above; findings collected, then fixed together; a re-roll of the cut is one seed and a 9-minute render; on his "good" the film is archived as piece #5's was — `notation/video/approved/<date>/` with its README and cut list)
   >
   > **7. The completion** (the instructions · the print · what else finishes Draft 01; the call is his) — *to be laid out when we discuss it.*
 

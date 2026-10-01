@@ -22012,3 +22012,30 @@ group's. Inherited (the groups' rows are cut on the lane edge).
 
 **Owed by him:** his eye on the close-up test · the cut list's recipe — piece #5's (`--frac 0.29 --min 20 --max 30 --lead 40 --tail 45
 --gap 25`, seeded: for 886.7 s about ten close-ups) or his own.
+
+## §694. The whole film rendered — the wide shot with eleven close-ups, seed 7 (2026-10-01, Fable, session 18; LG-260)
+
+**His word on §693's two questions:** *"D good, Ea"* — the close-up look accepted (1.85×, the two groups, the crossfades); the cut by
+piece #5's recipe.
+
+**The cut list:** four seeds rolled and read (7 · 53 · 11 · 23 — 10 or 11 close-ups each, 28 … 31 %); **seed 7** taken — the AI's pick
+among random rolls: 6 of the winds and 5 of the lower group, and two inside section 2 (289 … 427 s), one of each group, where the small
+figures and the percussion staff are. `node tools/make_cut.js --seed 7 --frac 0.29 --min 20 --max 30 --dur 886.7 --lead 40 --tail 45
+--gap 25 --fps 30 --out notation/video/cut-list.json` (tracked). The close-ups (T = the winds, B = the lower group):
+T 1:28–1:48 · T 2:41–3:06 · B 3:46–4:11 · B 4:57–5:20 · T 5:54–6:20 · T 7:21–7:48 · B 8:44–9:06 · T 9:39–10:09 · T 10:35–11:01 ·
+B 12:03–12:26 · B 13:22–13:44 — 30.4 % of the piece.
+
+**The render:** `node tools/export_video.js --ir piece-lgmf --view video --fps 30 --cut notation/video/cut-list.json --fade 5 --fadeMode
+cross --t1 886.7 --audio notation/audio/piece-Recombination-Draft01-done.wav --out notation/video/renders/Recombination-Draft01-V-CUT-
+seed7.mp4` — 26 721 frames, 115 page rasters (74 wide pages + the close-ups' windows), **8.9 min**, ffmpeg exit 0.
+
+**Measured off the file (ffprobe):** 890.663 s = the 4 s lead-in + the WAV's 886.664 · video h264 1920 × 1080 · 30 fps · start 0.000 ·
+audio AAC 48 kHz, its stream starting at 3.978 s (the 4 s lead-in less the AAC encoder's priming) · 62 886 645 bytes (60 MB) · sha256
+`1bd42744b41889df9b3921e70a951e3dd6ce09b653c85863101b1a515ab9ea57`. Not in git (`notation/video/**/*.mp4` is ignored).
+
+**Looked at (three frames pulled from the file, not the film played):** 2 s — the first page standing, the cursor waiting in the
+lead-in; 889 s — the last page held, the cursor at the end, the vibraphone's two hairpins closed on their circles (§677). The sync by
+ear and eye is his watch-through's; the test film's was accepted on the same exporter (§691).
+
+**Next:** step 6, his watch-through. A different cut = another seed and the same nine-minute render. On his "good", the archive as
+piece #5's (`notation/video/approved/<date>/` — the README and the cut list in git, the file on the machine).
