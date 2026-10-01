@@ -94,7 +94,8 @@
   // a narrower time, the fall and the rise steeper. One copy for the static arc (render.js) and the ball (animobj.js)
   function presetFor(base, item, look) {
     const P = Object.assign({}, base || {}, item || {});
-    const bb = look && look.geom === 'beatBall' && look.beatBall;
+    // [§650] the 'staffTop' geometry (style 3) carries its own spread — the same narrow aperture, by its rules row
+    const bb = look && ((look.geom === 'beatBall' && look.beatBall) || (look.geom === 'staffTop' && look.staffTop));
     if (bb && bb.spread) P.duration = (P.duration != null ? P.duration : DEFAULT_PRESET.duration) * bb.spread;
     return P;
   }
@@ -108,6 +109,15 @@
     if (L.geom === 'beatBall' && L.beatBall && typeof sys.yOfSs === 'function' && sys.ssPx) {
       const STAFF_HALF = 2, over = L.beatBall.overhangSs != null ? L.beatBall.overhangSs : 0.4, rise = L.beatBall.riseSs != null ? L.beatBall.riseSs : 2;   // RULES MIRROR (rules.json objects.gc.beatBall · objects.tick.gridOverhangSs)
       return { k, impactY: sys.yOfSs(-STAFF_HALF - over), h: (2 * STAFF_HALF + 2 * over + rise) * sys.ssPx, look: L };
+    }
+    // [RUNNING_LOG §650, his 'it descends from the top of the lane … the impact point being down just above the top staff line'] geom
+    // 'staffTop' (GC style 3): the apex where the lane GC's is (the lane's top, inset as piece #1's), the impact just ABOVE the staff's own
+    // top line — L.staffTopSs (the part's top line, handed in on the item / the instance; five lines = 2) + L.staffTop.gapSs. The arc and
+    // the ball scale to that drop. For a staff whose inside is not free (the percussion's seven lines).
+    if (L.geom === 'staffTop' && typeof sys.yOfSs === 'function' && sys.ssPx) {
+      const ST = L.staffTop || {}, top = L.staffTopSs != null ? L.staffTopSs : 2, gap = ST.gapSs != null ? ST.gapSs : 0.4;   // RULES MIRROR (rules.json objects.gc.staffTop.gapSs)
+      const impactYs = sys.yOfSs(top + gap), apexY = sys.yTopPx + (L.heightInsetPx - L.impactInsetPx) * k;
+      return { k, impactY: impactYs, h: Math.max(1, impactYs - apexY), look: L };
     }
     const impactY = sys.yBotPx - L.impactInsetPx * k;
     const h = sys.heightPx - L.heightInsetPx * k;

@@ -20749,3 +20749,41 @@ do not sit on it (the frame passes them, as asked); the next four's own frame (�
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
 
 **For his eye:** reload → `piece-lgmf` → `297.5`, play from `296.5` through `300.5`.
+
+## §650. The percussion's strikes as bare heads under GCs — the frame gone, the stems gone, GC STYLE 3 from the lane's top to just above the staff (2026-09-30, Fable, session 18; LG-219)
+
+**What prompted it** (his eye on §649's page, after §647 · §648's two answers): *"Okay, take those away, please. And the tempo lines. And can I
+see GCs on the third castanet and the next two? And I want to use the narrower aperture. And it descends from the top of the lane. I'm
+presuming this is about halfway between the percussion staff line and the bottom trumpet line. And then the impact point being down just above
+the top staff line."*
+
+**The AI's reading of "those" — THE STEMS** (the last line of the AI's reply had put the stems choice to him: (a) all up · (b) the bass drum
+down · (c) bare heads, stems only on figures; "take those away" = (c)). If he meant the balls, one hand per note puts the stems back.
+
+**Built:**
+- **the frame gone** — `@drop` of §649's `--beatGridFit` (its seven lines and balls); the percussion has no frame.
+- **the stems gone on the lone strikes** — `nhStem false` on the bass drum (`wc-3725`, was a flagged 16th), the castanet quarter (`wc-3758`),
+  the temple bowl (`wc-3713`), the brake drum (`wc-3687`): filled heads on their instruments' lines, nothing else. The castanets' two graces
+  keep their stems, beam and stroke — a figure (§648's (c)).
+- **GC STYLE 3, `staffTop`** (a registered style beside 1 lane · 2 beatBall): the apex where the lane GC's is (the lane's top), the impact
+  **just above the staff's OWN top line** (`objects.gc.staffTop.gapSs` 0.4 — the AI's value for his "just above", the frame lines' overhang),
+  the aperture style 2's 0.7 (the duration 0.6 → 0.42). `gc.js` `laneGeom` · `presetFor` (one copy for the arc and the ball); the staff's top
+  line travels on the layout item (`staffTop`) and on the animated instance (from `opts.staffExtentOf`, §645); `rules.json` `objects.gc.styles.3`
+  · `objects.gc.staffTop`, the container's two looks point at it. A hand asks: `gc true · gcGeom "staffTop"` (or `gcStyle 3`).
+- **the three GCs** — on the castanet quarter (297.689), the temple bowl (298.189), the brake drum (298.854): `gc · gcGeom staffTop · goLine
+  false` — the impact over the head's left edge (S1), no go line (the AI's call: a go line would cross the seven lines).
+
+**His presumption checked** (the lane boxes, `Fit.boxesFor`): the percussion lane's top is 12.12 ss above its staff's middle = **6.12 ss above
+the top line**; the trumpet's bottom line is 6.12 ss above the same boundary. Halfway — he is right. So the GC: apex 11.4 ss (the lane top
+less piece #1's inset), impact +6.4, **a drop of 5.0 ss** in the room between the two staves.
+
+**What this is, for the record:** the percussion's unit after four turns of talk (§642 … §649) — the time-space convention (§648): a strike is
+a bare head on its instrument's line; WHERE it falls is said by a cue above the staff, not by a stem, a value or a beat line; a stem only
+binds a figure. The beat frame was tried three ways on these six (the between phase · the pinned pair · the split misfit) and set aside.
+
+**Still as they were (step 3 of §646, undecided):** the names inside the staff (the bass drum's mf at +2.9, the others at −4.6 · −5.4).
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone · **the screen gate PASS**
+(`render.js` changed: 1701 animated devices at the page edges).
+
+**For his eye:** a HARD reload (page files) → `piece-lgmf` → `297.5`, play from `296.5`.

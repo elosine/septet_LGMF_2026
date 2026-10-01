@@ -3522,3 +3522,11 @@ binding — the time-space convention, and what his own long tones and uneven gr
 *The AI's reading (marked as such):* anchor the beat on the arrival he hears (the castanet quarter) and split the misfit of the two notes
 after it evenly — one a little early, one a little late — rather than pinning two and leaving the third off. A beat frame found by a
 condition, a fourth way beside the between phase, the pinned pair and the hand shift. 0.555 s. RUNNING_LOG §649.
+
+## LG-219 — 2026-09-30 — the percussion: stems away, the tempo lines away, GCs on the three arrivals — from the lane's top to just above the staff, the narrow aperture
+
+*His words (session 18, Fable):* "Okay, take those away, please. And the tempo lines. And can I see GCs on the third castanet and the next two? And I want to use the narrower aperture. And it descends from the top of the lane. I'm presuming this is about halfway between the percussion staff line and the bottom trumpet line. And then the impact point being down just above the top staff line."
+
+*The AI's reading (marked as such):* "those" = the stems (his answer to the stems choice: bare heads). The beat frame gives way to cues: each
+arrival gets its own GC, kept OUT of the seven-line staff — falling through the room between the trumpet's staff and the percussion's and
+landing on top of the staff, over the head. The third GC style. RUNNING_LOG §650.

@@ -92,7 +92,7 @@
   // frame, scaled by the view's magnification (PP-6).
   register('gc', (inst, view, t, st) => {
     const s = GC.systemOf(view, inst.part);   // §401e: the first staff of a multi-staff part (one copy with render.js)
-    const lookM = Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {});   // [§592] the GC's geometry from its device ('beatBall')
+    const lookM = Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {}, inst.staffTop != null ? { staffTopSs: inst.staffTop } : {});   // [§592] the GC's geometry from its device ('beatBall') · [§650] 'staffTop'
     const P = GC.params(GC.presetFor(st.preset || {}, (inst && inst.preset) || {}, lookM));   // [§593] the aperture by the geometry
     const frac = GC.heightFrac(P, t - inst.at);
     if (frac === null) return [];
@@ -403,7 +403,8 @@
         const e = evById.get(id);
         if (!e) continue;
         const dv = devOf(e) || {};
-        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, (dv.gcGeom || dv.gcStyle) ? { geom: dv.gcGeom || (dv.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] · [§594] gcStyle 1 | 2
+        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, (dv.gcGeom || dv.gcStyle) ? { geom: dv.gcGeom || (dv.gcStyle === 3 ? 'staffTop' : dv.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] · [§594] gcStyle 1 | 2 · [§650] 3
+          (dv.gcGeom === 'staffTop' || (!dv.gcGeom && dv.gcStyle === 3)) ? { staffTop: O.staffExtentOf ? O.staffExtentOf(c.part).top : 2 } : {},   // [§650] the staff's own top line
           typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
       }
       // curveMeter rides every event that carries its drawn level (stratum

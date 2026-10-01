@@ -1335,7 +1335,8 @@
             // (render.js draws them from notation/lib/gc.js; the ball is
             // animobj's). Impact = the go time. `gc: true` = the registry
             // preset; `gc: {...}` = a per-note preset.
-            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, (dev.gcGeom || dev.gcStyle) ? { geom: dev.gcGeom || (dev.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note) · [§594] the hand gcStyle 1 | 2 (his 'GC style 2')
+            if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, (dev.gcGeom || dev.gcStyle) ? { geom: dev.gcGeom || (dev.gcStyle === 3 ? 'staffTop' : dev.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note) · [§594] the hand gcStyle 1 | 2 (his 'GC style 2') · [§650] 3 = 'staffTop'
+              (dev.gcGeom === 'staffTop' || (!dev.gcGeom && dev.gcStyle === 3)) ? { staffTop: (spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length) ? Math.max(...spec.staffInfo.offsets) : 2 } : {},   // [§650] the staff's own top line, for the impact
               typeof dev.gc === 'object' ? { preset: dev.gc } : {}));
             // the WRITTEN position (shared by the nh-unit and the ring bar):
             // ottava = smallest shift bringing the written note within 3
