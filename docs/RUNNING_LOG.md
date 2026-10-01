@@ -20787,3 +20787,40 @@ binds a figure. The beat frame was tried three ways on these six (the between ph
 (`render.js` changed: 1701 animated devices at the page edges).
 
 **For his eye:** a HARD reload (page files) → `piece-lgmf` → `297.5`, play from `296.5`.
+
+## §651. THE CUE LINE — the frame's line and ball at a note's own time, in place of the GC; the blue-grey an event, the olive a tempo; the percussion's lines from its second line to its second-to-last (2026-09-30, Fable, session 18; LG-220)
+
+**What prompted it** (his eye on §650's GCs): *"Okay, let's get rid of the GCs. Let's go back to the tempo lines and the balls. And let's use
+olive lines. … No, I reverse that. Let's use the blue gray. And we'll use olive for when there's an actual tempo. So here's what I mean. The
+blue gray just to mark like the GCs instead. First of all, … the full staff was too high. So let's go. Second from the bottom to second from
+the top. And let's have a line at the third castanet and the next two. And then a line at the next two after that. And then the third one
+after that. But those two, let's beam those as eighth notes."*
+
+**The idea, his:** the beat frame's look (the band, the ball that drops onto it) used ONE LINE AT A TIME — at a note's own onset — to do the
+GC's job: mark the arrival. Not a tempo. And a colour sense with it: **the blue-grey marks an event; the olive is for an actual tempo.**
+
+**Built:**
+- **`--cueLines P:t1,t2,…`** (`tools/notate_section.js`): each time becomes a `beatGrid` overlay of ONE line (`value.cue`), its ball's
+  flight `objects.tick.cueBallS` 0.42 s (the GC's 0.6 × the 0.7 aperture — the AI's value). `layout.js` and `animobj.js` keep cue lines OUT of
+  the frames' alternation (S19) — always the first of `gridColours`, the duration line's blue-grey — and the fit's clamp ignores them.
+- **THE LINED STAFF'S INSET** (`objects.tick.gridInsetLines` 1): on a lined staff the frame's lines — cue or tempo — run from the second line
+  to the second-to-last, LINE TO LINE, no overhang: on the percussion staff **−4 … +4** (the brake-drum line to the castanet line), 8 ss, where
+  §645's ran −6.4 … +6.4. The ball lands at the line's foot and drops the same span + its 2 ss rise (from the top staff line). The resolver
+  hands a lined staff's lines to both (`staffExtentResolver` → `lines`); a five-line staff is untouched.
+- **the GCs off** the castanet quarter, the bowl, the brake drum (`gc false`); style 3 stays registered (S25), unused.
+- **six cue lines:** 297.689 (the castanet quarter) · 298.189 (the temple bowl) · 298.854 (the brake drum) · 300.116 (the sleigh bells) ·
+  301.486 (the tambourine) · 302.554 (the wood block).
+- **the next four notes on the page** (`--plainNotes 4:300.0:303.0`): the sleigh bells and the tambourine bare heads (`nhStem false`); **the
+  wood block + the bass drum (302.554 · 302.927) beamed EIGHTHS** (`--beam 302.55-302.93@4`, `noteBeams 1`, the beam device's cue off), stems
+  DOWN — the beam below the staff at −8.6 (the AI's call: both notes sit in the lower half; stems up would put the beam between the lines);
+  the pair's name on its first (f), the bass drum's off.
+
+**The AI's readings, his to reverse:** "a line at the next two after that" = the sleigh bells and the tambourine · "the third one after that"
+= the wood block, which also takes a line · "those two … beam those as eighth notes" = the wood block and the bass drum (0.373 s apart) · the
+stems of §650 stay off (he asked only for the GCs to go) · "olive for an actual tempo" recorded as his sense for THIS staff — the winds'
+frames still alternate navy · olive by S19; whether they turn all-olive is his word.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone · the screen gate PASS. The
+EH's six frames, the bassoon's and the trumpet's keep their indices and colours (checked on the instances).
+
+**For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5` through `303.5`.

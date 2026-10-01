@@ -25,6 +25,7 @@
 //   --plainNotes P:T0:T1     [§547] the env-less pitched notes of part P (the ensemble's part index) in [T0, T1): env 'plainNote' — a filled head with a plain stem (repeatable)
 //   --oneOffs P:T0:T1        [§611] the env-less pitched notes of part P in [T0, T1): env 'oneOff' — THE ONE-OFF, the GC unit of #4's staccato / #5's strike (repeatable)
 //   --chordDyn T0:T1:mark    [§637] ONE NAME PER CHORD: every long tone whose onset falls in [T0, T1) takes the dynamic name `mark` (ppp … fff), whatever its velocity — a later --hand on a note still wins (repeatable)
+//   --cueLines P:t1,t2,…     [§651] CUE LINES on part P: one beat-frame line (and its ball) at each time — a mark at a note's own time, not a tempo; the blue-grey, outside the frames' colours (repeatable)
 //   --hand id:{json}         [§550] a per-note HAND: the JSON merged onto the note's engraving overlay device (an object id wc-… or an event id; repeatable)
 //   --rest part:t:dur        [§550] a free-standing rest of value dur (4 · 8 · 16 · 32) at t seconds on the part (repeatable) — a `rest` overlay
 //   --beatGrid p:t0:t1:u:n:phase   [§564] THE SHOWN BEAT's grid on part p over [t0, t1]: a tick at every unit u from phase, the beat every n units (repeatable)
@@ -1992,7 +1993,7 @@ if (MORPH_SEQ.length) {
     const mine = doc.events.filter(e => partOfE2.get(e.id) === P && e.pitch);
     // [§576] the notation before and after INCLUDES a beat frame already placed on this part (its lines are notation too): the 90-bpm
     // frame's lead beat (297.550) fell between the second figure's last two lines (297.130 · 297.778) — two frames interleaved
-    const gridsHere = doc.overlays.filter(o => o.kind === 'beatGrid' && o.target && o.target.part === P && Array.isArray(o.target.span));
+    const gridsHere = doc.overlays.filter(o => o.kind === 'beatGrid' && !(o.value && o.value.cue) && o.target && o.target.part === P && Array.isArray(o.target.span));   // [§651] a cue line is not a frame
     const prevEnd = Math.max(-Infinity, ...mine.filter(e => e.onset < first - 1e-6).map(e => e.onset + e.duration), ...gridsHere.filter(o => o.target.span[1] <= first).map(o => o.target.span[1]));
     const nextOn = Math.min(Infinity, ...mine.filter(e => e.onset > last + 1e-6).map(e => e.onset), ...gridsHere.filter(o => o.target.span[0] >= last).map(o => o.target.span[0]));
     const kFirst = Math.floor((first - ph) / beat + 1e-9), kLast = Math.round((last - ph) / beat);   // the beat at or before the first onset; the nearest to the last
@@ -2002,6 +2003,19 @@ if (MORPH_SEQ.length) {
     const t0 = +(ph + k0 * beat).toFixed(4), t1 = +(ph + k1 * beat + 1e-3).toFixed(4);
     doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: noLead ? 0 : LEAD, tail: noTail ? 0 : TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast, keepTail, keepLead } }, provenance: 'authored' });
     console.log('  --beatGridFit part ' + P + ': the beat ' + beat.toFixed(3) + ' s (' + Math.round(60 / beat) + ' bpm) from ' + ph + ' — the cluster ' + first + ' … ' + last + ', ' + (kFirst - k0) + ' beat(s) before (of ' + LEAD + '; the notation before ends ' + (isFinite(prevEnd) ? prevEnd.toFixed(3) : '—') + ') · ' + (k1 - kLast) + ' after (of ' + TAIL + '; the next note ' + (isFinite(nextOn) ? nextOn.toFixed(3) : '—') + ') → lines ' + t0 + ' … ' + (ph + k1 * beat).toFixed(3) + ' (' + (k1 - k0 + 1) + ')');
+  });
+  // [RUNNING_LOG §651; his LG-220: "the blue gray just to mark like the GCs instead … a line at the third castanet and the next two"]
+  // --cueLines P:t1,t2,… (repeatable) — CUE LINES: one line of the beat frame's look, with its ball, at each named time on part P. Not a
+  // tempo: each is a `beatGrid` overlay of ONE line (value.cue), its ball's flight rules.json objects.tick.cueBallS. Layout and animobj keep
+  // them out of the frames' alternating colours (the first colour, the duration line's blue-grey) and out of the frames' clamps.
+  process.argv.forEach((a, i) => {
+    if (a !== '--cueLines' || !process.argv[i + 1]) return;
+    const m = /^(\d+):(-?\d+(?:\.\d+)?(?:,-?\d+(?:\.\d+)?)*)$/.exec(process.argv[i + 1]);
+    if (!m) { console.error('--cueLines needs P:t1,t2,… — the part index and seconds (e.g. --cueLines 4:297.689,298.189)'); process.exit(2); }
+    const P = +m[1], TK = (CURVE_RULES && CURVE_RULES.tick) || {}, D = TK.cueBallS > 0 ? TK.cueBallS : 0.42;
+    const ts = m[2].split(',').map(Number);
+    for (const t of ts) doc.overlays.push({ id: 'ov-cue-' + P + '-' + Math.round(t * 1000), kind: 'beatGrid', target: { part: P, span: [+(t - 0.001).toFixed(4), +(t + 0.001).toFixed(4)] }, value: { unit: D, beatEvery: 1, phase: t, cue: true }, provenance: 'authored' });
+    console.log('  --cueLines part ' + P + ': ' + ts.length + ' cue line(s) at ' + ts.map(t => t.toFixed(3)).join(' · ') + ' (the ball ' + D + ' s)');
   });
   grids.forEach((spec, n) => {
     const m = /^(\d+):(-?[\d.]+):(-?[\d.]+):([\d.]+):(\d+):(-?[\d.]+)$/.exec(spec);

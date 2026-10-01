@@ -115,7 +115,7 @@
     const G = GC.laneGeom(s, view, st.look);
     // [§568 · §570] the landing: 'lineBottom' (his word, §570 — the ball bounces from the grid line's TOP to its BOTTOM: the impact at the
     // line's foot, the drop the line's height) · 'laneBottom' (the tuba's own geometry: the lane's bottom, the whole lane's height) · 'lineTop'
-    const STAFF_HALF = 2, over = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
+    const STAFF_HALF = 2, over = inst.noOverhang ? 0 : (st.overhangSs != null ? st.overhangSs : 0.4);   // RULES MIRROR (rules.json objects.tick.gridOverhangSs) · [§651] none on a lined staff's inset lines
     const land = st.land || 'lineBottom';
     // [§645] the staff's OWN outer lines (the percussion's seven-line staff ±6) — on the instance from opts.staffExtentOf, else five lines
     const TOP = inst.staffTop != null ? inst.staffTop : STAFF_HALF, BOT = inst.staffBot != null ? inst.staffBot : -STAFF_HALF;
@@ -376,15 +376,18 @@
       // [§578] each frame's index on its part (in time order) — the ball's colour alternates by it, as the frame's lines do (layout.js)
       const grids = ((ir && ir.overlays) || []).filter(ov => ov.kind === 'beatGrid' && ov.target && ov.target.part !== undefined && ov.target.span && ov.value && ov.value.unit > 0);
       const frameOf = new Map(); const byPart = new Map();
-      for (const ov of grids) { if (!byPart.has(ov.target.part)) byPart.set(ov.target.part, []); byPart.get(ov.target.part).push(ov); }
+      for (const ov of grids) { if (ov.value.cue) continue; if (!byPart.has(ov.target.part)) byPart.set(ov.target.part, []); byPart.get(ov.target.part).push(ov); }   // [§651] a cue line is not a frame
       for (const list of byPart.values()) list.sort((a, b) => a.target.span[0] - b.target.span[0]).forEach((ov, i) => frameOf.set(ov, i));
       for (const ov of grids) {
         const tg = ov.target, v = ov.value;
         if (!has(tg.part)) continue;
-        const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = frameOf.get(ov);
+        const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = v.cue ? 0 : frameOf.get(ov);   // [§651] a cue's ball in the first colour (the blue-grey)
         const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
         // [§645] a staff that is not the five-line ±2 hands the ball its outer lines (opts.staffExtentOf = layout's staffExtentResolver)
-        const ext = O.staffExtentOf ? O.staffExtentOf(tg.part) : null, extra = ext && (ext.top !== 2 || ext.bot !== -2) ? { staffTop: ext.top, staffBot: ext.bot } : {};
+        // [§651] on a LINED staff the lines run between inner lines (style.beatBall.insetLines ← rules.json objects.tick.gridInsetLines), no overhang
+        const ext = O.staffExtentOf ? O.staffExtentOf(tg.part) : null, ins = style && style.beatBall && style.beatBall.insetLines > 0 ? Math.round(style.beatBall.insetLines) : 0;
+        const extra = ext && ext.lines && ins && ext.lines.length > 2 * ins ? { staffTop: ext.lines[ins], staffBot: ext.lines[ext.lines.length - 1 - ins], noOverhang: true }
+          : ext && (ext.top !== 2 || ext.bot !== -2) ? { staffTop: ext.top, staffBot: ext.bot } : {};
         for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push(Object.assign({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, frame, _src: 'ir-beatGrid' }, extra));
       }
     }

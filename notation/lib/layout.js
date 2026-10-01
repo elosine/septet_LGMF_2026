@@ -149,7 +149,8 @@
   // staff's ±2. ONE copy for the beat frame's lines (layoutSection) and its ball (animobj, handed in as opts.staffExtentOf).
   function staffExtentResolver(ens) {
     const by = new Map();
-    for (const pc of (ens && ens.parts) || []) { const si = staffInfoOf(pc); if (si && si.offsets && si.offsets.length) by.set(pc.part, { top: Math.max(...si.offsets), bot: Math.min(...si.offsets) }); }
+    // [§651] a LINED staff (the percussion's) hands its lines too, top to bottom — the beat lines there run between inner lines (insetLines)
+    for (const pc of (ens && ens.parts) || []) { const si = staffInfoOf(pc); if (si && si.offsets && si.offsets.length) by.set(pc.part, Object.assign({ top: Math.max(...si.offsets), bot: Math.min(...si.offsets) }, si.lined ? { lines: [...si.offsets].sort((a, b) => b - a) } : {})); }
     return part => by.get(part) || { top: 2, bot: -2 };
   }
   function positionResolver(ens) {
@@ -3260,15 +3261,24 @@
         const BG = Object.assign({ subHSs: 0.4, at: 'staff', overhangSs: 0.4, beatsOnly: true }, o.beatGrid || {});   // RULES MIRROR (rules.json objects.tick.subHSs · gridAt · gridOverhangSs · gridBeatsOnly)
         // [§645] the staff's OWN outer lines — a lined staff's offsets (the percussion's seven lines, ±6), else five lines, ±2
         const SIo = spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length ? spec.staffInfo.offsets : null;
-        const STAFF_TOP = SIo ? Math.max(...SIo) : 2, STAFF_BOT = SIo ? Math.min(...SIo) : -2;
+        // [RUNNING_LOG §651, his "the full staff was too high … second from the bottom to second from the top"] on a LINED staff the lines run
+        // from its insetLines-th line to the same from the bottom (rules.json objects.tick.gridInsetLines), LINE TO LINE — no overhang there
+        const SIs = SIo && spec.staffInfo.lined ? [...SIo].sort((a, b) => b - a) : null;
+        const INS = SIs && BG.insetLines > 0 && SIs.length > 2 * BG.insetLines ? Math.round(BG.insetLines) : 0;
+        const STAFF_TOP = SIs ? SIs[INS] : (SIo ? Math.max(...SIo) : 2), STAFF_BOT = SIs ? SIs[SIs.length - 1 - INS] : (SIo ? Math.min(...SIo) : -2), OVER = INS ? 0 : BG.overhangSs;
         // [§578, his "alternate colors for the ball and the lines for each new rhythm group … the olive from the vibraphones so that there's
         // some visual that it's a new or potentially a new tempo"] THE FRAMES ALTERNATE: the part's frames in time order take the colours of
         // rules.json objects.tick.gridColours in turn (the navy, then the olive); each line carries its frame's colour, the ball the same
-        const framesHere = beatGrids.filter(g => g.part === spec.part).sort((a, b) => a.span[0] - b.span[0]);
+        // [§651, his "the blue gray just to mark like the GCs instead … olive for when there's an actual tempo"] A CUE LINE (value.cue — the
+        // extractor's --cueLines) is one line at one note's time, not a frame: it takes the first colour (the duration line's blue-grey) and
+        // stands OUTSIDE the frames' alternation
+        const gridsHere = beatGrids.filter(g => g.part === spec.part).sort((a, b) => a.span[0] - b.span[0]);
+        const framesOnly = gridsHere.filter(g => !g.cue);
         const COLS = Array.isArray(BG.colours) && BG.colours.length ? BG.colours : null;
-        framesHere.forEach((g, frame) => {
+        gridsHere.forEach(g => {
+          const frame = g.cue ? null : framesOnly.indexOf(g);
           const n = g.beatEvery >= 1 ? Math.round(g.beatEvery) : 1;
-          const colour = COLS ? COLS[frame % COLS.length] : undefined;
+          const colour = COLS ? COLS[g.cue ? 0 : frame % COLS.length] : undefined;
           const k0 = Math.ceil((g.span[0] - g.phase) / g.unit - 1e-9), k1 = Math.floor((g.span[1] - g.phase) / g.unit + 1e-9);
           for (let k = k0; k <= k1; k++) {
             const t = +(g.phase + k * g.unit).toFixed(6), beat = ((k % n) + n) % n === 0;
@@ -3276,8 +3286,8 @@
             // [§565] the shorter size, hung from the lane's top edge (yAt 'top' — the render's lane top), in the duration line's colour and opacity
             // [§566] gridAt 'staff': a line through the staff, overhangSs beyond each outer line (the tick's foot is its ySs, it rises hSs)
             // [§581] the line a band gridWSs wide (rules.json objects.tick.gridWSs) — under a stem-down on-beat note the hairline vanished
-            const stamp = Object.assign({ frame }, colour ? { colour } : {}, BG.wSs > 0 ? { wSs: BG.wSs } : {});
-            if (BG.at === 'staff') items.push(Object.assign({ k: 'tick', t, ySs: STAFF_BOT - BG.overhangSs, hSs: (STAFF_TOP - STAFF_BOT) + 2 * BG.overhangSs, grid: beat ? 'beat' : 'sub' }, stamp));
+            const stamp = Object.assign(g.cue ? { cue: true } : { frame }, colour ? { colour } : {}, BG.wSs > 0 ? { wSs: BG.wSs } : {});
+            if (BG.at === 'staff') items.push(Object.assign({ k: 'tick', t, ySs: STAFF_BOT - OVER, hSs: (STAFF_TOP - STAFF_BOT) + 2 * OVER, grid: beat ? 'beat' : 'sub' }, stamp));
             else items.push(Object.assign({ k: 'tick', t, ySs: o.tickY, grid: beat ? 'beat' : 'sub', hSs: BG.subHSs }, BG.at === 'laneTop' ? { yAt: 'top' } : {}, stamp));
           }
         });

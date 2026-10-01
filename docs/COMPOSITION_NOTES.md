@@ -3530,3 +3530,11 @@ condition, a fourth way beside the between phase, the pinned pair and the hand s
 *The AI's reading (marked as such):* "those" = the stems (his answer to the stems choice: bare heads). The beat frame gives way to cues: each
 arrival gets its own GC, kept OUT of the seven-line staff — falling through the room between the trumpet's staff and the percussion's and
 landing on top of the staff, over the head. The third GC style. RUNNING_LOG §650.
+
+## LG-220 — 2026-09-30 — the blue-grey line to mark an event like a GC, the olive for an actual tempo; the lines from the second staff line to the second-to-last
+
+*His words (session 18, Fable):* "Okay, let's get rid of the GCs. Let's go back to the tempo lines and the balls. And let's use olive lines. We'll use olive lines. No, I reverse that. Let's use the blue gray. And we'll use olive for when there's an actual tempo. So here's what I mean. The blue gray just to mark like the GCs instead. First of all, let's the full staff was too high. So let's go. Second from the bottom to second from the top. And let's have a line at the third castanet and the next two. And then a line at the next two after that. And then the third one after that. But those two, let's beam those as eighth notes."
+
+*The AI's reading (marked as such):* a new device out of two old ones — the frame's line and ball doing the GC's work, one line per arrival
+("the cue line"); and a two-colour grammar: blue-grey = here is an event, olive = here is a pulse. Lines at the castanet quarter, the bowl,
+the brake drum, the sleigh bells, the tambourine and the wood block; the wood block and the bass drum beamed as eighths. RUNNING_LOG §651.
