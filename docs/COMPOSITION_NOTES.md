@@ -3514,3 +3514,11 @@ not intend. RUNNING_LOG §647.
 
 *The AI's reading (marked as such):* he is weighing the percussion's strikes as bare heads on their lines, stems kept for figures that need
 binding — the time-space convention, and what his own long tones and uneven groups already do. RUNNING_LOG §648.
+
+## LG-218 — 2026-09-30 — a tempo whose beat lands on the third castanet and comes equally close to the next two; drawn past the sleigh bell
+
+*His words (session 18, Fable):* "Can you find me a tempo that the beat lands on the third castanet and then comes equally close to the next two? And then draw it through past the sleigh bell, please."
+
+*The AI's reading (marked as such):* anchor the beat on the arrival he hears (the castanet quarter) and split the misfit of the two notes
+after it evenly — one a little early, one a little late — rather than pinning two and leaving the third off. A beat frame found by a
+condition, a fourth way beside the between phase, the pinned pair and the hand shift. 0.555 s. RUNNING_LOG §649.

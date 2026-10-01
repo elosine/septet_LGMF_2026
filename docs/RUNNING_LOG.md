@@ -20719,3 +20719,33 @@ where a flag or a beam is needed (the castanets' graces, a burst). It removes th
 direction to mean something unintended, no length rule, nothing standing out of or hanging below a seven-line staff — and the beat frame
 already says where the strike falls. What it gives up: the value as pace (T8) on a lone strike — which for a strike says little (his own
 "they are all just strikes"). The AI's lean for this staff; his word.
+
+## §649. The percussion's frame re-found — the beat ON the castanet quarter and equally close to the next two: 0.555 s (108 bpm), drawn past the sleigh bells (2026-09-30, Fable, session 18; LG-218)
+
+**What prompted it** (his answer to §646's castanet question — none of A · B · C, a fourth): *"Can you find me a tempo that the beat lands on
+the third castanet and then comes equally close to the next two? And then draw it through past the sleigh bell, please."*
+
+**The arithmetic.** A line on the castanet quarter (297.689). The bowl is 0.500 s after it, the brake drum 1.165 s after. With the bowl
+taking the next line and the brake drum the one after, their misses are 0.500 − T and 1.165 − 2T. Equal and opposite when
+0.500 − T = −(1.165 − 2T) → 3T = 1.665 → **T = 0.555 s = 108 bpm**: the bowl **55 ms BEFORE** its line (298.244), the brake drum **55 ms
+AFTER** its line (298.799). (The equal-and-same-side solution is T = 0.665 — both 165 ms early, §646's (B).) The same move as his "p4 · p7
+share the shortfall" on the winds' frames (§605 · §609 · §616), here solved for the tempo rather than the phase.
+
+**Built:** `@replace` of the frame's arg → `--beatGridFit 4:0.555:1:297.689:297.407:300.116:noLead` — **seven navy lines** 297.134 · **297.689**
+· 298.244 · 298.799 · 299.354 · 299.909 · 300.464 (the lines ±6.4, the ball the same drop — §645). Against them:
+
+| note | onset | its line | from the line |
+|---|---|---|---|
+| bass drum | 297.407 | between 297.134 and 297.689 | mid-beat (49 %) — an upbeat |
+| castanet graces | 297.540 · 297.641 | 297.689 | 149 · 48 ms before — the ruff into the beat |
+| castanet quarter | 297.689 | 297.689 | ON it |
+| temple bowl | 298.189 | 298.244 | 55 ms before |
+| brake drum | 298.854 | 298.799 | 55 ms after |
+| sleigh bells | 300.116 | between 299.909 and 300.464 | 207 ms after a line (37 %) |
+
+**Told him:** 108 bpm is over the soft ceiling of 100 a figure (`gridMaxBpm`, §570) — taken because he asked for this beat; the sleigh bells
+do not sit on it (the frame passes them, as asked); the next four's own frame (§644) now overlaps this one's last two lines if it is placed.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone.
+
+**For his eye:** reload → `piece-lgmf` → `297.5`, play from `296.5` through `300.5`.
