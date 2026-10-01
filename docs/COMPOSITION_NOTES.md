@@ -3554,3 +3554,10 @@ the percussion (ten notes, 297.4 … 302.9) — an "actual tempo", which by his 
 the standard GC, on the arrival he hears as the event (the castanet quarter), landing just under the staff on a line that is not drawn. The
 ball: what read as un-smooth was speed — the same curve stretched over a line twice as long; kept at the original distance it moves as it
 did. RUNNING_LOG §653.
+
+## LG-223 — 2026-09-30 — can the ball have the same smooth motion with a higher arc
+
+*His words (session 18, Fable):* "Is it possible for the bouncing ball to have the same smooth motion but a higher arc? Or is that not possible?"
+
+*The AI's reading (marked as such):* the shortened flight of §653 moves well but sits low on the tall staff; he wants the height back without
+the harshness. Possible within limits — the curve softened as the arc grows. RUNNING_LOG §654.

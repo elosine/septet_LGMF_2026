@@ -20890,3 +20890,28 @@ bells · the tambourine as bare heads · the wood block + the bass drum beamed e
 **The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone · the screen gate PASS.
 
 **For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5` through `303.7`.
+
+## §654. His question — the same smooth motion with a higher arc: possible, by softening the curve in proportion (2026-09-30, Fable, session 18; LG-223)
+
+**What prompted it** (his eye on §653's ball, now the English horn's 6.8 ss drop on the percussion's longer lines): *"Is it possible for the
+bouncing ball to have the same smooth motion but a higher arc? Or is that not possible?"*
+
+**The answer, from the ball's own law** (`gc.js` `heightFrac`; the beat ball's preset — ictus 90 · stiffness 62 · damping 100 · descent 60 %):
+the fall is h·(1 − u^p) over 60 % of the beat with p = 1 + ictus/50 = **2.8**; the rise h·(1 − (1 − u)^q) over 40 % with q = 1 + stiffness/50 =
+**2.24**. What the eye reads as smooth or harsh is the SPEED at the line: the landing p·h/t_fall and the take-off q·h/t_rise. On the English
+horn (0.648 s a beat, h 6.8 ss): landing ≈ **49 ss/s**, take-off ≈ **59 ss/s**. On the percussion at 95 bpm (0.6335 s):
+
+| the arc | landing | take-off |
+|---|---|---|
+| 6.8 ss (now — §653) | 50 ss/s | 60 ss/s |
+| 10 ss (the line + the rise) | 74 | 88 |
+| 14.8 ss (§645's full staff) | 109 | 131 |
+
+So height alone cannot rise without the speed rising — the time is the tempo's. **But the curve can soften in proportion:** p and q scaled by
+6.8 / h keep the landing and the take-off at the English horn's speeds for any height — for 10 ss, p ≈ 1.9 (ictus 45), q ≈ 1.5 (stiffness 26).
+The ball then moves more evenly through the beat (less hang at the top, the same touch at the line); what is given up is some of the ictus's
+"snap" — the late acceleration that makes the landing read as a point. A limit: toward p = 1 the fall is a straight line and the landing no
+longer reads as an event; about 1.5 × the present height is comfortable, the full staff is not.
+
+**Offered, not built:** (a) as it is · (b) the arc the line's own height + the rise (10 ss) with the curve softened to the English horn's
+landing speed — a rule: the ball's powers scale with its drop · (c) a height he names.
