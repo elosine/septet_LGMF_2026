@@ -22257,3 +22257,50 @@ section 2's temporal notation 16 · 17 · 18 · 19 — the percussion 7. **No ro
 most rows were written):** the long tone and its navy bar (2m) · one name per chord (§637) · the one-off and the GC's purpose (S24, his
 TODO 9) · the grace family · the percussion staff's conventions (S25 … S33) · the vibraphone's ○ at the end of a fall (§677). Not
 merged into the page and not added to the tracker — held until he has read the page.
+
+## §704. The instruction page's images: one scale — the zoomed presentation score — and five cut from this piece (2026-10-01, Fable, session 18; LG-269)
+
+**His word**, on §703's page: *"Can you update the images in the in this performance node, but from this piece? And can we do something
+about the size? They're too large in the last performance nodes. For this one, can we figure out what the zoomed in size? So when I'm
+using the presentation score, I can zoom in. Let's find out that size relatively. And then make all the images precisely as they would
+have appeared in that zoomed version. So they're all relative, the same size to each other. And then do your best to find the
+appropriate images. And where you can't, I'll look. You can just leave it and I'll look."*
+
+**The size — what was found.** The presentation score's zoom is the app's Z key: `realizations.zoom-working.zoomZ` = **2** (the film's
+close-ups are 1.85, `video-cut`). The zoom is a pure magnification of the 1920 × 1080 frame: a staff 31.6 px tall becomes 63.2 px,
+154 px per second becomes 308, and the zoomed frame shows **5.77 s** of music beside a 144 px gutter. Piece #5's page was NOT at one
+scale: `capture_lane.js` lowered Z when a span was wider than the zoom window (its two morph images, 7.1 s, were cut at Z 1.65), and
+the page then fitted every image to the column or to a flex pair — worked out from its numbers (not measured on his screen), the same
+notation stood at an effective Z of ≈ 2.0 (the crescendo and the trill), 1.9 (the let-ring pair), 1.5 (the first pair) and 0.75 (the
+morph images).
+
+**The rule built (the AI's reading of "relatively", his to reverse):** every score image is a crop of the ZOOMED frame, and the page's
+text column stands for the zoomed frame's full width — an image's width is its crop width / 1920 of the column. So a 5.7 s crop is
+91 % of the column, a 1.2 s crop 19 %, and all of them carry the same staff: on the screen page (an 840 px column) 27.6 px tall, a
+normal engraved size, where piece #5's largest stood at 63 px. In the files: `styles.css` `img.zoomed` (`width: calc(var(--w) /
+var(--frame) * 100%)`, no padding, an outline for the border) and ONE KNOB, `:root { --frame: 1920 }` — raise it and every image
+shrinks together. `tools/capture_lane.js`: a span wider than the zoom window is REFUSED (`--fit` restores piece #5's behaviour) ·
+the part names are this piece's (`eh bsn hn tpt perc vib vc db`) · it prints the crop's `--w`.
+
+**The five images cut from `piece-lgmf` (each command beside its image in the page's comments):**
+- Example 1 (was the Bartók pizzicato): the bassoon's one-off at 295.97 s, t = 295.80 — the GC's ball descending, the go line, the cue
+  head, mf, "ord.".
+- Example 2 (was the trill): the English horn's breath at 28.71 s (a new pitch — the open head, `+2`, `12 (C2)`), t = 30.3 — the go
+  line, the green level line, the pie, `(pp)`.
+- Crescendos (was the viola's swell): the English horn at 20.4 … 26.1 s — the level line rising through `(p)` to `(mp)` inside
+  one breath.
+- The morph, entry (was the viola in Bloom): the horn at 152.1 s — the block (`8 (A1)`, the two heads and the gliss line, `−25`,
+  `ppp → ff`), the go line, the orange and the green.
+- The morph, mid (the same): the horn at 168.6 … 174.3 s — the breath's go line at 169.79, the orange curve falling, the green arc
+  through `(f)` to `(ff)`.
+The five piece-#5 files they replace were removed from the folder.
+
+**Left for him, still piece #5's and marked so in the page's comments:** the trill image (this piece has no trill) · the morph
+sequence chart (a generated chart of #5's Bloom and Spectral, not a score image) · the two let-ring piano images. Their sizes are
+untouched (the old rule). The text under every image is still piece #5's — his.
+
+**How it was looked at:** the page's own measure (the five at 162 / 606 / 768 px wide in an 840 px column, 115 px tall) and each SVG
+rasterized to a scratch PNG. Found that way: the one-off's "ord." fell under the crop — the pair re-cut with `--padBot 30`.
+**Not done, said to him:** the images' text (the cents, the partial, "ord.") names Crimson Pro Light with no font embedded — an image
+on a web page cannot borrow the page's fonts, so it draws in his system's serif unless that font is installed (piece #5's page was the
+same).

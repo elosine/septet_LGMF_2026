@@ -16,14 +16,21 @@
 //   node tools/capture_lane.js --part vn1 --t 20.34 --span 20.05-20.95 \
 //        --out docs/notation_instructions/images/x.svg [--zoom 2] [--ir piece-lgmf]
 //
-//   --part   an index 0–6 or a name: fl bcl pno vn1 vn2 va vc
+// LGMF (2026-10-01, RUNNING_LOG §704 — his word: "make all the images precisely as they would have appeared in
+// that zoomed version. So they're all relative, the same size to each other"): EVERY image is a crop of the
+// ZOOMED presentation score at the registry's Z (zoom-working, the app's Z key) — a span wider than the zoom
+// window is REFUSED instead of lowering Z (--fit restores the old behaviour). The page then shows each image at
+// crop width / frame width of its text column (styles.css `img.zoomed`, --w = the crop's width printed below).
+//
+//   --part   an index 0–7 or a name: eh bsn hn tpt perc vib vc db
 //   --toPart crop a contiguous RANGE of lanes, --part through --toPart
 //            (multi-lane shots); default = the single --part lane
 //   --span   the time range the image shows (the crop)
 //   --t      the instant of the animated layer (cursor, balls, meters)
 //   --zoom   Z, the app's zoom factor (default: the registry's zoom-working, 2).
 //            The render window is the zoom window centred on the span; a span
-//            wider than that window lowers Z until the span fits.
+//            wider than that window is refused (LGMF §704) unless --fit is given,
+//            which lowers Z until the span fits (piece #5's behaviour).
 //   --keepNeighbors  draw the other lanes too (default: only the target lanes
 //            are drawn; the geometry keeps all seven, so nothing moves)
 //   --onlyOnsets a-b  draw ONLY the events whose onset lies in [a, b] (every part) — the rest of the IR is dropped
@@ -42,7 +49,7 @@ const arg = (name, dflt) => {
   const i = process.argv.indexOf('--' + name);
   return i >= 0 ? process.argv[i + 1] : dflt;
 };
-const NAMES = ['fl', 'bcl', 'pno', 'vn1', 'vn2', 'va', 'vc'];
+const NAMES = ['eh', 'bsn', 'hn', 'tpt', 'perc', 'vib', 'vc', 'db'];
 const partArg = v => { const i = NAMES.indexOf(String(v).toLowerCase()); return i >= 0 ? i : parseInt(v, 10); };
 const part = partArg(arg('part', '0'));
 const toPart = partArg(arg('toPart', String(part)));
@@ -116,7 +123,14 @@ let Z = parseFloat(arg('zoom', String(zoomDefault)));
 const baseCfg = { widthPx: W, heightPx: H, window: [0, pageSeconds], gutterPx, systems, ssPerSystem };
 const basePps = (W - gutterPx) / pageSeconds;
 const spanOf = z => (W - z * gutterPx) / (z * basePps);
-if (s1 - s0 > spanOf(Z)) Z = W / (basePps * (s1 - s0) + gutterPx);   // the wide span wins: Z drops until it fits
+if (s1 - s0 > spanOf(Z)) {
+  if (process.argv.indexOf('--fit') < 0) {   // [§704] one scale for every image: the zoom's own
+    console.error('capture_lane: the span ' + (s1 - s0).toFixed(2) + ' s is wider than the zoom window at Z ' + Z +
+      ' (' + spanOf(Z).toFixed(2) + ' s) — shorten it, or pass --fit to lower Z');
+    process.exit(1);
+  }
+  Z = W / (basePps * (s1 - s0) + gutterPx);   // --fit: the wide span wins, Z drops until it fits
+}
 const winSpan = spanOf(Z);
 const mid = (s0 + s1) / 2;
 const w0 = mid - winSpan / 2;
@@ -165,4 +179,4 @@ fs.writeFileSync(path.join(ROOT, out), svg);
 console.log('wrote ' + out + '  (' + svg.length + ' bytes · ' + NAMES[part] +
   (toPart !== part ? '-' + NAMES[toPart] : '') + ' @ ' + t +
   ' s · span ' + s0 + '-' + s1 + ' · Z ' + Z.toFixed(2) + ' · window ' + cfg.window[0].toFixed(2) + '-' + cfg.window[1].toFixed(2) +
-  ' · crop ' + wCrop.toFixed(0) + 'x' + hCrop.toFixed(0) + ')');
+  ' · crop ' + wCrop.toFixed(0) + 'x' + hCrop.toFixed(0) + ' · --w ' + wCrop.toFixed(0) + ' = ' + (100 * wCrop / W).toFixed(1) + ' % of the frame)');

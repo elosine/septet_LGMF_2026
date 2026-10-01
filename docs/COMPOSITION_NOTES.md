@@ -3881,3 +3881,11 @@ copy-forward and the postmortem will find them. RUNNING_LOG §701.
 *The AI's reading (marked as such):* piece #5's performance instructions become this piece's page, as a copy of its own — the title
 changed and nothing else, he revises it section by section; the tracker's list is given and kept aside, not merged, until he has read
 the page. RUNNING_LOG §703.
+
+## LG-269 — 2026-10-01 — the performance notes' images: from this piece, at the zoomed score's size, all the same scale
+
+*His words (session 18, Fable, on the copied page):* "Can you update the images in the in this performance node, but from this piece? And can we do something about the size? They're too large in the last performance nodes. For this one, can we figure out what the zoomed in size? So when I'm using the presentation score, I can zoom in. Let's find out that size relatively. And then make all the images precisely as they would have appeared in that zoomed version. So they're all relative, the same size to each other. And then do your best to find the appropriate images. And where you can't, I'll look. You can just leave it and I'll look."
+
+*The AI's reading (marked as such):* one scale for every score image — a crop of the zoomed presentation score (Z 2), the page's
+column standing for the zoomed frame's width; "relatively" read as relative to the frame, his to reverse (one knob). Images found for
+five of the nine places; the trill, the chart and the two piano images left for him. RUNNING_LOG §704.

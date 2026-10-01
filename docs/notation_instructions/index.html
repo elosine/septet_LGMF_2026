@@ -39,15 +39,17 @@
 </div>
 
 <!-- ═══ Animated Conduction Tools ══════════════════════════════════════════
-     E1: Violin 1, Bartók pizzicato fff at 20.52 s (the opening's scattered
-         strikes), captured at t=20.34 — cursor approaching the go line, ball
-         descending.
-     E2: Violin 1, the trill at 140.00 s (1.80 s, sfz, the level curve flat),
-         captured at t=140.81 — cursor and curve follower mid-trill; the trill and
-         its curve ONLY (--onlyOnsets, §592: the next strike's GC and notation removed).
+     THE IMAGES' SIZE (RUNNING_LOG §704): every score image is a crop of the ZOOMED presentation score (the app's
+     zoom, Z 2 of the 1920-px frame; tools/capture_lane.js refuses a span wider than the zoom window), shown at ONE
+     scale — the text column stands for the zoomed frame's full width, so an image's width is --w / 1920 of the
+     column (styles.css, img.zoomed; --w = the crop width the tool prints).
+     THIS PIECE'S IMAGES (the text under them is still piece #5's — his to revise):
+     E1: Bassoon, the one-off at 295.97 s (B1, mf), captured at t=295.80 — cursor approaching the go line, ball descending.
+     E2: English horn, the breath at 28.71 s (a new pitch, G5 +2 · 12 (C2)), captured at t=30.3 — the go line, the
+         green level line, the breath pie.
      Regenerate:
-     node tools/capture_lane.js --part vn1 --t 20.34 --span 19.98-20.98 --padBot 14 --out docs/notation_instructions/images/conduction_e1_strike_vn1_20.svg
-     node tools/capture_lane.js --part vn1 --t 140.81 --span 139.65-142.05 --padBot 14 --onlyOnsets 139.9-140.1 --out docs/notation_instructions/images/conduction_e2_trill_vn1.svg  -->
+     node tools/capture_lane.js --part bsn --t 295.80 --span 295.35-296.55 --padBot 30 --out docs/notation_instructions/images/conduction_e1_oneoff_bsn_296.svg
+     node tools/capture_lane.js --part eh --t 30.3 --span 28.0-32.5 --padBot 30 --out docs/notation_instructions/images/conduction_e2_breath_eh_29.svg  -->
 
 <h3>Animated Conduction Tools</h3>
 
@@ -57,21 +59,16 @@
         <p>A <strong>scrolling cursor</strong> runs throughout the piece at a consistent speed and indicates when things are to be played. Notation is spaced proportionally in time — distance on the page equals duration. <strong>Bouncing-ball conductors</strong> aid with rhythmic precision. The <strong>dotted vertical line</strong> — the <strong>go-line</strong> — marks the <strong>go-time</strong> for events.</p>
         <p>In the first example, you would play the Bartók pizzicato when the scrolling cursor reaches the go-line and the ball bounces. In the second example, you would begin the trill at the go-line and continue it for the length of the green curve &#8212; the trill ends where the curve ends.</p>
     </div>
-    <div class="pair">
-        <figure style="flex: 308 1 0">
-            <img src="images/conduction_e1_strike_vn1_20.svg" alt="Example 1 — a Bartók pizzicato at the go line, ball descending, cursor approaching">
-        </figure>
-        <figure style="flex: 739 1 0">
-            <img src="images/conduction_e2_trill_vn1.svg" alt="Example 2 — a trill: go line, open head, sfz, the green level curve with the curve follower mid-trill">
-        </figure>
+    <div class="zoomed-row">
+        <img class="zoomed" style="--w: 370" src="images/conduction_e1_oneoff_bsn_296.svg" alt="Example 1 — the bassoon's short note at the go line, ball descending, cursor approaching">
+        <img class="zoomed" style="--w: 1386" src="images/conduction_e2_breath_eh_29.svg" alt="Example 2 — the English horn's breath: go line, open head with its cents and partial, the green level line, the breath pie">
     </div>
 </div>
 
 <!-- ═══ Curve-Based Crescendo ══════════════════════════════════════════════
-     Image: Viola, the crescendo run's first swell at 526.79 s (1.21 s, ppp → fff,
-     "sempre secco" at its first swell), captured at t=527.6 — cursor and curve
-     follower two-thirds up the curve. Regenerate:
-     node tools/capture_lane.js --part va --t 527.6 --span 526.4-528.75 --padBot 8 --out docs/notation_instructions/images/curve_cresc_527_va.svg  -->
+     Image, THIS PIECE'S: English horn, inside the breath of 13.71 s — the green level line rising through (p) at 22.02 s
+     to (mp) at 25.03 s, captured at t=23.5. Regenerate:
+     node tools/capture_lane.js --part eh --t 23.5 --span 20.4-26.1 --out docs/notation_instructions/images/curve_cresc_eh_23.svg  -->
 
 <h3>Gradient Curves</h3>
 
@@ -81,12 +78,13 @@
     </div>
 
     <h4>Crescendos</h4>
-    <img src="images/curve_cresc_527_va.svg" alt="A gradient curve describing a crescendo, ppp to fff, with the curve follower — viola at 527 s">
+    <img class="zoomed" style="--w: 1756" src="images/curve_cresc_eh_23.svg" alt="The green level line rising through p to mp inside one breath — English horn at 23 s">
     <div class="description">
         <p>Gradient curves are used to describe crescendos. Play the crescendo from dynamic 1 to dynamic 2. The bottom of the curve corresponds to the starting dynamic, the top to the ending dynamic. The contour of the curve determines how the crescendo grows over time.</p>
     </div>
 
-    <!-- Trills image: a trill whose level curve moves, captured mid-flight with the tr header in the frame;
+    <!-- STILL PIECE #5'S IMAGE — LEFT FOR HIM (§704): Recombination has no trill.
+         Trills image: a trill whose level curve moves, captured mid-flight with the tr header in the frame;
          node tools/capture_lane.js --part bcl --t 129.95 --span 128.82-131.0 --padBot 14 --out docs/notation_instructions/images/gradient_trill.svg
          (the bass clarinet trill at 129.17 s, 5.5 s; RUNNING_LOG §575). Text to follow (the composer's). -->
     <h4>Trills</h4>
@@ -110,7 +108,8 @@
         <p>There are two sections in this movement &#8212; Bloom and Spectral. In the Bloom section, pairs of performers glissando away from each other &#8212; one goes up in pitch while the other goes down &#8212; and then back together. The chart below gives the approximate beating rate at its maximum.</p>
         <p>The strategy for the Spectral section is different. Performers begin on a pitch and then glissando towards and away from a target harmonic partial.</p>
     </div>
-    <!-- The morph sequence chart, THIS PIECE'S, measured from the save's morph curves (RUNNING_LOG §576):
+    <!-- STILL PIECE #5'S IMAGE — LEFT FOR HIM (§704): a chart, not a score image; this piece's morphs are a bloom and two take → take.
+         The morph sequence chart, THIS PIECE'S, measured from the save's morph curves (RUNNING_LOG §576):
          node tools/gen_morph_chart.js
          BLOOM: the three pairs' beating in Hz over the morph, the peak marked · SPECTRAL: each part's pitch over the
          morph in cents from its start (flat where it holds), the dot where it reaches its partial, the B♭ HARMONICS
@@ -125,13 +124,13 @@
         </ul>
         <p><strong>Notation</strong></p>
     </div>
-    <!-- The morph notation, THIS PIECE'S: the viola in BLOOM (RUNNING_LOG §588).
-         (1) the entry — the header (start and destination heads, −25 c, niente → fff), the go line, both curves at their starting edges:
-         node tools/capture_lane.js --part va --t 186.0 --span 182.3-189.4 --padBot 14 --out docs/notation_instructions/images/beating_notation_entry_va.svg
-         (2) fifteen seconds in — the orange curve falling, the green rising, a go line (rearticulation), both curve followers:
-         node tools/capture_lane.js --part va --t 199.6 --span 195.9-202.7 --padBot 14 --out docs/notation_instructions/images/beating_notation_mid_va.svg -->
-    <img src="images/beating_notation_entry_va.svg" alt="The viola entering the Bloom section: the header with the pitch range and niente to fff, the go line, the orange curve at the top and the green at the bottom">
-    <img src="images/beating_notation_mid_va.svg" alt="The viola fifteen seconds into Bloom: the orange glissando curve falling, the green dynamic curve rising, a go line, both curve followers at the cursor">
+    <!-- The morph notation, THIS PIECE'S (§704): the horn in the first morph, the bloom (152.1 … 269.9 s).
+         (1) the entry — the block (the start head A4 · 8 (A1), the gliss line, the farthest head −25, ppp → ff), the go line at 152.1 s, both curves starting:
+         node tools/capture_lane.js --part hn --t 153.0 --span 150.5-156.2 --out docs/notation_instructions/images/morph_entry_hn_152.svg
+         (2) eighteen seconds in — a go line (the breath at 169.79 s), the orange curve, the green arc through (f) to (ff):
+         node tools/capture_lane.js --part hn --t 171.2 --span 168.6-174.3 --out docs/notation_instructions/images/morph_mid_hn_171.svg -->
+    <img class="zoomed" style="--w: 1756" src="images/morph_entry_hn_152.svg" alt="The horn entering the first morph: the block with the two heads joined by a gliss line and ppp to ff, the go line, the orange curve above the staff and the green below">
+    <img class="zoomed" style="--w: 1756" src="images/morph_mid_hn_171.svg" alt="The horn eighteen seconds into the morph: a go line, the orange glissando curve, the green dynamic curve rising through f to ff">
     <div class="description">
         <p>The notation for the acoustic beating movement employs two curves for each performer: a green one at the bottom of the staff and an orange one at the top. The green curve indicates dynamic level, and the orange curve indicates beating/glissando level. The dotted vertical go-lines are rearticulation points &#8212; the rearticulation should happen at the go-line: breathe or retake the bow before, and rearticulate at the line. The pitch range notated at the beginning of each section is approximate; you will calibrate the glissando pitch using beating speed and timbre. The animated curves can assist.</p>
     </div>
