@@ -231,10 +231,11 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
      last run: 1076 / 1076 notes, 436 bends in place, 0 hanging. The event count is unchanged (1076).
   3. `node tools/export_midi.js --score piece-Recombination-Draft01-done --capture midi/piece-Recombination-Draft01-done.capture.json`
      — the checks must pass before a file is written; it warns if the save is newer than the capture.
-  4. `node tools/render_reaper.js --score piece-Recombination-Draft01-done --up` (≈ 5 min) — **`--up` is required** (§407: the piece's
-     file goes to −1 dBTP by one plain gain; the last run +10.0 dB). It REPLACES `notation/audio/piece-Recombination-Draft01-done.wav`
+  4. `node tools/render_reaper.js --score piece-Recombination-Draft01-done --up --maxUp 6` (≈ 5 min) — **both flags required**: `--up` lets
+     the one plain gain go UP toward −1 dBTP (§407: +10.0 dB last time), **`--maxUp 6` caps it at +6 dB — HIS WORD (§670): "+10 … too much …
+     like plus six, if still necessary"** (new, never yet run). It REPLACES `notation/audio/piece-Recombination-Draft01-done.wav`
      (gitignored — the old one is not kept unless copied first; ask him only if he wants the old one).
-  5. Measured off the file (the tool prints it) → append the RENDER.md §4 register line · a RUNNING_LOG § (**§670 next**) · the journal ·
+  5. Measured off the file (the tool prints it) → append the RENDER.md §4 register line · a RUNNING_LOG § (**§671 next**) · the journal ·
      the state lines → commit the tracked outputs (`midi/piece-Recombination-Draft01-done.mid`, its 29 per-track files,
      `reaper/place_piece-Recombination-Draft01-done_midi.lua`) + the docs, explicit paths, push. No re-extraction: the WAV's name is the
      IR's `source.score`, the ♪ link finds it.
@@ -374,7 +375,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 |---|---|---|---|
 | **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
 | **►►►** | **THE PERCUSSION, the rest** (PLAN 2o) — the lone strikes not yet named (they still draw as the fold left them; one `--plainNotes 4:…` window each makes a bare head) · its dynamics after 375 · the ball's higher arc (§654, a · b · c) · a let-ring mark (the brake drum's rings) · `sub.` beside a dynamic (§658) · the beam-vs-standard-stem question at 378.5 · 405.3 (§665) | Fable | — |
-| **►►►►** | **A NEW AUDIO RENDER OF DRAFT 01** — his ask (2026-10-01, LG-236), AFTER his proof, a `/checkpoint` and a clear: `docs/RENDER.md` §4 (his ▶ playback captured from HIS tab, rendered through a copy of his rack, `render_reaper.js --up` at +10 dB to −1 dBTP), then the ♪ link on `piece-lgmf`. The save now carries the chords' unison (§669), the EH's and the DB's changed pitches, the EH's lengthened 343.12 — **he RELOADS the composer tab first** | Opus | yes — after the checkpoint |
+| **►►►►** | **A NEW AUDIO RENDER OF DRAFT 01** — his ask (2026-10-01, LG-236), AFTER his proof, a `/checkpoint` and a clear: `docs/RENDER.md` §4 (his ▶ playback captured from HIS tab, rendered through a copy of his rack, `render_reaper.js --up --maxUp 6` — the boost at most +6 dB, his word §670), then the ♪ link on `piece-lgmf`. The save now carries the chords' unison (§669), the EH's and the DB's changed pitches, the EH's lengthened 343.12 — **he RELOADS the composer tab first** | Opus | yes — after the checkpoint |
 | ☑ | **THE LONG-TONE CHORDS' ONSETS IN UNISON** (§638 held → §669 done, 2026-10-01): all 36 chords on their earliest member, in his save (82 notes, ≤ 65 ms); the page re-extracted, the gates green | — | — |
 | **►►►** | **THE LOCK'S BLOCKS** — `tools/eh_figure_check.js` asserts the EH's figures 1 … 4, the 317 frame and the 324.6 figure only: NOTHING of the EH from 337, the bassoon, the horn, the trumpet, the strings, the chords' names or the percussion is locked yet (the §589 · §590 block is the pattern) — after his eye, so what is locked is what he approved | Opus | yes |
 | ☑ | **THE SERVER RESTARTED by him** (2026-10-01) — §632's R route is live; never exercised by the AI: his first R after a composer Save is its test (a failed refresh now puts the IR back) | his | — |
@@ -412,7 +413,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
 **Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #10 (2026-10-01, Opus):** the chords in unison (§669) · the server
-restarted · his proof gave no revisions · ► THE NEW AUDIO RENDER OF DRAFT 01 — the steps in the block CHECKPOINT #10 at the top of §2.
+restarted · his proof gave no revisions · the boost capped at +6 dB (§670) · ► THE NEW AUDIO RENDER OF DRAFT 01 — the steps in the block CHECKPOINT #10 at the top of §2.
 
 **Open at session end — SESSION 18 CLOSED (2026-10-01, Fable):**
 - **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a HARD reload (`layout.js` · `render.js` ·

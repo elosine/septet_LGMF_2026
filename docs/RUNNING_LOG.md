@@ -21380,3 +21380,19 @@ next extraction; the validator would say so).
 done for now, the proof next (the AI's reading; `eh_figure_check`'s blocks are NOT extended — after his proof). The order he gives: his
 proof and any revisions → `/checkpoint` → clear → **a new audio render of Draft 01** (`docs/RENDER.md` §4) — the render now due carries
 the unison, the EH's and the DB's changed pitches and the EH's lengthened 343.12.
+
+## §670. The render's boost capped at +6 dB — his word on the level of the new render (2026-10-01, Opus, session 18, after checkpoint #10)
+
+**What prompted it:** *"one thing to add to the render, last time we found that we had to boost the render's volume. I think it was like
+plus 10 dB, but I think that is too much. So let's make the boost lower, like plus six, if still necessary."*
+
+**The record:** §407 — Draft 01's float rendered at −11.0 dBTP · −28.8 LUFS; `--up` raised it by one plain gain of **+10.0 dB** to −1.0 dBTP
+(≈ −18.8 LUFS). His memory was right.
+
+**Built:** `tools/render_reaper.js --maxUp N` — an UPWARD gain is capped at N dB; the gain still never takes the true peak past `--peak`
+(−1), a gain DOWN is untouched, and `maxUp` is recorded in `raw/<name>-render.json`. "If still necessary" holds by construction: if the new
+float's peak sits within 6 dB of −1 dBTP the gain is what reaches −1; if it is above −1 the gain goes down as always. Not run — parse-checked
+only; its first use is the render. If the new float measures as the last did (−11.0 dBTP), the file lands at ≈ **−5 dBTP · ≈ −22.8 LUFS**,
+the LRA untouched (a plain gain changes nothing inside the piece).
+
+**The command for the render, now:** `node tools/render_reaper.js --score piece-Recombination-Draft01-done --up --maxUp 6`.

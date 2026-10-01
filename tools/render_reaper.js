@@ -3,6 +3,7 @@
 //
 //   node tools/render_reaper.js [--score piece-lgmf] [--peak -1] [--tail 6] [--skip-render] [--resume]
 //   --up: the one plain gain may also go UP to --peak (his call for Draft 01, RUNNING_LOG §407); without it, only down
+//   --maxUp N: an upward gain is capped at N dB (his call 2026-10-01, RUNNING_LOG §670: +6, not the +10 of §407)
 //   --resume: the render tab is already open and set up (e.g. a job outlived its timeout) — check it, then render, close, measure
 //
 // Needs: node tools/export_midi.js first (midi/<score>/NN <track>.mid) · Reaper open with the bridge alive (reaper/bridge/README.md).
@@ -38,6 +39,9 @@ const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ?
 const score = arg('score', 'piece-lgmf');
 const PEAK = +arg('peak', -1), TAIL = +arg('tail', 6);
 const UP = process.argv.includes('--up');   // [2026-09-26, RUNNING_LOG §407 — his "b"] the one plain gain may go UP to --peak for the piece too; the range untouched
+// [2026-10-01, RUNNING_LOG §670 — his "+10 dB … is too much … like plus six, if still necessary"] --maxUp N caps an UPWARD gain at N dB;
+// the gain still never takes the true peak past --peak, and a gain down is untouched
+const MAXUP = arg('maxUp', null) == null ? null : +arg('maxUp');
 const MIDIDIR = arg('dir', null), ONLY = arg('only', null), NAME = arg('out', score), END_ARG = arg('end', null);
 const WINDOW = arg('gainWindow', null) ? arg('gainWindow').split('-').map(Number) : null;
 if ((MIDIDIR || ONLY) && NAME === score) { console.error('RENDER REFUSED: a demo render (--dir/--only) needs --out <another name> — it would overwrite notation/audio/' + score + '.wav'); process.exit(2); }
@@ -198,7 +202,8 @@ return { closed = true, current = q }`, 60000);
   log('   true peak ' + m.truePeak + ' dBTP · sample peak ' + m.samplePeak + ' dBFS · ' + m.I + ' LUFS · LRA ' + m.LRA + ' LU · first sound at ' + m.firstSound + ' s');
   if (probe.codec_name !== 'pcm_f32le') log('   WARNING: the render is not 32-bit float (' + probe.codec_name + ') — a peak over 0 would already be clipped');
   const firstOnset = Math.min(...cap.expect.notes.map(n => n.t0), ...cap.expect.snippets.map(s => s.start + Math.min(...s.notes.map(x => x[3])) / 1000));
-  const gain = (m.truePeak > PEAK || WINDOW || UP) ? +(PEAK - m.truePeak).toFixed(2) : 0;
+  let gain = (m.truePeak > PEAK || WINDOW || UP) ? +(PEAK - m.truePeak).toFixed(2) : 0;
+  if (MAXUP != null && gain > MAXUP) { log('   the gain up to --peak would be ' + gain + ' dB — capped at --maxUp ' + MAXUP + ' dB'); gain = MAXUP; }
   execFileSync(FF, ['-hide_banner', '-loglevel', 'error', '-y', '-i', RAW, '-af', 'volume=' + gain + 'dB', '-c:a', 'pcm_s24le', OUT]);
   const m2 = WINDOW
     ? readM(spawnSync(FF, ['-hide_banner', '-nostats', '-ss', String(WINDOW[0]), '-to', String(WINDOW[1]), '-i', OUT, '-af', 'ebur128=peak=true+sample', '-f', 'null', '-'], { encoding: 'utf8', maxBuffer: 1 << 28 }).stderr)
@@ -206,5 +211,5 @@ return { closed = true, current = q }`, 60000);
   log('7. ' + path.relative(ROOT, OUT) + ' · 24-bit · gain ' + gain + ' dB (plain, no limiter) → true peak ' + m2.truePeak + ' dBTP · sample peak ' + m2.samplePeak + ' dBFS');
   log('   the equivalent master fader for a direct 24-bit render: ' + gain + ' dB');
   log('   sync: the first onset in the score ' + firstOnset.toFixed(3) + ' s · the first sound in the file ' + m.firstSound + ' s (a sampler\'s attack lands a few ms after)');
-  fs.writeFileSync(path.join(RAWDIR, NAME + '-render.json'), JSON.stringify({ score, name: NAME, dir: path.relative(ROOT, dir), only: onlyNames, window: WINDOW, rendered: new Date().toISOString(), rpp: path.relative(ROOT, RPP), raw: probe, seconds: secs, float: m, gainDb: gain, up: UP, final: m2, firstOnset, end: END }, null, 1));
+  fs.writeFileSync(path.join(RAWDIR, NAME + '-render.json'), JSON.stringify({ score, name: NAME, dir: path.relative(ROOT, dir), only: onlyNames, window: WINDOW, rendered: new Date().toISOString(), rpp: path.relative(ROOT, RPP), raw: probe, seconds: secs, float: m, gainDb: gain, up: UP, maxUp: MAXUP, final: m2, firstOnset, end: END }, null, 1));
 })().catch(e => { console.error('RENDER FAILED: ' + e.message); process.exit(1); });
