@@ -21431,3 +21431,44 @@ same; the ♪ render on `piece-lgmf` finds the new file after a reload of the no
 
 **Committed:** the MIDI files and the placing script (tracked). The WAV, the float and the capture are gitignored; the old WAV is replaced,
 not kept (§670's note — his to ask; he did not).
+
+## §672. The gliss line on a staff line — piece #1's rule found, assessed, carried (2026-10-01, Fable, session 18, after checkpoint #11; LG-237)
+
+**What prompted it:** at the `/postclear`, with a picture of the double bass's morph block at 156.9 s (`2 (A1)` → `−25`, both heads on
+the top line, the gliss line lost in it): *"we had a rule probably in piece1 where if a gliss line is covered up by a staff line we moved
+it down and up could you find it assess it and incorporate into our current system"*.
+
+**Found — piece #1** (`string_quartet_no1-composer`):
+- `docs/LILYPOND_SETTINGS_REGISTRY.md` §9 "Glissando — Per-Instance Padding" and §27 "Glissando extra-offset": *"When both the start and
+  end pitches of a glissando sit on the same staff line, use `extra-offset` Y of 0.3 (positive = up) so the glissando line is visible
+  above the staff line."* The value table: 0 default · 0.1 · 0.2 · **0.3 the standard same-line offset** · 0.4.
+- its definition of "same staff line": one of the staff's FIVE lines — not a space, not a ledger line; accidentals do not matter (G♭2 and
+  G2 are the same line). The decision procedure and the per-clef line tables are there.
+- `docs/LONG_TONE_GLISSANDO_WORKFLOW.md`: `GLISS_Y_OFFSET` 0 or 0.3; `server.js` `sameStaffLine()` — the code compared the LETTER only
+  (cruder than the written rule: it would also lift a pair in a space).
+- the "down": once, by his own hand, in `docs/Notation Fragment 005 Refinement.md` — `-\tweak extra-offset #'(0 . -0.3)  % same staff
+  line: F5→F#5`. So the rule is UP 0.3; DOWN is a hand's exception. Pieces #4 and #5 never carried it (searched; nothing).
+
+**Assessed against this system:**
+- our gliss line is a rule 0.13 ss thick between two heads (`glissline`, three sites in `layout.js`: the tuba header · #5's D45 header ·
+  the morph block of 2k.3); a staff line is 0.1 — a level gliss line ON a staff line shows 0.015 ss each side: invisible. His picture.
+- the rule transfers whole. 0.3 ss leaves 0.185 ss of white between the staff line and the rule; inside the staff it sits in the space.
+- piece #1's exclusions hold here for the same reasons: a SPACE needs nothing · a LEDGER line is only as wide as its head, the gliss line
+  runs between the heads · a SLANTED line (two positions) crosses the lines and is seen.
+- measured on `piece-lgmf`: 18 gliss lines, 8 level, **2 on a staff line** — the English horn's at 158.40 (the middle line) and the
+  double bass's at 156.90 (the top line; his picture). The others level in a space (Bsn 151.35 · Hn 152.10 · Tpt 152.78 · Vc 156.40 ·
+  Vc 729.65).
+
+**Built:**
+- the row: `rules.json` `objects.glissLine.onStaffLine { offsetSs: 0.3, side: "up" }` + its note; the pointer `container.json`
+  `engraving.layout.glissOnStaffLine`.
+- `layout.js`: one helper `glissLift(y0, y1)` at the three gliss-line sites — a level line on one of the five lines (not a lined staff)
+  carries `liftSs`; the item's own `ySs` · `y1Ss` and the heads untouched. `render.js`: the rule drawn at `ySs + liftSs`.
+- `check_rules` (9), a new check: every level gliss line on a staff line carries the row's lift, no other line carries one — **34**.
+- the AI's calls, his to reverse: the side UP for every case (piece #1's standard; `side: "down"` is the row's other value — a per-note
+  hand is not built) · the direction of the glide does not choose the side (the cents number says it).
+
+**Checked:** `gen_engraving_rules` (348 lines) · `check_rules` 34 GREEN (2 of 18) · `eh_figure_check` 106 · THE SHIELD
+`piece-lgmf` alone moved (21 of 22 identical — no tuba page, no proto) · `check_screen_edges --ir piece-lgmf` PASS · seen in the
+running app on a throwaway server (:5401, the zoom view at 155.5 s): the EH's line at 158.40 drawn just above the middle line. The double
+bass's 156.90 is the same path, not looked at separately. No re-extraction — a layout rule; he RELOADS the notation tab (HARD).

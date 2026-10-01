@@ -226,6 +226,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   kept) — 886.664 s · **−4.9 dBTP · −22.8 LUFS** · LRA 20.1 · +6 dB plain at his cap (§670; +9.9 was the way to −1 dBTP). Rendered from
   `midi/piece-Recombination-Draft01-done.mid` + its 29 per-track files (committed; 11 moved, the percussion · vibraphone · Bsn b identical).
   The float is kept: `notation/audio/raw/piece-Recombination-Draft01-done-float.wav` (−10.9 dBTP · −28.8 LUFS).
+- **AFTER THE CHECKPOINT (2026-10-01, Fable, RUNNING_LOG §672 · LG-237):** THE GLISS LINE ON A STAFF LINE — piece #1's same-staff-line rule
+  carried as a row (`objects.glissLine.onStaffLine { offsetSs 0.3, side up }`): a level gliss line on one of the five lines is drawn 0.3 ss
+  above it — the EH's at 158.40, the DB's at 156.90; `check_rules` **34**; no re-extraction, he HARD-reloads the tab. His to reverse: the side.
 - **State:** nothing being built. The ♪ link unchanged — the IR's `source.score` is the WAV's name; no re-extraction.
 - **► THE NEXT STEP — HIS, ask first:**
   1. HIS EAR: reload the notation tab → `piece-lgmf` → ♪ render. A LEVEL change → re-gain the kept float with no Reaper render, §407's
@@ -273,10 +276,10 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **HOW A CHANGE IS MADE (the method of session 18 — everything a cold model needs):**
   - `node tools/reextract.js "" <args>` — re-runs the IR's whole `provenance.build` on a fresh copy of his save and APPENDS the args
     (`@replace:OLD=>NEW` · `@drop:ARG`); a long list goes through a scratch runner with an args ARRAY (no shell quoting). Then
-    `node tools/gen_engraving_rules.js` → `check_rules` (**33**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
+    `node tools/gen_engraving_rules.js` → `check_rules` (**34**) → `eh_figure_check` (**106**) → the shield (`layout_shield --write` on HEAD
     FIRST, `--diff --expect piece-lgmf` after; **a lined-staff rule also moves some tuba pages' part 4** — the shield lays them out under
-    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§669 next free**) · an LG
-    (**LG-236**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
+    THIS ensemble; name them in `--expect`, a per-part hash proves nothing else moved) → a RUNNING_LOG § (**§673 next free**) · an LG
+    (**LG-238 next**) · the journal · the state lines → commit + push. `check_screen_edges --ir piece-lgmf` after a `render.js` change.
   - **the parts live in the IR's chunks** (`ch-<part>-…`; the events carry none): EH 0 · Bsn 1 · Hn 2 · Tpt 3 · Perc 4 · Vib 5 · Vc 6 · DB 7.
     **His times read 0.05 … 0.2 s EARLY** — the nearest note is the one; "partial" in his dictation = a note.
   - **the flags:** `--plainNotes P:T0:T1` · `--oneOffs P:T0:T1` · `--beam t0-t1@P[:8|:16][:up|:down]` or `ids:wc-a,wc-b` ·

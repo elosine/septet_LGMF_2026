@@ -557,7 +557,7 @@
           // rule at stem thickness, its length the diameter of TWO regular
           // half-note heads, a standard spacer clear of each head
           if (!owns(it.t)) continue;
-          const gy = Y(it.ySs), gt = it.thickSs * ssPx;
+          const gy = Y(it.ySs + (it.liftSs || 0)), gt = it.thickSs * ssPx;   // [§672] liftSs: a level line on a staff line, drawn off it (objects.glissLine.onStaffLine)
           if (it.y1Ss != null && it.y1Ss !== it.ySs) {
             // [PLAN 2h.2] D45: the start and the destination on different lines — the rule slants
             // from head to head, the same vertical thickness as the level one

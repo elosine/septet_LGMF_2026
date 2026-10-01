@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 258 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 259 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -173,7 +173,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `squiggle` · in: engraving.layout.groupStub
 - **pedal** — face **music** · colour **ink #111** · *composer* · #5 2h.5 (#2's 'Ped.')
   - draws `glyph:pedal-.*`
-- **glissLine** — colour **ink #111** · *census* · #4 day 35
+- **glissLine** — colour **ink #111** · onStaffLine **{offsetSs: 0.3, side: up}** → `layout.glissOnStaffLine` · onStaffLineNote **§672 (2026-10-01, his 'we had a rule probably in piece1 where if a gliss line is covered up by a staff line we moved it down and up … find it assess it and incorporate'): PIECE #1's SAME-STAFF-LINE RULE (its LILYPOND_SETTINGS_REGISTRY §9 'Glissando — Per-Instance Padding' · §27, the glissando's `extra-offset` Y 0.3) — a LEVEL gliss line whose two heads sit on one of the staff's five lines is covered by that line, so it is drawn offsetSs off it: `side` up (piece #1's standard; `down` the other way — he used −0.3 once by hand there), the heads untouched. Not triggered, as in piece #1: both heads in a SPACE · on a LEDGER line (a ledger is only as wide as its head) · a slanted line (two positions). 0.3 leaves 0.185 ss of white between the staff line (0.1) and the rule (0.13). check_rules (9) holds it over every page** · *census* · #4 day 35 · onStaffLine composer (#1's registry, carried at §672)
   - draws `glissline`
 - **curve** — strokeWPx **2** → `render.envCurve.strokeWPx` · `render.glissCurve.strokeWPx` · `render.crescCurve.strokeWPx` · strokeOpacity **1** → `render.envCurve.strokeOpacity` · `render.glissCurve.strokeOpacity` · `render.crescCurve.strokeOpacity` · fillOpacity **0.3** → `render.envCurve.fillOpacity` · `render.glissCurve.fillOpacity` · `render.crescCurve.fillOpacity` · pathOpacity **0.3** → `render.envCurve.pathOpacity` · `render.glissCurve.pathOpacity` · `render.crescCurve.pathOpacity` · *composer* · D42 (#2's curve look across the board: fill 0.3 · 2 px stroke · 0.3 on the path)
 - **envCurve** *(a variant of curve)* — colour **limeGreen #99FF00** · *composer* · D42 · #4 day 22

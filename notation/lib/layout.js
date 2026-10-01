@@ -718,6 +718,14 @@
       const ledgersFor = lined ? (() => []) : ledgersForStd;
       const oSys = lined ? Object.assign({}, o, { ottavaLedgerThreshold: 1e6 }) : o;
       const posOf = sp => staffPos(sp, spec.clef);
+      // [RUNNING_LOG §672 — his "we had a rule probably in piece1 where if a gliss line is covered up by a staff line we moved it down and
+      // up"] THE GLISS LINE ON A STAFF LINE (rules.json objects.glissLine.onStaffLine; piece #1's same-staff-line rule, its glissando
+      // `extra-offset` Y 0.3): a LEVEL gliss line whose two heads sit on one of the staff's five lines is covered by that line — the
+      // item carries `liftSs` and the renderer draws the rule that far off the staff line (up; side "down" the other way); the heads and
+      // the item's own ySs · y1Ss untouched. A space, a ledger line (only as wide as its head) and a slanted line need nothing.
+      const GLS = Object.assign({ offsetSs: 0.3, side: 'up' }, o.glissOnStaffLine || {});   // RULES MIRROR
+      const glissLift = (y0, y1) => (!lined && GLS.offsetSs > 0 && (y1 == null || y1 === y0) && Math.abs(y0) <= 2 + 1e-9 && Math.abs(y0 - Math.round(y0)) < 1e-9)
+        ? { liftSs: (GLS.side === 'down' ? -1 : 1) * GLS.offsetSs } : {};
       // a stream (notated metric chunk) stays WHOLE on the staff most of its
       // notes belong to — a run is not split mid-beam; a single note goes on
       // its own staff
@@ -943,7 +951,7 @@
             const glR = cD - hw / 2 - leftInk(hdD) - A.gapSs, glL = glR - glissLen;
             const cS = glL - A.gapSs - rightInk(hdS) - hw / 2;
             const yS = drawHead(hdS, cS);
-            items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yS, y1Ss: yD, thickSs: A.thickSs });
+            items.push(Object.assign({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yS, y1Ss: yD, thickSs: A.thickSs }, glissLift(yS, yD)));
           } else {
             drawHead(hdS, x - rightInk(hdS) - hw / 2);          // D44: one pitch, no gliss line
           }
@@ -971,7 +979,7 @@
         // and a gliss line would assert a motion that does not happen (day 35)
         if (!h.oneHead) {
           items.push({ k: 'glyph', g: 'notehead-open', t: h.t, dxSs: h1L + hw / 2, ySs: yP, align: 'center', scale: hs });
-          items.push({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs });
+          items.push(Object.assign({ k: 'glissline', t: h.t, dx0Ss: glL, dx1Ss: glR, ySs: yP, thickSs: A.thickSs }, glissLift(yP)));
         }
         // the accidental sits before whichever head is the altered one: the HIGH
         // (right) head when the part rises, the LOW (left) head when it falls
@@ -1128,7 +1136,7 @@
           const HD = justHead(t, en.dest, -SQB.headGapSs, { ev: en.event });
           const glR = HD.left - GL.gapSs, glL = glR - glyphs.notehead.open.wSs * 2;   // "two regular half note white notes" (#4 day 35)
           const HS = justHead(t, en, glL - GL.gapSs, { column: true, ev: en.event, colY: Math.max(HD.topInk, 2) + SQB.centsGapSs });
-          items.push({ k: 'glissline', t, dx0Ss: glL, dx1Ss: glR, ySs: HS.y, y1Ss: HD.y, thickSs: GL.thickSs, seq: 'glissLine', ev: en.event });
+          items.push(Object.assign({ k: 'glissline', t, dx0Ss: glL, dx1Ss: glR, ySs: HS.y, y1Ss: HD.y, thickSs: GL.thickSs, seq: 'glissLine', ev: en.event }, glissLift(HS.y, HD.y)));
           let colTop = HS.colTop, topInk = Math.max(HS.topInk, HD.topInk);
           const dZero = Math.round(+en.dest.cents || 0) === 0 || en.dest.centsText === '';
           if (en.dest.centsText != null && en.dest.centsText !== '' && !(o.centsZero === 'omit' && dZero)) {

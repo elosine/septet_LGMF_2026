@@ -3662,3 +3662,11 @@ RUNNING_LOG §667.
 *The AI's reading (marked as such):* every chord of section 2 is a true unison in his intention — the 48 and 65 ms spreads were his hands,
 not a stagger; the only purposeful staggers are the singles at 393 … 398. Written into the save so the sound and the page agree. "Locked" =
 the dictation closed, pending his proof. RUNNING_LOG §669.
+
+## LG-237 — 2026-10-01 — a gliss line covered by a staff line: piece #1's rule, into this system
+
+*His words (session 18, Fable, at the `/postclear`, with a picture of the double bass's morph block at 156.9 s):* "we had a rule probably in piece1 where if a gliss line is covered up by a staff line we moved it down and up could you find it assess it and incorporate into our current system"
+
+*The AI's reading (marked as such):* piece #1's same-staff-line rule (its LilyPond registry: the glissando's `extra-offset` Y 0.3, up;
+−0.3 once by his hand) — a level gliss line on one of the staff's five lines is drawn 0.3 ss off it. Carried as a rule row, up by default.
+RUNNING_LOG §672.
