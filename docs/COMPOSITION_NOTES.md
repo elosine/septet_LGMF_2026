@@ -3832,3 +3832,9 @@ close-up — the seed the AI's to pick, his to re-roll. RUNNING_LOG §694.
 
 *The AI's reading (marked as such):* a fault of the film, not of the notation — the level and pitch curves missing or broken off from the
 third page on. RUNNING_LOG §695.
+
+## LG-262 — 2026-10-01 — the film: the sound is not synced
+
+*His words (session 18, Fable, on the re-rendered film):* "sound is not synced"
+
+*The AI's reading (marked as such):* the whole film (not the test clips, which he accepted) — the sound against the cursor. RUNNING_LOG §696.

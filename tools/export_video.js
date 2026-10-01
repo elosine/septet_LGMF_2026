@@ -554,7 +554,10 @@ function cutFrame(k, t) {
 const ff = ['-y',
   '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', W + 'x' + outH, '-r', String(fps), '-i', 'pipe:0'];
 // [2e.2] a film that opens before the piece's 0 (the lead-in) DELAYS its audio by the difference; a partial render from t0 >= 0 seeks it
-if (audio) ff.push(...(t0 < 0 ? ['-itsoffset', String(-t0)] : ['-ss', String(t0)]), '-i', audio, '-c:a', 'aac', '-b:a', '256k', '-shortest');
+// [RUNNING_LOG §696 — his 'sound is not synced' on the whole film] the delay is REAL SILENCE in the stream (adelay), not a timestamp offset: -itsoffset
+// leaves the audio stream starting at 4 s (an MP4 edit list) and a player that ignores it starts the sound at 0 — four seconds early. Both
+// streams now start at 0 in every player. (The partial renders seek with -ss and were always right — the test films.)
+if (audio) ff.push(...(t0 < 0 ? [] : ['-ss', String(t0)]), '-i', audio, ...(t0 < 0 ? ['-af', 'adelay=' + Math.round(-t0 * 1000) + ':all=1'] : []), '-c:a', 'aac', '-b:a', '256k', '-shortest');
 ff.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', outFile);
 
 console.log('export_video: ' + irId + ' · ' + (cutMap ? 'CUT (' + cutMap.length + ' segments, ' + segsOf('zoom').length + ' zoom segs, ' + (fadeFrames > 0 ? blends.length + ' x ' + fadeFrames + '-frame ' + fadeMode : 'hard cuts') + ')' : viewMode + (viewMode === 'zoom' ? ' x' + Z : '')) +

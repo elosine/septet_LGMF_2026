@@ -22074,3 +22074,25 @@ at x(t0) and x(tω) is unchanged and the next page picks the line up at the same
 
 **Not built, offered:** a gate that rasterizes pages the film's way and compares them with Chrome's — the screen gate measures Chrome
 only, which is how this passed every check.
+
+## §696. "Sound is not synced" — the lead-in's delay was a timestamp, not silence (2026-10-01, Fable, session 18; LG-262)
+
+**His word on the re-rendered film (§695):** *"sound is not synced"*.
+
+**Read:** `export_video.js` laid the audio under a film that opens before 0 with `-itsoffset 4` (2e.2) — the samples are not delayed,
+the audio STREAM is given a start time: ffprobe on §694's and §695's files showed the audio stream starting at **3.978 s** (4 s less the
+AAC encoder's priming), the video at 0. A player that honours the start is in sync; one that ignores it (many do) plays the sound from
+0 — **four seconds ahead of the picture** for the whole film. The partial renders seek the WAV with `-ss` (both streams from 0) — why
+his two test films were in sync and the whole film was not. The AI had read the 3.978 off the file at §694 and passed it as right.
+
+**Fixed:**
+- `tools/export_video.js`: the delay is REAL SILENCE in the stream — `-af adelay=<lead ms>:all=1` in place of `-itsoffset`.
+- the film in hand: its audio re-laid under the SAME picture, no re-render — `ffmpeg -i <film> -i <wav> -map 0:v -map 1:a -c:v copy -af
+  adelay=4000:all=1 -c:a aac -b:a 256k -shortest` (seconds).
+
+**Measured off the file:** video and audio both start at **0.000**; 890.633 s; the first sound (the end of the opening silence at
+−60 dB) at **2.6115 s in the WAV and 6.6115 s in the film** — the 4.000 s lead-in to the tenth of a millisecond. The picture is the
+frames of §695 untouched (the stream copied). sha256 `feaf7a084a87fbe81a39392771fa589fe86e7e043c8d054c6a880ec986449c9d`.
+
+**Not known:** the player he watched in — so the cause is the likeliest one, proven on the file, not on his screen. If it is still off
+after this: by how much and which way is the next datum.
