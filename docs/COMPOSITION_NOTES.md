@@ -3545,3 +3545,12 @@ the brake drum, the sleigh bells, the tambourine and the wood block; the wood bl
 
 *The AI's reading (marked as such):* after marking the arrivals with cue lines, a look at whether ONE tempo carries the whole opening stretch of
 the percussion (ten notes, 297.4 … 302.9) — an "actual tempo", which by his colour sense would be drawn in olive. RUNNING_LOG §652.
+
+## LG-222 — 2026-09-30 — orange (95 bpm) for the percussion; the ball's motion as on the English horn; a standard GC on the third castanet landing on an imagined eighth line
+
+*His words (session 18, Fable):* "Okay, let's do orange. And can you smooth out the bouncing ball motion? So at its normal size, for example, in the English horn, there's a nice smooth motion. But at its expanded size, it doesn't look like the ball motion was accounted for. Is there any way to have a similar motion to the original, but with the longer lines? And then I'd like a GC in addition on the third castanet. Let's go back to the standard one. And let's have the impact point be the, if there was a staff line below the bass drum, the another percussion one. So I guess that's about, I don't know, I forgot how many. But if you had another percussion staff line below, let's have that be the impact point."
+
+*The AI's reading (marked as such):* the tempo and the cue together — an olive frame for the pulse (the between-beats orange, 95), and ONE cue,
+the standard GC, on the arrival he hears as the event (the castanet quarter), landing just under the staff on a line that is not drawn. The
+ball: what read as un-smooth was speed — the same curve stretched over a line twice as long; kept at the original distance it moves as it
+did. RUNNING_LOG §653.

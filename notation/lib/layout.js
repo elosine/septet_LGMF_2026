@@ -150,7 +150,7 @@
   function staffExtentResolver(ens) {
     const by = new Map();
     // [§651] a LINED staff (the percussion's) hands its lines too, top to bottom — the beat lines there run between inner lines (insetLines)
-    for (const pc of (ens && ens.parts) || []) { const si = staffInfoOf(pc); if (si && si.offsets && si.offsets.length) by.set(pc.part, Object.assign({ top: Math.max(...si.offsets), bot: Math.min(...si.offsets) }, si.lined ? { lines: [...si.offsets].sort((a, b) => b - a) } : {})); }
+    for (const pc of (ens && ens.parts) || []) { const si = staffInfoOf(pc); if (si && si.offsets && si.offsets.length) by.set(pc.part, Object.assign({ top: Math.max(...si.offsets), bot: Math.min(...si.offsets), gapSs: si.gapSs || 1 }, si.lined ? { lines: [...si.offsets].sort((a, b) => b - a) } : {})); }
     return part => by.get(part) || { top: 2, bot: -2 };
   }
   function positionResolver(ens) {
@@ -1338,6 +1338,7 @@
             // preset; `gc: {...}` = a per-note preset.
             if (dev.gc) items.push(Object.assign({ k: 'gc', t: e.onset, ev: e.id }, (dev.gcGeom || dev.gcStyle) ? { geom: dev.gcGeom || (dev.gcStyle === 3 ? 'staffTop' : dev.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] the device's GC geometry ('beatBall' on the plain note) · [§594] the hand gcStyle 1 | 2 (his 'GC style 2') · [§650] 3 = 'staffTop'
               (dev.gcGeom === 'staffTop' || (!dev.gcGeom && dev.gcStyle === 3)) ? { staffTop: (spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length) ? Math.max(...spec.staffInfo.offsets) : 2 } : {},   // [§650] the staff's own top line, for the impact
+              (dev.gcImpact === 'lineBelow' && spec.staffInfo && Array.isArray(spec.staffInfo.offsets) && spec.staffInfo.offsets.length > 1) ? { impactSs: Math.min(...spec.staffInfo.offsets) - (spec.staffInfo.gapSs || 1) } : {},   // [§653] the staff's next line below its bottom line
               typeof dev.gc === 'object' ? { preset: dev.gc } : {}));
             // the WRITTEN position (shared by the nh-unit and the ring bar):
             // ottava = smallest shift bringing the written note within 3
@@ -3278,7 +3279,8 @@
         gridsHere.forEach(g => {
           const frame = g.cue ? null : framesOnly.indexOf(g);
           const n = g.beatEvery >= 1 ? Math.round(g.beatEvery) : 1;
-          const colour = COLS ? COLS[g.cue ? 0 : frame % COLS.length] : undefined;
+          // [§653, his "olive for when there's an actual tempo"] a frame may NAME its colour (the fit's flag olive · navy → value.colourIx) — else its turn in the alternation
+          const colour = COLS ? COLS[g.cue ? 0 : (g.colourIx != null ? g.colourIx : frame) % COLS.length] : undefined;
           const k0 = Math.ceil((g.span[0] - g.phase) / g.unit - 1e-9), k1 = Math.floor((g.span[1] - g.phase) / g.unit + 1e-9);
           for (let k = k0; k <= k1; k++) {
             const t = +(g.phase + k * g.unit).toFixed(6), beat = ((k % n) + n) % n === 0;

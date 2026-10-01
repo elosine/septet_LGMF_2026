@@ -832,7 +832,7 @@
           // 1.5 px, no fill; the impact marker r 4 px on the go line, 5 px
           // above the lane bottom. Sizes at the 1080 frame × magnification.
           // Clipped to the page like the ring bar (an arc may cross a cut).
-          const lookM = Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}, it.staffTop != null ? { staffTopSs: it.staffTop } : {});   // [§592] the item's geometry ('beatBall') · [§650] 'staffTop' with the staff's top line
+          const lookM = Object.assign({}, E.gc && E.gc.look, it.geom ? { geom: it.geom } : {}, it.staffTop != null ? { staffTopSs: it.staffTop } : {}, it.impactSs != null ? { impactSs: it.impactSs } : {});   // [§592] the item's geometry ('beatBall') · [§650] 'staffTop' with the staff's top line · [§653] a named impact
           const P = GC.params(GC.presetFor((E.gc && E.gc.preset) || {}, it.preset || {}, lookM));   // [§593] the aperture by the geometry
           // [2b.7.1] the arc follows ITS STRIKE: owned = drawn whole, unowned =
           // not drawn at all. That is what kills the ghost arc over the clef —

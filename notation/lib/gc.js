@@ -119,6 +119,13 @@
       const impactYs = sys.yOfSs(top + gap), apexY = sys.yTopPx + (L.heightInsetPx - L.impactInsetPx) * k;
       return { k, impactY: impactYs, h: Math.max(1, impactYs - apexY), look: L };
     }
+    // [RUNNING_LOG §653, his 'the standard one … if there was a staff line below the bass drum, another percussion one … let's have that be
+    // the impact point'] the lane GC with a NAMED impact: L.impactSs (the staff's next line below its bottom line, handed in on the item /
+    // the instance from the device's gcImpact 'lineBelow') — the apex stays the lane GC's own (the lane's top), the drop runs to that line
+    if (L.impactSs != null && typeof sys.yOfSs === 'function') {
+      const apexY = sys.yTopPx + (L.heightInsetPx - L.impactInsetPx) * k, impactYs = sys.yOfSs(L.impactSs);
+      return { k, impactY: impactYs, h: Math.max(1, impactYs - apexY), look: L };
+    }
     const impactY = sys.yBotPx - L.impactInsetPx * k;
     const h = sys.heightPx - L.heightInsetPx * k;
     return { k, impactY, h, look: L };

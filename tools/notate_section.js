@@ -1982,7 +1982,7 @@ if (MORPH_SEQ.length) {
     // [§610] the 7th field is a comma list of flags: keepTail · keepLead · keepBoth · noTail · noLead — a `no*` drops the frame's extra beat
     // on that side altogether (his "last tempo line at 388.26 remove the last 4": the 384 frame ends on the beat nearest its last onset)
     const m = /^(\d+):([\d.]+):(\d+):(-?[\d.]+):(-?[\d.]+):(-?[\d.]+)(?::([A-Za-z,]+))?$/.exec(process.argv[i + 1]);
-    const FLAGS = m ? (m[7] || '').split(',').filter(Boolean) : [], badFlag = FLAGS.find(f => !['keepTail', 'keepLead', 'keepBoth', 'noTail', 'noLead'].includes(f));
+    const FLAGS = m ? (m[7] || '').split(',').filter(Boolean) : [], badFlag = FLAGS.find(f => !['keepTail', 'keepLead', 'keepBoth', 'noTail', 'noLead', 'olive', 'navy'].includes(f));   // [§653] olive · navy — the frame NAMES its colour (his "olive for when there's an actual tempo"), outside the alternation
     if (!m || badFlag) { console.error('--beatGridFit needs p:unit:beatEvery:phase:firstOnset:lastOnset[:keepTail|keepLead|keepBoth|noTail|noLead, comma-listed]' + (badFlag ? ' — unknown flag ' + badFlag : '')); process.exit(2); }
     const P = +m[1], u = +m[2], n = +m[3], ph = +m[4], first = +m[5], last = +m[6], beat = u * n;
     const has = f => FLAGS.includes(f);
@@ -2001,7 +2001,7 @@ if (MORPH_SEQ.length) {
     while (!keepLead && k0 < kFirst && ph + k0 * beat <= prevEnd + GAP) k0++;
     while (!keepTail && k1 > kLast && ph + k1 * beat >= nextOn - GAP) k1--;
     const t0 = +(ph + k0 * beat).toFixed(4), t1 = +(ph + k1 * beat + 1e-3).toFixed(4);
-    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: { unit: u, beatEvery: n, phase: ph, fit: { first, last, lead: noLead ? 0 : LEAD, tail: noTail ? 0 : TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast, keepTail, keepLead } }, provenance: 'authored' });
+    doc.overlays.push({ id: 'ov-beatgridfit-' + P + '-' + Math.round(first * 1000), kind: 'beatGrid', target: { part: P, span: [t0, t1] }, value: Object.assign({ unit: u, beatEvery: n, phase: ph }, FLAGS.includes('olive') ? { colourIx: 1 } : FLAGS.includes('navy') ? { colourIx: 0 } : {}, { fit: { first, last, lead: noLead ? 0 : LEAD, tail: noTail ? 0 : TAIL, gapS: GAP, prevEnd: isFinite(prevEnd) ? +prevEnd.toFixed(3) : null, nextOnset: isFinite(nextOn) ? +nextOn.toFixed(3) : null, beatsBefore: kFirst - k0, beatsAfter: k1 - kLast, keepTail, keepLead } }), provenance: 'authored' });
     console.log('  --beatGridFit part ' + P + ': the beat ' + beat.toFixed(3) + ' s (' + Math.round(60 / beat) + ' bpm) from ' + ph + ' — the cluster ' + first + ' … ' + last + ', ' + (kFirst - k0) + ' beat(s) before (of ' + LEAD + '; the notation before ends ' + (isFinite(prevEnd) ? prevEnd.toFixed(3) : '—') + ') · ' + (k1 - kLast) + ' after (of ' + TAIL + '; the next note ' + (isFinite(nextOn) ? nextOn.toFixed(3) : '—') + ') → lines ' + t0 + ' … ' + (ph + k1 * beat).toFixed(3) + ' (' + (k1 - k0 + 1) + ')');
   });
   // [RUNNING_LOG §651; his LG-220: "the blue gray just to mark like the GCs instead … a line at the third castanet and the next two"]

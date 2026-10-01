@@ -92,7 +92,7 @@
   // frame, scaled by the view's magnification (PP-6).
   register('gc', (inst, view, t, st) => {
     const s = GC.systemOf(view, inst.part);   // §401e: the first staff of a multi-staff part (one copy with render.js)
-    const lookM = Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {}, inst.staffTop != null ? { staffTopSs: inst.staffTop } : {});   // [§592] the GC's geometry from its device ('beatBall') · [§650] 'staffTop'
+    const lookM = Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {}, inst.staffTop != null ? { staffTopSs: inst.staffTop } : {}, inst.impactSs != null ? { impactSs: inst.impactSs } : {});   // [§592] the GC's geometry from its device ('beatBall') · [§650] 'staffTop' · [§653] a named impact
     const P = GC.params(GC.presetFor(st.preset || {}, (inst && inst.preset) || {}, lookM));   // [§593] the aperture by the geometry
     const frac = GC.heightFrac(P, t - inst.at);
     if (frac === null) return [];
@@ -121,7 +121,14 @@
     const TOP = inst.staffTop != null ? inst.staffTop : STAFF_HALF, BOT = inst.staffBot != null ? inst.staffBot : -STAFF_HALF;
     const impactY = land === 'lineTop' ? s.yOfSs(TOP + over) : land === 'lineBottom' ? s.yOfSs(BOT - over) : G.impactY;
     const rise = st.riseSs != null ? st.riseSs : 2;   // [§571] his "leave from slightly higher … about two staff spaces above" — RULES MIRROR (engraving.animated.beatBall.riseSs)
-    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? ((TOP - BOT) + 2 * over + rise) * s.ssPx : G.h;
+    // [RUNNING_LOG §653, his "at its normal size, for example, in the English horn, there's a nice smooth motion. But at its expanded size,
+    // it doesn't look like the ball motion was accounted for … a similar motion to the original, but with the longer lines"] THE BALL'S DROP IS
+    // THE FIVE-LINE STAFF'S ON EVERY STAFF: on a lined staff's longer line (noOverhang) the ball still falls the standard span (4 ss + the
+    // two overhangs + the rise) onto the line's foot — the same distance in the same time as on the English horn, so the same motion; the
+    // line is longer than the ball's flight. (Scaled to the line it fell 10 … 15 ss in a beat — over twice the speed.)
+    const stdOver = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
+    const span = inst.noOverhang ? 2 * STAFF_HALF + 2 * stdOver : (TOP - BOT) + 2 * over;
+    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (span + rise) * s.ssPx : G.h;
     const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
     // [§578] the ball in its FRAME's colour — the frames on a part alternate through st.colours (rules.json objects.beatBall.colours:
     // the navy, then the vibraphone's olive) by inst.frame, the frame's index on the part; one colour (st.color) when no list
@@ -381,7 +388,7 @@
       for (const ov of grids) {
         const tg = ov.target, v = ov.value;
         if (!has(tg.part)) continue;
-        const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = v.cue ? 0 : frameOf.get(ov);   // [§651] a cue's ball in the first colour (the blue-grey)
+        const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = v.cue ? 0 : (v.colourIx != null ? v.colourIx : frameOf.get(ov));   // [§651] a cue's ball in the first colour (the blue-grey) · [§653] a frame's named colour
         const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
         // [§645] a staff that is not the five-line ±2 hands the ball its outer lines (opts.staffExtentOf = layout's staffExtentResolver)
         // [§651] on a LINED staff the lines run between inner lines (style.beatBall.insetLines ← rules.json objects.tick.gridInsetLines), no overhang
@@ -408,6 +415,7 @@
         const dv = devOf(e) || {};
         if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, (dv.gcGeom || dv.gcStyle) ? { geom: dv.gcGeom || (dv.gcStyle === 3 ? 'staffTop' : dv.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] · [§594] gcStyle 1 | 2 · [§650] 3
           (dv.gcGeom === 'staffTop' || (!dv.gcGeom && dv.gcStyle === 3)) ? { staffTop: O.staffExtentOf ? O.staffExtentOf(c.part).top : 2 } : {},   // [§650] the staff's own top line
+          (dv.gcImpact === 'lineBelow' && O.staffExtentOf) ? (x => ({ impactSs: x.bot - (x.gapSs || 1) }))(O.staffExtentOf(c.part)) : {},   // [§653] the staff's next line below its bottom line
           typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
       }
       // curveMeter rides every event that carries its drawn level (stratum

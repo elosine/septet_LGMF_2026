@@ -20854,3 +20854,39 @@ third**; only the bass drum's first hit, the castanet quarter (165 ms after a li
 The fitted rows are that same beat turned so that NOTHING is on a line.
 
 **Nothing on the page** — the six cue lines of §651 stand; a frame here would be the olive (his colour sense, §651). His pick owed.
+
+## §653. The percussion's tempo frame — the orange 95, in OLIVE; the ball's motion the English horn's on the longer lines; a standard GC on the castanet quarter landing on the staff's next line below (2026-09-30, Fable, session 18; LG-222)
+
+**What prompted it** (his pick from §652's picture, and his eye on the balls): *"Okay, let's do orange. And can you smooth out the bouncing
+ball motion? So at its normal size, for example, in the English horn, there's a nice smooth motion. But at its expanded size, it doesn't look
+like the ball motion was accounted for. Is there any way to have a similar motion to the original, but with the longer lines? And then I'd
+like a GC in addition on the third castanet. Let's go back to the standard one. And let's have the impact point be the, if there was a staff
+line below the bass drum, the another percussion one. … if you had another percussion staff line below, let's have that be the impact point."*
+
+**1 · THE FRAME** — the picture's orange: 95 bpm, the beat 0.6335 s = 7 × 0.0905, at the tool's between phase 297.317 (every note 14 … 86 %
+through its beat, the nearest 90 ms from a line): `--beatGridFit 4:0.0905:7:297.317:297.407:302.927:olive` — **twelve OLIVE lines 296.683 …
+303.652** (one lead beat, one tail; −4 … +4 by §651's inset). **A frame may NAME its colour** — the fit's new flags `olive` · `navy`
+(`value.colourIx`; layout and the ball read it before the alternation): his "olive for when there's an actual tempo" (§651) applied here; the
+winds' frames keep S19's alternation. **The six cue lines of §651 are dropped** (`@drop`) — the AI's reading: a tempo frame replaces the
+event marks (two sets of lines on one staff); the arrival he wants marked gets the GC of 3.
+
+**2 · THE BALL'S MOTION — what was wrong and the cure.** The ball's law is one curve scaled to its drop (`GC.heightFrac`: 60 % of the beat
+falling, 40 % rising). On the English horn the drop is the five-line staff's line + the rise = 6.8 ss; on the percussion's long lines it had
+been scaled to the LINE — 14.8 ss on §645's full-staff lines, 10 ss on §651's — in the same beat, and for a cue line in 0.42 s: two to four
+times the English horn's speed, with a hard reversal at the foot. Nothing in the curve "accounted" for the size because the size was its
+only variable. **Now the ball's drop is the five-line staff's on EVERY staff** (`animobj.js`: on a lined staff's inset line — `noOverhang` —
+the span is 4 ss + the two overhangs, + the rise): it falls the same 6.8 ss in the same time onto the foot of the line (−4), from +2.8 — the
+English horn's motion exactly; the line is simply longer than the ball's flight.
+
+**3 · THE GC ON THE CASTANET QUARTER** (`wc-3758`, 297.689): "the standard one" = style 1, the lane GC (the apex at the lane's top, the whole
+aperture) — with its impact where he put it: **the staff's next line BELOW its bottom line** — the bottom line − the staff's own line gap
+(−6 − 2 = **−8**; the lane's bottom is at −9). A device field `gcImpact "lineBelow"`: layout stamps `impactSs` on the item, animobj on the
+instance (from `staffExtentOf`, which now hands the gap too), `gc.js` `laneGeom` takes a named impact for the lane geometry (apex 11.4 →
+impact −8: a 19.4 ss drop, the full height of the percussion's lane less one space). No go line (as before on this note — the AI's call).
+
+**The page, 296.7 … 303.7:** the bass drum · the castanets' two graces into the quarter under the GC · the bowl · the brake drum · the sleigh
+bells · the tambourine as bare heads · the wood block + the bass drum beamed eighths — over twelve olive lines.
+
+**The gates:** `gen_engraving_rules` → `check_rules` **33** · the lock **106** · the shield `piece-lgmf` alone · the screen gate PASS.
+
+**For his eye:** a HARD reload → `piece-lgmf` → `297.5`, play from `296.5` through `303.7`.
