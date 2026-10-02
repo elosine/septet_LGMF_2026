@@ -22717,3 +22717,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"Okay, add those two lines to the sounding in C section."*
 
 **Done:** "the sounding in C section" = Instrumentation, whose last line is *"The full score is in C. Parts will be transposed."* Added after it, each a line of its own, his settled wording of §440 · §441 (S2): *"Fundamentals are given at sounding pitch (C4 = middle C)."* · *"In a transposing part the cents figure is unchanged; a tuner will name the sounding note."* — §748's omission (3) closed; S2 taken out of the page-foot list's "not on the page yet" (S3, the vibrato line, is the one settled text still off the page), marked in the tracker.
+
+## §750. Micro-Tonal Tuning: the example re-named to the score in C — G♯ and G three-quarter-sharp, as the image beside it (2026-10-02, Fable, session 18; LG-315)
+
+**His word:** *"And you can fix the text. D sharp, g image, harmonization."*
+
+**Done:** the tuning example now names the note as the full score (in C) and the image beside it show it: *"For example, a pitch 41 cents above G♯ is notated G[three-quarter-sharp] (the closest quarter-tone approximation) and the cents notation will be +41. The +41 would indicate 41 cents sharper than G♯, as a tuner would show it."* — three D's became G's, nothing else. It also reads true for the tuner now (the tuner shows G♯ +41). §736's flag and §748's item (7) closed; the open point removed from the page-foot list. `just_partials_notation.md` §1b keeps the settled 2026-09-27 wording with D♯ (drafted on the working page, the EH in F) — the page is the newer text.

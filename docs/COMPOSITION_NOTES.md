@@ -4177,3 +4177,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Okay, add those two lines to the sounding in C section."
 
 *The AI's reading (marked as such):* the transposing players' two facts belong with the statement that the score is in C and the parts transposed. RUNNING_LOG §749.
+
+## LG-315 — 2026-10-02 — Micro-Tonal Tuning: fix the text so the D-sharp and the G image agree
+
+*His words (session 18, Fable):* "And you can fix the text. D sharp, g image, harmonization."
+
+*The AI's reading (marked as such):* the text follows the picture and the score in C: the example note is G-sharp. RUNNING_LOG §750.
