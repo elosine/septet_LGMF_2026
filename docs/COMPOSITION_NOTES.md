@@ -4189,3 +4189,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "The pitch curve describes a dynamic scale suggest a word other than dynamic here please — then: beginning of each curve that tells the pitch rang that gives instead of that tells."
 
 *The AI's reading (marked as such):* "dynamic" is reserved for loud and soft in these notes; the header gives its ranges. RUNNING_LOG §751.
+
+## LG-317 — 2026-10-02 — Gradient Curves: "relative" for the pitch curve's scale
+
+*His words (session 18, Fable):* "Yes, relative good"
+
+*The AI's reading (marked as such):* the scale is relative to each curve's header; the word "dynamic" is kept for volume. RUNNING_LOG §752.

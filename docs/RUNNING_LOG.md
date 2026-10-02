@@ -22729,3 +22729,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"The pitch curve describes a dynamic scale suggest a word other than dynamic here please — then: beginning of each curve that tells the pitch rang that gives instead of that tells."*
 
 **Done:** (1) his ask for a word other than "dynamic" in *"The pitch curve describes a dynamic scale, which varies per curve."* (it collides with the musical sense two sentences later) — offered in the chat: **relative** (the AI's pick: top and bottom mean what that curve's header says) · variable (pairs with "static", repeats "varies") · flexible · local; NOT changed — his pick owed. (2) done: *"… a notation header at the beginning of each curve that tells the pitch range and dynamic range …"* → *"… that gives the pitch range and dynamic range of that curve."*
+
+## §752. Gradient Curves: the pitch curve describes a "relative" scale (2026-10-02, Fable, session 18; LG-317)
+
+**His word:** *"Yes, relative good"*
+
+**Done:** *"The pitch curve describes a dynamic scale, which varies per curve."* → *"The pitch curve describes a relative scale, which varies per curve."* — §751's offer taken; "dynamic" in the notes now means loud and soft only ("dynamic range", twice).
