@@ -4018,3 +4018,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "keep 14, 16, twenty."
 
 *The AI's reading (marked as such):* he is cutting the notes down to what a performer needs: the two groups and three single items; the rest of the tracked notes are not written for now. RUNNING_LOG §723.
+
+## LG-289 — 2026-10-02 — Animated Conduction Tools: the dotted vertical line marks the go-time; take out "the go-line"
+
+*His words (session 18, Fable):* "The dotted vertical line marks the go time for events. Take out the go line."
+
+*The AI's reading (marked as such):* the performers are given the thing (the dotted vertical line) and what it marks (the go-time), not the project's name for it. RUNNING_LOG §724.

@@ -22544,3 +22544,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"keep 14, 16, twenty."*
 
 **Done:** read as: of the single items left after the two groups (11 … 21), THREE STAY — 14 the percussion legend · 16 the long tone and its navy bar · 20 the percussion staff's conventions. The other eight are SET ASIDE, not deleted: 11 the ethos of section 2 · 12 the tuplet bracket · 13 the tempo frame (its sentence stays on the page) · 15 the offered additions to the tuning text · 17 one dynamic name per chord · 18 the short note with the bouncing ball · 19 grace notes · 21 the vibraphone's ○ at the end of a fall. The working list in the tracker carries both halves; the table above it keeps every row. So the notes to write are now: the settled S1 … S4 · the morph and morph header · the vibraphone · the percussion legend · the long tone · the percussion staff's conventions. The reading put to him in one line ("keep" could also have meant: keep these three as items of their own).
+
+## §724. Animated Conduction Tools: "the go-line" taken out of the dotted line's sentence (2026-10-02, Fable, session 18; LG-289)
+
+**His word:** *"The dotted vertical line marks the go time for events. Take out the go line."*
+
+**Done:** *"The dotted vertical line — the go-line — marks the go-time for events."* → *"The dotted vertical line marks the go-time for events."* (the two bolds kept, "go-time" hyphenated as it stood). Before it, his question whether "English" is capitalized in "English horn" — yes, a proper adjective, as "French horn"; the page already had it. TOLD HIM in one line: the name "go-line" is still used three times in Timbral Glissando's re-breath paragraph ("The dotted vertical go-lines are rearticulation points … at the go-line"), now without its introduction here — his to reword.
