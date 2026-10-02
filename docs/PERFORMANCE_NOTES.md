@@ -29,14 +29,14 @@ never write the notes here.*
 | 19 | **THE BEAT FRAME — an aid to ONSET ACCURACY, not a tempo** — in the micro counterpoint of section 2 a figure may carry a light grid of beat lines with a ball bouncing on them beside the cursor; the lines orient the player around the notes so the onsets land as close as possible to their written time WITHOUT counting: a head's LEFT EDGE is its time — a head whose left edge stands just left of a line is played just before that beat, one just right of it just after, one on it on it; the beat is chosen per figure under about 100 bpm; his LG-147 · LG-148 | §569 · §570 | — |
 | 20 | **The vibraphone's two rows are its two voices** — the blue row above the staff and the green row below are the two bows, each with its own dynamic line for a whole passage; a head belongs to the row of its colour (the patch behind it, the dotted line from it), whatever its height — the blue voice may be the lower note. Where both begin together with the blue voice underneath, the blue dotted line rises on the LEFT of its head and the green falls on the RIGHT of its head | §678 (§496 withdrawn) | — |
 
-## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §723; he organizes the page at the desktop)
+## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §723 · §736; he organizes the page at the desktop)
 
 *The table above is the record of what was decided and why; this list is HIS ORDER for writing — re-grouped at his word, shown to him
 in the chat one short item at a time. The numbers in square brackets are the table's rows. **THE ITEM NUMBERS ARE THE FIRST LIST's
 (§720) AND DO NOT SHIFT** — he names items by them from his phone (§722: "8 through 10" meant the first list's); a group takes a NAME,
 the items left keep their numbers. Rewrite this section whenever he re-groups.*
 
-**SETTLED TEXT** (wording exists, his)
+**SETTLED TEXT** (wording exists, his; S1 is ON THE PAGE since §736 — the section Tuning — the other three are not yet)
 
 - **S1 · Tuning** — the TUNING legend, `docs/research/just_partials_notation.md` §1b [1 · 9]
 - **S2 · Transposing instruments** — the two lines of §1b [2]

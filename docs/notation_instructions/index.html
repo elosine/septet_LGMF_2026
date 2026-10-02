@@ -127,27 +127,29 @@
         <p>A useful analogy is how acoustic beating is commonly used to tune stringed instruments. You would play two strings that are slightly out of tune and then adjust the pitch of one of them very slightly until the beating disappears. In this situation, you are not listening for the tiny variation of pitch, but you are listening to the timbral beating. And while you may have only changed the pitch by a few cents, not discernible by ear, you can hear the slowdown of the beating prominently.</p>
         <p>During the gradient curves, the dotted vertical go-lines are rearticulation points &#8212; the rearticulation should happen at the go-line: breathe or retake the bow before, and rearticulate at the line. An animated dial counts down the time to the next rearticulation.</p>
     </div>
-    <br><br>
-    <!-- BELOW: PIECE #5's "Acoustic Beating" TEXT, kept at his word for reference while he edits ("you can just leave that text
-         there for now, just push it down a little bit") — to be cut when he is done. -->
-    <div class="description">
-        <p><strong>Notation</strong></p>
-    </div>
-    <!-- The morph notation, THIS PIECE'S (§704): the horn in the first morph, the bloom (152.1 … 269.9 s).
-         (1) the entry — the block (the start head A4 · 8 (A1), the gliss line, the farthest head −25, ppp → ff), the go line at 152.1 s, both curves starting:
-         node tools/capture_lane.js --part hn --t 153.0 --span 150.5-156.2 --out docs/notation_instructions/images/morph_entry_hn_152.svg
-         (2) eighteen seconds in — a go line (the breath at 169.79 s), the orange curve, the green arc through (f) to (ff):
-         node tools/capture_lane.js --part hn --t 171.2 --span 168.6-174.3 --out docs/notation_instructions/images/morph_mid_hn_171.svg -->
-    <img class="zoomed" style="--w: 1756" src="images/morph_entry_hn_152.svg" alt="The horn entering the first morph: the block with the two heads joined by a gliss line and ppp to ff, the go line, the orange curve above the staff and the green below">
-    <img class="zoomed" style="--w: 1756" src="images/morph_mid_hn_171.svg" alt="The horn eighteen seconds into the morph: a go line, the orange glissando curve, the green dynamic curve rising through f to ff">
 </div>
 
-<!-- ═══ Notation Legend — AI drafts at his request, his to revise (RUNNING_LOG §589; NITS "FOR THE PERFORMANCE INSTRUCTIONS") ═══ -->
-<h3>Notation Legend</h3>
+<!-- ═══ Tuning ═══════════════════════════════════════════════════════════
+     HIS TEXT, settled 2026-09-27 (docs/research/just_partials_notation.md §1b; RUNNING_LOG §437 · §439 · §441), put on the page at
+     his word (§736) under a heading in place of its first line "TUNING."; the three-quarter-sharp is the score's own glyph, inline
+     (notation/lib/glyphs.json accidental.threeQuarterSharp).
+     Images, THIS PIECE'S: the two first entries of the piece, each a header at its go line —
+     the English horn at 0 s (G three-quarter-sharp, +41, 26 (C1) — the text's own numbers; the score is in C, the text's example
+     names the EH's written D-sharp) and the horn at 1.0 s (F quarter-sharp, −49, 11 (C1)). Regenerate (a ":" span: negative start):
+     node tools/capture_lane.js --part eh --t -3 --span -0.85:0.1 --out docs/notation_instructions/images/tuning_plus_eh_0.svg
+     node tools/capture_lane.js --part hn --t -3 --span 0.15:1.1 --out docs/notation_instructions/images/tuning_minus_hn_1.svg -->
+<h3>Tuning</h3>
 
 <div class="notation-section">
-    <!-- EMPTIED at his word (RUNNING_LOG §730): piece #5's Ped. line, its two piano let-ring images, the let-ring, sempre secco and
-         dynamics lines are gone; the heading kept — his to fill. -->
+    <div class="description">
+        <p>Every pitched note is a harmonic of a written fundamental, tuned in just intonation.</p>
+        <p>In this score, every accidental is an approximation and will be approximate within a quarter-tone of the actual pitch. The cents notation provides the precise tuning from a plain tempered note &#8212; the same reading a chromatic tuner gives. For example, the pitch 41 cents above D♯ is notated D<svg class="glyph" viewBox="0 0 0.8 1.5" width="0.62em" height="1.16em" style="vertical-align:-0.26em" role="img" aria-label="three-quarter-sharp"><path d="M 0.4 1.436 c -0.028 0 -0.05 -0.022 -0.05 -0.05 v -0.244 l -0.124 0.036 v 0.272 c 0 0.028 -0.022 0.05 -0.05 0.05 s -0.052 -0.022 -0.052 -0.05 v -0.244 l -0.034 0.01 c -0.006 0.002 -0.012 0.002 -0.018 0.002 c -0.038 0 -0.072 -0.032 -0.072 -0.072 v -0.082 c 0 -0.032 0.022 -0.06 0.052 -0.068 l 0.072 -0.022 v -0.294 l -0.034 0.01 c -0.006 0.002 -0.012 0.004 -0.018 0.004 c -0.038 0 -0.072 -0.032 -0.072 -0.072 v -0.084 c 0 -0.032 0.022 -0.06 0.052 -0.068 l 0.072 -0.02 v -0.272 c 0 -0.028 0.024 -0.052 0.052 -0.052 s 0.05 0.024 0.05 0.052 v 0.244 l 0.124 -0.036 v -0.272 c 0 -0.028 0.022 -0.05 0.05 -0.05 s 0.05 0.022 0.05 0.05 v 0.244 l 0.124 -0.036 v -0.272 c 0 -0.028 0.024 -0.05 0.052 -0.05 s 0.05 0.022 0.05 0.05 v 0.244 l 0.034 -0.01 c 0.006 -0.002 0.012 -0.002 0.018 -0.002 c 0.038 0 0.072 0.032 0.072 0.072 v 0.082 c 0 0.032 -0.022 0.06 -0.052 0.068 l -0.072 0.022 v 0.294 l 0.034 -0.01 c 0.006 -0.002 0.012 -0.004 0.018 -0.004 c 0.038 0 0.072 0.032 0.072 0.072 v 0.084 c 0 0.032 -0.022 0.06 -0.052 0.068 l -0.072 0.02 v 0.272 c 0 0.028 -0.022 0.052 -0.05 0.052 s -0.052 -0.024 -0.052 -0.052 v -0.244 l -0.124 0.036 v 0.272 c 0 0.028 -0.022 0.05 -0.05 0.05 z M 0.226 0.652 v 0.294 l 0.124 -0.034 v -0.294 z M 0.574 0.554 l -0.124 0.034 v 0.294 l 0.124 -0.034 v -0.294 z" fill="currentColor"/></svg> (the closest quarter-tone approximation) and the cents notation will be +41. The +41 would indicate 41 cents sharper than D♯, as a tuner would show it. No cents notation means played as written. There will not be any quarter-tone accidentals without accompanying cents notation even if the tuning is that precise quarter-tone.</p>
+        <p>Since all microtonal pitches in this piece come from the just-intonation tuning of a harmonic series, the fundamental and partial number are provided as a courtesy notation. 26 (C1) indicates the 26th partial of the fundamental C1.</p>
+    </div>
+    <div class="zoomed-row">
+        <img class="zoomed" style="--w: 293" src="images/tuning_plus_eh_0.svg" alt="A note with a three-quarter-sharp, +41 above it and 26 (C1) above that">
+        <img class="zoomed" style="--w: 293" src="images/tuning_minus_hn_1.svg" alt="A note with a quarter-sharp, −49 above it and 11 (C1) above that">
+    </div>
 </div>
 
 <!-- ═══ WORKING LIST — NOT PART OF THE NOTES (RUNNING_LOG §734): his remaining items, put at the page's foot at his word so he can
@@ -157,14 +159,6 @@
     <h3>Remaining items <span class="worklist-note">(working list &#8212; not part of the notes)</span></h3>
 
     <h4>Settled text, not on the page yet</h4>
-
-    <p><strong>S1 · Tuning</strong></p>
-    <blockquote>
-        <p>TUNING.</p>
-        <p>Every pitched note is a harmonic of a written fundamental, tuned in just intonation.</p>
-        <p>In this score, every accidental is an approximation and will be approximate within a quarter-tone of the actual pitch. The cents notation provides the precise tuning from a plain tempered note &#8212; the same reading a chromatic tuner gives. For example, the pitch 41 cents above D♯ is notated D[¾♯] (the closest quarter-tone approximation) and the cents notation will be +41. The +41 would indicate 41 cents sharper than D♯, as a tuner would show it. No cents notation means played as written. There will not be any quarter-tone accidentals without accompanying cents notation even if the tuning is that precise quarter-tone.</p>
-        <p>Since all microtonal pitches in this piece come from the just-intonation tuning of a harmonic series, the fundamental and partial number are provided as a courtesy notation. 26 (C1) indicates the 26th partial of the fundamental C1.</p>
-    </blockquote>
 
     <p><strong>S2 · Transposing instruments</strong></p>
     <blockquote>
@@ -210,6 +204,7 @@
     <ul>
         <li>Gradient Curves, last sentence of the first paragraph: the score has top = B quarter-flat, bottom = G-sharp.</li>
         <li>&#8220;Curve follower&#8221;: this piece&#8217;s device is the meter.</li>
+        <li>Tuning: the example names D♯; the image (the score is in C) shows the same note as G three-quarter-sharp.</li>
         <li>&#8220;Tempo frame&#8221; or &#8220;Temporal frame&#8221;.</li>
         <li>The demo video link is the last piece&#8217;s.</li>
     </ul>

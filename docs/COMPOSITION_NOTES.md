@@ -4090,3 +4090,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "Sometimes there is a fade-in or fade-out. Images two and three above."
 
 *The AI's reading (marked as such):* the sentence should say which pictures show the fades: the second and third of the row. RUNNING_LOG §735.
+
+## LG-301 — 2026-10-02 — the page: Notation and its images out, the Notation Legend out; the Tuning heading and text in, with an image showing + and − cents
+
+*His words (session 18, Fable):* "get rid of the notation header and the 2 images and the notation legend header. put in tuning header and the text and see if you can find a good image with some +- cents and put it in  pls"
+
+*The AI's reading (marked as such):* the page ends on the tuning legend now; the morph pictures and the empty legend go. The image wanted is one where a reader sees the cents figures at work, a plus and a minus. RUNNING_LOG §736.

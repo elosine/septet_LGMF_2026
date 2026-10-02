@@ -226,7 +226,7 @@ block is the handoff; everything is committed and pushed.*
   instructions (§703), served by his server at `http://localhost:5400/docs/notation_instructions/index.html` (give him that link).
 - **How he works on it:** he DICTATES, one section at a time; the AI puts his words in verbatim with spelling, capitals and
   punctuation repaired, swaps the images, and FLAGS a moved fact in chat without changing his sentence. Each change: a RUNNING_LOG §
-  (**§736 next**) · an LG with his words whole (**LG-301 next**); EVERY REPLY ENDS WITH THE WHOLE PAGE'S CURRENT TEXT IN THE CHAT (his ask 2026-10-02: "let me get the full performance notes at the end with each reply"; first the section alone, §714) — he is on his phone: short items, no tables · the state lines · commit + push.
+  (**§737 next**) · an LG with his words whole (**LG-302 next**); EVERY REPLY ENDS WITH THE WHOLE PAGE'S CURRENT TEXT IN THE CHAT (his ask 2026-10-02: "let me get the full performance notes at the end with each reply"; first the section alone, §714) — he is on his phone: short items, no tables · the state lines · commit + push.
 - **The images' rule (§704):** every score image is a crop of the ZOOMED presentation score (Z 2) at ONE scale —
   `node tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B [--gutter] [--padBot N] --out
   docs/notation_instructions/images/X.svg` (a span over 5.77 s is refused; `--gutter` puts the lane's clef in), then
@@ -250,13 +250,13 @@ block is the handoff; everything is committed and pushed.*
      curve's bottom = B quarter-flat and top = G-sharp; the curve is PITCH HEIGHT, so top = B quarter-flat, bottom = G-sharp.
   6. *Timbral Glissando* — all his, three paragraphs (§711 … §733): the micro-glissandos as timbre · the string-tuning analogy ·
      "During the gradient curves, the dotted vertical go-lines are rearticulation points — … An animated dial counts down the time to
-     the next rearticulation." Under them: the bold word **Notation** and this piece's two horn morph images (kept, not named by him).
+     the next rearticulation." The bold "Notation" and the two horn morph images that stood under them were REMOVED at §736.
      MEASURED for him (§716 · §717): only the bloom is written in pairs by instrument group; morph 2 — EH + Vc meet on B4, the DB falls
      onto the bassoon's held A2; morph 3 — octaves only.
-  7. *Notation Legend* — the heading over an EMPTY section (§730), his to fill.
+  7. *Tuning* (§736, in place of the Notation Legend, whose heading is gone) — his settled TUNING text under a heading, the three-quarter-sharp as the score's own glyph inline, and a row of two snips: the EH's entry at 0 s (+41 · 26 (C1)) · the horn's at 1.0 s (−49 · 11 (C1)). FLAGGED: the text's example names D♯ (the EH's written note); the image, the score in C, shows G three-quarter-sharp.
   8. *At the page's foot* — a boxed, screen-only **Remaining items (working list — not part of the notes)** (§734).
 - **THE WORKING LIST — his grouping (§720 … §723), in `docs/PERFORMANCE_NOTES.md` § THE WORKING LIST and mirrored at the page's foot;
-  the item numbers are the first list's and DO NOT SHIFT:** settled text not yet on the page — S1 tuning · S2 transposing · S3 vibrato ·
+  the item numbers are the first list's and DO NOT SHIFT:** S1 tuning ON THE PAGE (§736) · settled text not yet on the page — S2 transposing · S3 vibrato ·
   S4 the uneven group · to settle — THE MORPH AND MORPH HEADER (1 … 7) · THE VIBRAPHONE (8 … 10) · 14 the percussion legend · 16 the
   long tone · 20 the percussion staff's conventions · set aside — 11 · 12 · 13 · 15 · 17 · 18 · 19 · 21. Keep the tracker's list and
   the page's box in step when either moves.

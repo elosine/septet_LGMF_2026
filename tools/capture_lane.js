@@ -55,7 +55,9 @@ const partArg = v => { const i = NAMES.indexOf(String(v).toLowerCase()); return 
 const part = partArg(arg('part', '0'));
 const toPart = partArg(arg('toPart', String(part)));
 const t = parseFloat(arg('t', '0'));
-const [s0, s1] = arg('span', '0-10').split('-').map(Number);
+// [§736] "a:b" as well as "a-b": a span that begins in the lead-in has a NEGATIVE start (--span -0.8:0.15)
+const spanArg = arg('span', '0-10');
+const [s0, s1] = (spanArg.includes(':') ? spanArg.split(':') : spanArg.split('-')).map(Number);
 const irId = arg('ir', 'piece-lgmf');
 const out = arg('out', null);
 if (!out) { console.error('capture_lane: --out is required'); process.exit(1); }
