@@ -4171,3 +4171,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "I'm going to leave most of the remaining to-dos, I think. But can you just point out any glaring omissions? — then: Fix number five sentence, please.  Abodevira phone is played in two parts, with the motor off. Explain more clearly. The discrepancy in number three please"
 
 *The AI's reading (marked as such):* he leaves most of the list and asks only for what would mislead a player; of the seven named he takes the reversed sentence and the motor at once and wants the transposition point made plain before deciding. RUNNING_LOG §748.
+
+## LG-314 — 2026-10-02 — add the two transposition lines to the "in C" section
+
+*His words (session 18, Fable):* "Okay, add those two lines to the sounding in C section."
+
+*The AI's reading (marked as such):* the transposing players' two facts belong with the statement that the score is in C and the parts transposed. RUNNING_LOG §749.
