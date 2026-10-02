@@ -3930,3 +3930,9 @@ the top of the pitch curve as the B quarter-flat and the bottom as the G-sharp, 
 *The AI's reading (marked as such):* "Tempo frame" is his name on the page for what the log calls the beat frame; the tuba piece's
 "Multiple Tempos" paragraph goes in under it as the text to revise ("display them here" read as: on the page, and quoted in the chat);
 the image is the English horn's first frame with the ball in mid-air. RUNNING_LOG §709.
+
+## LG-275 — 2026-10-01 — the tempo-frame image: the ball on one of the lines, on the downward
+
+*His words (session 18, Fable):* "Let's get the ball, same image, that's fine, but the ball on one of the lines. So on the, I guess it would be on the downward."
+
+*The AI's reading (marked as such):* the same picture at the moment the ball comes down onto a beat line. RUNNING_LOG §710.

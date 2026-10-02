@@ -22402,3 +22402,12 @@ an aid to onset accuracy and not a tempo — the tracker's row 19, held with the
 294.54 … 297.78 s (93 bpm, six lines) — the only one whole inside a short crop with its figure: span 294.2 … 298.1, the EH's lane
 alone, 1201 px (62.6 % of the column). The instant: t = 295.70 first put the cursor on a note's stem; t = 296.95 taken — the cursor
 clear of the ink, the ball in mid-air 0.18 s before the line at 297.13.
+
+## §710. The tempo-frame image: the ball on a line (2026-10-01, Fable, session 18; LG-275)
+
+**His word:** *"Let's get the ball, same image, that's fine, but the ball on one of the lines. So on the, I guess it would be on the
+downward."*
+
+**Done:** the same crop (the EH, 294.2 … 298.1 s), the instant moved from t = 296.95 to **t = 297.10** — 0.03 s before the beat at
+297.13: the ball low on its fall and touching that line, the cursor a hair left of it so the line still shows. The ball rides the
+cursor, so it is on a line only at a beat; the exact beat was not taken because the cursor would then cover the line. His to move.
