@@ -4114,3 +4114,12 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "For example, a pitch 41 cents above D♯"
 
 *The AI's reading (marked as such):* "a pitch", not "the pitch": the example is a general case, not one note of the score. RUNNING_LOG §739.
+
+## LG-305 — 2026-10-02 — the tuning section: "Micro-Tonal Tuning"; every microtonally altered note …; each quarter-tone accidental …
+
+*His words (session 18, Fable):* "change the header to Micro-Tonal Tuning
+Every microtonally altered note in this score is a harmonic of a written fundamental, tuned in just intonation.
+
+Each 1/4 tone accidental is an approximation and will be approximate within a quarter-tone of the actual pitch."
+
+*The AI's reading (marked as such):* the claim is narrowed to what is true of the score: not every note is a just partial, and not every accidental is an approximation — only the microtonal ones. RUNNING_LOG §740.
