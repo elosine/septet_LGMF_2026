@@ -22489,3 +22489,22 @@ text below the section is named as unchanged, not repeated).
 **So:** one of three. And a second fact for the section's wording, told him in one line: the bloom's travel is ±25 c (his "slight pitch variations", "a few cents"); the two take → take morphs travel 69 … 1002 c — slow, but real changes of note, not micro-glissandos.
 
 **A CORRECTION OF §707, found in the same data.** §707 read the orange curve as "top = the first head, bottom = the second". Wrong as a rule: the samples are PITCH HEIGHT inside the part's own travel — bottom = the LOWER of the header's two pitches, top = the HIGHER. In the bloom the players who go UP (EH · Tpt · Vc) start at 0, the bottom, and rise; those who go DOWN (Bsn · Hn · DB) start at 1, the top, and fall; in the last morph the horn (+1002 c) starts at the bottom. For the bassoon's picture on the page nothing changes: it falls from B quarter-flat (the higher, the top) to G-sharp (the lower, the bottom), so the flag on his sentence stands, and the simple rule for the notes is "top = the higher pitch".
+
+## §717. Timbral Glissando: the pairs paragraph re-dictated "for now"; morphs 2 and 3 traced — who meets whom, the small groupings to rehearse (2026-10-02, Fable, session 18; LG-282)
+
+**His word:** *"in this piece, these effects are written in pairs by instrument groups. You will be able to hear more precisely the range of timbral change during sectional rehearsals. just put this in there for now, but let's talk about Morph 2 and Morph 3. I think one of them, some parts converge or center around another's pitch. I guess what I'm trying to discern is what small groupings, if any, would it make sense to rehearse Morph 2 and Morph 3 in?"*
+
+**Done:** the section's third paragraph replaced by his two sentences ("for now" — after §716 it is true of the bloom alone, and he knows it). Then THE TRACE, nothing built: each mover's pitch over time rebuilt from the page's own data (start + the gliss overlay's samples, which are pitch height inside the part's travel), the holders read from the events, every two parts compared with octaves removed.
+
+**MORPH 2 (take → take on A1, 576.6 … 659.3 s).** All five move together: a tenth of the way by 586 … 592 s, half by 613 … 619, nine tenths by 639 … 647. THE BASSOON HOLDS A2 throughout (eight breaths, 561 … 668). Two real convergences, both in the last third:
+- **EH + Vc onto ONE NOTE, B4 +4** — from a major third apart (EH A4 +9 rising 195 c, Vc C♯5 −14 falling 182 c), a true unison in the same octave; inside 60 c of each other for the last 22 s.
+- **DB onto the BASSOON'S HELD A2** — the bass falls a fifth, E3 +2 → A2 (−702 c), into the same octave as the held note (inside 60 c for the last 12 s); **the trumpet arrives on A too**, G5 −31 → A5, three octaves above. This is his "center around another's pitch": the held A.
+- The horn (C♯4 −9 → E4 +2, +312 c) meets no one at the end: it starts an octave under the cello's C♯ (4 c apart) and leaves it; it lands on E, the fifth over the A. Passing octaves only, 8 … 16 s each: Hn / DB at 604 s, Vc / DB at 627, EH / DB at 636.
+
+**MORPH 3 (take → take, D♭2 → E1, 725.0 … 804.2 s).** All six move together: a tenth by 734 … 740 s, half by 758 … 766, nine tenths by 784 … 792. Nobody holds. NO two parts ever share a note in the same octave; the relations are OCTAVES:
+- at the START three C♯s in octaves — **Hn C♯2 · DB C♯3 · Tpt C♯5** — that open at three rates (Tpt +69 c, DB +300, Hn +1002); Tpt / DB stay inside 60 c of the octave for 28 s;
+- at the START two Fs an octave apart — **EH F5 −14 · Vc F4 −14** — that open in CONTRARY motion (EH −86 c, Vc +118), inside 60 c for 23 s: a bloom-like pair across the groups, an octave apart, that does not close;
+- at the END two Es two octaves apart — **EH E5 · DB E3** — converging for the last 18 s; the bassoon's arrival G♯4 −14 is the just third over them;
+- the horn's rise of a minor seventh passes octaves of the EH (749 s), the cello (754) and the bassoon (776), 6 … 9 s each.
+
+**The groupings put to him (the AI's, from pitch proximity alone — nothing heard):** morph 2: EH + Vc · Bsn + DB + Tpt (the horn with them, on the fifth). Morph 3: Hn + DB + Tpt (the C♯s opening) · EH + Vc (the Fs opening) · EH + DB (+ Bsn) for the arrival on E. Beating at an octave is weaker than at a unison — morph 3's groups are for tuning the octaves going out and coming in, not for the strong beating of the bloom.

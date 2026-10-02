@@ -3976,3 +3976,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "My assertion, these effects in this piece are mostly written in pairs by instrument group. Can you check, I believe it's the three morphs, and see if it's true for all three or which ones it's true for?"
 
 *The AI's reading (marked as such):* a factual check before the sentence stays in the notes; measured: the bloom is in pairs (contrary motion from a unison, ±25 c), the two take → take morphs are not. RUNNING_LOG §716.
+
+## LG-282 — 2026-10-02 — Timbral Glissando: "written in pairs by instrument groups … sectional rehearsals" for now; what small groupings for morphs 2 and 3?
+
+*His words (session 18, Fable):* "in this piece, these effects are written in pairs by instrument groups. You will be able to hear more precisely the range of timbral change during sectional rehearsals. just put this in there for now, but let's talk about Morph 2 and Morph 3. I think one of them, some parts converge or center around another's pitch. I guess what I'm trying to discern is what small groupings, if any, would it make sense to rehearse Morph 2 and Morph 3 in?"
+
+*The AI's reading (marked as such):* the two sentences replace the pairs paragraph as a placeholder; the question is which players meet in morphs 2 and 3 so a rehearsal grouping can be named. Measured: morph 2 has two meetings (EH + Vc on B4; the bass onto the bassoon's held A2, the trumpet on A above); morph 3 only octaves. RUNNING_LOG §717.
