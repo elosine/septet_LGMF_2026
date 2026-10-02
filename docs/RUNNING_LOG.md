@@ -22649,3 +22649,9 @@ Every microtonally altered note in this score is a harmonic of a written fundame
 Each 1/4 tone accidental is an approximation and will be approximate within a quarter-tone of the actual pitch."*
 
 **Done:** typed, not dictated. The heading **Tuning** → **Micro-Tonal Tuning** (his spelling kept; the one-word "Microtonal" would match his own "microtonally" in the next line — offered). *"Every pitched note is a harmonic …"* → *"Every microtonally altered note in this score is a harmonic of a written fundamental, tuned in just intonation."* · *"In this score, every accidental is an approximation …"* → *"Each quarter-tone accidental is an approximation and will be approximate within a quarter-tone of the actual pitch."* (his "1/4 tone" written "quarter-tone", as later in the same sentence); the rest of the second paragraph and the third stand. THE CHANGE OF MEANING, for the record: the legend of §437 claimed every pitched note and every accidental; the page now speaks only of the microtonally altered notes and the quarter-tone accidentals — which leaves the tempered notes (the vibraphone, section 2's long tones, the plain sharps and flats) outside the claim, as they are in the score.
+
+## §741. Micro-Tonal Tuning: "are provided as courtesy notation" (2026-10-02, Fable, session 18; LG-306)
+
+**His word:** *"re provided as courtesy notation"*
+
+**Done:** (the message's first letter lost.) *"… the fundamental and partial number are provided as a courtesy notation."* → *"… are provided as courtesy notation."* — the article dropped.

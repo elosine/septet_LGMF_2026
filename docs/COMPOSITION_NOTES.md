@@ -4123,3 +4123,9 @@ Every microtonally altered note in this score is a harmonic of a written fundame
 Each 1/4 tone accidental is an approximation and will be approximate within a quarter-tone of the actual pitch."
 
 *The AI's reading (marked as such):* the claim is narrowed to what is true of the score: not every note is a just partial, and not every accidental is an approximation — only the microtonal ones. RUNNING_LOG §740.
+
+## LG-306 — 2026-10-02 — Micro-Tonal Tuning: "are provided as courtesy notation"
+
+*His words (session 18, Fable):* "re provided as courtesy notation"
+
+*The AI's reading (marked as such):* "courtesy notation" as a kind of notation, not one item. RUNNING_LOG §741.
