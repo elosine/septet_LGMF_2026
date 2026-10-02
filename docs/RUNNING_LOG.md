@@ -22457,3 +22457,13 @@ pitch variations to modify the ensemble timbre continuously."*
 **Done:** it replaces §711's *"So these glissandos are less about pitch accuracy, but more about using slight pitch variation to
 modify the ensemble timbre."* — "accuracy" gone (less about PITCH, not about its accuracy), "variations" plural, "continuously"
 added, the "So" and the "but" dropped. The rest of the section untouched.
+
+## §714. The instruction page, Timbral Glissando: the restart cut; the full text shown each time (2026-10-02, Fable, session 18; LG-279)
+
+**His words:** *"Let me see the full timbral glissando text each time, please."* — then *"Just take out the so you're not thinking
+about and start the sentence with capital I in this situation."*
+
+**Done:** *"So you're not thinking about — in this situation, you're not listening for the tiny variation of pitch …"* → *"In this
+situation, you're not listening for the tiny variation of pitch, but you're listening to the timbral beating."* From here each reply
+after an edit prints the section's whole live text in the chat (saved as a standing preference in the AI's memory; the old reference
+text below the section is named as unchanged, not repeated).

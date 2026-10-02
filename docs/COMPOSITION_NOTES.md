@@ -3957,3 +3957,10 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "these glissandos are less about pitch and more about using slight pitch variations to modify the ensemble timbre continuously."
 
 *The AI's reading (marked as such):* a replacement for the section's second sentence. RUNNING_LOG §713.
+
+## LG-279 — 2026-10-02 — Timbral Glissando: show the full text each time; cut "so you're not thinking about"
+
+*His words (session 18, Fable, two messages):* "Let me see the full timbral glissando text each time, please." — "Just take out the so you're not thinking about and start the sentence with capital I in this situation."
+
+*The AI's reading (marked as such):* after every dictated edit the whole section is printed in the chat; the sentence now begins
+"In this situation, you're not listening for …". RUNNING_LOG §714.

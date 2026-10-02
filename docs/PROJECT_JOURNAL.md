@@ -226,7 +226,7 @@ block is the handoff; everything is committed and pushed.*
   instructions (§703), served by his server at `http://localhost:5400/docs/notation_instructions/index.html` (give him that link).
 - **How he works on it:** he DICTATES, one section at a time; the AI puts his words in verbatim with spelling, capitals and
   punctuation repaired, swaps the images, and FLAGS a moved fact in chat without changing his sentence. Each change: a RUNNING_LOG §
-  (**§714 next**) · an LG with his words whole (**LG-279 next**) · the state lines · commit + push.
+  (**§715 next**) · an LG with his words whole (**LG-280 next**); AFTER EVERY EDIT THE SECTION'S FULL TEXT IS PRINTED IN THE CHAT (his ask, §714) · the state lines · commit + push.
 - **The images' rule (§704):** every score image is a crop of the ZOOMED presentation score (Z 2) at ONE scale —
   `node tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B [--gutter] [--padBot N] --out
   docs/notation_instructions/images/X.svg` (a span over 5.77 s is refused; `--gutter` puts the lane's clef in), then
