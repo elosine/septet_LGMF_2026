@@ -22574,3 +22574,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"get rid of the following three paragraphs from there are two sections to I have prepared demo recordings and take out the image and the links."*
 
 **Done:** removed from the reference text under Timbral Glissando: *"There are two sections in this movement — Bloom and Spectral. …"* · *"The strategy for the Spectral section is different. …"* · piece #5's morph chart (`morph_sequence_chart.svg`, the file removed from the folder too) · *"I have prepared demo recordings for the Bloom section …"* and its three YouTube links (piece #5's pairs). What is left of the reference text: the bold **Notation**, this piece's two horn images, and the notation paragraph (*"The notation for the acoustic beating movement employs two curves …"*). With the chart gone, the only images on the page still piece #5's are the two piano let-ring images in the Notation Legend.
+
+## §729. Timbral Glissando: the old notation paragraph removed — no piece-#5 prose is left in the section (2026-10-02, Fable, session 18; LG-294)
+
+**His word:** *"get rid of the paragraph, the notation for the acoustic beating movement."*
+
+**Done:** piece #5's last paragraph in the section removed (*"The notation for the acoustic beating movement employs two curves for each performer … The animated curves can assist."*) — its content is his Gradient Curves paragraph and his rearticulation paragraph now. Left under his three paragraphs, after the two blank lines: the bold word **Notation** and this piece's two horn images (the entry at 152.1 s, the breath at 169.8 s) — not named by him, so kept; told him.
