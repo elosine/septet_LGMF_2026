@@ -3988,3 +3988,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "Okay, let's take out the paragraph in this piece. These effects are written in pairs. And then can I see the list of composition notes or performance notes that we were took notes on to address here in the performance notes?"
 
 *The AI's reading (marked as such):* the paragraph deleted after the measurement of §716 · §717; the tracker's list is asked for as a checklist against the page — shown, not merged. RUNNING_LOG §718.
+
+## LG-284 — 2026-10-02 — Timbral Glissando: the re-breath paragraph under the analogy; "an animated dial counts down the time to the next re-breath"
+
+*His words (session 18, Fable):* "put the rebreath paragraph below the useful analogy one for now. And then add at the end of that paragraph, an animated dial counts down the time to the next re-breath"
+
+*The AI's reading (marked as such):* the re-breath sentence becomes the section's third paragraph, his dial sentence closing it; the pie's name for the performers is "an animated dial". RUNNING_LOG §719.
