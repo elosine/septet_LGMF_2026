@@ -22448,3 +22448,12 @@ then two blank lines and the tuba piece's paragraph, without the bold lead, as h
 **Noted:** he said "temporal frame" this time and "Tempo frame" at §709; the heading left as **Tempo frame**, asked. His sentence
 calls the device a CONDUCTED PULSE laid over a section — the frame as conducting, the lines and the ball its two forms; "rhythmic
 accuracy" where the tracker's row 19 has "onset accuracy … not a tempo".
+
+## §713. The instruction page, Timbral Glissando: his second sentence revised (2026-10-02, Fable, session 18; LG-278)
+
+**His word**, after reading the section's text in the chat: *"these glissandos are less about pitch and more about using slight
+pitch variations to modify the ensemble timbre continuously."*
+
+**Done:** it replaces §711's *"So these glissandos are less about pitch accuracy, but more about using slight pitch variation to
+modify the ensemble timbre."* — "accuracy" gone (less about PITCH, not about its accuracy), "variations" plural, "continuously"
+added, the "So" and the "but" dropped. The rest of the section untouched.

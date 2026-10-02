@@ -3951,3 +3951,9 @@ RUNNING_LOG §711.
 
 *The AI's reading (marked as such):* his sentence becomes the section's text; the tuba's paragraph stays below it for now. "Temporal
 frame" heard against §709's "Tempo frame" — the heading not changed, asked. RUNNING_LOG §712.
+
+## LG-278 — 2026-10-02 — Timbral Glissando: "less about pitch and more about … the ensemble timbre continuously"
+
+*His words (session 18, Fable):* "these glissandos are less about pitch and more about using slight pitch variations to modify the ensemble timbre continuously."
+
+*The AI's reading (marked as such):* a replacement for the section's second sentence. RUNNING_LOG §713.
