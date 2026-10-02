@@ -22634,3 +22634,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"get rid of this is indicated before the dynamic..."*
 
 **Done:** the closing paragraph's last sentence, *"This is indicated before the dynamic range."*, removed (his message cut after "dynamic", the sentence unmistakable). The paragraph ends on *"Sometimes there is a fade-in or fade-out (images two and three above)."* — the pictures carry where the sign stands (on the fade-out it is followed by the dynamic the line falls to, not by a range: §731's note, now moot).
+
+## §739. Tuning: "For example, a pitch 41 cents above D♯ …" (2026-10-02, Fable, session 18; LG-304)
+
+**His word:** *"For example, a pitch 41 cents above D♯"*
+
+**Done:** *"For example, the pitch 41 cents above D♯ is notated …"* → *"For example, a pitch 41 cents above D♯ is notated …"* — the first change to the tuning legend since it was settled (§437 · §439); `just_partials_notation.md` §1b still holds the settled wording with "the pitch" — the page is now the newer text. He keeps D♯ (the open point about the image in C stands in the list).

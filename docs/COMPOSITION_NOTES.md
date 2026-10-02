@@ -4108,3 +4108,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "get rid of this is indicated before the dynamic..."
 
 *The AI's reading (marked as such):* the two pictures show the signs; the sentence locating them is not needed. RUNNING_LOG §738.
+
+## LG-304 — 2026-10-02 — Tuning: "For example, a pitch 41 cents above D♯"
+
+*His words (session 18, Fable):* "For example, a pitch 41 cents above D♯"
+
+*The AI's reading (marked as such):* "a pitch", not "the pitch": the example is a general case, not one note of the score. RUNNING_LOG §739.
