@@ -22580,3 +22580,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"get rid of the paragraph, the notation for the acoustic beating movement."*
 
 **Done:** piece #5's last paragraph in the section removed (*"The notation for the acoustic beating movement employs two curves for each performer … The animated curves can assist."*) — its content is his Gradient Curves paragraph and his rearticulation paragraph now. Left under his three paragraphs, after the two blank lines: the bold word **Notation** and this piece's two horn images (the entry at 152.1 s, the breath at 169.8 s) — not named by him, so kept; told him.
+
+## §730. Notation Legend: the heading kept, everything under it removed — no piece-#5 prose or image is left on the page (2026-10-02, Fable, session 18; LG-295)
+
+**His word:** *"keep the notation legend heading, but get rid of all the text under."*
+
+**Done:** under **Notation Legend** everything is gone — piece #5's Ped. line (with its inline glyph), the two piano let-ring images (the files removed from the folder), the let-ring, sempre secco and dynamics lines. The heading stands over an empty section, his to fill (the kept items of the working list — the percussion legend, the long tone, the percussion staff's conventions — are legend material). WHAT IS STILL PIECE #5's ON THE PAGE NOW: only the demo video link at the top. Every image on the page is this piece's.

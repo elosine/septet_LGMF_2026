@@ -4054,3 +4054,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "get rid of the paragraph, the notation for the acoustic beating movement."
 
 *The AI's reading (marked as such):* the last of the old text goes; the section's prose is all his. RUNNING_LOG §729.
+
+## LG-295 — 2026-10-02 — Notation Legend: keep the heading, get rid of all the text under it
+
+*His words (session 18, Fable):* "keep the notation legend heading, but get rid of all the text under."
+
+*The AI's reading (marked as such):* the piano's legend does not belong to this piece; the heading waits for this piece's own legend. RUNNING_LOG §730.
