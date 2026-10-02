@@ -22382,3 +22382,23 @@ displayed in a web browser."*
 
 **Done:** *"… served from the cloud and played in a web browser, like an online video game."* → *"… served from the cloud and
 displayed in a web browser, like an online video game."* One word; *"like an online video game"* kept (he did not name it), told him.
+
+## §709. The instruction page: a Tempo frame paragraph — the tuba piece's note surfaced, an image from this piece (2026-10-01, Fable, session 18; LG-274)
+
+**His word:** *"in the animated conduction tool section after the bouncing ball conductors and the two images. Let's have another
+paragraph with the bold Tempo frame. And then can you surface the notes about this from the Tuba piece and display them here? And then
+can you find a passage from this piece with the tempo frame and the ball in motion? And then just put it under this one."*
+
+**The tuba piece's note (piece #4, `for_seven_tubas/docs/notation_instructions/index.html`, its section "Multiple Tempos" — piece #5
+had removed it, its §587):** *"The final section of this piece consists of a steady pulse and rapidly changing tempos. The tempo you
+are playing in is marked with hashes at the top, and a bouncing ball marks out the tempo."* One paragraph; its image was three tuba
+lanes at ♩ = 110.5 / 126.3 / 118.4.
+
+**Done:** under the two captioned images, a paragraph *"**Tempo frame** — "* + the tuba's paragraph word for word, as the starting
+text (his to revise: it speaks of hashes at the top and of a final section; here the frame is lines through the staff, in section 2,
+an aid to onset accuracy and not a tempo — the tracker's row 19, held with the list, not merged).
+
+**The image:** the piece has eight frames (the EH's six · the bassoon's at 321.7 · the trumpet's at 344.1). Taken: the EH's first,
+294.54 … 297.78 s (93 bpm, six lines) — the only one whole inside a short crop with its figure: span 294.2 … 298.1, the EH's lane
+alone, 1201 px (62.6 % of the column). The instant: t = 295.70 first put the cursor on a note's stem; t = 296.95 taken — the cursor
+clear of the ink, the ball in mid-air 0.18 s before the line at 297.13.

@@ -3922,3 +3922,11 @@ the top of the pitch curve as the B quarter-flat and the bottom as the G-sharp, 
 *His words (session 18, Fable, sent mid-turn):* "The paragraph, computer animated score, served from the cloud. And I want to say, and displayed in a web browser."
 
 *The AI's reading (marked as such):* "played" → "displayed" in the opening sentence; the rest of the sentence stands. RUNNING_LOG §708.
+
+## LG-274 — 2026-10-01 — the performance notes: a Tempo frame paragraph, the tuba piece's note, a passage with the ball in motion
+
+*His words (session 18, Fable):* "in the animated conduction tool section after the bouncing ball conductors and the two images. Let's have another paragraph with the bold Tempo frame. And then can you surface the notes about this from the Tuba piece and display them here? And then can you find a passage from this piece with the tempo frame and the ball in motion? And then just put it under this one."
+
+*The AI's reading (marked as such):* "Tempo frame" is his name on the page for what the log calls the beat frame; the tuba piece's
+"Multiple Tempos" paragraph goes in under it as the text to revise ("display them here" read as: on the page, and quoted in the chat);
+the image is the English horn's first frame with the ball in mid-air. RUNNING_LOG §709.
