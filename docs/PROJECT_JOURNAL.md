@@ -233,23 +233,36 @@ block is the handoff; everything is committed and pushed.*
   `<img class="zoomed" style="--w: N">` or `<figure class="zoomed" style="--w: N">` + `<figcaption>`, N = the `--w` the tool
   prints; the one knob is `--frame` in `styles.css`. Each image's command sits in a comment beside it. To LOOK at one: resvg to a
   scratch PNG (the scratch script `rast.js` of this session is gone with the scratchpad — `export_video.js`'s font options).
-- **The page, section by section, as it stands:**
-  1. *Title · subtitle · opening sentence* — this piece's (§703 · §705 · §708).
-  2. *Demo Recording* — STILL PIECE #5's YouTube link.
+- **The page, section by section, as it stands after §734 (2026-10-02 — he worked from his PHONE; checked against the chat: every
+  dictated change is in the file):**
+  1. *Title · subtitle · opening sentence* — this piece's ("… served from the cloud and displayed in a web browser, like an online
+     video game.").
+  2. *Demo Recording* — STILL PIECE #5's YouTube link (the only thing of piece #5 left on the page).
   3. *Instrumentation* — this piece's; the percussion line is the AI's wording (§705).
-  4. *Animated Conduction Tools* — his paragraphs, two captioned images (the bassoon's one-off · the EH's breath), then **Tempo
-     frame** + HIS sentence (§712: "a conducted pulse in the form of vertical lines and a bouncing ball"), the EH's frame with the ball on a
-     line, and BELOW it the tuba piece's paragraph kept for his reference (§706 · §709 · §710 · §712); ASKED: "Tempo frame" or "Temporal frame".
-  5. *Gradient Curves* — his paragraph, the bassoon's image at 726.88 with its clef (§707). **OPEN — A FACT FLAGGED, his word owed:**
-     his last sentence has the pitch curve's bottom = B quarter-flat and top = G-sharp; the data has the reverse (the curve starts at
-     the TOP on the first head). "swap" = change the sentence.
-  6. *Timbral Glissando* — his new text (§711), TO BE EDITED DOWN BY HIM; under it piece #5's Acoustic Beating text, kept for his
-     reference: the morph chart and the three practice-video links are STILL PIECE #5's; the two horn morph images are this piece's.
-  7. *Notation Legend* — ALL STILL PIECE #5's (the Ped. sign, the two piano let-ring images, sempre secco, the dynamics line).
-- **HELD at his word (§703), not merged into the page:** the tracker's 20 rows (`docs/PERFORMANCE_NOTES.md`) and the six section-2
-  items with no row (the long tone · one name per chord · the one-off and the GC's purpose · the grace family · the percussion
-  staff's conventions · the vibraphone's ○ at the end of a fall). His TUNING legend is `just_partials_notation.md` §1b.
+  4. *Animated Conduction Tools* — all his: the cursor paragraph · "Bouncing-ball conductors aid with rhythmic precision. The dotted
+     vertical line marks the go-time for events." ("the go-line" taken out, §724) · two captioned images · **Tempo frame** — "To
+     assist with rhythmic accuracy, some sections are overlaid with a conducted pulse in the form of vertical lines and a bouncing
+     ball." + the EH's frame, the ball on a line. ASKED, unanswered: "Tempo frame" or "Temporal frame".
+  5. *Gradient Curves* — his paragraph (§707) + piece #5's sentence put in to see: "An animated curve follower appears alongside the
+     cursor …" (§726 — **the word is wrong for this piece: the device is the METER; his to change**) · a ROW of three images (the
+     bassoon at 726.88 with its clef · a fade-in header, the bassoon at 5.3 s · a fade-out header, the EH at 141.98 s) · his closing
+     paragraph on the header's dynamic range (§731). **OPEN — A FACT FLAGGED, his word owed (§707 · §716):** his sentence has the pitch
+     curve's bottom = B quarter-flat and top = G-sharp; the curve is PITCH HEIGHT, so top = B quarter-flat, bottom = G-sharp.
+  6. *Timbral Glissando* — all his, three paragraphs (§711 … §733): the micro-glissandos as timbre · the string-tuning analogy ·
+     "During the gradient curves, the dotted vertical go-lines are rearticulation points — … An animated dial counts down the time to
+     the next rearticulation." Under them: the bold word **Notation** and this piece's two horn morph images (kept, not named by him).
+     MEASURED for him (§716 · §717): only the bloom is written in pairs by instrument group; morph 2 — EH + Vc meet on B4, the DB falls
+     onto the bassoon's held A2; morph 3 — octaves only.
+  7. *Notation Legend* — the heading over an EMPTY section (§730), his to fill.
+  8. *At the page's foot* — a boxed, screen-only **Remaining items (working list — not part of the notes)** (§734).
+- **THE WORKING LIST — his grouping (§720 … §723), in `docs/PERFORMANCE_NOTES.md` § THE WORKING LIST and mirrored at the page's foot;
+  the item numbers are the first list's and DO NOT SHIFT:** settled text not yet on the page — S1 tuning · S2 transposing · S3 vibrato ·
+  S4 the uneven group · to settle — THE MORPH AND MORPH HEADER (1 … 7) · THE VIBRAPHONE (8 … 10) · 14 the percussion legend · 16 the
+  long tone · 20 the percussion staff's conventions · set aside — 11 · 12 · 13 · 15 · 17 · 18 · 19 · 21. Keep the tracker's list and
+  the page's box in step when either moves.
 - **Offered, not taken:** embedding the score's font in the images (their small text draws in the system serif).
+- **Not looked at:** the narrow fade-out snip (`header_fade_out_eh_142.svg`) crashed the scratch rasterizer (resvg) — seen only in a
+  wider cut; Chrome draws it from the same SVG. His eye at the desktop.
 - **`Resume reads:`** this block · the page itself (`docs/notation_instructions/index.html`) · `docs/PERFORMANCE_NOTES.md` when he
   reaches a topic it covers. Nothing else.
 - **Deliberately uncommitted:** unchanged from checkpoint #12's list below (5 modified, 25 untracked — all his).
