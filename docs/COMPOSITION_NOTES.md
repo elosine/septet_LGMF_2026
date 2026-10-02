@@ -4006,3 +4006,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "collect one through seven into morph an item, a single item called the morph and morph header."
 
 *The AI's reading (marked as such):* his first act of organizing the notes: everything about reading a morph page — the header's two ranges, the signs, the curves, the brackets, the dial and meters — is one subject to him, named for the header. RUNNING_LOG §721.
+
+## LG-287 — 2026-10-02 — the notes list: eight through ten into one item, the vibraphone
+
+*His words (session 18, Fable):* "collect 8 through 10 in a one item called fibrophone."
+
+*The AI's reading (marked as such):* the three vibraphone notes are one subject; he names items by the first list's numbers, so those are kept fixed. RUNNING_LOG §722.

@@ -22532,3 +22532,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"collect one through seven into morph an item, a single item called the morph and morph header."*
 
 **Done:** the open list's first seven items (the pie · the meters · the lead-in / the arrow between two dynamics and the niente circle / the fade signs / arrow against hairpin / the green curve is the intention / a dynamic in brackets / the morph's two heads) are ONE item now, **THE MORPH AND MORPH HEADER**; the rest renumbered 2 … 15. So that the grouping is not only in the chat, the working list is written at the foot of `docs/PERFORMANCE_NOTES.md` (THE WORKING LIST — HIS GROUPING: the four settled texts S1 … S4, then the open items with the tracker rows each one gathers). Noted to him in one line: the 4 s lead-in rode in with the list's old item 1; it belongs to the piece's opening rather than the morph — his to move.
+
+## §722. The notes list: his second group — "the vibraphone" (items 8 … 10); the item numbers made stable (2026-10-02, Fable, session 18; LG-287)
+
+**His word:** *"collect 8 through 10 in a one item called fibrophone."*
+
+**Done:** "fibrophone" = the vibraphone (dictation). "8 through 10" are the FIRST list's numbers (§720: the bows · the two rows · the motor) — in §721's renumbered list 8 … 10 were the percussion legend, the tuning offers and the long tone, which no one would call the vibraphone; so he reads the first list on his phone. Read that way and done: one group **THE VIBRAPHONE** = the bows · the two rows are the two voices · the motor off. AND THE NUMBERS NO LONGER SHIFT: §721's renumbering withdrawn, every item keeps the first list's number (1 … 21), a group takes a name — written into the working list's header in the tracker. The vibraphone's ○ at the end of a fall (21) is not in the group — he named three; told him in one line.

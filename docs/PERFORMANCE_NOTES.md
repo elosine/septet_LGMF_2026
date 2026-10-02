@@ -29,10 +29,12 @@ never write the notes here.*
 | 19 | **THE BEAT FRAME — an aid to ONSET ACCURACY, not a tempo** — in the micro counterpoint of section 2 a figure may carry a light grid of beat lines with a ball bouncing on them beside the cursor; the lines orient the player around the notes so the onsets land as close as possible to their written time WITHOUT counting: a head's LEFT EDGE is its time — a head whose left edge stands just left of a line is played just before that beat, one just right of it just after, one on it on it; the beat is chosen per figure under about 100 bpm; his LG-147 · LG-148 | §569 · §570 | — |
 | 20 | **The vibraphone's two rows are its two voices** — the blue row above the staff and the green row below are the two bows, each with its own dynamic line for a whole passage; a head belongs to the row of its colour (the patch behind it, the dotted line from it), whatever its height — the blue voice may be the lower note. Where both begin together with the blue voice underneath, the blue dotted line rises on the LEFT of its head and the green falls on the RIGHT of its head | §678 (§496 withdrawn) | — |
 
-## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 · §721; he organizes the page at the desktop)
+## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §722; he organizes the page at the desktop)
 
 *The table above is the record of what was decided and why; this list is HIS ORDER for writing — re-grouped at his word, shown to him
-in the chat one short item at a time. The numbers in brackets are the table's rows. Rewrite this section whenever he re-groups.*
+in the chat one short item at a time. The numbers in square brackets are the table's rows. **THE ITEM NUMBERS ARE THE FIRST LIST's
+(§720) AND DO NOT SHIFT** — he names items by them from his phone (§722: "8 through 10" meant the first list's); a group takes a NAME,
+the items left keep their numbers. Rewrite this section whenever he re-groups.*
 
 **SETTLED TEXT** (wording exists, his)
 
@@ -43,29 +45,30 @@ in the chat one short item at a time. The numbers in brackets are the table's ro
 
 **STILL TO SETTLE**
 
-1. **THE MORPH AND MORPH HEADER** (his item, §721 — the first list's 1 … 7 collected):
-   - the dial (one sentence on the page: "An animated dial counts down the time to the next rearticulation."), the green and orange
-     meters on the cursor, the 4 s lead-in [6, the rest] — *the lead-in belongs to the opening; his to move*
-   - the arrow between two dynamics, `pp → mp` = a continuous change over the note; the niente circle [4]
-   - the fade signs `○—<` · `—> ppp`, symbolic not timed — his justification to write [5]
-   - arrow (a range) against hairpin (a movement) [12]
-   - the green curve is the shape of the intention [14]
-   - a dynamic in brackets = "you are here" [15]
-   - the two heads joined by a line = the range of the glide; the second head's partial on a take → take morph [13]
-2. **The vibraphone's bows** [10]
-3. **The vibraphone's two rows are its two voices** [20]
-4. **The vibraphone's motor off** [11]
-5. **The ethos of section 2** [16]
-6. **The tuplet bracket, a notch of speed** [17]
-7. **The tempo frame** — one sentence on the page [19]
-8. **The percussion legend** [7]
-9. **Offered for the tuning text, not taken** [8]
+- **THE MORPH AND MORPH HEADER** (his group, §721 — items 1 … 7):
+  - 1 · the dial (one sentence on the page: "An animated dial counts down the time to the next rearticulation."), the green and
+    orange meters on the cursor, the 4 s lead-in [6, the rest] — *the lead-in belongs to the opening; his to move*
+  - 2 · the arrow between two dynamics, `pp → mp` = a continuous change over the note; the niente circle [4]
+  - 3 · the fade signs `○—<` · `—> ppp`, symbolic not timed — his justification to write [5]
+  - 4 · arrow (a range) against hairpin (a movement) [12]
+  - 5 · the green curve is the shape of the intention [14]
+  - 6 · a dynamic in brackets = "you are here" [15]
+  - 7 · the two heads joined by a line = the range of the glide; the second head's partial on a take → take morph [13]
+- **THE VIBRAPHONE** (his group, §722 — items 8 … 10):
+  - 8 · the bows: a head and a duration line for every bow; a name = the level, a hairpin = movement [10]
+  - 9 · the two rows are the two voices [20]
+  - 10 · the motor off for the whole piece [11]
+- **11 · The ethos of section 2** [16]
+- **12 · The tuplet bracket, a notch of speed** [17]
+- **13 · The tempo frame** — one sentence on the page [19]
+- **14 · The percussion legend** [7]
+- **15 · Offered for the tuning text, not taken** [8]
 
 *No row in the table yet (decided in the score in session 18):*
 
-10. **The long tone and its navy bar** (PLAN 2m)
-11. **One dynamic name per chord** (§637)
-12. **The short note with the bouncing ball** — the one-off, what the ball is for (S24)
-13. **Grace notes**
-14. **The percussion staff's conventions** — bare heads, pairs, the dynamic row under the staff (S25 … S33)
-15. **The vibraphone's ○ at the end of a fall** (§677)
+- **16 · The long tone and its navy bar** (PLAN 2m)
+- **17 · One dynamic name per chord** (§637)
+- **18 · The short note with the bouncing ball** — the one-off, what the ball is for (S24)
+- **19 · Grace notes**
+- **20 · The percussion staff's conventions** — bare heads, pairs, the dynamic row under the staff (S25 … S33)
+- **21 · The vibraphone's ○ at the end of a fall** (§677) — *not in the vibraphone group: he named 8 through 10; his to add*
