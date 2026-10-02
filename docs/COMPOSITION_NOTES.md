@@ -4096,3 +4096,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "get rid of the notation header and the 2 images and the notation legend header. put in tuning header and the text and see if you can find a good image with some +- cents and put it in  pls"
 
 *The AI's reading (marked as such):* the page ends on the tuning legend now; the morph pictures and the empty legend go. The image wanted is one where a reader sees the cents figures at work, a plus and a minus. RUNNING_LOG §736.
+
+## LG-302 — 2026-10-02 — Gradient Curves: "the bottom of the orange pitch curve represents the B quarter-flat …" (cut)
+
+*His words (session 18, Fable):* "In the pictured example, the bottom of the orange pitch curve represents the B quarter-flat ..."
+
+*The AI's reading (marked as such):* the colour is named so the reader finds the curve in the picture. RUNNING_LOG §737.
