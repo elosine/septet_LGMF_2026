@@ -4024,3 +4024,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "The dotted vertical line marks the go time for events. Take out the go line."
 
 *The AI's reading (marked as such):* the performers are given the thing (the dotted vertical line) and what it marks (the go-time), not the project's name for it. RUNNING_LOG §724.
+
+## LG-290 — 2026-10-02 — Animated Conduction Tools: take out the tuba reference
+
+*His words (session 18, Fable):* "Take out the tuba reference. The final section of this piece consists of"
+
+*The AI's reading (marked as such):* the reference text has served; the section holds only his own words now. RUNNING_LOG §725.

@@ -22550,3 +22550,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"The dotted vertical line marks the go time for events. Take out the go line."*
 
 **Done:** *"The dotted vertical line — the go-line — marks the go-time for events."* → *"The dotted vertical line marks the go-time for events."* (the two bolds kept, "go-time" hyphenated as it stood). Before it, his question whether "English" is capitalized in "English horn" — yes, a proper adjective, as "French horn"; the page already had it. TOLD HIM in one line: the name "go-line" is still used three times in Timbral Glissando's re-breath paragraph ("The dotted vertical go-lines are rearticulation points … at the go-line"), now without its introduction here — his to reword.
+
+## §725. Animated Conduction Tools: the tuba piece's reference paragraph removed (2026-10-02, Fable, session 18; LG-290)
+
+**His word:** *"Take out the tuba reference. The final section of this piece consists of"*
+
+**Done:** the paragraph kept under the Tempo frame image since §712 (*"The final section of this piece consists of a steady pulse and rapidly changing tempos. The tempo you are playing in is marked with hashes at the top, and a bouncing ball marks out the tempo."* — piece #4's) is gone with its two blank lines; the Tempo frame is his one sentence and its image. The tuba's text stays quoted in §709.
