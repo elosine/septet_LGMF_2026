@@ -22628,3 +22628,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"In the pictured example, the bottom of the orange pitch curve represents the B quarter-flat ..."*
 
 **Done:** the message arrived cut after "B quarter-flat" (his phone). Read as the pictured-example sentence with one word added: *"the bottom of the pitch curve"* → *"the bottom of the orange pitch curve"*; the rest of the sentence left as it stood (*"… and the top of the curve represents the G-sharp."*). The flag of §707 · §716 stands and stays in the page's open list: by the score's data the curve is pitch height — top = B quarter-flat, bottom = G-sharp; he has now dictated bottom = B quarter-flat twice, so the sentence is his as written until he says otherwise.
+
+## §738. Gradient Curves: "This is indicated before the dynamic range." removed (2026-10-02, Fable, session 18; LG-303)
+
+**His word:** *"get rid of this is indicated before the dynamic..."*
+
+**Done:** the closing paragraph's last sentence, *"This is indicated before the dynamic range."*, removed (his message cut after "dynamic", the sentence unmistakable). The paragraph ends on *"Sometimes there is a fade-in or fade-out (images two and three above)."* — the pictures carry where the sign stands (on the fade-out it is followed by the dynamic the line falls to, not by a range: §731's note, now moot).
