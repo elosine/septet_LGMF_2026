@@ -3994,3 +3994,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "put the rebreath paragraph below the useful analogy one for now. And then add at the end of that paragraph, an animated dial counts down the time to the next re-breath"
 
 *The AI's reading (marked as such):* the re-breath sentence becomes the section's third paragraph, his dial sentence closing it; the pie's name for the performers is "an animated dial". RUNNING_LOG §719.
+
+## LG-285 — 2026-10-02 — "the next rearticulation"; the notes list item by item for the phone — settled text, then what is still to settle, with what he said
+
+*His words (session 18, Fable):* "counts down the time to the next rearticulation. And then the list of things the notes that I mention I would like a format that's easier to work with. I'm working on my phone so maybe you can just show me things item by item. I'll organize them on the page when I get back to the desk stuff desktop. So maybe just show me so I can read them the text that has been settled item by item and then show me below that items that still need to be settled again item by item. Try to just State the item. Not too much commentary and maybe what I said about it"
+
+*The AI's reading (marked as such):* one word changed in the dial sentence; the list wanted as short single items he can read on a phone, his own words beside each, the settled wording first. RUNNING_LOG §720.
