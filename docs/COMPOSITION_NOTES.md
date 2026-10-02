@@ -4147,3 +4147,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Ragged stems not beams; Play this rhythmic grouping with irregular spacing in the same amount of time. Instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths."
 
 *The AI's reading (marked as such):* the device is named for its stems (the stubs that do not reach the heads); the instruction is the group's total time kept, its inner spacing uneven, said with the four-16ths example. RUNNING_LOG §744.
+
+## LG-310 — 2026-10-02 — the bowed vibraphone, a two-column entry: written in two parts, blue at the top, green at the bottom
+
+*His words (session 18, Fable):* "image of both bowed vibes parts The bowed vibraphone(bold) is written in two parts. One part is highlighted in blue with blue duration lines at the top and the other part is highlighted green with green duration lines at the bottom."
+
+*The AI's reading (marked as such):* the two bows are told apart by colour for the performer; the picture should show both at once, clearly apart. RUNNING_LOG §745.
