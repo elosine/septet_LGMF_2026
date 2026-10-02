@@ -4030,3 +4030,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "Take out the tuba reference. The final section of this piece consists of"
 
 *The AI's reading (marked as such):* the reference text has served; the section holds only his own words now. RUNNING_LOG §725.
+
+## LG-291 — 2026-10-02 — Gradient Curves: a sentence about the meter before "In the pictured example" — surface the earlier notes' text
+
+*His words (session 18, Fable):* "before in the pictured example. A sentence about the meter. I think I might have drafted a sentence or used some text in previous performance notes. Could you surface those and put those there? Or just put whatever the sentence about the curve meter there to see. Mm-hmm."
+
+*The AI's reading (marked as such):* he wants the meter introduced where the curves are explained, starting from his earlier wording; the earlier wording names the curve follower, so the term needs his eye. RUNNING_LOG §726.
