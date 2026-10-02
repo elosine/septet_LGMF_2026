@@ -22411,3 +22411,26 @@ downward."*
 **Done:** the same crop (the EH, 294.2 … 298.1 s), the instant moved from t = 296.95 to **t = 297.10** — 0.03 s before the beat at
 297.13: the ball low on its fall and touching that line, the cursor a hair left of it so the line still shows. The ball rides the
 cursor, so it is on a line only at a beat; the exact beat was not taken because the cursor would then cover the line. His to move.
+
+## §711. The instruction page: "Timbral Glissando" — his text in, the old text pushed down; he picks up here next session (2026-10-01, Fable, session 18; LG-276)
+
+**His word** (whole in LG-276): the heading *"Acoustic Beating"* replaced by *"timbral glissando"*; the old text left under it *"for
+now, just push it down a little bit, a couple new lines. So I can just refer to it as I edit"*; his new text dictated, to go in
+*"verbatim with … capitalization and punctuation, spelling corrections. I'll edit this down next time. then go ahead and just commit
+and push. And I'll just pick up here next session."*
+
+**Done:** the heading **Timbral Glissando**; his text under it, every word kept (the restart *"So you're not thinking about — in
+this situation, you're not listening for …"* too), the corrections only these: "micro-glissandos", the full stops dictation dropped
+inside sentences joined back (*"… timbral effects, such as acoustic beating."* · *"… rehearse these sections in pairs, so you can
+hear more dramatically what the timbral change will sound like in relation to your pitch change."*), capitals. Three paragraphs —
+the breaks are the AI's. Two blank lines, then piece #5's whole Acoustic Beating text as it stood (its three paragraphs, the morph
+chart, the three practice-video links, the horn's two morph images of §704, its notation paragraph), marked in the page's comments as
+kept for his reference.
+
+**The idea, for the record (his wording is the source):** the glissando in this piece is a TIMBRAL device — the pitch moves by a few
+cents, below what the ear follows as pitch, and what is heard is the change in the ensemble's sound, the beating slowing or
+quickening; the tuning of two strings is the analogy; the effects are written in PAIRS by instrument group, so rehearsing in pairs
+lets a player hear the timbral change against their own pitch change. The section's name moves from the phenomenon ("acoustic
+beating") to the technique ("timbral glissando"), beating now one effect among them.
+
+**The handoff:** journal §2, the block THE PERFORMANCE NOTES — WHERE HE PICKS UP.

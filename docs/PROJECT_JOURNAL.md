@@ -217,6 +217,43 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
+### THE PERFORMANCE NOTES — WHERE HE PICKS UP (2026-10-01, Fable, after checkpoint #12; RUNNING_LOG §703 … §711; LG-268 … LG-276)
+
+*His words at the stop: "go ahead and just commit and push. And I'll just pick up here next session." No `/session-end` was run — this
+block is the handoff; everything is committed and pushed.*
+
+- **The page:** `docs/notation_instructions/index.html` (+ `styles.css`, `images/`) — begun as a copy of piece #5's performance
+  instructions (§703), served by his server at `http://localhost:5400/docs/notation_instructions/index.html` (give him that link).
+- **How he works on it:** he DICTATES, one section at a time; the AI puts his words in verbatim with spelling, capitals and
+  punctuation repaired, swaps the images, and FLAGS a moved fact in chat without changing his sentence. Each change: a RUNNING_LOG §
+  (**§712 next**) · an LG with his words whole (**LG-277 next**) · the state lines · commit + push.
+- **The images' rule (§704):** every score image is a crop of the ZOOMED presentation score (Z 2) at ONE scale —
+  `node tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B [--gutter] [--padBot N] --out
+  docs/notation_instructions/images/X.svg` (a span over 5.77 s is refused; `--gutter` puts the lane's clef in), then
+  `<img class="zoomed" style="--w: N">` or `<figure class="zoomed" style="--w: N">` + `<figcaption>`, N = the `--w` the tool
+  prints; the one knob is `--frame` in `styles.css`. Each image's command sits in a comment beside it. To LOOK at one: resvg to a
+  scratch PNG (the scratch script `rast.js` of this session is gone with the scratchpad — `export_video.js`'s font options).
+- **The page, section by section, as it stands:**
+  1. *Title · subtitle · opening sentence* — this piece's (§703 · §705 · §708).
+  2. *Demo Recording* — STILL PIECE #5's YouTube link.
+  3. *Instrumentation* — this piece's; the percussion line is the AI's wording (§705).
+  4. *Animated Conduction Tools* — his paragraphs, two captioned images (the bassoon's one-off · the EH's breath), then **Tempo
+     frame** + the TUBA piece's paragraph as the starting text (wrong for this piece: "hashes at the top", "the final section") and
+     the EH's frame with the ball on a line (§706 · §709 · §710).
+  5. *Gradient Curves* — his paragraph, the bassoon's image at 726.88 with its clef (§707). **OPEN — A FACT FLAGGED, his word owed:**
+     his last sentence has the pitch curve's bottom = B quarter-flat and top = G-sharp; the data has the reverse (the curve starts at
+     the TOP on the first head). "swap" = change the sentence.
+  6. *Timbral Glissando* — his new text (§711), TO BE EDITED DOWN BY HIM; under it piece #5's Acoustic Beating text, kept for his
+     reference: the morph chart and the three practice-video links are STILL PIECE #5's; the two horn morph images are this piece's.
+  7. *Notation Legend* — ALL STILL PIECE #5's (the Ped. sign, the two piano let-ring images, sempre secco, the dynamics line).
+- **HELD at his word (§703), not merged into the page:** the tracker's 20 rows (`docs/PERFORMANCE_NOTES.md`) and the six section-2
+  items with no row (the long tone · one name per chord · the one-off and the GC's purpose · the grace family · the percussion
+  staff's conventions · the vibraphone's ○ at the end of a fall). His TUNING legend is `just_partials_notation.md` §1b.
+- **Offered, not taken:** embedding the score's font in the images (their small text draws in the system serif).
+- **`Resume reads:`** this block · the page itself (`docs/notation_instructions/index.html`) · `docs/PERFORMANCE_NOTES.md` when he
+  reaches a topic it covers. Nothing else.
+- **Deliberately uncommitted:** unchanged from checkpoint #12's list below (5 modified, 25 untracked — all his).
+
 ### SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable) — DRAFT 01: THE NOTATION LOCKED · THE FILM APPROVED AND ARCHIVED · ► THE PERFORMANCE NOTES (mid-session checkpoint)
 
 - **The task:** Draft 01's presentation score. Since checkpoint #11, in one sitting (RUNNING_LOG §672 … §701; LG-237 … LG-267):

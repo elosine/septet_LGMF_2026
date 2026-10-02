@@ -3936,3 +3936,11 @@ the image is the English horn's first frame with the ball in mid-air. RUNNING_LO
 *His words (session 18, Fable):* "Let's get the ball, same image, that's fine, but the ball on one of the lines. So on the, I guess it would be on the downward."
 
 *The AI's reading (marked as such):* the same picture at the moment the ball comes down onto a beat line. RUNNING_LOG §710.
+
+## LG-276 — 2026-10-01 — the performance notes: "Timbral Glissando" — micro-glissandos as timbre, the tuning analogy, rehearse in pairs
+
+*His words (session 18, Fable, dictated):* "replace the acoustic beating header and call it timbral glissando. And you can just leave that text there for now, just push it down a little bit, a couple new lines. So I can just refer to it as I edit. But after the timbral glissando, you can say, this piece uses micro glissandos. to create continuously changing timbral effects. such as acoustic beating. So these glissandos are less about pitch accuracy, but more about using slight pitch variation to modify the ensemble timbre. A useful analogy is how acoustic beating is commonly used to tune stringed instruments. You would play two strings that are slightly out of tune and then adjust the pitch of one of them very slightly until the beating disappears. So you're not thinking about, in this situation, you're not listening for the tiny variation of pitch, but you're listening to the timbral beating. And while you may have only changed the pitch by a few cents, not discernible by ear, you can hear the slowing down of the beating quite prominently. These effects in this piece are mostly written in pairs by instrument group. So it may be useful for you to rehearse these sections. In pairs. So you can hear more dramatically what the timbral change will sound like. In relation to your pitch change. Just go ahead and put this in verbatim with, um, you know, capitalization and punctuation, spelling corrections. I'll edit this down next time. then go ahead and just commit and push. And I'll just pick up here next session."
+
+*The AI's reading (marked as such):* the section is renamed for the technique, not the phenomenon; his paragraph goes in word for
+word with dictation's punctuation repaired, to be edited down by him next session; piece #5's text stays underneath as his reference.
+RUNNING_LOG §711.
