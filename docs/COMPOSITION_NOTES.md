@@ -4135,3 +4135,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "can you clip an image of one of the ragged beams and then make a 2 column entry: image Ragged Beams (bold) - I'll add text here later"
 
 *The AI's reading (marked as such):* a legend-style entry — picture beside name and explanation — begins with this device; the performers' name for the uneven group is "ragged beams". RUNNING_LOG §742.
+
+## LG-308 — 2026-10-02 — below the tempo frame image, two columns: the duration line — "Play the note for the duration of the line."
+
+*His words (session 18, Fable):* "below tempo frame image 2 columns, image of duration line Duration line (bold) - Play the note for the duration of the line."
+
+*The AI's reading (marked as such):* the long tone's note for the performers is one plain sentence beside its picture; the device's name for them is "duration line". RUNNING_LOG §743.

@@ -29,7 +29,7 @@ never write the notes here.*
 | 19 | **THE BEAT FRAME — an aid to ONSET ACCURACY, not a tempo** — in the micro counterpoint of section 2 a figure may carry a light grid of beat lines with a ball bouncing on them beside the cursor; the lines orient the player around the notes so the onsets land as close as possible to their written time WITHOUT counting: a head's LEFT EDGE is its time — a head whose left edge stands just left of a line is played just before that beat, one just right of it just after, one on it on it; the beat is chosen per figure under about 100 bpm; his LG-147 · LG-148 | §569 · §570 | — |
 | 20 | **The vibraphone's two rows are its two voices** — the blue row above the staff and the green row below are the two bows, each with its own dynamic line for a whole passage; a head belongs to the row of its colour (the patch behind it, the dotted line from it), whatever its height — the blue voice may be the lower note. Where both begin together with the blue voice underneath, the blue dotted line rises on the LEFT of its head and the green falls on the RIGHT of its head | §678 (§496 withdrawn) | — |
 
-## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §723 · §736; he organizes the page at the desktop)
+## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §723 · §736 · §743; he organizes the page at the desktop)
 
 *The table above is the record of what was decided and why; this list is HIS ORDER for writing — re-grouped at his word, shown to him
 in the chat one short item at a time. The numbers in square brackets are the table's rows. **THE ITEM NUMBERS ARE THE FIRST LIST's
@@ -59,7 +59,7 @@ the items left keep their numbers. Rewrite this section whenever he re-groups.*
   - 9 · the two rows are the two voices [20]
   - 10 · the motor off for the whole piece [11]
 - **14 · The percussion legend** — the seven-line staff, the instruments top → bottom, the short names [7]
-- **16 · The long tone and its navy bar** (PLAN 2m; no row in the table)
+- **16 · The long tone and its navy bar** (PLAN 2m; no row in the table) — *ON THE PAGE since §743: "**Duration line** — Play the note for the duration of the line." with the EH's long tone at 392.98 s*
 - **20 · The percussion staff's conventions** — bare heads, pairs, the dynamic row under the staff (S25 … S33; no row in the table)
 
 **SET ASIDE at §723** *(the AI's reading of "keep 14, 16, twenty": the single items he did not name leave the list of notes to
