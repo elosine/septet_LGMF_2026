@@ -91,8 +91,12 @@ try { score = rd(path.join('scores', ir.source.score + '.json')); } catch (e) { 
 const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
 const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
 const FRAME_PARTS = ENS ? ENS.parts.map(p => p.part) : ir.source.parts.slice();
+// [§747 — found at his ask for the vibraphone's dotted leads] THE LANE BOXES, as export_video.js and the app pass them: without
+// `fitBoxes` the layout falls back (no ladder against the lane, and the vibraphone's bars stay on their heads — no tracks, no bow
+// leads, no head swatches), so an image was NOT the frame the score shows. The port from piece #5 predates the boxes (PLAN 2e).
+const Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js'));
 const model = Layout.layoutSection(ir, glyphs, Object.assign(
-  { m4AttackLines: false, frameParts: FRAME_PARTS, ensemble: ENS, techniques: T },
+  { m4AttackLines: false, frameParts: FRAME_PARTS, ensemble: ENS, techniques: T, fitBoxes: Fit.boxesFor(C, ENS, FRAME_PARTS) },
   (C.engraving && C.engraving.layout) || {}));
 
 const rz = (C.realizations || {})['video-jury'] || {};

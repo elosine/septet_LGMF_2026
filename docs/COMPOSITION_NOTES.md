@@ -4159,3 +4159,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Okay, show the percussion staff or take an image of the percussion staff. Uh, the heading will be percussion legend. And then the image of the percussion staff with the full names of the instruments spelled out in the header. And then the only mallet I want to indicate is a brush for the temple bowl. So where slash how would you recommend I do this? And then just say something like all the other mallets the percussionist can choose from or something like that. Anyways, your recommendation here. — and, sent while it was being made: and then no need to repeat the full notes at the end anymore. I'll do that on demand."
 
 *The AI's reading (marked as such):* he wants a staff key with the instruments' full names and one beater prescribed; asked where the brush should be said, the AI's answer is: beside the name in the key and in a sentence that leaves every other beater to the player. RUNNING_LOG §746.
+
+## LG-312 — 2026-10-02 — the bowed vibraphone's image: the note heads with the dotted line up, a green one with the dotted line down
+
+*His words (session 18, Fable):* "Okay, that is good. Can you get a new image for the bowed vibraphone? Can you get one that shows the note heads with the dotted line up and a green one with a dotted line down? Not necessarily the unison one."
+
+*The AI's reading (marked as such):* the picture should show how a head is tied to its part — the dotted lead to its coloured line — not only the two colours. RUNNING_LOG §747.
