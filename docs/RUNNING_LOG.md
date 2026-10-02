@@ -22747,3 +22747,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **BY HOW THEY ARE DRAWN:** in two headers the gliss line's slope contradicts the sound, because only one of the two heads sits under an ottava — morph 3's bassoon (727.4: sounds DOWN, drawn RISING — his find) and morph 3's horn (726.3: C♯2 → B2 +2 sounds UP, drawn FALLING). In the six bloom headers and morph 3's cello the line is level (the same staff position, the cents or the accidental carrying the difference); in the other eight the drawing agrees with the sound.
 
 **Told him, one line each:** today the header reads START → where the glide goes; reversed to low → high, the first head of those seven would no longer be the note the player starts on. And the notation is locked and the film rendered from it (§687 · §700): a change to the headers reopens both.
+
+## §754. The morph headers stay as they are: start → where the glide goes (2026-10-02, Fable, session 18; LG-319)
+
+**His word:** *"Okay, logic makes sense. Let's just leave it."*
+
+**Done:** DECIDED: no header is reversed. The header keeps its meaning — the note the player starts on, then the farthest point or the arrival — in all seventeen, the seven that run high → low included (§753); the notation stays locked, the film stands. The page's sentence on the picture (bottom of the orange curve = G-sharp, top = B quarter-flat, §748) is the place where the reader learns that the curve is read by pitch height and the header by order of travel.

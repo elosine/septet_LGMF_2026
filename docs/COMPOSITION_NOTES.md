@@ -4201,3 +4201,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Okay, I didn't notice the Ottawa sign. Can you analyze and see how many curve headers go from or don't go from low pitch to high pitch? I think I'd probably prefer if the header showed low pitch to high pitch, but just tell me how many would need to be reversed."
 
 *The AI's reading (marked as such):* with the pitch curve explained as bottom = lower pitch, top = higher, a header that reads low to high would match it; he wants the size of the change before deciding. RUNNING_LOG §753.
+
+## LG-319 — 2026-10-02 — the curve headers: leave them — start, then where the glide goes
+
+*His words (session 18, Fable):* "Okay, logic makes sense. Let's just leave it."
+
+*The AI's reading (marked as such):* the header's order is the order of playing, not of pitch; that logic is kept. RUNNING_LOG §754.
