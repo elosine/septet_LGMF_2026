@@ -22735,3 +22735,15 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"Yes, relative good"*
 
 **Done:** *"The pitch curve describes a dynamic scale, which varies per curve."* → *"The pitch curve describes a relative scale, which varies per curve."* — §751's offer taken; "dynamic" in the notes now means loud and soft only ("dynamic range", twice).
+
+## §753. The morph headers counted by pitch direction: 10 of 17 run low → high, 7 high → low; two are DRAWN against their sound (an ottava on one head) (2026-10-02, Fable, session 18; LG-318)
+
+**His word:** *"Okay, I didn't notice the Ottawa sign. Can you analyze and see how many curve headers go from or don't go from low pitch to high pitch? I think I'd probably prefer if the header showed low pitch to high pitch, but just tell me how many would need to be reversed."*
+
+**Done:** nothing changed — a count, from the page's own layout (the seventeen morph headers: the first head = the start, the second = the farthest point or the arrival; "Ottawa" = the ottava he had not seen on the bassoon's first head in the Gradient Curves image).
+
+**BY SOUNDING PITCH: 10 run low → high, 7 high → low — seven would be reversed.** The seven: the bloom's three downward players (Bsn 151.3 s B4 +3 → −21 · Hn 152.1 A4 → −25 · DB 156.9 A2 → −25 — the same note, the second head 25 c lower) · morph 2's cello (576.6, C♯5 −14 → B4 +4) and double bass (577.3, E3 +2 → A2) · morph 3's bassoon (727.4, B4 −31 → G♯4 −14 — the page's picture) and English horn (729.4, F5 −14 → E5).
+
+**BY HOW THEY ARE DRAWN:** in two headers the gliss line's slope contradicts the sound, because only one of the two heads sits under an ottava — morph 3's bassoon (727.4: sounds DOWN, drawn RISING — his find) and morph 3's horn (726.3: C♯2 → B2 +2 sounds UP, drawn FALLING). In the six bloom headers and morph 3's cello the line is level (the same staff position, the cents or the accidental carrying the difference); in the other eight the drawing agrees with the sound.
+
+**Told him, one line each:** today the header reads START → where the glide goes; reversed to low → high, the first head of those seven would no longer be the note the player starts on. And the notation is locked and the film rendered from it (§687 · §700): a change to the headers reopens both.

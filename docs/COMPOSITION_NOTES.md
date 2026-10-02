@@ -4195,3 +4195,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Yes, relative good"
 
 *The AI's reading (marked as such):* the scale is relative to each curve's header; the word "dynamic" is kept for volume. RUNNING_LOG §752.
+
+## LG-318 — 2026-10-02 — the curve headers: how many do not go from low pitch to high pitch — he would probably prefer low to high
+
+*His words (session 18, Fable):* "Okay, I didn't notice the Ottawa sign. Can you analyze and see how many curve headers go from or don't go from low pitch to high pitch? I think I'd probably prefer if the header showed low pitch to high pitch, but just tell me how many would need to be reversed."
+
+*The AI's reading (marked as such):* with the pitch curve explained as bottom = lower pitch, top = higher, a header that reads low to high would match it; he wants the size of the change before deciding. RUNNING_LOG §753.
