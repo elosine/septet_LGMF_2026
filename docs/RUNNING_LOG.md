@@ -22723,3 +22723,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"And you can fix the text. D sharp, g image, harmonization."*
 
 **Done:** the tuning example now names the note as the full score (in C) and the image beside it show it: *"For example, a pitch 41 cents above G♯ is notated G[three-quarter-sharp] (the closest quarter-tone approximation) and the cents notation will be +41. The +41 would indicate 41 cents sharper than G♯, as a tuner would show it."* — three D's became G's, nothing else. It also reads true for the tuner now (the tuner shows G♯ +41). §736's flag and §748's item (7) closed; the open point removed from the page-foot list. `just_partials_notation.md` §1b keeps the settled 2026-09-27 wording with D♯ (drafted on the working page, the EH in F) — the page is the newer text.
+
+## §751. Gradient Curves: the header "gives" the ranges; a word other than "dynamic" for the pitch curve's scale offered (2026-10-02, Fable, session 18; LG-316)
+
+**His word:** *"The pitch curve describes a dynamic scale suggest a word other than dynamic here please — then: beginning of each curve that tells the pitch rang that gives instead of that tells."*
+
+**Done:** (1) his ask for a word other than "dynamic" in *"The pitch curve describes a dynamic scale, which varies per curve."* (it collides with the musical sense two sentences later) — offered in the chat: **relative** (the AI's pick: top and bottom mean what that curve's header says) · variable (pairs with "static", repeats "varies") · flexible · local; NOT changed — his pick owed. (2) done: *"… a notation header at the beginning of each curve that tells the pitch range and dynamic range …"* → *"… that gives the pitch range and dynamic range of that curve."*

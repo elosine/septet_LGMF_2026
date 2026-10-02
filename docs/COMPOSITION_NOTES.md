@@ -4183,3 +4183,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "And you can fix the text. D sharp, g image, harmonization."
 
 *The AI's reading (marked as such):* the text follows the picture and the score in C: the example note is G-sharp. RUNNING_LOG §750.
+
+## LG-316 — 2026-10-02 — Gradient Curves: a word other than "dynamic" for the scale; "that gives" instead of "that tells"
+
+*His words (session 18, Fable):* "The pitch curve describes a dynamic scale suggest a word other than dynamic here please — then: beginning of each curve that tells the pitch rang that gives instead of that tells."
+
+*The AI's reading (marked as such):* "dynamic" is reserved for loud and soft in these notes; the header gives its ranges. RUNNING_LOG §751.
