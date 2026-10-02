@@ -4066,3 +4066,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "next to the gradient curves image can you snip 2 images one with a fade in and another with a fade out in the header and put them to the right of that image on the same row. text and the end of that section: The notation header indicates the dynamic range, the ppp with an arrow to f indicates that the volume change for that curve will span from ppp to f. Sometimes there is a fade in or fade out. This is indicated before the dynamic range."
 
 *The AI's reading (marked as such):* the header's dynamic half explained beside the curves: the arrow = the span of the volume change; a fade sign before it where the line comes from or goes to nothing. RUNNING_LOG §731.
+
+## LG-297 — 2026-10-02 — Timbral Glissando: "In this situation, you are not … but you are listening to"
+
+*His words (session 18, Fable):* "In this situation, you are not... — but you are listening to"
+
+*The AI's reading (marked as such):* the two fragments name the two places where "you're" becomes "you are"; the sentence's other words stand. RUNNING_LOG §732.
