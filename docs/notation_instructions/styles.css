@@ -206,6 +206,7 @@ h4 {
     margin-bottom: 10px;
 }
 .notation-section .description + img.zoomed { margin-top: 0.8em; }
+.notation-section .description + .zoomed-row { margin-top: 0.8em; }
 .zoomed-row { display: flex; gap: 2%; align-items: flex-start; }
 .zoomed-row img.zoomed { flex: none; }
 /* §706: the same image with a caption — the figure carries --w, its image fills it */

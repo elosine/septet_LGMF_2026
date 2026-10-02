@@ -96,7 +96,19 @@
     <div class="description">
         <p>This score uses graphic curves to describe continuous change over extended periods of time. Green curves are used to describe continuous changes in volume: crescendo and decrescendo. Orange curves are used to describe continuous changes in pitch: glissando. Volume curves occupy the bottom half of the staff, and pitch curves occupy the top half of the staff. The volume curve is a static scale, from niente at the bottom to <em>fff</em> at mid-lane height. The pitch curve describes a dynamic scale, which varies per curve. There will be a notation header at the beginning of each curve that tells the pitch range and dynamic range of that curve. An animated curve follower appears alongside the cursor and gives the real-time position in the gradient. In the pictured example, the bottom of the pitch curve represents the B quarter-flat and the top of the curve represents the G-sharp.</p>
     </div>
-    <img class="zoomed" style="--w: 1167" src="images/gradient_curves_bsn_727.svg" alt="The bassoon entering a morph: the bass clef, the header with its two pitches, a gliss line and ppp to f, the go line, the orange pitch curve in the top half and the green volume curve at the bottom, the cursor">
+    <!-- THE TWO HEADERS BESIDE IT (RUNNING_LOG §731, his word): a fade-in — the bassoon's entry at 5.3 s (niente circle + crescendo
+         hairpin before pp → mp) — and a fade-out — the English horn's last breath of the first sequence at 141.98 s (decrescendo
+         hairpin, then ppp); the cursor kept out of both (--t before the span). Regenerate:
+         node tools/capture_lane.js --part bsn --t 3.0 --span 4.65-5.35 --out docs/notation_instructions/images/header_fade_in_bsn_5.svg
+         node tools/capture_lane.js --part eh --t 139.5 --span 141.3-142.0 --out docs/notation_instructions/images/header_fade_out_eh_142.svg -->
+    <div class="zoomed-row">
+        <img class="zoomed" style="--w: 1167" src="images/gradient_curves_bsn_727.svg" alt="The bassoon entering a morph: the bass clef, the header with its two pitches, a gliss line and ppp to f, the go line, the orange pitch curve in the top half and the green volume curve at the bottom, the cursor">
+        <img class="zoomed" style="--w: 216" src="images/header_fade_in_bsn_5.svg" alt="A header with a fade-in: a niente circle and a crescendo hairpin before pp to mp">
+        <img class="zoomed" style="--w: 216" src="images/header_fade_out_eh_142.svg" alt="A header with a fade-out: a decrescendo hairpin, then ppp">
+    </div>
+    <div class="description">
+        <p>The notation header indicates the dynamic range. The <em>ppp</em> with an arrow to <em>f</em> indicates that the volume change for that curve will span from <em>ppp</em> to <em>f</em>. Sometimes there is a fade-in or fade-out. This is indicated before the dynamic range.</p>
+    </div>
 </div>
 
 <!-- ═══ Acoustic Beating ═══════════════════════════════════════════════════
