@@ -4165,3 +4165,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Okay, that is good. Can you get a new image for the bowed vibraphone? Can you get one that shows the note heads with the dotted line up and a green one with a dotted line down? Not necessarily the unison one."
 
 *The AI's reading (marked as such):* the picture should show how a head is tied to its part — the dotted lead to its coloured line — not only the two colours. RUNNING_LOG §747.
+
+## LG-313 — 2026-10-02 — the glaring omissions; fix the pitch-curve sentence; the bowed vibraphone is played in two parts, with the motor off; explain the transposition discrepancy
+
+*His words (session 18, Fable):* "I'm going to leave most of the remaining to-dos, I think. But can you just point out any glaring omissions? — then: Fix number five sentence, please.  Abodevira phone is played in two parts, with the motor off. Explain more clearly. The discrepancy in number three please"
+
+*The AI's reading (marked as such):* he leaves most of the list and asks only for what would mislead a player; of the seven named he takes the reversed sentence and the motor at once and wants the transposition point made plain before deciding. RUNNING_LOG §748.
