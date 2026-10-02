@@ -22508,3 +22508,9 @@ text below the section is named as unchanged, not repeated).
 - the horn's rise of a minor seventh passes octaves of the EH (749 s), the cello (754) and the bassoon (776), 6 … 9 s each.
 
 **The groupings put to him (the AI's, from pitch proximity alone — nothing heard):** morph 2: EH + Vc · Bsn + DB + Tpt (the horn with them, on the fifth). Morph 3: Hn + DB + Tpt (the C♯s opening) · EH + Vc (the Fs opening) · EH + DB (+ Bsn) for the arrival on E. Beating at an octave is weaker than at a unison — morph 3's groups are for tuning the octaves going out and coming in, not for the strong beating of the bloom.
+
+## §718. Timbral Glissando: the pairs paragraph out; the tracker's list shown him again (2026-10-02, Fable, session 18; LG-283)
+
+**His word:** *"Okay, let's take out the paragraph in this piece. These effects are written in pairs. And then can I see the list of composition notes or performance notes that we were took notes on to address here in the performance notes?"*
+
+**Done:** the section's third paragraph removed whole (*"In this piece, these effects are written in pairs by instrument groups. You will be able to hear more precisely the range of timbral change during sectional rehearsals."* — §716 · §717 had shown it true of the bloom alone); the section is now two paragraphs. The tracker (`docs/PERFORMANCE_NOTES.md`, 20 rows) and the six items with no row shown him in the chat, grouped, each marked against the page as it stands: on the page already — the cursor, the go line, the bouncing ball (row 6, in part), the green and orange curves, the fixed scale and the header's ranges (rows 4 · 13 · 14, in part), the tempo frame's one sentence (row 19, in part); not on the page — everything else, with the pie and the two meters of row 6. The list is still HELD: nothing merged.
