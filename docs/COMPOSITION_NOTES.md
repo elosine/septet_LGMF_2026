@@ -4072,3 +4072,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "In this situation, you are not... — but you are listening to"
 
 *The AI's reading (marked as such):* the two fragments name the two places where "you're" becomes "you are"; the sentence's other words stand. RUNNING_LOG §732.
+
+## LG-298 — 2026-10-02 — Timbral Glissando: "During the gradient curves, the dotted vertical go-lines are rearticulation point…" (cut)
+
+*His words (session 18, Fable):* "During the gradient curves, the dotted vertical go-lines are rearticulation point..."
+
+*The AI's reading (marked as such):* the go-line's second meaning is tied to its place: inside a gradient curve it is where the player re-articulates. RUNNING_LOG §733.

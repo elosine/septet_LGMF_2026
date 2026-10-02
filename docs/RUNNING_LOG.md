@@ -22598,3 +22598,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"In this situation, you are not... — but you are listening to"*
 
 **Done:** two messages from his phone, the first arriving cut ("In this situation, you are not...", asked about and left untouched at §731), the second completing it ("but you are listening to"): read together as the same sentence with its contractions written out — *"In this situation, you're not listening for the tiny variation of pitch, but you're listening to the timbral beating."* → *"In this situation, you are not listening for the tiny variation of pitch, but you are listening to the timbral beating."* Nothing else in the sentence changed.
+
+## §733. Timbral Glissando: "During the gradient curves, the dotted vertical go-lines are rearticulation points …" (2026-10-02, Fable, session 18; LG-298)
+
+**His word:** *"During the gradient curves, the dotted vertical go-lines are rearticulation point..."*
+
+**Done:** the message arrived cut after "rearticulation point" (his phone, as at §731 · §732). Read as the rearticulation paragraph's first sentence with a new opening: *"The dotted vertical go-lines are rearticulation points — …"* → *"During the gradient curves, the dotted vertical go-lines are rearticulation points — the rearticulation should happen at the go-line: breathe or retake the bow before, and rearticulate at the line."* The rest of the sentence and the dial sentence left as they stood; told him the message was cut, in case more followed.
