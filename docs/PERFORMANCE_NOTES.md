@@ -29,19 +29,19 @@ never write the notes here.*
 | 19 | **THE BEAT FRAME — an aid to ONSET ACCURACY, not a tempo** — in the micro counterpoint of section 2 a figure may carry a light grid of beat lines with a ball bouncing on them beside the cursor; the lines orient the player around the notes so the onsets land as close as possible to their written time WITHOUT counting: a head's LEFT EDGE is its time — a head whose left edge stands just left of a line is played just before that beat, one just right of it just after, one on it on it; the beat is chosen per figure under about 100 bpm; his LG-147 · LG-148 | §569 · §570 | — |
 | 20 | **The vibraphone's two rows are its two voices** — the blue row above the staff and the green row below are the two bows, each with its own dynamic line for a whole passage; a head belongs to the row of its colour (the patch behind it, the dotted line from it), whatever its height — the blue voice may be the lower note. Where both begin together with the blue voice underneath, the blue dotted line rises on the LEFT of its head and the green falls on the RIGHT of its head | §678 (§496 withdrawn) | — |
 
-## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §723 · §736 · §743; he organizes the page at the desktop)
+## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 … §723 · §736 · §743 · §744; he organizes the page at the desktop)
 
 *The table above is the record of what was decided and why; this list is HIS ORDER for writing — re-grouped at his word, shown to him
 in the chat one short item at a time. The numbers in square brackets are the table's rows. **THE ITEM NUMBERS ARE THE FIRST LIST's
 (§720) AND DO NOT SHIFT** — he names items by them from his phone (§722: "8 through 10" meant the first list's); a group takes a NAME,
 the items left keep their numbers. Rewrite this section whenever he re-groups.*
 
-**SETTLED TEXT** (wording exists, his; S1 is ON THE PAGE since §736 — the section Tuning — the other three are not yet)
+**SETTLED TEXT** (wording exists, his; ON THE PAGE: S1 since §736 — the section Micro-Tonal Tuning — and S4's device since §744 in NEW words; NOT YET: S2 · S3)
 
 - **S1 · Tuning** — the TUNING legend, `docs/research/just_partials_notation.md` §1b [1 · 9]
 - **S2 · Transposing instruments** — the two lines of §1b [2]
 - **S3 · Vibrato** — "Senza vibrato throughout, except the middle section, marked ord." [3]
-- **S4 · The uneven group** — "Play the displayed notes in that much time as indicated by the beams, but slightly irregularly." [18]
+- **S4 · The uneven group** — "Play the displayed notes in that much time as indicated by the beams, but slightly irregularly." [18] — *SUPERSEDED ON THE PAGE (§744) by the entry **Ragged Stems**: "Play this rhythmic grouping with irregular spacing in the same amount of time. Instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths."*
 
 **STILL TO SETTLE — what he keeps** (§723: "keep 14, 16, twenty", after the two groups)
 

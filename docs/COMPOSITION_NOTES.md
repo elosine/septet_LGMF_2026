@@ -4141,3 +4141,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "below tempo frame image 2 columns, image of duration line Duration line (bold) - Play the note for the duration of the line."
 
 *The AI's reading (marked as such):* the long tone's note for the performers is one plain sentence beside its picture; the device's name for them is "duration line". RUNNING_LOG §743.
+
+## LG-309 — 2026-10-02 — "Ragged stems not beams" — play this rhythmic grouping with irregular spacing in the same amount of time
+
+*His words (session 18, Fable):* "Ragged stems not beams; Play this rhythmic grouping with irregular spacing in the same amount of time. Instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths."
+
+*The AI's reading (marked as such):* the device is named for its stems (the stubs that do not reach the heads); the instruction is the group's total time kept, its inner spacing uneven, said with the four-16ths example. RUNNING_LOG §744.
