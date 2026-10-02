@@ -228,6 +228,12 @@ figure.zoomed figcaption { font-size: 0.85em; color: #555; margin-top: 4px; font
     margin-bottom: 1.2em;
 }
 
+/* Recombination 2026-10-02 (RUNNING_LOG §742): a two-column entry — a score image at the one scale, its name and text beside it */
+.entry-row { display: flex; gap: 3%; align-items: center; margin-top: 2.2em; }
+.entry-row img.zoomed { flex: none; margin-bottom: 0; }
+.entry-row .entry-text { flex: 1; min-width: 0; }
+.placeholder { color: #999; font-style: italic; }
+
 /* Recombination 2026-10-02 (RUNNING_LOG §734): his working list at the page's foot — NOT part of the notes; hidden in print (.screen-only) */
 .worklist { margin-top: 4em; padding: 16px 22px; border: 1px dashed #999; border-radius: 4px; background: #fbfbf2; font-size: 0.93em; }
 .worklist h3 { margin-top: 0.2em; }

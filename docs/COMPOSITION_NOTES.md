@@ -4129,3 +4129,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "re provided as courtesy notation"
 
 *The AI's reading (marked as such):* "courtesy notation" as a kind of notation, not one item. RUNNING_LOG §741.
+
+## LG-307 — 2026-10-02 — a two-column entry: the ragged beam's image, "Ragged Beams" in bold, text later
+
+*His words (session 18, Fable):* "can you clip an image of one of the ragged beams and then make a 2 column entry: image Ragged Beams (bold) - I'll add text here later"
+
+*The AI's reading (marked as such):* a legend-style entry — picture beside name and explanation — begins with this device; the performers' name for the uneven group is "ragged beams". RUNNING_LOG §742.

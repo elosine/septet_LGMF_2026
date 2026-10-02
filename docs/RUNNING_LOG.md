@@ -22655,3 +22655,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"re provided as courtesy notation"*
 
 **Done:** (the message's first letter lost.) *"… the fundamental and partial number are provided as a courtesy notation."* → *"… are provided as courtesy notation."* — the article dropped.
+
+## §742. A two-column entry on the page: the ragged beam's image | "Ragged Beams", his text to come (2026-10-02, Fable, session 18; LG-307)
+
+**His word:** *"can you clip an image of one of the ragged beams and then make a 2 column entry: image Ragged Beams (bold) - I'll add text here later"*
+
+**Done:** THE IMAGE: the English horn's first uneven group, the four 16ths at 292.79 · 293.24 · 293.58 · 293.82 s (the figure of §557 … §562) — the heads where they sound, stemless; the double beam floating below on its stubs, the wavy stroke through the first; span 292.4 … 294.0 (493 px, 25.7 % of the column), the cursor out of the crop (`ragged_beam_eh_293.svg`). THE ENTRY, placed after Micro-Tonal Tuning as the notes' last item (he named no place): a row of two columns — the image left at the one scale, right of it **Ragged Beams** and a dash, with a grey, screen-only "(text to come)" where his text will go (`.entry-row` in `styles.css`). HIS NAME FOR THE DEVICE is new: the log and the tracker call it "the uneven group" (PERFORMANCE_NOTES row 18); on the page it is "Ragged Beams" ("ragged stemming" was S8a's word for the stubs). TOLD HIM, one line: his settled sentence for it waits in the list — S4, *"Play the displayed notes in that much time as indicated by the beams, but slightly irregularly."*
