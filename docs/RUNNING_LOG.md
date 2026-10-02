@@ -22322,3 +22322,21 @@ transpose parts note."*
 **The AI's wording, his to revise** (the section's standing note: the AI drafts, he revises): the percussion line is new prose. Not
 added: the vibraphone's motor off (the tracker's row 11, held with the list) · any instrument requirement like the old low-C line
 (a double-bass extension, the trumpet's and the horn's keys) — none looked up, none claimed.
+
+## §706. The instruction page, Animated Conduction Tools: the ball's own paragraph, the example paragraph out, two captions (2026-10-01, Fable, session 18; LG-271)
+
+**His word:** *"Let's start the bouncing ball conductor in its own paragraph. And then let's redact the whole in the first example
+paragraph. And let's just put captions. The first image caption will be bouncing ball conductor. And the second image caption will be
+animated scrolling cursor."*
+
+**Done, in the section Animated Conduction Tools:**
+- a paragraph break before *"Bouncing-ball conductors aid with rhythmic precision."* — the go-line sentence that followed it stays
+  with it (the AI's reading: a break, nothing moved);
+- piece #5's paragraph *"In the first example, you would play the Bartók pizzicato … the trill ends where the curve ends."* removed
+  whole (it is in git at `6448a5b`);
+- the two images captioned, his words: **"Bouncing-ball conductor"** under the bassoon's one-off, **"Animated scrolling cursor"**
+  under the English horn's breath.
+
+**How:** each image sits in a `<figure class="zoomed" style="--w: N">` with a `<figcaption>`; the figure carries §704's width
+rule and its image fills it (`styles.css`), so the scale is unchanged — measured on the page at an 840 px column: the two images
+still 370 and 1386 frame px wide, each caption on one line.

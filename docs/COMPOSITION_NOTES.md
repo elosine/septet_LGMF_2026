@@ -3897,3 +3897,10 @@ five of the nine places; the trill, the chart and the two piano images left for 
 *The AI's reading (marked as such):* the seven players named in the subtitle and the Instrumentation section; the old piece's
 bass-clarinet line replaced by the percussionist's instruments; "The full score is in C. Parts will be transposed." stands.
 RUNNING_LOG §705.
+
+## LG-271 — 2026-10-01 — the performance notes: the bouncing ball in its own paragraph, the example paragraph out, captions
+
+*His words (session 18, Fable):* "Let's start the bouncing ball conductor in its own paragraph. And then let's redact the whole in the first example paragraph. And let's just put captions. The first image caption will be bouncing ball conductor. And the second image caption will be animated scrolling cursor."
+
+*The AI's reading (marked as such):* a paragraph break before the bouncing-ball sentence (the go-line sentence stays with it); the
+"In the first example …" paragraph deleted; captions under the two images in place of it. RUNNING_LOG §706.

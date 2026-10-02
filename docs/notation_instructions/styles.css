@@ -207,6 +207,18 @@ h4 {
 }
 .zoomed-row { display: flex; gap: 2%; align-items: flex-start; }
 .zoomed-row img.zoomed { flex: none; }
+/* §706: the same image with a caption — the figure carries --w, its image fills it */
+figure.zoomed { width: calc(var(--w) / var(--frame) * 100%); margin: 0 0 10px 0; }
+.zoomed-row figure.zoomed { flex: none; }
+.notation-section figure.zoomed img {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: 1px solid #ddd;
+}
+figure.zoomed figcaption { font-size: 0.85em; color: #555; margin-top: 4px; font-style: italic; }
 
 /* septet 2026-09-17: the demo video link, a little bigger (RUNNING_LOG §589) */
 .demo-link {
