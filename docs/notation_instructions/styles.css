@@ -227,3 +227,11 @@ figure.zoomed figcaption { font-size: 0.85em; color: #555; margin-top: 4px; font
     font-size: 1.3em;
     margin-bottom: 1.2em;
 }
+
+/* Recombination 2026-10-02 (RUNNING_LOG §734): his working list at the page's foot — NOT part of the notes; hidden in print (.screen-only) */
+.worklist { margin-top: 4em; padding: 16px 22px; border: 1px dashed #999; border-radius: 4px; background: #fbfbf2; font-size: 0.93em; }
+.worklist h3 { margin-top: 0.2em; }
+.worklist .worklist-note { font-weight: 400; font-size: 0.8em; color: #777; }
+.worklist blockquote { margin: 0.2em 0 1em 0.6em; padding-left: 0.9em; border-left: 3px solid #ccc; }
+.worklist blockquote p { margin-bottom: 0.5em; }
+.worklist p { margin-bottom: 0.35em; }
