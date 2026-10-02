@@ -4042,3 +4042,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "get rid of the paragraph that starts the middle movement of this piece uses acoustic beating."
 
 *The AI's reading (marked as such):* he is cutting the reference text as his own text replaces it, paragraph by paragraph. RUNNING_LOG §727.
+
+## LG-293 — 2026-10-02 — Timbral Glissando: cut the three reference paragraphs, the chart and the links
+
+*His words (session 18, Fable):* "get rid of the following three paragraphs from there are two sections to I have prepared demo recordings and take out the image and the links."
+
+*The AI's reading (marked as such):* Bloom / Spectral and the practice videos were the last piece's; this piece's notes do not carry them. RUNNING_LOG §728.

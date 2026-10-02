@@ -22568,3 +22568,9 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"get rid of the paragraph that starts the middle movement of this piece uses acoustic beating."*
 
 **Done:** piece #5's paragraph *"The middle movement of this piece uses acoustic beating as its central musical material. … to modulate the speed and timbre of the acoustic beating."* removed from the reference text under Timbral Glissando — his own two paragraphs above now say it. The rest of the reference text stands (Bloom and Spectral · the chart · the demo links · the two horn images · the notation paragraph). The whole page printed at the end of the reply.
+
+## §728. Timbral Glissando: the reference text cut down to its Notation part — Bloom and Spectral, the chart, the demo paragraph and its links out (2026-10-02, Fable, session 18; LG-293)
+
+**His word:** *"get rid of the following three paragraphs from there are two sections to I have prepared demo recordings and take out the image and the links."*
+
+**Done:** removed from the reference text under Timbral Glissando: *"There are two sections in this movement — Bloom and Spectral. …"* · *"The strategy for the Spectral section is different. …"* · piece #5's morph chart (`morph_sequence_chart.svg`, the file removed from the folder too) · *"I have prepared demo recordings for the Bloom section …"* and its three YouTube links (piece #5's pairs). What is left of the reference text: the bold **Notation**, this piece's two horn images, and the notation paragraph (*"The notation for the acoustic beating movement employs two curves …"*). With the chart gone, the only images on the page still piece #5's are the two piano let-ring images in the Notation Legend.
