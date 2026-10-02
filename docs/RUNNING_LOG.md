@@ -22340,3 +22340,45 @@ animated scrolling cursor."*
 **How:** each image sits in a `<figure class="zoomed" style="--w: N">` with a `<figcaption>`; the figure carries §704's width
 rule and its image fills it (`styles.css`), so the scale is unchanged — measured on the page at an 840 px column: the two images
 still 370 and 1386 frame px wide, each caption on one line.
+
+## §707. The instruction page, Gradient Curves: his paragraph, one image — the bassoon entering the third morph (2026-10-01, Fable, session 18; LG-272)
+
+**His word** (one message, two blocks; both whole in LG-272): the first — *"Get rid of both the crescendos and the trills section.
+Keep the gradient curves heading. but get rid of or replace the paragraph."*, then the paragraph dictated, then *"Please take the image
+from the bassoon at 726.88. And you can take it to about 730.2. Please just the bassoon part. So the bassoon header, staff, etc.,
+curves, cola, and all that. But don't include any of the English horn above or the horn below. And this was dictated, so if you could
+correct for spelling, punctuation, etc."* The second block is an earlier, shorter wording of the same section that breaks off
+mid-sentence (*"then a glissando section. curves can describe"*).
+
+**The AI's reading:** the first block is the finished instruction and replaces the second; the second NOT applied, told him.
+
+**Done:** the Crescendos and Trills sub-sections removed (headings, images, texts); the section's paragraph replaced by his, corrected
+for punctuation and spelling only — the two colons (*"in volume: crescendo and decrescendo"* · *"in pitch: glissando"*), "And"
+dropped at a sentence's head, *"from niente at the bottom to fff at mid-lane height"*, *"B quarter-flat"*, *"G-sharp"*, the stray
+full stop inside *"the pitch range and dynamic range"*.
+
+**The image:** the bassoon, 726.88 … 730.2 s, t = 728.6 — its lane alone (the tool draws only the target lane): the header (the first
+head B quarter-flat under an 8va with `7 (D♭2)` · `−31`, the gliss line, the second head G♯ with `10 (E1)` · `−14`,
+`ppp → f`), the go line at 727.4, the orange and the green, the pie, the cursor. *"cola"* read as CLEF: a new flag
+`capture_lane.js --gutter` starts the zoom window at the span's start and crops from the frame's left edge, so the lane's bass clef
+and its name stand in the image as the zoomed score shows them (crop 1167 × 263, 60.8 % of the column). His to reverse — without the
+flag the image begins at the header (1023 px).
+
+**A FACT FLAGGED TO HIM, the page left as he dictated it:** his last sentence says the BOTTOM of the pitch curve is the B quarter-flat
+and the TOP the G-sharp. The data says the reverse: the bassoon's gliss samples run 1.000 at 727.4 s → 0.000 at 804.2 s, and the curve
+is drawn at the TOP at its start (the image shows it there) — the top is the first head (B quarter-flat, the higher pitch), the bottom
+the second (G♯, the arrival). In the header the B is DRAWN lower than the G♯ (it is under the 8va), which may be where the sentence
+came from. The same reading on the horn's bloom: 1.000 at the start, 0.040 at the farthest point, 1.000 at the end.
+**Two words kept as dictated, noted:** "staff" where the code's word is the lane (the green lies under the staff, in the lane's lower
+half) · "mid-lane height" (measured on the horn's page at §704: `(ff)` at 0.41 of the lane's height, so fff ≈ 0.47).
+
+**Removed from the folder:** `curve_cresc_eh_23.svg` (§704's, an hour old) · `gradient_trill.svg` (piece #5's). Left, still piece
+#5's: the morph chart, the two let-ring images.
+
+## §708. The instruction page's opening sentence: "displayed in a web browser" (2026-10-01, Fable, session 18; LG-273)
+
+**His word**, sent while §707 was being made: *"The paragraph, computer animated score, served from the cloud. And I want to say, and
+displayed in a web browser."*
+
+**Done:** *"… served from the cloud and played in a web browser, like an online video game."* → *"… served from the cloud and
+displayed in a web browser, like an online video game."* One word; *"like an online video game"* kept (he did not name it), told him.

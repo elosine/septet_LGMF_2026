@@ -21,7 +21,7 @@
 <h1>Performance Instructions</h1>
 <p class="subtitle">Recombination, for English horn, bassoon, horn, trumpet, percussion, cello and double bass — Justin Yang</p>
 
-<p>The score for <em>Recombination</em> is a computer-animated score, served from the cloud and played in a web browser, like an online video game.</p>
+<p>The score for <em>Recombination</em> is a computer-animated score, served from the cloud and displayed in a web browser, like an online video game.</p>
 
 <!-- ═══ Demo Video (RUNNING_LOG §589; placed after the intro paragraph, his word §604) ═══ -->
 <h3>Demo Recording with Score-Following Video</h3>
@@ -72,33 +72,21 @@
     </div>
 </div>
 
-<!-- ═══ Curve-Based Crescendo ══════════════════════════════════════════════
-     Image, THIS PIECE'S: English horn, inside the breath of 13.71 s — the green level line rising through (p) at 22.02 s
-     to (mp) at 25.03 s, captured at t=23.5. Regenerate:
-     node tools/capture_lane.js --part eh --t 23.5 --span 20.4-26.1 --out docs/notation_instructions/images/curve_cresc_eh_23.svg  -->
+<!-- ═══ Gradient Curves ════════════════════════════════════════════════════
+     HIS TEXT, dictated 2026-10-01 (RUNNING_LOG §707), corrected for spelling and punctuation only; piece #5's
+     Crescendos and Trills sub-sections removed at his word.
+     Image, THIS PIECE'S, his pick: the bassoon entering the third morph (take → take), 726.88 … 730.2 s — the lane's clef,
+     the header (B quarter-flat under 8va, 7 (D♭2) −31 → G♯, 10 (E1) −14, ppp → f), the go line at 727.4 s, the orange
+     pitch curve and the green volume curve, captured at t=728.6. Regenerate:
+     node tools/capture_lane.js --part bsn --t 728.6 --span 726.88-730.2 --gutter --out docs/notation_instructions/images/gradient_curves_bsn_727.svg  -->
 
 <h3>Gradient Curves</h3>
 
 <div class="notation-section">
     <div class="description">
-        <p>This score uses graphic curves to describe continuous change. An animated <strong>curve follower</strong> appears alongside the cursor and gives the real-time position in the gradient.</p>
+        <p>This score uses graphic curves to describe continuous change over extended periods of time. Green curves are used to describe continuous changes in volume: crescendo and decrescendo. Orange curves are used to describe continuous changes in pitch: glissando. Volume curves occupy the bottom half of the staff, and pitch curves occupy the top half of the staff. The volume curve is a static scale, from niente at the bottom to <em>fff</em> at mid-lane height. The pitch curve describes a dynamic scale, which varies per curve. There will be a notation header at the beginning of each curve that tells the pitch range and dynamic range of that curve. In the pictured example, the bottom of the pitch curve represents the B quarter-flat and the top of the curve represents the G-sharp.</p>
     </div>
-
-    <h4>Crescendos</h4>
-    <img class="zoomed" style="--w: 1756" src="images/curve_cresc_eh_23.svg" alt="The green level line rising through p to mp inside one breath — English horn at 23 s">
-    <div class="description">
-        <p>Gradient curves are used to describe crescendos. Play the crescendo from dynamic 1 to dynamic 2. The bottom of the curve corresponds to the starting dynamic, the top to the ending dynamic. The contour of the curve determines how the crescendo grows over time.</p>
-    </div>
-
-    <!-- STILL PIECE #5'S IMAGE — LEFT FOR HIM (§704): Recombination has no trill.
-         Trills image: a trill whose level curve moves, captured mid-flight with the tr header in the frame;
-         node tools/capture_lane.js --part bcl --t 129.95 --span 128.82-131.0 --padBot 14 --out docs/notation_instructions/images/gradient_trill.svg
-         (the bass clarinet trill at 129.17 s, 5.5 s; RUNNING_LOG §575). Text to follow (the composer's). -->
-    <h4>Trills</h4>
-    <img src="images/gradient_trill.svg" alt="A trill mid-flight: the tr header at the go line, the green gradient curve with the curve follower part-way along it">
-    <div class="description">
-        <p>The curves describe the trill intensity, both volume and speed.</p>
-    </div>
+    <img class="zoomed" style="--w: 1167" src="images/gradient_curves_bsn_727.svg" alt="The bassoon entering a morph: the bass clef, the header with its two pitches, a gliss line and ppp to f, the go line, the orange pitch curve in the top half and the green volume curve at the bottom, the cursor">
 </div>
 
 <!-- ═══ Acoustic Beating ═══════════════════════════════════════════════════

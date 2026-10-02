@@ -3904,3 +3904,21 @@ RUNNING_LOG §705.
 
 *The AI's reading (marked as such):* a paragraph break before the bouncing-ball sentence (the go-line sentence stays with it); the
 "In the first example …" paragraph deleted; captions under the two images in place of it. RUNNING_LOG §706.
+
+## LG-272 — 2026-10-01 — the performance notes: the Gradient Curves paragraph, dictated; the bassoon's image at 726.88
+
+*His words (session 18, Fable; one message, two blocks — the first):* "Get rid of both the crescendos and the trills section. Keep the gradient curves heading. but get rid of or replace the paragraph.
+This score uses graphic curves to describe continuous change over extended periods of time. Green curves are used to describe continuous changes in volume, crescendo and decrescendo. And orange curves are used to describe continuous changes in pitch, glissando. Volume curves occupy the bottom half of the staff and pitch curves occupy the top half of the staff. The volume curve is a static scale from the bottom niente to mid lane height FFF. The pitch curve describes a dynamic scale, which varies per curve. There will be a notation header at the beginning of each curve that tells the pitch range. and dynamic range of that curve. In the pictured example, the bottom of the pitch curve represents the B 1/4b and the top of the curve represents the G sharp. Please take the image from the bassoon at 726.88. And you can take it to about 730.2. Please just the bassoon part. So the bassoon header, staff, etc., curves, cola, and all that. But don't include any of the English horn above or the horn below. And this was dictated, so if you could correct for spelling, punctuation, etc."
+
+*(the second block, as it stood under the first):* "Get rid of the trill section, please. After the gradient curves are used to describe crescendo sentence, get rid of the rest. And then you can say, :For example, a crescendo curve describe a gradual change of volume over an extended period of time. The curve scale goes from niente to FFF. The notation header at the beginning of a  curve tells you the range of dynamic change for this curve.
+ then a glissando section. curves can describe"
+
+*The AI's reading (marked as such):* the first block is the finished version, the second an earlier draft left in the message — the
+first applied, the second not. His paragraph corrected for spelling and punctuation only. One fact flagged, not changed: the data has
+the top of the pitch curve as the B quarter-flat and the bottom as the G-sharp, the reverse of his last sentence. RUNNING_LOG §707.
+
+## LG-273 — 2026-10-01 — the performance notes: "displayed in a web browser"
+
+*His words (session 18, Fable, sent mid-turn):* "The paragraph, computer animated score, served from the cloud. And I want to say, and displayed in a web browser."
+
+*The AI's reading (marked as such):* "played" → "displayed" in the opening sentence; the rest of the sentence stands. RUNNING_LOG §708.

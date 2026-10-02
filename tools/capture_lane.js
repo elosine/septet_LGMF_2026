@@ -31,6 +31,7 @@
 //            The render window is the zoom window centred on the span; a span
 //            wider than that window is refused (LGMF §704) unless --fit is given,
 //            which lowers Z until the span fits (piece #5's behaviour).
+//   --gutter the crop starts at the frame's left edge: the lane's clef and name are in the image (LGMF §707)
 //   --keepNeighbors  draw the other lanes too (default: only the target lanes
 //            are drawn; the geometry keeps all seven, so nothing moves)
 //   --onlyOnsets a-b  draw ONLY the events whose onset lies in [a, b] (every part) — the rest of the IR is dropped
@@ -133,7 +134,11 @@ if (s1 - s0 > spanOf(Z)) {
 }
 const winSpan = spanOf(Z);
 const mid = (s0 + s1) / 2;
-const w0 = mid - winSpan / 2;
+// [§707] --gutter: the zoom window STARTS at the span's start and the crop begins at the frame's left edge — the lane's
+// gutter (the clef, the name) is in the image, as the zoomed score shows it; the crop is then gutter + span wide
+const withGutter = process.argv.indexOf('--gutter') >= 0;
+if (withGutter && s1 - s0 > winSpan) { console.error('capture_lane: --gutter needs the span inside one zoom window'); process.exit(1); }
+const w0 = withGutter ? s0 : mid - winSpan / 2;
 const cfg = Coords.zoomCfg(baseCfg, Z, w0);
 
 const iA = FRAME_PARTS.indexOf(part), iB = FRAME_PARTS.indexOf(toPart);
@@ -165,7 +170,7 @@ const padTop = parseFloat(arg('padTop', '30'));
 const padBot = parseFloat(arg('padBot', '6'));
 const yTop = Math.min(sysA.yTopPx, sysB.yTopPx), yBot = Math.max(sysA.yBotPx, sysB.yBotPx);
 const y0 = yTop - padTop, hCrop = (yBot - yTop) + padTop + padBot;
-const x0 = view.xOfSeconds(s0), x1 = view.xOfSeconds(s1);
+const x0 = withGutter ? 0 : view.xOfSeconds(s0), x1 = view.xOfSeconds(s1);
 const wCrop = x1 - x0;
 svg = svg
   .replace(/<svg[^>]*>/, '<svg xmlns="http://www.w3.org/2000/svg" width="' + wCrop.toFixed(0) +
