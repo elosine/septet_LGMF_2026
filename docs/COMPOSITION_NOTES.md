@@ -3889,3 +3889,11 @@ the page. RUNNING_LOG §703.
 *The AI's reading (marked as such):* one scale for every score image — a crop of the zoomed presentation score (Z 2), the page's
 column standing for the zoomed frame's width; "relatively" read as relative to the frame, his to reverse (one knob). Images found for
 five of the nine places; the trill, the chart and the two piano images left for him. RUNNING_LOG §704.
+
+## LG-270 — 2026-10-01 — the performance notes: the subtitle and the instrumentation corrected, the transposed-parts note kept
+
+*His words (session 18, Fable):* "update the subtitle and the instrumentation with the correct instrumentation, please. And you can leave the, the transpose parts note."
+
+*The AI's reading (marked as such):* the seven players named in the subtitle and the Instrumentation section; the old piece's
+bass-clarinet line replaced by the percussionist's instruments; "The full score is in C. Parts will be transposed." stands.
+RUNNING_LOG §705.

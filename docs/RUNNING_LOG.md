@@ -22304,3 +22304,21 @@ rasterized to a scratch PNG. Found that way: the one-off's "ord." fell under the
 **Not done, said to him:** the images' text (the cents, the partial, "ord.") names Crimson Pro Light with no font embedded — an image
 on a web page cannot borrow the page's fonts, so it draws in his system's serif unless that font is installed (piece #5's page was the
 same).
+
+## §705. The instruction page: the subtitle and the instrumentation are this piece's (2026-10-01, Fable, session 18; LG-270)
+
+**His word:** *"update the subtitle and the instrumentation with the correct instrumentation, please. And you can leave the, the
+transpose parts note."*
+
+**Done, in `docs/notation_instructions/index.html`:**
+- the subtitle: *"Recombination, for English horn, bassoon, horn, trumpet, percussion, cello and double bass — Justin Yang"* (D1's
+  three pairs plus percussion, in score order);
+- Instrumentation, line 1: *"English horn, bassoon, horn, trumpet, percussion, cello, double bass."*;
+- line 2, in place of piece #5's *"Bass clarinet to low C."*: *"Percussion (one player): sleigh bells, castanets, tambourine, temple
+  bowl, wood block, brake drum, bass drum, bowed vibraphone."* — the seven instruments of the seven-line staff in his order top →
+  bottom (D34), then the vibraphone; the eight are what `piece-lgmf` plays (its technique list, §704's survey);
+- line 3 kept at his word: *"The full score is in C. Parts will be transposed."*
+
+**The AI's wording, his to revise** (the section's standing note: the AI drafts, he revises): the percussion line is new prose. Not
+added: the vibraphone's motor off (the tracker's row 11, held with the list) · any instrument requirement like the old low-C line
+(a double-bass extension, the trumpet's and the horn's keys) — none looked up, none claimed.
