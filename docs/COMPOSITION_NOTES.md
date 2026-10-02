@@ -4153,3 +4153,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "image of both bowed vibes parts The bowed vibraphone(bold) is written in two parts. One part is highlighted in blue with blue duration lines at the top and the other part is highlighted green with green duration lines at the bottom."
 
 *The AI's reading (marked as such):* the two bows are told apart by colour for the performer; the picture should show both at once, clearly apart. RUNNING_LOG §745.
+
+## LG-311 — 2026-10-02 — the Percussion Legend: the staff with the full names; the only mallet a brush for the temple bowl — your recommendation; the full notes only on demand
+
+*His words (session 18, Fable):* "Okay, show the percussion staff or take an image of the percussion staff. Uh, the heading will be percussion legend. And then the image of the percussion staff with the full names of the instruments spelled out in the header. And then the only mallet I want to indicate is a brush for the temple bowl. So where slash how would you recommend I do this? And then just say something like all the other mallets the percussionist can choose from or something like that. Anyways, your recommendation here. — and, sent while it was being made: and then no need to repeat the full notes at the end anymore. I'll do that on demand."
+
+*The AI's reading (marked as such):* he wants a staff key with the instruments' full names and one beater prescribed; asked where the brush should be said, the AI's answer is: beside the name in the key and in a sentence that leaves every other beater to the player. RUNNING_LOG §746.
