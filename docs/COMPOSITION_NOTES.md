@@ -4084,3 +4084,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "is the html perf notes page updated with all the things I updated in the chat? can you add the list of thngs to the bottom?"
 
 *The AI's reading (marked as such):* he will work on the page at the desktop and wants the remaining items on it, under the notes. RUNNING_LOG §734.
+
+## LG-300 — 2026-10-02 — Gradient Curves: "Sometimes there is a fade-in or fade-out. Images two and three above."
+
+*His words (session 18, Fable):* "Sometimes there is a fade-in or fade-out. Images two and three above."
+
+*The AI's reading (marked as such):* the sentence should say which pictures show the fades: the second and third of the row. RUNNING_LOG §735.
