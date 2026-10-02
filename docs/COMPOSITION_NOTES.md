@@ -3970,3 +3970,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 *His words (session 18, Fable):* "You can hear the slow down of the beating prominently"
 
 *The AI's reading (marked as such):* a replacement for the end of the analogy's last sentence; "slowdown" as one word. RUNNING_LOG §715.
+
+## LG-281 — 2026-10-02 — his assertion to check: the timbral effects are mostly written in pairs by instrument group — which of the three morphs?
+
+*His words (session 18, Fable):* "My assertion, these effects in this piece are mostly written in pairs by instrument group. Can you check, I believe it's the three morphs, and see if it's true for all three or which ones it's true for?"
+
+*The AI's reading (marked as such):* a factual check before the sentence stays in the notes; measured: the bloom is in pairs (contrary motion from a unison, ±25 c), the two take → take morphs are not. RUNNING_LOG §716.

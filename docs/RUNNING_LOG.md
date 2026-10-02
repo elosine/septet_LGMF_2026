@@ -22473,3 +22473,19 @@ text below the section is named as unchanged, not repeated).
 **His word:** *"You can hear the slow down of the beating prominently"*
 
 **Done:** *"… you can hear the slowing down of the beating quite prominently."* → *"… you can hear the slowdown of the beating prominently."* — "quite" gone; "slow down" written as the noun, one word (a spelling call, his to reverse). The section's full text printed in the chat.
+
+## §716. "Mostly written in pairs by instrument group" — measured on the three morphs: true of the bloom alone; and §707's reading of the pitch curve corrected (2026-10-02, Fable, session 18; LG-281)
+
+**His word:** *"My assertion, these effects in this piece are mostly written in pairs by instrument group. Can you check, I believe it's the three morphs, and see if it's true for all three or which ones it's true for?"*
+
+**Done:** nothing changed on the page — a measurement, from `piece-lgmf`'s morph overlays (each part's start note, its second head, the signed travel; the pairs EH + Bsn · Hn + Tpt · Vc + DB).
+
+**1 · THE BLOOM (`ACT-BLOOM-06`, 151.3 … 279.4 s) — TRUE.** Each pair starts on a unison of the A1 series and opens in CONTRARY motion by equal amounts, then closes: EH B4 +4 → +29 (+24 c) against Bsn B4 +3 → −21 (−24 c) · Hn A4 → −25 against Tpt A4 → +25 · Vc A2 → +25 against DB A2 → −25. The interval inside each pair goes 0 … 2 c → ≈ 50 c (a quarter-tone) and back. Entries inside a pair: Hn / Tpt 0.7 s apart, Vc / DB 0.5 s, EH 7.0 s after Bsn.
+
+**2 · TAKE → TAKE, A1 → A1 (576.6 … 659.3 s) — NOT in pairs.** Five movers (the bassoon holds): EH +195 c · Hn +312 · Tpt +231 · Vc −182 · DB −702. Both brass rise, both strings fall, by unequal amounts; each player goes from their own note of take A to their own note of take B (1t's design, by lane and seat). The one meeting is ACROSS the groups: the EH and the cello both arrive on B4 +4, partial 9.
+
+**3 · TAKE → TAKE, D♭2 → E1 (725.0 … 804.2 s) — NOT in pairs.** Six movers: EH −86 c · Bsn −283 · Hn +1002 · Tpt +69 · Vc +118 · DB +300; every pair moves the same way by unequal amounts.
+
+**So:** one of three. And a second fact for the section's wording, told him in one line: the bloom's travel is ±25 c (his "slight pitch variations", "a few cents"); the two take → take morphs travel 69 … 1002 c — slow, but real changes of note, not micro-glissandos.
+
+**A CORRECTION OF §707, found in the same data.** §707 read the orange curve as "top = the first head, bottom = the second". Wrong as a rule: the samples are PITCH HEIGHT inside the part's own travel — bottom = the LOWER of the header's two pitches, top = the HIGHER. In the bloom the players who go UP (EH · Tpt · Vc) start at 0, the bottom, and rise; those who go DOWN (Bsn · Hn · DB) start at 1, the top, and fall; in the last morph the horn (+1002 c) starts at the bottom. For the bassoon's picture on the page nothing changes: it falls from B quarter-flat (the higher, the top) to G-sharp (the lower, the bottom), so the flag on his sentence stands, and the simple rule for the notes is "top = the higher pitch".
