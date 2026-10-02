@@ -3964,3 +3964,9 @@ frame" heard against §709's "Tempo frame" — the heading not changed, asked. R
 
 *The AI's reading (marked as such):* after every dictated edit the whole section is printed in the chat; the sentence now begins
 "In this situation, you're not listening for …". RUNNING_LOG §714.
+
+## LG-280 — 2026-10-02 — Timbral Glissando: "you can hear the slow down of the beating prominently"
+
+*His words (session 18, Fable):* "You can hear the slow down of the beating prominently"
+
+*The AI's reading (marked as such):* a replacement for the end of the analogy's last sentence; "slowdown" as one word. RUNNING_LOG §715.

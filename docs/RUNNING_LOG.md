@@ -22467,3 +22467,9 @@ about and start the sentence with capital I in this situation."*
 situation, you're not listening for the tiny variation of pitch, but you're listening to the timbral beating."* From here each reply
 after an edit prints the section's whole live text in the chat (saved as a standing preference in the AI's memory; the old reference
 text below the section is named as unchanged, not repeated).
+
+## §715. The instruction page, Timbral Glissando: "the slowdown of the beating prominently" (2026-10-02, Fable, session 18; LG-280)
+
+**His word:** *"You can hear the slow down of the beating prominently"*
+
+**Done:** *"… you can hear the slowing down of the beating quite prominently."* → *"… you can hear the slowdown of the beating prominently."* — "quite" gone; "slow down" written as the noun, one word (a spelling call, his to reverse). The section's full text printed in the chat.
