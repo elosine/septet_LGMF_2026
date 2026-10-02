@@ -22434,3 +22434,17 @@ lets a player hear the timbral change against their own pitch change. The sectio
 beating") to the technique ("timbral glissando"), beating now one effect among them.
 
 **The handoff:** journal §2, the block THE PERFORMANCE NOTES — WHERE HE PICKS UP.
+
+## §712. The instruction page, Tempo frame: his sentence — "a conducted pulse in the form of vertical lines and a bouncing ball" (2026-10-02, Fable, session 18; LG-277)
+
+**His word**, after reading the section's text in the chat: *"This will be in the temporal frame section, but just push the existing
+text down for now. to assist with rhythmic accuracy, some sections are overlaid with a conducted pulse in the form of vertical lines
+and a bouncing ball."*
+
+**Done:** the paragraph now reads ***Tempo frame** — To assist with rhythmic accuracy, some sections are overlaid with a conducted
+pulse in the form of vertical lines and a bouncing ball.* The image (the EH's frame, the ball on a line) stays directly under it;
+then two blank lines and the tuba piece's paragraph, without the bold lead, as his reference.
+
+**Noted:** he said "temporal frame" this time and "Tempo frame" at §709; the heading left as **Tempo frame**, asked. His sentence
+calls the device a CONDUCTED PULSE laid over a section — the frame as conducting, the lines and the ball its two forms; "rhythmic
+accuracy" where the tracker's row 19 has "onset accuracy … not a tempo".

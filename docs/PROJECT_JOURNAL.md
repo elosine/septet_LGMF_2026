@@ -226,7 +226,7 @@ block is the handoff; everything is committed and pushed.*
   instructions (§703), served by his server at `http://localhost:5400/docs/notation_instructions/index.html` (give him that link).
 - **How he works on it:** he DICTATES, one section at a time; the AI puts his words in verbatim with spelling, capitals and
   punctuation repaired, swaps the images, and FLAGS a moved fact in chat without changing his sentence. Each change: a RUNNING_LOG §
-  (**§712 next**) · an LG with his words whole (**LG-277 next**) · the state lines · commit + push.
+  (**§713 next**) · an LG with his words whole (**LG-278 next**) · the state lines · commit + push.
 - **The images' rule (§704):** every score image is a crop of the ZOOMED presentation score (Z 2) at ONE scale —
   `node tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B [--gutter] [--padBot N] --out
   docs/notation_instructions/images/X.svg` (a span over 5.77 s is refused; `--gutter` puts the lane's clef in), then
@@ -238,8 +238,8 @@ block is the handoff; everything is committed and pushed.*
   2. *Demo Recording* — STILL PIECE #5's YouTube link.
   3. *Instrumentation* — this piece's; the percussion line is the AI's wording (§705).
   4. *Animated Conduction Tools* — his paragraphs, two captioned images (the bassoon's one-off · the EH's breath), then **Tempo
-     frame** + the TUBA piece's paragraph as the starting text (wrong for this piece: "hashes at the top", "the final section") and
-     the EH's frame with the ball on a line (§706 · §709 · §710).
+     frame** + HIS sentence (§712: "a conducted pulse in the form of vertical lines and a bouncing ball"), the EH's frame with the ball on a
+     line, and BELOW it the tuba piece's paragraph kept for his reference (§706 · §709 · §710 · §712); ASKED: "Tempo frame" or "Temporal frame".
   5. *Gradient Curves* — his paragraph, the bassoon's image at 726.88 with its clef (§707). **OPEN — A FACT FLAGGED, his word owed:**
      his last sentence has the pitch curve's bottom = B quarter-flat and top = G-sharp; the data has the reverse (the curve starts at
      the TOP on the first head). "swap" = change the sentence.

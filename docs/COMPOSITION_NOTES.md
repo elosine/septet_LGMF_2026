@@ -3944,3 +3944,10 @@ the image is the English horn's first frame with the ball in mid-air. RUNNING_LO
 *The AI's reading (marked as such):* the section is renamed for the technique, not the phenomenon; his paragraph goes in word for
 word with dictation's punctuation repaired, to be edited down by him next session; piece #5's text stays underneath as his reference.
 RUNNING_LOG §711.
+
+## LG-277 — 2026-10-02 — the performance notes, Tempo frame: a conducted pulse in the form of vertical lines and a bouncing ball
+
+*His words (session 18, Fable):* "This will be in the temporal frame section, but just push the existing text down for now. to assist with rhythmic accuracy, some sections are overlaid with a conducted pulse in the form of vertical lines and a bouncing ball."
+
+*The AI's reading (marked as such):* his sentence becomes the section's text; the tuba's paragraph stays below it for now. "Temporal
+frame" heard against §709's "Tempo frame" — the heading not changed, asked. RUNNING_LOG §712.
