@@ -28,3 +28,44 @@ never write the notes here.*
 | 18 | **The uneven group** — a group of quick notes whose heads stand where they sound, stemless, with a beam floating on the stem side on short stubs (one per note, never reaching the heads) and a wavy stroke through it: "about this speed — two beams = about a 16th — but unevenly", the spacing the truth — his wording for the note (LG-138): "play the displayed notes in that much time as indicated by the beams, but slightly irregularly"; a beam with stems reaching the heads is the same speed evenly (his LG-135) | §557 | — |
 | 19 | **THE BEAT FRAME — an aid to ONSET ACCURACY, not a tempo** — in the micro counterpoint of section 2 a figure may carry a light grid of beat lines with a ball bouncing on them beside the cursor; the lines orient the player around the notes so the onsets land as close as possible to their written time WITHOUT counting: a head's LEFT EDGE is its time — a head whose left edge stands just left of a line is played just before that beat, one just right of it just after, one on it on it; the beat is chosen per figure under about 100 bpm; his LG-147 · LG-148 | §569 · §570 | — |
 | 20 | **The vibraphone's two rows are its two voices** — the blue row above the staff and the green row below are the two bows, each with its own dynamic line for a whole passage; a head belongs to the row of its colour (the patch behind it, the dotted line from it), whatever its height — the blue voice may be the lower note. Where both begin together with the blue voice underneath, the blue dotted line rises on the LEFT of its head and the green falls on the RIGHT of its head | §678 (§496 withdrawn) | — |
+
+## THE WORKING LIST — HIS GROUPING (begun 2026-10-02 on his phone, RUNNING_LOG §720 · §721; he organizes the page at the desktop)
+
+*The table above is the record of what was decided and why; this list is HIS ORDER for writing — re-grouped at his word, shown to him
+in the chat one short item at a time. The numbers in brackets are the table's rows. Rewrite this section whenever he re-groups.*
+
+**SETTLED TEXT** (wording exists, his)
+
+- **S1 · Tuning** — the TUNING legend, `docs/research/just_partials_notation.md` §1b [1 · 9]
+- **S2 · Transposing instruments** — the two lines of §1b [2]
+- **S3 · Vibrato** — "Senza vibrato throughout, except the middle section, marked ord." [3]
+- **S4 · The uneven group** — "Play the displayed notes in that much time as indicated by the beams, but slightly irregularly." [18]
+
+**STILL TO SETTLE**
+
+1. **THE MORPH AND MORPH HEADER** (his item, §721 — the first list's 1 … 7 collected):
+   - the dial (one sentence on the page: "An animated dial counts down the time to the next rearticulation."), the green and orange
+     meters on the cursor, the 4 s lead-in [6, the rest] — *the lead-in belongs to the opening; his to move*
+   - the arrow between two dynamics, `pp → mp` = a continuous change over the note; the niente circle [4]
+   - the fade signs `○—<` · `—> ppp`, symbolic not timed — his justification to write [5]
+   - arrow (a range) against hairpin (a movement) [12]
+   - the green curve is the shape of the intention [14]
+   - a dynamic in brackets = "you are here" [15]
+   - the two heads joined by a line = the range of the glide; the second head's partial on a take → take morph [13]
+2. **The vibraphone's bows** [10]
+3. **The vibraphone's two rows are its two voices** [20]
+4. **The vibraphone's motor off** [11]
+5. **The ethos of section 2** [16]
+6. **The tuplet bracket, a notch of speed** [17]
+7. **The tempo frame** — one sentence on the page [19]
+8. **The percussion legend** [7]
+9. **Offered for the tuning text, not taken** [8]
+
+*No row in the table yet (decided in the score in session 18):*
+
+10. **The long tone and its navy bar** (PLAN 2m)
+11. **One dynamic name per chord** (§637)
+12. **The short note with the bouncing ball** — the one-off, what the ball is for (S24)
+13. **Grace notes**
+14. **The percussion staff's conventions** — bare heads, pairs, the dynamic row under the staff (S25 … S33)
+15. **The vibraphone's ○ at the end of a fall** (§677)
