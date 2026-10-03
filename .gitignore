@@ -33,6 +33,9 @@ print/score/*.__print.html
 # approved video does (notation/video/**/*.mp4). Its archive README is what git carries.
 print/score/**/*.pdf
 
+# the call's screenshots (his, 2026-10-03: "A, keep it local") — this repo is public and they show his account's address
+docs/call/
+
 # Probe / research artefacts
 probes/_selftest_render.wav
 probes/last_bend_analysis.json
