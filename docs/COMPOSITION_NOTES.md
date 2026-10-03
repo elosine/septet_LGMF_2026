@@ -4249,3 +4249,18 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "ragged stems where it says instead of four even 16 notes, just add in this example, instead of four 16th notes. Or sorry, in the pictured example."
 
 *The AI's reading (marked as such):* the four-16ths case is the picture's, not the rule's. RUNNING_LOG §761.
+
+## LG-327 — 2026-10-03 — THE SLATE: the compositions on deck, in order
+
+*His words (session 18, Fable):* "in my composition notes can just put a slate, a list of compositions on deck to write. So I want to work next on the ensemble switch overdrive festival one. And then work on my live electronics with improviser for tenor. And then get back to the bass clarinet, harp, and accordion piece. I want to do a solo piano. Accordion duet. And then one for Japanese traditional instruments, regardless of whether I get the Kyoto residency. But we'll wait. till we hear, and then if I get it, I'll write that piece in Kyoto."
+
+*The AI's reading (marked as such):* the slate, in his order — a standing list, not a plan for this piece:
+
+1. **the Ensemble Switch / Overdrive Festival piece** — next after _Recombination_
+2. **live electronics with an improviser, for tenor** (the `live-electronics-engine` repo)
+3. **back to the bass clarinet, harp and accordion piece** (#3, `for_bass_clarinet_harp_and_accordion`)
+4. **a solo piano**
+5. **an accordion duet**
+6. **one for Japanese traditional instruments** — written regardless of the Kyoto residency; held until he hears; if he gets it, written in Kyoto
+
+Items 4 · 5 · 6 are unordered among themselves beyond his sentence order. "ensemble switch overdrive festival" is his speech-to-text as it came — the names are his to correct. RUNNING_LOG §762.

@@ -22795,3 +22795,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"ragged stems where it says instead of four even 16 notes, just add in this example, instead of four 16th notes. Or sorry, in the pictured example."*
 
 **Done:** *"Instead of four even 16th notes, …"* → *"In the pictured example, instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths."* — "even" kept (he said "just add").
+
+## §762. THE SLATE — six compositions on deck, in his order (2026-10-03, Fable, session 18; LG-327)
+
+**What prompted it:** at the `/postclear` check-in after checkpoint #13, instead of a word on the page or the print score, he dictated a list of the pieces to write after this one — *"in my composition notes can just put a slate, a list of compositions on deck to write."* His words are whole in COMPOSITION_NOTES LG-327.
+
+**Done:** LG-327 — the slate as a numbered list: the Ensemble Switch / Overdrive Festival piece · live electronics with an improviser, for tenor · back to the bass clarinet, harp and accordion piece (#3) · a solo piano · an accordion duet · one for Japanese traditional instruments, regardless of the Kyoto residency (held until he hears; if he gets it, written in Kyoto). Nothing in this piece changes; the page and the print score still wait on his word.
