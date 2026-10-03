@@ -51,10 +51,17 @@ const planFile = path.join(tmp, 'plan.json');
 const html = path.join(tmp, 'all.html');
 let failures = 0;
 const fail = m => { failures++; console.log('  FAIL  ' + m); };
+// [2b-P.1] anything else on the command line goes through to the exporter (--sec, --margin …), so the gate measures the very build
+const pass = [];
+for (let i = 2; i < process.argv.length; i++) {
+  if (process.argv[i] === '--ir') { i++; continue; }
+  if (process.argv[i] === '--verbose') continue;
+  pass.push(process.argv[i]);
+}
 
 // ---------------------------------------------------------------- A. the plan
 const pj = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'export_print.js'),
-  '--ir', irId, '--quiet', '--planJson', planFile], { encoding: 'utf8', maxBuffer: 1 << 28 });
+  '--ir', irId, '--quiet', '--planJson', planFile, ...pass], { encoding: 'utf8', maxBuffer: 1 << 28 });
 if (!fs.existsSync(planFile)) { console.error(pj.stdout || ''); console.error(pj.stderr || ''); process.exit(1); }
 const P = JSON.parse(fs.readFileSync(planFile, 'utf8'));
 const pages = P.pages;
@@ -115,7 +122,7 @@ console.log('   ok  ' + ragged.filter(g => g > 0.5).length + ' pages end more th
 // ---------------------------------------------------------------- B. the ink
 console.log('B. THE INK — rendering ' + pages.length + ' pages …');
 const r = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'export_print.js'), '--ir', irId,
-  '--htmlOnly', '--quiet', '--out', html], { encoding: 'utf8', maxBuffer: 1 << 28 });
+  '--htmlOnly', '--quiet', '--out', html, ...pass], { encoding: 'utf8', maxBuffer: 1 << 28 });
 if (!fs.existsSync(html)) { console.error(r.stdout || ''); console.error(r.stderr || ''); process.exit(1); }
 console.log('  ' + (fs.statSync(html).size / 1024 / 1024).toFixed(1) + ' MB of HTML; measuring in Chrome …');
 

@@ -57,6 +57,13 @@ const wantInstructions = arg('instructions', 'off') !== 'off';
 const htmlOnly = flag('htmlOnly');
 const planJson = arg('planJson', null);   // [2b.7.5] dump the page plan and its owned census, then stop — what check_print_edges measures against
 const quiet = flag('quiet');
+// [LGMF 2b-P.1, 2026-10-03] --plan screen: THE FRAME CHECK'S COMMON GROUND (tools/check_print_frame.js), never a deliverable. Since
+// 2c the two media cut the same model by different rules (the screen tiles, paper places its cut by the objects), so a moment no
+// longer lands on the same window in both and the element census could not be compared. With this switch the PRINT's own frame —
+// its parts, its lanes, its block, its model — is drawn on the SCREEN's pages under the screen's edge rules; HTML only.
+const SCREEN_PLAN = arg('plan', null) === 'screen';
+if (arg('plan', null) != null && !SCREEN_PLAN) { console.error('--plan takes "screen" only (the frame check\'s switch)'); process.exit(2); }
+if (SCREEN_PLAN && !htmlOnly) { console.error('--plan screen is a check, not a score: it writes HTML only (--htmlOnly)'); process.exit(2); }
 
 if (!outFile && !planJson) {   // [2b.7.5] --planJson needs no output file: it dumps the plan and stops
   console.error('usage: export_print.js --out <file.pdf> [--ir db1] [--sec N] [--pages a-b] [--at SEC]');
@@ -221,7 +228,11 @@ try {
 const ER = (C.engraving && C.engraving.render) || {};
 const gcLook = Object.assign({}, GC.LOOK, (ER.gc && ER.gc.look) || {});
 const gcPadSec = ((gcLook.impactRadiusPx || 4) + (gcLook.arcStrokePx || 1.5) / 2) * (blockH / (gcLook.frameHeightPx || 1080)) / pxPerSecPage;
-const pages = OBJ
+// [2b-P.1] --plan screen: the screen's own pages (export_video's two lines) — the tiling from the lead-in, or the old overlap
+const SCREEN_T0 = Splice.screenStartOf(ir, pageRules, rz);
+const pages = SCREEN_PLAN
+  ? (pageRules.screenPlan === 'tile' ? Splice.tilePages(ir, pageRules, pageSeconds, SCREEN_T0) : Splice.planPages(ir, pageRules, pageSeconds))
+  : OBJ
   ? Splice.planObjectPages(ir, pageRules, pageSeconds, Splice.edgeIntervals(ir, model, {
       edge: pageRules.edge, inkSpanSs: it => Render.inkSpanSs(it, glyphs, ER), secPerSs: secOfSs(1),
       gcPrePost: it => Render.gcPrePost(it, ER), gcPadSec, stubSec: secOfSs(pageRules.durationStubSs != null ? pageRules.durationStubSs : 2),
@@ -248,12 +259,12 @@ if (pagesArg) {
 // [PLAN 2b.1.5, then 2b.7.2] THE WINDOW OPENS BEFORE THE CUT. §404 (the composer, on a viola note sitting on the alto clef:
 // "in the tuba score we had a buffer zone after the clef") bought the notehead unit 4.2 ss of room; the GC arc's approach is
 // 7.3 ss and was never counted, which is how arcs came to be drawn over the clefs. leftReserve is now the larger of the two.
-const pageT0Of = i => OBJ ? pages[i].w0 : Math.max(ir.source.window[0], pages[i].t0 - leftReserve);   // [2c.6] the page's first ink
+const pageT0Of = i => SCREEN_PLAN ? pages[i].t0 : OBJ ? pages[i].w0 : Math.max(ir.source.window[0], pages[i].t0 - leftReserve);   // [2c.6] the page's first ink
 // THE OWNED SPAN and THE INK END (2b.7.1 / 2b.7.4). The page draws only the events it owns; the right reserve past its cut is
 // where the last owned strike's rebound goes, and the system STOPS there — a ragged right edge on a page whose cut fell early,
 // which in a proportional score is the honest reading (blank staff reads as silence).
 const ownedOf = i => [pages[i].t0, pages[i].t1];
-const inkEndOf = (i, view) => Math.min(view.window[1], OBJ ? pages[i].inkEnd : pages[i].t1 + rightReserve);   // [2c.6] the system ends AT the cut
+const inkEndOf = (i, view) => SCREEN_PLAN ? view.window[1] : Math.min(view.window[1], OBJ ? pages[i].inkEnd : pages[i].t1 + rightReserve);   // [2c.6] the system ends AT the cut
 
 function viewFor(i) {
   // THE LAST PAGE REACHES THE PIECE'S END. Measured day 37: with the default
@@ -264,7 +275,7 @@ function viewFor(i) {
   // spacing difference on one page, in exchange for a correct final barline.
   const isLast = i === pages.length - 1;
   const t0 = pageT0Of(i);
-  const w1 = isLast ? Math.max(t0 + pageSeconds, srcEnd) : t0 + pageSeconds;
+  const w1 = (isLast && !SCREEN_PLAN) ? Math.max(t0 + pageSeconds, srcEnd) : t0 + pageSeconds;   // a screen page is one span, always
   return Coords.makeView({
     widthPx: blockW, heightPx: blockH,
     window: [t0, w1],
@@ -525,7 +536,12 @@ function buildHtml() {
 
   sel.forEach((i, n) => {
     const view = viewFor(i);
-    const svg = StaticPage.staticPageSvg({
+    // [2b-P.1] --plan screen: the page as export_video's staticSvg draws it — the screen's edge rules, nothing of paper's
+    const svg = SCREEN_PLAN ? StaticPage.staticPageSvg({
+      model, view, glyphs, C, srcEnd, reshow: pages[i].reshow, ownsEnd: i === pages.length - 1, ensemble: ENS,
+      screenEdges: pageRules.screenPlan === 'tile'
+        ? { edge: pageRules.edge || {}, first: pages[i].t0 <= SCREEN_T0 + 1e-9, clampGoLine: pageRules.clampGoLine } : undefined,
+    }) : StaticPage.staticPageSvg({
       model, view, glyphs, C, srcEnd,
       reshow: pages[i].reshow, ownsEnd: i === pages.length - 1,
       owned: ownedOf(i), inkEnd: inkEndOf(i, view),   // [2b.7.1/.4] a page owns [cut, next cut); its ink stops at the cut + the right reserve

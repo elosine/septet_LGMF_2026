@@ -189,7 +189,8 @@
   //   · a duration line ('stub'): from its unit's ink to the head + durationStubSs of line — after that a cut may fall inside it; a
   //     line shorter than that is whole. A hidden brick (the print draws none, D4) is no object. And its TAIL: no cut in its last
   //     durationStubSs either, so what continues on the next page is at least a stub, never a sliver (the AI's call, 2c.6)
-  //   · a beam and a tuplet ('never-sever'): first tip to last tip · and the IR's beamable pairs, the splicer's stamp-atomic rule
+  //   · a beam and a tuplet ('never-sever'): first tip to last tip · and the IR's beamable pairs, the splicer's stamp-atomic rule ·
+  //     a slur ('never-sever', §555): its first note's time to its DRAWN end on the last head, so that note's unit is in the block
   //   · a 'continue' kind (the level and glissando curves) FOLLOWS ITS NOTE: the same head + stub and tail rule as a duration line —
   //     with the print's bricks hidden, the curve IS the note's visible length (db1 p52: a curve starting 0.01 s before a cut had no
   //     samples to draw on its first page)
@@ -219,7 +220,10 @@
           if (it.k === 'beam' && it.tips && it.tips.length >= 2) {
             const ts = it.tips.map(p => p.t);
             out.push({ a: Math.min(...ts), b: Math.max(...ts), kind: 'beam', part: sys.part, t: Math.min(...ts) });
-          } else if (isFinite(it.t0) && isFinite(it.t1)) out.push({ a: it.t0, b: it.t1, kind: it.k, part: sys.part, t: it.t0 });
+          // [2b-P.1, 2026-10-03] to its DRAWN ends (dx0Ss · dx1Ss): a slur ends ON its last head, past that note's time, so the open
+          // interval (t0, t1) let a cut fall exactly at t1 — the grace at 389.80 stayed, its note at 389.90 opened the next page, and
+          // the slur ran 3.7 px past the system's end. Reaching into the last note's ink joins that unit to the block.
+          } else if (isFinite(it.t0) && isFinite(it.t1)) out.push({ a: it.t0 + Math.min(0, sec(it.dx0Ss || 0)), b: it.t1 + Math.max(0, sec(it.dx1Ss || 0)), kind: it.k, part: sys.part, t: it.t0 });
         } else if ((pv === 'stub' || pv === 'continue') && isFinite(it.t0) && isFinite(it.t1)) {
           if (it.k === 'brick' && o.hideBricks) continue;
           const u = units.get(key(it.t0));

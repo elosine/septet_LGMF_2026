@@ -7,13 +7,17 @@
 // samples and reach the jury unseen. This walks the whole render and asserts the
 // same handful of things about each page, then reports the outliers.
 //
-//   node tools/check_print_pages.js [--ir piece-lgmf] [--verbose]
+//   node tools/check_print_pages.js [--ir piece-lgmf] [--verbose] [anything else goes through to the exporter: --sec, --margin …]
 //
-// Per page: seven part labels · eight system groups (the piano is two staves) ·
-// two brackets and one brace · a time ruler with ticks · a folio · nothing
+// Per page: the ensemble's part labels · its system groups (one per staff) ·
+// its brackets and its brace · a time ruler with ticks · a folio · nothing
 // block-level outside the sheet. Across the score: exactly ONE terminal barline,
 // on the last page, because `edgeBar:false` means the bar draws only where the
 // piece actually ends (the composer's ask on #4: no bar at the right of every page).
+//
+// [LGMF 2b-P.1, 2026-10-03] THE CAST COMES FROM THE ENSEMBLE (registry ensemble.json through the video-jury realization), as
+// check_print_frame's does — it was piece #5's by name ("Fl,BCl,Pno,Vn1,Vn2,Va,Vc", 8 systems, 2 brackets + 1 brace). A part with a
+// lined staff is labelled by its line names (the percussionist's seven), which are drawn on every page whether the staff is or not.
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -24,10 +28,26 @@ const irId = arg('ir', 'piece-lgmf');
 const verbose = process.argv.includes('--verbose');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'printpages-'));
 const html = path.join(tmp, 'all.html');
+// anything else on the command line goes through to the exporter, so this walks the very build being argued about
+const pass = [];
+for (let i = 2; i < process.argv.length; i++) {
+  if (process.argv[i] === '--ir') { i++; continue; }
+  if (process.argv[i] === '--verbose') continue;
+  pass.push(process.argv[i]);
+}
+const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+const C = require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT);
+const ENS = require(path.join(ROOT, 'notation', 'lib', 'layout.js')).ensembleFor(rd('notation/registry/ensemble.json'), (C.realizations || {})['video-jury']);
+const WANT = {
+  systems: ENS.parts.reduce((a, p) => a + ((p.staves && p.staves.length) || 1), 0),
+  labels: ENS.parts.flatMap(p => (p.staff && p.staff.lines) ? p.staff.lines.map(l => l.short) : [p.short]).join(','),
+  brbr: (ENS.groups || []).filter(g => g.kind === 'bracket').length + '/' + (ENS.groups || []).filter(g => g.kind === 'brace').length,
+};
+const LABEL_X = ((((C.engraving || {}).render || {}).partLabel || {}).xPx != null) ? C.engraving.render.partLabel.xPx : 4;
 
 console.log('rendering the whole score to HTML …');
 const r = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'export_print.js'), '--ir', irId,
-  '--cover', 'on', '--instructions', 'on', '--htmlOnly', '--quiet', '--out', html], { encoding: 'utf8', maxBuffer: 1 << 28 });
+  '--cover', 'on', '--instructions', 'on', '--htmlOnly', '--quiet', '--out', html, ...pass], { encoding: 'utf8', maxBuffer: 1 << 28 });
 if (!fs.existsSync(html)) { console.error(r.stdout || ''); console.error(r.stderr || ''); process.exit(1); }
 console.log('  ' + (fs.statSync(html).size / 1024 / 1024).toFixed(1) + ' MB of HTML; measuring in Chrome …');
 
@@ -44,7 +64,7 @@ const probe = `
     // gutter" is too loose a test: a technique word belonging to a note just
     // before the window ("(slap)", "jeté", "T. R.") lands left of x=72 and was
     // read as an eighth part label on 7 of the 63 pages.
-    const labels=[...mus.querySelectorAll('text')].filter(t=>parseFloat(t.getAttribute('x'))<=6&&/[A-Za-z]/.test(t.textContent)).map(t=>t.textContent).join(',');
+    const labels=[...mus.querySelectorAll('text')].filter(t=>Math.abs(parseFloat(t.getAttribute('x'))-LABEL_X)<0.01&&/[A-Za-z]/.test(t.textContent)).map(t=>t.textContent).join(',');
     const brackets=mus.querySelectorAll('g[class*="sysgrp-bracket"]').length;
     const braces=mus.querySelectorAll('g[class*="sysgrp-brace"]').length;
     const hdr=pg.querySelector('.hdr svg');
@@ -62,7 +82,7 @@ const probe = `
   });
   document.body.setAttribute('data-m', rows.join(' ;; '));
 });</script>`;
-fs.writeFileSync(html, fs.readFileSync(html, 'utf8') + probe);
+fs.writeFileSync(html, fs.readFileSync(html, 'utf8') + '<script>const LABEL_X=' + LABEL_X + ';</script>' + probe);
 const chrome = [process.env.CHROME_PATH, 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'].filter(Boolean).find(p => { try { return fs.existsSync(p); } catch (e) { return false; } });
 if (!chrome) { console.error('Chrome not found (set CHROME_PATH)'); process.exit(1); }
@@ -71,16 +91,16 @@ const c = spawnSync(chrome, ['--headless', '--disable-gpu', '--virtual-time-budg
 const m = /data-m="([^"]*)"/.exec(c.stdout || '');
 if (!m) { console.error('no measurement came back from Chrome'); process.exit(1); }
 
-const LABELS = 'Fl,BCl,Pno,Vn1,Vn2,Va,Vc';
+const LABELS = WANT.labels;
 const rows = m[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&').split(' ;; ').map(s => s.split('|'));
 const music = rows.filter(r => r[1] === 'music');
 let bad = 0, endbars = [];
 for (const [n, kind, sys, labels, brbr, ruler, folio, endbar, outside] of rows) {
   if (kind !== 'music') { if (verbose) console.log('  --   page ' + n + '  ' + kind); continue; }
   const problems = [];
-  if (+sys !== 8) problems.push('systems ' + sys + ', expected 8');
+  if (+sys !== WANT.systems) problems.push('systems ' + sys + ', expected ' + WANT.systems);
   if (labels !== LABELS) problems.push('labels "' + labels + '" != "' + LABELS + '"');
-  if (brbr !== '2/1') problems.push('brackets/brace ' + brbr + ', expected 2/1');
+  if (brbr !== WANT.brbr) problems.push('brackets/brace ' + brbr + ', expected ' + WANT.brbr);
   const [ticks, clocks] = ruler.split('/').map(Number);
   if (!(ticks > 3)) problems.push('ruler has ' + ticks + ' lines');
   if (!(clocks >= 1)) problems.push('ruler has no clock numbers');
@@ -92,7 +112,8 @@ for (const [n, kind, sys, labels, brbr, ruler, folio, endbar, outside] of rows) 
 }
 const lastMusic = music.length ? +music[music.length - 1][0] : 0;
 console.log('  music pages           ' + music.length + '  (pages ' + (music.length ? music[0][0] : '-') + '–' + lastMusic + ')');
-console.log('  seven labels, 8 systems, 2 brackets + 1 brace, a ruler and a folio on every one: ' + (bad ? 'NO' : 'yes'));
+console.log('  the ensemble\'s frame (' + LABELS.split(',').length + ' labels · ' + WANT.systems + ' systems · ' + WANT.brbr +
+  ' brackets/brace), a ruler and a folio on every one: ' + (bad ? 'NO' : 'yes'));
 console.log('  terminal barline on   ' + (endbars.length ? 'page(s) ' + endbars.join(',') : 'NO PAGE'));
 if (endbars.length !== 1 || endbars[0] !== lastMusic) { bad++; console.log('  FAIL  the terminal barline must appear once, on the last page (' + lastMusic + ')'); }
 try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { }

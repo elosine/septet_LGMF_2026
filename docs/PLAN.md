@@ -2517,7 +2517,11 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   templates the next piece fills in without a new script: the cover generator (title · ensemble line · name · format) and the instructions dress
   (the page's own widths and rows).
 
-  > **1. The frame and the paper** (the exporter's first run on this piece, checked against the film)
+  > **1. The frame and the paper** (the exporter's first run on this piece, checked against the film) — ☑ BUILT 2026-10-03 (Opus, RUNNING_LOG §766):
+  > 86 pages · staff 7.55 mm · 10.32 s/page · page 1 opens at −0.49 s, placed by its objects (no 4 s lead-in on paper) · the frame check
+  > re-pointed to the ensemble and to ONE window (`export_print --plan screen`): PASS at 100 · 300 · 600 · 870, census identical, the bite proven ·
+  > `check_print_edges` found two real faults on the locked IR (a beat frame's band straddling the gutter on p 32 · a grace severed from its
+  > note on p 38) — both fixed in the plan of the cut, PASS on 86 pages, nine film pages byte-identical · `build.sh` this piece's
   >
   > Result when done: `export_print.js --ir piece-lgmf --at T` draws what the film draws at the same window — the six pitched staves, the
   > percussionist's brace (the seven-line staff over the vibraphone's treble), the eight labels in the gutter, in C — on the A3 landscape sheet;

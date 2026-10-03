@@ -109,7 +109,9 @@
       // the go-time indicators sit at x(t) — in a unit's span, never the reason it is wide
       case 'goline': return [0, 0];
       case 'attackline': return [-E.attackLine.wSs / 2, E.attackLine.wSs / 2];
-      case 'tick': return [-E.tick.wSs / 2, E.tick.wSs / 2];
+      // [2b-P.1] a beat frame's line carries its own width (the 0.3 ss band, §581) — the span is the drawing's own number, as below at
+      // the rect. It was the plain tick's 0.12: the print cut landed half a band inside a line at 319.03 and it straddled the gutter
+      case 'tick': { const w = it.wSs > 0 ? it.wSs : E.tick.wSs; return [-w / 2, w / 2]; }
       default: return null;
     }
   }
