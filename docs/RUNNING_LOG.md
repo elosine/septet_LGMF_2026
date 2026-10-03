@@ -22765,3 +22765,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"The second image with the annotation animated scrolling cursor. Could we find one from the middle section percussion and have the cursor just hitting one of the plain black note heads?"*
 
 **Done:** the percussion's lone strikes after 299 s listed (sleigh bells 300.116 · tambourine 301.486 · the wood block + bass drum pair 302.55 · …); taken — the percussion staff at 299.7 … 302.95 s with the cursor at t = 300.125, three px into the sleigh bells' head (the head's left edge is its time, so the cursor is just reaching it); the tambourine's head and the beamed pair stand ahead of it. A first cut around the one head alone (299.65 … 300.85) was looked at and widened — one head on the seven lines read as nothing. 1001 px (52 % of the column) beside the bassoon's one-off (370); the lane is the tall one (the seven-line staff), 500 px high. The English horn's breath image (`conduction_e2_breath_eh_29.svg`) removed from the folder — with it the pie and the green level line no longer appear in Animated Conduction Tools (they still do in Gradient Curves' images). The caption "Animated scrolling cursor" stands.
+
+## §757. The Percussion Legend image shown half as big again (2026-10-02, Fable, session 18; LG-322)
+
+**His word:** *"Can you make the percussion legend image about 50% bigger?"*
+
+**Done:** the legend's `--w` 600 → 900: the image is drawn at 1.5 × its captured size — 47 % of the text column instead of 31 %, the staff lines 47 px apart on the screen page instead of 31. The one-scale rule (§704) binds the crops of the score; the legend is a key, not a crop, so it may stand larger — said in the page's comment. The file is untouched (an SVG scales clean).
