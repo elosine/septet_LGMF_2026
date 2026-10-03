@@ -2546,7 +2546,11 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the density, if the dial still applies under 2c's cut (`--sec`; read at the run): the default and two neighbours as three PROOF PDFs for
   >   step 4 (#5's trio — the staff size never changes, only the time a page holds)
   >
-  > **2. The cover template** (one generator in the house style; this piece's cover drawn from it)
+  > **2. The cover template** (one generator in the house style; this piece's cover drawn from it) — ☑ BUILT 2026-10-03 (Opus, RUNNING_LOG §767):
+  > `make_cover.ps1` + `cover.json` + `print/formats.json` (the exporter reads the same sheets) → `cover-<format>.svg` · the title's starting
+  > size a rule (8.455 pt per inch of the short side) · `check_print_front`'s face test made real (drawn width against the generator's
+  > `data-w`; 1.7 % with the face, 15.6 % without) · **for his eye at 4:** the ensemble line on ONE row brings the title to 46.5 pt (house 99);
+  > on TWO rows it is 85 pt — the one-row cover is committed, the two-row one shown him
   >
   > Result when done: `print/cover/make_cover.ps1` draws ANY piece's cover from its words and a format — EngraversGothic BT, the house layout
   > measured off Litany (title : name 2 : 1 · the title baseline 27.1 % down · the subtitle 0.65 × under it · the name 1.60 title-heights below

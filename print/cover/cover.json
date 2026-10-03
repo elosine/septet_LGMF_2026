@@ -1,0 +1,6 @@
+{
+  "_doc": "THE COVER'S WORDS (PLAN 2b-P step 2). print/cover/make_cover.ps1 draws print/cover/cover-<format>.svg from these three in the house style. `title` and `subtitle` are each ONE string or a LIST of lines (drawn stacked, centred). Edit, then run:  powershell -ExecutionPolicy Bypass -File print/cover/make_cover.ps1",
+  "title": "Recombination",
+  "subtitle": "for English horn, bassoon, horn, trumpet, percussion, cello and double bass",
+  "name": "Justin Yang"
+}

@@ -43,9 +43,11 @@ function arg(name, def) { const i = process.argv.indexOf('--' + name); return i 
 function flag(name) { return process.argv.indexOf('--' + name) >= 0; }
 const irId = arg('ir', 'db1');
 const outFile = arg('out', null);
-// [PLAN 2b.2.1 — 2026-09-17] A3 LANDSCAPE IS THE DEFAULT. The call, verbatim: "The score as an Adobe PDF document with a
-// maximum size of DIN A3 (297 x 420 mm)". Tabloid — #4's format, and this tool's old default — is 431.8 mm long: 11.8 mm OVER.
-const formatName = arg('format', 'a3-landscape');
+// [PLAN 2b.2.1 — 2026-09-17] A3 LANDSCAPE IS THE DEFAULT (piece #5's call fixed it; here it is kept at his word, LGMF LG-328).
+// [LGMF 2b-P.2 — 2026-10-03] THE SHEETS LIVE IN print/formats.json — ONE source for this exporter and the cover generator
+// (print/cover/make_cover.ps1), so a cover is drawn at exactly the sheet that is printed; the default format is that file's.
+const SHEETS = JSON.parse(fs.readFileSync(path.join(ROOT, 'print', 'formats.json'), 'utf8'));
+const formatName = arg('format', SHEETS.default);
 // [2c.1] the page margin is REGISTRY DATA (container.json print.marginIn, 12.7 mm all round); --margin overrides it
 const marginArg = arg('margin', null);
 const secArg = arg('sec', null);
@@ -89,13 +91,12 @@ const PX = 96;
 // a bigger-than-A3 score. So the drawn sheet is a fifth of a millimetre under the
 // ceiling and Chrome's rounding lands inside it. (Shrinking @page alone does not
 // work: the page DIV keeps its old height and every page spills onto a second —
-// measured, 8 pages for 4. Both come from these numbers, which is why they live here.)
-const FORMATS = {
-  // name                    w x h INCHES, landscape
-  'a3-landscape': { w: 419.7 / 25.4, h: 296.8 / 25.4, css: '419.7mm 296.8mm', label: 'A3 landscape (419.7 x 296.8 mm drawn, inside DIN A3 420 x 297)' },
-  'tabloid-landscape': { w: 17, h: 11, css: '17in 11in', label: 'Tabloid landscape 17 x 11 in' },
-  'letter-landscape': { w: 11, h: 8.5, css: '11in 8.5in', label: 'Letter landscape 11 x 8.5 in' },
-};
+// measured, 8 pages for 4. Both come from these numbers, which is why they live in one place: print/formats.json.)
+// w x h in INCHES, landscape; `css` is the file's own numbers in its own unit.
+const FORMATS = Object.fromEntries(Object.entries(SHEETS.formats).map(([name, f]) => {
+  const perIn = f.unit === 'mm' ? 25.4 : 1;
+  return [name, { w: f.w / perIn, h: f.h / perIn, css: f.w + f.unit + ' ' + f.h + f.unit, label: f.label }];
+}));
 const FMT = FORMATS[formatName];
 if (!FMT) { console.error('unknown --format ' + formatName + '; have: ' + Object.keys(FORMATS).join(', ')); process.exit(2); }
 
@@ -395,18 +396,17 @@ const faces = [
 ].map(f => "@font-face{font-family:'Crimson Pro Light';font-style:" + f.style +
   ";src:url(data:font/ttf;base64," + fontB64(f.file) + ") format('truetype');}").join('\n');
 
-// [PLAN 2b.4.1 — 2026-09-17] THE COVER, PER FORMAT. This piece's cover is
-// `cover-septet-<format>.svg` (print/cover/make_cover_septet.ps1 draws it in the
-// house style at the sheet's own size); #4's tabloid cover is the fallback, which
-// is what a missing septet cover would silently have printed. A cover drawn for a
-// DIFFERENT sheet is not an option: it would be scaled by the browser and the
-// type would no longer be the measured size, so this refuses rather than guesses.
+// [PLAN 2b.4.1 — 2026-09-17] THE COVER, PER FORMAT. A cover drawn for a DIFFERENT
+// sheet is not an option: it would be scaled by the browser and the type would no
+// longer be the measured size, so this refuses rather than guesses.
+// [LGMF 2b-P.2 — 2026-10-03] THE COVER IS A TEMPLATE'S: `print/cover/cover-<format>.svg`, drawn by print/cover/make_cover.ps1 from
+// the words in print/cover/cover.json at the sheet print/formats.json names — no piece's name in the path, nothing to edit here.
 function coverSvg() {
   if (!wantCover) return null;
-  const p = path.join(ROOT, 'print', 'cover', 'cover-septet-' + formatName + '.svg');
+  const p = path.join(ROOT, 'print', 'cover', 'cover-' + formatName + '.svg');
   if (!fs.existsSync(p)) {
     console.error('  ! --cover on but ' + path.relative(ROOT, p) + ' is missing.');
-    console.error('    draw it first:  powershell -ExecutionPolicy Bypass -File print/cover/make_cover_septet.ps1');
+    console.error('    draw it first:  powershell -ExecutionPolicy Bypass -File print/cover/make_cover.ps1 -Format ' + formatName);
     process.exit(4);
   }
   return fs.readFileSync(p, 'utf8');

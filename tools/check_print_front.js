@@ -21,7 +21,7 @@ const ROOT = path.join(__dirname, '..');
 
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
 const irId = arg('ir', 'piece-lgmf');
-const format = arg('format', 'a3-landscape');
+const format = arg('format', JSON.parse(fs.readFileSync(path.join(ROOT, 'print', 'formats.json'), 'utf8')).default);   // [2b-P.2] the sheets' one file
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'printfront-'));
 const html = path.join(tmp, 'front.html');
 
@@ -64,10 +64,18 @@ const probe = `
       if (r.width===0&&r.height===0) continue;
       if (r.left<pr.left-0.5||r.top<pr.top-0.5||r.right>pr.right+0.5||r.bottom>pr.bottom+0.5) outside++;
     }
-    // the cover's type: measured width of the title line, and whether the face resolved
+    // the cover's type: every line's DRAWN width against the width the generator measured with the real face (data-w, pt).
+    // [LGMF 2b-P.2] the first form of this test read getComputedStyle().fontFamily — the family ASKED FOR, which is the same
+    // string whether the face resolved or fell back: a check that could not fail. A fallback face draws a different width.
     let cover='';
-    const t=pg.querySelector('.cov text');
-    if(t){ const b=t.getBBox(); cover=' title "'+t.textContent+'" '+b.width.toFixed(0)+'x'+b.height.toFixed(0)+'pt font='+getComputedStyle(t).fontFamily; }
+    const ts=[...pg.querySelectorAll('.cov text')];
+    if(ts.length){
+      const worst=ts.map(t=>{const w=t.getBBox().width, w0=parseFloat(t.getAttribute('data-w'));return isFinite(w0)&&w0>0?Math.abs(w-w0)/w0:NaN;});
+      const fam=getComputedStyle(ts[0]).fontFamily.replace(/"/g,'');
+      const svgW=pg.querySelector('.cov svg').viewBox.baseVal.width, wide=Math.max(...ts.map(t=>t.getBBox().width));
+      cover=' title "'+ts[0].textContent+'" '+ts[0].getBBox().width.toFixed(0)+'pt drawn / '+ts[0].getAttribute('data-w')+' measured · '+ts.length+
+        ' lines, the widest '+wide.toFixed(0)+' of '+svgW.toFixed(0)+'pt (side margins '+((svgW-wide)/2/72).toFixed(2)+' in), widest drift '+(100*Math.max(...worst.map(x=>isNaN(x)?9:x))).toFixed(1)+'% face='+fam+'@@'+Math.max(...worst.map(x=>isNaN(x)?9:x)).toFixed(4);
+    }
     const ink=pg.textContent.trim().length;
     return [kind,i+1,Math.round(pr.width)+'x'+Math.round(pr.height),over,fill,outside,ink,cover].join('|');
   });
@@ -84,12 +92,17 @@ if (!m) { console.error('no measurement came back from Chrome'); process.exit(1)
 
 let bad = 0;
 for (const row of m[1].split(' ;; ')) {
-  const [kind, n, size, over, fill, outside, ink, cover] = row.replace(/&quot;/g, '"').split('|');
+  const [kind, n, size, over, fill, outside, ink, coverRaw] = row.replace(/&quot;/g, '"').split('|');
+  const [cover, driftStr] = (coverRaw || '').split('@@');
+  const drift = driftStr != null ? parseFloat(driftStr) : null;
   const problems = [];
   if (over && parseFloat(over) > 0.5) problems.push('COLUMNS OVERFLOW by ' + over + ' — content is being CLIPPED (break the page earlier)');
   if (+outside > 0) problems.push(outside + ' element(s) outside the sheet');
   if (+ink < 40 && kind !== 'music') problems.push('page is effectively EMPTY (' + ink + ' characters)');
-  if (cover && !/Engravers/i.test(cover)) problems.push('cover font did NOT resolve: ' + cover.split('font=')[1]);
+  // 3 %: the generator measures with GDI+, the page is shaped by Chrome — the same face agrees to about a percent; another face does not
+  if (kind === 'cov' && !cover) problems.push('the cover page has no text');
+  if (cover && !(drift <= 0.03)) problems.push('the cover\'s face did NOT resolve (or the cover was not drawn by print/cover/make_cover.ps1): a line is drawn ' +
+    (drift >= 9 ? 'with no measured width (data-w)' : (100 * drift).toFixed(1) + '% off the width the generator measured'));
   if (problems.length) bad++;
   console.log((problems.length ? '  FAIL ' : '  OK   ') + 'page ' + n + '  ' + kind + '  ' + size + 'px' +
     (fill ? '  columns ' + fill : '') + '  text ' + ink + ' chars' + (cover || ''));

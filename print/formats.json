@@ -1,0 +1,10 @@
+{
+  "_doc": "THE SHEETS (PLAN 2b-P step 2, 2026-10-03) — ONE source for the print exporter (tools/export_print.js) and the cover generator (print/cover/make_cover.ps1), so a cover is drawn at exactly the sheet the exporter prints. w x h in `unit` (mm or in), landscape. The exporter gives `w unit h unit` to @page — Chrome sizes the MediaBox from that string, so a metric sheet stays metric.",
+  "_a3": "A3 IS A CEILING, NOT A TARGET (piece #5's 2b.2, measured): `size:420mm 297mm` came out as MediaBox 1191.12 x 841.92 pt = 420.2 x 297.0 mm — two tenths OVER the sheet. So the drawn sheet is a fifth of a millimetre under and Chrome's rounding lands inside it (1189.92 x 840.96 pt). Shrinking @page alone does not work: the page DIV keeps its height and every page spills onto a second.",
+  "default": "a3-landscape",
+  "formats": {
+    "a3-landscape": { "w": 419.7, "h": 296.8, "unit": "mm", "label": "A3 landscape (419.7 x 296.8 mm drawn, inside DIN A3 420 x 297)" },
+    "tabloid-landscape": { "w": 17, "h": 11, "unit": "in", "label": "Tabloid landscape 17 x 11 in" },
+    "letter-landscape": { "w": 11, "h": 8.5, "unit": "in", "label": "Letter landscape 11 x 8.5 in" }
+  }
+}
