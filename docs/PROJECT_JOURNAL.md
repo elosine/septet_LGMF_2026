@@ -230,7 +230,12 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   the film keep their edge bar). **STANDING for future scores (§773):** `check_print_pages` counts only that bar (two opaque rects) — a print without it fails.
 - **DRAFT 01's DELIVERABLES ARE ALL MADE AND AGREE:** the page (`piece-lgmf`, 1075 events — identical at the film tag and the print tag) · the audio ·
   the film (`notation/video/approved/2026-10-01-draft01/`) · the performance notes page (`docs/notation_instructions/`) · the print score.
-- **► THE NEXT STEP: NONE QUEUED.** What is left of Draft 01's completion is HIS — the call and the submission package (LG-255: no AI work, not to be
+- **SUBMITTED BY HIM — 2026-10-03, 15:22 EDT (RUNNING_LOG §775 … §777):** the festival's 2027 "Call for Scores" form — the keeper print score (the PDF,
+  ≤ 10 MB) · the film on YouTube as the recording (to stay viewable until June 30, 2027) · duration 14:40 · program notes left empty. The form's six
+  screenshots and the dated confirmation (`2026-10-03_15-22_SUBMITTED_confirmation.png`) are in `docs/call/` — **gitignored, never commit it: the repo
+  is public and they show his personal details** — and in his Google Drive, folder `LGMF2026` (the upload route: memory `drive-upload-route`). The page
+  says results by email "by the end of March 2026" (the festival's wording). **Q2 (the call) is closed by the submission.**
+- **► THE NEXT STEP: NONE QUEUED.** *(The call and the package — DONE by him, the bullet above.)* What was left of Draft 01's completion was HIS — the call and the submission package (LG-255: no AI work, not to be
   raised). A cold model checks in and asks; if the score moves again, checkpoint #12's "IF THE SCORE MOVES AGAIN", then `bash print/score/build.sh
   --rebuild-ir` and a new archive folder and tag. A D for the session's end: the title confirmed (LG-328) · the print's final barline (LG-333).
 - **`Resume reads:`** nothing beyond §2.
