@@ -23,6 +23,11 @@ piece-specific tools (his note, for the improvisation with live electronics for 
 score with its own ground truth (the Decibel piece may be one). The UNIVERSAL layer (1 · 2 · 9 · 10) is common to all;
 the other two layers are taken in part, whole or not at all — the top line below.
 
+**His process note, 2026-10-03 (LG-346):** for the three electronics pieces the order is — the three repos set up with the
+UNIVERSAL layer first, then ONE live-electronics engine with its notation and graphics designed for all three, then put into
+each. Two questions for this plan, open: WHERE that shared engine lives (the home question; §5 one shared engine, its first
+member) and HOW it is ported into three pieces (the module boundary, 9; the from-a-sandbox kind, 2.1). Taken up when he reaches them.
+
 ---
 
 ## The top line — the ten containers, in THREE LAYERS (his (a), 2026-10-03, §789)
