@@ -4,8 +4,9 @@
 > **Sources read (1.1):** `NITS.md` whole (its § HELD and every open bullet) · `MORPH_NOTES.md` §4 (the digest for the revision) ·
 > journal §2's Learned lists (sessions 16 … 18, 10-01 … 10-03, the STILL BINDING block) · its "offered, not taken up" and "the AI's
 > calls, his to reverse" rows · PLAN items left `todo`.
-> **One line per item:** the item — kind · its source → the container it goes to. **The verdicts are the AI's proposals (1.2); his read
-> is the triage (1.3) — answer by number (`H-7 later`); silence = as proposed.**
+> **One line per item:** the item — kind · its source → the container it goes to. The verdicts were the AI's proposals (1.2);
+> **HIS READ 2026-10-03 (1.3, RUNNING_LOG §788): *"All as proposed"* — every verdict below stands.** A "take now" becomes a step in
+> its container when that container is laid out in the protocol.
 >
 > Kinds: **fix** a tool or code fix · **rule** an engraving / layout rule · **method** a way of working · **lesson** a thing learned about
 > the stack · **doc** a document's state · **arch** an architecture item · **feature** a wish.

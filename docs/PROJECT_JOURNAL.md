@@ -232,10 +232,12 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   9 the collation · 10 the upkeep) → **`docs/plans/NEW_PIECE_PROTOCOL.md`** (2 … 10 `top line only`) · **§ 1 THE HARVEST laid out and
   written** (recurring 1.1 … 1.4 at every start; one-time 1.5 … 1.7) · **ITS FIRST RUN: `docs/HARVEST.md`** — 56 items H-1 … H-56, the
   AI's proposed verdicts (35 take now by container · 12 later · 9 leave).
-- **► THE NEXT CONCRETE STEP — on FABLE: HIS READ of `docs/HARVEST.md` (1.3 the triage — he answers by number, silence = as proposed;
-  a "take now" he keeps becomes a step in its container when that container is laid out). THEN CONTAINER 2, THE REPO AND ITS KIT, the
-  same way: the goal ("Result when done") with the data (this piece's 0a, RUNNING_LOG §6; the kit as it stands in `docs/`), his nod,
-  the sub-steps, written into the plan file. One container per sitting is the pace; the order is the top line's, his to change.**
+- **1.3 DONE 2026-10-03 (§788): his read of `docs/HARVEST.md` — *"All as proposed"*; every verdict stands. (His first reaction — lost in
+  the AI's vocabulary — is a lesson for the protocol's own writing: every list put to him leads with what it IS and the ONE decision.)**
+- **► THE NEXT CONCRETE STEP — on FABLE: CONTAINER 2, THE REPO AND ITS KIT, in progress — the data read (§788: PLAN 0a · RUNNING_LOG §6 ·
+  `docs/` as it stands · `.gitignore` · P6's names), the GOAL put to him; on his nod the sub-steps, written into
+  `docs/plans/NEW_PIECE_PROTOCOL.md` § 2 with the harvest's H-1 … H-6 folded in as steps. One container per sitting is the pace; the
+  order is the top line's, his to change.**
 - **`Resume reads:`** `docs/plans/NEW_PIECE_PROTOCOL.md` (the plan as it stands — the top line and § 1) · `docs/HARVEST.md` (his read
   owed). `docs/plans/PORT_FROM_TEMPUS.md` only when container 3 is reached. Nothing else beyond §2.
 - **Pending him:** nothing on this piece. The two set-ups (the Decibel piece for TENOR, November 14th; the Switch~ piece, December 1st)

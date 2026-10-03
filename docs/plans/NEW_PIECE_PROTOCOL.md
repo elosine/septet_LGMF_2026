@@ -96,7 +96,8 @@ them as what step 1 reads; nothing new to do during the piece.
 
 - **1.5 Written into the protocol** — this section. ☑ 2026-10-03.
 - **1.6 The first run, on _Recombination_** — 1.2 and 1.3 run now, as the test of the step and as the real harvest
-  the Decibel piece will read: `docs/HARVEST.md` in this repo. ► 1.2 done 2026-10-03 (§787); 1.3 his read.
+  the Decibel piece will read: `docs/HARVEST.md` in this repo. ☑ 1.2 done 2026-10-03 (§787) · 1.3 his read 2026-10-03, *"All as
+  proposed"* — 35 take now · 12 later · 9 leave stand (§788).
 - **1.7 The backfill of the old pieces** — only as 1.4 says; nothing scheduled.
 
 ---

@@ -23107,3 +23107,23 @@ locked · stale statuses).** The AI's readings in it: the kit should carry the m
 (H-1); the batteries bound to the source piece are classified at the copy, never carried red a fourth time (H-7); the laws as the
 collation's spine (H-34: voices not pitches · (lane, seat) · provenance on the marker · one dynamics module · one breath generator ·
 one renderer); a tool comes under the dynamics law before its first use (H-28). ► **1.3 HIS READ** — by number; silence = as proposed.
+
+## §788. The harvest triaged — *"All as proposed"*; CONTAINER 2 opened, the repo and its kit (2026-10-03, Fable; follows §787)
+
+**His read of `docs/HARVEST.md` (1.3):** first *"state more simply what's going on"* — the AI's reply in plain words (nothing built; a
+sorting of leftovers; one decision: agree with the verdicts or change any by number; the four "readings" explained as four proposed
+changes of habit — H-7 the broken tests classified at the copy · H-14 the piano by name · H-28 a tool on the volume law before its first
+use · H-34 the laws written once) — then his word: *"All as proposed, move on to container 2."* **Every verdict stands:** 35 take now ·
+12 later · 9 leave; the header of HARVEST.md and the plan's 1.6 say so. **A lesson for the protocol's own writing (10):** a list made by
+the AI's own vocabulary ("readings", "containers", "verdicts") lost him on the first read — the harvest's header, and every list put
+to him, leads with what it IS and what the ONE decision is, in plain words.
+
+**Container 2 opened — the data read:** PLAN § 0a and RUNNING_LOG §6 (what the kit was here on 2026-09-17: carried whole with a
+provenance line — AI_METHODOLOGY · SESSION_HYGIENE · PLANNING_METHOD · MORPH_NOTES · .gitignore · .gitattributes; carried with named
+changes — HOW_WE_WORK · SESSION_PROTOCOL · the checkpoint / postclear commands; written fresh — CLAUDE.md · README · the journal in
+#5's seven sections with §3's principles · PLAN · PLANNER · RUNNING_LOG · NITS · COMPOSITION_NOTES; the standing practices checked
+heading by heading against #5's CLAUDE.md because the #4 → #5 port had dropped THE RHYTHM; the ports by the lineage's rule; NOT at 0a —
+launch.json and the tool docs, which travel with the code; SWEEP_LIST per piece) · `docs/` as it stands (33 files + 4 dirs, three
+kinds: the standing method docs · the piece's own record · the tool docs that describe the code) · `.gitignore` (the fonts, the
+renders, the PDFs, the call's screenshots, the raw captures — a public repo) · the names of P6 (`PORT_FROM_TEMPUS.md`). ► The goal
+put to him.
