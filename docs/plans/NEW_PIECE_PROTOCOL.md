@@ -44,7 +44,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 **THE INSTRUMENT — the sound side**
 
 3. **The engine copied forward** — composer app · sandbox · notation engine · print · video · tools · probes · the
-   Reaper bridge: byte-exact, proven whole, then the re-palette. *(0b)* — `top line only`
+   Reaper bridge: byte-exact, proven whole, then the re-palette. *(0b)* — **► laid out below**
 4. **The instruments** — the instrumentation → the libraries (acquire · manuals · maps · key switches) → the recipes
    → loopMIDI ports → the Reaper rack. *(0c · 0e)* — `top line only`
 5. **The calibration** — balance · velocity remap · fader curves · bend and technique ranges · sample lengths; the
@@ -183,8 +183,123 @@ new repo starts with none — the cross-piece ones move to his user-level CLAUDE
 
 ---
 
-## 3 … 10 — `top line only`
+## 3. The engine copied forward — `written 2026-10-03` (agreed with him, RUNNING_LOG §791)
+
+**What this is:** the first container of THE INSTRUMENT layer, for a COPY-FORWARD start (a from-a-sandbox or fresh start skips
+it or takes a part). The new repo takes the WHOLE working engine from the piece just finished — the composer app · the sandbox ·
+the notation engine · print · video · the tools · the probes · the Reaper bridge — copied byte for byte, proven to work before
+one line changes, then turned to the new ensemble (the re-palette), then given empty-but-valid data files so every panel opens.
+
+**Result when done:** the new repo's app boots on its own two ports; every panel opens with zero console errors; the save
+round-trips; every test battery is green or CLASSIFIED (re-pointed · retired · "needs this piece's pages"). Nothing sounds yet
+(4 the instruments · 5 the calibration). Nothing notates the new ensemble yet (6).
+
+**The data (2026-10-03):** what the last port did — `PORT_FROM_TEMPUS.md` (2026-09-17), RUNNING_LOG §12 … §16, one day on Opus:
+a measured SURVEY first (460 files; the engine 12 MB, the piece data 38 MB left behind; the coupling in three kinds — A the
+palette proper · B small per-instrument tables inside the tools, wider every piece because each piece builds tools that know
+instruments · C the piano as a ROLE in twelve modules) · step 1 the copy, 265 / 265 byte-identical by `cmp`, his uncommitted
+source files taken from HEAD · step 2 the copy proven whole with the OLD palette in (151 files staged and deleted by list; 22
+green, 8 red, every red accounted for; the one real defect a test dependency the leave list had named as a tuba artefact —
+`morph_tuba_baseline.json`) · step 3 the re-palette by ONE script asserting 44 match counts (it refused twice, rightly: CRLF, a
+miscount), then 19 files of stragglers by a rule · step 4 the recipes and six skeleton banks, the cello verbatim, `palette_check`
+born (157) · step 5 the running app (71 routes · the panels · the quiet piano features CLICKED · the ensemble warn with a
+control); five checks green at step 2 red after the re-palette, all #5's tests bound to #5's palette. Its steps 6 · 7 belong to
+container 6, its step 8 to 2 and 10. What bit later, now the harvest's eight items H-7 … H-14: batteries carried red a third
+time · two dead viewers copied · a `TypeError` on every bare load · a validator warning · one red battery case · the lane CSS
+unchecked (lane 8 landed on the English horn, §183) · no bundled font for ♭ ♯ ♮ (a box in the film, §699) · the piano role
+decided per module.
+
+**Six calls, his to reverse (agreed 2026-10-03, "c3 good"):** CARRY ALL, USE SOME stands — only piece DATA stays behind (scores ·
+actuals · the rack · IR pages · the measurement banks) · the last port's copy list and leave list become the TEMPLATE LISTS,
+kept in the protocol and updated each run · the order copy → prove → re-palette → skeletons → verify is kept ("prove before
+changing" is the rule that earned its keep) · the harvest's fixes go in AT the copy as steps, not carried broken · the piano
+role is decided ONCE, in the profile (2.1), as a "roles" line every module reads · the container ends with an app that opens
+and saves — not plays, not notates.
+
+**Recurring — the protocol's step 3, at every copy-forward start** *(the survey on Fable; the rest Opus, from the written steps):*
+
+- **3.0 The survey.** From the source's NAMED HEAD commit: the engine vs the piece data · the coupling in three kinds, each table
+  BY FILE AND LINE — A the palette · B the per-instrument tables inside the tools (`palette_check`'s list is the seed; the survey
+  re-finds what grew) · C the roles · what is modified or untracked in the source and HIS. Out of it: this run's copy list and
+  leave list, from the template lists (3.7) plus the survey's differences — written into the new repo's PLAN § 0.3.
+- **3.1 The copy, byte-exact** (one commit). The guard first: `git status` in the source — only the KNOWN-his paths may be
+  modified; any other path on the copy list modified or untracked → stop and ask. The list by `git ls-files` (loose and ignored
+  files cannot come along). One `tar` pipe; **`cmp` every file against its source, N / N identical.** His uncommitted source
+  files taken from HEAD (`bank/panel_snapshots.json`). The copied `launch.json` is inert — the server runs by environment
+  (`PORT=…`) until 3.3; the source's ports are NEVER bound. `npm install`.
+- **3.2 Prove the copy whole, before one line changes** (nothing committed). Staged from the source's HEAD, never its working tree:
+  its data (the banks · the actuals · its scores · its IR pages · its probe schedules) and the goldens its batteries name (the
+  recipe in `notation/ir/README.md`); the staged list written to the scratchpad BEFORE the first copy, the deletion by that list.
+  The server on the new port by environment. Every battery run on the OLD palette; a red re-run in the source, read-only.
+  **Every battery CLASSIFIED once, into a table in RUNNING_LOG and the new NITS:** green · red in the source too → retired (off
+  the copy, its reason) · bound to the source piece's pages or palette → re-pointed at 6 or retired · NEW red → explained
+  (byte-identical copy ⇒ the inputs). Never carried red again (H-7). The lesson kept in the step: **a missing test dependency is
+  invisible to `cmp`** — the copy was faithful to a list wrong by one. The staged list deleted exactly; `git status` clean.
+- **3.3 The re-palette** (one asserted script, one commit; the script's text into RUNNING_LOG). The script asserts EVERY match
+  count before it writes a byte; each find / replace translated to its file's OWN line endings, never the file to the script's.
+  **Kind A:** `TRACKS` in orchestral score order · the lane `<div>`s · the track `<select>` · the curve-window titles (each
+  replaced as one block) · the abbreviation map · the title · the session default at every site · `layoutVersion` + 1 with the
+  loud "THIS SAVE WAS WRITTEN FOR A DIFFERENT ENSEMBLE" warn by track IDS (the lane count cannot catch it) · the ports — the
+  server · the sandbox · the `.bat` · `.claude/launch.json` (the new pair · a throwaway `+1` · the unfinished previous piece's
+  `<prev>-<port>` entry, 2.6) · `package.json` · the Reaper project guard · **the composer's lane CSS — the `nth-child` rules,
+  one per lane, the count = `TRACKS` (H-12)**. **Kind B:** every table on the survey's list rewritten with the new keys — open
+  strings · strike defaults · the articulation maps · the beating ORDER and breath / bow ceilings · the colour tables (one hue
+  family per pair) · the trill stand-in · the alias table · what the survey added. **Kind C:** the roles from the profile's
+  "roles" line (2.1), ONE lookup, not a test per module (H-14). **The straggler audit** — the old ports · the old guard · the old
+  session · the old piece name · the old instruments — by the rule: *a default argument or a write guard is a PARAMETER and
+  becomes this piece's name; a test fixture stays and goes to NITS; a coincidence is left.* `node --check` on every changed file;
+  `palette_check` green (its asserts extended to the lane CSS). The source's instrument names may stay in comments as provenance
+  unless they claim behaviour.
+- **3.4 Recipes and skeleton banks** (one commit). `sandbox/instruments.js` rebuilt by a script that keeps the helper blocks and
+  any CARRIED instrument's measured rows verbatim and replaces the header and the table; `node --check` before a commit. Every
+  other value marked `PROVISIONAL — 4 / 5`; technique keys = the notation registry's names (a key that reaches the IR is already
+  drawable; the roster keys not in the registry listed by `palette_check`); ports with the lineage's prefix, distinct from every
+  live rack's. **A shared MECHANISM never shares a MEASUREMENT** (the double bass carried none of the cello's). The banks keyed by
+  instrument skeletoned: shape and metadata kept, only the carried instrument's rows, a `_provenance` line naming what was
+  dropped; a table keyed by TECHNIQUE keeps only the carried instrument's rows (a flute's `staccato` must not become the
+  bassoon's). Recorded material of the old piece emptied. `bank/panel_snapshots.json`: one take loaded per panel, or the file
+  moved to `bank/reference/` and an empty valid one started — RUNNING_LOG says which. The day-one stub written BY THE APP, never
+  by hand. `palette_check` · `roster_check` green (pending voices listed).
+- **3.5 Verified in the running app** (AI_METHODOLOGY rule 4). The servers from `launch.json` on the new ports; the previous
+  piece's checked and never bound. The route battery, every `<script src>` and `/api/*` 200 (a POST-only 404 read in the handler,
+  not called a defect) · the save API round trip on a throwaway name, the files seen and deleted · `Composer initialized`, zero
+  console errors (Web MIDI denied is the pane's policy) · `TRACKS` · `META_LAYER` · the lane count ON THE PAGE · `laneCanPlay`
+  probes above and below each range · every panel opens · **the quiet roles CLICKED, not assumed** · the ensemble warn fired on an
+  old-ensemble save WITH A CONTROL (the own save warns nothing) · the sandbox's menu. Results as a table; **defects that only
+  running found get their own paragraph**; the checks green at 3.2 and red after 3.3 classified into 3.2's table.
+- **3.6 The record.** RUNNING_LOG one § per step, written as each step ends · NITS: for every copied file the source's live
+  bullets, dated, plus this port's own (the quiet roles · the fixtures · every classified red) · the tool docs that travel with
+  the code, one provenance line each; NAMING §1 the names (2.3) · CLAUDE.md § Apps rewritten from the source's, with the
+  standing warnings (print and video share the frame math · the curve-channel map is cached · a server route keeps the engine it
+  started with · the lane CSS) · PLAN § 0 container 3 `done` · the report to him: what runs · what is quiet and why · what is
+  provisional · what he does next (4 · 5).
+- **Stop and ask him:** a path to copy is modified or untracked in the source · a battery red here and green there, the cause
+  not a missing file · a role that one line cannot make quiet · anything that needs a decision about the music.
+- **Done when:** the app opens and saves on its own ports, every panel clean; the batteries' table has no unexplained red;
+  everything pushed.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **3.7 The template lists** — the last port's copy list and leave list (`PORT_FROM_TEMPUS.md` step 1), written into the
+  protocol as THE TEMPLATE LISTS with the harvest's changes: `clusterview.html` · `chordview.html` · `docs/instrument_map.json`
+  OFF the copy list (H-8) · the eight batteries red in the source too — `test_coords` · `cresc_check` · `test_extract_played` ·
+  `ir_extract_golden` · `test_notate_block` · `test_playability` · `test_midiplayer` · `test_sonify_core` — onto the leave list
+  (H-7) · `tools/morph_tuba_baseline.json` ON the copy list (§13's lesson). `todo`.
+- **3.8 Four small engine fixes made HERE, before the copy** (Opus, one commit; none touches the layout, the shield stands): the
+  bare-load `TypeError` at `sequence_ui.js:1652` (H-9) · `model_bank --validate`'s `provenance.palette` warn (H-10) ·
+  `test_animobj.js`'s case since §454 (H-11) · `palette_check` reads the composer's lane CSS (H-12). `todo`.
+- **3.9 The bundled font for ♭ ♯ ♮** (H-13) — an open-licence font in `notation/app/fonts/`, in the page's stack and the film's
+  and print's font lists, so the app, the film and the print draw the same sign. At the FIRST copy, in the new repo: it changes
+  the look of the film and the print, and this piece's are locked (D56). `todo`, placed in 3.3.
+- **3.10 The roles helper** (H-14) — ONE lookup by the profile's "roles" line in place of twelve `instKey === 'piano'` tests. At
+  the first copy, or on 9's list if a role becomes a palette property. `todo`.
+- **3.11 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 4 … 10 — `top line only`
 
 Each is laid out with him when reached: the goal ("Result when done"), the data, then the sub-steps, written here as
-agreed. Next in the order: 3 the engine copied forward (the data: `PORT_FROM_TEMPUS.md` steps 1 … 3 and 5 · RUNNING_LOG
-§12 … §16 · the harvest's H-7 … H-14). The order is the AI's recommendation (each container feeds the next); his to change.
+agreed. Next in the order: 4 the instruments (the data: PLAN § 0c · 0e and their RUNNING_LOG sections — §11 the libraries,
+§19 … the percussion scaffolding, the rack — and the harvest's items under "→ 4"). The order is the AI's recommendation (each
+container feeds the next); his to change.

@@ -23176,3 +23176,50 @@ through to a `cat` reading stdin inside a compound command. It was stopped; noth
 FILE. The lesson is the journal's own, re-learned: a script goes to a file by the Write tool; a compound command does not improvise one.
 
 The 30 deliberately-uncommitted paths unchanged; both repos fully pushed.
+
+## §791. Container 3, THE ENGINE COPIED FORWARD — the goal at his nod, the sub-steps at his word; § 3 written; two composition notes for the Decibel piece on the way (2026-10-03, Fable; follows §790)
+
+**The resume.** `/postclear` on Fable from checkpoint #2 (§790): journal §2 whole, `NEW_PIECE_PROTOCOL.md`, `PORT_FROM_TEMPUS.md`,
+HARVEST § "→ 3" (H-7 … H-14); the tree the same 30 paths. His "y" to the goal.
+
+**The goal, as put to him** (plain words, §788's lesson): what the container IS — the whole working engine copied byte for byte,
+proven before one line changes, re-paletted, given empty-but-valid data so every panel opens; the first container of THE
+INSTRUMENT layer, for a copy-forward start only · the result — the app boots on its own ports, every panel clean, every battery
+green or classified; nothing sounds (4 · 5), nothing notates the new ensemble (6) · the data — `PORT_FROM_TEMPUS.md`: the survey
+and its three kinds of coupling, the five steps, steps 6 · 7 to container 6 and 8 to 2 and 10 · what bit later, the eight harvest
+items · six calls his to reverse (CARRY ALL, USE SOME · the template lists · the order kept · the harvest's fixes at the copy ·
+the roles once, in the profile · the container ends with an app that opens and saves). **His word: *"c3 good"*.**
+
+**The data read for the sub-steps** — RUNNING_LOG §12 … §16, the record of the port here (one day, 2026-09-17, Opus): 265 / 265
+by `cmp`, his uncommitted files from HEAD (§12) · step 2's 151 staged and deleted by list, 22 green · 8 red, every red accounted
+for, the one real defect `morph_tuba_baseline.json` on the leave list — *"a missing test dependency is invisible to `cmp`"* (§13) ·
+the patch script refused twice (CRLF; a miscount), 44 edits, then 19 files of stragglers by the rule *a default argument or a write
+guard is a parameter; a test fixture stays* (§14) · the recipes and six skeleton banks, the cello verbatim, the double bass with
+none of its measurements, `palette_check` born at 157 (§15) · 71 routes, the panels, the piano features CLICKED, the ensemble warn
+with a control, five checks red after the re-palette, all bound to #5's palette (§16).
+
+**The sub-steps, as put to him and written into § 3** — recurring 3.0 the survey (Fable) · 3.1 the copy · 3.2 prove whole, every
+battery classified ONCE (H-7) · 3.3 the re-palette with the lane CSS (H-12) and the roles from the profile (H-14) · 3.4 recipes
+and skeletons · 3.5 the running app · 3.6 the record; the stop-and-ask list; done when. One-time 3.7 the template lists (H-7 · H-8 ·
+§13's baseline) · 3.8 four small fixes made HERE before the copy (H-9 · H-10 · H-11 · H-12; Opus; none touches the layout) · 3.9
+the font at the FIRST copy, in the new repo (H-13 — the film and the print here are locked) · 3.10 the roles helper (H-14) · 3.11
+written. The AI's calls named: the four fixes here, not at the copy · the font at the copy · Fable for the survey, Opus for the
+rest. **His word: *"3 good"*.** Written into `docs/plans/NEW_PIECE_PROTOCOL.md` § 3; the top line's 3 reads "laid out below";
+"4 … 10 top line only", 4 the instruments next.
+
+**Three composition notes for the Decibel piece, taken verbatim on the way** — LG-340 (the momentary-input effects: a gate that opens
+the mic for an instant, the fragment processed — delays · loop + granular · freeze · "gray hole", read as Greyhole; develop the
+effects and THE MECHANISM of coordinating split-second input first; an opening gesture of strikes and their processing; the same in
+accelerations) and LG-341 (the impulses SAVED as samples, then played by the ensemble algorithms of pieces #1 · #2 — Anticipation-
+Reaction · See All The People · the three-body problem, piece #2's cells — a player's own samples or another's, algorithmically
+generated; and LG-340 holds for the Switch piece and his own live-electronics piece too). One targeted grep located the three
+names in piece #2's `CELL_ARCHITECTURE_ADR.md` · `CELL_CODE_MAP.md`; nothing else read there. And LG-342, for all three pieces: the
+impulses BESPOKE, made by the performer, new each piece · the timing coordinated by GCs "or the like" · an INDICATOR in the score
+for each performer's collection of samples — simple shapes or colours (a GC with a red triangle: what is played at that mic
+opening is stored as "the triangle sample") — and the same shapes return in the score, so the performer knows which stored sound
+is coming back. For the protocol they are collation material (9), the first named content of "the basic machinery" of the
+from-a-sandbox start, and (LG-342) a NOTATION DEVICE for the electronics pieces' score — a device sheet when its piece is laid
+out. Nothing planned from them.
+
+**State.** § 1 · § 2 · § 3 written; 4 … 10 top line only; `docs/HARVEST.md` triaged. **Next:** container 4, the instruments, the
+same way — the goal with the data (PLAN § 0c · 0e; RUNNING_LOG §11 · §19 …; the harvest's "→ 4"), his nod, the sub-steps into § 4.
