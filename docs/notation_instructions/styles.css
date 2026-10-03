@@ -233,3 +233,4 @@ figure.zoomed figcaption { font-size: 0.85em; color: #555; margin-top: 4px; font
 .entry-row img.zoomed { flex: none; margin-bottom: 0; }
 .entry-row .entry-text { flex: 1; min-width: 0; }
 .placeholder { color: #999; font-style: italic; }
+.entry-lead { margin-top: 2.2em; margin-bottom: 0.5em; }   /* §760: a bold lead in the body size, in place of a heading */

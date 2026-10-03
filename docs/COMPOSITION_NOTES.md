@@ -4237,3 +4237,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Okay, you could keep highlighted in green, but I'll keep at mid lane height. And you can just forget about the animated curve follower. That's what I'm calling it. and then refresh the notes one more time."
 
 *The AI's reading (marked as such):* his two calls on the pass; the page has no open point left that the AI has raised. RUNNING_LOG §759.
+
+## LG-325 — 2026-10-02 — move ragged stems, the bowed vibraphone and the percussion legend up under the duration line; the legend's heading bold in the body size
+
+*His words (session 18, Fable):* "Could you move ragged stems, bowed vibraphone, and percussion legend up under duration line? And you could you make the percussion legend not a main header, but I guess just bold the same size as the rest of the font?"
+
+*The AI's reading (marked as such):* the short device entries belong with the conduction tools, as one run of picture-and-line items; the tuning closes the page. RUNNING_LOG §760.

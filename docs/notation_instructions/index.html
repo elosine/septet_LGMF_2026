@@ -93,6 +93,43 @@
             <p><strong>Duration line</strong> &#8212; Play the note for the duration of the line.</p>
         </div>
     </div>
+    <!-- MOVED UP at his word (RUNNING_LOG §760): the three entries below followed Micro-Tonal Tuning; the Percussion Legend lost its heading for a bold lead -->
+<!-- ═══ Ragged Stems — a TWO-COLUMN ENTRY (RUNNING_LOG §742; the name and the text his, §744 — "ragged stems, not beams"): the image left, the bold name right; (§742: "I'll add text
+     here later"). His settled line for this device waits in the working list (S4). The image keeps the one scale (the row is the
+     full column, so --w / 1920 still holds).
+     Image, THIS PIECE'S: English horn, the uneven group of four at 292.79 … 293.82 s (the heads where they sound, the beam floating
+     below on stubs, the wavy stroke through the first), the cursor out of the crop. Regenerate:
+     node tools/capture_lane.js --part eh --t 289 --span 292.4:294.0 --out docs/notation_instructions/images/ragged_beam_eh_293.svg -->
+    <div class="entry-row">
+        <img class="zoomed" style="--w: 493" src="images/ragged_beam_eh_293.svg" alt="Four note heads with no stems; below them a double beam on short stubs that do not reach the heads, with a wavy stroke through its first stub">
+        <div class="entry-text">
+            <p><strong>Ragged Stems</strong> &#8212; Play this rhythmic grouping with irregular spacing in the same amount of time. Instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths.</p>
+        </div>
+    </div>
+
+<!-- ═══ The bowed vibraphone — a TWO-COLUMN ENTRY (RUNNING_LOG §745), his text.
+     Image, THIS PIECE'S: RE-CUT §747 (his word: the heads with the dotted line up, a green one with the dotted line down): the vibraphone at 656.95 … 659.3 s — E5 on its blue patch, its dotted lead UP to the blue duration line at the top, mp; E4 on its green patch, its lead DOWN to the green line at the bottom, ppp. (WAS, cut without the lane boxes and so without tracks or leads: 37.85 … 40.2 s — the two bows entering 0.6 s apart: D-sharp 6 with its
+     blue duration line (the top voice) and G3 with its green duration line, its hairpin and p (the bottom voice); the cursor out of
+     the crop; more head-room than the other images (the rows stand at the lane's edges). Regenerate:
+     node tools/capture_lane.js --part vib --t 654 --span 656.95:659.3 --padTop 70 --padBot 20 --out docs/notation_instructions/images/vibraphone_two_parts_657.svg -->
+    <div class="entry-row">
+        <img class="zoomed" style="--w: 724" src="images/vibraphone_two_parts_657.svg" alt="Two open notes on one staff: one on a blue patch with a dotted line rising to a blue duration line above the staff, one on a green patch with a dotted line falling to a green duration line below the staff">
+        <div class="entry-text">
+            <p><strong>The bowed vibraphone</strong> is played in two parts, with the motor off. One part is highlighted in blue with blue duration lines at the top, and the other part is highlighted in green with green duration lines at the bottom.</p>
+        </div>
+    </div>
+
+<!-- ═══ Percussion Legend (RUNNING_LOG §746): the heading his; the image built at his word — the score's own seven-line staff with the
+     FULL names written left of the short ones (node tools/gen_perc_legend.js: capture_lane on an empty stretch + the names); the only
+     beater named is the temple bowl's brush, in the image and in the sentence. SHOWN AT 1.5 × THE SCORE SCALE at his word (§757:
+     --w 900 for a 600-px image) — a legend, not a crop of the score, so the one-scale rule of §704 does not bind it. THE SENTENCE IS THE AI's DRAFT, at his ask for a
+     recommendation ("something like all the other mallets the percussionist can choose from") — his to reword. -->
+    <p class="entry-lead"><strong>Percussion Legend</strong></p>
+
+    <img class="zoomed" style="--w: 900" src="images/percussion_legend.svg" alt="The seven-line percussion staff; left of each line the instrument's name and its short name: sleigh bells, castanets, tambourine, temple bowl (brush), wood block, brake drum, bass drum">
+    <div class="description">
+        <p>The temple bowl is played with a brush. All other beaters are at the percussionist&#8217;s discretion.</p>
+    </div>
 </div>
 
 <!-- ═══ Gradient Curves ════════════════════════════════════════════════════
@@ -162,49 +199,6 @@
     <div class="zoomed-row">
         <img class="zoomed" style="--w: 293" src="images/tuning_plus_eh_0.svg" alt="A note with a three-quarter-sharp, +41 above it and 26 (C1) above that">
         <img class="zoomed" style="--w: 293" src="images/tuning_minus_hn_1.svg" alt="A note with a quarter-sharp, −49 above it and 11 (C1) above that">
-    </div>
-</div>
-
-<!-- ═══ Ragged Stems — a TWO-COLUMN ENTRY (RUNNING_LOG §742; the name and the text his, §744 — "ragged stems, not beams"): the image left, the bold name right; (§742: "I'll add text
-     here later"). His settled line for this device waits in the working list (S4). The image keeps the one scale (the row is the
-     full column, so --w / 1920 still holds).
-     Image, THIS PIECE'S: English horn, the uneven group of four at 292.79 … 293.82 s (the heads where they sound, the beam floating
-     below on stubs, the wavy stroke through the first), the cursor out of the crop. Regenerate:
-     node tools/capture_lane.js --part eh --t 289 --span 292.4:294.0 --out docs/notation_instructions/images/ragged_beam_eh_293.svg -->
-<div class="notation-section">
-    <div class="entry-row">
-        <img class="zoomed" style="--w: 493" src="images/ragged_beam_eh_293.svg" alt="Four note heads with no stems; below them a double beam on short stubs that do not reach the heads, with a wavy stroke through its first stub">
-        <div class="entry-text">
-            <p><strong>Ragged Stems</strong> &#8212; Play this rhythmic grouping with irregular spacing in the same amount of time. Instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths.</p>
-        </div>
-    </div>
-</div>
-
-<!-- ═══ The bowed vibraphone — a TWO-COLUMN ENTRY (RUNNING_LOG §745), his text.
-     Image, THIS PIECE'S: RE-CUT §747 (his word: the heads with the dotted line up, a green one with the dotted line down): the vibraphone at 656.95 … 659.3 s — E5 on its blue patch, its dotted lead UP to the blue duration line at the top, mp; E4 on its green patch, its lead DOWN to the green line at the bottom, ppp. (WAS, cut without the lane boxes and so without tracks or leads: 37.85 … 40.2 s — the two bows entering 0.6 s apart: D-sharp 6 with its
-     blue duration line (the top voice) and G3 with its green duration line, its hairpin and p (the bottom voice); the cursor out of
-     the crop; more head-room than the other images (the rows stand at the lane's edges). Regenerate:
-     node tools/capture_lane.js --part vib --t 654 --span 656.95:659.3 --padTop 70 --padBot 20 --out docs/notation_instructions/images/vibraphone_two_parts_657.svg -->
-<div class="notation-section">
-    <div class="entry-row">
-        <img class="zoomed" style="--w: 724" src="images/vibraphone_two_parts_657.svg" alt="Two open notes on one staff: one on a blue patch with a dotted line rising to a blue duration line above the staff, one on a green patch with a dotted line falling to a green duration line below the staff">
-        <div class="entry-text">
-            <p><strong>The bowed vibraphone</strong> is played in two parts, with the motor off. One part is highlighted in blue with blue duration lines at the top, and the other part is highlighted in green with green duration lines at the bottom.</p>
-        </div>
-    </div>
-</div>
-
-<!-- ═══ Percussion Legend (RUNNING_LOG §746): the heading his; the image built at his word — the score's own seven-line staff with the
-     FULL names written left of the short ones (node tools/gen_perc_legend.js: capture_lane on an empty stretch + the names); the only
-     beater named is the temple bowl's brush, in the image and in the sentence. SHOWN AT 1.5 × THE SCORE SCALE at his word (§757:
-     --w 900 for a 600-px image) — a legend, not a crop of the score, so the one-scale rule of §704 does not bind it. THE SENTENCE IS THE AI's DRAFT, at his ask for a
-     recommendation ("something like all the other mallets the percussionist can choose from") — his to reword. -->
-<h3>Percussion Legend</h3>
-
-<div class="notation-section">
-    <img class="zoomed" style="--w: 900" src="images/percussion_legend.svg" alt="The seven-line percussion staff; left of each line the instrument's name and its short name: sleigh bells, castanets, tambourine, temple bowl (brush), wood block, brake drum, bass drum">
-    <div class="description">
-        <p>The temple bowl is played with a brush. All other beaters are at the percussionist&#8217;s discretion.</p>
     </div>
 </div>
 

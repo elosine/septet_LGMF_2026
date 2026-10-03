@@ -22783,3 +22783,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"Okay, you could keep highlighted in green, but I'll keep at mid lane height. And you can just forget about the animated curve follower. That's what I'm calling it. and then refresh the notes one more time."*
 
 **Done:** *"fff at mid-height"* put back to *"fff at mid-lane height"* (§758's change reversed; "highlighted in green" kept). DECIDED: the bar on the cursor is called **the animated curve follower** in these notes — the sentence stands as it is, the open point closed (the log's and the tracker's "meter" is the engineering name; the performers' name is his). The whole page sent to him again as a self-contained file.
+
+## §760. Ragged Stems, the bowed vibraphone and the Percussion Legend moved up under the Duration line; the legend's heading a bold lead (2026-10-02, Fable, session 18; LG-325)
+
+**His word:** *"Could you move ragged stems, bowed vibraphone, and percussion legend up under duration line? And you could you make the percussion legend not a main header, but I guess just bold the same size as the rest of the font?"*
+
+**Done:** the three blocks that stood after Micro-Tonal Tuning now follow the Duration line inside Animated Conduction Tools, in his order: **Ragged Stems** · **The bowed vibraphone** · **Percussion Legend** — the last no longer an h3 but a bold lead in the body size (`.entry-lead`), its image and its sentence under it. The page's sections are now: the opening · Demo Recording · Instrumentation · Animated Conduction Tools (the cursor, the ball, the dotted line, the tempo frame, the duration line, ragged stems, the vibraphone, the percussion legend) · Gradient Curves · Timbral Glissando · Micro-Tonal Tuning. Nothing reworded.
