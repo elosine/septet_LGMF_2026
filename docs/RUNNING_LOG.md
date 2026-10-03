@@ -23157,3 +23157,22 @@ docs whole, H-1 · H-2 · H-3 · H-6 folded in · 2.5 the record docs from skele
 once (`todo`) · 2.8 the memory notes moved (`todo`). The top line regrouped in the file; the kinds of start now three (copy-forward ·
 from a sandbox · fresh). ► NEXT: container 3, the engine copied forward — the biggest; the data `PORT_FROM_TEMPUS.md` steps 1 … 3 · 5,
 RUNNING_LOG §12 … §16, H-7 … H-14. The AI's recommendation: a checkpoint and a clear before it (the context is long).
+
+## §790. Checkpoint #2 after the close — the protocol's containers 1 · 2 written; next, container 3 on Fable (2026-10-03, Opus wraps)
+
+**At his `/checkpoint`, the model switched to Opus for the wrap (THE RHYTHM).** The doc sweep: his three statements of today about the
+pieces to come promoted to the sketch pad, his words whole — LG-337 (the protocol's big picture) · LG-338 (the live-electronics piece
+for TENOR gets a repo of its own; the sandbox stays) · LG-339 (the Decibel piece may be *"a significantly different type of score"*;
+layer the port; a new scoring system as a category) — the log had them in §786 · §789 with elisions. The journal's block rewritten for
+a cold model as CHECKPOINT #2 AFTER THE CLOSE (the next step as numbered instructions; HOW TO PUT THINGS TO HIM, §788's lesson) · the
+table's first row · the state lines · a memory note `plain-words-first-for-ai-made-lists`.
+
+**State.** `docs/plans/NEW_PIECE_PROTOCOL.md` — the top line in three layers; § 1 the harvest and § 2 the repo and its kit written; 3 …
+10 top line only · `docs/HARVEST.md` — 56 items, triaged *"All as proposed"*. **Next:** container 3, the engine copied forward — the goal
+with the data (`docs/plans/PORT_FROM_TEMPUS.md`; H-7 … H-14), his nod, the sub-steps into § 3. Resume on Fable.
+
+**One slip of the AI's, for the record (§787's commit):** a splice command hung — a `cat > "$TMPDIR/…"` with `$TMPDIR` unset fell
+through to a `cat` reading stdin inside a compound command. It was stopped; nothing had landed; the splice was re-run from a script
+FILE. The lesson is the journal's own, re-learned: a script goes to a file by the Write tool; a compound command does not improvise one.
+
+The 30 deliberately-uncommitted paths unchanged; both repos fully pushed.
