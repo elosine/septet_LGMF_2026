@@ -217,55 +217,53 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### THE PERFORMANCE NOTES — WHERE HE PICKS UP (2026-10-01, Fable, after checkpoint #12; RUNNING_LOG §703 … §711; LG-268 … LG-276)
+### SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable) — THE PERFORMANCE NOTES: THE PAGE DRAFTED WITH HIM (mid-session checkpoint)
 
-*His words at the stop: "go ahead and just commit and push. And I'll just pick up here next session." No `/session-end` was run — this
-block is the handoff; everything is committed and pushed.*
-
-- **The page:** `docs/notation_instructions/index.html` (+ `styles.css`, `images/`) — begun as a copy of piece #5's performance
-  instructions (§703), served by his server at `http://localhost:5400/docs/notation_instructions/index.html` (give him that link).
-- **How he works on it:** he DICTATES, one section at a time; the AI puts his words in verbatim with spelling, capitals and
-  punctuation repaired, swaps the images, and FLAGS a moved fact in chat without changing his sentence. Each change: a RUNNING_LOG §
-  (**§762 next**) · an LG with his words whole (**LG-327 next**); THE FULL NOTES IN THE CHAT ONLY ON DEMAND (his word at §746: "no need to repeat the full notes at the end anymore. I'll do that on demand" — it replaces his asks of §714 and §726 for the text after every reply) — he is on his phone: short items, no tables · the state lines · commit + push.
-- **The images' rule (§704):** every score image is a crop of the ZOOMED presentation score (Z 2) at ONE scale —
-  `node tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B [--gutter] [--padBot N] --out
-  docs/notation_instructions/images/X.svg` (a span over 5.77 s is refused; `--gutter` puts the lane's clef in), then
-  `<img class="zoomed" style="--w: N">` or `<figure class="zoomed" style="--w: N">` + `<figcaption>`, N = the `--w` the tool
-  prints; the one knob is `--frame` in `styles.css`. Each image's command sits in a comment beside it. To LOOK at one: resvg to a
-  scratch PNG (the scratch script `rast.js` of this session is gone with the scratchpad — `export_video.js`'s font options).
-- **The page, section by section, as it stands after §734 (2026-10-02 — he worked from his PHONE; checked against the chat: every
-  dictated change is in the file):**
-  1. *Title · subtitle · opening sentence* — this piece's ("… served from the cloud and displayed in a web browser, like an online
-     video game.").
-  2. *Demo Recording* — STILL PIECE #5's YouTube link (the only thing of piece #5 left on the page).
-  3. *Instrumentation* — this piece's; the percussion line is the AI's wording (§705).
-  4. *Animated Conduction Tools* — all his: the cursor paragraph · "Bouncing-ball conductors aid with rhythmic precision. The dotted
-     vertical line marks the go-time for events." ("the go-line" taken out, §724) · two captioned images · **Tempo frame** — "To
-     assist with rhythmic accuracy, some sections are overlaid with a conducted pulse in the form of vertical lines and a bouncing
-     ball." + the EH's frame, the ball on a line. ASKED, unanswered: "Tempo frame" or "Temporal frame".
-  5. *Gradient Curves* — his paragraph (§707) + piece #5's sentence put in to see: "An animated curve follower appears alongside the
-     cursor …" (§726 — **the word is wrong for this piece: the device is the METER; his to change**) · a ROW of three images (the
-     bassoon at 726.88 with its clef · a fade-in header, the bassoon at 5.3 s · a fade-out header, the EH at 141.98 s) · his closing
-     paragraph on the header's dynamic range (§731). **OPEN — A FACT FLAGGED, his word owed (§707 · §716):** his sentence has the pitch
-     curve's bottom = B quarter-flat and top = G-sharp; the curve is PITCH HEIGHT, so top = B quarter-flat, bottom = G-sharp.
-  6. *Timbral Glissando* — all his, three paragraphs (§711 … §733): the micro-glissandos as timbre · the string-tuning analogy ·
-     "During the gradient curves, the dotted vertical go-lines are rearticulation points — … An animated dial counts down the time to
-     the next rearticulation." The bold "Notation" and the two horn morph images that stood under them were REMOVED at §736.
-     MEASURED for him (§716 · §717): only the bloom is written in pairs by instrument group; morph 2 — EH + Vc meet on B4, the DB falls
-     onto the bassoon's held A2; morph 3 — octaves only.
-  7. *Tuning* (§736, in place of the Notation Legend, whose heading is gone) — his settled TUNING text under a heading, the three-quarter-sharp as the score's own glyph inline, and a row of two snips: the EH's entry at 0 s (+41 · 26 (C1)) · the horn's at 1.0 s (−49 · 11 (C1)). FLAGGED: the text's example names D♯ (the EH's written note); the image, the score in C, shows G three-quarter-sharp.
-  8. *At the page's foot* — a boxed, screen-only **Remaining items (working list — not part of the notes)** (§734).
-- **THE WORKING LIST — his grouping (§720 … §723), in `docs/PERFORMANCE_NOTES.md` § THE WORKING LIST and mirrored at the page's foot;
-  the item numbers are the first list's and DO NOT SHIFT:** S1 tuning ON THE PAGE (§736) · settled text not yet on the page — S2 transposing · S3 vibrato ·
-  S4 the uneven group · to settle — THE MORPH AND MORPH HEADER (1 … 7) · THE VIBRAPHONE (8 … 10) · 14 the percussion legend · 16 the
-  long tone · 20 the percussion staff's conventions · set aside — 11 · 12 · 13 · 15 · 17 · 18 · 19 · 21. Keep the tracker's list and
-  the page's box in step when either moves.
-- **Offered, not taken:** embedding the score's font in the images (their small text draws in the system serif).
-- **Not looked at:** the narrow fade-out snip (`header_fade_out_eh_142.svg`) crashed the scratch rasterizer (resvg) — seen only in a
-  wider cut; Chrome draws it from the same SVG. His eye at the desktop.
-- **`Resume reads:`** this block · the page itself (`docs/notation_instructions/index.html`) · `docs/PERFORMANCE_NOTES.md` when he
-  reaches a topic it covers. Nothing else.
-- **Deliberately uncommitted:** unchanged from checkpoint #12's list below (5 modified, 25 untracked — all his).
+- **The task:** the performance instructions of Draft 01 — PLAN § 2b-F step 7's first part. Begun 2026-10-01 from a copy of piece #5's
+  page (§703) and worked with him over two days, most of it from his PHONE by dictation (RUNNING_LOG §703 … §761; LG-268 … LG-326).
+  **State: the page is his in every section, every image is this piece's at the zoom's scale, nothing of piece #5 is left on it;
+  his copy-edit pass is done (§758 · §759).** He leaves most of the remaining list (§748: *"I'm going to leave most of the remaining
+  to-dos, I think"*).
+- **The deliverable:** `docs/notation_instructions/index.html` (+ `styles.css` · `images/`, twelve SVGs), served at
+  `http://localhost:5400/docs/notation_instructions/index.html` — give him that link. Its sections: the opening sentence · Demo
+  Recording (his video, `https://youtu.be/xPOLvA6BEsk`) · Instrumentation (+ the two transposition lines) · Animated Conduction Tools
+  (the cursor · the bouncing ball · the dotted line · two captioned images · **Tempo frame** · **Duration line** · **Ragged Stems** ·
+  **The bowed vibraphone** · **Percussion Legend**, a bold lead) · Gradient Curves (his paragraph, a row of three images, his closing
+  paragraph) · Timbral Glissando (three paragraphs) · Micro-Tonal Tuning (his legend, two snips). A self-contained copy for his phone
+  (styles and images inlined) was made by a scratch script and sent with SendUserFile — make it again from the file if asked; not in git.
+- **► THE NEXT STEP — after `/clear`, on FABLE, `/postclear`: check in. The page waits for HIS read at the desktop; on his word
+  either (a) more dictation on it — the method below — or (b) THE PRINT SCORE (PLAN § 2b-F step 7: `tools/export_print.js` and
+  `print/score/build.sh`'s gates, never run on this piece's pages) laid out with him first under the planning method, then built on
+  Opus; the cover after it; the call and the package HIS.**
+- **`Resume reads:`** nothing beyond §2. (A topic from the notes' list → `docs/PERFORMANCE_NOTES.md` § THE WORKING LIST; a new
+  image → the method below; the print → PLAN § 2b-F and `print/score/build.sh`.)
+- **HOW A CHANGE TO THE PAGE IS MADE (the method of §703 … §761):** he DICTATES; his words go in verbatim with spelling, capitals and
+  punctuation repaired, a moved fact FLAGGED in chat and left as he said it; each change a RUNNING_LOG § (**§762 next**) · an LG with
+  his words whole (**LG-327 next**) · the state lines · commit + push. **The full page in the chat only on demand** (§746); he reads
+  on his phone — short items, no tables. **THE IMAGES' RULE (§704 · §747):** every score image is a crop of the ZOOMED presentation
+  score (Z 2) at ONE scale — `node tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A:B [--gutter] [--padTop N
+  --padBot N] --out docs/notation_instructions/images/X.svg` (a span over 5.77 s is refused; `--gutter` puts the lane's clef in; a
+  span may start negative, `-0.85:0.1`; the tool passes the lane boxes since §747), then `<img class="zoomed" style="--w: N">` with
+  the `--w` it prints (a row: `.zoomed-row`; a picture-and-text entry: `.entry-row`); the one exception the percussion legend at
+  1.5 × (`tools/gen_perc_legend.js`, §746 · §757). To LOOK at an image: rasterize with resvg as `export_video.js` does (fonts by
+  file) and Read the PNG. Each image's command sits in a comment beside it in the page.
+- **What the list still holds, not on the page (his to leave or call):** S3 vibrato ("Senza vibrato throughout, except the middle
+  section, marked ord.") · the morph header's 4 … 7 (arrow vs hairpin · the green curve is the intention · a dynamic in brackets ·
+  the two heads = the range of the glide) · 20 the percussion staff's conventions · the set-aside eight (§723). The bracketed
+  dynamics `(mp)` under the curves — 562 in the score — are the one thing a player meets that the page does not explain (§748's
+  omission 1, left at his word).
+- **Decided on the page, for the record:** the meter on the cursor is called "the animated curve follower" in the notes (§759) ·
+  "mid-lane height" stays (§759) · "Micro-Tonal Tuning" his spelling (§740) · the morph headers stay start → where the glide goes
+  (§754) · "Tempo frame" (asked "Temporal", unanswered — his heading stands).
+- **Pending him:** the print score · the cover · the call (Q2, unread) and the package · the YouTube title says "bass", the page
+  "double bass" (§755, noted).
+- **Deliberately uncommitted** (`git status --short` at this checkpoint — all his, never stage them): 5 modified —
+  `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries and his actuals' index) ·
+  `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his save, the notation's source — the AI's
+  edits of §669 · §697 at his word); 25 untracked — `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` ·
+  `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · his fifteen
+  named saves in `scores/` · `notation/video/renders/` (the films gitignored; two render logs, scratch).
+- **Checkpoint #12's block (the film, the tags, the render loop IF THE SCORE MOVES AGAIN) stands below, unchanged.**
 
 ### SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable) — DRAFT 01: THE NOTATION LOCKED · THE FILM APPROVED AND ARCHIVED · ► THE PERFORMANCE NOTES (mid-session checkpoint)
 
@@ -443,6 +441,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►►►►►►►** | **SESSION 18 · CHECKPOINT #13 (2026-10-03): THE PERFORMANCE NOTES PAGE DRAFTED WITH HIM** — every section his, every image this piece's, nothing of piece #5 left (§703 … §761). ► `/postclear`, check in; HIS WORD: more dictation on the page, or THE PRINT SCORE (PLAN § 2b-F step 7, laid out with him first) · the cover | **Fable** (the talk) · Opus (the print build) | **yes — `/clear`, `/postclear`** |
 | **►►►►►►►** | **THE PAGE'S IMAGES (§704, LG-269):** one scale — each a crop of the zoomed presentation score (Z 2), shown at crop width / 1920 of the column (`styles.css` `img.zoomed`; ONE KNOB `--frame`); `tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B --out …` (a span over 5.77 s is refused), then `<img class="zoomed" style="--w: N">` with the `--w` it prints. Five are this piece's; **the trill image, the morph chart and the two let-ring piano images are still piece #5's — his to look at.** ► HIS EYE on the page, then his revisions | **Fable** | — |
 | **►►►►►►** | **THE PERFORMANCE NOTES — BEGUN (§703, 2026-10-01; LG-268):** piece #5's page carried as the starting point — `docs/notation_instructions/index.html`, served at `http://localhost:5400/docs/notation_instructions/`; the title changed, nothing else (the prose is his; every example and image still piece #5's). The tracker's list given him grouped, the six section-2 gaps named, HELD — not merged, not added to the tracker. ► HIS READ of the page, then he updates it to this piece section by section: the AI inserts his dictation verbatim, swaps the images (`tools/capture_lane.js`), flags moved facts in chat | **Fable** | — |
 | **►►►►►** | **THE PERFORMANCE NOTES — HIS NEXT** (checkpoint #12, 2026-10-01; LG-266): after the clear, `/postclear`, check in; then the tracker `docs/PERFORMANCE_NOTES.md` played back as the notes' contents, what it lacks against the locked page named, and HIS way of working asked. The notes are his to write (PLAN § 2b) | **Fable** | **yes — `/checkpoint` done, `/clear`, `/postclear`** |
@@ -488,6 +487,10 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable):** the performance notes page drafted with him
+and copy-edited, nothing of piece #5 left on it · ► his read at the desktop, then his word: more on the page, or the print score (PLAN § 2b-F
+step 7) and the cover — the block CHECKPOINT #13 at the top of §2.
 
 **Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable):** the notation LOCKED, the film
 APPROVED and archived, two tags · ► THE PERFORMANCE NOTES after the clear (Fable) — the block CHECKPOINT #12 at the top of §2; the print
