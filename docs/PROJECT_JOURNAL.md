@@ -217,7 +217,7 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### SESSION 18 · 2026-10-03 (Fable) — THE PRINT SCORE PLANNED IN FULL, NOT BUILT — PLAN § `2b-P` (RUNNING_LOG §762 … §765; LG-327 … LG-329)
+### SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable) — THE PRINT SCORE PLANNED IN FULL, NOT BUILT — PLAN § `2b-P` (mid-session checkpoint; RUNNING_LOG §762 … §765; LG-327 … LG-330)
 
 - **At the check-in after checkpoint #13** he gave THE SLATE (LG-327 — six compositions on deck; "TENOR" the animated-notation conference,
   §763), then asked for the print score's plan — *"very similar to the process for the last piece"*. Phase 1 in the chat (§764): **A3 landscape
@@ -232,7 +232,12 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **`Resume reads:`** PLAN § `2b-P` (whole) · `print/score/build.sh` · at the build only, piece #5's precedent `../septet_2026/docs/RUNNING_LOG.md`
   §606 … §618 (what its checks found and how they were corrected — three of them were wrong the first time). Nothing else beyond §2.
 - **His, outside the plan:** the cover's ensemble line (the page's words) · the density · the instructions' break · the call and the package.
-- **Deliberately uncommitted:** checkpoint #13's list, unchanged (5 modified + 25 untracked, all his).
+- **Also this day:** LG-330 — his composition note for PIECE #3 (bass clarinet, harp and accordion; slate item 3), recorded HERE verbatim because that
+  repo is read-only in this session; carry it into its own COMPOSITION_NOTES when he returns to it.
+- **Deliberately uncommitted** (`git status --short` at this checkpoint — all his, never stage them): checkpoint #13's list, unchanged — 5 modified
+  (`bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` · `reaper/LGMF_rack.rpp` · `scores/piece-Recombination-Draft01-done.json`)
+  + 25 untracked (his five actuals · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · his
+  fifteen named saves in `scores/` · `notation/video/renders/`).
 
 ### SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable) — THE PERFORMANCE NOTES: THE PAGE DRAFTED WITH HIM (mid-session checkpoint)
 
@@ -458,7 +463,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►►►►►►** | **2b-P THE PRINT SCORE — PLANNED IN FULL 2026-10-03 (§764 · §765; LG-328 · LG-329), NOT BUILT:** 1 the frame and the paper (the exporter's first run here) · 2 the cover TEMPLATE · 3 the instructions TEMPLATE · 4 the proof pages, his eye · 5 the full render, his eye · 6 archive + tag. A3 kept · _Recombination_ the title · the IR not rebuilt. ► BUILD steps 1 → 3 on Opus, one commit each; STOP at 4 | **Opus** (the build) · Fable (his eye's fixes) | **yes — `/checkpoint`, `/clear`, `/postclear` on Opus** |
+| **►►►►►►►►►** | **SESSION 18 · CHECKPOINT #14 (2026-10-03) — 2b-P THE PRINT SCORE PLANNED IN FULL (§764 · §765; LG-328 · LG-329), NOT BUILT:** 1 the frame and the paper (the exporter's first run here) · 2 the cover TEMPLATE · 3 the instructions TEMPLATE · 4 the proof pages, his eye · 5 the full render, his eye · 6 archive + tag. A3 kept · _Recombination_ the title · the IR not rebuilt. ► BUILD steps 1 → 3 on Opus, one commit each; STOP at 4 | **Opus** (the build) · Fable (his eye's fixes) | **yes — `/checkpoint`, `/clear`, `/postclear` on Opus** |
 | **►►►►►►►►** | **SESSION 18 · CHECKPOINT #13 (2026-10-03): THE PERFORMANCE NOTES PAGE DRAFTED WITH HIM** — every section his, every image this piece's, nothing of piece #5 left (§703 … §761). ► `/postclear`, check in; HIS WORD: more dictation on the page, or THE PRINT SCORE (PLAN § 2b-F step 7, laid out with him first) · the cover | **Fable** (the talk) · Opus (the print build) | **yes — `/clear`, `/postclear`** |
 | **►►►►►►►** | **THE PAGE'S IMAGES (§704, LG-269):** one scale — each a crop of the zoomed presentation score (Z 2), shown at crop width / 1920 of the column (`styles.css` `img.zoomed`; ONE KNOB `--frame`); `tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B --out …` (a span over 5.77 s is refused), then `<img class="zoomed" style="--w: N">` with the `--w` it prints. Five are this piece's; **the trill image, the morph chart and the two let-ring piano images are still piece #5's — his to look at.** ► HIS EYE on the page, then his revisions | **Fable** | — |
 | **►►►►►►** | **THE PERFORMANCE NOTES — BEGUN (§703, 2026-10-01; LG-268):** piece #5's page carried as the starting point — `docs/notation_instructions/index.html`, served at `http://localhost:5400/docs/notation_instructions/`; the title changed, nothing else (the prose is his; every example and image still piece #5's). The tracker's list given him grouped, the six section-2 gaps named, HELD — not merged, not added to the tracker. ► HIS READ of the page, then he updates it to this piece section by section: the AI inserts his dictation verbatim, swaps the images (`tools/capture_lane.js`), flags moved facts in chat | **Fable** | — |
@@ -505,6 +510,10 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | his | **his listens, never reported** — `1h` H4 · `1i` VB6 · `1j` BR4; he composes with all three. If he reports a fault, the first reads are §171 · §176 · §181 | his ear | — |
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
+
+**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable):** the print score PLANNED IN FULL (PLAN § `2b-P`), nothing
+built · THE SLATE (LG-327) and his piece-#3 note (LG-330) recorded · ► BUILD 2b-P on OPUS after the clear — steps 1 → 3, one commit each; STOP at 4 for his
+eye — the block CHECKPOINT #14 at the top of §2.
 
 **Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable):** the performance notes page drafted with him
 and copy-edited, nothing of piece #5 left on it · ► his read at the desktop, then his word: more on the page, or the print score (PLAN § 2b-F
