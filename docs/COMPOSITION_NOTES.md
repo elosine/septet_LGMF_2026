@@ -4207,3 +4207,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Okay, logic makes sense. Let's just leave it."
 
 *The AI's reading (marked as such):* the header's order is the order of playing, not of pitch; that logic is kept. RUNNING_LOG §754.
+
+## LG-320 — 2026-10-02 — the demo video link for this piece
+
+*His words (session 18, Fable):* "video link https://youtu.be/xPOLvA6BEsk"
+
+*The AI's reading (marked as such):* the film of Draft 01 is public on his channel; the notes point at it. RUNNING_LOG §755.

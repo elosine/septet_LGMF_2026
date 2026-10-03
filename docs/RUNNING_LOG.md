@@ -22753,3 +22753,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"Okay, logic makes sense. Let's just leave it."*
 
 **Done:** DECIDED: no header is reversed. The header keeps its meaning — the note the player starts on, then the farthest point or the arrival — in all seventeen, the seven that run high → low included (§753); the notation stays locked, the film stands. The page's sentence on the picture (bottom of the orange curve = G-sharp, top = B quarter-flat, §748) is the place where the reader learns that the curve is read by pitch height and the header by order of travel.
+
+## §755. The demo video link: this piece's film on YouTube — the last thing of piece #5 leaves the page (2026-10-02, Fable, session 18; LG-320)
+
+**His word:** *"video link https://youtu.be/xPOLvA6BEsk"*
+
+**Done:** the Demo Recording link changed from piece #5's `x8EZ3B1EvbE` to `https://youtu.be/xPOLvA6BEsk`. The tuba's rule kept (the URL checked against its own YouTube title before wiring, #5's §599 … §602): YouTube's oembed names it *"Recombination · for English horn, bassoon, horn, trumpet, percussion, cello and bass — Justin Yang"*, his channel — the film of Draft 01 (§700's archive, `Recombination-Draft01-film_1.0`), uploaded by him. With it NOTHING OF PIECE #5 IS LEFT ON THE PAGE; the open point struck from the page-foot list. Noted, not changed: his YouTube title says "bass" where the page's subtitle says "double bass".
