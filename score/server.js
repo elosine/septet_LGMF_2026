@@ -41,7 +41,7 @@ const MIME = {
     '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
     '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png',
     '.woff': 'font/woff', '.woff2': 'font/woff2', '.mid': 'audio/midi',
-    '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ttf': 'font/ttf',
+    '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ttf': 'font/ttf', '.pdf': 'application/pdf',
     '.md': 'text/plain; charset=utf-8'
 };
 
@@ -1176,6 +1176,9 @@ const server = http.createServer((req, res) => {
         // notation stratum (read-only GET): app page, lib modules, IR docs,
         // registry, schema — Phase B5 (plan DB-1)
         if (url.startsWith('/notation/')) { base = path.join(__dirname, '..', 'notation'); rel = url.slice('/notation'.length); }
+        // [2026-10-03, PLAN 2b-P step 5 — his "can I get the link in chat"] the print stratum, read-only GET: the rendered PDFs
+        // (print/score/*.pdf, gitignored) open in his Chrome as http://localhost:5400/print/score/<file>.pdf
+        if (url.startsWith('/print/')) { base = path.join(__dirname, '..', 'print'); rel = url.slice('/print'.length); }
         // [2026-09-29, his clickable link] the docs stratum, read-only GET — a research page (docs/research/*.html) linked in chat as
         // http://localhost:5400/docs/… opens in his Chrome; a file:// or a claude.ai artifact link opens inside the desktop app instead
         if (url.startsWith('/docs/')) { base = path.join(__dirname, '..', 'docs'); rel = url.slice('/docs'.length); }
