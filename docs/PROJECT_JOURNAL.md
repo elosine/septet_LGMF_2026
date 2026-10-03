@@ -217,6 +217,36 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
+### SESSION 18 · 2b-P STEPS 1 → 3 BUILT (2026-10-03, Opus, after checkpoint #14's clear) — ► STEP 4, HIS EYE ON THE PROOF PAGES (RUNNING_LOG §766 … §769)
+
+- **At his word** (*"go, build as much as possible independently"*): three commits, pushed — `2067caa` step 1 · `53193ab` step 2 · `cc5d31c` step 3 —
+  then the proofs, made by the script itself (`bash print/score/build.sh --proof`).
+- **What exists now:**
+  - **the frame** (§766): 86 pages of music · staff 7.55 mm · 10.32 s/page (the film's density) · page 1 opens at −0.49 s, placed by its objects.
+    `check_print_frame` re-pointed to the ensemble and to ONE window (`export_print --plan screen`, a check-only switch) — census identical at
+    100 · 300 · 600 · 870. `check_print_edges` found TWO REAL FAULTS on the locked IR and both are fixed in the plan of the cut (a beat frame's band
+    straddling the gutter · a grace severed from its note by a slur's open interval); the film's pages byte-identical.
+  - **the cover template** (§767): `print/cover/make_cover.ps1` + `cover.json` (the words) + `print/formats.json` (the sheets, shared with the
+    exporter) → `cover-<format>.svg`. `check_print_front`'s face test made real (drawn width against the generator's `data-w`).
+  - **the instructions template** (§768): the print reads the page's own `--w` / `--frame` and rows; the break NAMED (`--insBreak`) or MEASURED in
+    Chrome; **the instructions fit ONE page**. `check_print_pages` PASS on 88 pages (cover + 1 + 86), the terminal barline once.
+- **► THE NEXT STEP — HIS EYE (PLAN 2b-P step 4).** The proofs are in `print/score/` (gitignored; sent to him): `PROOF-front-matter.pdf` (cover ·
+  instructions · page 1) · `PROOF-A3-frame.pdf` (p 10 · 30 · 59 · 85) · `PROOF-density-8.5` · `-10.3` · `-12` · `PROOF-cover-two-lines.pdf`.
+  **His look decisions:** 1 the cover — the ensemble line on one row (title 46.5 pt, committed) or two (85 pt), or his words · 2 the density —
+  8.5 s (104 pp) · 10.3 s (86 pp, the film's) · 12 s (74 pp) · 3 page 1 — no 4 s lead-in on paper, the percussion's seven names with no staff lines
+  until section 2 (§489) · 4 the instructions on one page, or a break he names. **Collect his notes, fix in ONE pass (§527's way), re-make the
+  proof;** then step 5 — `bash print/score/build.sh` (the five gates; no `--rebuild-ir`) → his eye → step 6 the archive and the tag
+  `Recombination-Draft01-print_1.0`.
+- **How a fix is made:** the instructions' print dress → `styleBlock()` in `tools/export_print.js` (the page's own widths come from
+  `docs/notation_instructions/` — change them THERE) · the cover → `print/cover/cover.json`, then `make_cover.ps1` · a page-edge matter →
+  `splice.js` `edgeIntervals` / `page_rules.json` `edge`, then `check_print_edges` · the density → `--sec N` through `build.sh` (every gate takes it).
+  After any: `bash print/score/build.sh --proof`. **A layout change is NOT expected** — the print is OF the filmed page; if his eye asks for one,
+  it is the film's question first (the shield, the lock, journal "IF THE SCORE MOVES AGAIN").
+- **To LOOK at a print page** (this machine has no `pdftoppm`, so the Read tool cannot show a PDF): `node tools/print_look.js <scratch prefix>
+  [--scale 1.25] -- --ir piece-lgmf --at 0,300` (or `--cover on --instructions on --pages 1`) → one PNG per page through headless Chrome; Read the PNG.
+- **`Resume reads:`** PLAN § `2b-P` steps 4 → 6 · RUNNING_LOG §766 … §769. Nothing else beyond §2.
+- **Deliberately uncommitted:** checkpoint #14's list, unchanged (5 modified + 25 untracked, all his).
+
 ### SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable) — THE PRINT SCORE PLANNED IN FULL, NOT BUILT — PLAN § `2b-P` (mid-session checkpoint; RUNNING_LOG §762 … §765; LG-327 … LG-330)
 
 - **At the check-in after checkpoint #13** he gave THE SLATE (LG-327 — six compositions on deck; "TENOR" the animated-notation conference,
@@ -463,7 +493,8 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►►►►►►** | **SESSION 18 · CHECKPOINT #14 (2026-10-03) — 2b-P THE PRINT SCORE PLANNED IN FULL (§764 · §765; LG-328 · LG-329), NOT BUILT:** 1 the frame and the paper (the exporter's first run here) · 2 the cover TEMPLATE · 3 the instructions TEMPLATE · 4 the proof pages, his eye · 5 the full render, his eye · 6 archive + tag. A3 kept · _Recombination_ the title · the IR not rebuilt. ► BUILD steps 1 → 3 on Opus, one commit each; STOP at 4 | **Opus** (the build) · Fable (his eye's fixes) | **yes — `/checkpoint`, `/clear`, `/postclear` on Opus** |
+| **►►►►►►►►►►** | **2b-P STEPS 1 → 3 BUILT (2026-10-03, Opus; §766 … §769) — ► STEP 4, HIS EYE on the proof PDFs in `print/score/`:** the cover (one row or two) · the density (8.5 · 10.3 · 12) · page 1 (no lead-in on paper) · the instructions on one page. His notes collected → ONE pass of fixes → `build.sh --proof` again → step 5 the full render (`bash print/score/build.sh`), his eye → step 6 archive + tag | **Opus** (fixes, the render) · Fable (a look question) | no |
+| ☑ | *(superseded by the row above — the build it names is done)* **SESSION 18 · CHECKPOINT #14 (2026-10-03) — 2b-P THE PRINT SCORE PLANNED IN FULL (§764 · §765; LG-328 · LG-329), NOT BUILT:** 1 the frame and the paper (the exporter's first run here) · 2 the cover TEMPLATE · 3 the instructions TEMPLATE · 4 the proof pages, his eye · 5 the full render, his eye · 6 archive + tag. A3 kept · _Recombination_ the title · the IR not rebuilt. ► BUILD steps 1 → 3 on Opus, one commit each; STOP at 4 | **Opus** (the build) · Fable (his eye's fixes) | **yes — `/checkpoint`, `/clear`, `/postclear` on Opus** |
 | **►►►►►►►►** | **SESSION 18 · CHECKPOINT #13 (2026-10-03): THE PERFORMANCE NOTES PAGE DRAFTED WITH HIM** — every section his, every image this piece's, nothing of piece #5 left (§703 … §761). ► `/postclear`, check in; HIS WORD: more dictation on the page, or THE PRINT SCORE (PLAN § 2b-F step 7, laid out with him first) · the cover | **Fable** (the talk) · Opus (the print build) | **yes — `/clear`, `/postclear`** |
 | **►►►►►►►** | **THE PAGE'S IMAGES (§704, LG-269):** one scale — each a crop of the zoomed presentation score (Z 2), shown at crop width / 1920 of the column (`styles.css` `img.zoomed`; ONE KNOB `--frame`); `tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B --out …` (a span over 5.77 s is refused), then `<img class="zoomed" style="--w: N">` with the `--w` it prints. Five are this piece's; **the trill image, the morph chart and the two let-ring piano images are still piece #5's — his to look at.** ► HIS EYE on the page, then his revisions | **Fable** | — |
 | **►►►►►►** | **THE PERFORMANCE NOTES — BEGUN (§703, 2026-10-01; LG-268):** piece #5's page carried as the starting point — `docs/notation_instructions/index.html`, served at `http://localhost:5400/docs/notation_instructions/`; the title changed, nothing else (the prose is his; every example and image still piece #5's). The tracker's list given him grouped, the six section-2 gaps named, HELD — not merged, not added to the tracker. ► HIS READ of the page, then he updates it to this piece section by section: the AI inserts his dictation verbatim, swaps the images (`tools/capture_lane.js`), flags moved facts in chat | **Fable** | — |
@@ -511,7 +542,11 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable):** the print score PLANNED IN FULL (PLAN § `2b-P`), nothing
+**Open at session end — SESSION 18, AFTER CHECKPOINT #14 (2026-10-03, Opus):** PLAN 2b-P steps 1 → 3 BUILT and pushed (§766 … §768), the proof PDFs made
+and sent (§769) · ► STEP 4, HIS EYE — the cover, the density, page 1, the instructions' one page; then the full render (step 5) and the archive (step 6)
+— the block 2b-P STEPS 1 → 3 BUILT at the top of §2's checkpoints.
+
+**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable) — SUPERSEDED by the lines above:** the print score PLANNED IN FULL (PLAN § `2b-P`), nothing
 built · THE SLATE (LG-327) and his piece-#3 note (LG-330) recorded · ► BUILD 2b-P on OPUS after the clear — steps 1 → 3, one commit each; STOP at 4 for his
 eye — the block CHECKPOINT #14 at the top of §2.
 

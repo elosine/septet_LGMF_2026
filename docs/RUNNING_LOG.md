@@ -22906,3 +22906,24 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **The AI's calls, his to reverse:** the break generalised to more than two pages · a section that cannot fit a page by itself takes the page and is reported clipped by the front check (the type is never shrunk) · the stylesheet's three knobs are read by pattern (`:root --frame` · `.zoomed-row gap` · `.entry-row gap`) with today's values as the fallback and a note if a rule is gone · adjacency rules in place of #5's block.
 
 **Next:** step 4 — `build.sh --proof`, measured, sent to him; his eye.
+
+## §769. PLAN 2b-P step 4, the AI's half: THE PROOF PAGES MADE AND MEASURED — his eye owed (2026-10-03, Opus 5.5, session 18)
+
+**Made by the script itself** — `bash print/score/build.sh --proof`, its first whole run: the two gates first (the frame PASS at 100 · 300 · 600 · 870, census identical · the front PASS), then the files, then `check_print_pdf` on the two main ones. All in `print/score/` (gitignored — on this machine; sent to him with SendUserFile):
+
+| file | what | measured |
+|---|---|---|
+| `PROOF-front-matter.pdf` | the cover · the instructions (ONE page) · page 1 of the music | 3 pp · 1189.92 × 840.96 pt, inside A3 · 0 raster · the demo link an annotation · 5 font programs + 4 faces as outlines, 0 not embedded |
+| `PROOF-A3-frame.pdf` | one page per section — p 10 (1:32) · p 30 (4:59) · p 59 (9:56) · p 85 (14:23) | 4 pp · the same sheet · 0 raster · 3 font programs |
+| `PROOF-density-8.5.pdf` · `-10.3` · `-12` | the same moment (5:00) at three densities | 104 · **86** (the film's own, the default) · 74 pages for the piece; the staff 7.55 mm in all three |
+| `PROOF-cover-two-lines.pdf` | the cover with the ensemble line on two rows | title 85 pt (the committed one-row cover: 46.5) |
+
+**`check_print_pdf` corrected on the way:** a cover-only file FAILED with "no embedded font programs" — the cover's face is in the file as a **Type 3** font (outlines, no font program; §767), which the check did not count. It now reports them apart (`5 embedded program(s) + 4 as outlines (Type 3)`) and fails only when a file has neither. Its two lines about "the call" (piece #5's) now say "the sheet".
+
+**PUT TO HIM — the look decisions the plan names as his:**
+1. **the cover** — the ensemble line on one row (title 46.5 pt) or two (85 pt); or other words;
+2. **the density** — 8.5 s (104 pages) · 10.3 s (86, the film's) · 12 s (74);
+3. **page 1** — it opens at −0.49 s, where the English horn's block begins: no 4 s lead-in on paper, and the percussion's seven names stand in the gutter with no staff lines until section 2 (§489's parked item);
+4. **the instructions** — one page as measured, or a break he names.
+
+**Not done, by the plan:** the full render (step 5 — `bash print/score/build.sh`, after his eye on the proofs) · the archive and the tag (step 6).

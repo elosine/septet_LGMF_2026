@@ -43,6 +43,9 @@ const over = boxes.filter(b => Math.max(b.w, b.h) > A3.w + 0.01 || Math.min(b.w,
 
 const pages = (t.match(/\/Type\s*\/Page[^s]/g) || []).length;
 const embedded = (t.match(/\/FontFile2?3?/g) || []).length;
+// [LGMF 2b-P.4] Chrome writes some faces as TYPE 3 — the glyphs as outlines in the file, no font program (the cover's
+// EngraversGothic BT here). They are self-contained too; counted apart so "2 embedded" is not read as "the cover's face is missing".
+const type3 = (t.match(/\/Subtype\s*\/Type3/g) || []).length;
 const fontObjs = (t.match(/\/BaseFont\s*\/([A-Za-z0-9+\-,.]+)/g) || []).map(s => s.split('/').pop());
 const notEmbedded = fontObjs.filter(f => !/^[A-Z]{6}\+/.test(f));   // a subset is prefixed ABCDEF+
 const images = (t.match(/\/Subtype\s*\/Image/g) || []).length;
@@ -50,9 +53,9 @@ const links = [...new Set([...t.matchAll(/\/URI\s*\(([^)]*)\)/g)].map(m => m[1])
 
 const fail = [];
 if (!boxes.length) fail.push('no MediaBox found — is this a PDF?');
-if (over.length) fail.push(over.length + ' page(s) LARGER than DIN A3 — the call refuses the file');
+if (over.length) fail.push(over.length + ' page(s) LARGER than DIN A3 — the sheet this score is drawn for');
 if (uniq.length > 1) fail.push('pages are not all the same size: ' + uniq.join(' | '));
-if (!embedded) fail.push('no embedded font programs — the jury machine would substitute faces');
+if (!embedded && !type3) fail.push('no embedded faces at all — a reader\'s machine would substitute its own');
 if (notEmbedded.length) fail.push('font(s) NOT embedded: ' + [...new Set(notEmbedded)].join(', '));
 if (images) fail.push(images + ' raster image(s) — this score is vector work');
 if (MB > maxMB) fail.push('file is ' + MB.toFixed(1) + ' MB, over the ' + maxMB + ' MB guard');
@@ -62,9 +65,9 @@ if (!pages) fail.push('no pages');
 console.log('  file      ' + path.relative(process.cwd(), abs) + '   ' + MB.toFixed(2) + ' MB');
 console.log('  pages     ' + pages);
 console.log('  sheet     ' + uniq.join(' | ') + ' pt   (DIN A3 = ' + A3.w.toFixed(2) + ' x ' + A3.h.toFixed(2) + ')');
-console.log('  fonts     ' + embedded + ' embedded program(s), ' + fontObjs.length + ' font object(s), ' + notEmbedded.length + ' not embedded');
+console.log('  fonts     ' + embedded + ' embedded program(s)' + (type3 ? ' + ' + type3 + ' as outlines (Type 3)' : '') + ', ' + fontObjs.length + ' font object(s), ' + notEmbedded.length + ' not embedded');
 console.log('  raster    ' + images + ' image(s)');
 console.log('  links     ' + links.length + (links.length ? ':  ' + links.join('  ') : ''));
 fail.forEach(f => console.log('  FAIL      ' + f));
-console.log(fail.length ? 'FAIL — ' + fail.length + ' problem(s)' : 'PASS — the file is inside the call\'s limits and self-contained');
+console.log(fail.length ? 'FAIL — ' + fail.length + ' problem(s)' : 'PASS — the file is inside the sheet and self-contained');
 process.exit(fail.length ? 1 : 0);

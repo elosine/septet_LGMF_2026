@@ -2591,7 +2591,9 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the faces: the inlined SVGs' text resolves against the embedded Crimson Pro; ♭ ♯ ♮ (§699: not in Crimson Pro) fall back in Chrome's print
   >   as on the page — `check_print_pdf` reads which faces embedded; a box for a flat is a fault to fix, not a note
   >
-  > **4. The proof pages — HIS EYE**
+  > **4. The proof pages — HIS EYE** — ► THE PROOFS MADE AND MEASURED 2026-10-03 (Opus, RUNNING_LOG §769; `bash print/score/build.sh --proof`), sent to
+  > him: `PROOF-front-matter.pdf` · `PROOF-A3-frame.pdf` (p 10 · 30 · 59 · 85) · the density trio (104 · 86 · 74 pages) · `PROOF-cover-two-lines.pdf`.
+  > HIS: the cover (one row 46.5 pt · two rows 85 pt) · the density · page 1 (no lead-in on paper) · the instructions on one page
   >
   > Result when done: he has looked at one PDF of proof pages — the cover · the instructions (one page or two) · one music page per section
   > (≈ 100 · 300 · 600 · 870 s) — and the density trio if the dial applies; his notes collected, then fixed together (§527's way), the proof
