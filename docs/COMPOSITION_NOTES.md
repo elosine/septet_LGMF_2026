@@ -4263,4 +4263,6 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 5. **an accordion duet**
 6. **one for Japanese traditional instruments** — written regardless of the Kyoto residency; held until he hears; if he gets it, written in Kyoto
 
+*Correction (2026-10-03, his word at once):* "TENOR is an animated notation conference" — item 2 is a live-electronics piece with an improviser FOR TENOR, the Technologies for Notation and Representation conference; not an instrument. RUNNING_LOG §763.
+
 Items 4 · 5 · 6 are unordered among themselves beyond his sentence order. "ensemble switch overdrive festival" is his speech-to-text as it came — the names are his to correct. RUNNING_LOG §762.

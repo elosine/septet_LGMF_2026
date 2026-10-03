@@ -22801,3 +22801,7 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **What prompted it:** at the `/postclear` check-in after checkpoint #13, instead of a word on the page or the print score, he dictated a list of the pieces to write after this one — *"in my composition notes can just put a slate, a list of compositions on deck to write."* His words are whole in COMPOSITION_NOTES LG-327.
 
 **Done:** LG-327 — the slate as a numbered list: the Ensemble Switch / Overdrive Festival piece · live electronics with an improviser, for tenor · back to the bass clarinet, harp and accordion piece (#3) · a solo piano · an accordion duet · one for Japanese traditional instruments, regardless of the Kyoto residency (held until he hears; if he gets it, written in Kyoto). Nothing in this piece changes; the page and the print score still wait on his word.
+
+## §763. CORRECTION to §762: "TENOR" is the conference (2026-10-03, Fable, session 18; LG-327)
+
+**His word, at once:** *"TENOR is an animated notation conference."* The AI had read "for tenor" as an instrument. Item 2 of the slate is a live-electronics piece with an improviser for TENOR — the Technologies for Notation and Representation conference. The correction is appended under LG-327's reading, marked and dated; nothing else in the slate changes.
