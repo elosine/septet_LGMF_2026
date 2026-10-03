@@ -23079,3 +23079,31 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **(B) The ten containers, in the order they happen** (the AI's proposal, grounded in this piece's IDs): 1 the harvest *(new)* · 2 the repo and its kit — names, docs kit, launch.json, git rules *(0a)* · 3 the engine copied forward, byte-exact, proven whole, then the re-palette *(0b)* · 4 the instruments — libraries → recipes → ports → the rack *(0c · 0e)* · 5 the calibration — balance, remap, fader curves, ranges, lengths, the dynamics law *(0d; reworked as 1b here)* · 6 the notation set-up — the ensemble registry, the rules registry + the new ensemble's needs, batteries, exporters, save → IR *(0g · 0i · 2a · 2c)* · 7 the composing tools made the piece's, as need arises *(phase 1, 1c … 1u)* · 8 the deliverables pipeline — audio · film · print with its two templates · the notes page · archive + tags · the package *(2b · 3 · 4)* · 9 THE COLLATION, the cross-piece reference kit with an index *(new — his point)* · 10 the protocol's upkeep, the last step *(new)*. Put to him: (a) anything missing or wrongly grouped; (b) which to drill first (the AI recommends the order above). **His answer owed.**
 
 **HIS NOTE FOR LATER — a third kind of start, the live-electronics port** (his words, to be taken up when the drill-down reaches it): *"I want to do a sort of different sort of port for the live electronics. I've been doing a live electronics project and developing various things. That's sort of a sandbox or a place to experiment and develop. But then I want to port the basic machinery over to a new repo that's piece specific. So it'll be for my improvisation with live electronics for TENOR. So keep the other repo running and I can still do experiments there, but have a specific sort of set of tools or features for the actual piece I'm working on."* **The AI's reading, marked as such:** the six pieces are all ONE kind of start — copy-forward with the palette rewritten; this is a second kind — a sandbox repo (`live-electronics-engine`) stays alive for experiments, and a piece repo takes the BASIC MACHINERY and grows piece-specific tools. The protocol must hold both: the containers common to every start (1 the harvest · 2 the kit · 9 the collation · 10 the upkeep) and the kind-specific middle (3 … 8 for a copy-forward; for the live-electronics kind, what "the basic machinery" is and how the two repos stay related — a question for him at the drill-down). The planning repo's `CLAUDE.md` still places the TENOR live-electronics piece IN `live-electronics-engine`; corrected at his word.
+
+## §787. The protocol's § 1 written; THE HARVEST'S FIRST RUN — `docs/HARVEST.md`, 56 items, his read owed (2026-10-03, Fable; follows §786)
+
+**His word on §786's containers:** *"Nothing missing, drill into the harvest first."* Container 1 laid out under the method — the goal
+first with the data (the six repos surveyed: #1 … #3 have nothing to harvest from — no NITS, no lessons file; the kit that makes a
+harvest possible is #4 … #6's; only this piece has a NAMED harvest, NITS § HELD; MORPH_NOTES already travels; a harvest is a
+selection, not a carry) — his *"Goal is right, go to the sub-steps"* — 1.1 the sources named once · 1.2 the collect into one file · 1.3
+the triage, his read · 1.4 the old pieces only where the collation sends us · 1.5 into the protocol; two calls his to reverse (the AI
+triages, he reads; no pass of the old pieces) · his question *"a one-time harvest, or … part of the protocol that gets run every new
+piece? Or both?"* — BOTH, kept apart: 1.1 … 1.3 recurring at every start on the piece just finished (its sources filling up DURING a
+piece, the standing practice); one-time = writing the step, the first run on this piece, the backfill — his *"Agreed, write it into
+the plan and run the harvest now."*
+
+**Written:** `docs/plans/NEW_PIECE_PROTOCOL.md` — the provenance (his intention verbatim; the home question parked; the two kinds of
+start), the rules of the file (stable IDs · one container at a time · one-time apart from recurring), THE TOP LINE (the ten
+containers with this piece's IDs; 2 … 10 `top line only`), § 1 THE HARVEST in full (the result, the data, 1.1 … 1.4 recurring, 1.5 …
+1.7 one-time). The plan lives here beside `PORT_FROM_TEMPUS.md` until the protocol has a home.
+
+**The collect (1.2), run on this piece:** the sources read whole — `NITS.md` (its § HELD and every open bullet) · `MORPH_NOTES.md` §4
+(the digest; §3's 164 KB verbatim log read through it, not again) · journal §2's Learned lists and STILL BINDING · its "offered, not
+taken up" and "AI's calls" rows · PLAN's `todo` items (0c · 0f · 1b · 3 · 4 — three of them stale). → **`docs/HARVEST.md`: 56 items,
+numbered H-1 … H-56 for his answer, grouped by verdict and then by container: 35 TAKE NOW (2 the kit 6 · 3 the engine 8 · 4 the
+instruments 1 · 5 the calibration 4 · 6 the notation 8 · 7 the tools 1 · 8 the deliverables 4 · 9 the collation 3) · 12 LATER (the morph
+revision as ONE item with §4 as its spec; the global normalization; the unreached phase-1 tools …) · 9 LEAVE (done here · his files ·
+locked · stale statuses).** The AI's readings in it: the kit should carry the machine lessons and the verification recipe as a DOC
+(H-1); the batteries bound to the source piece are classified at the copy, never carried red a fourth time (H-7); the laws as the
+collation's spine (H-34: voices not pitches · (lane, seat) · provenance on the marker · one dynamics module · one breath generator ·
+one renderer); a tool comes under the dynamics law before its first use (H-28). ► **1.3 HIS READ** — by number; silence = as proposed.

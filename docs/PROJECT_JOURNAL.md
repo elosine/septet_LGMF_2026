@@ -217,7 +217,7 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### CHECKPOINT AFTER THE CLOSE (2026-10-03, Fable — mid-session checkpoint) — HIS PLANNING SYSTEM BUILT; ► NEXT: DRAW UP "A METHODOLOGY FOR STARTING A NEW PIECE" WITH HIM
+### CHECKPOINT AFTER THE CLOSE (2026-10-03, Fable — mid-session checkpoint) — HIS PLANNING SYSTEM BUILT; THE NEW-PIECE PROTOCOL BEGUN (§786 · §787): § 1 THE HARVEST WRITTEN AND RUN — ► HIS READ OF `docs/HARVEST.md`, THEN CONTAINER 2
 
 - **The task since the close (RUNNING_LOG §779 … §784):** not this piece — his cross-piece planning, at his dictation, in
   `C:\Users\jwloy\GitHub\composition-planning-and-notes` (all pushed, `6283393`): `docs/next.md` (the imminent deadlines + two to-dos) ·
@@ -225,14 +225,19 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   "Start in Earnest" on the Tempus rehearsal score and parts) → `calendar.md` · `docs/things/create-a-methodology-for-starting-a-new-piece.md`
   (the checklist: ► 1 Draw Up the Plan · 2 Set Up the Decibel Piece · 3 Set Up the Switch~ Piece). That repo's `CLAUDE.md` holds the
   grammar; the user-level CLAUDE.md and `~/.claude/COMPOSITION_TIMELINE.md` point there; this repo's memory has a note.
-- **► THE NEXT CONCRETE STEP — on FABLE, after `/clear` + `/postclear`: check in, then DRAW UP THE PLAN for "Create a Methodology for
-  Starting a New Piece" with him — the planning method (`docs/PLANNING_METHOD.md`), phase 1 first: what carries over from a finished
-  piece to a new repo (the stack · the palette · the rack · the notation registry · the docs kit · the names and the title), what changes,
-  what is checked. The record of the last port is the data: `docs/plans/PORT_FROM_TEMPUS.md` and piece #5's `RUNNING_LOG.md` §1 … §13.
-  The plan's steps go into the checklist file above (his to-dos, in order); the plan itself where he says — this repo's `docs/plans/`
-  (the stack lives here) is the AI's suggestion.**
-- **`Resume reads:`** `docs/plans/PORT_FROM_TEMPUS.md` (the last port, step by step — the data for phase 1) · the planning repo's
-  `CLAUDE.md` (the grammar of his lists). Nothing else beyond §2.
+- **THE PROTOCOL BEGUN 2026-10-03 (Fable, RUNNING_LOG §786 · §787):** phase 1 with him — his big picture (expandable · flexible ·
+  modest enhancements · THE COLLATION across the six pieces) + a note for later, A THIRD KIND OF START (the live-electronics port: the
+  sandbox repo stays, a piece repo takes the basic machinery) · the AI's four additions agreed · THE TOP LINE agreed, ten containers (1 the
+  harvest · 2 the kit · 3 the engine · 4 the instruments · 5 the calibration · 6 the notation set-up · 7 the tools · 8 the deliverables ·
+  9 the collation · 10 the upkeep) → **`docs/plans/NEW_PIECE_PROTOCOL.md`** (2 … 10 `top line only`) · **§ 1 THE HARVEST laid out and
+  written** (recurring 1.1 … 1.4 at every start; one-time 1.5 … 1.7) · **ITS FIRST RUN: `docs/HARVEST.md`** — 56 items H-1 … H-56, the
+  AI's proposed verdicts (35 take now by container · 12 later · 9 leave).
+- **► THE NEXT CONCRETE STEP — on FABLE: HIS READ of `docs/HARVEST.md` (1.3 the triage — he answers by number, silence = as proposed;
+  a "take now" he keeps becomes a step in its container when that container is laid out). THEN CONTAINER 2, THE REPO AND ITS KIT, the
+  same way: the goal ("Result when done") with the data (this piece's 0a, RUNNING_LOG §6; the kit as it stands in `docs/`), his nod,
+  the sub-steps, written into the plan file. One container per sitting is the pace; the order is the top line's, his to change.**
+- **`Resume reads:`** `docs/plans/NEW_PIECE_PROTOCOL.md` (the plan as it stands — the top line and § 1) · `docs/HARVEST.md` (his read
+  owed). `docs/plans/PORT_FROM_TEMPUS.md` only when container 3 is reached. Nothing else beyond §2.
 - **Pending him:** nothing on this piece. The two set-ups (the Decibel piece for TENOR, November 14th; the Switch~ piece, December 1st)
   are new repos — his names for them.
 - **Deliberately uncommitted:** the same 30 paths as every checkpoint since #13 (5 modified + 25 untracked, all his — listed in the
