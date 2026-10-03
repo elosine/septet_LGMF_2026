@@ -37,7 +37,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 2. **The repo and its kit** — the profile, the new repo, the names (title · session · piece chain · package · Reaper
    guard · ports), the docs kit, the git rules. *(0a)* — **► laid out below**
 9. **The collation** — the cross-piece reference kit with an index: colours · engraving rules · device sheets · the
-   laws · the manuals · the maps · the MODULE MANIFEST (below). Not exhaustive. *(new — his point)* — `top line only`
+   laws · the manuals · the maps · the MODULE MANIFEST (below) · THE INSTRUMENT KNOWLEDGE BASE (4.9, his flag, LG-344). Not exhaustive. *(new — his point)* — `top line only`
 10. **The protocol's upkeep** — the last step of every start: what the run taught goes back into the protocol.
     *(new; the other end of 1)* — `top line only`
 
@@ -46,7 +46,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 3. **The engine copied forward** — composer app · sandbox · notation engine · print · video · tools · probes · the
    Reaper bridge: byte-exact, proven whole, then the re-palette. *(0b)* — **► laid out below**
 4. **The instruments** — the instrumentation → the libraries (acquire · manuals · maps · key switches) → the recipes
-   → loopMIDI ports → the Reaper rack. *(0c · 0e)* — `top line only`
+   → loopMIDI ports → the Reaper rack. *(0c · 0e)* — **► laid out below**
 5. **The calibration** — balance · velocity remap · fader curves · bend and technique ranges · sample lengths; the
    dynamics law applied. *(0d; reworked as 1b here — six bugs that outlived the first pass)* — `top line only`
 7. **The composing tools made the piece's** — which tools, and the per-instrument data each one needs; adapted as
@@ -297,9 +297,94 @@ and saves — not plays, not notates.
 
 ---
 
-## 4 … 10 — `top line only`
+## 4. The instruments — `written 2026-10-03` (agreed with him, RUNNING_LOG §792; his flag LG-344 in 4.9)
+
+**What this is:** the sound side made real — the second container of THE INSTRUMENT layer. Every instrument of the new piece
+gets a library on the machine · a loopMIDI port · a Reaper track with its preset loaded · its plugin state set as text (curve
+copies or slots, the FX baseline) · a recipe in `sandbox/instruments.js` derived FROM THE RACK. It ends with the first sound
+from the app. Not yet balanced — that is 5.
+
+**Result when done:** a note on every track plays from the composer app, on its own port, on the right channel · every
+recipe's technique keys are the notation registry's; `palette_check` and `roster_check` green · what could not be derived
+(keyswitch notes, mute order, CC0 numbers) is marked PROVISIONAL with the step that verifies it.
+
+**The data (2026-10-03):** what the last run did — PLAN § 0c · 0e, RUNNING_LOG §11 · §19 … §42 · §48, 2026-09-17 … 18, two
+days, him at the machine: the instrumentation first (D1), then the libraries named by him (D6), one looked-up fact each from
+the record (piece #2's journal for ARO, piece #3's manuals for Xsample); one library arrived mid-build and became its own lane
+(the bowed vibraphone, D12) · ten `LG` ports made BY HIM in loopMIDI, verified by name, the `b` ports for the SI2 second
+instances (D9; the bassoon's need found only at the preset count) · the rack by the bridge — tracks by idempotent scripts in
+score order (`make_tracks.lua` · `make_perc_tracks.lua`), HE loaded every preset in each plugin's own browser (the one step no
+script can do, §36), the AI read each load back and set the rest as text, one method per plugin family: UVI (SI2) its XML
+state — curve copies cloned, the FX baseline, channels and ports derived into the recipe (`apply_uvi_parts.js`) · Kontakt
+(Xsample) by Lua through the bridge — the four curve slots (D11), the `.nki` names read back · Spitfire (ARO) its XML state —
+the family preset holds the instruments as articulations, the selection read back and banked, the key maps from his hover and
+a meter sweep · the recipes DERIVED, not typed — from the running rack, from his Preset Menu screenshots (Xsample: 39 · 88
+entries), from piece #2's catalog through a generator (catalog · selection · `apply_perc.js`, D7) · dead ends kept: the
+Spitfire patches encrypted (§33) · a base64 decoder that read only the header line (§34) · "cloning yes, a new family no"
+(§35) · a BOM in the sweep (§42) · a flattened backslash in a Lua (§28) · what bit later: the ports cannot be automated (H-15,
+the harvest's one item here; his ask — each percussion instrument its own port) · a track taking `LGPerc` on ALL channels
+(§221) · the percussion menu missing thirteen instruments (§212).
+
+**His word at the goal (LG-344):** *"Number four is good. We'll just keep it as is for now … if there's minor or easy to come
+improvements at this port, let's take those on, but not a major overhaul at this time."* — and THE FLAG, 4.9 below.
+
+**Five calls, his to reverse (agreed 2026-10-03):** the order instrumentation → libraries → ports → tracks → his loads → read
+back → recipes derived → the first sound · the division of labour as the rule — he does the loads, the ports and the
+screenshots, the AI everything that is text · one how-to per plugin family kept in the protocol; a new library of a known
+family costs a load and a read-back, a new FAMILY is flagged in the profile as real work · H-15 looked into once, before the
+next rack; if loopMIDI cannot be driven the ports stay his and the step says so · the catalog · selection · generator
+pattern (D7) is the model for any multi-instrument lane.
+
+**Recurring — the protocol's step 4, at every start with a sound side** *(him at the machine for three things — the ports ·
+the loads · the screenshots; everything that is text is the AI's):*
+
+- **4.0 The instrumentation and the libraries.** The instrumentation fixed first. Each instrument a LIBRARY named by him; one
+  looked-up fact each from the record (the collation, 9), never a search. The plugin FAMILY per library named (UVI · Kontakt
+  · Spitfire · new) — a new family is real work, flagged in the profile. A library still to acquire is flagged; the start runs
+  on the installed ones and takes the rest as they arrive.
+- **4.1 The ports.** From the STANDARD NAME SET (4.8) with the lineage's prefix (2.3), so nothing is renamed later. Made in
+  loopMIDI — by the AI if H-15 finds a way, else by him. Verified by name from the app. A second instance (a `b` port) where a
+  library's preset count needs one — ask the count BEFORE the tracks are made.
+- **4.2 The tracks by the bridge.** Idempotent scripts, score order, one row per instrument or lane: input on its port and
+  channel, armed, monitoring on, 0 dB, FX bypassed except the convolver (his rule, #5 §275). The rack file is his; committed at
+  his word.
+- **4.3 The loads — his.** Every preset in the plugin's own browser. He says "done loading"; the AI reads back, pushes nothing.
+- **4.4 The state as text, one how-to per family.** UVI: the XML state — the curve copies cloned, the FX and gain baseline.
+  Kontakt: Lua through the bridge — the four curve slots, the `.nki` names read back. Spitfire: the XML state — the family
+  preset holds the instruments, the selection read and banked, the key maps from his hover and a meter sweep. Each how-to a
+  page the protocol keeps (the first pages of the knowledge base, 4.9 · 4.10).
+- **4.5 The recipes derived from the rack, never typed.** Channels, ports and presets read from the running rack; the Preset
+  Menus from his screenshots where the plugin cannot be read; a multi-instrument lane by catalog → selection → generator (D7).
+  Technique keys the registry's; the roster keys not in the registry listed. Everything not derivable marked PROVISIONAL with
+  its verifying step. `palette_check` · `roster_check` green.
+- **4.6 The first sound.** A note on every track from the app, in HIS Chrome (the pane has no Web MIDI); the capture read to
+  confirm what the app sent.
+- **4.7 The record.** RUNNING_LOG per step · RACK_SETTINGS.md (every hand-set value and how to revert it) · NITS · each
+  library's lessons onto its page (4.9).
+- **Stop and ask him:** a library not installed · a preset count · a new plugin family · a port name that clashes with a live
+  rack.
+- **Done when:** every track sounds from the app; the recipes green; the rack saved by him.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **4.8 The standard port name set** — one table, role → port name, the prefix rule; and H-15 looked into once (can loopMIDI
+  be driven by a script). The "minor and easy" improvement he allowed. `todo`.
+- **4.9 THE FLAG — THE INSTRUMENT KNOWLEDGE BASE** (his words whole: LG-344). A bigger project, in six parts: a METHODOLOGY PER
+  LIBRARY (how to collect the ranges · how to find the articulation switches · the idiosyncrasies, round robins first) · a
+  PROFILE PER INSTRUMENT he owns, GROWING EVERY PIECE (the range · the CC numbers and what they switch · the volumes; each use
+  adds something) · a ROLLING WORK LIST per instrument (a probe of every round-robin sample for volume and sound, the first
+  entry) · AI AUTOMATION RESEARCH (the information gathered and confirmed by the AI; beyond Lua, perhaps MCP) · THE PORTS
+  standardized and AI-made (4.8 · H-15) · THE DATA CONTAINERS (the JSON, how things are housed). **NOT NOW** — *"I have too much
+  composition to do."* Taken up when he has time; its home the collation (9). `flag`.
+- **4.10 The three how-tos written from the record** (RUNNING_LOG §20 … §42: UVI · Kontakt · Spitfire) as the first pages of
+  4.9 — cheap, Opus, from what is already logged. `todo`.
+- **4.11 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 5 … 10 — `top line only`
 
 Each is laid out with him when reached: the goal ("Result when done"), the data, then the sub-steps, written here as
-agreed. Next in the order: 4 the instruments (the data: PLAN § 0c · 0e and their RUNNING_LOG sections — §11 the libraries,
-§19 … the percussion scaffolding, the rack — and the harvest's items under "→ 4"). The order is the AI's recommendation (each
-container feeds the next); his to change.
+agreed. Next in the order: 5 the calibration (the data: PLAN § 0d the balance probe and § 1b the rack calibrated to an absolute
+standard — RUNNING_LOG §43 … §61 and §75 … §91, the six bugs that outlived the first pass; `docs/DYNAMICS_LAW.md`; the
+harvest's items under "→ 5"). The order is the AI's recommendation (each container feeds the next); his to change.

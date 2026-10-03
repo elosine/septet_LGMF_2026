@@ -23223,3 +23223,42 @@ out. Nothing planned from them.
 
 **State.** § 1 · § 2 · § 3 written; 4 … 10 top line only; `docs/HARVEST.md` triaged. **Next:** container 4, the instruments, the
 same way — the goal with the data (PLAN § 0c · 0e; RUNNING_LOG §11 · §19 …; the harvest's "→ 4"), his nod, the sub-steps into § 4.
+
+## §792. Container 4, THE INSTRUMENTS — the goal, his flag (the instrument knowledge base, not now), the sub-steps at his word; § 4 written; three more composition notes for the electronics pieces (2026-10-03, Fable; follows §791)
+
+**The data read for the goal** (named first, then read): PLAN § 0c · 0e · the journal's D6 · D7 · D9 · D11 · D12 · RUNNING_LOG §11
+whole and the opening lines of §19 · §20 · §21 · §24 · §26 · §29 · §32 · §34 · §36 · §37 · §39 · §48 · `docs/HARVEST.md` § "→ 4"
+(one item, H-15). The arc as read: the libraries named by him (D6) → ten `LG` ports made by him → the tracks by the bridge → his
+loads in each plugin's own browser → the state read back and set as text, one method per family (UVI as XML · Kontakt by Lua ·
+Spitfire as XML) → the recipes derived from the rack and his screenshots → two days, 2026-09-17 … 18.
+
+**The goal, as put to him:** what the container IS · the result (a note on every track from the app; the recipes green;
+PROVISIONAL marked) · the data above with the dead ends and what bit later · five calls his to reverse (the order · the division
+of labour — his the ports, the loads, the screenshots; the AI's everything that is text · one how-to per plugin family · H-15
+looked into once · D7's pattern for a multi-instrument lane).
+
+**His reply — the goal accepted, and A FLAG** (his words whole in LG-344): *"Number four is good. We'll just keep it as is for now …
+if there's minor or easy to come improvements at this port, let's take those on, but not a major overhaul at this time."* The
+flag: a systematic revision of how instruments are brought in — a methodology per library (ranges · articulation switches · the
+idiosyncrasies, round robins) · a profile per instrument he owns, growing every piece · a rolling work list (a round-robin probe
+the first entry) · AI automation research (beyond Lua, perhaps MCP) · standard port names, the ports AI-made if possible · the
+data containers. *"I have too much composition to do."* Placed as § 4's 4.9 `flag` and on 9's top line; a planning-repo thing at
+his word.
+
+**The sub-steps, as put and written** — recurring 4.0 the instrumentation and the libraries · 4.1 the ports from a standard name
+set · 4.2 the tracks by the bridge · 4.3 his loads · 4.4 the state as text, one how-to per family · 4.5 the recipes derived · 4.6
+the first sound · 4.7 the record; stop-and-ask; done when. One-time 4.8 the standard port name set + H-15 (his "minor and
+easy") · 4.9 the flag · 4.10 the three how-tos from the record · 4.11 written. **His word: *"4 good"*.** Into
+`docs/plans/NEW_PIECE_PROTOCOL.md` § 4; the top line's 4 "laid out below"; 9's top line names the knowledge base; "5 … 10 top
+line only", 5 the calibration next.
+
+**Three more composition notes for the electronics pieces, verbatim, on the way** — LG-343 (the impulses categorized: the glyph
+AND the length of the window — short = an entry: tongue ram · slap · Bartók pizz · staccato; long = a flavour: oscillation ·
+gradient; the same type short or long; Anthony Braxton's Language Music a candidate vocabulary, his twelve types listed by the
+AI from memory, flagged to confirm) · LG-344 (the flag above) · LG-345 (the screen side: each performer's collection as a
+board-game inventory — symbols for the samples gathered, an empty or transparent slot = capture, an indicator = replace, a card
+when "found"). With LG-340 … LG-342 the six notes are one device's brief for the electronics score type — a device sheet when
+that piece is laid out. Nothing planned from them.
+
+**State.** § 1 … § 4 written; 5 … 10 top line only. **Next:** container 5, the calibration, the same way — the goal with the data
+(PLAN § 0d · § 1b; RUNNING_LOG §43 … §61 · §75 … §91; `docs/DYNAMICS_LAW.md`; HARVEST "→ 5"), his nod, the sub-steps into § 5.
