@@ -4231,3 +4231,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "And then you can get rid of the notes at the bottom. And can you do a pass, a copy, edit, pass, but really just spelling, grammar, and anything that's just glaring or that would be a glaring difference in language. I don't necessarily want a bunch of suggestions. I just want to make sure there aren't any big mistakes."
 
 *The AI's reading (marked as such):* the page is near its finished form: the working box goes, and only outright mistakes are to be touched. RUNNING_LOG §758.
+
+## LG-324 — 2026-10-02 — keep "mid-lane height"; the meter is called the animated curve follower; refresh the notes
+
+*His words (session 18, Fable):* "Okay, you could keep highlighted in green, but I'll keep at mid lane height. And you can just forget about the animated curve follower. That's what I'm calling it. and then refresh the notes one more time."
+
+*The AI's reading (marked as such):* his two calls on the pass; the page has no open point left that the AI has raised. RUNNING_LOG §759.
