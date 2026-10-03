@@ -9,17 +9,17 @@
 ## §1 Quick-Start
 
 - **The piece:** english horn + bassoon · horn + trumpet · cello + double bass · percussion
-  (D1) — three pairs and a percussionist, for the **Lake George Music Festival 2026 call**.
-  **The call is unread at the composer's word** — deadline, duration cap, score format unknown.
+  (D1) — three pairs and a percussionist: **_Recombination_** (D59), c. 14′40″, written for the Lake George Music Festival's call.
+  **DRAFT 01 IS COMPLETE AND WAS SUBMITTED BY HIM ON 2026-10-03** (§2, the block SESSION 19 OPENS ON THIS).
 - **Lineage:** composition #6. Follows #5 `septet_2026` (the Tempus septet, submission
   complete 2026-09-17), which was ported from #4 `for_seven_tubas`.
 - **The stack:** piece #5's, by copy-forward, palette rewritten (D3) — **ported 2026-09-17 and
   running** (0b · 0g · 0i; RUNNING_LOG §12–§18). Same delivery format as #4 and #5 (D2).
   `node score/server.js` → **:5400**/composer.html · `node sandbox/serve.js` → **:4900**.
-  **It does not sound yet** — placeholder recipes, no rack (0c + 0e, next).
+  **It sounds** — the rack calibrated (PLAN 1b), the dynamics law (`docs/DYNAMICS_LAW.md`); the notation, film and print stack all run on this piece.
 - **Libraries (D6):** SI2 bassoon · horn · trumpet — Xsample cello (#5's recipe, carried whole,
-  the only one ever heard) + double bass — Spitfire ARO percussion — english horn being
-  acquired — a bowed vibraphone still to acquire.
+  the only one ever heard) + double bass — Spitfire ARO percussion — Xsample english horn (D8) —
+  Xsample Mallets Extended for the bowed vibraphone (LG-9). All in the rack.
 - **Phases (#5's shape):** 0 setup → 1 compose → 2 notate (2a engine · 2b presentation
   score) → 3 performance score → 4 submission.
 - **The sketch pad** `docs/COMPOSITION_NOTES.md` opens with **LG-1 … LG-8**, the eight Lake
@@ -217,112 +217,68 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### AFTER CHECKPOINT #15 — 2b-P DONE: THE PRINT SCORE APPROVED, ARCHIVED AND TAGGED (2026-10-03, Fable §771 · §772, Opus §773; LG-332 · LG-333)
+### SESSION 19 OPENS ON THIS — session 18 closed 2026-10-03 (Opus; its first close was 2026-10-01 — the work went on at his word)
 
-- **His word (LG-333):** *"That looks good. Let's keep this as part of the print score system for future scores and go ahead and render. And actually
-  the proofread is good. So this is the keeper score with the final bar line."* — PLAN § `2b-P` steps 1 … 6 ☑, the item `done`.
-- **The deliverable:** `print/score/approved/2026-10-03-draft01/Recombination-score-JYang.pdf` (= `print/score/Recombination-score-JYang.pdf`, `cmp`
-  identical) — **88 pages · A3 landscape · 5 248 893 bytes · sha256 `5fb06ae1…0f0181e0`** · the five gates green · its README and a copy of `cover.json`
-  in git, the PDF on this machine only (back it up) · the tag **`Recombination-Draft01-print_1.0`** (the name the AI's, his to rename). In his Chrome,
-  after a restart of the score server (§771): `http://localhost:5400/print/score/Recombination-score-JYang.pdf`.
-- **What his eye changed on the whole file — one thing (§772):** the ending is THE FINAL BARLINE, LilyPond's "|." — thin 0.19 · gap 0.30 · thick 0.60 ss,
-  ink, opaque, top staff's top line to bottom staff's bottom line (`rules.json` `objects.finalBarLine`; `export_print` passes `finalBar`; the screen and
-  the film keep their edge bar). **STANDING for future scores (§773):** `check_print_pages` counts only that bar (two opaque rects) — a print without it fails.
-- **DRAFT 01's DELIVERABLES ARE ALL MADE AND AGREE:** the page (`piece-lgmf`, 1075 events — identical at the film tag and the print tag) · the audio ·
-  the film (`notation/video/approved/2026-10-01-draft01/`) · the performance notes page (`docs/notation_instructions/`) · the print score.
-- **SUBMITTED BY HIM — 2026-10-03, 15:22 EDT (RUNNING_LOG §775 … §777):** the festival's 2027 "Call for Scores" form — the keeper print score (the PDF,
-  ≤ 10 MB) · the film on YouTube as the recording (to stay viewable until June 30, 2027) · duration 14:40 · program notes left empty. The form's six
-  screenshots and the dated confirmation (`2026-10-03_15-22_SUBMITTED_confirmation.png`) are in `docs/call/` — **gitignored, never commit it: the repo
-  is public and they show his personal details** — and in his Google Drive, folder `LGMF2026` (the upload route: memory `drive-upload-route`). The page
-  says results by email "by the end of March 2026" (the festival's wording). **Q2 (the call) is closed by the submission.**
-- **► THE NEXT STEP: NONE QUEUED.** *(The call and the package — DONE by him, the bullet above.)* What was left of Draft 01's completion was HIS — the call and the submission package (LG-255: no AI work, not to be
-  raised). A cold model checks in and asks; if the score moves again, checkpoint #12's "IF THE SCORE MOVES AGAIN", then `bash print/score/build.sh
-  --rebuild-ir` and a new archive folder and tag. A D for the session's end: the title confirmed (LG-328) · the print's final barline (LG-333).
-- **`Resume reads:`** nothing beyond §2.
-- **Deliberately uncommitted:** checkpoint #15's list below, unchanged — 5 modified + 25 untracked, all his.
+- **The piece:** _Recombination_ (the title, D59) — **DRAFT 01 IS COMPLETE AND SUBMITTED.** He sent it to the Lake George Music Festival's
+  2027 "Call for Scores" on **2026-10-03, 15:22 EDT** (RUNNING_LOG §777). Nothing is being built; everything is committed and pushed.
+- **Draft 01's deliverables — all made, all of ONE page** (`notation/ir/piece-lgmf.ir.json`, 1075 events, identical at both tags):
+  - the save `scores/piece-Recombination-Draft01-done.json` (his — modified, uncommitted; see below)
+  - the audio `notation/audio/piece-Recombination-Draft01-done.wav` — 886.66 s · −5.0 dBTP · −22.8 LUFS
+  - the film `notation/video/approved/2026-10-01-draft01/V-CUT.mp4` — the tag `Recombination-Draft01-film_1.0`; on YouTube `https://youtu.be/xPOLvA6BEsk`
+  - the performance notes page `docs/notation_instructions/index.html`
+  - the print score `print/score/approved/2026-10-03-draft01/Recombination-score-JYang.pdf` — 88 pages, the tag `Recombination-Draft01-print_1.0`
+  - **the film and the PDF are GITIGNORED (D62) — on this machine only; their READMEs are in git. Back them up.**
+  - the submission's record: `docs/call/` (seven screenshots — **gitignored, never commit: a public repo, his personal details**) and his
+    Google Drive folder `LGMF2026`
+- **Session 18, its second half — 2026-10-01 … 10-03** (Fable for the talk and the looks, Opus for the builds and the wraps; RUNNING_LOG §669 …
+  §777; LG-236 … LG-333; D54 … D62):
+  - his proof of the notation → **THE LOCK** (§687) → **THE FILM** planned in seven steps, built, four faults from his watch-through fixed,
+    approved and archived (§689 … §700)
+  - **THE PERFORMANCE NOTES PAGE** drafted with him by dictation, every image this piece's (§703 … §761)
+  - **THE PRINT SCORE** planned (PLAN § `2b-P`), built, proofed, his one note — the final barline — fixed, approved and archived (§764 … §773)
+  - **SUBMITTED** by him; the form's record kept (§775 … §777)
+- **► THE NEXT STEP: NONE QUEUED — run `/session-start` and ASK.** What he works on next is his: THE SLATE (COMPOSITION_NOTES LG-327 — six
+  compositions on deck) · this piece's phase 3, the performance score (transposed parts) — not planned · the call's results by email (the form
+  says "the end of March 2026" — the festival's wording on its 2027 portal).
+- **Where a cold model looks, if this piece is touched again:**
+  - *the notation* → the block THE FIRST CLOSE OF SESSION 18 below (HOW A CHANGE IS MADE), then checkpoint #12's IF THE SCORE MOVES AGAIN —
+    the gates, the audio, the film under a NEW name (`-r5`), `bash print/score/build.sh --rebuild-ir`, new archive folders and tags. The
+    notation is LOCKED (D56): a change reopens all of it.
+  - *the notes page* → checkpoint #13's block (the dictation method, the images' rule).
+  - *the print* → the cover's words `print/cover/cover.json` + `powershell -ExecutionPolicy Bypass -File print/cover/make_cover.ps1` · the
+    sheets `print/formats.json` · the instructions' text and images = the page itself · the print dress `styleBlock()` in
+    `tools/export_print.js` · the break `--insBreak "<heading>"` · the density `--sec N` · a page edge `notation/lib/splice.js`
+    `edgeIntervals` / `page_rules.json` `edge` · the final barline `rules.json` `objects.finalBarLine` — then `bash print/score/build.sh`
+    (≈ 7 min; the five gates are in it, not optional). To LOOK at a page: `node tools/print_look.js <prefix> -- --ir piece-lgmf --at 880`.
+    A link for him: `http://localhost:5400/print/score/<file>.pdf` — **live only after HE restarts the score server** (§771, never exercised).
+  - *a file into his Drive* → the memory note `drive-upload-route` (his Chrome; the connector cannot carry a binary).
+- **Pending him:** the two tags' names are the AI's, his to rename · a back-up of the film and the PDF · the server restart for the `/print/`
+  link · his `his` rows in the table (the tools' tests of sessions 13 … 17, never reported — moot for Draft 01, live if he composes with
+  those tools again) · `docs/NITS.md` § HELD FOR THE NEXT PIECE OR THE POSTMORTEM (**not to be raised in this piece**) · #5's Tempus
+  checkbox (§7 — deadline 2026-10-15).
+- **Learned, 10-01 … 10-03:**
+  - **A new MEDIUM re-means the furniture.** The screen's grey page-edge bar printed as "the terminal barline" and the pages gate counted it
+    green (§772): a gate that counts PRESENCE does not judge the LOOK. At a medium's first run, look at each furniture element for what it
+    MEANS there.
+  - **The gates draw with Chrome; the film draws with resvg** — a fault can pass every gate and be in the film (§695 the long curve paths ·
+    §699 a box for ♭). Sample frames of the film itself.
+  - **A delay is not silence:** `-itsoffset` leaves the audio stream starting at 4 s and some players ignore it; `adelay` writes the silence (§696).
+  - **Every render keeps its own file** (`-r4`, `-r5`) — an overwritten render cannot be compared (§699).
+  - **An image he pastes WHILE the AI is working has no file behind it**; pasted when the AI is idle it lands in the session's temp folder
+    and can be copied (§775 · §776).
+  - **A rendered file's hash goes in the README** — it is how a rebuild, or the file attached to a form, is told from the keeper.
+- **Deliberately uncommitted — all his, never stage them** (`git status --short` at this close — 5 modified + 25 untracked, the same 30
+  paths as every checkpoint since #13): `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries and his
+  actuals' index, autosaved by his tab) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his save, the
+  notation's source — with the AI's edits of §669 · §697 at his word; committed only at his word) · untracked: his actuals `ACT-BLOOM-07` ·
+  `-08` · `ACT-TAKES-01` · `-02` · `-03` · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` ·
+  `bank/rhythm_takes.json` · his fifteen named saves in `scores/` · `notation/video/renders/` (two render logs, scratch).
+- **Unsaved working copies** (`node tools/unsaved_check.js`): the four old ones since session 11 (`cresTest` · `lgmf-all` · `lgmf-bloom` ·
+  `longToneTest`), none the piece.
+- **Where the earlier record lives:** checkpoints #14 · #15, the block AFTER CHECKPOINT #15 and the table's ☑ rows of this session are whole
+  in git: `git show d43c1d0:docs/PROJECT_JOURNAL.md`.
 
-### SESSION 18 · CHECKPOINT #15 (2026-10-03, Opus) — *(its NEXT STEP is DONE — the block above)* — THE PRINT SCORE BUILT AND RENDERED WHOLE — ► HIS EYE ON THE FULL PDF (mid-session checkpoint; PLAN § `2b-P` steps 1 → 4 ☑, step 5 rendered; RUNNING_LOG §766 … §770; LG-331)
-
-- **The task:** the print score of Draft 01 — PLAN § `2b-P`, six steps. Since checkpoint #14, in one sitting on Opus at his word (*"go, build as
-  much as possible independently"*): steps 1 → 3 built, one commit each (`2067caa` · `53193ab` · `cc5d31c`) → the proofs (`901998e`) → his four
-  calls, *"Ab, Bb, Ca, Da"* (LG-331) → the whole file rendered (`6d984c0`). **State: nothing being built; the file waits for his eye.**
-- **The deliverable:** `print/score/Recombination-score-JYang.pdf` — **88 pages = the cover + 1 page of instructions + 86 of music · A3 landscape ·
-  5.01 MB · sha256 `3b14c6b2…672371e0`** · the five gates green (frame · front · pdf · pages · edges) · sent to him with SendUserFile. Gitignored:
-  it lives on this machine only (as do the `PROOF-*.pdf` beside it). It is OF the locked, filmed page (`Recombination-Draft01-film_1.0`) — the IR
-  was not rebuilt.
-- **What his calls fixed (§770):** the cover's ensemble line on TWO rows (`print/cover/cover.json`; title 85 pt) · the density 10.3 s per page,
-  the film's own (the default — 86 pages) · page 1 kept as it prints (opens at −0.49 s, no 4 s lead-in on paper; the percussion's seven names with
-  no staff lines until section 2 — §489 closed for the print) · the instructions on ONE page (measured; it fits: col 1 936 · col 2 795 of 980).
-- **AFTER THE CHECK-IN (2026-10-03, Fable; RUNNING_LOG §771 · §772; LG-332):** §771 the score server serves `print/` read-only + a `.pdf` MIME —
-  `http://localhost:5400/print/score/Recombination-score-JYang.pdf` in his Chrome, **live at his restart of `node score/server.js`** · §772 HIS FIRST
-  NOTE ON THE PDF, FIXED: THE FINAL BARLINE — the print had the screen's page-edge bar (1.5 px at 0.55, lane top to lane bottom: grey, the staff
-  lines through it); now LilyPond's "|." from his 2.24.4 (thin 0.19 · gap 0.30 · thick 0.60 ss = hair 1.9 · kern 3.0 · thick 6.0 × line-thickness
-  0.1 ss), ink, opaque, from the top staff's top line to the bottom staff's bottom line, appended last — the rules row `objects.finalBarLine`
-  (`basis: lilypond`), `container` `systemEndBar.final`, `static_page.js` on `o.finalBar` (export_print passes it; the screen and the film keep
-  their bar byte for byte), `check_print_pages`' probe counts `g.final-barline`; `check_rules` 34; the last page looked at (`print_look --at 880`),
-  sent to him. **THE WHOLE FILE IS NOT RE-RENDERED** — his further notes first, then ONE `bash print/score/build.sh`. His answer on the ending:
-  the barline alone, no colophon (read from "let's do a final bar line").
-- **► THE NEXT STEP — after `/clear`, on OPUS, `/postclear`: check in and WAIT for his eye on the whole PDF (PLAN 2b-P step 5).** Then, on his word:
-  - **his notes** → collected, fixed in ONE pass (§527's way) → `bash print/score/build.sh` (≈ 7 min; every gate is in it; NO `--rebuild-ir`) →
-    the new file sent to him → again until *"print good"*;
-  - **"print good" → step 6:** `print/score/approved/<date>/` — the PDF copied in + a README (the command · the PDF's sha256, pages, MB · the IR's
-    hash and the save's commit · the five gates' numbers · `cover.json`'s words; the pattern is this piece's own
-    `notation/video/approved/2026-10-01-draft01/README.md`; the PDF is gitignored there too — "back it up") · the tag
-    `Recombination-Draft01-print_1.0` on the commit, pushed · CLAUDE.md's Apps (the print line is in — add: the gates "not optional", the two
-    templates' one-line use for the next piece) · PLAN 2b-P steps 5 · 6 ☑ and 2b-F step 7's print and cover lines ☑ · journal §2 and PLANNER.
-- **How a fix is made** (everything a cold model needs):
-  - the cover's words → `print/cover/cover.json` (a title or subtitle is one string or a LIST of lines), then
-    `powershell -ExecutionPolicy Bypass -File print/cover/make_cover.ps1`; the sheets → `print/formats.json` (the exporter reads the same file);
-  - the instructions' TEXT, images and their widths → the page itself, `docs/notation_instructions/` (the print reads its `--w` / `--frame` and
-    rows; checkpoint #13's block below is the method for a change there); the print DRESS (type, columns, break rules) → `styleBlock()` in
-    `tools/export_print.js`; the break → `--insBreak "<heading>"` through `build.sh`, else it is measured;
-  - the density → `--sec N` through `build.sh` (every gate takes it); a page-edge matter → `notation/lib/splice.js` `edgeIntervals` /
-    `page_rules.json` `edge`, then `node tools/check_print_edges.js --ir piece-lgmf`;
-  - **a change to the NOTATION is not expected** — the print is of the filmed page. If his eye asks for one it is the film's question first:
-    the shield, the lock, and "IF THE SCORE MOVES AGAIN" in checkpoint #12's block.
-  - **to LOOK at a print page** (no `pdftoppm` here — the Read tool cannot show a PDF): `node tools/print_look.js <scratchpad prefix> [--scale 1.25]
-    -- --ir piece-lgmf --at 0,300` (or `--cover on --instructions on --pages 1`) → one PNG per page; Read the PNG.
-- **What this session added to the tools** (each in its §): `export_print --plan screen` (check-only: the print frame on the screen's pages —
-  what makes `check_print_frame`'s census mean something since 2c) · the four print checks take their cast from `ensemble.json` and pass extra
-  args through · `render.js` `spanSsOf` reads a tick's own width · `splice.js` a never-sever span runs to its DRAWN ends (a slur reaches its last
-  head) · `check_print_front`'s face test (drawn width against the generator's `data-w`) · `check_print_pdf` counts Type 3 faces apart ·
-  `tools/print_look.js`. **The film's pages were proven byte-identical across the two lib changes (§766); `check_screen_edges` PASS, `check_rules` 34.**
-- **`Resume reads:`** PLAN § `2b-P` steps 5 · 6 (≈ 25 lines). Nothing else beyond §2. *(For a fix: the file the list above names. For step 6:
-  the film archive's README, as the pattern.)*
-- **Pending him:** his eye on the whole PDF · then "print good" or notes · the tag's name `Recombination-Draft01-print_1.0` is the AI's (his to
-  rename) · the call and the submission package are HIS — no AI work on them, not to be raised (LG-255).
-- **Deliberately uncommitted** (`git status --short` at this checkpoint — all his, never stage them; the same 30 paths as checkpoint #14):
-  - 5 modified — `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` (his libraries and his actuals' index, autosaved by
-    his tab) · `reaper/LGMF_rack.rpp` (his rack) · `scores/piece-Recombination-Draft01-done.json` (his save, the notation's source — with the AI's
-    edits of §669 · §697 at his word; committed only at his word);
-  - 25 untracked — `bank/actuals/ACT-BLOOM-07` · `-08` · `ACT-TAKES-01` · `-02` · `-03` (his actuals) · `bank/passages/lgmf-sec2.json` ·
-    `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` (his libraries) · his fifteen named saves in `scores/` ·
-    `notation/video/renders/` (the films are gitignored; two render logs, scratch).
-  - not in `git status` at all, by `.gitignore`: `print/score/*.pdf` — the score and the five proofs.
-
-### SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable) — THE PRINT SCORE PLANNED IN FULL, NOT BUILT — PLAN § `2b-P` (mid-session checkpoint; RUNNING_LOG §762 … §765; LG-327 … LG-330)
-
-- **At the check-in after checkpoint #13** he gave THE SLATE (LG-327 — six compositions on deck; "TENOR" the animated-notation conference,
-  §763), then asked for the print score's plan — *"very similar to the process for the last piece"*. Phase 1 in the chat (§764): **A3 landscape
-  KEPT** (the call names no sheet, "professional standards"; Tabloid 11 × 17 in is the US near-equivalent) · **_Recombination_ IS THE TITLE**
-  (D32's "working" ends; CLAUDE.md's header changed; a D at the session's end) · **the cover and the instructions as TEMPLATES** for the pieces
-  after this one (today's cover script and the exporter's `FIGW` · `--insBreak` are piece #5's by name) · piece #4 is _Bloom - Convergence -
-  Balance_ (LG-329; "Litany" is the house-style reference score, not a title). The top line his; the six steps written whole at his word.
-- **► THE NEXT STEP: BUILD 2b-P on OPUS after a `/checkpoint` and a `/clear`** — steps 1 → 3 (the frame's first run on this piece · the cover
-  template · the instructions template), one commit each, THE SHIELD not needed (no layout change) but `check_rules` · `check_print_edges` are;
-  STOP at step 4 for his eye on the proof pages; step 5 the full render, his eye; step 6 the archive and the tag. **The IR is NOT rebuilt** —
-  the print is of the filmed page (`Recombination-Draft01-film_1.0`).
-- **`Resume reads:`** PLAN § `2b-P` (whole) · `print/score/build.sh` · at the build only, piece #5's precedent `../septet_2026/docs/RUNNING_LOG.md`
-  §606 … §618 (what its checks found and how they were corrected — three of them were wrong the first time). Nothing else beyond §2.
-- **His, outside the plan:** the cover's ensemble line (the page's words) · the density · the instructions' break · the call and the package.
-- **Also this day:** LG-330 — his composition note for PIECE #3 (bass clarinet, harp and accordion; slate item 3), recorded HERE verbatim because that
-  repo is read-only in this session; carry it into its own COMPOSITION_NOTES when he returns to it.
-- **Deliberately uncommitted** (`git status --short` at this checkpoint — all his, never stage them): checkpoint #13's list, unchanged — 5 modified
-  (`bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` · `reaper/LGMF_rack.rpp` · `scores/piece-Recombination-Draft01-done.json`)
-  + 25 untracked (his five actuals · `bank/passages/lgmf-sec2.json` · `bank/patterns.json` · `bank/rhythm_sequences.json` · `bank/rhythm_takes.json` · his
-  fifteen named saves in `scores/` · `notation/video/renders/`).
-
-### SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable) — THE PERFORMANCE NOTES: THE PAGE DRAFTED WITH HIM (mid-session checkpoint)
+### SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable) — *(REFERENCE: its next step is done — kept for HOW A CHANGE TO THE PAGE IS MADE)* — THE PERFORMANCE NOTES: THE PAGE DRAFTED WITH HIM
 
 - **The task:** the performance instructions of Draft 01 — PLAN § 2b-F step 7's first part. Begun 2026-10-01 from a copy of piece #5's
   page (§703) and worked with him over two days, most of it from his PHONE by dictation (RUNNING_LOG §703 … §761; LG-268 … LG-326).
@@ -370,7 +326,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   named saves in `scores/` · `notation/video/renders/` (the films gitignored; two render logs, scratch).
 - **Checkpoint #12's block (the film, the tags, the render loop IF THE SCORE MOVES AGAIN) stands below, unchanged.**
 
-### SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable) — DRAFT 01: THE NOTATION LOCKED · THE FILM APPROVED AND ARCHIVED · ► THE PERFORMANCE NOTES (mid-session checkpoint)
+### SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable) — *(REFERENCE: its next step is done — kept for the film's record and IF THE SCORE MOVES AGAIN)* — DRAFT 01: THE NOTATION LOCKED · THE FILM APPROVED AND ARCHIVED
 
 - **The task:** Draft 01's presentation score. Since checkpoint #11, in one sitting (RUNNING_LOG §672 … §701; LG-237 … LG-267):
   his proof of the notation (§672 … §686) → **THE NOTATION LOCKED** and tagged (§687 · §688) → **THE FILM** planned in seven steps
@@ -422,7 +378,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   the untracked files — scratch, safe to delete).
 - **Checkpoint #11's block and this session's thirty bullets** are whole in git: `git show e5a3604:docs/PROJECT_JOURNAL.md`.
 
-### SESSION 19 OPENS ON THIS — *(its NEXT STEP is SUPERSEDED by checkpoint #12 above: the notation is LOCKED, his eye on section 2 is done; kept for HOW A CHANGE IS MADE)* — session 18 closed 2026-10-01, Fable
+### THE FIRST CLOSE OF SESSION 18 (2026-10-01, Fable) — *(REFERENCE: its next step is superseded by the lock; kept for HOW A CHANGE IS MADE to the notation)*
 
 - **The piece:** _Recombination_ (D32). `scores/piece-Recombination-Draft01-done.json` is the ONE source of notation (D43). **His save moved
   in session 18** (the EH's 343.12 lengthened · 389.8 D6 → D5; the DB's A5 at 329.26 → A4 · C♯5 at 309.96 → C♯4) — the page carries them,
@@ -536,33 +492,21 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   main file and its discipline (2j) · the morph's notation (2k) · the volume curve protocol (2l) · the fold (2l.7): `piece-lgmf`
   carries every accepted device. D39 … D46. RUNNING_LOG §405 … §530.
 
-- **S18 · 2026-09-29 … 10-01 (Fable; Opus wrapped four checkpoints)** — **SECTION 2 NOTATED BY HAND, PART BY PART.** The long tone (2m) ·
-  the temporal-notation research and T8 values written · the EH's figures (the beat frame, the uneven group, the grace family; S1 … S33) ·
-  the one-off, then the bassoon, horn, trumpet, cello, double bass · the chords' dynamics one name each · the percussion staff's rule set
-  and its figures to 406 · the runner, the lock, the R route. D47 … D53. RUNNING_LOG §531 … §668.
+- **S18 · 2026-09-29 … 10-03 (Fable; Opus built the print and wrapped)** — **SECTION 2 NOTATED BY HAND, THEN DRAFT 01 FINISHED AND SUBMITTED.**
+  The long tone (2m) · the temporal-notation research, T8 values written · the EH's figures (S1 … S33) · the one-off and every short note
+  of the six pitched parts · the percussion staff's rule set → the lock · the film · the performance notes page · the print score with its
+  final barline → submitted to the LGMF 2027 call, 2026-10-03. D47 … D62. RUNNING_LOG §531 … §777.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. The ✓ rows of sessions 13 … 17 were cut at
-the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16) · `git show 26c8c10:docs/PROJECT_JOURNAL.md` (17).)*
+the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16) · `git show 26c8c10:docs/PROJECT_JOURNAL.md` (17) · session 18's at `git show d43c1d0:docs/PROJECT_JOURNAL.md`.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| ☑ | **2b-P THE PRINT SCORE — DONE 2026-10-03 (§771 … §773; LG-332 · LG-333):** his one note on the whole PDF, the FINAL BARLINE (LilyPond's "\|.", `objects.finalBarLine`, held by `check_print_pages` for future scores) → *"the proofread is good … this is the keeper score"* → the final render, 88 pages, the five gates green → archived `print/score/approved/2026-10-03-draft01/`, tagged `Recombination-Draft01-print_1.0`. **NOTHING QUEUED — Draft 01's deliverables are all made; the call and the package are HIS, not to be raised** | — | — |
-| ☑ | *(done — the row above)* **SESSION 18 · CHECKPOINT #15 (2026-10-03) — 2b-P STEPS 1 → 4 DONE, THE WHOLE PDF RENDERED (Opus; §766 … §770) — ► `/postclear`, check in, WAIT: STEP 5, HIS EYE on `print/score/Recombination-score-JYang.pdf`** (88 pages · the five gates green; his calls *"Ab, Bb, Ca, Da"*: the cover on two rows · 10.3 s · page 1 kept · the instructions one page). His notes collected → ONE pass of fixes → `bash print/score/build.sh` again → "print good" → step 6 the archive, its README and the tag `Recombination-Draft01-print_1.0` | **Opus** (fixes, the render, the archive) · Fable (a look question) | **yes — `/checkpoint` done, `/clear`, `/postclear` on Opus** |
-| ☑ | *(superseded by the row above — the build it names is done)* **SESSION 18 · CHECKPOINT #14 (2026-10-03) — 2b-P THE PRINT SCORE PLANNED IN FULL (§764 · §765; LG-328 · LG-329), NOT BUILT:** 1 the frame and the paper (the exporter's first run here) · 2 the cover TEMPLATE · 3 the instructions TEMPLATE · 4 the proof pages, his eye · 5 the full render, his eye · 6 archive + tag. A3 kept · _Recombination_ the title · the IR not rebuilt. ► BUILD steps 1 → 3 on Opus, one commit each; STOP at 4 | **Opus** (the build) · Fable (his eye's fixes) | **yes — `/checkpoint`, `/clear`, `/postclear` on Opus** |
-| **►►►►►►►►** | **SESSION 18 · CHECKPOINT #13 (2026-10-03): THE PERFORMANCE NOTES PAGE DRAFTED WITH HIM** — every section his, every image this piece's, nothing of piece #5 left (§703 … §761). ► `/postclear`, check in; HIS WORD: more dictation on the page, or THE PRINT SCORE (PLAN § 2b-F step 7, laid out with him first) · the cover | **Fable** (the talk) · Opus (the print build) | **yes — `/clear`, `/postclear`** |
-| **►►►►►►►** | **THE PAGE'S IMAGES (§704, LG-269):** one scale — each a crop of the zoomed presentation score (Z 2), shown at crop width / 1920 of the column (`styles.css` `img.zoomed`; ONE KNOB `--frame`); `tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B --out …` (a span over 5.77 s is refused), then `<img class="zoomed" style="--w: N">` with the `--w` it prints. Five are this piece's; **the trill image, the morph chart and the two let-ring piano images are still piece #5's — his to look at.** ► HIS EYE on the page, then his revisions | **Fable** | — |
-| **►►►►►►** | **THE PERFORMANCE NOTES — BEGUN (§703, 2026-10-01; LG-268):** piece #5's page carried as the starting point — `docs/notation_instructions/index.html`, served at `http://localhost:5400/docs/notation_instructions/`; the title changed, nothing else (the prose is his; every example and image still piece #5's). The tracker's list given him grouped, the six section-2 gaps named, HELD — not merged, not added to the tracker. ► HIS READ of the page, then he updates it to this piece section by section: the AI inserts his dictation verbatim, swaps the images (`tools/capture_lane.js`), flags moved facts in chat | **Fable** | — |
-| **►►►►►** | **THE PERFORMANCE NOTES — HIS NEXT** (checkpoint #12, 2026-10-01; LG-266): after the clear, `/postclear`, check in; then the tracker `docs/PERFORMANCE_NOTES.md` played back as the notes' contents, what it lacks against the locked page named, and HIS way of working asked. The notes are his to write (PLAN § 2b) | **Fable** | **yes — `/checkpoint` done, `/clear`, `/postclear`** |
-| ☑ | *(DONE 2026-10-03, §773)* **THE PRINT SCORE (A3)** — `export_print.js` · `print/score/build.sh`'s gates, never run on this piece's pages; after the notes (they print with it), laid out with him (PLAN § 2b-F step 7) | Fable to lay out · Opus to build | yes |
-| ☑ | *(DONE 2026-10-03, §767 · §770 — on the approved print file)* **THE COVER** — PLAN § 2b-F step 7; `print/cover/` holds piece #5's two scripts | Fable · Opus | — |
-| ☑ | **THE FILM OF DRAFT 01** (PLAN § 2b-F steps 1 … 6, §687 … §700): approved, archived `notation/video/approved/2026-10-01-draft01/`, tagged `Recombination-Draft01-film_1.0` | — | — |
-| ☑ | **THE NOTATION OF DRAFT 01 LOCKED** (§687, his word 2026-10-01) — **the rows below about his eye on section 2, the percussion's rest and the lock's blocks are CLOSED by it unless he reopens the notation** | — | — |
+| **►** | **SESSION 19 — NOTHING QUEUED: `/session-start`, then ASK.** _Recombination_ Draft 01 is complete and SUBMITTED (2026-10-03, §777): the page · the audio · the film · the notes page · the print score. His next is his — THE SLATE (LG-327) · this piece's performance score (phase 3, not planned) · the call's results by email | Fable (a talk, a plan) · Opus (a build) | — |
+| ref | **IF THIS PIECE IS TOUCHED AGAIN** — the notation is LOCKED (D56): a change is the whole loop (the gates · the audio · the film `-r5` · `bash print/score/build.sh --rebuild-ir` · new archives and tags); the notes page by dictation (checkpoint #13's block); a print-only change by the list in the block SESSION 19 OPENS ON THIS. **The rows below about his eye on the notation, the percussion's rest and the lock's blocks are CLOSED by the lock unless he reopens it; the `his` rows of the tools stand as they were** | — | — |
 | **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
 | **►►►** | **THE PERCUSSION, the rest** (PLAN 2o) — the lone strikes not yet named (they still draw as the fold left them; one `--plainNotes 4:…` window each makes a bare head) · its dynamics after 375 · the ball's higher arc (§654, a · b · c) · a let-ring mark (the brake drum's rings) · `sub.` beside a dynamic (§658) · the beam-vs-standard-stem question at 378.5 · 405.3 (§665) | Fable | — |
-| ☑ | **A NEW AUDIO RENDER OF DRAFT 01 — MADE 2026-10-01 (§671):** +6 dB (the cap; +9.9 to −1) → −4.9 dBTP · −22.8 LUFS; ► his ear on the ♪ render. *(As it stood:)* his ask (2026-10-01, LG-236), AFTER his proof, a `/checkpoint` and a clear: `docs/RENDER.md` §4 (his ▶ playback captured from HIS tab, rendered through a copy of his rack, `render_reaper.js --up --maxUp 6` — the boost at most +6 dB, his word §670), then the ♪ link on `piece-lgmf`. The save now carries the chords' unison (§669), the EH's and the DB's changed pitches, the EH's lengthened 343.12 — **he RELOADS the composer tab first** | Opus | yes — after the checkpoint |
-| ☑ | **THE LONG-TONE CHORDS' ONSETS IN UNISON** (§638 held → §669 done, 2026-10-01): all 36 chords on their earliest member, in his save (82 notes, ≤ 65 ms); the page re-extracted, the gates green | — | — |
 | **►►►** | **THE LOCK'S BLOCKS** — `tools/eh_figure_check.js` asserts the EH's figures 1 … 4, the 317 frame and the 324.6 figure only: NOTHING of the EH from 337, the bassoon, the horn, the trumpet, the strings, the chords' names or the percussion is locked yet (the §589 · §590 block is the pattern) — after his eye, so what is locked is what he approved | Opus | yes |
-| ☑ | **THE SERVER RESTARTED by him** (2026-10-01) — §632's R route is live; never exercised by the AI: his first R after a composer Save is its test (a failed refresh now puts the IR back) | his | — |
 | **►►** | **SECTION 2 — THE NOTATION PLANNINGS, as they stand** (the journal block above): N-1 slurs BUILT (+ the steep slur on the lined staff, §663) · N-2 stems DECIDED for section 2 (the generalization list open) · N-3 the uneven group BUILT · N-4 the beat frame BUILT and in use on four parts · N-5 the micro counterpoint HELD · N-6 the second layer done figure by figure | Fable | — |
 | **►►►** | **TEMPORAL NOTATION — THE SURVEY v0, HIS TO REFINE** (`docs/research/sound_to_notation_survey.md`; the framework `docs/research/temporal_notation.md` §1 … §11; RUNNING_LOG §536 … §546; LG-120 … LG-126): the conceptual talk continues on the instrument — items · poles · the profile rows; then the practical for the EH's section 2 (the survey run on one EH phrase → a device sheet, line 1a → Opus). HELD: values written or not · the window's scope · the model as a deliverable · H1 | Fable (the talk) · Opus (a build) | yes — checkpoint first |
 | **►►** | **THE RUNNING ORDER's step 3 — 2m.4 HIS EYE on section 2's long tones** (PLAN § `2m`; BUILT 2026-09-29, §532 … §534): reload the notation tab → `piece-lgmf` → the video view → the stops in the running order's step 3. Collect, then fix at once (§527) | Fable (a look → a rule row) · Opus (a fault) | yes — checkpoint on Opus first |
@@ -596,28 +540,10 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #15 (2026-10-03, Opus):** PLAN 2b-P steps 1 → 3 BUILT and pushed (§766 …
-§768), the proofs made (§769), his four calls taken (§770, LG-331), **THE WHOLE PDF RENDERED — `print/score/Recombination-score-JYang.pdf`, 88 pages,
-the five gates green, sent to him** · ► after the clear, on Opus: `/postclear`, check in, WAIT for his eye on the whole file (step 5); his notes → one
-pass → `bash print/score/build.sh`; his "print good" → step 6, the archive and the tag — the block CHECKPOINT #15 at the top of §2's checkpoints.
+**Open at session end — SESSION 18 CLOSED (2026-10-03, Opus):** nothing in flight. Draft 01 is complete and submitted; every deliverable,
+its place and what is pending him are in the block SESSION 19 OPENS ON THIS at the top of §2's checkpoints.
 
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable) — SUPERSEDED by the lines above:** the print score PLANNED IN FULL (PLAN § `2b-P`), nothing
-built · THE SLATE (LG-327) and his piece-#3 note (LG-330) recorded · ► BUILD 2b-P on OPUS after the clear — steps 1 → 3, one commit each; STOP at 4 for his
-eye — the block CHECKPOINT #14 at the top of §2.
-
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #13 (2026-10-03, Fable):** the performance notes page drafted with him
-and copy-edited, nothing of piece #5 left on it · ► his read at the desktop, then his word: more on the page, or the print score (PLAN § 2b-F
-step 7) and the cover — the block CHECKPOINT #13 at the top of §2.
-
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #12 (2026-10-01, Fable):** the notation LOCKED, the film
-APPROVED and archived, two tags · ► THE PERFORMANCE NOTES after the clear (Fable) — the block CHECKPOINT #12 at the top of §2; the print
-score and the cover after them; the call is his.
-
-**Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #11 (2026-10-01, Opus) — SUPERSEDED by #12:** the new audio render of Draft 01
-MADE (§671: +6 dB at his cap → −4.9 dBTP · −22.8 LUFS) · ► his ear on the ♪ render, then his eye on section 2 — the block CHECKPOINT #11 at
-the top of §2.
-
-**Open at session end — SESSION 18 CLOSED (2026-10-01, Fable):**
+**Open at session end — THE FIRST CLOSE OF SESSION 18 (2026-10-01, Fable) — *its notation items are CLOSED by the lock of §687 unless he reopens it; kept as the record of what his eye never passed over*:**
 - **THE STATE:** nothing is being built; everything committed and pushed. The notation tab needs a HARD reload (`layout.js` · `render.js` ·
   `animobj.js` · `gc.js` · `notation.html` changed); the score server was RESTARTED by him on 2026-10-01 (§632's R live, his first R its test). **After §669 his composer tab holds the OLD onsets — a RELOAD there before any edit.**
 - **Pending him — session 18** (each written out in the § cited):
@@ -745,7 +671,7 @@ the top of §2.
 
 **Open questions:**
 - **Q1b — libraries. CLOSED 2026-09-18.**
-- **Q2 — the call.** LGMF 2026, unread at his word: *"don't need to look it up now."*
+- **Q2 — the call. CLOSED 2026-10-03:** he submitted _Recombination_ to the festival's 2027 "Call for Scores" (§777). The call was never read by the AI; what his form showed is in §775 · §777.
 - **Musical, his, not urgent** (PLANNER): "continuous, not sparse" (LG-2) against "lots of rests" (LG-4/5/8) · does the piece open
   with a morph (LG-1) or a bespoke section (LG-6) · **who, if anyone, inherits the piano's struck role** · the presentation score's
   pitch form (in C, or transposed?) at 2b.
@@ -757,8 +683,8 @@ moves BOTH · never bind **5300** or **4800**, they are piece #5's · the loopMI
 never saves from its own browser pane (principle 9) · the in-app browser has no Web MIDI · **the composer's lanes are laid out by CSS `nth-child` rules in `composer.html`, the curve windows A · B · C over the last three — a lane added to `TRACKS` needs its rule, and `palette_check` does not look** (RUNNING_LOG §183) · **a server route that `require`s engine code keeps the copy it started with** — after a build that changes `morph.js` or `model_bank.js`, say "restart the server" as well as "reload the tab" (§181).
 
 **Checks this piece owns:** `node tools/sequence_check.js` (**180**) · `node tools/dyn_table_check.js` (**51**) · `node tools/test_snapshots.js` (**30**) · `node tools/palette_check.js` (**198**) · `node tools/roster_check.js` (**3** over **339** voices, **26** pending — 1m.4.1) ·
-`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) · `node tools/sequence_notation_check.js` (**64**, 2d · 2e.3 · 2f · §462) · `node tools/check_rules.js` (**33**, 2e · 2k.1 · §502's (9)) · `node tools/decisions_needed.js` (2e.4) · `node tools/vibes_pitch_check.js` (**65**, 1u) · `node tools/vib_marks_check.js` (**33**, 2g · 2h · 2i · 2k.5) · `node tools/eh_figure_check.js` (THE LOCK, **106**, §560) · `node tools/layout_shield.js --write` on HEAD / `--diff --expect` after (THE SHIELD for any layout change, 2h.1) ·
-`node tools/check_screen_edges.js --ir piece-lgmf` · `node tools/check_print_edges.js --ir piece-lgmf` (2c, Chrome, ~1 min each) ·
+`node tools/test_written_pitch.js` (**10** + a control) · `node tools/spectrum_check.js` (**35**) · `node tools/sequence_notation_check.js` (**79**, 2d · 2e.3 · 2f · §462 · 2l) · `node tools/check_rules.js` (**34**, 2e · 2k.1 · §502's (9) · §672) · `node tools/decisions_needed.js` (2e.4) · `node tools/vibes_pitch_check.js` (**65**, 1u) · `node tools/vib_marks_check.js` (**34**, 2g · 2h · 2i · 2k.5 · §677) · `node tools/eh_figure_check.js` (THE LOCK, **106**, §560) · `node tools/layout_shield.js --write` on HEAD / `--diff --expect` after (THE SHIELD for any layout change, 2h.1) ·
+`node tools/check_screen_edges.js --ir piece-lgmf` · `node tools/check_print_edges.js --ir piece-lgmf` (2c, Chrome, ~1 min each) · the print's five gates inside `bash print/score/build.sh` (frame · front · pdf · pages · edges; 2b-P) ·
 `node tools/check_ceilings.js --all` · `node tools/model_bank.js --validate`. Run the palette ones after any change to `TRACKS`,
 `sandbox/instruments.js` or `notation/registry/ensemble.json`. **Every other battery's status, and why, is in `docs/NITS.md`.**
 
@@ -1146,6 +1072,44 @@ this repo only when they bite.)*
 - **D53** *(2026-09-30, composer §632)* — **A REFRESH READS THE LAST SAVE AND NEVER LOSES THE PAGE.** The app's R re-points a recorded
   `--scoreFile` at a fresh copy of the save and puts the IR back if the run fails. Until his server restart, a composer change is carried
   by the AI (`tools/reextract.js`).
+- **D54** *(2026-10-01, composer LG-244; §676 … §678)* — **THE VIBRAPHONE'S TWO ROWS ARE THE TWO VOICES.** A chain keeps its row for its
+  whole sequence — navy the top, olive the bottom, each ONE dynamic flow; at a crossed unison the top row's lead rises on its head's left
+  edge, the bottom row's falls on the right. A bow closing `> ○` while its row keeps falling carries ONE hairpin to the end of the fall
+  (§677). *Reversed:* §496's cross at a rhythmic unison (56 bows changed row, 18 restated names went). *Rejected:* the two heads side by
+  side · the leads as they fall.
+- **D55** *(2026-10-01, composer LG-245 · LG-246; §679 · §680)* — **A MORPH'S SECOND HEAD NAMES ITS PARTIAL WHERE THE MORPH ARRIVES ON A
+  TAKE** — `n (F)` above its cents, read from the actual's arrival take (11 heads on the two take → take morphs). The bloom's destinations
+  are a detuning (±25 c off their notes) and stay cents only.
+- **D56** *(2026-10-01, composer LG-236 · LG-253 … LG-267; §669 · §670 · §687 … §701)* — **THE NOTATION OF DRAFT 01 IS LOCKED, AND THE PAGE,
+  THE AUDIO AND THE FILM ARE ONE THING.** The 36 long-tone chords in unison IN HIS SAVE (82 onsets, at his word); the lock at his "that's
+  a lock on the notation"; a late trumpet found afterwards was fixed in the save and EVERYTHING after it re-made. From here a change to the
+  score is the whole loop — the gates, the audio, the film, the print — with new archives and tags. The render's boost is capped at +6 dB
+  (his word). Every render keeps its own file. *Rejected:* a page-only "shown time" for the unison · boosting to −1 dBTP (+9.9 dB).
+- **D57** *(2026-10-01, composer LG-257 … LG-266; §690 … §700)* — **THE FILM.** It opens on the 4 s lead-in, no title card; it ends with the
+  last page HELD while the tail rings; the wide shot with close-ups by piece #5's recipe (winds · the lower group, seed 7); a note unit's
+  small overhang into the right margin is the standard, long graphics are cut at the staff's end. *Rejected:* a title card · a fade-out ·
+  the wide shot alone · clipping note units at the page edge.
+- **D58** *(2026-10-01 … 10-03, composer LG-268 … LG-326; §703 … §761)* — **THE PERFORMANCE NOTES ARE HIS TEXT, ON ONE PAGE, WITH THIS
+  PIECE'S IMAGES AT ONE SCALE.** Started from piece #5's page and replaced section by section at his dictation — verbatim, spelling and
+  punctuation only, a moved fact flagged and left; every score image a crop of the zoomed presentation score (`tools/capture_lane.js`). On
+  the page the meter is "the animated curve follower"; the morph headers stay start → where the glide goes; the tracker's remaining items
+  are left at his word. *Rejected:* the AI drafting the notes · "low → high" morph headers (would reopen the locked notation).
+- **D59** *(2026-10-03, composer LG-328; §764)* — **_RECOMBINATION_ IS THE TITLE.** D32's "working" ends (*"recombination is the true title
+  now"*). Piece #4's title, for the record: _Bloom - Convergence - Balance_ (LG-329).
+- **D60** *(2026-10-03, composer LG-328 … LG-331; §764 … §770)* — **THE PRINT SCORE IS OF THE FILMED PAGE, ON A3 LANDSCAPE, WITH THE COVER
+  AND THE INSTRUCTIONS AS TEMPLATES.** The IR is not rebuilt for print; the call names no sheet, so the house format stands; the cover is
+  one generator fed by `cover.json` and the instructions print from the piece's own page — both for the pieces after this one. His four
+  look calls: the ensemble line on two rows · the film's density (10.3 s a page) · page 1 with no lead-in · the instructions on one page.
+  *Rejected:* Tabloid · 8.5 or 12 s a page · the 4 s lead-in on paper · a second instructions page.
+- **D61** *(2026-10-03, composer LG-332 · LG-333; §772 · §773)* — **A PRINT SCORE ENDS ON THE FINAL BARLINE — FOR THIS PIECE AND THE NEXT.**
+  Thin + thick, LilyPond's "|." from his own install (0.19 · 0.30 · 0.60 ss), ink, opaque, from the top staff's top line to the bottom
+  staff's bottom line; a rules row, the exporter's default, held by the pages gate. The screen and the film keep their grey edge bar — there
+  the page edge IS the end of the visible system. *Rejected:* a colophon · "Fine" · the bar at the end of the ring (886.66) rather than the
+  last note (880.66).
+- **D62** *(2026-10-03, composer §774 · §775)* — **RENDERED FILES STAY OUT OF GIT; THE CALL'S PAPERS STAY LOCAL.** The print PDF, like the
+  film and the audio, is gitignored — derivable, a binary kept forever, and this repo is public; the README with the file's hash is the
+  record. The submission form's screenshots are in `docs/call/` (gitignored — his personal details) and in his Drive. *Rejected:*
+  committing the approved copy · a GitHub Release asset.
 
 ## §5 Playbooks
 
@@ -1183,6 +1147,12 @@ across when its system lands here and is first used.)*
 - 2026-10-01 — **SECTION 2 NOTATED BY HAND** — the long tones and their chords, the English horn's figures to 398.4, every short note of
   the bassoon · horn · trumpet · cello · double bass, the percussion staff's rule set and its figures to 406 (`piece-lgmf`; session 18,
   RUNNING_LOG §531 … §667). His eye on each part owed; the percussion's lone strikes not yet named.
+- 2026-10-01 — **THE NOTATION OF DRAFT 01 LOCKED** (the tag `Recombination-notationLock_1.0`) **AND THE FILM APPROVED** —
+  `notation/video/approved/2026-10-01-draft01/`, the tag `Recombination-Draft01-film_1.0` (PLAN 2b-F; RUNNING_LOG §687 … §700).
+- 2026-10-03 — **THE PERFORMANCE NOTES PAGE** drafted with him — `docs/notation_instructions/` (RUNNING_LOG §703 … §761).
+- 2026-10-03 — **THE PRINT SCORE APPROVED** — 88 pages, the final barline; `print/score/approved/2026-10-03-draft01/`, the tag
+  `Recombination-Draft01-print_1.0` (PLAN 2b-P; RUNNING_LOG §764 … §773).
+- 2026-10-03 — **_RECOMBINATION_ SUBMITTED** by him to the Lake George Music Festival's 2027 "Call for Scores", 15:22 EDT (RUNNING_LOG §777).
 
 ## §7 Human Notes
 
@@ -1192,7 +1162,13 @@ across when its system lands here and is first used.)*
   declarations page was an empty ☐ on 2026-09-17 — his to tick — then send the print score
   + the application. **Deadline 2026-10-15 23:59 CET.** *(Carried here only as a reminder;
   the record is #5's journal §2.)*
-- **Read the LGMF 2026 call** — when he chooses (Q2). Drop the PDF in `docs/` as in #5.
+- ✓ 2026-10-03 — **The LGMF call** — _Recombination_ SUBMITTED (the festival's 2027 "Call for Scores"; §777). The record: `docs/call/`
+  (local only) and his Drive folder `LGMF2026`.
+- **Back up the film and the print PDF** — both gitignored, on this machine only: `notation/video/approved/2026-10-01-draft01/V-CUT.mp4` ·
+  `print/score/approved/2026-10-03-draft01/Recombination-score-JYang.pdf`.
+- **Keep the YouTube film viewable until June 30, 2027** (`https://youtu.be/xPOLvA6BEsk`) — the form's condition for the recording link.
+- **The call's results come by email** — the confirmation page says "by the end of March 2026" (on the 2027 portal; presumably March 2027).
+  Google Forms also emailed a copy of the responses — the firmer receipt.
 - ✓ 2026-09-22 — **Name the percussion instruments** — fourteen Spitfire ARO instruments (`bank/perc_selection.json`), all in every
   menu (RUNNING_LOG §212 · §321); the bowed vibraphone on its own lane (D12).
 - ✓ **Install the english horn library** — Xsample's `English Horn.nki` (D8, RUNNING_LOG §26).

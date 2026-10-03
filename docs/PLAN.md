@@ -2454,7 +2454,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   transposing-instrument lines are drafted — `docs/research/just_partials_notation.md` §1b, 2026-09-27, RUNNING_LOG §437 … §442**) · the cut list · `render_reaper` · the batteries re-pointed at
   this piece's pages · `tools/fixtures/*_snapshot.json` regenerated.
 
-  **2b-F — THE FILM of the presentation score** — `doing` (planned 2026-10-01, Fable, session 18, the planning method — RUNNING_LOG §687 …
+  **2b-F — THE FILM of the presentation score** — **`done` 2026-10-03 (steps 1 … 7 ☑: the film approved 2026-10-01, the performance notes page, the print score and the cover 2026-10-03; _Recombination_ SUBMITTED by him the same day, RUNNING_LOG §777)** — `doing` (planned 2026-10-01, Fable, session 18, the planning method — RUNNING_LOG §687 …
   §689; LG-253 … LG-255; the notation of Draft 01 LOCKED and tagged; the top line his at *"we can just go ahead with the video"*.
   **The call and its parameters are HIS** — no AI work on it, LG-255: *"I'll manage the call and its parameters … no need to fuss with the
   call"*; copy editing later, at his ask.)
@@ -2498,7 +2498,7 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   >
   > **7. The completion** (what else finishes Draft 01; the call and the package are his)
   >
-  > - ► the performance notes — HIS NEXT, after a checkpoint and a clear (the tracker `docs/PERFORMANCE_NOTES.md`; his to write, the AI helps)
+  > - ☑ the performance notes — DRAFTED WITH HIM 2026-10-01 … 10-03 (`docs/notation_instructions/`, RUNNING_LOG §703 … §761; one page in the print score; more dictation at his word) — *(as laid out:)* HIS NEXT, after a checkpoint and a clear (the tracker `docs/PERFORMANCE_NOTES.md`; his to write, the AI helps)
   > - ☑ the print score (A3 landscape; `export_print.js` and `print/score/build.sh`'s gates on this piece's pages) — PLAN § `2b-P`, DONE 2026-10-03 (§773: 88 pages, approved, archived, tagged `Recombination-Draft01-print_1.0`)
   > - ☑ the cover — PLAN § `2b-P` step 2, THE COVER TEMPLATE (built §767; his two rows §770; on the approved file)
 
