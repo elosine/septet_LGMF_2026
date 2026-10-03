@@ -4302,3 +4302,26 @@ Items 4 · 5 · 6 are unordered among themselves beyond his sentence order. "ens
 *His words (session 18, Opus — on the last page with the final barline, PLAN 2b-P step 5):* "Okay, that's fine. That looks good. Let's keep this as part of the print score system for future scores and go ahead and render. And actually the proofread is good. So this is the keeper score with the final bar line. So go ahead and make the final print score."
 
 *The AI's reading (marked as such):* three things. (1) The final barline of §772 ACCEPTED and STANDING — the house ending of a print score from here on (the rules row `objects.finalBarLine`; the exporter's default; `check_print_pages` fails a print without it). (2) His proofread of the whole PDF is GOOD — step 5's "print good"; no other note. (3) The final render: `print/score/Recombination-score-JYang.pdf`, 88 pages, the five gates green, archived `print/score/approved/2026-10-03-draft01/`, tagged `Recombination-Draft01-print_1.0`. RUNNING_LOG §773.
+
+## LG-334 — 2026-10-03 — THE SLATE, AMENDED: a piece for the Decibel ensemble, for TENOR — due November 14; if he writes it, it is NEXT
+
+*His words (session 18, Opus — after the close):* "And then can you add a composition note? Or I had added a note about a slate of pending compositions. And I'm going to add a new one and move that up to the top. This is for the tenor submission. Oh, I think I have that in there, but here are some details. In addition to the one I want to do for myself as improviser and live electronics, I'm also considering submitting for the decibel ensemble. And this is bass flute, bass clarinet, cello, viola, percussion, and electronics. They're at decibelnewmusic.com, but the tenor conference hasn't, well, they say details on the instrumentation will be available shortly. So that's not final. But the due date there is November 14th. So if I do want to do that piece, I'll have to move that up to the next one."
+
+*The AI's reading (marked as such):* a NEW item on the slate of LG-327, placed at the TOP — conditionally. It is a second TENOR submission, beside the one already on the slate (live electronics with himself as improviser), not in place of it.
+
+- **What:** a piece for the **Decibel ensemble** (Decibel New Music, `decibelnewmusic.com`), submitted to the TENOR conference.
+- **For:** bass flute · bass clarinet · cello · viola · percussion · electronics — **NOT FINAL**: the conference says the details of the instrumentation "will be available shortly".
+- **Due:** **November 14** (2026 — the year is the AI's reading; six weeks from today).
+- **Status:** CONSIDERING — *"if I do want to do that piece, I'll have to move that up to the next one."*
+
+The slate as it now stands, in his order:
+
+1. **(considered) the Decibel-ensemble piece for TENOR** — due November 14; NEXT if he decides to write it
+2. **the Ensemble Switch / Overdrive Festival piece** — next otherwise
+3. **live electronics with himself as improviser, for TENOR** (the `live-electronics-engine` repo)
+4. **back to the bass clarinet, harp and accordion piece** (#3)
+5. **a solo piano**
+6. **an accordion duet**
+7. **one for Japanese traditional instruments** — held until he hears about the Kyoto residency
+
+*Not known, his to say:* whether November 14 is also the date for item 3 (it is the same conference) · the names "ensemble switch overdrive festival" as they came through speech-to-text (LG-327). Nothing was looked up — neither the TENOR call nor Decibel's site has been read by the AI. RUNNING_LOG §779.

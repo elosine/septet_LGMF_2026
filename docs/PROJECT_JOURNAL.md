@@ -237,8 +237,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   - **THE PERFORMANCE NOTES PAGE** drafted with him by dictation, every image this piece's (§703 … §761)
   - **THE PRINT SCORE** planned (PLAN § `2b-P`), built, proofed, his one note — the final barline — fixed, approved and archived (§764 … §773)
   - **SUBMITTED** by him; the form's record kept (§775 … §777)
-- **► THE NEXT STEP: NONE QUEUED — run `/session-start` and ASK.** What he works on next is his: THE SLATE (COMPOSITION_NOTES LG-327 — six
-  compositions on deck) · this piece's phase 3, the performance score (transposed parts) — not planned · the call's results by email (the form
+- **► THE NEXT STEP: NONE QUEUED — run `/session-start` and ASK.** What he works on next is his: THE SLATE (COMPOSITION_NOTES LG-327,
+  amended LG-334 — seven on deck; **a piece for the Decibel ensemble for the TENOR conference, due NOVEMBER 14, is NEXT if he decides to write
+  it** — instrumentation not final; otherwise the Ensemble Switch / Overdrive piece) · this piece's phase 3, the performance score (transposed parts) — not planned · the call's results by email (the form
   says "the end of March 2026" — the festival's wording on its 2027 portal).
 - **Where a cold model looks, if this piece is touched again:**
   - *the notation* → the block THE FIRST CLOSE OF SESSION 18 below (HOW A CHANGE IS MADE), then checkpoint #12's IF THE SCORE MOVES AGAIN —
@@ -252,7 +253,8 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
     (≈ 7 min; the five gates are in it, not optional). To LOOK at a page: `node tools/print_look.js <prefix> -- --ir piece-lgmf --at 880`.
     A link for him: `http://localhost:5400/print/score/<file>.pdf` — **live only after HE restarts the score server** (§771, never exercised).
   - *a file into his Drive* → the memory note `drive-upload-route` (his Chrome; the connector cannot carry a binary).
-- **Pending him:** the two tags' names are the AI's, his to rename · a back-up of the film and the PDF · the server restart for the `/print/`
+- **Pending him:** the tags' names are the AI's, his to rename (`Recombination-Draft01-film_1.0` · `-print_1.0` · `-submitted_1.0`, the last on
+  the closing commit at his "go ahead and tag", §779) · a back-up of the film and the PDF · the server restart for the `/print/`
   link · his `his` rows in the table (the tools' tests of sessions 13 … 17, never reported — moot for Draft 01, live if he composes with
   those tools again) · `docs/NITS.md` § HELD FOR THE NEXT PIECE OR THE POSTMORTEM (**not to be raised in this piece**) · #5's Tempus
   checkbox (§7 — deadline 2026-10-15).
@@ -502,7 +504,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►** | **SESSION 19 — NOTHING QUEUED: `/session-start`, then ASK.** _Recombination_ Draft 01 is complete and SUBMITTED (2026-10-03, §777): the page · the audio · the film · the notes page · the print score. His next is his — THE SLATE (LG-327) · this piece's performance score (phase 3, not planned) · the call's results by email | Fable (a talk, a plan) · Opus (a build) | — |
+| **►** | **SESSION 19 — NOTHING QUEUED: `/session-start`, then ASK.** _Recombination_ Draft 01 is complete and SUBMITTED (2026-10-03, §777): the page · the audio · the film · the notes page · the print score. His next is his — THE SLATE (LG-327 · LG-334: a Decibel-ensemble piece for TENOR, due November 14, NEXT if he writes it) · this piece's performance score (phase 3, not planned) · the call's results by email | Fable (a talk, a plan) · Opus (a build) | — |
 | ref | **IF THIS PIECE IS TOUCHED AGAIN** — the notation is LOCKED (D56): a change is the whole loop (the gates · the audio · the film `-r5` · `bash print/score/build.sh --rebuild-ir` · new archives and tags); the notes page by dictation (checkpoint #13's block); a print-only change by the list in the block SESSION 19 OPENS ON THIS. **The rows below about his eye on the notation, the percussion's rest and the lock's blocks are CLOSED by the lock unless he reopens it; the `his` rows of the tools stand as they were** | — | — |
 | **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
 | **►►►** | **THE PERCUSSION, the rest** (PLAN 2o) — the lone strikes not yet named (they still draw as the fold left them; one `--plainNotes 4:…` window each makes a bare head) · its dynamics after 375 · the ball's higher arc (§654, a · b · c) · a let-ring mark (the brake drum's rings) · `sub.` beside a dynamic (§658) · the beam-vs-standard-stem question at 378.5 · 405.3 (§665) | Fable | — |
