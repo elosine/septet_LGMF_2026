@@ -22927,3 +22927,19 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 4. **the instructions** — one page as measured, or a break he names.
 
 **Not done, by the plan:** the full render (step 5 — `bash print/score/build.sh`, after his eye on the proofs) · the archive and the tag (step 6).
+
+## §770. HIS FOUR CALLS ON THE PROOFS — "Ab, Bb, Ca, Da" — and PLAN 2b-P step 5, the AI's half: THE WHOLE PRINT SCORE RENDERED, the five gates green (2026-10-03, Opus 5.5, session 18; LG-331)
+
+**His word, on the proof pages (§769):** *"Ab, Bb, Ca, Da"*.
+
+**Read as the four lettered calls** (LG-331): **A (b)** the cover's ensemble line on TWO rows · **B (b)** the density 10.3 s per page — the film's own, the default, 86 pages · **C (a)** page 1 kept as it prints (no 4 s lead-in on paper; the percussion's names with no staff lines until section 2 — §489's parked item is closed for the print) · **D (a)** the instructions on ONE page. He sent no other note on the proofs, so step 4's "notes fixed in one pass" was one change.
+
+**THE ONE CHANGE:** `print/cover/cover.json` — `subtitle` is now a list of two lines, "for English horn, bassoon, horn, trumpet," / "percussion, cello and double bass"; `make_cover.ps1` re-run: **title 85 pt · subtitle 55.3 · name 42.5** (the house size for A3 is 99; the first subtitle row is the line that fits, 1078 of 1082 pt), the last baseline 63 % down. Nothing else moved: B and D are the defaults, C is what the exporter does. `PROOF-cover-two-lines.pdf` removed — it is the cover now.
+
+**THE FULL RENDER — `bash print/score/build.sh`, its first whole run, no `--rebuild-ir`** (the IR as locked and filmed, `Recombination-Draft01-film_1.0`):
+- **before the render:** the frame PASS (100 · 300 · 600 · 870, one window, census identical) · the front PASS — the cover 4 lines, the widest drawn 1077 of 1190 pt (side margins 0.78 in), drift 1.7 %, the face resolved; the instructions col 1 936 · col 2 795 of 980;
+- **the file:** `print/score/Recombination-score-JYang.pdf` — **88 pages = the cover + 1 page of instructions + 86 of music · 5.01 MB** · 10.32 s/page · staff 7.55 mm · sha256 `3b14c6b2…672371e0`;
+- **after it:** `check_print_pdf` PASS — every MediaBox 1189.92 × 840.96 pt (inside DIN A3) · 5 embedded font programs + 4 faces as outlines, 0 not embedded · **0 raster** · the demo link an annotation · `check_print_pages` PASS — 86 music pages (3 … 88), the ensemble's frame (14 labels · 8 systems · 3 brackets + 1 brace), a ruler and a folio on every one, **the terminal barline once, on page 88** · `check_print_edges` PASS — 5293 point items each owned once · 772 long items · 68 pages full, 17 pushed (68 objects moved whole), 0 forced · the widest blank 0.73 s (7 %) · no timed ink in the gutter, none past a system's end · 60 GC arcs = 60 dots = 60 owned strikes · 629 curve paths, none from a neighbouring page.
+- **the AI's page-through** (the plan's three looks, rasterized with `tools/print_look.js`): the cover as drawn in the file — two rows, EngraversGothic · page 1 (§766's look: it opens at −0.49 s with its clefs and labels) · **the last page, 14:33 – 14:41:** the system ends where the piece ends, at about three quarters of the block — the closing `> ○` marks, the vibraphone's two ○ at 880.66, the terminal barline at 881, and paper to the right of it. Every other page's ink is the edges gate's, measured on all 86.
+
+**Sent to him:** the PDF (SendUserFile). **Owed:** his eye on the whole file (PLAN 2b-P step 5) → notes, one pass → "print good" → step 6, the archive `print/score/approved/<date>/` with its README and the tag `Recombination-Draft01-print_1.0`.

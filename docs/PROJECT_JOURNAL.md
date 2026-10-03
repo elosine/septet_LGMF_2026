@@ -217,7 +217,16 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### SESSION 18 · 2b-P STEPS 1 → 3 BUILT (2026-10-03, Opus, after checkpoint #14's clear) — ► STEP 4, HIS EYE ON THE PROOF PAGES (RUNNING_LOG §766 … §769)
+### SESSION 18 · 2b-P STEPS 1 → 4 DONE, THE WHOLE PDF RENDERED (2026-10-03, Opus, after checkpoint #14's clear) — ► STEP 5, HIS EYE ON THE WHOLE FILE (RUNNING_LOG §766 … §770)
+
+- **► WHERE IT STANDS (§770):** his four calls on the proofs — *"Ab, Bb, Ca, Da"* (LG-331): the cover's ensemble line on TWO rows (title 85 pt) · the
+  density 10.3 s, the film's · page 1 kept · the instructions on ONE page. The one change (`print/cover/cover.json`) made, then **THE FULL RENDER:
+  `print/score/Recombination-score-JYang.pdf` — 88 pages (cover + 1 + 86) · 5.01 MB · sha256 `3b14c6b2…672371e0` · the five gates green · sent to him.**
+  **► THE NEXT STEP — HIS EYE on the whole file (PLAN 2b-P step 5):** his notes collected → ONE pass of fixes → `bash print/score/build.sh` again
+  (≈ 7 min, every gate in it) → his "print good" → **step 6:** `print/score/approved/<date>/` (the PDF + a README: the command, the IR's hash, the
+  save's commit, the gates' numbers, `cover.json`'s words — the PDF gitignored, "back it up") · the tag `Recombination-Draft01-print_1.0`, pushed ·
+  CLAUDE.md's Apps (the print line is in; the gates "not optional", the templates' one-line use for the next piece) · 2b-F step 7's print and
+  cover lines ☑. *(The bullets below are the build's record and how a fix is made — still true; "the next step" there is superseded by this one.)*
 
 - **At his word** (*"go, build as much as possible independently"*): three commits, pushed — `2067caa` step 1 · `53193ab` step 2 · `cc5d31c` step 3 —
   then the proofs, made by the script itself (`bash print/score/build.sh --proof`).
@@ -493,7 +502,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►►►►►►►** | **2b-P STEPS 1 → 3 BUILT (2026-10-03, Opus; §766 … §769) — ► STEP 4, HIS EYE on the proof PDFs in `print/score/`:** the cover (one row or two) · the density (8.5 · 10.3 · 12) · page 1 (no lead-in on paper) · the instructions on one page. His notes collected → ONE pass of fixes → `build.sh --proof` again → step 5 the full render (`bash print/score/build.sh`), his eye → step 6 archive + tag | **Opus** (fixes, the render) · Fable (a look question) | no |
+| **►►►►►►►►►►** | **2b-P STEPS 1 → 4 DONE, THE WHOLE PDF RENDERED (2026-10-03, Opus; §766 … §770) — ► STEP 5, HIS EYE on `print/score/Recombination-score-JYang.pdf`** (88 pages · the five gates green; his calls *"Ab, Bb, Ca, Da"*: the cover on two rows · 10.3 s · page 1 kept · the instructions one page). His notes collected → ONE pass of fixes → `bash print/score/build.sh` again → "print good" → step 6 the archive, its README and the tag `Recombination-Draft01-print_1.0` | **Opus** (fixes, the render, the archive) · Fable (a look question) | no |
 | ☑ | *(superseded by the row above — the build it names is done)* **SESSION 18 · CHECKPOINT #14 (2026-10-03) — 2b-P THE PRINT SCORE PLANNED IN FULL (§764 · §765; LG-328 · LG-329), NOT BUILT:** 1 the frame and the paper (the exporter's first run here) · 2 the cover TEMPLATE · 3 the instructions TEMPLATE · 4 the proof pages, his eye · 5 the full render, his eye · 6 archive + tag. A3 kept · _Recombination_ the title · the IR not rebuilt. ► BUILD steps 1 → 3 on Opus, one commit each; STOP at 4 | **Opus** (the build) · Fable (his eye's fixes) | **yes — `/checkpoint`, `/clear`, `/postclear` on Opus** |
 | **►►►►►►►►** | **SESSION 18 · CHECKPOINT #13 (2026-10-03): THE PERFORMANCE NOTES PAGE DRAFTED WITH HIM** — every section his, every image this piece's, nothing of piece #5 left (§703 … §761). ► `/postclear`, check in; HIS WORD: more dictation on the page, or THE PRINT SCORE (PLAN § 2b-F step 7, laid out with him first) · the cover | **Fable** (the talk) · Opus (the print build) | **yes — `/clear`, `/postclear`** |
 | **►►►►►►►** | **THE PAGE'S IMAGES (§704, LG-269):** one scale — each a crop of the zoomed presentation score (Z 2), shown at crop width / 1920 of the column (`styles.css` `img.zoomed`; ONE KNOB `--frame`); `tools/capture_lane.js --part eh|bsn|hn|tpt|perc|vib|vc|db --t T --span A-B --out …` (a span over 5.77 s is refused), then `<img class="zoomed" style="--w: N">` with the `--w` it prints. Five are this piece's; **the trill image, the morph chart and the two let-ring piano images are still piece #5's — his to look at.** ► HIS EYE on the page, then his revisions | **Fable** | — |
@@ -542,9 +551,9 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 | N3 | **the rest of phase 1** — the pattern tool LG-7 · the morph to a held beating LG-8 · conductions LG-3 · the morph's revision (`MORPH_NOTES.md`) · how the six chords are used in time · the LGMF call (Q2) | Fable | yes |
 | N4 | **small, in NITS** — `beating_calc_check.js` · `morph_septet_check.js` still piece #5's cast · the validator does not know `provenance.palette` · re-derivation drift on nine LG actuals · an uncaught `TypeError` at `sequence_ui.js:1652` on a bare load · `heard()` empty for an LGMF model · the strikes drawer's plain inserts may play `recVel` unremapped | Opus | — |
 
-**Open at session end — SESSION 18, AFTER CHECKPOINT #14 (2026-10-03, Opus):** PLAN 2b-P steps 1 → 3 BUILT and pushed (§766 … §768), the proof PDFs made
-and sent (§769) · ► STEP 4, HIS EYE — the cover, the density, page 1, the instructions' one page; then the full render (step 5) and the archive (step 6)
-— the block 2b-P STEPS 1 → 3 BUILT at the top of §2's checkpoints.
+**Open at session end — SESSION 18, AFTER CHECKPOINT #14 (2026-10-03, Opus):** PLAN 2b-P steps 1 → 3 BUILT and pushed (§766 … §768), the proofs made
+(§769), his four calls taken (§770, LG-331), **THE WHOLE PDF RENDERED — 88 pages, the five gates green, sent to him** · ► STEP 5, HIS EYE on the whole
+file; then step 6, the archive and the tag — the block 2b-P STEPS 1 → 4 DONE at the top of §2's checkpoints.
 
 **Open at session end — (mid-session checkpoint) SESSION 18 · CHECKPOINT #14 (2026-10-03, Fable) — SUPERSEDED by the lines above:** the print score PLANNED IN FULL (PLAN § `2b-P`), nothing
 built · THE SLATE (LG-327) and his piece-#3 note (LG-330) recorded · ► BUILD 2b-P on OPUS after the clear — steps 1 → 3, one commit each; STOP at 4 for his

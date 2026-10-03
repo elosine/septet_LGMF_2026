@@ -2591,9 +2591,9 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the faces: the inlined SVGs' text resolves against the embedded Crimson Pro; ♭ ♯ ♮ (§699: not in Crimson Pro) fall back in Chrome's print
   >   as on the page — `check_print_pdf` reads which faces embedded; a box for a flat is a fault to fix, not a note
   >
-  > **4. The proof pages — HIS EYE** — ► THE PROOFS MADE AND MEASURED 2026-10-03 (Opus, RUNNING_LOG §769; `bash print/score/build.sh --proof`), sent to
-  > him: `PROOF-front-matter.pdf` · `PROOF-A3-frame.pdf` (p 10 · 30 · 59 · 85) · the density trio (104 · 86 · 74 pages) · `PROOF-cover-two-lines.pdf`.
-  > HIS: the cover (one row 46.5 pt · two rows 85 pt) · the density · page 1 (no lead-in on paper) · the instructions on one page
+  > **4. The proof pages — HIS EYE** — ☑ DONE 2026-10-03 (RUNNING_LOG §769 the proofs · §770 his calls, LG-331 — *"Ab, Bb, Ca, Da"*): the cover's
+  > ensemble line on TWO rows (title 85 pt) · the density 10.3 s, the film's (86 pages) · page 1 kept (no lead-in on paper) · the instructions on
+  > ONE page. No other note; the one change was `cover.json`
   >
   > Result when done: he has looked at one PDF of proof pages — the cover · the instructions (one page or two) · one music page per section
   > (≈ 100 · 300 · 600 · 870 s) — and the density trio if the dial applies; his notes collected, then fixed together (§527's way), the proof
@@ -2605,7 +2605,9 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - his findings → fixed in one pass → the proof again. The look decisions here are HIS: the density · the first page's lead-in · the
   >   instructions' break · the cover's words
   >
-  > **5. The full render — HIS EYE**
+  > **5. The full render — HIS EYE** — ► RENDERED 2026-10-03 (Opus, RUNNING_LOG §770; `bash print/score/build.sh`, no `--rebuild-ir`):
+  > `print/score/Recombination-score-JYang.pdf` — 88 pages (cover + 1 + 86) · 5.01 MB · sha256 `3b14c6b2…` · the five gates green (frame · front ·
+  > pdf · pages · edges) · the AI's page-through done · sent to him. ► HIS EYE on the whole file → notes, one pass → "print good"
   >
   > Result when done: the whole PDF — cover · instructions · every page of the music — rendered from the locked IR, the five gates green, the
   > AI's page-through done, his "print good".
