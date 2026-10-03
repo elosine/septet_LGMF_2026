@@ -31,6 +31,11 @@
 # ("professional standards"), so the house format of pieces #4 and #5 stands — 419.7 x 296.8 mm drawn, inside
 # DIN A3. It is the exporter's default; Tabloid (11 x 17 in) is the US near-equivalent: --format tabloid-landscape,
 # and a cover for that sheet first (print/cover/make_cover.ps1 -Format tabloid-landscape).
+#
+# THE PIECE ENDS ON A FINAL BARLINE (2026-10-03, his eye on the whole PDF — RUNNING_LOG §772 · §773): thin + thick, LilyPond's "|."
+# (0.19 · 0.30 · 0.60 ss), ink, opaque, from the top staff's top line to the bottom staff's bottom line. It is the print's default —
+# export_print asks for it, the numbers are rules.json objects.finalBarLine, and check_print_pages FAILS a score without it. Nothing
+# to pass here; a later piece inherits it with the stack.
 set -e
 cd "$(dirname "$0")/../.."
 OUT=print/score/Recombination-score-JYang.pdf

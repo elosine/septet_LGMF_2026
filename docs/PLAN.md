@@ -2499,10 +2499,10 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > **7. The completion** (what else finishes Draft 01; the call and the package are his)
   >
   > - ► the performance notes — HIS NEXT, after a checkpoint and a clear (the tracker `docs/PERFORMANCE_NOTES.md`; his to write, the AI helps)
-  > - the print score (A3 landscape; `export_print.js` and `print/score/build.sh`'s gates on this piece's pages) — ► PLAN § `2b-P` (planned 2026-10-03)
-  > - the cover — ► PLAN § `2b-P` step 2, THE COVER TEMPLATE (planned 2026-10-03)
+  > - ☑ the print score (A3 landscape; `export_print.js` and `print/score/build.sh`'s gates on this piece's pages) — PLAN § `2b-P`, DONE 2026-10-03 (§773: 88 pages, approved, archived, tagged `Recombination-Draft01-print_1.0`)
+  > - ☑ the cover — PLAN § `2b-P` step 2, THE COVER TEMPLATE (built §767; his two rows §770; on the approved file)
 
-- **2b-P — THE PRINT SCORE** (A3 landscape · the cover and the instructions as TEMPLATES, for this piece and the pieces after it) — `planned`
+- **2b-P — THE PRINT SCORE** (A3 landscape · the cover and the instructions as TEMPLATES, for this piece and the pieces after it) — **`done` 2026-10-03 (steps 1 … 6, RUNNING_LOG §766 … §773: the approved file `print/score/approved/2026-10-03-draft01/`, the tag `Recombination-Draft01-print_1.0`)** — `planned`
   2026-10-03 (Fable, session 18, the planning method — RUNNING_LOG §764 · §765; LG-328 · LG-329; phase 1 in the chat, the top line his, the six
   steps written whole at his word *"if you have everything you need, then go ahead and write the whole plan"*). **Builder: Opus**, from step 1,
   after a checkpoint and a clear; his eye at 4 and 5 only. ***Why:*** the completion of Draft 01 (2b-F step 7): the exporter and its five gates
@@ -2605,7 +2605,9 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - his findings → fixed in one pass → the proof again. The look decisions here are HIS: the density · the first page's lead-in · the
   >   instructions' break · the cover's words
   >
-  > **5. The full render — HIS EYE** — ► RENDERED 2026-10-03 (Opus, RUNNING_LOG §770; `bash print/score/build.sh`, no `--rebuild-ir`):
+  > **5. The full render — HIS EYE** — ☑ DONE 2026-10-03 (§771 the link · §772 his ONE note, the final barline — LilyPond's "|.", `objects.finalBarLine` ·
+  > §773 his *"the proofread is good … this is the keeper score with the final bar line"*, LG-332 · LG-333; THE FINAL FILE: 88 pages · 5 248 893 bytes ·
+  > sha256 `5fb06ae1…0f0181e0` · the five gates green) — *(as first rendered:)* RENDERED 2026-10-03 (Opus, RUNNING_LOG §770; `bash print/score/build.sh`, no `--rebuild-ir`):
   > `print/score/Recombination-score-JYang.pdf` — 88 pages (cover + 1 + 86) · 5.01 MB · sha256 `3b14c6b2…` · the five gates green (frame · front ·
   > pdf · pages · edges) · the AI's page-through done · sent to him. ► HIS EYE on the whole file → notes, one pass → "print good"
   >
@@ -2619,7 +2621,10 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the AI's page-through: every page's ink inside the block · page 1 the lead-in with its clefs and labels · the last page the tail
   > - his eye → notes → one pass → "print good"
   >
-  > **6. Archive and docs**
+  > **6. Archive and docs** — ☑ DONE 2026-10-03 (Opus, RUNNING_LOG §773): `print/score/approved/2026-10-03-draft01/` — the PDF (gitignored), a copy of
+  > `cover.json`, the README (the command · the hashes · the five gates' numbers · the cover's words) · the tag `Recombination-Draft01-print_1.0`, pushed ·
+  > CLAUDE.md's print line (the gates not optional · the two templates · the final barline) · `check_print_pages` holds the final barline (his *"keep this
+  > as part of the print score system for future scores"*)
   >
   > Result when done: the approved PDF is in `print/score/approved/<date>/` with a README (the command, the IR's hash, the save's commit, the
   > gates' numbers; the PDF gitignored — "back it up", as #5's 2b.6), the tag `Recombination-Draft01-print_1.0` on the commit, CLAUDE.md's Apps

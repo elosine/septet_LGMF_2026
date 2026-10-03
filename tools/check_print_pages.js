@@ -71,8 +71,11 @@ const probe = `
     const ticks=hdr?hdr.querySelectorAll('line').length:0;
     const clock=hdr?[...hdr.querySelectorAll('text')].length:0;
     const folio=(pg.querySelector('.fol')||{textContent:''}).textContent.trim().replace(/\\s+/g,' ');
-    // the terminal barline: static_page draws it as <g class="final-barline"> (the print's thin + thick, §772); before §772 the only full-height <rect> with opacity
-    const endbar=mus.querySelectorAll('g.final-barline').length||[...mus.querySelectorAll('rect[opacity]')].filter(x=>parseFloat(x.getAttribute('height'))>0.7*mus.getBoundingClientRect().height).length;
+    // the terminal barline: static_page draws it as <g class="final-barline"> — the print's FINAL barline, a thin bar and a thick bar,
+    // opaque (§772 · §773, his "keep this as part of the print score system for future scores"). The screen's grey page-edge bar
+    // (a full-height rect WITH an opacity) does not count: a print that falls back to it fails here.
+    const endbar=[...mus.querySelectorAll('g.final-barline')].filter(g=>{const r=[...g.querySelectorAll('rect')];
+      return r.length===2&&r.every(x=>!x.hasAttribute('opacity')&&!x.hasAttribute('fill-opacity'))&&parseFloat(r[0].getAttribute('width'))<parseFloat(r[1].getAttribute('width'));}).length;
     let outside=0;
     for (const el of pg.querySelectorAll('.hdr,.mus,.fol')) {
       const b=el.getBoundingClientRect();
@@ -114,8 +117,8 @@ const lastMusic = music.length ? +music[music.length - 1][0] : 0;
 console.log('  music pages           ' + music.length + '  (pages ' + (music.length ? music[0][0] : '-') + '–' + lastMusic + ')');
 console.log('  the ensemble\'s frame (' + LABELS.split(',').length + ' labels · ' + WANT.systems + ' systems · ' + WANT.brbr +
   ' brackets/brace), a ruler and a folio on every one: ' + (bad ? 'NO' : 'yes'));
-console.log('  terminal barline on   ' + (endbars.length ? 'page(s) ' + endbars.join(',') : 'NO PAGE'));
-if (endbars.length !== 1 || endbars[0] !== lastMusic) { bad++; console.log('  FAIL  the terminal barline must appear once, on the last page (' + lastMusic + ')'); }
+console.log('  final barline on      ' + (endbars.length ? 'page(s) ' + endbars.join(',') + '  (thin + thick, opaque)' : 'NO PAGE'));
+if (endbars.length !== 1 || endbars[0] !== lastMusic) { bad++; console.log('  FAIL  the final barline (thin + thick, opaque — rules.json objects.finalBarLine) must appear once, on the last page (' + lastMusic + ')'); }
 try { fs.rmSync(tmp, { recursive: true, force: true }); } catch (e) { }
 console.log(bad ? 'FAIL — ' + bad + ' problem(s)' : 'PASS — all ' + music.length + ' music pages carry the full frame; the piece ends once');
 process.exit(bad ? 1 : 0);
