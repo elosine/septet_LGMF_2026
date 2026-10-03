@@ -71,8 +71,8 @@ const probe = `
     const ticks=hdr?hdr.querySelectorAll('line').length:0;
     const clock=hdr?[...hdr.querySelectorAll('text')].length:0;
     const folio=(pg.querySelector('.fol')||{textContent:''}).textContent.trim().replace(/\\s+/g,' ');
-    // the terminal barline: static_page draws it as the only full-height <rect> with opacity
-    const endbar=[...mus.querySelectorAll('rect[opacity]')].filter(x=>parseFloat(x.getAttribute('height'))>0.7*mus.getBoundingClientRect().height).length;
+    // the terminal barline: static_page draws it as <g class="final-barline"> (the print's thin + thick, §772); before §772 the only full-height <rect> with opacity
+    const endbar=mus.querySelectorAll('g.final-barline').length||[...mus.querySelectorAll('rect[opacity]')].filter(x=>parseFloat(x.getAttribute('height'))>0.7*mus.getBoundingClientRect().height).length;
     let outside=0;
     for (const el of pg.querySelectorAll('.hdr,.mus,.fol')) {
       const b=el.getBoundingClientRect();

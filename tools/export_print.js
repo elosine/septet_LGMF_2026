@@ -638,6 +638,7 @@ function buildHtml() {
       // composer, day 37: no bar line at the right of every page. On paper the
       // page edge is not a musical event; the bar draws only at the true end.
       edgeBar: false,
+      finalBar: true,       // [2b-P step 5, §772] the print's thin + thick final barline at the piece's end (rules.json objects.finalBarLine)
     });
     // [2b.7.1] the folio reads what the page OWNS — with ownership that is exactly the music on it, reserves excluded.
     const t0 = ownedOf(i)[0], t1 = Math.min(ownedOf(i)[1], srcEnd);

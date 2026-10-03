@@ -229,6 +229,15 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **What his calls fixed (§770):** the cover's ensemble line on TWO rows (`print/cover/cover.json`; title 85 pt) · the density 10.3 s per page,
   the film's own (the default — 86 pages) · page 1 kept as it prints (opens at −0.49 s, no 4 s lead-in on paper; the percussion's seven names with
   no staff lines until section 2 — §489 closed for the print) · the instructions on ONE page (measured; it fits: col 1 936 · col 2 795 of 980).
+- **AFTER THE CHECK-IN (2026-10-03, Fable; RUNNING_LOG §771 · §772; LG-332):** §771 the score server serves `print/` read-only + a `.pdf` MIME —
+  `http://localhost:5400/print/score/Recombination-score-JYang.pdf` in his Chrome, **live at his restart of `node score/server.js`** · §772 HIS FIRST
+  NOTE ON THE PDF, FIXED: THE FINAL BARLINE — the print had the screen's page-edge bar (1.5 px at 0.55, lane top to lane bottom: grey, the staff
+  lines through it); now LilyPond's "|." from his 2.24.4 (thin 0.19 · gap 0.30 · thick 0.60 ss = hair 1.9 · kern 3.0 · thick 6.0 × line-thickness
+  0.1 ss), ink, opaque, from the top staff's top line to the bottom staff's bottom line, appended last — the rules row `objects.finalBarLine`
+  (`basis: lilypond`), `container` `systemEndBar.final`, `static_page.js` on `o.finalBar` (export_print passes it; the screen and the film keep
+  their bar byte for byte), `check_print_pages`' probe counts `g.final-barline`; `check_rules` 34; the last page looked at (`print_look --at 880`),
+  sent to him. **THE WHOLE FILE IS NOT RE-RENDERED** — his further notes first, then ONE `bash print/score/build.sh`. His answer on the ending:
+  the barline alone, no colophon (read from "let's do a final bar line").
 - **► THE NEXT STEP — after `/clear`, on OPUS, `/postclear`: check in and WAIT for his eye on the whole PDF (PLAN 2b-P step 5).** Then, on his word:
   - **his notes** → collected, fixed in ONE pass (§527's way) → `bash print/score/build.sh` (≈ 7 min; every gate is in it; NO `--rebuild-ir`) →
     the new file sent to him → again until *"print good"*;

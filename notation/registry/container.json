@@ -798,7 +798,8 @@
    },
    "systemEndBar": {
     "wPx": 1.5,
-    "opacity": 0.55
+    "opacity": 0.55,
+    "final": { "colour": "@objects.finalBarLine.colour", "thinSs": "@objects.finalBarLine.thinSs", "gapSs": "@objects.finalBarLine.gapSs", "thickSs": "@objects.finalBarLine.thickSs" }
    },
    "envCurve": {
     "strokeWPx": "@objects.curve.strokeWPx",

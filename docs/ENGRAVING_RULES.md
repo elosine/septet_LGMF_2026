@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 263 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 267 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
@@ -143,6 +143,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `glyph:text-.*`
 - **barLine** — colour **ink #111** · thickSs **0.13** · *composer* · #4 day 35
   - draws `barline` · in: render.js engravingDefaults().barLine
+- **finalBarLine** — colour **ink #111** → `render.systemEndBar.final.colour` · thinSs **0.19** → `render.systemEndBar.final.thinSs` · gapSs **0.3** → `render.systemEndBar.final.gapSs` · thickSs **0.6** → `render.systemEndBar.final.thickSs` · opacity **1** · extent **the centre of the top staff's top line to the centre of the bottom staff's bottom line, one bar through the system** · where **the print only (export_print passes finalBar); the screen and the film keep container systemEndBar's edge bar** · *lilypond* · §772 (2026-10-03, his eye on the print score: 'let's do a final bar line … the double line … the proper thick and thin line measurements … solid black, 100% opaque … make sure it's over the staff lines'): LilyPond 2.24.4's "|." — define-grobs.scm BarLine hair-thickness 1.9 · kern 3.0 · thick-thickness 6.0, each × line-thickness (paper.scm calc-line-thickness: 0.5 pt at the 20 pt staff = 0.1 ss; objects.staff.lineThicknessSs is the same 0.1) → thin 0.19 · gap 0.30 · thick 0.60 ss, the thick bar's right edge ON the end (bar-line.scm: the stencil runs thin · kern · thick from x 0); the extent ly:bar-line::calc-bar-extent — a bar of the staff's own colour ends at the outer line's MIDDLE ('they stick out a pixel' at the edge), the span bars joining the staves — here one bar through the whole system, the chamber score's. The grey he saw was container systemEndBar's 0.55 opacity (the screen's page-edge marker, #4 G1), the staff lines showing through it
+  - draws `` · in: static_page.js staticPageSvg (o.finalBar) ← container engraving.render.systemEndBar.final
 - **goLine** — colour **goLine #333** · wPx **1.5** → `render.goLine.wPx` · opacity **0.85** → `render.goLine.opacity` · dash **5,4** → `render.goLine.dash` · *composer* · #4 day 22 ('keep that go line always black gray') · #5 §401h (the trims)
   - draws `goline`
 - **attackLine** — colour **ink #111** · look **{wSs: 0.18, hSs: 2.2, offsetSs: 1.1}** → `render.attackLine` · *census* · #4 V0.10 (M4)

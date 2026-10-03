@@ -69,7 +69,24 @@
     const edgeBar = o.edgeBar !== false;
     let endBar = '';
     const endInWindow = o.srcEnd > view.window[0] && o.srcEnd <= view.window[1];
-    if (eb && view.systems.length && (endInWindow || edgeBar)) {
+    // [2b-P step 5, §772 — his eye on the print: "let's do a final bar line … the double line … the proper thick and thin line
+    // measurements … solid black, 100% opaque … over the staff lines"] THE PRINT'S FINAL BARLINE — LilyPond's "|." (his 2.24.4:
+    // bar-line.scm · define-grobs.scm BarLine hair-thickness 1.9 · kern 3.0 · thick-thickness 6.0, × line-thickness = 0.1 ss at the
+    // 20 pt staff, paper.scm) → thin 0.19 · gap 0.30 · thick 0.60 ss, the thick bar's right edge ON the end; from the CENTRE of the
+    // top staff's top line to the centre of the bottom staff's bottom line (ly:bar-line::calc-bar-extent), one bar through the
+    // system; ink, opaque, appended LAST so it lies over the staff lines. The numbers: rules.json objects.finalBarLine, read through
+    // container engraving.render.systemEndBar.final. Only when the caller asks (`finalBar` — export_print): the screen and the film
+    // keep their edge bar byte for byte.
+    const fb = eb && eb.final;
+    if (o.finalBar && fb && view.systems.length && endInWindow) {
+      const sysTop = view.systems[0], sysBot = view.systems[view.systems.length - 1];
+      const linesOf = sys => { const sm = ((o.model && o.model.systems) || []).find(m => (m.key !== undefined ? m.key : m.part) === sys.part); return (sm && sm.staffLines) || [-2, -1, 0, 1, 2]; };
+      const ys = sysTop.yOfSs(Math.max(...linesOf(sysTop))), ye = sysBot.yOfSs(Math.min(...linesOf(sysBot)));
+      const ss = sysTop.ssPx, xEnd = view.xOfSeconds(o.srcEnd);
+      const thin = fb.thinSs * ss, gap = fb.gapSs * ss, thick = fb.thickSs * ss;
+      const bar = (x, w) => '<rect x="' + x.toFixed(2) + '" y="' + ys.toFixed(2) + '" width="' + w.toFixed(2) + '" height="' + (ye - ys).toFixed(2) + '" fill="' + fb.colour + '"/>';
+      endBar = '<g class="final-barline">' + bar(xEnd - thick - gap - thin, thin) + bar(xEnd - thick, thick) + '</g>';
+    } else if (eb && view.systems.length && (endInWindow || edgeBar)) {
       const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
       // [2c.1] the right edge of the SYSTEM — the frame less its right margin (no margin: the frame's edge, as before)
       const xEnd = endInWindow ? view.xOfSeconds(o.srcEnd) : (view.musicX1Px != null ? view.musicX1Px : view.widthPx);
