@@ -234,10 +234,15 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   AI's proposed verdicts (35 take now by container · 12 later · 9 leave).
 - **1.3 DONE 2026-10-03 (§788): his read of `docs/HARVEST.md` — *"All as proposed"*; every verdict stands. (His first reaction — lost in
   the AI's vocabulary — is a lesson for the protocol's own writing: every list put to him leads with what it IS and the ONE decision.)**
-- **► THE NEXT CONCRETE STEP — on FABLE: CONTAINER 2, THE REPO AND ITS KIT, in progress — the data read (§788: PLAN 0a · RUNNING_LOG §6 ·
-  `docs/` as it stands · `.gitignore` · P6's names), the GOAL put to him; on his nod the sub-steps, written into
-  `docs/plans/NEW_PIECE_PROTOCOL.md` § 2 with the harvest's H-1 … H-6 folded in as steps. One container per sitting is the pace; the
-  order is the top line's, his to change.**
+- **CONTAINER 2 WRITTEN 2026-10-03 (§789)** — and at its goal his two points: LAYER the things to port · where a NEW TYPE OF SCORE sits
+  (the Decibel piece may be one). His (a): the ten containers in THREE LAYERS — UNIVERSAL (1 · 2 · 9 · 10) · THE INSTRUMENT (3 · 4 · 5 ·
+  7) · THE SCORE (6 · 8, per score type) — SCORE TYPES a category (the scrolling score its first member) · "port the useful modules" =
+  CARRY ALL, USE SOME for now, a MODULE MANIFEST on 9's list · a PROFILE step 2.1. § 2 in the plan file: 2.1 … 2.6 recurring, 2.7 the
+  skeletons · 2.8 the memory notes one-time (`todo`).
+- **► THE NEXT CONCRETE STEP — CONTAINER 3, THE ENGINE COPIED FORWARD, the same way: the goal, the data (`docs/plans/PORT_FROM_TEMPUS.md`
+  steps 1 … 3 and 5 · RUNNING_LOG §12 … §16 · HARVEST H-7 … H-14), his nod, the sub-steps into the plan file § 3. THE AI'S
+  RECOMMENDATION: `/checkpoint` (Opus) → `/clear` → Fable `/postclear` FIRST — the context is long and 3 is the biggest container. One
+  container per sitting is the pace.**
 - **`Resume reads:`** `docs/plans/NEW_PIECE_PROTOCOL.md` (the plan as it stands — the top line and § 1) · `docs/HARVEST.md` (his read
   owed). `docs/plans/PORT_FROM_TEMPUS.md` only when container 3 is reached. Nothing else beyond §2.
 - **Pending him:** nothing on this piece. The two set-ups (the Decibel piece for TENOR, November 14th; the Switch~ piece, December 1st)

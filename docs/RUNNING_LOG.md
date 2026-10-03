@@ -23127,3 +23127,33 @@ launch.json and the tool docs, which travel with the code; SWEEP_LIST per piece)
 kinds: the standing method docs · the piece's own record · the tool docs that describe the code) · `.gitignore` (the fonts, the
 renders, the PDFs, the call's screenshots, the raw captures — a public repo) · the names of P6 (`PORT_FROM_TEMPUS.md`). ► The goal
 put to him.
+
+## §789. THE LAYERS and the SCORE-TYPE category — his two points at container 2; (a) chosen; § 2 THE REPO AND ITS KIT written (2026-10-03, Fable; follows §788)
+
+**His two points, in his words, at the goal of container 2:** *"one thing I am thinking of is I might do something significantly
+different with the decibel ensemble piece. So a significantly different type of score. So just to slot in here, if it affects the
+design: Should we layer the things to port? So for example, there might be a universal layer like the repo and documentation
+methodology or whatever, and then have maybe just some of the modules or whatever ported, or the ability to port the useful ones.
+And then on the other end, if I develop a whole new type of scoring system, how do we … where does it sit in the sort of overall
+system? Like, is it like another category and we can decide to port this type of score? Anyways, those are two things to think about
+in light of this. And then the goal is right for this, for number two."*
+
+**The AI's answer (the plan file carries it):** THREE LAYERS over the same ten containers — UNIVERSAL (1 · 2 · 9 · 10) · THE
+INSTRUMENT, the sound side (3 · 4 · 5 · 7) · THE SCORE (6 · 8, laid out per score type) · SCORE TYPES a category of their own, the
+animated scrolling score its first member; a new kind is a second, in one of two shapes — a new RENDERING of the same composed material
+reading the IR (D9 built the IR as the single source for every downstream score; cheap) or a new way of composing and notating with its
+own ground truth (its own module) — which, the Decibel piece's design says, not now · "PORT THE USEFUL MODULES": honest state — the
+unit of port is the whole engine, byte-exact, the modules coupled (one page loads forty scripts; a missing one is a 404); carrying all
+costs nothing, excising costs a lot → the rule CARRY ALL, USE SOME; a module-level port needs the boundary named — a MODULE MANIFEST —
+on container 9's list as the modest enhancement he is open to, not built now · a PROFILE step at the start of container 2 (the kind of
+start · the layers · the score type). Put to him: (a) the three layers + the profile step, (b) the flat list — **his (a).**
+
+**§ 2 THE REPO AND ITS KIT written into `docs/plans/NEW_PIECE_PROTOCOL.md`** as agreed: the result · the data (0a · §6 · the names of
+P6 · `docs/` today) · three calls his to reverse (the kit a TEMPLATE, not a copy of the last docs · THE PROTOCOL ITSELF IS THE NEW
+PIECE'S PLAN § 0 · the AI's memory is per repo — the cross-piece notes to his user-level CLAUDE.md) · recurring 2.1 the profile · 2.2
+the repo (public / private his; the push rule asked per repo) · 2.3 the names (the ports the next pair in the lineage) · 2.4 the method
+docs whole, H-1 · H-2 · H-3 · H-6 folded in · 2.5 the record docs from skeletons, H-5 in · 2.6 outside the repo — the launch entry
+(H-4), the planning repo · done when `/session-start` finds the state line, PLAN § 0 and the names · one-time 2.7 the skeletons made
+once (`todo`) · 2.8 the memory notes moved (`todo`). The top line regrouped in the file; the kinds of start now three (copy-forward ·
+from a sandbox · fresh). ► NEXT: container 3, the engine copied forward — the biggest; the data `PORT_FROM_TEMPUS.md` steps 1 … 3 · 5,
+RUNNING_LOG §12 … §16, H-7 … H-14. The AI's recommendation: a checkpoint and a clear before it (the context is long).
