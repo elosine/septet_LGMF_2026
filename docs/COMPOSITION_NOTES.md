@@ -4213,3 +4213,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "video link https://youtu.be/xPOLvA6BEsk"
 
 *The AI's reading (marked as such):* the film of Draft 01 is public on his channel; the notes point at it. RUNNING_LOG §755.
+
+## LG-321 — 2026-10-02 — the "Animated scrolling cursor" image: the middle section's percussion, the cursor hitting a plain black note head
+
+*His words (session 18, Fable):* "The second image with the annotation animated scrolling cursor. Could we find one from the middle section percussion and have the cursor just hitting one of the plain black note heads?"
+
+*The AI's reading (marked as such):* the cursor's picture should be the simplest case — a plain head struck when the cursor reaches it — and the percussion staff is where the plain heads are. RUNNING_LOG §756.

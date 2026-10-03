@@ -47,11 +47,13 @@
      column (styles.css, img.zoomed; --w = the crop width the tool prints).
      THIS PIECE'S IMAGES (the text under them is still piece #5's — his to revise):
      E1: Bassoon, the one-off at 295.97 s (B1, mf), captured at t=295.80 — cursor approaching the go line, ball descending.
-     E2: English horn, the breath at 28.71 s (a new pitch, G5 +2 · 12 (C2)), captured at t=30.3 — the go line, the
-         green level line, the breath pie.
+     E2 (RE-CUT §756, his word: the middle section's percussion, the cursor just hitting a plain black head): the percussion staff
+         at 299.7 … 302.95 s — the sleigh bells at 300.116, the tambourine at 301.486, the wood block + bass drum pair at 302.55;
+         captured at t=300.125, the cursor 3 px into the first head (a head's left edge is its time). WAS the English horn's
+         breath at 28.71 s (t=30.3).
      Regenerate:
      node tools/capture_lane.js --part bsn --t 295.80 --span 295.35-296.55 --padBot 30 --out docs/notation_instructions/images/conduction_e1_oneoff_bsn_296.svg
-     node tools/capture_lane.js --part eh --t 30.3 --span 28.0-32.5 --padBot 30 --out docs/notation_instructions/images/conduction_e2_breath_eh_29.svg  -->
+     node tools/capture_lane.js --part perc --t 300.125 --span 299.7:302.95 --padTop 10 --padBot 10 --out docs/notation_instructions/images/conduction_e2_cursor_perc_300.svg  -->
 
 <h3>Animated Conduction Tools</h3>
 
@@ -67,8 +69,8 @@
             <img src="images/conduction_e1_oneoff_bsn_296.svg" alt="The bassoon's short note at the go line, ball descending, cursor approaching">
             <figcaption>Bouncing-ball conductor</figcaption>
         </figure>
-        <figure class="zoomed" style="--w: 1386">
-            <img src="images/conduction_e2_breath_eh_29.svg" alt="The English horn's breath: go line, open head with its cents and partial, the green level line, the breath pie, the cursor">
+        <figure class="zoomed" style="--w: 1001">
+            <img src="images/conduction_e2_cursor_perc_300.svg" alt="The seven-line percussion staff with three plain black note heads and a beamed pair; the cursor is just reaching the first head">
             <figcaption>Animated scrolling cursor</figcaption>
         </figure>
     </div>
