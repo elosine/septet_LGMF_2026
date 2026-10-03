@@ -48,7 +48,7 @@ const probe = `
       // how full each column is, measured on the LEAF blocks — the container div
       // spans both columns, so asking it where it ends always answers "the bottom"
       const cr=c.getBoundingClientRect();
-      const deep=[...c.querySelectorAll('h3, h4, .figwrap, .description p, .pair, ul, table')];
+      const deep=[...c.querySelectorAll('h3, h4, p, .figwrap, figcaption, .pair, ul, table')];   // [2b-P.3] every leaf block of the page's vocabulary
       const low=n=>Math.round(Math.max(0,...deep.filter(e=>{const r=e.getBoundingClientRect();
         return n===1 ? (r.left-cr.left)<cr.width/2 : (r.left-cr.left)>=cr.width/2;})
         .map(e=>e.getBoundingClientRect().bottom-cr.top-(n===1?0:0))));

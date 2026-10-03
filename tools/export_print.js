@@ -29,6 +29,7 @@
 //   node tools/export_print.js --htmlOnly --out proof.html
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 const Coords = require(path.join(ROOT, 'notation', 'lib', 'coords.js'));
@@ -428,11 +429,38 @@ function coverSvg() {
 // So it breaks at a SECTION (never mid-paragraph) and prints as two spreads.
 // The type is not shrunk to fit: 10.4 px is already the floor for a player
 // reading at a stand.
-const INS_BREAK = arg('insBreak', 'Acoustic Beating');   // the <h3> that opens page 2
+// [LGMF 2b-P.3 — 2026-10-03] THE INSTRUCTIONS AS A TEMPLATE: THE PRINT READS THE PAGE'S OWN FORMAT. Nothing below names an image
+// or a heading of one piece. What was here: a table of image names with a width each (`FIGW` — the tuba's, then the septet's; on
+// this piece's page not one key matched and, worse, the tag pattern wanted `src` FIRST, so nine of the twelve images were not
+// inlined at all) and a default break at piece #5's "Acoustic Beating". Now:
+//   · AN IMAGE'S WIDTH IS THE PAGE'S: `<img class="zoomed" style="--w: N">` keeps its --w and the page's one rule
+//     (styles.css: width = --w / --frame of the column — RUNNING_LOG §704's ONE SCALE) is applied to the PRINT column, --frame read
+//     from the page's stylesheet. A `<figure class="zoomed">` carries the width for its image. A plain <img>: the full column, and a note.
+//   · THE ROWS ARE THE PAGE'S: `.zoomed-row` (images side by side) and `.entry-row` (a picture and its text) stay rows, each
+//     unbreakable; their gaps are read from the stylesheet.
+//   · THE BREAK: --insBreak names the <h3> that opens page 2. Not given, it is MEASURED — the page is laid out once in Chrome and
+//     the break goes before the first <h3> whose section would not fit; one page if all fits, and again for a third if it must.
+//   · KEPT: 10.4 px, column-fill:auto, a heading never ends a column, a figure never leaves the line that introduces it (§610 · §611).
+const INS_BREAK = arg('insBreak', null);   // the <h3> that opens page 2; absent = measured
+const INS_DIR = path.join(ROOT, 'docs', 'notation_instructions');
+// the page's own knobs, from its stylesheet — the defaults are styles.css's values of 2026-10-03, used only if a rule is gone
+const INS_CSS = (() => {
+  const p = path.join(INS_DIR, 'styles.css');
+  const css = fs.existsSync(p) ? fs.readFileSync(p, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '') : '';
+  const pick = (re, def, what) => { const m = re.exec(css); if (!m && wantInstructions) console.error('  ! styles.css has no ' + what + ' — the print uses ' + def); return m ? m[1].trim() : def; };
+  return {
+    frame: pick(/:root\s*\{[^}]*--frame\s*:\s*([\d.]+)/, '1920', ':root --frame'),
+    rowGap: pick(/\.zoomed-row\s*\{[^}]*\bgap\s*:\s*([^;}]+)/, '2%', '.zoomed-row gap'),
+    entryGap: pick(/\.entry-row\s*\{[^}]*\bgap\s*:\s*([^;}]+)/, '3%', '.entry-row gap'),
+  };
+})();
+let INS_REPORT = '';
+let _insPages;   // built once — the measured break costs a Chrome run, and the page count is asked for twice
 function instructionsPages() {
   if (!wantInstructions) return null;
-  const src = path.join(ROOT, 'docs', 'notation_instructions', 'index.html');
-  if (!fs.existsSync(src)) { console.error('  ! --instructions on but docs/notation_instructions/index.html is missing; skipping'); return null; }
+  if (_insPages !== undefined) return _insPages;
+  const src = path.join(INS_DIR, 'index.html');
+  if (!fs.existsSync(src)) { console.error('  ! --instructions on but docs/notation_instructions/index.html is missing; skipping'); return (_insPages = null); }
   let body = /<body>([\s\S]*)<\/body>/.exec(fs.readFileSync(src, 'utf8'))[1];
   body = body.replace(/<!--[\s\S]*?-->/g, '');            // regen-command comments
   // title block spans both columns; the rest flows
@@ -440,54 +468,94 @@ function instructionsPages() {
   const title = tm ? tm[1] : 'Performance Instructions';
   const subtitle = tm ? tm[2] : '';
   if (tm) body = body.replace(tm[0], '');
-  // inline every image (all SVG, all with viewBox — they scale by CSS width).
-  // Per-figure widths, % of the column. Keyed by THIS piece's image names — the
-  // table was the tuba's (multitempo_530_T8T9T10, clusters_37_T9 …) and not one
-  // of its keys existed here, so every figure rode at full column width.
-  // The wide panels are the ones that must be held back: the morph sequence
-  // chart is a 16:5 strip and the two conduction stills are wider than tall.
-  const FIGW = {
-    morph_sequence_chart: 100, conduction_e1_strike_vn1_20: 100, conduction_e2_trill_vn1: 100,
-    // the crescendo figure: he asked for it smaller so that it and the paragraph
-    // under it ride in the FIRST column together (2026-09-17, his screenshot)
-    curve_cresc_527_va: 78, gradient_trill: 92,
-    beating_notation_entry_va: 88, beating_notation_mid_va: 88,
-    let_ring_plucked_pno: 100, let_ring_ordinary_pno: 100,
-  };
-  const missing = [];
-  body = body.replace(/<img\s+src="([^"]+)"[^>]*>/g, (_, rel) => {
-    const p = path.join(ROOT, 'docs', 'notation_instructions', rel);
-    if (!fs.existsSync(p)) { missing.push(rel); return ''; }
-    const svg = fs.readFileSync(p, 'utf8').replace(/^<\?xml[^>]*\?>\s*/, '');
-    const key = path.basename(rel, '.svg');
-    if (!(key in FIGW)) console.error('  ! instructions figure has no width in FIGW: ' + key + ' (drawn at full column width)');
-    const w = FIGW[key];
-    return '<div class="figwrap"' + (w && w !== 100 ? ' style="width:' + w + '%"' : '') + '>' + svg + '</div>';
+  // INLINE EVERY IMAGE (an SVG scales by CSS width; inlined, its own 'Crimson Pro Light' <text> resolves against the embedded
+  // faces — an <img> would isolate it and fall back). The attributes are read in ANY order.
+  const missing = [], plain = [];
+  body = body.replace(/<img\b([^>]*)>/g, (tag, attrs, off, whole) => {
+    const A = {};
+    for (const m of attrs.matchAll(/([\w-]+)\s*=\s*"([^"]*)"/g)) A[m[1]] = m[2];
+    if (!A.src) return '';
+    const p = path.join(INS_DIR, A.src);
+    if (!fs.existsSync(p)) { missing.push(A.src); return ''; }
+    const inner = /\.svg$/i.test(A.src) ? fs.readFileSync(p, 'utf8').replace(/^<\?xml[^>]*\?>\s*/, '')
+      : '<img src="file:///' + p.replace(/\\/g, '/') + '" style="display:block;width:100%;height:auto">';   // a raster image: check_print_pdf will say so
+    const w = /--w\s*:\s*([\d.]+)/.exec(A.style || '');
+    if (/\bzoomed\b/.test(A.class || '') && w) return '<div class="figwrap zoomed" style="--w:' + w[1] + '">' + inner + '</div>';
+    // inside <figure class="zoomed"> the FIGURE carries the width and its image fills it (styles.css, §706)
+    const before = whole.slice(0, off), fo = before.lastIndexOf('<figure'), fc = before.lastIndexOf('</figure>');
+    const inZoomedFigure = fo > fc && /\bclass="[^"]*\bzoomed\b/.test(before.slice(fo, before.indexOf('>', fo) + 1));
+    if (!inZoomedFigure) plain.push(path.basename(A.src));
+    return '<div class="figwrap">' + inner + '</div>';
   });
   if (missing.length) { console.error('  ! instructions images MISSING: ' + missing.join(', ')); process.exit(5); }
+  if (plain.length) console.error('  ! instructions image(s) with no width of their own (no class "zoomed" + --w): ' + plain.join(', ') + ' — drawn at the full column width');
 
-  // A FIGURE AND THE PARAGRAPH THAT EXPLAINS IT ARE ONE BLOCK (his ask, 2026-09-17:
-  // "crescendos image and bottom text ... fit in column 1"). Held together, they
-  // move as a unit to whichever column can take both, and a reader never meets a
-  // picture whose sentence is in the next column.
-  body = body.replace(/(<div class="figwrap"[^>]*>[\s\S]*?<\/div>)\s*(<div class="description">[\s\S]*?<\/div>)/g,
-    (_, fig, desc) => '<div class="figblock">' + fig + desc + '</div>');
-
-  // the break: the <h3> named by --insBreak opens the second page
-  const bi = body.search(new RegExp('<h3[^>]*>\\s*' + INS_BREAK.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  if (bi < 0) { console.error('  ! --insBreak "' + INS_BREAK + '" matches no <h3> in the instructions page'); process.exit(5); }
-  const halves = [body.slice(0, bi), body.slice(bi)];
   const page = (html, i) => '<div class="page ins"><div class="insframe">' +
     '<div class="institle"><span class="t">' + title + '</span><span class="s">' +
     (i === 0 ? subtitle : 'continued') + '</span></div>' +
     '<div class="cols">' + html + '</div></div></div>';
-  return halves.map(page);
+
+  // THE SECTIONS: what stands before the first <h3>, then one per <h3>. A break falls between sections, never inside one.
+  const sections = body.split(/(?=<h3[\s>])/);
+  const headOf = s => { const m = /^<h3[^>]*>\s*([\s\S]*?)<\/h3>/.exec(s); return m ? m[1].replace(/<[^>]+>/g, '').trim() : null; };
+  let groups;
+  if (INS_BREAK != null) {
+    const k = sections.findIndex(s => (headOf(s) || '').startsWith(INS_BREAK));
+    if (k < 0) {
+      console.error('  ! --insBreak "' + INS_BREAK + '" matches no <h3> in the instructions page; it has: ' + sections.map(headOf).filter(Boolean).join(' · '));
+      process.exit(5);
+    }
+    groups = k > 0 ? [sections.slice(0, k), sections.slice(k)] : [sections];
+    INS_REPORT = groups.length + ' page(s), the break before "' + headOf(sections[k]) + '" (--insBreak)';
+  } else {
+    groups = [];
+    let rest = sections.slice(), measured = true;
+    for (let guard = 0; rest.length && guard < 8; guard++) {
+      const k = insFirstOverflow(rest, page);
+      if (k == null) { measured = false; groups.push(rest); rest = []; break; }
+      if (k < 0) { groups.push(rest); rest = []; break; }
+      // k === 0: the page's FIRST section does not fit by itself — no break can go before it; it takes the page, and
+      // check_print_front reports what is clipped (the type is not shrunk: 10.4 px is the floor)
+      const n = Math.max(1, k);
+      groups.push(rest.slice(0, n)); rest = rest.slice(n);
+    }
+    if (rest.length) groups.push(rest);
+    if (!measured) console.error('  ! the instructions\' break could not be measured (Chrome not found) — printed as one page; name the break with --insBreak "<heading>"');
+    INS_REPORT = groups.length + ' page(s)' + (groups.length > 1 ? ', the break' + (groups.length > 2 ? 's' : '') + ' before ' +
+      groups.slice(1).map(g => '"' + (headOf(g[0]) || '?') + '"').join(' · ') + (measured ? ' (measured: the first section that would not fit)' : '') : (measured ? ' (measured: everything fits)' : ''));
+  }
+  return (_insPages = groups.map((g, i) => page(g.join(''), i)));
+}
+// THE MEASURED BREAK. The exporter cannot see its own layout (Chrome does the columns), so it asks: the sections are laid out in
+// ONE page of the real dress and Chrome reports, per <h3>, the furthest column its section reaches. A page holds columns 0 and 1;
+// the first section reaching column 2 is where the next page begins. Returns its index, -1 when all fits, null without Chrome.
+// Only HTML boxes are measured: an inlined SVG's own children reach past its viewport (a crop of a larger page) and would lie.
+function insFirstOverflow(sections, page) {
+  const chrome = findChrome();
+  if (!chrome) return null;
+  const tagged = sections.map((s, i) => s.replace(/^<h3/, '<h3 data-sec="' + i + '"'));
+  const probe = '<script>addEventListener("load",()=>{' +
+    'const c=document.querySelector(".cols"),cr=c.getBoundingClientRect(),gap=parseFloat(getComputedStyle(c).columnGap)||0,colW=(cr.width-gap)/2;' +
+    'const out=[...c.querySelectorAll(":scope > h3[data-sec]")].map(h=>{let right=-1e9,el=h;' +
+    'while(el&&(el===h||!(el.matches&&el.matches("h3[data-sec]")))){' +
+    'for(const e of [el,...el.querySelectorAll("*")]){if(e.ownerSVGElement)continue;const r=e.getBoundingClientRect();if(r.width>0||r.height>0)right=Math.max(right,r.right);}' +
+    'el=el.nextElementSibling;}' +
+    'return h.getAttribute("data-sec")+":"+Math.floor((right-cr.left-0.5)/(colW+gap));});' +
+    'document.body.setAttribute("data-b","["+out.join(",")+"]");});</script>';
+  const tmp = path.join(os.tmpdir(), 'printins-' + process.pid + '-' + Date.now() + '.html');
+  fs.writeFileSync(tmp, '<!doctype html><meta charset="utf-8">' + styleBlock() + page(tagged.join(''), 0) + probe);
+  const c = spawnSync(chrome, ['--headless', '--disable-gpu', '--virtual-time-budget=8000', '--dump-dom',
+    'file:///' + tmp.replace(/\\/g, '/')], { encoding: 'utf8', maxBuffer: 1 << 28 });
+  try { fs.unlinkSync(tmp); } catch (e) { }
+  const m = /data-b="\[([^"\]]*)\]"/.exec(c.stdout || '');
+  if (!m) return null;
+  const over = (m[1] ? m[1].split(',') : []).map(x => x.split(':').map(Number)).find(x => x[1] >= 2);
+  return over ? over[0] : -1;
 }
 
-function buildHtml() {
-  const out = [];
-  out.push('<!doctype html><meta charset="utf-8"><title>' + esc(irId) + ' — print score</title>');
-  out.push('<style>' + faces + '\n' +
+// the document's one <style> — a function because the instructions' measured break lays a page out in the same dress (2b-P.3)
+function styleBlock() {
+  return '<style>' + faces + '\n' +
     '@page{size:' + FMT.css + ';margin:0;}\n' +
     'html,body{margin:0;padding:0;background:#fff;}\n' +
     '.page{position:relative;width:' + pageW + 'px;height:' + pageH + 'px;overflow:hidden;break-after:page;page-break-after:always;background:#fff;}\n' +
@@ -497,7 +565,7 @@ function buildHtml() {
     '.fol{position:absolute;left:' + margin + 'px;width:' + blockW + 'px;top:' + (pageH - margin - footerPx + 3) + 'px;' +
     'font:11px "Crimson Pro Light",serif;color:#8a8a8a;display:flex;justify-content:space-between;}\n' +
     '.cov svg{display:block;}\n' +
-    // ---- the performance-instructions page (page 2) ----
+    // ---- the performance-instructions pages ----
     '.insframe{position:absolute;left:' + margin + 'px;top:' + margin + 'px;width:' + blockW + 'px;height:' + (pageH - 2 * margin) + 'px;' +
     "font-family:'Crimson Pro Light',serif;color:#111;}\n" +
     '.institle{display:flex;align-items:baseline;gap:18px;border-bottom:0.75px solid #111;padding-bottom:4px;margin-bottom:9px;}\n' +
@@ -507,26 +575,46 @@ function buildHtml() {
     // what a fixed-height printed page wants. Balanced (the default) it chose a
     // target height, found the crescendo figure would not fit under it, and threw
     // the figure into column 2 while column 1 stood half empty — his screenshot.
-    '.cols{column-count:2;column-fill:auto;column-gap:36px;height:' + (pageH - 2 * margin - 46) + 'px;font-size:10.4px;line-height:1.36;}\n' +
-    // [his notes, 2026-09-17] A HEADING NEVER ENDS A COLUMN, AND A FIGURE NEVER
-    // LEAVES WHAT INTRODUCES IT BEHIND. "trills heading to column 2 · notation
-    // legend heading + ped to column 2": both were headings stranded at the foot
-    // of column 1 with their picture at the top of column 2. break-after on the
-    // headings carries them over; break-before on a figure pulls the line above
-    // it along, which is what moves the legend's Ped. sentence with its heading.
-    '.figblock{break-inside:avoid;}\n' +
-    '.cols h3,.cols h4{break-after:avoid;}\n' +
-    '.cols .figblock,.cols .pair{break-before:avoid;}\n' +
+    // --frame: the page's ONE SCALE (styles.css :root) — a score image is --w / --frame of the column, on paper as on screen.
+    '.cols{column-count:2;column-fill:auto;column-gap:36px;height:' + (pageH - 2 * margin - 46) + 'px;font-size:10.4px;line-height:1.36;--frame:' + INS_CSS.frame + ';}\n' +
     '.cols h3{font-size:12.5px;letter-spacing:1.5px;margin:7px 0 3px;}\n' +
     '.cols p{margin:0 0 5px;}\n' +
     '.cols ul{margin:0 0 5px 16px;padding:0;}\n' +
     '.cols li{break-inside:avoid;}\n' +
     '.cols a{color:inherit;text-decoration:none;}\n' +
-    '.cols figure{margin:0;}\n' +
+    '.cols figure{margin:0;break-inside:avoid;}\n' +
+    '.cols figcaption{font-size:0.85em;font-style:italic;color:#555;margin:2px 0 0;}\n' +
     '.cols .pair{display:flex;gap:8px;margin:2px 0 5px;width:92%;}\n' +
     '.figwrap{break-inside:avoid;margin:2px 0 5px;}\n' +
     '.figwrap svg{display:block;width:100%;height:auto;}\n' +
-    '</style>');
+    // THE PAGE'S OWN VOCABULARY (docs/notation_instructions/styles.css): a score image at the one scale · a row of them · a
+    // picture-and-text entry · a bold lead in place of a heading. The widths are the page's (--w), the gaps the stylesheet's.
+    '.cols .figwrap.zoomed,.cols figure.zoomed{width:calc(var(--w) / var(--frame) * 100%);}\n' +
+    '.cols figure .figwrap{margin:0;}\n' +
+    '.cols .zoomed-row{display:flex;gap:' + INS_CSS.rowGap + ';align-items:flex-start;break-inside:avoid;margin:2px 0 5px;}\n' +
+    '.cols .zoomed-row > *{flex:none;margin:0;}\n' +
+    '.cols .entry-row{display:flex;gap:' + INS_CSS.entryGap + ';align-items:center;break-inside:avoid;margin:6px 0 5px;}\n' +
+    '.cols .entry-row > .figwrap{flex:none;margin:0;}\n' +
+    '.cols .entry-row .entry-text{flex:1;min-width:0;}\n' +
+    '.cols .entry-row .entry-text p{margin:0;}\n' +
+    '.cols .entry-lead{margin:7px 0 3px;}\n' +
+    // [his notes, 2026-09-17] A HEADING NEVER ENDS A COLUMN, AND A FIGURE NEVER
+    // LEAVES WHAT INTRODUCES IT BEHIND. "trills heading to column 2 · notation
+    // legend heading + ped to column 2": both were headings stranded at the foot
+    // of column 1 with their picture at the top of column 2. break-after on the
+    // headings carries them over; break-before on a figure pulls the line above
+    // it along. [2b-P.3] And the sentence that EXPLAINS a figure stays under it ("crescendos
+    // image and bottom text … fit in column 1") — by adjacency, not by a block built around one page's markup.
+    '.cols h3,.cols h4,.cols .entry-lead{break-after:avoid;}\n' +
+    '.cols > .figwrap,.cols .notation-section > .figwrap,.cols .zoomed-row,.cols .pair{break-before:avoid;}\n' +
+    '.cols :is(.figwrap,.zoomed-row,.pair) + .description{break-before:avoid;break-inside:avoid;}\n' +
+    '</style>';
+}
+
+function buildHtml() {
+  const out = [];
+  out.push('<!doctype html><meta charset="utf-8"><title>' + esc(irId) + ' — print score</title>');
+  out.push(styleBlock());
 
   // the order, as #4: cover · performance instructions · the score
   const cov = coverSvg();
@@ -592,6 +680,7 @@ if (!quiet) {
     ' → ' + pages.length + ' pages for ' + srcEnd + ' s');
   console.log('  frame     ' + (ENS ? FRAME_PARTS.map(p => (ensPart(p) || {}).short || p).join(' · ') + '   buffer ' + bufSec.toFixed(3) + ' s'
     : FRAME_PARTS.length + ' parts, NO ENSEMBLE'));
+  if (wantInstructions && INS_REPORT) console.log('  instructions  ' + INS_REPORT + '   images at --w / ' + INS_CSS.frame + ' of the column');
   if (sel.length !== pages.length) {
     const w = viewFor(sel[0]).window;
     console.log('  writing   pages ' + (sel[0] + 1) + '-' + (sel[sel.length - 1] + 1) + ' only (' + sel.length + ')' +

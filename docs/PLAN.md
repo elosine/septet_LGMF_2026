@@ -2568,7 +2568,10 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > - the face: `check_print_front.js` proves EngraversGothic BT RESOLVED in the PDF (it falls back silently otherwise)
   > - the record: the generator's header says how the next piece uses it; the SVG cover is committed (`.gitignore` excludes only the PDFs)
   >
-  > **3. The instructions template** (the print reads the page's own format — no table of image names)
+  > **3. The instructions template** (the print reads the page's own format — no table of image names) — ☑ BUILT 2026-10-03 (Opus, RUNNING_LOG §768):
+  > every image inlined at the page's own `--w` / `--frame` (ten of the twelve were not inlined at all — the old pattern wanted `src` first) ·
+  > the rows kept · figure and text held by adjacency rules · the break NAMED (`--insBreak`) or MEASURED in Chrome · **the instructions fit ONE
+  > page** (col 1 936 · col 2 795 of 980) · the three doors tried · `check_print_front` PASS · `check_print_pages` PASS on 88 pages (cover + 1 + 86)
   >
   > Result when done: the performance instructions print from `docs/notation_instructions/index.html` as it stands — each image at the width
   > the page gives it, the rows kept, the percussion legend at its 1.5 ×, the break at a section heading — with nothing in the exporter that
