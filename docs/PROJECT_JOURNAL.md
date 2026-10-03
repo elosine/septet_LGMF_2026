@@ -217,6 +217,27 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
+### CHECKPOINT AFTER THE CLOSE (2026-10-03, Fable — mid-session checkpoint) — HIS PLANNING SYSTEM BUILT; ► NEXT: DRAW UP "A METHODOLOGY FOR STARTING A NEW PIECE" WITH HIM
+
+- **The task since the close (RUNNING_LOG §779 … §784):** not this piece — his cross-piece planning, at his dictation, in
+  `C:\Users\jwloy\GitHub\composition-planning-and-notes` (all pushed, `6283393`): `docs/next.md` (the imminent deadlines + two to-dos) ·
+  `docs/plan.md` → `plan-by-date.md` · `docs/workdays.md` (his twelve work slots to October 19th; today the methodology; the 15th
+  "Start in Earnest" on the Tempus rehearsal score and parts) → `calendar.md` · `docs/things/create-a-methodology-for-starting-a-new-piece.md`
+  (the checklist: ► 1 Draw Up the Plan · 2 Set Up the Decibel Piece · 3 Set Up the Switch~ Piece). That repo's `CLAUDE.md` holds the
+  grammar; the user-level CLAUDE.md and `~/.claude/COMPOSITION_TIMELINE.md` point there; this repo's memory has a note.
+- **► THE NEXT CONCRETE STEP — on FABLE, after `/clear` + `/postclear`: check in, then DRAW UP THE PLAN for "Create a Methodology for
+  Starting a New Piece" with him — the planning method (`docs/PLANNING_METHOD.md`), phase 1 first: what carries over from a finished
+  piece to a new repo (the stack · the palette · the rack · the notation registry · the docs kit · the names and the title), what changes,
+  what is checked. The record of the last port is the data: `docs/plans/PORT_FROM_TEMPUS.md` and piece #5's `RUNNING_LOG.md` §1 … §13.
+  The plan's steps go into the checklist file above (his to-dos, in order); the plan itself where he says — this repo's `docs/plans/`
+  (the stack lives here) is the AI's suggestion.**
+- **`Resume reads:`** `docs/plans/PORT_FROM_TEMPUS.md` (the last port, step by step — the data for phase 1) · the planning repo's
+  `CLAUDE.md` (the grammar of his lists). Nothing else beyond §2.
+- **Pending him:** nothing on this piece. The two set-ups (the Decibel piece for TENOR, November 14th; the Switch~ piece, December 1st)
+  are new repos — his names for them.
+- **Deliberately uncommitted:** the same 30 paths as every checkpoint since #13 (5 modified + 25 untracked, all his — listed in the
+  block below). Both repos fully pushed.
+
 ### SESSION 19 OPENS ON THIS — session 18 closed 2026-10-03 (Opus; its first close was 2026-10-01 — the work went on at his word)
 
 - **The piece:** _Recombination_ (the title, D59) — **DRAFT 01 IS COMPLETE AND SUBMITTED.** He sent it to the Lake George Music Festival's
