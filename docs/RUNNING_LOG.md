@@ -22789,3 +22789,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"Could you move ragged stems, bowed vibraphone, and percussion legend up under duration line? And you could you make the percussion legend not a main header, but I guess just bold the same size as the rest of the font?"*
 
 **Done:** the three blocks that stood after Micro-Tonal Tuning now follow the Duration line inside Animated Conduction Tools, in his order: **Ragged Stems** · **The bowed vibraphone** · **Percussion Legend** — the last no longer an h3 but a bold lead in the body size (`.entry-lead`), its image and its sentence under it. The page's sections are now: the opening · Demo Recording · Instrumentation · Animated Conduction Tools (the cursor, the ball, the dotted line, the tempo frame, the duration line, ragged stems, the vibraphone, the percussion legend) · Gradient Curves · Timbral Glissando · Micro-Tonal Tuning. Nothing reworded.
+
+## §761. Ragged Stems: "In the pictured example, instead of four even 16th notes …" (2026-10-02, Fable, session 18; LG-326)
+
+**His word:** *"ragged stems where it says instead of four even 16 notes, just add in this example, instead of four 16th notes. Or sorry, in the pictured example."*
+
+**Done:** *"Instead of four even 16th notes, …"* → *"In the pictured example, instead of four even 16th notes, you would play four irregularly spaced notes in the space of four 16ths."* — "even" kept (he said "just add").

@@ -4243,3 +4243,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Could you move ragged stems, bowed vibraphone, and percussion legend up under duration line? And you could you make the percussion legend not a main header, but I guess just bold the same size as the rest of the font?"
 
 *The AI's reading (marked as such):* the short device entries belong with the conduction tools, as one run of picture-and-line items; the tuning closes the page. RUNNING_LOG §760.
+
+## LG-326 — 2026-10-02 — Ragged Stems: add "in the pictured example"
+
+*His words (session 18, Fable):* "ragged stems where it says instead of four even 16 notes, just add in this example, instead of four 16th notes. Or sorry, in the pictured example."
+
+*The AI's reading (marked as such):* the four-16ths case is the picture's, not the rule's. RUNNING_LOG §761.
