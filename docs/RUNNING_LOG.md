@@ -22771,3 +22771,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **His word:** *"Can you make the percussion legend image about 50% bigger?"*
 
 **Done:** the legend's `--w` 600 → 900: the image is drawn at 1.5 × its captured size — 47 % of the text column instead of 31 %, the staff lines 47 px apart on the screen page instead of 31. The one-scale rule (§704) binds the crops of the score; the legend is a key, not a crop, so it may stand larger — said in the page's comment. The file is untouched (an SVG scales clean).
+
+## §758. The working list taken off the page; a copy-edit pass — two small fixes, nothing else (2026-10-02, Fable, session 18; LG-323)
+
+**His word:** *"And then you can get rid of the notes at the bottom. And can you do a pass, a copy, edit, pass, but really just spelling, grammar, and anything that's just glaring or that would be a glaring difference in language. I don't necessarily want a bunch of suggestions. I just want to make sure there aren't any big mistakes."*
+
+**Done:** (1) the boxed working list removed from the page's foot (its CSS too); the list lives on in `docs/PERFORMANCE_NOTES.md` § THE WORKING LIST. (2) THE PASS — every sentence of the page read for spelling, grammar and a glaring word; two things changed: *"highlighted in blue … highlighted green"* → *"highlighted in green"* (the parallel) · *"fff at mid-lane height"* → *"fff at mid-height"* ("lane" is the app's word; a performer has no lane). Left alone, said to him in one line each: the one FACTUAL error still on the page — *"An animated curve follower appears alongside the cursor …"* names the dot of pieces #4 and #5, off in this score; the device here is the meter. Not raised: "Micro-Tonal" (his spelling), "go-lines" used in Timbral Glissando without its first mention (self-explaining there), "is an approximation and will be approximate within" (his settled legend). Spelling clean throughout.

@@ -4225,3 +4225,9 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 *His words (session 18, Fable):* "Can you make the percussion legend image about 50% bigger?"
 
 *The AI's reading (marked as such):* a key is read, not matched to the score's size. RUNNING_LOG §757.
+
+## LG-323 — 2026-10-02 — get rid of the notes at the bottom; a copy-edit pass — spelling, grammar, the glaring only, no pile of suggestions
+
+*His words (session 18, Fable):* "And then you can get rid of the notes at the bottom. And can you do a pass, a copy, edit, pass, but really just spelling, grammar, and anything that's just glaring or that would be a glaring difference in language. I don't necessarily want a bunch of suggestions. I just want to make sure there aren't any big mistakes."
+
+*The AI's reading (marked as such):* the page is near its finished form: the working box goes, and only outright mistakes are to be touched. RUNNING_LOG §758.
