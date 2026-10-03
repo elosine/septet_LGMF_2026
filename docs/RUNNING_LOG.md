@@ -22815,3 +22815,15 @@ Each 1/4 tone accidental is an approximation and will be approximate within a qu
 **Answered to him:** A3 = ISO 216, 297 × 420 mm; the US near-equivalent is Tabloid (Ledger) 11 × 17 in = 279 × 432 mm — narrower and longer; a US printer scales A3 to it. The pieces by the system's lineage (CLAUDE.md): #1 the string quartet · #2 two pianos and two percussion · #3 bass clarinet, harp and accordion · #4 seven tubas (_Litany_) · #5 the Tempus septet (_Scattered Substance_) · #6 this.
 
 **Decided:** A3 landscape, the exporter's default, stands · the title is _Recombination_ (CLAUDE.md's header changed from "Working title"; D32 confirmed — a D at the session's end) · the cover generator and the instructions' print dress become templates, not per-piece edits. **Next:** phase 2, the top line, put to him.
+
+## §765. THE PRINT SCORE PLANNED IN FULL — PLAN § 2b-P written whole at his word; piece #4's title corrected (2026-10-03, Fable, session 18; LG-329)
+
+**His word:** *"4 is called Bloom - Convergence - Balance; if you have everything you need, then go ahead and write the whole plan."*
+
+**Corrected (§764's list):** piece #4 is _Bloom - Convergence - Balance_. "Litany" is the house-style REFERENCE SCORE (`scores/Litany.pdf` in the tuba repo, the cover's proportions measured off it, its day 36), not a title — the AI read a file name as a work.
+
+**Written — PLAN § `2b-P`, six steps in the method's two formats, after 2b-F:** 1 the frame and the paper · 2 the cover template · 3 the instructions template · 4 the proof pages (his eye) · 5 the full render (his eye) · 6 archive and docs. 2b-F step 7's print and cover lines point at it. **The AI's calls inside it, his to reverse:** the sheet sizes move into ONE file both the exporter and the cover generator read (`print/formats.json`) · the cover's words live in `print/cover/cover.json`, the generator writes `cover-<format>.svg`, the exporter reads that path with no piece name · the instructions' break falls before the first `<h3>` that would overflow page 1 unless `--insBreak` names one · the proof moments 100 · 300 · 600 · 870 s · the tag's name `Recombination-Draft01-print_1.0` · the ensemble line on the cover = the instructions page's (§705). **By rule, not a call:** the IR is NOT rebuilt — the print is of the filmed, tagged page.
+
+**What the plan does not know yet (read at the first run, step 1):** whether 2c's object-placed cut still takes the `--sec` density dial · what page 1 does with the 4 s lead-in on paper (§489 parked it) · whether the frame and page checks count this ensemble's census or piece #5's · which faces the PDF embeds for ♭ ♯ ♮.
+
+**State lines:** CLAUDE.md · PLANNER `NOW ►` · journal §2 (a block above checkpoint #13, the table's top row). **Next:** `/checkpoint` (Opus) → `/clear` → Opus `/postclear` → build steps 1 → 3; STOP at 4 for his eye.

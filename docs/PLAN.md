@@ -2499,8 +2499,124 @@ item at a time, each in his hands before the next (his order, 2026-09-25: "reall
   > **7. The completion** (what else finishes Draft 01; the call and the package are his)
   >
   > - ► the performance notes — HIS NEXT, after a checkpoint and a clear (the tracker `docs/PERFORMANCE_NOTES.md`; his to write, the AI helps)
-  > - the print score (A3 landscape; `export_print.js` and `print/score/build.sh`'s gates on this piece's pages) — *to be laid out when we discuss it*
-  > - the cover — *to be laid out when we discuss it*
+  > - the print score (A3 landscape; `export_print.js` and `print/score/build.sh`'s gates on this piece's pages) — ► PLAN § `2b-P` (planned 2026-10-03)
+  > - the cover — ► PLAN § `2b-P` step 2, THE COVER TEMPLATE (planned 2026-10-03)
+
+- **2b-P — THE PRINT SCORE** (A3 landscape · the cover and the instructions as TEMPLATES, for this piece and the pieces after it) — `planned`
+  2026-10-03 (Fable, session 18, the planning method — RUNNING_LOG §764 · §765; LG-328 · LG-329; phase 1 in the chat, the top line his, the six
+  steps written whole at his word *"if you have everything you need, then go ahead and write the whole plan"*). **Builder: Opus**, from step 1,
+  after a checkpoint and a clear; his eye at 4 and 5 only. ***Why:*** the completion of Draft 01 (2b-F step 7): the exporter and its five gates
+  were carried at the port and have never run on this piece's pages; the cover script and the exporter's instruction dress are piece #5's BY NAME
+  (`make_cover_septet.ps1`'s words · the `FIGW` table · `--insBreak "Acoustic Beating"`), and he wants them as templates — *"the same font and
+  layout … moving forward into the future"*; the call names no sheet (*"professional standards"*), so A3 is kept at his word. **The precedent,
+  item by item:** piece #5's PLAN 2b (`../septet_2026/docs/RUNNING_LOG.md` §606 → §618, one day); its page-edge rule (2b.7) is this piece's 2c,
+  already built. **Not rebuilt, by rule:** the IR `piece-lgmf` as locked and filmed (1075 events, the tag `Recombination-Draft01-film_1.0`) —
+  the print is OF that page; `build.sh --rebuild-ir` is not used for Draft 01.
+  **Result when done:** one PDF — the cover · the performance instructions · the whole piece on A3 landscape, the frame as the approved film
+  draws it, in C — the five gates green (frame · front · pdf · pages · edges), his "print good", archived with its README and tagged; and two
+  templates the next piece fills in without a new script: the cover generator (title · ensemble line · name · format) and the instructions dress
+  (the page's own widths and rows).
+
+  > **1. The frame and the paper** (the exporter's first run on this piece, checked against the film)
+  >
+  > Result when done: `export_print.js --ir piece-lgmf --at T` draws what the film draws at the same window — the six pitched staves, the
+  > percussionist's brace (the seven-line staff over the vibraphone's treble), the eight labels in the gutter, in C — on the A3 landscape sheet;
+  > the page count and the staff size are known; the print's page edges (2c) are green on the locked IR; `build.sh` is this piece's.
+  >
+  > - `print/score/build.sh` made this piece's: out `print/score/Recombination-score-JYang.pdf`; its header's A3 line re-worded (the call names
+  >   no size — A3 kept at his word, LG-328; the exporter's default, 419.7 × 296.8 mm drawn, inside DIN A3); `--rebuild-ir` left in the script,
+  >   not used for Draft 01
+  > - the first run, into the scratchpad: `export_print.js --ir piece-lgmf --htmlOnly --at 100,300,600,870` (one moment per section — the first
+  >   sequence · section 2 · the second take → take morph · the last chord). What it draws is READ, not assumed: the systems, the labels, the
+  >   brace, the seven-line staff, the lead-in on page 1, the page count and the staff size (#5: 7.55 mm at 10.32 s/page; here 2c's object-placed
+  >   cut — the count is what the run says), the time ruler (kept, #5's D58), no section marks
+  > - `check_print_frame.js --ir piece-lgmf` against the film at the same moments — PASS, or the first fault found. The likely one: the frame
+  >   and page checks count systems, labels, brackets and a brace by piece #5's cast (7 labels · 8 systems · 2 brackets · 1 brace); this
+  >   ensemble's census comes FROM THE ENSEMBLE (`video-jury`: eight lanes, the percussionist's joined lane and its brace) — the checks are
+  >   re-pointed to the data, never relaxed
+  > - the paper: `a3-landscape`, the default as it stands · the 4 s lead-in on page 1 as the film (2e.2 built it for paper; §489 parked "the
+  >   paper score's lead-in and the percussion snippet on paper" — read what the first page does; a look decision for step 4)
+  > - `check_print_edges.js --ir piece-lgmf` on the locked IR — last run 2026-09-25 on 775 events; now 1075 with every section-2 kind (the long
+  >   tone's bar, the frames, the graces, the percussion staff's figures); every drawn kind's `print` edge class is held by `check_rules`, the gate
+  >   proves them on the pages
+  > - the density, if the dial still applies under 2c's cut (`--sec`; read at the run): the default and two neighbours as three PROOF PDFs for
+  >   step 4 (#5's trio — the staff size never changes, only the time a page holds)
+  >
+  > **2. The cover template** (one generator in the house style; this piece's cover drawn from it)
+  >
+  > Result when done: `print/cover/make_cover.ps1` draws ANY piece's cover from its words and a format — EngraversGothic BT, the house layout
+  > measured off Litany (title : name 2 : 1 · the title baseline 27.1 % down · the subtitle 0.65 × under it · the name 1.60 title-heights below
+  > · centred, no tracking, black · every line fitted to the margins) — and this piece's cover reads _Recombination_ / "for English horn, bassoon,
+  > horn, trumpet, percussion, cello and double bass" / Justin Yang. The next piece edits one small file and runs the script; nothing else.
+  >
+  > - `print/cover/cover.json` — the piece's words: `title` · `subtitle` (the ensemble line) · `name`; this piece's filled (the ensemble line is
+  >   the instructions page's, §705 — his to reword)
+  > - `make_cover.ps1` REWRITTEN AS THE TEMPLATE: reads `cover.json` · takes `-Format` (default `a3-landscape`) · the sheet sizes from ONE source
+  >   shared with the exporter (the AI's call: `FORMATS` moved into `print/formats.json`, both read it — a cover is drawn at the exact sheet the
+  >   exporter prints) · the house constants and #5's every-line fitting loop inside · writes `print/cover/cover-<format>.svg` and prints its
+  >   report (the sizes, the widest line against the margin) · `make_cover_septet.ps1` removed (its record is piece #5's repo); #4's
+  >   scratchpad-writing `make_cover.ps1` is what this replaces
+  > - `export_print.js` `coverSvg()` reads `print/cover/cover-<format>.svg` — no piece name in the path; exits if it is missing, as now
+  > - the face: `check_print_front.js` proves EngraversGothic BT RESOLVED in the PDF (it falls back silently otherwise)
+  > - the record: the generator's header says how the next piece uses it; the SVG cover is committed (`.gitignore` excludes only the PDFs)
+  >
+  > **3. The instructions template** (the print reads the page's own format — no table of image names)
+  >
+  > Result when done: the performance instructions print from `docs/notation_instructions/index.html` as it stands — each image at the width
+  > the page gives it, the rows kept, the percussion legend at its 1.5 ×, the break at a section heading — with nothing in the exporter that
+  > names an image or a heading of one piece; the next piece's page prints the same way.
+  >
+  > - `FIGW` OUT. The exporter reads each `<img class="zoomed" style="--w: N">`'s `--w` and applies the page's own rule (`styles.css`
+  >   `img.zoomed`: width = `--w` / `--frame` of the column) with the print column as `--frame` — §704's ONE SCALE holds on paper as on screen;
+  >   a plain `<img>` (none on this page) at full width with a warning, as before
+  > - the rows kept: `.zoomed-row` (images side by side) and `.entry-row` (picture + text) as unbreakable flex blocks; #5's figure-and-paragraph
+  >   block (`.figblock`, keyed on `.description`) generalized to whatever this page pairs — the page's structure READ, not assumed
+  > - the break: `--insBreak`'s default removed. Given, it names the `<h3>` that opens page 2 (this page's: Demo Recording · Instrumentation ·
+  >   Animated Conduction Tools · Gradient Curves · Timbral Glissando · Micro-Tonal Tuning); not given, the exporter breaks before the first
+  >   `<h3>` that would overflow page 1 — one page if it fits, two if not; `check_print_front.js` fails loudly on a column overflow, as before
+  > - the type unchanged: 10.4 px the floor · `column-fill: auto` · a heading never ends a column, a figure never leaves its line behind (#5's
+  >   §610 · §611 rules kept)
+  > - the link: the demo video (`https://youtu.be/xPOLvA6BEsk`) printed as a visible URL and kept as a PDF annotation (#5's 2b.4.3)
+  > - the faces: the inlined SVGs' text resolves against the embedded Crimson Pro; ♭ ♯ ♮ (§699: not in Crimson Pro) fall back in Chrome's print
+  >   as on the page — `check_print_pdf` reads which faces embedded; a box for a flat is a fault to fix, not a note
+  >
+  > **4. The proof pages — HIS EYE**
+  >
+  > Result when done: he has looked at one PDF of proof pages — the cover · the instructions (one page or two) · one music page per section
+  > (≈ 100 · 300 · 600 · 870 s) — and the density trio if the dial applies; his notes collected, then fixed together (§527's way), the proof
+  > re-made.
+  >
+  > - `bash print/score/build.sh --proof` → `print/score/PROOF-A3-frame.pdf` · `PROOF-front-matter.pdf` (+ the trio); measured BEFORE he looks:
+  >   MediaBox inside A3 · fonts embedded · zero raster · nothing block-level outside the sheet · the checks' numbers
+  > - sent to him as the page was (the file to his phone or his desktop)
+  > - his findings → fixed in one pass → the proof again. The look decisions here are HIS: the density · the first page's lead-in · the
+  >   instructions' break · the cover's words
+  >
+  > **5. The full render — HIS EYE**
+  >
+  > Result when done: the whole PDF — cover · instructions · every page of the music — rendered from the locked IR, the five gates green, the
+  > AI's page-through done, his "print good".
+  >
+  > - `bash print/score/build.sh` (no `--rebuild-ir`) → `print/score/Recombination-score-JYang.pdf`; the gates in the script: frame · front
+  >   BEFORE the render, pdf · pages · edges AFTER
+  > - `check_print_pages.js` on THIS ensemble's census (step 1's re-pointing): eight labels · the brace · the seven-line staff · the ruler · the
+  >   folio on every page; the terminal barline exactly once
+  > - the AI's page-through: every page's ink inside the block · page 1 the lead-in with its clefs and labels · the last page the tail
+  > - his eye → notes → one pass → "print good"
+  >
+  > **6. Archive and docs**
+  >
+  > Result when done: the approved PDF is in `print/score/approved/<date>/` with a README (the command, the IR's hash, the save's commit, the
+  > gates' numbers; the PDF gitignored — "back it up", as #5's 2b.6), the tag `Recombination-Draft01-print_1.0` on the commit, CLAUDE.md's Apps
+  > names the print line and the two templates, 2b-F step 7's print and cover lines ☑, journal §2 and PLANNER current.
+  >
+  > - the archive folder and its README (sha256 · pages · MB · the five gates' numbers · `cover.json`'s words)
+  > - the tag, pushed
+  > - CLAUDE.md: the print command, the gates "not optional", the shared-frame warning (unchanged), the templates' one-line use for the next piece
+  > - 2b-F step 7: the print and the cover ☑ → 2b-P; what is left of Draft 01's completion is HIS (the call, the package — LG-255)
+  >
+  > **Outside the plan, his:** the cover's ensemble line (the page's words, his to reword) · the density pick · the instructions' break · the
+  > call and the submission package (LG-255 — no AI work).
 
 - **2c — THE PAGE EDGES: the margins · the screen's constant sweep · the print's object-placed cuts** — **`built` 2026-09-25 (2c.1 … 2c.7, RUNNING_LOG §342 … §349; his eye DEFERRED at his word to the specific notation, §347 — every value provisional data)** — **`doing` 2026-09-25 (Opus,
   session 15, at his word *"go, build through as much as possible independantly, check in if necessary"*; one commit per step:
