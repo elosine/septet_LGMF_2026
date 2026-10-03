@@ -1,6 +1,6 @@
 # septet LGMF 2026 — the Lake George septet
 
-**Working title: _Recombination_** (the composer, 2026-09-25 — journal D32).
+**Title: _Recombination_** (the working title of 2026-09-25, journal D32; CONFIRMED by him 2026-10-03 — *"recombination is the true title now"*, LG-328).
 
 Composition #6 in the custom-composition-system lineage
 (#1 `string_quartet_no1-composer` → #2 `composition_for_two_pianos_and_two_percussion`
