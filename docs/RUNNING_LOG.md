@@ -23775,3 +23775,11 @@ set-up — 2.1 the profile, a talk; at its end, which of the three unwritten ite
   2. **2.1**'s three lines were put to him in the protocol's own terms ("copy-forward" · "layers" · "score type") and he asked *"clarify?"* — the terms are the plan's, not his. For v2: 2.1 carries its plain-words form, each line with what it means and what the other choices were.
 - **Put to him next:** §803's question, kept so it is not lost — which of the home's three unwritten items the piece needs: 9.12 the tool docs' shared copies · 9.10 the laws · 9.11 the module list. The AI's recommendation: NONE NOW — a copy-forward carries the tool docs and `DYNAMICS_LAW.md` inside the piece's own folder, so nothing shared is needed to start; 9.12 is asked again at container 3, when the tool docs actually travel. (Checkpoint #5 leaned "9.12 likely yes"; the lean is changed here for that reason, his to reverse.) Then 2.2's three: the name · public or private · the push rule.
 - **Nothing built.** The piece untouched.
+
+## §817 — 2026-10-04 — THE HOME'S THREE UNWRITTEN ITEMS: "none now" (his word) · 2.2 put to him — the repo's name, public or private, its push rule
+
+- **What prompted it:** §816's question, put in plain words — the shared copies of the tool docs (9.12) · the laws written once in the home (9.10) · the module list (9.11) — with the AI's recommendation, none now, and its reason (the port copies this piece's tool docs and the dynamics law into the new repo anyway).
+- **His answer:** *"none now"*.
+- **DECIDED:** the Decibel piece starts without 9.10 · 9.11 · 9.12. §803's question is answered for this piece, not closed for the home: 9.12 is asked again at container 3, when the tool docs travel; 9.10 · 9.11 stay `todo` in the home's protocol, at his word.
+- **Put to him — 2.2, three things never inherited:** THE NAME (the repo's and the folder's; the AI's candidates by the lineage's patterns — `decibel_TENOR_2026` after `septet_LGMF_2026`, the ensemble and the occasion, holding if the instrumentation changes · `for_decibel` after `for_seven_tubas` · his own) · PUBLIC OR PRIVATE (this repo, the home and the engine are public) · THE PUSH RULE (push after every commit, as those three — or ask each time).
+- **The register:** no new line — the step ran as written.

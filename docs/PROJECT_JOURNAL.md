@@ -222,8 +222,9 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 - **UPDATE 2026-10-04 (§816, Opus) — THE RUN HAS BEGUN:** 2.1 THE PROFILE IS CONFIRMED (his *"yes … normal port"*: copy-forward from
   piece #6 · both layers · the animated scrolling score) — do not ask it again. This chat is renamed "Decibel piece — repo set-up"; the
   AI's arrangement, his to reverse: container 2 is run from THIS chat, then a NEW chat opened in the new repo's folder. THE DEVIATIONS
-  REGISTER is begun in RUNNING_LOG §816 (two lines). ► NOW, put to him: which of the home's 9.12 · 9.10 · 9.11 the piece needs (the
-  AI's recommendation: none now; 9.12 asked again at container 3) — then 2.2's three (the name · public or private · the push rule).
+  REGISTER is begun in RUNNING_LOG §816 (two lines). The home's 9.12 · 9.10 · 9.11: NONE NOW (his word, §817; 9.12
+  asked again at container 3). ► NOW, put to him: 2.2's three — the repo's name (the AI's candidates `decibel_TENOR_2026` ·
+  `for_decibel` · his own) · public or private · the push rule. On his answers: check the name free on GitHub, then 2.3 the names.
 - **The task — not this piece:** the THREE electronics pieces (the Decibel piece · the Switch~ piece · his improvisation with live
   electronics) and the ONE live-electronics engine they share. His to-do "Create a Methodology for Starting a New Piece" (the
   planning repo, `composition-planning-and-notes/docs/things/create-a-methodology-for-starting-a-new-piece.md`: 1 ☑ Draw Up the
