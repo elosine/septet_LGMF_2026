@@ -1,5 +1,8 @@
 # THE NEW-PIECE PROTOCOL — a regular, expandable, flexible start
 
+**v1 — 2026-10-03 — all ten containers written (RUNNING_LOG §786 … §798), every goal agreed with him; the first run is the
+Decibel piece's set-up (his to-do's step 2); the version rule is 10.3.**
+
 > Drafted 2026-10-03 on Fable WITH the composer, under `docs/PLANNING_METHOD.md` — phase 1 (RUNNING_LOG §786),
 > the top line agreed, then one container at a time. His to-do for it: `composition-planning-and-notes/docs/things/
 > create-a-methodology-for-starting-a-new-piece.md` (► 1 Draw Up the Plan · 2 Set Up the Decibel Piece · 3 Set Up
@@ -46,7 +49,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 9. **The collation** — the cross-piece reference kit with an index: colours · engraving rules · device sheets · the
    laws · the manuals · the maps · the MODULE MANIFEST (below) · THE INSTRUMENT KNOWLEDGE BASE (4.9, his flag, LG-344). Not exhaustive. *(new — his point)* — **► laid out below**
 10. **The protocol's upkeep** — the last step of every start: what the run taught goes back into the protocol.
-    *(new; the other end of 1)* — `top line only`
+    *(new; the other end of 1)* — **► laid out below**
 
 **THE INSTRUMENT — the sound side**
 
@@ -84,8 +87,8 @@ exists per piece and is step 1 · NAME THE BOUNDARY system vs. piece (the collat
 one shared engine, parked in RUNNING_LOG §5, without committing to it) · TWO RUNS are coming — the first writes the
 protocol, the second tests it.
 
-**Never done in this piece, to be placed when their container is laid out:** 0f the AI's MIDI generation path · 0h the
-gate that closes phase 0 (skipped at his word, D14).
+**Never done in this piece, PLACED 2026-10-03 (10.6):** 0f the AI's MIDI generation path = 8.1's capture → export → render route and
+5's probes · 0h the gate that closes phase 0 (skipped at his word, D14) = 4.6 the first sound.
 
 ---
 
@@ -806,9 +809,86 @@ the manifest are Fable's work; the gathering and the index Opus's, from written 
 
 ---
 
-## 10 — `top line only`
+## 10. The protocol's upkeep — `written 2026-10-03` (the goal agreed with him, RUNNING_LOG §798; the steps the AI's)
 
-Laid out when reached: the goal with him, the steps the AI's. The data: *"expandable"* (LG-337) · §786's "two runs are coming —
-the first writes the protocol, the second tests it" · the harvest (1) as its other end · the journal's Learned lists · this plan's
-open list (the home → 9 · 2.7 · 2.8 · the module manifest → 9 · the Decibel score type · the from-a-sandbox kind's middle ·
-LG-346's two questions).
+**What this is:** the last step of every start, and the close of every piece: what the run taught goes back INTO the protocol —
+his "expandable" (LG-337). The other end of the harvest: 1 reads the finished piece into the next start; 10 writes the start's
+lessons into the protocol. Two runs are coming (§786): the first wrote the protocol — today; the second TESTS it — the Decibel
+piece's set-up, his to-do's step 2. Container 10 is where that test's findings land.
+
+**Result when done (per run):** the protocol in its home changed by a DATED ENTRY per lesson under the step it touches — a step
+amended · a step added · a template list changed · a call reversed; never a silent rewrite · a DEVIATIONS register, one line each
+time a start did something the protocol did not say — his "flexible", measured · a VERSION line (v1 is this file, 2026-10-03; a
+piece's profile names the version it ran; the Decibel set-up is v1's test and makes v2) · the open list shortened or added to.
+
+**The data (2026-10-03) — today's own run, and what it leaves open:** the open list, now mostly PLACED: the protocol's HOME → 9.9 ·
+the skeletons (2.7) → 9.9 · the module manifest → 9.3 · 9.11 · the LATER backlog → 9.6 · LG-346's two questions → 9 and that
+piece's design · the Decibel score type → its own design, not this plan · the from-a-sandbox kind's middle (LG-338, "the basic
+machinery") → OPEN · 2.8 the AI's memory notes to his user-level CLAUDE.md → OPEN (10.7). Two things never done in this piece,
+PLACED now (10.6): 0h, the gate that closes the set-up (every track sounding from the app through its own port; skipped at his word,
+D14) = 4.6 the first sound · 0f, the AI's MIDI generation path = 8.1's capture → export → render route and 5's probes. The feeders 1
+already names: the journal's Learned lists (five here) · NITS § HELD · MORPH_NOTES §3 → §4. Today's process lessons, in the record:
+plain words, the one decision (§788) · the goal with him, the steps the AI's (§794) · one container per exchange · a FLAG as the
+shape for a "not now" item (4.9 · 5.10) · a composition note taken verbatim the moment it comes, whatever is in hand (LG-340 …
+LG-347, eight in one sitting).
+
+**His word at the goal:** *"10 good"*.
+
+**Six calls, his to reverse (agreed 2026-10-03):** 10 runs TWICE per piece — at the end of the start, while fresh, and at the piece's
+close with the harvest; each a short sitting · a lesson is a dated entry under its step; the IDs stay stable; a reversed call is
+written as reversed, not erased · the protocol carries a version; a piece names the one it ran; v2 comes out of the Decibel set-up ·
+the deviations register is kept DURING a start, one line at a time, never reconstructed after · 0h → 4.6 and 0f → 8.1 + 5 · 2.8
+done with 9.9, when the home is made.
+
+**Recurring — the protocol's step 10** *(the AI's steps, his to reverse):*
+
+- **10.0 At the end of a start** — the containers the profile took done (the first sound · the first tool · the test page), one
+  sitting: the deviations register (10.2) read line by line; each lesson a DATED ENTRY under the step it touches (`— 2026-… : …`); the
+  template lists (3.7) and the port name set (4.8) updated where the run changed them; a call reversed written as reversed; the
+  version bumped if a step changed (10.3).
+- **10.1 At the piece's close, with the harvest (1).** The journal's Learned lists · NITS § HELD · MORPH_NOTES §4 → sorted: METHOD → a
+  dated entry under its step here · a TOOL FIX → the harvest (take now, for 3 or 7) · a RULE → 6's registry rows or the laws (9.2) · a
+  LESSON about an instrument → the knowledge base's shelf (9.5).
+- **10.2 The deviations register — kept DURING the start.** In the piece: `docs/PROTOCOL_DEVIATIONS.md` (or a section of its PLAN § 0),
+  five columns — date · step · what the protocol said · what was done · why. One line at the moment of the deviation. Read at 10.0.
+- **10.3 The version.** The protocol's header line: `vN — date — what changed`; a piece's profile (2.1) names the version it ran; a
+  bump when a step changes, with the entry that changed it; v1 = this file as of 2026-10-03.
+- **10.4 The open list.** Kept at the protocol's foot: shortened as items are placed, added to from the deviations; a placed item
+  leaves by a dated line, as the harvest's "later" does.
+- **10.5 The record.** The home's log one line per change (9.8) · the piece's RUNNING_LOG § for the sitting · the planning repo's thing
+  for the methodology, at his word, when a step of it closes.
+- **Stop and ask him:** a reversal of a call that was his · a change to a UNIVERSAL step (1 · 2 · 9 · 10) · the scope of a version bump.
+- **Done when:** the entries written under their steps, the version named, the open list current, the home pushed.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **10.6 The never-done items placed:** 0h → 4.6 the first sound · 0f → 8.1 + 5's probes; the header's line amended. ☑ 2026-10-03.
+- **10.7 2.8, the AI's cross-piece memory notes** (how he reads · the machine limits · the planning repo pointer) → his user-level
+  CLAUDE.md, with 9.9. `todo`.
+- **10.8 The deviations register's template** (the heading and the five columns) into the skeletons (2.7 / 9.9). `todo`.
+- **10.9 v1 declared** — the header line. ☑ 2026-10-03.
+- **10.10 Written into the protocol** — this section. ☑ 2026-10-03. **THE PLAN IS WHOLE.**
+
+---
+
+## The plan is whole — 2026-10-03
+
+Ten containers in three layers, each goal agreed with him on the day (RUNNING_LOG §786 … §798; §791 … §798 one § per container),
+the steps written: § 1 the harvest (run and triaged, `docs/HARVEST.md`) · § 2 the repo and its kit · § 3 the engine copied forward ·
+§ 4 the instruments · § 5 the calibration · § 6 the notation set-up (the scrolling score's member) · § 7 the composing tools · § 8 the
+deliverables pipeline (the scrolling score's member) · § 9 the collation · § 10 the upkeep. **His to-do's step 1, "Draw Up the
+Plan", is done; its step 2, "Set Up the Decibel Piece", is THE PROTOCOL'S FIRST RUN (v1's test).**
+
+**What is left to DO before or during that run — the one-time items, by who** (at his word; nothing started):
+
+- **Opus, small, in THIS repo:** 3.8 + 5.11 seven engine fixes (H-9 · H-10 · H-11 · H-12 · H-16 · H-17 · H-19) · 4.8 the standard port
+  name set + H-15 looked into · 4.10 the three how-tos from the record · 5.9 the QC battery (`qc_rack.js`) · 7.6 1f under the law ·
+  7.7 1k → MORPH_NOTES · 7.8 the data checklist.
+- **The home (9.9), his name first:** the new repo · the protocol moved in · the skeletons (2.7) · the index (9.1) · the backlog (9.6)
+  · H-33 the tool docs' canonical copies (9.12) · 10.7 the memory notes · 10.8 the deviations template — Opus; the laws (9.10) and the
+  manifest's boundary (9.11) — Fable.
+- **At the first copy, in the new repo:** 3.7 the template lists applied · 3.9 the font · 3.10 the roles helper · 6.9 H-20 · 6.10 the
+  clefs by register (if wanted) · 8.10 the film gate.
+- **His flags, not now:** 4.9 the instrument knowledge base · 5.10 the standards per instrument and per library.
+- **Open:** the from-a-sandbox kind's middle ("the basic machinery", LG-338) · where the shared electronics engine lives and how it is
+  ported into three pieces (LG-346) · the Decibel score type (its design).

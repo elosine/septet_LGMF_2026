@@ -23384,3 +23384,31 @@ done when. One-time 9.9 the home made and the protocol moved in (the name his) �
 §786 the two runs · the harvest as its other end · the journal's Learned lists · the plan's open list), his nod, the steps into § 10
 — the last. Then the plan is whole; the to-do's step 1 "Draw Up the Plan" is done, and the steps 2 · 3 (set up the Decibel piece ·
 the Switch piece) are its first two runs.
+
+## §798. Container 10, THE UPKEEP — the goal at his nod; § 10 written; THE PLAN IS WHOLE — his to-do's step 1 done (2026-10-03, Fable; follows §797)
+
+**The data for the goal** was in hand: LG-337 *"expandable"* · §786's "two runs are coming — the first writes the protocol, the
+second tests it" · the harvest (1) as the other end · the plan's open list and the two never-done items (0f · 0h) · the journal's
+Learned lists as the feeders · today's own process lessons.
+
+**The goal, as put to him:** the last step of every start and the close of every piece — what the run taught goes back INTO the
+protocol; a dated entry per lesson under its step, a DEVIATIONS register kept during a start, a VERSION line (v1 today; the Decibel
+set-up v1's test and v2's source), the open list kept current; the open items placed (the home · the skeletons · the manifest · the
+backlog → 9; LG-346 → 9 and its piece; 0h → 4.6 the first sound; 0f → 8.1 + 5's probes) and the two still open (the from-a-sandbox
+kind's middle · 2.8 the memory notes → with 9.9); six calls his to reverse. **His word: *"10 good"*.**
+
+**§ 10 written** with the AI's steps: 10.0 at the end of a start · 10.1 at the piece's close with the harvest · 10.2 the deviations
+register, kept during · 10.3 the version · 10.4 the open list · 10.5 the record; stop-and-ask; done when. One-time 10.6 the never-done
+items placed ☑ · 10.7 2.8 the memory notes `todo` · 10.8 the deviations template `todo` · 10.9 v1 declared ☑ · 10.10 written ☑. The
+plan's header carries the version line and the placed 0f · 0h; a closing section "The plan is whole" lists the one-time items by who
+(Opus small fixes here · the home at his name · the first copy's items · his two flags · the three open questions).
+
+**THE PLAN IS WHOLE.** Ten containers in three layers, each goal agreed with him today, one container per exchange (§791 … §798);
+from 7 on the steps the AI's at his word. His to-do's step 1, "Draw Up the Plan", is done; step 2, "Set Up the Decibel Piece", is the
+protocol's first run. Eight composition notes taken on the way, LG-340 … LG-347, six of them one device's brief for the electronics
+score. Nothing built; nothing of the piece touched. **The planning repo's thing file** (`docs/things/
+create-a-methodology-for-starting-a-new-piece.md`: ► 1 Draw Up the Plan) is HIS to mark — offered, not done.
+
+**State.** The protocol v1 complete in `docs/plans/NEW_PIECE_PROTOCOL.md`; `docs/HARVEST.md` triaged. **Next is HIS:** the one-time
+items on Opus at his word (the seven small fixes here first, or the home 9.9 — its name his) · or his composing. A checkpoint on Opus
+and a clear is the clean cut here (THE RHYTHM).
