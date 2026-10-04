@@ -23711,3 +23711,13 @@ set-up — 2.1 the profile, a talk; at its end, which of the three unwritten ite
   10. THE ENGINE'S RECORD — its own RUNNING_LOG and device sheets; what it teaches goes to the protocol's v2 and to the home's index (the engine the module manifest's first entry, 9.11).
 - **The structural dependencies, not an order:** 1 before anything lands · the first run of 9 before 5 (the engine is built inside the first piece, where he hears it) · 3 and 4 before 5 · 8 before the second and third runs of 9 · 7 when notating comes.
 - **Nothing built.**
+
+## §811 — 2026-10-03 — THE PARTS AGREED ("Yes, these are the parts") AND CHECKED AGAINST HIS SCENARIOS (LG-351): two parts ADDED (11 the composer-score objects · 12 the live graphics), five sub-parts placed, the flexibility a RULE
+
+- **Decided (his word):** the ten parts of §810 stand.
+- **His scenarios, placed:** the growing collection of effects, shapes and analysis → 6 (open-ended; 2 its first contents) · the mastering chain and master bus → a sub-part of 4, carried by 2 · the playback route, new Reaper tracks or items → a sub-part of 4 · OSC from the composer score → the message route, 3 and 4 · the composer-score paradigms for the electronics → NEW part 11 · the graphics, animations with the sounds, live analysis into the notation → NEW part 12.
+- **The two parts added (his yes owed; the numbers stable, nothing renumbered):**
+  11. THE COMPOSER-SCORE OBJECTS for the electronics — a family, as the bricks, the meta shapes and the curves are for the live instruments: objects that live on a lane, interact with the MIDI, are saved in the score and read by the extractor. The trigger of 5 is the first member; the rest by compositional need.
+  12. THE LIVE GRAPHICS — the animations that go with the sounds, and live analysis feeding the score at performance time. New in kind: the scrolling score has animated objects (the GC, the pie, the meter, the ball) but no runtime input; 12 gives the performance score one. 7's kinds are its drawn form; the device sheet for each.
+- **The rule, not a part (his "flexibility in the system so we can add structures as we move along"):** the parts are CONTAINERS with stable numbers; a sub-part is added under its part the moment it is needed, with its own stable ID (`4.1`, `11.2` …), through the planning method — a notation by a device sheet, a build with the shield — and nothing is detailed before it is needed. This is how `docs/PLAN.md` grew in this piece (1a … 2o) and his own rule for a port ("leaving everything we can for when the time comes"). Written into the engine's PLAN header at part 1.
+- **Nothing built.**
