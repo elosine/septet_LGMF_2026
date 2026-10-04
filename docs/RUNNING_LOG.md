@@ -23612,3 +23612,39 @@ allow or to leave. Until then the home's first two commits hold the old sentence
 
 **State.** The piece untouched. **Pending him:** the home's history — allow the rewrite, or leave it. **Next:** (c) the Decibel
 set-up, 2.1 the profile, on Fable — a checkpoint on Opus and a clear first.
+
+## §804. His (b): the home's history left as it is — and checkpoint #4 after the close (2026-10-03, Opus; follows §803)
+
+**Put to him at §803's wrap:** the rewrite of the home's history was refused by the app's guard — (a) allow it and have it tried
+again, or (b) leave it (the file people see is clean; this repo's long history holds the same sentence anyway).
+
+**His words:** *"b, leave it /checkpoint"*.
+
+**Decided.** The home's history stays as it is. The matter is closed and is not raised again; no rewrite and no force-push there.
+
+**The checkpoint.** The doc sweep found nothing left only in the chat — §800 … §803 were written as each exchange closed; no musical
+idea was voiced in this sitting, so the sketch pad is unchanged; `docs/PLAN.md` holds nothing of this work (the protocol's marks are
+in the home's copy). What the wrap did: the journal's block CHECKPOINT #3 AFTER THE CLOSE and the UPDATE bullet at its head replaced
+by ONE block, CHECKPOINT #4 AFTER THE CLOSE, written for a cold model (the old block whole in git at `7bb3d2a`) — it carries over
+what checkpoint #3 held that the next steps still need (the seven small fixes' instructions · his two flags · the three open
+questions · how the protocol was agreed · how to put things to him) · the table's two first rows made one · the state lines · one
+memory note for this repo (a history rewrite is refused by the app's guard — not to be offered as the cheap option).
+
+**The sitting, measured.** One `/postclear` on Opus and six exchanges: his pick and the names (§800) · the home made, 21 files, then
+three small commits there · the push rule and the softened line (§801) · the twelve lines into his user-level CLAUDE.md (§802) · the
+two notes explained, this repo's line softened, the rewrite refused (§803) · his (b) and this checkpoint. Three repos written to:
+this one (five commits) · the home (four) · the planning repo (one).
+
+**What the first use of the home showed** — for the protocol's 10.0, when the Decibel start closes; not acted on:
+
+- The index wanted five paths that no doc pins. The "search and retrieval" § 9 exists to save was not done for them — § 9's own
+  "not exhaustive" — so the first piece that needs one still pays for the search, once.
+- A public home makes every carried line public. The starter CLAUDE.md is carried word for word from a piece, so what a piece's
+  CLAUDE.md says about him travels with it. Worth one look at 2.5, before a public repo's first push.
+- An option the AI offers as "cheap" must be one the session can carry out. The history rewrite was offered, chosen, and refused by
+  the app; what he was told was possible was not.
+- The three unwritten items (9.10 · 9.11 · 9.12) had a place in the plan but no MOMENT. His question (*"ai has it in the plan to
+  make sure 2 gets done at some point?"*) is the gap: a list of "at his word" items needs the question that brings each one up.
+
+**State.** The home made and pushed; the protocol's living copy there. **Next, after `/clear`, on FABLE:** (c) the Decibel piece's
+set-up — 2.1 the profile, a talk; at its end, which of the three unwritten items the piece needs.

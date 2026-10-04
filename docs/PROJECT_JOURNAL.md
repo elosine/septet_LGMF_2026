@@ -217,101 +217,90 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### CHECKPOINT #3 AFTER THE CLOSE (2026-10-03, Fable worked, Opus wraps — mid-session checkpoint) — THE NEW-PIECE PROTOCOL IS WHOLE (v1): ALL TEN CONTAINERS WRITTEN; HIS TO-DO'S STEP 1 DONE; ► NEXT IS HIS PICK — PLAY BACK, THEN ASK
+### CHECKPOINT #4 AFTER THE CLOSE (2026-10-03, Opus — mid-session checkpoint) — THE HOME IS MADE (`composition-system`); ► NEXT: THE DECIBEL PIECE'S SET-UP, 2.1 THE PROFILE, A TALK ON FABLE — PLAY BACK, THEN ASK
 
-- **UPDATE 2026-10-03 (Opus, after this checkpoint's `/postclear`; RUNNING_LOG §800) — HIS PICK: (b) THEN (c); THE HOME IS MADE.**
-  `composition-system` — his pick of four names, PUBLIC at his word — `C:\Users\jwloy\GitHub\composition-system` ·
-  `github.com/elosine/composition-system` · first commit `37392e8`. **THE PROTOCOL'S LIVING COPY IS NOW
-  `composition-system/protocol/NEW_PIECE_PROTOCOL.md`; this repo's `docs/plans/NEW_PIECE_PROTOCOL.md` is FROZEN** (a pointer at
-  its top) — wherever this block says "the plan", read the home's copy; 9.9 · 2.7 · 10.8 are ☑ there. In the home: CLAUDE.md (the
-  grammar) · `INDEX.md` (9.1; five paths "not pinned") · the harvest's template · `skeletons/` (eleven docs; `_ABOUT.md`) ·
-  `BACKLOG.md` (9.6) · `LOG.md`. The planning repo's thing file ADVANCED at his word (step 1 ticked, ► on 2; `4b509a1`) — no
-  longer pending. **► THE NEXT CONCRETE STEP, in order:** (1) ☑ DONE §801 — THE HOME PUSHES AFTER EVERY COMMIT (his "a"), and the starter CLAUDE.md's "How he reads" line softened at his word; nothing waits there — *as it stood:* his answer on the home's PUSH RULE (asked; its CLAUDE.md § Git says
-  "not yet decided") — one local commit in the home waits on it; write his answer into that CLAUDE.md with the date and his words ·
-  (2) ☑ DONE §802 (his *"yes as written"*: three dated sections in `~/.claude/CLAUDE.md`; 10.7 · 2.8 ☑ in the home's protocol) — SO THE NEXT STEP IS (3) — *as it stood:* **10.7 — THE LINES WERE SHOWN TO HIM 2026-10-03 (§801 lists them: three short sections — putting things to me · this machine · working on a piece, the home's pointer among them); HIS YES OWED, then write them into `~/.claude/CLAUDE.md` as dated sections and mark 10.7 · 2.8 ☑ in the home's protocol** — *as it stood:* draft the cross-piece memory notes for his user-level `~/.claude/CLAUDE.md` and SHOW HIM THE LINES before writing
-  (the candidates, from this repo's memory folder: the machine limits — the 8 KB Bash limit · backticks go to a file · line endings
-  counted at byte level · the worktree junction; IDs always with names; plain words first for an AI-made list; the eye pass,
-  collect then fix; read the record before proposing sound work; the Drive upload route. His user-level file ALREADY has: how he
-  reads · the reply shape · no unasked verification · the planning repo pointer) · (3) **(c) the Decibel set-up — 2.1 THE PROFILE,
-  a talk on FABLE; AT ITS END ASK HIM which of the three unwritten items this piece needs — 9.12 the tool docs' shared copies (if it copies the tools forward) · 9.10 the laws (if an engine is built or reshaped) · 9.11 the module list (if it takes only part of the engine) — his question of §803, so they are not lost.** Behind them — Opus: 9.12 the tool docs' piece-neutral copies (its own sitting) · (a) the seven small fixes, any
-  time before a copy-forward; Fable: 9.10 the laws · 9.11 the manifest's boundary. **`Resume reads`** for (2): this repo's memory
-  folder and his user-level CLAUDE.md · for (3): the home's `INDEX.md`, the protocol's § 2 THERE, COMPOSITION_NOTES LG-334 ·
-  LG-339 … LG-346. **PENDING HIM (§803): THE HOME'S HISTORY.** He chose (a) — rebuild the home's short history so the old
-  "How he reads" wording is in none of its commits (it is in the first two), then replace the history on GitHub. The app's
-  permission guard REFUSED the rewrite; it was not worked around. His to allow, or to leave. Do NOT retry it without his word in
-  the chat. This repo's own line is softened (CLAUDE.md § READ FIRST); this repo's history is left as it is, at his (a).
 - **The task — not this piece:** his to-do "Create a Methodology for Starting a New Piece" (the planning repo,
-  `composition-planning-and-notes/docs/things/create-a-methodology-for-starting-a-new-piece.md`: 1 Draw Up the Plan · 2 Set Up the
-  Decibel Piece · 3 Set Up the Switch~ Piece). **Step 1 is DONE** (2026-10-03, RUNNING_LOG §786 … §798). That file still shows ► on
-  step 1 — HIS to mark; offered, not touched.
-- **The deliverable — committed and pushed:** **`docs/plans/NEW_PIECE_PROTOCOL.md`, v1.** Ten containers in THREE LAYERS: UNIVERSAL —
-  1 the harvest · 2 the repo and its kit · 9 the collation · 10 the upkeep · THE INSTRUMENT — 3 the engine copied forward · 4 the
-  instruments · 5 the calibration · 7 the composing tools · THE SCORE — 6 the notation set-up · 8 the deliverables pipeline (both laid
-  out for the animated scrolling score; a new score type gets its own member). Every § holds: what it is · result when done · the data
-  · his word · the calls his to reverse · the RECURRING steps (the protocol's) · the ONE-TIME items (this plan's work), each `todo` ·
-  `flag` · ☑. **Its last section, "The plan is whole — 2026-10-03", is THE LIST of what is left, by who.** `docs/HARVEST.md` — 56
-  items, triaged *"All as proposed"*; every "take now" is now a step in its container.
-- **How it was agreed** (so a later model does not reopen it): one container per exchange — the goal put to him in plain words with
-  the data and the calls that are his to reverse → his word. For 3 · 4 · 5 the sub-steps were put to him too; **from 7 on, at his
-  word (*"we can skip the sub steps from now on"*, §794), the GOAL is agreed with him and the STEPS are the AI's, his to reverse in
-  the file.** His words: *"c3 good"* · *"3 good"* · *"Number four is good"* · *"4 good"* · *"good for five now"* · *"5 good"* · *"7
-  good"* · *"6 good"* · *"8 good"* · *"9 good"* · *"10 good"*.
-- **► THE NEXT CONCRETE STEP — after `/clear` + `/postclear`: play back, then ASK HIS PICK among these three. No edit, no build
-  before his word. Nothing is queued by the AI.**
-  - **(a) The seven small engine fixes in THIS repo** (the plan's 3.8 + 5.11; Opus; one commit). Read `docs/HARVEST.md` lines H-9 ·
-    H-10 · H-11 · H-12 · H-16 · H-17 · H-19 and the `docs/NITS.md` § each cites BEFORE touching a file. Then: the bare-load
-    `TypeError` at `sequence_ui.js:1652` · `model_bank --validate`'s `provenance.palette` warn · `test_animobj.js`'s case ·
-    `palette_check` reads the composer's lane CSS (`nth-child`, count = `TRACKS`) · the BEGIN marker in `apply_ranges.js` /
-    `apply_bend_ranges.js` · `trimAtMeasurementDb` written by `analyze_card.py` · the probes' `$Port` a parameter. Verify: `node
-    --check` each file · `node tools/palette_check.js` · `node tools/model_bank.js --validate` · `node tools/test_animobj.js` · H-9 in
-    the RUNNING app on `score-5401` (the recipe in STILL BINDING below: the stubs in the navigation batch, never Save — zero console
-    errors on a bare load) · the shield only if a `notation/lib` file moves. Then RUNNING_LOG §800 · 3.8 · 5.11 ☑ in the plan and its
-    closing list · commit + push. Behind it, the same way, at his word: 4.8 the port name set + H-15 · 4.10 the three how-tos · 5.9
+  `composition-planning-and-notes/docs/things/create-a-methodology-for-starting-a-new-piece.md`: 1 ☑ Draw Up the Plan · ► 2 Set Up
+  the Decibel Piece · 3 Set Up the Switch~ Piece — advanced at his word, 33 %). _Recombination_ is submitted and untouched.
+- **Since checkpoint #3, one sitting on Opus** (RUNNING_LOG §800 … §804): his pick — **(b) the home, then (c) the Decibel set-up** ·
+  the home made · the cross-piece notes into his user-level CLAUDE.md · a personal line softened.
+- **The deliverable — THE HOME: `composition-system`** — `C:\Users\jwloy\GitHub\composition-system` ·
+  `github.com/elosine/composition-system` · PUBLIC · his name for it · **it pushes after every commit** (his "a"; its CLAUDE.md
+  § Git). In it:
+  - `CLAUDE.md` — its grammar: an index · pointers · the few things written once · NEVER a piece's record; every change gets one
+    line in `LOG.md`; the protocol changes only by a DATED ENTRY under its step.
+  - `INDEX.md` — where each shared thing lives (repo · path @ commit). Five entries say "path not pinned" — pin at the first fetch.
+  - **`protocol/NEW_PIECE_PROTOCOL.md` — THE PROTOCOL'S LIVING COPY (v1).** This repo's `docs/plans/NEW_PIECE_PROTOCOL.md` is
+    FROZEN (a pointer at its top): never edit it. 9.9 · 2.7 · 10.8 · 10.7 · 2.8 are ☑ in the home's copy. In the home's copy a
+    bare `§N` · `LG-N` · `H-N` · `docs/…` is THIS repo's.
+  - `protocol/HARVEST_TEMPLATE.md` · `skeletons/` (a new piece's eleven record docs, laid out on a piece's own paths, `‹…›` the
+    placeholders; `_ABOUT.md` says how) · `BACKLOG.md` (H-36 … H-47) · `LOG.md`.
+  - NOT written yet, each marked so in the index: the tool docs' one shared copy each (9.12 — Opus, its own sitting) · the laws
+    (9.10 — Fable) · the module list (9.11 — Fable the boundary, Opus the scan).
+- **Also done:** his user-level `~/.claude/CLAUDE.md` has three new dated sections — Putting things to me · This machine · Working
+  on a piece (the home's pointer among them) — at his *"yes as written"* (§802). This repo's CLAUDE.md § READ FIRST: the "How he
+  reads" line softened at his word (§803).
+- **► THE NEXT CONCRETE STEP — after `/clear`, on FABLE, `/postclear`: play back, then ASK to begin. No edit before his word.**
+  **(c) SET UP THE DECIBEL PIECE — the protocol's FIRST RUN (v1's test).** It opens with **2.1 THE PROFILE, a talk with him**
+  (the planning method, phase 1 — the data first, one question at a time, plain words):
+  1. the kind of start — copy-forward · from a sandbox · fresh;
+  2. which layers — the instrument · the score · both · neither;
+  3. the score type — the animated scrolling score · a new type (his LG-339: *"a significantly different type of score"*);
+  4. **at its END ask him which of the three unwritten items this piece needs** — 9.12 the tool docs' shared copies (if it copies
+     the tools forward) · 9.10 the laws (if an engine is built or reshaped) · 9.11 the module list (if it takes only part of the
+     engine). His question of §803 — so they are not lost.
+
+  Then, at his word, the rest of container 2, each step as the home's protocol writes it: 2.2 the repo (ASK: its name · public or
+  private · its push rule — never inherited) · 2.3 the names · 2.4 the method docs carried whole from THIS repo · 2.5 the record
+  docs from the home's `skeletons/` (the new CLAUDE.md checked heading by heading against THIS repo's) · 2.6 outside the repo (the
+  planning repo's "pieces in play" line, at his word). **From the first step keep the deviations register** —
+  `docs/PROTOCOL_DEVIATIONS.md` in the new repo; before that repo exists, a list in this repo's RUNNING_LOG entry — one line at the
+  moment of each deviation. **Raise at 2.5 (§799's finding):** the notes he made for the next pieces live in THIS repo's sketch pad
+  (LG-327 · LG-334 … LG-347); the precedent is to carry them as the opening of the new piece's COMPOSITION_NOTES — ask him; it is
+  not a protocol step. **If the new repo is public:** one look at what the carried lines say about him before its first push (§804).
+- **The data for the profile talk:** COMPOSITION_NOTES LG-334 (the TENOR conference, due NOVEMBER 14; instrumentation not final) ·
+  LG-339 · LG-340 … LG-345 (ONE DEVICE'S BRIEF for the electronics score: momentary-input effects · saved impulses played by piece
+  #2's cells · each sample named by a shape or colour · the impulses categorized · the collection on screen) · LG-346 (his order
+  for the three electronics pieces: the three repos with the UNIVERSAL layer first, then ONE live-electronics + notation + graphics
+  engine for all three, then put into each).
+- **`Resume reads:`** the home's `INDEX.md` · the home's `protocol/NEW_PIECE_PROTOCOL.md` — its header (the kinds of start) and
+  § 2 only · this repo's `docs/COMPOSITION_NOTES.md` line 4306 (LG-334) and lines 4353 … 4400 (LG-339 … LG-346). Nothing else
+  beyond §2.
+- **Behind it, at his word — not queued:**
+  - **(a) the seven small engine fixes in THIS repo** (the protocol's 3.8 + 5.11; Opus; one commit; any time before a
+    copy-forward). Read `docs/HARVEST.md` lines H-9 · H-10 · H-11 · H-12 · H-16 · H-17 · H-19 and the `docs/NITS.md` § each cites
+    BEFORE touching a file. Then: the bare-load `TypeError` at `sequence_ui.js:1652` · `model_bank --validate`'s
+    `provenance.palette` warn · `test_animobj.js`'s case · `palette_check` reads the composer's lane CSS (`nth-child`, count =
+    `TRACKS`) · the BEGIN marker in `apply_ranges.js` / `apply_bend_ranges.js` · `trimAtMeasurementDb` written by
+    `analyze_card.py` · the probes' `$Port` a parameter. Verify: `node --check` each file · `node tools/palette_check.js` · `node
+    tools/model_bank.js --validate` · `node tools/test_animobj.js` · H-9 in the RUNNING app on `score-5401` (the recipe in STILL
+    BINDING below: the stubs in the navigation batch, never Save — zero console errors on a bare load) · the shield only if a
+    `notation/lib` file moves. Then a RUNNING_LOG § · 3.8 · 5.11 ☑ in the HOME's protocol (a dated entry) and one line in its
+    `LOG.md` · commit + push both repos. Behind it, the same way: 4.8 the port name set + H-15 · 4.10 the three how-tos · 5.9
     `tools/qc_rack.js` · 7.6 `1f` under the law · 7.7 `1k` → MORPH_NOTES §4 · 7.8 the data checklist.
-  - **(b) THE HOME** (the plan's 9.9) — **first ASK its name, and public or private** (a new repo on GitHub is outward-facing: only
-    at his word). Then, Opus: the repo under `github.com/elosine`, in `C:\Users\jwloy\GitHub\` · its CLAUDE.md the grammar (an index ·
-    pointers · the few things written once · never a piece's record) · `INDEX.md` (9.1) · the protocol moved in, this file kept here
-    with a pointer · the skeletons (2.7) made from this repo's docs, emptied · the backlog from HARVEST § LATER (9.6) · H-33 the tool
-    docs' canonical copies (9.12) · 10.8 the deviations template · 10.7 the cross-piece memory notes into his user-level CLAUDE.md —
-    **show him the lines first.** Fable's part: 9.10 the laws · 9.11 the manifest's boundary.
-  - **(c) Set up the Decibel piece — the protocol's FIRST RUN** (his to-do's step 2; v1's test). It opens with **2.1 THE PROFILE, a
-    talk with him on FABLE**: the kind of start · which layers · the score type. The data: COMPOSITION_NOTES LG-334 (the TENOR
-    conference, due November 14; instrumentation not final) · LG-339 (*"a significantly different type of score"*) · LG-340 … LG-346.
-    **It needs (b) first** — 2.5 starts the record docs from skeletons that do not exist yet — or the kit is made by hand from this
-    repo's docs, as the last port did, and logged as a deviation (10.2). His order for the three electronics pieces (LG-346): the
-    three repos with the UNIVERSAL layer first, then ONE live-electronics engine for all three, then put into each.
-  - **The AI's recommendation, if he asks:** (b) before (c); (a) any time before a copy-forward.
-- **`Resume reads:`** `docs/plans/NEW_PIECE_PROTOCOL.md` — ONLY its last section, "The plan is whole — 2026-10-03". After his pick,
-  and only then: (a) the plan's 3.8 · 5.11 + the seven HARVEST lines + the NITS §s they cite · (b) the plan's § 9 and § 2's 2.5 · 2.7
-  · (c) the plan's § 2 whole + COMPOSITION_NOTES LG-339 … LG-346. Nothing else beyond §2.
-- **His two FLAGS — NOT NOW, do not raise unless he does:** 4.9 THE INSTRUMENT KNOWLEDGE BASE (LG-344: a methodology per library · a
-  profile per instrument growing every piece · a rolling work list, the round-robin probe first · AI automation research, Lua and
-  perhaps MCP · standard ports · the data containers) · 5.10 the standards hardened per instrument and per sample library (LG-347).
-  One knowledge base; its shelf is 9.5. **Open in the plan, his when he reaches them:** the from-a-sandbox kind's middle ("the basic
-  machinery", LG-338) · where the shared electronics engine lives and how it is ported into three pieces (LG-346) · the Decibel
-  score type (its design, not this plan).
-- **The composition notes of the day — eight, verbatim, in THIS repo's `docs/COMPOSITION_NOTES.md`:** LG-340 the momentary-input
-  effects (a gate opens the mic for an instant, the fragment processed; the coordination mechanism; an opening gesture of strikes;
-  accelerations) · LG-341 the saved impulses played by piece #2's cells (Anticipation-Reaction · See All The People · the three-body
-  problem), and LG-340 for all three electronics pieces · LG-342 each sample named in the score by a shape or colour, captured at a
-  GC, the glyph returning at playback · LG-343 the impulses categorized (the glyph AND the window's length; Braxton's Language Music
-  a candidate vocabulary — the AI's list of his twelve types is from MEMORY, to confirm before use) · LG-344 the flag 4.9 · LG-345
-  the collection on screen as a board-game inventory · LG-346 one live-electronics + notation + graphics engine for the three pieces
-  · LG-347 the flag 5.10. LG-340 … LG-345 are ONE DEVICE'S BRIEF for the electronics score — a device sheet when that piece is laid
-  out. **Not yet in the protocol, to raise at the first run:** the notes he makes for the NEXT pieces live in the finished piece's
-  sketch pad; the precedent (this piece's LG-1 … LG-8, made during #5) is to carry them as the opening of the new piece's
-  COMPOSITION_NOTES at 2.5 — here LG-327 · LG-334 … LG-347.
-- **HOW TO PUT THINGS TO HIM IN THIS WORK** (§788 — he was lost on the harvest's first presentation): plain words · each thing leads
-  with WHAT IT IS, what he is meant to understand, and THE ONE DECISION · no vocabulary the AI coined · short; a one-line answer must
-  be possible. A composition note arrives in the middle of anything: take it verbatim AT ONCE (an LG, the reading marked, commit +
-  push), say so in three lines, return to the one thing in hand.
-- **Pending him:** the pick above · the home's name and visibility · the planning repo's thing file (► still on step 1) and its
-  "pieces in play" line, which places the TENOR live-electronics piece inside `live-electronics-engine` (corrected at his word, once
-  the new repo has a name) · the new repos' names. On this piece: nothing.
-- **Before it, the same day:** checkpoint #2 (containers 1 · 2, the harvest, §786 … §790) and the first checkpoint after the close
-  (HIS PLANNING SYSTEM built in `C:\Users\jwloy\GitHub\composition-planning-and-notes` — `docs/next.md` · `plan.md` → `plan-by-date.md`
-  · `workdays.md` → `calendar.md` · `things/`; its CLAUDE.md the grammar: lists, not a tracker; only his dates; §779 … §785). Both
-  blocks, with the eight UPDATE bullets of this sitting, are whole in git: `git show e6855f5:docs/PROJECT_JOURNAL.md`.
+  - the home's three unwritten items (above) · at the first copy, in the new repo: 3.7 · 3.9 · 3.10 · 6.9 · 6.10 · 8.10.
+- **His two FLAGS — NOT NOW, do not raise unless he does:** 4.9 THE INSTRUMENT KNOWLEDGE BASE (LG-344) · 5.10 the standards
+  hardened per instrument and per sample library (LG-347). One knowledge base; its shelf is 9.5, in the home. **Open in the
+  protocol, his when he reaches them:** the from-a-sandbox kind's middle ("the basic machinery", LG-338) · where the shared
+  electronics engine lives and how it is ported into three pieces (LG-346) · the Decibel score type (its design, not the protocol).
+- **HOW THE PROTOCOL WAS AGREED** (so a later model does not reopen it): one container per exchange, the goal put to him in plain
+  words with the data → his word; from container 7 on the GOAL is agreed with him and the STEPS are the AI's, his to reverse in the
+  file (§794). **A change to a UNIVERSAL step (1 · 2 · 9 · 10) is his word.** Offered, not taken up: the "which of 9.10 · 9.11 ·
+  9.12" question as a STANDING step of 2.1, for every piece.
+- **HOW TO PUT THINGS TO HIM** (§788; now also in his user-level CLAUDE.md): plain words · what it IS, what he is meant to
+  understand, THE ONE DECISION · no vocabulary the AI coined · a one-line answer must be possible. A composition note arrives in
+  the middle of anything: take it verbatim AT ONCE (an LG, the reading marked, commit + push), say so in three lines, return.
+- **CLOSED this sitting — do not raise again:** the old "How he reads" wording in the home's first two commits. He first chose to
+  have that short history rebuilt; the desktop app's permission guard REFUSED the rewrite; then his word: *"b, leave it"* (§804).
+  **Never a history rewrite or a force-push there.** After the refusal that session was also refused a plain `git log` in the
+  home, so its state was not looked at again; four ordinary commits and pushes there had worked before. If a fresh session is
+  refused ordinary git in the home, tell him — do not work around it.
+- **Pending him:** his go for the profile talk · the new repo's name, visibility and push rule (2.2) · the planning repo's "pieces
+  in play" line, which places the TENOR live-electronics piece inside `live-electronics-engine` (corrected at his word, once the
+  new repo has a name). On this piece: nothing.
+- **The earlier blocks of the day** — checkpoint #3 with its UPDATE bullet, #2, and the first after the close (his planning system
+  in `composition-planning-and-notes`) — are whole in git: `git show 7bb3d2a:docs/PROJECT_JOURNAL.md` · `git show
+  e6855f5:docs/PROJECT_JOURNAL.md`.
 - **Deliberately uncommitted — all his, never stage them** (`git status --short` at this checkpoint: 5 modified + 25 untracked, the
   same 30 paths as every checkpoint since #13; nothing unpushed):
   - `bank/morph_models.json` · `bank/panel_snapshots.json` · `bank/sequences.json` — his libraries and his actuals' index, autosaved
@@ -616,8 +605,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►►►►►►** | **THE HOME IS MADE (2026-10-03, §800): `composition-system`, public — the protocol's LIVING COPY is there (`protocol/NEW_PIECE_PROTOCOL.md`; this repo's file FROZEN). The home's push rule: after every commit (his "a", §801). §802: 10.7 · 2.8 ☑ — the cross-piece notes are in his user-level CLAUDE.md (his "yes as written"). §803: this repo's "How he reads" line softened (his (a)); THE HOME'S SHORT HISTORY NOT YET REBUILT — the app's permission guard refused the rewrite, HIS to allow or to leave. ► NEXT: (c) the Decibel set-up, 2.1 the profile.** Behind: 9.12 the tool docs' piece-neutral copies · (a) the seven small fixes any time before a copy · 9.10 the laws · 9.11 the manifest (the UPDATE bullet in the block CHECKPOINT #3 AFTER THE CLOSE has each) | Opus (10.7 · 9.12 · a) · Fable (c · 9.10 · 9.11) | at the switch to Fable for (c) |
-| **►►►►►** | **THE NEW-PIECE PROTOCOL IS WHOLE (v1, 2026-10-03, §786 … §798) — HIS TO-DO'S STEP 1 DONE. ► NEXT IS HIS PICK — play back, then ASK** (the block CHECKPOINT #3 AFTER THE CLOSE has each as an instruction): (a) the seven small engine fixes in THIS repo — 3.8 + 5.11 (H-9 · H-10 · H-11 · H-12 · H-16 · H-17 · H-19), one commit; then 4.8 the port name set + H-15 · 4.10 the three how-tos · 5.9 the QC battery · 7.6 1f under the law · 7.7 1k → MORPH_NOTES · 7.8 the data checklist · (b) THE HOME, 9.9 — ASK its name and visibility first; then the protocol moved in, the skeletons, the index, the backlog, H-33, 10.7, 10.8 (Opus); the laws 9.10 and the manifest's boundary 9.11 (Fable) · (c) the Decibel piece's set-up, the protocol's first run — 2.1 the profile, a talk (it needs (b) first). 4.9 · 5.10 his FLAGS, not now; three open questions (the from-a-sandbox middle · the shared electronics engine's home and port, LG-346 · the Decibel score type) | Opus (a · b) · Fable (c · 9.10 · 9.11) | yes — `/postclear`, on Opus |
+| **►►►►►** | **CHECKPOINT #4 AFTER THE CLOSE (2026-10-03, §800 … §804): THE HOME IS MADE — `composition-system`, public, the protocol's LIVING copy there (this repo's file FROZEN). ► NEXT: (c) THE DECIBEL PIECE'S SET-UP, the protocol's first run — 2.1 THE PROFILE, a talk; at its end ask which of 9.10 · 9.11 · 9.12 the piece needs** (the block CHECKPOINT #4 AFTER THE CLOSE has each step as an instruction). Behind, at his word: (a) the seven small fixes here (3.8 + 5.11), then 4.8 · 4.10 · 5.9 · 7.6 · 7.7 · 7.8 · the home's 9.12 (Opus) · 9.10 · 9.11 (Fable). 4.9 · 5.10 his FLAGS, not now; three open questions (the from-a-sandbox middle · the shared electronics engine's home and port, LG-346 · the Decibel score type) | Fable (c · 9.10 · 9.11) · Opus (a · 9.12) | yes — `/postclear`, on Fable |
 | **►** | **SESSION 19 — NOTHING QUEUED: `/session-start`, then ASK.** _Recombination_ Draft 01 is complete and SUBMITTED (2026-10-03, §777): the page · the audio · the film · the notes page · the print score. His next is his — THE SLATE (LG-327 · LG-334: a Decibel-ensemble piece for TENOR, due November 14, NEXT if he writes it) · this piece's performance score (phase 3, not planned) · the call's results by email | Fable (a talk, a plan) · Opus (a build) | — |
 | ref | **IF THIS PIECE IS TOUCHED AGAIN** — the notation is LOCKED (D56): a change is the whole loop (the gates · the audio · the film `-r5` · `bash print/score/build.sh --rebuild-ir` · new archives and tags); the notes page by dictation (checkpoint #13's block); a print-only change by the list in the block SESSION 19 OPENS ON THIS. **The rows below about his eye on the notation, the percussion's rest and the lock's blocks are CLOSED by the lock unless he reopens it; the `his` rows of the tools stand as they were** | — | — |
 | **►►►►** | **HIS EYE ON SECTION 2** — a HARD reload of the notation tab → `piece-lgmf` → part by part (the stops in the block SESSION 19 OPENS ON THIS). Collect, then fix at his word — a hand through `tools/reextract.js`, a look through a rules row. The percussion staff's standards S25 … S33 are a day old: expect his eye to move them | Fable | yes — `/session-start` |
