@@ -23262,3 +23262,36 @@ that piece is laid out. Nothing planned from them.
 
 **State.** § 1 … § 4 written; 5 … 10 top line only. **Next:** container 5, the calibration, the same way — the goal with the data
 (PLAN § 0d · § 1b; RUNNING_LOG §43 … §61 · §75 … §91; `docs/DYNAMICS_LAW.md`; HARVEST "→ 5"), his nod, the sub-steps into § 5.
+
+## §793. Container 5, THE CALIBRATION — the goal, his second flag, the sub-steps at his word; § 5 written; his process note on one engine for the three electronics pieces (2026-10-03, Fable; follows §792)
+
+**The data read for the goal** (named first): PLAN § 0d · § 1b (1b.0 … 1b.7 as written) · the journal's D13 · D14 · `DYNAMICS_LAW.md`
+§1 · §2 · RUNNING_LOG §76 (why the rack was 12 dB hot; the standard adopted) and §91 (1b closed — where it finished) whole, the
+headings of §43 … §61 · §75 … §91 · §128 … §131 · §137 … §144 · `docs/HARVEST.md` § "→ 5" (H-16 … H-19). Found on the way: 1b.6,
+the one-command QC battery, was planned and approved and never built.
+
+**The goal, as put to him:** what the container IS (the rack to an ABSOLUTE standard; done twice here, 0d relative then 1b to
+K-20 in a day) · the result · the data — his scope first, 0d, 1b with its numbers, 1e and the law, the harvest's four · six calls
+his to reverse (1b once, 0d retired · K-20 and 12 dB the defaults · the round robins before the card · a demo's pass · the law's
+data this container's deliverable · the QC battery built once, run last).
+
+**His word — the goal accepted, and A SECOND FLAG** (his words whole in LG-347): *"Container 5 is good. Similar to … 4. Let's have
+a longer term plan as well … recalibrated or refined … instrument specific, but also … sample library specific, like X sample
+versus … IRCAM … the round robin … harden and refine the standards per instrument and per library. But good for five now."* Placed
+as 5.10 `flag`, joined to 4.9 as one knowledge base.
+
+**The sub-steps, as put and written** — recurring 5.0 the scope · 5.1 the reference · 5.2 the pre-flight (clipping · the round
+robins · H-18 · H-19 · H-16) · 5.3 the card · 5.4 the trims · 5.5 the remap and the fader curves · 5.6 the verification through
+the app's path and his ear · 5.7 the QC battery · 5.8 the record; stop-and-ask; done when. One-time 5.9 the QC battery built ·
+5.10 the flag · 5.11 three small fixes with 3.8's four · 5.12 written. **His word: *"5 good"*.** Into
+`docs/plans/NEW_PIECE_PROTOCOL.md` § 5; the top line's 5 "laid out below"; "6 … 10 top line only" — the AI's order next: 7 the
+composing tools (the instrument layer's last), then 6 · 8, then 9 · 10; his to change.
+
+**His process note on the way (LG-346), in the plan's header:** for the three electronics pieces — the three repos with the
+UNIVERSAL layer first, then ONE live-electronics engine with its notation and graphics designed for all three, then put into each;
+two questions for the plan, open: where that engine lives (the home question; §5's one shared engine, its first member) and how
+it is ported into three pieces (9's module boundary; the from-a-sandbox kind).
+
+**State.** § 1 … § 5 written; 6 … 10 top line only; `docs/HARVEST.md` triaged; the day's notes LG-340 … LG-347. **Next:**
+container 7, the composing tools made the piece's — the goal with the data (PLAN § 1c … § 1u; `MORPH_NOTES.md` §4; HARVEST "→
+7"), his nod, the sub-steps into § 7.

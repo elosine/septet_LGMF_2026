@@ -53,7 +53,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 4. **The instruments** — the instrumentation → the libraries (acquire · manuals · maps · key switches) → the recipes
    → loopMIDI ports → the Reaper rack. *(0c · 0e)* — **► laid out below**
 5. **The calibration** — balance · velocity remap · fader curves · bend and technique ranges · sample lengths; the
-   dynamics law applied. *(0d; reworked as 1b here — six bugs that outlived the first pass)* — `top line only`
+   dynamics law applied. *(0d; reworked as 1b here — six bugs that outlived the first pass)* — **► laid out below**
 7. **The composing tools made the piece's** — which tools, and the per-instrument data each one needs; adapted as
    compositional need arises, not all up front. *(phase 1 here, 1c … 1u)* — `top line only`
 
@@ -387,9 +387,98 @@ the loads · the screenshots; everything that is text is the AI's):*
 
 ---
 
-## 5 … 10 — `top line only`
+## 5. The calibration — `written 2026-10-03` (agreed with him, RUNNING_LOG §793; his flag LG-347 in 5.10)
+
+**What this is:** the rack brought to an ABSOLUTE standard, so what he hears while composing is a realistic balance and one
+monitor level serves every piece — the third container of THE INSTRUMENT layer. Here it was done TWICE: 0d (relative — every
+instrument to the median, measured on REC at −12 dB, no proven meter → a rack 12 dB hot and clipping) and then 1b (to a
+standard, in one day). The protocol takes 1b's method, once.
+
+**Result when done:** a −20 dBFS reference in the rack and a proven meter, his system volume set ONCE on it · every
+instrument's card measured on the channels the piece plays — loudness two ways · pitch · bend range · the velocity curve · the
+fader curve — the round robins judged · trims to the absolute target (a tutti fff at −20 LUFS-S, under −1 dBTP) · the
+velocity remap at the written span · the dynamics law's data in the bank (the fader curves for every instrument, the dynamics
+table) · `RACK_SETTINGS.md`, every hand-set plugin value and how to revert it · a QC battery in one command.
+
+**The data (2026-10-03):** his scope first (PLAN § 0d, his restatement): *"realistic aural feedback … not the #1 priority, I
+don't want to overinvest"* — a demo; the parts will be played by people. **0d** (§43 … §61, 2026-09-18): the probe designed
+simply · a REC track · a clipping pre-flight that caught the SI2 brass over 0 dBFS at CC7 127 (the masters to −6 dB) · the run,
+which overturned the mechanism — and HE stopped the flip to CC7 (D13: velocity IS the dynamic; the horn and trumpet fixed at the
+knob, 5 → 26 dB) · the trims and the remap, velocity-only · his ear, "sounds good" · 0h skipped at his word (D14). **1b** (§75
+… §91, 2026-09-19): the trigger — *"significantly louder than previous pieces … a bit of a shambles … a testing and qc verifying
+plan that is not too onerous but reliable"* · the standard K-20 / BS.1770 (rejected: a master trim · a limiter · "to the
+quietest" or "to the median", both relative — how two racks came to differ by 12 dB) · 1b.1 the reference proven to three
+decimals, and three tracks REC had never captured · 1b.2 the card, 103 then 209 notes, every pitch within 2 cents, every bend
+measured · the vibraphone's "register" a ROUND ROBIN scattering 13.8 dB — switched off; four instruments' in the end · 1b.3
+every instrument DOWN 6.6 … 21.3 dB; the sleigh bells +10.6 dBFS on one note; two horn tracks never trimmed · §85 the Dynamic
+fix had never reached the channels the piece plays · 1b.4 the span 10 → 17 → 12 at his word (the rule: the range at the tightest
+pitch minus the register spread) · 1b.5 the per-part pass NOT met (18.8 → 7.7 dB) and CLOSED at his word as the method's floor:
+tutti −19.1 LUFS · −9.7 dBTP · 1b.6 the one-command QC battery planned, approved, NEVER BUILT. **1e** (§137 … §144, 2026-09-20):
+the fader curves measured in 0d had been written for the vibraphone alone (§130); then THE DYNAMICS LAW — a struck note's
+dynamic is the velocity, a shaped note is struck at mf with its fader normalized 0 → 127 on a curve channel — proven in his
+rack; `docs/DYNAMICS_LAW.md` the first read for any sound work. **The harvest's four** (H-16 … H-19): the recipe-block marker
+checked before the first probe · the card's trim written so a re-run cannot double-count · a technique's UVI Dynamic on the main
+part AND its curve copies · the probes' default port a parameter.
+
+**His word at the goal (LG-347):** *"Container 5 is good … good for five now"* — and THE FLAG, 5.10 below.
+
+**Six calls, his to reverse (agreed 2026-10-03):** 1b's method once, as the standard; 0d's relative method retired; the reference
+first, always · K-20 / BS.1770 and the 12 dB span as the protocol's DEFAULTS, a piece changing them in its profile · the
+round-robin check per instrument BEFORE the card · the pass criterion a demo's — the tutti on target, nothing clipping, the
+per-part spread within the method's floor, not ±1 dB · the dynamics law and its data this container's deliverable, the tools
+that write it 7's · the QC battery a one-time build and the recurring last step; the card the seed of 4.9's profiles.
+
+**Recurring — the protocol's step 5, at every start with a sound side** *(one day on Opus; his ear at the end):*
+
+- **5.0 The scope, one sentence with him.** A demo for composing; the targets are the protocol's defaults — K-20 · a tutti fff at
+  −20 LUFS-S · under −1 dBTP · a 12 dB written span — unless the profile says otherwise.
+- **5.1 The reference in the rack.** A REF track: −20 dBFS pink noise (BS.1770-weighted) and a 1 kHz tone; REC at unity, the
+  master at 0; REC proven to capture EVERY track. Read back at −20.0 ± 0.1 — the meter proven before anything is measured
+  (`make_reference_audio.js` · `ref_track.lua` · `reference_run.ps1` · `analyze_reference.py` → `bank/reference.json`). His
+  system volume set ONCE on it.
+- **5.2 The pre-flight.** Every instrument at fff with CC7 127, for clipping (the SI2 masters' −6 dB) · every instrument's ROUND
+  ROBIN read and judged with him — off, levelled or kept (a musical fault as much as a measurement one) · a technique's UVI
+  Dynamic on the main part AND its curve copies (H-18) · the probes' port a parameter (H-19) · the recipe-block marker checked
+  (H-16).
+- **5.3 The instrument card.** One run through the harness on the channels the piece PLAYS: each pitched instrument at three
+  velocities on pitches every two or three semitones (the 3-pitch grid was the last fault), each percussion at full on its anchor
+  key; per note the loudness two ways — max-momentary and integrated, a sustaining instrument judged on the integrated — the f0
+  against the written, the bend range → `bank/instrument_card.json`; the trim at measurement written into the row (H-17).
+- **5.4 Trims to the absolute target.** Computed from the card (`compute_trims.js` → `bank/trims.json`), applied by the bridge
+  (`gen_apply_trims.js`), read back — EVERY track, including any added since the last pass. A sustaining family's register: the
+  fader takes the mean; the residual goes to the remap, or to CC7 at his word only (the vibraphone's exception, §91).
+- **5.5 The remap and the fader curves.** The velocity remap at the written span (`build_remap_card.js` → `velocity_remap.json`;
+  the rule: the range at the tightest pitch minus the register spread); the fader curves for EVERY instrument (§130's lesson) →
+  the dynamics table, 4 dB a written step (`dyn_table.js` · `dyn_table_check`); the decisions in the builder's header so a
+  rebuild cannot undo them.
+- **5.6 The verification through the app's own path.** A reference chord at pp · mf · ff · fff → `capture_composer_midi` → REC:
+  the tutti's LUFS-S and dBTP, the per-part spread. The pass is a demo's. Then HIS EAR on the chord; "sounds good" closes it.
+- **5.7 The QC battery, one command** (5.9). The tone read back · the card diffed against the last · the routing diff, capture
+  against recording · every score's peak and loudness. Run after any change to the rack, the recipes or the remap.
+- **5.8 The record.** RUNNING_LOG as each step lands · `RACK_SETTINGS.md` · the bank files committed · a new rule into
+  `DYNAMICS_LAW.md` · the card's lessons onto the instrument profiles (4.9).
+- **Stop and ask him:** a round robin, off or keep · the span · a residual beyond the floor · any flip of mechanism (D13 stands —
+  no CC7-for-everything).
+- **Done when:** the reference reads −20.0; the tutti on target, nothing clipping; the remap and every fader curve in the bank;
+  his ear on the chord; `RACK_SETTINGS.md` written.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **5.9 The QC battery built** (1b.6 — planned here, approved, never made): `tools/qc_rack.js`, one script from the pieces that
+  exist (the reference run · the card · the routing dump · the loudness analyzer), a report in `docs/qc/` diffed against the last.
+  Opus. `todo`.
+- **5.10 THE FLAG** (his words whole: LG-347): the standards HARDENED AND REFINED per instrument and per sample library — Xsample ·
+  IRCAM SI2 · Spitfire · UVI — recalibrations, more detail, the round robin again. Longer term, when he has time; ONE knowledge
+  base with 4.9 (the card its calibration page; the per-library methodology its calibration idiosyncrasies). `flag`.
+- **5.11 Three small fixes made here** (H-16 · H-17 · H-19), with 3.8's four in one Opus commit. `todo`.
+- **5.12 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 6 … 10 — `top line only`
 
 Each is laid out with him when reached: the goal ("Result when done"), the data, then the sub-steps, written here as
-agreed. Next in the order: 5 the calibration (the data: PLAN § 0d the balance probe and § 1b the rack calibrated to an absolute
-standard — RUNNING_LOG §43 … §61 and §75 … §91, the six bugs that outlived the first pass; `docs/DYNAMICS_LAW.md`; the
-harvest's items under "→ 5"). The order is the AI's recommendation (each container feeds the next); his to change.
+agreed. Next in the AI's order: 7 the composing tools made the piece's — THE INSTRUMENT layer's last (the tools consume what 4
+and 5 produce: the recipes, the remap, the dynamics table); the data: PLAN § 1c … § 1u (phase 1's twenty-odd tool items and their
+state lines) · `docs/MORPH_NOTES.md` §4 (the digest) · `docs/HARVEST.md` § "→ 7". Then THE SCORE layer, 6 and 8; then 9 and 10.
+His to change.
