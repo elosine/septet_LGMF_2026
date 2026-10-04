@@ -23513,3 +23513,37 @@ this repo is public, and so is the home.
 **State.** The home exists and is pushed; the protocol's living copy is there. This repo: the pointer in the frozen file, the
 state lines, CLAUDE.md § Orient re-pointed. Nothing of the piece touched. **Next:** his word on the home's push rule · the 10.7
 lines for his read · then (c), 2.1 the profile, on Fable.
+
+## §801. The home's push rule — after every commit; the starter CLAUDE.md's "How he reads" line softened (2026-10-03, Opus; follows §800)
+
+**Put to him at §800's wrap, one decision:** the home's push rule — (a) push after every commit, as his piece repos do (the AI's
+recommendation) · (b) ask each time. And one thing told him in the notes: the starter CLAUDE.md carried his "How he reads"
+paragraph word for word into a public repo, as this repo's public CLAUDE.md has it — *"say if you want it softened in the home."*
+
+**His words:** *"a, soften the line"*.
+
+**Done, in the home (`composition-system`):**
+
+- `CLAUDE.md` § Git — "Push automatically after every commit", with the date, his word and the question it answered; "asked for this
+  repo, as the protocol's 2.2 says; never inherited". (This repo's D5 is the precedent; it was not carried, it was asked.)
+- `skeletons/CLAUDE.md` — the "How he reads" paragraph keeps every reading preference (succinct language · clear spatial division ·
+  short lines · one idea per chunk · bullets first · the TL;DR · one step at a time) and leaves the reason out. That paragraph is
+  therefore no longer word for word this repo's; the home's `LOG.md` says so.
+- `LOG.md` — one line for the two changes; the waiting local commit (ten → eleven docs) pushed with them.
+
+**Not done, and said to him:** the home's FIRST commit (`37392e8`) still holds the old wording in its history, and this repo's own
+CLAUDE.md has it today. Removing it from the home's history is a rewrite and a force-push — only at his word.
+
+**Then, the next step of the home's line (10.7):** the cross-piece memory notes for his user-level `~/.claude/CLAUDE.md`, drafted from
+this repo's memory folder and SHOWN to him in the chat — nothing written there before his yes. Three short sections: *putting things
+to me* (IDs always with their names · a list the AI made leads with what it is, what he is meant to understand and the one decision ·
+a page to look at = a clickable `http://localhost:<port>/…` link · an eye pass: collect, then fix on his go) · *this machine* (the
+8 KB Bash limit · backticks go to a file · line endings counted at byte level · unlink a `node_modules` junction before removing a
+worktree · a binary into his Drive goes through his Chrome) · *working on a piece* (what the pieces share lives in
+`composition-system`, its `INDEX.md` first · read the piece's record before proposing sound work · the lab journal runs through the
+composing). Left out as already in his file: how he reads · the reply shape · no unasked verification · the planning repo pointer.
+Left out as piece-specific: the just-partial standard (the home's index points to it) · the performance-notes dictation habit · the
+parenthesized-dynamics technique.
+
+**State.** The home pushed, level with its remote. **Next:** his yes (or his changes) on the 10.7 lines · then (c), 2.1 the profile,
+on Fable.
