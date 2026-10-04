@@ -23576,3 +23576,39 @@ manifest's boundary (Fable). None blocks the Decibel set-up.
 **State.** (b), the home, is done as far as the Decibel set-up needs it. **Next: (c) — 2.1 THE PROFILE, a talk with him on FABLE**
 (his to-do's step 2, the protocol's first run, v1's test). A model switch: a checkpoint on Opus and a clear is the clean cut here
 (THE RHYTHM).
+
+## §803. His (a) on the old wording — this repo's line softened; the home's history NOT rebuilt (the app's permission guard refused it); the three unwritten items explained and kept in sight (2026-10-03, Opus; follows §802)
+
+**He asked for the two closing notes of §802's reply "more clearly", and of the second:** *"was something meant to have been done or
+are we waiting to do the setups?"*
+
+**The answer given, in plain words.** (1) The wording: gone from the home's file of today, but the home's first two saves hold the
+old sentence in its history; this repo's CLAUDE.md has it in plain view; the earlier pieces' repos were not looked at. Three options —
+(a) clean both the cheap way: rebuild the home's short history, soften this repo's line of today, leave this repo's long history
+(recommended: the home is an hour old) · (b) this repo's line only · (c) leave all. (2) The three unwritten items — the tool docs'
+one shared copy each (9.12) · the laws (9.10) · the module list (9.11): nothing was skipped; the plan lists them as their own jobs,
+"at his word, before or during" the first run, none with a fixed moment; each said by what it is and when a piece would need it
+(the tools copied forward · an engine built or reshaped · a piece taking only part of the engine). The AI's advice: after the
+Decibel piece's profile talk, which says which of the three that piece needs.
+
+**His words:** *"a and ai has it in the plan to make sure 2 gets done at some point?"*
+
+**Done.**
+
+- This repo's CLAUDE.md — the "How he reads" line of § READ FIRST keeps every reading preference and leaves the reason out. It was
+  the only place the word stood in this repo's tracked files of today (`git grep -c`: one file, one line). This repo's history is
+  left as it is — his (a).
+- The three items kept in sight. They already stand as `todo` in the home's protocol (§ 9's one-time list and its closing list), as
+  "not written yet" in the home's `INDEX.md`, and in this repo's journal row. ADDED: the journal's next step (3) now says to ASK
+  him, at the END of the Decibel profile talk, which of the three that piece needs. NOT added, and said to him: the same question as
+  a standing step for every piece — that would change a UNIVERSAL step of the protocol (2.1 · 10.0), which is his word (§ 9 · § 10,
+  stop and ask).
+
+**NOT done — the home's history.** His (a) includes rebuilding the home's short history (five commits) so that the old sentence is
+in none of them, then replacing the history on GitHub. The command was refused by the desktop app's permission guard as a
+destructive git action, before it ran; a second, read-only look at the home was refused too, so the home's state was not re-checked
+after — by the tool's report nothing there changed. Not worked around. Put to him: what it would do, why, and that it is his to
+allow or to leave. Until then the home's first two commits hold the old sentence.
+
+**State.** The piece untouched. **Pending him:** the home's history — allow the rewrite, or leave it. **Next:** (c) the Decibel
+set-up, 2.1 the profile, on Fable — a checkpoint on Opus and a clear first.
