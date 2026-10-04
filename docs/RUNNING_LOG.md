@@ -23295,3 +23295,25 @@ it is ported into three pieces (9's module boundary; the from-a-sandbox kind).
 **State.** § 1 … § 5 written; 6 … 10 top line only; `docs/HARVEST.md` triaged; the day's notes LG-340 … LG-347. **Next:**
 container 7, the composing tools made the piece's — the goal with the data (PLAN § 1c … § 1u; `MORPH_NOTES.md` §4; HARVEST "→
 7"), his nod, the sub-steps into § 7.
+
+## §794. Container 7, THE COMPOSING TOOLS MADE THE PIECE'S — the goal at his nod; "we can skip the sub steps from now on"; § 7 written with the AI's steps (2026-10-03, Fable; follows §793)
+
+**The data read for the goal** (named first): PLAN § 1c … § 1u — the twenty item headers and their state lines, not the sub-steps ·
+`docs/MORPH_NOTES.md` §4 (the digest) · `docs/HARVEST.md` § "→ 7" (one item, H-28). The arc as read: eight days, 2026-09-19 … 26,
+twenty tool items in the order of compositional need; two methods met — 1l built end to end and set aside at his verdict in use,
+1m one step at a time, each used first — and the second became the method; the law discovered by his ear (1e) and written as the
+first read; every build under the shield with its own check; two `todo`s left (1f · 1k).
+
+**The goal, as put to him:** the container a LOOP, small at the start (the law · the data · the first tool), then one tool at a
+time at compositional need; the result at the start; the data above; five calls his to reverse (the loop · the method fixed · the
+data checklist · the tool docs and MORPH_NOTES · the two todos placed).
+
+**His word: *"7 good we can skip the sub steps from now on"*.** Read as: the GOAL of each remaining container is still agreed with
+him; the STEPS are the AI's, written into the file without a round trip, his to reverse there. Written into the plan's rules line.
+§ 7 written with its recurring steps 7.0 the law read · 7.1 the data checklist · 7.2 the first tool · 7.3 the loop per tool · 7.4
+the tool docs · 7.5 the record; stop-and-ask; done when (at the start; then with the piece); one-time 7.6 1f under the law · 7.7 1k
+to MORPH_NOTES · 7.8 the checklist written · 7.9 written. The top line's 7 "laid out below"; left: 6 · 8 · 9 · 10.
+
+**State.** § 1 … § 5 and § 7 written; 6 · 8 · 9 · 10 top line only. **Next:** container 6, the notation set-up — THE SCORE layer's
+first — the goal with the data (PLAN § 0g · § 0i · § 2a · § 2c · § 2e; RUNNING_LOG §17 · §18; HARVEST "→ 6"), his nod, the steps
+the AI's into § 6; then 8, 9, 10.

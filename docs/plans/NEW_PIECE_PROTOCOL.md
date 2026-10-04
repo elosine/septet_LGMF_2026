@@ -14,7 +14,9 @@
 
 **The rules of this file:** stable IDs (a container keeps its number; its steps are `N.m`) · one container laid out at
 a time, with him, and written here as agreed · the steps a cold model could run · a container reads `top line only`
-until it is laid out · what is one-time (this plan's work) is kept apart from what is recurring (the protocol's).
+until it is laid out · what is one-time (this plan's work) is kept apart from what is recurring (the protocol's). **From container 7 on (his word
+2026-10-03, *"we can skip the sub steps from now on"*): the GOAL is agreed with him; the steps are the AI's, written without a
+round trip, his to reverse in the file.**
 
 **The kinds of start the protocol must hold** (§786 · §789) — a piece's PROFILE, step 2.1: **copy-forward** — the six
 pieces so far: the stack copied byte-exact, the palette rewritten · **from a sandbox** — the live-electronics kind: a
@@ -55,7 +57,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 5. **The calibration** — balance · velocity remap · fader curves · bend and technique ranges · sample lengths; the
    dynamics law applied. *(0d; reworked as 1b here — six bugs that outlived the first pass)* — **► laid out below**
 7. **The composing tools made the piece's** — which tools, and the per-instrument data each one needs; adapted as
-   compositional need arises, not all up front. *(phase 1 here, 1c … 1u)* — `top line only`
+   compositional need arises, not all up front. *(phase 1 here, 1c … 1u)* — **► laid out below**
 
 **THE SCORE — the score type and its deliverables, laid out PER SCORE TYPE**
 
@@ -475,10 +477,84 @@ that write it 7's · the QC battery a one-time build and the recurring last step
 
 ---
 
-## 6 … 10 — `top line only`
+## 7. The composing tools made the piece's — `written 2026-10-03` (the goal agreed with him, RUNNING_LOG §794; the steps the AI's — his word, "we can skip the sub steps from now on")
 
-Each is laid out with him when reached: the goal ("Result when done"), the data, then the sub-steps, written here as
-agreed. Next in the AI's order: 7 the composing tools made the piece's — THE INSTRUMENT layer's last (the tools consume what 4
-and 5 produce: the recipes, the remap, the dynamics table); the data: PLAN § 1c … § 1u (phase 1's twenty-odd tool items and their
-state lines) · `docs/MORPH_NOTES.md` §4 (the digest) · `docs/HARVEST.md` § "→ 7". Then THE SCORE layer, 6 and 8; then 9 and 10.
-His to change.
+**What this is:** the tools the engine carries — the strikes drawer · the sequence drawer · the morph · texture · the harmony
+strip · the rest — made THIS piece's, NOT all up front: one tool at a time, as the composing needs it, each used by him before
+the next. The instrument layer's last. At the START it is small: the dynamics law read, the per-instrument data in place, the
+first tool the first section needs working through the law. Then it runs as a LOOP through the composing.
+
+**Result when done (at the start):** every tool that writes sound is under the dynamics law BEFORE its first use (H-28 — the
+crescendo tool here never was) · the per-instrument data every tool reads is in place from 3 · 4 · 5 — the tables inside the
+tools · the recipes' technique keys · the remap and the dynamics table · ranges and breath or bow ceilings · the harmonic-series
+data · the percussion selection · the loop for the next tool is written. Thereafter the container is never "done": it closes
+with the piece.
+
+**The data (2026-10-03):** phase 1 here, PLAN § 1c … § 1u — twenty items in eight days, 2026-09-19 … 26, in the order of
+compositional need: the strikes drawer (1c) → the sequence drawer (1d, built to its end in a day, his tests step by step) → the
+volume fix and THE LAW (1e, from his ear: *"sitting at the high dynamic. No waves"*; `docs/DYNAMICS_LAW.md`, the first read for
+any sound work — *"AI forgets what we established before"*) → one scale (1g) → the bloom on a take, the vibraphones in it, the
+morph's breaths (1h · 1i · 1j) → the counterpoint route (1l) → the texture take (1m) → dynamics, the save structure, the clock,
+the harmony strip (1n … 1q) → three morph builds (1r · 1s · 1t) → the vibraphones' pitches (1u). TWO METHODS MET: 1l built END TO
+END and set aside at his verdict in use (*"this tool is not working the way I expected it"*, §214); 1m then built ONE STEP AT A
+TIME, each used by him first (§220) — the method from there. 1q grew from his test the same day (1q.5 … 1q.8, §316 · §317).
+Every build carried THE SHIELD and its own check (`sequence_check` 180 · `dyn_table_check` 51 · `test_snapshots` 30 ·
+`roster_check` · `vibes_pitch_check` 65 …). What bit: a server route keeps the engine it started with — "restart the server"
+after a `morph.js` or `model_bank.js` change (§181) · the curve-channel map is cached, found twice (§75 · §139) · the piano-role
+features (3's H-14) · two items left `todo` — 1f the crescendo tool under the law (H-28), 1k the morph's peaks. The morph tool
+has its own memory for its revision: `docs/MORPH_NOTES.md` §3 the verbatim log, §4 the digest of what an all-purpose tool has and
+lacks (carried from #5; the pattern for any tool he wants revised).
+
+**His word at the goal:** *"7 good we can skip the sub steps from now on"* — from here the GOAL is agreed with him and the steps
+are the AI's, written without a round trip, his to reverse in the file.
+
+**Five calls, his to reverse (agreed 2026-10-03):** the container is a LOOP, not a one-time step — at the start only the law, the
+data and the first tool · the method fixed as the protocol's: one tool at a time · used by him before the next (1m over 1l) · the
+planning method per tool · the shield on every layout change · the law before the first use · one checklist of the per-instrument
+data a tool needs, derived from `palette_check`'s tables and the banks · the tool docs travel with the code (3) and are rewritten
+only when a tool changes for the piece; `MORPH_NOTES` keeps its role · the two `todo`s placed — 1f becomes the first-use rule, 1k
+goes to `MORPH_NOTES` §4.
+
+**Recurring — the protocol's step 7** *(the AI's steps, his to reverse):*
+
+- **7.0 The law read.** `docs/DYNAMICS_LAW.md` whole before any tool is touched; the two kinds of note · the curve channels · the
+  cached map (`curveDirty()`) · how a claim is proved (§6). THE SHIELD's recipe (`layout_shield --write` on HEAD, `--diff --expect`
+  after) and the checks the piece owns, named in CLAUDE.md.
+- **7.1 The data checklist.** One list (7.8) walked once: for every tool the piece will use, the per-instrument data it reads is
+  present for every instrument — the tables inside the tool (3.3's kind B) · the recipe's technique keys · the remap and the
+  dynamics table (5.5) · ranges and the breath / bow ceilings · the harmonic-series data (the spectrum check) · the percussion
+  selection. A gap is filled or marked PROVISIONAL with its step.
+- **7.2 The first tool.** The one the first section needs (here the strikes drawer, 1c: six stages, each his word), adapted for
+  the ensemble — the players · the ordinary voice · the hear modes through the remap · the seats of a two-voice lane · the series
+  banner — and brought under the law. His test before the next.
+- **7.3 The loop, per tool, at compositional need.** His need in his words (the sketch pad, verbatim) → the planning method
+  (`docs/PLANNING_METHOD.md`: phase 1 the data, the top line, one step at a time; a device sheet where a notation is involved) → the
+  build, one commit per step, THE SHIELD in each, the tool's own check added or extended; a build that changes the ENGINE's
+  rendering (`morph.js` · `model_bank.js` · `sequence.js`) is opt-in — every stored render byte-identical, or his word → "reload the
+  tab" or "restart the server", said → HIS ONE TEST → his verdict IN USE → grown from his test the same day, or set aside at his word.
+  One tool at a time; the next is laid out only after the last is used.
+- **7.4 The tool docs.** The carried docs (3.6's provenance line) rewritten only where the tool changed for this piece; a new tool
+  gets its doc (`SEQUENCE_TOOL.md`'s shape — what it does · the recipe it saves · its check). The morph's remarks into
+  `MORPH_NOTES.md` §3 as said, §4 the digest.
+- **7.5 The record.** RUNNING_LOG as each build lands — and through the composing (the lab journal does not pause); his musical ideas
+  into COMPOSITION_NOTES verbatim; the journal's table and the state lines at every wrap.
+- **Stop and ask him:** a tool that needs a new mechanism in the engine (every stored render moves) · anything that would flip the
+  law (D13 · Rule 1 … 5) · anything about the music.
+- **Done when:** at the start — the first tool works on this ensemble through the law, his test passed, the loop written; after it,
+  the container closes with the piece.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **7.6 1f, the crescendo tool under the law** (H-28; `cresc*.js` write no `cc7Abs` / `velAbs`) — fixed at the next piece's start,
+  before the tool is touched; the first-use rule's first case. `todo`.
+- **7.7 1k, the morph's peaks against the sequence** — into `MORPH_NOTES.md` §4 for the revision. `todo`.
+- **7.8 The data checklist written once** from `palette_check`'s nine tables and the banks' key sets. `todo`.
+- **7.9 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 6 · 8 · 9 · 10 — `top line only`
+
+Each is laid out when reached: the goal ("Result when done") with him, the steps the AI's. Next: THE SCORE layer — 6 the notation
+set-up (the data: PLAN § 0g · § 0i the port's notation half and the save → IR proof, RUNNING_LOG §17 · §18 · § 2a the staves · § 2c
+the page edges · § 2e the rules registry; `docs/HARVEST.md` § "→ 6"), then 8 the deliverables pipeline; then 9 · 10. His to change.
