@@ -1,5 +1,10 @@
 # THE NEW-PIECE PROTOCOL — a regular, expandable, flexible start
 
+> **MOVED 2026-10-03 — THE PROTOCOL NOW LIVES IN `composition-system/protocol/NEW_PIECE_PROTOCOL.md`**
+> (`github.com/elosine/composition-system` · `C:\Users\jwloy\GitHub\composition-system`; step 9.9, RUNNING_LOG §800).
+> **This file is FROZEN at v1, kept as the record of the drafting. Do not edit it — read and change the home's copy.**
+> The marks made since (9.9 · 2.7 · 10.8 ☑) are in the home's copy only.
+
 **v1 — 2026-10-03 — all ten containers written (RUNNING_LOG §786 … §798), every goal agreed with him; the first run is the
 Decibel piece's set-up (his to-do's step 2); the version rule is 10.3.**
 

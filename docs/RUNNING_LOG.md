@@ -23436,3 +23436,80 @@ makes for the next pieces have no step in the kit (2.5) — the precedent is thi
 **State.** `docs/plans/NEW_PIECE_PROTOCOL.md` v1, whole; its closing section the list of what is left, by who. **Next is his pick,
 asked at the `/postclear`:** (a) the seven small engine fixes here (Opus) · (b) the home, 9.9 — its name his · (c) the Decibel
 piece's set-up, the protocol's first run, opening with 2.1 the profile on Fable. Resume on Opus.
+
+## §800. His pick: the home, then the Decibel set-up — THE HOME MADE, `composition-system`, public; the protocol moved in; the planning thing advanced (2026-10-03, Opus; follows §799)
+
+**The `/postclear` on Opus.** Played back (the task · step 1 done · the protocol v1 · nothing queued · the tree matching the
+checkpoint's 30 paths) and the one decision put to him in plain words (§788's way): (a) the seven small fixes · (b) the home ·
+(c) the Decibel set-up; the AI's recommendation (b) then (c), (a) any time before a copy.
+
+**His words:** *"your reconmmend good, name suggestions?"* — so (b), then (c).
+
+**The names put to him, four, each with its reason:** (a) `composition-system` — his own phrase (every piece's CLAUDE.md says "the
+custom-composition-system lineage"); the home holds what is SYSTEM, not PIECE, which is § 9's own dividing line; it still fits if
+the shared electronics engine (LG-346) lands there; one caution said: it could read as "the code lives here", and it does not ·
+(b) `composition-reference` — the plainest (an index and the things written once), less room to grow · (c) `composition-method` —
+leads with the protocol; too narrow for the laws and the knowledge base · (d) `composition-commons` — a less everyday word. The
+shape: hyphens, as his other non-piece repos (`composition-planning-and-notes` · `live-electronics-engine`); "home" avoided — he
+has a `home-management` repo. Checked before making: no `elosine/composition-system` on GitHub, no such folder on the machine.
+
+**His words:** *"advance the planning repo file; a good , public"*.
+
+**The planning repo's thing advanced** (`composition-planning-and-notes`, private): `docs/things/
+create-a-methodology-for-starting-a-new-piece.md` — 1 ticked, ► on 2 Set Up the Decibel Piece; `node gen_workdays.js` → the heading
+and the calendar read 33 %; its three files committed and pushed (`4b509a1`). That repo was level with its remote, and this log's
+record of its making says both repos were fully pushed — so the push followed its practice.
+
+**THE HOME MADE — `composition-system`** (`C:\Users\jwloy\GitHub\composition-system` · `github.com/elosine/composition-system`,
+PUBLIC · first commit `37392e8`, 21 files). What is in it, against the plan:
+
+- `CLAUDE.md` — the grammar (9.0): an index · pointers · the few things written once · never a piece's record; eight rules; how a
+  new piece uses it; how the protocol's bare `§N` · `LG-N` · `H-N` are read there (piece #6's).
+- `INDEX.md` — 9.1's first version: the six pieces with their HEADs of the day · the protocol · the method docs · the laws' seeds ·
+  the standards as data · the colours · the manuals · the maps · the tool docs · the knowledge base's seeds · the manifest · the
+  backlog. Each line: what · where (repo · path @ commit) · refreshed · who uses it. FIVE entries say "path not pinned" (piece #1's
+  colours and its Xsample strings maps · piece #2's ARO maps · piece #3's woodwind deep map · piece #4's tuba maps): the repo is
+  known, the file was not looked up — § 9's "not exhaustive"; pinned at the first fetch (9.7).
+- `protocol/NEW_PIECE_PROTOCOL.md` — THE PROTOCOL MOVED IN (9.9): this repo's file at `33ba534` + a header block (the home copy is
+  authoritative from 2026-10-03; a bare reference in it is piece #6's) + three marks ☑ (2.7 · 9.9 · 10.8) + one dated paragraph at
+  its foot; 909 lines against 895. Every replacement asserted to land exactly once (a scratch script).
+- `protocol/HARVEST_TEMPLATE.md` — `HARVEST.md`'s shape, emptied; §788's lesson in its header (put it to him in plain words).
+- `skeletons/` — 2.7: `CLAUDE.md` · `README.md` · `docs/` PROJECT_JOURNAL · PLAN · PLANNER · RUNNING_LOG · COMPOSITION_NOTES · NITS ·
+  SWEEP_LIST · PERFORMANCE_NOTES · PROTOCOL_DEVIATIONS (10.8) — eleven docs, the tree mirroring a piece's own paths so 2.5 is a
+  copy; `_ABOUT.md` says how. A placeholder is `‹…›`.
+- `BACKLOG.md` — 9.6: the harvest's twelve LATER items, H-36 … H-47, verbatim, dated.
+- `LOG.md` — 9.8, its first line · `LICENSE` (this repo's MIT, carried — 2.2) · `.gitignore`.
+
+**How the skeleton CLAUDE.md was made** — the one file that could silently drop a rule (principle 19). The piece-specific parts are
+placeholders written by hand; the STANDING PRACTICES are carried VERBATIM from this repo's CLAUDE.md by script, by heading: READ
+FIRST (less its two piece-specific paragraphs — the English horn's section 2 · the device sheet, the latter kept as a placeholder
+for a piece that takes the score layer) · the tail of Orient (do not scan · the post-clear rule) · the lab journal · the morph notes ·
+THE RHYTHM. `_ABOUT.md` still tells the next start to check heading by heading against the LAST piece's CLAUDE.md, not against the
+skeleton alone.
+
+**The AI's calls, his to reverse:**
+
+- this repo's `docs/plans/NEW_PIECE_PROTOCOL.md` is FROZEN, with a pointer at its top — today's marks are in the home's copy only,
+  so there is ONE living copy (rejected: marking both — two copies drift);
+- the skeleton tree mirrors a piece's paths (rejected: a flat folder — a copy would need a map);
+- the skeleton journal's §3 carries principles 1–23 as one line each; this repo's journal numbers two of them 21 — written `21a` ·
+  `21b` there, the later numbers kept as they stand (rejected: renumbering — the numbers are cited);
+- the skeleton PLAN's § 0 is a TABLE of containers 2 … 8 (taken? · status · record) pointing at the protocol's steps, not a copy of
+  them — § 2's call, "one document, not two";
+- the COMPOSITION_NOTES skeleton has a slot for the notes he made for the piece while writing others (this piece's LG-1 … LG-8 the
+  precedent); `_ABOUT.md` says it is a precedent, not a protocol step, to ask him at the first run (§799's finding — not acted on);
+- the MIT licence carried from this repo;
+- the home's PUSH RULE is not assumed — its CLAUDE.md says "not yet decided, ask him" (2.2: never inherited). The first push was the
+  making of the public repo, at his word. One local commit there waits on his answer (its LOG's count corrected, ten → eleven).
+
+**Not done in this sitting, of the home's line:** 9.12 H-33, the tool docs' one piece-neutral copy each (the sixteen tool docs the
+index lists, ≈ 440 KB, most still describing piece #5's tools — its own sitting) · 10.7 the cross-piece memory notes into his
+user-level CLAUDE.md (the lines are shown to him first) · 9.10 the laws · 9.11 the manifest (Fable's parts). The index says "not
+written yet" at each.
+
+**One thing told him:** the skeleton CLAUDE.md carries the "How he reads" paragraph verbatim, as this repo's CLAUDE.md has it —
+this repo is public, and so is the home.
+
+**State.** The home exists and is pushed; the protocol's living copy is there. This repo: the pointer in the frozen file, the
+state lines, CLAUDE.md § Orient re-pointed. Nothing of the piece touched. **Next:** his word on the home's push rule · the 10.7
+lines for his read · then (c), 2.1 the profile, on Fable.

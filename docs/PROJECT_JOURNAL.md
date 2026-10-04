@@ -219,6 +219,24 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 
 ### CHECKPOINT #3 AFTER THE CLOSE (2026-10-03, Fable worked, Opus wraps — mid-session checkpoint) — THE NEW-PIECE PROTOCOL IS WHOLE (v1): ALL TEN CONTAINERS WRITTEN; HIS TO-DO'S STEP 1 DONE; ► NEXT IS HIS PICK — PLAY BACK, THEN ASK
 
+- **UPDATE 2026-10-03 (Opus, after this checkpoint's `/postclear`; RUNNING_LOG §800) — HIS PICK: (b) THEN (c); THE HOME IS MADE.**
+  `composition-system` — his pick of four names, PUBLIC at his word — `C:\Users\jwloy\GitHub\composition-system` ·
+  `github.com/elosine/composition-system` · first commit `37392e8`. **THE PROTOCOL'S LIVING COPY IS NOW
+  `composition-system/protocol/NEW_PIECE_PROTOCOL.md`; this repo's `docs/plans/NEW_PIECE_PROTOCOL.md` is FROZEN** (a pointer at
+  its top) — wherever this block says "the plan", read the home's copy; 9.9 · 2.7 · 10.8 are ☑ there. In the home: CLAUDE.md (the
+  grammar) · `INDEX.md` (9.1; five paths "not pinned") · the harvest's template · `skeletons/` (eleven docs; `_ABOUT.md`) ·
+  `BACKLOG.md` (9.6) · `LOG.md`. The planning repo's thing file ADVANCED at his word (step 1 ticked, ► on 2; `4b509a1`) — no
+  longer pending. **► THE NEXT CONCRETE STEP, in order:** (1) his answer on the home's PUSH RULE (asked; its CLAUDE.md § Git says
+  "not yet decided") — one local commit in the home waits on it; write his answer into that CLAUDE.md with the date and his words ·
+  (2) **10.7** — draft the cross-piece memory notes for his user-level `~/.claude/CLAUDE.md` and SHOW HIM THE LINES before writing
+  (the candidates, from this repo's memory folder: the machine limits — the 8 KB Bash limit · backticks go to a file · line endings
+  counted at byte level · the worktree junction; IDs always with names; plain words first for an AI-made list; the eye pass,
+  collect then fix; read the record before proposing sound work; the Drive upload route. His user-level file ALREADY has: how he
+  reads · the reply shape · no unasked verification · the planning repo pointer) · (3) **(c) the Decibel set-up — 2.1 THE PROFILE,
+  a talk on FABLE.** Behind them — Opus: 9.12 the tool docs' piece-neutral copies (its own sitting) · (a) the seven small fixes, any
+  time before a copy-forward; Fable: 9.10 the laws · 9.11 the manifest's boundary. **`Resume reads`** for (2): this repo's memory
+  folder and his user-level CLAUDE.md · for (3): the home's `INDEX.md`, the protocol's § 2 THERE, COMPOSITION_NOTES LG-334 ·
+  LG-339 … LG-346.
 - **The task — not this piece:** his to-do "Create a Methodology for Starting a New Piece" (the planning repo,
   `composition-planning-and-notes/docs/things/create-a-methodology-for-starting-a-new-piece.md`: 1 Draw Up the Plan · 2 Set Up the
   Decibel Piece · 3 Set Up the Switch~ Piece). **Step 1 is DONE** (2026-10-03, RUNNING_LOG §786 … §798). That file still shows ► on
@@ -595,6 +613,7 @@ the closes — whole in git: `git show 22da087:docs/PROJECT_JOURNAL.md` (… 16)
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
+| **►►►►►►** | **THE HOME IS MADE (2026-10-03, §800): `composition-system`, public — the protocol's LIVING COPY is there (`protocol/NEW_PIECE_PROTOCOL.md`; this repo's file FROZEN). ► NEXT, in order: his word on the home's push rule · 10.7 the memory-notes lines for his read · (c) the Decibel set-up, 2.1 the profile.** Behind: 9.12 the tool docs' piece-neutral copies · (a) the seven small fixes any time before a copy · 9.10 the laws · 9.11 the manifest (the UPDATE bullet in the block CHECKPOINT #3 AFTER THE CLOSE has each) | Opus (10.7 · 9.12 · a) · Fable (c · 9.10 · 9.11) | at the switch to Fable for (c) |
 | **►►►►►** | **THE NEW-PIECE PROTOCOL IS WHOLE (v1, 2026-10-03, §786 … §798) — HIS TO-DO'S STEP 1 DONE. ► NEXT IS HIS PICK — play back, then ASK** (the block CHECKPOINT #3 AFTER THE CLOSE has each as an instruction): (a) the seven small engine fixes in THIS repo — 3.8 + 5.11 (H-9 · H-10 · H-11 · H-12 · H-16 · H-17 · H-19), one commit; then 4.8 the port name set + H-15 · 4.10 the three how-tos · 5.9 the QC battery · 7.6 1f under the law · 7.7 1k → MORPH_NOTES · 7.8 the data checklist · (b) THE HOME, 9.9 — ASK its name and visibility first; then the protocol moved in, the skeletons, the index, the backlog, H-33, 10.7, 10.8 (Opus); the laws 9.10 and the manifest's boundary 9.11 (Fable) · (c) the Decibel piece's set-up, the protocol's first run — 2.1 the profile, a talk (it needs (b) first). 4.9 · 5.10 his FLAGS, not now; three open questions (the from-a-sandbox middle · the shared electronics engine's home and port, LG-346 · the Decibel score type) | Opus (a · b) · Fable (c · 9.10 · 9.11) | yes — `/postclear`, on Opus |
 | **►** | **SESSION 19 — NOTHING QUEUED: `/session-start`, then ASK.** _Recombination_ Draft 01 is complete and SUBMITTED (2026-10-03, §777): the page · the audio · the film · the notes page · the print score. His next is his — THE SLATE (LG-327 · LG-334: a Decibel-ensemble piece for TENOR, due November 14, NEXT if he writes it) · this piece's performance score (phase 3, not planned) · the call's results by email | Fable (a talk, a plan) · Opus (a build) | — |
 | ref | **IF THIS PIECE IS TOUCHED AGAIN** — the notation is LOCKED (D56): a change is the whole loop (the gates · the audio · the film `-r5` · `bash print/score/build.sh --rebuild-ir` · new archives and tags); the notes page by dictation (checkpoint #13's block); a print-only change by the list in the block SESSION 19 OPENS ON THIS. **The rows below about his eye on the notation, the percussion's rest and the lock's blocks are CLOSED by the lock unless he reopens it; the `his` rows of the tools stand as they were** | — | — |
