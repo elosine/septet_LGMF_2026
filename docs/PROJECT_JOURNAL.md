@@ -219,6 +219,11 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 
 ### CHECKPOINT #5 AFTER THE CLOSE (2026-10-03, Fable worked, Opus wraps — mid-session checkpoint) — THE ENGINE PLAN IS MADE, `live-electronics-system` EXISTS; ► NEXT: START THE DECIBEL PIECE'S REPO (his word) — the protocol's first run, container 2 — PLAY BACK, THEN ASK
 
+- **UPDATE 3 · 2026-10-04 (§819, Fable) — HIS THREE ANSWERS AND HIS BRIEF TAKEN; THE DECIBEL PIECE'S RECORD IS NOW IN ITS REPO.**
+  The prefix `DEC` · no title yet · the five notes carried. The brief — the start finished (containers 3 → 7), then the opening
+  composed with the electronics built as the music reaches them — is a RUNNING ORDER in that repo's journal §2; the engine sits
+  there as a git subtree at `electronics/` (its D7). **This chat's work is done. ► NEXT: a NEW chat in
+  `C:\Users\jwloy\GitHub\decibel_TENOR_2026`, `/session-start`; its step 1 is container 3, which raises item (a) below first.**
 - **UPDATE 2 · 2026-10-04 (§818, Opus) — THE DECIBEL PIECE'S REPO EXISTS: `decibel_TENOR_2026`**
   (`C:\Users\jwloy\GitHub\decibel_TENOR_2026` · `github.com/elosine/decibel_TENOR_2026` · PUBLIC · it pushes after every commit — his
   *"all a"*). Container 2 is built and pushed (first commit `7a77bde`): the kit, the names, PLAN § 0, the deviations register (seven
