@@ -219,6 +219,14 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
 
 ### CHECKPOINT #5 AFTER THE CLOSE (2026-10-03, Fable worked, Opus wraps — mid-session checkpoint) — THE ENGINE PLAN IS MADE, `live-electronics-system` EXISTS; ► NEXT: START THE DECIBEL PIECE'S REPO (his word) — the protocol's first run, container 2 — PLAY BACK, THEN ASK
 
+- **UPDATE 2 · 2026-10-04 (§818, Opus) — THE DECIBEL PIECE'S REPO EXISTS: `decibel_TENOR_2026`**
+  (`C:\Users\jwloy\GitHub\decibel_TENOR_2026` · `github.com/elosine/decibel_TENOR_2026` · PUBLIC · it pushes after every commit — his
+  *"all a"*). Container 2 is built and pushed (first commit `7a77bde`): the kit, the names, PLAN § 0, the deviations register (seven
+  rows, kept THERE from now on). **ITS journal §2 is the cold-start block for that piece; the steps 1 … 6 listed below in this block
+  are DONE — do not run them again.** Three slots open in it, put to him: the prefix (ports and notes) · a working title · whether
+  the notes he made for it here (LG-334 · LG-340 … LG-343 · LG-345 · LG-348 … LG-351) are carried into its sketch pad. ► NEXT: his
+  answers written into the new repo; then a NEW chat opened in that folder, `/session-start`, container 3 the copy-forward — where
+  item (a) below, the seven small fixes HERE before the copy, is raised first.
 - **UPDATE 2026-10-04 (§816, Opus) — THE RUN HAS BEGUN:** 2.1 THE PROFILE IS CONFIRMED (his *"yes … normal port"*: copy-forward from
   piece #6 · both layers · the animated scrolling score) — do not ask it again. This chat is renamed "Decibel piece — repo set-up"; the
   AI's arrangement, his to reverse: container 2 is run from THIS chat, then a NEW chat opened in the new repo's folder. THE DEVIATIONS
