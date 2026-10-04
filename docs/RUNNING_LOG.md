@@ -23412,3 +23412,27 @@ create-a-methodology-for-starting-a-new-piece.md`: ► 1 Draw Up the Plan) is HI
 **State.** The protocol v1 complete in `docs/plans/NEW_PIECE_PROTOCOL.md`; `docs/HARVEST.md` triaged. **Next is HIS:** the one-time
 items on Opus at his word (the seven small fixes here first, or the home 9.9 — its name his) · or his composing. A checkpoint on Opus
 and a clear is the clean cut here (THE RHYTHM).
+
+## §799. Checkpoint #3 after the close — the protocol whole (v1), containers 3 … 10 written in one sitting; next his pick (2026-10-03, Opus wraps)
+
+**At his `/checkpoint`, the model switched to Opus for the wrap (THE RHYTHM).** The doc sweep found nothing left only in the chat:
+the eight sections §791 … §798 and the eight notes LG-340 … LG-347 were written as each exchange closed. What the wrap did: the
+journal's block CHECKPOINT #2 AFTER THE CLOSE and the eight UPDATE bullets stacked under it replaced by ONE block, CHECKPOINT #3
+AFTER THE CLOSE, written for a cold model (the old block whole in git at `e6855f5`) · the table's first row · the state lines · a
+pointer in CLAUDE.md § Orient from docs (**Starting a NEW PIECE** → the protocol and the harvest).
+
+**The sitting, measured.** One `/postclear` on Fable, then eight containers — 3 · 4 · 5 · 7 · 6 · 8 · 9 · 10 — one per exchange.
+For 3 · 4 · 5 the goal and then the sub-steps were each put to him; at 7 he cut the round trip (*"we can skip the sub steps from now
+on"*), and 7 · 6 · 8 · 9 · 10 went goal → his word → the AI's steps written. The data for each goal was named first and read once:
+`PORT_FROM_TEMPUS.md` and RUNNING_LOG §12 … §16 (3) · PLAN 0c · 0e and the heads of §19 … §48 (4) · PLAN 0d · 1b, §76 · §91,
+`DYNAMICS_LAW.md` §1 · §2 (5) · the twenty phase-1 item headers and MORPH_NOTES §4 (7) · PLAN 0g · 0i · 2a · 2c · 2e · 2j · 2o
+headers, §17 · §18 (6) · the journal's own checkpoint blocks #12 · #13 (8) · HARVEST § "→ 9" · LATER and LG-337 (9) · the plan's own
+open list (10). Eight composition notes arrived between the exchanges and were each taken verbatim at once.
+
+**What the protocol found about this piece on the way** (not acted on): 1b.6, the one-command QC battery, was planned, approved and
+never built (now 5.9) · nothing but the English horn's first figures was ever locked (H-23, now 6.7's standing step) · the notes he
+makes for the next pieces have no step in the kit (2.5) — the precedent is this piece's LG-1 … LG-8; for the first run to raise.
+
+**State.** `docs/plans/NEW_PIECE_PROTOCOL.md` v1, whole; its closing section the list of what is left, by who. **Next is his pick,
+asked at the `/postclear`:** (a) the seven small engine fixes here (Opus) · (b) the home, 9.9 — its name his · (c) the Decibel
+piece's set-up, the protocol's first run, opening with 2.1 the profile on Fable. Resume on Opus.
