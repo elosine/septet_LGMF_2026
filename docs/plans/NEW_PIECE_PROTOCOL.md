@@ -44,7 +44,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 2. **The repo and its kit** — the profile, the new repo, the names (title · session · piece chain · package · Reaper
    guard · ports), the docs kit, the git rules. *(0a)* — **► laid out below**
 9. **The collation** — the cross-piece reference kit with an index: colours · engraving rules · device sheets · the
-   laws · the manuals · the maps · the MODULE MANIFEST (below) · THE INSTRUMENT KNOWLEDGE BASE (4.9, his flag, LG-344). Not exhaustive. *(new — his point)* — `top line only`
+   laws · the manuals · the maps · the MODULE MANIFEST (below) · THE INSTRUMENT KNOWLEDGE BASE (4.9, his flag, LG-344). Not exhaustive. *(new — his point)* — **► laid out below**
 10. **The protocol's upkeep** — the last step of every start: what the run taught goes back into the protocol.
     *(new; the other end of 1)* — `top line only`
 
@@ -731,10 +731,84 @@ before the lock; a change after it is the whole loop.
 
 ---
 
-## 9 · 10 — `top line only`
+## 9. The collation — `written 2026-10-03` (the goal agreed with him, RUNNING_LOG §797; the steps the AI's)
 
-Each is laid out when reached: the goal with him, the steps the AI's. Next: 9 the collation (the data: his words at phase 1 —
-LG-337, *"gather some things up and collate them somewhat so that the next piece can just move forward without having to do a full
-search and retrieval"*, his two examples the curve colours fetched back from piece #1 and piece #2's notation surfacing here; the
-boundary system vs piece (§786); the module manifest (§789); `docs/HARVEST.md` § "→ 9" and its LATER list; 4.9 · 5.10 the
-knowledge base; LG-346 the shared engine's home); then 10 the upkeep. His to change.
+**What this is:** ONE cross-piece reference kit with an INDEX, so the next piece *"can just move forward without having to do a
+full search and retrieval"* (LG-337). UNIVERSAL layer. Not exhaustive — his word. It is also the answer to a question parked
+three times today: WHERE cross-piece things live — the protocol sits in this repo "until it has a home"; the skeletons (2.7) have
+none; the shared electronics engine (LG-346) asks the same.
+
+**Result when done:** a home that is not a piece, named by him. In it an INDEX page — each entry what it is · where the
+authoritative copy lives (repo · path · commit) · when last refreshed · who uses it. Written there, once, because they have no
+home: THE LAWS · the MODULE MANIFEST · the protocol and its skeletons · the instrument knowledge base's shelf · the LATER backlog,
+dated. Pointed to, not copied: the engraving rules (`rules.json` here, the standard as data) · the colours (piece #1) · the
+manuals (piece #3) · the maps (piece #2) · the method docs · the tool docs' one canonical, piece-neutral copy. A new piece's
+`/session-start` reads the index first.
+
+**The data (2026-10-03):** six repos. The tool docs copied forward at every port with a provenance line and still describing
+Tempus; `HOW_WE_WORK` cites #5's §s; `MORPH_NOTES` §1 … §2 say "this piece" and mean Tempus (H-33). His two examples: the curve
+colours fetched back from piece #1; piece #2's notation surfacing here; today's — piece #2's cells for the electronics pieces
+(LG-341), piece #5's ±1 st measurement grounding a value here (H-35). The first standards written as DATA exist only in this repo:
+the engraving rules (2e) · the dynamics law (1e) · the device sheet method · `palette_check`'s tables. The laws scattered in the
+code and the notes (H-34): a chord is a list of VOICES, not a set of pitches · a player is (lane, seat), not a lane · a placed object
+carries its whole provenance on its marker · the dynamics asked of ONE module (`dyn_table` + `morph_dyn`) · ONE breath generator
+(two copies today: `sequence.js dealSpan` · `morph.js buildCarrier`) · an actual rendered in ONE place (the server's engine went
+stale, §181). The module boundary: the unit of port is the whole engine — CARRY ALL, USE SOME; a manifest is the modest enhancement
+he is open to (§789); no shared engine package — parked (RUNNING_LOG §5). The harvest's twelve LATER items (H-36 … H-47).
+
+**His word at the goal:** *"9 good"*.
+
+**Six calls, his to reverse (agreed 2026-10-03):** the home is ONE new repo, not a piece, his name for it — the protocol, the
+skeletons, the laws, the manifest, the knowledge base and the index live there; whether the shared electronics engine lives there
+too or beside it is LG-346's question, his later · an INDEX, not copies — pointers to the authoritative copy; only what has no
+home is written there · the spine is the boundary SYSTEM vs PIECE, named module by module in the manifest; no shared engine package
+yet · not exhaustive — the first pass is the three harvest items, the top line's list and the two flags' seeds; the rest when a
+piece sends us to it (1.4) · the LATER backlog moves there as the standing list, refreshed at each harvest (10) · the laws' text and
+the manifest are Fable's work; the gathering and the index Opus's, from written lists.
+
+**Recurring — the protocol's step 9** *(the AI's steps, his to reverse):*
+
+- **9.0 The home.** One repo under `github.com/elosine`, his name; 2.2's rules (public or private his call; the gitignore). Its
+  CLAUDE.md the grammar: an index · pointers · the few things written once · NEVER a piece's record (that stays in the piece).
+- **9.1 The index.** `INDEX.md`: one line per entry — what · where (repo · path · commit) · last refreshed · who uses it. Its
+  sections: the method docs · the laws · the standards as data (`rules.json` · `page_rules.json` · `DYNAMICS_LAW.md` · the device
+  sheet) · the colours · the manuals · the maps · the tool docs · the instrument knowledge base · the module manifest · the protocol ·
+  the backlog.
+- **9.2 The laws, written once** (Fable). H-34's six and the dynamics law's one sentence, each with its source § and the piece it came
+  from; a law changes only by a dated entry under it.
+- **9.3 The module manifest** (Fable the boundary, Opus the scan). For each module of the engine — the composer app's scripts · the
+  sandbox · the notation lib · the tools · the probes · the bridge: what it needs (files · banks · registry rows · per-instrument
+  tables) · what depends on it · SYSTEM or PIECE. CARRY ALL, USE SOME stays the rule until the manifest says a module can travel alone.
+- **9.4 The tool docs' canonical home** (H-33). One piece-neutral copy per tool doc; the rules' sources piece-qualified (`#5 §182`);
+  a piece carries a pointer and its own deltas, not a rewritten copy.
+- **9.5 The instrument knowledge base's shelf** (4.9 · 5.10 — the flags; here only the shelf). A page per library (4.10's three
+  how-tos the first) · a profile per instrument (the card's rows; H-35's measurement its first cross-piece line) · the rolling work
+  list. Filled when the flags are taken up.
+- **9.6 The backlog.** The harvest's LATER items, dated, as the standing list; refreshed at each harvest (10); a "later" taken up
+  leaves by a dated line.
+- **9.7 When a piece sends us to an old piece** (1.4). The material fetched once, pointed to in the index with the same line shape;
+  the fetching piece's RUNNING_LOG says what and why.
+- **9.8 The record.** The index's "last refreshed" · the piece's RUNNING_LOG · the home's own log one line per change.
+- **Stop and ask him:** the home's name and visibility · a law's wording · anything that would move a piece's RECORD out of its repo.
+- **Done when:** the repo exists with the index, the laws, the manifest's first version, the protocol moved in, the backlog; a new
+  piece's `/session-start` reads it.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **9.9 The home made** at his word (the name his) and the protocol moved in — `NEW_PIECE_PROTOCOL.md` the protocol's copy there,
+  this file kept here as the record of its drafting with a pointer; `HARVEST.md`'s shape as the harvest's template; 2.7's
+  skeletons made there from this repo's docs. Opus. `todo`.
+- **9.10 The laws written** (Fable). `todo`.
+- **9.11 The manifest's first version** — the dependency scan of the forty scripts and the tools (Opus), the boundary named (Fable).
+  `todo`.
+- **9.12 H-33, the tool docs' canonical copies** (Opus; the sources piece-qualified). `todo`.
+- **9.13 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 10 — `top line only`
+
+Laid out when reached: the goal with him, the steps the AI's. The data: *"expandable"* (LG-337) · §786's "two runs are coming —
+the first writes the protocol, the second tests it" · the harvest (1) as its other end · the journal's Learned lists · this plan's
+open list (the home → 9 · 2.7 · 2.8 · the module manifest → 9 · the Decibel score type · the from-a-sandbox kind's middle ·
+LG-346's two questions).

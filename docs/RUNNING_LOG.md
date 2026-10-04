@@ -23360,3 +23360,27 @@ the film gate (H-29) · 8.11 the two templates (exist) · 8.12 written. The top 
 **State.** § 1 … § 8 written; 9 · 10 top line only. **Next:** container 9, the collation — the goal with the data (LG-337 his words
 · the boundary system vs piece · the module manifest · HARVEST "→ 9" and LATER · the knowledge base 4.9 · 5.10 · LG-346), his nod,
 the steps into § 9; then 10.
+
+## §797. Container 9, THE COLLATION — the goal at his nod; § 9 written with the AI's steps (2026-10-03, Fable; follows §796)
+
+**The data read for the goal** (named first): `docs/HARVEST.md` § "→ 9" (H-33 · H-34 · H-35) and its LATER (H-36 … H-47) and LEAVE
+lists · COMPOSITION_NOTES LG-337 whole (his two examples: the curve colours from piece #1; piece #2's notation surfacing here) · the
+plan's header (the boundary system vs piece; the module manifest; the home question) · LG-344 · LG-346.
+
+**The goal, as put to him:** one cross-piece reference kit with an INDEX, not exhaustive — and the answer to the question parked
+three times today, WHERE cross-piece things live (the protocol · the skeletons · the shared electronics engine). The result (a home
+that is not a piece; an index of pointers; written there once: the laws · the module manifest · the protocol and its skeletons · the
+knowledge base's shelf · the LATER backlog) · the data (six repos; the tool docs still describing Tempus; the standards as data only
+here; H-34's laws scattered; CARRY ALL, USE SOME) · six calls his to reverse (one new repo, his name · an index, not copies · the
+boundary the spine · not exhaustive · the backlog there · Fable the laws and the manifest, Opus the gathering). **His word: *"9
+good"*.**
+
+**§ 9 written** with the AI's steps: 9.0 the home · 9.1 the index · 9.2 the laws · 9.3 the module manifest · 9.4 the tool docs'
+canonical home · 9.5 the knowledge base's shelf · 9.6 the backlog · 9.7 an old piece fetched once · 9.8 the record; stop-and-ask;
+done when. One-time 9.9 the home made and the protocol moved in (the name his) · 9.10 the laws · 9.11 the manifest's first version ·
+9.12 H-33 · 9.13 written. The top line's 9 "laid out below"; left: 10.
+
+**State.** § 1 … § 9 written; 10 top line only. **Next:** container 10, the upkeep — the goal with the data (LG-337 "expandable" ·
+§786 the two runs · the harvest as its other end · the journal's Learned lists · the plan's open list), his nod, the steps into § 10
+— the last. Then the plan is whole; the to-do's step 1 "Draw Up the Plan" is done, and the steps 2 · 3 (set up the Decibel piece ·
+the Switch piece) are its first two runs.
