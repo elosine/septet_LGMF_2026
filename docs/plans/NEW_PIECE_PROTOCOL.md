@@ -63,7 +63,7 @@ step 2.1. Within a layer the order is the order things happen.)*
 
 6. **The notation set-up** — the ensemble registry (clefs · transposition · staves · groups), the rules registry
    carried + what the new ensemble needs (a new staff type), the batteries, the exporters run, save → IR proved.
-   *(0g · 0i · 2a · 2c)* — `top line only`
+   *(0g · 0i · 2a · 2c)* — **► laid out below**
 8. **The deliverables pipeline** — audio render · film · print (the gates; the cover and instructions templates) · the
    notes page · archive + tags · the submission package. *(2b · 3 · 4)* — `top line only`
 
@@ -553,8 +553,96 @@ goes to `MORPH_NOTES` §4.
 
 ---
 
-## 6 · 8 · 9 · 10 — `top line only`
+## 6. The notation set-up — `written 2026-10-03` (the goal agreed with him, RUNNING_LOG §795; the steps the AI's) — THE ANIMATED SCROLLING SCORE's member
 
-Each is laid out when reached: the goal ("Result when done") with him, the steps the AI's. Next: THE SCORE layer — 6 the notation
-set-up (the data: PLAN § 0g · § 0i the port's notation half and the save → IR proof, RUNNING_LOG §17 · §18 · § 2a the staves · § 2c
-the page edges · § 2e the rules registry; `docs/HARVEST.md` § "→ 6"), then 8 the deliverables pipeline; then 9 · 10. His to change.
+**What this is:** the notation half of the stack made the new ensemble's — THE SCORE layer's first, laid out here for the
+ANIMATED SCROLLING SCORE (pieces #4 … #6). A new score type (the electronics score of LG-340 … LG-345) gets its own member
+when its piece designs it. At the start it is THE REGISTRY AND THE PROOF: the ensemble registry · the rules registry carried as
+data · a new staff type if the ensemble needs one · the batteries classified · save → IR proved · both exporters run. The
+piece's specific notation comes with the composing, by DEVICE SHEETS — a loop like 7's, in the score layer.
+
+**Result when done (at the start):** a test save written BY THE APP → an IR valid against its source and complete → the page
+renders in the notation app with the right clefs, transpositions and brackets → one print page and one video frame exported and
+looked at · the presentation score's pitch form (in C or transposed) and the clefs by register decided at the registry · the
+rules gates green — `check_rules` · the shield with its expect list · the edges · the main notation file's discipline written.
+
+**The data (2026-10-03):** **0g · 0i** (the port's day, RUNNING_LOG §17 · §18): the transpose SIGN checked in the code before the
+table was written (positive = written above sounding; #5's bass clarinet the fix) · a realization override that would have thrown
+in print and video, found · the batteries identical to the pre-palette baseline · both exporters run · 0i's first test save
+written from memory, the extractor saw none of its eleven notes — *"the save's shape is the only thing that can bite later"* →
+the test save written by the app's own insert paths; `tools/test_written_pitch.js` kept. **2a** (2026-09-25, §330 … §338): the
+survey of what the port carried against what had to be built · the percussion inventory · his design of the seven-line staff, the
+precedent measured (Bone Alphabet — the lines twice a staff's), Ferneyhough's alternation the order · the register scan of every
+lane · DECIDED in C (§336) · a fixed frame on every print page (§337) · `piece-lgmf` the MAIN file. **2c** the page edges as rules
+(screen: the constant sweep, a tile; print: the cut placed by the objects; every drawn kind names its edge class) · **2e** the
+engraving rules as DATA (`rules.json` → the generated `ENGRAVING_RULES.md`, `check_rules`, the ladder, THE DEVICE SHEET) · **2j** the
+file discipline (the IR derived from the save by one recorded build; the protos from the same draft) · **2o** the percussion
+staff's rule set (§639 … §667): three invented rules taken back to the standard by his eye within a day. **The harvest's eight**
+(H-20 … H-27): a curve label clears the ink at its x (a rule, from five `--labelDy` hands) · every vertical rule in `layout.js`
+assumes a five-line staff ±2 — a new staff reads each against its own outer lines · standards first on a new staff (his word §666)
+· THE LOCK per approved figure, written as he approves (only the EH's first figures were ever locked) · the shield's expect list
+(a lined-staff rule moves tuba pages' part 4) · technique keys registered as material uses them (83 unregistered here) · the pitch
+form decided at the registry · the clefs by register never built — the ottava carried the piece.
+
+**His word at the goal:** *"6 good"*.
+
+**Six calls, his to reverse (agreed 2026-10-03):** at the start the registry · the proof · the exporters · a new staff type if
+needed — nothing of the piece's notation, which comes by device sheets as the composing reaches it · the rules registry carried
+whole as data; a new ensemble adds ROWS, never code numbers; the generated page the read · a new staff type laid out with him, 2a
+and 2o's way, every vertical rule read against the staff's own lines, the standards first · the lock per figure and the shield's
+expect list standing steps of the score layer's loop · the pitch form and the clefs by register decided at the registry, once ·
+H-20 built at the next piece's first curve label; H-21 … H-27 written into the steps as method; nothing built now.
+
+**Recurring — the protocol's step 6, for the scrolling score** *(the AI's steps, his to reverse):*
+
+- **6.0 The registry.** `notation/registry/ensemble.json` rewritten: the parts in score order (= `TRACKS`), id · short · clef ·
+  `transpose` (the SIGN checked in `layout.js` first: positive = written above sounding) · staves · groups (the brackets) · the
+  lanes of a two-staff player. DECIDED HERE, once: the presentation score's pitch form (in C / transposed) · the clefs by register
+  (a tenor clef if the ensemble wants it, 6.10) · the staff types. `notate_section` refuses a registry that disagrees with the
+  score's tracks — that is the check.
+- **6.1 The rules registry carried.** `rules.json` (the anchors · the column · the objects · the colours · the faces · the pitch
+  picture · the technique words · the ladder) and `page_rules.json` (every drawn and animated kind's edge class) carried WHOLE; the
+  new ensemble's rows added — never a code number; `gen_engraving_rules.js` → the generated page, the read; `check_rules` green.
+  THE DEVICE SHEET (`PLANNING_METHOD.md`) the way in for every new notation.
+- **6.2 A new staff type, if the profile needs one.** Laid out with him: the inventory (what the lane plays in the newest save) ·
+  his design · the precedent measured · the order of the lines. Built as a RULE SET: every vertical rule read against the staff's
+  OWN outer lines — stems · the flag law · the dynamic row · the frame · the accent row · the lane clamp (H-21); the normal staff's
+  standards first, a bespoke rule only where one cannot apply (H-22); the shield's `--expect` names the carried pages it moves, a
+  per-part hash proves the rest (H-24).
+- **6.3 The batteries.** 3.2's classification applied: the goldens staged by the recipe in `notation/ir/README.md`; the re-pointed
+  batteries run; the retired ones gone; `test_written_pitch` with its control; the screen and the print edge gates on the test page.
+- **6.4 Save → IR proved.** A 30 s test save WRITTEN BY THE APP (three lanes + META; one of each object kind the first section will
+  use; a marker) → `notate_section` → `ir_validate --against-source --complete` → the page in the notation app's picker — the
+  clefs, the transpositions, the brackets looked at. A failure is fixed on the SAVE side now; classifier work filed for the loop.
+- **6.5 The exporters run.** `export_print --pages 1-2` on the test page · `export_video --probe`, one frame through resvg, looked
+  at — the film draws with resvg, the gates with Chrome (a fault can pass every gate and be in the film).
+- **6.6 The main file's discipline** (2j). ONE main notation file per piece, derived from the current save by one recorded build
+  (`provenance.build`; `tools/reextract.js` the runner); the protos cut from the same save; written into the new PLAN as THE FILE
+  DISCIPLINE.
+- **6.7 The loop, per notation, as the composing reaches it.** A DEVICE SHEET (line 1a) → the rules rows → the extractor's flag or
+  hand → the shield → his eye on a proto page → THE LOCK on each figure as he approves it (H-23; the §589 · §590 block the pattern)
+  → the main file carries it. Technique keys registered in `techniques.json` as material uses them; `palette_check` lists the
+  unregistered (H-25). A decision that needs a line in the performance notes → a row in `PERFORMANCE_NOTES.md`.
+- **6.8 The record.** `notation/ir/README.md` (what lives there · the staging recipe · the batteries' table) · the NOTATION_* docs'
+  provenance · `PERFORMANCE_NOTES.md` the tracker · RUNNING_LOG.
+- **Stop and ask him:** the pitch form · a clef by register · a staff type's design · any rule that changes the look of a LOCKED
+  page (D56: a change is the whole loop, 8).
+- **Done when:** the test page renders right in the app; the gates green; one print page and one video frame looked at; the
+  discipline written.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **6.9 H-20, the curve-label rule** — a curve label clears the ink at its x by the standard gap (the five `--labelDy` hands become
+  a rule); the mark-vs-slur pass tests the arc across the mark's WIDTH. Built at the next piece's first curve label. `todo`.
+- **6.10 The clefs by register** (2a.6; H-27) — a tenor clef in the engine and an automatic clef per stretch, if the next ensemble
+  wants it; decided at 6.0. `todo`.
+- **6.11 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 8 · 9 · 10 — `top line only`
+
+Each is laid out when reached: the goal with him, the steps the AI's. Next: 8 the deliverables pipeline (the data: PLAN § 2b · §
+2b-F · § 2b-P; RUNNING_LOG §405 … §407 the audio · §689 … §700 the film · §703 … §761 the notes page · §764 … §773 the print · §775
+… §779 the submission; `docs/RENDER.md`; the journal §2's blocks IF THE SCORE MOVES AGAIN and HOW A CHANGE TO THE PAGE IS MADE;
+`docs/HARVEST.md` § "→ 8"); then 9 the collation and 10 the upkeep. His to change.

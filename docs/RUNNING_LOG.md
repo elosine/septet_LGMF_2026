@@ -23317,3 +23317,26 @@ to MORPH_NOTES · 7.8 the checklist written · 7.9 written. The top line's 7 "la
 **State.** § 1 … § 5 and § 7 written; 6 · 8 · 9 · 10 top line only. **Next:** container 6, the notation set-up — THE SCORE layer's
 first — the goal with the data (PLAN § 0g · § 0i · § 2a · § 2c · § 2e; RUNNING_LOG §17 · §18; HARVEST "→ 6"), his nod, the steps
 the AI's into § 6; then 8, 9, 10.
+
+## §795. Container 6, THE NOTATION SET-UP — the goal at his nod; § 6 written with the AI's steps (2026-10-03, Fable; follows §794)
+
+**The data read for the goal** (named first): PLAN § 0g · § 0i · § 2a · § 2c · § 2e · § 2j · § 2o — the item headers and state
+lines · RUNNING_LOG §17 · §18 (the port's notation half: the transpose sign checked in the code; 0i's first save written from memory
+and rejected whole) · the headings §330 … §338 (2a) · `docs/HARVEST.md` § "→ 6" (H-20 … H-27).
+
+**The goal, as put to him:** THE SCORE layer's first, laid out for the ANIMATED SCROLLING SCORE (a new score type gets its own
+member when its piece designs it); at the start the REGISTRY and the PROOF — the ensemble registry · the rules registry as data · a
+new staff type if needed · the batteries · save → IR · the exporters; the piece's notation by device sheets as the composing reaches
+it, a loop like 7's. The result · the data (0g · 0i · 2a · 2c · 2e · 2j · 2o; the eight harvest items) · six calls his to reverse.
+**His word: *"6 good"*.**
+
+**§ 6 written** with the AI's steps (his word of §794): 6.0 the registry (the pitch form and the clefs decided there, once) · 6.1 the
+rules registry carried, rows never code · 6.2 a new staff type, 2a and 2o's way, every vertical rule against its own lines · 6.3 the
+batteries · 6.4 save → IR on a save written by the app · 6.5 the exporters, one frame through resvg · 6.6 the main file's discipline
+· 6.7 the loop per notation (the device sheet → the rules → the shield → his eye → THE LOCK as he approves) · 6.8 the record;
+stop-and-ask; done when. One-time 6.9 H-20 the curve-label rule · 6.10 the clefs by register · 6.11 written. The top line's 6 "laid
+out below"; left: 8 · 9 · 10.
+
+**State.** § 1 … § 7 written; 8 · 9 · 10 top line only. **Next:** container 8, the deliverables pipeline — the goal with the data
+(PLAN § 2b · § 2b-F · § 2b-P; RUNNING_LOG §405 … §407 · §689 … §700 · §703 … §761 · §764 … §773 · §775 … §779; `docs/RENDER.md`; the
+journal §2's blocks; HARVEST "→ 8"), his nod, the steps into § 8; then 9 · 10.
