@@ -217,25 +217,32 @@ on figure 1 (§559).
 **Still standing behind these:** 2m.4 his eye on the long tones · the running order's step 4 (his eye 0 → 279) · the survey to refine (its new
 item: the neighbours' system, §548) · the checkpoint-#4 held items (the window's scope · the model as a deliverable · H1).
 
-### CHECKPOINT #5 AFTER THE CLOSE (2026-10-03, Fable worked, Opus wraps — mid-session checkpoint) — THE ENGINE PLAN IS MADE, `live-electronics-system` EXISTS; ► NEXT: START THE DECIBEL PIECE'S REPO (his word) — the protocol's first run, container 2 — PLAY BACK, THEN ASK
+### CHECKPOINT #6 AFTER THE CLOSE (2026-10-04, Fable — mid-session checkpoint) — THE DECIBEL PIECE'S START WAS RUN FROM THIS CHAT AND ITS RECORD IS IN ITS REPO; THIS PIECE UNTOUCHED; ► NEXT HERE: NOTHING QUEUED — `/session-start` and ASK
 
-- **UPDATE 3 · 2026-10-04 (§819, Fable) — HIS THREE ANSWERS AND HIS BRIEF TAKEN; THE DECIBEL PIECE'S RECORD IS NOW IN ITS REPO.**
-  The prefix `DEC` · no title yet · the five notes carried. The brief — the start finished (containers 3 → 7), then the opening
-  composed with the electronics built as the music reaches them — is a RUNNING ORDER in that repo's journal §2; the engine sits
-  there as a git subtree at `electronics/` (its D7). **This chat's work is done. ► NEXT: a NEW chat in
-  `C:\Users\jwloy\GitHub\decibel_TENOR_2026`, `/session-start`; its step 1 is container 3, which raises item (a) below first.**
-- **UPDATE 2 · 2026-10-04 (§818, Opus) — THE DECIBEL PIECE'S REPO EXISTS: `decibel_TENOR_2026`**
-  (`C:\Users\jwloy\GitHub\decibel_TENOR_2026` · `github.com/elosine/decibel_TENOR_2026` · PUBLIC · it pushes after every commit — his
-  *"all a"*). Container 2 is built and pushed (first commit `7a77bde`): the kit, the names, PLAN § 0, the deviations register (seven
-  rows, kept THERE from now on). **ITS journal §2 is the cold-start block for that piece; the steps 1 … 6 listed below in this block
-  are DONE — do not run them again.** Three slots open in it, put to him: the prefix (ports and notes) · a working title · whether
-  the notes he made for it here (LG-334 · LG-340 … LG-343 · LG-345 · LG-348 … LG-351) are carried into its sketch pad. ► NEXT: his
-  answers written into the new repo; then a NEW chat opened in that folder, `/session-start`, container 3 the copy-forward — where
-  item (a) below, the seven small fixes HERE before the copy, is raised first.
-- **UPDATE 2026-10-04 (§816, Opus) — THE RUN HAS BEGUN:** 2.1 THE PROFILE IS CONFIRMED (his *"yes … normal port"*: copy-forward from
-  piece #6 · both layers · the animated scrolling score) — do not ask it again. This chat is renamed "Decibel piece — repo set-up"; the
-  AI's arrangement, his to reverse: container 2 is run from THIS chat, then a NEW chat opened in the new repo's folder. THE DEVIATIONS
-  REGISTER is begun in RUNNING_LOG §816 (two lines). The home's 9.12 · 9.10 · 9.11: NONE NOW (his word, §817; 9.12
+- **What happened in this chat, 2026-10-04 (RUNNING_LOG §816 … §820):** the new-piece protocol's FIRST RUN was begun from here, because
+  the new repo is made from this one — **`decibel_TENOR_2026`** (`C:\Users\jwloy\GitHub\decibel_TENOR_2026` ·
+  `github.com/elosine/decibel_TENOR_2026` · public · pushes after every commit; his *"all a"*): container 2 built (the kit, the
+  names, PLAN § 0, the deviations register) · his BRIEF for the piece and the day taken — a RUNNING ORDER in ITS journal §2, eleven
+  steps, approved (*"yes, the order is good"*) · his three sections DEC-1 … DEC-3 · THE STAFF SYSTEM (no electronics lane, the sign
+  of origin — its D8) · THE SORTING (the AI places the code) · the engine's seat refined to a git SUBTREE at `electronics/` (its D7;
+  the engine's RUNNING_LOG §4) · THE PAPER, his standing reminder there. **Every record of that piece is THERE** — its journal §2 is
+  its cold-start block; here only the pointers (§816 … §819).
+- **This piece:** _Recombination_, submitted 2026-10-03 — NOTHING touched; the block SESSION 19 OPENS ON THIS below still describes it.
+- **► THE NEXT CONCRETE STEP HERE: none queued.** A session in this folder opens with `/session-start` and ASKS. **The one thing that
+  may come back here:** the Decibel running order's step 1 (container 3) begins by asking him whether the protocol's 3.8 — the SEVEN
+  SMALL ENGINE FIXES — are made in THIS repo before the copy. If he says yes, the instruction is **item (a) in the reference block
+  below** (read `docs/HARVEST.md` H-9 … H-19 and the NITS § each cites BEFORE touching a file; Opus; one commit; verify as listed).
+- **For him, now:** a NEW chat opened in `C:\Users\jwloy\GitHub\decibel_TENOR_2026`, on OPUS, `/session-start` — its step 1.
+- **`Resume reads:`** nothing beyond §2. *(Only for item (a): `docs/HARVEST.md` lines H-9 … H-19 and the `docs/NITS.md` sections they cite.)*
+- **Pending him:** the planning repo's lines for the Decibel piece and the engine — at his word only, not touched · this piece: nothing.
+- **Deliberately uncommitted — all his, never stage them:** the same 30 paths as every checkpoint since #13 (5 modified + 25
+  untracked; the list is in the reference block below and in SESSION 19 OPENS ON THIS). **A copy-forward takes this piece's files
+  from GIT or asks him about these** — the Decibel running order's step 1 asks.
+- **The wrap was done on Fable at his `/checkpoint`** (the rule says Opus; the wrap here was small — the record was already written as
+  the work happened).
+
+### CHECKPOINT #5 AFTER THE CLOSE (2026-10-03) — *(REFERENCE — its steps 1 … 6 are DONE (§816 … §819); kept for DECIDED WITH HIM, item (a) and the uncommitted list; its UPDATE bullets are folded into #6 above)* — THE ENGINE PLAN IS MADE, `live-electronics-system` EXISTS
+
   asked again at container 3). ► NOW, put to him: 2.2's three — the repo's name (the AI's candidates `decibel_TENOR_2026` ·
   `for_decibel` · his own) · public or private · the push rule. On his answers: check the name free on GitHub, then 2.3 the names.
 - **The task — not this piece:** the THREE electronics pieces (the Decibel piece · the Switch~ piece · his improvisation with live
@@ -272,6 +279,7 @@ item: the neighbours' system, §548) · the checkpoint-#4 held items (the window
   `docs/PLAN.md` (the objectives · the rule · the twelve parts; 1 done, 2 … 12 top line only) · `docs/SEAMS.md` · `docs/TAKE.md`
   as frames for parts 3 and 8. No code. The home's `INDEX.md` names it the module manifest's first member; its `LOG.md` has the line.
   **The engine's own cold-start block is ITS journal §2** — a session that works on the engine opens THERE.
+- **THE SIX STEPS BELOW ARE DONE (2026-10-04, §816 … §819) — the record of how; do not run them again.** *(As they stood:)*
 - **► THE NEXT CONCRETE STEP — after `/clear`, on OPUS, `/postclear`: play back, then ASK to begin. No edit before his word.**
   **START THE DECIBEL PIECE'S REPO** (his word: *"checkpoint here, then start the Decibel repo after clear"*) — the new-piece
   protocol's FIRST RUN (v1's test) and the engine plan's PART 9, first run. Container 2, each step as the HOME's protocol writes it:
