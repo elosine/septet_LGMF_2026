@@ -23340,3 +23340,23 @@ out below"; left: 8 · 9 · 10.
 **State.** § 1 … § 7 written; 8 · 9 · 10 top line only. **Next:** container 8, the deliverables pipeline — the goal with the data
 (PLAN § 2b · § 2b-F · § 2b-P; RUNNING_LOG §405 … §407 · §689 … §700 · §703 … §761 · §764 … §773 · §775 … §779; `docs/RENDER.md`; the
 journal §2's blocks; HARVEST "→ 8"), his nod, the steps into § 8; then 9 · 10.
+
+## §796. Container 8, THE DELIVERABLES PIPELINE — the goal at his nod; § 8 written with the AI's steps (2026-10-03, Fable; follows §795)
+
+**The data read for the goal** (named first): the journal §2's blocks of checkpoints #12 · #13 and SESSION 19 OPENS ON THIS (already
+in context from the resume) · PLAN § 2b · § 2b-P headers · `docs/RENDER.md`'s outline · `docs/HARVEST.md` § "→ 8" (H-29 … H-32).
+
+**The goal, as put to him:** everything made FROM the locked notation — the audio · the film · the notes page · the print · the
+archive and tags · the package (his); the scrolling score's member, the electronics score to have its own; proven once here in
+three days. The result (the lock first; one page; a gate, an archive and a tag per deliverable; a change the written loop) · the
+data (the lock · the audio · the film's seven steps and four faults · the notes page by dictation · the print's six steps and the
+barline · the submission his; the four harvest items) · six calls his to reverse. **His word: *"8 good"*.**
+
+**§ 8 written** with the AI's steps: 8.0 the lock · 8.1 the audio · 8.2 the test film stretch · 8.3 the furniture, his calls · 8.4
+the whole film under its own name · 8.5 the notes page by dictation · 8.6 the print with its five gates and the final barline · 8.7
+the archive and the tags · 8.8 the package, his · 8.9 IF THE SCORE MOVES AGAIN, the loop; stop-and-ask; done when. One-time 8.10
+the film gate (H-29) · 8.11 the two templates (exist) · 8.12 written. The top line's 8 "laid out below"; left: 9 · 10.
+
+**State.** § 1 … § 8 written; 9 · 10 top line only. **Next:** container 9, the collation — the goal with the data (LG-337 his words
+· the boundary system vs piece · the module manifest · HARVEST "→ 9" and LATER · the knowledge base 4.9 · 5.10 · LG-346), his nod,
+the steps into § 9; then 10.

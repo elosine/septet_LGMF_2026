@@ -65,7 +65,7 @@ step 2.1. Within a layer the order is the order things happen.)*
    carried + what the new ensemble needs (a new staff type), the batteries, the exporters run, save → IR proved.
    *(0g · 0i · 2a · 2c)* — **► laid out below**
 8. **The deliverables pipeline** — audio render · film · print (the gates; the cover and instructions templates) · the
-   notes page · archive + tags · the submission package. *(2b · 3 · 4)* — `top line only`
+   notes page · archive + tags · the submission package. *(2b · 3 · 4)* — **► laid out below**
 
 **SCORE TYPES — a category of their own (§789).** The first member is THE ANIMATED SCROLLING SCORE: the IR · the rules
 registry · the layout and render · the film · the print (pieces #4 … #6). A new kind of score — the Decibel piece may want
@@ -640,9 +640,101 @@ H-20 built at the next piece's first curve label; H-21 … H-27 written into the
 
 ---
 
-## 8 · 9 · 10 — `top line only`
+## 8. The deliverables pipeline — `written 2026-10-03` (the goal agreed with him, RUNNING_LOG §796; the steps the AI's) — THE ANIMATED SCROLLING SCORE's member
 
-Each is laid out when reached: the goal with him, the steps the AI's. Next: 8 the deliverables pipeline (the data: PLAN § 2b · §
-2b-F · § 2b-P; RUNNING_LOG §405 … §407 the audio · §689 … §700 the film · §703 … §761 the notes page · §764 … §773 the print · §775
-… §779 the submission; `docs/RENDER.md`; the journal §2's blocks IF THE SCORE MOVES AGAIN and HOW A CHANGE TO THE PAGE IS MADE;
-`docs/HARVEST.md` § "→ 8"); then 9 the collation and 10 the upkeep. His to change.
+**What this is:** everything made FROM the locked notation for the world to receive — the audio render · the film · the
+performance notes page · the print score · the archive and its tags · the submission package (his). THE SCORE layer's second,
+laid out for the scrolling score; the electronics score will have its own member. The pipeline exists end to end here and was
+proven once, on Draft 01, in three days (2026-10-01 … 03); the protocol carries it with its gates and the two print templates.
+
+**Result when done (for a piece):** the notation LOCKED and tagged first · then every deliverable from the ONE main page at that
+tag, agreeing with each other — the page · the audio · the film · the print · each through its gate, archived in its own folder
+with a README naming what made it and its hash, and tagged · a change to the notation reopens all of it by the written loop
+(8.9), never improvised.
+
+**The data (2026-10-03):** RUNNING_LOG §687 … §779; the journal §2's blocks IF THE SCORE MOVES AGAIN (checkpoint #12) and HOW A
+CHANGE TO THE PAGE IS MADE (checkpoint #13); `docs/RENDER.md`. THE LOCK at his word, a tag (§687 · §688). THE AUDIO: his own
+playback captured → exported → rendered through a COPY of his rack, the boost capped at +6 dB at his word (§689; RENDER.md §1 ·
+§4). THE FILM in seven steps (PLAN § 2b-F): a TEST STRETCH first (§689; his call on the right-edge overhang kept the standard, §690
+· §691) · the opening and ending decided (the 4 s lead-in, no title card; the last page held under the tail, §692) · the close-ups
+by recipe (seed 7, a third in close-up; the halves re-pointed at this ensemble, §693 · §694) · the whole film, 9 min to render ·
+his watch-through found FOUR faults — resvg dropped the long curve paths (§695) · the audio delay was a timestamp, not silence
+(§696) · a late trumpet in the save (§697 · §698) · a box for ♭, no bundled font (§699) · archived with its README and tagged
+(§700). THE NOTES PAGE (§703 … §761): piece #5's page the start, every image re-cut at ONE scale from the zoomed score
+(`capture_lane.js`, §704 · §747), the text HIS by dictation over two days, mostly from his phone; a § and an LG per edit; the
+full page in chat only on demand. THE PRINT in six steps (PLAN § 2b-P, §766 … §773): the frame's first run (the edge gate found two
+real faults on the locked IR) · the COVER template and the INSTRUCTIONS template (the page itself, the break measured) · the proofs
+→ his four calls → the whole render, 7 min, the five gates → his eye → THE FINAL BARLINE (the screen's edge bar had printed as a
+barline and the gate counted it green — a new MEDIUM re-means the furniture, §772) · archived and tagged. THE SUBMISSION his
+(LG-255; §775 … §777), its record kept LOCAL, gitignored — a public repo. Three tags: `-notationLock_1.0` · `-film_1.0` ·
+`-print_1.0` (+ `-submitted_1.0`). **The harvest's four** (H-29 … H-32): a film gate, resvg against Chrome · a test stretch holds
+every kind, every render keeps its own file, the hash in the README · the two print templates the pipeline's own · the lead-in as
+real silence (`adelay`), in the exporter already.
+
+**His word at the goal:** *"8 good"*.
+
+**Six calls, his to reverse (agreed 2026-10-03):** the order lock → audio → a test film stretch → the film → the notes page → the
+print → the archive and tags → the package (his) · every deliverable has a GATE and an ARCHIVE folder with a README (the command,
+the hash); a new medium's furniture looked at for what it MEANS there, not counted present · the two print templates the pipeline's
+own — the cover from `cover.json`, the instructions ARE the notes page · the notes page his text by dictation, the AI's part the
+images at one scale and the method · H-29 built at the next piece's test stretch, H-30 · H-32 written as method · nothing of 8 runs
+before the lock; a change after it is the whole loop.
+
+**Recurring — the protocol's step 8, for the scrolling score** *(the AI's steps, his to reverse):*
+
+- **8.0 The lock.** His word on the notation; the main page at a commit; an annotated tag `<Piece>-notationLock_1.0`, pushed; the
+  shield's `--expect` the main page alone. From here any change is 8.9.
+- **8.1 The audio** (`RENDER.md` §1, three commands). His own ▶ playback captured in HIS Chrome (`capture_composer_midi.js`) →
+  `export_midi.js` → `render_reaper.js --score … --up --maxUp 6` through a COPY of his SAVED rack, Reaper open and the bridge up;
+  the float measured (dBTP · LUFS · LRA), the boost at his cap; the WAV linked as the page's ♪ render; the MIDI committed; the
+  register line (§4).
+- **8.2 The test film stretch.** `export_video.js` on ≈ 30 s that contains EVERY kind the film draws (H-30); the film gate (8.10)
+  on its pages; his eye and ear; a standard's edge case put to him with the options (the overhang's precedent, §690).
+- **8.3 The film's furniture — his calls.** The opening (the lead-in; a title card or none) · the ending (the last page held under
+  the tail, `--t1` the WAV's end) · the wide shot alone or close-ups (`realizations.video-cut.halves` re-pointed at the ensemble; a
+  close-up test for his eye; the cut list by recipe, `tools/make_cut.js`, seeded).
+- **8.4 The whole film.** One render under ITS OWN FILE NAME (`-rN`; never overwritten); both streams from 0.000, the lead-in by
+  `adelay`; sampled every minute for the kinds (the curves in every sequence); his watch-through; a fault → the fix → a new name →
+  the compare at moments.
+- **8.5 The notes page.** The last piece's `docs/notation_instructions/` carried as the START; the title and the instrumentation
+  this piece's at once; `docs/PERFORMANCE_NOTES.md` (the tracker) read for what the notes must cover and what it lacks against the
+  locked page; every image re-cut from THIS piece's zoomed score at ONE scale (`capture_lane.js --part … --t … --span a:b [--gutter]`,
+  the `--w` it prints) — then HIS dictation, section by section: his words verbatim, spelling and punctuation repaired, a moved fact
+  flagged and left; a § and an LG per edit; the full page in chat ONLY on demand; served at the score server's URL; a
+  self-contained copy for his phone on request.
+- **8.6 The print** (`print/score/build.sh`). `--proof` first — the frame's first run on the piece (`check_print_frame` to the
+  ensemble; the edge gate on the locked IR: a fault here is real) · the cover from `print/cover/cover.json` (title · the subtitle
+  lines · the name; `make_cover.ps1 -Format`) · the instructions from the notes page (`--insBreak` named or measured) → his calls
+  (the cover's rows · the density `--sec` · page 1 · the instructions' one page) → the whole render, the five gates (frame · front ·
+  pdf · pages · edges) → his eye on the whole PDF (the score server serves `print/`; `print_look.js` for a page) → THE FINAL
+  BARLINE the standard (`objects.finalBarLine`) → the approved folder.
+- **8.7 The archive and the tags.** Per deliverable: `…/approved/<date>-<draft>/` — the file (gitignored if large; **back it up**)
+  + README (the command · the inputs' commit · the sha256) · an annotated tag `<Piece>-<Draft>-<kind>_1.0`, pushed; the names his
+  to rename.
+- **8.8 The package — HIS.** No AI work on the call or the form unless asked (LG-255); the record (the form's screenshots, the
+  confirmation) kept LOCAL in a gitignored folder — a public repo; a copy into his Drive by the memory note's route (his Chrome).
+- **8.9 If the score moves again — the loop** (≈ 20 min + the renders): he Saves → R (the recorded build re-run on a fresh copy of
+  the save) → the gates (`check_rules` · the lock · the marks · the shield) → the audio (8.1) → the film under a NEW name (8.4) →
+  his watch-through → `build.sh --rebuild-ir` (8.6) → new archive folders and tags. An AI edit of his save: the file's hash
+  checked, no `-work` copy, ONE field, then HIS Reload in the composer.
+- **Stop and ask him:** the lock itself · every furniture call (8.3) · the cover's words · the density · any change to a locked page ·
+  anything of the call.
+- **Done when:** the four deliverables archived and tagged from the same page; the package in his hands.
+
+**One-time — this plan's work, not the protocol's:**
+
+- **8.10 The film gate** (H-29): sample pages rasterized the film's way (resvg) and compared with Chrome's — a kind present in one
+  and absent in the other fails. Built at the next piece's test stretch. `todo`.
+- **8.11 The two print templates** (H-31) — made here (`print/cover/cover.json` + `make_cover.ps1`; the instructions read from the
+  page's own `--w` / `--frame`), carried with the engine (3); the protocol's reference names them. ☑ exist 2026-10-03.
+- **8.12 Written into the protocol** — this section. ☑ 2026-10-03.
+
+---
+
+## 9 · 10 — `top line only`
+
+Each is laid out when reached: the goal with him, the steps the AI's. Next: 9 the collation (the data: his words at phase 1 —
+LG-337, *"gather some things up and collate them somewhat so that the next piece can just move forward without having to do a full
+search and retrieval"*, his two examples the curve colours fetched back from piece #1 and piece #2's notation surfacing here; the
+boundary system vs piece (§786); the module manifest (§789); `docs/HARVEST.md` § "→ 9" and its LATER list; 4.9 · 5.10 the
+knowledge base; LG-346 the shared engine's home); then 10 the upkeep. His to change.
