@@ -23547,3 +23547,32 @@ parenthesized-dynamics technique.
 
 **State.** The home pushed, level with its remote. **Next:** his yes (or his changes) on the 10.7 lines · then (c), 2.1 the profile,
 on Fable.
+
+## §802. 10.7 · 2.8 — the cross-piece notes written into his user-level CLAUDE.md, at his word (2026-10-03, Opus; follows §801)
+
+**Put to him at §801's wrap, in §788's way:** what it is (a new piece's repo starts with none of the notes the AI keeps for this
+one; these are the ones that hold for every piece) · the one decision (yes as written, or his changes; nothing written before) ·
+the twelve lines in three sections, as §801 lists them.
+
+**His words:** *"yes as written"*.
+
+**Done.** `C:\Users\jwloy\.claude\CLAUDE.md` — three dated sections appended after § Environment, in his voice, the lines exactly as
+shown: **Putting things to me** (four: IDs always with their names, a misreadable one spelled out · a list or plan the AI made leads
+with what it IS, what he is meant to understand and the ONE decision · a page to look at = a clickable `http://localhost:<port>/…`
+link · when he proofs a page, collect, then fix on his go) · **This machine** (five: the ~8 KB Bash limit · backticks go to a file ·
+line endings counted at byte level · unlink a `node_modules` junction before removing a scratch worktree · a binary into his Drive
+goes through his Chrome) · **Working on a piece** (three: what the pieces share lives in `composition-system`, its `INDEX.md` first ·
+read the piece's record before proposing probes on the sound path · the lab journal runs through the composing). Nothing already in
+that file was changed.
+
+**What this closes:** the plan's 10.7 and § 2's 2.8 — ☑ in the home's protocol, each with its dated entry; one line in the home's
+`LOG.md`; pushed (its rule, §801). The plan had named three things for 2.8 (how he reads · the machine limits · the planning repo
+pointer): two were in his file already, so what went in was the machine limits and the nine lines that §801 found beside them. This
+repo's memory notes stay where they are — a memory folder is per repo; the user-level lines are what a new repo starts with.
+
+**Of the home's line, still to do:** 9.12 the tool docs' piece-neutral copies (Opus, its own sitting) · 9.10 the laws · 9.11 the
+manifest's boundary (Fable). None blocks the Decibel set-up.
+
+**State.** (b), the home, is done as far as the Decibel set-up needs it. **Next: (c) — 2.1 THE PROFILE, a talk with him on FABLE**
+(his to-do's step 2, the protocol's first run, v1's test). A model switch: a checkpoint on Opus and a clear is the clean cut here
+(THE RHYTHM).
